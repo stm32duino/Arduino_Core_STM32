@@ -49,8 +49,14 @@
 
 /* Exported types ------------------------------------------------------------*/
 typedef enum {
-  USART3_E = 0,
-  USART6_E = 1,
+#ifdef STM32F0xx
+  USART1_E = 0,
+  USART2_E = 1,
+  USART4_E = 2,
+#else
+   USART3_E = 0,
+   USART6_E = 1,
+#endif
   NB_UART_MANAGED,
 } uart_id_e;
 
@@ -87,8 +93,11 @@ int8_t uart_emul_read(uart_emul_id_e uart_id);
 size_t uart_emul_write(uart_emul_id_e uart_id, uint8_t data);
 int8_t uart_emul_peek(uart_emul_id_e uart_id);
 void uart_emul_flush(uart_emul_id_e uart_id);
+#ifdef STM32F0xx
+void uart_emul_attached_handler(void (*irqHandle)(void));
+#else
 void uart_emul_attached_handler(stimer_t *obj, void (*irqHandle)(void));
-
+#endif
 #ifdef __cplusplus
 }
 #endif

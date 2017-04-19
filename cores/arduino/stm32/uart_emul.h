@@ -144,6 +144,19 @@ typedef struct
 
   uint16_t                         RxXferCount;      /* UART Emulation Rx Transfer Counter           */
 
+#ifdef STM32F0xx
+  uint16_t                         TxXferByte;
+
+  uint8_t                          TxBitSize;
+
+  uint8_t                          TxBitCount;
+
+  uint16_t                         RxXferByte;
+
+  uint8_t                          RxBitSize;
+
+  uint8_t                          RxBitCount;
+#endif
 	GPIO_TypeDef                     *RxPortName;      /* UART Emulation Rx port name                  */
 
 	GPIO_TypeDef                     *TxPortName;      /* UART Emulation Tx port name                  */
@@ -267,6 +280,7 @@ typedef struct
 #define RX_BUFFER_SIZE    ((uint8_t)0x0C)
 #define TX_BUFFER_SIZE    ((uint8_t)0x0C)
 
+#ifndef STM32F0xx
 /* Definition Handler for UART Emulation receive mode */
 #define UART_EMUL_TX_DMA_IRQHandler     DMA2_Stream1_IRQHandler
 #define UART_EMUL_RX_DMA_IRQHandler     DMA2_Stream2_IRQHandler
@@ -292,7 +306,7 @@ typedef struct
 
 #define DMA_Stream_Tx     DMA2_Stream1
 #define DMA_Stream_Rx     DMA2_Stream2
-
+#endif
 /* Exported macro ------------------------------------------------------------*/
 
 /** @brief  Checks whether the specified UART Emulation flag is set or not.
@@ -342,6 +356,12 @@ typedef struct
   */
 #define __HAL_UART_EMUL_FRAME_LENGTH(__HANDLE__)          (uint16_t)((__HANDLE__)->Init.WordLength + (__HANDLE__)->Init.StopBits + 1)
 
+#ifdef STM32F0xx
+#define MASK_STOP_BIT(__HANDLE__)  ((uint16_t)~(0x0003 << (__HAL_UART_EMUL_FRAME_LENGTH(__HANDLE__) - (__HANDLE__)->Init.StopBits)))
+
+#define __UART_EMUL_TX_TIMER   TIM15_E
+#define __UART_EMUL_RX_TIMER   TIM17_E
+#else
 /** @brief  Enable the clock for UART Emulation.
   *            clock in the peripherique used in this driver Timer and DMA
   * @param  None
@@ -357,7 +377,7 @@ typedef struct
   */
 #define __UART_EMUL_CLK_DISABLE()                 __TIM1_CLK_DISABLE();\
                                                   __HAL_RCC_DMA2_CLK_DISABLE();
-
+#endif
 
 /* Exported functions --------------------------------------------------------*/
 /* Initialization/de-initialization functions  **********************************/
@@ -367,14 +387,32 @@ void HAL_UART_Emul_MspInit(UART_Emul_HandleTypeDef *huart);
 void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart);
 
 /* IO operation functions *******************************************************/
+#ifdef STM32F0xx
+HAL_StatusTypeDef HAL_UART_Emul_Transmit(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Emul_Receive(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+#else
 HAL_StatusTypeDef HAL_UART_Emul_Transmit_DMA(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_Emul_Receive_DMA(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+#endif
 void HAL_UART_Emul_IRQHandler(UART_Emul_HandleTypeDef *huart);
 void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart);
 void HAL_UART_Emul_TxCpltCallback(UART_Emul_HandleTypeDef *huart);
 void HAL_UART_Emul_ErrorCallback(UART_Emul_HandleTypeDef *huart);
 void UART_EMUL_EXTI_RX(void);
-
+#ifdef STM32F0xx
+typedef enum {
+  TIM1_E = 0,
+  TIM2_E,
+  TIM3_E,
+  TIM6_E,
+  TIM7_E,
+  TIM14_E,
+  TIM15_E,
+  TIM16_E,
+  TIM17_E,
+  NB_TIMER_MANAGED
+} timer_id_e;
+#endif
 /* Peripheral State functions  **************************************************/
 HAL_UART_Emul_StateTypeDef HAL_UART_Emul_GetState(UART_Emul_HandleTypeDef *huart);
 uint32_t HAL_UART_Emul_GetError(UART_Emul_HandleTypeDef *huart);

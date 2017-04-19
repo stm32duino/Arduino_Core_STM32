@@ -3,7 +3,7 @@
   * @file    uart_emul.c
   * @author  WI6LABS
   * @version V1.0.0
-  * @date    01-August-2016
+  * @date    11-July-2016
   * @brief   Adaptation from stm32f4xx_hal_uart_emul.c
   *          UART Emulation HAL module driver.
   *          This file provides firmware functions to manage the following
@@ -97,10 +97,13 @@
   *
   ******************************************************************************
   */
-#ifndef STM32F0xx
+
+#ifdef STM32F0xx
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
 #include "uart_emul.h"
+#include "interrupt.h"
+#include "uart.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver
   * @{
@@ -116,20 +119,9 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* DMA Handle declaration */
-static DMA_HandleTypeDef  hdma_tx;
-static DMA_HandleTypeDef  hdma_rx;
-/* Timer handler declaration */
-static TIM_HandleTypeDef  TimHandle;
 
 /* UART Emulation Handle */
 static UART_Emul_HandleTypeDef      *huart_emul;
-
-/* First Buffer for format data in reception mode */
-static uint32_t *pFirstBuffer_Rx[RX_BUFFER_SIZE];
-
-/* Second Buffer for format data in reception mode */
-static uint32_t *pSecondBuffer_Rx[RX_BUFFER_SIZE];
 
 /* First Buffer for format data in transmission mode */
 static uint32_t *pFirstBuffer_Tx[TX_BUFFER_SIZE];
@@ -139,16 +131,18 @@ static uint32_t *pSecondBuffer_Tx[TX_BUFFER_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
 static void UART_Emul_SetConfig (UART_Emul_HandleTypeDef *huart);
-static void UART_Emul_SetConfig_DMATx(void);
-static void UART_Emul_SetConfig_DMARx(void);
-static void UART_Emul_DMATransmitCplt(DMA_HandleTypeDef *hdma);
-static void UART_Emul_DMAReceiveCplt(DMA_HandleTypeDef *hdma);
-static void UART_Emul_DMAError(DMA_HandleTypeDef *hdma);
+static void UART_Emul_TransmitCplt(void);
+static void UART_Emul_ReceiveCplt(void);
 static void UART_Emul_TransmitFrame(UART_Emul_HandleTypeDef *huart);
-static void UART_Emul_ReceiveFrame(UART_Emul_HandleTypeDef *huart, uint32_t *pData);
 static void UART_Emul_TransmitFormatFrame(UART_Emul_HandleTypeDef *huart , uint8_t pData, uint32_t *pBuffer_Tx);
-static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint32_t *pBuffer, uint8_t pFrame);
+static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint16_t pFrame);
+static void UART_EMUL_TIM_TX_IT(void);
+static void UART_EMUL_TIM_RX_IT(void);
 
+void TIM_TX_CALLBACK(timer_id_e timer_id) {UART_EMUL_TIM_TX_IT();}
+void TIM_RX_CALLBACK(timer_id_e timer_id) {UART_EMUL_TIM_RX_IT();}
+
+static volatile uint8_t g_txCplt = 0;
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -275,19 +269,19 @@ __weak void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
    and Half duplex data transfers.
 
     (#) There is one mode of transfer:
-       (++) Non-Blocking mode: The communication is performed using DMA,
+       (++) Non-Blocking mode: The communication is performed using IT,
             this APIs returns the HAL status.
             The end of the data processing will be indicated through the
-            DMA IRQ
+            IT IRQ
 
             The HAL_UART_Emul_TxCpltCallback(), HAL_UART_Emul_RxCpltCallback() user callbacks
             will be executed respectivelly at the end of the transmit or receive process.
             The HAL_UART_Emul_ErrorCallback() user callback will be executed when
             a communication error is detected.
 
-    (#) Non Blocking mode functions with DMA are:
-        (++) HAL_UART_Emul_Transmit_DMA()
-        (++) HAL_UART_Emul_Receive_DMA()
+    (#) Non Blocking mode functions with IT are:
+        (++) HAL_UART_Emul_Transmit()
+        (++) HAL_UART_Emul_Receive()
 
     (#) A set of Transfer Complete Callbacks are provided in Non Blocking mode:
         (++) HAL_UART_Emul_TxCpltCallback()
@@ -306,7 +300,7 @@ __weak void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
  * @param  Size: Amount of data to be sent
  * @retval HAL status
 */
-HAL_StatusTypeDef HAL_UART_Emul_Transmit_DMA(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_UART_Emul_Transmit(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
 {
   uint32_t tmp = 0;
 
@@ -333,29 +327,14 @@ HAL_StatusTypeDef HAL_UART_Emul_Transmit_DMA(UART_Emul_HandleTypeDef *huart, uin
       huart->State = HAL_UART_EMUL_STATE_BUSY_TX;
     }
 
-    /* Set the UART Emulation DMA transfer complete callback */
-    TimHandle.hdma[TIM_DMA_Handle_Tx]->XferCpltCallback = UART_Emul_DMATransmitCplt;
-
-    /* Set the DMA error callback */
-    TimHandle.hdma[TIM_DMA_Handle_Tx]->XferErrorCallback = UART_Emul_DMAError;
-
     /* Format first Frame to be sent */
     if (huart->TxXferCount == FIRST_BYTE)
     {
       /* Format Frame to be sent */
       UART_Emul_TransmitFormatFrame(huart, *(pData), (uint32_t*)pFirstBuffer_Tx);
 
-      /* Enable the Capture compare channel */
-      TIM_CCxChannelCmd(UART_EMUL_TX_TIMER_INSTANCE, TIM_Channel_Tx, TIM_CCx_ENABLE);
-
       /* Send Frames */
       UART_Emul_TransmitFrame(huart);
-    }
-
-    if ((huart->TxXferCount == FIRST_BYTE) && (huart->TxXferCount < Size))
-    {
-      /* Format Second Frame to be sent */
-      UART_Emul_TransmitFormatFrame(huart, *(pData + huart->TxXferCount), (uint32_t*)pSecondBuffer_Tx);
     }
 
     return HAL_OK;
@@ -373,7 +352,7 @@ HAL_StatusTypeDef HAL_UART_Emul_Transmit_DMA(UART_Emul_HandleTypeDef *huart, uin
  * @param  Size: Amount of data to be received
  * @retval HAL status
 */
-HAL_StatusTypeDef HAL_UART_Emul_Receive_DMA(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_UART_Emul_Receive(UART_Emul_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
 {
   uint32_t tmp = 0;
 
@@ -400,15 +379,6 @@ HAL_StatusTypeDef HAL_UART_Emul_Receive_DMA(UART_Emul_HandleTypeDef *huart, uint
     {
       huart->State = HAL_UART_EMUL_STATE_BUSY_RX;
     }
-
-    /* Set the UART Emulation DMA transfer complete callback */
-    TimHandle.hdma[TIM_DMA_Handle_Rx]->XferCpltCallback = UART_Emul_DMAReceiveCplt;
-
-    /* Set the DMA error callback */
-    TimHandle.hdma[TIM_DMA_Handle_Rx]->XferErrorCallback = UART_Emul_DMAError;
-
-    /* Enable the Capture compare channel */
-    TIM_CCxChannelCmd(UART_EMUL_RX_TIMER_INSTANCE, TIM_Channel_Rx, TIM_CCx_ENABLE);
 
     return HAL_OK;
   }
@@ -439,28 +409,20 @@ __weak void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 */
 
 /**
-* @brief  This function handles DMA interrupt request for TC.
+* @brief  This function handles IT interrupt request for TC.
 * @param  None
 * @retval None
 */
-void UART_EMUL_RX_DMA_IRQHandler(void)
+void UART_EMUL_RX_IRQHandler(void)
 {
+  /* Disable timer */
+  TimerHandleDeinit(__UART_EMUL_RX_TIMER);
+
   /* Increment Counter of Frame */
   huart_emul->RxXferCount ++;
 
-  /* Enable External interrupt for next Frame */
-  EXTI->IMR |= huart_emul->Init.RxPinNumber;
-
-  if (__HAL_DMA_GET_FLAG(TimHandle.hdma[TIM_DMA_Handle_Rx], __HAL_DMA_GET_TE_FLAG_INDEX(TimHandle.hdma[TIM_DMA_Handle_Rx])) != RESET)
-  {
-    UART_Emul_DMAError(&hdma_rx);
-  }
-
-  /* Clear the transfer complete flag */
-  __HAL_DMA_CLEAR_FLAG(TimHandle.hdma[TIM_DMA_Handle_Rx], __HAL_DMA_GET_TC_FLAG_INDEX(TimHandle.hdma[TIM_DMA_Handle_Rx]));
-
   /* Transfer complete callback */
-  TimHandle.hdma[TIM_DMA_Handle_Rx]->XferCpltCallback(TimHandle.hdma[TIM_DMA_Handle_Rx]);
+  UART_Emul_ReceiveCplt();
 }
 
 /**
@@ -468,53 +430,71 @@ void UART_EMUL_RX_DMA_IRQHandler(void)
   * @param GPIO_Pin: Specifies the pins connected EXTI line
   * @retval None
   */
-void UART_EMUL_EXTI_RX(void/*uint16_t GPIO_Pin*/)
+void UART_EMUL_EXTI_RX(void)
 {
-  uint32_t tmpreceive = 0;
-  uint32_t tmpformat = 0;
-  uint32_t tmpdata = 0;
+  uint32_t bit_time = 0;
 
   /* Disable EXTI line Rx */
   EXTI->IMR &= ~huart_emul->Init.RxPinNumber;
 
-  if ((huart_emul->RxXferCount % 2) != 0)
+  /* Init Bit Time */
+  if((HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK1Freq()== 1) | (HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK1Freq()== 2))
   {
-    tmpreceive = (uint32_t)pFirstBuffer_Rx;
-    tmpformat = (uint32_t)pSecondBuffer_Rx;
+    bit_time = ((uint32_t) ((HAL_RCC_GetSysClockFreq()/huart_emul->Init.BaudRate) - 1));
   }
   else
   {
-    tmpreceive = (uint32_t)pSecondBuffer_Rx;
-    tmpformat = (uint32_t)pFirstBuffer_Rx;
+    bit_time = ((uint32_t) (((HAL_RCC_GetPCLK1Freq()*2)/huart_emul->Init.BaudRate) - 1));
   }
 
-  /* Start receiver mode in the reference point*/
-  UART_Emul_ReceiveFrame(huart_emul, (uint32_t*)tmpreceive);
+  /* Enable timer */
+  TimerHandleInit(__UART_EMUL_RX_TIMER, bit_time, 0);
+  setTimerCounter(__UART_EMUL_RX_TIMER, 0);
 
-  if (huart_emul->RxXferCount > 1)
+  huart_emul->RxXferByte = 0;
+  huart_emul->RxBitCount = 0;
+}
+
+/**
+* @brief  This function handles Timer interrupt request for TC.
+* @param  none
+* @retval None
+*/
+void UART_EMUL_TIM_RX_IT(void)
 {
-    /* Format frame */
-    *(uint8_t*)((huart_emul->pRxBuffPtr) + (huart_emul->RxXferCount - 2)) = UART_Emul_ReceiveFormatFrame(huart_emul, (uint32_t*)tmpformat, (uint8_t)tmpdata);
+  if(huart_emul->RxBitCount < huart_emul->RxBitSize)
+  {
+    huart_emul->RxXferByte |= HAL_GPIO_ReadPin(huart_emul->RxPortName,
+                                               huart_emul->Init.RxPinNumber) << huart_emul->RxBitCount;
+    huart_emul->RxBitCount++;
+
+    if(huart_emul->RxBitCount == huart_emul->RxBitSize) {
+      UART_EMUL_RX_IRQHandler();
+    }
   }
 }
 
 /**
-* @brief  This function handles DMA interrupt request for TC.
-* @param  None
+* @brief  This function handles Timer interrupt request for TC.
+* @param  none
 * @retval None
 */
-void UART_EMUL_TX_DMA_IRQHandler(void)
+void UART_EMUL_TIM_TX_IT(void)
 {
-  if (__HAL_DMA_GET_FLAG(TimHandle.hdma[TIM_DMA_Handle_Tx], __HAL_DMA_GET_TE_FLAG_INDEX(TimHandle.hdma[TIM_DMA_Handle_Tx])) != RESET)
+  if(huart_emul->TxBitCount < huart_emul->TxBitSize)
   {
-    UART_Emul_DMAError(&hdma_tx);
+    HAL_GPIO_WritePin(huart_emul->TxPortName, huart_emul->Init.TxPinNumber, SET & (huart_emul->TxXferByte >> huart_emul->TxBitCount));
+    huart_emul->TxBitCount++;
+
+    if(huart_emul->TxBitCount == huart_emul->TxBitSize) {
+      /* Put Tx output in standby state */
+      HAL_GPIO_WritePin(huart_emul->TxPortName, huart_emul->Init.TxPinNumber, SET);
+      g_txCplt = 1;
+    }
+  } else if(g_txCplt == 1) {
+    UART_Emul_TransmitCplt();
+    g_txCplt = 0;
   }
-
-  /* Clear the transfer complete flag */
-  __HAL_DMA_CLEAR_FLAG(TimHandle.hdma[TIM_DMA_Handle_Tx], __HAL_DMA_GET_TC_FLAG_INDEX(TimHandle.hdma[TIM_DMA_Handle_Tx]));
-
-  /* Transfer complete callback */
-  TimHandle.hdma[TIM_DMA_Handle_Tx]->XferCpltCallback(TimHandle.hdma[TIM_DMA_Handle_Tx]);
 }
 
 /**
@@ -623,33 +603,15 @@ uint32_t HAL_UART_Emul_GetError(UART_Emul_HandleTypeDef *huart)
   * @param  None
   * @retval None
   */
-static void UART_Emul_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
+static void UART_Emul_ReceiveCplt(void)
 {
-  uint32_t tmpformat = 0;
-  uint32_t tmpdata = 0;
   if (huart_emul->RxXferCount > huart_emul->RxXferSize)
   {
     /*Enable EXTI line Rx  */
-    //EXTI->IMR |= huart_emul->Init.RxPinNumber;
-
-    /* Disable the Peripheral */
-    __HAL_DMA_DISABLE(&hdma_rx);
-
-    /* Disable the TIM Update DMA request */
-    __HAL_TIM_DISABLE_DMA(&TimHandle, TIM_DMA_source_Rx);
-
-    if ((huart_emul->RxXferCount % 2) == 0)
-    {
-      tmpformat = (uint32_t)pFirstBuffer_Rx;
-    }
-
-    else
-    {
-      tmpformat = (uint32_t)pSecondBuffer_Rx;
-    }
+    EXTI->IMR |= huart_emul->Init.RxPinNumber;
 
     /* Formatted Last Frame */
-    *(uint8_t*)((huart_emul->pRxBuffPtr) + (huart_emul->RxXferCount - 2)) = UART_Emul_ReceiveFormatFrame(huart_emul, (uint32_t*)tmpformat, (uint8_t)tmpdata);
+    *(uint8_t*)((huart_emul->pRxBuffPtr) + (huart_emul->RxXferCount - 2)) = UART_Emul_ReceiveFormatFrame(huart_emul, huart_emul->RxXferByte);
 
     /* Set RC flag receiver complete */
     __HAL_UART_EMUL_SET_FLAG(huart_emul, UART_EMUL_FLAG_RC);
@@ -676,64 +638,13 @@ static void UART_Emul_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
 }
 
 /**
- * @brief  Receives an amount of Frames.
- * @param  huart: UART Emulation handle
- * @param  pData: Frame to be Received
- * @retval None
-*/
-static void UART_Emul_ReceiveFrame(UART_Emul_HandleTypeDef *huart, uint32_t *pData)
-{
-  uint32_t tmp_sr =0;
-  uint32_t tmp_ds =0;
-  uint32_t tmp_size =0;
-  uint32_t tmp_arr =0;
-
-	tmp_arr = UART_EMUL_RX_TIMER_INSTANCE->ARR;
-  tmp_ds = (uint32_t)pData;
-  tmp_sr = (uint32_t) & (huart->RxPortName->IDR);
-  tmp_size =  __HAL_UART_EMUL_FRAME_LENGTH(huart);
-
-  /* Enable the transfer complete interrupt */
-  __HAL_DMA_ENABLE_IT(&hdma_rx, DMA_IT_TC);
-
-  /* Enable the transfer Error interrupt */
-  __HAL_DMA_ENABLE_IT(&hdma_rx, DMA_IT_TE);
-
-  /* Configure DMA Stream data length */
-  hdma_rx.Instance->NDTR = tmp_size;
-
-  /* Configure DMA Stream source address */
-  hdma_rx.Instance->PAR = tmp_sr;
-
-  /* Configure DMA Stream destination address */
-  hdma_rx.Instance->M0AR = tmp_ds;
-
-  /* Enable the Peripheral */
-  __HAL_DMA_ENABLE(&hdma_rx);
-
-  if ((huart_emul->RxXferCount == 1)||(huart->State != HAL_UART_EMUL_STATE_BUSY_TX_RX))
-  {
-    UART_EMUL_RX_TIMER_INSTANCE->CCR2 = ((UART_EMUL_RX_TIMER_INSTANCE->CNT + (tmp_arr / 2)) % tmp_arr);
-  }
-
-  /* Enable the TIM Update DMA request */
-  __HAL_TIM_ENABLE_DMA(&TimHandle, TIM_DMA_source_Rx);
-
-  /* Enable Timer */
-  __HAL_TIM_ENABLE(&TimHandle);
-}
-
-/**
   * @brief  Configures the UART Emulation peripheral
              + Enable clock for all peripherals Timer, GPIO
-             + DMA Configuration channel, Stream, Mode,...
   * @param  huart: UART Emulation handle
   * @retval None
   */
 static void UART_Emul_SetConfig (UART_Emul_HandleTypeDef *huart)
 {
-  uint32_t bit_time = 0;
-
   /* Check the parameters */
   assert_param(IS_UART_EMUL_BAUDRATE(huart->Init.BaudRate));
   assert_param(IS_UART_EMUL_WORD_LENGTH(huart->Init.WordLength));
@@ -741,123 +652,18 @@ static void UART_Emul_SetConfig (UART_Emul_HandleTypeDef *huart)
   assert_param(IS_UART_EMUL_MODE(huart->Init.Mode));
   assert_param(IS_UART_EMUL_MODE(huart->Init.Parity));
 
-  /* Init Bit Time */
-  if((HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK2Freq()== 1) | (HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK2Freq()== 2))
-  {
-    bit_time = ((uint32_t) ((HAL_RCC_GetSysClockFreq()/huart->Init.BaudRate) - 1));
-  }
-  else
-  {
-    bit_time = ((uint32_t) (((HAL_RCC_GetPCLK2Freq()*2)/huart->Init.BaudRate) - 1));
-  }
+  /* Configure  the Timer peripheral (TIM17) in Bit Delay */
+  attachIntHandle(__UART_EMUL_TX_TIMER, TIM_TX_CALLBACK);
+  attachIntHandle(__UART_EMUL_RX_TIMER, TIM_RX_CALLBACK);
 
-  /*##-1- Configure  the Timer peripheral in Bit Delay ##############*/
-  /* Initialize TIM peripheral as follow:
-  + Period = TimerPeriod
-  + Prescaler = 0
-  + ClockDivision = 0
-  + Counter direction = Up
-  */
-  TimHandle.Instance            = UART_EMUL_TX_TIMER_INSTANCE;
-  TimHandle.Init.Period         = bit_time;
-  TimHandle.Init.Prescaler      = 0;
-  TimHandle.Init.ClockDivision  = 0;
-  TimHandle.Init.CounterMode    = TIM_COUNTERMODE_UP;
-  HAL_TIM_Base_Init(&TimHandle);
+  /* Put Tx output in standby state */
+  HAL_GPIO_WritePin(huart_emul->TxPortName, huart_emul->Init.TxPinNumber, SET);
 
-  if (huart->Init.Mode == UART_EMUL_MODE_TX)
-  {
-    /* Configure UART Emulation in Transmission mode */
-    UART_Emul_SetConfig_DMATx();
-  }
-  else if (huart->Init.Mode == UART_EMUL_MODE_RX)
-  {
-    /* Configure UART Emulation in Reception mode */
-    UART_Emul_SetConfig_DMARx();
-  }
-  else
-  {
-    /* Configure UART Emulation in full-duplex mode */
-    UART_Emul_SetConfig_DMATx();
-    UART_Emul_SetConfig_DMARx();
-  }
-}
+  /* Enable Rx EXTI interrupt */
+  stm32_interrupt_enable(huart->RxPortName, huart->Init.RxPinNumber, UART_EMUL_EXTI_RX, GPIO_MODE_IT_FALLING);
 
-/**
-  * @brief  Configures the DMA for UART Emulation transmission.
-             + DMA Configuration channel, Stream, Mode, ...
-  * @param  None
-  * @retval None
-  */
-static void UART_Emul_SetConfig_DMATx(void)
-{
-  /* Init Idle */
-  HAL_GPIO_WritePin((huart_emul->TxPortName), (huart_emul->Init.TxPinNumber), GPIO_PIN_SET);
-
-  /*##-1- Configure  DMA For UART Emulation TX #############################*/
-  /* Set the parameters to be configured */
-  hdma_tx.Init.Channel             = DMA_Channel_Tx;               /* Channel used                         */
-  hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;         /* Transfer mode                        */
-  hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;             /* Peripheral increment mode Disable    */
-  hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;              /* Memory increment mode Enable         */
-  hdma_tx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD ;         /* Peripheral data alignment : Word     */
-  hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD ;         /* memory data alignment :  Word        */
-  hdma_tx.Init.Mode                = DMA_NORMAL;                   /* Normal DMA mode                      */
-  hdma_tx.Init.Priority            = DMA_PRIORITY_HIGH;            /* Priority level : High                */
-  hdma_tx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;         /* FIFO mode disable                    */
-  hdma_tx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;      /* FIFO threshold level                 */
-  hdma_tx.Init.MemBurst            = DMA_MBURST_SINGLE;            /* Memory Burst transfer                */
-  hdma_tx.Init.PeriphBurst         = DMA_PBURST_SINGLE;            /* Periph Burst transfer                */
-
-  /* Set hdma_tim instance */
-  hdma_tx.Instance = DMA_Stream_Tx;
-  hdma_tx.Parent = TimHandle.hdma[TIM_DMA_Handle_Tx];
-  /* Link hdma_tim to hdma[ ] ( channel Tx or Rx) */
-  __HAL_LINKDMA(&TimHandle, hdma[TIM_DMA_Handle_Tx] , hdma_tx);
-
-  /* Initialize TIMx DMA handle */
-  HAL_DMA_Init(TimHandle.hdma[TIM_DMA_Handle_Tx]);
-
-  /*##-2- NVIC configuration for DMA transfer complete interrupt ###########*/
-  HAL_NVIC_SetPriority(UART_EMUL_TX_DMA_IRQn, 3, 3);
-  HAL_NVIC_EnableIRQ(UART_EMUL_TX_DMA_IRQn);
-}
-
-/**
-  * @brief  Configures the DMA for UART Emulation reception.
-             + DMA Configuration channel, Stream, Mode, ...
-  * @param  None
-  * @retval None
-  */
-static void UART_Emul_SetConfig_DMARx(void)
-{
-  /*##-1- Configure  DMA For UART Emulation RX #############################*/
-  /* Set the parameters to be configured */
-  hdma_rx.Init.Channel             = DMA_Channel_Rx;               /* Channel used                         */
-  hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;         /* Transfer mode                        */
-  hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;             /* Peripheral increment mode Disable    */
-  hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;              /* Memory increment mode Enable         */
-  hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD ;         /* Peripheral data alignment : Word     */
-  hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD ;         /* memory data alignment :  Word        */
-  hdma_rx.Init.Mode                = DMA_NORMAL;                   /* Normal DMA mode                      */
-  hdma_rx.Init.Priority            = DMA_PRIORITY_VERY_HIGH;            /* Priority level : very High      */
-  hdma_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;         /* FIFO mode disable                    */
-  hdma_rx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;      /* FIFO threshold level                 */
-  hdma_rx.Init.MemBurst            = DMA_MBURST_SINGLE;            /* Memory Burst transfer                */
-  hdma_rx.Init.PeriphBurst         = DMA_PBURST_SINGLE;            /* Periph Burst transfer                */
-
-  /* Set hdma_tim instance */
-  hdma_rx.Instance = DMA_Stream_Rx;
-
-  /* Link hdma_tim to hdma[ ] ( channel Tx or Rx) */
-  __HAL_LINKDMA(&TimHandle, hdma[TIM_DMA_Handle_Rx], hdma_rx);
-
-  /* Initialize TIMx DMA handle */
-  HAL_DMA_Init(TimHandle.hdma[TIM_DMA_Handle_Rx]);
-
-  /*##-2- NVIC configuration for DMA transfer complete interrupt ###########*/
-  HAL_NVIC_SetPriority(UART_EMUL_RX_DMA_IRQn, 0, 1);
-  HAL_NVIC_EnableIRQ(UART_EMUL_RX_DMA_IRQn);
+  /* Configure the number of bit in a frame */
+  huart->RxBitSize = __HAL_UART_EMUL_FRAME_LENGTH(huart);
 }
 
 /**
@@ -867,66 +673,57 @@ static void UART_Emul_SetConfig_DMARx(void)
  * @param  pFrame: pointer of Frame
  * @retval None
 */
-static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint32_t *pBuf, uint8_t Data)
+static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint16_t Data)
 {
-  uint32_t counter = 0;
-  uint32_t length = 0;
-  uint32_t tmp = 0;
-  uint32_t cntparity = 0;
+  uint16_t counter = 0;
+  uint8_t length = 0;
+  uint8_t tmp = 0;
+  uint8_t cntparity = 0;
 
-  if (huart->Init.Parity != UART_EMUL_PARITY_NONE)
+  /* Get Length of frame */
+  length = huart->Init.WordLength;
+
+  /* Remove stop bit(s) */
+  Data &= MASK_STOP_BIT(huart);
+
+  /* Remove start bit */
+  Data >>= BitMask;
+
+  /* Check parity */
+  if (huart->Init.Parity == UART_EMUL_PARITY_NONE)
   {
-    /* Get Length of frame */
-    length = huart->Init.WordLength -1 ;
-  }
-  else
-  {
-    /* Get Length of frame */
-    length = huart->Init.WordLength;
-  }
-
-  if ((pBuf[huart->Init.WordLength+1]&huart->Init.RxPinNumber) != huart->Init.RxPinNumber)
-  {
-    /* UART Emulation frame error occurred */
-    __HAL_UART_EMUL_SET_FLAG(huart_emul, UART_EMUL_FLAG_FE);
-
-    huart->ErrorCode |= HAL_UART_EMUL_ERROR_FE;
-
-    /* Disable External interrupt for next Frame */
-    EXTI->IMR &= ~huart_emul->Init.RxPinNumber;
-
-    /* Handle for UART Emulation Error */
-    HAL_UART_Emul_ErrorCallback(huart);
-
-    tmp = RESET;
+    tmp = Data;
   }
   else
   {
     /* format data */
     for (counter = 0; counter < length; counter++)
     {
-      if ((pBuf[counter+1]&(huart->Init.RxPinNumber)) == (huart->Init.RxPinNumber))
+      if(((Data >> counter) & 0x01) == 0x01)
       {
-        Data = (0x01 << counter) | Data;
         cntparity ++;
       }
     }
+
+    /* Remove parity bit */
+    tmp = (uint8_t)(Data & ~(0x0001 << (length - 1)));
+
     /* Parity Bit */
     if (huart->Init.Parity == UART_EMUL_PARITY_ODD)
     {
-
-      if (((cntparity % 2) != SET) && ((pBuf[length+1]&huart->Init.RxPinNumber) != huart->Init.RxPinNumber))
+      if ((cntparity % 2) != SET)
       {
         /* Set flag PE */
         __HAL_UART_EMUL_SET_FLAG(huart, UART_EMUL_FLAG_PE);
 
         HAL_UART_Emul_ErrorCallback(huart);
+
+        tmp = RESET;
       }
     }
-    if (huart->Init.Parity == UART_EMUL_PARITY_EVEN)
+    else if (huart->Init.Parity == UART_EMUL_PARITY_EVEN)
     {
-
-      if (((cntparity % 2) != RESET) && ((pBuf[length+1]&huart->Init.RxPinNumber) != huart->Init.RxPinNumber))
+      if ((cntparity % 2) != RESET)
       {
         /* UART Emulation parity error occurred */
         __HAL_UART_EMUL_SET_FLAG(huart, UART_EMUL_FLAG_PE);
@@ -934,13 +731,13 @@ static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint
         huart->ErrorCode |= HAL_UART_EMUL_ERROR_PE;
 
         HAL_UART_Emul_ErrorCallback(huart);
+
+        tmp = RESET;
       }
     }
 
     /* Reset counter parity */
     cntparity = 0;
-
-    tmp = Data;
   }
 
   return tmp;
@@ -1028,20 +825,7 @@ static void UART_Emul_TransmitFormatFrame(UART_Emul_HandleTypeDef *huart , uint8
     default:
       break;
   }
-  /* Initialize Bit Start */
-  pBuffer_Tx[0] = (bitmask << 16);
 
-  if (huart->Init.StopBits == UART_EMUL_STOPBITS_1)
-  {
-    /* Initialize Bit Stop  */
-    pBuffer_Tx[length+1] = bitmask;
-  }
-  else
-  {
-    /* Initialize Bit Stop  */
-    pBuffer_Tx[length+1] = bitmask;
-    pBuffer_Tx[length+2] = bitmask;
-  }
   /* Reset counter parity */
   cntparity = 0;
 }
@@ -1054,47 +838,35 @@ static void UART_Emul_TransmitFormatFrame(UART_Emul_HandleTypeDef *huart , uint8
   */
 static void UART_Emul_TransmitFrame(UART_Emul_HandleTypeDef *huart)
 {
-  uint32_t tmp_sr = 0;
-  uint32_t tmp_ds = 0;
-  uint32_t tmp_size = 0;
+  uint32_t bit_time = 0;
 
+  /* Disable EXTI line Rx */
+  //EXTI->IMR &= ~huart->Init.RxPinNumber;
 
-  if ((huart_emul->TxXferCount % 2 ) != 0)
+  /* Init Bit Time */
+  if((HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK1Freq()== 1) | (HAL_RCC_GetSysClockFreq()/HAL_RCC_GetPCLK1Freq()== 2))
   {
-    tmp_sr = (uint32_t)pFirstBuffer_Tx;
+    bit_time = ((uint32_t) ((HAL_RCC_GetSysClockFreq()/huart->Init.BaudRate) - 1));
   }
   else
   {
-    tmp_sr = (uint32_t)pSecondBuffer_Tx;
+    bit_time = ((uint32_t) (((HAL_RCC_GetPCLK1Freq()*2)/huart->Init.BaudRate) - 1));
   }
 
-	tmp_ds = (uint32_t) & ((huart->TxPortName)->BSRR);
+  huart->TxBitSize = __HAL_UART_EMUL_FRAME_LENGTH(huart);
+  huart->TxBitCount = 0;
 
-  tmp_size = __HAL_UART_EMUL_FRAME_LENGTH(huart);
+  /* Add start and stop bits */
+  huart->TxXferByte = huart->pTxBuffPtr[huart->TxXferCount-1] << 1;
+  huart->TxXferByte |= (uint16_t)(0x0001 << (huart->TxBitSize - huart->Init.StopBits));
+  if(huart->Init.StopBits == UART_EMUL_STOPBITS_2)
+  {
+    huart->TxXferByte |= (uint16_t)(0x0001 << (huart->TxBitSize - huart->Init.StopBits + 1));
+  }
 
-  /* Configure DMA Stream data length */
-  hdma_tx.Instance->NDTR = tmp_size;
-
-  /* Configure DMA Stream destination address */
-  hdma_tx.Instance->PAR = tmp_ds;
-
-  /* Configure DMA Stream source address */
-  hdma_tx.Instance->M0AR = tmp_sr;
-
-  /* Enable the transfer complete interrupt */
-  __HAL_DMA_ENABLE_IT(&hdma_tx, DMA_IT_TC);
-
-  /* Enable the transfer Error interrupt */
-  __HAL_DMA_ENABLE_IT(&hdma_tx, DMA_IT_TE);
-
-  /* Enable the Peripheral */
-  __HAL_DMA_ENABLE(&hdma_tx);
-
-  /* Enable the TIM Update DMA request */
-  __HAL_TIM_ENABLE_DMA(&TimHandle, TIM_DMA_source_Tx);
-
-  /* Enable the Peripheral */
-  __HAL_TIM_ENABLE(&TimHandle);
+  /* Enable timer */
+  TimerHandleInit(__UART_EMUL_TX_TIMER, bit_time, 0);
+  setTimerCounter(__UART_EMUL_TX_TIMER, 0);
 }
 
 /**
@@ -1102,12 +874,15 @@ static void UART_Emul_TransmitFrame(UART_Emul_HandleTypeDef *huart)
   * @param  None
   * @retval None
   */
-static void UART_Emul_DMATransmitCplt(DMA_HandleTypeDef *hdma)
+static void UART_Emul_TransmitCplt(void)
 {
   uint32_t tmpbuffer = 0;
 
   /* Incremente Counter of frame */
   huart_emul->TxXferCount++;
+
+  /* Disable timer */
+  TimerHandleDeinit(__UART_EMUL_TX_TIMER);
 
   if (huart_emul->TxXferCount <= huart_emul->TxXferSize)
   {
@@ -1127,18 +902,6 @@ static void UART_Emul_DMATransmitCplt(DMA_HandleTypeDef *hdma)
   }
   else
   {
-    /* Disable the transfer complete interrupt */
-    __HAL_DMA_DISABLE_IT(TimHandle.hdma[TIM_DMA_Handle_Tx], DMA_IT_TC);
-
-    /* Set TC flag in the status register software */
-    __HAL_UART_EMUL_SET_FLAG(huart_emul, UART_EMUL_FLAG_TC);
-
-    /* Disable the Peripheral */
-    __HAL_DMA_DISABLE(&hdma_tx);
-
-    /* Disable the TIM Update DMA request */
-    __HAL_TIM_DISABLE_DMA(&TimHandle, TIM_DMA_source_Tx);
-
     /* De_Initialize counter frame for Tx */
     huart_emul->TxXferCount = 0;
 
@@ -1154,24 +917,13 @@ static void UART_Emul_DMATransmitCplt(DMA_HandleTypeDef *hdma)
     {
       huart_emul->State = HAL_UART_EMUL_STATE_READY;
     }
+
+    /* Enable EXTI line Rx */
+    //EXTI->IMR |= huart_emul->Init.RxPinNumber;
+
     /* Handle for UART Emulation Transfer Complete */
     HAL_UART_Emul_TxCpltCallback(huart_emul);
   }
-}
-
-/**
-  * @brief  This function is executed in case of error of Transfer occurrence.
-  * @param  hdma : DMA Handle
-  * @retval None
-  */
-static void UART_Emul_DMAError(DMA_HandleTypeDef *hdma)
-{
-  /* UART Emulation frame error occurred */
-  __HAL_UART_EMUL_SET_FLAG(huart_emul, UART_EMUL_FLAG_FE);
-
-  huart_emul->ErrorCode |= HAL_UART_EMUL_ERROR_FE;
-
-  HAL_UART_Emul_ErrorCallback(huart_emul);
 }
 
 /**
