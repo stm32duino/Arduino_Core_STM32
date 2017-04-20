@@ -282,11 +282,19 @@ typedef struct
 
 #ifndef STM32F0xx
 /* Definition Handler for UART Emulation receive mode */
+#ifdef STM32F3xx
+#define UART_EMUL_TX_DMA_IRQHandler           DMA1_Channel2_IRQHandler
+#define UART_EMUL_RX_DMA_IRQHandler           DMA1_Channel3_IRQHandler
+
+#define UART_EMUL_TX_DMA_IRQn           DMA1_Channel2_IRQn
+#define UART_EMUL_RX_DMA_IRQn           DMA1_Channel3_IRQn
+#else
 #define UART_EMUL_TX_DMA_IRQHandler     DMA2_Stream1_IRQHandler
 #define UART_EMUL_RX_DMA_IRQHandler     DMA2_Stream2_IRQHandler
 
 #define UART_EMUL_TX_DMA_IRQn           DMA2_Stream1_IRQn
 #define UART_EMUL_RX_DMA_IRQn           DMA2_Stream2_IRQn
+#endif
 
 /* Defenition of UART Emulation timer */
 #define UART_EMUL_TX_TIMER_INSTANCE     TIM1
@@ -367,16 +375,27 @@ typedef struct
   * @param  None
   * @retval None
   */
+#ifdef STM32F3xx
+#define __UART_EMUL_CLK_ENABLE()                           __TIM1_CLK_ENABLE();\
+                                                           __DMA1_CLK_ENABLE();
+
+#else
 #define __UART_EMUL_CLK_ENABLE()                           __TIM1_CLK_ENABLE();\
                                                            __HAL_RCC_DMA2_CLK_ENABLE();
-
+#endif
 /** @brief  Disable the clock for UART Emulation.
   *            clock in the peripherique used in this emulation Timer and DMA
   * @param  None
   * @retval None
   */
+#ifdef STM32F3xx
+#define __UART_EMUL_CLK_DISABLE()                 __TIM1_CLK_DISABLE();\
+                                                  __DMA1_CLK_DISABLE();
+
+#else
 #define __UART_EMUL_CLK_DISABLE()                 __TIM1_CLK_DISABLE();\
                                                   __HAL_RCC_DMA2_CLK_DISABLE();
+#endif
 #endif
 
 /* Exported functions --------------------------------------------------------*/
@@ -410,6 +429,22 @@ typedef enum {
   TIM15_E,
   TIM16_E,
   TIM17_E,
+  NB_TIMER_MANAGED
+} timer_id_e;
+#endif
+#ifdef STM32F3xx
+typedef enum {
+  TIM1_E = 0,
+  TIM2_E,
+  TIM3_E,
+  TIM4_E,
+  TIM6_E,
+  TIM7_E,
+  TIM8_E,
+  TIM15_E,
+  TIM16_E,
+  TIM17_E,
+  TIM20_E,
   NB_TIMER_MANAGED
 } timer_id_e;
 #endif

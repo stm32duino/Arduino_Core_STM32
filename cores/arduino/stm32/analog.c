@@ -69,12 +69,32 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
-
-#ifdef STM32F0xx
-#define SAMPLINGTIME        ADC_SAMPLETIME_1CYCLE_5
+#if STM32L0xx
+// Contained by handle
+#elif defined(ADC_SAMPLETIME_15CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
+#elif defined(ADC_SAMPLETIME_13CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
+#elif defined(ADC_SAMPLETIME_19CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
+#elif defined(ADC_SAMPLETIME_16CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
+#elif defined(ADC_SAMPLETIME_12CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
 #else
-#define SAMPLINGTIME        ADC_SAMPLETIME_3CYCLES  /*!< ADC conversions sampling time. */
+#error "ADC SAMPLINGTIME could not be defined"
 #endif
+
+#ifdef ADC_CLOCK_SYNC_PCLK_DIV2
+#define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
+#elif defined(ADC_CLOCK_ASYNC_DIV1)
+#define ADC_CLOCK_DIV       ADC_CLOCK_ASYNC_DIV1
+#elif defined(ADC_CLOCKPRESCALER_PCLK_DIV2)
+#define ADC_CLOCK_DIV       ADC_CLOCKPRESCALER_PCLK_DIV2
+#else
+#error "ADC_CLOCK_DIV could not be defined"
+#endif
+
 #define ADC_REGULAR_RANK_1  1
 /**
   * @}
@@ -105,9 +125,11 @@ static uint32_t get_adc_channel(PinName pin)
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
   switch(STM_PIN_CHANNEL(function)) {
+#ifdef ADC_CHANNEL_0
     case 0:
       channel = ADC_CHANNEL_0;
       break;
+#endif
     case 1:
       channel = ADC_CHANNEL_1;
     break;
@@ -174,9 +196,11 @@ static uint32_t get_dac_channel(PinName pin)
   uint32_t function = pinmap_function(pin, PinMap_DAC);
   uint32_t channel = 0;
   switch(STM_PIN_CHANNEL(function)) {
+#ifdef DAC_CHANNEL_0
     case 0:
-      channel = ADC_CHANNEL_0;
+      channel = DAC_CHANNEL_0;
       break;
+#endif
     case 1:
       channel = DAC_CHANNEL_1;
     break;
@@ -232,8 +256,12 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
   port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
 
   /* DAC Periph clock enable */
+#ifdef __HAL_RCC_DAC1_CLK_ENABLE
+  __HAL_RCC_DAC1_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_DAC_CLK_ENABLE
   __HAL_RCC_DAC_CLK_ENABLE();
-
+#endif
   /*##-2- Configure peripheral GPIO ##########################################*/
   /* DAC Channel1 GPIO pin configuration */
   GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
@@ -253,8 +281,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
   */
 void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 {
-  DAC_HandleTypeDef DacHandle = {0};
-  DAC_ChannelConfTypeDef dacChannelConf;
+  DAC_HandleTypeDef DacHandle = {};
+  DAC_ChannelConfTypeDef dacChannelConf = {};
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
@@ -307,7 +335,12 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
   /* DAC Periph clock disable */
+#ifdef __HAL_RCC_DAC1_CLK_DISABLE
+  __HAL_RCC_DAC1_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_DAC_CLK_DISABLE
   __HAL_RCC_DAC_CLK_DISABLE();
+#endif
 }
 
 /**
@@ -353,11 +386,36 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
   if(hadc->Instance == ADC1) {
-    __HAL_RCC_ADC1_CLK_ENABLE();
+#ifdef __HAL_RCC_ADC1_CLK_ENABLE
+	__HAL_RCC_ADC1_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_ADC12_CLK_ENABLE
+	__HAL_RCC_ADC12_CLK_ENABLE();
+#endif
   }
+#ifdef ADC2
+  else if(hadc->Instance == ADC2) {
+#ifdef __HAL_RCC_ADC2_CLK_ENABLE
+	__HAL_RCC_ADC2_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_ADC12_CLK_ENABLE
+	__HAL_RCC_ADC12_CLK_ENABLE();
+#endif
+  }
+#endif
 #ifdef ADC3
   else if(hadc->Instance == ADC3) {
+#ifdef __HAL_RCC_ADC3_CLK_ENABLE
     __HAL_RCC_ADC3_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_ADC34_CLK_ENABLE
+    __HAL_RCC_ADC34_CLK_ENABLE();
+#endif
+  }
+#endif
+#ifdef ADC4
+  else if(hadc->Instance == ADC4) {
+    __HAL_RCC_ADC34_CLK_ENABLE();
   }
 #endif
 
@@ -379,17 +437,86 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   */
 void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 {
-
+#ifdef __HAL_RCC_ADC_FORCE_RESET
   __HAL_RCC_ADC_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC_RELEASE_RESET
   __HAL_RCC_ADC_RELEASE_RESET();
+#endif
 
   if(hadc->Instance == ADC1) {
-    __HAL_RCC_ADC1_CLK_DISABLE();
+#ifdef __HAL_RCC_ADC1_FORCE_RESET
+	__HAL_RCC_ADC1_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC1_RELEASE_RESET
+    __HAL_RCC_ADC1_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC12_FORCE_RESET
+	__HAL_RCC_ADC12_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC12_RELEASE_RESET
+    __HAL_RCC_ADC12_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC1_CLK_DISABLE
+	__HAL_RCC_ADC1_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_ADC12_CLK_DISABLE
+	__HAL_RCC_ADC12_CLK_DISABLE();
+#endif
   }
+#ifdef ADC2
+  else if(hadc->Instance == ADC2) {
+#ifdef __HAL_RCC_ADC2_FORCE_RESET
+	__HAL_RCC_ADC2_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC2_RELEASE_RESET
+    __HAL_RCC_ADC2_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC12_FORCE_RESET
+	__HAL_RCC_ADC12_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC12_RELEASE_RESET
+    __HAL_RCC_ADC12_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC2_CLK_DISABLE
+	__HAL_RCC_ADC2_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_ADC2_CLK_DISABLE
+	__HAL_RCC_ADC2_CLK_DISABLE();
+#endif
+  }
+#endif
 #ifdef ADC3
   else if(hadc->Instance == ADC3) {
+#ifdef __HAL_RCC_ADC3_FORCE_RESET
+	__HAL_RCC_ADC3_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC3_RELEASE_RESET
+    __HAL_RCC_ADC3_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC34_FORCE_RESET
+	__HAL_RCC_ADC34_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC34_RELEASE_RESET
+    __HAL_RCC_ADC34_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC3_CLK_DISABLE
     __HAL_RCC_ADC3_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_ADC34_CLK_DISABLE
+    __HAL_RCC_ADC34_CLK_DISABLE();
+#endif
   }
+#endif
+#ifdef ADC4
+  else if(hadc->Instance == ADC4) {
+	__HAL_RCC_ADC34_FORCE_RESET();
+    __HAL_RCC_ADC34_RELEASE_RESET();
+    __HAL_RCC_ADC34_CLK_DISABLE();
+  }
+#endif
+#ifdef __HAL_RCC_ADC_CLK_DISABLE
+  __HAL_RCC_ADC_CLK_DISABLE();
 #endif
 }
 
@@ -400,15 +527,15 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
   */
 uint16_t adc_read_value(PinName pin)
 {
-  ADC_HandleTypeDef AdcHandle;
-  ADC_ChannelConfTypeDef  AdcChannelConf;
+  ADC_HandleTypeDef AdcHandle = {};
+  ADC_ChannelConfTypeDef  AdcChannelConf = {};
   __IO uint16_t uhADCxConvertedValue = 0;
 
   AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
 
   if (AdcHandle.Instance == NC) return 0;
 
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_SYNC_PCLK_DIV2;          /* Asynchronous clock mode, input ADC clock divided */
+  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
@@ -425,6 +552,9 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
   AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
 #else
+#ifdef STM32F3xx
+  AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+#endif
   AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
@@ -445,6 +575,15 @@ uint16_t adc_read_value(PinName pin)
     /* Channel Configuration Error */
     return 0;
   }
+
+#ifdef STM32F3xx
+  /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
+  if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
+  {
+    /* ADC Calibration Error */
+    return 0;
+  }
+#endif
 
   /*##-3- Start the conversion process ####################*/
   if (HAL_ADC_Start(&AdcHandle) != HAL_OK)

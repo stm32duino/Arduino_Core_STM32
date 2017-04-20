@@ -3,7 +3,7 @@
   * @file    uart_emul.c
   * @author  WI6LABS
   * @version V1.0.0
-  * @date    01-August-2016
+  * @date    27-July-2016
   * @brief   Adaptation from stm32f4xx_hal_uart_emul.c
   *          UART Emulation HAL module driver.
   *          This file provides firmware functions to manage the following
@@ -45,7 +45,7 @@
      *** UART Emulation mode IO operation ***
      ===================================
      [..]
-       (+) Send an amount of data in non blocking mode (IT) using HAL_UART_Emul_Transmit()
+       (+) Send an amount of data in non blocking mode (DMA) using HAL_UART_Emul_Transmit_DMA()
        (+) At transmission end of transfer HAL_UART_Emul_TxCpltCallback is executed and user can
             add his own code by customization of function pointer HAL_UART_Emul_TxCpltCallback
        (+) Receive an amount of data in non blocking mode (IT) using HAL_UART_Emul_Receive()
@@ -97,12 +97,13 @@
   *
   ******************************************************************************
   */
-#if !defined (STM32F0xx) && !defined (STM32F3xx)
+
 /* Includes ------------------------------------------------------------------*/
+#ifdef STM32F3xx
 #include "stm32_def.h"
 #include "uart_emul.h"
 
-/** @addtogroup STM32F4xx_HAL_Driver
+/** @addtogroup STM32F3xx_HAL_Driver
   * @{
   */
 
@@ -451,6 +452,7 @@ void UART_EMUL_RX_DMA_IRQHandler(void)
   /* Enable External interrupt for next Frame */
   EXTI->IMR |= huart_emul->Init.RxPinNumber;
 
+
   if (__HAL_DMA_GET_FLAG(TimHandle.hdma[TIM_DMA_Handle_Rx], __HAL_DMA_GET_TE_FLAG_INDEX(TimHandle.hdma[TIM_DMA_Handle_Rx])) != RESET)
   {
     UART_Emul_DMAError(&hdma_rx);
@@ -700,13 +702,13 @@ static void UART_Emul_ReceiveFrame(UART_Emul_HandleTypeDef *huart, uint32_t *pDa
   __HAL_DMA_ENABLE_IT(&hdma_rx, DMA_IT_TE);
 
   /* Configure DMA Stream data length */
-  hdma_rx.Instance->NDTR = tmp_size;
+  hdma_rx.Instance->CNDTR = tmp_size;
 
   /* Configure DMA Stream source address */
-  hdma_rx.Instance->PAR = tmp_sr;
+  hdma_rx.Instance->CPAR = tmp_sr;
 
   /* Configure DMA Stream destination address */
-  hdma_rx.Instance->M0AR = tmp_ds;
+  hdma_rx.Instance->CMAR = tmp_ds;
 
   /* Enable the Peripheral */
   __HAL_DMA_ENABLE(&hdma_rx);
@@ -796,7 +798,6 @@ static void UART_Emul_SetConfig_DMATx(void)
 
   /*##-1- Configure  DMA For UART Emulation TX #############################*/
   /* Set the parameters to be configured */
-  hdma_tx.Init.Channel             = DMA_Channel_Tx;               /* Channel used                         */
   hdma_tx.Init.Direction           = DMA_MEMORY_TO_PERIPH;         /* Transfer mode                        */
   hdma_tx.Init.PeriphInc           = DMA_PINC_DISABLE;             /* Peripheral increment mode Disable    */
   hdma_tx.Init.MemInc              = DMA_MINC_ENABLE;              /* Memory increment mode Enable         */
@@ -804,13 +805,9 @@ static void UART_Emul_SetConfig_DMATx(void)
   hdma_tx.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD ;         /* memory data alignment :  Word        */
   hdma_tx.Init.Mode                = DMA_NORMAL;                   /* Normal DMA mode                      */
   hdma_tx.Init.Priority            = DMA_PRIORITY_HIGH;            /* Priority level : High                */
-  hdma_tx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;         /* FIFO mode disable                    */
-  hdma_tx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;      /* FIFO threshold level                 */
-  hdma_tx.Init.MemBurst            = DMA_MBURST_SINGLE;            /* Memory Burst transfer                */
-  hdma_tx.Init.PeriphBurst         = DMA_PBURST_SINGLE;            /* Periph Burst transfer                */
 
   /* Set hdma_tim instance */
-  hdma_tx.Instance = DMA_Stream_Tx;
+  hdma_tx.Instance = DMA1_Channel2;
   hdma_tx.Parent = TimHandle.hdma[TIM_DMA_Handle_Tx];
   /* Link hdma_tim to hdma[ ] ( channel Tx or Rx) */
   __HAL_LINKDMA(&TimHandle, hdma[TIM_DMA_Handle_Tx] , hdma_tx);
@@ -833,21 +830,16 @@ static void UART_Emul_SetConfig_DMARx(void)
 {
   /*##-1- Configure  DMA For UART Emulation RX #############################*/
   /* Set the parameters to be configured */
-  hdma_rx.Init.Channel             = DMA_Channel_Rx;               /* Channel used                         */
   hdma_rx.Init.Direction           = DMA_PERIPH_TO_MEMORY;         /* Transfer mode                        */
   hdma_rx.Init.PeriphInc           = DMA_PINC_DISABLE;             /* Peripheral increment mode Disable    */
   hdma_rx.Init.MemInc              = DMA_MINC_ENABLE;              /* Memory increment mode Enable         */
-  hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD ;         /* Peripheral data alignment : Word     */
-  hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD ;         /* memory data alignment :  Word        */
+  hdma_rx.Init.PeriphDataAlignment = DMA_PDATAALIGN_WORD;          /* Peripheral data alignment :Word      */
+  hdma_rx.Init.MemDataAlignment    = DMA_MDATAALIGN_WORD;          /* memory data alignment : Word         */
   hdma_rx.Init.Mode                = DMA_NORMAL;                   /* Normal DMA mode                      */
-  hdma_rx.Init.Priority            = DMA_PRIORITY_VERY_HIGH;            /* Priority level : very High      */
-  hdma_rx.Init.FIFOMode            = DMA_FIFOMODE_DISABLE;         /* FIFO mode disable                    */
-  hdma_rx.Init.FIFOThreshold       = DMA_FIFO_THRESHOLD_FULL;      /* FIFO threshold level                 */
-  hdma_rx.Init.MemBurst            = DMA_MBURST_SINGLE;            /* Memory Burst transfer                */
-  hdma_rx.Init.PeriphBurst         = DMA_PBURST_SINGLE;            /* Periph Burst transfer                */
+  hdma_rx.Init.Priority            = DMA_PRIORITY_VERY_HIGH;       /* Priority level : Very_High           */
 
   /* Set hdma_tim instance */
-  hdma_rx.Instance = DMA_Stream_Rx;
+  hdma_rx.Instance = DMA1_Channel3;
 
   /* Link hdma_tim to hdma[ ] ( channel Tx or Rx) */
   __HAL_LINKDMA(&TimHandle, hdma[TIM_DMA_Handle_Rx], hdma_rx);
@@ -881,8 +873,8 @@ static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint
   }
   else
   {
-    /* Get Length of frame */
-    length = huart->Init.WordLength;
+  /* Get Length of frame */
+  length = huart->Init.WordLength;
   }
 
   if ((pBuf[huart->Init.WordLength+1]&huart->Init.RxPinNumber) != huart->Init.RxPinNumber)
@@ -893,7 +885,7 @@ static uint8_t UART_Emul_ReceiveFormatFrame(UART_Emul_HandleTypeDef *huart, uint
     huart->ErrorCode |= HAL_UART_EMUL_ERROR_FE;
 
     /* Disable External interrupt for next Frame */
-    EXTI->IMR &= ~huart_emul->Init.RxPinNumber;
+    EXTI->IMR &= ~EXTI_IMR_IM10;
 
     /* Handle for UART Emulation Error */
     HAL_UART_Emul_ErrorCallback(huart);
@@ -1073,13 +1065,13 @@ static void UART_Emul_TransmitFrame(UART_Emul_HandleTypeDef *huart)
   tmp_size = __HAL_UART_EMUL_FRAME_LENGTH(huart);
 
   /* Configure DMA Stream data length */
-  hdma_tx.Instance->NDTR = tmp_size;
+  hdma_tx.Instance->CNDTR = tmp_size;
 
   /* Configure DMA Stream destination address */
-  hdma_tx.Instance->PAR = tmp_ds;
+  hdma_tx.Instance->CPAR = tmp_ds;
 
   /* Configure DMA Stream source address */
-  hdma_tx.Instance->M0AR = tmp_sr;
+  hdma_tx.Instance->CMAR = tmp_sr;
 
   /* Enable the transfer complete interrupt */
   __HAL_DMA_ENABLE_IT(&hdma_tx, DMA_IT_TC);
@@ -1210,6 +1202,5 @@ __weak void HAL_UART_Emul_ErrorCallback(UART_Emul_HandleTypeDef *huart)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 #endif
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

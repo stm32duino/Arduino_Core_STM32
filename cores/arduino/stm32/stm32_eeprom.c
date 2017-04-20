@@ -73,6 +73,9 @@
 // Flash base address (Bank2, page 256)
 #define FLASH_BASE_ADDRESS  0x0803F800
 #define FLASH_PAGE_NUMBER   127
+#elif defined (STM32F3xx)
+#define FLASH_BASE_ADDRESS  ((uint32_t)((0x0807FFFF + 1) - FLASH_PAGE_SIZE)) //0x0807F800
+#define FLASH_PAGE_NUMBER   255
 #else
 // Use the last 16 page of the second bank (sector 15)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(0x0810C000))
@@ -159,7 +162,7 @@ void set_data_to_flash(void)
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32F3xx)
   uint32_t pageError = 0;
   uint64_t data = 0;
 

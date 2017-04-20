@@ -218,6 +218,12 @@ void timer_enable_clock(TIM_HandleTypeDef *htim)
       timer_handles[16] = htim;
   }
 #endif
+#if defined(TIM20_BASE)
+  if (htim->Instance == TIM20) {
+      __HAL_RCC_TIM20_CLK_ENABLE();
+      timer_handles[19] = htim;
+  }
+#endif
 }
 
 /**
@@ -311,6 +317,11 @@ void timer_disable_clock(TIM_HandleTypeDef *htim)
 #if defined(TIM17_BASE)
   if (htim->Instance == TIM17) {
       __HAL_RCC_TIM17_CLK_DISABLE();
+  }
+#endif
+#if defined(TIM20_BASE)
+  if (htim->Instance == TIM20) {
+      __HAL_RCC_TIM20_CLK_DISABLE();
   }
 #endif
 }

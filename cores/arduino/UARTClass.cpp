@@ -20,7 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "UARTClass.h"
-#include "Arduino.h"
 
 UARTClass::UARTClass(uart_id_e uart_id)
 {

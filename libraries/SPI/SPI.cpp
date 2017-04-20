@@ -157,7 +157,7 @@ void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
       spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV128_MHZ;
     break;
     default:
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32F3xx)
       spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV64_MHZ;
 #else
       spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV16_MHZ;

@@ -20,7 +20,6 @@
 #include <stdio.h>
 #include <string.h>
 #include "USARTClass.h"
-#include "chip.h"
 
 
 // Constructors ////////////////////////////////////////////////////////////////

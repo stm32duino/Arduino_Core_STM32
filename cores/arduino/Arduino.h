@@ -67,6 +67,8 @@ extern void loop( void ) ;
 #include "Tone.h"
 #include "WMath.h"
 #include "HardwareSerial.h"
+#include "UARTClass.h"
+#include "USARTClass.h"
 #include "wiring_pulse.h"
 #endif // __cplusplus
 
