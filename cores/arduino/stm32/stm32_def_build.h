@@ -22,7 +22,9 @@
 #ifndef _STM32_DEF_BUILD_
 #define _STM32_DEF_BUILD_
 
-#if defined(STM32F407xx)
+#if defined(STM32F091xC)
+#define CMSIS_STARTUP_FILE "startup_stm32f091xc.s"
+#elif defined(STM32F407xx)
 #define CMSIS_STARTUP_FILE "startup_stm32f407xx.s"
 #elif defined(STM32F429xx)
 #define CMSIS_STARTUP_FILE "startup_stm32f429xx.s"

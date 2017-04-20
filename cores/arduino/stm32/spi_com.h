@@ -62,14 +62,14 @@ typedef struct spi_s spi_t;
 
 
 ///@brief specifies the SPI speed bus in HZ.
-#define SPI_SPEED_CLOCK_DIV2_MHZ    ((uint32_t)(HAL_RCC_GetPCLK2Freq()/2))
-#define SPI_SPEED_CLOCK_DIV4_MHZ    ((uint32_t)(HAL_RCC_GetPCLK2Freq()/4))
-#define SPI_SPEED_CLOCK_DIV8_MHZ    ((uint32_t)(HAL_RCC_GetPCLK2Freq()/8))
-#define SPI_SPEED_CLOCK_DIV16_MHZ   ((uint32_t)(HAL_RCC_GetPCLK2Freq()/16))
-#define SPI_SPEED_CLOCK_DIV32_MHZ   ((uint32_t)(HAL_RCC_GetPCLK2Freq()/32))
-#define SPI_SPEED_CLOCK_DIV64_MHZ   ((uint32_t)(HAL_RCC_GetPCLK2Freq()/64))
-#define SPI_SPEED_CLOCK_DIV128_MHZ  ((uint32_t)(HAL_RCC_GetPCLK2Freq()/128))
-#define SPI_SPEED_CLOCK_DIV256_MHZ  ((uint32_t)(HAL_RCC_GetPCLK2Freq()/256))
+#define SPI_SPEED_CLOCK_DIV2_MHZ    ((uint32_t)(SystemCoreClock/2))
+#define SPI_SPEED_CLOCK_DIV4_MHZ    ((uint32_t)(SystemCoreClock/4))
+#define SPI_SPEED_CLOCK_DIV8_MHZ    ((uint32_t)(SystemCoreClock/8))
+#define SPI_SPEED_CLOCK_DIV16_MHZ   ((uint32_t)(SystemCoreClock/16))
+#define SPI_SPEED_CLOCK_DIV32_MHZ   ((uint32_t)(SystemCoreClock/32))
+#define SPI_SPEED_CLOCK_DIV64_MHZ   ((uint32_t)(SystemCoreClock/64))
+#define SPI_SPEED_CLOCK_DIV128_MHZ  ((uint32_t)(SystemCoreClock/128))
+#define SPI_SPEED_CLOCK_DIV256_MHZ  ((uint32_t)(SystemCoreClock/256))
 
 ///@brief speficies the SPI mode to use
 //Mode          Clock Polarity (CPOL)       Clock Phase (CPHA)

@@ -45,4 +45,30 @@
 #else
 #error "STM32YYxx chip series is not defined in boards.txt."
 #endif
+
+
+#ifndef __HAL_RCC_ADC_FORCE_RESET
+#define __HAL_RCC_ADC_FORCE_RESET        __HAL_RCC_ADC1_FORCE_RESET
+#endif
+#ifndef __HAL_RCC_ADC_RELEASE_RESET
+#define __HAL_RCC_ADC_RELEASE_RESET      __HAL_RCC_ADC1_RELEASE_RESET
+#endif
+#ifndef __HAL_RCC_DAC_CLK_DISABLE
+#define __HAL_RCC_DAC_CLK_DISABLE        __HAL_RCC_DAC1_CLK_DISABLE
+#endif
+#ifndef __HAL_RCC_DAC_CLK_ENABLE
+#define __HAL_RCC_DAC_CLK_ENABLE         __HAL_RCC_DAC1_CLK_ENABLE
+#endif
+#ifndef __HAL_RCC_UART4_CLK_ENABLE
+#define __HAL_RCC_UART4_CLK_ENABLE       __HAL_RCC_USART4_CLK_ENABLE
+#endif
+#ifndef __HAL_RCC_UART4_RELEASE_RESET
+#define __HAL_RCC_UART4_RELEASE_RESET    __HAL_RCC_USART4_RELEASE_RESET
+#endif
+#ifndef __HAL_RCC_UART4_FORCE_RESET
+#define __HAL_RCC_UART4_FORCE_RESET      __HAL_RCC_USART4_FORCE_RESET
+#endif
+
+
+
 #endif //_STM32_DEF_

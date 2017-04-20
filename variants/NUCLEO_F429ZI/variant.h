@@ -70,20 +70,13 @@ enum {
   DEND
 };
 
-#define PIN_A0   (73)
-#define PIN_A1   (74)
-#define PIN_A2   (75)
-#define PIN_A3   (76)
-#define PIN_A4   (77)
-#define PIN_A5   (78)
-
 //Analog pins
-static const uint8_t A0  = PIN_A0;
-static const uint8_t A1  = PIN_A1;
-static const uint8_t A2  = PIN_A2;
-static const uint8_t A3  = PIN_A3;
-static const uint8_t A4  = PIN_A4;
-static const uint8_t A5  = PIN_A5;
+#define A0                      73
+#define A1                      (A0+1)
+#define A2                      (A0+2)
+#define A3                      (A0+3)
+#define A4                      (A0+4)
+#define A5                      (A0+5)
 
 #define NUM_DIGITAL_PINS        DEND
 #define NUM_ANALOG_INPUTS       (sizeof(PinMap_ADC)/sizeof(PinMap))

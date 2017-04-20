@@ -94,6 +94,24 @@ typedef struct {
   * @{
   */
 static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
+#ifdef STM32F0xx
+  {.pin = GPIO_PIN_0,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_1,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_2,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_3,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_4,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_5,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_6,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_7,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_8,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_9,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_10,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_11,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_12,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_13,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_14,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
+  {.pin = GPIO_PIN_15,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 }
+#else
   {.pin = GPIO_PIN_0,   .irqnb = EXTI0_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_1,   .irqnb = EXTI1_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_2,   .irqnb = EXTI2_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
@@ -110,6 +128,7 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
   {.pin = GPIO_PIN_13,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_14,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_15,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 }
+#endif
 };
 
 /**
@@ -210,6 +229,47 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
+#ifdef STM32F0xx
+/**
+  * @brief This function handles external line 0 to 1 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI0_1_IRQHandler(void)
+{
+  uint32_t pin;
+  for(pin = GPIO_PIN_0; pin <= GPIO_PIN_1; pin=pin<<1) {
+    HAL_GPIO_EXTI_IRQHandler(pin);
+  }
+}
+
+
+/**
+  * @brief This function handles external line 2 to 3 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI2_3_IRQHandler(void)
+{
+  uint32_t pin;
+  for(pin = GPIO_PIN_2; pin <= GPIO_PIN_3; pin=pin<<1) {
+    HAL_GPIO_EXTI_IRQHandler(pin);
+  }
+}
+
+/**
+  * @brief This function handles external line 4 to 15 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI4_15_IRQHandler(void)
+{
+  uint32_t pin;
+  for(pin = GPIO_PIN_4; pin <= GPIO_PIN_15; pin=pin<<1) {
+    HAL_GPIO_EXTI_IRQHandler(pin);
+  }
+}
+#else
 /**
   * @brief This function handles external line 0 interrupt request.
   * @param  None
@@ -286,7 +346,7 @@ void EXTI15_10_IRQHandler(void)
     HAL_GPIO_EXTI_IRQHandler(pin);
   }
 }
-
+#endif
 /**
   * @}
   */

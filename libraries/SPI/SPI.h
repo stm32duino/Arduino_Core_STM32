@@ -72,7 +72,11 @@ class SPISettings {
       } else if (clock >= SPI_SPEED_CLOCK_DIV128_MHZ) {
         clk = SPI_SPEED_CLOCK_DIV128_MHZ;
       } else {
+#ifdef STM32F0xx
+        clk = SPI_SPEED_CLOCK_DIV256_MHZ;
+#else
         clk = SPI_SPEED_CLOCK_DIV16_MHZ;
+#endif
       }
 
       if(bitOrder == MSBFIRST) {
@@ -94,7 +98,11 @@ class SPISettings {
 
     }
     SPISettings() {
+#ifdef STM32F0xx
+      clk = SPI_SPEED_CLOCK_DIV64_MHZ;
+#else
       clk = SPI_SPEED_CLOCK_DIV16_MHZ;
+#endif
       bOrder = MSBFIRST;
       msb = 1;
       dMode = SPI_MODE_0;

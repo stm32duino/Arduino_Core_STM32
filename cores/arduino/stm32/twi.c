@@ -167,7 +167,11 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
       __HAL_RCC_I2C1_CLK_ENABLE();
       __HAL_RCC_I2C1_FORCE_RESET();
       __HAL_RCC_I2C1_RELEASE_RESET();
+#ifdef STM32F0xx
+      obj->irq = I2C1_IRQn;
+#else
       obj->irq = I2C1_EV_IRQn;
+#endif
       i2c_handles[0] = handle;
   }
 #endif
@@ -177,7 +181,11 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
       __HAL_RCC_I2C2_CLK_ENABLE();
       __HAL_RCC_I2C2_FORCE_RESET();
       __HAL_RCC_I2C2_RELEASE_RESET();
+#ifdef STM32F0xx
+      obj->irq = I2C2_IRQn;
+#else
       obj->irq = I2C2_EV_IRQn;
+#endif
       i2c_handles[1] = handle;
   }
 #endif
@@ -221,11 +229,15 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   handle->Instance             = obj->i2c;
+#ifdef STM32F0xx
+  handle->Init.Timing      = timing;
+#else
   handle->Init.ClockSpeed      = timing;
+  handle->Init.DutyCycle       = I2C_DUTYCYCLE_2;//16_9;
+#endif
   handle->Init.OwnAddress1     = ownAddress;
   handle->Init.OwnAddress2     = 0xFF;
   handle->Init.AddressingMode  = addressingMode;
-  handle->Init.DutyCycle       = I2C_DUTYCYCLE_2;//16_9;
   handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;
   handle->Init.GeneralCallMode = I2C_GENERALCALL_DISABLED;
   handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLED;
@@ -258,19 +270,25 @@ void i2c_deinit(i2c_t *obj)
   */
 void i2c_setTiming(i2c_t *obj, uint32_t frequency)
 {
+  uint32_t f = I2C_10KHz;
   __HAL_I2C_DISABLE(&(obj->handle));
 
   if(frequency <= 10000)
-    obj->handle.Init.ClockSpeed = I2C_10KHz;
+    f = I2C_10KHz;
   else if(frequency <= 50000)
-    obj->handle.Init.ClockSpeed = I2C_50KHz;
+    f = I2C_50KHz;
   else if(frequency <= 100000)
-    obj->handle.Init.ClockSpeed = I2C_100KHz;
+    f = I2C_100KHz;
   else if(frequency <= 200000)
-    obj->handle.Init.ClockSpeed = I2C_200KHz;
+    f = I2C_200KHz;
   else if(frequency <= 400000)
-    obj->handle.Init.ClockSpeed = I2C_400KHz;
+    f = I2C_400KHz;
 
+#ifdef STM32F0xx
+  obj->handle.Init.Timing = f;
+#else
+  obj->handle.Init.ClockSpeed = f;
+#endif
 /*
   else if(frequency <= 600000)
     g_i2c_init_info[i2c_id].i2c_handle.Init.ClockSpeed = I2C_600KHz;

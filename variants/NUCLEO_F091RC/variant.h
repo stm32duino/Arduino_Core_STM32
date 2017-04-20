@@ -63,15 +63,12 @@ enum {
   D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
   D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
   D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
-  D60, D61, D62, D63, D64, D65, D66, D67, D68, D69,
-  D70, D71, D72, D73, D74, D75, D76, D77, D78, D79,
-  D80, D81, D82, D83, D84,
+  D50, D51,
   DEND
 };
 
 //Analog pins
-#define A0                      79
+#define A0                      46
 #define A1                      (A0+1)
 #define A2                      (A0+2)
 #define A3                      (A0+3)
@@ -86,9 +83,9 @@ enum {
 // Convert a digital pin number Dxx to a PinName Pxy
 #define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
 // Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      ((p < 6) ? digitalToPinName(p+79) : digitalToPinName(p))
+#define analogToPinName(p)      ((p < 6) ? digitalToPinName(p+46) : digitalToPinName(p))
 // Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      ((p < 6) ? (p+79) : p)
+#define analogToDigital(p)      ((p < 6) ? (p+46) : p)
 // Convert a PinName Pxy to a pin number
 uint32_t pinNametoPinNumber(PinName p);
 
@@ -105,14 +102,11 @@ uint32_t pinNametoPinNumber(PinName p);
 #define PWM_MAX_DUTY_CYCLE      255
 
 //On-board LED pin number
-#define LED_BUILTIN             18
+#define LED_BUILTIN             13
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                58
-#define LED_RED                 19
-#define LED_ORANGE              57
 
 //On-board user button
-#define USER_BTN                2
+#define USER_BTN                23
 
 
 //SPI definitions
@@ -123,25 +117,28 @@ uint32_t pinNametoPinNumber(PinName p);
 #define BOARD_SPI_DEFAULT_SS    10
 
 //In case SPI CS channel is not used we define a default one
-#define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
+#define BOARD_SPI_OWN_SS    SPI_CHANNELS_NUM
 
-#define SS                      BOARD_SPI_DEFAULT_SS
-#define SS1                     4
-#define SS2                     14
-#define MOSI                    44
-#define MISO                    5
-#define SCLK                    43
-#define SCK                     SCLK
+#define SS    BOARD_SPI_DEFAULT_SS
+#define SS1   4
+#define SS2   7
+#define SS3   8
+#define MOSI  11
+#define MISO  12
+#define SCLK  13
+#define SCK   SCLK
 
 //I2C Definitions
-#define SDA                     66
-#define SCL                     26
+#define SDA   14
+#define SCL   15
 
 //Timer Definitions
-//Do not use timer used by PWM pin. See PinMap_PWM.
-#define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
-#define TIMER_UART_EMULATED     TIM6
+//Do not use timer used by PWM pins when possible. See PinMap_PWM.
+#define TIMER_TONE          TIM6
+#define TIMER_UART_EMULATED TIM7
+
+//Do not use basic timer: OC is required
+#define TIMER_SERVO         TIM2  //TODO: advanced-control timers don't work
 
 //Enable Firmata
 #define STM32 1
@@ -155,7 +152,9 @@ uint32_t pinNametoPinNumber(PinName p);
 
 #ifdef __cplusplus
 extern UARTClass Serial;
-
+extern UARTClass Serial1;
+extern USARTClass Serial2;
+extern USARTClass Serial3;
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

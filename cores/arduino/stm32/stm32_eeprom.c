@@ -69,9 +69,15 @@
   * @{
   */
 // We use the last page of the flash to store data (to prevent code overwrite).
+#ifdef STM32F0xx
+// Flash base address (Bank2, page 256)
+#define FLASH_BASE_ADDRESS  0x0803F800
+#define FLASH_PAGE_NUMBER   127
+#else
 // Use the last 16 page of the second bank (sector 15)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(0x0810C000))
 #define FLASH_DATA_SECTOR   15
+#endif
 
 /**
   * @}
@@ -150,10 +156,37 @@ void set_data_to_flash(void)
 {
   //copy in flash
   FLASH_EraseInitTypeDef EraseInitStruct;
-  uint32_t SectorError = 0;
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
+#ifdef STM32F0xx
+  uint32_t pageError = 0;
+  uint64_t data = 0;
+
+  // ERASING page
+  EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
+  EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
+  EraseInitStruct.NbPages = 1;
+
+  if(HAL_FLASH_Unlock() == HAL_OK) {
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGERR);
+
+    if(HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
+      while(address < address_end) {
+        data = *((uint64_t*)(((uint8_t*)tmpEE + offset)));
+
+        if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, data) == HAL_OK) {
+          address += 8;
+          offset += 8;
+        } else {
+          address = address_end+1;
+        }
+      }
+    }
+    HAL_FLASH_Lock();
+  }
+#else
+  uint32_t SectorError = 0;
   uint32_t data = 0;
 
   // ERASING page
@@ -177,6 +210,7 @@ void set_data_to_flash(void)
     }
   }
   HAL_FLASH_Lock();
+#endif
 }
 
 

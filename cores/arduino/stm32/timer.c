@@ -200,6 +200,24 @@ void timer_enable_clock(TIM_HandleTypeDef *htim)
       timer_handles[13] = htim;
   }
 #endif
+#if defined(TIM15_BASE)
+  if (htim->Instance == TIM15) {
+      __HAL_RCC_TIM15_CLK_ENABLE();
+      timer_handles[14] = htim;
+  }
+#endif
+#if defined(TIM16_BASE)
+  if (htim->Instance == TIM16) {
+      __HAL_RCC_TIM16_CLK_ENABLE();
+      timer_handles[15] = htim;
+  }
+#endif
+#if defined(TIM17_BASE)
+  if (htim->Instance == TIM17) {
+      __HAL_RCC_TIM17_CLK_ENABLE();
+      timer_handles[16] = htim;
+  }
+#endif
 }
 
 /**
@@ -280,6 +298,21 @@ void timer_disable_clock(TIM_HandleTypeDef *htim)
       __HAL_RCC_TIM14_CLK_DISABLE();
   }
 #endif
+#if defined(TIM15_BASE)
+  if (htim->Instance == TIM15) {
+      __HAL_RCC_TIM15_CLK_DISABLE();
+  }
+#endif
+#if defined(TIM16_BASE)
+  if (htim->Instance == TIM16) {
+      __HAL_RCC_TIM16_CLK_DISABLE();
+  }
+#endif
+#if defined(TIM17_BASE)
+  if (htim->Instance == TIM17) {
+      __HAL_RCC_TIM17_CLK_DISABLE();
+  }
+#endif
 }
 
 /**
@@ -356,8 +389,10 @@ uint32_t getTimerClkFreq(uint8_t clkSrc)
 {
   if(clkSrc == 1)
     return HAL_RCC_GetPCLK1Freq();
+#ifdef HAL_RCC_GetPCLK2Freq
   else if(clkSrc == 2)
     return HAL_RCC_GetPCLK2Freq();
+#endif
   else
     return 0;
 }

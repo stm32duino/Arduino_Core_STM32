@@ -115,7 +115,11 @@ extern int _write( UNUSED(int file), char *ptr, int len )
   int iIndex = 0;
 
   for ( iIndex=0 ; iIndex < len ; iIndex++) {
+#ifdef STM32F0xx
+    uart_write(USART2_E, ptr[iIndex]);
+#else
     uart_write(USART3_E, ptr[iIndex]);
+#endif
   }
   return iIndex ;
 }

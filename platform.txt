@@ -1,11 +1,11 @@
 
-# STM32F4 ARM Core and platform.
+# STM32 ARM Core and platform.
 # ------------------------------
 #
 # For more info:
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
-name=STM32F4xx Boards
+name=STM32 Boards
 version=1.0.0
 
 # STM compile variables
@@ -41,6 +41,7 @@ compiler.define=-DARDUINO=
 
 # this can be overriden in boards.txt
 build.extra_flags=
+build.ldscript=ldscript.ld
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags=

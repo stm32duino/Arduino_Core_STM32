@@ -70,7 +70,11 @@
   * @{
   */
 
+#ifdef STM32F0xx
+#define SAMPLINGTIME        ADC_SAMPLETIME_1CYCLE_5
+#else
 #define SAMPLINGTIME        ADC_SAMPLETIME_3CYCLES  /*!< ADC conversions sampling time. */
+#endif
 #define ADC_REGULAR_RANK_1  1
 /**
   * @}
@@ -350,9 +354,12 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   /* ADC Periph clock enable */
   if(hadc->Instance == ADC1) {
     __HAL_RCC_ADC1_CLK_ENABLE();
-  } else if(hadc->Instance == ADC3) {
+  }
+#ifdef ADC3
+  else if(hadc->Instance == ADC3) {
     __HAL_RCC_ADC3_CLK_ENABLE();
   }
+#endif
 
   /* Enable GPIO clock ****************************************/
   port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
@@ -378,9 +385,12 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 
   if(hadc->Instance == ADC1) {
     __HAL_RCC_ADC1_CLK_DISABLE();
-  } else if(hadc->Instance == ADC3) {
+  }
+#ifdef ADC3
+  else if(hadc->Instance == ADC3) {
     __HAL_RCC_ADC3_CLK_DISABLE();
   }
+#endif
 }
 
 /**
@@ -404,13 +414,20 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
-  AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
-  AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
   AdcHandle.State = HAL_ADC_STATE_RESET;
+#ifdef STM32F0xx
+  AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+  AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
+  AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+  AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
+#else
+  AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
+  AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
+#endif
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
 

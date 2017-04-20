@@ -29,7 +29,6 @@ Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.f_cpu=16000000L
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.usb_product="NUCLEO-F429ZI"
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.series=STM32F4xx
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.ldscript=linker_scripts/gcc/STM32F429ZI_FLASH.ld
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 #To enable USB add '-DUSBCON'
@@ -57,6 +56,23 @@ Nucleo_64.pid.0=0x5711
 
 Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
+
+# NUCLEO_F091RC board
+
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC=Nucleo F091RC
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.node=NODE_F091RC
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.upload.maximum_size=262144
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.upload.maximum_data_size=32768
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.mcu=cortex-m0
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.f_cpu=8000000L
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.usb_product="NUCLEO-F091RC"
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.board=NUCLEO_F091RC
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.series=STM32F0xx
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.extra_flags=-DSTM32F091xC {build.usb_flags}
 
 
 Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
@@ -91,7 +107,6 @@ Disco_board.menu.Disco_board.DISCO_F407VG.build.f_cpu=16000000L
 Disco_board.menu.Disco_board.DISCO_F407VG.build.usb_product="DISCO-F407G"
 Disco_board.menu.Disco_board.DISCO_F407VG.build.board=DISCO_F407VG
 Disco_board.menu.Disco_board.DISCO_F407VG.build.series=STM32F4xx
-Disco_board.menu.Disco_board.DISCO_F407VG.build.ldscript=linker_scripts/gcc/STM32F407VGTx_FLASH.ld
 Disco_board.menu.Disco_board.DISCO_F407VG.build.variant=DISCO_F407VG
 Disco_board.menu.Disco_board.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
 
