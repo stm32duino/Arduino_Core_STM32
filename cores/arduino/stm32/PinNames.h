@@ -156,6 +156,20 @@ typedef enum {
 #if defined GPIOH_BASE
     PH0  = (PortH << 4) + 0x00,
     PH1  = (PortH << 4) + 0x01,
+    PH2  = (PortH << 4) + 0x02,
+    PH3  = (PortH << 4) + 0x03,
+    PH4  = (PortH << 4) + 0x04,
+    PH5  = (PortH << 4) + 0x05,
+    PH6  = (PortH << 4) + 0x06,
+    PH7  = (PortH << 4) + 0x07,
+    PH8  = (PortH << 4) + 0x08,
+    PH9  = (PortH << 4) + 0x09,
+    PH10 = (PortH << 4) + 0x0A,
+    PH11 = (PortH << 4) + 0x0B,
+    PH12 = (PortH << 4) + 0x0C,
+    PH13 = (PortH << 4) + 0x0D,
+    PH14 = (PortH << 4) + 0x0E,
+    PH15 = (PortH << 4) + 0x0F,
 #endif
 
     // Not connected
