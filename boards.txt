@@ -1,80 +1,112 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
 menu.upload_method=Upload method
+menu.Nucleo_64_board=Nucleo 64 boards
+menu.Nucleo_144_board=Nucleo 144 boards
+menu.Disco_board=Discovery boards
 
 ################################################################################
+# Nucleo 144 boards
+
+Nucleo_144.name=Nucleo-144 (Select board from submenu)
+
+Nucleo_144.build.vid=0x0483
+Nucleo_144.build.pid=0x5711
+Nucleo_144.vid.0=0x0483
+Nucleo_144.pid.0=0x5711
+
+Nucleo_144.build.core=arduino
+Nucleo_144.build.board=Nucleo_144
+
 # NUCLEO_F429ZI board
 
-NUCLEO_F429ZI.name=Nucleo F429ZI
-
-NUCLEO_F429ZI.vid.0=0x0483
-NUCLEO_F429ZI.pid.0=0x5711
-NUCLEO_F429ZI.node=NODE_F429ZI
-
-NUCLEO_F429ZI.upload.tool=nucleoFlasher
-NUCLEO_F429ZI.upload.protocol=nucleoFlasher
-NUCLEO_F429ZI.upload.maximum_size=2097151
-NUCLEO_F429ZI.upload.maximum_data_size=262144
-
-NUCLEO_F429ZI.build.mcu=cortex-m4
-NUCLEO_F429ZI.build.f_cpu=16000000L
-NUCLEO_F429ZI.build.vid=0x0483
-NUCLEO_F429ZI.build.pid=0x5711
-NUCLEO_F429ZI.build.usb_product="NUCLEO-F429ZI"
-NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
-NUCLEO_F429ZI.build.series=STM32F4xx
-NUCLEO_F429ZI.build.core=arduino
-NUCLEO_F429ZI.build.ldscript=linker_scripts/gcc/STM32F429ZI_FLASH.ld
-NUCLEO_F429ZI.build.variant=STM32F429ZI_Nucleo
-NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI=Nucleo F429ZI
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.node=NODE_F429ZI
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.upload.maximum_size=2097152
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.upload.maximum_data_size=262144
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.mcu=cortex-m4
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.f_cpu=16000000L
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.usb_product="NUCLEO-F429ZI"
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.series=STM32F4xx
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.ldscript=linker_scripts/gcc/STM32F429ZI_FLASH.ld
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 #To enable USB add '-DUSBCON'
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-NUCLEO_F429ZI.build.extra_flags=-DSTM32F429xx {build.usb_flags}
+Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.extra_flags=-DSTM32F429xx {build.usb_flags}
 
-NUCLEO_F429ZI.menu.upload_method.MassStorageMethod=Mass Storage
-NUCLEO_F429ZI.menu.upload_method.MassStorageMethod.upload.protocol=
-NUCLEO_F429ZI.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
 
-NUCLEO_F429ZI.menu.upload_method.STLinkMethod=STLink
-NUCLEO_F429ZI.menu.upload_method.STLinkMethod.upload.protocol=STLink
-NUCLEO_F429ZI.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Nucleo_144.menu.upload_method.MassStorageMethod=Mass Storage
+Nucleo_144.menu.upload_method.MassStorageMethod.upload.protocol=
+Nucleo_144.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+
+Nucleo_144.menu.upload_method.STLinkMethod=STLink
+Nucleo_144.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Nucleo_144.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
 ################################################################################
+# Nucleo 64 boards
+
+Nucleo_64.name=Nucleo-64 (Select board from submenu)
+
+Nucleo_64.build.vid=0x0483
+Nucleo_64.build.pid=0x5711
+Nucleo_64.vid.0=0x0483
+Nucleo_64.pid.0=0x5711
+
+Nucleo_64.build.core=arduino
+Nucleo_64.build.board=Nucleo_64
+
+
+Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
+Nucleo_64.menu.upload_method.MassStorageMethod.upload.protocol=
+Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+
+Nucleo_64.menu.upload_method.STLinkMethod=STLink
+Nucleo_64.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Nucleo_64.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+################################################################################
+# Discovery boards
+
+Disco_board.name=Discovery (Select board from submenu)
+
+Disco_board.build.vid=0x0483
+Disco_board.build.pid=0x5711
+Disco_board.vid.0=0x0483
+Disco_board.pid.0=0x5711
+
+Disco_board.build.core=arduino
+Disco_board.build.board=Disco_board
+
 # DISCO_F407VG board
 
-DISCO_F407VG.name=STM32F407G-DISC1
-
-DISCO_F407VG.vid.0=0x0483
-DISCO_F407VG.pid.0=0x5712B
-DISCO_F407VG.node=DIS_F407VG
-
-DISCO_F407VG.upload.tool=nucleoFlasher
-DISCO_F407VG.upload.protocol=nucleoFlasher
-DISCO_F407VG.upload.maximum_size=1048576
-DISCO_F407VG.upload.maximum_data_size=196608
-
-DISCO_F407VG.build.mcu=cortex-m4
-DISCO_F407VG.build.f_cpu=16000000L
-DISCO_F407VG.build.vid=0x0483
-DISCO_F407VG.build.pid=0x5712B
-DISCO_F407VG.build.usb_product="DISCO-F407G"
-DISCO_F407VG.build.board=DISCO_F407VG
-DISCO_F407VG.build.series=STM32F4xx
-DISCO_F407VG.build.core=arduino
-DISCO_F407VG.build.ldscript=linker_scripts/gcc/STM32F407VGTx_FLASH.ld
-DISCO_F407VG.build.variant=STM32F407VG_Disco
-DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
+Disco_board.menu.Disco_board.DISCO_F407VG=STM32F407G-DISC1
+Disco_board.menu.Disco_board.DISCO_F407VG.node=DIS_F407VG
+Disco_board.menu.Disco_board.DISCO_F407VG.upload.maximum_size=1048576
+Disco_board.menu.Disco_board.DISCO_F407VG.upload.maximum_data_size=196608
+Disco_board.menu.Disco_board.DISCO_F407VG.build.mcu=cortex-m4
+Disco_board.menu.Disco_board.DISCO_F407VG.build.f_cpu=16000000L
+Disco_board.menu.Disco_board.DISCO_F407VG.build.usb_product="DISCO-F407G"
+Disco_board.menu.Disco_board.DISCO_F407VG.build.board=DISCO_F407VG
+Disco_board.menu.Disco_board.DISCO_F407VG.build.series=STM32F4xx
+Disco_board.menu.Disco_board.DISCO_F407VG.build.ldscript=linker_scripts/gcc/STM32F407VGTx_FLASH.ld
+Disco_board.menu.Disco_board.DISCO_F407VG.build.variant=DISCO_F407VG
+Disco_board.menu.Disco_board.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 #To enable USB add '-DUSBCON'
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-DISCO_F407VG.build.extra_flags=-DSTM32F407xx {build.usb_flags}
+Disco_board.menu.Disco_board.DISCO_F407VG.build.extra_flags=-DSTM32F407xx {build.usb_flags}
 
-DISCO_F407VG.menu.upload_method.MassStorageMethod=Mass Storage
-DISCO_F407VG.menu.upload_method.MassStorageMethod.upload.protocol=
-DISCO_F407VG.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
 
-DISCO_F407VG.menu.upload_method.STLinkMethod=STLink
-DISCO_F407VG.menu.upload_method.STLinkMethod.upload.protocol=STLink
-DISCO_F407VG.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Disco_board.menu.upload_method.MassStorageMethod=Mass Storage
+Disco_board.menu.upload_method.MassStorageMethod.upload.protocol=
+Disco_board.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+
+Disco_board.menu.upload_method.STLinkMethod=STLink
+Disco_board.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Disco_board.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
 
 ################################################################################
