@@ -78,7 +78,8 @@ recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -mcpu={b
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group "{build.path}/core/syscalls_stm32.c.o" {object_files} -Wl,--whole-archive {compiler.arm.cmsis.ldflags} -Wl,--no-whole-archive "{build.path}/{archive_file}" -Wl,--end-group -lm -lgcc --specs=nano.specs
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files}  {compiler.arm.cmsis.ldflags} -Wl,--whole-archive "{build.path}/{archive_file}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc --specs=nano.specs
+
 
 ## Create output (.bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
