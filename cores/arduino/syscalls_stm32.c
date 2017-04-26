@@ -112,16 +112,9 @@ extern int _read(UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) )
 
 extern int _write( UNUSED(int file), char *ptr, int len )
 {
-  int iIndex = 0;
+  uart_debug_write(ptr, len);
 
-  for ( iIndex=0 ; iIndex < len ; iIndex++) {
-#if defined (STM32F0xx) || defined (STM32F3xx)
-    uart_write(USART2_E, ptr[iIndex]);
-#else
-    uart_write(USART3_E, ptr[iIndex]);
-#endif
-  }
-  return iIndex ;
+  return len ;
 }
 
 extern void _exit( int status )

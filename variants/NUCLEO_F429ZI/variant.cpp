@@ -117,17 +117,24 @@ const PinName digital_arduino[] = {
 /*
  * UART objects
  */
-
-UARTClass Serial(USART3_E);    //available on PD8/PD9
-UARTClass Serial1(USART6_E);   //available on PG14/PG9
-USARTClass Serial2(USART3_E);  //available on PD8/PD9
+HardwareSerial  Serial(PD9, PD8); //available on PD8/PD9 - Connected to ST-Link
+HardwareSerial  Serial1(PG9, PG14);   //available on PG14/PG9
+HardwareSerial  Serial2(PD6, PD5); //available on PD5/PD6
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
 
+void serialEvent1() __attribute__((weak));
+void serialEvent1() { }
+
+void serialEvent2() __attribute__((weak));
+void serialEvent2() { }
+
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+  if (Serial1.available()) serialEvent1();
+  if (Serial2.available()) serialEvent2();
 }
 
 // ----------------------------------------------------------------------------

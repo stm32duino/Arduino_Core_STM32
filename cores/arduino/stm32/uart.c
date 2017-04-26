@@ -46,11 +46,8 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#if !defined (STM32F0xx) && !defined (STM32F3xx)
-#include "stm32_def.h"
 #include "hw_config.h"
 #include "uart.h"
-#include "uart_emul.h"
 #include "digital_io.h"
 #include "interrupt.h"
 #include "variant.h"
@@ -67,9 +64,6 @@
   * @{
   */
 
-/// @brief number of received characters
-#define EMUL_TIMER_PERIOD 100
-
 /**
   * @}
   */
@@ -78,43 +72,6 @@
   * @{
   */
 
-/// @brief defines the global attributes of the UART
-typedef struct {
-  USART_TypeDef * usart_typedef;
-  IRQn_Type       irqtype;
-  GPIO_TypeDef  *tx_port;
-  GPIO_InitTypeDef tx_pin;
-  GPIO_TypeDef  *rx_port;
-  GPIO_InitTypeDef rx_pin;
-  void (*uart_clock_init)(void);
-  void (*uart_force_reset)(void);
-  void (*uart_release_reset)(void);
-  void (*gpio_tx_clock_init)(void);
-  void (*gpio_rx_clock_init)(void);
-  uint8_t rxpData[UART_RCV_SIZE];
-  volatile uint32_t data_available;
-  volatile uint8_t begin;
-  volatile uint8_t end;
-  uart_option_e uart_option;
-}uart_conf_t;
-
-typedef struct {
-  UART_Emul_TypeDef uartEmul_typedef;
-  GPIO_TypeDef  *tx_port;
-  GPIO_InitTypeDef tx_pin;
-  GPIO_TypeDef  *rx_port;
-  GPIO_InitTypeDef rx_pin;
-  void (*gpio_tx_clock_init)(void);
-  void (*gpio_rx_clock_init)(void);
-  void (*uart_rx_irqHandle)(void);
-  uint8_t rxpData[UART_RCV_SIZE];
-  volatile uint32_t data_available;
-  volatile uint8_t begin;
-  volatile uint8_t end;
-  uart_option_e uart_option;
-  stimer_t *_timer;
-}uart_emul_conf_t;
-
 /**
   * @}
   */
@@ -122,16 +79,6 @@ typedef struct {
 /** @addtogroup STM32F4xx_System_Private_Macros
   * @{
   */
-static void usart3_clock_enable(void)   { __USART3_CLK_ENABLE(); }
-static void usart3_force_reset(void)    { __USART3_FORCE_RESET(); }
-static void usart3_release_reset(void)  { __USART3_RELEASE_RESET(); }
-static void usart6_clock_enable(void)   { __USART6_CLK_ENABLE(); }
-static void usart6_force_reset(void)    { __USART6_FORCE_RESET(); }
-static void usart6_release_reset(void)  { __USART6_RELEASE_RESET(); }
-static void gpiod_clock_enable(void)    { __GPIOD_CLK_ENABLE(); }
-static void gpioe_clock_enable(void)    { __GPIOE_CLK_ENABLE(); }
-static void gpiof_clock_enable(void)    { __GPIOF_CLK_ENABLE(); }
-static void gpiog_clock_enable(void)    { __GPIOG_CLK_ENABLE(); }
 
 /**
   * @}
@@ -141,77 +88,14 @@ static void gpiog_clock_enable(void)    { __GPIOG_CLK_ENABLE(); }
   * @{
   */
 /// @brief uart caracteristics
-static UART_HandleTypeDef g_UartHandle[NB_UART_MANAGED];
+#define UART_NUM (8)
+static UART_HandleTypeDef *uart_handlers[UART_NUM];
+static void (*rx_callback[UART_NUM])(serial_t*);
+static serial_t *rx_callback_obj[UART_NUM];
+static int (*tx_callback[UART_NUM])(serial_t*);
+static serial_t *tx_callback_obj[UART_NUM];
 
-static uart_conf_t g_uart_config[NB_UART_MANAGED] = {
-  //USART3 (PD8/PD9)
-  {
-    //UART ID and IRQ
-    .usart_typedef = USART3, .irqtype = USART3_IRQn,
-    //tx pin configuration
-    .tx_port = GPIOD, .tx_pin = {GPIO_PIN_8, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_HIGH, GPIO_AF7_USART3},
-    //rx pin configuration
-    .rx_port = GPIOD, .rx_pin = {GPIO_PIN_9, GPIO_MODE_AF_PP, GPIO_NOPULL, GPIO_SPEED_FREQ_HIGH, GPIO_AF7_USART3},
-    //uart clock init
-    .uart_clock_init = usart3_clock_enable,
-    //uart force reset
-    .uart_force_reset = usart3_force_reset,
-    //uart release reset
-    .uart_release_reset = usart3_release_reset,
-    //TX gpio clock init
-    .gpio_tx_clock_init = gpiod_clock_enable,
-    //RX gpio clock init
-    .gpio_rx_clock_init = gpiod_clock_enable,
-    .data_available = 0,
-    .begin = 0,
-    .end = 0,
-    .uart_option = NATIVE_UART_E
-  },
-  //USART6 (PG14/G9)
-  {
-    .usart_typedef = USART6, .irqtype = USART6_IRQn,
-    //tx pin configuration
-    .tx_port = GPIOG, .tx_pin = {GPIO_PIN_14, GPIO_MODE_AF_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH, GPIO_AF8_USART6},
-    //rx pin configuration
-    .rx_port = GPIOG, .rx_pin = {GPIO_PIN_9, GPIO_MODE_AF_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH, GPIO_AF8_USART6},
-    //uart clock init
-    .uart_clock_init = usart6_clock_enable,
-    //uart force reset
-    .uart_force_reset = usart6_force_reset,
-    //uart release reset
-    .uart_release_reset = usart6_release_reset,
-    //TX gpio clock init
-    .gpio_tx_clock_init = gpiog_clock_enable,
-    //RX gpio clock init
-    .gpio_rx_clock_init = gpiog_clock_enable,
-    .data_available = 0,
-    .begin = 0,
-    .end = 0,
-    .uart_option = NATIVE_UART_E
-  }
-};
-
-static UART_Emul_HandleTypeDef g_UartEmulHandle[NB_UART_EMUL_MANAGED];
-
-static uart_emul_conf_t g_uartEmul_config[NB_UART_EMUL_MANAGED] = {
-  {
-    .uartEmul_typedef = {UART1_EMUL_E},
-    .tx_port = GPIOE, .tx_pin = {GPIO_PIN_13, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH},
-    .rx_port = GPIOF, .rx_pin = {GPIO_PIN_15, GPIO_MODE_IT_FALLING, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH},
-    .gpio_tx_clock_init = gpioe_clock_enable,
-    .gpio_rx_clock_init = gpiof_clock_enable,
-    .uart_rx_irqHandle = NULL,
-    .data_available = 0,
-    .begin = 0,
-    .end = 0,
-    .uart_option = EMULATED_UART_E,
-    ._timer = NULL
-  }
-};
-
-//@brief just a simple buffer for the uart reception
-uint8_t g_rx_data[1];
-
+static uint8_t rx_buffer[1] = {0};
 /**
   * @}
   */
@@ -219,8 +103,6 @@ uint8_t g_rx_data[1];
 /** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
   * @{
   */
-static void uart_emul_timer_irq(stimer_t *obj) {g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();}
-uart_id_e get_uart_id_from_handle(UART_HandleTypeDef *huart);
 
 /**
   * @}
@@ -231,230 +113,373 @@ uart_id_e get_uart_id_from_handle(UART_HandleTypeDef *huart);
   */
 
 /**
-  * @brief  This function returns the corresponding uart id function of the
-  *         handle
-  * @param  huart : one of the defined serial interface
-  * @retval the UART id
-  */
-uart_id_e get_uart_id_from_handle(UART_HandleTypeDef *huart)
-{
-  uart_id_e uart_id = NB_UART_MANAGED;
-  int i;
-  for(i = 0; i<NB_UART_MANAGED; i++) {
-    if(&g_UartHandle[i] == huart) {
-      uart_id = i;
-      break;
-    }
-  }
-  return uart_id;
-}
-
-
-
-/**
-  * @brief  UART MSP Initialization - perform IOs and clock init
-  * @param  huart : one of the defined serial interface
+  * @brief  Function called to initialize the uart interface
+  * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void HAL_UART_MspInit(UART_HandleTypeDef *huart)
+void uart_init(serial_t *obj)
 {
-  uart_id_e uart_id;
-
-  uart_id = get_uart_id_from_handle(huart);
-  if(NB_UART_MANAGED == uart_id) {
+  if(obj == NULL) {
     return;
   }
 
-  // Enable GPIO TX/RX clock
-  g_uart_config[uart_id].gpio_tx_clock_init();
-  g_uart_config[uart_id].gpio_rx_clock_init();
+  UART_HandleTypeDef *huart = &(obj->handle);
+  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_TypeDef *port;
+
+  // Determine the UART to use (UART_1, UART_2, ...)
+  uint32_t uart_tx = (uint32_t)pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
+  uint32_t uart_rx = (uint32_t)pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
+
+  // Get the peripheral name (UART_1, UART_2, ...) from the pin and assign it to the object
+  obj->uart = (USART_TypeDef *)pinmap_merge(uart_tx, uart_rx);
+
+  if(obj->uart == (USART_TypeDef *)NC) {
+    printf("ERROR: UART pins mismatch\n");
+    return;
+  }
 
   // Enable USART clock
-  g_uart_config[uart_id].uart_clock_init();
-
-
-  //##-2- Configure peripheral GPIO ##########################################
-
-  // UART TX GPIO pin configuration
-  HAL_GPIO_Init(g_uart_config[uart_id].tx_port, &g_uart_config[uart_id].tx_pin);
-
-  // UART RX GPIO pin configuration
-  HAL_GPIO_Init(g_uart_config[uart_id].rx_port, &g_uart_config[uart_id].rx_pin);
-
-  HAL_NVIC_SetPriority(g_uart_config[uart_id].irqtype, 0, 1);
-  HAL_NVIC_EnableIRQ(g_uart_config[uart_id].irqtype);
-}
-
-/**
-  * @brief  UART MSP DeInitialization - perform IOs and clock deinit
-  * @param  huart : one of the defined serial interface
-  * @retval None
-  */
-void HAL_UART_MspDeInit(UART_HandleTypeDef *huart)
-{
-  uart_id_e uart_id;
-
-  uart_id = get_uart_id_from_handle(huart);
-  if(NB_UART_MANAGED == uart_id) {
-    return;
+  if(obj->uart == USART1) {
+    __HAL_RCC_USART1_FORCE_RESET();
+    __HAL_RCC_USART1_RELEASE_RESET();
+    __HAL_RCC_USART1_CLK_ENABLE();
+    obj->index = 0;
+    obj->irq = USART1_IRQn;
+  } else if(obj->uart == USART2) {
+    __HAL_RCC_USART2_FORCE_RESET();
+    __HAL_RCC_USART2_RELEASE_RESET();
+    __HAL_RCC_USART2_CLK_ENABLE();
+    obj->index = 1;
+    obj->irq = USART2_IRQn;
   }
-
-  g_uart_config[uart_id].uart_force_reset();
-  g_uart_config[uart_id].uart_release_reset();
-
-  HAL_GPIO_DeInit(g_uart_config[uart_id].tx_port, g_uart_config[uart_id].tx_pin.Pin);
-  HAL_GPIO_DeInit(g_uart_config[uart_id].rx_port, g_uart_config[uart_id].rx_pin.Pin);
-}
-
-/**
-  * @brief  Function called to initialize the uart interface
-  * @param  serial_id : one of the defined serial interface
-  * @param  baudRate : baudrate to apply to the uart
-  * @retval None
-  */
-void uart_init(uart_id_e uart_id, uint32_t baudRate)
-{
-  if(uart_id>=NB_UART_MANAGED) {
-    return;
+#if defined(USART3_BASE)
+  else if(obj->uart == USART3) {
+    __HAL_RCC_USART3_FORCE_RESET();
+    __HAL_RCC_USART3_RELEASE_RESET();
+    __HAL_RCC_USART3_CLK_ENABLE();
+    obj->index = 2;
+    obj->irq = USART3_IRQn;
   }
-
-  g_UartHandle[uart_id].Instance        = g_uart_config[uart_id].usart_typedef;
-  g_UartHandle[uart_id].Init.BaudRate   = baudRate;
-  g_UartHandle[uart_id].Init.StopBits   = UART_STOPBITS_1;
-
-  g_UartHandle[uart_id].Init.WordLength = UART_WORDLENGTH_8B;
-  g_UartHandle[uart_id].Init.Parity     = UART_PARITY_NONE;
-  g_UartHandle[uart_id].Init.Mode       = UART_MODE_TX_RX;
-  g_UartHandle[uart_id].Init.HwFlowCtl  = UART_HWCONTROL_NONE;
-
-  // g_UartHandle[uart_id].Init.OverSampling = UART_OVERSAMPLING_16;
-  // g_UartHandle[uart_id].Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
-
-  if(HAL_UART_Init(&g_UartHandle[uart_id])!= HAL_OK) {
-    return;
+#endif
+#if defined(UART4_BASE)
+  else if(obj->uart == UART4) {
+    __HAL_RCC_UART4_FORCE_RESET();
+    __HAL_RCC_UART4_RELEASE_RESET();
+    __HAL_RCC_UART4_CLK_ENABLE();
+    obj->index = 3;
+    obj->irq = UART4_IRQn;
   }
-  if(HAL_UART_Receive_IT(&g_UartHandle[uart_id], g_rx_data, 1)!= HAL_OK) {
+#endif
+#if defined(UART5_BASE)
+  else if(obj->uart == UART5) {
+    __HAL_RCC_UART5_FORCE_RESET();
+    __HAL_RCC_UART5_RELEASE_RESET();
+    __HAL_RCC_UART5_CLK_ENABLE();
+    obj->index = 4;
+    obj->irq = UART5_IRQn;
+  }
+#endif
+#if defined(USART6_BASE)
+  else if(obj->uart == USART6) {
+    __HAL_RCC_USART6_FORCE_RESET();
+    __HAL_RCC_USART6_RELEASE_RESET();
+    __HAL_RCC_USART6_CLK_ENABLE();
+    obj->index = 5;
+    obj->irq = USART6_IRQn;
+  }
+#endif
+#if defined(UART7_BASE)
+  else if(obj->uart == UART7) {
+    __HAL_RCC_UART7_FORCE_RESET();
+    __HAL_RCC_UART7_RELEASE_RESET();
+    __HAL_RCC_UART7_CLK_ENABLE();
+    obj->index = 6;
+    obj->irq = UART7_IRQn;
+  }
+#endif
+#if defined(UART8_BASE)
+  else if(obj->uart == UART8) {
+    __HAL_RCC_UART8_FORCE_RESET();
+    __HAL_RCC_UART8_RELEASE_RESET();
+    __HAL_RCC_UART8_CLK_ENABLE();
+    obj->index = 7;
+    obj->irq = UART8_IRQn;
+  }
+#endif
+
+  //Configure GPIOs
+  //RX
+  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
+  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+  //TX
+  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_tx));
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
+  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+  //Configure uart
+  uart_handlers[obj->index] = huart;
+  huart->Instance          = (USART_TypeDef *)(obj->uart);
+  huart->Init.BaudRate     = obj->baudrate;
+  huart->Init.WordLength   = obj->databits;
+  huart->Init.StopBits     = obj->stopbits;
+  huart->Init.Parity       = obj->parity;
+  huart->Init.Mode         = UART_MODE_TX_RX;
+  huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+  huart->Init.OverSampling = UART_OVERSAMPLING_16;
+  // huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+
+  if(HAL_UART_Init(huart) != HAL_OK) {
     return;
   }
 }
 
 /**
   * @brief  Function called to deinitialize the uart interface
-  * @param  serial_id : one of the defined serial interface
+  * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void uart_deinit(uart_id_e uart_id)
+void uart_deinit(serial_t *obj)
 {
-  HAL_UART_DeInit(&g_UartHandle[uart_id]);
-}
-
-/**
-  * @brief  Function returns the amount of data available
-  * @param  serial_id : one of the defined serial interface
-  * @retval The number of serial data available - int
-  */
-int uart_available(uart_id_e uart_id)
-{
-  return g_uart_config[uart_id].data_available;
-}
-
-/**
-  * @brief  Return the first element of the rx buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval The first byte of incoming serial data available (or -1 if no data is available) - int
-  */
-int8_t uart_read(uart_id_e uart_id)
-{
-  int8_t data = -1;
-
-  if(g_uart_config[uart_id].data_available > 0) {
-
-    data = g_uart_config[uart_id].rxpData[g_uart_config[uart_id].begin++];
-
-    if(g_uart_config[uart_id].begin >= UART_RCV_SIZE) {
-      g_uart_config[uart_id].begin = 0;
-    }
-
-    g_uart_config[uart_id].data_available--;
+  // Reset UART and disable clock
+  switch (obj->index) {
+    case 0:
+        __USART1_FORCE_RESET();
+        __USART1_RELEASE_RESET();
+        __USART1_CLK_DISABLE();
+        break;
+    case 1:
+        __USART2_FORCE_RESET();
+        __USART2_RELEASE_RESET();
+        __USART2_CLK_DISABLE();
+        break;
+#if defined(USART3_BASE)
+    case 2:
+        __USART3_FORCE_RESET();
+        __USART3_RELEASE_RESET();
+        __USART3_CLK_DISABLE();
+        break;
+#endif
+#if defined(UART4_BASE)
+    case 3:
+        __UART4_FORCE_RESET();
+        __UART4_RELEASE_RESET();
+        __UART4_CLK_DISABLE();
+        break;
+#endif
+#if defined(UART5_BASE)
+    case 4:
+        __UART5_FORCE_RESET();
+        __UART5_RELEASE_RESET();
+        __UART5_CLK_DISABLE();
+        break;
+#endif
+#if defined(USART6_BASE)
+    case 5:
+        __USART6_FORCE_RESET();
+        __USART6_RELEASE_RESET();
+        __USART6_CLK_DISABLE();
+        break;
+#endif
+#if defined(UART7_BASE)
+    case 6:
+        __UART7_FORCE_RESET();
+        __UART7_RELEASE_RESET();
+        __UART7_CLK_DISABLE();
+        break;
+#endif
+#if defined(UART8_BASE)
+    case 7:
+        __UART8_FORCE_RESET();
+        __UART8_RELEASE_RESET();
+        __UART8_CLK_DISABLE();
+        break;
+#endif
   }
 
-  return data;
-}
-
-/**
-  * @brief  Return the first element of the rx buffer without removing it from
-  *         the buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval The first byte of incoming serial data available (or -1 if no data is available) - int
-  */
-int8_t uart_peek(uart_id_e uart_id)
-{
-  int8_t data = -1;
-
-  if(g_uart_config[uart_id].data_available > 0) {
-    data = g_uart_config[uart_id].rxpData[g_uart_config[uart_id].begin];
-  }
-
-  return data;
-}
-
-/**
-  * @brief  Flush the content of the RX buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval None
-  */
-void uart_flush(uart_id_e uart_id)
-{
-  g_uart_config[uart_id].data_available = 0;
-  g_uart_config[uart_id].end = 0;
-  g_uart_config[uart_id].begin = 0;
+  HAL_UART_DeInit(uart_handlers[obj->index]);
 }
 
 /**
   * @brief  write the data on the uart
-  * @param  serial_id : one of the defined serial interface
+  * @param  obj : pointer to serial_t structure
   * @param  data : byte to write
+  * @param  size : number of data to write
   * @retval The number of bytes written
   */
-size_t uart_write(uart_id_e uart_id, uint8_t data)
+size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 {
-  HAL_UART_Transmit(&g_UartHandle[uart_id], &data, 1, 5000);
-  return 1;
+  if(HAL_UART_Transmit(uart_handlers[obj->index], &data, size, TX_TIMEOUT) == HAL_OK) {
+    return size;
+  } else {
+    return 0;
+  }
 }
 
 /**
-  * @brief  error callback from UART
-  * @param  UartHandle pointer on the uart reference
-  * @retval None
+  * @brief  write the data on the uart: used by printf for debug only (syscalls)
+  * @param  obj : pointer to serial_t structure
+  * @param  data : bytes to write
+  * @param  size : number of data to write
+  * @retval The number of bytes written
   */
-void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
-  uart_id_e uart_id = get_uart_id_from_handle(huart);
-  if(NB_UART_MANAGED == uart_id) {
-    return;
+  uint8_t index = 0;
+  for(index = 0; index < UART_NUM; index++) {
+    if(DEBUG_UART == uart_handlers[index]->Instance) {
+      break;
+    }
   }
 
-  uart_deinit(uart_id);
-  uart_init(uart_id, g_UartHandle[uart_id].Init.BaudRate);
+  if(index >= UART_NUM) {
+    return 0;
+  }
+
+  if(HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) == HAL_OK) {
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+/**
+ * Attempts to determine if the serial peripheral is already in use for RX
+ *
+ * @param obj The serial object
+ * @return Non-zero if the RX transaction is ongoing, 0 otherwise
+ */
+uint8_t serial_rx_active(serial_t *obj)
+{
+  if(obj == NULL) {
+    return 1;
+  }
+
+  UART_HandleTypeDef *huart = uart_handlers[obj->index];
+  return ((HAL_UART_GetState(huart) == HAL_UART_STATE_BUSY_RX) ? 1 : 0);
+}
+
+/**
+ * Attempts to determine if the serial peripheral is already in use for TX
+ *
+ * @param obj The serial object
+ * @return Non-zero if the TX transaction is ongoing, 0 otherwise
+ */
+uint8_t serial_tx_active(serial_t *obj)
+{
+  if(obj == NULL) {
+    return 1;
+  }
+
+  UART_HandleTypeDef *huart = uart_handlers[obj->index];
+  return ((HAL_UART_GetState(huart) == HAL_UART_STATE_BUSY_TX) ? 1 : 0);
 }
 
 /**
   * @brief  Read receive byte from uart
-  * @param  UartHandle pointer on the uart reference
-  * @param  byte byte to read
-  * @retval None
+  * @param  obj : pointer to serial_t structure
+  * @retval last character received
   */
-static void uart_getc(uart_id_e uart_id, uint8_t byte)
+int uart_getc(serial_t *obj)
 {
-  if((NB_UART_MANAGED == uart_id) ||
-      (g_uart_config[uart_id].data_available >= UART_RCV_SIZE)) {
+  if(obj == NULL) {
+    return -1;
+  }
+
+  if (serial_rx_active(obj)) {
+      return -1; // transaction ongoing
+  }
+
+  // Restart RX irq
+  UART_HandleTypeDef *huart = uart_handlers[obj->index];
+  HAL_UART_Receive_IT(huart, rx_buffer, 1);
+
+  return rx_buffer[0];
+}
+
+/**
+ * Begin asynchronous RX transfer (enable interrupt for data collecting)
+ *
+ * @param obj : pointer to serial_t structure
+ * @param callback : function call at the end of reception
+ * @retval none
+ */
+void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t*))
+{
+  if(obj == NULL) {
     return;
   }
-  g_uart_config[uart_id].rxpData[g_uart_config[uart_id].end++] = byte;
-  if(g_uart_config[uart_id].end >= UART_RCV_SIZE) {
-    g_uart_config[uart_id].end = 0;
+
+  // Exit if a reception is already on-going
+  if (serial_rx_active(obj)) {
+    return;
   }
-  g_uart_config[uart_id].data_available++;
+
+  rx_callback[obj->index] = callback;
+  rx_callback_obj[obj->index] = obj;
+
+  HAL_NVIC_SetPriority(obj->irq, 0, 1);
+  HAL_NVIC_EnableIRQ(obj->irq);
+
+  if(HAL_UART_Receive_IT(uart_handlers[obj->index], rx_buffer, 1) != HAL_OK) {
+    return;
+  }
+}
+
+/**
+ * Begin asynchronous TX transfer.
+ *
+ * @param obj : pointer to serial_t structure
+ * @param callback : function call at the end of transmission
+ * @retval none
+ */
+void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t*))
+{
+  if(obj == NULL) {
+    return;
+  }
+
+  tx_callback[obj->index] = callback;
+  tx_callback_obj[obj->index] = obj;
+
+  // Enable interrupt
+  HAL_NVIC_SetPriority(obj->irq, 0, 2);
+  HAL_NVIC_EnableIRQ(obj->irq);
+
+  // the following function will enable UART_IT_TXE and error interrupts
+  if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
+    return;
+  }
+}
+
+/**
+  * @brief  Return index of the serial handler
+  * @param  UartHandle pointer on the uart reference
+  * @retval index
+  */
+int uart_index(UART_HandleTypeDef *huart)
+{
+  if(huart == NULL) {
+    return -1;
+  }
+
+  for(uint8_t i = 0; i < UART_NUM; i++) {
+    if(huart == uart_handlers[i]) {
+      return i;
+    }
+  }
+
+  return -1;
 }
 
 /**
@@ -464,20 +489,51 @@ static void uart_getc(uart_id_e uart_id, uint8_t byte)
   */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uart_id_e uart_id = get_uart_id_from_handle(huart);
+  uint8_t index = uart_index(huart);
 
-  HAL_UART_Receive_IT(&g_UartHandle[uart_id], g_rx_data, 1);
-
-  uart_getc(uart_id, g_rx_data[0]);
+  if(index > 0) {
+    rx_callback[index](rx_callback_obj[index]);
+  }
 }
 
 /**
-  * @brief UART waking up
+  * @brief  Tx Transfer completed callback
   * @param  UartHandle pointer on the uart reference
   * @retval None
   */
-void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+  uint8_t index = uart_index(huart);
+  serial_t *obj = tx_callback_obj[index];
+
+  if(index > 0) {
+    if(tx_callback[index](obj) != -1) {
+      if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
+        return;
+      }
+    }
+  }
+}
+
+/**
+  * @brief  error callback from UART
+  * @param  UartHandle pointer on the uart reference
+  * @retval None
+  */
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
+  volatile uint32_t tmpval;
+
+  if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
+    tmpval = huart->Instance->DR; // Clear PE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
+    tmpval = huart->Instance->DR; // Clear FE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
+    tmpval = huart->Instance->DR; // Clear NE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
+    tmpval = huart->Instance->DR; // Clear ORE flag
+  }
+
+  UNUSED(tmpval);
 }
 
 /**
@@ -485,10 +541,10 @@ void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
   * @param  None
   * @retval None
   */
-void USART3_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-  HAL_NVIC_ClearPendingIRQ(USART3_IRQn);
-  HAL_UART_IRQHandler(&g_UartHandle[USART3_E]);
+  HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[0]);
 }
 
 /**
@@ -496,259 +552,89 @@ void USART3_IRQHandler(void)
   * @param  None
   * @retval None
   */
+void USART2_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[1]);
+}
+
+/**
+  * @brief  USART 3 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(USART3_BASE)
+void USART3_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(USART3_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[2]);
+}
+#endif
+
+/**
+  * @brief  UART 4 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(UART4_BASE)
+void UART4_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(UART4_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[3]);
+}
+#endif
+
+/**
+  * @brief  USART 3 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(UART5_BASE)
+void UART5_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(UART5_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[4]);
+}
+#endif
+
+/**
+  * @brief  USART 6 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(USART6_BASE)
 void USART6_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART6_IRQn);
-  HAL_UART_IRQHandler(&g_UartHandle[USART6_E]);
+  HAL_UART_IRQHandler(uart_handlers[5]);
 }
+#endif
 
-
-/******************************* EMULATED UART ********************************/
 /**
-  * @brief  Initializes the UART Emulation MSP.
-  * @param  huart: UART Emulation Handle
+  * @brief  UART 7 IRQ handler
+  * @param  None
   * @retval None
   */
-void HAL_UART_Emul_MspInit(UART_Emul_HandleTypeDef *huart)
+#if defined(UART7_BASE)
+void UART7_IRQHandler(void)
 {
-  // Enable GPIO TX/RX clock
-  __UART_EMUL_CLK_ENABLE();
-
-  // Enable GPIO TX/RX clock
-  g_uartEmul_config[UART1_EMUL_E].gpio_tx_clock_init();
-  g_uartEmul_config[UART1_EMUL_E].gpio_rx_clock_init();
-
-  // UART TX GPIO pin configuration
-  HAL_GPIO_Init(g_uartEmul_config[UART1_EMUL_E].tx_port, &g_uartEmul_config[UART1_EMUL_E].tx_pin);
-
-  // UART RX GPIO pin configuration
-  HAL_GPIO_Init(g_uartEmul_config[UART1_EMUL_E].rx_port, &g_uartEmul_config[UART1_EMUL_E].rx_pin);
-
-  stm32_interrupt_enable(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin,
-                          UART_EMUL_EXTI_RX, g_uartEmul_config[UART1_EMUL_E].rx_pin.Mode);
-  /*HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);*/
+  HAL_NVIC_ClearPendingIRQ(UART7_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[6]);
 }
+#endif
 
 /**
- * @brief  UART Emulation MSP DeInit.
- * @param  huart: UART Emulation handle
- * @retval None
- */
-void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
-{
-  __UART_EMUL_CLK_DISABLE();
-
-  HAL_GPIO_DeInit(g_uartEmul_config[UART1_EMUL_E].tx_port, g_uartEmul_config[UART1_EMUL_E].tx_pin.Pin);
-  HAL_GPIO_DeInit(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin);
-
-  stm32_interrupt_disable(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin);
-}
-
-/**
-  * @brief  Function called to initialize the emulated uart interface
-  * @param  serial_id : one of the defined serial interface
-  * @param  baudRate : baudrate to apply to the uart : 4800 or 9600 //TODO bug if baud rate > 9600
+  * @brief  UART 8 IRQ handler
+  * @param  None
   * @retval None
   */
-void uart_emul_init(uart_emul_id_e uart_id, uint32_t baudRate)
+#if defined(UART8_BASE)
+void UART8_IRQHandler(void)
 {
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return;
-  }
-
-  g_UartEmulHandle[uart_id].Init.Mode         = UART_EMUL_MODE_TX_RX;
-  g_UartEmulHandle[uart_id].Init.BaudRate     = baudRate;
-  g_UartEmulHandle[uart_id].Init.WordLength   = UART_EMUL_WORDLENGTH_8B;
-  g_UartEmulHandle[uart_id].Init.StopBits     = UART_EMUL_STOPBITS_1;
-  g_UartEmulHandle[uart_id].Init.Parity       = UART_EMUL_PARITY_NONE;
-  g_UartEmulHandle[uart_id].Init.RxPinNumber  = g_uartEmul_config[uart_id].rx_pin.Pin;
-  g_UartEmulHandle[uart_id].Init.TxPinNumber  = g_uartEmul_config[uart_id].tx_pin.Pin;
-  g_UartEmulHandle[uart_id].RxPortName        = g_uartEmul_config[uart_id].rx_port;
-  g_UartEmulHandle[uart_id].TxPortName        = g_uartEmul_config[uart_id].tx_port;
-
-  if(HAL_UART_Emul_Init(&g_UartEmulHandle[uart_id])!= HAL_OK) {
-    return;
-  }
-
-  if (HAL_UART_Emul_Receive_DMA(&g_UartEmulHandle[uart_id], g_rx_data, 1) != HAL_OK) {
-    return;
-  }
-
-  uart_emul_flush(uart_id);
-
-  HAL_GPIO_WritePin(g_uartEmul_config[uart_id].tx_port, g_uartEmul_config[uart_id].tx_pin.Pin, GPIO_PIN_SET);
+  HAL_NVIC_ClearPendingIRQ(UART8_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[7]);
 }
-
-/**
-  * @brief  Function called to deinitialize the emulated uart interface
-  * @param  serial_id : one of the defined serial interface
-  * @retval None
-  */
-void uart_emul_deinit(uart_emul_id_e uart_id)
-{
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return;
-  }
-
-  HAL_UART_Emul_DeInit(&g_UartEmulHandle[uart_id]);
-}
-
-/**
-  * @brief  Function returns the amount of data available
-  * @param  serial_id : one of the defined serial interface
-  * @retval The number of serial data available - int
-  */
-int uart_emul_available(uart_emul_id_e uart_id)
-{
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return 0;
-  }
-
-  return g_uartEmul_config[uart_id].data_available;
-}
-
-/**
-  * @brief  Return the first element of the rx buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval The first byte of incoming serial data available (or -1 if no data is available) - int
-  */
-int8_t uart_emul_read(uart_emul_id_e uart_id)
-{
-  int8_t data = -1;
-
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return data;
-  }
-
-  if(g_uartEmul_config[uart_id].data_available > 0) {
-
-    data = g_uartEmul_config[uart_id].rxpData[g_uartEmul_config[uart_id].begin++];
-
-    if(g_uartEmul_config[uart_id].begin >= UART_RCV_SIZE) {
-      g_uartEmul_config[uart_id].begin = 0;
-    }
-
-    g_uartEmul_config[uart_id].data_available--;
-  }
-
-  return data;
-}
-
-/**
-  * @brief  write the data on the uart
-  * @param  serial_id : one of the defined serial interface
-  * @param  data : byte to write
-  * @retval The number of bytes written
-  */
-size_t uart_emul_write(uart_emul_id_e uart_id, uint8_t data)
-{
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return 0;
-  }
-
-  while(HAL_UART_Emul_Transmit_DMA(&g_UartEmulHandle[uart_id], &data, 1) != HAL_OK);
-  return 1;
-}
-
-/**
-  * @brief  Return the first element of the rx buffer without removing it from
-  *         the buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval The first byte of incoming serial data available (or -1 if no data is available) - int
-  */
-int8_t uart_emul_peek(uart_emul_id_e uart_id)
-{
-  int8_t data = -1;
-
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return data;
-  }
-
-  if(g_uartEmul_config[uart_id].data_available > 0) {
-    data = g_uartEmul_config[uart_id].rxpData[g_uartEmul_config[uart_id].begin];
-  }
-
-  return data;
-}
-
-/**
-  * @brief  Flush the content of the RX buffer
-  * @param  serial_id : one of the defined serial interface
-  * @retval None
-  */
-void uart_emul_flush(uart_emul_id_e uart_id)
-{
-  if(uart_id>=NB_UART_EMUL_MANAGED) {
-    return;
-  }
-
-  g_uartEmul_config[uart_id].data_available = 0;
-  g_uartEmul_config[uart_id].end = 0;
-  g_uartEmul_config[uart_id].begin = 0;
-}
-
-/**
-  * @brief  Read receive byte from uart
-  * @param  UartHandle : pointer on the uart reference
-  * @param  byte : byte to read
-  * @retval None
-  */
-static void uart_emul_getc(uart_emul_id_e uart_id, uint8_t byte)
-{
-  if((uart_id >= NB_UART_EMUL_MANAGED) ||
-      (g_uartEmul_config[uart_id].data_available >= UART_RCV_SIZE)) {
-    return;
-  }
-
-  g_uartEmul_config[uart_id].rxpData[g_uartEmul_config[uart_id].end++] = byte;
-  if(g_uartEmul_config[uart_id].end >= UART_RCV_SIZE) {
-    g_uartEmul_config[uart_id].end = 0;
-  }
-  g_uartEmul_config[uart_id].data_available++;
-}
-
-/**
-  * @brief
-  * @param  irq : pointer to function to call
-  * @retval None
-  */
-void uart_emul_attached_handler(stimer_t *obj, void (*irqHandle)(void))
-{
-  obj->timer = TIMER_UART_EMULATED;
-  TimerHandleInit(obj, EMUL_TIMER_PERIOD - 1, (uint16_t)(HAL_RCC_GetHCLKFreq() / 1000) - 1); //50ms
-  g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle = irqHandle;
-  g_uartEmul_config[UART1_EMUL_E]._timer = obj;
-  attachIntHandle(obj, uart_emul_timer_irq);
-}
-
-/**
-  * @brief  Initializes the UART Emulation Transfer Complete.
-  * @param  huart: UART Emulation Handle
-  * @retval None
-  */
-void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
-{
-  uart_emul_getc(UART1_EMUL_E, *huart->pRxBuffPtr);
-  HAL_UART_Emul_Receive_DMA(&g_UartEmulHandle[UART1_EMUL_E], g_rx_data, 1);
-
-  if(g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle != NULL) {
-    if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE / 2)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, 0);
-    }
-    else if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE/4*3)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, EMUL_TIMER_PERIOD - 1);
-    }
-    else {
-      g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();
-    }
-  }
-}
-
-/*void HAL_UART_Emul_ErrorCallback(UART_Emul_HandleTypeDef *huart)
-{
-  printf("UART EMUL RX ERROR\n");
-}*/
+#endif
 
 /**
   * @}
@@ -764,5 +650,5 @@ void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 #ifdef __cplusplus
 }
 #endif
-#endif
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

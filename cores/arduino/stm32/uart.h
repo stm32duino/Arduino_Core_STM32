@@ -41,65 +41,53 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
-#include "timer.h"
+#include "PeripheralPins.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
-typedef enum {
-#if defined (STM32F0xx) || defined (STM32F3xx)
-  USART1_E = 0,
-  USART2_E = 1,
-#ifdef STM32F0xx
-  USART4_E = 2,
-#endif
-#else
-   USART3_E = 0,
-   USART6_E = 1,
-#endif
-  NB_UART_MANAGED,
-} uart_id_e;
+typedef struct serial_s serial_t;
 
-typedef enum {
-  UART1_EMUL_E = 0,
-  NB_UART_EMUL_MANAGED
-} uart_emul_id_e;
-
-typedef enum {
-  NATIVE_UART_E   = 0,
-  EMULATED_UART_E = 1,
-  NB_UART_OPTION
-} uart_option_e;
+struct serial_s {
+  USART_TypeDef *uart;
+  UART_HandleTypeDef handle;
+  int index;
+  uint32_t baudrate;
+  uint32_t databits;
+  uint32_t stopbits;
+  uint32_t parity;
+  PinName pin_tx;
+  PinName pin_rx;
+  IRQn_Type irq;
+  uint8_t *rx_buff;
+  uint16_t rx_head;
+  uint16_t rx_tail;
+  uint8_t *tx_buff;
+  uint16_t tx_head;
+  uint16_t tx_tail;
+};
 
 /* Exported constants --------------------------------------------------------*/
-#define UART_OPTIMIZED 0  // 1 to enable optimization = do not use HAL
+#define TX_TIMEOUT  1000
 
-#define UART_RCV_SIZE 128
+#define DEBUG_UART  ((USART_TypeDef *) USART3)
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void uart_init(uart_id_e uart_id, uint32_t baudRate);
-void uart_deinit(uart_id_e uart_id);
-int uart_available(uart_id_e uart_id);
-int8_t uart_peek(uart_id_e uart_id);
-int8_t uart_read(uart_id_e uart_id);
-void uart_flush(uart_id_e uart_id);
-size_t uart_write(uart_id_e uart_id, uint8_t data);
+void uart_init(serial_t *obj);
+void uart_deinit(serial_t *obj);
+size_t uart_write(serial_t *obj, uint8_t data, uint16_t size);
+int uart_getc(serial_t *obj);
+void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t*));
+void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t*));
 
-void uart_emul_init(uart_emul_id_e uart_id, uint32_t baudRate);
-void uart_emul_deinit(uart_emul_id_e uart_id);
-int uart_emul_available(uart_emul_id_e uart_id);
-int8_t uart_emul_read(uart_emul_id_e uart_id);
-size_t uart_emul_write(uart_emul_id_e uart_id, uint8_t data);
-int8_t uart_emul_peek(uart_emul_id_e uart_id);
-void uart_emul_flush(uart_emul_id_e uart_id);
-#if defined (STM32F0xx) || defined (STM32F3xx)
-void uart_emul_attached_handler(void (*irqHandle)(void));
-#else
-void uart_emul_attached_handler(stimer_t *obj, void (*irqHandle)(void));
-#endif
+uint8_t serial_tx_active(serial_t *obj);
+uint8_t serial_rx_active(serial_t *obj);
+
+size_t uart_debug_write(uint8_t *data, uint32_t size);
+
 #ifdef __cplusplus
 }
 #endif
