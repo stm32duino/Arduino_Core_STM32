@@ -35,7 +35,7 @@ https://github.com/BlueVia/Official-Arduino
 #include "GSM3IO.h"
 #include <avr/pgmspace.h>
 #include "pins_arduino.h"
-#include <HardwareSerial.h>
+//#include <HardwareSerial.h>
 
 #define __XON__ 0x11
 #define __XOFF__ 0x13

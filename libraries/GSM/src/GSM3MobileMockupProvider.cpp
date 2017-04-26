@@ -34,7 +34,7 @@ https://github.com/BlueVia/Official-Arduino
 #include <GSM3MobileNetworkProvider.h>
 #include <GSM3MobileMockupProvider.h>
 #include <inttypes.h>
-#include <HardwareSerial.h>
+//#include <HardwareSerial.h>
 #include <Arduino.h>
 
 
