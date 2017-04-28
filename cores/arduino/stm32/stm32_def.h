@@ -46,21 +46,28 @@
 #error "STM32YYxx chip series is not defined in boards.txt."
 #endif
 
+// Here define some compatibility
 #ifdef STM32F0xx
-#ifndef __HAL_RCC_UART4_CLK_ENABLE
-#define __HAL_RCC_UART4_CLK_ENABLE       __HAL_RCC_USART4_CLK_ENABLE
-#endif
-#ifndef __HAL_RCC_UART4_RELEASE_RESET
-#define __HAL_RCC_UART4_RELEASE_RESET    __HAL_RCC_USART4_RELEASE_RESET
-#endif
-#ifndef __HAL_RCC_UART4_FORCE_RESET
-#define __HAL_RCC_UART4_FORCE_RESET      __HAL_RCC_USART4_FORCE_RESET
-#endif
+#define USART3_IRQn                      USART3_8_IRQn
+#define USART6_IRQn                      USART3_8_IRQn
+
+#elif defined(STM32F1xx)
+
+#elif defined(STM32F2xx)
+
+#elif defined(STM32F3xx)
+#define EXTI2_IRQn                       EXTI2_TSC_IRQn
+
+#elif defined(STM32F4xx)
+
+#elif defined(STM32F7xx)
+
+#elif defined(STM32L0xx)
+
+#elif defined(STM32L1xx)
+
+#elif defined(STM32L4xx)
 #endif
 
-#ifdef STM32F3xx
-#ifndef EXTI2_IRQn
-#define EXTI2_IRQn                       EXTI2_TSC_IRQn
-#endif
-#endif
+
 #endif //_STM32_DEF_

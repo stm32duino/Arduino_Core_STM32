@@ -125,7 +125,7 @@ const PinName digital_arduino[] = {
  * UART objects
  */
 
-UARTClass Serial(USART3_E);    //available on PD8/PD9
+HardwareSerial  Serial(PA3, PA2); // Could be connected to ST-Link
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }

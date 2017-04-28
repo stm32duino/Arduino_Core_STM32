@@ -40,6 +40,7 @@
 #ifndef __HAL_UART_EMUL_H
 #define __HAL_UART_EMUL_H
 
+#if defined(TIM1_BASE)
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -109,8 +110,8 @@ typedef enum
 {
   HAL_UART_EMUL_ERROR_NONE      = 0x00,    /*!< No error            */
   HAL_UART_EMUL_ERROR_FE        = 0x01,    /*!< frame error         */
-	HAL_UART_EMUL_ERROR_RE        = 0x02,    /*!< receiver error      */
-	HAL_UART_EMUL_ERROR_PE        = 0x04     /*!< transfer error      */
+  HAL_UART_EMUL_ERROR_RE        = 0x02,    /*!< receiver error      */
+  HAL_UART_EMUL_ERROR_PE        = 0x04     /*!< transfer error      */
 }HAL_UART_Emul_ErrorTypeDef;
 
 /**
@@ -132,7 +133,7 @@ typedef struct
 
   UART_Emul_InitTypeDef            Init;             /* UART Emulation communication parameters      */
 
-	uint8_t                          *pTxBuffPtr;      /* Pointer to UART Emulation Tx transfer Buffer */
+  uint8_t                          *pTxBuffPtr;      /* Pointer to UART Emulation Tx transfer Buffer */
 
   uint16_t                         TxXferSize;       /* UART Emulation Tx Transfer size              */
 
@@ -144,9 +145,9 @@ typedef struct
 
   uint16_t                         RxXferCount;      /* UART Emulation Rx Transfer Counter           */
 
-	GPIO_TypeDef                     *RxPortName;      /* UART Emulation Rx port name                  */
+  GPIO_TypeDef                     *RxPortName;      /* UART Emulation Rx port name                  */
 
-	GPIO_TypeDef                     *TxPortName;      /* UART Emulation Tx port name                  */
+  GPIO_TypeDef                     *TxPortName;      /* UART Emulation Tx port name                  */
 
   __IO HAL_UART_Emul_StateTypeDef  State;            /* UART Emulation communication state           */
 
@@ -268,11 +269,26 @@ typedef struct
 #define TX_BUFFER_SIZE    ((uint8_t)0x0C)
 
 /* Definition Handler for UART Emulation receive mode */
+
+#ifdef STM32F0xx
+#define UART_EMUL_TX_DMA_IRQHandler     DMA1_Ch2_3_DMA2_Ch1_2_IRQHandler
+#define UART_EMUL_RX_DMA_IRQHandler     DMA1_Ch4_7_DMA2_Ch3_5_IRQHandler
+
+#define UART_EMUL_TX_DMA_IRQn           DMA1_Ch2_3_DMA2_Ch1_2_IRQn
+#define UART_EMUL_RX_DMA_IRQn           DMA1_Ch4_7_DMA2_Ch3_5_IRQn
+#elif defined(STM32F3xx)
+#define UART_EMUL_TX_DMA_IRQHandler     DMA2_Channel1_IRQHandler
+#define UART_EMUL_RX_DMA_IRQHandler     DMA2_Channel3_IRQHandler
+
+#define UART_EMUL_TX_DMA_IRQn           DMA2_Channel1_IRQn
+#define UART_EMUL_RX_DMA_IRQn           DMA2_Channel3_IRQn
+#elif defined(STM32F4xx)
 #define UART_EMUL_TX_DMA_IRQHandler     DMA2_Stream1_IRQHandler
 #define UART_EMUL_RX_DMA_IRQHandler     DMA2_Stream2_IRQHandler
 
 #define UART_EMUL_TX_DMA_IRQn           DMA2_Stream1_IRQn
 #define UART_EMUL_RX_DMA_IRQn           DMA2_Stream2_IRQn
+#endif
 
 /* Defenition of UART Emulation timer */
 #define UART_EMUL_TX_TIMER_INSTANCE     TIM1
@@ -287,12 +303,18 @@ typedef struct
 #define TIM_DMA_source_Tx TIM_DMA_CC1
 #define TIM_DMA_source_Rx TIM_DMA_CC2
 
+#ifdef STM32F4xx
 #define DMA_Channel_Tx    DMA_CHANNEL_6
 #define DMA_Channel_Rx    DMA_CHANNEL_6
+#endif
 
+#ifdef DMA2_Stream1
 #define DMA_Stream_Tx     DMA2_Stream1
 #define DMA_Stream_Rx     DMA2_Stream2
-
+#else
+#define DMA_Stream_Tx     DMA2_Channel1
+#define DMA_Stream_Rx     DMA2_Channel3
+#endif
 /* Exported macro ------------------------------------------------------------*/
 
 /** @brief  Checks whether the specified UART Emulation flag is set or not.
@@ -389,7 +411,7 @@ uint32_t HAL_UART_Emul_GetError(UART_Emul_HandleTypeDef *huart);
 #ifdef __cplusplus
 }
 #endif
-
+#endif //TIM1_BASE
 #endif /* __HAL_UART_EMUL_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

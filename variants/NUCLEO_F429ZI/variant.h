@@ -141,6 +141,10 @@ uint32_t pinNametoPinNumber(PinName p);
 //Do not use basic timer: OC is required
 #define TIMER_SERVO         TIM2  //TODO: advanced-control timers don't work
 
+// UART Emulation
+#define UART_EMUL_RX        PF15
+#define UART_EMUL_TX        PE13
+
 //Enable Firmata
 #define STM32 1
 

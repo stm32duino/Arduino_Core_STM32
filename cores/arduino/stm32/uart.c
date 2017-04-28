@@ -522,7 +522,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
   volatile uint32_t tmpval;
-
+#ifdef STM32F4xx
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
     tmpval = huart->Instance->DR; // Clear PE flag
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
@@ -532,6 +532,17 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
     tmpval = huart->Instance->DR; // Clear ORE flag
   }
+#else
+  if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
+    tmpval = huart->Instance->RDR; // Clear PE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
+    tmpval = huart->Instance->RDR; // Clear FE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
+    tmpval = huart->Instance->RDR; // Clear NE flag
+  } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
+    tmpval = huart->Instance->RDR; // Clear ORE flag
+  }
+#endif
 
   UNUSED(tmpval);
 }

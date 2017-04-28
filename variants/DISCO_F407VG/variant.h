@@ -34,10 +34,6 @@
  *----------------------------------------------------------------------------*/
 
 #include "Arduino.h"
-#ifdef __cplusplus
-#include "UARTClass.h"
-#include "USARTClass.h"
-#endif
 
 #ifdef __cplusplus
 extern "C"{
@@ -143,6 +139,10 @@ uint32_t pinNametoPinNumber(PinName p);
 #define TIMER_SERVO             TIM7
 #define TIMER_UART_EMULATED     TIM6
 
+// UART Emulation
+#define UART_EMUL_RX            PE9
+#define UART_EMUL_TX            PE11
+
 //Enable Firmata
 #define STM32 1
 
@@ -154,8 +154,26 @@ uint32_t pinNametoPinNumber(PinName p);
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern UARTClass Serial;
+extern HardwareSerial Serial;
 
+// These serial port names are intended to allow libraries and architecture-neutral
+// sketches to automatically default to the correct port name for a particular type
+// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+// the first hardware serial port whose RX/TX pins are not dedicated to another use.
+//
+// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+//
+// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+//
+// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+//
+// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+//
+// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+//                            pins are NOT connected to anything by default.
+#define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13. 
+                                   // See UM §6.1.3 ST-LINK/V2-A VCP configuration)
+#define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

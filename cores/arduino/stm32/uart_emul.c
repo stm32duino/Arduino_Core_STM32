@@ -52,6 +52,7 @@
 #include "interrupt.h"
 #include "variant.h"
 
+#if defined(TIM1_BASE) && defined(UART_EMUL_RX) && defined(UART_EMUL_TX)
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -78,12 +79,8 @@
 /// @brief defines the global attributes of the UART
 typedef struct {
   UART_Emul_TypeDef uartEmul_typedef;
-  GPIO_TypeDef  *tx_port;
-  GPIO_InitTypeDef tx_pin;
-  GPIO_TypeDef  *rx_port;
-  GPIO_InitTypeDef rx_pin;
-  void (*gpio_tx_clock_init)(void);
-  void (*gpio_rx_clock_init)(void);
+  PinName pin_tx;
+  PinName pin_rx;
   void (*uart_rx_irqHandle)(void);
   uint8_t rxpData[UART_RCV_SIZE];
   volatile uint32_t data_available;
@@ -100,8 +97,7 @@ typedef struct {
 /** @addtogroup STM32F4xx_System_Private_Macros
   * @{
   */
-static void gpioe_clock_enable(void)    { __GPIOE_CLK_ENABLE(); }
-static void gpiof_clock_enable(void)    { __GPIOF_CLK_ENABLE(); }
+
 /**
   * @}
   */
@@ -115,10 +111,7 @@ static UART_Emul_HandleTypeDef g_UartEmulHandle[NB_UART_EMUL_MANAGED];
 static uart_emul_conf_t g_uartEmul_config[NB_UART_EMUL_MANAGED] = {
   {
     .uartEmul_typedef = {UART1_EMUL_E},
-    .tx_port = GPIOE, .tx_pin = {GPIO_PIN_13, GPIO_MODE_OUTPUT_PP, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH},
-    .rx_port = GPIOF, .rx_pin = {GPIO_PIN_15, GPIO_MODE_IT_FALLING, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH},
-    .gpio_tx_clock_init = gpioe_clock_enable,
-    .gpio_rx_clock_init = gpiof_clock_enable,
+	.pin_tx = UART_EMUL_TX, .pin_rx = UART_EMUL_RX,
     .uart_rx_irqHandle = NULL,
     .data_available = 0,
     .begin = 0,
@@ -156,21 +149,33 @@ static void uart_emul_timer_irq(stimer_t *obj) {g_uartEmul_config[UART1_EMUL_E].
   */
 void HAL_UART_Emul_MspInit(UART_Emul_HandleTypeDef *huart)
 {
+  GPIO_InitTypeDef          GPIO_InitStruct;
+  GPIO_TypeDef *port_rx;
+  GPIO_TypeDef *port_tx;
+
+  // Enable GPIO clock
+  port_rx = set_GPIO_Port_Clock(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_rx));
+  port_tx = set_GPIO_Port_Clock(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_tx));
+
   // Enable GPIO TX/RX clock
   __UART_EMUL_CLK_ENABLE();
 
   // Enable GPIO TX/RX clock
-  g_uartEmul_config[UART1_EMUL_E].gpio_tx_clock_init();
-  g_uartEmul_config[UART1_EMUL_E].gpio_rx_clock_init();
+  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_tx);
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
 
   // UART TX GPIO pin configuration
-  HAL_GPIO_Init(g_uartEmul_config[UART1_EMUL_E].tx_port, &g_uartEmul_config[UART1_EMUL_E].tx_pin);
+  HAL_GPIO_Init(port_tx, &GPIO_InitStruct);
+
+  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_rx);
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
 
   // UART RX GPIO pin configuration
-  HAL_GPIO_Init(g_uartEmul_config[UART1_EMUL_E].rx_port, &g_uartEmul_config[UART1_EMUL_E].rx_pin);
-
-  stm32_interrupt_enable(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin,
-                          UART_EMUL_EXTI_RX, g_uartEmul_config[UART1_EMUL_E].rx_pin.Mode);
+  HAL_GPIO_Init(port_rx, &GPIO_InitStruct);
+  stm32_interrupt_enable(port_rx, STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_rx),
+                          UART_EMUL_EXTI_RX, GPIO_MODE_IT_FALLING);
   /*HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);*/
 }
@@ -182,12 +187,15 @@ void HAL_UART_Emul_MspInit(UART_Emul_HandleTypeDef *huart)
  */
 void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
 {
+  GPIO_TypeDef *port_rx = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_rx));
+  GPIO_TypeDef *port_tx = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_tx));
+
   __UART_EMUL_CLK_DISABLE();
 
-  HAL_GPIO_DeInit(g_uartEmul_config[UART1_EMUL_E].tx_port, g_uartEmul_config[UART1_EMUL_E].tx_pin.Pin);
-  HAL_GPIO_DeInit(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin);
+  HAL_GPIO_DeInit(port_tx, STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_tx));
+  HAL_GPIO_DeInit(port_rx, STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_rx));
 
-  stm32_interrupt_disable(g_uartEmul_config[UART1_EMUL_E].rx_port, g_uartEmul_config[UART1_EMUL_E].rx_pin.Pin);
+  stm32_interrupt_disable(port_rx, STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_rx));
 }
 
 /**
@@ -198,6 +206,7 @@ void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
   */
 void uart_emul_init(uart_emul_id_e uart_id, uint32_t baudRate)
 {
+  GPIO_TypeDef *port_tx = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_tx));
   if(uart_id>=NB_UART_EMUL_MANAGED) {
     return;
   }
@@ -207,10 +216,10 @@ void uart_emul_init(uart_emul_id_e uart_id, uint32_t baudRate)
   g_UartEmulHandle[uart_id].Init.WordLength   = UART_EMUL_WORDLENGTH_8B;
   g_UartEmulHandle[uart_id].Init.StopBits     = UART_EMUL_STOPBITS_1;
   g_UartEmulHandle[uart_id].Init.Parity       = UART_EMUL_PARITY_NONE;
-  g_UartEmulHandle[uart_id].Init.RxPinNumber  = g_uartEmul_config[uart_id].rx_pin.Pin;
-  g_UartEmulHandle[uart_id].Init.TxPinNumber  = g_uartEmul_config[uart_id].tx_pin.Pin;
-  g_UartEmulHandle[uart_id].RxPortName        = g_uartEmul_config[uart_id].rx_port;
-  g_UartEmulHandle[uart_id].TxPortName        = g_uartEmul_config[uart_id].tx_port;
+  g_UartEmulHandle[uart_id].Init.RxPinNumber  = STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_rx);
+  g_UartEmulHandle[uart_id].Init.TxPinNumber  = STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_tx);
+  g_UartEmulHandle[uart_id].RxPortName        = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_rx));
+  g_UartEmulHandle[uart_id].TxPortName        = port_tx;
 
   if(HAL_UART_Emul_Init(&g_UartEmulHandle[uart_id])!= HAL_OK) {
     return;
@@ -222,7 +231,7 @@ void uart_emul_init(uart_emul_id_e uart_id, uint32_t baudRate)
 
   uart_emul_flush(uart_id);
 
-  HAL_GPIO_WritePin(g_uartEmul_config[uart_id].tx_port, g_uartEmul_config[uart_id].tx_pin.Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(port_tx, STM_GPIO_PIN(g_uartEmul_config[UART1_EMUL_E].pin_tx), GPIO_PIN_SET);
 }
 
 /**
@@ -409,5 +418,5 @@ void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 #ifdef __cplusplus
 }
 #endif
-
+#endif //TIM1_BASE && UART_EMUL_RX && UART_EMUL_TX
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

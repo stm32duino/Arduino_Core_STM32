@@ -92,19 +92,24 @@ const PinName digital_arduino[] = {
 /*
  * UART objects
  */
-UARTClass Serial(USART2_E);    //available on PA2/PA3
-UARTClass Serial1(USART1_E);   //available on PA9/PA10
-USARTClass Serial2(USART2_E);  //available on PA2/PA3
-USARTClass Serial3(USART4_E);   //available on PA0/PA1
+HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
+HardwareSerial  Serial1(PA10, PA9);
+HardwareSerial  Serial2(PA1, PA0);
 
 // Need rework to be generic
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
+void serialEvent1() __attribute__((weak));
+void serialEvent1() { }
+void serialEvent2() __attribute__((weak));
+void serialEvent2() { }
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+  if (Serial1.available()) serialEvent();
+  if (Serial2.available()) serialEvent();
 }
 
 // ----------------------------------------------------------------------------

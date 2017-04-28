@@ -34,10 +34,6 @@
  *----------------------------------------------------------------------------*/
 
 #include "Arduino.h"
-#ifdef __cplusplus
-#include "UARTClass.h"
-#include "USARTClass.h"
-#endif
 
 #ifdef __cplusplus
 extern "C"{
@@ -140,6 +136,10 @@ uint32_t pinNametoPinNumber(PinName p);
 //Do not use basic timer: OC is required
 #define TIMER_SERVO         TIM2  //TODO: advanced-control timers don't work
 
+// UART Emulation
+#define UART_EMUL_RX       PB14
+#define UART_EMUL_TX       PB13
+
 //Enable Firmata
 #define STM32 1
 
@@ -151,10 +151,27 @@ uint32_t pinNametoPinNumber(PinName p);
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern UARTClass Serial;
-extern UARTClass Serial1;
-extern USARTClass Serial2;
-extern USARTClass Serial3;
+extern HardwareSerial Serial;
+extern HardwareSerial Serial1;
+extern HardwareSerial Serial2;
+
+// These serial port names are intended to allow libraries and architecture-neutral
+// sketches to automatically default to the correct port name for a particular type
+// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+// the first hardware serial port whose RX/TX pins are not dedicated to another use.
+//
+// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+//
+// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+//
+// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+//
+// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+//
+// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+//                            pins are NOT connected to anything by default.
+#define SERIAL_PORT_MONITOR   Serial
+#define SERIAL_PORT_HARDWARE  Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
