@@ -83,7 +83,7 @@ typedef enum {
 }i2c_status_e;
 
 typedef enum {
-#if defined (STM32F0xx) || defined (STM32F3xx)
+#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
 //calculated with SYSCLK = 64MHz at
 /*https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiC4q6O7ojMAhWCOhoKHYlyBtIQFggmMAE&url=http%3A%2F%2Fuglyduck.ath.cx%2FPDF%2FSTMicro%2FARM%2FSTM32F0%2FI2C_Timing_Configuration_V1.0.1.xls&usg=AFQjCNGGjPSUAzVUdbUqMUxPub8Ojzhh9w&sig2=4YgzXFixj15GhqkAzVS4tA*/
   I2C_10KHz =   0xE010A9FF,
@@ -94,7 +94,16 @@ typedef enum {
   I2C_600KHz =  0x00900E50,
   I2C_800KHz =  0x00900E35,
   I2C_1000KHz = 0x00900E25
-#else
+#elif defined (STM32L4xx)
+  I2C_10KHz =   0xF010F3FE,
+  I2C_50KHz =   0x30608CFF,
+  I2C_100KHz =  0x10D0A4E4,
+  I2C_200KHz =  0x00F082FF,
+  I2C_400KHz =  0x00F02E8B,
+  I2C_600KHz =  0x00B01265,
+  I2C_800KHz =  0x00B01243,
+  I2C_1000KHz = 0x00B0122F
+#else //STM32F4xx
   I2C_10KHz =   10000,
   I2C_50KHz =   50000,
   I2C_100KHz =  100000,

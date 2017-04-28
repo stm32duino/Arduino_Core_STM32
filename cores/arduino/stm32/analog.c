@@ -421,13 +421,25 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   }
 #endif
 
+#ifdef __HAL_RCC_ADC_CLK_ENABLE
+  __HAL_RCC_ADC_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_ADC_CONFIG
+  /* ADC Periph interface clock configuration */
+  __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
+#endif
+
   /* Enable GPIO clock ****************************************/
   port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
 
   /*##-2- Configure peripheral GPIO ##########################################*/
   /* ADC Channel GPIO pin configuration */
   GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
+#ifdef GPIO_MODE_ANALOG_ADC_CONTROL
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
+#else
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
+#endif
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 }
@@ -573,7 +585,11 @@ uint16_t adc_read_value(PinName pin)
   }
 
   AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
+#ifdef STM32L4xx
+  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) return 0;
+#else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) return 0;
+#endif
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #ifndef STM32L0xx
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
@@ -585,7 +601,7 @@ uint16_t adc_read_value(PinName pin)
     return 0;
   }
 
-#ifdef STM32F3xx
+#if defined (STM32F3xx) || defined (STM32L4xx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
   {

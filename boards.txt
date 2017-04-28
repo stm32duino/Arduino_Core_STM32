@@ -108,6 +108,22 @@ Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_m
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.extra_flags=-DSTM32L053xx -D__CORTEX_SC=0 {build.usb_flags}
 
+# NUCLEO_L476RG board
+
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG=Nucleo L476RG
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.node=NODE_L476RG
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.upload.maximum_size=1048576
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.upload.maximum_data_size=131072
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.mcu=cortex-m4
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.f_cpu=4000000L
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.usb_product="NUCLEO-L476RG"
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.board=NUCLEO_L476RG
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.series=STM32L4xx
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.variant=NUCLEO_L476RG
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.extra_flags=-DSTM32L476xx {build.usb_flags}
 
 Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.protocol=

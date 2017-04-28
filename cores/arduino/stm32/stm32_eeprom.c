@@ -80,6 +80,10 @@
 #define FLASH_DATA_SECTOR   15
 #elif defined (STM32L0xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE)) /* 0x08080000 */
+#elif defined (STM32L4xx)
+// Flash base address (Bank2, page 256)
+#define FLASH_BASE_ADDRESS  0x080FF800
+#define FLASH_PAGE_NUMBER   255
 #endif
 
 /**
@@ -162,20 +166,27 @@ void set_data_to_flash(void)
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
+#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined(STM32L4xx)
   uint32_t pageError = 0;
   uint64_t data = 0;
 
   // ERASING page
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
+#ifdef STM32L4xx
+  EraseInitStruct.Banks = FLASH_BANK_2;
+  EraseInitStruct.Page = FLASH_PAGE_NUMBER;
+#else
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
   EraseInitStruct.NbPages = 1;
+#endif
 
   if(HAL_FLASH_Unlock() == HAL_OK) {
 #ifdef STM32L0xx
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGAERR|\
                            FLASH_FLAG_SIZERR|FLASH_FLAG_OPTVERR|FLASH_FLAG_RDERR|\
                            FLASH_FLAG_FWWERR|FLASH_FLAG_NOTZEROERR);
+#elif defined (STM32L4xx)
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
 #else
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGERR);
 #endif
