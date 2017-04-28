@@ -136,7 +136,7 @@ void SysTick_Handler(void)
 void delayInsideIT(uint32_t delay_us)
 {
   uint32_t nb_loop;
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32L0xx)
   nb_loop = (((HAL_RCC_GetHCLKFreq() / 1000000)/5)*delay_us)+1; /* uS (divide by 4 because each loop take about 4 cycles including nop +1 is here to avoid delay of 0 */
   __asm__ volatile(
   "1: " "\n\t"

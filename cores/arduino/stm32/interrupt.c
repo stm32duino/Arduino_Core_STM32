@@ -94,7 +94,7 @@ typedef struct {
   * @{
   */
 static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32L0xx)
   {.pin = GPIO_PIN_0,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_1,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
   {.pin = GPIO_PIN_2,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
@@ -181,9 +181,13 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
   //Do it in case the user already defines the IO through the digital io
   //interface
   pull = port->PUPDR;
+#ifdef GPIO_PUPDR_PUPD0
+  pull &=(GPIO_PUPDR_PUPD0<<(id*2));
+  GPIO_InitStruct.Pull = (GPIO_PUPDR_PUPD0 & (pull>>(id*2)));
+#else
   pull &=(GPIO_PUPDR_PUPDR0<<(id*2));
   GPIO_InitStruct.Pull = (GPIO_PUPDR_PUPDR0 & (pull>>(id*2)));
-
+#endif
   GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
   HAL_GPIO_Init(port, &GPIO_InitStruct);
@@ -229,7 +233,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32L0xx)
 /**
   * @brief This function handles external line 0 to 1 interrupt request.
   * @param  None

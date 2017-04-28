@@ -72,8 +72,6 @@ struct serial_s {
 /* Exported constants --------------------------------------------------------*/
 #define TX_TIMEOUT  1000
 
-#define DEBUG_UART  ((USART_TypeDef *) USART3)
-
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void uart_init(serial_t *obj);

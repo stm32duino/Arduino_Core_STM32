@@ -138,10 +138,6 @@ uint32_t pinNametoPinNumber(PinName p);
 
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
-// UART Emulation
-#define UART_EMUL_RX            PC1
-#define UART_EMUL_TX            PC3
-
 //Enable Firmata
 #define STM32 1
 
@@ -155,7 +151,6 @@ uint32_t pinNametoPinNumber(PinName p);
 #ifdef __cplusplus
 extern HardwareSerial Serial;
 extern HardwareSerial Serial1;
-extern HardwareSerial Serial2;
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type

@@ -167,11 +167,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
       __HAL_RCC_I2C1_CLK_ENABLE();
       __HAL_RCC_I2C1_FORCE_RESET();
       __HAL_RCC_I2C1_RELEASE_RESET();
-#ifdef STM32F0xx
-      obj->irq = I2C1_IRQn;
-#else
       obj->irq = I2C1_EV_IRQn;
-#endif
       i2c_handles[0] = handle;
   }
 #endif
@@ -229,7 +225,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   handle->Instance             = obj->i2c;
-#if defined (STM32F0xx) || defined (STM32F3xx)
+#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
   handle->Init.Timing      = timing;
 #else
   handle->Init.ClockSpeed      = timing;
@@ -284,7 +280,7 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
   else if(frequency <= 400000)
     f = I2C_400KHz;
 
-#if defined (STM32F0xx) || defined (STM32F3xx)
+#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
   obj->handle.Init.Timing = f;
 #else
   obj->handle.Init.ClockSpeed = f;

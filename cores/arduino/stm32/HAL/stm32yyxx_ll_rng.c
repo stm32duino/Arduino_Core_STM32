@@ -19,7 +19,7 @@
 #include "stm32f7xx_ll_rng.c"
 #endif
 #ifdef STM32L0xx
-// none
+#include "stm32l0xx_ll_rng.c"
 #endif
 #ifdef STM32L1xx
 // none

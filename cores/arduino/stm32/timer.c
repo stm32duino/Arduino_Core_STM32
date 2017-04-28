@@ -224,6 +224,18 @@ void timer_enable_clock(TIM_HandleTypeDef *htim)
       timer_handles[19] = htim;
   }
 #endif
+#if defined(TIM21_BASE)
+  if (htim->Instance == TIM21) {
+      __HAL_RCC_TIM21_CLK_ENABLE();
+      timer_handles[20] = htim;
+  }
+#endif
+#if defined(TIM22_BASE)
+  if (htim->Instance == TIM22) {
+      __HAL_RCC_TIM22_CLK_ENABLE();
+      timer_handles[21] = htim;
+  }
+#endif
 }
 
 /**
@@ -324,6 +336,16 @@ void timer_disable_clock(TIM_HandleTypeDef *htim)
       __HAL_RCC_TIM20_CLK_DISABLE();
   }
 #endif
+#if defined(TIM21_BASE)
+  if (htim->Instance == TIM21) {
+      __HAL_RCC_TIM21_CLK_DISABLE();
+  }
+#endif
+#if defined(TIM22_BASE)
+  if (htim->Instance == TIM22) {
+      __HAL_RCC_TIM22_CLK_DISABLE();
+  }
+#endif
 }
 
 /**
@@ -369,8 +391,9 @@ void TimerHandleInit(stimer_t *obj, uint16_t period, uint16_t prescaler)
   handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
   handle->Init.Period            = period;
   handle->Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
+#ifndef STM32L0xx
   handle->Init.RepetitionCounter = 0x0000;
-
+#endif
   if(HAL_TIM_Base_Init(handle) != HAL_OK){
     return;
   }
@@ -418,7 +441,7 @@ uint32_t getTimerClkFreq(uint8_t clkSrc)
   */
 void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t*, uint32_t))
 {
-  TIM_OC_InitTypeDef sConfig;
+  TIM_OC_InitTypeDef sConfig = {};
   TIM_HandleTypeDef *handle = &(obj->handle);
 
   obj->timer = TIMER_SERVO;
@@ -429,18 +452,20 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(timermap_clkSrc(obj->timer, TimerMap_CONFIG)) / (1000000)) - 1;
   handle->Init.ClockDivision     = 0;
   handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
+#ifndef STM32L0xx
   handle->Init.RepetitionCounter = 0;
-
+#endif
   obj->irqHandleOC = irqHandle;
 
   sConfig.OCMode        = TIM_OCMODE_TIMING;
   sConfig.Pulse         = pulseWidth;
   sConfig.OCPolarity    = TIM_OCPOLARITY_HIGH;
-  sConfig.OCNPolarity   = TIM_OCNPOLARITY_HIGH;
   sConfig.OCFastMode    = TIM_OCFAST_DISABLE;
+#ifndef STM32L0xx
+  sConfig.OCNPolarity   = TIM_OCNPOLARITY_HIGH;
   sConfig.OCIdleState   = TIM_OCIDLESTATE_RESET;
   sConfig.OCNIdleState  = TIM_OCNIDLESTATE_RESET;
-
+#endif
   HAL_NVIC_SetPriority(timermap_irq(obj->timer, TimerMap_CONFIG), 14, 0);
   HAL_NVIC_EnableIRQ(timermap_irq(obj->timer, TimerMap_CONFIG));
 

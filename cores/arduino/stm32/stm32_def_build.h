@@ -30,6 +30,8 @@
 #define CMSIS_STARTUP_FILE "startup_stm32f407xx.s"
 #elif defined(STM32F429xx)
 #define CMSIS_STARTUP_FILE "startup_stm32f429xx.s"
+#elif defined(STM32L053xx)
+#define CMSIS_STARTUP_FILE "startup_stm32l053xx.s"
 #else
 #error UNKNOWN CHIP
 #endif

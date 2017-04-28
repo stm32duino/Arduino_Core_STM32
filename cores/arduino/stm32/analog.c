@@ -69,9 +69,7 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
-#if STM32L0xx
-// Contained by handle
-#elif defined(ADC_SAMPLETIME_15CYCLES)
+#if defined(ADC_SAMPLETIME_15CYCLES)
 #define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
 #elif defined(ADC_SAMPLETIME_13CYCLES_5)
 #define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
@@ -181,9 +179,11 @@ static uint32_t get_adc_channel(PinName pin)
     case 17:
       channel = ADC_CHANNEL_VREFINT;
     break;
-    case 18:
+#ifdef ADC_CHANNEL_VBAT
+	case 18:
       channel = ADC_CHANNEL_VBAT;
     break;
+#endif
     default:
       channel = 0;
     break;
@@ -204,9 +204,11 @@ static uint32_t get_dac_channel(PinName pin)
     case 1:
       channel = DAC_CHANNEL_1;
     break;
+#ifdef DAC_CHANNEL_2
     case 2:
       channel = DAC_CHANNEL_2;
     break;
+#endif
     default:
       channel = 0;
     break;
@@ -546,11 +548,16 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
   AdcHandle.State = HAL_ADC_STATE_RESET;
-#ifdef STM32F0xx
+#if defined (STM32F0xx) || defined (STM32L0xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+#ifdef STM32F0xx
   AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
+#else // STM32L0
+  //LowPowerFrequencyMode to enable if clk freq < 2.8Mhz
+  AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
+#endif
 #else
 #ifdef STM32F3xx
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
@@ -568,7 +575,9 @@ uint16_t adc_read_value(PinName pin)
   AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) return 0;
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
+#ifndef STM32L0xx
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
+#endif
   /*##-2- Configure ADC regular channel ######################################*/
   if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK)
   {
@@ -679,8 +688,8 @@ void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef *htim)
 void pwm_start(PinName pin, uint32_t clock_freq,
                 uint32_t period, uint32_t value, uint8_t do_init)
 {
-  TIM_HandleTypeDef timHandle;
-  TIM_OC_InitTypeDef timConfig;
+  TIM_HandleTypeDef timHandle = {};
+  TIM_OC_InitTypeDef timConfig = {};
   uint32_t timChannel;
 
   /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
@@ -690,7 +699,9 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timHandle.Init.Period            = period;
   timHandle.Init.ClockDivision     = 0;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+#ifndef STM32L0xx
   timHandle.Init.RepetitionCounter = 0;
+#endif
   timHandle.State= HAL_TIM_STATE_RESET;
   // TBC: is timHandle.State field should be saved ?
 
@@ -709,9 +720,11 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timConfig.OCMode       = TIM_OCMODE_PWM1;
   timConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
   timConfig.OCFastMode   = TIM_OCFAST_DISABLE;
+#ifndef STM32L0xx
   timConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
   timConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   timConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
+#endif
   timConfig.Pulse = value;
 
   if (HAL_TIM_PWM_ConfigChannel(&timHandle, &timConfig, timChannel) != HAL_OK)
@@ -720,9 +733,12 @@ void pwm_start(PinName pin, uint32_t clock_freq,
     return;
   }
 
+#ifndef STM32L0xx
   if(STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Start(&timHandle, timChannel);
-  } else {
+  } else
+#endif
+  {
     HAL_TIM_PWM_Start(&timHandle, timChannel);
   }
 }
@@ -743,9 +759,12 @@ void pwm_stop(PinName pin)
   timChannel = get_pwm_channel(pin);
   if (!IS_TIM_CHANNELS(timChannel)) return 0;
 
+#ifndef STM32L0xx
   if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Stop(&timHandle, timChannel);
-  } else {
+  } else
+#endif
+  {
     HAL_TIM_PWM_Stop(&timHandle, timChannel);
   }
 

@@ -50,6 +50,7 @@
 #ifdef STM32F0xx
 #define USART3_IRQn                      USART3_8_IRQn
 #define USART6_IRQn                      USART3_8_IRQn
+#define I2C1_EV_IRQn                     I2C1_IRQn
 
 #elif defined(STM32F1xx)
 
@@ -57,13 +58,13 @@
 
 #elif defined(STM32F3xx)
 #define EXTI2_IRQn                       EXTI2_TSC_IRQn
-
 #elif defined(STM32F4xx)
 
 #elif defined(STM32F7xx)
 
 #elif defined(STM32L0xx)
-
+#define I2C1_EV_IRQn                     I2C1_IRQn
+#define I2C2_EV_IRQn                     I2C2_IRQn
 #elif defined(STM32L1xx)
 
 #elif defined(STM32L4xx)

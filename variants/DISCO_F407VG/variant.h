@@ -139,6 +139,8 @@ uint32_t pinNametoPinNumber(PinName p);
 #define TIMER_SERVO             TIM7
 #define TIMER_UART_EMULATED     TIM6
 
+#define DEBUG_UART              ((USART_TypeDef *) USART2)
+
 // UART Emulation
 #define UART_EMUL_RX            PE9
 #define UART_EMUL_TX            PE11

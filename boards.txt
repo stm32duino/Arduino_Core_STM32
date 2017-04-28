@@ -91,6 +91,24 @@ Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_m
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.extra_flags=-DSTM32F303xE {build.usb_flags}
 
+# NUCLEO_L053R8 board
+
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8=Nucleo L053R8
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.node=NODE_L053R8
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.upload.maximum_size=65536
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.upload.maximum_data_size=8192
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.mcu=cortex-m0
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.f_cpu=2000000L
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.usb_product="NUCLEO-L053R8"
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.board=NUCLEO_L053R8
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.series=STM32L0xx
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.extra_flags=-DSTM32L053xx -D__CORTEX_SC=0 {build.usb_flags}
+
+
 Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.protocol=
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher

@@ -72,7 +72,7 @@ class SPISettings {
       } else if (clock >= SPI_SPEED_CLOCK_DIV128_MHZ) {
         clk = SPI_SPEED_CLOCK_DIV128_MHZ;
       } else {
-#if defined (STM32F0xx) || defined(STM32F3xx)
+#if defined (STM32F0xx) || defined(STM32F3xx) || defined(STM32L0xx)
         clk = SPI_SPEED_CLOCK_DIV256_MHZ;
 #else
         clk = SPI_SPEED_CLOCK_DIV16_MHZ;

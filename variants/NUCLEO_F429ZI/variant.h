@@ -118,32 +118,34 @@ uint32_t pinNametoPinNumber(PinName p);
 #define BOARD_SPI_DEFAULT_SS    10
 
 //In case SPI CS channel is not used we define a default one
-#define BOARD_SPI_OWN_SS    SPI_CHANNELS_NUM
+#define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
 
-#define SS    BOARD_SPI_DEFAULT_SS
-#define SS1   4
-#define SS2   7
-#define SS3   8
-#define MOSI  11
-#define MISO  12
-#define SCLK  13
-#define SCK   SCLK
+#define SS                      BOARD_SPI_DEFAULT_SS
+#define SS1                     4
+#define SS2                     7
+#define SS3                     8
+#define MOSI                    11
+#define MISO                    12
+#define SCLK                    13
+#define SCK                     SCLK
 
 //I2C Definitions
-#define SDA   14
-#define SCL   15
+#define SDA                     14
+#define SCL                     15
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE          TIM6
-#define TIMER_UART_EMULATED TIM7
+#define TIMER_TONE              TIM6
+#define TIMER_UART_EMULATED     TIM7
 
 //Do not use basic timer: OC is required
-#define TIMER_SERVO         TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+
+#define DEBUG_UART              ((USART_TypeDef *) USART3)
 
 // UART Emulation
-#define UART_EMUL_RX        PF15
-#define UART_EMUL_TX        PE13
+#define UART_EMUL_RX            PF15
+#define UART_EMUL_TX            PE13
 
 //Enable Firmata
 #define STM32 1
