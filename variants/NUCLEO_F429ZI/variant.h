@@ -66,25 +66,23 @@ enum {
   DEND
 };
 
-//Analog pins
-#define A0                      73
-#define A1                      (A0+1)
-#define A2                      (A0+2)
-#define A3                      (A0+3)
-#define A4                      (A0+4)
-#define A5                      (A0+5)
+enum {
+  A_START_AFTER = D72,
+  A0,  A1,  A2,  A3,  A4,  A5,
+  AEND
+};
 
-#define NUM_DIGITAL_PINS        DEND
-#define NUM_ANALOG_INPUTS       (sizeof(PinMap_ADC)/sizeof(PinMap))
-#define MAX_DIGITAL_IOS         NUM_DIGITAL_PINS
-#define MAX_ANALOG_IOS          NUM_ANALOG_INPUTS
+#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
+#define MAX_DIGITAL_IOS         DEND
+#define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
+#define NUM_ANALOG_INPUTS       (AEND - A0)
 
 // Convert a digital pin number Dxx to a PinName Pxy
 #define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
 // Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      ((p < 6) ? digitalToPinName(p+73) : digitalToPinName(p))
+#define analogToPinName(p)      ((p < NUM_ANALOG_INPUTS) ? digitalToPinName(p+A0) : digitalToPinName(p))
 // Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      ((p < 6) ? (p+73) : p)
+#define analogToDigital(p)      ((p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
 // Convert a PinName Pxy to a pin number
 uint32_t pinNametoPinNumber(PinName p);
 
