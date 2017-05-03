@@ -62,11 +62,11 @@ struct serial_s {
   PinName pin_rx;
   IRQn_Type irq;
   uint8_t *rx_buff;
-  uint16_t rx_head;
+  volatile uint16_t rx_head;
   uint16_t rx_tail;
   uint8_t *tx_buff;
   uint16_t tx_head;
-  uint16_t tx_tail;
+  volatile uint16_t tx_tail;
 };
 
 /* Exported constants --------------------------------------------------------*/

@@ -361,12 +361,7 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
  */
 uint8_t serial_rx_active(serial_t *obj)
 {
-  if(obj == NULL) {
-    return 1;
-  }
-
-  UART_HandleTypeDef *huart = uart_handlers[obj->index];
-  return ((HAL_UART_GetState(huart) == HAL_UART_STATE_BUSY_RX) ? 1 : 0);
+  return ((obj == NULL) ? 1 : (HAL_UART_GetState(uart_handlers[obj->index]) == HAL_UART_STATE_BUSY_RX));
 }
 
 /**
@@ -377,12 +372,7 @@ uint8_t serial_rx_active(serial_t *obj)
  */
 uint8_t serial_tx_active(serial_t *obj)
 {
-  if(obj == NULL) {
-    return 1;
-  }
-
-  UART_HandleTypeDef *huart = uart_handlers[obj->index];
-  return ((HAL_UART_GetState(huart) == HAL_UART_STATE_BUSY_TX) ? 1 : 0);
+  return ((obj == NULL) ? 1 : (HAL_UART_GetState(uart_handlers[obj->index]) == HAL_UART_STATE_BUSY_TX));
 }
 
 /**
@@ -467,19 +457,20 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t*))
   * @param  UartHandle pointer on the uart reference
   * @retval index
   */
-int uart_index(UART_HandleTypeDef *huart)
+uint8_t uart_index(UART_HandleTypeDef *huart)
 {
+  uint8_t i = 0;
   if(huart == NULL) {
-    return -1;
+    return UART_NUM;
   }
 
-  for(uint8_t i = 0; i < UART_NUM; i++) {
+  for(i = 0; i < UART_NUM; i++) {
     if(huart == uart_handlers[i]) {
-      return i;
+      break;
     }
   }
 
-  return -1;
+  return i;
 }
 
 /**
@@ -491,7 +482,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   uint8_t index = uart_index(huart);
 
-  if(index > 0) {
+  if(index < UART_NUM) {
     rx_callback[index](rx_callback_obj[index]);
   }
 }
@@ -505,7 +496,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
   uint8_t index = uart_index(huart);
   serial_t *obj = tx_callback_obj[index];
 
-  if(index > 0) {
+  if(index < UART_NUM) {
     if(tx_callback[index](obj) != -1) {
       if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
         return;
