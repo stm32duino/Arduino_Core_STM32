@@ -120,8 +120,12 @@ extern char* ltoa( long value, char *string, int radix )
 
   return string;
 }
-
+#if __GNUC__ > 4 || (__GNUC__ == 4 && (__GNUC_MINOR__ > 9 || \
+   (__GNUC_MINOR__ == 9 && __GNUC_PATCHLEVEL__ > 2)))
+extern char* utoa( unsigned value, char *string, int radix )
+#else
 extern char* utoa( unsigned long value, char *string, int radix )
+#endif
 {
   return ultoa( value, string, radix ) ;
 }
