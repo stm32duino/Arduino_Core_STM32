@@ -159,10 +159,26 @@ Disco_board.menu.Disco_board.DISCO_F407VG.build.board=DISCO_F407VG
 Disco_board.menu.Disco_board.DISCO_F407VG.build.series=STM32F4xx
 Disco_board.menu.Disco_board.DISCO_F407VG.build.variant=DISCO_F407VG
 Disco_board.menu.Disco_board.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
-
 #To enable USB add '-DUSBCON'
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 Disco_board.menu.Disco_board.DISCO_F407VG.build.extra_flags=-DSTM32F407xx {build.usb_flags}
+
+# DISCO_F746NG board
+
+Disco_board.menu.Disco_board.DISCO_F746NG=STM32F746G-DISCOVERY
+Disco_board.menu.Disco_board.DISCO_F746NG.node=DIS_F746NG
+Disco_board.menu.Disco_board.DISCO_F746NG.upload.maximum_size=1048576
+Disco_board.menu.Disco_board.DISCO_F746NG.upload.maximum_data_size=327680
+Disco_board.menu.Disco_board.DISCO_F746NG.build.mcu=cortex-m7
+Disco_board.menu.Disco_board.DISCO_F746NG.build.f_cpu=216000000L
+Disco_board.menu.Disco_board.DISCO_F746NG.build.usb_product="DISCO-F746NG"
+Disco_board.menu.Disco_board.DISCO_F746NG.build.board=DISCO_F746NG
+Disco_board.menu.Disco_board.DISCO_F746NG.build.series=STM32F7xx
+Disco_board.menu.Disco_board.DISCO_F746NG.build.variant=DISCO_F746NG
+Disco_board.menu.Disco_board.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+Disco_board.menu.Disco_board.DISCO_F746NG.build.extra_flags=-DSTM32F746xx {build.usb_flags}
 
 
 Disco_board.menu.upload_method.MassStorageMethod=Mass Storage

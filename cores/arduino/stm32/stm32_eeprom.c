@@ -78,6 +78,9 @@
 // Use the last 16 page of the second bank (sector 15)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(0x0810C000))
 #define FLASH_DATA_SECTOR   15
+#elif defined (STM32F7xx)
+#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08018000))
+#define FLASH_DATA_SECTOR   3
 #elif defined (STM32L0xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE)) /* 0x08080000 */
 #elif defined (STM32L4xx)
@@ -175,7 +178,7 @@ void set_data_to_flash(void)
 #ifdef STM32L4xx
   EraseInitStruct.Banks = FLASH_BANK_2;
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
-#else
+#else // STM32F4xx
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
   EraseInitStruct.NbPages = 1;
 #endif

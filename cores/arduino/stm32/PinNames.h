@@ -171,6 +171,24 @@ typedef enum {
     PH14 = (PortH << 4) + 0x0E,
     PH15 = (PortH << 4) + 0x0F,
 #endif
+#if defined GPIOI_BASE
+    PI0  = (PortI << 4) + 0x00,
+    PI1  = (PortI << 4) + 0x01,
+    PI2  = (PortI << 4) + 0x02,
+    PI3  = (PortI << 4) + 0x03,
+    PI4  = (PortI << 4) + 0x04,
+    PI5  = (PortI << 4) + 0x05,
+    PI6  = (PortI << 4) + 0x06,
+    PI7  = (PortI << 4) + 0x07,
+    PI8  = (PortI << 4) + 0x08,
+    PI9  = (PortI << 4) + 0x09,
+    PI10 = (PortI << 4) + 0x0A,
+    PI11 = (PortI << 4) + 0x0B,
+    PI12 = (PortI << 4) + 0x0C,
+    PI13 = (PortI << 4) + 0x0D,
+    PI14 = (PortI << 4) + 0x0E,
+    PI15 = (PortI << 4) + 0x0F,
+#endif
 
     // Not connected
     NC = (int)0xFFFFFFFF
