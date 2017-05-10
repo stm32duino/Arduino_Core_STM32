@@ -8,7 +8,7 @@ menu.Disco_board=Discovery boards
 ################################################################################
 # Nucleo 144 boards
 
-Nucleo_144.name=Nucleo-144 (Select board from submenu)
+Nucleo_144.name=Nucleo-144
 
 Nucleo_144.build.vid=0x0483
 Nucleo_144.build.pid=0x5711
@@ -38,7 +38,7 @@ Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.extra_flags=-DSTM32F429xx {
 
 Nucleo_144.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_144.menu.upload_method.MassStorageMethod.upload.protocol=
-Nucleo_144.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+Nucleo_144.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
 
 Nucleo_144.menu.upload_method.STLinkMethod=STLink
 Nucleo_144.menu.upload_method.STLinkMethod.upload.protocol=STLink
@@ -47,7 +47,7 @@ Nucleo_144.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 ################################################################################
 # Nucleo 64 boards
 
-Nucleo_64.name=Nucleo-64 (Select board from submenu)
+Nucleo_64.name=Nucleo-64
 
 Nucleo_64.build.vid=0x0483
 Nucleo_64.build.pid=0x5711
@@ -127,7 +127,7 @@ Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.extra_flags=-DSTM32L476xx {bu
 
 Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.protocol=
-Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
 
 Nucleo_64.menu.upload_method.STLinkMethod=STLink
 Nucleo_64.menu.upload_method.STLinkMethod.upload.protocol=STLink
@@ -136,7 +136,7 @@ Nucleo_64.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 ################################################################################
 # Discovery boards
 
-Disco_board.name=Discovery (Select board from submenu)
+Disco_board.name=Discovery
 
 Disco_board.build.vid=0x0483
 Disco_board.build.pid=0x5711
@@ -183,7 +183,7 @@ Disco_board.menu.Disco_board.DISCO_F746NG.build.extra_flags=-DSTM32F746xx {build
 
 Disco_board.menu.upload_method.MassStorageMethod=Mass Storage
 Disco_board.menu.upload_method.MassStorageMethod.upload.protocol=
-Disco_board.menu.upload_method.MassStorageMethod.upload.tool=nucleoFlasher
+Disco_board.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
 
 Disco_board.menu.upload_method.STLinkMethod=STLink
 Disco_board.menu.upload_method.STLinkMethod.upload.protocol=STLink

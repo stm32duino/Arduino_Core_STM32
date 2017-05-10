@@ -5,7 +5,7 @@
 # For more info:
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
-name=STM32 Boards
+name=STM32 Boards (selected from submenu)
 version=1.0.0
 
 # STM compile variables
@@ -98,16 +98,17 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Uploader tool
 # -------------------
 
-#Upload to Nucleo via mass storage
-tools.nucleoFlasher.path={runtime.hardware.path}/tools/win/nucleoFlasher
-tools.nucleoFlasher.path.macosx={runtime.hardware.path}/tools/macosx/nucleoFlasher
-tools.nucleoFlasher.path.linux={runtime.hardware.path}/tools/linux/nucleoFlasher
-tools.nucleoFlasher.cmd.linux=nucleoFlasher
-tools.nucleoFlasher.cmd.windows=nucleoFlasher.bat
-tools.nucleoFlasher.cmd.macosx=nucleoFlasherMacOsX
-tools.nucleoFlasher.upload.params.verbose=
-tools.nucleoFlasher.upload.params.quiet=
-tools.nucleoFlasher.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
+#Upload to board via mass storage
+tools.massStorageCopy.cmd=massStorageCopy
+tools.massStorageCopy.cmd.windows=massStorageCopy.bat
+tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
+tools.massStorageCopy.path={runtime.hardware.path}/tools/win
+tools.massStorageCopy.path.macosx={runtime.hardware.path}/tools/macosx
+tools.massStorageCopy.path.linux={runtime.hardware.path}/tools/linux
+tools.massStorageCopy.path.linux64={runtime.hardware.path}/tools/linux
+tools.massStorageCopy.upload.params.verbose=
+tools.massStorageCopy.upload.params.quiet=
+tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
 # stlink upload
 tools.stlink_upload.cmd=stlink_upload
