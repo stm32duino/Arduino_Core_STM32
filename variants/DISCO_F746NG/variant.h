@@ -74,9 +74,9 @@ enum {
 // Convert a digital pin number Dxx to a PinName Pxy
 #define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
 // Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      ((p < NUM_ANALOG_INPUTS) ? digitalToPinName(p+A0) : digitalToPinName(p))
+#define analogToPinName(p)      (digitalToPinName(p))
 // Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      ((p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
+#define analogToDigital(p)      (p)
 // Convert a PinName Pxy to a pin number
 uint32_t pinNametoPinNumber(PinName p);
 

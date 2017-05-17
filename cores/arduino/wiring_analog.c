@@ -71,7 +71,6 @@ void analogOutputInit(void) {
 void analogWrite(uint32_t ulPin, uint32_t ulValue) {
 
   uint8_t do_init = 0;
-  uint32_t dp = analogToDigital(ulPin);
   PinName p = analogToPinName(ulPin);
   if(p != NC) {
     if(pin_in_pinmap(p, PinMap_DAC)) {
@@ -92,13 +91,13 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue) {
                    ulValue, do_init);
       } else { //DIGITAL PIN ONLY
         // Defaults to digital write
-        pinMode(dp, OUTPUT);
+        pinMode(ulPin, OUTPUT);
         ulValue = mapResolution(ulValue, _writeResolution, 8);
         if (ulValue < 128) {
-          digitalWrite(dp, LOW);
+          digitalWrite(ulPin, LOW);
         }
         else {
-          digitalWrite(dp, HIGH);
+          digitalWrite(ulPin, HIGH);
 	  }
     }
   }
