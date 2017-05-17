@@ -55,7 +55,7 @@ void setup()
   }
 
   // print the type and size of the first FAT-type volume
-  uint32_t volumesize;
+  uint64_t volumesize;
   Serial.print("\nVolume type is FAT");
   Serial.println(fatFs.fatType(), DEC);
   Serial.println();
