@@ -255,3 +255,56 @@ size_t Print::printFloat(double number, uint8_t digits)
   
   return n;
 }
+
+#ifdef SUPPORT_LONGLONG
+
+void Print::println(int64_t n, uint8_t base)
+{
+  print(n, base);
+  println();
+}
+
+void Print::print(int64_t n, uint8_t base)
+{
+  if (n < 0)
+  {
+    print((char)'-');
+    n = -n;
+  }
+  if (base < 2) base = 2;
+  print((uint64_t)n, base);
+}
+
+void Print::println(uint64_t n, uint8_t base)
+{
+  print(n, base);
+  println();
+}
+
+void Print::print(uint64_t n, uint8_t base)
+{
+  if (base < 2) base = 2;
+  printLLNumber(n, base);
+}
+
+void Print::printLLNumber(uint64_t n, uint8_t base)
+{
+  unsigned char buf[16 * sizeof(long)];
+  unsigned int i = 0;
+
+  if (n == 0)
+  {
+    print((char)'0');
+	return;
+  }
+
+  while (n > 0)
+  {
+    buf[i++] = n % base;
+    n /= base;
+  }
+
+  for (; i > 0; i--)
+    print((char) (buf[i - 1] < 10 ? '0' + buf[i - 1] : 'A' + buf[i - 1] - 10));
+}
+#endif

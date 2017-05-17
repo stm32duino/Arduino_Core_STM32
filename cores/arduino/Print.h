@@ -31,11 +31,17 @@
 #define OCT 8
 #define BIN 2
 
+// uncomment next line to support printing of 64 bit ints.
+#define SUPPORT_LONGLONG
+
 class Print
 {
   private:
     int write_error;
     size_t printNumber(unsigned long, uint8_t);
+#ifdef SUPPORT_LONGLONG
+    void printLLNumber(uint64_t, uint8_t );
+#endif
     size_t printFloat(double, uint8_t);
   protected:
     void setWriteError(int err = 1) { write_error = err; }
@@ -79,6 +85,12 @@ class Print
     size_t println(double, int = 2);
     size_t println(const Printable&);
     size_t println(void);
+#ifdef SUPPORT_LONGLONG
+    void println(int64_t, uint8_t = DEC);
+    void print(int64_t, uint8_t = DEC);
+    void println(uint64_t, uint8_t = DEC);
+    void print(uint64_t, uint8_t = DEC);
+#endif
 };
 
 #endif
