@@ -104,7 +104,7 @@
   */
 uint32_t GetCurrentMicro(void)
 {
-  return (HAL_GetTick()*1000) + (SysTick->VAL / (SystemCoreClock / 1000000));
+  return (HAL_GetTick()*1000) + ((SystemCoreClock/1000-SysTick->VAL)/(SystemCoreClock/1000000));
 }
 
 /**
