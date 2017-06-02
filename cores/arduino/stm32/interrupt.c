@@ -67,7 +67,6 @@ typedef struct {
   uint32_t irqnb;
   void (*callback)(void);
   uint32_t mode;
-  uint32_t configured;
 }gpio_irq_conf_str;
 
 /**
@@ -95,39 +94,39 @@ typedef struct {
   */
 static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
 #if defined (STM32F0xx) || defined (STM32L0xx)
-  {.pin = GPIO_PIN_0,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_1,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_2,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_3,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_4,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_5,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_6,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_7,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_8,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_9,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_10,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_11,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_12,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_13,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_14,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_15,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 }
+  {.pin = GPIO_PIN_0,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_1,   .irqnb = EXTI0_1_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_2,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_3,   .irqnb = EXTI2_3_IRQn,   .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_4,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_5,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_6,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_7,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_8,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_9,   .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_10,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_11,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_12,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_13,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_14,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_15,  .irqnb = EXTI4_15_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING}
 #else
-  {.pin = GPIO_PIN_0,   .irqnb = EXTI0_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_1,   .irqnb = EXTI1_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_2,   .irqnb = EXTI2_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_3,   .irqnb = EXTI3_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_4,   .irqnb = EXTI4_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_5,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_6,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_7,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_8,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_9,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_10,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_11,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_12,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_13,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_14,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 },
-  {.pin = GPIO_PIN_15,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING, .configured = 0 }
+  {.pin = GPIO_PIN_0,   .irqnb = EXTI0_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_1,   .irqnb = EXTI1_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_2,   .irqnb = EXTI2_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_3,   .irqnb = EXTI3_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_4,   .irqnb = EXTI4_IRQn,      .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_5,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_6,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_7,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_8,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_9,   .irqnb = EXTI9_5_IRQn,    .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_10,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_11,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_12,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_13,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_14,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING},
+  {.pin = GPIO_PIN_15,  .irqnb = EXTI15_10_IRQn,  .callback = NULL, .mode = GPIO_MODE_IT_RISING}
 #endif
 };
 
