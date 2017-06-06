@@ -62,5 +62,7 @@ extern const PinMap PinMap_SPI_SSEL[];
 extern const PinMap PinMap_CAN_RD[];
 extern const PinMap PinMap_CAN_TD[];
 
-#endif
+//*** ETHERNET ***
+extern const PinMap PinMap_Ethernet[];
 
+#endif

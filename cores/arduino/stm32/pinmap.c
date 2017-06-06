@@ -83,3 +83,11 @@ uint32_t pinmap_merge(uint32_t a, uint32_t b) {
     // error("pinmap mis-match");
     return (uint32_t)NC;
 }
+
+PinName pin_pinName(const PinMap* map) {
+  if(map->pin != NC) {
+    return map->pin;
+  } else {
+    return NC;
+  }
+}

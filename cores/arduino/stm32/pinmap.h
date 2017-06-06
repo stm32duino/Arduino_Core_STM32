@@ -36,6 +36,8 @@ typedef struct {
 bool pin_in_pinmap(PinName pin, const PinMap* map);
 void pin_function(PinName pin, int function);
 
+PinName pin_pinName(const PinMap* map);
+
 uint32_t pinmap_peripheral(PinName pin, const PinMap* map);
 uint32_t pinmap_function(PinName pin, const PinMap* map);
 uint32_t pinmap_find_peripheral(PinName pin, const PinMap* map);
