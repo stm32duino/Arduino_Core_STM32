@@ -98,13 +98,22 @@
   */
 
 /**
-  * @brief  Function called wto read the current micro second
+  * @brief  Function called to read the current micro second
   * @param  None
   * @retval None
   */
 uint32_t GetCurrentMicro(void)
 {
-  return (HAL_GetTick()*1000) + ((SystemCoreClock/1000-SysTick->VAL)/(SystemCoreClock/1000000));
+  uint32_t m0 = HAL_GetTick();
+  uint32_t u0 = SysTick->LOAD - SysTick->VAL;
+  uint32_t m1 = HAL_GetTick();
+  uint32_t u1 = SysTick->LOAD - SysTick->VAL;
+
+  if (m1 > m0) {
+    return ( m1 * 1000 + (u1 * 1000) / SysTick->LOAD);
+  } else {
+    return ( m0 * 1000 + (u0 * 1000) / SysTick->LOAD);
+  }
 }
 
 /**
