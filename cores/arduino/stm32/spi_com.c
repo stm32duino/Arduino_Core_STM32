@@ -144,9 +144,12 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   g_pin_sclk = obj->pin_sclk;
   if (obj->pin_ssel != NC) {
     g_pin_ssel = obj->pin_ssel;
+    handle->Init.NSS = SPI_NSS_HARD_OUTPUT;
+    handle->Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   } else {
     g_pin_ssel = NC;
     handle->Init.NSS = SPI_NSS_SOFT;
+    handle->Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   }
 
   /* Fill default value */

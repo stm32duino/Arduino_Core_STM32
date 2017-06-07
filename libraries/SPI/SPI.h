@@ -125,7 +125,7 @@ class SPISettings {
 class SPIClass {
   public:
     SPIClass();
-    SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel);
+    SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel = 0xFF);
 
     // Transfer functions
     byte transfer(byte _pin, uint8_t _data, SPITransferMode _mode = SPI_LAST);
