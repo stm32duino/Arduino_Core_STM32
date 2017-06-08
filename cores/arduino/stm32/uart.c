@@ -89,7 +89,7 @@
   */
 /// @brief uart caracteristics
 #define UART_NUM (8)
-static UART_HandleTypeDef *uart_handlers[UART_NUM];
+static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
 static void (*rx_callback[UART_NUM])(serial_t*);
 static serial_t *rx_callback_obj[UART_NUM];
 static int (*tx_callback[UART_NUM])(serial_t*);
@@ -336,9 +336,13 @@ size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint8_t index = 0;
+  uint32_t tickstart = HAL_GetTick();
+
   for(index = 0; index < UART_NUM; index++) {
-    if(DEBUG_UART == uart_handlers[index]->Instance) {
-      break;
+    if(uart_handlers[index] != NULL) {
+      if(DEBUG_UART == uart_handlers[index]->Instance) {
+        break;
+      }
     }
   }
 
@@ -346,11 +350,13 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
     return 0;
   }
 
-  if(HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) == HAL_OK) {
-    return 1;
-  } else {
-    return 0;
+  while(HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) != HAL_OK) {
+    if((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
+      return 0;
+    }
   }
+
+  return size;
 }
 
 /**
