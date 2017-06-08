@@ -415,20 +415,82 @@ void TimerHandleDeinit(stimer_t *obj)
 }
 
 /**
+  * @brief  This function return the timer clock source.
+  * @param  tim: timer instance
+  * @retval 1 = PCLK1 or 2 = PCLK2 or 0 = unknown
+  */
+uint8_t getTimerClkSrc(TIM_TypeDef* tim)
+{
+  return (uint8_t)timermap_clkSrc(tim, TimerMap_CONFIG);
+}
+
+/**
   * @brief  This function return the timer clock frequency.
-  * @param  clkSrc: 1 = PCLK1 or 2 = PCLK2
+  * @param  tim: timer instance
   * @retval frequency in Hz
   */
-uint32_t getTimerClkFreq(uint8_t clkSrc)
+uint32_t getTimerClkFreq(TIM_TypeDef* tim)
 {
-  if(clkSrc == 1)
-    return HAL_RCC_GetPCLK1Freq();
-#ifdef HAL_RCC_GetPCLK2Freq
-  else if(clkSrc == 2)
-    return HAL_RCC_GetPCLK2Freq();
+  RCC_ClkInitTypeDef    clkconfig = {};
+  uint32_t              pFLatency = 0U;
+  uint32_t              uwTimclock, uwAPBxPrescaler = 0U;
+
+  /* Get clock configuration */
+  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+  switch(getTimerClkSrc(tim)) {
+    case 1:
+      uwAPBxPrescaler = clkconfig.APB1CLKDivider;
+      uwTimclock = HAL_RCC_GetPCLK1Freq();
+      break;
+#ifndef STM32F0xx
+    case 2:
+      uwAPBxPrescaler = clkconfig.APB2CLKDivider;
+      uwTimclock = HAL_RCC_GetPCLK2Freq();
+      break;
 #endif
+    default:
+    case 0:
+      break;
+  }
+/* When TIMPRE bit of the RCC_DCKCFGR register is reset,
+ *   if APBx prescaler is 1, then TIMxCLK = PCLKx,
+ *   otherwise TIMxCLK = 2x PCLKx.
+ * When TIMPRE bit in the RCC_DCKCFGR register is set,
+ *   if APBx prescaler is 1,2 or 4, then TIMxCLK =HCLK,
+ *   otherwise TIMxCLK = 4x PCLKx
+ */
+#if defined(STM32F4xx) || defined(STM32F7xx)
+  RCC_PeriphCLKInitTypeDef PeriphClkConfig = {};
+  HAL_RCCEx_GetPeriphCLKConfig(&PeriphClkConfig);
+
+  if (PeriphClkConfig.TIMPresSelection == RCC_TIMPRES_ACTIVATED)
+    switch (uwAPBxPrescaler) {
+      default:
+      case RCC_HCLK_DIV1:
+      case RCC_HCLK_DIV2:
+      case RCC_HCLK_DIV4:
+        uwTimclock=HAL_RCC_GetHCLKFreq();
+        break;
+      case RCC_HCLK_DIV8:
+      case RCC_HCLK_DIV16:
+        uwTimclock*=4;
+        break;
+    }
   else
-    return 0;
+#endif
+    switch (uwAPBxPrescaler) {
+      default:
+      case RCC_HCLK_DIV1:
+        // uwTimclock*=1;
+        break;
+      case RCC_HCLK_DIV2:
+      case RCC_HCLK_DIV4:
+      case RCC_HCLK_DIV8:
+      case RCC_HCLK_DIV16:
+        uwTimclock*=2;
+        break;
+    }
+  return uwTimclock;
 }
 
 /**
@@ -449,7 +511,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   //min pulse = 1us - max pulse = 65535us
   handle->Instance               = obj->timer;
   handle->Init.Period            = period;
-  handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(timermap_clkSrc(obj->timer, TimerMap_CONFIG)) / (1000000)) - 1;
+  handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(obj->timer) / (1000000)) - 1;
   handle->Init.ClockDivision     = 0;
   handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
 #ifndef STM32L0xx
@@ -631,7 +693,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
   digital_io_init(obj->pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
 
   while(end == 0) {
-    period = ((uint32_t)(getTimerClkFreq(timermap_clkSrc(obj->timer, TimerMap_CONFIG)) / frequency / prescaler)) - 1;
+    period = ((uint32_t)(getTimerClkFreq(obj->timer) / frequency / prescaler)) - 1;
 
     if((period >= 0xFFFF) && (prescaler < 0xFFFF))
       prescaler++; //prescaler *= 2;

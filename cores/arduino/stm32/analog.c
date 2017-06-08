@@ -711,9 +711,9 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
   timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
   if (timHandle.Instance == NC) return 0;
-  timHandle.Init.Prescaler         = (uint32_t)(SystemCoreClock / clock_freq) - 1;
+  timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
   timHandle.Init.Period            = period;
-  timHandle.Init.ClockDivision     = 0;
+  timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
 #ifndef STM32L0xx
   timHandle.Init.RepetitionCounter = 0;
