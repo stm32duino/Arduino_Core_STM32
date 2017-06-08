@@ -95,6 +95,9 @@ void setTimerCounter(stimer_t *obj, uint32_t value);
 void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
 uint32_t getCCRRegister(stimer_t *obj, uint32_t channel);
 
+uint8_t getTimerClkSrc(TIM_TypeDef* tim);
+uint32_t getTimerClkFreq(TIM_TypeDef* tim);
+
 void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
 
 #ifdef __cplusplus
