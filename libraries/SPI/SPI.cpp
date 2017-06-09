@@ -11,7 +11,11 @@
 
 #include "SPI.h"
 
-
+/* The following contructors are available:
+- SPIClass SPI
+- SPIClass SPI(mosi,miso,sclk)
+- SPIClass SPI(mosi,miso,sclk,ss)
+*/
 SPIClass SPI;
 
 SPIClass::SPIClass() : g_active_id(-1)
@@ -22,13 +26,20 @@ SPIClass::SPIClass() : g_active_id(-1)
   _spi.pin_ssel = NC;
 }
 
+/* By default hardware SS pin is not used. To use hardware SS pin you should set
+ssel pin. Enable this pin disable software CS. See microcontroller documentation
+for the list of available SS pins. */
 SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : g_active_id(-1)
 {
   _spi.pin_miso = digitalToPinName(miso);
   _spi.pin_mosi = digitalToPinName(mosi);
   _spi.pin_sclk = digitalToPinName(sclk);
-  // If no ssel pin used, set it to value NUM_DIGITAL_PINS
-  _spi.pin_ssel = digitalToPinName(ssel);
+
+  if(ssel != 0xFF) {
+    _spi.pin_ssel = digitalToPinName(ssel);
+  } else {
+    _spi.pin_ssel = NC;
+  }
 }
 
 //begin using the default chip select
@@ -43,7 +54,7 @@ void SPIClass::begin(uint8_t _pin)
   if(_pin > SPI_CHANNELS_NUM)
     return;
 
-  if(_pin != BOARD_SPI_OWN_SS) {
+  if((_pin != BOARD_SPI_OWN_SS) && (_spi.pin_ssel == NC)) {
     pinMode(_pin, OUTPUT);
     digitalWrite(_pin, HIGH);
   }
@@ -129,39 +140,30 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
   g_active_id = _pin;
 }
 
+/*
+ * This function should not be used in new projects.
+ * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
+ */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
   if(_pin > SPI_CHANNELS_NUM)
     return;
 
+  /* Get clk freq of the SPI instance */
+  uint32_t spiClkFreq = spi_getClkFreq(&_spi);
+
   switch(_divider) {
     case (SPI_CLOCK_DIV2) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV2_MHZ;
-    break;
     case (SPI_CLOCK_DIV4) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV4_MHZ;
-    break;
     case (SPI_CLOCK_DIV8) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV8_MHZ;
-    break;
     case (SPI_CLOCK_DIV16) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-    break;
     case (SPI_CLOCK_DIV32) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV32_MHZ;
-    break;
     case (SPI_CLOCK_DIV64) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-    break;
     case (SPI_CLOCK_DIV128) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV128_MHZ;
+      spiSettings[_pin].clk = spiClkFreq/_divider;
     break;
     default:
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-#else
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-#endif
+      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DEFAULT;
     break;
   }
 
@@ -185,12 +187,12 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
     g_active_id = _pin;
   }
 
-  if(_pin != BOARD_SPI_OWN_SS)
+  if((_pin != BOARD_SPI_OWN_SS) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, LOW);
 
-  spi_transfer(&_spi, &data, &rx_buffer, sizeof(uint8_t), 10000000);
+  spi_transfer(&_spi, &data, &rx_buffer, sizeof(uint8_t), 10000);
 
-  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST))
+  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, HIGH);
 
   return rx_buffer;
@@ -208,12 +210,12 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
     g_active_id = _pin;
   }
 
-  if(_pin != BOARD_SPI_OWN_SS)
+  if((_pin != BOARD_SPI_OWN_SS) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, LOW);
 
   spi_transfer(&_spi, (uint8_t *)&data, (uint8_t *)&rx_buffer, sizeof(uint16_t), 10000000);
 
-  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST))
+  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, HIGH);
 
   return rx_buffer;
@@ -229,12 +231,12 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
     g_active_id = _pin;
   }
 
-  if(_pin != BOARD_SPI_OWN_SS)
+  if((_pin != BOARD_SPI_OWN_SS) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, LOW);
 
   spi_send(&_spi,(uint8_t *)_buf, _count,10000);
 
-  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST))
+  if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, HIGH);
 }
 
