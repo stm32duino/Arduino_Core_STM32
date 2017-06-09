@@ -129,39 +129,30 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
   g_active_id = _pin;
 }
 
+/*
+ * This function should not be used in new projects.
+ * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
+ */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
   if(_pin > SPI_CHANNELS_NUM)
     return;
 
+  /* Get clk freq of the SPI instance */
+  uint32_t spiClkFreq = spi_getClkFreq(&_spi);
+
   switch(_divider) {
     case (SPI_CLOCK_DIV2) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV2_MHZ;
-    break;
     case (SPI_CLOCK_DIV4) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV4_MHZ;
-    break;
     case (SPI_CLOCK_DIV8) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV8_MHZ;
-    break;
     case (SPI_CLOCK_DIV16) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-    break;
     case (SPI_CLOCK_DIV32) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV32_MHZ;
-    break;
     case (SPI_CLOCK_DIV64) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-    break;
     case (SPI_CLOCK_DIV128) :
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV128_MHZ;
+      spiSettings[_pin].clk = spiClkFreq/_divider;
     break;
     default:
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-#else
-      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-#endif
+      spiSettings[_pin].clk = SPI_SPEED_CLOCK_DEFAULT;
     break;
   }
 
