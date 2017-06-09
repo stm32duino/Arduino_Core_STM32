@@ -86,11 +86,6 @@
   * @{
   */
 
-static PinName g_pin_mosi = NC;
-static PinName g_pin_miso = NC;
-static PinName g_pin_sclk = NC;
-static PinName g_pin_ssel = NC;
-
 /**
   * @}
   */
@@ -120,12 +115,19 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     return;
 
   SPI_HandleTypeDef *handle = &(obj->handle);
+  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_TypeDef *port;
 
   // Determine the SPI to use
   uint32_t spi_mosi = pinmap_peripheral(obj->pin_mosi, PinMap_SPI_MOSI);
   uint32_t spi_miso = pinmap_peripheral(obj->pin_miso, PinMap_SPI_MISO);
   uint32_t spi_sclk = pinmap_peripheral(obj->pin_sclk, PinMap_SPI_SCLK);
   uint32_t spi_ssel = pinmap_peripheral(obj->pin_ssel, PinMap_SPI_SSEL);
+
+  /* Pins MOSI/MISO/SCLK must not be NC. ssel can be NC. */
+  if(spi_mosi == NC || spi_miso == NC || spi_sclk == NC) {
+    return;
+  }
 
   uint32_t spi_data = pinmap_merge(spi_mosi, spi_miso);
   uint32_t spi_cntl = pinmap_merge(spi_sclk, spi_ssel);
@@ -139,17 +141,10 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 
   // Configure the SPI pins
-  g_pin_mosi = obj->pin_mosi;
-  g_pin_miso = obj->pin_miso;
-  g_pin_sclk = obj->pin_sclk;
   if (obj->pin_ssel != NC) {
-    g_pin_ssel = obj->pin_ssel;
     handle->Init.NSS = SPI_NSS_HARD_OUTPUT;
-    handle->Init.NSSPMode = SPI_NSS_PULSE_ENABLE;
   } else {
-    g_pin_ssel = NC;
     handle->Init.NSS = SPI_NSS_SOFT;
-    handle->Init.NSSPMode = SPI_NSS_PULSE_DISABLE;
   }
 
   /* Fill default value */
@@ -202,96 +197,84 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   handle->Init.TIMode            = SPI_TIMODE_DISABLED;
 
-  HAL_SPI_Init(handle);
-}
-
-/**
-  * @brief Initialize the SPI MSP.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
-void HAL_SPI_MspInit(SPI_HandleTypeDef *hspi)
-{
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
-
-  if(g_pin_mosi != NC) {
-    port = set_GPIO_Port_Clock(STM_PORT(g_pin_mosi));
-    GPIO_InitStruct.Pin       = STM_GPIO_PIN(g_pin_mosi);
-    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(g_pin_mosi,PinMap_SPI_MOSI));
-    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(g_pin_mosi,PinMap_SPI_MOSI));
+  if(obj->pin_mosi != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_mosi));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_mosi);
+    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(g_pin_mosi,PinMap_SPI_MOSI));
+    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
-  if(g_pin_miso != NC) {
-    port = set_GPIO_Port_Clock(STM_PORT(g_pin_miso));
-    GPIO_InitStruct.Pin       = STM_GPIO_PIN(g_pin_miso);
-    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(g_pin_miso,PinMap_SPI_MISO));
-    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(g_pin_miso,PinMap_SPI_MISO));
+  if(obj->pin_miso != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_miso));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_miso);
+    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(g_pin_miso,PinMap_SPI_MISO));
+    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
-  if(g_pin_sclk != NC) {
-    port = set_GPIO_Port_Clock(STM_PORT(g_pin_sclk));
-    GPIO_InitStruct.Pin       = STM_GPIO_PIN(g_pin_sclk);
-    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(g_pin_sclk,PinMap_SPI_SCLK));
-    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(g_pin_sclk,PinMap_SPI_SCLK));
+  if(obj->pin_sclk != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_sclk));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_sclk);
+    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(g_pin_sclk,PinMap_SPI_SCLK));
+    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
-  if(g_pin_ssel != NC) {
-    port = set_GPIO_Port_Clock(STM_PORT(g_pin_ssel));
-    GPIO_InitStruct.Pin       = STM_GPIO_PIN(g_pin_ssel);
-    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(g_pin_ssel,PinMap_SPI_SSEL));
-    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(g_pin_ssel,PinMap_SPI_SSEL));
+  if(obj->pin_ssel != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_ssel));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_ssel);
+    GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(g_pin_ssel,PinMap_SPI_SSEL));
+    GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
 #if defined SPI1_BASE
   // Enable SPI clock
-  if (hspi->Instance == SPI1) {
+  if (handle->Instance == SPI1) {
       __HAL_RCC_SPI1_CLK_ENABLE();
   }
 #endif
 
 #if defined SPI2_BASE
-  if (hspi->Instance == SPI2) {
+  if (handle->Instance == SPI2) {
       __HAL_RCC_SPI2_CLK_ENABLE();
   }
 #endif
 
 #if defined SPI3_BASE
-  if (hspi->Instance == SPI3) {
+  if (handle->Instance == SPI3) {
       __HAL_RCC_SPI3_CLK_ENABLE();
   }
 #endif
 
 #if defined SPI4_BASE
-  if (hspi->Instance == SPI4) {
+  if (handle->Instance == SPI4) {
       __HAL_RCC_SPI4_CLK_ENABLE();
   }
 #endif
 
 #if defined SPI5_BASE
-  if (hspi->Instance == SPI5) {
+  if (handle->Instance == SPI5) {
       __HAL_RCC_SPI5_CLK_ENABLE();
   }
 #endif
 
 #if defined SPI6_BASE
-  if (hspi->Instance == SPI6) {
+  if (handle->Instance == SPI6) {
       __HAL_RCC_SPI6_CLK_ENABLE();
   }
 #endif
+
+  HAL_SPI_Init(handle);
 }
 
 /**
