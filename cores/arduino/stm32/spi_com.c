@@ -102,6 +102,71 @@
   * @{
   */
 /**
+  * @brief  return clock freq of an SPI instance
+  * @param  spi_inst : SPI instance
+  * @retval clock freq of the instance else SystemCoreClock
+  */
+uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
+{
+  uint32_t spi_freq = SystemCoreClock;
+
+#ifdef STM32F0xx
+  /* SPIx source CLK is PCKL1 */
+  spi_freq = HAL_RCC_GetPCLK1Freq();
+#else
+  if(spi_inst != (SPI_TypeDef *)NC) {
+    /* Get source clock depending on SPI instance */
+    switch ((uint32_t)spi_inst) {
+      case (uint32_t)SPI1:
+#if defined SPI4_BASE
+      case (uint32_t)SPI4:
+#endif
+#if defined SPI5_BASE
+      case (uint32_t)SPI5:
+#endif
+#if defined SPI6_BASE
+      case (uint32_t)SPI6:
+#endif
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+        break;
+      case (uint32_t)SPI2:
+#if defined SPI3_BASE
+      case (uint32_t)SPI3:
+#endif
+        /* SPI_2 and SPI_3. Source CLK is PCKL1 */
+        spi_freq = HAL_RCC_GetPCLK1Freq();
+        break;
+      default:
+        printf("CLK: SPI instance not set");
+        break;
+    }
+  }
+#endif
+  return spi_freq;
+}
+
+/**
+  * @brief  return clock freq of an SPI instance
+  * @param  obj : pointer to spi_t structure
+  * @retval clock freq of the instance else SystemCoreClock
+  */
+uint32_t spi_getClkFreq(spi_t *obj)
+{
+  uint32_t spi_inst = NC;
+  uint32_t spi_freq = SystemCoreClock;
+
+  if(obj != NULL) {
+	spi_inst = pinmap_peripheral(obj->pin_sclk, PinMap_SPI_SCLK);
+
+    if(spi_inst != NC) {
+      spi_freq = spi_getClkFreqInst(spi_inst);
+	}
+  }
+  return spi_freq;
+}
+
+/**
   * @brief  SPI initialization function
   * @param  obj : pointer to spi_t structure
   * @param  speed : spi output speed
@@ -117,6 +182,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   SPI_HandleTypeDef *handle = &(obj->handle);
   GPIO_InitTypeDef  GPIO_InitStruct;
   GPIO_TypeDef *port;
+  uint32_t spi_freq = 0;
 
   // Determine the SPI to use
   uint32_t spi_mosi = pinmap_peripheral(obj->pin_mosi, PinMap_SPI_MOSI);
@@ -151,21 +217,22 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   handle->Instance               = obj->spi;
   handle->Init.Mode              = SPI_MODE_MASTER;
 
-  if(speed >= SPI_SPEED_CLOCK_DIV2_MHZ) {
+  spi_freq = spi_getClkFreqInst(obj->spi);
+  if(speed >= (spi_freq/SPI_SPEED_CLOCK_DIV2_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;
-  } else if(speed >= SPI_SPEED_CLOCK_DIV4_MHZ) {
+  } else if(speed >= (spi_freq/SPI_SPEED_CLOCK_DIV4_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_4;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV8_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV8_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV16_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV16_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV32_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV32_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_32;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV64_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV64_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_64;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV128_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV128_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
-  } else if (speed >= SPI_SPEED_CLOCK_DIV256_MHZ) {
+  } else if (speed >= (spi_freq/SPI_SPEED_CLOCK_DIV256_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   } else {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;

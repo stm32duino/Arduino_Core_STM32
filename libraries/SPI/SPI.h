@@ -35,7 +35,8 @@
 
 // For compatibility with sketches designed for AVR @ 16 MHz
 // need to go from 64MHz to 16 (/4)
-// New programs should use SPI.beginTransaction to set the SPI clock
+// This function should not be used in new projects.
+// Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
 #define SPI_CLOCK_DIV2	 2
 #define SPI_CLOCK_DIV4	 4
 #define SPI_CLOCK_DIV8	 8
@@ -57,27 +58,7 @@ enum SPITransferMode {
 class SPISettings {
   public:
     SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode) {
-      if(clock >= SPI_SPEED_CLOCK_DIV2_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV2_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV4_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV4_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV8_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV8_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV16_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV32_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV32_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV64_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-      } else if (clock >= SPI_SPEED_CLOCK_DIV128_MHZ) {
-        clk = SPI_SPEED_CLOCK_DIV128_MHZ;
-      } else {
-#if defined (STM32F0xx) || defined(STM32F3xx) || defined(STM32L0xx)
-        clk = SPI_SPEED_CLOCK_DIV256_MHZ;
-#else
-        clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-#endif
-      }
+      clk = clock;
 
       if(bitOrder == MSBFIRST) {
         msb = 1;
@@ -98,11 +79,7 @@ class SPISettings {
 
     }
     SPISettings() {
-#if defined (STM32F0xx) || defined(STM32F3xx)
-      clk = SPI_SPEED_CLOCK_DIV64_MHZ;
-#else
-      clk = SPI_SPEED_CLOCK_DIV16_MHZ;
-#endif
+      clk = SPI_SPEED_CLOCK_DEFAULT;
       bOrder = MSBFIRST;
       msb = 1;
       dMode = SPI_MODE_0;
