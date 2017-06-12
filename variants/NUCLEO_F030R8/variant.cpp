@@ -27,10 +27,10 @@ const PinName digital_arduino[] = {
   PA3,  //D0
   PA2,  //D1
   PA10, //D2
-  PB3,  //D3
+  PB3,  //D3 - no PWM
   PB5,  //D4
   PB4,  //D5
-  PB10, //D6
+  PB10, //D6 - no PWM
   PA8,  //D7
   PA9,  //D8
   PC7,  //D9
@@ -44,43 +44,46 @@ const PinName digital_arduino[] = {
 // CN7 Left Side
   PC10, //D16
   PC12, //D17
-  PF11, //D18 - BOOT0
-  PA13, //D19 - SWD
-  PA14, //D20 - SWD
-  PA15, //D21
-  PB7,  //D22
-  PC13, //D23
-  PC14, //D24
-  PC15, //D25
-  PF0,  //D26
-  PF1,  //D27
-  PC2,  //D28
-  PC3,  //D29
+  PF6,  //D18
+  PF7,  //D19
+  PA13, //D20 - SWD
+  PA14, //D21 - SWD
+  PA15, //D22
+  PB7,  //D23
+  PC13, //D24
+  PC14, //D25
+  PC15, //D26
+  PF0,  //D27
+  PF1,  //D28
+  PC2,  //D29
+  PC3,  //D30
 // CN7 Right Side
-  PC11, //D30
-  PD2,  //D31
+  PC11, //D31
+  PD2,  //D32
 // CN10 Left Side
-  PC9,  //D32
+  PC9,  //D33
 // CN10 Right side
-  PC8,  //D33
-  PC6,  //D34
-  PC5,  //D35
-  PA12, //D36
-  PA11, //D37
-  PB12, //D38
-  PB11, //D39
-  PB2,  //D40
-  PB1,  //D41
-  PB15, //D42
-  PB14, //D43
-  PB13, //D44
-  PC4,  //D45
-  PA0,  //D46/A0
-  PA1,  //D47/A1
-  PA4,  //D48/A2
-  PB0,  //D49/A3
-  PC1,  //D50/A4
-  PC0,  //D51/A5
+  PC8,  //D34
+  PC6,  //D35
+  PC5,  //D36
+  PA12, //D37
+  PA11, //D38
+  PB12, //D39
+  PB11, //D40
+  PB2,  //D41
+  PB1,  //D42
+  PB15, //D43
+  PB14, //D44
+  PB13, //D45
+  PC4,  //D46
+  PF5,  //D47
+  PF4,  //D48
+  PA0,  //D49/A0
+  PA1,  //D50/A1
+  PA4,  //D51/A2
+  PB0,  //D52/A3
+  PC1,  //D53/A4
+  PC0,  //D54/A5
 };
 
 #ifdef __cplusplus
@@ -92,7 +95,6 @@ const PinName digital_arduino[] = {
  */
 HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
 HardwareSerial  Serial1(PA10, PA9);
-HardwareSerial  Serial2(PA1, PA0);
 
 // Need rework to be generic
 
@@ -100,14 +102,11 @@ void serialEvent() __attribute__((weak));
 void serialEvent() { }
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
-void serialEvent2() __attribute__((weak));
-void serialEvent2() { }
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
   if (Serial1.available()) serialEvent1();
-  if (Serial2.available()) serialEvent2();
 }
 
 // ----------------------------------------------------------------------------

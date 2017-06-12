@@ -59,12 +59,12 @@ enum {
   D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
   D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
   D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51,
+  D50, D51, D52, D53, D54,
   DEND
 };
 
 enum {
-  A_START_AFTER = D45,
+  A_START_AFTER = D48,
   A0,  A1,  A2,  A3,  A4,  A5,
   AEND
 };
@@ -88,7 +88,6 @@ uint32_t pinNametoPinNumber(PinName p);
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12
-#define DACC_RESOLUTION         12
 
 //PWR resolution
 #define PWM_RESOLUTION          8
@@ -100,7 +99,7 @@ uint32_t pinNametoPinNumber(PinName p);
 #define LED_GREEN               LED_BUILTIN
 
 //On-board user button
-#define USER_BTN                23
+#define USER_BTN                24
 
 
 //SPI definitions
@@ -129,16 +128,11 @@ uint32_t pinNametoPinNumber(PinName p);
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM6
-#define TIMER_UART_EMULATED     TIM7
 
 //Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM3  //TODO: advanced-control timers don't work
 
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
-
-// UART Emulation
-#define UART_EMUL_RX            PB14
-#define UART_EMUL_TX            PB13
 
 //Enable Firmata
 #define STM32 1
@@ -153,7 +147,6 @@ uint32_t pinNametoPinNumber(PinName p);
 #ifdef __cplusplus
 extern HardwareSerial Serial;
 extern HardwareSerial Serial1;
-extern HardwareSerial Serial2;
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
