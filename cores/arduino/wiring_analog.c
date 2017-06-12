@@ -73,6 +73,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue) {
   uint8_t do_init = 0;
   PinName p = analogToPinName(ulPin);
   if(p != NC) {
+#ifdef HAL_DAC_MODULE_ENABLED
     if(pin_in_pinmap(p, PinMap_DAC)) {
       if(is_pin_configured(p, g_anOutputPinConfigured) == false) {
         do_init = 1;
@@ -80,13 +81,15 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue) {
       }
       ulValue = mapResolution(ulValue, _writeResolution, DACC_RESOLUTION);
       dac_write_value(p, ulValue, do_init);
-    } else if(pin_in_pinmap(p, PinMap_PWM)) {
-      if(is_pin_configured(p, g_anOutputPinConfigured) == false) {
-        do_init = 1;
-        set_pin_configured(p, g_anOutputPinConfigured);
-      }
-      ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
-      pwm_start(p, PWM_FREQUENCY*PWM_MAX_DUTY_CYCLE,
+    } else
+#endif //HAL_DAC_MODULE_ENABLED
+      if(pin_in_pinmap(p, PinMap_PWM)) {
+        if(is_pin_configured(p, g_anOutputPinConfigured) == false) {
+          do_init = 1;
+          set_pin_configured(p, g_anOutputPinConfigured);
+        }
+        ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
+        pwm_start(p, PWM_FREQUENCY*PWM_MAX_DUTY_CYCLE,
                    PWM_MAX_DUTY_CYCLE,
                    ulValue, do_init);
       } else { //DIGITAL PIN ONLY
@@ -98,7 +101,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue) {
         }
         else {
           digitalWrite(ulPin, HIGH);
-	  }
+      }
     }
   }
 }

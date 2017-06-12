@@ -35,9 +35,12 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
   if(p != NC) {
     // If the pin that support PWM or DAC output, we need to turn it off
     if(is_pin_configured(p, g_anOutputPinConfigured)) {
+#ifdef HAL_DAC_MODULE_ENABLED
       if(pin_in_pinmap(p, PinMap_DAC)) {
         dac_stop(p);
-      } else if(pin_in_pinmap(p, PinMap_PWM)) {
+      } else
+#endif //HAL_DAC_MODULE_ENABLED
+      if(pin_in_pinmap(p, PinMap_PWM)) {
         pwm_stop(p);
       }
       reset_pin_configured(p, g_anOutputPinConfigured);

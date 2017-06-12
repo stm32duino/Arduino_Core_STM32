@@ -191,6 +191,31 @@ static uint32_t get_adc_channel(PinName pin)
   return channel;
 }
 
+static uint32_t get_pwm_channel(PinName pin)
+{
+  uint32_t function = pinmap_function(pin, PinMap_PWM);
+  uint32_t channel = 0;
+  switch(STM_PIN_CHANNEL(function)) {
+    case 1:
+      channel = TIM_CHANNEL_1;
+      break;
+    case 2:
+      channel = TIM_CHANNEL_2;
+      break;
+    case 3:
+      channel = TIM_CHANNEL_3;
+      break;
+    case 4:
+      channel = TIM_CHANNEL_4;
+      break;
+    default:
+      channel = 0;
+    break;
+   }
+  return channel;
+}
+
+#ifdef HAL_DAC_MODULE_ENABLED
 static uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
@@ -216,29 +241,6 @@ static uint32_t get_dac_channel(PinName pin)
   return channel;
 }
 
-static uint32_t get_pwm_channel(PinName pin)
-{
-  uint32_t function = pinmap_function(pin, PinMap_PWM);
-  uint32_t channel = 0;
-  switch(STM_PIN_CHANNEL(function)) {
-    case 1:
-      channel = TIM_CHANNEL_1;
-      break;
-    case 2:
-      channel = TIM_CHANNEL_2;
-      break;
-    case 3:
-      channel = TIM_CHANNEL_3;
-      break;
-    case 4:
-      channel = TIM_CHANNEL_4;
-      break;
-    default:
-      channel = 0;
-    break;
-   }
-  return channel;
-}
 ////////////////////////// DAC INTERFACE FUNCTIONS /////////////////////////////
 
 /**
@@ -369,6 +371,7 @@ void dac_stop(PinName pin)
     return;
   }
 }
+#endif //HAL_DAC_MODULE_ENABLED
 
 
 ////////////////////////// ADC INTERFACE FUNCTIONS /////////////////////////////
