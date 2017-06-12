@@ -201,9 +201,11 @@ static uint32_t get_dac_channel(PinName pin)
       channel = DAC_CHANNEL_0;
       break;
 #endif
+#ifdef DAC_CHANNEL_1
     case 1:
       channel = DAC_CHANNEL_1;
     break;
+#endif
 #ifdef DAC_CHANNEL_2
     case 2:
       channel = DAC_CHANNEL_2;
@@ -249,6 +251,11 @@ static uint32_t get_pwm_channel(PinName pin)
   * @param hdac: DAC handle pointer
   * @retval None
   */
+#ifndef HAL_DAC_MODULE_ENABLED
+void HAL_DAC_MspInit(void *hdac)
+{
+}
+#else
 void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
   GPIO_InitTypeDef          GPIO_InitStruct;
@@ -271,6 +278,7 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 }
+#endif /* HAL_DAC_MODULE_ENABLED */
 
 
 /**
@@ -283,6 +291,7 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
   */
 void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 {
+#ifdef HAL_DAC_MODULE_ENABLE
   DAC_HandleTypeDef DacHandle = {};
   DAC_ChannelConfTypeDef dacChannelConf = {};
   uint32_t dacChannel;
@@ -326,6 +335,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 
   /*##-4- Enable DAC Channel1 ################################################*/
   HAL_DAC_Start(&DacHandle, dacChannel);
+#endif /* HAL_DAC_MODULE_ENABLE */
 }
 
 /**
@@ -334,6 +344,11 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   *         the configuration information for the specified DAC.
   * @retval None
   */
+#ifndef HAL_DAC_MODULE_ENABLED
+void HAL_DAC_MspDeInit(void* hdac)
+{
+}
+#else
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
   /* DAC Periph clock disable */
@@ -344,6 +359,7 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
   __HAL_RCC_DAC_CLK_DISABLE();
 #endif
 }
+#endif /* HAL_DAC_MODULE_ENABLED */
 
 /**
   * @brief  This function will stop the DAC
@@ -353,6 +369,7 @@ void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
   */
 void dac_stop(PinName pin)
 {
+#ifdef HAL_DAC_MODULE_ENABLED
   DAC_HandleTypeDef DacHandle;
   uint32_t dacChannel;
 
@@ -368,6 +385,7 @@ void dac_stop(PinName pin)
     /* DeInitialization Error */
     return;
   }
+#endif /* HAL_DAC_MODULE_ENABLED */
 }
 
 
