@@ -45,7 +45,7 @@ const PinName digital_arduino[] = {
   PD10, //D17
   PD12, //D18
   PD14, //D19
-//P2 connector Left side  
+//P2 connector Left side
   PH0,  //D20
   PC14, //D21
   PE6,  //D22

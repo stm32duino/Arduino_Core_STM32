@@ -54,7 +54,8 @@ const PinName digital_arduino[] = {
   PC15, //D25
   PH0,  //D26
   PH1,  //D27
-  PC2,  //D28
+  PC2,  //D28// Match Table 17. NUCLEO-F429ZI pin assignments
+// from UM1974 STM32 Nucleo-144 board
   PC3,  //D29
 // CN7 Right Side
   PC11, //D30

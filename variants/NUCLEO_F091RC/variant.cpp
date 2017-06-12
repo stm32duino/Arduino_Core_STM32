@@ -23,8 +23,6 @@ extern "C" {
 #endif
 
 // Pin number
-// Match Table 17. NUCLEO-F429ZI pin assignments
-// from UM1974 STM32 Nucleo-144 board
 const PinName digital_arduino[] = {
   PA3,  //D0
   PA2,  //D1
@@ -108,8 +106,8 @@ void serialEvent2() { }
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
-  if (Serial1.available()) serialEvent();
-  if (Serial2.available()) serialEvent();
+  if (Serial1.available()) serialEvent1();
+  if (Serial2.available()) serialEvent2();
 }
 
 // ----------------------------------------------------------------------------
