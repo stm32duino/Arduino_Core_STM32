@@ -676,6 +676,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 {
   uint8_t end = 0;
+  uint32_t timClkFreq = 0;
+  // TIMER_TONE freq is twice frequency
+  uint32_t timFreq = 2*frequency;
   uint32_t prescaler = 1;
   uint32_t period = 0;
 
@@ -687,16 +690,17 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 
   //Calculate the toggle count
   if (duration > 0) {
-    obj->pinInfo.count = ((frequency * duration) / 1000) * 2;
+    obj->pinInfo.count = ((timFreq * duration) / 1000);
   }
   else {
     obj->pinInfo.count = -1;
   }
 
   digital_io_init(obj->pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
+  timClkFreq = getTimerClkFreq(obj->timer);
 
   while(end == 0) {
-    period = ((uint32_t)(getTimerClkFreq(obj->timer) / frequency / prescaler)) - 1;
+    period = ((uint32_t)( timClkFreq / timFreq / prescaler)) - 1;
 
     if((period >= 0xFFFF) && (prescaler < 0xFFFF))
       prescaler++; //prescaler *= 2;

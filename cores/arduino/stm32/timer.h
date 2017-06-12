@@ -69,7 +69,7 @@ struct timer_s{
   void (*irqHandle)(stimer_t *);
   void (*irqHandleOC)(stimer_t *, uint32_t);
   PinName pin;
-  timerPinInfo_t pinInfo;
+  volatile timerPinInfo_t pinInfo;
 };
 
 /* Exported constants --------------------------------------------------------*/
