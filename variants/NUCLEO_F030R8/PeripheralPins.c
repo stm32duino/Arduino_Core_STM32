@@ -59,10 +59,7 @@ const PinMap PinMap_ADC[] = {
 };
 
 //*** DAC ***
-
-const PinMap PinMap_DAC[] = {
-    {NC,   NC,    0}
-};
+// No DAC
 
 //*** I2C ***
 
@@ -181,14 +178,7 @@ const PinMap PinMap_SPI_SSEL[] = {
 };
 
 //*** CAN ***
-
-const PinMap PinMap_CAN_RD[] = {
-    {NC,    NC,    0}
-};
-
-const PinMap PinMap_CAN_TD[] = {
-    {NC,    NC,    0}
-};
+// No CAN
 
 const TimerMap TimerMap_CONFIG[] = {
   {TIM1,  TIM1_BRK_UP_TRG_COM_IRQn, 1},
