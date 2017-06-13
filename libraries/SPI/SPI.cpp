@@ -234,7 +234,7 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
   if((_pin != BOARD_SPI_OWN_SS) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, LOW);
 
-  spi_send(&_spi,(uint8_t *)_buf, _count,10000);
+  spi_transfer(&_spi, ((uint8_t*)_buf), ((uint8_t*)_buf), _count, 10000);
 
   if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, HIGH);
