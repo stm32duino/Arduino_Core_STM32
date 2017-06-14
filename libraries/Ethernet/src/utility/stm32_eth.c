@@ -156,7 +156,9 @@ void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, co
 void stm32_eth_scheduler(void) {
   /* Read a received packet from the Ethernet buffers and send it
   to the lwIP for handling */
-  // ethernetif_input(&gnetif);
+#ifndef ETH_INPUT_USE_IT
+  ethernetif_input(&gnetif);
+#endif /* ETH_INPUT_USE_IT */
 
   /* Check ethernet link status */
   if((HAL_GetTick() - gEhtLinkTickStart) >= TIME_CHECK_ETH_LINK_STATE) {
@@ -254,6 +256,10 @@ void stm32_DHCP_Periodic_Handle(struct netif *netif)
     /* process DHCP state machine */
     stm32_DHCP_process(netif);
   }
+}
+
+void stm32_DHCP_manual_config(void) {
+  dhcp_inform(&gnetif);
 }
 
 uint8_t stm32_get_DHCP_lease_state(void) {
@@ -565,7 +571,7 @@ void udp_receive_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
     }
     ((struct udp_rcv_arg *)arg)->p = p;
     ((struct udp_rcv_arg *)arg)->available = p->tot_len;
-    ((struct udp_rcv_arg *)arg)->ip = addr;
+    ip_addr_copy(((struct udp_rcv_arg *)arg)->ip, *addr);
     ((struct udp_rcv_arg *)arg)->port = port;
   }
 }

@@ -50,7 +50,7 @@
 struct udp_rcv_arg {
   struct pbuf *p;     // the packet buffer that was received
   uint16_t available; // number of data
-  ip_addr_t *ip;      // the remote IP address from which the packet was received
+  ip_addr_t ip;      // the remote IP address from which the packet was received
   u16_t port;         // the remote port from which the packet was received
 };
 
@@ -90,6 +90,7 @@ void User_notification(struct netif *netif);
 
 void stm32_DHCP_Process(struct netif *netif);
 void stm32_DHCP_Periodic_Handle(struct netif *netif);
+void stm32_DHCP_manual_config(void);
 uint8_t stm32_get_DHCP_lease_state(void);
 void stm32_set_DHCP_state(uint8_t state);
 uint8_t stm32_get_DHCP_state(void);

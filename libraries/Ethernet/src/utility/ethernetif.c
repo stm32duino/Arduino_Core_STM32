@@ -128,9 +128,11 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     }
   }
 
+#ifdef ETH_INPUT_USE_IT
   /* Enable the Ethernet global Interrupt */
   HAL_NVIC_SetPriority(ETH_IRQn, 0x7, 0);
   HAL_NVIC_EnableIRQ(ETH_IRQn);
+#endif /* ETH_INPUT_USE_IT */
 
   /* Enable ETHERNET clock  */
   __HAL_RCC_ETH_CLK_ENABLE();
@@ -156,7 +158,11 @@ static void low_level_init(struct netif *netif)
   EthHandle.Init.Speed = ETH_SPEED_100M;
   EthHandle.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   EthHandle.Init.MediaInterface = ETH_MEDIA_INTERFACE_RMII;
-  EthHandle.Init.RxMode = ETH_RXINTERRUPT_MODE;//ETH_RXPOLLING_MODE; //TODO: passer en mode IT?? semble plus compatible avec la lib actuelle
+#ifdef ETH_INPUT_USE_IT
+  EthHandle.Init.RxMode = ETH_RXINTERRUPT_MODE;
+#else
+  EthHandle.Init.RxMode = ETH_RXPOLLING_MODE;
+#endif /* ETH_INPUT_USE_IT */
   EthHandle.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
   EthHandle.Init.PhyAddress = LAN8742A_PHY_ADDRESS;
 
@@ -605,6 +611,7 @@ void ethernetif_set_mac_addr(const uint8_t *mac) {
   }
 }
 
+#ifdef ETH_INPUT_USE_IT
 /**
   * @brief  Ethernet Rx Transfer completed callback
   * @param  heth: ETH handle
@@ -624,6 +631,7 @@ void ETH_IRQHandler(void)
 {
   HAL_ETH_IRQHandler(&EthHandle);
 }
+#endif /* ETH_INPUT_USE_IT */
 
 #ifdef __cplusplus
 }

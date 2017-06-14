@@ -52,6 +52,7 @@ void EthernetClass::begin(uint8_t *mac_address, IPAddress local_ip, IPAddress dn
 void EthernetClass::begin(uint8_t *mac, IPAddress local_ip, IPAddress dns_server, IPAddress gateway, IPAddress subnet)
 {
   stm32_eth_init(mac, local_ip.raw_address(), gateway.raw_address(), subnet.raw_address());
+  stm32_DHCP_manual_config();
   _dnsServerAddress = dns_server;
 }
 

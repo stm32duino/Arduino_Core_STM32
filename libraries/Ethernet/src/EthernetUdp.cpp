@@ -51,9 +51,10 @@ uint8_t EthernetUDP::begin(uint16_t port) {
   ip_addr_t ipaddr;
 
   if(ERR_OK != udp_bind(_udp_pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
-    // udp_recv(_udp_pcb, udp_receive_callback, &_arg);
     return 0;
   }
+
+  udp_recv(_udp_pcb, &udp_receive_callback, &_arg);
 
   _port = port;
   _remaining = 0;
@@ -166,7 +167,7 @@ int EthernetUDP::parsePacket()
 
   if (_arg.available > 0)
   {
-    _remoteIP = IPAddress(ip_addr_to_u32(_arg.ip));
+    _remoteIP = IPAddress(ip_addr_to_u32(&(_arg.ip)));
     _remotePort = _arg.port;
     _remaining = _arg.available;
 
@@ -263,28 +264,6 @@ void EthernetUDP::flush()
 /* Start EthernetUDP socket, listening at local port PORT */
 uint8_t EthernetUDP::beginMulticast(IPAddress ip, uint16_t port)
 {
-  // Can create a single udp connection per socket
-  if(_udp_pcb != NULL) {
-    return 0;
-  }
-
-  _udp_pcb = udp_new();
-
-  if(_udp_pcb == NULL) {
-    return 0;
-  }
-
-  ip_addr_t ipaddr;
-
-  if(ERR_OK != udp_bind(_udp_pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
-    // udp_recv(_udp_pcb, udp_receive_callback, &_arg);
-    return 0;
-  }
-
-  _port = port;
-  _remaining = 0;
-
-  stm32_eth_scheduler();
-
-  return 1;
+  UNUSED(ip);
+  return begin(port);
 }
