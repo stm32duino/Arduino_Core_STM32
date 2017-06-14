@@ -39,10 +39,20 @@
 #define __STM32_ETH_H__
 
 #include "stm32f4xx_hal.h"
+#include "lwip/ip_addr.h"
+#include "lwip/dhcp.h"
+#include "lwip/udp.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
+
+struct udp_rcv_arg {
+  struct pbuf *p;     // the packet buffer that was received
+  uint16_t available; // number of data
+  ip_addr_t *ip;      // the remote IP address from which the packet was received
+  u16_t port;         // the remote port from which the packet was received
+};
 
 /*Static IP ADDRESS: IP_ADDR0.IP_ADDR1.IP_ADDR2.IP_ADDR3 */
 #define IP_ADDR0   (uint8_t) 192
@@ -69,24 +79,41 @@
 #define DHCP_ADDRESS_ASSIGNED      (uint8_t) 3
 #define DHCP_TIMEOUT               (uint8_t) 4
 #define DHCP_LINK_DOWN             (uint8_t) 5
-
-#define MAX_DHCP_TRIES  4
-
-#define UDP_SERVER_PORT    (uint16_t) 7   /* define the UDP remote connection port */
+#define DHCP_ASK_RELEASE           (uint8_t) 6
 
 extern struct netif gnetif;
 
-void stm32_eth_init(uint8_t *mac, uint8_t *ip, uint8_t *gw, uint8_t *netmask);
-uint8_t stm32_DHCP_process(uint8_t *DHCP_state);
+void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, const uint8_t *netmask);
 void stm32_eth_scheduler(void);
 
 void User_notification(struct netif *netif);
+
+void stm32_DHCP_Process(struct netif *netif);
+void stm32_DHCP_Periodic_Handle(struct netif *netif);
+uint8_t stm32_get_DHCP_lease_state(void);
+void stm32_set_DHCP_state(uint8_t state);
+uint8_t stm32_get_DHCP_state(void);
+uint8_t stm32_dhcp_started(void);
+
+void stm32_dns_init(const uint8_t *dnsaddr);
+int8_t stm32_dns_gethostbyname(const char *hostname, uint32_t *ipaddr);
+
+void udp_receive_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
+                          const ip_addr_t *addr, u16_t port);
 
 uint32_t stm32_eth_get_ipaddr(void);
 uint32_t stm32_eth_get_gwaddr(void);
 uint32_t stm32_eth_get_netmaskaddr(void);
 uint32_t stm32_eth_get_dnsaddr(void);
 uint32_t stm32_eth_get_dhcpaddr(void);
+
+struct pbuf *stm32_new_data(struct pbuf *p, const uint8_t *buffer, size_t size);
+struct pbuf *stm32_free_data(struct pbuf *p);
+uint16_t stm32_get_data(struct pbuf *p, uint8_t *data, size_t size, uint16_t available);
+uint16_t stm32_data_available(struct pbuf *p);
+
+ip_addr_t *u8_to_ip_addr(uint8_t *ipu8, ip_addr_t *ipaddr);
+uint32_t ip_addr_to_u32(ip_addr_t *ipaddr);
 
 #ifdef __cplusplus
 }

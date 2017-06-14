@@ -5,15 +5,15 @@
 #define Dhcp_h
 
 #include "EthernetUdp.h"
-#include "utility/stm32_eth.h"
 
 /* DHCP state machine. */
+#define STATE_DHCP_STOP				DHCP_OFF
 #define STATE_DHCP_START 			DHCP_START
 #define	STATE_DHCP_DISCOVER		DHCP_WAIT_ADDRESS
-#define	STATE_DHCP_REQUEST		0xFF
+#define	STATE_DHCP_REQUEST		0
 #define	STATE_DHCP_LEASED			DHCP_ADDRESS_ASSIGNED
-#define	STATE_DHCP_REREQUEST	DHCP_TIMEOUT
-#define	STATE_DHCP_RELEASE		DHCP_LINK_DOWN
+#define	STATE_DHCP_REREQUEST	0
+#define	STATE_DHCP_RELEASE		DHCP_ASK_RELEASE
 
 #define DHCP_FLAGSBROADCAST	0x8000
 
@@ -149,6 +149,7 @@ private:
   unsigned long _timeout;
   unsigned long _responseTimeout;
   unsigned long _lastCheckLeaseMillis;
+	uint8_t _dhcp_lease_state;
   uint8_t _dhcp_state;
 
   int request_DHCP_lease();

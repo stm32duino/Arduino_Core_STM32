@@ -2,9 +2,9 @@
 // (c) Copyright 2009-2010 MCQN Ltd.
 // Released under Apache License, version 2.0
 
-#include "utility/w5100.h"
 #include "EthernetUdp.h"
 #include "utility/util.h"
+#include "utility/stm32_eth.h"
 
 #include "Dns.h"
 #include <string.h>
@@ -52,6 +52,8 @@ void DNSClient::begin(const IPAddress& aDNSServer)
 {
     iDNSServer = aDNSServer;
     iRequestId = 0;
+
+    stm32_dns_init(iDNSServer.raw_address());
 }
 
 
@@ -97,13 +99,14 @@ int DNSClient::inet_aton(const char* address, IPAddress& result)
 
 int DNSClient::getHostByName(const char* aHostname, IPAddress& aResult)
 {
-    int ret =0;
+    int ret = 0;
+    uint32_t ipResult = 0;
 
     // See if it's a numeric IP address
     if (inet_aton(aHostname, aResult))
     {
         // It is, our work here is done
-        return 1;
+        return SUCCESS;
     }
 
     // Check we've got a valid DNS server to use
@@ -111,43 +114,9 @@ int DNSClient::getHostByName(const char* aHostname, IPAddress& aResult)
     {
         return INVALID_SERVER;
     }
-	
-    // Find a socket to use
-    if (iUdp.begin(1024+(millis() & 0xF)) == 1)
-    {
-        // Try up to three times
-        int retries = 0;
-//        while ((retries < 3) && (ret <= 0))
-        {
-            // Send DNS request
-            ret = iUdp.beginPacket(iDNSServer, DNS_PORT);
-            if (ret != 0)
-            {
-                // Now output the request data
-                ret = BuildRequest(aHostname);
-                if (ret != 0)
-                {
-                    // And finally send the request
-                    ret = iUdp.endPacket();
-                    if (ret != 0)
-                    {
-                        // Now wait for a response
-                        int wait_retries = 0;
-                        ret = TIMED_OUT;
-                        while ((wait_retries < 3) && (ret == TIMED_OUT))
-                        {
-                            ret = ProcessResponse(5000, aResult);
-                            wait_retries++;
-                        }
-                    }
-                }
-            }
-            retries++;
-        }
 
-        // We're done with the socket now
-        iUdp.stop();
-    }
+    ret = stm32_dns_gethostbyname(aHostname, &ipResult);
+    aResult = IPAddress(ipResult);
 
     return ret;
 }
@@ -249,7 +218,7 @@ uint16_t DNSClient::ProcessResponse(uint16_t aTimeout, IPAddress& aAddress)
     // Read the UDP header
     uint8_t header[DNS_HEADER_SIZE]; // Enough space to reuse for the DNS header
     // Check that it's a response from the right server and the right port
-    if ( (iDNSServer != iUdp.remoteIP()) || 
+    if ( (iDNSServer != iUdp.remoteIP()) ||
         (iUdp.remotePort() != DNS_PORT) )
     {
         // It's not from who we expected
@@ -401,4 +370,3 @@ uint16_t DNSClient::ProcessResponse(uint16_t aTimeout, IPAddress& aAddress)
     // If we get here then we haven't found an answer
     return -10;//INVALID_RESPONSE;
 }
-

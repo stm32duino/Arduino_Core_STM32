@@ -52,6 +52,7 @@
 #include <string.h>
 #include "PeripheralPins.h"
 #include "LwIP.h"
+#include "stm32_eth.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -127,6 +128,10 @@ void HAL_ETH_MspInit(ETH_HandleTypeDef *heth)
     }
   }
 
+  /* Enable the Ethernet global Interrupt */
+  HAL_NVIC_SetPriority(ETH_IRQn, 0x7, 0);
+  HAL_NVIC_EnableIRQ(ETH_IRQn);
+
   /* Enable ETHERNET clock  */
   __HAL_RCC_ETH_CLK_ENABLE();
 }
@@ -151,9 +156,9 @@ static void low_level_init(struct netif *netif)
   EthHandle.Init.Speed = ETH_SPEED_100M;
   EthHandle.Init.DuplexMode = ETH_MODE_FULLDUPLEX;
   EthHandle.Init.MediaInterface = ETH_MEDIA_INTERFACE_RMII;
-  EthHandle.Init.RxMode = ETH_RXPOLLING_MODE; //TODO: passer en mode IT?? semble plus compatible avec la lib actuelle
+  EthHandle.Init.RxMode = ETH_RXINTERRUPT_MODE;//ETH_RXPOLLING_MODE; //TODO: passer en mode IT?? semble plus compatible avec la lib actuelle
   EthHandle.Init.ChecksumMode = ETH_CHECKSUM_BY_HARDWARE;
-  EthHandle.Init.PhyAddress = DP83848_PHY_ADDRESS;
+  EthHandle.Init.PhyAddress = LAN8742A_PHY_ADDRESS;
 
   /* configure ethernet peripheral (GPIOs, clocks, MAC, DMA) */
   if (HAL_ETH_Init(&EthHandle) == HAL_OK)
@@ -191,20 +196,12 @@ static void low_level_init(struct netif *netif)
 
   /**** Configure PHY to generate an interrupt when Eth Link state changes ****/
   /* Read Register Configuration */
-  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MICR, &regvalue);
+  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_IMR, &regvalue);
 
-  regvalue |= (PHY_MICR_INT_EN | PHY_MICR_INT_OE);
-
-  /* Enable Interrupts */
-  HAL_ETH_WritePHYRegister(&EthHandle, PHY_MICR, regvalue );
-
-  /* Read Register Configuration */
-  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
-
-  regvalue |= PHY_MISR_LINK_INT_EN;
+  regvalue |= PHY_ISFR_INT4;
 
   /* Enable Interrupt on change of link status */
-  HAL_ETH_WritePHYRegister(&EthHandle, PHY_MISR, regvalue);
+  HAL_ETH_WritePHYRegister(&EthHandle, PHY_IMR, regvalue );
 }
 
 /**
@@ -323,7 +320,7 @@ static struct pbuf * low_level_input(struct netif *netif)
 
   UNUSED(netif);
 
-  if (HAL_ETH_GetReceivedFrame(&EthHandle) != HAL_OK)
+  if (HAL_ETH_GetReceivedFrame_IT(&EthHandle) != HAL_OK)
     return NULL;
 
   /* Obtain the size of the packet and put it into the "len" variable. */
@@ -479,23 +476,18 @@ void ethernetif_set_link(struct netif *netif)
   uint32_t regvalue = 0;
 
   /* Read PHY_MISR*/
-  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_MISR, &regvalue);
+  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_ISFR, &regvalue);
 
   /* Check whether the link interrupt has occurred or not */
-  if((regvalue & PHY_LINK_INTERRUPT) != (uint16_t)RESET)
+  if((regvalue & PHY_ISFR_INT4) != (uint16_t)RESET)
   {
-    /* Read PHY_SR*/
-    HAL_ETH_ReadPHYRegister(&EthHandle, PHY_SR, &regvalue);
+    netif_set_link_down(netif);
+  }
 
-    /* Check whether the link is up or down*/
-    if((regvalue & PHY_LINK_STATUS)!= (uint16_t)RESET)
-    {
-      netif_set_link_up(netif);
-    }
-    else
-    {
-      netif_set_link_down(netif);
-    }
+  HAL_ETH_ReadPHYRegister(&EthHandle, PHY_BSR, &regvalue);
+
+  if((regvalue & PHY_LINKED_STATUS) != (uint16_t)RESET) {
+    netif_set_link_up(netif);
   }
 }
 
@@ -607,10 +599,30 @@ __weak void ethernetif_notify_conn_changed(struct netif *netif)
   * @param  mac: mac address
   * @retval None
   */
-void ethernetif_set_mac_addr(uint8_t *mac) {
+void ethernetif_set_mac_addr(const uint8_t *mac) {
   if(mac != NULL) {
     memcpy(macaddress,mac,6);
   }
+}
+
+/**
+  * @brief  Ethernet Rx Transfer completed callback
+  * @param  heth: ETH handle
+  * @retval None
+  */
+void HAL_ETH_RxCpltCallback(ETH_HandleTypeDef *heth)
+{
+  ethernetif_input(&gnetif);
+}
+
+/**
+  * @brief  This function handles Ethernet interrupt request.
+  * @param  None
+  * @retval None
+  */
+void ETH_IRQHandler(void)
+{
+  HAL_ETH_IRQHandler(&EthHandle);
 }
 
 #ifdef __cplusplus
