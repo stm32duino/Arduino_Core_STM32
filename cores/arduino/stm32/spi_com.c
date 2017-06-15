@@ -288,7 +288,15 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     port = set_GPIO_Port_Clock(STM_PORT(obj->pin_sclk));
     GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_sclk);
     GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
-    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
+    /*
+     * According the STM32 Datasheet for SPI peripheral we need to PULLDOWN
+     * or PULLUP the SCK pin according the polarity used.
+     */
+    if(handle->Init.CLKPolarity == SPI_POLARITY_LOW) {
+      GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    } else {
+      GPIO_InitStruct.Pull = GPIO_PULLUP;
+    }
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
     GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
     HAL_GPIO_Init(port, &GPIO_InitStruct);
@@ -342,6 +350,9 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 #endif
 
   HAL_SPI_Init(handle);
+
+  /* In order to set correctly the SPI polarity we need to enable the peripheral */
+  __HAL_SPI_ENABLE(handle);
 }
 
 /**
@@ -358,26 +369,17 @@ void spi_deinit(spi_t *obj)
   SPI_HandleTypeDef *handle = &(obj->handle);
 
   HAL_SPI_DeInit(handle);
-}
 
-/**
-  * @brief  De-Initialize the SPI MSP.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *               the configuration information for SPI module.
-  * @retval None
-  */
-void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
-{
 #if defined SPI1_BASE
   // Reset SPI and disable clock
-  if (hspi->Instance == SPI1) {
+  if (handle->Instance == SPI1) {
       __HAL_RCC_SPI1_FORCE_RESET();
       __HAL_RCC_SPI1_RELEASE_RESET();
       __HAL_RCC_SPI1_CLK_DISABLE();
   }
 #endif
 #if defined SPI2_BASE
-  if (hspi->Instance == SPI2) {
+  if (handle->Instance == SPI2) {
       __HAL_RCC_SPI2_FORCE_RESET();
       __HAL_RCC_SPI2_RELEASE_RESET();
       __HAL_RCC_SPI2_CLK_DISABLE();
@@ -385,7 +387,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 #endif
 
 #if defined SPI3_BASE
-  if (hspi->Instance == SPI3) {
+  if (handle->Instance == SPI3) {
       __HAL_RCC_SPI3_FORCE_RESET();
       __HAL_RCC_SPI3_RELEASE_RESET();
       __HAL_RCC_SPI3_CLK_DISABLE();
@@ -393,7 +395,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 #endif
 
 #if defined SPI4_BASE
-  if (hspi->Instance == SPI4) {
+  if (handle->Instance == SPI4) {
       __HAL_RCC_SPI4_FORCE_RESET();
       __HAL_RCC_SPI4_RELEASE_RESET();
       __HAL_RCC_SPI4_CLK_DISABLE();
@@ -401,7 +403,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 #endif
 
 #if defined SPI5_BASE
-  if (hspi->Instance == SPI5) {
+  if (handle->Instance == SPI5) {
       __HAL_RCC_SPI5_FORCE_RESET();
       __HAL_RCC_SPI5_RELEASE_RESET();
       __HAL_RCC_SPI5_CLK_DISABLE();
@@ -409,7 +411,7 @@ void HAL_SPI_MspDeInit(SPI_HandleTypeDef *hspi)
 #endif
 
 #if defined SPI6_BASE
-  if (hspi->Instance == SPI6) {
+  if (handle->Instance == SPI6) {
       __HAL_RCC_SPI6_FORCE_RESET();
       __HAL_RCC_SPI6_RELEASE_RESET();
       __HAL_RCC_SPI6_CLK_DISABLE();
