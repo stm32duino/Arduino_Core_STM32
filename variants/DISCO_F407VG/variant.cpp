@@ -178,7 +178,7 @@ void init( void )
   * @param  None
   * @retval None
   */
-void SystemClock_Config(void)
+WEAK void SystemClock_Config(void)
 {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_OscInitTypeDef RCC_OscInitStruct;
