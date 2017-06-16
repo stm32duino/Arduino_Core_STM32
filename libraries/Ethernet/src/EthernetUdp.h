@@ -38,7 +38,10 @@
 #define ethernetudp_h
 
 #include <Udp.h>
+
+extern "C" {
 #include "utility/stm32_eth.h"
+}
 
 #define UDP_TX_PACKET_MAX_SIZE 24
 
@@ -48,12 +51,10 @@ private:
   IPAddress _remoteIP; // remote IP address for the incoming packet whilst it's being processed
   uint16_t _remotePort; // remote port for the incoming packet whilst it's being processed
 
-  struct udp_pcb *_udp_pcb;
   struct pbuf *_data;
-  struct udp_rcv_arg _arg;
+  struct udp_struct _udp;
 
 protected:
-  uint8_t _sock;  // socket ID for Wiz5100
   uint16_t _remaining; // remaining bytes of incoming packet yet to be processed
 
 public:

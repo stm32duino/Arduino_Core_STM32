@@ -26,35 +26,35 @@
  * bjoern@cs.stanford.edu 12/30/2008
  */
 
-#include "utility/socket.h"
 #include "Ethernet.h"
 #include "Udp.h"
 #include "Dns.h"
 
 /* Constructor */
-EthernetUDP::EthernetUDP() : _sock(MAX_SOCK_NUM) {}
+EthernetUDP::EthernetUDP() {}
 
 /* Start EthernetUDP socket, listening at local port PORT */
 uint8_t EthernetUDP::begin(uint16_t port) {
   // Can create a single udp connection per socket
-  if(_udp_pcb != NULL) {
+  if(_udp.pcb != NULL) {
     return 0;
   }
 
-  _udp_pcb = udp_new();
+  _udp.pcb = udp_new();
 
-  if(_udp_pcb == NULL) {
+  if(_udp.pcb == NULL) {
     return 0;
   }
 
   IPAddress ip = Ethernet.localIP();
   ip_addr_t ipaddr;
 
-  if(ERR_OK != udp_bind(_udp_pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
+  if(ERR_OK != udp_bind(_udp.pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
+    stop();
     return 0;
   }
 
-  udp_recv(_udp_pcb, &udp_receive_callback, &_arg);
+  udp_recv(_udp.pcb, &udp_receive_callback, &_udp);
 
   _port = port;
   _remaining = 0;
@@ -73,10 +73,10 @@ int EthernetUDP::available() {
 /* Release any resources being used by this EthernetUDP instance */
 void EthernetUDP::stop()
 {
-  if(_udp_pcb != NULL) {
-    udp_disconnect(_udp_pcb);
-    udp_remove(_udp_pcb);
-    _udp_pcb = NULL;
+  if(_udp.pcb != NULL) {
+    udp_disconnect(_udp.pcb);
+    udp_remove(_udp.pcb);
+    _udp.pcb = NULL;
   }
 
   stm32_eth_scheduler();
@@ -100,17 +100,17 @@ int EthernetUDP::beginPacket(const char *host, uint16_t port)
 
 int EthernetUDP::beginPacket(IPAddress ip, uint16_t port)
 {
-  if(_udp_pcb == NULL) {
+  if(_udp.pcb == NULL) {
     return 0;
   }
 
   ip_addr_t ipaddr;
 
-  if(ERR_OK != udp_connect( _udp_pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
+  if(ERR_OK != udp_connect( _udp.pcb, u8_to_ip_addr(rawIPAddress(ip), &ipaddr), port)) {
     return 0;
   }
 
-  udp_recv(_udp_pcb, &udp_receive_callback, &_arg);
+  udp_recv(_udp.pcb, &udp_receive_callback, &_udp);
   stm32_eth_scheduler();
 
   return 1;
@@ -118,16 +118,16 @@ int EthernetUDP::beginPacket(IPAddress ip, uint16_t port)
 
 int EthernetUDP::endPacket()
 {
-  if((_udp_pcb == NULL) || (_data == NULL)) {
+  if((_udp.pcb == NULL) || (_data == NULL)) {
     return 0;
   }
 
   // A remote IP & port must be connected to udp pcb. Call ::beginPacket before.
-  if((udp_flags(_udp_pcb) & UDP_FLAGS_CONNECTED) != UDP_FLAGS_CONNECTED) {
+  if((udp_flags(_udp.pcb) & UDP_FLAGS_CONNECTED) != UDP_FLAGS_CONNECTED) {
     return 0;
   }
 
-  if(ERR_OK != udp_send(_udp_pcb, _data)) {
+  if(ERR_OK != udp_send(_udp.pcb, _data)) {
     _data = stm32_free_data(_data);
     return 0;
   }
@@ -165,11 +165,11 @@ int EthernetUDP::parsePacket()
 
   stm32_eth_scheduler();
 
-  if (_arg.available > 0)
+  if (_udp.available > 0)
   {
-    _remoteIP = IPAddress(ip_addr_to_u32(&(_arg.ip)));
-    _remotePort = _arg.port;
-    _remaining = _arg.available;
+    _remoteIP = IPAddress(ip_addr_to_u32(&(_udp.ip)));
+    _remotePort = _udp.port;
+    _remaining = _udp.available;
 
     return _remaining;
   }
@@ -181,7 +181,7 @@ int EthernetUDP::read()
 {
   uint8_t byte;
 
-  if(_arg.p == NULL) {
+  if(_udp.p == NULL) {
     return -1;
   }
 
@@ -191,8 +191,8 @@ int EthernetUDP::read()
     _remaining--;
 
     if(_remaining == 0) {
-      _arg.available = 0;
-      _arg.p = stm32_free_data(_arg.p);
+      _udp.available = 0;
+      _udp.p = stm32_free_data(_udp.p);
     }
 
     return byte;
@@ -204,7 +204,7 @@ int EthernetUDP::read()
 
 int EthernetUDP::read(unsigned char* buffer, size_t len)
 {
-  if(_arg.p == NULL) {
+  if(_udp.p == NULL) {
     return -1;
   }
 
@@ -215,13 +215,13 @@ int EthernetUDP::read(unsigned char* buffer, size_t len)
     if (_remaining <= len)
     {
       // data should fit in the buffer
-      got = (int)stm32_get_data(_arg.p, (uint8_t *)buffer, _remaining, _remaining);
+      got = (int)stm32_get_data(_udp.p, (uint8_t *)buffer, _remaining, _remaining);
     }
     else
     {
       // too much data for the buffer,
       // grab as much as will fit
-      got = (int)stm32_get_data(_arg.p, (uint8_t *)buffer, len, _remaining);
+      got = (int)stm32_get_data(_udp.p, (uint8_t *)buffer, len, _remaining);
     }
 
     if (got > 0)
@@ -229,8 +229,8 @@ int EthernetUDP::read(unsigned char* buffer, size_t len)
       _remaining -= got;
 
       if(_remaining == 0) {
-        _arg.available = 0;
-        _arg.p = stm32_free_data(_arg.p);
+        _udp.available = 0;
+        _udp.p = stm32_free_data(_udp.p);
       }
 
       return got;
@@ -251,8 +251,7 @@ int EthernetUDP::peek()
   // may get the UDP header
   if (!_remaining)
     return -1;
-  // ::peek(_sock, &b);
-  stm32_get_data(_arg.p, &b, 1, _remaining);
+  stm32_get_data(_udp.p, &b, 1, _remaining);
   return b;
 }
 
