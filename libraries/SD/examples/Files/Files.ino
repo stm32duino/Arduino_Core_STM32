@@ -8,7 +8,7 @@
  This example code is in the public domain.
 
  */
-#include <SD.h>
+#include <SDStm.h>
 
 File myFile;
 

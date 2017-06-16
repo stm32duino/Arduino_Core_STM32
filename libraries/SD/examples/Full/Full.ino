@@ -1,4 +1,4 @@
-#include <SD.h>
+#include <SDStm.h>
 
 #define COUNTOF(__BUFFER__)   (sizeof(__BUFFER__) / sizeof(*(__BUFFER__)))
 #define BUFFERSIZE                       (COUNTOF(wtext) -1)

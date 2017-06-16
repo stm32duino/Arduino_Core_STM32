@@ -11,7 +11,7 @@
 
  */
 
-#include <SD.h>
+#include <SDStm.h>
 
 void setup()
 {

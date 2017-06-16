@@ -10,7 +10,7 @@
 
  */
 
-#include <SD.h>
+#include <SDStm.h>
 
 uint32_t A[] = { A0, A1, A2};
 
