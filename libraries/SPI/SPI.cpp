@@ -201,9 +201,15 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
 uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode)
 {
   uint16_t rx_buffer = 0;
+  uint16_t tmp;
 
   if (_pin > SPI_CHANNELS_NUM)
     return rx_buffer;
+
+  if (spiSettings[_pin].msb) {
+    tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
+    data = tmp;
+  }
 
   if(_pin != g_active_id) {
     spi_init(&_spi, spiSettings[_pin].clk, spiSettings[_pin].dMode, spiSettings[_pin].msb);
@@ -217,6 +223,11 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
 
   if((_pin != BOARD_SPI_OWN_SS) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
     digitalWrite(_pin, HIGH);
+
+  if (spiSettings[_pin].msb) {
+    tmp = ((rx_buffer & 0xff00) >> 8) | ((rx_buffer & 0xff) << 8);
+    rx_buffer = tmp;
+  }
 
   return rx_buffer;
 }
