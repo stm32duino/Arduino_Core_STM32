@@ -70,7 +70,13 @@ struct netif gnetif;
 
 static uint32_t gEhtLinkTickStart = 0;
 
+/*************************** Function prototype *******************************/
 static void Netif_Config(void);
+static void tcp_connection_close(struct tcp_pcb *tpcb, struct tcp_struct *tcp);
+static err_t tcp_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);
+static err_t tcp_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len);
+static void tcp_err_callback(void *arg, err_t err);
+
 
 /**
 * @brief  Configurates the network interface
@@ -213,6 +219,9 @@ void stm32_DHCP_process(struct netif *netif) {
           if (dhcp->tries > MAX_DHCP_TRIES)
           {
             DHCP_state = DHCP_TIMEOUT;
+
+            // If DHCP address not bind, keep DHCP stopped
+            DHCP_Started_by_user = 0;
 
             /* Stop DHCP */
             dhcp_stop(netif);
@@ -561,19 +570,281 @@ uint16_t stm32_data_available(struct pbuf *p)
 void udp_receive_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
                           const ip_addr_t *addr, u16_t port)
 {
-  UNUSED(pcb);
+  struct udp_struct *udp_arg = (struct udp_struct *)arg;
 
   /* Send data to the application layer */
-  if(arg != NULL) {
+  if((udp_arg != NULL) && (udp_arg->pcb == pcb)) {
     // Free the old p buffer
-    if(((struct udp_rcv_arg *)arg)->p != NULL) {
-      pbuf_free(((struct udp_rcv_arg *)arg)->p);
+
+    //TODO: chain new data to the oldest?
+    if(udp_arg->p != NULL) {
+      pbuf_free(udp_arg->p);
     }
-    ((struct udp_rcv_arg *)arg)->p = p;
-    ((struct udp_rcv_arg *)arg)->available = p->tot_len;
-    ip_addr_copy(((struct udp_rcv_arg *)arg)->ip, *addr);
-    ((struct udp_rcv_arg *)arg)->port = port;
+    udp_arg->p = p;
+    udp_arg->available = p->tot_len;
+    ip_addr_copy(udp_arg->ip, *addr);
+    udp_arg->port = port;
+  } else {
+    pbuf_free(p);
   }
+}
+
+/**
+  * @brief Function called when TCP connection established
+  * @param tpcb: pointer on the connection contol block
+  * @param err: when connection correctly established err should be ERR_OK
+  * @retval err_t: returned error
+  */
+err_t tcp_connected_callback(void *arg, struct tcp_pcb *tpcb, err_t err)
+{
+  struct tcp_struct *tcp_arg = (struct tcp_struct *)arg;
+
+  if (err == ERR_OK)
+  {
+    if ((tcp_arg != NULL) && (tcp_arg->pcb == tpcb))
+    {
+      tcp_arg->state = TCP_CONNECTED;
+
+      /* initialize LwIP tcp_recv callback function */
+      tcp_recv(tpcb, tcp_recv_callback);
+
+      /* initialize LwIP tcp_sent callback function */
+      tcp_sent(tpcb, tcp_sent_callback);
+
+      /* initialize LwIP tcp_poll callback function */
+      // tcp_poll(tpcb, tcp_poll_callback, 1);
+
+      /* initialize LwIP tcp_err callback function */
+      tcp_err(tpcb, tcp_err_callback);
+
+      return ERR_OK;
+    }
+    else
+    {
+      /* close connection */
+      tcp_connection_close(tpcb, tcp_arg);
+
+      return ERR_ARG;
+    }
+  }
+  else
+  {
+    /* close connection */
+    tcp_connection_close(tpcb, tcp_arg);
+  }
+  return err;
+}
+
+/**
+  * @brief  This function is the implementation of tcp_accept LwIP callback
+  * @param  arg: not used
+  * @param  newpcb: pointer on tcp_pcb struct for the newly created tcp connection
+  * @param  err: not used
+  * @retval err_t: error status
+  */
+err_t tcp_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
+{
+  err_t ret_err;
+  struct tcp_struct *tcp_arg = (struct tcp_struct *)arg;
+
+  LWIP_UNUSED_ARG(arg);
+  LWIP_UNUSED_ARG(err);
+
+  /* set priority for the newly accepted tcp connection newpcb */
+  tcp_setprio(newpcb, TCP_PRIO_MIN);
+
+  if (es != NULL)
+  {
+    es->state = ES_ACCEPTED;
+    es->pcb = newpcb;
+    es->retries = 0;
+    es->p = NULL;
+
+    /* pass newly allocated es structure as argument to newpcb */
+    tcp_arg(newpcb, es);
+
+    /* initialize lwip tcp_recv callback function for newpcb  */
+    tcp_recv(newpcb, tcp_echoserver_recv);
+
+    /* initialize lwip tcp_err callback function for newpcb  */
+    tcp_err(newpcb, tcp_echoserver_error);
+
+    /* initialize lwip tcp_poll callback function for newpcb */
+    tcp_poll(newpcb, tcp_echoserver_poll, 0);
+
+    ret_err = ERR_OK;
+  }
+  else
+  {
+    /*  close tcp connection */
+    tcp_echoserver_connection_close(newpcb, es);
+    /* return memory error */
+    ret_err = ERR_MEM;
+  }
+  return ret_err;
+}
+
+/**
+  * @brief tcp_receiv callback
+  * @param arg: argument to be passed to receive callback
+  * @param tpcb: tcp connection control block
+  * @param err: receive error code
+  * @retval err_t: retuned error
+  */
+static err_t tcp_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
+{
+  struct tcp_struct *tcp_arg = (struct tcp_struct *)arg;
+  err_t ret_err;
+
+  /* if we receive an empty tcp frame from server => close connection */
+  if (p == NULL)
+  {
+    /* we're done sending, close connection */
+    tcp_connection_close(tpcb, tcp_arg);
+    ret_err = ERR_OK;
+  }
+  /* else : a non empty frame was received from echo server but for some reason err != ERR_OK */
+  else if(err != ERR_OK)
+  {
+    /* free received pbuf*/
+    if (p != NULL)
+    {
+      pbuf_free(p);
+    }
+    ret_err = err;
+  }
+  else if(tcp_arg->state == TCP_CONNECTED)
+  {
+    /* Acknowledge data reception */
+    tcp_recved(tpcb, p->tot_len);
+
+    if(tcp_arg->p == NULL) {
+      tcp_arg->p = p;
+    } else {
+      pbuf_chain(tcp_arg->p, p); //TODO: not validated!!!!!
+    }
+
+    tcp_arg->available += p->len;
+    ret_err = ERR_OK;
+  }
+  /* data received when connection already closed */
+  else
+  {
+    /* Acknowledge data reception */
+    tcp_recved(tpcb, p->tot_len);
+
+    /* free pbuf and do nothing */
+    pbuf_free(p);
+    ret_err = ERR_OK;
+  }
+  return ret_err;
+}
+
+/**
+  * @brief  This function implements the tcp_poll callback function
+  * @param  arg: pointer on argument passed to callback
+  * @param  tpcb: tcp connection control block
+  * @retval err_t: error code
+  */
+// static err_t tcp_poll_callback(void *arg, struct tcp_pcb *tpcb)
+// {
+//   err_t ret_err;
+//   struct echoclient *es;
+//
+//   es = (struct echoclient*)arg;
+//   if (es != NULL)
+//   {
+//     if (es->p_tx != NULL)
+//     {
+//       /* there is a remaining pbuf (chain) , try to send data */
+//       tcp_echoclient_send(tpcb, es);
+//     }
+//     else
+//     {
+//       /* no remaining pbuf (chain)  */
+//       if(es->state == ES_CLOSING)
+//       {
+//         /* close tcp connection */
+//         tcp_connection_close(tpcb, es);
+//       }
+//     }
+//     ret_err = ERR_OK;
+//   }
+//   else
+//   {
+//     /* nothing to be done */
+//     tcp_abort(tpcb);
+//     ret_err = ERR_ABRT;
+//   }
+//   return ret_err;
+// }
+
+/**
+  * @brief  This function implements the tcp_sent LwIP callback (called when ACK
+  *         is received from remote host for sent data)
+  * @param  arg: pointer on argument passed to callback
+  * @param  tcp_pcb: tcp connection control block
+  * @param  len: length of data sent
+  * @retval err_t: returned error code
+  */
+static err_t tcp_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
+{
+  struct tcp_struct *tcp_arg = (struct tcp_struct *)arg;
+
+  LWIP_UNUSED_ARG(len);
+
+  if((tcp_arg != NULL) && (tcp_arg->pcb == tpcb))
+  {
+    /* still got pbufs to send */
+    tcp_arg->state = TCP_SENT;
+    return ERR_OK;
+  }
+
+  return ERR_ARG;
+}
+
+/** Function prototype for tcp error callback functions. Called when the pcb
+ * receives a RST or is unexpectedly closed for any other reason.
+ *
+ * @note The corresponding pcb is already freed when this callback is called!
+ *
+ * @param arg Additional argument to pass to the callback function (@see tcp_arg())
+ * @param err Error code to indicate why the pcb has been closed
+ *            ERR_ABRT: aborted through tcp_abort or by a TCP timer
+ *            ERR_RST: the connection was reset by the remote host
+ */
+static void tcp_err_callback(void *arg, err_t err)
+{
+  struct tcp_struct *tcp_arg = (struct tcp_struct *)arg;
+
+  if(tcp_arg != NULL) {
+    if(ERR_OK != err) {
+      tcp_arg->pcb = NULL;
+      tcp_arg->state = TCP_CLOSING;
+    }
+  }
+}
+
+/**
+  * @brief This function is used to close the tcp connection with server
+  * @param tpcb: tcp connection control block
+  * @param es: pointer on echoclient structure
+  * @retval None
+  */
+static void tcp_connection_close(struct tcp_pcb *tpcb, struct tcp_struct *tcp)
+{
+  /* remove callbacks */
+  tcp_recv(tpcb, NULL);
+  tcp_sent(tpcb, NULL);
+  tcp_poll(tpcb, NULL,0);
+  tcp_err(tpcb, NULL);
+  tcp_accept(tpcb, NULL);
+
+  /* close tcp connection */
+  tcp_close(tpcb);
+
+  tcp->pcb = NULL;
+  tcp->state = TCP_CLOSING;
 }
 
 #ifdef __cplusplus

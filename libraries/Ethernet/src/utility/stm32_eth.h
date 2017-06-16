@@ -38,20 +38,39 @@
 #ifndef __STM32_ETH_H__
 #define __STM32_ETH_H__
 
-#include "stm32f4xx_hal.h"
-#include "lwip/ip_addr.h"
-#include "lwip/dhcp.h"
-#include "lwip/udp.h"
-
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-struct udp_rcv_arg {
+#include "stm32f4xx_hal.h"
+#include "lwip/ip_addr.h"
+#include "lwip/dhcp.h"
+#include "lwip/udp.h"
+#include "lwip/tcp.h"
+
+typedef enum
+{
+  TCP_NONE = 0,
+  TCP_CONNECTED,
+  TCP_RECEIVED,
+  TCP_SENT,
+  TCP_ACCEPTED,
+  TCP_CLOSING,
+}tcp_client_states;
+
+struct udp_struct {
+  struct udp_pcb *pcb;
   struct pbuf *p;     // the packet buffer that was received
   uint16_t available; // number of data
-  ip_addr_t ip;      // the remote IP address from which the packet was received
+  ip_addr_t ip;       // the remote IP address from which the packet was received
   u16_t port;         // the remote port from which the packet was received
+};
+
+struct tcp_struct {
+  struct tcp_pcb *pcb;          /* pointer on the current tcp_pcb */
+  struct pbuf *p;               // the packet buffer that was received
+  volatile uint16_t available;  // number of data
+  tcp_client_states state;      /* current connection state */
 };
 
 /*Static IP ADDRESS: IP_ADDR0.IP_ADDR1.IP_ADDR2.IP_ADDR3 */
@@ -115,6 +134,9 @@ uint16_t stm32_data_available(struct pbuf *p);
 
 ip_addr_t *u8_to_ip_addr(uint8_t *ipu8, ip_addr_t *ipaddr);
 uint32_t ip_addr_to_u32(ip_addr_t *ipaddr);
+
+err_t tcp_connected_callback(void *arg, struct tcp_pcb *tpcb, err_t err);
+err_t tcp_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err);
 
 #ifdef __cplusplus
 }

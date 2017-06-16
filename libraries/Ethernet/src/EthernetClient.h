@@ -1,9 +1,10 @@
 #ifndef ethernetclient_h
 #define ethernetclient_h
-#include "Arduino.h"	
+#include "Arduino.h"
 #include "Print.h"
 #include "Client.h"
 #include "IPAddress.h"
+#include "utility/stm32_eth.h"
 
 class EthernetClient : public Client {
 
@@ -31,12 +32,12 @@ public:
   uint8_t getSocketNumber();
 
   friend class EthernetServer;
-  
+
   using Print::write;
 
 private:
-  static uint16_t _srcport;
   uint8_t _sock;
+  struct tcp_struct _tcp_client;
 };
 
 #endif
