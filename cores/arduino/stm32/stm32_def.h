@@ -70,5 +70,7 @@
 #elif defined(STM32L4xx)
 #endif
 
+// weaked functions declaration
+void SystemClock_Config(void);
 
 #endif //_STM32_DEF_

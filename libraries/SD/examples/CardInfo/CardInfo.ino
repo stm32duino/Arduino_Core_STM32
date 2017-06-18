@@ -9,7 +9,7 @@
 
  */
 // include the SD library:
-#include <SD.h>
+#include <SDStm.h>
 
 Sd2Card card;
 SdFatFs fatFs;

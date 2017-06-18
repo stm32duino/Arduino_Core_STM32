@@ -13,7 +13,7 @@
 
  This library provides four key benefits:
 
-   * Including `SD.h` automatically creates a global
+   * Including `SDStm.h` automatically creates a global
      `SD` object which can be interacted with in a similar
      manner to other standard global objects like `Serial` and `Ethernet`.
 
@@ -57,7 +57,7 @@ extern "C" {
   #include "stm32_def.h"
 }
 #include "assert.h"
-#include "SD.h"
+#include "SDStm.h"
 SDClass SD;
 
 /**

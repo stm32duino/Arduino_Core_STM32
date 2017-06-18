@@ -9,7 +9,7 @@
 
  */
 
-#include <SD.h>
+#include <SDStm.h>
 
 File myFile;
 
