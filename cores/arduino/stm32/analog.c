@@ -719,7 +719,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
   if (timHandle.Instance == NC) return 0;
   timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
-  timHandle.Init.Period            = period;
+  timHandle.Init.Period            = period -1;
   timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
 #ifndef STM32L0xx
