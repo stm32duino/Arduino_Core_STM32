@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_conf.h
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   HAL configuration template file. 
   *          This file should be copied to the application folder and renamed
   *          to stm32l1xx_hal_conf.h.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -89,11 +89,11 @@
   *        (when HSE is used as system clock source, directly or through the PLL).  
   */
 #if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000) /*!< Value of the External oscillator in Hz */
+  #define HSE_VALUE    (8000000U) /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-  #define HSE_STARTUP_TIMEOUT    ((uint32_t)100)   /*!< Time out for HSE start up, in ms */
+  #define HSE_STARTUP_TIMEOUT    (100U)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -101,7 +101,7 @@
   *        This value is the default MSI range value after Reset.
   */
 #if !defined  (MSI_VALUE)
-  #define MSI_VALUE    ((uint32_t)2097000) /*!< Value of the Internal oscillator in Hz*/
+  #define MSI_VALUE    (2097000U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* MSI_VALUE */
 /**
   * @brief Internal High Speed oscillator (HSI) value.
@@ -109,21 +109,22 @@
   *        (when HSI is used as system clock source, directly or through the PLL). 
   */
 #if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)16000000) /*!< Value of the Internal oscillator in Hz*/
+  #define HSI_VALUE    (16000000U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 /**
   * @brief External Low Speed oscillator (LSE) value.
-  *        This value is used by the UART, RTC HAL module to compute the system frequency
   */
 #if !defined  (LSE_VALUE)
-  #define LSE_VALUE    ((uint32_t)32768) /*!< Value of the External oscillator in Hz*/
+  #define LSE_VALUE    (32768U) /*!< Value of the External Low Speed oscillator in Hz*/
 #endif /* LSE_VALUE */
 
-   
+/**
+  * @brief Time out for LSE start up value in ms.
+  */
 #if !defined  (LSE_STARTUP_TIMEOUT)
-  #define LSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for LSE start up, in ms */
-#endif /* HSE_STARTUP_TIMEOUT */
+  #define LSE_STARTUP_TIMEOUT    (5000U)   /*!< Time out for LSE start up, in ms */
+#endif /* LSE_STARTUP_TIMEOUT */
 
    
 /* Tip: To avoid modifying this file each time you need to use different HSE,
@@ -133,19 +134,19 @@
 /**
   * @brief This is the HAL system configuration section
   */     
-#define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */          
-#define  TICK_INT_PRIORITY            ((uint32_t)0x000F)    /*!< tick interrupt priority */            
-#define  USE_RTOS                     0     
-#define  PREFETCH_ENABLE              1
-#define  INSTRUCTION_CACHE_ENABLE     0
-#define  DATA_CACHE_ENABLE            0
+#define  VDD_VALUE                    (3300U) /*!< Value of VDD in mv */          
+#define  TICK_INT_PRIORITY            (0x000FU)    /*!< tick interrupt priority */            
+#define  USE_RTOS                     0U
+#define  PREFETCH_ENABLE              1U
+#define  INSTRUCTION_CACHE_ENABLE     0U
+#define  DATA_CACHE_ENABLE            0U
 
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the 
   *        HAL drivers code
   */
-/*#define USE_FULL_ASSERT    1*/ 
+/*#define USE_FULL_ASSERT    1U*/ 
 
 /* Includes ------------------------------------------------------------------*/
 /**

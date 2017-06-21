@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_msp_template.c
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   HAL BSP module.
   *          This file template is located in the HAL folder and should be copied 
   *          to the user folder.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:

@@ -2,18 +2,17 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_spi_ex.c
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   Extended SPI HAL module driver.
-  *    
-  *          This file provides firmware functions to manage the following 
-  *          functionalities SPI extension peripheral:
-  *           + Extended Peripheral Control functions
-  *  
+  *          This file provides firmware functions to manage the following
+  *          SPI peripheral extended functionalities :
+  *           + IO operation functions
+  *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -47,38 +46,39 @@
   * @{
   */
 
-/** @addtogroup SPI
+/** @defgroup SPIEx SPIEx
+  * @brief SPI Extended HAL module driver
   * @{
   */
 #ifdef HAL_SPI_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
+/* Private defines -----------------------------------------------------------*/
+/* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+/* Exported functions --------------------------------------------------------*/
 
-/** @addtogroup SPI_Exported_Functions
+/** @defgroup SPIEx_Exported_Functions SPIEx Exported Functions
   * @{
   */
 
-/** @addtogroup SPI_Exported_Functions_Group1
- *
+/** @defgroup SPIEx_Exported_Functions_Group1 IO operation functions
+  *
   * @{
   */
 
 /**
-  * @brief  Initializes the SPI according to the specified parameters 
+  * @brief  Initializes the SPI according to the specified parameters
   *         in the SPI_InitTypeDef and create the associated handle.
   * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
-  *                the configuration information for SPI module.
+  *               the configuration information for SPI module.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
 {
   /* Check the SPI handle allocation */
-  if(hspi == NULL)
+  if (hspi == NULL)
   {
     return HAL_ERROR;
   }
@@ -97,7 +97,7 @@ HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
   assert_param(IS_SPI_CRC_CALCULATION(hspi->Init.CRCCalculation));
   assert_param(IS_SPI_CRC_POLYNOMIAL(hspi->Init.CRCPolynomial));
 
-  if(hspi->State == HAL_SPI_STATE_RESET)
+  if (hspi->State == HAL_SPI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
     hspi->Lock = HAL_UNLOCKED;
@@ -105,7 +105,7 @@ HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
     /* Init the low level hardware : GPIO, CLOCK, NVIC... */
     HAL_SPI_MspInit(hspi);
   }
-  
+
   hspi->State = HAL_SPI_STATE_BUSY;
 
   /* Disble the selected SPI peripheral */
@@ -119,7 +119,7 @@ HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
                          hspi->Init.BaudRatePrescaler | hspi->Init.FirstBit  | hspi->Init.CRCCalculation);
 
   /* Configure : NSS management */
-  hspi->Instance->CR2 = (((hspi->Init.NSS >> 16) & SPI_CR2_SSOE) | hspi->Init.TIMode);
+  hspi->Instance->CR2 = (((hspi->Init.NSS >> 16U) & SPI_CR2_SSOE) | hspi->Init.TIMode);
 
   /*---------------------------- SPIx CRCPOLY Configuration ------------------*/
   /* Configure : CRC Polynomial */
@@ -132,7 +132,7 @@ HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
 
   hspi->ErrorCode = HAL_SPI_ERROR_NONE;
   hspi->State = HAL_SPI_STATE_READY;
-  
+
   return HAL_OK;
 }
 
@@ -145,6 +145,7 @@ HAL_StatusTypeDef HAL_SPI_Init(SPI_HandleTypeDef *hspi)
   */
 
 #endif /* HAL_SPI_MODULE_ENABLED */
+
 /**
   * @}
   */
