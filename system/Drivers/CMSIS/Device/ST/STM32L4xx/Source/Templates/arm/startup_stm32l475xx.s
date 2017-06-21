@@ -1,8 +1,8 @@
 ;********************** COPYRIGHT(c) 2017  STMicroelectronics ******************
 ;* File Name          : startup_stm32l475xx.s
 ;* Author             : MCD Application Team
-;* Version            : V1.3.0
-;* Date               : 17-February-2017
+;* Version            : V1.3.1
+;* Date               : 21-April-2017
 ;* Description        : STM32L475xx Ultra Low Power devices vector table for MDK-ARM toolchain.
 ;*                      This module performs:
 ;*                      - Set the initial SP

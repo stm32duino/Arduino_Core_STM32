@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4a6xx.h
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    17-February-2017
+  * @version V1.3.1
+  * @date    21-April-2017
   * @brief   CMSIS STM32L4A6xx Device Peripheral Access Layer Header File.
   *
   *          This file contains:
@@ -10668,10 +10668,10 @@ typedef struct
 #define FW_NVDSL_LENG_Msk    (0x3FFFU << FW_NVDSL_LENG_Pos)                    /*!< 0x003FFF00 */
 #define FW_NVDSL_LENG        FW_NVDSL_LENG_Msk                                 /*!< Non Volatile Data Segment Length */
 #define FW_VDSSA_ADD_Pos     (6U)                                              
-#define FW_VDSSA_ADD_Msk     (0x7FFU << FW_VDSSA_ADD_Pos)                      /*!< 0x0001FFC0 */
+#define FW_VDSSA_ADD_Msk     (0xFFFU << FW_VDSSA_ADD_Pos)                      /*!< 0x0003FFC0 */
 #define FW_VDSSA_ADD         FW_VDSSA_ADD_Msk                                  /*!< Volatile Data Segment Start Address */
 #define FW_VDSL_LENG_Pos     (6U)                                              
-#define FW_VDSL_LENG_Msk     (0x7FFU << FW_VDSL_LENG_Pos)                      /*!< 0x0001FFC0 */
+#define FW_VDSL_LENG_Msk     (0xFFFU << FW_VDSL_LENG_Pos)                      /*!< 0x0003FFC0 */
 #define FW_VDSL_LENG         FW_VDSL_LENG_Msk                                  /*!< Volatile Data Segment Length */
 
 /**************************Bit definition for CR register *********************/
@@ -15397,6 +15397,8 @@ typedef struct
 #define SYSCFG_SWPR_PAGE31_Pos          (31U)                                  
 #define SYSCFG_SWPR_PAGE31_Msk          (0x1U << SYSCFG_SWPR_PAGE31_Pos)       /*!< 0x80000000 */
 #define SYSCFG_SWPR_PAGE31              SYSCFG_SWPR_PAGE31_Msk                 /*!< SRAM2 Write protection page 31*/
+
+/******************  Bit definition for SYSCFG_SWPR2 register  ***************/
 #define SYSCFG_SWPR2_PAGE32_Pos         (0U)                                   
 #define SYSCFG_SWPR2_PAGE32_Msk         (0x1U << SYSCFG_SWPR2_PAGE32_Pos)      /*!< 0x00000001 */
 #define SYSCFG_SWPR2_PAGE32             SYSCFG_SWPR2_PAGE32_Msk                /*!< SRAM2 Write protection page 32*/
@@ -16383,10 +16385,11 @@ typedef struct
 
 /*******************  Bit definition for TIM16_OR1 register  ******************/
 #define TIM16_OR1_TI1_RMP_Pos      (0U)                                        
-#define TIM16_OR1_TI1_RMP_Msk      (0x3U << TIM16_OR1_TI1_RMP_Pos)             /*!< 0x00000003 */
-#define TIM16_OR1_TI1_RMP          TIM16_OR1_TI1_RMP_Msk                       /*!<TI1_RMP[1:0] bits (TIM16 Input Capture 1 remap) */
+#define TIM16_OR1_TI1_RMP_Msk      (0x7U << TIM16_OR1_TI1_RMP_Pos)             /*!< 0x00000007 */
+#define TIM16_OR1_TI1_RMP          TIM16_OR1_TI1_RMP_Msk                       /*!<TI1_RMP[2:0] bits (TIM16 Input Capture 1 remap) */
 #define TIM16_OR1_TI1_RMP_0        (0x1U << TIM16_OR1_TI1_RMP_Pos)             /*!< 0x00000001 */
 #define TIM16_OR1_TI1_RMP_1        (0x2U << TIM16_OR1_TI1_RMP_Pos)             /*!< 0x00000002 */
+#define TIM16_OR1_TI1_RMP_2        (0x4U << TIM16_OR1_TI1_RMP_Pos)             /*!< 0x00000004 */
 
 /*******************  Bit definition for TIM16_OR2 register  ******************/
 #define TIM16_OR2_BKINE_Pos        (0U)                                        
