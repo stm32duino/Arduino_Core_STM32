@@ -1,8 +1,6 @@
 ;******************** (C) COPYRIGHT 2016 STMicroelectronics ********************
 ;* File Name          : startup_stm32f098xx.s
 ;* Author             : MCD Application Team
-;* Version            : V2.3.1
-;* Date               : 04-November-2016
 ;* Description        : STM32F098xx devices vector table for MDK-ARM toolchain.
 ;*                      This module performs:
 ;*                      - Set the initial SP
