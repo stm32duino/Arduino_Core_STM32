@@ -197,9 +197,9 @@ const PinMap PinMap_CAN_TD[] = {
 };
 
 const TimerMap TimerMap_CONFIG[] = {
-  {TIM2,  TIM2_IRQn,                1},
-  {TIM6,  TIM6_DAC_IRQn,            1},
-  {TIM21, TIM21_IRQn,               2},
-  {TIM22, TIM22_IRQn,               2},
-  {NULL,  0,  0}
+  {TIM2,  TIM2_IRQn},
+  {TIM6,  TIM6_DAC_IRQn},
+  {TIM21, TIM21_IRQn},
+  {TIM22, TIM22_IRQn},
+  {NULL,  0}
 };

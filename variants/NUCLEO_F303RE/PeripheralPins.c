@@ -292,16 +292,16 @@ const PinMap PinMap_CAN_TD[] = {
 };
 
 const TimerMap TimerMap_CONFIG[] = {
-  {TIM1,  TIM1_UP_TIM16_IRQn,       2},
-  {TIM2,  TIM2_IRQn,                1},
-  {TIM3,  TIM3_IRQn,                1},
-  {TIM4,  TIM4_IRQn,                1},
-  {TIM6,  TIM6_DAC_IRQn,            1},
-  {TIM7,  TIM7_IRQn,                1},
-  {TIM8,  TIM8_UP_IRQn,             2},
-  {TIM15, TIM1_BRK_TIM15_IRQn,      2},
-  {TIM16, TIM1_UP_TIM16_IRQn,       2},
-  {TIM17, TIM1_TRG_COM_TIM17_IRQn,  2},
-  {TIM20, TIM20_UP_IRQn,            2},
-  {NULL,  0,  0}
+  {TIM1,  TIM1_UP_TIM16_IRQn},
+  {TIM2,  TIM2_IRQn},
+  {TIM3,  TIM3_IRQn},
+  {TIM4,  TIM4_IRQn},
+  {TIM6,  TIM6_DAC_IRQn},
+  {TIM7,  TIM7_IRQn},
+  {TIM8,  TIM8_UP_IRQn},
+  {TIM15, TIM1_BRK_TIM15_IRQn},
+  {TIM16, TIM1_UP_TIM16_IRQn},
+  {TIM17, TIM1_TRG_COM_TIM17_IRQn},
+  {TIM20, TIM20_UP_IRQn},
+  {NULL,  0}
 };

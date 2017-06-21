@@ -92,12 +92,3 @@ uint32_t timermap_irq(TIM_TypeDef *tim, const TimerMap* map) {
   }
   return (uint32_t)0;
 }
-
-uint32_t timermap_clkSrc(TIM_TypeDef *tim, const TimerMap* map) {
-  while (map->timer != NULL) {
-    if (map->timer == tim)
-      return map->clk_src;
-    map++;
-  }
-  return (uint32_t)0;
-}

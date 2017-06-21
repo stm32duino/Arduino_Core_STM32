@@ -295,19 +295,19 @@ const PinMap PinMap_CAN_TD[] = {
 };
 
 const TimerMap TimerMap_CONFIG[] = {
-  {TIM1,  TIM1_UP_TIM10_IRQn,       2},
-  {TIM2,  TIM2_IRQn,                1},
-  {TIM3,  TIM3_IRQn,                1},
-  {TIM4,  TIM4_IRQn,                1},
-  {TIM5,  TIM5_IRQn,                1},
-  {TIM6,  TIM6_DAC_IRQn,            1},
-  {TIM7,  TIM7_IRQn,                1},
-  {TIM8,  TIM8_UP_TIM13_IRQn,       2},
-  {TIM9,  TIM1_BRK_TIM9_IRQn,       2},
-  {TIM10, TIM1_UP_TIM10_IRQn,       2},
-  {TIM11, TIM1_TRG_COM_TIM11_IRQn,  2},
-  {TIM12, TIM8_BRK_TIM12_IRQn,      1},
-  {TIM13, TIM8_UP_TIM13_IRQn,       1},
-  {TIM14, TIM8_TRG_COM_TIM14_IRQn,  1},
-  {NULL,  0,  0}
+  {TIM1,  TIM1_UP_TIM10_IRQn},
+  {TIM2,  TIM2_IRQn},
+  {TIM3,  TIM3_IRQn},
+  {TIM4,  TIM4_IRQn},
+  {TIM5,  TIM5_IRQn},
+  {TIM6,  TIM6_DAC_IRQn},
+  {TIM7,  TIM7_IRQn},
+  {TIM8,  TIM8_UP_TIM13_IRQn},
+  {TIM9,  TIM1_BRK_TIM9_IRQn},
+  {TIM10, TIM1_UP_TIM10_IRQn},
+  {TIM11, TIM1_TRG_COM_TIM11_IRQn},
+  {TIM12, TIM8_BRK_TIM12_IRQn},
+  {TIM13, TIM8_UP_TIM13_IRQn},
+  {TIM14, TIM8_TRG_COM_TIM14_IRQn},
+  {NULL,  0}
 };
