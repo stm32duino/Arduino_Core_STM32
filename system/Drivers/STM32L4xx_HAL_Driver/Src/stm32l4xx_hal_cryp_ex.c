@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_cryp_ex.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   CRYPEx HAL module driver.
   *          This file provides firmware functions to manage the extended
   *          functionalities of the Cryptography (CRYP) peripheral.  

@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal.h
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   This file contains all the functions prototypes for the HAL
   *          module driver.
   ******************************************************************************
@@ -582,6 +582,9 @@ void HAL_ResumeTick(void);
 uint32_t HAL_GetHalVersion(void);
 uint32_t HAL_GetREVID(void);
 uint32_t HAL_GetDEVID(void);
+uint32_t HAL_GetUIDw0(void);
+uint32_t HAL_GetUIDw1(void);
+uint32_t HAL_GetUIDw2(void);
 
 /**
   * @}

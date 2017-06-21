@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_ll_i2c.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   I2C LL module driver.
   ******************************************************************************
   * @attention
@@ -204,7 +204,10 @@ uint32_t LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
   LL_I2C_SetOwnAddress1(I2Cx, I2C_InitStruct->OwnAddress1, I2C_InitStruct->OwnAddrSize);
 
   /* OwnAdress1 == 0 is reserved for General Call address */
-  if (I2C_InitStruct->OwnAddress1 != 0U) LL_I2C_EnableOwnAddress1(I2Cx);
+  if (I2C_InitStruct->OwnAddress1 != 0U)
+  {
+    LL_I2C_EnableOwnAddress1(I2Cx);
+  }
 
   /*---------------------------- I2Cx MODE Configuration -----------------------
   * Configure I2Cx peripheral mode with parameter :

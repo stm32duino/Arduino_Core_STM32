@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_ll_adc.h
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   Header file of ADC LL module.
   ******************************************************************************
   * @attention
@@ -5770,11 +5770,11 @@ __STATIC_INLINE uint32_t LL_ADC_GetMultiTwoSamplingDelay(ADC_Common_TypeDef *ADC
 /* current functions name.                                                    */
 __STATIC_INLINE void LL_ADC_REG_SetTrigSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-  LL_ADC_REG_SetTrigSource(ADCx, TriggerSource);
+  LL_ADC_REG_SetTriggerSource(ADCx, TriggerSource);
 }
 __STATIC_INLINE void LL_ADC_INJ_SetTrigSource(ADC_TypeDef *ADCx, uint32_t TriggerSource)
 {
-  LL_ADC_INJ_SetTrigSource(ADCx, TriggerSource);
+  LL_ADC_INJ_SetTriggerSource(ADCx, TriggerSource);
 }
 
 /**

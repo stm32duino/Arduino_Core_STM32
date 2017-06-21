@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_ll_sdmmc.h
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   Header file of low layer SDMMC HAL module.
   ******************************************************************************
   * @attention
@@ -1057,7 +1057,7 @@ uint32_t SDMMC_CmdSelDesel(SDMMC_TypeDef *SDMMCx, uint64_t Addr);
 uint32_t SDMMC_CmdGoIdleState(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdOperCond(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdAppCommand(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
-uint32_t SDMMC_CmdAppOperCommand(SDMMC_TypeDef *SDMMCx, uint32_t SdType);
+uint32_t SDMMC_CmdAppOperCommand(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdBusWidth(SDMMC_TypeDef *SDMMCx, uint32_t BusWidth);
 uint32_t SDMMC_CmdSendSCR(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdSendCID(SDMMC_TypeDef *SDMMCx);

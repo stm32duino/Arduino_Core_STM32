@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_pcd.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   PCD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the USB Peripheral Controller:
@@ -566,7 +566,7 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
     if(__HAL_PCD_GET_FLAG(hpcd, USB_OTG_GINTSTS_USBRST))
     {
       USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_RWUSIG; 
-      USB_FlushTxFifo(hpcd->Instance ,  0 );
+      USB_FlushTxFifo(hpcd->Instance ,  0x10);
       
       for (index = 0; index < hpcd->Init.dev_endpoints ; index++)
       {
@@ -1188,8 +1188,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   ep->is_in = 0;
   ep->num = ep_addr & 0x7F;
   
-  __HAL_LOCK(hpcd);
-  
   if ((ep_addr & 0x7F) == 0 )
   {
     USB_EP0StartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
@@ -1198,8 +1196,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   {
     USB_EPStartXfer(hpcd->Instance, ep, hpcd->Init.dma_enable);
   }
-  __HAL_UNLOCK(hpcd);
-  
+
   return HAL_OK;
 }
 
@@ -1234,8 +1231,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
   ep->is_in = 1;
   ep->num = ep_addr & 0x7F;
   
-  __HAL_LOCK(hpcd);
-  
   if ((ep_addr & 0x7F) == 0 )
   {
     USB_EP0StartXfer(hpcd->Instance,ep,  hpcd->Init.dma_enable);
@@ -1244,8 +1239,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
   {
     USB_EPStartXfer(hpcd->Instance, ep,  hpcd->Init.dma_enable);
   }
-  
-  __HAL_UNLOCK(hpcd);
   
   return HAL_OK;
 }
