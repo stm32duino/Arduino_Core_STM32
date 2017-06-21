@@ -283,18 +283,3 @@ const PinMap PinMap_CAN_TD[] = {
     {PB9,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
     {NC,    NC,    0}
 };
-
-const TimerMap TimerMap_CONFIG[] = {
-  {TIM1,  TIM1_UP_TIM16_IRQn},
-  {TIM2,  TIM2_IRQn},
-  {TIM3,  TIM3_IRQn},
-  {TIM4,  TIM4_IRQn},
-  {TIM5,  TIM5_IRQn},
-  {TIM6,  TIM6_DAC_IRQn},
-  {TIM7,  TIM7_IRQn},
-  {TIM8,  TIM8_UP_IRQn},
-  {TIM15, TIM1_BRK_TIM15_IRQn},
-  {TIM16, TIM1_UP_TIM16_IRQn},
-  {TIM17, TIM1_TRG_COM_TIM17_IRQn},
-  {NULL,  0}
-};

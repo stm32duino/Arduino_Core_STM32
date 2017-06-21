@@ -179,14 +179,3 @@ const PinMap PinMap_SPI_SSEL[] = {
 
 //*** CAN ***
 // No CAN
-
-const TimerMap TimerMap_CONFIG[] = {
-  {TIM1,  TIM1_BRK_UP_TRG_COM_IRQn},
-  {TIM3,  TIM3_IRQn},
-  {TIM6,  TIM6_DAC_IRQn},
-  {TIM14, TIM14_IRQn},
-  {TIM15, TIM15_IRQn},
-  {TIM16, TIM16_IRQn},
-  {TIM17, TIM17_IRQn},
-  {NULL,  0}
-};
