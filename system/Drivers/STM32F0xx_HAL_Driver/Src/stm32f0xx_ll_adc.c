@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_adc.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   ADC LL module driver
   ******************************************************************************
   * @attention

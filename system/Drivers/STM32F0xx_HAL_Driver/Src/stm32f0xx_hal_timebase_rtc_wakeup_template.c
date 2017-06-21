@@ -1,8 +1,6 @@
 /**
   ******************************************************************************
   * @file    stm32f0xx_hal_timebase_rtc_wakeup_template.c 
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   HAL time base based on the hardware RTC_WAKEUP Template.
   *    
   *          This file overrides the native HAL time base functions (defined as weak)
@@ -81,17 +79,20 @@
   + RTC_CLOCK_SOURCE_LSI: can be selected for applications with low constraint on timing
                           precision.
   */
-#define RTC_CLOCK_SOURCE_HSE
+#define RTC_CLOCK_SOURCE_HSE 
 /* #define RTC_CLOCK_SOURCE_LSE */
 /* #define RTC_CLOCK_SOURCE_LSI */
 
-#ifdef RTC_CLOCK_SOURCE_HSE
+#if defined(RTC_CLOCK_SOURCE_HSE)
   #define RTC_ASYNCH_PREDIV       49U
   #define RTC_SYNCH_PREDIV        4U
-#else /* RTC_CLOCK_SOURCE_LSE || RTC_CLOCK_SOURCE_LSI */
+#elif defined(RTC_CLOCK_SOURCE_LSE)
   #define RTC_ASYNCH_PREDIV       0U
   #define RTC_SYNCH_PREDIV        31U
-#endif /* RTC_CLOCK_SOURCE_HSE */
+#else        /* CLOCK_SOURCE_LSI */
+  #define RTC_ASYNCH_PREDIV       0U
+  #define RTC_SYNCH_PREDIV        39U
+#endif       /* RTC_CLOCK_SOURCE_HSE */
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -160,7 +161,7 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
            Time base = ((31 + 1) * (0 + 1)) / 32.768Khz
                      = ~1ms
          LSI as RTC clock 
-           Time base = ((31 + 1) * (0 + 1)) / 32Khz
+           Time base = ((39 + 1) * (0 + 1)) / 40Khz
                      = 1ms
       */
       hRTC_Handle.Instance = RTC;

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_tim.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of TIM HAL module.
   ******************************************************************************
   * @attention
@@ -1094,6 +1092,8 @@ typedef struct
                                    ((LENGTH) == TIM_DMABURSTLENGTH_17TRANSFERS) || \
                                    ((LENGTH) == TIM_DMABURSTLENGTH_18TRANSFERS))
 
+#define IS_TIM_DMA_DATA_LENGTH(LENGTH) (((LENGTH) >= 0x1U) && ((LENGTH) < 0x10000U))
+
 #define IS_TIM_IC_FILTER(ICFILTER) ((ICFILTER) <= 0xFU)
 
 /** @brief Set TIM IC prescaler
@@ -1220,6 +1220,15 @@ void TIM_CCxChannelCmd(TIM_TypeDef* TIMx, uint32_t Channel, uint32_t ChannelStat
                             } \
                             } \
                         } while(0)
+
+/* The Main Output Enable of a timer instance is disabled unconditionally */                          
+/**
+  * @brief  Disable the TIM main Output.
+  * @param  __HANDLE__: TIM handle
+  * @retval None
+  * @note The Main Output Enable of a timer instance is disabled uncondiotionally
+  */
+#define __HAL_TIM_MOE_DISABLE_UNCONDITIONALLY(__HANDLE__)  (__HANDLE__)->Instance->BDTR &= ~(TIM_BDTR_MOE)
 
 /**
   * @brief  Enables the specified TIM interrupt.
@@ -1387,7 +1396,7 @@ mode.
   *            @arg TIM_CHANNEL_2: get capture/compare 2 register value
   *            @arg TIM_CHANNEL_3: get capture/compare 3 register value
   *            @arg TIM_CHANNEL_4: get capture/compare 4 register value
-  * @retval None
+  * @retval 16-bit or 32-bit value of the capture/compare register (TIMx_CCRy)
   */
 #define __HAL_TIM_GET_COMPARE(__HANDLE__, __CHANNEL__) \
   (*(__IO uint32_t *)(&((__HANDLE__)->Instance->CCR1) + ((__CHANNEL__) >> 2U)))
@@ -1403,7 +1412,7 @@ mode.
 /**
   * @brief  Gets the TIM Counter Register value on runtime.
   * @param  __HANDLE__: TIM handle.
-  * @retval None
+  * @retval 16-bit or 32-bit value of the timer counter register (TIMx_CNT)
   */
 #define __HAL_TIM_GET_COUNTER(__HANDLE__) \
    ((__HANDLE__)->Instance->CNT)
@@ -1424,7 +1433,7 @@ mode.
 /**
   * @brief  Gets the TIM Autoreload Register value on runtime
   * @param  __HANDLE__: TIM handle.
-  * @retval None
+  * @retval 16-bit or 32-bit value of the timer auto-reload register(TIMx_ARR)
   */
 #define __HAL_TIM_GET_AUTORELOAD(__HANDLE__) \
    ((__HANDLE__)->Instance->ARR)
@@ -1435,9 +1444,9 @@ mode.
   * @param  __HANDLE__: TIM handle.
   * @param  __CKD__: specifies the clock division value.
   *          This parameter can be one of the following value:
-  *            @arg TIM_CLOCKDIVISION_DIV1
-  *            @arg TIM_CLOCKDIVISION_DIV2
-  *            @arg TIM_CLOCKDIVISION_DIV4 
+  *            @arg TIM_CLOCKDIVISION_DIV1: tDTS=tCK_INT
+  *            @arg TIM_CLOCKDIVISION_DIV2: tDTS=2*tCK_INT
+  *            @arg TIM_CLOCKDIVISION_DIV4: tDTS=4*tCK_INT
   * @retval None
   */
 #define __HAL_TIM_SET_CLOCKDIVISION(__HANDLE__, __CKD__) \
@@ -1450,7 +1459,10 @@ mode.
 /**
   * @brief  Gets the TIM Clock Division value on runtime
   * @param  __HANDLE__: TIM handle.
-  * @retval None
+  * @retval The clock division can be one of the following values:
+  *            @arg TIM_CLOCKDIVISION_DIV1: tDTS=tCK_INT
+  *            @arg TIM_CLOCKDIVISION_DIV2: tDTS=2*tCK_INT
+  *            @arg TIM_CLOCKDIVISION_DIV4: tDTS=4*tCK_INT
   */
 #define __HAL_TIM_GET_CLOCKDIVISION(__HANDLE__)  \
    ((__HANDLE__)->Instance->CR1 & TIM_CR1_CKD)
@@ -1523,7 +1535,11 @@ mode.
   *            @arg TIM_CHANNEL_2: get input capture 2 prescaler value
   *            @arg TIM_CHANNEL_3: get input capture 3 prescaler value
   *            @arg TIM_CHANNEL_4: get input capture 4 prescaler value
-  * @retval None
+  * @retval The input capture prescaler can be one of the following values:
+  *            @arg TIM_ICPSC_DIV1: no prescaler
+  *            @arg TIM_ICPSC_DIV2: capture is done once every 2 events
+  *            @arg TIM_ICPSC_DIV4: capture is done once every 4 events
+  *            @arg TIM_ICPSC_DIV8: capture is done once every 8 events
   */
 #define __HAL_TIM_GET_ICPRESCALER(__HANDLE__, __CHANNEL__)  \
   (((__CHANNEL__) == TIM_CHANNEL_1) ? ((__HANDLE__)->Instance->CCMR1 & TIM_CCMR1_IC1PSC) :\
@@ -1739,9 +1755,13 @@ HAL_StatusTypeDef HAL_TIM_SlaveConfigSynchronization(TIM_HandleTypeDef *htim, TI
 HAL_StatusTypeDef HAL_TIM_SlaveConfigSynchronization_IT(TIM_HandleTypeDef *htim, TIM_SlaveConfigTypeDef * sSlaveConfig);
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, \
                                               uint32_t  *BurstBuffer, uint32_t  BurstLength);
+HAL_StatusTypeDef HAL_TIM_DMABurst_MultiWriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, \
+                                                   uint32_t  *BurstBuffer, uint32_t  BurstLength, uint32_t  DataLength);
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t BurstRequestSrc);
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, \
                                               uint32_t  *BurstBuffer, uint32_t  BurstLength);
+HAL_StatusTypeDef HAL_TIM_DMABurst_MultiReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc, \
+                                                  uint32_t  *BurstBuffer, uint32_t  BurstLength, uint32_t  DataLength);
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStop(TIM_HandleTypeDef *htim, uint32_t BurstRequestSrc);
 HAL_StatusTypeDef HAL_TIM_GenerateEvent(TIM_HandleTypeDef *htim, uint32_t EventSource);
 uint32_t HAL_TIM_ReadCapturedValue(TIM_HandleTypeDef *htim, uint32_t Channel);

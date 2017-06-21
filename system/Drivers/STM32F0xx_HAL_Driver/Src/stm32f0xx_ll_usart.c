@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_usart.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   USART LL module driver.
   ******************************************************************************
   * @attention
@@ -76,6 +74,10 @@
 /* __BAUDRATE__ The maximum Baud Rate is derived from the maximum clock available
  *              divided by the smallest oversampling used on the USART (i.e. 8)    */
 #define IS_LL_USART_BAUDRATE(__BAUDRATE__) ((__BAUDRATE__) <= 6000000U)
+
+/* __VALUE__ In case of oversampling by 16 and 8, BRR content must be greater than or equal to 16d. */
+#define IS_LL_USART_BRR(__VALUE__) (((__VALUE__) >= 16U) \
+                                    && ((__VALUE__) <= 0x0000FFFFU))
 
 #define IS_LL_USART_DIRECTION(__VALUE__) (((__VALUE__) == LL_USART_DIRECTION_NONE) \
                                        || ((__VALUE__) == LL_USART_DIRECTION_RX) \
@@ -257,6 +259,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 {
   ErrorStatus status = ERROR;
   uint32_t periphclk = LL_RCC_PERIPH_FREQUENCY_NO;
+  uint32_t temp = 0;
 #if defined(STM32F030x8) || defined(STM32F030xC) || defined(STM32F042x6) || defined(STM32F048xx) || defined(STM32F051x8) || defined(STM32F058xx) || defined(STM32F070x6) || defined(STM32F070xB) || defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || defined(STM32F091xC) || defined(STM32F098xx)
   LL_RCC_ClocksTypeDef RCC_Clocks;
 #endif
@@ -275,7 +278,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
      CRx registers */
   if (LL_USART_IsEnabled(USARTx) == 0U)
   {
-    /*---------------------------- USART CR1 Configuration -----------------------
+    /*---------------------------- USART CR1 Configuration ---------------------
      * Configure USARTx CR1 (USART Word Length, Parity, Mode and Oversampling bits) with parameters:
      * - DataWidth:          USART_CR1_M bits according to USART_InitStruct->DataWidth value
      * - Parity:             USART_CR1_PCE, USART_CR1_PS bits according to USART_InitStruct->Parity value
@@ -288,20 +291,20 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
                (USART_InitStruct->DataWidth | USART_InitStruct->Parity |
                 USART_InitStruct->TransferDirection | USART_InitStruct->OverSampling));
 
-    /*---------------------------- USART CR2 Configuration -----------------------
+    /*---------------------------- USART CR2 Configuration ---------------------
      * Configure USARTx CR2 (Stop bits) with parameters:
      * - Stop Bits:          USART_CR2_STOP bits according to USART_InitStruct->StopBits value.
      * - CLKEN, CPOL, CPHA and LBCL bits are to be configured using LL_USART_ClockInit().
      */
     LL_USART_SetStopBitsLength(USARTx, USART_InitStruct->StopBits);
 
-    /*---------------------------- USART CR3 Configuration -----------------------
+    /*---------------------------- USART CR3 Configuration ---------------------
      * Configure USARTx CR3 (Hardware Flow Control) with parameters:
      * - HardwareFlowControl: USART_CR3_RTSE, USART_CR3_CTSE bits according to USART_InitStruct->HardwareFlowControl value.
      */
     LL_USART_SetHWFlowCtrl(USARTx, USART_InitStruct->HardwareFlowControl);
 
-    /*---------------------------- USART BRR Configuration -----------------------
+    /*---------------------------- USART BRR Configuration ---------------------
      * Retrieve Clock frequency used for USART Peripheral
      */
     if (USARTx == USART1)
@@ -389,6 +392,15 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
                            periphclk,
                            USART_InitStruct->OverSampling,
                            USART_InitStruct->BaudRate);
+
+      /* Check BRR is greater than or equal to 16d */
+      /* Use local value to avoid MISRA 2004 issue
+         rule 12.4 the right hand operand of an && or || operator shall not contain side effects */
+      temp = USARTx->BRR;
+      assert_param(IS_LL_USART_BRR(temp));
+      /* Prevent unused argument(s) compilation warning */
+      ((void)(temp));
+
     }
   }
   /* Endif (=> USART not in Disabled state => return ERROR) */

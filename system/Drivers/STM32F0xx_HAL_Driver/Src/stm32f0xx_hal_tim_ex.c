@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_tim_ex.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   TIM HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Timer Extended peripheral:

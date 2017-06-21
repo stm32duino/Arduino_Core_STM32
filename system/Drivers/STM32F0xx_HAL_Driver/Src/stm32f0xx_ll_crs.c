@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_crs.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   CRS LL module driver.
   ******************************************************************************
   * @attention

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_uart.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of UART HAL module.
   ******************************************************************************
   * @attention
@@ -408,19 +406,16 @@ typedef struct
   */
 
 /** @defgroup UART_IT   UART IT
-  *       Elements values convention: 000000000XXYYYYYb
+  *       Elements values convention: 0000ZZZZ0XXYYYYYb
   *           - YYYYY  : Interrupt source position in the XX register (5bits)
   *           - XX  : Interrupt source register (2bits)
   *                 - 01: CR1 register
   *                 - 10: CR2 register
   *                 - 11: CR3 register
+  *           - ZZZZ  : Flag position in the ISR register(4bits)
   * @{
   */
 #define UART_IT_ERR                         (0x0060U)                  /*!< UART error interruption         */   
-
-/**       Elements values convention: 0000ZZZZ00000000b
-  *           - ZZZZ  : Flag position in the ISR register(4bits)
-  */
 #define UART_IT_ORE                         (0x0300U)                  /*!< UART overrun error interruption */ 
 #define UART_IT_NE                          (0x0200U)                  /*!< UART noise error interruption   */ 
 #define UART_IT_FE                          (0x0100U)                  /*!< UART frame error interruption   */ 

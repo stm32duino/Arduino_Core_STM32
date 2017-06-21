@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_irda.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   This file contains all the functions prototypes for the IRDA 
   *          firmware library.
   ******************************************************************************
@@ -361,22 +359,10 @@ typedef enum
 #define IRDA_IT_TC                          ((uint16_t)0x0626U)     /*!< IRDA Transmission complete interruption        */
 #define IRDA_IT_RXNE                        ((uint16_t)0x0525U)     /*!< IRDA Read data register not empty interruption */
 #define IRDA_IT_IDLE                        ((uint16_t)0x0424U)     /*!< IRDA Idle interruption                         */
-
-/**       Elements values convention: 000000000XXYYYYYb
-  *           - YYYYY  : Interrupt source position in the XX register (5bits)
-  *           - XX  : Interrupt source register (2bits)
-  *                 - 01: CR1 register
-  *                 - 10: CR2 register
-  *                 - 11: CR3 register
-  */
-#define IRDA_IT_ERR                         ((uint16_t)0x0060U)       /*!< IRDA Error interruption        */
-
-/**       Elements values convention: 0000ZZZZ00000000b
-  *           - ZZZZ  : Flag position in the ISR register(4bits)
-  */
-#define IRDA_IT_ORE                         ((uint16_t)0x0300U)      /*!< IRDA Overrun error interruption */
-#define IRDA_IT_NE                          ((uint16_t)0x0200U)      /*!< IRDA Noise error interruption   */
-#define IRDA_IT_FE                          ((uint16_t)0x0100U)      /*!< IRDA Frame error interruption   */
+#define IRDA_IT_ERR                         ((uint16_t)0x0060U)     /*!< IRDA Error interruption                        */
+#define IRDA_IT_ORE                         ((uint16_t)0x0300U)     /*!< IRDA Overrun error interruption                */
+#define IRDA_IT_NE                          ((uint16_t)0x0200U)     /*!< IRDA Noise error interruption                  */
+#define IRDA_IT_FE                          ((uint16_t)0x0100U)     /*!< IRDA Frame error interruption                  */
 /**
   * @}
   */

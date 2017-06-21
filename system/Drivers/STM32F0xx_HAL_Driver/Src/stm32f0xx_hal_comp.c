@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_comp.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   COMP HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the COMP peripheral:
@@ -188,7 +186,7 @@
 /* Literal set to maximum value (refer to device datasheet,                   */
 /* parameter "tSTART").                                                       */
 /* Unit: us                                                                   */
-#define LL_COMP_DELAY_STARTUP_US          (60U)  /*!< Delay for COMP startup time */
+#define COMP_DELAY_STARTUP_US           (60U)  /*!< Delay for COMP startup time */
 
 /* CSR register reset value */ 
 #define COMP_CSR_RESET_VALUE            (0x00000000U)
@@ -438,7 +436,7 @@ HAL_StatusTypeDef HAL_COMP_Start(COMP_HandleTypeDef *hcomp)
       hcomp->State = HAL_COMP_STATE_BUSY;
       
       /* Delay for COMP startup time */
-      wait_loop_index = (LL_COMP_DELAY_STARTUP_US * (SystemCoreClock / 1000000U));
+      wait_loop_index = (COMP_DELAY_STARTUP_US * (SystemCoreClock / 1000000U));
       while(wait_loop_index != 0U)
       {
         wait_loop_index--;
