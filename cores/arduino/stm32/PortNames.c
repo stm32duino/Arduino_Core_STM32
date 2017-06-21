@@ -100,64 +100,64 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx) {
     switch (port_idx) {
         case PortA:
             gpioPort = GPIOA_BASE;
-            __GPIOA_CLK_ENABLE();
+            __HAL_RCC_GPIOA_CLK_ENABLE();
             break;
         case PortB:
             gpioPort = GPIOB_BASE;
-            __GPIOB_CLK_ENABLE();
+            __HAL_RCC_GPIOB_CLK_ENABLE();
             break;
 #if defined GPIOC_BASE
         case PortC:
             gpioPort = GPIOC_BASE;
-            __GPIOC_CLK_ENABLE();
+            __HAL_RCC_GPIOC_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOD_BASE
         case PortD:
             gpioPort = GPIOD_BASE;
-            __GPIOD_CLK_ENABLE();
+            __HAL_RCC_GPIOD_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOE_BASE
         case PortE:
             gpioPort = GPIOE_BASE;
-            __GPIOE_CLK_ENABLE();
+            __HAL_RCC_GPIOE_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOF_BASE
         case PortF:
             gpioPort = GPIOF_BASE;
-            __GPIOF_CLK_ENABLE();
+            __HAL_RCC_GPIOF_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOG_BASE
         case PortG:
             gpioPort = GPIOG_BASE;
-            __GPIOG_CLK_ENABLE();
+            __HAL_RCC_GPIOG_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOH_BASE
         case PortH:
             gpioPort = GPIOH_BASE;
-            __GPIOH_CLK_ENABLE();
+            __HAL_RCC_GPIOH_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOI_BASE
         case PortI:
             gpioPort = GPIOI_BASE;
-            __GPIOI_CLK_ENABLE();
+            __HAL_RCC_GPIOI_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOJ_BASE
         case PortJ:
             gpioPort = GPIOJ_BASE;
-            __GPIOJ_CLK_ENABLE();
+            __HAL_RCC_GPIOJ_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOK_BASE
         case PortK:
             gpioPort = GPIOK_BASE;
-            __GPIOK_CLK_ENABLE();
+            __HAL_RCC_GPIOK_CLK_ENABLE();
             break;
 #endif
         default:

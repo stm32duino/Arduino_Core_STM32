@@ -235,9 +235,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   handle->Init.OwnAddress1     = ownAddress;
   handle->Init.OwnAddress2     = 0xFF;
   handle->Init.AddressingMode  = addressingMode;
-  handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLED;
-  handle->Init.GeneralCallMode = I2C_GENERALCALL_DISABLED;
-  handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLED;
+  handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  handle->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;
 
   if(master == 0) {
     HAL_NVIC_SetPriority(obj->irq, 0, 1);

@@ -252,7 +252,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     handle->Init.CLKPolarity       = SPI_POLARITY_HIGH;
   }
 
-  handle->Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLED;
+  handle->Init.CRCCalculation    = SPI_CRCCALCULATION_DISABLE;
   handle->Init.CRCPolynomial     = 7;
   handle->Init.DataSize          = SPI_DATASIZE_8BIT;
 
@@ -262,7 +262,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     handle->Init.FirstBit          = SPI_FIRSTBIT_MSB;
   }
 
-  handle->Init.TIMode            = SPI_TIMODE_DISABLED;
+  handle->Init.TIMode            = SPI_TIMODE_DISABLE;
 
   if(obj->pin_mosi != NC) {
     port = set_GPIO_Port_Clock(STM_PORT(obj->pin_mosi));
