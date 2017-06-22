@@ -72,10 +72,10 @@ enum {
   AEND
 };
 
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
 #define MAX_DIGITAL_IOS         DEND
 #define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
-#define NUM_ANALOG_INPUTS       (AEND - A0)
+#define MAX_ANALOG_IOS          (AEND - A0)
+#define NUM_ANALOG_INPUTS       MAX_ANALOG_IOS
 
 // Convert a digital pin number Dxx to a PinName Pxy
 #define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
@@ -143,8 +143,11 @@ uint32_t pinNametoPinNumber(PinName p);
 #define UART_EMUL_RX            PE9
 #define UART_EMUL_TX            PE11
 
-//Enable Firmata
-#define STM32 1
+// Enable Firmata
+#define STM32                   1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           42
+#define PIN_SERIAL_TX           3
 
 #ifdef __cplusplus
 } // extern "C"

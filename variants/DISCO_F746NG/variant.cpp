@@ -46,7 +46,9 @@ const PinName digital_arduino[] = {
   PF8,  //D19/A3
   PF7,  //D20/A4
   PF6,  //D21/A5
-  PI11  //D22 User btn
+  PI11, //D22 User btn
+  PB7,  //D23 ST-Link Rx
+  PA9   //D24 ST-Link Tx
 };
 
 #ifdef __cplusplus

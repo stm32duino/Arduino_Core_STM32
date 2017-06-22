@@ -107,7 +107,9 @@ const PinName digital_arduino[] = {
   PF10, //D78/A5
   PB7,  //D79
   PB14, //D80
-  PC13  //D81
+  PC13, //D81
+  PD9,  //D82
+  PD8   //D83
 };
 
 #ifdef __cplusplus

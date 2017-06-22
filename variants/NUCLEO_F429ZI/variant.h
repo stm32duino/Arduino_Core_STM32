@@ -62,7 +62,7 @@ enum {
   D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
   D60, D61, D62, D63, D64, D65, D66, D67, D68, D69,
   D70, D71, D72, D73, D74, D75, D76, D77, D78, D79,
-  D80, D81,
+  D80, D81, D82, D83,
   DEND
 };
 
@@ -72,10 +72,10 @@ enum {
   AEND
 };
 
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
 #define MAX_DIGITAL_IOS         DEND
 #define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
-#define NUM_ANALOG_INPUTS       (AEND - A0)
+#define MAX_ANALOG_IOS          (AEND - A0)
+#define NUM_ANALOG_INPUTS       MAX_ANALOG_IOS
 
 // Convert a digital pin number Dxx to a PinName Pxy
 #define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
@@ -145,8 +145,15 @@ uint32_t pinNametoPinNumber(PinName p);
 #define UART_EMUL_RX            PF15
 #define UART_EMUL_TX            PE13
 
-//Enable Firmata
+// Enable Firmata
 #define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           82
+#define PIN_SERIAL_TX           83
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          52
+#define PIN_SERIAL2_TX          53
 
 #ifdef __cplusplus
 } // extern "C"

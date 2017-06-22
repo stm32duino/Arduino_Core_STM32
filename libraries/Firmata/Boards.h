@@ -665,27 +665,23 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         ((p) - 2)
 
-// Nucleo STM32F429
+// STM32 based boards
 #elif defined(STM32)
-#define TOTAL_ANALOG_PINS       MAX_ANALOG_IOS  //7
-#define TOTAL_PINS              MAX_DIGITAL_IOS //22 : All pins can be digital
-#define TOTAL_PORTS             3
+#define TOTAL_ANALOG_PINS       MAX_ANALOG_IOS
+#define TOTAL_PINS              MAX_DIGITAL_IOS
+#define TOTAL_PORTS             MAX_NB_PORT
 #define VERSION_BLINK_PIN       LED_BUILTIN
-#define PIN_SERIAL_RX           9
-#define PIN_SERIAL_TX           8
-#define PIN_SERIAL1_RX          0
-#define PIN_SERIAL1_TX          1
-#define PIN_SERIAL2_RX          8
-#define PIN_SERIAL2_TX          9
-#define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) < TOTAL_PINS)
-#define IS_PIN_ANALOG(p)        ((p) >= 16 && (p) < TOTAL_PINS)
-#define IS_PIN_PWM(p)           ((p) == 3 || (p) == 5 || (p) == 6 || (p) == 9 || (p) == 10 || (p) == 11)
-#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL((p))
-#define IS_PIN_I2C(p)           ((p) == 14 || (p) == 15)
-#define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
-#define IS_PIN_SERIAL(p)        ((p) == 0 || (p) == 1)
+// PIN_SERIALY_RX/TX defined in the variant.h
+#define IS_PIN_DIGITAL(p)       ((p != PIN_SERIAL_RX) && (p != PIN_SERIAL_TX) &&(p < TOTAL_PINS))
+#define IS_PIN_ANALOG(p)        (pin_in_pinmap(digitalToPinName(p), PinMap_ADC))
+#define IS_PIN_PWM(p)           (pin_in_pinmap(digitalToPinName(p), PinMap_PWM))
+#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL(p)
+#define IS_PIN_I2C(p)           (pin_in_pinmap(digitalToPinName(p), PinMap_I2C_SDA) || pin_in_pinmap(digitalToPinName(p), PinMap_I2C_SCL))
+#define IS_PIN_SPI(p)           (pin_in_pinmap(digitalToPinName(p), PinMap_SPI_MOSI) || pin_in_pinmap(digitalToPinName(p), PinMap_SPI_MISO) ||\
+                                 pin_in_pinmap(digitalToPinName(p), PinMap_SPI_SCLK) || pin_in_pinmap(digitalToPinName(p), PinMap_SPI_SSEL))
+#define IS_PIN_SERIAL(p)        (pin_in_pinmap(digitalToPinName(p), PinMap_UART_RX) || pin_in_pinmap(digitalToPinName(p), PinMap_UART_TX))
 #define PIN_TO_DIGITAL(p)       (p)
-#define PIN_TO_ANALOG(p)        ((p) - 16)
+#define PIN_TO_ANALOG(p)        (p)
 #define PIN_TO_PWM(p)           (p)
 #define PIN_TO_SERVO(p)         (p)
 
