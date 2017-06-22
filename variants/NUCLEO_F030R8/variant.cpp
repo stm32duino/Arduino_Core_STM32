@@ -94,19 +94,25 @@ const PinName digital_arduino[] = {
  * UART objects
  */
 HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
+#ifdef ENABLE_SERIAL1
 HardwareSerial  Serial1(PA10, PA9);
+#endif
 
 // Need rework to be generic
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
+#ifdef ENABLE_SERIAL1
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
+#endif
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+#ifdef ENABLE_SERIAL1
   if (Serial1.available()) serialEvent1();
+#endif
 }
 
 // ----------------------------------------------------------------------------
