@@ -50,6 +50,7 @@
 #include "hw_config.h"
 #include "analog.h"
 #include "timer.h"
+#include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -83,6 +84,7 @@
 #error "ADC SAMPLINGTIME could not be defined"
 #endif
 
+#ifndef STM32F1xx
 #ifdef ADC_CLOCK_SYNC_PCLK_DIV2
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
 #elif defined(ADC_CLOCK_ASYNC_DIV1)
@@ -92,6 +94,7 @@
 #else
 #error "ADC_CLOCK_DIV could not be defined"
 #endif
+#endif /* STM32F1xx */
 
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
@@ -432,7 +435,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-#ifdef __HAL_RCC_ADC_CONFIG
+/* For STM32F1xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
@@ -557,16 +561,22 @@ uint16_t adc_read_value(PinName pin)
 
   if (AdcHandle.Instance == NP) return 0;
 
+#ifndef STM32F1xx
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
+#endif
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+#ifndef STM32F1xx
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
+#endif
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
+#ifndef STM32F1xx
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
+#endif
   AdcHandle.State = HAL_ADC_STATE_RESET;
 #if defined (STM32F0xx) || defined (STM32L0xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
@@ -687,7 +697,11 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+  pin_SetF1AFPin(STM_PIN_AFNUM(function));
+#else
   GPIO_InitStruct.Alternate = STM_PIN_AFNUM(function);
+#endif /* STM32F1xx */
   GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
 
   HAL_GPIO_Init(port, &GPIO_InitStruct);
