@@ -91,20 +91,25 @@ const PinName digital_arduino[] = {
  * UART objects
  */
 
-// HardwareSerial Serial(PA3, PA2);    // Connected to ST-Link
-// HardwareSerial Serial1(PA10, PA9);
-//
-// void serialEvent() __attribute__((weak));
-// void serialEvent() { }
-//
-// void serialEvent1() __attribute__((weak));
-// void serialEvent1() { }
-//
-// void serialEventRun(void)
-// {
-//   if (Serial.available()) serialEvent();
-//   if (Serial1.available()) serialEvent1();
-// }
+HardwareSerial Serial(PA3, PA2);    // Connected to ST-Link
+HardwareSerial Serial1(PA10, PA9);
+HardwareSerial Serial2(PC11, PC10); //Morpho pins
+
+void serialEvent() __attribute__((weak));
+void serialEvent() { }
+
+void serialEvent1() __attribute__((weak));
+void serialEvent1() { }
+
+void serialEvent2() __attribute__((weak));
+void serialEvent2() { }
+
+void serialEventRun(void)
+{
+  if (Serial.available()) serialEvent();
+  if (Serial1.available()) serialEvent1();
+  if (Serial2.available()) serialEvent2();
+}
 
 // ----------------------------------------------------------------------------
 

@@ -38,6 +38,7 @@
 #include "digital_io.h"
 #include "stm32_def.h"
 #include "hw_config.h"
+#include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -59,6 +60,9 @@ void digital_io_init(PinName pin, uint32_t mode, uint32_t pull)
   GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
   GPIO_InitStructure.Mode = mode;
   GPIO_InitStructure.Pull = pull;
+#ifdef STM32F1xx
+  pinF1_DisconnectDebug(pin);
+#endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStructure);
 }
 
