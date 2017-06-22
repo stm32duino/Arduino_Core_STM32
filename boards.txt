@@ -86,6 +86,20 @@ Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.product_line=STM32F091xC
 Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
 Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# NUCLEO_F103RB board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PC11, PC10)
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB=Nucleo F103RB
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.node="NODE_F103RB,NUCLEO"
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.upload.maximum_size=131072
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.upload.maximum_data_size=20480
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.mcu=cortex-m3
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.f_cpu=72000000L
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.board=NUCLEO_F103RB
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.series=STM32F1xx
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.product_line=STM32F103xB
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.variant=NUCLEO_F103RB
+Nucleo_64.menu.board_part_num.NUCLEO_F103RB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # NUCLEO_F303RE board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
 Nucleo_64.menu.board_part_num.NUCLEO_F303RE=Nucleo F303RE
