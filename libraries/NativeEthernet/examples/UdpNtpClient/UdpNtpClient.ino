@@ -18,7 +18,7 @@
 
  */
 
-#include <Native_Ethernet.h>
+#include <NativeEthernet.h>
 #include <EthernetUdp.h>
 
 // Enter a MAC address for your controller below.

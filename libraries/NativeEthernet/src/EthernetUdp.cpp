@@ -26,7 +26,7 @@
  * bjoern@cs.stanford.edu 12/30/2008
  */
 
-#include "Native_Ethernet.h"
+#include "NativeEthernet.h"
 #include "Udp.h"
 #include "Dns.h"
 

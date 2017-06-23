@@ -22,7 +22,7 @@
 
  */
 
-#include <Native_Ethernet.h>
+#include <NativeEthernet.h>
 
 // assign a MAC address for the ethernet controller.
 // fill in your address here:

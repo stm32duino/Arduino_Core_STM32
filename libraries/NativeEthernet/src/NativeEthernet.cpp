@@ -1,4 +1,4 @@
-#include "Native_Ethernet.h"
+#include "NativeEthernet.h"
 #include "Dhcp.h"
 
 int EthernetClass::begin(uint8_t *mac_address, unsigned long timeout, unsigned long responseTimeout)
