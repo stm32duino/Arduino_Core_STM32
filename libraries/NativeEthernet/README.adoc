@@ -1,9 +1,20 @@
 = Ethernet Library for Arduino =
 
-With the Arduino Ethernet Shield, this library allows an Arduino board to connect to the internet.
+With an STM32 board with Ethernet compatibility, this library allows an STM32
+board (NUCLEO, DISCOVERY, ...) to connect to the internet.
 
 For more information about this library please visit us at
 http://www.arduino.cc/en/Reference/Ethernet
+
+== Note ==
+The library is based on LwIP, a Lightweight TCP/IP stack.
+http://git.savannah.gnu.org/cgit/lwip.git
+
+EthernetClass::maintain() in no more required to renew IP address from DHCP.
+It is done automatically by the LwIP stack in a background task.
+
+An Idle task is required to handle timer and data reception. Be careful to not
+lock the system in a loop where LwIP could never be updated.
 
 == License ==
 
