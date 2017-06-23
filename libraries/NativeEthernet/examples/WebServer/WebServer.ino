@@ -2,10 +2,9 @@
   Web Server
 
  A simple web server that shows the value of the analog input pins.
- using an Arduino Wiznet Ethernet shield.
 
  Circuit:
- * Ethernet shield attached to pins 10, 11, 12, 13
+ * STM32 board with Ethernet support
  * Analog inputs attached to pins A0 through A5 (optional)
 
  created 18 Dec 2009

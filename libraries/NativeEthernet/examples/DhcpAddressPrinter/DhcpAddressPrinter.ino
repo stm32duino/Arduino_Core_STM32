@@ -3,16 +3,30 @@
 
   This sketch uses the DHCP extensions to the Ethernet library
   to get an IP address via DHCP and print the address obtained.
-  using an Arduino Wiznet Ethernet shield.
 
   Circuit:
-   Ethernet shield attached to pins 10, 11, 12, 13
+   STM32 board with Ethernet support
 
   created 12 April 2011
   modified 9 Apr 2012
   by Tom Igoe
   modified 02 Sept 2015
   by Arturo Guadalupi
+
+  Workaround:
+  * If you can't send a message after the server has accepted the connection,
+  reject the 26 first bytes.
+
+  if (client.available() > 0) {
+    // read the bytes incoming from the client:
+    char thisChar = client.read();
+    if(n++ > 26) {
+      // echo the bytes back to the client:
+      server.write(thisChar);
+      // echo the bytes to the server as well:
+      Serial.write(thisChar);
+    }
+  }
 
 */
 
