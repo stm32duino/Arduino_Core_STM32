@@ -116,8 +116,10 @@ static void Netif_Config(void)
     netif_set_down(&gnetif);
   }
 
+#if LWIP_NETIF_LINK_CALLBACK
   /* Set the link callback function, this function is called on change of link status */
   netif_set_link_callback(&gnetif, ethernetif_update_config);
+#endif /* LWIP_NETIF_LINK_CALLBACK */
 }
 
 void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, const uint8_t *netmask)
@@ -132,7 +134,7 @@ void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, co
   if(ip != NULL) {
     IP_ADDR4(&(gconfig.ipaddr),ip[0],ip[1],ip[2],ip[3]);
   } else {
-    #ifdef LWIP_DHCP
+    #if LWIP_DHCP
       ip_addr_set_zero_ip4(&(gconfig.ipaddr));
     #else
       IP_ADDR4(&(gconfig.ipaddr),IP_ADDR0,IP_ADDR1,IP_ADDR2,IP_ADDR3);
@@ -142,7 +144,7 @@ void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, co
   if(gw != NULL) {
     IP_ADDR4(&(gconfig.gw),gw[0],gw[1],gw[2],gw[3]);
   } else {
-    #ifdef LWIP_DHCP
+    #if LWIP_DHCP
       ip_addr_set_zero_ip4(&(gconfig.gw));
     #else
       IP_ADDR4(&(gconfig.gw),GW_ADDR0,GW_ADDR1,GW_ADDR2,GW_ADDR3);
@@ -152,7 +154,7 @@ void stm32_eth_init(const uint8_t *mac, const uint8_t *ip, const uint8_t *gw, co
   if(netmask != NULL) {
     IP_ADDR4(&(gconfig.netmask),netmask[0],netmask[1],netmask[2],netmask[3]);
   } else {
-    #ifdef LWIP_DHCP
+    #if LWIP_DHCP
       ip_addr_set_zero_ip4(&(gconfig.netmask));
     #else
       IP_ADDR4(&(gconfig.netmask),NETMASK_ADDR0,NETMASK_ADDR1,NETMASK_ADDR2,NETMASK_ADDR3);
@@ -189,8 +191,12 @@ void stm32_eth_scheduler(void) {
   /* Handle LwIP timeouts */
   sys_check_timeouts();
 
+#if LWIP_DHCP
   stm32_DHCP_Periodic_Handle(&gnetif);
+#endif /* LWIP_DHCP */
 }
+
+#if LWIP_DHCP
 
 /**
   * @brief  Returns DHCP activation state
@@ -337,6 +343,8 @@ uint8_t stm32_get_DHCP_state(void) {
   return DHCP_state;
 }
 
+#endif /* LWIP_DHCP */
+
 /**
   * @brief  Converts IP address in readable format for user.
   * @param  None
@@ -384,6 +392,8 @@ uint32_t stm32_eth_get_dhcpaddr(void) {
   return ip4_addr_get_u32(&(dhcp->server_ip_addr));
 }
 
+#if LWIP_NETIF_LINK_CALLBACK
+
 /**
   * @brief  This function notify user about link status changement.
   * @param  netif: the network interface
@@ -417,6 +427,8 @@ void ethernetif_notify_conn_changed(struct netif *netif)
   }
 }
 
+#endif /* LWIP_NETIF_LINK_CALLBACK */
+
 /**
   * @brief  Notify the User about the nework interface config status
   * @param  netif: the network interface
@@ -436,6 +448,8 @@ void User_notification(struct netif *netif)
     }
   }
 }
+
+#if LWIP_DNS
 
 /**
   * @brief  Initializes DNS
@@ -525,6 +539,8 @@ int8_t stm32_dns_gethostbyname(const char *hostname, uint32_t *ipaddr)
 
   return ret;
 }
+
+#endif /* LWIP_DNS */
 
 /**
   * @brief  Converts a uint8_t IP address to a ip_addr_t address
@@ -665,6 +681,8 @@ uint16_t stm32_get_data(struct pbuf_data *data, uint8_t *buffer, size_t size)
   return nb;
 }
 
+#if LWIP_UDP
+
 /**
   * @brief This function is called when an UDP datagram has been received on
   * the port UDP_PORT.
@@ -696,6 +714,10 @@ void udp_receive_callback(void *arg, struct udp_pcb *pcb, struct pbuf *p,
     pbuf_free(p);
   }
 }
+
+#endif /* LWIP_UDP */
+
+#if LWIP_TCP
 
 /**
   * @brief Function called when TCP connection established
@@ -945,6 +967,8 @@ static void tcp_connection_close(struct tcp_pcb *tpcb, struct tcp_struct *tcp)
   tcp->pcb = NULL;
   tcp->state = TCP_CLOSING;
 }
+
+#endif /* LWIP_TCP */
 
 #ifdef __cplusplus
 }
