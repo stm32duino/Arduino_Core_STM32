@@ -170,8 +170,18 @@ uint8_t get_pin_id(uint16_t pin)
 void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode)
 {
   GPIO_InitTypeDef GPIO_InitStruct;
-  uint32_t pull;
   uint8_t id = get_pin_id(pin);
+
+#ifdef STM32F1xx
+  uint8_t position;
+  uint32_t CRxRegOffset = 0;
+  uint32_t ODRRegOffset = 0;
+  volatile uint32_t *CRxRegister;
+  const uint32_t ConfigMask = 0x00000008; //MODE0 == 0x0 && CNF0 == 0x2
+#else
+  uint32_t pull;
+#endif /* STM32F1xx */
+
   // GPIO pin configuration
   GPIO_InitStruct.Pin       = pin;
   GPIO_InitStruct.Mode      = mode;
@@ -179,6 +189,7 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
   //read the pull mode directly in the register as no function exists to get it.
   //Do it in case the user already defines the IO through the digital io
   //interface
+#ifndef STM32F1xx
   pull = port->PUPDR;
 #ifdef GPIO_PUPDR_PUPD0
   pull &=(GPIO_PUPDR_PUPD0<<(id*2));
@@ -186,7 +197,28 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
 #else
   pull &=(GPIO_PUPDR_PUPDR0<<(id*2));
   GPIO_InitStruct.Pull = (GPIO_PUPDR_PUPDR0 & (pull>>(id*2)));
-#endif
+#endif /* GPIO_PUPDR_PUPD0 */
+#else
+  CRxRegister = (pin < GPIO_PIN_8) ? &port->CRL : &port->CRH;
+
+  for (position = 0; position < 16; position++) {
+    if(pin == (0x0001 << position)) {
+      CRxRegOffset = (pin < GPIO_PIN_8) ? (position << 2) : ((position - 8) << 2);
+      ODRRegOffset = position;
+    }
+  }
+
+  if((*CRxRegister & ((GPIO_CRL_MODE0 | GPIO_CRL_CNF0) << CRxRegOffset)) == (ConfigMask << CRxRegOffset)) {
+    if((port->ODR & (GPIO_ODR_ODR0 << ODRRegOffset)) == (GPIO_ODR_ODR0 << ODRRegOffset)) {
+      GPIO_InitStruct.Pull = GPIO_PULLUP;
+    } else {
+      GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    }
+  } else {
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+  }
+#endif /* STM32F1xx */
+
   GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
   HAL_GPIO_Init(port, &GPIO_InitStruct);
