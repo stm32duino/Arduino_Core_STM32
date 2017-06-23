@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   This file contains all the functions prototypes for the HAL 
   *          module driver.
   ******************************************************************************
@@ -532,6 +530,9 @@ void              HAL_ResumeTick(void);
 uint32_t          HAL_GetHalVersion(void);
 uint32_t          HAL_GetREVID(void);
 uint32_t          HAL_GetDEVID(void);
+uint32_t          HAL_GetUIDw0(void);
+uint32_t          HAL_GetUIDw1(void);
+uint32_t          HAL_GetUIDw2(void);
 void              HAL_DBGMCU_EnableDBGStopMode(void);
 void              HAL_DBGMCU_DisableDBGStopMode(void);
 void              HAL_DBGMCU_EnableDBGStandbyMode(void);

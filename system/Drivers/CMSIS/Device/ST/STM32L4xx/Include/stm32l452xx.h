@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l452xx.h
   * @author  MCD Application Team
-  * @version V1.3.0
-  * @date    17-February-2017
+  * @version V1.3.1
+  * @date    21-April-2017
   * @brief   CMSIS STM32L452xx Device Peripheral Access Layer Header File.
   *
   *          This file contains:

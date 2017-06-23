@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_exti.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of EXTI LL module.
   ******************************************************************************
   * @attention
@@ -163,10 +161,10 @@ typedef struct
 #define LL_EXTI_LINE_ALL_0_31          EXTI_IMR_IM            /*!< All Extended line not reserved*/
 
 
-#define LL_EXTI_LINE_ALL               ((uint32_t)0xFFFFFFFFU)  /*!< All Extended line */
+#define LL_EXTI_LINE_ALL               (0xFFFFFFFFU)  /*!< All Extended line */
 
 #if defined(USE_FULL_LL_DRIVER)
-#define LL_EXTI_LINE_NONE              ((uint32_t)0x00000000U)  /*!< None Extended line */
+#define LL_EXTI_LINE_NONE              (0x00000000U)  /*!< None Extended line */
 #endif /*USE_FULL_LL_DRIVER*/
 
 /**

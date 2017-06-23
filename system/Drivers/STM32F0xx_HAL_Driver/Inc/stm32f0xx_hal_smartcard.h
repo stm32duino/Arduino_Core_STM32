@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_smartcard.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of SMARTCARD HAL module.
   ******************************************************************************
   * @attention
@@ -587,7 +585,7 @@ typedef struct
 #define __HAL_SMARTCARD_RESET_HANDLE_STATE(__HANDLE__)  do{                                                       \
                                                            (__HANDLE__)->gState = HAL_SMARTCARD_STATE_RESET;      \
                                                            (__HANDLE__)->RxState = HAL_SMARTCARD_STATE_RESET;     \
-                                                          } while(0)
+                                                          } while(0U)
 
 /** @brief  Flush the Smartcard Data registers.
   * @param  __HANDLE__: specifies the SMARTCARD Handle.
@@ -597,7 +595,7 @@ typedef struct
     do{                                                                              \
       SET_BIT((__HANDLE__)->Instance->RQR, SMARTCARD_RXDATA_FLUSH_REQUEST); \
       SET_BIT((__HANDLE__)->Instance->RQR, SMARTCARD_TXDATA_FLUSH_REQUEST); \
-      } while(0)
+      } while(0U)
 
 /** @brief  Clear the specified SMARTCARD pending flag.
   * @param  __HANDLE__: specifies the SMARTCARD Handle.
@@ -682,8 +680,8 @@ typedef struct
   *            @arg @ref SMARTCARD_IT_ERR   Error interrupt(frame error, noise error, overrun error)
   * @retval None
   */
-#define __HAL_SMARTCARD_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (((((uint8_t)(__INTERRUPT__)) >> 5U) == 1U)? ((__HANDLE__)->Instance->CR1 |= (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
-                                                                ((((uint8_t)(__INTERRUPT__)) >> 5U) == 2U)? ((__HANDLE__)->Instance->CR2 |= (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
+#define __HAL_SMARTCARD_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (((((__INTERRUPT__) & 0xFFU) >> 5U) == 1U)? ((__HANDLE__)->Instance->CR1 |= (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
+                                                                ((((__INTERRUPT__) & 0xFFU) >> 5U) == 2U)? ((__HANDLE__)->Instance->CR2 |= (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
                                                                 ((__HANDLE__)->Instance->CR3 |= (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))))
 
 /** @brief  Disable the specified SmartCard interrupt.
@@ -700,8 +698,8 @@ typedef struct
   *            @arg @ref SMARTCARD_IT_ERR   Error interrupt(frame error, noise error, overrun error)
   * @retval None
   */
-#define __HAL_SMARTCARD_DISABLE_IT(__HANDLE__, __INTERRUPT__)  (((((uint8_t)(__INTERRUPT__)) >> 5U) == 1U)? ((__HANDLE__)->Instance->CR1 &= ~ (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
-                                                                ((((uint8_t)(__INTERRUPT__)) >> 5U) == 2U)? ((__HANDLE__)->Instance->CR2 &= ~ (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
+#define __HAL_SMARTCARD_DISABLE_IT(__HANDLE__, __INTERRUPT__)  (((((__INTERRUPT__) & 0xFFU) >> 5U) == 1U)? ((__HANDLE__)->Instance->CR1 &= ~ (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
+                                                                ((((__INTERRUPT__) & 0xFFU) >> 5U) == 2U)? ((__HANDLE__)->Instance->CR2 &= ~ (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
                                                                 ((__HANDLE__)->Instance->CR3 &= ~ (1U << ((__INTERRUPT__) & SMARTCARD_IT_MASK))))
 
 
@@ -737,8 +735,8 @@ typedef struct
   *            @arg @ref SMARTCARD_IT_PE    Parity error interrupt
   * @retval The new state of __IT__ (TRUE or FALSE).
   */
-#define __HAL_SMARTCARD_GET_IT_SOURCE(__HANDLE__, __IT__) ((((((uint8_t)(__IT__)) >> 5U) == 1U)? (__HANDLE__)->Instance->CR1 : \
-                                                           (((((uint8_t)(__IT__)) >> 5U) == 2U)? (__HANDLE__)->Instance->CR2 : \
+#define __HAL_SMARTCARD_GET_IT_SOURCE(__HANDLE__, __IT__) ((((((__IT__) & 0xFFU) >> 5U) == 1U)? (__HANDLE__)->Instance->CR1 : \
+                                                           (((((__IT__) & 0xFFU) >> 5U) == 2U)? (__HANDLE__)->Instance->CR2 : \
                                                            (__HANDLE__)->Instance->CR3)) & (1U << (((uint16_t)(__IT__)) & SMARTCARD_IT_MASK)))
 
 

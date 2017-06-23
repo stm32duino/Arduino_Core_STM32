@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_rcc.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   RCC LL module driver.
   ******************************************************************************
   * @attention
@@ -148,7 +146,7 @@ ErrorStatus LL_RCC_DeInit(void)
 
   /* Reset HSEBYP bit */
   LL_RCC_HSE_DisableBypass();
- 
+
   /* Reset CFGR register */
   LL_RCC_WriteReg(CFGR, 0x00000000U);
 
@@ -548,7 +546,7 @@ uint32_t RCC_PLL_GetFreqDomain_SYS(void)
       pllinputfreq = HSI_VALUE;
 #else
     case LL_RCC_PLLSOURCE_HSI_DIV_2: /* HSI used as PLL clock source */
-      pllinputfreq = HSI_VALUE / 2;
+      pllinputfreq = HSI_VALUE / 2U;
 #endif /* RCC_PLLSRC_PREDIV1_SUPPORT */
       break;
 
@@ -566,7 +564,7 @@ uint32_t RCC_PLL_GetFreqDomain_SYS(void)
 #if defined(RCC_PLLSRC_PREDIV1_SUPPORT)
       pllinputfreq = HSI_VALUE;
 #else
-      pllinputfreq = HSI_VALUE / 2;
+      pllinputfreq = HSI_VALUE / 2U;
 #endif /* RCC_PLLSRC_PREDIV1_SUPPORT */
       break;
   }

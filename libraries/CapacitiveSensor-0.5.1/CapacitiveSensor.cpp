@@ -27,7 +27,7 @@ CapacitiveSensor::CapacitiveSensor(uint8_t sendPin, uint8_t receivePin)
 	CS_AutocaL_Millis = 20000;
 
 	// get pin mapping and port for send Pin - from PinMode function in core
-	if ((sendPin >= MAX_DIGITAL_IOS) || (receivePin >= MAX_DIGITAL_IOS)) {
+	if ((sendPin >= NUM_DIGITAL_PINS) || (receivePin >= NUM_DIGITAL_PINS)) {
 	  error = -1;
 	  return;
 	}

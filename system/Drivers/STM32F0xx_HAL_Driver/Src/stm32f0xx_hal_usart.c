@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_usart.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   USART HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the Universal Synchronous Asynchronous Receiver Transmitter
@@ -1108,7 +1106,6 @@ HAL_StatusTypeDef HAL_USART_Receive_DMA(USART_HandleTypeDef *husart, uint8_t *pR
     /* Enable the USART transmit DMA channel: the transmit channel is used in order
        to generate in the non-blocking mode the clock to the slave device,
        this mode isn't a simplex receive mode but a full-duplex receive mode */
-    tmp = (uint32_t*)&pRxData;
     /* Set the USART DMA Tx Complete and Error callback to Null */
     husart->hdmatx->XferErrorCallback = NULL;
     husart->hdmatx->XferHalfCpltCallback = NULL;

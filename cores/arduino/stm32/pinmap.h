@@ -33,12 +33,6 @@ typedef struct {
     int function;
 } PinMap;
 
-typedef struct {
-  TIM_TypeDef *timer;
-  IRQn_Type irq;
-  uint8_t clk_src;
-} TimerMap;
-
 bool pin_in_pinmap(PinName pin, const PinMap* map);
 void pin_function(PinName pin, int function);
 
@@ -47,9 +41,6 @@ uint32_t pinmap_function(PinName pin, const PinMap* map);
 uint32_t pinmap_find_peripheral(PinName pin, const PinMap* map);
 uint32_t pinmap_find_function(PinName pin, const PinMap* map);
 uint32_t pinmap_merge(uint32_t a, uint32_t b);
-
-uint32_t timermap_irq(TIM_TypeDef *tim, const TimerMap* map);
-uint32_t timermap_clkSrc(TIM_TypeDef *tim, const TimerMap* map);
 
 #ifdef __cplusplus
 }

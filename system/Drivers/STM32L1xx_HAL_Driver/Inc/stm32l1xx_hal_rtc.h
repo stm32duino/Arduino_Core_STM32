@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_rtc.h
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   Header file of RTC HAL module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -187,7 +187,7 @@ typedef struct
 /** @defgroup RTC_Asynchronous_Predivider Asynchronous Predivider 
   * @{
   */ 
-#define IS_RTC_ASYNCH_PREDIV(PREDIV)   ((PREDIV) <= (uint32_t)0x7F)
+#define IS_RTC_ASYNCH_PREDIV(PREDIV)   ((PREDIV) <= 0x7FU)
 /**
   * @}
   */ 
@@ -195,10 +195,10 @@ typedef struct
 /** @defgroup RTC_Time_Definitions Time Definitions 
   * @{
   */ 
-#define IS_RTC_HOUR12(HOUR)            (((HOUR) > (uint32_t)0) && ((HOUR) <= (uint32_t)12))
-#define IS_RTC_HOUR24(HOUR)            ((HOUR) <= (uint32_t)23)
-#define IS_RTC_MINUTES(MINUTES)        ((MINUTES) <= (uint32_t)59)
-#define IS_RTC_SECONDS(SECONDS)        ((SECONDS) <= (uint32_t)59)
+#define IS_RTC_HOUR12(HOUR)            (((HOUR) > 0U) && ((HOUR) <= 12U))
+#define IS_RTC_HOUR24(HOUR)            ((HOUR) <= 23U)
+#define IS_RTC_MINUTES(MINUTES)        ((MINUTES) <= 59U)
+#define IS_RTC_SECONDS(SECONDS)        ((SECONDS) <= 59U)
 /**
   * @}
   */ 
@@ -254,7 +254,7 @@ typedef struct
 /** @defgroup RTC_Year_Date_Definitions Year Definitions
   * @{
   */ 
-#define IS_RTC_YEAR(YEAR)              ((YEAR) <= (uint32_t)99)
+#define IS_RTC_YEAR(YEAR)              ((YEAR) <= 99U)
 /**
   * @}
   */ 
@@ -277,8 +277,8 @@ typedef struct
 #define RTC_MONTH_NOVEMBER             ((uint8_t)0x11)
 #define RTC_MONTH_DECEMBER             ((uint8_t)0x12)
 
-#define IS_RTC_MONTH(MONTH)            (((MONTH) >= (uint32_t)1) && ((MONTH) <= (uint32_t)12))
-#define IS_RTC_DATE(DATE)              (((DATE) >= (uint32_t)1) && ((DATE) <= (uint32_t)31))
+#define IS_RTC_MONTH(MONTH)            (((MONTH) >= 1U) && ((MONTH) <= 12U))
+#define IS_RTC_DATE(DATE)              (((DATE) >= 1U) && ((DATE) <= 31U))
 /**
   * @}
   */ 
@@ -308,7 +308,7 @@ typedef struct
 /** @defgroup RTC_Alarm_Definitions Alarm Definitions
   * @{
   */ 
-#define IS_RTC_ALARM_DATE_WEEKDAY_DATE(DATE) (((DATE) >(uint32_t) 0) && ((DATE) <= (uint32_t)31))
+#define IS_RTC_ALARM_DATE_WEEKDAY_DATE(DATE) (((DATE) > 0U) && ((DATE) <= 31U))
 #define IS_RTC_ALARM_DATE_WEEKDAY_WEEKDAY(WEEKDAY) (((WEEKDAY) == RTC_WEEKDAY_MONDAY)    || \
                                                     ((WEEKDAY) == RTC_WEEKDAY_TUESDAY)   || \
                                                     ((WEEKDAY) == RTC_WEEKDAY_WEDNESDAY) || \

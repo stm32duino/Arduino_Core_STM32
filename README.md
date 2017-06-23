@@ -3,6 +3,7 @@
 Boards available:
 
   * STM32F0
+    * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
 
   * STM32F1 (soon)

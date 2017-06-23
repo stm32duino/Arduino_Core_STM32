@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_spi.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   SPI HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the Serial Peripheral Interface (SPI) peripheral:
@@ -740,7 +740,7 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
   }
 #endif /* USE_SPI_CRC */
 
-  /* Set the Rx Fido threshold */
+  /* Set the Rx Fifo threshold */
   if (hspi->Init.DataSize > SPI_DATASIZE_8BIT)
   {
     /* set fiforxthresold according the reception data length: 16bit */
@@ -979,7 +979,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   }
 #endif /* USE_SPI_CRC */
 
-  /* Set the Rx Fido threshold */
+  /* Set the Rx Fifo threshold */
   if ((hspi->Init.DataSize > SPI_DATASIZE_8BIT) || (hspi->RxXferCount > 1U))
   {
     /* set fiforxthreshold according the reception data length: 16bit */
@@ -1507,6 +1507,9 @@ HAL_StatusTypeDef HAL_SPI_Transmit_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, 
 {
   HAL_StatusTypeDef errorcode = HAL_OK;
   
+  /* check tx dma handle */
+  assert_param(IS_SPI_DMA_HANDLE(hspi->hdmatx));
+
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE(hspi->Init.Direction));
 
@@ -1618,10 +1621,16 @@ HAL_StatusTypeDef HAL_SPI_Receive_DMA(SPI_HandleTypeDef *hspi, uint8_t *pData, u
 {
   HAL_StatusTypeDef errorcode = HAL_OK;
   
+  /* check rx dma handle */
+  assert_param(IS_SPI_DMA_HANDLE(hspi->hdmarx));
+
   if ((hspi->Init.Direction == SPI_DIRECTION_2LINES) && (hspi->Init.Mode == SPI_MODE_MASTER))
   {
     hspi->State = HAL_SPI_STATE_BUSY_RX;
     
+    /* check tx dma handle */
+    assert_param(IS_SPI_DMA_HANDLE(hspi->hdmatx));
+
     /* Call transmit-receive function to send Dummy data on Tx line and generate clock on CLK line */
     return HAL_SPI_TransmitReceive_DMA(hspi, pData, pData, Size);
   }
@@ -1748,6 +1757,10 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive_DMA(SPI_HandleTypeDef *hspi, uint8_t *
   uint32_t tmp = 0U, tmp1 = 0U;
   HAL_StatusTypeDef errorcode = HAL_OK;
   
+  /* check rx & tx dma handles */
+  assert_param(IS_SPI_DMA_HANDLE(hspi->hdmarx));
+  assert_param(IS_SPI_DMA_HANDLE(hspi->hdmatx));
+
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES(hspi->Init.Direction));
 

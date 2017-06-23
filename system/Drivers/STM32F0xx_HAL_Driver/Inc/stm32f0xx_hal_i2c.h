@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_i2c.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of I2C HAL module.
   ******************************************************************************
   * @attention

@@ -7,7 +7,7 @@
 // none
 #endif
 #ifdef STM32F2xx
-// none
+#include "stm32f2xx_ll_spi.c"
 #endif
 #ifdef STM32F3xx
 #include "stm32f3xx_ll_spi.c"

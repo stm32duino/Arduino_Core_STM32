@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32l4xx_ll_dma.h
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   Header file of DMA LL module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -1592,7 +1592,7 @@ __STATIC_INLINE uint32_t LL_DMA_IsActiveFlag_TE7(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI1(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF1);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF1);
 }
 
 /**
@@ -1603,7 +1603,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI1(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI2(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF2);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF2);
 }
 
 /**
@@ -1614,7 +1614,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI2(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI3(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF3);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF3);
 }
 
 /**
@@ -1625,7 +1625,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI3(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI4(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF4);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF4);
 }
 
 /**
@@ -1636,7 +1636,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI4(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI5(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF5);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF5);
 }
 
 /**
@@ -1647,7 +1647,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI5(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI6(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF6);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF6);
 }
 
 /**
@@ -1658,7 +1658,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI6(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_GI7(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CGIF7);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CGIF7);
 }
 
 /**
@@ -1669,7 +1669,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_GI7(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC1(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF1);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF1);
 }
 
 /**
@@ -1680,7 +1680,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC1(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC2(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF2);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF2);
 }
 
 /**
@@ -1691,7 +1691,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC2(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC3(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF3);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF3);
 }
 
 /**
@@ -1702,7 +1702,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC3(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC4(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF4);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF4);
 }
 
 /**
@@ -1713,7 +1713,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC4(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC5(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF5);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF5);
 }
 
 /**
@@ -1724,7 +1724,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC5(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC6(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF6);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF6);
 }
 
 /**
@@ -1735,7 +1735,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC6(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TC7(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTCIF7);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTCIF7);
 }
 
 /**
@@ -1746,7 +1746,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TC7(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT1(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF1);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF1);
 }
 
 /**
@@ -1757,7 +1757,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT1(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT2(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF2);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF2);
 }
 
 /**
@@ -1768,7 +1768,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT2(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT3(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF3);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF3);
 }
 
 /**
@@ -1779,7 +1779,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT3(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT4(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF4);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF4);
 }
 
 /**
@@ -1790,7 +1790,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT4(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT5(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF5);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF5);
 }
 
 /**
@@ -1801,7 +1801,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT5(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT6(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF6);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF6);
 }
 
 /**
@@ -1812,7 +1812,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT6(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_HT7(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CHTIF7);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CHTIF7);
 }
 
 /**
@@ -1823,7 +1823,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_HT7(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE1(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF1);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF1);
 }
 
 /**
@@ -1834,7 +1834,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE1(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE2(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF2);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF2);
 }
 
 /**
@@ -1845,7 +1845,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE2(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE3(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF3);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF3);
 }
 
 /**
@@ -1856,7 +1856,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE3(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE4(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF4);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF4);
 }
 
 /**
@@ -1867,7 +1867,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE4(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE5(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF5);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF5);
 }
 
 /**
@@ -1878,7 +1878,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE5(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE6(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF6);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF6);
 }
 
 /**
@@ -1889,7 +1889,7 @@ __STATIC_INLINE void LL_DMA_ClearFlag_TE6(DMA_TypeDef *DMAx)
   */
 __STATIC_INLINE void LL_DMA_ClearFlag_TE7(DMA_TypeDef *DMAx)
 {
-  SET_BIT(DMAx->IFCR, DMA_IFCR_CTEIF7);
+  WRITE_REG(DMAx->IFCR, DMA_IFCR_CTEIF7);
 }
 
 /**

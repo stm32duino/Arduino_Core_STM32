@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_utils.h
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   Header file of UTILS LL module.
   @verbatim
   ==============================================================================
@@ -20,7 +20,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -75,7 +75,7 @@ extern "C" {
   */
 
 /* Max delay can be used in LL_mDelay */
-#define LL_MAX_DELAY                  (uint32_t)0xFFFFFFFFU
+#define LL_MAX_DELAY                  0xFFFFFFFFU
 
 /**
  * @brief Unique device ID register base address
@@ -157,8 +157,8 @@ typedef struct
 /** @defgroup UTILS_EC_HSE_BYPASS HSE Bypass activation
   * @{
   */
-#define LL_UTILS_HSEBYPASS_OFF        (uint32_t)0x00000000U       /*!< HSE Bypass is not enabled                */
-#define LL_UTILS_HSEBYPASS_ON         (uint32_t)0x00000001U       /*!< HSE Bypass is enabled                    */
+#define LL_UTILS_HSEBYPASS_OFF        0x00000000U       /*!< HSE Bypass is not enabled                */
+#define LL_UTILS_HSEBYPASS_ON         0x00000001U       /*!< HSE Bypass is enabled                    */
 /**
   * @}
   */
@@ -219,6 +219,7 @@ __STATIC_INLINE uint32_t LL_GetFlashSize(void)
 {
   return (uint16_t)(READ_REG(*((uint32_t *)FLASHSIZE_BASE_ADDRESS)));
 }
+
 
 /**
   * @}

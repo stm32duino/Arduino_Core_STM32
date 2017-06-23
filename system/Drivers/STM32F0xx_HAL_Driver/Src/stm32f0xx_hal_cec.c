@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_cec.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   CEC HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the High Definition Multimedia Interface 
@@ -78,6 +76,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 
+#ifdef HAL_CEC_MODULE_ENABLED
+
+#if defined(STM32F042x6) || defined(STM32F048xx) ||\
+    defined(STM32F051x8) || defined(STM32F058xx) ||\
+    defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) ||\
+    defined(STM32F091xC) || defined (STM32F098xx)
+
 /** @addtogroup STM32F0xx_HAL_Driver
   * @{
   */
@@ -86,12 +91,7 @@
   * @brief HAL CEC module driver
   * @{
   */
-#ifdef HAL_CEC_MODULE_ENABLED
 
-#if defined(STM32F042x6) || defined(STM32F048xx) ||\
-    defined(STM32F051x8) || defined(STM32F058xx) ||\
-    defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) ||\
-    defined(STM32F091xC) || defined (STM32F098xx)
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /** @defgroup CEC_Private_Constants CEC Private Constants
@@ -659,18 +659,18 @@ uint32_t HAL_CEC_GetError(CEC_HandleTypeDef *hcec)
 /**
   * @}
   */
-  
+
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */  
 #endif /* defined(STM32F042x6) || defined(STM32F048xx) || defined(STM32F051x8) || defined(STM32F058xx) || */
        /* defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || */
        /* defined(STM32F091xC) || defined (STM32F098xx) */
 
 #endif /* HAL_CEC_MODULE_ENABLED */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

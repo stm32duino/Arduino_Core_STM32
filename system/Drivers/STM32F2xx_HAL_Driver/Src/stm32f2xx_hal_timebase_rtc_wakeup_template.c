@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_timebase_rtc_wakeup_template.c 
   * @author  MCD Application Team
-  * @version V1.1.3
-  * @date    29-June-2016
+  * @version V1.2.1
+  * @date    14-April-2017
   * @brief   HAL time base based on the hardware RTC_WAKEUP Template.
   *    
   *          This file overrides the native HAL time base functions (defined as weak)
@@ -35,7 +35,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -202,11 +202,11 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
 
       /* Configure the Wake-up Timer counter */
 #ifdef RTC_CLOCK_SOURCE_HSE
-      hRTC_Handle.Instance->WUTR = (uint32_t)0U;
+      hRTC_Handle.Instance->WUTR = 0U;
 #elif defined (RTC_CLOCK_SOURCE_LSE)
-      hRTC_Handle.Instance->WUTR = (uint32_t)10U;
+      hRTC_Handle.Instance->WUTR = 10U;
 #else
-      hRTC_Handle.Instance->WUTR = (uint32_t)15U;
+      hRTC_Handle.Instance->WUTR = 15U;
 #endif
 
       /* Clear the Wake-up Timer clock source bits in CR register */

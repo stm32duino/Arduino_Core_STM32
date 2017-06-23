@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_adc.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file containing functions prototypes of ADC HAL library.
   ******************************************************************************
   * @attention
@@ -332,7 +330,6 @@ typedef struct
   */ 
 #define ADC_EOC_SINGLE_CONV         ((uint32_t) ADC_ISR_EOC)
 #define ADC_EOC_SEQ_CONV            ((uint32_t) ADC_ISR_EOS)
-#define ADC_EOC_SINGLE_SEQ_CONV     ((uint32_t)(ADC_ISR_EOC | ADC_ISR_EOS))  /*!< reserved for future use */
 /**
   * @}
   */ 
@@ -833,8 +830,7 @@ typedef struct
                                    ((EDGE) == ADC_EXTERNALTRIGCONVEDGE_RISINGFALLING)  )
 
 #define IS_ADC_EOC_SELECTION(EOC_SELECTION) (((EOC_SELECTION) == ADC_EOC_SINGLE_CONV)    || \
-                                             ((EOC_SELECTION) == ADC_EOC_SEQ_CONV)       || \
-                                             ((EOC_SELECTION) == ADC_EOC_SINGLE_SEQ_CONV)  )
+                                             ((EOC_SELECTION) == ADC_EOC_SEQ_CONV)  )
 
 #define IS_ADC_OVERRUN(OVR) (((OVR) == ADC_OVR_DATA_PRESERVED)  || \
                              ((OVR) == ADC_OVR_DATA_OVERWRITTEN)  )

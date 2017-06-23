@@ -2,15 +2,15 @@
   ******************************************************************************
   * @file    stm32_assert.h
   * @author  MCD Application Team
-  * @version V1.2.0
-  * @date    01-July-2016
+  * @version 21-April-2017
+  * @date    V1.3.0
   * @brief   STM32 assert template file.
   *          This file should be copied to the application folder and renamed
   *          to stm32_assert.h.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:

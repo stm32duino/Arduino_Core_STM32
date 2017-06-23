@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_nor.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   NOR HAL module driver.
   *          This file provides a generic firmware to drive NOR memories mounted 
   *          as external device.

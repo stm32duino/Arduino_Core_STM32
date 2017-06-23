@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_smbus.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   SMBUS HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the System Management Bus (SMBus) peripheral,
@@ -170,6 +168,8 @@ static HAL_StatusTypeDef SMBUS_Disable_IRQ(SMBUS_HandleTypeDef *hsmbus, uint16_t
 static HAL_StatusTypeDef SMBUS_Master_ISR(SMBUS_HandleTypeDef *hsmbus);
 static HAL_StatusTypeDef SMBUS_Slave_ISR(SMBUS_HandleTypeDef *hsmbus);
 
+static void SMBUS_ConvertOtherXferOptions(SMBUS_HandleTypeDef *hsmbus);
+
 static void SMBUS_TransferConfig(SMBUS_HandleTypeDef *hsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request);
 /**
   * @}
@@ -213,6 +213,9 @@ static void SMBUS_TransferConfig(SMBUS_HandleTypeDef *hsmbus,  uint16_t DevAddre
       (+) Call the function HAL_SMBUS_DeInit() to restore the default configuration 
           of the selected SMBUSx peripheral.       
 
+      (+) Enable/Disable Analog/Digital filters with HAL_SMBUS_ConfigAnalogFilter() and 
+          HAL_SMBUS_ConfigDigitalFilter().     
+          
 @endverbatim
   * @{
   */
@@ -361,7 +364,7 @@ HAL_StatusTypeDef HAL_SMBUS_DeInit(SMBUS_HandleTypeDef *hsmbus)
   *                the configuration information for the specified SMBUS.
   * @retval None
   */
- __weak void HAL_SMBUS_MspInit(SMBUS_HandleTypeDef *hsmbus)
+__weak void HAL_SMBUS_MspInit(SMBUS_HandleTypeDef *hsmbus)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
@@ -377,7 +380,7 @@ HAL_StatusTypeDef HAL_SMBUS_DeInit(SMBUS_HandleTypeDef *hsmbus)
   *                the configuration information for the specified SMBUS.
   * @retval None
   */
- __weak void HAL_SMBUS_MspDeInit(SMBUS_HandleTypeDef *hsmbus)
+__weak void HAL_SMBUS_MspDeInit(SMBUS_HandleTypeDef *hsmbus)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
@@ -386,6 +389,105 @@ HAL_StatusTypeDef HAL_SMBUS_DeInit(SMBUS_HandleTypeDef *hsmbus)
             the HAL_SMBUS_MspDeInit could be implemented in the user file
    */ 
 }
+
+/**
+  * @brief  Configure Analog noise filter.
+  * @param  hsmbus Pointer to a SMBUS_HandleTypeDef structure that contains
+  *                the configuration information for the specified SMBUS.
+  * @param  AnalogFilter This parameter can be one of the following values:
+  *         @arg @ref SMBUS_ANALOGFILTER_ENABLE
+  *         @arg @ref SMBUS_ANALOGFILTER_DISABLE
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_SMBUS_ConfigAnalogFilter(SMBUS_HandleTypeDef *hsmbus, uint32_t AnalogFilter)
+{
+  /* Check the parameters */
+  assert_param(IS_SMBUS_ALL_INSTANCE(hsmbus->Instance));
+  assert_param(IS_SMBUS_ANALOG_FILTER(AnalogFilter));
+
+  if(hsmbus->State == HAL_SMBUS_STATE_READY)
+  {
+    /* Process Locked */
+    __HAL_LOCK(hsmbus);
+
+    hsmbus->State = HAL_SMBUS_STATE_BUSY;
+
+    /* Disable the selected SMBUS peripheral */
+    __HAL_SMBUS_DISABLE(hsmbus);
+
+    /* Reset ANOFF bit */
+    hsmbus->Instance->CR1 &= ~(I2C_CR1_ANFOFF);
+
+    /* Set analog filter bit*/
+    hsmbus->Instance->CR1 |= AnalogFilter;
+
+    __HAL_SMBUS_ENABLE(hsmbus);
+
+    hsmbus->State = HAL_SMBUS_STATE_READY;
+
+    /* Process Unlocked */
+    __HAL_UNLOCK(hsmbus);
+
+    return HAL_OK;
+  }
+  else
+  {
+    return HAL_BUSY;
+  }
+}
+
+/**
+  * @brief  Configure Digital noise filter.
+  * @param  hsmbus Pointer to a SMBUS_HandleTypeDef structure that contains
+  *                the configuration information for the specified SMBUS.
+  * @param  DigitalFilter Coefficient of digital noise filter between Min_Data=0x00 and Max_Data=0x0F.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_SMBUS_ConfigDigitalFilter(SMBUS_HandleTypeDef *hsmbus, uint32_t DigitalFilter)
+{
+  uint32_t tmpreg = 0U;
+
+  /* Check the parameters */
+  assert_param(IS_SMBUS_ALL_INSTANCE(hsmbus->Instance));
+  assert_param(IS_SMBUS_DIGITAL_FILTER(DigitalFilter));
+
+  if(hsmbus->State == HAL_SMBUS_STATE_READY)
+  {
+    /* Process Locked */
+    __HAL_LOCK(hsmbus);
+
+    hsmbus->State = HAL_SMBUS_STATE_BUSY;
+
+    /* Disable the selected SMBUS peripheral */
+    __HAL_SMBUS_DISABLE(hsmbus);
+
+    /* Get the old register value */
+    tmpreg = hsmbus->Instance->CR1;
+
+    /* Reset I2C DNF bits [11:8] */
+    tmpreg &= ~(I2C_CR1_DNF);
+
+    /* Set I2Cx DNF coefficient */
+    tmpreg |= DigitalFilter << I2C_CR1_DNF_Pos;
+
+    /* Store the new register value */
+    hsmbus->Instance->CR1 = tmpreg;
+
+    __HAL_SMBUS_ENABLE(hsmbus);
+
+    hsmbus->State = HAL_SMBUS_STATE_READY;
+
+    /* Process Unlocked */
+    __HAL_UNLOCK(hsmbus);
+
+    return HAL_OK;
+  }
+  else
+  {
+    return HAL_BUSY;
+  }
+}
+
 
 /**
   * @}
@@ -477,7 +579,7 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
     {
       hsmbus->XferSize = Size;
     }
-    
+
     /* Send Slave Address */
     /* Set NBYTES to write and reload if size > MAX_NBYTE_SIZE and generate RESTART */
     if( (hsmbus->XferSize == MAX_NBYTE_SIZE) && (hsmbus->XferSize < hsmbus->XferCount) )
@@ -488,13 +590,17 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint
     {
       /* If transfer direction not change, do not generate Restart Condition */
       /* Mean Previous state is same as current state */
-      if(hsmbus->PreviousState == HAL_SMBUS_STATE_MASTER_BUSY_TX)
+      if((hsmbus->PreviousState == HAL_SMBUS_STATE_MASTER_BUSY_TX) && (IS_SMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(hsmbus->XferOptions) == 0))
       {
         SMBUS_TransferConfig(hsmbus,DevAddress,hsmbus->XferSize, hsmbus->XferOptions, SMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
       {
+        /* Convert OTHER_xxx XferOptions if any */
+        SMBUS_ConvertOtherXferOptions(hsmbus);
+
+        /* Handle Transfer */
         SMBUS_TransferConfig(hsmbus,DevAddress,hsmbus->XferSize, hsmbus->XferOptions, SMBUS_GENERATE_START_WRITE);
       }
 
@@ -578,13 +684,17 @@ HAL_StatusTypeDef HAL_SMBUS_Master_Receive_IT(SMBUS_HandleTypeDef *hsmbus, uint1
     {
       /* If transfer direction not change, do not generate Restart Condition */
       /* Mean Previous state is same as current state */
-      if(hsmbus->PreviousState == HAL_SMBUS_STATE_MASTER_BUSY_RX)
+      if((hsmbus->PreviousState == HAL_SMBUS_STATE_MASTER_BUSY_RX) && (IS_SMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(hsmbus->XferOptions) == 0))
       {
         SMBUS_TransferConfig(hsmbus,DevAddress,hsmbus->XferSize, hsmbus->XferOptions, SMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
       {
+        /* Convert OTHER_xxx XferOptions if any */
+        SMBUS_ConvertOtherXferOptions(hsmbus);
+
+        /* Handle Transfer */
         SMBUS_TransferConfig(hsmbus,DevAddress,hsmbus->XferSize, hsmbus->XferOptions, SMBUS_GENERATE_START_READ);
       }
     }
@@ -704,9 +814,11 @@ HAL_StatusTypeDef HAL_SMBUS_Slave_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint8
 
     /* Prepare transfer parameters */
     hsmbus->pBuffPtr = pData;
-    hsmbus->XferSize = Size;
     hsmbus->XferCount = Size;
     hsmbus->XferOptions = XferOptions;
+
+    /* Convert OTHER_xxx XferOptions if any */
+    SMBUS_ConvertOtherXferOptions(hsmbus);
 
     if(Size > MAX_NBYTE_SIZE)
     {
@@ -798,7 +910,10 @@ HAL_StatusTypeDef HAL_SMBUS_Slave_Receive_IT(SMBUS_HandleTypeDef *hsmbus, uint8_
     hsmbus->XferSize = Size;
     hsmbus->XferCount = Size;
     hsmbus->XferOptions = XferOptions;
-    
+
+    /* Convert OTHER_xxx XferOptions if any */
+    SMBUS_ConvertOtherXferOptions(hsmbus);
+
     /* Set NBYTE to receive */
     /* If XferSize equal "1", or XferSize equal "2" with PEC requested (mean 1 data byte + 1 PEC byte */
     /* no need to set RELOAD bit mode, a ACK will be automatically generated in that case */
@@ -1179,7 +1294,7 @@ void HAL_SMBUS_ER_IRQHandler(SMBUS_HandleTypeDef *hsmbus)
   *                the configuration information for the specified SMBUS.
   * @retval None
   */
- __weak void HAL_SMBUS_MasterTxCpltCallback(SMBUS_HandleTypeDef *hsmbus)
+__weak void HAL_SMBUS_MasterTxCpltCallback(SMBUS_HandleTypeDef *hsmbus)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
@@ -1210,7 +1325,7 @@ __weak void HAL_SMBUS_MasterRxCpltCallback(SMBUS_HandleTypeDef *hsmbus)
   *                the configuration information for the specified SMBUS.
   * @retval None
   */
- __weak void HAL_SMBUS_SlaveTxCpltCallback(SMBUS_HandleTypeDef *hsmbus)
+__weak void HAL_SMBUS_SlaveTxCpltCallback(SMBUS_HandleTypeDef *hsmbus)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
@@ -1267,7 +1382,7 @@ __weak void HAL_SMBUS_ListenCpltCallback(SMBUS_HandleTypeDef *hsmbus)
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
 
-    /* NOTE : This function should not be modified, when the callback is needed,
+  /* NOTE : This function should not be modified, when the callback is needed,
             the HAL_SMBUS_ListenCpltCallback() could be implemented in the user file
    */
 }
@@ -1278,7 +1393,7 @@ __weak void HAL_SMBUS_ListenCpltCallback(SMBUS_HandleTypeDef *hsmbus)
   *                the configuration information for the specified SMBUS.
   * @retval None
   */
- __weak void HAL_SMBUS_ErrorCallback(SMBUS_HandleTypeDef *hsmbus)
+__weak void HAL_SMBUS_ErrorCallback(SMBUS_HandleTypeDef *hsmbus)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hsmbus);
@@ -1290,7 +1405,7 @@ __weak void HAL_SMBUS_ListenCpltCallback(SMBUS_HandleTypeDef *hsmbus)
 
 /**
   * @}
-  */  
+  */
 
 /** @defgroup SMBUS_Exported_Functions_Group3 Peripheral State and Errors functions 
  *  @brief   Peripheral State and Errors functions 
@@ -1300,7 +1415,7 @@ __weak void HAL_SMBUS_ListenCpltCallback(SMBUS_HandleTypeDef *hsmbus)
             ##### Peripheral State and Errors functions #####
  ===============================================================================  
     [..]
-    This subsection permit to get in run-time the status of the peripheral 
+    This subsection permits to get in run-time the status of the peripheral 
     and the data flow.
 
 @endverbatim
@@ -1983,6 +2098,45 @@ static void SMBUS_TransferConfig(SMBUS_HandleTypeDef *hsmbus,  uint16_t DevAddre
   /* update CR2 register */
   hsmbus->Instance->CR2 = tmpreg;  
 }  
+
+/**
+  * @brief  Convert SMBUSx OTHER_xxx XferOptions to functionnal XferOptions.
+  * @param  hsmbus SMBUS handle.
+  * @retval None
+  */
+static void SMBUS_ConvertOtherXferOptions(SMBUS_HandleTypeDef *hsmbus)
+{
+  /* if user set XferOptions to SMBUS_OTHER_FRAME_NO_PEC   */
+  /* it request implicitly to generate a restart condition */
+  /* set XferOptions to SMBUS_FIRST_FRAME                  */
+  if(hsmbus->XferOptions == SMBUS_OTHER_FRAME_NO_PEC)
+  {
+    hsmbus->XferOptions = SMBUS_FIRST_FRAME;
+  }
+  /* else if user set XferOptions to SMBUS_OTHER_FRAME_WITH_PEC */
+  /* it request implicitly to generate a restart condition      */
+  /* set XferOptions to SMBUS_FIRST_FRAME | SMBUS_SENDPEC_MODE  */
+  else if(hsmbus->XferOptions == SMBUS_OTHER_FRAME_WITH_PEC)
+  {
+    hsmbus->XferOptions = SMBUS_FIRST_FRAME | SMBUS_SENDPEC_MODE;
+  }
+  /* else if user set XferOptions to SMBUS_OTHER_AND_LAST_FRAME_NO_PEC */
+  /* it request implicitly to generate a restart condition             */
+  /* then generate a stop condition at the end of transfer             */
+  /* set XferOptions to SMBUS_FIRST_AND_LAST_FRAME_NO_PEC              */
+  else if(hsmbus->XferOptions == SMBUS_OTHER_AND_LAST_FRAME_NO_PEC)
+  {
+    hsmbus->XferOptions = SMBUS_FIRST_AND_LAST_FRAME_NO_PEC;
+  }
+  /* else if user set XferOptions to SMBUS_OTHER_AND_LAST_FRAME_WITH_PEC */
+  /* it request implicitly to generate a restart condition               */
+  /* then generate a stop condition at the end of transfer               */
+  /* set XferOptions to SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC              */
+  else if(hsmbus->XferOptions == SMBUS_OTHER_AND_LAST_FRAME_WITH_PEC)
+  {
+    hsmbus->XferOptions = SMBUS_FIRST_AND_LAST_FRAME_WITH_PEC;
+  }
+}
 /**
   * @}
   */

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_pcd.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   PCD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the USB Peripheral Controller:
@@ -1170,14 +1168,23 @@ void PCD_WritePMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, u
   */
 void PCD_ReadPMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
-  uint32_t n =  ((uint32_t)((uint32_t)wNBytes + 1U)) >> 1U;
+  uint32_t n = (uint32_t)wNBytes >> 1U;
   uint32_t i;
   uint16_t *pdwVal;
+  uint32_t temp;
   pdwVal = (uint16_t *)((uint32_t)(wPMABufAddr + (uint32_t)USBx + 0x400U));
+  
   for (i = n; i != 0U; i--)
   {
-    *(uint16_t*)((uint32_t)pbUsrBuf++) = *pdwVal++;
-    pbUsrBuf++;
+    temp = *pdwVal++;
+    *pbUsrBuf++ = ((temp >> 0) & 0xFF);
+    *pbUsrBuf++ = ((temp >> 8) & 0xFF);
+  }
+  
+  if (wNBytes % 2)
+  {
+    temp = *pdwVal++;
+    *pbUsrBuf++ = ((temp >> 0) & 0xFF);
   }
 }
 
@@ -1241,7 +1248,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         {
           /* Get SETUP Packet*/
           ep->xfer_count = PCD_GET_EP_RX_CNT(hpcd->Instance, ep->num);
-          PCD_ReadPMA(hpcd->Instance, (uint8_t*)hpcd->Setup ,ep->pmaadress , ep->xfer_count);       
+          PCD_ReadPMA(hpcd->Instance, (uint8_t*)(void*)hpcd->Setup ,ep->pmaadress , ep->xfer_count);
           /* SETUP bit kept frozen while CTR_RX = 1*/ 
           PCD_CLEAR_RX_EP_CTR(hpcd->Instance, PCD_ENDP0); 
           

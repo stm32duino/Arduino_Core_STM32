@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_dac.c
   * @author  MCD Application Team
-  * @version V1.7.0
-  * @date    17-February-2017
+  * @version V1.7.1
+  * @date    21-April-2017
   * @brief   DAC HAL module driver.
   *         This file provides firmware functions to manage the following 
   *         functionalities of the Digital to Analog Converter (DAC) peripheral:
@@ -1136,9 +1136,9 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef* hdac, DAC_ChannelConf
 #endif /* STM32L451xx STM32L452xx STM32L462xx */   
     
     /* HoldTime */
-    hdac->Instance->SHHR = (sConfig->DAC_SampleAndHoldConfig.DAC_HoldTime)<<Channel;
+    MODIFY_REG (hdac->Instance->SHHR, DAC_SHHR_THOLD1<<Channel, (sConfig->DAC_SampleAndHoldConfig.DAC_HoldTime)<<Channel);
     /* RefreshTime */
-    hdac->Instance->SHRR = (sConfig->DAC_SampleAndHoldConfig.DAC_RefreshTime)<<Channel;
+    MODIFY_REG (hdac->Instance->SHRR, DAC_SHRR_TREFRESH1<<Channel, (sConfig->DAC_SampleAndHoldConfig.DAC_RefreshTime)<<Channel);
   }
     
   if(sConfig->DAC_UserTrimming == DAC_TRIMMING_USER)

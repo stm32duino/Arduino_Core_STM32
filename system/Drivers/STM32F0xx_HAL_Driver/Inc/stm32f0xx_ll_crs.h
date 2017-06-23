@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_ll_crs.h
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   Header file of CRS LL module.
   ******************************************************************************
   * @attention
@@ -58,22 +56,7 @@ extern "C" {
 
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-
 /* Private constants ---------------------------------------------------------*/
-/** @defgroup CRS_LL_Private_Constants CRS Private Constants
-  * @{
-  */
-
-/* Defines used for the bit position in the register and perform offsets*/
-#define CRS_POSITION_TRIM        (CRS_CR_TRIM_Pos)     /* bit position in CR reg */
-#define CRS_POSITION_FECAP       (CRS_ISR_FECAP_Pos)   /* bit position in ISR reg */
-#define CRS_POSITION_FELIM       (CRS_CFGR_FELIM_Pos)  /* bit position in CFGR reg */
-
-
-/**
-  * @}
-  */
-
 /* Private macros ------------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
@@ -316,7 +299,7 @@ __STATIC_INLINE uint32_t LL_CRS_IsEnabledAutoTrimming(void)
   */
 __STATIC_INLINE void LL_CRS_SetHSI48SmoothTrimming(uint32_t Value)
 {
-  MODIFY_REG(CRS->CR, CRS_CR_TRIM, Value << CRS_POSITION_TRIM);
+  MODIFY_REG(CRS->CR, CRS_CR_TRIM, Value << CRS_CR_TRIM_Pos);
 }
 
 /**
@@ -326,7 +309,7 @@ __STATIC_INLINE void LL_CRS_SetHSI48SmoothTrimming(uint32_t Value)
   */
 __STATIC_INLINE uint32_t LL_CRS_GetHSI48SmoothTrimming(void)
 {
-  return (uint32_t)(READ_BIT(CRS->CR, CRS_CR_TRIM) >> CRS_POSITION_TRIM);
+  return (uint32_t)(READ_BIT(CRS->CR, CRS_CR_TRIM) >> CRS_CR_TRIM_Pos);
 }
 
 /**
@@ -361,7 +344,7 @@ __STATIC_INLINE uint32_t LL_CRS_GetReloadCounter(void)
   */
 __STATIC_INLINE void LL_CRS_SetFreqErrorLimit(uint32_t Value)
 {
-  MODIFY_REG(CRS->CFGR, CRS_CFGR_FELIM, Value << CRS_POSITION_FELIM);
+  MODIFY_REG(CRS->CFGR, CRS_CFGR_FELIM, Value << CRS_CFGR_FELIM_Pos);
 }
 
 /**
@@ -371,7 +354,7 @@ __STATIC_INLINE void LL_CRS_SetFreqErrorLimit(uint32_t Value)
   */
 __STATIC_INLINE uint32_t LL_CRS_GetFreqErrorLimit(void)
 {
-  return (uint32_t)(READ_BIT(CRS->CFGR, CRS_CFGR_FELIM) >> CRS_POSITION_FELIM);
+  return (uint32_t)(READ_BIT(CRS->CFGR, CRS_CFGR_FELIM) >> CRS_CFGR_FELIM_Pos);
 }
 
 /**
@@ -483,10 +466,10 @@ __STATIC_INLINE uint32_t LL_CRS_GetSyncPolarity(void)
   */
 __STATIC_INLINE void LL_CRS_ConfigSynchronization(uint32_t HSI48CalibrationValue, uint32_t ErrorLimitValue, uint32_t ReloadValue, uint32_t Settings)
 {
-  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue);
+  MODIFY_REG(CRS->CR, CRS_CR_TRIM, HSI48CalibrationValue << CRS_CR_TRIM_Pos);
   MODIFY_REG(CRS->CFGR, 
              CRS_CFGR_RELOAD | CRS_CFGR_FELIM | CRS_CFGR_SYNCDIV | CRS_CFGR_SYNCSRC | CRS_CFGR_SYNCPOL, 
-             ReloadValue | (ErrorLimitValue << CRS_POSITION_FELIM) | Settings);
+             ReloadValue | (ErrorLimitValue << CRS_CFGR_FELIM_Pos) | Settings);
 }
 
 /**
@@ -527,7 +510,7 @@ __STATIC_INLINE uint32_t LL_CRS_GetFreqErrorDirection(void)
   */
 __STATIC_INLINE uint32_t LL_CRS_GetFreqErrorCapture(void)
 {
-  return (uint32_t)(READ_BIT(CRS->ISR, CRS_ISR_FECAP) >> CRS_POSITION_FECAP);
+  return (uint32_t)(READ_BIT(CRS->ISR, CRS_ISR_FECAP) >> CRS_ISR_FECAP_Pos);
 }
 
 /**

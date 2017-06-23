@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f0xx_hal_tim.c
   * @author  MCD Application Team
-  * @version V1.5.0
-  * @date    04-November-2016
   * @brief   TIM HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Timer (TIM) peripheral:
@@ -3333,13 +3331,60 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,
-                                              uint32_t* BurstBuffer, uint32_t  BurstLength)
+                                              uint32_t  *BurstBuffer, uint32_t  BurstLength)
+{
+return HAL_TIM_DMABurst_MultiWriteStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength, ((BurstLength) >> 8U) + 1U);
+}
+
+/**
+  * @brief  Configure the DMA Burst to transfer multiple Data from the memory to the TIM peripheral
+  * @param  htim : TIM handle
+  * @param  BurstBaseAddress : TIM Base address from where the DMA will start the Data write
+  *         This parameter can be one of the following values:
+  *            @arg TIM_DMABASE_CR1
+  *            @arg TIM_DMABASE_CR2
+  *            @arg TIM_DMABASE_SMCR
+  *            @arg TIM_DMABASE_DIER
+  *            @arg TIM_DMABASE_SR
+  *            @arg TIM_DMABASE_EGR
+  *            @arg TIM_DMABASE_CCMR1
+  *            @arg TIM_DMABASE_CCMR2
+  *            @arg TIM_DMABASE_CCER
+  *            @arg TIM_DMABASE_CNT
+  *            @arg TIM_DMABASE_PSC
+  *            @arg TIM_DMABASE_ARR
+  *            @arg TIM_DMABASE_RCR
+  *            @arg TIM_DMABASE_CCR1
+  *            @arg TIM_DMABASE_CCR2
+  *            @arg TIM_DMABASE_CCR3
+  *            @arg TIM_DMABASE_CCR4
+  *            @arg TIM_DMABASE_BDTR
+  *            @arg TIM_DMABASE_DCR
+  * @param  BurstRequestSrc : TIM DMA Request sources
+  *         This parameter can be one of the following values:
+  *            @arg TIM_DMA_UPDATE: TIM update Interrupt source
+  *            @arg TIM_DMA_CC1: TIM Capture Compare 1 DMA source
+  *            @arg TIM_DMA_CC2: TIM Capture Compare 2 DMA source
+  *            @arg TIM_DMA_CC3: TIM Capture Compare 3 DMA source
+  *            @arg TIM_DMA_CC4: TIM Capture Compare 4 DMA source
+  *            @arg TIM_DMA_COM: TIM Commutation DMA source
+  *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
+  * @param  BurstBuffer : The Buffer address.
+  * @param  BurstLength : DMA Burst length. This parameter can be one value
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_18TRANSFERS.
+  * @param  DataLength : Data length. This parameter can be one value
+  *         between 1 and 0xFFFF.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_TIM_DMABurst_MultiWriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,
+                                                   uint32_t* BurstBuffer, uint32_t  BurstLength,  uint32_t  DataLength)
 {
   /* Check the parameters */
   assert_param(IS_TIM_DMABURST_INSTANCE(htim->Instance));
   assert_param(IS_TIM_DMA_BASE(BurstBaseAddress));
   assert_param(IS_TIM_DMA_SOURCE(BurstRequestSrc));
   assert_param(IS_TIM_DMA_LENGTH(BurstLength));
+  assert_param(IS_TIM_DMA_DATA_LENGTH(DataLength));
 
   if((htim->State == HAL_TIM_STATE_BUSY))
   {
@@ -3367,7 +3412,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_UPDATE]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_UPDATE], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_UPDATE], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_CC1:
@@ -3379,7 +3424,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_CC2:
@@ -3391,7 +3436,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_CC2]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_CC3:
@@ -3403,7 +3448,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_CC3]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_CC4:
@@ -3415,7 +3460,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_CC4]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC4], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC4], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_COM:
@@ -3427,7 +3472,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_COMMUTATION]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_COMMUTATION], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_COMMUTATION], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     case TIM_DMA_TRIGGER:
@@ -3439,7 +3484,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
       htim->hdma[TIM_DMA_ID_TRIGGER]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_TRIGGER], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_TRIGGER], (uint32_t)BurstBuffer, (uint32_t)&htim->Instance->DMAR, DataLength);
     }
     break;
     default:
@@ -3558,11 +3603,58 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,
                                              uint32_t  *BurstBuffer, uint32_t  BurstLength)
 {
+return HAL_TIM_DMABurst_MultiReadStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength, ((BurstLength) >> 8U) + 1U);
+}
+
+/**
+  * @brief  Configure the DMA Burst to transfer multiple Data from the TIM peripheral to the memory
+  * @param  htim : TIM handle
+  * @param  BurstBaseAddress : TIM Base address from where the DMA will starts the Data read
+  *         This parameter can be one of the following values:
+  *            @arg TIM_DMABASE_CR1
+  *            @arg TIM_DMABASE_CR2
+  *            @arg TIM_DMABASE_SMCR
+  *            @arg TIM_DMABASE_DIER
+  *            @arg TIM_DMABASE_SR
+  *            @arg TIM_DMABASE_EGR
+  *            @arg TIM_DMABASE_CCMR1
+  *            @arg TIM_DMABASE_CCMR2
+  *            @arg TIM_DMABASE_CCER
+  *            @arg TIM_DMABASE_CNT
+  *            @arg TIM_DMABASE_PSC
+  *            @arg TIM_DMABASE_ARR
+  *            @arg TIM_DMABASE_RCR
+  *            @arg TIM_DMABASE_CCR1
+  *            @arg TIM_DMABASE_CCR2
+  *            @arg TIM_DMABASE_CCR3
+  *            @arg TIM_DMABASE_CCR4
+  *            @arg TIM_DMABASE_BDTR
+  *            @arg TIM_DMABASE_DCR
+  * @param  BurstRequestSrc : TIM DMA Request sources
+  *         This parameter can be one of the following values:
+  *            @arg TIM_DMA_UPDATE: TIM update Interrupt source
+  *            @arg TIM_DMA_CC1: TIM Capture Compare 1 DMA source
+  *            @arg TIM_DMA_CC2: TIM Capture Compare 2 DMA source
+  *            @arg TIM_DMA_CC3: TIM Capture Compare 3 DMA source
+  *            @arg TIM_DMA_CC4: TIM Capture Compare 4 DMA source
+  *            @arg TIM_DMA_COM: TIM Commutation DMA source
+  *            @arg TIM_DMA_TRIGGER: TIM Trigger DMA source
+  * @param  BurstBuffer : The Buffer address.
+  * @param  BurstLength : DMA Burst length. This parameter can be one value
+  *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_18TRANSFERS.
+  * @param  DataLength : Data length. This parameter can be one value
+  *         between 1 and 0xFFFF.
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_TIM_DMABurst_MultiReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,
+                                                  uint32_t  *BurstBuffer, uint32_t  BurstLength, uint32_t  DataLength)
+{
   /* Check the parameters */
   assert_param(IS_TIM_DMABURST_INSTANCE(htim->Instance));
   assert_param(IS_TIM_DMA_BASE(BurstBaseAddress));
   assert_param(IS_TIM_DMA_SOURCE(BurstRequestSrc));
   assert_param(IS_TIM_DMA_LENGTH(BurstLength));
+  assert_param(IS_TIM_DMA_DATA_LENGTH(DataLength));
 
   if((htim->State == HAL_TIM_STATE_BUSY))
   {
@@ -3590,7 +3682,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_UPDATE]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_UPDATE], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+       HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_UPDATE], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_CC1:
@@ -3602,7 +3694,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_CC1]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_CC2:
@@ -3614,7 +3706,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_CC2]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_CC3:
@@ -3626,7 +3718,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_CC3]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_CC4:
@@ -3638,7 +3730,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_CC4]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC4], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC4], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_COM:
@@ -3650,7 +3742,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_COMMUTATION]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_COMMUTATION], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_COMMUTATION], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     case TIM_DMA_TRIGGER:
@@ -3662,7 +3754,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t B
       htim->hdma[TIM_DMA_ID_TRIGGER]->XferErrorCallback = TIM_DMAError ;
 
       /* Enable the DMA channel */
-      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_TRIGGER], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, ((BurstLength) >> 8U) + 1);
+      HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_TRIGGER], (uint32_t)&htim->Instance->DMAR, (uint32_t)BurstBuffer, DataLength);
     }
     break;
     default:
