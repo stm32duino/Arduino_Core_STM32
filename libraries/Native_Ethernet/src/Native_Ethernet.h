@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 #include "IPAddress.h"
+#include <LwIP.h>
 #include "EthernetClient.h"
 #include "EthernetServer.h"
 #include "Dhcp.h"
