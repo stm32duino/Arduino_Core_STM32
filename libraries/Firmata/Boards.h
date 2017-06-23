@@ -667,8 +667,8 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 
 // Nucleo STM32F429
 #elif defined(STM32)
-#define TOTAL_ANALOG_PINS       MAX_ANALOG_IOS  //7
-#define TOTAL_PINS              MAX_DIGITAL_IOS //22 : All pins can be digital
+#define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS  //7
+#define TOTAL_PINS              NUM_DIGITAL_PINS //22 : All pins can be digital
 #define TOTAL_PORTS             3
 #define VERSION_BLINK_PIN       LED_BUILTIN
 #define PIN_SERIAL_RX           9

@@ -69,9 +69,7 @@ enum {
   AEND
 };
 
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
-#define MAX_DIGITAL_IOS         DEND
-#define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
+#define NUM_DIGITAL_PINS        DEND
 #define NUM_ANALOG_INPUTS       (AEND - A0)
 
 // Convert a digital pin number Dxx to a PinName Pxy
