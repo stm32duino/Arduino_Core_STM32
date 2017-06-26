@@ -1,7 +1,7 @@
 /*
   Boards.h - Hardware Abstraction Layer for Firmata library
   Copyright (c) 2006-2008 Hans-Christoph Steiner.  All rights reserved.
-  Copyright (C) 2009-2015 Jeff Hoefs.  All rights reserved.
+  Copyright (C) 2009-2017 Jeff Hoefs.  All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -10,7 +10,7 @@
 
   See file LICENSE.txt for further informations on licensing terms.
 
-  Last updated December 19th, 2015
+  Last updated March 16th, 2017
 */
 
 #ifndef Firmata_Boards_h
@@ -260,6 +260,23 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_SERVO(p)         (p) // deprecated since v2.4
 
 
+// Arduino MKRZero
+#elif defined(ARDUINO_SAMD_MKRZERO)
+#define TOTAL_ANALOG_PINS       7
+#define TOTAL_PINS              34 // 8 digital + 3 spi + 2 i2c + 2 uart + 7 analog + 3 usb + 1 aref + 5 sd + 1 bottom pad + 1 led + 1 battery adc
+#define IS_PIN_DIGITAL(p)       ((((p) >= 0 && (p) <= 21) || (p) == 32) && !IS_PIN_SERIAL(p))
+#define IS_PIN_ANALOG(p)        (((p) >= 15 && (p) < 15 + TOTAL_ANALOG_PINS) || (p) == 33)
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         (IS_PIN_DIGITAL(p) && (p) < MAX_SERVOS) // deprecated since v2.4
+#define IS_PIN_I2C(p)           ((p) == 11 || (p) == 12) // SDA = 11, SCL = 12
+#define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
+#define IS_PIN_SERIAL(p)        ((p) == PIN_SERIAL1_RX || (p) == PIN_SERIAL1_TX) //defined in variant.h  RX = 13, TX = 14
+#define PIN_TO_DIGITAL(p)       (p)
+#define PIN_TO_ANALOG(p)        ((p) - 15)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
+#define PIN_TO_SERVO(p)         (p) // deprecated since v2.4
+
+
 // Arduino Zero
 // Note this will work with an Arduino Zero Pro, but not with an Arduino M0 Pro
 // Arduino M0 Pro does not properly map pins to the board labeled pin numbers
@@ -282,8 +299,23 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         (p) // deprecated since v2.4
 
+// Arduino Primo
+#elif defined(ARDUINO_PRIMO)
+#define TOTAL_ANALOG_PINS       6
+#define TOTAL_PINS              22 //14 digital + 6 analog + 2 i2c
+#define VERSION_BLINK_PIN       LED_BUILTIN
+#define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) < 20)
+#define IS_PIN_ANALOG(p)        ((p) >= 14 && (p) < 20)
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         (IS_PIN_DIGITAL(p) && (p) < MAX_SERVOS+2)
+#define IS_PIN_I2C(p)           ((p) == PIN_WIRE_SDA || (p) == PIN_WIRE_SCL) // SDA = 20, SCL = 21
+#define IS_PIN_SPI(p)           ((p) == SS || (p)== MOSI || (p) == MISO || (p == SCK)) // 10, 11, 12, 13
+#define PIN_TO_DIGITAL(p)       (p)
+#define PIN_TO_ANALOG(p)        ((p) - 14)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
+#define PIN_TO_SERVO(p)         (p)
 
-// Teensy 1.0
+// Arduino 101
 #elif defined(_VARIANT_ARDUINO_101_X_)
 #define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS
 #define TOTAL_PINS              NUM_DIGITAL_PINS // 15 digital (including ATN pin) + 6 analog
@@ -339,6 +371,36 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define IS_PIN_SERIAL(p)        ((p) == 7 || (p) == 8)
 #define PIN_TO_DIGITAL(p)       (p)
 #define PIN_TO_ANALOG(p)        (((p) < 22) ? 21 - (p) : 11)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
+#define PIN_TO_SERVO(p)         (p)
+
+
+// Teensy 3.5 and 3.6
+// reference: https://github.com/PaulStoffregen/cores/blob/master/teensy3/pins_arduino.h
+#elif defined(__MK64FX512__) || defined(__MK66FX1M0__)
+#define TOTAL_ANALOG_PINS       27 // 3.5 has 27 and 3.6 has 25
+#define TOTAL_PINS              70 // 43 digital + 21 analog-digital + 6 analog (64-69)
+#define VERSION_BLINK_PIN       13
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          9
+#define PIN_SERIAL2_TX          10
+#define PIN_SERIAL3_RX          7
+#define PIN_SERIAL3_TX          8
+// The following 2 UARTs are not yet available via SerialFirmata
+#define PIN_SERIAL4_RX          31
+#define PIN_SERIAL5_TX          32
+#define PIN_SERIAL6_RX          34
+#define PIN_SERIAL6_TX          33
+#define IS_PIN_DIGITAL(p)       ((p) >= 0 && (p) <= 63)
+#define IS_PIN_ANALOG(p)        (((p) >= 14 && (p) <= 23) || ((p) >= 31 && (p) <= 39) || ((p) >= 49 && (p) <= 50) || ((p) >= 64 && (p) <= 69))
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         ((p) >= 0 && (p) < MAX_SERVOS)
+#define IS_PIN_I2C(p)           ((p) == 18 || (p) == 19)
+#define IS_PIN_SERIAL(p)        (((p) > 6 && (p) < 11) || ((p) == 0 || (p) == 1))
+#define PIN_TO_DIGITAL(p)       (p)
+// A0-A9 = D14-D23; A12-A20 = D31-D39; A23-A24 = D49-D50; A10-A11 = D64-D65; A21-A22 = D66-D67; A25-A26 = D68-D69
+#define PIN_TO_ANALOG(p)        (((p) <= 23) ? (p) - 14 : (((p) <= 39) ? (p) - 19 : (((p) <= 50) ? (p) - 26 : (((p) <= 65) ? (p) - 55 : (((p) <= 67) ? (p) - 45 : (p) - 43)))))
 #define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         (p)
 
@@ -447,6 +509,22 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_ANALOG(p)        ((p) - 14)
 #define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         ((p) - 2)
+
+
+// RedBearLab BLE Nano with factory switch settings (S1 - S10)
+#elif defined(BLE_NANO)
+#define TOTAL_ANALOG_PINS       6
+#define TOTAL_PINS              15 // 9 digital + 3 analog
+#define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) <= 14)
+#define IS_PIN_ANALOG(p)        ((p) == 8 || (p) == 9 || (p) == 10 || (p) == 11 || (p) == 12 || (p) == 14) //A0~A5
+#define IS_PIN_PWM(p)           ((p) == 3 || (p) == 5 || (p) == 6)
+#define IS_PIN_SERVO(p)         ((p) >= 2 && (p) <= 7)
+#define IS_PIN_I2C(p)           ((p) == SDA || (p) == SCL)
+#define IS_PIN_SPI(p)           ((p) == CS || (p) == MOSI || (p) == MISO || (p) == SCK)
+#define PIN_TO_DIGITAL(p)       (p)
+#define PIN_TO_ANALOG(p)        ((p) - 8)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
+#define PIN_TO_SERVO(p)         (p)
 
 
 // Sanguino
@@ -665,29 +743,27 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         ((p) - 2)
 
-// Nucleo STM32F429
-#elif defined(STM32)
-#define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS  //7
-#define TOTAL_PINS              NUM_DIGITAL_PINS //22 : All pins can be digital
-#define TOTAL_PORTS             3
-#define VERSION_BLINK_PIN       LED_BUILTIN
-#define PIN_SERIAL_RX           9
-#define PIN_SERIAL_TX           8
-#define PIN_SERIAL1_RX          0
-#define PIN_SERIAL1_TX          1
-#define PIN_SERIAL2_RX          8
-#define PIN_SERIAL2_TX          9
-#define IS_PIN_DIGITAL(p)       ((p) >= 2 && (p) < TOTAL_PINS)
-#define IS_PIN_ANALOG(p)        ((p) >= 16 && (p) < TOTAL_PINS)
-#define IS_PIN_PWM(p)           ((p) == 3 || (p) == 5 || (p) == 6 || (p) == 9 || (p) == 10 || (p) == 11)
-#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL((p))
-#define IS_PIN_I2C(p)           ((p) == 14 || (p) == 15)
+// ESP8266
+// note: boot mode GPIOs 0, 2 and 15 can be used as outputs, GPIOs 6-11 are in use for flash IO
+#elif defined(ESP8266)
+#define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS
+#define TOTAL_PINS              A0 + NUM_ANALOG_INPUTS
+#define PIN_SERIAL_RX           3
+#define PIN_SERIAL_TX           1
+#define IS_PIN_DIGITAL(p)       (((p) >= 0 && (p) <= 5) || ((p) >= 12 && (p) < A0))
+#define IS_PIN_ANALOG(p)        ((p) >= A0 && (p) < A0 + NUM_ANALOG_INPUTS)
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         (IS_PIN_DIGITAL(p) && (p) < MAX_SERVOS)
+#define IS_PIN_I2C(p)           ((p) == SDA || (p) == SCL)
 #define IS_PIN_SPI(p)           ((p) == SS || (p) == MOSI || (p) == MISO || (p) == SCK)
-#define IS_PIN_SERIAL(p)        ((p) == 0 || (p) == 1)
+#define IS_PIN_INTERRUPT(p)     (digitalPinToInterrupt(p) > NOT_AN_INTERRUPT)
+#define IS_PIN_SERIAL(p)        ((p) == PIN_SERIAL_RX || (p) == PIN_SERIAL_TX)
 #define PIN_TO_DIGITAL(p)       (p)
-#define PIN_TO_ANALOG(p)        ((p) - 16)
-#define PIN_TO_PWM(p)           (p)
+#define PIN_TO_ANALOG(p)        ((p) - A0)
+#define PIN_TO_PWM(p)           PIN_TO_DIGITAL(p)
 #define PIN_TO_SERVO(p)         (p)
+#define DEFAULT_PWM_RESOLUTION  10
+
 
 // anything else
 #else
@@ -703,6 +779,9 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define IS_PIN_SERIAL(p)        0
 #endif
 
+#ifndef DEFAULT_PWM_RESOLUTION
+#define DEFAULT_PWM_RESOLUTION  8
+#endif
 
 /*==============================================================================
  * readPort() - Read an 8 bit port
