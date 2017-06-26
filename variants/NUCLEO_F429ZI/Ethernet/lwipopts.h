@@ -230,6 +230,17 @@ The STM32F4x7 allows computing and verifying the IP, UDP, TCP and ICMP checksums
  * file system (to prevent changing the file included in CVS) */
 #define HTTPD_USE_CUSTOM_FSDATA   1
 
+/*
+   ------------------------------------
+   ---------- Custom options ----------
+   ------------------------------------
+*/
+
+/** Uncomment this line to use the ethernet input in interrupt mode.
+  * NOTE: LwIP stack documentation recommends to use the polling mode without
+  * an operating system. */
+//#define ETH_INPUT_USE_IT 1
+
 #endif /* __LWIPOPTS_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
