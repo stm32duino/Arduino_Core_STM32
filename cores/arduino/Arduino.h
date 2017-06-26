@@ -72,7 +72,7 @@ extern void loop( void ) ;
 
 
 // Include board variant
-#include "variant.h"
+#include "pins_arduino.h"
 
 #include "wiring.h"
 #include "wiring_digital.h"

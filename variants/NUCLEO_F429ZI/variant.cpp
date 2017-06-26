@@ -25,7 +25,7 @@ extern "C" {
 // Pin number
 // Match Table 17. NUCLEO-F429ZI pin assignments
 // from UM1974 STM32 Nucleo-144 board
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
   PG9,  //D0
   PG14, //D1
   PF15, //D2
@@ -59,7 +59,7 @@ const PinName digital_arduino[] = {
   PD11, //D30
   PE2,  //D31
   PA0,  //D32
-  PB0,  //D33
+  PB0,  //D33 - LED_GREEN
   PE0,  //D34
   PB11, //D35
   PB10, //D36
@@ -99,15 +99,30 @@ const PinName digital_arduino[] = {
   PF2,  //D70
   PA7,  //D71
   NC,   //D72
-  PA3,  //D73/A0
-  PC0,  //D74/A1
-  PC3,  //D75/A2
-  PF3,  //D76/A3
-  PF5,  //D77/A4
-  PF10, //D78/A5
-  PB7,  //D79
-  PB14, //D80
-  PC13  //D81
+  PB7,  //D73 - LED_BLUE
+  PB14, //D74 - LED_RED
+  PC13, //D75 - USER_BTN
+  PD9,  //D76 - Serial Rx
+  PD8,  //D77 - Serial Tx
+  PA3,  //D78/A0
+  PC0,  //D79/A1
+  PC3,  //D80/A2
+  PF3,  //D81/A3
+  PF5,  //D82/A4
+  PF10, //D83/A5
+  PB1,  //D84/A6
+  PC2,  //D85/A7
+  PF4,  //D86/A8
+  PF6,  //D87/A9
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7,  //D88/A10 = D11
+  PA6,  //D89/A11 = D12
+  PA5,  //D90/A12 = D13
+  PA4,  //D91/A13 = D24
+  PA0,  //D92/A14 = D32
+  PF8,  //D93/A15 = D61
+  PF7,  //D94/A16 = D62
+  PF9   //D95/A17 = D63
 };
 
 #ifdef __cplusplus
@@ -142,23 +157,6 @@ void serialEventRun(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
 
 /**
   * @brief  System Clock Configuration

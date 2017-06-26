@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // Pin number
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
   PA3,  //D0
   PA2,  //D1
   PA10, //D2
@@ -84,6 +84,13 @@ const PinName digital_arduino[] = {
   PB0,  //D52/A3
   PC1,  //D53/A4
   PC0,  //D54/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7,  //D55/A6  = D11
+  PA6,  //D56/A7  = D12
+  PC2,  //D57/A8  = D29
+  PC3,  //D58/A9  = D30
+  PC5,  //D59/A10 = D36
+  PC4   //D60/A11 = D46
 };
 
 #ifdef __cplusplus
@@ -97,8 +104,6 @@ HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
 #ifdef ENABLE_SERIAL1
 HardwareSerial  Serial1(PA10, PA9);
 #endif
-
-// Need rework to be generic
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
@@ -120,23 +125,6 @@ void serialEventRun(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
 
 /**
   * @brief  System Clock Configuration

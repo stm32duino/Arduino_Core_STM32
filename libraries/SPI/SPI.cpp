@@ -20,9 +20,9 @@ SPIClass SPI;
 
 SPIClass::SPIClass() : g_active_id(-1)
 {
-  _spi.pin_miso = digitalToPinName(MISO);
-  _spi.pin_mosi = digitalToPinName(MOSI);
-  _spi.pin_sclk = digitalToPinName(SCLK);
+  _spi.pin_miso = digitalPinToPinName(MISO);
+  _spi.pin_mosi = digitalPinToPinName(MOSI);
+  _spi.pin_sclk = digitalPinToPinName(SCLK);
   _spi.pin_ssel = NC;
 }
 
@@ -31,12 +31,12 @@ ssel pin. Enable this pin disable software CS. See microcontroller documentation
 for the list of available SS pins. */
 SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : g_active_id(-1)
 {
-  _spi.pin_miso = digitalToPinName(miso);
-  _spi.pin_mosi = digitalToPinName(mosi);
-  _spi.pin_sclk = digitalToPinName(sclk);
+  _spi.pin_miso = digitalPinToPinName(miso);
+  _spi.pin_mosi = digitalPinToPinName(mosi);
+  _spi.pin_sclk = digitalPinToPinName(sclk);
 
   if(ssel != 0xFF) {
-    _spi.pin_ssel = digitalToPinName(ssel);
+    _spi.pin_ssel = digitalPinToPinName(ssel);
   } else {
     _spi.pin_ssel = NC;
   }

@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // Pin number
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
   PA3,  //D0
   PA2,  //D1
   PA10, //D2
@@ -54,8 +54,7 @@ const PinName digital_arduino[] = {
   PC15, //D25
   PH0,  //D26
   PH1,  //D27
-  PC2,  //D28// Match Table 17. NUCLEO-F429ZI pin assignments
-// from UM1974 STM32 Nucleo-144 board
+  PC2,  //D28
   PC3,  //D29
 // CN7 Right Side
   PC11, //D30
@@ -82,6 +81,13 @@ const PinName digital_arduino[] = {
   PB0,  //D49/A3
   PC1,  //D50/A4
   PC0,  //D51/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7,  //D52/A6  = D11
+  PA6,  //D53/A7  = D12
+  PC2,  //D54/A8  = D28
+  PC3,  //D55/A9  = D29
+  PC5,  //D56/A10 = D35
+  PC4   //D57/A11 = D45
 };
 
 #ifdef __cplusplus
@@ -92,19 +98,23 @@ const PinName digital_arduino[] = {
  * UART objects
  */
 HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
+#ifdef ENABLE_SERIAL1
 HardwareSerial  Serial1(PA10, PA9);
-
-// Need rework to be generic
+#endif
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
+#ifdef ENABLE_SERIAL1
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
+#endif
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+#ifdef ENABLE_SERIAL1
   if (Serial1.available()) serialEvent1();
+#endif
 }
 
 // ----------------------------------------------------------------------------
@@ -112,23 +122,6 @@ void serialEventRun(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
 
 /**
   * @brief  System Clock Configuration
