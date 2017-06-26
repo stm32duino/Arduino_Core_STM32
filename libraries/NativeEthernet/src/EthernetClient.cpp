@@ -192,6 +192,9 @@ bool EthernetClient::operator==(const EthernetClient& rhs) {
   return _tcp_client == rhs._tcp_client && _tcp_client->pcb == rhs._tcp_client->pcb;
 }
 
+/* This function is not a function defined by Arduino. This is a function
+specific to the W5100 architecture. To keep the compatibility we leave it and
+returns always 0. */
 uint8_t EthernetClient::getSocketNumber() {
   return 0;
 }

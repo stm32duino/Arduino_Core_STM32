@@ -593,8 +593,7 @@ struct pbuf *stm32_new_data(struct pbuf *p, const uint8_t *buffer, size_t size)
 
     if(q != NULL) {
       if(ERR_OK == pbuf_copy(q, p)) {
-        err_t err = pbuf_take_at(q, (uint8_t *)buffer, size, p->tot_len);
-        if(ERR_OK == /*pbuf_take_at(q, (uint8_t *)buffer, size, p->tot_len)*/err) {
+        if(ERR_OK == pbuf_take_at(q, (uint8_t *)buffer, size, p->tot_len)) {
           pbuf_free(p);
           p = q;
           return p;
@@ -742,9 +741,6 @@ err_t tcp_connected_callback(void *arg, struct tcp_pcb *tpcb, err_t err)
       /* initialize LwIP tcp_sent callback function */
       tcp_sent(tpcb, tcp_sent_callback);
 
-      /* initialize LwIP tcp_poll callback function */
-      // tcp_poll(tpcb, tcp_poll_callback, 1);
-
       /* initialize LwIP tcp_err callback function */
       tcp_err(tpcb, tcp_err_callback);
 
@@ -813,9 +809,6 @@ err_t tcp_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
 
         /* initialize LwIP tcp_sent callback function */
         tcp_sent(newpcb, tcp_sent_callback);
-
-        /* initialize lwip tcp_poll callback function for newpcb */
-        // tcp_poll(newpcb, tcp_echoserver_poll, 0);
 
         ret_err = ERR_OK;
       } else {

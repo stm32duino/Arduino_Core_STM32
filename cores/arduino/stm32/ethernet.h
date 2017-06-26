@@ -1,10 +1,10 @@
 /**
   ******************************************************************************
-  * @file    digital_io.h
+  * @file    ethernet.h
   * @author  WI6LABS
   * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   Header for digital_io module
+  * @date    14-June-2017
+  * @brief   Header for ethernet background task for LwIP stack.
   ******************************************************************************
   * @attention
   *
@@ -49,6 +49,8 @@
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
+/* This function is defined by the NativeEthernet library and it is used as
+background task inside the main loop. */
 __weak void stm32_eth_scheduler(void)
 {
   /* NOTE : This function should not be modified. It is defined in the Ethernet
