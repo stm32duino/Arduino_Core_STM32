@@ -13,6 +13,8 @@
  by Tom Igoe
  modified 21 Jan 2014
  by Federico Vanzati
+ modified 23 Jun 2017
+ by Wi6Labs
 
  http://www.arduino.cc/en/Tutorial/WebClientRepeating
  This code is in the public domain.

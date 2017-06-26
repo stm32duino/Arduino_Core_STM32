@@ -15,6 +15,8 @@
  by Tom Igoe
  redesigned to make use of operator== 25 Nov 2013
  by Norbert Truchsess
+ modified 23 Jun 2017
+ by Wi6Labs
 
  */
 

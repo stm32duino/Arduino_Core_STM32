@@ -16,6 +16,8 @@
  modified 02 Sept 2015
  by Arturo Guadalupi
  Based on ChatServer example by David A. Mellis
+ modified 23 Jun 2017
+ by Wi6Labs
 
  */
 
