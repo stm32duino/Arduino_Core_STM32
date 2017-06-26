@@ -916,8 +916,6 @@ static err_t tcp_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 
   if((tcp_arg != NULL) && (tcp_arg->pcb == tpcb))
   {
-    /* still got pbufs to send */
-    tcp_arg->state = TCP_SENT;
     return ERR_OK;
   }
 

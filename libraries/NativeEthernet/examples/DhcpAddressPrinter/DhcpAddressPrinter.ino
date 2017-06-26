@@ -12,22 +12,6 @@
   by Tom Igoe
   modified 02 Sept 2015
   by Arturo Guadalupi
-
-  Workaround:
-  * If you can't send a message after the server has accepted the connection,
-  reject the 26 first bytes.
-
-  if (client.available() > 0) {
-    // read the bytes incoming from the client:
-    char thisChar = client.read();
-    if(n++ > 26) {
-      // echo the bytes back to the client:
-      server.write(thisChar);
-      // echo the bytes to the server as well:
-      Serial.write(thisChar);
-    }
-  }
-
 */
 
 #include <NativeEthernet.h>

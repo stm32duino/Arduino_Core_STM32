@@ -88,6 +88,13 @@ size_t EthernetClient::write(const uint8_t *buf, size_t size) {
     return 0;
   }
 
+  /* If client not connected or accepted, it can't write because connection is
+  not ready */
+  if((_tcp_client->state != TCP_ACCEPTED) &&
+    (_tcp_client->state != TCP_CONNECTED)) {
+    return 0;
+  }
+
   if(ERR_OK != tcp_write(_tcp_client->pcb, buf, size, TCP_WRITE_FLAG_COPY)) {
     return 0;
   }
@@ -97,16 +104,7 @@ size_t EthernetClient::write(const uint8_t *buf, size_t size) {
     return 0;
   }
 
-  tcp_client_states tmp = _tcp_client->state;
-  while(_tcp_client->state != TCP_SENT) {
-    stm32_eth_scheduler();
-    if(_tcp_client->state == TCP_CLOSING) {
-      stop();
-      return 0;
-    }
-  }
-
-  _tcp_client->state = tmp;
+  stm32_eth_scheduler();
 
   return size;
 }
