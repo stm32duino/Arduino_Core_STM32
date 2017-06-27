@@ -764,6 +764,27 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define PIN_TO_SERVO(p)         (p)
 #define DEFAULT_PWM_RESOLUTION  10
 
+// STM32 based boards
+#elif defined(ARDUINO_ARCH_STM32)
+#define TOTAL_ANALOG_PINS       NUM_ANALOG_INPUTS
+#define TOTAL_PINS              NUM_DIGITAL_PINS
+#define TOTAL_PORTS             MAX_NB_PORT
+#define VERSION_BLINK_PIN       LED_BUILTIN
+// PIN_SERIALY_RX/TX defined in the variant.h
+#define IS_PIN_DIGITAL(p)       ((p != PIN_SERIAL_RX) && (p != PIN_SERIAL_TX) &&\
+                                 (p >= 0) && (p < TOTAL_PINS))
+#define IS_PIN_ANALOG(p)        ((p) >= A0 && (p) < AEND)
+#define IS_PIN_PWM(p)           digitalPinHasPWM(p)
+#define IS_PIN_SERVO(p)         IS_PIN_DIGITAL(p)
+#define IS_PIN_I2C(p)           digitalPinHasI2C(p)
+#define IS_PIN_SPI(p)           digitalPinHasSPI(p)
+#define IS_PIN_INTERRUPT(p)     (digitalPinToInterrupt(p) > NOT_AN_INTERRUPT)
+#define IS_PIN_SERIAL(p)        digitalPinHasSerial(p)
+#define PIN_TO_DIGITAL(p)       (p)
+#define PIN_TO_ANALOG(p)        (p-A0)
+#define PIN_TO_PWM(p)           (p)
+#define PIN_TO_SERVO(p)         (p)
+#define DEFAULT_PWM_RESOLUTION  PWM_RESOLUTION
 
 // anything else
 #else

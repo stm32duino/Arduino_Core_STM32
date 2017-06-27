@@ -39,7 +39,7 @@ extern const PinName digitalPin[];
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
   D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22,
+  D20, D21, D22, D23, D24,
   DEND
 };
 
@@ -103,8 +103,13 @@ enum {
 //#define UART_EMUL_RX            PYxx
 //#define UART_EMUL_TX            PYxx
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           23
+#define PIN_SERIAL_TX           24
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          21
+#define PIN_SERIAL2_TX          20
 
 #ifdef __cplusplus
 } // extern "C"

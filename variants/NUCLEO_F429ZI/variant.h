@@ -113,8 +113,13 @@ enum {
 #define UART_EMUL_RX            PF15
 #define UART_EMUL_TX            PE13
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           76
+#define PIN_SERIAL_TX           77
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          52
+#define PIN_SERIAL2_TX          53
 
 
 
