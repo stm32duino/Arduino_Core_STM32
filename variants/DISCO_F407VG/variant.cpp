@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // Pin number
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
 //P1 connector Right side
   PC0,  //D0
   PC2,  //D1
@@ -108,13 +108,15 @@ const PinName digital_arduino[] = {
   PC9,  //D77
   PC7,  //D78
 //Duplicated to have A0-A5 as F407 do not have Uno like connector
-  PA0,  //D79/A0
-  PA1,  //D80/A1
-  PA2,  //D81/A2
-  PA3,  //D82/A3
-  PB0,  //D83/A4
-  PB1   //D84/A5
-// Here we could continue to define Analog pin if we want A6,...
+// and to be aligned with PinMap_ADC
+  PC2,  //D79/A0 = D1
+  PC4,  //D80/A1 = D6
+  PB0,  //D81/A2 = D7
+  PC1,  //D82/A3 = D39
+  PC3,  //D83/A4 = D40
+  PA1,  //D84/A5 = D41
+  PC5,  //D85/A6 = D45
+  PB1   //D86/A7 = D46
 };
 
 #ifdef __cplusplus
@@ -140,23 +142,6 @@ void serialEventRun(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
 
 /**
   * @brief  System Clock Configuration

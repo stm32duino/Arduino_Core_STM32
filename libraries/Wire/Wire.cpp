@@ -45,14 +45,14 @@ void (*TwoWire::user_onReceive)(int);
 
 TwoWire::TwoWire()
 {
-  _i2c.sda = digitalToPinName(SDA);
-  _i2c.scl = digitalToPinName(SCL);
+  _i2c.sda = digitalPinToPinName(SDA);
+  _i2c.scl = digitalPinToPinName(SCL);
 }
 
 TwoWire::TwoWire(uint8_t sda, uint8_t scl)
 {
-  _i2c.sda = digitalToPinName(sda);
-  _i2c.scl = digitalToPinName(scl);
+  _i2c.sda = digitalPinToPinName(sda);
+  _i2c.scl = digitalPinToPinName(scl);
 }
 
 // Public Methods //////////////////////////////////////////////////////////////

@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // Pin number
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
   PC7,  //D0
   PC6,  //D1
   PG6,  //D2
@@ -57,23 +57,33 @@ const PinName digital_arduino[] = {
  * UART objects
  */
 HardwareSerial  Serial(PB7, PA9); // Connected to ST-Link
+#ifdef ENABLE_SERIAL1
 HardwareSerial  Serial1(PC7, PC6);
+#endif
+#ifdef ENABLE_SERIAL2
 HardwareSerial  Serial2(PF6, PF7);
+#endif
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
-
+#ifdef ENABLE_SERIAL1
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
-
+#endif
+#ifdef ENABLE_SERIAL2
 void serialEvent2() __attribute__((weak));
 void serialEvent2() { }
+#endif
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+#ifdef ENABLE_SERIAL1
   if (Serial1.available()) serialEvent1();
+#endif
+#ifdef ENABLE_SERIAL2
   if (Serial2.available()) serialEvent2();
+#endif
 }
 
 // ----------------------------------------------------------------------------
@@ -81,23 +91,6 @@ void serialEventRun(void)
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
 
 /**
   * @brief  System Clock Configuration
