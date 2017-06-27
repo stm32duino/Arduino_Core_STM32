@@ -67,6 +67,9 @@ struct i2c_s {
   PinName sda;
   PinName scl;
   IRQn_Type irq;
+#ifdef STM32F1xx
+  IRQn_Type irqER;
+#endif
   uint8_t slaveMode;
   void (*i2c_onSlaveReceive)(uint8_t *, int);
   void (*i2c_onSlaveTransmit)(void);

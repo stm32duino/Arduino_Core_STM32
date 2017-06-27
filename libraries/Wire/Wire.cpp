@@ -81,6 +81,7 @@ void TwoWire::begin(uint8_t address)
 
   i2c_custom_init(&_i2c,I2C_100KHz,I2C_ADDRESSINGMODE_7BIT,ownAddress,master);
 
+#ifndef STM32F1xx
   if(master == false){
     // i2c_attachSlaveTxEvent(&_i2c, reinterpret_cast<void(*)(i2c_t*)>(&TwoWire::onRequestService));
     // i2c_attachSlaveRxEvent(&_i2c, reinterpret_cast<void(*)(i2c_t*, uint8_t*, int)>(&TwoWire::onReceiveService));
@@ -88,6 +89,7 @@ void TwoWire::begin(uint8_t address)
     i2c_attachSlaveTxEvent(&_i2c, onRequestService);
     i2c_attachSlaveRxEvent(&_i2c, onReceiveService);
   }
+#endif
 }
 
 void TwoWire::begin(int address)
@@ -109,6 +111,8 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 {
   UNUSED(sendStop);
   if (master == true) {
+    //NOTE: do not work with STM32F1xx boards (latest HAL version: 1.0.4)
+#ifndef STM32F1xx
     if (isize > 0) {
       // send internal address; this mode allows sending a repeated start to access
       // some devices' internal registers. This function is executed by the hardware
@@ -127,6 +131,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
       }
       endTransmission(false);
     }
+#endif /* !STM32F1xx */
 
     // clamp to buffer length
     if(quantity > BUFFER_LENGTH){
@@ -369,12 +374,22 @@ void TwoWire::onRequestService(void)
 void TwoWire::onReceive( void (*function)(int) )
 {
   user_onReceive = function;
+
+#ifdef STM32F1xx
+  //Enable slave receive IT
+  i2c_attachSlaveRxEvent(&_i2c, onReceiveService);
+#endif
 }
 
 // sets function called on slave read
 void TwoWire::onRequest( void (*function)(void) )
 {
   user_onRequest = function;
+
+#ifdef STM32F1xx
+  //Enable slave transmit IT
+  i2c_attachSlaveTxEvent(&_i2c, onRequestService);
+#endif
 }
 
 // Preinstantiate Objects //////////////////////////////////////////////////////
