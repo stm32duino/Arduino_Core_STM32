@@ -109,8 +109,9 @@ enum {
 #define UART_EMUL_RX            PE9
 #define UART_EMUL_TX            PE11
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           42
+#define PIN_SERIAL_TX           3
 
 #ifdef __cplusplus
 } // extern "C"
