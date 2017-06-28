@@ -89,19 +89,19 @@ Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_ma
 # NUCLEO_F103RB board
 
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB=Nucleo F103RB
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.node=NUCLEO_F103RB,NUCLEO
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.node="NODE_F103RB,NUCLEO"
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.upload.maximum_size=131071
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.upload.maximum_data_size=20479
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.mcu=cortex-m3
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.f_cpu=64000000L
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.f_cpu=72000000L
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.usb_product="NUCLEO-F103RB"
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.board=NUCLEO_F103RB
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.series=STM32F1xx
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.variant=NUCLEO_F103RB
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.cmsis_lib_gcc=arm_cortexM3l_math
-#To enable USB add '-DUSBCON'
-#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.extra_flags=-DSTM32F103xB {build.usb_flags}
+#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
+#To enable Serial2 (USART3 on PC11, PC10) add -DENABLE_SERIAL2
+Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.extra_flags=-DSTM32F103xB
 
 # NUCLEO_F303RE board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)

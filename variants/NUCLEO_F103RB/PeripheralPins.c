@@ -211,11 +211,3 @@ const PinMap PinMap_CAN_TD[] = {
     {PB9,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, 10)}, // Remap CAN_TX to PB_9
     {NC,    NC,    0}
 };
-
-const TimerMap TimerMap_CONFIG[] = {
-  {TIM1,  TIM1_UP_IRQn, 2},
-  {TIM2,  TIM2_IRQn,    1},
-  {TIM3,  TIM3_IRQn,    1},
-  {TIM4,  TIM4_IRQn,    1},
-  {NULL,  0,  0}
-};

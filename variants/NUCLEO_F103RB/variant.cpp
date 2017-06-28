@@ -23,7 +23,7 @@ extern "C" {
 #endif
 
 // Pin number
-const PinName digital_arduino[] = {
+const PinName digitalPin[] = {
   PA3,  //D0
   PA2,  //D1
   PA10, //D2
@@ -37,7 +37,7 @@ const PinName digital_arduino[] = {
   PB6,  //D10
   PA7,  //D11
   PA6,  //D12
-  PA5,  //D13
+  PA5,  //D13 - LED
   PB9,  //D14
   PB8,  //D15
   // ST Morpho
@@ -81,6 +81,16 @@ const PinName digital_arduino[] = {
   PB0,  //D49/A3
   PC1,  //D50/A4
   PC0,  //D51/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA3,  //D52/A6 = D0
+  PA2,  //D53/A7 = D1
+  PA7,  //D54/A8 = D11
+  PA6,  //D55/A9 = D12
+  PA5,  //D56/A10 = D13
+  PC2,  //D57/A11 = D28
+  PC3,  //D58/A12 = D29
+  PB1,  //D59/A13 = D41
+  PC4,  //D60/A14 = D45
 };
 
 #ifdef __cplusplus
@@ -92,23 +102,33 @@ const PinName digital_arduino[] = {
  */
 
 HardwareSerial Serial(PA3, PA2);    // Connected to ST-Link
+#ifdef ENABLE_SERIAL1
 HardwareSerial Serial1(PA10, PA9);
+#endif
+#ifdef ENABLE_SERIAL2
 HardwareSerial Serial2(PC11, PC10); //Morpho pins
+#endif
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
-
+#ifdef ENABLE_SERIAL1
 void serialEvent1() __attribute__((weak));
 void serialEvent1() { }
-
+#endif
+#ifdef ENABLE_SERIAL2
 void serialEvent2() __attribute__((weak));
 void serialEvent2() { }
+#endif
 
 void serialEventRun(void)
 {
   if (Serial.available()) serialEvent();
+#ifdef ENABLE_SERIAL1
   if (Serial1.available()) serialEvent1();
+#endif
+#ifdef ENABLE_SERIAL2
   if (Serial2.available()) serialEvent2();
+#endif
 }
 
 // ----------------------------------------------------------------------------
@@ -117,36 +137,19 @@ void serialEventRun(void)
 extern "C" {
 #endif
 
-void __libc_init_array(void);
-
-uint32_t pinNametoPinNumber(PinName p)
-{
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digital_arduino[i] == p)
-		  break;
-  }
-  return i;
-}
-
-void init( void )
-{
-  hw_config_init();
-}
-
 /**
   * @brief  System Clock Configuration
   *         The system Clock is configured as follow :
-  *            System Clock source            = PLL (HSI)
-  *            SYSCLK(Hz)                     = 64000000
-  *            HCLK(Hz)                       = 64000000
+  *            System Clock source            = PLL (HSE)
+  *            SYSCLK(Hz)                     = 72000000
+  *            HCLK(Hz)                       = 72000000
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 2
   *            APB2 Prescaler                 = 1
-  *            PLL_Source                     = 2
-  *            PLL_Mul                        = 16
+  *            PLL_Source                     = HSE
+  *            PLL_Mul                        = 9
   *            Flash Latency(WS)              = 2
-  *            ADC Prescaler                  = 8
+  *            ADC Prescaler                  = 6
   * @param  None
   * @retval None
   */
@@ -156,12 +159,12 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 16;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
+  RCC_OscInitStruct.HSEPredivValue = RCC_HSE_PREDIV_DIV1;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI_DIV2;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     while(1);
@@ -179,7 +182,7 @@ WEAK void SystemClock_Config(void)
   }
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV8;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     while(1);
