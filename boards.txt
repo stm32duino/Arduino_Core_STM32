@@ -246,6 +246,64 @@ Disco.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
 
 ################################################################################
+# Other boards
+
+Other_board.name=Other
+
+Other_board.build.vid=0x0483
+Other_board.build.pid=0x5711
+Other_board.vid.0=0x0483
+Other_board.pid.0=0x5711
+
+Other_board.build.core=arduino
+Other_board.build.board=Other_board
+
+# BLUEPILL_F103C8 board
+
+Other_board.menu.Other_board.BLUEPILL_F103C8=BluePill F103C8
+Other_board.menu.Other_board.BLUEPILL_F103C8.node=NODE_F103C8
+Other_board.menu.Other_board.BLUEPILL_F103C8.upload.maximum_size=65536
+Other_board.menu.Other_board.BLUEPILL_F103C8.upload.maximum_data_size=20480
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.mcu=cortex-m3
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.f_cpu=72000000L
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.usb_product="BLUEPILL-F103C8"
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.series=STM32F1xx
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+#To enable Serial2 (USART2 on PA3, PA2) add -DENABLE_SERIAL2
+#To enable Serial3 (USART3 on PB11, PB10) add -DENABLE_SERIAL3
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.extra_flags=-DSTM32F103xB {build.usb_flags} -DSERIAL_USB -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc" {build.upload_flags}
+
+
+Other_board.menu.upload_method.DFUUploadMethod=STM32duino bootloader
+Other_board.menu.upload_method.DFUUploadMethod.upload.protocol=maple_dfu
+Other_board.menu.upload_method.DFUUploadMethod.upload.tool=maple_upload
+Other_board.menu.upload_method.DFUUploadMethod.build.upload_flags=-DVECT_TAB_OFFSET=0x2000
+Other_board.menu.upload_method.DFUUploadMethod.build.ldscript=bootloader.ld
+Other_board.menu.upload_method.DFUUploadMethod.upload.usbID=1EAF:0003
+Other_board.menu.upload_method.DFUUploadMethod.upload.altID=2
+
+Other_board.menu.upload_method.STLinkMethod=STLink
+Other_board.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Other_board.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Other_board.menu.upload_method.STLinkMethod.build.upload_flags=
+
+Other_board.menu.upload_method.serialMethod=Serial
+Other_board.menu.upload_method.serialMethod.upload.protocol=maple_serial
+Other_board.menu.upload_method.serialMethod.upload.tool=serial_upload
+Other_board.menu.upload_method.serialMethod.build.upload_flags=
+
+Other_board.menu.upload_method.BMPMethod=BMP (Black Magic Probe)
+Other_board.menu.upload_method.BMPMethod.upload.protocol=gdb_bmp
+Other_board.menu.upload_method.BMPMethod.upload.tool=bmp_upload
+Other_board.menu.upload_method.BMPMethod.upload.speed=230400
+Other_board.menu.upload_method.BMPMethod.build.upload_flags=-DCONFIG_MAPLE_MINI_NO_DISABLE_DEBUG
+
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.Other_serial.enable_Serial=None
 Nucleo_144.menu.Other_serial.enable_SerialAll=All
