@@ -20,16 +20,6 @@
 #define _VARIANT_ARDUINO_STM32_
 
 /*----------------------------------------------------------------------------
- *        Definitions
- *----------------------------------------------------------------------------*/
-
-/** Frequency of the board main oscillator */
-//#define VARIANT_MAINOSC		12000000
-
-/** Master clock frequency */
-//#define VARIANT_MCK			84000000
-
-/*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
@@ -39,52 +29,30 @@
 extern "C"{
 #endif // __cplusplus
 
-/**
- * Libc porting layers
- */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-#    include <syscalls.h> /** RedHat Newlib minimal stub */
-#endif
-
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
 #include "PeripheralPins.h"
 
-extern const PinName digital_arduino[];
+extern const PinName digitalPin[];
 
 enum {
- D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
- D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
- D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
- D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
- D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
- D50, D51,
- DEND
+  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
+  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
+  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
+  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
+  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
+  D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
+  D60,
+  DEND
 };
 
 enum {
- A_START_AFTER = D45,
- A0,  A1,  A2,  A3,  A4,  A5,
- AEND
+  A_START_AFTER = D45,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
+  A10, A11, A12, A13, A14,
+  AEND
 };
-
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
-#define MAX_DIGITAL_IOS         DEND
-#define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
-#define NUM_ANALOG_INPUTS       (AEND - A0)
-
-// Convert a digital pin number Dxx to a PinName Pxy
-#define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
-// Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      (digitalToPinName(p))
-// Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      (p)
-// Convert a PinName Pxy to a pin number
-uint32_t pinNametoPinNumber(PinName p);
-
-#define digitalPinToPort(p)     ( get_GPIO_Port(digitalToPinName(p)) )
-#define digitalPinToBitMask(p)  ( STM_GPIO_PIN(digitalToPinName(p)) )
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION                12
@@ -102,7 +70,7 @@ uint32_t pinNametoPinNumber(PinName p);
 //On-board user button
 #define USER_BTN                23
 
-//SPI defintions
+//SPI definitions
 //define 16 channels. As many channel as digital IOs
 #define SPI_CHANNELS_NUM        16
 
@@ -135,8 +103,13 @@ uint32_t pinNametoPinNumber(PinName p);
 
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           0
+#define PIN_SERIAL_TX           1
+#define PIN_SERIAL1_RX          2
+#define PIN_SERIAL1_TX          8
+#define PIN_SERIAL2_RX          30
+#define PIN_SERIAL2_TX          16
 
 #ifdef __cplusplus
 } // extern "C"
@@ -166,7 +139,7 @@ extern HardwareSerial Serial2;
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial1
+#define SERIAL_PORT_HARDWARE  Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
