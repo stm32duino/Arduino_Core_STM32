@@ -135,10 +135,6 @@ uint32_t pinNametoPinNumber(PinName p);
 
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
-// UART Emulation
-#define UART_EMUL_RX            PB13
-#define UART_EMUL_TX            PB14
-
 //Enable Firmata
 #define STM32 1
 
