@@ -111,6 +111,7 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
   uint32_t spi_freq = SystemCoreClock;
 
 #ifdef STM32F0xx
+  UNUSED(spi_inst);
   /* SPIx source CLK is PCKL1 */
   spi_freq = HAL_RCC_GetPCLK1Freq();
 #else

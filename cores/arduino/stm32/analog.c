@@ -93,7 +93,9 @@
 #error "ADC_CLOCK_DIV could not be defined"
 #endif
 
+#ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
+#endif
 /**
   * @}
   */
