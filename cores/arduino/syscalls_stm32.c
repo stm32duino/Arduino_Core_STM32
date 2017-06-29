@@ -115,7 +115,7 @@ extern int _read(UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) )
 
 extern int _write( UNUSED(int file), char *ptr, int len )
 {
-  uart_debug_write(ptr, len);
+  uart_debug_write((uint8_t *)ptr, len);
 
   return len ;
 }
