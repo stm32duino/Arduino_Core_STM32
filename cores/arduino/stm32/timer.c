@@ -672,7 +672,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef* tim)
 {
   RCC_ClkInitTypeDef    clkconfig = {};
   uint32_t              pFLatency = 0U;
-  uint32_t              uwTimclock, uwAPBxPrescaler = 0U;
+  uint32_t              uwTimclock = 0U, uwAPBxPrescaler = 0U;
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
