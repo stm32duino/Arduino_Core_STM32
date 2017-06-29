@@ -290,13 +290,40 @@ Other_board.menu.Other_board.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_m
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 #To enable Serial2 (USART2 on PA3, PA2) add -DENABLE_SERIAL2
 #To enable Serial3 (USART3 on PB11, PB10) add -DENABLE_SERIAL3
-Other_board.menu.Other_board.BLUEPILL_F103C8.build.extra_flags=-DSTM32F103xB {build.usb_flags} -DSERIAL_USB -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc" {build.upload_flags}
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
 
+# MAPLEMINI_F103CB board
+
+Other_board.menu.Other_board.MAPLEMINI_F103CB=MapleMini F103CB
+Other_board.menu.Other_board.MAPLEMINI_F103CB.node=NODE_F103CB
+Other_board.menu.Other_board.MAPLEMINI_F103CB.upload.maximum_size=131072
+Other_board.menu.Other_board.MAPLEMINI_F103CB.upload.maximum_data_size=20480
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.mcu=cortex-m3
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.f_cpu=72000000L
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.usb_product="MAPLEMINI-F103CB"
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.series=STM32F1xx
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
+#To enable USB add '-DUSBCON'
+#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+#To enable Serial2 (USART2 on PA3, PA2) add -DENABLE_SERIAL2
+#To enable Serial3 (USART3 on PB11, PB10) add -DENABLE_SERIAL3
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
+
+
+Other_board.menu.upload_method.DFUUploadMethod1=Maple bootloader (original version for Maple boards)
+Other_board.menu.upload_method.DFUUploadMethod1.upload.protocol=maple_dfu
+Other_board.menu.upload_method.DFUUploadMethod1.upload.tool=maple_upload
+Other_board.menu.upload_method.DFUUploadMethod1.build.upload_flags=-DSERIAL_USB -DVECT_TAB_OFFSET=0x5000
+Other_board.menu.upload_method.DFUUploadMethod1.build.ldscript=bootloader_original.ld
+Other_board.menu.upload_method.DFUUploadMethod1.upload.usbID=1EAF:0003
+Other_board.menu.upload_method.DFUUploadMethod1.upload.altID=1
 
 Other_board.menu.upload_method.DFUUploadMethod=STM32duino bootloader
 Other_board.menu.upload_method.DFUUploadMethod.upload.protocol=maple_dfu
 Other_board.menu.upload_method.DFUUploadMethod.upload.tool=maple_upload
-Other_board.menu.upload_method.DFUUploadMethod.build.upload_flags=-DVECT_TAB_OFFSET=0x2000
+Other_board.menu.upload_method.DFUUploadMethod.build.upload_flags=-DSERIAL_USB -DVECT_TAB_OFFSET=0x2000
 Other_board.menu.upload_method.DFUUploadMethod.build.ldscript=bootloader.ld
 Other_board.menu.upload_method.DFUUploadMethod.upload.usbID=1EAF:0003
 Other_board.menu.upload_method.DFUUploadMethod.upload.altID=2
@@ -304,7 +331,7 @@ Other_board.menu.upload_method.DFUUploadMethod.upload.altID=2
 Other_board.menu.upload_method.STLinkMethod=STLink
 Other_board.menu.upload_method.STLinkMethod.upload.protocol=STLink
 Other_board.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
-Other_board.menu.upload_method.STLinkMethod.build.upload_flags=
+Other_board.menu.upload_method.STLinkMethod.build.upload_flags=-DSERIAL_USB
 
 Other_board.menu.upload_method.serialMethod=Serial
 Other_board.menu.upload_method.serialMethod.upload.protocol=maple_serial
@@ -315,7 +342,7 @@ Other_board.menu.upload_method.BMPMethod=BMP (Black Magic Probe)
 Other_board.menu.upload_method.BMPMethod.upload.protocol=gdb_bmp
 Other_board.menu.upload_method.BMPMethod.upload.tool=bmp_upload
 Other_board.menu.upload_method.BMPMethod.upload.speed=230400
-Other_board.menu.upload_method.BMPMethod.build.upload_flags=-DCONFIG_MAPLE_MINI_NO_DISABLE_DEBUG
+Other_board.menu.upload_method.BMPMethod.build.upload_flags=
 
 
 ################################################################################
