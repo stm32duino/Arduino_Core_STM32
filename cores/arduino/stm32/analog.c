@@ -292,7 +292,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NC) return;
+  if (DacHandle.Instance == NP) return;
   dacChannel = get_dac_channel(pin);
   if (!IS_DAC_CHANNEL(dacChannel)) return;
   if(do_init == 1) {
@@ -362,7 +362,7 @@ void dac_stop(PinName pin)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NC) return;
+  if (DacHandle.Instance == NP) return;
   dacChannel = get_dac_channel(pin);
   if (!IS_DAC_CHANNEL(dacChannel)) return;
 
@@ -553,7 +553,7 @@ uint16_t adc_read_value(PinName pin)
 
   AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
 
-  if (AdcHandle.Instance == NC) return 0;
+  if (AdcHandle.Instance == NP) return 0;
 
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
@@ -720,7 +720,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
 
   /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
   timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NC) return;
+  if (timHandle.Instance == NP) return;
   timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
   timHandle.Init.Period            = period -1;
   timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
@@ -781,7 +781,7 @@ void pwm_stop(PinName pin)
   uint32_t timChannel;
 
   timHandle.Instance = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NC) return;
+  if (timHandle.Instance == NP) return;
   timChannel = get_pwm_channel(pin);
   if (!IS_TIM_CHANNELS(timChannel)) return;
 

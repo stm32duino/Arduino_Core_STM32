@@ -390,10 +390,10 @@ void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 
   if(g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle != NULL) {
     if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE / 2)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, 0);
+      setTimerCounter((stimer_t *)g_uartEmul_config[UART1_EMUL_E]._timer->timer, 0);
     }
     else if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE/4*3)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, EMUL_TIMER_PERIOD - 1);
+      setTimerCounter((stimer_t *)g_uartEmul_config[UART1_EMUL_E]._timer->timer, EMUL_TIMER_PERIOD - 1);
     }
     else {
       g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();

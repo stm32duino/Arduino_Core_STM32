@@ -128,13 +128,13 @@ void uart_init(serial_t *obj)
   GPIO_TypeDef *port;
 
   // Determine the UART to use (UART_1, UART_2, ...)
-  uint32_t uart_tx = (uint32_t)pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
-  uint32_t uart_rx = (uint32_t)pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
+  USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
+  USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
   // Get the peripheral name (UART_1, UART_2, ...) from the pin and assign it to the object
-  obj->uart = (USART_TypeDef *)pinmap_merge(uart_tx, uart_rx);
+  obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 
-  if(obj->uart == (USART_TypeDef *)NC) {
+  if(obj->uart == NP) {
     printf("ERROR: UART pins mismatch\n");
     return;
   }
