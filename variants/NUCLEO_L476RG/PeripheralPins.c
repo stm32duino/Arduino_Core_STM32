@@ -75,7 +75,7 @@ const PinMap PinMap_ADC[] = {
 //  {PC4,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 13, 0)}, // ADC2_IN13
     {PC5,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 14, 0)}, // ADC1_IN14
 //  {PC5,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 14, 0)}, // ADC2_IN14
-    {NC,   NC,    0}
+    {NC,   NP,    0}
 };
 
 //*** DAC ***
@@ -83,7 +83,7 @@ const PinMap PinMap_ADC[] = {
 const PinMap PinMap_DAC[] = {
     {PA4,   DAC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // DAC1_OUT1
     {PA5,   DAC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 2, 0)}, // DAC1_OUT2 - LED
-    {NC,   NC,    0}
+    {NC,   NP,    0}
 };
 
 //*** I2C ***
@@ -94,7 +94,7 @@ const PinMap PinMap_I2C_SDA[] = {
     {PB11,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C2)},
     {PB14,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C2)},
     {PC1,   I2C3, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_I2C_SCL[] = {
@@ -103,7 +103,7 @@ const PinMap PinMap_I2C_SCL[] = {
     {PB10,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C2)},
     {PB13,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C2)},
     {PC0,   I2C3, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 //*** PWM ***
@@ -168,7 +168,7 @@ const PinMap PinMap_PWM[] = {
     {PC8,   TIM8,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF3_TIM8, 3, 0)},  // TIM8_CH3
 //  {PC9,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_TIM3, 4, 0)},  // TIM3_CH4
     {PC9,   TIM8,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF3_TIM8, 4, 0)},  // TIM8_CH4
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 //*** SERIAL ***
@@ -185,7 +185,7 @@ const PinMap PinMap_UART_TX[] = {
     {PC10,  UART4,   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_UART4)},
 //  {PC10,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART3)},
     {PC12,  UART5,   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_UART5)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_UART_RX[] = {
@@ -200,7 +200,7 @@ const PinMap PinMap_UART_RX[] = {
     {PC11,  UART4,   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_UART4)},
 //  {PC11,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART3)},
     {PD2,   UART5,   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_UART5)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_UART_RTS[] = {
@@ -213,7 +213,7 @@ const PinMap PinMap_UART_RTS[] = {
 //  {PB12,  LPUART1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_LPUART1)},
 //  {PB14,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART3)},
 //  {PD2,   USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_UART_CTS[] = {
@@ -225,7 +225,7 @@ const PinMap PinMap_UART_CTS[] = {
 //  {PB7,   UART4,   STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_UART4)},
 //  {PB13,  LPUART1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_LPUART1)},
 //  {PB13,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 //*** SPI ***
@@ -237,7 +237,7 @@ const PinMap PinMap_SPI_MOSI[] = {
     {PB15,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PC3,   SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PC12,  SPI3, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_SPI3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_SPI_MISO[] = {
@@ -247,7 +247,7 @@ const PinMap PinMap_SPI_MISO[] = {
     {PB14,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PC2,   SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PC11,  SPI3, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_SPI3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_SPI_SCLK[] = {
@@ -257,7 +257,7 @@ const PinMap PinMap_SPI_SCLK[] = {
     {PB10,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PB13,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PC10,  SPI3, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_SPI3)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_SPI_SSEL[] = {
@@ -267,7 +267,7 @@ const PinMap PinMap_SPI_SSEL[] = {
 //  {PA15,  SPI3, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_SPI3)},
     {PB9,   SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
     {PB12,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_SPI2)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 //*** CAN ***
@@ -275,11 +275,11 @@ const PinMap PinMap_SPI_SSEL[] = {
 const PinMap PinMap_CAN_RD[] = {
     {PA11,  CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
     {PB8,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };
 
 const PinMap PinMap_CAN_TD[] = {
     {PA12,  CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
     {PB9,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF9_CAN1)},
-    {NC,    NC,    0}
+    {NC,    NP,    0}
 };

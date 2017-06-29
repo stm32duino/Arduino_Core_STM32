@@ -128,13 +128,13 @@ void uart_init(serial_t *obj)
   GPIO_TypeDef *port;
 
   // Determine the UART to use (UART_1, UART_2, ...)
-  uint32_t uart_tx = (uint32_t)pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
-  uint32_t uart_rx = (uint32_t)pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
+  USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
+  USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
   // Get the peripheral name (UART_1, UART_2, ...) from the pin and assign it to the object
-  obj->uart = (USART_TypeDef *)pinmap_merge(uart_tx, uart_rx);
+  obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 
-  if(obj->uart == (USART_TypeDef *)NC) {
+  if(obj->uart == NP) {
     printf("ERROR: UART pins mismatch\n");
     return;
   }
@@ -254,55 +254,55 @@ void uart_deinit(serial_t *obj)
   // Reset UART and disable clock
   switch (obj->index) {
     case 0:
-        __USART1_FORCE_RESET();
-        __USART1_RELEASE_RESET();
-        __USART1_CLK_DISABLE();
+        __HAL_RCC_USART1_FORCE_RESET();
+        __HAL_RCC_USART1_RELEASE_RESET();
+        __HAL_RCC_USART1_CLK_DISABLE();
         break;
     case 1:
-        __USART2_FORCE_RESET();
-        __USART2_RELEASE_RESET();
-        __USART2_CLK_DISABLE();
+        __HAL_RCC_USART2_FORCE_RESET();
+        __HAL_RCC_USART2_RELEASE_RESET();
+        __HAL_RCC_USART2_CLK_DISABLE();
         break;
 #if defined(USART3_BASE)
     case 2:
-        __USART3_FORCE_RESET();
-        __USART3_RELEASE_RESET();
-        __USART3_CLK_DISABLE();
+        __HAL_RCC_USART3_FORCE_RESET();
+        __HAL_RCC_USART3_RELEASE_RESET();
+        __HAL_RCC_USART3_CLK_DISABLE();
         break;
 #endif
 #if defined(UART4_BASE)
     case 3:
-        __UART4_FORCE_RESET();
-        __UART4_RELEASE_RESET();
-        __UART4_CLK_DISABLE();
+        __HAL_RCC_UART4_FORCE_RESET();
+        __HAL_RCC_UART4_RELEASE_RESET();
+        __HAL_RCC_UART4_CLK_DISABLE();
         break;
 #endif
 #if defined(UART5_BASE)
     case 4:
-        __UART5_FORCE_RESET();
-        __UART5_RELEASE_RESET();
-        __UART5_CLK_DISABLE();
+        __HAL_RCC_UART5_FORCE_RESET();
+        __HAL_RCC_UART5_RELEASE_RESET();
+        __HAL_RCC_UART5_CLK_DISABLE();
         break;
 #endif
 #if defined(USART6_BASE)
     case 5:
-        __USART6_FORCE_RESET();
-        __USART6_RELEASE_RESET();
-        __USART6_CLK_DISABLE();
+        __HAL_RCC_USART6_FORCE_RESET();
+        __HAL_RCC_USART6_RELEASE_RESET();
+        __HAL_RCC_USART6_CLK_DISABLE();
         break;
 #endif
 #if defined(UART7_BASE)
     case 6:
-        __UART7_FORCE_RESET();
-        __UART7_RELEASE_RESET();
-        __UART7_CLK_DISABLE();
+        __HAL_RCC_UART7_FORCE_RESET();
+        __HAL_RCC_UART7_RELEASE_RESET();
+        __HAL_RCC_UART7_CLK_DISABLE();
         break;
 #endif
 #if defined(UART8_BASE)
     case 7:
-        __UART8_FORCE_RESET();
-        __UART8_RELEASE_RESET();
-        __UART8_CLK_DISABLE();
+        __HAL_RCC_UART8_FORCE_RESET();
+        __HAL_RCC_UART8_RELEASE_RESET();
+        __HAL_RCC_UART8_CLK_DISABLE();
         break;
 #endif
   }

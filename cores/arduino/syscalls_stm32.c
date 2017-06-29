@@ -41,6 +41,9 @@
 
 // Helper macro to mark unused parameters and prevent compiler warnings.
 // Appends _UNUSED to the variable name to prevent accidentally using them.
+#ifdef UNUSED
+#undef UNUSED
+#endif
 #ifdef __GNUC__
 #define UNUSED(x) x ## _UNUSED __attribute__((__unused__))
 #else
@@ -112,7 +115,7 @@ extern int _read(UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) )
 
 extern int _write( UNUSED(int file), char *ptr, int len )
 {
-  uart_debug_write(ptr, len);
+  uart_debug_write((uint8_t *)ptr, len);
 
   return len ;
 }

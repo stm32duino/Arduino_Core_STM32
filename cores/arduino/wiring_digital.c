@@ -17,6 +17,7 @@
 */
 
 #include "Arduino.h"
+#include "PinConfigured.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -85,8 +86,8 @@ int digitalRead( uint32_t ulPin )
     if(is_pin_configured(p, g_digPinConfigured)) {
       level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
     }
-  return (level)? HIGH : LOW;
   }
+  return (level)? HIGH : LOW;
 }
 
 #ifdef __cplusplus

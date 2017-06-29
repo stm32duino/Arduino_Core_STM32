@@ -771,8 +771,7 @@ writePort(port, value, bitmask):  Write an 8 bit port.
 #define TOTAL_PORTS             MAX_NB_PORT
 #define VERSION_BLINK_PIN       LED_BUILTIN
 // PIN_SERIALY_RX/TX defined in the variant.h
-#define IS_PIN_DIGITAL(p)       ((p != PIN_SERIAL_RX) && (p != PIN_SERIAL_TX) &&\
-                                 (p >= 0) && (p < TOTAL_PINS))
+#define IS_PIN_DIGITAL(p)       ((p != PIN_SERIAL_RX) && (p != PIN_SERIAL_TX) && (p < TOTAL_PINS))
 #define IS_PIN_ANALOG(p)        ((p) >= A0 && (p) < AEND)
 #define IS_PIN_PWM(p)           digitalPinHasPWM(p)
 #define IS_PIN_SERVO(p)         IS_PIN_DIGITAL(p)

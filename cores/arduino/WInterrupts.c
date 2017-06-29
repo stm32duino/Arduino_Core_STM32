@@ -27,7 +27,7 @@ void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
   uint32_t it_mode;
   PinName p = digitalPinToPinName(pin);
   GPIO_TypeDef* port = set_GPIO_Port_Clock(STM_PORT(p));
-  if (port == NC)
+  if (!port)
 	  return;
 
   switch(mode) {
@@ -53,7 +53,7 @@ void detachInterrupt(uint32_t pin)
 {
   PinName p = digitalPinToPinName(pin);
   GPIO_TypeDef* port = get_GPIO_Port(STM_PORT(p));
-  if (port == NC)
+  if (!port)
 	  return;
   stm32_interrupt_disable(port, STM_GPIO_PIN(p));
 }

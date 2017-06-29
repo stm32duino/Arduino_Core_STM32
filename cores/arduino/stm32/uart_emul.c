@@ -131,7 +131,7 @@ uint8_t g_rx_data[1];
 /** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
   * @{
   */
-static void uart_emul_timer_irq(stimer_t *obj) {g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();}
+static void uart_emul_timer_irq(stimer_t *obj) {UNUSED(obj); g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();}
 
 /**
   * @}
@@ -152,6 +152,7 @@ void HAL_UART_Emul_MspInit(UART_Emul_HandleTypeDef *huart)
   GPIO_InitTypeDef          GPIO_InitStruct;
   GPIO_TypeDef *port_rx;
   GPIO_TypeDef *port_tx;
+  UNUSED(huart);
 
   // Enable GPIO clock
   port_rx = set_GPIO_Port_Clock(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_rx));
@@ -189,6 +190,7 @@ void HAL_UART_Emul_MspDeInit(UART_Emul_HandleTypeDef *huart)
 {
   GPIO_TypeDef *port_rx = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_rx));
   GPIO_TypeDef *port_tx = get_GPIO_Port(STM_PORT(g_uartEmul_config[UART1_EMUL_E].pin_tx));
+  UNUSED(huart);
 
   __UART_EMUL_CLK_DISABLE();
 
@@ -388,10 +390,10 @@ void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 
   if(g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle != NULL) {
     if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE / 2)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, 0);
+      setTimerCounter((stimer_t *)g_uartEmul_config[UART1_EMUL_E]._timer->timer, 0);
     }
     else if(uart_emul_available(UART1_EMUL_E) < (UART_RCV_SIZE/4*3)) {
-      setTimerCounter(g_uartEmul_config[UART1_EMUL_E]._timer->timer, EMUL_TIMER_PERIOD - 1);
+      setTimerCounter((stimer_t *)g_uartEmul_config[UART1_EMUL_E]._timer->timer, EMUL_TIMER_PERIOD - 1);
     }
     else {
       g_uartEmul_config[UART1_EMUL_E].uart_rx_irqHandle();

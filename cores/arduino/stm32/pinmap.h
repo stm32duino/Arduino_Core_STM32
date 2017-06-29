@@ -27,20 +27,23 @@
 extern "C" {
 #endif
 
+// No peripheral
+#define NP       0U
+
 typedef struct {
     PinName pin;
-    int peripheral;
+    void* peripheral;
     int function;
 } PinMap;
 
 bool pin_in_pinmap(PinName pin, const PinMap* map);
 void pin_function(PinName pin, int function);
 
-uint32_t pinmap_peripheral(PinName pin, const PinMap* map);
+void* pinmap_peripheral(PinName pin, const PinMap* map);
 uint32_t pinmap_function(PinName pin, const PinMap* map);
-uint32_t pinmap_find_peripheral(PinName pin, const PinMap* map);
+void* pinmap_find_peripheral(PinName pin, const PinMap* map);
 uint32_t pinmap_find_function(PinName pin, const PinMap* map);
-uint32_t pinmap_merge(uint32_t a, uint32_t b);
+void* pinmap_merge_peripheral(void* a, void* b);
 
 #ifdef __cplusplus
 }
