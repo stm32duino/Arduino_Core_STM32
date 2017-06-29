@@ -255,6 +255,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
   GPIO_InitTypeDef          GPIO_InitStruct;
   GPIO_TypeDef *port;
+  UNUSED(hdac);
+
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* Enable GPIO clock ****************************************/
   port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
@@ -338,6 +340,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   */
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
+  UNUSED(hdac);
   /* DAC Periph clock disable */
 #ifdef __HAL_RCC_DAC1_CLK_DISABLE
   __HAL_RCC_DAC1_CLK_DISABLE();
