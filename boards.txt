@@ -338,7 +338,29 @@ Other.menu.board_part_num.BLUEPILL_F103C8.build.product_line=STM32F103xB
 Other.menu.board_part_num.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
 Other.menu.board_part_num.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# MAPLEMINI_F103CB board
+# Support: USB HID, Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+Other.menu.board_part_num.MAPLEMINI_F103CB=MapleMini F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.node=NODE_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.upload.maximum_size=131072
+Other.menu.board_part_num.MAPLEMINI_F103CB.upload.maximum_data_size=20480
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.mcu=cortex-m3
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.f_cpu=72000000L
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.series=STM32F1xx
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.product_line=STM32F103xB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # Upload menu
+Other.menu.upload_method.DFUUploadMethod1=Maple bootloader (original version for Maple boards)
+Other.menu.upload_method.DFUUploadMethod1.upload.protocol=maple_dfu
+Other.menu.upload_method.DFUUploadMethod1.upload.tool=maple_upload
+Other.menu.upload_method.DFUUploadMethod1.build.upload_flags=-DSERIAL_USB -DVECT_TAB_OFFSET=0x5000
+Other.menu.upload_method.DFUUploadMethod1.build.ldscript=bootloader_original.ld
+Other.menu.upload_method.DFUUploadMethod1.upload.usbID=1EAF:0003
+Other.menu.upload_method.DFUUploadMethod1.upload.altID=1
+
 Other.menu.upload_method.DFUUploadMethod=STM32duino bootloader
 Other.menu.upload_method.DFUUploadMethod.upload.protocol=maple_dfu
 Other.menu.upload_method.DFUUploadMethod.upload.tool=maple_upload
