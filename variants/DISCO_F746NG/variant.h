@@ -20,16 +20,6 @@
 #define _VARIANT_ARDUINO_STM32_
 
 /*----------------------------------------------------------------------------
- *        Definitions
- *----------------------------------------------------------------------------*/
-
-/** Frequency of the board main oscillator */
-//#define VARIANT_MAINOSC		12000000
-
-/** Master clock frequency */
-//#define VARIANT_MCK			84000000
-
-/*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
@@ -39,24 +29,17 @@
 extern "C"{
 #endif // __cplusplus
 
-/**
- * Libc porting layers
- */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-#    include <syscalls.h> /** RedHat Newlib minimal stub */
-#endif
-
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
 #include "PeripheralPins.h"
 
-extern const PinName digital_arduino[];
+extern const PinName digitalPin[];
 
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
   D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22,
+  D20, D21, D22, D23, D24,
   DEND
 };
 
@@ -65,23 +48,6 @@ enum {
   A0,  A1,  A2,  A3,  A4,  A5,
   AEND
 };
-
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
-#define MAX_DIGITAL_IOS         DEND
-#define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
-#define NUM_ANALOG_INPUTS       (AEND - A0)
-
-// Convert a digital pin number Dxx to a PinName Pxy
-#define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
-// Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      (digitalToPinName(p))
-// Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      (p)
-// Convert a PinName Pxy to a pin number
-uint32_t pinNametoPinNumber(PinName p);
-
-#define digitalPinToPort(p)     ( get_GPIO_Port(digitalToPinName(p)) )
-#define digitalPinToBitMask(p)  ( STM_GPIO_PIN(digitalToPinName(p)) )
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12
@@ -137,8 +103,13 @@ uint32_t pinNametoPinNumber(PinName p);
 //#define UART_EMUL_RX            PYxx
 //#define UART_EMUL_TX            PYxx
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           23
+#define PIN_SERIAL_TX           24
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          21
+#define PIN_SERIAL2_TX          20
 
 #ifdef __cplusplus
 } // extern "C"

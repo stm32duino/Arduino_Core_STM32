@@ -20,16 +20,6 @@
 #define _VARIANT_ARDUINO_STM32_
 
 /*----------------------------------------------------------------------------
- *        Definitions
- *----------------------------------------------------------------------------*/
-
-/** Frequency of the board main oscillator */
-//#define VARIANT_MAINOSC		12000000
-
-/** Master clock frequency */
-//#define VARIANT_MCK			84000000
-
-/*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
@@ -39,19 +29,12 @@
 extern "C"{
 #endif // __cplusplus
 
-/**
- * Libc porting layers
- */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-#    include <syscalls.h> /** RedHat Newlib minimal stub */
-#endif
-
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
 #include "PeripheralPins.h"
 
-extern const PinName digital_arduino[];
+extern const PinName digitalPin[];
 
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
@@ -62,32 +45,17 @@ enum {
   D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
   D60, D61, D62, D63, D64, D65, D66, D67, D68, D69,
   D70, D71, D72, D73, D74, D75, D76, D77, D78, D79,
-  D80, D81,
+  D80, D81, D82, D83, D84, D85, D86, D87, D88, D89,
+  D90, D91, D92, D93, D94, D95,
   DEND
 };
 
 enum {
-  A_START_AFTER = D72,
-  A0,  A1,  A2,  A3,  A4,  A5,
+  A_START_AFTER = D77,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
+  A10, A11, A12, A13, A14, A15, A16, A17,
   AEND
 };
-
-#define MAX_ANALOG_IOS          (sizeof(PinMap_ADC)/sizeof(PinMap))
-#define MAX_DIGITAL_IOS         DEND
-#define NUM_DIGITAL_PINS        MAX_DIGITAL_IOS
-#define NUM_ANALOG_INPUTS       (AEND - A0)
-
-// Convert a digital pin number Dxx to a PinName Pxy
-#define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
-// Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      (digitalToPinName(p))
-// Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      (p)
-// Convert a PinName Pxy to a pin number
-uint32_t pinNametoPinNumber(PinName p);
-
-#define digitalPinToPort(p)     ( get_GPIO_Port(digitalToPinName(p)) )
-#define digitalPinToBitMask(p)  ( STM_GPIO_PIN(digitalToPinName(p)) )
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12
@@ -101,11 +69,11 @@ uint32_t pinNametoPinNumber(PinName p);
 //On-board LED pin number
 #define LED_BUILTIN             33
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                79
-#define LED_RED                 80
+#define LED_BLUE                73
+#define LED_RED                 74
 
 //On-board user button
-#define USER_BTN                81
+#define USER_BTN                75
 
 
 //SPI definitions
@@ -145,8 +113,15 @@ uint32_t pinNametoPinNumber(PinName p);
 #define UART_EMUL_RX            PF15
 #define UART_EMUL_TX            PE13
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           76
+#define PIN_SERIAL_TX           77
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          52
+#define PIN_SERIAL2_TX          53
+
+
 
 //Ethernet configuration
 /** Select the Low level Ethernet mode: MII or RMII.

@@ -45,14 +45,14 @@ void (*TwoWire::user_onReceive)(int);
 
 TwoWire::TwoWire()
 {
-  _i2c.sda = digitalToPinName(SDA);
-  _i2c.scl = digitalToPinName(SCL);
+  _i2c.sda = digitalPinToPinName(SDA);
+  _i2c.scl = digitalPinToPinName(SCL);
 }
 
 TwoWire::TwoWire(uint8_t sda, uint8_t scl)
 {
-  _i2c.sda = digitalToPinName(sda);
-  _i2c.scl = digitalToPinName(scl);
+  _i2c.sda = digitalPinToPinName(sda);
+  _i2c.scl = digitalPinToPinName(scl);
 }
 
 // Public Methods //////////////////////////////////////////////////////////////
@@ -107,22 +107,24 @@ void TwoWire::setClock(uint32_t frequency)
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
 {
+  UNUSED(sendStop);
   if (master == true) {
     if (isize > 0) {
-    // send internal address; this mode allows sending a repeated start to access
-    // some devices' internal registers. This function is executed by the hardware
-    // TWI module on other processors (for example Due's TWI_IADR and TWI_MMR registers)
+      // send internal address; this mode allows sending a repeated start to access
+      // some devices' internal registers. This function is executed by the hardware
+      // TWI module on other processors (for example Due's TWI_IADR and TWI_MMR registers)
 
-    beginTransmission(address);
+      beginTransmission(address);
 
-    // the maximum size of internal address is 3 bytes
-    if (isize > 3){
-      isize = 3;
-    }
+      // the maximum size of internal address is 3 bytes
+      if (isize > 3){
+        isize = 3;
+      }
 
-    // write internal register address - most significant byte first
-    while (isize-- > 0)
-      write((uint8_t)(iaddress >> (isize*8)));
+      // write internal register address - most significant byte first
+      while (isize-- > 0) {
+        write((uint8_t)(iaddress >> (isize*8)));
+      }
       endTransmission(false);
     }
 
@@ -196,6 +198,7 @@ void TwoWire::beginTransmission(int address)
 //
 uint8_t TwoWire::endTransmission(uint8_t sendStop)
 {
+  UNUSED(sendStop);
   int8_t ret = 4;
 
   if (master == true) {

@@ -206,6 +206,7 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
   */
 void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 {
+  UNUSED(port);
   uint8_t id = get_pin_id(pin);
   gpio_irq_conf[id].callback = NULL;
 

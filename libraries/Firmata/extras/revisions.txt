@@ -1,9 +1,60 @@
+FIRMATA 2.5.6 - Mar 18, 2017
+
+[core library]
+* Fixed string encoder/decoder bug that also affected I2C (Zak Fields)
+* Added support for Arduino Primo (chiararuggeri)
+* Added unit tests for Firmata string message encoding/decoding
+
+FIRMATA 2.5.5 - Mar 6, 2017
+
+[core library]
+* Updated BLEStream for compatibility with CurieBLE v2 (Sandeep Mistry)
+* Added support for MKRZero (Sandeep Mistry)
+
+This update also includes a number of changes from an ongoing refactor by
+Zak Fields of the Firmata core. These changes don't impact user facing sketches,
+they are all internal only. Changes include:
+
+* Split out parser logic into new lib free of Arduino-specific dependencies.
+* Add new class to support cross platform marshalling of Firmata procedure calls.
+* Split out core constants to separate file.
+* Split out core defines to separate file.
+* Added firmata namespace to core library classes.
+
+FIRMATA 2.5.4 - Oct 23, 2016
+
+[core library]
+* Added Teensy 3.5 and 3.6 to Boards.h
+* Assign blinkVersionDisabled in constructor to fix compiler issue in Arduino 1.0.6
+
+[StandardFirmata & variants]
+* Only disable PWM when setting pinMode to OUTPUT if pinMode was previously PWM
+* Forward declare some functions to fix compiler issues with older IDE versions
+
+FIRMATA 2.5.3 - Jun 18, 2016
+
+[core library]
+* Added ESP8266 support (Jens B. & Jacob Rosenthal)
+* Added host connection callback (Jens B.)
+* Added Wi-Fi TCP client (Jens B.)
+* Added BLE transport (BLEStream based on BLESerial by Volta Molda)
+* Fixed Arduino Galileo and Edison compile issues
+
+[StandardFirmata & variants]
+* Added StandardFirmataBLE (for use with Arduino 101)
+* Added ability to choose between Wi-Fi TCP client or server (Jens B.)
+* Various updates to StandardFirmataWiFi (Jens B.)
+* Increased I2C RX data buffer from 32 to 64 bytes (Rick Waldron)
+* Removed StandardFirmataEthernetPlus
+* Made StandardFirmataEtherent configurable (to optionally add Plus functionality)
+* Improved configuration instructions for StandardFirmataEthernet and StandardFirmataWiFi
+
 FIRMATA 2.5.2 - Feb 15, 2016
 
 [core library]
 * Added Wi-Fi transport (Jesse Frush)
 * Added support for Arduino MKR1000 (Jesse Frush)
-* Moved Serial feature to own class SerialFimata
+* Moved Serial feature to own class SerialFirmata
 * Moved pin config and pin state handling to Firmata.cpp
 * Added new method disableBlinkVersion to provide a way to optionally bypass startup blink sequence
 

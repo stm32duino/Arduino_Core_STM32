@@ -151,12 +151,12 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   I2C_HandleTypeDef *handle = &(obj->handle);
 
   // Determine the I2C to use
-  uint32_t i2c_sda = pinmap_peripheral(obj->sda, PinMap_I2C_SDA);
-  uint32_t i2c_scl = pinmap_peripheral(obj->scl, PinMap_I2C_SCL);
+  I2C_TypeDef *i2c_sda = pinmap_peripheral(obj->sda, PinMap_I2C_SDA);
+  I2C_TypeDef *i2c_scl = pinmap_peripheral(obj->scl, PinMap_I2C_SCL);
 
-  obj->i2c = (I2C_TypeDef *)pinmap_merge(i2c_sda, i2c_scl);
+  obj->i2c = pinmap_merge_peripheral(i2c_sda, i2c_scl);
 
-  if(obj->i2c == (I2C_TypeDef *)NC) {
+  if(obj->i2c == NP) {
     printf("ERROR: I2C pins mismatch\n");
     return;
   }
