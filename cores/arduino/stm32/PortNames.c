@@ -35,54 +35,54 @@ GPIO_TypeDef *get_GPIO_Port(uint32_t port_idx) {
     GPIO_TypeDef* gpioPort = 0;
     switch (port_idx) {
         case PortA:
-            gpioPort = GPIOA_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOA_BASE;
             break;
         case PortB:
-            gpioPort = GPIOB_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOB_BASE;
             break;
 #if defined GPIOC_BASE
         case PortC:
-            gpioPort = GPIOC_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOC_BASE;
             break;
 #endif
 #if defined GPIOD_BASE
         case PortD:
-            gpioPort = GPIOD_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOD_BASE;
             break;
 #endif
 #if defined GPIOE_BASE
         case PortE:
-            gpioPort = GPIOE_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOE_BASE;
             break;
 #endif
 #if defined GPIOF_BASE
         case PortF:
-            gpioPort = GPIOF_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOF_BASE;
             break;
 #endif
 #if defined GPIOG_BASE
         case PortG:
-            gpioPort = GPIOG_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOG_BASE;
             break;
 #endif
 #if defined GPIOH_BASE
         case PortH:
-            gpioPort = GPIOH_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOH_BASE;
             break;
 #endif
 #if defined GPIOI_BASE
         case PortI:
-            gpioPort = GPIOI_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOI_BASE;
             break;
 #endif
 #if defined GPIOJ_BASE
         case PortJ:
-            gpioPort = GPIOJ_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOJ_BASE;
             break;
 #endif
 #if defined GPIOK_BASE
         case PortK:
-            gpioPort = GPIOK_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOK_BASE;
             break;
 #endif
         default:
@@ -99,64 +99,64 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx) {
     GPIO_TypeDef* gpioPort = 0;
     switch (port_idx) {
         case PortA:
-            gpioPort = GPIOA_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOA_BASE;
             __HAL_RCC_GPIOA_CLK_ENABLE();
             break;
         case PortB:
-            gpioPort = GPIOB_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOB_BASE;
             __HAL_RCC_GPIOB_CLK_ENABLE();
             break;
 #if defined GPIOC_BASE
         case PortC:
-            gpioPort = GPIOC_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOC_BASE;
             __HAL_RCC_GPIOC_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOD_BASE
         case PortD:
-            gpioPort = GPIOD_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOD_BASE;
             __HAL_RCC_GPIOD_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOE_BASE
         case PortE:
-            gpioPort = GPIOE_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOE_BASE;
             __HAL_RCC_GPIOE_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOF_BASE
         case PortF:
-            gpioPort = GPIOF_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOF_BASE;
             __HAL_RCC_GPIOF_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOG_BASE
         case PortG:
-            gpioPort = GPIOG_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOG_BASE;
             __HAL_RCC_GPIOG_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOH_BASE
         case PortH:
-            gpioPort = GPIOH_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOH_BASE;
             __HAL_RCC_GPIOH_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOI_BASE
         case PortI:
-            gpioPort = GPIOI_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOI_BASE;
             __HAL_RCC_GPIOI_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOJ_BASE
         case PortJ:
-            gpioPort = GPIOJ_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOJ_BASE;
             __HAL_RCC_GPIOJ_CLK_ENABLE();
             break;
 #endif
 #if defined GPIOK_BASE
         case PortK:
-            gpioPort = GPIOK_BASE;
+            gpioPort = (GPIO_TypeDef *)GPIOK_BASE;
             __HAL_RCC_GPIOK_CLK_ENABLE();
             break;
 #endif
