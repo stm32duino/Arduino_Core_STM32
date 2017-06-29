@@ -57,7 +57,10 @@
 #define I2C1_EV_IRQn                     I2C1_IRQn
 
 #elif defined(STM32F1xx)
-
+#define DAC1                              DAC
+#define TIM15_IRQn                        TIM1_BRK_TIM15_IRQn
+#define TIM16_IRQn                        TIM1_UP_TIM16_IRQn
+#define TIM17_IRQn                        TIM1_TRG_COM_TIM17_IRQn
 #elif defined(STM32F2xx)
 
 #elif defined(STM32F3xx)

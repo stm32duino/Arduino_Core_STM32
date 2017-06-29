@@ -94,7 +94,6 @@ Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.upload.maximum_size=131071
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.upload.maximum_data_size=20479
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.mcu=cortex-m3
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.f_cpu=72000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.usb_product="NUCLEO-F103RB"
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.board=NUCLEO_F103RB
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.series=STM32F1xx
 Nucleo_64.menu.Nucleo_64_board.NUCLEO_F103RB.build.variant=NUCLEO_F103RB
@@ -206,6 +205,22 @@ Disco.pid.0=0x5711
 Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
+
+#DISCO_F100RB board
+
+Disco_board.menu.Disco_board.DISCO_F100RB=STM32F100RB-DISCVL
+Disco_board.menu.Disco_board.DISCO_F100RB.node=DIS_F100RB
+Disco_board.menu.Disco_board.DISCO_F100RB.upload.maximum_size=131071
+Disco_board.menu.Disco_board.DISCO_F100RB.upload.maximum_data_size=8192
+Disco_board.menu.Disco_board.DISCO_F100RB.build.mcu=cortex-m3
+Disco_board.menu.Disco_board.DISCO_F100RB.build.f_cpu=24000000L
+Disco_board.menu.Disco_board.DISCO_F100RB.build.board=DISCO_F100RB
+Disco_board.menu.Disco_board.DISCO_F100RB.build.series=STM32F1xx
+Disco_board.menu.Disco_board.DISCO_F100RB.build.variant=DISCO_F100RB
+Disco_board.menu.Disco_board.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
+#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
+#To enable Serial2 (USART3 on PB11, PB10) add -DENABLE_SERIAL2
+Disco_board.menu.Disco_board.DISCO_F100RB.build.extra_flags=-DSTM32F100xB
 
 # DISCO_F407VG board
 # Support: USB HID
