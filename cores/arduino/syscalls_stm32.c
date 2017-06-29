@@ -41,6 +41,9 @@
 
 // Helper macro to mark unused parameters and prevent compiler warnings.
 // Appends _UNUSED to the variable name to prevent accidentally using them.
+#ifdef UNUSED
+#undef UNUSED
+#endif
 #ifdef __GNUC__
 #define UNUSED(x) x ## _UNUSED __attribute__((__unused__))
 #else
