@@ -301,6 +301,20 @@ Disco.menu.board_part_num.DISCO_F746NG.build.product_line=STM32F746xx
 Disco.menu.board_part_num.DISCO_F746NG.build.variant=DISCO_F746NG
 Disco.menu.board_part_num.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
 
+# DISCO_L475VG_IOT board
+# Support: USB HID, Serial1 (USART1 on PA1, PA0)
+Disco.menu.board_part_num.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
+Disco.menu.board_part_num.DISCO_L475VG_IOT.node=DIS_L4IOT
+Disco.menu.board_part_num.DISCO_L475VG_IOT.upload.maximum_size=1048576
+Disco.menu.board_part_num.DISCO_L475VG_IOT.upload.maximum_data_size=98304
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.mcu=cortex-m4
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.f_cpu=80000000L
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.board=DISCO_L475VG_IOT
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.series=STM32L4xx
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.product_line=STM32L475xx
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.variant=DISCO_L475VG_IOT
+Disco.menu.board_part_num.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 Disco.menu.upload_method.MassStorageMethod=Mass Storage
 Disco.menu.upload_method.MassStorageMethod.upload.protocol=
