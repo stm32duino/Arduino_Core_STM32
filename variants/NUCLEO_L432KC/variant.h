@@ -39,17 +39,13 @@ extern const PinName digitalPin[];
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
   D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
-  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
-  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51, D52, D53, D54, D55, D56, D57,
+  D20, D21, D22,
   DEND
 };
 
 enum {
-  A_START_AFTER = D45,
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
-  A10, A11,
+  A_START_AFTER = D13,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,
   AEND
 };
 
@@ -67,51 +63,43 @@ enum {
 #define LED_GREEN               LED_BUILTIN
 
 //On-board user button
-#define USER_BTN                23
+//#define USER_BTN                NC
 
 
 //SPI definitions
 //define 16 channels. As many channel as digital IOs
 #define SPI_CHANNELS_NUM        16
 
-//default chip salect pin
+//default chip select pin
 #define BOARD_SPI_DEFAULT_SS    10
 
 //In case SPI CS channel is not used we define a default one
 #define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
 
 #define SS                      BOARD_SPI_DEFAULT_SS
-#define SS1                     4
-#define SS2                     7
-#define SS3                     8
 #define MOSI                    11
 #define MISO                    12
 #define SCLK                    13
 #define SCK                     SCLK
 
 //I2C Definitions
-#define SDA                     14
-#define SCL                     15
+#define SDA                     4
+#define SCL                     5
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM6
-#define TIMER_UART_EMULATED     TIM7
 
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
-// UART Emulation
-#define UART_EMUL_RX            PB13
-#define UART_EMUL_TX            PB14
-
 // Serial Pin Firmata
-#define PIN_SERIAL_RX           0
-#define PIN_SERIAL_TX           1
-#define PIN_SERIAL1_RX          2
-#define PIN_SERIAL1_TX          8
+#define PIN_SERIAL_RX           22
+#define PIN_SERIAL_TX           21
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
 
 #ifdef __cplusplus
 } // extern "C"

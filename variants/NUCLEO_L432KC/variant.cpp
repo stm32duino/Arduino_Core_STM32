@@ -24,70 +24,29 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PA3,  //D0
-  PA2,  //D1
-  PA10, //D2
-  PB3,  //D3
-  PB5,  //D4
-  PB4,  //D5
-  PB10, //D6
-  PA8,  //D7
-  PA9,  //D8
-  PC7,  //D9
-  PB6,  //D10
-  PA7,  //D11
-  PA6,  //D12
-  PA5,  //D13 - LED
-  PB9,  //D14
-  PB8,  //D15
-// ST Morpho
-// CN7 Left Side
-  PC10, //D16
-  PC12, //D17
-  NC,   //D18 - BOOT0
-  PA13, //D19 - SWD
-  PA14, //D20 - SWD
-  PA15, //D21
-  PB7,  //D22
-  PC13, //D23
-  PC14, //D24
-  PC15, //D25
-  PH0,  //D26
-  PH1,  //D27
-  PC2,  //D28
-  PC3,  //D29
-// CN7 Right Side
-  PC11, //D30
-  PD2,  //D31
-// CN10 Left Side
-  PC9,  //D32
-// CN10 Right side
-  PC8,  //D33
-  PC6,  //D34
-  PC5,  //D35
-  PA12, //D36
-  PA11, //D37
-  PB12, //D38
-  PB11, //D39
-  PB2,  //D40
-  PB1,  //D41
-  PB15, //D42
-  PB14, //D43
-  PB13, //D44
-  PC4,  //D45
-  PA0,  //D46/A0
-  PA1,  //D47/A1
-  PA4,  //D48/A2
-  PB0,  //D49/A3
-  PC1,  //D50/A4
-  PC0,  //D51/A5
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA7,  //D52/A6  = D11
-  PA6,  //D53/A7  = D12
-  PC2,  //D54/A8  = D28
-  PC3,  //D55/A9  = D29
-  PC5,  //D56/A10 = D35
-  PC4   //D57/A11 = D45
+  PA10, //D0
+  PA9,  //D1
+  PA12, //D2
+  PB0,  //D3
+  PB7,  //D4
+  PB6,  //D5
+  PB1,  //D6
+  PC14, //D7
+  PC15, //D8
+  PA8,  //D9
+  PA11, //D10
+  PB5,  //D11
+  PB4,  //D12
+  PB3,  //D13 - LED
+  PA0,  //D14/A0
+  PA1,  //D15/A1
+  PA3,  //D16/A2
+  PA4,  //D17/A3
+  PA5,  //D18/A4
+  PA6,  //D19/A5
+  PA7,  //D20/A6
+  PA2,  //D21/A7 - STLink Tx
+  PA15  //D22 - STLink Rx
 };
 
 #ifdef __cplusplus
@@ -97,7 +56,7 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
+HardwareSerial  Serial(PA15, PA2); //Connected to ST-Link
 #ifdef ENABLE_SERIAL1
 HardwareSerial  Serial1(PA10, PA9);
 #endif
@@ -144,8 +103,8 @@ extern "C" {
   */
 WEAK void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+  RCC_OscInitTypeDef RCC_OscInitStruct = {};
 
   /* MSI is enabled after System reset, activate PLL with MSI as source */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
