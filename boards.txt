@@ -1,6 +1,7 @@
 # See: http://code.google.com/p/arduino/wiki/Platforms
 
 menu.upload_method=Upload method
+menu.Nucleo_32_board=Nucleo 32 boards
 menu.Nucleo_64_board=Nucleo 64 boards
 menu.Nucleo_144_board=Nucleo 144 boards
 menu.Disco_board=Discovery boards
@@ -143,6 +144,44 @@ Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
 Nucleo_64.menu.upload_method.STLinkMethod=STLink
 Nucleo_64.menu.upload_method.STLinkMethod.upload.protocol=STLink
 Nucleo_64.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+################################################################################
+# Nucleo 32 boards
+
+Nucleo_32.name=Nucleo-32
+
+Nucleo_32.build.vid=0x0483
+Nucleo_32.build.pid=0x5711
+Nucleo_32.vid.0=0x0483
+Nucleo_32.pid.0=0x5711
+
+Nucleo_32.build.core=arduino
+Nucleo_32.build.board=Nucleo_32
+
+# NUCLEO_L432KC board
+
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC=Nucleo L432KC
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.node=NODE_L432KC
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.upload.maximum_size=65536
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.upload.maximum_data_size=262144
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.mcu=cortex-m4
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.f_cpu=80000000L
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.usb_product="NUCLEO-L432KC"
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.board=NUCLEO_L432KC
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.series=STM32L4xx
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
+#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
+Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.extra_flags=-DSTM32L432xx {build.usb_flags}
+
+
+Nucleo_32.menu.upload_method.MassStorageMethod=Mass Storage
+Nucleo_32.menu.upload_method.MassStorageMethod.upload.protocol=
+Nucleo_32.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
+
+Nucleo_32.menu.upload_method.STLinkMethod=STLink
+Nucleo_32.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Nucleo_32.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
 ################################################################################
 # Discovery boards
