@@ -48,8 +48,12 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-#define FLASH_SECTOR_SIZE     ((uint32_t)(16*1024)) //16kB page
-#define E2END FLASH_SECTOR_SIZE
+
+#if defined (STM32F2xx) || defined (STM32F4xx) || defined (STM32F7xx)
+//FLASH_SECTOR_SIZE
+#define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) //16kB page
+#endif
+#define E2END FLASH_PAGE_SIZE
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
