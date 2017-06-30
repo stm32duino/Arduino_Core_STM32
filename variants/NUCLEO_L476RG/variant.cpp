@@ -146,8 +146,6 @@ WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
-  RCC_PeriphCLKInitTypeDef PeriphClkInit;
-
 
   /* MSI is enabled after System reset, activate PLL with MSI as source */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_MSI;
