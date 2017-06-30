@@ -180,8 +180,8 @@ void set_data_to_flash(void)
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else // STM32F4xx
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
-  EraseInitStruct.NbPages = 1;
 #endif
+  EraseInitStruct.NbPages = 1;
 
   if(HAL_FLASH_Unlock() == HAL_OK) {
 #ifdef STM32L0xx
