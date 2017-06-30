@@ -110,6 +110,7 @@ enum {
 
 #if defined(SERIAL_USB) && defined(USBCON) && !defined(USB_DISC_PIN)
 #define USB_DISC_PIN 34
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
