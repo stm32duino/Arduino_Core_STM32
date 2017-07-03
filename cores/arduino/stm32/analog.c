@@ -615,9 +615,9 @@ uint16_t adc_read_value(PinName pin)
     return 0;
   }
 
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L4xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L4xx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
-#if defined (STM32F0xx)
+#if defined (STM32F0xx) || defined (STM32F1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
 #else
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
