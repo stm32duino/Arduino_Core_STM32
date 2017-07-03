@@ -41,11 +41,12 @@ enum {
  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
+ D40, D41, D42, D43, D44,
  DEND
 };
 
 enum {
- A_START_AFTER = D29,
+ A_START_AFTER = D34,
  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
  AEND
 };
@@ -60,8 +61,8 @@ enum {
 #define PWM_MAX_DUTY_CYCLE            255
 
 //On-board LED pin number
-#define LED_BUILTIN             29
-#define LED_GREEN               LED_BUILTIN
+#define LED_BUILTIN                   32
+#define LED_GREEN                     LED_BUILTIN
 
 //SPI definitions
 //define 16 channels. As many channel as digital IOs
@@ -83,8 +84,8 @@ enum {
 #define SCK                     SCLK
 
 //I2C Definitions
-#define SDA                     26
-#define SCL                     25
+#define SDA                     23
+#define SCL                     22
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.
@@ -97,15 +98,15 @@ enum {
 #define DEBUG_UART              ((USART_TypeDef *) USART1)
 
 // Serial Pin Firmata
-#define PIN_SERIAL_RX           18
-#define PIN_SERIAL_TX           17
+#define PIN_SERIAL_RX           10
+#define PIN_SERIAL_TX           9
 #define PIN_SERIAL1_RX          3
 #define PIN_SERIAL1_TX          2
-#define PIN_SERIAL2_RX          11
-#define PIN_SERIAL2_TX          10
+#define PIN_SERIAL2_RX          27
+#define PIN_SERIAL2_TX          26
 
 #if defined(SERIAL_USB) && defined(USBCON)
-#define USB_DISC_PIN 20 //PA12 = USB Plus (+) pin number. That pin is normally pulled up to 3.3v by a 1.5k resistor
+#define USB_DISC_PIN 12 //PA12 = USB Plus (+) pin number. That pin is normally pulled up to 3.3v by a 1.5k resistor
 #endif
 
 #ifdef __cplusplus
