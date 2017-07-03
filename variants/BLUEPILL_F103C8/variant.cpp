@@ -22,9 +22,8 @@
 extern "C" {
 #endif
 
-// Pin number
+// Pin number following https://github.com/stm32duino/Arduino_Core_STM32F1/blob/master/variants/STM32F103C_BluePill/variant.h
 const PinName digitalPin[] = {
-  // Right side
   PA0,  //D0
   PA1,  //D1
   PA2,  //D2
@@ -33,40 +32,44 @@ const PinName digitalPin[] = {
   PA5,  //D5
   PA6,  //D6
   PA7,  //D7
-  PB0,  //D8
-  PB1,  //D9
-  PB10, //D10
-  PB11, //D11
-  // Left side
-  PB12, //D12
-  PB13, //D13
-  PB14, //D14
-  PB15, //D15
-  PA8,  //D16
-  PA9,  //D17
-  PA10, //D18
-  PA11, //D19
-  PA12, //D20
-  PA15, //D21
-  PB3,  //D22
-  PB4,  //D23
-  PB5,  //D24
-  PB6,  //D25
-  PB7,  //D26
-  PB8,  //D27
-  PB9,  //D28
-  PC13, //D29 - LED
+  PA8,  //D8
+  PA9,  //D9
+  PA10, //D10
+  PA11, //D11
+  PA12, //D12
+  PA13, //D13
+  PA14, //D14
+  PA15, //D15
+  PB0,  //D16
+  PB1,  //D17
+  PB2,  //D18
+  PB3,  //D19
+  PB4,  //D20
+  PB5,  //D21
+  PB6,  //D22
+  PB7,  //D23
+  PB8,  //D24
+  PB9,  //D25
+  PB10, //D26
+  PB11, //D27
+  PB12, //D28
+  PB13, //D29
+  PB14, //D30
+  PB15, //D31
+  PC13, //D32 - LED
+  PC14, //D33
+  PC15, //D34
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA0,  //D30/A0 = D0
-  PA1,  //D31/A1 = D1
-  PA2,  //D32/A2 = D2
-  PA3,  //D33/A3 = D3
-  PA4,  //D34/A4 = D4
-  PA5,  //D35/A5 = D5
-  PA6,  //D36/A6 = D6
-  PA7,  //D37/A7 = D7
-  PB0,  //D38/A8 = D8
-  PB1   //D39/A9 = D9
+  PA0,  //D35/A0 = D0
+  PA1,  //D36/A1 = D1
+  PA2,  //D37/A2 = D2
+  PA3,  //D38/A3 = D3
+  PA4,  //D39/A4 = D4
+  PA5,  //D40/A5 = D5
+  PA6,  //D41/A6 = D6
+  PA7,  //D42/A7 = D7
+  PB0,  //D43/A8 = D8
+  PB1   //D44/A9 = D9
 };
 
 #ifdef __cplusplus
