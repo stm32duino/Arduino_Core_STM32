@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
+#include <assert.h>
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
@@ -83,15 +84,32 @@ int HardwareSerial::_tx_complete_irq(serial_t* obj)
 
 void HardwareSerial::begin(unsigned long baud, byte config)
 {
+  uint32_t databits = 0;
+
   _serial.baudrate = (uint32_t)baud;
 
-  // Could be 8 or 9 bits. Could match with Arduino small data length?
-  _serial.databits = UART_WORDLENGTH_8B;
+  // Manage databits
+  switch(config & 0x07) {
+    case 0x02:
+      databits = 6;
+      break;
+    case 0x04:
+      databits = 7;
+      break;
+    case 0x06:
+      databits = 8;
+      break;
+    default:
+      databits = 0;
+      break;
+  }
 
   if((config & 0x30) == 0x30) {
     _serial.parity = UART_PARITY_ODD;
+    databits++;
   } else if((config & 0x20) == 0x20) {
     _serial.parity = UART_PARITY_EVEN;
+    databits++;
   } else {
     _serial.parity = UART_PARITY_NONE;
   }
@@ -101,6 +119,25 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   } else {
     _serial.stopbits = UART_STOPBITS_1;
   }
+
+  switch(databits) {
+#ifdef UART_WORDLENGTH_7B
+    case 7:
+      _serial.databits = UART_WORDLENGTH_7B;
+      break;
+#endif
+    case 8:
+      _serial.databits = UART_WORDLENGTH_8B;
+      break;
+    case 9:
+      _serial.databits = UART_WORDLENGTH_9B;
+      break;
+    default:
+	case 0:
+      databits = 0;
+      break;
+  }
+  assert(databits!=0);
 
   uart_init(&_serial);
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
