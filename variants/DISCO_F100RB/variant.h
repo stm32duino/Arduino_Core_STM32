@@ -64,9 +64,9 @@ extern "C"{
  #define PWM_MAX_DUTY_CYCLE            255
 
 //On-board LED pin number
-#define LED_BUILTIN				21
-#define LED_GREEN					LED_BUILTIN
-#define LED_BLUE					20
+#define LED_BUILTIN       21
+#define LED_GREEN         LED_BUILTIN
+#define LED_BLUE          20
 
 //On-board user button
 #define USER_BTN                5
