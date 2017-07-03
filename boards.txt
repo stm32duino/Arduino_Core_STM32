@@ -290,7 +290,7 @@ Other_board.menu.Other_board.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_m
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 #To enable Serial2 (USART2 on PA3, PA2) add -DENABLE_SERIAL2
 #To enable Serial3 (USART3 on PB11, PB10) add -DENABLE_SERIAL3
-Other_board.menu.Other_board.BLUEPILL_F103C8.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
+Other_board.menu.Other_board.BLUEPILL_F103C8.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON
 
 # MAPLEMINI_F103CB board
 
@@ -309,7 +309,7 @@ Other_board.menu.Other_board.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
 #To enable Serial2 (USART2 on PA3, PA2) add -DENABLE_SERIAL2
 #To enable Serial3 (USART3 on PB11, PB10) add -DENABLE_SERIAL3
-Other_board.menu.Other_board.MAPLEMINI_F103CB.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc"
+Other_board.menu.Other_board.MAPLEMINI_F103CB.build.extra_flags=-DSTM32F103xB {build.usb_flags} {build.upload_flags} -DUSBCON
 
 
 Other_board.menu.upload_method.DFUUploadMethod1=Maple bootloader (original version for Maple boards)
