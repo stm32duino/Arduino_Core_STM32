@@ -131,13 +131,17 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
         /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
         spi_freq = HAL_RCC_GetPCLK2Freq();
         break;
+#if defined(SPI2_BASE) || defined (SPI3_BASE)
+#if defined SPI2_BASE
       case (uint32_t)SPI2:
+#endif
 #if defined SPI3_BASE
       case (uint32_t)SPI3:
 #endif
         /* SPI_2 and SPI_3. Source CLK is PCKL1 */
         spi_freq = HAL_RCC_GetPCLK1Freq();
         break;
+#endif
       default:
         printf("CLK: SPI instance not set");
         break;
