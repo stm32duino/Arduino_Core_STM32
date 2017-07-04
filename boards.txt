@@ -33,6 +33,8 @@ Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 #To enable USB add '-DUSBCON'
 #To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
+#To enable Serial1 (USART1 on PG9, PG14) add -DENABLE_SERIAL1
+#To enable Serial2 (USART2 on PD6, PD5) add -DENABLE_SERIAL2
 Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.extra_flags=-DSTM32F429xx {build.usb_flags}
 
 
