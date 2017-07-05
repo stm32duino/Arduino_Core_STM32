@@ -84,11 +84,15 @@
 #elif defined (STM32L0xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE)) /* 0x08080000 */
 #elif defined (STM32L4xx)
-// Flash base address (Bank2, page 256)
-#define FLASH_BASE_ADDRESS  0x080FF800
-#define FLASH_PAGE_NUMBER   255
+#ifndef FLASH_BANK_2
+#define FLASH_BANK_NUMBER   FLASH_BANK_1
+#else
+#define FLASH_BANK_NUMBER   FLASH_BANK_2
+#endif // FLASH_BANK_2
+// Flash base address
+#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE/FLASH_PAGE_SIZE) -1))
+#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08000000 + (FLASH_PAGE_NUMBER*FLASH_PAGE_SIZE)))
 #endif
-
 /**
   * @}
   */
@@ -176,7 +180,7 @@ void set_data_to_flash(void)
   // ERASING page
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
 #ifdef STM32L4xx
-  EraseInitStruct.Banks = FLASH_BANK_2;
+  EraseInitStruct.Banks = FLASH_BANK_NUMBER;
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else // STM32F4xx
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
