@@ -131,6 +131,9 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
       }
       endTransmission(false);
     }
+#else
+    UNUSED(iaddress);
+	UNUSED(isize);
 #endif /* !STM32F1xx */
 
     // clamp to buffer length
