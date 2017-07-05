@@ -18,15 +18,19 @@
 #ifndef _PINS_ARDUINO_H_
 #define _PINS_ARDUINO_H_
 
+// API compatibility
+#include "variant.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
  * Libc porting layers
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
 #    include <syscalls.h> /** RedHat Newlib minimal stub */
 #endif
-
-// API compatibility
-#include "variant.h"
 
 #define NOT_AN_INTERRUPT        NC // -1
 
@@ -61,6 +65,8 @@ uint32_t pinNametoDigitalPin(PinName p);
 #define digitalPinToPort(p)        ( get_GPIO_Port(digitalPinToPinName(p)) )
 #define digitalPinToBitMask(p)     ( STM_GPIO_PIN(digitalPinToPinName(p)) )
 
-
+#ifdef __cplusplus
+}
+#endif
 
 #endif /*_PINS_ARDUINO_H_*/

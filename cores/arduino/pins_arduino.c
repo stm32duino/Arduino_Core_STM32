@@ -18,6 +18,10 @@
 
 #include "pins_arduino.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void __libc_init_array(void);
 
 WEAK uint32_t pinNametoDigitalPin(PinName p)
@@ -34,3 +38,7 @@ WEAK void init( void )
 {
   hw_config_init();
 }
+
+#ifdef __cplusplus
+}
+#endif
