@@ -242,6 +242,15 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   USBD_LL_DevDisconnected((USBD_HandleTypeDef*)hpcd->pData);
 }
 
+/**
+  * @brief  This function handles USB global interrupt request.
+  * @param  None
+  * @retval None
+  */
+void USB_LP_CAN1_RX0_IRQHandler(void) {
+    HAL_PCD_IRQHandler(&hpcd_USB_FS);
+}
+
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
