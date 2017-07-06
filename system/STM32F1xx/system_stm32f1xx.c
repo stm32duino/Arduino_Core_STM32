@@ -133,11 +133,7 @@
 /*******************************************************************************
 *  Clock Definitions
 *******************************************************************************/
-#if defined(STM32F100xB) ||defined(STM32F100xE)
-  uint32_t SystemCoreClock         = 24000000;        /*!< System Clock Frequency (Core Clock) */
-#else /*!< HSI Selected as System Clock source */
-  uint32_t SystemCoreClock         = 72000000;        /*!< System Clock Frequency (Core Clock) */
-#endif
+uint32_t SystemCoreClock         = F_CPU;        /*!< System Clock Frequency (Core Clock) */
 
 const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
 const uint8_t APBPrescTable[8] =  {0, 0, 0, 0, 1, 2, 3, 4};
