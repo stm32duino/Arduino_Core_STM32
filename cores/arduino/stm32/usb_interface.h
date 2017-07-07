@@ -41,7 +41,17 @@
 #ifdef USBCON
 
 /* Includes ------------------------------------------------------------------*/
+#if __has_include("usbd_desc.h")
 #include "usbd_desc.h"
+#else
+#ifdef USBD_USE_HID_COMPOSITE
+#error "This board does not support (yet?) USB HID! Select 'None' in the 'Tools->USB interface' menu"
+#elif defined(USBD_USE_CDC)
+#error "This board does not support (yet?) USB CDC! Select 'None' in the 'Tools->USB interface' menu"
+#else
+#error "This board does not support (yet?) USB! Select 'None' in the 'Tools->USB interface' menu"
+#endif
+#endif
 #include "usbd_hid_composite.h"
 
 #ifdef __cplusplus
