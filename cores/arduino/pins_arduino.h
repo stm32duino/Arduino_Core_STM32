@@ -39,7 +39,7 @@ extern "C" {
 
 // Convert a digital pin number Dxx to a PinName Pxy
 // Note: Analog pin is also a digital pin.
-#define digitalPinToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digitalPin[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
+#define digitalPinToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
 // Convert a PinName Pxy to a digital pin number
 uint32_t pinNametoDigitalPin(PinName p);
 
