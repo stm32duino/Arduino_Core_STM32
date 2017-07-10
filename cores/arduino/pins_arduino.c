@@ -26,10 +26,12 @@ void __libc_init_array(void);
 
 WEAK uint32_t pinNametoDigitalPin(PinName p)
 {
-  uint32_t i = 0;
-  for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-	  if (digitalPin[i] == p)
-		  break;
+  uint32_t i = NC;
+  if(STM_VALID_PINNAME(p)) {
+    for(i = 0; i < NUM_DIGITAL_PINS; i++) {
+      if (digitalPin[i] == p)
+        break;
+    }
   }
   return i;
 }
