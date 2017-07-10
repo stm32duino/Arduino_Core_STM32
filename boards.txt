@@ -1,10 +1,11 @@
-# See: http://code.google.com/p/arduino/wiki/Platforms
+# See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
+
+menu.board_part_num=Board part number
+
+menu.Other_serial=Other serial instance
+menu.USB_interface=USB interface
 
 menu.upload_method=Upload method
-menu.Nucleo_32_board=Nucleo 32 boards
-menu.Nucleo_64_board=Nucleo 64 boards
-menu.Nucleo_144_board=Nucleo 144 boards
-menu.Disco_board=Discovery boards
 
 ################################################################################
 # Nucleo 144 boards
@@ -18,27 +19,23 @@ Nucleo_144.pid.0=0x5711
 
 Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
+Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
 # NUCLEO_F429ZI board
+# Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI=Nucleo F429ZI
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.node=NODE_F429ZI
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.upload.maximum_size=2097152
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.upload.maximum_data_size=262144
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.mcu=cortex-m4
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.f_cpu=16000000L
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.series=STM32F4xx
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.product_line=STM32F429xx
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
+Nucleo_144.menu.board_part_num.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI=Nucleo F429ZI
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.node=NODE_F429ZI
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.upload.maximum_size=2097152
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.upload.maximum_data_size=262144
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.mcu=cortex-m4
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.f_cpu=16000000L
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.usb_product="NUCLEO-F429ZI"
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.series=STM32F4xx
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
-#To enable USB add '-DUSBCON'
-#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-#To enable Serial1 (USART1 on PG9, PG14) add -DENABLE_SERIAL1
-#To enable Serial2 (USART2 on PD6, PD5) add -DENABLE_SERIAL2
-Nucleo_144.menu.Nucleo_144_board.NUCLEO_F429ZI.build.extra_flags=-DSTM32F429xx {build.usb_flags}
-
-
+# Upload menu
 Nucleo_144.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_144.menu.upload_method.MassStorageMethod.upload.protocol=
 Nucleo_144.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
@@ -59,84 +56,80 @@ Nucleo_64.pid.0=0x5711
 
 Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
+Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
 # NUCLEO_F030R8 board
-
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8=Nucleo F030R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.node="NODE_F030R8,NUCLEO"
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.upload.maximum_size=65536
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.upload.maximum_data_size=8192
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.mcu=cortex-m0
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.f_cpu=48000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.board=NUCLEO_F030R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.series=STM32F0xx
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.variant=NUCLEO_F030R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F030R8.build.extra_flags=-DSTM32F030x8
+# Support: Serial1 (USART1 on PA10, PA9)
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8=Nucleo F030R8
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.node="NODE_F030R8,NUCLEO"
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.upload.maximum_size=65536
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.upload.maximum_data_size=8192
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.mcu=cortex-m0
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.f_cpu=48000000L
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.board=NUCLEO_F030R8
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.series=STM32F0xx
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.product_line=STM32F030x8
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.variant=NUCLEO_F030R8
+Nucleo_64.menu.board_part_num.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F091RC board
-
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC=Nucleo F091RC
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.node=NODE_F091RC
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.upload.maximum_size=262144
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.upload.maximum_data_size=32768
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.mcu=cortex-m0
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.f_cpu=8000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.board=NUCLEO_F091RC
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.series=STM32F0xx
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-#To enable Serial2 (USART2 on PA1, PA0) add -DENABLE_SERIAL2
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F091RC.build.extra_flags=-DSTM32F091xC
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC=Nucleo F091RC
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.node=NODE_F091RC
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.upload.maximum_size=262144
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.upload.maximum_data_size=32768
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.mcu=cortex-m0
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.f_cpu=8000000L
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.board=NUCLEO_F091RC
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.series=STM32F0xx
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.product_line=STM32F091xC
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
+Nucleo_64.menu.board_part_num.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F303RE board
-
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE=Nucleo F303RE
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.node=NODE_F303RE
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.upload.maximum_size=524288
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.upload.maximum_data_size=65536
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.mcu=cortex-m4
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.f_cpu=8000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.board=NUCLEO_F303RE
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.series=STM32F3xx
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.variant=NUCLEO_F303RE
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-#To enable Serial2 (USART2 on PA1, PA0) add -DENABLE_SERIAL2
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_F303RE.build.extra_flags=-DSTM32F303xE
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE=Nucleo F303RE
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.node=NODE_F303RE
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.upload.maximum_size=524288
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.upload.maximum_data_size=65536
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.mcu=cortex-m4
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.f_cpu=8000000L
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.board=NUCLEO_F303RE
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.series=STM32F3xx
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.product_line=STM32F303xE
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.variant=NUCLEO_F303RE
+Nucleo_64.menu.board_part_num.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_L053R8 board
-
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8=Nucleo L053R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.node=NODE_L053R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.upload.maximum_size=65536
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.upload.maximum_data_size=8192
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.mcu=cortex-m0
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.f_cpu=2000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.board=NUCLEO_L053R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.series=STM32L0xx
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L053R8.build.extra_flags=-DSTM32L053xx -D__CORTEX_SC=0
+# Support: Serial1 (USART1 on PA10, PA9)
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8=Nucleo L053R8
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.node=NODE_L053R8
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.upload.maximum_size=65536
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.upload.maximum_data_size=8192
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.mcu=cortex-m0
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.f_cpu=2000000L
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.board=NUCLEO_L053R8
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.series=STM32L0xx
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.product_line=STM32L053xx
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.board_part_num.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx} -D__CORTEX_SC=0
 
 # NUCLEO_L476RG board
+# Support: Serial1 (USART1 on PA10, PA9)
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG=Nucleo L476RG
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.node=NODE_L476RG
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.upload.maximum_size=1048576
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.upload.maximum_data_size=131072
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.mcu=cortex-m4
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.f_cpu=4000000L
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.board=NUCLEO_L476RG
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.series=STM32L4xx
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.product_line=STM32L476xx
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.variant=NUCLEO_L476RG
+Nucleo_64.menu.board_part_num.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4l_math
 
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG=Nucleo L476RG
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.node=NODE_L476RG
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.upload.maximum_size=1048576
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.upload.maximum_data_size=131072
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.mcu=cortex-m4
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.f_cpu=4000000L
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.board=NUCLEO_L476RG
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.series=STM32L4xx
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.variant=NUCLEO_L476RG
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-Nucleo_64.menu.Nucleo_64_board.NUCLEO_L476RG.build.extra_flags=-DSTM32L476xx
-
+# Upload menu
 Nucleo_64.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.protocol=
 Nucleo_64.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
@@ -157,24 +150,23 @@ Nucleo_32.pid.0=0x5711
 
 Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
+Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
 # NUCLEO_L432KC board
+# Support: Serial1 (USART1 on PA10, PA9)
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC=Nucleo L432KC
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.node=NODE_L432KC
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_size=65536
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_data_size=262144
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.mcu=cortex-m4
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.f_cpu=80000000L
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.board=NUCLEO_L432KC
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.series=STM32L4xx
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.product_line=STM32L432xx
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
 
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC=Nucleo L432KC
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.node=NODE_L432KC
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.upload.maximum_size=65536
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.upload.maximum_data_size=262144
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.mcu=cortex-m4
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.f_cpu=80000000L
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.usb_product="NUCLEO-L432KC"
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.board=NUCLEO_L432KC
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.series=STM32L4xx
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
-#To enable Serial1 (USART1 on PA10, PA9) add -DENABLE_SERIAL1
-Nucleo_32.menu.Nucleo_32_board.NUCLEO_L432KC.build.extra_flags=-DSTM32L432xx {build.usb_flags}
-
-
+# Upload menu
 Nucleo_32.menu.upload_method.MassStorageMethod=Mass Storage
 Nucleo_32.menu.upload_method.MassStorageMethod.upload.protocol=
 Nucleo_32.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
@@ -186,60 +178,110 @@ Nucleo_32.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 ################################################################################
 # Discovery boards
 
-Disco_board.name=Discovery
+Disco.name=Discovery
 
-Disco_board.build.vid=0x0483
-Disco_board.build.pid=0x5711
-Disco_board.vid.0=0x0483
-Disco_board.pid.0=0x5711
+Disco.build.vid=0x0483
+Disco.build.pid=0x5711
+Disco.vid.0=0x0483
+Disco.pid.0=0x5711
 
-Disco_board.build.core=arduino
-Disco_board.build.board=Disco_board
+Disco.build.core=arduino
+Disco.build.board=Disco
+Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
 # DISCO_F407VG board
-
-Disco_board.menu.Disco_board.DISCO_F407VG=STM32F407G-DISC1
-Disco_board.menu.Disco_board.DISCO_F407VG.node=DIS_F407VG
-Disco_board.menu.Disco_board.DISCO_F407VG.upload.maximum_size=1048576
-Disco_board.menu.Disco_board.DISCO_F407VG.upload.maximum_data_size=196608
-Disco_board.menu.Disco_board.DISCO_F407VG.build.mcu=cortex-m4
-Disco_board.menu.Disco_board.DISCO_F407VG.build.f_cpu=16000000L
-Disco_board.menu.Disco_board.DISCO_F407VG.build.usb_product="DISCO-F407G"
-Disco_board.menu.Disco_board.DISCO_F407VG.build.board=DISCO_F407VG
-Disco_board.menu.Disco_board.DISCO_F407VG.build.series=STM32F4xx
-Disco_board.menu.Disco_board.DISCO_F407VG.build.variant=DISCO_F407VG
-Disco_board.menu.Disco_board.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
-#To enable USB add '-DUSBCON'
-#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-Disco_board.menu.Disco_board.DISCO_F407VG.build.extra_flags=-DSTM32F407xx {build.usb_flags}
+# Support: USB HID
+Disco.menu.board_part_num.DISCO_F407VG=STM32F407G-DISC1
+Disco.menu.board_part_num.DISCO_F407VG.node=DIS_F407VG
+Disco.menu.board_part_num.DISCO_F407VG.upload.maximum_size=1048576
+Disco.menu.board_part_num.DISCO_F407VG.upload.maximum_data_size=196608
+Disco.menu.board_part_num.DISCO_F407VG.build.mcu=cortex-m4
+Disco.menu.board_part_num.DISCO_F407VG.build.f_cpu=16000000L
+Disco.menu.board_part_num.DISCO_F407VG.build.board=DISCO_F407VG
+Disco.menu.board_part_num.DISCO_F407VG.build.series=STM32F4xx
+Disco.menu.board_part_num.DISCO_F407VG.build.product_line=STM32F407xx
+Disco.menu.board_part_num.DISCO_F407VG.build.variant=DISCO_F407VG
+Disco.menu.board_part_num.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # DISCO_F746NG board
+# Support: USB HID, Serial1 (USART6 on PC7, PC6) and Serial2 (UART7 on PF6, PF7)
+Disco.menu.board_part_num.DISCO_F746NG=STM32F746G-DISCOVERY
+Disco.menu.board_part_num.DISCO_F746NG.node=DIS_F746NG
+Disco.menu.board_part_num.DISCO_F746NG.upload.maximum_size=1048576
+Disco.menu.board_part_num.DISCO_F746NG.upload.maximum_data_size=327680
+Disco.menu.board_part_num.DISCO_F746NG.build.mcu=cortex-m7
+Disco.menu.board_part_num.DISCO_F746NG.build.f_cpu=216000000L
+Disco.menu.board_part_num.DISCO_F746NG.build.board=DISCO_F746NG
+Disco.menu.board_part_num.DISCO_F746NG.build.series=STM32F7xx
+Disco.menu.board_part_num.DISCO_F746NG.build.product_line=STM32F746xx
+Disco.menu.board_part_num.DISCO_F746NG.build.variant=DISCO_F746NG
+Disco.menu.board_part_num.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
 
-Disco_board.menu.Disco_board.DISCO_F746NG=STM32F746G-DISCOVERY
-Disco_board.menu.Disco_board.DISCO_F746NG.node=DIS_F746NG
-Disco_board.menu.Disco_board.DISCO_F746NG.upload.maximum_size=1048576
-Disco_board.menu.Disco_board.DISCO_F746NG.upload.maximum_data_size=327680
-Disco_board.menu.Disco_board.DISCO_F746NG.build.mcu=cortex-m7
-Disco_board.menu.Disco_board.DISCO_F746NG.build.f_cpu=216000000L
-Disco_board.menu.Disco_board.DISCO_F746NG.build.usb_product="DISCO-F746NG"
-Disco_board.menu.Disco_board.DISCO_F746NG.build.board=DISCO_F746NG
-Disco_board.menu.Disco_board.DISCO_F746NG.build.series=STM32F7xx
-Disco_board.menu.Disco_board.DISCO_F746NG.build.variant=DISCO_F746NG
-Disco_board.menu.Disco_board.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
-#To enable USB add '-DUSBCON'
-#To enable HID (keyboard and mouse support) add also '-DUSBD_USE_HID_COMPOSITE'
-#To enable Serial1 (USART6 on PC7, PC6) add -DENABLE_SERIAL1
-#To enable Serial2 (UART7 on PF6, PF7) add -DENABLE_SERIAL2
-Disco_board.menu.Disco_board.DISCO_F746NG.build.extra_flags=-DSTM32F746xx {build.usb_flags}
+# Upload menu
+Disco.menu.upload_method.MassStorageMethod=Mass Storage
+Disco.menu.upload_method.MassStorageMethod.upload.protocol=
+Disco.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
 
-
-Disco_board.menu.upload_method.MassStorageMethod=Mass Storage
-Disco_board.menu.upload_method.MassStorageMethod.upload.protocol=
-Disco_board.menu.upload_method.MassStorageMethod.upload.tool=massStorageCopy
-
-Disco_board.menu.upload_method.STLinkMethod=STLink
-Disco_board.menu.upload_method.STLinkMethod.upload.protocol=STLink
-Disco_board.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Disco.menu.upload_method.STLinkMethod=STLink
+Disco.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Disco.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
 
 ################################################################################
+# Serialx activation
+Nucleo_144.menu.Other_serial.enable_Serial=None
+Nucleo_144.menu.Other_serial.enable_SerialAll=All
+Nucleo_144.menu.Other_serial.enable_SerialAll.build.enable_Serialx=-DENABLE_SERIAL1 -DENABLE_SERIAL2
+Nucleo_144.menu.Other_serial.enable_Serial1=Serial1 (if available)
+Nucleo_144.menu.Other_serial.enable_Serial1.build.enable_Serialx=-DENABLE_SERIAL1
+Nucleo_144.menu.Other_serial.enable_Serial2=Serial2 (if available)
+Nucleo_144.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
+
+Nucleo_64.menu.Other_serial.enable_Serial=None
+Nucleo_64.menu.Other_serial.enable_SerialAll=All
+Nucleo_64.menu.Other_serial.enable_SerialAll.build.enable_Serialx=-DENABLE_SERIAL1 -DENABLE_SERIAL2
+Nucleo_64.menu.Other_serial.enable_Serial1=Serial1 (if available)
+Nucleo_64.menu.Other_serial.enable_Serial1.build.enable_Serialx=-DENABLE_SERIAL1
+Nucleo_64.menu.Other_serial.enable_Serial2=Serial2 (if available)
+Nucleo_64.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
+
+Nucleo_32.menu.Other_serial.enable_Serial=None
+Nucleo_32.menu.Other_serial.enable_SerialAll=All
+Nucleo_32.menu.Other_serial.enable_SerialAll.build.enable_Serialx=-DENABLE_SERIAL1 -DENABLE_SERIAL2
+Nucleo_32.menu.Other_serial.enable_Serial1=Serial1 (if available)
+Nucleo_32.menu.Other_serial.enable_Serial1.build.enable_Serialx=-DENABLE_SERIAL1
+Nucleo_32.menu.Other_serial.enable_Serial2=Serial2 (if available)
+Nucleo_32.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
+
+Disco.menu.Other_serial.enable_Serial=None
+Disco.menu.Other_serial.enable_SerialAll=All
+Disco.menu.Other_serial.enable_SerialAll.build.enable_Serialx=-DENABLE_SERIAL1 -DENABLE_SERIAL2
+Disco.menu.Other_serial.enable_Serial1=Serial1 (if available)
+Disco.menu.Other_serial.enable_Serial1.build.enable_Serialx=-DENABLE_SERIAL1
+Disco.menu.Other_serial.enable_Serial2=Serial2 (if available)
+Disco.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
+
+# USB connectivity
+Nucleo_144.menu.USB_interface.enable_USB=None
+Nucleo_144.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
+Nucleo_144.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_144.menu.USB_interface.enable_CDC=CDC (if available)
+Nucleo_144.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+Nucleo_64.menu.USB_interface.enable_USB=None
+Nucleo_64.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
+Nucleo_64.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_64.menu.USB_interface.enable_CDC=CDC (if available)
+Nucleo_64.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+Nucleo_32.menu.USB_interface.enable_USB=None
+Nucleo_32.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
+Nucleo_32.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_32.menu.USB_interface.enable_CDC=CDC (if available)
+Nucleo_32.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+Disco.menu.USB_interface.enable_USB=None
+Disco.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
+Disco.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Disco.menu.USB_interface.enable_CDC=CDC (if available)
+Disco.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS

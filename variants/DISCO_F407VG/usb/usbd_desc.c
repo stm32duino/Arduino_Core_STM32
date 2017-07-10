@@ -49,6 +49,7 @@
 #include "usbd_core.h"
 #include "usbd_desc.h"
 #include "usbd_conf.h"
+#include "utils.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -64,14 +65,16 @@
 #elif !defined(USB_MANUFACTURER)
 // Fall through to unknown if no manufacturer name was provided in a macro
 #define USBD_MANUFACTURER_STRING "Unknown"
+#else
+#define USBD_MANUFACTURER_STRING USB_MANUFACTURER
 #endif
 #ifdef USBD_USE_HID_COMPOSITE
-#define USBD_HID_PRODUCT_HS_STRING        "HID in HS Mode"
-#define USBD_HID_PRODUCT_FS_STRING        "HID in FS Mode"
-#define USBD_HID_CONFIGURATION_HS_STRING  "HID Config"
-#define USBD_HID_INTERFACE_HS_STRING      "HID Interface"
-#define USBD_HID_CONFIGURATION_FS_STRING  "HID Config"
-#define USBD_HID_INTERFACE_FS_STRING      "HID Interface"
+#define USBD_HID_PRODUCT_HS_STRING        CONCATS(USB_PRODUCT, "HID in HS Mode")
+#define USBD_HID_PRODUCT_FS_STRING        CONCATS(USB_PRODUCT, "HID in FS Mode")
+#define USBD_HID_CONFIGURATION_HS_STRING  CONCATS(USB_PRODUCT, "HID Config")
+#define USBD_HID_INTERFACE_HS_STRING      CONCATS(USB_PRODUCT, "HID Interface")
+#define USBD_HID_CONFIGURATION_FS_STRING  CONCATS(USB_PRODUCT, "HID Config")
+#define USBD_HID_INTERFACE_FS_STRING      CONCATS(USB_PRODUCT, "HID Interface")
 
 /* Private macro -------------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
