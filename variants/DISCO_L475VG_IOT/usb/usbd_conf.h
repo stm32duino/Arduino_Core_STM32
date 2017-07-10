@@ -50,13 +50,16 @@
 #define __USBD_CONF_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32l4xx_hal.h"
+#include "stm32_def.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+#ifdef USBCON
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+
+#define USBD_LPM_ENABLED 0
+
 /* Common Config */
 #define USBD_MAX_NUM_INTERFACES               1
 #define USBD_MAX_NUM_CONFIGURATION            1
@@ -75,7 +78,7 @@
 /* DEBUG macros */
 #if (USBD_DEBUG_LEVEL > 0)
 #define  USBD_UsrLog(...)   printf(__VA_ARGS__);\
-                            printf("\n");
+                            printf("\n\r");
 #else
 #define USBD_UsrLog(...)
 #endif
@@ -84,7 +87,7 @@
 
 #define  USBD_ErrLog(...)   printf("ERROR: ") ;\
                             printf(__VA_ARGS__);\
-                            printf("\n");
+                            printf("\n\r");
 #else
 #define USBD_ErrLog(...)
 #endif
@@ -92,13 +95,14 @@
 #if (USBD_DEBUG_LEVEL > 2)
 #define  USBD_DbgLog(...)   printf("DEBUG : ") ;\
                             printf(__VA_ARGS__);\
-                            printf("\n");
+                            printf("\n\r");
 #else
 #define USBD_DbgLog(...)
 #endif
 
 /* Exported functions ------------------------------------------------------- */
 
+#endif // USBCON
 #endif /* __USBD_CONF_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

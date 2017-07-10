@@ -44,19 +44,20 @@
   *
   ******************************************************************************
   */
-
+#ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+#include "usbd_conf.h"
+#include "usbd_core.h"
+#include "hw_config.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-PCD_HandleTypeDef hpcd;
+PCD_HandleTypeDef g_hpcd;
 __IO uint32_t remotewakeupon=0;
 
 /* Private function prototypes -----------------------------------------------*/
-static void SystemClockConfig_STOP(void);
 /* Private functions ---------------------------------------------------------*/
 
 /*******************************************************************************
@@ -71,6 +72,9 @@ static void SystemClockConfig_STOP(void);
 void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
   GPIO_InitTypeDef  GPIO_InitStruct;
+
+  /* Enable USB power on Pwrctrl CR2 register */
+  HAL_PWREx_EnableVddUSB();
 
   /* Configure USB FS GPIOs */
   __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -96,11 +100,21 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
+  /* Configure power enable pin (USB_OTG_FS_PWR_EN) */
+  __HAL_RCC_GPIOD_CLK_ENABLE();
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+  /* USB power output is disabled in device mode */
+  HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
+
   /* Enable USB FS Clock */
   __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
 
   /* Set USB FS Interrupt priority */
-  HAL_NVIC_SetPriority(OTG_FS_IRQn, 0x0F, 0);
+  HAL_NVIC_SetPriority(OTG_FS_IRQn, 5, 0);
 
   /* Enable USB FS Interrupt */
   HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
@@ -177,11 +191,32 @@ void HAL_PCD_SOFCallback(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
 {
+  USBD_SpeedTypeDef speed = USBD_SPEED_FULL;
+
+  /* Set USB Current Speed */
+  switch(hpcd->Init.speed)
+  {
+  //Not supported on STM32L4xx boards
+#ifndef STM32L4xx
+  case PCD_SPEED_HIGH:
+    speed = USBD_SPEED_HIGH;
+    break;
+#endif
+
+  case PCD_SPEED_FULL:
+    speed = USBD_SPEED_FULL;
+    break;
+
+  default:
+    speed = USBD_SPEED_FULL;
+    break;
+  }
+
   /* Reset Device */
   USBD_LL_Reset(hpcd->pData);
 
   /* Set USB Current Speed */
-  USBD_LL_SetSpeed(hpcd->pData, USBD_SPEED_FULL);
+  USBD_LL_SetSpeed(hpcd->pData, speed);
 }
 
 /**
@@ -213,7 +248,9 @@ void HAL_PCD_ResumeCallback(PCD_HandleTypeDef *hpcd)
 {
   if ((hpcd->Init.low_power_enable)&&(remotewakeupon == 0))
   {
-    SystemClockConfig_STOP();
+    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
+    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
+    SystemClock_Config();
 
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
@@ -266,6 +303,17 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 }
 
 
+
+/**
+  * @brief  This function handles USB-On-The-Go FS global interrupt request.
+  * @param  None
+  * @retval None
+  */
+void OTG_FS_IRQHandler(void)
+{
+  HAL_PCD_IRQHandler(&g_hpcd);
+}
+
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
@@ -278,28 +326,29 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
 USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   /* Set LL Driver parameters */
-  hpcd.Instance = USB_OTG_FS;
-  hpcd.Init.dev_endpoints = 5;
-  hpcd.Init.use_dedicated_ep1 = 0;
-  hpcd.Init.ep0_mps = 0x40;
-  hpcd.Init.dma_enable = 0;
-  hpcd.Init.low_power_enable = 1;
-  hpcd.Init.lpm_enable = 0;
-  hpcd.Init.battery_charging_enable = 0;
-  hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
-  hpcd.Init.Sof_enable = 0;
-  hpcd.Init.speed = PCD_SPEED_FULL;
-  hpcd.Init.vbus_sensing_enable = 1;
+  g_hpcd.Instance = USB_OTG_FS;
+  g_hpcd.Init.dev_endpoints = 4;
+  g_hpcd.Init.use_dedicated_ep1 = 0;
+  g_hpcd.Init.ep0_mps = 0x40;
+  g_hpcd.Init.dma_enable = 0;
+  g_hpcd.Init.low_power_enable = 0;
+  g_hpcd.Init.lpm_enable = 0;
+  g_hpcd.Init.battery_charging_enable = 0;
+  g_hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
+  g_hpcd.Init.Sof_enable = 0;
+  g_hpcd.Init.speed = PCD_SPEED_FULL;
+  g_hpcd.Init.vbus_sensing_enable = 1;
   /* Link The driver to the stack */
-  hpcd.pData = pdev;
-  pdev->pData = &hpcd;
+  g_hpcd.pData = pdev;
+  pdev->pData = &g_hpcd;
   /* Initialize LL Driver */
-  HAL_PCD_Init(&hpcd);
+  HAL_PCD_Init(&g_hpcd);
 
   /* configure EPs FIFOs */
-  HAL_PCDEx_SetRxFiFo(&hpcd, 0x80);
-  HAL_PCDEx_SetTxFiFo(&hpcd, 0, 0x40);
-  HAL_PCDEx_SetTxFiFo(&hpcd, 1, 0x80);
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x10);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x10);
 
   return USBD_OK;
 }
@@ -484,120 +533,6 @@ uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 }
 
 /**
-  * @brief  Configures system clock after wakeup from STOP mode.
-  * @param  None
-  * @retval None
-  */
-static void SystemClockConfig_STOP(void)
-{
-#if defined (USB_USE_LSE_MSI_CLOCK)
-
-  /* Configures system clock after wake-up from STOP: enable LSE, PLL and select
-  PLL as system clock source (LSE and PLL are disabled in STOP mode) */
-
-  __HAL_RCC_LSE_CONFIG(RCC_LSE_ON);
-
-  /* Wait till HSE is ready */
-  while(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == RESET)
-  {}
-
-  /* Enable the main PLL. */
-  __HAL_RCC_PLL_ENABLE();
-
-  /* Wait till PLL is ready */
-  while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
-  {}
-
-  /* Select PLL as SYSCLK */
-  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_SYSCLKSOURCE_PLLCLK);
-
-  /* Wait till system clock switch to PLL */
-  while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-  {}
-
-#elif defined (USB_USE_HSE_CLOCK)
-    RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
-  /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
-  PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-
-  __HAL_RCC_HSE_CONFIG(RCC_HSE_ON);
-
-  /* Wait till HSE is ready */
-  while(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET)
-  {}
-
-  /* Enable the main PLL. */
-  __HAL_RCC_PLL_ENABLE();
-
-  /* Wait till PLL is ready */
-  while(__HAL_RCC_GET_FLAG(RCC_FLAG_PLLRDY) == RESET)
-  {}
-
-  /* Select PLL as SYSCLK */
-  MODIFY_REG(RCC->CFGR, RCC_CFGR_SW, RCC_SYSCLKSOURCE_PLLCLK);
-
-  /* Wait till system clock switch to PLL */
-  while (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_CFGR_SWS_PLL)
-  {}
-
-    /* Select PLLSAI output as USB clock source */
-  PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_USB;
-  PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_PLLSAI1;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1N = 24;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1Q = 4;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1P = 1;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1M = 1;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_HSE;
-  PeriphClkInitStruct.PLLSAI1.PLLSAI1ClockOut= RCC_PLLSAI1_48M2CLK;
-  HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct);
-
-#endif /* USB_USE_LSE_MSI_CLOCK */
-}
-
-/**
-  * @brief  GPIO EXTI Callback function
-  *         Handle remote-wakeup through Tamper button
-  * @param  GPIO_Pin
-  * @retval None
-  */
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if (GPIO_Pin == GPIO_PIN_13)
-  {
-    if ((((USBD_HandleTypeDef *)hpcd.pData)->dev_remote_wakeup == 1)&&
-        (((USBD_HandleTypeDef *)hpcd.pData)->dev_state == USBD_STATE_SUSPENDED))
-    {
-      if ((&hpcd)->Init.low_power_enable)
-      {
-        /* Reset SLEEPDEEP bit of Cortex System Control Register */
-        SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
-
-        SystemClockConfig_STOP();
-      }
-
-      /* Ungate PHY clock */
-      __HAL_PCD_UNGATE_PHYCLOCK((&hpcd));
-
-      /* Activate Remote wakeup */
-      HAL_PCD_ActivateRemoteWakeup((&hpcd));
-
-      /* Remote wakeup delay */
-      HAL_Delay(10);
-
-      /* Disable Remote wakeup */
-      HAL_PCD_DeActivateRemoteWakeup((&hpcd));
-
-      /* change state to configured */
-      ((USBD_HandleTypeDef *)hpcd.pData)->dev_state = USBD_STATE_CONFIGURED;
-
-      /* Change remote_wakeup feature to 0*/
-      ((USBD_HandleTypeDef *)hpcd.pData)->dev_remote_wakeup=0;
-      remotewakeupon = 1;
-    }
-  }
-}
-
-/**
   * @brief  Delays routine for the USB Device Library.
   * @param  Delay: Delay in ms
   * @retval None
@@ -607,4 +542,5 @@ void USBD_LL_Delay(uint32_t Delay)
   HAL_Delay(Delay);
 }
 
+#endif // USBCON
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
