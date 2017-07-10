@@ -65,6 +65,8 @@ uint32_t pinNametoDigitalPin(PinName p);
 #define digitalPinToPort(p)        ( get_GPIO_Port(digitalPinToPinName(p)) )
 #define digitalPinToBitMask(p)     ( STM_GPIO_PIN(digitalPinToPinName(p)) )
 
+#define digitalPinIsValid(p)       (digitalPinToPinName(p) != NC)
+
 #ifdef __cplusplus
 }
 #endif
