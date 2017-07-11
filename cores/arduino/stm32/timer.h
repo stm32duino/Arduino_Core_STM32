@@ -127,17 +127,17 @@ struct timer_s{
 #endif
 #endif
 #if defined(TIM15_BASE) && !defined(TIM15_IRQn)
-#if defined(STM32F3xx) || defined(STM32L4xx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
 #define TIM15_IRQn TIM1_BRK_TIM15_IRQn
 #endif
 #endif
 #if defined(TIM16_BASE) && !defined(TIM16_IRQn)
-#if defined(STM32F3xx) || defined(STM32L4xx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
 #define TIM16_IRQn TIM1_UP_TIM16_IRQn
 #endif
 #endif
 #if defined(TIM17_BASE) && !defined(TIM17_IRQn)
-#if defined(STM32F3xx) || defined(STM32L4xx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
 #define TIM17_IRQn TIM1_TRG_COM_TIM17_IRQn
 #endif
 #endif
