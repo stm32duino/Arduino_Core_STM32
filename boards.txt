@@ -203,6 +203,20 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
+#DISCO_F100RB board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
+Disco.menu.board_part_num.DISCO_F100RB=STM32F100RB-DISCVL
+Disco.menu.board_part_num.DISCO_F100RB.node=DIS_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.upload.maximum_size=131071
+Disco.menu.board_part_num.DISCO_F100RB.upload.maximum_data_size=8192
+Disco.menu.board_part_num.DISCO_F100RB.build.mcu=cortex-m3
+Disco.menu.board_part_num.DISCO_F100RB.build.f_cpu=24000000L
+Disco.menu.board_part_num.DISCO_F100RB.build.board=DISCO_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.build.series=STM32F1xx
+Disco.menu.board_part_num.DISCO_F100RB.build.product_line=STM32F100xB
+Disco.menu.board_part_num.DISCO_F100RB.build.variant=DISCO_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # DISCO_F407VG board
 # Support: USB HID
 Disco.menu.board_part_num.DISCO_F407VG=STM32F407G-DISC1
@@ -240,6 +254,79 @@ Disco.menu.upload_method.STLinkMethod=STLink
 Disco.menu.upload_method.STLinkMethod.upload.protocol=STLink
 Disco.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
+################################################################################
+# Other boards
+
+Other.name=Other
+
+Other.build.vid=0x0483
+Other.build.pid=0x5711
+Other.vid.0=0x0483
+Other.pid.0=0x5711
+
+Other.build.core=arduino
+Other.build.board=Other
+Other.build.extra_flags=-D{build.product_line} {build.upload_flags} {build.enable_usb} {build.enable_Serialx}
+
+# BLUEPILL_F103C8 board
+# Support: USB HID, Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+Other.menu.board_part_num.BLUEPILL_F103C8=BluePill F103C8
+Other.menu.board_part_num.BLUEPILL_F103C8.node=NODE_F103C8
+Other.menu.board_part_num.BLUEPILL_F103C8.upload.maximum_size=65536
+Other.menu.board_part_num.BLUEPILL_F103C8.upload.maximum_data_size=20480
+Other.menu.board_part_num.BLUEPILL_F103C8.build.mcu=cortex-m3
+Other.menu.board_part_num.BLUEPILL_F103C8.build.f_cpu=72000000L
+Other.menu.board_part_num.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
+Other.menu.board_part_num.BLUEPILL_F103C8.build.series=STM32F1xx
+Other.menu.board_part_num.BLUEPILL_F103C8.build.product_line=STM32F103xB
+Other.menu.board_part_num.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
+Other.menu.board_part_num.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# MAPLEMINI_F103CB board
+# Support: USB HID, Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+Other.menu.board_part_num.MAPLEMINI_F103CB=MapleMini F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.node=NODE_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.upload.maximum_size=131072
+Other.menu.board_part_num.MAPLEMINI_F103CB.upload.maximum_data_size=20480
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.mcu=cortex-m3
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.f_cpu=72000000L
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.series=STM32F1xx
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.product_line=STM32F103xB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
+Other.menu.board_part_num.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+Other.menu.upload_method.DFUUploadMethod1=Maple bootloader (original version for Maple boards)
+Other.menu.upload_method.DFUUploadMethod1.upload.protocol=maple_dfu
+Other.menu.upload_method.DFUUploadMethod1.upload.tool=maple_upload
+Other.menu.upload_method.DFUUploadMethod1.build.upload_flags=-DSERIAL_USB -DVECT_TAB_OFFSET=0x5000
+Other.menu.upload_method.DFUUploadMethod1.build.ldscript=bootloader_original.ld
+Other.menu.upload_method.DFUUploadMethod1.upload.usbID=1EAF:0003
+Other.menu.upload_method.DFUUploadMethod1.upload.altID=1
+
+Other.menu.upload_method.DFUUploadMethod=STM32duino bootloader
+Other.menu.upload_method.DFUUploadMethod.upload.protocol=maple_dfu
+Other.menu.upload_method.DFUUploadMethod.upload.tool=maple_upload
+Other.menu.upload_method.DFUUploadMethod.build.upload_flags=-DSERIAL_USB -DVECT_TAB_OFFSET=0x2000
+Other.menu.upload_method.DFUUploadMethod.build.ldscript=bootloader.ld
+Other.menu.upload_method.DFUUploadMethod.upload.usbID=1EAF:0003
+Other.menu.upload_method.DFUUploadMethod.upload.altID=2
+
+Other.menu.upload_method.STLinkMethod=STLink
+Other.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Other.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Other.menu.upload_method.STLinkMethod.build.upload_flags=-DSERIAL_USB
+
+Other.menu.upload_method.serialMethod=Serial
+Other.menu.upload_method.serialMethod.upload.protocol=maple_serial
+Other.menu.upload_method.serialMethod.upload.tool=serial_upload
+Other.menu.upload_method.serialMethod.build.upload_flags=
+
+Other.menu.upload_method.BMPMethod=BMP (Black Magic Probe)
+Other.menu.upload_method.BMPMethod.upload.protocol=gdb_bmp
+Other.menu.upload_method.BMPMethod.upload.tool=bmp_upload
+Other.menu.upload_method.BMPMethod.upload.speed=230400
+Other.menu.upload_method.BMPMethod.build.upload_flags=
 
 ################################################################################
 # Serialx activation
@@ -275,6 +362,14 @@ Disco.menu.Other_serial.enable_Serial1.build.enable_Serialx=-DENABLE_SERIAL1
 Disco.menu.Other_serial.enable_Serial2=Serial2 (if available)
 Disco.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
 
+Other.menu.Other_serial.enable_Serial=None
+Other.menu.Other_serial.enable_SerialAll=All
+Other.menu.Other_serial.enable_SerialAll.build.enable_Serialx=-DENABLE_SERIAL2 -DENABLE_SERIAL2
+Other.menu.Other_serial.enable_Serial2=Serial2 (if available)
+Other.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
+Other.menu.Other_serial.enable_Serial3=Serial3 (if available)
+Other.menu.Other_serial.enable_Serial3.build.enable_Serialx=-DENABLE_SERIAL3
+
 # USB connectivity
 Nucleo_144.menu.USB_interface.enable_USB=None
 Nucleo_144.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
@@ -299,3 +394,9 @@ Disco.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available
 Disco.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Disco.menu.USB_interface.enable_CDC=CDC (if available)
 Disco.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+Other.menu.USB_interface.enable_USB=None
+Other.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
+Other.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Other.menu.USB_interface.enable_CDC=CDC (if available)
+Other.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS

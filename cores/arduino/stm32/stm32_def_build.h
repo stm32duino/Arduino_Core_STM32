@@ -26,6 +26,10 @@
 #define CMSIS_STARTUP_FILE "startup_stm32f091xc.s"
 #elif defined(STM32F030x8)
 #define CMSIS_STARTUP_FILE "startup_stm32f030x8.s"
+#elif defined(STM32F100xB)
+#define CMSIS_STARTUP_FILE "startup_stm32f100xb.s"
+#elif defined(STM32F103xB)
+#define CMSIS_STARTUP_FILE "startup_stm32f103xb.s"
 #elif defined(STM32F303xE)
 #define CMSIS_STARTUP_FILE "startup_stm32f303xe.s"
 #elif defined(STM32F407xx)
