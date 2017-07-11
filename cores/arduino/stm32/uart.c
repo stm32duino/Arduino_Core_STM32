@@ -51,6 +51,7 @@
 #include "digital_io.h"
 #include "interrupt.h"
 #include "variant.h"
+#include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -215,7 +216,11 @@ void uart_init(serial_t *obj)
   GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_rx,PinMap_UART_RX));
   GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
   GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+#ifdef STM32F1xx
+  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_rx,PinMap_UART_RX)));
+#else
   GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+#endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   //TX
@@ -224,7 +229,11 @@ void uart_init(serial_t *obj)
   GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_tx,PinMap_UART_TX));
   GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
   GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+#ifdef STM32F1xx
+  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_tx,PinMap_UART_TX)));
+#else
   GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+#endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   //Configure uart
@@ -519,7 +528,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
   volatile uint32_t tmpval;
-#ifdef STM32F4xx
+#if defined(STM32F1xx) || defined(STM32F4xx)
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
     tmpval = huart->Instance->DR; // Clear PE flag
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
@@ -658,5 +667,6 @@ void UART8_IRQHandler(void)
 #ifdef __cplusplus
 }
 #endif
+
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

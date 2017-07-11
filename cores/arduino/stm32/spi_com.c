@@ -49,6 +49,7 @@
 #include "stm32_def.h"
 #include "hw_config.h"
 #include "spi_com.h"
+#include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -275,7 +276,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
     GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+    pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI)));
+#else
     GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
+#endif /* STM32F1xx */
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
@@ -285,7 +290,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
     GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+    pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_miso,PinMap_SPI_MISO)));
+#else
     GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
+#endif /* STM32F1xx */
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
@@ -303,7 +312,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
       GPIO_InitStruct.Pull = GPIO_PULLUP;
     }
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+    pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK)));
+#else
     GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
+#endif /* STM32F1xx */
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 
@@ -313,7 +326,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     GPIO_InitStruct.Mode      = STM_PIN_MODE(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
     GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+    pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL)));
+#else
     GPIO_InitStruct.Alternate = STM_PIN_AFNUM(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
+#endif /* STM32F1xx */
     HAL_GPIO_Init(port, &GPIO_InitStruct);
   }
 

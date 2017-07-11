@@ -72,6 +72,9 @@
 #ifdef STM32F0xx
 // Flash base address (Bank2, page 256)
 #define FLASH_BASE_ADDRESS  0x0803F800
+#elif defined (STM32F1xx)
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE)) //0x0801FC00
+#define FLASH_PAGE_NUMBER   127
 #elif defined (STM32F3xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((0x0807FFFF + 1) - FLASH_PAGE_SIZE)) //0x0807F800
 #elif defined (STM32F4xx)
@@ -173,7 +176,8 @@ void set_data_to_flash(void)
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined(STM32L4xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || \
+    defined (STM32L0xx) || defined(STM32L4xx)
   uint32_t pageError = 0;
   uint64_t data = 0;
 
@@ -183,6 +187,9 @@ void set_data_to_flash(void)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else // STM32F4xx
+#ifdef STM32F1xx
+  EraseInitStruct.Banks       = FLASH_BANK_1;
+#endif
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
 #endif
   EraseInitStruct.NbPages = 1;
