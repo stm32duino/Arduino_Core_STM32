@@ -322,7 +322,7 @@ Other.pid.0=0x5711
 
 Other.build.core=arduino
 Other.build.board=Other
-Other.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
+Other.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx} {build.upload_flags}
 
 # BLUEPILL_F103C8 board
 # Support: USB HID, Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)

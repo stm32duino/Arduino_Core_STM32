@@ -66,6 +66,7 @@ build.usb_manufacturer="Unknown"
 #
 build.enable_Serialx=
 build.enable_usb=
+build.upload_flags=
 
 # compile patterns
 # ---------------------
