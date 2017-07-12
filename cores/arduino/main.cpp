@@ -35,8 +35,6 @@ int main( void )
 
 	initVariant();
 
-	delay(1);
-
 #if defined(USBCON)
 	usbd_interface_init();
 #endif
