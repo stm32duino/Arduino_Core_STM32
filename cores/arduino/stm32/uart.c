@@ -528,7 +528,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
   volatile uint32_t tmpval;
-#if defined(STM32F1xx) || defined(STM32F4xx)
+#if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx)
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
     tmpval = huart->Instance->DR; // Clear PE flag
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
