@@ -49,10 +49,6 @@ extern "C"{
 extern const PinName digitalPin[];
 
 // Enum defining Arduino style alias for digital pin number --> Dx
-// !!!
-// !!! It must be aligned with the number of PinName
-// !!! defined in digitalPin[] array in variant.cpp
-// !!!
 enum {
   D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
   D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
@@ -67,10 +63,6 @@ enum {
   DEND
 };
 // Enum defining Arduino style alias for analog pin number --> Ax
-// !!!
-// !!! It must be aligned with the number of analog PinName
-// !!! defined in digitalPin[] array in variant.cpp
-// !!!
 enum {
   A_START_AFTER = D77, // pin number preceding A0
   A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
@@ -88,11 +80,13 @@ enum {
 #define PWM_MAX_DUTY_CYCLE      255
 
 //On-board LED pin number
-#define LED_BUILTIN             Dx
+#define LED_BUILTIN             33
 #define LED_GREEN               LED_BUILTIN
+#define LED_BLUE                73
+#define LED_RED                 74
 
 //On-board user button
-#define USER_BTN                Dx
+#define USER_BTN                75
 
 
 //SPI definitions
@@ -100,42 +94,42 @@ enum {
 #define SPI_CHANNELS_NUM        16
 
 //default chip salect pin
-#define BOARD_SPI_DEFAULT_SS    10 // Default for Arduino connector compatibility
+#define BOARD_SPI_DEFAULT_SS    10
 
 //In case SPI CS channel is not used we define a default one
 #define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
 
 #define SS                      BOARD_SPI_DEFAULT_SS
-#define MOSI                    11 // Default for Arduino connector compatibility
-#define MISO                    12 // Default for Arduino connector compatibility
-#define SCLK                    13 // Default for Arduino connector compatibility
+#define MOSI                    11
+#define MISO                    12
+#define SCLK                    13
 #define SCK                     SCLK
 
 //I2C Definitions
-#define SDA                     14 // Default for Arduino connector compatibility
-#define SCL                     15 // Default for Arduino connector compatibility
+#define SDA                     14
+#define SCL                     15
 
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
-#define TIMER_TONE              TIMx
-#define TIMER_UART_EMULATED     TIMx
+#define TIMER_TONE              TIM6
+#define TIMER_UART_EMULATED     TIM7
 
 //Do not use basic timer: OC is required
-#define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
-#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
+#define DEBUG_UART              ((USART_TypeDef *) USART3)
 
 // UART Emulation (uncomment if needed, required TIM1)
 //#define UART_EMUL_RX            PYxx // PinName used for RX
 //#define UART_EMUL_TX            PYxx // PinName used for TX
 
 // Serial Pin Firmata
-#define PIN_SERIAL_RX           Dx
-#define PIN_SERIAL_TX           Dx
-// Define as many PIN_SERIALX than desired
-//#define PIN_SERIAL1_RX          Dx
-//#define PIN_SERIAL1_TX          Dx
-//...
+#define PIN_SERIAL_RX           76
+#define PIN_SERIAL_TX           77
+#define PIN_SERIAL1_RX          0
+#define PIN_SERIAL1_TX          1
+#define PIN_SERIAL2_RX          52
+#define PIN_SERIAL2_TX          53
 
 #ifdef __cplusplus
 } // extern "C"
@@ -147,8 +141,8 @@ enum {
 #ifdef __cplusplus
 // declare here as many UART objects than defined in variant.cpp
 extern HardwareSerial Serial;
-//extern HardwareSerial SerialX;
-//...
+extern HardwareSerial Serial1;
+extern HardwareSerial Serial2;
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
