@@ -21,6 +21,20 @@ Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
+# NUCLEO_F207ZG board
+# Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG=Nucleo F207ZG
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.node=NODE_F207ZG
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.upload.maximum_size=1048576
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.upload.maximum_data_size=131072
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.mcu=cortex-m3
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.f_cpu=120000000L
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.board=NUCLEO_F207ZG
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.series=STM32F2xx
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.product_line=STM32F207xx
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.variant=NUCLEO_F207ZG
+Nucleo_144.menu.board_part_num.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # NUCLEO_F429ZI board
 # Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
 Nucleo_144.menu.board_part_num.NUCLEO_F429ZI=Nucleo F429ZI
