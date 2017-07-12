@@ -75,6 +75,10 @@
 #elif defined (STM32F1xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE)) //0x0801FC00
 #define FLASH_PAGE_NUMBER   127
+#elif defined (STM32F2xx)
+/*start address:from sector2 : after 16KByte of used Flash memory */
+#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08008000))
+#define FLASH_DATA_SECTOR   FLASH_SECTOR_2
 #elif defined (STM32F3xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((0x0807FFFF + 1) - FLASH_PAGE_SIZE)) //0x0807F800
 #elif defined (STM32F4xx)
