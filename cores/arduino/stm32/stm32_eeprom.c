@@ -68,28 +68,55 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
-// We use the last page of the flash to store data (to prevent code overwrite).
+// We use the last page of the flash to store data (to prevent code overwritten).
 #ifdef STM32F0xx
-// Flash base address (Bank2, page 256)
-#define FLASH_BASE_ADDRESS  0x0803F800
+#define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE)
 #elif defined (STM32F1xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE)) //0x0801FC00
-#define FLASH_PAGE_NUMBER   127
+#ifdef FLASH_BANK2_END
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK2_END + 1) - FLASH_PAGE_SIZE))
+#else
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE))
+#endif // FLASH_BANK2_END
 #elif defined (STM32F2xx)
-/*start address:from sector2 : after 16KByte of used Flash memory */
-#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08008000))
-#define FLASH_DATA_SECTOR   FLASH_SECTOR_2
+#define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_END + 1) - FLASH_PAGE_SIZE)
+#define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
 #elif defined (STM32F3xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)((0x0807FFFF + 1) - FLASH_PAGE_SIZE)) //0x0807F800
+static inline uint32_t get_flash_end(void) {
+  uint32_t size;
+
+  switch((*((uint16_t *)FLASH_SIZE_DATA_REGISTER))) {
+    case 0x200U:
+      size = 0x0807FFFFU;
+    break;
+    case 0x100U:
+      size = 0x0803FFFFU;
+    break;
+    case 0x80U:
+      size = 0x0801FFFFU;
+    break;
+    case 0x40U:
+      size = 0x0800FFFFU;
+    break;
+    case 0x20U:
+      size = 0x08007FFFU;
+    break;
+    default:
+      size = 0x08003FFFU;
+    break;
+  }
+
+  return size;
+}
+#define FLASH_END_ADDR      get_flash_end()
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END_ADDR + 1) - FLASH_PAGE_SIZE))
 #elif defined (STM32F4xx)
-// Use the last 16 page of the second bank (sector 15)
-#define FLASH_BASE_ADDRESS  ((uint32_t)(0x0810C000))
-#define FLASH_DATA_SECTOR   15
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
+#define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
 #elif defined (STM32F7xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08018000))
-#define FLASH_DATA_SECTOR   3
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
+#define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
 #elif defined (STM32L0xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE)) /* 0x08080000 */
+#define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE))
 #elif defined (STM32L4xx)
 #ifndef FLASH_BANK_2
 #define FLASH_BANK_NUMBER   FLASH_BANK_1
@@ -97,8 +124,8 @@
 #define FLASH_BANK_NUMBER   FLASH_BANK_2
 #endif // FLASH_BANK_2
 // Flash base address
-#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE/FLASH_PAGE_SIZE) -1))
-#define FLASH_BASE_ADDRESS  ((uint32_t)(0x08000000 + (FLASH_PAGE_NUMBER*FLASH_PAGE_SIZE)))
+#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
+#define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_BASE + (FLASH_PAGE_NUMBER * FLASH_PAGE_SIZE)))
 #endif
 /**
   * @}
