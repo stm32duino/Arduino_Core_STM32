@@ -24,9 +24,9 @@
 
 #include <Arduino.h>
 
-#if !defined(USBCON) || !defined(USBD_USE_HID_COMPOSITE)
+#if !defined(USBCON)
 
-#error "USB HID not enabled! Select 'HID' in the 'Tools->USB interface' menu."
+#error "USB not enabled! Select 'USB Enable' in the 'Tools->USB interface' menu."
 
 #else
 
