@@ -30,7 +30,6 @@
 #define __USB_HID_COMPOSITE_H
 
 #ifdef USBCON
-#ifdef USBD_USE_HID_COMPOSITE
 
 #ifdef __cplusplus
  extern "C" {
@@ -146,7 +145,6 @@ uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev);
 }
 #endif
 
-#endif // USBD_USE_HID_COMPOSITE
 #endif // USBCON
 #endif  /* __USB_HID_COMPOSITE_H */
 /**

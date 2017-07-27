@@ -47,7 +47,6 @@
   */
 
 #ifdef USBCON
-#ifdef USBD_USE_HID_COMPOSITE
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_hid_composite.h"
@@ -741,6 +740,6 @@ static uint8_t  *USBD_HID_GetDeviceQualifierDesc (uint16_t *length)
   *length = sizeof (USBD_HID_DeviceQualifierDesc);
   return USBD_HID_DeviceQualifierDesc;
 }
-#endif // USBD_USE_HID_COMPOSITE
+
 #endif // USBCON
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
