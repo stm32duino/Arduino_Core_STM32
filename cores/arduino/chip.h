@@ -34,9 +34,6 @@
 #include "timer.h"
 #include "twi.h"
 #include "stm32_eeprom.h"
-#ifdef USBCON
-#include "usb_interface.h"
-#endif //USBCON
 
 #include "ethernet.h"
 
