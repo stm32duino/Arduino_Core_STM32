@@ -408,7 +408,7 @@ static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
                                  uint8_t cfgidx)
 {
   UNUSED(cfgidx);
-  
+
   /* Close HID EPs */
   USBD_LL_CloseEP(pdev,
                   HID_MOUSE_EPIN_ADDR);
@@ -587,7 +587,7 @@ static uint8_t  USBD_HID_KEYBOARD_Setup (USBD_HandleTypeDef *pdev,
       }
       else if( req->wValue >> 8 == HID_DESCRIPTOR_TYPE)
       {
-        pbuf = USBD_MOUSE_HID_Desc;
+        pbuf = USBD_KEYBOARD_HID_Desc;
         len = MIN(USB_HID_DESC_SIZ , req->wLength);
       }
 
