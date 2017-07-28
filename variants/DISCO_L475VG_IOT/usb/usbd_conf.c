@@ -193,32 +193,11 @@ void HAL_PCD_SOFCallback(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
 {
-  USBD_SpeedTypeDef speed = USBD_SPEED_FULL;
-
-  /* Set USB Current Speed */
-  switch(hpcd->Init.speed)
-  {
-  //Not supported on STM32L4xx boards
-#ifndef STM32L4xx
-  case PCD_SPEED_HIGH:
-    speed = USBD_SPEED_HIGH;
-    break;
-#endif
-
-  case PCD_SPEED_FULL:
-    speed = USBD_SPEED_FULL;
-    break;
-
-  default:
-    speed = USBD_SPEED_FULL;
-    break;
-  }
-
   /* Reset Device */
   USBD_LL_Reset(hpcd->pData);
 
   /* Set USB Current Speed */
-  USBD_LL_SetSpeed(hpcd->pData, speed);
+  USBD_LL_SetSpeed(hpcd->pData, USBD_SPEED_FULL);
 }
 
 /**
@@ -329,9 +308,9 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   /* Set LL Driver parameters */
   g_hpcd.Instance = USB_OTG_FS;
-  g_hpcd.Init.dev_endpoints = 4;
+  g_hpcd.Init.dev_endpoints = 2;
   g_hpcd.Init.use_dedicated_ep1 = 0;
-  g_hpcd.Init.ep0_mps = 0x40;
+  g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
   g_hpcd.Init.dma_enable = 0;
   g_hpcd.Init.low_power_enable = 0;
   g_hpcd.Init.lpm_enable = 0;
@@ -340,6 +319,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   g_hpcd.Init.Sof_enable = 0;
   g_hpcd.Init.speed = PCD_SPEED_FULL;
   g_hpcd.Init.vbus_sensing_enable = 1;
+  g_hpcd.Init.use_external_vbus = 0;
   /* Link The driver to the stack */
   g_hpcd.pData = pdev;
   pdev->pData = &g_hpcd;
@@ -347,10 +327,9 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   HAL_PCD_Init(&g_hpcd);
 
   /* configure EPs FIFOs */
-  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x10);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x10);
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x36);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x32);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0xC8);
 
   return USBD_OK;
 }
