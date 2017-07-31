@@ -16,6 +16,7 @@ Boards available:
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
 
   * STM32F4
+    * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
     * [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html)
     * [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html)
 
