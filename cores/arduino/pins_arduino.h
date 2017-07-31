@@ -49,7 +49,7 @@ uint32_t pinNametoDigitalPin(PinName p);
 // Convert an analog pin number Axx to a PinName Pxy
 #define analogInputToPinName(p)     (digitalPinToPinName(analogInputToDigitalPin(p)))
 // All pins could manage EXTI
-#define digitalPinToInterrupt(p)    ((digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)
+#define digitalPinToInterrupt(p)    (digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)
 
 #define digitalPinHasI2C(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SDA) ||\
                                      pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SCL))
