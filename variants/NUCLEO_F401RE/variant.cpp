@@ -81,6 +81,14 @@ const PinName digitalPin[] = {
   PB0,  //D49/A3
   PC1,  //D50/A4
   PC0,  //D51/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7,  //D52/A6  = D11
+  PA6,  //D53/A7  = D12
+  PC2,  //D54/A8  = D28
+  PC3,  //D55/A9  = D29
+  PC5,  //D56/A10 = D35
+  PB1,  //D57/A11 = D41
+  PC4   //D58/A12 = D45
 };
 
 #ifdef __cplusplus
