@@ -231,6 +231,20 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.enable_Serialx}
 
+#DISCO_F100RB board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
+Disco.menu.board_part_num.DISCO_F100RB=STM32F100RB-DISCVL
+Disco.menu.board_part_num.DISCO_F100RB.node=DIS_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.upload.maximum_size=131071
+Disco.menu.board_part_num.DISCO_F100RB.upload.maximum_data_size=8192
+Disco.menu.board_part_num.DISCO_F100RB.build.mcu=cortex-m3
+Disco.menu.board_part_num.DISCO_F100RB.build.f_cpu=24000000L
+Disco.menu.board_part_num.DISCO_F100RB.build.board=DISCO_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.build.series=STM32F1xx
+Disco.menu.board_part_num.DISCO_F100RB.build.product_line=STM32F100xB
+Disco.menu.board_part_num.DISCO_F100RB.build.variant=DISCO_F100RB
+Disco.menu.board_part_num.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # DISCO_F407VG board
 # Support: USB HID
 Disco.menu.board_part_num.DISCO_F407VG=STM32F407G-DISC1
