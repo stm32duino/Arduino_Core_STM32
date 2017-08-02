@@ -142,6 +142,20 @@ Nucleo_64.menu.board_part_num.NUCLEO_F401RE.build.product_line=STM32F401xE
 Nucleo_64.menu.board_part_num.NUCLEO_F401RE.build.variant=NUCLEO_F401RE
 Nucleo_64.menu.board_part_num.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_F411RE board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PC7, PC6)
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE=Nucleo F411RE
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.node=NODE_F411RE
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.upload.maximum_size=524288
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.upload.maximum_data_size=131072
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.mcu=cortex-m4
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.f_cpu=100000000L
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.board=NUCLEO_F411RE
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.series=STM32F4xx
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.product_line=STM32F411xE
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.variant=NUCLEO_F411RE
+Nucleo_64.menu.board_part_num.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # NUCLEO_L053R8 board
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.board_part_num.NUCLEO_L053R8=Nucleo L053R8
