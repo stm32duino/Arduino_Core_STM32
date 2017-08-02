@@ -103,7 +103,7 @@ HardwareSerial Serial(PA3, PA2);  //Connected to ST-Link
 HardwareSerial  Serial1(PA10, PA9);
 #endif
 #ifdef ENABLE_SERIAL2
-HardwareSerial  Serial2(PA1, PA0);
+HardwareSerial  Serial2(PC7, PC6);
 #endif
 
 void serialEvent() __attribute__((weak));

@@ -104,16 +104,16 @@ enum {
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // UART Emulation
-#define UART_EMUL_RX            PC1
-#define UART_EMUL_TX            PC3
+//#define UART_EMUL_RX            PC1
+//#define UART_EMUL_TX            PC3
 
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           0
 #define PIN_SERIAL_TX           1
 #define PIN_SERIAL1_RX          2
 #define PIN_SERIAL1_TX          8
-#define PIN_SERIAL2_RX          47
-#define PIN_SERIAL2_TX          46
+#define PIN_SERIAL2_RX          9
+#define PIN_SERIAL2_TX          34
 
 #ifdef __cplusplus
 } // extern "C"
