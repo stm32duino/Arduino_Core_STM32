@@ -112,8 +112,8 @@ enum {
 #define PIN_SERIAL_TX           1
 #define PIN_SERIAL1_RX          2
 #define PIN_SERIAL1_TX          8
-#define PIN_SERIAL2_RX          47
-#define PIN_SERIAL2_TX          46
+#define PIN_SERIAL2_RX          31
+#define PIN_SERIAL2_TX          17
 
 #ifdef __cplusplus
 } // extern "C"
