@@ -70,14 +70,13 @@ int HardwareSerial::_tx_complete_irq(serial_t* obj)
 {
   // If interrupts are enabled, there must be more data in the output
   // buffer. Send the next byte
-  unsigned char c = obj->tx_buff[obj->tx_tail];
   obj->tx_tail = (obj->tx_tail + 1) % SERIAL_TX_BUFFER_SIZE;
 
   if (obj->tx_head == obj->tx_tail) {
     return -1;
   }
 
-  return c;
+  return 0;
 }
 
 // Public Methods //////////////////////////////////////////////////////////////
