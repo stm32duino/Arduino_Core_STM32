@@ -8,6 +8,7 @@ Boards available:
 
   * STM32F1
     * [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
+    * [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html)
 
   * STM32F2
     * [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html)
