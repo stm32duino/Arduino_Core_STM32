@@ -4,7 +4,7 @@
 // none
 #endif
 #ifdef STM32F1xx
-// none
+#include "stm32f1xx_hal_mmc.c"
 #endif
 #ifdef STM32F2xx
 #include "stm32f2xx_hal_mmc.c"
