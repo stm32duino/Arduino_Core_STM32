@@ -40,7 +40,7 @@ For full instructions on using the "**Boards Manager**", see the [Getting Starte
 
 ## Troubleshooting
 
-If you have any issue to download/use a package, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
+If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
 
 Or submit a topic on the [stm32duino forum](http://stm32duino.com):
 
