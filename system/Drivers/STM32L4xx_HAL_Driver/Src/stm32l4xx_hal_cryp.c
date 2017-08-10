@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_cryp.c
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   CRYP HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Cryptography (CRYP) peripheral:
@@ -372,8 +372,12 @@ HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
   /* Change the CRYP state */
   hcryp->State = HAL_CRYP_STATE_READY;
   
+  if (hcryp->Init.OperatingMode != CRYP_ALGOMODE_KEYDERIVATION)
+  {
   /* Enable the Peripheral */
   __HAL_CRYP_ENABLE(hcryp);
+  }
+  /* else, enable IP in processing function */
   
   /* Return function status */
   return HAL_OK;
