@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_rcc.h
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   Header file of RCC HAL module.
   ******************************************************************************
   * @attention
@@ -545,34 +545,34 @@ typedef struct
   * @{
   */
 /* Flags in the CR register */
-#define RCC_FLAG_MSIRDY                ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_MSIRDY))) /*!< MSI Ready flag */
-#define RCC_FLAG_HSIRDY                ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_HSIRDY))) /*!< HSI Ready flag */
-#define RCC_FLAG_HSERDY                ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_HSERDY))) /*!< HSE Ready flag */
-#define RCC_FLAG_PLLRDY                ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_PLLRDY))) /*!< PLL Ready flag */
-#define RCC_FLAG_PLLSAI1RDY            ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_PLLSAI1RDY))) /*!< PLLSAI1 Ready flag */
+#define RCC_FLAG_MSIRDY                ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_MSIRDY_Pos)) /*!< MSI Ready flag */
+#define RCC_FLAG_HSIRDY                ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos)) /*!< HSI Ready flag */
+#define RCC_FLAG_HSERDY                ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos)) /*!< HSE Ready flag */
+#define RCC_FLAG_PLLRDY                ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos)) /*!< PLL Ready flag */
+#define RCC_FLAG_PLLSAI1RDY            ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLSAI1RDY_Pos)) /*!< PLLSAI1 Ready flag */
 #if defined(RCC_PLLSAI2_SUPPORT)
-#define RCC_FLAG_PLLSAI2RDY            ((uint32_t)((CR_REG_INDEX << 5U) | POSITION_VAL(RCC_CR_PLLSAI2RDY))) /*!< PLLSAI2 Ready flag */
+#define RCC_FLAG_PLLSAI2RDY            ((uint32_t)((CR_REG_INDEX << 5U) | RCC_CR_PLLSAI2RDY_Pos)) /*!< PLLSAI2 Ready flag */
 #endif /* RCC_PLLSAI2_SUPPORT */
 
 /* Flags in the BDCR register */
-#define RCC_FLAG_LSERDY                ((uint32_t)((BDCR_REG_INDEX << 5U) | POSITION_VAL(RCC_BDCR_LSERDY))) /*!< LSE Ready flag */
-#define RCC_FLAG_LSECSSD               ((uint32_t)((BDCR_REG_INDEX << 5U) | POSITION_VAL(RCC_BDCR_LSECSSD))) /*!< LSE Clock Security System Interrupt flag */
+#define RCC_FLAG_LSERDY                ((uint32_t)((BDCR_REG_INDEX << 5U) | RCC_BDCR_LSERDY_Pos)) /*!< LSE Ready flag */
+#define RCC_FLAG_LSECSSD               ((uint32_t)((BDCR_REG_INDEX << 5U) | RCC_BDCR_LSECSSD_Pos)) /*!< LSE Clock Security System Interrupt flag */
 
 /* Flags in the CSR register */
-#define RCC_FLAG_LSIRDY                ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_LSIRDY)))   /*!< LSI Ready flag */
-#define RCC_FLAG_RMVF                  ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_RMVF)))     /*!< Remove reset flag */
-#define RCC_FLAG_FWRST                 ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_FWRSTF)))   /*!< Firewall reset flag */
-#define RCC_FLAG_OBLRST                ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_OBLRSTF)))  /*!< Option Byte Loader reset flag */
-#define RCC_FLAG_PINRST                ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_PINRSTF)))  /*!< PIN reset flag */
-#define RCC_FLAG_BORRST                ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_BORRSTF)))  /*!< BOR reset flag */
-#define RCC_FLAG_SFTRST                ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_SFTRSTF)))  /*!< Software Reset flag */
-#define RCC_FLAG_IWDGRST               ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_IWDGRSTF))) /*!< Independent Watchdog reset flag */
-#define RCC_FLAG_WWDGRST               ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_WWDGRSTF))) /*!< Window watchdog reset flag */
-#define RCC_FLAG_LPWRRST               ((uint32_t)((CSR_REG_INDEX << 5U) | POSITION_VAL(RCC_CSR_LPWRRSTF))) /*!< Low-Power reset flag */
+#define RCC_FLAG_LSIRDY                ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_LSIRDY_Pos))   /*!< LSI Ready flag */
+#define RCC_FLAG_RMVF                  ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_RMVF_Pos))     /*!< Remove reset flag */
+#define RCC_FLAG_FWRST                 ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_FWRSTF_Pos))   /*!< Firewall reset flag */
+#define RCC_FLAG_OBLRST                ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_OBLRSTF_Pos))  /*!< Option Byte Loader reset flag */
+#define RCC_FLAG_PINRST                ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_PINRSTF_Pos))  /*!< PIN reset flag */
+#define RCC_FLAG_BORRST                ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_BORRSTF_Pos))  /*!< BOR reset flag */
+#define RCC_FLAG_SFTRST                ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_SFTRSTF_Pos))  /*!< Software Reset flag */
+#define RCC_FLAG_IWDGRST               ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_IWDGRSTF_Pos)) /*!< Independent Watchdog reset flag */
+#define RCC_FLAG_WWDGRST               ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_WWDGRSTF_Pos)) /*!< Window watchdog reset flag */
+#define RCC_FLAG_LPWRRST               ((uint32_t)((CSR_REG_INDEX << 5U) | RCC_CSR_LPWRRSTF_Pos)) /*!< Low-Power reset flag */
 
 #if defined(RCC_HSI48_SUPPORT)
 /* Flags in the CRRCR register */
-#define RCC_FLAG_HSI48RDY              ((uint32_t)((CRRCR_REG_INDEX << 5U) | POSITION_VAL(RCC_CRRCR_HSI48RDY))) /*!< HSI48 Ready flag */
+#define RCC_FLAG_HSI48RDY              ((uint32_t)((CRRCR_REG_INDEX << 5U) | RCC_CRRCR_HSI48RDY_Pos)) /*!< HSI48 Ready flag */
 #endif /* RCC_HSI48_SUPPORT */
 /**
   * @}
@@ -3348,7 +3348,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_RCC_HSI_CALIBRATIONVALUE_ADJUST(__HSICALIBRATIONVALUE__) \
-                  MODIFY_REG(RCC->ICSCR, RCC_ICSCR_HSITRIM, (uint32_t)(__HSICALIBRATIONVALUE__) << POSITION_VAL(RCC_ICSCR_HSITRIM))
+                  MODIFY_REG(RCC->ICSCR, RCC_ICSCR_HSITRIM, (uint32_t)(__HSICALIBRATIONVALUE__) << RCC_ICSCR_HSITRIM_Pos)
 
 /**
   * @brief    Macros to enable or disable the wakeup the Internal High Speed oscillator (HSI)
@@ -4055,7 +4055,7 @@ typedef struct
 
 #define IS_RCC_HSI(__HSI__)  (((__HSI__) == RCC_HSI_OFF) || ((__HSI__) == RCC_HSI_ON))
 
-#define IS_RCC_HSI_CALIBRATION_VALUE(__VALUE__) ((__VALUE__) <= (uint32_t)( RCC_ICSCR_HSITRIM  >>  POSITION_VAL(RCC_ICSCR_HSITRIM)))
+#define IS_RCC_HSI_CALIBRATION_VALUE(__VALUE__) ((__VALUE__) <= (uint32_t)( RCC_ICSCR_HSITRIM  >>  RCC_ICSCR_HSITRIM_Pos))
 
 #define IS_RCC_LSI(__LSI__)  (((__LSI__) == RCC_LSI_OFF) || ((__LSI__) == RCC_LSI_ON))
 
