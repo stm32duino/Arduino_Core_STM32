@@ -189,7 +189,42 @@ typedef enum {
     PI14 = (PortI << 4) + 0x0E,
     PI15 = (PortI << 4) + 0x0F,
 #endif
-
+#if defined GPIOJ_BASE
+    PJ0  = (PortJ << 4) + 0x00,
+    PJ1  = (PortJ << 4) + 0x01,
+    PJ2  = (PortJ << 4) + 0x02,
+    PJ3  = (PortJ << 4) + 0x03,
+    PJ4  = (PortJ << 4) + 0x04,
+    PJ5  = (PortJ << 4) + 0x05,
+    PJ6  = (PortJ << 4) + 0x06,
+    PJ7  = (PortJ << 4) + 0x07,
+    PJ8  = (PortJ << 4) + 0x08,
+    PJ9  = (PortJ << 4) + 0x09,
+    PJ10 = (PortJ << 4) + 0x0A,
+    PJ11 = (PortJ << 4) + 0x0B,
+    PJ12 = (PortJ << 4) + 0x0C,
+    PJ13 = (PortJ << 4) + 0x0D,
+    PJ14 = (PortJ << 4) + 0x0E,
+    PJ15 = (PortJ << 4) + 0x0F,
+#endif
+#if defined GPIOK_BASE
+    PK0  = (PortK << 4) + 0x00,
+    PK1  = (PortK << 4) + 0x01,
+    PK2  = (PortK << 4) + 0x02,
+    PK3  = (PortK << 4) + 0x03,
+    PK4  = (PortK << 4) + 0x04,
+    PK5  = (PortK << 4) + 0x05,
+    PK6  = (PortK << 4) + 0x06,
+    PK7  = (PortK << 4) + 0x07,
+    PK8  = (PortK << 4) + 0x08,
+    PK9  = (PortK << 4) + 0x09,
+    PK10 = (PortK << 4) + 0x0A,
+    PK11 = (PortK << 4) + 0x0B,
+    PK12 = (PortK << 4) + 0x0C,
+    PK13 = (PortK << 4) + 0x0D,
+    PK14 = (PortK << 4) + 0x0E,
+    PK15 = (PortK << 4) + 0x0F,
+#endif
     // Not connected
     NC = (int)0xFFFFFFFF
 } PinName;
