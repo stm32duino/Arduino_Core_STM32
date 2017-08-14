@@ -737,7 +737,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timHandle.Init.Period            = period -1;
   timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   timHandle.Init.RepetitionCounter = 0;
 #endif
   timHandle.State= HAL_TIM_STATE_RESET;
@@ -758,7 +758,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timConfig.OCMode       = TIM_OCMODE_PWM1;
   timConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
   timConfig.OCFastMode   = TIM_OCFAST_DISABLE;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   timConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
   timConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   timConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
@@ -771,7 +771,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
     return;
   }
 
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   if(STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Start(&timHandle, timChannel);
   } else
@@ -797,7 +797,7 @@ void pwm_stop(PinName pin)
   timChannel = get_pwm_channel(pin);
   if (!IS_TIM_CHANNELS(timChannel)) return;
 
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Stop(&timHandle, timChannel);
   } else

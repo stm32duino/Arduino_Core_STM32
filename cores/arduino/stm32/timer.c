@@ -413,7 +413,7 @@ void TimerHandleInit(stimer_t *obj, uint16_t period, uint16_t prescaler)
   handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
   handle->Init.Period            = period;
   handle->Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   handle->Init.RepetitionCounter = 0x0000;
 #endif
   if(HAL_TIM_Base_Init(handle) != HAL_OK){
@@ -757,7 +757,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(obj->timer) / (1000000)) - 1;
   handle->Init.ClockDivision     = 0;
   handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   handle->Init.RepetitionCounter = 0;
 #endif
   obj->irqHandleOC = irqHandle;
@@ -766,7 +766,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   sConfig.Pulse         = pulseWidth;
   sConfig.OCPolarity    = TIM_OCPOLARITY_HIGH;
   sConfig.OCFastMode    = TIM_OCFAST_DISABLE;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   sConfig.OCNPolarity   = TIM_OCNPOLARITY_HIGH;
   sConfig.OCIdleState   = TIM_OCIDLESTATE_RESET;
   sConfig.OCNIdleState  = TIM_OCNIDLESTATE_RESET;

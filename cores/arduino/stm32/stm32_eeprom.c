@@ -69,7 +69,7 @@
   * @{
   */
 // We use the last page of the flash to store data (to prevent code overwritten).
-#if defined (STM32F0xx) || defined (STM32F1xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined(STM32L1xx)
 #ifdef FLASH_BANK2_END
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK2_END + 1) - FLASH_PAGE_SIZE))
 #else
@@ -200,7 +200,7 @@ void set_data_to_flash(void)
   uint32_t address = FLASH_BASE_ADDRESS;
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || \
-    defined (STM32L0xx) || defined(STM32L4xx)
+    defined (STM32L0xx) || defined (STM32L1xx) || defined(STM32L4xx)
   uint32_t pageError = 0;
   uint64_t data = 0;
 
@@ -218,10 +218,18 @@ void set_data_to_flash(void)
   EraseInitStruct.NbPages = 1;
 
   if(HAL_FLASH_Unlock() == HAL_OK) {
-#ifdef STM32L0xx
+#if defined(STM32L0xx)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGAERR|\
                            FLASH_FLAG_SIZERR|FLASH_FLAG_OPTVERR|FLASH_FLAG_RDERR|\
                            FLASH_FLAG_FWWERR|FLASH_FLAG_NOTZEROERR);
+#elif defined(STM32L1xx)
+#if defined(FLASH_SR_RDERR)
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGAERR|\
+                           FLASH_FLAG_SIZERR|FLASH_FLAG_OPTVERR|FLASH_FLAG_RDERR);
+#else
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGAERR|\
+                           FLASH_FLAG_SIZERR|FLASH_FLAG_OPTVERR);
+#endif
 #elif defined (STM32L4xx)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
 #else
@@ -229,7 +237,7 @@ void set_data_to_flash(void)
 #endif
     if(HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while(address < address_end) {
-#ifdef STM32L0xx
+#if defined(STM32L0xx) || defined(STM32L1xx)
       memcpy(&data, tmpEE + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
