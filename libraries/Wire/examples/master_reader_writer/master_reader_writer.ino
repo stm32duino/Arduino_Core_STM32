@@ -1,11 +1,13 @@
 /* Wire Master Reader Writer
 by Wi6Labs
 
-Demonstrates use of the Wire library, particullary with STM32F1xx boards.
+Demonstrates use of the Wire library.
 Reads/writes data from/to an I2C/TWI slave device.
 Refer to the "Wire Slave Sender Receiver" example for use with this.
 
 Created 27 June 2017
+Updated 14 August 2017
+  - this example is now common to all STM32 boards
 
 This example code is in the public domain.
 */
@@ -40,5 +42,5 @@ void loop()
   Wire.endTransmission();           // stop transmitting
   x++;
 
-  delay(1000);
+  delay(500);
 }
