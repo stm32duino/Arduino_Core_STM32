@@ -427,12 +427,7 @@ void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t*, int) )
     return;
 
   obj->i2c_onSlaveReceive = function;
-#ifdef STM32F1xx
-  obj->i2cTxRxBufferSize = 0;
-  HAL_I2C_Slave_Receive_IT(&(obj->handle), obj->i2cTxRxBuffer, I2C_TXRX_BUFFER_SIZE);
-#else
   HAL_I2C_EnableListen_IT(&(obj->handle));
-#endif
 }
 
 /** @brief  sets function called before a slave write operation
@@ -446,59 +441,8 @@ void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void) )
     return;
 
   obj->i2c_onSlaveTransmit = function;
-#ifdef STM32F1xx
-  /* Fill i2c buffer with data to transmit otherwize the buffer will be empty
-  when master will read the data for the first time */
-  obj->i2cTxRxBufferSize = 0;
-  obj->i2c_onSlaveTransmit();
-  HAL_I2C_Slave_Transmit_IT(&(obj->handle), obj->i2cTxRxBuffer, obj->i2cTxRxBufferSize);
-#else
   HAL_I2C_EnableListen_IT(&(obj->handle));
-#endif
 }
-
-#ifdef STM32F1xx
-
-/** @brief  Slave Tx Transfer completed callback.
-  * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
-  *                the configuration information for the specified I2C.
-  * @retval None
-  */
-void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
-{
-  i2c_t *obj = get_i2c_obj(hi2c);
-
-  if(NULL != obj->i2c_onSlaveTransmit) {
-    // reset buffer size and fill buffer with new data before the next Tx
-    obj->i2cTxRxBufferSize = 0;
-    obj->i2c_onSlaveTransmit();
-    HAL_I2C_Slave_Transmit_IT(hi2c, obj->i2cTxRxBuffer, obj->i2cTxRxBufferSize);
-  }
-}
-
-/**
-  * @brief  Slave Rx Transfer completed callback.
-  * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
-  *                the configuration information for the specified I2C.
-  * @retval None
-  */
-void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
-{
-  uint8_t nbData = 0;
-  i2c_t *obj = get_i2c_obj(hi2c);
-
-  if(NULL != obj->i2c_onSlaveReceive) {
-    nbData = I2C_TXRX_BUFFER_SIZE - obj->handle.XferCount;
-
-    if(nbData != 0) {
-      obj->i2c_onSlaveReceive(obj->i2cTxRxBuffer, nbData);
-    }
-
-    HAL_I2C_Slave_Receive_IT(hi2c, obj->i2cTxRxBuffer, I2C_TXRX_BUFFER_SIZE);
-  }
-}
-
-#else /* Others */
 
 /**
   * @brief  Slave Address Match callback.
@@ -552,8 +496,6 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   HAL_I2C_EnableListen_IT(hi2c);
 }
 
-#endif /* STM32F1xx */
-
 /**
   * @brief  I2C error callback.
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
@@ -562,11 +504,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   */
 void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
 {
-#ifdef STM32F1xx
-  UNUSED(hi2c);
-#else
   HAL_I2C_EnableListen_IT(hi2c);
-#endif
 }
 
 /**
