@@ -28,6 +28,9 @@ Boards available:
   * STM32L0
     * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
 
+  * STM32L1
+    * [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html)
+
   * STM32L4
     * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
