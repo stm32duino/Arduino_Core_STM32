@@ -82,3 +82,11 @@ void* pinmap_merge_peripheral(void* a, void* b) {
     // error("pinmap mis-match");
     return NP;
 }
+
+PinName pin_pinName(const PinMap* map) {
+  if(map->pin != NC) {
+    return map->pin;
+  } else {
+    return NC;
+  }
+}

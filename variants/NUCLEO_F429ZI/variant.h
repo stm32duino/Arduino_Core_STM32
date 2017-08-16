@@ -123,6 +123,13 @@ enum {
 
 
 
+//Ethernet configuration
+/** Select the Low level Ethernet mode: MII or RMII.
+  * Must be coherente with PeripheralPins.c
+  * Uncomment to configure the RMII mode.
+  */
+#define ETHERNET_RMII_MODE_CONFIGURATION
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

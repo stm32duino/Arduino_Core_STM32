@@ -47,6 +47,9 @@ int main( void )
 
 	for (;;)
 	{
+		// Define by Ethernet library. It is defined as __weak.
+		stm32_eth_scheduler();
+		
 		loop();
 		if (serialEventRun) serialEventRun();
 	}

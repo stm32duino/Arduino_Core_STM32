@@ -38,6 +38,8 @@
 #include "usb_interface.h"
 #endif //USBCON
 
+#include "ethernet.h"
+
 /* Define attribute */
 #if defined (  __GNUC__  ) /* GCC CS3 */
     #define WEAK __attribute__ ((weak))
