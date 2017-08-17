@@ -104,8 +104,8 @@ enum {
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // UART Emulation
-#define UART_EMUL_RX            PB14
-#define UART_EMUL_TX            PB13
+#define UART_EMUL_RX            PB_14
+#define UART_EMUL_TX            PB_13
 
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           0

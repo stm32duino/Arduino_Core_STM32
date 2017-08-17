@@ -50,10 +50,10 @@ static inline void pinF1_DisconnectDebug(PinName pin)
 
     // Disconnect JTAG-DP + SW-DP signals.
     // Warning: Need to reconnect under reset
-    if ((pin == PA13) || (pin == PA14)) {
+    if ((pin == PA_13) || (pin == PA_14)) {
         __HAL_AFIO_REMAP_SWJ_DISABLE(); // JTAG-DP Disabled and SW-DP Disabled
     }
-    if ((pin == PA15) || (pin == PB3) || (pin == PB4)) {
+    if ((pin == PA_15) || (pin == PB_3) || (pin == PB_4)) {
         __HAL_AFIO_REMAP_SWJ_NOJTAG(); // JTAG-DP Disabled and SW-DP enabled
     }
 #endif /* STM32F1_FORCE_DEBUG */

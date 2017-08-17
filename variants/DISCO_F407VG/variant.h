@@ -106,8 +106,8 @@ enum {
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // UART Emulation
-#define UART_EMUL_RX            PE9
-#define UART_EMUL_TX            PE11
+#define UART_EMUL_RX            PE_9
+#define UART_EMUL_TX            PE_11
 
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           42
@@ -138,7 +138,7 @@ extern HardwareSerial Serial;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13. 
+#define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
                                    // See UM §6.1.3 ST-LINK/V2-A VCP configuration)
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif

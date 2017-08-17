@@ -120,8 +120,8 @@ enum {
 #define DEBUG_UART              ((USART_TypeDef *) USART3)
 
 // UART Emulation (uncomment if needed, required TIM1)
-//#define UART_EMUL_RX            PYxx // PinName used for RX
-//#define UART_EMUL_TX            PYxx // PinName used for TX
+//#define UART_EMUL_RX            PX_n // PinName used for RX
+//#define UART_EMUL_TX            PX_n // PinName used for TX
 
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           76
