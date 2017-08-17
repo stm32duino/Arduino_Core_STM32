@@ -33,7 +33,7 @@ extern "C" {
 #endif
 
 #define NOT_AN_INTERRUPT            NC // -1
-
+#define DEND                        PEND
 #define NUM_DIGITAL_PINS            DEND
 #define NUM_ANALOG_INPUTS           (AEND-A0)
 

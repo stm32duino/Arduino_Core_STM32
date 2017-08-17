@@ -37,14 +37,74 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
-  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
-  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
-  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
-  D60,
-  DEND
+  PA3,  //D0
+  PA2,  //D1
+  PA10, //D2
+  PB3,  //D3 - no PWM
+  PB5,  //D4
+  PB4,  //D5
+  PB10, //D6 - no PWM
+  PA8,  //D7
+  PA9,  //D8
+  PC7,  //D9
+  PB6,  //D10
+  PA7,  //D11
+  PA6,  //D12
+  PA5,  //D13
+  PB9,  //D14
+  PB8,  //D15
+// ST Morpho
+// CN7 Left Side
+  PC10, //D16
+  PC12, //D17
+  PF6,  //D18
+  PF7,  //D19
+  PA13, //D20 - SWD
+  PA14, //D21 - SWD
+  PA15, //D22
+  PB7,  //D23
+  PC13, //D24
+  PC14, //D25
+  PC15, //D26
+  PF0,  //D27
+  PF1,  //D28
+  PC2,  //D29
+  PC3,  //D30
+// CN7 Right Side
+  PC11, //D31
+  PD2,  //D32
+// CN10 Left Side
+  PC9,  //D33
+// CN10 Right side
+  PC8,  //D34
+  PC6,  //D35
+  PC5,  //D36
+  PA12, //D37
+  PA11, //D38
+  PB12, //D39
+  PB11, //D40
+  PB2,  //D41
+  PB1,  //D42
+  PB15, //D43
+  PB14, //D44
+  PB13, //D45
+  PC4,  //D46
+  PF5,  //D47
+  PF4,  //D48
+  PA0,  //D49/A0
+  PA1,  //D50/A1
+  PA4,  //D51/A2
+  PB0,  //D52/A3
+  PC1,  //D53/A4
+  PC0,  //D54/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7_2,//D55/A6  = D11
+  PA6_2,//D56/A7  = D12
+  PC2_2,//D57/A8  = D29
+  PC3_2,//D58/A9  = D30
+  PC5_2,//D59/A10 = D36
+  PC4_2,//D60/A11 = D46
+  PEND
 };
 
 enum {

@@ -50,16 +50,16 @@ const PinName digitalPin[] = {
   PD_15, //D9
   PD_14, //D10
   PA_7,  //D11 - If SB121, SB122 (ON,OFF) connected to PA7 (default, see D71)
-        //      else SB121, SB122 (OFF,ON) connected to PB5 (D22)
+         //      else SB121, SB122 (OFF,ON) connected to PB5 (D22)
   PA_6,  //D12
   PA_5,  //D13
   PB_9,  //D14
   PB_8,  //D15
   PC_6,  //D16
   PB_15, //D17
-  PB_13, //D18 - used as I2S_A_CK and connected to CN7 pin 5 by default, if JP7 is ON, 
-        //      it is also connected to Ethernet PHY as RMII_TXD1. In this case only 
-		//      one function of Ethernet or I2S_A must be used.
+  PB_13, //D18 - used as I2S_A_CK and connected to CN7 pin 5 by default, if JP7 is ON,
+         //      it is also connected to Ethernet PHY as RMII_TXD1. In this case only
+         //      one function of Ethernet or I2S_A must be used.
   PB_12, //D19
   PA_15, //D20
   PC_7,  //D21
@@ -73,7 +73,7 @@ const PinName digitalPin[] = {
   PD_12, //D29
   PD_11, //D30
   PE_2,  //D31 - PE2 is connected to both CN9 pin 14 (I/O) and CN10 pin 25 (I/O).
-        //      Only one connector pin must be used at one time. 
+         //      Only one connector pin must be used at one time.
   PA_0,  //D32
   PB_0,  //D33 - LED1
   PE_0,  //D34
@@ -98,8 +98,8 @@ const PinName digitalPin[] = {
   PD_5,  //D53
   PD_4,  //D54
   PD_3,  //D55
-  PE_2,  //D56 - connected to both CN9 pin 14 (I/O) and CN10 pin 25 (I/O). 
-        //      Only one connector pin must be used at one time
+  PE_2,  //D56 - connected to both CN9 pin 14 (I/O) and CN10 pin 25 (I/O).
+         //      Only one connector pin must be used at one time
   PE_4,  //D57
   PE_5,  //D58
   PE_6,  //D59
@@ -115,9 +115,9 @@ const PinName digitalPin[] = {
   PF_1,  //D69
   PF_2,  //D70
   PA_7,  //D71 - used as D11 and connected to CN7 pin 14 by default, if JP6 is ON,
-        //     it is also connected to both Ethernet PHY as RMII_DV and CN9 pin 15.
-        //     In this case only one function of the Ethernet or D11 must be used. 
-  NC,   //D72
+         //     it is also connected to both Ethernet PHY as RMII_DV and CN9 pin 15.
+         //     In this case only one function of the Ethernet or D11 must be used.
+  NC,    //D72
   PB_7,  //D73 - LED_BLUE
   PB_14, //D74 - LED_RED
   PC_13, //D75 - USER_BTN

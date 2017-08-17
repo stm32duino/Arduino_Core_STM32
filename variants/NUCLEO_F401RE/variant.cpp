@@ -44,7 +44,7 @@ const PinName digitalPin[] = {
 // CN7 Left Side
   PC_10, //D16
   PC_12, //D17
-  NC,   //D18 - BOOT0
+  NC,    //D18 - BOOT0
   PA_13, //D19 - SWD
   PA_14, //D20 - SWD
   PA_15, //D21

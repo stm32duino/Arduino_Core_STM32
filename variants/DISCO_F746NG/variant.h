@@ -37,10 +37,32 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
-  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24,
-  DEND
+  PC7,  //D0
+  PC6,  //D1
+  PG6,  //D2
+  PB4,  //D3
+  PG7,  //D4
+  PI0,  //D5
+  PH6,  //D6
+  PI3,  //D7
+  PI2,  //D8
+  PA15, //D9
+  PA8,  //D10
+  PB15, //D11
+  PB14, //D12
+  PI1,  //D13
+  PB9,  //D14
+  PB8,  //D15
+  PA0,  //D16/A0
+  PF10, //D17/A1
+  PF9,  //D18/A2
+  PF8,  //D19/A3
+  PF7,  //D20/A4
+  PF6,  //D21/A5
+  PI11, //D22 User btn
+  PB7,  //D23 ST-Link Rx
+  PA9,  //D24 ST-Link Tx
+  PEND
 };
 
 enum {
