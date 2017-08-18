@@ -36,9 +36,9 @@ extern "C" {
 
 // Pin number
 // This array allows to wrap Arduino pin number(Dx or x)
-// to STM32 PinName (PYx)
+// to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-//PYx, //Dx
+//PX_n, //Dx
   P, //D0
   P, //D1
   P, //D2
@@ -145,8 +145,8 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-// Replace PYx_Rx and PYx_Tx by UART_RX and UART_TX pin names
-HardwareSerial  Serial(PYx_Rx, PYx_Tx); // Connected to ST-Link
+// Replace PX_n_Rx and PX_n_Tx by UART_RX and UART_TX pin names
+HardwareSerial  Serial(PX_n_Rx, PX_n_Tx); // Connected to ST-Link
 
 void serialEvent() __attribute__((weak));
 void serialEvent() { }
@@ -154,7 +154,7 @@ void serialEvent() { }
 // Define as many Serial instance as desired
 // Replace 'SerialX' by the desired name
 //#ifdef ENABLE_SERIALX
-//HardwareSerial  SerialX(PYx_Rx, PYx_Tx);
+//HardwareSerial  SerialX(PX_n_Rx, PX_n_Tx);
 //
 //void serialEventx() __attribute__((weak));
 //void serialEventx() { }

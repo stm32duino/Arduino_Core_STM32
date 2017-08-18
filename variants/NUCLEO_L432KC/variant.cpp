@@ -24,29 +24,29 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PA10, //D0
-  PA9,  //D1
-  PA12, //D2
-  PB0,  //D3
-  PB7,  //D4
-  PB6,  //D5
-  PB1,  //D6
-  PC14, //D7
-  PC15, //D8
-  PA8,  //D9
-  PA11, //D10
-  PB5,  //D11
-  PB4,  //D12
-  PB3,  //D13 - LED
-  PA0,  //D14/A0
-  PA1,  //D15/A1
-  PA3,  //D16/A2
-  PA4,  //D17/A3
-  PA5,  //D18/A4
-  PA6,  //D19/A5
-  PA7,  //D20/A6
-  PA2,  //D21/A7 - STLink Tx
-  PA15  //D22 - STLink Rx
+  PA_10, //D0
+  PA_9,  //D1
+  PA_12, //D2
+  PB_0,  //D3
+  PB_7,  //D4
+  PB_6,  //D5
+  PB_1,  //D6
+  PC_14, //D7
+  PC_15, //D8
+  PA_8,  //D9
+  PA_11, //D10
+  PB_5,  //D11
+  PB_4,  //D12
+  PB_3,  //D13 - LED
+  PA_0,  //D14/A0
+  PA_1,  //D15/A1
+  PA_3,  //D16/A2
+  PA_4,  //D17/A3
+  PA_5,  //D18/A4
+  PA_6,  //D19/A5
+  PA_7,  //D20/A6
+  PA_2,  //D21/A7 - STLink Tx
+  PA_15  //D22 - STLink Rx
 };
 
 #ifdef __cplusplus
@@ -56,9 +56,9 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-HardwareSerial  Serial(PA15, PA2); //Connected to ST-Link
+HardwareSerial  Serial(PA_15, PA_2); //Connected to ST-Link
 #ifdef ENABLE_SERIAL1
-HardwareSerial  Serial1(PA10, PA9);
+HardwareSerial  Serial1(PA_10, PA_9);
 #endif
 
 void serialEvent() __attribute__((weak));

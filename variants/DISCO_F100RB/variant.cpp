@@ -25,72 +25,72 @@ extern "C" {
 // Pin number following UM0919 table 4,5 and 6
 const PinName digitalPin[] = {
 // P1 connector
-  PC13, //D0
-  PC0,  //D1
-  PC1,  //D2
-  PC2,  //D3
-  PC3,  //D4
-  PA0,  //D5 - User button
-  PA1,  //D6
-  PA2,  //D7
-  PA3,  //D8
-  PA4,  //D9
-  PA5,  //D10
-  PA6,  //D11
-  PA7,  //D12
-  PC4,  //D13
-  PC5,  //D14
-  PB0,  //D15
-  PB1,  //D16
-  PB2,  //D17
+  PC_13, //D0
+  PC_0,  //D1
+  PC_1,  //D2
+  PC_2,  //D3
+  PC_3,  //D4
+  PA_0,  //D5 - User button
+  PA_1,  //D6
+  PA_2,  //D7
+  PA_3,  //D8
+  PA_4,  //D9
+  PA_5,  //D10
+  PA_6,  //D11
+  PA_7,  //D12
+  PC_4,  //D13
+  PC_5,  //D14
+  PB_0,  //D15
+  PB_1,  //D16
+  PB_2,  //D17
 // P2 connector
-  PC6,  //D18
-  PC7,  //D19
-  PC8,  //D20 - LED blue
-  PC9,  //D21 - LED green
-  PA8,  //D22
-  PA9,  //D23
-  PA10, //D24
-  PA11, //D25
-  PA12, //D26
-  PA13, //D27
-  PA14, //D28
-  PA15, //D29
-  PC10, //D30
-  PC11, //D31
-  PC12, //D32
-  PD2,  //D33
-  PB3,  //D34
-  PB4,  //D35
-  PB5,  //D36 - I2C SCL
-  PB6,  //D37 - I2C SDA
-  PB7,  //D38
-  PB8,  //D39
-  PB9,  //D40
+  PC_6,  //D18
+  PC_7,  //D19
+  PC_8,  //D20 - LED blue
+  PC_9,  //D21 - LED green
+  PA_8,  //D22
+  PA_9,  //D23
+  PA_10, //D24
+  PA_11, //D25
+  PA_12, //D26
+  PA_13, //D27
+  PA_14, //D28
+  PA_15, //D29
+  PC_10, //D30
+  PC_11, //D31
+  PC_12, //D32
+  PD_2,  //D33
+  PB_3,  //D34
+  PB_4,  //D35
+  PB_5,  //D36 - I2C SCL
+  PB_6,  //D37 - I2C SDA
+  PB_7,  //D38
+  PB_8,  //D39
+  PB_9,  //D40
 // P3 connector
-  PB10, //D41
-  PB11, //D42
-  PB12, //D43 - SPI SS
-  PB13, //D44 - SPI SCLK
-  PB14, //D45 - SPI MISO
-  PB15, //D46 - SPI MOSI
+  PB_10, //D41
+  PB_11, //D42
+  PB_12, //D43 - SPI SS
+  PB_13, //D44 - SPI SCLK
+  PB_14, //D45 - SPI MISO
+  PB_15, //D46 - SPI MOSI
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PC0,  //D47/A0 = D0
-  PC1,  //D48/A1 = D1
-  PC2,  //D49/A2 = D2
-  PC3,  //D50/A3 = D3
-  PA0,  //D51/A4 = D4
-  PA1,  //D52/A5 = D5
-  PA2,  //D53/A6 = D6
-  PA3,  //D54/A7 = D7
-  PA4,  //D55/A8 = D8
-  PA5,  //D56/A9 = D9
-  PA6,  //D57/A10 = D10
-  PA7,  //D58/A11 = D11
-  PC4,  //D59/A12 = D12
-  PC5,  //D60/A13 = D13
-  PB0,  //D61/A14 = D14
-  PB1   //D62/A15 = D15
+  PC_0,  //D47/A0 = D0
+  PC_1,  //D48/A1 = D1
+  PC_2,  //D49/A2 = D2
+  PC_3,  //D50/A3 = D3
+  PA_0,  //D51/A4 = D4
+  PA_1,  //D52/A5 = D5
+  PA_2,  //D53/A6 = D6
+  PA_3,  //D54/A7 = D7
+  PA_4,  //D55/A8 = D8
+  PA_5,  //D56/A9 = D9
+  PA_6,  //D57/A10 = D10
+  PA_7,  //D58/A11 = D11
+  PC_4,  //D59/A12 = D12
+  PC_5,  //D60/A13 = D13
+  PB_0,  //D61/A14 = D14
+  PB_1   //D62/A15 = D15
 };
 
 #ifdef __cplusplus
@@ -101,12 +101,12 @@ const PinName digitalPin[] = {
  * UART objects
  */
 
- HardwareSerial Serial(PA3, PA2);
+ HardwareSerial Serial(PA_3, PA_2);
  #ifdef ENABLE_SERIAL1
- HardwareSerial Serial1(PA10, PA9);
+ HardwareSerial Serial1(PA_10, PA_9);
  #endif
  #ifdef ENABLE_SERIAL2
- HardwareSerial Serial2(PB11, PB10);
+ HardwareSerial Serial2(PB_11, PB_10);
  #endif
 
  void serialEvent() __attribute__((weak));

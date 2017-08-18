@@ -32,36 +32,96 @@ extern "C"{
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
- #include "PeripheralPins.h"
+#include "PeripheralPins.h"
 
- extern const PinName digitalPin[];
+extern const PinName digitalPin[];
 
- enum {
-  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
-  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
-  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
-  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
-  D60, D61, D62,
-  DEND
- };
+enum {
+// P1 connector
+  PC13, //D0
+  PC0,  //D1
+  PC1,  //D2
+  PC2,  //D3
+  PC3,  //D4
+  PA0,  //D5 - User button
+  PA1,  //D6
+  PA2,  //D7
+  PA3,  //D8
+  PA4,  //D9
+  PA5,  //D10
+  PA6,  //D11
+  PA7,  //D12
+  PC4,  //D13
+  PC5,  //D14
+  PB0,  //D15
+  PB1,  //D16
+  PB2,  //D17
+// P2 connector
+  PC6,  //D18
+  PC7,  //D19
+  PC8,  //D20 - LED blue
+  PC9,  //D21 - LED green
+  PA8,  //D22
+  PA9,  //D23
+  PA10, //D24
+  PA11, //D25
+  PA12, //D26
+  PA13, //D27
+  PA14, //D28
+  PA15, //D29
+  PC10, //D30
+  PC11, //D31
+  PC12, //D32
+  PD2,  //D33
+  PB3,  //D34
+  PB4,  //D35
+  PB5,  //D36 - I2C SCL
+  PB6,  //D37 - I2C SDA
+  PB7,  //D38
+  PB8,  //D39
+  PB9,  //D40
+// P3 connector
+  PB10, //D41
+  PB11, //D42
+  PB12, //D43 - SPI SS
+  PB13, //D44 - SPI SCLK
+  PB14, //D45 - SPI MISO
+  PB15, //D46 - SPI MOSI
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PC0_2,//D47/A0 = D0
+  PC1_2,//D48/A1 = D1
+  PC2_2,//D49/A2 = D2
+  PC3_2,//D50/A3 = D3
+  PA0_2,//D51/A4 = D4
+  PA1_2,//D52/A5 = D5
+  PA2_2,//D53/A6 = D6
+  PA3_2,//D54/A7 = D7
+  PA4_2,//D55/A8 = D8
+  PA5_2,//D56/A9 = D9
+  PA6_2,//D57/A10 = D10
+  PA7_2,//D58/A11 = D11
+  PC4_2,//D59/A12 = D12
+  PC5_2,//D60/A13 = D13
+  PB0_2,//D61/A14 = D14
+  PB1_2,//D62/A15 = D15
+  PEND
+};
 
- enum {
+enum {
   A_START_AFTER = D46,
   A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
   A10, A11, A12, A13, A14, A15,
   AEND
- };
+};
 
- //ADC resolution is 12bits
- #define ADC_RESOLUTION         12
- #define DACC_RESOLUTION        12
+//ADC resolution is 12bits
+#define ADC_RESOLUTION          12
+#define DACC_RESOLUTION         12
 
- //PWR resolution
- #define PWM_RESOLUTION         8
- #define PWM_FREQUENCY          1000
- #define PWM_MAX_DUTY_CYCLE     255
+//PWR resolution
+#define PWM_RESOLUTION          8
+#define PWM_FREQUENCY           1000
+#define PWM_MAX_DUTY_CYCLE      255
 
 //On-board LED pin number
 #define LED_BUILTIN             21

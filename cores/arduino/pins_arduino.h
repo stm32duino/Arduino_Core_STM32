@@ -33,20 +33,20 @@ extern "C" {
 #endif
 
 #define NOT_AN_INTERRUPT            NC // -1
-
+#define DEND                        PEND
 #define NUM_DIGITAL_PINS            DEND
 #define NUM_ANALOG_INPUTS           (AEND-A0)
 
-// Convert a digital pin number Dxx to a PinName Pxy
+// Convert a digital pin number Dxx to a PinName PX_n
 // Note: Analog pin is also a digital pin.
 #define digitalPinToPinName(p)      ((p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
-// Convert a PinName Pxy to a digital pin number
+// Convert a PinName PX_n to a digital pin number
 uint32_t pinNametoDigitalPin(PinName p);
 
 // Convert an analog pin number to a digital pin number
 // Used by analogRead api to have A0 == 0
 #define analogInputToDigitalPin(p)  ((p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
-// Convert an analog pin number Axx to a PinName Pxy
+// Convert an analog pin number Axx to a PinName PX_n
 #define analogInputToPinName(p)     (digitalPinToPinName(analogInputToDigitalPin(p)))
 // All pins could manage EXTI
 #define digitalPinToInterrupt(p)    (digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)

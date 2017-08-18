@@ -24,73 +24,73 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PA3,  //D0
-  PA2,  //D1
-  PA10, //D2
-  PB3,  //D3 - no PWM
-  PB5,  //D4
-  PB4,  //D5
-  PB10, //D6 - no PWM
-  PA8,  //D7
-  PA9,  //D8
-  PC7,  //D9
-  PB6,  //D10
-  PA7,  //D11
-  PA6,  //D12
-  PA5,  //D13
-  PB9,  //D14
-  PB8,  //D15
+  PA_3,  //D0
+  PA_2,  //D1
+  PA_10, //D2
+  PB_3,  //D3 - no PWM
+  PB_5,  //D4
+  PB_4,  //D5
+  PB_10, //D6 - no PWM
+  PA_8,  //D7
+  PA_9,  //D8
+  PC_7,  //D9
+  PB_6,  //D10
+  PA_7,  //D11
+  PA_6,  //D12
+  PA_5,  //D13
+  PB_9,  //D14
+  PB_8,  //D15
 // ST Morpho
 // CN7 Left Side
-  PC10, //D16
-  PC12, //D17
-  PF6,  //D18
-  PF7,  //D19
-  PA13, //D20 - SWD
-  PA14, //D21 - SWD
-  PA15, //D22
-  PB7,  //D23
-  PC13, //D24
-  PC14, //D25
-  PC15, //D26
-  PF0,  //D27
-  PF1,  //D28
-  PC2,  //D29
-  PC3,  //D30
+  PC_10, //D16
+  PC_12, //D17
+  PF_6,  //D18
+  PF_7,  //D19
+  PA_13, //D20 - SWD
+  PA_14, //D21 - SWD
+  PA_15, //D22
+  PB_7,  //D23
+  PC_13, //D24
+  PC_14, //D25
+  PC_15, //D26
+  PF_0,  //D27
+  PF_1,  //D28
+  PC_2,  //D29
+  PC_3,  //D30
 // CN7 Right Side
-  PC11, //D31
-  PD2,  //D32
+  PC_11, //D31
+  PD_2,  //D32
 // CN10 Left Side
-  PC9,  //D33
+  PC_9,  //D33
 // CN10 Right side
-  PC8,  //D34
-  PC6,  //D35
-  PC5,  //D36
-  PA12, //D37
-  PA11, //D38
-  PB12, //D39
-  PB11, //D40
-  PB2,  //D41
-  PB1,  //D42
-  PB15, //D43
-  PB14, //D44
-  PB13, //D45
-  PC4,  //D46
-  PF5,  //D47
-  PF4,  //D48
-  PA0,  //D49/A0
-  PA1,  //D50/A1
-  PA4,  //D51/A2
-  PB0,  //D52/A3
-  PC1,  //D53/A4
-  PC0,  //D54/A5
+  PC_8,  //D34
+  PC_6,  //D35
+  PC_5,  //D36
+  PA_12, //D37
+  PA_11, //D38
+  PB_12, //D39
+  PB_11, //D40
+  PB_2,  //D41
+  PB_1,  //D42
+  PB_15, //D43
+  PB_14, //D44
+  PB_13, //D45
+  PC_4,  //D46
+  PF_5,  //D47
+  PF_4,  //D48
+  PA_0,  //D49/A0
+  PA_1,  //D50/A1
+  PA_4,  //D51/A2
+  PB_0,  //D52/A3
+  PC_1,  //D53/A4
+  PC_0,  //D54/A5
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA7,  //D55/A6  = D11
-  PA6,  //D56/A7  = D12
-  PC2,  //D57/A8  = D29
-  PC3,  //D58/A9  = D30
-  PC5,  //D59/A10 = D36
-  PC4   //D60/A11 = D46
+  PA_7,  //D55/A6  = D11
+  PA_6,  //D56/A7  = D12
+  PC_2,  //D57/A8  = D29
+  PC_3,  //D58/A9  = D30
+  PC_5,  //D59/A10 = D36
+  PC_4   //D60/A11 = D46
 };
 
 #ifdef __cplusplus
@@ -100,9 +100,9 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-HardwareSerial  Serial(PA3, PA2); //Connected to ST-Link
+HardwareSerial  Serial(PA_3, PA_2); //Connected to ST-Link
 #ifdef ENABLE_SERIAL1
-HardwareSerial  Serial1(PA10, PA9);
+HardwareSerial  Serial1(PA_10, PA_9);
 #endif
 
 void serialEvent() __attribute__((weak));

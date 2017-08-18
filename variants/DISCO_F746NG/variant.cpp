@@ -24,31 +24,31 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PC7,  //D0
-  PC6,  //D1
-  PG6,  //D2
-  PB4,  //D3
-  PG7,  //D4
-  PI0,  //D5
-  PH6,  //D6
-  PI3,  //D7
-  PI2,  //D8
-  PA15, //D9
-  PA8,  //D10
-  PB15, //D11
-  PB14, //D12
-  PI1,  //D13
-  PB9,  //D14
-  PB8,  //D15
-  PA0,  //D16/A0
-  PF10, //D17/A1
-  PF9,  //D18/A2
-  PF8,  //D19/A3
-  PF7,  //D20/A4
-  PF6,  //D21/A5
-  PI11, //D22 User btn
-  PB7,  //D23 ST-Link Rx
-  PA9   //D24 ST-Link Tx
+  PC_7,  //D0
+  PC_6,  //D1
+  PG_6,  //D2
+  PB_4,  //D3
+  PG_7,  //D4
+  PI_0,  //D5
+  PH_6,  //D6
+  PI_3,  //D7
+  PI_2,  //D8
+  PA_15, //D9
+  PA_8,  //D10
+  PB_15, //D11
+  PB_14, //D12
+  PI_1,  //D13
+  PB_9,  //D14
+  PB_8,  //D15
+  PA_0,  //D16/A0
+  PF_10, //D17/A1
+  PF_9,  //D18/A2
+  PF_8,  //D19/A3
+  PF_7,  //D20/A4
+  PF_6,  //D21/A5
+  PI_11, //D22 User btn
+  PB_7,  //D23 ST-Link Rx
+  PA_9   //D24 ST-Link Tx
 };
 
 #ifdef __cplusplus
@@ -58,12 +58,12 @@ const PinName digitalPin[] = {
 /*
  * UART objects
  */
-HardwareSerial  Serial(PB7, PA9); // Connected to ST-Link
+HardwareSerial  Serial(PB_7, PA_9); // Connected to ST-Link
 #ifdef ENABLE_SERIAL1
-HardwareSerial  Serial1(PC7, PC6);
+HardwareSerial  Serial1(PC_7, PC_6);
 #endif
 #ifdef ENABLE_SERIAL2
-HardwareSerial  Serial2(PF6, PF7);
+HardwareSerial  Serial2(PF_6, PF_7);
 #endif
 
 void serialEvent() __attribute__((weak));
