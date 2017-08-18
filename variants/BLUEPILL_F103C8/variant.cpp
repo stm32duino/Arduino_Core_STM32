@@ -24,52 +24,52 @@ extern "C" {
 
 // Pin number following https://github.com/stm32duino/Arduino_Core_STM32F1/blob/master/variants/STM32F103C_BluePill/variant.h
 const PinName digitalPin[] = {
-  PA0,  //D0
-  PA1,  //D1
-  PA2,  //D2
-  PA3,  //D3
-  PA4,  //D4
-  PA5,  //D5
-  PA6,  //D6
-  PA7,  //D7
-  PA8,  //D8
-  PA9,  //D9
-  PA10, //D10
-  PA11, //D11
-  PA12, //D12
-  PA13, //D13
-  PA14, //D14
-  PA15, //D15
-  PB0,  //D16
-  PB1,  //D17
-  PB2,  //D18
-  PB3,  //D19
-  PB4,  //D20
-  PB5,  //D21
-  PB6,  //D22
-  PB7,  //D23
-  PB8,  //D24
-  PB9,  //D25
-  PB10, //D26
-  PB11, //D27
-  PB12, //D28
-  PB13, //D29
-  PB14, //D30
-  PB15, //D31
-  PC13, //D32 - LED
-  PC14, //D33
-  PC15, //D34
+  PA_0,  //D0
+  PA_1,  //D1
+  PA_2,  //D2
+  PA_3,  //D3
+  PA_4,  //D4
+  PA_5,  //D5
+  PA_6,  //D6
+  PA_7,  //D7
+  PA_8,  //D8
+  PA_9,  //D9
+  PA_10, //D10
+  PA_11, //D11
+  PA_12, //D12
+  PA_13, //D13
+  PA_14, //D14
+  PA_15, //D15
+  PB_0,  //D16
+  PB_1,  //D17
+  PB_2,  //D18
+  PB_3,  //D19
+  PB_4,  //D20
+  PB_5,  //D21
+  PB_6,  //D22
+  PB_7,  //D23
+  PB_8,  //D24
+  PB_9,  //D25
+  PB_10, //D26
+  PB_11, //D27
+  PB_12, //D28
+  PB_13, //D29
+  PB_14, //D30
+  PB_15, //D31
+  PC_13, //D32 - LED
+  PC_14, //D33
+  PC_15, //D34
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA0,  //D35/A0 = D0
-  PA1,  //D36/A1 = D1
-  PA2,  //D37/A2 = D2
-  PA3,  //D38/A3 = D3
-  PA4,  //D39/A4 = D4
-  PA5,  //D40/A5 = D5
-  PA6,  //D41/A6 = D6
-  PA7,  //D42/A7 = D7
-  PB0,  //D43/A8 = D8
-  PB1   //D44/A9 = D9
+  PA_0,  //D35/A0 = D0
+  PA_1,  //D36/A1 = D1
+  PA_2,  //D37/A2 = D2
+  PA_3,  //D38/A3 = D3
+  PA_4,  //D39/A4 = D4
+  PA_5,  //D40/A5 = D5
+  PA_6,  //D41/A6 = D6
+  PA_7,  //D42/A7 = D7
+  PB_0,  //D43/A8 = D8
+  PB_1   //D44/A9 = D9
 };
 
 #ifdef __cplusplus
@@ -80,12 +80,12 @@ const PinName digitalPin[] = {
  * UART objects
  */
 
-HardwareSerial Serial1(PA10, PA9);
+HardwareSerial Serial1(PA_10, PA_9);
 #ifdef ENABLE_SERIAL2
-HardwareSerial Serial2(PA3, PA2);
+HardwareSerial Serial2(PA_3, PA_2);
 #endif
 #ifdef ENABLE_SERIAL3
-HardwareSerial Serial3(PB11, PB10);
+HardwareSerial Serial3(PB_11, PB_10);
 #endif
 
 #if defined(SERIAL_USB) && defined(USBCON)
