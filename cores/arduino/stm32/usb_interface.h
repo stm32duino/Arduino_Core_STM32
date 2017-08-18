@@ -53,6 +53,7 @@
 #endif
 #endif
 #include "usbd_hid_composite.h"
+#include "usbd_cdc_if.h"
 
 #ifdef __cplusplus
  extern "C" {

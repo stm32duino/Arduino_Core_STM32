@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    USB_Device/HID_Standalone/Inc/usbd_conf.h
+  * @file    usbd_conf.h
   * @author  MCD Application Team
   * @version V1.0.2
   * @date    06-May-2016
@@ -45,9 +45,11 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USBD_CONF_H
-#define __USBD_CONF_H
-
+#ifndef __USBD_CONF__H__
+#define __USBD_CONF__H__
+#ifdef __cplusplus
+ extern "C" {
+#endif
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
 #include <stdio.h>
@@ -57,22 +59,30 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-#define USBD_LPM_ENABLED 0
+#define USBD_LPM_ENABLED     0
 
 /* Common Config */
 #define USBD_MAX_NUM_INTERFACES               1
 #define USBD_MAX_NUM_CONFIGURATION            1
-#define USBD_MAX_STR_DESC_SIZ                 0x100
+#define USBD_MAX_STR_DESC_SIZ     512
 #define USBD_SUPPORT_USER_STRING              0
 #define USBD_SELF_POWERED                     1
-#define USBD_DEBUG_LEVEL                      3
+#define USBD_DEBUG_LEVEL     0
+#define USBD_CDC_INTERVAL     1000
+
 
 /* Exported macro ------------------------------------------------------------*/
+/****************************************/
+/* #define for FS and HS identification */
+#define DEVICE_FS 		0
+#define DEVICE_HS 		1
 /* Memory management macros */
 #define USBD_malloc               malloc
 #define USBD_free                 free
 #define USBD_memset               memset
 #define USBD_memcpy               memcpy
+
+#define USBD_Delay   HAL_Delay
 
 /* DEBUG macros */
 #if (USBD_DEBUG_LEVEL > 0)
@@ -101,7 +111,11 @@
 
 /* Exported functions ------------------------------------------------------- */
 
+#ifdef __cplusplus
+}
+#endif
+
 #endif // USBCON
-#endif /* __USBD_CONF_H */
+#endif //__USBD_CONF__H__
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

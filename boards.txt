@@ -349,8 +349,8 @@ Disco.menu.Other_serial.enable_Serial2.build.enable_Serialx=-DENABLE_SERIAL2
 Nucleo_144.menu.USB_interface.enable_USB=None
 Nucleo_144.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)
 Nucleo_144.menu.USB_interface.enable_HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_144.menu.USB_interface.enable_CDC=CDC (if available)
-#Nucleo_144.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_144.menu.USB_interface.enable_CDC=CDC (if available)
+Nucleo_144.menu.USB_interface.enable_CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 Nucleo_64.menu.USB_interface.enable_USB=None
 Nucleo_64.menu.USB_interface.enable_HID=HID keyboard and mouse support (if available)

@@ -95,6 +95,10 @@
 #ifdef USBD_USE_HID_COMPOSITE
 static USBD_HandleTypeDef hUSBD_Device_HID;
 #endif //USBD_USE_HID_COMPOSITE
+#ifdef USBD_USE_CDC
+volatile USBD_HandleTypeDef hUSBD_Device_CDC;
+#endif //USBD_USE_CDC
+
 /**
   * @}
   */
@@ -118,9 +122,12 @@ static USBD_HandleTypeDef hUSBD_Device_HID;
   */
 void usbd_interface_init(void)
 {
+#if defined(USBD_USE_HID_COMPOSITE) && defined(USBD_USE_CDC)
+#error "Only one of USBD_USE_HID_COMPOSITE or USBD_USE_CDC could be defined!"
+#endif
 #ifdef USBD_USE_HID_COMPOSITE
   /* Init Device Library */
-  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
+  USBD_Init(&hUSBD_Device_HID, &HID_Desc, DEVICE_FS);
 
   /* Add Supported Class */
   USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
@@ -128,6 +135,23 @@ void usbd_interface_init(void)
   /* Start Device Process */
   USBD_Start(&hUSBD_Device_HID);
 #endif // USBD_USE_HID_COMPOSITE
+#ifdef USBD_USE_CDC
+  /* Init Device Library */
+  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK) {
+
+    /* Add Supported Class */
+    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+
+      /* Add CDC Interface Class */
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_Interface_fops_FS) == USBD_OK) {
+
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device_CDC);
+      }
+    }
+  }
+#endif //USBD_USE_CDC
+
 }
 
 /**
@@ -139,6 +163,9 @@ void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len)
 {
 #ifdef USBD_USE_HID_COMPOSITE
   USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
+#else
+  UNUSED(report);
+  UNUSED(len);
 #endif // USBD_USE_HID_COMPOSITE
 }
 
@@ -151,6 +178,9 @@ void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len)
 {
 #ifdef USBD_USE_HID_COMPOSITE
   USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
+#else
+  UNUSED(report);
+  UNUSED(len);
 #endif // USBD_USE_HID_COMPOSITE
 }
 

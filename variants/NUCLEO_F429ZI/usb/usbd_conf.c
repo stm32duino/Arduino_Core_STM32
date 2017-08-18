@@ -1,14 +1,14 @@
 /**
   ******************************************************************************
-  * @file    USB_Device/HID_Standalone/Src/usbd_conf.c
+  * @file    USB_Device/CDC_Standalone/Src/usbd_conf.c
   * @author  MCD Application Team
-  * @version V1.0.2
-  * @date    06-May-2016
+  * @version V1.0.6
+  * @date    04-November-2016
   * @brief   This file implements the USB Device library callbacks and MSP
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright � 2016 STMicroelectronics International N.V.
+  * <h2><center>&copy; Copyright ? 2016 STMicroelectronics International N.V.
   * All rights reserved.</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without
@@ -46,8 +46,8 @@
   */
 /* Includes ------------------------------------------------------------------*/
 #ifdef USBCON
-
 #include "usbd_conf.h"
+#include "usbd_def.h"
 #include "usbd_core.h"
 #include "hw_config.h"
 
@@ -55,11 +55,10 @@
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-PCD_HandleTypeDef g_hpcd;
+PCD_HandleTypeDef hpcd;
+__IO  uint32_t device_connection_status;
 
 /* Private function prototypes -----------------------------------------------*/
-//static void SystemClockConfig_STOP(void);
-
 /* Private functions ---------------------------------------------------------*/
 
 /*******************************************************************************
@@ -75,10 +74,16 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
   GPIO_InitTypeDef  GPIO_InitStruct;
 
+  if(hpcd->Instance==USB_OTG_FS)
+  {
   /* Configure USB FS GPIOs */
   __HAL_RCC_GPIOA_CLK_ENABLE();
 
   /* Configure DM DP Pins */
+    /**USB_OTG_FS GPIO Configuration
+    PA11     ------> USB_OTG_FS_DM
+    PA12     ------> USB_OTG_FS_DP
+    */
   GPIO_InitStruct.Pin = (GPIO_PIN_11 | GPIO_PIN_12);
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -87,6 +92,8 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* Configure VBUS Pin */
+    if(hpcd->Init.vbus_sensing_enable == 1)
+    {
   GPIO_InitStruct.Pin = GPIO_PIN_9;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
@@ -98,28 +105,103 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Alternate = GPIO_AF10_OTG_FS;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+    }
 
-  /* Enable USB FS Clocks */
+    /* Enable USB FS Clock */
   __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
 
   /* Set USBFS Interrupt priority */
-  HAL_NVIC_SetPriority(OTG_FS_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(OTG_FS_IRQn, 0, 0);
 
   /* Enable USBFS Interrupt */
   HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
-
-  if(hpcd->Init.low_power_enable == 1)
+  }
+  else if(hpcd->Instance == USB_OTG_HS)
   {
-    /* Enable EXTI Line 18 for USB wakeup*/
-    __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
-    __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
-    __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT();
+#ifdef USE_USB_HS_IN_FS
 
-    /* Set EXTI Wakeup Interrupt priority*/
-    HAL_NVIC_SetPriority(OTG_FS_WKUP_IRQn, 0, 0);
+    __HAL_RCC_GPIOB_CLK_ENABLE();
 
-    /* Enable EXTI Interrupt */
-    HAL_NVIC_EnableIRQ(OTG_FS_WKUP_IRQn);
+    /*Configure GPIO for HS on FS mode*/
+    GPIO_InitStruct.Pin = GPIO_PIN_12 | GPIO_PIN_14 |GPIO_PIN_15;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF12_OTG_HS_FS;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* Configure VBUS Pin */
+    if(hpcd->Init.vbus_sensing_enable == 1)
+  {
+      GPIO_InitStruct.Pin = GPIO_PIN_13 ;
+      GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+      GPIO_InitStruct.Pull = GPIO_NOPULL;
+      HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+    }
+#else
+    /* Configure USB FS GPIOs */
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOH_CLK_ENABLE();
+    __HAL_RCC_GPIOI_CLK_ENABLE();
+
+    /* CLK */
+    GPIO_InitStruct.Pin = GPIO_PIN_5;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    /* D0 */
+    GPIO_InitStruct.Pin = GPIO_PIN_3;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+    /* D1 D2 D3 D4 D5 D6 D7 */
+    GPIO_InitStruct.Pin = GPIO_PIN_0  | GPIO_PIN_1  | GPIO_PIN_5 |\
+      GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    /* STP */
+    GPIO_InitStruct.Pin = GPIO_PIN_0;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
+    /* NXT */
+    GPIO_InitStruct.Pin = GPIO_PIN_4;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOH, &GPIO_InitStruct);
+
+    /* DIR */
+    GPIO_InitStruct.Pin = GPIO_PIN_11;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Alternate = GPIO_AF10_OTG_HS;
+    HAL_GPIO_Init(GPIOI, &GPIO_InitStruct);
+
+    __HAL_RCC_USB_OTG_HS_ULPI_CLK_ENABLE();
+#endif
+
+    /* Enable USB HS Clocks */
+    __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
+
+    /* Set USBHS Interrupt to the lowest priority */
+    HAL_NVIC_SetPriority(OTG_HS_IRQn, 0, 0);
+
+    /* Enable USBHS Interrupt */
+    HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
   }
 }
 
@@ -130,9 +212,39 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
 {
+  if(hpcd->Instance == USB_OTG_FS)
+{
   /* Disable USB FS Clock */
   __HAL_RCC_USB_OTG_FS_CLK_DISABLE();
   __HAL_RCC_SYSCFG_CLK_DISABLE();
+    /**USB_OTG_FS GPIO Configuration
+    PA11     ------> USB_OTG_FS_DM
+    PA12     ------> USB_OTG_FS_DP
+    */
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_11|GPIO_PIN_12);
+
+    /* Peripheral interrupt Deinit*/
+    HAL_NVIC_DisableIRQ(OTG_FS_IRQn);
+  }
+  else if(hpcd->Instance == USB_OTG_HS)
+  {
+    /* Disable USB HS Clocks */
+    __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
+    __HAL_RCC_SYSCFG_CLK_DISABLE();
+#ifdef USE_USB_HS_IN_FS
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_12 | GPIO_PIN_14 |GPIO_PIN_15);
+#else
+    __HAL_RCC_USB_OTG_HS_ULPI_CLK_DISABLE();
+    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_3 | GPIO_PIN_5);
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_0  | GPIO_PIN_1  | GPIO_PIN_5 |\
+             GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12 | GPIO_PIN_13);
+    HAL_GPIO_DeInit(GPIOC, GPIO_PIN_0);
+    HAL_GPIO_DeInit(GPIOH, GPIO_PIN_4);
+    HAL_GPIO_DeInit(GPIOI, GPIO_PIN_11);
+#endif
+    /* Peripheral interrupt Deinit*/
+    HAL_NVIC_DisableIRQ(OTG_HS_IRQn);
+  }
 }
 
 /*******************************************************************************
@@ -214,14 +326,15 @@ void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
 
 /**
   * @brief  Suspend callback.
+  * When Low power mode is enabled the debug cannot be used (IAR, Keil doesn't support it)
   * @param  hpcd: PCD handle
   * @retval None
   */
 void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
 {
-  __HAL_PCD_GATE_PHYCLOCK(hpcd);
+   /* Inform USB library that core enters in suspend Mode */
   USBD_LL_Suspend(hpcd->pData);
-
+  __HAL_PCD_GATE_PHYCLOCK(hpcd);
   /*Enter in STOP mode */
   if (hpcd->Init.low_power_enable)
   {
@@ -232,6 +345,7 @@ void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
 
 /**
   * @brief  Resume callback.
+    When Low power mode is enabled the debug cannot be used (IAR, Keil doesn't support it)
   * @param  hpcd: PCD handle
   * @retval None
   */
@@ -269,6 +383,7 @@ void HAL_PCD_ISOINIncompleteCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
   */
 void HAL_PCD_ConnectCallback(PCD_HandleTypeDef *hpcd)
 {
+  device_connection_status = 1;
   USBD_LL_DevConnected(hpcd->pData);
 }
 
@@ -282,41 +397,18 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   USBD_LL_DevDisconnected(hpcd->pData);
 }
 
-
-
 /**
-  * @brief  This function handles USB-On-The-Go FS global interrupt request.
+  * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
   * @param  None
   * @retval None
   */
+#ifdef USE_USB_FS
 void OTG_FS_IRQHandler(void)
+#else
+void OTG_HS_IRQHandler(void)
+#endif
 {
-  HAL_PCD_IRQHandler(&g_hpcd);
-}
-
-/**
-  * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
-  * @param  None
-  * @retval None
-  */
-
-void OTG_FS_WKUP_IRQHandler(void)
-{
-  if((&g_hpcd)->Init.low_power_enable)
-  {
-    /* Reset SLEEPDEEP bit of Cortex System Control Register */
-    SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
-
-    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
-    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-    SystemClock_Config();
-
-    /* ungate PHY clock */
-     __HAL_PCD_UNGATE_PHYCLOCK((&g_hpcd));
-  }
-
-  /* Clear EXTI pending Bit*/
-  __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
+  HAL_PCD_IRQHandler(&hpcd);
 }
 
 /*******************************************************************************
@@ -330,29 +422,69 @@ void OTG_FS_WKUP_IRQHandler(void)
   */
 USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
+  /* Init USB_IP */
+#ifdef USE_USB_FS
   /* Set LL Driver parameters */
-  g_hpcd.Instance = USB_OTG_FS;
-  g_hpcd.Init.dev_endpoints = 4;
-  g_hpcd.Init.use_dedicated_ep1 = 0;
-  g_hpcd.Init.ep0_mps = 0x40;
-  g_hpcd.Init.dma_enable = 0;
-  g_hpcd.Init.low_power_enable = 0;
-  g_hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
-  g_hpcd.Init.Sof_enable = 0;
-  g_hpcd.Init.speed = PCD_SPEED_FULL;
-  g_hpcd.Init.vbus_sensing_enable = 1;
-  g_hpcd.Init.lpm_enable = 0;
-  /* Link The driver to the stack */
-  g_hpcd.pData = pdev;
-  pdev->pData = &g_hpcd;
+  hpcd.Instance = USB_OTG_FS;
+  hpcd.Init.dev_endpoints = 7;
+  hpcd.Init.use_dedicated_ep1 = DISABLE;
+  hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
+  hpcd.Init.dma_enable = DISABLE;
+  hpcd.Init.low_power_enable = DISABLE;
+  hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
+  hpcd.Init.Sof_enable = DISABLE;
+  hpcd.Init.speed = PCD_SPEED_FULL;
+  hpcd.Init.vbus_sensing_enable = DISABLE;
+  hpcd.Init.lpm_enable = DISABLE;
+
+  /* Link the driver to the stack */
+  hpcd.pData = pdev;
+  pdev->pData = &hpcd;
 
   /* Initialize LL Driver */
-  HAL_PCD_Init(&g_hpcd);
+  HAL_PCD_Init(&hpcd);
 
-  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x10);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x10);
+  HAL_PCDEx_SetRxFiFo(&hpcd, 0x80);
+  HAL_PCDEx_SetTxFiFo(&hpcd, 0, 0x40);
+  HAL_PCDEx_SetTxFiFo(&hpcd, 1, 0x80);
+#endif
+
+#ifdef USE_USB_HS
+  /* Set LL Driver parameters */
+  hpcd.Instance = USB_OTG_HS;
+  hpcd.Init.dev_endpoints = 6;
+  hpcd.Init.use_dedicated_ep1 = 0;
+  hpcd.Init.ep0_mps = 0x40;
+
+  /* Be aware that enabling DMA mode will result in data being sent only by
+  multiple of 4 packet sizes. This is due to the fact that USB DMA does
+  not allow sending data from non word-aligned addresses.
+  For this specific application, it is advised to not enable this option
+  unless required. */
+  hpcd.Init.dma_enable = 0;
+  hpcd.Init.low_power_enable = 0;
+  hpcd.Init.lpm_enable = 0;
+
+#ifdef USE_USB_HS_IN_FS
+  hpcd.Init.phy_itface = PCD_PHY_EMBEDDED;
+#else
+  hpcd.Init.phy_itface = PCD_PHY_ULPI;
+#endif
+  hpcd.Init.Sof_enable = 0;
+  hpcd.Init.speed = PCD_SPEED_HIGH;
+  hpcd.Init.vbus_sensing_enable = 1;
+
+  /* Link The driver to the stack */
+  hpcd.pData = pdev;
+  pdev->pData = &hpcd;
+
+  /* Initialize LL Driver */
+  HAL_PCD_Init(&hpcd);
+
+  HAL_PCDEx_SetRxFiFo(&hpcd, 0x200);
+  HAL_PCDEx_SetTxFiFo(&hpcd, 0, 0x80);
+  HAL_PCDEx_SetTxFiFo(&hpcd, 1, 0x174);
+#endif
 
   return USBD_OK;
 }
@@ -535,7 +667,43 @@ uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 {
   return HAL_PCD_EP_GetRxCount(pdev->pData, ep_addr);
 }
+#if (USBD_LPM_ENABLED == 1)
+/**
+  * @brief  HAL_PCDEx_LPM_Callback : Send LPM message to user layer
+  * @param  hpcd: PCD handle
+  * @param  msg: LPM message
+  * @retval HAL status
+  */
+void HAL_PCDEx_LPM_Callback(PCD_HandleTypeDef *hpcd, PCD_LPM_MsgTypeDef msg)
+{
+  switch ( msg)
+  {
+  case PCD_LPM_L0_ACTIVE:
+    if (hpcd->Init.low_power_enable)
+    {
+      SystemClock_Config();
 
+      /* Reset SLEEPDEEP bit of Cortex System Control Register */
+      SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
+    }
+    __HAL_PCD_UNGATE_PHYCLOCK(hpcd);
+    USBD_LL_Resume(hpcd->pData);
+    break;
+
+  case PCD_LPM_L1_ACTIVE:
+    __HAL_PCD_GATE_PHYCLOCK(hpcd);
+    USBD_LL_Suspend(hpcd->pData);
+
+    /*Enter in STOP mode */
+    if (hpcd->Init.low_power_enable)
+    {
+      /* Set SLEEPDEEP bit and SleepOnExit of Cortex System Control Register */
+      SCB->SCR |= (uint32_t)((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
+    }
+    break;
+  }
+}
+#endif
 /**
   * @brief  Delays routine for the USB Device Library.
   * @param  Delay: Delay in ms

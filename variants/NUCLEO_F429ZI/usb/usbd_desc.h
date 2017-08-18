@@ -60,6 +60,7 @@
 #define  USB_SIZ_STRING_SERIAL       0x1A
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+extern USBD_DescriptorsTypeDef CDC_Desc;
 extern USBD_DescriptorsTypeDef HID_Desc;
 #endif // USBCON
 #endif /* __USBD_DESC_H */
