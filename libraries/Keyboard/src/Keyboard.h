@@ -24,9 +24,9 @@
 
 #include <Arduino.h>
 
-#if !defined(USBCON)
+#if !defined(USBCON) || !defined(USBD_USE_HID_COMPOSITE)
 
-#warning "Using legacy HID core (non pluggable)"
+#error "USB HID not enabled! Select 'HID' in the 'Tools->USB interface' menu."
 
 #else
 

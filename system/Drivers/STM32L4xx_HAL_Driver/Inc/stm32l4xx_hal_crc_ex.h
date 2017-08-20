@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_crc_ex.h
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   Header file of CRC HAL extended module.
   ******************************************************************************
   * @attention

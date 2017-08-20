@@ -20,16 +20,6 @@
 #define _VARIANT_ARDUINO_STM32_
 
 /*----------------------------------------------------------------------------
- *        Definitions
- *----------------------------------------------------------------------------*/
-
-/** Frequency of the board main oscillator */
-//#define VARIANT_MAINOSC		12000000
-
-/** Master clock frequency */
-//#define VARIANT_MCK			84000000
-
-/*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
@@ -39,50 +29,87 @@
 extern "C"{
 #endif // __cplusplus
 
-/**
- * Libc porting layers
- */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-#    include <syscalls.h> /** RedHat Newlib minimal stub */
-#endif
-
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
 #include "PeripheralPins.h"
 
-extern const PinName digital_arduino[];
+extern const PinName digitalPin[];
 
 enum {
-  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
-  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
-  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
-  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51,
-  DEND
+  PA3,  //D0
+  PA2,  //D1
+  PA10, //D2
+  PB3,  //D3
+  PB5,  //D4
+  PB4,  //D5
+  PB10, //D6
+  PA8,  //D7
+  PA9,  //D8
+  PC7,  //D9
+  PB6,  //D10
+  PA7,  //D11
+  PA6,  //D12
+  PA5,  //D13
+  PB9,  //D14
+  PB8,  //D15
+// ST Morpho
+// CN7 Left Side
+  PC10, //D16
+  PC12, //D17
+  PF11, //D18 - BOOT0
+  PA13, //D19 - SWD
+  PA14, //D20 - SWD
+  PA15, //D21
+  PB7,  //D22
+  PC13, //D23
+  PC14, //D24
+  PC15, //D25
+  PF0,  //D26
+  PF1,  //D27
+  PC2,  //D28
+  PC3,  //D29
+// CN7 Right Side
+  PC11, //D30
+  PD2,  //D31
+// CN10 Left Side
+  PC9,  //D32
+// CN10 Right side
+  PC8,  //D33
+  PC6,  //D34
+  PC5,  //D35
+  PA12, //D36
+  PA11, //D37
+  PB12, //D38
+  PB11, //D39
+  PB2,  //D40
+  PB1,  //D41
+  PB15, //D42
+  PB14, //D43
+  PB13, //D44
+  PC4,  //D45
+  PA0,  //D46/A0
+  PA1,  //D47/A1
+  PA4,  //D48/A2
+  PB0,  //D49/A3
+  PC1,  //D50/A4
+  PC0,  //D51/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7_2,//D52/A6  = D11
+  PA6_2,//D53/A7  = D12
+  PC2_2,//D54/A8  = D28
+  PC3_2,//D55/A9  = D29
+  PC5_2,//D56/A10 = D35
+  PC4_2,//D57/A11 = D45
+  PEND
 };
 
 enum {
   A_START_AFTER = D45,
-  A0,  A1,  A2,  A3,  A4,  A5,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
+  A10, A11,
   AEND
 };
-
-#define NUM_DIGITAL_PINS        DEND
-#define NUM_ANALOG_INPUTS       (AEND - A0)
-
-// Convert a digital pin number Dxx to a PinName Pxy
-#define digitalToPinName(p)     ((p < NUM_DIGITAL_PINS) ? digital_arduino[p] : (STM_VALID_PINNAME(p))? (PinName)p : NC)
-// Convert an analog pin number Axx to a PinName Pxy
-#define analogToPinName(p)      (digitalToPinName(p))
-// Convert an analog pin number to a digital pin number
-#define analogToDigital(p)      (p)
-// Convert a PinName Pxy to a pin number
-uint32_t pinNametoPinNumber(PinName p);
-
-#define digitalPinToPort(p)     ( get_GPIO_Port(digitalToPinName(p)) )
-#define digitalPinToBitMask(p)  ( STM_GPIO_PIN(digitalToPinName(p)) )
 
 //ADC resolution is 12bits
 #define ADC_RESOLUTION          12
@@ -135,11 +162,16 @@ uint32_t pinNametoPinNumber(PinName p);
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // UART Emulation
-#define UART_EMUL_RX            PB14
-#define UART_EMUL_TX            PB13
+#define UART_EMUL_RX            PB_14
+#define UART_EMUL_TX            PB_13
 
-//Enable Firmata
-#define STM32 1
+// Serial Pin Firmata
+#define PIN_SERIAL_RX           0
+#define PIN_SERIAL_TX           1
+#define PIN_SERIAL1_RX          2
+#define PIN_SERIAL1_TX          8
+#define PIN_SERIAL2_RX          47
+#define PIN_SERIAL2_TX          46
 
 #ifdef __cplusplus
 } // extern "C"

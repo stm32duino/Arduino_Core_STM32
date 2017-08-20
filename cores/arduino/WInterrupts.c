@@ -22,12 +22,14 @@
  extern "C" {
 #endif
 
+#include "PinAF_STM32F1.h"
+
 void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
 {
   uint32_t it_mode;
-  PinName p = digitalToPinName(pin);
+  PinName p = digitalPinToPinName(pin);
   GPIO_TypeDef* port = set_GPIO_Port_Clock(STM_PORT(p));
-  if (port == NC)
+  if (!port)
 	  return;
 
   switch(mode) {
@@ -46,14 +48,19 @@ void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
       it_mode = GPIO_MODE_IT_RISING;
     break;
   }
+
+#ifdef STM32F1xx
+  pinF1_DisconnectDebug(p);
+#endif /* STM32F1xx */
+
   stm32_interrupt_enable(port, STM_GPIO_PIN(p), callback, it_mode);
 }
 
 void detachInterrupt(uint32_t pin)
 {
-  PinName p = digitalToPinName(pin);
+  PinName p = digitalPinToPinName(pin);
   GPIO_TypeDef* port = get_GPIO_Port(STM_PORT(p));
-  if (port == NC)
+  if (!port)
 	  return;
   stm32_interrupt_disable(port, STM_GPIO_PIN(p));
 }

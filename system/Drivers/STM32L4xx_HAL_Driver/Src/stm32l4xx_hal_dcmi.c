@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_dcmi.c
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   DCMI HAL module driver
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Digital Camera Interface (DCMI) peripheral:
@@ -51,12 +51,10 @@
         be large enough to ensure the capture of a frame.  
         
     (#) If the frame size is larger than the maximum DMA transfer length (i.e. 65535), 
-        (++) resort to a user-defined work buffer and associate it to the DCMI handle with
-             the function HAL_DCMIEx_WorkBuffer_Associate(), 
         (++) the DMA must be configured in circular mode, either for snapshot or continuous
              capture mode, 
         (++) during capture, the driver copies the image data samples from DCMI DR register
-             to the work buffer,              
+             at the end of the final destination buffer used as a work buffer,              
         (++) at each DMA half (respectively complete) transfer interrupt, the first 
              (resp. second) half of the work buffer is copied to the final destination thru 
              a second DMA channel.
@@ -417,9 +415,8 @@ __weak void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi)
   * @param  pData:     The destination memory buffer address.
   * @param  Length:    The length of capture to be transferred (in 32-bit words).
   * @note  In case of length larger than 65535 (0xFFFF is the DMA maximum transfer length),
-  *        user must beforehand associate a work buffer to the DCMI handle thru the API
-  *        HAL_DCMIEx_WorkBuffer_Associate(). Then, HAL_DCMI_Start_DMA()
-  *        initiates a circular DMA transfer from DCMI DR to the work buffer and each
+  *        the API uses the end of the destination buffer as a work area: HAL_DCMI_Start_DMA()
+  *        initiates a circular DMA transfer from DCMI DR to the ad-hoc work buffer and each
   *        half and complete transfer interrupt triggers a copy from the work buffer to
   *        the final destination pData thru a second DMA channel.     
   * @note  Following HAL_DCMI_Init() call, all interruptions are enabled (line end, 

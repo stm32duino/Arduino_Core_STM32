@@ -17,6 +17,7 @@
  */
 
 #include "Arduino.h"
+#include "PinConfigured.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,7 +53,7 @@ static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
 uint32_t analogRead(uint32_t ulPin)
 {
   uint32_t value = 0;
-  PinName p = analogToPinName(ulPin);
+  PinName p = analogInputToPinName(ulPin);
   if(p != NC) {
     value = adc_read_value(p);
     value = mapResolution(value, ADC_RESOLUTION, _readResolution);
@@ -71,7 +72,7 @@ void analogOutputInit(void) {
 void analogWrite(uint32_t ulPin, uint32_t ulValue) {
 
   uint8_t do_init = 0;
-  PinName p = analogToPinName(ulPin);
+  PinName p = digitalPinToPinName(ulPin);
   if(p != NC) {
 #ifdef HAL_DAC_MODULE_ENABLED
     if(pin_in_pinmap(p, PinMap_DAC)) {

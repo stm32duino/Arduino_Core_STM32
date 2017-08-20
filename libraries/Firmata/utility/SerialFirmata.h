@@ -15,7 +15,7 @@
   - Defines FIRMATA_SERIAL_FEATURE (could add to Configurable version as well)
   - Imports Firmata.h rather than ConfigurableFirmata.h
 
-  Last updated by Jeff Hoefs: January 10th, 2016
+  Last updated October 16th, 2016
 */
 
 #ifndef SerialFirmata_h
@@ -23,10 +23,10 @@
 
 #include <Firmata.h>
 #include "FirmataFeature.h"
-// SoftwareSerial is currently only supported for AVR-based boards and the Arduino 101
-// The third condition checks if the IDE is in the 1.0.x series, if so, include SoftwareSerial
-// since it should be available to all boards in that IDE.
-#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ARC32) || (ARDUINO >= 100 && ARDUINO < 10500)
+// SoftwareSerial is currently only supported for AVR-based boards and the Arduino 101.
+// Limited to Arduino 1.6.6 or higher because Arduino builder cannot find SoftwareSerial
+// prior to this release.
+#if (ARDUINO > 10605) && (defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_ARC32))
 #include <SoftwareSerial.h>
 #endif
 
@@ -155,10 +155,12 @@ class SerialFirmata: public FirmataFeature
     int serialBytesToRead[SERIAL_READ_ARR_LEN];
     signed char serialIndex;
 
+#if defined(SoftwareSerial_h)
     Stream *swSerial0;
     Stream *swSerial1;
     Stream *swSerial2;
     Stream *swSerial3;
+#endif
 
     Stream* getPortFromId(byte portId);
 

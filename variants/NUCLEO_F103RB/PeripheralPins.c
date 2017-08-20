@@ -1,0 +1,207 @@
+/*
+ *******************************************************************************
+ * Copyright (c) 2016, STMicroelectronics
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *
+ * 1. Redistributions of source code must retain the above copyright notice,
+ *    this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright notice,
+ *    this list of conditions and the following disclaimer in the documentation
+ *    and/or other materials provided with the distribution.
+ * 3. Neither the name of STMicroelectronics nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+ * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *******************************************************************************
+ */
+#include "Arduino.h"
+#include "PeripheralPins.h"
+
+// =====
+// Note: Commented lines are alternative possibilities which are not used per default.
+//       If you change them, you will have to know what you do
+// =====
+
+
+//*** ADC ***
+
+const PinMap PinMap_ADC[] = {
+    {PA_0,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 0, 0)}, // ADC1_IN0
+//  {PA_0,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 0, 0)}, // ADC2_IN0
+    {PA_1,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // ADC1_IN1
+//  {PA_1,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // ADC2_IN1
+//  {PA_2,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 2, 0)}, // ADC1_IN2 - STLink Tx
+//  {PA_2,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 2, 0)}, // ADC2_IN2
+//  {PA_3,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 3, 0)}, // ADC1_IN3 - STLink Rx
+//  {PA_3,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 3, 0)}, // ADC2_IN3
+    {PA_4,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 4, 0)}, // ADC1_IN4
+//  {PA_4,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 4, 0)}, // ADC2_IN4
+    {PA_5,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 5, 0)}, // ADC1_IN5
+//  {PA_5,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 5, 0)}, // ADC2_IN5
+    {PA_6,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 6, 0)}, // ADC1_IN6
+//  {PA_6,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 6, 0)}, // ADC2_IN6
+    {PA_7,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 7, 0)}, // ADC1_IN7
+//  {PA_7,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 7, 0)}, // ADC2_IN7
+    {PB_0,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 8, 0)}, // ADC1_IN8
+//  {PB_0,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 8, 0)}, // ADC2_IN8
+    {PB_1,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 9, 0)}, // ADC1_IN9
+//  {PB_1,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 9, 0)}, // ADC2_IN9
+    {PC_0,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 10, 0)}, // ADC1_IN10
+//  {PC_0,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 10, 0)}, // ADC2_IN10
+    {PC_1,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 11, 0)}, // ADC1_IN11
+//  {PC_1,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 11, 0)}, // ADC2_IN11
+    {PC_2,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 12, 0)}, // ADC1_IN12
+//  {PC_2,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 12, 0)}, // ADC2_IN12
+    {PC_3,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 13, 0)}, // ADC1_IN13
+//  {PC_3,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 13, 0)}, // ADC2_IN13
+    {PC_4,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 14, 0)}, // ADC1_IN14
+//  {PC_4,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 14, 0)}, // ADC2_IN14
+    {PC_5,   ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 15, 0)}, // ADC1_IN15
+//  {PC_5,   ADC2,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 15, 0)}, // ADC2_IN15
+    {NC,    NP,    0}
+};
+
+//*** I2C ***
+
+const PinMap PinMap_I2C_SDA[] = {
+    {PB_7,   I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 0)},
+    {PB_9,   I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 2)}, // GPIO_Remap_I2C1
+    {PB_11,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 0)},
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_I2C_SCL[] = {
+    {PB_6,   I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 0)},
+    {PB_8,   I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 2)}, // GPIO_Remap_I2C1
+    {PB_10,  I2C2, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, 0)},
+    {NC,    NP,    0}
+};
+
+//*** PWM ***
+
+const PinMap PinMap_PWM[] = {
+    {PA_0,   TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 1, 0)},  // TIM2_CH1
+    {PA_1,   TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 2, 0)},  // TIM2_CH2
+//  {PA_2,   TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 3, 0)},  // TIM2_CH3 - STLink Rx
+//  {PA_3,   TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 4, 0)},  // TIM2_CH4 - STLink Tx
+    {PA_6,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 1, 0)},  // TIM3_CH1
+//  {PA_7,   TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 6, 1, 1)},  // TIM1_CH1N - GPIO_PartialRemap_TIM1
+    {PA_7,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 2, 0)},  // TIM3_CH2
+    {PA_8,   TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 1, 0)},  // TIM1_CH1
+    {PA_9,   TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 2, 0)},  // TIM1_CH2
+    {PA_10,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 3, 0)},  // TIM1_CH3
+    {PA_11,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 4, 0)},  // TIM1_CH4
+    {PA_15,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 8, 1, 0)},  // TIM2_CH1 - GPIO_FullRemap_TIM2
+//  {PB_0,   TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 6, 2, 1)},  // TIM1_CH2N - GPIO_PartialRemap_TIM1
+    {PB_0,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 3, 0)},  // TIM3_CH3
+//  {PB_1,   TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 6, 3, 1)},  // TIM1_CH3N - GPIO_PartialRemap_TIM1
+    {PB_1,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 4, 0)},  // TIM3_CH4
+    {PB_3,   TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 8, 2, 0)},  // TIM2_CH2 - GPIO_FullRemap_TIM2
+    {PB_4,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 7, 1, 0)},  // TIM3_CH1 - GPIO_PartialRemap_TIM3
+    {PB_5,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 7, 2, 0)},  // TIM3_CH2 - GPIO_PartialRemap_TIM3
+    {PB_6,   TIM4,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 1, 0)},  // TIM4_CH1
+    {PB_7,   TIM4,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 2, 0)},  // TIM4_CH2
+    {PB_8,   TIM4,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 3, 0)},  // TIM4_CH3
+    {PB_9,   TIM4,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 4, 0)},  // TIM4_CH4
+    {PB_10,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 8, 3, 0)},  // TIM2_CH3 - GPIO_FullRemap_TIM2
+    {PB_11,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 8, 4, 0)},  // TIM2_CH4 - GPIO_FullRemap_TIM2
+    {PB_13,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 1, 1)},  // TIM1_CH1N
+    {PB_14,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 2, 1)},  // TIM1_CH2N
+    {PB_15,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 0, 3, 1)},  // TIM1_CH3N
+    {PC_6,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 9, 1, 0)},  // TIM3_CH1 - GPIO_FullRemap_TIM3
+    {PC_7,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 9, 2, 0)},  // TIM3_CH2 - GPIO_FullRemap_TIM3
+    {PC_8,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 9, 3, 0)},  // TIM3_CH3 - GPIO_FullRemap_TIM3
+    {PC_9,   TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, 9, 4, 0)},  // TIM3_CH4 - GPIO_FullRemap_TIM3
+    {NC,    NP,    0}
+};
+
+//*** SERIAL ***
+
+const PinMap PinMap_UART_TX[] = {
+    {PA_2,   USART2,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PA_9,   USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_6,   USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 3)}, // GPIO_Remap_USART1
+    {PB_10,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PC_10,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 5)}, // GPIO_PartialRemap_USART3
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_UART_RX[] = {
+    {PA_3,   USART2,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PA_10,  USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_7,   USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 3)}, // GPIO_Remap_USART1
+    {PB_11,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PC_11,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 5)}, // GPIO_PartialRemap_USART3
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_UART_RTS[] = {
+    {PA_1,   USART2,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PA_12,  USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_14,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_UART_CTS[] = {
+    {PA_0,   USART2,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PA_11,  USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_13,  USART3,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+//*** SPI ***
+
+const PinMap PinMap_SPI_MOSI[] = {
+    {PA_7,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_5,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 1)}, // GPIO_Remap_SPI1
+    {PB_15,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_SPI_MISO[] = {
+    {PA_6,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_4,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 1)}, // GPIO_Remap_SPI1
+    {PB_14,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_SPI_SCLK[] = {
+    {PA_5,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PB_3,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 1)}, // GPIO_Remap_SPI1
+    {PB_13,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_SPI_SSEL[] = {
+    {PA_4,   SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {PA_15,  SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 1)}, // GPIO_Remap_SPI1
+    {PB_12,  SPI2, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, 0)},
+    {NC,    NP,    0}
+};
+
+//*** CAN ***
+
+const PinMap PinMap_CAN_RD[] = {
+    {PA_11,  CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, 0)},
+    {PB_8,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, 10)}, // Remap CAN_RX to PB_9
+    {NC,    NP,    0}
+};
+
+const PinMap PinMap_CAN_TD[] = {
+    {PA_12,  CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, 0)},
+    {PB_9,   CAN1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, 10)}, // Remap CAN_TX to PB_9
+    {NC,    NP,    0}
+};

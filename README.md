@@ -6,12 +6,19 @@ Boards available:
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
 
-  * STM32F1 (soon)
+  * STM32F1
+    * [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
+    * [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html)
+
+  * STM32F2
+    * [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html)
 
   * STM32F3
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
 
   * STM32F4
+    * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
+    * [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html)
     * [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html)
     * [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html)
 
@@ -21,7 +28,11 @@ Boards available:
   * STM32L0
     * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
 
+  * STM32L1
+    * [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html)
+
   * STM32L4
+    * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
 
 ## Getting Started
@@ -32,7 +43,7 @@ For full instructions on using the "**Boards Manager**", see the [Getting Starte
 
 ## Troubleshooting
 
-If you have any issue to download/use a package, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
+If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
 
 Or submit a topic on the [stm32duino forum](http://stm32duino.com):
 

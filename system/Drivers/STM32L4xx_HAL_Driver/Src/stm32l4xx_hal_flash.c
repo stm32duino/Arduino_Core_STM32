@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_flash.c
   * @author  MCD Application Team
-  * @version V1.7.1 
-  * @date    21-April-2017
+  * @version V1.7.2 
+  * @date    16-June-2017
   * @brief   FLASH HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the internal FLASH memory:
@@ -500,6 +500,12 @@ __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
   */
 HAL_StatusTypeDef HAL_FLASH_Unlock(void)
 {
+
+#if defined(STM32L451xx) || defined(STM32L452xx) || defined(STM32L462xx)
+  /* Clear OPTVERR bit when initially improperly raised */
+  __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_OPTVERR); 
+#endif
+
   if(READ_BIT(FLASH->CR, FLASH_CR_LOCK) != RESET)
   {
     /* Authorize the FLASH Registers access */
@@ -642,13 +648,13 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
      Even if the FLASH operation fails, the BUSY flag will be reset and an error
      flag will be set */
     
-  uint32_t timeout = HAL_GetTick() + Timeout;
+  uint32_t tickstart = HAL_GetTick();
      
   while(__HAL_FLASH_GET_FLAG(FLASH_FLAG_BSY)) 
   { 
     if(Timeout != HAL_MAX_DELAY)
     {
-      if(HAL_GetTick() >= timeout)
+      if((HAL_GetTick() - tickstart) >= Timeout)
       {
         return HAL_TIMEOUT;
       }

@@ -17,6 +17,7 @@
 */
 
 #include "Arduino.h"
+#include "PinConfigured.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -30,7 +31,7 @@ extern uint32_t g_anOutputPinConfigured[MAX_NB_PORT];
 
 void pinMode( uint32_t ulPin, uint32_t ulMode )
 {
-  PinName p = digitalToPinName(ulPin);
+  PinName p = digitalPinToPinName(ulPin);
 
   if(p != NC) {
     // If the pin that support PWM or DAC output, we need to turn it off
@@ -69,7 +70,7 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
 
 void digitalWrite( uint32_t ulPin, uint32_t ulVal )
 {
-  PinName p = digitalToPinName(ulPin);
+  PinName p = digitalPinToPinName(ulPin);
   if(p != NC) {
     if(is_pin_configured(p, g_digPinConfigured)) {
       digital_io_write(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p), ulVal);
@@ -80,13 +81,13 @@ void digitalWrite( uint32_t ulPin, uint32_t ulVal )
 int digitalRead( uint32_t ulPin )
 {
   uint8_t level = 0;
-  PinName p = digitalToPinName(ulPin);
+  PinName p = digitalPinToPinName(ulPin);
   if(p != NC) {
     if(is_pin_configured(p, g_digPinConfigured)) {
       level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
     }
-  return (level)? HIGH : LOW;
   }
+  return (level)? HIGH : LOW;
 }
 
 #ifdef __cplusplus

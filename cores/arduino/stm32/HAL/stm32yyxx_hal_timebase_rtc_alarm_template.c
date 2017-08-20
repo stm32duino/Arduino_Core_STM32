@@ -5,7 +5,7 @@
 #include "stm32f0xx_hal_timebase_rtc_alarm_template.c"
 #endif
 #ifdef STM32F1xx
-// none
+#include "stm32f1xx_hal_timebase_rtc_alarm_template.c"
 #endif
 #ifdef STM32F2xx
 #include "stm32f2xx_hal_timebase_rtc_alarm_template.c"

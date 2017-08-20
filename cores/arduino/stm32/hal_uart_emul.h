@@ -369,7 +369,7 @@ typedef struct
   * @param  None
   * @retval None
   */
-#define __UART_EMUL_CLK_ENABLE()                           __TIM1_CLK_ENABLE();\
+#define __UART_EMUL_CLK_ENABLE()                           __HAL_RCC_TIM1_CLK_ENABLE();\
                                                            __HAL_RCC_DMA2_CLK_ENABLE();
 
 /** @brief  Disable the clock for UART Emulation.
@@ -377,7 +377,7 @@ typedef struct
   * @param  None
   * @retval None
   */
-#define __UART_EMUL_CLK_DISABLE()                 __TIM1_CLK_DISABLE();\
+#define __UART_EMUL_CLK_DISABLE()                 __HAL_RCC_TIM1_CLK_DISABLE();\
                                                   __HAL_RCC_DMA2_CLK_DISABLE();
 
 

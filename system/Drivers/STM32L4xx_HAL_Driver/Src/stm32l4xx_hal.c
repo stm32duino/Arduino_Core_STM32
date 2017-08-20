@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal.c
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   HAL module driver.
   *          This is the common part of the HAL initialization
   *
@@ -67,11 +67,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /**
- * @brief STM32L4xx HAL Driver version number V1.7.1
+ * @brief STM32L4xx HAL Driver version number V1.7.2
    */
 #define __STM32L4xx_HAL_VERSION_MAIN   (0x01) /*!< [31:24] main version */
 #define __STM32L4xx_HAL_VERSION_SUB1   (0x07) /*!< [23:16] sub1 version */
-#define __STM32L4xx_HAL_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
+#define __STM32L4xx_HAL_VERSION_SUB2   (0x02) /*!< [15:8]  sub2 version */
 #define __STM32L4xx_HAL_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32L4xx_HAL_VERSION         ((__STM32L4xx_HAL_VERSION_MAIN << 24)\
                                         |(__STM32L4xx_HAL_VERSION_SUB1 << 16)\
@@ -579,7 +579,7 @@ void HAL_SYSCFG_DisableMemorySwappingBank(void)
   *          This parameter can be one of the following values:
   *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE0: VREF_OUT1 around 2.048 V. 
   *                                                This requires VDDA equal to or higher than 2.4 V.
-  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE1: VREF_OUT1 around 2.5 V. 
+  *            @arg SYSCFG_VREFBUF_VOLTAGE_SCALE1: VREF_OUT2 around 2.5 V. 
   *                                                This requires VDDA equal to or higher than 2.8 V.
   * @retval None
   */

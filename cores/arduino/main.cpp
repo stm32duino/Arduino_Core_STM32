@@ -26,16 +26,18 @@
 void initVariant() __attribute__((weak));
 void initVariant() { }
 
+// Force init to be called *first*, i.e. before static object allocation.
+// Otherwise, statically allocated objects that need HAL may fail.
+ __attribute__(( constructor (101))) void premain() {
+    init();
+}
+
 /*
  * \brief Main entry point of Arduino application
  */
 int main( void )
 {
-	init();
-
 	initVariant();
-
-	delay(1);
 
 #if defined(USBCON)
 	usbd_interface_init();
@@ -45,6 +47,9 @@ int main( void )
 
 	for (;;)
 	{
+		// Define by Ethernet library. It is defined as __weak.
+		stm32_eth_scheduler();
+		
 		loop();
 		if (serialEventRun) serialEventRun();
 	}

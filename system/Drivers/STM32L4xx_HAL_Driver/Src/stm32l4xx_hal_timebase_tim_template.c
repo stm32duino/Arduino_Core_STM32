@@ -2,8 +2,8 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_timebase_tim_template.c 
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    21-April-2017
+  * @version V1.7.2
+  * @date    16-June-2017
   * @brief   HAL time base based on the hardware TIM Template.
   *    
   *          This file override the native HAL time base functions (defined as weak)

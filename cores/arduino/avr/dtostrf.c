@@ -19,6 +19,8 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   //Commented code is the original version
@@ -58,6 +60,32 @@ char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   dec_part = (int)remainder;
 
   sprintf(sout, "%ld.%ld", int_part, dec_part);
+
+  // Handle minimum field width of the output string
+  // width is signed value, negative for left adjustment.
+  // Range -128,127
+  char fmt[129] = "";
+  unsigned int w = width;
+  if (width < 0) {
+    negative = 1;
+    w = -width;
+  } else {
+    negative = 0;
+  }
+
+  if(strlen(sout) < w) {
+    memset(fmt, ' ', 128);
+    fmt[w-strlen(sout)] = '\0';
+	if(negative == 0) {
+      char *tmp = strdup(sout);
+      strcpy(sout,fmt);
+      strcat(sout, tmp);
+      free(tmp);
+    } else {
+      // left adjustment
+       strcat(sout, fmt);
+    }
+  }
 
   return sout;
 }

@@ -50,6 +50,7 @@
 #include "hw_config.h"
 #include "analog.h"
 #include "timer.h"
+#include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -83,6 +84,7 @@
 #error "ADC SAMPLINGTIME could not be defined"
 #endif
 
+#ifndef STM32F1xx
 #ifdef ADC_CLOCK_SYNC_PCLK_DIV2
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
 #elif defined(ADC_CLOCK_ASYNC_DIV1)
@@ -92,8 +94,11 @@
 #else
 #error "ADC_CLOCK_DIV could not be defined"
 #endif
+#endif /* STM32F1xx */
 
+#ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
+#endif
 /**
   * @}
   */
@@ -262,6 +267,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
   GPIO_InitTypeDef          GPIO_InitStruct;
   GPIO_TypeDef *port;
+  UNUSED(hdac);
+
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* Enable GPIO clock ****************************************/
   port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
@@ -299,7 +306,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NC) return;
+  if (DacHandle.Instance == NP) return;
   dacChannel = get_dac_channel(pin);
   if (!IS_DAC_CHANNEL(dacChannel)) return;
   if(do_init == 1) {
@@ -353,6 +360,7 @@ void HAL_DAC_MspDeInit(void* hdac)
 #else
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
 {
+  UNUSED(hdac);
   /* DAC Periph clock disable */
 #ifdef __HAL_RCC_DAC1_CLK_DISABLE
   __HAL_RCC_DAC1_CLK_DISABLE();
@@ -376,7 +384,7 @@ void dac_stop(PinName pin)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NC) return;
+  if (DacHandle.Instance == NP) return;
   dacChannel = get_dac_channel(pin);
   if (!IS_DAC_CHANNEL(dacChannel)) return;
 
@@ -445,7 +453,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-#ifdef __HAL_RCC_ADC_CONFIG
+/* For STM32F1xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
@@ -568,18 +577,20 @@ uint16_t adc_read_value(PinName pin)
 
   AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
 
-  if (AdcHandle.Instance == NC) return 0;
+  if (AdcHandle.Instance == NP) return 0;
 
+#ifndef STM32F1xx
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
+  AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
+  AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
+  AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
+#endif
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
-  AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-  AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
-  AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
   AdcHandle.State = HAL_ADC_STATE_RESET;
 #if defined (STM32F0xx) || defined (STM32L0xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
@@ -622,9 +633,9 @@ uint16_t adc_read_value(PinName pin)
     return 0;
   }
 
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L4xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L4xx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
-#if defined (STM32F0xx)
+#if defined (STM32F0xx) || defined (STM32F1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
 #else
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
@@ -700,7 +711,11 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+#ifdef STM32F1xx
+  pin_SetF1AFPin(STM_PIN_AFNUM(function));
+#else
   GPIO_InitStruct.Alternate = STM_PIN_AFNUM(function);
+#endif /* STM32F1xx */
   GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
 
   HAL_GPIO_Init(port, &GPIO_InitStruct);
@@ -735,12 +750,12 @@ void pwm_start(PinName pin, uint32_t clock_freq,
 
   /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
   timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NC) return 0;
+  if (timHandle.Instance == NP) return;
   timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
   timHandle.Init.Period            = period -1;
   timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   timHandle.Init.RepetitionCounter = 0;
 #endif
   timHandle.State= HAL_TIM_STATE_RESET;
@@ -761,7 +776,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   timConfig.OCMode       = TIM_OCMODE_PWM1;
   timConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
   timConfig.OCFastMode   = TIM_OCFAST_DISABLE;
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   timConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
   timConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
   timConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
@@ -774,7 +789,7 @@ void pwm_start(PinName pin, uint32_t clock_freq,
     return;
   }
 
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   if(STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Start(&timHandle, timChannel);
   } else
@@ -796,11 +811,11 @@ void pwm_stop(PinName pin)
   uint32_t timChannel;
 
   timHandle.Instance = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NC) return 0;
+  if (timHandle.Instance == NP) return;
   timChannel = get_pwm_channel(pin);
-  if (!IS_TIM_CHANNELS(timChannel)) return 0;
+  if (!IS_TIM_CHANNELS(timChannel)) return;
 
-#ifndef STM32L0xx
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
   if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Stop(&timHandle, timChannel);
   } else
