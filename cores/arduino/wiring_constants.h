@@ -75,113 +75,113 @@ enum {
     AFIO_TIM3_DISABLE,
     AFIO_TIM4_ENABLE,
     AFIO_TIM4_DISABLE,
-#if defined(AFIO_MAPR_CAN_REMAP1)
+//#if defined(AFIO_MAPR_CAN_REMAP1)
     AFIO_CAN1_1,
     AFIO_CAN1_2,
     AFIO_CAN1_3,
-#endif
+//#endif
     AFIO_PD01_ENABLE,
     AFIO_PD01_DISABLE,
-#if defined(AFIO_MAPR_TIM5CH4_IREMAP)
+//#if defined(AFIO_MAPR_TIM5CH4_IREMAP)
     AFIO_TIM5CH4_ENABLE,
     AFIO_TIM5CH4_DISABLE,
-#endif
-#if defined(AFIO_MAPR_ETH_REMAP)
+//#endif
+//#if defined(AFIO_MAPR_ETH_REMAP)
     AFIO_ETH_ENABLE,
     AFIO_ETH_DISABLE,
-#endif
-#if defined(AFIO_MAPR_CAN2_REMAP)
+//#endif
+//#if defined(AFIO_MAPR_CAN2_REMAP)
     AFIO_CAN2_ENABLE,
     AFIO_CAN2_DISABLE,
-#endif
-#if defined(AFIO_MAPR_MII_RMII_SEL)
+//#endif
+//#if defined(AFIO_MAPR_MII_RMII_SEL)
     AFIO_ETH_RMII,
     AFIO_ETH_MII,
-#endif
+//#endif
     AFIO_ADC1_ETRGINJ_ENABLE,
     AFIO_ADC1_ETRGINJ_DISABLE,
     AFIO_ADC1_ETRGREG_ENABLE,
     AFIO_ADC1_ETRGREG_DISABLE,
-#if defined(AFIO_MAPR_ADC2_ETRGINJ_REMAP)
+//#if defined(AFIO_MAPR_ADC2_ETRGINJ_REMAP)
     AFIO_ADC2_ETRGINJ_ENABLE,
     AFIO_ADC2_ETRGINJ_DISABLE,
-#endif
-#if defined(AFIO_MAPR_ADC2_ETRGREG_REMAP)
+//#endif
+//#if defined(AFIO_MAPR_ADC2_ETRGREG_REMAP)
     AFIO_ADC2_ETRGREG_ENABLE,
     AFIO_ADC2_ETRGREG_DISABLE,
-#endif
+//#endif
     AFIO_SWJ_ENABLE,
     AFIO_SWJ_NONJTRST,
     AFIO_SWJ_NOJTAG,
     AFIO_SWJ_DISABLE,
-#if defined(AFIO_MAPR_SPI3_REMAP)
+//#if defined(AFIO_MAPR_SPI3_REMAP)
     AFIO_SPI3_ENABLE,
     AFIO_SPI3_DISABLE,
-#endif
-#if defined(AFIO_MAPR_TIM2ITR1_IREMAP)
+//#endif
+//#if defined(AFIO_MAPR_TIM2ITR1_IREMAP)
     AFIO_TIM2ITR1_TO_USB,
     AFIO_TIM2ITR1_TO_ETH,
-#endif
-#if defined(AFIO_MAPR_PTP_PPS_REMAP)
+//#endif
+//#if defined(AFIO_MAPR_PTP_PPS_REMAP)
     AFIO_ETH_PTP_PPS_ENABLE,
     AFIO_ETH_PTP_PPS_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM9_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM9_REMAP)
     AFIO_TIM9_ENABLE,
     AFIO_TIM9_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM10_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM10_REMAP)
     AFIO_TIM10_ENABLE,
     AFIO_TIM10_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM11_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM11_REMAP)
     AFIO_TIM11_ENABLE,
     AFIO_TIM11_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM13_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM13_REMAP)
     AFIO_TIM13_ENABLE,
     AFIO_TIM13_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM14_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM14_REMAP)
     AFIO_TIM14_ENABLE,
     AFIO_TIM14_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_FSMC_NADV_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_FSMC_NADV_REMAP)
     AFIO_FSMCNADV_DISCONNECTED,
     AFIO_FSMCNADV_CONNECTED,
-#endif
-#if defined(AFIO_MAPR2_TIM15_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM15_REMAP)
     AFIO_TIM15_ENABLE,
     AFIO_TIM15_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM16_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM16_REMAP)
     AFIO_TIM16_ENABLE,
     AFIO_TIM16_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM17_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM17_REMAP)
     AFIO_TIM17_ENABLE,
     AFIO_TIM17_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_CEC_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_CEC_REMAP)
     AFIO_CEC_ENABLE,
     AFIO_CEC_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM1_DMA_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM1_DMA_REMAP)
     AFIO_TIM1DMA_ENABLE,
     AFIO_TIM1DMA_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM67_DAC_DMA_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM67_DAC_DMA_REMAP)
     AFIO_TIM67DACDMA_ENABLE,
     AFIO_TIM67DACDMA_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_TIM12_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_TIM12_REMAP)
     AFIO_TIM12_ENABLE,
     AFIO_TIM12_DISABLE,
-#endif
-#if defined(AFIO_MAPR2_MISC_REMAP)
+//#endif
+//#if defined(AFIO_MAPR2_MISC_REMAP)
     AFIO_MISC_ENABLE,
     AFIO_MISC_DISABLE,
-#endif
+//#endif
 };
 #endif // STM32F1xx
 
