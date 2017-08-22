@@ -74,6 +74,10 @@
 #elif defined(STM32L4xx)
 #endif
 
+#ifndef CAN1
+#define CAN1 CAN
+#endif
+
 // weaked functions declaration
 void SystemClock_Config(void);
 
