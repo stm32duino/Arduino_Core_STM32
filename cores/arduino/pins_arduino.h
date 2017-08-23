@@ -62,7 +62,7 @@ uint32_t pinNametoDigitalPin(PinName p);
                                      pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_SSEL))
 
 
-#define digitalPinToPort(p)         (get_GPIO_Port(digitalPinToPinName(p)))
+#define digitalPinToPort(p)         (get_GPIO_Port(STM_PORT(digitalPinToPinName(p))))
 #define digitalPinToBitMask(p)      (STM_GPIO_PIN(digitalPinToPinName(p)))
 
 #define digitalPinIsValid(p)        (digitalPinToPinName(p) != NC)
