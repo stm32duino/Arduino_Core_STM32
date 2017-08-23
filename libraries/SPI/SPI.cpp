@@ -22,7 +22,7 @@ SPIClass::SPIClass() : g_active_id(-1)
 {
   _spi.pin_miso = digitalPinToPinName(MISO);
   _spi.pin_mosi = digitalPinToPinName(MOSI);
-  _spi.pin_sclk = digitalPinToPinName(SCLK);
+  _spi.pin_sclk = digitalPinToPinName(SCK);
   _spi.pin_ssel = NC;
 }
 

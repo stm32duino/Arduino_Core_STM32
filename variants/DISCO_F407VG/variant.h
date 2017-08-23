@@ -174,8 +174,7 @@ enum {
 #define SS2                     14
 #define MOSI                    44
 #define MISO                    5
-#define SCLK                    43
-#define SCK                     SCLK
+#define SCK                     43
 
 //I2C Definitions
 #define SDA                     66

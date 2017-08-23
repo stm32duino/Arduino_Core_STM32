@@ -189,8 +189,7 @@ enum {
 #define SS                      BOARD_SPI_DEFAULT_SS
 #define MOSI                    11
 #define MISO                    12
-#define SCLK                    13
-#define SCK                     SCLK
+#define SCK                     13
 
 //I2C Definitions
 #define SDA                     14

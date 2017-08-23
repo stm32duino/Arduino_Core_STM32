@@ -101,8 +101,7 @@ enum {
 #define SS                      BOARD_SPI_DEFAULT_SS
 #define MOSI                    11 // Default for Arduino connector compatibility
 #define MISO                    12 // Default for Arduino connector compatibility
-#define SCLK                    13 // Default for Arduino connector compatibility
-#define SCK                     SCLK
+#define SCK                     13 // Default for Arduino connector compatibility
 
 //I2C Definitions
 #define SDA                     14 // Default for Arduino connector compatibility
