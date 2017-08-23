@@ -20,6 +20,8 @@
 #ifndef _WIRING_
 #define _WIRING_
 
+#include <clock.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

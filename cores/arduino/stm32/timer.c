@@ -563,8 +563,8 @@ uint32_t getTimerIrq(TIM_TypeDef* tim)
   */
 void TimerHandleDeinit(stimer_t *obj)
 {
-  HAL_TIM_Base_DeInit(&(obj->handle));
   HAL_TIM_Base_Stop_IT(&(obj->handle));
+  HAL_TIM_Base_DeInit(&(obj->handle));
 }
 
 /**
@@ -1024,6 +1024,17 @@ void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *))
   obj->irqHandle = irqHandle;
 }
 
+/**
+  * @brief  Attached an interrupt handler
+  * @param  htim : TIM handle
+  * @param  irqHandle : interrupt handler
+  * @retval none
+  */
+void timer_attach_interrupt_handle(TIM_HandleTypeDef *htim,  void (*irqHandle)(stimer_t *))
+{
+  stimer_t *obj = get_timer_obj(htim);
+  obj->irqHandle = irqHandle;
+}
 
 /******************************************************************************/
 /*                            TIMx IRQ HANDLER                                */
