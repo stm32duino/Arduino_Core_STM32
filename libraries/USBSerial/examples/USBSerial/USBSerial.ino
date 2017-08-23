@@ -8,4 +8,9 @@ void setup() {
 void loop() {
   SerialUSB.println("Hello world!");
   delay(1000);
+
+  while(SerialUSB.available()) {
+    char c = SerialUSB.read();
+    SerialUSB.print(c);
+  }
 }
