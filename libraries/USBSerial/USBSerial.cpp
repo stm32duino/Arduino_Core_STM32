@@ -39,7 +39,7 @@
 #include <string.h>
 
 #include "wiring.h"
-#include "usb_serial.h"
+#include "USBSerial.h"
 
 #include "usb_interface.h"
 #include "usbd_core.h"
