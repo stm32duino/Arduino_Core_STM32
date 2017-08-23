@@ -121,8 +121,7 @@ enum {
 #define SS3                     10
 #define MOSI                    7
 #define MISO                    6
-#define SCLK                    5
-#define SCK                     SCLK
+#define SCK                     5
 
 //I2C Definitions
 #define SDA                     23
