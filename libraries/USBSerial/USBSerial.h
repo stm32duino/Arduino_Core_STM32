@@ -36,7 +36,7 @@
 #ifndef _USB_SERIAL_H_
 #define _USB_SERIAL_H_
 
-#if !defined (USBCON) || !defined (USBD_USE_CDC)
+#if !defined (USBCON)
 #warning "Using legacy CDC core (non pluggable)"
 #else
 #include "Stream.h"

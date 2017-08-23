@@ -30,7 +30,7 @@
   ******************************************************************************
 */
 #ifdef USBCON
-#ifdef USBD_USE_CDC
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
 #include "stm32_def.h"
@@ -427,6 +427,6 @@ void TIM6_PeriodElapsedCallback(stimer_t *htim)
 #ifdef __cplusplus
 }
 #endif
-#endif // USBD_USE_CDC
+
 #endif // USBCON
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

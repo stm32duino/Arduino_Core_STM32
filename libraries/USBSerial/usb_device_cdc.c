@@ -21,8 +21,6 @@
  */
 #ifdef USBCON
 
-#ifdef USBD_USE_CDC
 #include "usbd_cdc.c"
-#endif // USBD_USE_CDC
 
 #endif //USBCON

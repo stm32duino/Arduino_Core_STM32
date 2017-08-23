@@ -34,7 +34,6 @@
   */
 
 #ifdef USBCON
-#ifdef USBD_USE_CDC
 
 #include <string.h>
 
@@ -215,5 +214,5 @@ USBSerial::operator bool() {
   delay(10);
  return result;
 }
-#endif // USBD_USE_CDC
+
 #endif // USBCON
