@@ -34,7 +34,7 @@ extern "C" {
 
 #define NOT_AN_INTERRUPT            NC // -1
 #define DEND                        PEND
-#define NUM_DIGITAL_PINS            DEND
+#define NUM_DIGITAL_PINS            ((uint32_t)DEND)
 #define NUM_ANALOG_INPUTS           (AEND-A0)
 
 // Convert a digital pin number Dxx to a PinName PX_n
