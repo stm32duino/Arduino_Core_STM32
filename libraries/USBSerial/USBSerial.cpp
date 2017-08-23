@@ -39,16 +39,14 @@
 
 #include "wiring.h"
 #include "USBSerial.h"
-
-#include "usb_interface.h"
-#include "usbd_core.h"
 #include "usbd_desc.h"
+#include "usbd_desc_cdc.h"
 #include "usbd_cdc.h"
 #include "usbd_cdc_if.h"
 
 #define USB_TIMEOUT 50
 /* USB Device Core handle declaration */
-extern USBD_HandleTypeDef hUSBD_Device_CDC;
+USBD_HandleTypeDef hUSBD_Device_CDC;
 extern __IO  uint32_t device_connection_status;
 extern __IO  uint32_t lineState;
 extern __IO uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
@@ -67,9 +65,35 @@ USBSerial::USBSerial(void) {
 
 /* USBSerial is always available and instantiated in main.cpp */
 void USBSerial::begin(void) {
+  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK) {
+
+    /* Add Supported Class */
+    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+
+      /* Add CDC Interface Class */
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_Interface_fops_FS) == USBD_OK) {
+
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device_CDC);
+      }
+    }
+  }
 }
 
 void USBSerial::begin(int) {
+  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK) {
+
+    /* Add Supported Class */
+    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+
+      /* Add CDC Interface Class */
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_Interface_fops_FS) == USBD_OK) {
+
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device_CDC);
+      }
+    }
+  }
 }
 
 void USBSerial::end(void) {

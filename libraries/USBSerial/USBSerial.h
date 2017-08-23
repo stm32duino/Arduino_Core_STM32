@@ -40,6 +40,8 @@
 #warning "Using legacy CDC core (non pluggable)"
 #else
 #include "Stream.h"
+#include "usbd_core.h"
+
 /**
  * @brief Virtual serial terminal.
  */
