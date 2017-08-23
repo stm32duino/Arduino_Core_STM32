@@ -208,7 +208,7 @@ void USBSerial::flush(void)
 
 uint8_t USBSerial::pending(void) {
 //    return usbGetPending(); // No equivalent in HAL
-
+  return 0;
 }
 
 uint8_t USBSerial::isConnected(void) {
@@ -225,10 +225,12 @@ uint8_t USBSerial::isConnected(void) {
 
 uint8_t USBSerial::getDTR(void) {
 //    return usbGetDTR();
+  return 0;
 }
 
 uint8_t USBSerial::getRTS(void) {
 //    return usbGetRTS();
+  return 0;
 }
 
 USBSerial::operator bool() {

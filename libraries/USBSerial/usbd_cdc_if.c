@@ -162,8 +162,8 @@ static int8_t CDC_Init_FS(void)
   TIM_Config();
 
   /* Set Application Buffers */
-  USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, UserTxBufferFS, 1);
-  USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, StackRxBufferFS);
+  USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)UserTxBufferFS, 1);
+  USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, (uint8_t *)StackRxBufferFS);
 
   return (USBD_OK);
 }
@@ -293,9 +293,10 @@ static int8_t CDC_Receive_FS (uint8_t* Buf, uint32_t *Len)
   */
 uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len)
 {
+  UNUSED(Buf);
   uint8_t result = USBD_OK;
   UNUSED(Len);
-  USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, UserTxBufferFS, 1);
+  USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)UserTxBufferFS, 1);
   result = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
   return result;
 }
@@ -368,6 +369,7 @@ static void TIM_Config(void)
 
 void TIM6_PeriodElapsedCallback(stimer_t *htim)
 {
+  UNUSED(htim);
   uint8_t status;
 
   if(USB_received) {
@@ -375,11 +377,11 @@ void TIM6_PeriodElapsedCallback(stimer_t *htim)
 
     if((USBPackSize > 0)) {
       if(UserRxBufPtrIn + USBPackSize > APP_RX_DATA_SIZE) {
-        memcpy(&UserRxBufferFS[UserRxBufPtrIn], &USBBuffer[0], (APP_RX_DATA_SIZE - UserRxBufPtrIn));
-        memcpy(&UserRxBufferFS[0], &USBBuffer[(APP_RX_DATA_SIZE - UserRxBufPtrIn)], (USBPackSize - (APP_RX_DATA_SIZE - UserRxBufPtrIn)));
+        memcpy(((uint8_t *)UserRxBufferFS+UserRxBufPtrIn), &USBBuffer[0], (APP_RX_DATA_SIZE - UserRxBufPtrIn));
+        memcpy((uint8_t *)UserRxBufferFS, &USBBuffer[(APP_RX_DATA_SIZE - UserRxBufPtrIn)], (USBPackSize - (APP_RX_DATA_SIZE - UserRxBufPtrIn)));
         UserRxBufPtrIn = ((UserRxBufPtrIn + USBPackSize) % APP_RX_DATA_SIZE);
       } else {
-        memcpy(&UserRxBufferFS[UserRxBufPtrIn], USBBuffer, USBPackSize);
+        memcpy(((uint8_t *)UserRxBufferFS+UserRxBufPtrIn), USBBuffer, USBPackSize);
         UserRxBufPtrIn = ((UserRxBufPtrIn + USBPackSize) % APP_RX_DATA_SIZE);
       }
     }
