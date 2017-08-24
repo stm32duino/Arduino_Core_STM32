@@ -34,7 +34,7 @@ extern "C" {
 
 #define NOT_AN_INTERRUPT            NC // -1
 #define DEND                        PEND
-#define NUM_DIGITAL_PINS            DEND
+#define NUM_DIGITAL_PINS            ((uint32_t)DEND)
 #define NUM_ANALOG_INPUTS           (AEND-A0)
 
 // Convert a digital pin number Dxx to a PinName PX_n
@@ -62,8 +62,33 @@ uint32_t pinNametoDigitalPin(PinName p);
                                      pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_SSEL))
 
 
-#define digitalPinToPort(p)         (get_GPIO_Port(digitalPinToPinName(p)))
+#define digitalPinToPort(p)         (get_GPIO_Port(STM_PORT(digitalPinToPinName(p))))
 #define digitalPinToBitMask(p)      (STM_GPIO_PIN(digitalPinToPinName(p)))
+
+#define analogInPinToBit(p)         (STM_PIN(digitalPinToPinName(p)))
+#define portOutputRegister(P)       (&(P->ODR))
+#define portInputRegister(P)        (&(P->IDR))
+
+#define portSetRegister(P)          (&(P->BSRR))
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+// For those series reset are in the high part so << 16U needed
+#define portClearRegister(P)        (&(P->BSRR))
+#else
+#define portClearRegister(P)        (&(P->BRR))
+#endif
+
+
+#if defined(STM32F1xx)
+// Config registers split in 2 registers:
+// CRL: pin 0..7
+// CRH: pin 8..15
+// Return only CRL
+#define portModeRegister(P)         (&(P->CRL))
+#else
+#define portModeRegister(P)         (&(P->MODER))
+#endif
+#define portConfigRegister(P)       (portModeRegister(P))
+
 
 #define digitalPinIsValid(p)        (digitalPinToPinName(p) != NC)
 

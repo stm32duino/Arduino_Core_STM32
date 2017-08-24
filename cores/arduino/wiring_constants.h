@@ -112,10 +112,19 @@ enum BitOrder {
 #define bitClear(value, bit) ((value) &= ~(1UL << (bit)))
 #define bitWrite(value, bit, bitvalue) (bitvalue ? bitSet(value, bit) : bitClear(value, bit))
 
-typedef unsigned int word;
-
 #define bit(b) (1UL << (b))
+//macro added for compatibility
+#ifndef _BV
+#define _BV(bit) (1 << (bit))
+#endif
+#ifndef cbi
+#define cbi(reg, bitmask) *reg &= ~bitmask
+#endif
+#ifndef sbi
+#define sbi(reg, bitmask) *reg |= bitmask
+#endif
 
+typedef unsigned int word;
 
 typedef bool boolean ;
 
