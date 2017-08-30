@@ -61,6 +61,13 @@ void SPIClass::begin(uint8_t _pin)
 
   spi_init(&_spi, spiSettings[_pin].clk, spiSettings[_pin].dMode, spiSettings[_pin].msb);
   g_active_id = _pin;
+#if __has_include("WiFi.h")
+  // Wait wifi shield initialization.
+  // Should be better to do in SpiDrv::begin() of WiFi library but it seems
+  // there is no more update on this library as shield is retired.
+  delay(2000);
+#endif
+
 }
 
 void SPIClass::usingInterrupt(uint8_t interruptNumber)
