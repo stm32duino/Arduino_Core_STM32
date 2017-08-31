@@ -2,7 +2,7 @@
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/STM32-2017.8.4.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/STM32-2017.8.4...master)
 
-Boards available:
+## Boards available:
 
   * STM32F0
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
@@ -11,6 +11,8 @@ Boards available:
   * STM32F1
     * [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
     * [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html)
+    * BluePill F103C8 (on going)
+    * MapleMini F103CB (on going)
 
   * STM32F2
     * [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html)
