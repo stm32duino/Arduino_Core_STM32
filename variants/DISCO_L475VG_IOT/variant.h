@@ -37,20 +37,104 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  D0,  D1,  D2,  D3,  D4,  D5,  D6,  D7,  D8,  D9,
-  D10, D11, D12, D13, D14, D15, D16, D17, D18, D19,
-  D20, D21, D22, D23, D24, D25, D26, D27, D28, D29,
-  D30, D31, D32, D33, D34, D35, D36, D37, D38, D39,
-  D40, D41, D42, D43, D44, D45, D46, D47, D48, D49,
-  D50, D51, D52, D53, D54, D55, D56, D57, D58, D59,
-  D60, D61, D62, D63, D64, D65, D66, D67, D68, D69,
-  D70, D71, D72, D73,
-  DEND
+// CN3 connector
+  PA1,  //D0
+  PA0,  //D1
+  PD14, //D2
+  PB0,  //D3
+  PA3,  //D4
+  PB4,  //D5
+  PB1,  //D6
+  PA4,  //D7
+// CN1 connector
+  PB2,  //D8
+  PA15, //D9
+  PA2,  //D10
+  PA7,  //D11
+  PA6,  //D12
+  PA5,  //D13
+  PB9,  //D14
+  PB8,  //D15
+// Not on connector
+  PB14, //D16
+  PC13, //D17
+// CN9 USB OTG FS connector
+  PA9,  //D18
+  PA10, //D19
+  PA11, //D20
+  PA12, //D21
+  PD12, //D22
+  PE3,  //D23
+// CN10 PMOD connector
+  PD0,  //D24
+  PD1,  //D25
+  PD2,  //D26
+  PD3,  //D27
+  PD4,  //D28
+  PD5,  //D29
+  PD6,  //D30
+// Sensors / modules pins
+  PA8,  //D31
+  PB5,  //D32
+  PB10, //D33
+  PB11, //D34
+  PB12, //D35
+  PB13, //D36
+  PB15, //D37
+  PC6,  //D38
+  PC7,  //D39
+  PC8,  //D40
+  PC9,  //D41
+  PC10, //D42
+  PC11, //D43
+  PC12, //D44
+  PD7,  //D45
+  PD8,  //D46
+  PD9,  //D47
+  PD10, //D48
+  PD11, //D49
+  PD13, //D50
+  PD15, //D51
+  PE0,  //D52
+  PE1,  //D53
+  PE2,  //D54
+  PE4,  //D55
+  PE5,  //D56
+  PE6,  //D57
+  PE7,  //D58
+  PE8,  //D59
+  PE9,  //D60
+  PE10, //D61
+  PE11, //D62
+  PE12, //D63
+  PE13, //D64
+  PE14, //D65
+  PE15, //D66
+// CN4 connector
+  PC5,  //D67/A0
+  PC4,  //D68/A1
+  PC3,  //D69/A2
+  PC2,  //D70/A3
+  PC1,  //D71/A4
+  PC0,  //D72/A5
+// Duplicated pins in order to be aligned with PinMap_ADC
+  PA1_2,  //D73/A6
+  PA0_2,  //D74/A7
+  PB0_2,  //D75/A8
+  PA3_2,  //D76/A9
+  PB1_2,  //D77/A10
+  PA4_2,  //D78/A11
+  PA2_2,  //D79/A12
+  PA7_2,  //D80/A13
+  PA6_2,  //D81/A14
+  PA5_2,  //D82/A15
+  PEND
 };
 
 enum {
   A_START_AFTER = D66,
-  A0,  A1,  A2,  A3,  A4,  A5,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
+  A10, A11, A12, A13, A14, A15,
   AEND
 };
 
@@ -75,23 +159,13 @@ enum {
 
 
 //SPI definitions
-//define 16 channels. As many channel as digital IOs
-#define SPI_CHANNELS_NUM        16
-
-//default chip salect pin
-#define BOARD_SPI_DEFAULT_SS    10
-
-//In case SPI CS channel is not used we define a default one
-#define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
-
-#define SS                      BOARD_SPI_DEFAULT_SS
+#define SS                      10
 #define SS1                     4
 #define SS2                     7
 #define SS3                     8
 #define MOSI                    11
 #define MISO                    12
-#define SCLK                    13
-#define SCK                     SCLK
+#define SCK                     13
 
 //I2C Definitions
 #define SDA                     14
