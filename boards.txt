@@ -226,8 +226,8 @@ Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.ena
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_32.menu.board_part_num.NUCLEO_L432KC=Nucleo L432KC
 Nucleo_32.menu.board_part_num.NUCLEO_L432KC.node=NODE_L432KC
-Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_size=65536
-Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_data_size=262144
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_size=262144
+Nucleo_32.menu.board_part_num.NUCLEO_L432KC.upload.maximum_data_size=65536
 Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.mcu=cortex-m4
 Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.f_cpu=80000000L
 Nucleo_32.menu.board_part_num.NUCLEO_L432KC.build.board=NUCLEO_L432KC
