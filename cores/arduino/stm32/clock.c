@@ -134,6 +134,7 @@ uint32_t GetCurrentMilli(void)
 void SysTick_Handler(void)
 {
   HAL_IncTick();
+  HAL_SYSTICK_IRQHandler();
 }
 
 /**
