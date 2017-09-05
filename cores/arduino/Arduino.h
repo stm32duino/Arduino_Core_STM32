@@ -68,6 +68,7 @@ extern void loop( void ) ;
 #include "WMath.h"
 #include "HardwareSerial.h"
 #include "wiring_pulse.h"
+#include "USBSerial.h"
 #endif // __cplusplus
 
 
