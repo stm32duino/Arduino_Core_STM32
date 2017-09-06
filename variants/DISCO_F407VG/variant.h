@@ -160,16 +160,7 @@ enum {
 
 
 //SPI definitions
-//define 16 channels. As many channel as digital IOs
-#define SPI_CHANNELS_NUM        16
-
-//default chip salect pin
-#define BOARD_SPI_DEFAULT_SS    10
-
-//In case SPI CS channel is not used we define a default one
-#define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
-
-#define SS                      BOARD_SPI_DEFAULT_SS
+#define SS                      10
 #define SS1                     4
 #define SS2                     14
 #define MOSI                    44
@@ -222,7 +213,7 @@ extern HardwareSerial Serial;
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
-                                   // See UM ง6.1.3 ST-LINK/V2-A VCP configuration)
+                                   // See UM ยง6.1.3 ST-LINK/V2-A VCP configuration)
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 
