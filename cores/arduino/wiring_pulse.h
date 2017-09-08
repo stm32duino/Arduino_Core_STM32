@@ -20,9 +20,6 @@
 #define _WIRING_PULSE_
 
 #ifdef __cplusplus
- extern "C" {
-#endif
-
 unsigned long countPulseASM(const volatile uint32_t *port, uint32_t bit, uint32_t stateMask, unsigned long maxloops);
 /*
  * \brief Measures the length (in microseconds) of a pulse on the pin; state is HIGH
@@ -32,9 +29,6 @@ unsigned long countPulseASM(const volatile uint32_t *port, uint32_t bit, uint32_
  */
 extern uint32_t pulseIn( uint32_t ulPin, uint32_t ulState, uint32_t ulTimeout = 1000000L ) ;
 extern uint32_t pulseInLong( uint8_t pin, uint8_t state, unsigned long timeout = 1000000L ) ;
-
-#ifdef __cplusplus
-}
 #endif
 
 #endif /* _WIRING_PULSE_ */

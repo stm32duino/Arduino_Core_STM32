@@ -20,9 +20,6 @@
 #define _WIRING_TONE_
 
 #ifdef __cplusplus
-extern "C" {
-#endif
-
 /*
  * \brief Generate a tone to a pin.
  *
@@ -39,8 +36,6 @@ extern void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 
  */
 extern void noTone(uint8_t _pin);
 
-#ifdef __cplusplus
-}
 #endif
 
 #endif /* _WIRING_TONE_ */

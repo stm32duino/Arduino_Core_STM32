@@ -17,7 +17,6 @@
 */
 
 #include "Arduino.h"
-#include "wiring_private.h"
 
 /* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
  * or LOW, the type of pulse to measure.  Works on pulses from 2-3 microseconds
@@ -27,11 +26,6 @@
  * ATTENTION:
  * This function performs better with short pulses in noInterrupt() context
  */
-
-#ifdef __cplusplus
- extern "C" {
-#endif
-
 
 uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
 {
@@ -78,7 +72,3 @@ uint32_t pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout)
 {
   return pulseIn(pin, state, timeout);
 }
-
-#ifdef __cplusplus
-}
-#endif
