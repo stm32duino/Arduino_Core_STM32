@@ -16,7 +16,7 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 */
 
-//#if defined(ARDUINO_ARCH_SAMD)
+#if defined(ARDUINO_ARCH_STM32)
 
 #include <Arduino.h>
 #include <Servo.h>
@@ -199,3 +199,5 @@ bool Servo::attached()
 {
   return servos[this->servoIndex].Pin.isActive;
 }
+
+#endif // ARDUINO_ARCH_STM32
