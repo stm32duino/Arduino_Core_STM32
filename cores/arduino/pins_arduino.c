@@ -22,8 +22,6 @@
 extern "C" {
 #endif
 
-void __libc_init_array(void);
-
 WEAK uint32_t pinNametoDigitalPin(PinName p)
 {
   uint32_t i = NC;
@@ -34,11 +32,6 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
     }
   }
   return i;
-}
-
-WEAK void init( void )
-{
-  hw_config_init();
 }
 
 #ifdef __cplusplus

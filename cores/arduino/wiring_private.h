@@ -19,24 +19,4 @@
 #ifndef WiringPrivate_h
 #define WiringPrivate_h
 
-#include <stdint.h>
-#include <stdio.h>
-#include <stdarg.h>
-
-#ifdef __cplusplus
-extern "C"{
-#endif
-
-// Includes ST CMSIS
-#include <chip.h>
-
-#include "wiring_constants.h"
-
-#ifdef __cplusplus
-} // extern "C"
-
-#include "HardwareSerial.h"
-
-#endif
-
 #endif
