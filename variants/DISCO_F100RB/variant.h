@@ -132,16 +132,7 @@ enum {
 #define USER_BTN                5
 
 //SPI definitions
-//define 16 channels. As many channel as digital IOs
-#define SPI_CHANNELS_NUM        16
-
-//default chip salect pin
-#define BOARD_SPI_DEFAULT_SS    43
-
-//In case SPI CS channel is not used we define a default one
-#define BOARD_SPI_OWN_SS        SPI_CHANNELS_NUM
-
-#define SS                      BOARD_SPI_DEFAULT_SS
+#define SS                      43
 #define SS1                     40
 #define SS2                     41
 #define SS3                     42
