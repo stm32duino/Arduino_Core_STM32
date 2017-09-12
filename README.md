@@ -2,7 +2,19 @@
 ### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.8.31.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.8.31...master)
 
-## Boards available:
+* [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
+* [Boards available](https://github.com/stm32duino/Arduino_Core_STM32#boards-available)<br>
+* [Troubleshooting](https://github.com/stm32duino/Arduino_Core_STM32#troubleshooting)<br>
+
+## Getting Started
+
+This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores). 
+
+For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/wiki/wiki/Getting-Started) page.
+
+For advanced user, you can use the repository: see the [Using git repository](https://github.com/stm32duino/wiki/wiki/Using-git-repository) page.
+
+## Boards available
 
   * STM32F0
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
@@ -38,12 +50,6 @@
   * STM32L4
     * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
-
-## Getting Started
-
-This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores). 
-
-For full instructions on using the "**Boards Manager**", see the [Getting Started page](https://github.com/stm32duino/wiki/wiki/Getting-Started).
 
 ## Troubleshooting
 
