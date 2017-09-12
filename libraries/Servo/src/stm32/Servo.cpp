@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2015 Arduino LLC. All right reserved.
+  Copyright (c) 2017 Arduino LLC. All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -21,15 +21,11 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-#define usToTicks(_us)    (_us * 2)     // converts microseconds to tick
-#define ticksToUs(_ticks) (_ticks / 2)  // converts from ticks back to microseconds
-
-#define TRIM_DURATION  2                                   // compensation ticks to trim adjust for digitalWrite delays
-
 static servo_t servos[MAX_SERVOS];                         // static array of servo structures
 static volatile int8_t timerChannel[_Nbr_16timers ];       // counter for the servo being pulsed for each timer (or -1 if refresh interval)
 
 uint8_t ServoCount = 0;                                    // the total number of attached servos
+stimer_t _timer;
 
 // convenience macros
 #define SERVO_INDEX_TO_TIMER(_servo_nbr) ((timer16_Sequence_t)(_servo_nbr / SERVOS_PER_TIMER))   // returns the timer controlling this servo
@@ -69,8 +65,8 @@ static void ServoIrqHandle(stimer_t *obj, uint32_t channel)
   }
   else {
     // finished all channels so wait for the refresh period to expire before starting over
-    if( getTimerCounter(obj) + 4 < usToTicks(REFRESH_INTERVAL) ) {  // allow a few ticks to ensure the next OCR1A not missed
-      setCCRRegister(obj, channel, (unsigned int)usToTicks(REFRESH_INTERVAL));
+    if( getTimerCounter(obj) + 4 < REFRESH_INTERVAL ) {  // allow a few ticks to ensure the next OCR1A not missed
+      setCCRRegister(obj, channel, (unsigned int)REFRESH_INTERVAL);
     } else {
       setCCRRegister(obj, channel, getTimerCounter(obj) + 4);  // at least REFRESH_INTERVAL has elapsed
     }
@@ -80,6 +76,11 @@ static void ServoIrqHandle(stimer_t *obj, uint32_t channel)
 
 static void initISR(stimer_t *obj)
 {
+  /*
+   * Timer clock set by default at 1us.
+   * Period set to REFRESH_INTERVAL*3
+   * Default pulse width set to DEFAULT_PULSE_WIDTH
+   */
   TimerPulseInit(obj, REFRESH_INTERVAL*3, DEFAULT_PULSE_WIDTH, ServoIrqHandle);
 }
 
@@ -104,7 +105,7 @@ Servo::Servo()
 {
   if (ServoCount < MAX_SERVOS) {
     this->servoIndex = ServoCount++;                    // assign a servo index to this instance
-    servos[this->servoIndex].ticks = usToTicks(DEFAULT_PULSE_WIDTH);   // store default values
+    servos[this->servoIndex].ticks = DEFAULT_PULSE_WIDTH;   // store default values
   } else {
     this->servoIndex = INVALID_SERVO;  // too many servos
   }
@@ -173,8 +174,6 @@ void Servo::writeMicroseconds(int value)
     else if (value > SERVO_MAX())
       value = SERVO_MAX();
 
-    value = value - TRIM_DURATION;
-    value = usToTicks(value);  // convert to ticks after compensating for interrupt overhead
     servos[channel].ticks = value;
   }
 }
@@ -188,7 +187,7 @@ int Servo::readMicroseconds()
 {
   unsigned int pulsewidth;
   if (this->servoIndex != INVALID_SERVO)
-    pulsewidth = ticksToUs(servos[this->servoIndex].ticks)  + TRIM_DURATION;
+    pulsewidth = servos[this->servoIndex].ticks;
   else
     pulsewidth  = 0;
 
