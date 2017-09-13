@@ -318,6 +318,31 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
     digitalWrite(_pin, HIGH);
 }
 
+void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode)
+{
+  if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)  || (_pin > NUM_DIGITAL_PINS))
+    return;
+
+  if(_pin != _CSpin) {
+    uint8_t idx = pinIdx(_pin, GET_IDX);
+    if(idx == NB_SPI_SETTINGS) {
+      return;
+    }
+    spi_init(&_spi, spiSettings[idx].clk,
+                    spiSettings[idx].dMode,
+                    spiSettings[idx].msb);
+    _CSpin = _pin;
+  }
+
+  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
+    digitalWrite(_pin, LOW);
+
+  spi_transfer(&_spi, ((uint8_t*)_bufout), ((uint8_t*)_bufin), _count, SPI_TRANSFER_TIMEOUT);
+
+  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
+    digitalWrite(_pin, HIGH);
+}
+
 void SPIClass::attachInterrupt(void) {
 	// Should be enableInterrupt()
 }

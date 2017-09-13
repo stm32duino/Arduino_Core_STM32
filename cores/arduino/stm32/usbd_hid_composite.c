@@ -369,6 +369,7 @@ __ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc[HID_KEYBOARD_REPORT_DESC_SI
 static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
                                uint8_t cfgidx)
 {
+  UNUSED(cfgidx);
   uint8_t ret = 0;
 
   /* Open EP IN */
@@ -407,6 +408,7 @@ static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
 static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
                                  uint8_t cfgidx)
 {
+  UNUSED(cfgidx);
   /* Close HID EPs */
   USBD_LL_CloseEP(pdev,
                   HID_MOUSE_EPIN_ADDR);

@@ -1,4 +1,4 @@
-# Arduino core support for STM32 based boards 
+# Arduino core support for STM32 based boards
 ### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.8.31.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.8.31...master)
 
@@ -8,7 +8,7 @@
 
 ## Getting Started
 
-This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores). 
+This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
 
 For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/wiki/wiki/Getting-Started) page.
 
@@ -50,6 +50,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
   * STM32L4
     * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
+    * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ## Troubleshooting
 
