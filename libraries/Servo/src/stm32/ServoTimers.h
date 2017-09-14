@@ -1,5 +1,5 @@
 /*
-  Copyright (c) 2015 Arduino LLC. All right reserved.
+  Copyright (c) 2017 Arduino LLC. All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -27,9 +27,10 @@
 #ifndef __SERVO_TIMERS_H__
 #define __SERVO_TIMERS_H__
 
-typedef enum { 
+// Uses one timer. Allows until 12 servos.
+typedef enum {
   _timer1,
-  _Nbr_16timers 
+  _Nbr_16timers
 } timer16_Sequence_t;
 
 #endif   // __SERVO_TIMERS_H__
