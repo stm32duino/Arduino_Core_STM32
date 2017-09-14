@@ -1,14 +1,14 @@
 /**
   ******************************************************************************
-  * @file    ethernet.h
+  * @file    core_callback.h
   * @author  WI6LABS
   * @version V1.0.0
-  * @date    14-June-2017
-  * @brief   Header for ethernet background task for LwIP stack.
+  * @date    8-September-2017
+  * @brief   Header for callback methods.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -36,34 +36,32 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __ETHERNET_H
-#define __ETHERNET_H
+#ifndef __CALLBACK_H
+#define __CALLBACK_H
 
-/* Includes ------------------------------------------------------------------*/
+#include "Arduino.h"
+
 #ifdef __cplusplus
  extern "C" {
 #endif
 
+/* Includes ------------------------------------------------------------------*/
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
+#ifndef CALLBACK_LIST_SIZE
+#define CALLBACK_LIST_SIZE  4
+#endif
+
 /* Exported functions ------------------------------------------------------- */
-
-/* This function is defined by the NativeEthernet library and it is used as
-background task inside the main loop. */
-__weak void stm32_eth_scheduler(void)
-{
-  /* NOTE : This function should not be modified. It is defined in the Ethernet
-            library.
-   */
-}
-
-void stm32_eth_scheduler(void);
+void registerCoreCallback(void (*func)(void));
+void unregisterCoreCallback(void (*func)(void));
+void CoreCallback(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* __ETHERNET_H */
+#endif /* __CALLBACK_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
