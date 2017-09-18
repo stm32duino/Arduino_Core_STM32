@@ -26,7 +26,10 @@
 #include "Stream.h"
 #include "variant.h"
 
+// Defines a default buffer length
+#ifndef BUFFER_LENGTH
 #define BUFFER_LENGTH 32
+#endif
 
 #define MASTER_ADDRESS 0x33
 

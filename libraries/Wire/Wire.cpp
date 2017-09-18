@@ -129,7 +129,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
     }
 
     // clamp to buffer length
-    if(quantity > BUFFER_LENGTH){
+    if(quantity >= BUFFER_LENGTH){
       quantity = BUFFER_LENGTH;
     }
     // perform blocking read into buffer
