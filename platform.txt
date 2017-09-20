@@ -29,7 +29,7 @@ compiler.S.cmd=arm-none-eabi-gcc
 compiler.S.flags=-mthumb -c -x assembler-with-cpp {compiler.stm.extra_include}
 compiler.cpp.cmd=arm-none-eabi-g++
 compiler.cpp.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -Dprintf=iprintf -MMD {compiler.stm.extra_include}
-compiler.ar.cmd=arm-none-eabi-ar
+compiler.ar.cmd=arm-none-eabi-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
