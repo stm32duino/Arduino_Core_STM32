@@ -64,7 +64,7 @@ build.usb_manufacturer="Unknown"
 #
 # Defaults config
 #
-build.enable_Serialx=
+build.xSerial=
 build.enable_usb=
 
 # compile patterns
