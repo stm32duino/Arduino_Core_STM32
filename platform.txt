@@ -22,20 +22,20 @@ compiler.warning_flags.all=-Wall -Wextra
 
 compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
 compiler.c.cmd=arm-none-eabi-gcc
-compiler.c.flags=-mthumb -c -Os {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD {compiler.stm.extra_include}
+compiler.c.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD {compiler.stm.extra_include}
 compiler.c.elf.cmd=arm-none-eabi-gcc
-compiler.c.elf.flags=-mthumb -Os -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
+compiler.c.elf.flags=-mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.S.flags=-mthumb -c -x assembler-with-cpp {compiler.stm.extra_include}
 compiler.cpp.cmd=arm-none-eabi-g++
-compiler.cpp.flags=-mthumb -c -Os {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -Dprintf=iprintf -MMD {compiler.stm.extra_include}
-compiler.ar.cmd=arm-none-eabi-ar
+compiler.cpp.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -Dprintf=iprintf -MMD {compiler.stm.extra_include}
+compiler.ar.cmd=arm-none-eabi-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 compiler.elf2hex.flags=-O binary
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
-compiler.ldflags=
+compiler.ldflags={build.flags.ldspecs}
 compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
 
@@ -66,6 +66,8 @@ build.usb_manufacturer="Unknown"
 #
 build.xSerial=
 build.enable_usb=
+build.flags.optimize=
+build.flags.ldspecs=
 
 # compile patterns
 # ---------------------
