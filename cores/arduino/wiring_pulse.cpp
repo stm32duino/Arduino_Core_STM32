@@ -24,40 +24,37 @@
  * before the start of the pulse.
  *
  * ATTENTION:
- * This function performs better with short pulses in noInterrupt() context
+ * This function relies on micros() so cannot be used in noInterrupt() context
  */
-
 uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
 {
+  // Cache the port and bit of the pin in order to speed up the
+  // pulse width measuring loop and achieve finer resolution.
+  // Calling digitalRead() instead yields much coarser resolution.
+  uint32_t bit = digitalPinToBitMask(pin);
+  __IO uint32_t *portIn = portInputRegister(digitalPinToPort(pin));
+  uint32_t stateMask = (state ? bit : 0);
   uint32_t startMicros = micros();
-  uint32_t start_level = (uint32_t)digitalRead(pin);
-  uint32_t current_level = start_level;
 
-  while(current_level == start_level) {
-    if (micros() - startMicros > timeout) {
+  // wait for any previous pulse to end
+  while ((*portIn & bit) == stateMask) {
+    if (micros() - startMicros > timeout)
       return 0;
-    }
-    current_level = (uint32_t)digitalRead(pin);
   }
 
-  while(current_level != state) {
-    if (micros() - startMicros > timeout) {
+  // wait for the pulse to start
+  while ((*portIn & bit) != stateMask) {
+    if (micros() - startMicros > timeout)
       return 0;
-    }
-    current_level = (uint32_t)digitalRead(pin);
   }
 
-  //lets start measuring the pulse time now
-  startMicros = micros();
-
-  while(current_level == state) {
-    if (micros() - startMicros > timeout) {
+  uint32_t start = micros();
+  // wait for the pulse to stop
+  while ((*portIn & bit) == stateMask) {
+    if (micros() - startMicros > timeout)
       return 0;
-    }
-    current_level = (uint32_t)digitalRead(pin);
   }
-
-  return (micros() - startMicros);
+  return (micros() - start);
 }
 
 /* Measures the length (in microseconds) of a pulse on the pin; state is HIGH
@@ -66,9 +63,9 @@ uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
  * before the start of the pulse.
  *
  * ATTENTION:
- * this function relies on micros() so cannot be used in noInterrupt() context
+ * This function relies on micros() so cannot be used in noInterrupt() context
  */
-uint32_t pulseInLong(uint8_t pin, uint8_t state, unsigned long timeout)
+uint32_t pulseInLong(uint32_t pin, uint32_t state, uint32_t timeout)
 {
   return pulseIn(pin, state, timeout);
 }
