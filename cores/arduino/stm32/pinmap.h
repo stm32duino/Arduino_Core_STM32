@@ -41,10 +41,12 @@ void pin_function(PinName pin, int function);
 
 PinName pin_pinName(const PinMap* map);
 
-void* pinmap_peripheral(PinName pin, const PinMap* map);
-uint32_t pinmap_function(PinName pin, const PinMap* map);
 void* pinmap_find_peripheral(PinName pin, const PinMap* map);
+void* pinmap_peripheral(PinName pin, const PinMap* map);
+PinName pinmap_find_pin(void* peripheral, const PinMap* map);
+PinName pinmap_pin(void* peripheral, const PinMap* map);
 uint32_t pinmap_find_function(PinName pin, const PinMap* map);
+uint32_t pinmap_function(PinName pin, const PinMap* map);
 void* pinmap_merge_peripheral(void* a, void* b);
 
 #ifdef __cplusplus
