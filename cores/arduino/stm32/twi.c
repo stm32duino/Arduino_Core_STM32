@@ -253,6 +253,8 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   handle->Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
   handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;
 
+  handle->State = HAL_I2C_STATE_RESET;
+
   if(master == 0) {
     HAL_NVIC_SetPriority(obj->irq, 0, 1);
     HAL_NVIC_EnableIRQ(obj->irq);
