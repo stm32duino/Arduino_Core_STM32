@@ -1029,69 +1029,39 @@ void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *))
 /*                            TIMx IRQ HANDLER                                */
 /******************************************************************************/
 
+#if defined(TIM1_BASE)
 /**
-  * @brief  TIM1 & TIM10 irq handler
+  * @brief  TIM1 IRQHandler common with TIM10 and TIM16 on some STM32F1xx
   * @param  None
   * @retval None
   */
-void TIM1_UP_TIM10_IRQHandler(void)
+void TIM1_IRQHandler(void)
 {
   if(timer_handles[0] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[0]);
   }
 
+#if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+#if defined (TIM10_BASE)
   if(timer_handles[9] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[9]);
   }
+#endif
+#endif
+
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
+#if defined (TIM16_BASE)
+  if(timer_handles[15] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[15]);
+  }
+#endif
+#endif
 }
+#endif //TIM1_BASE
 
-
+#if defined(TIM2_BASE)
 /**
-  * @brief  TIM1 & TIM9 irq handler
-  * @param  None
-  * @retval None
-  */
-void TIM1_BRK_TIM9_IRQHandler(void)
-{
-  if(timer_handles[0] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[0]);
-  }
-
-  if(timer_handles[8] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[8]);
-  }
-}
-
-/**
-  * @brief  TIM1 & TIM11 irq handler
-  * @param  None
-  * @retval None
-  */
-void TIM1_TRG_COM_TIM11_IRQHandler(void)
-{
-  if(timer_handles[0] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[0]);
-  }
-
-  if(timer_handles[10] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[10]);
-  }
-}
-
-/**
-  * @brief  TIM1 irq handler
-  * @param  None
-  * @retval None
-  */
-void TIM1_CC_IRQHandler(void)
-{
-  if(timer_handles[0] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[0]);
-  }
-}
-
-/**
-  * @brief  TIM2 irq handler
+  * @brief  TIM2 IRQHandler
   * @param  None
   * @retval None
   */
@@ -1101,9 +1071,11 @@ void TIM2_IRQHandler(void)
     HAL_TIM_IRQHandler(timer_handles[1]);
   }
 }
+#endif //TIM2_BASE
 
+#if defined(TIM3_BASE)
 /**
-  * @brief  TIM3 irq handler
+  * @brief  TIM3 IRQHandler
   * @param  None
   * @retval None
   */
@@ -1113,9 +1085,11 @@ void TIM3_IRQHandler(void)
     HAL_TIM_IRQHandler(timer_handles[2]);
   }
 }
+#endif //TIM3_BASE
 
+#if defined(TIM4_BASE)
 /**
-  * @brief  TIM4 irq handler
+  * @brief  TIM4 IRQHandler
   * @param  None
   * @retval None
   */
@@ -1125,9 +1099,11 @@ void TIM4_IRQHandler(void)
     HAL_TIM_IRQHandler(timer_handles[3]);
   }
 }
+#endif //TIM4_BASE
 
+#if defined(TIM5_BASE)
 /**
-  * @brief  TIM5 irq handler
+  * @brief  TIM5 IRQHandler
   * @param  None
   * @retval None
   */
@@ -1137,21 +1113,25 @@ void TIM5_IRQHandler(void)
     HAL_TIM_IRQHandler(timer_handles[4]);
   }
 }
+#endif //TIM5_BASE
 
+#if defined(TIM6_BASE)
 /**
-  * @brief  TIM6 irq handler
+  * @brief  TIM6 IRQHandler
   * @param  None
   * @retval None
   */
-void TIM6_DAC_IRQHandler(void)
+void TIM6_IRQHandler(void)
 {
   if(timer_handles[5] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[5]);
   }
 }
+#endif //TIM6_BASE
 
+#if defined(TIM7_BASE)
 /**
-  * @brief  TIM7 irq handler
+  * @brief  TIM7 IRQHandler
   * @param  None
   * @retval None
   */
@@ -1161,67 +1141,229 @@ void TIM7_IRQHandler(void)
     HAL_TIM_IRQHandler(timer_handles[6]);
   }
 }
+#endif //TIM7_BASE
 
+#if defined(TIM8_BASE)
 /**
-  * @brief  TIM8 & TIM13 irq handler
+  * @brief  TIM8 IRQHandler
   * @param  None
   * @retval None
   */
-void TIM8_UP_TIM13_IRQHandler(void)
+void TIM8_IRQHandler(void)
 {
   if(timer_handles[7] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[7]);
   }
 
+#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
   if(timer_handles[12] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[12]);
   }
+#endif
 }
+#endif //TIM8_BASE
 
-
+#if defined(TIM9_BASE)
 /**
-  * @brief  TIM8 & TIM12 irq handler
+  * @brief  TIM9 IRQHandler
   * @param  None
   * @retval None
   */
-void TIM8_BRK_TIM12_IRQHandler(void)
+void TIM9_IRQHandler(void)
 {
-  if(timer_handles[7] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[7]);
+  if(timer_handles[8] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[8]);
   }
+}
+#endif //TIM9_BASE
 
+#if defined(TIM10_BASE)
+#if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx) && !defined(STM32F7xx)
+/**
+  * @brief  TIM10 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM10_IRQHandler(void)
+{
+  if(timer_handles[9] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[9]);
+  }
+}
+#endif
+#endif //TIM10_BASE
+
+#if defined(TIM11_BASE)
+/**
+  * @brief  TIM11 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM11_IRQHandler(void)
+{
+  if(timer_handles[10] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[10]);
+  }
+}
+#endif //TIM11_BASE
+
+#if defined(TIM12_BASE)
+/**
+  * @brief  TIM12 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM12_IRQHandler(void)
+{
   if(timer_handles[11] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[11]);
   }
 }
+#endif //TIM12_BASE
 
+#if defined(TIM13_BASE)
+#if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx) && !defined(STM32F7xx)
 /**
-  * @brief  TIM8 & TIM14 irq handler
+  * @brief  TIM13 IRQHandler
   * @param  None
   * @retval None
   */
-void TIM8_TRG_COM_TIM14_IRQHandler(void)
+void TIM13_IRQHandler(void)
 {
-  if(timer_handles[7] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[7]);
+  if(timer_handles[12] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[12]);
   }
+}
+#endif
+#endif //TIM13_BASE
 
+#if defined(TIM14_BASE)
+/**
+  * @brief  TIM14 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM14_IRQHandler(void)
+{
   if(timer_handles[13] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[13]);
   }
 }
+#endif //TIM14_BASE
 
+#if defined(TIM15_BASE)
 /**
-  * @brief  TIM8 irq handler
+  * @brief  TIM15 IRQHandler
   * @param  None
   * @retval None
   */
-void TIM8_CC_IRQHandler(void)
+void TIM15_IRQHandler(void)
 {
-  if(timer_handles[7] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[7]);
+  if(timer_handles[14] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[14]);
   }
 }
+#endif //TIM15_BASE
+
+#if defined(TIM16_BASE)
+#if !defined(STM32F1xx) && !defined(STM32F3xx) && !defined(STM32L4xx)
+/**
+  * @brief  TIM16 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM16_IRQHandler(void)
+{
+  if(timer_handles[15] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[15]);
+  }
+}
+#endif
+#endif //TIM16_BASE
+
+#if defined(TIM17_BASE)
+/**
+  * @brief  TIM17 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM17_IRQHandler(void)
+{
+  if(timer_handles[16] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[16]);
+  }
+}
+#endif //TIM17_BASE
+
+#if defined(TIM18_BASE)
+/**
+  * @brief  TIM18 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM18_IRQHandler(void)
+{
+  if(timer_handles[17] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[17]);
+  }
+}
+#endif //TIM18_BASE
+
+#if defined(TIM19_BASE)
+/**
+  * @brief  TIM19 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM19_IRQHandler(void)
+{
+  if(timer_handles[18] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[18]);
+  }
+}
+#endif //TIM19_BASE
+
+#if defined(TIM20_BASE)
+/**
+  * @brief  TIM20 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM20_IRQHandler(void)
+{
+  if(timer_handles[19] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[19]);
+  }
+}
+#endif //TIM20_BASE
+
+#if defined(TIM21_BASE)
+/**
+  * @brief  TIM21 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM21_IRQHandler(void)
+{
+  if(timer_handles[20] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[20]);
+  }
+}
+#endif //TIM21_BASE
+
+#if defined(TIM22_BASE)
+/**
+  * @brief  TIM22 IRQHandler
+  * @param  None
+  * @retval None
+  */
+void TIM22_IRQHandler(void)
+{
+  if(timer_handles[21] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[21]);
+  }
+}
+#endif //TIM22_BASE
 
 /**
   * @}
