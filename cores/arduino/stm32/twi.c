@@ -154,6 +154,12 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   I2C_TypeDef *i2c_sda = pinmap_peripheral(obj->sda, PinMap_I2C_SDA);
   I2C_TypeDef *i2c_scl = pinmap_peripheral(obj->scl, PinMap_I2C_SCL);
 
+  //Pins SDA/SCL must not be NP
+  if(i2c_sda == NP || i2c_scl == NP) {
+    printf("ERROR: at least one I2C pin has no peripheral\n");
+    return;
+  }
+
   obj->i2c = pinmap_merge_peripheral(i2c_sda, i2c_scl);
 
   if(obj->i2c == NP) {

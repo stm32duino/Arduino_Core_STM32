@@ -132,6 +132,12 @@ void uart_init(serial_t *obj)
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
+  //Pins Rx/Tx must not be NP
+  if(uart_rx == NP || uart_tx == NP) {
+    printf("ERROR: at least one UART pin has no peripheral\n");
+    return;
+  }
+
   // Get the peripheral name (UART_1, UART_2, ...) from the pin and assign it to the object
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 

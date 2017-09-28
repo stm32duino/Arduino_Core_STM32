@@ -198,6 +198,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   /* Pins MOSI/MISO/SCLK must not be NP. ssel can be NP. */
   if(spi_mosi == NP || spi_miso == NP || spi_sclk == NP) {
+    printf("ERROR: at least one SPI pin has no peripheral\n");
     return;
   }
 
