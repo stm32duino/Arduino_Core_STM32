@@ -119,6 +119,11 @@ class HardwareSerial : public Stream
     using Print::write; // pull in write(str) and write(buf, size) from Print
     operator bool() { return true; }
 
+    void setRx(uint32_t _rx);
+    void setTx(uint32_t _tx);
+    void setRx(PinName _rx);
+    void setTx(PinName _tx);
+
     // Interrupt handlers
     static void _rx_complete_irq(serial_t* obj);
     static int _tx_complete_irq(serial_t* obj);

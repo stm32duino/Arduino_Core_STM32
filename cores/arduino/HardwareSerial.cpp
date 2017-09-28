@@ -338,3 +338,19 @@ size_t HardwareSerial::write(uint8_t c)
 
   return 1;
 }
+
+void HardwareSerial::setRx(uint32_t _rx) {
+  _serial.pin_rx = digitalPinToPinName(_rx);
+}
+
+void HardwareSerial::setTx(uint32_t _tx) {
+  _serial.pin_tx = digitalPinToPinName(_tx);
+}
+
+void HardwareSerial::setRx(PinName _rx) {
+  _serial.pin_rx = _rx;
+}
+
+void HardwareSerial::setTx(PinName _tx){
+  _serial.pin_tx = _tx;
+}
