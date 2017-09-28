@@ -106,9 +106,10 @@ enum {
 // UART Definitions
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
-// Serial Pin Firmata
-#define PIN_SERIAL_RX           22
-#define PIN_SERIAL_TX           21
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           PA15
+#define PIN_SERIAL_TX           PA2
 
 #ifdef __cplusplus
 } // extern "C"

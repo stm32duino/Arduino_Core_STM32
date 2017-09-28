@@ -191,9 +191,10 @@ enum {
 #define UART_EMUL_RX            PF_15
 #define UART_EMUL_TX            PE_13
 
-// Serial Pin Firmata
-#define PIN_SERIAL_RX           76
-#define PIN_SERIAL_TX           77
+// Serial pin used for console (ex: stlink)
+// Rerquired by Firmata
+#define PIN_SERIAL_RX           PD9
+#define PIN_SERIAL_TX           PD8
 
 #ifdef __cplusplus
 } // extern "C"

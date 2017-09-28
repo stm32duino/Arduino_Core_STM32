@@ -143,8 +143,21 @@ HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
 
 HardwareSerial::HardwareSerial(void* peripheral)
 {
-  _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
-  _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+// If Serial is defined in variant set
+// the Rx/Tx pins for com port if defined
+#if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
+  if (this == &Serial)
+  {
+    setRx(PIN_SERIAL_RX);
+    setTx(PIN_SERIAL_TX);
+  }
+  else
+#endif
+// else get the pins of the first peripheral occurence in PinMap
+  {
+    _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
+    _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+  }
   init();
 }
 

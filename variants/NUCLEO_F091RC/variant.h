@@ -156,7 +156,8 @@ enum {
 #define UART_EMUL_RX            PB_14
 #define UART_EMUL_TX            PB_13
 
-// Serial Pin Firmata
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
 #define PIN_SERIAL_RX           0
 #define PIN_SERIAL_TX           1
 

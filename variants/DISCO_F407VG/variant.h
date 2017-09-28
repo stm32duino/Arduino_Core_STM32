@@ -184,9 +184,10 @@ enum {
 #define UART_EMUL_RX            PE_9
 #define UART_EMUL_TX            PE_11
 
-// Serial Pin Firmata
-#define PIN_SERIAL_RX           42
-#define PIN_SERIAL_TX           3
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           PA3
+#define PIN_SERIAL_TX           PA2
 
 #ifdef __cplusplus
 } // extern "C"

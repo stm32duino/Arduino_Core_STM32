@@ -113,7 +113,8 @@ enum {
 //#define UART_EMUL_RX            PX_n // PinName used for RX
 //#define UART_EMUL_TX            PX_n // PinName used for TX
 
-// Serial Pin Firmata
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
 #define PIN_SERIAL_RX           Dx
 #define PIN_SERIAL_TX           Dx
 
