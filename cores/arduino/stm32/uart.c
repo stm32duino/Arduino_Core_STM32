@@ -57,38 +57,7 @@
  extern "C" {
 #endif
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
-/// @brief uart caracteristics
+// @brief uart caracteristics
 #define UART_NUM (8)
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
 static void (*rx_callback[UART_NUM])(serial_t*);
@@ -97,21 +66,6 @@ static int (*tx_callback[UART_NUM])(serial_t*);
 static serial_t *tx_callback_obj[UART_NUM];
 
 static uint8_t rx_buffer[1] = {0};
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Functions
-  * @{
-  */
 
 /**
   * @brief  Function called to initialize the uart interface
@@ -659,17 +613,6 @@ void UART8_IRQHandler(void)
 }
 #endif
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif
