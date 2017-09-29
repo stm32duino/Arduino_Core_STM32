@@ -78,6 +78,11 @@
 #define CAN1 CAN
 #endif
 
+// Required by PinMap_DFSDM_CKOUT to not set the field 'peripheral' with value 'NP'
+#ifdef HAL_DFSDM_MODULE_ENABLED
+#define DFSDM (void*)(0x01U)
+#endif
+
 // weaked functions declaration
 void SystemClock_Config(void);
 

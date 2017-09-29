@@ -71,5 +71,9 @@ extern const PinMap PinMap_Ethernet[];
 //*** QUADSPI ***
 extern const PinMap PinMap_QUADSPI[];
 
-#endif
+//*** DFSDM ***
+extern const PinMap PinMap_DFSDM_DATIN[];
+extern const PinMap PinMap_DFSDM_CKIN[];
+extern const PinMap PinMap_DFSDM_CKOUT[];
 
+#endif
