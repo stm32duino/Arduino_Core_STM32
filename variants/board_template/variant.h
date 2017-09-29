@@ -107,7 +107,8 @@ enum {
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
 
 // UART Definitions
-#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
+// DEBUG_UART could be redefined to print on another instance than 'Serial'
+//#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 
 // UART Emulation (uncomment if needed, required TIM1)
 //#define UART_EMUL_RX            PX_n // PinName used for RX

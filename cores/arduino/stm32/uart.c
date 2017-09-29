@@ -54,6 +54,15 @@
  extern "C" {
 #endif
 
+// if DEBUG_UART is not defined assume this is the one
+// linked to PIN_SERIAL_TX
+#if !defined(DEBUG_UART)
+#if defined(PIN_SERIAL_TX)
+#define DEBUG_UART pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX)
+#else
+#define DEBUG_UART NP
+#endif
+#endif
 // @brief uart caracteristics
 #if defined(STM32F4xx)
 #define UART_NUM (10)
@@ -398,11 +407,11 @@ size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint8_t index = 0;
+  USART_TypeDef* dbg_uart = DEBUG_UART;
   uint32_t tickstart = HAL_GetTick();
-
   for(index = 0; index < UART_NUM; index++) {
     if(uart_handlers[index] != NULL) {
-      if(DEBUG_UART == uart_handlers[index]->Instance) {
+      if(dbg_uart == uart_handlers[index]->Instance) {
         break;
       }
     }

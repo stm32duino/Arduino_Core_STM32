@@ -178,8 +178,6 @@ enum {
 #define TIMER_UART_EMULATED     TIM6
 
 // UART Definitions
-#define DEBUG_UART              ((USART_TypeDef *) USART2)
-
 // UART Emulation
 #define UART_EMUL_RX            PE_9
 #define UART_EMUL_TX            PE_11

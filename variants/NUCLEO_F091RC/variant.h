@@ -150,8 +150,6 @@ enum {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-#define DEBUG_UART              ((USART_TypeDef *) USART2)
-
 // UART Emulation
 #define UART_EMUL_RX            PB_14
 #define UART_EMUL_TX            PB_13
