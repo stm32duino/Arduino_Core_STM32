@@ -106,6 +106,7 @@ enum {
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
 
+// UART Definitions
 #define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 
 // UART Emulation (uncomment if needed, required TIM1)
@@ -115,10 +116,6 @@ enum {
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           Dx
 #define PIN_SERIAL_TX           Dx
-// Define as many PIN_SERIALX than desired
-//#define PIN_SERIAL1_RX          Dx
-//#define PIN_SERIAL1_TX          Dx
-//...
 
 #ifdef __cplusplus
 } // extern "C"
@@ -128,10 +125,8 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// declare here as many UART objects than defined in variant.cpp
-extern HardwareSerial Serial;
-//extern HardwareSerial SerialX;
-//...
+// Define here Serial instance to map on Serial generic name
+#define Serial                  Serialx //ex: Serial3 //Connected to ST-Link
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
@@ -148,8 +143,8 @@ extern HardwareSerial Serial;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial
+#define SERIAL_PORT_MONITOR     Serial
+#define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

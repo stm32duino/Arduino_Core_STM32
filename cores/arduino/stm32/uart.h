@@ -47,6 +47,37 @@
  extern "C" {
 #endif
 
+#if defined(USART1_BASE)
+#define HAVE_HWSERIAL1
+#endif
+#if defined(USART2_BASE)
+#define HAVE_HWSERIAL2
+#endif
+#if defined(USART3_BASE)
+#define HAVE_HWSERIAL3
+#endif
+#if defined(USART4_BASE) || defined(UART4_BASE)
+#define HAVE_HWSERIAL4
+#endif
+#if defined(USART5_BASE) || defined(UART5_BASE)
+#define HAVE_HWSERIAL5
+#endif
+#if defined(USART6_BASE)
+#define HAVE_HWSERIAL6
+#endif
+#if defined(USART7_BASE) || defined(UART7_BASE)
+#define HAVE_HWSERIAL7
+#endif
+#if defined(USART8_BASE) || defined(UART8_BASE)
+#define HAVE_HWSERIAL8
+#endif
+#if defined(UART9_BASE)
+#define HAVE_HWSERIAL9
+#endif
+#if defined(UART10_BASE)
+#define HAVE_HWSERIAL10
+#endif
+
 /* Exported types ------------------------------------------------------------*/
 typedef struct serial_s serial_t;
 

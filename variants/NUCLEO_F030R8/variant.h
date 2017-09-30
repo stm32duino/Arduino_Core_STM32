@@ -150,13 +150,12 @@ enum {
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM3  //TODO: advanced-control timers don't work
 
+// UART Definitions
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           0
 #define PIN_SERIAL_TX           1
-#define PIN_SERIAL1_RX          2
-#define PIN_SERIAL1_TX          8
 
 #ifdef __cplusplus
 } // extern "C"
@@ -166,8 +165,7 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern HardwareSerial Serial;
-extern HardwareSerial Serial1;
+#define Serial                  Serial2 //Connected to ST-Link
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
@@ -184,8 +182,8 @@ extern HardwareSerial Serial1;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial
+#define SERIAL_PORT_MONITOR     Serial
+#define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

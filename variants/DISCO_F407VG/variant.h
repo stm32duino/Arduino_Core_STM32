@@ -177,6 +177,7 @@ enum {
 #define TIMER_SERVO             TIM7
 #define TIMER_UART_EMULATED     TIM6
 
+// UART Definitions
 #define DEBUG_UART              ((USART_TypeDef *) USART2)
 
 // UART Emulation
@@ -195,7 +196,7 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern HardwareSerial Serial;
+#define Serial                  Serial2 // Could be connected to ST-Link
 
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
@@ -212,8 +213,8 @@ extern HardwareSerial Serial;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
-                                   // See UM ยง6.1.3 ST-LINK/V2-A VCP configuration)
+#define SERIAL_PORT_MONITOR     Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
+                                   // See UM ง6.1.3 ST-LINK/V2-A VCP configuration)
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 
