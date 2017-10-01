@@ -29,14 +29,6 @@
 #include "binary.h"
 #include "itoa.h"
 
-#ifdef __cplusplus
-extern "C"{
-#endif // __cplusplus
-#include <board.h>
-#ifdef __cplusplus
-}
-#endif
-
 #include "wiring_analog.h"
 #include "wiring_constants.h"
 #include "wiring_digital.h"
@@ -44,6 +36,14 @@ extern "C"{
 #include "wiring_shift.h"
 #include "wiring_time.h"
 #include "WInterrupts.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+#include <board.h>
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef __cplusplus
 #include "HardwareSerial.h"
