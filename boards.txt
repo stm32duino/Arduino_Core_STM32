@@ -411,7 +411,7 @@ Nucleo_144.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_144.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Nucleo_144.menu.opt.o3lto.build.flags.ldspecs=-flto
 Nucleo_144.menu.opt.ogstd=Debug (-g)
-Nucleo_144.menu.opt.ogstd.build.flags.optimize=-Og
+Nucleo_144.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_144.menu.opt.ogstd.build.flags.ldspecs=
 
 Nucleo_64.menu.opt.osstd=Smallest (-Os default)
@@ -439,7 +439,7 @@ Nucleo_64.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_64.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Nucleo_64.menu.opt.o3lto.build.flags.ldspecs=-flto
 Nucleo_64.menu.opt.ogstd=Debug (-g)
-Nucleo_64.menu.opt.ogstd.build.flags.optimize=-Og
+Nucleo_64.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_64.menu.opt.ogstd.build.flags.ldspecs=
 
 Nucleo_32.menu.opt.osstd=Smallest (-Os default)
@@ -467,7 +467,7 @@ Nucleo_32.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_32.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Nucleo_32.menu.opt.o3lto.build.flags.ldspecs=-flto
 Nucleo_32.menu.opt.ogstd=Debug (-g)
-Nucleo_32.menu.opt.ogstd.build.flags.optimize=-Og
+Nucleo_32.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_32.menu.opt.ogstd.build.flags.ldspecs=
 
 Disco.menu.opt.osstd=Smallest (-Os default)
@@ -495,5 +495,5 @@ Disco.menu.opt.o3lto=Fastest (-O3) with LTO
 Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Disco.menu.opt.o3lto.build.flags.ldspecs=-flto
 Disco.menu.opt.ogstd=Debug (-g)
-Disco.menu.opt.ogstd.build.flags.optimize=-Og
+Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
 Disco.menu.opt.ogstd.build.flags.ldspecs=
