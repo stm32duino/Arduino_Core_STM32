@@ -143,6 +143,7 @@ void i2c_init(i2c_t *obj)
   */
 void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, uint32_t ownAddress, uint8_t master)
 {
+  UNUSED(master);
   if(obj == NULL)
     return;
 
