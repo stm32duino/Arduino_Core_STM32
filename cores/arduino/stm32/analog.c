@@ -47,7 +47,6 @@
   * @{
   */
 #include "stm32_def.h"
-#include "hw_config.h"
 #include "analog.h"
 #include "timer.h"
 #include "PinAF_STM32F1.h"

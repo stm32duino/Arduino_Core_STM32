@@ -12,7 +12,7 @@
 #ifndef _SPI_H_INCLUDED
 #define _SPI_H_INCLUDED
 
-#include "variant.h"
+#include "Arduino.h"
 #include <stdio.h>
 
 // SPI_HAS_TRANSACTION means SPI has

@@ -17,6 +17,7 @@
 */
 
 #include "WInterrupts.h"
+#include "Arduino.h"
 
 #ifdef __cplusplus
  extern "C" {

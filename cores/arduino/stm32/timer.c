@@ -47,7 +47,6 @@
   * @{
   */
 #include "stm32_def.h"
-#include "hw_config.h"
 #include "timer.h"
 #include "digital_io.h"
 #include "clock.h"

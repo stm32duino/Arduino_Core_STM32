@@ -18,7 +18,8 @@
 #ifndef _PINS_ARDUINO_H_
 #define _PINS_ARDUINO_H_
 
-// API compatibility
+#include "PeripheralPins.h"
+#include "pins_arduino_common.h"
 #include "variant.h"
 
 #ifdef __cplusplus
@@ -29,7 +30,8 @@ extern "C" {
  * Libc porting layers
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
-#    include <syscalls.h> /** RedHat Newlib minimal stub */
+#include <syscalls.h> /** RedHat Newlib minimal stub */
+#define WEAK __attribute__ ((weak))
 #endif
 
 #define NOT_AN_INTERRUPT            NC // -1
