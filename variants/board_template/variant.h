@@ -107,6 +107,8 @@ enum {
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
 
 // UART Definitions
+// Define here Serial instance number to map on Serial generic name
+#define SERIAL_UART_INSTANCE    x //ex: 2 for Serial2 (USART2)
 // DEBUG_UART could be redefined to print on another instance than 'Serial'
 //#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 
@@ -127,9 +129,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// Define here Serial instance to map on Serial generic name
-#define Serial                  Serialx //ex: Serial3 //Connected to ST-Link
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,

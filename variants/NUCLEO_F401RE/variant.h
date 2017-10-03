@@ -151,6 +151,7 @@ enum {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 // UART Emulation
 #define UART_EMUL_RX            PC_1
 #define UART_EMUL_TX            PC_3
@@ -168,8 +169,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-#define Serial                  Serial2 //Connected to ST-Link
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
