@@ -52,8 +52,6 @@
 
 // Here define some compatibility
 #ifdef STM32F0xx
-#define USART3_IRQn                      USART3_8_IRQn
-#define USART6_IRQn                      USART3_8_IRQn
 #define I2C1_EV_IRQn                     I2C1_IRQn
 
 #elif defined(STM32F1xx)
