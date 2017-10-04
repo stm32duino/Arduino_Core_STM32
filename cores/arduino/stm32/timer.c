@@ -46,12 +46,8 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#include "stm32_def.h"
 #include "timer.h"
-#include "digital_io.h"
-#include "clock.h"
-#include "analog.h"
-#include "variant.h"
+#include "board.h"
 
 #ifdef __cplusplus
  extern "C" {
