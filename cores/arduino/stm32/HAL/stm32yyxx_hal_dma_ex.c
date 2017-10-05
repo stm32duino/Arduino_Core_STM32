@@ -25,5 +25,5 @@
 // none
 #endif
 #ifdef STM32L4xx
-// none
+#include "stm32l4xx_hal_dma_ex.c"
 #endif
