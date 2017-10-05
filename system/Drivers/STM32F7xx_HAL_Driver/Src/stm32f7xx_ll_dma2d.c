@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_ll_dma2d.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   DMA2D LL module driver.
   ******************************************************************************
   * @attention
