@@ -1077,7 +1077,7 @@ __STATIC_INLINE uint32_t LL_TIM_IsEnabledCounter(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_EnableUpdateEvent(TIM_TypeDef *TIMx)
 {
-  SET_BIT(TIMx->CR1, TIM_CR1_UDIS);
+  CLEAR_BIT(TIMx->CR1, TIM_CR1_UDIS);
 }
 
 /**
@@ -1088,18 +1088,18 @@ __STATIC_INLINE void LL_TIM_EnableUpdateEvent(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_DisableUpdateEvent(TIM_TypeDef *TIMx)
 {
-  CLEAR_BIT(TIMx->CR1, TIM_CR1_UDIS);
+  SET_BIT(TIMx->CR1, TIM_CR1_UDIS);
 }
 
 /**
   * @brief  Indicates whether update event generation is enabled.
   * @rmtoll CR1          UDIS          LL_TIM_IsEnabledUpdateEvent
   * @param  TIMx Timer instance
-  * @retval State of bit (1 or 0).
+  * @retval Inverted state of bit (0 or 1).
   */
 __STATIC_INLINE uint32_t LL_TIM_IsEnabledUpdateEvent(TIM_TypeDef *TIMx)
 {
-  return (READ_BIT(TIMx->CR1, TIM_CR1_UDIS) == (TIM_CR1_UDIS));
+  return (READ_BIT(TIMx->CR1, TIM_CR1_UDIS) == RESET);
 }
 
 /**
@@ -2781,7 +2781,13 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   */
 __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
 {
+  __IO uint32_t tmpreg; 
+
   SET_BIT(TIMx->BDTR, TIM_BDTR_BKE);
+
+  /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
+  tmpreg = READ_REG(TIMx->BDTR);
+  (void)(tmpreg);
 }
 
 /**
@@ -2794,7 +2800,13 @@ __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
 {
+  __IO uint32_t tmpreg;
+
   CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BKE);
+
+  /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
+  tmpreg = READ_REG(TIMx->BDTR);
+  (void)(tmpreg);
 }
 
 /**
@@ -2810,7 +2822,13 @@ __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity)
 {
+  __IO uint32_t tmpreg;
+
   MODIFY_REG(TIMx->BDTR, TIM_BDTR_BKP, BreakPolarity);
+
+  /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
+  tmpreg = READ_REG(TIMx->BDTR);
+  (void)(tmpreg);
 }
 
 /**

@@ -87,7 +87,7 @@ typedef enum
 #define UNUSED(x) ((void)(x))                            
                             
 /** @brief Reset the Handle's State field.
-  * @param __HANDLE__: specifies the Peripheral Handle.
+  * @param __HANDLE__ specifies the Peripheral Handle.
   * @note  This macro can be used for the following purpose:
   *          - When the Handle is declared as local variable; before passing it as parameter
   *            to HAL_PPP_Init() for the first time, it is mandatory to use this macro

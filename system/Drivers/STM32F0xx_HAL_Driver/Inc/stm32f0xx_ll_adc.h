@@ -806,7 +806,7 @@ typedef struct
   * @note   Example:
   *           __LL_ADC_DECIMAL_NB_TO_CHANNEL(4)
   *           will return a data equivalent to "LL_ADC_CHANNEL_4".
-  * @param  __DECIMAL_NB__: Value between Min_Data=0 and Max_Data=18
+  * @param  __DECIMAL_NB__ Value between Min_Data=0 and Max_Data=18
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_0
   *         @arg @ref LL_ADC_CHANNEL_1
@@ -1240,7 +1240,7 @@ typedef struct
   *         internal voltage reference VrefInt.
   *         Otherwise, this macro performs the processing to scale
   *         ADC conversion data to 12 bits.
-  * @param  __VREFINT_ADC_DATA__: ADC conversion data (resolution 12 bits)
+  * @param  __VREFINT_ADC_DATA__ ADC conversion data (resolution 12 bits)
   *         of internal voltage reference VrefInt (unit: digital value).
   * @param  __ADC_RESOLUTION__ This parameter can be one of the following values:
   *         @arg @ref LL_ADC_RESOLUTION_12B
@@ -2686,7 +2686,7 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   * @param  AWDThresholdsHighLow This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD_THRESHOLD_HIGH
   *         @arg @ref LL_ADC_AWD_THRESHOLD_LOW
-  * @param  AWDThresholdValue: Value between Min_Data=0x000 and Max_Data=0xFFF
+  * @param  AWDThresholdValue Value between Min_Data=0x000 and Max_Data=0xFFF
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDThresholdsHighLow, uint32_t AWDThresholdValue)

@@ -131,14 +131,14 @@
     
 /**
   * @brief  Set CRC output reversal
-  * @param  __HANDLE__    : CRC handle
+  * @param  __HANDLE__ CRC handle
   * @retval None.
   */
 #define  __HAL_CRC_OUTPUTREVERSAL_ENABLE(__HANDLE__) ((__HANDLE__)->Instance->CR |= CRC_CR_REV_OUT)   
 
 /**
   * @brief  Unset CRC output reversal
-  * @param  __HANDLE__    : CRC handle
+  * @param  __HANDLE__ CRC handle
   * @retval None.
   */
 #define __HAL_CRC_OUTPUTREVERSAL_DISABLE(__HANDLE__) ((__HANDLE__)->Instance->CR &= ~(CRC_CR_REV_OUT))   
@@ -146,8 +146,8 @@
 #if defined(STM32F071xB) || defined(STM32F072xB) || defined(STM32F078xx) || defined(STM32F091xC) || defined(STM32F098xx)
 /**
   * @brief  Set CRC non-default polynomial
-  * @param  __HANDLE__    : CRC handle
-  * @param  __POLYNOMIAL__: 7, 8, 16 or 32-bit polynomial  
+  * @param  __HANDLE__ CRC handle
+  * @param  __POLYNOMIAL__ 7, 8, 16 or 32-bit polynomial  
   * @retval None.
   */
 #define __HAL_CRC_POLYNOMIAL_CONFIG(__HANDLE__, __POLYNOMIAL__) ((__HANDLE__)->Instance->POL = (__POLYNOMIAL__))

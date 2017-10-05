@@ -107,7 +107,7 @@
   *         function before HAL_ADC_Start() or after HAL_ADC_Stop() ).
   * @note   Calibration factor can be read after calibration, using function
   *         HAL_ADC_GetValue() (value on 7 bits: from DR[6;0]).
-  * @param  hadc: ADC handle
+  * @param  hadc ADC handle
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
