@@ -237,6 +237,20 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_F303K8 board
+# Support: Serial1 (USART2 on PA3, PA2)
+Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
+Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8
+Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_size=65536
+Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_data_size=12288
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.mcu=cortex-m4
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.f_cpu=72000000L
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=NUCLEO_F303K8
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 Nucleo_32.menu.upload_method.MassStorage=Mass Storage
 Nucleo_32.menu.upload_method.MassStorage.upload.protocol=
