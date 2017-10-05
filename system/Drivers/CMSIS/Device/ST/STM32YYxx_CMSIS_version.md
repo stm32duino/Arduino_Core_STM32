@@ -1,6 +1,6 @@
 # STM32YYxx CMSIS version:
 
-  * STM32F0: 2.3.2
+  * STM32F0: 2.3.3
   * STM32F1: 4.1.0
   * STM32F2: 2.2.0
   * STM32F3: 2.3.1
