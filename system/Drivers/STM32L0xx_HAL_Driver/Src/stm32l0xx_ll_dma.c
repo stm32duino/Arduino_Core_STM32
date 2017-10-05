@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_ll_dma.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   DMA LL module driver.
   ******************************************************************************
   * @attention

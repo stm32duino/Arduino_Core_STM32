@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_irda.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   IRDA HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the IrDA (Infrared Data Association) Peripheral
@@ -481,7 +479,7 @@ HAL_StatusTypeDef HAL_IRDA_Transmit(IRDA_HandleTypeDef *hirda, uint8_t *pData, u
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be filled into TDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
@@ -569,7 +567,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive(IRDA_HandleTypeDef *hirda, uint8_t *pData, ui
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be received from RDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
@@ -654,7 +652,7 @@ HAL_StatusTypeDef HAL_IRDA_Transmit_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be filled into TDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
@@ -714,7 +712,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData,
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be filled into TDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
@@ -775,7 +773,7 @@ HAL_StatusTypeDef HAL_IRDA_Transmit_DMA(IRDA_HandleTypeDef *hirda, uint8_t *pDat
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be filled into TDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
@@ -853,7 +851,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive_DMA(IRDA_HandleTypeDef *hirda, uint8_t *pData
     /* In case of 9bits/No Parity transfer, pData buffer provided as input paramter 
        should be aligned on a u16 frontier, as data to be filled into TDR will be 
        handled through a u16 cast. */
-    if ((hirda->Init.WordLength == IRDA_WORDLENGTH_9B) && (hirda->Init.Parity == IRDA_PARITY_NONE))
+    if ((hirda->Init.WordLength == UART_WORDLENGTH_9B) && (hirda->Init.Parity == UART_PARITY_NONE))
     {
       if((((uint32_t)pData)&1) != 0)
       {
