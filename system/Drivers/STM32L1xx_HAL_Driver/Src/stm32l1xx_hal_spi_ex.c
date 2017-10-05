@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_spi_ex.c
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Extended SPI HAL module driver.
   *          This file provides firmware functions to manage the following
   *          SPI peripheral extended functionalities :
@@ -46,8 +44,7 @@
   * @{
   */
 
-/** @defgroup SPIEx SPIEx
-  * @brief SPI Extended HAL module driver
+/** @addtogroup SPI
   * @{
   */
 #ifdef HAL_SPI_MODULE_ENABLED
@@ -59,12 +56,12 @@
 /* Private function prototypes -----------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
-/** @defgroup SPIEx_Exported_Functions SPIEx Exported Functions
+/** @addtogroup SPI_Exported_Functions
   * @{
   */
 
-/** @defgroup SPIEx_Exported_Functions_Group1 IO operation functions
-  *
+/** @addtogroup SPI_Exported_Functions_Group1
+ *
   * @{
   */
 

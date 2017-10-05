@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_sdmmc.c
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   SDMMC Low Layer HAL module driver.
   *    
   *          This file provides firmware functions to manage the following 

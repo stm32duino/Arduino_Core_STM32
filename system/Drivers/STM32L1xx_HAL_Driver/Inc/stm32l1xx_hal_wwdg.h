@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_wwdg.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Header file of WWDG HAL module.
   ******************************************************************************
   * @attention

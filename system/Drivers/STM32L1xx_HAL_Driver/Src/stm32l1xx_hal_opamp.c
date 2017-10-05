@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_opamp.c
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   OPAMP HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the operational amplifier(s)(OPAMP1, OPAMP2 etc) 
