@@ -63,8 +63,8 @@
   */
   
 /** @brief  Report the SMARTCARD clock source.
-  * @param  __HANDLE__: specifies the SMARTCARD Handle.
-  * @param  __CLOCKSOURCE__: output variable.
+  * @param  __HANDLE__ specifies the SMARTCARD Handle.
+  * @param  __CLOCKSOURCE__ output variable.
   * @retval the SMARTCARD clocking source, written in __CLOCKSOURCE__.
   */
 #if defined(STM32F031x6) || defined(STM32F038xx)

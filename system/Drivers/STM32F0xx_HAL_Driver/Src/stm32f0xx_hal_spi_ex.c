@@ -89,7 +89,7 @@
 
 /**
   * @brief Flush the RX fifo.
-  * @param  hspi: pointer to a SPI_HandleTypeDef structure that contains
+  * @param  hspi pointer to a SPI_HandleTypeDef structure that contains
   *               the configuration information for the specified SPI module.
   * @retval HAL status
   */

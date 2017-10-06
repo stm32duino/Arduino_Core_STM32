@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_sram.c
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   SRAM HAL module driver.
   *          This file provides a generic firmware to drive SRAM memories  
   *          mounted as external device.

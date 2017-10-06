@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_rcc_ex.c
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Extended RCC HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities RCC extension peripheral:

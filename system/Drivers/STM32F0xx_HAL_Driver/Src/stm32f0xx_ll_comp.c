@@ -293,7 +293,7 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
 
 /**
   * @brief Set each @ref LL_COMP_InitTypeDef field to default value.
-  * @param COMP_InitStruct: pointer to a @ref LL_COMP_InitTypeDef structure
+  * @param COMP_InitStruct pointer to a @ref LL_COMP_InitTypeDef structure
   *                         whose fields will be set to default values.
   * @retval None
   */

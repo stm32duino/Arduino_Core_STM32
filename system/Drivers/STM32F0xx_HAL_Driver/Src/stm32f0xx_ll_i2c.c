@@ -181,10 +181,10 @@ uint32_t LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
    * - OwnAddrSize:  I2C_OAR1_OA1MODE bit
    */
   LL_I2C_DisableOwnAddress1(I2Cx);
-  LL_I2C_SetOwnAddress1(I2Cx, I2C_InitStruct->OwnAddress1, I2C_InitStruct->OwnAddrSize);  
-  
+  LL_I2C_SetOwnAddress1(I2Cx, I2C_InitStruct->OwnAddress1, I2C_InitStruct->OwnAddrSize);
+
   /* OwnAdress1 == 0 is reserved for General Call address */
-  if (I2C_InitStruct->OwnAddress1 != 0U) 
+  if (I2C_InitStruct->OwnAddress1 != 0U)
   {
     LL_I2C_EnableOwnAddress1(I2Cx);
   }

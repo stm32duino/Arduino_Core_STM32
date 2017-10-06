@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32_assert.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   STM32 assert template file.
   *          This file should be copied to the application folder and renamed
   *          to stm32_assert.h.

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_ltdc.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   Header file of LTDC HAL module.
   ******************************************************************************
   * @attention
@@ -496,7 +494,7 @@ HAL_StatusTypeDef HAL_LTDC_DeInit(LTDC_HandleTypeDef *hltdc);
 void HAL_LTDC_MspInit(LTDC_HandleTypeDef* hltdc);
 void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* hltdc);
 void HAL_LTDC_ErrorCallback(LTDC_HandleTypeDef *hltdc);
-void HAL_LTDC_LineEvenCallback(LTDC_HandleTypeDef *hltdc);
+void HAL_LTDC_LineEventCallback(LTDC_HandleTypeDef *hltdc);
 void HAL_LTDC_ReloadEventCallback(LTDC_HandleTypeDef *hltdc);
 /**
   * @}

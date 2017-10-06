@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_flash_ex.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   Extended FLASH HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the FLASH extension peripheral:
@@ -538,7 +536,7 @@ void FLASH_Erase_Sector(uint32_t Sector, uint8_t VoltageRange)
   FLASH->CR &= CR_PSIZE_MASK;
   FLASH->CR |= tmp_psize;
   CLEAR_BIT(FLASH->CR, FLASH_CR_SNB);
-  FLASH->CR |= FLASH_CR_SER | (Sector << POSITION_VAL(FLASH_CR_SNB));
+  FLASH->CR |= FLASH_CR_SER | (Sector << FLASH_CR_SNB_Pos);
   FLASH->CR |= FLASH_CR_STRT;
   
   /* Data synchronous Barrier (DSB) Just after the write operation
@@ -716,7 +714,7 @@ void FLASH_Erase_Sector(uint32_t Sector, uint8_t VoltageRange)
   FLASH->CR &= CR_PSIZE_MASK;
   FLASH->CR |= tmp_psize;
   FLASH->CR &= SECTOR_MASK;
-  FLASH->CR |= FLASH_CR_SER | (Sector << POSITION_VAL(FLASH_CR_SNB));
+  FLASH->CR |= FLASH_CR_SER | (Sector << FLASH_CR_SNB_Pos);
   FLASH->CR |= FLASH_CR_STRT;
   
   /* Data synchronous Barrier (DSB) Just after the write operation

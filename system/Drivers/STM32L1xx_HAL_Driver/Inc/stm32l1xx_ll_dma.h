@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_dma.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Header file of DMA LL module.
   ******************************************************************************
   * @attention

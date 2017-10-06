@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_ll_system.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Header file of SYSTEM LL module.
   @verbatim
   ==============================================================================

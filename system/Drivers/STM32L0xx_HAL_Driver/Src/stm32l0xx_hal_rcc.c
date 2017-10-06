@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_rcc.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   RCC HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Reset and Clock Control (RCC) peripheral:

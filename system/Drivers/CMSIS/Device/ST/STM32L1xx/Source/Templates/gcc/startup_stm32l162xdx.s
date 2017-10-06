@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file      startup_stm32l162xdx.s
   * @author    MCD Application Team
-  * @version   21-April-2017
-  * @date      V2.2.1
   * @brief     STM32L162XD-X Devices vector table for 
   *            Atollic toolchain.
   *            This module performs:

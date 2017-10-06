@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_pcd.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   PCD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the USB Peripheral Controller:
@@ -882,9 +880,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   ep->xfer_count = 0U;
   ep->is_in = 0U;
   ep->num = ep_addr & 0x7FU;
-   
-  __HAL_LOCK(hpcd); 
-   
+
   /* Multi packet transfer*/
   if (ep->xfer_len > ep->maxpacket)
   {
@@ -910,9 +906,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   } 
   
   PCD_SET_EP_RX_STATUS(hpcd->Instance, ep->num, USB_EP_RX_VALID);
-  
-  __HAL_UNLOCK(hpcd); 
-  
+
   return HAL_OK;
 }
 
@@ -947,9 +941,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
   ep->xfer_count = 0U;
   ep->is_in = 1U;
   ep->num = ep_addr & 0x7FU;
-  
-  __HAL_LOCK(hpcd); 
-  
+
   /*Multi packet transfer*/
   if (ep->xfer_len > ep->maxpacket)
   {
@@ -989,8 +981,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
 
   PCD_SET_EP_TX_STATUS(hpcd->Instance, ep->num, USB_EP_TX_VALID);
   
-  __HAL_UNLOCK(hpcd);
-     
   return HAL_OK;
 }
 

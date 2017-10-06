@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_def.h
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   This file contains HAL common defines, enumeration, macros and 
   *          structures definitions. 
   ******************************************************************************

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_comp.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   COMP HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the COMP peripheral:
@@ -321,11 +319,11 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
         /* Note : COMP1 can be connected to the input 1 of LPTIM if requested */
         assert_param(IS_COMP1_LPTIMCONNECTION(hcomp->Init.LPTIMConnection));
         
-        if (hcomp->Init.LPTIMConnection == COMP_LPTIMCONNECTION_IN1_ENABLED)
-        {
+        /* Note: Compatibility with previous driver version using             */
+        /* generic literal COMP_LPTIMCONNECTION_ENABLED corresponding         */
+        /* to LPTIM input 1 for COMP1.                                        */
           tmp_csr |= (COMP_CSR_COMP1LPTIM1IN1);
         }
-      }
       else
       {
         /* Note : COMP2 can be connected to input 1 or input 2 of LPTIM if requested */
@@ -337,6 +335,11 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
           tmp_csr |= (COMP_CSR_COMP2LPTIM1IN1);
           break;
         case  COMP_LPTIMCONNECTION_IN2_ENABLED :
+        default :
+          /* Note: Default case for compatibility with previous driver version*/
+          /* using generic literal COMP_LPTIMCONNECTION_ENABLED corresponding */
+          /* to LPTIM input 2 for COMP2.                                      */
+          
           /* Check the MCU_ID in order to allow or not the COMP2 connection to LPTIM input 2 */
           if (((HAL_GetDEVID() == C_DEV_ID_L073) && (HAL_GetREVID() == C_REV_ID_A))
                             ||
@@ -353,8 +356,6 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
           {
             tmp_csr |= (COMP_CSR_COMP2LPTIM1IN2);
           }
-          break;
-        default :
           break;
         }
       }

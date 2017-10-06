@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file      startup_stm32l471xx.s
   * @author    MCD Application Team
-  * @version   V1.3.1
-  * @date      21-April-2017
   * @brief     STM32L471xx devices vector table for GCC toolchain.
   *            This module performs:
   *                - Set the initial SP

@@ -281,7 +281,7 @@ typedef struct
   */
 
 /** @brief  Flush the UART Data registers.
-  * @param  __HANDLE__: specifies the UART Handle.
+  * @param  __HANDLE__ specifies the UART Handle.
   * @retval None
   */
 #if !defined(STM32F030x6) && !defined(STM32F030x8) 
@@ -307,8 +307,8 @@ typedef struct
   */
 
 /** @brief  Report the UART clock source.
-  * @param  __HANDLE__: specifies the UART Handle.
-  * @param  __CLOCKSOURCE__: output variable.
+  * @param  __HANDLE__ specifies the UART Handle.
+  * @param  __CLOCKSOURCE__ output variable.
   * @retval UART clocking source, written in __CLOCKSOURCE__.
   */
 #if defined(STM32F030x6) || defined(STM32F031x6) || defined(STM32F038xx)
@@ -617,7 +617,7 @@ typedef struct
   *         by the reception API().
   *         This masking operation is not carried out in the case of
   *         DMA transfers.
-  * @param  __HANDLE__: specifies the UART Handle.
+  * @param  __HANDLE__ specifies the UART Handle.
   * @retval None, the mask to apply to UART RDR register is stored in (__HANDLE__)->Mask field.
   */
 #if defined (STM32F042x6) || defined (STM32F048xx) || defined (STM32F070x6) || \
@@ -691,7 +691,7 @@ typedef struct
 
 /**
   * @brief Ensure that UART frame length is valid.
-  * @param __LENGTH__: UART frame length. 
+  * @param __LENGTH__ UART frame length. 
   * @retval SET (__LENGTH__ is valid) or RESET (__LENGTH__ is invalid)
   */
 #if defined (STM32F042x6) || defined (STM32F048xx) || defined (STM32F070x6) || \
@@ -709,7 +709,7 @@ typedef struct
 
 /**
   * @brief Ensure that UART auto Baud rate detection mode is valid.
-  * @param __MODE__: UART auto Baud rate detection mode. 
+  * @param __MODE__ UART auto Baud rate detection mode. 
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
   */
 #if defined (STM32F042x6) || defined (STM32F048xx) || defined (STM32F070x6) || \
@@ -730,7 +730,7 @@ typedef struct
 #if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6)  && !defined(STM32F070xB)  && !defined(STM32F030xC)
 /**
   * @brief Ensure that UART LIN state is valid.
-  * @param __LIN__: UART LIN state. 
+  * @param __LIN__ UART LIN state. 
   * @retval SET (__LIN__ is valid) or RESET (__LIN__ is invalid)
   */
 #define IS_UART_LIN(__LIN__)        (((__LIN__) == UART_LIN_DISABLE) || \
@@ -738,7 +738,7 @@ typedef struct
 
 /**
   * @brief Ensure that UART LIN break detection length is valid.
-  * @param __LENGTH__: UART LIN break detection length. 
+  * @param __LENGTH__ UART LIN break detection length. 
   * @retval SET (__LENGTH__ is valid) or RESET (__LENGTH__ is invalid)
   */
 #define IS_UART_LIN_BREAK_DETECT_LENGTH(__LENGTH__) (((__LENGTH__) == UART_LINBREAKDETECTLENGTH_10B) || \
@@ -747,7 +747,7 @@ typedef struct
 
 /**
   * @brief Ensure that UART request parameter is valid.
-  * @param __PARAM__: UART request parameter. 
+  * @param __PARAM__ UART request parameter. 
   * @retval SET (__PARAM__ is valid) or RESET (__PARAM__ is invalid)
   */
 #if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6)  && !defined(STM32F070xB)  && !defined(STM32F030xC)
@@ -766,7 +766,7 @@ typedef struct
 #if !defined(STM32F030x6) && !defined(STM32F030x8) && !defined(STM32F070x6) && !defined(STM32F070xB)  && !defined(STM32F030xC)
 /**
   * @brief Ensure that UART stop mode state is valid.
-  * @param __STOPMODE__: UART stop mode state. 
+  * @param __STOPMODE__ UART stop mode state. 
   * @retval SET (__STOPMODE__ is valid) or RESET (__STOPMODE__ is invalid)
   */
 #define IS_UART_ADVFEATURE_STOPMODE(__STOPMODE__) (((__STOPMODE__) == UART_ADVFEATURE_STOPMODE_DISABLE) || \
@@ -774,7 +774,7 @@ typedef struct
 
 /**
   * @brief Ensure that UART wake-up selection is valid.
-  * @param __WAKE__: UART wake-up selection. 
+  * @param __WAKE__ UART wake-up selection. 
   * @retval SET (__WAKE__ is valid) or RESET (__WAKE__ is invalid)
   */
 #define IS_UART_WAKEUP_SELECTION(__WAKE__) (((__WAKE__) == UART_WAKEUP_ON_ADDRESS) || \

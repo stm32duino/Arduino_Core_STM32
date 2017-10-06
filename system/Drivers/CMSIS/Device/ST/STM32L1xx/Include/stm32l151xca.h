@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l151xca.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V2.2.1
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer Header File. 
   *          This file contains all the peripheral register's definitions, bits 
   *          definitions and memory mapping for STM32L1xx devices.            

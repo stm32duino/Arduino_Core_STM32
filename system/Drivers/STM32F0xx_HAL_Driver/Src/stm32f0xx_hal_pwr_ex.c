@@ -114,7 +114,7 @@
     defined (STM32F042x6) || defined (STM32F072xB)
 /**
   * @brief Configures the voltage threshold detected by the Power Voltage Detector(PVD).
-  * @param sConfigPVD: pointer to an PWR_PVDTypeDef structure that contains the configuration
+  * @param sConfigPVD pointer to an PWR_PVDTypeDef structure that contains the configuration
   *        information for the PVD.
   * @note Refer to the electrical characteristics of your device datasheet for
   *         more details about the voltage threshold corresponding to each

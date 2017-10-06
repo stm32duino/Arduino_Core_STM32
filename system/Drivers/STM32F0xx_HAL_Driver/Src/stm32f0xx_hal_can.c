@@ -161,7 +161,7 @@ static HAL_StatusTypeDef CAN_Transmit_IT(CAN_HandleTypeDef* hcan);
 /**
   * @brief Initializes the CAN peripheral according to the specified
   *        parameters in the CAN_InitStruct.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *             the configuration information for the specified CAN.  
   * @retval HAL status
   */
@@ -343,9 +343,9 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef* hcan)
 /**
   * @brief  Configures the CAN reception filter according to the specified
   *         parameters in the CAN_FilterInitStruct.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
-  * @param  sFilterConfig: pointer to a CAN_FilterConfTypeDef structure that
+  * @param  sFilterConfig pointer to a CAN_FilterConfTypeDef structure that
   *         contains the filter configuration information.
   * @retval None
   */
@@ -445,7 +445,7 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef* hcan, CAN_FilterConfTy
 
 /**
   * @brief  Deinitializes the CANx peripheral registers to their default reset values. 
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
   * @retval HAL status
   */
@@ -478,7 +478,7 @@ HAL_StatusTypeDef HAL_CAN_DeInit(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Initializes the CAN MSP.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
   * @retval None
   */
@@ -494,7 +494,7 @@ __weak void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  DeInitializes the CAN MSP.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
   * @retval None
   */
@@ -531,9 +531,9 @@ __weak void HAL_CAN_MspDeInit(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Initiates and transmits a CAN frame message.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
-  * @param  Timeout: Timeout duration.
+  * @param  Timeout Timeout duration.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_CAN_Transmit(CAN_HandleTypeDef* hcan, uint32_t Timeout)
@@ -676,7 +676,7 @@ HAL_StatusTypeDef HAL_CAN_Transmit(CAN_HandleTypeDef* hcan, uint32_t Timeout)
 
 /**
   * @brief  Initiates and transmits a CAN frame message.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
   * @retval HAL status
   */
@@ -795,10 +795,10 @@ HAL_StatusTypeDef HAL_CAN_Transmit_IT(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Receives a correct CAN frame.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
-  * @param  FIFONumber:    FIFO number.
-  * @param  Timeout:       Timeout duration.
+  * @param  FIFONumber    FIFO number.
+  * @param  Timeout       Timeout duration.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_CAN_Receive(CAN_HandleTypeDef* hcan, uint8_t FIFONumber, uint32_t Timeout)
@@ -991,9 +991,9 @@ HAL_StatusTypeDef HAL_CAN_Receive(CAN_HandleTypeDef* hcan, uint8_t FIFONumber, u
 
 /**
   * @brief  Receives a correct CAN frame.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
-  * @param  FIFONumber:    FIFO number.
+  * @param  FIFONumber    FIFO number.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_CAN_Receive_IT(CAN_HandleTypeDef* hcan, uint8_t FIFONumber)
@@ -1101,7 +1101,7 @@ HAL_StatusTypeDef HAL_CAN_Receive_IT(CAN_HandleTypeDef* hcan, uint8_t FIFONumber
 
 /**
   * @brief  Enters the Sleep (low power) mode.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval HAL status.
   */
@@ -1160,7 +1160,7 @@ HAL_StatusTypeDef HAL_CAN_Sleep(CAN_HandleTypeDef* hcan)
 /**
   * @brief  Wakes up the CAN peripheral from sleep mode, after that the CAN peripheral
   *         is in the normal mode.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval HAL status.
   */
@@ -1215,7 +1215,7 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Handles CAN interrupt request  
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval None
   */
@@ -1399,7 +1399,7 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Transmission  complete callback in non blocking mode 
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval None
   */
@@ -1415,7 +1415,7 @@ __weak void HAL_CAN_TxCpltCallback(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Transmission  complete callback in non blocking mode 
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval None
   */
@@ -1431,7 +1431,7 @@ __weak void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Error CAN callback.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval None
   */
@@ -1467,7 +1467,7 @@ __weak void HAL_CAN_ErrorCallback(CAN_HandleTypeDef *hcan)
 
 /**
   * @brief  return the CAN state
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval HAL state
   */
@@ -1479,7 +1479,7 @@ HAL_CAN_StateTypeDef HAL_CAN_GetState(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Return the CAN error code
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.
   * @retval CAN Error Code
   */
@@ -1504,7 +1504,7 @@ uint32_t HAL_CAN_GetError(CAN_HandleTypeDef *hcan)
 
 /**
   * @brief  Initiates and transmits a CAN frame message.
-  * @param  hcan: pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
   * @retval HAL status
   */
@@ -1553,9 +1553,9 @@ static HAL_StatusTypeDef CAN_Transmit_IT(CAN_HandleTypeDef* hcan)
 
 /**
   * @brief  Receives a correct CAN frame.
-  * @param  hcan:       Pointer to a CAN_HandleTypeDef structure that contains
+  * @param  hcan       Pointer to a CAN_HandleTypeDef structure that contains
   *         the configuration information for the specified CAN.  
-  * @param  FIFONumber: Specify the FIFO number    
+  * @param  FIFONumber Specify the FIFO number    
   * @retval HAL status
   * @retval None
   */

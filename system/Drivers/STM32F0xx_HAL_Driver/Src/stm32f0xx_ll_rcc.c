@@ -497,6 +497,12 @@ uint32_t RCC_GetSystemClockFreq(void)
       frequency = RCC_PLL_GetFreqDomain_SYS();
       break;
 
+#if defined(RCC_HSI48_SUPPORT)
+    case LL_RCC_SYS_CLKSOURCE_STATUS_HSI48:/* HSI48 used as system clock  source */
+      frequency = HSI48_VALUE;
+      break;
+#endif /* RCC_HSI48_SUPPORT */
+
     default:
       frequency = HSI_VALUE;
       break;
@@ -550,11 +556,11 @@ uint32_t RCC_PLL_GetFreqDomain_SYS(void)
 #endif /* RCC_PLLSRC_PREDIV1_SUPPORT */
       break;
 
-#if defined(RCC_CFGR_SW_HSI48)
+#if defined(RCC_HSI48_SUPPORT)
     case LL_RCC_PLLSOURCE_HSI48:     /* HSI48 used as PLL clock source */
       pllinputfreq = HSI48_VALUE;
       break;
-#endif /* RCC_CFGR_SW_HSI48 */
+#endif /* RCC_HSI48_SUPPORT */
 
     case LL_RCC_PLLSOURCE_HSE:       /* HSE used as PLL clock source */
       pllinputfreq = HSE_VALUE;

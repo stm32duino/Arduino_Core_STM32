@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_adc.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   Header file of ADC HAL extension module.
   ******************************************************************************
   * @attention
@@ -854,7 +852,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc);
   * @param  _NBR_DISCONTINUOUSCONV_: Number of discontinuous conversions.
   * @retval None
   */
-#define ADC_CR1_DISCONTINUOUS(_NBR_DISCONTINUOUSCONV_) (((_NBR_DISCONTINUOUSCONV_) - 1) << POSITION_VAL(ADC_CR1_DISCNUM))
+#define ADC_CR1_DISCONTINUOUS(_NBR_DISCONTINUOUSCONV_) (((_NBR_DISCONTINUOUSCONV_) - 1) << ADC_CR1_DISCNUM_Pos)
 
 /**
   * @brief  Enable ADC scan mode.

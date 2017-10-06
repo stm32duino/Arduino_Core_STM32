@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_adc.h
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   Header file of ADC HAL module.
   ******************************************************************************
   * @attention

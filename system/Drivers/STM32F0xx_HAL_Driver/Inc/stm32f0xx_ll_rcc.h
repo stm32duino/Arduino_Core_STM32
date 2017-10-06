@@ -561,7 +561,7 @@ typedef struct
   * @note ex: @ref __LL_RCC_CALC_PLLCLK_FREQ (HSE_VALUE, @ref LL_RCC_PLL_GetMultiplicator()
   *             , @ref LL_RCC_PLL_GetPrediv());
   * @param  __INPUTFREQ__ PLL Input frequency (based on HSE/HSI/HSI48)
-  * @param  __PLLMUL__: This parameter can be one of the following values:
+  * @param  __PLLMUL__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLL_MUL_2
   *         @arg @ref LL_RCC_PLL_MUL_3
   *         @arg @ref LL_RCC_PLL_MUL_4
@@ -577,7 +577,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLL_MUL_14
   *         @arg @ref LL_RCC_PLL_MUL_15
   *         @arg @ref LL_RCC_PLL_MUL_16
-  * @param  __PLLPREDIV__: This parameter can be one of the following values:
+  * @param  __PLLPREDIV__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PREDIV_DIV_1
   *         @arg @ref LL_RCC_PREDIV_DIV_2
   *         @arg @ref LL_RCC_PREDIV_DIV_3
@@ -604,7 +604,7 @@ typedef struct
   * @brief  Helper macro to calculate the PLLCLK frequency
   * @note ex: @ref __LL_RCC_CALC_PLLCLK_FREQ (HSE_VALUE / (@ref LL_RCC_PLL_GetPrediv () + 1), @ref LL_RCC_PLL_GetMultiplicator());
   * @param  __INPUTFREQ__ PLL Input frequency (based on HSE div Prediv / HSI div 2)
-  * @param  __PLLMUL__: This parameter can be one of the following values:
+  * @param  __PLLMUL__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLL_MUL_2
   *         @arg @ref LL_RCC_PLL_MUL_3
   *         @arg @ref LL_RCC_PLL_MUL_4
@@ -630,7 +630,7 @@ typedef struct
   * @note: __AHBPRESCALER__ be retrieved by @ref LL_RCC_GetAHBPrescaler
   *        ex: __LL_RCC_CALC_HCLK_FREQ(LL_RCC_GetAHBPrescaler())
   * @param  __SYSCLKFREQ__ SYSCLK frequency (based on HSE/HSI/PLLCLK)
-  * @param  __AHBPRESCALER__: This parameter can be one of the following values:
+  * @param  __AHBPRESCALER__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_SYSCLK_DIV_1
   *         @arg @ref LL_RCC_SYSCLK_DIV_2
   *         @arg @ref LL_RCC_SYSCLK_DIV_4
@@ -649,7 +649,7 @@ typedef struct
   * @note: __APB1PRESCALER__ be retrieved by @ref LL_RCC_GetAPB1Prescaler
   *        ex: __LL_RCC_CALC_PCLK1_FREQ(LL_RCC_GetAPB1Prescaler())
   * @param  __HCLKFREQ__ HCLK frequency
-  * @param  __APB1PRESCALER__: This parameter can be one of the following values:
+  * @param  __APB1PRESCALER__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_APB1_DIV_1
   *         @arg @ref LL_RCC_APB1_DIV_2
   *         @arg @ref LL_RCC_APB1_DIV_4

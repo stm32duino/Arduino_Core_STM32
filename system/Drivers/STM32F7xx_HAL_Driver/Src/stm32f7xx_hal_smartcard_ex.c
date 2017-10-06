@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f7xx_hal_smartcard_ex.c
   * @author  MCD Application Team
-  * @version V1.2.2
-  * @date    14-April-2017
   * @brief   SMARTCARD HAL module driver.
   *
   *          This file provides extended firmware functions to manage the following 

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l1xx_hal_adc.h
   * @author  MCD Application Team
-  * @version 21-April-2017
-  * @date    V1.3.0
   * @brief   Header file containing functions prototypes of ADC HAL library.
   ******************************************************************************
   * @attention

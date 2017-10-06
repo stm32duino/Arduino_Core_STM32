@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx_hal_comp_ex.c
   * @author  MCD Application Team
-  * @version V1.8.1
-  * @date    14-April-2017
   * @brief   Extended COMP HAL module driver.
   * @brief   This file provides firmware functions to manage voltage reference
   *          VrefInt that must be specifically controled for comparator

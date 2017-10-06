@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32l0xx.h
   * @author  MCD Application Team
-  * @version V1.7.1
-  * @date    25-November-2016
   * @brief   CMSIS Cortex-M0+ Device Peripheral Access Layer Header File. 
   *          This file contains all the peripheral register's definitions, bits 
   *          definitions and memory mapping for STM32L0xx devices.            
@@ -118,7 +116,7 @@
   */
 #define __STM32L0xx_CMSIS_VERSION_MAIN   (0x01) /*!< [31:24] main version */
 #define __STM32L0xx_CMSIS_VERSION_SUB1   (0x07) /*!< [23:16] sub1 version */
-#define __STM32L0xx_CMSIS_VERSION_SUB2   (0x01) /*!< [15:8]  sub2 version */
+#define __STM32L0xx_CMSIS_VERSION_SUB2   (0x02) /*!< [15:8]  sub2 version */
 #define __STM32L0xx_CMSIS_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32L0xx_CMSIS_VERSION        ((__STM32L0xx_CMSIS_VERSION_MAIN     << 24)\
                                          |(__STM32L0xx_CMSIS_VERSION_SUB1 << 16)\
