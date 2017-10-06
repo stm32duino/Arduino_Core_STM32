@@ -19,7 +19,7 @@
 #ifndef _WIRING_INTERRUPTS_
 #define _WIRING_INTERRUPTS_
 
-#include "Arduino.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {

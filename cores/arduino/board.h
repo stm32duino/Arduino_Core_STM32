@@ -21,20 +21,6 @@
 #include "usb_interface.h"
 #endif //USBCON
 
-/* Define attribute */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-    #define WEAK __attribute__ ((weak))
-#elif defined ( __ICCARM__ ) /* IAR Ewarm 5.41+ */
-    #define WEAK __weak
-#endif
-
-/* Define NO_INIT attribute */
-#if defined (  __GNUC__  )
-    #define NO_INIT
-#elif defined ( __ICCARM__ )
-    #define NO_INIT __no_init
-#endif
-
 void init( void ) ;
 
 #endif /* _BOARD_H_ */

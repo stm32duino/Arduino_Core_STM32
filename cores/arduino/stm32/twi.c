@@ -48,7 +48,6 @@
   * @{
   */
 #include "stm32_def.h"
-#include "hw_config.h"
 #include "twi.h"
 #include "PinAF_STM32F1.h"
 

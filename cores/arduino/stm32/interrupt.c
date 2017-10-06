@@ -47,7 +47,6 @@
   * @{
   */
 #include "stm32_def.h"
-#include "hw_config.h"
 #include "interrupt.h"
 
 #ifdef __cplusplus

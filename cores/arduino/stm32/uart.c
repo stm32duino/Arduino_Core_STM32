@@ -46,11 +46,8 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#include "hw_config.h"
 #include "uart.h"
-#include "digital_io.h"
-#include "interrupt.h"
-#include "variant.h"
+#include "Arduino.h"
 #include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus

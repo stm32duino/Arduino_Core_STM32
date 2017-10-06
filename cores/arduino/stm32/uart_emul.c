@@ -46,11 +46,10 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#include "hw_config.h"
 #include "uart_emul.h"
 #include "digital_io.h"
 #include "interrupt.h"
-#include "variant.h"
+#include "Arduino.h"
 
 #if defined(TIM1_BASE) && defined(UART_EMUL_RX) && defined(UART_EMUL_TX)
 #ifdef __cplusplus
