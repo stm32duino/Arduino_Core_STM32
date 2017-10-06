@@ -31,6 +31,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
 
   * STM32F3
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
+    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
 
   * STM32F4
     * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
