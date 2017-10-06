@@ -23,7 +23,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 
-#include "Arduino.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -32,8 +32,6 @@ extern "C"{
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 extern const PinName digitalPin[];
 
 enum {
@@ -177,15 +175,16 @@ enum {
 #define TIMER_SERVO             TIM7
 #define TIMER_UART_EMULATED     TIM6
 
-#define DEBUG_UART              ((USART_TypeDef *) USART2)
-
+// UART Definitions
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 // UART Emulation
 #define UART_EMUL_RX            PE_9
 #define UART_EMUL_TX            PE_11
 
-// Serial Pin Firmata
-#define PIN_SERIAL_RX           42
-#define PIN_SERIAL_TX           3
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           PA3
+#define PIN_SERIAL_TX           PA2
 
 #ifdef __cplusplus
 } // extern "C"
@@ -195,8 +194,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern HardwareSerial Serial;
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -212,8 +209,8 @@ extern HardwareSerial Serial;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
-                                   // See UM ยง6.1.3 ST-LINK/V2-A VCP configuration)
+#define SERIAL_PORT_MONITOR     Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
+                                   // See UM ง6.1.3 ST-LINK/V2-A VCP configuration)
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 

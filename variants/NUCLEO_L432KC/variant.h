@@ -23,7 +23,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 
-#include "Arduino.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -32,8 +32,6 @@ extern "C"{
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 extern const PinName digitalPin[];
 
 enum {
@@ -103,13 +101,12 @@ enum {
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
-#define DEBUG_UART              ((USART_TypeDef *) USART2)
-
-// Serial Pin Firmata
-#define PIN_SERIAL_RX           22
-#define PIN_SERIAL_TX           21
-#define PIN_SERIAL1_RX          0
-#define PIN_SERIAL1_TX          1
+// UART Definitions
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           PA15
+#define PIN_SERIAL_TX           PA2
 
 #ifdef __cplusplus
 } // extern "C"
@@ -119,9 +116,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern HardwareSerial Serial;
-extern HardwareSerial Serial1;
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -137,8 +131,8 @@ extern HardwareSerial Serial1;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial
+#define SERIAL_PORT_MONITOR     Serial
+#define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

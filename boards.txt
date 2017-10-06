@@ -2,7 +2,7 @@
 
 menu.pnum=Board part number
 
-menu.xserial=Extra serial instance
+menu.xserial=Serial interface
 menu.usb=USB interface
 
 menu.opt=Optimize
@@ -328,37 +328,37 @@ Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 
 ################################################################################
 # Serialx activation
-Nucleo_144.menu.xserial.none=None
-Nucleo_144.menu.xserial.SerialAll=All
-Nucleo_144.menu.xserial.SerialAll.build.xSerial=-DENABLE_SERIAL1 -DENABLE_SERIAL2
-Nucleo_144.menu.xserial.Serial1=Serial1 (if available)
-Nucleo_144.menu.xserial.Serial1.build.xSerial=-DENABLE_SERIAL1
-Nucleo_144.menu.xserial.Serial2=Serial2 (if available)
-Nucleo_144.menu.xserial.Serial2.build.xSerial=-DENABLE_SERIAL2
+Nucleo_144.menu.xserial.generic=Generic Serial
+Nucleo_144.menu.xserial.none=No Serial
+Nucleo_144.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+Nucleo_144.menu.xserial.all=All (up to 10)
+Nucleo_144.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+Nucleo_144.menu.xserial.third=Enable first third (USART1 to 3 if available)
+Nucleo_144.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
-Nucleo_64.menu.xserial.none=None
-Nucleo_64.menu.xserial.SerialAll=All
-Nucleo_64.menu.xserial.SerialAll.build.xSerial=-DENABLE_SERIAL1 -DENABLE_SERIAL2
-Nucleo_64.menu.xserial.Serial1=Serial1 (if available)
-Nucleo_64.menu.xserial.Serial1.build.xSerial=-DENABLE_SERIAL1
-Nucleo_64.menu.xserial.Serial2=Serial2 (if available)
-Nucleo_64.menu.xserial.Serial2.build.xSerial=-DENABLE_SERIAL2
+Nucleo_64.menu.xserial.generic=Generic Serial
+Nucleo_64.menu.xserial.none=No Serial
+Nucleo_64.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+Nucleo_64.menu.xserial.all=All (up to 10)
+Nucleo_64.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+Nucleo_64.menu.xserial.third=Enable first third (USART1 to 3 if available)
+Nucleo_64.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
-Nucleo_32.menu.xserial.none=None
-Nucleo_32.menu.xserial.SerialAll=All
-Nucleo_32.menu.xserial.SerialAll.build.xSerial=-DENABLE_SERIAL1 -DENABLE_SERIAL2
-Nucleo_32.menu.xserial.Serial1=Serial1 (if available)
-Nucleo_32.menu.xserial.Serial1.build.xSerial=-DENABLE_SERIAL1
-Nucleo_32.menu.xserial.Serial2=Serial2 (if available)
-Nucleo_32.menu.xserial.Serial2.build.xSerial=-DENABLE_SERIAL2
+Nucleo_32.menu.xserial.generic=Generic Serial
+Nucleo_32.menu.xserial.none=No Serial
+Nucleo_32.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+Nucleo_32.menu.xserial.all=All (up to 10)
+Nucleo_32.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+Nucleo_32.menu.xserial.third=Enable first third (USART1 to 3 if available)
+Nucleo_32.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
-Disco.menu.xserial.none=None
-Disco.menu.xserial.SerialAll=All
-Disco.menu.xserial.SerialAll.build.xSerial=-DENABLE_SERIAL1 -DENABLE_SERIAL2
-Disco.menu.xserial.Serial1=Serial1 (if available)
-Disco.menu.xserial.Serial1.build.xSerial=-DENABLE_SERIAL1
-Disco.menu.xserial.Serial2=Serial2 (if available)
-Disco.menu.xserial.Serial2.build.xSerial=-DENABLE_SERIAL2
+Disco.menu.xserial.generic=Generic Serial
+Disco.menu.xserial.none=No Serial
+Disco.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+Disco.menu.xserial.all=All (up to 10)
+Disco.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+Disco.menu.xserial.third=Enable first third (USART1 to 3 if available)
+Disco.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None

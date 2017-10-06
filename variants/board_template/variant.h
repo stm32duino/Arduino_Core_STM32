@@ -35,7 +35,7 @@
  *        Headers
  *----------------------------------------------------------------------------*/
 
-#include "Arduino.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -44,8 +44,6 @@ extern "C"{
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 extern const PinName digitalPin[];
 
 // Enum defining pin names to match digital pin number --> Dx
@@ -106,19 +104,20 @@ enum {
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
 
-#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
+// UART Definitions
+// Define here Serial instance number to map on Serial generic name
+#define SERIAL_UART_INSTANCE    x //ex: 2 for Serial2 (USART2)
+// DEBUG_UART could be redefined to print on another instance than 'Serial'
+//#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 
 // UART Emulation (uncomment if needed, required TIM1)
 //#define UART_EMUL_RX            PX_n // PinName used for RX
 //#define UART_EMUL_TX            PX_n // PinName used for TX
 
-// Serial Pin Firmata
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
 #define PIN_SERIAL_RX           Dx
 #define PIN_SERIAL_TX           Dx
-// Define as many PIN_SERIALX than desired
-//#define PIN_SERIAL1_RX          Dx
-//#define PIN_SERIAL1_TX          Dx
-//...
 
 #ifdef __cplusplus
 } // extern "C"
@@ -128,11 +127,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// declare here as many UART objects than defined in variant.cpp
-extern HardwareSerial Serial;
-//extern HardwareSerial SerialX;
-//...
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -148,8 +142,8 @@ extern HardwareSerial Serial;
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial
+#define SERIAL_PORT_MONITOR     Serial
+#define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

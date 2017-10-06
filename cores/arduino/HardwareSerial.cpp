@@ -30,12 +30,143 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
+#if !defined(NO_HWSERIAL)
+#if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
+    defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
+    defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL8) ||\
+    defined(HAVE_HWSERIAL10)
+// SerialEvent functions are weak, so when the user doesn't define them,
+// the linker just sets their address to 0 (which is checked below).
+#if defined(HAVE_HWSERIAL1)
+  HardwareSerial Serial1(USART1);
+  void serialEvent1() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL2)
+  HardwareSerial Serial2(USART2);
+  void serialEvent2() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL3)
+  HardwareSerial Serial3(USART3);
+  void serialEvent3() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL4)
+#if defined(USART4)
+  HardwareSerial Serial4(USART4);
+#else
+  HardwareSerial Serial4(UART4);
+#endif
+  void serialEvent4() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL5)
+#if defined(USART5)
+  HardwareSerial Serial5(USART5);
+#else
+  HardwareSerial Serial5(UART5);
+#endif
+  void serialEvent5() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL6)
+  HardwareSerial Serial6(USART6);
+  void serialEvent6() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL7)
+#if defined(USART7)
+  HardwareSerial Serial7(USART7);
+#else
+  HardwareSerial Serial7(UART7);
+#endif
+  void serialEvent7() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL8)
+#if defined(USART8)
+  HardwareSerial Serial8(USART8);
+#else
+  HardwareSerial Serial8(UART8);
+#endif
+  void serialEvent8() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL9)
+  HardwareSerial Serial9(UART9);
+  void serialEvent9() __attribute__((weak));
+#endif
+
+#if defined(HAVE_HWSERIAL10)
+  HardwareSerial Serial10(UART10);
+  void serialEvent10() __attribute__((weak));
+#endif
+
+void serialEventRun(void)
+{
+#if defined(HAVE_HWSERIAL1)
+  if (serialEvent1 && Serial1.available()) serialEvent1();
+#endif
+#if defined(HAVE_HWSERIAL2)
+  if (serialEvent2 && Serial2.available()) serialEvent2();
+#endif
+#if defined(HAVE_HWSERIAL3)
+  if (serialEvent3 && Serial3.available()) serialEvent3();
+#endif
+#if defined(HAVE_HWSERIAL4)
+  if (serialEvent4 && Serial4.available()) serialEvent4();
+#endif
+#if defined(HAVE_HWSERIAL5)
+  if (serialEvent5 && Serial5.available()) serialEvent5();
+#endif
+#if defined(HAVE_HWSERIAL6)
+  if (serialEvent6 && Serial6.available()) serialEvent6();
+#endif
+#if defined(HAVE_HWSERIAL7)
+  if (serialEvent7 && Serial7.available()) serialEvent7();
+#endif
+#if defined(HAVE_HWSERIAL8)
+  if (serialEvent8 && Serial8.available()) serialEvent8();
+#endif
+#if defined(HAVE_HWSERIAL9)
+  if (serialEvent9 && Serial9.available()) serialEvent9();
+#endif
+#if defined(HAVE_HWSERIAL10)
+  if (serialEventl10 && Serial10.available()) serialEvent10();
+#endif
+}
 
 // Constructors ////////////////////////////////////////////////////////////////
 HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
 {
   _serial.pin_rx = _rx;
   _serial.pin_tx = _tx;
+  init();
+}
+
+HardwareSerial::HardwareSerial(void* peripheral)
+{
+// If Serial is defined in variant set
+// the Rx/Tx pins for com port if defined
+#if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
+  if (this == &Serial)
+  {
+    setRx(PIN_SERIAL_RX);
+    setTx(PIN_SERIAL_TX);
+  }
+  else
+#endif
+// else get the pins of the first peripheral occurence in PinMap
+  {
+    _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
+    _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+  }
+  init();
+}
+
+void HardwareSerial::init(void)
+{
   _serial.rx_buff = _rx_buffer;
   _serial.rx_head = 0;
   _serial.rx_tail = 0;
@@ -87,7 +218,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 
   _serial.baudrate = (uint32_t)baud;
 
-  // Manage databits
+  // Manage databitshardware/arduino/avr/cores/arduino/HardwareSerial.cpp
   switch(config & 0x07) {
     case 0x02:
       databits = 6;
@@ -224,3 +355,21 @@ size_t HardwareSerial::write(uint8_t c)
 
   return 1;
 }
+
+void HardwareSerial::setRx(uint32_t _rx) {
+  _serial.pin_rx = digitalPinToPinName(_rx);
+}
+
+void HardwareSerial::setTx(uint32_t _tx) {
+  _serial.pin_tx = digitalPinToPinName(_tx);
+}
+
+void HardwareSerial::setRx(PinName _rx) {
+  _serial.pin_rx = _rx;
+}
+
+void HardwareSerial::setTx(PinName _tx){
+  _serial.pin_tx = _tx;
+}
+#endif // HAVE_HWSERIALx
+#endif // !NO_HWSERIAL
