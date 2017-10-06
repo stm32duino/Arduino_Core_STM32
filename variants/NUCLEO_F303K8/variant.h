@@ -19,13 +19,11 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-
-#define RCC_CFGR_PLLSRC_HSI_PREDIV
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
 
-#include "Arduino.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -34,8 +32,6 @@ extern "C"{
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 extern const PinName digitalPin[];
 
 enum {
@@ -46,8 +42,8 @@ enum {
   PB7,  //D4
   PB6,  //D5
   PB1,  //D6
-  PC14, //D7
-  PC15, //D8
+  PF0,  //D7
+  PF1,  //D8
   PA8,  //D9
   PA11, //D10
   PB5,  //D11
@@ -57,11 +53,11 @@ enum {
   PA1,  //D15/A1
   PA3,  //D16/A2
   PA4,  //D17/A3
-  PA5,  //D18/A4
-  PA6,  //D19/A5
+  PA5,  //D18/A4 - if SB18 ON (default) connected to PB7
+  PA6,  //D19/A5 - if SB16 ON (default) connected to PB6
   PA7,  //D20/A6
   PA2,  //D21/A7 - STLink Tx
-  PA15, //D22 - STLink Rx
+  PA15, //D22    - STLink Rx
   PEND
 };
 
@@ -105,19 +101,12 @@ enum {
 //Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
-#define DEBUG_UART              ((USART_TypeDef *) USART2)
-
-// UART Emulation
-//#define UART_EMUL_RX            PC_1
-//#define UART_EMUL_TX            PC_3
+ // UART Definitions
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 
 // Serial Pin Firmata
-#define PIN_SERIAL_RX           22 
-#define PIN_SERIAL_TX           21 
-#define PIN_SERIAL1_RX          0  
-#define PIN_SERIAL1_TX          1  
-#define PIN_SERIAL2_RX          31
-#define PIN_SERIAL2_TX          17
+#define PIN_SERIAL_RX           PA15 // 22
+#define PIN_SERIAL_TX           PA2  // 21
 
 #ifdef __cplusplus
 } // extern "C"
@@ -127,10 +116,6 @@ enum {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-extern HardwareSerial Serial;
-extern HardwareSerial Serial1;
-extern HardwareSerial Serial2;
-
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
