@@ -34,7 +34,7 @@ void yield(void);
 } // extern "C"
 #endif // __cplusplus
 
-// Include board variant
-#include "pins_arduino.h"
+// Include pins variant
+#include "pins_arduino_var.h"
 
 #endif // Arduino_h

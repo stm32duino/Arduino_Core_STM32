@@ -17,6 +17,7 @@
 */
 
 #include "pins_arduino.h"
+#include "pins_arduino_var.h"
 
 #ifdef __cplusplus
 extern "C" {
