@@ -42,7 +42,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI=Nucleo F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.node=NODE_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_data_size=262144
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.mcu=cortex-m4
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.f_cpu=16000000L
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
@@ -121,7 +121,7 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE=Nucleo F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.node=NODE_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_data_size=65536
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_F303RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.f_cpu=8000000L
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
@@ -135,7 +135,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.node=NODE_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_data_size=98304
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.f_cpu=84000000L
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
@@ -149,7 +149,7 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.node=NODE_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_data_size=131072
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.f_cpu=100000000L
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
@@ -192,7 +192,7 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.node=NODE_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_size=1048576
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_data_size=131072
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_L476RG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.f_cpu=80000000L
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
@@ -229,7 +229,7 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.node=NODE_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_size=262144
 Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_data_size=65536
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.mcu=cortex-m4
+Nucleo_32.menu.pnum.NUCLEO_L432KC.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.f_cpu=80000000L
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
@@ -280,7 +280,7 @@ Disco.menu.pnum.DISCO_F407VG=STM32F407G-DISC1
 Disco.menu.pnum.DISCO_F407VG.node=DIS_F407VG
 Disco.menu.pnum.DISCO_F407VG.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_F407VG.upload.maximum_data_size=196608
-Disco.menu.pnum.DISCO_F407VG.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F407VG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_F407VG.build.f_cpu=16000000L
 Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
@@ -294,7 +294,7 @@ Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
 Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_data_size=327680
-Disco.menu.pnum.DISCO_F746NG.build.mcu=cortex-m7
+Disco.menu.pnum.DISCO_F746NG.build.mcu=cortex-m7 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_F746NG.build.f_cpu=216000000L
 Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
@@ -308,7 +308,7 @@ Disco.menu.pnum.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.node=DIS_L4IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_L475VG_IOT.upload.maximum_data_size=98304
-Disco.menu.pnum.DISCO_L475VG_IOT.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_L475VG_IOT.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_L475VG_IOT.build.f_cpu=80000000L
 Disco.menu.pnum.DISCO_L475VG_IOT.build.board=DISCO_L475VG_IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.build.series=STM32L4xx
