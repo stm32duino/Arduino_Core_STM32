@@ -36,12 +36,12 @@
 class TwoWire : public Stream
 {
   private:
-    static uint8_t rxBuffer[BUFFER_LENGTH];
+    static uint8_t *rxBuffer;
     static uint8_t rxBufferIndex;
     static uint8_t rxBufferLength;
 
     static uint8_t txAddress;
-    static uint8_t txBuffer[BUFFER_LENGTH];
+    static uint8_t *txBuffer;
     static uint8_t txBufferIndex;
     static uint8_t txBufferLength;
 
@@ -55,6 +55,9 @@ class TwoWire : public Stream
     static void (*user_onReceive)(int);
     static void onRequestService(void);
     static void onReceiveService(uint8_t*, int);
+
+    uint8_t *allocateBuffer(uint8_t *buffer, size_t length);
+    uint8_t *resetBuffer(uint8_t *buffer);
 
   public:
     TwoWire();
