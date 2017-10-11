@@ -27,4 +27,8 @@
 // Concatenate 2 strings separated by space
 #define CONCATS(s1, s2) (s1" " s2)
 
+// Stringification
+#define xstr(s) str(s)
+#define str(s) #s
+
 #endif
