@@ -172,6 +172,8 @@ enum {
 #define SDA                     14
 #define SCL                     15
 
+#define BUFFER_LENGTH           255 //Define I2C maximum buffer length
+
 //Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM6
