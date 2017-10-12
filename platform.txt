@@ -28,7 +28,7 @@ compiler.c.elf.flags=-mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--
 compiler.S.cmd=arm-none-eabi-gcc
 compiler.S.flags=-mthumb -c -x assembler-with-cpp {compiler.stm.extra_include}
 compiler.cpp.cmd=arm-none-eabi-g++
-compiler.cpp.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -Dprintf=iprintf -MMD {compiler.stm.extra_include}
+compiler.cpp.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD {compiler.stm.extra_include}
 compiler.ar.cmd=arm-none-eabi-gcc-ar
 compiler.ar.flags=rcs
 compiler.objcopy.cmd=arm-none-eabi-objcopy
@@ -85,7 +85,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -mcpu={b
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files}  {compiler.arm.cmsis.ldflags} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc --specs=nano.specs
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files}  {compiler.arm.cmsis.ldflags} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++ --specs=nano.specs
 
 
 ## Create output (.bin file)

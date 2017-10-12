@@ -19,11 +19,26 @@
 #ifndef _WIRING_CONSTANTS_
 #define _WIRING_CONSTANTS_
 
-#ifdef __cplusplus
-extern "C"{
-#endif // __cplusplus
-
 #include <stdbool.h>
+
+#ifdef __cplusplus
+#include <algorithm>
+using std::min;
+using std::max;
+#else // C
+#ifndef abs
+#define abs(x) ((x)>0?(x):-(x))
+#endif // abs
+
+#ifndef min
+#define min(a,b) ((a)<(b)?(a):(b))
+#endif // min
+
+#ifndef max
+#define max(a,b) ((a)>(b)?(a):(b))
+#endif // max
+
+#endif // __cplusplus
 
 #define HIGH 0x1
 #define LOW  0x0
@@ -57,22 +72,8 @@ enum BitOrder {
 #define DEFAULT 1
 #define EXTERNAL 0
 
-// undefine stdlib's abs if encountered
-#ifdef abs
-#undef abs
-#endif // abs
-
-#ifndef min
-#define min(a,b) ((a)<(b)?(a):(b))
-#endif // min
-
-#ifndef max
-#define max(a,b) ((a)>(b)?(a):(b))
-#endif // max
-
-#define abs(x) ((x)>0?(x):-(x))
 #define constrain(amt,low,high) ((amt)<(low)?(low):((amt)>(high)?(high):(amt)))
-#define round(x)     ((x)>=0?(long)((x)+0.5):(long)((x)-0.5))
+
 #define radians(deg) ((deg)*DEG_TO_RAD)
 #define degrees(rad) ((rad)*RAD_TO_DEG)
 #define sq(x) ((x)*(x))
@@ -105,9 +106,5 @@ typedef unsigned int word;
 typedef bool boolean ;
 
 typedef uint8_t byte ;
-
-#ifdef __cplusplus
-} // extern "C"
-#endif // __cplusplus
 
 #endif /* _WIRING_CONSTANTS_ */
