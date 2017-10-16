@@ -65,6 +65,7 @@ void SPIClass::begin(uint8_t _pin)
     digitalWrite(_pin, HIGH);
   }
 
+  _spi.handle.State = HAL_SPI_STATE_RESET;
   spi_init(&_spi, spiSettings[idx].clk,
                   spiSettings[idx].dMode,
                   spiSettings[idx].msb);
