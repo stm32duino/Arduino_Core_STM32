@@ -246,6 +246,10 @@ The STM32F4x7 allows computing and verifying the IP, UDP, TCP and ICMP checksums
   * an operating system. */
 //#define ETH_INPUT_USE_IT 1
 
+/** Select a default timer used to call ethernet scheduler at regular interval.
+  */
+// #define DEFAULT_ETHERNET_TIMER  TIM14
+
 #endif /* __LWIPOPTS_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
