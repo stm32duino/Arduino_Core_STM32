@@ -52,7 +52,28 @@
 /* offsetof is a gcc built-in function, this is the manual implementation */
 #define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
 
+/* I2C Tx/Rx buffer size */
 #define I2C_TXRX_BUFFER_SIZE    32
+
+/* Redefinition of IRQ for F0 & L0 family */
+#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(I2C1_BASE)
+#define I2C1_EV_IRQn        I2C1_IRQn
+#define I2C1_EV_IRQHandler  I2C1_IRQHandler
+#endif // defined(I2C1_BASE)
+#if defined(I2C2_BASE)
+#define I2C2_EV_IRQn        I2C2_IRQn
+#define I2C2_EV_IRQHandler  I2C2_IRQHandler
+#endif // defined(I2C2_BASE)
+#if defined(I2C3_BASE)
+#define I2C3_EV_IRQn        I2C3_IRQn
+#define I2C3_EV_IRQHandler  I2C3_IRQHandler
+#endif // defined(I2C3_BASE)
+#if defined(I2C4_BASE)
+#define I2C4_EV_IRQn        I2C4_IRQn
+#define I2C4_EV_IRQHandler  I2C4_IRQHandler
+#endif // defined(I2C4_BASE)-
+#endif // defined(STM32F0xx) || defined(STM32L0xx)
 
 typedef struct i2c_s i2c_t;
 
@@ -67,10 +88,11 @@ struct i2c_s {
   PinName sda;
   PinName scl;
   IRQn_Type irq;
-#ifdef STM32F1xx
+#if !defined(STM32F0xx) && !defined(STM32L0xx)
   IRQn_Type irqER;
-#endif
+#endif //!defined(STM32F0xx) && !defined(STM32L0xx)
   uint8_t slaveMode;
+  uint8_t isMaster;
   void (*i2c_onSlaveReceive)(uint8_t *, int);
   void (*i2c_onSlaveTransmit)(void);
   uint8_t i2cTxRxBuffer[I2C_TXRX_BUFFER_SIZE];
