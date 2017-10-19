@@ -70,9 +70,13 @@
 #define UART_NUM (8)
 #elif defined(STM32F2xx)
 #define UART_NUM (6)
-#else // STM32F1xx || STM32F3xx || STM32L0xx || STM32L1xx || STM32L4xx
+#elif defined(STM32F1xx) || defined(STM32F3xx) ||\
+      defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32L4xx)
 #define UART_NUM (5)
+#else
+#error "Unknown Family - unknown UART_NUM"
 #endif
+
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
 static void (*rx_callback[UART_NUM])(serial_t*);
 static serial_t *rx_callback_obj[UART_NUM];
