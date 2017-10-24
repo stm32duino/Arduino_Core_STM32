@@ -188,7 +188,8 @@ typedef struct serial_s serial_t;
 struct serial_s {
   USART_TypeDef *uart;
   UART_HandleTypeDef handle;
-  int index;
+  uint8_t index;
+  uint8_t recv;
   uint32_t baudrate;
   uint32_t databits;
   uint32_t stopbits;
@@ -279,7 +280,7 @@ struct serial_s {
 void uart_init(serial_t *obj);
 void uart_deinit(serial_t *obj);
 size_t uart_write(serial_t *obj, uint8_t data, uint16_t size);
-int uart_getc(serial_t *obj);
+int uart_getc(serial_t *obj, unsigned char* c);
 void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t*));
 void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t*));
 

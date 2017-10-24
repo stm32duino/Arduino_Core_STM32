@@ -83,8 +83,6 @@ static serial_t *rx_callback_obj[UART_NUM];
 static int (*tx_callback[UART_NUM])(serial_t*);
 static serial_t *tx_callback_obj[UART_NUM];
 
-static uint8_t rx_buffer[1] = {0};
-
 /**
   * @brief  Function called to initialize the uart interface
   * @param  obj : pointer to serial_t structure
@@ -461,7 +459,7 @@ uint8_t serial_tx_active(serial_t *obj)
   * @param  obj : pointer to serial_t structure
   * @retval last character received
   */
-int uart_getc(serial_t *obj)
+int uart_getc(serial_t *obj, unsigned char* c)
 {
   if(obj == NULL) {
     return -1;
@@ -471,11 +469,12 @@ int uart_getc(serial_t *obj)
       return -1; // transaction ongoing
   }
 
+  *c = (unsigned char)(obj->recv);
   // Restart RX irq
   UART_HandleTypeDef *huart = uart_handlers[obj->index];
-  HAL_UART_Receive_IT(huart, rx_buffer, 1);
+  HAL_UART_Receive_IT(huart, &(obj->recv), 1);
 
-  return rx_buffer[0];
+  return 0;
 }
 
 /**
@@ -502,7 +501,7 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t*))
   HAL_NVIC_SetPriority(obj->irq, 0, 1);
   HAL_NVIC_EnableIRQ(obj->irq);
 
-  if(HAL_UART_Receive_IT(uart_handlers[obj->index], rx_buffer, 1) != HAL_OK) {
+  if(HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1) != HAL_OK) {
     return;
   }
 }

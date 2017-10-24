@@ -179,19 +179,21 @@ void HardwareSerial::init(void)
 
 void HardwareSerial::_rx_complete_irq(serial_t* obj)
 {
-  // No Parity error, read byte and store it in the buffer if there is
-  // room
-  unsigned char c = uart_getc(obj);
+  // No Parity error, read byte and store it in the buffer if there is room
+  unsigned char c;
 
-  rx_buffer_index_t i = (unsigned int)(obj->rx_head + 1) % SERIAL_RX_BUFFER_SIZE;
+  if (uart_getc(obj, &c) == 0) {
 
-  // if we should be storing the received character into the location
-  // just before the tail (meaning that the head would advance to the
-  // current location of the tail), we're about to overflow the buffer
-  // and so we don't write the character or advance the head.
-  if (i != obj->rx_tail) {
-    obj->rx_buff[obj->rx_head] = c;
-    obj->rx_head = i;
+    rx_buffer_index_t i = (unsigned int)(obj->rx_head + 1) % SERIAL_RX_BUFFER_SIZE;
+
+    // if we should be storing the received character into the location
+    // just before the tail (meaning that the head would advance to the
+    // current location of the tail), we're about to overflow the buffer
+    // and so we don't write the character or advance the head.
+    if (i != obj->rx_tail) {
+      obj->rx_buff[obj->rx_head] = c;
+      obj->rx_head = i;
+    }
   }
 }
 
