@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_adc_ex.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of ADC HAL extension module.
   ******************************************************************************
   * @attention
@@ -340,9 +338,9 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef* hadc, ADC_
 
 /**
   * @brief  Set the selected injected Channel rank.
-  * @param  _CHANNELNB_: Channel number.
-  * @param  _RANKNB_: Rank number. 
-  * @param  _JSQR_JL_: Sequence length.
+  * @param  _CHANNELNB_ Channel number.
+  * @param  _RANKNB_ Rank number. 
+  * @param  _JSQR_JL_ Sequence length.
   * @retval None
   */
 #define   ADC_JSQR(_CHANNELNB_, _RANKNB_, _JSQR_JL_)  (((uint32_t)((uint16_t)(_CHANNELNB_))) << (5U * (uint8_t)(((_RANKNB_) + 3U) - (_JSQR_JL_))))

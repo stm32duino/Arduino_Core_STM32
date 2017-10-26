@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_pcd_ex.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   PCD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the USB Peripheral Controller:
@@ -79,9 +77,9 @@
 
 /**
   * @brief  Set Tx FIFO
-  * @param  hpcd: PCD handle
-  * @param  fifo: The number of Tx fifo
-  * @param  size: Fifo size
+  * @param  hpcd PCD handle
+  * @param  fifo The number of Tx fifo
+  * @param  size Fifo size
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uint16_t size)
@@ -122,8 +120,8 @@ HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uin
 
 /**
   * @brief  Set Rx FIFO
-  * @param  hpcd: PCD handle
-  * @param  size: Size of Rx fifo
+  * @param  hpcd PCD handle
+  * @param  size Size of Rx fifo
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size)

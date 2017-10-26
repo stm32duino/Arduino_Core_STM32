@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_cryp.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of CRYP HAL module.
   ******************************************************************************
   * @attention
@@ -258,14 +256,14 @@ typedef struct
   */
   
 /** @brief Reset CRYP handle state
-  * @param  __HANDLE__: specifies the CRYP handle.
+  * @param  __HANDLE__ specifies the CRYP handle.
   * @retval None
   */
 #define __HAL_CRYP_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_CRYP_STATE_RESET)
 
 /**
   * @brief  Enable/Disable the CRYP peripheral.
-  * @param  __HANDLE__: specifies the CRYP handle.
+  * @param  __HANDLE__ specifies the CRYP handle.
   * @retval None
   */
 #define __HAL_CRYP_ENABLE(__HANDLE__)  ((__HANDLE__)->Instance->CR |=  CRYP_CR_CRYPEN)
@@ -273,22 +271,22 @@ typedef struct
 
 /**
   * @brief  Flush the data FIFO.
-  * @param  __HANDLE__: specifies the CRYP handle.
+  * @param  __HANDLE__ specifies the CRYP handle.
   * @retval None
   */
 #define __HAL_CRYP_FIFO_FLUSH(__HANDLE__) ((__HANDLE__)->Instance->CR |=  CRYP_CR_FFLUSH)
 
 /**
   * @brief  Set the algorithm mode: AES-ECB, AES-CBC, AES-CTR, DES-ECB, DES-CBC.
-  * @param  __HANDLE__: specifies the CRYP handle.
-  * @param  MODE: The algorithm mode.
+  * @param  __HANDLE__ specifies the CRYP handle.
+  * @param  MODE The algorithm mode.
   * @retval None
   */
 #define __HAL_CRYP_SET_MODE(__HANDLE__, MODE)  ((__HANDLE__)->Instance->CR |= (uint32_t)(MODE))
 
 /** @brief  Check whether the specified CRYP flag is set or not.
-  * @param  __HANDLE__: specifies the CRYP handle.
-  * @param  __FLAG__: specifies the flag to check.
+  * @param  __HANDLE__ specifies the CRYP handle.
+  * @param  __FLAG__ specifies the flag to check.
   *         This parameter can be one of the following values:
   *            @arg CRYP_FLAG_BUSY: The CRYP core is currently processing a block of data 
   *                                 or a key preparation (for AES decryption). 
@@ -305,8 +303,8 @@ typedef struct
                                                  ((((__HANDLE__)->Instance->RISR) & ((__FLAG__) & CRYP_FLAG_MASK)) == ((__FLAG__) & CRYP_FLAG_MASK)))
 
 /** @brief  Check whether the specified CRYP interrupt is set or not.
-  * @param  __HANDLE__: specifies the CRYP handle.
-  * @param  __INTERRUPT__: specifies the interrupt to check.
+  * @param  __HANDLE__ specifies the CRYP handle.
+  * @param  __INTERRUPT__ specifies the interrupt to check.
   *         This parameter can be one of the following values:
   *            @arg CRYP_IT_INRIS: Input FIFO service raw interrupt is pending
   *            @arg CRYP_IT_OUTRIS: Output FIFO service raw interrupt is pending
@@ -316,16 +314,16 @@ typedef struct
 
 /**
   * @brief  Enable the CRYP interrupt.
-  * @param  __HANDLE__: specifies the CRYP handle.
-  * @param  __INTERRUPT__: CRYP Interrupt.
+  * @param  __HANDLE__ specifies the CRYP handle.
+  * @param  __INTERRUPT__ CRYP Interrupt.
   * @retval None
   */
 #define __HAL_CRYP_ENABLE_IT(__HANDLE__, __INTERRUPT__) (((__HANDLE__)->Instance->IMSCR) |= (__INTERRUPT__))
 
 /**
   * @brief  Disable the CRYP interrupt.
-  * @param  __HANDLE__: specifies the CRYP handle.
-  * @param  __INTERRUPT__: CRYP interrupt.
+  * @param  __HANDLE__ specifies the CRYP handle.
+  * @param  __INTERRUPT__ CRYP interrupt.
   * @retval None
   */
 #define __HAL_CRYP_DISABLE_IT(__HANDLE__, __INTERRUPT__) (((__HANDLE__)->Instance->IMSCR) &= ~(__INTERRUPT__))

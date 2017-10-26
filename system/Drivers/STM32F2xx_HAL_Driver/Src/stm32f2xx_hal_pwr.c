@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_pwr.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   PWR HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the Power Controller (PWR) peripheral:
@@ -258,7 +256,7 @@ void HAL_PWR_DisableBkUpAccess(void)
 
 /**
   * @brief Configures the voltage threshold detected by the Power Voltage Detector(PVD).
-  * @param sConfigPVD: pointer to an PWR_PVDTypeDef structure that contains the configuration
+  * @param sConfigPVD pointer to an PWR_PVDTypeDef structure that contains the configuration
   *        information for the PVD.
   * @note Refer to the electrical characteristics of your device datasheet for
   *         more details about the voltage threshold corresponding to each 
@@ -324,7 +322,7 @@ void HAL_PWR_DisablePVD(void)
 
 /**
   * @brief Enables the Wake-up PINx functionality.
-  * @param WakeUpPinx: Specifies the Power Wake-Up pin to enable.
+  * @param WakeUpPinx Specifies the Power Wake-Up pin to enable.
   *         This parameter can be one of the following values:
   *           @arg PWR_WAKEUP_PIN1
   * @retval None
@@ -340,7 +338,7 @@ void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinx)
 
 /**
   * @brief Disables the Wake-up PINx functionality.
-  * @param WakeUpPinx: Specifies the Power Wake-Up pin to disable.
+  * @param WakeUpPinx Specifies the Power Wake-Up pin to disable.
   *         This parameter can be one of the following values:
   *           @arg PWR_WAKEUP_PIN1
   * @retval None
@@ -362,13 +360,13 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   * @note In Sleep mode, the systick is stopped to avoid exit from this mode with
   *       systick interrupt when used as time base for Timeout 
   *                
-  * @param Regulator: Specifies the regulator state in SLEEP mode.
+  * @param Regulator Specifies the regulator state in SLEEP mode.
   *            This parameter can be one of the following values:
   *            @arg PWR_MAINREGULATOR_ON: SLEEP mode with regulator ON
   *            @arg PWR_LOWPOWERREGULATOR_ON: SLEEP mode with low power regulator ON
   * @note This parameter is not used for the STM32F2 family and is kept as parameter
   *       just to maintain compatibility with the lower power families.
-  * @param SLEEPEntry: Specifies if SLEEP mode in entered with WFI or WFE instruction.
+  * @param  SLEEPEntry Specifies if SLEEP mode in entered with WFI or WFE instruction.
   *          This parameter can be one of the following values:
   *            @arg PWR_SLEEPENTRY_WFI: enter SLEEP mode with WFI instruction
   *            @arg PWR_SLEEPENTRY_WFE: enter SLEEP mode with WFE instruction
@@ -410,11 +408,11 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *         startup delay is incurred when waking up from Stop mode. 
   *         By keeping the internal regulator ON during Stop mode, the consumption 
   *         is higher although the startup time is reduced.    
-  * @param Regulator: Specifies the regulator state in Stop mode.
+  * @param  Regulator Specifies the regulator state in Stop mode.
   *          This parameter can be one of the following values:
   *            @arg PWR_MAINREGULATOR_ON: Stop mode with regulator ON
   *            @arg PWR_LOWPOWERREGULATOR_ON: Stop mode with low power regulator ON
-  * @param STOPEntry: Specifies if Stop mode in entered with WFI or WFE instruction.
+  * @param  STOPEntry Specifies if Stop mode in entered with WFI or WFE instruction.
   *          This parameter can be one of the following values:
   *            @arg PWR_STOPENTRY_WFI: Enter Stop mode with WFI instruction
   *            @arg PWR_STOPENTRY_WFE: Enter Stop mode with WFE instruction

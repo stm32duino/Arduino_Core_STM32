@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_rng.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of RNG LL module.
   ******************************************************************************
   * @attention
@@ -66,6 +64,8 @@ extern "C" {
 /** @defgroup RNG_LL_Exported_Constants RNG Exported Constants
   * @{
   */
+
+#define UNUSED(x) ((void)(x))
 
 /** @defgroup RNG_LL_EC_GET_FLAG Get Flags Defines
   * @brief    Flags defines which can be used with LL_RNG_ReadReg function

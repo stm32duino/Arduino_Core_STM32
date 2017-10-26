@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_rng.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   RNG LL module driver.
   ******************************************************************************
   * @attention
@@ -80,6 +78,9 @@
   */
 ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RNGx);
+
   /* Check the parameters */
   assert_param(IS_RNG_ALL_INSTANCE(RNGx));
 
