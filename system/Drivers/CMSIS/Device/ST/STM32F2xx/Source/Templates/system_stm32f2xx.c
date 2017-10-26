@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    system_stm32f2xx.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    17-March-2017
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer System Source File.
   *             
   *   This file provides two functions and one global variable to be called from 
