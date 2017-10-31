@@ -269,6 +269,9 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 
   handle->Init.TIMode            = SPI_TIMODE_DISABLE;
+#if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) || defined(STM32L4xx)
+  handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
+#endif
 
   if(obj->pin_mosi != NC) {
     port = set_GPIO_Port_Clock(STM_PORT(obj->pin_mosi));
