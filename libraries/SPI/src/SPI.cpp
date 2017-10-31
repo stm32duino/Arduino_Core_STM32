@@ -20,6 +20,7 @@ SPIClass SPI;
 
 SPIClass::SPIClass() : _CSpin(-1)
 {
+  memset(&_spi, 0x0, sizeof(spi_t));
   _spi.pin_miso = digitalPinToPinName(MISO);
   _spi.pin_mosi = digitalPinToPinName(MOSI);
   _spi.pin_sclk = digitalPinToPinName(SCK);
@@ -31,6 +32,7 @@ ssel pin. Enable this pin disable software CS. See microcontroller documentation
 for the list of available SS pins. */
 SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : _CSpin(-1)
 {
+  memset(&_spi, 0x0, sizeof(spi_t));
   _spi.pin_miso = digitalPinToPinName(miso);
   _spi.pin_mosi = digitalPinToPinName(mosi);
   _spi.pin_sclk = digitalPinToPinName(sclk);
