@@ -118,7 +118,11 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
   if(spi_inst != NP) {
     /* Get source clock depending on SPI instance */
     switch ((uint32_t)spi_inst) {
+#if defined(SPI1_BASE) || defined(SPI4_BASE) || defined(SPI5_BASE) || defined(SPI16_BASE)
+      /* Some STM32's (eg. STM32F302x8) have no SPI1, but do have SPI2/3. */
+#if defined SPI1_BASE
       case (uint32_t)SPI1:
+#endif
 #if defined SPI4_BASE
       case (uint32_t)SPI4:
 #endif
@@ -131,6 +135,8 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
         /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
         spi_freq = HAL_RCC_GetPCLK2Freq();
         break;
+#endif  /* SPI[1456]_BASE */
+
 #if defined(SPI2_BASE) || defined (SPI3_BASE)
 #if defined SPI2_BASE
       case (uint32_t)SPI2:
