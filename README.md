@@ -1,10 +1,10 @@
 # Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.9.22.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.9.22...master)
+### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.9.22.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.9.22...master)
 
 * [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
 * [Boards available](https://github.com/stm32duino/Arduino_Core_STM32#boards-available)<br>
 * [Troubleshooting](https://github.com/stm32duino/Arduino_Core_STM32#troubleshooting)<br>
+* [Wiki](https://github.com/stm32duino/wiki/wiki/)
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ For full instructions on using the "**Boards Manager**", see the [Getting Starte
 For advanced user, you can use the repository: see the [Using git repository](https://github.com/stm32duino/wiki/wiki/Using-git-repository) page.
 
 ## Boards available
-
+### Current release
   * STM32F0
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
@@ -31,7 +31,6 @@ For advanced user, you can use the repository: see the [Using git repository](ht
 
   * STM32F3
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
-    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
 
   * STM32F4
     * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
@@ -52,6 +51,11 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
+
+### Next release
+  * STM32F3
+    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
+
 
 ## Troubleshooting
 
