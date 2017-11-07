@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_sdmmc.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of SDMMC HAL module.
   ******************************************************************************
   * @attention
@@ -733,35 +731,35 @@ typedef struct
  
 /**
   * @brief  Enable the SDIO device.
-  * @param  __INSTANCE__: SDIO Instance  
+  * @param  __INSTANCE__ SDIO Instance  
   * @retval None
   */ 
 #define __SDIO_ENABLE(__INSTANCE__)  (*(__IO uint32_t *)CLKCR_CLKEN_BB = ENABLE)
 
 /**
   * @brief  Disable the SDIO device.
-  * @param  __INSTANCE__: SDIO Instance  
+  * @param  __INSTANCE__ SDIO Instance  
   * @retval None
   */
 #define __SDIO_DISABLE(__INSTANCE__)  (*(__IO uint32_t *)CLKCR_CLKEN_BB = DISABLE)
 
 /**
   * @brief  Enable the SDIO DMA transfer.
-  * @param  __INSTANCE__: SDIO Instance  
+  * @param  __INSTANCE__ SDIO Instance  
   * @retval None
   */ 
 #define __SDIO_DMA_ENABLE(__INSTANCE__)  (*(__IO uint32_t *)DCTRL_DMAEN_BB = ENABLE)
 /**
   * @brief  Disable the SDIO DMA transfer.
-  * @param  __INSTANCE__: SDIO Instance   
+  * @param  __INSTANCE__ SDIO Instance   
   * @retval None
   */
 #define __SDIO_DMA_DISABLE(__INSTANCE__)  (*(__IO uint32_t *)DCTRL_DMAEN_BB = DISABLE)
  
 /**
   * @brief  Enable the SDIO device interrupt.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
-  * @param  __INTERRUPT__ : specifies the SDIO interrupt sources to be enabled.
+  * @param  __INSTANCE__ Pointer to SDIO register base  
+  * @param  __INTERRUPT__ specifies the SDIO interrupt sources to be enabled.
   *         This parameter can be one or a combination of the following values:
   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
@@ -791,8 +789,8 @@ typedef struct
 
 /**
   * @brief  Disable the SDIO device interrupt.
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
-  * @param  __INTERRUPT__ : specifies the SDIO interrupt sources to be disabled.
+  * @param  __INSTANCE__ Pointer to SDIO register base   
+  * @param  __INTERRUPT__ specifies the SDIO interrupt sources to be disabled.
   *          This parameter can be one or a combination of the following values:
   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
@@ -822,8 +820,8 @@ typedef struct
 
 /**
   * @brief  Checks whether the specified SDIO flag is set or not. 
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
-  * @param  __FLAG__: specifies the flag to check. 
+  * @param  __INSTANCE__ Pointer to SDIO register base   
+  * @param  __FLAG__ specifies the flag to check. 
   *          This parameter can be one of the following values:
   *            @arg SDIO_FLAG_CCRCFAIL: Command response received (CRC check failed)
   *            @arg SDIO_FLAG_DCRCFAIL: Data block sent/received (CRC check failed)
@@ -854,8 +852,8 @@ typedef struct
 
 /**
   * @brief  Clears the SDIO pending flags.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
-  * @param  __FLAG__: specifies the flag to clear.  
+  * @param  __INSTANCE__ Pointer to SDIO register base  
+  * @param  __FLAG__ specifies the flag to clear.  
   *          This parameter can be one or a combination of the following values:
   *            @arg SDIO_FLAG_CCRCFAIL: Command response received (CRC check failed)
   *            @arg SDIO_FLAG_DCRCFAIL: Data block sent/received (CRC check failed)
@@ -874,8 +872,8 @@ typedef struct
 
 /**
   * @brief  Checks whether the specified SDIO interrupt has occurred or not.
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
-  * @param  __INTERRUPT__: specifies the SDIO interrupt source to check. 
+  * @param  __INSTANCE__ Pointer to SDIO register base   
+  * @param  __INTERRUPT__ specifies the SDIO interrupt source to check. 
   *          This parameter can be one of the following values:
   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
@@ -905,8 +903,8 @@ typedef struct
 
 /**
   * @brief  Clears the SDIO's interrupt pending bits.
-  * @param  __INSTANCE__ : Pointer to SDIO register base 
-  * @param  __INTERRUPT__: specifies the interrupt pending bit to clear. 
+  * @param  __INSTANCE__ Pointer to SDIO register base 
+  * @param  __INTERRUPT__ specifies the interrupt pending bit to clear. 
   *          This parameter can be one or a combination of the following values:
   *            @arg SDIO_IT_CCRCFAIL: Command response received (CRC check failed) interrupt
   *            @arg SDIO_IT_DCRCFAIL: Data block sent/received (CRC check failed) interrupt
@@ -924,56 +922,56 @@ typedef struct
 
 /**
   * @brief  Enable Start the SD I/O Read Wait operation.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
+  * @param  __INSTANCE__ Pointer to SDIO register base  
   * @retval None
   */  
 #define __SDIO_START_READWAIT_ENABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_RWSTART_BB = ENABLE)
 
 /**
   * @brief  Disable Start the SD I/O Read Wait operations.
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
+  * @param  __INSTANCE__ Pointer to SDIO register base   
   * @retval None
   */  
 #define __SDIO_START_READWAIT_DISABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_RWSTART_BB = DISABLE)
 
 /**
   * @brief  Enable Start the SD I/O Read Wait operation.
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
+  * @param  __INSTANCE__ Pointer to SDIO register base   
   * @retval None
   */  
 #define __SDIO_STOP_READWAIT_ENABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_RWSTOP_BB = ENABLE)
 
 /**
   * @brief  Disable Stop the SD I/O Read Wait operations.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
+  * @param  __INSTANCE__ Pointer to SDIO register base  
   * @retval None
   */  
 #define __SDIO_STOP_READWAIT_DISABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_RWSTOP_BB = DISABLE)
 
 /**
   * @brief  Enable the SD I/O Mode Operation.
-  * @param  __INSTANCE__ : Pointer to SDIO register base   
+  * @param  __INSTANCE__ Pointer to SDIO register base   
   * @retval None
   */  
 #define __SDIO_OPERATION_ENABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_SDIOEN_BB = ENABLE)
 
 /**
   * @brief  Disable the SD I/O Mode Operation.
-  * @param  __INSTANCE__ : Pointer to SDIO register base 
+  * @param  __INSTANCE__ Pointer to SDIO register base 
   * @retval None
   */  
 #define __SDIO_OPERATION_DISABLE(__INSTANCE__)  (*(__IO uint32_t *) DCTRL_SDIOEN_BB = DISABLE)
 
 /**
   * @brief  Enable the SD I/O Suspend command sending.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
+  * @param  __INSTANCE__ Pointer to SDIO register base  
   * @retval None
   */  
 #define __SDIO_SUSPEND_CMD_ENABLE(__INSTANCE__)  (*(__IO uint32_t *) CMD_SDIOSUSPEND_BB = ENABLE)
 
 /**
   * @brief  Disable the SD I/O Suspend command sending.
-  * @param  __INSTANCE__ : Pointer to SDIO register base  
+  * @param  __INSTANCE__ Pointer to SDIO register base  
   * @retval None
   */  
 #define __SDIO_SUSPEND_CMD_DISABLE(__INSTANCE__)  (*(__IO uint32_t *) CMD_SDIOSUSPEND_BB = DISABLE)

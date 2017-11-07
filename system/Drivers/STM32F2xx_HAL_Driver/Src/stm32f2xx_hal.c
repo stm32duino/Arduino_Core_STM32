@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   HAL module driver.
   *          This is the common part of the HAL initialization
   *
@@ -257,7 +255,7 @@ __weak void HAL_MspDeInit(void)
   *       than the peripheral interrupt. Otherwise the caller ISR process will be blocked.
   *       The function is declared as __weak  to be overwritten  in case of other
   *       implementation  in user file.
-  * @param TickPriority: Tick interrupt priority.
+  * @param  TickPriority Tick interrupt priority.
   * @retval HAL status
   */
 __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
@@ -332,7 +330,7 @@ __weak uint32_t HAL_GetTick(void)
   *       is incremented.
   * @note This function is declared as __weak to be overwritten in case of other
   *       implementations in user file.
-  * @param Delay: specifies the delay time length, in milliseconds.
+  * @param  Delay specifies the delay time length, in milliseconds.
   * @retval None
   */
 __weak void HAL_Delay(__IO uint32_t Delay)
@@ -488,7 +486,7 @@ void HAL_DisableCompensationCell(void)
 
 /**
   * @brief Return the unique device identifier (UID based on 96 bits)
-  * @param UID: pointer to 3 words array.
+  * @param  UID pointer to 3 words array.
   * @retval Device identifier
   */
 void HAL_GetUID(uint32_t *UID)

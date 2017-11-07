@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_adc.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   ADC LL module driver
   ******************************************************************************
   * @attention
@@ -280,6 +278,9 @@
   )
 
 #endif /* ADC_MULTIMODE_SUPPORT */
+
+#define UNUSED(x) ((void)(x))
+
 /**
   * @}
   */
@@ -307,9 +308,11 @@
   */
 ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *ADCxy_COMMON)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(ADCxy_COMMON);
+
   /* Check the parameters */
   assert_param(IS_ADC_COMMON_INSTANCE(ADCxy_COMMON));
-  
 
   /* Force reset of ADC clock (core clock) */
   LL_APB2_GRP1_ForceReset(LL_APB2_GRP1_PERIPH_ADC);

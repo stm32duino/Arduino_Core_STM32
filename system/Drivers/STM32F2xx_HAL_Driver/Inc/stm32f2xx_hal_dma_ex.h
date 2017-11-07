@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_dma_ex.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of DMA HAL extension module.
   ******************************************************************************
   * @attention

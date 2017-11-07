@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_smartcard.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   SMARTCARD HAL module driver.
   *          This file provides firmware functions to manage the following 
   *          functionalities of the SMARTCARD peripheral:
@@ -237,7 +235,7 @@ static HAL_StatusTypeDef SMARTCARD_WaitOnFlagUntilTimeout(SMARTCARD_HandleTypeDe
 /**
   * @brief Initializes the SmartCard mode according to the specified
   *         parameters in the SMARTCARD_InitTypeDef and create the associated handle .
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval HAL status
   */
@@ -303,7 +301,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Init(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief DeInitializes the USART SmartCard peripheral 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval HAL status
   */
@@ -338,7 +336,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_DeInit(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief SMARTCARD MSP Init
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -353,7 +351,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_DeInit(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief SMARTCARD MSP DeInit
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -424,11 +422,11 @@ HAL_StatusTypeDef HAL_SMARTCARD_DeInit(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief Send an amount of data in blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be sent
-  * @param Timeout: Timeout duration 
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be sent
+  * @param  Timeout Timeout duration 
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size, uint32_t Timeout)
@@ -487,11 +485,11 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, uint8_t *
 
 /**
   * @brief Receive an amount of data in blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be received
-  * @param Timeout: Timeout duration   
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be received
+  * @param  Timeout Timeout duration   
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size, uint32_t Timeout)
@@ -547,10 +545,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsc, uint8_t *p
 
 /**
   * @brief Send an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be sent
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be sent
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
@@ -595,10 +593,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, uint8_
 
 /**
   * @brief Receive an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be received
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be received
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
@@ -640,10 +638,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t
 
 /**
   * @brief Send an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be sent
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be sent
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
@@ -701,10 +699,10 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8
 
 /**
   * @brief Receive an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
-  * @param pData: pointer to data buffer
-  * @param Size: amount of data to be received
+  * @param  pData pointer to data buffer
+  * @param  Size amount of data to be received
   * @note   When the SMARTCARD parity is enabled (PCE = 1) the data received contain the parity bit.s
   * @retval HAL status
   */
@@ -1169,7 +1167,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_AbortReceive_IT(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief This function handles SMARTCARD interrupt request.
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -1294,7 +1292,7 @@ void HAL_SMARTCARD_IRQHandler(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief Tx Transfer completed callbacks
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -1309,7 +1307,7 @@ void HAL_SMARTCARD_IRQHandler(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief Rx Transfer completed callbacks
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -1324,7 +1322,7 @@ __weak void HAL_SMARTCARD_RxCpltCallback(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief SMARTCARD error callbacks
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */
@@ -1403,7 +1401,7 @@ __weak void HAL_SMARTCARD_AbortReceiveCpltCallback (SMARTCARD_HandleTypeDef *hsc
 
 /**
   * @brief return the SMARTCARD state
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval HAL state
   */
@@ -1433,7 +1431,7 @@ uint32_t HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief DMA SMARTCARD transmit process complete callback 
-  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  * @param  hdma pointer to a DMA_HandleTypeDef structure that contains
   *                the configuration information for the specified DMA module.
   * @retval None
   */
@@ -1453,7 +1451,7 @@ static void SMARTCARD_DMATransmitCplt(DMA_HandleTypeDef *hdma)
 
 /**
   * @brief DMA SMARTCARD receive process complete callback 
-  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  * @param  hdma pointer to a DMA_HandleTypeDef structure that contains
   *                the configuration information for the specified DMA module.
   * @retval None
   */
@@ -1479,7 +1477,7 @@ static void SMARTCARD_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
 
 /**
   * @brief DMA SMARTCARD communication error callback 
-  * @param  hdma: pointer to a DMA_HandleTypeDef structure that contains
+  * @param  hdma pointer to a DMA_HandleTypeDef structure that contains
   *                the configuration information for the specified DMA module.
   * @retval None
   */
@@ -1510,11 +1508,11 @@ static void SMARTCARD_DMAError(DMA_HandleTypeDef *hdma)
 
 /**
   * @brief  This function handles SMARTCARD Communication Timeout.
-  * @param  hsc: SMARTCARD handle
-  * @param  Flag: specifies the SMARTCARD flag to check.
-  * @param  Status: The new Flag status (SET or RESET).
-  * @param  Timeout: Timeout duration
-  * @param  Tickstart: tick start value
+  * @param  hsc SMARTCARD handle
+  * @param  Flag specifies the SMARTCARD flag to check.
+  * @param  Status The new Flag status (SET or RESET).
+  * @param  Timeout Timeout duration
+  * @param  Tickstart tick start value
   * @retval HAL status
   */
 static HAL_StatusTypeDef SMARTCARD_WaitOnFlagUntilTimeout(SMARTCARD_HandleTypeDef *hsc, uint32_t Flag, FlagStatus Status, uint32_t Tickstart, uint32_t Timeout)
@@ -1546,7 +1544,7 @@ static HAL_StatusTypeDef SMARTCARD_WaitOnFlagUntilTimeout(SMARTCARD_HandleTypeDe
 
 /**
   * @brief  End ongoing Tx transfer on SMARTCARD peripheral (following error detection or Transmit completion).
-  * @param  hsc: SMARTCARD handle.
+  * @param  hsc SMARTCARD handle.
   * @retval None
   */
 static void SMARTCARD_EndTxTransfer(SMARTCARD_HandleTypeDef *hsc)
@@ -1561,7 +1559,7 @@ static void SMARTCARD_EndTxTransfer(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief  End ongoing Rx transfer on SMARTCARD peripheral (following error detection or Reception completion).
-  * @param  hsc: SMARTCARD handle.
+  * @param  hsc SMARTCARD handle.
   * @retval None
   */
 static void SMARTCARD_EndRxTransfer(SMARTCARD_HandleTypeDef *hsc)
@@ -1576,7 +1574,7 @@ static void SMARTCARD_EndRxTransfer(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief Send an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval HAL status
   */
@@ -1610,7 +1608,7 @@ static HAL_StatusTypeDef SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc)
 
 /**
   * @brief  Wraps up transmission in non blocking mode.
-  * @param  hsmartcard: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsmartcard pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for the specified SMARTCARD module.
   * @retval HAL status
   */
@@ -1632,7 +1630,7 @@ static HAL_StatusTypeDef SMARTCARD_EndTransmit_IT(SMARTCARD_HandleTypeDef *hsmar
 
 /**
   * @brief Receive an amount of data in non blocking mode 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval HAL status
   */
@@ -1807,7 +1805,7 @@ static void SMARTCARD_DMARxOnlyAbortCallback(DMA_HandleTypeDef *hdma)
 
 /**
   * @brief Configure the SMARTCARD peripheral 
-  * @param  hsc: pointer to a SMARTCARD_HandleTypeDef structure that contains
+  * @param  hsc pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @retval None
   */

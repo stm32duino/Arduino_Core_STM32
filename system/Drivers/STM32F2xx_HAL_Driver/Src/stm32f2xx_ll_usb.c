@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_usb.c
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   USB Low Layer HAL module driver.
   *    
   *          This file provides firmware functions to manage the following 
@@ -93,7 +91,7 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx);
 
 /**
   * @brief  Initializes the USB Core
-  * @param  USBx: USB Instance
+  * @param  USBx USB Instance
   * @param  cfg : pointer to a USB_OTG_CfgTypeDef structure that contains
   *         the configuration information for the specified USBx peripheral.
   * @retval HAL status
@@ -141,7 +139,7 @@ HAL_StatusTypeDef USB_CoreInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 /**
   * @brief  USB_EnableGlobalInt
   *         Enables the controller's Global Int in the AHB Config reg
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_EnableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
@@ -154,7 +152,7 @@ HAL_StatusTypeDef USB_EnableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
 /**
   * @brief  USB_DisableGlobalInt
   *         Disable the controller's Global Int in the AHB Config reg
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
 */
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
@@ -165,8 +163,8 @@ HAL_StatusTypeDef USB_DisableGlobalInt(USB_OTG_GlobalTypeDef *USBx)
    
 /**
   * @brief  USB_SetCurrentMode : Set functional mode
-  * @param  USBx : Selected device
-  * @param  mode :  current core mode
+  * @param  USBx Selected device
+  * @param  mode  current core mode
   *          This parameter can be one of these values:
   *            @arg USB_OTG_DEVICE_MODE: Peripheral mode
   *            @arg USB_OTG_HOST_MODE: Host mode
@@ -193,8 +191,8 @@ HAL_StatusTypeDef USB_SetCurrentMode(USB_OTG_GlobalTypeDef *USBx , USB_OTG_ModeT
 /**
   * @brief  USB_DevInit : Initializes the USB_OTG controller registers 
   *         for device mode
-  * @param  USBx : Selected device
-  * @param  cfg  : pointer to a USB_OTG_CfgTypeDef structure that contains
+  * @param  USBx Selected device
+  * @param  cfg pointer to a USB_OTG_CfgTypeDef structure that contains
   *         the configuration information for the specified USBx peripheral.
   * @retval HAL status
   */
@@ -320,7 +318,7 @@ HAL_StatusTypeDef USB_DevInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef c
 
 /**
   * @brief  USB_OTG_FlushTxFifo : Flush a Tx FIFO
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @param  num : FIFO number
   *         This parameter can be a value from 1 to 15
             15 means Flush all Tx FIFOs
@@ -347,7 +345,7 @@ HAL_StatusTypeDef USB_FlushTxFifo (USB_OTG_GlobalTypeDef *USBx, uint32_t num )
 
 /**
   * @brief  USB_FlushRxFifo : Flush Rx FIFO
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
@@ -371,8 +369,8 @@ HAL_StatusTypeDef USB_FlushRxFifo(USB_OTG_GlobalTypeDef *USBx)
 /**
   * @brief  USB_SetDevSpeed :Initializes the DevSpd field of DCFG register 
   *         depending the PHY type and the enumeration speed of the device.
-  * @param  USBx : Selected device
-  * @param  speed : device speed
+  * @param  USBx Selected device
+  * @param  speed device speed
   *          This parameter can be one of these values:
   *            @arg USB_OTG_SPEED_HIGH: High speed mode
   *            @arg USB_OTG_SPEED_HIGH_IN_FULL: High speed core in Full Speed mode
@@ -388,7 +386,7 @@ HAL_StatusTypeDef USB_SetDevSpeed(USB_OTG_GlobalTypeDef *USBx , uint8_t speed)
 
 /**
   * @brief  USB_GetDevSpeed :Return the  Dev Speed 
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval speed : device speed
   *          This parameter can be one of these values:
   *            @arg USB_OTG_SPEED_HIGH: High speed mode
@@ -418,8 +416,8 @@ uint8_t USB_GetDevSpeed(USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Activate and configure an endpoint
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
@@ -449,8 +447,8 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTy
 }
 /**
   * @brief  Activate and configure a dedicated endpoint
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
@@ -492,8 +490,8 @@ HAL_StatusTypeDef USB_ActivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB
 }
 /**
   * @brief  De-activate and de-initialize an endpoint
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
@@ -516,8 +514,8 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EP
 
 /**
   * @brief  De-activate and de-initialize a dedicated endpoint
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
@@ -539,9 +537,9 @@ HAL_StatusTypeDef USB_DeactivateDedicatedEndpoint(USB_OTG_GlobalTypeDef *USBx, U
 
 /**
   * @brief  USB_EPStartXfer : setup and starts a transfer over an EP
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
-  * @param  dma: USB dma enabled or disabled 
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
@@ -661,9 +659,9 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDe
 
 /**
   * @brief  USB_EP0StartXfer : setup and starts a transfer over the EP  0
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure
-  * @param  dma: USB dma enabled or disabled 
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
@@ -749,11 +747,11 @@ HAL_StatusTypeDef USB_EP0StartXfer(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeD
 /**
   * @brief  USB_WritePacket : Writes a packet into the Tx FIFO associated 
   *         with the EP/channel
-  * @param  USBx : Selected device           
+  * @param  USBx Selected device           
   * @param  src :  pointer to source buffer
-  * @param  ch_ep_num : endpoint or host channel number
+  * @param  ch_ep_num endpoint or host channel number
   * @param  len : Number of bytes to write
-  * @param  dma: USB dma enabled or disabled 
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
@@ -777,11 +775,11 @@ HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uin
 /**
   * @brief  USB_ReadPacket : read a packet from the Tx FIFO associated 
   *         with the EP/channel
-  * @param  USBx : Selected device  
+  * @param  USBx Selected device  
   * @param  src : source pointer
-  * @param  ch_ep_num : endpoint or host channel number
+  * @param  ch_ep_num endpoint or host channel number
   * @param  len : Number of bytes to read
-  * @param  dma: USB dma enabled or disabled 
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
@@ -802,8 +800,8 @@ void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
 
 /**
   * @brief  USB_EPSetStall : set a stall condition over an EP
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure   
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure   
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef *ep)
@@ -830,8 +828,8 @@ HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx , USB_OTG_EPTypeDef
 
 /**
   * @brief  USB_EPClearStall : Clear a stall condition over an EP
-  * @param  USBx : Selected device
-  * @param  ep: pointer to endpoint structure   
+  * @param  USBx Selected device
+  * @param  ep pointer to endpoint structure   
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep)
@@ -857,7 +855,7 @@ HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDe
 
 /**
   * @brief  USB_StopDevice : Stop the usb device mode
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_StopDevice(USB_OTG_GlobalTypeDef *USBx)
@@ -886,8 +884,8 @@ HAL_StatusTypeDef USB_StopDevice(USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_SetDevAddress : Stop the usb device mode
-  * @param  USBx : Selected device
-  * @param  address : new device address to be assigned
+  * @param  USBx Selected device
+  * @param  address new device address to be assigned
   *          This parameter can be a value from 0 to 255
   * @retval HAL status
   */
@@ -901,7 +899,7 @@ HAL_StatusTypeDef  USB_SetDevAddress (USB_OTG_GlobalTypeDef *USBx, uint8_t addre
 
 /**
   * @brief  USB_DevConnect : Connect the USB device by enabling the pull-up/pull-down
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx)
@@ -914,7 +912,7 @@ HAL_StatusTypeDef  USB_DevConnect (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_DevDisconnect : Disconnect the USB device by disabling the pull-up/pull-down
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx)
@@ -927,7 +925,7 @@ HAL_StatusTypeDef  USB_DevDisconnect (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_ReadInterrupts: return the global USB interrupt status
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 uint32_t  USB_ReadInterrupts (USB_OTG_GlobalTypeDef *USBx)
@@ -941,7 +939,7 @@ uint32_t  USB_ReadInterrupts (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_ReadDevAllOutEpInterrupt: return the USB device OUT endpoints interrupt status
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 uint32_t USB_ReadDevAllOutEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
@@ -954,7 +952,7 @@ uint32_t USB_ReadDevAllOutEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_ReadDevAllInEpInterrupt: return the USB device IN endpoints interrupt status
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 uint32_t USB_ReadDevAllInEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
@@ -967,8 +965,8 @@ uint32_t USB_ReadDevAllInEpInterrupt (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Returns Device OUT EP Interrupt register
-  * @param  USBx : Selected device
-  * @param  epnum : endpoint number
+  * @param  USBx Selected device
+  * @param  epnum endpoint number
   *          This parameter can be a value from 0 to 15
   * @retval Device OUT EP Interrupt register
   */
@@ -982,8 +980,8 @@ uint32_t USB_ReadDevOutEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum)
 
 /**
   * @brief  Returns Device IN EP Interrupt register
-  * @param  USBx : Selected device
-  * @param  epnum : endpoint number
+  * @param  USBx Selected device
+  * @param  epnum endpoint number
   *          This parameter can be a value from 0 to 15
   * @retval Device IN EP Interrupt register
   */
@@ -1000,8 +998,8 @@ uint32_t USB_ReadDevInEPInterrupt (USB_OTG_GlobalTypeDef *USBx , uint8_t epnum)
 
 /**
   * @brief  USB_ClearInterrupts: clear a USB interrupt
-  * @param  USBx : Selected device
-  * @param  interrupt : interrupt flag
+  * @param  USBx Selected device
+  * @param  interrupt interrupt flag
   * @retval None
   */
 void  USB_ClearInterrupts (USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
@@ -1011,7 +1009,7 @@ void  USB_ClearInterrupts (USB_OTG_GlobalTypeDef *USBx, uint32_t interrupt)
 
 /**
   * @brief  Returns USB core mode
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval return core mode : Host or Device
   *          This parameter can be one of these values:
   *           0 : Host 
@@ -1025,7 +1023,7 @@ uint32_t USB_GetMode(USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Activate EP0 for Setup transactions
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 HAL_StatusTypeDef  USB_ActivateSetup (USB_OTG_GlobalTypeDef *USBx)
@@ -1045,12 +1043,12 @@ HAL_StatusTypeDef  USB_ActivateSetup (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Prepare the EP0 to start the first control setup
-  * @param  USBx : Selected device
-  * @param  dma: USB dma enabled or disabled 
+  * @param  USBx Selected device
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
-  * @param  psetup : pointer to setup packet
+  * @param  psetup pointer to setup packet
   * @retval HAL status
   */
 HAL_StatusTypeDef USB_EP0_OutStart(USB_OTG_GlobalTypeDef *USBx, uint8_t dma, uint8_t *psetup)
@@ -1073,7 +1071,7 @@ HAL_StatusTypeDef USB_EP0_OutStart(USB_OTG_GlobalTypeDef *USBx, uint8_t dma, uin
 
 /**
   * @brief  Reset the USB Core (needed after USB clock settings change)
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   */
 static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
@@ -1110,8 +1108,8 @@ static HAL_StatusTypeDef USB_CoreReset(USB_OTG_GlobalTypeDef *USBx)
 /**
   * @brief  USB_HostInit : Initializes the USB OTG controller registers 
   *         for Host mode 
-  * @param  USBx : Selected device
-  * @param  cfg  : pointer to a USB_OTG_CfgTypeDef structure that contains
+  * @param  USBx Selected device
+  * @param  cfg pointer to a USB_OTG_CfgTypeDef structure that contains
   *         the configuration information for the specified USBx peripheral.
   * @retval HAL status
   */
@@ -1192,8 +1190,8 @@ HAL_StatusTypeDef USB_HostInit (USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef 
 /**
   * @brief  USB_InitFSLSPClkSel : Initializes the FSLSPClkSel field of the 
   *         HCFG register on the PHY type and set the right frame interval
-  * @param  USBx : Selected device
-  * @param  freq : clock frequency
+  * @param  USBx Selected device
+  * @param  freq clock frequency
   *          This parameter can be one of these values:
   *           HCFG_48_MHZ : Full Speed 48 MHz Clock 
   *           HCFG_6_MHZ : Low Speed 6 MHz Clock 
@@ -1217,7 +1215,7 @@ HAL_StatusTypeDef USB_InitFSLSPClkSel(USB_OTG_GlobalTypeDef *USBx , uint8_t freq
 
 /**
 * @brief  USB_OTG_ResetPort : Reset Host Port
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL status
   * @note   (1)The application must wait at least 10 ms
   *   before clearing the reset bit.
@@ -1239,7 +1237,7 @@ HAL_StatusTypeDef USB_ResetPort(USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  USB_DriveVbus : activate or de-activate vbus
-  * @param  state : VBUS state
+  * @param  state VBUS state
   *          This parameter can be one of these values:
   *           0 : VBUS Active 
   *           1 : VBUS Inactive
@@ -1266,7 +1264,7 @@ HAL_StatusTypeDef USB_DriveVbus (USB_OTG_GlobalTypeDef *USBx, uint8_t state)
 
 /**
   * @brief  Return Host Core speed
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval speed : Host speed
   *          This parameter can be one of these values:
   *            @arg USB_OTG_SPEED_HIGH: High speed mode
@@ -1283,7 +1281,7 @@ uint32_t USB_GetHostSpeed (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Return Host Current Frame number
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval current frame number
 */
 uint32_t USB_GetCurrentFrame (USB_OTG_GlobalTypeDef *USBx)
@@ -1293,19 +1291,19 @@ uint32_t USB_GetCurrentFrame (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Initialize a host channel
-  * @param  USBx : Selected device
-  * @param  ch_num : Channel number
+  * @param  USBx Selected device
+  * @param  ch_num Channel number
   *         This parameter can be a value from 1 to 15
-  * @param  epnum : Endpoint number
+  * @param  epnum Endpoint number
   *          This parameter can be a value from 1 to 15
-  * @param  dev_address : Current device address
+  * @param  dev_address Current device address
   *          This parameter can be a value from 0 to 255
-  * @param  speed : Current device speed
+  * @param  speed Current device speed
   *          This parameter can be one of these values:
   *            @arg USB_OTG_SPEED_HIGH: High speed mode
   *            @arg USB_OTG_SPEED_FULL: Full speed mode
   *            @arg USB_OTG_SPEED_LOW: Low speed mode
-  * @param  ep_type : Endpoint Type
+  * @param  ep_type Endpoint Type
   *          This parameter can be one of these values:
   *            @arg EP_TYPE_CTRL: Control type
   *            @arg EP_TYPE_ISOC: Isochronous type
@@ -1407,9 +1405,9 @@ HAL_StatusTypeDef USB_HC_Init(USB_OTG_GlobalTypeDef *USBx,
 
 /**
   * @brief  Start a transfer over a host channel
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @param  hc : pointer to host channel structure
-  * @param  dma: USB dma enabled or disabled 
+  * @param  dma USB dma enabled or disabled 
   *          This parameter can be one of these values:
   *           0 : DMA feature not used 
   *           1 : DMA feature used  
@@ -1528,7 +1526,7 @@ HAL_StatusTypeDef USB_HC_StartXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_HCTypeDe
 
 /**
   * @brief Read all host channel interrupts status
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL state
   */
 uint32_t USB_HC_ReadInterrupt (USB_OTG_GlobalTypeDef *USBx)
@@ -1538,8 +1536,8 @@ uint32_t USB_HC_ReadInterrupt (USB_OTG_GlobalTypeDef *USBx)
 
 /**
   * @brief  Halt a host channel
-  * @param  USBx : Selected device
-  * @param  hc_num : Host Channel number
+  * @param  USBx Selected device
+  * @param  hc_num Host Channel number
   *         This parameter can be a value from 1 to 15
   * @retval HAL state
   */
@@ -1601,8 +1599,8 @@ HAL_StatusTypeDef USB_HC_Halt(USB_OTG_GlobalTypeDef *USBx , uint8_t hc_num)
 
 /**
   * @brief  Initiate Do Ping protocol
-  * @param  USBx : Selected device
-  * @param  hc_num : Host Channel number
+  * @param  USBx Selected device
+  * @param  hc_num Host Channel number
   *         This parameter can be a value from 1 to 15
   * @retval HAL state
   */
@@ -1625,7 +1623,7 @@ HAL_StatusTypeDef USB_DoPing(USB_OTG_GlobalTypeDef *USBx , uint8_t ch_num)
 
 /**
   * @brief  Stop Host Core
-  * @param  USBx : Selected device
+  * @param  USBx Selected device
   * @retval HAL state
   */
 HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)

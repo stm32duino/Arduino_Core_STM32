@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_ll_dac.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of DAC LL module.
   ******************************************************************************
   * @attention
@@ -63,6 +61,8 @@ extern "C" {
 /** @defgroup DAC_LL_Private_Constants DAC Private Constants
   * @{
   */
+
+#define UNUSED(x) ((void)(x))
 
 /* Internal masks for DAC channels definition */
 /* To select into literal LL_DAC_CHANNEL_x the relevant bits for:             */

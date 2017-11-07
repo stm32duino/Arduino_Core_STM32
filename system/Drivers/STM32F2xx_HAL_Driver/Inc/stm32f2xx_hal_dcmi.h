@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f2xx_hal_dcmi.h
   * @author  MCD Application Team
-  * @version V1.2.1
-  * @date    14-April-2017
   * @brief   Header file of DCMI HAL module.
   ******************************************************************************
   * @attention
@@ -328,21 +326,21 @@ typedef struct
   */
   
 /** @brief Reset DCMI handle state
-  * @param  __HANDLE__: specifies the DCMI handle.
+  * @param  __HANDLE__ specifies the DCMI handle.
   * @retval None
   */
 #define __HAL_DCMI_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_DCMI_STATE_RESET)
 
 /**
   * @brief  Enable the DCMI.
-  * @param  __HANDLE__: DCMI handle
+  * @param  __HANDLE__ DCMI handle
   * @retval None
   */
 #define __HAL_DCMI_ENABLE(__HANDLE__)    ((__HANDLE__)->Instance->CR |= DCMI_CR_ENABLE)
 
 /**
   * @brief  Disable the DCMI.
-  * @param  __HANDLE__: DCMI handle
+  * @param  __HANDLE__ DCMI handle
   * @retval None
   */
 #define __HAL_DCMI_DISABLE(__HANDLE__)   ((__HANDLE__)->Instance->CR &= ~(DCMI_CR_ENABLE))
@@ -350,8 +348,8 @@ typedef struct
 /* Interrupt & Flag management */
 /**
   * @brief  Get the DCMI pending flag.
-  * @param  __HANDLE__: DCMI handle
-  * @param  __FLAG__: Get the specified flag.
+  * @param  __HANDLE__ DCMI handle
+  * @param  __FLAG__ Get the specified flag.
   *         This parameter can be one of the following values (no combination allowed)
   *            @arg DCMI_FLAG_HSYNC: HSYNC pin state (active line / synchronization between lines)
   *            @arg DCMI_FLAG_VSYNC: VSYNC pin state (active frame / synchronization between frames)
@@ -374,8 +372,8 @@ typedef struct
 
 /**
   * @brief  Clear the DCMI pending flags.
-  * @param  __HANDLE__: DCMI handle
-  * @param  __FLAG__: specifies the flag to clear.
+  * @param  __HANDLE__ DCMI handle
+  * @param  __FLAG__ specifies the flag to clear.
   *         This parameter can be any combination of the following values:
   *            @arg DCMI_FLAG_FRAMERI: Frame capture complete flag mask
   *            @arg DCMI_FLAG_OVRRI: Overrun flag mask
@@ -388,8 +386,8 @@ typedef struct
 
 /**
   * @brief  Enable the specified DCMI interrupts.
-  * @param  __HANDLE__:    DCMI handle
-  * @param  __INTERRUPT__: specifies the DCMI interrupt sources to be enabled.
+  * @param  __HANDLE__    DCMI handle
+  * @param  __INTERRUPT__ specifies the DCMI interrupt sources to be enabled.
   *         This parameter can be any combination of the following values:
   *            @arg DCMI_IT_FRAME: Frame capture complete interrupt mask
   *            @arg DCMI_IT_OVR: Overrun interrupt mask
@@ -402,8 +400,8 @@ typedef struct
 
 /**
   * @brief  Disable the specified DCMI interrupts.
-  * @param  __HANDLE__: DCMI handle
-  * @param  __INTERRUPT__: specifies the DCMI interrupt sources to be enabled.
+  * @param  __HANDLE__ DCMI handle
+  * @param  __INTERRUPT__ specifies the DCMI interrupt sources to be enabled.
   *         This parameter can be any combination of the following values:
   *            @arg DCMI_IT_FRAME: Frame capture complete interrupt mask
   *            @arg DCMI_IT_OVR: Overrun interrupt mask
@@ -416,8 +414,8 @@ typedef struct
 
 /**
   * @brief  Check whether the specified DCMI interrupt has occurred or not.
-  * @param  __HANDLE__: DCMI handle
-  * @param  __INTERRUPT__: specifies the DCMI interrupt source to check.
+  * @param  __HANDLE__ DCMI handle
+  * @param  __INTERRUPT__ specifies the DCMI interrupt source to check.
   *         This parameter can be one of the following values:
   *            @arg DCMI_IT_FRAME: Frame capture complete interrupt mask
   *            @arg DCMI_IT_OVR: Overrun interrupt mask

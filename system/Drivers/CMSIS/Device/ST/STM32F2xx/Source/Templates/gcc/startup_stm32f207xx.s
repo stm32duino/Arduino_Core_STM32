@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file      startup_stm32f207xx.s
   * @author    MCD Application Team
-  * @version   V2.2.0
-  * @date      17-March-2017
   * @brief     STM32F207xx Devices vector table for Atollic TrueSTUDIO toolchain. 
   *            This module performs:
   *                - Set the initial SP

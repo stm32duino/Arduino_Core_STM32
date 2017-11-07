@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    system_stm32f2xx.h
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    17-March-2017
   * @brief   CMSIS Cortex-M3 Device System Source File for STM32F2xx devices.       
 ******************************************************************************
   * @attention
