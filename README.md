@@ -55,6 +55,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * BluePill F103C8 (on going)
     * MapleMini F103CB (on going)
   * STM32F3
+    * [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html)
     * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
 
 
