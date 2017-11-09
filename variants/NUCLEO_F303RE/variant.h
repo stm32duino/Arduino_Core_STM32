@@ -93,19 +93,21 @@ enum {
   PC1,  //D50/A4
   PC0,  //D51/A5
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA7_2,//D52/A6  = D11
-  PA6_2,//D53/A7  = D12
-  PC2_2,//D54/A8  = D28
-  PC3_2,//D55/A9  = D29
-  PC5_2,//D56/A10 = D35
-  PC4_2,//D57/A11 = D45
+  PA7_2, //D52/A6  = D11
+  PA6_2, //D53/A7  = D12
+  PC2_2, //D54/A8  = D28
+  PC3_2, //D55/A9  = D29
+  PC5_2, //D56/A10 = D35
+  PB11_2,//D57/A11 = D39
+  PB2_2, //D58/A12 = D40
+  PC4_2, //D59/A13 = D45
   PEND
 };
 
 enum {
   A_START_AFTER = D45,
   A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
-  A10, A11,
+  A10, A11, A12, A13,
   AEND
 };
 
