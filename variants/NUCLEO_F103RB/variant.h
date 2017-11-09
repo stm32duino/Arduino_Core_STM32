@@ -100,13 +100,14 @@ enum {
   PC3_2,//D56/A10 = D29
   PB1_2,//D57/A11 = D41
   PC4_2,//D58/A12 = D45
+  PC5_2,//D59/A13 = D35
   PEND
 };
 
 enum {
   A_START_AFTER = D45,
   A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
-  A10, A11, A12,
+  A10, A11, A12, A13,
   AEND
 };
 

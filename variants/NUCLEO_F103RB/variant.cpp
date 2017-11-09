@@ -88,7 +88,8 @@ const PinName digitalPin[] = {
   PC_2,  //D55/A9 = D28
   PC_3,  //D56/A10 = D29
   PB_1,  //D57/A11 = D41
-  PC_4   //D58/A12 = D45
+  PC_4,  //D58/A12 = D45
+  PC_5   //D59/A13 = D35
 };
 
 #ifdef __cplusplus
