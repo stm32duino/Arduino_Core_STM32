@@ -37,20 +37,22 @@ void initVariant() { }
  */
 int main( void )
 {
-	initVariant();
+  initVariant();
 
 #if defined(USBCON)
-	usbd_interface_init();
+  usbd_interface_init();
 #endif
 
-	setup();
+  setup();
 
-	for (;;)
-	{
-		CoreCallback();
-		loop();
-		if (serialEventRun) serialEventRun();
-	}
+  for (;;)
+  {
+#if defined(CORE_CALLBACK)
+    CoreCallback();
+#endif
+    loop();
+    if (serialEventRun) serialEventRun();
+  }
 
-	return 0;
+  return 0;
 }
