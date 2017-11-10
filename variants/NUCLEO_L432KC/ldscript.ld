@@ -58,7 +58,7 @@ SECTIONS
   } >FLASH
 
   /* The program code and other data goes into FLASH */
-  .text :
+  .text ALIGN(8):
   {
     . = ALIGN(8);
     *(.text)           /* .text sections (code) */
