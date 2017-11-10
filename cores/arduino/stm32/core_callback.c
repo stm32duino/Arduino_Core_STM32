@@ -43,7 +43,7 @@
  * list. Otherwise, your function should be called inside the loop() function of
  * the sketch.
  */
-
+#if defined(CORE_CALLBACK)
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -107,5 +107,5 @@ void CoreCallback(void)
 #ifdef __cplusplus
 }
 #endif
-
+#endif // CORE_CALLBACK
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

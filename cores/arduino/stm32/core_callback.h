@@ -38,7 +38,7 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __CALLBACK_H
 #define __CALLBACK_H
-
+#if defined(CORE_CALLBACK)
 #include "variant.h"
 
 #ifdef __cplusplus
@@ -61,7 +61,7 @@ void CoreCallback(void);
 #ifdef __cplusplus
 }
 #endif
-
+#endif // CORE_CALLBACK
 #endif /* __CALLBACK_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
