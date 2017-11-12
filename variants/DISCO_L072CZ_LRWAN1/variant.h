@@ -64,11 +64,11 @@ enum {
   PA12, //D24
   PA11, //D25
   PA0,  //D26/A0
-  NC_2, //D27/A1
+  PA0_2,//D27/A1 - alias for A0 - requires closing solder bridge SB7
   PA4,  //D28/A2
-  NC_3, //D29/A3
-  NC_4, //D30/A4
-  NC_5, //D31/A5
+  PA4_2,//D29/A3 - alias for A2 - requires closing solder bridge SB8
+  PB9_2,//D30/A4 - requires closing solder bridge SB11
+  PB8_2,//D31/A5 - requires closing solder bridge SB12
   PA5,  //D32/A6
   PEND
 };

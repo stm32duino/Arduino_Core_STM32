@@ -54,11 +54,11 @@ const PinName digitalPin[] = {
   PA_12, //D24
   PA_11, //D25
   PA_0,  //D26/A0
-  NC,    //D27/A1
+  PA_0,  //D27/A1 - alias for A0 - requires closing solder bridge SB7
   PA_4,  //D28/A2
-  NC,    //D29/A3
-  NC,    //D30/A4
-  NC,    //D31/A5
+  PA_4,  //D29/A3 - alias for A2 - requires closing solder bridge SB8
+  PB_9,  //D30/A4 - requires closing solder bridge SB11
+  PB_8,  //D31/A5 - requires closing solder bridge SB12
   PA_5,  //D32/A6
 };
 
