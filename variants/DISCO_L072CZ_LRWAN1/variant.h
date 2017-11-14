@@ -91,10 +91,14 @@ enum {
 
 //On-board LED pin number
 #define LED_BUILTIN             13
-#define LED_RED                 LED_BUILTIN
+#define LED_LD2                 LED_BUILTIN
+#define LED_GREEN2              LED_BUILTIN
 #define LED_GREEN               4
+#define LED_LD1                 LED_GREEN
 #define LED_BLUE                10
-#define LED_RED2                5
+#define LED_LD3                 LED_BLUE
+#define LED_RED                 5
+#define LED_LD4                 LED_RED
 
 //On-board user button
 #define USER_BTN                6
