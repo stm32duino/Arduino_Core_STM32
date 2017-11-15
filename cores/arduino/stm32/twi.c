@@ -348,7 +348,7 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
   * @retval read status
   */
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
-                        uint8_t *data, uint8_t size)
+                        uint8_t *data, uint16_t size)
 
 {
   i2c_status_e ret = I2C_ERROR;
@@ -375,17 +375,24 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
   * @param  obj : pointer to i2c_t structure
   * @param  data: pointer to data to be write
   * @param  size: number of bytes to be write.
-  * @retval none
+  * @retval status
   */
-void i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint8_t size)
+i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
 {
   uint8_t i = 0;
+
+  // Protection to not override the TxBuffer
+  if(size > I2C_TXRX_BUFFER_SIZE) {
+    return I2C_ERROR;
+  }
 
   // Check the communication status
   for(i = 0; i < size; i++) {
     obj->i2cTxRxBuffer[i] = *(data+i);
     obj->i2cTxRxBufferSize++;
   }
+
+  return I2C_OK;
 }
 
 /**
@@ -396,7 +403,7 @@ void i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint8_t size)
   * @param  size: number of bytes to be read.
   * @retval read status
   */
-i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint8_t size)
+i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size)
 {
   i2c_status_e ret = I2C_ERROR;
   uint32_t tickstart = HAL_GetTick();
