@@ -29,11 +29,13 @@ extern "C" {
 
 // Initialize Class Variables //////////////////////////////////////////////////
 uint8_t *TwoWire::rxBuffer = nullptr;
+uint8_t TwoWire::rxBufferAllocated = 0;
 uint8_t TwoWire::rxBufferIndex = 0;
 uint8_t TwoWire::rxBufferLength = 0;
 
 uint8_t TwoWire::txAddress = 0;
 uint8_t *TwoWire::txBuffer = nullptr;
+uint8_t TwoWire::txBufferAllocated = 0;
 uint8_t TwoWire::txBufferIndex = 0;
 uint8_t TwoWire::txBufferLength = 0;
 
@@ -66,11 +68,11 @@ void TwoWire::begin(uint8_t address)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
-  rxBuffer = resetBuffer(rxBuffer);
+  resetRxBuffer();
 
   txBufferIndex = 0;
   txBufferLength = 0;
-  txBuffer = resetBuffer(txBuffer);
+  resetTxBuffer();
 
   transmitting = 0;
 
@@ -101,8 +103,10 @@ void TwoWire::end(void)
 {
   free(txBuffer);
   txBuffer = nullptr;
+  txBufferAllocated = 0;
   free(rxBuffer);
   rxBuffer = nullptr;
+  rxBufferAllocated = 0;
   i2c_deinit(&_i2c);
 }
 
@@ -115,7 +119,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 {
   UNUSED(sendStop);
   if (master == true) {
-    rxBuffer = allocateBuffer(rxBuffer, quantity);
+    allocateRxBuffer(quantity);
     // error if no memory block available to allocate the buffer
     if(rxBuffer == nullptr){
       setWriteError();
@@ -224,10 +228,8 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
     break;
     }
 
-    //Reduce buffer size to free memory in case of large memory use
-    if(txBufferLength > BUFFER_LENGTH) {
-      txBuffer = resetBuffer(txBuffer);
-    }
+    // reset Tx buffer
+    resetTxBuffer();
 
     // reset tx buffer iterator vars
     txBufferIndex = 0;
@@ -255,7 +257,7 @@ size_t TwoWire::write(uint8_t data)
 {
   if(transmitting){
   // in master transmitter mode
-    txBuffer = allocateBuffer(txBuffer, txBufferLength + 1);
+    allocateTxBuffer(txBufferLength + 1);
     // error if no memory block available to allocate the buffer
     if(txBuffer == nullptr){
       setWriteError();
@@ -285,14 +287,20 @@ size_t TwoWire::write(uint8_t data)
   */
 size_t TwoWire::write(const uint8_t *data, size_t quantity)
 {
-  size_t nb = 0;
-
   if(transmitting){
   // in master transmitter mode
-    for(size_t i = 0; i < quantity; ++i){
-      nb += write(data[i]);
+    allocateTxBuffer(txBufferLength + quantity);
+    // error if no memory block available to allocate the buffer
+    if(txBuffer == nullptr){
+      setWriteError();
+      return 0;
     }
-    return nb;
+    // put bytes in tx buffer
+	memcpy(&(txBuffer[txBufferIndex]), data, quantity);
+    txBufferIndex= txBufferIndex + quantity;
+    // update amount in buffer
+    txBufferLength = txBufferIndex;
+    return quantity;
   }else{
   // in slave send mode
     // reply to master
@@ -323,11 +331,12 @@ int TwoWire::read(void)
     value = rxBuffer[rxBufferIndex];
     ++rxBufferIndex;
 
-    /*  Reduce buffer size to free memory in case of large memory use when no more
-        data available */
-    if((rxBufferIndex == rxBufferLength) && (rxBufferLength > BUFFER_LENGTH)) {
-      rxBuffer = resetBuffer(rxBuffer);
-    }
+    /* Commented as not I think it is not useful
+     * but kept to show that it is possible to
+     * reset rx buffer when no more data available */
+    /*if(rxBufferIndex == rxBufferLength) {
+      resetRxBuffer();
+    }*/
   }
 
   return value;
@@ -351,10 +360,10 @@ void TwoWire::flush(void)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
-  rxBuffer = resetBuffer(rxBuffer);
+  resetRxBuffer();
   txBufferIndex = 0;
   txBufferLength = 0;
-  txBuffer = resetBuffer(txBuffer);
+  resetTxBuffer();
 }
 
 // behind the scenes function that is called when data is received
@@ -373,9 +382,7 @@ void TwoWire::onReceiveService(uint8_t* inBytes, int numBytes)
   }
   // copy twi rx buffer into local read buffer
   // this enables new reads to happen in parallel
-  for(uint8_t i = 0; i < numBytes; ++i){
-    rxBuffer[i] = inBytes[i];
-  }
+  memcpy(rxBuffer, inBytes, numBytes);
   // set rx iterator vars
   rxBufferIndex = 0;
   rxBufferLength = numBytes;
@@ -412,34 +419,41 @@ void TwoWire::onRequest( void (*function)(void) )
 }
 
 /**
-  * @brief  Change the size of the buffer.
-  * @param  buffer: pointer to the allocated buffer
+  * @brief  Allocate the Rx/Tx buffer to the requested length if needed
+  * @note   Minimum allocated size is BUFFER_LENGTH)
   * @param  length: number of bytes to allocate
-  * @retval pointer to the new buffer location
   */
-uint8_t *TwoWire::allocateBuffer(uint8_t *buffer, size_t length)
+inline void TwoWire::allocateRxBuffer(size_t length)
 {
+  if(rxBufferAllocated < length) {
   // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
-  if(length < BUFFER_LENGTH) {
-    length = BUFFER_LENGTH;
+    if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
+    rxBuffer = (uint8_t *)realloc(rxBuffer, length * sizeof(uint8_t));
+	rxBufferAllocated = (rxBuffer != nullptr) ? length: 0;
   }
+}
 
-  buffer = (uint8_t *)realloc(buffer, length * sizeof(uint8_t));
-  return buffer;
+inline void TwoWire::allocateTxBuffer(size_t length)
+{
+  if(txBufferAllocated < length) {
+    // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
+    if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
+    txBuffer = (uint8_t *)realloc(txBuffer, length * sizeof(uint8_t));
+    txBufferAllocated = (txBuffer != nullptr) ? length: 0;
+  }
 }
 
 /**
-  * @brief  Reset the buffer. Reduce its size to BUFFER_LENGTH.
-  * @param  buffer: pointer to the allocated buffer
-  * @retval pointer to the new buffer location
+  * @brief  Reset Rx/Tx buffer content to 0
   */
-uint8_t *TwoWire::resetBuffer(uint8_t *buffer)
+inline void TwoWire::resetRxBuffer(void)
 {
-  buffer = (uint8_t *)realloc(buffer, BUFFER_LENGTH * sizeof(uint8_t));
-  if(buffer != nullptr) {
-    memset(buffer, 0, BUFFER_LENGTH);
-  }
-  return buffer;
+  if (rxBuffer != nullptr) memset(rxBuffer, 0, rxBufferAllocated);
+}
+
+inline void TwoWire::resetTxBuffer(void)
+{
+  if (txBuffer != nullptr) memset(txBuffer, 0, txBufferAllocated);
 }
 
 // Preinstantiate Objects //////////////////////////////////////////////////////

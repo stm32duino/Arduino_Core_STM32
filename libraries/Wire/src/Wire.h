@@ -37,11 +37,13 @@ class TwoWire : public Stream
 {
   private:
     static uint8_t *rxBuffer;
+    static uint8_t rxBufferAllocated;
     static uint8_t rxBufferIndex;
     static uint8_t rxBufferLength;
 
     static uint8_t txAddress;
     static uint8_t *txBuffer;
+    static uint8_t txBufferAllocated;
     static uint8_t txBufferIndex;
     static uint8_t txBufferLength;
 
@@ -56,8 +58,11 @@ class TwoWire : public Stream
     static void onRequestService(void);
     static void onReceiveService(uint8_t*, int);
 
-    uint8_t *allocateBuffer(uint8_t *buffer, size_t length);
-    uint8_t *resetBuffer(uint8_t *buffer);
+    void allocateRxBuffer(size_t length);
+    void allocateTxBuffer(size_t length);
+
+    void resetRxBuffer(void);
+    void resetTxBuffer(void);
 
   public:
     TwoWire();
@@ -73,7 +78,7 @@ class TwoWire : public Stream
     uint8_t endTransmission(uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t);
     uint8_t requestFrom(uint8_t, uint8_t, uint8_t);
-	  uint8_t requestFrom(uint8_t, uint8_t, uint32_t, uint8_t, uint8_t);
+    uint8_t requestFrom(uint8_t, uint8_t, uint32_t, uint8_t, uint8_t);
     uint8_t requestFrom(int, int);
     uint8_t requestFrom(int, int, int);
     virtual size_t write(uint8_t);
@@ -91,6 +96,8 @@ class TwoWire : public Stream
     inline size_t write(int n) { return write((uint8_t)n); }
     using Print::write;
 };
+
+
 
 extern TwoWire Wire;
 
