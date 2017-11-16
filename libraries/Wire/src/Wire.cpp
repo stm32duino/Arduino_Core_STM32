@@ -28,12 +28,14 @@ extern "C" {
 #include "Wire.h"
 
 // Initialize Class Variables //////////////////////////////////////////////////
-uint8_t TwoWire::rxBuffer[BUFFER_LENGTH];
+uint8_t *TwoWire::rxBuffer = nullptr;
+uint8_t TwoWire::rxBufferAllocated = 0;
 uint8_t TwoWire::rxBufferIndex = 0;
 uint8_t TwoWire::rxBufferLength = 0;
 
 uint8_t TwoWire::txAddress = 0;
-uint8_t TwoWire::txBuffer[BUFFER_LENGTH];
+uint8_t *TwoWire::txBuffer = nullptr;
+uint8_t TwoWire::txBufferAllocated = 0;
 uint8_t TwoWire::txBufferIndex = 0;
 uint8_t TwoWire::txBufferLength = 0;
 
@@ -66,9 +68,11 @@ void TwoWire::begin(uint8_t address)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
+  resetRxBuffer();
 
   txBufferIndex = 0;
   txBufferLength = 0;
+  resetTxBuffer();
 
   transmitting = 0;
 
@@ -97,6 +101,12 @@ void TwoWire::begin(int address)
 
 void TwoWire::end(void)
 {
+  free(txBuffer);
+  txBuffer = nullptr;
+  txBufferAllocated = 0;
+  free(rxBuffer);
+  rxBuffer = nullptr;
+  rxBufferAllocated = 0;
   i2c_deinit(&_i2c);
 }
 
@@ -109,6 +119,13 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 {
   UNUSED(sendStop);
   if (master == true) {
+    allocateRxBuffer(quantity);
+    // error if no memory block available to allocate the buffer
+    if(rxBuffer == nullptr){
+      setWriteError();
+      return 0;
+    }
+
     if (isize > 0) {
       // send internal address; this mode allows sending a repeated start to access
       // some devices' internal registers. This function is executed by the hardware
@@ -128,12 +145,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
       endTransmission(false);
     }
 
-    // clamp to buffer length
-    if(quantity > BUFFER_LENGTH){
-      quantity = BUFFER_LENGTH;
-    }
     // perform blocking read into buffer
-    //uint8_t read = twi_readFrom(address, rxBuffer, quantity, sendStop);
     uint8_t read = 0;
     if(I2C_OK == i2c_master_read(&_i2c, address << 1, rxBuffer, quantity))
       read = quantity;
@@ -216,9 +228,13 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
     break;
     }
 
+    // reset Tx buffer
+    resetTxBuffer();
+
     // reset tx buffer iterator vars
     txBufferIndex = 0;
     txBufferLength = 0;
+
     // indicate that we are done transmitting
     transmitting = 0;
   }
@@ -241,8 +257,9 @@ size_t TwoWire::write(uint8_t data)
 {
   if(transmitting){
   // in master transmitter mode
-    // don't bother if buffer is full
-    if(txBufferLength >= BUFFER_LENGTH){
+    allocateTxBuffer(txBufferLength + 1);
+    // error if no memory block available to allocate the buffer
+    if(txBuffer == nullptr){
       setWriteError();
       return 0;
     }
@@ -254,27 +271,44 @@ size_t TwoWire::write(uint8_t data)
   }else{
   // in slave send mode
     // reply to master
-    i2c_slave_write_IT(&_i2c,&data,1);
+    if(i2c_slave_write_IT(&_i2c,&data,1) != I2C_OK) {
+      return 0;
+    }
   }
   return 1;
 }
 
-// must be called in:
-// slave tx event callback
-// or after beginTransmission(address)
+/**
+  * @brief  This function must be called in slave Tx event callback or after
+  *         beginTransmission() and before endTransmission().
+  * @param  pdata: pointer to the buffer data
+  * @param  quantity: number of bytes to write
+  * @retval number of bytes ready to write.
+  */
 size_t TwoWire::write(const uint8_t *data, size_t quantity)
 {
   if(transmitting){
   // in master transmitter mode
-    for(size_t i = 0; i < quantity; ++i){
-      write(data[i]);
+    allocateTxBuffer(txBufferLength + quantity);
+    // error if no memory block available to allocate the buffer
+    if(txBuffer == nullptr){
+      setWriteError();
+      return 0;
     }
+    // put bytes in tx buffer
+	memcpy(&(txBuffer[txBufferIndex]), data, quantity);
+    txBufferIndex= txBufferIndex + quantity;
+    // update amount in buffer
+    txBufferLength = txBufferIndex;
+    return quantity;
   }else{
   // in slave send mode
     // reply to master
-    i2c_slave_write_IT(&_i2c,(uint8_t *)data,quantity);
+    if(i2c_slave_write_IT(&_i2c, (uint8_t *)data, quantity) == I2C_OK) {
+      return quantity;
+    }
   }
-  return quantity;
+  return 0;
 }
 
 // must be called in:
@@ -296,6 +330,13 @@ int TwoWire::read(void)
   if(rxBufferIndex < rxBufferLength){
     value = rxBuffer[rxBufferIndex];
     ++rxBufferIndex;
+
+    /* Commented as not I think it is not useful
+     * but kept to show that it is possible to
+     * reset rx buffer when no more data available */
+    /*if(rxBufferIndex == rxBufferLength) {
+      resetRxBuffer();
+    }*/
   }
 
   return value;
@@ -319,8 +360,10 @@ void TwoWire::flush(void)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
+  resetRxBuffer();
   txBufferIndex = 0;
   txBufferLength = 0;
+  resetTxBuffer();
 }
 
 // behind the scenes function that is called when data is received
@@ -339,9 +382,7 @@ void TwoWire::onReceiveService(uint8_t* inBytes, int numBytes)
   }
   // copy twi rx buffer into local read buffer
   // this enables new reads to happen in parallel
-  for(uint8_t i = 0; i < numBytes; ++i){
-    rxBuffer[i] = inBytes[i];
-  }
+  memcpy(rxBuffer, inBytes, numBytes);
   // set rx iterator vars
   rxBufferIndex = 0;
   rxBufferLength = numBytes;
@@ -375,6 +416,44 @@ void TwoWire::onReceive( void (*function)(int) )
 void TwoWire::onRequest( void (*function)(void) )
 {
   user_onRequest = function;
+}
+
+/**
+  * @brief  Allocate the Rx/Tx buffer to the requested length if needed
+  * @note   Minimum allocated size is BUFFER_LENGTH)
+  * @param  length: number of bytes to allocate
+  */
+inline void TwoWire::allocateRxBuffer(size_t length)
+{
+  if(rxBufferAllocated < length) {
+  // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
+    if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
+    rxBuffer = (uint8_t *)realloc(rxBuffer, length * sizeof(uint8_t));
+	rxBufferAllocated = (rxBuffer != nullptr) ? length: 0;
+  }
+}
+
+inline void TwoWire::allocateTxBuffer(size_t length)
+{
+  if(txBufferAllocated < length) {
+    // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
+    if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
+    txBuffer = (uint8_t *)realloc(txBuffer, length * sizeof(uint8_t));
+    txBufferAllocated = (txBuffer != nullptr) ? length: 0;
+  }
+}
+
+/**
+  * @brief  Reset Rx/Tx buffer content to 0
+  */
+inline void TwoWire::resetRxBuffer(void)
+{
+  if (rxBuffer != nullptr) memset(rxBuffer, 0, rxBufferAllocated);
+}
+
+inline void TwoWire::resetTxBuffer(void)
+{
+  if (txBuffer != nullptr) memset(txBuffer, 0, txBufferAllocated);
 }
 
 // Preinstantiate Objects //////////////////////////////////////////////////////
