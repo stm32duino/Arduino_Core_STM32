@@ -353,19 +353,25 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
 {
   i2c_status_e ret = I2C_ERROR;
   uint32_t tickstart = HAL_GetTick();
+  uint32_t delta = 0;
 
-  if(HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK){
-    ret = I2C_OK;
-    // wait for transfer completion
-    while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
-           && (ret == I2C_OK)){
-      if((HAL_GetTick() - tickstart) > I2C_TIMEOUT_TICK) {
-        ret = I2C_TIMEOUT;
-      } else if(HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
-        ret = I2C_ERROR;
+  do{
+    if(HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK){
+      ret = I2C_OK;
+      // wait for transfer completion
+      while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
+             && (ret == I2C_OK)){
+        delta = (HAL_GetTick() - tickstart);
+        if(delta > I2C_TIMEOUT_TICK) {
+          ret = I2C_TIMEOUT;
+        } else if(HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
+          ret = I2C_ERROR;
+        }
       }
     }
-  }
+    /* When Acknowledge failure occurs (Slave don't acknowledge it's address)
+       Master restarts communication */
+  }while(HAL_I2C_GetError(&(obj->handle)) == HAL_I2C_ERROR_AF && delta < I2C_TIMEOUT_TICK);
 
   return ret;
 }
@@ -407,19 +413,25 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
 {
   i2c_status_e ret = I2C_ERROR;
   uint32_t tickstart = HAL_GetTick();
+  uint32_t delta = 0;
 
-  if(HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
-    ret = I2C_OK;
-    // wait for transfer completion
-    while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
-           && (ret == I2C_OK)){
-      if((HAL_GetTick() - tickstart) > I2C_TIMEOUT_TICK) {
-        ret = I2C_TIMEOUT;
-      } else if(HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
-        ret = I2C_ERROR;
+  do{
+    if(HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+      ret = I2C_OK;
+      // wait for transfer completion
+      while((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
+             && (ret == I2C_OK)){
+        delta = (HAL_GetTick() - tickstart);
+        if( delta > I2C_TIMEOUT_TICK) {
+          ret = I2C_TIMEOUT;
+        } else if(HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
+          ret = I2C_ERROR;
+        }
       }
     }
-  }
+    /* When Acknowledge failure occurs (Slave don't acknowledge it's address)
+       Master restarts communication */
+  }while(HAL_I2C_GetError(&(obj->handle)) == HAL_I2C_ERROR_AF && delta < I2C_TIMEOUT_TICK);
 
   return ret;
 }
