@@ -1,0 +1,162 @@
+/*
+  Copyright (c) 2011 Arduino.  All right reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  This library is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+  See the GNU Lesser General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public
+  License along with this library; if not, write to the Free Software
+  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
+#ifndef _VARIANT_ARDUINO_STM32_
+#define _VARIANT_ARDUINO_STM32_
+
+/*----------------------------------------------------------------------------
+ *        Headers
+ *----------------------------------------------------------------------------*/
+
+#include "pins_arduino.h"
+
+#ifdef __cplusplus
+extern "C"{
+#endif // __cplusplus
+
+/*----------------------------------------------------------------------------
+ *        Pins
+ *----------------------------------------------------------------------------*/
+extern const PinName digitalPin[];
+
+enum {
+  PA3,  //D0
+  PA2,  //D1
+  PA10, //D2
+  PB13, //D3
+  PB5,  //D4
+  PB7,  //D5
+  PB2,  //D6
+  PA8,  //D7
+  PA9,  //D8
+  PB12, //D9
+  PB6,  //D10
+  PB15, //D11
+  PB14, //D12
+  PA5,  //D13
+  PB9,  //D14
+  PB8,  //D15
+// Connector CN2
+  NC_1, //D16 - BOOT0
+  PA13, //D17 - SWD
+  PA14, //D18 - SWD
+  PH1,  //D19
+  PH0,  //D20
+// Connector CN3
+  PA1,  //D21
+  PC2,  //D22
+  PC1,  //D23
+  PA12, //D24
+  PA11, //D25
+  PA0,  //D26/A0
+  PA0_2,//D27/A1 - alias for A0 - requires closing solder bridge SB7
+  PA4,  //D28/A2
+  PA4_2,//D29/A3 - alias for A2 - requires closing solder bridge SB8
+  PB9_2,//D30/A4 - requires closing solder bridge SB11
+  PB8_2,//D31/A5 - requires closing solder bridge SB12
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA5_2,//D32/A6  = D26
+  PEND
+};
+
+enum {
+  A_START_AFTER = D25,
+  A0,  A1,  A2,  A3,  A4,  A5,  A6,
+  AEND
+};
+
+//ADC resolution is 12bits
+#define ADC_RESOLUTION          12
+#define DACC_RESOLUTION         12
+
+//PWR resolution
+#define PWM_RESOLUTION          8
+#define PWM_FREQUENCY           1000
+#define PWM_MAX_DUTY_CYCLE      255
+
+//On-board LED pin number
+#define LED_BUILTIN             13
+#define LED_LD2                 LED_BUILTIN
+#define LED_GREEN2              LED_BUILTIN
+#define LED_GREEN               4
+#define LED_LD1                 LED_GREEN
+#define LED_BLUE                10
+#define LED_LD3                 LED_BLUE
+#define LED_RED                 5
+#define LED_LD4                 LED_RED
+
+//On-board user button
+#define USER_BTN                6
+
+
+//SPI definitions
+#define SS                      10
+#define SS1                     4
+#define SS2                     7
+#define SS3                     8
+#define MOSI                    11
+#define MISO                    12
+#define SCK                     3
+
+//I2C Definitions
+#define SDA                     14
+#define SCL                     15
+
+//Timer Definitions
+//Do not use timer used by PWM pins when possible. See PinMap_PWM.
+#define TIMER_TONE              TIM22
+#define TIMER_UART_EMULATED     TIM21
+
+//Do not use basic timer: OC is required
+#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+
+// UART Definitions
+#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+// Default pin used for 'Serial' instance (ex: ST-Link)
+// Mandatory for Firmata
+#define PIN_SERIAL_RX           0
+#define PIN_SERIAL_TX           1
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
+/*----------------------------------------------------------------------------
+ *        Arduino objects - C++ only
+ *----------------------------------------------------------------------------*/
+
+#ifdef __cplusplus
+// These serial port names are intended to allow libraries and architecture-neutral
+// sketches to automatically default to the correct port name for a particular type
+// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+// the first hardware serial port whose RX/TX pins are not dedicated to another use.
+//
+// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+//
+// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+//
+// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+//
+// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+//
+// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+//                            pins are NOT connected to anything by default.
+#define SERIAL_PORT_MONITOR     Serial
+#define SERIAL_PORT_HARDWARE    Serial
+#endif
+
+#endif /* _VARIANT_ARDUINO_STM32_ */
