@@ -344,6 +344,21 @@ Disco.menu.pnum.DISCO_L475VG_IOT.build.product_line=STM32L475xx
 Disco.menu.pnum.DISCO_L475VG_IOT.build.variant=DISCO_L475VG_IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# DISCO-L072CZ-LRWAN1 board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial=Serial2 (connected to ST-LINK)
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1=Discovery L072CZ-LRWAN1
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.node="DIS_L072Z,NODE_L072CZ"
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.upload.maximum_size=196608
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.upload.maximum_data_size=20480
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.mcu=cortex-m0
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.f_cpu=32000000L
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.board=DISCO_L072CZ_LRWAN1
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.series=STM32L0xx
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.product_line=STM32L072xx
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.variant=DISCO_L072CZ_LRWAN1
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
+Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # Upload menu
 Disco.menu.upload_method.MassStorage=Mass Storage
 Disco.menu.upload_method.MassStorage.upload.protocol=
