@@ -89,7 +89,7 @@ enum {
 #define PWM_MAX_DUTY_CYCLE      255
 
 //On-board LED pin number
-#define LED_BUILTIN             13
+#define LED_BUILTIN             PA5
 #define LED_LD2                 LED_BUILTIN
 #define LED_GREEN2              LED_BUILTIN
 #define LED_GREEN               4
