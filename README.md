@@ -1,5 +1,5 @@
 # Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.9.22.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.9.22...master)
+### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.11.24.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.11.24...master)
 
 * [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
 * [Boards available](https://github.com/stm32duino/Arduino_Core_STM32#boards-available)<br>
@@ -28,8 +28,10 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html)
 
   * STM32F3
+    * [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html)
+    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
-
+ 
   * STM32F4
     * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
     * [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html)
@@ -41,6 +43,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
 
   * STM32L0
     * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
+    * [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
 
   * STM32L1
     * [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html)
@@ -54,13 +57,6 @@ For advanced user, you can use the repository: see the [Using git repository](ht
   * STM32F1
     * BluePill F103C8 (on going)
     * MapleMini F103CB (on going)
-
-  * STM32F3
-    * [Nucleo F302R8](http://www.st.com/en/evaluation-tools/nucleo-f302r8.html)
-    * [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html)
-
-  * STM32L0
-    * [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
 
 ## Troubleshooting
 
