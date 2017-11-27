@@ -58,6 +58,9 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * BluePill F103C8 (on going)
     * MapleMini F103CB (on going)
 
+  * STM32F4
+    * [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html)
+
 ## Troubleshooting
 
 If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
