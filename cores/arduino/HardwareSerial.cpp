@@ -220,7 +220,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
 
   _serial.baudrate = (uint32_t)baud;
 
-  // Manage databitshardware/arduino/avr/cores/arduino/HardwareSerial.cpp
+  // Manage databits
   switch(config & 0x07) {
     case 0x02:
       databits = 6;
