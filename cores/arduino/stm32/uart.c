@@ -97,6 +97,7 @@ void uart_init(serial_t *obj)
   UART_HandleTypeDef *huart = &(obj->handle);
   GPIO_InitTypeDef GPIO_InitStruct;
   GPIO_TypeDef *port;
+  uint32_t function = (uint32_t)NC;
 
   // Determine the UART to use (UART_1, UART_2, ...)
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
@@ -238,27 +239,29 @@ void uart_init(serial_t *obj)
   //Configure GPIOs
   //RX
   port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
+  function = pinmap_function(obj->pin_rx, PinMap_UART_RX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
   GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
 #ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_rx,PinMap_UART_RX)));
+  pin_SetF1AFPin(STM_PIN_AFNUM(function));
 #else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_rx,PinMap_UART_RX));
+  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
 #endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   //TX
   port = set_GPIO_Port_Clock(STM_PORT(obj->pin_tx));
+  function = pinmap_function(obj->pin_tx, PinMap_UART_TX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
   GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
 #ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->pin_tx,PinMap_UART_TX)));
+  pin_SetF1AFPin(STM_PIN_AFNUM(function));
 #else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->pin_tx,PinMap_UART_TX));
+  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
 #endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
