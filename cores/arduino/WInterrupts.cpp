@@ -19,10 +19,6 @@
 #include "WInterrupts.h"
 #include "Arduino.h"
 
-// #ifdef __cplusplus
-//  extern "C" {
-// #endif
-
 #include "PinAF_STM32F1.h"
 #include "interrupt.h"
 
@@ -71,6 +67,3 @@ void detachInterrupt(uint32_t pin)
 	  return;
   stm32_interrupt_disable(port, STM_GPIO_PIN(p));
 }
-// #ifdef __cplusplus
-//  }
-// #endif
