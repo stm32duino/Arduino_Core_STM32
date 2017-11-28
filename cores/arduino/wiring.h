@@ -38,13 +38,13 @@
 #include "wiring_time.h"
 #include "WInterrupts.h"
 
-#ifdef __cplusplus
-extern "C"{
-#endif // __cplusplus
+// #ifdef __cplusplus
+// extern "C"{
+// #endif // __cplusplus
 #include <board.h>
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #ifdef __cplusplus
 #include "HardwareSerial.h"
