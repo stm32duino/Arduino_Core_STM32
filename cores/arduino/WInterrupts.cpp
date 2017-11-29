@@ -19,14 +19,10 @@
 #include "WInterrupts.h"
 #include "Arduino.h"
 
-#ifdef __cplusplus
- extern "C" {
-#endif
-
 #include "PinAF_STM32F1.h"
+#include "interrupt.h"
 
-void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
-{
+void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode){
   uint32_t it_mode;
   PinName p = digitalPinToPinName(pin);
   GPIO_TypeDef* port = set_GPIO_Port_Clock(STM_PORT(p));
@@ -55,6 +51,12 @@ void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
 #endif /* STM32F1xx */
 
   stm32_interrupt_enable(port, STM_GPIO_PIN(p), callback, it_mode);
+}
+
+void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
+{
+  callback_function_t _c = callback;
+  attachInterrupt(pin,_c,mode);
 }
 
 void detachInterrupt(uint32_t pin)

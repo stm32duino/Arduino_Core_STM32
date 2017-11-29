@@ -22,15 +22,15 @@
 #include <stdint.h>
 
 #ifdef __cplusplus
-extern "C" {
+#include <functional>
+
+typedef std::function<void(void)> callback_function_t;
+void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode);
+
 #endif
 
 void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode);
 
 void detachInterrupt(uint32_t pin);
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif /* _WIRING_INTERRUPTS_ */

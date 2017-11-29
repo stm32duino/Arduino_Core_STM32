@@ -49,9 +49,6 @@
 #include "stm32_def.h"
 #include "interrupt.h"
 
-#ifdef __cplusplus
- extern "C" {
-#endif
 /**
   * @}
   */
@@ -62,8 +59,8 @@
 
 /*As we can have only one interrupt/pin id, don't need to get the port info*/
 typedef struct {
-  uint32_t irqnb;
-  void (*callback)(void);
+  IRQn_Type irqnb;
+  std::function<void(void)> callback;
   uint32_t mode;
 }gpio_irq_conf_str;
 
@@ -156,16 +153,7 @@ uint8_t get_pin_id(uint16_t pin)
 
   return id;
 }
-/**
-  * @brief  This function enable the interruption on the selected port/pin
-  * @param  port : one of the gpio port
-  * @param  pin : one of the gpio pin
-  **@param  callback : callback to call when the interrupt falls
-  * @param  mode : one of the supported interrupt mode defined in stm32_hal_gpio
-  * @retval None
-  */
-void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode)
-{
+void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_t callback, uint32_t mode){
   GPIO_InitTypeDef GPIO_InitStruct;
   uint8_t id = get_pin_id(pin);
 
@@ -228,6 +216,21 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
 }
 
 /**
+  * @brief  This function enable the interruption on the selected port/pin
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  **@param  callback : callback to call when the interrupt falls
+  * @param  mode : one of the supported interrupt mode defined in stm32_hal_gpio
+  * @retval None
+  */
+void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode)
+{
+  std::function<void(void)> _c = callback;
+  stm32_interrupt_enable(port,pin,_c,mode);
+
+}
+
+/**
   * @brief  This function disable the interruption on the selected port/pin
   * @param  port : one of the gpio port
   * @param  pin : one of the gpio pin
@@ -263,6 +266,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 }
 
 #if defined (STM32F0xx) || defined (STM32L0xx)
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /**
   * @brief This function handles external line 0 to 1 interrupt request.
   * @param  None
@@ -302,7 +309,13 @@ void EXTI4_15_IRQHandler(void)
     HAL_GPIO_EXTI_IRQHandler(pin);
   }
 }
+#ifdef __cplusplus
+}
+#endif
 #else
+#ifdef __cplusplus
+extern "C" {
+#endif
 /**
   * @brief This function handles external line 0 interrupt request.
   * @param  None
@@ -379,20 +392,20 @@ void EXTI15_10_IRQHandler(void)
     HAL_GPIO_EXTI_IRQHandler(pin);
   }
 }
-#endif
-/**
-  * @}
-  */
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif
+#endif
+/**
+  * @}
+  */
 
+/**
+  * @}
+  */
+
+/**
+  * @}
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
