@@ -49,9 +49,6 @@
 #include "stm32_def.h"
 #include "interrupt.h"
 
-// #ifdef __cplusplus
-//  extern "C" {
-// #endif
 /**
   * @}
   */
@@ -411,8 +408,4 @@ void EXTI15_10_IRQHandler(void)
 /**
   * @}
   */
-// #ifdef __cplusplus
-// }
-// #endif
-
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
