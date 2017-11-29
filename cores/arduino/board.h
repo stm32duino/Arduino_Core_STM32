@@ -4,6 +4,7 @@
 /*
  * Core and peripherals registers definitions
 */
+#include "interrupt.h"
 #ifdef __cplusplus
 extern "C"{
 #endif // __cplusplus
@@ -13,13 +14,6 @@ extern "C"{
 #include "digital_io.h"
 #include "hal_uart_emul.h"
 #include "hw_config.h"
-#ifdef __cplusplus
-}
-#endif // __cplusplus
-#include "interrupt.h"
-#ifdef __cplusplus
-extern "C"{
-#endif // __cplusplus
 #include "spi_com.h"
 #include "stm32_eeprom.h"
 #include "timer.h"
