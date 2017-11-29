@@ -63,7 +63,6 @@
 /*As we can have only one interrupt/pin id, don't need to get the port info*/
 typedef struct {
   IRQn_Type irqnb;
-  // void (*callback)(void);
   std::function<void(void)> callback;
   uint32_t mode;
 }gpio_irq_conf_str;
