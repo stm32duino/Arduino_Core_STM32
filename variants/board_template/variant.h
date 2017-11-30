@@ -109,6 +109,10 @@ enum {
 #define SERIAL_UART_INSTANCE    x //ex: 2 for Serial2 (USART2)
 // DEBUG_UART could be redefined to print on another instance than 'Serial'
 //#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
+// DEBUG_UART baudrate, default: 9600 if not defined
+//#define DEBUG_UART_BAUDRATE     x
+// DEBUG_UART Tx pin name, default: the first one found in PinMap_UART_TX for DEBUG_UART
+//#define DEBUG_PINNAME_TX        PX_n // PinName used for TX
 
 // UART Emulation (uncomment if needed, required TIM1)
 //#define UART_EMUL_RX            PX_n // PinName used for RX
