@@ -58,11 +58,18 @@
 // linked to PIN_SERIAL_TX
 #if !defined(DEBUG_UART)
 #if defined(PIN_SERIAL_TX)
-#define DEBUG_UART pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX)
+#define DEBUG_UART          pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX)
+#define DEBUG_PINNAME_TX    digitalPinToPinName(PIN_SERIAL_TX)
 #else
-#define DEBUG_UART NP
+// No debug UART defined
+#define DEBUG_UART          NP
+#define DEBUG_PINNAME_TX    NC
 #endif
 #endif
+#if !defined(DEBUG_UART_BAUDRATE)
+#define DEBUG_UART_BAUDRATE 9600
+#endif
+
 // @brief uart caracteristics
 #if defined(STM32F4xx)
 #define UART_NUM (10)
@@ -82,6 +89,8 @@ static void (*rx_callback[UART_NUM])(serial_t*);
 static serial_t *rx_callback_obj[UART_NUM];
 static int (*tx_callback[UART_NUM])(serial_t*);
 static serial_t *tx_callback_obj[UART_NUM];
+
+static serial_t serial_debug = { .uart=NP, .index=UART_NUM };
 
 /**
   * @brief  Function called to initialize the uart interface
@@ -403,8 +412,32 @@ size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 }
 
 /**
+  * @brief  Function called to initialize the debug uart interface
+  * @note   Call only if debug U(S)ART peripheral is not already initialized
+  *         by a Serial instance
+  *         Default config: 8N1
+  * @retval None
+  */
+void uart_debug_init(void)
+{
+  if ( DEBUG_UART != NP) {
+    serial_debug.pin_rx = pinmap_pin(DEBUG_UART, PinMap_UART_RX);
+#if defined(DEBUG_PINNAME_TX)
+    serial_debug.pin_tx = DEBUG_PINNAME_TX;
+#else
+    serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
+#endif
+    serial_debug.baudrate = DEBUG_UART_BAUDRATE;
+    serial_debug.parity = UART_PARITY_NONE;
+    serial_debug.databits = UART_WORDLENGTH_8B;
+    serial_debug.stopbits = UART_STOPBITS_1;
+
+    uart_init(&serial_debug);
+  }
+}
+
+/**
   * @brief  write the data on the uart: used by printf for debug only (syscalls)
-  * @param  obj : pointer to serial_t structure
   * @param  data : bytes to write
   * @param  size : number of data to write
   * @retval The number of bytes written
@@ -412,18 +445,29 @@ size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint8_t index = 0;
-  USART_TypeDef* dbg_uart = DEBUG_UART;
   uint32_t tickstart = HAL_GetTick();
+
+  if (DEBUG_UART == NP) {
+    return 0;
+  }
+  /* Search if DEBUG_UART already initialized */
   for(index = 0; index < UART_NUM; index++) {
     if(uart_handlers[index] != NULL) {
-      if(dbg_uart == uart_handlers[index]->Instance) {
+      if(DEBUG_UART == uart_handlers[index]->Instance) {
         break;
       }
     }
   }
 
   if(index >= UART_NUM) {
-    return 0;
+    /* DEBUG_UART not initialized */
+    if( serial_debug.index >= UART_NUM ) {
+      uart_debug_init();
+      if( serial_debug.index >= UART_NUM ) {
+        return 0;
+      }
+    }
+    index = serial_debug.index;
   }
 
   while(HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) != HAL_OK) {
