@@ -34,24 +34,29 @@
 #define SPI_CLOCK_DIV64	 64
 #define SPI_CLOCK_DIV128 128
 
+// SPI mode parameters for SPISettings
 #define SPI_MODE0 0x00
 #define SPI_MODE1 0x01
 #define SPI_MODE2 0x02
 #define SPI_MODE3 0x03
 
+// Transfer mode
 enum SPITransferMode {
-  SPI_CONTINUE,
-  SPI_LAST
+  SPI_CONTINUE, /* Transfer not finished: CS pin kept active */
+  SPI_LAST      /* Transfer ended: CS pin released */
 };
 
-// Indicates the user controls himself the CS pin
+// Indicates the user controls himself the CS pin outside of the spi class
 #define CS_PIN_CONTROLLED_BY_USER  NUM_DIGITAL_PINS
+
+// Indicates there is no configuration selected
+#define NO_CONFIG   ((int16_t)(-1))
 
 // Defines a default timeout delay in milliseconds for the SPI transfer
 #define SPI_TRANSFER_TIMEOUT    1000
 
 /*
- * Defines the number of settings saved per SPI instance. Must be < 254.
+ * Defines the number of settings saved per SPI instance. Must be in range 1 to 254.
  * Can be redefined in variant.h
  */
 #ifndef NB_SPI_SETTINGS
@@ -89,9 +94,9 @@ class SPISettings {
       dMode = SPI_MODE_0;
     }
   private:
-    int16_t pinCS;
-    uint32_t clk;    //specifies the spi bus maximum clock speed
-    BitOrder bOrder;    //bit order (MSB/LSB first)
+    int16_t pinCS;      //CS pin associated to the configuration
+    uint32_t clk;       //specifies the spi bus maximum clock speed
+    BitOrder bOrder;    //bit order (MSBFirst or LSBFirst)
     spi_mode_e dMode;   //one of the data mode
                         //Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
                         //SPI_MODE0             0                     0
@@ -105,7 +110,27 @@ class SPISettings {
 class SPIClass {
   public:
     SPIClass();
-    SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel = 0xFF);
+    SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel = (uint8_t)NC);
+
+    void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
+    void end(void);
+
+    /* This function should be used to configure the SPI instance in case you
+     * don't use default parameters.
+     * You can attach another CS pin to the SPI instance and each CS pin can be
+     * attach with specific SPI settings.
+     */
+    void beginTransaction(uint8_t pin, SPISettings settings);
+    void beginTransaction(SPISettings settings)
+    {
+      beginTransaction(CS_PIN_CONTROLLED_BY_USER, settings);
+    }
+
+    void endTransaction(uint8_t pin);
+    void endTransaction(void)
+    {
+      endTransaction(CS_PIN_CONTROLLED_BY_USER);
+    }
 
     /* Transfer functions: must be called after initialization of the SPI
      * instance with begin() or beginTransaction().
@@ -137,62 +162,34 @@ class SPIClass {
       transfer(CS_PIN_CONTROLLED_BY_USER, _bufout, _bufin, _count, _mode);
     }
 
-    // Transaction Functions
-    void usingInterrupt(uint8_t interruptNumber);
-
-    /* This function should be used to configure the SPI instance in case you
-     * don't use default parameters.
-     * You can attach another CS pin to the SPI instance and each CS pin can be
-     * attach with specific SPI settings.
-     */
-    void beginTransaction(uint8_t pin, SPISettings settings);
-    void beginTransaction(SPISettings settings)
-    {
-      beginTransaction(CS_PIN_CONTROLLED_BY_USER, settings);
-    }
-
-    void endTransaction(uint8_t pin);
-    void endTransaction(void)
-    {
-      endTransaction(CS_PIN_CONTROLLED_BY_USER);
-    }
-
-    // SPI Configuration methods
-    void attachInterrupt(void);
-    void detachInterrupt(void);
-
-    void begin(void);
-    void end(void);
-
-    // Attach CS pin to SPI instance
-    void begin(uint8_t _pin);
-
-    /* These methods sets a parameter on a single pin.
-     * These methods must be called after initialization of the SPI
-     * instance with begin() or beginTransaction().
-     * @NOTE
-     * These functions should not be used in new projects.
+    /* These methods are deprecated and kept for compatibility.
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
      */
     void setBitOrder(uint8_t _pin, BitOrder);
-    void setDataMode(uint8_t _pin, uint8_t);
-    void setClockDivider(uint8_t _pin, uint8_t);
+    void setBitOrder(BitOrder _order) {setBitOrder(CS_PIN_CONTROLLED_BY_USER, _order);}
 
-    // These methods sets the same parameters for the default CS pin.
-    void setBitOrder(BitOrder _order) {
-      setBitOrder(CS_PIN_CONTROLLED_BY_USER, _order);
-    }
-    void setDataMode(uint8_t _mode) {
-      setDataMode(CS_PIN_CONTROLLED_BY_USER, _mode);
-    }
-    void setClockDivider(uint8_t _div) {
-      setClockDivider(CS_PIN_CONTROLLED_BY_USER, _div);
-    }
+    void setDataMode(uint8_t _pin, uint8_t);
+    void setDataMode(uint8_t _mode) {setDataMode(CS_PIN_CONTROLLED_BY_USER, _mode);}
+
+    void setClockDivider(uint8_t _pin, uint8_t);
+    void setClockDivider(uint8_t _div) {setClockDivider(CS_PIN_CONTROLLED_BY_USER, _div);}
+
+    // Not implemented functions. Kept for backward compatibility.
+    void usingInterrupt(uint8_t interruptNumber);
+    void attachInterrupt(void);
+    void detachInterrupt(void);
 
   private:
+    /* Contains various spiSettings for the same spi instance. Each spi spiSettings
+    is associated to a CS pin. */
     SPISettings   spiSettings[NB_SPI_SETTINGS];
-    int16_t       _CSpin;
+
+    // Use to know which configuration is selected.
+    int16_t       _CSPinConfig;
+
+    // spi instance
     spi_t         _spi;
+
 
     typedef enum{
       GET_IDX = 0,

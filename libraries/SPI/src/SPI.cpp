@@ -11,14 +11,12 @@
 
 #include "SPI.h"
 
-/* The following contructors are available:
-- SPIClass SPI
-- SPIClass SPI(mosi,miso,sclk)
-- SPIClass SPI(mosi,miso,sclk,ss)
-*/
 SPIClass SPI;
 
-SPIClass::SPIClass() : _CSpin(-1)
+/**
+  * @brief  Default constructor. Uses pin configuration of variant.h.
+  */
+SPIClass::SPIClass() : _CSPinConfig(NO_CONFIG)
 {
   _spi.pin_miso = digitalPinToPinName(MISO);
   _spi.pin_mosi = digitalPinToPinName(MOSI);
@@ -26,29 +24,39 @@ SPIClass::SPIClass() : _CSpin(-1)
   _spi.pin_ssel = NC;
 }
 
-/* By default hardware SS pin is not used. To use hardware SS pin you should set
-ssel pin. Enable this pin disable software CS. See microcontroller documentation
-for the list of available SS pins. */
-SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : _CSpin(-1)
+/**
+  * @brief  Constructor to create another SPI instance attached to another SPI
+  *         peripheral different of the default SPI. All pins must be attached to
+  *         the same SPI peripheral. See datasheet of the microcontroller.
+  * @param  mosi: SPI mosi pin. Accepted format: number or Arduino format (Dx)
+  *         or ST format (Pxy).
+  * @param  miso: SPI miso pin. Accepted format: number or Arduino format (Dx)
+  *         or ST format (Pxy).
+  * @param  sclk: SPI clock pin. Accepted format: number or Arduino format (Dx)
+  *         or ST format (Pxy).
+  * @param  ssel: SPI ssel pin (optional). Accepted format: number or
+  *         Arduino format (Dx) or ST format (Pxy). By default is set to NC.
+  *         This pin must correspond to a hardware CS pin which can be managed
+  *         by the SPI peripheral itself. See the datasheet of the microcontroller
+  *         or look at PinMap_SPI_SSEL[] inside the file PeripheralPins.c
+  *         corresponding to the board. If you configure this pin you can't use
+  *         another CS pin and don't pass a CS pin as parameter to any functions
+  *         of the class.
+  */
+SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : _CSPinConfig(NO_CONFIG)
 {
   _spi.pin_miso = digitalPinToPinName(miso);
   _spi.pin_mosi = digitalPinToPinName(mosi);
   _spi.pin_sclk = digitalPinToPinName(sclk);
-
-  if(ssel != 0xFF) {
-    _spi.pin_ssel = digitalPinToPinName(ssel);
-  } else {
-    _spi.pin_ssel = NC;
-  }
+  _spi.pin_ssel = digitalPinToPinName(ssel);
 }
 
-//begin using the default chip select
-void SPIClass::begin()
-{
-  begin(CS_PIN_CONTROLLED_BY_USER);
-}
-
-//Begin with a chip select defined
+/**
+  * @brief  Initialize the SPI instance.
+  * @param  _pin: chip select pin (optional). If this parameter is filled,
+  *         it gives the management of the CS pin to the SPI class. In this case
+  *         do not manage the CS pin outside of the SPI class.
+  */
 void SPIClass::begin(uint8_t _pin)
 {
   uint8_t idx;
@@ -69,7 +77,7 @@ void SPIClass::begin(uint8_t _pin)
   spi_init(&_spi, spiSettings[idx].clk,
                   spiSettings[idx].dMode,
                   spiSettings[idx].msb);
-  _CSpin = _pin;
+  _CSPinConfig = _pin;
 #if __has_include("WiFi.h")
   // Wait wifi shield initialization.
   // Should be better to do in SpiDrv::begin() of WiFi library but it seems
@@ -79,12 +87,16 @@ void SPIClass::begin(uint8_t _pin)
 
 }
 
-void SPIClass::usingInterrupt(uint8_t interruptNumber)
-{
-  UNUSED(interruptNumber);
-  //Not implemented
-}
-
+/**
+  * @brief  This function should be used to configure the SPI instance in case you
+  *         don't use the default parameters set by the begin() function.
+  * @param  _pin: CS pin (optional). This pin will be attached with the settings.
+  * @param  settings: SPI settings(clock speed, bit order, data mode).
+  * @Note   For each SPI instance you are able to manage until NB_SPI_SETTINGS
+  *         devices attached to the same SPI peripheral. You need to indicate the
+  *         CS pin used to the transfer() function and the SPI instance will be
+  *         configured with the right settings.
+  */
 void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
 {
   uint8_t idx;
@@ -114,25 +126,38 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
   spi_init(&_spi, spiSettings[idx].clk,
                   spiSettings[idx].dMode,
                   spiSettings[idx].msb);
-  _CSpin = _pin;
+  _CSPinConfig = _pin;
 }
 
+/**
+  * @brief  Remove the CS pin and the settings associated to the SPI instance.
+  * @param  _pin: CS pin (optional)
+  */
 void SPIClass::endTransaction(uint8_t _pin)
 {
   if(_pin > NUM_DIGITAL_PINS)
     return;
 
   RemovePin(_pin);
-  _CSpin = -1;
+  _CSPinConfig = NO_CONFIG;
 }
 
+/**
+  * @brief  Deinitialize the SPI instance and stop it.
+  */
 void SPIClass::end()
 {
   spi_deinit(&_spi);
   RemoveAllPin();
-  _CSpin = -1;
+  _CSPinConfig = NO_CONFIG;
 }
 
+/**
+  * @brief  Deprecated function.
+  *         Configure the bit order: MSB first or LSB first.
+  * @param  _pin: CS pin associated to a configuration (optional).
+  * @param  _bitOrder: MSBFIRST or LSBFIRST
+  */
 void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
 {
   if(_pin > NUM_DIGITAL_PINS)
@@ -156,6 +181,18 @@ void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
                   spiSettings[idx].msb);
 }
 
+/**
+  * @brief  Deprecated function.
+  *         Configure the data mode (clock polarity and clock phase)
+  * @param  _pin: CS pin associated to a configuration (optional).
+  * @param  _mode: SPI_MODE0, SPI_MODE1, SPI_MODE2 or SPI_MODE3
+  * @note
+  *         Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
+  *         SPI_MODE0             0                     0
+  *         SPI_MODE1             0                     1
+  *         SPI_MODE2             1                     0
+  *         SPI_MODE3             1                     1
+  */
 void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
 {
   if(_pin > NUM_DIGITAL_PINS)
@@ -181,10 +218,19 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
                   spiSettings[idx].msb);
 }
 
-/*
- * This function should not be used in new projects.
- * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
- */
+/**
+  * @brief  Deprecated function.
+  *         Configure the clock speed: 125kHz to 8MHz.
+  * @param  _pin: CS pin associated to a configuration (optional).
+  * @param  _divider: can be one of the following parameters:
+  *         SPI_CLOCK_DIV2    (8MHz)
+  *         SPI_CLOCK_DIV4    (4MHz)
+  *         SPI_CLOCK_DIV8    (2MHz)
+  *         SPI_CLOCK_DIV16   (1MHz)
+  *         SPI_CLOCK_DIV32   (500kHz)
+  *         SPI_CLOCK_DIV64   (250kHz)
+  *         SPI_CLOCK_DIV128  (125kHz)
+  */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
   if(_pin > NUM_DIGITAL_PINS)
@@ -218,13 +264,19 @@ void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
                   spiSettings[idx].msb);
 }
 
-
-/* Transfer a message on the selected SPI. The _pin is the CS.
- * The transfer function can reconfigure the SPI instance if the CS pin is
- * different from the previous one.
- * If the _mode is set to SPI_CONTINUE, keep the spi instance alive. That means
- * the CS pin is not reset. Be careful in case you use several CS pin.
- */
+/**
+  * @brief  Transfer one byte on the SPI bus.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  data: byte to send.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  * @return byte received from the slave.
+  */
 byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
 {
   uint8_t rx_buffer = 0;
@@ -232,7 +284,7 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
   if (_pin > NUM_DIGITAL_PINS)
     return rx_buffer;
 
-  if(_pin != _CSpin) {
+  if(_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
     if(idx >= NB_SPI_SETTINGS) {
       return rx_buffer;
@@ -240,7 +292,7 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
     spi_init(&_spi, spiSettings[idx].clk,
                     spiSettings[idx].dMode,
                     spiSettings[idx].msb);
-    _CSpin = _pin;
+    _CSPinConfig = _pin;
   }
 
   if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
@@ -254,6 +306,19 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
   return rx_buffer;
 }
 
+/**
+  * @brief  Transfer two bytes on the SPI bus in 16 bits format.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  data: bytes to send.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  * @return bytes received from the slave in 16 bits format.
+  */
 uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode)
 {
   uint16_t rx_buffer = 0;
@@ -267,11 +332,11 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
     return rx_buffer;
   }
 
-  if(_pin != _CSpin) {
+  if(_pin != _CSPinConfig) {
     spi_init(&_spi, spiSettings[idx].clk,
                     spiSettings[idx].dMode,
                     spiSettings[idx].msb);
-    _CSpin = _pin;
+    _CSPinConfig = _pin;
   }
 
   if (spiSettings[idx].msb) {
@@ -295,12 +360,26 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
   return rx_buffer;
 }
 
+/**
+  * @brief  Transfer several bytes. Only one buffer used to send and receive data.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  _buf: pointer to the bytes to send. The bytes received are copy in
+  *         this buffer.
+  * @param  _count: number of bytes to send/receive.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  */
 void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode _mode)
 {
   if ((_count == 0) || (_buf == NULL) || (_pin > NUM_DIGITAL_PINS))
     return;
 
-  if(_pin != _CSpin) {
+  if(_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
     if(idx >= NB_SPI_SETTINGS) {
       return;
@@ -308,7 +387,7 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
     spi_init(&_spi, spiSettings[idx].clk,
                     spiSettings[idx].dMode,
                     spiSettings[idx].msb);
-    _CSpin = _pin;
+    _CSPinConfig = _pin;
   }
 
   if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
@@ -320,12 +399,27 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
     digitalWrite(_pin, HIGH);
 }
 
+/**
+  * @brief  Transfer several bytes. One buffer contains the data to send and
+  *         another one will contains the data received. begin() or
+  *         beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  _bufout: pointer to the bytes to send.
+  * @param  _bufin: pointer to the bytes received.
+  * @param  _count: number of bytes to send/receive.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  */
 void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode)
 {
   if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)  || (_pin > NUM_DIGITAL_PINS))
     return;
 
-  if(_pin != _CSpin) {
+  if(_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
     if(idx >= NB_SPI_SETTINGS) {
       return;
@@ -333,7 +427,7 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
     spi_init(&_spi, spiSettings[idx].clk,
                     spiSettings[idx].dMode,
                     spiSettings[idx].msb);
-    _CSpin = _pin;
+    _CSPinConfig = _pin;
   }
 
   if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
@@ -345,10 +439,24 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
     digitalWrite(_pin, HIGH);
 }
 
+/**
+  * @brief  Not implemented.
+  */
+void SPIClass::usingInterrupt(uint8_t interruptNumber)
+{
+  UNUSED(interruptNumber);
+}
+
+/**
+  * @brief  Not implemented.
+  */
 void SPIClass::attachInterrupt(void) {
 	// Should be enableInterrupt()
 }
 
+/**
+  * @brief  Not implemented.
+  */
 void SPIClass::detachInterrupt(void) {
 	// Should be disableInterrupt()
 }
