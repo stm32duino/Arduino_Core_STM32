@@ -56,6 +56,20 @@ extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
  */
 extern uint32_t analogRead( uint32_t ulPin ) ;
 
+
+/*
+ * \brief Start DMA acquisition.
+ *
+ * \param ulPin
+ * \param pData
+ * \param lData
+ * \param callback
+ *
+ * \Nones.
+ */
+extern void analogReadDma( uint32_t ulPin, uint32_t *pData, uint32_t lData, 
+                          void (*callback)(void *user_data), void *functionParameter);
+
 /*
  * \brief Set the resolution of analogRead return values. Default is 10 bits (range from 0 to 1023).
  *
