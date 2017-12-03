@@ -51,25 +51,6 @@
 #endif
 
 // Here define some compatibility
-#ifdef STM32F0xx
-
-#elif defined(STM32F1xx)
-
-#elif defined(STM32F2xx)
-
-#elif defined(STM32F3xx)
-#define EXTI2_IRQn                       EXTI2_TSC_IRQn
-#elif defined(STM32F4xx)
-
-#elif defined(STM32F7xx)
-
-#elif defined(STM32L0xx)
-
-#elif defined(STM32L1xx)
-
-#elif defined(STM32L4xx)
-#endif
-
 #ifndef CAN1
 #define CAN1 CAN
 #endif
