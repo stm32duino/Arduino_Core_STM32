@@ -112,42 +112,32 @@ enum {
   AEND
 };
 
-//ADC resolution is 12bits
-#define ADC_RESOLUTION          12
-#define DACC_RESOLUTION         12
-
-//PWR resolution
-#define PWM_RESOLUTION          8
-#define PWM_FREQUENCY           1000
-#define PWM_MAX_DUTY_CYCLE      255
-
-//On-board LED pin number
-#define LED_BUILTIN             21
+// On-board LED pin number
+#define LED_BUILTIN             PC9
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                20
+#define LED_BLUE                PC8
 
-//On-board user button
+// On-board user button
 #define USER_BTN                5
 
-//SPI definitions
-#define SS                      43
-#define SS1                     40
-#define SS2                     41
-#define SS3                     42
-#define MOSI                    46
-#define MISO                    45
-#define SCK                     44
+// SPI Definitions
+#define SS                      PB12
+#define SS1                     PB9
+#define SS2                     PB10
+#define SS3                     PB11
+#define MOSI                    PB15
+#define MISO                    PB14
+#define SCK                     PB13
 
-//I2C Definitions
-#define SDA                     38
-#define SCL                     37
+// I2C Definitions
+#define SDA                     PB7
+#define SCL                     PB6
 
-//Timer Definitions
-//Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// Timer Definitions
+// Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM15
-#define TIMER_UART_EMULATED     TIM16
 
-//Do not use basic timer: OC is required
+// Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM17  //TODO: advanced-control timers don't work
 
 // UART Definitions
