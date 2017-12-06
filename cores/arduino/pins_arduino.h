@@ -20,14 +20,6 @@
 
 #include "PeripheralPins.h"
 
-/**
- * Libc porting layers
- */
-#if defined (  __GNUC__  ) /* GCC CS3 */
-#include <syscalls.h> /** RedHat Newlib minimal stub */
-#define WEAK __attribute__ ((weak))
-#endif
-
 // Arduino digital pin alias
 // GPIO port (A to K) * 16 pins: 176
 enum {

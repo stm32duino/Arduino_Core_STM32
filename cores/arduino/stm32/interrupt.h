@@ -43,6 +43,10 @@
 #include "stm32_def.h"
 #include "PinNames.h"
 
+#if defined(STM32F3xx)
+#define EXTI2_IRQn    EXTI2_TSC_IRQn
+#endif
+
 #ifdef __cplusplus
 #include <functional>
 

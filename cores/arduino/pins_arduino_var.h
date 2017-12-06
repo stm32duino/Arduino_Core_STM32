@@ -100,6 +100,54 @@ uint32_t pinNametoDigitalPin(PinName p);
                                      (digitalPinFirstOccurence(p) == PIN_SERIAL_TX))
 #endif
 
+// Default Definitions, could be redefined in variant.h
+#ifndef ADC_RESOLUTION
+#define ADC_RESOLUTION              12
+#endif
+#ifndef DACC_RESOLUTION
+#define DACC_RESOLUTION             12
+#endif
+#ifndef PWM_RESOLUTION
+#define PWM_RESOLUTION              8
+#endif
+#ifndef PWM_FREQUENCY
+#define PWM_FREQUENCY               1000
+#endif
+#ifndef PWM_MAX_DUTY_CYCLE
+#define PWM_MAX_DUTY_CYCLE          255
+#endif
+
+// Default for Arduino connector compatibility
+// SPI Definitions
+#ifndef SS
+#define SS                          10
+#endif
+#ifndef SS1
+#define SS1                         4
+#endif
+#ifndef SS2
+#define SS2                         7
+#endif
+#ifndef SS3
+#define SS3                         8
+#endif
+#ifndef MOSI
+#define MOSI                        11
+#endif
+#ifndef MISO
+#define MISO                        12
+#endif
+#ifndef SCK
+#define SCK                         13
+#endif
+// I2C Definitions
+#ifndef SDA
+#define SDA                         14
+#endif
+#ifndef SCL
+#define SCL                         15
+#endif
+
 #ifdef __cplusplus
 }
 #endif

@@ -51,34 +51,29 @@
 #endif
 
 // Here define some compatibility
-#ifdef STM32F0xx
-
-#elif defined(STM32F1xx)
-
-#elif defined(STM32F2xx)
-
-#elif defined(STM32F3xx)
-#define EXTI2_IRQn                       EXTI2_TSC_IRQn
-#elif defined(STM32F4xx)
-
-#elif defined(STM32F7xx)
-
-#elif defined(STM32L0xx)
-
-#elif defined(STM32L1xx)
-
-#elif defined(STM32L4xx)
-#endif
-
 #ifndef CAN1
 #define CAN1 CAN
+#endif
+
+/**
+ * Libc porting layers
+ */
+#if defined (  __GNUC__  ) /* GCC CS3 */
+#include <syscalls.h> /** RedHat Newlib minimal stub */
+#define WEAK __attribute__ ((weak))
 #endif
 
 #ifdef __cplusplus
 extern "C"{
 #endif // __cplusplus
+
 // weaked functions declaration
 void SystemClock_Config(void);
+
+void _Error_Handler(const char *, int);
+
+#define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+
 #ifdef __cplusplus
 } // extern "C"
 #endif // __cplusplus
