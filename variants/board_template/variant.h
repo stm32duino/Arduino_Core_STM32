@@ -69,39 +69,43 @@ enum {
   AEND
 };
 
-//ADC resolution is 12bits
-#define ADC_RESOLUTION          12
-#define DACC_RESOLUTION         12
 
-//PWR resolution
-#define PWM_RESOLUTION          8
-#define PWM_FREQUENCY           1000
-#define PWM_MAX_DUTY_CYCLE      255
+// Below ADC, DAC and PWM definitions already done in the core
+// Could be redefined here if needed
+// ADC resolution is 12bits
+//#define ADC_RESOLUTION          12
+//#define DACC_RESOLUTION         12
 
-//On-board LED pin number
+// PWM resolution
+//#define PWM_RESOLUTION          8
+//#define PWM_FREQUENCY           1000
+//#define PWM_MAX_DUTY_CYCLE      255
+
+// On-board LED pin number
 #define LED_BUILTIN             Dx
 #define LED_GREEN               LED_BUILTIN
 
-//On-board user button
+// On-board user button
 #define USER_BTN                Dx
 
+// Below SPI and I2C definitions already done in the core
+// Could be redefined here if needed
+// SPI Definitions
+//#define SS                      10 // Default for Arduino connector compatibility
+//#define MOSI                    11 // Default for Arduino connector compatibility
+//#define MISO                    12 // Default for Arduino connector compatibility
+//#define SCK                     13 // Default for Arduino connector compatibility
 
-//SPI definitions
-#define SS                      10 // Default for Arduino connector compatibility
-#define MOSI                    11 // Default for Arduino connector compatibility
-#define MISO                    12 // Default for Arduino connector compatibility
-#define SCK                     13 // Default for Arduino connector compatibility
+// I2C Definitions
+//#define SDA                     14 // Default for Arduino connector compatibility
+//#define SCL                     15 // Default for Arduino connector compatibility
 
-//I2C Definitions
-#define SDA                     14 // Default for Arduino connector compatibility
-#define SCL                     15 // Default for Arduino connector compatibility
-
-//Timer Definitions
+// Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
 #define TIMER_TONE              TIMx
-#define TIMER_UART_EMULATED     TIMx
+//#define TIMER_UART_EMULATED     TIMx
 
-//Do not use basic timer: OC is required
+// Do not use basic timer: OC is required
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
 
 // UART Definitions

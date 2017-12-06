@@ -137,49 +137,33 @@ enum {
   AEND
 };
 
-//ADC resolution is 12bits
-#define ADC_RESOLUTION          12
-#define DACC_RESOLUTION         12
-
-//PWR resolution
-#define PWM_RESOLUTION          8
-#define PWM_FREQUENCY           1000
-#define PWM_MAX_DUTY_CYCLE      255
-
-//On-board LED pin number
-#define LED_BUILTIN             18
+// On-board LED pin number
+#define LED_BUILTIN             PD12
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                58
-#define LED_RED                 19
-#define LED_ORANGE              57
+#define LED_BLUE                PD15
+#define LED_RED                 PD14
+#define LED_ORANGE              PD13
 
-//On-board user button
+// On-board user button
 #define USER_BTN                2
 
-
-//SPI definitions
-#define SS                      10
-#define SS1                     4
+// SPI Definitions
 #define SS2                     14
-#define MOSI                    44
+#define MOSI                    PA7
 #define MISO                    5
-#define SCK                     43
+#define SCK                     PA5
 
-//I2C Definitions
-#define SDA                     66
-#define SCL                     26
+// I2C Definitions
+#define SDA                     PB7
+#define SCL                     PB8
 
-//Timer Definitions
-//Do not use timer used by PWM pin. See PinMap_PWM.
+// Timer Definitions
+// Do not use timer used by PWM pin. See PinMap_PWM.
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
-#define TIMER_UART_EMULATED     TIM6
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
-// UART Emulation
-#define UART_EMUL_RX            PE_9
-#define UART_EMUL_TX            PE_11
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
