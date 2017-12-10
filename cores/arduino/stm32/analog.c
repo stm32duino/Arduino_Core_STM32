@@ -607,6 +607,11 @@ uint16_t adc_read_value(PinName pin)
 #ifndef STM32L0xx
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
 #endif
+#if defined (STM32F3xx) || defined (STM32L4xx)
+  AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
+  AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
+  AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
+#endif
   /*##-2- Configure ADC regular channel ######################################*/
   if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK)
   {
