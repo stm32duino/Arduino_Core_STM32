@@ -29,7 +29,7 @@ compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
 
-compiler.extra_flags=-mcpu={build.mcu} -DF_CPU={build.f_cpu} -mthumb
+compiler.extra_flags=-mcpu={build.mcu} -DF_CPU={build.f_cpu} -mthumb @{build.opt.path}
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 
@@ -76,6 +76,16 @@ build.xSerial=
 build.enable_usb=
 build.flags.optimize=
 build.flags.ldspecs=
+
+# Pre and post build hooks
+build.opt.name=build_opt.h
+build.opt.sourcepath={build.source.path}/{build.opt.name}
+build.opt.path={build.path}/sketch/{build.opt.name}
+
+# Create empty {build.opt} if not exists in the sketch dir
+recipe.hooks.prebuild.1.pattern.windows=cmd /c "if not exist {build.opt.sourcepath} mkdir {build.path}/sketch & type NUL > {build.opt.path}"
+recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
+recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
 
 # compile patterns
 # ---------------------
