@@ -125,6 +125,11 @@ uint32_t GetCurrentMilli(void)
   return HAL_GetTick();
 }
 
+void noOsSystickHandler(){
+
+}
+
+void osSystickHandler() __attribute__((weak, alias("noOsSystickHandler")));
 /**
   * @brief  Function called when t he tick interruption falls
   * @param  None
@@ -134,6 +139,7 @@ void SysTick_Handler(void)
 {
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
+  osSystickHandler();
 }
 
 /**
