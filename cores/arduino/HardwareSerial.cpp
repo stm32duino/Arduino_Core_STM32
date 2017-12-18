@@ -182,6 +182,16 @@ void HardwareSerial::init(void)
   _serial.tx_tail = 0;
 }
 
+void HardwareSerial::configForLowPower(void)
+{
+#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+  // Reconfigure properly Serial instance to use HSI as clock source
+  end();
+  uart_config_lowpower(&_serial);
+  begin(_serial.baudrate, _config);
+#endif
+}
+
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
 
 void HardwareSerial::_rx_complete_irq(serial_t* obj)
@@ -226,6 +236,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   uint32_t databits = 0;
 
   _serial.baudrate = (uint32_t)baud;
+  _config = config;
 
   // Manage databits
   switch(config & 0x07) {
