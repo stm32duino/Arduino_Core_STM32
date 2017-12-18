@@ -380,5 +380,6 @@ void HardwareSerial::setRx(PinName _rx) {
 void HardwareSerial::setTx(PinName _tx){
   _serial.pin_tx = _tx;
 }
+
 #endif // HAVE_HWSERIALx
 #endif // !NO_HWSERIAL
