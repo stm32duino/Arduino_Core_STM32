@@ -125,9 +125,14 @@ void uart_init(serial_t *obj)
     printf("ERROR: UART pins mismatch\n");
     return;
   }
+
   // Enable USART clock
 #if defined(USART1_BASE)
   else if(obj->uart == USART1) {
+#ifdef STM32L4xx
+    // Configure HSI as source clock for low power wakeup clock
+    __HAL_RCC_USART1_CONFIG(RCC_USART1CLKSOURCE_HSI);
+#endif
     __HAL_RCC_USART1_FORCE_RESET();
     __HAL_RCC_USART1_RELEASE_RESET();
     __HAL_RCC_USART1_CLK_ENABLE();
@@ -137,6 +142,10 @@ void uart_init(serial_t *obj)
 #endif
 #if defined(USART2_BASE)
   else if(obj->uart == USART2) {
+#ifdef STM32L4xx
+    // Configure HSI as source clock for low power wakeup clock
+    __HAL_RCC_USART2_CONFIG(RCC_USART2CLKSOURCE_HSI);
+#endif
     __HAL_RCC_USART2_FORCE_RESET();
     __HAL_RCC_USART2_RELEASE_RESET();
     __HAL_RCC_USART2_CLK_ENABLE();
@@ -146,6 +155,10 @@ void uart_init(serial_t *obj)
 #endif
 #if defined(USART3_BASE)
   else if(obj->uart == USART3) {
+#ifdef STM32L4xx
+    // Configure HSI as source clock for low power wakeup clock
+    __HAL_RCC_USART3_CONFIG(RCC_USART3CLKSOURCE_HSI);
+#endif
     __HAL_RCC_USART3_FORCE_RESET();
     __HAL_RCC_USART3_RELEASE_RESET();
     __HAL_RCC_USART3_CLK_ENABLE();
@@ -155,6 +168,10 @@ void uart_init(serial_t *obj)
 #endif
 #if defined(UART4_BASE)
   else if(obj->uart == UART4) {
+#ifdef STM32L4xx
+    // Configure HSI as source clock for low power wakeup clock
+    __HAL_RCC_UART4_CONFIG(RCC_UART4CLKSOURCE_HSI);
+#endif
     __HAL_RCC_UART4_FORCE_RESET();
     __HAL_RCC_UART4_RELEASE_RESET();
     __HAL_RCC_UART4_CLK_ENABLE();
@@ -172,6 +189,10 @@ void uart_init(serial_t *obj)
 #endif
 #if defined(UART5_BASE)
   else if(obj->uart == UART5) {
+#ifdef STM32L4xx
+    // Configure HSI as source clock for low power wakeup clock
+    __HAL_RCC_UART5_CONFIG(RCC_UART5CLKSOURCE_HSI);
+#endif
     __HAL_RCC_UART5_FORCE_RESET();
     __HAL_RCC_UART5_RELEASE_RESET();
     __HAL_RCC_UART5_CLK_ENABLE();
@@ -288,6 +309,7 @@ void uart_init(serial_t *obj)
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
+  huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
   // huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 
   if(HAL_UART_Init(huart) != HAL_OK) {
@@ -865,6 +887,19 @@ void UART10_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[9]);
 }
 #endif
+
+/**
+  * @brief  HAL UART Call Back
+  * @param  UART handler
+  * @retval None
+  */
+void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
+{
+  uint8_t index = uart_index(huart);
+  serial_t *obj = rx_callback_obj[index];
+
+  HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
+}
 
 #ifdef __cplusplus
 }
