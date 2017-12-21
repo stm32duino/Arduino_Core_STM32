@@ -83,7 +83,7 @@ build.opt.sourcepath={build.source.path}/{build.opt.name}
 build.opt.path={build.path}/sketch/{build.opt.name}
 
 # Create empty {build.opt} if not exists in the sketch dir
-recipe.hooks.prebuild.1.pattern.windows=cmd /c "if not exist {build.opt.sourcepath} mkdir {build.path}/sketch & type NUL > {build.opt.path}"
+recipe.hooks.prebuild.1.pattern.windows=cmd /c "if not exist {build.opt.sourcepath} mkdir {build.path}\sketch & type NUL > {build.opt.path}"
 recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
 recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
 
