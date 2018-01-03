@@ -44,7 +44,6 @@ void noTone(uint8_t _pin)
   PinName p = digitalPinToPinName(_pin);
   if(p != NC) {
     TimerPinDeinit(&_timer);
-    digitalWrite(_pin, 0);
     g_lastPin = NC;
   }
 }

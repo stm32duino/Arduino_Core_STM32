@@ -558,8 +558,10 @@ uint32_t getTimerIrq(TIM_TypeDef* tim)
   */
 void TimerHandleDeinit(stimer_t *obj)
 {
-  HAL_TIM_Base_DeInit(&(obj->handle));
-  HAL_TIM_Base_Stop_IT(&(obj->handle));
+  if(obj != NULL) {
+    HAL_TIM_Base_DeInit(&(obj->handle));
+    HAL_TIM_Base_Stop_IT(&(obj->handle));
+  }
 }
 
 /**
@@ -923,6 +925,11 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
   obj->timer = TIMER_TONE;
   obj->pinInfo.state = 0;
 
+  if(frequency == 0) {
+    TimerPinDeinit(obj);
+    return;
+  }
+
   //Calculate the toggle count
   if (duration > 0) {
     obj->pinInfo.count = ((timFreq * duration) / 1000);
@@ -962,6 +969,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 void TimerPinDeinit(stimer_t *obj)
 {
   TimerHandleDeinit(obj);
+  digital_io_init(obj->pin, GPIO_MODE_INPUT, GPIO_NOPULL);
 }
 
 /**
