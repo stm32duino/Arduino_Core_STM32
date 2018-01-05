@@ -558,8 +558,10 @@ uint32_t getTimerIrq(TIM_TypeDef* tim)
   */
 void TimerHandleDeinit(stimer_t *obj)
 {
-  HAL_TIM_Base_DeInit(&(obj->handle));
-  HAL_TIM_Base_Stop_IT(&(obj->handle));
+  if(obj != NULL) {
+    HAL_TIM_Base_DeInit(&(obj->handle));
+    HAL_TIM_Base_Stop_IT(&(obj->handle));
+  }
 }
 
 /**
@@ -855,32 +857,16 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
   */
 void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj)
 {
+  GPIO_TypeDef* port = get_GPIO_Port(STM_PORT(obj->pin));
 
-  if(get_GPIO_Port(STM_PORT(obj->pin)) != NULL) {
-    if(obj->pinInfo.count > 0){
-      obj->pinInfo.count--;
-
-      if(obj->pinInfo.state == 0) {
-        obj->pinInfo.state = 1;
-        digital_io_write(get_GPIO_Port(STM_PORT(obj->pin)), STM_GPIO_PIN(obj->pin), 1);
-      }
-      else {
-        obj->pinInfo.state = 0;
-        digital_io_write(get_GPIO_Port(STM_PORT(obj->pin)), STM_GPIO_PIN(obj->pin), 0);
-      }
-    }
-    else if(obj->pinInfo.count == -1) {
-      if(obj->pinInfo.state == 0) {
-        obj->pinInfo.state = 1;
-        digital_io_write(get_GPIO_Port(STM_PORT(obj->pin)), STM_GPIO_PIN(obj->pin), 1);
-      }
-      else {
-        obj->pinInfo.state = 0;
-        digital_io_write(get_GPIO_Port(STM_PORT(obj->pin)), STM_GPIO_PIN(obj->pin), 0);
-      }
+  if(port != NULL) {
+    if(obj->pinInfo.count != 0){
+      if (obj->pinInfo.count > 0) obj->pinInfo.count--;
+      obj->pinInfo.state = (obj->pinInfo.state == 0)? 1 : 0;
+      digital_io_write(port, STM_GPIO_PIN(obj->pin), obj->pinInfo.state);
     }
     else {
-      digital_io_write(get_GPIO_Port(STM_PORT(obj->pin)), STM_GPIO_PIN(obj->pin), 0);
+      digital_io_write(port, STM_GPIO_PIN(obj->pin), 0);
     }
   }
 }
@@ -916,12 +902,18 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
   uint32_t timFreq = 2*frequency;
   uint32_t prescaler = 1;
   uint32_t period = 0;
+  uint32_t scale = 0;
 
   if(frequency > MAX_FREQ)
     return;
 
   obj->timer = TIMER_TONE;
   obj->pinInfo.state = 0;
+
+  if(frequency == 0) {
+    TimerPinDeinit(obj);
+    return;
+  }
 
   //Calculate the toggle count
   if (duration > 0) {
@@ -934,8 +926,10 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
   digital_io_init(obj->pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
   timClkFreq = getTimerClkFreq(obj->timer);
 
+  // Do this once
+  scale = timClkFreq / timFreq;
   while(end == 0) {
-    period = ((uint32_t)( timClkFreq / timFreq / prescaler)) - 1;
+    period = ((uint32_t)( scale / prescaler)) - 1;
 
     if((period >= 0xFFFF) && (prescaler < 0xFFFF))
       prescaler++; //prescaler *= 2;
@@ -962,6 +956,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 void TimerPinDeinit(stimer_t *obj)
 {
   TimerHandleDeinit(obj);
+  digital_io_init(obj->pin, GPIO_MODE_INPUT, GPIO_NOPULL);
 }
 
 /**
