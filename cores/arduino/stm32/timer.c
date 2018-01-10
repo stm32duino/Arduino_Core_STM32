@@ -1025,7 +1025,7 @@ void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *))
   * @param  None
   * @retval None
   */
-void TIM1_IRQHandler(void)
+WEAK void TIM1_IRQHandler(void)
 {
   if(timer_handles[0] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[0]);
@@ -1055,7 +1055,7 @@ void TIM1_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM2_IRQHandler(void)
+WEAK void TIM2_IRQHandler(void)
 {
   if(timer_handles[1] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[1]);
@@ -1069,7 +1069,7 @@ void TIM2_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM3_IRQHandler(void)
+WEAK void TIM3_IRQHandler(void)
 {
   if(timer_handles[2] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[2]);
@@ -1083,7 +1083,7 @@ void TIM3_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM4_IRQHandler(void)
+WEAK void TIM4_IRQHandler(void)
 {
   if(timer_handles[3] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[3]);
@@ -1097,7 +1097,7 @@ void TIM4_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM5_IRQHandler(void)
+WEAK void TIM5_IRQHandler(void)
 {
   if(timer_handles[4] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[4]);
@@ -1111,7 +1111,7 @@ void TIM5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM6_IRQHandler(void)
+WEAK void TIM6_IRQHandler(void)
 {
   if(timer_handles[5] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[5]);
@@ -1125,7 +1125,7 @@ void TIM6_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM7_IRQHandler(void)
+WEAK void TIM7_IRQHandler(void)
 {
   if(timer_handles[6] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[6]);
@@ -1139,7 +1139,7 @@ void TIM7_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM8_IRQHandler(void)
+WEAK void TIM8_IRQHandler(void)
 {
   if(timer_handles[7] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[7]);
@@ -1159,7 +1159,7 @@ void TIM8_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM9_IRQHandler(void)
+WEAK void TIM9_IRQHandler(void)
 {
   if(timer_handles[8] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[8]);
@@ -1174,7 +1174,7 @@ void TIM9_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM10_IRQHandler(void)
+WEAK void TIM10_IRQHandler(void)
 {
   if(timer_handles[9] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[9]);
@@ -1189,7 +1189,7 @@ void TIM10_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM11_IRQHandler(void)
+WEAK void TIM11_IRQHandler(void)
 {
   if(timer_handles[10] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[10]);
@@ -1203,7 +1203,7 @@ void TIM11_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM12_IRQHandler(void)
+WEAK void TIM12_IRQHandler(void)
 {
   if(timer_handles[11] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[11]);
@@ -1218,7 +1218,7 @@ void TIM12_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM13_IRQHandler(void)
+WEAK void TIM13_IRQHandler(void)
 {
   if(timer_handles[12] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[12]);
@@ -1233,7 +1233,7 @@ void TIM13_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM14_IRQHandler(void)
+WEAK void TIM14_IRQHandler(void)
 {
   if(timer_handles[13] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[13]);
@@ -1247,7 +1247,7 @@ void TIM14_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM15_IRQHandler(void)
+WEAK void TIM15_IRQHandler(void)
 {
   if(timer_handles[14] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[14]);
@@ -1262,7 +1262,7 @@ void TIM15_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM16_IRQHandler(void)
+WEAK void TIM16_IRQHandler(void)
 {
   if(timer_handles[15] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[15]);
@@ -1277,7 +1277,7 @@ void TIM16_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM17_IRQHandler(void)
+WEAK void TIM17_IRQHandler(void)
 {
   if(timer_handles[16] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[16]);
@@ -1291,7 +1291,7 @@ void TIM17_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM18_IRQHandler(void)
+WEAK void TIM18_IRQHandler(void)
 {
   if(timer_handles[17] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[17]);
@@ -1305,7 +1305,7 @@ void TIM18_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM19_IRQHandler(void)
+WEAK void TIM19_IRQHandler(void)
 {
   if(timer_handles[18] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[18]);
@@ -1319,7 +1319,7 @@ void TIM19_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM20_IRQHandler(void)
+WEAK void TIM20_IRQHandler(void)
 {
   if(timer_handles[19] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[19]);
@@ -1333,7 +1333,7 @@ void TIM20_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM21_IRQHandler(void)
+WEAK void TIM21_IRQHandler(void)
 {
   if(timer_handles[20] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[20]);
@@ -1347,7 +1347,7 @@ void TIM21_IRQHandler(void)
   * @param  None
   * @retval None
   */
-void TIM22_IRQHandler(void)
+WEAK void TIM22_IRQHandler(void)
 {
   if(timer_handles[21] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[21]);
