@@ -112,6 +112,17 @@ class SPIClass {
     SPIClass();
     SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel = (uint8_t)NC);
 
+    // setMISO/MOSI/SCLK/SSEL have to be called before begin()
+    void setMISO(uint32_t miso) { _spi.pin_miso = digitalPinToPinName(miso); };
+    void setMOSI(uint32_t mosi) { _spi.pin_mosi = digitalPinToPinName(mosi); };
+    void setSCLK(uint32_t sclk) { _spi.pin_sclk = digitalPinToPinName(sclk); };
+    void setSSEL(uint32_t ssel) { _spi.pin_ssel = digitalPinToPinName(ssel); };
+
+    void setMISO(PinName miso) { _spi.pin_miso = (miso); };
+    void setMOSI(PinName mosi) { _spi.pin_mosi = (mosi); };
+    void setSCLK(PinName sclk) { _spi.pin_sclk = (sclk); };
+    void setSSEL(PinName ssel) { _spi.pin_ssel = (ssel); };
+
     void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
     void end(void);
 

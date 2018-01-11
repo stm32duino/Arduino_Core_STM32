@@ -67,6 +67,11 @@ class TwoWire : public Stream
   public:
     TwoWire();
     TwoWire(uint8_t sda, uint8_t scl);
+    // setSCL/SDA have to be called before begin()
+    void setSCL(uint32_t scl) { _i2c.scl = digitalPinToPinName(scl); };
+    void setSDA(uint32_t sda) { _i2c.sda = digitalPinToPinName(sda); };
+    void setSCL(PinName scl) { _i2c.scl = scl; };
+    void setSDA(PinName sda) { _i2c.sda = sda; };
     void begin();
     void begin(uint8_t);
     void begin(int);
