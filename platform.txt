@@ -76,6 +76,7 @@ build.xSerial=
 build.enable_usb=
 build.flags.optimize=
 build.flags.ldspecs=
+build.force=0
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
@@ -86,6 +87,11 @@ build.opt.path={build.path}/sketch/{build.opt.name}
 recipe.hooks.prebuild.1.pattern.windows=cmd /c "if not exist {build.opt.sourcepath} mkdir {build.path}\sketch & type NUL > {build.opt.path}"
 recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
 recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
+
+# Check if force rebuild required (required aggressively cache compiled core to be disabled)
+recipe.hooks.sketch.prebuild.1.pattern.windows=cmd /c "if {build.force} equ 1 ( if exist {build.path}\core del /Q /F /S {build.path}\core {build.path}\libraries > nul 2>&1)"
+recipe.hooks.sketch.prebuild.1.pattern.linux=bash -c "[ {build.force} -eq 0 ] || [ ! -d {build.path}/core ] || rm -fr {build.path}/core {build.path}/libraries"
+recipe.hooks.sketch.prebuild.1.pattern.macosx=bash -c "[ {build.force} -eq 0 ] || [ ! -d {build.path}/core ] || rm -fr {build.path}/core {build.path}/libraries"
 
 # compile patterns
 # ---------------------
