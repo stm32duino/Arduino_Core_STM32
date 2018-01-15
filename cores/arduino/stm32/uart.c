@@ -125,21 +125,25 @@ void uart_init(serial_t *obj)
     printf("ERROR: UART pins mismatch\n");
     return;
   }
-
   // Enable USART clock
-  if(obj->uart == USART1) {
+#if defined(USART1_BASE)
+  else if(obj->uart == USART1) {
     __HAL_RCC_USART1_FORCE_RESET();
     __HAL_RCC_USART1_RELEASE_RESET();
     __HAL_RCC_USART1_CLK_ENABLE();
     obj->index = 0;
     obj->irq = USART1_IRQn;
-  } else if(obj->uart == USART2) {
+  }
+#endif
+#if defined(USART2_BASE)
+  else if(obj->uart == USART2) {
     __HAL_RCC_USART2_FORCE_RESET();
     __HAL_RCC_USART2_RELEASE_RESET();
     __HAL_RCC_USART2_CLK_ENABLE();
     obj->index = 1;
     obj->irq = USART2_IRQn;
   }
+#endif
 #if defined(USART3_BASE)
   else if(obj->uart == USART3) {
     __HAL_RCC_USART3_FORCE_RESET();
@@ -300,16 +304,20 @@ void uart_deinit(serial_t *obj)
 {
   // Reset UART and disable clock
   switch (obj->index) {
+#if defined(USART1_BASE)
     case 0:
         __HAL_RCC_USART1_FORCE_RESET();
         __HAL_RCC_USART1_RELEASE_RESET();
         __HAL_RCC_USART1_CLK_DISABLE();
         break;
+#endif
+#if defined(USART2_BASE)
     case 1:
         __HAL_RCC_USART2_FORCE_RESET();
         __HAL_RCC_USART2_RELEASE_RESET();
         __HAL_RCC_USART2_CLK_DISABLE();
         break;
+#endif
 #if defined(USART3_BASE)
     case 2:
         __HAL_RCC_USART3_FORCE_RESET();
@@ -670,22 +678,26 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   * @param  None
   * @retval None
   */
+#if defined(USART1_BASE)
 void USART1_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART1_IRQn);
   HAL_UART_IRQHandler(uart_handlers[0]);
 }
+#endif
 
 /**
   * @brief  USART 2 IRQ handler
   * @param  None
   * @retval None
   */
+#if defined(USART2_BASE)
 void USART2_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
   HAL_UART_IRQHandler(uart_handlers[1]);
 }
+#endif
 
 /**
   * @brief  USART 3 IRQ handler
