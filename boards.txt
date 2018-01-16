@@ -43,7 +43,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.node=NODE_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_data_size=262144
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.f_cpu=16000000L
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.f_cpu=18000000L
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
