@@ -246,6 +246,8 @@ The STM32F4x7 allows computing and verifying the IP, UDP, TCP and ICMP checksums
   * an operating system. */
 //#define ETH_INPUT_USE_IT 1
 
+#define LWIP_IGMP 1
+
 #endif /* __LWIPOPTS_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
