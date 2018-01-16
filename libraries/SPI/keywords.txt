@@ -17,7 +17,10 @@ transfer		KEYWORD2
 #setBitOrder	KEYWORD2
 setDataMode		KEYWORD2
 setClockDivider	KEYWORD2
-
+setMISO			KEYWORD2
+setMOSI			KEYWORD2
+setSCLK			KEYWORD2
+setSSEL			KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

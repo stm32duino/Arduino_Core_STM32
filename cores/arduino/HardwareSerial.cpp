@@ -138,6 +138,13 @@ void serialEventRun(void)
 }
 
 // Constructors ////////////////////////////////////////////////////////////////
+HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx)
+{
+  _serial.pin_rx = digitalPinToPinName(_rx);
+  _serial.pin_tx = digitalPinToPinName(_tx);
+  init();
+}
+
 HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
 {
   _serial.pin_rx = _rx;

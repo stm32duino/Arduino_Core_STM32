@@ -1,4 +1,3 @@
-
 # STM32 ARM Core and platform.
 # ------------------------------
 #
@@ -10,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc/" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src/" "-I{build.system.path}/{build.series}/" "-I{build.variant.path}/usb" "-I{build.variant.path}/Ethernet" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc/" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src/" "-I{build.system.path}/{build.series}/" "-I{build.variant.path}/usb" "-I{build.variant.path}/Ethernet" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
 
 # "-I{build.system.path}/Drivers/BSP/Components" "-I{build.system.path}/Middlewares/Third_Party/FatFs/src"  "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc"
 
@@ -21,25 +20,36 @@ compiler.warning_flags.more=-Wall
 compiler.warning_flags.all=-Wall -Wextra
 
 compiler.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
-compiler.c.cmd=arm-none-eabi-gcc
-compiler.c.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD {compiler.stm.extra_include}
-compiler.c.elf.cmd=arm-none-eabi-gcc
-compiler.c.elf.flags=-mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
+
 compiler.S.cmd=arm-none-eabi-gcc
-compiler.S.flags=-mthumb -c -x assembler-with-cpp {compiler.stm.extra_include}
+compiler.c.cmd=arm-none-eabi-gcc
 compiler.cpp.cmd=arm-none-eabi-g++
-compiler.cpp.flags=-mthumb -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD {compiler.stm.extra_include}
 compiler.ar.cmd=arm-none-eabi-gcc-ar
-compiler.ar.flags=rcs
+compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
-compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
-compiler.elf2hex.flags=-O binary
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
+
+compiler.extra_flags=-mcpu={build.mcu} -DF_CPU={build.f_cpu} -mthumb @{build.opt.path}
+
+compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
+
+compiler.c.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD {compiler.stm.extra_include}
+
+compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.warning_flags} -std=gnu++11 -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD {compiler.stm.extra_include}
+
+compiler.ar.flags=rcs
+
+compiler.c.elf.flags=-mcpu={build.mcu} -mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common -Wl,--warn-section-align
+
+compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+
+compiler.elf2hex.flags=-O binary
+
 compiler.ldflags={build.flags.ldspecs}
 compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
 
-# this can be overriden in boards.txt
+# These can be overriden in boards.txt
 build.extra_flags=
 build.ldscript=ldscript.ld
 
@@ -61,32 +71,39 @@ build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} '-DUSB_MA
 # numeric vendor ID if available or by board's specific value.
 build.usb_manufacturer="Unknown"
 
-#
 # Defaults config
-#
 build.xSerial=
 build.enable_usb=
 build.flags.optimize=
 build.flags.ldspecs=
 
+# Pre and post build hooks
+build.opt.name=build_opt.h
+build.opt.sourcepath={build.source.path}/{build.opt.name}
+build.opt.path={build.path}/sketch/{build.opt.name}
+
+# Create empty {build.opt} if not exists in the sketch dir
+recipe.hooks.prebuild.1.pattern.windows=cmd /c "if not exist {build.opt.sourcepath} mkdir {build.path}\sketch & type NUL > {build.opt.path}"
+recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
+recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
+
 # compile patterns
 # ---------------------
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Compile S files
-recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mcpu={build.mcu} -DF_CPU={build.f_cpu} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files}  {compiler.arm.cmsis.ldflags} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++ --specs=nano.specs
-
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++ --specs=nano.specs
 
 ## Create output (.bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
@@ -105,7 +122,7 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Uploader tool
 # -------------------
 
-#Upload to board via mass storage
+# Upload to board via mass storage
 tools.massStorageCopy.cmd=massStorageCopy
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
 tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
@@ -117,7 +134,7 @@ tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
-# stlink upload
+# ST-Link upload
 tools.stlink_upload.cmd=stlink_upload
 tools.stlink_upload.cmd.windows=stlink_upload.bat
 tools.stlink_upload.path.windows={runtime.tools.STM32Tools.path}/tools/win
