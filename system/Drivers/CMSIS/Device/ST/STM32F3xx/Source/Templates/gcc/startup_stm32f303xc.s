@@ -2,10 +2,7 @@
   ******************************************************************************
   * @file      startup_stm32f303xc.s
   * @author    MCD Application Team
-  * @version   V2.3.1
-  * @date      16-December-2016
-  * @brief     STM32F303xB/STM32F303xC devices vector table for Atollic 
-  *            TrueSTUDIO toolchain.
+  * @brief     STM32F303xB/STM32F303xC devices vector table for GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
