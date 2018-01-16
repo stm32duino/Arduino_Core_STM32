@@ -48,16 +48,15 @@
   */
 uint32_t GetCurrentMicro(void)
 {
-  uint32_t m0 = HAL_GetTick();
-  uint32_t u0 = SysTick->LOAD - SysTick->VAL;
-  uint32_t m1 = HAL_GetTick();
-  uint32_t u1 = SysTick->LOAD - SysTick->VAL;
-
-  if (m1 > m0) {
-    return ( m1 * 1000 + (u1 * 1000) / SysTick->LOAD);
-  } else {
-    return ( m0 * 1000 + (u0 * 1000) / SysTick->LOAD);
+  /* Ensure COUNTFLAG is reset by reading SysTick control and status register */
+  LL_SYSTICK_IsActiveCounterFlag();
+  uint32_t m = HAL_GetTick();
+  uint32_t u = SysTick->LOAD - SysTick->VAL;
+  if(LL_SYSTICK_IsActiveCounterFlag()) {
+    m = HAL_GetTick();
+    u = SysTick->LOAD - SysTick->VAL;
   }
+  return ( m * 1000 + (u * 1000) / SysTick->LOAD);
 }
 
 /**
