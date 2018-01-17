@@ -54,6 +54,9 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
+  * STM32L0
+    * [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html)
+
   * STM32F1
     * BluePill F103C8 (on going)
     * MapleMini F103CB (on going)
