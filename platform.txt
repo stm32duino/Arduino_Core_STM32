@@ -29,7 +29,7 @@ compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
 
-compiler.extra_flags=-mcpu={build.mcu} -DF_CPU={build.f_cpu} -mthumb @{build.opt.path}
+compiler.extra_flags=-mcpu={build.mcu} -mthumb @{build.opt.path}
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 
