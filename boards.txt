@@ -250,6 +250,20 @@ Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# NUCLEO_L031K6 board
+# Support: Serial2 (USART2 on PA15, PA2)
+Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
+Nucleo_32.menu.pnum.NUCLEO_L031K6.node=NODE_L031K6
+Nucleo_32.menu.pnum.NUCLEO_L031K6.upload.maximum_size=32768
+Nucleo_32.menu.pnum.NUCLEO_L031K6.upload.maximum_data_size=8192
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.mcu=cortex-m0
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.f_cpu=32000000L
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.board=NUCLEO_L031K6
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.series=STM32L0xx
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=NUCLEO_L031K6
+Nucleo_32.menu.pnum.NUCLEO_L031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_L432KC board
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
