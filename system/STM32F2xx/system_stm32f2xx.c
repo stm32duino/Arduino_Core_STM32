@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    system_stm32f2xx.c
   * @author  MCD Application Team
-  * @version V2.2.0
-  * @date    17-March-2017
   * @brief   CMSIS Cortex-M3 Device Peripheral Access Layer System Source File.
   *
   *   This file provides two functions and one global variable to be called from
@@ -123,7 +121,7 @@
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
   */
-  uint32_t SystemCoreClock = F_CPU;
+  uint32_t SystemCoreClock = 16000000;
   const uint8_t AHBPrescTable[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
   const uint8_t APBPrescTable[8]  = {0, 0, 0, 0, 1, 2, 3, 4};
 /**

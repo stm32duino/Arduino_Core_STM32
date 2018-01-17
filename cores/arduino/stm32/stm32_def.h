@@ -22,6 +22,7 @@
 #ifndef _STM32_DEF_
 #define _STM32_DEF_
 
+#define F_CPU SystemCoreClock
 #define USE_HAL_DRIVER
 
 #ifdef STM32F0xx
