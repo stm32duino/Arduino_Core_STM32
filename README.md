@@ -1,5 +1,5 @@
 # Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2017.11.24.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2017.11.24...master)
+### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2018.1.18.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2018.1.18...master)
 
 * [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
 * [Boards available](https://github.com/stm32duino/Arduino_Core_STM32#boards-available)<br>
@@ -36,12 +36,14 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
     * [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html)
     * [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html)
+    * [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html)
     * [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html)
 
   * STM32F7
     * [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html)
 
   * STM32L0
+    * [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html)
     * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
     * [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
 
@@ -54,15 +56,9 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
-  * STM32L0
-    * [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html)
-
   * STM32F1
     * BluePill F103C8 (on going)
     * MapleMini F103CB (on going)
-
-  * STM32F4
-    * [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html)
 
 ## Troubleshooting
 
