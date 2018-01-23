@@ -423,10 +423,12 @@ typedef struct
 typedef struct
 {
   __IO uint32_t ICR;        /*!< RI input capture register,                     Address offset: 0x00 */
-  __IO uint32_t ASCR1;      /*!< RI analog switches control register,       Address offset: 0x04 */
-  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,        Address offset: 0x08 */
+  __IO uint32_t ASCR1;      /*!< RI analog switches control register,           Address offset: 0x04 */
+  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,           Address offset: 0x08 */
   __IO uint32_t HYSCR1;     /*!< RI hysteresis control register,                Address offset: 0x0C */
-  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,               Address offset: 0x10 */
+  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,                Address offset: 0x10 */
+  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,                Address offset: 0x14 */
+  uint32_t RESERVED1;       /*!< Reserved,                                      Address offset: 0x18 */
 } RI_TypeDef;
 
 /** 
@@ -5584,6 +5586,26 @@ typedef struct
 #define RI_HYSCR2_PD_14                 (0x4000U << RI_HYSCR2_PD_Pos)          /*!< 0x40000000 */
 #define RI_HYSCR2_PD_15                 (0x8000U << RI_HYSCR2_PD_Pos)          /*!< 0x80000000 */
 
+/********************  Bit definition for RI_HYSCR3 register  ********************/
+#define RI_HYSCR3_PE_Pos                (0U)                                   
+#define RI_HYSCR3_PE_Msk                (0xFFFFU << RI_HYSCR3_PE_Pos)          /*!< 0x0000FFFF */
+#define RI_HYSCR3_PE                    RI_HYSCR3_PE_Msk                       /*!< PE[15:0] Port E Hysteresis selection */
+#define RI_HYSCR3_PE_0                  (0x0001U << RI_HYSCR3_PE_Pos)          /*!< 0x00000001 */
+#define RI_HYSCR3_PE_1                  (0x0002U << RI_HYSCR3_PE_Pos)          /*!< 0x00000002 */
+#define RI_HYSCR3_PE_2                  (0x0004U << RI_HYSCR3_PE_Pos)          /*!< 0x00000004 */
+#define RI_HYSCR3_PE_3                  (0x0008U << RI_HYSCR3_PE_Pos)          /*!< 0x00000008 */
+#define RI_HYSCR3_PE_4                  (0x0010U << RI_HYSCR3_PE_Pos)          /*!< 0x00000010 */
+#define RI_HYSCR3_PE_5                  (0x0020U << RI_HYSCR3_PE_Pos)          /*!< 0x00000020 */
+#define RI_HYSCR3_PE_6                  (0x0040U << RI_HYSCR3_PE_Pos)          /*!< 0x00000040 */
+#define RI_HYSCR3_PE_7                  (0x0080U << RI_HYSCR3_PE_Pos)          /*!< 0x00000080 */
+#define RI_HYSCR3_PE_8                  (0x0100U << RI_HYSCR3_PE_Pos)          /*!< 0x00000100 */
+#define RI_HYSCR3_PE_9                  (0x0200U << RI_HYSCR3_PE_Pos)          /*!< 0x00000200 */
+#define RI_HYSCR3_PE_10                 (0x0400U << RI_HYSCR3_PE_Pos)          /*!< 0x00000400 */
+#define RI_HYSCR3_PE_11                 (0x0800U << RI_HYSCR3_PE_Pos)          /*!< 0x00000800 */
+#define RI_HYSCR3_PE_12                 (0x1000U << RI_HYSCR3_PE_Pos)          /*!< 0x00001000 */
+#define RI_HYSCR3_PE_13                 (0x2000U << RI_HYSCR3_PE_Pos)          /*!< 0x00002000 */
+#define RI_HYSCR3_PE_14                 (0x4000U << RI_HYSCR3_PE_Pos)          /*!< 0x00004000 */
+#define RI_HYSCR3_PE_15                 (0x8000U << RI_HYSCR3_PE_Pos)          /*!< 0x00008000 */
 
 /******************************************************************************/
 /*                                                                            */
