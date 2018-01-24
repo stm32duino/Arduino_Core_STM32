@@ -46,6 +46,7 @@
 #include "stm32f7xx.h"
 #include "Legacy/stm32_hal_legacy.h"
 #include <stdio.h>
+
 /* Exported types ------------------------------------------------------------*/
 
 /** 
@@ -64,8 +65,8 @@ typedef enum
   */
 typedef enum 
 {
-  HAL_UNLOCKED = 0x00,
-  HAL_LOCKED   = 0x01  
+  HAL_UNLOCKED = 0x00U,
+  HAL_LOCKED   = 0x01U  
 } HAL_LockTypeDef;
 
 /* Exported macro ------------------------------------------------------------*/
@@ -83,7 +84,7 @@ typedef enum
 #define UNUSED(x) ((void)(x))
 
 /** @brief Reset the Handle's State field.
-  * @param __HANDLE__: specifies the Peripheral Handle.
+  * @param __HANDLE__ specifies the Peripheral Handle.
   * @note  This macro can be used for the following purpose: 
   *          - When the Handle is declared as local variable; before passing it as parameter
   *            to HAL_PPP_Init() for the first time, it is mandatory to use this macro 
@@ -99,7 +100,7 @@ typedef enum
   */
 #define __HAL_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = 0U)
 
-#if (USE_RTOS == 1)
+#if (USE_RTOS == 1U)
   /* Reserved for future use */
   #error "USE_RTOS should be 0 in the current HAL release"
 #else
@@ -113,15 +114,15 @@ typedef enum
                                     {                                      \
                                        (__HANDLE__)->Lock = HAL_LOCKED;    \
                                     }                                      \
-                                  }while (0)
+                                  }while (0U)
 
   #define __HAL_UNLOCK(__HANDLE__)                                          \
                                   do{                                       \
                                       (__HANDLE__)->Lock = HAL_UNLOCKED;    \
-                                    }while (0)
+                                    }while (0U)
 #endif /* USE_RTOS */
 
-#if  defined ( __GNUC__ )
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
   #ifndef __weak
     #define __weak   __attribute__((weak))
   #endif /* __weak */
@@ -132,7 +133,7 @@ typedef enum
 
 
 /* Macro to get variable aligned on 4-bytes, for __ICCARM__ the directive "#pragma data_alignment=4" must be used instead */
-#if defined   (__GNUC__)        /* GNU Compiler */
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
   #ifndef __ALIGN_END
     #define __ALIGN_END    __attribute__ ((aligned (4)))
   #endif /* __ALIGN_END */
@@ -145,7 +146,7 @@ typedef enum
   #endif /* __ALIGN_END */
   #ifndef __ALIGN_BEGIN      
     #if defined   (__CC_ARM)      /* ARM Compiler */
-      #define __ALIGN_BEGIN    __align(4)  
+      #define __ALIGN_BEGIN    __align(4)
     #elif defined (__ICCARM__)    /* IAR Compiler */
       #define __ALIGN_BEGIN 
     #endif /* __CC_ARM */
@@ -166,14 +167,14 @@ typedef enum
    Available memory areas are declared in the 'Target' tab of the 'Options for Target'
    dialog. 
 */
-#define __RAM_FUNC HAL_StatusTypeDef 
+#define __RAM_FUNC 
 
 #elif defined ( __ICCARM__ )
 /* ICCARM Compiler
    ---------------
    RAM functions are defined using a specific toolchain keyword "__ramfunc". 
 */
-#define __RAM_FUNC __ramfunc HAL_StatusTypeDef
+#define __RAM_FUNC __ramfunc
 
 #elif defined   (  __GNUC__  )
 /* GNU Compiler
@@ -181,7 +182,7 @@ typedef enum
   RAM functions are defined using a specific toolchain attribute 
    "__attribute__((section(".RamFunc")))".
 */
-#define __RAM_FUNC HAL_StatusTypeDef  __attribute__((section(".RamFunc")))
+#define __RAM_FUNC __attribute__((section(".RamFunc")))
 
 #endif
 
