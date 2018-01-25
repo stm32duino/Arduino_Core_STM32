@@ -446,27 +446,27 @@ typedef struct
 typedef struct
 {
   __IO uint32_t ICR;        /*!< RI input capture register,                     Address offset: 0x00 */
-  __IO uint32_t ASCR1;      /*!< RI analog switches control register,       Address offset: 0x04 */
-  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,        Address offset: 0x08 */
+  __IO uint32_t ASCR1;      /*!< RI analog switches control register,           Address offset: 0x04 */
+  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,           Address offset: 0x08 */
   __IO uint32_t HYSCR1;     /*!< RI hysteresis control register,                Address offset: 0x0C */
-  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,               Address offset: 0x10 */
-  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,               Address offset: 0x14 */
-  __IO uint32_t HYSCR4;     /*!< RI Hysteresis control register,               Address offset: 0x18 */
-  __IO uint32_t ASMR1;      /*!< RI Analog switch mode register 1,         Address offset: 0x1C */
-  __IO uint32_t CMR1;       /*!< RI Channel mask register 1,                   Address offset: 0x20 */
-  __IO uint32_t CICR1;      /*!< RI Channel Iden for capture register 1,  Address offset: 0x24 */
-  __IO uint32_t ASMR2;      /*!< RI Analog switch mode register 2,         Address offset: 0x28 */
-  __IO uint32_t CMR2;       /*!< RI Channel mask register 2,                   Address offset: 0x2C */
-  __IO uint32_t CICR2;      /*!< RI Channel Iden for capture register 2,  Address offset: 0x30 */
-  __IO uint32_t ASMR3;      /*!< RI Analog switch mode register 3,         Address offset: 0x34 */
-  __IO uint32_t CMR3;       /*!< RI Channel mask register 3,                   Address offset: 0x38 */
-  __IO uint32_t CICR3;      /*!< RI Channel Iden for capture register 3,  Address offset: 0x3C */
-  __IO uint32_t ASMR4;      /*!< RI Analog switch mode register 4,         Address offset: 0x40 */
-  __IO uint32_t CMR4;       /*!< RI Channel mask register 4,                   Address offset: 0x44 */
-  __IO uint32_t CICR4;      /*!< RI Channel Iden for capture register 4,  Address offset: 0x48 */
-  __IO uint32_t ASMR5;      /*!< RI Analog switch mode register 5,         Address offset: 0x4C */
-  __IO uint32_t CMR5;       /*!< RI Channel mask register 5,                   Address offset: 0x50 */
-  __IO uint32_t CICR5;      /*!< RI Channel Iden for capture register 5,  Address offset: 0x54 */
+  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,                Address offset: 0x10 */
+  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,                Address offset: 0x14 */
+  __IO uint32_t HYSCR4;     /*!< RI Hysteresis control register,                Address offset: 0x18 */
+  __IO uint32_t ASMR1;      /*!< RI Analog switch mode register 1,              Address offset: 0x1C */
+  __IO uint32_t CMR1;       /*!< RI Channel mask register 1,                    Address offset: 0x20 */
+  __IO uint32_t CICR1;      /*!< RI Channel Iden for capture register 1,        Address offset: 0x24 */
+  __IO uint32_t ASMR2;      /*!< RI Analog switch mode register 2,              Address offset: 0x28 */
+  __IO uint32_t CMR2;       /*!< RI Channel mask register 2,                    Address offset: 0x2C */
+  __IO uint32_t CICR2;      /*!< RI Channel Iden for capture register 2,        Address offset: 0x30 */
+  __IO uint32_t ASMR3;      /*!< RI Analog switch mode register 3,              Address offset: 0x34 */
+  __IO uint32_t CMR3;       /*!< RI Channel mask register 3,                    Address offset: 0x38 */
+  __IO uint32_t CICR3;      /*!< RI Channel Iden for capture register 3,        Address offset: 0x3C */
+  __IO uint32_t ASMR4;      /*!< RI Analog switch mode register 4,              Address offset: 0x40 */
+  __IO uint32_t CMR4;       /*!< RI Channel mask register 4,                    Address offset: 0x44 */
+  __IO uint32_t CICR4;      /*!< RI Channel Iden for capture register 4,        Address offset: 0x48 */
+  __IO uint32_t ASMR5;      /*!< RI Analog switch mode register 5,              Address offset: 0x4C */
+  __IO uint32_t CMR5;       /*!< RI Channel mask register 5,                    Address offset: 0x50 */
+  __IO uint32_t CICR5;      /*!< RI Channel Iden for capture register 5,        Address offset: 0x54 */
 } RI_TypeDef;
 
 /** 
@@ -6272,7 +6272,6 @@ typedef struct
 #define RI_HYSCR3_PF_13                 (0x2000U << RI_HYSCR3_PF_Pos)          /*!< 0x20000000 */
 #define RI_HYSCR3_PF_14                 (0x4000U << RI_HYSCR3_PF_Pos)          /*!< 0x40000000 */
 #define RI_HYSCR3_PF_15                 (0x8000U << RI_HYSCR3_PF_Pos)          /*!< 0x80000000 */
-
 /********************  Bit definition for RI_HYSCR4 register  ********************/
 #define RI_HYSCR4_PG_Pos                (0U)                                   
 #define RI_HYSCR4_PG_Msk                (0xFFFFU << RI_HYSCR4_PG_Pos)          /*!< 0x0000FFFF */

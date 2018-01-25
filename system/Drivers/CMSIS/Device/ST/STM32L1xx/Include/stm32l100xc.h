@@ -435,20 +435,27 @@ typedef struct
 typedef struct
 {
   __IO uint32_t ICR;        /*!< RI input capture register,                     Address offset: 0x00 */
-  __IO uint32_t ASCR1;      /*!< RI analog switches control register,       Address offset: 0x04 */
-  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,        Address offset: 0x08 */
+  __IO uint32_t ASCR1;      /*!< RI analog switches control register,           Address offset: 0x04 */
+  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,           Address offset: 0x08 */
   __IO uint32_t HYSCR1;     /*!< RI hysteresis control register,                Address offset: 0x0C */
-  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,               Address offset: 0x10 */
-  uint32_t RESERVED1;       /*!< Reserved, 0x18                                                                  */
-  __IO uint32_t ASMR1;      /*!< RI Analog switch mode register 1,         Address offset: 0x1C */
-  __IO uint32_t CMR1;       /*!< RI Channel mask register 1,                   Address offset: 0x20 */
-  __IO uint32_t CICR1;      /*!< RI Channel Iden for capture register 1,  Address offset: 0x24 */
-  __IO uint32_t ASMR2;      /*!< RI Analog switch mode register 2,         Address offset: 0x28 */
-  __IO uint32_t CMR2;       /*!< RI Channel mask register 2,                   Address offset: 0x2C */
-  __IO uint32_t CICR2;      /*!< RI Channel Iden for capture register 2,  Address offset: 0x30 */
-  __IO uint32_t ASMR3;      /*!< RI Analog switch mode register 3,         Address offset: 0x34 */
-  __IO uint32_t CMR3;       /*!< RI Channel mask register 3,                   Address offset: 0x38 */
-  __IO uint32_t CICR3;      /*!< RI Channel Iden for capture register 3,  Address offset: 0x3C */
+  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,                Address offset: 0x10 */
+  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,                Address offset: 0x14 */
+  __IO uint32_t HYSCR4;     /*!< RI Hysteresis control register,                Address offset: 0x18 */
+  __IO uint32_t ASMR1;      /*!< RI Analog switch mode register 1,              Address offset: 0x1C */
+  __IO uint32_t CMR1;       /*!< RI Channel mask register 1,                    Address offset: 0x20 */
+  __IO uint32_t CICR1;      /*!< RI Channel Iden for capture register 1,        Address offset: 0x24 */
+  __IO uint32_t ASMR2;      /*!< RI Analog switch mode register 2,              Address offset: 0x28 */
+  __IO uint32_t CMR2;       /*!< RI Channel mask register 2,                    Address offset: 0x2C */
+  __IO uint32_t CICR2;      /*!< RI Channel Iden for capture register 2,        Address offset: 0x30 */
+  __IO uint32_t ASMR3;      /*!< RI Analog switch mode register 3,              Address offset: 0x34 */
+  __IO uint32_t CMR3;       /*!< RI Channel mask register 3,                    Address offset: 0x38 */
+  __IO uint32_t CICR3;      /*!< RI Channel Iden for capture register 3,        Address offset: 0x3C */
+  __IO uint32_t ASMR4;      /*!< RI Analog switch mode register 4,              Address offset: 0x40 */
+  __IO uint32_t CMR4;       /*!< RI Channel mask register 4,                    Address offset: 0x44 */
+  __IO uint32_t CICR4;      /*!< RI Channel Iden for capture register 4,        Address offset: 0x48 */
+  __IO uint32_t ASMR5;      /*!< RI Analog switch mode register 5,              Address offset: 0x4C */
+  __IO uint32_t CMR5;       /*!< RI Channel mask register 5,                    Address offset: 0x50 */
+  __IO uint32_t CICR5;      /*!< RI Channel Iden for capture register 5,        Address offset: 0x54 */
 } RI_TypeDef;
 
 /** 
@@ -5929,6 +5936,65 @@ typedef struct
 #define RI_HYSCR2_PD_14                 (0x4000U << RI_HYSCR2_PD_Pos)          /*!< 0x40000000 */
 #define RI_HYSCR2_PD_15                 (0x8000U << RI_HYSCR2_PD_Pos)          /*!< 0x80000000 */
 
+/********************  Bit definition for RI_HYSCR3 register  ********************/
+#define RI_HYSCR3_PE_Pos                (0U)                                   
+#define RI_HYSCR3_PE_Msk                (0xFFFFU << RI_HYSCR3_PE_Pos)          /*!< 0x0000FFFF */
+#define RI_HYSCR3_PE                    RI_HYSCR3_PE_Msk                       /*!< PE[15:0] Port E Hysteresis selection */
+#define RI_HYSCR3_PE_0                  (0x0001U << RI_HYSCR3_PE_Pos)          /*!< 0x00000001 */
+#define RI_HYSCR3_PE_1                  (0x0002U << RI_HYSCR3_PE_Pos)          /*!< 0x00000002 */
+#define RI_HYSCR3_PE_2                  (0x0004U << RI_HYSCR3_PE_Pos)          /*!< 0x00000004 */
+#define RI_HYSCR3_PE_3                  (0x0008U << RI_HYSCR3_PE_Pos)          /*!< 0x00000008 */
+#define RI_HYSCR3_PE_4                  (0x0010U << RI_HYSCR3_PE_Pos)          /*!< 0x00000010 */
+#define RI_HYSCR3_PE_5                  (0x0020U << RI_HYSCR3_PE_Pos)          /*!< 0x00000020 */
+#define RI_HYSCR3_PE_6                  (0x0040U << RI_HYSCR3_PE_Pos)          /*!< 0x00000040 */
+#define RI_HYSCR3_PE_7                  (0x0080U << RI_HYSCR3_PE_Pos)          /*!< 0x00000080 */
+#define RI_HYSCR3_PE_8                  (0x0100U << RI_HYSCR3_PE_Pos)          /*!< 0x00000100 */
+#define RI_HYSCR3_PE_9                  (0x0200U << RI_HYSCR3_PE_Pos)          /*!< 0x00000200 */
+#define RI_HYSCR3_PE_10                 (0x0400U << RI_HYSCR3_PE_Pos)          /*!< 0x00000400 */
+#define RI_HYSCR3_PE_11                 (0x0800U << RI_HYSCR3_PE_Pos)          /*!< 0x00000800 */
+#define RI_HYSCR3_PE_12                 (0x1000U << RI_HYSCR3_PE_Pos)          /*!< 0x00001000 */
+#define RI_HYSCR3_PE_13                 (0x2000U << RI_HYSCR3_PE_Pos)          /*!< 0x00002000 */
+#define RI_HYSCR3_PE_14                 (0x4000U << RI_HYSCR3_PE_Pos)          /*!< 0x00004000 */
+#define RI_HYSCR3_PE_15                 (0x8000U << RI_HYSCR3_PE_Pos)          /*!< 0x00008000 */
+#define RI_HYSCR3_PF_Pos                (16U)                                  
+#define RI_HYSCR3_PF_Msk                (0xFFFFU << RI_HYSCR3_PF_Pos)          /*!< 0xFFFF0000 */
+#define RI_HYSCR3_PF                    RI_HYSCR3_PF_Msk                       /*!< PF[15:0] Port F Hysteresis selection */
+#define RI_HYSCR3_PF_0                  (0x0001U << RI_HYSCR3_PF_Pos)          /*!< 0x00010000 */
+#define RI_HYSCR3_PF_1                  (0x0002U << RI_HYSCR3_PF_Pos)          /*!< 0x00020000 */
+#define RI_HYSCR3_PF_2                  (0x0004U << RI_HYSCR3_PF_Pos)          /*!< 0x00040000 */
+#define RI_HYSCR3_PF_3                  (0x0008U << RI_HYSCR3_PF_Pos)          /*!< 0x00080000 */
+#define RI_HYSCR3_PF_4                  (0x0010U << RI_HYSCR3_PF_Pos)          /*!< 0x00100000 */
+#define RI_HYSCR3_PF_5                  (0x0020U << RI_HYSCR3_PF_Pos)          /*!< 0x00200000 */
+#define RI_HYSCR3_PF_6                  (0x0040U << RI_HYSCR3_PF_Pos)          /*!< 0x00400000 */
+#define RI_HYSCR3_PF_7                  (0x0080U << RI_HYSCR3_PF_Pos)          /*!< 0x00800000 */
+#define RI_HYSCR3_PF_8                  (0x0100U << RI_HYSCR3_PF_Pos)          /*!< 0x01000000 */
+#define RI_HYSCR3_PF_9                  (0x0200U << RI_HYSCR3_PF_Pos)          /*!< 0x02000000 */
+#define RI_HYSCR3_PF_10                 (0x0400U << RI_HYSCR3_PF_Pos)          /*!< 0x04000000 */
+#define RI_HYSCR3_PF_11                 (0x0800U << RI_HYSCR3_PF_Pos)          /*!< 0x08000000 */
+#define RI_HYSCR3_PF_12                 (0x1000U << RI_HYSCR3_PF_Pos)          /*!< 0x10000000 */
+#define RI_HYSCR3_PF_13                 (0x2000U << RI_HYSCR3_PF_Pos)          /*!< 0x20000000 */
+#define RI_HYSCR3_PF_14                 (0x4000U << RI_HYSCR3_PF_Pos)          /*!< 0x40000000 */
+#define RI_HYSCR3_PF_15                 (0x8000U << RI_HYSCR3_PF_Pos)          /*!< 0x80000000 */
+/********************  Bit definition for RI_HYSCR4 register  ********************/
+#define RI_HYSCR4_PG_Pos                (0U)                                   
+#define RI_HYSCR4_PG_Msk                (0xFFFFU << RI_HYSCR4_PG_Pos)          /*!< 0x0000FFFF */
+#define RI_HYSCR4_PG                    RI_HYSCR4_PG_Msk                       /*!< PG[15:0] Port G Hysteresis selection */
+#define RI_HYSCR4_PG_0                  (0x0001U << RI_HYSCR4_PG_Pos)          /*!< 0x00000001 */
+#define RI_HYSCR4_PG_1                  (0x0002U << RI_HYSCR4_PG_Pos)          /*!< 0x00000002 */
+#define RI_HYSCR4_PG_2                  (0x0004U << RI_HYSCR4_PG_Pos)          /*!< 0x00000004 */
+#define RI_HYSCR4_PG_3                  (0x0008U << RI_HYSCR4_PG_Pos)          /*!< 0x00000008 */
+#define RI_HYSCR4_PG_4                  (0x0010U << RI_HYSCR4_PG_Pos)          /*!< 0x00000010 */
+#define RI_HYSCR4_PG_5                  (0x0020U << RI_HYSCR4_PG_Pos)          /*!< 0x00000020 */
+#define RI_HYSCR4_PG_6                  (0x0040U << RI_HYSCR4_PG_Pos)          /*!< 0x00000040 */
+#define RI_HYSCR4_PG_7                  (0x0080U << RI_HYSCR4_PG_Pos)          /*!< 0x00000080 */
+#define RI_HYSCR4_PG_8                  (0x0100U << RI_HYSCR4_PG_Pos)          /*!< 0x00000100 */
+#define RI_HYSCR4_PG_9                  (0x0200U << RI_HYSCR4_PG_Pos)          /*!< 0x00000200 */
+#define RI_HYSCR4_PG_10                 (0x0400U << RI_HYSCR4_PG_Pos)          /*!< 0x00000400 */
+#define RI_HYSCR4_PG_11                 (0x0800U << RI_HYSCR4_PG_Pos)          /*!< 0x00000800 */
+#define RI_HYSCR4_PG_12                 (0x1000U << RI_HYSCR4_PG_Pos)          /*!< 0x00001000 */
+#define RI_HYSCR4_PG_13                 (0x2000U << RI_HYSCR4_PG_Pos)          /*!< 0x00002000 */
+#define RI_HYSCR4_PG_14                 (0x4000U << RI_HYSCR4_PG_Pos)          /*!< 0x00004000 */
+#define RI_HYSCR4_PG_15                 (0x8000U << RI_HYSCR4_PG_Pos)          /*!< 0x00008000 */
 
 /********************  Bit definition for RI_ASMR1 register  ********************/
 #define RI_ASMR1_PA_Pos                 (0U)                                   
@@ -6118,6 +6184,132 @@ typedef struct
 #define RI_CICR3_PC_13                  (0x2000U << RI_CICR3_PC_Pos)           /*!< 0x00002000 */
 #define RI_CICR3_PC_14                  (0x4000U << RI_CICR3_PC_Pos)           /*!< 0x00004000 */
 #define RI_CICR3_PC_15                  (0x8000U << RI_CICR3_PC_Pos)           /*!< 0x00008000 */
+
+/********************  Bit definition for RI_ASMR4 register  ********************/
+#define RI_ASMR4_PF_Pos                 (0U)                                   
+#define RI_ASMR4_PF_Msk                 (0xFFFFU << RI_ASMR4_PF_Pos)           /*!< 0x0000FFFF */
+#define RI_ASMR4_PF                     RI_ASMR4_PF_Msk                        /*!< PF[15:0] Port F selection */
+#define RI_ASMR4_PF_0                   (0x0001U << RI_ASMR4_PF_Pos)           /*!< 0x00000001 */
+#define RI_ASMR4_PF_1                   (0x0002U << RI_ASMR4_PF_Pos)           /*!< 0x00000002 */
+#define RI_ASMR4_PF_2                   (0x0004U << RI_ASMR4_PF_Pos)           /*!< 0x00000004 */
+#define RI_ASMR4_PF_3                   (0x0008U << RI_ASMR4_PF_Pos)           /*!< 0x00000008 */
+#define RI_ASMR4_PF_4                   (0x0010U << RI_ASMR4_PF_Pos)           /*!< 0x00000010 */
+#define RI_ASMR4_PF_5                   (0x0020U << RI_ASMR4_PF_Pos)           /*!< 0x00000020 */
+#define RI_ASMR4_PF_6                   (0x0040U << RI_ASMR4_PF_Pos)           /*!< 0x00000040 */
+#define RI_ASMR4_PF_7                   (0x0080U << RI_ASMR4_PF_Pos)           /*!< 0x00000080 */
+#define RI_ASMR4_PF_8                   (0x0100U << RI_ASMR4_PF_Pos)           /*!< 0x00000100 */
+#define RI_ASMR4_PF_9                   (0x0200U << RI_ASMR4_PF_Pos)           /*!< 0x00000200 */
+#define RI_ASMR4_PF_10                  (0x0400U << RI_ASMR4_PF_Pos)           /*!< 0x00000400 */
+#define RI_ASMR4_PF_11                  (0x0800U << RI_ASMR4_PF_Pos)           /*!< 0x00000800 */
+#define RI_ASMR4_PF_12                  (0x1000U << RI_ASMR4_PF_Pos)           /*!< 0x00001000 */
+#define RI_ASMR4_PF_13                  (0x2000U << RI_ASMR4_PF_Pos)           /*!< 0x00002000 */
+#define RI_ASMR4_PF_14                  (0x4000U << RI_ASMR4_PF_Pos)           /*!< 0x00004000 */
+#define RI_ASMR4_PF_15                  (0x8000U << RI_ASMR4_PF_Pos)           /*!< 0x00008000 */
+
+/********************  Bit definition for RI_CMR4 register  ********************/
+#define RI_CMR4_PF_Pos                  (0U)                                   
+#define RI_CMR4_PF_Msk                  (0xFFFFU << RI_CMR4_PF_Pos)            /*!< 0x0000FFFF */
+#define RI_CMR4_PF                      RI_CMR4_PF_Msk                         /*!< PF[15:0] Port F selection */
+#define RI_CMR4_PF_0                    (0x0001U << RI_CMR4_PF_Pos)            /*!< 0x00000001 */
+#define RI_CMR4_PF_1                    (0x0002U << RI_CMR4_PF_Pos)            /*!< 0x00000002 */
+#define RI_CMR4_PF_2                    (0x0004U << RI_CMR4_PF_Pos)            /*!< 0x00000004 */
+#define RI_CMR4_PF_3                    (0x0008U << RI_CMR4_PF_Pos)            /*!< 0x00000008 */
+#define RI_CMR4_PF_4                    (0x0010U << RI_CMR4_PF_Pos)            /*!< 0x00000010 */
+#define RI_CMR4_PF_5                    (0x0020U << RI_CMR4_PF_Pos)            /*!< 0x00000020 */
+#define RI_CMR4_PF_6                    (0x0040U << RI_CMR4_PF_Pos)            /*!< 0x00000040 */
+#define RI_CMR4_PF_7                    (0x0080U << RI_CMR4_PF_Pos)            /*!< 0x00000080 */
+#define RI_CMR4_PF_8                    (0x0100U << RI_CMR4_PF_Pos)            /*!< 0x00000100 */
+#define RI_CMR4_PF_9                    (0x0200U << RI_CMR4_PF_Pos)            /*!< 0x00000200 */
+#define RI_CMR4_PF_10                   (0x0400U << RI_CMR4_PF_Pos)            /*!< 0x00000400 */
+#define RI_CMR4_PF_11                   (0x0800U << RI_CMR4_PF_Pos)            /*!< 0x00000800 */
+#define RI_CMR4_PF_12                   (0x1000U << RI_CMR4_PF_Pos)            /*!< 0x00001000 */
+#define RI_CMR4_PF_13                   (0x2000U << RI_CMR4_PF_Pos)            /*!< 0x00002000 */
+#define RI_CMR4_PF_14                   (0x4000U << RI_CMR4_PF_Pos)            /*!< 0x00004000 */
+#define RI_CMR4_PF_15                   (0x8000U << RI_CMR4_PF_Pos)            /*!< 0x00008000 */
+
+/********************  Bit definition for RI_CICR4 register  ********************/
+#define RI_CICR4_PF_Pos                 (0U)                                   
+#define RI_CICR4_PF_Msk                 (0xFFFFU << RI_CICR4_PF_Pos)           /*!< 0x0000FFFF */
+#define RI_CICR4_PF                     RI_CICR4_PF_Msk                        /*!< PF[15:0] Port F selection */
+#define RI_CICR4_PF_0                   (0x0001U << RI_CICR4_PF_Pos)           /*!< 0x00000001 */
+#define RI_CICR4_PF_1                   (0x0002U << RI_CICR4_PF_Pos)           /*!< 0x00000002 */
+#define RI_CICR4_PF_2                   (0x0004U << RI_CICR4_PF_Pos)           /*!< 0x00000004 */
+#define RI_CICR4_PF_3                   (0x0008U << RI_CICR4_PF_Pos)           /*!< 0x00000008 */
+#define RI_CICR4_PF_4                   (0x0010U << RI_CICR4_PF_Pos)           /*!< 0x00000010 */
+#define RI_CICR4_PF_5                   (0x0020U << RI_CICR4_PF_Pos)           /*!< 0x00000020 */
+#define RI_CICR4_PF_6                   (0x0040U << RI_CICR4_PF_Pos)           /*!< 0x00000040 */
+#define RI_CICR4_PF_7                   (0x0080U << RI_CICR4_PF_Pos)           /*!< 0x00000080 */
+#define RI_CICR4_PF_8                   (0x0100U << RI_CICR4_PF_Pos)           /*!< 0x00000100 */
+#define RI_CICR4_PF_9                   (0x0200U << RI_CICR4_PF_Pos)           /*!< 0x00000200 */
+#define RI_CICR4_PF_10                  (0x0400U << RI_CICR4_PF_Pos)           /*!< 0x00000400 */
+#define RI_CICR4_PF_11                  (0x0800U << RI_CICR4_PF_Pos)           /*!< 0x00000800 */
+#define RI_CICR4_PF_12                  (0x1000U << RI_CICR4_PF_Pos)           /*!< 0x00001000 */
+#define RI_CICR4_PF_13                  (0x2000U << RI_CICR4_PF_Pos)           /*!< 0x00002000 */
+#define RI_CICR4_PF_14                  (0x4000U << RI_CICR4_PF_Pos)           /*!< 0x00004000 */
+#define RI_CICR4_PF_15                  (0x8000U << RI_CICR4_PF_Pos)           /*!< 0x00008000 */
+
+/********************  Bit definition for RI_ASMR5 register  ********************/
+#define RI_ASMR5_PG_Pos                 (0U)                                   
+#define RI_ASMR5_PG_Msk                 (0xFFFFU << RI_ASMR5_PG_Pos)           /*!< 0x0000FFFF */
+#define RI_ASMR5_PG                     RI_ASMR5_PG_Msk                        /*!< PG[15:0] Port G selection */
+#define RI_ASMR5_PG_0                   (0x0001U << RI_ASMR5_PG_Pos)           /*!< 0x00000001 */
+#define RI_ASMR5_PG_1                   (0x0002U << RI_ASMR5_PG_Pos)           /*!< 0x00000002 */
+#define RI_ASMR5_PG_2                   (0x0004U << RI_ASMR5_PG_Pos)           /*!< 0x00000004 */
+#define RI_ASMR5_PG_3                   (0x0008U << RI_ASMR5_PG_Pos)           /*!< 0x00000008 */
+#define RI_ASMR5_PG_4                   (0x0010U << RI_ASMR5_PG_Pos)           /*!< 0x00000010 */
+#define RI_ASMR5_PG_5                   (0x0020U << RI_ASMR5_PG_Pos)           /*!< 0x00000020 */
+#define RI_ASMR5_PG_6                   (0x0040U << RI_ASMR5_PG_Pos)           /*!< 0x00000040 */
+#define RI_ASMR5_PG_7                   (0x0080U << RI_ASMR5_PG_Pos)           /*!< 0x00000080 */
+#define RI_ASMR5_PG_8                   (0x0100U << RI_ASMR5_PG_Pos)           /*!< 0x00000100 */
+#define RI_ASMR5_PG_9                   (0x0200U << RI_ASMR5_PG_Pos)           /*!< 0x00000200 */
+#define RI_ASMR5_PG_10                  (0x0400U << RI_ASMR5_PG_Pos)           /*!< 0x00000400 */
+#define RI_ASMR5_PG_11                  (0x0800U << RI_ASMR5_PG_Pos)           /*!< 0x00000800 */
+#define RI_ASMR5_PG_12                  (0x1000U << RI_ASMR5_PG_Pos)           /*!< 0x00001000 */
+#define RI_ASMR5_PG_13                  (0x2000U << RI_ASMR5_PG_Pos)           /*!< 0x00002000 */
+#define RI_ASMR5_PG_14                  (0x4000U << RI_ASMR5_PG_Pos)           /*!< 0x00004000 */
+#define RI_ASMR5_PG_15                  (0x8000U << RI_ASMR5_PG_Pos)           /*!< 0x00008000 */
+
+/********************  Bit definition for RI_CMR5 register  ********************/
+#define RI_CMR5_PG_Pos                  (0U)                                   
+#define RI_CMR5_PG_Msk                  (0xFFFFU << RI_CMR5_PG_Pos)            /*!< 0x0000FFFF */
+#define RI_CMR5_PG                      RI_CMR5_PG_Msk                         /*!< PG[15:0] Port G selection */
+#define RI_CMR5_PG_0                    (0x0001U << RI_CMR5_PG_Pos)            /*!< 0x00000001 */
+#define RI_CMR5_PG_1                    (0x0002U << RI_CMR5_PG_Pos)            /*!< 0x00000002 */
+#define RI_CMR5_PG_2                    (0x0004U << RI_CMR5_PG_Pos)            /*!< 0x00000004 */
+#define RI_CMR5_PG_3                    (0x0008U << RI_CMR5_PG_Pos)            /*!< 0x00000008 */
+#define RI_CMR5_PG_4                    (0x0010U << RI_CMR5_PG_Pos)            /*!< 0x00000010 */
+#define RI_CMR5_PG_5                    (0x0020U << RI_CMR5_PG_Pos)            /*!< 0x00000020 */
+#define RI_CMR5_PG_6                    (0x0040U << RI_CMR5_PG_Pos)            /*!< 0x00000040 */
+#define RI_CMR5_PG_7                    (0x0080U << RI_CMR5_PG_Pos)            /*!< 0x00000080 */
+#define RI_CMR5_PG_8                    (0x0100U << RI_CMR5_PG_Pos)            /*!< 0x00000100 */
+#define RI_CMR5_PG_9                    (0x0200U << RI_CMR5_PG_Pos)            /*!< 0x00000200 */
+#define RI_CMR5_PG_10                   (0x0400U << RI_CMR5_PG_Pos)            /*!< 0x00000400 */
+#define RI_CMR5_PG_11                   (0x0800U << RI_CMR5_PG_Pos)            /*!< 0x00000800 */
+#define RI_CMR5_PG_12                   (0x1000U << RI_CMR5_PG_Pos)            /*!< 0x00001000 */
+#define RI_CMR5_PG_13                   (0x2000U << RI_CMR5_PG_Pos)            /*!< 0x00002000 */
+#define RI_CMR5_PG_14                   (0x4000U << RI_CMR5_PG_Pos)            /*!< 0x00004000 */
+#define RI_CMR5_PG_15                   (0x8000U << RI_CMR5_PG_Pos)            /*!< 0x00008000 */
+
+/********************  Bit definition for RI_CICR5 register  ********************/
+#define RI_CICR5_PG_Pos                 (0U)                                   
+#define RI_CICR5_PG_Msk                 (0xFFFFU << RI_CICR5_PG_Pos)           /*!< 0x0000FFFF */
+#define RI_CICR5_PG                     RI_CICR5_PG_Msk                        /*!< PG[15:0] Port G selection */
+#define RI_CICR5_PG_0                   (0x0001U << RI_CICR5_PG_Pos)           /*!< 0x00000001 */
+#define RI_CICR5_PG_1                   (0x0002U << RI_CICR5_PG_Pos)           /*!< 0x00000002 */
+#define RI_CICR5_PG_2                   (0x0004U << RI_CICR5_PG_Pos)           /*!< 0x00000004 */
+#define RI_CICR5_PG_3                   (0x0008U << RI_CICR5_PG_Pos)           /*!< 0x00000008 */
+#define RI_CICR5_PG_4                   (0x0010U << RI_CICR5_PG_Pos)           /*!< 0x00000010 */
+#define RI_CICR5_PG_5                   (0x0020U << RI_CICR5_PG_Pos)           /*!< 0x00000020 */
+#define RI_CICR5_PG_6                   (0x0040U << RI_CICR5_PG_Pos)           /*!< 0x00000040 */
+#define RI_CICR5_PG_7                   (0x0080U << RI_CICR5_PG_Pos)           /*!< 0x00000080 */
+#define RI_CICR5_PG_8                   (0x0100U << RI_CICR5_PG_Pos)           /*!< 0x00000100 */
+#define RI_CICR5_PG_9                   (0x0200U << RI_CICR5_PG_Pos)           /*!< 0x00000200 */
+#define RI_CICR5_PG_10                  (0x0400U << RI_CICR5_PG_Pos)           /*!< 0x00000400 */
+#define RI_CICR5_PG_11                  (0x0800U << RI_CICR5_PG_Pos)           /*!< 0x00000800 */
+#define RI_CICR5_PG_12                  (0x1000U << RI_CICR5_PG_Pos)           /*!< 0x00001000 */
+#define RI_CICR5_PG_13                  (0x2000U << RI_CICR5_PG_Pos)           /*!< 0x00002000 */
+#define RI_CICR5_PG_14                  (0x4000U << RI_CICR5_PG_Pos)           /*!< 0x00004000 */
+#define RI_CICR5_PG_15                  (0x8000U << RI_CICR5_PG_Pos)           /*!< 0x00008000 */
 
 /******************************************************************************/
 /*                                                                            */

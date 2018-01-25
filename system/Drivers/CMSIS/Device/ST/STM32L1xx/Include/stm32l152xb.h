@@ -423,11 +423,12 @@ typedef struct
 typedef struct
 {
   __IO uint32_t ICR;        /*!< RI input capture register,                     Address offset: 0x00 */
-  __IO uint32_t ASCR1;      /*!< RI analog switches control register,       Address offset: 0x04 */
-  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,        Address offset: 0x08 */
+  __IO uint32_t ASCR1;      /*!< RI analog switches control register,           Address offset: 0x04 */
+  __IO uint32_t ASCR2;      /*!< RI analog switch control register 2,           Address offset: 0x08 */
   __IO uint32_t HYSCR1;     /*!< RI hysteresis control register,                Address offset: 0x0C */
-  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,               Address offset: 0x10 */
-  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,               Address offset: 0x14 */
+  __IO uint32_t HYSCR2;     /*!< RI Hysteresis control register,                Address offset: 0x10 */
+  __IO uint32_t HYSCR3;     /*!< RI Hysteresis control register,                Address offset: 0x14 */
+  uint32_t RESERVED1;       /*!< Reserved,                                      Address offset: 0x18 */
 } RI_TypeDef;
 
 /** 
