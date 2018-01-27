@@ -147,6 +147,10 @@ enum {
   PF9_2,//D95/A17 = D63
   PEND
 };
+
+// This must be a literal with the same value as PEND
+#define NUM_DIGITAL_PINS        96
+
 // Enum defining Arduino style alias for analog pin number --> Ax
 enum {
   A_START_AFTER = D77, // pin number preceding A0
@@ -154,6 +158,9 @@ enum {
   A10, A11, A12, A13, A14, A15, A16, A17,
   AEND
 };
+
+// This must be a literal with the same value as AEND-A0
+#define NUM_ANALOG_INPUTS       18
 
 // On-board LED pin number
 #define LED_BUILTIN             PB0

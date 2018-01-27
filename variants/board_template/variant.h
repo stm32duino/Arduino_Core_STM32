@@ -57,6 +57,12 @@ extern const PinName digitalPin[];
 enum {
   PEND
 };
+
+// This must be a literal with the same value as PEND
+// It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
+// so an enum will not work.
+#define NUM_DIGITAL_PINS        0
+
 // Enum defining Arduino style alias for analog pin number --> Ax
 // !!!
 // !!! It must be aligned with the number of analog PinName
@@ -69,6 +75,10 @@ enum {
   AEND
 };
 
+// This must be a literal with the same value as AEND-A0
+// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
+// so an enum will not work.
+#define NUM_ANALOG_INPUTS       18
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
