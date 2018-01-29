@@ -22,8 +22,7 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
-
-#include "pins_arduino.h"
+#include "PeripheralPins.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -63,15 +62,9 @@ enum {
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        23
-
-enum {
-  A_START_AFTER = D13,
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,
-  AEND
-};
-
-// This must be a literal with the same value as AEND-A0
+// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
+#define NUM_ANALOG_FIRST        14
 
 // On-board LED pin number
 #define LED_BUILTIN             13
@@ -81,8 +74,8 @@ enum {
 //#define USER_BTN                NC
 
 // I2C Definitions
-#define SDA                     4
-#define SCL                     5
+#define PIN_WIRE_SDA            4
+#define PIN_WIRE_SCL            5
 
 // Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM.

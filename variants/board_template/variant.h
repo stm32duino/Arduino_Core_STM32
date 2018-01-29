@@ -34,8 +34,7 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
-
-#include "pins_arduino.h"
+#include "PeripheralPins.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -63,22 +62,20 @@ enum {
 // so an enum will not work.
 #define NUM_DIGITAL_PINS        0
 
-// Enum defining Arduino style alias for analog pin number --> Ax
+// Allow to define Arduino style alias for analog input pin number --> Ax
+// All pins are digital, analog inputs are a subset of digital pins
+// and must be contiguous to be able to loop on each value
+// This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
+// defined in pin_arduino.h
+// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
+// so an enum will not work.
 // !!!
 // !!! It must be aligned with the number of analog PinName
 // !!! defined in digitalPin[] array in variant.cpp
 // !!!
-enum {
-  A_START_AFTER = Dx, // pin number preceding A0
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,  A7,  A8,  A9,
-  A10, A11, A12, A13, A14, A15, A16, A17,
-  AEND
-};
-
-// This must be a literal with the same value as AEND-A0
-// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
-// so an enum will not work.
-#define NUM_ANALOG_INPUTS       18
+#define NUM_ANALOG_INPUTS       0
+// Define digital pin number of the first analog input  (i.e. which digital pin is A0)
+#define NUM_ANALOG_FIRST        0
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
@@ -92,23 +89,23 @@ enum {
 //#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
-#define LED_BUILTIN             Dx
+#define LED_BUILTIN             x
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
-#define USER_BTN                Dx
+#define USER_BTN                x
 
 // Below SPI and I2C definitions already done in the core
-// Could be redefined here if needed
+// Could be redefined here if differs from the default one
 // SPI Definitions
-//#define SS                      10 // Default for Arduino connector compatibility
-//#define MOSI                    11 // Default for Arduino connector compatibility
-//#define MISO                    12 // Default for Arduino connector compatibility
-//#define SCK                     13 // Default for Arduino connector compatibility
+//#define PIN_SPI_SS              10 // Default for Arduino connector compatibility
+//#define PIN_SPI_MOSI            11 // Default for Arduino connector compatibility
+//#define PIN_SPI_MISO            12 // Default for Arduino connector compatibility
+//#define PIN_SPI_SCK             13 // Default for Arduino connector compatibility
 
 // I2C Definitions
-//#define SDA                     14 // Default for Arduino connector compatibility
-//#define SCL                     15 // Default for Arduino connector compatibility
+//#define PIN_WIRE_SDA            14 // Default for Arduino connector compatibility
+//#define PIN_WIRE_SCL            15 // Default for Arduino connector compatibility
 
 // Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
@@ -134,8 +131,8 @@ enum {
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           Dx
-#define PIN_SERIAL_TX           Dx
+#define PIN_SERIAL_RX           x
+#define PIN_SERIAL_TX           x
 
 #ifdef __cplusplus
 } // extern "C"

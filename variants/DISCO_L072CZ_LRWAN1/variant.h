@@ -22,8 +22,7 @@
 /*----------------------------------------------------------------------------
  *        Headers
  *----------------------------------------------------------------------------*/
-
-#include "pins_arduino.h"
+#include "PeripheralPins.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -75,15 +74,9 @@ enum {
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        33
-
-enum {
-  A_START_AFTER = D25,
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,
-  AEND
-};
-
-// This must be a literal with the same value as AEND-A0
+// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
+#define NUM_ANALOG_FIRST        26
 
 // On-board LED pin number
 #define LED_BUILTIN             PA5

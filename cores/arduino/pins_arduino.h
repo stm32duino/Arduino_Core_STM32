@@ -17,10 +17,13 @@
 */
 #ifndef _PINS_ARDUINO_H_
 #define _PINS_ARDUINO_H_
+// Include board variant
+#include "variant.h"
 
-#include "PeripheralPins.h"
+// Avoid pins number misalignment
+_Static_assert(NUM_DIGITAL_PINS==PEND, "NUM_DIGITAL_PINS and PEND differ!");
 
-// Arduino digital pin alias
+// Arduino digital pins alias
 // GPIO port (A to K) * 16 pins: 176
 enum {
   D0,   D1,   D2,   D3,   D4,   D5,   D6,   D7,   D8,   D9,
@@ -43,5 +46,230 @@ enum {
   D170, D171, D172, D173, D174, D175,
   DMAX
 };
+
+// Arduino analog pins
+// Analog pins must be contiguous to be able to loop on each value
+#define MAX_ANALOG_INPUTS 20
+_Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS, "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS" );
+
+// Defined for backward compatibility with Firmata which unfortunately use it
+#define AEND (NUM_ANALOG_FIRST+NUM_ANALOG_INPUTS)
+
+#if NUM_ANALOG_INPUTS > 0
+#define PIN_A0       NUM_ANALOG_FIRST
+static const uint8_t A0 = PIN_A0;
+#endif
+#if NUM_ANALOG_INPUTS > 1
+#define PIN_A1       (PIN_A0 + 1)
+static const uint8_t A1 = PIN_A1;
+#endif
+#if NUM_ANALOG_INPUTS > 2
+#define PIN_A2       (PIN_A1 + 1)
+static const uint8_t A2 = PIN_A2;
+#endif
+#if NUM_ANALOG_INPUTS > 3
+#define PIN_A3       (PIN_A2 + 1)
+static const uint8_t A3 = PIN_A3;
+#endif
+#if NUM_ANALOG_INPUTS > 4
+#define PIN_A4       (PIN_A3 + 1)
+static const uint8_t A4 = PIN_A4;
+#endif
+#if NUM_ANALOG_INPUTS > 5
+#define PIN_A5       (PIN_A4 + 1)
+static const uint8_t A5 = PIN_A5;
+#endif
+#if NUM_ANALOG_INPUTS > 6
+#define PIN_A6       (PIN_A5 + 1)
+static const uint8_t A6 = PIN_A6;
+#endif
+#if NUM_ANALOG_INPUTS > 7
+#define PIN_A7       (PIN_A6 + 1)
+static const uint8_t A7 = PIN_A7;
+#endif
+#if NUM_ANALOG_INPUTS > 8
+#define PIN_A8       (PIN_A7 + 1)
+static const uint8_t A8 = PIN_A8;
+#endif
+#if NUM_ANALOG_INPUTS > 9
+#define PIN_A9       (PIN_A8 + 1)
+static const uint8_t A9 = PIN_A9;
+#endif
+#if NUM_ANALOG_INPUTS > 10
+#define PIN_A10      (PIN_A9 + 1)
+static const uint8_t A10 = PIN_A10;
+#endif
+#if NUM_ANALOG_INPUTS > 11
+#define PIN_A11      (PIN_A10 + 1)
+static const uint8_t A11 = PIN_A11;
+#endif
+#if NUM_ANALOG_INPUTS > 12
+#define PIN_A12      (PIN_A11 + 1)
+static const uint8_t A12 = PIN_A12;
+#endif
+#if NUM_ANALOG_INPUTS > 13
+#define PIN_A13      (PIN_A12 + 1)
+static const uint8_t A13 = PIN_A13;
+#endif
+#if NUM_ANALOG_INPUTS > 14
+#define PIN_A14      (PIN_A13 + 1)
+static const uint8_t A14 = PIN_A14;
+#endif
+#if NUM_ANALOG_INPUTS > 15
+#define PIN_A15      (PIN_A14 + 1)
+static const uint8_t A15 = PIN_A15;
+#endif
+#if NUM_ANALOG_INPUTS > 16
+#define PIN_A16      (PIN_A15 + 1)
+static const uint8_t A16 = PIN_A16;
+#endif
+#if NUM_ANALOG_INPUTS > 17
+#define PIN_A17      (PIN_A16 + 1)
+static const uint8_t A17 = PIN_A17;
+#endif
+#if NUM_ANALOG_INPUTS > 18
+#define PIN_A18      (PIN_A17 + 1)
+static const uint8_t A18 = PIN_A18;
+#endif
+#if NUM_ANALOG_INPUTS > 19
+#define PIN_A19      (PIN_A18 + 1)
+static const uint8_t A19 = PIN_A19;
+#endif
+
+// Default for Arduino connector compatibility
+// SPI Definitions
+#ifndef PIN_SPI_SS
+#define PIN_SPI_SS                  10
+#endif
+#ifndef PIN_SPI_SS1
+#define PIN_SPI_SS1                 4
+#endif
+#ifndef PIN_SPI_SS2
+#define PIN_SPI_SS2                 7
+#endif
+#ifndef PIN_SPI_SS3
+#define PIN_SPI_SS3                 8
+#endif
+#ifndef PIN_SPI_MOSI
+#define PIN_SPI_MOSI                11
+#endif
+#ifndef PIN_SPI_MISO
+#define PIN_SPI_MISO                12
+#endif
+#ifndef PIN_SPI_SCK
+#define PIN_SPI_SCK                 13
+#endif
+
+static const uint8_t SS   = PIN_SPI_SS;
+static const uint8_t SS1  = PIN_SPI_SS1;
+static const uint8_t SS2  = PIN_SPI_SS2;
+static const uint8_t SS3  = PIN_SPI_SS3;
+static const uint8_t MOSI = PIN_SPI_MOSI;
+static const uint8_t MISO = PIN_SPI_MISO;
+static const uint8_t SCK  = PIN_SPI_SCK;
+
+// I2C Definitions
+#ifndef PIN_WIRE_SDA
+#define PIN_WIRE_SDA                14
+#endif
+#ifndef PIN_WIRE_SCL
+#define PIN_WIRE_SCL                15
+#endif
+
+static const uint8_t SDA = PIN_WIRE_SDA;
+static const uint8_t SCL = PIN_WIRE_SCL;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#define NOT_AN_INTERRUPT            NC // -1
+
+// Convert a digital pin number Dxx to a PinName PX_n
+// Note: Analog pin is also a digital pin.
+#define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
+// Convert a PinName PX_n to a digital pin number
+uint32_t pinNametoDigitalPin(PinName p);
+
+// Convert an analog pin number to a digital pin number
+// Used by analogRead api to have A0 == 0
+#define analogInputToDigitalPin(p)  (((uint32_t)p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
+// Convert an analog pin number Axx to a PinName PX_n
+#define analogInputToPinName(p)     (digitalPinToPinName(analogInputToDigitalPin(p)))
+// All pins could manage EXTI
+#define digitalPinToInterrupt(p)    (digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)
+
+#define digitalPinHasI2C(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SDA) ||\
+                                     pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SCL))
+#define digitalPinHasPWM(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_PWM))
+#define digitalPinHasSerial(p)      (pin_in_pinmap(digitalPinToPinName(p), PinMap_UART_RX) ||\
+                                     pin_in_pinmap(digitalPinToPinName(p), PinMap_UART_TX))
+#define digitalPinHasSPI(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_MOSI) ||\
+                                     pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_MISO) ||\
+                                     pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_SCLK) ||\
+                                     pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_SSEL))
+
+
+#define digitalPinToPort(p)         (get_GPIO_Port(STM_PORT(digitalPinToPinName(p))))
+#define digitalPinToBitMask(p)      (STM_GPIO_PIN(digitalPinToPinName(p)))
+
+#define analogInPinToBit(p)         (STM_PIN(digitalPinToPinName(p)))
+#define portOutputRegister(P)       (&(P->ODR))
+#define portInputRegister(P)        (&(P->IDR))
+
+#define portSetRegister(P)          (&(P->BSRR))
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+// For those series reset are in the high part so << 16U needed
+#define portClearRegister(P)        (&(P->BSRR))
+#else
+#define portClearRegister(P)        (&(P->BRR))
+#endif
+
+
+#if defined(STM32F1xx)
+// Config registers split in 2 registers:
+// CRL: pin 0..7
+// CRH: pin 8..15
+// Return only CRL
+#define portModeRegister(P)         (&(P->CRL))
+#else
+#define portModeRegister(P)         (&(P->MODER))
+#endif
+#define portConfigRegister(P)       (portModeRegister(P))
+
+
+#define digitalPinIsValid(p)        (digitalPinToPinName(p) != NC)
+
+// As some pin could be duplicated in digitalPin[]
+// return first occurence of linked PinName (PYx)
+#define digitalPinFirstOccurence(p) (pinNametoDigitalPin(digitalPinToPinName(p)))
+
+// Specific for Firmata. As some pins could be duplicated,
+// ensure 'p' is not one of the serial pins
+#if defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
+#define pinIsSerial(p)              ((digitalPinFirstOccurence(p) == PIN_SERIAL_RX) ||\
+                                     (digitalPinFirstOccurence(p) == PIN_SERIAL_TX))
+#endif
+
+#ifdef __cplusplus
+}
+#endif
+
+// Default Definitions, could be redefined in variant.h
+#ifndef ADC_RESOLUTION
+#define ADC_RESOLUTION              12
+#endif
+#ifndef DACC_RESOLUTION
+#define DACC_RESOLUTION             12
+#endif
+#ifndef PWM_RESOLUTION
+#define PWM_RESOLUTION              8
+#endif
+#ifndef PWM_FREQUENCY
+#define PWM_FREQUENCY               1000
+#endif
+#ifndef PWM_MAX_DUTY_CYCLE
+#define PWM_MAX_DUTY_CYCLE          255
+#endif
 
 #endif /*_PINS_ARDUINO_H_*/
