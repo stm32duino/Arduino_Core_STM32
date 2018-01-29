@@ -7,6 +7,7 @@ menu.usb=USB interface
 
 menu.opt=Optimize
 menu.upload_method=Upload method
+menu.rebuild=Force rebuild
 
 ################################################################################
 # Nucleo 144 boards
@@ -546,3 +547,20 @@ Disco.menu.opt.o3lto.build.flags.ldspecs=-flto
 Disco.menu.opt.ogstd=Debug (-g)
 Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
 Disco.menu.opt.ogstd.build.flags.ldspecs=
+
+# Force rebuild
+Nucleo_144.menu.rebuild.none=None
+Nucleo_144.menu.rebuild.forced=force
+Nucleo_144.menu.rebuild.forced.build.force=1
+
+Nucleo_64.menu.rebuild.none=None
+Nucleo_64.menu.rebuild.forced=force
+Nucleo_64.menu.rebuild.forced.build.force=1
+
+Nucleo_32.menu.rebuild.none=None
+Nucleo_32.menu.rebuild.forced=force
+Nucleo_32.menu.rebuild.forced.build.force=1
+
+Disco.menu.rebuild.none=None
+Disco.menu.rebuild.forced=force
+Disco.menu.rebuild.forced.build.force=1
