@@ -75,6 +75,7 @@ enum {
 // !!!
 #define NUM_ANALOG_INPUTS       0
 // Define digital pin number of the first analog input  (i.e. which digital pin is A0)
+// First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
 #define NUM_ANALOG_FIRST        0
 
 // Below ADC, DAC and PWM definitions already done in the core
