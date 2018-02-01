@@ -7,6 +7,7 @@ menu.usb=USB interface
 
 menu.opt=Optimize
 menu.upload_method=Upload method
+menu.flash=Flash Memory Size
 
 ################################################################################
 # Nucleo 144 boards
@@ -392,7 +393,6 @@ GenF103.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSeri
 # BLUEPILL_F103C8 board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
 GenF103.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
-GenF103.menu.pnum.BLUEPILL_F103C8.upload.maximum_size=65536
 GenF103.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
 GenF103.menu.pnum.BLUEPILL_F103C8.build.mcu=cortex-m3
 GenF103.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
@@ -400,6 +400,13 @@ GenF103.menu.pnum.BLUEPILL_F103C8.build.series=STM32F1xx
 GenF103.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
 GenF103.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
 GenF103.menu.pnum.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+GenF103.menu.flash.C8=64k (default)
+GenF103.menu.flash.C8.upload.maximum_size=65536
+GenF103.menu.flash.C8.build.ldscript=ldscript.ld
+GenF103.menu.flash.CB=128k
+GenF103.menu.flash.CB.upload.maximum_size=131072
+GenF103.menu.flash.CB.build.ldscript=ldscript_cb.ld
 
 # Upload menu
 GenF103.menu.upload_method.STLinkMethod=STLink
