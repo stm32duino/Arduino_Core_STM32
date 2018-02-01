@@ -12,7 +12,13 @@ extern "C" {
 WEAK void _Error_Handler(const char * msg, int val)
 {
   /* User can add his own implementation to report the HAL error return state */
-  printf("Error: %s (%i)\n", msg, val);
+  /* By using the printf function of the library C this inflates the size of
+   * the code, use a lot of stack. An alternative, will be to implement a tiny
+   * and limited functionality implementation of printf.
+   */
+  UNUSED(msg);
+  UNUSED(val);
+  /*printf("Error: %s (%i)\n", msg, val);*/
   while(1)
   {
   }
