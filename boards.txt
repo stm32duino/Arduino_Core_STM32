@@ -378,6 +378,7 @@ Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 ################################################################################
 # Other boards
 
+###############################
 # Generic F103
 GenF103.name=Generic STM32F103 series
 
@@ -416,6 +417,41 @@ GenF103.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 GenF103.menu.upload_method.serialMethod=Serial
 GenF103.menu.upload_method.serialMethod.upload.protocol=maple_serial
 GenF103.menu.upload_method.serialMethod.upload.tool=serial_upload
+
+###############################
+# Maple
+Maple.name=Maple series
+
+Maple.build.vid=0x1EAF
+Maple.build.pid=0x0004
+Maple.vid.0=0x1EAF
+Maple.pid.0=0x0004
+
+Maple.build.core=arduino
+Maple.build.board=Maple
+Maple.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# MAPLEMINI_F103CB board
+# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+Maple.menu.pnum.MAPLEMINI_F103CB=Maple Mini F103CB
+Maple.menu.pnum.MAPLEMINI_F103CB.upload.maximum_size=131072
+Maple.menu.pnum.MAPLEMINI_F103CB.upload.maximum_data_size=20480
+Maple.menu.pnum.MAPLEMINI_F103CB.build.mcu=cortex-m3
+Maple.menu.pnum.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
+Maple.menu.pnum.MAPLEMINI_F103CB.build.series=STM32F1xx
+Maple.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
+Maple.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
+Maple.menu.pnum.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# Upload menu
+Maple.menu.upload_method.STLinkMethod=STLink
+Maple.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Maple.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+Maple.menu.upload_method.serialMethod=Serial
+Maple.menu.upload_method.serialMethod.upload.protocol=maple_serial
+Maple.menu.upload_method.serialMethod.upload.tool=serial_upload
+
 
 ################################################################################
 # Serialx activation
@@ -458,6 +494,14 @@ GenF103.menu.xserial.all=All (up to 10)
 GenF103.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 GenF103.menu.xserial.third=Enable first third (USART1 to 3 if available)
 GenF103.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+
+Maple.menu.xserial.generic=Generic Serial
+Maple.menu.xserial.none=No Serial
+Maple.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+Maple.menu.xserial.all=All (up to 10)
+Maple.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+Maple.menu.xserial.third=Enable first third (USART1 to 3 if available)
+Maple.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -624,3 +668,31 @@ GenF103.menu.opt.o3lto.build.flags.ldspecs=-flto
 GenF103.menu.opt.ogstd=Debug (-g)
 GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
 GenF103.menu.opt.ogstd.build.flags.ldspecs=
+
+Maple.menu.opt.osstd=Smallest (-Os default)
+Maple.menu.opt.osstd.build.flags.optimize=-Os
+Maple.menu.opt.osstd.build.flags.ldspecs=
+Maple.menu.opt.oslto=Smallest (-Os) with LTO
+Maple.menu.opt.oslto.build.flags.optimize=-Os -flto
+Maple.menu.opt.oslto.build.flags.ldspecs=-flto
+Maple.menu.opt.o1std=Fast (-O1)
+Maple.menu.opt.o1std.build.flags.optimize=-O1
+Maple.menu.opt.o1std.build.flags.ldspecs=
+Maple.menu.opt.o1lto=Fast (-O1) with LTO
+Maple.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Maple.menu.opt.o1lto.build.flags.ldspecs=-flto
+Maple.menu.opt.o2std=Faster (-O2)
+Maple.menu.opt.o2std.build.flags.optimize=-O2
+Maple.menu.opt.o2std.build.flags.ldspecs=
+Maple.menu.opt.o2lto=Faster (-O2) with LTO
+Maple.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Maple.menu.opt.o2lto.build.flags.ldspecs=-flto
+Maple.menu.opt.o3std=Fastest (-O3)
+Maple.menu.opt.o3std.build.flags.optimize=-O3
+Maple.menu.opt.o3std.build.flags.ldspecs=
+Maple.menu.opt.o3lto=Fastest (-O3) with LTO
+Maple.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Maple.menu.opt.o3lto.build.flags.ldspecs=-flto
+Maple.menu.opt.ogstd=Debug (-g)
+Maple.menu.opt.ogstd.build.flags.optimize=-g -Og
+Maple.menu.opt.ogstd.build.flags.ldspecs=
