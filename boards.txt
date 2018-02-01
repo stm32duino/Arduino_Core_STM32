@@ -374,6 +374,41 @@ Disco.menu.upload_method.STLink=STLink
 Disco.menu.upload_method.STLink.upload.protocol=STLink
 Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 
+################################################################################
+# Other boards
+
+# Generic F103
+GenF103.name=Generic STM32F103 series
+
+GenF103.build.vid=0x1EAF
+GenF103.build.pid=0x0004
+GenF103.vid.0=0x1EAF
+GenF103.pid.0=0x0004
+
+GenF103.build.core=arduino
+GenF103.build.board=GenF103
+GenF103.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# BLUEPILL_F103C8 board
+# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+GenF103.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
+GenF103.menu.pnum.BLUEPILL_F103C8.upload.maximum_size=65536
+GenF103.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
+GenF103.menu.pnum.BLUEPILL_F103C8.build.mcu=cortex-m3
+GenF103.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
+GenF103.menu.pnum.BLUEPILL_F103C8.build.series=STM32F1xx
+GenF103.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
+GenF103.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
+GenF103.menu.pnum.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# Upload menu
+GenF103.menu.upload_method.STLinkMethod=STLink
+GenF103.menu.upload_method.STLinkMethod.upload.protocol=STLink
+GenF103.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+GenF103.menu.upload_method.serialMethod=Serial
+GenF103.menu.upload_method.serialMethod.upload.protocol=maple_serial
+GenF103.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 ################################################################################
 # Serialx activation
@@ -408,6 +443,14 @@ Disco.menu.xserial.all=All (up to 10)
 Disco.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 Disco.menu.xserial.third=Enable first third (USART1 to 3 if available)
 Disco.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+
+GenF103.menu.xserial.generic=Generic Serial
+GenF103.menu.xserial.none=No Serial
+GenF103.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+GenF103.menu.xserial.all=All (up to 10)
+GenF103.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+GenF103.menu.xserial.third=Enable first third (USART1 to 3 if available)
+GenF103.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -546,3 +589,31 @@ Disco.menu.opt.o3lto.build.flags.ldspecs=-flto
 Disco.menu.opt.ogstd=Debug (-g)
 Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
 Disco.menu.opt.ogstd.build.flags.ldspecs=
+
+GenF103.menu.opt.osstd=Smallest (-Os default)
+GenF103.menu.opt.osstd.build.flags.optimize=-Os
+GenF103.menu.opt.osstd.build.flags.ldspecs=
+GenF103.menu.opt.oslto=Smallest (-Os) with LTO
+GenF103.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF103.menu.opt.oslto.build.flags.ldspecs=-flto
+GenF103.menu.opt.o1std=Fast (-O1)
+GenF103.menu.opt.o1std.build.flags.optimize=-O1
+GenF103.menu.opt.o1std.build.flags.ldspecs=
+GenF103.menu.opt.o1lto=Fast (-O1) with LTO
+GenF103.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF103.menu.opt.o1lto.build.flags.ldspecs=-flto
+GenF103.menu.opt.o2std=Faster (-O2)
+GenF103.menu.opt.o2std.build.flags.optimize=-O2
+GenF103.menu.opt.o2std.build.flags.ldspecs=
+GenF103.menu.opt.o2lto=Faster (-O2) with LTO
+GenF103.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF103.menu.opt.o2lto.build.flags.ldspecs=-flto
+GenF103.menu.opt.o3std=Fastest (-O3)
+GenF103.menu.opt.o3std.build.flags.optimize=-O3
+GenF103.menu.opt.o3std.build.flags.ldspecs=
+GenF103.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF103.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF103.menu.opt.o3lto.build.flags.ldspecs=-flto
+GenF103.menu.opt.ogstd=Debug (-g)
+GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF103.menu.opt.ogstd.build.flags.ldspecs=
