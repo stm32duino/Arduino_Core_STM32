@@ -58,7 +58,7 @@ class TwoWire : public Stream
     static void onRequestService(void);
     static void onReceiveService(uint8_t*, int);
 
-    void allocateRxBuffer(size_t length);
+    static void allocateRxBuffer(size_t length);
     void allocateTxBuffer(size_t length);
 
     void resetRxBuffer(void);

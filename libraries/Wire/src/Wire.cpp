@@ -380,6 +380,13 @@ void TwoWire::onReceiveService(uint8_t* inBytes, int numBytes)
   if(rxBufferIndex < rxBufferLength){
     return;
   }
+
+  allocateRxBuffer(numBytes);
+  // error if no memory block available to allocate the buffer
+  if(rxBuffer == nullptr){
+    Error_Handler();
+  }
+
   // copy twi rx buffer into local read buffer
   // this enables new reads to happen in parallel
   memcpy(rxBuffer, inBytes, numBytes);
@@ -423,7 +430,7 @@ void TwoWire::onRequest( void (*function)(void) )
   * @note   Minimum allocated size is BUFFER_LENGTH)
   * @param  length: number of bytes to allocate
   */
-inline void TwoWire::allocateRxBuffer(size_t length)
+void TwoWire::allocateRxBuffer(size_t length)
 {
   if(rxBufferAllocated < length) {
   // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.

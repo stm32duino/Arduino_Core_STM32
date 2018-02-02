@@ -539,7 +539,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
 
   if((obj->i2c_onSlaveReceive != NULL) &&
     (obj->slaveMode == SLAVE_MODE_RECEIVE)) {
-    nbData = I2C_TXRX_BUFFER_SIZE - obj->handle.XferCount;
+    nbData = I2C_TXRX_BUFFER_SIZE - obj->handle.XferSize;
     if(nbData != 0) {
       obj->i2c_onSlaveReceive(obj->i2cTxRxBuffer, nbData);
     }
