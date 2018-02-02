@@ -381,13 +381,12 @@ void TwoWire::onReceiveService(uint8_t* inBytes, int numBytes)
     return;
   }
 
+  allocateRxBuffer(numBytes);
+  // error if no memory block available to allocate the buffer
   if(rxBuffer == nullptr){
-    allocateRxBuffer(numBytes);
-    // error if no memory block available to allocate the buffer
-    if(rxBuffer == nullptr){
-      Error_Handler();
-    }
+    Error_Handler();
   }
+
   // copy twi rx buffer into local read buffer
   // this enables new reads to happen in parallel
   memcpy(rxBuffer, inBytes, numBytes);
