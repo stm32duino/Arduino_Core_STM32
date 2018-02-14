@@ -68,7 +68,6 @@
  * Libc porting layers
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
-#include <syscalls.h> /** RedHat Newlib minimal stub */
 #define WEAK __attribute__ ((weak))
 #endif
 

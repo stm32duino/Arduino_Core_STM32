@@ -1,43 +1,18 @@
-/*
-  Copyright (c) 2011 Arduino.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
 /**
-  * \file syscalls_sam3.c
+  * \file syscalls_stm32.c
   *
   * Implementation of newlib syscall.
   *
   */
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-
-
-#include "syscalls.h"
-
-#include <stdio.h>
-#include <stdarg.h>
 #if defined (  __GNUC__  ) /* GCC CS3 */
-  #include <sys/types.h>
   #include <sys/stat.h>
 #endif
+#include <errno.h>
+#undef errno
+extern int errno;
 
-#include "Arduino.h"
+extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 
 // Helper macro to mark unused parameters and prevent compiler warnings.
 // Appends _UNUSED to the variable name to prevent accidentally using them.
@@ -50,89 +25,71 @@
 #define UNUSED(x) x ## _UNUSED
 #endif
 
-/*----------------------------------------------------------------------------
- *        Exported variables
- *----------------------------------------------------------------------------*/
+register char * stack_ptr asm("sp");
 
-#undef errno
-extern int errno ;
-extern int  _end ;
+caddr_t _sbrk( int incr ) {
+  extern char _end; /* Defined by the linker */
+  static char *heap_end = NULL ;
+  char *prev_heap_end ;
 
-/*----------------------------------------------------------------------------
- *        Exported functions
- *----------------------------------------------------------------------------*/
-extern void _exit( int status ) ;
-extern void _kill( int pid, int sig ) ;
-extern int _getpid ( void ) ;
-
-extern caddr_t _sbrk ( int incr )
-{
-  static unsigned char *heap = NULL ;
-  unsigned char *prev_heap ;
-
-  if ( heap == NULL )
-  {
-    heap = (unsigned char *)&_end ;
+  if ( heap_end == NULL ) {
+    heap_end = &_end ;
   }
-  prev_heap = heap;
+  prev_heap_end = heap_end;
 
-  heap += incr ;
+  if (heap_end + incr > stack_ptr) {
+    /* Heap and stack collision */
+    errno = ENOMEM;
+    return (caddr_t) -1;
+  }
 
-  return (caddr_t) prev_heap ;
+  heap_end += incr ;
+  return (caddr_t) prev_heap_end ;
 }
 
-extern int link( UNUSED(char *cOld), UNUSED(char *cNew) )
-{
-  return -1 ;
+__attribute__((weak))
+int _close( UNUSED(int file) ) {
+  return -1;
 }
 
-extern int _close( UNUSED(int file) )
-{
-  return -1 ;
-}
-
-extern int _fstat( UNUSED(int file), struct stat *st )
-{
+__attribute__((weak))
+int _fstat( UNUSED(int file), struct stat *st ) {
   st->st_mode = S_IFCHR ;
-
-  return 0 ;
+  return 0;
 }
 
-extern int _isatty( UNUSED(int file) )
-{
-  return 1 ;
+__attribute__((weak))
+int _isatty( UNUSED(int file) ) {
+  return 1;
 }
 
-extern int _lseek( UNUSED(int file), UNUSED(int ptr), UNUSED(int dir) )
-{
-  return 0 ;
+__attribute__((weak))
+int _lseek( UNUSED(int file), UNUSED(int ptr), UNUSED(int dir) ) {
+  return 0;
 }
 
-extern int _read(UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) )
-{
-  return 0 ;
+__attribute__((weak))
+int _read( UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) ) {
+  return 0;
 }
 
-extern int _write( UNUSED(int file), char *ptr, int len )
-{
-  uart_debug_write((uint8_t *)ptr, len);
-
-  return len ;
+__attribute__((weak))
+int _write( UNUSED(int file), char *ptr, int len ) {
+  return uart_debug_write((uint8_t *)ptr, (uint32_t)len);
 }
 
-extern void _exit( int status )
-{
-  printf( "Exiting with status %d.\n", status ) ;
-
+__attribute__((weak))
+void _exit( UNUSED(int status) ) {
   for ( ; ; ) ;
 }
 
-extern void _kill( UNUSED(int pid), UNUSED(int sig) )
-{
-  return ;
+__attribute__((weak))
+int _kill( UNUSED(int pid), UNUSED(int sig) ) {
+  errno = EINVAL;
+  return -1;
 }
 
-extern int _getpid ( void )
-{
-  return -1 ;
+__attribute__((weak))
+int _getpid( void ) {
+  return 1;
 }
