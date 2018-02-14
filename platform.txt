@@ -125,7 +125,7 @@ recipe.output.save_file={build.project_name}.{build.variant}.hex
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=^(?:\.text|\.data|\.rodata)\s+([0-9]+).*
-recipe.size.regex.data=^(?:\.data|\.bss|\._user_heap_stack)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.data|\.bss)\s+([0-9]+).*
 recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 
 
