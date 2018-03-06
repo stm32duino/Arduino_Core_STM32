@@ -55,11 +55,20 @@ const PinName digitalPin[] = {
   PA_11, //D25
   PA_0,  //D26/A0
   PA_0,  //D27/A1 - alias for A0 - requires closing solder bridge SB7
-  PA_4,  //D28/A2
+  PA_4,  //D28/A2 - RADIO_DIO_5_PORT
   PA_4,  //D29/A3 - alias for A2 - requires closing solder bridge SB8
   PB_9,  //D30/A4 - requires closing solder bridge SB11
   PB_8,  //D31/A5 - requires closing solder bridge SB12
-  PA_5,  //D32/A6
+  PA_5,  //D32/A6 - RADIO_DIO_4_PORT
+  PC_0,  //D33 - RADIO_RESET_PORT
+  PA_7,  //D34 - RADIO_MOSI_PORT
+  PA_6,  //D35 - RADIO_MISO_PORT
+  PB_3,  //D36 - RADIO_SCLK_PORT
+  PA_15, //D37 - RADIO_NSS_PORT
+  PB_4,  //D38 - RADIO_DIO_0_PORT
+  PB_1,  //D39 - RADIO_DIO_1_PORT
+  PB_0,  //D40 - RADIO_DIO_2_PORT
+  PC_13, //D41 - RADIO_DIO_3_PORT
 };
 
 #ifdef __cplusplus

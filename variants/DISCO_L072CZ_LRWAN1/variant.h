@@ -64,16 +64,25 @@ enum {
   PA11, //D25
   PA0,  //D26/A0
   PA0_2,//D27/A1 - alias for A0 - requires closing solder bridge SB7
-  PA4,  //D28/A2
+  PA4,  //D28/A2 - RADIO_DIO_5_PORT
   PA4_2,//D29/A3 - alias for A2 - requires closing solder bridge SB8
   PB9_2,//D30/A4 - requires closing solder bridge SB11
   PB8_2,//D31/A5 - requires closing solder bridge SB12
-  PA5,  //D32/A6
+  PA5,  //D32/A6 - RADIO_DIO_4_PORT
+  PC0,  //D33 - RADIO_RESET_PORT
+  PA7,  //D34 - RADIO_MOSI_PORT
+  PA6,  //D35 - RADIO_MISO_PORT
+  PB3,  //D36 - RADIO_SCLK_PORT
+  PA15, //D37 - RADIO_NSS_PORT
+  PB4,  //D38 - RADIO_DIO_0_PORT
+  PB1,  //D39 - RADIO_DIO_1_PORT
+  PB0,  //D40 - RADIO_DIO_2_PORT
+  PC13, //D41 - RADIO_DIO_3_PORT
   PEND
 };
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        33
+#define NUM_DIGITAL_PINS        42
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
 #define NUM_ANALOG_FIRST        26
@@ -92,8 +101,21 @@ enum {
 // On-board user button
 #define USER_BTN                6
 
-// Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// LORA
+#define RADIO_RESET_PORT        PC0
+#define RADIO_MOSI_PORT         PA7
+#define RADIO_MISO_PORT         PA6
+#define RADIO_SCLK_PORT         PB3
+#define RADIO_NSS_PORT          PA15
+#define RADIO_DIO_0_PORT        PB4
+#define RADIO_DIO_1_PORT        PB1
+#define RADIO_DIO_2_PORT        PB0
+#define RADIO_DIO_3_PORT        PC13
+#define RADIO_DIO_4_PORT        PA5
+#define RADIO_DIO_5_PORT        PA4
+
+//Timer Definitions
+//Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM22
 
 // Do not use basic timer: OC is required
