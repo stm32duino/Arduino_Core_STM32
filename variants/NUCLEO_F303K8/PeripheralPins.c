@@ -38,6 +38,7 @@
 
 //*** ADC ***
 
+#ifdef HAL_ADC_MODULE_ENABLED
 const PinMap PinMap_ADC[] = {
     {PA_0,  ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // ADC1_IN1
     {PA_1,  ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 2, 0)}, // ADC1_IN2
@@ -51,32 +52,40 @@ const PinMap PinMap_ADC[] = {
     {PB_1,  ADC1,  STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 12, 0)}, // ADC1_IN12
     {NC,   NP,    0}
 };
+#endif
 
 //*** DAC ***
 
+#ifdef HAL_DAC_MODULE_ENABLED
 const PinMap PinMap_DAC[] = {
 //  {PA_4,  DAC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // DAC1_OUT1
 //  {PA_5,  DAC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 2, 0)}, // DAC1_OUT2
     {PA_6,  DAC2, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // DAC2_OUT1
     {NC,   NP,    0}
 };
+#endif
 
 //*** I2C ***
 
+#ifdef HAL_I2C_MODULE_ENABLED
 const PinMap PinMap_I2C_SDA[] = {
 //  {PA_14, I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C1)},
     {PB_7,  I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C1)},
     {NC,    NP,    0}
 };
+#endif
 
+#ifdef HAL_I2C_MODULE_ENABLED
 const PinMap PinMap_I2C_SCL[] = {
 //  {PA_15, I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C1)}, // VCP_RX
     {PB_6,  I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C1)},
     {NC,    NP,    0}
 };
+#endif
 
 //*** PWM ***
 
+#ifdef HAL_TIM_MODULE_ENABLED
 const PinMap PinMap_PWM[] = {
     {PA_1,  TIM15,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF9_TIM15, 1, 1)},  // TIM15_CH1N
 //  {PA_2,  TIM15,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF9_TIM15, 1, 0)},  // TIM15_CH1 - VCP_Tx
@@ -101,6 +110,7 @@ const PinMap PinMap_PWM[] = {
     {PF_0,  TIM1,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_TIM1, 3, 1)},  // TIM1_CH3N
     {NC,    NP,    0}
 };
+#endif
 
 //*** SERIAL ***
 
