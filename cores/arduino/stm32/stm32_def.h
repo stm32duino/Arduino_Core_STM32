@@ -37,10 +37,6 @@
 #include "stm32f4xx.h"
 #elif defined(STM32F7xx)
 #include "stm32f7xx.h"
-// On other HAL series, stm32[fl]yxx.h include
-// stm32[fl]yxx_hal.h which include stm32[fl]yxx_hal_conf.h
-// For F7, stm32f7xx_hal.h replaced by stm32f7xx_hal_conf.h
-#include "stm32f7xx_hal.h"
 #elif defined(STM32L0xx)
 #include "stm32l0xx.h"
 #elif defined(STM32L1xx)
