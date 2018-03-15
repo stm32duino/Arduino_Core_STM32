@@ -60,10 +60,17 @@ extern void delay( uint32_t dwMs ) ;
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
-static inline void delayMicroseconds(uint32_t usec){
-  uint32_t start = GetCurrentMicro();
+static inline void delayMicroseconds(uint32_t usec)
+{
+  uint32_t end;
 
-  while((start+usec) > GetCurrentMicro());
+  if (usec == 0)
+    return;
+
+  end = GetCurrentMicro() + usec;
+  if (end < usec)
+    while (end < GetCurrentMicro());
+  while (end > GetCurrentMicro());
 }
 
 #ifdef __cplusplus

@@ -9,540 +9,83 @@ menu.opt=Optimize
 menu.upload_method=Upload method
 
 ################################################################################
-# Nucleo 144 boards
+# MCCI Catena boards
 
-Nucleo_144.name=Nucleo-144
+Catena.name=MCCI Catena STM32 Boards
 
-Nucleo_144.build.vid=0x0483
-Nucleo_144.build.pid=0x5711
-Nucleo_144.vid.0=0x0483
-Nucleo_144.pid.0=0x5711
+Catena.build.vid=0x040E
+Catena.build.pid=0x0041
+Catena.vid.0=0x040E
+Catena.pid.0=0x0041
 
-Nucleo_144.build.core=arduino
-Nucleo_144.build.board=Nucleo_144
-Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Catena.build.core=arduino
+Catena.build.board=Catena
+Catena.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
-# NUCLEO_F207ZG board
-# Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
-Nucleo_144.menu.pnum.NUCLEO_F207ZG=Nucleo F207ZG
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.node=NODE_F207ZG
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.upload.maximum_size=1048576
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.upload.maximum_data_size=131072
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.mcu=cortex-m3
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.board=NUCLEO_F207ZG
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.series=STM32F2xx
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.product_line=STM32F207xx
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=NUCLEO_F207ZG
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# NUCLEO_F429ZI board
-# Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
-Nucleo_144.menu.pnum.NUCLEO_F429ZI=Nucleo F429ZI
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.node=NODE_F429ZI
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_size=2097152
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_data_size=262144
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
+#CATENA_4551 board
+# Support: Serial1 (USART1 on PA10, PA9)
+Catena.menu.pnum.CATENA_4551=Catena 4551
+Catena.menu.pnum.CATENA_4551.node=NODE_CATENA_4551
+Catena.menu.pnum.CATENA_4551.upload.maximum_size=196608
+Catena.menu.pnum.CATENA_4551.upload.maximum_data_size=20480
+Catena.menu.pnum.CATENA_4551.build.mcu=cortex-m0
+#Catena.menu.pnum.CATENA_4551.build.f_cpu=2000000L
+Catena.menu.pnum.CATENA_4551.build.board=CATENA_4551
+Catena.menu.pnum.CATENA_4551.build.series=STM32L0xx
+Catena.menu.pnum.CATENA_4551.build.product_line=STM32L082xx
+Catena.menu.pnum.CATENA_4551.build.variant=CATENA_4551
+Catena.menu.pnum.CATENA_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
+Catena.menu.pnum.CATENA_4551.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # Upload menu
-Nucleo_144.menu.upload_method.MassStorage=Mass Storage
-Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
-Nucleo_144.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+#Catena.menu.upload_method.MassStorage=Mass Storage
+#Catena.menu.upload_method.MassStorage.upload.protocol=
+#Catena.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
-Nucleo_144.menu.upload_method.STLink=STLink
-Nucleo_144.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_144.menu.upload_method.STLink.upload.tool=stlink_upload
+Catena.menu.upload_method.STLink=STLink
+Catena.menu.upload_method.STLink.upload.protocol=STLink
+Catena.menu.upload_method.STLink.upload.tool=stlink_upload
 
-################################################################################
-# Nucleo 64 boards
+#Catena.menu.upload_method.Serial=Serial
+#Catena.menu.upload_method.Serial.upload.protocol=Serial
+#Catena.menu.upload_method.Serial.upload.tool=serial_upload
 
-Nucleo_64.name=Nucleo-64
+Catena.menu.xserial.generic=Generic Serial
+Catena.menu.xserial.none=No Serial
+Catena.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+#Catena.menu.xserial.all=All (up to 10)
+#Catena.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+#Catena.menu.xserial.third=Enable first third (USART1 to 3 if available)
+#Catena.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
-Nucleo_64.build.vid=0x0483
-Nucleo_64.build.pid=0x5711
-Nucleo_64.vid.0=0x0483
-Nucleo_64.pid.0=0x5711
+Catena.menu.usb.none=None
+Catena.menu.usb.usb_device=Enable USB device
+Catena.menu.usb.usb_device.build.enable_usb={build.usb_flags}
 
-Nucleo_64.build.core=arduino
-Nucleo_64.build.board=Nucleo_64
-Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# NUCLEO_F030R8 board
-# Support: Serial1 (USART1 on PA10, PA9)
-Nucleo_64.menu.pnum.NUCLEO_F030R8=Nucleo F030R8
-Nucleo_64.menu.pnum.NUCLEO_F030R8.node="NODE_F030R8,NUCLEO"
-Nucleo_64.menu.pnum.NUCLEO_F030R8.upload.maximum_size=65536
-Nucleo_64.menu.pnum.NUCLEO_F030R8.upload.maximum_data_size=8192
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.mcu=cortex-m0
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.board=NUCLEO_F030R8
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.series=STM32F0xx
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.product_line=STM32F030x8
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=NUCLEO_F030R8
-Nucleo_64.menu.pnum.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
-
-# NUCLEO_F091RC board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
-Nucleo_64.menu.pnum.NUCLEO_F091RC=Nucleo F091RC
-Nucleo_64.menu.pnum.NUCLEO_F091RC.node=NODE_F091RC
-Nucleo_64.menu.pnum.NUCLEO_F091RC.upload.maximum_size=262144
-Nucleo_64.menu.pnum.NUCLEO_F091RC.upload.maximum_data_size=32768
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.mcu=cortex-m0
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.board=NUCLEO_F091RC
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.series=STM32F0xx
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.product_line=STM32F091xC
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
-Nucleo_64.menu.pnum.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
-
-# NUCLEO_F103RB board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PC11, PC10)
-Nucleo_64.menu.pnum.NUCLEO_F103RB=Nucleo F103RB
-Nucleo_64.menu.pnum.NUCLEO_F103RB.node="NODE_F103RB,NUCLEO"
-Nucleo_64.menu.pnum.NUCLEO_F103RB.upload.maximum_size=131072
-Nucleo_64.menu.pnum.NUCLEO_F103RB.upload.maximum_data_size=20480
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.mcu=cortex-m3
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.board=NUCLEO_F103RB
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.series=STM32F1xx
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.product_line=STM32F103xB
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.variant=NUCLEO_F103RB
-Nucleo_64.menu.pnum.NUCLEO_F103RB.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# NUCLEO_F302R8 board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
-Nucleo_64.menu.pnum.NUCLEO_F302R8=Nucleo F302R8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.node=NODE_F302R8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.upload.maximum_size=65536
-Nucleo_64.menu.pnum.NUCLEO_F302R8.upload.maximum_data_size=16384
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.board=NUCLEO_F302R8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.series=STM32F3xx
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.product_line=STM32F302x8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.variant=NUCLEO_F302R8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_F303RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
-Nucleo_64.menu.pnum.NUCLEO_F303RE=Nucleo F303RE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.node=NODE_F303RE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_size=524288
-Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_data_size=65536
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.product_line=STM32F303xE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=NUCLEO_F303RE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_F401RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
-Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.node=NODE_F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_size=524288
-Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_data_size=98304
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=NUCLEO_F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_F411RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PC7, PC6)
-Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.node=NODE_F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_size=524288
-Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_data_size=131072
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=NUCLEO_F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_F446RE board
-Nucleo_64.menu.pnum.NUCLEO_F446RE=Nucleo F446RE
-Nucleo_64.menu.pnum.NUCLEO_F446RE.node=NODE_F446RE
-Nucleo_64.menu.pnum.NUCLEO_F446RE.upload.maximum_size=524288
-Nucleo_64.menu.pnum.NUCLEO_F446RE.upload.maximum_data_size=131072
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=NUCLEO_F446RE
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_L053R8 board
-# Support: Serial1 (USART1 on PA10, PA9)
-Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
-Nucleo_64.menu.pnum.NUCLEO_L053R8.node=NODE_L053R8
-Nucleo_64.menu.pnum.NUCLEO_L053R8.upload.maximum_size=65536
-Nucleo_64.menu.pnum.NUCLEO_L053R8.upload.maximum_data_size=8192
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.mcu=cortex-m0
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.board=NUCLEO_L053R8
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.series=STM32L0xx
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.product_line=STM32L053xx
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-
-# NUCLEO_L152RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (UART4 on PC11, PC10)
-Nucleo_64.menu.pnum.NUCLEO_L152RE=Nucleo L152RE
-Nucleo_64.menu.pnum.NUCLEO_L152RE.node="NODE_L152RE,NUCLEO"
-Nucleo_64.menu.pnum.NUCLEO_L152RE.upload.maximum_size=524288
-Nucleo_64.menu.pnum.NUCLEO_L152RE.upload.maximum_data_size=81920
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.mcu=cortex-m3
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.board=NUCLEO_L152RE
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.series=STM32L1xx
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=NUCLEO_L152RE
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# NUCLEO_L476RG board
-# Support: Serial1 (USART1 on PA10, PA9)
-Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
-Nucleo_64.menu.pnum.NUCLEO_L476RG.node=NODE_L476RG
-Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_size=1048576
-Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_data_size=131072
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=NUCLEO_L476RG
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# Upload menu
-Nucleo_64.menu.upload_method.MassStorage=Mass Storage
-Nucleo_64.menu.upload_method.MassStorage.upload.protocol=
-Nucleo_64.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-Nucleo_64.menu.upload_method.STLink=STLink
-Nucleo_64.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_64.menu.upload_method.STLink.upload.tool=stlink_upload
-
-################################################################################
-# Nucleo 32 boards
-
-Nucleo_32.name=Nucleo-32
-
-Nucleo_32.build.vid=0x0483
-Nucleo_32.build.pid=0x5711
-Nucleo_32.vid.0=0x0483
-Nucleo_32.pid.0=0x5711
-
-Nucleo_32.build.core=arduino
-Nucleo_32.build.board=Nucleo_32
-Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# NUCLEO_L031K6 board
-# Support: Serial2 (USART2 on PA15, PA2)
-Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
-Nucleo_32.menu.pnum.NUCLEO_L031K6.node=NODE_L031K6
-Nucleo_32.menu.pnum.NUCLEO_L031K6.upload.maximum_size=32768
-Nucleo_32.menu.pnum.NUCLEO_L031K6.upload.maximum_data_size=8192
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.mcu=cortex-m0
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.board=NUCLEO_L031K6
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.series=STM32L0xx
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=NUCLEO_L031K6
-Nucleo_32.menu.pnum.NUCLEO_L031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
-
-# NUCLEO_L432KC board
-# Support: Serial1 (USART1 on PA10, PA9)
-Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
-Nucleo_32.menu.pnum.NUCLEO_L432KC.node=NODE_L432KC
-Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_size=262144
-Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_data_size=65536
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# NUCLEO_F303K8 board
-# Support: Serial1 (USART2 on PA3, PA2)
-Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_size=65536
-Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_data_size=12288
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.mcu=cortex-m4
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=NUCLEO_F303K8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# Upload menu
-Nucleo_32.menu.upload_method.MassStorage=Mass Storage
-Nucleo_32.menu.upload_method.MassStorage.upload.protocol=
-Nucleo_32.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-Nucleo_32.menu.upload_method.STLink=STLink
-Nucleo_32.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_32.menu.upload_method.STLink.upload.tool=stlink_upload
-
-################################################################################
-# Discovery boards
-
-Disco.name=Discovery
-
-Disco.build.vid=0x0483
-Disco.build.pid=0x5711
-Disco.vid.0=0x0483
-Disco.pid.0=0x5711
-
-Disco.build.core=arduino
-Disco.build.board=Disco
-Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-#DISCO_F100RB board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
-Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
-Disco.menu.pnum.DISCO_F100RB.node=DIS_F100RB
-Disco.menu.pnum.DISCO_F100RB.upload.maximum_size=131071
-Disco.menu.pnum.DISCO_F100RB.upload.maximum_data_size=8192
-Disco.menu.pnum.DISCO_F100RB.build.mcu=cortex-m3
-Disco.menu.pnum.DISCO_F100RB.build.board=DISCO_F100RB
-Disco.menu.pnum.DISCO_F100RB.build.series=STM32F1xx
-Disco.menu.pnum.DISCO_F100RB.build.product_line=STM32F100xB
-Disco.menu.pnum.DISCO_F100RB.build.variant=DISCO_F100RB
-Disco.menu.pnum.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# DISCO_F407VG board
-# Support: USB HID
-Disco.menu.pnum.DISCO_F407VG=STM32F407G-DISC1
-Disco.menu.pnum.DISCO_F407VG.node=DIS_F407VG
-Disco.menu.pnum.DISCO_F407VG.upload.maximum_size=1048576
-Disco.menu.pnum.DISCO_F407VG.upload.maximum_data_size=196608
-Disco.menu.pnum.DISCO_F407VG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
-Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
-Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
-Disco.menu.pnum.DISCO_F407VG.build.variant=DISCO_F407VG
-Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# DISCO_F746NG board
-# Support: USB HID, Serial1 (USART6 on PC7, PC6) and Serial2 (UART7 on PF6, PF7)
-Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
-Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
-Disco.menu.pnum.DISCO_F746NG.upload.maximum_size=1048576
-Disco.menu.pnum.DISCO_F746NG.upload.maximum_data_size=327680
-Disco.menu.pnum.DISCO_F746NG.build.mcu=cortex-m7 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
-Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
-Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
-Disco.menu.pnum.DISCO_F746NG.build.variant=DISCO_F746NG
-Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
-
-# DISCO_L475VG_IOT board
-# Support: USB HID, Serial1 (USART1 on PA1, PA0)
-Disco.menu.pnum.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
-Disco.menu.pnum.DISCO_L475VG_IOT.node=DIS_L4IOT
-Disco.menu.pnum.DISCO_L475VG_IOT.upload.maximum_size=1048576
-Disco.menu.pnum.DISCO_L475VG_IOT.upload.maximum_data_size=98304
-Disco.menu.pnum.DISCO_L475VG_IOT.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.DISCO_L475VG_IOT.build.board=DISCO_L475VG_IOT
-Disco.menu.pnum.DISCO_L475VG_IOT.build.series=STM32L4xx
-Disco.menu.pnum.DISCO_L475VG_IOT.build.product_line=STM32L475xx
-Disco.menu.pnum.DISCO_L475VG_IOT.build.variant=DISCO_L475VG_IOT
-Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# DISCO-L072CZ-LRWAN1 board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial=Serial2 (connected to ST-LINK)
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1=Discovery L072CZ-LRWAN1
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.node="DIS_L072Z,NODE_L072CZ"
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.upload.maximum_size=196608
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.upload.maximum_data_size=20480
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.mcu=cortex-m0
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.board=DISCO_L072CZ_LRWAN1
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.series=STM32L0xx
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.product_line=STM32L072xx
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.variant=DISCO_L072CZ_LRWAN1
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
-Disco.menu.pnum.DISCO_L072CZ_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-
-# Upload menu
-Disco.menu.upload_method.MassStorage=Mass Storage
-Disco.menu.upload_method.MassStorage.upload.protocol=
-Disco.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-Disco.menu.upload_method.STLink=STLink
-Disco.menu.upload_method.STLink.upload.protocol=STLink
-Disco.menu.upload_method.STLink.upload.tool=stlink_upload
-
-
-################################################################################
-# Serialx activation
-Nucleo_144.menu.xserial.generic=Generic Serial
-Nucleo_144.menu.xserial.none=No Serial
-Nucleo_144.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_144.menu.xserial.all=All (up to 10)
-Nucleo_144.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_144.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_144.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-
-Nucleo_64.menu.xserial.generic=Generic Serial
-Nucleo_64.menu.xserial.none=No Serial
-Nucleo_64.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_64.menu.xserial.all=All (up to 10)
-Nucleo_64.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_64.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_64.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-
-Nucleo_32.menu.xserial.generic=Generic Serial
-Nucleo_32.menu.xserial.none=No Serial
-Nucleo_32.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_32.menu.xserial.all=All (up to 10)
-Nucleo_32.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_32.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_32.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-
-Disco.menu.xserial.generic=Generic Serial
-Disco.menu.xserial.none=No Serial
-Disco.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Disco.menu.xserial.all=All (up to 10)
-Disco.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Disco.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Disco.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-
-# USB connectivity
-Nucleo_144.menu.usb.none=None
-Nucleo_144.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_144.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_144.menu.usb.CDC=CDC (if available)
-#Nucleo_144.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
-Nucleo_64.menu.usb.none=None
-Nucleo_64.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_64.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_64.menu.usb.CDC=CDC (if available)
-#Nucleo_64.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
-Nucleo_32.menu.usb.none=None
-Nucleo_32.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_32.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_32.menu.usb.CDC=CDC (if available)
-#Nucleo_32.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
-Disco.menu.usb.none=None
-Disco.menu.usb.HID=HID keyboard and mouse support (if available)
-Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Disco.menu.usb.CDC=CDC (if available)
-#Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
-# Optimizations
-Nucleo_144.menu.opt.osstd=Smallest (-Os default)
-Nucleo_144.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_144.menu.opt.osstd.build.flags.ldspecs=
-Nucleo_144.menu.opt.oslto=Smallest (-Os) with LTO
-Nucleo_144.menu.opt.oslto.build.flags.optimize=-Os -flto
-Nucleo_144.menu.opt.oslto.build.flags.ldspecs=-flto
-Nucleo_144.menu.opt.o1std=Fast (-O1)
-Nucleo_144.menu.opt.o1std.build.flags.optimize=-O1
-Nucleo_144.menu.opt.o1std.build.flags.ldspecs=
-Nucleo_144.menu.opt.o1lto=Fast (-O1) with LTO
-Nucleo_144.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Nucleo_144.menu.opt.o1lto.build.flags.ldspecs=-flto
-Nucleo_144.menu.opt.o2std=Faster (-O2)
-Nucleo_144.menu.opt.o2std.build.flags.optimize=-O2
-Nucleo_144.menu.opt.o2std.build.flags.ldspecs=
-Nucleo_144.menu.opt.o2lto=Faster (-O2) with LTO
-Nucleo_144.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Nucleo_144.menu.opt.o2lto.build.flags.ldspecs=-flto
-Nucleo_144.menu.opt.o3std=Fastest (-O3)
-Nucleo_144.menu.opt.o3std.build.flags.optimize=-O3
-Nucleo_144.menu.opt.o3std.build.flags.ldspecs=
-Nucleo_144.menu.opt.o3lto=Fastest (-O3) with LTO
-Nucleo_144.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_144.menu.opt.o3lto.build.flags.ldspecs=-flto
-Nucleo_144.menu.opt.ogstd=Debug (-g)
-Nucleo_144.menu.opt.ogstd.build.flags.optimize=-g -Og
-Nucleo_144.menu.opt.ogstd.build.flags.ldspecs=
-
-Nucleo_64.menu.opt.osstd=Smallest (-Os default)
-Nucleo_64.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_64.menu.opt.osstd.build.flags.ldspecs=
-Nucleo_64.menu.opt.oslto=Smallest (-Os) with LTO
-Nucleo_64.menu.opt.oslto.build.flags.optimize=-Os -flto
-Nucleo_64.menu.opt.oslto.build.flags.ldspecs=-flto
-Nucleo_64.menu.opt.o1std=Fast (-O1)
-Nucleo_64.menu.opt.o1std.build.flags.optimize=-O1
-Nucleo_64.menu.opt.o1std.build.flags.ldspecs=
-Nucleo_64.menu.opt.o1lto=Fast (-O1) with LTO
-Nucleo_64.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Nucleo_64.menu.opt.o1lto.build.flags.ldspecs=-flto
-Nucleo_64.menu.opt.o2std=Faster (-O2)
-Nucleo_64.menu.opt.o2std.build.flags.optimize=-O2
-Nucleo_64.menu.opt.o2std.build.flags.ldspecs=
-Nucleo_64.menu.opt.o2lto=Faster (-O2) with LTO
-Nucleo_64.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Nucleo_64.menu.opt.o2lto.build.flags.ldspecs=-flto
-Nucleo_64.menu.opt.o3std=Fastest (-O3)
-Nucleo_64.menu.opt.o3std.build.flags.optimize=-O3
-Nucleo_64.menu.opt.o3std.build.flags.ldspecs=
-Nucleo_64.menu.opt.o3lto=Fastest (-O3) with LTO
-Nucleo_64.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_64.menu.opt.o3lto.build.flags.ldspecs=-flto
-Nucleo_64.menu.opt.ogstd=Debug (-g)
-Nucleo_64.menu.opt.ogstd.build.flags.optimize=-g -Og
-Nucleo_64.menu.opt.ogstd.build.flags.ldspecs=
-
-Nucleo_32.menu.opt.osstd=Smallest (-Os default)
-Nucleo_32.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_32.menu.opt.osstd.build.flags.ldspecs=
-Nucleo_32.menu.opt.oslto=Smallest (-Os) with LTO
-Nucleo_32.menu.opt.oslto.build.flags.optimize=-Os -flto
-Nucleo_32.menu.opt.oslto.build.flags.ldspecs=-flto
-Nucleo_32.menu.opt.o1std=Fast (-O1)
-Nucleo_32.menu.opt.o1std.build.flags.optimize=-O1
-Nucleo_32.menu.opt.o1std.build.flags.ldspecs=
-Nucleo_32.menu.opt.o1lto=Fast (-O1) with LTO
-Nucleo_32.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Nucleo_32.menu.opt.o1lto.build.flags.ldspecs=-flto
-Nucleo_32.menu.opt.o2std=Faster (-O2)
-Nucleo_32.menu.opt.o2std.build.flags.optimize=-O2
-Nucleo_32.menu.opt.o2std.build.flags.ldspecs=
-Nucleo_32.menu.opt.o2lto=Faster (-O2) with LTO
-Nucleo_32.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Nucleo_32.menu.opt.o2lto.build.flags.ldspecs=-flto
-Nucleo_32.menu.opt.o3std=Fastest (-O3)
-Nucleo_32.menu.opt.o3std.build.flags.optimize=-O3
-Nucleo_32.menu.opt.o3std.build.flags.ldspecs=
-Nucleo_32.menu.opt.o3lto=Fastest (-O3) with LTO
-Nucleo_32.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_32.menu.opt.o3lto.build.flags.ldspecs=-flto
-Nucleo_32.menu.opt.ogstd=Debug (-g)
-Nucleo_32.menu.opt.ogstd.build.flags.optimize=-g -Og
-Nucleo_32.menu.opt.ogstd.build.flags.ldspecs=
-
-Disco.menu.opt.osstd=Smallest (-Os default)
-Disco.menu.opt.osstd.build.flags.optimize=-Os
-Disco.menu.opt.osstd.build.flags.ldspecs=
-Disco.menu.opt.oslto=Smallest (-Os) with LTO
-Disco.menu.opt.oslto.build.flags.optimize=-Os -flto
-Disco.menu.opt.oslto.build.flags.ldspecs=-flto
-Disco.menu.opt.o1std=Fast (-O1)
-Disco.menu.opt.o1std.build.flags.optimize=-O1
-Disco.menu.opt.o1std.build.flags.ldspecs=
-Disco.menu.opt.o1lto=Fast (-O1) with LTO
-Disco.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Disco.menu.opt.o1lto.build.flags.ldspecs=-flto
-Disco.menu.opt.o2std=Faster (-O2)
-Disco.menu.opt.o2std.build.flags.optimize=-O2
-Disco.menu.opt.o2std.build.flags.ldspecs=
-Disco.menu.opt.o2lto=Faster (-O2) with LTO
-Disco.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Disco.menu.opt.o2lto.build.flags.ldspecs=-flto
-Disco.menu.opt.o3std=Fastest (-O3)
-Disco.menu.opt.o3std.build.flags.optimize=-O3
-Disco.menu.opt.o3std.build.flags.ldspecs=
-Disco.menu.opt.o3lto=Fastest (-O3) with LTO
-Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Disco.menu.opt.o3lto.build.flags.ldspecs=-flto
-Disco.menu.opt.ogstd=Debug (-g)
-Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
-Disco.menu.opt.ogstd.build.flags.ldspecs=
+Catena.menu.opt.osstd=Smallest (-Os default)
+Catena.menu.opt.osstd.build.flags.optimize=-Os
+Catena.menu.opt.osstd.build.flags.ldspecs=
+Catena.menu.opt.oslto=Smallest (-Os) with LTO
+Catena.menu.opt.oslto.build.flags.optimize=-Os -flto
+Catena.menu.opt.oslto.build.flags.ldspecs=-flto
+Catena.menu.opt.o1std=Fast (-O1)
+Catena.menu.opt.o1std.build.flags.optimize=-O1
+Catena.menu.opt.o1std.build.flags.ldspecs=
+Catena.menu.opt.o1lto=Fast (-O1) with LTO
+Catena.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Catena.menu.opt.o1lto.build.flags.ldspecs=-flto
+Catena.menu.opt.o2std=Faster (-O2)
+Catena.menu.opt.o2std.build.flags.optimize=-O2
+Catena.menu.opt.o2std.build.flags.ldspecs=
+Catena.menu.opt.o2lto=Faster (-O2) with LTO
+Catena.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Catena.menu.opt.o2lto.build.flags.ldspecs=-flto
+Catena.menu.opt.o3std=Fastest (-O3)
+Catena.menu.opt.o3std.build.flags.optimize=-O3
+Catena.menu.opt.o3std.build.flags.ldspecs=
+Catena.menu.opt.o3lto=Fastest (-O3) with LTO
+Catena.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Catena.menu.opt.o3lto.build.flags.ldspecs=-flto
+Catena.menu.opt.ogstd=Debug (-g)
+Catena.menu.opt.ogstd.build.flags.optimize=-Og -gdwarf-2
+Catena.menu.opt.ogstd.build.flags.ldspecs=

@@ -46,6 +46,7 @@
 #include "WCharacter.h"
 #include "WMath.h"
 #include "WString.h"
+#include "usb_serial.h"
 #endif // __cplusplus
 
 #define clockCyclesPerMicrosecond() ( SystemCoreClock / 1000000L )

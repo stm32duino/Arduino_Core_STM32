@@ -120,6 +120,8 @@ class HardwareSerial : public Stream
     using Print::write; // pull in write(str) and write(buf, size) from Print
     operator bool() { return true; }
 
+    bool dtr(void) { return true; }
+
     void setRx(uint32_t _rx);
     void setTx(uint32_t _tx);
     void setRx(PinName _rx);

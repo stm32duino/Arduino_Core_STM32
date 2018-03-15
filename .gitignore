@@ -1,5 +1,47 @@
-*.orig
-*.swp
-.DS_Store
-boards.local.txt
-platform.local.txt
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Backup files
+*.BAK
+*.CKP
+*~
+
+# Visual Studio things (for the Visual Micro stuff)
+.vs
+Debug
+Release
+__vm
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+
+# VS Code things
+.vscode

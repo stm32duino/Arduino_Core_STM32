@@ -1172,19 +1172,31 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd)
   */
 void PCD_WritePMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
-  uint32_t n = (wNBytes + 1U) >> 1U;
+  uint16_t *pwPMABuf;
+  uint16_t data;
   uint32_t i;
-  uint16_t temp1, temp2;
-  uint16_t *pdwVal;
-  pdwVal = (uint16_t *)(wPMABufAddr + (uint32_t)USBx + 0x400U);
+  uint32_t n;
 
-  for (i = n; i != 0U; i--)
+  pwPMABuf = (uint16_t *)(wPMABufAddr + (uint32_t)USBx + 0x400U);
+  n = (wNBytes + 1) >> 1U;
+
+  if ((uint32_t)pbUsrBuf & 1)
   {
-    temp1 = (uint16_t) * pbUsrBuf;
-    pbUsrBuf++;
-    temp2 = temp1 | (uint16_t) * pbUsrBuf << 8U;
-    *pdwVal++ = temp2;
-    pbUsrBuf++;
+    for (i = 0; i < n; ++i)
+    {
+      data = pbUsrBuf[0] | (pbUsrBuf[1] << 8);
+      pbUsrBuf += 2;
+      pwPMABuf[i] = data;
+    }
+  }
+  else
+  {
+    uint16_t *pwUsrBuf = (uint16_t *) pbUsrBuf;
+
+    for (i = 0; i < n; ++i)
+    {
+      pwPMABuf[i] = pwUsrBuf[i];
+    }
   }
 }
 
@@ -1198,14 +1210,42 @@ void PCD_WritePMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, u
   */
 void PCD_ReadPMA(USB_TypeDef  *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uint16_t wNBytes)
 {
-  uint32_t n = (wNBytes + 1U) >> 1U;
+  uint16_t *pwPMABuf;
+  uint16_t data;
   uint32_t i;
-  uint16_t *pdwVal;
-  pdwVal = (uint16_t *)(wPMABufAddr + (uint32_t)USBx + 0x400U);
-  for (i = n; i != 0U; i--)
+  uint32_t n;
+
+  pwPMABuf = (uint16_t *)(wPMABufAddr + (uint32_t)USBx + 0x400U);
+  n = wNBytes >> 1U;
+
+  if ((uint32_t)pbUsrBuf & 1)
   {
-    *(uint16_t*)pbUsrBuf++ = *pdwVal++;
-    pbUsrBuf++;
+    for (i = 0; i < n; ++i)
+    {
+      data = pwPMABuf[i];
+      *pbUsrBuf++ = data & 0xFFu;
+      *pbUsrBuf++ = data >> 8;
+    }
+    if (wNBytes & 1)
+    {
+      data = pwPMABuf[i];
+      *pbUsrBuf = data & 0xFFu;
+    }
+  }
+  else
+  {
+    uint16_t *pwUsrBuf = (uint16_t *) pbUsrBuf;
+
+    for (i = 0; i < n; ++i)
+    {
+      pwUsrBuf[i] = pwPMABuf[i];
+    }
+    if (wNBytes & 1)
+    {
+      pbUsrBuf = (uint8_t *) &pwUsrBuf[i];
+      data = pwPMABuf[i];
+      *pbUsrBuf = data & 0xFFu;
+    }
   }
 }
 /**

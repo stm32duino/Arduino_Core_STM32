@@ -1,6 +1,0 @@
-CapacitiveSensor	KEYWORD1
-capacitiveSensorRaw	KEYWORD2
-capacitiveSensor	KEYWORD2
-set_CS_Timeout_Millis	KEYWORD2
-reset_CS_AutoCal	KEYWORD2
-set_CS_AutocaL_Millis	KEYWORD2

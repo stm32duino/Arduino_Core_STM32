@@ -263,6 +263,9 @@ USBD_StatusTypeDef USBD_ClrClassConfig(USBD_HandleTypeDef  *pdev, uint8_t cfgidx
 */
 USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
 {
+  USBD_UsrLog("Setup: %02x %02x %02x %02x %02x %02x %02x %02x",
+  	      psetup[0], psetup[1], psetup[2], psetup[3],
+  	      psetup[4], psetup[5], psetup[6], psetup[7]);
 
   USBD_ParseSetupRequest(&pdev->request, psetup);
 
@@ -415,6 +418,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev ,uint8_t epnum, 
 
 USBD_StatusTypeDef USBD_LL_Reset(USBD_HandleTypeDef  *pdev)
 {
+  USBD_UsrLog("USBD_LL_Reset");
+
   /* Open EP0 OUT */
   USBD_LL_OpenEP(pdev,
               0x00,
