@@ -10,6 +10,11 @@
 
 This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
 
+Use this link in the "*Additional Boards Managers URLs*" field:
+
+https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json
+
+
 For full instructions on using the "**Boards Manager**", see the [Getting Started](https://github.com/stm32duino/wiki/wiki/Getting-Started) page.
 
 For advanced user, you can use the repository: see the [Using git repository](https://github.com/stm32duino/wiki/wiki/Using-git-repository) page.
