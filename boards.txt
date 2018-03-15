@@ -22,20 +22,20 @@ Catena.build.core=arduino
 Catena.build.board=Catena
 Catena.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
-#CATENA_4551 board
+#CATENA_4550 board
 # Support: Serial1 (USART1 on PA10, PA9)
-Catena.menu.pnum.CATENA_4551=Catena 4551
-Catena.menu.pnum.CATENA_4551.node=NODE_CATENA_4551
-Catena.menu.pnum.CATENA_4551.upload.maximum_size=196608
-Catena.menu.pnum.CATENA_4551.upload.maximum_data_size=20480
-Catena.menu.pnum.CATENA_4551.build.mcu=cortex-m0
-#Catena.menu.pnum.CATENA_4551.build.f_cpu=2000000L
-Catena.menu.pnum.CATENA_4551.build.board=CATENA_4551
-Catena.menu.pnum.CATENA_4551.build.series=STM32L0xx
-Catena.menu.pnum.CATENA_4551.build.product_line=STM32L082xx
-Catena.menu.pnum.CATENA_4551.build.variant=CATENA_4551
-Catena.menu.pnum.CATENA_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
-Catena.menu.pnum.CATENA_4551.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Catena.menu.pnum.CATENA_4550=Catena 4550
+Catena.menu.pnum.CATENA_4550.node=NODE_CATENA_4550
+Catena.menu.pnum.CATENA_4550.upload.maximum_size=196608
+Catena.menu.pnum.CATENA_4550.upload.maximum_data_size=20480
+Catena.menu.pnum.CATENA_4550.build.mcu=cortex-m0
+#Catena.menu.pnum.CATENA_4550.build.f_cpu=2000000L
+Catena.menu.pnum.CATENA_4550.build.board=CATENA_4550
+Catena.menu.pnum.CATENA_4550.build.series=STM32L0xx
+Catena.menu.pnum.CATENA_4550.build.product_line=STM32L082xx
+Catena.menu.pnum.CATENA_4550.build.variant=CATENA_4550
+Catena.menu.pnum.CATENA_4550.build.cmsis_lib_gcc=arm_cortexM0l_math
+Catena.menu.pnum.CATENA_4550.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # Upload menu
 #Catena.menu.upload_method.MassStorage=Mass Storage
