@@ -40,7 +40,7 @@
 #ifndef __HAL_UART_EMUL_H
 #define __HAL_UART_EMUL_H
 
-#if defined(TIM1_BASE)
+#if defined(TIM1_BASE) && defined(UART_EMUL_RX) && defined(UART_EMUL_TX)
 #ifdef __cplusplus
  extern "C" {
 #endif
