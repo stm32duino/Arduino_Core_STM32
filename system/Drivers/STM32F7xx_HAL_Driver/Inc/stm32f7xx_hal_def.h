@@ -70,6 +70,9 @@ typedef enum
 } HAL_LockTypeDef;
 
 /* Exported macro ------------------------------------------------------------*/
+
+#define UNUSED(X) (void)X      /* To avoid gcc/g++ warnings */
+
 #define HAL_MAX_DELAY      0xFFFFFFFFU
 
 #define HAL_IS_BIT_SET(REG, BIT)         (((REG) & (BIT)) != RESET)
@@ -80,8 +83,6 @@ typedef enum
                               (__HANDLE__)->__PPP_DMA_FIELD__ = &(__DMA_HANDLE__); \
                               (__DMA_HANDLE__).Parent = (__HANDLE__);             \
                           } while(0)
-
-#define UNUSED(x) ((void)(x))
 
 /** @brief Reset the Handle's State field.
   * @param __HANDLE__ specifies the Peripheral Handle.
@@ -153,8 +154,16 @@ typedef enum
   #endif /* __ALIGN_BEGIN */
 #endif /* __GNUC__ */
 
+/* Macro to get variable aligned on 32-bytes,needed for cache maintenance purpose */
+#if defined   (__GNUC__)      /* GNU Compiler */
+  #define ALIGN_32BYTES(buf)  buf __attribute__ ((aligned (32)))
+#elif defined (__ICCARM__)    /* IAR Compiler */
+  #define ALIGN_32BYTES(buf) _Pragma("data_alignment=32") buf
+#elif defined (__CC_ARM)      /* ARM Compiler */
+  #define ALIGN_32BYTES(buf) __align(32) buf
+#endif
 
-/** 
+/**
   * @brief  __RAM_FUNC definition
   */ 
 #if defined ( __CC_ARM   )

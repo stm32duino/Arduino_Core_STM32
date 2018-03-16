@@ -586,6 +586,34 @@ __weak void HAL_HCD_Disconnect_Callback(HCD_HandleTypeDef *hhcd)
 }
 
 /**
+  * @brief  Port Enabled  Event callback.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
+__weak void HAL_HCD_PortEnabled_Callback(HCD_HandleTypeDef *hhcd)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hhcd);
+  /* NOTE : This function Should not be modified, when the callback is needed,
+            the HAL_HCD_Disconnect_Callback could be implemented in the user file
+   */
+}
+
+/**
+  * @brief  Port Disabled  Event callback.
+  * @param  hhcd: HCD handle
+  * @retval None
+  */
+__weak void HAL_HCD_PortDisabled_Callback(HCD_HandleTypeDef *hhcd)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(hhcd);
+  /* NOTE : This function Should not be modified, when the callback is needed,
+            the HAL_HCD_Disconnect_Callback could be implemented in the user file
+   */
+}
+
+/**
   * @brief  Notify URB state change callback.
   * @param  hhcd HCD handle
   * @param  chnum Channel number.
@@ -917,10 +945,8 @@ static void HCD_HC_IN_IRQHandler   (HCD_HandleTypeDef *hhcd, uint8_t chnum)
     if(hhcd->hc[chnum].ep_type == EP_TYPE_INTR)
     {
        hhcd->hc[chnum].ErrCnt = 0;
-       hhcd->hc[chnum].state = HC_NAK;
       __HAL_HCD_UNMASK_HALT_HC_INT(chnum);
       USB_HC_Halt(hhcd->Instance, chnum);
-
     }
     else if ((hhcd->hc[chnum].ep_type == EP_TYPE_CTRL)||
              (hhcd->hc[chnum].ep_type == EP_TYPE_BULK))
@@ -1195,11 +1221,14 @@ static void HCD_Port_IRQHandler  (HCD_HandleTypeDef *hhcd)
           USBx_HOST->HFIR = (uint32_t)60000;
         }
       }
+
+      HAL_HCD_PortEnabled_Callback(hhcd);
       HAL_HCD_Connect_Callback(hhcd);
 
     }
     else
     {
+      HAL_HCD_PortDisabled_Callback(hhcd);
       /* Cleanup HPRT */
       USBx_HPRT0 &= ~(USB_OTG_HPRT_PENA | USB_OTG_HPRT_PCDET |\
         USB_OTG_HPRT_PENCHNG | USB_OTG_HPRT_POCCHNG );

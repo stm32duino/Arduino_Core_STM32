@@ -409,6 +409,10 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   /* Clear SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
+  /* Ensure that all instructions done before entering SLEEP mode */
+  __DSB();
+  __ISB();
+
   /* Select SLEEP mode entry -------------------------------------------------*/
   if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
   {   
@@ -446,25 +450,29 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 {
   uint32_t tmpreg = 0;
-  
+
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_STOP_ENTRY(STOPEntry));
-  
+
   /* Select the regulator state in Stop mode ---------------------------------*/
   tmpreg = PWR->CR1;
   /* Clear PDDS and LPDS bits */
   tmpreg &= (uint32_t)~(PWR_CR1_PDDS | PWR_CR1_LPDS);
-  
+
   /* Set LPDS, MRLVDS and LPLVDS bits according to Regulator value */
   tmpreg |= Regulator;
-  
+
   /* Store the new value */
   PWR->CR1 = tmpreg;
-  
+
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-  
+
+  /* Ensure that all instructions done before entering STOP mode */
+  __DSB();
+  __ISB();
+
   /* Select Stop mode entry --------------------------------------------------*/
   if(STOPEntry == PWR_STOPENTRY_WFI)
   {   
