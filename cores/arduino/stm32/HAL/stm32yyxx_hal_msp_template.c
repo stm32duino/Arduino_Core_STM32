@@ -28,4 +28,4 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_hal_msp_template.c"
 #endif
-#endif //0
+#endif /* 0 */

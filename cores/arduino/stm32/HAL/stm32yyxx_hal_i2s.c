@@ -24,6 +24,3 @@
 #ifdef STM32L1xx
 #include "stm32l1xx_hal_i2s.c"
 #endif
-#ifdef STM32L4xx
-// none
-#endif

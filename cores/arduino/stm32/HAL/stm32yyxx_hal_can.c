@@ -18,12 +18,6 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_hal_can.c"
 #endif
-#ifdef STM32L0xx
-// none
-#endif
-#ifdef STM32L1xx
-// none
-#endif
 #ifdef STM32L4xx
 #include "stm32l4xx_hal_can.c"
 #endif

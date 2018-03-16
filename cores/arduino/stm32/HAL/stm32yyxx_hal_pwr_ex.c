@@ -3,9 +3,6 @@
 #ifdef STM32F0xx
 #include "stm32f0xx_hal_pwr_ex.c"
 #endif
-#ifdef STM32F1xx
-// none
-#endif
 #ifdef STM32F2xx
 #include "stm32f2xx_hal_pwr_ex.c"
 #endif

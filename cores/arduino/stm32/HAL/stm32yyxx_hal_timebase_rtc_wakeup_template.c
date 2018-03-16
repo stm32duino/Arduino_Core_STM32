@@ -4,9 +4,6 @@
 #ifdef STM32F0xx
 #include "stm32f0xx_hal_timebase_rtc_wakeup_template.c"
 #endif
-#ifdef STM32F1xx
-// none
-#endif
 #ifdef STM32F2xx
 #include "stm32f2xx_hal_timebase_rtc_wakeup_template.c"
 #endif
@@ -19,13 +16,4 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_hal_timebase_rtc_wakeup_template.c"
 #endif
-#ifdef STM32L0xx
-// none
-#endif
-#ifdef STM32L1xx
-// none
-#endif
-#ifdef STM32L4xx
-// none
-#endif
-#endif //0
+#endif /* 0 */
