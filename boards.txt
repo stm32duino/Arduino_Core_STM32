@@ -189,6 +189,19 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# RAK811 board
+# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (UART4 on PC11, PC10)
+Nucleo_64.menu.pnum.RAK811=RAK811
+Nucleo_64.menu.pnum.RAK811.node="NODE_RAK811"
+Nucleo_64.menu.pnum.RAK811.upload.maximum_size=128000
+Nucleo_64.menu.pnum.RAK811.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.RAK811.build.mcu=cortex-m3
+Nucleo_64.menu.pnum.RAK811.build.board=STM32L151CBUx
+Nucleo_64.menu.pnum.RAK811.build.series=STM32L1xx
+Nucleo_64.menu.pnum.RAK811.build.product_line=STM32L151xB
+Nucleo_64.menu.pnum.RAK811.build.variant=RAK811
+Nucleo_64.menu.pnum.RAK811.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 # NUCLEO_L152RE board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (UART4 on PC11, PC10)
 Nucleo_64.menu.pnum.NUCLEO_L152RE=Nucleo L152RE
