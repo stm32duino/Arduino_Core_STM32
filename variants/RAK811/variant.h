@@ -131,7 +131,7 @@ enum {
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    x //ex: 2 for Serial2 (USART2)
+#define SERIAL_UART_INSTANCE    2 //ex: 2 for Serial2 (USART2)
 // DEBUG_UART could be redefined to print on another instance than 'Serial'
 //#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 // DEBUG_UART baudrate, default: 9600 if not defined
