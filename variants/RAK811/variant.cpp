@@ -88,7 +88,7 @@ WEAK void SystemClock_Config(void)
 // where 'YY' could be F0, F1, F2, F3, F4, F7, L0, L1, L4
 }
 */
-WEAK void SystemClockConfig( void )
+WEAK void SystemClock_Config(void)
 {
     RCC_OscInitTypeDef RCC_OscInitStruct;
     RCC_ClkInitTypeDef RCC_ClkInitStruct;
