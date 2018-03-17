@@ -45,21 +45,31 @@ const PinName digitalPin[] = {
   PA_8, //D3
   PA_9, //D4
   PA_10, //D5
+  PA_11, //DIO0
   PA_12, //D6 - LED1
   PA_13, //D7
   PA_14, //D8
   PA_15, //D9
   PB_2, //D10
   PB_3, //D11
-  PB_4, //D12 - LED2
+  PB_4, //D12 
   PB_5, //D13
   PB_8, //D14
   PB_9, //D15
   PB_10, //D16
   PB_11, //D17
   PB_12, //D18/A18
+  PB_13, //RESET LORA
   PB_14, //D19/A20
   PB_15, //D20/A21
+  PA_5, //SCK RADIO LORA
+  PA_6, //MISO RADIO LORA
+  PA_7, //MOSI RADIO LORA
+  PB_0, //NSS RADIO LORA
+  PB_1, //DIO1
+  PA_3, //DIO2
+  PH_0, //DIO3
+  PC_13, //DIO4
 };
 
 #ifdef __cplusplus

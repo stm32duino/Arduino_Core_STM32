@@ -61,6 +61,7 @@ enum {
   PA8, //D3
   PA9, //D4
   PA10, //D5
+  PA11, //DIO0
   PA12, //D6 - LED1
   PA13, //D7
   PA14, //D8
@@ -75,7 +76,16 @@ enum {
   PB11, //D17
   PB12, //D18/A18
   PB14, //D19/A20
+  PB13, //RESET LORA
   PB15, //D20/A21
+  PA5, //SCK RADIO LORA
+  PA6, //MISO RADIO LORA
+  PA7, //MOSI RADIO LORA
+  PB0, //NSS RADIO LORA
+  PB1, //DIO1
+  PA3, //DIO2
+  PH0, //DIO3
+  PC13, //DIO4
   PEND
 };
 // Enum defining Arduino style alias for analog pin number --> Ax
@@ -103,7 +113,7 @@ enum {
 //#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
-#define LED_BUILTIN             6
+#define LED_BUILTIN             PA12
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
@@ -112,10 +122,23 @@ enum {
 // Below SPI and I2C definitions already done in the core
 // Could be redefined here if needed
 // SPI Definitions
-//#define SS                      10 // Default for Arduino connector compatibility
-//#define MOSI                    11 // Default for Arduino connector compatibility
-//#define MISO                    12 // Default for Arduino connector compatibility
-//#define SCK                     13 // Default for Arduino connector compatibility
+//#define SS                      PB0 // Default for Arduino connector compatibility
+//#define MOSI                    PA7 // Default for Arduino connector compatibility
+//#define MISO                    PA6 // Default for Arduino connector compatibility
+//#define SCK                     PA5 // Default for Arduino connector compatibility
+
+// LORA
+#define RADIO_RESET_PORT        PB13
+#define RADIO_MOSI_PORT         PA7
+#define RADIO_MISO_PORT         PA6
+#define RADIO_SCLK_PORT         PA5
+#define RADIO_NSS_PORT          PB0
+#define RADIO_DIO_0_PORT        PA11
+#define RADIO_DIO_1_PORT        PB1
+#define RADIO_DIO_2_PORT        PA3
+#define RADIO_DIO_3_PORT        PH0
+#define RADIO_DIO_4_PORT        PC13
+//#define RADIO_DIO_5_PORT        PA4
 
 // I2C Definitions
 #define SDA                     14 // Default for Arduino connector compatibility
