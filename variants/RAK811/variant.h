@@ -61,13 +61,13 @@ enum {
   PA8, //D3
   PA9, //D4
   PA10, //D5
-  PA12, //D6
+  PA12, //D6 - LED1
   PA13, //D7
   PA14, //D8
   PA15, //D9
   PB2, //D10
   PB3, //D11
-  PB4, //D12
+  PB4, //D12 - LED2
   PB5, //D13
   PB8, //D15
   PB9, //D14
@@ -103,7 +103,7 @@ enum {
 //#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
-#define LED_BUILTIN             13
+#define LED_BUILTIN             6
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
@@ -145,8 +145,8 @@ enum {
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           D5
-#define PIN_SERIAL_TX           D4
+#define PIN_SERIAL_RX           5
+#define PIN_SERIAL_TX           4
 
 #ifdef __cplusplus
 } // extern "C"
