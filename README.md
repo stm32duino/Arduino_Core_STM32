@@ -1,6 +1,6 @@
-# Arduino core support for STM32L078 based boards
+# Arduino core support for STM32L082 based boards
 
-This repo is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L078 as used in the Murata module in the MCCI Catena&reg; LoRaWAN&trade; boards.
+This repo is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082 as used in the Murata module in the MCCI Catena&reg; LoRaWAN&trade; boards.
 
 For general info, we suggest you check the stmm32duino [README.md](https://github.com/stm32duino/Arduino_Core_STM32#arduino-core-support-for-stm32-based-boards), especially the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started) section.
 
@@ -28,8 +28,7 @@ For full instructions on using the "**Boards Manager**", see  [Installing the MC
 
 ## Boards available
 
-### Current release
-  * STM32L078 on MCCI Catena 4450
+- STM32L082 on MCCI Catena 4551
 
 ## Troubleshooting
 
