@@ -64,8 +64,9 @@ compiler.ar.extra_flags=
 compiler.elf2bin.extra_flags=
 compiler.elf2hex.extra_flags=
 
-compiler.arm.cmsis.c.flags="-I{runtime.tools.CMSIS-4.5.0.path}/CMSIS/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Source/Templates/gcc/"
-compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-4.5.0.path}/CMSIS/Lib/GCC/" -l{build.cmsis_lib_gcc}
+compiler.arm.cmsis.c.flags="-I{runtime.tools.CMSIS-5.3.0.path}/CMSIS/Core/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Include/" "-I{build.system.path}/Drivers/CMSIS/Device/ST/{build.series}/Source/Templates/gcc/"
+compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.3.0.path}/CMSIS/Lib/GCC/" -l{build.cmsis_lib_gcc}
+
 # USB Flags
 # ---------
 build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"'
