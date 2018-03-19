@@ -9,7 +9,6 @@ For general info, we suggest you check the stmm32duino [README.md](https://githu
 - [Latest release](#latest-release)
 - [Getting Started](#getting-started)
 - [Boards available](#boards-available)
-	- [Current release](#current-release)
 - [Troubleshooting](#troubleshooting)
 - [Support Open-Source Software, Hardware, and Community IoT!](#support-open-source-software-hardware-and-community-iot)
 
