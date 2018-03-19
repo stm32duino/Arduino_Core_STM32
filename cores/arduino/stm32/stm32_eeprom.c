@@ -70,10 +70,12 @@
   */
 // We use the last page of the flash to store data (to prevent code overwritten).
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined(STM32L1xx)
-#ifdef FLASH_BANK2_END
+#if defined (FLASH_BANK2_END)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK2_END + 1) - FLASH_PAGE_SIZE))
-#else
+#elif defined (FLASH_BANK1_END)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE))
+#else
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
 #endif // FLASH_BANK2_END
 #elif defined (STM32F2xx) || defined (STM32F4xx) || defined (STM32F7xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_END + 1) - FLASH_PAGE_SIZE)
