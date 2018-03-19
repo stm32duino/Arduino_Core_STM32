@@ -33,7 +33,7 @@ const PinName digitalPin[] = {
   PA_7,  //D2      RADIO_MOSI
   PA_6,  //D3      RADIO_MISO
   PB_3,  //D4      RADIO_SCK
-  PB_5,  //D5      D5
+  PB_6,  //D5      D5			JP3-10
   PA_13, //D6      D6_SWDIO
   PA_15, //D7      RADIO_NSS
   PC_0,  //D8      RADIO_RESET
@@ -59,7 +59,8 @@ const PinName digitalPin[] = {
   PC_13, //D28/A14 RADIO_DIO_3
   PA_1,  //D29/A15 RADIO_ANT_SWITCH_RX       CRF1
   PC_1,  //D30/A16 RADIO_ANT_SWITCH_TX_BOOST CRF3
-  PC_2   //D31/A17 RADIO_ANT_SWITCH_TX_RFO   CRF2
+  PC_2,  //D31/A17 RADIO_ANT_SWITCH_TX_RFO   CRF2
+  PB_5   //D32     Flash Write-Protect
 };
 
 #ifdef __cplusplus
