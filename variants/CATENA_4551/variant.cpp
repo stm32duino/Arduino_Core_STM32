@@ -88,11 +88,11 @@ void SystemClock_Config(void)
   RCC_CRSInitTypeDef RCC_CRSInitStruct;
 #endif
 
-    /**Configure the main internal regulator output voltage 
+    /**Configure the main internal regulator output voltage
     */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-    /**Initializes the CPU, AHB and APB busses clocks 
+    /**Initializes the CPU, AHB and APB busses clocks
     */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|
 #ifdef USBCON
@@ -112,7 +112,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLDIV = RCC_PLLDIV_2;
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
-    /**Initializes the CPU, AHB and APB busses clocks 
+    /**Initializes the CPU, AHB and APB busses clocks
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
@@ -139,11 +139,11 @@ void SystemClock_Config(void)
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
 
 #ifdef USBCON
-    /**Enable the SYSCFG APB clock 
+    /**Enable the SYSCFG APB clock
     */
   __HAL_RCC_CRS_CLK_ENABLE();
 
-    /**Configures CRS 
+    /**Configures CRS
     */
   RCC_CRSInitStruct.Prescaler = RCC_CRS_SYNC_DIV1;
   RCC_CRSInitStruct.Source = RCC_CRS_SYNC_SOURCE_USB;
@@ -155,11 +155,11 @@ void SystemClock_Config(void)
   HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 #endif
 
-    /**Configure the Systick interrupt time 
+    /**Configure the Systick interrupt time
     */
   HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
 
-    /**Configure the Systick 
+    /**Configure the Systick
     */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
