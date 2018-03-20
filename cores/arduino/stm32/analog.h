@@ -39,6 +39,16 @@
 #ifndef __ANALOG_H
 #define __ANALOG_H
 
+#ifdef ADC4_BASE
+#define ADC_NUM (4)
+#elif defined ADC3_BASE
+#define ADC_NUM (3)
+#elif defined ADC2_BASE
+#define ADC_NUM (2)
+#else
+#define ADC_NUM (1)
+#endif
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
 #include "PeripheralPins.h"
@@ -46,6 +56,19 @@
 #ifdef __cplusplus
  extern "C" {
 #endif
+
+typedef struct {
+  /*  The 1st member ADC_HandleTypeDef ADCHandle
+     *  should be kept as the first member of this struct
+     *  to have HAL_ADC_ConvCpltCallback() function work as expected
+     */
+  ADC_HandleTypeDef ADCHandle;
+  PinName current_pin;
+  void(*cb)(void *user_data);
+  void *user_data;
+  bool use_dma;
+} ADCContext_t;
+
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -56,6 +79,8 @@ void dac_stop(PinName pin);
 uint16_t adc_read_value(PinName pin);
 void pwm_start(PinName pin, uint32_t clock_freq, uint32_t period, uint32_t value, uint8_t do_init);
 void pwm_stop(PinName pin);
+bool adc_read_value_dma(PinName pin, uint32_t *pData, uint32_t lData,
+                            void (*callback)(void *user_data), void *functionParameter);
 
 #ifdef __cplusplus
 }

@@ -50,6 +50,7 @@
 #include "analog.h"
 #include "timer.h"
 #include "PinAF_STM32F1.h"
+#include "dma.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -69,27 +70,28 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
-#if defined(ADC_SAMPLETIME_15CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
-#elif defined(ADC_SAMPLETIME_13CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
-#elif defined(ADC_SAMPLETIME_19CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
-#elif defined(ADC_SAMPLETIME_16CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
-#elif defined(ADC_SAMPLETIME_12CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
+
+// Use smalled sample time decreases ADC conversion time
+#if defined(ADC_SAMPLETIME_1CYCLE_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_1CYCLE_5;
+#elif defined(ADC_SAMPLETIME_2CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_2CYCLES_5;
+#elif defined(ADC_SAMPLETIME_3CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_3CYCLES;
+#elif defined(ADC_SAMPLETIME_4CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_4CYCLES;
 #else
 #error "ADC SAMPLINGTIME could not be defined"
 #endif
 
+// Use smaller clock prescaler to keep ADC conversion time as short as possible
 #ifndef STM32F1xx
-#ifdef ADC_CLOCK_SYNC_PCLK_DIV2
-#define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
+#ifdef ADC_CLOCK_SYNC_PCLK_DIV1
+#define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV1
 #elif defined(ADC_CLOCK_ASYNC_DIV1)
 #define ADC_CLOCK_DIV       ADC_CLOCK_ASYNC_DIV1
-#elif defined(ADC_CLOCKPRESCALER_PCLK_DIV2)
-#define ADC_CLOCK_DIV       ADC_CLOCKPRESCALER_PCLK_DIV2
+#elif defined(ADC_CLOCK_SYNC_PCLK_DIV2)
+#define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
 #else
 #error "ADC_CLOCK_DIV could not be defined"
 #endif
@@ -109,11 +111,96 @@
 /**
   * @}
   */
+const DMAMap_t DMAMap_ADC[] = {
+#if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx) || \
+    defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32L4xx)
+  {ADC1, 1, 1, 0, DMA1_Channel1_IRQn},
+#if defined(STM32F0xx)
+  {ADC1, 1, 2, NC, DMA1_Ch2_3_DMA2_Ch1_2_IRQn},
+#if defined(STM32F091xC) || defined(STM32F098xx)
+  {ADC1, 2, 5, NC, DMA1_Ch4_7_DMA2_Ch3_5_IRQn},
+#endif //defined(STM32F091xC) || defined(STM32F098xx)
+#endif //defined(STM32F0xx)
+#if defined(STM32F303xC) || defined(STM32F303xE) || defined(STM32F358xx) || \
+    defined(STM32F398xx)
+  {ADC2, 2, 1, NC, DMA2_Channel1_IRQn},
+  {ADC2, 2, 3, NC, DMA2_Channel3_IRQn},
+  {ADC3, 2, 5, NC, DMA2_Channel5_IRQn},
+  {ADC4, 2, 2, NC, DMA2_Channel2_IRQn},
+  {ADC4, 2, 4, NC, DMA2_Channel4_IRQn},
+#endif //defined(STM32F303xC) || defined(STM32F303xE) || defined(STM32F358xx) || defined(STM32F398xx)
+#if defined(STM32F328xx) || defined(STM32F303x8) || defined(STM32F334x8)
+  {ADC2, 1, 2, NC, DMA1_Channel2_IRQn},
+  {ADC2, 1, 4, NC, DMA1_Channel4_IRQn},
+#endif //defined(STM32F328xx) || defined(STM32F303x8) || defined(STM32F334x8)
+#if defined(STM32L0xx)
+  {ADC1, 1, 2, 0, DMA1_Channel2_3_IRQn},
+#endif //defined(STM32L0xx)
+#if defined(STM32L4xx)
+  {ADC1, 2, 3, 0, DMA2_Channel3_IRQn},
+#if defined(STM32L476xx) || defined(STM32L476xx)
+  {ADC2, 1, 2, 0, DMA1_Channel2_IRQn},
+  {ADC2, 2, 4, 0, DMA2_Channel4_IRQn},
+  {ADC3, 1, 3, 0, DMA1_Channel3_IRQn},
+  {ADC3, 2, 5, 0, DMA2_Channel5_IRQn},
+#endif //defined(STM32L476xx) || defined(STM32L476xx)
+#endif //defined(STM32L4xx)
+#endif //defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32L4xx)
+#if defined(STM32F2xx) || defined(STM32F4xx)
+  {ADC1, 2, 0, 0, DMA2_Stream0_IRQn},
+  {ADC1, 2, 4, 0, DMA2_Stream4_IRQn},
+#if defined(STM32F2xx) || defined(STM32F429xx) || defined(STM32F407xx)
+  {ADC2, 2, 2, 1, DMA2_Stream2_IRQn},
+  {ADC2, 2, 3, 1, DMA2_Stream3_IRQn},
+  {ADC3, 2, 0, 2, DMA2_Stream0_IRQn},
+  {ADC3, 2, 1, 2, DMA2_Stream1_IRQn},
+#endif //defined(STM32F2xx) || defined(STM32F429xx) || defined(STM32F407xx)
+#endif //defined(STM32F2xx) || defined(STM32F4xx)
+  {NP, NC, NC, NC, NP}
+};
 
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
+/* ADC context                                                                */
+ADCContext_t ADCContextMap[ADC_NUM] = {0};
+
+/* GPIO pin use for DAC or PWM                                                */
 static PinName g_current_pin = NC;
+
+
+/**
+  * @brief get ADC context structure
+  * @param instance : pointer to the instance
+  * @retval         : pointer to the ADCx context structure
+  */
+ADCContext_t *get_adc_context(void *instance)
+{
+  ADCContext_t *ADCxContext = NULL;
+
+  #ifdef ADC1_BASE
+  if (instance == ADC1)
+  {
+    ADCxContext = &ADCContextMap[0];
+  }
+  #endif
+  #ifdef ADC2_BASE
+  if (instance == ADC2)
+  {
+     ADCxContext = &ADCContextMap[1];
+  }
+  #endif
+  #ifdef ADC3_BASE
+  if (instance == ADC3)
+  {
+    ADCxContext = &ADCContextMap[2];
+  }
+  #endif
+  #ifdef ADC4_BASE
+  if (instance == ADC4)
+  {
+    ADCxContext = &ADCContextMap[3];
+  }
+  #endif
+  return ADCxContext;
+}
 
 /**
   * @}
@@ -388,13 +475,16 @@ void dac_stop(PinName pin)
   *        This function configures the hardware resources used in this example:
   *           - Peripheral's clock enable
   *           - Peripheral's GPIO Configuration
+  *           - Peripheral's DMA
   * @param hadc: ADC handle pointer
   * @retval None
   */
 void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 {
   GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
+  GPIO_TypeDef *port = NULL;
+  ADCContext_t *ADCxContext = NULL;
+
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
   if(hadc->Instance == ADC1) {
@@ -434,18 +524,51 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
+
 /* For STM32F1xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
 #if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
 
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
-
   /*##-2- Configure peripheral GPIO ##########################################*/
+#ifdef ADC1_BASE
+  if (hadc->Instance == ADC1)
+  {
+    port = set_GPIO_Port_Clock(STM_PORT(ADCContextMap[0].current_pin));
+    GPIO_InitStruct.Pin = STM_GPIO_PIN(ADCContextMap[0].current_pin);
+    ADCxContext = &ADCContextMap[0];
+  }
+#endif
+
+#ifdef ADC2_BASE
+  if (hadc->Instance == ADC2)
+  {
+    port = set_GPIO_Port_Clock(STM_PORT(ADCContextMap[1].current_pin));
+    GPIO_InitStruct.Pin = STM_GPIO_PIN(ADCContextMap[1].current_pin);
+    ADCxContext = &ADCContextMap[1];
+  }
+ #endif
+
+#ifdef ADC3_BASE
+  if (hadc->Instance == ADC3)
+  {
+    port = set_GPIO_Port_Clock(STM_PORT(ADCContextMap[2].current_pin));
+    GPIO_InitStruct.Pin = STM_GPIO_PIN(ADCContextMap[2].current_pin);
+    ADCxContext = &ADCContextMap[2];
+  }
+#endif
+
+#ifdef ADC4_BASE
+  if (hadc->Instance == ADC4)
+  {
+    port = set_GPIO_Port_Clock(STM_PORT(ADCContextMap[3].current_pin));
+    GPIO_InitStruct.Pin = STM_GPIO_PIN(ADCContextMap[3].current_pin);
+    ADCxContext = &ADCContextMap[3];
+  }
+#endif
+
   /* ADC Channel GPIO pin configuration */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
 #ifdef GPIO_MODE_ANALOG_ADC_CONTROL
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
 #else
@@ -453,6 +576,11 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #endif
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+  if (ADCxContext->use_dma)
+  {
+    DMA_init(hadc, hadc->Instance, &hadc->DMA_Handle, DMAMap_ADC);
+  }
 }
 
 /**
@@ -462,6 +590,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   */
 void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 {
+  ADCContext_t *ADCxContext = NULL;
+
 #ifdef __HAL_RCC_ADC_FORCE_RESET
   __HAL_RCC_ADC_FORCE_RESET();
 #endif
@@ -488,6 +618,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 #ifdef __HAL_RCC_ADC12_CLK_DISABLE
 	__HAL_RCC_ADC12_CLK_DISABLE();
 #endif
+    ADCxContext = &ADCContextMap[0];
   }
 #ifdef ADC2
   else if(hadc->Instance == ADC2) {
@@ -509,6 +640,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 #ifdef __HAL_RCC_ADC2_CLK_DISABLE
 	__HAL_RCC_ADC2_CLK_DISABLE();
 #endif
+    ADCxContext = &ADCContextMap[1];
   }
 #endif
 #ifdef ADC3
@@ -531,6 +663,7 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 #ifdef __HAL_RCC_ADC34_CLK_DISABLE
     __HAL_RCC_ADC34_CLK_DISABLE();
 #endif
+    ADCxContext = &ADCContextMap[2];
   }
 #endif
 #ifdef ADC4
@@ -538,11 +671,17 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
 	__HAL_RCC_ADC34_FORCE_RESET();
     __HAL_RCC_ADC34_RELEASE_RESET();
     __HAL_RCC_ADC34_CLK_DISABLE();
+    ADCxContext = &ADCContextMap[3];
   }
 #endif
 #ifdef __HAL_RCC_ADC_CLK_DISABLE
   __HAL_RCC_ADC_CLK_DISABLE();
 #endif
+
+  if (ADCxContext->use_dma)
+  {
+    DMA_deinit(hadc->Instance, DMAMap_ADC);
+  }
 }
 
 /**
@@ -552,54 +691,67 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
   */
 uint16_t adc_read_value(PinName pin)
 {
-  ADC_HandleTypeDef AdcHandle = {};
   ADC_ChannelConfTypeDef  AdcChannelConf = {};
   __IO uint16_t uhADCxConvertedValue = 0;
+  void *peripheral;
+  ADCContext_t *ADCxContext = NULL;
+  ADC_HandleTypeDef *AdcHandle = NULL;
 
-  AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
+  peripheral  = pinmap_peripheral(pin, PinMap_ADC);
+  ADCxContext = get_adc_context(peripheral);
 
-  if (AdcHandle.Instance == NP) return 0;
+  if((peripheral == NP) || (ADCxContext == NULL)) {
+    return 0;
+  }
+
+  ADCxContext->current_pin  = pin;                                           /* Needed for HAL_ADC_MspInit */
+  AdcHandle                 = &(ADCxContext->ADCHandle);
+  AdcHandle->Instance       = peripheral;
+
+  if(HAL_ADC_DeInit(AdcHandle) != HAL_OK) {
+    return 0;
+  }
 
 #ifndef STM32F1xx
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
-  AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
-  AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
-  AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
-  AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
+  AdcHandle->Init.ClockPrescaler        = ADC_CLOCK_DIV;                /* Asynchronous clock mode, input ADC clock divided */
+  AdcHandle->Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
+  AdcHandle->Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
+  AdcHandle->Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
+  AdcHandle->Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif
-  AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
-  AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
-  AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
-  AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
-  AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-  AdcHandle.State = HAL_ADC_STATE_RESET;
+  AdcHandle->Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
+  AdcHandle->Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+  AdcHandle->Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
+  AdcHandle->Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
+  AdcHandle->Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
+  AdcHandle->State = HAL_ADC_STATE_RESET;
 #if defined (STM32F0xx) || defined (STM32L0xx)
-  AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
-  AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
-  AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+  AdcHandle->Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+  AdcHandle->Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
+  AdcHandle->Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
 #ifdef STM32F0xx
-  AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
+  AdcHandle->Init.SamplingTimeCommon    = SAMPLINGTIME;
 #else // STM32L0
   //LowPowerFrequencyMode to enable if clk freq < 2.8Mhz
-  AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
+  AdcHandle->Init.SamplingTime          = SAMPLINGTIME;
 #endif
 #else
 #ifdef STM32F3xx
-  AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+  AdcHandle->Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
 #endif
-  AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
-  AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
+  AdcHandle->Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
+  AdcHandle->Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
 
-  g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
+  ADCxContext->use_dma = false;
 
-  if (HAL_ADC_Init(&AdcHandle) != HAL_OK) {
+  if (HAL_ADC_Init(AdcHandle) != HAL_OK) {
     return 0;
   }
 
   AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
 #ifdef STM32L4xx
-  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) return 0;
+  if (!IS_ADC_CHANNEL(AdcHandle, AdcChannelConf.Channel)) return 0;
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) return 0;
 #endif
@@ -608,7 +760,7 @@ uint16_t adc_read_value(PinName pin)
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
 #endif
   /*##-2- Configure ADC regular channel ######################################*/
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK)
+  if (HAL_ADC_ConfigChannel(AdcHandle, &AdcChannelConf) != HAL_OK)
   {
     /* Channel Configuration Error */
     return 0;
@@ -617,9 +769,9 @@ uint16_t adc_read_value(PinName pin)
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined (STM32L4xx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined (STM32F0xx) || defined (STM32F1xx)
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
+  if (HAL_ADCEx_Calibration_Start(AdcHandle) !=  HAL_OK)
 #else
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
+  if (HAL_ADCEx_Calibration_Start(AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
 #endif
   {
     /* ADC Calibration Error */
@@ -628,7 +780,7 @@ uint16_t adc_read_value(PinName pin)
 #endif
 
   /*##-3- Start the conversion process ####################*/
-  if (HAL_ADC_Start(&AdcHandle) != HAL_OK)
+  if (HAL_ADC_Start(AdcHandle) != HAL_OK)
   {
     /* Start Conversation Error */
     return 0;
@@ -638,31 +790,160 @@ uint16_t adc_read_value(PinName pin)
   /*  For simplicity reasons, this example is just waiting till the end of the
       conversion, but application may perform other tasks while conversion
       operation is ongoing. */
-  if (HAL_ADC_PollForConversion(&AdcHandle, 10) != HAL_OK)
+  if (HAL_ADC_PollForConversion(AdcHandle, 10) != HAL_OK)
   {
     /* End Of Conversion flag not set on time */
     return 0;
   }
 
   /* Check if the continous conversion of regular channel is finished */
-  if ((HAL_ADC_GetState(&AdcHandle) & HAL_ADC_STATE_REG_EOC) == HAL_ADC_STATE_REG_EOC)
+  if ((HAL_ADC_GetState(AdcHandle) & HAL_ADC_STATE_REG_EOC) == HAL_ADC_STATE_REG_EOC)
   {
     /*##-5- Get the converted value of regular channel  ########################*/
-    uhADCxConvertedValue = HAL_ADC_GetValue(&AdcHandle);
+    uhADCxConvertedValue = HAL_ADC_GetValue(AdcHandle);
   }
 
-  if (HAL_ADC_Stop(&AdcHandle) != HAL_OK)
+  if (HAL_ADC_Stop(AdcHandle) != HAL_OK)
   {
     /* Stop Conversation Error */
     return 0;
   }
 
-  if(HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
+  if(HAL_ADC_DeInit(AdcHandle) != HAL_OK) {
     return 0;
   }
 
   return uhADCxConvertedValue;
 }
+
+/**
+  * @brief  This function will use DMA for ADC conversion
+  * @param  pin               : the pin to use
+  * @param  pData             : pointer to buffer where write data
+  * @param  lData             : Number of sample
+  * @param  callback          : Callback function to execute when conversion is done
+  * @param  functionParameter : Callback function parameter
+  * @retval 1 is success, 0 if fail.
+  */
+bool adc_read_value_dma(PinName pin, uint32_t *pData, uint32_t lData,
+                            void (*callback)(void *user_data), void *functionParameter)
+{
+  void *peripheral;
+  ADC_ChannelConfTypeDef sConfig;
+  ADCContext_t *ADCxContext = NULL;
+  ADC_HandleTypeDef *AdcHandle = NULL;
+
+  /* ### - 1 - Initialize ADC peripheral #################################### */
+  peripheral  = pinmap_peripheral(pin, PinMap_ADC);
+  ADCxContext = get_adc_context(peripheral);
+
+  if((peripheral == NP) || (ADCxContext == NULL)) {
+    return 0;
+  }
+
+  ADCxContext->current_pin  = pin;                                             /* Needed for HAL_ADC_MspInit     */
+  ADCxContext->cb           = callback;                                        /* Register the callback function */
+  ADCxContext->user_data    = functionParameter;
+  AdcHandle                 = &(ADCxContext->ADCHandle);
+  AdcHandle->Instance       = peripheral;
+
+  if (HAL_ADC_DeInit(AdcHandle) != HAL_OK)
+  {
+    return 0;
+  }
+
+#ifndef STM32F1xx
+  AdcHandle->Init.ClockPrescaler        = ADC_CLOCK_DIV;                 /* Synchronous clock mode, input ADC clock divided by 1*/
+  AdcHandle->Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
+  AdcHandle->Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
+  AdcHandle->Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
+  AdcHandle->Init.DMAContinuousRequests = DISABLE;                        /* ADC DMA to match with DMA normal mode */
+#endif
+  AdcHandle->Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
+  AdcHandle->Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+  AdcHandle->Init.ContinuousConvMode    = ENABLE;                        /* Continuous mode enabled (automatic conversion restart after each conversion) */
+  AdcHandle->Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
+  AdcHandle->Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
+  AdcHandle->State = HAL_ADC_STATE_RESET;
+#if defined (STM32F0xx) ||defined (STM32L0xx)
+  AdcHandle->Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+  AdcHandle->Init.LowPowerAutoPowerOff  = DISABLE;
+  AdcHandle->Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+#ifdef STM32F0xx
+  AdcHandle->Init.SamplingTimeCommon    = SAMPLINGTIME;
+#else // STM32L0
+  //LowPowerFrequencyMode to enable if clk freq < 2.8Mhz
+  AdcHandle->Init.SamplingTime          = SAMPLINGTIME;
+#endif
+#else
+#ifdef STM32F3xx
+  AdcHandle->Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
+  AdcHandle->Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+#endif
+  AdcHandle->Init.NbrOfConversion       = 1;                             /* Parameter discarded because sequencer is disabled */
+  AdcHandle->Init.NbrOfDiscConversion   = 1;                             /* Parameter discarded because sequencer is disabled */
+#endif
+
+  ADCxContext->use_dma = true;
+
+  /* Initialize ADC peripheral according to the passed parameters */
+  if (HAL_ADC_Init(AdcHandle) != HAL_OK)
+  {
+    return 0;
+  }
+
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined (STM32L4xx)
+  /* ### - 2 - Start calibration ############################################ */
+#if defined (STM32F0xx) || defined (STM32F1xx)
+  if (HAL_ADCEx_Calibration_Start(AdcHandle) !=  HAL_OK)
+#else //defined (STM32F0xx) || defined (STM32F1xx)
+  if (HAL_ADCEx_Calibration_Start(AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
+#endif
+  {
+    return 0;
+  }
+#endif //defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined (STM32L4xx)
+
+  /* ### - 3 - Channel configuration ######################################## */
+  sConfig.Channel      = get_adc_channel(pin);        /* Sampled channel number */
+#ifdef STM32L4xx
+  if (!IS_ADC_CHANNEL(AdcHandle, sConfig.Channel)) return 0;
+#else //STM32L4xx
+  if (!IS_ADC_CHANNEL(sConfig.Channel)) return 0;
+#endif
+  sConfig.Rank         = ADC_REGULAR_RANK_1;          /* Rank of sampled channel number ADCx_CHANNEL */
+#ifndef STM32L0xx
+  sConfig.SamplingTime = SAMPLINGTIME;                /* Sampling time (number of clock cycles unit) */
+#endif //STM32L0xx
+
+  if (HAL_ADC_ConfigChannel(AdcHandle, &sConfig) != HAL_OK)
+  {
+    return 0;
+  }
+
+  /* ### - 4 - Start conversion in DMA mode ################################# */
+  if (HAL_ADC_Start_DMA(AdcHandle, (uint32_t*)pData, lData) != HAL_OK)
+  {
+    return 0;
+  }
+  return 1;
+}
+
+/**
+  * @brief  Conversion DMA transfer callback in non blocking mode
+  * @param  hadc: ADC handle
+  * @retval None
+  */
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
+{
+  /* Report to main program that ADC sequencer has reached its end */
+  ADCContext_t *contextls = (ADCContext_t*) AdcHandle;
+  if (contextls->cb != NULL)
+  {
+    contextls->cb(contextls->user_data);
+  }
+}
+
 
 ////////////////////////// PWM INTERFACE FUNCTIONS /////////////////////////////
 
@@ -807,7 +1088,6 @@ void pwm_stop(PinName pin)
 
   HAL_TIM_PWM_DeInit(&timHandle);
 }
-
 
 /**
   * @}
