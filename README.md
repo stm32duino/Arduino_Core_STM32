@@ -21,7 +21,9 @@ For general information, please check the stm32duino [README.md](https://github.
 
 ## Getting Started
 
-This repository is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
+This repository is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).  Add this URL to _"Additional Boards Manager URLs"_ under `File>Preferences`:
+
+`https://github.com/mcci-catena/arduino-boards/raw/master/BoardManagerFiles/package_mcci_index.json`
 
 For full instructions on using the "**Boards Manager**", see  [Installing the MCCI Catena BSP](https://github.com/mcci-catena/arduino-boards#installing-the-mcci-catena-bsp).
 
