@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -55,6 +55,21 @@ extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
  * \return Read value from selected pin, if no error.
  */
 extern uint32_t analogRead( uint32_t ulPin ) ;
+
+
+/*
+ * \brief Start analog conversion using DMA. This method increases sampling rate.
+ *
+ * \param ulPin: analog pin
+ * \param pData: pointer to buffer where store the samples
+ * \param lData: number of sample to recover
+ * \param callback: pointer to callback
+ * \param callbackParameter: pointer to user data used as parameter of the callback
+ *
+ * \returns true if conversion started else false.
+ */
+extern bool analogReadDMA( uint32_t ulPin, uint32_t *pData, uint32_t lData,
+                          void (*callback)(void *), void *callbackParameter);
 
 /*
  * \brief Set the resolution of analogRead return values. Default is 10 bits (range from 0 to 1023).

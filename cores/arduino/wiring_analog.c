@@ -61,6 +61,19 @@ uint32_t analogRead(uint32_t ulPin)
   return value;
 }
 
+//Start a DMA acquisition on ADC
+//the initialization of the analog PIN is done through this function
+bool analogReadDMA( uint32_t ulPin, uint32_t *pData, uint32_t lData,
+                   void (*callback)(void *), void* callbackParameter)
+{
+  bool status = false;
+  PinName p = analogInputToPinName(ulPin);
+  if(p != NC) {
+    status = adc_read_value_dma(p, pData, lData, callback, callbackParameter);
+  }
+  return status;
+}
+
 
 void analogOutputInit(void) {
 }
