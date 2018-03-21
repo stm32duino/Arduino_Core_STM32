@@ -1,6 +1,6 @@
 # Arduino core support for STM32L082-based boards
 
-This repoository is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&trade; boards. The pinouts, etc., are therefore chosen to make the Catena 4551 closely compatible with the Adafruit Feather M0 LoRa.
+This repository is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&trade; boards. The pinouts, etc., are therefore chosen to make the Catena 4551 closely compatible with the Adafruit Feather M0 LoRa.
 
 For general information, please check the stm32duino [README.md](https://github.com/stm32duino/Arduino_Core_STM32#arduino-core-support-for-stm32-based-boards), especially the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started) section.
 
