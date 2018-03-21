@@ -1,6 +1,7 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
   Copyright (c) 2013 by Paul Stoffregen <paul@pjrc.com> (delayMicroseconds)
+  Copyright (c) 2018 MCCI Corporation (correct delayMicroseconds)
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -58,19 +59,64 @@ extern void delay( uint32_t dwMs ) ;
  * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
  *
  * \param dwUs the number of microseconds to pause (uint32_t)
+ *
+ * \note This implementation does not call GetMicroseconds(), thereby avoiding
+ * time- and power-wasting multiplies at each step of the delay. It also avoids
+ * unnecesary register reads. Instead it does one multiply/divide to convert
+ * us to ticks, based on the current clock setting, and waits until that many
+ * ticks are observed.
+ * See https://github.com/mcci-catena/Arduino_Core_STM32/issues/8 for more.
  */
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
 static inline void delayMicroseconds(uint32_t usec)
 {
-  uint32_t end;
+  // if the delay is huge, just delay by milliseconds. Assume
+  // that the compiler will optimize this out for small constant
+  // delays, and that it will optimize away the other branch.
+  // Chose the limit so that the multiply for `ticks` won't
+  // overflow.
+  if (usec >= 10*1000)
+    {
+       delay((usec + 1000 - 1) / 1000);
+       return;
+    }
 
-  if (usec == 0)
-    return;
+  // fetch initial time as a tick count.
+  const uint32_t now = SysTick->VAL;
 
-  end = GetCurrentMicro() + usec;
-  if (end < usec)
-    while (end < GetCurrentMicro());
-  while (end > GetCurrentMicro());
+  // fetch max count, which is tics/millisecond.
+  const uint32_t tickmax = SysTick->LOAD;
+
+  // convert usec to an equivalent numer of ticks
+  // there are tickmax/1000 ticks per microsecond.
+  // so the following is usec * (tickmax/1000), rounded
+  // and done in fixed point without loss of precision.
+  const uint32_t ticks = (usec * tickmax + 500) / 1000;
+
+  // val and lastval track tick counts.
+  uint32_t val, lastVal;
+
+  // dt tracks to the elapsed number of ticks.
+  uint32_t dt;
+
+  // loop until we've observed at least `ticks`
+  // clicks of SysTick. NB: SysTick is a down-counter.
+  for (dt = 0, lastVal = now;
+       dt < ticks;
+       lastVal = val)
+  {
+    val = SysTick->VAL;
+    if (val >= lastVal)
+    {
+      // count wrapped from 0 to tickmax,
+      // so add the wrap-around count.
+      dt += tickmax + lastVal - val;
+    }
+    else
+    {
+      dt += lastVal - val;
+    }
+  }
 }
 
 #ifdef __cplusplus
