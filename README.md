@@ -1,5 +1,5 @@
 # Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.1.1.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.1.1...master)
+### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.2.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.2.0...master)
 
 **Warning**: release versioning has been changed from date versioning to semantic one. See [Release Versioning change](https://github.com/stm32duino/wiki/wiki/Release-Versioning-change)
 
@@ -28,6 +28,8 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
 
   * STM32F1
+    * BluePill F103C8 (Basic support, no USB)
+    * MapleMini F103CB (Basic support, no USB)
     * [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html)
     * [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html)
 
@@ -63,9 +65,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
-  * STM32F1
-    * BluePill F103C8 (Basic support, no USB)
-    * MapleMini F103CB (Basic support, no USB)
+
 
 ## Troubleshooting
 
