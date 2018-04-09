@@ -446,15 +446,12 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
     } else {
       RTC_TimeStruct.TimeFormat = RTC_HOURFORMAT12_AM;
     }
-#if !defined(STM32F2xx) && !defined(STM32L1xx)
-    RTC_TimeStruct.SubSeconds = subSeconds;
-    RTC_TimeStruct.SecondFraction = 0;
-#elif defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) || defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) || defined (STM32L162xC) || defined(STM32L151xCA) || defined (STM32L151xD) || defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) || defined (STM32L162xD) || defined(STM32L151xE) || defined(STM32L151xDX) || defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) || defined (STM32L162xDX)
+#if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     RTC_TimeStruct.SubSeconds = subSeconds;
     RTC_TimeStruct.SecondFraction = 0;
 #else
     UNUSED(subSeconds);
-#endif //!defined(STM32F2xx) && !defined(STM32L1xx)
+#endif //!defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     RTC_TimeStruct.DayLightSaving = RTC_STOREOPERATION_RESET;
     RTC_TimeStruct.StoreOperation = RTC_DAYLIGHTSAVING_NONE;
 #else
@@ -490,9 +487,7 @@ void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *s
     } else {
       *format = AM;
     }
-#if !defined(STM32F2xx) && !defined(STM32L1xx)
-    *subSeconds = RTC_TimeStruct.SubSeconds;
-#elif defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) || defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) || defined (STM32L162xC) || defined(STM32L151xCA) || defined (STM32L151xD) || defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) || defined (STM32L162xD) || defined(STM32L151xE) || defined(STM32L151xDX) || defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) || defined (STM32L162xDX)
+#if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     *subSeconds = RTC_TimeStruct.SubSeconds;
 #endif
 #endif // !defined(STM32F1xx)
@@ -568,10 +563,7 @@ void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t second
     RTC_AlarmStructure.AlarmTime.Minutes = minutes;
     RTC_AlarmStructure.AlarmTime.Hours = hours;
 #if !defined(STM32F1xx)
-#if !defined(STM32F2xx) && !defined(STM32L1xx)
-    RTC_AlarmStructure.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_SS14_10;
-    RTC_AlarmStructure.AlarmTime.SubSeconds = subSeconds;
-#elif defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) || defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) || defined (STM32L162xC) || defined(STM32L151xCA) || defined (STM32L151xD) || defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) || defined (STM32L162xD) || defined(STM32L151xE) || defined(STM32L151xDX) || defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) || defined (STM32L162xDX)
+#if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     RTC_AlarmStructure.AlarmSubSecondMask = RTC_ALARMSUBSECONDMASK_SS14_10;
     RTC_AlarmStructure.AlarmTime.SubSeconds = subSeconds;
 #else
@@ -639,9 +631,7 @@ void RTC_GetAlarm(uint8_t *date, uint8_t *hours, uint8_t *minutes, uint8_t *seco
     } else {
       *format = AM;
     }
-#if !defined(STM32F2xx) && !defined(STM32L1xx)
-    *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
-#elif defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) || defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) || defined (STM32L162xC) || defined(STM32L151xCA) || defined (STM32L151xD) || defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) || defined (STM32L162xD) || defined(STM32L151xE) || defined(STM32L151xDX) || defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) || defined (STM32L162xDX)
+#if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
 #endif
 #endif // !defined(STM32F1xx)
