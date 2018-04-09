@@ -75,6 +75,9 @@ build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} '-DUSB_MA
 # numeric vendor ID if available or by board's specific value.
 build.usb_manufacturer="Unknown"
 
+# Build information's
+build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
+
 # Defaults config
 build.xSerial=
 build.enable_usb=
@@ -95,13 +98,13 @@ recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] ||
 # ---------------------
 
 ## Compile c files
-recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} {build.info.flags} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Compile c++ files
-recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} {build.info.flags} {compiler.cpp.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Compile S files
-recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} -D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} {build.info.flags} {compiler.S.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} {includes} "{source_file}" -o "{object_file}"
 
 ## Create archives
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
