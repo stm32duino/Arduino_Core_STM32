@@ -423,16 +423,16 @@ void RTC_DeInit(void)
   * @param minutes: 0-59
   * @param seconds: 0-59
   * @param subSeconds: 0-999
-  * @param format: select AM or PM format in case RTC is set in 12 hours mode. Else ingored.
+  * @param period: select AM or PM period in case RTC is set in 12 hours mode. Else ingored.
   * @retval None
   */
-void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format)
+void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period)
 {
   RTC_TimeTypeDef RTC_TimeStruct;
 
   // Ignore time AM PM configuration if in 24 hours format
   if(initFormat == HOUR_FORMAT_24) {
-    format = AM;
+    period = AM;
   }
 
   if((((initFormat == HOUR_FORMAT_24) && IS_RTC_HOUR24(hours)) || IS_RTC_HOUR12(hours))
@@ -441,7 +441,7 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
     RTC_TimeStruct.Minutes = minutes;
     RTC_TimeStruct.Seconds = seconds;
 #if !defined(STM32F1xx)
-    if(format == PM) {
+    if(period == PM) {
       RTC_TimeStruct.TimeFormat = RTC_HOURFORMAT12_PM;
     } else {
       RTC_TimeStruct.TimeFormat = RTC_HOURFORMAT12_AM;
@@ -456,7 +456,7 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
     RTC_TimeStruct.StoreOperation = RTC_DAYLIGHTSAVING_NONE;
 #else
     UNUSED(subSeconds);
-    UNUSED(format);
+    UNUSED(period);
 #endif // !defined(STM32F1xx)
 
     HAL_RTC_SetTime(&RtcHandle , &RTC_TimeStruct, RTC_FORMAT_BIN);
@@ -469,23 +469,23 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
   * @param minutes: 0-59
   * @param seconds: 0-59
   * @param subSeconds: 0-999
-  * @param format: returns AM or PM format in case RTC is set in 12 hours mode.
+  * @param period: returns AM or PM period in case RTC is set in 12 hours mode.
   * @retval None
   */
-void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *format)
+void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period)
 {
   RTC_TimeTypeDef RTC_TimeStruct;
 
-  if((hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (format != NULL)) {
+  if((hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL)) {
     HAL_RTC_GetTime(&RtcHandle , &RTC_TimeStruct, RTC_FORMAT_BIN);
     *hours = RTC_TimeStruct.Hours;
     *minutes = RTC_TimeStruct.Minutes;
     *seconds = RTC_TimeStruct.Seconds;
 #if !defined(STM32F1xx)
     if(RTC_TimeStruct.TimeFormat == RTC_HOURFORMAT12_PM) {
-      *format = PM;
+      *period = PM;
     } else {
-      *format = AM;
+      *period = AM;
     }
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     *subSeconds = RTC_TimeStruct.SubSeconds;
@@ -498,19 +498,19 @@ void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *s
   * @brief Set RTC calendar
   * @param year: 0-99
   * @param month: 1-12
-  * @param date: 1-31
-  * @param day: 1-7
+  * @param day: 1-31
+  * @param wday: 1-7
   * @retval None
   */
-void RTC_SetDate(uint8_t year, uint8_t month, uint8_t date, uint8_t day)
+void RTC_SetDate(uint8_t year, uint8_t month, uint8_t day, uint8_t wday)
 {
   RTC_DateTypeDef RTC_DateStruct;
 
-  if(IS_RTC_YEAR(year) && IS_RTC_MONTH(month) && IS_RTC_DATE(date) && IS_RTC_WEEKDAY(day)) {
+  if(IS_RTC_YEAR(year) && IS_RTC_MONTH(month) && IS_RTC_DATE(day) && IS_RTC_WEEKDAY(wday)) {
     RTC_DateStruct.Year = year;
     RTC_DateStruct.Month = month;
-    RTC_DateStruct.Date = date;
-    RTC_DateStruct.WeekDay = day;
+    RTC_DateStruct.Date = day;
+    RTC_DateStruct.WeekDay = wday;
     HAL_RTC_SetDate(&RtcHandle , &RTC_DateStruct, RTC_FORMAT_BIN);
   }
 }
@@ -519,44 +519,44 @@ void RTC_SetDate(uint8_t year, uint8_t month, uint8_t date, uint8_t day)
   * @brief Get RTC calendar
   * @param year: 0-99
   * @param month: 1-12
-  * @param date: 1-31
-  * @param day: 1-7
+  * @param day: 1-31
+  * @param wday: 1-7
   * @retval None
   */
-void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *date, uint8_t *day)
+void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *day, uint8_t *wday)
 {
   RTC_DateTypeDef RTC_DateStruct;
 
-  if((year != NULL) && (month != NULL) && (date != NULL) && (day != NULL)) {
+  if((year != NULL) && (month != NULL) && (day != NULL) && (wday != NULL)) {
     HAL_RTC_GetDate(&RtcHandle, &RTC_DateStruct, RTC_FORMAT_BIN);
     *year = RTC_DateStruct.Year;
     *month = RTC_DateStruct.Month;
-    *date = RTC_DateStruct.Date;
-    *day = RTC_DateStruct.WeekDay;
+    *day = RTC_DateStruct.Date;
+    *wday = RTC_DateStruct.WeekDay;
   }
 }
 
 /**
   * @brief Set RTC alarm and activate it with IT mode
-  * @param date: 1-31 (day of the month)
+  * @param day: 1-31 (day of the month)
   * @param hours: 0-12 or 0-23 depends on the hours mode.
   * @param minutes: 0-59
   * @param seconds: 0-59
   * @param subSeconds: 0-999
-  * @param hours format: AM or PM if in 12 hours mode else ignored.
+  * @param period: AM or PM if in 12 hours mode else ignored.
   * @retval None
   */
-void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t format)
+void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
   // Ignore time AM PM configuration if in 24 hours format
   if(initFormat == HOUR_FORMAT_24) {
-    format = AM;
+    period = AM;
   }
 
   if((((initFormat == HOUR_FORMAT_24) && IS_RTC_HOUR24(hours)) || IS_RTC_HOUR12(hours))
-    && IS_RTC_DATE(date) && IS_RTC_MINUTES(minutes) && IS_RTC_SECONDS(seconds)) {
+    && IS_RTC_DATE(day) && IS_RTC_MINUTES(minutes) && IS_RTC_SECONDS(seconds)) {
     /* Set RTC_AlarmStructure with calculated values*/
     RTC_AlarmStructure.Alarm = RTC_ALARM_A; //Use alarm A by default because it is common to all STM32 HAL.
     RTC_AlarmStructure.AlarmTime.Seconds = seconds;
@@ -569,20 +569,20 @@ void RTC_StartAlarm(uint8_t date, uint8_t hours, uint8_t minutes, uint8_t second
 #else
     UNUSED(subSeconds);
 #endif
-    if(format == PM) {
+    if(period == PM) {
       RTC_AlarmStructure.AlarmTime.TimeFormat = RTC_HOURFORMAT12_PM;
     } else {
       RTC_AlarmStructure.AlarmTime.TimeFormat = RTC_HOURFORMAT12_AM;
     }
     RTC_AlarmStructure.AlarmTime.DayLightSaving = RTC_DAYLIGHTSAVING_NONE;
     RTC_AlarmStructure.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
-    RTC_AlarmStructure.AlarmDateWeekDay = date;
+    RTC_AlarmStructure.AlarmDateWeekDay = day;
     RTC_AlarmStructure.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
     RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_NONE;
 #else
     UNUSED(subSeconds);
-    UNUSED(format);
-    UNUSED(date);
+    UNUSED(period);
+    UNUSED(day);
 #endif // !defined(STM32F1xx)
 
     /* Set RTC_Alarm */
@@ -606,30 +606,30 @@ void RTC_StopAlarm(void)
 
 /**
   * @brief Get RTC alarm
-  * @param date: 1-31 (day of the month)
+  * @param day: 1-31 (day of the month)
   * @param hours: 0-12 or 0-23 depends on the hours mode.
   * @param minutes: 0-59
   * @param seconds: 0-59
   * @param subSeconds: 0-999
-  * @param hours format: AM or PM
+  * @param period: AM or PM
   * @retval None
   */
-void RTC_GetAlarm(uint8_t *date, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *format)
+void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
-  if((date != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (format != NULL)) {
+  if((day != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL)) {
     HAL_RTC_GetAlarm(&RtcHandle, &RTC_AlarmStructure, RTC_ALARM_A, RTC_FORMAT_BIN);
 
     *seconds = RTC_AlarmStructure.AlarmTime.Seconds;
     *minutes = RTC_AlarmStructure.AlarmTime.Minutes;
     *hours = RTC_AlarmStructure.AlarmTime.Hours;
 #if !defined(STM32F1xx)
-    *date = RTC_AlarmStructure.AlarmDateWeekDay;
+    *day = RTC_AlarmStructure.AlarmDateWeekDay;
     if(RTC_AlarmStructure.AlarmTime.TimeFormat == RTC_HOURFORMAT12_PM) {
-      *format = PM;
+      *period = PM;
     } else {
-      *format = AM;
+      *period = AM;
     }
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
