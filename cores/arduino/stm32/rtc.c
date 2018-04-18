@@ -544,9 +544,11 @@ void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *day, uint8_t *wday)
   * @param seconds: 0-59
   * @param subSeconds: 0-999
   * @param period: AM or PM if in 12 hours mode else ignored.
+  * @param mask: configure alarm behavior using alarmMask_t combination.
+  *              See AN4579 Table 5 for possible values.
   * @retval None
   */
-void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period)
+void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period, uint8_t mask)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
@@ -578,11 +580,29 @@ void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds
     RTC_AlarmStructure.AlarmTime.StoreOperation = RTC_STOREOPERATION_RESET;
     RTC_AlarmStructure.AlarmDateWeekDay = day;
     RTC_AlarmStructure.AlarmDateWeekDaySel = RTC_ALARMDATEWEEKDAYSEL_DATE;
-    RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_NONE;
+    /* configure AlarmMask (M_MSK and Y_MSK ignored) */
+	if(mask == OFF_MSK) {
+      RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_ALL;
+	} else {
+      RTC_AlarmStructure.AlarmMask = RTC_ALARMMASK_NONE;
+      if( !(mask & SS_MSK)) {
+        RTC_AlarmStructure.AlarmMask |= RTC_ALARMMASK_SECONDS;
+      }
+      if( !(mask & MM_MSK)) {
+        RTC_AlarmStructure.AlarmMask |= RTC_ALARMMASK_MINUTES;
+      }
+      if( !(mask & HH_MSK)) {
+        RTC_AlarmStructure.AlarmMask |= RTC_ALARMMASK_HOURS;
+      }
+      if( !(mask & D_MSK)) {
+        RTC_AlarmStructure.AlarmMask |= RTC_ALARMMASK_DATEWEEKDAY;
+      }
+    }
 #else
     UNUSED(subSeconds);
     UNUSED(period);
     UNUSED(day);
+    UNUSED(mask);
 #endif // !defined(STM32F1xx)
 
     /* Set RTC_Alarm */
@@ -614,16 +634,17 @@ void RTC_StopAlarm(void)
   * @param period: AM or PM
   * @retval None
   */
-void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period)
+void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period, uint8_t *mask)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
-  if((day != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL)) {
+  if((day != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL) && (mask != NULL)) {
     HAL_RTC_GetAlarm(&RtcHandle, &RTC_AlarmStructure, RTC_ALARM_A, RTC_FORMAT_BIN);
 
     *seconds = RTC_AlarmStructure.AlarmTime.Seconds;
     *minutes = RTC_AlarmStructure.AlarmTime.Minutes;
     *hours = RTC_AlarmStructure.AlarmTime.Hours;
+
 #if !defined(STM32F1xx)
     *day = RTC_AlarmStructure.AlarmDateWeekDay;
     if(RTC_AlarmStructure.AlarmTime.TimeFormat == RTC_HOURFORMAT12_PM) {
@@ -634,6 +655,19 @@ void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *secon
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
     *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
 #endif
+    *mask = OFF_MSK;
+    if(!(RTC_AlarmStructure.AlarmMask & RTC_ALARMMASK_SECONDS)) {
+      *mask |= SS_MSK;
+    }
+    if(!(RTC_AlarmStructure.AlarmMask & RTC_ALARMMASK_MINUTES)) {
+      *mask |= MM_MSK;
+    }
+    if(!(RTC_AlarmStructure.AlarmMask & RTC_ALARMMASK_HOURS)) {
+      *mask |= HH_MSK;
+    }
+    if(!(RTC_AlarmStructure.AlarmMask & RTC_ALARMMASK_DATEWEEKDAY)) {
+      *mask |= D_MSK;
+    }
 #endif // !defined(STM32F1xx)
   }
 }

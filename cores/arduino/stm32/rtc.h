@@ -59,6 +59,19 @@ typedef enum {
   PM
 } hourAM_PM_t;
 
+/* See AN4579 Table 5 for possible values */
+typedef enum {
+  OFF_MSK = 0,
+  SS_MSK  = 1, /* MSK0 */
+  MM_MSK  = 2, /* MSK1 */
+  HH_MSK  = 4, /* MSK2 */
+  D_MSK   = 8, /* MSK3 */
+  /* NOTE: STM32 RTC can't assign a month or a year to an alarm. Those enum
+  are kept for compatibility but are ignored inside enableAlarm(). */
+  M_MSK   = 16,
+  Y_MSK   = 32
+} alarmMask_t;
+
 // Clock source selection
 typedef enum {
   LSI_CLOCK,
@@ -122,9 +135,9 @@ void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *s
 void RTC_SetDate(uint8_t year, uint8_t month, uint8_t day, uint8_t wday);
 void RTC_GetDate(uint8_t *year, uint8_t *month, uint8_t *day, uint8_t *wday);
 
-void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period);
+void RTC_StartAlarm(uint8_t day, uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period, uint8_t mask);
 void RTC_StopAlarm(void);
-void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period);
+void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period, uint8_t *mask);
 void attachAlarmCallback(voidCallbackPtr func, void *data);
 void detachAlarmCallback(void);
 
