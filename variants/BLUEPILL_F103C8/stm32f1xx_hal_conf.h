@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_conf.h
   * @author  MCD Application Team
-  * @version V1.1.1
-  * @date    12-May-2017
   * @brief   HAL configuration template file.
   *          This file should be copied to the application folder and renamed
   *          to stm32f1xx_hal_conf.h.
@@ -116,7 +114,7 @@
   * @brief Internal Low Speed oscillator (LSI) value.
   */
 #if !defined  (LSI_VALUE) 
- #define LSI_VALUE               40000U    /*!< LSI Typical Value in Hz */
+#define LSI_VALUE               32000U     /*!< LSI Typical Value in Hz */
 #endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz
                                                 The real value may vary depending on the variations
                                                 in voltage and temperature. */
