@@ -148,6 +148,11 @@ enum {
 #define RADIO_DIO_4_PORT        PC13
 //#define RADIO_DIO_5_PORT        PA4
 
+#define RADIO_RF_CRX_RX                             PB_6  //CRF3 (ANT_SWITCH_TX_BOOST) RADIO_ANT_SWITCH_RX 
+#define RADIO_RF_CBT_HF                             PB_7  //CRF2 HF (ANT_SWITCH_TX_RFO)
+#define RADIO_RF_CTX_PA                             PA_4  //CRF1 PA (ANT_SWITCH_RX) RADIO_ANT_SWITCH_TX_PA
+#define RADIO_XTAL_EN                               PH_1
+
 // I2C Definitions
 #define PIN_WIRE_SDA            PB9 // Default for Arduino connector compatibility
 #define PIN_WIRE_SCL            PB8 // Default for Arduino connector compatibility
