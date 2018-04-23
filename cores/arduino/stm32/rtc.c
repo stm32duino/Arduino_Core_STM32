@@ -51,6 +51,8 @@ static RTC_HandleTypeDef RtcHandle = {0};
 static voidCallbackPtr RTCUserCallback = NULL;
 static void *callbackUserData = NULL;
 
+static sourceClock_t clkSrc = LSI_CLOCK;
+static uint8_t HSEDiv = 0;
 static int8_t AsynchPrediv = -1; // 1 to 127
 static int16_t SynchPrediv = -1; // 0 to 32767
 
@@ -96,6 +98,7 @@ static void RTC_setClock(sourceClock_t source)
     if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
       Error_Handler();
     }
+    clkSrc = LSE_CLOCK;
   } else if(source == HSE_CLOCK) {
     // Enable the clock if not already set by user.
     if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET) {
@@ -106,19 +109,54 @@ static void RTC_setClock(sourceClock_t source)
         Error_Handler();
       }
     }
-
+    /* HSE division factor for RTC clock must be set to ensure that
+     * the clock supplied to the RTC is less than or equal to 1 MHz
+     */
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
 #if defined(STM32F1xx)
+    /* HSE max is 16 MHZ divided by 128 --> 125 KHz */
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV128;
-#elif defined(STM32L4xx) || defined(STM32F0xx) || defined(STM32F3xx)
+    HSEDiv = 128;
+#elif defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32L4xx)
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV32;
-#else
-    PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV8;
+    HSEDiv = 32;
+#elif defined(STM32L0xx) || defined(STM32L1xx)
+    if((HSE_VALUE/2) <= HSE_RTC_MAX) {
+      PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV2;
+      HSEDiv = 2;
+    } else if((HSE_VALUE/4) <= HSE_RTC_MAX) {
+      PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV4;
+      HSEDiv = 4;
+    } else if((HSE_VALUE/8) <= HSE_RTC_MAX) {
+      PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV8;
+      HSEDiv = 8;
+    } else if((HSE_VALUE/16) <= HSE_RTC_MAX) {
+      PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV16;
+      HSEDiv = 16;
+    }
+#elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+/* Not defined for STM32Fxx */
+#ifndef RCC_RTCCLKSOURCE_HSE_DIVX
+#define RCC_RTCCLKSOURCE_HSE_DIVX 0x00000300U
 #endif
+    for(HSEDiv = 2; HSEDiv<32; HSEDiv++) {
+      if((HSE_VALUE/HSEDiv) <= HSE_RTC_MAX) {
+        PeriphClkInit.RTCClockSelection = (HSEDiv<<16) | RCC_RTCCLKSOURCE_HSE_DIVX;
+        break;
+      }
+    }
+#else
+#error "Unknown Family - could not define RTCClockSelection"
+#endif
+    if((HSE_VALUE/HSEDiv) > HSE_RTC_MAX) {
+      Error_Handler();
+    }
+
     if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
       Error_Handler();
     }
-  } else {
+    clkSrc = HSE_CLOCK;
+  } else if(source == LSI_CLOCK) {
     // Enable the clock if not already set by user.
     if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) == RESET) {
       RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
@@ -134,6 +172,9 @@ static void RTC_setClock(sourceClock_t source)
     if(HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
       Error_Handler();
     }
+    clkSrc = LSI_CLOCK;
+  } else {
+    Error_Handler();
   }
 
   __HAL_RCC_RTC_ENABLE();
@@ -179,166 +220,16 @@ static void RTC_getPrediv(uint32_t *asynch, uint32_t *synch)
   }
 
   // Get clock frequency
-  if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_LSE) {
+  if(clkSrc == LSE_CLOCK) {
     clk = LSE_VALUE;
   }
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV2
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV2) {
-    clk = HSE_VALUE / 2;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV3
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV3) {
-    clk = HSE_VALUE / 3;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV4
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV4) {
-    clk = HSE_VALUE / 4;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV5
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV5) {
-    clk = HSE_VALUE / 5;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV6
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV6) {
-    clk = HSE_VALUE / 6;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV7
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV7) {
-    clk = HSE_VALUE / 7;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV8
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV8) {
-    clk = HSE_VALUE / 8;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV9
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV9) {
-    clk = HSE_VALUE / 9;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV10
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV10) {
-    clk = HSE_VALUE / 10;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV11
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV11) {
-    clk = HSE_VALUE / 11;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV12
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV12) {
-    clk = HSE_VALUE / 12;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV13
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV13) {
-    clk = HSE_VALUE / 13;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV14
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV14) {
-    clk = HSE_VALUE / 14;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV15
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV15) {
-    clk = HSE_VALUE / 15;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV16
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV16) {
-    clk = HSE_VALUE / 16;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV17
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV17) {
-    clk = HSE_VALUE / 17;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV18
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV18) {
-    clk = HSE_VALUE / 18;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV19
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV19) {
-    clk = HSE_VALUE / 19;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV20
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV20) {
-    clk = HSE_VALUE / 20;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV21
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV21) {
-    clk = HSE_VALUE / 21;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV22
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV22) {
-    clk = HSE_VALUE / 22;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV23
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV23) {
-    clk = HSE_VALUE / 23;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV24
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV24) {
-    clk = HSE_VALUE / 24;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV25
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV25) {
-    clk = HSE_VALUE / 25;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV26
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV26) {
-    clk = HSE_VALUE / 26;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV27
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV27) {
-    clk = HSE_VALUE / 27;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV28
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV28) {
-    clk = HSE_VALUE / 28;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV29
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV29) {
-    clk = HSE_VALUE / 29;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV30
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV30) {
-    clk = HSE_VALUE / 30;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV31
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV31) {
-    clk = HSE_VALUE / 31;
-  }
-  #endif
-  #ifdef RCC_RTCCLKSOURCE_HSE_DIV32
-  else if(__HAL_RCC_GET_RTC_SOURCE() == RCC_RTCCLKSOURCE_HSE_DIV32) {
-    clk = HSE_VALUE / 32;
-  }
-  #endif
-  else {
+  else if(clkSrc == LSI_CLOCK) {
     clk = LSI_VALUE;
+  }
+  else if(clkSrc == HSE_CLOCK) {
+    clk = HSE_VALUE/HSEDiv;
+  } else {
+    Error_Handler();
   }
 
   // Get prescalers

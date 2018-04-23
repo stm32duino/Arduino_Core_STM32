@@ -82,6 +82,9 @@ typedef enum {
 typedef void(*voidCallbackPtr)(void *);
 
 /* Exported constants --------------------------------------------------------*/
+
+#define HSE_RTC_MAX 1000000U
+
 /* Ultra Low Power High (ULPH) density */
 #if defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) ||\
     defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) ||\
@@ -112,7 +115,7 @@ typedef void(*voidCallbackPtr)(void *);
 #define IS_RTC_HOUR12(HOUR)      IS_RTC_HOUR24(HOUR)
 #endif // defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
 
-// __HAL_RCC_GET_RTC_SOURCE is not defined for F2, F4 and F7
+// __HAL_RCC_GET_RTC_SOURCE is not defined for F2 and F4
 #ifndef __HAL_RCC_GET_RTC_SOURCE
 static uint32_t RTC_getSource(void) {
   RCC_PeriphCLKInitTypeDef  *PeriphClkInit;
