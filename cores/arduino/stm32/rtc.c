@@ -53,16 +53,40 @@ static void *callbackUserData = NULL;
 
 static sourceClock_t clkSrc = LSI_CLOCK;
 static uint8_t HSEDiv = 0;
-static int8_t AsynchPrediv = -1; // 1 to 127
-static int16_t SynchPrediv = -1; // 0 to 32767
+#if !defined(STM32F1xx)
+/* Custom user values */
+static int8_t userPredivAsync = -1;
+static int16_t userPredivSync = -1;
+#endif /* !STM32F1xx */
 
 static hourFormat_t initFormat = HOUR_FORMAT_12;
 
 /* Private function prototypes -----------------------------------------------*/
-static void RTC_setClock(sourceClock_t source);
-static void RTC_getPrediv(uint32_t *asynch, uint32_t *synch);
+static void RTC_initClock(sourceClock_t source);
+#if !defined(STM32F1xx)
+static void RTC_computePrediv(int8_t *asynch, int16_t *synch);
+#endif /* !STM32F1xx */
 
 /* Exported functions --------------------------------------------------------*/
+
+/**
+  * @brief Set RTC clock source
+  * @param source: RTC clock source: LSE, LSI or HSE
+  * @retval None
+  */
+void RTC_SetClockSource(sourceClock_t source)
+{
+  switch(source) {
+    case LSI_CLOCK:
+    case LSE_CLOCK:
+    case HSE_CLOCK:
+      clkSrc = source;
+      break;
+    default:
+      clkSrc = LSI_CLOCK;
+      break;
+  }
+}
 
 /**
   * @brief RTC clock initialization
@@ -74,7 +98,7 @@ static void RTC_getPrediv(uint32_t *asynch, uint32_t *synch);
   *        the backup registers) and RCC_CSR register are set to their reset values.
   * @retval None
   */
-static void RTC_setClock(sourceClock_t source)
+static void RTC_initClock(sourceClock_t source)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -181,41 +205,64 @@ static void RTC_setClock(sourceClock_t source)
 }
 
 /**
-  * @brief RTC_setPrediv
-  *        Allow to user to set manually the prescaler values.
-  * @param Asynch: asynchronous prescaler value in range 1 - 127
-  * @param Synch: synchronous prescaler value in range 0 - 32767
+  * @brief set user (a)synchronous prescaler values.
+  * @note  use -1 to reset value and use computed ones
+  * @param asynch: asynchronous prescaler value in range 0 - PREDIVA_MAX
+  * @param synch: synchronous prescaler value in range 0 - PREDIVS_MAX
   * @retval None
   */
-void RTC_setPrediv(int8_t Asynch, int16_t Synch)
+void RTC_setPrediv(int8_t asynch, int16_t synch)
 {
-  if((Asynch >= 1) && (Synch >= 0)) {
-    AsynchPrediv = Asynch;
-    SynchPrediv = Synch;
+#if !defined(STM32F1xx)
+  if((asynch >= -1) && (synch >= -1)) {
+    userPredivAsync = asynch;
+    userPredivSync = synch;
   }
+#else
+  UNUSED(asynch);
+  UNUSED(synch);
+#endif /* !STM32F1xx */
 }
 
 /**
-  * @brief RTC_getPrediv
-  *        RTC prescalers are set to obtain the RTC clock to 1Hz. See AN4759.
+  * @brief get user (a)synchronous prescaler values if set else computed ones
+  *        for the current clock source.
   * @param asynch: pointer where return asynchronous prescaler value.
   * @param synch: pointer where return synchronous prescaler value.
   * @retval None
   */
-static void RTC_getPrediv(uint32_t *asynch, uint32_t *synch)
+void RTC_getPrediv(int8_t *asynch, int16_t *synch)
 {
-  uint32_t predivA;
-  uint32_t predivS;
+#if !defined(STM32F1xx)
+  if((userPredivAsync == -1) || (userPredivSync == -1)) {
+    RTC_computePrediv(asynch, synch);
+  } else {
+    if((asynch != NULL) && (synch != NULL)) {
+      *asynch = userPredivAsync;
+      *synch = userPredivSync;
+    }
+  }
+#else
+  UNUSED(asynch);
+  UNUSED(synch);
+#endif /* !STM32F1xx */
+}
+
+#if !defined(STM32F1xx)
+/**
+  * @brief Compute (a)synchronous prescaler
+  *        RTC prescalers are compute to obtain the RTC clock to 1Hz. See AN4759.
+  * @param asynch: pointer where return asynchronous prescaler value.
+  * @param synch: pointer where return synchronous prescaler value.
+  * @retval None
+  */
+static void RTC_computePrediv(int8_t *asynch, int16_t *synch)
+{
+  uint32_t predivS = PREDIVS_MAX + 1;
   uint32_t clk = 0;
 
-  if((asynch == NULL) || (synch == NULL)) {
-    return;
-  }
-
   // Get user predividers if manually configured
-  if((AsynchPrediv > 0) && (SynchPrediv > 0)) {
-    *asynch = AsynchPrediv;
-    *synch = SynchPrediv;
+  if((asynch == NULL) || (synch == NULL)) {
     return;
   }
 
@@ -232,18 +279,29 @@ static void RTC_getPrediv(uint32_t *asynch, uint32_t *synch)
     Error_Handler();
   }
 
-  // Get prescalers
-  if(clk > 0) {
-    for(predivA = 128; predivA > 1; predivA--) {
-      predivS = clk / predivA;
-      if((predivS <= 32768) && ((predivS * predivA) == clk)) {
-        *asynch = predivA - 1;
-        *synch = predivS - 1;
-        break;
-      }
-    }
+  /* Find (a)synchronous prescalers to obtain the 1Hz calendar clock */
+  for(*asynch = PREDIVA_MAX; *asynch >= 0; (*asynch)--) {
+    predivS = (clk / (*asynch + 1)) - 1;
+
+    if(((predivS + 1) * (*asynch + 1)) == clk)
+      break;
   }
+
+  /*
+   * Can't find a 1Hz, so give priority to RTC power consumption
+   * by choosing the higher possible value for predivA
+   */
+  if((predivS > PREDIVS_MAX) || (*asynch < 0 )) {
+    *asynch = PREDIVA_MAX;
+    predivS = (clk / (*asynch + 1)) - 1;
+  }
+
+  if(predivS > PREDIVS_MAX) {
+    Error_Handler();
+  }
+  *synch = (int16_t)predivS;
 }
+#endif /* !STM32F1xx */
 
 /**
   * @brief RTC Initialization
@@ -256,8 +314,8 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 {
   initFormat = format;
 
-  // Set RTC clock
-  RTC_setClock(source);
+  // Init RTC clock
+  RTC_initClock(source);
 
   RtcHandle.Instance = RTC;
 
@@ -272,7 +330,7 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
     RtcHandle.Init.HourFormat = RTC_HOURFORMAT_24;
   }
   RtcHandle.Init.OutPut = RTC_OUTPUT_DISABLE;
-  RTC_getPrediv(&(RtcHandle.Init.AsynchPrediv), &(RtcHandle.Init.SynchPrediv));
+  RTC_getPrediv((int8_t*)&(RtcHandle.Init.AsynchPrediv), (int16_t*)&(RtcHandle.Init.SynchPrediv));
 #if defined(STM32L0xx) || defined(STM32L4xx)
   RtcHandle.Init.OutPutRemap = RTC_OUTPUT_REMAP_NONE;
 #endif // defined(STM32L0xx) || defined(STM32L4xx)

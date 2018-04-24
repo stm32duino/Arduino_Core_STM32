@@ -85,6 +85,14 @@ typedef void(*voidCallbackPtr)(void *);
 
 #define HSE_RTC_MAX 1000000U
 
+#if !defined(STM32F1xx)
+#if !defined(RTC_PRER_PREDIV_S) || !defined(RTC_PRER_PREDIV_S)
+#error "Unknown Family - unknown synchronous prescaler"
+#endif
+#define PREDIVA_MAX (RTC_PRER_PREDIV_A >> RTC_PRER_PREDIV_A_Pos)
+#define PREDIVS_MAX (RTC_PRER_PREDIV_S >> RTC_PRER_PREDIV_S_Pos)
+#endif /* !STM32F1xx */
+
 /* Ultra Low Power High (ULPH) density */
 #if defined(STM32L100xBA) || defined (STM32L151xBA) || defined (STM32L152xBA) ||\
     defined(STM32L100xC) || defined (STM32L151xC) || defined (STM32L152xC) ||\
@@ -127,7 +135,10 @@ static uint32_t RTC_getSource(void) {
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void RTC_setPrediv(int8_t Asynch, int16_t Synch);
+void RTC_SetClockSource(sourceClock_t source);
+
+void RTC_getPrediv(int8_t *asynch, int16_t *synch);
+void RTC_setPrediv(int8_t asynch, int16_t synch);
 
 void RTC_init(hourFormat_t format, sourceClock_t source);
 void RTC_DeInit(void);
