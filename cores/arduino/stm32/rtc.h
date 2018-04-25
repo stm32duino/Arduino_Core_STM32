@@ -72,7 +72,7 @@ typedef enum {
   Y_MSK   = 32
 } alarmMask_t;
 
-// Clock source selection
+/* Clock source selection */
 typedef enum {
   LSI_CLOCK,
   LSE_CLOCK,
@@ -106,11 +106,11 @@ typedef void(*voidCallbackPtr)(void *);
 
 #if defined(STM32F0xx) || defined(STM32L0xx)
 #define RTC_Alarm_IRQn RTC_IRQn
-#define RTC_Alarm_IRQHandler  RTC_IRQHandler
+#define RTC_Alarm_IRQHandler RTC_IRQHandler
 #endif
 
 #if defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
-// Compensate missing HAL definition
+/* Compensate missing HAL definition */
 #define IS_RTC_WEEKDAY(WEEKDAY) (((WEEKDAY) == RTC_WEEKDAY_MONDAY)    || \
                                  ((WEEKDAY) == RTC_WEEKDAY_TUESDAY)   || \
                                  ((WEEKDAY) == RTC_WEEKDAY_WEDNESDAY) || \
@@ -119,11 +119,11 @@ typedef void(*voidCallbackPtr)(void *);
                                  ((WEEKDAY) == RTC_WEEKDAY_SATURDAY)  || \
                                  ((WEEKDAY) == RTC_WEEKDAY_SUNDAY))
 
-//F1 doesn't manage 12h format.
+/* F1 doesn't manage 12h format */
 #define IS_RTC_HOUR12(HOUR)      IS_RTC_HOUR24(HOUR)
-#endif // defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
+#endif /* !STM32F1xx && !IS_RTC_WEEKDAY */
 
-// __HAL_RCC_GET_RTC_SOURCE is not defined for F2 and F4
+/* __HAL_RCC_GET_RTC_SOURCE is not defined for F2 and F4 */
 #ifndef __HAL_RCC_GET_RTC_SOURCE
 static uint32_t RTC_getSource(void) {
   RCC_PeriphCLKInitTypeDef  *PeriphClkInit;
@@ -159,7 +159,7 @@ void detachAlarmCallback(void);
  }
 #endif
 
-#endif // HAL_RTC_MODULE_ENABLED
+#endif /* HAL_RTC_MODULE_ENABLED */
 
 #endif /* __RTC_H */
 
