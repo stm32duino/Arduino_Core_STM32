@@ -172,3 +172,11 @@ tools.serial_upload.path.linux64={runtime.hardware.path}/tools/linux64
 tools.serial_upload.upload.params.verbose=-d
 tools.serial_upload.upload.params.quiet=n
 tools.serial_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+
+# blackmagic upload for generic STM32
+tools.bmp_upload.cmd=arm-none-eabi-gdb
+tools.bmp_upload.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+tools.bmp_upload.upload.speed=230400
+tools.bmp_upload.upload.params.verbose=
+tools.bmp_upload.upload.params.quiet=-q --batch-silent
+tools.bmp_upload.upload.pattern="{path}{cmd}" -cd "{build.path}" -b {upload.speed} {upload.verbose} -ex "set debug remote 0" -ex "set target-async off" -ex "set remotetimeout 60" -ex "set mem inaccessible-by-default off" -ex "set confirm off" -ex "set height 0" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "x/wx 0x8000004" -ex "monitor erase_mass" -ex "echo 0x8000004 expect 0xffffffff after erase\n" -ex "x/wx 0x8000004" -ex "file {build.project_name}.elf" -ex "load" -ex "x/wx 0x08000004" -ex "tbreak main" -ex "run" -ex "echo \n\n\nUpload finished!" -ex "quit"

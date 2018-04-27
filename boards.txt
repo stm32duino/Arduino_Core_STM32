@@ -418,6 +418,10 @@ GenF103.menu.upload_method.serialMethod=Serial
 GenF103.menu.upload_method.serialMethod.upload.protocol=maple_serial
 GenF103.menu.upload_method.serialMethod.upload.tool=serial_upload
 
+GenF103.menu.upload_method.serialMethod=BMP (Black Magic Probe)
+GenF103.menu.upload_method.serialMethod.upload.protocol=gdb_bmp
+GenF103.menu.upload_method.serialMethod.upload.tool=bmp_upload
+
 ###############################
 # Maple
 Maple.name=Maple series
