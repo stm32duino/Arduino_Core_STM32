@@ -480,9 +480,9 @@ RAK.menu.pnum.RAK811.build.variant=RAK811
 RAK.menu.pnum.RAK811.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # Upload menu
-#RAK.menu.upload_method.MassStorage=Mass Storage
-#RAK.menu.upload_method.MassStorage.upload.protocol=
-#RAK.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+RAK.menu.upload_method.serialMethod=Serial
+RAK.menu.upload_method.serialMethod.upload.protocol=maple_serial
+RAK.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 RAK.menu.upload_method.STLink=STLink
 RAK.menu.upload_method.STLink.upload.protocol=STLink
