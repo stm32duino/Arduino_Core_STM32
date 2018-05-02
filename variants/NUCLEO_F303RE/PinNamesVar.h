@@ -6,7 +6,7 @@
     SYS_WKUP2 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN3
-    SYS_WKUP3 = NC,
+    SYS_WKUP3 = PE_6, /* manually updated */
 #endif
 #ifdef PWR_WAKEUP_PIN4
     SYS_WKUP4 = NC,
