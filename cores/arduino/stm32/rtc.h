@@ -123,7 +123,8 @@ typedef void(*voidCallbackPtr)(void *);
 #define IS_RTC_HOUR12(HOUR)      IS_RTC_HOUR24(HOUR)
 #endif /* !STM32F1xx && !IS_RTC_WEEKDAY */
 
-/* __HAL_RCC_GET_RTC_SOURCE is not defined for F2 and F4 */
+/* __HAL_RCC_GET_RTC_SOURCE is not defined for F2*/
+/*
 #ifndef __HAL_RCC_GET_RTC_SOURCE
 static uint32_t RTC_getSource(void) {
   RCC_PeriphCLKInitTypeDef  *PeriphClkInit;
@@ -132,6 +133,7 @@ static uint32_t RTC_getSource(void) {
 }
 #define __HAL_RCC_GET_RTC_SOURCE()  RTC_getSource()
 #endif
+*/
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
