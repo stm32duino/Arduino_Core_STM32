@@ -418,27 +418,31 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
   * @param hours: 0-12 or 0-23. Depends on the format used.
   * @param minutes: 0-59
   * @param seconds: 0-59
-  * @param subSeconds: 0-999
-  * @param period: returns AM or PM period in case RTC is set in 12 hours mode.
+  * @param subSeconds: 0-999 (optional could be NULL)
+  * @param period: AM or PM period in case RTC is set in 12 hours mode (optional could be NULL).
   * @retval None
   */
 void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period)
 {
   RTC_TimeTypeDef RTC_TimeStruct;
 
-  if((hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL)) {
+  if((hours != NULL) && (minutes != NULL) && (seconds != NULL)) {
     HAL_RTC_GetTime(&RtcHandle , &RTC_TimeStruct, RTC_FORMAT_BIN);
     *hours = RTC_TimeStruct.Hours;
     *minutes = RTC_TimeStruct.Minutes;
     *seconds = RTC_TimeStruct.Seconds;
 #if !defined(STM32F1xx)
-    if(RTC_TimeStruct.TimeFormat == RTC_HOURFORMAT12_PM) {
+    if(period != NULL) {
+      if(RTC_TimeStruct.TimeFormat == RTC_HOURFORMAT12_PM) {
       *period = PM;
-    } else {
-      *period = AM;
+      } else {
+        *period = AM;
+      }
     }
 #if (!defined(STM32F2xx) && !defined(STM32L1xx)) || defined(STM32L1_ULPH)
-    *subSeconds = RTC_TimeStruct.SubSeconds;
+    if(subSeconds != NULL) {
+      *subSeconds = RTC_TimeStruct.SubSeconds;
+    }
 #endif
 #endif /* !STM32F1xx */
   }
@@ -581,15 +585,15 @@ void RTC_StopAlarm(void)
   * @param hours: 0-12 or 0-23 depends on the hours mode.
   * @param minutes: 0-59
   * @param seconds: 0-59
-  * @param subSeconds: 0-999
-  * @param period: AM or PM
+  * @param subSeconds: 0-999 (optional could be NULL)
+  * @param period: AM or PM (optional could be NULL)
   * @retval None
   */
 void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period, uint8_t *mask)
 {
   RTC_AlarmTypeDef RTC_AlarmStructure;
 
-  if((day != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (subSeconds != NULL) && (period != NULL) && (mask != NULL)) {
+  if((day != NULL) && (hours != NULL) && (minutes != NULL) && (seconds != NULL) && (mask != NULL)) {
     HAL_RTC_GetAlarm(&RtcHandle, &RTC_AlarmStructure, RTC_ALARM_A, RTC_FORMAT_BIN);
 
     *seconds = RTC_AlarmStructure.AlarmTime.Seconds;
@@ -598,13 +602,17 @@ void RTC_GetAlarm(uint8_t *day, uint8_t *hours, uint8_t *minutes, uint8_t *secon
 
 #if !defined(STM32F1xx)
     *day = RTC_AlarmStructure.AlarmDateWeekDay;
-    if(RTC_AlarmStructure.AlarmTime.TimeFormat == RTC_HOURFORMAT12_PM) {
-      *period = PM;
-    } else {
-      *period = AM;
+    if(period != NULL) {
+      if(RTC_AlarmStructure.AlarmTime.TimeFormat == RTC_HOURFORMAT12_PM) {
+        *period = PM;
+      } else {
+        *period = AM;
+      }
     }
 #if !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
-    *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
+    if(subSeconds != NULL) {
+      *subSeconds = RTC_AlarmStructure.AlarmTime.SubSeconds;
+    }
 #endif /* !STM32F2xx && !STM32L1xx || STM32L1_ULPH */
     *mask = OFF_MSK;
     if(!(RTC_AlarmStructure.AlarmMask & RTC_ALARMMASK_SECONDS)) {
