@@ -153,7 +153,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 # NUCLEO_F411RE board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PC7, PC6)
 Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.node=NODE_F411RE
+Nucleo_64.menu.pnum.NUCLEO_F411RE.node="NODE_F411RE,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_data_size=131072
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
