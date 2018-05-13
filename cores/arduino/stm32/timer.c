@@ -846,7 +846,7 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
         return;
       break;
     }
-      obj->irqHandleOC(obj, channel);
+    obj->irqHandleOC(obj, channel);
   }
 }
 
