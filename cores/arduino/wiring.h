@@ -21,6 +21,7 @@
 #define _WIRING_H_
 
 #include <stdint.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
@@ -51,5 +52,8 @@
 #define clockCyclesPerMicrosecond() ( SystemCoreClock / 1000000L )
 #define clockCyclesToMicroseconds(a) ( ((a) * 1000L) / (SystemCoreClock / 1000L) )
 #define microsecondsToClockCycles(a) ( (a) * (SystemCoreClock / 1000000L) )
+
+#define va_start(v,l)	__builtin_va_start(v,l)
+#define va_end(v)	__builtin_va_end(v)
 
 #endif /* _WIRING_H_ */
