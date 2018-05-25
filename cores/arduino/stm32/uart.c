@@ -125,6 +125,7 @@ void uart_init(serial_t *obj)
     printf("ERROR: UART pins mismatch\n");
     return;
   }
+
   // Enable USART clock
 #if defined(USART1_BASE)
   else if(obj->uart == USART1) {
@@ -288,6 +289,10 @@ void uart_init(serial_t *obj)
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
+#if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx)\
+ && !defined(STM32L1xx)
+  huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+#endif
   // huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 
   if(HAL_UART_Init(huart) != HAL_OK) {
@@ -402,6 +407,69 @@ void uart_deinit(serial_t *obj)
 
   HAL_UART_DeInit(uart_handlers[obj->index]);
 }
+
+#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+/**
+  * @brief  Function called to configure the uart interface for low power
+  * @param  obj : pointer to serial_t structure
+  * @retval None
+  */
+void uart_config_lowpower(serial_t *obj)
+{
+  if(obj == NULL) {
+    return;
+  }
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  /* Ensure HSI clock is enable */
+  if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+    if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK) {
+      Error_Handler();
+    }
+  }
+  /* Configure HSI as source clock for low power wakeup clock */
+  switch (obj->index) {
+#if defined(USART1_BASE)
+    case 0:
+      if (__HAL_RCC_GET_USART1_SOURCE() != RCC_USART1CLKSOURCE_HSI) {
+        __HAL_RCC_USART1_CONFIG(RCC_USART1CLKSOURCE_HSI);
+      }
+      break;
+#endif
+#if defined(USART2_BASE) && defined(__HAL_RCC_USART2_CONFIG)
+    case 1:
+      if (__HAL_RCC_GET_USART2_SOURCE() != RCC_USART2CLKSOURCE_HSI) {
+        __HAL_RCC_USART2_CONFIG(RCC_USART2CLKSOURCE_HSI);
+      }
+      break;
+#endif
+#if defined(USART3_BASE) && defined(__HAL_RCC_USART3_CONFIG)
+    case 2:
+      if (__HAL_RCC_GET_USART3_SOURCE() != RCC_USART3CLKSOURCE_HSI) {
+        __HAL_RCC_USART3_CONFIG(RCC_USART3CLKSOURCE_HSI);
+      }
+      break;
+#endif
+#if defined(UART4_BASE) && defined(__HAL_RCC_UART4_CONFIG)
+    case 3:
+      if (__HAL_RCC_GET_UART4_SOURCE() != RCC_UART4CLKSOURCE_HSI) {
+        __HAL_RCC_UART4_CONFIG(RCC_UART4CLKSOURCE_HSI);
+      }
+      break;
+#endif
+#if defined(UART5_BASE) && defined(__HAL_RCC_UART5_CONFIG)
+    case 4:
+      if (__HAL_RCC_GET_UART5_SOURCE() != RCC_UART5CLKSOURCE_HSI) {
+        __HAL_RCC_UART5_CONFIG(RCC_UART5CLKSOURCE_HSI);
+      }
+      break;
+#endif
+  }
+}
+#endif
 
 /**
   * @brief  write the data on the uart
@@ -865,6 +933,19 @@ void UART10_IRQHandler(void)
   HAL_UART_IRQHandler(uart_handlers[9]);
 }
 #endif
+
+/**
+  * @brief  HAL UART Call Back
+  * @param  UART handler
+  * @retval None
+  */
+void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
+{
+  uint8_t index = uart_index(huart);
+  serial_t *obj = rx_callback_obj[index];
+
+  HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
+}
 
 #ifdef __cplusplus
 }
