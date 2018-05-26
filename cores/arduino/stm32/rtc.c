@@ -314,6 +314,19 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 {
   initFormat = format;
 
+  /* Enable Power Clock */
+  __HAL_RCC_PWR_CLK_ENABLE();
+
+#ifdef HAL_PWR_MODULE_ENABLED
+  /* Allow access to Backup domain */
+  HAL_PWR_EnableBkUpAccess();
+#endif
+  /* Reset RTC Domain */
+  if(source != LSE_CLOCK) {
+    __HAL_RCC_BACKUPRESET_FORCE();
+    __HAL_RCC_BACKUPRESET_RELEASE();
+  }
+
   /* Init RTC clock */
   RTC_initClock(source);
 
