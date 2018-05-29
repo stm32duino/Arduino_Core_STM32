@@ -322,10 +322,8 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
   HAL_PWR_EnableBkUpAccess();
 #endif
   /* Reset RTC Domain */
-  if(source != LSE_CLOCK) {
-    __HAL_RCC_BACKUPRESET_FORCE();
-    __HAL_RCC_BACKUPRESET_RELEASE();
-  }
+  __HAL_RCC_BACKUPRESET_FORCE();
+  __HAL_RCC_BACKUPRESET_RELEASE();
 
   /* Init RTC clock */
   RTC_initClock(source);
