@@ -358,7 +358,7 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
   /*at 0:0:0*/
   RTC_SetTime(0,0,0,0,AM);
 
-#if !defined(STM32F1xx) && !defined(STM32F2xx)
+#if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
   /* Enable Direct Read of the calendar registers (not through Shadow) */
   HAL_RTCEx_EnableBypassShadow(&RtcHandle);
 #endif /* !STM32F1xx && !STM32F2xx */
