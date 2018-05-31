@@ -64,10 +64,6 @@ void LowPower_init(){
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
 
-  /* Reset RTC Domain */
-  __HAL_RCC_BACKUPRESET_FORCE();
-  __HAL_RCC_BACKUPRESET_RELEASE();
-
 #ifdef __HAL_RCC_WAKEUPSTOP_CLK_CONFIG
   /* Ensure that HSI is wake-up system clock */
   __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);

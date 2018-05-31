@@ -172,3 +172,11 @@ tools.serial_upload.path.linux64={runtime.hardware.path}/tools/linux64
 tools.serial_upload.upload.params.verbose=-d
 tools.serial_upload.upload.params.quiet=n
 tools.serial_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+
+# blackmagic upload for generic STM32
+tools.bmp_upload.cmd=arm-none-eabi-gdb
+tools.bmp_upload.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+tools.bmp_upload.upload.speed=230400
+tools.bmp_upload.upload.params.verbose=-batch
+tools.bmp_upload.upload.params.quiet=--batch-silent
+tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
