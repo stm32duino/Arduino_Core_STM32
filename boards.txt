@@ -300,6 +300,19 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# DISCO_F030R8 board
+# Support: Serial1 (USART1 on PA10, PA9)
+Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
+Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.DISCO_F030R8.upload.maximum_size=65536
+Disco.menu.pnum.DISCO_F030R8.upload.maximum_data_size=8192
+Disco.menu.pnum.DISCO_F030R8.build.mcu=cortex-m0
+Disco.menu.pnum.DISCO_F030R8.build.board=DISCO_F030R8
+Disco.menu.pnum.DISCO_F030R8.build.series=STM32F0xx
+Disco.menu.pnum.DISCO_F030R8.build.product_line=STM32F030x8
+Disco.menu.pnum.DISCO_F030R8.build.variant=DISCO_F030R8
+Disco.menu.pnum.DISCO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 #DISCO_F100RB board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
 Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
