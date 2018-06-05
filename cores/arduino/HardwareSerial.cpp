@@ -30,7 +30,7 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
-#if !defined(NO_HWSERIAL)
+#if defined(HAL_UART_MODULE_ENABLED)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
     defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL8) ||\
@@ -102,6 +102,7 @@
   HardwareSerial Serial10(UART10);
   void serialEvent10() __attribute__((weak));
 #endif
+#endif // HAVE_HWSERIALx
 
 void serialEventRun(void)
 {
@@ -391,5 +392,4 @@ void HardwareSerial::setRx(PinName _rx) {
 void HardwareSerial::setTx(PinName _tx){
   _serial.pin_tx = _tx;
 }
-#endif // HAVE_HWSERIALx
-#endif // !NO_HWSERIAL
+#endif // HAL_UART_MODULE_ENABLED

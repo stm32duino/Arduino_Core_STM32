@@ -15,4 +15,5 @@
  * - Adjust HSE/HSI Values adaptation if needed
  * - Update any other configurations
  *
+ * Note: disabled HAL_UART_MODULE_ENABLED, it is handled thanks Arduino menu (enabled by default)
  */

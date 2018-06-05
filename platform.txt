@@ -79,7 +79,7 @@ build.usb_manufacturer="Unknown"
 build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
 
 # Defaults config
-build.xSerial=
+build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
 build.flags.optimize=
 build.flags.ldspecs=
