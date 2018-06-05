@@ -52,7 +52,13 @@
 #else
 #if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
 
-#if SERIAL_UART_INSTANCE == 1
+#if SERIAL_UART_INSTANCE == 0
+#define ENABLE_HWSERIALLP1
+#if !defined(Serial)
+#define Serial SerialLP1
+#define serialEvent serialEventLP1
+#endif
+#elif SERIAL_UART_INSTANCE == 1
 #define ENABLE_HWSERIAL1
 #if !defined(Serial)
 #define Serial Serial1
@@ -119,6 +125,11 @@
 #endif // SERIAL_UART_INSTANCE == x
 #endif // !HWSERIAL_NONE && SERIAL_UART_INSTANCE
 
+#if defined(ENABLE_HWSERIALLP1)
+#if defined(LPUART1_BASE)
+#define HAVE_HWSERIALLP1
+#endif
+#endif
 #if defined(ENABLE_HWSERIAL1)
 #if defined(USART1_BASE)
 #define HAVE_HWSERIAL1
