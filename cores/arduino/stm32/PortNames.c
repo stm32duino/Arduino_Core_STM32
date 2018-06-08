@@ -132,6 +132,11 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx) {
 #endif
 #if defined GPIOG_BASE
         case PortG:
+#if defined(STM32L4xx) && defined(PWR_CR2_IOSV)
+            // Enable VDDIO2 supply for 14 I/Os (Port G[15:2])
+            __HAL_RCC_PWR_CLK_ENABLE();
+            HAL_PWREx_EnableVddIO2();
+#endif
             gpioPort = (GPIO_TypeDef *)GPIOG_BASE;
             __HAL_RCC_GPIOG_CLK_ENABLE();
             break;
