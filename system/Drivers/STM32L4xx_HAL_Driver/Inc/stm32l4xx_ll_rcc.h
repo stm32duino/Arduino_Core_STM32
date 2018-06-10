@@ -153,6 +153,14 @@ typedef struct
 #define HSI48_VALUE  48000000U  /*!< Value of the HSI48 oscillator in Hz */
 #endif /* HSI48_VALUE */
 #endif /* RCC_HSI48_SUPPORT */
+
+#if !defined  (EXTERNAL_SAI1_CLOCK_VALUE)
+#define EXTERNAL_SAI1_CLOCK_VALUE    48000U /*!< Value of the SAI1_EXTCLK external oscillator in Hz */
+#endif /* EXTERNAL_SAI1_CLOCK_VALUE */
+
+#if !defined  (EXTERNAL_SAI2_CLOCK_VALUE)
+#define EXTERNAL_SAI2_CLOCK_VALUE    48000U /*!< Value of the SAI2_EXTCLK external oscillator in Hz */
+#endif /* EXTERNAL_SAI2_CLOCK_VALUE */
 /**
   * @}
   */
