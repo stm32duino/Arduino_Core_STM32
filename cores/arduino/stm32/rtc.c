@@ -321,9 +321,6 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
 #endif
-  /* Reset RTC Domain */
-  __HAL_RCC_BACKUPRESET_FORCE();
-  __HAL_RCC_BACKUPRESET_RELEASE();
 
   /* Init RTC clock */
   RTC_initClock(source);
