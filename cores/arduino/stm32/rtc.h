@@ -40,7 +40,7 @@
 #define __RTC_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
+#include "clock.h"
 
 #ifdef HAL_RTC_MODULE_ENABLED
 
@@ -71,13 +71,6 @@ typedef enum {
   M_MSK   = 16,
   Y_MSK   = 32
 } alarmMask_t;
-
-/* Clock source selection */
-typedef enum {
-  LSI_CLOCK,
-  LSE_CLOCK,
-  HSE_CLOCK
-} sourceClock_t;
 
 typedef void(*voidCallbackPtr)(void *);
 

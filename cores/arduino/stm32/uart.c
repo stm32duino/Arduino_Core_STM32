@@ -328,18 +328,7 @@ void uart_init(serial_t *obj)
     /* If baudrate is lower than or equal to 9600 try to change to LSE */
     if(obj->baudrate <= 9600) {
       /* Enable the clock if not already set by user */
-      if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == RESET) {
-#ifdef __HAL_RCC_LSEDRIVE_CONFIG
-        __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
-#endif
-        RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSE;
-        RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-        RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-        if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-          Error_Handler();
-        }
-      }
+      enableClock(LSE_CLOCK);
 
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
       if (HAL_UART_Init(huart) == HAL_OK) {
@@ -496,17 +485,9 @@ void uart_config_lowpower(serial_t *obj)
   if(obj == NULL) {
     return;
   }
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   /* Ensure HSI clock is enable */
-  if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
-    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-    RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-    if (HAL_RCC_OscConfig(&RCC_OscInitStruct)!= HAL_OK) {
-      Error_Handler();
-    }
-  }
+  enableClock(HSI_CLOCK);
+
   /* Configure HSI as source clock for low power wakeup clock */
   switch (obj->index) {
 #if defined(USART1_BASE)
