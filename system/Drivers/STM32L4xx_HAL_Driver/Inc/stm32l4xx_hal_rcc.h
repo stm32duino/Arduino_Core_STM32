@@ -82,7 +82,8 @@ typedef struct
                             This parameter must be a value of @ref RCC_PLLQ_Clock_Divider             */
 
   uint32_t PLLR;       /*!< PLLR: Division for the main system clock.
-                            User have to set the PLLR parameter correctly to not exceed max frequency 80MHZ.
+                            User have to set the PLLR parameter correctly to not exceed max frequency 120MHZ
+                            on STM32L4Rx/STM32L4Sx devices else 80MHz on the other devices.
                             This parameter must be a value of @ref RCC_PLLR_Clock_Divider             */
 
 }RCC_PLLInitTypeDef;
@@ -566,7 +567,6 @@ typedef struct
 
 /* Flags in the CSR register */
 #define RCC_FLAG_LSIRDY                ((CSR_REG_INDEX << 5U) | RCC_CSR_LSIRDY_Pos)    /*!< LSI Ready flag */
-#define RCC_FLAG_RMVF                  ((CSR_REG_INDEX << 5U) | RCC_CSR_RMVF_Pos)      /*!< Remove reset flag */
 #define RCC_FLAG_FWRST                 ((CSR_REG_INDEX << 5U) | RCC_CSR_FWRSTF_Pos)    /*!< Firewall reset flag */
 #define RCC_FLAG_OBLRST                ((CSR_REG_INDEX << 5U) | RCC_CSR_OBLRSTF_Pos)   /*!< Option Byte Loader reset flag */
 #define RCC_FLAG_PINRST                ((CSR_REG_INDEX << 5U) | RCC_CSR_PINRSTF_Pos)   /*!< PIN reset flag */
@@ -4318,7 +4318,6 @@ typedef struct
   *            @arg @ref RCC_FLAG_OBLRST  OBLRST reset
   *            @arg @ref RCC_FLAG_PINRST  Pin reset
   *            @arg @ref RCC_FLAG_FWRST  FIREWALL reset
-  *            @arg @ref RCC_FLAG_RMVF  Remove reset Flag
   *            @arg @ref RCC_FLAG_SFTRST  Software reset
   *            @arg @ref RCC_FLAG_IWDGRST  Independent Watchdog reset
   *            @arg @ref RCC_FLAG_WWDGRST  Window Watchdog reset

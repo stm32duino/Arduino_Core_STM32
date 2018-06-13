@@ -444,7 +444,7 @@ __STATIC_INLINE void LL_CRC_Write_IDR(CRC_TypeDef *CRCx, uint32_t InData)
 #if (CRC_IDR_IDR == 0x0FFU)
   *((uint8_t __IO *)(&CRCx->IDR)) = (uint8_t) InData;
 #else
-   WRITE_REG(CRCx->IDR, InData);
+  WRITE_REG(CRCx->IDR, InData);
 #endif
 }
 /**
