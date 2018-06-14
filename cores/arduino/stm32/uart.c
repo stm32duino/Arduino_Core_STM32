@@ -253,6 +253,12 @@ void uart_init(serial_t *obj)
   }
 #endif
 
+#if defined(STM32F091xC) || defined (STM32F098xx)
+  /* Enable SYSCFG Clock */
+  /* Required to get SYSCFG interrupt status register */
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+#endif
+
   /* Configure GPIOs */
   /* RX */
   port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
