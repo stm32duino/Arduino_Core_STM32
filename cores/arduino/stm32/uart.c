@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    uart.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
+  * @author  WI6LABS, fpistm
   * @brief   provide the UART interface
   *
   ******************************************************************************
@@ -35,17 +33,6 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "uart.h"
 #include "Arduino.h"
 #include "PinAF_STM32F1.h"
@@ -55,14 +42,13 @@
 #endif
 #if defined(HAL_UART_MODULE_ENABLED)
 
-// if DEBUG_UART is not defined assume this is the one
-// linked to PIN_SERIAL_TX
+/* If DEBUG_UART is not defined assume this is the one linked to PIN_SERIAL_TX */
 #if !defined(DEBUG_UART)
 #if defined(PIN_SERIAL_TX)
 #define DEBUG_UART          pinmap_peripheral(digitalPinToPinName(PIN_SERIAL_TX), PinMap_UART_TX)
 #define DEBUG_PINNAME_TX    digitalPinToPinName(PIN_SERIAL_TX)
 #else
-// No debug UART defined
+/* No debug UART defined */
 #define DEBUG_UART          NP
 #define DEBUG_PINNAME_TX    NC
 #endif
@@ -71,7 +57,7 @@
 #define DEBUG_UART_BAUDRATE 9600
 #endif
 
-// @brief uart caracteristics
+/* @brief uart caracteristics */
 #if defined(STM32F4xx)
 #define UART_NUM (10)
 #elif defined(STM32F0xx) || defined(STM32F7xx)
@@ -109,25 +95,28 @@ void uart_init(serial_t *obj)
   GPIO_TypeDef *port;
   uint32_t function = (uint32_t)NC;
 
-  // Determine the UART to use (UART_1, UART_2, ...)
+  /* Determine the U(S)ART peripheral to use (USART1, USART2, ...) */
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
-  //Pins Rx/Tx must not be NP
+  /* Pins Rx/Tx must not be NP */
   if(uart_rx == NP || uart_tx == NP) {
     printf("ERROR: at least one UART pin has no peripheral\n");
     return;
   }
 
-  // Get the peripheral name (UART_1, UART_2, ...) from the pin and assign it to the object
+  /*
+   * Get the peripheral name (USART1, USART2, ...) from the pin
+   * and assign it to the object
+   */
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 
   if(obj->uart == NP) {
-    printf("ERROR: UART pins mismatch\n");
+    printf("ERROR: U(S)ART pins mismatch\n");
     return;
   }
 
-  // Enable USART clock
+  /* Enable USART clock */
 #if defined(USART1_BASE)
   else if(obj->uart == USART1) {
     __HAL_RCC_USART1_FORCE_RESET();
@@ -264,8 +253,8 @@ void uart_init(serial_t *obj)
   }
 #endif
 
-  //Configure GPIOs
-  //RX
+  /* Configure GPIOs */
+  /* RX */
   port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
   function = pinmap_function(obj->pin_rx, PinMap_UART_RX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
@@ -284,7 +273,7 @@ void uart_init(serial_t *obj)
 #endif
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
-  //TX
+  /* TX */
   port = set_GPIO_Port_Clock(STM_PORT(obj->pin_tx));
   function = pinmap_function(obj->pin_tx, PinMap_UART_TX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
@@ -293,7 +282,7 @@ void uart_init(serial_t *obj)
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
 
-  //Configure uart
+  /* Configure uart */
   uart_handlers[obj->index] = huart;
   huart->Instance          = (USART_TypeDef *)(obj->uart);
   huart->Init.BaudRate     = obj->baudrate;
@@ -312,7 +301,11 @@ void uart_init(serial_t *obj)
 #endif
 
 #if defined(LPUART1_BASE)
-  /* Note that LPUART clock source must be in the range [3 x baud rate, 4096 x baud rate], check Ref Manual */
+  /*
+   * Note that LPUART clock source must be in the range
+   * [3 x baud rate, 4096 x baud rate]
+   * check Reference Manual
+   */
   if(obj->uart == LPUART1) {
     if (obj->baudrate <= 9600) {
       HAL_UARTEx_EnableClockStopMode(huart);
@@ -362,7 +355,7 @@ void uart_init(serial_t *obj)
   */
 void uart_deinit(serial_t *obj)
 {
-  // Reset UART and disable clock
+  /* Reset UART and disable clock */
   switch (obj->index) {
 #if defined(USART1_BASE)
     case 0:
@@ -659,11 +652,11 @@ int uart_getc(serial_t *obj, unsigned char* c)
   }
 
   if (serial_rx_active(obj)) {
-      return -1; // transaction ongoing
+      return -1; /* Transaction ongoing */
   }
 
   *c = (unsigned char)(obj->recv);
-  // Restart RX irq
+  /* Restart RX irq */
   UART_HandleTypeDef *huart = uart_handlers[obj->index];
   HAL_UART_Receive_IT(huart, &(obj->recv), 1);
 
@@ -683,7 +676,7 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t*))
     return;
   }
 
-  // Exit if a reception is already on-going
+  /* Exit if a reception is already on-going */
   if (serial_rx_active(obj)) {
     return;
   }
@@ -715,11 +708,11 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t*))
   tx_callback[obj->index] = callback;
   tx_callback_obj[obj->index] = obj;
 
-  // Enable interrupt
+  /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, 0, 2);
   HAL_NVIC_EnableIRQ(obj->irq);
 
-  // the following function will enable UART_IT_TXE and error interrupts
+  /* The following function will enable UART_IT_TXE and error interrupts */
   if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
     return;
   }
@@ -788,23 +781,23 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   volatile uint32_t tmpval;
 #if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L1xx)
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->DR; // Clear PE flag
+    tmpval = huart->Instance->DR; /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->DR; // Clear FE flag
+    tmpval = huart->Instance->DR; /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->DR; // Clear NE flag
+    tmpval = huart->Instance->DR; /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->DR; // Clear ORE flag
+    tmpval = huart->Instance->DR; /* Clear ORE flag */
   }
 #else
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->RDR; // Clear PE flag
+    tmpval = huart->Instance->RDR; /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->RDR; // Clear FE flag
+    tmpval = huart->Instance->RDR; /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->RDR; // Clear NE flag
+    tmpval = huart->Instance->RDR; /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->RDR; // Clear ORE flag
+    tmpval = huart->Instance->RDR; /* Clear ORE flag */
   }
 #endif
 
@@ -876,7 +869,7 @@ void USART3_IRQHandler(void)
     HAL_UART_IRQHandler(uart_handlers[2]);
   }
 #if defined(STM32F0xx)
-// USART3_4_IRQn
+/* USART3_4_IRQn */
   if(uart_handlers[3] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[3]);
   }
@@ -887,9 +880,9 @@ void USART3_IRQHandler(void)
   if(uart_handlers[5] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[5]);
   }
-#endif // STM32F030xC
-#endif // STM32F0xx
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F030xC */
+#endif /* STM32F0xx */
+#endif /* STM32F091xC || STM32F098xx */
 }
 #endif
 
