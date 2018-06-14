@@ -633,7 +633,7 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
  */
 uint8_t serial_rx_active(serial_t *obj)
 {
-  return ((obj == NULL) ? 1 : (HAL_UART_GetState(uart_handlers[obj->index]) == HAL_UART_STATE_BUSY_RX));
+  return ((HAL_UART_GetState(uart_handlers[obj->index]) & HAL_UART_STATE_BUSY_RX) == HAL_UART_STATE_BUSY_RX);
 }
 
 /**
@@ -644,7 +644,7 @@ uint8_t serial_rx_active(serial_t *obj)
  */
 uint8_t serial_tx_active(serial_t *obj)
 {
-  return ((obj == NULL) ? 1 : (HAL_UART_GetState(uart_handlers[obj->index]) == HAL_UART_STATE_BUSY_TX));
+  return ((HAL_UART_GetState(uart_handlers[obj->index]) & HAL_UART_STATE_BUSY_TX) == HAL_UART_STATE_BUSY_TX);
 }
 
 /**
