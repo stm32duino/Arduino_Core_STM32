@@ -270,13 +270,18 @@ void uart_init(serial_t *obj)
   function = pinmap_function(obj->pin_rx, PinMap_UART_RX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
   GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
   GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
+  /* Common */
 #ifdef STM32F1xx
   pin_SetF1AFPin(STM_PIN_AFNUM(function));
 #else
   GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
 #endif /* STM32F1xx */
+#ifdef GPIO_SPEED_FREQ_VERY_HIGH
+  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_VERY_HIGH;
+#else
+  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
+#endif
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   //TX
@@ -284,13 +289,7 @@ void uart_init(serial_t *obj)
   function = pinmap_function(obj->pin_tx, PinMap_UART_TX);
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
   GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
   GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(function));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
-#endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
 
@@ -308,7 +307,9 @@ void uart_init(serial_t *obj)
  && !defined(STM32L1xx)
   huart->AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
 #endif
-  // huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+#ifdef UART_ONE_BIT_SAMPLE_DISABLE
+  huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+#endif
 
 #if defined(LPUART1_BASE)
   /* Note that LPUART clock source must be in the range [3 x baud rate, 4096 x baud rate], check Ref Manual */
