@@ -45,7 +45,7 @@
  extern "C" {
 #endif
 
-#ifdef UART_IT_WUF
+#if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
 /* Save UART handler for callback */
 static UART_HandleTypeDef* WakeUpUart = NULL;
 #endif
@@ -201,7 +201,7 @@ void LowPower_sleep(uint32_t regulator){
 void LowPower_stop(serial_t *obj){
   __disable_irq();
 
-#ifdef UART_IT_WUF
+#if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   if (WakeUpUart != NULL) {
     HAL_UARTEx_EnableStopMode(WakeUpUart);
   }
@@ -224,7 +224,7 @@ void LowPower_stop(serial_t *obj){
 
   /* Exit Stop mode reset clocks */
   SystemClock_Config();
-#ifdef UART_IT_WUF
+#if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   if (WakeUpUart != NULL) {
     /* In case of WakeUp from UART, reset its clock source to HSI */
     uart_config_lowpower(obj);
@@ -290,7 +290,7 @@ void LowPower_shutdown(){
   * @retval None
   */
 void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
-#ifdef UART_IT_WUF
+#if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   UART_WakeUpTypeDef WakeUpSelection;
   if(serial == NULL) {
     return;
