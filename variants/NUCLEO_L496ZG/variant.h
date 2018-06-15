@@ -204,7 +204,7 @@ enum {
 #endif
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       24
-#define NUM_ANALOG_FIRST        108
+#define NUM_ANALOG_FIRST        107
 
 // On-board LED pin number
 #define LED_BUILTIN             PC7
