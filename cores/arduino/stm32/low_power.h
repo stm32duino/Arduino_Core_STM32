@@ -61,7 +61,8 @@ void LowPower_sleep(uint32_t regulator);
 void LowPower_stop(serial_t *obj);
 void LowPower_standby();
 void LowPower_shutdown();
-
+/* Weaked function */
+void SystemClock_ConfigFromStop(void);
 #ifdef __cplusplus
  }
 #endif

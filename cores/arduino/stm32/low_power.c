@@ -223,7 +223,7 @@ void LowPower_stop(serial_t *obj){
   HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 
   /* Exit Stop mode reset clocks */
-  SystemClock_Config();
+  SystemClock_ConfigFromStop();
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   if (WakeUpUart != NULL) {
     /* In case of WakeUp from UART, reset its clock source to HSI */
@@ -317,6 +317,17 @@ void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
 #endif
   /* Save callback */
   WakeUpUartCb = FuncPtr;
+}
+
+/**
+  * @brief  Configures system clock after wake-up from STOP
+  * @note   Weaked function which can be redefined by user at the sketch level.
+  *         By default, call 'SystemClock_Config()'.
+  * @param  None
+  * @retval None
+  */
+WEAK void SystemClock_ConfigFromStop(void) {
+  SystemClock_Config();
 }
 
 #ifdef __cplusplus
