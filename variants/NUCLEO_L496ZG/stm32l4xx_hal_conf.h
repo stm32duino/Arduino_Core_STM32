@@ -56,7 +56,7 @@
 /* #define HAL_CAN_LEGACY_MODULE_ENABLED */
 /* #define HAL_COMP_MODULE_ENABLED */
 #define HAL_CORTEX_MODULE_ENABLED
-#define HAL_CRC_MODULE_ENABLED
+/* #define HAL_CRC_MODULE_ENABLED */
 /* #define HAL_CRYP_MODULE_ENABLED */
 #define HAL_DAC_MODULE_ENABLED
 /* #define HAL_DCMI_MODULE_ENABLED */
@@ -75,9 +75,9 @@
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
 /* #define HAL_IRDA_MODULE_ENABLED */
-/* #define HAL_IWDG_MODULE_ENABLED */
+#define HAL_IWDG_MODULE_ENABLED
 /* #define HAL_LCD_MODULE_ENABLED */
-/* #define HAL_LPTIM_MODULE_ENABLED */
+#define HAL_LPTIM_MODULE_ENABLED
 /* #define HAL_LTDC_MODULE_ENABLED */
 /* #define HAL_OPAMP_MODULE_ENABLED */
 /* #define HAL_OSPI_MODULE_ENABLED */
@@ -85,7 +85,7 @@
 #define HAL_PWR_MODULE_ENABLED
 /* #define HAL_QSPI_MODULE_ENABLED */
 #define HAL_RCC_MODULE_ENABLED
-/* #define HAL_RNG_MODULE_ENABLED */
+#define HAL_RNG_MODULE_ENABLED
 #define HAL_RTC_MODULE_ENABLED
 /* #define HAL_SAI_MODULE_ENABLED */
 /* #define HAL_SD_MODULE_ENABLED */
@@ -253,7 +253,7 @@
  * Deactivated: CRC code cleaned from driver
  */
 
-#define USE_SPI_CRC                   0U
+#define USE_SPI_CRC                   1U
 
 /* Includes ------------------------------------------------------------------*/
 /**

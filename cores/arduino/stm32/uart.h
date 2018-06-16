@@ -1,9 +1,7 @@
 /**
   ******************************************************************************
   * @file    uart.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
+  * @author  WI6LABS, fpistm
   * @brief   Header for uart module
   ******************************************************************************
   * @attention
@@ -47,23 +45,18 @@
  extern "C" {
 #endif
 
-#if !defined(NO_HWSERIAL)
-#if defined(ALL_HWSERIAL) || defined(FIRST_THIRD_HWSERIAL)
-#define ENABLE_HWSERIAL1
-#define ENABLE_HWSERIAL2
-#define ENABLE_HWSERIAL3
-#if !defined(FIRST_THIRD_HWSERIAL)
-#define ENABLE_HWSERIAL4
-#define ENABLE_HWSERIAL5
-#define ENABLE_HWSERIAL6
-#define ENABLE_HWSERIAL7
-#define ENABLE_HWSERIAL8
-#define ENABLE_HWSERIAL9
-#define ENABLE_HWSERIAL10
-#endif // FIRST_THIRD_HWSERIAL
-#endif // ALL_HWSERIAL || FIRST_THIRD_HWSERIAL
-#ifdef SERIAL_UART_INSTANCE
-#if SERIAL_UART_INSTANCE == 1
+#if !defined(HAL_UART_MODULE_ENABLED)
+#define serial_t void*
+#else
+#if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
+
+#if SERIAL_UART_INSTANCE == 0
+#define ENABLE_HWSERIALLP1
+#if !defined(Serial)
+#define Serial SerialLP1
+#define serialEvent serialEventLP1
+#endif
+#elif SERIAL_UART_INSTANCE == 1
 #define ENABLE_HWSERIAL1
 #if !defined(Serial)
 #define Serial Serial1
@@ -123,14 +116,18 @@
 #define Serial Serial10
 #define serialEvent serialEvent10
 #endif
-#endif // SERIAL_UART_INSTANCE == x
 #else
 #if !defined(Serial)
 #warning "No generic 'Serial' defined!"
 #endif
-#endif // SERIAL_UART_INSTANCE
-#endif // NO_HWSERIAL
+#endif /* SERIAL_UART_INSTANCE == x */
+#endif /* !HWSERIAL_NONE && SERIAL_UART_INSTANCE */
 
+#if defined(ENABLE_HWSERIALLP1)
+#if defined(LPUART1_BASE)
+#define HAVE_HWSERIALLP1
+#endif
+#endif
 #if defined(ENABLE_HWSERIAL1)
 #if defined(USART1_BASE)
 #define HAVE_HWSERIAL1
@@ -220,60 +217,60 @@ struct serial_s {
 #define USART3_IRQn USART3_4_IRQn
 #define USART3_IRQHandler USART3_4_IRQHandler
 
-#endif // STM32F091xC || STM32F098xx
-#endif // STM32F0xx
+#endif /* STM32F091xC || STM32F098xx */
+#endif /* STM32F0xx */
 #endif
 
 #if defined(USART4_BASE) && !defined(USART4_IRQn)
 #if defined(STM32F0xx)
-// IRQHandler is mapped on USART3_IRQHandler for STM32F0xx
+/* IRQHandler is mapped on USART3_IRQHandler for STM32F0xx */
 #if defined(STM32F091xC) || defined (STM32F098xx)
 #define USART4_IRQn USART3_8_IRQn
 #elif defined(STM32F030xC)
 #define USART4_IRQn USART3_6_IRQn
 #else
 #define USART4_IRQn USART3_4_IRQn
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F091xC || STM32F098xx */
 #elif defined(STM32L0xx)
 #define USART4_IRQn USART4_5_IRQn
-#endif // STM32F0xx
+#endif /* STM32F0xx */
 #endif
 
 #if defined(USART5_BASE) && !defined(USART5_IRQn)
 #if defined(STM32F0xx)
-// IRQHandler is mapped on USART3_IRQHandler for STM32F0xx
+/* IRQHandler is mapped on USART3_IRQHandler for STM32F0xx */
 #if defined(STM32F091xC) || defined (STM32F098xx)
 #define USART5_IRQn USART3_8_IRQn
 #elif defined(STM32F030xC)
 #define USART5_IRQn USART3_6_IRQn
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F091xC || STM32F098xx */
 #elif defined(STM32L0xx)
 #define USART5_IRQn USART4_5_IRQn
-#endif // STM32F0xx
+#endif /* STM32F0xx */
 #endif
 
 #if defined (STM32F0xx)
-// IRQHandler is mapped on USART3_IRQHandler for STM32F0xx
+/* IRQHandler is mapped on USART3_IRQHandler for STM32F0xx */
 #if defined(USART6_BASE) && !defined(USART6_IRQn)
 #if defined(STM32F091xC) || defined (STM32F098xx)
 #define USART6_IRQn USART3_8_IRQn
 #elif defined(STM32F030xC)
 #define USART6_IRQn USART3_6_IRQn
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F091xC || STM32F098xx */
 #endif
 
 #if defined(USART7_BASE) && !defined(USART7_IRQn)
 #if defined(STM32F091xC) || defined (STM32F098xx)
 #define USART7_IRQn USART3_8_IRQn
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F091xC || STM32F098xx */
 #endif
 
 #if defined(USART8_BASE) && !defined(USART8_IRQn)
 #if defined(STM32F091xC) || defined (STM32F098xx)
 #define USART8_IRQn USART3_8_IRQn
-#endif // STM32F091xC || STM32F098xx
+#endif /* STM32F091xC || STM32F098xx */
 #endif
-#endif // STM32F0xx
+#endif /* STM32F0xx */
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
@@ -292,6 +289,7 @@ uint8_t serial_rx_active(serial_t *obj);
 
 size_t uart_debug_write(uint8_t *data, uint32_t size);
 
+#endif /* HAL_UART_MODULE_ENABLED */
 #ifdef __cplusplus
 }
 #endif

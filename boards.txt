@@ -49,6 +49,30 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_L496ZG board
+Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.node=NODE_L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.upload.maximum_size=1048576
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.upload.maximum_data_size=327680
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.board=NUCLEO_L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.series=STM32L4xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.product_line=STM32L496xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.variant=NUCLEO_L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# NUCLEO_L496ZG-P board
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P=Nucleo L496ZG-P
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.node=NODE_L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_size=1048576
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_data_size=327680
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=NUCLEO_L496ZG
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
@@ -472,53 +496,41 @@ Maple.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 ################################################################################
 # Serialx activation
-Nucleo_144.menu.xserial.generic=Generic Serial
-Nucleo_144.menu.xserial.none=No Serial
-Nucleo_144.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_144.menu.xserial.all=All (up to 10)
-Nucleo_144.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_144.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_144.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+Nucleo_144.menu.xserial.generic=Enabled with generic Serial
+Nucleo_144.menu.xserial.none=Enabled without generic Serial
+Nucleo_144.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Nucleo_144.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_144.menu.xserial.disabled.build.xSerial=
 
-Nucleo_64.menu.xserial.generic=Generic Serial
-Nucleo_64.menu.xserial.none=No Serial
-Nucleo_64.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_64.menu.xserial.all=All (up to 10)
-Nucleo_64.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_64.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_64.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+Nucleo_64.menu.xserial.generic=Enabled with generic Serial
+Nucleo_64.menu.xserial.none=Enabled without generic Serial
+Nucleo_64.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Nucleo_64.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_64.menu.xserial.disabled.build.xSerial=
 
-Nucleo_32.menu.xserial.generic=Generic Serial
-Nucleo_32.menu.xserial.none=No Serial
-Nucleo_32.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Nucleo_32.menu.xserial.all=All (up to 10)
-Nucleo_32.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Nucleo_32.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Nucleo_32.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+Nucleo_32.menu.xserial.generic=Enabled with generic Serial
+Nucleo_32.menu.xserial.none=Enabled without generic Serial
+Nucleo_32.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Nucleo_32.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_32.menu.xserial.disabled.build.xSerial=
 
-Disco.menu.xserial.generic=Generic Serial
-Disco.menu.xserial.none=No Serial
-Disco.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Disco.menu.xserial.all=All (up to 10)
-Disco.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Disco.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Disco.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+Disco.menu.xserial.generic=Enabled with generic Serial
+Disco.menu.xserial.none=Enabled without generic Serial
+Disco.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Disco.menu.xserial.disabled=Disabled (No Serial)
+Disco.menu.xserial.disabled.build.xSerial=
 
-GenF103.menu.xserial.generic=Generic Serial
-GenF103.menu.xserial.none=No Serial
-GenF103.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-GenF103.menu.xserial.all=All (up to 10)
-GenF103.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-GenF103.menu.xserial.third=Enable first third (USART1 to 3 if available)
-GenF103.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+GenF103.menu.xserial.generic=Enabled with generic Serial
+GenF103.menu.xserial.none=Enabled without generic Serial
+GenF103.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF103.menu.xserial.disabled=Disabled (No Serial)
+GenF103.menu.xserial.disabled.build.xSerial=
 
-Maple.menu.xserial.generic=Generic Serial
-Maple.menu.xserial.none=No Serial
-Maple.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-Maple.menu.xserial.all=All (up to 10)
-Maple.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-Maple.menu.xserial.third=Enable first third (USART1 to 3 if available)
-Maple.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+Maple.menu.xserial.generic=Enabled with generic Serial
+Maple.menu.xserial.none=Enabled without generic Serial
+Maple.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Maple.menu.xserial.disabled=Disabled (No Serial)
+Maple.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
