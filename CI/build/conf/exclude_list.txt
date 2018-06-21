@@ -1,0 +1,16 @@
+Adafruit_Circuit
+ArduinoYun
+Bridge
+Esplora
+GSM
+firmata_test
+mqtt_esp8266
+mqtt_stream
+OldStandardFirmata
+Robot_Control
+Robot_Motor
+SpacebrewYun
+StandardFirmataBLE
+StandardFirmataChipKIT
+StandardFirmataWiFi
+Temboo
