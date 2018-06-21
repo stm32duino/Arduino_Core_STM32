@@ -46,6 +46,15 @@ Catena.menu.upload_method.STLink=STLink
 Catena.menu.upload_method.STLink.upload.protocol=STLink
 Catena.menu.upload_method.STLink.upload.tool=stlink_upload
 
+Catena.menu.upload_method.DFU=DFU
+Catena.menu.upload_method.DFU.upload.tool=stm32l0_dfu
+Catena.menu.upload_method.DFU.upload.protocol=dfu
+Catena.menu.upload_method.DFU.upload.maximum_size=196608
+Catena.menu.upload_method.DFU.upload.maximum_data_size=20480
+Catena.menu.upload_method.DFU.upload.use_1200bps_touch=true
+Catena.menu.upload_method.DFU.upload.wait_for_upload_port=false
+Catena.menu.upload_method.DFU.upload.native_usb=false
+
 #Catena.menu.upload_method.Serial=Serial
 #Catena.menu.upload_method.Serial.upload.protocol=Serial
 #Catena.menu.upload_method.Serial.upload.tool=serial_upload

@@ -27,7 +27,13 @@ compiler.cpp.cmd=arm-none-eabi-g++
 compiler.ar.cmd=arm-none-eabi-gcc-ar
 compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
+compiler.elf2bin.flags=-O binary
+compiler.elf2hex.flags=-O ihex
+compiler.elf2hex.bin.flags=-O binary
+compiler.elf2hex.hex.flags=-O ihex
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
+compiler.suffix.cmd=dfu-suffix
+compiler.suffix.cmd.windows=dfu-suffix.exe
 
 compiler.extra_flags=-mcpu={build.mcu} -mthumb @{build.opt.path}
 
@@ -43,12 +49,13 @@ compiler.c.elf.flags=-mcpu={build.mcu} -mthumb {build.flags.optimize} {build.fla
 
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 
-compiler.elf2bin.flags=-O binary
-compiler.elf2hex.flags=-O ihex
-
 compiler.ldflags={build.flags.ldspecs}
 compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
+
+compiler.platform.path={runtime.platform.path}/tools/windows/
+compiler.platform.path.macosx={runtime.platform.path}/tools/macosx/
+compiler.platform.path.linux={runtime.platform.path}/tools/linux/
 
 # These can be overriden in boards.txt
 build.extra_flags=
@@ -108,6 +115,15 @@ recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compil
 ## Combine gc-sections, archives, and objects
 recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++ --specs=nano.specs
 
+## Create output (dfu file)
+recipe.objcopy.dfu.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.bin.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.dfu"
+
+## Append DFU suffix (dfu file)
+recipe.hooks.objcopy.postobjcopy.1.pattern="{compiler.platform.path}/{compiler.suffix.cmd}"  -v "{build.vid}" -p "{build.pid}" -d "{build.did}" -a "{build.path}/{build.project_name}.dfu"
+
+recipe.output.tmp_file={build.project_name}.dfu
+recipe.output.save_file={build.project_name}.{build.variant}.dfu
+
 ## Create output (.bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2bin.flags} {compiler.elf2bin.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
 
@@ -154,3 +170,35 @@ tools.stlink_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64
 tools.stlink_upload.upload.params.verbose=-d
 tools.stlink_upload.upload.params.quiet=
 tools.stlink_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+
+# DFU
+tools.stm32l0_dfu.cmd=stm32l0-upload
+tools.stm32l0_dfu.cmd.windows=stm32l0-upload.bat
+tools.stm32l0_dfu.path={runtime.platform.path}/tools/windows
+tools.stm32l0_dfu.path.macosx={runtime.platform.path}/tools/macosx
+tools.stm32l0_dfu.path.linux={runtime.platform.path}/tools/linux
+tools.stm32l0_dfu.upload.params.verbose=-v
+tools.stm32l0_dfu.upload.params.quiet=
+tools.stm32l0_dfu.upload.pattern="{path}/{cmd}" "{build.vid}" "{build.pid}" "{build.path}/{build.project_name}.dfu"
+tools.stm32l0_dfu.program.params.verbose=-v
+tools.stm32l0_dfu.program.params.quiet=
+tools.stm32l0_dfu.program.pattern="{path}/{cmd}" "{build.vid}" "{build.pid}" "{build.path}/{build.project_name}.dfu"
+tools.stm32l0_dfu.erase.params.verbose=-v
+tools.stm32l0_dfu.erase.params.quiet=
+tools.stm32l0_dfu.erase.pattern=
+
+# OpenOCD
+tools.stm32l0_openocd.path={runtime.platform.path}/tools/windows/openocd/bin
+tools.stm32l0_openocd.path.macosx={runtime.platform.path}/tools/macosx/openocd/bin
+tools.stm32l0_openocd.path.linux={runtime.platform.path}/tools/linux/openocd/bin
+tools.stm32l0_openocd.cmd=openocd
+tools.stm32l0_openocd.cmd.windows=openocd.exe
+tools.stm32l0_openocd.upload.params.verbose=-d2
+tools.stm32l0_openocd.upload.params.quiet=-d0
+tools.stm32l0_openocd.upload.pattern="{path}/{cmd}" {upload.verbose} -s "{runtime.platform.path}/tools/share/openocd/scripts/" -f "{runtime.platform.path}/variants/{build.variant}/{build.openocdscript}" -c "telnet_port disabled; program {{{build.path}/{build.project_name}.elf}} verify reset; shutdown"
+tools.stm32l0_openocd.program.params.verbose=-d2
+tools.stm32l0_openocd.program.params.quiet=-d0
+tools.stm32l0_openocd.program.pattern="{path}/{cmd}" {program.verbose} -s "{runtime.platform.path}/tools/share/openocd/scripts/" -f "{runtime.platform.path}/variants/{build.variant}/{build.openocdscript}" -c "telnet_port disabled; program {{{build.path}/{build.project_name}.elf}} verify reset; shutdown"
+tools.stm32l0_openocd.erase.params.verbose=-d3
+tools.stm32l0_openocd.erase.params.quiet=-d0
+tools.stm32l0_openocd.erase.pattern=

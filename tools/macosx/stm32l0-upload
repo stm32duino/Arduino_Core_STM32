@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TOOLDIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
+
+RETRIES=10
+
+while [ $RETRIES -gt 0 ]
+do
+    if [ "$($TOOLDIR/dfu-util -l 2>/dev/null | grep 0483:df11)" != "" ]
+    then
+      $TOOLDIR/dfu-util -d $1:$2,0x0483:0xdf11 -a 0 -s 0x08000000:leave -D $3
+      echo "OK"
+      exit 0
+    fi
+    echo $RETRIES
+    RETRIES=$[$RETRIES -1];
+    sleep 1;
+done
+
+echo "FAIL"
+exit 0

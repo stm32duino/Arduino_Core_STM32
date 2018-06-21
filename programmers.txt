@@ -1,0 +1,13 @@
+dfu.name=STM32 BOOTLOADER (STM32L0)
+dfu.communication=USB
+dfu.protocol=dfu
+dfu.program.protocol=
+dfu.program.tool=stm32l0_dfu
+dfu.program.extra_params=
+
+stlink.name=ST-Link (STM32L0)
+stlink.communication=USB
+stlink.protocol=stlink
+stlink.program.protocol=
+stlink.program.tool=stm32l0_openocd
+stlink.program.extra_params=
