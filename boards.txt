@@ -23,26 +23,22 @@ mcci_catena_4551.build.core=arduino
 mcci_catena_4551.build.board=Catena
 mcci_catena_4551.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
-#CATENA_4551 board
 mcci_catena_4551.node=NODE_CATENA_4551
 mcci_catena_4551.upload.maximum_size=196608
 mcci_catena_4551.upload.maximum_data_size=20480
 mcci_catena_4551.build.mcu=cortex-m0
-mcci_catena_4551.build.board=CATENA_4551
+mcci_catena_4551.build.board=MCCI_CATENA_4551
 mcci_catena_4551.build.series=STM32L0xx
 mcci_catena_4551.build.product_line=STM32L082xx
 mcci_catena_4551.build.variant=CATENA_4551
 mcci_catena_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
 mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags}
 
-# Upload menu
+#
+# menu.upload_method
 #mcci_catena_4551.menu.upload_method.MassStorage=Mass Storage
 #mcci_catena_4551.menu.upload_method.MassStorage.upload.protocol=
 #mcci_catena_4551.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-mcci_catena_4551.menu.upload_method.STLink=STLink
-mcci_catena_4551.menu.upload_method.STLink.upload.protocol=STLink
-mcci_catena_4551.menu.upload_method.STLink.upload.tool=stlink_upload
 
 mcci_catena_4551.menu.upload_method.DFU=DFU
 mcci_catena_4551.menu.upload_method.DFU.upload.tool=stm32l0_dfu
@@ -53,22 +49,32 @@ mcci_catena_4551.menu.upload_method.DFU.upload.use_1200bps_touch=true
 mcci_catena_4551.menu.upload_method.DFU.upload.wait_for_upload_port=false
 mcci_catena_4551.menu.upload_method.DFU.upload.native_usb=false
 
+mcci_catena_4551.menu.upload_method.STLink=STLink
+mcci_catena_4551.menu.upload_method.STLink.upload.protocol=STLink
+mcci_catena_4551.menu.upload_method.STLink.upload.tool=stlink_upload
+
 #mcci_catena_4551.menu.upload_method.Serial=Serial
 #mcci_catena_4551.menu.upload_method.Serial.upload.protocol=Serial
 #mcci_catena_4551.menu.upload_method.Serial.upload.tool=serial_upload
 
-mcci_catena_4551.menu.xserial.generic=Generic Serial
+#
+# menu.xserial
 mcci_catena_4551.menu.xserial.none=No Serial
+mcci_catena_4551.menu.xserial.generic=Generic Serial
 mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4551.menu.xserial.all=All (up to 10)
 #mcci_catena_4551.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 #mcci_catena_4551.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4551.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
-mcci_catena_4551.menu.usb.none=None
-mcci_catena_4551.menu.usb.usb_device=Enable USB device
+#
+# menu.usb
+mcci_catena_4551.menu.usb.usb_device=USB Serial
+mcci_catena_4551.menu.usb.none=No USB
 mcci_catena_4551.menu.usb.usb_device.build.enable_usb={build.usb_flags}
 
+#
+# menu.opt
 mcci_catena_4551.menu.opt.osstd=Smallest (-Os default)
 mcci_catena_4551.menu.opt.osstd.build.flags.optimize=-Os
 mcci_catena_4551.menu.opt.osstd.build.flags.ldspecs=
