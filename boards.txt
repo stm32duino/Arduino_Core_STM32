@@ -12,7 +12,7 @@ menu.upload_method=Upload method
 ################################################################################
 # MCCI Catena boards
 
-mcci_catena_4551.name=Catena 4551
+mcci_catena_4551.name=MCCI Catena 4551
 
 mcci_catena_4551.build.vid=0x040E
 mcci_catena_4551.build.pid=0x0041
