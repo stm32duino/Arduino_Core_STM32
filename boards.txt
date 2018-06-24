@@ -70,8 +70,8 @@ mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #
 # menu.usb
 mcci_catena_4551.menu.usb.usb_device=USB Serial
-mcci_catena_4551.menu.usb.none=No USB
 mcci_catena_4551.menu.usb.usb_device.build.enable_usb={build.usb_flags}
+mcci_catena_4551.menu.usb.none=No USB
 
 #
 # menu.opt
