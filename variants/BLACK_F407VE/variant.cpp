@@ -106,7 +106,7 @@ const PinName digitalPin[] = {
   PC_2,
   PC_3,
   PC_4,
-  PC_5,
+  PC_5
 };
 
 #ifdef __cplusplus

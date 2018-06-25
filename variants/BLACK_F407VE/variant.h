@@ -45,14 +45,6 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-// Enum defining pin names to match digital pin number --> Dx
-// !!!
-// !!! Copy the digitalPin[] array in variant.cpp
-// !!! and remove all '_': PX_n --> PXn
-// !!! For NC, suffix by _x where x is the number of NC:
-// !!!   NC_1, NC_2,...
-// !!! For duplicated pin name, suffix by _x where x is the number of pin:
-// !!! PA7, PA7_2, PA7_3,...
 enum {
 /* Left Side 
   Ext		Int     */
@@ -126,24 +118,9 @@ enum {
 };
 
 // This must be a literal with the same value as PEND
-// It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
-// so an enum will not work.
 #define NUM_DIGITAL_PINS        89
-
-// Allow to define Arduino style alias for analog input pin number --> Ax
-// All pins are digital, analog inputs are a subset of digital pins
-// and must be contiguous to be able to loop on each value
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
-// defined in pin_arduino.h
-// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
-// so an enum will not work.
-// !!!
-// !!! It must be aligned with the number of analog PinName
-// !!! defined in digitalPin[] array in variant.cpp
-// !!!
 #define NUM_ANALOG_INPUTS       14
-// Define digital pin number of the first analog input  (i.e. which digital pin is A0)
-// First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
 #define NUM_ANALOG_FIRST        75
 
 // Below ADC, DAC and PWM definitions already done in the core

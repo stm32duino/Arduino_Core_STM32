@@ -528,6 +528,10 @@ BlkF407VE.menu.upload_method.serialMethod=Serial
 BlkF407VE.menu.upload_method.serialMethod.upload.protocol=maple_serial
 BlkF407VE.menu.upload_method.serialMethod.upload.tool=serial_upload
 
+BlkF407VE.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+BlkF407VE.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+BlkF407VE.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 
 ################################################################################
 # Serialx activation
