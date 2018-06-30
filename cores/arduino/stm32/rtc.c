@@ -100,22 +100,11 @@ void RTC_SetClockSource(sourceClock_t source)
   */
 static void RTC_initClock(sourceClock_t source)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
   if(source == LSE_CLOCK) {
     /* Enable the clock if not already set by user */
-    if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == RESET) {
-#ifdef __HAL_RCC_LSEDRIVE_CONFIG
-      __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
-#endif
-      RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSE;
-      RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-      RCC_OscInitStruct.LSEState = RCC_LSE_ON;
-      if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-        Error_Handler();
-      }
-    }
+    enableClock(LSE_CLOCK);
 
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
@@ -125,14 +114,8 @@ static void RTC_initClock(sourceClock_t source)
     clkSrc = LSE_CLOCK;
   } else if(source == HSE_CLOCK) {
     /* Enable the clock if not already set by user */
-    if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET) {
-      RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSE;
-      RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-      RCC_OscInitStruct.HSEState = RCC_HSE_ON;
-      if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-        Error_Handler();
-      }
-    }
+    enableClock(HSE_CLOCK);
+
     /* HSE division factor for RTC clock must be set to ensure that
      * the clock supplied to the RTC is less than or equal to 1 MHz
      */
@@ -182,14 +165,7 @@ static void RTC_initClock(sourceClock_t source)
     clkSrc = HSE_CLOCK;
   } else if(source == LSI_CLOCK) {
     /* Enable the clock if not already set by user */
-    if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) == RESET) {
-      RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
-      RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
-      RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-      if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-        Error_Handler();
-      }
-    }
+    enableClock(LSI_CLOCK);
 
     PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_RTC;
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
@@ -313,17 +289,6 @@ static void RTC_computePrediv(int8_t *asynch, int16_t *synch)
 void RTC_init(hourFormat_t format, sourceClock_t source)
 {
   initFormat = format;
-
-  /* Enable Power Clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
-
-#ifdef HAL_PWR_MODULE_ENABLED
-  /* Allow access to Backup domain */
-  HAL_PWR_EnableBkUpAccess();
-#endif
-  /* Reset RTC Domain */
-  __HAL_RCC_BACKUPRESET_FORCE();
-  __HAL_RCC_BACKUPRESET_RELEASE();
 
   /* Init RTC clock */
   RTC_initClock(source);

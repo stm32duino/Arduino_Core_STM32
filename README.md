@@ -1,5 +1,5 @@
 # Arduino core support for STM32 based boards
-### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.2.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.2.0...master)
+### Latest release [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.3.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.3.0...master)
 
 **Warning**: release versioning has been changed from date versioning to semantic one. See [Release Versioning change](https://github.com/stm32duino/wiki/wiki/Release-Versioning-change)
 
@@ -26,6 +26,7 @@ For advanced user, you can use the repository: see the [Using git repository](ht
   * STM32F0
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
+    * [32F0308DISCOVERY](http://www.st.com/en/evaluation-tools/32f0308discovery.html)
 
   * STM32F1
     * BluePill F103C8 (Basic support, no USB)
@@ -62,6 +63,8 @@ For advanced user, you can use the repository: see the [Using git repository](ht
   * STM32L4
     * [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html)
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
+    * [NUCLEO-L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html)
+    * [NUCLEO-L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg-p.html)
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
