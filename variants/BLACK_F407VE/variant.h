@@ -53,23 +53,23 @@ enum {
   //3V3   //3V3
   //3V3   //3V3
   //GND   //GND
-  PE2,    PE3,
-  PE4,    PE5,   // PE4: BUT K0  PE5: BUT K1
+  PE2,    PE3,    // D0, D1
+  PE4,    PE5,    // PE_4: BUT K0, PE_5: BUT K1
   PE6,    PC13,
   PC0,    PC1,
   PC2,    PC3,
   //VREF- //VREF+
-  PA0,    PA1,   // PA0(WK_UP): BUT K_UP
+  PA0,    PA1,    // D10, D11 PA_0(WK_UP): BUT K_UP)
   PA2,    PA3,
   PA4,    PA5,
-  PA6,    PA7,   // PA6: LED D2  PA7: LED D3  (active LOW)
+  PA6,    PA7,    // PA_6: LED D2, PA_7: LED D3 (active LOW)
   PC4,    PC5,
-  PB0,    PB1,
+  PB0,    PB1,    // D20, D21
   PE7,    PE8,
   PE9,    PE10,
   PE11,   PE12,
   PE13,   PE14,
-  PE15,   PB10,
+  PE15,   PB10,   // D30, D31
   PB11,   PB12,
   PB13,   PB14,
   // Right Side
@@ -81,31 +81,31 @@ enum {
   //GND   //GND
   PE1,    PE0,
   PB9,    PB8,
-  PB7,    PB6,
+  PB7,    PB6,    // D40, D41
   PB5,    PB3,
   PD7,    PD6,
   PD5,    PD4,
   PD3,    PD2,
-  PD1,    PD0,
+  PD1,    PD0,    // D50, D51
   PC12,   PC11,
   PC10,   PA15,
-  PA12,   PA11, // PA11: USB_DM  PA12: USB_DP
+  PA12,   PA11,   // PA_11: USB_DM, PA_12: USB_DP
   PA10,   PA9,
-  PA8,    PC9,
+  PA8,    PC9,    // D60, D61
   PC8,    PC7,
   PC6,    PD15,
   PD14,   PD13,
   PD12,   PD11,
-  PD10,   PD9,
+  PD10,   PD9,    // D70, D71
   PD8,    PB15,
   PB4,
   // Analog pins
-  PA0_A,
+  PA0_A,          // D75
   PA1_A,
   PA2_A,
   PA3_A,
   PA4_A,
-  PA5_A,
+  PA5_A,          // D80
   PB0_A,
   PB1_A,
   PC0_A,
