@@ -46,58 +46,58 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-/* Left Side 
-  Ext		Int     */
-  //5V		//5V
-  //5V		//5V
-  //3V3		//3V3
-  //3V3		//3V3
-  //GND		//GND
-  PE2,		PE3, 
-  PE4,		PE5, 	// PE4: BUT K0               PE5: BUT K1
-  PE6,		PC13, 
-  PC0,		PC1, 
-  PC2,		PC3, 
-  //VREF-	//VREF+ 
-  PA0,		PA1, 	// PA0(WK_UP): BUT K_UP
-  PA2,		PA3, 
-  PA4,		PA5, 
-  PA6,		PA7, 	// PA6: LED D2               PA7: LED D3  (active LOW)
-  PC4,		PC5, 
-  PB0,		PB1, 
-  PE7,		PE8, 
-  PE9,		PE10, 
-  PE11,		PE12, 
-  PE13,		PE14, 
-  PE15,		PB10, 
-  PB11,		PB12, 
-  PB13,		PB14, 
-/* Right Side 
-  Int		Ext     */
-  //3V3		//3V3
-  //3V3		//3V3
-  //BOOT0	//BOOT1
-  //GND		//GND
-  //GND		//GND
-  PE1,		PE0, 
-  PB9,		PB8, 
-  PB7,		PB6, 
-  PB5,		PB3, 
-  PD7,		PD6, 
-  PD5,		PD4, 
-  PD3,		PD2, 
-  PD1,		PD0, 
-  PC12,		PC11, 
-  PC10,		PA15, 
-  PA12,		PA11, // PA11: USB_DM               PA12: USB_DP
-  PA10,		PA9, 
-  PA8,		PC9, 
-  PC8,		PC7, 
-  PC6,		PD15, 
-  PD14,		PD13, 
-  PD12,		PD11, 
-  PD10,		PD9, 
-  PD8,		PB15, 
+  // Left Side
+  //Ext   //Int
+  //5V    //5V
+  //5V    //5V
+  //3V3   //3V3
+  //3V3   //3V3
+  //GND   //GND
+  PE2,    PE3,
+  PE4,    PE5,   // PE4: BUT K0  PE5: BUT K1
+  PE6,    PC13,
+  PC0,    PC1,
+  PC2,    PC3,
+  //VREF- //VREF+
+  PA0,    PA1,   // PA0(WK_UP): BUT K_UP
+  PA2,    PA3,
+  PA4,    PA5,
+  PA6,    PA7,   // PA6: LED D2  PA7: LED D3  (active LOW)
+  PC4,    PC5,
+  PB0,    PB1,
+  PE7,    PE8,
+  PE9,    PE10,
+  PE11,   PE12,
+  PE13,   PE14,
+  PE15,   PB10,
+  PB11,   PB12,
+  PB13,   PB14,
+  // Right Side
+  //Int   //Ext
+  //3V3   //3V3
+  //3V3   //3V3
+  //BOOT0 //BOOT1
+  //GND   //GND
+  //GND   //GND
+  PE1,    PE0,
+  PB9,    PB8,
+  PB7,    PB6,
+  PB5,    PB3,
+  PD7,    PD6,
+  PD5,    PD4,
+  PD3,    PD2,
+  PD1,    PD0,
+  PC12,   PC11,
+  PC10,   PA15,
+  PA12,   PA11, // PA11: USB_DM  PA12: USB_DP
+  PA10,   PA9,
+  PA8,    PC9,
+  PC8,    PC7,
+  PC6,    PD15,
+  PD14,   PD13,
+  PD12,   PD11,
+  PD10,   PD9,
+  PD8,    PB15,
   PB4,
   // Analog pins
   PA0_A,
@@ -175,10 +175,6 @@ enum {
 //#define DEBUG_UART_BAUDRATE     x
 // DEBUG_UART Tx pin name, default: the first one found in PinMap_UART_TX for DEBUG_UART
 //#define DEBUG_PINNAME_TX        PX_n // PinName used for TX
-
-// UART Emulation (uncomment if needed, required TIM1)
-//#define UART_EMUL_RX            PX_n // PinName used for RX
-//#define UART_EMUL_TX            PX_n // PinName used for TX
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
