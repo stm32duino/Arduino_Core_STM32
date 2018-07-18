@@ -81,7 +81,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 # Defaults config
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
-build.flags.optimize=
+build.flags.optimize=-Os
 build.flags.ldspecs=
 
 # Pre and post build hooks
