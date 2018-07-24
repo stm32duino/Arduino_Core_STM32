@@ -30,7 +30,7 @@
   * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -38,7 +38,7 @@
 #define __STM32F3xx_HAL_COMP_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -52,12 +52,12 @@
   * @{
   */
 
-/* Exported types ------------------------------------------------------------*/ 
+/* Exported types ------------------------------------------------------------*/
 /** @defgroup COMP_Exported_Types COMP Exported Types
   * @{
   */
-/** 
-  * @brief  COMP Init structure definition  
+/**
+  * @brief  COMP Init structure definition
   */
 typedef struct
 {
@@ -90,13 +90,13 @@ typedef struct
 
   uint32_t WindowMode;         /*!< Selects the window mode of the comparator X (X=2U, 4 or 6 if available).
                                     This parameter can be a value of @ref COMPEx_WindowMode */
-  
+
   uint32_t TriggerMode;        /*!< Selects the trigger mode of the comparator (interrupt mode).
                                     This parameter can be a value of @ref COMP_TriggerMode */
 
-}COMP_InitTypeDef;
+} COMP_InitTypeDef;
 
-/** 
+/**
   * @brief  HAL State structures definition
   */
 typedef enum
@@ -106,9 +106,9 @@ typedef enum
   HAL_COMP_STATE_READY_LOCKED      = 0x11U,    /*!< COMP initialized but the configuration is locked */
   HAL_COMP_STATE_BUSY              = 0x02U,    /*!< COMP is running                                  */
   HAL_COMP_STATE_BUSY_LOCKED       = 0x12     /*!< COMP is running and the configuration is locked  */
-}HAL_COMP_StateTypeDef;
+} HAL_COMP_StateTypeDef;
 
-/** 
+/**
   * @brief  COMP Handle Structure definition
   */
 typedef struct
@@ -117,7 +117,7 @@ typedef struct
   COMP_InitTypeDef            Init;      /*!< COMP required parameters */
   HAL_LockTypeDef             Lock;      /*!< Locking object           */
   __IO HAL_COMP_StateTypeDef  State;     /*!< COMP communication state */
-}COMP_HandleTypeDef;
+} COMP_HandleTypeDef;
 
 /**
   * @}
@@ -139,7 +139,7 @@ typedef struct
 
 /** @defgroup COMP_OutputLevel COMP Output Level
   * @{
-  */ 
+  */
 /* When output polarity is not inverted, comparator output is low when
    the non-inverting input is at a lower voltage than the inverting input*/
 #define COMP_OUTPUTLEVEL_LOW                   (0x00000000U)
@@ -202,7 +202,7 @@ typedef struct
  */
 /* Initialization and de-initialization functions  ****************************/
 HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp);
-HAL_StatusTypeDef HAL_COMP_DeInit (COMP_HandleTypeDef *hcomp);
+HAL_StatusTypeDef HAL_COMP_DeInit(COMP_HandleTypeDef *hcomp);
 void              HAL_COMP_MspInit(COMP_HandleTypeDef *hcomp);
 void              HAL_COMP_MspDeInit(COMP_HandleTypeDef *hcomp);
 /**
