@@ -314,10 +314,14 @@ void uart_init(serial_t *obj)
    */
   if(obj->uart == LPUART1) {
     if (obj->baudrate <= 9600) {
+#if defined(USART_CR3_UCESM)
       HAL_UARTEx_EnableClockStopMode(huart);
+#endif
       HAL_UARTEx_EnableStopMode(huart);
     } else {
+#if defined(USART_CR3_UCESM)
       HAL_UARTEx_DisableClockStopMode(huart);
+#endif
       HAL_UARTEx_DisableStopMode(huart);
     }
     /* Trying default LPUART clock source */
