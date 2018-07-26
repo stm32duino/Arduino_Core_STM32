@@ -559,8 +559,6 @@ Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
-Nucleo_144.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_144.menu.opt.osstd.build.flags.ldspecs=
 Nucleo_144.menu.opt.oslto=Smallest (-Os) with LTO
 Nucleo_144.menu.opt.oslto.build.flags.optimize=-Os -flto
 Nucleo_144.menu.opt.oslto.build.flags.ldspecs=-flto
@@ -587,8 +585,6 @@ Nucleo_144.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_144.menu.opt.ogstd.build.flags.ldspecs=
 
 Nucleo_64.menu.opt.osstd=Smallest (-Os default)
-Nucleo_64.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_64.menu.opt.osstd.build.flags.ldspecs=
 Nucleo_64.menu.opt.oslto=Smallest (-Os) with LTO
 Nucleo_64.menu.opt.oslto.build.flags.optimize=-Os -flto
 Nucleo_64.menu.opt.oslto.build.flags.ldspecs=-flto
@@ -615,8 +611,6 @@ Nucleo_64.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_64.menu.opt.ogstd.build.flags.ldspecs=
 
 Nucleo_32.menu.opt.osstd=Smallest (-Os default)
-Nucleo_32.menu.opt.osstd.build.flags.optimize=-Os
-Nucleo_32.menu.opt.osstd.build.flags.ldspecs=
 Nucleo_32.menu.opt.oslto=Smallest (-Os) with LTO
 Nucleo_32.menu.opt.oslto.build.flags.optimize=-Os -flto
 Nucleo_32.menu.opt.oslto.build.flags.ldspecs=-flto
@@ -643,8 +637,6 @@ Nucleo_32.menu.opt.ogstd.build.flags.optimize=-g -Og
 Nucleo_32.menu.opt.ogstd.build.flags.ldspecs=
 
 Disco.menu.opt.osstd=Smallest (-Os default)
-Disco.menu.opt.osstd.build.flags.optimize=-Os
-Disco.menu.opt.osstd.build.flags.ldspecs=
 Disco.menu.opt.oslto=Smallest (-Os) with LTO
 Disco.menu.opt.oslto.build.flags.optimize=-Os -flto
 Disco.menu.opt.oslto.build.flags.ldspecs=-flto
@@ -671,8 +663,6 @@ Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
 Disco.menu.opt.ogstd.build.flags.ldspecs=
 
 GenF103.menu.opt.osstd=Smallest (-Os default)
-GenF103.menu.opt.osstd.build.flags.optimize=-Os
-GenF103.menu.opt.osstd.build.flags.ldspecs=
 GenF103.menu.opt.oslto=Smallest (-Os) with LTO
 GenF103.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF103.menu.opt.oslto.build.flags.ldspecs=-flto
@@ -699,8 +689,6 @@ GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
 GenF103.menu.opt.ogstd.build.flags.ldspecs=
 
 Maple.menu.opt.osstd=Smallest (-Os default)
-Maple.menu.opt.osstd.build.flags.optimize=-Os
-Maple.menu.opt.osstd.build.flags.ldspecs=
 Maple.menu.opt.oslto=Smallest (-Os) with LTO
 Maple.menu.opt.oslto.build.flags.optimize=-Os -flto
 Maple.menu.opt.oslto.build.flags.ldspecs=-flto
