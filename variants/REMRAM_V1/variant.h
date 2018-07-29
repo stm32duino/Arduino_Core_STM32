@@ -127,8 +127,8 @@ extern "C"
     PD10, // D53 - LCD_D7
 
     // EXT2
-    PC15, // D54 - BTN_EN1
-    PC14, // D55 - BTN_EN2
+    PC14, // D54 - BTN_EN1
+    PC15, // D55 - BTN_EN2
     PC13, // D56 - SD_CARD_DET
     PE6,  // D57 - KILL_PIN
 
@@ -147,19 +147,13 @@ extern "C"
     PA4, // D67 - FAN_SPEED1
     PC3, // D68 - FAN_SPEED2
 
-    // Duplicated pins in order to be aligned with PinMap_ADC
-    PC0_2, //D69/A0 - THERM_1
-    PC1_2, //D70/A1 - THERM_2
-    PC2_2, //D71/A2 - THERM_3
-    PA4_2, //D72/A3 - FAN_SPEED1
-    PC3_2, //D73/A4 - FAN_SPEED2
     PEND
   };
 
 // PIN definition
-#define NUM_DIGITAL_PINS 74
+#define NUM_DIGITAL_PINS 69
 #define NUM_ANALOG_INPUTS 5
-#define NUM_ANALOG_FIRST 69
+#define NUM_ANALOG_FIRST 64
 
 // PWM resolution
 #define PWM_RESOLUTION          8
@@ -167,7 +161,7 @@ extern "C"
 #define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
-#define LED_YELLOW 21
+#define LED_YELLOW PD0
 #define LED_BUILTIN LED_YELLOW
 
 // Timer Definitions

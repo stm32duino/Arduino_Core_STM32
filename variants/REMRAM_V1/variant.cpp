@@ -117,8 +117,8 @@ extern "C"
       PD_10, // D53 - LCD_D7
 
       // EXT2
-      PC_15, // D54 - BTN_EN1
-      PC_14, // D55 - BTN_EN2
+      PC_14, // D54 - BTN_EN1
+      PC_15, // D55 - BTN_EN2
       PC_13, // D56 - SD_CARD_DET
       PE_6,  // D57 - KILL_PIN
 
@@ -135,14 +135,7 @@ extern "C"
       PC_1, // D65 - THERM_2
       PC_2, // D66 - THERM_3
       PA_4, // D67 - FAN_SPEED1
-      PC_3, // D68 - FAN_SPEED2
-
-      // Duplicated pins in order to be aligned with PinMap_ADC
-      PC_0, //D69/A0 - THERM_1
-      PC_1, //D70/A1 - THERM_2
-      PC_2, //D71/A2 - THERM_3
-      PA_4, //D72/A3 - FAN_SPEED1
-      PC_3, //D73/A4 - FAN_SPEED2
+      PC_3  // D68 - FAN_SPEED2
   };
 
 #ifdef __cplusplus
