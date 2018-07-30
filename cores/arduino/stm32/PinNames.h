@@ -9,7 +9,10 @@ extern "C" {
 #endif
 
 typedef enum {
+    // Not connected
+    NC = (int)0xFFFFFFFF,
 
+    // Pin name definition
     PA_0  = (PortA << 4) + 0x00,
     PA_1  = (PortA << 4) + 0x01,
     PA_2  = (PortA << 4) + 0x02,
@@ -205,8 +208,11 @@ typedef enum {
     PK_14 = (PortK << 4) + 0x0E,
     PK_15 = (PortK << 4) + 0x0F,
 #endif
-    // Not connected
-    NC = (int)0xFFFFFFFF
+// Specific pin name define in the variant
+#if __has_include("PinNamesVar.h")
+#include "PinNamesVar.h"
+#endif
+    P_END = NC
 } PinName;
 
 #ifdef __cplusplus

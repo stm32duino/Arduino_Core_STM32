@@ -1,0 +1,7 @@
+{
+  "ARDUINO_PATH": "/home/travis/IDE/arduino",
+  "ARDUINO_PACKAGES": "/home/travis/.arduino15/packages",
+  "ARDUINO_USER_SKETCHBOOK": "/home/travis/Arduino",
+  "BUILD_OUPUT_DIR": "/tmp/BuildOutput",
+  "ROOT_OUPUT_DIR": "/home/travis/arduinoBuilderOutput"
+}

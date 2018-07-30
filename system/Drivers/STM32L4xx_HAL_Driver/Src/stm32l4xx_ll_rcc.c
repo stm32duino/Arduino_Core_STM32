@@ -281,7 +281,6 @@ ErrorStatus LL_RCC_DeInit(void)
 #if defined(RCC_PLLSAI2_SUPPORT)
   vl_mask |= RCC_CICR_PLLSAI2RDYC;
 #endif
-
   LL_RCC_WriteReg(CICR, vl_mask);
 
   /* Clear reset flags */
@@ -800,7 +799,7 @@ uint32_t LL_RCC_GetLPTIMClockFreq(uint32_t LPTIMxSource)
   *         (*) value not defined in all devices.
   * @retval SAI clock frequency (in Hz)
   *         - @ref  LL_RCC_PERIPH_FREQUENCY_NO indicates that PLL is not ready
-  *         - @ref  LL_RCC_PERIPH_FREQUENCY_NA indicates that external clock is used
+
   */
 uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
 {
@@ -838,8 +837,10 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
         break;
 
       case LL_RCC_SAI1_CLKSOURCE_PIN:        /* External input clock used as SAI1 clock source */
+        sai_frequency = EXTERNAL_SAI1_CLOCK_VALUE;
+        break;
+
       default:
-        sai_frequency = LL_RCC_PERIPH_FREQUENCY_NA;
         break;
     }
   }
@@ -874,10 +875,12 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
           }
           break;
 
-        case LL_RCC_SAI2_CLKSOURCE_PIN:      /* External input clock used as SAI2 clock source */
-        default:
-          sai_frequency = LL_RCC_PERIPH_FREQUENCY_NA;
-          break;
+      case LL_RCC_SAI2_CLKSOURCE_PIN:        /* External input clock used as SAI2 clock source */
+        sai_frequency = EXTERNAL_SAI2_CLOCK_VALUE;
+        break;
+
+      default:
+        break;
       }
     }
 #endif /* RCC_CCIPR_SAI2SEL */
@@ -1033,14 +1036,14 @@ uint32_t LL_RCC_GetRNGClockFreq(uint32_t RNGxSource)
 
 
 #if defined(RCC_HSI48_SUPPORT)
-    case LL_RCC_RNG_CLKSOURCE_HSI48:      /* HSI48 used as SDMMC1 clock source */
+    case LL_RCC_RNG_CLKSOURCE_HSI48:      /* HSI48 used as RNG clock source */
       if (LL_RCC_HSI48_IsReady())
       {
         rng_frequency = HSI48_VALUE;
       }
       break;
 #else
-    case LL_RCC_RNG_CLKSOURCE_NONE:       /* No clock used as SDMMC1 clock source */
+    case LL_RCC_RNG_CLKSOURCE_NONE:       /* No clock used as RNG clock source */
 #endif
     default:
       rng_frequency = LL_RCC_PERIPH_FREQUENCY_NA;

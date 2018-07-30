@@ -49,7 +49,7 @@ enum {
 
 // Arduino analog pins
 // Analog pins must be contiguous to be able to loop on each value
-#define MAX_ANALOG_INPUTS 20
+#define MAX_ANALOG_INPUTS 24
 _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
                "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS" );
 _Static_assert(NUM_ANALOG_FIRST >= NUM_ANALOG_INPUTS,
@@ -137,6 +137,22 @@ static const uint8_t A18 = PIN_A18;
 #if NUM_ANALOG_INPUTS > 19
 #define PIN_A19      (PIN_A18 + 1)
 static const uint8_t A19 = PIN_A19;
+#endif
+#if NUM_ANALOG_INPUTS > 20
+#define PIN_A20      (PIN_A19 + 1)
+static const uint8_t A20 = PIN_A20;
+#endif
+#if NUM_ANALOG_INPUTS > 21
+#define PIN_A21      (PIN_A20 + 1)
+static const uint8_t A21 = PIN_A21;
+#endif
+#if NUM_ANALOG_INPUTS > 22
+#define PIN_A22      (PIN_A21 + 1)
+static const uint8_t A22 = PIN_A22;
+#endif
+#if NUM_ANALOG_INPUTS > 23
+#define PIN_A23      (PIN_A22 + 1)
+static const uint8_t A23 = PIN_A23;
 #endif
 
 // Default for Arduino connector compatibility
