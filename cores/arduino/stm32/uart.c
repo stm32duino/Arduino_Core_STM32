@@ -285,6 +285,9 @@ void uart_init(serial_t *obj)
   GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
   GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
   GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
+#ifndef STM32F1xx
+  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
+#endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStruct);
 
 
