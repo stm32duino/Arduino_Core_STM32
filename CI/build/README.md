@@ -25,7 +25,7 @@ optional arguments:
   -b pattern, --board pattern
                         pattern to find one or more board(s) to build
   -c, --clean           clean output directory
-                        <user patch config>/arduinoBuilderOutput
+                        <user path config>/arduinoBuilderOutput
   --arch architecture   core architecture to build. Default build architecture
                         is stm32
   --config <core configuration file>
@@ -34,14 +34,13 @@ optional arguments:
                         build, applicability of sketches for boards or
                         required options. If sketch is not listed then
                         applicable to all board. Default core configuration is
-                        for 'stm32' architecture in: <user patch config>/arduino-
-                        builder/conf/cores_config.json
+                        for 'stm32' architecture in: conf/cores_config.json
   -v, --verbose         enable arduino-builder verbose mode
   --bin                 save binaries
   --travis              Custom configuration for Travis CI build
 
 Sketch(es) options:
-  By default build <user patch config>/arduino/examples/01.Basics/Blink/Blink.ino
+  By default build <arduino path>/examples/01.Basics/Blink/Blink.ino
 
   -i <shetch filepath>, --ino <shetch filepath>
                         single ino file to build
@@ -51,7 +50,7 @@ Sketch(es) options:
                         pattern to find one or more sketch to build
   -e <excluded sketches list filepath>, --exclude <excluded sketches list filepath>
                         file containing pattern of sketches to ignore. Default
-                        path : <user patch config>/arduino-builder/conf/exclude_list.txt
+                        path : conf/exclude_list.txt
 ```
 
 ## Cores configuration files
