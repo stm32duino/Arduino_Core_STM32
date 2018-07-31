@@ -112,7 +112,7 @@ A default configuration file is provided: [cores_config.json](conf/cores_config.
 }
 ```
 
-#### Template
+#### Examples
 
 Will add `flash=C8` option to the fqbn of the BLUEPILL_F103C8 board
 ```json
