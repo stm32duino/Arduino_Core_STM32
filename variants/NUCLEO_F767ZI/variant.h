@@ -34,46 +34,120 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  PC7,  //D0
-  PC6,  //D1
-  PG6,  //D2
-  PB4,  //D3
-  PG7,  //D4
-  PI0,  //D5
-  PH6,  //D6
-  PI3,  //D7
-  PI2,  //D8
-  PA15, //D9
-  PA8,  //D10
-  PB15, //D11
-  PB14, //D12
-  PI1,  //D13
+  PG9,  //D0
+  PG14, //D1
+  PF15, //D2
+  PE13, //D3
+  PF14, //D4
+  PE11, //D5
+  PE9,  //D6
+  PF13, //D7
+  PF12, //D8
+  PD15, //D9
+  PD14, //D10
+  PA7,  //D11
+  PA6,  //D12
+  PA5,  //D13
   PB9,  //D14
   PB8,  //D15
-  PA0,  //D16/A0
-  PF10, //D17/A1
-  PF9,  //D18/A2
-  PF8,  //D19/A3
-  PF7,  //D20/A4
-  PF6,  //D21/A5
-  PI11, //D22 User btn
-  PB7,  //D23 ST-Link Rx
-  PA9,  //D24 ST-Link Tx
+  PC6,  //D16
+  PB15, //D17
+  PB13, //D18
+  PB12, //D19
+  PA15, //D20
+  PC7,  //D21
+  PB5,  //D22
+  PB3,  //D23
+  PA4,  //D24
+  PB4,  //D25
+  PB6,  //D26
+  PB2,  //D27
+  PD13, //D28
+  PD12, //D29
+  PD11, //D30
+  PE2,  //D31
+  PA0,  //D32
+  PB0,  //D33 - LEDGREEN
+  PE0,  //D34
+  PB11, //D35
+  PB10, //D36
+  PE15, //D37
+  PE14, //D38
+  PE12, //D39
+  PE10, //D40
+  PE7,  //D41
+  PE8,  //D42
+  PC8,  //D43
+  PC9,  //D44
+  PC10, //D45
+  PC11, //D46
+  PC12, //D47
+  PD2,  //D48
+  PG2,  //D49
+  PG3,  //D50
+  PD7,  //D51
+  PD6,  //D52
+  PD5,  //D53
+  PD4,  //D54
+  PD3,  //D55
+  PE2_2,//D56
+  PE4,  //D57
+  PE5,  //D58
+  PE6,  //D59
+  PE3,  //D60
+  PF8,  //D61
+  PF7,  //D62
+  PF9,  //D63
+  PG1,  //D64
+  PG0,  //D65
+  PD1,  //D66
+  PD0,  //D67
+  PF0,  //D68
+  PF1,  //D69
+  PF2,  //D70
+  PA7_2,//D71
+  NC_1, //D72
+  PB7,  //D73 - LEDBLUE
+  PB14, //D74 - LEDRED
+  PC13, //D75 - USERBTN
+  PD9,  //D76 - Serial Rx
+  PD8,  //D77 - Serial Tx
+  PA3,  //D78/A0
+  PC0,  //D79/A1
+  PC3,  //D80/A2
+  PF3,  //D81/A3
+  PF5,  //D82/A4
+  PF10, //D83/A5
+  PB1,  //D84/A6
+  PC2,  //D85/A7
+  PF4,  //D86/A8
+  PF6,  //D87/A9
+  // Duplicated pins in order to be aligned with PinMapADC
+  PA7_3,  //D88/A10 = D11
+  PA6_2,  //D89/A11 = D12
+  PA5_2,  //D90/A12 = D13
+  PA4_2,  //D91/A13 = D24
+  PA0_2,  //D92/A14 = D32
+  PF8_2,  //D93/A15 = D61
+  PF7_2,  //D94/A16 = D62
+  PF9_2,  //D95/A17 = D63
   PEND
 };
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        25
+#define NUM_DIGITAL_PINS        96
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        16
+#define NUM_ANALOG_INPUTS       18
+#define NUM_ANALOG_FIRST        78
 
 // On-board LED pin number
-#define LED_BUILTIN             13
+#define LED_BUILTIN             PB0
 #define LED_GREEN               LED_BUILTIN
+#define LED_BLUE                PB7
+#define LED_RED                 PB14
 
 // On-board user button
-#define USER_BTN                PI11
+#define USER_BTN                PC13
 
 // Timer Definitions
 // Do not use timer used by PWM pins when possible. See PinMap_PWM.
@@ -83,11 +157,12 @@ enum {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    1 //Connected to ST-Link
-// Default pin used for 'Serial' instance (ex: ST-Link)
-// Mandatory for Firmata
-#define PIN_SERIAL_RX           PB7
-#define PIN_SERIAL_TX           PA9
+#define SERIAL_UART_INSTANCE    3 //Connected to ST-Link
+
+// Serial pin used for console (ex: stlink)
+// Rerquired by Firmata
+#define PIN_SERIAL_RX           PD9
+#define PIN_SERIAL_TX           PD8
 
 #ifdef __cplusplus
 } // extern "C"
