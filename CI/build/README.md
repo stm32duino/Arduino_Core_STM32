@@ -131,7 +131,7 @@ Will ignore `04.Communication/MultiSerial.ino` and `04.Communication/SerialPasst
   }
 ```
 
-Will build all sketch available in  `09.USB/*` for the listed boards and add `usb=HID` option to the fqbn
+Will build all sketches available in  `09.USB/*` for the listed boards and add `usb=HID` option to the fqbn
 ```json
   {
     "pattern": "09.USB",
@@ -143,5 +143,90 @@ Will build all sketch available in  `09.USB/*` for the listed boards and add `us
 
 ## Usage examples
 
-ToDo
+* List all boards containing `F1` or `L4` (not case sensitive):
 
+`python3 arduino-builder.py -l -b "F1|l4"`
+
+Will produce on the [stm32](https://github.com/stm32duino/Arduino_Core_STM32) core:
+```
+Cores configuration JSON file that will be used: conf/cores_config.json
+Build configuration for 'STM32' maintainer and 'stm32' architecture
+9 board(s) available
+BLUEPILL_F103C8
+DISCO_F100RB
+DISCO_L475VG_IOT
+MAPLEMINI_F103CB
+NUCLEO_F103RB
+NUCLEO_L432KC
+NUCLEO_L476RG
+NUCLEO_L496ZG
+NUCLEO_L496ZG-P
+```
+
+* List all sketch containing `digital` or `analog` (not case sensitive):
+
+`python3 arduino-builder.py -l sketch -s "Digital|analog"`
+
+Will produce on the [stm32](https://github.com/stm32duino/Arduino_Core_STM32) core:
+```
+Cores configuration JSON file that will be used: conf/cores_config.json
+Build configuration for 'STM32' maintainer and 'stm32' architecture
+<Arduino path>/examples/01.Basics/AnalogReadSerial/AnalogReadSerial.ino
+<Arduino path>/examples/01.Basics/DigitalReadSerial/DigitalReadSerial.ino
+<Arduino path>/examples/01.Basics/ReadAnalogVoltage/ReadAnalogVoltage.ino
+<Arduino path>/examples/02.Digital/BlinkWithoutDelay/BlinkWithoutDelay.ino
+<Arduino path>/examples/02.Digital/Button/Button.ino
+<Arduino path>/examples/02.Digital/Debounce/Debounce.ino
+<Arduino path>/examples/02.Digital/DigitalInputPullup/DigitalInputPullup.ino
+<Arduino path>/examples/02.Digital/StateChangeDetection/StateChangeDetection.ino
+<Arduino path>/examples/02.Digital/toneKeyboard/toneKeyboard.ino
+<Arduino path>/examples/02.Digital/toneMelody/toneMelody.ino
+<Arduino path>/examples/02.Digital/toneMultiple/toneMultiple.ino
+<Arduino path>/examples/02.Digital/tonePitchFollower/tonePitchFollower.ino
+<Arduino path>/examples/03.Analog/AnalogInOutSerial/AnalogInOutSerial.ino
+<Arduino path>/examples/03.Analog/AnalogInput/AnalogInput.ino
+<Arduino path>/examples/03.Analog/AnalogWriteMega/AnalogWriteMega.ino
+<Arduino path>/examples/03.Analog/Calibration/Calibration.ino
+<Arduino path>/examples/03.Analog/Fading/Fading.ino
+<Arduino path>/examples/03.Analog/Smoothing/Smoothing.ino
+<Arduino path>/examples/10.StarterKit_BasicKit/p08_DigitalHourglass/p08_DigitalHourglass.ino
+19 sketches found
+```
+
+* Build all sketches containing `digital` or `analog` for all boards containing `F1` or `L4` (not case sensitive):
+
+`python3 arduino-builder.py -s "Digital|analog"`
+
+* List all boards for STM32F1 core:
+
+`python3 arduino-builder.py -l --arch STM32F1`
+
+Will list:
+```
+Cores configuration JSON file that will be used: conf/cores_config.json
+Build configuration for 'Arduino_STM32' maintainer and 'STM32F1' architecture
+23 board(s) available
+NucleoF103_HSE
+NucleoF103_HSI
+STM32F103C8
+STM32F103CB
+STM32F103R8
+STM32F103RB
+STM32F103RC
+STM32F103RE
+STM32F103T8
+STM32F103TB
+STM32F103VB
+STM32F103VC
+STM32F103VD
+STM32F103VE
+STM32F103ZC
+STM32F103ZD
+STM32F103ZE
+STM32VLD
+hytiny-stm32f103t
+maple
+mapleMini
+mapleRET6
+microduino32_flash
+```
