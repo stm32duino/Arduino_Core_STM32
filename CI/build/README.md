@@ -56,7 +56,90 @@ Sketch(es) options:
 
 ## Cores configuration files
 
-ToDo
+Script is able to uses a JSON configuration file containing the build configuration for one or more maintainer/architecture. 
+A default configuration file is provided: [cores_config.json](conf/cores_config.json)
+
+
+#### Template
+```json
+{
+  "cores": [
+    {
+      "maintainer": "maintainer/vendor name",
+      "architecture": "architecture name",
+      "boards": [
+        {
+          "name": "board1",
+          "options": "specific options for board1 to concatenate with the fqbn"
+        },
+        {
+          "name": "board2",
+          "fqbn": "Fully Qualified Board Name and options, used instead of generated one"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "sketche(s) pattern",
+          "applicable": true,
+          "boards": [ "List of boards (comma separated) which can be built for the sketche(s) pattern. Only those listed board will be built." ],
+          "options": "specific options to build the matched sketch pattern to concatenate with the fqbn (optional)"
+        },
+        {
+          "pattern": "sketche(s) pattern",
+          "applicable": false,
+          "boards": [ "List of boards (comma separated) which cannot be built for the sketche(s) pattern. All others available boards will be built." ]
+        }
+      ]
+    },
+    {
+      "maintainer": "Other maintainer/vendor name",
+      "architecture": "Other architecture name",
+      "boards": [
+        {
+          "name": "boardx",
+          "options": "specific options for board1 to concatenate with the fqbn"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "sketchbook",
+          "applicable": true,
+          "boards": [ "" ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Template
+
+Will add `flash=C8` option to the fqbn of the BLUEPILL_F103C8 board
+```json
+  {
+    "name": "BLUEPILL_F103C8",
+    "options": "flash=C8"
+  }
+```
+
+Will ignore `04.Communication/MultiSerial.ino` and `04.Communication/SerialPassthrough.ino`
+```json
+  {
+    "pattern": "04.Communication/(Multi)?Serial(Passthrough)?",
+    "applicable": true,
+    "boards": [ "" ]
+  }
+```
+
+Will build all sketch available in  `09.USB/*` for the listed boards and add `usb=HID` option to the fqbn
+```json
+  {
+    "pattern": "09.USB",
+    "applicable": true,
+    "boards": [ "NUCLEO_F429ZI", "DISCO_L475VG_IOT", "DISCO_F407VG" ],
+    "options": "usb=HID"
+  }
+```
 
 ## Usage examples
 
