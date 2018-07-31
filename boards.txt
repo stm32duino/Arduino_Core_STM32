@@ -73,6 +73,18 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_F767ZI board
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P=Nucleo F767ZI
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.node=NODE_F767ZI
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_data_size=524288
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.mcu=cortex-m7 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_F767ZI
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32F7xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32F767xx
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=NUCLEO_F767ZI
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM7l_math
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
