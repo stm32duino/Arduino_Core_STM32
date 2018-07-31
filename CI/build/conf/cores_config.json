@@ -1,0 +1,115 @@
+{
+  "cores": [
+    {
+      "maintainer": "STM32",
+      "architecture": "stm32",
+      "boards": [
+        {
+          "name": "NUCLEO_L031K6",
+          "options": "opt=oslto"
+        },
+        {
+          "name": "BLUEPILL_F103C8",
+          "options": "flash=C8"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
+          "applicable": true,
+          "boards": [ "DISCO_L475VG_IOT" ]
+        },
+        {
+          "pattern": "SPBTLE_BeaconDemo.ino|SPBTLE_SensorDemo.ino|BTLE_sensors_TimeOfFlight_demo.ino",
+          "applicable": true,
+          "boards": [ "DISCO_L475VG_IOT" ]
+        },
+        {
+          "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io.ino|Hello_stm32",
+          "applicable": true,
+          "boards": [ "NUCLEO_F429ZI", "DISCO_F746NG" ]
+        },
+        {
+          "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io.ino|mqtt_B-L475E-IOT01A.ino",
+          "applicable": true,
+          "boards": [ "DISCO_L475VG_IOT" ]
+        },
+        {
+          "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
+          "applicable": false,
+          "boards": [
+            "NUCLEO_L031K6",
+            "NUCLEO_L432KC",
+            "NUCLEO_F303K8",
+            "BLUEPILL_F103C8",
+            "MAPLEMINI_F103CB",
+            "RAK811_TRACKER"
+          ]
+        },
+        {
+          "pattern": "04.Communication/(Multi)?Serial(Passthrough)?",
+          "applicable": true,
+          "boards": [ "" ]
+        },
+        {
+          "pattern": "STM32SD",
+          "applicable": true,
+          "boards": [ "DISCO_F746NG" ]
+        },
+        {
+          "pattern": "09.USB",
+          "applicable": true,
+          "boards": [ "NUCLEO_F429ZI", "DISCO_L475VG_IOT", "DISCO_F407VG" ],
+          "options": "usb=HID"
+        },
+        {
+          "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
+          "applicable": false,
+          "boards": [
+            "NUCLEO_L031K6",
+            "NUCLEO_L432KC",
+            "NUCLEO_F303K8",
+            "BLUEPILL_F103C8",
+            "MAPLEMINI_F103CB",
+            "RAK811_TRACKER"
+          ]
+        },
+        {
+          "pattern": "X_NUCLEO_IKA01A1_HelloWorld.ino|X_NUCLEO_IHM02A1_HelloWorld.ino",
+          "applicable": false,
+          "boards": [ "RAK811_TRACKER" ]
+        }
+      ]
+    },
+    {
+      "maintainer": "Arduino_STM32",
+      "architecture": "STM32F1",
+      "boards": [
+        {
+          "name": "mapleMini",
+          "options": "bootloader_version=original,cpu_speed=speed_72mhz"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "sketchbook",
+          "applicable": true,
+          "boards": [ "" ]
+        }
+      ]
+    },
+    {
+      "maintainer": "Arduino_STM32",
+      "architecture": "STM32F4",
+      "boards": [
+      ],
+      "sketches": [
+        {
+          "pattern": "",
+          "applicable": false,
+          "boards": [ "netduino2plus" ]
+        }
+      ]
+    }
+  ]
+}
