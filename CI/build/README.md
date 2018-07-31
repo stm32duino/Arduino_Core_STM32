@@ -195,7 +195,7 @@ Build configuration for 'STM32' maintainer and 'stm32' architecture
 
 * Build all sketches containing `digital` or `analog` for all boards containing `F1` or `L4` (not case sensitive):
 
-`python3 arduino-builder.py -s "Digital|analog"`
+`python3 arduino-builder.py -s "Digital|analog" -b "F1|l4"` 
 
 * List all boards for STM32F1 core:
 
