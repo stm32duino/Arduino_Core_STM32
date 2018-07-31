@@ -1,33 +1,32 @@
 /*
-******************************************************************************
-File:     ldscript.ld
+*****************************************************************************
+**
 
-Abstract: Linker script for STM32F765VI device
-          Set heap size, stack size, stack location, memory areas and 
-          sections according to application requirements. 
-
-The MIT License (MIT)
-Copyright (c) 2018 STMicroelectronics
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-******************************************************************************
+**  File        : LinkerScript.ld
+**
+**  Abstract    : Linker script for STM32F765VITx Device with
+**                2048KByte FLASH, 512KByte RAM
+**
+**                Set heap size, stack size and stack location according
+**                to application requirements.
+**
+**                Set memory bank area and size if external memory is used.
+**
+**  Target      : STMicroelectronics STM32
+**
+**
+**  Distribution: The file is distributed as is, without any warranty
+**                of any kind.
+**
+**  (c)Copyright Ac6.
+**  You may use this file as-is or modify it according to the needs of your
+**  project. Distribution of this file (unmodified or modified) is not
+**  permitted. Ac6 permit registered System Workbench for MCU users the
+**  rights to distribute the assembled, compiled & linked contents of this
+**  file as part of an application binary file, provided that it is built
+**  using the System Workbench for MCU toolchain.
+**
+*****************************************************************************
 */
 
 /* Entry Point */
@@ -35,19 +34,15 @@ ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
 _estack = 0x20080000;    /* end of RAM */
-
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0;      /* required amount of heap  */
+_Min_Heap_Size = 0x200;  /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
 
 /* Specify the memory areas */
 MEMORY
 {
-  FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 2048K
-  DTCMRAM (xrw)   : ORIGIN = 0x20000000, LENGTH = 128K
-  SRAM1 (xrw)     : ORIGIN = 0x20020000, LENGTH = 368K
-  SRAM2 (xrw)     : ORIGIN = 0x2007C000, LENGTH = 16K
-  MEMORY_B1 (rx)  : ORIGIN = 0x60000000, LENGTH = 0K
+RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 512K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 2048K
 }
 
 /* Define output sections */
@@ -128,47 +123,9 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >SRAM1 AT> FLASH
+  } >RAM AT> FLASH
+
   
-  _sidtcmram = LOADADDR(.dtcmram);
-
-  /* DTCMRAM section 
-  * 
-  * IMPORTANT NOTE! 
-  * If initialized variables will be placed in this section, 
-  * the startup code needs to be modified to copy the init-values.  
-  */
-  .dtcmram :
-  {
-    . = ALIGN(4);
-    _sdtcmram = .;       /* create a global symbol at dtcmram start */
-    *(.dtcmram)
-    *(.dtcmram*)
-    
-    . = ALIGN(4);
-    _edtcmram = .;       /* create a global symbol at dtcmram end */
-  } >DTCMRAM AT> FLASH
-
- _sisram2 = LOADADDR(.sram2);
-
-  /* SRAM2 section 
-  * 
-  * IMPORTANT NOTE! 
-  * If initialized variables will be placed in this section, 
-  * the startup code needs to be modified to copy the init-values.  
-  */
-  .sram2 :
-  {
-    . = ALIGN(4);
-    _ssram2 = .;       /* create a global symbol at sram2 start */
-    *(.sram2)
-    *(.sram2*)
-    
-    . = ALIGN(4);
-    _esram2 = .;       /* create a global symbol at sram2 end */
-  } >SRAM2 AT> FLASH
-
-
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
@@ -183,28 +140,20 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >SRAM1
+  } >RAM
 
-  /* User_heap_stack section, used to check that there is enough SRAM1 left */
+  /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {
-    . = ALIGN(4);
+    . = ALIGN(8);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
-    . = ALIGN(4);
-  } >SRAM1
+    . = ALIGN(8);
+  } >RAM
 
-  /* MEMORY_bank1 section, code must be located here explicitly            */
-  /* Example: extern int foo(void) __attribute__ ((section (".mb1text"))); */
-  .memory_b1_text :
-  {
-    *(.mb1text)        /* .mb1text sections (code) */
-    *(.mb1text*)       /* .mb1text* sections (code)  */
-    *(.mb1rodata)      /* read-only data (constants) */
-    *(.mb1rodata*)
-  } >MEMORY_B1
+  
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
