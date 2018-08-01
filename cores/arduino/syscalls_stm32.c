@@ -75,7 +75,12 @@ int _read( UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) ) {
 
 __attribute__((weak))
 int _write( UNUSED(int file), char *ptr, int len ) {
+#ifdef HAL_UART_MODULE_ENABLED
   return uart_debug_write((uint8_t *)ptr, (uint32_t)len);
+#else
+  (void)ptr;
+  return len;
+#endif
 }
 
 __attribute__((weak))
