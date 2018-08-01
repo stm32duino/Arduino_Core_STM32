@@ -68,6 +68,10 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
+  * STM32L4
+    * [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html)
+    * [NUCLEO-L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html)
+
 
 
 ## Troubleshooting
