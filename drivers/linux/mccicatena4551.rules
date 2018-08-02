@@ -1,0 +1,6 @@
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="DF11", ENV{ID_MM_DEVICE_IGNORE}="1"
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="DF11", ENV{MTP_NO_PROBE}="1"
+ATTRS{idVendor}=="0483", ATTRS{idProduct}=="DF11", ENV{UDISKS_AUTO}="0"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="df11", MODE:="0666"
