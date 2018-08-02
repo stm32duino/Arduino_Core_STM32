@@ -8,9 +8,10 @@ For general information, please check the stm32duino [README.md](https://github.
 
 - [Latest release](#latest-release)
 - [Getting Started](#getting-started)
+- [Features](#features)
 - [Supported Boards and CPUs](#supported-boards-and-cpus)
 - [Troubleshooting](#troubleshooting)
-- [Developing](#developing)
+- [Installing a Development Copy of this BSP](#installing-a-development-copy-of-this-bsp)
 - [Notes and Acknowledgements](#notes-and-acknowledgements)
 - [Support Open-Source Software, Hardware, and Community IoT!](#support-open-source-software-hardware-and-community-iot)
 
@@ -18,7 +19,7 @@ For general information, please check the stm32duino [README.md](https://github.
 
 ## Latest release
 
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v1.0.8-mcci...master)
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v1.1.0...master)
 
 ## Getting Started
 
@@ -27,6 +28,16 @@ This repository is available as a package usable with the [Arduino Boards Manage
 `https://github.com/mcci-catena/arduino-boards/raw/master/BoardManagerFiles/package_mcci_index.json`
 
 For full instructions on using the "**Boards Manager**", see  [Installing the MCCI Catena BSP](https://github.com/mcci-catena/arduino-boards#installing-the-mcci-catena-bsp).
+
+## Features
+
+The Arduino IDE allows you to select the following items.
+
+- **LoRaWAN Region**: when using the Arduino LMIC, you can select North America, Europ, Australia, Asia, Japan, or India as your target region.
+- **Optimization**: choose smallest, fast, faster, fastest, or debug.
+- **Serial interface**: Select "No Serial", "Generic Serial" (one serial port), "All serial" (as many as are supported), or "First third" for ports 1 through three.
+- **USB interface**: Either "USB Serial" or "No USB". If "USB: USB Serial" and "Serial: No Serial" are both supported, then Serial will be UsbSerial.
+- **Upload method**: select Mass Storage, DFU, or STLink. DFU works well, but requires use of the boot jumper to select DFU mode, and a little driver wrangling on Windows.
 
 ## Supported Boards and CPUs
 
@@ -38,7 +49,7 @@ For full instructions on using the "**Boards Manager**", see  [Installing the MC
 
 If you have any issue, you may [file an issue on Github](https://github.com/mcci-catena/Arduino_Core_STM32/issues/new).  You may also submit a support request on the [MCCI support forum](http://portal.mcci.com).
 
-## Developing
+## Installing a Development Copy of this BSP
 
 If you want to develop and test changes to this package, we suggest the following.
 
@@ -68,7 +79,7 @@ Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or 
 
 ## Notes and Acknowledgements
 
-MCCI and MCCI Catena are registered trademarks of MCCI Corporation.
+MCCI and MCCI Catena are registered trademarks of MCCI Corporation. ChaeHee Won, Sungjoon Park, and Terry Moore of MCCI maintain this BSP.
 
 LoRa is a registered trademark of the LoRa Alliance. LoRaWAN is a trademark of the LoRa Alliance.
 
