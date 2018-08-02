@@ -73,6 +73,30 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_L4R5ZI board
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI=Nucleo L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.node=NODE_L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.upload.maximum_data_size=655360
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.board=NUCLEO_L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.series=STM32L4xx
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.product_line=STM32L4R5xx
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.variant=NUCLEO_L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# NUCLEO_L4R5ZI-P board
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P=Nucleo L4R5ZI-P
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.node=NODE_L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.upload.maximum_data_size=655360
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.board=NUCLEO_L4R5ZI_P
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.series=STM32L4xx
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.product_line=STM32L4R5xx
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.variant=NUCLEO_L4R5ZI
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=

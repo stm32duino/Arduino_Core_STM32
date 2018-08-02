@@ -617,13 +617,13 @@
 ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
 {
   ErrorStatus status = SUCCESS;
-  
+
   /* Check the parameters */
   assert_param(IS_COMP_ALL_INSTANCE(COMPx));
-  
+
   /* Note: Hardware constraint (refer to description of this function):       */
   /*       COMP instance must not be locked.                                  */
-  if(LL_COMP_IsLocked(COMPx) == 0U)
+  if (LL_COMP_IsLocked(COMPx) == 0U)
   {
     LL_COMP_WriteReg(COMPx, CSR, 0x00000000U);
   }
@@ -634,7 +634,7 @@ ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
     /* The only way to unlock the comparator is a device hardware reset.       */
     status = ERROR;
   }
-  
+
   return status;
 }
 
@@ -653,7 +653,7 @@ ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
 ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStruct)
 {
   ErrorStatus status = SUCCESS;
-  
+
   /* Check the parameters */
   assert_param(IS_COMP_ALL_INSTANCE(COMPx));
   assert_param(IS_LL_COMP_POWER_MODE(COMP_InitStruct->PowerMode));
@@ -663,10 +663,10 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
   assert_param(IS_LL_COMP_OUTPUT_SELECTION(COMPx, COMP_InitStruct->OutputSelection));
   assert_param(IS_LL_COMP_OUTPUT_POLARITY(COMP_InitStruct->OutputPolarity));
   assert_param(IS_LL_COMP_OUTPUT_BLANKING_SOURCE(COMPx, COMP_InitStruct->OutputBlankingSource));
-  
+
   /* Note: Hardware constraint (refer to description of this function)        */
   /*       COMP instance must not be locked.                                  */
-  if(LL_COMP_IsLocked(COMPx) == 0U)
+  if (LL_COMP_IsLocked(COMPx) == 0U)
   {
     /* Configuration of comparator instance :                                 */
     /*  - PowerMode                                                           */
@@ -714,7 +714,7 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
     /* Initialization error: COMP instance is locked.                         */
     status = ERROR;
   }
-  
+
   return status;
 }
 
@@ -870,18 +870,18 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
 ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
 {
   ErrorStatus status = SUCCESS;
-  
+
   /* Check the parameters */
   assert_param(IS_COMP_ALL_INSTANCE(COMPx));
-  
+
   /* Note: Hardware constraint (refer to description of this function):       */
   /*       COMP instance must not be locked.                                  */
-  if(LL_COMP_IsLocked(COMPx) == 0U)
+  if (LL_COMP_IsLocked(COMPx) == 0U)
   {
     /* Note: Connection switch is applicable only to COMP instance COMP1,     */
     /*       therefore is COMP2 is selected the equivalent bit is             */
     /*       kept unmodified.                                                 */
-    if(COMPx == COMP1)
+    if (COMPx == COMP1)
     {
       CLEAR_BIT(COMP->CSR,
                 (  COMP_CSR_COMP1MODE
@@ -906,7 +906,7 @@ ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
                 ) << __COMP_BITOFFSET_INSTANCE(COMPx)
                );
     }
-    
+
   }
   else
   {
@@ -915,7 +915,7 @@ ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
     /* The only way to unlock the comparator is a device hardware reset.       */
     status = ERROR;
   }
-  
+
   return status;
 }
 
@@ -934,7 +934,7 @@ ErrorStatus LL_COMP_DeInit(COMP_TypeDef *COMPx)
 ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStruct)
 {
   ErrorStatus status = SUCCESS;
-  
+
   /* Check the parameters */
   assert_param(IS_COMP_ALL_INSTANCE(COMPx));
   assert_param(IS_LL_COMP_POWER_MODE(COMP_InitStruct->PowerMode));
@@ -943,10 +943,10 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
   assert_param(IS_LL_COMP_INPUT_HYSTERESIS(COMP_InitStruct->InputHysteresis));
   assert_param(IS_LL_COMP_OUTPUT_SELECTION(COMP_InitStruct->OutputSelection));
   assert_param(IS_LL_COMP_OUTPUT_POLARITY(COMP_InitStruct->OutputPolarity));
-  
+
   /* Note: Hardware constraint (refer to description of this function)        */
   /*       COMP instance must not be locked.                                  */
-  if(LL_COMP_IsLocked(COMPx) == 0U)
+  if (LL_COMP_IsLocked(COMPx) == 0U)
   {
     /* Configuration of comparator instance :                                 */
     /*  - PowerMode                                                           */
@@ -958,7 +958,7 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
     /* Note: Connection switch is applicable only to COMP instance COMP1,     */
     /*       therefore is COMP2 is selected the equivalent bit is             */
     /*       kept unmodified.                                                 */
-    if(COMPx == COMP1)
+    if (COMPx == COMP1)
     {
       MODIFY_REG(COMP->CSR,
                  (  COMP_CSR_COMP1MODE
@@ -997,14 +997,14 @@ ErrorStatus LL_COMP_Init(COMP_TypeDef *COMPx, LL_COMP_InitTypeDef *COMP_InitStru
                  ) << __COMP_BITOFFSET_INSTANCE(COMPx)
                 );
     }
-    
+
   }
   else
   {
     /* Initialization error: COMP instance is locked.                         */
     status = ERROR;
   }
-  
+
   return status;
 }
 
