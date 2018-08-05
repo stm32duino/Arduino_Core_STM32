@@ -82,8 +82,8 @@ extern "C"
       PB_10, // D24 - Z_STEP
       PB_11, // D25 - E_STEP
       // TIM3
-      PB_4, // D26 - PWM_EXT1
-      PB_5, // D27 - PWM_EXT2
+      PB_5, // D26 - PWM_EXT1
+      PB_4, // D27 - PWM_EXT2
       PC_8, // D28 - PWM_EXT3
       PC_9, // D29 - PWM_EXT4
       // TIM5
