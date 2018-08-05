@@ -27,7 +27,8 @@ mcci_catena_4551.node=NODE_CATENA_4551
 mcci_catena_4551.upload.maximum_size=196608
 mcci_catena_4551.upload.maximum_data_size=20480
 mcci_catena_4551.build.mcu=cortex-m0
-mcci_catena_4551.build.board=MCCI_CATENA_4551
+# this turns into ARDUINO_CATENA_4551 and that gets used...
+mcci_catena_4551.build.board=CATENA_4551
 mcci_catena_4551.build.series=STM32L0xx
 mcci_catena_4551.build.product_line=STM32L082xx
 mcci_catena_4551.build.variant=CATENA_4551
