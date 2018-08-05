@@ -1,5 +1,3 @@
-#include "stm32_def_build.h"
-
 #ifdef STM32F0xx
 #include "stm32f0xx_hal_gpio.c"
 #endif

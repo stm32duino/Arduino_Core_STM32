@@ -36,6 +36,7 @@
   ******************************************************************************
   */
 #include "clock.h"
+#include "stm32yyxx_ll_cortex.h"
 
 #ifdef __cplusplus
  extern "C" {
