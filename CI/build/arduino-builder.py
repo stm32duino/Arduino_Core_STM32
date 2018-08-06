@@ -122,7 +122,7 @@ bin_dir = "binaries"
 
 # Default
 sketch_default = os.path.join(
-    arduino_sketchbook_path, "01.Basics", "Blink", "Blink.ino"
+    arduino_sketchbook_path, "01.Basics", "BareMinimum", "BareMinimum.ino"
 )
 exclude_file_default = os.path.join("conf", "exclude_list.txt")
 cores_config_file_default = os.path.join("conf", "cores_config.json")
