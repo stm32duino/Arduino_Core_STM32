@@ -34,14 +34,10 @@ void initVariant() { }
 #ifdef NVIC_PRIORITYGROUP_4
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 #endif
-#if (__CORTEX_M == 0x07U)
+#if (__CORTEX_M == 0x07U) && !defined(UNUSED_ID_CACHE)
 // Defined in CMSIS core_cm7.h
-#ifndef I_CACHE_DISABLED
   SCB_EnableICache();
-#endif
-#ifndef D_CACHE_DISABLED
   SCB_EnableDCache();
-#endif
 #endif
 
   init();
