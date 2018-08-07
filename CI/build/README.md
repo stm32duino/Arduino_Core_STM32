@@ -40,7 +40,7 @@ optional arguments:
   --travis              Custom configuration for Travis CI build
 
 Sketch(es) options:
-  By default build <arduino path>/examples/01.Basics/Blink/Blink.ino
+  By default build <arduino path>/examples/01.Basics/BareMinimum/BareMinimum.ino
 
   -i <shetch filepath>, --ino <shetch filepath>
                         single ino file to build
