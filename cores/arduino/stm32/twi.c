@@ -355,6 +355,11 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
   uint32_t tickstart = HAL_GetTick();
   uint32_t delta = 0;
 
+  /* When size is 0, this is usually an I2C scan / ping to check if device is there and ready */
+  if (size == 0) {
+    return i2c_IsDeviceReady(obj, dev_address, 1);
+  }
+
   do{
     if(HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK){
       ret = I2C_OK;
@@ -447,8 +452,19 @@ i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials)
 {
   i2c_status_e ret = HAL_OK;
 
-  if(HAL_I2C_IsDeviceReady( &(obj->handle), devAddr, trials, I2C_TIMEOUT_TICK) != HAL_OK) {
-    ret = I2C_BUSY;
+  switch (HAL_I2C_IsDeviceReady( &(obj->handle), devAddr, trials, I2C_TIMEOUT_TICK)) {
+    case HAL_OK:
+      ret = HAL_OK;
+      break;
+    case HAL_TIMEOUT:
+      ret = I2C_TIMEOUT;
+      break;
+    case HAL_BUSY:
+      ret = I2C_BUSY;
+      break;
+    default:
+      ret = I2C_TIMEOUT;
+      break;
   }
 
   return ret;
