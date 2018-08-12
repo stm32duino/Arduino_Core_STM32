@@ -47,7 +47,7 @@ enum {
   PA7,  //D2      RADIO_MOSI   Murata internal
   PA6,  //D3      RADIO_MISO   Murata internal
   PB3,  //D4      RADIO_SCK    Murata internal
-  PB5,  //D5      D5
+  PB6,  //D5      D5
   PA13, //D6      D6_SWDIO
   PA15, //D7      RADIO_NSS    Murata internal
   PC0,  //D8      RADIO_RESET  Murata internal
@@ -74,6 +74,7 @@ enum {
   PA1,  //D29     RADIO_ANT_SWITCH_RX       CRF1  Murata internal
   PC1,  //D30     RADIO_ANT_SWITCH_TX_BOOST CRF3  Murata internal
   PC2,  //D31     RADIO_ANT_SWITCH_TX_RFO   CRF2  Murata internal
+  PB5,  //D32     Flash Write-protect
   PEND
 };
 
