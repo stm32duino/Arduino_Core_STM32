@@ -148,18 +148,6 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Uploader tool
 # -------------------
 
-#Upload to board via mass storage
-tools.massStorageCopy.cmd=massStorageCopy
-tools.massStorageCopy.cmd.windows=massStorageCopy.bat
-tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
-tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
-tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.massStorageCopy.path.linux64={runtime.tools.STM32Tools.path}/tools/linux
-tools.massStorageCopy.upload.params.verbose=
-tools.massStorageCopy.upload.params.quiet=
-tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
-
 # ST-Link upload
 tools.stlink_upload.cmd=stlink_upload
 tools.stlink_upload.cmd.windows=stlink_upload.bat
