@@ -47,7 +47,7 @@ enum {
   PA7,  //D2      RADIO_MOSI   Murata internal
   PA6,  //D3      RADIO_MISO   Murata internal
   PB3,  //D4      RADIO_SCK    Murata internal
-  PB5,  //D5      D5
+  PB6,  //D5      D5
   PA13, //D6      D6_SWDIO
   PA15, //D7      RADIO_NSS    Murata internal
   PC0,  //D8      RADIO_RESET  Murata internal
