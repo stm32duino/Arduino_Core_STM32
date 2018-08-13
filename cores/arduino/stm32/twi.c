@@ -75,6 +75,8 @@
 
 #define SLAVE_MODE_TRANSMIT     0
 #define SLAVE_MODE_RECEIVE      1
+#define SLAVE_MODE_LISTEN       2
+
 
 /**
   * @}
@@ -283,6 +285,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   HAL_I2C_Init(handle);
 
   obj->isMaster = master;
+  /* Initialize default values */
+  obj->slaveRxNbData = 0;
+  obj->slaveMode = SLAVE_MODE_LISTEN;
 }
 
 /**
@@ -395,8 +400,9 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
   // Check the communication status
   for(i = 0; i < size; i++) {
     obj->i2cTxRxBuffer[i] = *(data+i);
-    obj->i2cTxRxBufferSize++;
   }
+
+  obj->i2cTxRxBufferSize = size;
 
   return I2C_OK;
 }
@@ -509,8 +515,6 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
 
   if(AddrMatchCode == hi2c->Init.OwnAddress1) {
     if(TransferDirection == I2C_DIRECTION_RECEIVE) {
-
-      obj->i2cTxRxBufferSize = 0;
       obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
       if(obj->i2c_onSlaveTransmit != NULL) {
@@ -519,9 +523,12 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, obj->i2cTxRxBuffer,
                                            obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
     } else {
+      obj->slaveRxNbData = 0;
       obj->slaveMode = SLAVE_MODE_RECEIVE;
-      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, obj->i2cTxRxBuffer,
-                                          I2C_TXRX_BUFFER_SIZE, I2C_LAST_FRAME);
+      /*  We don't know in advance how many bytes will be sent by master so
+       *  we'll fetch one by one until master ends the sequence */
+      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+                                          1, I2C_NEXT_FRAME);
     }
   }
 }
@@ -534,17 +541,54 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
   */
 void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
 {
-  uint8_t nbData = 0;
   i2c_t *obj = get_i2c_obj(hi2c);
 
+  /*  Previous master transaction now ended, so inform upper layer if needed
+   *  then prepare for listeing to next request */
   if((obj->i2c_onSlaveReceive != NULL) &&
     (obj->slaveMode == SLAVE_MODE_RECEIVE)) {
-    nbData = I2C_TXRX_BUFFER_SIZE - obj->handle.XferSize;
-    if(nbData != 0) {
-      obj->i2c_onSlaveReceive(obj->i2cTxRxBuffer, nbData);
+    if(obj->slaveRxNbData != 0) {
+      obj->i2c_onSlaveReceive(obj->i2cTxRxBuffer, obj->slaveRxNbData);
     }
   }
+  obj->slaveMode = SLAVE_MODE_LISTEN;
+  obj->slaveRxNbData = 0;
   HAL_I2C_EnableListen_IT(hi2c);
+}
+
+/**
+  * @brief Slave RX complete callback
+  * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
+  *                the configuration information for the specified I2C.
+  * @retval None
+  */
+void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  i2c_t *obj = get_i2c_obj(hi2c);
+  /* One more byte was received, store it then prepare next */
+  if(obj->slaveRxNbData < I2C_TXRX_BUFFER_SIZE) {
+    obj->slaveRxNbData++;
+  } else {
+    printf("ERROR: I2C Slave RX overflow\n");
+  }
+  /* Restart interrupt mode for next Byte */
+  if(obj->slaveMode == SLAVE_MODE_RECEIVE) {
+      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+                                          1, I2C_NEXT_FRAME);
+  }
+}
+
+/**
+  * @brief Slave TX complete callback
+  * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
+  *                the configuration information for the specified I2C.
+  * @retval None
+  */
+void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
+{
+  i2c_t *obj = get_i2c_obj(hi2c);
+  /*  reset transmit buffer size */
+  obj->i2cTxRxBufferSize = 0;
 }
 
 /**
