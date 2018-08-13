@@ -263,7 +263,12 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   handle->Init.Timing      = timing;
 #else
   handle->Init.ClockSpeed      = timing;
-  handle->Init.DutyCycle       = I2C_DUTYCYCLE_2;
+  /* Standard mode (sm) is up to 100kHz, then it's Fast mode (fm)     */
+  /* In fast mode duty cyble bit must be set in CCR register          */
+  if(timing > 100000)
+    handle->Init.DutyCycle       = I2C_DUTYCYCLE_16_9;
+  else
+    handle->Init.DutyCycle       = I2C_DUTYCYCLE_2;
 #endif
   handle->Init.OwnAddress1     = ownAddress;
   handle->Init.OwnAddress2     = 0xFF;
@@ -331,6 +336,12 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
   obj->handle.Init.Timing = f;
 #else
   obj->handle.Init.ClockSpeed = f;
+  /* Standard mode (sm) is up to 100kHz, then it's Fast mode (fm)     */
+  /* In fast mode duty cyble bit must be set in CCR register          */
+  if(frequency > 100000)
+    obj->handle.Init.DutyCycle       = I2C_DUTYCYCLE_16_9;
+  else
+    obj->handle.Init.DutyCycle       = I2C_DUTYCYCLE_2;
 #endif
 /*
   else if(frequency <= 600000)
