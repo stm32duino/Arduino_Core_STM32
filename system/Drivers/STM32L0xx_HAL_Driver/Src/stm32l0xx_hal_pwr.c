@@ -42,6 +42,11 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l0xx_hal.h"
 
+// for some reason, this bit is not defined by CMSIS!
+#define SYSCFG_CFGR3_EN_VREFINT_Pos	(0u)
+#define	SYSCFG_CFGR3_EN_VREFINT_Msk	(1u << SYSCFG_CFGR3_EN_VREFINT_Pos)
+#define SYSCFG_CFGR3_EN_VREFINT		SYSCFG_CFGR3_EN_VREFINT_Msk
+
 #ifdef HAL_PWR_MODULE_ENABLED
 /** @addtogroup STM32L0xx_HAL_Driver
   * @{
@@ -476,6 +481,7 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 {
    uint32_t tmpreg = 0U;
+
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
@@ -491,7 +497,7 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 
   /* Store the new value */
   PWR->CR = tmpreg;
-  
+
   /* Clear SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
@@ -537,6 +543,8 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 {
   uint32_t tmpreg = 0U;
+  uint32_t save_pwr_cr = 0u;
+  uint32_t save_syscfg_cfgr3 = 0u;
 
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
@@ -544,6 +552,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 
   /* Select the regulator state in Stop mode ---------------------------------*/
   tmpreg = PWR->CR;
+  save_pwr_cr = tmpreg;
   
   /* Clear PDDS and LPDS bits */
   CLEAR_BIT(tmpreg, (PWR_CR_PDDS | PWR_CR_LPSDSR));
@@ -557,11 +566,22 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
+  /* tmm: put us in ultra-low-power mode */
+  save_syscfg_cfgr3 = SYSCFG->CFGR3;
+  if (Regulator == PWR_LOWPOWERREGULATOR_ON)
+  {
+    // per datasheet 10.2.3 "it's forbiddent to have ULP and EN_VREFINT"
+    SYSCFG->CFGR3 = save_syscfg_cfgr3 & ~SYSCFG_CFGR3_EN_VREFINT;
+    PWR->CR |= (PWR_CR_FWU | PWR_CR_ULP);
+  }
   /* Select Stop mode entry --------------------------------------------------*/
   if(STOPEntry == PWR_STOPENTRY_WFI)
   {
     /* Request Wait For Interrupt */
+    uint32_t const save_flash_acr = FLASH->ACR; 
+    FLASH->ACR = save_flash_acr | FLASH_ACR_SLEEP_PD;
     __WFI();
+    FLASH->ACR = save_flash_acr;
   }
   else
   {
@@ -574,6 +594,9 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
+  /* restore the register we stuffed */
+  PWR->CR = save_pwr_cr;
+  SYSCFG->CFGR3 = save_syscfg_cfgr3;
 }
 
 /**
