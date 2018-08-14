@@ -32,7 +32,7 @@
 // Use it by "Wire" without pin declaration
 //
 // I2C-1 alternative pins: PB9(sda) PB8(scl)
-// Remap the first I2C befoure call begin
+// Remap the first I2C before call begin()
 // Wire.setSDA(PB9);
 // Wire.setSCL(PB8);
 // Wire.begin();
