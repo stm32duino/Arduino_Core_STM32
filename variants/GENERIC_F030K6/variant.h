@@ -47,43 +47,43 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  PA_0,  //D0
-  PA_1,  //D1
-  PA_2,  //D2
-  PA_3,  //D3
-  PA_4,  //D4
-  PA_5,  //D5
-  PA_6,  //D6
-  PA_7,  //D7
-  PA_8,  //D8
-  PA_9,  //D9
-  PA_10, //D10
-  PA_11, //D11
-  PA_12, //D12
-  PA_13, //D13
-  PA_14, //D14
-  PA_15, //D15
-  PB_0,  //D16
-  PB_1,  //D17
-  PB_2,  //D18
-  PB_3,  //D19
-  PB_4,  //D20
-  PB_5,  //D21
-  PB_6,  //D22
-  PB_7,  //D23
-  PF_0,  //D24
-  PF_1,  //D25
+  PA0,  //D0
+  PA1,  //D1
+  PA2,  //D2
+  PA3,  //D3
+  PA4,  //D4
+  PA5,  //D5
+  PA6,  //D6
+  PA7,  //D7
+  PA8,  //D8
+  PA9,  //D9
+  PA10, //D10
+  PA11, //D11
+  PA12, //D12
+  PA13, //D13
+  PA14, //D14
+  PA15, //D15
+  PB0,  //D16
+  PB1,  //D17
+  PB2,  //D18
+  PB3,  //D19
+  PB4,  //D20
+  PB5,  //D21
+  PB6,  //D22
+  PB7,  //D23
+  PF0,  //D24
+  PF1,  //D25
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_0_A,  //D26/A0 = D0
-  PA_1_A,  //D27/A1 = D1
-  PA_2_A,  //D28/A2 = D2
-  PA_3_A,  //D29/A3 = D3
-  PA_4_A,  //D30/A4 = D4
-  PA_5_A,  //D31/A5 = D5
-  PA_6_A,  //D32/A6 = D6
-  PA_7_A,  //D33/A7 = D7
-  PB_0_A,  //D34/A8 = D16
-  PB_1_A,  //D35/A9 = D17
+  PA0_A,  //D26/A0 = D0
+  PA1_A,  //D27/A1 = D1
+  PA2_A,  //D28/A2 = D2
+  PA3_A,  //D29/A3 = D3
+  PA4_A,  //D30/A4 = D4
+  PA5_A,  //D31/A5 = D5
+  PA6_A,  //D32/A6 = D6
+  PA7_A,  //D33/A7 = D7
+  PB0_A,  //D34/A8 = D16
+  PB1_A,  //D35/A9 = D17
   PEND
 };
 
