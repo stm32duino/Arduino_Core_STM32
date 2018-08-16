@@ -440,8 +440,8 @@ Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 # Other boards
 
 ###############################
-# Generic F030
-GenF030.name=Generic STM32F030 series
+# Generic F030K6 Chip
+GenF030.name=Generic STM32F030K6 Chip
 
 GenF030.build.vid=0x1EAF
 GenF030.build.pid=0x0004
@@ -452,10 +452,9 @@ GenF030.build.core=arduino
 GenF030.build.board=GenF030
 GenF030.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
-# Generic F030 board
+# Generic F030K6 Chip
 # Support: Serial1 (USART1 on PA10, PA9)
-GenF030.menu.pnum.GENERIC_F030K6=Generic F030K6
-GenF030.menu.pnum.GENERIC_F030K6.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+GenF030.menu.pnum.GENERIC_F030K6=Generic F030K6 Chip
 GenF030.menu.pnum.GENERIC_F030K6.upload.maximum_data_size=4096
 GenF030.menu.pnum.GENERIC_F030K6.build.mcu=cortex-m0
 GenF030.menu.pnum.GENERIC_F030K6.build.board=GENERIC_F030K6
@@ -753,9 +752,6 @@ GenF103.menu.opt.ogstd=Debug (-g)
 GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
 GenF103.menu.opt.ogstd.build.flags.ldspecs=
 
-GenF030.menu.opt.osstd=Smallest (-Os default)
-GenF030.menu.opt.osstd.build.flags.optimize=-Os
-GenF030.menu.opt.osstd.build.flags.ldspecs=
 GenF030.menu.opt.oslto=Smallest (-Os) with LTO
 GenF030.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF030.menu.opt.oslto.build.flags.ldspecs=-flto

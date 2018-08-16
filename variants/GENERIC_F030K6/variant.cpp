@@ -36,80 +36,43 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
- //P1 connector Right side (bottom view)
-  PC_13, //D0
-  PC_14, //D1
-  PC_15, //D2
-  PF_0,  //D3
-  PF_1,  //D4
-  PC_0,  //D5
-  PC_1,  //D6
-  PC_2,  //D7
-  PC_3,  //D8
-  PA_0,  //D9 - USER_BTN
-  PA_1,  //D10
-  PA_2,  //D11
-  PA_3,  //D12
-  PF_4,  //D13
-  PF_5,  //D14
-  PA_4,  //D15
-  PA_5,  //D16
-  PA_6,  //D17
-  PA_7,  //D18
-  PC_4,  //D19
-  PC_5,  //D20
-  PB_0,  //D21
-  PB_1,  //D22
-  PB_2,  //D23
-  PB_10, //D24
-  PB_11, //D25
-  PB_12, //D26
-  //P2 connector Left side (bottom view)
-  PB_9,  //D27
-  PB_8,  //D28
-  PB_7,  //D29
-  PB_6,  //D30
-  PB_5,  //D31
-  PB_4,  //D32
-  PB_3,  //D33
-  PD_2,  //D34
-  PC_12, //D35
-  PC_11, //D36
-  PC_10, //D37
-  PA_15, //D38
-  PA_14, //D39
-  PF_7,  //D40
-  PF_6,  //D41
-  PA_13, //D42
-  PA_12, //D43
-  PA_11, //D44
-  PA_10, //D45
-  PA_9,  //D46
-  PA_8,  //D47
-  PC_9,  //D48 - LED_GREEN (LD3)
-  PC_8,  //D49 - LED_BLUE (LD4)
-  PC_7,  //D50
-  PC_6,  //D51
-  PB_15, //D52
-  PB_14, //D53
-  PB_13, //D54
+  PA_0,  //D0
+  PA_1,  //D1
+  PA_2,  //D2
+  PA_3,  //D3
+  PA_4,  //D4
+  PA_5,  //D5
+  PA_6,  //D6
+  PA_7,  //D7
+  PA_8,  //D8
+  PA_9,  //D9
+  PA_10, //D10
+  PA_11, //D11
+  PA_12, //D12
+  PA_13, //D13
+  PA_14, //D14
+  PA_15, //D15
+  PB_0,  //D16
+  PB_1,  //D17
+  PB_2,  //D18
+  PB_3,  //D19
+  PB_4,  //D20
+  PB_5,  //D21
+  PB_6,  //D22
+  PB_7,  //D23
+  PF_0,  //D24
+  PF_1,  //D25
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PC_0,  //D55/A0 = D5
-  PC_1,  //D56/A1 = D6
-  PC_2,  //D57/A2 = D7
-  PC_3,  //D58/A3 = D8
-  PA_0,  //D59/A4 = D9
-  PA_1,  //D60/A5 = D10
-  PA_2,  //D61/A6 = D11
-  PA_3,  //D62/A7 = D12
-  PA_4,  //D63/A8 = D15
-  PA_5,  //D64/A9 = D16
-  PA_6,  //D65/A10= D17
-  PA_7,  //D66/A11= D18
-  PC_4,  //D67/A12 = D19
-  PC_5,  //D68/A13 = D20
-  PB_0,  //D69/A14 = D21
-  PB_1   //D70/A15 = D22
+  PA_0,  //D26/A0 = D0
+  PA_1,  //D27/A1 = D1
+  PA_2,  //D28/A2 = D2
+  PA_3,  //D29/A3 = D3
+  PA_4,  //D30/A4 = D4
+  PA_5,  //D31/A5 = D5
+  PA_6,  //D32/A6 = D6
+  PA_7,  //D33/A7 = D7
+  PB_0,  //D34/A8 = D16
+  PB_1,  //D35/A9 = D17
 };
 
 #ifdef __cplusplus
