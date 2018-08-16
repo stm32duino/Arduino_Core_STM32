@@ -752,6 +752,7 @@ GenF103.menu.opt.ogstd=Debug (-g)
 GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
 GenF103.menu.opt.ogstd.build.flags.ldspecs=
 
+GenF030.menu.opt.osstd=Smallest (-Os default)
 GenF030.menu.opt.oslto=Smallest (-Os) with LTO
 GenF030.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF030.menu.opt.oslto.build.flags.ldspecs=-flto
