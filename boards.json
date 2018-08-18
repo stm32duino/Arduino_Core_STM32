@@ -1,0 +1,32 @@
+{
+	"defaults":
+		{
+		"board":		"mcci_catena_{{modelnumber}}",
+		"name": 		"MCCI Catena {{modelnumber}}",
+		"vid": 			"040E",
+		"build_board": 		"CATENA_{{modelnumber}}",
+		"build_variant": 	"CATENA_{{modelnumber}}",
+		"build_variant_extra_flags": ""
+		},
+	"boards":
+		[
+			{
+			"modelnumber": 	"4551",
+			"pid": 		"0041",
+			},
+
+			{
+			"modelnumber": 	"4611",
+			"pid": 		"0081",
+			"build_variant": "CATENA_461x",
+			"build_variant_extra_flags": "-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0"
+			},
+
+			{
+			"modelnumber": 	"4612",
+			"pid": 		"0091",
+			"build_variant": "CATENA_461x",
+			"build_variant_extra_flags": "-DMCCI_PA8_461x_SWITCHES_VDD=1"
+			}	
+		]
+}

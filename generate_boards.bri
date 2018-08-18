@@ -1,0 +1,166 @@
+#/usr/bin/env bright
+
+/*
+
+Module:	generate_boards.bri
+
+Function:
+	Generate boards.txt from templates
+
+Copyright notice:
+	Copyright (c) 2018 MCCI Corporation.
+
+	This library is free software; you can redistribute it and/or
+	modify it under the terms of the GNU Lesser General Public
+	License as published by the Free Software Foundation; either
+	version 2.1 of the License, or (at your option) any later version.
+
+	This library is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+	See the GNU Lesser General Public License for more details.
+
+	You should have received a copy of the GNU Lesser General Public
+	License along with this library; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+
+Author:
+	Terry Moore, MCCI Corporation
+
+*/
+
+// fatal error
+function Fatal(...)
+	{
+	local sMsg = call(format, arg);
+	write(_STDERR, sMsg .. "\n");
+	exit(1);
+	}
+
+// hack parser of json for bright
+function parseJson(sJson)
+	{
+	// this doesn't know about strings so will change brackets inside quotes.
+	sJson = gsub(sJson, "%[", "{");
+	sJson = gsub(sJson, "%]", "}");
+
+	sJson = gsub(sJson, "(\"[^\"]*\")%s*:", "[ %1 ] =");
+	sJson = "return "..sJson;
+	local tError = { ["msg"] = NULL };
+	local tResult = call(dostring, { sJson }, "x", function (sError) { %tError.msg = sError; });
+	if (tError.msg != NULL)
+		return NULL, tError.msg;
+	else
+		return tResult;
+	}
+
+function ExpandTemplate(sTemplate, tBoard, tDefault, tStack)
+	{
+	local sNew, sOld;
+	if (tStack == NULL)
+		tStack = {};
+
+	sNew = sTemplate;
+	do	{
+		sOld = sNew;
+		sNew = gsub(sNew, "{{([^}]*)}}", 
+				function (sKey)
+					{
+					local sValue;
+
+					if (sKey in %tStack)
+						Fatal("recursive expansion of {{%s}}", sKey);
+					if (sKey in %tBoard)
+						sValue = %tBoard[sKey];
+					else if (sKey in %tDefault)
+						sValue = %tDefault[sKey];
+					else
+						Fatal("no value for {{%s}}", sKey);
+
+					%tStack[sKey] = 1;
+					local sResult = ExpandTemplate(sValue, %tBoard, %tDefault, %tStack);
+					tdelete(%tStack, sKey);
+					return sResult;
+					}
+			);
+		} while (sNew != sOld);
+
+	return sNew;
+	}
+
+// parse template, return prefix and boards section
+function ParseTemplate(sTemplate, sFile)
+	{
+	local tResult = {};
+
+	gsub(sTemplate, "%%%%%+(%w+)\n(.-\n)%%%%%-(%w+)\n",
+		function(sKey, sBody, sCloseKey)
+			{
+			if (sKey != sCloseKey)
+				Fatal("template section %s end tag mismatch (found %%%%-%s): %s", sKey, sCloseKey, %sFile)
+			%tResult[sKey] = sBody;
+			}
+		);
+	return tResult;
+	}
+
+// main: arg1 is template file, arg2 is json params file
+function main(args)
+	{
+	if (getn(args) < 3)
+		Fatal("usage: {template} {json}");
+
+	local sTemplateFile = args[1];
+	
+	local sJsonFile = args[2];
+	local hTemplate, sError = openfile(sTemplateFile, "r");
+	if (sError != NULL)
+		Fatal("can't open template file %s: %s", sTemplateFile, sError);
+
+	local hJson;
+	hJson, sError = openfile(sJsonFile, "r");
+	if (sError != NULL)
+		Fatal("can't open json file %s: %s", sJsonFile, sError);
+
+	local sTemplate;
+	sTemplate, sError = read(hTemplate, "*a");
+	if (sError != NULL)
+		Fatal("error reading %s: %s", sTemplateFile, sError);
+
+	local tTemplate = ParseTemplate(sTemplate, sTemplateFile);
+
+	if (! (.prefix in tTemplate))
+		Fatal("no %%%%prefix section in %s", sTemplateFile)
+	if (! (.boards in tTemplate))
+		Fatal("no %%%%boards section in %s", sTemplateFile);
+
+	local sJson;
+	sJson, sError = read(hJson, "*a");
+	if (sError != NULL)
+		Fatal("error reading %s: %s", sJsonFile, sError);
+
+	/* parse the JSON file */
+	local tJson;
+	
+	tJson, sError = parseJson(sJson);
+	if (sError != NULL)
+		{
+		write(_STDERR, sJson);
+		Fatal("error parsing JSON file %s: %s", sJsonFile, sError);
+		}
+
+	local tDefaults = {};
+	if (.defaults in tJson)
+		tDefaults = tJson.defaults;
+	
+	if (! (.boards in tJson))
+		Fatal("no boards object in JSON file %s", sJsonFile);
+
+	write(tTemplate.prefix);
+	for i = 0, getn(tJson.boards)-1 do
+		{
+		write(ExpandTemplate(tTemplate.boards, tJson.boards[i], tDefaults));
+		}
+
+	exit(0);
+	}

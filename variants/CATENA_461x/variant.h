@@ -16,8 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef _VARIANT_ARDUINO_STM32_
-#define _VARIANT_ARDUINO_STM32_
+#ifndef _VARIANT_ARDUINO_CATENA_461x_
+#define _VARIANT_ARDUINO_CATENA_461x_
 
 /*----------------------------------------------------------------------------
  *        Headers
@@ -52,8 +52,8 @@ enum {
   PA15, //D7      RADIO_NSS    Murata internal
   PC0,  //D8      RADIO_RESET  Murata internal
   PA14, //D9      D9_SWCLK
-  NC_1, //D10     PH1_OSC_OUT
-  NC_2, //D11     PH0_OSC_IN
+  PH1,  //D10     D10
+  PB5,  //D11     D11
   PB7,  //D12     D12
   PB2,  //D13     D13_LED
   PA0,  //D14/A0
@@ -74,12 +74,13 @@ enum {
   PA1,  //D29     RADIO_ANT_SWITCH_RX       CRF1  Murata internal
   PC1,  //D30     RADIO_ANT_SWITCH_TX_BOOST CRF3  Murata internal
   PC2,  //D31     RADIO_ANT_SWITCH_TX_RFO   CRF2  Murata internal
-  PB5,  //D32     Flash Write-protect
+  NC_1, //D32     Flash Write-Protect (not supported these platforms)
+  PA8,  //D33     TCXO VDD, possibly VDD boost enable (4612)
   PEND
 };
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        33
+#define NUM_DIGITAL_PINS        34
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       5
 #define NUM_ANALOG_FIRST        14
@@ -151,8 +152,12 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
+#ifdef USBCON
+# define SERIAL_PORT_MONITOR  SerialUSB
+#else
+# define SERIAL_PORT_MONITOR  Serial
+#endif
 #define SERIAL_PORT_HARDWARE  Serial
 #endif
 
-#endif /* _VARIANT_ARDUINO_STM32_ */
+#endif /* _VARIANT_ARDUINO_CATENA_461x_ */

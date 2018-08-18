@@ -62,7 +62,7 @@ If you want to develop and test changes to this package, we suggest the followin
 
    | System | Location |
    |:------:|:---------|
-   | Windows 7 through 10 | <code>c:\Users\\<em><strong>username</strong></em>\AppData\Local\Arduino15</code>. If you're using git bash, you can also use `~/Documents/Arduino15` |
+   | Windows 7 through 10 | <code>c:\Users\\<em><strong>username</strong></em>\AppData\Local\Arduino15</code>. If you're using git bash, you can also use `~/AppData/Local/Arduino15` |
    | macOS | <code>~/Library/Arduino15</code> |
    | Linux | <code>~/.arduino15</code> |
 
