@@ -52,8 +52,8 @@ enum {
   PA15, //D7      RADIO_NSS    Murata internal
   PC0,  //D8      RADIO_RESET  Murata internal
   PA14, //D9      D9_SWCLK
-  PH1,  //D10     PH1_OSC_OUT
-  PB5,  //D11     PH0_OSC_IN
+  PH1,  //D10     D10
+  PB5,  //D11     D11
   PB7,  //D12     D12
   PB2,  //D13     D13_LED
   PA0,  //D14/A0
@@ -75,7 +75,7 @@ enum {
   PC1,  //D30     RADIO_ANT_SWITCH_TX_BOOST CRF3  Murata internal
   PC2,  //D31     RADIO_ANT_SWITCH_TX_RFO   CRF2  Murata internal
   NC_1, //D32     Flash Write-Protect (not supported these platforms)
-  PA8,  //D33     TCXO VDD, possibly VDD boost enable
+  PA8,  //D33     TCXO VDD, possibly VDD boost enable (4612)
   PEND
 };
 
