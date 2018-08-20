@@ -12,10 +12,10 @@
     SYS_WKUP4 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN5
-    SYS_WKUP5 = PI_8,
+    SYS_WKUP5 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN6
-    SYS_WKUP6 = PI_11,
+    SYS_WKUP6 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN7
     SYS_WKUP7 = NC,
