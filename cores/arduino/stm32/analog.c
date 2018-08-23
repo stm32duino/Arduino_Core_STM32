@@ -83,6 +83,21 @@
 #error "ADC SAMPLINGTIME could not be defined"
 #endif
 
+/* STM32H7xx */
+#if defined(ADC_RESOLUTION_16B)
+#define SAMPLINGTIME  ADC_RESOLUTION_16B;
+#if defined(ADC_RESOLUTION_14B)
+#define SAMPLINGTIME  ADC_RESOLUTION_14B;
+#if defined(ADC_RESOLUTION_12B)
+#define SAMPLINGTIME  ADC_RESOLUTION_12B;
+#if defined(ADC_RESOLUTION_10B)
+#define SAMPLINGTIME  ADC_RESOLUTION_10B;
+#if defined(ADC_RESOLUTION_8B)
+#define SAMPLINGTIME  ADC_RESOLUTION_8B;
+#else
+#error "ADC SAMPLINGTIME could not be defined"
+#endif
+
 #ifndef STM32F1xx
 #ifdef ADC_CLOCK_SYNC_PCLK_DIV2
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
