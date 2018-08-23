@@ -449,8 +449,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-/* For STM32F1xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
-#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx)
+/* For STM32F1xx & STM32H7xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && !defined(STM32H7xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
@@ -580,9 +580,13 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
+#ifndef STM32H7xx
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif
+#endif
+#ifndef STM32H7xx
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
+#endif
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
@@ -599,11 +603,20 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
 #endif
 #else
-#ifdef STM32F3xx
+#if defined (STM32F3xx) || defined (STM32H7xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
 #endif
   AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
+#ifdef STM32H7xx
+  AdcHandle.Init.NbrOfDiscConversion   = 1;
+  AdcHandle.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
+  AdcHandle.Init.Overrun               = ADC_OVR_DATA_PRESERVED;
+  AdcHandle.Init.Overrun               = ADC_LEFTBITSHIFT_NONE;
+  AdcHandle.Init.BoostMode             = DISABLE;
+  AdcHandle.Init.OversamplingMode      = DISABLE;
+#elif
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
+#endif
 #endif
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
@@ -833,20 +846,3 @@ void pwm_stop(PinName pin)
   * @}
   */
 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-#ifdef __cplusplus
-}
-#endif
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
