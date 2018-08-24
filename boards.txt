@@ -509,7 +509,7 @@ GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 
 # Black F407VE
 # Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI1 on PB3,PB4,PB5 (NRF24 connector and W25Q16 (on board flash))
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407VE=Black F407VE
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
