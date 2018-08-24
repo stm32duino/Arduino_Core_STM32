@@ -150,9 +150,10 @@ enum {
 // Could be redefined here if differs from the default one
 // SPI Definitions
 #define PIN_SPI_SS              PB7 // NRF24 connector
-#define PIN_SPI_MOSI            PB5 // NRF24 connector
-#define PIN_SPI_MISO            PB4 // NRF24 connector
-#define PIN_SPI_SCK             PB3 // NRF24 connector
+#define PIN_SPI_SS1             PB0 // W25Q16 (on board flash)
+#define PIN_SPI_MOSI            PB5 // NRF24 connector & W25Q16 (on board flash)
+#define PIN_SPI_MISO            PB4 // NRF24 connector & W25Q16 (on board flash)
+#define PIN_SPI_SCK             PB3 // NRF24 connector & W25Q16 (on board flash)
 
 // I2C Definitions
 //#define PIN_WIRE_SDA            14 // Default for Arduino connector compatibility
