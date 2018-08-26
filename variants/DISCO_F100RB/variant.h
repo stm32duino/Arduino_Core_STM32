@@ -33,78 +33,58 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 // P1 connector
-  PC13, //D0
-  PC0,  //D1
-  PC1,  //D2
-  PC2,  //D3
-  PC3,  //D4
-  PA0,  //D5 - User button
-  PA1,  //D6
-  PA2,  //D7
-  PA3,  //D8
-  PA4,  //D9
-  PA5,  //D10
-  PA6,  //D11
-  PA7,  //D12
-  PC4,  //D13
-  PC5,  //D14
-  PB0,  //D15
-  PB1,  //D16
-  PB2,  //D17
+#define PC13 0
+#define PC0  1  // A0
+#define PC1  2  // A1
+#define PC2  3  // A2
+#define PC3  4  // A3
+#define PA0  5  // A4/User button
+#define PA1  6  // A5
+#define PA2  7  // A6
+#define PA3  8  // A7
+#define PA4  9  // A8
+#define PA5  10 // A9
+#define PA6  11 // A10
+#define PA7  12 // A11
+#define PC4  13 // A12
+#define PC5  14 // A13
+#define PB0  15 // A14
+#define PB1  16 // A15
+#define PB2  17
 // P2 connector
-  PC6,  //D18
-  PC7,  //D19
-  PC8,  //D20 - LED blue
-  PC9,  //D21 - LED green
-  PA8,  //D22
-  PA9,  //D23
-  PA10, //D24
-  PA11, //D25
-  PA12, //D26
-  PA13, //D27
-  PA14, //D28
-  PA15, //D29
-  PC10, //D30
-  PC11, //D31
-  PC12, //D32
-  PD2,  //D33
-  PB3,  //D34
-  PB4,  //D35
-  PB5,  //D36 - I2C SCL
-  PB6,  //D37 - I2C SDA
-  PB7,  //D38
-  PB8,  //D39
-  PB9,  //D40
+#define PC6  18
+#define PC7  19
+#define PC8  20 // LED blue
+#define PC9  21 // LED green
+#define PA8  22
+#define PA9  23
+#define PA10 24
+#define PA11 25
+#define PA12 26
+#define PA13 27
+#define PA14 28
+#define PA15 29
+#define PC10 30
+#define PC11 31
+#define PC12 32
+#define PD2  33
+#define PB3  34
+#define PB4  35
+#define PB5  36 // I2C SCL
+#define PB6  37 // I2C SDA
+#define PB7  38
+#define PB8  39
+#define PB9  40
 // P3 connector
-  PB10, //D41
-  PB11, //D42
-  PB12, //D43 - SPI SS
-  PB13, //D44 - SPI SCLK
-  PB14, //D45 - SPI MISO
-  PB15, //D46 - SPI MOSI
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PC0_2,//D47/A0 = D0
-  PC1_2,//D48/A1 = D1
-  PC2_2,//D49/A2 = D2
-  PC3_2,//D50/A3 = D3
-  PA0_2,//D51/A4 = D4
-  PA1_2,//D52/A5 = D5
-  PA2_2,//D53/A6 = D6
-  PA3_2,//D54/A7 = D7
-  PA4_2,//D55/A8 = D8
-  PA5_2,//D56/A9 = D9
-  PA6_2,//D57/A10 = D10
-  PA7_2,//D58/A11 = D11
-  PC4_2,//D59/A12 = D12
-  PC5_2,//D60/A13 = D13
-  PB0_2,//D61/A14 = D14
-  PB1_2,//D62/A15 = D15
-  PEND
-};
+#define PB10 41
+#define PB11 42
+#define PB12 43 // SPI SS
+#define PB13 44 // SPI SCLK
+#define PB14 45 // SPI MISO
+#define PB15 46 // SPI MOSI
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        63
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16

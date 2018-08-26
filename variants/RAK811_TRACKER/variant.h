@@ -45,46 +45,43 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
-  PA0,  //D0 - GPS_PPS_PIN
-  PA8,  //D1
-  PA9,  //D2 - UART_TX
-  PA10, //D3 - UART_RX
-  PA12, //D4 - LED1
-  PA13, //D5
-  PA14, //D6
-  PA15, //D7 - GPS_POWER_ON_PIN
-  PB2,  //D8
-  PB3,  //D9
-  PB4,  //D10 - LED2
-  PB5,  //D11
-  PB8,  //D12 - I2C_SCL
-  PB9,  //D13 - I2C_SDA
-  PB10, //D14 - GPS_UART_TX
-  PB11, //D15 - GPS_UART_RX
-  PA1,  //D16/A0
-  PA2,  //D17/A1 - ADC_VBAT
-  PB12, //D18/A2
-  PB14, //D19 - LIS3DH_INT1_PIN
-  PB15, //D20 - LIS3DH_INT2_PIN
-  PB13, //D21 - RADIO_RESET
-  PH1,  //D22 - RADIO_XTAL_EN
-  PA7,  //D23 - RADIO_MOSI
-  PA6,  //D24 - RADIO_MISO
-  PA5,  //D25 - RADIO_SCLK
-  PB0,  //D26 - RADIO_NSS
-  PA11, //D27 - RADIO_DIO_0
-  PB1,  //D28 - RADIO_DIO_1
-  PA3,  //D29 - RADIO_DIO_2
-  PH0,  //D30 - RADIO_DIO_3
-  PC13, //D31 - RADIO_DIO_4
-  PB6,  //D32 - RADIO_RF_CRX_RX
-  PB7,  //D33 - RADIO_RF_CBT_HF
-  PA4,  //D34 - RADIO_RF_CTX_PA
-  PEND
-};
+#define PA0  0  // GPS_PPS_PIN
+#define PA8  1
+#define PA9  2  // UART_TX
+#define PA10 3  // UART_RX
+#define PA12 4  // LED1
+#define PA13 5
+#define PA14 6
+#define PA15 7  // GPS_POWER_ON_PIN
+#define PB2  8
+#define PB3  9
+#define PB4  10 // LED2
+#define PB5  11
+#define PB8  12 // I2C_SCL
+#define PB9  13 // I2C_SDA
+#define PB10 14 // GPS_UART_TX
+#define PB11 15 // GPS_UART_RX
+#define PA1  16 // A0
+#define PA2  17 // A1 - ADC_VBAT
+#define PB12 18 // A2
+#define PB14 19 // LIS3DH_INT1_PIN
+#define PB15 20 // LIS3DH_INT2_PIN
+#define PB13 21 // RADIO_RESET
+#define PH1  22 // RADIO_XTAL_EN
+#define PA7  23 // RADIO_MOSI
+#define PA6  24 // RADIO_MISO
+#define PA5  25 // RADIO_SCLK
+#define PB0  26 // RADIO_NSS
+#define PA11 27 // RADIO_DIO_0
+#define PB1  28 // RADIO_DIO_1
+#define PA3  29 // RADIO_DIO_2
+#define PH0  30 // RADIO_DIO_3
+#define PC13 31 // RADIO_DIO_4
+#define PB6  32 // RADIO_RF_CRX_RX
+#define PB7  33 // RADIO_RF_CBT_HF
+#define PA4  34 // RADIO_RF_CTX_PA
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3

@@ -47,154 +47,137 @@ extern const PinName digitalPin[];
 
 // Match Table 11. NUCLEO-L496ZG, NUCLEO-L496ZG-P pin assignments
 // from UM2179 STM32 Nucleo-144 board
-enum {
-  PD9,  //D0
-  PD8,  //D1
-  PF15, //D2
-  PE13, //D3
-  PF14, //D4
-  PE11, //D5
-  PE9,  //D6
-  PF13, //D7
-  PF12, //D8
-  PD15, //D9
-  PD14, //D10
-  PA7,  //D11
-  PA6,  //D12
-  PA5,  //D13
-  PB9,  //D14
-  PB8,  //D15
-  PC6,  //D16
-  PB15, //D17
-  PB13, //D18
-  PB12, //D19
-  PA4,  //D20
-  PB4,  //D21
-  PB5,  //D22
-  PB3,  //D23
-  PA4_2,//D24
-  PB4_2,//D25
-  PA2,  //D26
-  PB10, //D27
-  PE15, //D28
-  PB0,  //D29
-  PE12, //D30
-  PE14, //D31
-  PA0,  //D32
-  PB0_2,//D33
-  PE0,  //D34
+#define PD9  0
+#define PD8  1
+#define PF15 2
+#define PE13 3
+#define PF14 4
+#define PE11 5
+#define PE9  6
+#define PF13 7
+#define PF12 8
+#define PD15 9
+#define PD14 10
+#define PA7  11 // A11
+#define PA6  12 // A12
+#define PA5  13 // A13
+#define PB9  14
+#define PB8  15
+#define PC6  16
+#define PB15 17
+#define PB13 18
+#define PB12 19
+#define PA4  20 // A14
+#define PB4  21
+#define PB5  22
+#define PB3  23
+// 24 is PA4 (20)
+// 25 is PB4 (21)
+#define PA2  26 // A15
+#define PB10 27
+#define PE15 28
+#define PB0  29 // A16
+#define PE12 30
+#define PE14 31
+#define PA0  32 // A17
+// 32 is PB0 (29)
+#define PE0  34
 #ifdef ARDUINO_NUCLEO_L496ZG
-  PB11, //D35
-#else
-  NC_1, //D35
+#define PB11 35
+//else 35 is NC
 #endif
-  PB10_2,//D36
-  PE15_2,//D37
-  PE14_2,//D38
-  PE12_2,//D39
-  PE10, //D40
-  PE7,  //D41
-  PE8,  //D42
-  PC8,  //D43
-  PC9,  //D44
-  PC10, //D45
-  PC11, //D46
-  PC12, //D47
-  PD2,  //D48
-  PF3,  //D49
-  PF5,  //D50
-  PD7,  //D51
-  PD6,  //D52
-  PD5,  //D53
-  PD4,  //D54
-  PD3,  //D55
-  PE2,  //D56
-  PE4,  //D57
-  PE5,  //D58
-  PE6,  //D59
-  PE3,  //D60
-  PF8,  //D61
-  PF7,  //D62
-  PF9,  //D63
-  PG1,  //D64
-  PG0,  //D65
-  PD1,  //D66
-  PD0,  //D67
-  PF0,  //D68
-  PF1,  //D69
-  PF2,  //D70
-  PB6,  //D71
-  PB2,  //D72
+// 36 is PB10 (27)
+// 37 is PE15 (28)
+// 38 is PE14 (31)
+// 39 is PE12 (30)
+#define PE10 40
+#define PE7  41
+#define PE8  42
+#define PC8  43
+#define PC9  44
+#define PC10 45
+#define PC11 46
+#define PC12 47
+#define PD2  48
+#define PF3  49 // A18
+#define PF5  50 // A19
+#define PD7  51
+#define PD6  52
+#define PD5  53
+#define PD4  54
+#define PD3  55
+#define PE2  56
+#define PE4  57
+#define PE5  58
+#define PE6  59
+#define PE3  60
+#define PF8  61 // A20
+#define PF7  62 // A21
+#define PF9  63 // A22
+#define PG1  64
+#define PG0  65
+#define PD1  66
+#define PD0  67
+#define PF0  68
+#define PF1  69
+#define PF2  70
+#define PB6  71
+#define PB2  72
 // ST Morpho
-  PA8,  //D73
-  PA9,  //D74
-  PA10, //D75
-  PA11, //D76
-  PA12, //D77
-  PA15, //D78
-  PB7,  //D79 - LEDBLUE
-  PB14, //D80 - LEDRED
-  PC7,  //D81 - LEDGREEN
-  PC13, //D82 - USERBTN
-  PC14, //D83
-  PC15, //D84
-  PD10, //D85
-  PD11, //D86
-  PD12, //D87
-  PD13, //D88
-  PE1,  //D89
-  PF10, //D90
-  PF11, //D91
-  PG2,  //D92
-  PG3,  //D93
-  PG4,  //D94
-  PG5,  //D95
-  PG6,  //D96
-  PG7,  //D97 - Serial Tx
-  PG8,  //D98 - Serial Rx
-  PG9,  //D99
-  PG10, //D100
-  PG11, //D101
-  PG12, //D102
-  PG13, //D103
-  PG14, //D104
-  PH0,  //D105
-  PH1,  //D106
-  // Analog pins
-  PA3,  //D107/A0
-  PC0,  //D108/A1
-  PC3,  //D109/A2
-  PC1,  //D110/A3
-  PC4,  //D111/A4
-  PC5,  //D112/A5
-  PB1,  //D113/A6
-  PC2,  //D114/A7
-  PA1,  //D115/A8
-  PF4,  //D116/A9
-  PF6,  //D117/A10
-  // Duplicated pins in order to be aligned with PinMapADC
-  PA7_3, //D118/A11 = D11
-  PA6_2, //D119/A12 = D12
-  PA5_2, //D120/A13 = D13
-  PA4_3, //D121/A14 = D20
-  PA2_2, //D122/A15 = D26
-  PB0_3, //D123/A16 = D29
-  PA0_2, //D124/A17 = D32
-  PF3_2, //D125/A18 = D49
-  PF5_2, //D126/A19 = D50
-  PF8_2, //D127/A20 = D61
-  PF7_2, //D128/A21 = D62
-  PF9_2, //D129/A22 = D63
-  PF10_2,//D130/A23 = D91
+#define PA8  73
+#define PA9  74
+#define PA10 75
+#define PA11 76
+#define PA12 77
+#define PA15 78
+#define PB7  79 // LED_BLUE
+#define PB14 80 // LED_RED
+#define PC7  81 // LED_GREEN
+#define PC13 82 // USER_BTN
+#define PC14 83
+#define PC15 84
+#define PD10 85
+#define PD11 86
+#define PD12 87
+#define PD13 88
+#define PE1  89
+#define PF10 90 // A23
+#define PF11 91
+#define PG2  92
+#define PG3  93
+#define PG4  94
+#define PG5  95
+#define PG6  96
+#define PG7  97 // Serial Tx
+#define PG8  98 // Serial Rx
+#define PG9  99
+#define PG10 100
+#define PG11 101
+#define PG12 102
+#define PG13 103
+#define PG14 104
+#define PH0  105
+#define PH1  106
+// Analog pins
+#define PA3  107 // A0
+#define PC0  108 // A1
+#define PC3  109 // A2
+#define PC1  110 // A3
+#define PC4  111 // A4
+#define PC5  112 // A5
+#define PB1  113 // A6
+#define PC2  114 // A7
+#define PA1  115 // A8
+#define PF4  116 // A9
+#define PF6  117 // A10
+// 118 to 130 reserved fot A11 to A23
 #ifdef ARDUINO_NUCLEO_L496ZG
-  PG15,  //D131
+#define PG15 131
 #endif
-  // PA13 and PA14 are shared with SWD signals connected to ST-LINK/V2-1.
-  // If ST-LINK part is not cut, it is not recommended to use them as I/O pins.
-//PA13,  //D132
-//PA14,  //D133
-  PEND
-};
+// PA13 and PA14 are shared with SWD signals connected to ST-LINK/V2-1.
+// If ST-LINK part is not cut, it is not recommended to use them as I/O pins.
+//#define PA13 132
+//#define PA14 133
 
 // This must be a literal with the same value as PEND
 #ifdef ARDUINO_NUCLEO_L496ZG

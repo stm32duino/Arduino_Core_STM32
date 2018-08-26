@@ -23,9 +23,6 @@
 // Avoid PortName issue
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
 
-// Avoid pins number misalignment
-_Static_assert(NUM_DIGITAL_PINS==PEND, "NUM_DIGITAL_PINS and PEND differ!");
-
 // Arduino digital pins alias
 // GPIO port (A to K) * 16 pins: 176
 enum {

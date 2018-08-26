@@ -33,78 +33,68 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
-  PA3,  //D0
-  PA2,  //D1
-  PA10, //D2
-  PB3,  //D3 - no PWM
-  PB5,  //D4
-  PB4,  //D5
-  PB10, //D6 - no PWM
-  PA8,  //D7
-  PA9,  //D8
-  PC7,  //D9
-  PB6,  //D10
-  PA7,  //D11
-  PA6,  //D12
-  PA5,  //D13
-  PB9,  //D14
-  PB8,  //D15
+#define PA3  0
+#define PA2  1
+#define PA10 2
+#define PB3  3  // no PWM
+#define PB5  4
+#define PB4  5
+#define PB10 6  // no PWM
+#define PA8  7
+#define PA9  8
+#define PC7  9
+#define PB6  10
+#define PA7  11 // A6
+#define PA6  12 // A7
+#define PA5  13
+#define PB9  14
+#define PB8  15
 // ST Morpho
 // CN7 Left Side
-  PC10, //D16
-  PC12, //D17
-  PF6,  //D18
-  PF7,  //D19
-  PA13, //D20 - SWD
-  PA14, //D21 - SWD
-  PA15, //D22
-  PB7,  //D23
-  PC13, //D24
-  PC14, //D25
-  PC15, //D26
-  PF0,  //D27
-  PF1,  //D28
-  PC2,  //D29
-  PC3,  //D30
+#define PC10 16
+#define PC12 17
+#define PF6  18
+#define PF7  19
+#define PA13 20 // SWD
+#define PA14 21 // SWD
+#define PA15 22
+#define PB7  23
+#define PC13 24
+#define PC14 25
+#define PC15 26
+#define PF0  27
+#define PF1  28
+#define PC2  29 // A8
+#define PC3  30 // A9
 // CN7 Right Side
-  PC11, //D31
-  PD2,  //D32
+#define PC11 31
+#define PD2  32
 // CN10 Left Side
-  PC9,  //D33
+#define PC9  33
 // CN10 Right side
-  PC8,  //D34
-  PC6,  //D35
-  PC5,  //D36
-  PA12, //D37
-  PA11, //D38
-  PB12, //D39
-  PB11, //D40
-  PB2,  //D41
-  PB1,  //D42
-  PB15, //D43
-  PB14, //D44
-  PB13, //D45
-  PC4,  //D46
-  PF5,  //D47
-  PF4,  //D48
-  PA0,  //D49/A0
-  PA1,  //D50/A1
-  PA4,  //D51/A2
-  PB0,  //D52/A3
-  PC1,  //D53/A4
-  PC0,  //D54/A5
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA7_2,//D55/A6  = D11
-  PA6_2,//D56/A7  = D12
-  PC2_2,//D57/A8  = D29
-  PC3_2,//D58/A9  = D30
-  PC5_2,//D59/A10 = D36
-  PC4_2,//D60/A11 = D46
-  PEND
-};
+#define PC8  34
+#define PC6  35
+#define PC5  36 // A10
+#define PA12 37
+#define PA11 38
+#define PB12 39
+#define PB11 40
+#define PB2  41
+#define PB1  42
+#define PB15 43
+#define PB14 44
+#define PB13 45
+#define PC4  46 // A11
+#define PF5  47
+#define PF4  48
+#define PA0  49 // A0
+#define PA1  50 // A1
+#define PA4  51 // A2
+#define PB0  52 // A3
+#define PC1  53 // A4
+#define PC0  54 // A5
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        61
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       12
