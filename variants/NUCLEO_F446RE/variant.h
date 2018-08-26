@@ -32,6 +32,7 @@ extern "C"{
  *        Pins
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
+
 #define   PA3  0
 #define   PA2  1
 #define   PA10 2
