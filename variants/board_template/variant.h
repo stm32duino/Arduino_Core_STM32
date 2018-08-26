@@ -53,9 +53,7 @@ extern const PinName digitalPin[];
 // !!!   NC_1, NC_2,...
 // !!! For duplicated pin name, suffix by _x where x is the number of pin:
 // !!! PA7, PA7_2, PA7_3,...
-enum {
-  PEND
-};
+#define PEND 0
 
 // This must be a literal with the same value as PEND
 // It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
