@@ -33,76 +33,74 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 // P1 connector
-  PC13, //D0
-  PC0,  //D1
-  PC1,  //D2
-  PC2,  //D3
-  PC3,  //D4
-  PA0,  //D5 - User button
-  PA1,  //D6
-  PA2,  //D7
-  PA3,  //D8
-  PA4,  //D9
-  PA5,  //D10
-  PA6,  //D11
-  PA7,  //D12
-  PC4,  //D13
-  PC5,  //D14
-  PB0,  //D15
-  PB1,  //D16
-  PB2,  //D17
+#define  PC13  0
+#define  PC0   1
+#define  PC1   2
+#define  PC2   3
+#define  PC3   4
+#define  PA0   5
+#define  PA1   6
+#define  PA2   7
+#define  PA3   8
+#define  PA4   9
+#define  PA5   10
+#define  PA6   11
+#define  PA7   12
+#define  PC4   13
+#define  PC5   14
+#define  PB0   15
+#define  PB1   16
+#define  PB2   17
 // P2 connector
-  PC6,  //D18
-  PC7,  //D19
-  PC8,  //D20 - LED blue
-  PC9,  //D21 - LED green
-  PA8,  //D22
-  PA9,  //D23
-  PA10, //D24
-  PA11, //D25
-  PA12, //D26
-  PA13, //D27
-  PA14, //D28
-  PA15, //D29
-  PC10, //D30
-  PC11, //D31
-  PC12, //D32
-  PD2,  //D33
-  PB3,  //D34
-  PB4,  //D35
-  PB5,  //D36 - I2C SCL
-  PB6,  //D37 - I2C SDA
-  PB7,  //D38
-  PB8,  //D39
-  PB9,  //D40
+#define  PC6   18
+#define  PC7   19
+#define  PC8   20
+#define  PC9   21
+#define  PA8   22
+#define  PA9   23
+#define  PA10  24
+#define  PA11  25
+#define  PA12  26
+#define  PA13  27
+#define  PA14  28
+#define  PA15  29
+#define  PC10  30
+#define  PC11  31
+#define  PC12  32
+#define  PD2   33
+#define  PB3   34
+#define  PB4   35
+#define  PB5   36
+#define  PB6   37
+#define  PB7   38
+#define  PB8   39
+#define  PB9   40
 // P3 connector
-  PB10, //D41
-  PB11, //D42
-  PB12, //D43 - SPI SS
-  PB13, //D44 - SPI SCLK
-  PB14, //D45 - SPI MISO
-  PB15, //D46 - SPI MOSI
+#define  PB10  41
+#define  PB11  42
+#define  PB12  43
+#define  PB13  44
+#define  PB14  45
+#define  PB15  46
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PC0_2,//D47/A0 = D0
-  PC1_2,//D48/A1 = D1
-  PC2_2,//D49/A2 = D2
-  PC3_2,//D50/A3 = D3
-  PA0_2,//D51/A4 = D4
-  PA1_2,//D52/A5 = D5
-  PA2_2,//D53/A6 = D6
-  PA3_2,//D54/A7 = D7
-  PA4_2,//D55/A8 = D8
-  PA5_2,//D56/A9 = D9
-  PA6_2,//D57/A10 = D10
-  PA7_2,//D58/A11 = D11
-  PC4_2,//D59/A12 = D12
-  PC5_2,//D60/A13 = D13
-  PB0_2,//D61/A14 = D14
-  PB1_2,//D62/A15 = D15
-  PEND
-};
+#define  PC0_2  47
+#define  PC1_2  48
+#define  PC2_2  49
+#define  PC3_2  50
+#define  PA0_2  51
+#define  PA1_2  52
+#define  PA2_2  53
+#define  PA3_2  54
+#define  PA4_2  55
+#define  PA5_2  56
+#define  PA6_2  57
+#define  PA7_2  58
+#define  PC4_2  59
+#define  PC5_2  60
+#define  PB0_2  61
+#define  PB1_2  62
+#define  PEND   63
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        63
