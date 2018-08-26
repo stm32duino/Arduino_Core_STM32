@@ -33,103 +33,101 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 // CN3 connector
-  PA1,  //D0 - UART4_RX
-  PA0,  //D1 - UART4_TX
-  PD14, //D2
-  PB0,  //D3 - PWM
-  PA3,  //D4
-  PB4,  //D5 - PWM
-  PB1,  //D6 - PWM
-  PA4,  //D7
+#define  PA1    0
+#define  PA0    1
+#define  PD14   2
+#define  PB0    3
+#define  PA3    4
+#define  PB4    5
+#define  PB1    6
+#define  PA4    7
 // CN1 connector
-  PB2,  //D8
-  PA15, //D9 - PWM
-  PA2,  //D10 - SPI_SSN/PWM
-  PA7,  //D11 - SPI1_MOSI/PWM
-  PA6,  //D12 - SPI1_MISO
-  PA5,  //D13 - SPI1_SCK/LED1
-  PB9,  //D14 - I2C1_SDA
-  PB8,  //D15 - I2C1_SCL
+#define  PB2    8
+#define  PA15   9
+#define  PA2    10
+#define  PA7    11
+#define  PA6    12
+#define  PA5    13
+#define  PB9    14
+#define  PB8    15
 // Not on connector
-  PB14, //D16 - LED2
-  PC13, //D17 - USER_BTN
+#define  PB14   16
+#define  PC13   17
 // ST-LINK
-  PB6,  //D18 - ST-LINK-UART1_TX
-  PB7,  //D19 - ST-LINK-UART1_RX
+#define  PB6    18
+#define  PB7    19
 // CN9 USB OTG FS connector
-  PA9,  //D20 - USB_OTG_FS_VBUS
-  PA10, //D21 - USB_OTG_FS_ID
-  PA11, //D22 - USB_OTG_FS_DM
-  PA12, //D23 - USB_OTG_FS_DP
-  PD12, //D24 - USB_OTG_FS_PWR_EN
-  PE3,  //D25 - USB_OTG_OVRCR_EXTI3
+#define  PA9    20
+#define  PA10   21
+#define  PA11   22
+#define  PA12   23
+#define  PD12   24
+#define  PE3    25
 // CN10 PMOD connector
-  PD0,  //D26 - PMOD-RESET
-  PD1,  //D27 - PMOD-SPI2_SCK
-  PD2,  //D28 - PMOD-IRQ_EXTI2
-  PD3,  //D29 - PMOD-UART2_CTS/SPI2_MISO
-  PD4,  //D30 - PMOD-UART2_RTS/SPI2_MOSI
-  PD5,  //D31 - PMOD-UART2_TX/SPI2_CSN
-  PD6,  //D32 - PMOD-UART2_RX
+#define  PD0    26
+#define  PD1    27
+#define  PD2    28
+#define  PD3    29
+#define  PD4    30
+#define  PD5    31
+#define  PD6    32
 // Sensors / modules pins
-  PA8,  //D33 - SPBTLE-RF-RST
-  PB5,  //D34 - SPSGRF-915-SPI3_CSN
-  PB10, //D35 - INTERNAL-I2C2_SCL
-  PB11, //D36 - INTERNAL-I2C2_SDA
-  PB12, //D37 - ISM43362-BOOT0
-  PB13, //D38 - ISM43362-WAKEUP
-  PB15, //D39 - SPSGRF-915-SDN
-  PC6,  //D40 - VL53L0X_XSHUT
-  PC7,  //D41 - VL53L0X_GPIO1_EXTI7
-  PC8,  //D42 - LIS3MDL_DRDY_EXTI8
-  PC9,  //D43 - LED3 (WIFI) & LED4 (BLE)
-  PC10, //D44 - INTERNAL-SPI3_SCK
-  PC11, //D45 - INTERNAL-SPI3_MISO
-  PC12, //D46 - INTERNAL-SPI3_MOSI
-  PD7,  //D47 - STSAFE-A100-RESET
-  PD8,  //D48 - INTERNAL-UART3_TX
-  PD9,  //D49 - INTERNAL-UART3_RX
-  PD10, //D50 - LPS22HB_INT_DRDY_EXTI10
-  PD11, //D51 - LSM6DSL_INT1_EXTI11
-  PD13, //D52 - SPBTLE-RF-SPI3_CSN
-  PD15, //D53 - HTS221_DRDY_EXTI15
-  PE0,  //D54 - ISM43362-SPI3_CSN
-  PE1,  //D55 - ISM43362-DRDY_EXTI1
-  PE2,  //D56 - M24SR64-Y-RF_DISABLE
-  PE4,  //D57 - M24SR64-Y-GPO
-  PE5,  //D58 - SPSGRF-915-GPIO3_EXTI5
-  PE6,  //D59 - SPBTLE-RF-IRQ_EXTI6
-  PE7,  //D60 - DFSDM1_DATIN2
-  PE8,  //D61 - ISM43362-RST
-  PE9,  //D62 - DFSDM1_CKOUT
-  PE10, //D63 - QUADSPI_CLK
-  PE11, //D64 - QUADSPI_NCS
-  PE12, //D65 - QUADSPI_BK1_IO0
-  PE13, //D66 - QUADSPI_BK1_IO1
-  PE14, //D67 - QUADSPI_BK1_IO2
-  PE15, //D68 - QUADSPI_BK1_IO3
+#define  PA8    33
+#define  PB5    34
+#define  PB10   35
+#define  PB11   36
+#define  PB12   37
+#define  PB13   38
+#define  PB15   39
+#define  PC6    40
+#define  PC7    41
+#define  PC8    42
+#define  PC9    43
+#define  PC10   44
+#define  PC11   45
+#define  PC12   46
+#define  PD7    47
+#define  PD8    48
+#define  PD9    49
+#define  PD10   50
+#define  PD11   51
+#define  PD13   52
+#define  PD15   53
+#define  PE0    54
+#define  PE1    55
+#define  PE2    56
+#define  PE4    57
+#define  PE5    58
+#define  PE6    59
+#define  PE7    60
+#define  PE8    61
+#define  PE9    62
+#define  PE10   63
+#define  PE11   64
+#define  PE12   65
+#define  PE13   66
+#define  PE14   67
+#define  PE15   68
 // CN4 connector
-  PC5,  //D69/A0
-  PC4,  //D70/A1
-  PC3,  //D71/A2
-  PC2,  //D72/A3
-  PC1,  //D73/A4
-  PC0,  //D74/A5
+#define  PC5    69
+#define  PC4    70
+#define  PC3    71
+#define  PC2    72
+#define  PC1    73
+#define  PC0    74
 // Duplicated pins in order to be aligned with PinMap_ADC
-  PA1_2, //D75/A6
-  PA0_2, //D76/A7
-  PB0_2, //D77/A8
-  PA3_2, //D78/A9
-  PB1_2, //D79/A10
-  PA4_2, //D80/A11
-  PA2_2, //D81/A12
-  PA7_2, //D82/A13
-  PA6_2, //D83/A14
-  PA5_2, //D84/A15
-  PEND
-};
+#define  PA1_2   75
+#define  PA0_2   76
+#define  PB0_2   77
+#define  PA3_2   78
+#define  PB1_2   79
+#define  PA4_2   80
+#define  PA2_2   81
+#define  PA7_2   82
+#define  PA6_2   83
+#define  PA5_2   84
+#define  PEND    85
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        85
