@@ -555,7 +555,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   i2c_t *obj = get_i2c_obj(hi2c);
 
   /*  Previous master transaction now ended, so inform upper layer if needed
-   *  then prepare for listeing to next request */
+   *  then prepare for listening to next request */
   if((obj->i2c_onSlaveReceive != NULL) &&
     (obj->slaveMode == SLAVE_MODE_RECEIVE)) {
     if(obj->slaveRxNbData != 0) {
@@ -598,7 +598,7 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
 void HAL_I2C_SlaveTxCpltCallback(I2C_HandleTypeDef *hi2c)
 {
   i2c_t *obj = get_i2c_obj(hi2c);
-  /*  reset transmit buffer size */
+  /* Reset transmit buffer size */
   obj->i2cTxRxBufferSize = 0;
 }
 
