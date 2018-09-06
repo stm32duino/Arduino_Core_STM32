@@ -91,12 +91,13 @@ struct i2c_s {
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
   IRQn_Type irqER;
 #endif //!defined(STM32F0xx) && !defined(STM32L0xx)
-  uint8_t slaveMode;
+  volatile uint8_t slaveMode;
   uint8_t isMaster;
+  volatile int slaveRxNbData; // Number of accumulated bytes received in Slave mode
   void (*i2c_onSlaveReceive)(uint8_t *, int);
   void (*i2c_onSlaveTransmit)(void);
-  uint8_t i2cTxRxBuffer[I2C_TXRX_BUFFER_SIZE];
-  uint8_t i2cTxRxBufferSize;
+  volatile uint8_t i2cTxRxBuffer[I2C_TXRX_BUFFER_SIZE];
+  volatile uint8_t i2cTxRxBufferSize;
 };
 
 ///@brief I2C state
