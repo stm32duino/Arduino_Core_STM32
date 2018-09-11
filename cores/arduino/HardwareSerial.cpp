@@ -166,12 +166,104 @@ HardwareSerial::HardwareSerial(void* peripheral)
 // If Serial is defined in variant set
 // the Rx/Tx pins for com port if defined
 #if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
-  if (this == &Serial)
-  {
+  if (this == &Serial) {
     setRx(PIN_SERIAL_RX);
     setTx(PIN_SERIAL_TX);
-  }
-  else
+  } else
+#endif
+#if defined(PIN_SERIAL1_RX) && defined(PIN_SERIAL1_TX) && defined(USART1_BASE)
+  if (peripheral == USART1) {
+    setRx(PIN_SERIAL1_RX);
+    setTx(PIN_SERIAL1_TX);
+  } else
+#endif
+#if defined(PIN_SERIAL2_RX) && defined(PIN_SERIAL2_TX) && defined(USART2_BASE)
+  if (peripheral == USART2) {
+    setRx(PIN_SERIAL2_RX);
+    setTx(PIN_SERIAL2_TX);
+  } else
+#endif
+#if defined(PIN_SERIAL3_RX) && defined(PIN_SERIAL3_TX) && defined(USART3_BASE)
+  if (peripheral == USART3) {
+    setRx(PIN_SERIAL3_RX);
+    setTx(PIN_SERIAL3_TX);
+  }else
+#endif
+#if defined(PIN_SERIAL4_RX) && defined(PIN_SERIAL4_TX) &&\
+   (defined(USART4_BASE) || defined(UART4_BASE))
+#if defined(USART4_BASE)
+  if (peripheral == USART4)
+#elif defined(UART4_BASE)
+  if (peripheral == UART4)
+#endif
+  {
+    setRx(PIN_SERIAL4_RX);
+    setTx(PIN_SERIAL4_TX);
+  } else
+#endif
+#if defined(PIN_SERIAL5_RX) && defined(PIN_SERIAL5_TX) &&\
+   (defined(USART5_BASE) || defined(UART5_BASE))
+#if defined(USART5_BASE)
+  if (peripheral == USART5)
+#elif defined(UART5_BASE)
+  if (peripheral == UART5)
+#endif
+    {
+      setRx(PIN_SERIAL5_RX);
+      setTx(PIN_SERIAL5_TX);
+    } else
+#endif
+#if defined(PIN_SERIAL6_RX) && defined(PIN_SERIAL6_TX) && defined(USART6_BASE)
+    if (peripheral == USART6)
+    {
+      setRx(PIN_SERIAL6_RX);
+      setTx(PIN_SERIAL6_TX);
+    } else
+#endif
+#if defined(PIN_SERIAL7_RX) && defined(PIN_SERIAL7_TX) &&\
+   (defined(USART7_BASE) || defined(UART7_BASE))
+#if defined(USART7_BASE)
+  if (peripheral == USART7)
+#elif defined(UART7_BASE)
+  if (peripheral == UART7)
+#endif
+    {
+      setRx(PIN_SERIAL7_RX);
+      setTx(PIN_SERIAL7_TX);
+    } else
+#endif
+#if defined(PIN_SERIAL8_RX) && defined(PIN_SERIAL8_TX) &&\
+   (defined(USART8_BASE) || defined(UART8_BASE))
+#if defined(USART8_BASE)
+  if (peripheral == USART8)
+#elif defined(UART8_BASE)
+  if (peripheral == UART8)
+#endif
+    {
+      setRx(PIN_SERIAL8_RX);
+      setTx(PIN_SERIAL8_TX);
+    } else
+#endif
+#if defined(PIN_SERIAL9_RX) && defined(PIN_SERIAL9_TX) && defined(UART9)
+    if (peripheral == UART9)
+    {
+      setRx(PIN_SERIAL9_RX);
+      setTx(PIN_SERIAL9_TX);
+    } else
+#endif
+#if defined(PIN_SERIAL10_RX) && defined(PIN_SERIAL10_TX) && defined(UART10)
+    if (peripheral == UART10)
+    {
+      setRx(PIN_SERIAL10_RX);
+      setTx(PIN_SERIAL10_TX);
+    } else
+#endif
+#if defined(PIN_SERIALLP1_RX) && defined(PIN_SERIALLP1_TX) && defined(LPUART1_BASE)
+    if (peripheral == LPUART1)
+    {
+      setRx(PIN_SERIALLP1_RX);
+      setTx(PIN_SERIALLP1_TX);
+    } else
 #endif
 // else get the pins of the first peripheral occurence in PinMap
   {
