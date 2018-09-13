@@ -1,7 +1,7 @@
 /******************************************************************************
  * The MIT License
  *
- * Copyright (c) 2010 Perry Hung.
+ * Copyright (c) 2018 MCCI Corporation
  *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
@@ -28,11 +28,6 @@
  * @brief Wirish virtual serial port
  */
 
- /*
-  * Arduino srl - www.arduino.org
-  * 2016 Jun 9: Edited Francesco Alessi (alfran) - francesco@arduino.org
-  */
-
 #ifndef _USB_SERIAL_H_
 #define _USB_SERIAL_H_
 
@@ -43,34 +38,35 @@
 /**
  * @brief Virtual serial terminal.
  */
-class USBSerial : public Stream {
+class USBSerial : public Stream
+	{
 public:
-    USBSerial(void);
+	USBSerial(void);
 
-    void begin(void);
-    void begin(unsigned long baud) { begin(); }
-    void end(void);
+	void begin(void);
+	void begin(unsigned long baud) { begin(); }
+	void end(void);
 
-    virtual int available(void);
-    virtual int peek(void);
-    virtual void flush(void);
-    virtual int read(void);
+	virtual int available(void);
+	virtual int peek(void);
+	virtual void flush(void);
+	virtual int read(void);
 
-    int availableForWrite(void);
-    virtual size_t write(uint8_t);
-    virtual size_t write(const uint8_t *buffer, size_t size);
-    inline size_t write(unsigned long n) { return write((uint8_t)n); }
-    inline size_t write(long n) { return write((uint8_t)n); }
-    inline size_t write(unsigned int n) { return write((uint8_t)n); }
-    inline size_t write(int n) { return write((uint8_t)n); }
-    using Print::write;
+	int availableForWrite(void);
+	virtual size_t write(uint8_t);
+	virtual size_t write(const uint8_t *buffer, size_t size);
+	inline size_t write(unsigned long n) { return write((uint8_t)n); }
+	inline size_t write(long n) { return write((uint8_t)n); }
+	inline size_t write(unsigned int n) { return write((uint8_t)n); }
+	inline size_t write(int n) { return write((uint8_t)n); }
+	using Print::write;
 
-    bool dtr(void);
-    bool rts(void);
-    bool isConnected();
+	bool dtr(void);
+	bool rts(void);
+	bool isConnected();
 
-    virtual operator bool(void);
-};
+	virtual operator bool(void);
+	};
 
 extern USBSerial SerialUSB;
 
