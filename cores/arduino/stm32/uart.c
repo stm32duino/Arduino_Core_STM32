@@ -33,6 +33,7 @@
   *
   ******************************************************************************
   */
+#include "debug.h"
 #include "uart.h"
 #include "Arduino.h"
 #include "PinAF_STM32F1.h"
@@ -101,7 +102,7 @@ void uart_init(serial_t *obj)
 
   /* Pins Rx/Tx must not be NP */
   if(uart_rx == NP || uart_tx == NP) {
-    printf("ERROR: at least one UART pin has no peripheral\n");
+    debug("ERROR: at least one UART pin has no peripheral\n");
     return;
   }
 
@@ -112,7 +113,7 @@ void uart_init(serial_t *obj)
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 
   if(obj->uart == NP) {
-    printf("ERROR: U(S)ART pins mismatch\n");
+    debug("ERROR: U(S)ART pins mismatch\n");
     return;
   }
 

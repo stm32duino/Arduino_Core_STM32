@@ -46,6 +46,7 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
+#include "debug.h"
 #include "uart_emul.h"
 #include "digital_io.h"
 #include "interrupt.h"
@@ -402,7 +403,7 @@ void HAL_UART_Emul_RxCpltCallback(UART_Emul_HandleTypeDef *huart)
 
 /*void HAL_UART_Emul_ErrorCallback(UART_Emul_HandleTypeDef *huart)
 {
-  printf("UART EMUL RX ERROR\n");
+  debug("UART EMUL RX ERROR\n");
 }*/
 
 /**
