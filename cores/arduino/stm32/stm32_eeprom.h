@@ -1,9 +1,6 @@
 /**
   ******************************************************************************
   * @file    stm32_eeprom.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
   * @brief   Header for eeprom module
   ******************************************************************************
   * @attention
@@ -50,8 +47,8 @@
 /* Exported constants --------------------------------------------------------*/
 
 #if defined (STM32F2xx) || defined (STM32F4xx) || defined (STM32F7xx)
-//FLASH_SECTOR_SIZE
-#define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) //16kB page
+/* FLASH_SECTOR_SIZE */
+#define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) /* 16kB page */
 #endif
 #define E2END FLASH_PAGE_SIZE
 
