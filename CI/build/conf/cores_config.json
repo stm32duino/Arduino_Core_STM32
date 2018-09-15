@@ -57,6 +57,11 @@
           "boards": [ "DISCO_F746NG" ]
         },
         {
+          "pattern": "/Ethernet/",
+          "applicable": false,
+          "boards": [ "NUCLEO_L031K6" ]
+        },
+        {
           "pattern": "09.USB",
           "applicable": true,
           "boards": [ "NUCLEO_F429ZI", "DISCO_L475VG_IOT", "DISCO_F407VG" ],
