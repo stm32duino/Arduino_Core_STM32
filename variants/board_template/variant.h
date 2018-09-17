@@ -144,6 +144,12 @@ enum {
 //#define PIN_SERIALLP1_RX        x // For LPUART1 RX
 //#define PIN_SERIALLP1_TX        x // For LPUART1 TX
 
+// SD card slot Definitions
+// SD detect signal can be defined if required
+//#define SD_DETECT_PIN           x
+// SD Read/Write timeout, default value defined in STM32SD library
+//#define SD_DATATIMEOUT          x
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
