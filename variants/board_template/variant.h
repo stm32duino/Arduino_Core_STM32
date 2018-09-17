@@ -133,6 +133,15 @@ extern const PinName digitalPin[];
 #define PIN_SERIAL_RX           x
 #define PIN_SERIAL_TX           x
 
+// Optional PIN_SERIALn_RX and PIN_SERIALn_TX where 'n' is the U(S)ART number
+// Used when user instanciate a hardware Serial using its peripheral name.
+// Example: HardwareSerial mySerial(USART3);
+// will use PIN_SERIAL3_RX and PIN_SERIAL3_TX if defined.
+//#define PIN_SERIALn_RX          x // For U(S)ARTn RX
+//#define PIN_SERIALn_TX          x // For U(S)ARTn TX
+//#define PIN_SERIALLP1_RX        x // For LPUART1 RX
+//#define PIN_SERIALLP1_TX        x // For LPUART1 TX
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
