@@ -54,7 +54,7 @@ enum {
   PE2,   
   PE4,   
   PE6,   
-  PC14,  //OSC32IN
+  PC14,  //OSC32_IN
   PC0,   
   PC2,   
   PA0,   
@@ -80,7 +80,7 @@ enum {
   PC8,   
   PC9, 
   PA9,   
-  PA11,  //D30
+  PA11,  //D30 - USB_DM
   PA13,
   PA15,
   PC11,  
@@ -103,7 +103,7 @@ enum {
   PE3,
   PE5, 
   PC13,
-  PC15,  //OSC32OUT
+  PC15,  //OSC32_OUT
   PC1, 
   PC3, 
   PA2, 
@@ -126,7 +126,7 @@ enum {
   PC7, 
   PA8, 
   PA10,
-  PA12,
+  PA12,  //USB_DP
   PA14,  //D70
   PC10,
   PD0, 
