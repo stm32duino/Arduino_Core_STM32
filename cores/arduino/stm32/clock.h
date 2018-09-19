@@ -60,7 +60,6 @@ typedef enum {
 /* Exported functions ------------------------------------------------------- */
 uint32_t GetCurrentMilli(void);
 uint32_t GetCurrentMicro(void);
-void delayInsideIT(uint32_t delay_us);
 
 void enableClock(sourceClock_t source);
 #ifdef __cplusplus
