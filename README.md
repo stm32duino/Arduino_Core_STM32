@@ -70,6 +70,8 @@ For advanced user, you can use the repository: see the [Using git repository](ht
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
+  * STM32F4
+    * [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant)
 
   * STM32F7
     * [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html)
