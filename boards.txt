@@ -522,6 +522,19 @@ GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5)
+GenF4.menu.pnum.BLUE_F407VE_MINI=Blue F407VE mini
+GenF4.menu.pnum.BLUE_F407VE_MINI.upload.maximum_size=524288
+GenF4.menu.pnum.BLUE_F407VE_MINI.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.board=BLUE_F407VE_MINI
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.series=STM32F4xx
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.variant=BLUE_F407VE_MINI
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 GenF4.menu.upload_method.STLink=STLink
 GenF4.menu.upload_method.STLink.upload.protocol=STLink
