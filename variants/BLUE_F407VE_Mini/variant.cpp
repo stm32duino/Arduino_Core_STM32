@@ -46,15 +46,15 @@ const PinName digitalPin[] = {
   //3V3   //3V3
   //GND   //GND
   PE_2,   PE_3,   // D0, D1
-  PE_4,   PE_5,   // PE_4: BUT K0, PE_5: BUT K1
+  PE_4,   PE_5,
   PE_6,   PC_13,
   PC_0,   PC_1,
   PC_2,   PC_3,
   //VREF- //VREF+
-  PA_0,   PA_1,   // D10, D11 PA_0(WK_UP): BUT K_UP)
+  PA_0,   PA_1,   // D10, D11
   PA_2,   PA_3,
   PA_4,   PA_5,
-  PA_6,   PA_7,   // PA_6: LED D2, PA_7: LED D3 (active LOW)
+  PA_6,   PA_7,
   PC_4,   PC_5,
   PB_0,   PB_1,   // D20, D21
   PE_7,   PE_8,
@@ -72,7 +72,7 @@ const PinName digitalPin[] = {
   //GND   //GND
   //GND   //GND
   PE_1,   PE_0,
-  PB_9,   PB_8,
+  PB_9,   PB_8,   // PB_9: LED (active LOW)
   PB_7,   PB_6,   // D40, D41
   PB_5,   PB_3,
   PD_7,   PD_6,

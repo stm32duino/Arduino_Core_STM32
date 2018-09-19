@@ -54,15 +54,15 @@ enum {
   //3V3   //3V3
   //GND   //GND
   PE2,    PE3,    // D0, D1
-  PE4,    PE5,    // PE_4: BUT K0, PE_5: BUT K1
+  PE4,    PE5,
   PE6,    PC13,
   PC0,    PC1,
   PC2,    PC3,
   //VREF- //VREF+
-  PA0,    PA1,    // D10, D11 PA_0(WK_UP): BUT K_UP)
+  PA0,    PA1,    // D10, D11
   PA2,    PA3,
   PA4,    PA5,
-  PA6,    PA7,    // PA_6: LED D2, PA_7: LED D3 (active LOW)
+  PA6,    PA7,
   PC4,    PC5,
   PB0,    PB1,    // D20, D21
   PE7,    PE8,
@@ -80,7 +80,7 @@ enum {
   //GND   //GND
   //GND   //GND
   PE1,    PE0,
-  PB9,    PB8,
+  PB9,    PB8,    // PB_9: LED (active LOW)
   PB7,    PB6,    // D40, D41
   PB5,    PB3,
   PD7,    PD6,
@@ -135,16 +135,10 @@ enum {
 //#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
-#define LED_D2                  PA6
-#define LED_D3                  PA7
-#define LED_BUILTIN             LED_D2
-#define LED_GREEN               LED_D2
+#define LED_BUILTIN             PB9
 
 // On-board user button
-#define BTN_K_UP                PA0
-#define BTN_K0                  PE4
-#define BTN_K1                  PE5
-#define USER_BTN                BTN_K0
+//#define BTN_K_UP                PA0   - no user button
 
 // Below SPI and I2C definitions already done in the core
 // Could be redefined here if differs from the default one
