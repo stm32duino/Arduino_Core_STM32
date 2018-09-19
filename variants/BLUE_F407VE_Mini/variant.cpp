@@ -38,71 +38,112 @@ extern "C" {
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-  // Left Side
-  //Ext   //Int
-  //5V    //5V
-  //5V    //5V
-  //3V3   //3V3
-  //3V3   //3V3
-  //GND   //GND
-  PE_2,   PE_3,   // D0, D1
-  PE_4,   PE_5,
-  PE_6,   PC_13,
-  PC_0,   PC_1,
-  PC_2,   PC_3,
-  //VREF- //VREF+
-  PA_0,   PA_1,   // D10, D11
-  PA_2,   PA_3,
-  PA_4,   PA_5,
-  PA_6,   PA_7,
-  PC_4,   PC_5,
-  PB_0,   PB_1,   // D20, D21
-  PE_7,   PE_8,
-  PE_9,   PE_10,
-  PE_11,  PE_12,
-  PE_13,  PE_14,
-  PE_15,  PB_10,  // D30, D31
-  PB_11,  PB_12,
-  PB_13,  PB_14,
-  // Right Side
-  //Int   //Ext
-  //3V3   //3V3
-  //3V3   //3V3
-  //BOOT0 //BOOT1
-  //GND   //GND
-  //GND   //GND
-  PE_1,   PE_0,
-  PB_9,   PB_8,   // PB_9: LED (active LOW)
-  PB_7,   PB_6,   // D40, D41
-  PB_5,   PB_3,
-  PD_7,   PD_6,
-  PD_5,   PD_4,
-  PD_3,   PD_2,
-  PD_1,   PD_0,   // D50, D51
-  PC_12,  PC_11,
-  PC_10,  PA_15,
-  PA_12,  PA_11,  // PA_11: USB_DM, PA_12: USB_DP
-  PA_10,  PA_9,
-  PA_8,   PC_9,   // D60, D61
-  PC_8,   PC_7,
-  PC_6,   PD_15,
-  PD_14,  PD_13,
-  PD_12,  PD_11,
-  PD_10,  PD_9,   // D70, D71
-  PD_8,   PB_15,
-  PB_4,
+//External (left to right) 
+  //GND   
+  //VBAT  
+  //5V    
+  PE_0,   //D0
+  PE_2,   
+  PE_4,   
+  PE_6,   
+  PC_14,  //OSC32_IN
+  PC_0,   
+  PC_2,   
+  PA_0,   
+  PA_1,   
+  PA_4,   
+  PA_6,   //D10
+  PC_4,   
+  PB_0,   
+  PB_2,   
+  PE_8,   
+  PE_9, 
+  PE_11,  
+  PE_13,  
+  PE_15,  
+  PB_11,  
+  PB_13,  //D20
+  PB_15,
+  PD_9,   
+  PD_11,  
+  PD_13,  
+  PD_15,  
+  PC_6,   
+  PC_8,   
+  PC_9, 
+  PA_9,   
+  PA_11,  //D30
+  PA_13,
+  PA_15,
+  PC_11,  
+  PC_12,  
+  PD_1,   
+  PD_3,   
+  PD_5,   
+  PD_7,   
+  PB_4,   
+  PB_6,   //D40
+  PB_8,   
+  //GND   
+  //3V3   
+  //GND   
+//Internal (left to right) 
+  //GND  
+  //3V3  
+  //5V  
+  PE_1,
+  PE_3,
+  PE_5, 
+  PC_13,
+  PC_15,  //OSC32_OUT
+  PC_1, 
+  PC_3, 
+  PA_2, 
+  PA_3,   //D50
+  PA_5, 
+  PA_7,
+  PC_5, 
+  PB_1, 
+  PE_7, 
+  PE_10,
+  PE_12,
+  PE_14,
+  PB_10,
+  PB_12,  //D60
+  PB_14,
+  PD_8, 
+  PD_10,
+  PD_12,
+  PD_14,
+  PC_7, 
+  PA_8, 
+  PA_10,
+  PA_12,
+  PA_14,  //D70
+  PC_10,
+  PD_0, 
+  PD_2, 
+  PD_4, 
+  PD_6, 
+  PB_3,  
+  PB_5,  
+  PB_7,  
+  PB_9,   //D79 - LED
+  //GND  
+  //3V3  
+  //GND  
   // Analog pins
-  PA_0,           // D75
+  PA_0,   //D80
   PA_1,
   PA_2,
   PA_3,
   PA_4,
-  PA_5,           // D80
+  PA_5,
   PB_0,
   PB_1,
   PC_0,
   PC_1,
-  PC_2,
+  PC_2,   //D90
   PC_3,
   PC_4,
   PC_5

@@ -46,71 +46,112 @@ extern "C"{
 extern const PinName digitalPin[];
 
 enum {
-  // Left Side
-  //Ext   //Int
-  //5V    //5V
-  //5V    //5V
-  //3V3   //3V3
-  //3V3   //3V3
-  //GND   //GND
-  PE2,    PE3,    // D0, D1
-  PE4,    PE5,
-  PE6,    PC13,
-  PC0,    PC1,
-  PC2,    PC3,
-  //VREF- //VREF+
-  PA0,    PA1,    // D10, D11
-  PA2,    PA3,
-  PA4,    PA5,
-  PA6,    PA7,
-  PC4,    PC5,
-  PB0,    PB1,    // D20, D21
-  PE7,    PE8,
-  PE9,    PE10,
-  PE11,   PE12,
-  PE13,   PE14,
-  PE15,   PB10,   // D30, D31
-  PB11,   PB12,
-  PB13,   PB14,
-  // Right Side
-  //Int   //Ext
-  //3V3   //3V3
-  //3V3   //3V3
-  //BOOT0 //BOOT1
-  //GND   //GND
-  //GND   //GND
-  PE1,    PE0,
-  PB9,    PB8,    // PB_9: LED (active LOW)
-  PB7,    PB6,    // D40, D41
-  PB5,    PB3,
-  PD7,    PD6,
-  PD5,    PD4,
-  PD3,    PD2,
-  PD1,    PD0,    // D50, D51
-  PC12,   PC11,
-  PC10,   PA15,
-  PA12,   PA11,   // PA_11: USB_DM, PA_12: USB_DP
-  PA10,   PA9,
-  PA8,    PC9,    // D60, D61
-  PC8,    PC7,
-  PC6,    PD15,
-  PD14,   PD13,
-  PD12,   PD11,
-  PD10,   PD9,    // D70, D71
-  PD8,    PB15,
-  PB4,
+//External (left to right) 
+  //GND   
+  //VBAT  
+  //5V    
+  PE0,   //D0
+  PE2,   
+  PE4,   
+  PE6,   
+  PC14,  //OSC32IN
+  PC0,   
+  PC2,   
+  PA0,   
+  PA1,   
+  PA4,   
+  PA6,   //D10
+  PC4,   
+  PB0,   
+  PB2,   
+  PE8,   
+  PE9, 
+  PE11,  
+  PE13,  
+  PE15,  
+  PB11,  
+  PB13,  //D20
+  PB15,
+  PD9,   
+  PD11,  
+  PD13,  
+  PD15,  
+  PC6,   
+  PC8,   
+  PC9, 
+  PA9,   
+  PA11,  //D30
+  PA13,
+  PA15,
+  PC11,  
+  PC12,  
+  PD1,   
+  PD3,   
+  PD5,   
+  PD7,   
+  PB4,   
+  PB6,   //D40
+  PB8,   
+  //GND   
+  //3V3   
+  //GND   
+//Internal (left to right) 
+  //GND  
+  //3V3  
+  //5V  
+  PE1,
+  PE3,
+  PE5, 
+  PC13,
+  PC15,  //OSC32OUT
+  PC1, 
+  PC3, 
+  PA2, 
+  PA3,   //D50
+  PA5, 
+  PA7,
+  PC5, 
+  PB1, 
+  PE7, 
+  PE10,
+  PE12,
+  PE14,
+  PB10,
+  PB12,  //D60
+  PB14,
+  PD8, 
+  PD10,
+  PD12,
+  PD14,
+  PC7, 
+  PA8, 
+  PA10,
+  PA12,
+  PA14,  //D70
+  PC10,
+  PD0, 
+  PD2, 
+  PD4, 
+  PD6, 
+  PB3,  
+  PB5,  
+  PB7,  
+  PB9,   //D79 - LED
+  //GND  
+  //3V3  
+  //GND  
   // Analog pins
-  PA0_A,          // D75
+  PA0_A,   //D80
   PA1_A,
   PA2_A,
   PA3_A,
   PA4_A,
-  PA5_A,          // D80
+  PA5_A,
   PB0_A,
   PB1_A,
   PC0_A,
   PC1_A,
-  PC2_A,
+  PC2_A,   //D90
   PC3_A,
   PC4_A,
   PC5_A,
@@ -118,10 +159,10 @@ enum {
 };
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        89
+#define NUM_DIGITAL_PINS        94
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        75
+#define NUM_ANALOG_FIRST        80
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
@@ -143,15 +184,14 @@ enum {
 // Below SPI and I2C definitions already done in the core
 // Could be redefined here if differs from the default one
 // SPI Definitions
-#define PIN_SPI_SS              PB7 // NRF24 connector
-#define PIN_SPI_SS1             PB0 // W25Q16 (on board flash)
-#define PIN_SPI_MOSI            PB5 // NRF24 connector & W25Q16 (on board flash)
-#define PIN_SPI_MISO            PB4 // NRF24 connector & W25Q16 (on board flash)
-#define PIN_SPI_SCK             PB3 // NRF24 connector & W25Q16 (on board flash)
+#define PIN_SPI_SS              PB7
+#define PIN_SPI_MOSI            PB5
+#define PIN_SPI_MISO            PB4
+#define PIN_SPI_SCK             PB3
 
 // I2C Definitions
-#define PIN_WIRE_SDA            PB9
-#define PIN_WIRE_SCL            PB8
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
