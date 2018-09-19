@@ -99,7 +99,6 @@ const PinMap PinMap_I2C_SCL[] = {
 
 #ifdef HAL_TIM_MODULE_ENABLED
 // TIM2 is commented out, because it is used by us_ticker.
-// TIM17 is used for TIMER_UART_EMULATED
 const PinMap PinMap_PWM[] = {
 //  {PA_0,  TIM2,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF1_TIM2, 1, 0)},  // TIM2_CH1
     {PA_1,  TIM15,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF9_TIM15, 1, 1)},  // TIM15_CH1N
