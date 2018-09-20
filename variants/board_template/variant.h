@@ -109,7 +109,6 @@ extern const PinName digitalPin[];
 // Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
 #define TIMER_TONE              TIMx
-//#define TIMER_UART_EMULATED     TIMx
 
 // Do not use basic timer: OC is required
 #define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
@@ -124,10 +123,6 @@ extern const PinName digitalPin[];
 // DEBUG_UART Tx pin name, default: the first one found in PinMap_UART_TX for DEBUG_UART
 //#define DEBUG_PINNAME_TX        PX_n // PinName used for TX
 
-// UART Emulation (uncomment if needed, required TIM1)
-//#define UART_EMUL_RX            PX_n // PinName used for RX
-//#define UART_EMUL_TX            PX_n // PinName used for TX
-
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           x
@@ -141,6 +136,12 @@ extern const PinName digitalPin[];
 //#define PIN_SERIALn_TX          x // For U(S)ARTn TX
 //#define PIN_SERIALLP1_RX        x // For LPUART1 RX
 //#define PIN_SERIALLP1_TX        x // For LPUART1 TX
+
+// SD card slot Definitions
+// SD detect signal can be defined if required
+//#define SD_DETECT_PIN           x
+// SD Read/Write timeout, default value defined in STM32SD library
+//#define SD_DATATIMEOUT          x
 
 #ifdef __cplusplus
 } // extern "C"

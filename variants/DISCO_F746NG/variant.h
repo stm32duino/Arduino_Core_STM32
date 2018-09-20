@@ -58,10 +58,11 @@ extern const PinName digitalPin[];
 #define  PI11  22
 #define  PB7   23
 #define  PA9   24
-#define  PEND  25
+#define  PC13  25
+#define  PEND  26
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        25
+#define NUM_DIGITAL_PINS        26
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6
 #define NUM_ANALOG_FIRST        16
@@ -86,6 +87,9 @@ extern const PinName digitalPin[];
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PA9
+
+// SD detect signal
+#define SD_DETECT_PIN           PC13
 
 #ifdef __cplusplus
 } // extern "C"

@@ -26,24 +26,29 @@
 
 
 
-// Example pinmap for Bluepill I2Cs (by Testato)
-//
-// I2C-1 standard pins: PB7(sda) PB6(scl)
-// Use it by "Wire" without pin declaration
-//
-// I2C-1 alternative pins: PB9(sda) PB8(scl)
-// Remap the first I2C before call begin()
-// Wire.setSDA(PB9);
-// Wire.setSCL(PB8);
-// Wire.begin();
-//
-// I2C-2: PB11(sda) PB10(scl)
-// Wire.setSDA(PB11);
-// Wire.setSCL(PB10);
-//
-// If you want to use the two I2Cs simultaneously, create a new instance for the second I2C
-// TwoWire Wire2(PB11,PB10);
+/* Example pinmap for Bluepill I2Cs (by Testato)
 
+ I2C-1 standard pins: PB7(sda) PB6(scl)
+ Use it by "Wire" without pin declaration
+  Wire.begin();
+
+ I2C-1 alternative pins: PB9(sda) PB8(scl)
+ Remap the first I2C before call begin()
+  Wire.setSDA(PB9);
+  Wire.setSCL(PB8);
+  Wire.begin();
+
+ I2C-2: PB11(sda) PB10(scl)
+ Remap the second I2C before call begin()
+  Wire.setSDA(PB11);
+  Wire.setSCL(PB10);
+  Wire.begin();
+
+ If you want to use the two I2Cs simultaneously, create a new instance for the second I2C
+  TwoWire Wire2(PB11,PB10);
+  Wire2.begin();
+ 
+*/
 
 
 #include <Wire.h>
