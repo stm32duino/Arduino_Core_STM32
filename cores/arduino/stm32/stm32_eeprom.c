@@ -1,11 +1,7 @@
 /**
   ******************************************************************************
-  * @file    eeprom.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   provide emulated eeprom from flash
-  *
+  * @file    stm32_eeprom.c
+  * @brief   Provides emulated eeprom from flash
   ******************************************************************************
   * @attention
   *
@@ -35,17 +31,7 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
 
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "stm32_eeprom.h"
 #include <string.h>
 
@@ -53,22 +39,7 @@
  extern "C" {
 #endif
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
-// We use the last page of the flash to store data (to prevent code overwritten).
+// We use the last page of the flash to store data (to prevent overwritting program data).
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined(STM32L1xx)
 #if defined (FLASH_BANK2_END)
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK2_END + 1) - FLASH_PAGE_SIZE))
@@ -121,82 +92,64 @@ static inline uint32_t get_flash_end(void) {
 #define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
 #define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_BASE + (FLASH_PAGE_NUMBER * FLASH_PAGE_SIZE)))
 #endif
-/**
-  * @}
-  */
 
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
+static uint8_t eeprom_buffer[E2END] = {0};
 
 /**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
-static uint8_t tmpEE[E2END] = {0};
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
-void get_data_from_flash(void);
-void set_data_to_flash(void);
-
-/**
-  * @}
-  */
-
-/**
-  * @brief  Function read a byte from eeprom
-  * @param  __p : address to read
+  * @brief  Function reads a byte from emulated eeprom (flash)
+  * @param  pos : address to read
   * @retval byte : data read from eeprom
   */
-uint8_t eeprom_read_byte(const uint16_t __p)
-{
-  uint8_t byte = 0;
-
-  get_data_from_flash();
-  byte = tmpEE[__p];
-
-  return byte;
+uint8_t eeprom_read_byte(const uint16_t pos) {
+  eeprom_buffer_fill();
+  return eeprom_buffered_read_byte(pos);
 }
 
 /**
-  * @brief  Function write a byte to eeprom
-  * @param  __p : address to write
-  * @param  __value : value to write
+  * @brief  Function writes a byte to emulated eeprom (flash)
+  * @param  pos : address to write
+  * @param  value : value to write
   * @retval none
   */
-void eeprom_write_byte(uint16_t __p, uint8_t __value)
-{
-  tmpEE[__p] = __value;
-  set_data_to_flash();
+void eeprom_write_byte(uint16_t pos, uint8_t value) {
+  eeprom_buffered_write_byte(pos, value);
+  eeprom_buffer_flush();
 }
 
 /**
-  * @brief  The function read into the flash.
+  * @brief  Function reads a byte from the eeprom buffer
+  * @param  pos : address to read
+  * @retval byte : data read from eeprom
+  */
+uint8_t eeprom_buffered_read_byte(const uint16_t pos) {
+  return eeprom_buffer[pos];
+}
+
+/**
+  * @brief  Function writes a byte to the eeprom buffer
+  * @param  pos : address to write
+  * @param  value : value to write
+  * @retval none
+  */
+void eeprom_buffered_write_byte(uint16_t pos, uint8_t value) {
+  eeprom_buffer[pos] = value;
+}
+
+/**
+  * @brief  This function copies the data from flash into the buffer
   * @param  none
   * @retval none
   */
-void get_data_from_flash(void)
-{
-  memcpy(tmpEE, (uint8_t*)(FLASH_BASE_ADDRESS), E2END);
+void eeprom_buffer_fill(void) {
+  memcpy(eeprom_buffer, (uint8_t*)(FLASH_BASE_ADDRESS), E2END);
 }
 
 /**
-  * @brief  The function write into the flash.
+  * @brief  This function writes the buffer content into the flash
   * @param  none
   * @retval none
   */
-void set_data_to_flash(void)
-{
-  //copy in flash
+void eeprom_buffer_flush(void) {
   FLASH_EraseInitTypeDef EraseInitStruct;
   uint32_t offset = 0;
   uint32_t address = FLASH_BASE_ADDRESS;
@@ -240,12 +193,12 @@ void set_data_to_flash(void)
     if(HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while(address < address_end) {
 #if defined(STM32L0xx) || defined(STM32L1xx)
-      memcpy(&data, tmpEE + offset, sizeof(uint32_t));
+      memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
         offset += 4;
 #else
-        data = *((uint64_t*)(((uint8_t*)tmpEE + offset)));
+        data = *((uint64_t*)(((uint8_t*)eeprom_buffer + offset)));
 
         if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, data) == HAL_OK) {
           address += 8;
@@ -270,10 +223,9 @@ void set_data_to_flash(void)
 
   HAL_FLASH_Unlock();
 
-  if(HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) == HAL_OK)
-  {
+  if(HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) == HAL_OK) {
     while(address < address_end) {
-      memcpy(&data, tmpEE + offset, sizeof(uint32_t));
+      memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
         offset += 4;
@@ -286,18 +238,6 @@ void set_data_to_flash(void)
 #endif
 }
 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif
