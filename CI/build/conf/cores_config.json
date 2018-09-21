@@ -54,7 +54,7 @@
         {
           "pattern": "STM32SD",
           "applicable": true,
-          "boards": [ "DISCO_F746NG", "BLACK_F407VE" ]
+          "boards": [ "DISCO_F746NG", "BLACK_F407VE", "BLUE_F407VE_Mini" ]
         },
         {
           "pattern": "/Ethernet/",
