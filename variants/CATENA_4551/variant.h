@@ -153,8 +153,10 @@ enum {
 //                            pins are NOT connected to anything by default.
 #ifdef USBCON
 # define SERIAL_PORT_MONITOR  SerialUSB
+#elif defined(NO_HWSERIAL)
+# define SERIAL_PORT_MONITOR  SerialNo
 #else
-# define SERIAL_PORT_MONITOR   Serial
+# define SERIAL_PORT_MONITOR  Serial
 #endif
 #define SERIAL_PORT_HARDWARE  Serial
 #endif

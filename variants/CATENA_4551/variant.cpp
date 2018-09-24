@@ -84,7 +84,7 @@ extern "C" {
 
 #if CATENA_CFG_SYSCLK < 16
 # ifdef USBCON
-#  error USB can not support with CATENA_CFG_SYSCLK < 16
+#  error USB cannot be supported at clock rates < 16 MHz (CATENA_CFG_SYSCLK < 16)
 # endif
 #endif
 
@@ -158,15 +158,13 @@ void SystemClock_Config(void)
 #if CATENA_CFG_SYSCLK < 16
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-#else
-# if CATENA_CFG_SYSCLK == 16
+#elif CATENA_CFG_SYSCLK == 16
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-# else
+#else
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 /*  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;	HCLK = SYSCLK / 2 */
-# endif
 #endif
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;

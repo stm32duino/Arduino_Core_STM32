@@ -117,7 +117,9 @@ menu.upload_method=Upload method
 # menu.xserial
 {{board}}.menu.xserial.usb=USB Serial
 {{board}}.menu.xserial.generic=Generic Serial
+{{board}}.menu.xserial.none=No Serial
 {{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #{{board}}.menu.xserial.all=All (up to 10)
 #{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 #{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
@@ -125,16 +127,16 @@ menu.upload_method=Upload method
 
 #
 # menu.sysclk
-{{board}}.menu.sysclk.hsi16m=HSI 16 MHz
-{{board}}.menu.sysclk.pll24m=PLLCLK 24 MHz
-{{board}}.menu.sysclk.pll32m=PLLCLK 32 MHz
-{{board}}.menu.sysclk.msi2097k=MSI 2097 KHz (no USB Serial)
-{{board}}.menu.sysclk.msi4194k=MSI 4194 KHz (no USB Serial)
-{{board}}.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
-{{board}}.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
-{{board}}.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
-{{board}}.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
-{{board}}.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+{{borad}}.menu.sysclk.pll32m=32 MHz (most power)
+{{borad}}.menu.sysclk.pll24m=24 MHz
+{{borad}}.menu.sysclk.hsi16m=16 MHz
+{{borad}}.menu.sysclk.msi4194k=4.194 MHz (no USB)
+{{borad}}.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+{{borad}}.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+{{borad}}.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+{{borad}}.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+{{borad}}.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+{{borad}}.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt

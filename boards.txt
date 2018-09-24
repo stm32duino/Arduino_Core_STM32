@@ -87,7 +87,9 @@ mcci_catena_4551.menu.upload_method.STLink.upload.tool=stlink_upload
 # menu.xserial
 mcci_catena_4551.menu.xserial.usb=USB Serial
 mcci_catena_4551.menu.xserial.generic=Generic Serial
+mcci_catena_4551.menu.xserial.none=No Serial
 mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4551.menu.xserial.all=All (up to 10)
 #mcci_catena_4551.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 #mcci_catena_4551.menu.xserial.third=Enable first third (USART1 to 3 if available)
@@ -95,16 +97,16 @@ mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 
 #
 # menu.sysclk
-mcci_catena_4551.menu.sysclk.hsi16m=HSI 16 MHz
-mcci_catena_4551.menu.sysclk.pll24m=PLLCLK 24 MHz
-mcci_catena_4551.menu.sysclk.pll32m=PLLCLK 32 MHz
-mcci_catena_4551.menu.sysclk.msi2097k=MSI 2097 KHz (no USB Serial)
-mcci_catena_4551.menu.sysclk.msi4194k=MSI 4194 KHz (no USB Serial)
-mcci_catena_4551.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
-mcci_catena_4551.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4551.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4551.menu.sysclk.pll24m=24 MHz
+mcci_catena_4551.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4551.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4551.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
 mcci_catena_4551.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
-mcci_catena_4551.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
+mcci_catena_4551.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4551.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
 mcci_catena_4551.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4551.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt
@@ -204,7 +206,9 @@ mcci_catena_4611.menu.upload_method.STLink.upload.tool=stlink_upload
 # menu.xserial
 mcci_catena_4611.menu.xserial.usb=USB Serial
 mcci_catena_4611.menu.xserial.generic=Generic Serial
+mcci_catena_4611.menu.xserial.none=No Serial
 mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+mcci_catena_4611.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4611.menu.xserial.all=All (up to 10)
 #mcci_catena_4611.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 #mcci_catena_4611.menu.xserial.third=Enable first third (USART1 to 3 if available)
@@ -212,16 +216,16 @@ mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 
 #
 # menu.sysclk
-mcci_catena_4611.menu.sysclk.hsi16m=HSI 16 MHz
-mcci_catena_4611.menu.sysclk.pll24m=PLLCLK 24 MHz
-mcci_catena_4611.menu.sysclk.pll32m=PLLCLK 32 MHz
-mcci_catena_4611.menu.sysclk.msi2097k=MSI 2097 KHz (no USB Serial)
-mcci_catena_4611.menu.sysclk.msi4194k=MSI 4194 KHz (no USB Serial)
-mcci_catena_4611.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
-mcci_catena_4611.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4611.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4611.menu.sysclk.pll24m=24 MHz
+mcci_catena_4611.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4611.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4611.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
 mcci_catena_4611.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
-mcci_catena_4611.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
+mcci_catena_4611.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4611.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
 mcci_catena_4611.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4611.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt
@@ -321,7 +325,9 @@ mcci_catena_4612.menu.upload_method.STLink.upload.tool=stlink_upload
 # menu.xserial
 mcci_catena_4612.menu.xserial.usb=USB Serial
 mcci_catena_4612.menu.xserial.generic=Generic Serial
+mcci_catena_4612.menu.xserial.none=No Serial
 mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+mcci_catena_4612.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4612.menu.xserial.all=All (up to 10)
 #mcci_catena_4612.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
 #mcci_catena_4612.menu.xserial.third=Enable first third (USART1 to 3 if available)
@@ -329,16 +335,16 @@ mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 
 #
 # menu.sysclk
-mcci_catena_4612.menu.sysclk.hsi16m=HSI 16 MHz
-mcci_catena_4612.menu.sysclk.pll24m=PLLCLK 24 MHz
-mcci_catena_4612.menu.sysclk.pll32m=PLLCLK 32 MHz
-mcci_catena_4612.menu.sysclk.msi2097k=MSI 2097 KHz (no USB Serial)
-mcci_catena_4612.menu.sysclk.msi4194k=MSI 4194 KHz (no USB Serial)
-mcci_catena_4612.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
-mcci_catena_4612.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4612.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4612.menu.sysclk.pll24m=24 MHz
+mcci_catena_4612.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4612.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4612.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
 mcci_catena_4612.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
-mcci_catena_4612.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
+mcci_catena_4612.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4612.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
 mcci_catena_4612.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4612.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt
