@@ -101,7 +101,7 @@ static uint8_t eeprom_buffer[E2END] = {0};
   * @param  pos : address to read
   * @retval byte : data read from eeprom
   */
-uint8_t eeprom_read_byte(const uint16_t pos) {
+uint8_t eeprom_read_byte(const uint32_t pos) {
   eeprom_buffer_fill();
   return eeprom_buffered_read_byte(pos);
 }
@@ -112,7 +112,7 @@ uint8_t eeprom_read_byte(const uint16_t pos) {
   * @param  value : value to write
   * @retval none
   */
-void eeprom_write_byte(uint16_t pos, uint8_t value) {
+void eeprom_write_byte(uint32_t pos, uint8_t value) {
   eeprom_buffered_write_byte(pos, value);
   eeprom_buffer_flush();
 }
@@ -122,7 +122,7 @@ void eeprom_write_byte(uint16_t pos, uint8_t value) {
   * @param  pos : address to read
   * @retval byte : data read from eeprom
   */
-uint8_t eeprom_buffered_read_byte(const uint16_t pos) {
+uint8_t eeprom_buffered_read_byte(const uint32_t pos) {
   return eeprom_buffer[pos];
 }
 
@@ -132,7 +132,7 @@ uint8_t eeprom_buffered_read_byte(const uint16_t pos) {
   * @param  value : value to write
   * @retval none
   */
-void eeprom_buffered_write_byte(uint16_t pos, uint8_t value) {
+void eeprom_buffered_write_byte(uint32_t pos, uint8_t value) {
   eeprom_buffer[pos] = value;
 }
 
