@@ -35,8 +35,8 @@ The Arduino IDE allows you to select the following items.
 
 - **LoRaWAN Region**: when using the Arduino LMIC, you can select North America, Europ, Australia, Asia, Japan, or India as your target region.
 - **Optimization**: choose smallest, fast, faster, fastest, or debug.
-- **Serial interface**: Select "USB Serial" or "Generic Serial".
-- **System clock**: Select "HSI 16 MHz", "PLLCLK 24 MHz", "PLLCLK 32 MHz", "MSI 2097 KHz (no USB Serial)" or "MSI 4194 KHz (no USB Serial)". If "MSI 2097 KHz (no USB Serial)" or "MSI 4194 KHz (no USB Serial)" is selected, then you can not use "USB Serial" for serial interface.
+- **Serial interface**: Select "USB Serial", "Generic Serial" or "No Serial".
+- **System clock**: Select "32 MHz (most power)", "24 MHz", "16 MHz", "4.194 MHz (no USB) or "2.097 MHz (no USB, least power)"". If "2.097 MHz (no USB, least power)" or "4.194 MHz (no USB)" is selected, then you cannot use "USB Serial" for serial interface.
 - **Upload method**: select Mass Storage, DFU, or STLink. DFU works well, but requires use of the boot jumper to select DFU mode, and a little driver wrangling on Windows.
 
 ## Supported Boards and CPUs
