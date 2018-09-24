@@ -184,10 +184,10 @@ enum {
 // Below SPI and I2C definitions already done in the core
 // Could be redefined here if differs from the default one
 // SPI Definitions
-#define PIN_SPI_SS              PB7
-#define PIN_SPI_MOSI            PB5
-#define PIN_SPI_MISO            PB4
-#define PIN_SPI_SCK             PB3
+#define PIN_SPI_MOSI            PB15
+#define PIN_SPI_MISO            PB14
+#define PIN_SPI_SCK             PB13
+#define PIN_SPI_SS              PB12
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PB7

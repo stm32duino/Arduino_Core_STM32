@@ -72,7 +72,7 @@ const PinName digitalPin[] = {
   PC_8,   
   PC_9, 
   PA_9,   
-  PA_11,  //D30
+  PA_11,  //D30 - USB_DM
   PA_13,
   PA_15,
   PC_11,  
@@ -118,7 +118,7 @@ const PinName digitalPin[] = {
   PC_7, 
   PA_8, 
   PA_10,
-  PA_12,
+  PA_12,  //USB_DP
   PA_14,  //D70
   PC_10,
   PD_0, 
