@@ -6,6 +6,7 @@ menu.xserial=Serial interface
 menu.usb=USB interface
 
 menu.opt=Optimize
+menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
 menu.flash=Flash Memory Size
 menu.ram=RAM Size
@@ -909,3 +910,94 @@ RemRam.menu.opt.o3lto=Fastest (-O3) with LTO
 RemRam.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 RemRam.menu.opt.ogstd=Debug (-g)
 RemRam.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+# C Runtime Library
+Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
+Nucleo_144.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Nucleo_144.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Nucleo_144.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Nucleo_144.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Nucleo_144.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Nucleo_144.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Nucleo_144.menu.rtlib.full=Newlib Standard
+Nucleo_144.menu.rtlib.full.build.flags.ldspecs=
+
+Nucleo_64.menu.rtlib.nano=Newlib Nano (default)
+Nucleo_64.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Nucleo_64.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Nucleo_64.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Nucleo_64.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Nucleo_64.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Nucleo_64.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Nucleo_64.menu.rtlib.full=Newlib Standard
+Nucleo_64.menu.rtlib.full.build.flags.ldspecs=
+
+Nucleo_32.menu.rtlib.nano=Newlib Nano (default)
+Nucleo_32.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Nucleo_32.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Nucleo_32.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Nucleo_32.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Nucleo_32.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Nucleo_32.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Nucleo_32.menu.rtlib.full=Newlib Standard
+Nucleo_32.menu.rtlib.full.build.flags.ldspecs=
+
+Disco.menu.rtlib.nano=Newlib Nano (default)
+Disco.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Disco.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Disco.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Disco.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Disco.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Disco.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Disco.menu.rtlib.full=Newlib Standard
+Disco.menu.rtlib.full.build.flags.ldspecs=
+
+GenF103.menu.rtlib.nano=Newlib Nano (default)
+GenF103.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF103.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF103.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF103.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF103.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF103.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF103.menu.rtlib.full=Newlib Standard
+GenF103.menu.rtlib.full.build.flags.ldspecs=
+
+GenF4.menu.rtlib.nano=Newlib Nano (default)
+GenF4.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF4.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF4.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF4.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF4.menu.rtlib.full=Newlib Standard
+GenF4.menu.rtlib.full.build.flags.ldspecs=
+
+Maple.menu.rtlib.nano=Newlib Nano (default)
+Maple.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Maple.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Maple.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Maple.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Maple.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Maple.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Maple.menu.rtlib.full=Newlib Standard
+Maple.menu.rtlib.full.build.flags.ldspecs=
+
+RAK.menu.rtlib.nano=Newlib Nano (default)
+RAK.menu.rtlib.nanofp=Newlib Nano + Float Printf
+RAK.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+RAK.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+RAK.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+RAK.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+RAK.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+RAK.menu.rtlib.full=Newlib Standard
+RAK.menu.rtlib.full.build.flags.ldspecs=
+
+RemRam.menu.rtlib.nano=Newlib Nano (default)
+RemRam.menu.rtlib.nanofp=Newlib Nano + Float Printf
+RemRam.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+RemRam.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+RemRam.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+RemRam.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+RemRam.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+RemRam.menu.rtlib.full=Newlib Standard
+RemRam.menu.rtlib.full.build.flags.ldspecs=
