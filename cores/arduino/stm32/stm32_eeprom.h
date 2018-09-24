@@ -37,7 +37,7 @@
 #define __STM32_EEPROM_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
+#include "variant.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -45,9 +45,14 @@
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-
-#if defined (STM32F2xx) || defined (STM32F4xx) || defined (STM32F7xx)
-/* FLASH_SECTOR_SIZE */
+#ifndef FLASH_PAGE_SIZE
+/*
+ * FLASH_PAGE_SIZE is not defined for STM32F2xx, STM32F4xx and STM32F7xx
+ * Could be redefined in variant.h or using build_opt.h
+ * Warning: This is not the sector size, only the size used for EEPROM
+ * emulation. Anyway, all the sector size will be erased.
+ * So pay attention to not use this sector for other stuff.
+ */
 #define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) /* 16kB page */
 #endif
 #define E2END FLASH_PAGE_SIZE
