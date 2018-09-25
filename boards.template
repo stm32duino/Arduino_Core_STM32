@@ -59,7 +59,7 @@
 menu.lorawan_region=LoRaWAN Region
 
 menu.xserial=Serial interface
-menu.usb=USB interface
+menu.sysclk=System clock
 
 menu.opt=Optimize
 menu.upload_method=Upload method
@@ -69,7 +69,7 @@ menu.upload_method=Upload method
 %%+boards
 #
 # Configuration information for {{name}}
-# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 {{board}}.name={{name}}
 {{board}}.build.vid=0x{{vid}}
@@ -80,7 +80,6 @@ menu.upload_method=Upload method
 {{board}}.build.core=arduino
 {{board}}.build.board={{build_board}}
 {{board}}.build.product_line=STM32L082xx
-{{board}}.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 {{board}}.upload.maximum_size=196608
 {{board}}.upload.maximum_data_size=20480
@@ -89,7 +88,7 @@ menu.upload_method=Upload method
 {{board}}.build.variant={{build_variant}}
 {{board}}.build.variant_extra_flags={{build_variant_extra_flags}}
 {{board}}.build.cmsis_lib_gcc=arm_cortexM0l_math
-{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 
 #
 # menu.upload_method
@@ -116,8 +115,10 @@ menu.upload_method=Upload method
 
 #
 # menu.xserial
-{{board}}.menu.xserial.none=No Serial
+{{board}}.menu.xserial.usb=USB Serial
 {{board}}.menu.xserial.generic=Generic Serial
+{{board}}.menu.xserial.none=No Serial
+{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 {{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #{{board}}.menu.xserial.all=All (up to 10)
 #{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
@@ -125,10 +126,17 @@ menu.upload_method=Upload method
 #{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 #
-# menu.usb
-{{board}}.menu.usb.usb_device=USB Serial
-{{board}}.menu.usb.usb_device.build.enable_usb={build.usb_flags}
-{{board}}.menu.usb.none=No USB
+# menu.sysclk
+{{board}}.menu.sysclk.pll32m=32 MHz (most power)
+{{board}}.menu.sysclk.pll24m=24 MHz
+{{board}}.menu.sysclk.hsi16m=16 MHz
+{{board}}.menu.sysclk.msi4194k=4.194 MHz (no USB)
+{{board}}.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+{{board}}.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+{{board}}.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+{{board}}.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+{{board}}.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+{{board}}.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt

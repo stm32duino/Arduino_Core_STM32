@@ -1,7 +1,6 @@
 /******************************************************************************
  * The MIT License
  *
- * Copyright (c) 2010 Perry Hung.
  * Copyright (c) 2018 MCCI Corporation
  *
  * Permission is hereby granted, free of charge, to any person
@@ -29,20 +28,20 @@
  * @brief Wirish virtual serial port
  */
 
-#ifndef _USB_SERIAL_H_
-#define _USB_SERIAL_H_
+#ifndef _NULL_SERIAL_H_
+#define _NULL_SERIAL_H_
 
-#ifdef USBCON
+#if defined(NO_HWSERIAL) && ! defined(USBCON)
 
 #include "Stream.h"
 
 /**
  * @brief Virtual serial terminal.
  */
-class USBSerial : public Stream
+class NullSerial : public Stream
 	{
 public:
-	USBSerial(void);
+	NullSerial(void) {};
 
 	void begin(void);
 	void begin(unsigned long baud) { begin(); }
@@ -62,19 +61,14 @@ public:
 	inline size_t write(int n) { return write((uint8_t)n); }
 	using Print::write;
 
-	bool dtr(void);
-	bool rts(void);
-	bool isConnected();
-
-	virtual operator bool(void);
+	operator bool() { return true; }
+	bool dtr(void) { return true; }
 	};
 
-extern USBSerial SerialUSB;
+extern NullSerial SerialNull;
 
-#ifdef NO_HWSERIAL
-# define Serial SerialUSB
-#endif
+#define Serial SerialNull
 
-#endif /* USBCON */
+#endif /* NO_HWSERIAL && ! USBCON */
 
-#endif /* _USB_SERIAL_H_ */
+#endif /* _NULL_SERIAL_H_ */

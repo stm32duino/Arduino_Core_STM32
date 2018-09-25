@@ -32,14 +32,14 @@
 menu.lorawan_region=LoRaWAN Region
 
 menu.xserial=Serial interface
-menu.usb=USB interface
+menu.sysclk=System clock
 
 menu.opt=Optimize
 menu.upload_method=Upload method
 
 #
 # Configuration information for MCCI Catena 4551
-# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 mcci_catena_4551.name=MCCI Catena 4551
 mcci_catena_4551.build.vid=0x040E
@@ -50,7 +50,6 @@ mcci_catena_4551.pid.0=0x0041
 mcci_catena_4551.build.core=arduino
 mcci_catena_4551.build.board=CATENA_4551
 mcci_catena_4551.build.product_line=STM32L082xx
-mcci_catena_4551.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 mcci_catena_4551.upload.maximum_size=196608
 mcci_catena_4551.upload.maximum_data_size=20480
@@ -59,7 +58,7 @@ mcci_catena_4551.build.series=STM32L0xx
 mcci_catena_4551.build.variant=CATENA_4551
 mcci_catena_4551.build.variant_extra_flags=
 mcci_catena_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 
 #
 # menu.upload_method
@@ -86,8 +85,10 @@ mcci_catena_4551.menu.upload_method.STLink.upload.tool=stlink_upload
 
 #
 # menu.xserial
-mcci_catena_4551.menu.xserial.none=No Serial
+mcci_catena_4551.menu.xserial.usb=USB Serial
 mcci_catena_4551.menu.xserial.generic=Generic Serial
+mcci_catena_4551.menu.xserial.none=No Serial
+mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4551.menu.xserial.all=All (up to 10)
 #mcci_catena_4551.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
@@ -95,10 +96,17 @@ mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4551.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 #
-# menu.usb
-mcci_catena_4551.menu.usb.usb_device=USB Serial
-mcci_catena_4551.menu.usb.usb_device.build.enable_usb={build.usb_flags}
-mcci_catena_4551.menu.usb.none=No USB
+# menu.sysclk
+mcci_catena_4551.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4551.menu.sysclk.pll24m=24 MHz
+mcci_catena_4551.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4551.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4551.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+mcci_catena_4551.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+mcci_catena_4551.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4551.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+mcci_catena_4551.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4551.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt
@@ -150,7 +158,7 @@ mcci_catena_4551.menu.lorawan_region.projcfg.build.lorawan_flags=
 #### end of configuration info for MCCI Catena 4551
 #
 # Configuration information for MCCI Catena 4611
-# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 mcci_catena_4611.name=MCCI Catena 4611
 mcci_catena_4611.build.vid=0x040E
@@ -161,7 +169,6 @@ mcci_catena_4611.pid.0=0x0081
 mcci_catena_4611.build.core=arduino
 mcci_catena_4611.build.board=CATENA_4611
 mcci_catena_4611.build.product_line=STM32L082xx
-mcci_catena_4611.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 mcci_catena_4611.upload.maximum_size=196608
 mcci_catena_4611.upload.maximum_data_size=20480
@@ -170,7 +177,7 @@ mcci_catena_4611.build.series=STM32L0xx
 mcci_catena_4611.build.variant=CATENA_461x
 mcci_catena_4611.build.variant_extra_flags=-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0
 mcci_catena_4611.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 
 #
 # menu.upload_method
@@ -197,8 +204,10 @@ mcci_catena_4611.menu.upload_method.STLink.upload.tool=stlink_upload
 
 #
 # menu.xserial
-mcci_catena_4611.menu.xserial.none=No Serial
+mcci_catena_4611.menu.xserial.usb=USB Serial
 mcci_catena_4611.menu.xserial.generic=Generic Serial
+mcci_catena_4611.menu.xserial.none=No Serial
+mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4611.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4611.menu.xserial.all=All (up to 10)
 #mcci_catena_4611.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
@@ -206,10 +215,17 @@ mcci_catena_4611.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4611.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 #
-# menu.usb
-mcci_catena_4611.menu.usb.usb_device=USB Serial
-mcci_catena_4611.menu.usb.usb_device.build.enable_usb={build.usb_flags}
-mcci_catena_4611.menu.usb.none=No USB
+# menu.sysclk
+mcci_catena_4611.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4611.menu.sysclk.pll24m=24 MHz
+mcci_catena_4611.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4611.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4611.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+mcci_catena_4611.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+mcci_catena_4611.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4611.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+mcci_catena_4611.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4611.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt
@@ -261,7 +277,7 @@ mcci_catena_4611.menu.lorawan_region.projcfg.build.lorawan_flags=
 #### end of configuration info for MCCI Catena 4611
 #
 # Configuration information for MCCI Catena 4612
-# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 mcci_catena_4612.name=MCCI Catena 4612
 mcci_catena_4612.build.vid=0x040E
@@ -272,7 +288,6 @@ mcci_catena_4612.pid.0=0x0091
 mcci_catena_4612.build.core=arduino
 mcci_catena_4612.build.board=CATENA_4612
 mcci_catena_4612.build.product_line=STM32L082xx
-mcci_catena_4612.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 mcci_catena_4612.upload.maximum_size=196608
 mcci_catena_4612.upload.maximum_data_size=20480
@@ -281,7 +296,7 @@ mcci_catena_4612.build.series=STM32L0xx
 mcci_catena_4612.build.variant=CATENA_461x
 mcci_catena_4612.build.variant_extra_flags=-DMCCI_PA8_461x_SWITCHES_VDD=1
 mcci_catena_4612.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 
 #
 # menu.upload_method
@@ -308,8 +323,10 @@ mcci_catena_4612.menu.upload_method.STLink.upload.tool=stlink_upload
 
 #
 # menu.xserial
-mcci_catena_4612.menu.xserial.none=No Serial
+mcci_catena_4612.menu.xserial.usb=USB Serial
 mcci_catena_4612.menu.xserial.generic=Generic Serial
+mcci_catena_4612.menu.xserial.none=No Serial
+mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4612.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4612.menu.xserial.all=All (up to 10)
 #mcci_catena_4612.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
@@ -317,10 +334,17 @@ mcci_catena_4612.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4612.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
 #
-# menu.usb
-mcci_catena_4612.menu.usb.usb_device=USB Serial
-mcci_catena_4612.menu.usb.usb_device.build.enable_usb={build.usb_flags}
-mcci_catena_4612.menu.usb.none=No USB
+# menu.sysclk
+mcci_catena_4612.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4612.menu.sysclk.pll24m=24 MHz
+mcci_catena_4612.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4612.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4612.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+mcci_catena_4612.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+mcci_catena_4612.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4612.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+mcci_catena_4612.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4612.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
 
 #
 # menu.opt

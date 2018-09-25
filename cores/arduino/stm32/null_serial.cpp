@@ -1,7 +1,6 @@
 /******************************************************************************
  * The MIT License
  *
- * Copyright (c) 2010 Perry Hung.
  * Copyright (c) 2018 MCCI Corporation
  *
  * Permission is hereby granted, free of charge, to any person
@@ -26,55 +25,59 @@
  *****************************************************************************/
 
 /**
- * @brief Wirish virtual serial port
+ * @brief USB virtual serial terminal
  */
 
-#ifndef _USB_SERIAL_H_
-#define _USB_SERIAL_H_
+#if defined(NO_HWSERIAL) && ! defined(USBCON)
 
-#ifdef USBCON
+#include <string.h>
 
-#include "Stream.h"
+#include "wiring.h"
 
-/**
- * @brief Virtual serial terminal.
- */
-class USBSerial : public Stream
+NullSerial SerialNull;
+
+
+/* NullSerial is always available and instantiated in main.cpp */
+void NullSerial::begin(void)
 	{
-public:
-	USBSerial(void);
+	}
 
-	void begin(void);
-	void begin(unsigned long baud) { begin(); }
-	void end(void);
+void NullSerial::end(void)
+	{
+	}
 
-	virtual int available(void);
-	virtual int peek(void);
-	virtual void flush(void);
-	virtual int read(void);
+int NullSerial::availableForWrite(void)
+	{
+	return 1024;
+	}
 
-	int availableForWrite(void);
-	virtual size_t write(uint8_t);
-	virtual size_t write(const uint8_t *buffer, size_t size);
-	inline size_t write(unsigned long n) { return write((uint8_t)n); }
-	inline size_t write(long n) { return write((uint8_t)n); }
-	inline size_t write(unsigned int n) { return write((uint8_t)n); }
-	inline size_t write(int n) { return write((uint8_t)n); }
-	using Print::write;
+size_t NullSerial::write(uint8_t ch)
+	{
+	return 1;
+	}
 
-	bool dtr(void);
-	bool rts(void);
-	bool isConnected();
+size_t NullSerial::write(const uint8_t *buffer, size_t size)
+	{
+	return size;
+	}
 
-	virtual operator bool(void);
-	};
+int NullSerial::available(void)
+	{
+	return 0;
+	}
 
-extern USBSerial SerialUSB;
+int NullSerial::read(void)
+	{
+	return -1;
+	}
 
-#ifdef NO_HWSERIAL
-# define Serial SerialUSB
-#endif
+int NullSerial::peek(void)
+	{
+	return -1;
+	}
 
-#endif /* USBCON */
+void NullSerial::flush(void)
+	{
+	}
 
-#endif /* _USB_SERIAL_H_ */
+#endif /* NO_HWSERIAL && ! USBCON */

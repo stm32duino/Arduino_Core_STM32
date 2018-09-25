@@ -74,6 +74,20 @@ const PinName digitalPin[] = {
 extern "C" {
 #endif
 
+#ifndef	CATENA_CFG_SYSCLK
+# ifdef USBCON
+#  define CATENA_CFG_SYSCLK	16
+# else
+#  define CATENA_CFG_SYSCLK	4
+# endif
+#endif
+
+#if CATENA_CFG_SYSCLK < 16
+# ifdef USBCON
+#  error USB cannot be supported at clock rates < 16 MHz (CATENA_CFG_SYSCLK < 16)
+# endif
+#endif
+
 /**
   * @brief  System Clock Configuration
   * @param  None
@@ -98,45 +112,92 @@ void SystemClock_Config(void)
 #ifdef USBCON
                                      RCC_OSCILLATORTYPE_HSI48|
 #endif
+#if CATENA_CFG_SYSCLK < 16
+                                     RCC_OSCILLATORTYPE_MSI;
+#else
                                      RCC_OSCILLATORTYPE_HSI;
+#endif
+
+  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+#if CATENA_CFG_SYSCLK < 16
+  RCC_OscInitStruct.MSIState = RCC_MSI_ON;
+  RCC_OscInitStruct.MSICalibrationValue = 0;
+# if CATENA_CFG_SYSCLK == 2
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
+# else	/* CATENA_CFG_SYSCLK == 4 */
+  RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_6;
+# endif	/* CATENA_CFG_SYSCLK == 2 */
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+
+#else	/* CATENA_CFG_SYSCLK >= 16 */
+
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = 16;
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
-#ifdef USBCON
+# ifdef USBCON
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
-#endif
+# endif
+# if CATENA_CFG_SYSCLK == 16
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+# else	/* CATENA_CFG_SYSCLK != 16 */
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-//  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLLMUL_3;	/* SYSCLK == 24Mhz */
+#  if CATENA_CFG_SYSCLK == 24
+  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLLMUL_3;	/* SYSCLK == 24Mhz */
+#  else	/* CATENA_CFG_SYSCLK == 32 */
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLLMUL_4;	/* SYSCLK == 32Mhz */
+#  endif
   RCC_OscInitStruct.PLL.PLLDIV = RCC_PLLDIV_2;
+# endif
+#endif
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
     /**Initializes the CPU, AHB and APB busses clocks
     */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+#if CATENA_CFG_SYSCLK < 16
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_MSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+#elif CATENA_CFG_SYSCLK == 16
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+#else
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
+/*  RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV2;	HCLK = SYSCLK / 2 */
+#endif
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
+#if CATENA_CFG_SYSCLK < 24
+  HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0);
+#else
   HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1);
+#endif
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART1|RCC_PERIPHCLK_I2C1
 #ifdef USBCON
                               |RCC_PERIPHCLK_USB
 #endif
                               |RCC_PERIPHCLK_RTC;
+#if CATENA_CFG_SYSCLK < 24
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
+#else
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_HSI;
+  PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
+#endif
   PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
 #ifdef USBCON
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 #endif
   HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
 
+#if CATENA_CFG_SYSCLK < 16
+  LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_MSI);
+#else
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
+#endif
 
 #ifdef USBCON
     /**Enable the SYSCFG APB clock

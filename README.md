@@ -35,8 +35,8 @@ The Arduino IDE allows you to select the following items.
 
 - **LoRaWAN Region**: when using the Arduino LMIC, you can select North America, Europ, Australia, Asia, Japan, or India as your target region.
 - **Optimization**: choose smallest, fast, faster, fastest, or debug.
-- **Serial interface**: Select "No Serial", "Generic Serial" (one serial port), "All serial" (as many as are supported), or "First third" for ports 1 through three.
-- **USB interface**: Either "USB Serial" or "No USB". If "USB: USB Serial" and "Serial: No Serial" are both supported, then Serial will be UsbSerial.
+- **Serial interface**: Select "USB Serial", "Generic Serial" or "No Serial".
+- **System clock**: Select "32 MHz (most power)", "24 MHz", "16 MHz", "4.194 MHz (no USB) or "2.097 MHz (no USB, least power)"". If "2.097 MHz (no USB, least power)" or "4.194 MHz (no USB)" is selected, then you cannot use "USB Serial" for serial interface.
 - **Upload method**: select Mass Storage, DFU, or STLink. DFU works well, but requires use of the boot jumper to select DFU mode, and a little driver wrangling on Windows.
 
 ## Supported Boards and CPUs
@@ -44,6 +44,8 @@ The Arduino IDE allows you to select the following items.
 | Board | CPU/SOC | Comment |
 |-------|:-------:|---------|
 | MCCI Catena 4551 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| MCCI Catena 4611 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| MCCI Catena 4612 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 
 ## Troubleshooting
 
