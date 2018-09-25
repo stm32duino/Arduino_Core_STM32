@@ -1,6 +1,7 @@
 /******************************************************************************
  * The MIT License
  *
+ * Copyright (c) 2010 Perry Hung.
  * Copyright (c) 2018 MCCI Corporation
  *
  * Permission is hereby granted, free of charge, to any person
@@ -26,6 +27,10 @@
 
 /**
  * @brief USB virtual serial terminal
+ */
+
+/*
+ * Arduino srl - www.arduino.org
  */
 
 #ifdef USBCON

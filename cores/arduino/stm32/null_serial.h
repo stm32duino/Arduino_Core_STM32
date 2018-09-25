@@ -25,59 +25,50 @@
  *****************************************************************************/
 
 /**
- * @brief USB virtual serial terminal
+ * @brief Wirish virtual serial port
  */
+
+#ifndef _NULL_SERIAL_H_
+#define _NULL_SERIAL_H_
 
 #if defined(NO_HWSERIAL) && ! defined(USBCON)
 
-#include <string.h>
+#include "Stream.h"
 
-#include "wiring.h"
-
-NoSerial SerialNo;
-
-
-/* NoSerial is always available and instantiated in main.cpp */
-void NoSerial::begin(void)
+/**
+ * @brief Virtual serial terminal.
+ */
+class NullSerial : public Stream
 	{
-	}
+public:
+	NullSerial(void) {};
 
-void NoSerial::end(void)
-	{
-	}
+	void begin(void);
+	void begin(unsigned long baud) { begin(); }
+	void end(void);
 
-int NoSerial::availableForWrite(void)
-	{
-	return 1024;
-	}
+	virtual int available(void);
+	virtual int peek(void);
+	virtual void flush(void);
+	virtual int read(void);
 
-size_t NoSerial::write(uint8_t ch)
-	{
-	return 1;
-	}
+	int availableForWrite(void);
+	virtual size_t write(uint8_t);
+	virtual size_t write(const uint8_t *buffer, size_t size);
+	inline size_t write(unsigned long n) { return write((uint8_t)n); }
+	inline size_t write(long n) { return write((uint8_t)n); }
+	inline size_t write(unsigned int n) { return write((uint8_t)n); }
+	inline size_t write(int n) { return write((uint8_t)n); }
+	using Print::write;
 
-size_t NoSerial::write(const uint8_t *buffer, size_t size)
-	{
-	return size;
-	}
+	operator bool() { return true; }
+	bool dtr(void) { return true; }
+	};
 
-int NoSerial::available(void)
-	{
-	return 0;
-	}
+extern NullSerial SerialNull;
 
-int NoSerial::read(void)
-	{
-	return -1;
-	}
-
-int NoSerial::peek(void)
-	{
-	return -1;
-	}
-
-void NoSerial::flush(void)
-	{
-	}
+#define Serial SerialNull
 
 #endif /* NO_HWSERIAL && ! USBCON */
+
+#endif /* _NULL_SERIAL_H_ */

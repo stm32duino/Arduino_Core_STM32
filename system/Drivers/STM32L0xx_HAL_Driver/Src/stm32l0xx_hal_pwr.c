@@ -569,10 +569,9 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
-  /* tmm: put us in ultra-low-power mode */
   if (Regulator == PWR_LOWPOWERREGULATOR_ON)
   {
-    // per datasheet 10.2.3 "it's forbiddent to have ULP and EN_VREFINT"
+    // per datasheet 10.2.3 "it's forbidden to have ULP and EN_VREFINT"
     SYSCFG->CFGR3 = save_syscfg_cfgr3 & ~SYSCFG_CFGR3_EN_VREFINT;
     PWR->CR |= (PWR_CR_FWU | PWR_CR_ULP);
   }
