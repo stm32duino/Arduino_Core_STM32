@@ -145,6 +145,7 @@ board_fqbn = {}  # key: board name, value: fqbn
 board_options = {}  # key: board name, value: options
 sketch_options = {}  # key: sketch pattern, value: options
 na_sketch_pattern = {}  # key: board name, value: sketch pattern list
+core_api_version = "10805"
 
 # Counter
 nb_build_passed = 0
@@ -191,6 +192,25 @@ def create_output_log_tree():
         if args.bin:
             createFolder(os.path.join(output_dir, board, bin_dir))
         createFolder(os.path.join(build_output_dir, board))
+
+
+def get_ide_version():
+    global core_api_version
+    try:
+        output = subprocess.check_output(
+            [os.path.join(arduino_path, "arduino"), "--version"],
+            stderr=subprocess.DEVNULL,
+        )
+        res = re.match("\D*(\d)\.(\d+)\.(\d+)", output.decode("utf-8"))
+        if res:
+            core_api_version = (
+                res.group(1) + res.group(2).zfill(2) + res.group(3).zfill(2)
+            )
+            print("Arduino IDE version used: " + core_api_version)
+        else:
+            raise subprocess.CalledProcessError(1, "re")
+    except subprocess.CalledProcessError as err:
+        print("Unable to define Arduino IDE version, use default: " + core_api_version)
 
 
 def load_core_config():
@@ -482,6 +502,7 @@ Build SKIPPED: {6}/{4}
             f.write("Skipped boards :\n" + "\n".join(boardSkipped))
             f.write("\n")
 
+
 # Log final result
 def log_final_result():
     # Also equal to len(board_type) * len(sketch_list)
@@ -569,7 +590,7 @@ def genBasicCommand(b_name, b_type):
     cmd.append(arduino_lib_path)
     cmd.append("-libraries")
     cmd.append(arduino_user_lib_path)
-    cmd.append("-ide-version=10805")
+    cmd.append("-core-api-version=" + core_api_version)
     cmd.append("-warnings=all")
     if args.verbose:
         cmd.append("-verbose")
@@ -765,6 +786,8 @@ args = parser.parse_args()
 def main():
     if args.clean:
         deleteFolder(root_output_dir)
+
+    get_ide_version()
 
     load_core_config()
 
