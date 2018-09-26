@@ -39,23 +39,51 @@
  extern "C" {
 #endif
 
-/* Use the last page of the flash to store data in order to prevent overwritting
-   program data */
-#if defined (STM32F0xx) || defined (STM32F1xx) || defined(STM32L1xx)
-#if defined (FLASH_BANK2_END)
-#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK2_END + 1) - FLASH_PAGE_SIZE))
-#elif defined (FLASH_BANK1_END)
-#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_BANK1_END + 1) - FLASH_PAGE_SIZE))
+/* Be able to change FLASH_BANK_NUMBER to use if relevant */
+#if !defined(FLASH_BANK_NUMBER) &&\
+	  (defined(STM32F0xx) || defined(STM32F1xx) ||\
+	   defined(STM32L1xx) || defined(STM32L4xx))
+/* Fo STM32F0xx, FLASH_BANK_1 is not defined only FLASH_BANK1_END is defined */
+#if defined(STM32F0xx)
+#define FLASH_BANK_1 1U
+#endif
+#if defined(FLASH_BANK_2)
+#define FLASH_BANK_NUMBER   FLASH_BANK_2
 #else
-#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
-#endif /* FLASH_BANK2_END */
-#elif defined (STM32F2xx) || defined (STM32F4xx) || defined (STM32F7xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_END + 1) - FLASH_PAGE_SIZE)
+#define FLASH_BANK_NUMBER   FLASH_BANK_1
+#endif /* FLASH_BANK_2 */
+#ifndef FLASH_BANK_NUMBER
+#error "FLASH_BANK_NUMBER could not be defined"
+#endif
+#endif /* !FLASH_BANK_NUMBER */
+
+/* Be able to change FLASH_DATA_SECTOR to use if relevant */
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+#if !defined(FLASH_DATA_SECTOR)
 #define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
+#else
+#ifndef FLASH_BASE_ADDRESS
+#error "FLASH_BASE_ADDRESS have to be defined when FLASH_DATA_SECTOR is defined"
+#endif
+#endif /* !FLASH_DATA_SECTOR */
+#endif /* STM32F2xx || STM32F4xx || STM32F7xx */
+
+/* Be able to change FLASH_PAGE_NUMBER to use if relevant */
+#if !defined(FLASH_PAGE_NUMBER) && defined (STM32L4xx)
+#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
+#endif /* !FLASH_PAGE_NUMBER */
+
+/* Be able to change FLASH_END to use */
+#if !defined(FLASH_END) && !defined(STM32L0xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined(STM32L1xx)
+#if defined (FLASH_BANK2_END) && (FLASH_BANK_NUMBER == FLASH_BANK_2)
+#define FLASH_END  FLASH_BANK2_END
+#elif defined (FLASH_BANK1_END) && (FLASH_BANK_NUMBER == FLASH_BANK_1)
+#define FLASH_END  FLASH_BANK1_END
+#endif
 #elif defined (STM32F3xx)
 static inline uint32_t get_flash_end(void) {
   uint32_t size;
-
   switch((*((uint16_t *)FLASH_SIZE_DATA_REGISTER))) {
     case 0x200U:
       size = 0x0807FFFFU;
@@ -76,23 +104,34 @@ static inline uint32_t get_flash_end(void) {
       size = 0x08003FFFU;
     break;
   }
-
   return size;
 }
-#define FLASH_END_ADDR      get_flash_end()
-#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END_ADDR + 1) - FLASH_PAGE_SIZE))
-#elif defined (STM32L0xx)
-#define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE))
+#define FLASH_END  get_flash_end()
 #elif defined (STM32L4xx)
-#ifndef FLASH_BANK_2
-#define FLASH_BANK_NUMBER   FLASH_BANK_1
-#else
-#define FLASH_BANK_NUMBER   FLASH_BANK_2
-#endif /* FLASH_BANK_2 */
-/* Flash base address */
-#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
-#define FLASH_BASE_ADDRESS  ((uint32_t)(FLASH_BASE + (FLASH_PAGE_NUMBER * FLASH_PAGE_SIZE)))
+/* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
+#define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
 #endif
+#ifndef FLASH_END
+#error "FLASH_END could not be defined"
+#endif
+#endif /* FLASH_END */
+
+/* Be able to change FLASH_BASE_ADDRESS to use */
+#ifndef FLASH_BASE_ADDRESS
+/*
+ * By default, Use the last page of the flash to store data
+ * in order to prevent overwritting
+ * program data
+ */
+#if defined(STM32L0xx)
+#define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE))
+#else
+#define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
+#endif
+#ifndef FLASH_BASE_ADDRESS
+#error "FLASH_BASE_ADDRESS could not be defined"
+#endif
+#endif /* FLASH_BASE_ADDRESS */
 
 static uint8_t eeprom_buffer[E2END] = {0};
 
@@ -101,7 +140,7 @@ static uint8_t eeprom_buffer[E2END] = {0};
   * @param  pos : address to read
   * @retval byte : data read from eeprom
   */
-uint8_t eeprom_read_byte(const uint16_t pos) {
+uint8_t eeprom_read_byte(const uint32_t pos) {
   eeprom_buffer_fill();
   return eeprom_buffered_read_byte(pos);
 }
@@ -112,7 +151,7 @@ uint8_t eeprom_read_byte(const uint16_t pos) {
   * @param  value : value to write
   * @retval none
   */
-void eeprom_write_byte(uint16_t pos, uint8_t value) {
+void eeprom_write_byte(uint32_t pos, uint8_t value) {
   eeprom_buffered_write_byte(pos, value);
   eeprom_buffer_flush();
 }
@@ -122,7 +161,7 @@ void eeprom_write_byte(uint16_t pos, uint8_t value) {
   * @param  pos : address to read
   * @retval byte : data read from eeprom
   */
-uint8_t eeprom_buffered_read_byte(const uint16_t pos) {
+uint8_t eeprom_buffered_read_byte(const uint32_t pos) {
   return eeprom_buffer[pos];
 }
 
@@ -132,7 +171,7 @@ uint8_t eeprom_buffered_read_byte(const uint16_t pos) {
   * @param  value : value to write
   * @retval none
   */
-void eeprom_buffered_write_byte(uint16_t pos, uint8_t value) {
+void eeprom_buffered_write_byte(uint32_t pos, uint8_t value) {
   eeprom_buffer[pos] = value;
 }
 
@@ -162,13 +201,12 @@ void eeprom_buffer_flush(void) {
 
   /* ERASING page */
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
-#ifdef STM32L4xx
+#if defined(STM32L4xx) || defined(STM32F1xx)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
+#endif
+#ifdef STM32L4xx
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else
-#ifdef STM32F1xx
-  EraseInitStruct.Banks       = FLASH_BANK_1;
-#endif
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
 #endif
   EraseInitStruct.NbPages = 1;
@@ -199,7 +237,7 @@ void eeprom_buffer_flush(void) {
         address += 4;
         offset += 4;
 #else
-        data = *((uint64_t*)(((uint8_t*)eeprom_buffer + offset)));
+        data = *((uint64_t*)((uint8_t*)eeprom_buffer + offset));
 
         if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, data) == HAL_OK) {
           address += 8;
