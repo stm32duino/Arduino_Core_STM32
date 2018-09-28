@@ -249,6 +249,19 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=NUCLEO_L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# NUCLEO_L073RZ board
+# Support: Serial1 (USART1 on PA10, PA9)
+Nucleo_64.menu.pnum.NUCLEO_L073RZ=Nucleo L073RZ
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.node=NODE_L073RZ
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.upload.maximum_size=196608
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.upload.maximum_data_size=20480
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.board=NUCLEO_L073RZ
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.series=STM32L0xx
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.product_line=STM32L073xx
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.variant=NUCLEO_L073RZ
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 # NUCLEO_L152RE board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (UART4 on PC11, PC10)
 Nucleo_64.menu.pnum.NUCLEO_L152RE=Nucleo L152RE
