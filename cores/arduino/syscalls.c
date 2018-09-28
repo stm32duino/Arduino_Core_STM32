@@ -29,13 +29,8 @@ register char * stack_ptr asm("sp");
 
 caddr_t _sbrk( int incr ) {
   extern char _end; /* Defined by the linker */
-  static char *heap_end = NULL ;
-  char *prev_heap_end ;
-
-  if ( heap_end == NULL ) {
-    heap_end = &_end ;
-  }
-  prev_heap_end = heap_end;
+  static char *heap_end = &_end ;
+  char *prev_heap_end = heap_end;
 
   if (heap_end + incr > stack_ptr) {
     /* Heap and stack collision */
