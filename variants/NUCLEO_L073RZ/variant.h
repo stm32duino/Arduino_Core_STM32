@@ -46,76 +46,80 @@ extern "C"{
 extern const PinName digitalPin[];
 
 // Enum defining pin names to match digital pin number --> Dx
-// !!!
-// !!! Copy the digitalPin[] array in variant.cpp
-// !!! and remove all '_': PX_n --> PXn
-// !!! For NC, suffix by _x where x is the number of NC:
-// !!!   NC_1, NC_2,...
-// !!! For duplicated pin name, suffix by _x where x is the number of pin:
-// !!! PA7, PA7_2, PA7_3,...
 enum {
-  PA3, //D0
-  PA2, //D1
+  PA3,  //D0
+  PA2,  //D1
   PA10, //D2
-  PB3, //D3
-  PB5, //D4
-  PB4, //D5
+  PB3,  //D3
+  PB5,  //D4
+  PB4,  //D5
   PB10, //D6
-  PA8, //D7
-  PA9, //D8
-  PC7, //D9
-  PB6, //D10
-  PA7, //D11
-  PA6, //D12
-  PA5, //D13
-  PB9, //D14
-  PB8, //D15
-  PA0, //D16/A0
-  PA1, //D17/A1
-  PA4, //D18/A2
-  PB0, //D19/A3
-  PC1, //D20/A4  SB56 ON SB51 ON on the board!
-  PC0, //D21/A5
+  PA8,  //D7
+  PA9,  //D8
+  PC7,  //D9
+  PB6,  //D10 - PWM is not supported by D10 as no timer on PB6
+  PA7,  //D11
+  PA6,  //D12
+  PA5,  //D13
+  PB9,  //D14
+  PB8,  //D15
+// ST Morpho
+// CN7 Left Side
+  PC10, //D16
+  PC12, //D17
+  NC_1, //D18 - BOOT0
+  PA13, //D19 - SWD
+  PA14, //D20 - SWD
+  PA15, //D21
+  PB7,  //D22
+  PC13, //D23
+  PC14, //D24
+  PC15, //D25
+  PH0,  //D26
+  PH1,  //D27
+  PC2,  //D28
+  PC3,  //D29
+// CN7 Right Side
+  PC11, //D30
+  PD2,  //D31
+// CN10 Left Side
+  PC9,  //D32
+// CN10 Right side
+  PC8,  //D33
+  PC6,  //D34
+  PC5,  //D35
+  PA12, //D36
+  PA11, //D37
+  PB12, //D38
+  PB11, //D39
+  PB2,  //D40
+  PB1,  //D41
+  PB15, //D42
+  PB14, //D43
+  PB13, //D44
+  PC4,  //D45
+  PA0,  //D46/A0
+  PA1,  //D47/A1
+  PA4,  //D48/A2
+  PB0,  //D49/A3
+  PC1,  //D50/A4 - SB56 ON SB51 ON on the board!
+  PC0,  //D51/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA7_2,//D52/A6  = D11
+  PA6_2,//D53/A7  = D12
+  PC2_2,//D54/A8  = D28
+  PC3_2,//D55/A9  = D29
+  PC5_2,//D56/A10 = D35
+  PC4_2,//D57/A11 = D45
   PEND
 };
-/*
-enum {
-  A_START_AFTER = D15,
-  A0,  A1,  A2,  A3,  A4,  A5,  A6,
-  AEND
-};
-*/
+
 // This must be a literal with the same value as PEND
-// It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
-// so an enum will not work.
-#define NUM_DIGITAL_PINS        22
+#define NUM_DIGITAL_PINS        58
 
-// Allow to define Arduino style alias for analog input pin number --> Ax
-// All pins are digital, analog inputs are a subset of digital pins
-// and must be contiguous to be able to loop on each value
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
-// defined in pin_arduino.h
-// It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
-// so an enum will not work.
-// !!!
-// !!! It must be aligned with the number of analog PinName
-// !!! defined in digitalPin[] array in variant.cpp
-// !!!
-#define NUM_ANALOG_INPUTS       6
-// Define digital pin number of the first analog input  (i.e. which digital pin is A0)
-// First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
-#define NUM_ANALOG_FIRST        16
-
-// Below ADC, DAC and PWM definitions already done in the core
-// Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
-
-// PWM resolution
-//#define PWM_RESOLUTION          8
-//#define PWM_FREQUENCY           1000
-//#define PWM_MAX_DUTY_CYCLE      255
+#define NUM_ANALOG_INPUTS       12
+#define NUM_ANALOG_FIRST        46
 
 // On-board LED pin number
 #define LED_BUILTIN             13
@@ -124,39 +128,15 @@ enum {
 // On-board user button
 #define USER_BTN                PC13
 
-// Below SPI and I2C definitions already done in the core
-// Could be redefined here if differs from the default one
-// SPI Definitions
-//#define PIN_SPI_SS              10 // Default for Arduino connector compatibility
-//#define PIN_SPI_MOSI            11 // Default for Arduino connector compatibility
-//#define PIN_SPI_MISO            12 // Default for Arduino connector compatibility
-//#define PIN_SPI_SCK             13 // Default for Arduino connector compatibility
-
-// I2C Definitions
-//#define PIN_WIRE_SDA            14 // Default for Arduino connector compatibility
-//#define PIN_WIRE_SCL            15 // Default for Arduino connector compatibility
-
 // Timer Definitions
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
 #define TIMER_TONE              TIM3
-//#define TIMER_UART_EMULATED     TIMx
 
 // Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM3  //TODO: advanced-control timers don't work
 
 // UART Definitions
-// Define here Serial instance number to map on Serial generic name
 #define SERIAL_UART_INSTANCE    2 //ex: 2 for Serial2 (USART2)
-// DEBUG_UART could be redefined to print on another instance than 'Serial'
-//#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
-// DEBUG_UART baudrate, default: 9600 if not defined
-//#define DEBUG_UART_BAUDRATE     x
-// DEBUG_UART Tx pin name, default: the first one found in PinMap_UART_TX for DEBUG_UART
-//#define DEBUG_PINNAME_TX        PX_n // PinName used for TX
-
-// UART Emulation (uncomment if needed, required TIM1)
-//#define UART_EMUL_RX            PX_n // PinName used for RX
-//#define UART_EMUL_TX            PX_n // PinName used for TX
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
