@@ -45,27 +45,20 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USBD_DESC_H
-#define __USBD_DESC_H
+#ifndef __USBD_DESC_CDC_H
+#define __USBD_DESC_CDC_H
+
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_def.h"
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
-#define         DEVICE_ID1          (0x1FFF7A10)
-#define         DEVICE_ID2          (0x1FFF7A14)
-#define         DEVICE_ID3          (0x1FFF7A18)
-
-#define  USB_SIZ_STRING_SERIAL       0x1A
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-uint8_t *USBD_DeviceDescriptor(USBD_SpeedTypeDef speed, uint16_t *length);
-uint8_t *USBD_LangIDStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length);
-uint8_t *USBD_ManufacturerStrDescriptor (USBD_SpeedTypeDef speed, uint16_t *length);
-uint8_t *USBD_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length);
+extern USBD_DescriptorsTypeDef CDC_Desc;
 
 #endif // USBCON
-#endif /* __USBD_DESC_H */
+#endif /* __USBD_DESC_CDC_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

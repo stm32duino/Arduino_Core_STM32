@@ -180,6 +180,7 @@ struct timer_s{
 
 void timer_enable_clock(TIM_HandleTypeDef *htim);
 void timer_disable_clock(TIM_HandleTypeDef *htim);
+void timer_attach_interrupt_handle(TIM_HandleTypeDef *htim,  void (*irqHandle)(stimer_t *));
 
 void TimerHandleInit(stimer_t *obj, uint16_t period, uint16_t prescaler);
 void TimerHandleDeinit(stimer_t *obj);

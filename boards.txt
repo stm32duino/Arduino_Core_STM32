@@ -596,9 +596,9 @@ RemRam.menu.pnum.REMRAM_V1.build.variant=REMRAM_V1
 RemRam.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7l_math
 
 # Virtual COM port
-#RemRam.menu.usb.none=None
-#RemRam.menu.usb.CDC=CDC
-#RemRam.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+RemRam.menu.usb.none=None
+RemRam.menu.usb.CDC=CDC
+RemRam.menu.usb.CDC.build.enable_usb={build.usb_flags}
 
 # Upload menu
 RemRam.menu.upload_method.STLinkMethod=STLink
