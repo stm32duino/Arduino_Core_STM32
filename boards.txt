@@ -8,6 +8,7 @@ menu.usb=USB interface
 menu.opt=Optimize
 menu.upload_method=Upload method
 menu.flash=Flash Memory Size
+menu.ram=RAM Size
 
 ################################################################################
 # Nucleo 144 boards
@@ -582,6 +583,48 @@ Maple.menu.upload_method.serialMethod=Serial
 Maple.menu.upload_method.serialMethod.upload.protocol=maple_serial
 Maple.menu.upload_method.serialMethod.upload.tool=serial_upload
 
+################################################################################
+# RAK boards
+
+RAK.name=RAKWireless
+
+RAK.build.vid=0x0483
+RAK.build.pid=0x5711
+RAK.vid.0=0x0483
+RAK.pid.0=0x5711
+
+RAK.build.core=arduino
+RAK.build.board=RAK
+RAK.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# RAK811_TRACKER board
+RAK.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker
+RAK.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
+RAK.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
+RAK.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
+RAK.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
+RAK.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
+RAK.menu.pnum.RAK811_TRACKER.build.variant=RAK811_TRACKER
+RAK.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+RAK.menu.ram.xB=16Kb (default)
+RAK.menu.ram.xB.upload.maximum_data_size=16384
+RAK.menu.ram.xB.build.ldscript=ldscript.ld
+RAK.menu.ram.xB.build.product_line=STM32L151xB
+RAK.menu.ram.xBA=32Kb
+RAK.menu.ram.xBA.upload.maximum_data_size=32768
+RAK.menu.ram.xBA.build.ldscript=ldscript_xba.ld
+RAK.menu.ram.xBA.build.product_line=STM32L151xBA
+
+# Upload menu
+RAK.menu.upload_method.serialMethod=Serial
+RAK.menu.upload_method.serialMethod.upload.protocol=maple_serial
+RAK.menu.upload_method.serialMethod.upload.tool=serial_upload
+
+RAK.menu.upload_method.STLink=STLink
+RAK.menu.upload_method.STLink.upload.protocol=STLink
+RAK.menu.upload_method.STLink.upload.tool=stlink_upload
+
 ###############################
 # RemRam
 
@@ -665,6 +708,12 @@ Maple.menu.xserial.none=Enabled without generic Serial
 Maple.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Maple.menu.xserial.disabled=Disabled (No Serial)
 Maple.menu.xserial.disabled.build.xSerial=
+
+RAK.menu.xserial.generic=Enabled with generic Serial
+RAK.menu.xserial.none=Enabled without generic Serial
+RAK.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+RAK.menu.xserial.disabled=Disabled (No Serial)
+RAK.menu.xserial.disabled.build.xSerial=
 
 RemRam.menu.xserial.generic=Enabled with generic Serial
 RemRam.menu.xserial.none=Enabled without generic Serial
@@ -881,6 +930,32 @@ Maple.menu.opt.o3lto.build.flags.ldspecs=-flto
 Maple.menu.opt.ogstd=Debug (-g)
 Maple.menu.opt.ogstd.build.flags.optimize=-g -Og
 Maple.menu.opt.ogstd.build.flags.ldspecs=
+
+RAK.menu.opt.osstd=Smallest (-Os default)
+RAK.menu.opt.oslto=Smallest (-Os) with LTO
+RAK.menu.opt.oslto.build.flags.optimize=-Os -flto
+RAK.menu.opt.oslto.build.flags.ldspecs=-flto
+RAK.menu.opt.o1std=Fast (-O1)
+RAK.menu.opt.o1std.build.flags.optimize=-O1
+RAK.menu.opt.o1std.build.flags.ldspecs=
+RAK.menu.opt.o1lto=Fast (-O1) with LTO
+RAK.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+RAK.menu.opt.o1lto.build.flags.ldspecs=-flto
+RAK.menu.opt.o2std=Faster (-O2)
+RAK.menu.opt.o2std.build.flags.optimize=-O2
+RAK.menu.opt.o2std.build.flags.ldspecs=
+RAK.menu.opt.o2lto=Faster (-O2) with LTO
+RAK.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+RAK.menu.opt.o2lto.build.flags.ldspecs=-flto
+RAK.menu.opt.o3std=Fastest (-O3)
+RAK.menu.opt.o3std.build.flags.optimize=-O3
+RAK.menu.opt.o3std.build.flags.ldspecs=
+RAK.menu.opt.o3lto=Fastest (-O3) with LTO
+RAK.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+RAK.menu.opt.o3lto.build.flags.ldspecs=-flto
+RAK.menu.opt.ogstd=Debug (-g)
+RAK.menu.opt.ogstd.build.flags.optimize=-g -Og
+RAK.menu.opt.ogstd.build.flags.ldspecs=
 
 RemRam.menu.opt.osstd=Smallest (-Os default)
 RemRam.menu.opt.oslto=Smallest (-Os) with LTO
