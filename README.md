@@ -93,6 +93,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
     * [RemRam v1](https://github.com/hasenbanck/remram)
 
   * STM32L0
+    * [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html)
     * [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) (Basic support)
 
   * STM32L4
