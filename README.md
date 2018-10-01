@@ -86,6 +86,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 ### Next release
   * STM32F4
     * [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant)
+    * [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini)
 
   * STM32F7
     * [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html)
