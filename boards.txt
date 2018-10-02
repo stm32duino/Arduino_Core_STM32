@@ -345,7 +345,7 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_size=65536
 Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_data_size=12288
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.mcu=cortex-m4
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
