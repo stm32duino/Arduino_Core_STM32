@@ -46,7 +46,7 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#include "debug.h"
+#include "core_debug.h"
 #include "timer.h"
 #include "board.h"
 
@@ -545,7 +545,7 @@ uint32_t getTimerIrq(TIM_TypeDef* tim)
 #endif
          break;
      default:
-        debug("TIM: Unknown timer IRQn");
+        core_debug("TIM: Unknown timer IRQn");
         break;
     }
   }
@@ -653,7 +653,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef* tim)
          clkSrc = 2;
          break;
      default:
-        debug("TIM: Unknown timer instance");
+        core_debug("TIM: Unknown timer instance");
         break;
     }
   }
@@ -687,7 +687,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef* tim)
 #endif
     default:
     case 0:
-      debug("TIM: Unknown clock source");
+      core_debug("TIM: Unknown clock source");
       break;
   }
 /* When TIMPRE bit of the RCC_DCKCFGR register is reset,

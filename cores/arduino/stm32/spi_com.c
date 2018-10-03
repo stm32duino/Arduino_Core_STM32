@@ -46,7 +46,7 @@
 /** @addtogroup STM32F4xx_System_Private_Includes
   * @{
   */
-#include "debug.h"
+#include "core_debug.h"
 #include "stm32_def.h"
 #include "spi_com.h"
 #include "PinAF_STM32F1.h"
@@ -150,7 +150,7 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef * spi_inst)
         break;
 #endif
       default:
-        debug("CLK: SPI instance not set");
+        core_debug("CLK: SPI instance not set");
         break;
     }
   }
@@ -204,7 +204,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   /* Pins MOSI/MISO/SCLK must not be NP. ssel can be NP. */
   if(spi_mosi == NP || spi_miso == NP || spi_sclk == NP) {
-    debug("ERROR: at least one SPI pin has no peripheral\n");
+    core_debug("ERROR: at least one SPI pin has no peripheral\n");
     return;
   }
 
@@ -215,7 +215,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   // Are all pins connected to the same SPI instance?
   if(obj->spi == NP) {
-    debug("ERROR: SPI pins mismatch\n");
+    core_debug("ERROR: SPI pins mismatch\n");
     return;
   }
 
