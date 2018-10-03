@@ -86,10 +86,15 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 ### Next release
   * STM32F4
     * [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant)
+    * [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini)
 
   * STM32F7
     * [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html)
     * [RemRam v1](https://github.com/hasenbanck/remram)
+
+  * STM32L0
+    * [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html)
+    * [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) (Basic support)
 
   * STM32L4
     * [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html)

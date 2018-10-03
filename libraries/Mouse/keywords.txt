@@ -17,7 +17,7 @@ click	KEYWORD2
 move	KEYWORD2
 press	KEYWORD2
 release	KEYWORD2
-isPressed KEYWORD2
+isPressed	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

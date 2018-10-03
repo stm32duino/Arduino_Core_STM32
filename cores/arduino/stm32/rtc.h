@@ -55,8 +55,8 @@ typedef enum {
 } hourFormat_t;
 
 typedef enum {
-  AM,
-  PM
+  HOUR_AM,
+  HOUR_PM
 } hourAM_PM_t;
 
 /* See AN4579 Table 5 for possible values */

@@ -11,24 +11,24 @@ SPI	KEYWORD1
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
-begin			KEYWORD2
-end				KEYWORD2
-transfer		KEYWORD2
+begin	KEYWORD2
+end	KEYWORD2
+transfer	KEYWORD2
 #setBitOrder	KEYWORD2
-setDataMode		KEYWORD2
+setDataMode	KEYWORD2
 setClockDivider	KEYWORD2
-setMISO			KEYWORD2
-setMOSI			KEYWORD2
-setSCLK			KEYWORD2
-setSSEL			KEYWORD2
+setMISO	KEYWORD2
+setMOSI	KEYWORD2
+setSCLK	KEYWORD2
+setSSEL	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
-SPI_MODE0		LITERAL1
-SPI_MODE1		LITERAL1
-SPI_MODE2		LITERAL1
-SPI_MODE3		LITERAL1
+SPI_MODE0	LITERAL1
+SPI_MODE1	LITERAL1
+SPI_MODE2	LITERAL1
+SPI_MODE3	LITERAL1
 
 SPI_CONTINUE	LITERAL1
-SPI_LAST		LITERAL1
+SPI_LAST	LITERAL1
