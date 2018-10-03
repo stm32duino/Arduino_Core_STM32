@@ -27,6 +27,7 @@ extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 
 register char * stack_ptr asm("sp");
 
+__attribute__((weak))
 caddr_t _sbrk( int incr ) {
   extern char _end; /* Defined by the linker */
   static char *heap_end = &_end ;
