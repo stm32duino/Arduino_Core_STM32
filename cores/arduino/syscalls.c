@@ -29,12 +29,19 @@ register char * stack_ptr asm("sp");
 
 __attribute__((weak))
 caddr_t _sbrk( int incr ) {
+  extern char _estack; /* Defined in the linker script */
+  extern char _Min_Stack_Size; /* Defined in the linker script */
   extern char _end; /* Defined by the linker */
   static char *heap_end = &_end ;
   char *prev_heap_end = heap_end;
 
   if (heap_end + incr > stack_ptr) {
     /* Heap and stack collision */
+    errno = ENOMEM;
+    return (caddr_t) -1;
+  }
+  /* Ensure to keep minimun stack size defined in the linker script */
+  if (heap_end + incr >= (char*)(&_estack - &_Min_Stack_Size)) {
     errno = ENOMEM;
     return (caddr_t) -1;
   }
