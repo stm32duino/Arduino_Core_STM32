@@ -151,7 +151,13 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
+#ifdef USBCON
+# define SERIAL_PORT_MONITOR  SerialUSB
+#elif defined(NO_HWSERIAL)
+# define SERIAL_PORT_MONITOR  SerialNo
+#else
+# define SERIAL_PORT_MONITOR  Serial
+#endif
 #define SERIAL_PORT_HARDWARE  Serial
 #endif
 
