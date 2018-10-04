@@ -282,7 +282,7 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.cmsis_lib_gcc=arm_cortexM3l_math
 Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.node=NODE_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_size=1048576
-Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_data_size=131072
+Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_data_size=98304
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
