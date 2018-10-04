@@ -48,6 +48,15 @@ extern void analogReference( eAnalogReference ulMode ) ;
 extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
 
 /*
+ * \brief Writes an analog value (PWM wave) to a pin.
+ *
+ * \param ulPin
+ * \param ulValue
+ * \param freq
+ */
+extern void PWMWrite( uint32_t ulPin, uint32_t ulValue, uint32_t freq ) ;
+
+/*
  * \brief Reads the value from the specified analog pin.
  *
  * \param ulPin

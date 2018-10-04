@@ -84,13 +84,22 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue) {
       dac_write_value(p, ulValue, do_init);
     } else
 #endif //HAL_DAC_MODULE_ENABLED
+      PWMWrite(ulPin, ulValue, PWM_FREQUENCY);
+  }
+}
+
+void PWMWrite(uint32_t ulPin, uint32_t ulValue, uint32_t freq) {
+
+  uint8_t do_init = 0;
+  PinName p = digitalPinToPinName(ulPin);
+  if(p != NC) {
       if(pin_in_pinmap(p, PinMap_PWM)) {
         if(is_pin_configured(p, g_anOutputPinConfigured) == false) {
           do_init = 1;
           set_pin_configured(p, g_anOutputPinConfigured);
         }
         ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
-        pwm_start(p, PWM_FREQUENCY*PWM_MAX_DUTY_CYCLE,
+        pwm_start(p, (!freq?freq:PWM_FREQUENCY)*PWM_MAX_DUTY_CYCLE,
                    PWM_MAX_DUTY_CYCLE,
                    ulValue, do_init);
       } else { //DIGITAL PIN ONLY
