@@ -407,7 +407,6 @@ mcci_catena_4801.name=MCCI Catena 4801
 mcci_catena_4801.build.core=arduino
 mcci_catena_4801.build.board=CATENA_4801
 mcci_catena_4801.build.product_line=STM32L082xx
-mcci_catena_4801.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 mcci_catena_4801.upload.maximum_size=196608
 mcci_catena_4801.upload.maximum_data_size=20480
@@ -416,7 +415,7 @@ mcci_catena_4801.build.series=STM32L0xx
 mcci_catena_4801.build.variant=CATENA_4801
 mcci_catena_4801.build.variant_extra_flags=-DMCCI_PA8_4801_SWITCHES_VDD=1
 mcci_catena_4801.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DMCCI_CATENA_4801 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DMCCI_CATENA_4801 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 
 #
 # menu.upload_method
