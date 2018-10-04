@@ -52,7 +52,7 @@ extern void analogWrite( uint32_t ulPin, uint32_t ulValue ) ;
  *
  * \param ulPin
  * \param ulValue
- * \param freq
+ * \param freq - default frequency if freq=0
  */
 extern void PWMWrite( uint32_t ulPin, uint32_t ulValue, uint32_t freq ) ;
 
