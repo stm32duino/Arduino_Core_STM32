@@ -41,6 +41,7 @@
             "NUCLEO_L031K6",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
+            "BLUE_F407VE_Mini",
             "BLUEPILL_F103C8",
             "MAPLEMINI_F103CB",
             "RAK811_TRACKER",
@@ -77,23 +78,32 @@
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
           "applicable": false,
           "boards": [
-            "NUCLEO_L031K6",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
+            "BLUE_F407VE_Mini",
             "BLUEPILL_F103C8",
-            "MAPLEMINI_F103CB",
-            "RAK811_TRACKER"
+            "MAPLEMINI_F103CB"
           ]
         },
         {
-          "pattern": "X_NUCLEO_IKA01A1_HelloWorld.ino|X_NUCLEO_IHM02A1_HelloWorld.ino",
+          "pattern": "X_NUCLEO_|FP_Examples",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER" ]
+          "boards": [ "NUCLEO_L031K6", "RAK811_TRACKER", "REMRAM_V1" ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "REMRAM_V1" ]
+          "boards": [ "RAK811_TRACKER", "REMRAM_V1" ]
+        },
+        {
+          "pattern": "ADXL3xx.ino",
+          "applicable": false,
+          "boards": [ "RAK811_TRACKER" ]
+        },
+        {
+          "pattern": "SerialLoop.ino",
+          "applicable": false,
+          "boards": [ "NUCLEO_L031K6" ]
         }
       ]
     },
