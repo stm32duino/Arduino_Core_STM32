@@ -180,3 +180,13 @@ tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
 tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
+
+# DFU upload using dfu-util
+tools.dfuutil_upload.cmd=dfu-util
+tools.dfuutil_upload.path.windows={runtime.tools.STM32Tools.path}/tools/win/dfu-util
+tools.dfuutil_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
+tools.dfuutil_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux/dfu-util
+tools.dfuutil_upload.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64/dfu-util
+tools.dfuutil_upload.upload.params.verbose=-d
+tools.dfuutil_upload.upload.params.quiet=
+tools.dfuutil_upload.upload.pattern="{path}/{cmd}" -a 0 -s "{upload.address}:leave" -D "{build.path}/{build.project_name}.bin"
