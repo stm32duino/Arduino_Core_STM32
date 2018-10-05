@@ -33,6 +33,7 @@
   * 2016 Jun 9: Edited Francesco Alessi (alfran) - francesco@arduino.org
   */
 
+
 #ifndef _USB_SERIAL_H_
 #define _USB_SERIAL_H_
 
@@ -48,6 +49,8 @@
 class USBSerial : public Stream {
 public:
     USBSerial(void);
+
+    void reenumerate();
 
     void begin(void);
     void begin(int);

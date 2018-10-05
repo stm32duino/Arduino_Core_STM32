@@ -28,48 +28,64 @@
  * @brief USB virtual serial terminal
  */
 
- /*
-  * Arduino srl - www.arduino.org
-  * 2016 Jun 9: Edited Francesco Alessi (alfran) - francesco@arduino.org
-  */
+/*
+ * Arduino srl - www.arduino.org
+ * 2016 Jun 9: Edited Francesco Alessi (alfran) - francesco@arduino.org
+ */
 
 #ifdef USBCON
 
 #include <string.h>
 
-#include "wiring.h"
 #include "USBSerial.h"
-#include "usbd_desc.h"
-#include "usbd_desc_cdc.h"
 #include "usbd_cdc.h"
 #include "usbd_cdc_if.h"
+#include "usbd_desc.h"
+#include "usbd_desc_cdc.h"
+#include "wiring.h"
 
 #define USB_TIMEOUT 50
 /* USB Device Core handle declaration */
 USBD_HandleTypeDef hUSBD_Device_CDC;
-extern __IO  uint32_t device_connection_status;
-extern __IO  uint32_t lineState;
+extern __IO uint32_t device_connection_status;
+extern __IO uint32_t lineState;
 extern __IO uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 extern __IO uint8_t UserRxBufferFS[APP_RX_DATA_SIZE];
 extern __IO uint32_t UserTxBufPtrIn;
 extern __IO uint32_t UserTxBufPtrOut;
 extern __IO uint32_t UserRxBufPtrIn;
 extern __IO uint32_t UserRxBufPtrOut;
-__IO  uint32_t usbEnableBlockingTx;
+__IO uint32_t usbEnableBlockingTx;
 
 USBSerial SerialUSB;
 
 USBSerial::USBSerial(void) {}
 
+void USBSerial::reenumerate() {
+  /* Re-enumerate the USB */
+  volatile unsigned int i;
+
+  pinMode(PA12, OUTPUT);
+  digitalWrite(PA12, LOW);
+  for (i = 0; i < 1512; i++) {
+  };
+  pinMode(PA12, INPUT);
+  for (i = 0; i < 512; i++) {
+  };
+}
+
 /* USBSerial is always available and instantiated in main.cpp */
 void USBSerial::begin(void) {
+  reenumerate();
+
   if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK) {
 
     /* Add Supported Class */
     if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
 
       /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_Interface_fops_FS) == USBD_OK) {
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC,
+                                     &USBD_Interface_fops_FS) == USBD_OK) {
 
         /* Start Device Process */
         USBD_Start(&hUSBD_Device_CDC);
@@ -79,13 +95,16 @@ void USBSerial::begin(void) {
 }
 
 void USBSerial::begin(int) {
+  reenumerate();
+
   if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK) {
 
     /* Add Supported Class */
     if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
 
       /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_Interface_fops_FS) == USBD_OK) {
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC,
+                                     &USBD_Interface_fops_FS) == USBD_OK) {
 
         /* Start Device Process */
         USBD_Start(&hUSBD_Device_CDC);
@@ -94,24 +113,19 @@ void USBSerial::begin(int) {
   }
 }
 
-void USBSerial::end(void) {
+void USBSerial::end(void) { USBD_LL_DeInit(&hUSBD_Device_CDC); }
 
-  USBD_LL_DeInit(&hUSBD_Device_CDC);
-}
-
-int USBSerial::availableForWrite(void)
-{
+int USBSerial::availableForWrite(void) {
   int ret_val;
 
-  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure that the */
-  /* value that we read is correct, we need to disable TIM Interrupt.            */
+  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure
+   * that the value that we read is correct, we need to disable TIM Interrupt.
+   */
   CDC_disable_TIM_Interrupt();
 
-  if(UserTxBufPtrIn >= UserTxBufPtrOut)
-  {
+  if (UserTxBufPtrIn >= UserTxBufPtrOut) {
     ret_val = (APP_TX_DATA_SIZE - 1 - UserTxBufPtrIn + UserTxBufPtrOut);
-  } else
-  {
+  } else {
     ret_val = (UserTxBufPtrOut - UserTxBufPtrIn - 1);
   }
 
@@ -122,14 +136,13 @@ int USBSerial::availableForWrite(void)
 
 size_t USBSerial::write(uint8_t ch) {
 
-  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure that the */
-  /* value that we read is correct, we need to disable TIM Interrupt.            */
+  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure
+   * that the value that we read is correct, we need to disable TIM Interrupt.
+   */
   CDC_disable_TIM_Interrupt();
 
-  if(((UserTxBufPtrIn + 1) % APP_TX_DATA_SIZE) == UserTxBufPtrOut)
-  {
-    // Buffer full!!! Force a flush to not loose data and go on
-    CDC_flush();
+  if (((UserTxBufPtrIn + 1) % APP_TX_DATA_SIZE) == UserTxBufPtrOut) {
+    CDC_flush(); // Buffer full!!! Force a flush to not loose data and go on
   }
   UserTxBufferFS[UserTxBufPtrIn] = ch;
   UserTxBufPtrIn = ((UserTxBufPtrIn + 1) % APP_TX_DATA_SIZE);
@@ -140,94 +153,61 @@ size_t USBSerial::write(uint8_t ch) {
 }
 
 int USBSerial::available(void) {
-  int ret;
-
-  CDC_disable_TIM_Interrupt();
-  ret = ((APP_RX_DATA_SIZE + (UserRxBufPtrIn - UserRxBufPtrOut)) % APP_RX_DATA_SIZE);
-  CDC_enable_TIM_Interrupt();
-
-  return ret;
+  return ((APP_RX_DATA_SIZE + (UserRxBufPtrIn - UserRxBufPtrOut)) %
+          APP_RX_DATA_SIZE);
 }
 
 int USBSerial::read(void) {
-  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure that the */
-  /* value that we read is correct, we need to disable TIM Interrupt.            */
-  CDC_disable_TIM_Interrupt();
-  if(UserRxBufPtrOut == UserRxBufPtrIn)
-  {
-    CDC_enable_TIM_Interrupt();
+  if (UserRxBufPtrOut == UserRxBufPtrIn) {
     return -1;
-  } else
-  {
+  } else {
     unsigned char c = UserRxBufferFS[UserRxBufPtrOut];
     UserRxBufPtrOut = ((UserRxBufPtrOut + 1) % APP_RX_DATA_SIZE);
-    CDC_enable_TIM_Interrupt();
+
+    CDC_resume_receive();
     return c;
   }
 }
 
-int USBSerial::peek(void)
-{
-  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure that the */
-  /* value that we read is correct, we need to disable TIM Interrupt.            */
-  CDC_disable_TIM_Interrupt();
-  if(UserRxBufPtrOut == UserRxBufPtrIn)
-  {
-    CDC_enable_TIM_Interrupt();
+int USBSerial::peek(void) {
+  if (UserRxBufPtrOut == UserRxBufPtrIn) {
     return -1;
-  } else
-  {
+  } else {
     unsigned char c = UserRxBufferFS[UserRxBufPtrOut];
-    CDC_enable_TIM_Interrupt();
     return c;
   }
 }
 
-void USBSerial::flush(void)
-{
-  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure that the */
-  /* value that we read is correct, we need to disable TIM Interrupt.            */
+void USBSerial::flush(void) {
+  /* UserTxBufPtrOut can be modified by TIM ISR, so in order to be sure
+   * that the value that we read is correct, we need to disable TIM Interrupt.
+   */
   CDC_disable_TIM_Interrupt();
   CDC_flush();
   CDC_enable_TIM_Interrupt();
-
-#if 0
-  /* Flush EP1 for data IN */
-  USBD_LL_FlushEP(&hUSBD_Device_CDC, CDC_IN_EP);
-  /* Flush EP1 for data OUT */
-  USBD_LL_FlushEP(&hUSBD_Device_CDC, CDC_IN_EP);
-  /* Flush EP1 for CDC commands */
-  USBD_LL_FlushEP(&hUSBD_Device_CDC, CDC_IN_EP);
-
-  return;
-#endif
-
 }
 
 uint8_t USBSerial::pending(void) {
-//    return usbGetPending(); // No equivalent in HAL
+  // return usbGetPending(); // No equivalent in HAL
   return 0;
 }
 
 uint8_t USBSerial::isConnected(void) {
 
-  if(device_connection_status == 1)
-  {
+  if (device_connection_status == 1) {
     return 1;
-  }
-  else
-  {
+  } else {
     return 0;
   }
 }
 
 uint8_t USBSerial::getDTR(void) {
-//    return usbGetDTR();
+  // return usbGetDTR();
   return 0;
 }
 
 uint8_t USBSerial::getRTS(void) {
-//    return usbGetRTS();
+  // return usbGetRTS();
   return 0;
 }
 
@@ -236,7 +216,7 @@ USBSerial::operator bool() {
   if (lineState == 1)
     result = true;
   delay(10);
- return result;
+  return result;
 }
 
 #endif // USBCON

@@ -93,6 +93,7 @@ extern USBD_CDC_ItfTypeDef  USBD_Interface_fops_FS;
 uint8_t CDC_Transmit_FS(uint8_t* Buf, uint16_t Len);
 
 void CDC_flush(void);
+void CDC_resume_receive(void);
 void CDC_disable_TIM_Interrupt(void);
 void CDC_enable_TIM_Interrupt(void);
 void TIM6_PeriodElapsedCallback(stimer_t *htim);
