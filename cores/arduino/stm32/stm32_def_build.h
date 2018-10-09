@@ -1,6 +1,7 @@
 #ifndef _STM32_DEF_BUILD_
 #define _STM32_DEF_BUILD_
 
+#ifndef CMSIS_STARTUP_FILE
 #if defined(STM32F030x6)
 #define CMSIS_STARTUP_FILE "startup_stm32f030x6.s"
 #elif defined(STM32F030x8)
@@ -296,4 +297,5 @@
 #else
 #error UNKNOWN CHIP
 #endif
+#endif // CMSIS_STARTUP_FILE undefined
 #endif //_STM32_DEF_BUILD_
