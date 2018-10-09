@@ -5,6 +5,7 @@
   *
   */
 
+#include "stm32_def.h"
 #if defined (  __GNUC__  ) /* GCC CS3 */
   #include <sys/stat.h>
 #endif
@@ -25,8 +26,6 @@ extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 #define UNUSED(x) x ## _UNUSED
 #endif
 
-register char * stack_ptr asm("sp");
-
 __attribute__((weak))
 caddr_t _sbrk( int incr ) {
   extern char _estack; /* Defined in the linker script */
@@ -35,7 +34,7 @@ caddr_t _sbrk( int incr ) {
   static char *heap_end = &_end ;
   char *prev_heap_end = heap_end;
 
-  if (heap_end + incr > stack_ptr) {
+  if (heap_end + incr > (char *)__get_MSP()) {
     /* Heap and stack collision */
     errno = ENOMEM;
     return (caddr_t) -1;
