@@ -41,8 +41,6 @@
  extern "C" {
 #endif
 
-#if defined(AES)
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l4xx_hal_def.h"
 
@@ -50,6 +48,8 @@
   * @{
   */
 
+#if defined(AES)
+  
 /** @addtogroup CRYP
   * @{
   */
@@ -734,12 +734,12 @@ uint32_t              HAL_CRYP_GetError(CRYP_HandleTypeDef *hcryp);
   * @}
   */
 
+#endif /* AES */
+
 /**
   * @}
   */
-
-#endif /* AES */
-
+  
 #ifdef __cplusplus
 }
 #endif

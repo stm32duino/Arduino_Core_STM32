@@ -35,7 +35,8 @@
   *
   ******************************************************************************
   */
-#include "stm32_def.h"
+#include "clock.h"
+#include "stm32yyxx_ll_cortex.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -87,37 +88,61 @@ void SysTick_Handler(void)
 }
 
 /**
-  * @brief  Function provides us delay (required by some arduino libraries).
-  *         Can be called inside an interrupt.
-  * @param  None
+  * @brief  Enable the specified clock if not already set
+  * @param  source: clock source: LSE_CLOCK, LSI_CLOCK, HSI_CLOCK or HSE_CLOCK
   * @retval None
   */
-void delayInsideIT(uint32_t delay_us)
+void enableClock(sourceClock_t source)
 {
-  uint32_t nb_loop;
-#if defined (STM32F0xx) || defined (STM32L0xx)
-  nb_loop = (((HAL_RCC_GetHCLKFreq() / 1000000)/5)*delay_us)+1; /* uS (divide by 4 because each loop take about 4 cycles including nop +1 is here to avoid delay of 0 */
-  __asm__ volatile(
-  "1: " "\n\t"
-  " nop " "\n\t"
-  " sub %0, %0, #1 " "\n\t"
-  " bne 1b " "\n\t"
-  : "=r" (nb_loop)
-  : "0"(nb_loop)
-  : "r3"
-  );
-#else
-  nb_loop = (((HAL_RCC_GetHCLKFreq() / 1000000)/4)*delay_us)+1; /* uS (divide by 4 because each loop take about 4 cycles including nop +1 is here to avoid delay of 0 */
-  __asm__ volatile(
-  "1: " "\n\t"
-  " nop " "\n\t"
-  " subs.w %0, %0, #1 " "\n\t"
-  " bne 1b " "\n\t"
-  : "=r" (nb_loop)
-  : "0"(nb_loop)
-  : "r3"
-  );
+  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+
+  switch(source) {
+    case LSI_CLOCK:
+      if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) == RESET) {
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
+        RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+      }
+      break;
+    case HSI_CLOCK:
+      if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSI;
+        RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+        RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+      }
+      break;
+    case LSE_CLOCK:
+      /* Enable Power Clock */
+      if(__HAL_RCC_PWR_IS_CLK_DISABLED()) {
+        __HAL_RCC_PWR_CLK_ENABLE();
+      }
+#ifdef HAL_PWR_MODULE_ENABLED
+      /* Allow access to Backup domain */
+      HAL_PWR_EnableBkUpAccess();
 #endif
+      if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == RESET) {
+#ifdef __HAL_RCC_LSEDRIVE_CONFIG
+        __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
+#endif
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSE;
+        RCC_OscInitStruct.LSEState = RCC_LSE_ON;
+      }
+      break;
+    case HSE_CLOCK:
+      if(__HAL_RCC_GET_FLAG(RCC_FLAG_HSERDY) == RESET) {
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSE;
+        RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+      }
+      break;
+    default:
+      /* No valid clock to enable */
+      break;
+  }
+  if(RCC_OscInitStruct.OscillatorType != RCC_OSCILLATORTYPE_NONE) {
+    if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+      Error_Handler();
+    }
+  }
 }
 
 #ifdef __cplusplus

@@ -78,7 +78,7 @@
 #define HAL_SPI_MODULE_ENABLED
 /*#define HAL_SRAM_MODULE_ENABLED*/
 #define HAL_TIM_MODULE_ENABLED
-#define HAL_UART_MODULE_ENABLED
+/*#define HAL_UART_MODULE_ENABLED*/
 /*#define HAL_USART_MODULE_ENABLED*/
 /*#define HAL_WWDG_MODULE_ENABLED*/
 #define HAL_MMC_MODULE_ENABLED
@@ -114,7 +114,7 @@
   * @brief Internal Low Speed oscillator (LSI) value.
   */
 #if !defined  (LSI_VALUE) 
-#define LSI_VALUE               32000U     /*!< LSI Typical Value in Hz */
+#define LSI_VALUE               40000U     /*!< LSI Typical Value in Hz */
 #endif /* LSI_VALUE */                     /*!< Value of the Internal Low Speed oscillator in Hz
                                                 The real value may vary depending on the variations
                                                 in voltage and temperature. */

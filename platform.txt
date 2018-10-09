@@ -9,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc/" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src/" "-I{build.system.path}/{build.series}/" "-I{build.variant.path}/usb" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc/" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src/" "-I{build.system.path}/{build.series}/" "-I{build.variant.path}/usb" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
 
 # "-I{build.system.path}/Drivers/BSP/Components" "-I{build.system.path}/Middlewares/Third_Party/FatFs/src"  "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Class/HID/Inc"
 
@@ -33,7 +33,7 @@ compiler.extra_flags=-mcpu={build.mcu} -mthumb "@{build.opt.path}"
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 
-compiler.c.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -Dprintf=iprintf -MMD {compiler.stm.extra_include}
+compiler.c.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -MMD {compiler.stm.extra_include}
 
 compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.warning_flags} -std={compiler.cpp.std} -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -MMD {compiler.stm.extra_include}
 
@@ -46,7 +46,7 @@ compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,
 compiler.elf2bin.flags=-O binary
 compiler.elf2hex.flags=-O ihex
 
-compiler.ldflags={build.flags.ldspecs}
+compiler.ldflags=
 compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
 
@@ -79,10 +79,10 @@ build.usb_manufacturer="Unknown"
 build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
 
 # Defaults config
-build.xSerial=
+build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
-build.flags.optimize=
-build.flags.ldspecs=
+build.flags.optimize=-Os
+build.flags.ldspecs=--specs=nano.specs
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
@@ -110,7 +110,7 @@ recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} {build.i
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++ --specs=nano.specs
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} -Wl,--whole-archive "{archive_file_path}" -Wl,--no-whole-archive -lc -Wl,--end-group -lm -lgcc -lstdc++
 
 ## Create output (.bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2bin.flags} {compiler.elf2bin.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"

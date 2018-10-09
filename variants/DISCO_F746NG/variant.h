@@ -59,11 +59,12 @@ enum {
   PI11, //D22 User btn
   PB7,  //D23 ST-Link Rx
   PA9,  //D24 ST-Link Tx
+  PC13, //D25 SD detect
   PEND
 };
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        25
+#define NUM_DIGITAL_PINS        26
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6
 #define NUM_ANALOG_FIRST        16
@@ -88,6 +89,9 @@ enum {
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PA9
+
+// SD detect signal
+#define SD_DETECT_PIN           PC13
 
 #ifdef __cplusplus
 } // extern "C"

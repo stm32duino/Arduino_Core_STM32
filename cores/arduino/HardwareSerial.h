@@ -146,6 +146,7 @@ extern HardwareSerial Serial7;
 extern HardwareSerial Serial8;
 extern HardwareSerial Serial9;
 extern HardwareSerial Serial10;
+extern HardwareSerial SerialLP1;
 
 extern void serialEventRun(void) __attribute__((weak));
 

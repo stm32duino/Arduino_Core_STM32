@@ -161,6 +161,10 @@ public:
 	void toCharArray(char *buf, unsigned int bufsize, unsigned int index=0) const
 		{getBytes((unsigned char *)buf, bufsize, index);}
 	const char * c_str() const { return buffer; }
+	char* begin() { return buffer; }
+	char* end() { return buffer + length(); }
+	const char* begin() const { return c_str(); }
+	const char* end() const { return c_str() + length(); }
 
 	// search
 	int indexOf( char ch ) const;
@@ -186,6 +190,7 @@ public:
 	// parsing/conversion
 	long toInt(void) const;
 	float toFloat(void) const;
+	double toDouble(void) const;
 
 protected:
 	char *buffer;	        // the actual char array

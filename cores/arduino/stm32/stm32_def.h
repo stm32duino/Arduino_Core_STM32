@@ -26,14 +26,6 @@
 #error "STM32YYxx chip series is not defined in boards.txt."
 #endif
 
-// Include Low Layers drivers
-// LL raised several warnings, ignore them
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#pragma GCC diagnostic ignored "-Wstrict-aliasing"
-#include "HAL/stm32yyxx_ll.h"
-#pragma GCC diagnostic pop
-
 // Here define some compatibility
 #ifndef CAN1
 #define CAN1 CAN
