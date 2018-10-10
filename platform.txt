@@ -59,7 +59,7 @@ compiler.c.extra_flags=
 compiler.c.elf.extra_flags=
 compiler.cpp.extra_flags=
 compiler.cpp.std=gnu++14
-compiler.S.extra_flags=
+compiler.S.extra_flags={build.startup_file}
 compiler.ar.extra_flags=
 compiler.elf2bin.extra_flags=
 compiler.elf2hex.extra_flags=
@@ -81,6 +81,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 # Defaults config
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
+build.startup_file=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
 
