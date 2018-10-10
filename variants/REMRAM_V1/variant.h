@@ -65,7 +65,7 @@ extern "C"
     PE1, // D8 - EXT_D5
 
     // SPI
-    PB2, // D9 - SS_SD
+    PB2, // D9 - SS_SDLCD
     PC4, // D10 - SS_E
     PA7, // D11 - MOSI
     PA6, // D12 - MISO
@@ -130,7 +130,9 @@ extern "C"
     PC14, // D54 - BTN_EN1
     PC15, // D55 - BTN_EN2
     PC13, // D56 - SD_CARD_DET
-    PE6,  // D57 - KILL_PIN
+
+    // SD Card Reader
+    PE7,  // D57 - SS_SD
 
     // Endstops
     PB12, // D58 - X_MIN
