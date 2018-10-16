@@ -46,85 +46,65 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
-  //P1 connector Right side (bottom view)
-  PC13, //D0
-  PC14, //D1
-  PC15, //D2
-  PF0,  //D3
-  PF1,  //D4
-  PC0,  //D5
-  PC1,  //D6
-  PC2,  //D7
-  PC3,  //D8
-  PA0,  //D9 - USER_BTN
-  PA1,  //D10
-  PA2,  //D11
-  PA3,  //D12
-  PF4,  //D13
-  PF5,  //D14
-  PA4,  //D15
-  PA5,  //D16
-  PA6,  //D17
-  PA7,  //D18
-  PC4,  //D19
-  PC5,  //D20
-  PB0,  //D21
-  PB1,  //D22
-  PB2,  //D23
-  PB10, //D24
-  PB11, //D25
-  PB12, //D26
-  //P2 connector Left side (bottom view)
-  PB9,  //D27
-  PB8,  //D28
-  PB7,  //D29
-  PB6,  //D30
-  PB5,  //D31
-  PB4,  //D32
-  PB3,  //D33
-  PD2,  //D34
-  PC12, //D35
-  PC11, //D36
-  PC10, //D37
-  PA15, //D38
-  PA14, //D39
-  PF7,  //D40
-  PF6,  //D41
-  PA13, //D42
-  PA12, //D43
-  PA11, //D44
-  PA10, //D45
-  PA9,  //D46
-  PA8,  //D47
-  PC9,  //D48 - LED_GREEN (LD3)
-  PC8,  //D49 - LED_BLUE (LD4)
-  PC7,  //D50
-  PC6,  //D51
-  PB15, //D52
-  PB14, //D53
-  PB13, //D54
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PC_0_A, //D55/A0 = D5
-  PC_1_A, //D56/A1 = D6
-  PC_2_A, //D57/A2 = D7
-  PC_3_A, //D58/A3 = D8
-  PA_0_A, //D59/A4 = D9
-  PA_1_A, //D60/A5 = D10
-  PA_2_A, //D61/A6 = D11
-  PA_3_A, //D62/A7 = D12
-  PA_4_A, //D63/A8 = D15
-  PA_5_A, //D64/A9 = D16
-  PA_6_A, //D65/A10 = D17
-  PA_7_A, //D66/A11 = D18
-  PC_4_A, //D67/A12 = D19
-  PC_5_A, //D68/A13 = D20
-  PB_0_A, //D69/A14 = D21
-  PB_1_A, //D70/A15 = D22
-  PEND
-};
+// P1 connector Right side (bottom view)
+#define PC13 0
+#define PC14 1
+#define PC15 2
+#define PF0  3
+#define PF1  4
+#define PC0  5  // A0
+#define PC1  6  // A1
+#define PC2  7  // A2
+#define PC3  8  // A3
+#define PA0  9  // A4/USER_BTN
+#define PA1  10 // A5
+#define PA2  11 // A6
+#define PA3  12 // A7
+#define PF4  13
+#define PF5  14
+#define PA4  15 // A8
+#define PA5  16 // A9
+#define PA6  17 // A10
+#define PA7  18 // A11
+#define PC4  19 // A12
+#define PC5  20 // A13
+#define PB0  21 // A14
+#define PB1  22 // A15
+#define PB2  23
+#define PB10 24
+#define PB11 25
+#define PB12 26
+// P2 connector Left side (bottom view)
+#define PB9  27
+#define PB8  28
+#define PB7  29
+#define PB6  30
+#define PB5  31
+#define PB4  32
+#define PB3  33
+#define PD2  34
+#define PC12 35
+#define PC11 36
+#define PC10 37
+#define PA15 38
+#define PA14 39
+#define PF7  40
+#define PF6  41
+#define PA13 42
+#define PA12 43
+#define PA11 44
+#define PA10 45
+#define PA9  46
+#define PA8  47
+#define PC9  48 // LED_GREEN (LD3)
+#define PC8  49 // LED_BLUE (LD4)
+#define PC7  50
+#define PC6  51
+#define PB15 52
+#define PB14 53
+#define PB13 54
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        71
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16

@@ -46,111 +46,105 @@ extern "C"
  *----------------------------------------------------------------------------*/
   extern const PinName digitalPin[];
 
-  // Enum defining pin names to match digital pin number --> Dx
-  enum
-  {
-    // USART
-    PA10, // D0 - RX
-    PA9,  // D1 - TX
+// USART
+#define PA10 0  // RX
+#define PA9  1  // TX
 
-    // SWD
-    PA14, // D2 - SWCLK
-    PA13, // D3 - SWDIO
+// SWD
+#define PA14 2  // SWCLK
+#define PA13 3  // SWDIO
 
-    // EXT3
-    PE5, // D4 - EXT_D1
-    PE4, // D5 - EXT_D2
-    PE3, // D6 - EXT_D3
-    PE2, // D7 - EXT_D4
-    PE1, // D8 - EXT_D5
+// EXT3
+#define PE5  4  // EXT_D1
+#define PE4  5  // EXT_D2
+#define PE3  6  // EXT_D3
+#define PE2  7  // EXT_D4
+#define PE1  8  // EXT_D5
 
-    // SPI
-    PB2, // D9 - SS_SDLCD
-    PC4, // D10 - SS_E
-    PA7, // D11 - MOSI
-    PA6, // D12 - MISO
-    PA5, // D13 - SCK
-    PB1, // D14 - SS_X
-    PB0, // D15 - SS_Y
-    PC5, // D16 - SS_Z
+// SPI
+#define PB2  9  // SS_SDLCD
+#define PC4  10 // SS_E
+#define PA7  11 // MOSI
+#define PA6  12 // MISO
+#define PA5  13 // SCK
+#define PB1  14 // SS_X
+#define PB0  15 // SS_Y
+#define PC5  16 // SS_Z
 
-    // I2C
-    PB6, // D17 - SCL
-    PB7, // D18 - SDA
+// I2C
+#define PB6  17 // SCL
+#define PB7  18 // SDA
 
-    // USB
-    PA12, // D19 - DD+
-    PA11, // D20 - DD-
+// USB
+#define PA12 19 // DD+
+#define PA11 20 // DD//
 
-    // LED
-    PD0, // D21 - STATUS_LED
+// LED
+#define PD0  21 // STATUS_LED
 
-    // PWM
-    // TIM2
-    PA15, // D22 - X_STEP
-    PB3,  // D23 - Y_STEP
-    PB10, // D24 - Z_STEP
-    PB11, // D25 - E_STEP
-    // TIM3
-    PB5, // D26 - PWM_EXT1
-    PB4, // D27 - PWM_EXT2
-    PC8, // D28 - PWM_EXT3
-    PC9, // D29 - PWM_EXT4
-    // TIM5
-    PA0, // D30 - PWM_FAN1
-    PA1, // D31 - PWM_BED
-    PA2, // D32 - PWM_FAN2
-    PA3, // D33 - PWM_HEAT
+// PWM
+// TIM2
+#define PA15 22 // X_STEP
+#define PB3  23 // Y_STEP
+#define PB10 24 // Z_STEP
+#define PB11 25 // E_STEP
+// TIM3
+#define PB5  26 // PWM_EXT1
+#define PB4  27 // PWM_EXT2
+#define PC8  28 // PWM_EXT3
+#define PC9  29 // PWM_EXT4
+// TIM5
+#define PA0  30 // PWM_FAN1
+#define PA1  31 // PWM_BED
+#define PA2  32 // PWM_FAN2
+#define PA3  33 // PWM_HEAT
 
-    // Stepper
-    PC12, // D34 - X_EN
-    PC10, // D35 - X_DIR
-    PC11, // D36 - X_DIAG
-    PD4,  // D37 - Y_EN
-    PD6,  // D38 - Y_DIR
-    PD5,  // D39 - Y_DIAG
-    PE15, // D40 - Z_EN
-    PE13, // D41 - Z_DIR
-    PE14, // D42 - Z_DIAG
-    PE11, // D43 - E_EN
-    PE10, // D44 - E_DIR
-    PE12, // D45 - E_DIAG
+// Stepper
+#define PC12 34 // X_EN
+#define PC10 35 // X_DIR
+#define PC11 36 // X_DIAG
+#define PD4  37 // Y_EN
+#define PD6  38 // Y_DIR
+#define PD5  39 // Y_DIAG
+#define PE15 40 // Z_EN
+#define PE13 41 // Z_DIR
+#define PE14 42 // Z_DIAG
+#define PE11 43 // E_EN
+#define PE10 44 // E_DIR
+#define PE12 45 // E_DIAG
 
-    // EXT3
-    PC6,  // D46 - LCD_BEEPER
-    PC7,  // D47 - BTN_ENC
-    PD14, // D48 - LCD_EN
-    PD15, // D49 - LCD_RS
-    PD13, // D50 - LCD_D4
-    PD12, // D51 - LCD_D5
-    PD11, // D52 - LCD_D6
-    PD10, // D53 - LCD_D7
+// EXT3
+#define PC6  46 // LCD_BEEPER
+#define PC7  47 // BTN_ENC
+#define PD14 48 // LCD_EN
+#define PD15 49 // LCD_RS
+#define PD13 50 // LCD_D4
+#define PD12 51 // LCD_D5
+#define PD11 52 // LCD_D6
+#define PD10 53 // LCD_D7
 
-    // EXT2
-    PC14, // D54 - BTN_EN1
-    PC15, // D55 - BTN_EN2
-    PC13, // D56 - SD_CARD_DET
+// EXT2
+#define PC14 54 // BTN_EN1
+#define PC15 55 // BTN_EN2
+#define PC13 56 // SD_CARD_DET
 
-    // SD Card Reader
-    PE7,  // D57 - SS_SD
+// SD Card Reader
+#define PE7  57 // SS_SD
 
-    // Endstops
-    PB12, // D58 - X_MIN
-    PB13, // D59 - X_MAX
-    PB14, // D60 - Y_MIN
-    PB15, // D61 - Y_MAX
-    PD8,  // D62 - Z_MIN
-    PD9,  // D63 - Z_MAX
+// Endstops
+#define PB12 58 // X_MIN
+#define PB13 59 // X_MAX
+#define PB14 60 // Y_MIN
+#define PB15 61 // Y_MAX
+#define PD8  62 // Z_MIN
+#define PD9  63 // Z_MAX
 
-    // ADC
-    PC0, // D64 - THERM_1
-    PC1, // D65 - THERM_2
-    PC2, // D66 - THERM_3
-    PA4, // D67 - FAN_SPEED1
-    PC3, // D68 - FAN_SPEED2
-
-    PEND
-  };
+// ADC
+#define PC0  64 // THERM_1
+#define PC1  65 // THERM_2
+#define PC2  66 // THERM_3
+#define PA4  67 // FAN_SPEED1
+#define PC3  68 // FAN_SPEED2
 
 // PIN definition
 #define NUM_DIGITAL_PINS 69

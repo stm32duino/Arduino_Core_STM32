@@ -44,60 +44,46 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 // Right side
-  PB11, //D0
-  PB10, //D1
-  PB2,  //D2
-  PB0,  //D3
-  PA7,  //D4
-  PA6,  //D5
-  PA5,  //D6
-  PA4,  //D7
-  PA3,  //D8
-  PA2,  //D9
-  PA1,  //D10
-  PA0,  //D11
-  PC15, //D12
-  PC14, //D13
-  PC13, //D14
+#define PB11 0
+#define PB10 1
+#define PB2  2
+#define PB0  3  // A0
+#define PA7  4  // A1
+#define PA6  5  // A2
+#define PA5  6  // A3
+#define PA4  7  // A4
+#define PA3  8  // A5
+#define PA2  9  // A6
+#define PA1  10 // A7
+#define PA0  11 // A8
+#define PC15 12
+#define PC14 13
+#define PC13 14
 // Left side
-  PB7,  //D15
-  PB6,  //D16
-  PB5,  //D17
-  PB4,  //D18
-  PB3,  //D19
-  PA15, //D20
-  PA14, //D21 - SWCLK
-  PA13, //D22 - SWDI0
-  PA12, //D23 - USB DP
-  PA11, //D24 - USB DM
-  PA10, //D25
-  PA9,  //D26
-  PA8,  //D27
-  PB15, //D28
-  PB14, //D29
-  PB13, //D30
-  PB12, //D31
+#define PB7  15
+#define PB6  16
+#define PB5  17
+#define PB4  18
+#define PB3  19
+#define PA15 20
+#define PA14 21 // SWCLK
+#define PA13 22 // SWDI0
+#define PA12 23 // USB DP
+#define PA11 24 // USB DM
+#define PA10 25
+#define PA9  26
+#define PA8  27
+#define PB15 28
+#define PB14 29
+#define PB13 30
+#define PB12 31
 // Other
-  PB8,  //D32 - BOOT0 - User buttons
-  PB1,  //D33 - LED
-  PB9,  //D34 - USB DISC
-// Duplicated pins to avoid issue with analogRead
-// A0 have to be greater than NUM_ANALOG_INPUTS
-  PB0_2,//D35/A0 = D3
-  PA7_2,//D36/A1 = D4
-  PA6_2,//D37/A2 = D5
-  PA5_2,//D38/A3 = D6
-  PA4_2,//D39/A4 = D7
-  PA3_2,//D40/A5 = D8
-  PA2_2,//D41/A6 = D9
-  PA1_2,//D42/A7 = D10
-  PA0_2,//D43/A8 = D11
-  PEND
-};
+#define PB8  32 // BOOT0 - User buttons
+#define PB1  33 // LED
+#define PB9  34 // USB DISC
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        44
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       9

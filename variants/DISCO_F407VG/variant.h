@@ -33,104 +33,91 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 //P1 connector Right side
-  PC0,  //D0
-  PC2,  //D1
-  PA0,  //D2
-  PA2,  //D3
-  PA4,  //D4
-  PA6,  //D5
-  PC4,  //D6
-  PB0,  //D7
-  PB2,  //D8
-  PE8,  //D9
-  PE10, //D10
-  PE12, //D11
-  PE14, //D12
-  PB10, //D13
-  PB12, //D14
-  PB14, //D15
-  PD8,  //D16
-  PD10, //D17
-  PD12, //D18
-  PD14, //D19
+#define PC0  0
+#define PC2  1  // A0
+#define PA0  2
+#define PA2  3
+#define PA4  4
+#define PA6  5
+#define PC4  6  // A1
+#define PB0  7  // A2
+#define PB2  8
+#define PE8  9
+#define PE10 10
+#define PE12 11
+#define PE14 12
+#define PB10 13
+#define PB12 14
+#define PB14 15
+#define PD8  16
+#define PD10 17
+#define PD12 18
+#define PD14 19
 //P2 connector Left side
-  PH0,  //D20
-  PC14, //D21
-  PE6,  //D22
-  PE4,  //D23
-  PE2,  //D24
-  PE0,  //D25
-  PB8,  //D26
-  PB6,  //D27
-  PB4,  //D28
-  PD7,  //D29
-  PD5,  //D30
-  PD3,  //D31
-  PD1,  //D32
-  PC12, //D33
-  PC10, //D34
-  PA10, //D35
-  PA8,  //D36
-  PC8,  //D37
-  PC6,  //D38
+#define PH0  20
+#define PC14 21
+#define PE6  22
+#define PE4  23
+#define PE2  24
+#define PE0  25
+#define PB8  26
+#define PB6  27
+#define PB4  28
+#define PD7  29
+#define PD5  30
+#define PD3  31
+#define PD1  32
+#define PC12 33
+#define PC10 34
+#define PA10 35
+#define PA8  36
+#define PC8  37
+#define PC6  38
 //P1 Connector Left Side
-  PC1,  //D39
-  PC3,  //D40
-  PA1,  //D41
-  PA3,  //D42
-  PA5,  //D43
-  PA7,  //D44
-  PC5,  //D45
-  PB1,  //D46
-  PE7,  //D47
-  PE9,  //D48
-  PE11, //D49
-  PE13, //D50
-  PE15, //D51
-  PB11, //D52
-  PB13, //D53
-  PB15, //D54
-  PD9,  //D55
-  PD11, //D56
-  PD13, //D57
-  PD15, //D58
+#define PC1  39 // A3
+#define PC3  40 // A4
+#define PA1  41 // A5
+#define PA3  42
+#define PA5  43
+#define PA7  44
+#define PC5  45 // A6
+#define PB1  46 // A7
+#define PE7  47
+#define PE9  48
+#define PE11 49
+#define PE13 50
+#define PE15 51
+#define PB11 52
+#define PB13 53
+#define PB15 54
+#define PD9  55
+#define PD11 56
+#define PD13 57
+#define PD15 58
 //P2 connector Right side
-  PH1,  //D59
-  PC15, //D60
-  PC13, //D61
-  PE5,  //D62
-  PE3,  //D63
-  PE1,  //D64
-  PB9,  //D65
-  PB7,  //D66
-  PB5,  //D67
-  PB3,  //D68
-  PD6,  //D69
-  PD4,  //D70
-  PD2,  //D71
-  PD0,  //D72
-  PC11, //D73
-  PA15, //D74
-  PA13, //D75
-  PA9,  //D76
-  PC9,  //D77
-  PC7,  //D78
-//Duplicated to have A0-A5 as F407 do not have Uno like connector
-// and to be aligned with PinMap_ADC
-  PC2_2,//D79/A0 = D1
-  PC4_2,//D80/A1 = D6
-  PB0_2,//D81/A2 = D7
-  PC1_2,//D82/A3 = D39
-  PC3_2,//D83/A4 = D40
-  PA1_2,//D84/A5 = D41
-  PC5_2,//D85/A6 = D45
-  PB1_2,//D86/A7 = D46
-  PEND
-};
+#define PH1  59
+#define PC15 60
+#define PC13 61
+#define PE5  62
+#define PE3  63
+#define PE1  64
+#define PB9  65
+#define PB7  66
+#define PB5  67
+#define PB3  68
+#define PD6  69
+#define PD4  70
+#define PD2  71
+#define PD0  72
+#define PC11 73
+#define PA15 74
+#define PA13 75
+#define PA9  76
+#define PC9  77
+#define PC7  78
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        87
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       8
@@ -193,7 +180,7 @@ enum {
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
-                                   // See UM ง6.1.3 ST-LINK/V2-A VCP configuration)
+                                   // See UM ยง6.1.3 ST-LINK/V2-A VCP configuration)
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 

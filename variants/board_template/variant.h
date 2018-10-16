@@ -45,19 +45,30 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-// Enum defining pin names to match digital pin number --> Dx
+// Define pin names to match digital pin number --> Dx
+// It could be used with preprocessor tests (e.g. #if PXn == 3)
+// so an enum will not work.
 // !!!
-// !!! Copy the digitalPin[] array in variant.cpp
+// !!! Copy the digitalPin[] array from the variant.cpp
 // !!! and remove all '_': PX_n --> PXn
-// !!! For NC, suffix by _x where x is the number of NC:
-// !!!   NC_1, NC_2,...
-// !!! For duplicated pin name, suffix by _x where x is the number of pin:
-// !!! PA7, PA7_2, PA7_3,...
-enum {
-  PEND
-};
+// !!! For NC, comment the line to warn x pin number is NC
+// !!! // x is NC
+// !!! For duplicated pin name, comment the line to warn x pin number
+// !!! is PXn which is already defined with y pin number
+// !!! // x is PXn (y)
+// !!! Ex:
+// !!! ...
+// !!! #define PA4  20 // A14
+// !!! #define PB4  21
+// !!! #define PB5  22
+// !!! #define PB3  23
+// !!! // 24 is PA4 (20)
+// !!! // 25 is PB4 (21)// #define PXn x
+// !!! #define PA2  26 // A15
+// !!! ...
+//#define PXn x
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 // It is used with preprocessor tests (e.g. #if NUM_DIGITAL_PINS > 3)
 // so an enum will not work.
 #define NUM_DIGITAL_PINS        0
