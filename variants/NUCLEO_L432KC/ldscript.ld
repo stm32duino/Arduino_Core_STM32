@@ -33,7 +33,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x2000c000;    /* end of RAM */
+_estack = 0x20010000;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
@@ -41,9 +41,8 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-FLASH (rx)      : ORIGIN = 0x08000000, LENGTH = 256K
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 48K
-SRAM2 (rw)      : ORIGIN = 0x10000000, LENGTH = 16K
+RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 64K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 256K
 }
 
 /* Define output sections */
@@ -58,7 +57,7 @@ SECTIONS
   } >FLASH
 
   /* The program code and other data goes into FLASH */
-  .text ALIGN(8):
+  .text :
   {
     . = ALIGN(8);
     *(.text)           /* .text sections (code) */
@@ -139,25 +138,6 @@ SECTIONS
     . = ALIGN(8);
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
-
-  _sisram2 = LOADADDR(.sram2);
-
-  /* CCM-RAM section
-  *
-  * IMPORTANT NOTE!
-  * If initialized variables will be placed in this section,
-  * the startup code needs to be modified to copy the init-values.
-  */
-  .sram2 :
-  {
-    . = ALIGN(8);
-    _ssram2 = .;       /* create a global symbol at sram2 start */
-    *(.sram2)
-    *(.sram2*)
-
-    . = ALIGN(8);
-    _esram2 = .;       /* create a global symbol at sram2 end */
-  } >SRAM2 AT> FLASH
 
 
   /* Uninitialized data section */

@@ -435,8 +435,13 @@ void TwoWire::allocateRxBuffer(size_t length)
   if(rxBufferAllocated < length) {
   // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
     if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
-    rxBuffer = (uint8_t *)realloc(rxBuffer, length * sizeof(uint8_t));
-	rxBufferAllocated = (rxBuffer != nullptr) ? length: 0;
+    uint8_t *tmp = (uint8_t *)realloc(rxBuffer, length * sizeof(uint8_t));
+    if(tmp != nullptr) {
+      rxBuffer = tmp;
+      rxBufferAllocated = length;
+    } else {
+      _Error_Handler("No enough memory! (%i)\n", length);
+    }
   }
 }
 
@@ -445,8 +450,13 @@ inline void TwoWire::allocateTxBuffer(size_t length)
   if(txBufferAllocated < length) {
     // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
     if(length < BUFFER_LENGTH) { length = BUFFER_LENGTH; }
-    txBuffer = (uint8_t *)realloc(txBuffer, length * sizeof(uint8_t));
-    txBufferAllocated = (txBuffer != nullptr) ? length: 0;
+    uint8_t *tmp = (uint8_t *)realloc(txBuffer, length * sizeof(uint8_t));
+    if(tmp != nullptr) {
+      txBuffer = tmp;
+      txBufferAllocated = length;
+    } else {
+      _Error_Handler("No enough memory! (%i)\n", length);
+    }
   }
 }
 

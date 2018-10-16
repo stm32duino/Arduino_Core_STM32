@@ -5,6 +5,7 @@
   *
   */
 
+#include "stm32_def.h"
 #if defined (  __GNUC__  ) /* GCC CS3 */
   #include <sys/stat.h>
 #endif
@@ -25,20 +26,21 @@ extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 #define UNUSED(x) x ## _UNUSED
 #endif
 
-register char * stack_ptr asm("sp");
-
+__attribute__((weak))
 caddr_t _sbrk( int incr ) {
+  extern char _estack; /* Defined in the linker script */
+  extern char _Min_Stack_Size; /* Defined in the linker script */
   extern char _end; /* Defined by the linker */
-  static char *heap_end = NULL ;
-  char *prev_heap_end ;
+  static char *heap_end = &_end ;
+  char *prev_heap_end = heap_end;
 
-  if ( heap_end == NULL ) {
-    heap_end = &_end ;
-  }
-  prev_heap_end = heap_end;
-
-  if (heap_end + incr > stack_ptr) {
+  if (heap_end + incr > (char *)__get_MSP()) {
     /* Heap and stack collision */
+    errno = ENOMEM;
+    return (caddr_t) -1;
+  }
+  /* Ensure to keep minimun stack size defined in the linker script */
+  if (heap_end + incr >= (char*)(&_estack - &_Min_Stack_Size)) {
     errno = ENOMEM;
     return (caddr_t) -1;
   }
