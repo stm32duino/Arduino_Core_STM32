@@ -33,53 +33,52 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
-  PA3,  //D0
-  PA2,  //D1
-  PA10, //D2
-  PB13, //D3
-  PB5,  //D4
-  PB7,  //D5
-  PB2,  //D6
-  PA8,  //D7
-  PA9,  //D8
-  PB12, //D9
-  PB6,  //D10
-  PB15, //D11
-  PB14, //D12
-  PB13_2, //D13 - default SB2 is closed
-  PB9,  //D14
-  PB8,  //D15
+#define  PA3   0
+#define  PA2   1
+#define  PA10  2
+#define  PB13  3
+#define  PB5   4
+#define  PB7   5
+#define  PB2   6
+#define  PA8   7
+#define  PA9   8
+#define  PB12  9
+#define  PB6   10
+#define  PB15  11
+#define  PB14  12
+#define  PB13_2 13
+#define  PB9   14
+#define  PB8   15
 // Connector CN2
-  NC_1, //D16 - BOOT0
-  PA13, //D17 - SWD
-  PA14, //D18 - SWD
-  PH1,  //D19
-  PH0,  //D20
+#define  NC_1  16
+#define  PA13  17
+#define  PA14  18
+#define  PH1   19
+#define  PH0   20
 // Connector CN3
-  PA1,  //D21
-  PC2,  //D22
-  PC1,  //D23
-  PA12, //D24
-  PA11, //D25
-  PA0,  //D26/A0
-  PA0_2,//D27/A1 - alias for A0 - requires closing solder bridge SB7
-  PA4,  //D28/A2 - RADIO_DIO_5_PORT
-  PA4_2,//D29/A3 - alias for A2 - requires closing solder bridge SB8
-  PB9_2,//D30/A4 - requires closing solder bridge SB11
-  PB8_2,//D31/A5 - requires closing solder bridge SB12
-  PA5,  //D32/A6 - RADIO_DIO_4_PORT
-  PC0,  //D33 - RADIO_RESET_PORT
-  PA7,  //D34 - RADIO_MOSI_PORT
-  PA6,  //D35 - RADIO_MISO_PORT
-  PB3,  //D36 - RADIO_SCLK_PORT
-  PA15, //D37 - RADIO_NSS_PORT
-  PB4,  //D38 - RADIO_DIO_0_PORT
-  PB1,  //D39 - RADIO_DIO_1_PORT
-  PB0,  //D40 - RADIO_DIO_2_PORT
-  PC13, //D41 - RADIO_DIO_3_PORT
-  PEND
-};
+#define  PA1   21
+#define  PC2   22
+#define  PC1   23
+#define  PA12  24
+#define  PA11  25
+#define  PA0   26
+#define  PA0_2 27
+#define  PA4   28
+#define  PA4_2 29
+#define  PB9_2 30
+#define  PB8_2 31
+#define  PA5   32
+#define  PC0   33
+#define  PA7   34
+#define  PA6   35
+#define  PB3   36
+#define  PA15  37
+#define  PB4   38
+#define  PB1   39
+#define  PB0   40
+#define  PC13  41
+#define  PEND  42
+
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        42
