@@ -172,8 +172,8 @@ extern "C"
 #define SERIAL_UART_INSTANCE 1
 
 // Default pin used for 'Serial' instance
-#define PIN_SERIAL_RX 0
-#define PIN_SERIAL_TX 1
+#define PIN_SERIAL_RX PA10
+#define PIN_SERIAL_TX PA9
 
 #ifdef __cplusplus
 } // extern "C"
