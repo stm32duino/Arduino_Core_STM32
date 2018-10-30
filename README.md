@@ -1,6 +1,6 @@
 # Arduino core support for STM32 based boards
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
-[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.3.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.3.0...master)
+[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.3.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.3.0...1.4.0)
 [![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32)
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -59,6 +59,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
     * [Nucleo F303RE](http://www.st.com/en/evaluation-tools/nucleo-f303re.html)
  
   * STM32F4
+    * [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant)
+    * [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini)
     * [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html)
     * [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html)
     * [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html)
@@ -66,12 +68,16 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
     * [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html)
 
   * STM32F7
+    * [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html)
+    * [RemRam v1](https://github.com/hasenbanck/remram)
     * [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html)
 
   * STM32L0
     * [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html)
     * [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html)
+    * [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html)
     * [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html)
+    * [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) (Basic support)
 
   * STM32L1
     * [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html)
@@ -81,25 +87,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
     * [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html)
     * [Nucleo L496ZG](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html)
     * [Nucleo L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg-p.html)
+    * [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html)
+    * [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html)
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
 ### Next release
-  * STM32F4
-    * [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant)
-    * [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini)
-
-  * STM32F7
-    * [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html)
-    * [RemRam v1](https://github.com/hasenbanck/remram)
-
-  * STM32L0
-    * [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html)
-    * [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) (Basic support)
-
-  * STM32L4
-    * [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html)
-    * [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html)
-
 
 
 ## Troubleshooting
