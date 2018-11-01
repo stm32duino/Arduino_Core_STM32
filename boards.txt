@@ -467,6 +467,35 @@ Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 # Other boards
 
 ###############################
+# Generic F0
+GenF0.name=Generic STM32F0 series
+
+GenF0.build.core=arduino
+GenF0.build.board=GenF0
+GenF0.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# DEMO_F030F4 board
+# Support: Serial1 (USART1 on PA3, PA2)
+GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board
+GenF0.menu.pnum.DEMO_F030F4.upload.maximum_data_size=4096
+GenF0.menu.pnum.DEMO_F030F4.upload.maximum_size=16384
+GenF0.menu.pnum.DEMO_F030F4.build.mcu=cortex-m0
+GenF0.menu.pnum.DEMO_F030F4.build.board=DEMO_F030F4
+GenF0.menu.pnum.DEMO_F030F4.build.series=STM32F0xx
+GenF0.menu.pnum.DEMO_F030F4.build.product_line=STM32F030x6
+GenF0.menu.pnum.DEMO_F030F4.build.variant=DEMO_F030F4
+GenF0.menu.pnum.DEMO_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# Upload menu
+GenF0.menu.upload_method.STLinkMethod=STLink
+GenF0.menu.upload_method.STLinkMethod.upload.protocol=STLink
+GenF0.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+GenF0.menu.upload_method.serialMethod=Serial
+GenF0.menu.upload_method.serialMethod.upload.protocol=maple_serial
+GenF0.menu.upload_method.serialMethod.upload.tool=serial_upload
+
+################################################################################
 # Generic F103
 GenF103.name=Generic STM32F103 series
 
@@ -717,6 +746,12 @@ Disco.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Disco.menu.xserial.disabled=Disabled (No Serial)
 Disco.menu.xserial.disabled.build.xSerial=
 
+GenF0.menu.xserial.generic=Enabled with generic Serial
+GenF0.menu.xserial.none=Enabled without generic Serial
+GenF0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF0.menu.xserial.disabled=Disabled (No Serial)
+GenF0.menu.xserial.disabled.build.xSerial=
+
 GenF103.menu.xserial.generic=Enabled with generic Serial
 GenF103.menu.xserial.none=Enabled without generic Serial
 GenF103.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -844,6 +879,24 @@ Disco.menu.opt.o3lto=Fastest (-O3) with LTO
 Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Disco.menu.opt.ogstd=Debug (-g)
 Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+GenF0.menu.opt.osstd=Smallest (-Os default)
+GenF0.menu.opt.oslto=Smallest (-Os) with LTO
+GenF0.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF0.menu.opt.o1std=Fast (-O1)
+GenF0.menu.opt.o1std.build.flags.optimize=-O1
+GenF0.menu.opt.o1lto=Fast (-O1) with LTO
+GenF0.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF0.menu.opt.o2std=Faster (-O2)
+GenF0.menu.opt.o2std.build.flags.optimize=-O2
+GenF0.menu.opt.o2lto=Faster (-O2) with LTO
+GenF0.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF0.menu.opt.o3std=Fastest (-O3)
+GenF0.menu.opt.o3std.build.flags.optimize=-O3
+GenF0.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF0.menu.opt.ogstd=Debug (-g)
+GenF0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenF103.menu.opt.osstd=Smallest (-Os default)
 GenF103.menu.opt.oslto=Smallest (-Os) with LTO
@@ -976,6 +1029,16 @@ Disco.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Disco.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Disco.menu.rtlib.full=Newlib Standard
 Disco.menu.rtlib.full.build.flags.ldspecs=
+
+GenF0.menu.rtlib.nano=Newlib Nano (default)
+GenF0.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF0.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF0.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF0.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF0.menu.rtlib.full=Newlib Standard
+GenF0.menu.rtlib.full.build.flags.ldspecs=
 
 GenF103.menu.rtlib.nano=Newlib Nano (default)
 GenF103.menu.rtlib.nanofp=Newlib Nano + Float Printf
