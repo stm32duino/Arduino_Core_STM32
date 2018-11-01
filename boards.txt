@@ -467,6 +467,35 @@ Disco.menu.upload_method.STLink.upload.tool=stlink_upload
 # Other boards
 
 ###############################
+# Generic F030
+GenF030.name=Generic STM32F030 series
+
+GenF030.build.core=arduino
+GenF030.build.board=GenF030
+GenF030.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# DEMO_F030F4 board
+# Support: Serial1 (USART1 on PA3, PA2)
+GenF030.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board
+GenF030.menu.pnum.DEMO_F030F4.upload.maximum_data_size=4096
+GenF030.menu.pnum.DEMO_F030F4.upload.maximum_size=16384
+GenF030.menu.pnum.DEMO_F030F4.build.mcu=cortex-m0
+GenF030.menu.pnum.DEMO_F030F4.build.board=DEMO_F030F4
+GenF030.menu.pnum.DEMO_F030F4.build.series=STM32F0xx
+GenF030.menu.pnum.DEMO_F030F4.build.product_line=STM32F030x6
+GenF030.menu.pnum.DEMO_F030F4.build.variant=DEMO_F030F4
+GenF030.menu.pnum.DEMO_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# Upload menu
+GenF030.menu.upload_method.STLinkMethod=STLink
+GenF030.menu.upload_method.STLinkMethod.upload.protocol=STLink
+GenF030.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+GenF030.menu.upload_method.serialMethod=Serial
+GenF030.menu.upload_method.serialMethod.upload.protocol=maple_serial
+GenF030.menu.upload_method.serialMethod.upload.tool=serial_upload
+
+################################################################################
 # Generic F103
 GenF103.name=Generic STM32F103 series
 
@@ -832,6 +861,24 @@ Disco.menu.opt.o3lto=Fastest (-O3) with LTO
 Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Disco.menu.opt.ogstd=Debug (-g)
 Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+GenF030.menu.opt.osstd=Smallest (-Os default)
+GenF030.menu.opt.oslto=Smallest (-Os) with LTO
+GenF030.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF030.menu.opt.o1std=Fast (-O1)
+GenF030.menu.opt.o1std.build.flags.optimize=-O1
+GenF030.menu.opt.o1lto=Fast (-O1) with LTO
+GenF030.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF030.menu.opt.o2std=Faster (-O2)
+GenF030.menu.opt.o2std.build.flags.optimize=-O2
+GenF030.menu.opt.o2lto=Faster (-O2) with LTO
+GenF030.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF030.menu.opt.o3std=Fastest (-O3)
+GenF030.menu.opt.o3std.build.flags.optimize=-O3
+GenF030.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF030.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF030.menu.opt.ogstd=Debug (-g)
+GenF030.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenF103.menu.opt.osstd=Smallest (-Os default)
 GenF103.menu.opt.oslto=Smallest (-Os) with LTO
