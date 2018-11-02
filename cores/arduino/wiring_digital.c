@@ -72,9 +72,7 @@ void digitalWrite( uint32_t ulPin, uint32_t ulVal )
 {
   PinName p = digitalPinToPinName(ulPin);
   if(p != NC) {
-    if(is_pin_configured(p, g_digPinConfigured)) {
-      digital_io_write(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p), ulVal);
-    }
+    digital_io_write(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p), ulVal);
   }
 }
 
@@ -83,9 +81,7 @@ int digitalRead( uint32_t ulPin )
   uint8_t level = 0;
   PinName p = digitalPinToPinName(ulPin);
   if(p != NC) {
-    if(is_pin_configured(p, g_digPinConfigured)) {
-      level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
-    }
+    level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
   }
   return (level)? HIGH : LOW;
 }
