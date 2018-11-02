@@ -38,7 +38,7 @@ Advanced user can use the repository to benefit from the latest development. See
 User can add a STM32 based board following this [wiki](https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-(board)).
 
 ## Boards available
-### Current release
+
   * STM32F0
     * [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html)
     * [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html)
@@ -91,8 +91,14 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
     * [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html)
     * [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html)
 
-### Next release
+## Next release
 
+  See this [milestone](https://github.com/stm32duino/Arduino_Core_STM32/milestone/6) to have an overview of the next release content.
+
+### New boards
+
+  * STM32F0
+     * STM32F030F4 Demo board
 
 ## Troubleshooting
 
