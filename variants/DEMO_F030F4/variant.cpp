@@ -38,11 +38,14 @@ extern "C" {
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
+// USB connector on the top, MCU side
+// Left Side
   PA_0,  //D0 
   PA_1,  //D1 
   PA_2,  //D2  - TX
   PA_3,  //D3  - RX
   PA_4,  //D4  - LED
+// Right side
   PA_5,  //D5  - SCK
   PA_6,  //D6  - MISO
   PA_7,  //D7  - MOSI
@@ -51,8 +54,8 @@ const PinName digitalPin[] = {
   PA_10, //D10 - SDA (RX UART Header)
   PA_13, //D11 - SWDIO
   PA_14, //D12 - SWCLK
- // Duplicated pins in order to be aligned with PinMap_ADC
- // A0 have to be greater than NUM_ANALOG_INPUTS 
+// Duplicated pins in order to be aligned with PinMap_ADC
+// A0 have to be greater than NUM_ANALOG_INPUTS 
   PA_0,  //D13/A0 ~ D0
   PA_1,  //D14/A1 ~ D1
   PA_2,  //D15/A2 ~ D2
@@ -61,7 +64,7 @@ const PinName digitalPin[] = {
   PA_5,  //D18/A5 ~ D5
   PA_6,  //D19/A6 ~ D6
   PA_7,  //D20/A7 ~ D7
-  PB_1  //D21/A8 ~ D8
+  PB_1   //D21/A8 ~ D8
 };
 
 #ifdef __cplusplus
