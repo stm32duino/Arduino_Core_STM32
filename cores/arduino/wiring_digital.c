@@ -70,20 +70,12 @@ void pinMode( uint32_t ulPin, uint32_t ulMode )
 
 void digitalWrite( uint32_t ulPin, uint32_t ulVal )
 {
-  PinName p = digitalPinToPinName(ulPin);
-  if(p != NC) {
-    digital_io_write(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p), ulVal);
-  }
+  digitalWriteFast(digitalPinToPinName(ulPin), ulVal);
 }
 
 int digitalRead( uint32_t ulPin )
 {
-  uint8_t level = 0;
-  PinName p = digitalPinToPinName(ulPin);
-  if(p != NC) {
-    level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
-  }
-  return (level)? HIGH : LOW;
+  return digitalReadFast(digitalPinToPinName(ulPin));
 }
 
 #ifdef __cplusplus
