@@ -1,9 +1,6 @@
 /**
   ******************************************************************************
   * @file    digital_io.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
   * @brief   Provide an interface to configure hw ios
   *
   ******************************************************************************
@@ -39,7 +36,7 @@
 #include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /**
