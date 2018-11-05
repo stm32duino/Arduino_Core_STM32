@@ -82,6 +82,17 @@ static inline uint32_t digital_io_read(GPIO_TypeDef *port, uint32_t pin)
 }
 
 /**
+  * @brief  This function toggle value of an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @retval None
+  */
+static inline void digital_io_toggle(GPIO_TypeDef *port, uint32_t pin)
+{
+  LL_GPIO_TogglePin(port, pin);
+}
+
+/**
   * @brief  This function set a value to an IO
   * @param  pn : Pin name
   * @param  val : 0 to set to low, any other value to set to high
@@ -106,6 +117,19 @@ static inline int digitalReadFast( PinName pn )
     level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
   }
   return (level)? HIGH : LOW;
+}
+
+/**
+  * @brief  This function toggle value of an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @retval None
+  */
+static inline void digitalToggleFast(PinName pn)
+{
+  if(pn != NC) {
+    digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
+  }
 }
 
 #ifdef __cplusplus
