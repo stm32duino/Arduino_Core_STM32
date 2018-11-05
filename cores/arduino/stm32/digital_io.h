@@ -40,8 +40,8 @@
 #define __DIGITAL_IO_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
-#include "PeripheralPins.h"
+#include "wiring_constants.h"
+#include "PinNames.h"
 #include "stm32yyxx_ll_gpio.h"
 
 #ifdef __cplusplus
@@ -70,7 +70,6 @@ static inline void digital_io_write(GPIO_TypeDef *port, uint32_t pin, uint32_t v
   }
 }
 
-
 /**
   * @brief  This function set a value to an IO
   * @param  port : one of the gpio port
@@ -80,6 +79,33 @@ static inline void digital_io_write(GPIO_TypeDef *port, uint32_t pin, uint32_t v
 static inline uint32_t digital_io_read(GPIO_TypeDef *port, uint32_t pin)
 {
   return LL_GPIO_IsInputPinSet(port, pin);
+}
+
+/**
+  * @brief  This function set a value to an IO
+  * @param  pn : Pin name
+  * @param  val : 0 to set to low, any other value to set to high
+  * @retval None
+  */
+static inline void digitalWriteFast( PinName pn, uint32_t ulVal )
+{
+  if(pn != NC) {
+    digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn), ulVal);
+  }
+}
+
+/**
+  * @brief  This function read the value of an IO
+  * @param  pn : Pin name
+  * @retval The pin state (LOW or HIGH)
+  */
+static inline int digitalReadFast( PinName pn )
+{
+  uint8_t level = 0;
+  if(pn != NC) {
+    level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
+  }
+  return (level)? HIGH : LOW;
 }
 
 #ifdef __cplusplus
