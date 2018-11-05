@@ -62,6 +62,13 @@ extern void digitalWrite( uint32_t dwPin, uint32_t dwVal ) ;
  */
 extern int digitalRead( uint32_t ulPin ) ;
 
+/**
+ * \brief Toggle the value from a specified digital pin.
+ *
+ * \param ulPin The number of the digital pin you want to toggle (int)
+ */
+extern void digitalToggle( uint32_t ulPin ) ;
+
 #ifdef __cplusplus
 }
 #endif

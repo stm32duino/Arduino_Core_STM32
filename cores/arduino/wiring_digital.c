@@ -78,6 +78,11 @@ int digitalRead( uint32_t ulPin )
   return digitalReadFast(digitalPinToPinName(ulPin));
 }
 
+void digitalToggle( uint32_t ulPin )
+{
+  digitalToggleFast(digitalPinToPinName(ulPin));
+}
+
 #ifdef __cplusplus
 }
 #endif
