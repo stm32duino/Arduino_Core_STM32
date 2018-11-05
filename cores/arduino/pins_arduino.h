@@ -232,7 +232,7 @@ uint32_t pinNametoDigitalPin(PinName p);
 #define digitalPinToPort(p)         (get_GPIO_Port(STM_PORT(digitalPinToPinName(p))))
 #define digitalPinToBitMask(p)      (STM_GPIO_PIN(digitalPinToPinName(p)))
 
-#define analogInPinToBit(p)         (STM_PIN(digitalPinToPinName(p)))
+#define analogInPinToBit(p)         (STM_GPIO_PIN(digitalPinToPinName(p)))
 #define portOutputRegister(P)       (&(P->ODR))
 #define portInputRegister(P)        (&(P->IDR))
 
