@@ -94,9 +94,7 @@ static inline void digital_io_toggle(GPIO_TypeDef *port, uint32_t pin)
   */
 static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
 {
-  if (pn != NC) {
-    digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn), ulVal);
-  }
+  digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn), ulVal);
 }
 
 /**
@@ -107,9 +105,7 @@ static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
 static inline int digitalReadFast(PinName pn)
 {
   uint8_t level = 0;
-  if (pn != NC) {
-    level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
-  }
+  level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
   return (level) ? HIGH : LOW;
 }
 
@@ -121,9 +117,7 @@ static inline int digitalReadFast(PinName pn)
   */
 static inline void digitalToggleFast(PinName pn)
 {
-  if (pn != NC) {
-    digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
-  }
+  digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
 }
 
 #ifdef __cplusplus
