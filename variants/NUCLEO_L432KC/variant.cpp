@@ -31,8 +31,8 @@ const PinName digitalPin[] = {
   PB_7,  //D4
   PB_6,  //D5
   PB_1,  //D6
-  PC_14, //D7
-  PC_15, //D8
+  PC_15,  //D7 - By default, SB8 open PF1/PC15 not connected to D7
+  PC_14,  //D8 - By default, SB6 open PF0/PC14 not connected to D8
   PA_8,  //D9
   PA_11, //D10
   PB_5,  //D11
