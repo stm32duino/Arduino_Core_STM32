@@ -394,3 +394,120 @@ mcci_catena_4612.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4612.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4612
+#
+# Configuration information for MCCI Catena 4801
+# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+#
+mcci_catena_4801.name=MCCI Catena 4801
+#mcci_catena_4801.build.vid=0x040E
+#mcci_catena_4801.build.pid=
+#mcci_catena_4801.vid.0=0x040E
+#mcci_catena_4801.pid.0=
+
+mcci_catena_4801.build.core=arduino
+mcci_catena_4801.build.board=CATENA_4801
+mcci_catena_4801.build.product_line=STM32L082xx
+
+mcci_catena_4801.upload.maximum_size=196608
+mcci_catena_4801.upload.maximum_data_size=20480
+mcci_catena_4801.build.mcu=cortex-m0
+mcci_catena_4801.build.series=STM32L0xx
+mcci_catena_4801.build.variant=CATENA_4801
+mcci_catena_4801.build.variant_extra_flags=-DMCCI_PA8_4801_SWITCHES_VDD=1
+mcci_catena_4801.build.cmsis_lib_gcc=arm_cortexM0l_math
+mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DMCCI_CATENA_4801 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+
+#
+# menu.upload_method
+#mcci_catena_4801.menu.upload_method.MassStorage=Mass Storage
+#mcci_catena_4801.menu.upload_method.MassStorage.upload.protocol=
+#mcci_catena_4801.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+#mcci_catena_4801.menu.upload_method.DFU=DFU
+#mcci_catena_4801.menu.upload_method.DFU.upload.tool=stm32l0_dfu
+#mcci_catena_4801.menu.upload_method.DFU.upload.protocol=dfu
+#mcci_catena_4801.menu.upload_method.DFU.upload.maximum_size=196608
+#mcci_catena_4801.menu.upload_method.DFU.upload.maximum_data_size=20480
+#mcci_catena_4801.menu.upload_method.DFU.upload.use_1200bps_touch=true
+#mcci_catena_4801.menu.upload_method.DFU.upload.wait_for_upload_port=false
+#mcci_catena_4801.menu.upload_method.DFU.upload.native_usb=false
+
+mcci_catena_4801.menu.upload_method.STLink=STLink
+mcci_catena_4801.menu.upload_method.STLink.upload.protocol=STLink
+mcci_catena_4801.menu.upload_method.STLink.upload.tool=stlink_upload
+
+#mcci_catena_4801.menu.upload_method.Serial=Serial
+#mcci_catena_4801.menu.upload_method.Serial.upload.protocol=Serial
+#mcci_catena_4801.menu.upload_method.Serial.upload.tool=serial_upload
+
+#
+# menu.xserial
+mcci_catena_4801.menu.xserial.none=No Serial
+mcci_catena_4801.menu.xserial.generic=Generic Serial
+mcci_catena_4801.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+#mcci_catena_4801.menu.xserial.all=All (up to 10)
+#mcci_catena_4801.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4801.menu.xserial.third=Enable first third (USART1 to 3 if available)
+mcci_catena_4801.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+
+#
+# menu.sysclk
+mcci_catena_4801.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4801.menu.sysclk.pll24m=24 MHz
+mcci_catena_4801.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4801.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4801.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+mcci_catena_4801.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+mcci_catena_4801.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4801.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+mcci_catena_4801.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4801.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
+
+#
+# menu.opt
+mcci_catena_4801.menu.opt.osstd=Smallest (-Os default)
+mcci_catena_4801.menu.opt.osstd.build.flags.optimize=-Os
+mcci_catena_4801.menu.opt.osstd.build.flags.ldspecs=
+# mcci_catena_4801.menu.opt.oslto=Smallest (-Os) with LTO
+# mcci_catena_4801.menu.opt.oslto.build.flags.optimize=-Os -flto
+# mcci_catena_4801.menu.opt.oslto.build.flags.ldspecs=-flto
+mcci_catena_4801.menu.opt.o1std=Fast (-O1)
+mcci_catena_4801.menu.opt.o1std.build.flags.optimize=-O1
+mcci_catena_4801.menu.opt.o1std.build.flags.ldspecs=
+# mcci_catena_4801.menu.opt.o1lto=Fast (-O1) with LTO
+# mcci_catena_4801.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+# mcci_catena_4801.menu.opt.o1lto.build.flags.ldspecs=-flto
+mcci_catena_4801.menu.opt.o2std=Faster (-O2)
+mcci_catena_4801.menu.opt.o2std.build.flags.optimize=-O2
+mcci_catena_4801.menu.opt.o2std.build.flags.ldspecs=
+# mcci_catena_4801.menu.opt.o2lto=Faster (-O2) with LTO
+# mcci_catena_4801.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+# mcci_catena_4801.menu.opt.o2lto.build.flags.ldspecs=-flto
+mcci_catena_4801.menu.opt.o3std=Fastest (-O3)
+mcci_catena_4801.menu.opt.o3std.build.flags.optimize=-O3
+mcci_catena_4801.menu.opt.o3std.build.flags.ldspecs=
+# mcci_catena_4801.menu.opt.o3lto=Fastest (-O3) with LTO
+# mcci_catena_4801.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+# mcci_catena_4801.menu.opt.o3lto.build.flags.ldspecs=-flto
+mcci_catena_4801.menu.opt.ogstd=Debug (-g)
+mcci_catena_4801.menu.opt.ogstd.build.flags.optimize=-Og -gdwarf-2
+mcci_catena_4801.menu.opt.ogstd.build.flags.ldspecs=
+
+#
+# menu.lorawan_region
+mcci_catena_4801.menu.lorawan_region.us915=North America 915 MHz
+mcci_catena_4801.menu.lorawan_region.eu868=Europe 868 MHz
+mcci_catena_4801.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4801.menu.lorawan_region.as923=Asia 923 MHz
+mcci_catena_4801.menu.lorawan_region.as923jp=Japan 923 MHz
+mcci_catena_4801.menu.lorawan_region.in866=India 866 MHz
+mcci_catena_4801.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.projcfg.build.lorawan_flags=
+
+#### end of configuration info for MCCI Catena 4801

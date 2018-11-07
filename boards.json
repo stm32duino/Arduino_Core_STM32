@@ -27,6 +27,12 @@
 			"pid": 		"0091",
 			"build_variant": "CATENA_461x",
 			"build_variant_extra_flags": "-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=1"
-			}	
+			}
+			
+			{
+			"modelnumber": 	"4801",
+			"build_variant": "CATENA_4801",
+			"build_variant_extra_flags": "-DMCCI_CATENA_4801_PA8_SWITCHES_VDD=1"
+			}
 		]
 }
