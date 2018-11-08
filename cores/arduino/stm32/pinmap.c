@@ -16,6 +16,27 @@
 //Based on mbed-os/hal/mbed_pinmap_common.c
 
 #include "pinmap.h"
+#include "stm32yyxx_ll_gpio.h"
+
+/* Map STM_PIN to LL */
+const uint32_t pin_map_ll[16] = {
+    LL_GPIO_PIN_0,
+    LL_GPIO_PIN_1,
+    LL_GPIO_PIN_2,
+    LL_GPIO_PIN_3,
+    LL_GPIO_PIN_4,
+    LL_GPIO_PIN_5,
+    LL_GPIO_PIN_6,
+    LL_GPIO_PIN_7,
+    LL_GPIO_PIN_8,
+    LL_GPIO_PIN_9,
+    LL_GPIO_PIN_10,
+    LL_GPIO_PIN_11,
+    LL_GPIO_PIN_12,
+    LL_GPIO_PIN_13,
+    LL_GPIO_PIN_14,
+    LL_GPIO_PIN_15
+};
 
 bool pin_in_pinmap(PinName pin, const PinMap *map)
 {

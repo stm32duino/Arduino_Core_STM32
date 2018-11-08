@@ -39,6 +39,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "wiring_constants.h"
 #include "PinNames.h"
+#include "pinmap.h"
 #include "stm32yyxx_ll_gpio.h"
 
 #ifdef __cplusplus
@@ -94,7 +95,7 @@ static inline void digital_io_toggle(GPIO_TypeDef *port, uint32_t pin)
   */
 static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
 {
-  digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn), ulVal);
+  digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn), ulVal);
 }
 
 /**
@@ -105,7 +106,7 @@ static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
 static inline int digitalReadFast(PinName pn)
 {
   uint8_t level = 0;
-  level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
+  level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn));
   return (level) ? HIGH : LOW;
 }
 
@@ -117,7 +118,7 @@ static inline int digitalReadFast(PinName pn)
   */
 static inline void digitalToggleFast(PinName pn)
 {
-  digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_GPIO_PIN(pn));
+  digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn));
 }
 
 #ifdef __cplusplus
