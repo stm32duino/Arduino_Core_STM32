@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 //Based on mbed-os/hal/mbed_pinmap_common.c
-
 #include "pinmap.h"
+#include "pinconfig.h"
 #include "stm32yyxx_ll_gpio.h"
 
 /* Map STM_PIN to LL */
@@ -49,6 +49,85 @@ bool pin_in_pinmap(PinName pin, const PinMap *map)
     }
   }
   return false;
+}
+
+/**
+ * Configure pin (mode, speed, output type and pull-up/pull-down)
+ */
+void pin_function(PinName pin, int function)
+{
+  /* Get the pin informations */
+  uint32_t mode  = STM_PIN_FUNCTION(function);
+  uint32_t afnum = STM_PIN_AFNUM(function);
+  uint32_t port = STM_PORT(pin);
+  uint32_t ll_pin  = STM_LL_GPIO_PIN(pin);
+  uint32_t ll_mode = 0;
+
+  if (pin == (PinName)NC) {
+    Error_Handler();
+  }
+
+  /* Enable GPIO clock */
+  GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
+
+  /*  Set default speed to high.
+   *  For most families there are dedicated registers so it is
+   *  not so important, register can be set at any time.
+   *  But for families like F1, speed only applies to output.
+   */
+#if defined (STM32F1xx)
+  if (mode == STM_PIN_OUTPUT) {
+#endif
+#ifdef LL_GPIO_SPEED_FREQ_VERY_HIGH
+    LL_GPIO_SetPinSpeed(gpio, ll_pin, LL_GPIO_SPEED_FREQ_VERY_HIGH);
+#else
+    LL_GPIO_SetPinSpeed(gpio, ll_pin, LL_GPIO_SPEED_FREQ_HIGH);
+#endif
+#if defined (STM32F1xx)
+  }
+#endif
+
+  switch (mode) {
+    case STM_PIN_INPUT:
+      ll_mode = LL_GPIO_MODE_INPUT;
+      break;
+    case STM_PIN_OUTPUT:
+      ll_mode = LL_GPIO_MODE_OUTPUT;
+      break;
+    case STM_PIN_ALTERNATE:
+      ll_mode = LL_GPIO_MODE_ALTERNATE;
+      /* In case of ALT function, also set the afnum */
+      pin_SetAFPin(gpio, pin, afnum);
+       break;
+    case STM_PIN_ANALOG:
+      ll_mode = LL_GPIO_MODE_ANALOG;
+      break;
+    default:
+      Error_Handler();
+      break;
+  }
+  LL_GPIO_SetPinMode(gpio, ll_pin, ll_mode);
+
+#if defined(GPIO_ASCR_ASC0)
+  /* For families where Analog Control ASC0 register is present */
+  if (STM_PIN_ANALOG_CONTROL(function)) {
+    LL_GPIO_EnablePinAnalogControl(gpio, ll_pin);
+  } else {
+    LL_GPIO_DisablePinAnalogControl(gpio, ll_pin);
+  }
+#endif
+
+  if ((mode == STM_PIN_OUTPUT) || (mode == STM_PIN_ALTERNATE)) {
+    if (STM_PIN_OD(function)) {
+      LL_GPIO_SetPinOutputType(gpio, ll_pin, LL_GPIO_OUTPUT_OPENDRAIN);
+    } else {
+      LL_GPIO_SetPinOutputType(gpio, ll_pin, LL_GPIO_OUTPUT_PUSHPULL);
+    }
+  }
+
+  pin_PullConfig(gpio, ll_pin, STM_PIN_PUPD(function));
+
+  pin_DisconnectDebug(pin);
 }
 
 void *pinmap_find_peripheral(PinName pin, const PinMap *map)
