@@ -92,9 +92,6 @@ void uart_init(serial_t *obj)
   }
 
   UART_HandleTypeDef *huart = &(obj->handle);
-  GPIO_InitTypeDef GPIO_InitStruct;
-  GPIO_TypeDef *port;
-  uint32_t function = (uint32_t)NC;
 
   /* Determine the U(S)ART peripheral to use (USART1, USART2, ...) */
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
@@ -260,37 +257,9 @@ void uart_init(serial_t *obj)
   __HAL_RCC_SYSCFG_CLK_ENABLE();
 #endif
 
-  /* Configure GPIOs */
-  /* RX */
-  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
-  function = pinmap_function(obj->pin_rx, PinMap_UART_RX);
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
-  /* Common */
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(function));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
-#endif /* STM32F1xx */
-#ifdef GPIO_SPEED_FREQ_VERY_HIGH
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_VERY_HIGH;
-#else
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-#endif
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
-
-  /* TX */
-  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_tx));
-  function = pinmap_function(obj->pin_tx, PinMap_UART_TX);
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(function);
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
-#ifndef STM32F1xx
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(function);
-#endif /* STM32F1xx */
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
-
+  /* Configure UART GPIO pins */
+  pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
+  pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
 
   /* Configure uart */
   uart_handlers[obj->index] = huart;

@@ -257,13 +257,7 @@ static uint32_t get_dac_channel(PinName pin)
   */
 void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
-  GPIO_TypeDef *port;
   UNUSED(hdac);
-
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
 
   /* DAC Periph clock enable */
 #ifdef __HAL_RCC_DAC1_CLK_ENABLE
@@ -272,12 +266,8 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 #ifdef __HAL_RCC_DAC_CLK_ENABLE
   __HAL_RCC_DAC_CLK_ENABLE();
 #endif
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* DAC Channel1 GPIO pin configuration */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure DAC GPIO pins */
+  pinmap_pinout(g_current_pin, PinMap_DAC);
 }
 
 
@@ -393,8 +383,6 @@ void dac_stop(PinName pin)
   */
 void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
   if(hadc->Instance == ADC1) {
@@ -440,19 +428,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
 
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
-
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* ADC Channel GPIO pin configuration */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-#ifdef GPIO_MODE_ANALOG_ADC_CONTROL
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
-#else
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-#endif
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure ADC GPIO pin */
+  pinmap_pinout(g_current_pin, PinMap_ADC);
 }
 
 /**
@@ -682,29 +659,12 @@ uint16_t adc_read_value(PinName pin)
   */
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
-  GPIO_InitTypeDef   GPIO_InitStruct;
-  GPIO_TypeDef *port;
-  uint32_t function = pinmap_function(g_current_pin, PinMap_PWM);
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* TIMx Peripheral clock enable */
   timer_enable_clock(htim);
 
-  /* Enable GPIO Channels Clock */
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
-
-  /* Common configuration for all channels */
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(function));
-#else
-  GPIO_InitStruct.Alternate = STM_PIN_AFNUM(function);
-#endif /* STM32F1xx */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure PWM GPIO pins */
+  pinmap_pinout(g_current_pin, PinMap_PWM);
 }
 
 /**
