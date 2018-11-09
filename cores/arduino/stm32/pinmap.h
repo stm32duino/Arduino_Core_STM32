@@ -35,23 +35,23 @@ extern const uint32_t pin_map_ll[16];
 #define NP       0U
 
 typedef struct {
-    PinName pin;
-    void* peripheral;
-    int function;
+  PinName pin;
+  void *peripheral;
+  int function;
 } PinMap;
 
-bool pin_in_pinmap(PinName pin, const PinMap* map);
+bool pin_in_pinmap(PinName pin, const PinMap *map);
 void pin_function(PinName pin, int function);
 
-PinName pin_pinName(const PinMap* map);
+PinName pin_pinName(const PinMap *map);
 
-void* pinmap_find_peripheral(PinName pin, const PinMap* map);
-void* pinmap_peripheral(PinName pin, const PinMap* map);
-PinName pinmap_find_pin(void* peripheral, const PinMap* map);
-PinName pinmap_pin(void* peripheral, const PinMap* map);
-uint32_t pinmap_find_function(PinName pin, const PinMap* map);
-uint32_t pinmap_function(PinName pin, const PinMap* map);
-void* pinmap_merge_peripheral(void* a, void* b);
+void *pinmap_find_peripheral(PinName pin, const PinMap *map);
+void *pinmap_peripheral(PinName pin, const PinMap *map);
+PinName pinmap_find_pin(void *peripheral, const PinMap *map);
+PinName pinmap_pin(void *peripheral, const PinMap *map);
+uint32_t pinmap_find_function(PinName pin, const PinMap *map);
+uint32_t pinmap_function(PinName pin, const PinMap *map);
+void *pinmap_merge_peripheral(void *a, void *b);
 
 #ifdef __cplusplus
 }

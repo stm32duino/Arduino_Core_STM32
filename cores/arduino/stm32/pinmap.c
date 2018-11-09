@@ -38,17 +38,20 @@ const uint32_t pin_map_ll[16] = {
     LL_GPIO_PIN_15
 };
 
-void* pinmap_find_peripheral(PinName pin, const PinMap* map) {
+void *pinmap_find_peripheral(PinName pin, const PinMap *map)
+{
   while (map->pin != NC) {
-    if (map->pin == pin)
+    if (map->pin == pin) {
       return map->peripheral;
+    }
     map++;
   }
   return NP;
 }
 
-void* pinmap_peripheral(PinName pin, const PinMap* map) {
-  void* peripheral = NP;
+void *pinmap_peripheral(PinName pin, const PinMap *map)
+{
+  void *peripheral = NP;
 
   if (pin != (PinName)NC) {
     peripheral = pinmap_find_peripheral(pin, map);
@@ -57,16 +60,19 @@ void* pinmap_peripheral(PinName pin, const PinMap* map) {
   return peripheral;
 }
 
-PinName pinmap_find_pin(void* peripheral, const PinMap* map) {
+PinName pinmap_find_pin(void *peripheral, const PinMap *map)
+{
   while (map->peripheral != NP) {
-    if (map->peripheral == peripheral)
+    if (map->peripheral == peripheral) {
       return map->pin;
+    }
     map++;
   }
   return NC;
 }
 
-PinName pinmap_pin(void* peripheral, const PinMap* map) {
+PinName pinmap_pin(void *peripheral, const PinMap *map)
+{
   PinName pin = NC;
 
   if (peripheral != NP) {
@@ -76,16 +82,19 @@ PinName pinmap_pin(void* peripheral, const PinMap* map) {
   return pin;
 }
 
-uint32_t pinmap_find_function(PinName pin, const PinMap* map) {
+uint32_t pinmap_find_function(PinName pin, const PinMap *map)
+{
   while (map->pin != NC) {
-    if (map->pin == pin)
+    if (map->pin == pin) {
       return map->function;
+    }
     map++;
   }
   return (uint32_t)NC;
 }
 
-uint32_t pinmap_function(PinName pin, const PinMap* map) {
+uint32_t pinmap_function(PinName pin, const PinMap *map)
+{
   uint32_t function = (uint32_t)NC;
 
   if (pin != (PinName)NC) {
@@ -95,11 +104,13 @@ uint32_t pinmap_function(PinName pin, const PinMap* map) {
   return function;
 }
 
-bool pin_in_pinmap(PinName pin, const PinMap* map) {
+bool pin_in_pinmap(PinName pin, const PinMap *map)
+{
   if (pin != (PinName)NC) {
     while (map->pin != NC) {
-      if (map->pin == pin)
+      if (map->pin == pin) {
         return true;
+      }
       map++;
     }
   }
@@ -107,24 +118,29 @@ bool pin_in_pinmap(PinName pin, const PinMap* map) {
 }
 
 // Merge peripherals
-void* pinmap_merge_peripheral(void* a, void* b) {
-    // both are the same (inc both NP)
-    if (a == b)
-        return a;
+void *pinmap_merge_peripheral(void *a, void *b)
+{
+  // both are the same (inc both NP)
+  if (a == b) {
+    return a;
+  }
 
-    // one (or both) is not set
-    if (a == NP)
-        return b;
-    if (b == NP)
-        return a;
+  // one (or both) is not set
+  if (a == NP) {
+    return b;
+  }
+  if (b == NP) {
+    return a;
+  }
 
-    // mis-match error case
-    // error("pinmap mis-match");
-    return NP;
+  // mis-match error case
+  // error("pinmap mis-match");
+  return NP;
 }
 
-PinName pin_pinName(const PinMap* map) {
-  if(map->pin != (PinName)NC) {
+PinName pin_pinName(const PinMap *map)
+{
+  if (map->pin != (PinName)NC) {
     return map->pin;
   } else {
     return (PinName)NC;
