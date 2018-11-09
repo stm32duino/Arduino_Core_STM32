@@ -35,7 +35,6 @@ void *pinmap_peripheral(PinName pin, const PinMap *map)
   if (pin != (PinName)NC) {
     peripheral = pinmap_find_peripheral(pin, map);
   }
-  // else error("pinmap not found for peripheral");
   return peripheral;
 }
 
@@ -57,7 +56,6 @@ PinName pinmap_pin(void *peripheral, const PinMap *map)
   if (peripheral != NP) {
     pin = pinmap_find_pin(peripheral, map);
   }
-  // else error("pinmap not found for pin");
   return pin;
 }
 
@@ -79,7 +77,6 @@ uint32_t pinmap_function(PinName pin, const PinMap *map)
   if (pin != (PinName)NC) {
     function = pinmap_find_function(pin, map);
   }
-  // else error("pinmap not found for function");
   return function;
 }
 
@@ -113,7 +110,6 @@ void *pinmap_merge_peripheral(void *a, void *b)
   }
 
   // mis-match error case
-  // error("pinmap mis-match");
   return NP;
 }
 
