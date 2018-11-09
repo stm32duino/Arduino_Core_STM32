@@ -38,6 +38,8 @@ static inline void pin_DisconnectDebug(PinName pin)
 {
 #ifdef STM32F1xx
   pinF1_DisconnectDebug(pin);
+#else
+  UNUSED(pin);
 #endif /* STM32F1xx */
 }
 

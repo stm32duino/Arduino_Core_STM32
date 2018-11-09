@@ -47,8 +47,6 @@ extern "C" {
 #endif
 
 /* Exported functions ------------------------------------------------------- */
-void digital_io_init(PinName pin, uint32_t mode, uint32_t pull);
-
 /**
   * @brief  This function set a value to an IO
   * @param  port : one of the gpio port
