@@ -39,7 +39,10 @@ typedef struct {
 bool pin_in_pinmap(PinName pin, const PinMap *map);
 void pin_function(PinName pin, int function);
 
-PinName pin_pinName(const PinMap *map);
+static inline PinName pin_pinName(const PinMap *map)
+{
+  return map->pin;
+}
 
 void *pinmap_find_peripheral(PinName pin, const PinMap *map);
 void *pinmap_peripheral(PinName pin, const PinMap *map);

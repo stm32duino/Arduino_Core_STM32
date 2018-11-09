@@ -17,6 +17,19 @@
 
 #include "pinmap.h"
 
+bool pin_in_pinmap(PinName pin, const PinMap *map)
+{
+  if (pin != (PinName)NC) {
+    while (map->pin != NC) {
+      if (map->pin == pin) {
+        return true;
+      }
+      map++;
+    }
+  }
+  return false;
+}
+
 void *pinmap_find_peripheral(PinName pin, const PinMap *map)
 {
   while (map->pin != NC) {
@@ -80,19 +93,6 @@ uint32_t pinmap_function(PinName pin, const PinMap *map)
   return function;
 }
 
-bool pin_in_pinmap(PinName pin, const PinMap *map)
-{
-  if (pin != (PinName)NC) {
-    while (map->pin != NC) {
-      if (map->pin == pin) {
-        return true;
-      }
-      map++;
-    }
-  }
-  return false;
-}
-
 // Merge peripherals
 void *pinmap_merge_peripheral(void *a, void *b)
 {
@@ -111,13 +111,4 @@ void *pinmap_merge_peripheral(void *a, void *b)
 
   // mis-match error case
   return NP;
-}
-
-PinName pin_pinName(const PinMap *map)
-{
-  if (map->pin != (PinName)NC) {
-    return map->pin;
-  } else {
-    return (PinName)NC;
-  }
 }
