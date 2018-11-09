@@ -130,6 +130,22 @@ void pin_function(PinName pin, int function)
   pin_DisconnectDebug(pin);
 }
 
+void pinmap_pinout(PinName pin, const PinMap *map)
+{
+    if (pin == NC) {
+        return;
+    }
+
+    while (map->pin != NC) {
+        if (map->pin == pin) {
+            pin_function(pin, map->function);
+            return;
+        }
+        map++;
+    }
+    Error_Handler();
+}
+
 void *pinmap_find_peripheral(PinName pin, const PinMap *map)
 {
   while (map->pin != NC) {
