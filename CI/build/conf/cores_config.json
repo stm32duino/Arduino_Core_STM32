@@ -15,6 +15,11 @@
       ],
       "sketches": [
         {
+          "pattern": "^((?!BareMinimum.ino).)*$",
+          "applicable": false,
+          "boards": [ "DEMO_F030F4" ]
+        },
+        {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
           "applicable": true,
           "boards": [ "DISCO_L475VG_IOT" ]
