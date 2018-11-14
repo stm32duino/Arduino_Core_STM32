@@ -679,8 +679,21 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.pid.0=0x5711
 
 3dprinter.build.core=arduino
-3dprinter.build.board=RemRam
+3dprinter.build.board=3dprinter
 3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# ARMED_V1 board
+3dprinter.menu.pnum.ARMED_V1=Armed V1
+3dprinter.menu.pnum.ARMED_V1.upload.maximum_size=1048576
+3dprinter.menu.pnum.ARMED_V1.upload.maximum_data_size=196608
+3dprinter.menu.pnum.ARMED_V1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.ARMED_V1.build.board=ARMED_V1
+3dprinter.menu.pnum.ARMED_V1.build.series=STM32F4xx
+3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
+3dprinter.menu.pnum.ARMED_V1.build.variant=ARMED_V1
+3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.ARMED_V1.build.vid=0x0483
+3dprinter.menu.pnum.ARMED_V1.build.pid=0x5740
 
 # REMRAM_V1 board
 # Support: Serial1 (USART1 on PA10, PA9)
