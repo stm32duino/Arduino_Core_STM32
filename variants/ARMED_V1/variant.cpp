@@ -41,53 +41,53 @@ const PinName digitalPin[] = {
   PA_14, //D14
   PA_15, //D15
   PB_0,  //D16
-  PB_1, //D17
-  PB_2, //D18
-  PB_3, //D19
+  PB_1,  //D17
+  PB_2,  //D18
+  PB_3,  //D19
   PB_4,  //D20
-  PB_5, //D21
+  PB_5,  //D21
   PB_6,  //D22
   PB_7,  //D23
   PB_8,  //D24
   PB_9,  //D25
-  PB_10,  //D26
-  PB_11,  //D27
-  PB_12,  //D28
-  PB_13,  //D29
-  PB_14,  //D30
-  PB_15,  //D31
-  PC_0,  //D32
-  PC_1, //D33
-  PC_2, //D34
-  PC_3, //D35
+  PB_10, //D26
+  PB_11, //D27
+  PB_12, //D28
+  PB_13, //D29
+  PB_14, //D30
+  PB_15, //D31
+  PC_0,  //D32/A0
+  PC_1,  //D33/A1
+  PC_2,  //D34/A2
+  PC_3,  //D35
   PC_4,  //D36
   PC_5,  //D37
   PC_6,  //D38
   PC_7,  //D39
   PC_8,  //D40
   PC_9,  //D41
-  PC_10,  //D42
-  PC_11,  //D43
-  PC_12,  //D44
-  PC_13,  //D45
-  PC_14,  //D46
-  PC_15,  //D47
+  PC_10, //D42
+  PC_11, //D43
+  PC_12, //D44
+  PC_13, //D45
+  PC_14, //D46
+  PC_15, //D47
   PD_0,  //D48
-  PD_1, //D49
-  PD_2, //D50
-  PD_3, //D51
-  PD_4, //D52
-  PD_5, //D53
-  PD_6, //D54
+  PD_1,  //D49
+  PD_2,  //D50
+  PD_3,  //D51
+  PD_4,  //D52
+  PD_5,  //D53
+  PD_6,  //D54
   PD_7,  //D55
-  PD_8, //D56
-  PD_9, //D57
+  PD_8,  //D56
+  PD_9,  //D57
   PD_10, //D58
-  PD_11,  //D59
+  PD_11, //D59
   PD_12, //D60
   PD_13, //D61
-  PD_14,  //D62
-  PD_15,  //D63
+  PD_14, //D62
+  PD_15, //D63
   PE_0,  //D64
   PE_1,  //D65
   PE_2,  //D66
@@ -103,12 +103,7 @@ const PinName digitalPin[] = {
   PE_12, //D76
   PE_13, //D77
   PE_14, //D78
-  PE_15, //D79
-//Duplicated to have A0-A2 as F407 do not have Uno like connector
-// and to be aligned with PinMap_ADC
-  PC_0,//D80/A0 = D32
-  PC_1,//D81/A1 = D33
-  PC_2 //D82/A2 = D34
+  PE_15  //D79
 };
 
 #ifdef __cplusplus

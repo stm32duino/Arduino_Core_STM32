@@ -65,9 +65,9 @@ extern const PinName digitalPin[];
 #define PB13  29 //D29
 #define PB14  30 //D30
 #define PB15  31 //D31
-#define PC0   32 //D32
-#define PC1   33 //D33
-#define PC2   34 //D34
+#define PC0   32 //D32/A0
+#define PC1   33 //D33/A1
+#define PC2   34 //D34/A2
 #define PC3   35 //D35
 #define PC4   36 //D36
 #define PC5   37 //D37
@@ -118,7 +118,7 @@ extern const PinName digitalPin[];
 #define NUM_DIGITAL_PINS        83
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
-#define NUM_ANALOG_FIRST        80
+#define NUM_ANALOG_FIRST        32
 
 // PWM resolution
 #define PWM_RESOLUTION          8
@@ -128,9 +128,6 @@ extern const PinName digitalPin[];
 // On-board LED pin number
 #define LED_BUILTIN             PB7
 #define LED_HEARTBEAT           LED_BUILTIN
-
-// On-board user button
-// #define USER_BTN                2
 
 // SPI Definitions
 #define PIN_SPI_SS              PE7
@@ -178,8 +175,7 @@ extern const PinName digitalPin[];
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial // Require connections for ST-LINK VCP on U2 pin 12 and 13.
-                                   // See UM �6.1.3 ST-LINK/V2-A VCP configuration)
+#define SERIAL_PORT_MONITOR     Serial
 #define SERIAL_PORT_HARDWARE_OPEN  Serial
 #endif
 
