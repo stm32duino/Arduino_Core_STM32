@@ -1,9 +1,6 @@
 /**
   ******************************************************************************
   * @file    digital_io.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
   * @brief   Provide an interface to configure hw ios
   *
   ******************************************************************************
@@ -36,12 +33,10 @@
   ******************************************************************************
   */
 #include "digital_io.h"
-#include "stm32_def.h"
-#include "hw_config.h"
 #include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /**
@@ -57,41 +52,17 @@ void digital_io_init(PinName pin, uint32_t mode, uint32_t pull)
   GPIO_InitTypeDef GPIO_InitStructure;
   GPIO_TypeDef *port = set_GPIO_Port_Clock(STM_PORT(pin));
   GPIO_InitStructure.Pin = STM_GPIO_PIN(pin);
+#ifdef GPIO_SPEED_FREQ_VERY_HIGH
+  GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+#else
   GPIO_InitStructure.Speed = GPIO_SPEED_FREQ_HIGH;
+#endif
   GPIO_InitStructure.Mode = mode;
   GPIO_InitStructure.Pull = pull;
 #ifdef STM32F1xx
   pinF1_DisconnectDebug(pin);
 #endif /* STM32F1xx */
   HAL_GPIO_Init(port, &GPIO_InitStructure);
-}
-
-/**
-  * @brief  This function set a value to an IO
-  * @param  port : one of the gpio port
-  * @param  pin : one of the gpio pin
-  * @param  val : 0 to set to low, any other value to set to high
-  * @retval None
-  */
-void digital_io_write(GPIO_TypeDef  *port, uint32_t pin, uint32_t val)
-{
-  if(val) {
-    HAL_GPIO_WritePin(port, pin, GPIO_PIN_SET);
-  } else {
-    HAL_GPIO_WritePin(port, pin, GPIO_PIN_RESET);
-  }
-}
-
-
-/**
-  * @brief  This function set a value to an IO
-  * @param  port : one of the gpio port
-  * @param  pin : one of the gpio pin
-  * @retval The pin state (LOW or HIGH)
-  */
-uint32_t digital_io_read(GPIO_TypeDef  *port, uint32_t pin)
-{
-  return (uint32_t)HAL_GPIO_ReadPin(port, pin);
 }
 
 #ifdef __cplusplus

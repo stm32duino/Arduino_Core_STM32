@@ -28,73 +28,40 @@
  *******************************************************************************
  */
 #include "PortNames.h"
-#include "stm32_def.h"
 
-// Return GPIO base address
-GPIO_TypeDef *get_GPIO_Port(uint32_t port_idx) {
-    GPIO_TypeDef* gpioPort = 0;
-    switch (port_idx) {
-        case PortA:
-            gpioPort = (GPIO_TypeDef *)GPIOA_BASE;
-            break;
-        case PortB:
-            gpioPort = (GPIO_TypeDef *)GPIOB_BASE;
-            break;
+GPIO_TypeDef * GPIOPort[MAX_NB_PORT] = {
+  (GPIO_TypeDef *)GPIOA_BASE,
+  (GPIO_TypeDef *)GPIOB_BASE
 #if defined GPIOC_BASE
-        case PortC:
-            gpioPort = (GPIO_TypeDef *)GPIOC_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOC_BASE
 #endif
 #if defined GPIOD_BASE
-        case PortD:
-            gpioPort = (GPIO_TypeDef *)GPIOD_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOD_BASE
 #endif
 #if defined GPIOE_BASE
-        case PortE:
-            gpioPort = (GPIO_TypeDef *)GPIOE_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOE_BASE
 #endif
 #if defined GPIOF_BASE
-        case PortF:
-            gpioPort = (GPIO_TypeDef *)GPIOF_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOF_BASE
 #endif
 #if defined GPIOG_BASE
-        case PortG:
-            gpioPort = (GPIO_TypeDef *)GPIOG_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOG_BASE
 #endif
 #if defined GPIOH_BASE
-        case PortH:
-            gpioPort = (GPIO_TypeDef *)GPIOH_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOH_BASE
 #endif
 #if defined GPIOI_BASE
-        case PortI:
-            gpioPort = (GPIO_TypeDef *)GPIOI_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOI_BASE
 #endif
 #if defined GPIOJ_BASE
-        case PortJ:
-            gpioPort = (GPIO_TypeDef *)GPIOJ_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOJ_BASE
 #endif
 #if defined GPIOK_BASE
-        case PortK:
-            gpioPort = (GPIO_TypeDef *)GPIOK_BASE;
-            break;
+  ,(GPIO_TypeDef *)GPIOK_BASE
 #endif
-        default:
-			// wrong port number
-			//TBD: error management
-            gpioPort = 0;
-            break;
-    }
-    return gpioPort;
-}
+};
 
-// Enable GPIO clock and return GPIO base address
+/* Enable GPIO clock and return GPIO base address */
 GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx) {
     GPIO_TypeDef* gpioPort = 0;
     switch (port_idx) {
@@ -173,4 +140,3 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx) {
     }
     return gpioPort;
 }
-

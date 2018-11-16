@@ -44,10 +44,12 @@ extern "C" {
 
 #define PINCONF_VAL(X, Y)   ((Y >> PINCONF_SHIFT(X)) & PINCONF_MASK)
 
-
-bool is_pin_configured(PinName pin, uint32_t* map);
-void set_pin_configured(PinName pin, uint32_t* map);
-void reset_pin_configured(PinName pin, uint32_t* map);
+#define is_pin_configured(pin, map) \
+	(PINCONF_VAL(pin, map[PINCONF_INDEX(pin)]))
+#define set_pin_configured(pin, map) \
+	(map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] | PINCONF_BIT(pin))
+#define reset_pin_configured(pin, map) \
+	(map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] & (~PINCONF_BIT(pin)))
 
 #ifdef __cplusplus
 }

@@ -350,6 +350,10 @@ portConfigRegister	KEYWORD2
 digitalPinIsValid	KEYWORD2
 digitalPinFirstOccurence	KEYWORD2
 pinIsSerial	KEYWORD2
+digitalReadFast	KEYWORD2
+digitalWriteFast	KEYWORD2
+digitalToggle	KEYWORD2
+digitalToggleFast	KEYWORD2
 
 # Pin number
 PA0	LITERAL1
