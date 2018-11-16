@@ -48,19 +48,26 @@ void pinMode(uint32_t ulPin, uint32_t ulMode)
     }
 
     switch (ulMode) {
-      case INPUT:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_NOPULL);
+      case INPUT: /* INPUT_FLOATING */
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
         break;
       case INPUT_PULLUP:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_PULLUP);
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLUP, 0));
         break;
       case INPUT_PULLDOWN:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_PULLDOWN);
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLDOWN, 0));
+        break;
+      case INPUT_ANALOG:
+        pin_function(p, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
         break;
       case OUTPUT:
-        digital_io_init(p, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+        break;
+      case OUTPUT_OPEN_DRAIN:
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_OD, GPIO_NOPULL, 0));
         break;
       default:
+        Error_Handler();
         break;
     }
     set_pin_configured(p, g_digPinConfigured);
