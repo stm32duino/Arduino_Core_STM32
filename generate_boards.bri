@@ -93,7 +93,14 @@ function ParseTemplate(sTemplate, sFile)
 	{
 	local tResult = {};
 
-	gsub(sTemplate, "%%%%%+(%w+)\n(.-\n)%%%%%-(%w+)\n",
+	// Many editors these days don't append newline to a file;
+	// rather than fool with the regex, we just add an extra line
+	// to the template before matching.  This is OK because
+	// everything outside tags is supposed to be discarded.
+
+	// search for matched-pair of tags, and call function for
+	// each pair found.
+	gsub(sTemplate .. "\n", "%%%%%+(%w+)\n(.-\n)%%%%%-(%w+)\n",
 		function(sKey, sBody, sCloseKey)
 			{
 			if (sKey != sCloseKey)
