@@ -108,12 +108,12 @@
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER", "REMRAM_V1" ]
+          "boards": [ "ARMED_V1", "RAK811_TRACKER", "REMRAM_V1" ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER" ]
+          "boards": [ "ARMED_V1", "RAK811_TRACKER" ]
         },
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
