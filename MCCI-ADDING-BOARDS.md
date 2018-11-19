@@ -42,6 +42,7 @@ Here's a simple example.  Suppose that `boards.template` is
 %%+prefix
 # prefix
 %%-prefix
+
 %%+boards
 # {{modelnumber}}
 $section usb
@@ -81,6 +82,17 @@ And `boards.json` is
 			}
 		]
 	}
+```
+
+Then the output will be:
+
+```ini
+# prefix
+# one
+# two
+# usb section
+# three
+# usb section
 ```
 
 The following template macros are used in `boards.template`.
