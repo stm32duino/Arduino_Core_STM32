@@ -54,6 +54,52 @@ function parseJson(sJson)
 		return tResult;
 	}
 
+function ExpandSection(sTemplate, tBoard, tDefault, tTemplate)
+	{
+	local sNew;
+
+	sNew = gsub(
+		"\n"..sTemplate.."\n",
+		"\n%$%s*section%s+(%w+)([^\n]*)",
+		function (sSection, sJunk)
+			{
+			local tSections = {};
+			if (sJunk != "")
+				Fatal("extra text after \"$section %s\": %s", sSection, sJunk);
+			if (.extra_sections in %tBoard)
+				tSections = %tBoard.extra_sections;
+			else if (.extra_sections in %tDefault)
+				tSections = %tDefault.extra_sections;
+			
+			for iSection = 0, getn(tSections)-1 do
+				{
+				if (sSection == tSections[iSection].name)
+					{
+					if ("using" in tSections[iSection])
+						{
+						local sUsing = tSections[iSection]["using"];
+						if (! (sUsing in %tTemplate))
+							{
+							foreach(%tTemplate, function(k,v) {write(_STDERR, k.."\n"); });
+							Fatal("Illegal section using reference: %%%%*%s ==> %s", sSection, sUsing);
+							}
+						sSection = sUsing;
+						}
+					else  if (! (sSection in %tTemplate))
+						{
+						Fatal("Illegal section reference %%%%*%s", sSection);
+						}
+					return "\n"..strsub(%tTemplate[sSection], 0, -2);
+					}
+				}
+
+			// no section found by that name.
+			return "";
+			}
+		);
+	return strsub(sNew, 1, -2);
+	}
+
 function ExpandTemplate(sTemplate, tBoard, tDefault, tStack)
 	{
 	local sNew, sOld;
@@ -100,7 +146,7 @@ function ParseTemplate(sTemplate, sFile)
 
 	// search for matched-pair of tags, and call function for
 	// each pair found.
-	gsub(sTemplate .. "\n", "%%%%%+(%w+)\n(.-\n)%%%%%-(%w+)\n",
+	gsub(sTemplate .. "\n", "%%%%%+([%w_]+)\n(.-\n)%%%%%-([%w_]+)\n",
 		function(sKey, sBody, sCloseKey)
 			{
 			if (sKey != sCloseKey)
@@ -166,7 +212,9 @@ function main(args)
 	write(tTemplate.prefix);
 	for i = 0, getn(tJson.boards)-1 do
 		{
-		write(ExpandTemplate(tTemplate.boards, tJson.boards[i], tDefaults));
+		local sTemplate = ExpandSection(tTemplate.boards, tJson.boards[i], tDefaults, tTemplate);
+
+		write(ExpandTemplate(sTemplate, tJson.boards[i], tDefaults));
 		}
 
 	exit(0);
