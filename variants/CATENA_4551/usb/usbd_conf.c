@@ -73,6 +73,22 @@ PCD_HandleTypeDef g_hpcd;
 void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
   GPIO_InitTypeDef  GPIO_InitStruct;
+  RCC_CRSInitTypeDef RCC_CRSInitStruct;
+
+  __HAL_RCC_HSI48_ENABLE();
+
+  /* Enable the SYSCFG APB clock */
+  __HAL_RCC_CRS_CLK_ENABLE();
+
+  /* Configures CRS */
+  RCC_CRSInitStruct.Prescaler = RCC_CRS_SYNC_DIV1;
+  RCC_CRSInitStruct.Source = RCC_CRS_SYNC_SOURCE_USB;
+  RCC_CRSInitStruct.Polarity = RCC_CRS_SYNC_POLARITY_RISING;
+  RCC_CRSInitStruct.ReloadValue = __HAL_RCC_CRS_RELOADVALUE_CALCULATE(48000000,1000);
+  RCC_CRSInitStruct.ErrorLimitValue = 34;
+  RCC_CRSInitStruct.HSI48CalibrationValue = 32;
+
+  HAL_RCCEx_CRSConfig(&RCC_CRSInitStruct);
 
 //  __HAL_RCC_SYSCFG_CLK_ENABLE();
   __HAL_RCC_PWR_CLK_ENABLE();
@@ -108,8 +124,24 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   */
 void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
 {
+  HAL_NVIC_DisableIRQ(USB_IRQn);
+
   /* Disable USB FS Clock */
+  __HAL_RCC_USB_FORCE_RESET();
+  __HAL_RCC_USB_RELEASE_RESET();
   __HAL_RCC_USB_CLK_DISABLE();
+
+  __HAL_RCC_PWR_CLK_SLEEP_ENABLE();
+
+  __HAL_RCC_PWR_CLK_DISABLE();
+
+  CLEAR_BIT(CRS->CR, (CRS_CR_AUTOTRIMEN | CRS_CR_CEN));
+  __HAL_RCC_CRS_FORCE_RESET();
+  __HAL_RCC_CRS_RELEASE_RESET();
+  __HAL_RCC_CRS_CLK_DISABLE();
+
+  __HAL_RCC_HSI48_DISABLE();
+  __HAL_RCC_SYSCFG_CLK_DISABLE();
 }
 
 /*******************************************************************************
@@ -210,6 +242,12 @@ void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
     /* Set SLEEPDEEP bit and SleepOnExit of Cortex System Control Register */
     //SCB->SCR |= (uint32_t)((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
   }
+
+  if (! USBD_LL_ConnectionState())
+  {
+    USBD_UsrLog("USB suspend: no USB power");
+    USBD_DeInit(hpcd->pData);
+  }
 }
 
 /**
@@ -292,6 +330,8 @@ void USB_IRQHandler(void)
 USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   /* Set LL Driver parameters */
+  USBD_memset(&g_hpcd, 0, sizeof(g_hpcd));
+
   g_hpcd.Instance = USB;
   g_hpcd.Init.dev_endpoints = 8;
   g_hpcd.Init.speed = PCD_SPEED_FULL;
@@ -307,20 +347,25 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   /* Initialize LL Driver */
   HAL_PCD_Init(&g_hpcd);
 
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x00, PCD_SNG_BUF, 0x10);
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x80, PCD_SNG_BUF, 0x50);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, 0x10);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_SNG_BUF, 0x50);
 
-//  HAL_PCDEx_PMAConfig(pdev->pData, 0x01, PCD_DBL_BUF, 0x01400100);
-//  HAL_PCDEx_PMAConfig(pdev->pData, 0x81, PCD_DBL_BUF, 0x01C00180);
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x01, PCD_SNG_BUF, 0x0100);
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x81, PCD_SNG_BUF, 0x0180);
+//  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_DBL_BUF, 0x01400100);
+//  HAL_PCDEx_PMAConfig(&g_hpcd, 0x81, PCD_DBL_BUF, 0x01C00180);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_SNG_BUF, 0x0100);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x81, PCD_SNG_BUF, 0x0180);
 
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x02, PCD_SNG_BUF, 0x0200);
-  HAL_PCDEx_PMAConfig(pdev->pData, 0x82, PCD_SNG_BUF, 0x0280);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x02, PCD_SNG_BUF, 0x0200);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, 0x0280);
 
-//  HAL_PCDEx_PMAConfig(pdev->pData, 0x03, PCD_SNG_BUF, 0x0300);
-//  HAL_PCDEx_PMAConfig(pdev->pData, 0x83, PCD_SNG_BUF, 0x0380);
+//  HAL_PCDEx_PMAConfig(&g_hpcd, 0x03, PCD_SNG_BUF, 0x0300);
+//  HAL_PCDEx_PMAConfig(&g_hpcd, 0x83, PCD_SNG_BUF, 0x0380);
 
+  USBD_UsrLog("USBD_LL_Init: CNTR=%04x ISTR=%04x CRRCR=%08x CCIPR=%08x",
+  	      g_hpcd.Instance->CNTR,
+  	      g_hpcd.Instance->ISTR,
+  	      RCC->CRRCR,
+  	      RCC->CCIPR);
   return USBD_OK;
 }
 
@@ -353,6 +398,9 @@ USBD_StatusTypeDef USBD_LL_Start(USBD_HandleTypeDef *pdev)
   */
 USBD_StatusTypeDef USBD_LL_Stop(USBD_HandleTypeDef *pdev)
 {
+  USBD_UsrLog("USBD_LL_Stop: CNTR=%04x ISTR=%04x",
+  	      g_hpcd.Instance->CNTR,
+  	      g_hpcd.Instance->ISTR);
   HAL_PCD_Stop(pdev->pData);
   return USBD_OK;
 }
@@ -541,7 +589,7 @@ uint32_t USBD_LL_ConnectionState(void)
   uint32_t vBus;
 
   vBus = analogRead(18);
-  return vBus > 500 ? 1 : 0;
+  return vBus > 800 ? 1 : 0;
 }
 
 #endif // USBCON

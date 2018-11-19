@@ -37,7 +37,7 @@ Authors:
         STMicroelecronics
         ChaeHee Won, MCCI Corporation
 
- */
+*/
 
 #include "Arduino.h"
 #include "PeripheralPins.h"

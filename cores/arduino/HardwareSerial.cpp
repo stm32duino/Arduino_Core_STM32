@@ -180,6 +180,8 @@ void HardwareSerial::init(void)
   _serial.tx_buff = _tx_buffer;
   _serial.tx_head = 0;
   _serial.tx_tail = 0;
+  _serial.baudrate = 9600;
+  _config = SERIAL_8N1;
 }
 
 // Actual interrupt handlers //////////////////////////////////////////////////////////////
@@ -221,11 +223,12 @@ int HardwareSerial::_tx_complete_irq(serial_t* obj)
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-void HardwareSerial::begin(unsigned long baud, byte config)
+void HardwareSerial::begin(unsigned long baud, uint8_t config)
 {
   uint32_t databits = 0;
 
   _serial.baudrate = (uint32_t)baud;
+  _config = config;
 
   // Manage databits
   switch(config & 0x07) {

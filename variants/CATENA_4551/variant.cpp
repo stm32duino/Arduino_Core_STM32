@@ -199,7 +199,7 @@ void SystemClock_Config(void)
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
 #endif
 
-#ifdef USBCON
+#if 0	/* Move clock setting code to usbd_conf.c */
     /**Enable the SYSCFG APB clock
     */
   __HAL_RCC_CRS_CLK_ENABLE();
