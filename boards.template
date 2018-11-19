@@ -72,10 +72,7 @@ menu.upload_method=Upload method
 # See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 {{board}}.name={{name}}
-{{board}}.build.vid=0x{{vid}}
-{{board}}.build.pid=0x{{pid}}
-{{board}}.vid.0=0x{{vid}}
-{{board}}.pid.0=0x{{pid}}
+$section usb
 
 {{board}}.build.core=arduino
 {{board}}.build.board={{build_board}}
@@ -88,22 +85,15 @@ menu.upload_method=Upload method
 {{board}}.build.variant={{build_variant}}
 {{board}}.build.variant_extra_flags={{build_variant_extra_flags}}
 {{board}}.build.cmsis_lib_gcc=arm_cortexM0l_math
-{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} {{build_board_old_flags}} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# {{board}}.build.c.Werror=
+# {{board}}.build.cpp.Werror=
+# {{board}}.build.S.Werror=
 
 #
 # menu.upload_method
-#{{board}}.menu.upload_method.MassStorage=Mass Storage
-#{{board}}.menu.upload_method.MassStorage.upload.protocol=
-#{{board}}.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-{{board}}.menu.upload_method.DFU=DFU
-{{board}}.menu.upload_method.DFU.upload.tool=stm32l0_dfu
-{{board}}.menu.upload_method.DFU.upload.protocol=dfu
-{{board}}.menu.upload_method.DFU.upload.maximum_size=196608
-{{board}}.menu.upload_method.DFU.upload.maximum_data_size=20480
-{{board}}.menu.upload_method.DFU.upload.use_1200bps_touch=true
-{{board}}.menu.upload_method.DFU.upload.wait_for_upload_port=false
-{{board}}.menu.upload_method.DFU.upload.native_usb=false
+$section MassStorage
+$section DFU
 
 {{board}}.menu.upload_method.STLink=STLink
 {{board}}.menu.upload_method.STLink.upload.protocol=STLink
@@ -115,15 +105,7 @@ menu.upload_method=Upload method
 
 #
 # menu.xserial
-{{board}}.menu.xserial.usb=USB Serial
-{{board}}.menu.xserial.generic=Generic Serial
-{{board}}.menu.xserial.none=No Serial
-{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#{{board}}.menu.xserial.all=All (up to 10)
-#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-#{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+$section xserial
 
 #
 # menu.sysclk
@@ -186,4 +168,53 @@ menu.upload_method=Upload method
 {{board}}.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for {{name}}
+
 %%-boards
+
+%%+usb
+{{board}}.build.vid=0x{{vid}}
+{{board}}.build.pid=0x{{pid}}
+{{board}}.vid.0=0x{{vid}}
+{{board}}.pid.0=0x{{pid}}
+{{board}}.build.usb_product="{{name}}"
+{{board}}.build.usb_manufacturer="MCCI Corporation"
+%%-usb
+
+%%+DFU
+{{board}}.menu.upload_method.DFU=DFU
+{{board}}.menu.upload_method.DFU.upload.tool=stm32l0_dfu
+{{board}}.menu.upload_method.DFU.upload.protocol=dfu
+{{board}}.menu.upload_method.DFU.upload.maximum_size=196608
+{{board}}.menu.upload_method.DFU.upload.maximum_data_size=20480
+{{board}}.menu.upload_method.DFU.upload.use_1200bps_touch=true
+{{board}}.menu.upload_method.DFU.upload.wait_for_upload_port=false
+{{board}}.menu.upload_method.DFU.upload.native_usb=false
+%%-DFU
+
+%%+MassStorage
+#{{board}}.menu.upload_method.MassStorage=Mass Storage
+#{{board}}.menu.upload_method.MassStorage.upload.protocol=
+#{{board}}.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+%%-MassStorage
+
+%%+xserial_usb
+{{board}}.menu.xserial.usb=USB Serial
+{{board}}.menu.xserial.generic=Generic Serial
+{{board}}.menu.xserial.none=No Serial
+{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+#{{board}}.menu.xserial.all=All (up to 10)
+#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+#{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
+#{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+%%-xserial_usb
+
+%%+xserial_nousb
+{{board}}.menu.xserial.none=No Serial
+{{board}}.menu.xserial.generic=Generic Serial
+{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+#{{board}}.menu.xserial.all=All (up to 10)
+#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
+{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+%%-xserial_nousb

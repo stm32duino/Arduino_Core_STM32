@@ -46,9 +46,11 @@ mcci_catena_4551.build.vid=0x040E
 mcci_catena_4551.build.pid=0x0041
 mcci_catena_4551.vid.0=0x040E
 mcci_catena_4551.pid.0=0x0041
+mcci_catena_4551.build.usb_product="MCCI Catena 4551"
+mcci_catena_4551.build.usb_manufacturer="MCCI Corporation"
 
 mcci_catena_4551.build.core=arduino
-mcci_catena_4551.build.board=CATENA_4551
+mcci_catena_4551.build.board=MCCI_CATENA_4551
 mcci_catena_4551.build.product_line=STM32L082xx
 
 mcci_catena_4551.upload.maximum_size=196608
@@ -58,14 +60,13 @@ mcci_catena_4551.build.series=STM32L0xx
 mcci_catena_4551.build.variant=CATENA_4551
 mcci_catena_4551.build.variant_extra_flags=
 mcci_catena_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4551 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# mcci_catena_4551.build.c.Werror=
+# mcci_catena_4551.build.cpp.Werror=
+# mcci_catena_4551.build.S.Werror=
 
 #
 # menu.upload_method
-#mcci_catena_4551.menu.upload_method.MassStorage=Mass Storage
-#mcci_catena_4551.menu.upload_method.MassStorage.upload.protocol=
-#mcci_catena_4551.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
 mcci_catena_4551.menu.upload_method.DFU=DFU
 mcci_catena_4551.menu.upload_method.DFU.upload.tool=stm32l0_dfu
 mcci_catena_4551.menu.upload_method.DFU.upload.protocol=dfu
@@ -156,6 +157,7 @@ mcci_catena_4551.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4551.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4551
+
 #
 # Configuration information for MCCI Catena 4611
 # See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
@@ -165,9 +167,11 @@ mcci_catena_4611.build.vid=0x040E
 mcci_catena_4611.build.pid=0x0081
 mcci_catena_4611.vid.0=0x040E
 mcci_catena_4611.pid.0=0x0081
+mcci_catena_4611.build.usb_product="MCCI Catena 4611"
+mcci_catena_4611.build.usb_manufacturer="MCCI Corporation"
 
 mcci_catena_4611.build.core=arduino
-mcci_catena_4611.build.board=CATENA_4611
+mcci_catena_4611.build.board=MCCI_CATENA_4611
 mcci_catena_4611.build.product_line=STM32L082xx
 
 mcci_catena_4611.upload.maximum_size=196608
@@ -175,16 +179,15 @@ mcci_catena_4611.upload.maximum_data_size=20480
 mcci_catena_4611.build.mcu=cortex-m0
 mcci_catena_4611.build.series=STM32L0xx
 mcci_catena_4611.build.variant=CATENA_461x
-mcci_catena_4611.build.variant_extra_flags=-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0
+mcci_catena_4611.build.variant_extra_flags=-DMCCI_PA8_461x_SWITCHES_VDD=0
 mcci_catena_4611.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4611 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# mcci_catena_4611.build.c.Werror=
+# mcci_catena_4611.build.cpp.Werror=
+# mcci_catena_4611.build.S.Werror=
 
 #
 # menu.upload_method
-#mcci_catena_4611.menu.upload_method.MassStorage=Mass Storage
-#mcci_catena_4611.menu.upload_method.MassStorage.upload.protocol=
-#mcci_catena_4611.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
 mcci_catena_4611.menu.upload_method.DFU=DFU
 mcci_catena_4611.menu.upload_method.DFU.upload.tool=stm32l0_dfu
 mcci_catena_4611.menu.upload_method.DFU.upload.protocol=dfu
@@ -275,6 +278,7 @@ mcci_catena_4611.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4611.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4611
+
 #
 # Configuration information for MCCI Catena 4612
 # See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
@@ -284,9 +288,11 @@ mcci_catena_4612.build.vid=0x040E
 mcci_catena_4612.build.pid=0x0091
 mcci_catena_4612.vid.0=0x040E
 mcci_catena_4612.pid.0=0x0091
+mcci_catena_4612.build.usb_product="MCCI Catena 4612"
+mcci_catena_4612.build.usb_manufacturer="MCCI Corporation"
 
 mcci_catena_4612.build.core=arduino
-mcci_catena_4612.build.board=CATENA_4612
+mcci_catena_4612.build.board=MCCI_CATENA_4612
 mcci_catena_4612.build.product_line=STM32L082xx
 
 mcci_catena_4612.upload.maximum_size=196608
@@ -296,14 +302,13 @@ mcci_catena_4612.build.series=STM32L0xx
 mcci_catena_4612.build.variant=CATENA_461x
 mcci_catena_4612.build.variant_extra_flags=-DMCCI_PA8_461x_SWITCHES_VDD=1
 mcci_catena_4612.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4612 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# mcci_catena_4612.build.c.Werror=
+# mcci_catena_4612.build.cpp.Werror=
+# mcci_catena_4612.build.S.Werror=
 
 #
 # menu.upload_method
-#mcci_catena_4612.menu.upload_method.MassStorage=Mass Storage
-#mcci_catena_4612.menu.upload_method.MassStorage.upload.protocol=
-#mcci_catena_4612.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
 mcci_catena_4612.menu.upload_method.DFU=DFU
 mcci_catena_4612.menu.upload_method.DFU.upload.tool=stm32l0_dfu
 mcci_catena_4612.menu.upload_method.DFU.upload.protocol=dfu
@@ -394,18 +399,15 @@ mcci_catena_4612.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4612.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4612
+
 #
 # Configuration information for MCCI Catena 4801
-# See template in https://github.com/mcci-catena/ArduinoCore-samd/boards.template
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
 #
 mcci_catena_4801.name=MCCI Catena 4801
-#mcci_catena_4801.build.vid=0x040E
-#mcci_catena_4801.build.pid=
-#mcci_catena_4801.vid.0=0x040E
-#mcci_catena_4801.pid.0=
 
 mcci_catena_4801.build.core=arduino
-mcci_catena_4801.build.board=CATENA_4801
+mcci_catena_4801.build.board=MCCI_CATENA_4801
 mcci_catena_4801.build.product_line=STM32L082xx
 
 mcci_catena_4801.upload.maximum_size=196608
@@ -413,24 +415,15 @@ mcci_catena_4801.upload.maximum_data_size=20480
 mcci_catena_4801.build.mcu=cortex-m0
 mcci_catena_4801.build.series=STM32L0xx
 mcci_catena_4801.build.variant=CATENA_4801
-mcci_catena_4801.build.variant_extra_flags=-DMCCI_PA8_4801_SWITCHES_VDD=1
+mcci_catena_4801.build.variant_extra_flags=
 mcci_catena_4801.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DMCCI_CATENA_4801 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# mcci_catena_4801.build.c.Werror=
+# mcci_catena_4801.build.cpp.Werror=
+# mcci_catena_4801.build.S.Werror=
 
 #
 # menu.upload_method
-#mcci_catena_4801.menu.upload_method.MassStorage=Mass Storage
-#mcci_catena_4801.menu.upload_method.MassStorage.upload.protocol=
-#mcci_catena_4801.menu.upload_method.MassStorage.upload.tool=massStorageCopy
-
-#mcci_catena_4801.menu.upload_method.DFU=DFU
-#mcci_catena_4801.menu.upload_method.DFU.upload.tool=stm32l0_dfu
-#mcci_catena_4801.menu.upload_method.DFU.upload.protocol=dfu
-#mcci_catena_4801.menu.upload_method.DFU.upload.maximum_size=196608
-#mcci_catena_4801.menu.upload_method.DFU.upload.maximum_data_size=20480
-#mcci_catena_4801.menu.upload_method.DFU.upload.use_1200bps_touch=true
-#mcci_catena_4801.menu.upload_method.DFU.upload.wait_for_upload_port=false
-#mcci_catena_4801.menu.upload_method.DFU.upload.native_usb=false
 
 mcci_catena_4801.menu.upload_method.STLink=STLink
 mcci_catena_4801.menu.upload_method.STLink.upload.protocol=STLink
@@ -511,3 +504,4 @@ mcci_catena_4801.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4801.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4801
+
