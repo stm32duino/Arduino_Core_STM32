@@ -297,6 +297,31 @@ void i2c_deinit(i2c_t *obj)
   HAL_NVIC_DisableIRQ(obj->irqER);
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
   HAL_I2C_DeInit(&(obj->handle));
+
+#if defined I2C1_BASE
+  // Disable I2C1 clock if not done
+  if (obj->i2c == I2C1) {
+    __HAL_RCC_I2C1_CLK_DISABLE();
+  }
+#endif // I2C1_BASE
+#if defined I2C2_BASE
+  // Disable I2C2 clock if not done
+  if (obj->i2c == I2C2) {
+    __HAL_RCC_I2C2_CLK_DISABLE();
+  }
+#endif // I2C2_BASE
+#if defined I2C3_BASE
+  // Disable I2C3 clock if not done
+  if (obj->i2c == I2C3) {
+    __HAL_RCC_I2C3_CLK_DISABLE();
+  }
+#endif // I2C3_BASE
+#if defined I2C4_BASE
+  // Disable I2C4 clock if not done
+  if (obj->i2c == I2C4) {
+    __HAL_RCC_I2C4_CLK_DISABLE();
+  }
+#endif // I2C4_BASE
 }
 
 /**

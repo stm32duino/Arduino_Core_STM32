@@ -91,6 +91,7 @@ class HardwareSerial : public Stream
   protected:
     // Has any byte been written to the UART since begin()
     bool _written;
+    uint8_t _config;
 
     // Don't put any members after these buffers, since only the first
     // 32 bytes of this struct can be accessed quickly using the ldd
@@ -104,6 +105,7 @@ class HardwareSerial : public Stream
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
     HardwareSerial(void* peripheral);
+    void begin() { begin(_serial.baudrate, _config); }
     void begin(unsigned long baud) { begin(baud, SERIAL_8N1); }
     void begin(unsigned long, uint8_t);
     void end();

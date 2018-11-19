@@ -67,6 +67,9 @@ public:
 	bool isConnected();
 
 	virtual operator bool(void);
+
+private:
+	bool	m_Started;
 	};
 
 extern USBSerial SerialUSB;
