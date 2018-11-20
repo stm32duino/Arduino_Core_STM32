@@ -157,8 +157,6 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   if(obj == NULL)
     return;
 
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
   I2C_HandleTypeDef *handle = &(obj->handle);
 
   // Determine the I2C to use
@@ -232,31 +230,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   }
 #endif // I2C4_BASE
 
-  //SCL
-  port = set_GPIO_Port_Clock(STM_PORT(obj->scl));
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->scl);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->scl,PinMap_I2C_SCL));
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->scl,PinMap_I2C_SCL));
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->scl,PinMap_I2C_SCL)));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->scl,PinMap_I2C_SCL));
-#endif /* STM32F1xx */
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
-
-  //SDA
-  port = set_GPIO_Port_Clock(STM_PORT(obj->sda));
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->sda);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->sda,PinMap_I2C_SDA));
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->sda,PinMap_I2C_SDA));
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->sda,PinMap_I2C_SDA)));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->sda,PinMap_I2C_SDA));
-#endif /* STM32F1xx */
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure I2C GPIO pins */
+  pinmap_pinout(obj->scl, PinMap_I2C_SCL);
+  pinmap_pinout(obj->sda, PinMap_I2C_SDA);
 
   handle->Instance             = obj->i2c;
 #if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\

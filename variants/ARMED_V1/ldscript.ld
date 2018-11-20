@@ -4,8 +4,8 @@
 
 **  File        : LinkerScript.ld
 **
-**  Abstract    : Linker script for STM32L031K6Tx Device with
-**                32KByte FLASH, 8KByte RAM
+**  Abstract    : Linker script for STM32F407VETx Device with
+**                512KByte FLASH, 128KByte RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -52,16 +52,16 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20002000;    /* end of RAM */
+_estack = 0x20020000;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
-_Min_Heap_Size = 0x200;      /* required amount of heap  */
-_Min_Stack_Size = 0x400; /* required amount of stack */
+_Min_Heap_Size = 0x200;;      /* required amount of heap  */
+_Min_Stack_Size = 0x400;; /* required amount of stack */
 
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 8K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 32K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
+RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
 }
 
 /* Define output sections */
@@ -76,7 +76,7 @@ SECTIONS
   } >FLASH
 
   /* The program code and other data goes into FLASH */
-  .text :
+  .text ALIGN(4):
   {
     . = ALIGN(4);
     *(.text)           /* .text sections (code) */
@@ -93,7 +93,7 @@ SECTIONS
   } >FLASH
 
   /* Constant data goes into FLASH */
-  .rodata :
+  .rodata ALIGN(4):
   {
     . = ALIGN(4);
     *(.rodata)         /* .rodata sections (constants, strings, etc.) */
@@ -144,7 +144,8 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
 
-  
+  /*_siccmram = LOADADDR(.ccmram);*/
+
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
@@ -164,12 +165,12 @@ SECTIONS
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
   {
-    . = ALIGN(8);
+    . = ALIGN(4);
     PROVIDE ( end = . );
     PROVIDE ( _end = . );
     . = . + _Min_Heap_Size;
     . = . + _Min_Stack_Size;
-    . = ALIGN(8);
+    . = ALIGN(4);
   } >RAM
 
   

@@ -924,7 +924,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
     obj->pinInfo.count = -1;
   }
 
-  digital_io_init(obj->pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
   timClkFreq = getTimerClkFreq(obj->timer);
 
   // Do this once
@@ -957,7 +957,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 void TimerPinDeinit(stimer_t *obj)
 {
   TimerHandleDeinit(obj);
-  digital_io_init(obj->pin, GPIO_MODE_INPUT, GPIO_NOPULL);
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
 }
 
 /**

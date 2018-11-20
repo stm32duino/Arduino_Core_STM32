@@ -36,7 +36,7 @@ extern "C" {
 /*  STM PIN data as used in pin_function is coded on 32 bits as below
  *   [2:0]  Function (like in MODER reg) : Input / Output / Alt / Analog
  *     [3]  Output Push-Pull / Open Drain (as in OTYPER reg)
- *   [5:4]  as in PUPDR reg: No Pull, Pull-up, Pull-Donc
+ *   [5:4]  as in PUPDR reg: No Pull, Pull-up, Pull-Down
  *   [7:6]  Reserved for speed config (as in OSPEEDR), but not used yet
  *  [14:8]  Alternate Num (as in AFRL/AFRG reg)
  * [19:15]  Channel (Analog/Timer specific)
@@ -135,25 +135,6 @@ typedef enum {
 #define STM_VALID_PINNAME(X) (STM_PORT(X) <= LastPort)
 
 #define STM_GPIO_PIN(X) ((uint16_t)(1<<STM_PIN(X)))
-/*  Defines to be used by application */
-typedef enum {
-    PIN_INPUT = 0,
-    PIN_OUTPUT
-} PinDirection;
-
-typedef enum {
-    PullNone          = 0,
-    PullUp            = 1,
-    PullDown          = 2,
-    OpenDrainPullUp   = 3,
-    OpenDrainNoPull   = 4,
-    OpenDrainPullDown = 5,
-    PushPullNoPull    = PullNone,
-    PushPullPullUp    = PullUp,
-    PushPullPullDown  = PullDown,
-    OpenDrain         = OpenDrainPullUp,
-    PullDefault       = PullNone
-} PinMode;
 
 #ifdef __cplusplus
 }

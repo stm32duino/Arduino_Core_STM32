@@ -1,9 +1,6 @@
 /**
   ******************************************************************************
   * @file    digital_io.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
   * @brief   Header for digital_io module
   ******************************************************************************
   * @attention
@@ -40,20 +37,87 @@
 #define __DIGITAL_IO_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
-#include "PeripheralPins.h"
+#include "wiring_constants.h"
+#include "PinNames.h"
+#include "pinmap.h"
+#include "stm32yyxx_ll_gpio.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void digital_io_init(PinName pin, uint32_t mode, uint32_t pull);
-void digital_io_write(GPIO_TypeDef  *port, uint32_t pin, uint32_t val);
-uint32_t digital_io_read(GPIO_TypeDef  *port, uint32_t pin);
+/**
+  * @brief  This function set a value to an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @param  val : 0 to set to low, any other value to set to high
+  * @retval None
+  */
+static inline void digital_io_write(GPIO_TypeDef *port, uint32_t pin, uint32_t val)
+{
+  if (val) {
+    LL_GPIO_SetOutputPin(port, pin);
+  } else {
+    LL_GPIO_ResetOutputPin(port, pin);
+  }
+}
+
+/**
+  * @brief  This function read the value of an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @retval The pin state (LOW or HIGH)
+  */
+static inline uint32_t digital_io_read(GPIO_TypeDef *port, uint32_t pin)
+{
+  return LL_GPIO_IsInputPinSet(port, pin);
+}
+
+/**
+  * @brief  This function toggle value of an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @retval None
+  */
+static inline void digital_io_toggle(GPIO_TypeDef *port, uint32_t pin)
+{
+  LL_GPIO_TogglePin(port, pin);
+}
+
+/**
+  * @brief  This function set a value to an IO
+  * @param  pn : Pin name
+  * @param  val : 0 to set to low, any other value to set to high
+  * @retval None
+  */
+static inline void digitalWriteFast(PinName pn, uint32_t ulVal)
+{
+  digital_io_write(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn), ulVal);
+}
+
+/**
+  * @brief  This function read the value of an IO
+  * @param  pn : Pin name
+  * @retval The pin state (LOW or HIGH)
+  */
+static inline int digitalReadFast(PinName pn)
+{
+  uint8_t level = 0;
+  level = digital_io_read(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn));
+  return (level) ? HIGH : LOW;
+}
+
+/**
+  * @brief  This function toggle value of an IO
+  * @param  port : one of the gpio port
+  * @param  pin : one of the gpio pin
+  * @retval None
+  */
+static inline void digitalToggleFast(PinName pn)
+{
+  digital_io_toggle(get_GPIO_Port(STM_PORT(pn)), STM_LL_GPIO_PIN(pn));
+}
 
 #ifdef __cplusplus
 }
