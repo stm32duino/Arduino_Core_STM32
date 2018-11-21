@@ -180,7 +180,7 @@ void HardwareSerial::init(void)
   _serial.tx_buff = _tx_buffer;
   _serial.tx_head = 0;
   _serial.tx_tail = 0;
-  _serial.baudrate = 9600;
+  _serial.baudrate = 115200;
   _config = SERIAL_8N1;
 }
 

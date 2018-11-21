@@ -97,6 +97,10 @@ int USBSerial::availableForWrite(void)
 
 size_t USBSerial::write(uint8_t ch)
 {
+  /*
+  || if we haven't lost connection go ahead;
+  || otherwise record that we're not started and claim that we wrote the byte.
+  */
   if (hUSBD_Device_CDC.pClassData)
     return CDC_Write(&ch, 1);
 
@@ -106,6 +110,10 @@ size_t USBSerial::write(uint8_t ch)
 
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
+  /*
+  || if we haven't lost connection go ahead;
+  || otherwise record that we're not started and claim that we wrote the byte.
+  */
   if (hUSBD_Device_CDC.pClassData)
     return CDC_Write(buffer, size);
 
@@ -120,6 +128,7 @@ int USBSerial::available(void)
 
 int USBSerial::read(void)
 {
+  /* if connected, read data; if not, indicate no data, and stop operation. */
   if (hUSBD_Device_CDC.pClassData)
     return CDC_Read();
 
@@ -140,12 +149,15 @@ void USBSerial::flush(void)
 {
   if (hUSBD_Device_CDC.pClassData)
     CDC_Flush();
+  else
+    m_Started = false;
 }
 
 bool USBSerial::dtr(void)
 {
   uint32_t LineState = CDC_LineState();
 
+  /* check if we're connected but not really running. If so, do a begin. */
   if (LineState == 0)
     begin();
 
@@ -156,6 +168,7 @@ bool USBSerial::rts(void)
 {
   uint32_t LineState = CDC_LineState();
 
+  /* check if we're connected but not really running. If so, do a begin. */
   if (LineState == 0)
     begin();
 
@@ -172,6 +185,7 @@ USBSerial::operator bool()
   bool result = false;
   uint32_t LineState = CDC_LineState();
 
+  /* check if we're connected but not really running. If so, do a begin. */
   if (LineState == 0)
     begin();
 
