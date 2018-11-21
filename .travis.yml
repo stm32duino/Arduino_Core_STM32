@@ -5,8 +5,40 @@ os:
   - linux
 matrix:
   include:
+#
+# Astyle check
+#
   - env:
-      - NAME= arduinoCI
+      - NAME=Astyle
+    install:
+      - curl -L0 https://fossies.org/linux/misc/astyle_3.1_linux.tar.gz --output astyle.tar.gz;
+        mkdir -p BUILD && tar xf astyle.tar.gz -C BUILD;
+        pushd BUILD/astyle/build/gcc;
+        make;
+        export PATH=$PWD/bin:$PATH;
+        popd;
+      - astyle --version
+    before_script:
+      - cd $TRAVIS_BUILD_DIR/CI/astyle/
+    script:
+        # Check coding style only on changed files for PR or all for master
+        - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then python astyle.py; fi
+        - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then python astyle.py -b $TRAVIS_BRANCH; fi
+        - TEST=$([[ -f astyle.out ]] && cat astyle.out | grep Formatted | wc -l || echo 0)
+        - |
+          if [[ $TEST -ne 0 ]]; then
+            cat astyle.out | grep Formatted
+            git --no-pager diff
+            echo "AStyle check failed, please fix style issues as shown above"
+            exit 1
+          else
+            echo "Coding style check OK";
+          fi
+#
+# Build test
+#
+  - env:
+      - NAME=arduinoCI
       - IDE_VERSION=1.8.8
     # Use in CI/build/conf/path_config_travis.json
       - ARDUINO_IDE_PATH=$HOME/IDE/arduino
