@@ -53,6 +53,15 @@ USBSerial SerialUSB;
 
 USBSerial::USBSerial(void)
 {
+  m_Started = false;
+}
+
+/* USBSerial is always available and instantiated in main.cpp */
+void USBSerial::begin(void)
+{
+  if (m_Started || ! USBD_LL_ConnectionState())
+    return;
+
   if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, DEVICE_FS) == USBD_OK)
   {
 
@@ -66,18 +75,19 @@ USBSerial::USBSerial(void)
 
         /* Start Device Process */
         USBD_Start(&hUSBD_Device_CDC);
+        m_Started = true;
       }
     }
   }
 }
 
-/* USBSerial is always available and instantiated in main.cpp */
-void USBSerial::begin(void)
-{
-}
-
 void USBSerial::end(void)
 {
+  if (m_Started)
+  {
+    m_Started = false;
+    USBD_DeInit(&hUSBD_Device_CDC);
+  }
 }
 
 int USBSerial::availableForWrite(void)
@@ -87,12 +97,28 @@ int USBSerial::availableForWrite(void)
 
 size_t USBSerial::write(uint8_t ch)
 {
-  return CDC_Write(&ch, 1);
+  /*
+  || if we haven't lost connection go ahead;
+  || otherwise record that we're not started and claim that we wrote the byte.
+  */
+  if (hUSBD_Device_CDC.pClassData)
+    return CDC_Write(&ch, 1);
+
+  m_Started = false;
+  return 1;
 }
 
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
-  return CDC_Write(buffer, size);
+  /*
+  || if we haven't lost connection go ahead;
+  || otherwise record that we're not started and claim that we wrote the byte.
+  */
+  if (hUSBD_Device_CDC.pClassData)
+    return CDC_Write(buffer, size);
+
+  m_Started = false;
+  return size;
 }
 
 int USBSerial::available(void)
@@ -102,28 +128,50 @@ int USBSerial::available(void)
 
 int USBSerial::read(void)
 {
-  return CDC_Read();
+  /* if connected, read data; if not, indicate no data, and stop operation. */
+  if (hUSBD_Device_CDC.pClassData)
+    return CDC_Read();
+
+  m_Started = false;
+  return -1;
 }
 
 int USBSerial::peek(void)
 {
-  return CDC_Peek();
+  if (hUSBD_Device_CDC.pClassData)
+    return CDC_Peek();
+
+  m_Started = false;
+  return -1;
 }
 
 void USBSerial::flush(void)
 {
-  CDC_Flush();
+  if (hUSBD_Device_CDC.pClassData)
+    CDC_Flush();
+  else
+    m_Started = false;
 }
 
 bool USBSerial::dtr(void)
 {
   uint32_t LineState = CDC_LineState();
+
+  /* check if we're connected but not really running. If so, do a begin. */
+  if (LineState == 0)
+    begin();
+
   return LineState & 1;
 }
 
 bool USBSerial::rts(void)
 {
   uint32_t LineState = CDC_LineState();
+
+  /* check if we're connected but not really running. If so, do a begin. */
+  if (LineState == 0)
+    begin();
+
   return (LineState & 2) >> 1;
 }
 
@@ -137,9 +185,13 @@ USBSerial::operator bool()
   bool result = false;
   uint32_t LineState = CDC_LineState();
 
+  /* check if we're connected but not really running. If so, do a begin. */
+  if (LineState == 0)
+    begin();
+
   if (LineState & 1)
     result = true;
-  delay(10);
+
   return result;
 }
 

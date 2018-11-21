@@ -166,6 +166,10 @@ static int8_t CDC_Init_FS(void)
   */
 static int8_t CDC_DeInit_FS(void)
 {
+  UserTxBufPtrIn = 0;
+  UserRxBufPtrIn = 0;
+  UserRxBufPtrOut = 0;
+  gCDC_LineState = 0;
   return (USBD_OK);
 }
 
