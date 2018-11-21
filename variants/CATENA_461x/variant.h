@@ -56,7 +56,7 @@ enum {
   PB5,  //D11     D11
   PB7,  //D12     D12
   PB2,  //D13     D13_LED
-  PA0,  //D14/A0
+  PA0,  //D14/A0  Controls boost regulator on Catena 4612
   PA5,  //D15/A1
   PA4,  //D16/A2
   PA3,  //D17/A3  A3_VBAT_DET
@@ -75,7 +75,7 @@ enum {
   PC1,  //D30     RADIO_ANT_SWITCH_TX_BOOST CRF3  Murata internal
   PC2,  //D31     RADIO_ANT_SWITCH_TX_RFO   CRF2  Murata internal
   NC_1, //D32     Flash Write-Protect (not supported these platforms)
-  PA8,  //D33     TCXO VDD, possibly VDD boost enable (4612)
+  PA8,  //D33
   PEND
 };
 
