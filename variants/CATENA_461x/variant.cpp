@@ -43,7 +43,7 @@ const PinName digitalPin[] = {
   PB_5,  //D11     PH0_OSC_IN		JP3-6
   PB_7,  //D12     D12			JP3-5
   PB_2,  //D13     D13_LED		JP3-4
-  PA_0,  //D14/A0  A0			JP1-12
+  PA_0,  //D14/A0  Controls boost regulator on Catena 4612	JP1-12
   PA_5,  //D15/A1  A1			JP1-11
   PA_4,  //D16/A2  A2			JP1-10
   PA_3,  //D17/A3  A3_VBAT_DET		JP1-9
@@ -62,7 +62,7 @@ const PinName digitalPin[] = {
   PC_1,  //D30/A16 RADIO_ANT_SWITCH_TX_BOOST CRF3
   PC_2,  //D31/A17 RADIO_ANT_SWITCH_TX_RFO   CRF2
   NC,    //D32     Flash Write-Protect (not supported these platforms)
-  PA_8,  //D33     TCXO VDD, possibly VDD boost enable.
+  PA_8,  //D33
 };
 
 #ifdef __cplusplus

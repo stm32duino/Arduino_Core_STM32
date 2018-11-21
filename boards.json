@@ -27,15 +27,14 @@
 			"modelnumber": 	"4610",
 			"pid": 		"00A1",
 			"build_variant": "CATENA_461x",
-			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0",
-			"build_board_old_flags":	"-DARDUINO_CATENA_{{modelnumber}}"
+			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0",
 			},
 
 			{
 			"modelnumber": 	"4611",
 			"pid": 		"0081",
 			"build_variant": "CATENA_461x",
-			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0",
+			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0",
 			"build_board_old_flags":	"-DARDUINO_CATENA_{{modelnumber}}"
 			},
 
@@ -43,7 +42,7 @@
 			"modelnumber": 	"4612",
 			"pid": 		"0091",
 			"build_variant": "CATENA_461x",
-			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=1",
+			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1",
 			"build_board_old_flags":	"-DARDUINO_CATENA_{{modelnumber}}"
 			},
 
