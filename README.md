@@ -1,6 +1,6 @@
 # Arduino core support for STM32L082-based boards
 
-This repository is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&trade; boards. The pinouts, etc., are therefore chosen to make the Catena 4551, 4611 and 4612 (except 4801) closely compatible with the Adafruit Feather M0 LoRa.
+This repository is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&trade; boards. Several of these boarsd are closely compatible with the Adafruit Feather M0 LoRa. See [Supported Boards and CPUs](#supported-boards-and-cpus) for more info.
 
 For general information, please check the stm32duino [README.md](https://github.com/stm32duino/Arduino_Core_STM32#arduino-core-support-for-stm32-based-boards), especially the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started) section.
 
@@ -10,8 +10,11 @@ For general information, please check the stm32duino [README.md](https://github.
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Supported Boards and CPUs](#supported-boards-and-cpus)
+	- [Simple Board Comparison Chart (4551/461x series)](#simple-board-comparison-chart-4551461x-series)
+	- [Catena 4801 Features](#catena-4801-features)
 - [Troubleshooting](#troubleshooting)
 - [Installing a Development Copy of this BSP](#installing-a-development-copy-of-this-bsp)
+- [Release History](#release-history)
 - [Notes and Acknowledgements](#notes-and-acknowledgements)
 - [Support Open-Source Software, Hardware, and Community IoT!](#support-open-source-software-hardware-and-community-iot)
 
@@ -19,7 +22,7 @@ For general information, please check the stm32duino [README.md](https://github.
 
 ## Latest release
 
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v1.1.2...master)
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.0.0...master)
 
 ## Getting Started
 
@@ -44,9 +47,42 @@ The Arduino IDE allows you to select the following items.
 | Board | CPU/SOC | Comment |
 |-------|:-------:|---------|
 | MCCI Catena 4551 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| MCCI Catena 4610 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 | MCCI Catena 4611 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 | MCCI Catena 4612 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 | MCCI Catena 4801 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+
+### Simple Board Comparison Chart (4551/461x series)
+
+| Feature | 4551 | 4610 | 4611 | 4612 |
+|---------|------|------|------|------|
+| TCXO control | Always on (power consumption issue) | Controlled by code | Controlled by code | Controlled by code |
+| Battery type | Primary (non-rechargeable) reference is 2x AAA cells | Secondary (LiPo rechargeable), compatible with Adafruit | Feather batteries | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells |
+| System voltage | 3.3V | 3.3V | 3.3V | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
+| Regulator control | EN pin on Feather disables VDD altogether | No boost regulator; EN disables VDD altogether. | EN pin on JP2-3 shuts down boost regulator | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. |
+| High-side switch for external sensors | No switch, screw terminal power is from VDD (3.3V) | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals |
+| Feather electrical compatibility  | Good, except for different battery system | Very good | Very good | Good physical compatibility but the varying VDD may be an issue |
+| Feather physical compatibility | Yes | Yes | Yes | Yes |
+| USB | Supported | Supported | Supported | Supported |
+| Sensors | BME280, Si1123 | BME280, Si1113 | BME280, Si1113 | BME280, Si1113 |
+| Screw terminals for external sensors | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin |
+
+### Catena 4801 Features
+
+The 4801 is a dedicated board for remote Modbus applications, using the Murata module.
+
+| Feature | 4801 |
+|---------|------|
+| TCXO Control | Controlled by code |
+| Battery type | Primary battery, boost regulator (but can tolerate up to 3.7V battery) |
+| System voltage | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
+| Regulator control | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. |
+| High-side switch for power for external sensors | Yes |
+| Screw terminals for external sensors | 1x4 pin |
+| Feather physical compatibility | No |
+| USB | Not supported |
+| Sensors | none |
+| External interfaces | Modbus, TTL serial |
 
 ## Troubleshooting
 
@@ -79,6 +115,12 @@ If you want to develop and test changes to this package, we suggest the followin
 10. Make changes and build.
 
 Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or `programmers.txt`.
+
+## Release History
+
+- [v2.0.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.0.0) is a major release. It improves wakeup support and power management, and simplifies some of the menus. New boards: 4610 and 4801. The template system was enhanced. USB manufacturer string is no longer "unknown". Changed hardware serial default baud rate to 115,200 from 9600. Moved USB clock control to USB module. Enhanced begin()/end() for USB and I2C to start/stop clocks. (This is a major bump beause the baud rate change may be a breaking change.)
+
+- [v1.1.2](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v1.1.2) added 4611, 4612 support, and templating for generating boards.txt.
 
 ## Notes and Acknowledgements
 
