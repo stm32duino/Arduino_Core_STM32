@@ -220,16 +220,10 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
 
 /**
   * @brief  Deprecated function.
-  *         Configure the clock speed: 125kHz to 8MHz.
+  *         Configure the clock speed
   * @param  _pin: CS pin associated to a configuration (optional).
-  * @param  _divider: can be one of the following parameters:
-  *         SPI_CLOCK_DIV2    (8MHz)
-  *         SPI_CLOCK_DIV4    (4MHz)
-  *         SPI_CLOCK_DIV8    (2MHz)
-  *         SPI_CLOCK_DIV16   (1MHz)
-  *         SPI_CLOCK_DIV32   (500kHz)
-  *         SPI_CLOCK_DIV64   (250kHz)
-  *         SPI_CLOCK_DIV128  (125kHz)
+  * @param  _divider: the SPI clock can be divided by values from 1 to 255.
+  *         If 0, default SPI speed is used.
   */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
@@ -240,23 +234,11 @@ void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
   if(idx >= NB_SPI_SETTINGS) {
     return;
   }
-
-  /* Get clk freq of the SPI instance */
-  uint32_t spiClkFreq = spi_getClkFreq(&_spi);
-
-  switch(_divider) {
-    case (SPI_CLOCK_DIV2) :
-    case (SPI_CLOCK_DIV4) :
-    case (SPI_CLOCK_DIV8) :
-    case (SPI_CLOCK_DIV16) :
-    case (SPI_CLOCK_DIV32) :
-    case (SPI_CLOCK_DIV64) :
-    case (SPI_CLOCK_DIV128) :
-      spiSettings[idx].clk = spiClkFreq/_divider;
-    break;
-    default:
-      spiSettings[idx].clk = SPI_SPEED_CLOCK_DEFAULT;
-    break;
+  if (_divider == 0) {
+    spiSettings[idx].clk = SPI_SPEED_CLOCK_DEFAULT;
+  } else {
+    /* Get clk freq of the SPI instance and compute it */
+    spiSettings[idx].clk = spi_getClkFreq(&_spi)/_divider;
   }
 
   spi_init(&_spi, spiSettings[idx].clk,
