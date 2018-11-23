@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file      startup_stm32l031xx.s
   * @author    MCD Application Team
-  * @brief     STM32L031xx Devices vector table for gcc.
+  * @brief     STM32L031xx Devices vector table for GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
