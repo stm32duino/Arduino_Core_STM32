@@ -33,37 +33,34 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
-  PC7,  //D0
-  PC6,  //D1
-  PG6,  //D2
-  PB4,  //D3
-  PG7,  //D4
-  PI0,  //D5
-  PH6,  //D6
-  PI3,  //D7
-  PI2,  //D8
-  PA15, //D9
-  PA8,  //D10
-  PB15, //D11
-  PB14, //D12
-  PI1,  //D13
-  PB9,  //D14
-  PB8,  //D15
-  PA0,  //D16/A0
-  PF10, //D17/A1
-  PF9,  //D18/A2
-  PF8,  //D19/A3
-  PF7,  //D20/A4
-  PF6,  //D21/A5
-  PI11, //D22 User btn
-  PB7,  //D23 ST-Link Rx
-  PA9,  //D24 ST-Link Tx
-  PC13, //D25 SD detect
-  PEND
-};
+#define PC7  0
+#define PC6  1
+#define PG6  2
+#define PB4  3
+#define PG7  4
+#define PI0  5
+#define PH6  6
+#define PI3  7
+#define PI2  8
+#define PA15 9
+#define PA8  10
+#define PB15 11
+#define PB14 12
+#define PI1  13
+#define PB9  14
+#define PB8  15
+#define PA0  16 // A0
+#define PF10 17 // A1
+#define PF9  18 // A2
+#define PF8  19 // A3
+#define PF7  20 // A4
+#define PF6  21 // A5
+#define PI11 22 // User btn
+#define PB7  23 // ST-Link Rx
+#define PA9  24 // ST-Link Tx
+#define PC13 25 // SD detect
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        26
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6

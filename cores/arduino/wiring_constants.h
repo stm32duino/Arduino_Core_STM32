@@ -20,12 +20,14 @@
 #define _WIRING_CONSTANTS_
 
 #include <stdbool.h>
+#include <stdint.h>
 
 #ifdef __cplusplus
 #include <algorithm>
 using std::min;
 using std::max;
 #else // C
+#include <stdlib.h>
 #ifndef abs
 #define abs(x) ((x)>0?(x):-(x))
 #endif // abs
@@ -40,13 +42,15 @@ using std::max;
 
 #endif // __cplusplus
 
-#define HIGH 0x1
-#define LOW  0x0
-
-#define INPUT 0x0
-#define OUTPUT 0x1
-#define INPUT_PULLUP 0x2
-#define INPUT_PULLDOWN 0x3
+/* Official Arduino */
+#define INPUT			    0x0
+#define OUTPUT              0x1
+#define INPUT_PULLUP        0x2
+/* STM32 extension */
+#define INPUT_FLOATING      INPUT
+#define INPUT_PULLDOWN      0x3
+#define INPUT_ANALOG        0x4
+#define OUTPUT_OPEN_DRAIN   0x5
 
 #define PI 3.1415926535897932384626433832795
 #define HALF_PI 1.5707963267948966192313216916398
@@ -63,11 +67,11 @@ enum BitOrder {
 	MSBFIRST = 1
 };
 
-//      LOW 0
-//      HIGH 1
-#define CHANGE 2
-#define FALLING 3
-#define RISING 4
+#define LOW     0x0
+#define HIGH    0x1
+#define CHANGE  0x2
+#define FALLING 0x3
+#define RISING  0x4
 
 #define DEFAULT 1
 #define EXTERNAL 0

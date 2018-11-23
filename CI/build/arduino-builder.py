@@ -619,9 +619,10 @@ def create_build_conf_list():
     return build_conf_list
 
 
-def build_config(gen_build_conf_list, sketch, boardSkipped):
+def build_config(sketch, boardSkipped):
     global nb_build_skipped
-    build_conf_list = list(gen_build_conf_list)
+    build_conf_list = create_build_conf_list()
+
     for idx in reversed(range(len(build_conf_list))):
         build_conf_list[idx][4][-1] = sketch
         if na_sketch_pattern:
@@ -642,6 +643,7 @@ def build_config(gen_build_conf_list, sketch, boardSkipped):
                 else:
                     # get specific sketch options to append to the fqbn
                     for pattern in sketch_options:
+                        print
                         if pattern in sketch_options:
                             if re.search(pattern, sketch, re.IGNORECASE):
                                 if build_conf_list[idx][4][-2].count(":") == 3:
@@ -658,14 +660,12 @@ def build_config(gen_build_conf_list, sketch, boardSkipped):
 # Automatic run
 def build_all():
     create_output_log_tree()
-    gen_build_conf_list = create_build_conf_list()
 
     for sketch_nb, sketch in enumerate(sketch_list, start=1):
         boardKo = []
         boardSkipped = []
         print("\nBuilding : {} ({}/{}) ".format(sketch, sketch_nb, len(sketch_list)))
-        build_conf_list = build_config(gen_build_conf_list, sketch, boardSkipped)
-
+        build_conf_list = build_config(sketch, boardSkipped)
         with concurrent.futures.ProcessPoolExecutor() as executor:
             for build_conf, res in zip(
                 build_conf_list, executor.map(build, build_conf_list)

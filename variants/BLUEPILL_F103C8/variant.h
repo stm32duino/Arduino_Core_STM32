@@ -44,50 +44,47 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-enum {
 // USB connector on the top, MCU side
 // Left Side
-  PB9,  //D0
-  PB8,  //D1
-  PB7,  //D2
-  PB6,  //D3
-  PB5,  //D4
-  PB4,  //D5
-  PB3,  //D6
-  PA15, //D7
-  PA12, //D8 - USB DP
-  PA11, //D9 - USB DM
-  PA10, //D10
-  PA9,  //D11
-  PA8,  //D12
-  PB15, //D13
-  PB14, //D14
-  PB13, //D15
-  PB12, //D16
+#define PB9  0
+#define PB8  1
+#define PB7  2
+#define PB6  3
+#define PB5  4
+#define PB4  5
+#define PB3  6
+#define PA15 7
+#define PA12 8  // USB DP
+#define PA11 9  // USB DM
+#define PA10 10
+#define PA9  11
+#define PA8  12
+#define PB15 13
+#define PB14 14
+#define PB13 15
+#define PB12 16
 // Right side
-  PC13, //D17 - LED
-  PC14, //D18
-  PC15, //D19
-  PA0,  //D20/A0
-  PA1,  //D21/A1
-  PA2,  //D22/A2
-  PA3,  //D23/A3
-  PA4,  //D24/A4
-  PA5,  //D25/A5
-  PA6,  //D26/A6
-  PA7,  //D27/A7
-  PB0,  //D28/A8
-  PB1,  //D29/A9
-  PB10, //D30
-  PB11, //D31
+#define PC13 17 // LED
+#define PC14 18
+#define PC15 19
+#define PA0  20 // A0
+#define PA1  21 // A1
+#define PA2  22 // A2
+#define PA3  23 // A3
+#define PA4  24 // A4
+#define PA5  25 // A5
+#define PA6  26 // A6
+#define PA7  27 // A7
+#define PB0  28 // A8
+#define PB1  29 // A9
+#define PB10 30
+#define PB11 31
 // Other
-  PB2,  //D32 - BOOT1
-  PA13, //D33 - SWDI0
-  PA14, //D34 - SWCLK
-  PEND
-};
+#define PB2  32 // BOOT1
+#define PA13 33 // SWDI0
+#define PA14 34 // SWCLK
 
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       10

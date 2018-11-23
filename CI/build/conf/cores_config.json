@@ -15,6 +15,11 @@
       ],
       "sketches": [
         {
+          "pattern": "^((?!BareMinimum.ino).)*$",
+          "applicable": false,
+          "boards": [ "DEMO_F030F4" ]
+        },
+        {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
           "applicable": true,
           "boards": [ "DISCO_L475VG_IOT" ]
@@ -64,7 +69,7 @@
           "boards": [ "DISCO_F746NG", "BLACK_F407VE", "BLUE_F407VE_Mini" ]
         },
         {
-          "pattern": "Ethernet/",
+          "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
           "boards": [ "NUCLEO_L031K6" ]
         },
@@ -86,6 +91,16 @@
           ]
         },
         {
+          "pattern": "X_NUCLEO_NFC03A1_HelloWorld.ino",
+          "applicable": false,
+          "boards": [
+            "DISCO_F030R8",
+            "DISCO_F100RB",
+            "NUCLEO_F030R8",
+            "NUCLEO_L053R8"
+          ]
+        },
+        {
           "pattern": "X_NUCLEO_|FP_Examples",
           "applicable": false,
           "boards": [ "NUCLEO_L031K6", "RAK811_TRACKER", "REMRAM_V1" ]
@@ -93,15 +108,15 @@
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER", "REMRAM_V1" ]
+          "boards": [ "ARMED_V1", "RAK811_TRACKER", "REMRAM_V1" ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER" ]
+          "boards": [ "ARMED_V1", "RAK811_TRACKER" ]
         },
         {
-          "pattern": "SerialLoop.ino",
+          "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
           "boards": [ "NUCLEO_L031K6" ]
         }

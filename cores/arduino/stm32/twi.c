@@ -157,8 +157,6 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   if(obj == NULL)
     return;
 
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
   I2C_HandleTypeDef *handle = &(obj->handle);
 
   // Determine the I2C to use
@@ -232,31 +230,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   }
 #endif // I2C4_BASE
 
-  //SCL
-  port = set_GPIO_Port_Clock(STM_PORT(obj->scl));
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->scl);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->scl,PinMap_I2C_SCL));
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->scl,PinMap_I2C_SCL));
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->scl,PinMap_I2C_SCL)));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->scl,PinMap_I2C_SCL));
-#endif /* STM32F1xx */
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
-
-  //SDA
-  port = set_GPIO_Port_Clock(STM_PORT(obj->sda));
-  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->sda);
-  GPIO_InitStruct.Mode        = STM_PIN_MODE(pinmap_function(obj->sda,PinMap_I2C_SDA));
-  GPIO_InitStruct.Speed       = GPIO_SPEED_FREQ_HIGH;
-  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->sda,PinMap_I2C_SDA));
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(pinmap_function(obj->sda,PinMap_I2C_SDA)));
-#else
-  GPIO_InitStruct.Alternate   = STM_PIN_AFNUM(pinmap_function(obj->sda,PinMap_I2C_SDA));
-#endif /* STM32F1xx */
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure I2C GPIO pins */
+  pinmap_pinout(obj->scl, PinMap_I2C_SCL);
+  pinmap_pinout(obj->sda, PinMap_I2C_SDA);
 
   handle->Instance             = obj->i2c;
 #if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\
@@ -548,15 +524,25 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       if(obj->i2c_onSlaveTransmit != NULL) {
         obj->i2c_onSlaveTransmit();
       }
-      HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, obj->i2cTxRxBuffer,
+#if defined(STM32L0xx)
+      HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
                                            obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
+#else
+      HAL_I2C_Slave_Sequential_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
+                                           obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
+#endif
     } else {
       obj->slaveRxNbData = 0;
       obj->slaveMode = SLAVE_MODE_RECEIVE;
       /*  We don't know in advance how many bytes will be sent by master so
        *  we'll fetch one by one until master ends the sequence */
-      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+#if defined(STM32L0xx)
+      HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                           1, I2C_NEXT_FRAME);
+#else
+      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, (uint8_t *) &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+                                          1, I2C_NEXT_FRAME);
+#endif
     }
   }
 }
@@ -576,7 +562,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   if((obj->i2c_onSlaveReceive != NULL) &&
     (obj->slaveMode == SLAVE_MODE_RECEIVE)) {
     if(obj->slaveRxNbData != 0) {
-      obj->i2c_onSlaveReceive(obj->i2cTxRxBuffer, obj->slaveRxNbData);
+      obj->i2c_onSlaveReceive((uint8_t *) obj->i2cTxRxBuffer, obj->slaveRxNbData);
     }
   }
   obj->slaveMode = SLAVE_MODE_LISTEN;
@@ -601,8 +587,13 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
   }
   /* Restart interrupt mode for next Byte */
   if(obj->slaveMode == SLAVE_MODE_RECEIVE) {
-      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+#if defined(STM32L0xx)
+      HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                           1, I2C_NEXT_FRAME);
+#else
+      HAL_I2C_Slave_Sequential_Receive_IT(hi2c, (uint8_t *) &(obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+                                          1, I2C_NEXT_FRAME);
+#endif
   }
 }
 

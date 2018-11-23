@@ -44,80 +44,85 @@ extern "C"{
  *        Pins
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
+// Left Side
+#define PE2  0
+#define PE3  1
+#define PE4  2  // BUT K0
+#define PE5  3  // BUT K1
+#define PE6  4
+#define PC13 5
+#define PC0  6  // A8
+#define PC1  7  // A9
+#define PC2  8  // A10
+#define PC3  9  // A11
+#define PA0  10 // A0/WK_UP: BUT K_UP
+#define PA1  11 // A1
+#define PA2  12 // A2
+#define PA3  13 // A3
+#define PA4  14 // A4
+#define PA5  15 // A5
+#define PA6  16 // LED D2
+#define PA7  17 // LED D3 (active LOW)
+#define PC4  18 // A12
+#define PC5  19 // A13
+#define PB0  20 // A6
+#define PB1  21 // A7
+#define PE7  22
+#define PE8  23
+#define PE9  24
+#define PE10 25
+#define PE11 26
+#define PE12 27
+#define PE13 28
+#define PE14 29
+#define PE15 30
+#define PB10 31
+#define PB11 32
+#define PB12 33
+#define PB13 34
+#define PB14 35
+// Right Side
+#define PE1  36
+#define PE0  37
+#define PB9  38
+#define PB8  39
+#define PB7  40
+#define PB6  41
+#define PB5  42
+#define PB3  43
+#define PD7  44
+#define PD6  45
+#define PD5  46
+#define PD4  47
+#define PD3  48
+#define PD2  49
+#define PD1  50
+#define PD0  51
+#define PC12 52
+#define PC11 53
+#define PC10 54
+#define PA15 55
+#define PA12 56 // USB_DP
+#define PA11 57 // USB_DM
+#define PA10 58
+#define PA9  59
+#define PA8  60
+#define PC9  61
+#define PC8  62
+#define PC7  63
+#define PC6  64
+#define PD15 65
+#define PD14 66
+#define PD13 67
+#define PD12 68
+#define PD11 69
+#define PD10 70
+#define PD9  71
+#define PD8  72
+#define PB15 73
+#define PB4  74
 
-enum {
-  // Left Side
-  //Ext   //Int
-  //5V    //5V
-  //5V    //5V
-  //3V3   //3V3
-  //3V3   //3V3
-  //GND   //GND
-  PE2,    PE3,    // D0, D1
-  PE4,    PE5,    // PE_4: BUT K0, PE_5: BUT K1
-  PE6,    PC13,
-  PC0,    PC1,
-  PC2,    PC3,
-  //VREF- //VREF+
-  PA0,    PA1,    // D10, D11 PA_0(WK_UP): BUT K_UP)
-  PA2,    PA3,
-  PA4,    PA5,
-  PA6,    PA7,    // PA_6: LED D2, PA_7: LED D3 (active LOW)
-  PC4,    PC5,
-  PB0,    PB1,    // D20, D21
-  PE7,    PE8,
-  PE9,    PE10,
-  PE11,   PE12,
-  PE13,   PE14,
-  PE15,   PB10,   // D30, D31
-  PB11,   PB12,
-  PB13,   PB14,
-  // Right Side
-  //Int   //Ext
-  //3V3   //3V3
-  //3V3   //3V3
-  //BOOT0 //BOOT1
-  //GND   //GND
-  //GND   //GND
-  PE1,    PE0,
-  PB9,    PB8,
-  PB7,    PB6,    // D40, D41
-  PB5,    PB3,
-  PD7,    PD6,
-  PD5,    PD4,
-  PD3,    PD2,
-  PD1,    PD0,    // D50, D51
-  PC12,   PC11,
-  PC10,   PA15,
-  PA12,   PA11,   // PA_11: USB_DM, PA_12: USB_DP
-  PA10,   PA9,
-  PA8,    PC9,    // D60, D61
-  PC8,    PC7,
-  PC6,    PD15,
-  PD14,   PD13,
-  PD12,   PD11,
-  PD10,   PD9,    // D70, D71
-  PD8,    PB15,
-  PB4,
-  // Analog pins
-  PA0_A,          // D75
-  PA1_A,
-  PA2_A,
-  PA3_A,
-  PA4_A,
-  PA5_A,          // D80
-  PB0_A,
-  PB1_A,
-  PC0_A,
-  PC1_A,
-  PC2_A,
-  PC3_A,
-  PC4_A,
-  PC5_A,
-  PEND
-};
-
-// This must be a literal with the same value as PEND
+// This must be a literal
 #define NUM_DIGITAL_PINS        89
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14

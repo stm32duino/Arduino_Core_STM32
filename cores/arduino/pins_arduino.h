@@ -23,9 +23,6 @@
 // Avoid PortName issue
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
 
-// Avoid pins number misalignment
-_Static_assert(NUM_DIGITAL_PINS==PEND, "NUM_DIGITAL_PINS and PEND differ!");
-
 // Arduino digital pins alias
 // GPIO port (A to K) * 16 pins: 176
 enum {
@@ -235,7 +232,7 @@ uint32_t pinNametoDigitalPin(PinName p);
 #define digitalPinToPort(p)         (get_GPIO_Port(STM_PORT(digitalPinToPinName(p))))
 #define digitalPinToBitMask(p)      (STM_GPIO_PIN(digitalPinToPinName(p)))
 
-#define analogInPinToBit(p)         (STM_PIN(digitalPinToPinName(p)))
+#define analogInPinToBit(p)         (STM_GPIO_PIN(digitalPinToPinName(p)))
 #define portOutputRegister(P)       (&(P->ODR))
 #define portInputRegister(P)        (&(P->IDR))
 
