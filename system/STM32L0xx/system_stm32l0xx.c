@@ -22,29 +22,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -68,7 +52,7 @@
 #endif /* HSE_VALUE */
 
 #if !defined  (MSI_VALUE)
-  #define MSI_VALUE    ((uint32_t)2000000U) /*!< Value of the Internal oscillator in Hz*/
+  #define MSI_VALUE    ((uint32_t)2097152U) /*!< Value of the Internal oscillator in Hz*/
 #endif /* MSI_VALUE */
    
 #if !defined  (HSI_VALUE)
@@ -98,7 +82,7 @@
 /* #define VECT_TAB_SRAM */
 #ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET  0x00U /*!< Vector Table base offset field. 
-                                   This value must be a multiple of 0x200. */
+                                   This value must be a multiple of 0x100. */
 #endif
 /******************************************************************************/
 /**
@@ -124,7 +108,7 @@
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
   */
-  uint32_t SystemCoreClock = 2000000U;
+  uint32_t SystemCoreClock = 2097152U; /* 32.768 kHz * 2^6 */
   const uint8_t AHBPrescTable[16] = {0U, 0U, 0U, 0U, 0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U, 6U, 7U, 8U, 9U};
   const uint8_t APBPrescTable[8] = {0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U};
   const uint8_t PLLMulTable[9] = {3U, 4U, 6U, 8U, 12U, 16U, 24U, 32U, 48U};
@@ -229,28 +213,42 @@ void SystemCoreClockUpdate (void)
   switch (tmp)
   {
     case 0x00U:  /* MSI used as system clock */
-      msirange = (RCC->ICSCR & RCC_ICSCR_MSIRANGE) >> 13U;
+      msirange = (RCC->ICSCR & RCC_ICSCR_MSIRANGE) >> RCC_ICSCR_MSIRANGE_Pos;
       SystemCoreClock = (32768U * (1U << (msirange + 1U)));
       break;
     case 0x04U:  /* HSI used as system clock */
+      if ((RCC->CR & RCC_CR_HSIDIVF) != 0U)
+      {
+        SystemCoreClock = HSI_VALUE / 4U;
+      }
+      else
+      {
       SystemCoreClock = HSI_VALUE;
+      }
       break;
     case 0x08U:  /* HSE used as system clock */
       SystemCoreClock = HSE_VALUE;
       break;
-    case 0x0CU:  /* PLL used as system clock */
+    default:  /* PLL used as system clock */
       /* Get PLL clock source and multiplication factor ----------------------*/
       pllmul = RCC->CFGR & RCC_CFGR_PLLMUL;
       plldiv = RCC->CFGR & RCC_CFGR_PLLDIV;
-      pllmul = PLLMulTable[(pllmul >> 18U)];
-      plldiv = (plldiv >> 22U) + 1U;
+      pllmul = PLLMulTable[(pllmul >> RCC_CFGR_PLLMUL_Pos)];
+      plldiv = (plldiv >> RCC_CFGR_PLLDIV_Pos) + 1U;
       
       pllsource = RCC->CFGR & RCC_CFGR_PLLSRC;
 
       if (pllsource == 0x00U)
       {
         /* HSI oscillator clock selected as PLL clock entry */
+        if ((RCC->CR & RCC_CR_HSIDIVF) != 0U)
+        {
+          SystemCoreClock = (((HSI_VALUE / 4U) * pllmul) / plldiv);
+        }
+        else
+        {
         SystemCoreClock = (((HSI_VALUE) * pllmul) / plldiv);
+      }
       }
       else
       {
@@ -258,14 +256,10 @@ void SystemCoreClockUpdate (void)
         SystemCoreClock = (((HSE_VALUE) * pllmul) / plldiv);
       }
       break;
-    default: /* MSI used as system clock */
-      msirange = (RCC->ICSCR & RCC_ICSCR_MSIRANGE) >> 13U;
-      SystemCoreClock = (32768U * (1U << (msirange + 1U)));
-      break;
   }
   /* Compute HCLK clock frequency --------------------------------------------*/
   /* Get HCLK prescaler */
-  tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> 4U)];
+  tmp = AHBPrescTable[((RCC->CFGR & RCC_CFGR_HPRE) >> RCC_CFGR_HPRE_Pos)];
   /* HCLK clock frequency */
   SystemCoreClock >>= tmp;
 }
