@@ -758,6 +758,34 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.EEXTR_F030_V1.build.variant=EEXTR_F030_V1
 3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# MALYANM200_F103CB board
+# Support: Serial2 (USART2 on PA3, PA2)
+3dprinter.menu.pnum.MALYANM200_F103CB=Malyan M200 V1
+3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_size=122880
+3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_data_size=20480
+3dprinter.menu.pnum.MALYANM200_F103CB.build.mcu=cortex-m3
+3dprinter.menu.pnum.MALYANM200_F103CB.build.board=MALYANM200_F103CB
+3dprinter.menu.pnum.MALYANM200_F103CB.build.series=STM32F1xx
+3dprinter.menu.pnum.MALYANM200_F103CB.build.product_line=STM32F103xB
+3dprinter.menu.pnum.MALYANM200_F103CB.build.variant=MALYANM200_F103CB
+3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
+3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
+3dprinter.menu.pnum.MALYANM200_F103CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
+
+# MALYANM200_F070CB board
+# Support: Serial2 (USART2 on PA3, PA2)
+3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
+3dprinter.menu.pnum.MALYANM200_F070CB.upload.maximum_size=122880
+3dprinter.menu.pnum.MALYANM200_F070CB.upload.maximum_data_size=15168
+3dprinter.menu.pnum.MALYANM200_F070CB.build.mcu=cortex-m0
+3dprinter.menu.pnum.MALYANM200_F070CB.build.board=MALYANM200_F070CB
+3dprinter.menu.pnum.MALYANM200_F070CB.build.series=STM32F0xx
+3dprinter.menu.pnum.MALYANM200_F070CB.build.product_line=STM32F070xB
+3dprinter.menu.pnum.MALYANM200_F070CB.build.variant=MALYANM200_F070CB
+3dprinter.menu.pnum.MALYANM200_F070CB.build.cmsis_lib_gcc=arm_cortexM0l_math
+3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
+3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
+
 # Upload menu
 3dprinter.menu.upload_method.STLinkMethod=STLink
 3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
