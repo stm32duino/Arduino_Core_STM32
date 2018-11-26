@@ -107,7 +107,7 @@ enum BitOrder {
 
 typedef unsigned int word;
 
-typedef bool boolean ;
+typedef bool boolean __attribute__ ((deprecated));
 
 typedef uint8_t byte ;
 
