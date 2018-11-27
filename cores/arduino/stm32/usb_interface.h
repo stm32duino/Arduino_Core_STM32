@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    usb_interface.h
   * @author  WI6LABS
-  * @version V1.0.0
-  * @date    27-October-2016
   * @brief   Header for usb interface
   ******************************************************************************
   * @attention
@@ -41,18 +39,11 @@
 #ifdef USBCON
 
 /* Includes ------------------------------------------------------------------*/
-#if __has_include("usbd_desc.h")
 #include "usbd_desc.h"
-#else
+
 #ifdef USBD_USE_HID_COMPOSITE
-#error "This board does not support (yet?) USB HID! Select 'None' in the 'Tools->USB interface' menu"
-#elif defined(USBD_USE_CDC)
-#error "This board does not support (yet?) USB CDC! Select 'None' in the 'Tools->USB interface' menu"
-#else
-#error "This board does not support (yet?) USB! Select 'None' in the 'Tools->USB interface' menu"
-#endif
-#endif
 #include "usbd_hid_composite.h"
+#endif
 
 #ifdef __cplusplus
  extern "C" {
@@ -71,7 +62,7 @@ void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len);
 #ifdef __cplusplus
 }
 #endif
-#endif // USBCON
+#endif /* USBCON */
 
 #endif /* __USB_INTERFACE_H */
 

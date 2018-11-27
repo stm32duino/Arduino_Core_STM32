@@ -21,8 +21,11 @@ extern "C"{
 #include "twi.h"
 #include "uart.h"
 #ifdef USBCON
+#if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
+#error "This board does not support USB! Select 'None' in the 'Tools->USB interface' menu"
+#endif
 #include "usb_interface.h"
-#endif //USBCON
+#endif /* USBCON */
 
 void init( void ) ;
 #ifdef __cplusplus
