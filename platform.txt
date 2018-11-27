@@ -69,7 +69,7 @@ compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.3.0.path}/CMSIS/Lib/GCC/" -
 
 # USB Flags
 # ---------
-build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"'
+build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"'
 
 # Default usb manufacturer will be replaced at compile time using
 # numeric vendor ID if available or by board's specific value.
