@@ -27,7 +27,7 @@ extern "C"{
 #if defined(USE_USB_HS) && !defined(USB_OTG_HS)
 #error "This board does not support USB High Speed! Select 'Full Speed' in the 'Tools->USB interface' menu"
 #endif
-#include "usb_interface.h"
+#include "usbd_interface.h"
 #endif /* USBCON */
 
 void init( void ) ;
