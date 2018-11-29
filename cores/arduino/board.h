@@ -24,6 +24,9 @@ extern "C"{
 #if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
 #error "This board does not support USB! Select 'None' in the 'Tools->USB interface' menu"
 #endif
+#if defined(USE_USB_HS) && !defined(USB_OTG_HS)
+#error "This board does not support USB High Speed! Select 'Full Speed' in the 'Tools->USB interface' menu"
+#endif
 #include "usb_interface.h"
 #endif /* USBCON */
 
