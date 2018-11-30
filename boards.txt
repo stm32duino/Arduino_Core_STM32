@@ -3,7 +3,7 @@
 menu.pnum=Board part number
 
 menu.xserial=Serial interface
-menu.usb=USB interface
+menu.usb=USB interface (if available)
 
 menu.opt=Optimize
 menu.rtlib=C Runtime Library
@@ -786,29 +786,54 @@ RAK.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
-Nucleo_144.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_144.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_144.menu.usb.none=None
+Nucleo_144.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_144.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_144.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_144.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
 #Nucleo_144.menu.usb.CDC=CDC (if available)
 #Nucleo_144.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 Nucleo_64.menu.usb.none=None
-Nucleo_64.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_64.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_64.menu.usb.none=None
+Nucleo_64.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_64.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_64.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_64.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
 #Nucleo_64.menu.usb.CDC=CDC (if available)
 #Nucleo_64.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 Nucleo_32.menu.usb.none=None
-Nucleo_32.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_32.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_32.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_32.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_32.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_32.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
 #Nucleo_32.menu.usb.CDC=CDC (if available)
 #Nucleo_32.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 Disco.menu.usb.none=None
-Disco.menu.usb.HID=HID keyboard and mouse support (if available)
-Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-
+Disco.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Disco.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Disco.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Disco.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
 #Disco.menu.usb.CDC=CDC (if available)
 #Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+GenF103.menu.usb.none=None
+GenF103.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+GenF103.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF103.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+GenF103.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+#GenF103.menu.usb.CDC=CDC (if available)
+#GenF103.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+
+Maple.menu.usb.none=None
+Maple.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Maple.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Maple.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Maple.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+#Maple.menu.usb.CDC=CDC (if available)
+#Maple.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
