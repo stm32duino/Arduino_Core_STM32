@@ -2,4 +2,4 @@
 
 #include "usbd_core.c"
 
-#endif //USBCON
+#endif /* USBCON */
