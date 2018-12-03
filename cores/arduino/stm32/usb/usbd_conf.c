@@ -19,6 +19,10 @@
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
+
+#ifndef HAL_PCD_MODULE_ENABLED
+#error "HAL_PCD_MODULE_ENABLED is required"
+#else
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -641,6 +645,7 @@ void USBD_LL_Delay(uint32_t Delay)
 {
   HAL_Delay(Delay);
 }
+#endif /* HAL_PCD_MODULE_ENABLED */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
