@@ -40,31 +40,54 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef USBD_MAX_NUM_INTERFACES
 #define USBD_MAX_NUM_INTERFACES             2U
-#define USBD_MAX_NUM_CONFIGURATION          1U
+#endif /* USBD_MAX_NUM_INTERFACES */
+
+#ifndef USBD_MAX_STR_DESC_SIZ
 #define USBD_MAX_STR_DESC_SIZ               0x100U
-#define USBD_SUPPORT_USER_STRING            0U
-#define USBD_SELF_POWERED                   1U
+#endif /* USBD_MAX_STR_DESC_SIZ */
+
+#ifndef USBD_DEBUG_LEVEL
 #define USBD_DEBUG_LEVEL                    0U
+#endif /* USBD_DEBUG_LEVEL */
 
 /* MSC Class Config */
+#ifndef MSC_MEDIA_PACKET
 #define MSC_MEDIA_PACKET                    8192U
+#endif /* MSC_MEDIA_PACKET */
 
 /* CDC Class Config */
+#ifndef USBD_CDC_INTERVAL
 #define USBD_CDC_INTERVAL                   2000U
+#endif /* USBD_CDC_INTERVAL */
 
 /* DFU Class Config */
+#ifndef USBD_DFU_MAX_ITF_NUM
 #define USBD_DFU_MAX_ITF_NUM                1U
+#endif /* USBD_DFU_MAX_ITF_NUM */
+#ifndef USBD_DFU_XFERS_IZE
 #define USBD_DFU_XFERS_IZE                  1024U
+#endif /* USBD_DFU_XFERS_IZE */
 
 /* AUDIO Class Config */
+#ifndef USBD_AUDIO_FREQ
 #define USBD_AUDIO_FREQ                     22100U
+#endif /* USBD_AUDIO_FREQ */
 
 /* Memory management macros */
+#ifndef USBD_malloc
 #define USBD_malloc               malloc
+#endif /* USBD_malloc */
+#ifndef USBD_free
 #define USBD_free                 free
+#endif /* USBD_free */
+#ifndef USBD_memset
 #define USBD_memset               memset
+#endif /* USBD_memset */
+#ifndef USBD_memcpy
 #define USBD_memcpy               memcpy
+#endif /* USBD_memcpy */
 
 /* DEBUG macros */
 #if (USBD_DEBUG_LEVEL > 0U)
