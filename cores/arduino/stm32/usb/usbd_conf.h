@@ -40,6 +40,35 @@
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(USB_BASE)
+
+#if defined(STM32F1xx)
+  #define USB_IRQn USB_LP_CAN1_RX0_IRQn
+  #define USB_IRQHandler USB_LP_CAN1_RX0_IRQHandler
+#elif defined(STM32F3xx)
+  /* ToDo: Check remap on USB_LP_IRQn */
+  #ifndef USE_USB_INTERRUPT_REMAPPED
+    #define USB_IRQn USB_LP_CAN_RX0_IRQn
+    #define USB_IRQHandler USB_LP_CAN_RX0_IRQHandler
+  #else
+    #define USB_IRQn USB_LP_IRQn
+    #define USB_IRQHandler USB_LP_IRQHandler
+  #endif /* USE_USB_INTERRUPT_REMAPPED */
+#elif defined(STM32L1xx)
+  #define USB_IRQn USB_LP_IRQn
+  #define USB_IRQHandler USB_LP_IRQHandler
+#endif
+
+#endif /* USB_BASE */
+
+#ifndef __HAL_PCD_GATE_PHYCLOCK
+#define __HAL_PCD_GATE_PHYCLOCK(_DUMMY_)
+#endif
+
+#ifndef __HAL_PCD_UNGATE_PHYCLOCK
+#define __HAL_PCD_UNGATE_PHYCLOCK(_DUMMY_)
+#endif
+
 #ifndef USBD_MAX_NUM_INTERFACES
 #define USBD_MAX_NUM_INTERFACES             2U
 #endif /* USBD_MAX_NUM_INTERFACES */
