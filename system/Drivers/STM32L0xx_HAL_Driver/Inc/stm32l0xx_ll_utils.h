@@ -202,7 +202,7 @@ __STATIC_INLINE uint32_t LL_GetUID_Word1(void)
   */
 __STATIC_INLINE uint32_t LL_GetUID_Word2(void)
 {
-  return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 8U))));
+  return (uint32_t)(READ_REG(*((uint32_t *)(UID_BASE_ADDRESS + 0x14U))));
 }
 
 /**
