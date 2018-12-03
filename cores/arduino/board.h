@@ -20,15 +20,7 @@ extern "C"{
 #include "timer.h"
 #include "twi.h"
 #include "uart.h"
-#ifdef USBCON
-#if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
-#error "This board does not support USB! Select 'None' in the 'Tools->USB interface' menu"
-#endif
-#if defined(USE_USB_HS) && !defined(USB_OTG_HS)
-#error "This board does not support USB High Speed! Select 'Full Speed' in the 'Tools->USB interface' menu"
-#endif
 #include "usbd_interface.h"
-#endif /* USBCON */
 
 void init( void ) ;
 #ifdef __cplusplus

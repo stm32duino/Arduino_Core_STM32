@@ -38,12 +38,6 @@
 #ifdef USBCON
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbd_desc.h"
-
-#ifdef USBD_USE_HID_COMPOSITE
-#include "usbd_hid_composite.h"
-#endif
-
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -55,8 +49,10 @@
 /* Exported functions ------------------------------------------------------- */
 void usbd_interface_init(void);
 
+#ifdef USBD_USE_HID_COMPOSITE
 void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len);
 void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len);
+#endif
 
 #ifdef __cplusplus
 }
