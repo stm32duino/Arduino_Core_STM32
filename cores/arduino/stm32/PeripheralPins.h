@@ -71,5 +71,10 @@ extern const PinMap PinMap_Ethernet[];
 //*** QUADSPI ***
 extern const PinMap PinMap_QUADSPI[];
 
+//*** USB ***
+extern const PinMap PinMap_USB[];
+extern const PinMap PinMap_USB_OTG_FS[];
+extern const PinMap PinMap_USB_OTG_HS[];
+
 #endif
 

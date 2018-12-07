@@ -28,6 +28,7 @@
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#include "variant.h"
 
 #if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
 #error "This board does not support USB! Select 'None' in the 'Tools->USB interface' menu"
