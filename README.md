@@ -100,6 +100,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
   * STM32F0
      * STM32F030F4 Demo board
 
+  * STM32F4
+     * [ARMED V1](https://github.com/ktand/Armed)
+
 ## Troubleshooting
 
 If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
