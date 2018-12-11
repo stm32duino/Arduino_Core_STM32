@@ -708,11 +708,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.REMRAM_V1.build.variant=REMRAM_V1
 3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7l_math
 
-# Virtual COM port
-#3dprinter.menu.usb.none=None
-#3dprinter.menu.usb.CDC=CDC
-#3dprinter.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
 # Upload menu
 3dprinter.menu.upload_method.STLinkMethod=STLink
 3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
@@ -791,8 +786,10 @@ Nucleo_144.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 Nucleo_144.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Nucleo_144.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 Nucleo_144.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#Nucleo_144.menu.usb.CDC=CDC (if available)
-#Nucleo_144.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_144.menu.usb.CDCFS=CDC Full Speed
+Nucleo_144.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_144.menu.usb.CDCHS=CDC High Speed
+Nucleo_144.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Nucleo_64.menu.usb.none=None
 Nucleo_64.menu.usb.none=None
@@ -800,40 +797,56 @@ Nucleo_64.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 Nucleo_64.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Nucleo_64.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 Nucleo_64.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#Nucleo_64.menu.usb.CDC=CDC (if available)
-#Nucleo_64.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_64.menu.usb.CDCFS=CDC Full Speed
+Nucleo_64.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_64.menu.usb.CDCHS=CDC High Speed
+Nucleo_64.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Nucleo_32.menu.usb.none=None
 Nucleo_32.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 Nucleo_32.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Nucleo_32.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 Nucleo_32.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#Nucleo_32.menu.usb.CDC=CDC (if available)
-#Nucleo_32.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_32.menu.usb.CDCFS=CDC Full Speed
+Nucleo_32.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_32.menu.usb.CDCHS=CDC High Speed
+Nucleo_32.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Disco.menu.usb.none=None
 Disco.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 Disco.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Disco.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 Disco.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#Disco.menu.usb.CDC=CDC (if available)
-#Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Disco.menu.usb.CDCFS=CDC Full Speed
+Disco.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Disco.menu.usb.CDCHS=CDC High Speed
+Disco.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 GenF103.menu.usb.none=None
 GenF103.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 GenF103.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 GenF103.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 GenF103.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#GenF103.menu.usb.CDC=CDC (if available)
-#GenF103.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+GenF103.menu.usb.CDCFS=CDC Full Speed
+GenF103.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF103.menu.usb.CDCHS=CDC High Speed
+GenF103.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Maple.menu.usb.none=None
 Maple.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
 Maple.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 Maple.menu.usb.HIDHS=HID keyboard and mouse support High Speed
 Maple.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-#Maple.menu.usb.CDC=CDC (if available)
-#Maple.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Maple.menu.usb.CDCFS=CDC Full Speed
+Maple.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Maple.menu.usb.CDCHS=CDC High Speed
+Maple.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+3dprinter.menu.usb.none=None
+3dprinter.menu.usb.CDCFS=CDC Full Speed
+3dprinter.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+3dprinter.menu.usb.CDCHS=CDC High Speed
+3dprinter.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
