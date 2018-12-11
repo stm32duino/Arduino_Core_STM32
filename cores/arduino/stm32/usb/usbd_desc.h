@@ -37,6 +37,9 @@
 #ifdef USBD_USE_HID_COMPOSITE
 extern USBD_DescriptorsTypeDef HID_Desc;
 #endif
+#ifdef USBD_USE_CDC
+extern USBD_DescriptorsTypeDef CDC_Desc;
+#endif
 #endif /* USBCON */
 #endif /* __USBD_DESC_H*/
 
