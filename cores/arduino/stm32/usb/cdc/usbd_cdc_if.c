@@ -23,6 +23,14 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc_if.h"
 
+#ifdef USE_USB_HS
+#define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
+#elif defined(USB_OTG_FS) || defined(USB_OTG_FS_MAX_PACKET_SIZE)
+#define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
+#else /* USB */
+#define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
+#endif
+
 /* USBD_CDC Private Variables */
 
 /* Create buffer for reception and transmission           */
@@ -30,7 +38,7 @@
 extern USBD_HandleTypeDef hUSBD_Device_CDC;
 /* Received Data over USB are stored in this buffer       */
 __IO uint8_t UserRxBuffer[APP_RX_DATA_SIZE];
-__IO uint8_t StackRxBuffer[APP_RX_DATA_SIZE];
+__IO uint8_t StackRxBuffer[CDC_MAX_PACKET_SIZE];
 
 /* Send Data over USB CDC are stored in this buffer       */
 __IO uint8_t UserTxBuffer[APP_TX_DATA_SIZE];
@@ -46,14 +54,9 @@ __IO uint32_t UserRxBufPtrIn = 0; /* Increment this pointer or roll it back to
 __IO uint32_t UserRxBufPtrOut = 0; /* Increment this pointer or roll it back to
                                  start address when data are sent over read call */
 
-__IO uint32_t SLP;
-__IO uint32_t GetRxCount;
 __IO uint32_t lineState = 0;
-uint8_t cptlineState = 0;
-volatile uint32_t USB_received = 0;
-uint8_t USBBuffer[USB_MAX_EP0_SIZE];
-uint8_t USBPackSize;
-bool sendZLP = false;
+__IO bool receiveSuspended = false;
+__IO bool sendZLP = false;
 
 stimer_t CDC_TimHandle;
 
@@ -183,9 +186,8 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
     break;
 
   case CDC_SET_CONTROL_LINE_STATE:
-    cptlineState++;
-    if(cptlineState == 2)
-    lineState = 1;
+    lineState =
+        (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
     break;
 
   case CDC_SEND_BREAK:
@@ -217,11 +219,31 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   */
 static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len)
 {
-  /* Initiate next USB packet transfer once a packet is received */
-  USBPackSize = *Len;
-  memcpy(USBBuffer, Buf, USBPackSize);
+  uint32_t packetSize = *Len;
 
-  USB_received = 1;
+  if (packetSize > 0) {
+    if (UserRxBufPtrIn + packetSize > APP_RX_DATA_SIZE) {
+      memcpy(((uint8_t *)UserRxBuffer + UserRxBufPtrIn), &Buf[0],
+             (APP_RX_DATA_SIZE - UserRxBufPtrIn));
+      memcpy((uint8_t *)UserRxBuffer,
+             &Buf[(APP_RX_DATA_SIZE - UserRxBufPtrIn)],
+             (packetSize - (APP_RX_DATA_SIZE - UserRxBufPtrIn)));
+      UserRxBufPtrIn = ((UserRxBufPtrIn + packetSize) % APP_RX_DATA_SIZE);
+    } else {
+      memcpy(((uint8_t *)UserRxBuffer + UserRxBufPtrIn), Buf, packetSize);
+      UserRxBufPtrIn = ((UserRxBufPtrIn + packetSize) % APP_RX_DATA_SIZE);
+    }
+  }
+
+  if ((UserRxBufPtrOut + APP_RX_DATA_SIZE - UserRxBufPtrIn - 1) %
+              APP_RX_DATA_SIZE + 1 >=  CDC_MAX_PACKET_SIZE) {
+    USBD_CDC_ReceivePacket(
+        &hUSBD_Device_CDC); // Initiate next USB packet transfer once a packet
+                            // is received and there is enouch space in the
+                            // buffer
+  } else {
+    receiveSuspended = true;
+  }
   return (USBD_OK);
 }
 
@@ -233,33 +255,44 @@ void CDC_flush(void)
   {
     if(UserTxBufPtrOut > UserTxBufPtrIn) /* Roll-back */
     {
-      memcpy((uint8_t*)&StackTxBuffer[0], (uint8_t*)&UserTxBuffer[UserTxBufPtrOut], (APP_TX_DATA_SIZE - UserTxBufPtrOut));
+      memcpy((uint8_t *)&StackTxBuffer[0],
+             (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
+             (APP_TX_DATA_SIZE - UserTxBufPtrOut));
+      memcpy((uint8_t *)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut],
+             (uint8_t *)&UserTxBuffer[0], UserTxBufPtrIn);
 
-      memcpy((uint8_t*)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut], (uint8_t*)&UserTxBuffer[0], UserTxBufPtrIn);
-
-      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t*)&StackTxBuffer[0], (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn));
-
-      do {
-        status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
-      } while(status == USBD_BUSY);
-
-      if(status == USBD_OK)
-      {
-        UserTxBufPtrOut = UserTxBufPtrIn;
-      }
+      USBD_CDC_SetTxBuffer(
+          &hUSBD_Device_CDC, (uint8_t *)&StackTxBuffer[0],
+          (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn));
+    } else {
+      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC,
+                           (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
+                           (UserTxBufPtrIn - UserTxBufPtrOut));
     }
-    else
-    {
-      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t*)&UserTxBuffer[UserTxBufPtrOut], (UserTxBufPtrIn - UserTxBufPtrOut));
 
-	  do {
+    do {
+      if (lineState == 0) { // Device disconnected
+        status = USBD_OK;
+	  } else {
         status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
-      } while(status == USBD_BUSY);
-
-      if(status == USBD_OK)
-      {
-        UserTxBufPtrOut = UserTxBufPtrIn;
       }
+    } while (status == USBD_BUSY);
+
+    if (status == USBD_OK) {
+      UserTxBufPtrOut = UserTxBufPtrIn;
+    }
+  }
+}
+
+void CDC_resume_receive(void) {
+  if (receiveSuspended) {
+    if ((UserRxBufPtrOut + APP_RX_DATA_SIZE - UserRxBufPtrIn - 1) %
+                APP_RX_DATA_SIZE + 1 >= CDC_MAX_PACKET_SIZE) {
+      USBD_CDC_ReceivePacket(
+          &hUSBD_Device_CDC); // Initiate next USB packet transfer once a packet
+                              // is received and there is enouch space in the
+                              // buffer
+      receiveSuspended = false;
     }
   }
 }
@@ -293,61 +326,48 @@ static void CDC_TIM_Config(void)
 void CDC_TIM_PeriodElapsedCallback(stimer_t *htim)
 {
   UNUSED(htim);
-  uint8_t status;
-  uint16_t transferSize;
-
-  if(USB_received) {
-    USB_received = 0;
-
-    if((USBPackSize > 0)) {
-      if(UserRxBufPtrIn + USBPackSize > APP_RX_DATA_SIZE) {
-        memcpy(((uint8_t *)UserRxBuffer+UserRxBufPtrIn), &USBBuffer[0], (APP_RX_DATA_SIZE - UserRxBufPtrIn));
-        memcpy((uint8_t *)UserRxBuffer, &USBBuffer[(APP_RX_DATA_SIZE - UserRxBufPtrIn)], (USBPackSize - (APP_RX_DATA_SIZE - UserRxBufPtrIn)));
-        UserRxBufPtrIn = ((UserRxBufPtrIn + USBPackSize) % APP_RX_DATA_SIZE);
-      } else {
-        memcpy(((uint8_t *)UserRxBuffer+UserRxBufPtrIn), USBBuffer, USBPackSize);
-        UserRxBufPtrIn = ((UserRxBufPtrIn + USBPackSize) % APP_RX_DATA_SIZE);
-      }
-    }
-
-    USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
-  }
-
-  if(UserTxBufPtrOut > UserTxBufPtrIn) { /* Roll-back */
-    memcpy((uint8_t*)&StackTxBuffer[0], (uint8_t*)&UserTxBuffer[UserTxBufPtrOut], (APP_TX_DATA_SIZE - UserTxBufPtrOut));
-    memcpy((uint8_t*)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut], (uint8_t*)&UserTxBuffer[0], UserTxBufPtrIn);
-
-    transferSize = (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn);
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t*)&StackTxBuffer[0], transferSize);
-  }
-  else if (UserTxBufPtrOut != UserTxBufPtrIn) {
-    transferSize = (UserTxBufPtrIn - UserTxBufPtrOut);
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t*)&UserTxBuffer[UserTxBufPtrOut], transferSize);
-  }
-  else if (sendZLP) {
-    transferSize = 0;
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, NULL, 0);
-  } else {
+  if (UserTxBufPtrOut == UserTxBufPtrIn &&
+      sendZLP == false) // Nothing to do, return immediately
     return;
+
+  uint8_t status;
+  uint16_t packetLength;
+
+  if (UserTxBufPtrOut > UserTxBufPtrIn) { /* Roll-back */
+    memcpy((uint8_t *)&StackTxBuffer[0],
+           (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
+           (APP_TX_DATA_SIZE - UserTxBufPtrOut));
+    memcpy((uint8_t *)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut],
+           (uint8_t *)&UserTxBuffer[0], UserTxBufPtrIn);
+
+    packetLength = (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn);
+
+    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)&StackTxBuffer[0],
+                         packetLength);
+  } else if (UserTxBufPtrOut != UserTxBufPtrIn) {
+    packetLength = (UserTxBufPtrIn - UserTxBufPtrOut);
+
+    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC,
+                         (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
+                         packetLength);
+  } else {
+    packetLength = 0;
+
+    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, NULL, 0); // Send Zero Length Packet
   }
 
-  do {
-      if (lineState == 0) // Device disconnected
-        status = USBD_OK;
-      else
-        status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
-  } while(status == USBD_BUSY);
+  if (lineState == 0) { // Device disconnected
+    status = USBD_OK;
+  } else {
+    status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
+  }
 
-  if(status == USBD_OK) {
+  if (status == USBD_OK) {
     UserTxBufPtrOut = UserTxBufPtrIn;
 
-    sendZLP = transferSize%USB_MAX_EP0_SIZE == 0;
+    sendZLP = packetLength % CDC_MAX_PACKET_SIZE == 0;
   }
 }
-
 
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
