@@ -59,6 +59,7 @@ USBD_HandleTypeDef hUSBD_Device_CDC;
   * @param  none
   * @retval none
   */
+__attribute__((weak))
 void usbd_interface_init(void)
 {
 #ifdef USBD_USE_HID_COMPOSITE
