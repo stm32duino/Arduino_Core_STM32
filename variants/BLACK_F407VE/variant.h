@@ -148,7 +148,7 @@ extern const PinName digitalPin[];
 // On-board user button
 #define BTN_K_UP                PA0
 #define BTN_K0                  PE4
-#define BTN_K1                  PE5
+#define BTN_K1                  PE3
 #define USER_BTN                BTN_K0
 
 // Below SPI and I2C definitions already done in the core
