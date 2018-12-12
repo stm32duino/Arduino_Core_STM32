@@ -60,6 +60,7 @@ extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
 void CDC_disable_TIM_Interrupt(void);
 void CDC_enable_TIM_Interrupt(void);
 void CDC_flush(void);
+void CDC_resume_receive(void);
 
 #ifdef __cplusplus
 }
