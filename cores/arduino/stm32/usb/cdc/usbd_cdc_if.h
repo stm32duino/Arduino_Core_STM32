@@ -30,13 +30,25 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc.h"
+#include "timer.h"
 
 #ifndef APP_RX_DATA_SIZE
-#define APP_RX_DATA_SIZE  256
+#define APP_RX_DATA_SIZE  2048
 #endif
 #ifndef APP_TX_DATA_SIZE
-#define APP_TX_DATA_SIZE  256
+#define APP_TX_DATA_SIZE  2048
 #endif
+
+#ifndef CDC_TIM
+#define CDC_TIM TIM6
+#endif
+#ifndef CDC_TIM_IRQn
+#define CDC_TIM_IRQn TIM6_IRQn
+#endif
+
+/* Periodically, the state of the buffer "UserTxBuffer" is checked.
+   The period depends on CDC_POLLING_INTERVAL */
+#define CDC_POLLING_INTERVAL             2 /* in ms. The max is 65 and the min is 1 */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
@@ -45,6 +57,9 @@ extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
+void CDC_disable_TIM_Interrupt(void);
+void CDC_enable_TIM_Interrupt(void);
+void CDC_flush(void);
 
 #ifdef __cplusplus
 }
