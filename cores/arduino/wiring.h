@@ -26,9 +26,9 @@
 #include <string.h>
 #include <math.h>
 
+#include "avr/dtostrf.h"
 #include "binary.h"
 #include "itoa.h"
-#include "utils.h"
 
 #include "wiring_analog.h"
 #include "wiring_constants.h"
