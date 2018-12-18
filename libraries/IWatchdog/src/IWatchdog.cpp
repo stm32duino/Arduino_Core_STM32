@@ -145,7 +145,11 @@ void IWatchdogClass::reload(void)
   */
 bool IWatchdogClass::isReset(bool clear)
 {
+#ifdef IWDG1
+  bool status = LL_RCC_IsActiveFlag_IWDG1RST();
+#else
   bool status = LL_RCC_IsActiveFlag_IWDGRST();
+#endif
   if (status && clear) {
     clearReset();
   }
