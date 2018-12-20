@@ -40,10 +40,18 @@
 #endif
 
 #ifndef CDC_TIM
+#ifdef TIM6
 #define CDC_TIM TIM6
+#else
+#define CDC_TIM TIM4
+#endif
 #endif
 #ifndef CDC_TIM_IRQn
+#ifdef TIM6
 #define CDC_TIM_IRQn TIM6_IRQn
+#else
+#define CDC_TIM_IRQn TIM4_IRQn
+#endif
 #endif
 
 /* Periodically, the state of the buffer "UserTxBuffer" is checked.
