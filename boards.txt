@@ -524,7 +524,7 @@ GenF103.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenF4.name=Generic STM32F4 series
 
-GenF4.build.vid=0x1EAF
+GenF4.build.vid=0x0483
 GenF4.build.core=arduino
 GenF4.build.board=GenF4
 GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -794,6 +794,16 @@ GenF103.menu.usb.CDCFS=CDC Full Speed
 GenF103.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF103.menu.usb.CDCHS=CDC High Speed
 GenF103.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+GenF4.menu.usb.none=None
+GenF4.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+GenF4.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF4.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+GenF4.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+GenF4.menu.usb.CDCFS=CDC Full Speed
+GenF4.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF4.menu.usb.CDCHS=CDC High Speed
+GenF4.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Maple.menu.usb.none=None
 Maple.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
