@@ -1,0 +1,7 @@
+{
+    "description":"Arduino STM32 Official Framework (stm32core)",
+    "name":"framework-arduinostm32core",
+    "system":"all",
+    "url":"https://github.com/xC0000005/Arduino_Core_STM32",
+    "version":"1.0.0"
+}
