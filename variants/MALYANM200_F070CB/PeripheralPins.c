@@ -221,3 +221,18 @@ const PinMap PinMap_SPI_SSEL[] = {
 //*** QUADSPI ***
 
 //*** No QUADSPI ***
+
+//*** USB ***
+
+#ifdef HAL_PCD_MODULE_ENABLED
+const PinMap PinMap_USB[] = {
+  {PA_11, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0)}, // USB_DM
+  {PA_12, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0)}, // USB_DP
+  {PA_13, USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_USB)}, // USB_NOE
+  {NC,    NP,    0}
+};
+#endif
+
+//*** No USB_OTG_FS ***
+
+//*** No USB_OTG_HS ***
