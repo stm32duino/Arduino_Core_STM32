@@ -756,7 +756,7 @@ MALYANM200.pid.0=0x5711
 MALYANM200.build.core=arduino
 MALYANM200.build.board=MALYANM200_F103CB
 MALYANM200.build.startup_file=-DCUSTOM_STARTUP_FILE
-MALYANM200.build.extra_flags=-D{build.product_line} -D{build.series} {build.enable_usb} {build.xSerial} -DSTM32Fx -DENABLE_HWSERIAL1 -DDIRECT_SEND_USB -DVECT_TAB_OFFSET=0x2000
+MALYANM200.build.extra_flags=-D{build.product_line} -D{build.series} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
 
 # MALYANM200_F103CB board
 # Support: Serial2 (USART2 on PA3, PA2)
