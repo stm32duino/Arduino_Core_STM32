@@ -35,22 +35,6 @@
 //       If you change them, you will have to know what you do
 // =====
 
-void turnOnFan()
-{
-  long *cr = ((long *)(0x40010c04)); //&GPIOB_BASE->CRH;
-  long tmp = *cr;
-
-  tmp &= ~(0xF << ((8 & 0x7) * 4));
-  tmp |= 0x3 << ((8 & 0x7) * 4);
-
-  *cr = tmp;
-
-  // turn on PB3 & PB8
-  *((long *)(0x40010c10)) = (1 << 8) | (1 << 3);
-
-  for (;;) {}
-}
-
 //*** ADC ***
 
 #ifdef HAL_ADC_MODULE_ENABLED
@@ -258,3 +242,16 @@ const PinMap PinMap_CAN_TD[] = {
 //*** QUADSPI ***
 
 //*** No QUADSPI ***
+
+//*** USB ***
+#ifdef HAL_PCD_MODULE_ENABLED
+const PinMap PinMap_USB[] = {
+  {PA_11, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, AFIO_NONE)}, // USB_DM
+  {PA_12, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, AFIO_NONE)}, // USB_DP
+  {NC,    NP,    0}
+};
+#endif
+
+//*** No USB_OTG_FS ***
+
+//*** No USB_OTG_HS ***
