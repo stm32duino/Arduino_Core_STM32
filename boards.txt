@@ -326,6 +326,18 @@ Nucleo_32.menu.pnum.NUCLEO_L031K6.build.product_line=STM32L031xx
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.variant=NUCLEO_L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# NUCLEO_L412KB board
+Nucleo_32.menu.pnum.NUCLEO_L412KB=Nucleo L412KB
+Nucleo_32.menu.pnum.NUCLEO_L412KB.node=NODE_L412KB
+Nucleo_32.menu.pnum.NUCLEO_L412KB.upload.maximum_size=131072
+Nucleo_32.menu.pnum.NUCLEO_L412KB.upload.maximum_data_size=40960
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.board=NUCLEO_L412KB
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.series=STM32L4xx
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.product_line=STM32L412xx
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.variant=NUCLEO_L412KB
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # NUCLEO_L432KC board
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
