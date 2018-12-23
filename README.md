@@ -103,6 +103,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
   * STM32F4
      * [ARMED V1](https://github.com/ktand/Armed)
 
+  * STM32L4
+    * [Nucleo L412KB](http://www.st.com/en/evaluation-tools/nucleo-l412kb.html)
+
 ## Troubleshooting
 
 If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
