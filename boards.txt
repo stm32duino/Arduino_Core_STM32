@@ -708,15 +708,16 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7l_math
 
 # HETEROMYCIN board
-# Support: Serial1 / Serial3 (USART1 on PA10, PA9 / USART3 on PC11, PC10)
+# Support: Serial1 (USART1 on PA10, PA9)
 3dprinter.menu.pnum.HETEROMYCIN=Heteromycin
+3dprinter.menu.pnum.HETEROMYCIN.node=NODE_H743VI
 3dprinter.menu.pnum.HETEROMYCIN.upload.maximum_size=2097152
-3dprinter.menu.pnum.HETEROMYCIN.upload.maximum_data_size=524288
+3dprinter.menu.pnum.HETEROMYCIN.upload.maximum_data_size=524288 # TODO: FIXME
 3dprinter.menu.pnum.HETEROMYCIN.build.mcu=cortex-m7 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 3dprinter.menu.pnum.HETEROMYCIN.build.board=HETEROMYCIN
-3dprinter.menu.pnum.HETEROMYCIN.build.series=STM32F7xx
-3dprinter.menu.pnum.HETEROMYCIN.build.product_line=STM32F765xx
-3dprinter.menu.pnum.HETEROMYCIN.build.variant=HETEROMYCIN
+3dprinter.menu.pnum.HETEROMYCIN.build.series=STM32H7xx
+3dprinter.menu.pnum.HETEROMYCIN.build.product_line=STM32H743xx
+3dprinter.menu.pnum.HETEROMYCIN.build.variant=NUCLEO_H743VI
 3dprinter.menu.pnum.HETEROMYCIN.build.cmsis_lib_gcc=arm_cortexM7l_math
 
 # Virtual COM port

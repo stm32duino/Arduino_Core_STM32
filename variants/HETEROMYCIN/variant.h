@@ -145,7 +145,7 @@ extern const PinName digitalPin[];
 #define TIMER_TONE              TIM6
 
 // Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM3  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM17  //TODO: advanced-control timers don't work
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1 //ex: 1 for Serial1 (USART1)
