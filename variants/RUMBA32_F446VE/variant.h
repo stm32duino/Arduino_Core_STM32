@@ -117,8 +117,8 @@ extern const PinName digitalPin[];
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        87
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       5
-#define NUM_ANALOG_FIRST        32
+#define NUM_ANALOG_INPUTS       7
+#define NUM_ANALOG_FIRST        80
 
 // PWM resolution
 #define PWM_RESOLUTION          8
