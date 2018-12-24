@@ -45,114 +45,113 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-//P1 connector Right side
-#define PC0  0
-#define PC2  1  // A0
-#define PA0  2
-#define PA2  3
-#define PA4  4
-#define PA6  5
-#define PC4  6  // A1
-#define PB0  7  // A2
-#define PB2  8
-#define PE8  9
-#define PE10 10
-#define PE12 11
-#define PE14 12
-#define PB10 13
-#define PB12 14
-#define PB14 15
-#define PD8  16
-#define PD10 17
-#define PD12 18
-#define PD14 19
-//P2 connector Left side
-#define PH0  20
-#define PC14 21
-#define PE6  22
-#define PE4  23
-#define PE2  24
-#define PE0  25
-#define PB8  26
-#define PB6  27
-#define PB4  28
-#define PD7  29
-#define PD5  30
-#define PD3  31
-#define PD1  32
-#define PC12 33
-#define PC10 34
-#define PA10 35
-#define PA8  36
-#define PC8  37
-#define PC6  38
-//P1 Connector Left Side
-#define PC1  39 // A3
-#define PC3  40 // A4
-#define PA1  41 // A5
-#define PA3  42
-#define PA5  43
-#define PA7  44
-#define PC5  45 // A6
-#define PB1  46 // A7
-#define PE7  47
-#define PE9  48
-#define PE11 49
-#define PE13 50
-#define PE15 51
-#define PB11 52
-#define PB13 53
-#define PB15 54
-#define PD9  55
-#define PD11 56
-#define PD13 57
-#define PD15 58
-//P2 connector Right side
-#define PH1  59
-#define PC15 60
-#define PC13 61
-#define PE5  62
-#define PE3  63
-#define PE1  64
-#define PB9  65
-#define PB7  66
-#define PB5  67
-#define PB3  68
-#define PD6  69
-#define PD4  70
-#define PD2  71
-#define PD0  72
-#define PC11 73
-#define PA15 74
-#define PA13 75
-#define PA9  76
-#define PC9  77
-#define PC7  78
+#define PA0    0
+#define PA1    1
+#define PA2    2
+#define PA3    3
+#define PA4    4
+#define PA5    5
+#define PA6    6
+#define PA7    7
+#define PA8    8
+#define PA9    9
+#define PA10   10
+#define PA11   11
+#define PA12   12
+#define PA13   13
+#define PA14   14
+#define PA15   15
+
+#define PB0    16
+#define PB1    17
+#define PB2    18
+#define PB3    19
+#define PB4    20
+#define PB5    21
+#define PB6    22
+#define PB7    23
+#define PB8    24
+#define PB9    25
+#define PB10   26
+#define PB11   27
+#define PB12   28
+#define PB13   29
+#define PB14   30
+#define PB15   31
+
+#define PC0    32
+#define PC1    33
+#define PC2    34
+#define PC3    35
+#define PC4    36
+#define PC5    37
+#define PC6    38
+#define PC7    39
+#define PC8    40
+#define PC9    41
+#define PC10   42
+#define PC11   43
+#define PC12   44
+#define PC13   45
+#define PC14   46
+#define PC15   47
+
+#define PD0    48
+#define PD1    49
+#define PD2    50
+#define PD3    51
+#define PD4    52
+#define PD5    53
+#define PD6    54
+#define PD7    55
+#define PD8    56
+#define PD9    57
+#define PD10   58
+#define PD11   59
+#define PD12   60
+#define PD13   61
+#define PD14   62
+#define PD15   63
+
+#define PE0    64
+#define PE1    65
+#define PE2    66
+#define PE3    67
+#define PE4    68
+#define PE5    69
+#define PE6    70
+#define PE7    71
+#define PE8    72
+#define PE9    73
+#define PE10   74
+#define PE11   75
+#define PE12   76
+#define PE13   77
+#define PE14   78
+#define PE15   79
+
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        87
+#define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       8
-#define NUM_ANALOG_FIRST        79
+#define NUM_ANALOG_INPUTS       10
+#define NUM_ANALOG_FIRST        80
 
 // On-board LED pin number
-#define LED_BUILTIN             PD12
+#define LED_BUILTIN             PB2
 #define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                PD15
-#define LED_RED                 PD14
-#define LED_ORANGE              PD13
 
 // On-board user button
-#define USER_BTN                2
+//#define USER_BTN                -1
 
 // SPI Definitions
-#define PIN_SPI_SS2             14
-#define PIN_SPI_MOSI            PA7
-#define PIN_SPI_MISO            5
-#define PIN_SPI_SCK             PA5
+//#define PIN_SPI_SS2             -1
+#define PIN_SPI_MOSI            PB5
+#define PIN_SPI_MISO            PB4
+#define PIN_SPI_SCK             PB3
 
 // I2C Definitions
-#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SDA            PB9
 #define PIN_WIRE_SCL            PB8
 
 // Timer Definitions
@@ -161,12 +160,12 @@ extern const PinName digitalPin[];
 #define TIMER_SERVO             TIM7
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1 //Connected to ST-Link
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#define PIN_SERIAL_RX           PA10
+#define PIN_SERIAL_TX           PA9
 
 #ifdef __cplusplus
 } // extern "C"
