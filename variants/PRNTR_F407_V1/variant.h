@@ -130,6 +130,49 @@ extern const PinName digitalPin[];
 #define PE14   78
 #define PE15   79
 
+#define EXP1_1  PE0
+#define EXP1_2  PE1
+#define EXP1_3  PE2
+#define EXP1_4  PE3
+#define EXP1_5  PE4
+#define EXP1_6  PE5
+#define EXP1_7  PE6
+//      EXP1_8  5V
+//      EXP1_9  GND
+//      EXP1_10 3.3V
+
+#define EXP2_1  PA3
+#define EXP2_2  PA4
+#define EXP2_3  PA5
+#define EXP2_4  PA6
+#define EXP2_5  PA7
+#define EXP2_6  PA8
+#define EXP2_7  PA15
+//      EXP2_8  5V
+//      EXP2_9  GND
+//      EXP2_10 12-24V
+
+#define EXP3_1  PD5  // UART2_TX
+#define EXP3_2  PC2  // SPI2_MISO
+#define EXP3_3  PD6  // UART2_RX
+#define EXP3_4  PC3  // SPI2_MOSI
+#define EXP3_5  PB9  // I2C_SDA
+#define EXP3_6  PB10 // SPI2_CLK
+#define EXP3_7  PB8  // I2C_SCL
+//      EXP3_8  3.3V
+//      EXP3_9  GND
+//      EXP3_10 5V
+
+#define EXP4_1  PA4
+#define EXP4_2  PB4  // SPI_MISO
+#define EXP4_3  PA5
+#define EXP4_4  PB5  // SPI_MOSI
+#define EXP4_5  PC1  // !EN_MOTORS
+#define EXP4_6  PB3  // SPI_CLK
+//      EXP4_7  12-24V
+//      EXP4_8  3.3V
+//      EXP4_9  GND
+//      EXP4_10 5V
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        80
