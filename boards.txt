@@ -719,6 +719,18 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.REMRAM_V1.build.variant=REMRAM_V1
 3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7l_math
 
+# PRNTR_F407_V1 board
+# Support: Serial1 (USART1 on PA10, PA9)
+3dprinter.menu.pnum.PRNTR_F407_V1=PRNTR F407 v1
+3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_size=524288
+3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_data_size=196608
+3dprinter.menu.pnum.PRNTR_F407_V1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.PRNTR_F407_V1.build.board=PRNTR_F407_V1
+3dprinter.menu.pnum.PRNTR_F407_V1.build.series=STM32F4xx
+3dprinter.menu.pnum.PRNTR_F407_V1.build.product_line=STM32F407xx
+3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_F407_V1
+3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Virtual COM port
 #3dprinter.menu.usb.none=None
 #3dprinter.menu.usb.CDC=CDC
