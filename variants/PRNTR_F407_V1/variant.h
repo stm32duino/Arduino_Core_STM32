@@ -45,22 +45,22 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-#define PA0    0
-#define PA1    1
-#define PA2    2
-#define PA3    3
-#define PA4    4
-#define PA5    5
-#define PA6    6
-#define PA7    7
-#define PA8    8
-#define PA9    9
-#define PA10   10
-#define PA11   11
-#define PA12   12
-#define PA13   13
-#define PA14   14
-#define PA15   15
+#define PE0    0
+#define PE1    1
+#define PE2    2
+#define PE3    3
+#define PE4    4
+#define PE5    5
+#define PE6    6
+#define PE7    7
+#define PE8    8
+#define PE9    9
+#define PE10   10
+#define PE11   11
+#define PE12   12
+#define PE13   13
+#define PE14   14
+#define PE15   15
 
 #define PB0    16
 #define PB1    17
@@ -113,22 +113,22 @@ extern const PinName digitalPin[];
 #define PD14   62
 #define PD15   63
 
-#define PE0    64
-#define PE1    65
-#define PE2    66
-#define PE3    67
-#define PE4    68
-#define PE5    69
-#define PE6    70
-#define PE7    71
-#define PE8    72
-#define PE9    73
-#define PE10   74
-#define PE11   75
-#define PE12   76
-#define PE13   77
-#define PE14   78
-#define PE15   79
+#define PA0    64
+#define PA1    65
+#define PA2    66
+#define PA3    67
+#define PA4    68
+#define PA5    69
+#define PA6    70
+#define PA7    71
+#define PA8    72
+#define PA9    73
+#define PA10   74
+#define PA11   75
+#define PA12   76
+#define PA13   77
+#define PA14   78
+#define PA15   79
 
 #define EXP1_1  PE0
 #define EXP1_2  PE1
