@@ -687,12 +687,13 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 
 3dprinter.build.vid=0x0483
 3dprinter.build.pid=0x5711
+3dprinter.build.hse_flag=
 3dprinter.vid.0=0x0483
 3dprinter.pid.0=0x5711
 
 3dprinter.build.core=arduino
 3dprinter.build.board=3dprinter
-3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.hse_flag}
 
 # ARMED_V1 board
 3dprinter.menu.pnum.ARMED_V1=Armed V1
@@ -730,6 +731,7 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.EEXTR_F030_V1.build.product_line=STM32F030x8
 3dprinter.menu.pnum.EEXTR_F030_V1.build.variant=EEXTR_F030_V1
 3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
+3dprinter.menu.pnum.EEXTR_F030_V1.build.hse_flag=-DHSE_VALUE=16000000
 
 # Virtual COM port
 #3dprinter.menu.usb.none=None
