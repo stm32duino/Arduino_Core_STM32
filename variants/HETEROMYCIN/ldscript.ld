@@ -41,12 +41,12 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-DTCMRAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
-RAM_D1 (xrw)      : ORIGIN = 0x24000000, LENGTH = 512K
-RAM_D2 (xrw)      : ORIGIN = 0x30000000, LENGTH = 288K
-RAM_D3 (xrw)      : ORIGIN = 0x38000000, LENGTH = 64K
-ITCMRAM (xrw)      : ORIGIN = 0x00000000, LENGTH = 64K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 2048K
+FLASH (rx)   : ORIGIN = 0x8000000, LENGTH = 2048K
+ITCMRAM (xrw): ORIGIN = 0x00000000, LENGTH = 64K
+DTCMRAM (xrw): ORIGIN = 0x20000000, LENGTH = 128K
+RAM_D1 (xrw) : ORIGIN = 0x24000000, LENGTH = 512K
+RAM_D2 (xrw) : ORIGIN = 0x30000000, LENGTH = 288K
+RAM_D3 (xrw) : ORIGIN = 0x38000000, LENGTH = 64K
 }
 
 /* Define output sections */
@@ -118,7 +118,7 @@ SECTIONS
   _sidata = LOADADDR(.data);
 
   /* Initialized data sections goes into RAM, load LMA copy after code */
-  .data : 
+  .data :
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
@@ -127,9 +127,9 @@ SECTIONS
 
     . = ALIGN(4);
     _edata = .;        /* define a global symbol at data end */
-  } >DTCMRAM AT> FLASH
+  } >RAM_D1 AT> FLASH
 
-  
+
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
@@ -144,7 +144,7 @@ SECTIONS
     . = ALIGN(4);
     _ebss = .;         /* define a global symbol at bss end */
     __bss_end__ = _ebss;
-  } >DTCMRAM
+  } >RAM_D1
 
   /* User_heap_stack section, used to check that there is enough RAM left */
   ._user_heap_stack :
@@ -157,7 +157,7 @@ SECTIONS
     . = ALIGN(8);
   } >DTCMRAM
 
-  
+
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
