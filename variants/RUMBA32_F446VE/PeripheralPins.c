@@ -349,4 +349,10 @@ const PinMap PinMap_USB_OTG_FS[] = {
 };
 #endif
 
+#ifdef HAL_PCD_MODULE_ENABLED
+const PinMap PinMap_USB_OTG_HS[] = {
+    {NC,    NP,    0}
+};
+#endif
+
 
