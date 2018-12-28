@@ -70,6 +70,7 @@
 #define USBD_DEBUG_LEVEL                      0
 #define USBD_CDC_INTERVAL                     1000
 
+#define	USBD_LL_ConnectionState_WEAK	__weak
 
 /* Exported macro ------------------------------------------------------------*/
 /****************************************/
