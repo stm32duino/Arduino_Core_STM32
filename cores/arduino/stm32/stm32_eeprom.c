@@ -41,7 +41,7 @@
 
 /* Be able to change FLASH_BANK_NUMBER to use if relevant */
 #if !defined(FLASH_BANK_NUMBER) &&\
-	  (defined(STM32F0xx) || defined(STM32F1xx) ||\
+	  (defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32H7xx) ||\
 	   defined(STM32L1xx) || defined(STM32L4xx))
 /* Fo STM32F0xx, FLASH_BANK_1 is not defined only FLASH_BANK1_END is defined */
 #if defined(STM32F0xx)
@@ -58,7 +58,8 @@
 #endif /* !FLASH_BANK_NUMBER */
 
 /* Be able to change FLASH_DATA_SECTOR to use if relevant */
-#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)  ||\
+    defined(STM32H7xx)
 #if !defined(FLASH_DATA_SECTOR)
 #define FLASH_DATA_SECTOR   ((uint32_t)(FLASH_SECTOR_TOTAL - 1))
 #else
@@ -232,10 +233,10 @@ void eeprom_buffer_flush(void) {
     if(HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while(address <= address_end) {
 #if defined(STM32L0xx) || defined(STM32L1xx)
-      memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
-      if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
-        address += 4;
-        offset += 4;
+        memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
+        if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
+          address += 4;
+          offset += 4;
 #else
         data = *((uint64_t*)((uint8_t*)eeprom_buffer + offset));
 
@@ -252,10 +253,17 @@ void eeprom_buffer_flush(void) {
   }
 #else
   uint32_t SectorError = 0;
+#if defined(STM32H7xx)
+  uint64_t data[4] = {0x0000};
+#else
   uint32_t data = 0;
+#endif
 
   /* ERASING page */
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_SECTORS;
+#if defined(STM32H7xx)
+  EraseInitStruct.Banks = FLASH_BANK_NUMBER;
+#endif
   EraseInitStruct.VoltageRange = FLASH_VOLTAGE_RANGE_3;
   EraseInitStruct.Sector = FLASH_DATA_SECTOR;
   EraseInitStruct.NbSectors = 1;
@@ -264,10 +272,18 @@ void eeprom_buffer_flush(void) {
 
   if(HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) == HAL_OK) {
     while(address <= address_end) {
+#if defined(STM32H7xx)
+      /* 256 bits */
+      memcpy(&data, eeprom_buffer + offset, 8 *sizeof(uint32_t));
+      if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_FLASHWORD, address, (uint32_t)data) == HAL_OK) {
+        address += 32;
+        offset += 32;
+#else
       memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
         offset += 4;
+#endif
       } else {
         address = address_end+1;
       }
