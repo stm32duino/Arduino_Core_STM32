@@ -133,7 +133,7 @@ static inline uint32_t get_flash_end(void) {
 #endif
 #endif /* FLASH_BASE_ADDRESS */
 
-static uint8_t eeprom_buffer[E2END] = {0};
+static uint8_t eeprom_buffer[E2END + 1] = {0};
 
 /**
   * @brief  Function reads a byte from emulated eeprom (flash)
@@ -181,7 +181,7 @@ void eeprom_buffered_write_byte(uint32_t pos, uint8_t value) {
   * @retval none
   */
 void eeprom_buffer_fill(void) {
-  memcpy(eeprom_buffer, (uint8_t*)(FLASH_BASE_ADDRESS), E2END);
+  memcpy(eeprom_buffer, (uint8_t*)(FLASH_BASE_ADDRESS), E2END + 1);
 }
 
 /**
@@ -230,7 +230,7 @@ void eeprom_buffer_flush(void) {
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP|FLASH_FLAG_WRPERR|FLASH_FLAG_PGERR);
 #endif
     if(HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
-      while(address < address_end) {
+      while(address <= address_end) {
 #if defined(STM32L0xx) || defined(STM32L1xx)
       memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
@@ -263,7 +263,7 @@ void eeprom_buffer_flush(void) {
   HAL_FLASH_Unlock();
 
   if(HAL_FLASHEx_Erase(&EraseInitStruct, &SectorError) == HAL_OK) {
-    while(address < address_end) {
+    while(address <= address_end) {
       memcpy(&data, eeprom_buffer + offset, sizeof(uint32_t));
       if(HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, address, data) == HAL_OK) {
         address += 4;
