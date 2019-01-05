@@ -1,39 +1,39 @@
 /*
- *******************************************************************************
- * Copyright (c) 2017, STMicroelectronics
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
- *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *******************************************************************************
- */
+*******************************************************************************
+* Copyright (c) 2017, STMicroelectronics
+* All rights reserved.
+*
+* Redistribution and use in source and binary forms, with or without
+* modification, are permitted provided that the following conditions are met:
+*
+* 1. Redistributions of source code must retain the above copyright notice,
+*    this list of conditions and the following disclaimer.
+* 2. Redistributions in binary form must reproduce the above copyright notice,
+*    this list of conditions and the following disclaimer in the documentation
+*    and/or other materials provided with the distribution.
+* 3. Neither the name of STMicroelectronics nor the names of its contributors
+*    may be used to endorse or promote products derived from this software
+*    without specific prior written permission.
+*
+* THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+* AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+* IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+* DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+* FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+* DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+* SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+* CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+* OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+* OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*******************************************************************************
+*/
 
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
 /*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
+*        Headers
+*----------------------------------------------------------------------------*/
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
@@ -41,10 +41,12 @@ extern "C"{
 #endif // __cplusplus
 
 /*----------------------------------------------------------------------------
- *        Pins
- *----------------------------------------------------------------------------*/
+*        Pins
+*----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 // Left Side
+#ifdef ARDUINO_BLACK_F407VE
+
 #define PE2  0
 #define PE3  1
 #define PE4  2  // BUT K0
@@ -142,6 +144,134 @@ extern const PinName digitalPin[];
 // On-board LED pin number
 #define LED_D2                  PA6
 #define LED_D3                  PA7
+#endif
+
+#if defined ARDUINO_BLACK_F407ZE || defined ARDUINO_BLACK_F407ZG
+// Left Side
+#define PB12 0
+#define PB13 1
+#define PB14 2
+#define PB15 3
+#define PD8  4
+#define PD9  5
+#define PD10 6
+#define PD11 7
+#define PD12 8
+#define PD13 9
+#define PD14 10
+#define PD15 11
+#define PG2  12
+#define PG3  13
+#define PG4  14
+#define PG5  15
+#define PG6  16
+#define PG7  17
+#define PG8  18
+#define PC6  19
+#define PC7  20
+#define PC8  21
+#define PC9  22
+#define PA8  23
+#define PA9  24
+#define PA10 25
+#define PA11 26 // USB_DM
+#define PA12 27 // USB_DP
+#define PA13 28
+#define PA14 29
+#define PA15 30
+#define PC10 31
+#define PC11 32
+#define PC12 33
+#define PD0  34
+#define PD1  35
+#define PD2  36
+#define PD3  37
+#define PD4  38
+#define PD5  39
+#define PD6  40
+#define PD7  41
+#define PG9  42
+#define PG10 43
+#define PG11 44
+#define PG12 45
+#define PG13 46
+#define PG14 47
+#define PG15 48
+#define PB3  49
+#define PB4  50
+#define PB5  51
+#define PB6  52
+#define PB7  52
+#define PB8  53
+#define PB9  54
+
+// Right Side
+#define PB10 55
+#define PB11 56
+#define PE14 57
+#define PE15 58
+#define PE12 59
+#define PE13 60
+#define PE10 61
+#define PE11 62
+#define PE8  63
+#define PE9  64
+#define PG1  65
+#define PE7  66
+#define PF15 67
+#define PG0  68
+#define PF13 69
+#define PF14 70
+#define PF11 71
+#define PF12 72
+#define PB1  73
+#define PB2  74
+#define PC5  75
+#define PB0  76
+#define PA7  77
+#define PC4  78
+#define PA5  79
+#define PA6  80
+#define PA3  81
+#define PA4  82
+#define PA1  83
+#define PA2  84
+#define PC3  85
+#define PA0  86 // PA_0(WK_UP): BUT K_UP)
+#define PC1  87
+#define PC2  88
+#define PF10 89 // LED D2 (active low)
+#define PC0  90
+#define PF8  91
+#define PF9  92 // LED D1 (active low)
+#define PF6  93
+#define PF7  94
+#define PF4  95
+#define PF5  96
+#define PF2  97
+#define PF3  98
+#define PF0  99
+#define PF1  100
+#define PE6  101
+#define PC13 102 
+#define PE4  103 // BUT K0
+#define PE5  104 // BUT K1
+#define PE2  105
+#define PE3  106
+#define PE0  107
+#define PE1  108
+
+// This must be a literal
+#define NUM_DIGITAL_PINS        128
+// This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
+#define NUM_ANALOG_INPUTS       19
+#define NUM_ANALOG_FIRST        109
+
+// On-board LED pin number
+#define LED_D2                  PF10
+#define LED_D3                  PF9
+#endif
+
 #define LED_BUILTIN             LED_D2
 #define LED_GREEN               LED_D2
 
@@ -190,8 +320,8 @@ extern const PinName digitalPin[];
 } // extern "C"
 #endif
 /*----------------------------------------------------------------------------
- *        Arduino objects - C++ only
- *----------------------------------------------------------------------------*/
+*        Arduino objects - C++ only
+*----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
 // These serial port names are intended to allow libraries and architecture-neutral
