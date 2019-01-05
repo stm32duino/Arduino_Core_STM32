@@ -73,7 +73,7 @@
 #define HAL_TIM_MODULE_ENABLED
 /*#define HAL_TSC_MODULE_ENABLED */
 /*#define HAL_UART_MODULE_ENABLED */
-#define HAL_USART_MODULE_ENABLED
+/*#define HAL_USART_MODULE_ENABLED */
 /*#define HAL_WWDG_MODULE_ENABLED */
 
 /* ######################### Oscillator Values adaptation ################### */
