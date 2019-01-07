@@ -136,8 +136,8 @@ __ALIGN_BEGIN uint8_t USBD_CDC_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
   USB_DESC_TYPE_DEVICE,       /* bDescriptorType */
   0x00,                       /* bcdUSB */
   0x02,
-  0x00,                       /* bDeviceClass */
-  0x00,                       /* bDeviceSubClass */
+  0x02,                       /* bDeviceClass */
+  0x02,                       /* bDeviceSubClass */
   0x00,                       /* bDeviceProtocol */
   USB_MAX_EP0_SIZE,           /* bMaxPacketSize */
   LOBYTE(USBD_VID),           /* idVendor */
