@@ -108,10 +108,10 @@ const PinName digitalPin[] = {
   PC_4,
   PC_5
   };
-  #endif
-  
-  #if defined ARDUINO_BLACK_F407ZE || defined ARDUINO_BLACK_F407ZG
-  const PinName digitalPin[] = {
+#endif // ARDUINO_BLACK_F407VE
+
+#ifdef ARDUINO_BLACK_F407ZE_G
+const PinName digitalPin[] = {
   // Left Side
   //Ext   //Int
   //GND   //5V
@@ -178,7 +178,7 @@ const PinName digitalPin[] = {
   PE_4,   PE_5,   // PE_4: BUT K0, PE_5: BUT K1
   PE_2,   PE_3,
   PE_0,   PE_1,
-  
+
   // Analog pins
   PA_0,
   PA_1,
@@ -200,7 +200,7 @@ const PinName digitalPin[] = {
   PF_7,
   PF_8
 };
-  #endif
+#endif // ARDUINO_BLACK_F407ZE_G
 
 #ifdef __cplusplus
 }
