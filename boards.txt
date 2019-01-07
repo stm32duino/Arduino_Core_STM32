@@ -603,6 +603,19 @@ GenF4.menu.pnum.BLUE_F407VE_Mini.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant=BLUE_F407VE_Mini
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# DIYMROE STM32F407VGT board
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5)
+GenF4.menu.pnum.DIYMROE_F407VGT=DIYMROE STM32F407VGT
+GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_size=1048576
+GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_data_size=131072
+GenF4.menu.pnum.DIYMROE_F407VGT.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF4.menu.pnum.DIYMROE_F407VGT.build.board=DIYMROE_F407VGT
+GenF4.menu.pnum.DIYMROE_F407VGT.build.series=STM32F4xx
+GenF4.menu.pnum.DIYMROE_F407VGT.build.product_line=STM32F407xx
+GenF4.menu.pnum.DIYMROE_F407VGT.build.variant=DIYMROE_F407VGT
+GenF4.menu.pnum.DIYMROE_F407VGT.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 GenF4.menu.upload_method.STLink=STLink
 GenF4.menu.upload_method.STLink.upload.protocol=STLink
