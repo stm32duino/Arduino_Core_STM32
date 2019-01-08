@@ -1,6 +1,9 @@
 #ifdef STM32F3xx
 #include "stm32f3xx_hal_opamp_ex.c"
 #endif
+#ifdef STM32H7xx
+#include "stm32h7xx_hal_opamp_ex.c"
+#endif
 #ifdef STM32L1xx
 #include "stm32l1xx_hal_opamp_ex.c"
 #endif

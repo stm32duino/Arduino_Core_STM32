@@ -3,7 +3,7 @@
  * from ../../system/Drivers/STM32YYxx_HAL_Driver/Inc/stm32yyxx_hal_conf_template.h
  * to
  * stm32yyxx_hal_conf.h
- * where 'yy' could be f0, f1, f2, f3, f4, f7, l0, l1, l4)
+ * where 'yy' could be f0, f1, f2, f3, f4, f7, h7, l0, l1, l4)
  *
  * Example for a STM32 F4 based board:
  * cp ../../system/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_conf_template.h stm32f4xx_hal_conf.h

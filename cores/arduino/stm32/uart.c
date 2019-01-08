@@ -61,7 +61,7 @@
 /* @brief uart caracteristics */
 #if defined(STM32F4xx)
 #define UART_NUM (10)
-#elif defined(STM32F0xx) || defined(STM32F7xx)
+#elif defined(STM32F0xx) || defined(STM32F7xx) || defined(STM32H7xx)
 #define UART_NUM (8)
 #elif defined(STM32F2xx) || defined(STM32L4xx)
 #define UART_NUM (6)
@@ -318,11 +318,15 @@ void uart_init(serial_t *obj)
         return;
       }
     }
+#ifndef STM32H7xx
     __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
     if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
     __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
+#else
+    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
+#endif
   }
 #endif
 
