@@ -29,6 +29,9 @@ extern "C" {
 
 extern const uint32_t pin_map_ll[16];
 
+#ifndef GPIO_AF_NONE
+#define GPIO_AF_NONE 0
+#endif
 #define STM_LL_GPIO_PIN(X) (pin_map_ll[STM_PIN(X)])
 
 // No peripheral

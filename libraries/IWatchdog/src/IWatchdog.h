@@ -3,6 +3,10 @@
 
 #include "Arduino.h"
 
+#if !defined(IWDG) && defined(IWDG1)
+#define IWDG IWDG1
+#endif
+
 // Minimal timeout in microseconds
 #define IWDG_TIMEOUT_MIN    ((4*1000000)/LSI_VALUE)
 // Maximal timeout in microseconds

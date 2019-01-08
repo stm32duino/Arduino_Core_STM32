@@ -7,6 +7,9 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_hal_cryp.c"
 #endif
+#ifdef STM32H7xx
+#include "stm32h7xx_hal_cryp.c"
+#endif
 #ifdef STM32L0xx
 #include "stm32l0xx_hal_cryp.c"
 #endif
