@@ -19,6 +19,9 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_ll_rtc.h"
 #endif
+#ifdef STM32H7xx
+#include "stm32h7xx_ll_rtc.h"
+#endif
 #ifdef STM32L0xx
 #include "stm32l0xx_ll_rtc.h"
 #endif
