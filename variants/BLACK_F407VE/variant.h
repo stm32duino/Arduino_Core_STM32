@@ -201,71 +201,71 @@ extern const PinName digitalPin[];
 #define PB4  50
 #define PB5  51
 #define PB6  52
-#define PB7  52
-#define PB8  53
-#define PB9  54
+#define PB7  53
+#define PB8  54
+#define PB9  55
 
 // Right Side
-#define PB10 55
-#define PB11 56
-#define PE14 57
-#define PE15 58
-#define PE12 59
-#define PE13 60
-#define PE10 61
-#define PE11 62
-#define PE8  63
-#define PE9  64
-#define PG1  65
-#define PE7  66
-#define PF15 67
-#define PG0  68
-#define PF13 69
-#define PF14 70
-#define PF11 71
-#define PF12 72
-#define PB1  73
-#define PB2  74
-#define PC5  75
-#define PB0  76
-#define PA7  77
-#define PC4  78
-#define PA5  79
-#define PA6  80
-#define PA3  81
-#define PA4  82
-#define PA1  83
-#define PA2  84
-#define PC3  85
-#define PA0  86 // PA_0(WK_UP): BUT K_UP)
-#define PC1  87
-#define PC2  88
-#define PF10 89 // LED D2 (active low)
-#define PC0  90
-#define PF8  91
-#define PF9  92 // LED D1 (active low)
-#define PF6  93
-#define PF7  94
-#define PF4  95
-#define PF5  96
-#define PF2  97
-#define PF3  98
-#define PF0  99
-#define PF1  100
-#define PE6  101
-#define PC13 102
-#define PE4  103 // BUT K0
-#define PE5  104 // BUT K1
-#define PE2  105
-#define PE3  106
-#define PE0  107
-#define PE1  108
+#define PB10 56
+#define PB11 57
+#define PE14 58
+#define PE15 59
+#define PE12 60
+#define PE13 61
+#define PE10 62
+#define PE11 63
+#define PE8  64
+#define PE9  65
+#define PG1  66
+#define PE7  67
+#define PF15 68
+#define PG0  69
+#define PF13 70
+#define PF14 71
+#define PF11 72
+#define PF12 73
+#define PB1  74
+#define PB2  75
+#define PC5  76
+#define PB0  77
+#define PA7  78
+#define PC4  79
+#define PA5  80
+#define PA6  81
+#define PA3  82
+#define PA4  83
+#define PA1  84
+#define PA2  85
+#define PC3  86
+#define PA0  87 // PA_0(WK_UP): BUT K_UP)
+#define PC1  88
+#define PC2  89
+#define PF10 90 // LED D2 (active low)
+#define PC0  91
+#define PF8  92
+#define PF9  93 // LED D1 (active low)
+#define PF6  94
+#define PF7  95
+#define PF4  96
+#define PF5  97
+#define PF2  98
+#define PF3  99
+#define PF0  100
+#define PF1  101
+#define PE6  102
+#define PC13 103
+#define PE4  104 // BUT K0
+#define PE5  105 // BUT K1
+#define PE2  106
+#define PE3  107
+#define PE0  108
+#define PE1  109
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        128
+#define NUM_DIGITAL_PINS        129
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       19
-#define NUM_ANALOG_FIRST        109
+#define NUM_ANALOG_FIRST        110
 
 // On-board LED pin number
 #define LED_D2                  PF10
