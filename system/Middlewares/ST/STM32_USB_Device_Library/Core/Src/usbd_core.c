@@ -393,12 +393,14 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
         }
         else
         {
-          if ((pdev->pClass->EP0_TxSent != NULL) &&
-              (pdev->dev_state == USBD_STATE_CONFIGURED))
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
           {
-            pdev->pClass->EP0_TxSent(pdev);
+            if (pdev->pClass->EP0_TxSent != NULL)
+            {
+              pdev->pClass->EP0_TxSent(pdev);
+            }
+            USBD_LL_StallEP(pdev, 0x80U);
           }
-          USBD_LL_StallEP(pdev, 0x80U);
           USBD_CtlReceiveStatus(pdev);
         }
       }
