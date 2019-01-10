@@ -144,6 +144,10 @@ extern const PinName digitalPin[];
 // On-board LED pin number
 #define LED_D2                  PA6
 #define LED_D3                  PA7
+
+// Board specific button
+#define BTN_K_UP                PA0
+
 #endif // ARDUINO_BLACK_F407VE
 
 #ifdef ARDUINO_BLACK_F407ZE_G
@@ -269,14 +273,17 @@ extern const PinName digitalPin[];
 
 // On-board LED pin number
 #define LED_D2                  PF10
-#define LED_D3                  PF9
+#define LED_D1                  PF9
+
+// Board specific button
+#define BTN_WK_UP                PA0
+
 #endif // ARDUINO_BLACK_F407ZE_G
 
 #define LED_BUILTIN             LED_D2
 #define LED_GREEN               LED_D2
 
 // On-board user button
-#define BTN_K_UP                PA0
 #define BTN_K0                  PE4
 #define BTN_K1                  PE3
 #define USER_BTN                BTN_K0
