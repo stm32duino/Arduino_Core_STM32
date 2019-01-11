@@ -1,10 +1,8 @@
 /**
   ******************************************************************************
-  * @file    usb_interface.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    27-October-2016
-  * @brief   Header for usb interface
+  * @file    usbd_interface.c
+  * @brief   Provide the USB device interface
+  *
   ******************************************************************************
   * @attention
   *
@@ -34,45 +32,89 @@
   *
   ******************************************************************************
   */
-
-/* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USB_INTERFACE_H
-#define __USB_INTERFACE_H
 #ifdef USBCON
-
-/* Includes ------------------------------------------------------------------*/
-#if __has_include("usbd_desc.h")
 #include "usbd_desc.h"
-#else
+#include "usbd_interface.h"
 #ifdef USBD_USE_HID_COMPOSITE
-#error "This board does not support (yet?) USB HID! Select 'None' in the 'Tools->USB interface' menu"
-#elif defined(USBD_USE_CDC)
-#error "This board does not support (yet?) USB CDC! Select 'None' in the 'Tools->USB interface' menu"
-#else
-#error "This board does not support (yet?) USB! Select 'None' in the 'Tools->USB interface' menu"
-#endif
-#endif
 #include "usbd_hid_composite.h"
+#endif
+#ifdef USBD_USE_CDC
+#include "usbd_cdc_if.h"
+#endif
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
-/* Exported variables --------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
-void usbd_interface_init(void);
+/* USB Device Core handle declaration */
+#ifdef USBD_USE_HID_COMPOSITE
+USBD_HandleTypeDef hUSBD_Device_HID;
+#endif /* USBD_USE_HID_COMPOSITE*/
+#ifdef USBD_USE_CDC
+USBD_HandleTypeDef hUSBD_Device_CDC;
+#endif /* USBD_USE_CDC */
 
-void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len);
-void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len);
+/**
+  * @brief  initialize USB devices
+  * @param  none
+  * @retval none
+  */
+__attribute__((weak))
+void usbd_interface_init(void)
+{
+#ifdef USBD_USE_HID_COMPOSITE
+  /* Init Device Library */
+  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
+
+  /* Add Supported Class */
+  USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
+
+  /* Start Device Process */
+  USBD_Start(&hUSBD_Device_HID);
+#endif /* USBD_USE_HID_COMPOSITE */
+#ifdef USBD_USE_CDC
+  /* Init Device Library */
+  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
+
+    /* Add Supported Class */
+    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+
+      /* Add CDC Interface Class */
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device_CDC);
+      }
+    }
+  }
+#endif /* USBD_USE_CDC */
+}
+
+#ifdef USBD_USE_HID_COMPOSITE
+/**
+  * @brief  Send HID mouse Report
+  * @param  report pointer to report
+  * @param  len report lenght
+  * @retval none
+  */
+void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len)
+{
+  USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
+}
+
+/**
+  * @brief  Send HID keyboard Report
+  * @param  report pointer to report
+  * @param  len report lenght
+  * @retval none
+  */
+void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len)
+{
+  USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
+}
+#endif /* USBD_USE_HID_COMPOSITE */
 
 #ifdef __cplusplus
 }
 #endif
-#endif // USBCON
-
-#endif /* __USB_INTERFACE_H */
-
+#endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

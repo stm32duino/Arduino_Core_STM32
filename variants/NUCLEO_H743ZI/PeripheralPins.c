@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2018, STMicroelectronics
+ * Copyright (c) 2019, STMicroelectronics
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -36,7 +36,6 @@
  *       If you change them, you will have to know what you do
  * =====
  */
-
 
 //*** ADC ***
 
@@ -519,7 +518,7 @@ const PinMap PinMap_QUADSPI[] = {
 #ifdef HAL_PCD_MODULE_ENABLED
 const PinMap PinMap_USB_OTG_FS[] = {
   {PA_8,  USB_OTG_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG1_FS)}, // USB_OTG_FS_SOF
-  {PA_9,  USB_OTG_FS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0)}, // USB_OTG_FS_VBUS
+  {PA_9,  USB_OTG_FS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_OTG_FS_VBUS
   {PA_10, USB_OTG_FS, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_PULLUP, GPIO_AF10_OTG1_FS)}, // USB_OTG_FS_ID
   {PA_11, USB_OTG_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG1_FS)}, // USB_OTG_FS_DM
   {PA_12, USB_OTG_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG1_FS)}, // USB_OTG_FS_DP
@@ -545,7 +544,7 @@ const PinMap PinMap_USB_OTG_HS[] = {
   {PB_12, USB_OTG_HS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG2_HS)}, // USB_OTG_HS_ULPI_D5
   {PB_13, USB_OTG_HS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF10_OTG2_HS)}, // USB_OTG_HS_ULPI_D6
 #ifdef USE_USB_HS_IN_FS
-  {PB_13, USB_OTG_HS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0)}, // USB_OTG_HS_VBUS
+  {PB_13, USB_OTG_HS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_OTG_HS_VBUS
   {PB_14, USB_OTG_HS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF12_OTG2_FS)}, // USB_OTG_HS_DM
   {PB_15, USB_OTG_HS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF12_OTG2_FS)}, // USB_OTG_HS_DP
 #endif /* USE_USB_HS_IN_FS */

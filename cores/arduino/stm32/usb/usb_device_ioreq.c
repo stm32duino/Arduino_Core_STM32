@@ -2,4 +2,4 @@
 
 #include "usbd_ioreq.c"
 
-#endif //USBCON
+#endif /* USBCON */
