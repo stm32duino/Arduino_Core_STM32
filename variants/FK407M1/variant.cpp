@@ -82,7 +82,9 @@ const PinName digitalPin[] = {
   PD_6,   PD_7,
   PC_7,   PC_8,
   PD_15,  PC_6,
+
   PC_13, // LED pin - not broken out on the board
+
   // Analog pins
   PA_0,
   PA_1,
