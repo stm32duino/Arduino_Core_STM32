@@ -102,6 +102,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
   * STM32F4
      * [ARMED V1](https://github.com/ktand/Armed)
+     * DIYMROE STM32F407VGT
 
   * STM32H7
     * [Nucleo H743ZI](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html)
