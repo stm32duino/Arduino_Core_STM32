@@ -396,6 +396,18 @@ Disco.menu.pnum.DISCO_F030R8.build.product_line=STM32F030x8
 Disco.menu.pnum.DISCO_F030R8.build.variant=DISCO_F030R8
 Disco.menu.pnum.DISCO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# DISCO_F072RB board
+Disco.menu.pnum.DISCO_F072RB=STM32F072B-DISCOVERY
+Disco.menu.pnum.DISCO_F072RB.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.DISCO_F072RB.upload.maximum_size=131072
+Disco.menu.pnum.DISCO_F072RB.upload.maximum_data_size=16384
+Disco.menu.pnum.DISCO_F072RB.build.mcu=cortex-m0
+Disco.menu.pnum.DISCO_F072RB.build.board=DISCO_F072RB
+Disco.menu.pnum.DISCO_F072RB.build.series=STM32F0xx
+Disco.menu.pnum.DISCO_F072RB.build.product_line=STM32F072xB
+Disco.menu.pnum.DISCO_F072RB.build.variant=DISCO_F072RB
+Disco.menu.pnum.DISCO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 #DISCO_F100RB board
 # Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
 Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
