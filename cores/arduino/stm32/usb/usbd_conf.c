@@ -78,8 +78,12 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 
     if(hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI for USB wakeup */
+#ifdef __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG
       __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
+#endif
+#ifdef __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE();
+#endif
       __HAL_USB_WAKEUP_EXTI_ENABLE_IT();
 #if defined(STM32F1xx) || defined(STM32F3xx)
       /* USB Wakeup Interrupt */
