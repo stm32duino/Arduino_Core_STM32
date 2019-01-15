@@ -34,7 +34,7 @@
 extern "C" {
 #endif
 
-#ifdef ARDUINO_BLACK_F407VE
+#if defined(ARDUINO_BLACK_F407VE) || defined(ARDUINO_BLACK_F407VG)
 // Pin number
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
@@ -94,7 +94,7 @@ const PinName digitalPin[] = {
   PB_13,  PB_14,
   PB_4,
   };
-#endif // ARDUINO_BLACK_F407VE
+#endif // ARDUINO_BLACK_F407VE || ARDUINO_BLACK_F407VG
 
 #if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
 const PinName digitalPin[] = {
