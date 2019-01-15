@@ -110,7 +110,7 @@ const PinName digitalPin[] = {
   };
 #endif // ARDUINO_BLACK_F407VE
 
-#ifdef ARDUINO_BLACK_F407ZE_G
+#if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
 const PinName digitalPin[] = {
   // Left Side
   //Ext   //Int
@@ -200,7 +200,7 @@ const PinName digitalPin[] = {
   PF_7,
   PF_8
 };
-#endif // ARDUINO_BLACK_F407ZE_G
+#endif // ARDUINO_BLACK_F407ZE || ARDUINO_BLACK_F407ZG
 
 #ifdef __cplusplus
 }
