@@ -20,9 +20,7 @@ extern "C"{
 #include "timer.h"
 #include "twi.h"
 #include "uart.h"
-#ifdef USBCON
-#include "usb_interface.h"
-#endif //USBCON
+#include "usbd_interface.h"
 
 void init( void ) ;
 #ifdef __cplusplus

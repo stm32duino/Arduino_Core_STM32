@@ -7,6 +7,9 @@
 #ifdef STM32F3xx
 #include "stm32f3xx_ll_comp.h"
 #endif
+#ifdef STM32H7xx
+#include "stm32h7xx_ll_comp.h"
+#endif
 #ifdef STM32L0xx
 #include "stm32l0xx_ll_comp.h"
 #endif

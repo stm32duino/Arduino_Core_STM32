@@ -92,6 +92,9 @@ struct timer_s{
 #elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
 #define TIM1_IRQn TIM1_UP_TIM10_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
+#elif defined(STM32H7xx)
+#define TIM1_IRQn TIM1_UP_IRQn
+#define TIM1_IRQHandler TIM1_UP_IRQHandler
 #endif
 #endif
 #if defined(TIM6_BASE) && !defined(TIM6_IRQn)
@@ -101,7 +104,8 @@ struct timer_s{
 #endif
 #endif
 #if defined(TIM8_BASE) && !defined(TIM8_IRQn)
-#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
+#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)\
+ || defined(STM32H7xx)
 #define TIM8_IRQn TIM8_UP_TIM13_IRQn
 #define TIM8_IRQHandler TIM8_UP_TIM13_IRQHandler
 #elif  defined(STM32F3xx) || defined(STM32L4xx)
@@ -128,18 +132,21 @@ struct timer_s{
 #endif
 #endif
 #if defined(TIM12_BASE) && !defined(TIM12_IRQn)
-#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
+#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)\
+ || defined(STM32H7xx)
 #define TIM12_IRQn TIM8_BRK_TIM12_IRQn
 #define TIM12_IRQHandler TIM8_BRK_TIM12_IRQHandler
 #endif
 #endif
 #if defined(TIM13_BASE) && !defined(TIM13_IRQn)
-#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
+#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)\
+ || defined(STM32H7xx)
 #define TIM13_IRQn TIM8_UP_TIM13_IRQn
 #endif
 #endif
 #if defined(TIM14_BASE) && !defined(TIM14_IRQn)
-#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
+#if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)\
+ || defined(STM32H7xx)
 #define TIM14_IRQn TIM8_TRG_COM_TIM14_IRQn
 #define TIM14_IRQHandler TIM8_TRG_COM_TIM14_IRQHandler
 #endif

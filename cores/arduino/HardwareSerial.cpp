@@ -166,7 +166,7 @@ HardwareSerial::HardwareSerial(void* peripheral)
 // If Serial is defined in variant set
 // the Rx/Tx pins for com port if defined
 #if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
-  if (this == &Serial) {
+  if ((void*)this == (void*)&Serial) {
     setRx(PIN_SERIAL_RX);
     setTx(PIN_SERIAL_TX);
   } else

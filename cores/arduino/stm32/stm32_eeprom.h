@@ -55,7 +55,7 @@
  */
 #define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) /* 16kB page */
 #endif
-#define E2END FLASH_PAGE_SIZE
+#define E2END (FLASH_PAGE_SIZE - 1)
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */

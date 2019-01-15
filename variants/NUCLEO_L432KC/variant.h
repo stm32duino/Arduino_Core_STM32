@@ -40,8 +40,8 @@ extern const PinName digitalPin[];
 #define PB7  4
 #define PB6  5
 #define PB1  6
-#define PC15 7  // By default, SB8 open PF1/PC15 not connected to D7
-#define PC14 8  // By default, SB6 open PF0/PC14 not connected to D8
+#define PC14 7  // By default, SB6 open PF0/PC14 not connected to D7
+#define PC15 8  // By default, SB8 open PF1/PC15 not connected to D8
 #define PA8  9
 #define PA11 10
 #define PB5  11

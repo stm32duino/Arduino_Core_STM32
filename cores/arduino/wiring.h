@@ -26,9 +26,9 @@
 #include <string.h>
 #include <math.h>
 
+#include "avr/dtostrf.h"
 #include "binary.h"
 #include "itoa.h"
-#include "utils.h"
 
 #include "wiring_analog.h"
 #include "wiring_constants.h"
@@ -43,6 +43,7 @@
 #ifdef __cplusplus
 #include "HardwareSerial.h"
 #include "Tone.h"
+#include "USBSerial.h"
 #include "WCharacter.h"
 #include "WMath.h"
 #include "WString.h"

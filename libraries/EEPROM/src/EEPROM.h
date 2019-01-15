@@ -122,7 +122,7 @@ struct EEPROMClass{
     //STL and C++11 iteration capability.
     EEPtr begin()                        { return 0x00; }
     EEPtr end()                          { return length(); } //Standards requires this to be the item after the last valid entry. The returned pointer is invalid.
-    uint16_t length()                    { return E2END; }
+    uint16_t length()                    { return E2END + 1; }
 
     //Functionality to 'get' and 'put' objects to and from EEPROM.
     template< typename T > T &get( int idx, T &t ){
