@@ -44,7 +44,7 @@ extern "C"{
  *        Pins
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
-#ifdef ARDUINO_BLACK_F407VE
+#if defined(ARDUINO_BLACK_F407VE) || defined(ARDUINO_BLACK_F407VG)
 // Right Side
 #define PE1  0
 #define PE0  1
@@ -147,7 +147,7 @@ extern const PinName digitalPin[];
 // Board specific button
 #define BTN_K_UP                PA0
 
-#endif // ARDUINO_BLACK_F407VE
+#endif // ARDUINO_BLACK_F407VE || ARDUINO_BLACK_F407VG
 
 #if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
 // Left Side

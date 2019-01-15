@@ -578,6 +578,16 @@ GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
 
+# Black F407VG
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
+GenF4.menu.pnum.BLACK_F407VG=Black F407VG
+GenF4.menu.pnum.BLACK_F407VG.upload.maximum_size=1048576
+GenF4.menu.pnum.BLACK_F407VG.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLACK_F407VG.build.board=BLACK_F407VG
+GenF4.menu.pnum.BLACK_F407VG.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLACK_F407VG.build.variant=BLACK_F407VE
+
 # Black F407ZE
 # Support: Serial1 (USART1 on PA10, PA9)
 # Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
