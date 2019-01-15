@@ -718,11 +718,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.RUMBA32.build.variant=RUMBA32_F446VE
 3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4l_math
 
-# Virtual COM port
-#3dprinter.menu.usb.none=None
-#3dprinter.menu.usb.CDC=CDC
-#3dprinter.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
-
 # Upload menu
 3dprinter.menu.upload_method.STLinkMethod=STLink
 3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
