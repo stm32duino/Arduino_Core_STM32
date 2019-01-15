@@ -44,91 +44,90 @@ extern "C"{
  *        Pins
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
-// Left Side
 #ifdef ARDUINO_BLACK_F407VE
-
-#define PE2  0
-#define PE3  1
-#define PE4  2  // BUT K0
-#define PE5  3  // BUT K1
-#define PE6  4
-#define PC13 5
-#define PC0  6  // A8
-#define PC1  7  // A9
-#define PC2  8  // A10
-#define PC3  9  // A11
-#define PA0  10 // A0/WK_UP: BUT K_UP
-#define PA1  11 // A1
-#define PA2  12 // A2
-#define PA3  13 // A3
-#define PA4  14 // A4
-#define PA5  15 // A5
-#define PA6  16 // LED D2
-#define PA7  17 // LED D3 (active LOW)
-#define PC4  18 // A12
-#define PC5  19 // A13
-#define PB0  20 // A6
-#define PB1  21 // A7
-#define PE7  22
-#define PE8  23
-#define PE9  24
-#define PE10 25
-#define PE11 26
-#define PE12 27
-#define PE13 28
-#define PE14 29
-#define PE15 30
-#define PB10 31
-#define PB11 32
-#define PB12 33
-#define PB13 34
-#define PB14 35
 // Right Side
-#define PE1  36
-#define PE0  37
-#define PB9  38
-#define PB8  39
-#define PB7  40
-#define PB6  41
-#define PB5  42
-#define PB3  43
-#define PD7  44
-#define PD6  45
-#define PD5  46
-#define PD4  47
-#define PD3  48
-#define PD2  49
-#define PD1  50
-#define PD0  51
-#define PC12 52
-#define PC11 53
-#define PC10 54
-#define PA15 55
-#define PA12 56 // USB_DP
-#define PA11 57 // USB_DM
-#define PA10 58
-#define PA9  59
-#define PA8  60
-#define PC9  61
-#define PC8  62
-#define PC7  63
-#define PC6  64
-#define PD15 65
-#define PD14 66
-#define PD13 67
-#define PD12 68
-#define PD11 69
-#define PD10 70
-#define PD9  71
-#define PD8  72
-#define PB15 73
+#define PE1  0
+#define PE0  1
+#define PB9  2
+#define PB8  3
+#define PB7  4
+#define PB6  5
+#define PB5  6
+#define PB3  7
+#define PD7  8
+#define PD6  9
+#define PD5  10
+#define PD4  11
+#define PD3  12
+#define PD2  13
+#define PD1  14
+#define PD0  15
+#define PC12 16
+#define PC11 17
+#define PC10 18
+#define PA15 19
+#define PA12 20 // USB_DP
+#define PA11 21 // USB_DM
+#define PA10 22
+#define PA9  23
+#define PA8  24
+#define PC9  25
+#define PC8  26
+#define PC7  27
+#define PC6  28
+#define PD15 29
+#define PD14 30
+#define PD13 31
+#define PD12 32
+#define PD11 33
+#define PD10 34
+#define PD9  35
+#define PD8  36
+#define PB15 37
+// Left Side
+#define PE2  38
+#define PE3  39
+#define PE4  40 // BUT K0
+#define PE5  41 // BUT K1
+#define PE6  42
+#define PC13 43
+#define PC0  44 // A0
+#define PC1  45 // A1
+#define PC2  46 // A2
+#define PC3  47 // A3
+#define PA0  48 // A4/WK_UP: BUT K_UP
+#define PA1  49 // A5
+#define PA2  50 // A6
+#define PA3  51 // A7
+#define PA4  52 // A8
+#define PA5  53 // A9
+#define PC4  54 // A10
+#define PC5  55 // A11
+#define PB0  56 // A12
+#define PB1  57 // A13
+#define PA6  58 // LED D2
+#define PA7  59 // LED D3 (active LOW)
+#define PE7  60
+#define PE8  61
+#define PE9  62
+#define PE10 63
+#define PE11 64
+#define PE12 65
+#define PE13 66
+#define PE14 67
+#define PE15 68
+#define PB10 69
+#define PB11 70
+#define PB12 71
+#define PB13 72
+#define PB14 73
 #define PB4  74
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        89
+#define NUM_DIGITAL_PINS        75
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        75
+#define NUM_ANALOG_FIRST        44
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
@@ -228,28 +227,28 @@ extern const PinName digitalPin[];
 #define PF14 71
 #define PF11 72
 #define PF12 73
-#define PB1  74
-#define PB2  75
-#define PC5  76
-#define PB0  77
-#define PA7  78
-#define PC4  79
-#define PA5  80
-#define PA6  81
-#define PA3  82
-#define PA4  83
-#define PA1  84
-#define PA2  85
-#define PC3  86
-#define PA0  87 // PA_0(WK_UP): BUT K_UP)
-#define PC1  88
-#define PC2  89
-#define PF10 90 // LED D2 (active low)
-#define PC0  91
-#define PF8  92
-#define PF9  93 // LED D1 (active low)
-#define PF6  94
-#define PF7  95
+#define PB2  74
+#define PB1  75 // A0
+#define PC5  76 // A1
+#define PB0  77 // A2
+#define PA7  78 // A3
+#define PC4  79 // A4
+#define PA5  80 // A5
+#define PA6  81 // A6
+#define PA3  82 // A7
+#define PA4  83 // A8
+#define PA1  84 // A9
+#define PA2  85 // A10
+#define PC3  86 // A11
+#define PA0  87 // A12/PA_0(WK_UP): BUT K_UP)
+#define PC1  88 // A13
+#define PC2  89 // A14
+#define PC0  90 // A15
+#define PF8  91 // A16
+#define PF6  92 // A17
+#define PF7  93 // A18
+#define PF9  94 // LED D1 (active low)
+#define PF10 95 // LED D2 (active low)
 #define PF4  96
 #define PF5  97
 #define PF2  98
@@ -266,10 +265,10 @@ extern const PinName digitalPin[];
 #define PE1  109
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        129
+#define NUM_DIGITAL_PINS        110
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       19
-#define NUM_ANALOG_FIRST        110
+#define NUM_ANALOG_FIRST        75
 
 // On-board LED pin number
 #define LED_D2                  PF10
