@@ -578,21 +578,25 @@ GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
 
-# Black F407Z(E-G)
+# Black F407ZE
 # Support: Serial1 (USART1 on PA10, PA9)
 # Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
-GenF4.menu.pnum.BLACK_F407ZE=Black F407Z(E-G)
+GenF4.menu.pnum.BLACK_F407ZE=Black F407ZE
+GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
-GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE_G
+GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE
 GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407VE
 
-GenF4.menu.flash.ZE=ZE 512k (default)
-GenF4.menu.flash.ZE.upload.maximum_size=524288
-GenF4.menu.flash.ZE.build.ldscript=ldscript.ld
-GenF4.menu.flash.ZG=ZG 1024k
-GenF4.menu.flash.ZG.upload.maximum_size=1048576
-GenF4.menu.flash.ZG.build.ldscript=ldscript_zg.ld
+# Black F407ZG
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
+GenF4.menu.pnum.BLACK_F407ZG=Black F407ZG
+GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_size=1048576
+GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLACK_F407ZG.build.board=BLACK_F407ZG
+GenF4.menu.pnum.BLACK_F407ZG.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLACK_F407ZG.build.variant=BLACK_F407VE
 
 # Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
 # Support: Serial1 (USART1 on PA10, PA9)

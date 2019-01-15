@@ -150,7 +150,7 @@ extern const PinName digitalPin[];
 
 #endif // ARDUINO_BLACK_F407VE
 
-#ifdef ARDUINO_BLACK_F407ZE_G
+#if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
 // Left Side
 #define PB12 0
 #define PB13 1
@@ -278,7 +278,7 @@ extern const PinName digitalPin[];
 // Board specific button
 #define BTN_WK_UP                PA0
 
-#endif // ARDUINO_BLACK_F407ZE_G
+#endif // ARDUINO_BLACK_F407ZE || ARDUINO_BLACK_F407ZG
 
 #define LED_BUILTIN             LED_D2
 #define LED_GREEN               LED_D2
