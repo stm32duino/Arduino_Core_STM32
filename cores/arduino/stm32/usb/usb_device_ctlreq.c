@@ -2,4 +2,4 @@
 
 #include "usbd_ctlreq.c"
 
-#endif //USBCON
+#endif /* USBCON */
