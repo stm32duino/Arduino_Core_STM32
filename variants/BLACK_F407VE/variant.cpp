@@ -39,32 +39,6 @@ extern "C" {
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-  // Left Side
-  //Ext   //Int
-  //5V    //5V
-  //5V    //5V
-  //3V3   //3V3
-  //3V3   //3V3
-  //GND   //GND
-  PE_2,   PE_3,   // D0, D1
-  PE_4,   PE_5,   // PE_4: BUT K0, PE_5: BUT K1
-  PE_6,   PC_13,
-  PC_0,   PC_1,
-  PC_2,   PC_3,
-  //VREF- //VREF+
-  PA_0,   PA_1,   // D10, D11 PA_0(WK_UP): BUT K_UP)
-  PA_2,   PA_3,
-  PA_4,   PA_5,
-  PA_6,   PA_7,   // PA_6: LED D2, PA_7: LED D3 (active LOW)
-  PC_4,   PC_5,
-  PB_0,   PB_1,   // D20, D21
-  PE_7,   PE_8,
-  PE_9,   PE_10,
-  PE_11,  PE_12,
-  PE_13,  PE_14,
-  PE_15,  PB_10,  // D30, D31
-  PB_11,  PB_12,
-  PB_13,  PB_14,
   // Right Side
   //Int   //Ext
   //3V3   //3V3
@@ -72,41 +46,53 @@ const PinName digitalPin[] = {
   //BOOT0 //BOOT1
   //GND   //GND
   //GND   //GND
-  PE_1,   PE_0,
+  PE_1,   PE_0,   // D0, D1
   PB_9,   PB_8,
-  PB_7,   PB_6,   // D40, D41
+  PB_7,   PB_6,
   PB_5,   PB_3,
   PD_7,   PD_6,
-  PD_5,   PD_4,
+  PD_5,   PD_4,   // D10, D11
   PD_3,   PD_2,
-  PD_1,   PD_0,   // D50, D51
+  PD_1,   PD_0,
   PC_12,  PC_11,
   PC_10,  PA_15,
-  PA_12,  PA_11,  // PA_11: USB_DM, PA_12: USB_DP
+  PA_12,  PA_11,  // D20, D21 PA_11: USB_DM, PA_12: USB_DP
   PA_10,  PA_9,
-  PA_8,   PC_9,   // D60, D61
+  PA_8,   PC_9,
   PC_8,   PC_7,
   PC_6,   PD_15,
-  PD_14,  PD_13,
+  PD_14,  PD_13,  // D30, D31
   PD_12,  PD_11,
-  PD_10,  PD_9,   // D70, D71
+  PD_10,  PD_9,
   PD_8,   PB_15,
+  // Left Side
+  //Ext   //Int
+  //5V    //5V
+  //5V    //5V
+  //3V3   //3V3
+  //3V3   //3V3
+  //GND   //GND
+  PE_2,   PE_3,
+  PE_4,   PE_5,   // D40, D41 PE_4: BUT K0, PE_5: BUT K1
+  PE_6,   PC_13,
+  PC_0,   PC_1,
+  PC_2,   PC_3,
+  //VREF- //VREF+
+  PA_0,   PA_1,   // PA_0(WK_UP): BUT K_UP)
+  PA_2,   PA_3,   // D50, D51
+  PA_4,   PA_5,
+/*PA_6,   PA_7,*/ // PA_6, PA_7: Moved to allow contiguous analog pins
+  PC_4,   PC_5,
+  PB_0,   PB_1,
+  PA_6,   PA_7,   // PA_6: LED D2, PA_7: LED D3 (active LOW)
+  PE_7,   PE_8,   // D60, D61
+  PE_9,   PE_10,
+  PE_11,  PE_12,
+  PE_13,  PE_14,
+  PE_15,  PB_10,
+  PB_11,  PB_12,  // D70, D71
+  PB_13,  PB_14,
   PB_4,
-  // Analog pins
-  PA_0,           // D75
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,           // D80
-  PB_0,
-  PB_1,
-  PC_0,
-  PC_1,
-  PC_2,
-  PC_3,
-  PC_4,
-  PC_5
   };
 #endif // ARDUINO_BLACK_F407VE
 
@@ -160,7 +146,8 @@ const PinName digitalPin[] = {
   PF_15,  PG_0,
   PF_13,  PF_14,
   PF_11,  PF_12,
-  PB_1,   PB_2,
+          PB_2,   // PB1 PB2 Inverted to allow contiguous analog pins
+  PB_1,
   PC_5,   PB_0,
   PA_7,   PC_4,
   PA_5,   PA_6,
@@ -168,9 +155,10 @@ const PinName digitalPin[] = {
   PA_1,   PA_2,
   PC_3,   PA_0,   // PA_0(WK_UP): BUT K_UP)
   PC_1,   PC_2,
-  PF_10,  PC_0,   // PF_10: LED D2 (active low)
-  PF_8,   PF_9,   // PF_9: LED D1 (active low)
+/*PF_10,*/PC_0,   // PF_10: Moved to allow contiguous analog pins
+  PF_8, /*PF_9,*/ // PF_9: Moved to allow contiguous analog pins
   PF_6,   PF_7,
+  PF_10,  PF_9,   // PF_10: LED D2, PF_9: LED D1 (active low)
   PF_4,   PF_5,
   PF_2,   PF_3,
   PF_0,   PF_1,
@@ -178,27 +166,6 @@ const PinName digitalPin[] = {
   PE_4,   PE_5,   // PE_4: BUT K0, PE_5: BUT K1
   PE_2,   PE_3,
   PE_0,   PE_1,
-
-  // Analog pins
-  PA_0,
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PA_6,
-  PA_7,
-  PB_0,
-  PB_1,
-  PC_0,
-  PC_1,
-  PC_2,
-  PC_3,
-  PC_4,
-  PC_5,
-  PF_6,
-  PF_7,
-  PF_8
 };
 #endif // ARDUINO_BLACK_F407ZE || ARDUINO_BLACK_F407ZG
 
