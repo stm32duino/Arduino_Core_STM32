@@ -43,6 +43,7 @@
 #ifdef __cplusplus
 #include "HardwareSerial.h"
 #include "Tone.h"
+#include "USBSerial.h"
 #include "WCharacter.h"
 #include "WMath.h"
 #include "WString.h"

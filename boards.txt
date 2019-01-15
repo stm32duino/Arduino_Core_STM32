@@ -3,7 +3,7 @@
 menu.pnum=Board part number
 
 menu.xserial=Serial interface
-menu.usb=USB interface
+menu.usb=USB interface (if available)
 
 menu.opt=Optimize
 menu.rtlib=C Runtime Library
@@ -17,10 +17,6 @@ menu.ram=RAM Size
 Nucleo_144.name=Nucleo-144
 
 Nucleo_144.build.vid=0x0483
-Nucleo_144.build.pid=0x5711
-Nucleo_144.vid.0=0x0483
-Nucleo_144.pid.0=0x5711
-
 Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -138,10 +134,6 @@ Nucleo_144.menu.upload_method.STLink.upload.tool=stlink_upload
 Nucleo_64.name=Nucleo-64
 
 Nucleo_64.build.vid=0x0483
-Nucleo_64.build.pid=0x5711
-Nucleo_64.vid.0=0x0483
-Nucleo_64.pid.0=0x5711
-
 Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -317,10 +309,6 @@ Nucleo_64.menu.upload_method.STLink.upload.tool=stlink_upload
 Nucleo_32.name=Nucleo-32
 
 Nucleo_32.build.vid=0x0483
-Nucleo_32.build.pid=0x5711
-Nucleo_32.vid.0=0x0483
-Nucleo_32.pid.0=0x5711
-
 Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -391,10 +379,6 @@ Nucleo_32.menu.upload_method.STLink.upload.tool=stlink_upload
 Disco.name=Discovery
 
 Disco.build.vid=0x0483
-Disco.build.pid=0x5711
-Disco.vid.0=0x0483
-Disco.pid.0=0x5711
-
 Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -523,11 +507,7 @@ GenF0.menu.upload_method.serialMethod.upload.tool=serial_upload
 # Generic F103
 GenF103.name=Generic STM32F103 series
 
-GenF103.build.vid=0x1EAF
-GenF103.build.pid=0x0004
-GenF103.vid.0=0x1EAF
-GenF103.pid.0=0x0004
-
+GenF103.build.vid=0x0483
 GenF103.build.core=arduino
 GenF103.build.board=GenF103
 GenF103.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -568,11 +548,7 @@ GenF103.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 GenF4.name=Generic STM32F4 series
 
-GenF4.build.vid=0x1EAF
-GenF4.build.pid=0x0004
-GenF4.vid.0=0x1EAF
-GenF4.pid.0=0x0004
-
+GenF4.build.vid=0x0483
 GenF4.build.core=arduino
 GenF4.build.board=GenF4
 GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -589,6 +565,25 @@ GenF4.menu.pnum.BLACK_F407VE.build.series=STM32F4xx
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# Black F407Z(E-G)
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
+GenF4.menu.pnum.BLACK_F407ZE=Black F407Z(E-G)
+GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLACK_F407ZE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE_G
+GenF4.menu.pnum.BLACK_F407ZE.build.series=STM32F4xx
+GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407ZE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+GenF4.menu.flash.ZE=ZE 512k (default)
+GenF4.menu.flash.ZE.upload.maximum_size=524288
+GenF4.menu.flash.ZE.build.ldscript=ldscript.ld
+GenF4.menu.flash.ZG=ZG 1024k
+GenF4.menu.flash.ZG.upload.maximum_size=1048576
+GenF4.menu.flash.ZG.build.ldscript=ldscript_zg.ld
 
 # Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -633,11 +628,7 @@ GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 # Maple
 Maple.name=Maple series
 
-Maple.build.vid=0x1EAF
-Maple.build.pid=0x0004
-Maple.vid.0=0x1EAF
-Maple.pid.0=0x0004
-
+Maple.build.vid=0x0483
 Maple.build.core=arduino
 Maple.build.board=Maple
 Maple.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -669,10 +660,6 @@ Maple.menu.upload_method.serialMethod.upload.tool=serial_upload
 RAK.name=RAKWireless
 
 RAK.build.vid=0x0483
-RAK.build.pid=0x5711
-RAK.vid.0=0x0483
-RAK.pid.0=0x5711
-
 RAK.build.core=arduino
 RAK.build.board=RAK
 RAK.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -711,10 +698,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.name=3D printer boards
 
 3dprinter.build.vid=0x0483
-3dprinter.build.pid=0x5711
-3dprinter.vid.0=0x0483
-3dprinter.pid.0=0x5711
-
 3dprinter.build.core=arduino
 3dprinter.build.board=3dprinter
 3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -755,11 +738,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.PRNTR_F407_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_F407_V1
 3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
-
-# Virtual COM port
-#3dprinter.menu.usb.none=None
-#3dprinter.menu.usb.CDC=CDC
-#3dprinter.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
 
 # Upload menu
 3dprinter.menu.upload_method.STLinkMethod=STLink
@@ -834,28 +812,82 @@ RAK.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
-Nucleo_144.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_144.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_144.menu.usb.CDC=CDC (if available)
-#Nucleo_144.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_144.menu.usb.none=None
+Nucleo_144.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_144.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_144.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_144.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+Nucleo_144.menu.usb.CDCFS=CDC Full Speed
+Nucleo_144.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_144.menu.usb.CDCHS=CDC High Speed
+Nucleo_144.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Nucleo_64.menu.usb.none=None
-Nucleo_64.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_64.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_64.menu.usb.CDC=CDC (if available)
-#Nucleo_64.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_64.menu.usb.none=None
+Nucleo_64.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_64.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_64.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_64.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+Nucleo_64.menu.usb.CDCFS=CDC Full Speed
+Nucleo_64.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_64.menu.usb.CDCHS=CDC High Speed
+Nucleo_64.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Nucleo_32.menu.usb.none=None
-Nucleo_32.menu.usb.HID=HID keyboard and mouse support (if available)
-Nucleo_32.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Nucleo_32.menu.usb.CDC=CDC (if available)
-#Nucleo_32.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Nucleo_32.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Nucleo_32.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_32.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Nucleo_32.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+Nucleo_32.menu.usb.CDCFS=CDC Full Speed
+Nucleo_32.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_32.menu.usb.CDCHS=CDC High Speed
+Nucleo_32.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 Disco.menu.usb.none=None
-Disco.menu.usb.HID=HID keyboard and mouse support (if available)
-Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-#Disco.menu.usb.CDC=CDC (if available)
-#Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_FS
+Disco.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Disco.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Disco.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Disco.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+Disco.menu.usb.CDCFS=CDC Full Speed
+Disco.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Disco.menu.usb.CDCHS=CDC High Speed
+Disco.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+GenF103.menu.usb.none=None
+GenF103.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+GenF103.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF103.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+GenF103.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+GenF103.menu.usb.CDCFS=CDC Full Speed
+GenF103.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF103.menu.usb.CDCHS=CDC High Speed
+GenF103.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+GenF4.menu.usb.none=None
+GenF4.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+GenF4.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF4.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+GenF4.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+GenF4.menu.usb.CDCFS=CDC Full Speed
+GenF4.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF4.menu.usb.CDCHS=CDC High Speed
+GenF4.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+Maple.menu.usb.none=None
+Maple.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+Maple.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Maple.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+Maple.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+Maple.menu.usb.CDCFS=CDC Full Speed
+Maple.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Maple.menu.usb.CDCHS=CDC High Speed
+Maple.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+
+3dprinter.menu.usb.none=None
+3dprinter.menu.usb.CDCFS=CDC Full Speed
+3dprinter.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+3dprinter.menu.usb.CDCHS=CDC High Speed
+3dprinter.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
