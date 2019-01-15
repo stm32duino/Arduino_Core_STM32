@@ -564,6 +564,9 @@ GenF4.build.vid=0x0483
 GenF4.build.core=arduino
 GenF4.build.board=GenF4
 GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF4.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF4.build.series=STM32F4xx
+GenF4.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Black F407VE
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -571,24 +574,18 @@ GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenF4.menu.pnum.BLACK_F407VE=Black F407VE
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
-GenF4.menu.pnum.BLACK_F407VE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
-GenF4.menu.pnum.BLACK_F407VE.build.series=STM32F4xx
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
-GenF4.menu.pnum.BLACK_F407VE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Black F407Z(E-G)
 # Support: Serial1 (USART1 on PA10, PA9)
 # Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407ZE=Black F407Z(E-G)
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
-GenF4.menu.pnum.BLACK_F407ZE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE_G
-GenF4.menu.pnum.BLACK_F407ZE.build.series=STM32F4xx
 GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407VE
-GenF4.menu.pnum.BLACK_F407ZE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 GenF4.menu.flash.ZE=ZE 512k (default)
 GenF4.menu.flash.ZE.upload.maximum_size=524288
@@ -603,12 +600,9 @@ GenF4.menu.flash.ZG.build.ldscript=ldscript_zg.ld
 GenF4.menu.pnum.BLUE_F407VE_Mini=Blue F407VE mini
 GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_size=524288
 GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_data_size=131072
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.board=BLUE_F407VE_Mini
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.series=STM32F4xx
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant=BLUE_F407VE_Mini
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # DIYMROE STM32F407VGT board
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -616,12 +610,9 @@ GenF4.menu.pnum.BLUE_F407VE_Mini.build.cmsis_lib_gcc=arm_cortexM4l_math
 GenF4.menu.pnum.DIYMROE_F407VGT=DIYMROE STM32F407VGT
 GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_size=1048576
 GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_data_size=131072
-GenF4.menu.pnum.DIYMROE_F407VGT.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.menu.pnum.DIYMROE_F407VGT.build.board=DIYMROE_F407VGT
-GenF4.menu.pnum.DIYMROE_F407VGT.build.series=STM32F4xx
 GenF4.menu.pnum.DIYMROE_F407VGT.build.product_line=STM32F407xx
 GenF4.menu.pnum.DIYMROE_F407VGT.build.variant=DIYMROE_F407VGT
-GenF4.menu.pnum.DIYMROE_F407VGT.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Upload menu
 GenF4.menu.upload_method.STLink=STLink
