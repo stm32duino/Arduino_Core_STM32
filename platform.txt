@@ -96,7 +96,8 @@ recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] ||
 # preprocess linker file
 preprocld.name=preproc.ld
 preprocld.filepath={build.path}/{preprocld.name}
-recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.cmd}" -x c -E -P {compiler.c.flags} {build.info.flags} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} "{build.variant.path}/{build.ldscript}" -o "{preprocld.filepath}"
+preprocld.flags=-DLD_MAX_SIZE={upload.maximum_size} -DLD_MAX_DATA_SIZE={upload.maximum_data_size}
+recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.cmd}" -x c -E -P {preprocld.flags} {compiler.c.flags} {build.info.flags} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} "{build.variant.path}/{build.ldscript}" -o "{preprocld.filepath}"
 
 # compile patterns
 # ---------------------
