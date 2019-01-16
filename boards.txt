@@ -576,7 +576,7 @@ GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407XX
 
 # Black F407VG
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -586,7 +586,7 @@ GenF4.menu.pnum.BLACK_F407VG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407VG.build.board=BLACK_F407VG
 GenF4.menu.pnum.BLACK_F407VG.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407VG.build.variant=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407VG.build.variant=BLACK_F407XX
 
 # Black F407ZE
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -596,7 +596,7 @@ GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE
 GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407XX
 
 # Black F407ZG
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -606,7 +606,7 @@ GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407ZG.build.board=BLACK_F407ZG
 GenF4.menu.pnum.BLACK_F407ZG.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407ZG.build.variant=BLACK_F407VE
+GenF4.menu.pnum.BLACK_F407ZG.build.variant=BLACK_F407XX
 
 # Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
 # Support: Serial1 (USART1 on PA10, PA9)
