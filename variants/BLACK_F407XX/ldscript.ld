@@ -2,10 +2,10 @@
 *****************************************************************************
 **
 
-**  File        : LinkerScript.ld
+**  File        : lscript.ld
 **
-**  Abstract    : Linker script for STM32F407VETx Device with
-**                512KByte FLASH, 128KByte RAM
+**  Abstract    : Linker script for STM32F407(VZ)(EG)Tx Device with
+**                512/1024KByte FLASH, 128KByte RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -62,7 +62,7 @@ MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
 CCMRAM (rw)      : ORIGIN = 0x10000000, LENGTH = 64K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = LD_MAX_SIZE
 }
 
 /* Define output sections */
