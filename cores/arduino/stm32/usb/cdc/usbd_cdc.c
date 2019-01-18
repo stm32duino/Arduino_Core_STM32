@@ -678,6 +678,7 @@ static uint8_t  USBD_CDC_DataIn (USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef*)pdev->pClassData;
   PCD_HandleTypeDef *hpcd = pdev->pData;
+  USBD_CDC_ItfTypeDef* ctrl = (USBD_CDC_ItfTypeDef *)pdev->pUserData;
 
   if(pdev->pClassData != NULL)
   {
@@ -692,6 +693,10 @@ static uint8_t  USBD_CDC_DataIn (USBD_HandleTypeDef *pdev, uint8_t epnum)
     else
     {
       hcdc->TxState = 0U;
+      if (ctrl->Transferred)
+      {
+        ctrl->Transferred();
+      }
     }
     return USBD_OK;
   }

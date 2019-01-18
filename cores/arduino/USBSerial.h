@@ -27,8 +27,7 @@
 // Serial over CDC
 class USBSerial : public Stream {
 public:
-    USBSerial(void) {};
-
+    void begin(void);
     void begin(uint32_t);
 	void begin(uint32_t, uint8_t);
     void end(void);
@@ -64,9 +63,6 @@ public:
       MARK_PARITY = 3,
       SPACE_PARITY = 4,
     };
-
-	uint8_t isConnected();
-    uint8_t pending();
 };
 
 extern USBSerial SerialUSB;

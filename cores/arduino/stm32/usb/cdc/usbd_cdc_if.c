@@ -21,6 +21,7 @@
 #ifdef USBD_USE_CDC
 
 /* Includes ------------------------------------------------------------------*/
+#include "usbd_desc.h"
 #include "usbd_cdc_if.h"
 
 #ifdef USE_USB_HS
@@ -32,33 +33,15 @@
 #endif
 
 /* USBD_CDC Private Variables */
+/* USB Device Core CDC handle declaration */
+USBD_HandleTypeDef hUSBD_Device_CDC;
 
-/* Create buffer for reception and transmission           */
-/* It's up to user to redefine and/or remove those define */
-extern USBD_HandleTypeDef hUSBD_Device_CDC;
 /* Received Data over USB are stored in this buffer       */
-__IO uint8_t UserRxBuffer[APP_RX_DATA_SIZE];
-__IO uint8_t StackRxBuffer[CDC_MAX_PACKET_SIZE];
-
-/* Send Data over USB CDC are stored in this buffer       */
-__IO uint8_t UserTxBuffer[APP_TX_DATA_SIZE];
-__IO uint8_t StackTxBuffer[APP_TX_DATA_SIZE];
-
-__IO uint32_t UserTxBufPtrIn = 0; /* Increment this pointer or roll it back to
-                               start address when data are received over write call */
-__IO uint32_t UserTxBufPtrOut = 0; /* Increment this pointer or roll it back to
-                                 start address when data are sent over USB */
-
-__IO uint32_t UserRxBufPtrIn = 0; /* Increment this pointer or roll it back to
-                               start address when data are received over USB */
-__IO uint32_t UserRxBufPtrOut = 0; /* Increment this pointer or roll it back to
-                                 start address when data are sent over read call */
-
+CDC_TransmitQueue_TypeDef TransmitQueue;
+CDC_ReceiveQueue_TypeDef ReceiveQueue;
 __IO uint32_t lineState = 0;
-__IO bool receiveSuspended = false;
-__IO bool sendZLP = false;
+__IO bool receivePended = false;
 
-stimer_t CDC_TimHandle;
 
 /** USBD_CDC Private Function Prototypes */
 
@@ -66,15 +49,15 @@ static int8_t USBD_CDC_Init     (void);
 static int8_t USBD_CDC_DeInit   (void);
 static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length);
 static int8_t USBD_CDC_Receive  (uint8_t* pbuf, uint32_t *Len);
-static void CDC_TIM_Config(void);
-void CDC_TIM_PeriodElapsedCallback(stimer_t *htim);
+static int8_t USBD_CDC_Transferred (void);
 
 USBD_CDC_ItfTypeDef USBD_CDC_fops =
 {
   USBD_CDC_Init,
   USBD_CDC_DeInit,
   USBD_CDC_Control,
-  USBD_CDC_Receive
+  USBD_CDC_Receive,
+  USBD_CDC_Transferred
 };
 
 USBD_CDC_LineCodingTypeDef linecoding =
@@ -95,12 +78,11 @@ USBD_CDC_LineCodingTypeDef linecoding =
   */
 static int8_t USBD_CDC_Init(void)
 {
-  /* Configure and start the TIM Base generation */
-  CDC_TIM_Config();
-
   /* Set Application Buffers */
-  USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)UserTxBuffer, 1);
-  USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, (uint8_t *)StackRxBuffer);
+  CDC_TransmitQueue_Init(&TransmitQueue);
+  CDC_ReceiveQueue_Init(&ReceiveQueue);
+  receivePended = true;
+  USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue));
 
   return (USBD_OK);
 }
@@ -217,155 +199,80 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   * @param  Len: Number of data received (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len)
-{
-  uint32_t packetSize = *Len;
+static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
+  UNUSED(Buf);
+  /* It always contains required amount of free space for writing */
+  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
+  receivePended = false;
+  /* If enough space in the queue for a full buffer then continue receive */
+  CDC_resume_receive();
+  return USBD_OK;
+}
 
-  if (packetSize > 0) {
-    if (UserRxBufPtrIn + packetSize > APP_RX_DATA_SIZE) {
-      memcpy(((uint8_t *)UserRxBuffer + UserRxBufPtrIn), &Buf[0],
-             (APP_RX_DATA_SIZE - UserRxBufPtrIn));
-      memcpy((uint8_t *)UserRxBuffer,
-             &Buf[(APP_RX_DATA_SIZE - UserRxBufPtrIn)],
-             (packetSize - (APP_RX_DATA_SIZE - UserRxBufPtrIn)));
-      UserRxBufPtrIn = ((UserRxBufPtrIn + packetSize) % APP_RX_DATA_SIZE);
-    } else {
-      memcpy(((uint8_t *)UserRxBuffer + UserRxBufPtrIn), Buf, packetSize);
-      UserRxBufPtrIn = ((UserRxBufPtrIn + packetSize) % APP_RX_DATA_SIZE);
-    }
-  }
 
-  if ((UserRxBufPtrOut + APP_RX_DATA_SIZE - UserRxBufPtrIn - 1) %
-              APP_RX_DATA_SIZE + 1 >=  CDC_MAX_PACKET_SIZE) {
-    USBD_CDC_ReceivePacket(
-        &hUSBD_Device_CDC); // Initiate next USB packet transfer once a packet
-                            // is received and there is enouch space in the
-                            // buffer
-  } else {
-    receiveSuspended = true;
-  }
+static int8_t USBD_CDC_Transferred (void) {
+  CDC_continue_transmit();
   return (USBD_OK);
 }
 
-void CDC_flush(void)
-{
-  uint8_t status;
-
-  if(UserTxBufPtrOut != UserTxBufPtrIn)
-  {
-    if(UserTxBufPtrOut > UserTxBufPtrIn) /* Roll-back */
-    {
-      memcpy((uint8_t *)&StackTxBuffer[0],
-             (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
-             (APP_TX_DATA_SIZE - UserTxBufPtrOut));
-      memcpy((uint8_t *)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut],
-             (uint8_t *)&UserTxBuffer[0], UserTxBufPtrIn);
-
-      USBD_CDC_SetTxBuffer(
-          &hUSBD_Device_CDC, (uint8_t *)&StackTxBuffer[0],
-          (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn));
-    } else {
-      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC,
-                           (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
-                           (UserTxBufPtrIn - UserTxBufPtrOut));
-    }
-
-    do {
-      if (lineState == 0) { // Device disconnected
-        status = USBD_OK;
-	  } else {
-        status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
+void CDC_init(void) {
+   /* Init Device Library */
+  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
+    /* Add Supported Class */
+    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+      /* Add CDC Interface Class */
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device_CDC);
       }
-    } while (status == USBD_BUSY);
+    }
+  }
+}
 
-    if (status == USBD_OK) {
-      UserTxBufPtrOut = UserTxBufPtrIn;
+void CDC_deInit(void) {
+  USBD_Stop(&hUSBD_Device_CDC);
+  USBD_CDC_DeInit();
+  USBD_DeInit(&hUSBD_Device_CDC);
+}
+
+void CDC_continue_transmit(void) {
+  uint16_t size;
+  uint8_t *buffer;
+  USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
+  /*
+   * TS: This method can be called both in the main thread
+   * (via USBSerial::write) and in the IRQ stream (via USBD_CDC_Transferred),
+   * BUT the main thread cannot pass this condition while waiting for a IRQ!
+   * This is not possible because TxState is not zero while waiting for data
+   * transfer ending! The IRQ thread is uninterrupted, since its priority
+   * is higher than that of the main thread. So this method is thread safe.
+   */
+  if (hcdc->TxState == 0U) {
+    buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size);
+    if (size > 0) {
+      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, buffer, size);
+      /*
+       * size never exceed PMA buffer and USBD_CDC_TransmitPacket make full
+       * copy of block in PMA, so no need to worry about buffer damage
+       */
+      USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
     }
   }
 }
 
 void CDC_resume_receive(void) {
-  if (receiveSuspended) {
-    if ((UserRxBufPtrOut + APP_RX_DATA_SIZE - UserRxBufPtrIn - 1) %
-                APP_RX_DATA_SIZE + 1 >= CDC_MAX_PACKET_SIZE) {
-      USBD_CDC_ReceivePacket(
-          &hUSBD_Device_CDC); // Initiate next USB packet transfer once a packet
-                              // is received and there is enouch space in the
-                              // buffer
-      receiveSuspended = false;
+  /*
+   * TS: main and IRQ threads can't pass it at same time, because
+   * IRQ may occur only if receivePended is true. So it is thread-safe!
+   */
+  if (!receivePended) {
+    uint8_t* block = CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue);
+    if (block != NULL) {
+      receivePended = true;
+      /* Set new buffer */
+      USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, block);
+      USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
     }
-  }
-}
-
-void CDC_disable_TIM_Interrupt(void)
-{
-  HAL_NVIC_DisableIRQ(CDC_TIM_IRQn);
-}
-
-void CDC_enable_TIM_Interrupt(void)
-{
-  HAL_NVIC_EnableIRQ(CDC_TIM_IRQn);
-}
-
-static void CDC_TIM_Config(void)
-{
-  /* Set TIMx instance */
-  CDC_TimHandle.timer = CDC_TIM;
-  /* Initialize CDC_TIM peripheral as follow:
-       + Period = 10000 - 1
-       + Prescaler = ((SystemCoreClock/2)/10000) - 1
-       + ClockDivision = 0
-       + Counter direction = Up
-  */
-  TimerHandleInit(&CDC_TimHandle, (uint16_t)((CDC_POLLING_INTERVAL*1000) - 1), ((uint32_t)(getTimerClkFreq(CDC_TIM) / (1000000)) - 1));
-  HAL_NVIC_SetPriority(CDC_TIM_IRQn, 6, 0);
-
-  attachIntHandle(&CDC_TimHandle, CDC_TIM_PeriodElapsedCallback);
-}
-
-void CDC_TIM_PeriodElapsedCallback(stimer_t *htim)
-{
-  UNUSED(htim);
-  if (UserTxBufPtrOut == UserTxBufPtrIn &&
-      sendZLP == false) // Nothing to do, return immediately
-    return;
-
-  uint8_t status;
-  uint16_t packetLength;
-
-  if (UserTxBufPtrOut > UserTxBufPtrIn) { /* Roll-back */
-    memcpy((uint8_t *)&StackTxBuffer[0],
-           (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
-           (APP_TX_DATA_SIZE - UserTxBufPtrOut));
-    memcpy((uint8_t *)&StackTxBuffer[APP_TX_DATA_SIZE - UserTxBufPtrOut],
-           (uint8_t *)&UserTxBuffer[0], UserTxBufPtrIn);
-
-    packetLength = (APP_TX_DATA_SIZE - UserTxBufPtrOut + UserTxBufPtrIn);
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)&StackTxBuffer[0],
-                         packetLength);
-  } else if (UserTxBufPtrOut != UserTxBufPtrIn) {
-    packetLength = (UserTxBufPtrIn - UserTxBufPtrOut);
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC,
-                         (uint8_t *)&UserTxBuffer[UserTxBufPtrOut],
-                         packetLength);
-  } else {
-    packetLength = 0;
-
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, NULL, 0); // Send Zero Length Packet
-  }
-
-  if (lineState == 0) { // Device disconnected
-    status = USBD_OK;
-  } else {
-    status = USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
-  }
-
-  if (status == USBD_OK) {
-    UserTxBufPtrOut = UserTxBufPtrIn;
-
-    sendZLP = packetLength % CDC_MAX_PACKET_SIZE == 0;
   }
 }
 
