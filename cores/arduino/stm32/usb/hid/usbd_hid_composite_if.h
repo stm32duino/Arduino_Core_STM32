@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
-  * @file    usbd_interface.c
-  * @brief   Provide the USB device interface
-  *
+  * @file    usbd_hid_composite_if.h
+  * @brief   Header for USB HID composite interface
   ******************************************************************************
   * @attention
   *
@@ -32,71 +31,31 @@
   *
   ******************************************************************************
   */
-#ifdef USBCON
-#include "usbd_desc.h"
-#include "usbd_interface.h"
-#ifdef USBD_USE_HID_COMPOSITE
-#include "usbd_hid_composite.h"
-#endif
-#ifdef USBD_USE_CDC
-#include "usbd_cdc_if.h"
-#endif
 
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __USBD_HID_COMPOSITE_IF_H
+#define __USBD_HID_COMPOSITE_IF_H
+#ifdef USBCON
+#ifdef USBD_USE_HID_COMPOSITE
+
+/* Includes ------------------------------------------------------------------*/
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-/* USB Device Core handle declaration */
-#ifdef USBD_USE_HID_COMPOSITE
-USBD_HandleTypeDef hUSBD_Device_HID;
-#endif /* USBD_USE_HID_COMPOSITE*/
+/* Exported functions ------------------------------------------------------- */
+void HID_Composite_Init(void);
+void HID_Composite_DeInit(void);
 
-/**
-  * @brief  initialize USB devices
-  * @param  none
-  * @retval none
-  */
-__attribute__((weak))
-void usbd_interface_init(void)
-{
-#ifdef USBD_USE_HID_COMPOSITE
-  /* Init Device Library */
-  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
-
-  /* Add Supported Class */
-  USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
-
-  /* Start Device Process */
-  USBD_Start(&hUSBD_Device_HID);
-#endif /* USBD_USE_HID_COMPOSITE */
-}
-
-#ifdef USBD_USE_HID_COMPOSITE
-/**
-  * @brief  Send HID mouse Report
-  * @param  report pointer to report
-  * @param  len report lenght
-  * @retval none
-  */
-void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len)
-{
-  USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
-}
-
-/**
-  * @brief  Send HID keyboard Report
-  * @param  report pointer to report
-  * @param  len report lenght
-  * @retval none
-  */
-void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len)
-{
-  USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
-}
-#endif /* USBD_USE_HID_COMPOSITE */
+void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len);
+void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len);
 
 #ifdef __cplusplus
 }
 #endif
+#endif /* USBD_USE_HID_COMPOSITE */
 #endif /* USBCON */
+
+#endif /* __USBD_HID_COMPOSITE_IF_H */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -22,6 +22,7 @@
 #include "Mouse.h"
 
 #if defined(USBCON)
+#include "usbd_hid_composite_if.h"
 
 //================================================================================
 //================================================================================
@@ -33,10 +34,12 @@ Mouse_::Mouse_(void) : _buttons(0)
 
 void Mouse_::begin(void)
 {
+  HID_Composite_Init();
 }
 
 void Mouse_::end(void)
 {
+  HID_Composite_DeInit();
 }
 
 void Mouse_::click(uint8_t b)
@@ -55,7 +58,7 @@ void Mouse_::move(signed char x, signed char y, signed char wheel)
 	m[2] = y;
 	m[3] = wheel;
 
-  usbd_interface_mouse_sendReport(m, 4);
+  HID_Composite_mouse_sendReport(m, 4);
 }
 
 void Mouse_::buttons(uint8_t b)
