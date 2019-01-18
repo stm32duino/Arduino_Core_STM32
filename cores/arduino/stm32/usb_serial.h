@@ -56,10 +56,6 @@ public:
 	int availableForWrite(void);
 	virtual size_t write(uint8_t);
 	virtual size_t write(const uint8_t *buffer, size_t size);
-	inline size_t write(unsigned long n) { return write((uint8_t)n); }
-	inline size_t write(long n) { return write((uint8_t)n); }
-	inline size_t write(unsigned int n) { return write((uint8_t)n); }
-	inline size_t write(int n) { return write((uint8_t)n); }
 	using Print::write;
 
 	bool dtr(void);
