@@ -1,8 +1,10 @@
 /**
   ******************************************************************************
-  * @file    usbd_interface.c
-  * @brief   Provide the USB device interface
-  *
+  * @file    cdc_queue.h
+  * @author  makarenya
+  * @version V1.0.0
+  * @date    23-December-2018
+  * @brief   Header for cdc_queue.c module
   ******************************************************************************
   * @attention
   *
@@ -32,74 +34,56 @@
   *
   ******************************************************************************
   */
-#ifdef USBCON
-#include "usbd_desc.h"
-#include "usbd_interface.h"
-#ifdef USBD_USE_HID_COMPOSITE
-#include "usbd_hid_composite.h"
-#endif
-#ifdef USBD_USE_CDC
-#include "usbd_cdc_if.h"
-#endif
+
+
+/* Define to prevent recursive inclusion -------------------------------------*/
+#ifndef __CDC_QUEUE_H
+#define __CDC_QUEUE_H
+
+/* Includes ------------------------------------------------------------------*/
+#include <stdint.h>
+#include "usbd_def.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
-/* USB Device Core handle declaration */
-#ifdef USBD_USE_HID_COMPOSITE
-USBD_HandleTypeDef hUSBD_Device_HID;
-#endif /* USBD_USE_HID_COMPOSITE*/
-#ifdef USBD_USE_CDC
-USBD_HandleTypeDef hUSBD_Device_CDC;
-#endif /* USBD_USE_CDC */
+#if USE_USB_HS
+#define CDC_QUEUE_MAX_PACKET_SIZE USB_HS_MAX_PACKET_SIZE
+#else
+#define CDC_QUEUE_MAX_PACKET_SIZE USB_FS_MAX_PACKET_SIZE
+#endif
+#define CDC_TRANSMIT_QUEUE_BUFFER_SIZE ((uint16_t)(CDC_QUEUE_MAX_PACKET_SIZE))
+#define CDC_RECEIVE_QUEUE_BUFFER_SIZE ((uint16_t)(CDC_QUEUE_MAX_PACKET_SIZE * 2))
 
-/**
-  * @brief  initialize USB devices
-  * @param  none
-  * @retval none
-  */
-__attribute__((weak))
-void usbd_interface_init(void)
-{
-#ifdef USBD_USE_HID_COMPOSITE
-  /* Init Device Library */
-  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
+typedef struct {
+  uint8_t buffer[CDC_TRANSMIT_QUEUE_BUFFER_SIZE];
+  volatile uint16_t write;
+  volatile uint16_t read;
+} CDC_TransmitQueue_TypeDef;
 
-  /* Add Supported Class */
-  USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
+typedef struct {
+    uint8_t buffer[CDC_RECEIVE_QUEUE_BUFFER_SIZE];
+    volatile uint16_t write;
+    volatile uint16_t read;
+    volatile uint16_t length;
+} CDC_ReceiveQueue_TypeDef;
 
-  /* Start Device Process */
-  USBD_Start(&hUSBD_Device_HID);
-#endif /* USBD_USE_HID_COMPOSITE */
-}
+void CDC_TransmitQueue_Init(CDC_TransmitQueue_TypeDef* queue);
+int CDC_TransmitQueue_WriteSize(CDC_TransmitQueue_TypeDef* queue);
+int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef* queue);
+void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef* queue, const uint8_t* buffer, uint32_t size);
+uint8_t* CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef* queue, uint16_t* size);
 
-#ifdef USBD_USE_HID_COMPOSITE
-/**
-  * @brief  Send HID mouse Report
-  * @param  report pointer to report
-  * @param  len report lenght
-  * @retval none
-  */
-void usbd_interface_mouse_sendReport(uint8_t *report, uint16_t len)
-{
-  USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
-}
-
-/**
-  * @brief  Send HID keyboard Report
-  * @param  report pointer to report
-  * @param  len report lenght
-  * @retval none
-  */
-void usbd_interface_keyboard_sendReport(uint8_t *report, uint16_t len)
-{
-  USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
-}
-#endif /* USBD_USE_HID_COMPOSITE */
+void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef* queue);
+int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef* queue);
+uint8_t CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef* queue);
+uint8_t CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef* queue);
+uint8_t* CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef* queue);
+void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef* queue, uint16_t size);
 
 #ifdef __cplusplus
 }
 #endif
-#endif /* USBCON */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+
+#endif // __CDC_QUEUE_H
