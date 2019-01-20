@@ -475,10 +475,16 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x40);
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x40);
 #else
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00 , PCD_SNG_BUF, 0x18);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80 , PCD_SNG_BUF, 0x58);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x81 , PCD_SNG_BUF, 0x100);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82 , PCD_SNG_BUF, 0x100);
+  uint32_t pma_addr = 8 * 3; // 3 endpoints, 8 bytes for each in PMA BTABLE
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, pma_addr);
+  pma_addr += USB_MAX_EP0_SIZE;
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_SNG_BUF, pma_addr);
+  pma_addr += USB_MAX_EP0_SIZE;
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x81, PCD_SNG_BUF, pma_addr);
+  pma_addr += USB_FS_MAX_PACKET_SIZE;
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_SNG_BUF, pma_addr);
+  pma_addr += USB_FS_MAX_PACKET_SIZE;
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, pma_addr);
 #endif
 #endif /* USE_USB_HS */
   return USBD_OK;
