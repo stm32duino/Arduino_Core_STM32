@@ -44,7 +44,7 @@ extern "C"{
  *----------------------------------------------------------------------------*/
 extern const PinName digitalPin[];
 
-// USB connector on the top, MCU side
+// Bluepill USB connector on the top, MCU side - Blackpill USB connector on bottom, MCU Side  (pins are reversed vertically for Arduino Ananlog pin correct sequence.
 // Left Side
 #define PB9  0
 #define PB8  1
@@ -62,9 +62,9 @@ extern const PinName digitalPin[];
 #define PB15 13
 #define PB14 14
 #define PB13 15
-#define PB12 16
+#define PB12 16 // LED Blackpill
 // Right side
-#define PC13 17 // LED
+#define PC13 17 // LED Bluepill
 #define PC14 18
 #define PC15 19
 #define PA0  20 // A0
@@ -91,7 +91,11 @@ extern const PinName digitalPin[];
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
+#ifdef BLUEPILL_F103C8
 #define LED_BUILTIN             PC13
+#else
+#define LED_BUILTIN             PB12
+#endif
 #define LED_GREEN               LED_BUILTIN
 
 // SPI Definitions

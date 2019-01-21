@@ -53,9 +53,9 @@ const PinName digitalPin[] = {
   PB_15, //D13
   PB_14, //D14
   PB_13, //D15
-  PB_12, //D16
+  PB_12, //D16 - LED Blackpill
 /* Right side */
-  PC_13, //D17 - LED
+  PC_13, //D17 - LED Bluepill
   PC_14, //D18
   PC_15, //D19
   PA_0,  //D20/A0
