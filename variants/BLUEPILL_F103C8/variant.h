@@ -91,7 +91,7 @@ extern const PinName digitalPin[];
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
-#ifdef BLUEPILL_F103C8
+#ifdef ARDUINO_BLUEPILL_F103C8
 #define LED_BUILTIN             PC13
 #else
 #define LED_BUILTIN             PB12
