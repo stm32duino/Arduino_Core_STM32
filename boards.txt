@@ -535,6 +535,17 @@ GenF103.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
 GenF103.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
 GenF103.menu.pnum.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# BLACKPILL_F103C8 board
+# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+GenF103.menu.pnum.BLACKPILL_F103C8=BlackPill F103C8
+GenF103.menu.pnum.BLACKPILL_F103C8.upload.maximum_data_size=20480
+GenF103.menu.pnum.BLACKPILL_F103C8.build.mcu=cortex-m3
+GenF103.menu.pnum.BLACKPILL_F103C8.build.board=BLACKPILL_F103C8
+GenF103.menu.pnum.BLACKPILL_F103C8.build.series=STM32F1xx
+GenF103.menu.pnum.BLACKPILL_F103C8.build.product_line=STM32F103xB
+GenF103.menu.pnum.BLACKPILL_F103C8.build.variant=BLUEPILL_F103C8
+GenF103.menu.pnum.BLACKPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+
 GenF103.menu.flash.C8=64k (default)
 GenF103.menu.flash.C8.upload.maximum_size=65536
 GenF103.menu.flash.C8.build.ldscript=ldscript.ld
