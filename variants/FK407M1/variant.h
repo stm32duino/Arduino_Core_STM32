@@ -120,11 +120,12 @@ extern const PinName digitalPin[];
 #define PC8  71
 #define PD15 72
 #define PC6  73
+#define PC13 74
 // This must be a literal
-#define NUM_DIGITAL_PINS        90
+#define NUM_DIGITAL_PINS        91
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16
-#define NUM_ANALOG_FIRST        74
+#define NUM_ANALOG_FIRST        75
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
