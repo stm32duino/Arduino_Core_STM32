@@ -522,18 +522,18 @@ GenF1.name=Generic STM32F1 series
 GenF1.build.vid=0x0483
 GenF1.build.core=arduino
 GenF1.build.board=GenF1
+GenF1.build.mcu=cortex-m3
+GenF1.build.series=STM32F1xx
+GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # BLUEPILL_F103C8 board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
 GenF1.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
-GenF1.menu.pnum.BLUEPILL_F103C8.build.mcu=cortex-m3
 GenF1.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
-GenF1.menu.pnum.BLUEPILL_F103C8.build.series=STM32F1xx
 GenF1.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
-GenF1.menu.pnum.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 GenF1.menu.flash.C8=64k (default)
 GenF1.menu.flash.C8.upload.maximum_size=65536
