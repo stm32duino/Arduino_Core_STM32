@@ -117,6 +117,9 @@ extern const PinName digitalPin[];
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
+// USB
+#define USB_DISC_PIN            PB9
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

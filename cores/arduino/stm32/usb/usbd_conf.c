@@ -19,6 +19,7 @@
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
+#include "usbd_if.h"
 #include "stm32yyxx_ll_pwr.h"
 
 #ifndef HAL_PCD_MODULE_ENABLED
@@ -421,6 +422,7 @@ void USBWakeUp_IRQHandler(void)
   */
 USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
+  USBD_reenumerate();
   /* Set common LL Driver parameters */
   g_hpcd.Init.dev_endpoints = 4;
   g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
