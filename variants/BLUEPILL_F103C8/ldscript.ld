@@ -2,10 +2,10 @@
 *****************************************************************************
 **
 
-**  File        : LinkerScript.ld
+**  File        : ldscript.ld
 **
-**  Abstract    : Linker script for STM32F103C8Tx Device with
-**                64KByte FLASH, 20KByte RAM
+**  Abstract    : Linker script for STM32F103C(8-B)Tx Device with
+**                64/128KByte FLASH, 20KByte RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -61,7 +61,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 20K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 64K
+FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = LD_MAX_SIZE
 }
 
 /* Define output sections */
