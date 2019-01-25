@@ -516,44 +516,54 @@ GenF0.menu.upload_method.serialMethod.upload.protocol=maple_serial
 GenF0.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 ################################################################################
-# Generic F103
-GenF103.name=Generic STM32F103 series
+# Generic F1
+GenF1.name=Generic STM32F1 series
 
-GenF103.build.vid=0x0483
-GenF103.build.core=arduino
-GenF103.build.board=GenF103
-GenF103.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF1.build.vid=0x0483
+GenF1.build.core=arduino
+GenF1.build.board=GenF1
+GenF1.build.mcu=cortex-m3
+GenF1.build.series=STM32F1xx
+GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # BLUEPILL_F103C8 board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
-GenF103.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
-GenF103.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
-GenF103.menu.pnum.BLUEPILL_F103C8.build.mcu=cortex-m3
-GenF103.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
-GenF103.menu.pnum.BLUEPILL_F103C8.build.series=STM32F1xx
-GenF103.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
-GenF103.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
-GenF103.menu.pnum.BLUEPILL_F103C8.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF1.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
+GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_size=65536
+GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
+GenF1.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
+GenF1.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
+GenF1.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
 
-GenF103.menu.flash.C8=64k (default)
-GenF103.menu.flash.C8.upload.maximum_size=65536
-GenF103.menu.flash.C8.build.ldscript=ldscript.ld
-GenF103.menu.flash.CB=128k
-GenF103.menu.flash.CB.upload.maximum_size=131072
-GenF103.menu.flash.CB.build.ldscript=ldscript_cb.ld
+GenF1.menu.pnum.BLUEPILL_F103C8B=BluePill F103C8 (128k)
+GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_size=131072
+GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_data_size=20480
+GenF1.menu.pnum.BLUEPILL_F103C8B.build.board=BLUEPILL_F103C8
+GenF1.menu.pnum.BLUEPILL_F103C8B.build.product_line=STM32F103xB
+GenF1.menu.pnum.BLUEPILL_F103C8B.build.variant=BLUEPILL_F103C8
+
+# MAPLEMINI_F103CB board
+# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+GenF1.menu.pnum.MAPLEMINI_F103CB=Maple Mini F103CB
+GenF1.menu.pnum.MAPLEMINI_F103CB.upload.maximum_size=131072
+GenF1.menu.pnum.MAPLEMINI_F103CB.upload.maximum_data_size=20480
+GenF1.menu.pnum.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
+GenF1.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
+GenF1.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
 
 # Upload menu
-GenF103.menu.upload_method.STLinkMethod=STLink
-GenF103.menu.upload_method.STLinkMethod.upload.protocol=STLink
-GenF103.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+GenF1.menu.upload_method.STLinkMethod=STLink
+GenF1.menu.upload_method.STLinkMethod.upload.protocol=STLink
+GenF1.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
 
-GenF103.menu.upload_method.serialMethod=Serial
-GenF103.menu.upload_method.serialMethod.upload.protocol=maple_serial
-GenF103.menu.upload_method.serialMethod.upload.tool=serial_upload
+GenF1.menu.upload_method.serialMethod=Serial
+GenF1.menu.upload_method.serialMethod.upload.protocol=maple_serial
+GenF1.menu.upload_method.serialMethod.upload.tool=serial_upload
 
-GenF103.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
-GenF103.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
-GenF103.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ################################################################################
 # Generic F4
@@ -653,36 +663,6 @@ GenF4.menu.upload_method.serialMethod.upload.tool=serial_upload
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
-
-###############################
-# Maple
-Maple.name=Maple series
-
-Maple.build.vid=0x0483
-Maple.build.core=arduino
-Maple.build.board=Maple
-Maple.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# MAPLEMINI_F103CB board
-# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
-Maple.menu.pnum.MAPLEMINI_F103CB=Maple Mini F103CB
-Maple.menu.pnum.MAPLEMINI_F103CB.upload.maximum_size=131072
-Maple.menu.pnum.MAPLEMINI_F103CB.upload.maximum_data_size=20480
-Maple.menu.pnum.MAPLEMINI_F103CB.build.mcu=cortex-m3
-Maple.menu.pnum.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
-Maple.menu.pnum.MAPLEMINI_F103CB.build.series=STM32F1xx
-Maple.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
-Maple.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
-Maple.menu.pnum.MAPLEMINI_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# Upload menu
-Maple.menu.upload_method.STLinkMethod=STLink
-Maple.menu.upload_method.STLinkMethod.upload.protocol=STLink
-Maple.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
-
-Maple.menu.upload_method.serialMethod=Serial
-Maple.menu.upload_method.serialMethod.upload.protocol=maple_serial
-Maple.menu.upload_method.serialMethod.upload.tool=serial_upload
 
 ################################################################################
 # RAK boards
@@ -809,23 +789,17 @@ GenF0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF0.menu.xserial.disabled=Disabled (No Serial)
 GenF0.menu.xserial.disabled.build.xSerial=
 
-GenF103.menu.xserial.generic=Enabled with generic Serial
-GenF103.menu.xserial.none=Enabled without generic Serial
-GenF103.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-GenF103.menu.xserial.disabled=Disabled (No Serial)
-GenF103.menu.xserial.disabled.build.xSerial=
+GenF1.menu.xserial.generic=Enabled with generic Serial
+GenF1.menu.xserial.none=Enabled without generic Serial
+GenF1.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF1.menu.xserial.disabled=Disabled (No Serial)
+GenF1.menu.xserial.disabled.build.xSerial=
 
 GenF4.menu.xserial.generic=Enabled with generic Serial
 GenF4.menu.xserial.none=Enabled without generic Serial
 GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (No Serial)
 GenF4.menu.xserial.disabled.build.xSerial=
-
-Maple.menu.xserial.generic=Enabled with generic Serial
-Maple.menu.xserial.none=Enabled without generic Serial
-Maple.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Maple.menu.xserial.disabled=Disabled (No Serial)
-Maple.menu.xserial.disabled.build.xSerial=
 
 RAK.menu.xserial.generic=Enabled with generic Serial
 RAK.menu.xserial.none=Enabled without generic Serial
@@ -882,15 +856,15 @@ Disco.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 Disco.menu.usb.CDCHS=CDC High Speed
 Disco.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
-GenF103.menu.usb.none=None
-GenF103.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-GenF103.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-GenF103.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-GenF103.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-GenF103.menu.usb.CDCFS=CDC Full Speed
-GenF103.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-GenF103.menu.usb.CDCHS=CDC High Speed
-GenF103.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+GenF1.menu.usb.none=None
+GenF1.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
+GenF1.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF1.menu.usb.HIDHS=HID keyboard and mouse support High Speed
+GenF1.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
+GenF1.menu.usb.CDCFS=CDC Full Speed
+GenF1.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF1.menu.usb.CDCHS=CDC High Speed
+GenF1.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 GenF4.menu.usb.none=None
 GenF4.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
@@ -901,16 +875,6 @@ GenF4.menu.usb.CDCFS=CDC Full Speed
 GenF4.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 GenF4.menu.usb.CDCHS=CDC High Speed
 GenF4.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
-
-Maple.menu.usb.none=None
-Maple.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-Maple.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Maple.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-Maple.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-Maple.menu.usb.CDCFS=CDC Full Speed
-Maple.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Maple.menu.usb.CDCHS=CDC High Speed
-Maple.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCFS=CDC Full Speed
@@ -1009,23 +973,23 @@ GenF0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF0.menu.opt.ogstd=Debug (-g)
 GenF0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
-GenF103.menu.opt.osstd=Smallest (-Os default)
-GenF103.menu.opt.oslto=Smallest (-Os) with LTO
-GenF103.menu.opt.oslto.build.flags.optimize=-Os -flto
-GenF103.menu.opt.o1std=Fast (-O1)
-GenF103.menu.opt.o1std.build.flags.optimize=-O1
-GenF103.menu.opt.o1lto=Fast (-O1) with LTO
-GenF103.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-GenF103.menu.opt.o2std=Faster (-O2)
-GenF103.menu.opt.o2std.build.flags.optimize=-O2
-GenF103.menu.opt.o2lto=Faster (-O2) with LTO
-GenF103.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-GenF103.menu.opt.o3std=Fastest (-O3)
-GenF103.menu.opt.o3std.build.flags.optimize=-O3
-GenF103.menu.opt.o3lto=Fastest (-O3) with LTO
-GenF103.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF103.menu.opt.ogstd=Debug (-g)
-GenF103.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF1.menu.opt.osstd=Smallest (-Os default)
+GenF1.menu.opt.oslto=Smallest (-Os) with LTO
+GenF1.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF1.menu.opt.o1std=Fast (-O1)
+GenF1.menu.opt.o1std.build.flags.optimize=-O1
+GenF1.menu.opt.o1lto=Fast (-O1) with LTO
+GenF1.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF1.menu.opt.o2std=Faster (-O2)
+GenF1.menu.opt.o2std.build.flags.optimize=-O2
+GenF1.menu.opt.o2lto=Faster (-O2) with LTO
+GenF1.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF1.menu.opt.o3std=Fastest (-O3)
+GenF1.menu.opt.o3std.build.flags.optimize=-O3
+GenF1.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF1.menu.opt.ogstd=Debug (-g)
+GenF1.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenF4.menu.opt.osstd=Smallest (-Os default)
 GenF4.menu.opt.osstd.build.flags.optimize=-Os
@@ -1045,24 +1009,6 @@ GenF4.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF4.menu.opt.ogstd=Debug (-g)
 GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
-
-Maple.menu.opt.osstd=Smallest (-Os default)
-Maple.menu.opt.oslto=Smallest (-Os) with LTO
-Maple.menu.opt.oslto.build.flags.optimize=-Os -flto
-Maple.menu.opt.o1std=Fast (-O1)
-Maple.menu.opt.o1std.build.flags.optimize=-O1
-Maple.menu.opt.o1lto=Fast (-O1) with LTO
-Maple.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Maple.menu.opt.o2std=Faster (-O2)
-Maple.menu.opt.o2std.build.flags.optimize=-O2
-Maple.menu.opt.o2lto=Faster (-O2) with LTO
-Maple.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Maple.menu.opt.o3std=Fastest (-O3)
-Maple.menu.opt.o3std.build.flags.optimize=-O3
-Maple.menu.opt.o3lto=Fastest (-O3) with LTO
-Maple.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Maple.menu.opt.ogstd=Debug (-g)
-Maple.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 RAK.menu.opt.osstd=Smallest (-Os default)
 RAK.menu.opt.oslto=Smallest (-Os) with LTO
@@ -1151,15 +1097,15 @@ GenF0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float
 GenF0.menu.rtlib.full=Newlib Standard
 GenF0.menu.rtlib.full.build.flags.ldspecs=
 
-GenF103.menu.rtlib.nano=Newlib Nano (default)
-GenF103.menu.rtlib.nanofp=Newlib Nano + Float Printf
-GenF103.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-GenF103.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-GenF103.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-GenF103.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-GenF103.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-GenF103.menu.rtlib.full=Newlib Standard
-GenF103.menu.rtlib.full.build.flags.ldspecs=
+GenF1.menu.rtlib.nano=Newlib Nano (default)
+GenF1.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF1.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF1.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF1.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF1.menu.rtlib.full=Newlib Standard
+GenF1.menu.rtlib.full.build.flags.ldspecs=
 
 GenF4.menu.rtlib.nano=Newlib Nano (default)
 GenF4.menu.rtlib.nanofp=Newlib Nano + Float Printf
@@ -1170,16 +1116,6 @@ GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF4.menu.rtlib.full=Newlib Standard
 GenF4.menu.rtlib.full.build.flags.ldspecs=
-
-Maple.menu.rtlib.nano=Newlib Nano (default)
-Maple.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Maple.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Maple.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Maple.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Maple.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Maple.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Maple.menu.rtlib.full=Newlib Standard
-Maple.menu.rtlib.full.build.flags.ldspecs=
 
 RAK.menu.rtlib.nano=Newlib Nano (default)
 RAK.menu.rtlib.nanofp=Newlib Nano + Float Printf
