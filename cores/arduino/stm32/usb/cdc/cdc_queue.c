@@ -97,10 +97,11 @@ void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue) {
 
 // Reserve block in queue and return pointer to it.
 uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue) {
-  if ((uint16_t)(CDC_RECEIVE_QUEUE_BUFFER_SIZE - queue->write) >= CDC_QUEUE_MAX_PACKET_SIZE) {
+  if ((uint16_t)(CDC_RECEIVE_QUEUE_BUFFER_SIZE - queue->write) >= CDC_QUEUE_MAX_PACKET_SIZE &&
+      (queue->read <= queue->write || (uint16_t)(queue->read - queue->write) >= CDC_QUEUE_MAX_PACKET_SIZE)) {
     // have enough space on the rest of buffer to store full-length packet
     return &queue->buffer[queue->write];
-  } else if (queue->read >= CDC_QUEUE_MAX_PACKET_SIZE) {
+  } else if (queue->read >= CDC_QUEUE_MAX_PACKET_SIZE && queue->read <= queue->write) {
     // have enough space on the beginning of buffer to store full-length packet
     queue->length = queue->write;
     queue->write = 0;
@@ -114,6 +115,9 @@ uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue) {
 // Commits block in queue and make it available for reading
 void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue, uint16_t size) {
   queue->write += size;
+  if (queue->write >= queue->length) {
+    queue->length = CDC_RECEIVE_QUEUE_BUFFER_SIZE;
+  }
 }
 
 // Determine size, available for read
@@ -121,7 +125,7 @@ int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue) {
   if (queue->write >= queue->read) {
     return queue->write - queue->read;
   } else {
-    return queue->length - queue->read;
+    return queue->length + queue->write - queue->read;
   }
 }
 
