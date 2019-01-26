@@ -19,6 +19,7 @@
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
+#include "stm32yyxx_ll_pwr.h"
 
 #ifndef HAL_PCD_MODULE_ENABLED
 #error "HAL_PCD_MODULE_ENABLED is required"
@@ -50,6 +51,11 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     __HAL_RCC_PWR_CLK_DISABLE();
   } else {
     HAL_PWREx_EnableVddUSB();
+  }
+#endif
+#ifdef STM32H7xx
+  if(!LL_PWR_IsActiveFlag_USB()) {
+    HAL_PWREx_EnableUSBVoltageDetector();
   }
 #endif
 #if defined (USB)
