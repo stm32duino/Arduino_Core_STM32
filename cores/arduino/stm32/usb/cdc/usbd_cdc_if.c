@@ -211,6 +211,7 @@ static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
 
 
 static int8_t USBD_CDC_Transferred (void) {
+  CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
   return (USBD_OK);
 }
