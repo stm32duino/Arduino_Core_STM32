@@ -737,7 +737,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
-3dprinter.menu.pnum.EEXTR_F030_V1.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
 3dprinter.menu.pnum.EEXTR_F030_V1.upload.maximum_size=65536
 3dprinter.menu.pnum.EEXTR_F030_V1.upload.maximum_data_size=8192
 3dprinter.menu.pnum.EEXTR_F030_V1.build.mcu=cortex-m0
