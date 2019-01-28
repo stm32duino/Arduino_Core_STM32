@@ -747,6 +747,17 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_F407_V1
 3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# EEXTR_F030_V1 board
+3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
+3dprinter.menu.pnum.EEXTR_F030_V1.upload.maximum_size=65536
+3dprinter.menu.pnum.EEXTR_F030_V1.upload.maximum_data_size=8192
+3dprinter.menu.pnum.EEXTR_F030_V1.build.mcu=cortex-m0
+3dprinter.menu.pnum.EEXTR_F030_V1.build.board=EEXTR_F030_V1
+3dprinter.menu.pnum.EEXTR_F030_V1.build.series=STM32F0xx
+3dprinter.menu.pnum.EEXTR_F030_V1.build.product_line=STM32F030x8
+3dprinter.menu.pnum.EEXTR_F030_V1.build.variant=EEXTR_F030_V1
+3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # Upload menu
 3dprinter.menu.upload_method.STLinkMethod=STLink
 3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink

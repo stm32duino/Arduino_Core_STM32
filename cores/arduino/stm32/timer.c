@@ -916,10 +916,10 @@ void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj)
     if(obj->pinInfo.count != 0){
       if (obj->pinInfo.count > 0) obj->pinInfo.count--;
       obj->pinInfo.state = (obj->pinInfo.state == 0)? 1 : 0;
-      digital_io_write(port, STM_GPIO_PIN(obj->pin), obj->pinInfo.state);
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), obj->pinInfo.state);
     }
     else {
-      digital_io_write(port, STM_GPIO_PIN(obj->pin), 0);
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), 0);
     }
   }
 }
