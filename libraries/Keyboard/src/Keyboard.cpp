@@ -20,7 +20,6 @@
 */
 
 #include "Keyboard.h"
-#include "usbd_hid_composite.h"
 
 #if defined(USBCON)
 

@@ -171,6 +171,10 @@ extern "C"
 // UART Definitions
 #define SERIAL_UART_INSTANCE 1
 
+// I2C Definitions
+#define PIN_WIRE_SDA PB7
+#define PIN_WIRE_SCL PB6
+
 // Default pin used for 'Serial' instance
 #define PIN_SERIAL_RX 0
 #define PIN_SERIAL_TX 1

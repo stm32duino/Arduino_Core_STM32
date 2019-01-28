@@ -63,7 +63,7 @@ extern const PinName digitalPin[];
 // !!! #define PB5  22
 // !!! #define PB3  23
 // !!! // 24 is PA4 (20)
-// !!! // 25 is PB4 (21)// #define PXn x
+// !!! // 25 is PB4 (21)
 // !!! #define PA2  26 // A15
 // !!! ...
 //#define PXn x
