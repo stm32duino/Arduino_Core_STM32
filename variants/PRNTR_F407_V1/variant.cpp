@@ -104,14 +104,14 @@ const PinName digitalPin[] = {
   PD_14,
   PD_15,
 
-  PA_0,
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PA_6,
-  PA_7,
+  PA_0, // A0
+  PA_1, // A1
+  PA_2, // A2
+  PA_3, // A3
+  PA_4, // A4
+  PA_5, // A5
+  PA_6, // A6
+  PA_7, // A7
   PA_8,
   PA_9,
   PA_10,
@@ -120,19 +120,6 @@ const PinName digitalPin[] = {
   PA_13,
   PA_14,
   PA_15,
-
-//Duplicated to have A0-A5 as F407 do not have Uno like connector
-// and to be aligned with PinMap_ADC
-  PA_0,  //D80/A0 = D0
-  PA_1,  //D81/A1 = D1
-  PA_2,  //D82/A2 = D2
-  PA_3,  //D83/A3 = D3
-  PA_4,  //D84/A4 = D4
-  PA_5,  //D85/A5 = D5
-  PA_6,  //D86/A6 = D6
-  PA_7,  //D87/A7 = D7
-  PA_8,  //D88/A8 = D8
-  PA_15, //D89/A9 = D15
 };
 
 #ifdef __cplusplus

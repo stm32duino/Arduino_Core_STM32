@@ -177,8 +177,8 @@ extern const PinName digitalPin[];
 // This must be a literal
 #define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       10
-#define NUM_ANALOG_FIRST        80
+#define NUM_ANALOG_INPUTS       8
+#define NUM_ANALOG_FIRST        64
 
 // On-board LED pin number
 #define LED_BUILTIN             PB2
