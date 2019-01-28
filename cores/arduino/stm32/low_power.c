@@ -58,9 +58,10 @@ static void (*WakeUpUartCb)( void ) = NULL;
   * @retval None
   */
 void LowPower_init(){
+#ifndef STM32H7xx
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
-
+#endif
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
 

@@ -13,7 +13,7 @@ Note: most license information is available on top of each source file
 * system/Drivers/ subfolders include the STMicroelectronics HAL Drivers and CMSIS
 ST device.
 
-[MCD-ST Liberty SW License](#mcd-st-liberty-sw-license) is used for:
+[Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
 * system/Middlewares/STM32_USB_*_Library/ folders
 
 [Apache License](#apache-license) is used for:
@@ -558,18 +558,12 @@ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 -------------------------------------------------------------------------------
-## MCD-ST Liberty SW License
+## Ultimate Liberty License
 
-Licensed under MCD-ST Liberty SW License Agreement V2, (the "License"); You may
-not use this package except in compliance with the License. You may obtain a
-copy of the License at:
-
-       http://www.st.com/software_license_agreement_liberty_v2
-
-Unless required by applicable law or agreed to in writing, software distributed
-under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-CONDITIONS OF ANY KIND, either express or implied. See the License for the
-specific language governing permissions and limitations under the License.
+This software component is licensed by ST under Ultimate Liberty license
+SLA0044, the "License"; You may not use this file except in compliance with
+the License. You may obtain a copy of the License at:
+                      http://www.st.com/SLA0044
 
 -------------------------------------------------------------------------------
 ## Apache License
