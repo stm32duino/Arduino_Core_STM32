@@ -75,10 +75,6 @@ const PinName digitalPin[] = {
   PB_7,  // D36
   PB_8,  // D37
   PB_9,  // D38
-  // Duplicate definitions for the analog pins
-  PA_0,  // A0
-  PA_1,  // A1
-  PA_2,  // A2
 };
 
 #ifdef __cplusplus
