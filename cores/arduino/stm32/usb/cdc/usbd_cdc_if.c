@@ -40,7 +40,7 @@ USBD_HandleTypeDef hUSBD_Device_CDC;
 CDC_TransmitQueue_TypeDef TransmitQueue;
 CDC_ReceiveQueue_TypeDef ReceiveQueue;
 __IO uint32_t lineState = 0;
-__IO bool receivePended = false;
+__IO bool receivePended = true;
 
 
 /** USBD_CDC Private Function Prototypes */

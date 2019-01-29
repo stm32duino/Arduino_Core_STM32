@@ -116,6 +116,9 @@ void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue, uint16_t size
   if (queue->write >= queue->length) {
     queue->length = CDC_RECEIVE_QUEUE_BUFFER_SIZE;
   }
+  if (queue->write >= CDC_RECEIVE_QUEUE_BUFFER_SIZE) {
+    queue->write = 0;
+  }
 }
 
 // Determine size, available for read
@@ -145,18 +148,70 @@ int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue) {
 
 uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue, uint8_t *buffer, uint16_t size) {
   volatile uint16_t write = queue->write;
+  volatile uint16_t length = queue->length;
   uint16_t available;
+  while(write != queue->write || length != queue->length) {
+    write = queue->write;
+    length = queue->length;
+  }
+
   if (write >= queue->read) {
     available = write - queue->read;
   } else {
-    available = CDC_RECEIVE_QUEUE_BUFFER_SIZE - queue->read;
+    available = length - queue->read;
   }
   if (available < size) {
     size = available;
   }
+
   memcpy(buffer, &queue->buffer[queue->read], size);
-  queue->read = (queue->read + size) % CDC_RECEIVE_QUEUE_BUFFER_SIZE;
+  queue->read = queue->read + size;
+  if (queue->read >= length) {
+    queue->read = 0;
+  }
   return size;
+}
+
+bool CDC_ReceiveQueue_ReadUntil(CDC_ReceiveQueue_TypeDef *queue, uint8_t terminator, uint8_t *buffer,
+        uint16_t size, uint16_t* fetched) {
+  volatile uint16_t write = queue->write;
+  volatile uint16_t length = queue->length;
+  uint16_t available;
+  while(write != queue->write || length != queue->length) {
+      write = queue->write;
+      length = queue->length;
+  }
+
+  if (write >= queue->read) {
+    available = write - queue->read;
+  } else {
+    available = length - queue->read;
+  }
+  if (available < size) {
+    size = available;
+  }
+
+  uint8_t* start = &queue->buffer[queue->read];
+  for(uint16_t i = 0; i < size; i++) {
+    uint8_t ch = start[i];
+    if (ch == terminator) {
+      queue->read += (uint16_t)(i + 1);
+      if (queue->read >= length) {
+        queue->read = 0;
+      }
+      *fetched = i;
+      return true;
+    } else {
+      buffer[i] = ch;
+    }
+  }
+
+  *fetched = size;
+  queue->read += size;
+  if (queue->read >= length) {
+      queue->read = 0;
+  }
+  return false;
 }
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
