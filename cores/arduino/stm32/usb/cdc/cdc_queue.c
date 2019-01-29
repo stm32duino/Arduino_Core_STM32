@@ -128,7 +128,8 @@ int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue) {
 }
 
 // Read one byte from queue.
-uint8_t CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue) {
+int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue) {
+  if (queue->write == queue->read) return -1;
   uint8_t ch = queue->buffer[queue->read++];
   if (queue->read >= queue->length) {
     queue->read = 0;
@@ -137,9 +138,25 @@ uint8_t CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue) {
 }
 
 // Peek byte from queue.
-uint8_t CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue) {
+int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue) {
+  if (queue->write == queue->read) return -1;
   return queue->buffer[queue->read];
 }
 
+uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue, uint8_t *buffer, uint16_t size) {
+  volatile uint16_t write = queue->write;
+  uint16_t available;
+  if (write >= queue->read) {
+    available = write - queue->read;
+  } else {
+    available = CDC_RECEIVE_QUEUE_BUFFER_SIZE - queue->read;
+  }
+  if (available < size) {
+    size = available;
+  }
+  memcpy(buffer, &queue->buffer[queue->read], size);
+  queue->read = (queue->read + size) % CDC_RECEIVE_QUEUE_BUFFER_SIZE;
+  return size;
+}
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */

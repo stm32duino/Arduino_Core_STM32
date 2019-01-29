@@ -78,8 +78,9 @@ void CDC_TransmitQueue_CommitRead(CDC_TransmitQueue_TypeDef *queue);
 
 void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef* queue);
 int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef* queue);
-uint8_t CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef* queue);
-uint8_t CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef* queue);
+int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef* queue);
+int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef* queue);
+uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef* queue, uint8_t* buffer, uint16_t size);
 uint8_t* CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef* queue);
 void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef* queue, uint16_t size);
 

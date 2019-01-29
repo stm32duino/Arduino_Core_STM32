@@ -24,7 +24,6 @@
 #include "usbd_desc.h"
 #include "wiring.h"
 
-#define USB_TIMEOUT 50
 /* USB Device Core handle declaration */
 extern USBD_HandleTypeDef hUSBD_Device_CDC;
 extern __IO  uint32_t lineState;
@@ -91,24 +90,26 @@ int USBSerial::available(void) {
 }
 
 int USBSerial::read(void) {
-  // Empty ReceiveQueue - nothing to return
-  if (CDC_ReceiveQueue_ReadSize(&ReceiveQueue) <= 0) {
-    return -1;
-  }
   // Dequeue only one char from queue
   // TS: it safe, because only main thread affects ReceiveQueue->read pos
-  char ch = CDC_ReceiveQueue_Dequeue(&ReceiveQueue);
+  auto ch = CDC_ReceiveQueue_Dequeue(&ReceiveQueue);
   // Resume receive process, if possible
   CDC_resume_receive();
   return ch;
 }
 
+size_t USBSerial::readBytes(char *buffer, size_t length) {
+  auto rest = static_cast<uint16_t>(length);
+  _startMillis = millis();
+  do {
+    rest -= CDC_ReceiveQueue_Read(&ReceiveQueue, reinterpret_cast<uint8_t*>(buffer), rest);
+    if (rest == 0) return length;
+  } while(millis() - _startMillis < _timeout);
+  return length - rest;
+}
+
 int USBSerial::peek(void)
 {
-  // Empty ReceiveQueue - nothing to return
-  if (CDC_ReceiveQueue_ReadSize(&ReceiveQueue) <= 0) {
-    return -1;
-  }
   // Peek one symbol, it can't change receive avaiablity
   return CDC_ReceiveQueue_Peek(&ReceiveQueue);
 }
