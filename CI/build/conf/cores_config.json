@@ -67,7 +67,7 @@
         {
           "pattern": "BlinkWithoutDelay.ino",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1" ]
+          "boards": [ "MALYANM200_F103CB" ]
         },
         {
           "pattern": "STM32SD",
