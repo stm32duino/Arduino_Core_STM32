@@ -94,16 +94,40 @@ int USBSerial::read(void) {
   // TS: it safe, because only main thread affects ReceiveQueue->read pos
   auto ch = CDC_ReceiveQueue_Dequeue(&ReceiveQueue);
   // resume receive process, if possible
-  CDC_resume_receive();
+    CDC_resume_receive();
   return ch;
 }
 
 size_t USBSerial::readBytes(char *buffer, size_t length) {
+  uint16_t read;
   auto rest = static_cast<uint16_t>(length);
   _startMillis = millis();
   do {
-    rest -= CDC_ReceiveQueue_Read(&ReceiveQueue, reinterpret_cast<uint8_t*>(buffer), rest);
+    read = CDC_ReceiveQueue_Read(&ReceiveQueue, reinterpret_cast<uint8_t*>(buffer), rest);
+    CDC_resume_receive();
+    rest -= read;
+    buffer += read;
     if (rest == 0) return length;
+  } while(millis() - _startMillis < _timeout);
+  return length - rest;
+}
+
+size_t USBSerial::readBytesUntil(char terminator, char *buffer, size_t length) {
+  uint16_t read;
+  auto rest = static_cast<uint16_t>(length);
+  _startMillis = millis();
+  do {
+    bool found = CDC_ReceiveQueue_ReadUntil(&ReceiveQueue, static_cast<uint8_t>(terminator),
+            reinterpret_cast<uint8_t*>(buffer), rest, &read);
+    CDC_resume_receive();
+    rest -= read;
+    buffer += read;
+    if (found) {
+      return length - rest;
+    }
+    if (rest == 0) {
+      return length;
+    }
   } while(millis() - _startMillis < _timeout);
   return length - rest;
 }
