@@ -528,12 +528,12 @@ GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # BLUEPILL_F103C6 board
-# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
+# Support: Serial2 (USART2 on PA3, PA2)
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
 GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_size=32768
 GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_data_size=10240
-GenF1.menu.pnum.BLUEPILL_F103C6.build.board=BLUEPILL_F103C8
-GenF1.menu.pnum.BLUEPILL_F103C6.build.product_line=STM32F103xB
+GenF1.menu.pnum.BLUEPILL_F103C6.build.board=BLUEPILL_F103C6
+GenF1.menu.pnum.BLUEPILL_F103C6.build.product_line=STM32F103x6
 GenF1.menu.pnum.BLUEPILL_F103C6.build.variant=BLUEPILL_F103C8
 
 # BLUEPILL_F103C8 board
