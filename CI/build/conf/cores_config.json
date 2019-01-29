@@ -7,10 +7,6 @@
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
-        },
-        {
-          "name": "BLUEPILL_F103C8",
-          "options": "flash=C8"
         }
       ],
       "sketches": [
@@ -76,8 +72,22 @@
         {
           "pattern": "09.USB",
           "applicable": true,
-          "boards": [ "NUCLEO_F429ZI", "DISCO_L475VG_IOT", "DISCO_F407VG" ],
-          "options": "usb=HID"
+          "boards": [
+            "BLUEPILL_F103C8",
+            "BLACK_F407VE",
+            "MAPLEMINI_F103CB",
+            "NUCLEO_F207ZG",
+            "NUCLEO_F429ZI",
+            "NUCLEO_L496ZG-P",
+            "NUCLEO_L4R5ZI-P",
+            "NUCLEO_H743ZI",
+            "DISCO_F072RB",
+            "DISCO_F407VG",
+            "DISCO_F746NG",
+            "DISCO_L072CZ_LRWAN1",
+            "DISCO_L475VG_IOT"
+          ],
+          "options": "usb=HIDFS"
         },
         {
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
