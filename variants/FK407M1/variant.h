@@ -121,11 +121,13 @@ extern const PinName digitalPin[];
 #define PD15 72
 #define PC6  73
 #define PC13 74
+#define PA15 75
+
 // This must be a literal
-#define NUM_DIGITAL_PINS        91
+#define NUM_DIGITAL_PINS        92
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16
-#define NUM_ANALOG_FIRST        75
+#define NUM_ANALOG_FIRST        76
 
 // On-board LED pin number
 #define LED_D1                  PC13
