@@ -59,8 +59,8 @@ int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef *queue) {
 }
 
 // Write provided data into queue.
-void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue, const uint8_t *buffer,
-    uint32_t size) {
+void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue,
+    const uint8_t *buffer, uint32_t size) {
   uint32_t sizeToEnd = CDC_TRANSMIT_QUEUE_BUFFER_SIZE - queue->write;
   if (sizeToEnd > size) {
     memcpy(&queue->buffer[queue->write], &buffer[0], size);
@@ -68,11 +68,13 @@ void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue, const uint8_t *
     memcpy(&queue->buffer[queue->write], &buffer[0], sizeToEnd);
     memcpy(&queue->buffer[0], &buffer[sizeToEnd], size - sizeToEnd);
   }
-  queue->write = (uint16_t)((queue->write + size) % CDC_TRANSMIT_QUEUE_BUFFER_SIZE);
+  queue->write = (uint16_t)((queue->write + size) %
+    CDC_TRANSMIT_QUEUE_BUFFER_SIZE);
 }
 
-// Read flat block from queue (biggest as possible, but max CDC_QUEUE_MAX_PACKET_SIZE).
-uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue, uint16_t *size) {
+// Read flat block from queue biggest as possible, but max QUEUE_MAX_PACKET_SIZE
+uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue,
+    uint16_t *size) {
   if (queue->write >= queue->read) {
     *size = queue->write - queue->read;
   } else {
@@ -83,7 +85,8 @@ uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue, uint16_t 
 }
 
 void CDC_TransmitQueue_CommitRead(CDC_TransmitQueue_TypeDef *queue) {
-  queue->read = (queue->read + queue->reserved) % CDC_TRANSMIT_QUEUE_BUFFER_SIZE;
+  queue->read = (queue->read + queue->reserved) %
+    CDC_TRANSMIT_QUEUE_BUFFER_SIZE;
 }
 
 // Initialize read and write position of queue.
@@ -95,23 +98,33 @@ void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue) {
 
 // Reserve block in queue and return pointer to it.
 uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue) {
-  if ((uint16_t)(CDC_RECEIVE_QUEUE_BUFFER_SIZE - queue->write) >= CDC_QUEUE_MAX_PACKET_SIZE &&
-      (queue->read <= queue->write || (uint16_t)(queue->read - queue->write) >= CDC_QUEUE_MAX_PACKET_SIZE)) {
-    // have enough space on the rest of buffer to store full-length packet
-    return &queue->buffer[queue->write];
-  } else if (queue->read >= CDC_QUEUE_MAX_PACKET_SIZE && queue->read <= queue->write) {
-    // have enough space on the beginning of buffer to store full-length packet
-    queue->length = queue->write;
-    queue->write = 0;
-    return &queue->buffer[queue->write];
-  } else {
-    // have no space to store full-length packet
-    return 0;
+  const uint16_t limit =
+          CDC_RECEIVE_QUEUE_BUFFER_SIZE - CDC_QUEUE_MAX_PACKET_SIZE;
+  volatile uint16_t read = queue->read;
+
+  if (read <= queue->write) {
+    // if write is limited only by buffer size.
+    if (queue->write < limit || (queue->write == limit && read > 0)) {
+      // if size in the rest of buffer is enough for full packet plus 1 byte
+      // or if it tight enough and write position can be set to 0
+      return queue->buffer + queue->write;
+    } else if (read > CDC_QUEUE_MAX_PACKET_SIZE) {
+      // if size in the rest is not enough, but enough size in head
+      queue->length = queue->write;
+      queue->write = 0;
+      return queue->buffer + queue->write;
+    }
+  } else if (queue->write + CDC_QUEUE_MAX_PACKET_SIZE < read) {
+    // write position must be less than read position
+    // after reading largest possible packet
+    return queue->buffer + queue->write;
   }
+  return 0;
 }
 
 // Commits block in queue and make it available for reading
-void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue, uint16_t size) {
+void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue,
+    uint16_t size) {
   queue->write += size;
   if (queue->write >= queue->length) {
     queue->length = CDC_RECEIVE_QUEUE_BUFFER_SIZE;
@@ -123,18 +136,24 @@ void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue, uint16_t size
 
 // Determine size, available for read
 int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue) {
-  if (queue->write >= queue->read) {
-    return queue->write - queue->read;
-  } else {
-    return queue->length + queue->write - queue->read;
+  // reading length after write make guarantee, that length >= write
+  // and determined reading size will be smaller or equal than real one.
+  volatile uint16_t write = queue->write;
+  volatile uint16_t length = queue->length;
+  if (write >= queue->read) {
+    return write - queue->read;
   }
+  return length + write - queue->read;
 }
 
 // Read one byte from queue.
 int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue) {
-  if (queue->write == queue->read) return -1;
+  volatile uint16_t write = queue->write;
+  volatile uint16_t length = queue->length;
+  if (queue->read == length) queue->read = 0;
+  if (write == queue->read) return -1;
   uint8_t ch = queue->buffer[queue->read++];
-  if (queue->read >= queue->length) {
+  if (queue->read >= length) {
     queue->read = 0;
   }
   return ch;
@@ -142,19 +161,20 @@ int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue) {
 
 // Peek byte from queue.
 int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue) {
-  if (queue->write == queue->read) return -1;
+  volatile uint16_t write = queue->write;
+  volatile uint16_t length = queue->length;
+  if (queue->read >= length) queue->read = 0;
+  if (write == queue->read) return -1;
   return queue->buffer[queue->read];
 }
 
-uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue, uint8_t *buffer, uint16_t size) {
+uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue,
+    uint8_t *buffer, uint16_t size) {
   volatile uint16_t write = queue->write;
   volatile uint16_t length = queue->length;
   uint16_t available;
-  while(write != queue->write || length != queue->length) {
-    write = queue->write;
-    length = queue->length;
-  }
 
+  if (queue->read >= length) queue->read = 0;
   if (write >= queue->read) {
     available = write - queue->read;
   } else {
@@ -172,16 +192,13 @@ uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue, uint8_t *buffer,
   return size;
 }
 
-bool CDC_ReceiveQueue_ReadUntil(CDC_ReceiveQueue_TypeDef *queue, uint8_t terminator, uint8_t *buffer,
-        uint16_t size, uint16_t* fetched) {
+bool CDC_ReceiveQueue_ReadUntil(CDC_ReceiveQueue_TypeDef *queue,
+    uint8_t terminator, uint8_t *buffer, uint16_t size, uint16_t* fetched) {
   volatile uint16_t write = queue->write;
   volatile uint16_t length = queue->length;
   uint16_t available;
-  while(write != queue->write || length != queue->length) {
-      write = queue->write;
-      length = queue->length;
-  }
 
+  if (queue->read >= length) queue->read = 0;
   if (write >= queue->read) {
     available = write - queue->read;
   } else {
