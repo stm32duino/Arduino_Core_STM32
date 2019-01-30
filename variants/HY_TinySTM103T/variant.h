@@ -65,12 +65,12 @@ extern const PinName digitalPin[];
 #define PA7  15
 #define PB0  16
 #define PB1  17
-#define PB2 //BOOT1
-#define PA8  18
-#define PA9  19
-#define PA10 20
-#define PA11 21
-#define PA12 22
+#define PB2  18//BOOT1
+#define PA8  19
+#define PA9  20
+#define PA10 21
+#define PA11 22
+#define PA12 23
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        33
