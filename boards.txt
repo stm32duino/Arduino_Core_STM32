@@ -534,7 +534,7 @@ GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_size=32768
 GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_data_size=10240
 GenF1.menu.pnum.BLUEPILL_F103C6.build.board=BLUEPILL_F103C6
 GenF1.menu.pnum.BLUEPILL_F103C6.build.product_line=STM32F103x6
-GenF1.menu.pnum.BLUEPILL_F103C6.build.variant=BLUEPILL_F103C8
+GenF1.menu.pnum.BLUEPILL_F103C6.build.variant=BLUEPILL_F103XX
 
 # BLUEPILL_F103C8 board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
@@ -543,14 +543,14 @@ GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_size=65536
 GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
-GenF1.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103C8
+GenF1.menu.pnum.BLUEPILL_F103C8.build.variant=BLUEPILL_F103XX
 
 GenF1.menu.pnum.BLUEPILL_F103C8B=BluePill F103C8 (128k)
 GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_size=131072
 GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.board=BLUEPILL_F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.product_line=STM32F103xB
-GenF1.menu.pnum.BLUEPILL_F103C8B.build.variant=BLUEPILL_F103C8
+GenF1.menu.pnum.BLUEPILL_F103C8B.build.variant=BLUEPILL_F103XX
 
 # BLACKPILL_F103C8 board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
@@ -559,14 +559,14 @@ GenF1.menu.pnum.BLACKPILL_F103C8.upload.maximum_size=65536
 GenF1.menu.pnum.BLACKPILL_F103C8.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLACKPILL_F103C8.build.board=BLACKPILL_F103C8
 GenF1.menu.pnum.BLACKPILL_F103C8.build.product_line=STM32F103xB
-GenF1.menu.pnum.BLACKPILL_F103C8.build.variant=BLUEPILL_F103C8
+GenF1.menu.pnum.BLACKPILL_F103C8.build.variant=BLUEPILL_F103XX
 
 GenF1.menu.pnum.BLACKPILL_F103C8B=BlackPill F103C8 (128k)
 GenF1.menu.pnum.BLACKPILL_F103C8B.upload.maximum_size=131072
 GenF1.menu.pnum.BLACKPILL_F103C8B.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.board=BLACKPILL_F103C8
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.product_line=STM32F103xB
-GenF1.menu.pnum.BLACKPILL_F103C8B.build.variant=BLUEPILL_F103C8
+GenF1.menu.pnum.BLACKPILL_F103C8B.build.variant=BLUEPILL_F103XX
 
 # MAPLEMINI_F103CB board
 # Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
