@@ -73,9 +73,9 @@ extern const PinName digitalPin[];
 #define PA12 23
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        33
+#define NUM_DIGITAL_PINS        34
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       9
+#define NUM_ANALOG_INPUTS       10
 #define NUM_ANALOG_FIRST        24
 
 // On-board LED pin number
