@@ -223,6 +223,7 @@ static inline void pin_SetF1AFPin(uint32_t afnum)
    case AFIO_USART2_DISABLE:
        __HAL_AFIO_REMAP_USART2_DISABLE();
        break;
+#if defined(AFIO_MAPR_USART3_REMAP)
    case AFIO_USART3_ENABLE:
        __HAL_AFIO_REMAP_USART3_ENABLE();
        break;
@@ -232,6 +233,7 @@ static inline void pin_SetF1AFPin(uint32_t afnum)
    case AFIO_USART3_DISABLE:
        __HAL_AFIO_REMAP_USART3_DISABLE();
        break;
+#endif
    case AFIO_TIM1_ENABLE:
        __HAL_AFIO_REMAP_TIM1_ENABLE();
        break;
@@ -262,12 +264,14 @@ static inline void pin_SetF1AFPin(uint32_t afnum)
    case AFIO_TIM3_DISABLE:
        __HAL_AFIO_REMAP_TIM3_DISABLE();
        break;
+#if defined(AFIO_MAPR_TIM4_REMAP)
    case AFIO_TIM4_ENABLE:
        __HAL_AFIO_REMAP_TIM4_ENABLE();
        break;
    case AFIO_TIM4_DISABLE:
        __HAL_AFIO_REMAP_TIM4_DISABLE();
        break;
+#endif
 #if defined(AFIO_MAPR_CAN_REMAP1)
    case AFIO_CAN1_1:
        __HAL_AFIO_REMAP_CAN1_1();
