@@ -62,7 +62,7 @@
         {
           "pattern": "Firmata/",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB" ]
         },
         {
           "pattern": "BlinkWithoutDelay.ino",
@@ -77,7 +77,7 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "09.USB",
