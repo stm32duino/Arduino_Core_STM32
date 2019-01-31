@@ -577,6 +577,15 @@ GenF1.menu.pnum.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
 
+# HY-TinySTM103TB board
+# Support: 
+GenF1.menu.pnum.HY_TinySTM103TB=HY-TinySTM103TB
+GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_size=131072
+GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_data_size=20480
+GenF1.menu.pnum.HY_TinySTM103TB.build.board=HY_TinySTM103TB
+GenF1.menu.pnum.HY_TinySTM103TB.build.product_line=STM32F103xB
+GenF1.menu.pnum.HY_TinySTM103TB.build.variant=HY_TinySTM103T
+
 # Upload menu
 GenF1.menu.upload_method.STLinkMethod=STLink
 GenF1.menu.upload_method.STLinkMethod.upload.protocol=STLink
