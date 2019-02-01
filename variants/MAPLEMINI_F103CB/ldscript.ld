@@ -52,7 +52,7 @@
 ENTRY(Reset_Handler)
 
 /* Highest address of the user mode stack */
-_estack = 0x20005000;    /* end of RAM */
+_estack = 0x20000000 + LD_MAX_DATA_SIZE;    /* end of RAM */
 /* Generate a link error if heap and stack don't fit into RAM */
 _Min_Heap_Size = 0x200;      /* required amount of heap  */
 _Min_Stack_Size = 0x400; /* required amount of stack */
@@ -60,17 +60,8 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-#ifdef DFUBLO_F1
-RAM (rwx) 	    : ORIGIN = 0x20000C00, LENGTH = 17K
-#else
-RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 20K
-#endif
-
-#ifdef DFUBLO_F1
-FLASH (rx)      : ORIGIN = 0x8005000, LENGTH = 108K
-#else
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 128K
-#endif
+RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = LD_MAX_DATA_SIZE
+FLASH (rx)      : ORIGIN = 0x8000000 + BL_SIZE, LENGTH = LD_MAX_SIZE - BL_SIZE
 }
 
 /* Define output sections */

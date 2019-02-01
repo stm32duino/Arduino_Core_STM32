@@ -83,6 +83,7 @@ build.usb_speed=
 build.startup_file=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
+upload.bl_size=0
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
@@ -97,7 +98,7 @@ recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] ||
 # preprocess linker file
 preprocld.name=preproc.ld
 preprocld.filepath={build.path}/{preprocld.name}
-preprocld.flags=-DLD_MAX_SIZE={upload.maximum_size} -DLD_MAX_DATA_SIZE={upload.maximum_data_size}
+preprocld.flags=-DLD_MAX_SIZE={upload.maximum_size} -DLD_MAX_DATA_SIZE={upload.maximum_data_size} -DBL_SIZE={upload.bl_size}
 recipe.hooks.linking.prelink.1.pattern="{compiler.path}{compiler.c.cmd}" -x c -E -P {preprocld.flags} {compiler.c.flags} {build.info.flags} {compiler.c.extra_flags} {build.extra_flags} {compiler.arm.cmsis.c.flags} "{build.variant.path}/{build.ldscript}" -o "{preprocld.filepath}"
 
 # compile patterns

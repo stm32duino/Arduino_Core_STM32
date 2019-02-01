@@ -641,21 +641,24 @@ GenF1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 GenF1.menu.upload_method.hidMethod=HID Bootloader 3.0 (0x0800)
 GenF1.menu.upload_method.hidMethod.upload.protocol=hid3
 GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
+GenF1.menu.upload_method.hidMethod.upload.bl_size=0x800
 GenF1.menu.upload_method.hidMethod.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x0800 -DHIDBL_F1
 
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
 GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
+GenF1.menu.upload_method.dfu2Method.upload.bl_size=0x2000
 GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfu2Method.upload.altID=2
-GenF1.menu.upload_method.dfu2Method.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000 -DDFUBL2_F1 -DUSB_DISC_PIN=PB9
+GenF1.menu.upload_method.dfu2Method.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000 -DUSB_DISC_PIN=PB9
 
 GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original (0x5000)
 GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
 GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
+GenF1.menu.upload_method.dfuoMethod.upload.bl_size=0x5000
 GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfuoMethod.upload.altID=1
-GenF1.menu.upload_method.dfuoMethod.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x5000 -DDFUBLO_F1  -DUSB_DISC_PIN=PB9
+GenF1.menu.upload_method.dfuoMethod.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x5000 -DUSB_DISC_PIN=PB9
 ################################################################################
 # Generic F4
 
@@ -755,6 +758,7 @@ GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 GenF4.menu.upload_method.hidMethod=HID Bootloader 3.0 (0x4000)
 GenF4.menu.upload_method.hidMethod.upload.protocol=hid3
 GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
+GenF4.menu.upload_method.hidMethod.upload.bl_size=0x4000
 GenF4.menu.upload_method.hidMethod.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x4000 -DHIDBL_F4
 
 ###############################
