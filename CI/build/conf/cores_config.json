@@ -65,7 +65,7 @@
           "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB" ]
         },
         {
-          "pattern": "BlinkWithoutDelay.ino",
+          "pattern": "Blink(WithoutDelay)?.ino",
           "applicable": false,
           "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
         },
