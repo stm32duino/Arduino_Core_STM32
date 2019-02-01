@@ -37,6 +37,7 @@ extern __IO uint32_t UserRxBufPtrIn;
 extern __IO uint32_t UserRxBufPtrOut;
 
 USBSerial SerialUSB;
+void serialEventUSB() __attribute__((weak));
 
 void USBSerial::begin(uint32_t /* baud_count */) {
   // uart config is ignored in USB-CDC

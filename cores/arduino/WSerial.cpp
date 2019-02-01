@@ -35,5 +35,8 @@ void serialEventRun(void)
 #if defined(HAVE_HWSERIALLP1)
   if (serialEventLP1 && SerialLP1.available()) serialEventLP1();
 #endif
+#if defined(HAVE_SERIALUSB)
+  if (serialEventUSB && SerialUSB.available()) serialEventUSB();
+#endif
 }
 
