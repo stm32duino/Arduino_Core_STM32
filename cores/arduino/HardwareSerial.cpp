@@ -26,7 +26,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <inttypes.h>
-#include <assert.h>
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
@@ -385,10 +384,9 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
     default:
 	case 0:
-      databits = 0;
+      Error_Handler();
       break;
   }
-  assert(databits!=0);
 
   uart_init(&_serial);
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
