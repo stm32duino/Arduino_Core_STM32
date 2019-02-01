@@ -22,10 +22,7 @@
   Modified 3 December 2013 by Matthijs Kooijman
 */
 
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <inttypes.h>
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
