@@ -42,7 +42,6 @@
 
 #ifdef __cplusplus
 #include "Tone.h"
-#include "USBSerial.h"
 #include "WCharacter.h"
 #include "WSerial.h"
 #include "WMath.h"

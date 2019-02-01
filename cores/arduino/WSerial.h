@@ -3,9 +3,25 @@
 
 #include "variant.h"
 #include "HardwareSerial.h"
+#include "USBSerial.h"
+
+#if defined (USBCON) && defined(USBD_USE_CDC)
+#ifndef DISABLE_GENERIC_SERIALUSB
+#define ENABLE_SERIALUSB
+#if !defined(Serial)
+#define Serial SerialUSB
+#define serialEvent serialEventUSB
+#endif
+#endif
+
+#if defined(ENABLE_SERIALUSB)
+#define HAVE_SERIALUSB
+#endif
+
+extern void serialEventUSB(void) __attribute__((weak));
+#endif /* USBCON && USBD_USE_CDC */
 
 #if defined(HAL_UART_MODULE_ENABLED)
-
 #if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
 #if SERIAL_UART_INSTANCE == 0
 #define ENABLE_HWSERIALLP1
@@ -147,8 +163,8 @@ extern void serialEvent8(void) __attribute__((weak));
 extern void serialEvent9(void) __attribute__((weak));
 extern void serialEvent10(void) __attribute__((weak));
 extern void serialEventLP1(void) __attribute__((weak));
-
 #endif /* HAL_UART_MODULE_ENABLED */
+
 extern void serialEventRun(void) __attribute__((weak));
 
-#endif // WIRING_SERIAL_H
+#endif /* WIRING_SERIAL_H */
