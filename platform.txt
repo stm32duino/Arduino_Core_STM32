@@ -67,7 +67,7 @@ compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.3.0.path}/CMSIS/Lib/GCC/" -
 
 # USB Flags
 # ---------
-build.usb_flags=-DUSBCON -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED 
+build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED 
 
 # Default usb manufacturer will be replaced at compile time using
 # numeric vendor ID if available or by board's specific value.
@@ -79,6 +79,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 # Defaults config
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
+build.usb_speed=
 build.startup_file=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
