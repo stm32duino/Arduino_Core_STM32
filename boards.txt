@@ -2,8 +2,9 @@
 
 menu.pnum=Board part number
 
-menu.xserial=Serial interface
-menu.usb=USB interface (if available)
+menu.xserial=U(S)ART support
+menu.usb=USB support (if available)
+menu.xusb=USB speed (if available)
 
 menu.opt=Optimize
 menu.rtlib=C Runtime Library
@@ -578,7 +579,7 @@ GenF1.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
 
 # HY-TinySTM103TB board
-# Support: 
+# Support:
 GenF1.menu.pnum.HY_TinySTM103TB=HY-TinySTM103TB
 GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_size=131072
 GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_data_size=20480
@@ -841,128 +842,149 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 
 ################################################################################
 # Serialx activation
-Nucleo_144.menu.xserial.generic=Enabled with generic Serial
-Nucleo_144.menu.xserial.none=Enabled without generic Serial
+Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
+Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
 Nucleo_144.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Nucleo_144.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_144.menu.xserial.disabled=Disabled (No Serial support)
 Nucleo_144.menu.xserial.disabled.build.xSerial=
 
-Nucleo_64.menu.xserial.generic=Enabled with generic Serial
-Nucleo_64.menu.xserial.none=Enabled without generic Serial
+Nucleo_64.menu.xserial.generic=Enabled (generic 'Serial')
+Nucleo_64.menu.xserial.none=Enabled (no generic 'Serial')
 Nucleo_64.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Nucleo_64.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_64.menu.xserial.disabled=Disabled (No Serial support)
 Nucleo_64.menu.xserial.disabled.build.xSerial=
 
-Nucleo_32.menu.xserial.generic=Enabled with generic Serial
-Nucleo_32.menu.xserial.none=Enabled without generic Serial
+Nucleo_32.menu.xserial.generic=Enabled (generic 'Serial')
+Nucleo_32.menu.xserial.none=Enabled (no generic 'Serial')
 Nucleo_32.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Nucleo_32.menu.xserial.disabled=Disabled (No Serial)
+Nucleo_32.menu.xserial.disabled=Disabled (No Serial support)
 Nucleo_32.menu.xserial.disabled.build.xSerial=
 
-Disco.menu.xserial.generic=Enabled with generic Serial
-Disco.menu.xserial.none=Enabled without generic Serial
+Disco.menu.xserial.generic=Enabled (generic 'Serial')
+Disco.menu.xserial.none=Enabled (no generic 'Serial')
 Disco.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Disco.menu.xserial.disabled=Disabled (No Serial)
+Disco.menu.xserial.disabled=Disabled (no Serial support)
 Disco.menu.xserial.disabled.build.xSerial=
 
-GenF0.menu.xserial.generic=Enabled with generic Serial
-GenF0.menu.xserial.none=Enabled without generic Serial
+GenF0.menu.xserial.generic=Enabled (generic 'Serial')
+GenF0.menu.xserial.none=Enabled (no generic 'Serial')
 GenF0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-GenF0.menu.xserial.disabled=Disabled (No Serial)
+GenF0.menu.xserial.disabled=Disabled (no Serial support)
 GenF0.menu.xserial.disabled.build.xSerial=
 
-GenF1.menu.xserial.generic=Enabled with generic Serial
-GenF1.menu.xserial.none=Enabled without generic Serial
+GenF1.menu.xserial.generic=Enabled (generic 'Serial')
+GenF1.menu.xserial.none=Enabled (no generic 'Serial')
 GenF1.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-GenF1.menu.xserial.disabled=Disabled (No Serial)
+GenF1.menu.xserial.disabled=Disabled (no Serial support)
 GenF1.menu.xserial.disabled.build.xSerial=
 
-GenF4.menu.xserial.generic=Enabled with generic Serial
-GenF4.menu.xserial.none=Enabled without generic Serial
+GenF4.menu.xserial.generic=Enabled (generic 'Serial')
+GenF4.menu.xserial.none=Enabled (no generic 'Serial')
 GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-GenF4.menu.xserial.disabled=Disabled (No Serial)
+GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
-RAK.menu.xserial.generic=Enabled with generic Serial
-RAK.menu.xserial.none=Enabled without generic Serial
+RAK.menu.xserial.generic=Enabled (generic 'Serial')
+RAK.menu.xserial.none=Enabled (no generic 'Serial')
 RAK.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-RAK.menu.xserial.disabled=Disabled (No Serial)
+RAK.menu.xserial.disabled=Disabled (no Serial support)
 RAK.menu.xserial.disabled.build.xSerial=
 
-3dprinter.menu.xserial.generic=Enabled with generic Serial
-3dprinter.menu.xserial.none=Enabled without generic Serial
+3dprinter.menu.xserial.generic=Enabled (generic 'Serial')
+3dprinter.menu.xserial.none=Enabled (no generic 'Serial')
 3dprinter.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-3dprinter.menu.xserial.disabled=Disabled (No Serial)
+3dprinter.menu.xserial.disabled=Disabled (no Serial support)
 3dprinter.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
-Nucleo_144.menu.usb.none=None
-Nucleo_144.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-Nucleo_144.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Nucleo_144.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-Nucleo_144.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-Nucleo_144.menu.usb.CDCFS=CDC Full Speed
-Nucleo_144.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Nucleo_144.menu.usb.CDCHS=CDC High Speed
-Nucleo_144.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+Nucleo_144.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Nucleo_144.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_144.menu.usb.CDC=CDC (no generic 'Serial')
+Nucleo_144.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Nucleo_144.menu.usb.HID=HID (keyboard and mouse)
+Nucleo_144.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_144.menu.xusb.FS=Low/Full Speed
+Nucleo_144.menu.xusb.HS=High Speed
+Nucleo_144.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Nucleo_144.menu.xusb.HSFS=High Speed in Full Speed mode
+Nucleo_144.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Nucleo_64.menu.usb.none=None
-Nucleo_64.menu.usb.none=None
-Nucleo_64.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-Nucleo_64.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Nucleo_64.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-Nucleo_64.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-Nucleo_64.menu.usb.CDCFS=CDC Full Speed
-Nucleo_64.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Nucleo_64.menu.usb.CDCHS=CDC High Speed
-Nucleo_64.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+Nucleo_64.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Nucleo_64.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_64.menu.usb.CDC=CDC (no generic 'Serial')
+Nucleo_64.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Nucleo_64.menu.usb.HID=HID (keyboard and mouse)
+Nucleo_64.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_64.menu.xusb.FS=Low/Full Speed
+Nucleo_64.menu.xusb.HS=High Speed
+Nucleo_64.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Nucleo_64.menu.xusb.HSFS=High Speed in Full Speed mode
+Nucleo_64.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Nucleo_32.menu.usb.none=None
-Nucleo_32.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-Nucleo_32.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Nucleo_32.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-Nucleo_32.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-Nucleo_32.menu.usb.CDCFS=CDC Full Speed
-Nucleo_32.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Nucleo_32.menu.usb.CDCHS=CDC High Speed
-Nucleo_32.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+Nucleo_32.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Nucleo_32.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Nucleo_32.menu.usb.CDC=CDC (no generic 'Serial')
+Nucleo_32.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Nucleo_32.menu.usb.HID=HID (keyboard and mouse)
+Nucleo_32.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Nucleo_32.menu.xusb.FS=Low/Full Speed
+Nucleo_32.menu.xusb.HS=High Speed
+Nucleo_32.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Nucleo_32.menu.xusb.HSFS=High Speed in Full Speed mode
+Nucleo_32.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Disco.menu.usb.none=None
-Disco.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-Disco.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Disco.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-Disco.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-Disco.menu.usb.CDCFS=CDC Full Speed
-Disco.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Disco.menu.usb.CDCHS=CDC High Speed
-Disco.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+Disco.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Disco.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Disco.menu.usb.CDC=CDC (no generic 'Serial')
+Disco.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Disco.menu.usb.HID=HID (keyboard and mouse)
+Disco.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Disco.menu.xusb.FS=Low/Full Speed
+Disco.menu.xusb.HS=High Speed
+Disco.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Disco.menu.xusb.HSFS=High Speed in Full Speed mode
+Disco.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF1.menu.usb.none=None
-GenF1.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-GenF1.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-GenF1.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-GenF1.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-GenF1.menu.usb.CDCFS=CDC Full Speed
-GenF1.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-GenF1.menu.usb.CDCHS=CDC High Speed
-GenF1.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF1.menu.usb.CDC=CDC (no generic 'Serial')
+GenF1.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF1.menu.usb.HID=HID (keyboard and mouse)
+GenF1.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF1.menu.xusb.FS=Low/Full Speed
+GenF1.menu.xusb.HS=High Speed
+GenF1.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF1.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF1.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF4.menu.usb.none=None
-GenF4.menu.usb.HIDFS=HID keyboard and mouse support Full Speed
-GenF4.menu.usb.HIDFS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-GenF4.menu.usb.HIDHS=HID keyboard and mouse support High Speed
-GenF4.menu.usb.HIDHS.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE -DUSE_USB_HS
-GenF4.menu.usb.CDCFS=CDC Full Speed
-GenF4.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-GenF4.menu.usb.CDCHS=CDC High Speed
-GenF4.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+GenF4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF4.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF4.menu.usb.CDC=CDC (no generic 'Serial')
+GenF4.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF4.menu.usb.HID=HID (keyboard and mouse)
+GenF4.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF4.menu.xusb.FS=Low/Full Speed
+GenF4.menu.xusb.HS=High Speed
+GenF4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
-3dprinter.menu.usb.CDCFS=CDC Full Speed
-3dprinter.menu.usb.CDCFS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-3dprinter.menu.usb.CDCHS=CDC High Speed
-3dprinter.menu.usb.CDCHS.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DUSE_USB_HS
+3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+3dprinter.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+3dprinter.menu.usb.CDC=CDC (no generic 'Serial')
+3dprinter.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+3dprinter.menu.xusb.FS=Low/Full Speed
+3dprinter.menu.xusb.HS=High Speed
+3dprinter.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
+3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
