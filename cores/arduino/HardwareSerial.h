@@ -40,17 +40,21 @@
 // often work, but occasionally a race condition can occur that makes
 // Serial behave erratically. See https://github.com/arduino/Arduino/issues/2405
 #if !defined(SERIAL_TX_BUFFER_SIZE)
-#define SERIAL_TX_BUFFER_SIZE 64
+#define SERIAL_TX_BUFFER_SIZE 256
 #endif
 #if !defined(SERIAL_RX_BUFFER_SIZE)
-#define SERIAL_RX_BUFFER_SIZE 64
+#define SERIAL_RX_BUFFER_SIZE 256
 #endif
-#if (SERIAL_TX_BUFFER_SIZE>256)
+#if (SERIAL_TX_BUFFER_SIZE > 0xFFFF)
+typedef uint32_t tx_buffer_index_t;
+#elif (SERIAL_TX_BUFFER_SIZE > 0xFF)
 typedef uint16_t tx_buffer_index_t;
 #else
 typedef uint8_t tx_buffer_index_t;
 #endif
-#if  (SERIAL_RX_BUFFER_SIZE>256)
+#if (SERIAL_RX_BUFFER_SIZE > 0xFFFF)
+typedef uint32_t rx_buffer_index_t;
+#elif (SERIAL_RX_BUFFER_SIZE > 0xFF)
 typedef uint16_t rx_buffer_index_t;
 #else
 typedef uint8_t rx_buffer_index_t;
