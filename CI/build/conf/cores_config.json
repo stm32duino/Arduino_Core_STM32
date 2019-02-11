@@ -97,7 +97,7 @@
             "DISCO_L072CZ_LRWAN1",
             "DISCO_L475VG_IOT"
           ],
-          "options": "usb=HIDFS"
+          "options": "usb=HID"
         },
         {
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
