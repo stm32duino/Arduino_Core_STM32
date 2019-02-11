@@ -79,7 +79,7 @@ extern const PinName digitalPin[];
 #define NUM_ANALOG_FIRST        24
 
 // On-board LED pin number
-#define LED_BUILTIN             PB1
+#define LED_BUILTIN             PA1
 #define LED_GREEN               LED_BUILTIN
 
 // SPI Definitions
