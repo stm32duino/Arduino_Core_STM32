@@ -20,7 +20,7 @@
 #include "PinConfigured.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 
@@ -29,65 +29,64 @@ uint32_t g_digPinConfigured[MAX_NB_PORT] = {0};
 extern uint32_t g_anOutputPinConfigured[MAX_NB_PORT];
 
 
-void pinMode( uint32_t ulPin, uint32_t ulMode )
+void pinMode(uint32_t ulPin, uint32_t ulMode)
 {
   PinName p = digitalPinToPinName(ulPin);
 
-  if(p != NC) {
+  if (p != NC) {
     // If the pin that support PWM or DAC output, we need to turn it off
-    if(is_pin_configured(p, g_anOutputPinConfigured)) {
+    if (is_pin_configured(p, g_anOutputPinConfigured)) {
 #ifdef HAL_DAC_MODULE_ENABLED
-      if(pin_in_pinmap(p, PinMap_DAC)) {
+      if (pin_in_pinmap(p, PinMap_DAC)) {
         dac_stop(p);
       } else
 #endif //HAL_DAC_MODULE_ENABLED
-      if(pin_in_pinmap(p, PinMap_PWM)) {
-        pwm_stop(p);
-      }
+        if (pin_in_pinmap(p, PinMap_PWM)) {
+          pwm_stop(p);
+        }
       reset_pin_configured(p, g_anOutputPinConfigured);
     }
 
-    switch ( ulMode )
-    {
-      case INPUT:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_NOPULL);
-      break;
+    switch (ulMode) {
+      case INPUT: /* INPUT_FLOATING */
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+        break;
       case INPUT_PULLUP:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_PULLUP);
-      break;
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLUP, 0));
+        break;
       case INPUT_PULLDOWN:
-        digital_io_init(p, GPIO_MODE_INPUT, GPIO_PULLDOWN);
-      break;
+        pin_function(p, STM_PIN_DATA(STM_MODE_INPUT, GPIO_PULLDOWN, 0));
+        break;
+      case INPUT_ANALOG:
+        pin_function(p, STM_PIN_DATA(STM_MODE_ANALOG, GPIO_NOPULL, 0));
+        break;
       case OUTPUT:
-        digital_io_init(p, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
-      break;
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+        break;
+      case OUTPUT_OPEN_DRAIN:
+        pin_function(p, STM_PIN_DATA(STM_MODE_OUTPUT_OD, GPIO_NOPULL, 0));
+        break;
       default:
-      break;
+        Error_Handler();
+        break;
     }
     set_pin_configured(p, g_digPinConfigured);
   }
 }
 
-void digitalWrite( uint32_t ulPin, uint32_t ulVal )
+void digitalWrite(uint32_t ulPin, uint32_t ulVal)
 {
-  PinName p = digitalPinToPinName(ulPin);
-  if(p != NC) {
-    if(is_pin_configured(p, g_digPinConfigured)) {
-      digital_io_write(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p), ulVal);
-    }
-  }
+  digitalWriteFast(digitalPinToPinName(ulPin), ulVal);
 }
 
-int digitalRead( uint32_t ulPin )
+int digitalRead(uint32_t ulPin)
 {
-  uint8_t level = 0;
-  PinName p = digitalPinToPinName(ulPin);
-  if(p != NC) {
-    if(is_pin_configured(p, g_digPinConfigured)) {
-      level = digital_io_read(get_GPIO_Port(STM_PORT(p)), STM_GPIO_PIN(p));
-    }
-  }
-  return (level)? HIGH : LOW;
+  return digitalReadFast(digitalPinToPinName(ulPin));
+}
+
+void digitalToggle(uint32_t ulPin)
+{
+  digitalToggleFast(digitalPinToPinName(ulPin));
 }
 
 #ifdef __cplusplus

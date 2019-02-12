@@ -89,7 +89,7 @@ static void finISR(stimer_t *obj)
   TimerPulseDeinit(obj);
 }
 
-static boolean isTimerActive(timer16_Sequence_t timer)
+static bool isTimerActive(timer16_Sequence_t timer)
 {
   // returns true if any servo is active on this timer
   for(uint8_t channel=0; channel < SERVOS_PER_TIMER; channel++) {

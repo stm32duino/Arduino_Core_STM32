@@ -690,11 +690,62 @@ uint32_t getTimerClkFreq(TIM_TypeDef* tim)
       core_debug("TIM: Unknown clock source");
       break;
   }
+
+#if defined(STM32H7xx)
+/* When TIMPRE bit of the RCC_CFGR register is reset,
+ *   if APBx prescaler is 1 or 2 then TIMxCLK = HCLK,
+ *   otherwise TIMxCLK = 2x PCLKx.
+ * When TIMPRE bit in the RCC_CFGR register is set,
+ *   if APBx prescaler is 1,2 or 4, then TIMxCLK = HCLK,
+ *   otherwise TIMxCLK = 4x PCLKx
+ */
+  RCC_PeriphCLKInitTypeDef PeriphClkConfig = {};
+  HAL_RCCEx_GetPeriphCLKConfig(&PeriphClkConfig);
+
+  if (PeriphClkConfig.TIMPresSelection == RCC_TIMPRES_ACTIVATED) {
+    switch (uwAPBxPrescaler) {
+      default:
+	  case RCC_APB1_DIV1:
+      case RCC_APB1_DIV2:
+      case RCC_APB1_DIV4:
+	  /* case RCC_APB2_DIV1: */
+      case RCC_APB2_DIV2:
+      case RCC_APB2_DIV4:
+        uwTimclock=HAL_RCC_GetHCLKFreq();
+        break;
+      case RCC_APB1_DIV8:
+      case RCC_APB1_DIV16:
+      case RCC_APB2_DIV8:
+      case RCC_APB2_DIV16:
+        uwTimclock*=4;
+        break;
+    }
+  } else {
+    switch (uwAPBxPrescaler) {
+      default:
+	  case RCC_APB1_DIV1:
+      case RCC_APB1_DIV2:
+	  /* case RCC_APB2_DIV1: */
+      case RCC_APB2_DIV2:
+        // uwTimclock*=1;
+        uwTimclock=HAL_RCC_GetHCLKFreq();
+        break;
+      case RCC_APB1_DIV4:
+      case RCC_APB1_DIV8:
+      case RCC_APB1_DIV16:
+      case RCC_APB2_DIV4:
+      case RCC_APB2_DIV8:
+      case RCC_APB2_DIV16:
+        uwTimclock*=2;
+        break;
+    }
+  }
+#else
 /* When TIMPRE bit of the RCC_DCKCFGR register is reset,
  *   if APBx prescaler is 1, then TIMxCLK = PCLKx,
  *   otherwise TIMxCLK = 2x PCLKx.
  * When TIMPRE bit in the RCC_DCKCFGR register is set,
- *   if APBx prescaler is 1,2 or 4, then TIMxCLK =HCLK,
+ *   if APBx prescaler is 1,2 or 4, then TIMxCLK = HCLK,
  *   otherwise TIMxCLK = 4x PCLKx
  */
 #if defined(STM32F4xx) || defined(STM32F7xx)
@@ -731,6 +782,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef* tim)
         uwTimclock*=2;
         break;
     }
+#endif /* STM32H7xx */
   return uwTimclock;
 }
 
@@ -864,10 +916,10 @@ void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj)
     if(obj->pinInfo.count != 0){
       if (obj->pinInfo.count > 0) obj->pinInfo.count--;
       obj->pinInfo.state = (obj->pinInfo.state == 0)? 1 : 0;
-      digital_io_write(port, STM_GPIO_PIN(obj->pin), obj->pinInfo.state);
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), obj->pinInfo.state);
     }
     else {
-      digital_io_write(port, STM_GPIO_PIN(obj->pin), 0);
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), 0);
     }
   }
 }
@@ -924,7 +976,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
     obj->pinInfo.count = -1;
   }
 
-  digital_io_init(obj->pin, GPIO_MODE_OUTPUT_PP, GPIO_NOPULL);
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
   timClkFreq = getTimerClkFreq(obj->timer);
 
   // Do this once
@@ -957,7 +1009,7 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
 void TimerPinDeinit(stimer_t *obj)
 {
   TimerHandleDeinit(obj);
-  digital_io_init(obj->pin, GPIO_MODE_INPUT, GPIO_NOPULL);
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
 }
 
 /**

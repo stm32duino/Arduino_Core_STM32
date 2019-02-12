@@ -22,11 +22,7 @@
   Modified 3 December 2013 by Matthijs Kooijman
 */
 
-#include <stdlib.h>
 #include <stdio.h>
-#include <string.h>
-#include <inttypes.h>
-#include <assert.h>
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
@@ -109,43 +105,6 @@
 #endif
 #endif // HAVE_HWSERIALx
 
-void serialEventRun(void)
-{
-#if defined(HAVE_HWSERIAL1)
-  if (serialEvent1 && Serial1.available()) serialEvent1();
-#endif
-#if defined(HAVE_HWSERIAL2)
-  if (serialEvent2 && Serial2.available()) serialEvent2();
-#endif
-#if defined(HAVE_HWSERIAL3)
-  if (serialEvent3 && Serial3.available()) serialEvent3();
-#endif
-#if defined(HAVE_HWSERIAL4)
-  if (serialEvent4 && Serial4.available()) serialEvent4();
-#endif
-#if defined(HAVE_HWSERIAL5)
-  if (serialEvent5 && Serial5.available()) serialEvent5();
-#endif
-#if defined(HAVE_HWSERIAL6)
-  if (serialEvent6 && Serial6.available()) serialEvent6();
-#endif
-#if defined(HAVE_HWSERIAL7)
-  if (serialEvent7 && Serial7.available()) serialEvent7();
-#endif
-#if defined(HAVE_HWSERIAL8)
-  if (serialEvent8 && Serial8.available()) serialEvent8();
-#endif
-#if defined(HAVE_HWSERIAL9)
-  if (serialEvent9 && Serial9.available()) serialEvent9();
-#endif
-#if defined(HAVE_HWSERIAL10)
-  if (serialEventl10 && Serial10.available()) serialEvent10();
-#endif
-#if defined(HAVE_HWSERIALLP1)
-  if (serialEventLP1 && SerialLP1.available()) serialEventLP1();
-#endif
-}
-
 // Constructors ////////////////////////////////////////////////////////////////
 HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx)
 {
@@ -166,7 +125,7 @@ HardwareSerial::HardwareSerial(void* peripheral)
 // If Serial is defined in variant set
 // the Rx/Tx pins for com port if defined
 #if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
-  if (this == &Serial) {
+  if ((void*)this == (void*)&Serial) {
     setRx(PIN_SERIAL_RX);
     setTx(PIN_SERIAL_TX);
   } else
@@ -385,10 +344,9 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
     default:
 	case 0:
-      databits = 0;
+      Error_Handler();
       break;
   }
-  assert(databits!=0);
 
   uart_init(&_serial);
   uart_attach_rx_callback(&_serial, _rx_complete_irq);

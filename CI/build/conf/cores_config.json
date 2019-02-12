@@ -7,13 +7,14 @@
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
-        },
-        {
-          "name": "BLUEPILL_F103C8",
-          "options": "flash=C8"
         }
       ],
       "sketches": [
+        {
+          "pattern": "^((?!BareMinimum.ino).)*$",
+          "applicable": false,
+          "boards": [ "DEMO_F030F4" ]
+        },
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
           "applicable": true,
@@ -59,6 +60,16 @@
           "boards": [ "" ]
         },
         {
+          "pattern": "Firmata/",
+          "applicable": false,
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+        },
+        {
+          "pattern": "Blink(WithoutDelay)?.ino",
+          "applicable": false,
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+        },
+        {
           "pattern": "STM32SD",
           "applicable": true,
           "boards": [ "DISCO_F746NG", "BLACK_F407VE", "BLUE_F407VE_Mini" ]
@@ -66,12 +77,26 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "09.USB",
           "applicable": true,
-          "boards": [ "NUCLEO_F429ZI", "DISCO_L475VG_IOT", "DISCO_F407VG" ],
+          "boards": [
+            "BLUEPILL_F103C8",
+            "BLACK_F407VE",
+            "MAPLEMINI_F103CB",
+            "NUCLEO_F207ZG",
+            "NUCLEO_F429ZI",
+            "NUCLEO_L496ZG-P",
+            "NUCLEO_L4R5ZI-P",
+            "NUCLEO_H743ZI",
+            "DISCO_F072RB",
+            "DISCO_F407VG",
+            "DISCO_F746NG",
+            "DISCO_L072CZ_LRWAN1",
+            "DISCO_L475VG_IOT"
+          ],
           "options": "usb=HID"
         },
         {
@@ -103,12 +128,12 @@
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER", "REMRAM_V1" ]
+          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "REMRAM_V1" ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "RAK811_TRACKER" ]
+          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER" ]
         },
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",

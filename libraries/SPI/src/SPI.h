@@ -22,9 +22,10 @@
 //   - SPISetting(clock, bitOrder, dataMode)
 #define SPI_HAS_TRANSACTION 1
 
-// For compatibility with sketches designed for AVR @ 16 MHz
-// need to go from 64MHz to 16 (/4)
-// This function should not be used in new projects.
+// Compatibility with sketches designed for AVR @ 16 MHz could not
+// be ensured as SPI frequency depends of system clock configuration.
+// user have to use appropriate divider for the SPI clock
+// This function should not be used in new project.
 // Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
 #define SPI_CLOCK_DIV2	 2
 #define SPI_CLOCK_DIV4	 4

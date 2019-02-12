@@ -7,7 +7,7 @@ matrix:
   include:
   - env:
       - NAME= arduinoCI
-      - IDE_VERSION=1.8.7
+      - IDE_VERSION=1.8.8
     # Use in CI/build/conf/path_config_travis.json
       - ARDUINO_IDE_PATH=$HOME/IDE/arduino
     install:

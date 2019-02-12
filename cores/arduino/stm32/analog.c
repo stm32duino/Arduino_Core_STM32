@@ -69,22 +69,26 @@
 /** @addtogroup STM32F4xx_System_Private_Defines
   * @{
   */
-#if defined(ADC_SAMPLETIME_15CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
-#elif defined(ADC_SAMPLETIME_13CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
-#elif defined(ADC_SAMPLETIME_19CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
-#elif defined(ADC_SAMPLETIME_16CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
+#if defined(ADC_SAMPLETIME_8CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
 #elif defined(ADC_SAMPLETIME_12CYCLES_5)
 #define SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
+#elif defined(ADC_SAMPLETIME_13CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
+#elif defined(ADC_SAMPLETIME_15CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
+#elif defined(ADC_SAMPLETIME_16CYCLES)
+#define SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
+#elif defined(ADC_SAMPLETIME_19CYCLES_5)
+#define SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
 #else
 #error "ADC SAMPLINGTIME could not be defined"
 #endif
 
 #ifndef STM32F1xx
-#ifdef ADC_CLOCK_SYNC_PCLK_DIV2
+#ifdef ADC_CLOCK_SYNC_PCLK_DIV4
+#define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV4
+#elif ADC_CLOCK_SYNC_PCLK_DIV2
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
 #elif defined(ADC_CLOCK_ASYNC_DIV1)
 #define ADC_CLOCK_DIV       ADC_CLOCK_ASYNC_DIV1
@@ -257,13 +261,7 @@ static uint32_t get_dac_channel(PinName pin)
   */
 void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
-  GPIO_InitTypeDef          GPIO_InitStruct;
-  GPIO_TypeDef *port;
   UNUSED(hdac);
-
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
 
   /* DAC Periph clock enable */
 #ifdef __HAL_RCC_DAC1_CLK_ENABLE
@@ -272,12 +270,11 @@ void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 #ifdef __HAL_RCC_DAC_CLK_ENABLE
   __HAL_RCC_DAC_CLK_ENABLE();
 #endif
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* DAC Channel1 GPIO pin configuration */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+#ifdef __HAL_RCC_DAC12_CLK_ENABLE
+  __HAL_RCC_DAC12_CLK_ENABLE();
+#endif
+  /* Configure DAC GPIO pins */
+  pinmap_pinout(g_current_pin, PinMap_DAC);
 }
 
 
@@ -393,8 +390,6 @@ void dac_stop(PinName pin)
   */
 void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 {
-  GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_TypeDef *port;
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
   if(hadc->Instance == ADC1) {
@@ -434,25 +429,15 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-/* For STM32F1xx, ADC prescaler is confgured in SystemClock_Config (variant.cpp) */
-#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx)
+/* For STM32F1xx and STM32H7xx, ADC prescaler is configured in
+   SystemClock_Config (variant.cpp) */
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && !defined(STM32H7xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
 
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
-
-  /*##-2- Configure peripheral GPIO ##########################################*/
-  /* ADC Channel GPIO pin configuration */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-#ifdef GPIO_MODE_ANALOG_ADC_CONTROL
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG_ADC_CONTROL;
-#else
-  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
-#endif
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure ADC GPIO pin */
+  pinmap_pinout(g_current_pin, PinMap_ADC);
 }
 
 /**
@@ -561,13 +546,19 @@ uint16_t adc_read_value(PinName pin)
   if (AdcHandle.Instance == NP) return 0;
 
 #ifndef STM32F1xx
-  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;          /* Asynchronous clock mode, input ADC clock divided */
+  AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;                 /* Asynchronous clock mode, input ADC clock divided */
   AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
+#ifdef STM32H7xx
+  AdcHandle.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;      /* Regular Conversion data stored in DR register only */
+#else
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
-#endif
+#endif /* STM32H7xx */
+#endif /* STM32F1xx */
+#ifndef STM32H7xx
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
+#endif /* !STM32H7xx */
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
@@ -579,17 +570,20 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
 #ifdef STM32F0xx
   AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
-#else // STM32L0
+#else /* STM32L0 */
   //LowPowerFrequencyMode to enable if clk freq < 2.8Mhz
   AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
-#endif
+#endif /* STM32F0xx */
 #else
-#ifdef STM32F3xx
+#if defined (STM32F3xx) || defined (STM32H7xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
-#endif
+#ifndef STM32H7xx
+  AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
+#endif /* !STM32H7xx */
+#endif /* STM32F3xx || STM32H7xx */
   AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
-#endif
+#endif /* STM32F0xx || STM32L0xx */
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
 
@@ -602,12 +596,12 @@ uint16_t adc_read_value(PinName pin)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) return 0;
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) return 0;
-#endif
+#endif /* STM32L4xx */
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #ifndef STM32L0xx
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
 #endif
-#if defined (STM32F3xx) || defined (STM32L4xx)
+#if defined (STM32F3xx) || defined (STM32L4xx) || defined (STM32H7xx)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
   AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
@@ -619,10 +613,13 @@ uint16_t adc_read_value(PinName pin)
     return 0;
   }
 
-#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || defined (STM32L0xx) || defined (STM32L4xx)
+#if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) ||\
+    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined (STM32F0xx) || defined (STM32F1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
+#elif defined (STM32H7xx)
+  if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
 #else
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
 #endif
@@ -682,29 +679,12 @@ uint16_t adc_read_value(PinName pin)
   */
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
 {
-  GPIO_InitTypeDef   GPIO_InitStruct;
-  GPIO_TypeDef *port;
-  uint32_t function = pinmap_function(g_current_pin, PinMap_PWM);
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* TIMx Peripheral clock enable */
   timer_enable_clock(htim);
 
-  /* Enable GPIO Channels Clock */
-  /* Enable GPIO clock ****************************************/
-  port = set_GPIO_Port_Clock(STM_PORT(g_current_pin));
-
-  /* Common configuration for all channels */
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-#ifdef STM32F1xx
-  pin_SetF1AFPin(STM_PIN_AFNUM(function));
-#else
-  GPIO_InitStruct.Alternate = STM_PIN_AFNUM(function);
-#endif /* STM32F1xx */
-  GPIO_InitStruct.Pin = STM_GPIO_PIN(g_current_pin);
-
-  HAL_GPIO_Init(port, &GPIO_InitStruct);
+  /* Configure PWM GPIO pins */
+  pinmap_pinout(g_current_pin, PinMap_PWM);
 }
 
 /**
