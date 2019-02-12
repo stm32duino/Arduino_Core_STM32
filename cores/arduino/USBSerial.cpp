@@ -24,8 +24,6 @@
 #include "usbd_desc.h"
 #include "wiring.h"
 
-/* USB Device Core handle declaration */
-extern USBD_HandleTypeDef hUSBD_Device_CDC;
 extern __IO  uint32_t lineState;
 
 USBSerial SerialUSB;
