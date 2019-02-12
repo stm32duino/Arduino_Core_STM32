@@ -59,7 +59,7 @@ char *dtostrf (double val, signed char width, unsigned char prec, char *sout) {
   remainder *= decade;
   dec_part = (int)remainder;
 
-  sprintf(sout, "%ld.%ld", int_part, dec_part);
+  sprintf(sout, "%ld.%0*ld", int_part, prec, dec_part);
 
   // Handle minimum field width of the output string
   // width is signed value, negative for left adjustment.
