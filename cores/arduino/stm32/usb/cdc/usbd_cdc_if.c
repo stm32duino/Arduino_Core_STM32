@@ -36,6 +36,8 @@
 /* USB Device Core CDC handle declaration */
 USBD_HandleTypeDef hUSBD_Device_CDC;
 
+static bool CDC_initialized = false;
+
 /* Received Data over USB are stored in this buffer       */
 CDC_TransmitQueue_TypeDef TransmitQueue;
 CDC_ReceiveQueue_TypeDef ReceiveQueue;
@@ -217,23 +219,29 @@ static int8_t USBD_CDC_Transferred (void) {
 }
 
 void CDC_init(void) {
-   /* Init Device Library */
-  if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
-    /* Add Supported Class */
-    if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
-      /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
-        /* Start Device Process */
-        USBD_Start(&hUSBD_Device_CDC);
+  if (!CDC_initialized) {
+    /* Init Device Library */
+     if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
+       /* Add Supported Class */
+      if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
+        /* Add CDC Interface Class */
+        if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
+          /* Start Device Process */
+          USBD_Start(&hUSBD_Device_CDC);
+          CDC_initialized = true;
+        }
       }
     }
   }
 }
 
 void CDC_deInit(void) {
-  USBD_Stop(&hUSBD_Device_CDC);
-  USBD_CDC_DeInit();
-  USBD_DeInit(&hUSBD_Device_CDC);
+  if (CDC_initialized) {
+    USBD_Stop(&hUSBD_Device_CDC);
+    USBD_CDC_DeInit();
+    USBD_DeInit(&hUSBD_Device_CDC);
+    CDC_initialized = false;
+  }
 }
 
 void CDC_continue_transmit(void) {

@@ -37,6 +37,7 @@
   */
 #include "stm32_def.h"
 #include "hw_config.h"
+#include "usbd_if.h"
 
 #ifdef __cplusplus
  extern "C" {
@@ -54,6 +55,10 @@ void hw_config_init(void)
 
   // Configure the system clock
   SystemClock_Config();
+
+#if defined (USBCON) && defined(USBD_USE_CDC)
+  USBD_CDC_init();
+#endif
 }
 #ifdef __cplusplus
 }
