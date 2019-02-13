@@ -44,7 +44,7 @@
 #include "usbd_def.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #if USE_USB_HS
@@ -63,28 +63,28 @@ typedef struct {
 } CDC_TransmitQueue_TypeDef;
 
 typedef struct {
-    uint8_t buffer[CDC_RECEIVE_QUEUE_BUFFER_SIZE];
-    volatile uint16_t write;
-    volatile uint16_t read;
-    volatile uint16_t length;
+  uint8_t buffer[CDC_RECEIVE_QUEUE_BUFFER_SIZE];
+  volatile uint16_t write;
+  volatile uint16_t read;
+  volatile uint16_t length;
 } CDC_ReceiveQueue_TypeDef;
 
-void CDC_TransmitQueue_Init(CDC_TransmitQueue_TypeDef* queue);
-int CDC_TransmitQueue_WriteSize(CDC_TransmitQueue_TypeDef* queue);
-int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef* queue);
-void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef* queue, const uint8_t* buffer, uint32_t size);
-uint8_t* CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef* queue, uint16_t* size);
+void CDC_TransmitQueue_Init(CDC_TransmitQueue_TypeDef *queue);
+int CDC_TransmitQueue_WriteSize(CDC_TransmitQueue_TypeDef *queue);
+int CDC_TransmitQueue_ReadSize(CDC_TransmitQueue_TypeDef *queue);
+void CDC_TransmitQueue_Enqueue(CDC_TransmitQueue_TypeDef *queue, const uint8_t *buffer, uint32_t size);
+uint8_t *CDC_TransmitQueue_ReadBlock(CDC_TransmitQueue_TypeDef *queue, uint16_t *size);
 void CDC_TransmitQueue_CommitRead(CDC_TransmitQueue_TypeDef *queue);
 
-void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef* queue);
-int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef* queue);
-int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef* queue);
-int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef* queue);
-uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef* queue, uint8_t* buffer, uint16_t size);
-bool CDC_ReceiveQueue_ReadUntil(CDC_ReceiveQueue_TypeDef* queue, uint8_t terminator, uint8_t* buffer,
-        uint16_t size, uint16_t* fetched);
-uint8_t* CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef* queue);
-void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef* queue, uint16_t size);
+void CDC_ReceiveQueue_Init(CDC_ReceiveQueue_TypeDef *queue);
+int CDC_ReceiveQueue_ReadSize(CDC_ReceiveQueue_TypeDef *queue);
+int CDC_ReceiveQueue_Dequeue(CDC_ReceiveQueue_TypeDef *queue);
+int CDC_ReceiveQueue_Peek(CDC_ReceiveQueue_TypeDef *queue);
+uint16_t CDC_ReceiveQueue_Read(CDC_ReceiveQueue_TypeDef *queue, uint8_t *buffer, uint16_t size);
+bool CDC_ReceiveQueue_ReadUntil(CDC_ReceiveQueue_TypeDef *queue, uint8_t terminator, uint8_t *buffer,
+                                uint16_t size, uint16_t *fetched);
+uint8_t *CDC_ReceiveQueue_ReserveBlock(CDC_ReceiveQueue_TypeDef *queue);
+void CDC_ReceiveQueue_CommitBlock(CDC_ReceiveQueue_TypeDef *queue, uint16_t size);
 
 #ifdef __cplusplus
 }

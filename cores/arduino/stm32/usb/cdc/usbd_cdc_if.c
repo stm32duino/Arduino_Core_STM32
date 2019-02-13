@@ -47,14 +47,13 @@ __IO bool receivePended = true;
 
 /** USBD_CDC Private Function Prototypes */
 
-static int8_t USBD_CDC_Init     (void);
-static int8_t USBD_CDC_DeInit   (void);
-static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length);
-static int8_t USBD_CDC_Receive  (uint8_t* pbuf, uint32_t *Len);
-static int8_t USBD_CDC_Transferred (void);
+static int8_t USBD_CDC_Init(void);
+static int8_t USBD_CDC_DeInit(void);
+static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length);
+static int8_t USBD_CDC_Receive(uint8_t *pbuf, uint32_t *Len);
+static int8_t USBD_CDC_Transferred(void);
 
-USBD_CDC_ItfTypeDef USBD_CDC_fops =
-{
+USBD_CDC_ItfTypeDef USBD_CDC_fops = {
   USBD_CDC_Init,
   USBD_CDC_DeInit,
   USBD_CDC_Control,
@@ -62,13 +61,12 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops =
   USBD_CDC_Transferred
 };
 
-USBD_CDC_LineCodingTypeDef linecoding =
-  {
-    115200, /* baud rate*/
-    0x00,   /* stop bits-1*/
-    0x00,   /* parity - none*/
-    0x08    /* nb. of bits 8*/
-  };
+USBD_CDC_LineCodingTypeDef linecoding = {
+  115200, /* baud rate*/
+  0x00,   /* stop bits-1*/
+  0x00,   /* parity - none*/
+  0x08    /* nb. of bits 8*/
+};
 
 /* Private functions ---------------------------------------------------------*/
 
@@ -109,77 +107,76 @@ static int8_t USBD_CDC_DeInit(void)
   * @param  length: Number of data to be sent (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
+static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
 {
   UNUSED(length);
-  switch (cmd)
-  {
-  case CDC_SEND_ENCAPSULATED_COMMAND:
+  switch (cmd) {
+    case CDC_SEND_ENCAPSULATED_COMMAND:
 
-    break;
+      break;
 
-  case CDC_GET_ENCAPSULATED_RESPONSE:
+    case CDC_GET_ENCAPSULATED_RESPONSE:
 
-    break;
+      break;
 
-  case CDC_SET_COMM_FEATURE:
+    case CDC_SET_COMM_FEATURE:
 
-    break;
+      break;
 
-  case CDC_GET_COMM_FEATURE:
+    case CDC_GET_COMM_FEATURE:
 
-    break;
+      break;
 
-  case CDC_CLEAR_COMM_FEATURE:
+    case CDC_CLEAR_COMM_FEATURE:
 
-    break;
+      break;
 
-  /*******************************************************************************/
-  /* Line Coding Structure                                                       */
-  /*-----------------------------------------------------------------------------*/
-  /* Offset | Field       | Size | Value  | Description                          */
-  /* 0      | dwDTERate   |   4  | Number |Data terminal rate, in bits per second*/
-  /* 4      | bCharFormat |   1  | Number | Stop bits                            */
-  /*                                        0 - 1 Stop bit                       */
-  /*                                        1 - 1.5 Stop bits                    */
-  /*                                        2 - 2 Stop bits                      */
-  /* 5      | bParityType |  1   | Number | Parity                               */
-  /*                                        0 - None                             */
-  /*                                        1 - Odd                              */
-  /*                                        2 - Even                             */
-  /*                                        3 - Mark                             */
-  /*                                        4 - Space                            */
-  /* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
-  /*******************************************************************************/
-  case CDC_SET_LINE_CODING:
-    linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
-                            (pbuf[2] << 16) | (pbuf[3] << 24));
-    linecoding.format     = pbuf[4];
-    linecoding.paritytype = pbuf[5];
-    linecoding.datatype   = pbuf[6];
-    break;
+    /*******************************************************************************/
+    /* Line Coding Structure                                                       */
+    /*-----------------------------------------------------------------------------*/
+    /* Offset | Field       | Size | Value  | Description                          */
+    /* 0      | dwDTERate   |   4  | Number |Data terminal rate, in bits per second*/
+    /* 4      | bCharFormat |   1  | Number | Stop bits                            */
+    /*                                        0 - 1 Stop bit                       */
+    /*                                        1 - 1.5 Stop bits                    */
+    /*                                        2 - 2 Stop bits                      */
+    /* 5      | bParityType |  1   | Number | Parity                               */
+    /*                                        0 - None                             */
+    /*                                        1 - Odd                              */
+    /*                                        2 - Even                             */
+    /*                                        3 - Mark                             */
+    /*                                        4 - Space                            */
+    /* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
+    /*******************************************************************************/
+    case CDC_SET_LINE_CODING:
+      linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) | \
+                                         (pbuf[2] << 16) | (pbuf[3] << 24));
+      linecoding.format     = pbuf[4];
+      linecoding.paritytype = pbuf[5];
+      linecoding.datatype   = pbuf[6];
+      break;
 
-  case CDC_GET_LINE_CODING:
-    pbuf[0] = (uint8_t)(linecoding.bitrate);
-    pbuf[1] = (uint8_t)(linecoding.bitrate >> 8);
-    pbuf[2] = (uint8_t)(linecoding.bitrate >> 16);
-    pbuf[3] = (uint8_t)(linecoding.bitrate >> 24);
-    pbuf[4] = linecoding.format;
-    pbuf[5] = linecoding.paritytype;
-    pbuf[6] = linecoding.datatype;
-    break;
+    case CDC_GET_LINE_CODING:
+      pbuf[0] = (uint8_t)(linecoding.bitrate);
+      pbuf[1] = (uint8_t)(linecoding.bitrate >> 8);
+      pbuf[2] = (uint8_t)(linecoding.bitrate >> 16);
+      pbuf[3] = (uint8_t)(linecoding.bitrate >> 24);
+      pbuf[4] = linecoding.format;
+      pbuf[5] = linecoding.paritytype;
+      pbuf[6] = linecoding.datatype;
+      break;
 
-  case CDC_SET_CONTROL_LINE_STATE:
-    lineState =
+    case CDC_SET_CONTROL_LINE_STATE:
+      lineState =
         (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
-    break;
+      break;
 
-  case CDC_SEND_BREAK:
+    case CDC_SEND_BREAK:
 
-    break;
+      break;
 
-  default:
-    break;
+    default:
+      break;
   }
 
   return (USBD_OK);
@@ -201,7 +198,8 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   * @param  Len: Number of data received (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
+static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
+{
   UNUSED(Buf);
   /* It always contains required amount of free space for writing */
   CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
@@ -212,17 +210,19 @@ static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
 }
 
 
-static int8_t USBD_CDC_Transferred (void) {
+static int8_t USBD_CDC_Transferred(void)
+{
   CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
   return (USBD_OK);
 }
 
-void CDC_init(void) {
+void CDC_init(void)
+{
   if (!CDC_initialized) {
     /* Init Device Library */
-     if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
-       /* Add Supported Class */
+    if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
+      /* Add Supported Class */
       if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
         /* Add CDC Interface Class */
         if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
@@ -235,7 +235,8 @@ void CDC_init(void) {
   }
 }
 
-void CDC_deInit(void) {
+void CDC_deInit(void)
+{
   if (CDC_initialized) {
     USBD_Stop(&hUSBD_Device_CDC);
     USBD_CDC_DeInit();
@@ -244,7 +245,8 @@ void CDC_deInit(void) {
   }
 }
 
-void CDC_continue_transmit(void) {
+void CDC_continue_transmit(void)
+{
   uint16_t size;
   uint8_t *buffer;
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
@@ -269,13 +271,14 @@ void CDC_continue_transmit(void) {
   }
 }
 
-void CDC_resume_receive(void) {
+void CDC_resume_receive(void)
+{
   /*
    * TS: main and IRQ threads can't pass it at same time, because
    * IRQ may occur only if receivePended is true. So it is thread-safe!
    */
   if (!receivePended) {
-    uint8_t* block = CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue);
+    uint8_t *block = CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue);
     if (block != NULL) {
       receivePended = true;
       /* Set new buffer */

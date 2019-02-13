@@ -61,22 +61,24 @@ void SPIClass::begin(uint8_t _pin)
 {
   uint8_t idx;
 
-  if(_pin > NUM_DIGITAL_PINS)
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
+  }
 
   idx = pinIdx(_pin, ADD_NEW_PIN);
-  if(idx >= NB_SPI_SETTINGS)
+  if (idx >= NB_SPI_SETTINGS) {
     return;
+  }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     pinMode(_pin, OUTPUT);
     digitalWrite(_pin, HIGH);
   }
 
   _spi.handle.State = HAL_SPI_STATE_RESET;
   spi_init(&_spi, spiSettings[idx].clk,
-                  spiSettings[idx].dMode,
-                  spiSettings[idx].msb);
+           spiSettings[idx].dMode,
+           spiSettings[idx].msb);
   _CSPinConfig = _pin;
 #if __has_include("WiFi.h")
   // Wait wifi shield initialization.
@@ -101,31 +103,32 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
 {
   uint8_t idx;
 
-  if(_pin > NUM_DIGITAL_PINS)
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
+  }
 
   idx = pinIdx(_pin, ADD_NEW_PIN);
-  if(idx >= NB_SPI_SETTINGS) {
+  if (idx >= NB_SPI_SETTINGS) {
     return;
   }
 
   spiSettings[idx].clk = settings.clk;
   spiSettings[idx].dMode = settings.dMode;
   spiSettings[idx].bOrder = settings.bOrder;
-  if(spiSettings[idx].bOrder == MSBFIRST) {
+  if (spiSettings[idx].bOrder == MSBFIRST) {
     spiSettings[idx].msb = MSBFIRST;
   } else {
     spiSettings[idx].msb = LSBFIRST;
   }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     pinMode(_pin, OUTPUT);
     digitalWrite(_pin, HIGH);
   }
 
   spi_init(&_spi, spiSettings[idx].clk,
-                  spiSettings[idx].dMode,
-                  spiSettings[idx].msb);
+           spiSettings[idx].dMode,
+           spiSettings[idx].msb);
   _CSPinConfig = _pin;
 }
 
@@ -135,8 +138,9 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
   */
 void SPIClass::endTransaction(uint8_t _pin)
 {
-  if(_pin > NUM_DIGITAL_PINS)
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
+  }
 
   RemovePin(_pin);
   _CSPinConfig = NO_CONFIG;
@@ -160,15 +164,16 @@ void SPIClass::end()
   */
 void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
 {
-  if(_pin > NUM_DIGITAL_PINS)
-    return;
-
-  uint8_t idx = pinIdx(_pin, GET_IDX);
-  if(idx >= NB_SPI_SETTINGS) {
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
   }
 
-  if(MSBFIRST == _bitOrder) {
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
+
+  if (MSBFIRST == _bitOrder) {
     spiSettings[idx].msb = MSBFIRST;
     spiSettings[idx].bOrder = MSBFIRST;
   } else {
@@ -177,8 +182,8 @@ void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
   }
 
   spi_init(&_spi, spiSettings[idx].clk,
-                  spiSettings[idx].dMode,
-                  spiSettings[idx].msb);
+           spiSettings[idx].dMode,
+           spiSettings[idx].msb);
 }
 
 /**
@@ -195,27 +200,28 @@ void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
   */
 void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
 {
-  if(_pin > NUM_DIGITAL_PINS)
-    return;
-
-  uint8_t idx = pinIdx(_pin, GET_IDX);
-  if(idx >= NB_SPI_SETTINGS) {
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
   }
 
-  if(SPI_MODE0 == _mode) {
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
+
+  if (SPI_MODE0 == _mode) {
     spiSettings[idx].dMode = SPI_MODE_0;
-  } else if(SPI_MODE1 == _mode) {
+  } else if (SPI_MODE1 == _mode) {
     spiSettings[idx].dMode = SPI_MODE_1;
-  } else if(SPI_MODE2 == _mode) {
+  } else if (SPI_MODE2 == _mode) {
     spiSettings[idx].dMode = SPI_MODE_2;
-  } else if(SPI_MODE3 == _mode) {
+  } else if (SPI_MODE3 == _mode) {
     spiSettings[idx].dMode = SPI_MODE_3;
   }
 
   spi_init(&_spi, spiSettings[idx].clk,
-                  spiSettings[idx].dMode,
-                  spiSettings[idx].msb);
+           spiSettings[idx].dMode,
+           spiSettings[idx].msb);
 }
 
 /**
@@ -227,23 +233,24 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
   */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
-  if(_pin > NUM_DIGITAL_PINS)
+  if (_pin > NUM_DIGITAL_PINS) {
     return;
+  }
 
   uint8_t idx = pinIdx(_pin, GET_IDX);
-  if(idx >= NB_SPI_SETTINGS) {
+  if (idx >= NB_SPI_SETTINGS) {
     return;
   }
   if (_divider == 0) {
     spiSettings[idx].clk = SPI_SPEED_CLOCK_DEFAULT;
   } else {
     /* Get clk freq of the SPI instance and compute it */
-    spiSettings[idx].clk = spi_getClkFreq(&_spi)/_divider;
+    spiSettings[idx].clk = spi_getClkFreq(&_spi) / _divider;
   }
 
   spi_init(&_spi, spiSettings[idx].clk,
-                  spiSettings[idx].dMode,
-                  spiSettings[idx].msb);
+           spiSettings[idx].dMode,
+           spiSettings[idx].msb);
 }
 
 /**
@@ -263,27 +270,30 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
 {
   uint8_t rx_buffer = 0;
 
-  if (_pin > NUM_DIGITAL_PINS)
+  if (_pin > NUM_DIGITAL_PINS) {
     return rx_buffer;
+  }
 
-  if(_pin != _CSPinConfig) {
+  if (_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
-    if(idx >= NB_SPI_SETTINGS) {
+    if (idx >= NB_SPI_SETTINGS) {
       return rx_buffer;
     }
     spi_init(&_spi, spiSettings[idx].clk,
-                    spiSettings[idx].dMode,
-                    spiSettings[idx].msb);
+             spiSettings[idx].dMode,
+             spiSettings[idx].msb);
     _CSPinConfig = _pin;
   }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, LOW);
+  }
 
   spi_transfer(&_spi, &data, &rx_buffer, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT);
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, HIGH);
+  }
 
   return rx_buffer;
 }
@@ -306,18 +316,19 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
   uint16_t rx_buffer = 0;
   uint16_t tmp;
 
-  if (_pin > NUM_DIGITAL_PINS)
-    return rx_buffer;
-
-  uint8_t idx = pinIdx(_pin, GET_IDX);
-  if(idx >= NB_SPI_SETTINGS) {
+  if (_pin > NUM_DIGITAL_PINS) {
     return rx_buffer;
   }
 
-  if(_pin != _CSPinConfig) {
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return rx_buffer;
+  }
+
+  if (_pin != _CSPinConfig) {
     spi_init(&_spi, spiSettings[idx].clk,
-                    spiSettings[idx].dMode,
-                    spiSettings[idx].msb);
+             spiSettings[idx].dMode,
+             spiSettings[idx].msb);
     _CSPinConfig = _pin;
   }
 
@@ -326,13 +337,15 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
     data = tmp;
   }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, LOW);
+  }
 
   spi_transfer(&_spi, (uint8_t *)&data, (uint8_t *)&rx_buffer, sizeof(uint16_t), SPI_TRANSFER_TIMEOUT);
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, HIGH);
+  }
 
   if (spiSettings[idx].msb) {
     tmp = ((rx_buffer & 0xff00) >> 8) | ((rx_buffer & 0xff) << 8);
@@ -358,27 +371,30 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
   */
 void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode _mode)
 {
-  if ((_count == 0) || (_buf == NULL) || (_pin > NUM_DIGITAL_PINS))
+  if ((_count == 0) || (_buf == NULL) || (_pin > NUM_DIGITAL_PINS)) {
     return;
+  }
 
-  if(_pin != _CSPinConfig) {
+  if (_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
-    if(idx >= NB_SPI_SETTINGS) {
+    if (idx >= NB_SPI_SETTINGS) {
       return;
     }
     spi_init(&_spi, spiSettings[idx].clk,
-                    spiSettings[idx].dMode,
-                    spiSettings[idx].msb);
+             spiSettings[idx].dMode,
+             spiSettings[idx].msb);
     _CSPinConfig = _pin;
   }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, LOW);
+  }
 
-  spi_transfer(&_spi, ((uint8_t*)_buf), ((uint8_t*)_buf), _count, SPI_TRANSFER_TIMEOUT);
+  spi_transfer(&_spi, ((uint8_t *)_buf), ((uint8_t *)_buf), _count, SPI_TRANSFER_TIMEOUT);
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, HIGH);
+  }
 }
 
 /**
@@ -398,27 +414,30 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
   */
 void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode)
 {
-  if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)  || (_pin > NUM_DIGITAL_PINS))
+  if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)  || (_pin > NUM_DIGITAL_PINS)) {
     return;
+  }
 
-  if(_pin != _CSPinConfig) {
+  if (_pin != _CSPinConfig) {
     uint8_t idx = pinIdx(_pin, GET_IDX);
-    if(idx >= NB_SPI_SETTINGS) {
+    if (idx >= NB_SPI_SETTINGS) {
       return;
     }
     spi_init(&_spi, spiSettings[idx].clk,
-                    spiSettings[idx].dMode,
-                    spiSettings[idx].msb);
+             spiSettings[idx].dMode,
+             spiSettings[idx].msb);
     _CSPinConfig = _pin;
   }
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, LOW);
+  }
 
-  spi_transfer(&_spi, ((uint8_t*)_bufout), ((uint8_t*)_bufin), _count, SPI_TRANSFER_TIMEOUT);
+  spi_transfer(&_spi, ((uint8_t *)_bufout), ((uint8_t *)_bufin), _count, SPI_TRANSFER_TIMEOUT);
 
-  if((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC))
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
     digitalWrite(_pin, HIGH);
+  }
 }
 
 /**
@@ -432,13 +451,15 @@ void SPIClass::usingInterrupt(uint8_t interruptNumber)
 /**
   * @brief  Not implemented.
   */
-void SPIClass::attachInterrupt(void) {
-	// Should be enableInterrupt()
+void SPIClass::attachInterrupt(void)
+{
+  // Should be enableInterrupt()
 }
 
 /**
   * @brief  Not implemented.
   */
-void SPIClass::detachInterrupt(void) {
-	// Should be disableInterrupt()
+void SPIClass::detachInterrupt(void)
+{
+  // Should be disableInterrupt()
 }

@@ -6,7 +6,7 @@ extern "C" {
 
 void __libc_init_array(void);
 
-WEAK void init( void )
+WEAK void init(void)
 {
   hw_config_init();
 }

@@ -45,7 +45,7 @@
  */
 #if defined(CORE_CALLBACK)
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -61,11 +61,12 @@ static void (*callbackList[CALLBACK_LIST_SIZE])(void);
   */
 void registerCoreCallback(void (*func)(void))
 {
-  if(func == NULL)
+  if (func == NULL) {
     return;
+  }
 
-  for(uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
-    if(callbackList[i] == NULL) {
+  for (uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
+    if (callbackList[i] == NULL) {
       callbackList[i] = func;
       break;
     }
@@ -79,11 +80,12 @@ void registerCoreCallback(void (*func)(void))
   */
 void unregisterCoreCallback(void (*func)(void))
 {
-  if(func == NULL)
+  if (func == NULL) {
     return;
+  }
 
-  for(uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
-    if(callbackList[i] == func) {
+  for (uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
+    if (callbackList[i] == func) {
       callbackList[i] = NULL;
       break;
     }
@@ -98,9 +100,10 @@ void unregisterCoreCallback(void (*func)(void))
   */
 void CoreCallback(void)
 {
-  for(uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
-    if(callbackList[i] != NULL)
+  for (uint8_t i = 0; i < CALLBACK_LIST_SIZE; i++) {
+    if (callbackList[i] != NULL) {
       callbackList[i]();
+    }
   }
 }
 

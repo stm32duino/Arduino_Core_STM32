@@ -17,7 +17,7 @@
  *
  * Note:
  * Below HAL module have to be disabled, they are handled thanks Arduino menu:
- *	HAL_UART_MODULE_ENABLED
- *	HAL_PCD_MODULE_ENABLED
+ *  HAL_UART_MODULE_ENABLED
+ *  HAL_PCD_MODULE_ENABLED
  *
  */

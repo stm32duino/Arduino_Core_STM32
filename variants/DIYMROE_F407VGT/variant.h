@@ -42,7 +42,7 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif // __cplusplus
 
 /*------------------------------------------------------------------
@@ -61,8 +61,8 @@ extern const PinName digitalPin[];
 #define PE4  3  // Header right, pin 4
 #define PC13 4  // Header right, pin 5
 #define PE6  5  // Header right, pin 6
-                // Header right, pin 7 = GND
-                // Header right, pin 8 = 3.3V
+// Header right, pin 7 = GND
+// Header right, pin 8 = 3.3V
 #define PC1  6  // Header right, pin 9
 #define PC0  7  // Header right, pin 10
 #define PA0  8  // Header right, pin 11
@@ -96,9 +96,9 @@ extern const PinName digitalPin[];
 #define PE15 34 // Header top, pin 5
 #define PB10 35 // Header top, pin 6
 #define PB11 36 // Header top, pin 7
-                // Header top, pin 8 = GND
+// Header top, pin 8 = GND
 #define PB12 37 // Header top, pin 9
-                // Header top, pin 10 = 3.3V
+// Header top, pin 10 = 3.3V
 #define PB14 38 // Header top, pin 11
 #define PB13 39 // Header top, pin 12
 #define PD8  40 // Header top, pin 13
@@ -115,8 +115,8 @@ extern const PinName digitalPin[];
 #define PC7  51 // Header top, pin 24
 
 // Header left (as viewed with USB socket at the bottom), numbered from top
-                // Header left, pin 1 = GND
-                // Header left, pin 2 = Vcc (5V)
+// Header left, pin 1 = GND
+// Header left, pin 2 = Vcc (5V)
 #define PA8  52 // Header left, pin 3
 #define PC9  53 // Header left, pin 4
 #define PA10 54 // Header left, pin 5

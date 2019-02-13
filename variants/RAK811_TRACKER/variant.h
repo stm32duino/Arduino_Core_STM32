@@ -37,7 +37,7 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif // __cplusplus
 
 /*----------------------------------------------------------------------------
@@ -143,8 +143,8 @@ extern const PinName digitalPin[];
 #define GPS_UART_RX             PB11
 
 // MEMS (LIS3DH)
-#define LIS3DH_INT1_PIN	        PB14
-#define LIS3DH_INT2_PIN	        PB15
+#define LIS3DH_INT1_PIN         PB14
+#define LIS3DH_INT2_PIN         PB15
 
 #ifdef __cplusplus
 } // extern "C"

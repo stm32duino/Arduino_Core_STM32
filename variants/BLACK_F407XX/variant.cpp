@@ -81,7 +81,7 @@ const PinName digitalPin[] = {
   PA_0,   PA_1,   // PA_0(WK_UP): BUT K_UP)
   PA_2,   PA_3,   // D50, D51
   PA_4,   PA_5,
-/*PA_6,   PA_7,*/ // PA_6, PA_7: Moved to allow contiguous analog pins
+  /*PA_6,   PA_7,*/ // PA_6, PA_7: Moved to allow contiguous analog pins
   PC_4,   PC_5,
   PB_0,   PB_1,
   PA_6,   PA_7,   // PA_6: LED D2, PA_7: LED D3 (active LOW)
@@ -93,7 +93,7 @@ const PinName digitalPin[] = {
   PB_11,  PB_12,  // D70, D71
   PB_13,  PB_14,
   PB_4,
-  };
+};
 #endif // ARDUINO_BLACK_F407VE || ARDUINO_BLACK_F407VG
 
 #if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
@@ -146,7 +146,7 @@ const PinName digitalPin[] = {
   PF_15,  PG_0,
   PF_13,  PF_14,
   PF_11,  PF_12,
-          PB_2,   // PB1 PB2 Inverted to allow contiguous analog pins
+  PB_2,   // PB1 PB2 Inverted to allow contiguous analog pins
   PB_1,
   PC_5,   PB_0,
   PA_7,   PC_4,
@@ -155,7 +155,7 @@ const PinName digitalPin[] = {
   PA_1,   PA_2,
   PC_3,   PA_0,   // PA_0(WK_UP): BUT K_UP)
   PC_1,   PC_2,
-/*PF_10,*/PC_0,   // PF_10: Moved to allow contiguous analog pins
+  /*PF_10,*/PC_0,   // PF_10: Moved to allow contiguous analog pins
   PF_8, /*PF_9,*/ // PF_9: Moved to allow contiguous analog pins
   PF_6,   PF_7,
   PF_10,  PF_9,   // PF_10: LED D2, PF_9: LED D1 (active low)
@@ -190,14 +190,14 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
-    /**Configure the main internal regulator output voltage
-    */
+  /**Configure the main internal regulator output voltage
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
 
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
-    /**Initializes the CPU, AHB and APB busses clocks
-    */
+  /**Initializes the CPU, AHB and APB busses clocks
+  */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
@@ -206,31 +206,29 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 7;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Initializes the CPU, AHB and APB busses clocks
-    */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  /**Initializes the CPU, AHB and APB busses clocks
+  */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
-  {
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);
   }
 
-    /**Configure the Systick interrupt time
-    */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  /**Configure the Systick interrupt time
+  */
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
-    /**Configure the Systick
-    */
+  /**Configure the Systick
+  */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 
   /* SysTick_IRQn interrupt configuration */

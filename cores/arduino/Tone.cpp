@@ -29,8 +29,8 @@ static stimer_t _timer;
 void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 {
   PinName p = digitalPinToPinName(_pin);
-  if(p != NC) {
-    if((g_lastPin == NC) || (g_lastPin == p)) {
+  if (p != NC) {
+    if ((g_lastPin == NC) || (g_lastPin == p)) {
       _timer.pin = p;
       TimerPinInit(&_timer, frequency, duration);
       g_lastPin = p;
@@ -42,7 +42,7 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 void noTone(uint8_t _pin)
 {
   PinName p = digitalPinToPinName(_pin);
-  if(p != NC) {
+  if (p != NC) {
     TimerPinDeinit(&_timer);
     g_lastPin = NC;
   }

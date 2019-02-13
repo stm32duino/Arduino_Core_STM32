@@ -25,7 +25,7 @@
 #ifdef USBD_USE_HID_COMPOSITE
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -65,7 +65,7 @@
 #endif /* HID_HS_BINTERVAL */
 
 #ifndef HID_FS_BINTERVAL
-  #define HID_FS_BINTERVAL            0x0AU
+#define HID_FS_BINTERVAL            0x0AU
 #endif /* HID_FS_BINTERVAL */
 
 #define HID_REQ_SET_PROTOCOL          0x0BU
@@ -84,16 +84,14 @@
 /** @defgroup USBD_CORE_Exported_TypesDefinitions
   * @{
   */
-typedef enum
-{
+typedef enum {
   HID_IDLE = 0,
   HID_BUSY,
 }
 HID_StateTypeDef;
 
 
-typedef struct
-{
+typedef struct {
   uint32_t             Protocol;
   uint32_t             IdleState;
   uint32_t             AltSetting;
@@ -128,14 +126,14 @@ extern USBD_ClassTypeDef  USBD_COMPOSITE_HID;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t USBD_HID_MOUSE_SendReport (USBD_HandleTypeDef *pdev,
-                                   uint8_t *report,
-                                   uint16_t len);
-uint8_t USBD_HID_KEYBOARD_SendReport (USBD_HandleTypeDef *pdev,
-                                 uint8_t *report,
-                                 uint16_t len);
+uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef *pdev,
+                                  uint8_t *report,
+                                  uint16_t len);
+uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef *pdev,
+                                     uint8_t *report,
+                                     uint16_t len);
 
-uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev);
+uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev);
 
 #ifdef __cplusplus
 }

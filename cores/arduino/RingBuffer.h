@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -27,16 +27,15 @@
 // location from which to read.
 #define SERIAL_BUFFER_SIZE 128
 
-class RingBuffer
-{
+class RingBuffer {
   public:
     volatile uint8_t _aucBuffer[SERIAL_BUFFER_SIZE] ;
     volatile int _iHead ;
     volatile int _iTail ;
 
   public:
-    RingBuffer( void ) ;
-    void store_char( uint8_t c ) ;
+    RingBuffer(void) ;
+    void store_char(uint8_t c) ;
 } ;
 
 #endif /* _RING_BUFFER_ */

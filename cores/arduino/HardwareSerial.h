@@ -87,8 +87,7 @@ typedef uint8_t rx_buffer_index_t;
 #define SERIAL_7O2 0x3C
 #define SERIAL_8O2 0x3E
 
-class HardwareSerial : public Stream
-{
+class HardwareSerial : public Stream {
   protected:
     // Has any byte been written to the UART since begin()
     bool _written;
@@ -104,8 +103,11 @@ class HardwareSerial : public Stream
   public:
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
-    HardwareSerial(void* peripheral);
-    void begin(unsigned long baud) { begin(baud, SERIAL_8N1); }
+    HardwareSerial(void *peripheral);
+    void begin(unsigned long baud)
+    {
+      begin(baud, SERIAL_8N1);
+    }
     void begin(unsigned long, uint8_t);
     void end();
     virtual int available(void);
@@ -114,12 +116,27 @@ class HardwareSerial : public Stream
     int availableForWrite(void);
     virtual void flush(void);
     virtual size_t write(uint8_t);
-    inline size_t write(unsigned long n) { return write((uint8_t)n); }
-    inline size_t write(long n) { return write((uint8_t)n); }
-    inline size_t write(unsigned int n) { return write((uint8_t)n); }
-    inline size_t write(int n) { return write((uint8_t)n); }
+    inline size_t write(unsigned long n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(long n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(unsigned int n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(int n)
+    {
+      return write((uint8_t)n);
+    }
     using Print::write; // pull in write(str) and write(buf, size) from Print
-    operator bool() { return true; }
+    operator bool()
+    {
+      return true;
+    }
 
     void setRx(uint32_t _rx);
     void setTx(uint32_t _tx);
@@ -129,8 +146,8 @@ class HardwareSerial : public Stream
     friend class STM32LowPower;
 
     // Interrupt handlers
-    static void _rx_complete_irq(serial_t* obj);
-    static int _tx_complete_irq(serial_t* obj);
+    static void _rx_complete_irq(serial_t *obj);
+    static int _tx_complete_irq(serial_t *obj);
   private:
     uint8_t _config;
     void init(void);

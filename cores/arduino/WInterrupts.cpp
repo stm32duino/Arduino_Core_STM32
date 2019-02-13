@@ -22,28 +22,30 @@
 #include "PinAF_STM32F1.h"
 #include "interrupt.h"
 
-void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode){
+void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode)
+{
   uint32_t it_mode;
   PinName p = digitalPinToPinName(pin);
-  GPIO_TypeDef* port = set_GPIO_Port_Clock(STM_PORT(p));
-  if (!port)
-	  return;
+  GPIO_TypeDef *port = set_GPIO_Port_Clock(STM_PORT(p));
+  if (!port) {
+    return;
+  }
 
-  switch(mode) {
+  switch (mode) {
     case CHANGE :
       it_mode = GPIO_MODE_IT_RISING_FALLING;
-    break;
+      break;
     case FALLING :
     case LOW :
       it_mode = GPIO_MODE_IT_FALLING;
-    break;
+      break;
     case RISING :
     case HIGH :
       it_mode = GPIO_MODE_IT_RISING;
-    break;
+      break;
     default:
       it_mode = GPIO_MODE_IT_RISING;
-    break;
+      break;
   }
 
 #ifdef STM32F1xx
@@ -56,14 +58,15 @@ void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode){
 void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode)
 {
   callback_function_t _c = callback;
-  attachInterrupt(pin,_c,mode);
+  attachInterrupt(pin, _c, mode);
 }
 
 void detachInterrupt(uint32_t pin)
 {
   PinName p = digitalPinToPinName(pin);
-  GPIO_TypeDef* port = get_GPIO_Port(STM_PORT(p));
-  if (!port)
-	  return;
+  GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(p));
+  if (!port) {
+    return;
+  }
   stm32_interrupt_disable(port, STM_GPIO_PIN(p));
 }

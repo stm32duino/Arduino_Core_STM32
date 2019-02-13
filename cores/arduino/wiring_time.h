@@ -32,7 +32,7 @@ extern "C" {
  *
  * \return Number of milliseconds since the program started (uint32_t)
  */
-extern uint32_t millis( void ) ;
+extern uint32_t millis(void) ;
 
 /**
  * \brief Returns the number of microseconds since the Arduino board began running the current program.
@@ -44,7 +44,7 @@ extern uint32_t millis( void ) ;
  *
  * \note There are 1,000 microseconds in a millisecond and 1,000,000 microseconds in a second.
  */
-extern uint32_t micros( void ) ;
+extern uint32_t micros(void) ;
 
 /**
  * \brief Pauses the program for the amount of time (in miliseconds) specified as parameter.
@@ -52,7 +52,7 @@ extern uint32_t micros( void ) ;
  *
  * \param dwMs the number of milliseconds to pause (uint32_t)
  */
-extern void delay( uint32_t dwMs ) ;
+extern void delay(uint32_t dwMs) ;
 
 /**
  * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
@@ -60,10 +60,11 @@ extern void delay( uint32_t dwMs ) ;
  * \param dwUs the number of microseconds to pause (uint32_t)
  */
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
-static inline void delayMicroseconds(uint32_t usec){
+static inline void delayMicroseconds(uint32_t usec)
+{
   uint32_t start = GetCurrentMicro();
 
-  while((start+usec) > GetCurrentMicro());
+  while ((start + usec) > GetCurrentMicro());
 }
 
 #ifdef __cplusplus

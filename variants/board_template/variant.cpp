@@ -38,7 +38,7 @@ extern "C" {
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-//PX_n, //Dx
+  //PX_n, //Dx
   P, //D0
   P, //D1
   P, //D2
@@ -155,12 +155,12 @@ extern "C" {
   */
 WEAK void SystemClock_Config(void)
 {
-// Here copy the desired System Clock Configuration
-// It could be generated thanks STM32CubeMX after code generation for Toolchain/IDE: 'SW4STM32',
-// available in src/main.c
-// or
-// copied from a STM32CubeYY project examples
-// where 'YY' could be F0, F1, F2, F3, F4, F7, H7, L0, L1, L4
+  // Here copy the desired System Clock Configuration
+  // It could be generated thanks STM32CubeMX after code generation for Toolchain/IDE: 'SW4STM32',
+  // available in src/main.c
+  // or
+  // copied from a STM32CubeYY project examples
+  // where 'YY' could be F0, F1, F2, F3, F4, F7, H7, L0, L1, L4
 }
 
 #ifdef __cplusplus

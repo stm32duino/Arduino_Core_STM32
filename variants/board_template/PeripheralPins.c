@@ -6,7 +6,7 @@
  * It is included with the STM32Tools package install with this core.
  * Go to:
  * <local Arduino directory>\packages\STM32\tools\STM32Tools\<version>\tools\src\genpinmap\
- * Tips: <local Arduino directory> is displayed in the "Preferences" dialog of the Arduino IDE. 
+ * Tips: <local Arduino directory> is displayed in the "Preferences" dialog of the Arduino IDE.
  *
  * This script is able to generate the PeripheralPins.c using STM32
  * xml file description in Cube MX.

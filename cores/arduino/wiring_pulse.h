@@ -8,7 +8,7 @@
 
   This library is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
   See the GNU Lesser General Public License for more details.
 
   You should have received a copy of the GNU Lesser General Public
@@ -26,8 +26,8 @@
  * to 3 minutes in length, but must be called at least a few dozen microseconds
  * before the start of the pulse.
  */
-extern uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout = 1000000L ) ;
-extern uint32_t pulseInLong( uint32_t pin, uint32_t state, uint32_t timeout = 1000000L ) ;
+extern uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout = 1000000L) ;
+extern uint32_t pulseInLong(uint32_t pin, uint32_t state, uint32_t timeout = 1000000L) ;
 #endif
 
 #endif /* _WIRING_PULSE_ */

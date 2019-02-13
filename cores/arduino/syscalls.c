@@ -7,7 +7,7 @@
 
 #include "stm32_def.h"
 #if defined (  __GNUC__  ) /* GCC CS3 */
-  #include <sys/stat.h>
+#include <sys/stat.h>
 #endif
 #include <errno.h>
 #undef errno
@@ -27,7 +27,8 @@ extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 #endif
 
 __attribute__((weak))
-caddr_t _sbrk( int incr ) {
+caddr_t _sbrk(int incr)
+{
   extern char _estack; /* Defined in the linker script */
   extern char _Min_Stack_Size; /* Defined in the linker script */
   extern char _end; /* Defined by the linker */
@@ -40,7 +41,7 @@ caddr_t _sbrk( int incr ) {
     return (caddr_t) -1;
   }
   /* Ensure to keep minimun stack size defined in the linker script */
-  if (heap_end + incr >= (char*)(&_estack - &_Min_Stack_Size)) {
+  if (heap_end + incr >= (char *)(&_estack - &_Min_Stack_Size)) {
     errno = ENOMEM;
     return (caddr_t) -1;
   }
@@ -50,33 +51,39 @@ caddr_t _sbrk( int incr ) {
 }
 
 __attribute__((weak))
-int _close( UNUSED(int file) ) {
+int _close(UNUSED(int file))
+{
   return -1;
 }
 
 __attribute__((weak))
-int _fstat( UNUSED(int file), struct stat *st ) {
+int _fstat(UNUSED(int file), struct stat *st)
+{
   st->st_mode = S_IFCHR ;
   return 0;
 }
 
 __attribute__((weak))
-int _isatty( UNUSED(int file) ) {
+int _isatty(UNUSED(int file))
+{
   return 1;
 }
 
 __attribute__((weak))
-int _lseek( UNUSED(int file), UNUSED(int ptr), UNUSED(int dir) ) {
+int _lseek(UNUSED(int file), UNUSED(int ptr), UNUSED(int dir))
+{
   return 0;
 }
 
 __attribute__((weak))
-int _read( UNUSED(int file), UNUSED(char *ptr), UNUSED(int len) ) {
+int _read(UNUSED(int file), UNUSED(char *ptr), UNUSED(int len))
+{
   return 0;
 }
 
 __attribute__((weak))
-int _write( UNUSED(int file), char *ptr, int len ) {
+int _write(UNUSED(int file), char *ptr, int len)
+{
 #ifdef HAL_UART_MODULE_ENABLED
   return uart_debug_write((uint8_t *)ptr, (uint32_t)len);
 #else
@@ -86,17 +93,20 @@ int _write( UNUSED(int file), char *ptr, int len ) {
 }
 
 __attribute__((weak))
-void _exit( UNUSED(int status) ) {
-  for ( ; ; ) ;
+void _exit(UNUSED(int status))
+{
+  for (; ;) ;
 }
 
 __attribute__((weak))
-int _kill( UNUSED(int pid), UNUSED(int sig) ) {
+int _kill(UNUSED(int pid), UNUSED(int sig))
+{
   errno = EINVAL;
   return -1;
 }
 
 __attribute__((weak))
-int _getpid( void ) {
+int _getpid(void)
+{
   return 1;
 }

@@ -51,9 +51,9 @@ enum {
 // Analog pins must be contiguous to be able to loop on each value
 #define MAX_ANALOG_INPUTS 24
 _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
-               "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS" );
+               "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS");
 _Static_assert(NUM_ANALOG_FIRST >= NUM_ANALOG_INPUTS,
-               "First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS" );
+               "First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS");
 
 // Defined for backward compatibility with Firmata which unfortunately use it
 #define AEND (NUM_ANALOG_FIRST+NUM_ANALOG_INPUTS)

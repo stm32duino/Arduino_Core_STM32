@@ -40,7 +40,7 @@
 #include "usbd_hid_composite.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* USB Device Core HID composite handle declaration */
