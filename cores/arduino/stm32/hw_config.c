@@ -40,7 +40,7 @@
 #include "usbd_if.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /**

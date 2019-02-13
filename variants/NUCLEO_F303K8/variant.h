@@ -25,7 +25,7 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif // __cplusplus
 
 /*----------------------------------------------------------------------------
@@ -81,7 +81,7 @@ extern const PinName digitalPin[];
 // Do not use basic timer: OC is required
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
- // UART Definitions
+// UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 
 // Serial Pin Firmata

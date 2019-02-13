@@ -26,7 +26,7 @@
  * ATTENTION:
  * This function relies on micros() so cannot be used in noInterrupt() context
  */
-uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
+uint32_t pulseIn(uint32_t pin, uint32_t state, uint32_t timeout)
 {
   // Cache the port and bit of the pin in order to speed up the
   // pulse width measuring loop and achieve finer resolution.
@@ -38,21 +38,24 @@ uint32_t pulseIn( uint32_t pin, uint32_t state, uint32_t timeout )
 
   // wait for any previous pulse to end
   while ((*portIn & bit) == stateMask) {
-    if (micros() - startMicros > timeout)
+    if (micros() - startMicros > timeout) {
       return 0;
+    }
   }
 
   // wait for the pulse to start
   while ((*portIn & bit) != stateMask) {
-    if (micros() - startMicros > timeout)
+    if (micros() - startMicros > timeout) {
       return 0;
+    }
   }
 
   uint32_t start = micros();
   // wait for the pulse to stop
   while ((*portIn & bit) == stateMask) {
-    if (micros() - startMicros > timeout)
+    if (micros() - startMicros > timeout) {
       return 0;
+    }
   }
   return (micros() - start);
 }

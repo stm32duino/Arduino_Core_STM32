@@ -41,16 +41,16 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-// Numbered anticlockwise from USB socket
-// Header right (as viewed with USB socket at the bottom), numbered from bottom
+  // Numbered anticlockwise from USB socket
+  // Header right (as viewed with USB socket at the bottom), numbered from bottom
   PE_3,  //  0 Header right, pin 1
   PE_2,  //  1 Header right, pin 2
   PE_5,  //  2 Header right, pin 3
   PE_4,  //  3 Header right, pin 4
   PC_13, //  4 Header right, pin 5
   PE_6,  //  5 Header right, pin 6
-         // -- Header right, pin 7 = GND
-         // -- Header right, pin 8 = 3.3V
+  // -- Header right, pin 7 = GND
+  // -- Header right, pin 8 = 3.3V
   PC_1,  //  6 Header right, pin 9
   PC_0,  //  7 Header right, pin 10
   PA_0,  //  8 Header right, pin 11
@@ -76,10 +76,10 @@ const PinName digitalPin[] = {
   PB_2,  // 28 Header right, pin 31
   PE_10, // 29 Header right, pin 32
 
-// The final four headers in the right hand side are for BOOT0 and BOOT1 jumpers;
-// ... They are not numbered as headers on the schematic
+  // The final four headers in the right hand side are for BOOT0 and BOOT1 jumpers;
+  // ... They are not numbered as headers on the schematic
 
-// Header top (as viewed with USB socket at the bottom), numbered from right
+  // Header top (as viewed with USB socket at the bottom), numbered from right
   PE_11, // 30 Header top, pin 1
   PE_12, // 31 Header top, pin 2
   PE_13, // 32 Header top, pin 3
@@ -87,9 +87,9 @@ const PinName digitalPin[] = {
   PE_15, // 34 Header top, pin 5
   PB_10, // 35 Header top, pin 6
   PB_11, // 36 Header top, pin 7
-         // -- Header top, pin 8 = GND
+  // -- Header top, pin 8 = GND
   PB_12, // 37 Header top, pin 9
-         // -- Header top, pin 10 = 3.3V
+  // -- Header top, pin 10 = 3.3V
   PB_14, // 38 Header top, pin 11
   PB_13, // 39 Header top, pin 12
   PD_8,  // 40 Header top, pin 13
@@ -105,9 +105,9 @@ const PinName digitalPin[] = {
   PC_8,  // 50 Header top, pin 23
   PC_7,  // 51 Header top, pin 24
 
-// Header left (as viewed with UBS coket at the bottom), numbered from top
-         // -- Header left, pin 1 = GND
-         // -- Header left, pin 2 = Vcc (5V)
+  // Header left (as viewed with UBS coket at the bottom), numbered from top
+  // -- Header left, pin 1 = GND
+  // -- Header left, pin 2 = Vcc (5V)
   PA_8,  // 52 Header left, pin 3
   PC_9,  // 53 Header left, pin 4
   PA_10, // 54 Header left, pin 5
@@ -134,7 +134,7 @@ const PinName digitalPin[] = {
   PB_5,  // 75 Header left, pin 26
   PE_0,  // 76 Header left, pin 27 and LED_BUILTIN
   PB_7,  // 77 Header left, pin 28
-// Duplicated pins in order to be aligned with PinMap_ADC
+  // Duplicated pins in order to be aligned with PinMap_ADC
   PA_0,  // 78/A0
   PA_1,  // 79/A1
   PA_2,  // 80/A2
@@ -193,8 +193,8 @@ WEAK void SystemClock_Config(void)
   }
 
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -205,7 +205,7 @@ WEAK void SystemClock_Config(void)
   }
 
   /* Configure the Systick interrupt time */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
   /* Configure the Systick */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);

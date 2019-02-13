@@ -86,30 +86,30 @@
   * @{
   */
 
-static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
-                               uint8_t cfgidx);
+static uint8_t  USBD_HID_Init(USBD_HandleTypeDef *pdev,
+                              uint8_t cfgidx);
 
-static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
-                                 uint8_t cfgidx);
+static uint8_t  USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
+                                uint8_t cfgidx);
 
-static uint8_t  USBD_COMPOSITE_HID_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req);
+static uint8_t  USBD_COMPOSITE_HID_Setup(USBD_HandleTypeDef *pdev,
+                                         USBD_SetupReqTypedef *req);
 
-static uint8_t  USBD_HID_MOUSE_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req);
+static uint8_t  USBD_HID_MOUSE_Setup(USBD_HandleTypeDef *pdev,
+                                     USBD_SetupReqTypedef *req);
 
-static uint8_t  USBD_HID_KEYBOARD_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req);
+static uint8_t  USBD_HID_KEYBOARD_Setup(USBD_HandleTypeDef *pdev,
+                                        USBD_SetupReqTypedef *req);
 
-static uint8_t  *USBD_HID_GetFSCfgDesc (uint16_t *length);
+static uint8_t  *USBD_HID_GetFSCfgDesc(uint16_t *length);
 
-static uint8_t  *USBD_HID_GetHSCfgDesc (uint16_t *length);
+static uint8_t  *USBD_HID_GetHSCfgDesc(uint16_t *length);
 
-static uint8_t  *USBD_HID_GetOtherSpeedCfgDesc (uint16_t *length);
+static uint8_t  *USBD_HID_GetOtherSpeedCfgDesc(uint16_t *length);
 
-static uint8_t  *USBD_HID_GetDeviceQualifierDesc (uint16_t *length);
+static uint8_t  *USBD_HID_GetDeviceQualifierDesc(uint16_t *length);
 
-static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev, uint8_t epnum);
+static uint8_t  USBD_HID_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
 /**
   * @}
   */
@@ -118,8 +118,7 @@ static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev, uint8_t epnum);
   * @{
   */
 
-USBD_ClassTypeDef  USBD_COMPOSITE_HID =
-{
+USBD_ClassTypeDef  USBD_COMPOSITE_HID = {
   USBD_HID_Init,
   USBD_HID_DeInit,
   USBD_COMPOSITE_HID_Setup,
@@ -137,8 +136,7 @@ USBD_ClassTypeDef  USBD_COMPOSITE_HID =
 };
 
 /* USB HID device FS Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_HID_CfgFSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t USBD_HID_CfgFSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END = {
   0x09, /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   LOBYTE(USB_COMPOSITE_HID_CONFIG_DESC_SIZ),    /* wTotalLength: Bytes returned */
@@ -221,8 +219,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgFSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SI
 } ;
 
 /* USB HID device HS Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_HID_CfgHSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t USBD_HID_CfgHSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END = {
   0x09, /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   LOBYTE(USB_COMPOSITE_HID_CONFIG_DESC_SIZ),    /* wTotalLength: Bytes returned */
@@ -305,8 +302,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgHSDesc[USB_COMPOSITE_HID_CONFIG_DESC_SI
 } ;
 
 /* USB HID device Other Speed Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_HID_OtherSpeedCfgDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t USBD_HID_OtherSpeedCfgDesc[USB_COMPOSITE_HID_CONFIG_DESC_SIZ]  __ALIGN_END = {
   0x09, /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   LOBYTE(USB_COMPOSITE_HID_CONFIG_DESC_SIZ),    /* wTotalLength: Bytes returned */
@@ -389,8 +385,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_OtherSpeedCfgDesc[USB_COMPOSITE_HID_CONFIG
 } ;
 
 /* USB HID device Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_MOUSE_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END  =
-{
+__ALIGN_BEGIN static uint8_t USBD_MOUSE_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END  = {
   0x09,         /*bLength: HID Descriptor size*/
   HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
   0x11,         /*bcdHID: HID Class Spec release number*/
@@ -403,8 +398,7 @@ __ALIGN_BEGIN static uint8_t USBD_MOUSE_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END 
 };
 
 /* USB HID device Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_KEYBOARD_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END  =
-{
+__ALIGN_BEGIN static uint8_t USBD_KEYBOARD_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_END  = {
   0x09,         /*bLength: HID Descriptor size*/
   HID_DESCRIPTOR_TYPE, /*bDescriptorType: HID*/
   0x11,         /*bcdHID: HID Class Spec release number*/
@@ -417,8 +411,7 @@ __ALIGN_BEGIN static uint8_t USBD_KEYBOARD_HID_Desc[USB_HID_DESC_SIZ]  __ALIGN_E
 };
 
 /* USB Standard Device Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END = {
   USB_LEN_DEV_QUALIFIER_DESC,
   USB_DESC_TYPE_DEVICE_QUALIFIER,
   0x00,
@@ -431,8 +424,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_
   0x00,
 };
 
-__ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  __ALIGN_END = {
   0x05, 0x01,
   0x09, 0x02,
   0xA1, 0x01,
@@ -481,8 +473,7 @@ __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE]  _
   0x01, 0xc0
 };
 
-__ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc[HID_KEYBOARD_REPORT_DESC_SIZE]  __ALIGN_END =
-{
+__ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc[HID_KEYBOARD_REPORT_DESC_SIZE]  __ALIGN_END = {
   0x05, 0x01,       // Usage Page (Generic Desktop)
   0x09, 0x06,       // Usage (Keyboard)
   0xA1, 0x01,       // Collection (Application)
@@ -527,8 +518,8 @@ __ALIGN_BEGIN static uint8_t HID_KEYBOARD_ReportDesc[HID_KEYBOARD_REPORT_DESC_SI
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
-                               uint8_t cfgidx)
+static uint8_t  USBD_HID_Init(USBD_HandleTypeDef *pdev,
+                              uint8_t cfgidx)
 {
   UNUSED(cfgidx);
   uint8_t ret = USBD_OK;
@@ -542,19 +533,16 @@ static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
 
   /* Open EP IN */
   USBD_LL_OpenEP(pdev,
-                HID_KEYBOARD_EPIN_ADDR,
-                USBD_EP_TYPE_INTR,
-                HID_KEYBOARD_EPIN_SIZE);
+                 HID_KEYBOARD_EPIN_ADDR,
+                 USBD_EP_TYPE_INTR,
+                 HID_KEYBOARD_EPIN_SIZE);
   pdev->ep_in[HID_KEYBOARD_EPIN_ADDR & 0xFU].is_used = 1U;
 
-  pdev->pClassData = USBD_malloc(sizeof (USBD_HID_HandleTypeDef));
+  pdev->pClassData = USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
 
-  if(pdev->pClassData == NULL)
-  {
+  if (pdev->pClassData == NULL) {
     ret = USBD_FAIL;
-  }
-  else
-  {
+  } else {
     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->Mousestate = HID_IDLE;
     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->Keyboardstate = HID_IDLE;
   }
@@ -568,8 +556,8 @@ static uint8_t  USBD_HID_Init (USBD_HandleTypeDef *pdev,
   * @param  cfgidx: Configuration index
   * @retval status
   */
-static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
-                                 uint8_t cfgidx)
+static uint8_t  USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
+                                uint8_t cfgidx)
 {
   UNUSED(cfgidx);
   /* Close HID EPs */
@@ -581,8 +569,7 @@ static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
   pdev->ep_in[HID_KEYBOARD_EPIN_ADDR & 0xFU].is_used = 0U;
 
   /* Free allocated memory */
-  if(pdev->pClassData != NULL)
-  {
+  if (pdev->pClassData != NULL) {
     USBD_free(pdev->pClassData);
     pdev->pClassData = NULL;
   }
@@ -597,17 +584,14 @@ static uint8_t  USBD_HID_DeInit (USBD_HandleTypeDef *pdev,
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t  USBD_COMPOSITE_HID_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req)
+static uint8_t  USBD_COMPOSITE_HID_Setup(USBD_HandleTypeDef *pdev,
+                                         USBD_SetupReqTypedef *req)
 {
   /* Check which interface is targetted by this request */
-  if ((req->wIndex & 0x00FF) == HID_KEYBOARD_INTERFACE)
-  {
-    return USBD_HID_KEYBOARD_Setup (pdev, req);
-  }
-  else
-  {
-    return USBD_HID_MOUSE_Setup (pdev, req);
+  if ((req->wIndex & 0x00FF) == HID_KEYBOARD_INTERFACE) {
+    return USBD_HID_KEYBOARD_Setup(pdev, req);
+  } else {
+    return USBD_HID_MOUSE_Setup(pdev, req);
   }
 }
 
@@ -618,120 +602,103 @@ static uint8_t  USBD_COMPOSITE_HID_Setup (USBD_HandleTypeDef *pdev,
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t  USBD_HID_MOUSE_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req)
+static uint8_t  USBD_HID_MOUSE_Setup(USBD_HandleTypeDef *pdev,
+                                     USBD_SetupReqTypedef *req)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*) pdev->pClassData;
+  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *) pdev->pClassData;
   uint16_t len = 0U;
   uint8_t *pbuf = NULL;
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK)
-  {
-  case USB_REQ_TYPE_CLASS :
-    switch (req->bRequest)
-    {
+  switch (req->bmRequest & USB_REQ_TYPE_MASK) {
+    case USB_REQ_TYPE_CLASS :
+      switch (req->bRequest) {
 
 
-    case HID_REQ_SET_PROTOCOL:
-      hhid->Protocol = (uint8_t)(req->wValue);
-      break;
+        case HID_REQ_SET_PROTOCOL:
+          hhid->Protocol = (uint8_t)(req->wValue);
+          break;
 
-    case HID_REQ_GET_PROTOCOL:
-      USBD_CtlSendData (pdev,
-                        (uint8_t *)&hhid->Protocol,
-                        1U);
-      break;
+        case HID_REQ_GET_PROTOCOL:
+          USBD_CtlSendData(pdev,
+                           (uint8_t *)&hhid->Protocol,
+                           1U);
+          break;
 
-    case HID_REQ_SET_IDLE:
-      hhid->IdleState = (uint8_t)(req->wValue >> 8);
-      break;
+        case HID_REQ_SET_IDLE:
+          hhid->IdleState = (uint8_t)(req->wValue >> 8);
+          break;
 
-    case HID_REQ_GET_IDLE:
-      USBD_CtlSendData (pdev,
-                        (uint8_t *)&hhid->IdleState,
-                        1U);
-      break;
+        case HID_REQ_GET_IDLE:
+          USBD_CtlSendData(pdev,
+                           (uint8_t *)&hhid->IdleState,
+                           1U);
+          break;
 
-    default:
-      USBD_CtlError (pdev, req);
-      ret = USBD_FAIL;
-      break;
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlSendData (pdev, (uint8_t *)(void *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
-    case USB_REQ_GET_DESCRIPTOR:
-      if( req->wValue >> 8 == HID_REPORT_DESC)
-      {
-        len = MIN(HID_MOUSE_REPORT_DESC_SIZE , req->wLength);
-        pbuf = HID_MOUSE_ReportDesc;
-      }
-      else if( req->wValue >> 8 == HID_DESCRIPTOR_TYPE)
-      {
-        pbuf = USBD_MOUSE_HID_Desc;
-        len = MIN(USB_HID_DESC_SIZ , req->wLength);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
-        break;
-      }
-      USBD_CtlSendData (pdev,
-                        pbuf,
-                        len);
-      break;
-
-    case USB_REQ_GET_INTERFACE :
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlSendData (pdev, (uint8_t *)&hhid->AltSetting, 1U);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
       }
       break;
 
-    case USB_REQ_SET_INTERFACE :
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        hhid->AltSetting = (uint8_t)(req->wValue);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest) {
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+        case USB_REQ_GET_DESCRIPTOR:
+          if (req->wValue >> 8 == HID_REPORT_DESC) {
+            len = MIN(HID_MOUSE_REPORT_DESC_SIZE, req->wLength);
+            pbuf = HID_MOUSE_ReportDesc;
+          } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+            pbuf = USBD_MOUSE_HID_Desc;
+            len = MIN(USB_HID_DESC_SIZ, req->wLength);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+            break;
+          }
+          USBD_CtlSendData(pdev,
+                           pbuf,
+                           len);
+          break;
+
+        case USB_REQ_GET_INTERFACE :
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            USBD_CtlSendData(pdev, (uint8_t *)&hhid->AltSetting, 1U);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_SET_INTERFACE :
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            hhid->AltSetting = (uint8_t)(req->wValue);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
       }
       break;
 
     default:
-      USBD_CtlError (pdev, req);
+      USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError (pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return ret;
@@ -744,121 +711,104 @@ static uint8_t  USBD_HID_MOUSE_Setup (USBD_HandleTypeDef *pdev,
   * @param  req: usb requests
   * @retval status
   */
-static uint8_t  USBD_HID_KEYBOARD_Setup (USBD_HandleTypeDef *pdev,
-                                USBD_SetupReqTypedef *req)
+static uint8_t  USBD_HID_KEYBOARD_Setup(USBD_HandleTypeDef *pdev,
+                                        USBD_SetupReqTypedef *req)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*) pdev->pClassData;
+  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *) pdev->pClassData;
   uint16_t len = 0U;
   uint8_t *pbuf = NULL;
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK)
-  {
-  case USB_REQ_TYPE_CLASS :
-    switch (req->bRequest)
-    {
+  switch (req->bmRequest & USB_REQ_TYPE_MASK) {
+    case USB_REQ_TYPE_CLASS :
+      switch (req->bRequest) {
 
 
-    case HID_REQ_SET_PROTOCOL:
-      hhid->Protocol = (uint8_t)(req->wValue);
-      break;
+        case HID_REQ_SET_PROTOCOL:
+          hhid->Protocol = (uint8_t)(req->wValue);
+          break;
 
-    case HID_REQ_GET_PROTOCOL:
-      USBD_CtlSendData (pdev,
-                        (uint8_t *)&hhid->Protocol,
-                        1U);
-      break;
+        case HID_REQ_GET_PROTOCOL:
+          USBD_CtlSendData(pdev,
+                           (uint8_t *)&hhid->Protocol,
+                           1U);
+          break;
 
-    case HID_REQ_SET_IDLE:
-      hhid->IdleState = (uint8_t)(req->wValue >> 8);
-      break;
+        case HID_REQ_SET_IDLE:
+          hhid->IdleState = (uint8_t)(req->wValue >> 8);
+          break;
 
-    case HID_REQ_GET_IDLE:
-      USBD_CtlSendData (pdev,
-                        (uint8_t *)&hhid->IdleState,
-                        1U);
-      break;
+        case HID_REQ_GET_IDLE:
+          USBD_CtlSendData(pdev,
+                           (uint8_t *)&hhid->IdleState,
+                           1U);
+          break;
 
-    default:
-      USBD_CtlError (pdev, req);
-      ret = USBD_FAIL;
-      break;
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlSendData (pdev, (uint8_t *)(void *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
-    case USB_REQ_GET_DESCRIPTOR:
-      if( req->wValue >> 8 == HID_REPORT_DESC)
-      {
-        len = MIN(HID_KEYBOARD_REPORT_DESC_SIZE , req->wLength);
-        pbuf = HID_KEYBOARD_ReportDesc;
-      }
-      else if( req->wValue >> 8 == HID_DESCRIPTOR_TYPE)
-      {
-        pbuf = USBD_KEYBOARD_HID_Desc;
-        len = MIN(USB_HID_DESC_SIZ , req->wLength);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
-        break;
-      }
-      USBD_CtlSendData (pdev,
-                        pbuf,
-                        len);
-
-      break;
-
-    case USB_REQ_GET_INTERFACE :
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlSendData (pdev, (uint8_t *)&hhid->AltSetting, 1U);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
       }
       break;
 
-    case USB_REQ_SET_INTERFACE :
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        hhid->AltSetting = (uint8_t)(req->wValue);
-      }
-      else
-      {
-        USBD_CtlError (pdev, req);
-        ret = USBD_FAIL;
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest) {
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+        case USB_REQ_GET_DESCRIPTOR:
+          if (req->wValue >> 8 == HID_REPORT_DESC) {
+            len = MIN(HID_KEYBOARD_REPORT_DESC_SIZE, req->wLength);
+            pbuf = HID_KEYBOARD_ReportDesc;
+          } else if (req->wValue >> 8 == HID_DESCRIPTOR_TYPE) {
+            pbuf = USBD_KEYBOARD_HID_Desc;
+            len = MIN(USB_HID_DESC_SIZ, req->wLength);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+            break;
+          }
+          USBD_CtlSendData(pdev,
+                           pbuf,
+                           len);
+
+          break;
+
+        case USB_REQ_GET_INTERFACE :
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            USBD_CtlSendData(pdev, (uint8_t *)&hhid->AltSetting, 1U);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_SET_INTERFACE :
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+            hhid->AltSetting = (uint8_t)(req->wValue);
+          } else {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
       }
       break;
 
     default:
-      USBD_CtlError (pdev, req);
+      USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError (pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return ret;
@@ -871,21 +821,19 @@ static uint8_t  USBD_HID_KEYBOARD_Setup (USBD_HandleTypeDef *pdev,
   * @param  buff: pointer to report
   * @retval status
   */
-uint8_t USBD_HID_MOUSE_SendReport     (USBD_HandleTypeDef  *pdev,
-                                 uint8_t *report,
-                                 uint16_t len)
+uint8_t USBD_HID_MOUSE_SendReport(USBD_HandleTypeDef  *pdev,
+                                  uint8_t *report,
+                                  uint16_t len)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*)pdev->pClassData;
+  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
-  if (pdev->dev_state == USBD_STATE_CONFIGURED )
-  {
-    if(hhid->Mousestate == HID_IDLE)
-    {
+  if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+    if (hhid->Mousestate == HID_IDLE) {
       hhid->Mousestate = HID_BUSY;
-      USBD_LL_Transmit (pdev,
-                        HID_MOUSE_EPIN_ADDR,
-                        report,
-                        len);
+      USBD_LL_Transmit(pdev,
+                       HID_MOUSE_EPIN_ADDR,
+                       report,
+                       len);
     }
   }
   return USBD_OK;
@@ -898,21 +846,19 @@ uint8_t USBD_HID_MOUSE_SendReport     (USBD_HandleTypeDef  *pdev,
   * @param  buff: pointer to report
   * @retval status
   */
-uint8_t USBD_HID_KEYBOARD_SendReport (USBD_HandleTypeDef  *pdev,
-                                      uint8_t *report,
-                                      uint16_t len)
+uint8_t USBD_HID_KEYBOARD_SendReport(USBD_HandleTypeDef  *pdev,
+                                     uint8_t *report,
+                                     uint16_t len)
 {
-  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef*)pdev->pClassData;
+  USBD_HID_HandleTypeDef     *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
 
-  if (pdev->dev_state == USBD_STATE_CONFIGURED )
-  {
-    if(hhid->Keyboardstate == HID_IDLE)
-    {
+  if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+    if (hhid->Keyboardstate == HID_IDLE) {
       hhid->Keyboardstate = HID_BUSY;
-      USBD_LL_Transmit (pdev,
-                        HID_KEYBOARD_EPIN_ADDR,
-                        report,
-                        len);
+      USBD_LL_Transmit(pdev,
+                       HID_KEYBOARD_EPIN_ADDR,
+                       report,
+                       len);
     }
   }
   return USBD_OK;
@@ -924,20 +870,17 @@ uint8_t USBD_HID_KEYBOARD_SendReport (USBD_HandleTypeDef  *pdev,
   * @param  pdev: device instance
   * @retval polling interval
   */
-uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev)
+uint32_t USBD_HID_GetPollingInterval(USBD_HandleTypeDef *pdev)
 {
   uint32_t polling_interval = 0U;
 
   /* HIGH-speed endpoints */
-  if(pdev->dev_speed == USBD_SPEED_HIGH)
-  {
-   /* Sets the data transfer polling interval for high speed transfers.
-    Values between 1..16 are allowed. Values correspond to interval
-    of 2 ^ (bInterval-1). This option (8 ms, corresponds to HID_HS_BINTERVAL */
-    polling_interval = (((1U <<(HID_HS_BINTERVAL - 1U))) / 8U);
-  }
-  else   /* LOW and FULL-speed endpoints */
-  {
+  if (pdev->dev_speed == USBD_SPEED_HIGH) {
+    /* Sets the data transfer polling interval for high speed transfers.
+     Values between 1..16 are allowed. Values correspond to interval
+     of 2 ^ (bInterval-1). This option (8 ms, corresponds to HID_HS_BINTERVAL */
+    polling_interval = (((1U << (HID_HS_BINTERVAL - 1U))) / 8U);
+  } else { /* LOW and FULL-speed endpoints */
     /* Sets the data transfer polling interval for low and full
     speed transfers */
     polling_interval =  HID_FS_BINTERVAL;
@@ -953,9 +896,9 @@ uint32_t USBD_HID_GetPollingInterval (USBD_HandleTypeDef *pdev)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t  *USBD_HID_GetFSCfgDesc (uint16_t *length)
+static uint8_t  *USBD_HID_GetFSCfgDesc(uint16_t *length)
 {
-  *length = sizeof (USBD_HID_CfgFSDesc);
+  *length = sizeof(USBD_HID_CfgFSDesc);
   return USBD_HID_CfgFSDesc;
 }
 
@@ -966,9 +909,9 @@ static uint8_t  *USBD_HID_GetFSCfgDesc (uint16_t *length)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t  *USBD_HID_GetHSCfgDesc (uint16_t *length)
+static uint8_t  *USBD_HID_GetHSCfgDesc(uint16_t *length)
 {
-  *length = sizeof (USBD_HID_CfgHSDesc);
+  *length = sizeof(USBD_HID_CfgHSDesc);
   return USBD_HID_CfgHSDesc;
 }
 
@@ -979,9 +922,9 @@ static uint8_t  *USBD_HID_GetHSCfgDesc (uint16_t *length)
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t  *USBD_HID_GetOtherSpeedCfgDesc (uint16_t *length)
+static uint8_t  *USBD_HID_GetOtherSpeedCfgDesc(uint16_t *length)
 {
-  *length = sizeof (USBD_HID_OtherSpeedCfgDesc);
+  *length = sizeof(USBD_HID_OtherSpeedCfgDesc);
   return USBD_HID_OtherSpeedCfgDesc;
 }
 
@@ -992,18 +935,15 @@ static uint8_t  *USBD_HID_GetOtherSpeedCfgDesc (uint16_t *length)
   * @param  epnum: endpoint index
   * @retval status
   */
-static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev,
-                              uint8_t epnum)
+static uint8_t  USBD_HID_DataIn(USBD_HandleTypeDef *pdev,
+                                uint8_t epnum)
 {
 
   /* Ensure that the FIFO is empty before a new transfer, this condition could
   be caused by  a new transfer before the end of the previous transfer */
-  if(epnum == (HID_KEYBOARD_EPIN_ADDR & 0x7F))
-  {
+  if (epnum == (HID_KEYBOARD_EPIN_ADDR & 0x7F)) {
     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->Keyboardstate = HID_IDLE;
-  }
-  else if(epnum == (HID_MOUSE_EPIN_ADDR & 0x7F))
-  {
+  } else if (epnum == (HID_MOUSE_EPIN_ADDR & 0x7F)) {
     ((USBD_HID_HandleTypeDef *)pdev->pClassData)->Mousestate = HID_IDLE;
   }
   return USBD_OK;
@@ -1016,9 +956,9 @@ static uint8_t  USBD_HID_DataIn (USBD_HandleTypeDef *pdev,
 * @param  length : pointer data length
 * @retval pointer to descriptor buffer
 */
-static uint8_t  *USBD_HID_GetDeviceQualifierDesc (uint16_t *length)
+static uint8_t  *USBD_HID_GetDeviceQualifierDesc(uint16_t *length)
 {
-  *length = sizeof (USBD_HID_DeviceQualifierDesc);
+  *length = sizeof(USBD_HID_DeviceQualifierDesc);
   return USBD_HID_DeviceQualifierDesc;
 }
 #endif /* USBD_USE_HID_COMPOSITE */

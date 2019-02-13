@@ -44,18 +44,18 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
 
 struct spi_s {
-    SPI_HandleTypeDef handle;
-    SPI_TypeDef *spi;
-    PinName pin_miso;
-    PinName pin_mosi;
-    PinName pin_sclk;
-    PinName pin_ssel;
+  SPI_HandleTypeDef handle;
+  SPI_TypeDef *spi;
+  PinName pin_miso;
+  PinName pin_mosi;
+  PinName pin_sclk;
+  PinName pin_ssel;
 };
 
 typedef struct spi_s spi_t;
@@ -85,14 +85,14 @@ typedef enum {
   SPI_MODE_1 = 0x01,
   SPI_MODE_2 = 0x02,
   SPI_MODE_3 = 0x03
-}spi_mode_e;
+} spi_mode_e;
 
 ///@brief SPI errors
 typedef enum {
   SPI_OK = 0,
   SPI_TIMEOUT = 1,
   SPI_ERROR = 2
-}spi_status_e;
+} spi_status_e;
 
 /* Exported constants --------------------------------------------------------*/
 
@@ -101,8 +101,8 @@ typedef enum {
 void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout);
-spi_status_e spi_transfer(spi_t *obj, uint8_t * tx_buffer,
-                      uint8_t * rx_buffer, uint16_t len, uint32_t Timeout);
+spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
+                          uint8_t *rx_buffer, uint16_t len, uint32_t Timeout);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

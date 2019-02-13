@@ -44,28 +44,25 @@ static void ServoIrqHandle(stimer_t *obj, uint32_t channel)
 {
   uint8_t timer_id = obj->idx;
 
-  if( timerChannel[SERVO_TIMER(timer_id)] < 0 ) {
+  if (timerChannel[SERVO_TIMER(timer_id)] < 0) {
     setTimerCounter(obj, 0); // channel set to -1 indicated that refresh interval completed so reset the timer
-  }
-  else{
-    if(SERVO_INDEX(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
-       SERVO(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true)
-    {
-      digitalWrite(SERVO(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr,LOW); // pulse this channel low if activated
+  } else {
+    if (SERVO_INDEX(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
+        SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true) {
+      digitalWrite(SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr, LOW); // pulse this channel low if activated
     }
   }
 
   timerChannel[SERVO_TIMER(timer_id)]++;    // increment to the next channel
-  if( SERVO_INDEX(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
-      timerChannel[SERVO_TIMER(timer_id)] < SERVOS_PER_TIMER ) {
-    if(SERVO(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true) {     // check if activated
-      digitalWrite( SERVO(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr,HIGH); // its an active channel so pulse it high
+  if (SERVO_INDEX(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
+      timerChannel[SERVO_TIMER(timer_id)] < SERVOS_PER_TIMER) {
+    if (SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true) {   // check if activated
+      digitalWrite(SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr, HIGH); // its an active channel so pulse it high
     }
-    setCCRRegister(obj, channel, getTimerCounter(obj) + SERVO(SERVO_TIMER(timer_id),timerChannel[SERVO_TIMER(timer_id)]).ticks);
-  }
-  else {
+    setCCRRegister(obj, channel, getTimerCounter(obj) + SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).ticks);
+  } else {
     // finished all channels so wait for the refresh period to expire before starting over
-    if( getTimerCounter(obj) + 4 < REFRESH_INTERVAL ) {  // allow a few ticks to ensure the next OCR1A not missed
+    if (getTimerCounter(obj) + 4 < REFRESH_INTERVAL) {   // allow a few ticks to ensure the next OCR1A not missed
       setCCRRegister(obj, channel, (unsigned int)REFRESH_INTERVAL);
     } else {
       setCCRRegister(obj, channel, getTimerCounter(obj) + 4);  // at least REFRESH_INTERVAL has elapsed
@@ -81,7 +78,7 @@ static void initISR(stimer_t *obj)
    * Period set to REFRESH_INTERVAL*3
    * Default pulse width set to DEFAULT_PULSE_WIDTH
    */
-  TimerPulseInit(obj, REFRESH_INTERVAL*3, DEFAULT_PULSE_WIDTH, ServoIrqHandle);
+  TimerPulseInit(obj, REFRESH_INTERVAL * 3, DEFAULT_PULSE_WIDTH, ServoIrqHandle);
 }
 
 static void finISR(stimer_t *obj)
@@ -92,9 +89,10 @@ static void finISR(stimer_t *obj)
 static bool isTimerActive(timer16_Sequence_t timer)
 {
   // returns true if any servo is active on this timer
-  for(uint8_t channel=0; channel < SERVOS_PER_TIMER; channel++) {
-    if(SERVO(timer,channel).Pin.isActive == true)
+  for (uint8_t channel = 0; channel < SERVOS_PER_TIMER; channel++) {
+    if (SERVO(timer, channel).Pin.isActive == true) {
       return true;
+    }
   }
   return false;
 }
@@ -124,8 +122,8 @@ uint8_t Servo::attach(int pin, int min, int max)
     pinMode(pin, OUTPUT);                                   // set servo pin to output
     servos[this->servoIndex].Pin.nbr = pin;
     // todo min/max check: abs(min - MIN_PULSE_WIDTH) /4 < 128
-    this->min  = (MIN_PULSE_WIDTH - min)/4; //resolution of min/max is 4 uS
-    this->max  = (MAX_PULSE_WIDTH - max)/4;
+    this->min  = (MIN_PULSE_WIDTH - min) / 4; //resolution of min/max is 4 uS
+    this->max  = (MAX_PULSE_WIDTH - max) / 4;
     // initialize the timer if it has not already been initialized
     timer = SERVO_INDEX_TO_TIMER(servoIndex);
     if (isTimerActive(timer) == false) {
@@ -143,7 +141,7 @@ void Servo::detach()
 
   servos[this->servoIndex].Pin.isActive = false;
   timer = SERVO_INDEX_TO_TIMER(servoIndex);
-  if(isTimerActive(timer) == false) {
+  if (isTimerActive(timer) == false) {
     finISR(&_timer);
   }
 }
@@ -151,12 +149,12 @@ void Servo::detach()
 void Servo::write(int value)
 {
   // treat values less than 544 as angles in degrees (valid values in microseconds are handled as microseconds)
-  if (value < MIN_PULSE_WIDTH)
-  {
-    if (value < 0)
+  if (value < MIN_PULSE_WIDTH) {
+    if (value < 0) {
       value = 0;
-    else if (value > 180)
+    } else if (value > 180) {
       value = 180;
+    }
 
     value = map(value, 0, 180, SERVO_MIN(), SERVO_MAX());
   }
@@ -167,12 +165,12 @@ void Servo::writeMicroseconds(int value)
 {
   // calculate and store the values for the given channel
   byte channel = this->servoIndex;
-  if( (channel < MAX_SERVOS) )   // ensure channel is valid
-  {
-    if (value < SERVO_MIN())          // ensure pulse width is valid
+  if ((channel < MAX_SERVOS)) {  // ensure channel is valid
+    if (value < SERVO_MIN()) {        // ensure pulse width is valid
       value = SERVO_MIN();
-    else if (value > SERVO_MAX())
+    } else if (value > SERVO_MAX()) {
       value = SERVO_MAX();
+    }
 
     servos[channel].ticks = value;
   }
@@ -180,16 +178,17 @@ void Servo::writeMicroseconds(int value)
 
 int Servo::read() // return the value as degrees
 {
-  return map(readMicroseconds()+1, SERVO_MIN(), SERVO_MAX(), 0, 180);
+  return map(readMicroseconds() + 1, SERVO_MIN(), SERVO_MAX(), 0, 180);
 }
 
 int Servo::readMicroseconds()
 {
   unsigned int pulsewidth;
-  if (this->servoIndex != INVALID_SERVO)
+  if (this->servoIndex != INVALID_SERVO) {
     pulsewidth = servos[this->servoIndex].ticks;
-  else
+  } else {
     pulsewidth  = 0;
+  }
 
   return pulsewidth;
 }

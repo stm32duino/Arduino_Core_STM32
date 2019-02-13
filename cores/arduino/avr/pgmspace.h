@@ -99,20 +99,20 @@ typedef uint64_t prog_uint64_t;
 #define pgm_read_float(addr) (*(const float *)(addr))
 #else
 #define pgm_read_word(addr) ({ \
-	typeof(addr) _addr = (addr); \
-	*(const unsigned short *)(_addr); \
+  typeof(addr) _addr = (addr); \
+  *(const unsigned short *)(_addr); \
 })
 #define pgm_read_dword(addr) ({ \
-	typeof(addr) _addr = (addr); \
-	*(const unsigned long *)(_addr); \
+  typeof(addr) _addr = (addr); \
+  *(const unsigned long *)(_addr); \
 })
 #define pgm_read_float(addr) ({ \
-	typeof(addr) _addr = (addr); \
-	*(const float *)(_addr); \
+  typeof(addr) _addr = (addr); \
+  *(const float *)(_addr); \
 })
 #define pgm_read_ptr(addr) ({ \
-	typeof(addr) _addr = (addr); \
-	*(void * const *)(_addr); \
+  typeof(addr) _addr = (addr); \
+  *(void * const *)(_addr); \
 })
 #endif
 

@@ -27,12 +27,12 @@
 // user have to use appropriate divider for the SPI clock
 // This function should not be used in new project.
 // Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
-#define SPI_CLOCK_DIV2	 2
-#define SPI_CLOCK_DIV4	 4
-#define SPI_CLOCK_DIV8	 8
-#define SPI_CLOCK_DIV16	 16
-#define SPI_CLOCK_DIV32	 32
-#define SPI_CLOCK_DIV64	 64
+#define SPI_CLOCK_DIV2   2
+#define SPI_CLOCK_DIV4   4
+#define SPI_CLOCK_DIV8   8
+#define SPI_CLOCK_DIV16  16
+#define SPI_CLOCK_DIV32  32
+#define SPI_CLOCK_DIV64  64
 #define SPI_CLOCK_DIV128 128
 
 // SPI mode parameters for SPISettings
@@ -66,28 +66,30 @@ enum SPITransferMode {
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode) {
+    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+    {
       clk = clock;
 
-      if(bitOrder == MSBFIRST) {
+      if (bitOrder == MSBFIRST) {
         msb = 1;
       } else {
         msb = 0;
       }
       bOrder = bitOrder;
 
-      if(SPI_MODE0 == dataMode) {
+      if (SPI_MODE0 == dataMode) {
         dMode = SPI_MODE_0;
-      } else if(SPI_MODE1 == dataMode) {
+      } else if (SPI_MODE1 == dataMode) {
         dMode = SPI_MODE_1;
-      } else if(SPI_MODE2 == dataMode) {
+      } else if (SPI_MODE2 == dataMode) {
         dMode = SPI_MODE_2;
-      } else if(SPI_MODE3 == dataMode) {
+      } else if (SPI_MODE3 == dataMode) {
         dMode = SPI_MODE_3;
       }
 
     }
-    SPISettings() {
+    SPISettings()
+    {
       pinCS = -1;
       clk = SPI_SPEED_CLOCK_DEFAULT;
       bOrder = MSBFIRST;
@@ -99,11 +101,11 @@ class SPISettings {
     uint32_t clk;       //specifies the spi bus maximum clock speed
     BitOrder bOrder;    //bit order (MSBFirst or LSBFirst)
     spi_mode_e dMode;   //one of the data mode
-                        //Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
-                        //SPI_MODE0             0                     0
-                        //SPI_MODE1             0                     1
-                        //SPI_MODE2             1                     0
-                        //SPI_MODE3             1                     1
+    //Mode          Clock Polarity (CPOL)   Clock Phase (CPHA)
+    //SPI_MODE0             0                     0
+    //SPI_MODE1             0                     1
+    //SPI_MODE2             1                     0
+    //SPI_MODE3             1                     1
     uint8_t msb;        //set to 1 if msb first
     friend class SPIClass;
 };
@@ -114,15 +116,39 @@ class SPIClass {
     SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel = (uint8_t)NC);
 
     // setMISO/MOSI/SCLK/SSEL have to be called before begin()
-    void setMISO(uint32_t miso) { _spi.pin_miso = digitalPinToPinName(miso); };
-    void setMOSI(uint32_t mosi) { _spi.pin_mosi = digitalPinToPinName(mosi); };
-    void setSCLK(uint32_t sclk) { _spi.pin_sclk = digitalPinToPinName(sclk); };
-    void setSSEL(uint32_t ssel) { _spi.pin_ssel = digitalPinToPinName(ssel); };
+    void setMISO(uint32_t miso)
+    {
+      _spi.pin_miso = digitalPinToPinName(miso);
+    };
+    void setMOSI(uint32_t mosi)
+    {
+      _spi.pin_mosi = digitalPinToPinName(mosi);
+    };
+    void setSCLK(uint32_t sclk)
+    {
+      _spi.pin_sclk = digitalPinToPinName(sclk);
+    };
+    void setSSEL(uint32_t ssel)
+    {
+      _spi.pin_ssel = digitalPinToPinName(ssel);
+    };
 
-    void setMISO(PinName miso) { _spi.pin_miso = (miso); };
-    void setMOSI(PinName mosi) { _spi.pin_mosi = (mosi); };
-    void setSCLK(PinName sclk) { _spi.pin_sclk = (sclk); };
-    void setSSEL(PinName ssel) { _spi.pin_ssel = (ssel); };
+    void setMISO(PinName miso)
+    {
+      _spi.pin_miso = (miso);
+    };
+    void setMOSI(PinName mosi)
+    {
+      _spi.pin_mosi = (mosi);
+    };
+    void setSCLK(PinName sclk)
+    {
+      _spi.pin_sclk = (sclk);
+    };
+    void setSSEL(PinName ssel)
+    {
+      _spi.pin_ssel = (ssel);
+    };
 
     void begin(uint8_t _pin = CS_PIN_CONTROLLED_BY_USER);
     void end(void);
@@ -178,13 +204,22 @@ class SPIClass {
      * Use SPISettings with SPI.beginTransaction() to configure SPI parameters.
      */
     void setBitOrder(uint8_t _pin, BitOrder);
-    void setBitOrder(BitOrder _order) {setBitOrder(CS_PIN_CONTROLLED_BY_USER, _order);}
+    void setBitOrder(BitOrder _order)
+    {
+      setBitOrder(CS_PIN_CONTROLLED_BY_USER, _order);
+    }
 
     void setDataMode(uint8_t _pin, uint8_t);
-    void setDataMode(uint8_t _mode) {setDataMode(CS_PIN_CONTROLLED_BY_USER, _mode);}
+    void setDataMode(uint8_t _mode)
+    {
+      setDataMode(CS_PIN_CONTROLLED_BY_USER, _mode);
+    }
 
     void setClockDivider(uint8_t _pin, uint8_t);
-    void setClockDivider(uint8_t _div) {setClockDivider(CS_PIN_CONTROLLED_BY_USER, _div);}
+    void setClockDivider(uint8_t _div)
+    {
+      setClockDivider(CS_PIN_CONTROLLED_BY_USER, _div);
+    }
 
     // Not implemented functions. Kept for backward compatibility.
     void usingInterrupt(uint8_t interruptNumber);
@@ -203,27 +238,28 @@ class SPIClass {
     spi_t         _spi;
 
 
-    typedef enum{
+    typedef enum {
       GET_IDX = 0,
       ADD_NEW_PIN = 1
-    }pin_option_t;
+    } pin_option_t;
 
     uint8_t pinIdx(uint8_t _pin, pin_option_t option)
     {
       uint8_t i;
 
-      if(_pin > NUM_DIGITAL_PINS)
+      if (_pin > NUM_DIGITAL_PINS) {
         return NB_SPI_SETTINGS;
-
-      for(i = 0; i < NB_SPI_SETTINGS; i++) {
-        if(_pin == spiSettings[i].pinCS)
-          return i;
       }
 
-      if(option == ADD_NEW_PIN)
-      {
-        for(i = 0; i < NB_SPI_SETTINGS; i++) {
-          if(spiSettings[i].pinCS == -1) {
+      for (i = 0; i < NB_SPI_SETTINGS; i++) {
+        if (_pin == spiSettings[i].pinCS) {
+          return i;
+        }
+      }
+
+      if (option == ADD_NEW_PIN) {
+        for (i = 0; i < NB_SPI_SETTINGS; i++) {
+          if (spiSettings[i].pinCS == -1) {
             spiSettings[i].pinCS = _pin;
             return i;
           }
@@ -234,11 +270,12 @@ class SPIClass {
 
     void RemovePin(uint8_t _pin)
     {
-      if(_pin > NUM_DIGITAL_PINS)
+      if (_pin > NUM_DIGITAL_PINS) {
         return;
+      }
 
-      for(uint8_t i = 0; i < NB_SPI_SETTINGS; i++) {
-        if(spiSettings[i].pinCS == _pin) {
+      for (uint8_t i = 0; i < NB_SPI_SETTINGS; i++) {
+        if (spiSettings[i].pinCS == _pin) {
           spiSettings[i].pinCS = -1;
           spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
           spiSettings[i].bOrder = MSBFIRST;
@@ -250,7 +287,7 @@ class SPIClass {
 
     void RemoveAllPin(void)
     {
-      for(uint8_t i = 0; i < NB_SPI_SETTINGS; i++) {
+      for (uint8_t i = 0; i < NB_SPI_SETTINGS; i++) {
         spiSettings[i].pinCS = -1;
         spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
         spiSettings[i].bOrder = MSBFIRST;

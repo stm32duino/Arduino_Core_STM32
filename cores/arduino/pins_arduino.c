@@ -25,10 +25,11 @@ extern "C" {
 WEAK uint32_t pinNametoDigitalPin(PinName p)
 {
   uint32_t i = NUM_DIGITAL_PINS;
-  if(STM_VALID_PINNAME(p)) {
-    for(i = 0; i < NUM_DIGITAL_PINS; i++) {
-      if (digitalPin[i] == p)
+  if (STM_VALID_PINNAME(p)) {
+    for (i = 0; i < NUM_DIGITAL_PINS; i++) {
+      if (digitalPin[i] == p) {
         break;
+      }
     }
   }
   return i;

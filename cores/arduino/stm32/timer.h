@@ -44,20 +44,20 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
 #define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
 
-typedef struct{
+typedef struct {
   int32_t count;
   uint8_t state;
-}timerPinInfo_t;
+} timerPinInfo_t;
 
 typedef struct timer_s stimer_t;
 
-struct timer_s{
+struct timer_s {
   /*  The 1st 2 members TIM_TypeDef *timer
      *  and TIM_HandleTypeDef handle should
      *  be kept as the first members of this struct
@@ -202,9 +202,9 @@ void setTimerCounter(stimer_t *obj, uint32_t value);
 void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
 uint32_t getCCRRegister(stimer_t *obj, uint32_t channel);
 
-uint32_t getTimerIrq(TIM_TypeDef* tim);
-uint8_t getTimerClkSrc(TIM_TypeDef* tim);
-uint32_t getTimerClkFreq(TIM_TypeDef* tim);
+uint32_t getTimerIrq(TIM_TypeDef *tim);
+uint8_t getTimerClkSrc(TIM_TypeDef *tim);
+uint32_t getTimerClkFreq(TIM_TypeDef *tim);
 
 void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
 

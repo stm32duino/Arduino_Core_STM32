@@ -43,7 +43,7 @@ using std::max;
 #endif // __cplusplus
 
 /* Official Arduino */
-#define INPUT			    0x0
+#define INPUT         0x0
 #define OUTPUT              0x1
 #define INPUT_PULLUP        0x2
 /* STM32 extension */
@@ -63,8 +63,8 @@ using std::max;
 #define DISPLAY 0x1
 
 enum BitOrder {
-	LSBFIRST = 0,
-	MSBFIRST = 1
+  LSBFIRST = 0,
+  MSBFIRST = 1
 };
 
 #define LOW     0x0
@@ -107,7 +107,7 @@ enum BitOrder {
 
 typedef unsigned int word;
 
-typedef bool boolean __attribute__ ((deprecated));
+typedef bool boolean __attribute__((deprecated));
 
 typedef uint8_t byte ;
 

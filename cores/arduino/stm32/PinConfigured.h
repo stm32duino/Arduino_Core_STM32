@@ -45,11 +45,11 @@ extern "C" {
 #define PINCONF_VAL(X, Y)   ((Y >> PINCONF_SHIFT(X)) & PINCONF_MASK)
 
 #define is_pin_configured(pin, map) \
-	(PINCONF_VAL(pin, map[PINCONF_INDEX(pin)]))
+  (PINCONF_VAL(pin, map[PINCONF_INDEX(pin)]))
 #define set_pin_configured(pin, map) \
-	(map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] | PINCONF_BIT(pin))
+  (map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] | PINCONF_BIT(pin))
 #define reset_pin_configured(pin, map) \
-	(map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] & (~PINCONF_BIT(pin)))
+  (map[PINCONF_INDEX(pin)] = map[PINCONF_INDEX(pin)] & (~PINCONF_BIT(pin)))
 
 #ifdef __cplusplus
 }

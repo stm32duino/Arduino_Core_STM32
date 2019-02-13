@@ -42,22 +42,23 @@
 #ifdef HAL_PWR_MODULE_ENABLED
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
 /* Save UART handler for callback */
-static UART_HandleTypeDef* WakeUpUart = NULL;
+static UART_HandleTypeDef *WakeUpUart = NULL;
 #endif
 /* Save callback pointer */
-static void (*WakeUpUartCb)( void ) = NULL;
+static void (*WakeUpUartCb)(void) = NULL;
 
 /**
   * @brief  Initialize low power mode
   * @param  None
   * @retval None
   */
-void LowPower_init(){
+void LowPower_init()
+{
 #ifndef STM32H7xx
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
@@ -70,8 +71,7 @@ void LowPower_init(){
   __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
 #endif
   /* Check if the system was resumed from StandBy mode */
-  if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET)
-  {
+  if (__HAL_PWR_GET_FLAG(PWR_FLAG_SB) != RESET) {
     /* Clear Standby flag */
     __HAL_PWR_CLEAR_FLAG(PWR_FLAG_SB);
   }
@@ -86,7 +86,8 @@ void LowPower_init(){
   * @param  mode: pin mode (edge or state). The configuration have to be compatible.
   * @retval None
   */
-void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
+void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode)
+{
 #if !defined(PWR_WAKEUP_PIN1_HIGH)
   UNUSED(mode);
 #endif
@@ -175,7 +176,8 @@ void LowPower_EnableWakeUpPin(uint32_t pin, uint32_t mode) {
   * @param  None
   * @retval None
   */
-void LowPower_sleep(uint32_t regulator){
+void LowPower_sleep(uint32_t regulator)
+{
   /*
    * Suspend Tick increment to prevent wakeup by Systick interrupt.
    * Otherwise the Systick interrupt will wake up the device within
@@ -199,7 +201,8 @@ void LowPower_sleep(uint32_t regulator){
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void LowPower_stop(serial_t *obj){
+void LowPower_stop(serial_t *obj)
+{
   __disable_irq();
 
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
@@ -248,7 +251,8 @@ void LowPower_stop(serial_t *obj){
   * @param  None
   * @retval None
   */
-void LowPower_standby(){
+void LowPower_standby()
+{
   __disable_irq();
 
 #if defined(STM32L0xx) || defined(STM32L1xx)
@@ -268,11 +272,12 @@ void LowPower_standby(){
   * @param  None
   * @retval None
   */
-void LowPower_shutdown(){
+void LowPower_shutdown()
+{
   __disable_irq();
 #ifdef STM32L4xx
   /* LSE must be on to use shutdown mode */
-  if(__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == SET) {
+  if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == SET) {
     HAL_PWREx_EnterSHUTDOWNMode();
   } else
 #endif
@@ -290,20 +295,21 @@ void LowPower_shutdown(){
   * @param  FuncPtr: pointer to callback
   * @retval None
   */
-void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
+void LowPower_EnableWakeUpUart(serial_t *serial, void (*FuncPtr)(void))
+{
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED)
   UART_WakeUpTypeDef WakeUpSelection;
-  if(serial == NULL) {
+  if (serial == NULL) {
     return;
   }
   /* Save Uart handler and Serial object */
   WakeUpUart = &(serial->handle);
 
   /* make sure that no UART transfer is on-going */
-  while(__HAL_UART_GET_FLAG(WakeUpUart, USART_ISR_BUSY) == SET);
+  while (__HAL_UART_GET_FLAG(WakeUpUart, USART_ISR_BUSY) == SET);
   /* make sure that UART is ready to receive
    * (test carried out again later in HAL_UARTEx_StopModeWakeUpSourceConfig) */
-  while(__HAL_UART_GET_FLAG(WakeUpUart, USART_ISR_REACK) == RESET);
+  while (__HAL_UART_GET_FLAG(WakeUpUart, USART_ISR_REACK) == RESET);
 
   /* set the wake-up event:
    * specify wake-up on RXNE flag
@@ -327,7 +333,8 @@ void LowPower_EnableWakeUpUart(serial_t* serial, void (*FuncPtr)( void ) ) {
   * @param  None
   * @retval None
   */
-WEAK void SystemClock_ConfigFromStop(void) {
+WEAK void SystemClock_ConfigFromStop(void)
+{
   SystemClock_Config();
 }
 

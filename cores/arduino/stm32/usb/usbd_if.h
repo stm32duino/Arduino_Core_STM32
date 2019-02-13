@@ -20,7 +20,7 @@
 #endif
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 void USBD_reenumerate(void);

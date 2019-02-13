@@ -36,8 +36,8 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-/* USB connector on the top, MCU side */
-/* Left Side */
+  /* USB connector on the top, MCU side */
+  /* Left Side */
   PB_9,  //D0
   PB_8,  //D1
   PB_7,  //D2
@@ -55,7 +55,7 @@ const PinName digitalPin[] = {
   PB_14, //D14
   PB_13, //D15
   PB_12, //D16
-/* Right side */
+  /* Right side */
   PC_13, //D17 - LED
   PC_14, //D18
   PC_15, //D19
@@ -129,8 +129,8 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
@@ -141,7 +141,7 @@ WEAK void SystemClock_Config(void)
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
   HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit);
 
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
 

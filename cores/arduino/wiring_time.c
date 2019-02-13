@@ -22,25 +22,26 @@
 extern "C" {
 #endif
 
-uint32_t millis( void )
+uint32_t millis(void)
 {
   // todo: ensure no interrupts
   return GetCurrentMilli() ;
 }
 
 // Interrupt-compatible version of micros
-uint32_t micros( void )
+uint32_t micros(void)
 {
- return GetCurrentMicro();
+  return GetCurrentMicro();
 }
 
-void delay( uint32_t ms )
+void delay(uint32_t ms)
 {
-  if (ms == 0)
-      return;
+  if (ms == 0) {
+    return;
+  }
   uint32_t start = GetCurrentMilli();
   do {
-      yield();
+    yield();
   } while (GetCurrentMilli() - start < ms);
 }
 

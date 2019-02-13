@@ -26,31 +26,31 @@
 //================================================================================
 // Serial over CDC
 class USBSerial : public Stream {
-public:
+  public:
     void begin(void);
     void begin(uint32_t);
-	void begin(uint32_t, uint8_t);
+    void begin(uint32_t, uint8_t);
     void end(void);
 
     virtual int available(void);
     virtual int availableForWrite(void);
     virtual int peek(void);
     virtual int read(void);
-    virtual size_t readBytes( char *buffer, size_t length); // read chars from stream into buffer
-    virtual size_t readBytesUntil( char terminator, char *buffer, size_t length); // as readBytes with terminator character
+    virtual size_t readBytes(char *buffer, size_t length);  // read chars from stream into buffer
+    virtual size_t readBytesUntil(char terminator, char *buffer, size_t length);  // as readBytes with terminator character
     virtual void flush(void);
     virtual size_t write(uint8_t);
     virtual size_t write(const uint8_t *buffer, size_t size);
     using Print::write; // pull in write(str) from Print
     operator bool(void);
 
-	// These return the settings specified by the USB host for the
-	// serial port. These aren't really used, but are offered here
-	// in case a sketch wants to act on these settings.
+    // These return the settings specified by the USB host for the
+    // serial port. These aren't really used, but are offered here
+    // in case a sketch wants to act on these settings.
     uint32_t baud();
-	uint8_t stopbits();
-	uint8_t paritytype();
-	uint8_t numbits();
+    uint8_t stopbits();
+    uint8_t paritytype();
+    uint8_t numbits();
     bool dtr();
     bool rts();
     enum {

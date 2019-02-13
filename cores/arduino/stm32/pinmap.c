@@ -20,22 +20,22 @@
 
 /* Map STM_PIN to LL */
 const uint32_t pin_map_ll[16] = {
-    LL_GPIO_PIN_0,
-    LL_GPIO_PIN_1,
-    LL_GPIO_PIN_2,
-    LL_GPIO_PIN_3,
-    LL_GPIO_PIN_4,
-    LL_GPIO_PIN_5,
-    LL_GPIO_PIN_6,
-    LL_GPIO_PIN_7,
-    LL_GPIO_PIN_8,
-    LL_GPIO_PIN_9,
-    LL_GPIO_PIN_10,
-    LL_GPIO_PIN_11,
-    LL_GPIO_PIN_12,
-    LL_GPIO_PIN_13,
-    LL_GPIO_PIN_14,
-    LL_GPIO_PIN_15
+  LL_GPIO_PIN_0,
+  LL_GPIO_PIN_1,
+  LL_GPIO_PIN_2,
+  LL_GPIO_PIN_3,
+  LL_GPIO_PIN_4,
+  LL_GPIO_PIN_5,
+  LL_GPIO_PIN_6,
+  LL_GPIO_PIN_7,
+  LL_GPIO_PIN_8,
+  LL_GPIO_PIN_9,
+  LL_GPIO_PIN_10,
+  LL_GPIO_PIN_11,
+  LL_GPIO_PIN_12,
+  LL_GPIO_PIN_13,
+  LL_GPIO_PIN_14,
+  LL_GPIO_PIN_15
 };
 
 bool pin_in_pinmap(PinName pin, const PinMap *map)
@@ -98,7 +98,7 @@ void pin_function(PinName pin, int function)
       ll_mode = LL_GPIO_MODE_ALTERNATE;
       /* In case of ALT function, also set the afnum */
       pin_SetAFPin(gpio, pin, afnum);
-       break;
+      break;
     case STM_PIN_ANALOG:
       ll_mode = LL_GPIO_MODE_ANALOG;
       break;
@@ -132,18 +132,18 @@ void pin_function(PinName pin, int function)
 
 void pinmap_pinout(PinName pin, const PinMap *map)
 {
-    if (pin == NC) {
-        return;
-    }
+  if (pin == NC) {
+    return;
+  }
 
-    while (map->pin != NC) {
-        if (map->pin == pin) {
-            pin_function(pin, map->function);
-            return;
-        }
-        map++;
+  while (map->pin != NC) {
+    if (map->pin == pin) {
+      pin_function(pin, map->function);
+      return;
     }
-    Error_Handler();
+    map++;
+  }
+  Error_Handler();
 }
 
 void *pinmap_find_peripheral(PinName pin, const PinMap *map)

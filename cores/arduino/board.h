@@ -6,7 +6,7 @@
 */
 #include "interrupt.h"
 #ifdef __cplusplus
-extern "C"{
+extern "C" {
 #endif // __cplusplus
 #include "analog.h"
 #include "clock.h"
@@ -21,7 +21,7 @@ extern "C"{
 #include "twi.h"
 #include "uart.h"
 
-void init( void ) ;
+void init(void) ;
 #ifdef __cplusplus
 }
 #endif // __cplusplus

@@ -45,7 +45,7 @@
 #ifdef HAL_RTC_MODULE_ENABLED
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
@@ -151,7 +151,7 @@ void attachAlarmCallback(voidCallbackPtr func, void *data);
 void detachAlarmCallback(void);
 
 #ifdef __cplusplus
- }
+}
 #endif
 
 #endif /* HAL_RTC_MODULE_ENABLED */

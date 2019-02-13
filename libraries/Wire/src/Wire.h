@@ -33,8 +33,7 @@
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
-class TwoWire : public Stream
-{
+class TwoWire : public Stream {
   private:
     static uint8_t *rxBuffer;
     static uint8_t rxBufferAllocated;
@@ -56,7 +55,7 @@ class TwoWire : public Stream
     static void (*user_onRequest)(void);
     static void (*user_onReceive)(int);
     static void onRequestService(void);
-    static void onReceiveService(uint8_t*, int);
+    static void onReceiveService(uint8_t *, int);
 
     static void allocateRxBuffer(size_t length);
     void allocateTxBuffer(size_t length);
@@ -68,10 +67,22 @@ class TwoWire : public Stream
     TwoWire();
     TwoWire(uint8_t sda, uint8_t scl);
     // setSCL/SDA have to be called before begin()
-    void setSCL(uint32_t scl) { _i2c.scl = digitalPinToPinName(scl); };
-    void setSDA(uint32_t sda) { _i2c.sda = digitalPinToPinName(sda); };
-    void setSCL(PinName scl) { _i2c.scl = scl; };
-    void setSDA(PinName sda) { _i2c.sda = sda; };
+    void setSCL(uint32_t scl)
+    {
+      _i2c.scl = digitalPinToPinName(scl);
+    };
+    void setSDA(uint32_t sda)
+    {
+      _i2c.sda = digitalPinToPinName(sda);
+    };
+    void setSCL(PinName scl)
+    {
+      _i2c.scl = scl;
+    };
+    void setSDA(PinName sda)
+    {
+      _i2c.sda = sda;
+    };
     void begin();
     void begin(uint8_t);
     void begin(int);
@@ -92,13 +103,25 @@ class TwoWire : public Stream
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-    void onReceive( void (*)(int) );
-    void onRequest( void (*)(void) );
+    void onReceive(void (*)(int));
+    void onRequest(void (*)(void));
 
-    inline size_t write(unsigned long n) { return write((uint8_t)n); }
-    inline size_t write(long n) { return write((uint8_t)n); }
-    inline size_t write(unsigned int n) { return write((uint8_t)n); }
-    inline size_t write(int n) { return write((uint8_t)n); }
+    inline size_t write(unsigned long n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(long n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(unsigned int n)
+    {
+      return write((uint8_t)n);
+    }
+    inline size_t write(int n)
+    {
+      return write((uint8_t)n);
+    }
     using Print::write;
 };
 

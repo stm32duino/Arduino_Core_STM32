@@ -45,7 +45,7 @@
 #include "PeripheralPins.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Exported types ------------------------------------------------------------*/
@@ -106,12 +106,12 @@ typedef enum {
   I2C_TIMEOUT = 1,
   I2C_ERROR = 2,
   I2C_BUSY = 3
-}i2c_status_e;
+} i2c_status_e;
 
 typedef enum {
 #if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
-//calculated with SYSCLK = 64MHz at
-/*https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiC4q6O7ojMAhWCOhoKHYlyBtIQFggmMAE&url=http%3A%2F%2Fuglyduck.ath.cx%2FPDF%2FSTMicro%2FARM%2FSTM32F0%2FI2C_Timing_Configuration_V1.0.1.xls&usg=AFQjCNGGjPSUAzVUdbUqMUxPub8Ojzhh9w&sig2=4YgzXFixj15GhqkAzVS4tA*/
+  //calculated with SYSCLK = 64MHz at
+  /*https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiC4q6O7ojMAhWCOhoKHYlyBtIQFggmMAE&url=http%3A%2F%2Fuglyduck.ath.cx%2FPDF%2FSTMicro%2FARM%2FSTM32F0%2FI2C_Timing_Configuration_V1.0.1.xls&usg=AFQjCNGGjPSUAzVUdbUqMUxPub8Ojzhh9w&sig2=4YgzXFixj15GhqkAzVS4tA*/
   I2C_10KHz =   0xE010A9FF,
   I2C_50KHz =   0x2070A8FD,
   I2C_100KHz =  0x10B07EBA,
@@ -135,28 +135,28 @@ typedef enum {
   I2C_100KHz =  100000,
   I2C_200KHz =  200000,
   I2C_400KHz =  400000,
-/*  I2C_600KHz =  600000,
-  I2C_800KHz =  800000,
-  I2C_1000KHz = 1000000*/ //Not supported
+  /*  I2C_600KHz =  600000,
+    I2C_800KHz =  800000,
+    I2C_1000KHz = 1000000*/ //Not supported
 #endif
-}i2c_timing_e;
+} i2c_timing_e;
 
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void i2c_init(i2c_t *obj);
 void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode,
-                    uint32_t ownAddress, uint8_t master);
+                     uint32_t ownAddress, uint8_t master);
 void i2c_deinit(i2c_t *obj);
 void i2c_setTiming(i2c_t *obj, uint32_t frequency);
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
 i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size);
 i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
 
-i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr,uint32_t trials);
+i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials);
 
-void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t*, int) );
-void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void) );
+void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t *, int));
+void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void));
 
 #ifdef __cplusplus
 }

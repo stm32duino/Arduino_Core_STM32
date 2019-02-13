@@ -39,38 +39,38 @@ extern "C" {
 extern GPIO_TypeDef *GPIOPort[];
 
 typedef enum {
-	FirstPort = 0x00,
-    PortA = FirstPort,
-    PortB,
+  FirstPort = 0x00,
+  PortA = FirstPort,
+  PortB,
 #if defined GPIOC_BASE
-    PortC,
+  PortC,
 #endif
 #if defined GPIOD_BASE
-    PortD,
+  PortD,
 #endif
 #if defined GPIOE_BASE
-    PortE,
+  PortE,
 #endif
 #if defined GPIOF_BASE
-    PortF,
+  PortF,
 #endif
 #if defined GPIOG_BASE
-    PortG,
+  PortG,
 #endif
 #if defined GPIOH_BASE
-    PortH,
+  PortH,
 #endif
 #if defined GPIOI_BASE
-    PortI,
+  PortI,
 #endif
 #if defined GPIOJ_BASE
-    PortJ,
+  PortJ,
 #endif
 #if defined GPIOK_BASE
-    PortK,
+  PortK,
 #endif
-	PortZ,
-	LastPort = PortZ-1
+  PortZ,
+  LastPort = PortZ - 1
 } PortName;
 
 #define MAX_NB_PORT (LastPort-FirstPort+1)

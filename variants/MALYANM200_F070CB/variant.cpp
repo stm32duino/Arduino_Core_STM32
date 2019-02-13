@@ -43,8 +43,8 @@ volatile uint32_t ram_vector_table[48] __attribute__((section(".RAMVectorTable")
 
 // Pin number
 const PinName digitalPin[] = {
-/* USB connector on the top, MCU side */
-/* Left Side */
+  /* USB connector on the top, MCU side */
+  /* Left Side */
   PB_9,  //D0
   PB_8,  //D1
   PB_7,  //D2
@@ -62,7 +62,7 @@ const PinName digitalPin[] = {
   PB_14, //D14
   PB_13, //D15
   PB_12, //D16
-/* Right side */
+  /* Right side */
   PC_13, //D17 - LED
   PC_14, //D18
   PC_15, //D19
@@ -100,8 +100,9 @@ extern "C" {
   */
 void initVariant()
 {
-  for(int i = 0; i < 48; i++)
-      ram_vector_table[i] = *(volatile uint32_t*)(FW_START_ADDR + (i << 2));
+  for (int i = 0; i < 48; i++) {
+    ram_vector_table[i] = *(volatile uint32_t *)(FW_START_ADDR + (i << 2));
+  }
 
   __HAL_SYSCFG_REMAPMEMORY_SRAM();
 }
@@ -130,8 +131,8 @@ WEAK void SystemClock_Config(void)
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
 
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI|RCC_OSCILLATORTYPE_HSI14
-                              |RCC_OSCILLATORTYPE_LSI|RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI14
+                                     | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
@@ -145,8 +146,8 @@ WEAK void SystemClock_Config(void)
   HAL_RCC_OscConfig(&RCC_OscInitStruct);
 
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
@@ -155,8 +156,8 @@ WEAK void SystemClock_Config(void)
     _Error_Handler(__FILE__, __LINE__);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB|RCC_PERIPHCLK_USART1
-                              |RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB | RCC_PERIPHCLK_USART1
+                                       | RCC_PERIPHCLK_I2C1;
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL;
@@ -166,7 +167,7 @@ WEAK void SystemClock_Config(void)
   }
 
   /* Configure the Systick interrupt time */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
   /* Configure the Systick */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);

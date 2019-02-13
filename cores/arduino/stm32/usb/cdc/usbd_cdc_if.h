@@ -25,7 +25,7 @@
 #ifdef USBD_USE_CDC
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/

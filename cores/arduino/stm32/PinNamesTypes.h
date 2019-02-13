@@ -110,10 +110,10 @@ extern "C" {
             STM_PIN_DEFINE_EXT(FUNC_OD, PUPD, AFNUM, CHANNEL, INVERTED)
 
 typedef enum {
-    STM_PIN_INPUT = 0,
-    STM_PIN_OUTPUT = 1,
-    STM_PIN_ALTERNATE = 2,
-    STM_PIN_ANALOG = 3,
+  STM_PIN_INPUT = 0,
+  STM_PIN_OUTPUT = 1,
+  STM_PIN_ALTERNATE = 2,
+  STM_PIN_ANALOG = 3,
 } StmPinFunction;
 
 #define STM_MODE_INPUT               (STM_PIN_INPUT)

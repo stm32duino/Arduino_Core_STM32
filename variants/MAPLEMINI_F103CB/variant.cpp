@@ -35,7 +35,7 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-// Right side
+  // Right side
   PB_11, //D0
   PB_10, //D1
   PB_2,  //D2
@@ -51,7 +51,7 @@ const PinName digitalPin[] = {
   PC_15, //D12
   PC_14, //D13
   PC_13, //D14
-// Left side
+  // Left side
   PB_7,  //D15
   PB_6,  //D16
   PB_5,  //D17
@@ -69,12 +69,12 @@ const PinName digitalPin[] = {
   PB_14, //D29
   PB_13, //D30
   PB_12, //D31
-// Other
+  // Other
   PB_8,  //D32 - BOOT0 - User buttons
   PB_1,  //D33 - LED
   PB_9,  //D34 - USB DISC
-// Duplicated pins to avoid issue with analogRead
-// A0 have to be greater than NUM_ANALOG_INPUTS
+  // Duplicated pins to avoid issue with analogRead
+  // A0 have to be greater than NUM_ANALOG_INPUTS
   PB_0,  //D35/A0 = D3
   PA_7,  //D36/A1 = D4
   PA_6,  //D37/A2 = D5
@@ -127,34 +127,31 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL9;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
-    while(1);
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
+    while (1);
   }
 
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
-    while(1);
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
+    while (1);
   }
 
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC|RCC_PERIPHCLK_USB;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC | RCC_PERIPHCLK_USB;
   PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
-  {
-    while(1);
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+    while (1);
   }
 
   /* Configure the Systick interrupt time */
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
 
   /* Configure the Systick */
   HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);

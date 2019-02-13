@@ -22,7 +22,7 @@
 #define __USBD_CONF_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 #ifdef USBCON
@@ -44,20 +44,20 @@
 #if defined(USB_BASE)
 
 #if defined(STM32F1xx)
-  #define USB_IRQn USB_LP_CAN1_RX0_IRQn
-  #define USB_IRQHandler USB_LP_CAN1_RX0_IRQHandler
+#define USB_IRQn USB_LP_CAN1_RX0_IRQn
+#define USB_IRQHandler USB_LP_CAN1_RX0_IRQHandler
 #elif defined(STM32F3xx)
-  /* ToDo: Check remap on USB_LP_IRQn */
-  #ifndef USE_USB_INTERRUPT_REMAPPED
-    #define USB_IRQn USB_LP_CAN_RX0_IRQn
-    #define USB_IRQHandler USB_LP_CAN_RX0_IRQHandler
-  #else
-    #define USB_IRQn USB_LP_IRQn
-    #define USB_IRQHandler USB_LP_IRQHandler
-  #endif /* USE_USB_INTERRUPT_REMAPPED */
+/* ToDo: Check remap on USB_LP_IRQn */
+#ifndef USE_USB_INTERRUPT_REMAPPED
+#define USB_IRQn USB_LP_CAN_RX0_IRQn
+#define USB_IRQHandler USB_LP_CAN_RX0_IRQHandler
+#else
+#define USB_IRQn USB_LP_IRQn
+#define USB_IRQHandler USB_LP_IRQHandler
+#endif /* USE_USB_INTERRUPT_REMAPPED */
 #elif defined(STM32L1xx)
-  #define USB_IRQn USB_LP_IRQn
-  #define USB_IRQHandler USB_LP_IRQHandler
+#define USB_IRQn USB_LP_IRQn
+#define USB_IRQHandler USB_LP_IRQHandler
 #endif
 
 #endif /* USB_BASE */

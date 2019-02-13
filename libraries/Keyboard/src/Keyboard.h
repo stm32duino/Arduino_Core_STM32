@@ -72,26 +72,24 @@
 #define KEY_F12       0xCD
 
 //  Low level key report: up to 6 keys and shift, ctrl etc at once
-typedef struct
-{
+typedef struct {
   uint8_t modifiers;
   uint8_t reserved;
   uint8_t keys[6];
 } KeyReport;
 
-class Keyboard_ : public Print
-{
-private:
-  KeyReport _keyReport;
-  void sendReport(KeyReport* keys);
-public:
-  Keyboard_(void);
-  void begin(void);
-  void end(void);
-  size_t write(uint8_t k);
-  size_t press(uint8_t k);
-  size_t release(uint8_t k);
-  void releaseAll(void);
+class Keyboard_ : public Print {
+  private:
+    KeyReport _keyReport;
+    void sendReport(KeyReport *keys);
+  public:
+    Keyboard_(void);
+    void begin(void);
+    void end(void);
+    size_t write(uint8_t k);
+    size_t press(uint8_t k);
+    size_t release(uint8_t k);
+    void releaseAll(void);
 };
 extern Keyboard_ Keyboard;
 

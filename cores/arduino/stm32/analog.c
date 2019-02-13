@@ -52,7 +52,7 @@
 #include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /**
@@ -130,7 +130,7 @@ static uint32_t get_adc_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
-  switch(STM_PIN_CHANNEL(function)) {
+  switch (STM_PIN_CHANNEL(function)) {
 #ifdef ADC_CHANNEL_0
     case 0:
       channel = ADC_CHANNEL_0;
@@ -138,64 +138,64 @@ static uint32_t get_adc_channel(PinName pin)
 #endif
     case 1:
       channel = ADC_CHANNEL_1;
-    break;
+      break;
     case 2:
       channel = ADC_CHANNEL_2;
-    break;
+      break;
     case 3:
       channel = ADC_CHANNEL_3;
-    break;
+      break;
     case 4:
       channel = ADC_CHANNEL_4;
-    break;
+      break;
     case 5:
       channel = ADC_CHANNEL_5;
-    break;
+      break;
     case 6:
       channel = ADC_CHANNEL_6;
-    break;
+      break;
     case 7:
       channel = ADC_CHANNEL_7;
-    break;
+      break;
     case 8:
       channel = ADC_CHANNEL_8;
-    break;
+      break;
     case 9:
       channel = ADC_CHANNEL_9;
-    break;
+      break;
     case 10:
       channel = ADC_CHANNEL_10;
-    break;
+      break;
     case 11:
       channel = ADC_CHANNEL_11;
-    break;
+      break;
     case 12:
       channel = ADC_CHANNEL_12;
-    break;
+      break;
     case 13:
       channel = ADC_CHANNEL_13;
-    break;
+      break;
     case 14:
       channel = ADC_CHANNEL_14;
-    break;
+      break;
     case 15:
       channel = ADC_CHANNEL_15;
-    break;
+      break;
     case 16:
       channel = ADC_CHANNEL_TEMPSENSOR;
-    break;
+      break;
     case 17:
       channel = ADC_CHANNEL_VREFINT;
-    break;
+      break;
 #ifdef ADC_CHANNEL_VBAT
-	case 18:
+    case 18:
       channel = ADC_CHANNEL_VBAT;
-    break;
+      break;
 #endif
     default:
       channel = 0;
-    break;
-   }
+      break;
+  }
   return channel;
 }
 
@@ -203,7 +203,7 @@ static uint32_t get_pwm_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_PWM);
   uint32_t channel = 0;
-  switch(STM_PIN_CHANNEL(function)) {
+  switch (STM_PIN_CHANNEL(function)) {
     case 1:
       channel = TIM_CHANNEL_1;
       break;
@@ -218,8 +218,8 @@ static uint32_t get_pwm_channel(PinName pin)
       break;
     default:
       channel = 0;
-    break;
-   }
+      break;
+  }
   return channel;
 }
 
@@ -228,7 +228,7 @@ static uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
   uint32_t channel = 0;
-  switch(STM_PIN_CHANNEL(function)) {
+  switch (STM_PIN_CHANNEL(function)) {
 #ifdef DAC_CHANNEL_0
     case 0:
       channel = DAC_CHANNEL_0;
@@ -236,16 +236,16 @@ static uint32_t get_dac_channel(PinName pin)
 #endif
     case 1:
       channel = DAC_CHANNEL_1;
-    break;
+      break;
 #ifdef DAC_CHANNEL_2
     case 2:
       channel = DAC_CHANNEL_2;
-    break;
+      break;
 #endif
     default:
       channel = 0;
-    break;
-   }
+      break;
+  }
   return channel;
 }
 
@@ -293,38 +293,38 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NP) return;
+  if (DacHandle.Instance == NP) {
+    return;
+  }
   dacChannel = get_dac_channel(pin);
-  if (!IS_DAC_CHANNEL(dacChannel)) return;
-  if(do_init == 1) {
+  if (!IS_DAC_CHANNEL(dacChannel)) {
+    return;
+  }
+  if (do_init == 1) {
 
-    if (HAL_DAC_DeInit(&DacHandle) != HAL_OK)
-    {
+    if (HAL_DAC_DeInit(&DacHandle) != HAL_OK) {
       /* DeInitialization Error */
       return;
     }
 
     /*##-1- Configure the DAC peripheral #######################################*/
     g_current_pin = pin;
-    if (HAL_DAC_Init(&DacHandle) != HAL_OK)
-    {
+    if (HAL_DAC_Init(&DacHandle) != HAL_OK) {
       /* Initialization Error */
       return;
     }
 
-	dacChannelConf.DAC_Trigger = DAC_TRIGGER_NONE;
-	dacChannelConf.DAC_OutputBuffer=DAC_OUTPUTBUFFER_ENABLE;
+    dacChannelConf.DAC_Trigger = DAC_TRIGGER_NONE;
+    dacChannelConf.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
     /*##-2- Configure DAC channel1 #############################################*/
-    if (HAL_DAC_ConfigChannel(&DacHandle, &dacChannelConf, dacChannel) != HAL_OK)
-    {
+    if (HAL_DAC_ConfigChannel(&DacHandle, &dacChannelConf, dacChannel) != HAL_OK) {
       /* Channel configuration Error */
       return;
     }
   }
 
   /*##-3- Set DAC Channel1 DHR register ######################################*/
-  if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_12B_R, value) != HAL_OK)
-  {
+  if (HAL_DAC_SetValue(&DacHandle, dacChannel, DAC_ALIGN_12B_R, value) != HAL_OK) {
     /* Setting value Error */
     return;
   }
@@ -339,7 +339,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   *         the configuration information for the specified DAC.
   * @retval None
   */
-void HAL_DAC_MspDeInit(DAC_HandleTypeDef* hdac)
+void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
 {
   UNUSED(hdac);
   /* DAC Periph clock disable */
@@ -363,14 +363,17 @@ void dac_stop(PinName pin)
   uint32_t dacChannel;
 
   DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
-  if (DacHandle.Instance == NP) return;
+  if (DacHandle.Instance == NP) {
+    return;
+  }
   dacChannel = get_dac_channel(pin);
-  if (!IS_DAC_CHANNEL(dacChannel)) return;
+  if (!IS_DAC_CHANNEL(dacChannel)) {
+    return;
+  }
 
   HAL_DAC_Stop(&DacHandle, dacChannel);
 
-  if (HAL_DAC_DeInit(&DacHandle) != HAL_OK)
-  {
+  if (HAL_DAC_DeInit(&DacHandle) != HAL_OK) {
     /* DeInitialization Error */
     return;
   }
@@ -392,26 +395,26 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 {
   /*##-1- Enable peripherals and GPIO Clocks #################################*/
   /* ADC Periph clock enable */
-  if(hadc->Instance == ADC1) {
+  if (hadc->Instance == ADC1) {
 #ifdef __HAL_RCC_ADC1_CLK_ENABLE
-	__HAL_RCC_ADC1_CLK_ENABLE();
+    __HAL_RCC_ADC1_CLK_ENABLE();
 #endif
 #ifdef __HAL_RCC_ADC12_CLK_ENABLE
-	__HAL_RCC_ADC12_CLK_ENABLE();
+    __HAL_RCC_ADC12_CLK_ENABLE();
 #endif
   }
 #ifdef ADC2
-  else if(hadc->Instance == ADC2) {
+  else if (hadc->Instance == ADC2) {
 #ifdef __HAL_RCC_ADC2_CLK_ENABLE
-	__HAL_RCC_ADC2_CLK_ENABLE();
+    __HAL_RCC_ADC2_CLK_ENABLE();
 #endif
 #ifdef __HAL_RCC_ADC12_CLK_ENABLE
-	__HAL_RCC_ADC12_CLK_ENABLE();
+    __HAL_RCC_ADC12_CLK_ENABLE();
 #endif
   }
 #endif
 #ifdef ADC3
-  else if(hadc->Instance == ADC3) {
+  else if (hadc->Instance == ADC3) {
 #ifdef __HAL_RCC_ADC3_CLK_ENABLE
     __HAL_RCC_ADC3_CLK_ENABLE();
 #endif
@@ -421,7 +424,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   }
 #endif
 #ifdef ADC4
-  else if(hadc->Instance == ADC4) {
+  else if (hadc->Instance == ADC4) {
     __HAL_RCC_ADC34_CLK_ENABLE();
   }
 #endif
@@ -429,8 +432,8 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-/* For STM32F1xx and STM32H7xx, ADC prescaler is configured in
-   SystemClock_Config (variant.cpp) */
+  /* For STM32F1xx and STM32H7xx, ADC prescaler is configured in
+     SystemClock_Config (variant.cpp) */
 #if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && !defined(STM32H7xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
@@ -445,7 +448,7 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
   * @param  hadc: ADC handle
   * @retval None
   */
-void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
+void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 {
 #ifdef __HAL_RCC_ADC_FORCE_RESET
   __HAL_RCC_ADC_FORCE_RESET();
@@ -454,58 +457,58 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
   __HAL_RCC_ADC_RELEASE_RESET();
 #endif
 
-  if(hadc->Instance == ADC1) {
+  if (hadc->Instance == ADC1) {
 #ifdef __HAL_RCC_ADC1_FORCE_RESET
-	__HAL_RCC_ADC1_FORCE_RESET();
+    __HAL_RCC_ADC1_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC1_RELEASE_RESET
     __HAL_RCC_ADC1_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC12_FORCE_RESET
-	__HAL_RCC_ADC12_FORCE_RESET();
+    __HAL_RCC_ADC12_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC12_RELEASE_RESET
     __HAL_RCC_ADC12_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC1_CLK_DISABLE
-	__HAL_RCC_ADC1_CLK_DISABLE();
+    __HAL_RCC_ADC1_CLK_DISABLE();
 #endif
 #ifdef __HAL_RCC_ADC12_CLK_DISABLE
-	__HAL_RCC_ADC12_CLK_DISABLE();
+    __HAL_RCC_ADC12_CLK_DISABLE();
 #endif
   }
 #ifdef ADC2
-  else if(hadc->Instance == ADC2) {
+  else if (hadc->Instance == ADC2) {
 #ifdef __HAL_RCC_ADC2_FORCE_RESET
-	__HAL_RCC_ADC2_FORCE_RESET();
+    __HAL_RCC_ADC2_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC2_RELEASE_RESET
     __HAL_RCC_ADC2_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC12_FORCE_RESET
-	__HAL_RCC_ADC12_FORCE_RESET();
+    __HAL_RCC_ADC12_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC12_RELEASE_RESET
     __HAL_RCC_ADC12_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC2_CLK_DISABLE
-	__HAL_RCC_ADC2_CLK_DISABLE();
+    __HAL_RCC_ADC2_CLK_DISABLE();
 #endif
 #ifdef __HAL_RCC_ADC2_CLK_DISABLE
-	__HAL_RCC_ADC2_CLK_DISABLE();
+    __HAL_RCC_ADC2_CLK_DISABLE();
 #endif
   }
 #endif
 #ifdef ADC3
-  else if(hadc->Instance == ADC3) {
+  else if (hadc->Instance == ADC3) {
 #ifdef __HAL_RCC_ADC3_FORCE_RESET
-	__HAL_RCC_ADC3_FORCE_RESET();
+    __HAL_RCC_ADC3_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC3_RELEASE_RESET
     __HAL_RCC_ADC3_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC34_FORCE_RESET
-	__HAL_RCC_ADC34_FORCE_RESET();
+    __HAL_RCC_ADC34_FORCE_RESET();
 #endif
 #ifdef __HAL_RCC_ADC34_RELEASE_RESET
     __HAL_RCC_ADC34_RELEASE_RESET();
@@ -519,8 +522,8 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef* hadc)
   }
 #endif
 #ifdef ADC4
-  else if(hadc->Instance == ADC4) {
-	__HAL_RCC_ADC34_FORCE_RESET();
+  else if (hadc->Instance == ADC4) {
+    __HAL_RCC_ADC34_FORCE_RESET();
     __HAL_RCC_ADC34_RELEASE_RESET();
     __HAL_RCC_ADC34_CLK_DISABLE();
   }
@@ -543,7 +546,9 @@ uint16_t adc_read_value(PinName pin)
 
   AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
 
-  if (AdcHandle.Instance == NP) return 0;
+  if (AdcHandle.Instance == NP) {
+    return 0;
+  }
 
 #ifndef STM32F1xx
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;                 /* Asynchronous clock mode, input ADC clock divided */
@@ -593,9 +598,13 @@ uint16_t adc_read_value(PinName pin)
 
   AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
 #ifdef STM32L4xx
-  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) return 0;
+  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
+    return 0;
+  }
 #else
-  if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) return 0;
+  if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
+    return 0;
+  }
 #endif /* STM32L4xx */
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #ifndef STM32L0xx
@@ -607,8 +616,7 @@ uint16_t adc_read_value(PinName pin)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
   /*##-2- Configure ADC regular channel ######################################*/
-  if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK)
-  {
+  if (HAL_ADC_ConfigChannel(&AdcHandle, &AdcChannelConf) != HAL_OK) {
     /* Channel Configuration Error */
     return 0;
   }
@@ -630,8 +638,7 @@ uint16_t adc_read_value(PinName pin)
 #endif
 
   /*##-3- Start the conversion process ####################*/
-  if (HAL_ADC_Start(&AdcHandle) != HAL_OK)
-  {
+  if (HAL_ADC_Start(&AdcHandle) != HAL_OK) {
     /* Start Conversation Error */
     return 0;
   }
@@ -640,26 +647,23 @@ uint16_t adc_read_value(PinName pin)
   /*  For simplicity reasons, this example is just waiting till the end of the
       conversion, but application may perform other tasks while conversion
       operation is ongoing. */
-  if (HAL_ADC_PollForConversion(&AdcHandle, 10) != HAL_OK)
-  {
+  if (HAL_ADC_PollForConversion(&AdcHandle, 10) != HAL_OK) {
     /* End Of Conversion flag not set on time */
     return 0;
   }
 
   /* Check if the continous conversion of regular channel is finished */
-  if ((HAL_ADC_GetState(&AdcHandle) & HAL_ADC_STATE_REG_EOC) == HAL_ADC_STATE_REG_EOC)
-  {
+  if ((HAL_ADC_GetState(&AdcHandle) & HAL_ADC_STATE_REG_EOC) == HAL_ADC_STATE_REG_EOC) {
     /*##-5- Get the converted value of regular channel  ########################*/
     uhADCxConvertedValue = HAL_ADC_GetValue(&AdcHandle);
   }
 
-  if (HAL_ADC_Stop(&AdcHandle) != HAL_OK)
-  {
+  if (HAL_ADC_Stop(&AdcHandle) != HAL_OK) {
     /* Stop Conversation Error */
     return 0;
   }
 
-  if(HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
+  if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
     return 0;
   }
 
@@ -708,7 +712,7 @@ void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef *htim)
   * @retval None
   */
 void pwm_start(PinName pin, uint32_t clock_freq,
-                uint32_t period, uint32_t value, uint8_t do_init)
+               uint32_t period, uint32_t value, uint8_t do_init)
 {
   TIM_HandleTypeDef timHandle = {};
   TIM_OC_InitTypeDef timConfig = {};
@@ -716,15 +720,17 @@ void pwm_start(PinName pin, uint32_t clock_freq,
 
   /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
   timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NP) return;
+  if (timHandle.Instance == NP) {
+    return;
+  }
   timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
-  timHandle.Init.Period            = period -1;
+  timHandle.Init.Period            = period - 1;
   timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
   timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
 #if !defined(STM32L0xx) && !defined(STM32L1xx)
   timHandle.Init.RepetitionCounter = 0;
 #endif
-  timHandle.State= HAL_TIM_STATE_RESET;
+  timHandle.State = HAL_TIM_STATE_RESET;
   // TBC: is timHandle.State field should be saved ?
 
   if (do_init == 1) {
@@ -734,7 +740,9 @@ void pwm_start(PinName pin, uint32_t clock_freq,
     }
   }
   timChannel = get_pwm_channel(pin);
-  if (!IS_TIM_CHANNELS(timChannel)) return;
+  if (!IS_TIM_CHANNELS(timChannel)) {
+    return;
+  }
   //HAL_TIM_PWM_Stop(&timHandle, timChannel);
 
   /*##-2- Configure the PWM channels #########################################*/
@@ -749,14 +757,13 @@ void pwm_start(PinName pin, uint32_t clock_freq,
 #endif
   timConfig.Pulse = value;
 
-  if (HAL_TIM_PWM_ConfigChannel(&timHandle, &timConfig, timChannel) != HAL_OK)
-  {
+  if (HAL_TIM_PWM_ConfigChannel(&timHandle, &timConfig, timChannel) != HAL_OK) {
     /*##-2- Configure the PWM channels #########################################*/
     return;
   }
 
 #if !defined(STM32L0xx) && !defined(STM32L1xx)
-  if(STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
+  if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
     HAL_TIMEx_PWMN_Start(&timHandle, timChannel);
   } else
 #endif
@@ -777,9 +784,13 @@ void pwm_stop(PinName pin)
   uint32_t timChannel;
 
   timHandle.Instance = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NP) return;
+  if (timHandle.Instance == NP) {
+    return;
+  }
   timChannel = get_pwm_channel(pin);
-  if (!IS_TIM_CHANNELS(timChannel)) return;
+  if (!IS_TIM_CHANNELS(timChannel)) {
+    return;
+  }
 
 #if !defined(STM32L0xx) && !defined(STM32L1xx)
   if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {

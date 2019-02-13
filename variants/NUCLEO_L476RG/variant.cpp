@@ -40,8 +40,8 @@ const PinName digitalPin[] = {
   PA_5,  //D13 - LED
   PB_9,  //D14
   PB_8,  //D15
-// ST Morpho
-// CN7 Left Side
+  // ST Morpho
+  // CN7 Left Side
   PC_10, //D16
   PC_12, //D17
   NC,   //D18 - BOOT0
@@ -56,12 +56,12 @@ const PinName digitalPin[] = {
   PH_1,  //D27
   PC_2,  //D28
   PC_3,  //D29
-// CN7 Right Side
+  // CN7 Right Side
   PC_11, //D30
   PD_2,  //D31
-// CN10 Left Side
+  // CN10 Left Side
   PC_9,  //D32
-// CN10 Right side
+  // CN10 Right side
   PC_8,  //D33
   PC_6,  //D34
   PC_5,  //D35
@@ -138,10 +138,9 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLP = 7;
   RCC_OscInitStruct.PLL.PLLQ = 4;
 
-  if(HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     /* Initialization Error */
-    while(1);
+    while (1);
   }
 
   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2
@@ -151,10 +150,9 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
-  if(HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK)
-  {
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
     /* Initialization Error */
-    while(1);
+    while (1);
   }
 }
 
