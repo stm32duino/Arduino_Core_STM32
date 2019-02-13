@@ -55,7 +55,7 @@
           "boards": [ "" ]
         },
         {
-          "pattern": "eepromReadWrite|eepromTest_Wire1",
+          "pattern": "eepromReadWrite|eepromTest_Wire1|p13_TouchSensorLamp",
           "applicable": true,
           "boards": [ "" ]
         },
