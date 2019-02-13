@@ -20,7 +20,6 @@ extern "C"{
 #include "timer.h"
 #include "twi.h"
 #include "uart.h"
-#include "usbd_interface.h"
 
 void init( void ) ;
 #ifdef __cplusplus

@@ -27,8 +27,7 @@
 // Serial over CDC
 class USBSerial : public Stream {
 public:
-    USBSerial(void) {};
-
+    void begin(void);
     void begin(uint32_t);
 	void begin(uint32_t, uint8_t);
     void end(void);
@@ -37,6 +36,8 @@ public:
     virtual int availableForWrite(void);
     virtual int peek(void);
     virtual int read(void);
+    virtual size_t readBytes( char *buffer, size_t length); // read chars from stream into buffer
+    virtual size_t readBytesUntil( char terminator, char *buffer, size_t length); // as readBytes with terminator character
     virtual void flush(void);
     virtual size_t write(uint8_t);
     virtual size_t write(const uint8_t *buffer, size_t size);
@@ -64,9 +65,6 @@ public:
       MARK_PARITY = 3,
       SPACE_PARITY = 4,
     };
-
-	uint8_t isConnected();
-    uint8_t pending();
 };
 
 extern USBSerial SerialUSB;

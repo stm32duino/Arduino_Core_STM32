@@ -1,10 +1,7 @@
 /**
   ******************************************************************************
-  * @file    hw_config.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   provide some hw interface for the Arduino interface
+  * @file    usbd_hid_composite_if.c
+  * @brief   Provide the USB HID composite interface
   *
   ******************************************************************************
   * @attention
@@ -35,33 +32,76 @@
   *
   ******************************************************************************
   */
-#include "stm32_def.h"
-#include "hw_config.h"
-#include "usbd_if.h"
+#ifdef USBCON
+#ifdef USBD_USE_HID_COMPOSITE
+
+#include "usbd_desc.h"
+#include "usbd_hid_composite_if.h"
+#include "usbd_hid_composite.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
+/* USB Device Core HID composite handle declaration */
+USBD_HandleTypeDef hUSBD_Device_HID;
+
 /**
-  * @brief  This function performs the global init of the system (HAL, IOs...)
-  * @param  None
-  * @retval None
+  * @brief  Initialize USB devices
+  * @param  none
+  * @retval none
   */
-void hw_config_init(void)
+void HID_Composite_Init(void)
 {
-  //Initialize the HAL
-  HAL_Init();
+  /* Init Device Library */
+  USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0);
 
-  // Configure the system clock
-  SystemClock_Config();
+  /* Add Supported Class */
+  USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS);
 
-#if defined (USBCON) && defined(USBD_USE_CDC)
-  USBD_CDC_init();
-#endif
+  /* Start Device Process */
+  USBD_Start(&hUSBD_Device_HID);
 }
+
+/**
+  * @brief  DeInitialize USB devices
+  * @param  none
+  * @retval none
+  */
+void HID_Composite_DeInit(void)
+{
+  /* Stop Device Process */
+  USBD_Stop(&hUSBD_Device_HID);
+
+  /* DeInit Device Library */
+  USBD_DeInit(&hUSBD_Device_HID);
+}
+
+/**
+  * @brief  Send HID mouse Report
+  * @param  report pointer to report
+  * @param  len report lenght
+  * @retval none
+  */
+void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len)
+{
+  USBD_HID_MOUSE_SendReport(&hUSBD_Device_HID, report, len);
+}
+
+/**
+  * @brief  Send HID keyboard Report
+  * @param  report pointer to report
+  * @param  len report lenght
+  * @retval none
+  */
+void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len)
+{
+  USBD_HID_KEYBOARD_SendReport(&hUSBD_Device_HID, report, len);
+}
+
 #ifdef __cplusplus
 }
 #endif
-
+#endif /* USBD_USE_HID_COMPOSITE */
+#endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

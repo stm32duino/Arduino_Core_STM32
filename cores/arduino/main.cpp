@@ -54,10 +54,6 @@ int main( void )
 {
   initVariant();
 
-#if defined(USBCON)
-  usbd_interface_init();
-#endif
-
   setup();
 
   for (;;)

@@ -8,6 +8,8 @@
 #ifdef USBCON
 
 #include "usbd_if.h"
+#include "usbd_cdc_if.h"
+
 /**
   * @brief  Force to re-enumerate USB
   * @param  None
@@ -38,4 +40,10 @@ void USBD_reenumerate(void)
 #endif /* USBD_REENUM_DISABLED */
 }
 
+#ifdef USBD_USE_CDC
+void USBD_CDC_init(void)
+{
+  CDC_init();
+}
+#endif /* USBD_USE_CDC */
 #endif /* USBCON */
