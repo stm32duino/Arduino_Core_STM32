@@ -28,11 +28,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Size in words, byte size divided by 2 */
-#define PMA_EP0_OUT_ADDR (8 * 4)
-#define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE / 2)
-#define PMA_CDC_OUT_ADDR (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE / 2)
-#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_ADDR + USB_FS_MAX_PACKET_SIZE / 2)
-#define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE / 2)
+#define PMA_EP0_OUT_ADDR (8 * 3)
+#define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_ADDR (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_ADDR + USB_FS_MAX_PACKET_SIZE)
+#define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 PCD_HandleTypeDef g_hpcd;
