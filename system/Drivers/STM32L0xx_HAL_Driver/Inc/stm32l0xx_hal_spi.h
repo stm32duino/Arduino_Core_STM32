@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright(c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -571,7 +571,7 @@ typedef  void (*pSPI_CallbackTypeDef)(SPI_HandleTypeDef *hspi); /*!< pointer to 
                                ((__CPHA__) == SPI_PHASE_2EDGE))
 
 /** @brief  Checks if SPI Slave Select parameter is in allowed range.
-  * @param  __NSS__ specifies the SPI Slave Slelect management parameter.
+  * @param  __NSS__ specifies the SPI Slave Select management parameter.
   *         This parameter can be a value of @ref SPI_Slave_Select_management
   * @retval None
   */

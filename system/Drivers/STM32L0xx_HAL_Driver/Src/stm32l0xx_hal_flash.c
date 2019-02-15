@@ -477,17 +477,20 @@ __weak void HAL_FLASH_OperationErrorCallback(uint32_t ReturnValue)
   */
 HAL_StatusTypeDef HAL_FLASH_Unlock(void)
 {
+  uint32_t primask_bit;
+
   /* Unlocking FLASH_PECR register access*/
   if(HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_PELOCK))
   {
     /* Disable interrupts to avoid any interruption during unlock sequence */
+    primask_bit = __get_PRIMASK();
     __disable_irq();
 
     WRITE_REG(FLASH->PEKEYR, FLASH_PEKEY1);
     WRITE_REG(FLASH->PEKEYR, FLASH_PEKEY2);
 
-    /* Re-enable the interrupts */
-    __enable_irq();
+    /* Re-enable the interrupts: restore previous priority mask */
+    __set_PRIMASK(primask_bit);
 
     if(HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_PELOCK))
     {
@@ -498,14 +501,15 @@ HAL_StatusTypeDef HAL_FLASH_Unlock(void)
   if (HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_PRGLOCK))
   {
     /* Disable interrupts to avoid any interruption during unlock sequence */
+    primask_bit = __get_PRIMASK();
     __disable_irq();
 
     /* Unlocking the program memory access */
     WRITE_REG(FLASH->PRGKEYR, FLASH_PRGKEY1);
     WRITE_REG(FLASH->PRGKEYR, FLASH_PRGKEY2);  
 
-    /* Re-enable the interrupts */
-    __enable_irq();
+    /* Re-enable the interrupts: restore previous priority mask */
+    __set_PRIMASK(primask_bit);
 
     if (HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_PRGLOCK))
     {
@@ -537,8 +541,14 @@ HAL_StatusTypeDef HAL_FLASH_Lock(void)
   */
 HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void)
 {
+  uint32_t primask_bit;
+
   if(HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_OPTLOCK))
   {
+    /* Disable interrupts to avoid any interruption during unlock sequence */
+    primask_bit = __get_PRIMASK();
+    __disable_irq();
+
     /* Unlocking FLASH_PECR register access*/
     if(HAL_IS_BIT_SET(FLASH->PECR, FLASH_PECR_PELOCK))
     {  
@@ -550,6 +560,9 @@ HAL_StatusTypeDef HAL_FLASH_OB_Unlock(void)
     /* Unlocking the option bytes block access */
     WRITE_REG(FLASH->OPTKEYR, FLASH_OPTKEY1);
     WRITE_REG(FLASH->OPTKEYR, FLASH_OPTKEY2);
+
+    /* Re-enable the interrupts: restore previous priority mask */
+    __set_PRIMASK(primask_bit);
   }
   else
   {
