@@ -695,7 +695,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim)
       uwAPBxPrescaler = clkconfig.APB1CLKDivider;
       uwTimclock = HAL_RCC_GetPCLK1Freq();
       break;
-#ifndef STM32F0xx
+#if !defined(STM32F0xx) && !defined(STM32G0xx)
     case 2:
       uwAPBxPrescaler = clkconfig.APB2CLKDivider;
       uwTimclock = HAL_RCC_GetPCLK2Freq();

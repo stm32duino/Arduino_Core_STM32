@@ -103,6 +103,8 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 {
 #if defined(STM32F1xx)
   LL_RTC_BKP_SetRegister(BKP, index, value);
+#elif defined(STM32G0xx)
+  LL_RTC_BKP_SetRegister(TAMP, index, value);
 #else
 #ifdef ENABLE_BACKUP_SUPPORT
   LL_RTC_BAK_SetRegister(RTC, index, value);
@@ -117,6 +119,8 @@ static inline uint32_t getBackupRegister(uint32_t index)
 {
 #if defined(STM32F1xx)
   return LL_RTC_BKP_GetRegister(BKP, index);
+#elif defined(STM32G0xx)
+  return LL_RTC_BKP_GetRegister(TAMP, index);
 #else
 #ifdef ENABLE_BACKUP_SUPPORT
   return LL_RTC_BAK_GetRegister(RTC, index);

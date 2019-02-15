@@ -86,9 +86,13 @@ struct serial_s {
 #else
 #define USART3_IRQn USART3_4_IRQn
 #define USART3_IRQHandler USART3_4_IRQHandler
-
 #endif /* STM32F091xC || STM32F098xx */
 #endif /* STM32F0xx */
+
+#if defined(STM32G0xx)
+#define USART3_IRQn USART3_4_LPUART1_IRQn
+#define USART3_IRQHandler USART3_4_LPUART1_IRQHandler
+#endif /* STM32G0xx */
 #endif
 
 #if defined(USART4_BASE) && !defined(USART4_IRQn)
@@ -104,6 +108,10 @@ struct serial_s {
 #elif defined(STM32L0xx)
 #define USART4_IRQn USART4_5_IRQn
 #endif /* STM32F0xx */
+#if defined(STM32G0xx)
+#define USART4_IRQn USART3_4_LPUART1_IRQn
+#endif /* STM32G0xx */
+
 #endif
 
 #if defined(USART5_BASE) && !defined(USART5_IRQn)
@@ -141,6 +149,12 @@ struct serial_s {
 #endif /* STM32F091xC || STM32F098xx */
 #endif
 #endif /* STM32F0xx */
+
+#if defined(STM32G0xx)
+#if defined(LPUART1_BASE) && !defined(LPUART1_IRQn)
+#define LPUART1_IRQn USART3_4_LPUART1_IRQn
+#endif
+#endif /* STM32G0xx */
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
