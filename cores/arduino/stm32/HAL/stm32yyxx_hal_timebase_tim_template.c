@@ -17,6 +17,9 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_hal_timebase_tim_template.c"
 #endif
+#ifdef STM32G0xx
+#include "stm32g0xx_hal_timebase_tim_template.c"
+#endif
 #ifdef STM32L1xx
 #include "stm32l1xx_hal_timebase_tim_template.c"
 #endif

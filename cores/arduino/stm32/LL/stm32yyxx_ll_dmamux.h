@@ -1,6 +1,9 @@
 #ifndef _STM32YYXX_LL_DMAMUX_H_
 #define _STM32YYXX_LL_DMAMUX_H_
 
+#ifdef STM32G0xx
+#include "stm32g0xx_ll_dmamux.h"
+#endif
 #ifdef STM32H7xx
 #include "stm32h7xx_ll_dmamux.h"
 #endif
