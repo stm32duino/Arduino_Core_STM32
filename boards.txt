@@ -715,10 +715,6 @@ GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 Sparky.name=Sparky flight controllers
 
 Sparky.build.vid=0x0483
-Sparky.build.pid=0x5711
-Sparky.vid.0=0x0483
-Sparky.pid.0=0x5711
-
 Sparky.build.core=arduino
 Sparky.build.board=Sparky
 Sparky.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
@@ -732,7 +728,7 @@ Sparky.menu.pnum.Sparky_V1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=har
 Sparky.menu.pnum.Sparky_V1.build.board=Sparky_V1
 Sparky.menu.pnum.Sparky_V1.build.series=STM32F3xx
 Sparky.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
-Sparky.menu.pnum.Sparky_V1.build.variant=Sparky_F303CC
+Sparky.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
 Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Upload menu
@@ -928,10 +924,10 @@ GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
-Sparky.menu.xserial.generic=Enabled with generic Serial
-Sparky.menu.xserial.none=Enabled without generic Serial
+Sparky.menu.xserial.generic=Enabled (generic 'Serial')
+Sparky.menu.xserial.none=Enabled (no generic 'Serial')
 Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Sparky.menu.xserial.disabled=Disabled (No Serial)
+Sparky.menu.xserial.disabled=Disabled (no Serial support)
 Sparky.menu.xserial.disabled.build.xSerial=
 
 RAK.menu.xserial.generic=Enabled with generic Serial
@@ -1024,6 +1020,17 @@ GenF4.menu.xusb.HS=High Speed
 GenF4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Sparky.menu.usb.none=None
+Sparky.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Sparky.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Sparky.menu.usb.CDC=CDC (no generic 'Serial')
+Sparky.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Sparky.menu.xusb.FS=Low/Full Speed
+Sparky.menu.xusb.HS=High Speed
+Sparky.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Sparky.menu.xusb.HSFS=High Speed in Full Speed mode
+Sparky.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
