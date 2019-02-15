@@ -1,6 +1,25 @@
 #ifndef _STM32_DEF_
 #define _STM32_DEF_
 
+
+/**
+ * @brief STM32 core version number
+ */
+#define STM32_CORE_VERSION_MAJOR    (0x01U) /*!< [31:24] major version */
+#define STM32_CORE_VERSION_MINOR    (0x05U) /*!< [23:16] minor version */
+#define STM32_CORE_VERSION_PATCH    (0x01U) /*!< [15:8]  patch version */
+/*
+ * Extra label for development:
+ * 0: official release
+ * [1-9]: release candidate
+ * F[0-9]: development
+ */
+#define STM32_CORE_VERSION_EXTRA    (0xF0U) /*!< [7:0]  extra version */
+#define STM32_CORE_VERSION          ((STM32_CORE_VERSION_MAJOR << 24U)\
+                                        |(STM32_CORE_VERSION_MINOR << 16U)\
+                                        |(STM32_CORE_VERSION_PATCH << 8U )\
+                                        |(STM32_CORE_VERSION_EXTRA))
+
 #define F_CPU SystemCoreClock
 #define USE_HAL_DRIVER
 
