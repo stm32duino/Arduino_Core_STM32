@@ -242,6 +242,19 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_G071RB board
+Nucleo_64.menu.pnum.NUCLEO_G071RB=Nucleo G071RB
+Nucleo_64.menu.pnum.NUCLEO_G071RB.node=NODE_G071RB
+Nucleo_64.menu.pnum.NUCLEO_G071RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_G071RB.upload.maximum_data_size=36864
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.board=NUCLEO_G071RB
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.series=STM32G0xx
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.product_line=STM32G071xx
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=NUCLEO_G071RB
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # NUCLEO_L053R8 board
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
