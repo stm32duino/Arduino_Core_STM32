@@ -633,17 +633,20 @@ HAL_StatusTypeDef HAL_FLASHEx_OB_DeSelectPCROP(void)
   */
 HAL_StatusTypeDef HAL_FLASHEx_DATAEEPROM_Unlock(void)
 {
+  uint32_t primask_bit;
+
   if((FLASH->PECR & FLASH_PECR_PELOCK) != RESET)
   {  
     /* Disable interrupts to avoid any interruption during unlock sequence */
+    primask_bit = __get_PRIMASK();
     __disable_irq();
 
     /* Unlocking the Data memory and FLASH_PECR register access*/
     FLASH->PEKEYR = FLASH_PEKEY1;
     FLASH->PEKEYR = FLASH_PEKEY2;
 
-    /* Re-enable the interrupts */
-    __enable_irq();
+    /* Re-enable the interrupts: restore previous priority mask */
+    __set_PRIMASK(primask_bit);
 
     if((FLASH->PECR & FLASH_PECR_PELOCK) != RESET)
     {
@@ -963,7 +966,16 @@ static uint8_t FLASH_OB_GetUser(void)
   */
 static uint8_t FLASH_OB_GetRDP(void)
 {
-  return (uint8_t)(FLASH->OPTR & FLASH_OPTR_RDPROT);
+  uint8_t rdp_level = READ_BIT(FLASH->OPTR, FLASH_OPTR_RDPROT);
+
+  if ((rdp_level != OB_RDP_LEVEL_0) && (rdp_level != OB_RDP_LEVEL_2))
+  {
+    return (OB_RDP_LEVEL_1);
+  }
+  else
+  {
+    return rdp_level;
+  }
 }
 
 /**
