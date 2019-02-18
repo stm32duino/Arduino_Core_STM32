@@ -83,6 +83,8 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
       buffer += portion;
       // After storing data, start transmitting process
       CDC_continue_transmit();
+    } else if (!CDC_connected()) {
+      return size;
     }
   }
   return size;

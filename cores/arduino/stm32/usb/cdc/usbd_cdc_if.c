@@ -245,6 +245,11 @@ void CDC_deInit(void)
   }
 }
 
+uint8_t CDC_connected()
+{
+  return hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED;
+}
+
 void CDC_continue_transmit(void)
 {
   uint16_t size;
