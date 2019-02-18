@@ -67,6 +67,7 @@ struct timer_s {
   TIM_HandleTypeDef handle;
   uint8_t idx;
   void (*irqHandle)(stimer_t *);
+  void (*irqHandleOC)(stimer_t *, uint32_t);
   void (*irqHandleOC_CH1)(void);
   void (*irqHandleOC_CH2)(void);
   void (*irqHandleOC_CH3)(void);
@@ -197,7 +198,7 @@ void TimerHandleDeinit(stimer_t *obj);
 void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration);
 void TimerPinDeinit(stimer_t *obj);
 
-void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(void));
+void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t));
 void TimerPulseDeinit(stimer_t *obj);
 
 uint32_t getTimerCounter(stimer_t *obj);

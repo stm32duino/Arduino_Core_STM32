@@ -795,7 +795,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim)
   * @param  irqHandle : interrupt routine to call
   * @retval None
   */
-void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(void))
+void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t))
 {
   TIM_OC_InitTypeDef sConfig = {};
   TIM_HandleTypeDef *handle = &(obj->handle);
@@ -810,7 +810,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
 #if !defined(STM32L0xx) && !defined(STM32L1xx)
   handle->Init.RepetitionCounter = 0;
 #endif
-  obj->irqHandleOC_CH1 = irqHandle;
+  obj->irqHandleOC = irqHandle;
 
   sConfig.OCMode        = TIM_OCMODE_TIMING;
   sConfig.Pulse         = pulseWidth;
@@ -997,8 +997,10 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
         return;
         break;
     }
-    
-  
+
+    //make it compatible with older versions
+    if (obj->irqHandleOC != NULL) {obj->irqHandleOC(obj, channel);}
+     
 }
 
 /**
