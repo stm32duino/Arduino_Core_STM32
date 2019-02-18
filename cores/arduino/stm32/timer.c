@@ -786,6 +786,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim)
   return uwTimclock;
 }
 
+
 /**
   * @brief  This function will set the timer to generate pulse in interrupt mode with a particular duty cycle
   * @param  timer_id : timer_id_e
@@ -794,12 +795,11 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim)
   * @param  irqHandle : interrupt routine to call
   * @retval None
   */
-void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t))
+void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(void))
 {
   TIM_OC_InitTypeDef sConfig = {};
   TIM_HandleTypeDef *handle = &(obj->handle);
-
-  obj->timer = TIMER_SERVO;
+  if (obj->timer == NULL){obj->timer = TIMER_SERVO;}
 
   //min pulse = 1us - max pulse = 65535us
   handle->Instance               = obj->timer;
@@ -810,7 +810,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
 #if !defined(STM32L0xx) && !defined(STM32L1xx)
   handle->Init.RepetitionCounter = 0;
 #endif
-  obj->irqHandleOC = irqHandle;
+  obj->irqHandleOC_CH1 = irqHandle;
 
   sConfig.OCMode        = TIM_OCMODE_TIMING;
   sConfig.Pulse         = pulseWidth;
@@ -837,6 +837,79 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
 }
 
 /**
+  * @brief  This function will attach timer interrupt to with a particular duty cycle on channel x
+  * @param  timer_id : timer_id_e
+  * @param  irqHandle : interrupt routine to call
+  * @param  timChannel : timmer channel 
+  * @retval None
+  */
+void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth)
+{
+  TIM_OC_InitTypeDef sConfig = {};
+  TIM_HandleTypeDef *handle = &(obj->handle);
+
+  sConfig.OCMode        = TIM_OCMODE_TIMING;
+  sConfig.Pulse         = pulseWidth;
+  sConfig.OCPolarity    = TIM_OCPOLARITY_HIGH;
+  sConfig.OCFastMode    = TIM_OCFAST_DISABLE;
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
+  sConfig.OCNPolarity   = TIM_OCNPOLARITY_HIGH;
+  sConfig.OCIdleState   = TIM_OCIDLESTATE_RESET;
+  sConfig.OCNIdleState  = TIM_OCNIDLESTATE_RESET;
+#endif
+  //HAL_NVIC_SetPriority(getTimerIrq(obj->timer), 14, 0);
+  //HAL_NVIC_EnableIRQ(getTimerIrq(obj->timer));
+
+  if (HAL_TIM_OC_Init(handle) != HAL_OK) {
+    return;
+  }
+    switch (timChannel) {
+      case 1:
+	  obj->irqHandleOC_CH1 = irqHandle;
+	  if (HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_1) != HAL_OK) {
+	    return;
+	  }
+	  if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_1) != HAL_OK) {
+	    return;
+	  }
+        break;
+      case 2:
+	  obj->irqHandleOC_CH2 = irqHandle;
+	  if (HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_2) != HAL_OK) {
+	    return;
+	  }
+	  if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_2) != HAL_OK) {
+	    return;
+	  }
+        break;
+      case 3:
+	  obj->irqHandleOC_CH3 = irqHandle;
+	  if (HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_3) != HAL_OK) {
+	    return;
+	  }
+	  if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_3) != HAL_OK) {
+	    return;
+	  }
+        break;
+      case 4:
+	  obj->irqHandleOC_CH4 = irqHandle;
+	  if (HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_4) != HAL_OK) {
+	    return;
+	  }
+	  if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_4) != HAL_OK) {
+	    return;
+	  }
+        break;
+      default:
+        return;
+        break;
+    }
+    return;
+}
+
+
+
+/**
   * @brief  This function will reset the pulse generation
   * @param  timer_id : timer_id_e
   * @retval None
@@ -845,7 +918,10 @@ void TimerPulseDeinit(stimer_t *obj)
 {
   TIM_HandleTypeDef *handle = &(obj->handle);
 
-  obj->irqHandleOC = NULL;
+  obj->irqHandleOC_CH1 = NULL;
+  obj->irqHandleOC_CH2 = NULL;
+  obj->irqHandleOC_CH3 = NULL;
+  obj->irqHandleOC_CH4 = NULL;
 
   HAL_NVIC_DisableIRQ(getTimerIrq(obj->timer));
 
@@ -900,18 +976,29 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
   uint32_t channel = 0;
   stimer_t *obj = get_timer_obj(htim);
-
-  if (obj->irqHandleOC != NULL) {
     switch (htim->Channel) {
       case HAL_TIM_ACTIVE_CHANNEL_1:
         channel = TIM_CHANNEL_1 / 4;
+	if (obj->irqHandleOC_CH1 != NULL) {obj->irqHandleOC_CH1();}
+        break;
+      case HAL_TIM_ACTIVE_CHANNEL_2:
+        channel = TIM_CHANNEL_2 / 4;
+        if (obj->irqHandleOC_CH2 != NULL) {obj->irqHandleOC_CH2();}  
+        break;
+      case HAL_TIM_ACTIVE_CHANNEL_3:
+        if (obj->irqHandleOC_CH3 != NULL) {obj->irqHandleOC_CH3();} 
+        channel = TIM_CHANNEL_3 / 4;
+        break;
+      case HAL_TIM_ACTIVE_CHANNEL_4:
+        if (obj->irqHandleOC_CH4 != NULL) {obj->irqHandleOC_CH4();} 
+        channel = TIM_CHANNEL_4 / 4;
         break;
       default:
         return;
         break;
     }
-    obj->irqHandleOC(obj, channel);
-  }
+    
+  
 }
 
 /**
