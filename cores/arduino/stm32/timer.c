@@ -841,6 +841,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   * @param  timer_id : timer_id_e
   * @param  irqHandle : interrupt routine to call
   * @param  timChannel : timmer channel 
+  * @param  pulseWidth : phase of the timer where the callback will happen  
   * @retval None
   */
 void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth)
@@ -917,7 +918,7 @@ void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChann
 void TimerPulseDeinit(stimer_t *obj)
 {
   TIM_HandleTypeDef *handle = &(obj->handle);
-
+  obj->irqHandleOC = NULL;
   obj->irqHandleOC_CH1 = NULL;
   obj->irqHandleOC_CH2 = NULL;
   obj->irqHandleOC_CH3 = NULL;
