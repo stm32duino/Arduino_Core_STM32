@@ -94,9 +94,6 @@ typedef enum {
   SPI_ERROR = 2
 } spi_status_e;
 
-/* Exported constants --------------------------------------------------------*/
-
-/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
