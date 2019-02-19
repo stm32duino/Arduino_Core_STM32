@@ -51,29 +51,29 @@ extern "C" {
 #define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
 
 typedef struct {
-    int32_t count;
-    uint8_t state;
+  int32_t count;
+  uint8_t state;
 } timerPinInfo_t;
 
 typedef struct timer_s stimer_t;
 
 struct timer_s {
-    /*  The 1st 2 members TIM_TypeDef *timer
-       *  and TIM_HandleTypeDef handle should
-       *  be kept as the first members of this struct
-       *  to have get_timer_obj() function work as expected
-       */
-    TIM_TypeDef *timer;
-    TIM_HandleTypeDef handle;
-    uint8_t idx;
-    void (*irqHandle)(stimer_t *);
-    void (*irqHandleOC)(stimer_t *, uint32_t);
-    void (*irqHandleOC_CH1)(void);
-    void (*irqHandleOC_CH2)(void);
-    void (*irqHandleOC_CH3)(void);
-    void (*irqHandleOC_CH4)(void);
-    PinName pin;
-    volatile timerPinInfo_t pinInfo;
+  /*  The 1st 2 members TIM_TypeDef *timer
+     *  and TIM_HandleTypeDef handle should
+     *  be kept as the first members of this struct
+     *  to have get_timer_obj() function work as expected
+     */
+  TIM_TypeDef *timer;
+  TIM_HandleTypeDef handle;
+  uint8_t idx;
+  void (*irqHandle)(stimer_t *);
+  void (*irqHandleOC)(stimer_t *, uint32_t);
+  void (*irqHandleOC_CH1)(void);
+  void (*irqHandleOC_CH2)(void);
+  void (*irqHandleOC_CH3)(void);
+  void (*irqHandleOC_CH4)(void);
+  PinName pin;
+  volatile timerPinInfo_t pinInfo;
 };
 
 /* Exported constants --------------------------------------------------------*/
