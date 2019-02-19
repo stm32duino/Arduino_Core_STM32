@@ -35,73 +35,22 @@
   *
   ******************************************************************************
   */
-
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "core_debug.h"
 #include "stm32_def.h"
 #include "twi.h"
 #include "PinAF_STM32F1.h"
 
-/**
-  * @}
-  */
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
-
+/* Private Defines */
 /// @brief I2C timout in tick unit
 #define I2C_TIMEOUT_TICK        100
 
 #define SLAVE_MODE_TRANSMIT     0
 #define SLAVE_MODE_RECEIVE      1
 #define SLAVE_MODE_LISTEN       2
-
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
 
 /*  Family specific description for I2C */
 #if defined(STM32F7xx) || defined(STM32H7xx) || defined(STM32L4xx)
@@ -114,24 +63,8 @@ extern "C" {
 #error "Unknown Family - unknown I2C_NUM"
 #endif
 
+/* Private Variables */
 static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Functions
-  * @{
-  */
-
 
 /**
   * @brief  Default init and setup GPIO and I2C peripheral
@@ -751,18 +684,6 @@ void I2C4_ER_IRQHandler(void)
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 #endif // I2C4_BASE
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }

@@ -47,9 +47,6 @@
 extern "C" {
 #endif
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void dac_write_value(PinName pin, uint32_t value, uint8_t do_init);
 void dac_stop(PinName pin);

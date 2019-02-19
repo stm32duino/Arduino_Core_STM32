@@ -141,8 +141,6 @@ typedef enum {
 #endif
 } i2c_timing_e;
 
-/* Exported constants --------------------------------------------------------*/
-/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void i2c_init(i2c_t *obj);
 void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode,

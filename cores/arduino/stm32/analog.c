@@ -35,17 +35,6 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "stm32_def.h"
 #include "analog.h"
 #include "timer.h"
@@ -55,20 +44,7 @@
 extern "C" {
 #endif
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
+/* Private_Defines */
 #if defined(ADC_SAMPLETIME_8CYCLES_5)
 #define SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
 #elif defined(ADC_SAMPLETIME_12CYCLES_5)
@@ -102,30 +78,11 @@ extern "C" {
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
 #endif
-/**
-  * @}
-  */
 
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
+/* Private_Variables */
 static PinName g_current_pin = NC;
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
+/* Private Functions */
 static uint32_t get_adc_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
@@ -804,23 +761,6 @@ void pwm_stop(PinName pin)
   HAL_TIM_PWM_DeInit(&timHandle);
 }
 
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif

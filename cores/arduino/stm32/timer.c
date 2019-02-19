@@ -35,17 +35,6 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "core_debug.h"
 #include "timer.h"
 #include "board.h"
@@ -54,55 +43,12 @@
 extern "C" {
 #endif
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-* @{
-*/
-
+/* Private Functions */
 static void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj);
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
-
+/* Private Variables */
 #define TIMER_NUM (22)
 static TIM_HandleTypeDef *timer_handles[TIMER_NUM] = {NULL};
-
-
-/**
-  * @}
-  */
 
 /**
   * @brief  Enable the timer clock
@@ -1421,17 +1367,6 @@ void TIM22_IRQHandler(void)
 }
 #endif //TIM22_BASE
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif

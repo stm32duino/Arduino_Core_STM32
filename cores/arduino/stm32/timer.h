@@ -182,7 +182,6 @@ struct timer_s {
 #endif
 #endif
 
-/* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 
 void timer_enable_clock(TIM_HandleTypeDef *htim);

@@ -35,17 +35,6 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "core_debug.h"
 #include "stm32_def.h"
 #include "spi_com.h"
@@ -56,53 +45,7 @@
 extern "C" {
 #endif
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Functions
-  * @{
-  */
+/* Private Functions */
 /**
   * @brief  return clock freq of an SPI instance
   * @param  spi_inst : SPI instance
@@ -460,18 +403,6 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
   return ret;
 }
 
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 #ifdef __cplusplus
 }
 #endif

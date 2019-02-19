@@ -35,27 +35,10 @@
   *
   ******************************************************************************
   */
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
 #include "stm32_def.h"
 #include "interrupt.h"
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
+/* Private Types */
 
 /*As we can have only one interrupt/pin id, don't need to get the port info*/
 typedef struct {
@@ -63,29 +46,10 @@ typedef struct {
   std::function<void(void)> callback;
 } gpio_irq_conf_str;
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
+/* Private_Defines */
 #define NB_EXTI   (16)
-/**
-  * @}
-  */
 
-/** @addtogroup STM32F4xx_System_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Variables
-  * @{
-  */
+/* Private Variables */
 static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
 #if defined (STM32F0xx) || defined (STM32L0xx)
   {.irqnb = EXTI0_1_IRQn,   .callback = NULL}, //GPIO_PIN_0
@@ -123,25 +87,14 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
   {.irqnb = EXTI15_10_IRQn, .callback = NULL}  //GPIO_PIN_15
 #endif
 };
-/**
-  * @}
-  */
 
-/** @addtogroup STM32F4xx_System_Private_FunctionPrototypes
-  * @{
-  */
-
-static uint8_t get_pin_id(uint16_t pin);
-
-/**
-  * @}
-  */
+/* Private Functions */
 /**
   * @brief  This function returns the pin ID function of the HAL PIN definition
   * @param  pin : one of the gpio pin
   * @retval None
   */
-uint8_t get_pin_id(uint16_t pin)
+static uint8_t get_pin_id(uint16_t pin)
 {
   uint8_t id = 0;
 
@@ -397,15 +350,4 @@ void EXTI15_10_IRQHandler(void)
 }
 #endif
 #endif
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
