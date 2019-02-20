@@ -31,4 +31,7 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_ll_spi.h"
 #endif
+#ifdef STM32WBxx
+#include "stm32wbxx_ll_spi.h"
+#endif
 #endif /* _STM32YYXX_LL_SPI_H_ */

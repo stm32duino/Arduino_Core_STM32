@@ -31,4 +31,7 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_ll_wwdg.h"
 #endif
+#ifdef STM32WBxx
+#include "stm32wbxx_ll_wwdg.h"
+#endif
 #endif /* _STM32YYXX_LL_WWDG_H_ */

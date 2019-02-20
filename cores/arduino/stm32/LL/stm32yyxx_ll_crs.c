@@ -7,3 +7,6 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_ll_crs.c"
 #endif
+#ifdef STM32WBxx
+#include "stm32wbxx_ll_crs.c"
+#endif

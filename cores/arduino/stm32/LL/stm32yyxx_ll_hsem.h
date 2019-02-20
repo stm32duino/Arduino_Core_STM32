@@ -4,4 +4,7 @@
 #ifdef STM32H7xx
 #include "stm32h7xx_ll_hsem.h"
 #endif
+#ifdef STM32WBxx
+#include "stm32wbxx_ll_hsem.h"
+#endif
 #endif /* _STM32YYXX_LL_HSEM_H_ */
