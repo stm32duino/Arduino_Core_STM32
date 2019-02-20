@@ -554,7 +554,7 @@ uint16_t adc_read_value(PinName pin)
   }
 
   AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
-#ifdef STM32L4xx
+#if defined(STM32L4xx) || defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
     return 0;
   }
@@ -567,7 +567,7 @@ uint16_t adc_read_value(PinName pin)
 #ifndef STM32L0xx
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
 #endif
-#if defined (STM32F3xx) || defined (STM32L4xx) || defined (STM32H7xx)
+#if defined (STM32F3xx) || defined (STM32L4xx) || defined (STM32H7xx) || defined(STM32WBxx)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
   AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
@@ -579,7 +579,8 @@ uint16_t adc_read_value(PinName pin)
   }
 
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) ||\
-    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx)
+    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx) ||\
+    defined(STM32WBxx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined (STM32F0xx) || defined (STM32F1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)

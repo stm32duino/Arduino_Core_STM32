@@ -52,11 +52,14 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   const PinMap *map = NULL;
 #if defined(PWR_CR2_USV)
   /* Enable VDDUSB on Pwrctrl CR2 register*/
+#if !defined(STM32WBxx)
   if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
     __HAL_RCC_PWR_CLK_ENABLE();
     HAL_PWREx_EnableVddUSB();
     __HAL_RCC_PWR_CLK_DISABLE();
-  } else {
+  } else
+#endif
+  {
     HAL_PWREx_EnableVddUSB();
   }
 #endif
@@ -83,11 +86,18 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     __HAL_REMAPINTERRUPT_USB_ENABLE();
 #endif
 
+#if defined(STM32WBxx)
+    HAL_NVIC_SetPriority(USB_HP_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USB_HP_IRQn);
+    HAL_NVIC_SetPriority(USB_LP_IRQn, 5, 0);
+    HAL_NVIC_EnableIRQ(USB_LP_IRQn);
+#else
     /* Set USB FS Interrupt priority */
     HAL_NVIC_SetPriority(USB_IRQn, 5, 0);
 
     /* Enable USB FS Interrupt */
     HAL_NVIC_EnableIRQ(USB_IRQn);
+#endif /* STM32WBxx */
 
     if (hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI for USB wakeup */
@@ -204,8 +214,10 @@ void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
     __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
   }
 #endif /* USB_OTG_HS */
+#if !defined(STM32WBxx)
   /* Disable SYSCFG Clock */
   __HAL_RCC_SYSCFG_CLK_DISABLE();
+#endif
 }
 
 /*******************************************************************************
@@ -379,14 +391,32 @@ void USB_IRQHandler(void)
   HAL_PCD_IRQHandler(&g_hpcd);
 }
 
+#if defined(STM32WBxx)
+/**
+  * @brief This function handles USB high priority interrupt.
+  * @param  None
+  * @retval None
+  */
+void USB_HP_IRQHandler(void)
+{
+  HAL_PCD_IRQHandler(&g_hpcd);
+}
 
-
+/**
+  * @brief This function handles USB low priority interrupt, USB wake-up interrupt through EXTI line 28.
+  * @param  None
+  * @retval None
+  */
+void USB_LP_IRQHandler(void)
+{
+  HAL_PCD_IRQHandler(&g_hpcd);
+}
+#else
 /**
   * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
   * @param  None
   * @retval None
   */
-
 #ifdef USE_USB_HS
 void OTG_HS_WKUP_IRQHandler(void)
 #elif defined(USB_OTG_FS)
@@ -416,6 +446,7 @@ void USBWakeUp_IRQHandler(void)
   __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
 #endif
 }
+#endif
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
