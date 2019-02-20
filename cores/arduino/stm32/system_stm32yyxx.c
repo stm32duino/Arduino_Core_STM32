@@ -28,3 +28,6 @@
 #ifdef STM32L4xx
 #include "system_stm32l4xx.c"
 #endif
+#ifdef STM32WBxx
+#include "system_stm32wbxx.c"
+#endif
