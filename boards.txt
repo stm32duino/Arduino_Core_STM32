@@ -1316,12 +1316,12 @@ RAK.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -
 RAK.menu.rtlib.full=Newlib Standard
 RAK.menu.rtlib.full.build.flags.ldspecs=
 
-3dprinter.menu.rtlib.nano=Newlib Nano (default)	
-3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf	
-3dprinter.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float	
-3dprinter.menu.rtlib.nanofs=Newlib Nano + Float Scanf	
-3dprinter.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float	
-3dprinter.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf	
-3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float	
-3dprinter.menu.rtlib.full=Newlib Standard	
+3dprinter.menu.rtlib.nano=Newlib Nano (default)
+3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf
+3dprinter.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+3dprinter.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+3dprinter.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+3dprinter.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+3dprinter.menu.rtlib.full=Newlib Standard
 3dprinter.menu.rtlib.full.build.flags.ldspecs=
