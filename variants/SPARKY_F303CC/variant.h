@@ -96,10 +96,10 @@ extern const PinName digitalPin[];
 #define LED_BUILTIN             LED_BLUE
 
 // SPI Definitions
-//#define PIN_SPI_SS              PA4
-//#define PIN_SPI_MOSI            PA7
-//#define PIN_SPI_MISO            PA6
-//#define PIN_SPI_SCK             PA5
+#define PIN_SPI_SS              PA4
+#define PIN_SPI_MOSI            PA7
+#define PIN_SPI_MISO            PA6
+#define PIN_SPI_SCK             PA5
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PA10
