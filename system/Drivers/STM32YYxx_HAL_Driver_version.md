@@ -10,6 +10,7 @@
   * STM32L0: 1.10.1
   * STM32L1: 1.3.1
   * STM32L4: 1.9.0
+  * STM32WB: 1.0.0
 
 Release notes of each STM32YYxx HAL Drivers available here:
 
