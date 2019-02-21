@@ -47,7 +47,76 @@ extern "C" {
 static void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj);
 
 /* Private Variables */
-#define TIMER_NUM (22)
+typedef enum {
+#if defined(TIM1_BASE)
+  TIMER1_INDEX,
+#endif
+#if defined(TIM2_BASE)
+  TIMER2_INDEX,
+#endif
+#if defined(TIM3_BASE)
+  TIMER3_INDEX,
+#endif
+#if defined(TIM4_BASE)
+  TIMER4_INDEX,
+#endif
+#if defined(TIM5_BASE)
+  TIMER5_INDEX,
+#endif
+#if defined(TIM6_BASE)
+  TIMER6_INDEX,
+#endif
+#if defined(TIM7_BASE)
+  TIMER7_INDEX,
+#endif
+#if defined(TIM8_BASE)
+  TIMER8_INDEX,
+#endif
+#if defined(TIM9_BASE)
+  TIMER9_INDEX,
+#endif
+#if defined(TIM10_BASE)
+  TIMER10_INDEX,
+#endif
+#if defined(TIM11_BASE)
+  TIMER11_INDEX,
+#endif
+#if defined(TIM12_BASE)
+  TIMER12_INDEX,
+#endif
+#if defined(TIM13_BASE)
+  TIMER13_INDEX,
+#endif
+#if defined(TIM14_BASE)
+  TIMER14_INDEX,
+#endif
+#if defined(TIM15_BASE)
+  TIMER15_INDEX,
+#endif
+#if defined(TIM16_BASE)
+  TIMER16_INDEX,
+#endif
+#if defined(TIM17_BASE)
+  TIMER17_INDEX,
+#endif
+#if defined(TIM18_BASE)
+  TIMER18_INDEX,
+#endif
+#if defined(TIM19_BASE)
+  TIMER19_INDEX,
+#endif
+#if defined(TIM20_BASE)
+  TIMER20_INDEX,
+#endif
+#if defined(TIM21_BASE)
+  TIMER21_INDEX,
+#endif
+#if defined(TIM22_BASE)
+  TIMER22_INDEX,
+#endif
+  TIMER_NUM
+} timer_index_t;
+
 static TIM_HandleTypeDef *timer_handles[TIMER_NUM] = {NULL};
 
 /**
@@ -61,133 +130,133 @@ void timer_enable_clock(TIM_HandleTypeDef *htim)
 #if defined(TIM1_BASE)
   if (htim->Instance == TIM1) {
     __HAL_RCC_TIM1_CLK_ENABLE();
-    timer_handles[0] = htim;
+    timer_handles[TIMER1_INDEX] = htim;
   }
 #endif
 #if defined(TIM2_BASE)
   if (htim->Instance == TIM2) {
     __HAL_RCC_TIM2_CLK_ENABLE();
-    timer_handles[1] = htim;
+    timer_handles[TIMER2_INDEX] = htim;
   }
 #endif
 #if defined(TIM3_BASE)
   if (htim->Instance == TIM3) {
     __HAL_RCC_TIM3_CLK_ENABLE();
-    timer_handles[2] = htim;
+    timer_handles[TIMER3_INDEX] = htim;
   }
 #endif
 #if defined(TIM4_BASE)
   if (htim->Instance == TIM4) {
     __HAL_RCC_TIM4_CLK_ENABLE();
-    timer_handles[3] = htim;
+    timer_handles[TIMER4_INDEX] = htim;
   }
 #endif
 #if defined(TIM5_BASE)
   if (htim->Instance == TIM5) {
     __HAL_RCC_TIM5_CLK_ENABLE();
-    timer_handles[4] = htim;
+    timer_handles[TIMER5_INDEX] = htim;
   }
 #endif
 #if defined(TIM6_BASE)
   if (htim->Instance == TIM6) {
     __HAL_RCC_TIM6_CLK_ENABLE();
-    timer_handles[5] = htim;
+    timer_handles[TIMER6_INDEX] = htim;
   }
 #endif
 #if defined(TIM7_BASE)
   if (htim->Instance == TIM7) {
     __HAL_RCC_TIM7_CLK_ENABLE();
-    timer_handles[6] = htim;
+    timer_handles[TIMER7_INDEX] = htim;
   }
 #endif
 #if defined(TIM8_BASE)
   if (htim->Instance == TIM8) {
     __HAL_RCC_TIM8_CLK_ENABLE();
-    timer_handles[7] = htim;
+    timer_handles[TIMER8_INDEX] = htim;
   }
 #endif
 #if defined(TIM9_BASE)
   if (htim->Instance == TIM9) {
     __HAL_RCC_TIM9_CLK_ENABLE();
-    timer_handles[8] = htim;
+    timer_handles[TIMER9_INDEX] = htim;
   }
 #endif
 #if defined(TIM10_BASE)
   if (htim->Instance == TIM10) {
     __HAL_RCC_TIM10_CLK_ENABLE();
-    timer_handles[9] = htim;
+    timer_handles[TIMER10_INDEX] = htim;
   }
 #endif
 #if defined(TIM11_BASE)
   if (htim->Instance == TIM11) {
     __HAL_RCC_TIM11_CLK_ENABLE();
-    timer_handles[10] = htim;
+    timer_handles[TIMER11_INDEX] = htim;
   }
 #endif
 #if defined(TIM12_BASE)
   if (htim->Instance == TIM12) {
     __HAL_RCC_TIM12_CLK_ENABLE();
-    timer_handles[11] = htim;
+    timer_handles[TIMER12_INDEX] = htim;
   }
 #endif
 #if defined(TIM13_BASE)
   if (htim->Instance == TIM13) {
     __HAL_RCC_TIM13_CLK_ENABLE();
-    timer_handles[12] = htim;
+    timer_handles[TIMER13_INDEX] = htim;
   }
 #endif
 #if defined(TIM14_BASE)
   if (htim->Instance == TIM14) {
     __HAL_RCC_TIM14_CLK_ENABLE();
-    timer_handles[13] = htim;
+    timer_handles[TIMER14_INDEX] = htim;
   }
 #endif
 #if defined(TIM15_BASE)
   if (htim->Instance == TIM15) {
     __HAL_RCC_TIM15_CLK_ENABLE();
-    timer_handles[14] = htim;
+    timer_handles[TIMER15_INDEX] = htim;
   }
 #endif
 #if defined(TIM16_BASE)
   if (htim->Instance == TIM16) {
     __HAL_RCC_TIM16_CLK_ENABLE();
-    timer_handles[15] = htim;
+    timer_handles[TIMER16_INDEX] = htim;
   }
 #endif
 #if defined(TIM17_BASE)
   if (htim->Instance == TIM17) {
     __HAL_RCC_TIM17_CLK_ENABLE();
-    timer_handles[16] = htim;
+    timer_handles[TIMER17_INDEX] = htim;
   }
 #endif
 #if defined(TIM18_BASE)
   if (htim->Instance == TIM18) {
     __HAL_RCC_TIM18_CLK_ENABLE();
-    timer_handles[17] = htim;
+    timer_handles[TIMER18_INDEX] = htim;
   }
 #endif
 #if defined(TIM19_BASE)
   if (htim->Instance == TIM19) {
     __HAL_RCC_TIM19_CLK_ENABLE();
-    timer_handles[18] = htim;
+    timer_handles[TIMER19_INDEX] = htim;
   }
 #endif
 #if defined(TIM20_BASE)
   if (htim->Instance == TIM20) {
     __HAL_RCC_TIM20_CLK_ENABLE();
-    timer_handles[19] = htim;
+    timer_handles[TIMER20_INDEX] = htim;
   }
 #endif
 #if defined(TIM21_BASE)
   if (htim->Instance == TIM21) {
     __HAL_RCC_TIM21_CLK_ENABLE();
-    timer_handles[20] = htim;
+    timer_handles[TIMER21_INDEX] = htim;
   }
 #endif
 #if defined(TIM22_BASE)
   if (htim->Instance == TIM22) {
     __HAL_RCC_TIM22_CLK_ENABLE();
-    timer_handles[21] = htim;
+    timer_handles[TIMER2_INDEX] = htim;
   }
 #endif
 }
@@ -1039,22 +1108,22 @@ void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *))
   */
 void TIM1_IRQHandler(void)
 {
-  if (timer_handles[0] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[0]);
+  if (timer_handles[TIMER1_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER1_INDEX]);
   }
 
 #if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
 #if defined (TIM10_BASE)
-  if (timer_handles[9] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[9]);
+  if (timer_handles[TIMER10_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER10_INDEX]);
   }
 #endif
 #endif
 
 #if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
 #if defined (TIM16_BASE)
-  if (timer_handles[15] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[15]);
+  if (timer_handles[TIMER16_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER16_INDEX]);
   }
 #endif
 #endif
@@ -1069,8 +1138,8 @@ void TIM1_IRQHandler(void)
   */
 void TIM2_IRQHandler(void)
 {
-  if (timer_handles[1] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[1]);
+  if (timer_handles[TIMER2_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER2_INDEX]);
   }
 }
 #endif //TIM2_BASE
@@ -1083,8 +1152,8 @@ void TIM2_IRQHandler(void)
   */
 void TIM3_IRQHandler(void)
 {
-  if (timer_handles[2] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[2]);
+  if (timer_handles[TIMER3_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER3_INDEX]);
   }
 }
 #endif //TIM3_BASE
@@ -1097,8 +1166,8 @@ void TIM3_IRQHandler(void)
   */
 void TIM4_IRQHandler(void)
 {
-  if (timer_handles[3] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[3]);
+  if (timer_handles[TIMER4_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER4_INDEX]);
   }
 }
 #endif //TIM4_BASE
@@ -1111,8 +1180,8 @@ void TIM4_IRQHandler(void)
   */
 void TIM5_IRQHandler(void)
 {
-  if (timer_handles[4] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[4]);
+  if (timer_handles[TIMER5_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER5_INDEX]);
   }
 }
 #endif //TIM5_BASE
@@ -1125,8 +1194,8 @@ void TIM5_IRQHandler(void)
   */
 void TIM6_IRQHandler(void)
 {
-  if (timer_handles[5] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[5]);
+  if (timer_handles[TIMER6_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER6_INDEX]);
   }
 }
 #endif //TIM6_BASE
@@ -1139,8 +1208,8 @@ void TIM6_IRQHandler(void)
   */
 void TIM7_IRQHandler(void)
 {
-  if (timer_handles[6] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[6]);
+  if (timer_handles[TIMER7_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER7_INDEX]);
   }
 }
 #endif //TIM7_BASE
@@ -1153,13 +1222,13 @@ void TIM7_IRQHandler(void)
   */
 void TIM8_IRQHandler(void)
 {
-  if (timer_handles[7] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[7]);
+  if (timer_handles[TIMER8_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER8_INDEX]);
   }
 
 #if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
-  if (timer_handles[12] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[12]);
+  if (timer_handles[TIMER13_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER13_INDEX]);
   }
 #endif
 }
@@ -1173,8 +1242,8 @@ void TIM8_IRQHandler(void)
   */
 void TIM9_IRQHandler(void)
 {
-  if (timer_handles[8] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[8]);
+  if (timer_handles[TIMER9_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER9_INDEX]);
   }
 }
 #endif //TIM9_BASE
@@ -1188,8 +1257,8 @@ void TIM9_IRQHandler(void)
   */
 void TIM10_IRQHandler(void)
 {
-  if (timer_handles[9] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[9]);
+  if (timer_handles[TIMER10_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER10_INDEX]);
   }
 }
 #endif
@@ -1203,8 +1272,8 @@ void TIM10_IRQHandler(void)
   */
 void TIM11_IRQHandler(void)
 {
-  if (timer_handles[10] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[10]);
+  if (timer_handles[TIMER11_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER11_INDEX]);
   }
 }
 #endif //TIM11_BASE
@@ -1217,8 +1286,8 @@ void TIM11_IRQHandler(void)
   */
 void TIM12_IRQHandler(void)
 {
-  if (timer_handles[11] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[11]);
+  if (timer_handles[TIMER12_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER12_INDEX]);
   }
 }
 #endif //TIM12_BASE
@@ -1232,8 +1301,8 @@ void TIM12_IRQHandler(void)
   */
 void TIM13_IRQHandler(void)
 {
-  if (timer_handles[12] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[12]);
+  if (timer_handles[TIMER13_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER13_INDEX]);
   }
 }
 #endif
@@ -1247,8 +1316,8 @@ void TIM13_IRQHandler(void)
   */
 void TIM14_IRQHandler(void)
 {
-  if (timer_handles[13] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[13]);
+  if (timer_handles[TIMER14_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER14_INDEX]);
   }
 }
 #endif //TIM14_BASE
@@ -1261,8 +1330,8 @@ void TIM14_IRQHandler(void)
   */
 void TIM15_IRQHandler(void)
 {
-  if (timer_handles[14] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[14]);
+  if (timer_handles[TIMER15_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER15_INDEX]);
   }
 }
 #endif //TIM15_BASE
@@ -1276,8 +1345,8 @@ void TIM15_IRQHandler(void)
   */
 void TIM16_IRQHandler(void)
 {
-  if (timer_handles[15] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[15]);
+  if (timer_handles[TIMER16_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER16_INDEX]);
   }
 }
 #endif
@@ -1291,8 +1360,8 @@ void TIM16_IRQHandler(void)
   */
 void TIM17_IRQHandler(void)
 {
-  if (timer_handles[16] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[16]);
+  if (timer_handles[TIMER17_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER17_INDEX]);
   }
 }
 #endif //TIM17_BASE
@@ -1305,8 +1374,8 @@ void TIM17_IRQHandler(void)
   */
 void TIM18_IRQHandler(void)
 {
-  if (timer_handles[17] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[17]);
+  if (timer_handles[TIMER18_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER18_INDEX]);
   }
 }
 #endif //TIM18_BASE
@@ -1319,8 +1388,8 @@ void TIM18_IRQHandler(void)
   */
 void TIM19_IRQHandler(void)
 {
-  if (timer_handles[18] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[18]);
+  if (timer_handles[TIMER19_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER19_INDEX]);
   }
 }
 #endif //TIM19_BASE
@@ -1333,8 +1402,8 @@ void TIM19_IRQHandler(void)
   */
 void TIM20_IRQHandler(void)
 {
-  if (timer_handles[19] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[19]);
+  if (timer_handles[TIMER20_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER20_INDEX]);
   }
 }
 #endif //TIM20_BASE
@@ -1347,8 +1416,8 @@ void TIM20_IRQHandler(void)
   */
 void TIM21_IRQHandler(void)
 {
-  if (timer_handles[20] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[20]);
+  if (timer_handles[TIMER21_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER21_INDEX]);
   }
 }
 #endif //TIM21_BASE
@@ -1361,8 +1430,8 @@ void TIM21_IRQHandler(void)
   */
 void TIM22_IRQHandler(void)
 {
-  if (timer_handles[21] != NULL) {
-    HAL_TIM_IRQHandler(timer_handles[21]);
+  if (timer_handles[TIMER22_INDEX] != NULL) {
+    HAL_TIM_IRQHandler(timer_handles[TIMER22_INDEX]);
   }
 }
 #endif //TIM22_BASE

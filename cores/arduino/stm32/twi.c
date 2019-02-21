@@ -53,15 +53,21 @@ extern "C" {
 #define SLAVE_MODE_LISTEN       2
 
 /*  Family specific description for I2C */
-#if defined(STM32F7xx) || defined(STM32H7xx) || defined(STM32L4xx)
-#define I2C_NUM (4)
-#elif defined(STM32F2xx) || defined(STM32F3xx) || defined(STM32F4xx) || defined(STM32L0xx)
-#define I2C_NUM (3)
-#elif defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32L1xx)
-#define I2C_NUM (2)
-#else
-#error "Unknown Family - unknown I2C_NUM"
+typedef enum {
+#if defined(I2C1_BASE)
+  I2C1_INDEX,
 #endif
+#if defined(I2C2_BASE)
+  I2C2_INDEX,
+#endif
+#if defined(I2C3_BASE)
+  I2C3_INDEX,
+#endif
+#if defined(I2C4_BASE)
+  I2C4_INDEX,
+#endif
+  I2C_NUM
+} i2c_index_t;
 
 /* Private Variables */
 static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
@@ -121,7 +127,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C1_ER_IRQn;
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
-    i2c_handles[0] = handle;
+    i2c_handles[I2C1_INDEX] = handle;
   }
 #endif // I2C1_BASE
 #if defined I2C2_BASE
@@ -134,7 +140,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C2_ER_IRQn;
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
-    i2c_handles[1] = handle;
+    i2c_handles[I2C2_INDEX] = handle;
   }
 #endif // I2C2_BASE
 #if defined I2C3_BASE
@@ -147,7 +153,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C3_ER_IRQn;
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
-    i2c_handles[2] = handle;
+    i2c_handles[I2C3_INDEX] = handle;
   }
 #endif // I2C3_BASE
 #if defined I2C4_BASE
@@ -160,7 +166,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C4_ER_IRQn;
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
-    i2c_handles[3] = handle;
+    i2c_handles[I2C4_INDEX] = handle;
   }
 #endif // I2C4_BASE
 
@@ -577,7 +583,7 @@ void HAL_I2C_ErrorCallback(I2C_HandleTypeDef *hi2c)
 */
 void I2C1_EV_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[0];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
 #if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
@@ -592,7 +598,7 @@ void I2C1_EV_IRQHandler(void)
 */
 void I2C1_ER_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[0];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
@@ -606,7 +612,7 @@ void I2C1_ER_IRQHandler(void)
 */
 void I2C2_EV_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[1];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
 #if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
@@ -621,7 +627,7 @@ void I2C2_EV_IRQHandler(void)
 */
 void I2C2_ER_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[1];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
@@ -635,7 +641,7 @@ void I2C2_ER_IRQHandler(void)
 */
 void I2C3_EV_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[2];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
 #if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
@@ -650,7 +656,7 @@ void I2C3_EV_IRQHandler(void)
 */
 void I2C3_ER_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[2];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
@@ -664,7 +670,7 @@ void I2C3_ER_IRQHandler(void)
 */
 void I2C4_EV_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[3];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
 #if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
@@ -679,7 +685,7 @@ void I2C4_EV_IRQHandler(void)
 */
 void I2C4_ER_IRQHandler(void)
 {
-  I2C_HandleTypeDef *handle = i2c_handles[3];
+  I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)

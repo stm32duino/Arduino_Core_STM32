@@ -146,9 +146,16 @@ static void RTC_initClock(sourceClock_t source)
 #ifndef RCC_RTCCLKSOURCE_HSE_DIVX
 #define RCC_RTCCLKSOURCE_HSE_DIVX 0x00000300U
 #endif /* RCC_RTCCLKSOURCE_HSE_DIVX */
-    for (HSEDiv = 2; HSEDiv < 32; HSEDiv++) {
+#if defined(STM32H7xx)
+#define HSEDIV_MAX 64
+#define HSESHIFT 12
+#else
+#define HSEDIV_MAX 32
+#define HSESHIFT 16
+#endif
+    for (HSEDiv = 2; HSEDiv < HSEDIV_MAX; HSEDiv++) {
       if ((HSE_VALUE / HSEDiv) <= HSE_RTC_MAX) {
-        PeriphClkInit.RTCClockSelection = (HSEDiv << 16) | RCC_RTCCLKSOURCE_HSE_DIVX;
+        PeriphClkInit.RTCClockSelection = (HSEDiv << HSESHIFT) | RCC_RTCCLKSOURCE_HSE_DIVX;
         break;
       }
     }
