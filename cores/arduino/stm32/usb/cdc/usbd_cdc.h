@@ -115,6 +115,7 @@ typedef struct {
   uint8_t  *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
+  uint32_t TxLastLength;
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;

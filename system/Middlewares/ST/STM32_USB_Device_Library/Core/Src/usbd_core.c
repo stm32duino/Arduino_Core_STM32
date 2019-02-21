@@ -289,18 +289,14 @@ USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
 USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
                                         uint8_t epnum, uint8_t *pdata)
 {
-  USBD_EndpointTypeDef    *pep;
-
   if (epnum == 0U) {
-    pep = &pdev->ep_out[0];
-
     if (pdev->ep0_state == USBD_EP0_DATA_OUT) {
-      if (pep->rem_length > USB_MAX_EP0_SIZE) {
-        pep->rem_length -=  USB_MAX_EP0_SIZE;
+      if (pdev->ep0_rem_len > USB_MAX_EP0_SIZE) {
+        pdev->ep0_rem_len -= USB_MAX_EP0_SIZE;
 
         USBD_CtlContinueRx(pdev,
                            pdata,
-                           (uint16_t)MIN(pep->rem_length, USB_MAX_EP0_SIZE));
+                           (uint16_t)MIN(pdev->ep0_rem_len, USB_MAX_EP0_SIZE));
       } else {
         if ((pdev->pClass->EP0_RxReady != NULL) &&
             (pdev->dev_state == USBD_STATE_CONFIGURED)) {
@@ -338,24 +334,20 @@ USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
 USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev, uint8_t epnum,
                                        uint8_t *pdata)
 {
-  USBD_EndpointTypeDef *pep;
-
   if (epnum == 0U) {
-    pep = &pdev->ep_in[0];
-
     if (pdev->ep0_state == USBD_EP0_DATA_IN) {
-      if (pep->rem_length > USB_MAX_EP0_SIZE) {
-        pep->rem_length -= USB_MAX_EP0_SIZE;
+      if (pdev->ep0_rem_len > USB_MAX_EP0_SIZE) {
+        pdev->ep0_rem_len -= USB_MAX_EP0_SIZE;
 
-        USBD_CtlContinueSendData(pdev, pdata, (uint16_t)pep->rem_length);
+        USBD_CtlContinueSendData(pdev, pdata, (uint16_t)pdev->ep0_rem_len);
 
         /* Prepare endpoint for premature end of transfer */
         USBD_LL_PrepareReceive(pdev, 0U, NULL, 0U);
       } else {
         /* last packet is MPS multiple, so send ZLP packet */
-        if ((pep->total_length % USB_MAX_EP0_SIZE == 0U) &&
-            (pep->total_length >= USB_MAX_EP0_SIZE) &&
-            (pep->total_length < pdev->ep0_data_len)) {
+        if ((pdev->ep0_total_len % USB_MAX_EP0_SIZE == 0U) &&
+            (pdev->ep0_total_len >= USB_MAX_EP0_SIZE) &&
+            (pdev->ep0_total_len < pdev->ep0_data_len)) {
           USBD_CtlContinueSendData(pdev, NULL, 0U);
           pdev->ep0_data_len = 0U;
 
