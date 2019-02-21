@@ -241,7 +241,6 @@ typedef struct _USBD_HandleTypeDef {
   uint8_t                 dev_state;
   uint8_t                 dev_old_state;
   uint8_t                 dev_address;
-  uint8_t                 dev_connection_status;
   uint8_t                 dev_test_mode;
   uint32_t                dev_remote_wakeup;
 
