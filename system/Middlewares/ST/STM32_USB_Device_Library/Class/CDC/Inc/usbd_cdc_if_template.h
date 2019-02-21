@@ -22,7 +22,7 @@
 #define __USBD_CDC_IF_TEMPLATE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -31,7 +31,7 @@
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-extern USBD_CDC_ItfTypeDef  USBD_CDC_Template_fops;
+extern USBD_CDC_ItfTypeDef USBD_CDC_Template_fops;
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
