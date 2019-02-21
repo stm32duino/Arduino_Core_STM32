@@ -151,7 +151,6 @@ USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev,
   {
     /* link the class to the USB Device handle */
     pdev->pClass = pclass;
-    status       = USBD_OK;
   }
   else
   {
@@ -172,7 +171,6 @@ USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev,
   */
 USBD_StatusTypeDef USBD_Start(USBD_HandleTypeDef *pdev)
 {
-
   /* Start the low level driver  */
   USBD_LL_Start(pdev);
 
@@ -276,7 +274,7 @@ USBD_StatusTypeDef USBD_LL_SetupStage(USBD_HandleTypeDef *pdev, uint8_t *psetup)
     break;
 
   default:
-    USBD_LL_StallEP(pdev, (pdev->request.bmRequest & 0x80U));
+    USBD_LL_StallEP(pdev, (uint8_t) (pdev->request.bmRequest & 0x80U));
     break;
   }
 

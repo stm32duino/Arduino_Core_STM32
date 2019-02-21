@@ -155,7 +155,6 @@ extern "C" {
 
 typedef struct usb_setup_req
 {
-
   uint8_t bmRequest;
   uint8_t bRequest;
   uint16_t wValue;
@@ -270,8 +269,6 @@ typedef struct _USBD_HandleTypeDef
 /** @defgroup USBD_DEF_Exported_Macros
   * @{
   */
-#define SWAPBYTE(addr) (((uint16_t)(*((uint8_t *)(addr)))) + \
-                       (((uint16_t)(*(((uint8_t *)(addr)) + 1U))) << 8U))
 
 #define LOBYTE(x)      ((uint8_t)(x & 0x00FFU))
 #define HIBYTE(x)      ((uint8_t)((x & 0xFF00U) >> 8U))
@@ -288,10 +285,11 @@ typedef struct _USBD_HandleTypeDef
 #endif /* __GNUC__ */
 
 /* In HS mode and when the DMA is used, all variables and data structures
-   dealing
-   with the DMA during the transaction process should be 4-bytes aligned */
+ * dealing with the DMA during the transaction process should be 4-bytes
+ * aligned */
 
-#if defined(__GNUC__) /* GNU Compiler */
+#if !defined(__ALIGN_BEGIN) || !defined(__ALIGN_END)
+#if defined(__GNUC__) &&  /* GNU Compiler */
 #define __ALIGN_END    __attribute__((aligned(4)))
 #define __ALIGN_BEGIN
 #else
@@ -304,6 +302,7 @@ typedef struct _USBD_HandleTypeDef
 #define __ALIGN_BEGIN  __align(4)
 #endif /* __CC_ARM */
 #endif /* __GNUC__ */
+#endif
 
 /**
   * @}

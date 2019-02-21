@@ -174,6 +174,7 @@ USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev,
                                           uint16_t size);
 
 uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr);
+
 void USBD_LL_Delay(uint32_t Delay);
 
 /**

@@ -208,7 +208,7 @@ USBD_StatusTypeDef USBD_StdItfReq(USBD_HandleTypeDef *pdev,
     break;
   }
 
-  return USBD_OK;
+  return ret;
 }
 
 /**
@@ -416,12 +416,12 @@ static void USBD_GetDescriptor(USBD_HandleTypeDef *pdev,
   case USB_DESC_TYPE_CONFIGURATION:
     if (pdev->dev_speed == USBD_SPEED_HIGH)
     {
-      pbuf    = (uint8_t *)pdev->pClass->GetHSConfigDescriptor(&len);
+      pbuf    = pdev->pClass->GetHSConfigDescriptor(&len);
       pbuf[1] = USB_DESC_TYPE_CONFIGURATION;
     }
     else
     {
-      pbuf    = (uint8_t *)pdev->pClass->GetFSConfigDescriptor(&len);
+      pbuf    = pdev->pClass->GetFSConfigDescriptor(&len);
       pbuf[1] = USB_DESC_TYPE_CONFIGURATION;
     }
     break;
@@ -467,7 +467,7 @@ static void USBD_GetDescriptor(USBD_HandleTypeDef *pdev,
 
     if (pdev->dev_speed == USBD_SPEED_HIGH)
     {
-      pbuf = (uint8_t *)pdev->pClass->GetDeviceQualifierDescriptor(&len);
+      pbuf = pdev->pClass->GetDeviceQualifierDescriptor(&len);
       break;
     }
     else
@@ -479,7 +479,7 @@ static void USBD_GetDescriptor(USBD_HandleTypeDef *pdev,
   case USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION:
     if (pdev->dev_speed == USBD_SPEED_HIGH)
     {
-      pbuf    = (uint8_t *)pdev->pClass->GetOtherSpeedConfigDescriptor(&len);
+      pbuf    = pdev->pClass->GetOtherSpeedConfigDescriptor(&len);
       pbuf[1] = USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION;
       break;
     }
@@ -521,7 +521,7 @@ static void USBD_SetAddress(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
   if ((req->wIndex == 0U) && (req->wLength == 0U) && (req->wValue < 128U))
   {
-    dev_addr = (uint8_t)(req->wValue) & 0x7FU;
+    dev_addr = (uint8_t) (req->wValue & 0x7FU);
 
     if (pdev->dev_state == USBD_STATE_CONFIGURED)
     {
@@ -751,11 +751,11 @@ static void USBD_ClrFeature(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   */
 void USBD_ParseSetupRequest(USBD_SetupReqTypedef *req, uint8_t *pdata)
 {
-  req->bmRequest = *(uint8_t *)(pdata);
-  req->bRequest  = *(uint8_t *)(pdata + 1);
-  req->wValue    = SWAPBYTE(pdata + 2);
-  req->wIndex    = SWAPBYTE(pdata + 4);
-  req->wLength   = SWAPBYTE(pdata + 6);
+  req->bmRequest = *pdata;
+  req->bRequest  = *(pdata + 1);
+  req->wValue    = *(uint16_t*)(pdata + 2);
+  req->wIndex    = *(uint16_t*)(pdata + 4);
+  req->wLength   = *(uint16_t*)(pdata + 6);
 }
 
 /**
@@ -767,6 +767,7 @@ void USBD_ParseSetupRequest(USBD_SetupReqTypedef *req, uint8_t *pdata)
   */
 void USBD_CtlError(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
+  UNUSED(req);
   USBD_LL_StallEP(pdev, 0x80U);
   USBD_LL_StallEP(pdev, 0U);
 }
@@ -785,7 +786,7 @@ void USBD_GetString(uint8_t *desc, uint8_t *unicode, uint16_t *len)
 
   if (desc != NULL)
   {
-    *len           = (uint16_t)USBD_GetLen(desc) * 2U + 2U;
+    *len           = (uint16_t) (USBD_GetLen(desc) * 2U + 2U);
     unicode[idx++] = *(uint8_t *)(void *)len;
     unicode[idx++] = USB_DESC_TYPE_STRING;
 
