@@ -34,15 +34,14 @@ extern "C" {
 
 /* Periodically, the state of the buffer "UserTxBuffer" is checked.
    The period depends on CDC_POLLING_INTERVAL */
-#define CDC_POLLING_INTERVAL             2 /* in ms. The max is 65 and the min is 1 */
+#define CDC_POLLING_INTERVAL 2 /* in ms. The max is 65 and the min is 1 */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
-extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
+extern USBD_CDC_ItfTypeDef USBD_CDC_fops;
 extern CDC_TransmitQueue_TypeDef TransmitQueue;
 extern CDC_ReceiveQueue_TypeDef ReceiveQueue;
-
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
