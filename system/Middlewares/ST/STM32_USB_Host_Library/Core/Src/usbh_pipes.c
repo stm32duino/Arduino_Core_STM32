@@ -68,7 +68,7 @@
 /** @defgroup USBH_PIPES_Private_Functions
   * @{
   */
-static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost);
+static uint16_t USBH_GetFreePipe(USBH_HandleTypeDef *phost);
 
 
 /**
@@ -82,22 +82,22 @@ static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost);
   * @param  mps: max pkt size
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_OpenPipe  (USBH_HandleTypeDef *phost,
-                            uint8_t pipe_num,
-                            uint8_t epnum,
-                            uint8_t dev_address,
-                            uint8_t speed,
-                            uint8_t ep_type,
-                            uint16_t mps)
+USBH_StatusTypeDef USBH_OpenPipe(USBH_HandleTypeDef *phost,
+                                 uint8_t pipe_num,
+                                 uint8_t epnum,
+                                 uint8_t dev_address,
+                                 uint8_t speed,
+                                 uint8_t ep_type,
+                                 uint16_t mps)
 {
 
   USBH_LL_OpenPipe(phost,
-                        pipe_num,
-                        epnum,
-                        dev_address,
-                        speed,
-                        ep_type,
-                        mps);
+                   pipe_num,
+                   epnum,
+                   dev_address,
+                   speed,
+                   ep_type,
+                   mps);
 
   return USBH_OK;
 
@@ -110,8 +110,8 @@ USBH_StatusTypeDef USBH_OpenPipe  (USBH_HandleTypeDef *phost,
   * @param  pipe_num: Pipe Number
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_ClosePipe  (USBH_HandleTypeDef *phost,
-                            uint8_t pipe_num)
+USBH_StatusTypeDef USBH_ClosePipe(USBH_HandleTypeDef *phost,
+                                  uint8_t pipe_num)
 {
 
   USBH_LL_ClosePipe(phost, pipe_num);
@@ -127,15 +127,14 @@ USBH_StatusTypeDef USBH_ClosePipe  (USBH_HandleTypeDef *phost,
   * @param  ep_addr: End point for which the Pipe to be allocated
   * @retval Pipe number
   */
-uint8_t USBH_AllocPipe  (USBH_HandleTypeDef *phost, uint8_t ep_addr)
+uint8_t USBH_AllocPipe(USBH_HandleTypeDef *phost, uint8_t ep_addr)
 {
   uint16_t pipe;
 
   pipe =  USBH_GetFreePipe(phost);
 
-  if (pipe != 0xFFFFU)
-  {
-	phost->Pipes[pipe] = 0x8000U | ep_addr;
+  if (pipe != 0xFFFFU) {
+    phost->Pipes[pipe] = 0x8000U | ep_addr;
   }
   return (uint8_t)pipe;
 }
@@ -147,13 +146,12 @@ uint8_t USBH_AllocPipe  (USBH_HandleTypeDef *phost, uint8_t ep_addr)
   * @param  idx: Pipe number to be freed
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_FreePipe  (USBH_HandleTypeDef *phost, uint8_t idx)
+USBH_StatusTypeDef USBH_FreePipe(USBH_HandleTypeDef *phost, uint8_t idx)
 {
-   if(idx < 11U)
-   {
-	 phost->Pipes[idx] &= 0x7FFFU;
-   }
-   return USBH_OK;
+  if (idx < 11U) {
+    phost->Pipes[idx] &= 0x7FFFU;
+  }
+  return USBH_OK;
 }
 
 /**
@@ -162,16 +160,14 @@ USBH_StatusTypeDef USBH_FreePipe  (USBH_HandleTypeDef *phost, uint8_t idx)
   *         Get a free Pipe number for allocation to a device endpoint
   * @retval idx: Free Pipe number
   */
-static uint16_t USBH_GetFreePipe (USBH_HandleTypeDef *phost)
+static uint16_t USBH_GetFreePipe(USBH_HandleTypeDef *phost)
 {
   uint8_t idx = 0U;
 
-  for (idx = 0U ; idx < 11U ; idx++)
-  {
-	if ((phost->Pipes[idx] & 0x8000U) == 0U)
-	{
-	   return (uint16_t)idx;
-	}
+  for (idx = 0U ; idx < 11U ; idx++) {
+    if ((phost->Pipes[idx] & 0x8000U) == 0U) {
+      return (uint16_t)idx;
+    }
   }
   return 0xFFFFU;
 }

@@ -22,7 +22,7 @@
 #define __USBH_CTLREQ_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -86,34 +86,34 @@ extern uint8_t USBH_CfgDesc[512];
 /** @defgroup USBH_CTLREQ_Exported_FunctionsPrototype
   * @{
   */
-USBH_StatusTypeDef USBH_CtlReq (USBH_HandleTypeDef *phost, uint8_t *buff,
-                                uint16_t length);
+USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost, uint8_t *buff,
+                               uint16_t length);
 
-USBH_StatusTypeDef USBH_GetDescriptor (USBH_HandleTypeDef *phost,
-                                       uint8_t  req_type, uint16_t value_idx,
-                                       uint8_t* buff, uint16_t length);
+USBH_StatusTypeDef USBH_GetDescriptor(USBH_HandleTypeDef *phost,
+                                      uint8_t  req_type, uint16_t value_idx,
+                                      uint8_t *buff, uint16_t length);
 
-USBH_StatusTypeDef USBH_Get_DevDesc (USBH_HandleTypeDef *phost, uint8_t length);
+USBH_StatusTypeDef USBH_Get_DevDesc(USBH_HandleTypeDef *phost, uint8_t length);
 
-USBH_StatusTypeDef USBH_Get_StringDesc (USBH_HandleTypeDef *phost,
-                                        uint8_t string_index, uint8_t *buff,
-                                        uint16_t length);
+USBH_StatusTypeDef USBH_Get_StringDesc(USBH_HandleTypeDef *phost,
+                                       uint8_t string_index, uint8_t *buff,
+                                       uint16_t length);
 
-USBH_StatusTypeDef USBH_SetCfg (USBH_HandleTypeDef *phost, uint16_t cfg_idx);
+USBH_StatusTypeDef USBH_SetCfg(USBH_HandleTypeDef *phost, uint16_t cfg_idx);
 
-USBH_StatusTypeDef USBH_Get_CfgDesc (USBH_HandleTypeDef *phost,uint16_t length);
+USBH_StatusTypeDef USBH_Get_CfgDesc(USBH_HandleTypeDef *phost, uint16_t length);
 
-USBH_StatusTypeDef USBH_SetAddress (USBH_HandleTypeDef *phost,
-                                    uint8_t DeviceAddress);
+USBH_StatusTypeDef USBH_SetAddress(USBH_HandleTypeDef *phost,
+                                   uint8_t DeviceAddress);
 
-USBH_StatusTypeDef USBH_SetInterface (USBH_HandleTypeDef *phost, uint8_t ep_num,
-                                      uint8_t altSetting);
+USBH_StatusTypeDef USBH_SetInterface(USBH_HandleTypeDef *phost, uint8_t ep_num,
+                                     uint8_t altSetting);
 
-USBH_StatusTypeDef USBH_SetFeature (USBH_HandleTypeDef *phost, uint8_t wValue);
+USBH_StatusTypeDef USBH_SetFeature(USBH_HandleTypeDef *phost, uint8_t wValue);
 
-USBH_StatusTypeDef USBH_ClrFeature (USBH_HandleTypeDef *phost, uint8_t ep_num);
+USBH_StatusTypeDef USBH_ClrFeature(USBH_HandleTypeDef *phost, uint8_t ep_num);
 
-USBH_DescHeader_t *USBH_GetNextDesc (uint8_t *pbuf, uint16_t *ptr);
+USBH_DescHeader_t *USBH_GetNextDesc(uint8_t *pbuf, uint16_t *ptr);
 /**
   * @}
   */

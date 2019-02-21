@@ -22,7 +22,7 @@
 #define __USBH_HID_MOUSE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -50,8 +50,7 @@
   * @{
   */
 
-typedef struct _HID_MOUSE_Info
-{
+typedef struct _HID_MOUSE_Info {
   uint8_t              x;
   uint8_t              y;
   uint8_t              buttons[3];

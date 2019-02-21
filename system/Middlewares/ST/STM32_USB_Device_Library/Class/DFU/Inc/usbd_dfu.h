@@ -22,7 +22,7 @@
 #define __USB_DFU_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -118,10 +118,9 @@
 #define DFU_DETACH_MASK                (uint8_t)(1 << 4)
 #define DFU_STATUS_DEPTH               6U
 
-typedef enum
-{
+typedef enum {
   DFU_DETACH = 0U,
-  DFU_DNLOAD ,
+  DFU_DNLOAD,
   DFU_UPLOAD,
   DFU_GETSTATUS,
   DFU_CLRSTATUS,
@@ -157,13 +156,11 @@ typedef  void (*pFunction)(void);
   * @{
   */
 
-typedef struct
-{
-  union
-  {
+typedef struct {
+  union {
     uint32_t d32[USBD_DFU_XFER_SIZE / 4U];
     uint8_t  d8[USBD_DFU_XFER_SIZE];
-  }buffer;
+  } buffer;
 
   uint32_t             wblock_num;
   uint32_t             wlength;
@@ -177,14 +174,13 @@ typedef struct
 }
 USBD_DFU_HandleTypeDef;
 
-typedef struct
-{
-  const uint8_t* pStrDesc;
-  uint16_t (* Init)     (void);
-  uint16_t (* DeInit)   (void);
-  uint16_t (* Erase)    (uint32_t Add);
-  uint16_t (* Write)    (uint8_t *src, uint8_t *dest, uint32_t Len);
-  uint8_t* (* Read)     (uint8_t *src, uint8_t *dest, uint32_t Len);
+typedef struct {
+  const uint8_t *pStrDesc;
+  uint16_t (* Init)(void);
+  uint16_t (* DeInit)(void);
+  uint16_t (* Erase)(uint32_t Add);
+  uint16_t (* Write)(uint8_t *src, uint8_t *dest, uint32_t Len);
+  uint8_t *(* Read)(uint8_t *src, uint8_t *dest, uint32_t Len);
   uint16_t (* GetStatus)(uint32_t Add, uint8_t cmd, uint8_t *buff);
 }
 USBD_DFU_MediaTypeDef;
@@ -215,8 +211,8 @@ extern USBD_ClassTypeDef  USBD_DFU;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t  USBD_DFU_RegisterMedia    (USBD_HandleTypeDef   *pdev,
-                                    USBD_DFU_MediaTypeDef *fops);
+uint8_t  USBD_DFU_RegisterMedia(USBD_HandleTypeDef   *pdev,
+                                USBD_DFU_MediaTypeDef *fops);
 /**
   * @}
   */

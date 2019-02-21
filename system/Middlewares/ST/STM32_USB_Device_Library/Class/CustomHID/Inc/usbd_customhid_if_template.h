@@ -22,7 +22,7 @@
 #define __USBD_CUSTOMHID_IF_TEMPLATE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/

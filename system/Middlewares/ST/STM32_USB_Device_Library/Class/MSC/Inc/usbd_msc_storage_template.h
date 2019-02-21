@@ -22,7 +22,7 @@
 #define __USBD_MSC_STORAGE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/

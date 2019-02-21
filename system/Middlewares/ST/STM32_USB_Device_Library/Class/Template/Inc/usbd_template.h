@@ -22,7 +22,7 @@
 #define __USB_TEMPLATE_CORE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/

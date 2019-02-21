@@ -22,7 +22,7 @@
 #define __USDH_HID_USAGE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /** @addtogroup USBH_LIB

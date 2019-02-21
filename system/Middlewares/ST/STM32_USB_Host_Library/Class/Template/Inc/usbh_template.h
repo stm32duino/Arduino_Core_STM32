@@ -22,7 +22,7 @@
 #define __USBH_TEMPLATE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -90,8 +90,8 @@ extern USBH_ClassTypeDef  TEMPLATE_Class;
 /** @defgroup USBH_TEMPLATE_CLASS_Exported_FunctionsPrototype
 * @{
 */
-USBH_StatusTypeDef USBH_TEMPLATE_IOProcess (USBH_HandleTypeDef *phost);
-USBH_StatusTypeDef USBH_TEMPLATE_Init (USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_TEMPLATE_IOProcess(USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_TEMPLATE_Init(USBH_HandleTypeDef *phost);
 /**
 * @}
 */

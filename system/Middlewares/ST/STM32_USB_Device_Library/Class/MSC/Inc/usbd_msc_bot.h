@@ -22,7 +22,7 @@
 #define __USBD_MSC_BOT_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -77,8 +77,7 @@
   * @{
   */
 
-typedef struct
-{
+typedef struct {
   uint32_t dSignature;
   uint32_t dTag;
   uint32_t dDataLength;
@@ -91,8 +90,7 @@ typedef struct
 USBD_MSC_BOT_CBWTypeDef;
 
 
-typedef struct
-{
+typedef struct {
   uint32_t dSignature;
   uint32_t dTag;
   uint32_t dDataResidue;
@@ -116,20 +114,20 @@ USBD_MSC_BOT_CSWTypeDef;
 /** @defgroup USBD_CORE_Exported_FunctionsPrototypes
   * @{
   */
-void MSC_BOT_Init (USBD_HandleTypeDef  *pdev);
-void MSC_BOT_Reset (USBD_HandleTypeDef  *pdev);
-void MSC_BOT_DeInit (USBD_HandleTypeDef  *pdev);
-void MSC_BOT_DataIn (USBD_HandleTypeDef  *pdev,
+void MSC_BOT_Init(USBD_HandleTypeDef  *pdev);
+void MSC_BOT_Reset(USBD_HandleTypeDef  *pdev);
+void MSC_BOT_DeInit(USBD_HandleTypeDef  *pdev);
+void MSC_BOT_DataIn(USBD_HandleTypeDef  *pdev,
+                    uint8_t epnum);
+
+void MSC_BOT_DataOut(USBD_HandleTypeDef  *pdev,
                      uint8_t epnum);
 
-void MSC_BOT_DataOut (USBD_HandleTypeDef  *pdev,
-                      uint8_t epnum);
+void MSC_BOT_SendCSW(USBD_HandleTypeDef  *pdev,
+                     uint8_t CSW_Status);
 
-void MSC_BOT_SendCSW (USBD_HandleTypeDef  *pdev,
-                             uint8_t CSW_Status);
-
-void  MSC_BOT_CplClrFeature (USBD_HandleTypeDef  *pdev,
-                             uint8_t epnum);
+void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef  *pdev,
+                            uint8_t epnum);
 /**
   * @}
   */

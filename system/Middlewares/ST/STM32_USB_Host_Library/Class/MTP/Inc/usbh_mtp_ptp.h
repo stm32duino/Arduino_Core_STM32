@@ -22,7 +22,7 @@
 #define __USBH_MTP_PTP_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -90,7 +90,7 @@
 #define PTP_OC_GetStreamInfo                              0x1024U
 #define PTP_OC_GetStream                                  0x1025U
 
-    /* Microsoft / MTP extension codes */
+/* Microsoft / MTP extension codes */
 #define PTP_OC_GetObjectPropsSupported                    0x9801U
 #define PTP_OC_GetObjectPropDesc                          0x9802U
 #define PTP_OC_GetObjectPropValue                         0x9803U
@@ -180,8 +180,7 @@
   * @{
   */
 
-typedef enum
-{
+typedef enum {
   PTP_REQ_IDLE = 0,
   PTP_REQ_SEND,
   PTP_REQ_WAIT,
@@ -189,8 +188,7 @@ typedef enum
 }
 PTP_RequestStateTypeDef;
 
-typedef enum
-{
+typedef enum {
   PTP_IDLE = 0,
   PTP_OP_REQUEST_STATE,
   PTP_OP_REQUEST_WAIT_STATE,
@@ -205,8 +203,7 @@ typedef enum
 PTP_ProcessStateTypeDef;
 
 /* PTP request/response/event general PTP container (transport independent) */
-typedef struct
-{
+typedef struct {
   uint16_t Code;
   uint32_t SessionID;
   uint32_t Transaction_ID;
@@ -230,8 +227,7 @@ PTP_ContainerTypedef;
 #define PTP_USB_BULK_REQ_LEN                              (PTP_USB_BULK_HDR_LEN + 5U * sizeof(uint32_t))
 #define PTP_USB_BULK_REQ_RESP_MAX_LEN                     63U
 
-typedef struct
-{
+typedef struct {
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -245,8 +241,7 @@ typedef struct
 PTP_RespContainerTypedef;
 
 
-typedef struct
-{
+typedef struct {
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -259,8 +254,7 @@ typedef struct
 }
 PTP_OpContainerTypedef;
 
-typedef struct
-{
+typedef struct {
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -274,13 +268,12 @@ typedef struct
       uint32_t param5;
     } params;
     uint8_t  data[PTP_USB_BULK_PAYLOAD_LEN_READ];
-  }payload;
+  } payload;
 }
 PTP_DataContainerTypedef;
 
 /* PTP USB Asynchronous Event Interrupt Data Format */
-typedef struct
-{
+typedef struct {
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -292,8 +285,7 @@ typedef struct
 PTP_EventContainerTypedef;
 
 /* Structure for PTP Transport process */
-typedef struct
-{
+typedef struct {
   PTP_ProcessStateTypeDef      state;
   PTP_RequestStateTypeDef      req_state;
   PTP_OpContainerTypedef       op_container;
@@ -301,27 +293,27 @@ typedef struct
   PTP_RespContainerTypedef     resp_container;
 
   /* ptp transaction ID */
-  uint32_t	transaction_id;
+  uint32_t  transaction_id;
 
   /* ptp session ID */
-  uint32_t	session_id;
+  uint32_t  session_id;
 
   /* device flags */
-  uint32_t	flags;
+  uint32_t  flags;
 
   /****** PTP transfer control *******/
 
   /* Data pointer */
-  uint8_t	*data_ptr;
+  uint8_t *data_ptr;
 
   /* Data length */
-  uint32_t	data_length;
+  uint32_t  data_length;
 
   /* Data length */
-  uint32_t	data_packet;
+  uint32_t  data_packet;
 
   /* Data length */
-  uint32_t	iteration;
+  uint32_t  iteration;
 
   /* Packet Index */
   uint32_t   data_packet_counter;
@@ -329,7 +321,7 @@ typedef struct
   /****** Object transfer control *******/
 
   /* object pointer */
-  uint8_t	*object_ptr;
+  uint8_t *object_ptr;
 
 }
 PTP_HandleTypeDef;
@@ -350,8 +342,7 @@ PTP_HandleTypeDef;
 #define PTP_IMAGE_FORMATS_NBR                             100U
 #define PTP_MAX_STR_SIZE                                  255U
 /* PTP device info structure */
-typedef struct
-{
+typedef struct {
   uint16_t StandardVersion;
   uint32_t VendorExtensionID;
   uint16_t VendorExtensionVersion;
@@ -376,8 +367,7 @@ PTP_DeviceInfoTypedef;
 
 #define PTP_MAX_STORAGE_UNITS_NBR                         5
 /* PTP storageIDs structute (returned by GetStorageIDs) */
-typedef struct
-{
+typedef struct {
   uint32_t n;
   uint32_t Storage [PTP_MAX_STORAGE_UNITS_NBR];
 }
@@ -415,8 +405,7 @@ PTP_StorageIDsTypedef;
 #define PTP_AC_ReadOnly                                   0x0001U
 #define PTP_AC_ReadOnly_with_Object_Deletion              0x0002U
 
-typedef struct
-{
+typedef struct {
   uint16_t StorageType;
   uint16_t FilesystemType;
   uint16_t AccessCapability;
@@ -709,8 +698,7 @@ PTP_StorageInfoTypedef;
 #define PTP_AT_AncillaryData                              0x0007U
 
 #define PTP_MAX_HANDLER_NBR                               0x255U
-typedef struct
-{
+typedef struct {
   uint32_t n;
   uint32_t Handler[PTP_MAX_HANDLER_NBR];
 }
@@ -735,8 +723,7 @@ PTP_ObjectHandlesTypedef;
 #define PTP_oi_filenamelen                                52U
 #define PTP_oi_Filename                                   53U
 
-typedef struct
-{
+typedef struct {
   uint32_t StorageID;
   uint16_t ObjectFormat;
   uint16_t ProtectionStatus;
@@ -763,8 +750,7 @@ PTP_ObjectInfoTypedef;
 
 /* Object Property Describing Dataset (DevicePropDesc) */
 
-typedef union  _PTP_PropertyValueTypedef
-{
+typedef union  _PTP_PropertyValueTypedef {
   char  str[PTP_MAX_STR_SIZE];
   uint8_t u8;
   int8_t i8;
@@ -777,11 +763,10 @@ typedef union  _PTP_PropertyValueTypedef
   struct array {
     uint32_t count;
     union _PTP_PropertyValueTypedef *v;
-  }a;
-}PTP_PropertyValueTypedef;
+  } a;
+} PTP_PropertyValueTypedef;
 
-typedef struct
-{
+typedef struct {
   PTP_PropertyValueTypedef MinimumValue;
   PTP_PropertyValueTypedef MaximumValue;
   PTP_PropertyValueTypedef StepSize;
@@ -790,8 +775,7 @@ PTP_PropDescRangeFormTypedef;
 
 /* Property Describing Dataset, Enum Form */
 
-typedef struct
-{
+typedef struct {
   uint16_t NumberOfValues;
   PTP_PropertyValueTypedef SupportedValue[PTP_SUPPORTED_PROPRIETIES_NBR];
 }
@@ -803,8 +787,7 @@ PTP_PropDescEnumFormTypedef;
 #define PTP_opd_GetSet                                    4U
 #define PTP_opd_FactoryDefaultValue                       5U
 
-typedef struct
-{
+typedef struct {
   uint16_t    ObjectPropertyCode;
   uint16_t    DataType;
   uint8_t     GetSet;
@@ -812,15 +795,14 @@ typedef struct
   uint32_t    GroupCode;
   uint8_t     FormFlag;
   union {
-    PTP_PropDescEnumFormTypedef	Enum;
-    PTP_PropDescRangeFormTypedef	Range;
+    PTP_PropDescEnumFormTypedef Enum;
+    PTP_PropDescRangeFormTypedef  Range;
   } FORM;
 }
 PTP_ObjectPropDescTypeDef;
 
 /* Metadata lists for MTP operations */
-typedef struct
-{
+typedef struct {
   uint16_t   property;
   uint16_t   datatype;
   uint32_t   ObjectHandle;
@@ -854,8 +836,7 @@ MTP_PropertiesTypedef;
 
 /* Device Property Describing Dataset (DevicePropDesc) */
 
-typedef struct
-{
+typedef struct {
   uint16_t  DevicePropertyCode;
   uint16_t  DataType;
   uint8_t   GetSet;
@@ -896,7 +877,7 @@ PTP_DevicePropDescTypdef;
 #define PTP_DTC_AINT128                                   (PTP_DTC_ARRAY_MASK | PTP_DTC_INT128)
 #define PTP_DTC_AUINT128                                  (PTP_DTC_ARRAY_MASK | PTP_DTC_UINT128)
 
-#define PTP_DTC_STR		                                    0xFFFFU
+#define PTP_DTC_STR                                       0xFFFFU
 
 /* PTP Event Codes */
 
@@ -940,72 +921,72 @@ PTP_DevicePropDescTypdef;
   * @{
   */
 USBH_StatusTypeDef USBH_PTP_Init(USBH_HandleTypeDef *phost);
-USBH_StatusTypeDef USBH_PTP_Process (USBH_HandleTypeDef *phost);
+USBH_StatusTypeDef USBH_PTP_Process(USBH_HandleTypeDef *phost);
 
-USBH_StatusTypeDef USBH_PTP_SendRequest (USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *req);
-USBH_StatusTypeDef USBH_PTP_GetResponse (USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *resp);
+USBH_StatusTypeDef USBH_PTP_SendRequest(USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *req);
+USBH_StatusTypeDef USBH_PTP_GetResponse(USBH_HandleTypeDef *phost, PTP_ContainerTypedef  *resp);
 
-USBH_StatusTypeDef USBH_PTP_OpenSession (USBH_HandleTypeDef *phost, uint32_t session);
-USBH_StatusTypeDef USBH_PTP_GetDeviceInfo (USBH_HandleTypeDef *phost, PTP_DeviceInfoTypedef *dev_info);
-USBH_StatusTypeDef USBH_PTP_GetStorageIds (USBH_HandleTypeDef *phost, PTP_StorageIDsTypedef *storage_ids);
+USBH_StatusTypeDef USBH_PTP_OpenSession(USBH_HandleTypeDef *phost, uint32_t session);
+USBH_StatusTypeDef USBH_PTP_GetDeviceInfo(USBH_HandleTypeDef *phost, PTP_DeviceInfoTypedef *dev_info);
+USBH_StatusTypeDef USBH_PTP_GetStorageIds(USBH_HandleTypeDef *phost, PTP_StorageIDsTypedef *storage_ids);
 
-USBH_StatusTypeDef USBH_PTP_GetStorageInfo (USBH_HandleTypeDef *phost,
-                                            uint32_t storage_id,
-                                            PTP_StorageInfoTypedef *storage_info);
-
-USBH_StatusTypeDef USBH_PTP_GetNumObjects (USBH_HandleTypeDef *phost,
+USBH_StatusTypeDef USBH_PTP_GetStorageInfo(USBH_HandleTypeDef *phost,
                                            uint32_t storage_id,
-                                           uint32_t objectformatcode,
-                                           uint32_t associationOH,
-                                           uint32_t* numobs);
+                                           PTP_StorageInfoTypedef *storage_info);
 
-USBH_StatusTypeDef USBH_PTP_GetObjectHandles (USBH_HandleTypeDef *phost,
-                                           uint32_t storage_id,
-                                           uint32_t objectformatcode,
-                                           uint32_t associationOH,
-                                           PTP_ObjectHandlesTypedef* objecthandles);
+USBH_StatusTypeDef USBH_PTP_GetNumObjects(USBH_HandleTypeDef *phost,
+                                          uint32_t storage_id,
+                                          uint32_t objectformatcode,
+                                          uint32_t associationOH,
+                                          uint32_t *numobs);
 
-USBH_StatusTypeDef USBH_PTP_GetObjectInfo (USBH_HandleTypeDef *phost,
-                                           uint32_t handle,
-                                           PTP_ObjectInfoTypedef *object_info);
+USBH_StatusTypeDef USBH_PTP_GetObjectHandles(USBH_HandleTypeDef *phost,
+                                             uint32_t storage_id,
+                                             uint32_t objectformatcode,
+                                             uint32_t associationOH,
+                                             PTP_ObjectHandlesTypedef *objecthandles);
 
-USBH_StatusTypeDef USBH_PTP_DeleteObject (USBH_HandleTypeDef *phost,
+USBH_StatusTypeDef USBH_PTP_GetObjectInfo(USBH_HandleTypeDef *phost,
                                           uint32_t handle,
-                                          uint32_t objectformatcode);
+                                          PTP_ObjectInfoTypedef *object_info);
 
-USBH_StatusTypeDef USBH_PTP_GetObject (USBH_HandleTypeDef *phost,
-                                           uint32_t handle,
-                                           uint8_t *object);
+USBH_StatusTypeDef USBH_PTP_DeleteObject(USBH_HandleTypeDef *phost,
+                                         uint32_t handle,
+                                         uint32_t objectformatcode);
+
+USBH_StatusTypeDef USBH_PTP_GetObject(USBH_HandleTypeDef *phost,
+                                      uint32_t handle,
+                                      uint8_t *object);
 
 USBH_StatusTypeDef USBH_PTP_GetPartialObject(USBH_HandleTypeDef *phost,
-                                           uint32_t handle,
-                                           uint32_t offset,
-                                           uint32_t maxbytes, uint8_t *object,
-                                           uint32_t *len);
+                                             uint32_t handle,
+                                             uint32_t offset,
+                                             uint32_t maxbytes, uint8_t *object,
+                                             uint32_t *len);
 
-USBH_StatusTypeDef USBH_PTP_GetObjectPropsSupported (USBH_HandleTypeDef *phost,
-                                                     uint16_t ofc,
-                                                     uint32_t *propnum,
-                                                     uint16_t *props);
+USBH_StatusTypeDef USBH_PTP_GetObjectPropsSupported(USBH_HandleTypeDef *phost,
+                                                    uint16_t ofc,
+                                                    uint32_t *propnum,
+                                                    uint16_t *props);
 
-USBH_StatusTypeDef USBH_PTP_GetObjectPropDesc (USBH_HandleTypeDef *phost,
-                                                uint16_t opc,
-                                                uint16_t ofc,
-                                                PTP_ObjectPropDescTypeDef *opd);
+USBH_StatusTypeDef USBH_PTP_GetObjectPropDesc(USBH_HandleTypeDef *phost,
+                                              uint16_t opc,
+                                              uint16_t ofc,
+                                              PTP_ObjectPropDescTypeDef *opd);
 
-USBH_StatusTypeDef USBH_PTP_GetObjectPropList (USBH_HandleTypeDef *phost,
-                                                uint32_t handle,
-                                                MTP_PropertiesTypedef *pprops,
-                                                uint32_t *nrofprops);
+USBH_StatusTypeDef USBH_PTP_GetObjectPropList(USBH_HandleTypeDef *phost,
+                                              uint32_t handle,
+                                              MTP_PropertiesTypedef *pprops,
+                                              uint32_t *nrofprops);
 
-USBH_StatusTypeDef USBH_PTP_SendObject (USBH_HandleTypeDef *phost,
-                                           uint32_t handle,
-                                           uint8_t *object,
-                                           uint32_t size);
+USBH_StatusTypeDef USBH_PTP_SendObject(USBH_HandleTypeDef *phost,
+                                       uint32_t handle,
+                                       uint8_t *object,
+                                       uint32_t size);
 
-USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc (USBH_HandleTypeDef *phost,
-                                                uint16_t propcode,
-			                      PTP_DevicePropDescTypdef* devicepropertydesc);
+USBH_StatusTypeDef USBH_PTP_GetDevicePropDesc(USBH_HandleTypeDef *phost,
+                                              uint16_t propcode,
+                                              PTP_DevicePropDescTypdef *devicepropertydesc);
 
 /**
   * @}

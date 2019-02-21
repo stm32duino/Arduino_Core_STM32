@@ -17,11 +17,11 @@
   ******************************************************************************
   */
 
-  /* BSPDependencies
-  - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
-  - "stm32xxxxx_{eval}{discovery}_io.c"
-  - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
-  EndBSPDependencies */
+/* BSPDependencies
+- "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
+- "stm32xxxxx_{eval}{discovery}_io.c"
+- "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
+EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_data.h"
@@ -68,35 +68,35 @@
 
 /* USB Mass storage Page 0 Inquiry Data */
 const uint8_t  MSC_Page00_Inquiry_Data[] = {
-	0x00,
-	0x00,
-	0x00,
-	(LENGTH_INQUIRY_PAGE00 - 4U),
-	0x00,
-	0x80,
-	0x83
+  0x00,
+  0x00,
+  0x00,
+  (LENGTH_INQUIRY_PAGE00 - 4U),
+  0x00,
+  0x80,
+  0x83
 };
 /* USB Mass storage sense 6  Data */
 const uint8_t  MSC_Mode_Sense6_data[] = {
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00
 };
 /* USB Mass storage sense 10  Data */
 const uint8_t  MSC_Mode_Sense10_data[] = {
-	0x00,
-	0x06,
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00,
-	0x00
+  0x00,
+  0x06,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00,
+  0x00
 };
 /**
   * @}

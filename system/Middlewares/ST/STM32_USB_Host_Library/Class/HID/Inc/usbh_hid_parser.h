@@ -22,7 +22,7 @@
 #define __USBH_HID_PARSER_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -50,8 +50,7 @@
 /** @defgroup USBH_HID_PARSER_Exported_Types
   * @{
   */
-typedef struct
-{
+typedef struct {
   uint8_t  *data;
   uint32_t size;
   uint8_t  shift;
@@ -66,7 +65,7 @@ typedef struct
 HID_Report_ItemTypedef;
 
 
-uint32_t HID_ReadItem (HID_Report_ItemTypedef *ri, uint8_t ndx);
+uint32_t HID_ReadItem(HID_Report_ItemTypedef *ri, uint8_t ndx);
 uint32_t HID_WriteItem(HID_Report_ItemTypedef *ri, uint32_t value, uint8_t ndx);
 
 

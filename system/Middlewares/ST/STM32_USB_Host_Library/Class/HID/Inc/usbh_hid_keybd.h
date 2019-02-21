@@ -22,7 +22,7 @@
 #define __USBH_HID_KEYBD_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -270,8 +270,7 @@
 #define KEY_RIGHTALT                           0xE6
 #define KEY_RIGHT_GUI                          0xE7
 
-typedef struct
-{
+typedef struct {
   uint8_t state;
   uint8_t lctrl;
   uint8_t lshift;
