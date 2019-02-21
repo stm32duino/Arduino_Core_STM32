@@ -115,6 +115,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | Basic support |
 
+| Status | Sparky flight controllers | Release | Comment |
+| :---: | --- | :---: | :--- |
+| :yellow_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | **1.5.1/1.6.0** |  |
+
 ## Next release
 
   See [milestones](https://github.com/stm32duino/Arduino_Core_STM32/milestones) to have an overview of the next release content.
