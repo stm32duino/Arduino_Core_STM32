@@ -709,6 +709,33 @@ GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+###############################
+# Sparky Flight Controllers
+
+Sparky.name=Sparky flight controllers
+
+Sparky.build.vid=0x0483
+Sparky.build.core=arduino
+Sparky.build.board=Sparky
+Sparky.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# Sparky_V1 board
+# Support: Serial1 (USART1 on PA10, PA9)
+Sparky.menu.pnum.Sparky_V1=Sparky V1
+Sparky.menu.pnum.Sparky_V1.upload.maximum_size=262144
+Sparky.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
+Sparky.menu.pnum.Sparky_V1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Sparky.menu.pnum.Sparky_V1.build.board=Sparky_V1
+Sparky.menu.pnum.Sparky_V1.build.series=STM32F3xx
+Sparky.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
+Sparky.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
+Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# Upload menu
+Sparky.menu.upload_method.STLinkMethod=STLink
+Sparky.menu.upload_method.STLinkMethod.upload.protocol=STLink
+Sparky.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
 ################################################################################
 # RAK boards
 
@@ -897,6 +924,12 @@ GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
+Sparky.menu.xserial.generic=Enabled (generic 'Serial')
+Sparky.menu.xserial.none=Enabled (no generic 'Serial')
+Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Sparky.menu.xserial.disabled=Disabled (no Serial support)
+Sparky.menu.xserial.disabled.build.xSerial=
+
 RAK.menu.xserial.generic=Enabled (generic 'Serial')
 RAK.menu.xserial.none=Enabled (no generic 'Serial')
 RAK.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -987,6 +1020,17 @@ GenF4.menu.xusb.HS=High Speed
 GenF4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Sparky.menu.usb.none=None
+Sparky.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Sparky.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Sparky.menu.usb.CDC=CDC (no generic 'Serial')
+Sparky.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Sparky.menu.xusb.FS=Low/Full Speed
+Sparky.menu.xusb.HS=High Speed
+Sparky.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Sparky.menu.xusb.HSFS=High Speed in Full Speed mode
+Sparky.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1127,6 +1171,24 @@ GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF4.menu.opt.ogstd=Debug (-g)
 GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+Sparky.menu.opt.osstd=Smallest (-Os default)
+Sparky.menu.opt.oslto=Smallest (-Os) with LTO
+Sparky.menu.opt.oslto.build.flags.optimize=-Os -flto
+Sparky.menu.opt.o1std=Fast (-O1)
+Sparky.menu.opt.o1std.build.flags.optimize=-O1
+Sparky.menu.opt.o1lto=Fast (-O1) with LTO
+Sparky.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Sparky.menu.opt.o2std=Faster (-O2)
+Sparky.menu.opt.o2std.build.flags.optimize=-O2
+Sparky.menu.opt.o2lto=Faster (-O2) with LTO
+Sparky.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Sparky.menu.opt.o3std=Fastest (-O3)
+Sparky.menu.opt.o3std.build.flags.optimize=-O3
+Sparky.menu.opt.o3lto=Fastest (-O3) with LTO
+Sparky.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Sparky.menu.opt.ogstd=Debug (-g)
+Sparky.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 RAK.menu.opt.osstd=Smallest (-Os default)
 RAK.menu.opt.oslto=Smallest (-Os) with LTO
 RAK.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -1233,6 +1295,16 @@ GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF4.menu.rtlib.full=Newlib Standard
 GenF4.menu.rtlib.full.build.flags.ldspecs=
+
+Sparky.menu.rtlib.nano=Newlib Nano (default)
+Sparky.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Sparky.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Sparky.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Sparky.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Sparky.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Sparky.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Sparky.menu.rtlib.full=Newlib Standard
+Sparky.menu.rtlib.full.build.flags.ldspecs=
 
 RAK.menu.rtlib.nano=Newlib Nano (default)
 RAK.menu.rtlib.nanofp=Newlib Nano + Float Printf
