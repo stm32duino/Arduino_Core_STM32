@@ -1353,10 +1353,6 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         if (ep->doublebuffer == 0U)
         {
           ep->xfer_count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
-          if (ep->xfer_count != 0U)
-          {
-            USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaadress, ep->xfer_count);
-          }
         }
         else
         {
@@ -1364,19 +1360,11 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
           {
             /*read from endpoint BUF0Addr buffer*/
             ep->xfer_count = PCD_GET_EP_DBUF0_CNT(hpcd->Instance, ep->num);
-            if (ep->xfer_count != 0U)
-            {
-              USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr0, ep->xfer_count);
-            }
           }
           else
           {
             /*read from endpoint BUF1Addr buffer*/
             ep->xfer_count = PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
-            if (ep->xfer_count != 0U)
-            {
-              USB_WritePMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr1, ep->xfer_count);
-            }
           }
           PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_IN);  
         }
