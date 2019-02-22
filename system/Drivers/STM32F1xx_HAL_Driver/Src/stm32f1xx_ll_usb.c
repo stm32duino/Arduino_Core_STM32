@@ -1835,13 +1835,13 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   */
 HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
 {
-  uint16_t pmabuffer = 0;
-  uint32_t len = ep->xfer_len;
+  uint16_t pmabuffer;
+  uint32_t len;
   
   /* IN endpoint */
   if (ep->is_in == 1)
   {
-    /*Multi packet transfer*/
+    /* Multi packet transfer */
     if (ep->xfer_len > ep->maxpacket)
     {
       len=ep->maxpacket;
@@ -1856,8 +1856,8 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
     /* configure and validate Tx endpoint */
     if (ep->doublebuffer == 0) 
     {
-      USB_WritePMA(USBx, ep->xfer_buff, ep->pmaadress, len);
       PCD_SET_EP_TX_CNT(USBx, ep->num, len);
+      pmabuffer = ep->pmaadress;
     }
     else
     {
@@ -1874,11 +1874,18 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
         PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
         pmabuffer = ep->pmaaddr0;
       }
-      USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, len);
+    }
+
+    USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t) len);
+
+    if (ep->doublebuffer == 0)
+    {
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
+    }
+    else
+    {
       PCD_FreeUserBuffer(USBx, ep->num, ep->is_in);
     }
-    
-    PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
   }
   else /* OUT endpoint */
   {
