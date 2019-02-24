@@ -214,6 +214,7 @@ uint32_t getTimerCounter(stimer_t *obj);
 void setTimerCounter(stimer_t *obj, uint32_t value);
 void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
 uint32_t getCCRRegister(stimer_t *obj, uint32_t channel);
+void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler);
 
 uint32_t getTimerIrq(TIM_TypeDef *tim);
 uint8_t getTimerClkSrc(TIM_TypeDef *tim);

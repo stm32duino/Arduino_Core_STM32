@@ -1087,6 +1087,17 @@ uint32_t getCCRRegister(stimer_t *obj, uint32_t channel)
 }
 
 /**
+  * @brief  Set the TIM Capture Compare Register value.
+  * @param  timer_id : id of the timer
+  * @param  prescaler : prescaler value to set for this timer.
+  * @retval None
+  */
+void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler)
+{
+  __HAL_TIM_SET_PRESCALER(&(obj->handle), prescaler);
+}
+
+/**
   * @brief  Attached an interrupt handler
   * @param  timer_id : id of the timer
   * @param  irqHandle : interrupt handler
