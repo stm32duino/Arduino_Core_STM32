@@ -28,10 +28,12 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Size in words, byte size divided by 2 */
-#define PMA_EP0_OUT_ADDR (8 * 3)
+#define PMA_EP0_OUT_ADDR (8 * 4)
 #define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
-#define PMA_CDC_OUT_ADDR (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_ADDR + USB_FS_MAX_PACKET_SIZE)
+#define PMA_CDC_OUT_BASE (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_ADDR ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
+                         (PMA_CDC_OUT_BASE << 16U))
+#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
 #define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -520,9 +522,9 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 #else
   HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, PMA_EP0_OUT_ADDR);
   HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_SNG_BUF, PMA_EP0_IN_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_SNG_BUF, PMA_CDC_OUT_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x81, PCD_SNG_BUF, PMA_CDC_IN_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, PMA_CDC_CMD_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_DBL_BUF, PMA_CDC_OUT_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, PMA_CDC_IN_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x83, PCD_SNG_BUF, PMA_CDC_CMD_ADDR);
 #endif
 #endif /* USE_USB_HS */
   return USBD_OK;
