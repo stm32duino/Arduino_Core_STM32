@@ -873,9 +873,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint
   {
     ep = &hpcd->OUT_ep[ep_addr & 0x7FU];
   }
-  ep->num   = ep_addr & 0x7FU;
-  
-  ep->is_in = (0x80U & ep_addr) != 0U;
   ep->maxpacket = ep_mps;
   ep->type = ep_type;
     
@@ -903,10 +900,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   {
     ep = &hpcd->OUT_ep[ep_addr & 0x7FU];
   }
-  ep->num   = ep_addr & 0x7FU;
-  
-  ep->is_in = (0x80U & ep_addr) != 0U;
-  
+
   __HAL_LOCK(hpcd);
   USB_DeactivateEndpoint(hpcd->Instance , ep);
   __HAL_UNLOCK(hpcd);
@@ -932,8 +926,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   ep->xfer_buff = pBuf;  
   ep->xfer_len = len;
   ep->xfer_count = 0U;
-  ep->is_in = 0U;
-  ep->num = ep_addr & 0x7FU;
 
   if ((ep_addr & 0x7FU) == 0U)
   {
@@ -975,8 +967,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, 
   ep->xfer_buff = pBuf;  
   ep->xfer_len = len;
   ep->xfer_count = 0U;
-  ep->is_in = 1U;
-  ep->num = ep_addr & 0x7FU;
 
   if ((ep_addr & 0x7FU) == 0U)
   {
@@ -1010,9 +1000,7 @@ HAL_StatusTypeDef HAL_PCD_EP_SetStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   }
   
   ep->is_stall = 1U;
-  ep->num   = ep_addr & 0x7FU;
-  ep->is_in = ((ep_addr & 0x80U) == 0x80U);
-  
+
   __HAL_LOCK(hpcd);
   USB_EPSetStall(hpcd->Instance , ep);
   if((ep_addr & 0x7FU) == 0U)
@@ -1044,9 +1032,7 @@ HAL_StatusTypeDef HAL_PCD_EP_ClrStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   }
   
   ep->is_stall = 0U;
-  ep->num   = ep_addr & 0x7FU;
-  ep->is_in = ((ep_addr & 0x80U) == 0x80U);
-  
+
   __HAL_LOCK(hpcd); 
   USB_EPClearStall(hpcd->Instance , ep);
   __HAL_UNLOCK(hpcd); 
