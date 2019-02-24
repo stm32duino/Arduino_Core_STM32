@@ -1161,6 +1161,19 @@ void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value)
   __HAL_TIM_SET_COMPARE(&(obj->handle), channel * 4, value);
 }
 
+
+/**
+  * @brief  Set the TIM Capture Compare Register value.
+  * @param  timer_id : id of the timer
+  * @param  prescaler : prescaler value to set for this timer.
+  * @retval None
+  */
+void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler)
+{
+  __HAL_TIM_SET_PRESCALER(&(obj->handle), prescaler);
+}
+
+
 /**
   * @brief  Set the TIM Capture Compare Register value.
   * @param  timer_id : id of the timer
