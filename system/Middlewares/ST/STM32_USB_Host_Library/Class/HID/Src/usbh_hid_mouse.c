@@ -17,12 +17,12 @@
   ******************************************************************************
   */
 
-  /* BSPDependencies
-  - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
-  - "stm32xxxxx_{eval}{discovery}_io.c"
-  - "stm32xxxxx_{eval}{discovery}{adafruit}_lcd.c"
-  - "stm32xxxxx_{eval}{discovery}_sdram.c"
-  EndBSPDependencies */
+/* BSPDependencies
+- "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
+- "stm32xxxxx_{eval}{discovery}_io.c"
+- "stm32xxxxx_{eval}{discovery}{adafruit}_lcd.c"
+- "stm32xxxxx_{eval}{discovery}_sdram.c"
+EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_hid_mouse.h"
@@ -87,8 +87,8 @@ uint32_t                  mouse_report_data[1];
 
 /* Structures defining how to access items in a HID mouse report */
 /* Access button 1 state. */
-static const HID_Report_ItemTypedef prop_b1={
-  (uint8_t *)(void *)mouse_report_data+0, /*data*/
+static const HID_Report_ItemTypedef prop_b1 = {
+  (uint8_t *)(void *)mouse_report_data + 0, /*data*/
   1,     /*size*/
   0,     /*shift*/
   0,     /*count (only for array items)*/
@@ -101,8 +101,8 @@ static const HID_Report_ItemTypedef prop_b1={
 };
 
 /* Access button 2 state. */
-static const HID_Report_ItemTypedef prop_b2={
-  (uint8_t *)(void *)mouse_report_data+0, /*data*/
+static const HID_Report_ItemTypedef prop_b2 = {
+  (uint8_t *)(void *)mouse_report_data + 0, /*data*/
   1,     /*size*/
   1,     /*shift*/
   0,     /*count (only for array items)*/
@@ -115,8 +115,8 @@ static const HID_Report_ItemTypedef prop_b2={
 };
 
 /* Access button 3 state. */
-static const HID_Report_ItemTypedef prop_b3={
-  (uint8_t *)(void *)mouse_report_data+0, /*data*/
+static const HID_Report_ItemTypedef prop_b3 = {
+  (uint8_t *)(void *)mouse_report_data + 0, /*data*/
   1,     /*size*/
   2,     /*shift*/
   0,     /*count (only for array items)*/
@@ -129,8 +129,8 @@ static const HID_Report_ItemTypedef prop_b3={
 };
 
 /* Access x coordinate change. */
-static const HID_Report_ItemTypedef prop_x={
-  (uint8_t *)(void *)mouse_report_data+1, /*data*/
+static const HID_Report_ItemTypedef prop_x = {
+  (uint8_t *)(void *)mouse_report_data + 1, /*data*/
   8,     /*size*/
   0,     /*shift*/
   0,     /*count (only for array items)*/
@@ -143,8 +143,8 @@ static const HID_Report_ItemTypedef prop_x={
 };
 
 /* Access y coordinate change. */
-static const HID_Report_ItemTypedef prop_y={
-  (uint8_t *)(void *)mouse_report_data+2, /*data*/
+static const HID_Report_ItemTypedef prop_y = {
+  (uint8_t *)(void *)mouse_report_data + 2, /*data*/
   8,     /*size*/
   0,     /*shift*/
   0,     /*count (only for array items)*/
@@ -174,7 +174,7 @@ static const HID_Report_ItemTypedef prop_y={
   */
 USBH_StatusTypeDef USBH_HID_MouseInit(USBH_HandleTypeDef *phost)
 {
-  HID_HandleTypeDef *HID_Handle =  (HID_HandleTypeDef *) phost->pActiveClass->pData;
+  HID_HandleTypeDef *HID_Handle = (HID_HandleTypeDef *) phost->pActiveClass->pData;
 
   mouse_info.x = 0U;
   mouse_info.y = 0U;
@@ -184,8 +184,7 @@ USBH_StatusTypeDef USBH_HID_MouseInit(USBH_HandleTypeDef *phost)
 
   mouse_report_data[0] = 0U;
 
-  if(HID_Handle->length > sizeof(mouse_report_data))
-  {
+  if (HID_Handle->length > sizeof(mouse_report_data)) {
     HID_Handle->length = sizeof(mouse_report_data);
   }
   HID_Handle->pData = (uint8_t *)(void *)mouse_report_data;
@@ -202,14 +201,11 @@ USBH_StatusTypeDef USBH_HID_MouseInit(USBH_HandleTypeDef *phost)
   */
 HID_MOUSE_Info_TypeDef *USBH_HID_GetMouseInfo(USBH_HandleTypeDef *phost)
 {
- if(USBH_HID_MouseDecode(phost)== USBH_OK)
- {
-  return &mouse_info;
- }
- else
- {
-  return NULL;
- }
+  if (USBH_HID_MouseDecode(phost) == USBH_OK) {
+    return &mouse_info;
+  } else {
+    return NULL;
+  }
 }
 
 /**
@@ -222,20 +218,18 @@ static USBH_StatusTypeDef USBH_HID_MouseDecode(USBH_HandleTypeDef *phost)
 {
   HID_HandleTypeDef *HID_Handle = (HID_HandleTypeDef *) phost->pActiveClass->pData;
 
-  if(HID_Handle->length == 0U)
-  {
+  if (HID_Handle->length == 0U) {
     return USBH_FAIL;
   }
   /*Fill report */
-  if(USBH_HID_FifoRead(&HID_Handle->fifo, &mouse_report_data, HID_Handle->length) ==  HID_Handle->length)
-  {
+  if (USBH_HID_FifoRead(&HID_Handle->fifo, &mouse_report_data, HID_Handle->length) ==  HID_Handle->length) {
     /*Decode report */
     mouse_info.x = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_x, 0U);
     mouse_info.y = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_y, 0U);
 
-    mouse_info.buttons[0]=(uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b1, 0U);
-    mouse_info.buttons[1]=(uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b2, 0U);
-    mouse_info.buttons[2]=(uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b3, 0U);
+    mouse_info.buttons[0] = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b1, 0U);
+    mouse_info.buttons[1] = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b2, 0U);
+    mouse_info.buttons[2] = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &prop_b3, 0U);
 
     return USBH_OK;
   }

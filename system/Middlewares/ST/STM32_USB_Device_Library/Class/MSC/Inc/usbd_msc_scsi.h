@@ -22,7 +22,7 @@
 #define __USBD_MSC_SCSI_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -132,8 +132,8 @@ typedef struct _SENSE_ITEM {
     struct _ASCs {
       char ASC;
       char ASCQ;
-    }b;
-    uint8_t	ASC;
+    } b;
+    uint8_t ASC;
     char *pData;
   } w;
 } USBD_SCSI_SenseTypeDef;

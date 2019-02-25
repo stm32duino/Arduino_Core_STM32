@@ -22,7 +22,7 @@
 #define __USBH_CONF_TEMPLATE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -58,7 +58,7 @@
   * @{
   */
 
- /* Memory management macros */
+/* Memory management macros */
 #define USBH_malloc               malloc
 #define USBH_free                 free
 #define USBH_memset               memset

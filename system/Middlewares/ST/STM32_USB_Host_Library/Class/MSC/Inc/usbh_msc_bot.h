@@ -22,7 +22,7 @@
 #define __USBH_MSC_BOT_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -66,12 +66,11 @@ typedef enum {
 BOT_CMDStateTypeDef;
 
 /* CSW Status Definitions */
-typedef enum
-{
+typedef enum {
 
-   BOT_CSW_CMD_PASSED   =        0x00,
-   BOT_CSW_CMD_FAILED   =        0x01,
-   BOT_CSW_PHASE_ERROR  =        0x02,
+  BOT_CSW_CMD_PASSED   =        0x00,
+  BOT_CSW_CMD_FAILED   =        0x01,
+  BOT_CSW_PHASE_ERROR  =        0x02,
 }
 BOT_CSWStatusTypeDef;
 
@@ -90,10 +89,8 @@ typedef enum {
 }
 BOT_StateTypeDef;
 
-typedef union
-{
-  struct __CBW
-  {
+typedef union {
+  struct __CBW {
     uint32_t Signature;
     uint32_t Tag;
     uint32_t DataTransferLength;
@@ -101,26 +98,23 @@ typedef union
     uint8_t  LUN;
     uint8_t  CBLength;
     uint8_t  CB[16];
-  }field;
+  } field;
   uint8_t data[31];
 }
 BOT_CBWTypeDef;
 
-typedef union
-{
-  struct __CSW
-  {
+typedef union {
+  struct __CSW {
     uint32_t Signature;
     uint32_t Tag;
     uint32_t DataResidue;
     uint8_t  Status;
-  }field;
+  } field;
   uint8_t data[13];
 }
 BOT_CSWTypeDef;
 
-typedef struct
-{
+typedef struct {
   uint32_t                   data[16];
   BOT_StateTypeDef           state;
   BOT_StateTypeDef           prev_state;
@@ -194,7 +188,7 @@ USBH_StatusTypeDef USBH_MSC_BOT_REQ_Reset(USBH_HandleTypeDef *phost);
 USBH_StatusTypeDef USBH_MSC_BOT_REQ_GetMaxLUN(USBH_HandleTypeDef *phost, uint8_t *Maxlun);
 
 USBH_StatusTypeDef USBH_MSC_BOT_Init(USBH_HandleTypeDef *phost);
-USBH_StatusTypeDef USBH_MSC_BOT_Process (USBH_HandleTypeDef *phost, uint8_t lun);
+USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun);
 USBH_StatusTypeDef USBH_MSC_BOT_Error(USBH_HandleTypeDef *phost, uint8_t lun);
 
 

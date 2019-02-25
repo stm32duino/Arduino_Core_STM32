@@ -22,7 +22,7 @@
 #define __USBH_MSC_SCSI_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -48,31 +48,28 @@
 
 
 /* Capacity data */
-typedef struct
-{
+typedef struct {
   uint32_t block_nbr;
   uint16_t block_size;
 } SCSI_CapacityTypeDef;
 
 
 /* Sense data */
-typedef struct
-{
+typedef struct {
   uint8_t key;
   uint8_t asc;
   uint8_t ascq;
 } SCSI_SenseTypeDef;
 
 /* INQUIRY data */
-typedef struct
-{
+typedef struct {
   uint8_t PeripheralQualifier;
   uint8_t DeviceType;
   uint8_t RemovableMedia;
   uint8_t vendor_id[9];
   uint8_t product_id[17];
   uint8_t revision_id[5];
-}SCSI_StdInquiryDataTypeDef;
+} SCSI_StdInquiryDataTypeDef;
 
 /** @defgroup USBH_MSC_SCSI_Exported_Defines
   * @{
@@ -159,32 +156,32 @@ typedef struct
 /** @defgroup USBH_MSC_SCSI_Exported_FunctionsPrototype
   * @{
   */
-USBH_StatusTypeDef USBH_MSC_SCSI_TestUnitReady (USBH_HandleTypeDef *phost,
-                                                uint8_t lun);
+USBH_StatusTypeDef USBH_MSC_SCSI_TestUnitReady(USBH_HandleTypeDef *phost,
+                                               uint8_t lun);
 
-USBH_StatusTypeDef USBH_MSC_SCSI_ReadCapacity (USBH_HandleTypeDef *phost,
-                                               uint8_t lun,
-                                               SCSI_CapacityTypeDef *capacity);
+USBH_StatusTypeDef USBH_MSC_SCSI_ReadCapacity(USBH_HandleTypeDef *phost,
+                                              uint8_t lun,
+                                              SCSI_CapacityTypeDef *capacity);
 
-USBH_StatusTypeDef USBH_MSC_SCSI_Inquiry (USBH_HandleTypeDef *phost,
-                                               uint8_t lun,
-                                               SCSI_StdInquiryDataTypeDef *inquiry);
+USBH_StatusTypeDef USBH_MSC_SCSI_Inquiry(USBH_HandleTypeDef *phost,
+                                         uint8_t lun,
+                                         SCSI_StdInquiryDataTypeDef *inquiry);
 
-USBH_StatusTypeDef USBH_MSC_SCSI_RequestSense (USBH_HandleTypeDef *phost,
-                                               uint8_t lun,
-                                               SCSI_SenseTypeDef *sense_data);
+USBH_StatusTypeDef USBH_MSC_SCSI_RequestSense(USBH_HandleTypeDef *phost,
+                                              uint8_t lun,
+                                              SCSI_SenseTypeDef *sense_data);
 
 USBH_StatusTypeDef USBH_MSC_SCSI_Write(USBH_HandleTypeDef *phost,
-                                     uint8_t lun,
-                                     uint32_t address,
-                                     uint8_t *pbuf,
-                                     uint32_t length);
+                                       uint8_t lun,
+                                       uint32_t address,
+                                       uint8_t *pbuf,
+                                       uint32_t length);
 
 USBH_StatusTypeDef USBH_MSC_SCSI_Read(USBH_HandleTypeDef *phost,
-                                     uint8_t lun,
-                                     uint32_t address,
-                                     uint8_t *pbuf,
-                                     uint32_t length);
+                                      uint8_t lun,
+                                      uint32_t address,
+                                      uint8_t *pbuf,
+                                      uint32_t length);
 
 
 /**

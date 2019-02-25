@@ -22,7 +22,7 @@
 #define __USBH_HID_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -100,9 +100,8 @@
 
 
 /* States for HID State Machine */
-typedef enum
-{
-  HID_INIT= 0,
+typedef enum {
+  HID_INIT = 0,
   HID_IDLE,
   HID_SEND_DATA,
   HID_BUSY,
@@ -113,8 +112,7 @@ typedef enum
 }
 HID_StateTypeDef;
 
-typedef enum
-{
+typedef enum {
   HID_REQ_INIT = 0,
   HID_REQ_IDLE,
   HID_REQ_GET_REPORT_DESC,
@@ -126,8 +124,7 @@ typedef enum
 }
 HID_CtlStateTypeDef;
 
-typedef enum
-{
+typedef enum {
   HID_MOUSE    = 0x01,
   HID_KEYBOARD = 0x02,
   HID_UNKNOWN = 0xFF,
@@ -135,54 +132,51 @@ typedef enum
 HID_TypeTypeDef;
 
 
-typedef  struct  _HID_ReportData
-{
-    uint8_t   ReportID;
-    uint8_t   ReportType;
-    uint16_t  UsagePage;
-    uint32_t  Usage[HID_MAX_USAGE];
-    uint32_t  NbrUsage;
-    uint32_t  UsageMin;
-    uint32_t  UsageMax;
-    int32_t   LogMin;
-    int32_t   LogMax;
-    int32_t   PhyMin;
-    int32_t   PhyMax;
-    int32_t   UnitExp;
-    uint32_t  Unit;
-    uint32_t  ReportSize;
-    uint32_t  ReportCnt;
-    uint32_t  Flag;
-    uint32_t  PhyUsage;
-    uint32_t  AppUsage;
-    uint32_t  LogUsage;
+typedef  struct  _HID_ReportData {
+  uint8_t   ReportID;
+  uint8_t   ReportType;
+  uint16_t  UsagePage;
+  uint32_t  Usage[HID_MAX_USAGE];
+  uint32_t  NbrUsage;
+  uint32_t  UsageMin;
+  uint32_t  UsageMax;
+  int32_t   LogMin;
+  int32_t   LogMax;
+  int32_t   PhyMin;
+  int32_t   PhyMax;
+  int32_t   UnitExp;
+  uint32_t  Unit;
+  uint32_t  ReportSize;
+  uint32_t  ReportCnt;
+  uint32_t  Flag;
+  uint32_t  PhyUsage;
+  uint32_t  AppUsage;
+  uint32_t  LogUsage;
 }
 HID_ReportDataTypeDef;
 
 typedef  struct  _HID_ReportIDTypeDef {
-    uint8_t  Size;         /* Report size return by the device id            */
-    uint8_t  ReportID;     /* Report Id                                      */
-    uint8_t  Type;         /* Report Type (INPUT/OUTPUT/FEATURE)             */
+  uint8_t  Size;         /* Report size return by the device id            */
+  uint8_t  ReportID;     /* Report Id                                      */
+  uint8_t  Type;         /* Report Type (INPUT/OUTPUT/FEATURE)             */
 } HID_ReportIDTypeDef;
 
-typedef struct  _HID_CollectionTypeDef
-{
-    uint32_t                       Usage;
-    uint8_t                        Type;
-    struct _HID_CollectionTypeDef  *NextPtr;
+typedef struct  _HID_CollectionTypeDef {
+  uint32_t                       Usage;
+  uint8_t                        Type;
+  struct _HID_CollectionTypeDef  *NextPtr;
 } HID_CollectionTypeDef;
 
 
 typedef  struct  _HID_AppCollectionTypeDef {
-    uint32_t               Usage;
-    uint8_t                Type;
-    uint8_t                NbrReportFmt;
-    HID_ReportDataTypeDef  ReportData[HID_MAX_NBR_REPORT_FMT];
+  uint32_t               Usage;
+  uint8_t                Type;
+  uint8_t                NbrReportFmt;
+  HID_ReportDataTypeDef  ReportData[HID_MAX_NBR_REPORT_FMT];
 } HID_AppCollectionTypeDef;
 
 
-typedef struct _HIDDescriptor
-{
+typedef struct _HIDDescriptor {
   uint8_t   bLength;
   uint8_t   bDescriptorType;
   uint16_t  bcdHID;               /* indicates what endpoint this descriptor is describing */
@@ -194,19 +188,17 @@ typedef struct _HIDDescriptor
 HID_DescTypeDef;
 
 
-typedef struct
-{
-     uint8_t  *buf;
-     uint16_t  head;
-     uint16_t tail;
-     uint16_t size;
-     uint8_t  lock;
+typedef struct {
+  uint8_t  *buf;
+  uint16_t  head;
+  uint16_t tail;
+  uint16_t size;
+  uint8_t  lock;
 } FIFO_TypeDef;
 
 
 /* Structure for HID process */
-typedef struct _HID_Process
-{
+typedef struct _HID_Process {
   uint8_t              OutPipe;
   uint8_t              InPipe;
   HID_StateTypeDef     state;
@@ -221,7 +213,7 @@ typedef struct _HID_Process
   uint32_t             timer;
   uint8_t              DataReady;
   HID_DescTypeDef      HID_Desc;
-  USBH_StatusTypeDef  ( * Init)(USBH_HandleTypeDef *phost);
+  USBH_StatusTypeDef(* Init)(USBH_HandleTypeDef *phost);
 }
 HID_HandleTypeDef;
 
@@ -276,30 +268,30 @@ extern USBH_ClassTypeDef  HID_Class;
   * @{
   */
 
-USBH_StatusTypeDef USBH_HID_SetReport (USBH_HandleTypeDef *phost,
-                                  uint8_t reportType,
-                                  uint8_t reportId,
-                                  uint8_t* reportBuff,
-                                  uint8_t reportLen);
+USBH_StatusTypeDef USBH_HID_SetReport(USBH_HandleTypeDef *phost,
+                                      uint8_t reportType,
+                                      uint8_t reportId,
+                                      uint8_t *reportBuff,
+                                      uint8_t reportLen);
 
-USBH_StatusTypeDef USBH_HID_GetReport (USBH_HandleTypeDef *phost,
-                                  uint8_t reportType,
-                                  uint8_t reportId,
-                                  uint8_t* reportBuff,
-                                  uint8_t reportLen);
+USBH_StatusTypeDef USBH_HID_GetReport(USBH_HandleTypeDef *phost,
+                                      uint8_t reportType,
+                                      uint8_t reportId,
+                                      uint8_t *reportBuff,
+                                      uint8_t reportLen);
 
-USBH_StatusTypeDef USBH_HID_GetHIDReportDescriptor (USBH_HandleTypeDef *phost,
-                                            uint16_t length);
+USBH_StatusTypeDef USBH_HID_GetHIDReportDescriptor(USBH_HandleTypeDef *phost,
+                                                   uint16_t length);
 
-USBH_StatusTypeDef USBH_HID_GetHIDDescriptor (USBH_HandleTypeDef *phost,
-                                            uint16_t length);
+USBH_StatusTypeDef USBH_HID_GetHIDDescriptor(USBH_HandleTypeDef *phost,
+                                             uint16_t length);
 
-USBH_StatusTypeDef USBH_HID_SetIdle (USBH_HandleTypeDef *phost,
-                                  uint8_t duration,
-                                  uint8_t reportId);
+USBH_StatusTypeDef USBH_HID_SetIdle(USBH_HandleTypeDef *phost,
+                                    uint8_t duration,
+                                    uint8_t reportId);
 
-USBH_StatusTypeDef USBH_HID_SetProtocol (USBH_HandleTypeDef *phost,
-                                      uint8_t protocol);
+USBH_StatusTypeDef USBH_HID_SetProtocol(USBH_HandleTypeDef *phost,
+                                        uint8_t protocol);
 
 void USBH_HID_EventCallback(USBH_HandleTypeDef *phost);
 

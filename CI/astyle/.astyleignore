@@ -1,4 +1,5 @@
 .git
 BUILD
 CI
-system
+system/Drivers
+system/STM32*

@@ -22,7 +22,7 @@
 #define __USBD_MSC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -66,22 +66,20 @@
 /** @defgroup USB_CORE_Exported_Types
   * @{
   */
-typedef struct _USBD_STORAGE
-{
-  int8_t (* Init) (uint8_t lun);
-  int8_t (* GetCapacity) (uint8_t lun, uint32_t *block_num, uint16_t *block_size);
-  int8_t (* IsReady) (uint8_t lun);
-  int8_t (* IsWriteProtected) (uint8_t lun);
-  int8_t (* Read) (uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
+typedef struct _USBD_STORAGE {
+  int8_t (* Init)(uint8_t lun);
+  int8_t (* GetCapacity)(uint8_t lun, uint32_t *block_num, uint16_t *block_size);
+  int8_t (* IsReady)(uint8_t lun);
+  int8_t (* IsWriteProtected)(uint8_t lun);
+  int8_t (* Read)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* Write)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* GetMaxLun)(void);
   int8_t *pInquiry;
 
-}USBD_StorageTypeDef;
+} USBD_StorageTypeDef;
 
 
-typedef struct
-{
+typedef struct {
   uint32_t                 max_lun;
   uint32_t                 interface;
   uint8_t                  bot_state;
@@ -107,8 +105,8 @@ USBD_MSC_BOT_HandleTypeDef;
 extern USBD_ClassTypeDef  USBD_MSC;
 #define USBD_MSC_CLASS    &USBD_MSC
 
-uint8_t  USBD_MSC_RegisterStorage  (USBD_HandleTypeDef   *pdev,
-                                    USBD_StorageTypeDef *fops);
+uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
+                                  USBD_StorageTypeDef *fops);
 /**
   * @}
   */

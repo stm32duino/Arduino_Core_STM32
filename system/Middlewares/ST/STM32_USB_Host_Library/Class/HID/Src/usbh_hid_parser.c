@@ -17,12 +17,12 @@
   ******************************************************************************
   */
 
-  /* BSPDependencies
-  - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
-  - "stm32xxxxx_{eval}{discovery}_io.c"
-  - "stm32xxxxx_{eval}{discovery}{adafruit}_lcd.c"
-  - "stm32xxxxx_{eval}{discovery}_sdram.c"
-  EndBSPDependencies */
+/* BSPDependencies
+- "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
+- "stm32xxxxx_{eval}{discovery}_io.c"
+- "stm32xxxxx_{eval}{discovery}{adafruit}_lcd.c"
+- "stm32xxxxx_{eval}{discovery}_sdram.c"
+EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_hid_parser.h"
@@ -102,59 +102,50 @@ uint32_t HID_ReadItem(HID_Report_ItemTypedef *ri, uint8_t ndx)
   uint32_t val = 0U;
   uint32_t x = 0U;
   uint32_t bofs;
-  uint8_t *data=ri->data;
-  uint8_t shift=ri->shift;
+  uint8_t *data = ri->data;
+  uint8_t shift = ri->shift;
 
   /* get the logical value of the item */
 
   /* if this is an array, wee may need to offset ri->data.*/
-  if (ri->count > 0U)
-  {
+  if (ri->count > 0U) {
     /* If app tries to read outside of the array. */
-    if (ri->count <= ndx)
-    {
-      return(0U);
+    if (ri->count <= ndx) {
+      return (0U);
     }
 
     /* calculate bit offset */
-    bofs = ndx*ri->size;
+    bofs = ndx * ri->size;
     bofs += shift;
     /* calculate byte offset + shift pair from bit offset. */
-    data+=bofs / 8U;
-    shift=(uint8_t)(bofs % 8U);
+    data += bofs / 8U;
+    shift = (uint8_t)(bofs % 8U);
   }
   /* read data bytes in little endian order */
-  for(x = 0U; x < ((ri->size & 0x7U) ? (ri->size / 8U) + 1U : (ri->size / 8U)); x++)
-  {
-    val=(uint32_t)((uint32_t)(*data) << (x * 8U));
+  for (x = 0U; x < ((ri->size & 0x7U) ? (ri->size / 8U) + 1U : (ri->size / 8U)); x++) {
+    val = (uint32_t)((uint32_t)(*data) << (x * 8U));
   }
-  val=(val >> shift) & ((1U << ri->size) - 1U);
+  val = (val >> shift) & ((1U << ri->size) - 1U);
 
-  if (val < ri->logical_min || val > ri->logical_max)
-  {
-    return(0U);
+  if (val < ri->logical_min || val > ri->logical_max) {
+    return (0U);
   }
 
   /* convert logical value to physical value */
   /* See if the number is negative or not. */
-  if ((ri->sign) && (val & (1U << (ri->size - 1U))))
-  {
+  if ((ri->sign) && (val & (1U << (ri->size - 1U)))) {
     /* yes, so sign extend value to 32 bits. */
-    uint32_t vs=(uint32_t)((0xffffffffU & ~((1U << (ri->size)) - 1U)) | val);
+    uint32_t vs = (uint32_t)((0xffffffffU & ~((1U << (ri->size)) - 1U)) | val);
 
-    if(ri->resolution == 1U)
-    {
-      return((uint32_t)vs);
+    if (ri->resolution == 1U) {
+      return ((uint32_t)vs);
     }
-    return((uint32_t)(vs * ri->resolution));
-  }
-  else
-  {
-    if(ri->resolution == 1U)
-    {
-      return(val);
+    return ((uint32_t)(vs * ri->resolution));
+  } else {
+    if (ri->resolution == 1U) {
+      return (val);
     }
-    return(val*ri->resolution);
+    return (val * ri->resolution);
   }
 }
 
@@ -170,21 +161,18 @@ uint32_t HID_WriteItem(HID_Report_ItemTypedef *ri, uint32_t value, uint8_t ndx)
   uint32_t x;
   uint32_t mask;
   uint32_t bofs;
-  uint8_t *data=ri->data;
-  uint8_t shift=ri->shift;
+  uint8_t *data = ri->data;
+  uint8_t shift = ri->shift;
 
-  if (value < ri->physical_min || value > ri->physical_max)
-  {
-    return(1U);
+  if (value < ri->physical_min || value > ri->physical_max) {
+    return (1U);
   }
 
-    /* if this is an array, wee may need to offset ri->data.*/
-  if (ri->count > 0U)
-  {
+  /* if this is an array, wee may need to offset ri->data.*/
+  if (ri->count > 0U) {
     /* If app tries to read outside of the array. */
-    if (ri->count >= ndx)
-    {
-      return(0U);
+    if (ri->count >= ndx) {
+      return (0U);
     }
     /* calculate bit offset */
     bofs = ndx * ri->size;
@@ -196,8 +184,7 @@ uint32_t HID_WriteItem(HID_Report_ItemTypedef *ri, uint32_t value, uint8_t ndx)
   }
 
   /* Convert physical value to logical value. */
-  if (ri->resolution != 1U)
-  {
+  if (ri->resolution != 1U) {
     value = value / ri->resolution;
   }
 
@@ -205,10 +192,9 @@ uint32_t HID_WriteItem(HID_Report_ItemTypedef *ri, uint32_t value, uint8_t ndx)
   mask = (1U << ri->size) - 1U;
   value = (value & mask) << shift;
 
-  for(x = 0U; x < ((ri->size & 0x7U) ? (ri->size / 8U) + 1U : (ri->size / 8U)); x++)
-  {
-    *(ri->data + x)=(uint8_t)((*(ri->data+x) & ~(mask>>(x* 8U))) |
-                            ((value >> (x * 8U)) & (mask >> (x * 8U))));
+  for (x = 0U; x < ((ri->size & 0x7U) ? (ri->size / 8U) + 1U : (ri->size / 8U)); x++) {
+    *(ri->data + x) = (uint8_t)((*(ri->data + x) & ~(mask >> (x * 8U))) |
+                                ((value >> (x * 8U)) & (mask >> (x * 8U))));
   }
 
   return 0U;

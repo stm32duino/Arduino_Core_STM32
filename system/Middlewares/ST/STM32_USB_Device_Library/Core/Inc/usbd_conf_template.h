@@ -22,7 +22,7 @@
 #define __USBD_CONF_TEMPLATE_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -57,18 +57,18 @@
 /* CDC Class Config */
 #define USBD_CDC_INTERVAL                      2000U
 
- /* DFU Class Config */
+/* DFU Class Config */
 #define USBD_DFU_MAX_ITF_NUM                   1U
 #define USBD_DFU_XFERS_IZE                     1024U
 
- /* AUDIO Class Config */
+/* AUDIO Class Config */
 #define USBD_AUDIO_FREQ                       22100U
 
 /** @defgroup USBD_Exported_Macros
   * @{
   */
 
- /* Memory management macros */
+/* Memory management macros */
 #define USBD_malloc               malloc
 #define USBD_free                 free
 #define USBD_memset               memset
