@@ -124,7 +124,7 @@ static void RTC_initClock(sourceClock_t source)
     /* HSE max is 16 MHZ divided by 128 --> 125 KHz */
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV128;
     HSEDiv = 128;
-#elif defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32L4xx)
+#elif defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
     PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_HSE_DIV32;
     HSEDiv = 32;
 #elif defined(STM32L0xx) || defined(STM32L1xx)

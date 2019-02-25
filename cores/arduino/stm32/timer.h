@@ -86,7 +86,7 @@ struct timer_s {
 #elif defined (TIM10_BASE)
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
 #endif
-#elif defined(STM32F3xx) || defined(STM32L4xx)
+#elif defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
 #define TIM1_IRQn TIM1_UP_TIM16_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM16_IRQHandler
 #elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
@@ -158,13 +158,13 @@ struct timer_s {
 #endif
 #endif
 #if defined(TIM16_BASE) && !defined(TIM16_IRQn)
-#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
 #define TIM16_IRQn TIM1_UP_TIM16_IRQn
 //TIM16_IRQHandler is mapped on TIM1_IRQHandler when TIM16_IRQn is not defined
 #endif
 #endif
 #if defined(TIM17_BASE) && !defined(TIM17_IRQn)
-#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
 #define TIM17_IRQn TIM1_TRG_COM_TIM17_IRQn
 #define TIM17_IRQHandler TIM1_TRG_COM_TIM17_IRQHandler
 #endif

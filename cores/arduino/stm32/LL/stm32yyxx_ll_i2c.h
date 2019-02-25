@@ -31,4 +31,7 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_ll_i2c.h"
 #endif
+#ifdef STM32WBxx
+#include "stm32wbxx_ll_i2c.h"
+#endif
 #endif /* _STM32YYXX_LL_I2C_H_ */

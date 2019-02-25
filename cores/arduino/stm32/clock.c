@@ -100,8 +100,13 @@ void enableClock(sourceClock_t source)
 
   switch (source) {
     case LSI_CLOCK:
+#ifdef STM32WBxx
+      if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSI1RDY) == RESET) {
+        RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI1;
+#else
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSIRDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI;
+#endif
         RCC_OscInitStruct.LSIState = RCC_LSI_ON;
       }
       break;
@@ -114,7 +119,7 @@ void enableClock(sourceClock_t source)
       break;
     case LSE_CLOCK:
       /* Enable Power Clock */
-#ifndef STM32H7xx
+#if !defined(STM32H7xx) && !defined(STM32WBxx)
       if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
         __HAL_RCC_PWR_CLK_ENABLE();
       }

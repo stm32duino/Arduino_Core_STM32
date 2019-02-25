@@ -160,7 +160,7 @@ WEAK void SystemClock_Config(void)
   // available in src/main.c
   // or
   // copied from a STM32CubeYY project examples
-  // where 'YY' could be F0, F1, F2, F3, F4, F7, H7, L0, L1, L4
+  // where 'YY' could be F0, F1, F2, F3, F4, F7, H7, L0, L1, L4, WB
 }
 
 #ifdef __cplusplus

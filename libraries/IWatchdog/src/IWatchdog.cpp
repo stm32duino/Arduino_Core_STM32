@@ -19,10 +19,15 @@ void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
   }
 
   // Enable the peripheral clock IWDG
+#ifdef STM32WBxx
+  LL_RCC_LSI1_Enable();
+  while (LL_RCC_LSI1_IsReady() != 1) {
+  }
+#else
   LL_RCC_LSI_Enable();
   while (LL_RCC_LSI_IsReady() != 1) {
   }
-
+#endif
   // Enable the IWDG by writing 0x0000 CCCC in the IWDG_KR register
   LL_IWDG_Enable(IWDG);
   _enabled = true;
