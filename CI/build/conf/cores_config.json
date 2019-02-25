@@ -39,14 +39,28 @@
           "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
           "applicable": false,
           "boards": [
+            "ARMED_V1",
+            "BLUE_F407VE_Mini",
+            "BLACKPILL_F103C8",
+            "BLACKPILL_F103C8B",
+            "BLUEPILL_F103C6",
+            "BLUEPILL_F103C8",
+            "BLUEPILL_F103C8B",
+            "DIYMROE_F407VGT",
+            "EEXTR_F030_V1",
+            "HY_TinySTM103TB",
+            "MALYANM200_F070CB",
+            "MALYANM200_F103CB",
+            "MAPLEMINI_F103CB",
             "NUCLEO_L031K6",
+            "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
-            "BLUE_F407VE_Mini",
-            "BLUEPILL_F103C8",
-            "MAPLEMINI_F103CB",
+            "PRNTR_F407_V1",
+            "RUMBA32",
             "RAK811_TRACKER",
-            "REMRAM_V1"
+            "REMRAM_V1",
+            "Sparky_V1"
           ]
         },
         {
@@ -77,7 +91,7 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "09.USB",
@@ -103,11 +117,25 @@
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
           "applicable": false,
           "boards": [
-            "NUCLEO_L432KC",
-            "NUCLEO_F303K8",
-            "BLUE_F407VE_Mini",
+            "ARMED_V1",
+            "BLACKPILL_F103C8",
+            "BLACKPILL_F103C8B",
+            "BLUEPILL_F103C6",
             "BLUEPILL_F103C8",
-            "MAPLEMINI_F103CB"
+            "BLUEPILL_F103C8B",
+            "BLUE_F407VE_Mini",
+            "DIYMROE_F407VGT",
+            "EEXTR_F030_V1",
+            "HY_TinySTM103TB",
+            "MALYANM200_F070CB",
+            "MALYANM200_F103CB",
+            "MAPLEMINI_F103CB",
+            "NUCLEO_F303K8",
+            "NUCLEO_L412KB",
+            "NUCLEO_L432KC",
+            "PRNTR_F407_V1",
+            "RUMBA32",
+            "Sparky_V1"
           ]
         },
         {
@@ -123,7 +151,14 @@
         {
           "pattern": "X_NUCLEO_|FP_Examples",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6", "RAK811_TRACKER", "REMRAM_V1" ]
+          "boards": [
+            "ARMED_V1",
+            "BLUEPILL_F103C6", 
+            "EEXTR_F030_V1",
+            "MALYANM200_F103CB",
+            "NUCLEO_L031K6",
+            "RAK811_TRACKER",
+            "REMRAM_V1" ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
@@ -139,6 +174,11 @@
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
           "boards": [ "NUCLEO_L031K6" ]
+        },
+        {
+          "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
+          "applicable": false,
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
         }
       ]
     },
