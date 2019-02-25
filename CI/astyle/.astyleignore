@@ -2,4 +2,4 @@
 BUILD
 CI
 system/Drivers
-system/STM32F*
+system/STM32*
