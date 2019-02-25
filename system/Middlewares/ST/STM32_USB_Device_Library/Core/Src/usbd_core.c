@@ -295,12 +295,12 @@ USBD_StatusTypeDef USBD_LL_DataOutStage(USBD_HandleTypeDef *pdev,
     pep = &pdev->ep_out[0];
 
     if (pdev->ep0_state == USBD_EP0_DATA_OUT) {
-      if (pep->rem_length > pep->maxpacket) {
-        pep->rem_length -=  pep->maxpacket;
+      if (pep->rem_length > USB_MAX_EP0_SIZE) {
+        pep->rem_length -=  USB_MAX_EP0_SIZE;
 
         USBD_CtlContinueRx(pdev,
                            pdata,
-                           (uint16_t)MIN(pep->rem_length, pep->maxpacket));
+                           (uint16_t)MIN(pep->rem_length, USB_MAX_EP0_SIZE));
       } else {
         if ((pdev->pClass->EP0_RxReady != NULL) &&
             (pdev->dev_state == USBD_STATE_CONFIGURED)) {
@@ -344,8 +344,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev, uint8_t epnum,
     pep = &pdev->ep_in[0];
 
     if (pdev->ep0_state == USBD_EP0_DATA_IN) {
-      if (pep->rem_length > pep->maxpacket) {
-        pep->rem_length -= pep->maxpacket;
+      if (pep->rem_length > USB_MAX_EP0_SIZE) {
+        pep->rem_length -= USB_MAX_EP0_SIZE;
 
         USBD_CtlContinueSendData(pdev, pdata, (uint16_t)pep->rem_length);
 
@@ -353,8 +353,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev, uint8_t epnum,
         USBD_LL_PrepareReceive(pdev, 0U, NULL, 0U);
       } else {
         /* last packet is MPS multiple, so send ZLP packet */
-        if ((pep->total_length % pep->maxpacket == 0U) &&
-            (pep->total_length >= pep->maxpacket) &&
+        if ((pep->total_length % USB_MAX_EP0_SIZE == 0U) &&
+            (pep->total_length >= USB_MAX_EP0_SIZE) &&
             (pep->total_length < pdev->ep0_data_len)) {
           USBD_CtlContinueSendData(pdev, NULL, 0U);
           pdev->ep0_data_len = 0U;
@@ -410,13 +410,10 @@ USBD_StatusTypeDef USBD_LL_Reset(USBD_HandleTypeDef  *pdev)
   USBD_LL_OpenEP(pdev, 0x00U, USBD_EP_TYPE_CTRL, USB_MAX_EP0_SIZE);
   pdev->ep_out[0x00U & 0xFU].is_used = 1U;
 
-  pdev->ep_out[0].maxpacket = USB_MAX_EP0_SIZE;
-
   /* Open EP0 IN */
   USBD_LL_OpenEP(pdev, 0x80U, USBD_EP_TYPE_CTRL, USB_MAX_EP0_SIZE);
   pdev->ep_in[0x80U & 0xFU].is_used = 1U;
 
-  pdev->ep_in[0].maxpacket = USB_MAX_EP0_SIZE;
   /* Upon Reset call user call back */
   pdev->dev_state = USBD_STATE_DEFAULT;
   pdev->ep0_state = USBD_EP0_IDLE;

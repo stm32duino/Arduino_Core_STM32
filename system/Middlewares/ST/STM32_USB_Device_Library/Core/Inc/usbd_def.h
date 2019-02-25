@@ -225,7 +225,6 @@ typedef struct {
   uint32_t                is_used;
   uint32_t                total_length;
   uint32_t                rem_length;
-  uint32_t                maxpacket;
 } USBD_EndpointTypeDef;
 
 /* USB Device handle structure */
