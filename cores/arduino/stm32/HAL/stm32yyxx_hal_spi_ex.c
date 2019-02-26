@@ -7,6 +7,9 @@
 #ifdef STM32F3xx
 #include "stm32f3xx_hal_spi_ex.c"
 #endif
+#ifdef STM32F7xx
+#include "stm32f7xx_hal_spi_ex.c"
+#endif
 #ifdef STM32H7xx
 #include "stm32h7xx_hal_spi_ex.c"
 #endif

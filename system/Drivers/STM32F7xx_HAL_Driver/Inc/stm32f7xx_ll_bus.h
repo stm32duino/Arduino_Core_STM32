@@ -7,14 +7,14 @@
   @verbatim
                       ##### RCC Limitations #####
   ==============================================================================
-    [..]  
-      A delay between an RCC peripheral clock enable and the effective peripheral 
-      enabling should be taken into account in order to manage the peripheral read/write 
+    [..]
+      A delay between an RCC peripheral clock enable and the effective peripheral
+      enabling should be taken into account in order to manage the peripheral read/write
       from/to registers.
       (+) This delay depends on the peripheral mapping.
         (++) AHB & APB peripherals, 1 dummy read is necessary
 
-    [..]  
+    [..]
       Workarounds:
       (#) For AHB & APB peripherals, a dummy read to the peripheral register has been
           inserted in each LL_{BUS}_GRP{x}_EnableClock() function.
@@ -23,29 +23,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -134,7 +118,7 @@ extern "C" {
 #if defined(JPEG)
 #define LL_AHB2_GRP1_PERIPH_JPEG           RCC_AHB2ENR_JPEGEN
 #endif /* JPEG */
-#if defined(CRYP) 
+#if defined(CRYP)
 #define LL_AHB2_GRP1_PERIPH_CRYP           RCC_AHB2ENR_CRYPEN
 #endif /* CRYP */
 #if defined(AES)
@@ -1052,9 +1036,9 @@ __STATIC_INLINE void LL_AHB3_GRP1_DisableClockLowPower(uint32_t Periphs)
   *         APB1ENR     RTCEN         LL_APB1_GRP1_EnableClock
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1062,7 +1046,7 @@ __STATIC_INLINE void LL_AHB3_GRP1_DisableClockLowPower(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1130,9 +1114,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClock(uint32_t Periphs)
   *         APB1ENR     RTCEN         LL_APB1_GRP1_IsEnabledClock
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1140,7 +1124,7 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1204,9 +1188,9 @@ __STATIC_INLINE uint32_t LL_APB1_GRP1_IsEnabledClock(uint32_t Periphs)
   *         APB1ENR     RTCEN         LL_APB1_GRP1_DisableClock
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1214,7 +1198,7 @@ __STATIC_INLINE uint32_t LL_APB1_GRP1_IsEnabledClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1277,9 +1261,9 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         APB1RSTR     UART8RST       LL_APB1_GRP1_ForceReset
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1287,7 +1271,7 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1349,9 +1333,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         APB1RSTR     UART8RST       LL_APB1_GRP1_ReleaseReset
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1359,7 +1343,7 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1422,9 +1406,9 @@ __STATIC_INLINE void LL_APB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         APB1LPENR     RTCLPEN         LL_APB1_GRP1_EnableClockLowPower
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1432,7 +1416,7 @@ __STATIC_INLINE void LL_APB1_GRP1_ReleaseReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -1500,9 +1484,9 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClockLowPower(uint32_t Periphs)
   *         APB1LPENR     RTCLPEN         LL_APB1_GRP1_DisableClockLowPower
   * @param  Periphs This parameter can be a combination of the following values:
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM2
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM3
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM4
-  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_TIM5
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM12
@@ -1510,7 +1494,7 @@ __STATIC_INLINE void LL_APB1_GRP1_EnableClockLowPower(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM14
   *         @arg @ref LL_APB1_GRP1_PERIPH_LPTIM1
   *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
-  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2 
+  *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPDIFRX (*)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2

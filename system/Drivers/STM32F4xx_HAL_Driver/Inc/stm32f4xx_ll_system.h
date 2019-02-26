@@ -18,29 +18,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -132,7 +116,7 @@ extern "C" {
 #endif /* SYSCFG_MEMRMP_UFB_MODE */
 /** @defgroup SYSTEM_LL_EC_I2C_FASTMODEPLUS SYSCFG I2C FASTMODEPLUS
   * @{
-  */ 
+  */
 #if defined(SYSCFG_CFGR_FMPI2C1_SCL)
 #define LL_SYSCFG_I2C_FASTMODEPLUS_SCL         SYSCFG_CFGR_FMPI2C1_SCL   /*!< Enable Fast Mode Plus on FMPI2C_SCL pin */
 #define LL_SYSCFG_I2C_FASTMODEPLUS_SDA         SYSCFG_CFGR_FMPI2C1_SDA   /*!< Enable Fast Mode Plus on FMPI2C_SDA pin*/
@@ -196,9 +180,9 @@ extern "C" {
   * @{
   */
 #if defined(SYSCFG_CFGR2_LOCKUP_LOCK)
-#define LL_SYSCFG_TIMBREAK_LOCKUP          SYSCFG_CFGR2_LOCKUP_LOCK   /*!< Enables and locks the LOCKUP output of CortexM4 
+#define LL_SYSCFG_TIMBREAK_LOCKUP          SYSCFG_CFGR2_LOCKUP_LOCK   /*!< Enables and locks the LOCKUP output of CortexM4
                                                                       with Break Input of TIM1/8                                    */
-#define LL_SYSCFG_TIMBREAK_PVD             SYSCFG_CFGR2_PVD_LOCK      /*!< Enables and locks the PVD connection with TIM1/8 Break Input 
+#define LL_SYSCFG_TIMBREAK_PVD             SYSCFG_CFGR2_PVD_LOCK      /*!< Enables and locks the PVD connection with TIM1/8 Break Input
                                                                       and also the PVDE and PLS bits of the Power Control Interface  */
 #endif /* SYSCFG_CFGR2_CLL */
 /**
@@ -216,7 +200,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM_MCHDLYEN              SYSCFG MCHDLY MCHDLYEN
   * @{
-  */  
+  */
 #define LL_SYSCFG_DFSDM1_MCHDLYEN                  SYSCFG_MCHDLYCR_MCHDLY1EN
 #define LL_SYSCFG_DFSDM2_MCHDLYEN                  SYSCFG_MCHDLYCR_MCHDLY2EN
 /**
@@ -237,7 +221,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM_DataIn2_Source       SYSCFG MCHDLY DFSDMD2SEL
   * @{
-  */   
+  */
 #define LL_SYSCFG_DFSDM1_DataIn2                   SYSCFG_MCHDLYCR_DFSDM1D2SEL
 #define LL_SYSCFG_DFSDM2_DataIn2                   SYSCFG_MCHDLYCR_DFSDM2D2SEL
 
@@ -250,7 +234,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM1_TIM4OC2_BitstreamDistribution  SYSCFG MCHDLY DFSDM1CK02SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM1_TIM4OC2_CLKIN0           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM1_TIM4OC2_CLKIN2           SYSCFG_MCHDLYCR_DFSDM1CK02SEL
 /**
@@ -258,7 +242,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM1_TIM4OC1_BitstreamDistribution  SYSCFG MCHDLY DFSDM1CK13SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM1_TIM4OC1_CLKIN1           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM1_TIM4OC1_CLKIN3           SYSCFG_MCHDLYCR_DFSDM1CK13SEL
 /**
@@ -274,7 +258,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM1_CLKOUT_SourceSelection SYSCFG MCHDLY DFSDM1CKOSEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM1_CKOUT                    (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM1_CKOUT_M27                SYSCFG_MCHDLYCR_DFSDM1CKOSEL
 /**
@@ -283,7 +267,7 @@ extern "C" {
 
 /** @defgroup SYSTEM_LL_DFSDM2_DataIn4_SourceSelection SYSCFG MCHDLY DFSDM2D4SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_DataIn4_PAD              (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_DataIn4_DM               SYSCFG_MCHDLYCR_DFSDM2D4SEL
 /**
@@ -291,7 +275,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_DataIn6_SourceSelection SYSCFG MCHDLY DFSDM2D6SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_DataIn6_PAD              (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_DataIn6_DM               SYSCFG_MCHDLYCR_DFSDM2D6SEL
 /**
@@ -299,7 +283,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_TIM3OC4_BitstreamDistribution  SYSCFG MCHDLY DFSDM2CK04SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_TIM3OC4_CLKIN0           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_TIM3OC4_CLKIN4           SYSCFG_MCHDLYCR_DFSDM2CK04SEL
 /**
@@ -307,7 +291,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_TIM3OC3_BitstreamDistribution  SYSCFG MCHDLY DFSDM2CK15SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_TIM3OC3_CLKIN1           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_TIM3OC3_CLKIN5           SYSCFG_MCHDLYCR_DFSDM2CK15SEL
 /**
@@ -315,7 +299,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_TIM3OC2_BitstreamDistribution  SYSCFG MCHDLY DFSDM2CK26SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_TIM3OC2_CLKIN2           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_TIM3OC2_CLKIN6           SYSCFG_MCHDLYCR_DFSDM2CK26SEL
 /**
@@ -323,7 +307,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_TIM3OC1_BitstreamDistribution  SYSCFG MCHDLY DFSDM2CK37SEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_TIM3OC1_CLKIN3           (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_TIM3OC1_CLKIN7           SYSCFG_MCHDLYCR_DFSDM2CK37SEL
 /**
@@ -331,7 +315,7 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_CLKIN_SourceSelection SYSCFG MCHDLY DFSDM2CFG
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_CKIN_PAD                 (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_CKIN_DM                  SYSCFG_MCHDLYCR_DFSDM2CFG
 /**
@@ -339,13 +323,13 @@ extern "C" {
   */
 /** @defgroup SYSTEM_LL_DFSDM2_CLKOUT_SourceSelection SYSCFG MCHDLY DFSDM2CKOSEL
   * @{
-  */ 
+  */
 #define LL_SYSCFG_DFSDM2_CKOUT                    (uint32_t)0x00000000
 #define LL_SYSCFG_DFSDM2_CKOUT_M27                SYSCFG_MCHDLYCR_DFSDM2CKOSEL
 /**
   * @}
-  */ 
-#endif /* SYSCFG_MCHDLYCR_BSCKSEL */  
+  */
+#endif /* SYSCFG_MCHDLYCR_BSCKSEL */
 
 /** @defgroup SYSTEM_LL_EC_TRACE DBGMCU TRACE Pin Assignment
   * @{
@@ -502,8 +486,8 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetRemapMemory(void)
 /**
   * @brief  Enables the FMC Memory Mapping Swapping
   * @rmtoll SYSCFG_MEMRMP SWP_FMC      LL_SYSCFG_EnableFMCMemorySwapping
-  * @note   SDRAM is accessible at 0x60000000 and NOR/RAM 
-  *         is accessible at 0xC0000000   
+  * @note   SDRAM is accessible at 0x60000000 and NOR/RAM
+  *         is accessible at 0xC0000000
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_EnableFMCMemorySwapping(void)
@@ -514,7 +498,7 @@ __STATIC_INLINE void LL_SYSCFG_EnableFMCMemorySwapping(void)
 /**
   * @brief  Disables the FMC Memory Mapping Swapping
   * @rmtoll SYSCFG_MEMRMP SWP_FMC      LL_SYSCFG_DisableFMCMemorySwapping
-  * @note   SDRAM is accessible at 0xC0000000 (default mapping)  
+  * @note   SDRAM is accessible at 0xC0000000 (default mapping)
   *         and NOR/RAM is accessible at 0x60000000 (default mapping)
   * @retval None
   */
@@ -560,7 +544,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CMPCR(void)
 
 #if defined(SYSCFG_PMC_MII_RMII_SEL)
 /**
-  * @brief  Select Ethernet PHY interface 
+  * @brief  Select Ethernet PHY interface
   * @rmtoll SYSCFG_PMC MII_RMII_SEL       LL_SYSCFG_SetPHYInterface
   * @param  Interface This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_PMC_ETHMII
@@ -573,7 +557,7 @@ __STATIC_INLINE void LL_SYSCFG_SetPHYInterface(uint32_t Interface)
 }
 
 /**
-  * @brief  Get Ethernet PHY interface 
+  * @brief  Get Ethernet PHY interface
   * @rmtoll SYSCFG_PMC MII_RMII_SEL       LL_SYSCFG_GetPHYInterface
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_PMC_ETHMII
@@ -585,7 +569,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPHYInterface(void)
   return (uint32_t)(READ_BIT(SYSCFG->PMC, SYSCFG_PMC_MII_RMII_SEL));
 }
 #endif /* SYSCFG_PMC_MII_RMII_SEL */
- 
+
 
 
 #if defined(SYSCFG_MEMRMP_UFB_MODE)
@@ -598,7 +582,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPHYInterface(void)
   * @retval None
   */
 __STATIC_INLINE void LL_SYSCFG_SetFlashBankMode(uint32_t Bank)
-{ 
+{
   MODIFY_REG(SYSCFG->MEMRMP, SYSCFG_MEMRMP_UFB_MODE, Bank);
 }
 
@@ -751,7 +735,7 @@ __STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs(uint32_t Break)
   *         @arg @ref LL_SYSCFG_TIMBREAK_PVD
   */
 __STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
-{   
+{
   return (uint32_t)(READ_BIT(SYSCFG->CFGR2, SYSCFG_CFGR2_LOCKUP_LOCK | SYSCFG_CFGR2_PVD_LOCK));
 }
 #endif /* SYSCFG_CFGR2_LOCKUP_LOCK */
@@ -807,7 +791,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM_DisableDelayClock(uint32_t MCHDLY)
 }
 
 /**
-  * @brief  Select the source for DFSDM1 or DFSDM2 DatIn0 
+  * @brief  Select the source for DFSDM1 or DFSDM2 DatIn0
   * @rmtoll SYSCFG_MCHDLYCR DFSDMD0SEL        LL_SYSCFG_DFSDM_SetDataIn0Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_DataIn0_PAD
@@ -838,7 +822,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM_GetDataIn0Source(uint32_t Source)
   return (uint32_t)(READ_BIT(SYSCFG->MCHDLYCR, Source));
 }
 /**
-  * @brief  Select the source for DFSDM1 or DFSDM2 DatIn2 
+  * @brief  Select the source for DFSDM1 or DFSDM2 DatIn2
   * @rmtoll SYSCFG_MCHDLYCR DFSDMD2SEL        LL_SYSCFG_DFSDM_SetDataIn2Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_DataIn2_PAD
@@ -870,7 +854,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM_GetDataIn2Source(uint32_t Source)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM4 OC2 
+  * @brief  Select the distribution of the bitsream lock gated by TIM4 OC2
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1CK02SEL        LL_SYSCFG_DFSDM1_SetTIM4OC2BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_TIM4OC2_CLKIN0
@@ -882,7 +866,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM1_SetTIM4OC2BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM1CK02SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM4 OC2 
+  * @brief  Get the distribution of the bitsream lock gated by TIM4 OC2
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1D2SEL       LL_SYSCFG_DFSDM1_GetTIM4OC2BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_TIM4OC2_CLKIN0
@@ -895,7 +879,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM1_GetTIM4OC2BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM4 OC1 
+  * @brief  Select the distribution of the bitsream lock gated by TIM4 OC1
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1CK13SEL        LL_SYSCFG_DFSDM1_SetTIM4OC1BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_TIM4OC1_CLKIN1
@@ -907,7 +891,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM1_SetTIM4OC1BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM1CK13SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM4 OC1 
+  * @brief  Get the distribution of the bitsream lock gated by TIM4 OC1
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1D2SEL       LL_SYSCFG_DFSDM1_GetTIM4OC1BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_TIM4OC1_CLKIN1
@@ -920,7 +904,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM1_GetTIM4OC1BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the DFSDM1 Clock In 
+  * @brief  Select the DFSDM1 Clock In
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1CFG        LL_SYSCFG_DFSDM1_SetClockInSourceSelection
   * @param  ClockSource This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_CKIN_PAD
@@ -945,7 +929,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM1_GetClockInSourceSelection(void)
 }
 
 /**
-  * @brief  Select the DFSDM1 Clock Out 
+  * @brief  Select the DFSDM1 Clock Out
   * @rmtoll SYSCFG_MCHDLYCR DFSDM1CKOSEL        LL_SYSCFG_DFSDM1_SetClockOutSourceSelection
   * @param  ClockSource This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM1_CKOUT
@@ -989,7 +973,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM2_DisableDelayClock(void)
   CLEAR_BIT(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_MCHDLY2EN);
 }
 /**
-  * @brief  Select the source for DFSDM2 DatIn0 
+  * @brief  Select the source for DFSDM2 DatIn0
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2D0SEL        LL_SYSCFG_DFSDM2_SetDataIn0Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_DataIn0_PAD
@@ -1014,7 +998,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetDataIn0Source(void)
 }
 
 /**
-  * @brief  Select the source for DFSDM2 DatIn2 
+  * @brief  Select the source for DFSDM2 DatIn2
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2D2SEL        LL_SYSCFG_DFSDM2_SetDataIn2Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_DataIn2_PAD
@@ -1039,7 +1023,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetDataIn2Source(void)
 }
 
 /**
-  * @brief  Select the source for DFSDM2 DatIn4 
+  * @brief  Select the source for DFSDM2 DatIn4
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2D4SEL        LL_SYSCFG_DFSDM2_SetDataIn4Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_DataIn4_PAD
@@ -1064,7 +1048,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetDataIn4Source(void)
 }
 
 /**
-  * @brief  Select the source for DFSDM2 DatIn6 
+  * @brief  Select the source for DFSDM2 DatIn6
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2D6SEL        LL_SYSCFG_DFSDM2_SetDataIn6Source
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_DataIn6_PAD
@@ -1089,7 +1073,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetDataIn6Source(void)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC4 
+  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC4
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK04SEL        LL_SYSCFG_DFSDM2_SetTIM3OC4BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC4_CLKIN0
@@ -1101,7 +1085,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM2_SetTIM3OC4BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM2CK04SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC4 
+  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC4
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK04SEL       LL_SYSCFG_DFSDM2_GetTIM3OC4BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC4_CLKIN0
@@ -1114,7 +1098,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetTIM3OC4BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC3 
+  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC3
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK15SEL        LL_SYSCFG_DFSDM2_SetTIM3OC3BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC3_CLKIN1
@@ -1126,7 +1110,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM2_SetTIM3OC3BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM2CK15SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC4 
+  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC4
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK04SEL       LL_SYSCFG_DFSDM2_GetTIM3OC3BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC3_CLKIN1
@@ -1139,7 +1123,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetTIM3OC3BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC2 
+  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC2
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK26SEL        LL_SYSCFG_DFSDM2_SetTIM3OC2BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC2_CLKIN2
@@ -1151,7 +1135,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM2_SetTIM3OC2BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM2CK26SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC2 
+  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC2
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK04SEL       LL_SYSCFG_DFSDM2_GetTIM3OC2BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC2_CLKIN2
@@ -1164,7 +1148,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetTIM3OC2BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC1 
+  * @brief  Select the distribution of the bitsream lock gated by TIM3 OC1
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK37SEL        LL_SYSCFG_DFSDM2_SetTIM3OC1BitStreamDistribution
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC1_CLKIN3
@@ -1176,7 +1160,7 @@ __STATIC_INLINE void LL_SYSCFG_DFSDM2_SetTIM3OC1BitStreamDistribution(uint32_t S
   MODIFY_REG(SYSCFG->MCHDLYCR, SYSCFG_MCHDLYCR_DFSDM2CK37SEL, Source);
 }
 /**
-  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC1 
+  * @brief  Get the distribution of the bitsream lock gated by TIM3 OC1
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CK37SEL       LL_SYSCFG_DFSDM2_GetTIM3OC1BitStreamDistribution
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_TIM3OC1_CLKIN3
@@ -1189,7 +1173,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetTIM3OC1BitStreamDistribution(void)
 }
 
 /**
-  * @brief  Select the DFSDM2 Clock In 
+  * @brief  Select the DFSDM2 Clock In
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CFG        LL_SYSCFG_DFSDM2_SetClockInSourceSelection
   * @param  ClockSource This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_CKIN_PAD
@@ -1214,7 +1198,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_DFSDM2_GetClockInSourceSelection(void)
 }
 
 /**
-  * @brief  Select the DFSDM2 Clock Out 
+  * @brief  Select the DFSDM2 Clock Out
   * @rmtoll SYSCFG_MCHDLYCR DFSDM2CKOSEL        LL_SYSCFG_DFSDM2_SetClockOutSourceSelection
   * @param  ClockSource This parameter can be one of the following values:
   *         @arg @ref LL_SYSCFG_DFSDM2_CKOUT
@@ -1404,7 +1388,7 @@ __STATIC_INLINE uint32_t LL_DBGMCU_GetTracePinAssignment(void)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM2_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM3_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM4_STOP (*)
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM5_STOP 
+  *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM5_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM6_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM7_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM12_STOP (*)
@@ -1421,7 +1405,7 @@ __STATIC_INLINE uint32_t LL_DBGMCU_GetTracePinAssignment(void)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN1_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN2_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN3_STOP (*)
-  *         
+  *
   *         (*) value not defined in all devices.
   * @retval None
   */
@@ -1456,7 +1440,7 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM2_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM3_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM4_STOP (*)
-  *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM5_STOP 
+  *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM5_STOP
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM6_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM7_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_TIM12_STOP (*)
@@ -1473,7 +1457,7 @@ __STATIC_INLINE void LL_DBGMCU_APB1_GRP1_FreezePeriph(uint32_t Periphs)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN1_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN2_STOP (*)
   *         @arg @ref LL_DBGMCU_APB1_GRP1_CAN3_STOP (*)
-  *         
+  *
   *         (*) value not defined in all devices.
   * @retval None
   */

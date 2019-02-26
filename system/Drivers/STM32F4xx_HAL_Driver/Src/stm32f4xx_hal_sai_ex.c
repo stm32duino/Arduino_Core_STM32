@@ -3,54 +3,38 @@
   * @file    stm32f4xx_hal_sai_ex.c
   * @author  MCD Application Team
   * @brief   SAI Extension HAL module driver.
-  *          This file provides firmware functions to manage the following 
+  *          This file provides firmware functions to manage the following
   *          functionalities of SAI extension peripheral:
   *           + Extension features functions
-  *         
+  *
   @verbatim
   ==============================================================================
                ##### SAI peripheral extension features  #####
   ==============================================================================
-           
-  [..] Comparing to other previous devices, the SAI interface for STM32F446xx 
+
+  [..] Comparing to other previous devices, the SAI interface for STM32F446xx
        devices contains the following additional features :
-       
+
        (+) Possibility to be clocked from PLLR
-   
+
                      ##### How to use this driver #####
   ==============================================================================
   [..] This driver provides functions to manage several sources to clock SAI
-  
+
   @endverbatim
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -84,21 +68,21 @@
  /**
   * @}
   */
-  
+
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup SAIEx_Exported_Functions SAI Extended Exported Functions
   * @{
   */
 
-/** @defgroup SAIEx_Exported_Functions_Group1 Extension features functions 
+/** @defgroup SAIEx_Exported_Functions_Group1 Extension features functions
   *  @brief   Extension features functions
   *
-@verbatim    
+@verbatim
  ===============================================================================
                        ##### Extension features Functions #####
  ===============================================================================
     [..]
-    This subsection provides a set of functions allowing to manage the possible 
+    This subsection provides a set of functions allowing to manage the possible
     SAI clock sources.
 
 @endverbatim
@@ -108,14 +92,14 @@
 /**
   * @brief  Configure SAI Block synchronization mode
   * @param  hsai pointer to a SAI_HandleTypeDef structure that contains
-  *               the configuration information for SAI module.   
-  * @retval SAI Clock Input 
+  *               the configuration information for SAI module.
+  * @retval SAI Clock Input
   */
 void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
 {
-  uint32_t tmpregisterGCR = 0U;
+  uint32_t tmpregisterGCR;
 
-#if defined(STM32F446xx)  
+#if defined(STM32F446xx)
   /* This setting must be done with both audio block (A & B) disabled         */
   switch(hsai->Init.SynchroExt)
   {
@@ -129,6 +113,7 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
     tmpregisterGCR = SAI_GCR_SYNCOUT_1;
     break;
   default:
+    tmpregisterGCR = 0U;
     break;
   }
 
@@ -141,7 +126,7 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
   {
     SAI1->GCR = tmpregisterGCR;
   }
-  else 
+  else
   {
     SAI2->GCR = tmpregisterGCR;
   }
@@ -161,22 +146,23 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
     tmpregisterGCR = SAI_GCR_SYNCOUT_1;
     break;
   default:
+    tmpregisterGCR = 0U;
     break;
   }
   SAI1->GCR = tmpregisterGCR;
-#endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F413xx || STM32F423xx */ 
+#endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F413xx || STM32F423xx */
 }
   /**
   * @brief  Get SAI Input Clock based on SAI source clock selection
   * @param  hsai pointer to a SAI_HandleTypeDef structure that contains
-  *               the configuration information for SAI module.   
-  * @retval SAI Clock Input 
+  *               the configuration information for SAI module.
+  * @retval SAI Clock Input
   */
-uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)   
+uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
 {
   /* This variable used to store the SAI_CK_x (value in Hz) */
   uint32_t saiclocksource = 0U;
-  
+
 #if defined(STM32F446xx)
   if ((hsai->Instance == SAI1_Block_A) || (hsai->Instance == SAI1_Block_B))
   {
@@ -184,16 +170,16 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
   }
   else /* SAI2_Block_A || SAI2_Block_B*/
   {
-    saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2); 
+    saiclocksource = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SAI2);
   }
 #endif /* STM32F446xx */
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) || \
   defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F413xx) || defined(STM32F423xx)
   uint32_t vcoinput = 0U, tmpreg = 0U;
-  
+
   /* Check the SAI Block parameters */
   assert_param(IS_SAI_CLK_SOURCE(hsai->Init.ClockSource));
- 
+
   /* SAI Block clock source selection */
   if(hsai->Instance == SAI1_Block_A)
   {
@@ -203,7 +189,7 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
   {
     __HAL_RCC_SAI_BLOCKBCLKSOURCE_CONFIG((uint32_t)(hsai->Init.ClockSource << 2U));
   }
-  
+
   /* VCO Input Clock value calculation */
   if((RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) == RCC_PLLSOURCE_HSI)
   {
@@ -228,21 +214,21 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
 
     /* SAI_CLK_x = SAI_CLK(first level)/PLLDIVR */
     tmpreg = (((RCC->DCKCFGR & RCC_DCKCFGR_PLLDIVR) >> 8U) + 1U);
-      
-    saiclocksource = saiclocksource/(tmpreg); 
+
+    saiclocksource = saiclocksource/(tmpreg);
 
   }
   else if(hsai->Init.ClockSource == SAI_CLKSOURCE_PLLI2S)
-  {        
+  {
     /* Configure the PLLI2S division factor */
     /* PLLI2S_VCO Input  = PLL_SOURCE/PLLM */
     /* PLLI2S_VCO Output = PLLI2S_VCO Input * PLLI2SN */
     /* SAI_CLK(first level) = PLLI2S_VCO Output/PLLI2SR */
     tmpreg = (RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SR) >> 28U;
     saiclocksource = (vcoinput * ((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SN) >> 6U))/(tmpreg);
-    
+
     /* SAI_CLK_x = SAI_CLK(first level)/PLLI2SDIVR */
-    tmpreg = ((RCC->DCKCFGR & RCC_DCKCFGR_PLLI2SDIVR) + 1U); 
+    tmpreg = ((RCC->DCKCFGR & RCC_DCKCFGR_PLLI2SDIVR) + 1U);
     saiclocksource = saiclocksource/(tmpreg);
   }
   else if(hsai->Init.ClockSource == SAI_CLKSOURCE_HS)
@@ -275,30 +261,30 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
 
     /* SAI_CLK_x = SAI_CLK(first level)/PLLSAIDIVQ */
     tmpreg = (((RCC->DCKCFGR & RCC_DCKCFGR_PLLSAIDIVQ) >> 8U) + 1U);
-    saiclocksource = saiclocksource/(tmpreg); 
+    saiclocksource = saiclocksource/(tmpreg);
 
   }
   else if(hsai->Init.ClockSource == SAI_CLKSOURCE_PLLI2S)
-  {        
+  {
     /* Configure the PLLI2S division factor */
     /* PLLI2S_VCO Input  = PLL_SOURCE/PLLM */
     /* PLLI2S_VCO Output = PLLI2S_VCO Input * PLLI2SN */
     /* SAI_CLK(first level) = PLLI2S_VCO Output/PLLI2SQ */
     tmpreg = (RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SQ) >> 24U;
     saiclocksource = (vcoinput * ((RCC->PLLI2SCFGR & RCC_PLLI2SCFGR_PLLI2SN) >> 6U))/(tmpreg);
-    
+
     /* SAI_CLK_x = SAI_CLK(first level)/PLLI2SDIVQ */
-    tmpreg = ((RCC->DCKCFGR & RCC_DCKCFGR_PLLI2SDIVQ) + 1U); 
+    tmpreg = ((RCC->DCKCFGR & RCC_DCKCFGR_PLLI2SDIVQ) + 1U);
     saiclocksource = saiclocksource/(tmpreg);
   }
   else /* sConfig->ClockSource == SAI_CLKSource_Ext */
   {
     /* Enable the External Clock selection */
     __HAL_RCC_I2S_CONFIG(RCC_I2SCLKSOURCE_EXT);
-    
+
     saiclocksource = EXTERNAL_CLOCK_VALUE;
   }
-#endif /* STM32F413xx || STM32F423xx */  
+#endif /* STM32F413xx || STM32F423xx */
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F413xx || STM32F423xx */
        /* the return result is the value of SAI clock */
   return saiclocksource;
