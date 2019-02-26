@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -50,17 +34,17 @@
 
 /** @addtogroup DMAEx
   * @{
-  */ 
+  */
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup DMAEx_Exported_Types DMAEx Exported Types
   * @brief DMAEx Exported types
   * @{
   */
-   
-/** 
-  * @brief  HAL DMA Memory definition  
-  */ 
+
+/**
+  * @brief  HAL DMA Memory definition
+  */
 typedef enum
 {
   MEMORY0      = 0x00U,    /*!< Memory 0     */
@@ -71,18 +55,18 @@ typedef enum
 /**
   * @}
   */
-  
+
 /* Exported constants --------------------------------------------------------*/
 
 /** @defgroup DMA_Exported_Constants DMA Exported Constants
-  * @brief    DMA Exported constants 
+  * @brief    DMA Exported constants
   * @{
   */
 
 /** @defgroup DMAEx_Channel_selection DMA Channel selection
-  * @brief    DMAEx channel selection 
+  * @brief    DMAEx channel selection
   * @{
-  */ 
+  */
 #define DMA_CHANNEL_0                     0x00000000U  /*!< DMA Channel 0 */
 #define DMA_CHANNEL_1                     0x02000000U  /*!< DMA Channel 1 */
 #define DMA_CHANNEL_2                     0x04000000U  /*!< DMA Channel 2 */
@@ -108,10 +92,10 @@ typedef enum
 /**
   * @}
   */
-  
+
 /**
   * @}
-  */  
+  */
 
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup DMAEx_Exported_Functions DMAEx Exported Functions
@@ -135,10 +119,10 @@ HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Addre
 /**
   * @}
   */
-  
+
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup DMAEx_Private_Macros DMA Private Macros
-  * @brief    DMAEx private macros 
+  * @brief    DMAEx private macros
   * @{
   */
 #if defined (STM32F722xx) || defined (STM32F723xx) || defined (STM32F732xx) || defined (STM32F733xx) ||\
@@ -159,7 +143,7 @@ HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Addre
                                  ((CHANNEL) == DMA_CHANNEL_12) || \
                                  ((CHANNEL) == DMA_CHANNEL_13) || \
                                  ((CHANNEL) == DMA_CHANNEL_14) || \
-                                 ((CHANNEL) == DMA_CHANNEL_15)) 
+                                 ((CHANNEL) == DMA_CHANNEL_15))
 #else
 #define IS_DMA_CHANNEL(CHANNEL) (((CHANNEL) == DMA_CHANNEL_0) || \
                                  ((CHANNEL) == DMA_CHANNEL_1) || \
@@ -173,8 +157,8 @@ HAL_StatusTypeDef HAL_DMAEx_ChangeMemory(DMA_HandleTypeDef *hdma, uint32_t Addre
           STM32F769xx || STM32F777xx || STM32F779xx || STM32F730xx*/
 /**
   * @}
-  */  
-         
+  */
+
 /* Private functions ---------------------------------------------------------*/
 /** @defgroup DMAEx_Private_Functions DMAEx Private Functions
   * @brief DMAEx Private functions
