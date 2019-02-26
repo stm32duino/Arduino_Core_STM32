@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -153,10 +137,10 @@ ErrorStatus LL_DAC_DeInit(DAC_TypeDef *DACx)
 {
   /* Check the parameters */
   assert_param(IS_DAC_ALL_INSTANCE(DACx));
-  
+
   /* Force reset of DAC1 clock */
   LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_DAC1);
-  
+
   /* Release reset of DAC1 clock */
   LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_DAC1);
   return SUCCESS;
@@ -171,7 +155,7 @@ ErrorStatus LL_DAC_DeInit(DAC_TypeDef *DACx)
   * @param  DAC_Channel This parameter can be one of the following values:
   *         @arg @ref LL_DAC_CHANNEL_1
   *         @arg @ref LL_DAC_CHANNEL_2 (1)
-  *         
+  *
   *         (1) On this STM32 serie, parameter not available on all devices.
   *             Refer to device datasheet for channels availability.
   * @param  DAC_InitStruct Pointer to a @ref LL_DAC_InitTypeDef structure
@@ -182,7 +166,7 @@ ErrorStatus LL_DAC_DeInit(DAC_TypeDef *DACx)
 ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, LL_DAC_InitTypeDef *DAC_InitStruct)
 {
   ErrorStatus status = SUCCESS;
-  
+
   /* Check the parameters */
   assert_param(IS_DAC_ALL_INSTANCE(DACx));
   assert_param(IS_LL_DAC_CHANNEL(DACx, DAC_Channel));
@@ -193,7 +177,7 @@ ErrorStatus LL_DAC_Init(DAC_TypeDef *DACx, uint32_t DAC_Channel, LL_DAC_InitType
   {
     assert_param(IS_LL_DAC_WAVE_AUTO_GENER_CONFIG(DAC_InitStruct->WaveAutoGenerationConfig));
   }
-  
+
   /* Note: Hardware constraint (refer to description of this function)        */
   /*       DAC instance must be disabled.                                     */
   if(LL_DAC_IsEnabled(DACx, DAC_Channel) == 0U)

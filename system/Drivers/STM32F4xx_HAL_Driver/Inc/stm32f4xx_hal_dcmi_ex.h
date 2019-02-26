@@ -6,32 +6,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F4xx_HAL_DCMI_EX_H
@@ -56,15 +40,15 @@
 /** @addtogroup DCMIEx
   * @brief DCMI HAL module driver
   * @{
-  */  
+  */
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup DCMIEx_Exported_Types DCMI Extended Exported Types
   * @{
   */
-/** 
+/**
   * @brief   DCMIEx Embedded Synchronisation CODE Init structure definition
-  */ 
+  */
 typedef struct
 {
   uint8_t FrameStartCode; /*!< Specifies the code of the frame start delimiter. */
@@ -73,9 +57,9 @@ typedef struct
   uint8_t FrameEndCode;   /*!< Specifies the code of the frame end delimiter.   */
 }DCMI_CodesInitTypeDef;
 
-/** 
+/**
   * @brief   DCMI Init structure definition
-  */  
+  */
 typedef struct
 {
   uint32_t  SynchroMode;                /*!< Specifies the Synchronization Mode: Hardware or Embedded.
@@ -101,13 +85,13 @@ typedef struct
   uint32_t JPEGMode;                    /*!< Enable or Disable the JPEG mode
                                              This parameter can be a value of @ref DCMI_MODE_JPEG              */
 #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
-  uint32_t ByteSelectMode;              /*!< Specifies the data to be captured by the interface 
+  uint32_t ByteSelectMode;              /*!< Specifies the data to be captured by the interface
                                             This parameter can be a value of @ref DCMIEx_Byte_Select_Mode      */
 
   uint32_t ByteSelectStart;             /*!< Specifies if the data to be captured by the interface is even or odd
                                             This parameter can be a value of @ref DCMIEx_Byte_Select_Start     */
 
-  uint32_t LineSelectMode;              /*!< Specifies the line of data to be captured by the interface 
+  uint32_t LineSelectMode;              /*!< Specifies the line of data to be captured by the interface
                                             This parameter can be a value of @ref DCMIEx_Line_Select_Mode      */
 
   uint32_t LineSelectStart;             /*!< Specifies if the line of data to be captured by the interface is even or odd
@@ -140,7 +124,7 @@ typedef struct
 
 /** @defgroup DCMIEx_Byte_Select_Start DCMI Byte Select Start
   * @{
-  */ 
+  */
 #define DCMI_OEBS_ODD               0x00000000U              /*!< Interface captures first data from the frame/line start, second one being dropped  */
 #define DCMI_OEBS_EVEN              ((uint32_t)DCMI_CR_OEBS) /*!< Interface captures second data from the frame/line start, first one being dropped */
 
@@ -160,14 +144,14 @@ typedef struct
 
 /** @defgroup DCMIEx_Line_Select_Start DCMI Line Select Start
   * @{
-  */ 
+  */
 #define DCMI_OELS_ODD               0x00000000U              /*!< Interface captures first line from the frame start, second one being dropped  */
 #define DCMI_OELS_EVEN              ((uint32_t)DCMI_CR_OELS) /*!< Interface captures second line from the frame start, first one being dropped */
 
 /**
   * @}
   */
-  
+
 /**
   * @}
   */
@@ -217,7 +201,7 @@ typedef struct
 
 /**
   * @}
-  */ 
+  */
 
 #ifdef __cplusplus
 }
