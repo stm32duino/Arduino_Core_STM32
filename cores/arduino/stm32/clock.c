@@ -35,6 +35,7 @@
   *
   ******************************************************************************
   */
+#include "backup.h"
 #include "clock.h"
 #include "stm32yyxx_ll_cortex.h"
 
@@ -98,6 +99,8 @@ void enableClock(sourceClock_t source)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
 
+  enableBackupRegister();
+
   switch (source) {
     case LSI_CLOCK:
 #ifdef STM32WBxx
@@ -118,16 +121,6 @@ void enableClock(sourceClock_t source)
       }
       break;
     case LSE_CLOCK:
-      /* Enable Power Clock */
-#if !defined(STM32H7xx) && !defined(STM32WBxx)
-      if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-        __HAL_RCC_PWR_CLK_ENABLE();
-      }
-#endif
-#ifdef HAL_PWR_MODULE_ENABLED
-      /* Allow access to Backup domain */
-      HAL_PWR_EnableBkUpAccess();
-#endif
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSERDY) == RESET) {
 #ifdef __HAL_RCC_LSEDRIVE_CONFIG
         __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);

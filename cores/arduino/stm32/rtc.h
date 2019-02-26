@@ -40,6 +40,8 @@
 #define __RTC_H
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
+#include "backup.h"
 #include "clock.h"
 
 #ifdef HAL_RTC_MODULE_ENABLED
@@ -135,8 +137,9 @@ void RTC_SetClockSource(sourceClock_t source);
 void RTC_getPrediv(int8_t *asynch, int16_t *synch);
 void RTC_setPrediv(int8_t asynch, int16_t synch);
 
-void RTC_init(hourFormat_t format, sourceClock_t source);
+void RTC_init(hourFormat_t format, sourceClock_t source, bool reset);
 void RTC_DeInit(void);
+bool RTC_IsTimeSet(void);
 
 void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSeconds, hourAM_PM_t period);
 void RTC_GetTime(uint8_t *hours, uint8_t *minutes, uint8_t *seconds, uint32_t *subSeconds, hourAM_PM_t *period);

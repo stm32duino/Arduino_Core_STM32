@@ -292,9 +292,13 @@ static void RTC_computePrediv(int8_t *asynch, int16_t *synch)
   * @param format: enable the RTC in 12 or 24 hours mode
   * @retval None
   */
-void RTC_init(hourFormat_t format, sourceClock_t source)
+void RTC_init(hourFormat_t format, sourceClock_t source, bool reset)
 {
   initFormat = format;
+
+  if (reset) {
+    resetBackupRegister();
+  }
 
   /* Init RTC clock */
   RTC_initClock(source);
@@ -323,12 +327,6 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 
   HAL_RTC_Init(&RtcHandle);
 
-  /*Sunday 1st January 2017*/
-  RTC_SetDate(17, 1, 1, 7);
-
-  /*at 0:0:0*/
-  RTC_SetTime(0, 0, 0, 0, HOUR_AM);
-
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32L1xx) || defined(STM32L1_ULPH)
   /* Enable Direct Read of the calendar registers (not through Shadow) */
   HAL_RTCEx_EnableBypassShadow(&RtcHandle);
@@ -336,6 +334,8 @@ void RTC_init(hourFormat_t format, sourceClock_t source)
 
   HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 2, 0);
   HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
+  /* Ensure backup domain is enabled */
+  enableBackupRegister();
 }
 
 /**
@@ -347,6 +347,15 @@ void RTC_DeInit(void)
   HAL_RTC_DeInit(&RtcHandle);
   RTCUserCallback = NULL;
   callbackUserData = NULL;
+}
+
+/**
+  * @brief Check wether time is already set
+  * @retval True if set else false
+  */
+bool RTC_IsTimeSet(void)
+{
+  return (getBackupRegister(RTC_BKP_INDEX) == RTC_BKP_VALUE) ? true : false;
 }
 
 /**
@@ -392,6 +401,7 @@ void RTC_SetTime(uint8_t hours, uint8_t minutes, uint8_t seconds, uint32_t subSe
 #endif /* !STM32F1xx */
 
     HAL_RTC_SetTime(&RtcHandle, &RTC_TimeStruct, RTC_FORMAT_BIN);
+    setBackupRegister(RTC_BKP_INDEX, RTC_BKP_VALUE);
   }
 }
 
@@ -453,6 +463,7 @@ void RTC_SetDate(uint8_t year, uint8_t month, uint8_t day, uint8_t wday)
     RTC_DateStruct.Date = day;
     RTC_DateStruct.WeekDay = wday;
     HAL_RTC_SetDate(&RtcHandle, &RTC_DateStruct, RTC_FORMAT_BIN);
+    setBackupRegister(RTC_BKP_INDEX, RTC_BKP_VALUE);
   }
 }
 

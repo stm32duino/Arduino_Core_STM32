@@ -6,6 +6,7 @@
 */
 #include "interrupt.h"
 #include "analog.h"
+#include "backup.h"
 #include "clock.h"
 #include "core_callback.h"
 #include "digital_io.h"
