@@ -1249,7 +1249,7 @@
 
 #define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) (((cmd)==ENABLE)? HAL_I2CEx_EnableFastModePlus(SYSCFG_I2CFastModePlus): HAL_I2CEx_DisableFastModePlus(SYSCFG_I2CFastModePlus))
 
-#if defined(STM32H7) || defined(STM32G0)
+#if defined(STM32H7) || defined(STM32G0) || defined(STM32L0)
 #define HAL_I2C_Master_Sequential_Transmit_IT  HAL_I2C_Master_Seq_Transmit_IT
 #define HAL_I2C_Master_Sequential_Receive_IT   HAL_I2C_Master_Seq_Receive_IT
 #define HAL_I2C_Slave_Sequential_Transmit_IT   HAL_I2C_Slave_Seq_Transmit_IT
@@ -1258,7 +1258,7 @@
 #define HAL_I2C_Master_Sequential_Receive_DMA  HAL_I2C_Master_Seq_Receive_DMA
 #define HAL_I2C_Slave_Sequential_Transmit_DMA  HAL_I2C_Slave_Seq_Transmit_DMA
 #define HAL_I2C_Slave_Sequential_Receive_DMA   HAL_I2C_Slave_Seq_Receive_DMA
-#endif /* STM32H7 || STM32G0 */
+#endif /* STM32H7 || STM32G0 || STM32L0 */
  /**
   * @}
   */
@@ -1338,14 +1338,14 @@
 #define HAL_TIM_DMAError                                TIM_DMAError
 #define HAL_TIM_DMACaptureCplt                          TIM_DMACaptureCplt
 #define HAL_TIMEx_DMACommutationCplt                    TIMEx_DMACommutationCplt
-#if defined(STM32H7) || defined(STM32G0) || defined(STM32F7) || defined(STM32F4)
+#if defined(STM32H7) || defined(STM32G0) || defined(STM32F7) || defined(STM32F4) || defined(STM32L0)
 #define HAL_TIM_SlaveConfigSynchronization              HAL_TIM_SlaveConfigSynchro
 #define HAL_TIM_SlaveConfigSynchronization_IT           HAL_TIM_SlaveConfigSynchro_IT
 #define HAL_TIMEx_CommutationCallback                   HAL_TIMEx_CommutCallback
 #define HAL_TIMEx_ConfigCommutationEvent                HAL_TIMEx_ConfigCommutEvent
 #define HAL_TIMEx_ConfigCommutationEvent_IT             HAL_TIMEx_ConfigCommutEvent_IT
 #define HAL_TIMEx_ConfigCommutationEvent_DMA            HAL_TIMEx_ConfigCommutEvent_DMA
-#endif /* STM32H7 || STM32G0 || STM32F7 || STM32F4 */
+#endif /* STM32H7 || STM32G0 || STM32F7 || STM32F4  || STM32L0 */
 /**
   * @}
   */
