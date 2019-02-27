@@ -69,7 +69,7 @@
           "boards": [ "" ]
         },
         {
-          "pattern": "eepromReadWrite|eepromTest_Wire1|p13_TouchSensorLamp",
+          "pattern": "eepromReadWrite|eepromTest_Wire1|p13_TouchSensorLamp|mqtt_large_message",
           "applicable": true,
           "boards": [ "" ]
         },
