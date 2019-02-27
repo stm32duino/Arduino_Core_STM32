@@ -799,7 +799,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
 {
   TIM_OC_InitTypeDef sConfig = {};
   TIM_HandleTypeDef *handle = &(obj->handle);
-  
+
   if (obj->timer == 0x00) {
     obj->timer = TIMER_SERVO;
   }
