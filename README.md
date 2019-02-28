@@ -112,6 +112,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Prntr Board V1](https://github.com/ghent360/PrntrBoard) | *1.5.0* |  |
 | :green_heart: | [RemRam v1](https://github.com/hasenbanck/remram) | *1.4.0* |  |
 | :green_heart: | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
+| :yellow_heart: | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | **1.6.0** |  |
 | :yellow_heart: | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | **1.6.0** |  |
 
 | Status | RAK Wireless | Release | Comment |
