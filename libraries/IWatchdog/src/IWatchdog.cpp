@@ -109,7 +109,6 @@ void IWatchdogClass::get(uint32_t *timeout, uint32_t *window)
   if (timeout != NULL) {
     uint32_t prescaler = 0;
     uint32_t reload = 0;
-    uint32_t win = 0;
     float base = (1000000.0 / LSI_VALUE);
 
     while (LL_IWDG_IsActiveFlag_RVU(IWDG));
@@ -123,7 +122,7 @@ void IWatchdogClass::get(uint32_t *timeout, uint32_t *window)
 #ifdef IWDG_WINR_WIN
     if (window != NULL) {
       while (LL_IWDG_IsActiveFlag_WVU(IWDG));
-      win = LL_IWDG_GetWindow(IWDG);
+      uint32_t win = LL_IWDG_GetWindow(IWDG);
       *window = (uint32_t)((4 << prescaler) * (win + 1) * base);
     }
 #else
