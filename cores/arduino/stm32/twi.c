@@ -205,8 +205,11 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   HAL_NVIC_EnableIRQ(obj->irqER);
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 
-  // Init the I2C
-  HAL_I2C_Init(handle);
+  /* Init the I2C */
+  if (HAL_I2C_Init(handle) != HAL_OK) {
+    /* Initialization Error */
+    Error_Handler();
+  }
 
   obj->isMaster = master;
   /* Initialize default values */
