@@ -100,8 +100,12 @@
 /** @defgroup PCD_Private_Macros PCD Private Macros
   * @{
   */ 
-#define PCD_MIN(a, b)  (((a) < (b)) ? (a) : (b))
-#define PCD_MAX(a, b)  (((a) > (b)) ? (a) : (b))
+#define PCD_PENDED_ZLP 0xffff
+#define PCD_PENDED_PROCESSED 0xfffe
+#define PCD_OUT_DTOG(value) (((value) & USB_EP_DTOG_RX) != 0)
+#define PCD_OUT_SW(value) (((value) & USB_EP_DTOG_TX) != 0)
+#define PCD_IN_DTOG(value) (((value) & USB_EP_DTOG_TX) != 0)
+#define PCD_IN_SW(value) (((value) & USB_EP_DTOG_RX) != 0)
 /**
   * @}
   */
@@ -117,6 +121,9 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
 #if defined (USB)
 static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd);
 #endif /* USB */
+
+static HAL_StatusTypeDef HAL_PCD_EP_ReceiveData(PCD_HandleTypeDef *hpcd, PCD_EPTypeDef* ep);
+
 /**
   * @}
   */
@@ -190,18 +197,22 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
     hpcd->IN_ep[index].maxpacket =  0U;
     hpcd->IN_ep[index].xfer_buff = 0U;
     hpcd->IN_ep[index].xfer_len = 0U;
+    hpcd->IN_ep[index].pending0 = 0U;
+    hpcd->IN_ep[index].pending1 = 0U;
   }
  
   for (index = 0U; index < 15U ; index++)
   {
     hpcd->OUT_ep[index].is_in = 0U;
     hpcd->OUT_ep[index].num = index;
-    hpcd->IN_ep[index].tx_fifo_num = index;
+    hpcd->OUT_ep[index].tx_fifo_num = index;
     /* Control until ep is activated */
     hpcd->OUT_ep[index].type = EP_TYPE_CTRL;
     hpcd->OUT_ep[index].maxpacket = 0U;
     hpcd->OUT_ep[index].xfer_buff = 0U;
     hpcd->OUT_ep[index].xfer_len = 0U;
+    hpcd->OUT_ep[index].pending0 = 0U;
+    hpcd->OUT_ep[index].pending1 = 0U;
   }
   
   /* Init Device */
@@ -907,7 +918,6 @@ HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
   return HAL_OK;
 }
 
-
 /**
   * @brief  Receive an amount of data
   * @param  hpcd: PCD handle
@@ -919,11 +929,11 @@ HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
 HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, uint8_t *pBuf, uint32_t len)
 {
   PCD_EPTypeDef *ep = NULL;
-  
+
   ep = &hpcd->OUT_ep[ep_addr & 0x7FU];
   
   /*setup and start the Xfer */
-  ep->xfer_buff = pBuf;  
+  ep->xfer_buff = pBuf;
   ep->xfer_len = len;
   ep->xfer_count = 0U;
 
@@ -933,7 +943,7 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr, u
   }
   else
   {
-    USB_EPStartXfer(hpcd->Instance , ep);
+    HAL_PCD_EP_ReceiveData(hpcd, ep);
   }
 
   return HAL_OK;
@@ -1178,6 +1188,12 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
   
   return HAL_OK;
 }
+
+HAL_StatusTypeDef HAL_PCD_EP_ReceiveData(PCD_HandleTypeDef *hpcd, PCD_EPTypeDef* ep)
+{
+  USB_EPStartXfer(hpcd->Instance, ep);
+}
+
 #endif /* USB_OTG_FS */
 
 #if defined (USB)
@@ -1190,80 +1206,80 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
 {
   PCD_EPTypeDef *ep = NULL;
   uint16_t count = 0;
+  uint16_t pmaBuffer = 0;
   uint8_t epindex = 0;
-  __IO uint16_t wIstr = 0;  
+  __IO uint16_t wIstr = 0;
   __IO uint16_t wEPVal = 0;
-  
+
   /* stay in loop while pending interrupts */
   while (((wIstr = hpcd->Instance->ISTR) & USB_ISTR_CTR) != 0)
   {
     /* extract highest priority endpoint number */
     epindex = (uint8_t)(wIstr & USB_ISTR_EP_ID);
-    
+
     if (epindex == 0)
     {
       /* Decode and service control endpoint interrupt */
-      
-      /* DIR bit = origin of the interrupt */   
+
+      /* DIR bit = origin of the interrupt */
       if ((wIstr & USB_ISTR_DIR) == 0)
       {
         /* DIR = 0 */
-        
+
         /* DIR = 0      => IN  int */
         /* DIR = 0 implies that (EP_CTR_TX = 1) always  */
         PCD_CLEAR_TX_EP_CTR(hpcd->Instance, PCD_ENDP0);
         ep = &hpcd->IN_ep[0];
-        
+
         ep->xfer_count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
         ep->xfer_buff += ep->xfer_count;
- 
+
         /* TX COMPLETE */
         HAL_PCD_DataInStageCallback(hpcd, 0U);
-        
-        
+
+
         if((hpcd->USB_Address > 0U)&& ( ep->xfer_len == 0U))
         {
           hpcd->Instance->DADDR = (hpcd->USB_Address | USB_DADDR_EF);
           hpcd->USB_Address = 0U;
         }
-        
       }
       else
       {
         /* DIR = 1 */
-        
+
         /* DIR = 1 & CTR_RX       => SETUP or OUT int */
         /* DIR = 1 & (CTR_TX | CTR_RX) => 2 int pending */
         ep = &hpcd->OUT_ep[0U];
         wEPVal = PCD_GET_ENDPOINT(hpcd->Instance, PCD_ENDP0);
-        
+
         if ((wEPVal & USB_EP_SETUP) != 0U)
         {
           /* Get SETUP Packet*/
           ep->xfer_count = PCD_GET_EP_RX_CNT(hpcd->Instance, ep->num);
-          USB_ReadPMA(hpcd->Instance, (uint8_t*)hpcd->Setup ,ep->pmaadress , ep->xfer_count);       
-          /* SETUP bit kept frozen while CTR_RX = 1*/ 
-          PCD_CLEAR_RX_EP_CTR(hpcd->Instance, PCD_ENDP0); 
-          
+          USB_ReadPMA(hpcd->Instance, (uint8_t*)hpcd->Setup ,ep->pmaadress , ep->xfer_count);
+          /* SETUP bit kept frozen while CTR_RX = 1*/
+          PCD_CLEAR_RX_EP_CTR(hpcd->Instance, PCD_ENDP0);
+
           /* Process SETUP Packet*/
           HAL_PCD_SetupStageCallback(hpcd);
         }
-        
+
         else if ((wEPVal & USB_EP_CTR_RX) != 0U)
         {
           PCD_CLEAR_RX_EP_CTR(hpcd->Instance, PCD_ENDP0);
           /* Get Control Data OUT Packet*/
           ep->xfer_count = PCD_GET_EP_RX_CNT(hpcd->Instance, ep->num);
-          
+
           if (ep->xfer_count != 0U)
           {
             USB_ReadPMA(hpcd->Instance, ep->xfer_buff, ep->pmaadress, ep->xfer_count);
             ep->xfer_buff+=ep->xfer_count;
           }
-          
+
           /* Process Control Data OUT Packet*/
-           HAL_PCD_DataOutStageCallback(hpcd, 0U);
-          
+          HAL_PCD_DataOutStageCallback(hpcd, 0U);
+
           PCD_SET_EP_RX_CNT(hpcd->Instance, PCD_ENDP0, ep->maxpacket);
           PCD_SET_EP_RX_STATUS(hpcd->Instance, PCD_ENDP0, USB_EP_RX_VALID);
         }
@@ -1272,69 +1288,143 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
     else
     {
       /* Decode and service non control endpoints interrupt  */
-	  
+
+      /*
+       * SW - DTOG_TX in USB_EPnR register (it act as SW_BUF for dbl buf OUT ep)
+       * P0 - if ep->pending0 have non-zero value
+       * P1 - if ep->pending1 have non-zero value
+       *
+       * We can get one of following variants here:
+       * SW P1 P0
+       *  0  0  0 - read buffer 0. ^SW when have buffer, +P0 otherwise
+       *  0  1  0 - same, but interrupt happens in danger zone. As before, -P1
+       *  1  1  0 - unprocessed buffer in queue - do nothing and +P0
+       *  1  1  1 - same, but interrupt happens in danger zone. As before
+       *
+       *  1  0  0 - read buffer 1. ^SW when have buffer, +P1 otherwise
+       *  1  0  1 - same, but interrupt happens in danger zone. As before, -P0
+       *  0  0  1 - unprocessed buffer in queue - do nothing and +P1
+       *  0  1  1 - same, but interrupt happens in danger zone. As before
+       *
+       * Variant tables:
+       *
+       * buffer selection   Buffer 1 abort     Buffer 0 abort     Clear pending
+       * TX  /P1/P0 \       TX  /P1/P0 \       TX  /P1/P0 \       TX  /P1/P0 \
+       * |  /        \      |  /        \      |  /        \      |  /        \
+       * | 00 01 11 10      | 00 01 11 10      | 00 01 11 10      | 00 01 11 10
+       * 0: 0  1  1  0      0: x  A  A  x      0: -  x  x  -      0: .  x  x  N
+       * 1: 1  1  0  0      1: -  -  x  x      1: x  x  A  A      1: .  Z  x  x
+       *
+       * legend:
+       * 0: must read buffer 0
+       * 1: must read buffer 1
+       * x: impossible to get here
+       * A: abort read, wait for main thread, and set other buffer to pended
+       * -: does not abort, this is regular read
+       * N: must clear pending oNe (in case of IRQ asserting in danger zone)
+       * Z: must clear pending Zero (in case of IRQ asserting in danger zone)
+       * .: pending clearing can be performed, because it's already clear
+       *
+       * resulting logic expressions
+       * 1: SW ? !P1 : P0     A1: !SW   N: !SW
+       * 0: SW ? P1 : !P0     A0: SW    Z: SW
+       *
+       * SW ? !P1 : P0 - test to determine, then buffer 1 used.
+       * if this case, SW determine regular read, or !SW, that we must abort IRQ
+       * in other case, !SW determine regular read, SW - abort IRQ
+       * if IRQ asserted in danger zone, two cases require extra pending clear
+       * with 1 0 1, clearing P0, with 0 1 0 - clear P1
+       * but, many other cases aborted before, and clear something, that already
+       * empty - is do nothing - so clear P1, then !SW, and P0 then SW
+       *
+       * Danger zone - is time after PCD_FreeUserBuffer and before
+       * ep->pendingX = 0 in HAL_PCD_EP_ReceiveData
+       */
+
       /* process related endpoint register */
       wEPVal = PCD_GET_ENDPOINT(hpcd->Instance, epindex);
       if ((wEPVal & USB_EP_CTR_RX) != 0U)
-      {  
+      {
         /* clear int flag */
         PCD_CLEAR_RX_EP_CTR(hpcd->Instance, epindex);
         ep = &hpcd->OUT_ep[epindex];
-        
+
         /* OUT double Buffering*/
         if (ep->doublebuffer == 0U)
         {
-          count = PCD_GET_EP_RX_CNT(hpcd->Instance, ep->num);
-          if (count != 0U)
+          count     = (uint16_t) PCD_GET_EP_RX_CNT(hpcd->Instance, ep->num);
+          pmaBuffer = ep->pmaadress;
+        }
+        else if (PCD_OUT_SW(wEPVal) ? ep->pending1 == 0 : ep->pending0 != 0)
+        {
+          count     = (uint16_t) PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
+          pmaBuffer = ep->pmaaddr1;
+          if (ep->xfer_len == 0 || ep->xfer_buff == 0 || !PCD_OUT_SW(wEPVal))
           {
-            USB_ReadPMA(hpcd->Instance, ep->xfer_buff, ep->pmaadress, count);
+            ep->pending1 = (uint16_t) (count == 0 ? PCD_PENDED_ZLP : count);
+            return HAL_OK;
           }
         }
         else
         {
-          if (PCD_GET_ENDPOINT(hpcd->Instance, ep->num) & USB_EP_DTOG_RX)
+          count     = (uint16_t) PCD_GET_EP_DBUF0_CNT(hpcd->Instance, ep->num);
+          pmaBuffer = ep->pmaaddr0;
+          if (ep->xfer_len == 0 || ep->xfer_buff == 0 || PCD_OUT_SW(wEPVal))
           {
-            /*read from endpoint BUF0Addr buffer*/
-            count = PCD_GET_EP_DBUF0_CNT(hpcd->Instance, ep->num);
-            if (count != 0U)
-            {
-              USB_ReadPMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr0, count);
-            }
+            ep->pending0 = (uint16_t) (count == 0 ? PCD_PENDED_ZLP : count);
+            return HAL_OK;
           }
-          else
-          {
-            /*read from endpoint BUF1Addr buffer*/
-            count = PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
-            if (count != 0U)
-            {
-              USB_ReadPMA(hpcd->Instance, ep->xfer_buff, ep->pmaaddr1, count);
-            }
-          }
-          PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_OUT);  
         }
+
+        if (PCD_OUT_SW(wEPVal))
+        {
+          ep->pending0 = 0;
+        }
+        else
+        {
+          ep->pending1 = 0;
+        }
+
+        if (count != 0U)
+        {
+          /* buffer doesn't contains enough space, stall and error */
+          if (count > ep->xfer_len)
+          {
+            USB_EPSetStall(hpcd->Instance, ep);
+            return HAL_ERROR;
+          }
+          USB_ReadPMA(hpcd->Instance, ep->xfer_buff, pmaBuffer, count);
+        }
+
+        if (ep->doublebuffer != 0U)
+        {
+          PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_OUT);
+        }
+
         /*multi-packet on the NON control OUT endpoint*/
         ep->xfer_count+=count;
         ep->xfer_buff+=count;
-       
+        ep->xfer_len-=count;
+
         if ((ep->xfer_len == 0U) || (count < ep->maxpacket))
         {
           /* RX COMPLETE */
           HAL_PCD_DataOutStageCallback(hpcd, ep->num);
         }
-        else
+        else if (ep->doublebuffer == 0U)
         {
-          HAL_PCD_EP_Receive(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
+          PCD_SET_EP_RX_STATUS(hpcd->Instance, ep->num, USB_EP_RX_VALID);
         }
-        
+
       } /* if((wEPVal & EP_CTR_RX) */
-      
+
       if ((wEPVal & USB_EP_CTR_TX) != 0U)
       {
         ep = &hpcd->IN_ep[epindex];
-        
+
         /* clear int flag */
         PCD_CLEAR_TX_EP_CTR(hpcd->Instance, epindex);
-        
+
         /* IN double Buffering*/
         if (ep->doublebuffer == 0U)
         {
@@ -1352,12 +1442,12 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
             /*read from endpoint BUF1Addr buffer*/
             ep->xfer_count = PCD_GET_EP_DBUF1_CNT(hpcd->Instance, ep->num);
           }
-          PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_IN);  
+          PCD_FreeUserBuffer(hpcd->Instance, ep->num, PCD_EP_DBUF_IN);
         }
         /*multi-packet on the NON control IN endpoint*/
         ep->xfer_count = PCD_GET_EP_TX_CNT(hpcd->Instance, ep->num);
         ep->xfer_buff+=ep->xfer_count;
-       
+
         /* Zero Length Packet? */
         if (ep->xfer_len == 0U)
         {
@@ -1368,11 +1458,104 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
         {
           HAL_PCD_EP_Transmit(hpcd, ep->num, ep->xfer_buff, ep->xfer_len);
         }
-      } 
+      }
     }
   }
   return HAL_OK;
 }
+
+HAL_StatusTypeDef HAL_PCD_EP_ReceiveData(PCD_HandleTypeDef *hpcd, PCD_EPTypeDef* ep)
+{
+  uint16_t count;
+  uint16_t pmaBuffer;
+  volatile uint16_t wEPVal;
+  volatile uint16_t tmpVal;
+  volatile uint16_t *pCount;
+
+  wEPVal = PCD_GET_ENDPOINT(hpcd->Instance, ep->num);
+  count = (wEPVal & USB_EP_DTOG_TX) ? ep->pending1 : ep->pending0;
+  while (count != 0 && count != PCD_PENDED_PROCESSED)
+  {
+    if (ep->xfer_buff == 0 || ep->xfer_len == 0)
+    {
+      return HAL_OK;
+    }
+
+    if (PCD_OUT_SW(wEPVal))
+    {
+      ep->pending1 = PCD_PENDED_PROCESSED;
+      pmaBuffer = ep->pmaaddr1;
+    }
+    else
+    {
+      ep->pending0 = PCD_PENDED_PROCESSED;
+      pmaBuffer = ep->pmaaddr0;
+    }
+
+    if (count == PCD_PENDED_ZLP)
+    {
+      count = 0;
+    }
+    else if (count > ep->xfer_len)
+    {
+      /* buffer doesn't contains enough space, stall and error */
+      USB_EPSetStall(hpcd->Instance, ep);
+      return HAL_ERROR;
+    }
+
+    USB_ReadPMA(hpcd->Instance, ep->xfer_buff, pmaBuffer, count);
+
+    /*multi-packet on the NON control OUT endpoint*/
+    ep->xfer_count += count;
+    ep->xfer_buff += count;
+    ep->xfer_len -= count;
+
+    if (ep->xfer_len == 0U || count < ep->maxpacket)
+    {
+      /* RX COMPLETE */
+      HAL_PCD_DataOutStageCallback(hpcd, ep->num);
+    }
+
+    /*
+     * ENTER DANGER ZONE
+     * Yes, disable interrupts can be used (or CTRM in USB_CNTR can be cleared)
+     * but it's not good. We can rule concurrency (or just simple determine, if
+     * interrupt asserted in danger zone or not)
+     */
+    PCD_FreeUserBuffer(hpcd->Instance, ep->num, ep->is_in);
+
+    if (PCD_OUT_SW(wEPVal))
+    {
+      pCount = &ep->pending1;
+    }
+    else
+    {
+      pCount = &ep->pending0;
+    }
+
+    do
+    {
+      /*
+       * ep->pendingX can be changed in some cases in the IRQ handler.
+       * under these cases, new value must be used, clearing must be skipped.
+       */
+      tmpVal = __LDREXH(pCount);
+    }
+    while (tmpVal == PCD_PENDED_PROCESSED &&  __STREXH(0, pCount));
+    /*
+     * EXIT DANGER ZONE
+     */
+
+    wEPVal = PCD_GET_ENDPOINT(hpcd->Instance, ep->num);
+    count = (wEPVal & USB_EP_DTOG_TX) ? ep->pending1 : ep->pending0;
+  }
+  if (ep->doublebuffer == 0 && ep->xfer_buff != 0 && ep->xfer_len != 0)
+  {
+    PCD_SET_EP_RX_STATUS(hpcd->Instance, ep->num, USB_EP_RX_VALID);
+  }
+  return HAL_OK;
+}
+
 #endif /* USB */
 
 /**

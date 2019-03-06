@@ -877,6 +877,25 @@ uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev)
     return USBD_FAIL;
   }
 }
+
+uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
+{
+  USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) pdev->pClassData;
+
+  /* Suspend or Resume USB Out process */
+  if (pdev->pClassData != NULL) {
+    if (pdev->dev_speed == USBD_SPEED_HIGH) {
+      /* Prepare Out endpoint to receive next packet */
+      USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
+    } else {
+      /* Prepare Out endpoint to receive next packet */
+      USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
+    }
+    return USBD_OK;
+  } else {
+    return USBD_FAIL;
+  }
+}
 /**
   * @}
   */

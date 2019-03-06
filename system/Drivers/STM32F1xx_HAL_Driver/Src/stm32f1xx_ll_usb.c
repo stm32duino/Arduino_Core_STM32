@@ -1757,7 +1757,7 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       /* Clear the data toggle bits for the endpoint IN/OUT */
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
-      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
       PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
     }
     else
@@ -1887,35 +1887,11 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
       PCD_FreeUserBuffer(USBx, ep->num, ep->is_in);
     }
   }
-  else /* OUT endpoint */
+  else
   {
-    /* Multi packet transfer*/
-    if (ep->xfer_len > ep->maxpacket)
-    {
-      len=ep->maxpacket;
-      ep->xfer_len-=len; 
-    }
-    else
-    {
-      len=ep->xfer_len;
-      ep->xfer_len =0;
-    }
-    
-    /* configure and validate Rx endpoint */
-    if (ep->doublebuffer == 0) 
-    {
-      /*Set RX buffer count*/
-      PCD_SET_EP_RX_CNT(USBx, ep->num, len);
-    }
-    else
-    {
-      /*Set the Double buffer counter*/
-      PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, len);
-    }
-    
     PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
   }
-  
+
   return HAL_OK;
 }
 
