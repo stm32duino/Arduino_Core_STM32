@@ -60,6 +60,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html) | *1.1.1* |  |
+| :yellow_heart: | [Nucleo-G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | **1.5.1/1.6.0** |  |
 | :green_heart: | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | *0.1.0* |  |
 | :green_heart: | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart: | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
