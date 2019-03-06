@@ -56,7 +56,7 @@ extern "C" {
 #define I2C_TXRX_BUFFER_SIZE    32
 
 /* Redefinition of IRQ for F0 & L0 family */
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
 #if defined(I2C1_BASE)
 #define I2C1_EV_IRQn        I2C1_IRQn
 #define I2C1_EV_IRQHandler  I2C1_IRQHandler

@@ -124,9 +124,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C1_RELEASE_RESET();
 
     obj->irq = I2C1_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C1_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     i2c_handles[I2C1_INDEX] = handle;
   }
 #endif // I2C1_BASE
@@ -137,9 +137,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C2_FORCE_RESET();
     __HAL_RCC_I2C2_RELEASE_RESET();
     obj->irq = I2C2_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C2_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     i2c_handles[I2C2_INDEX] = handle;
   }
 #endif // I2C2_BASE
@@ -176,8 +176,8 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 
   handle->Instance             = obj->i2c;
 #if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\
-    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx) ||\
-    defined (STM32WBxx)
+    defined (STM32G0xx) || defined (STM32H7xx) || defined (STM32L0xx) ||\
+     defined (STM32L4xx) || defined (STM32WBxx)
   handle->Init.Timing      = timing;
 #else
   handle->Init.ClockSpeed      = timing;
@@ -255,8 +255,8 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
   }
 
 #if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\
-    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx) ||\
-    defined (STM32WBxx)
+    defined (STM32G0xx) || defined (STM32H7xx) || defined (STM32L0xx) ||\
+     defined (STM32L4xx) || defined (STM32WBxx)
   obj->handle.Init.Timing = f;
 #else
   obj->handle.Init.ClockSpeed = f;

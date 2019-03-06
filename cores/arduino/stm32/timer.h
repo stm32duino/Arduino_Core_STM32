@@ -76,7 +76,7 @@ struct timer_s {
 #define MAX_FREQ  65535
 
 #if defined(TIM1_BASE) && !defined(TIM1_IRQn)
-#if defined(STM32F0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx)
 #define TIM1_IRQn TIM1_BRK_UP_TRG_COM_IRQn
 #define TIM1_IRQHandler TIM1_BRK_UP_TRG_COM_IRQHandler
 #elif defined(STM32F1xx)
@@ -98,11 +98,21 @@ struct timer_s {
 #endif
 #endif
 #if defined(TIM6_BASE) && !defined(TIM6_IRQn)
-#if !defined(STM32F1xx) && !defined(STM32L1xx)
+#if defined(STM32G0xx)
+#define TIM6_IRQn TIM6_DAC_LPTIM1_IRQn
+#define TIM6_IRQHandler TIM6_DAC_LPTIM1_IRQHandler
+#elif !defined(STM32F1xx) && !defined(STM32L1xx)
 #define TIM6_IRQn TIM6_DAC_IRQn
 #define TIM6_IRQHandler TIM6_DAC_IRQHandler
 #endif
 #endif
+#if defined(TIM7_BASE) && !defined(TIM7_IRQn)
+#if defined(STM32G0xx)
+#define TIM7_IRQn TIM7_LPTIM2_IRQn
+#define TIM7_IRQHandler TIM7_LPTIM2_IRQHandler
+#endif
+#endif
+
 #if defined(TIM8_BASE) && !defined(TIM8_IRQn)
 #if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)\
  || defined(STM32H7xx)

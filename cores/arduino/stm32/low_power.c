@@ -52,6 +52,10 @@ static UART_HandleTypeDef *WakeUpUart = NULL;
 /* Save callback pointer */
 static void (*WakeUpUartCb)(void) = NULL;
 
+#ifdef STM32G0xx
+#define PWR_FLAG_WU PWR_FLAG_WUF
+#endif
+
 /**
   * @brief  Initialize low power mode
   * @param  None

@@ -41,6 +41,7 @@
 #include "stm32yyxx_ll_swpmi.h"
 #include "stm32yyxx_ll_system.h"
 #include "stm32yyxx_ll_tim.h"
+#include "stm32yyxx_ll_ucpd.h"
 #include "stm32yyxx_ll_usart.h"
 #include "stm32yyxx_ll_usb.h"
 #include "stm32yyxx_ll_utils.h"

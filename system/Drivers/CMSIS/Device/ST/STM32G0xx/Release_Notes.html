@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<title>Release Notes for STM32G0xx CMSIS</title><style>
+div.Section1 {
+page: Section1;
+font-family: Arial,Helvetica,sans-serif;
+}
+h1 {
+font-size: 24pt;
+font-weight: bold;
+font-family: Arial,Helvetica,sans-serif;
+text-align: center;
+color: #3366ff;
+}
+h2 {
+margin: 12pt 0in 3pt;
+page-break-after: avoid;
+font-weight: bold;
+font-family: Arial,Helvetica,sans-serif;
+background-color: #3366ff;
+color: white;
+padding-left: 5px;
+font-size: 16pt;
+}
+h3 {
+margin-left: 0in;
+font-weight: bold;
+font-family: Arial,Helvetica,sans-serif;
+background-color: #3366ff;
+width: 200px;
+margin-right: 500pt;
+color: white;
+padding-left: 5px;
+padding-top: 2px;
+padding-bottom: 2px;
+font-size: 12pt;
+}
+h4 {
+font-family: Arial,Helvetica,sans-serif;
+font-weight: bold;
+text-decoration: underline;
+font-size: 12pt;
+}
+p {
+margin: 0px 0px 0px 0in;
+font-family: Arial,Helvetica,sans-serif;
+padding-top: 3px;
+padding-bottom: 3px;
+font-size: 12pt;
+}
+ul {
+font-family: Arial,Helvetica,sans-serif;
+margin-top: 3px;
+margin-bottom: 3px;
+font-size: 10pt;
+}
+caption {
+margin-top: 10px;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 11pt;
+}
+hr {
+width: 100%;
+}
+.guidance {
+background-color: #e5b8b7;
+font-style: italic;
+font-family: Arial,Helvetica,sans-serif;
+padding-top: 3px;
+padding-bottom: 3px;
+margin-top: 3px;
+margin-bottom: 3px;
+font-size: 10pt;
+}
+.guidance_title {
+font-style: normal;
+font-weight: bold;
+text-decoration: underline;
+font-family: Arial,Helvetica,sans-serif;
+font-size: 10pt;
+}
+.tickets {
+border: 1pt solid #9cc2e5;
+font-family: Arial,Helvetica,sans-serif;
+margin-bottom: 3px;
+margin-top: 3px;
+font-size: 10pt;
+}
+.tickets th {
+border: 1pt solid #9cc2e5;
+font-size: 12pt;
+background-color: #39a9dc;
+color: white;
+text-align: center;
+}
+.tickets td {
+border: 1pt solid #9cc2e5;
+min-height: 32px;
+}
+tr:nth-child(even) {background-color: #cee2f2;}
+tr:nth-child(even) {background-color: #e8f1f9;}
+.topic1 {
+margin-top: 3px;
+margin-bottom: 3px;
+margin-left: 40px;
+}
+.topic2 {
+margin-top: 3px;
+margin-bottom: 3px;
+}
+.topic3 {
+margin-top: 3px;
+margin-bottom: 3px;
+margin-left: 20px;
+}
+#purpose {
+margin-top: 3px;
+margin-bottom: 3px;
+}
+#identification {
+margin-top: 3px;
+margin-bottom: 3px;
+}
+</style></head>
+<body link="blue" vlink="blue">
+<script type="text/javascript">
+var toggle_hist_disp = true;
+function toggle_history()
+{
+if (toggle_hist_disp)
+{
+toggle_hist_disp = false;
+var filter_off_text = document.createTextNode("Hide History");
+document.getElementById('filter_hist').innerHTML = "";
+document.getElementById('filter_hist').appendChild(filter_off_text);
+document.getElementById("history").hidden = false;
+}
+else
+{
+toggle_hist_disp = true;
+var filter_on_text = document.createTextNode("Show History");
+document.getElementById('filter_hist').innerHTML = "";
+document.getElementById('filter_hist').appendChild(filter_on_text);
+document.getElementById("history").hidden = true;
+}
+}</script><a href="../../../../../Release_Notes.html">Back to Release page</a>
+<div style="width: 1034px;" class="Section1">
+
+<div id="header">
+<h1>Release
+Notes for&nbsp;<span style="background-color: white;">STM32G0xx CMSIS</span></h1>
+<p style="text-align: center;">Copyright 2018
+STMicroelectronics</p>
+<p style="text-align: center;"><img style="width: 104px; height: 77px;" id="st_logo" alt="&lt;ST logo&gt; image" src="../../../../../_htmresc/st_logo.png"></p>
+</div>
+<div id="license" class="topic1">
+<h2>License</h2>
+<p>This software component is licensed by ST under BSD 3-Clause
+license, the "License"; You may not use this component except in
+compliance with the License. You may obtain a copy of the License at:</p>
+<p style="text-align: center; color: white;"><a href="https://opensource.org/licenses/BSD-3-Clause" target="_blank"><span style="background-color: yellow;"></span></a><a href="https://opensource.org/licenses/BSD-3-Clause" target="_blank">https://opensource.org/licenses/BSD-3-Clause</a><a href="https://opensource.org/licenses/BSD-3-Clause" target="_blank"><span style="background-color: yellow;"></span></a></p></div>
+<div id="release_container" class="topic1">
+<div class="topic2" id="identification">
+<h3>V1.1.0 / 06-February-2019</h3>
+
+</div>
+<div class="topic3" id="changes">
+<h4>Main changes</h4>
+<ul><li>Maintenance release for <span style="font-weight: bold;">STM32G0xx</span> devices (stm32g070xx, stm32g071xx, stm32g081xx devices)<span style="font-weight: bold;"></span></li></ul>
+<br>
+</div>
+<div class="topic3" id="contents">
+<h4>Contents</h4><ul><li>Ticket 59114 - [Keil] Startup file for Keil generated project contain errors</li><li>Ticket 59114 - [Licenses update] remove html tags in Startup files</li><li>MISRAC2012 implementation</li><li>Ticket 57062 - undefined reference to `LPUART1_IRQHandler' for some G0 variants</li></ul></div>
+
+
+
+
+
+</div>
+<div style="margin-left: 40px;"><button id="filter_hist" onclick="toggle_history()">Show
+History</button><br>
+</div>
+<div id="history" class="topic1" hidden="">
+<h2>Update History</h2>
+<br>
+<div id="release_container" class="topic1">
+<div class="topic2" id="identification">
+<h3>V1.0.0 / 26-October-2018</h3>
+</div></div><div id="release_container" class="topic1"><h4>Main changes</h4>
+First official release for <span style="font-weight: bold;">STM32G0xx</span> devices<br><div class="topic3" id="contents">
+<h4>Contents</h4><ul><li>CMSIS devices files for STM32G0<span style="font-weight: bold;">70</span>xx,&nbsp;STM32G0<span style="font-weight: bold;">71</span>xx and&nbsp;STM32G0<span style="font-weight: bold;">81</span>xx</li></ul></div></div>
+<br>
+<br>
+</div>
+<div id="product_doc" class="topic1">
+<hr>
+<p style="text-align: center;">For complete
+documentation on&nbsp;<span style="background-color: white;">STM32 Microcontrollers</span>, visit: <span style="background-color: white;"><a href="http://www.st.com/STM32" target="_blank">www.st.com/STM32</a></span></p>
+
+</div>
+</div>
+</body></html>

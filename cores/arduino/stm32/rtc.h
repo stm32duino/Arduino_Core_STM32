@@ -103,6 +103,10 @@ typedef void(*voidCallbackPtr)(void *);
 #define RTC_Alarm_IRQn RTC_IRQn
 #define RTC_Alarm_IRQHandler RTC_IRQHandler
 #endif
+#if defined(STM32G0xx)
+#define RTC_Alarm_IRQn RTC_TAMP_IRQn
+#define RTC_Alarm_IRQHandler RTC_TAMP_IRQHandler
+#endif
 
 #if defined(STM32F1xx) && !defined(IS_RTC_WEEKDAY)
 /* Compensate missing HAL definition */

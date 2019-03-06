@@ -486,6 +486,8 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
   }
 #endif
 #ifdef __HAL_RCC_ADC_CLK_DISABLE
+  __HAL_RCC_ADC_FORCE_RESET();
+  __HAL_RCC_ADC_RELEASE_RESET();
   __HAL_RCC_ADC_CLK_DISABLE();
 #endif
 }
@@ -526,13 +528,18 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
   AdcHandle.State = HAL_ADC_STATE_RESET;
-#if defined (STM32F0xx) || defined (STM32L0xx)
+#if defined (STM32F0xx) || defined(STM32G0xx) || defined (STM32L0xx)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
 #ifdef STM32F0xx
   AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
-#else /* STM32L0 */
+#elif STM32G0xx
+  AdcHandle.Init.SamplingTimeCommon1   = SAMPLINGTIME;                  /* Set sampling time common to a group of channels. */
+  AdcHandle.Init.SamplingTimeCommon2   = SAMPLINGTIME;                  /* Set sampling time common to a group of channels, second common setting possible.*/
+  AdcHandle.Init.OversamplingMode      = DISABLE;
+  AdcHandle.Init.TriggerFrequencyMode  = ADC_TRIGGER_FREQ_HIGH;
+#else
   //LowPowerFrequencyMode to enable if clk freq < 2.8Mhz
   AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
 #endif /* STM32F0xx */
@@ -543,9 +550,12 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.Overrun               = ADC_OVR_DATA_OVERWRITTEN;      /* DR register is overwritten with the last conversion result in case of overrun */
 #endif /* !STM32H7xx */
 #endif /* STM32F3xx || STM32H7xx */
-  AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
-#endif /* STM32F0xx || STM32L0xx */
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
+
+#if !defined (STM32F0xx) && !defined (STM32L0xx)
+  AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
+#endif
 
   g_current_pin = pin; /* Needed for HAL_ADC_MspInit*/
 
@@ -565,7 +575,11 @@ uint16_t adc_read_value(PinName pin)
 #endif /* STM32L4xx */
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #ifndef STM32L0xx
+#if defined (STM32G0xx)
+  AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;        /* Sampling time value to be set for the selected channel */
+#else
   AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
+#endif
 #endif
 #if defined (STM32F3xx) || defined (STM32L4xx) || defined (STM32H7xx) || defined(STM32WBxx)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
@@ -579,10 +593,10 @@ uint16_t adc_read_value(PinName pin)
   }
 
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) ||\
-    defined (STM32H7xx) || defined (STM32L0xx) || defined (STM32L4xx) ||\
-    defined(STM32WBxx)
+    defined (STM32H7xx) || defined (STM32G0xx) || defined (STM32L0xx) ||\
+    defined (STM32L4xx) || defined(STM32WBxx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
-#if defined (STM32F0xx) || defined (STM32F1xx)
+#if defined (STM32F0xx) || defined (STM32G0xx) || defined (STM32F1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
 #elif defined (STM32H7xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
