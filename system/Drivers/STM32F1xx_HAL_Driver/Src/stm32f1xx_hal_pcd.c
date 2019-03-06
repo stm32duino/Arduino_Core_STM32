@@ -1364,6 +1364,7 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
             ep->pending1 = (uint16_t) (count == 0 ? PCD_PENDED_ZLP : count);
             return HAL_OK;
           }
+          ep->pending0 = 0;
         }
         else
         {
@@ -1374,14 +1375,6 @@ static HAL_StatusTypeDef PCD_EP_ISR_Handler(PCD_HandleTypeDef *hpcd)
             ep->pending0 = (uint16_t) (count == 0 ? PCD_PENDED_ZLP : count);
             return HAL_OK;
           }
-        }
-
-        if (PCD_OUT_SW(wEPVal))
-        {
-          ep->pending0 = 0;
-        }
-        else
-        {
           ep->pending1 = 0;
         }
 
