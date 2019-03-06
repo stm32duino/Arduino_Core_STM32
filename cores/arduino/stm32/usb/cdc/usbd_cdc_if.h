@@ -47,7 +47,7 @@ extern CDC_ReceiveQueue_TypeDef ReceiveQueue;
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 void CDC_continue_transmit(void);
-void CDC_resume_receive(void);
+bool CDC_resume_receive(void);
 void CDC_init(void);
 void CDC_deInit(void);
 
