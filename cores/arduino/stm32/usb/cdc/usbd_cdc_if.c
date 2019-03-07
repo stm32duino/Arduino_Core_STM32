@@ -205,7 +205,9 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
-  CDC_resume_receive();
+  if (!CDC_resume_receive()) {
+    USBD_CDC_ClearBuffer(&hUSBD_Device_CDC);
+  }
   return USBD_OK;
 }
 
@@ -271,7 +273,7 @@ void CDC_continue_transmit(void)
   }
 }
 
-void CDC_resume_receive(void)
+bool CDC_resume_receive(void)
 {
   /*
    * TS: main and IRQ threads can't pass it at same time, because
@@ -284,7 +286,9 @@ void CDC_resume_receive(void)
       /* Set new buffer */
       USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, block);
       USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
+      return true;
     }
+    return false;
   }
 }
 
