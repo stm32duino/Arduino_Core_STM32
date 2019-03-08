@@ -288,8 +288,8 @@ bool CDC_resume_receive(void)
       USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
       return true;
     }
-    return false;
   }
+  return false;
 }
 
 #endif /* USBD_USE_CDC */
