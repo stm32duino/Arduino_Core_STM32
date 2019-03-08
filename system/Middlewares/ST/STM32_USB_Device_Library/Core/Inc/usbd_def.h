@@ -223,9 +223,6 @@ typedef struct {
 typedef struct {
   uint32_t                status;
   uint32_t                is_used;
-  uint32_t                total_length;
-  uint32_t                rem_length;
-  uint32_t                maxpacket;
 } USBD_EndpointTypeDef;
 
 /* USB Device handle structure */
@@ -239,10 +236,11 @@ typedef struct _USBD_HandleTypeDef {
   USBD_EndpointTypeDef    ep_out[15];
   uint32_t                ep0_state;
   uint32_t                ep0_data_len;
+  uint32_t                ep0_rem_len;
+  uint32_t                ep0_total_len;
   uint8_t                 dev_state;
   uint8_t                 dev_old_state;
   uint8_t                 dev_address;
-  uint8_t                 dev_connection_status;
   uint8_t                 dev_test_mode;
   uint32_t                dev_remote_wakeup;
 

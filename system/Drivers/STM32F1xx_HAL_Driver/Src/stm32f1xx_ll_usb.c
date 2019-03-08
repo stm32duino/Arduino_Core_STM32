@@ -1725,54 +1725,51 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   
   if (ep->doublebuffer == 0) 
   {
-    if (ep->is_in)
+    if (ep->is_in == 1)
     {
-      /*Set the endpoint Transmit buffer address */
+      /* Set the endpoint Transmit buffer address */
       PCD_SET_EP_TX_ADDRESS(USBx, ep->num, ep->pmaadress);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
-      /* Configure NAK status for the Endpoint*/
-      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK); 
+      /* Configure NAK status for the Endpoint */
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
     }
     else
     {
-      /*Set the endpoint Receive buffer address */
+      /* Set the endpoint Receive buffer address */
       PCD_SET_EP_RX_ADDRESS(USBx, ep->num, ep->pmaadress);
-      /*Set the endpoint Receive buffer counter*/
+      /* Set the endpoint Receive buffer counter */
       PCD_SET_EP_RX_CNT(USBx, ep->num, ep->maxpacket);
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
-      /* Configure VALID status for the Endpoint*/
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      /* All ep must NAK to every host request before PrepareReceive */
+      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_NAK);
     }
   }
-  /*Double Buffer*/
+  /* Double Buffer */
   else
   {
-    /*Set the endpoint as double buffered*/
+    /* Set the endpoint as double buffered */
     PCD_SET_EP_DBUF(USBx, ep->num);
-    /*Set buffer address for double buffered mode*/
+    /* Set buffer address for double buffered mode */
     PCD_SET_EP_DBUF_ADDR(USBx, ep->num,ep->pmaaddr0, ep->pmaaddr1);
     
-    if (ep->is_in==0)
+    if (ep->is_in == 1)
     {
-      /* Clear the data toggle bits for the endpoint IN/OUT*/
+      /* Clear the data toggle bits for the endpoint IN/OUT */
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
-      
-      /* Reset value of the data toggle bits for the endpoint out*/
-      PCD_TX_DTOG(USBx, ep->num);
-      
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
-      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
+      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
     }
     else
     {
-      /* Clear the data toggle bits for the endpoint IN/OUT*/
+      PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, ep->maxpacket);
+      /* Clear the data toggle bits for the endpoint IN/OUT */
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
-      PCD_RX_DTOG(USBx, ep->num);
-      /* Configure DISABLE status for the Endpoint*/
+      /* All ep must NAK to every host request before PrepareReceive */
+      /* Reset value of the data toggle bits for the endpoint out */
+      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
       PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
     }
   }
   
@@ -1789,11 +1786,11 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
 {
   if (ep->doublebuffer == 0) 
   {
-    if (ep->is_in)
+    if (ep->is_in == 1)
     {
       PCD_CLEAR_TX_DTOG(USBx, ep->num);
       /* Configure DISABLE status for the Endpoint*/
-      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS); 
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
     }
     else
     {
@@ -1805,19 +1802,7 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   /*Double Buffer*/
   else
   { 
-    if (ep->is_in==0)
-    {
-      /* Clear the data toggle bits for the endpoint IN/OUT*/
-      PCD_CLEAR_RX_DTOG(USBx, ep->num);
-      PCD_CLEAR_TX_DTOG(USBx, ep->num);
-      
-      /* Reset value of the data toggle bits for the endpoint out*/
-      PCD_TX_DTOG(USBx, ep->num);
-      
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
-      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
-    }
-    else
+    if (ep->is_in == 1)
     {
       /* Clear the data toggle bits for the endpoint IN/OUT*/
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
@@ -1826,6 +1811,16 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       /* Configure DISABLE status for the Endpoint*/
       PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
       PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
+    }
+    else
+    {
+      /* Clear the data toggle bits for the endpoint IN/OUT*/
+      PCD_CLEAR_RX_DTOG(USBx, ep->num);
+      PCD_CLEAR_TX_DTOG(USBx, ep->num);
+      /* Reset value of the data toggle bits for the endpoint out*/
+      PCD_TX_DTOG(USBx, ep->num);
+      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
     }
   }
   
@@ -1840,13 +1835,13 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
   */
 HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
 {
-  uint16_t pmabuffer = 0;
-  uint32_t len = ep->xfer_len;
+  uint16_t pmabuffer;
+  uint32_t len;
   
   /* IN endpoint */
   if (ep->is_in == 1)
   {
-    /*Multi packet transfer*/
+    /* Multi packet transfer */
     if (ep->xfer_len > ep->maxpacket)
     {
       len=ep->maxpacket;
@@ -1861,8 +1856,8 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
     /* configure and validate Tx endpoint */
     if (ep->doublebuffer == 0) 
     {
-      USB_WritePMA(USBx, ep->xfer_buff, ep->pmaadress, len);
       PCD_SET_EP_TX_CNT(USBx, ep->num, len);
+      pmabuffer = ep->pmaadress;
     }
     else
     {
@@ -1879,41 +1874,24 @@ HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx , USB_EPTypeDef *ep)
         PCD_SET_EP_DBUF0_CNT(USBx, ep->num, ep->is_in, len);
         pmabuffer = ep->pmaaddr0;
       }
-      USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, len);
+    }
+
+    USB_WritePMA(USBx, ep->xfer_buff, pmabuffer, (uint16_t) len);
+
+    if (ep->doublebuffer == 0)
+    {
+      PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
+    }
+    else
+    {
       PCD_FreeUserBuffer(USBx, ep->num, ep->is_in);
     }
-    
-    PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_VALID);
   }
-  else /* OUT endpoint */
+  else
   {
-    /* Multi packet transfer*/
-    if (ep->xfer_len > ep->maxpacket)
-    {
-      len=ep->maxpacket;
-      ep->xfer_len-=len; 
-    }
-    else
-    {
-      len=ep->xfer_len;
-      ep->xfer_len =0;
-    }
-    
-    /* configure and validate Rx endpoint */
-    if (ep->doublebuffer == 0) 
-    {
-      /*Set RX buffer count*/
-      PCD_SET_EP_RX_CNT(USBx, ep->num, len);
-    }
-    else
-    {
-      /*Set the Double buffer counter*/
-      PCD_SET_EP_DBUF_CNT(USBx, ep->num, ep->is_in, len);
-    }
-    
     PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
   }
-  
+
   return HAL_OK;
 }
 

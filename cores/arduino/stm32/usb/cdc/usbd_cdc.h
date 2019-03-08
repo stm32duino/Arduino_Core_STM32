@@ -41,9 +41,9 @@ extern "C" {
 /** @defgroup usbd_cdc_Exported_Defines
   * @{
   */
-#define CDC_IN_EP                                   0x81U  /* EP1 for data IN */
+#define CDC_IN_EP                                   0x82U  /* EP1 for data IN */
 #define CDC_OUT_EP                                  0x01U  /* EP1 for data OUT */
-#define CDC_CMD_EP                                  0x82U  /* EP2 for CDC commands */
+#define CDC_CMD_EP                                  0x83U  /* EP2 for CDC commands */
 
 #ifndef CDC_HS_BINTERVAL
 #define CDC_HS_BINTERVAL                          0x10U
@@ -115,6 +115,7 @@ typedef struct {
   uint8_t  *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
+  uint32_t TxLastLength;
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;

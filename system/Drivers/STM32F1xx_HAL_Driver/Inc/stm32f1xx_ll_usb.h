@@ -160,6 +160,9 @@ typedef struct
   uint32_t  xfer_len;       /*!< Current transfer length                                                  */
   
   uint32_t  xfer_count;     /*!< Partial transfer length in case of multi packet transfer                 */
+
+  uint16_t  pending0;        /*!, Fact, that double buffering transfer have pended data                    */
+  uint16_t  pending1;        /*!, Fact, that double buffering transfer have pended data                    */
 }USB_OTG_EPTypeDef;
 
 typedef struct
@@ -269,8 +272,8 @@ typedef struct
   
   uint8_t   doublebuffer;    /*!< Double buffer enable
                                  This parameter can be 0 or 1                                             */
-  
-  uint16_t  tx_fifo_num;    /*!< This parameter is not required by USB Device FS peripheral, it is used 
+
+  uint16_t  tx_fifo_num;    /*!< This parameter is not required by USB Device FS peripheral, it is used
                                  only by USB OTG FS peripheral    
                                  This parameter is added to ensure compatibility across USB peripherals   */
   
@@ -278,10 +281,14 @@ typedef struct
                                  This parameter must be a number between Min_Data = 0 and Max_Data = 64KB */
   
   uint8_t   *xfer_buff;     /*!< Pointer to transfer buffer                                               */
-  
+
+
   uint32_t  xfer_len;       /*!< Current transfer length                                                  */
   
   uint32_t  xfer_count;     /*!< Partial transfer length in case of multi packet transfer                 */
+
+  uint16_t  pending0;        /*!, Fact, that double buffering transfer have pended data                    */
+  uint16_t  pending1;        /*!, Fact, that double buffering transfer have pended data                    */
 
 } USB_EPTypeDef;
 #endif /* USB */
