@@ -34,12 +34,12 @@ Keyboard_::Keyboard_(void)
 
 void Keyboard_::begin(void)
 {
-  HID_Composite_Init();
+  HID_Composite_Init(HID_KEYBOARD);
 }
 
 void Keyboard_::end(void)
 {
-  HID_Composite_DeInit();
+  HID_Composite_DeInit(HID_KEYBOARD);
 }
 
 void Keyboard_::sendReport(KeyReport *keys)
