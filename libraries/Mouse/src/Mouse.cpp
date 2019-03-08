@@ -34,12 +34,12 @@ Mouse_::Mouse_(void) : _buttons(0)
 
 void Mouse_::begin(void)
 {
-  HID_Composite_Init();
+  HID_Composite_Init(HID_MOUSE);
 }
 
 void Mouse_::end(void)
 {
-  HID_Composite_DeInit();
+  HID_Composite_DeInit(HID_MOUSE);
 }
 
 void Mouse_::click(uint8_t b)
