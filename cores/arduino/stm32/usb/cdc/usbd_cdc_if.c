@@ -179,6 +179,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     case CDC_SET_CONTROL_LINE_STATE:
       lineState =
         (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
+      if (lineState) { // Reset the transmit timeout when the port is connected
+        transmitStart = 0;
+      }
       break;
 
     case CDC_SEND_BREAK:

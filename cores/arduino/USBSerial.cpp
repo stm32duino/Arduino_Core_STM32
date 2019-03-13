@@ -66,7 +66,7 @@ size_t USBSerial::write(uint8_t ch)
 size_t USBSerial::write(const uint8_t *buffer, size_t size)
 {
   size_t rest = size;
-  while (rest > 0) {
+  while (rest > 0 && CDC_connected()) {
     // Determine buffer size available for write
     auto portion = (size_t)CDC_TransmitQueue_WriteSize(&TransmitQueue);
     // Truncate it to content size (if rest is greater)
@@ -83,8 +83,6 @@ size_t USBSerial::write(const uint8_t *buffer, size_t size)
       buffer += portion;
       // After storing data, start transmitting process
       CDC_continue_transmit();
-    } else if (!CDC_connected()) {
-      break;
     }
   }
   return size - rest;
