@@ -216,10 +216,6 @@ void HAL_PCD_MspDeInit(PCD_HandleTypeDef *hpcd)
     __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
   }
 #endif /* USB_OTG_HS */
-#if !defined(STM32WBxx)
-  /* Disable SYSCFG Clock */
-  __HAL_RCC_SYSCFG_CLK_DISABLE();
-#endif
 }
 
 /*******************************************************************************
