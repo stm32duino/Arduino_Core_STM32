@@ -32,6 +32,15 @@
 #define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
 #endif
 
+/*
+ * The value USB_CDC_TRANSMIT_TIMEOUT is defined in terms of HAL_GetTick() units.
+ * Typically it is 1ms value. The timeout determines when we would consider the
+ * host "too slow" and threat the USB CDC port as disconnected.
+ */
+#ifndef USB_CDC_TRANSMIT_TIMEOUT
+#define USB_CDC_TRANSMIT_TIMEOUT 3
+#endif
+
 /* USBD_CDC Private Variables */
 /* USB Device Core CDC handle declaration */
 USBD_HandleTypeDef hUSBD_Device_CDC;
@@ -43,6 +52,7 @@ CDC_TransmitQueue_TypeDef TransmitQueue;
 CDC_ReceiveQueue_TypeDef ReceiveQueue;
 __IO uint32_t lineState = 0;
 __IO bool receivePended = true;
+static uint32_t transmitStart = 0;
 
 
 /** USBD_CDC Private Function Prototypes */
@@ -169,6 +179,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     case CDC_SET_CONTROL_LINE_STATE:
       lineState =
         (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
+      if (lineState) { // Reset the transmit timeout when the port is connected
+        transmitStart = 0;
+      }
       break;
 
     case CDC_SEND_BREAK:
@@ -214,6 +227,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 
 static int8_t USBD_CDC_Transferred(void)
 {
+  transmitStart = 0;
   CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
   return (USBD_OK);
@@ -247,6 +261,17 @@ void CDC_deInit(void)
   }
 }
 
+bool CDC_connected()
+{
+  uint32_t transmitTime = 0;
+  if (transmitStart) {
+    transmitTime = HAL_GetTick() - transmitStart;
+  }
+  return hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED
+         && transmitTime < USB_CDC_TRANSMIT_TIMEOUT
+         && lineState;
+}
+
 void CDC_continue_transmit(void)
 {
   uint16_t size;
@@ -263,6 +288,7 @@ void CDC_continue_transmit(void)
   if (hcdc->TxState == 0U) {
     buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size);
     if (size > 0) {
+      transmitStart = HAL_GetTick();
       USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, buffer, size);
       /*
        * size never exceed PMA buffer and USBD_CDC_TransmitPacket make full

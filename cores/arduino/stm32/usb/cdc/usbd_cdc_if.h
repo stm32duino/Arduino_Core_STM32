@@ -50,6 +50,7 @@ void CDC_continue_transmit(void);
 bool CDC_resume_receive(void);
 void CDC_init(void);
 void CDC_deInit(void);
+bool CDC_connected();
 
 #ifdef __cplusplus
 }
