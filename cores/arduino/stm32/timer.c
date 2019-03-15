@@ -43,9 +43,6 @@
 extern "C" {
 #endif
 
-/* Private Functions */
-static void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj);
-
 /* Private Variables */
 typedef enum {
 #if defined(TIM1_BASE)
@@ -119,6 +116,146 @@ typedef enum {
 
 static TIM_HandleTypeDef *timer_handles[TIMER_NUM] = {NULL};
 
+/* Private Functions */
+static void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj);
+
+/* Aim of the function is to get timer_s pointer using htim pointer */
+/* Highly inspired from magical linux kernel's "container_of" */
+/* (which was not directly used since not compatible with IAR toolchain) */
+stimer_t *get_timer_obj(TIM_HandleTypeDef *htim)
+{
+  struct timer_s *obj_s;
+  stimer_t *obj;
+
+  obj_s = (struct timer_s *)((char *)htim - offsetof(struct timer_s, handle));
+  obj = (stimer_t *)((char *)obj_s - offsetof(stimer_t, timer));
+
+  return (obj);
+}
+
+/**
+  * @brief  TIMER Initialization - clock init and nvic init
+  * @param  htim_base : one of the defined timer
+  * @retval None
+  */
+void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
+{
+  timer_enable_clock(htim_base);
+
+  HAL_NVIC_SetPriority(getTimerIrq(htim_base->Instance), 15, 0);
+  HAL_NVIC_EnableIRQ(getTimerIrq(htim_base->Instance));
+}
+
+/**
+  * @brief  TIMER Deinitialization - clock and nvic
+  * @param  htim_base : one of the defined timer
+  * @retval None
+  */
+void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim_base)
+{
+  timer_disable_clock(htim_base);
+  HAL_NVIC_DisableIRQ(getTimerIrq(htim_base->Instance));
+}
+
+/**
+  * @brief  Initializes the TIM Output Compare MSP.
+  * @param  htim: TIM handle
+  * @retval None
+  */
+void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
+{
+  timer_enable_clock(htim);
+}
+
+/**
+  * @brief  DeInitialize TIM Output Compare MSP.
+  * @param  htim: TIM handle
+  * @retval None
+  */
+void HAL_TIM_OC_MspDeInit(TIM_HandleTypeDef *htim)
+{
+  timer_disable_clock(htim);
+}
+
+/**
+  * @brief  Output Compare callback in non-blocking mode
+  * @param  htim : TIM OC handle
+  * @retval None
+  */
+void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  uint32_t channel = 0;
+  stimer_t *obj = get_timer_obj(htim);
+  switch (htim->Channel) {
+    case HAL_TIM_ACTIVE_CHANNEL_1:
+      channel = TIM_CHANNEL_1 / 4;
+      if (obj->irqHandleOC_CH1 != NULL) {
+        obj->irqHandleOC_CH1();
+      }
+      if (obj->irqHandleOC != NULL) {
+        obj->irqHandleOC(obj, channel);
+      }
+      break;
+    case HAL_TIM_ACTIVE_CHANNEL_2:
+      channel = TIM_CHANNEL_2 / 4;
+      if (obj->irqHandleOC_CH2 != NULL) {
+        obj->irqHandleOC_CH2();
+      }
+      break;
+    case HAL_TIM_ACTIVE_CHANNEL_3:
+      if (obj->irqHandleOC_CH3 != NULL) {
+        obj->irqHandleOC_CH3();
+      }
+      channel = TIM_CHANNEL_3 / 4;
+      break;
+    case HAL_TIM_ACTIVE_CHANNEL_4:
+      if (obj->irqHandleOC_CH4 != NULL) {
+        obj->irqHandleOC_CH4();
+      }
+      channel = TIM_CHANNEL_4 / 4;
+      break;
+    default:
+      break;
+  }
+}
+
+/**
+  * @brief  Period elapsed callback in non-blocking mode
+  * @param  timer_id : id of the timer
+  * @retval None
+  */
+void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj)
+{
+  GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(obj->pin));
+
+  if (port != NULL) {
+    if (obj->pinInfo.count != 0) {
+      if (obj->pinInfo.count > 0) {
+        obj->pinInfo.count--;
+      }
+      obj->pinInfo.state = (obj->pinInfo.state == 0) ? 1 : 0;
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), obj->pinInfo.state);
+    } else {
+      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), 0);
+    }
+  }
+}
+
+/**
+  * @brief  Period elapsed callback in non-blocking mode
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  stimer_t *obj = get_timer_obj(htim);
+
+  if (obj->irqHandle != NULL) {
+    obj->irqHandle(obj);
+  }
+}
+
+/* Exported functions */
 /**
   * @brief  Enable the timer clock
   * @param  htim : one of the defined timer
@@ -382,30 +519,6 @@ void timer_disable_clock(TIM_HandleTypeDef *htim)
 }
 
 /**
-  * @brief  TIMER Initialization - clock init and nvic init
-  * @param  htim_base : one of the defined timer
-  * @retval None
-  */
-void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
-{
-  timer_enable_clock(htim_base);
-
-  HAL_NVIC_SetPriority(getTimerIrq(htim_base->Instance), 15, 0);
-  HAL_NVIC_EnableIRQ(getTimerIrq(htim_base->Instance));
-}
-
-/**
-  * @brief  TIMER Deinitialization - clock and nvic
-  * @param  htim_base : one of the defined timer
-  * @retval None
-  */
-void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim_base)
-{
-  timer_disable_clock(htim_base);
-  HAL_NVIC_DisableIRQ(getTimerIrq(htim_base->Instance));
-}
-
-/**
   * @brief  This function will set the timer to the required value
   * @param  timer_id : timer_id_e
   * @param  period : Timer period in milliseconds
@@ -435,6 +548,203 @@ void TimerHandleInit(stimer_t *obj, uint16_t period, uint16_t prescaler)
   if (HAL_TIM_Base_Start_IT(handle) != HAL_OK) {
     return;
   }
+}
+
+/**
+  * @brief  This function will reset the timer
+  * @param  timer_id : timer_id_e
+  * @retval None
+  */
+void TimerHandleDeinit(stimer_t *obj)
+{
+  if (obj != NULL) {
+    HAL_TIM_Base_DeInit(&(obj->handle));
+    HAL_TIM_Base_Stop_IT(&(obj->handle));
+  }
+}
+
+/**
+  * @brief  This function will set the tone timer to the required value and
+  *         configure the pin to toggle.
+  * @param  port : pointer to GPIO_TypeDef
+  * @param  pin : pin number to toggle
+  * @param  frequency : toggle frequency (in hertz)
+  * @param  duration : toggle time
+  * @retval None
+  */
+void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
+{
+  uint8_t end = 0;
+  uint32_t timClkFreq = 0;
+  // TIMER_TONE freq is twice frequency
+  uint32_t timFreq = 2 * frequency;
+  uint32_t prescaler = 1;
+  uint32_t period = 0;
+  uint32_t scale = 0;
+
+  if (frequency > MAX_FREQ) {
+    return;
+  }
+
+  obj->timer = TIMER_TONE;
+  obj->pinInfo.state = 0;
+
+  if (frequency == 0) {
+    TimerPinDeinit(obj);
+    return;
+  }
+
+  //Calculate the toggle count
+  if (duration > 0) {
+    obj->pinInfo.count = ((timFreq * duration) / 1000);
+  } else {
+    obj->pinInfo.count = -1;
+  }
+
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+  timClkFreq = getTimerClkFreq(obj->timer);
+
+  // Do this once
+  scale = timClkFreq / timFreq;
+  while (end == 0) {
+    period = ((uint32_t)(scale / prescaler)) - 1;
+
+    if ((period >= 0xFFFF) && (prescaler < 0xFFFF)) {
+      prescaler++;  //prescaler *= 2;
+    }
+
+    else {
+      end = 1;
+    }
+  }
+
+  if ((period < 0xFFFF) && (prescaler < 0xFFFF)) {
+    obj->irqHandle = HAL_TIMx_PeriodElapsedCallback;
+    TimerHandleInit(obj, period, prescaler - 1);
+  } else {
+    TimerHandleDeinit(obj);
+  }
+}
+
+/**
+  * @brief  This function will reset the tone timer
+  * @param  port : pointer to port
+  * @param  pin : pin number to toggle
+  * @retval None
+  */
+void TimerPinDeinit(stimer_t *obj)
+{
+  TimerHandleDeinit(obj);
+  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+}
+
+/**
+  * @brief  This function will set the timer to generate pulse in interrupt mode with a particular duty cycle
+  * @param  timer_id : timer_id_e
+  * @param  period : timer period in microseconds
+  * @param  pulseWidth : pulse width in microseconds
+  * @param  irqHandle : interrupt routine to call
+  * @retval None
+  */
+void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t))
+{
+  TIM_HandleTypeDef *handle = &(obj->handle);
+
+  if (obj->timer == NULL) {
+    obj->timer = TIMER_SERVO;
+  }
+
+  //min pulse = 1us - max pulse = 65535us
+  handle->Instance               = obj->timer;
+  handle->Init.Period            = period;
+  handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(obj->timer) / (1000000)) - 1;
+  handle->Init.ClockDivision     = 0;
+  handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
+#if !defined(STM32L0xx) && !defined(STM32L1xx)
+  handle->Init.RepetitionCounter = 0;
+#endif
+  obj->irqHandleOC = irqHandle;
+
+  attachIntHandleOC(obj, NULL, 1, pulseWidth);
+}
+
+/**
+  * @brief  This function will reset the pulse generation
+  * @param  timer_id : timer_id_e
+  * @retval None
+  */
+void TimerPulseDeinit(stimer_t *obj)
+{
+  TIM_HandleTypeDef *handle = &(obj->handle);
+  obj->irqHandleOC = NULL;
+  obj->irqHandleOC_CH1 = NULL;
+  obj->irqHandleOC_CH2 = NULL;
+  obj->irqHandleOC_CH3 = NULL;
+  obj->irqHandleOC_CH4 = NULL;
+
+  HAL_NVIC_DisableIRQ(getTimerIrq(obj->timer));
+
+  if (HAL_TIM_OC_DeInit(handle) != HAL_OK) {
+    return;
+  }
+  if (HAL_TIM_OC_Stop_IT(handle, TIM_CHANNEL_1) != HAL_OK) {
+    return;
+  }
+}
+
+/**
+  * @brief  Get the counter value.
+  * @param  timer_id : id of the timer
+  * @retval Counter value
+  */
+uint32_t getTimerCounter(stimer_t *obj)
+{
+  return __HAL_TIM_GET_COUNTER(&(obj->handle));
+}
+
+/**
+  * @brief  Set the counter value.
+  * @param  timer_id : id of the timer
+  * @param  value : counter value
+  * @retval None
+  */
+void setTimerCounter(stimer_t *obj, uint32_t value)
+{
+  __HAL_TIM_SET_COUNTER(&(obj->handle), value);
+}
+
+/**
+  * @brief  Set the TIM Capture Compare Register value.
+  * @param  timer_id : id of the timer
+  * @param  channel : TIM Channels to be configured.
+  * @retval CRR value.
+  */
+uint32_t getCCRRegister(stimer_t *obj, uint32_t channel)
+{
+  return __HAL_TIM_GET_COMPARE(&(obj->handle), channel);
+}
+
+/**
+  * @brief  Set the TIM Capture Compare Register value.
+  * @param  timer_id : id of the timer
+  * @param  channel : TIM Channels to be configured.
+  * @param  value : register new register.
+  * @retval None
+  */
+void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value)
+{
+  __HAL_TIM_SET_COMPARE(&(obj->handle), channel * 4, value);
+}
+
+/**
+  * @brief  Set the TIM Capture Compare Register value.
+  * @param  timer_id : id of the timer
+  * @param  prescaler : prescaler value to set for this timer.
+  * @retval None
+  */
+void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler)
+{
+  __HAL_TIM_SET_PRESCALER(&(obj->handle), prescaler);
 }
 
 /**
@@ -566,19 +876,6 @@ uint32_t getTimerIrq(TIM_TypeDef *tim)
     }
   }
   return IRQn;
-}
-
-/**
-  * @brief  This function will reset the timer
-  * @param  timer_id : timer_id_e
-  * @retval None
-  */
-void TimerHandleDeinit(stimer_t *obj)
-{
-  if (obj != NULL) {
-    HAL_TIM_Base_DeInit(&(obj->handle));
-    HAL_TIM_Base_Stop_IT(&(obj->handle));
-  }
 }
 
 /**
@@ -799,302 +1096,6 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim)
     }
 #endif /* STM32H7xx */
   return uwTimclock;
-}
-
-/**
-  * @brief  This function will set the timer to generate pulse in interrupt mode with a particular duty cycle
-  * @param  timer_id : timer_id_e
-  * @param  period : timer period in microseconds
-  * @param  pulseWidth : pulse width in microseconds
-  * @param  irqHandle : interrupt routine to call
-  * @retval None
-  */
-void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t))
-{
-  TIM_HandleTypeDef *handle = &(obj->handle);
-
-  if (obj->timer == NULL) {
-    obj->timer = TIMER_SERVO;
-  }
-
-  //min pulse = 1us - max pulse = 65535us
-  handle->Instance               = obj->timer;
-  handle->Init.Period            = period;
-  handle->Init.Prescaler         = (uint32_t)(getTimerClkFreq(obj->timer) / (1000000)) - 1;
-  handle->Init.ClockDivision     = 0;
-  handle->Init.CounterMode       = TIM_COUNTERMODE_UP;
-#if !defined(STM32L0xx) && !defined(STM32L1xx)
-  handle->Init.RepetitionCounter = 0;
-#endif
-  obj->irqHandleOC = irqHandle;
-
-  attachIntHandleOC(obj, NULL, 1, pulseWidth);
-}
-
-/**
-  * @brief  This function will reset the pulse generation
-  * @param  timer_id : timer_id_e
-  * @retval None
-  */
-void TimerPulseDeinit(stimer_t *obj)
-{
-  TIM_HandleTypeDef *handle = &(obj->handle);
-  obj->irqHandleOC = NULL;
-  obj->irqHandleOC_CH1 = NULL;
-  obj->irqHandleOC_CH2 = NULL;
-  obj->irqHandleOC_CH3 = NULL;
-  obj->irqHandleOC_CH4 = NULL;
-
-  HAL_NVIC_DisableIRQ(getTimerIrq(obj->timer));
-
-  if (HAL_TIM_OC_DeInit(handle) != HAL_OK) {
-    return;
-  }
-  if (HAL_TIM_OC_Stop_IT(handle, TIM_CHANNEL_1) != HAL_OK) {
-    return;
-  }
-}
-
-/**
-  * @brief  Initializes the TIM Output Compare MSP.
-  * @param  htim: TIM handle
-  * @retval None
-  */
-void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
-{
-  timer_enable_clock(htim);
-}
-
-/**
-  * @brief  DeInitialize TIM Output Compare MSP.
-  * @param  htim: TIM handle
-  * @retval None
-  */
-void HAL_TIM_OC_MspDeInit(TIM_HandleTypeDef *htim)
-{
-  timer_disable_clock(htim);
-}
-
-/* Aim of the function is to get timer_s pointer using htim pointer */
-/* Highly inspired from magical linux kernel's "container_of" */
-/* (which was not directly used since not compatible with IAR toolchain) */
-stimer_t *get_timer_obj(TIM_HandleTypeDef *htim)
-{
-  struct timer_s *obj_s;
-  stimer_t *obj;
-
-  obj_s = (struct timer_s *)((char *)htim - offsetof(struct timer_s, handle));
-  obj = (stimer_t *)((char *)obj_s - offsetof(stimer_t, timer));
-
-  return (obj);
-}
-
-/**
-  * @brief  Output Compare callback in non-blocking mode
-  * @param  htim : TIM OC handle
-  * @retval None
-  */
-void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  uint32_t channel = 0;
-  stimer_t *obj = get_timer_obj(htim);
-  switch (htim->Channel) {
-    case HAL_TIM_ACTIVE_CHANNEL_1:
-      channel = TIM_CHANNEL_1 / 4;
-      if (obj->irqHandleOC_CH1 != NULL) {
-        obj->irqHandleOC_CH1();
-      }
-      if (obj->irqHandleOC != NULL) {
-        obj->irqHandleOC(obj, channel);
-      }
-      break;
-    case HAL_TIM_ACTIVE_CHANNEL_2:
-      channel = TIM_CHANNEL_2 / 4;
-      if (obj->irqHandleOC_CH2 != NULL) {
-        obj->irqHandleOC_CH2();
-      }
-      break;
-    case HAL_TIM_ACTIVE_CHANNEL_3:
-      if (obj->irqHandleOC_CH3 != NULL) {
-        obj->irqHandleOC_CH3();
-      }
-      channel = TIM_CHANNEL_3 / 4;
-      break;
-    case HAL_TIM_ACTIVE_CHANNEL_4:
-      if (obj->irqHandleOC_CH4 != NULL) {
-        obj->irqHandleOC_CH4();
-      }
-      channel = TIM_CHANNEL_4 / 4;
-      break;
-    default:
-      break;
-  }
-}
-
-/**
-  * @brief  Period elapsed callback in non-blocking mode
-  * @param  timer_id : id of the timer
-  * @retval None
-  */
-void HAL_TIMx_PeriodElapsedCallback(stimer_t *obj)
-{
-  GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(obj->pin));
-
-  if (port != NULL) {
-    if (obj->pinInfo.count != 0) {
-      if (obj->pinInfo.count > 0) {
-        obj->pinInfo.count--;
-      }
-      obj->pinInfo.state = (obj->pinInfo.state == 0) ? 1 : 0;
-      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), obj->pinInfo.state);
-    } else {
-      digital_io_write(port, STM_LL_GPIO_PIN(obj->pin), 0);
-    }
-  }
-}
-
-/**
-  * @brief  Period elapsed callback in non-blocking mode
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-  stimer_t *obj = get_timer_obj(htim);
-
-  if (obj->irqHandle != NULL) {
-    obj->irqHandle(obj);
-  }
-}
-
-/**
-  * @brief  This function will set the tone timer to the required value and
-  *         configure the pin to toggle.
-  * @param  port : pointer to GPIO_TypeDef
-  * @param  pin : pin number to toggle
-  * @param  frequency : toggle frequency (in hertz)
-  * @param  duration : toggle time
-  * @retval None
-  */
-void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
-{
-  uint8_t end = 0;
-  uint32_t timClkFreq = 0;
-  // TIMER_TONE freq is twice frequency
-  uint32_t timFreq = 2 * frequency;
-  uint32_t prescaler = 1;
-  uint32_t period = 0;
-  uint32_t scale = 0;
-
-  if (frequency > MAX_FREQ) {
-    return;
-  }
-
-  obj->timer = TIMER_TONE;
-  obj->pinInfo.state = 0;
-
-  if (frequency == 0) {
-    TimerPinDeinit(obj);
-    return;
-  }
-
-  //Calculate the toggle count
-  if (duration > 0) {
-    obj->pinInfo.count = ((timFreq * duration) / 1000);
-  } else {
-    obj->pinInfo.count = -1;
-  }
-
-  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
-  timClkFreq = getTimerClkFreq(obj->timer);
-
-  // Do this once
-  scale = timClkFreq / timFreq;
-  while (end == 0) {
-    period = ((uint32_t)(scale / prescaler)) - 1;
-
-    if ((period >= 0xFFFF) && (prescaler < 0xFFFF)) {
-      prescaler++;  //prescaler *= 2;
-    }
-
-    else {
-      end = 1;
-    }
-  }
-
-  if ((period < 0xFFFF) && (prescaler < 0xFFFF)) {
-    obj->irqHandle = HAL_TIMx_PeriodElapsedCallback;
-    TimerHandleInit(obj, period, prescaler - 1);
-  } else {
-    TimerHandleDeinit(obj);
-  }
-}
-
-/**
-  * @brief  This function will reset the tone timer
-  * @param  port : pointer to port
-  * @param  pin : pin number to toggle
-  * @retval None
-  */
-void TimerPinDeinit(stimer_t *obj)
-{
-  TimerHandleDeinit(obj);
-  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
-}
-
-/**
-  * @brief  Get the counter value.
-  * @param  timer_id : id of the timer
-  * @retval Counter value
-  */
-uint32_t getTimerCounter(stimer_t *obj)
-{
-  return __HAL_TIM_GET_COUNTER(&(obj->handle));
-}
-
-/**
-  * @brief  Set the counter value.
-  * @param  timer_id : id of the timer
-  * @param  value : counter value
-  * @retval None
-  */
-void setTimerCounter(stimer_t *obj, uint32_t value)
-{
-  __HAL_TIM_SET_COUNTER(&(obj->handle), value);
-}
-
-/**
-  * @brief  Set the TIM Capture Compare Register value.
-  * @param  timer_id : id of the timer
-  * @param  channel : TIM Channels to be configured.
-  * @param  value : register new register.
-  * @retval None
-  */
-void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value)
-{
-  __HAL_TIM_SET_COMPARE(&(obj->handle), channel * 4, value);
-}
-
-/**
-  * @brief  Set the TIM Capture Compare Register value.
-  * @param  timer_id : id of the timer
-  * @param  channel : TIM Channels to be configured.
-  * @retval CRR value.
-  */
-uint32_t getCCRRegister(stimer_t *obj, uint32_t channel)
-{
-  return __HAL_TIM_GET_COMPARE(&(obj->handle), channel);
-}
-
-/**
-  * @brief  Set the TIM Capture Compare Register value.
-  * @param  timer_id : id of the timer
-  * @param  prescaler : prescaler value to set for this timer.
-  * @retval None
-  */
-void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler)
-{
-  __HAL_TIM_SET_PRESCALER(&(obj->handle), prescaler);
 }
 
 /**
