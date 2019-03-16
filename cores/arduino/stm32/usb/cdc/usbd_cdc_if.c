@@ -54,6 +54,11 @@ __IO uint32_t lineState = 0;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
+#ifdef DTR_TOGGLING_SEQ
+/* DTR toggling sequence management */
+extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
+uint8_t dtr_toggling = 0;
+#endif
 
 /** USBD_CDC Private Function Prototypes */
 
@@ -182,6 +187,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       if (lineState) { // Reset the transmit timeout when the port is connected
         transmitStart = 0;
       }
+#ifdef DTR_TOGGLING_SEQ
+      dtr_toggling++; /* Count DTR toggling */
+#endif
       break;
 
     case CDC_SEND_BREAK:
@@ -213,7 +221,14 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
   */
 static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 {
+#ifdef DTR_TOGGLING_SEQ
+  if (dtr_toggling > 3) {
+    dtr_togglingHook(Buf, Len);
+    dtr_toggling = 0;
+  }
+#else
   UNUSED(Buf);
+#endif
   /* It always contains required amount of free space for writing */
   CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
   receivePended = false;
