@@ -186,7 +186,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       if (lineState) { // Reset the transmit timeout when the port is connected
         transmitStart = 0;
       }
-	  dtr_pin++; //DTR pin is enabled
+      dtr_pin++; //DTR pin is enabled
 
       break;
 
