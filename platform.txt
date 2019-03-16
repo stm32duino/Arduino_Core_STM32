@@ -186,3 +186,26 @@ tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
 tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
+
+# HID upload 2.0 (HID bootloader 2.0 This bootloader will cover the STM32F1 and STM32F4 MCUs)
+tools.hid_upload.cmd=hid_upload
+tools.hid_upload.cmd.windows=hid-flash.exe
+tools.hid_upload.cmd.macosx=hid_flash
+tools.hid_upload.path={runtime.hardware.path}/tools/win
+tools.hid_upload.path.macosx={runtime.hardware.path}/tools/macosx
+tools.hid_upload.path.linux={runtime.hardware.path}/tools/linux
+tools.hid_upload.path.linux64={runtime.hardware.path}/tools/linux64
+tools.hid_upload.upload.params.verbose=-d
+tools.hid_upload.upload.params.quiet=n
+tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
+
+# Upload using Maple bootloader over DFU
+tools.maple_upload.cmd=maple_upload
+tools.maple_upload.cmd.windows=maple_upload.bat
+tools.maple_upload.path={runtime.hardware.path}/tools/win
+tools.maple_upload.path.macosx={runtime.hardware.path}/tools/macosx
+tools.maple_upload.path.linux={runtime.hardware.path}/tools/linux
+tools.maple_upload.path.linux64={runtime.hardware.path}/tools/linux64
+tools.maple_upload.upload.params.verbose=-d
+tools.maple_upload.upload.params.quiet=n
+tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"

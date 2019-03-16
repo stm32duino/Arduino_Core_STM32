@@ -60,8 +60,17 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 /* Specify the memory areas */
 MEMORY
 {
-RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 20K
+#ifdef DFUBLO_F1
+RAM (rwx) 	    : ORIGIN = 0x20000C00, LENGTH = 17K
+#else
+RAM (xrw)       : ORIGIN = 0x20000000, LENGTH = 20K
+#endif
+
+#ifdef DFUBLO_F1
+FLASH (rx)      : ORIGIN = 0x8005000, LENGTH = 108K
+#else
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 128K
+#endif
 }
 
 /* Define output sections */

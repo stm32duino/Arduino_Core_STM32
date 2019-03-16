@@ -62,7 +62,11 @@ MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 128K
 CCMRAM (rw)      : ORIGIN = 0x10000000, LENGTH = 64K
+#ifdef HIDBL_F4
+FLASH (rx)      : ORIGIN = 0x8004000, LENGTH = LD_MAX_SIZE - 0x4000
+#else
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = LD_MAX_SIZE
+#endif
 }
 
 /* Define output sections */

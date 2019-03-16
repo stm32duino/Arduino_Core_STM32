@@ -61,7 +61,13 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = LD_MAX_DATA_SIZE
+#ifdef HIDBL_F1
+FLASH (rx)      : ORIGIN = 0x8000800, LENGTH = LD_MAX_SIZE - 0x800
+#elif DFUBL2_F1
+FLASH (rx)      : ORIGIN = 0x8002000, LENGTH = LD_MAX_SIZE - 0x2000
+#else
 FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = LD_MAX_SIZE
+#endif
 }
 
 /* Define output sections */
