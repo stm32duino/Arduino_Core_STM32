@@ -21,6 +21,7 @@
 #define _WIRING_TIME_H_
 
 #include "clock.h"
+#include "dwt.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,14 +58,20 @@ extern void delay(uint32_t dwMs) ;
 /**
  * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
  *
- * \param dwUs the number of microseconds to pause (uint32_t)
+ * \param us the number of microseconds to pause (uint32_t)
  */
 static inline void delayMicroseconds(uint32_t) __attribute__((always_inline, unused));
-static inline void delayMicroseconds(uint32_t usec)
+static inline void delayMicroseconds(uint32_t us)
 {
-  uint32_t start = GetCurrentMicro();
+#if defined(DWT_BASE) && !defined(DWT_DELAY_DISABLED)
+  int32_t start  = dwt_getCycles();
+  int32_t cycles = us * (SystemCoreClock / 1000000);
 
+  while ((int32_t)dwt_getCycles() - start < cycles);
+#else
+  uint32_t start = GetCurrentMicro();
   while ((start + usec) > GetCurrentMicro());
+#endif
 }
 
 #ifdef __cplusplus
