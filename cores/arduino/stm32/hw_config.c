@@ -38,6 +38,7 @@
 #include "stm32_def.h"
 #include "hw_config.h"
 #include "usbd_if.h"
+#include "dwt.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -50,15 +51,21 @@ extern "C" {
   */
 void hw_config_init(void)
 {
-  //Initialize the HAL
+  /* Init DWT if present */
+#ifdef DWT_BASE
+  dwt_init();
+#endif
+
+  /* Initialize the HAL */
   HAL_Init();
 
-  // Configure the system clock
+  /* Configure the system clock */
   SystemClock_Config();
 
 #if defined (USBCON) && defined(USBD_USE_CDC)
   USBD_CDC_init();
 #endif
+
 }
 #ifdef __cplusplus
 }
