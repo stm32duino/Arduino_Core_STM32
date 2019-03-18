@@ -24,10 +24,7 @@ extern "C" {
 #endif
 
 
-//This is the list of the IOs configured
-uint32_t g_digPinConfigured[MAX_NB_PORT] = {0};
 extern uint32_t g_anOutputPinConfigured[MAX_NB_PORT];
-
 
 void pinMode(uint32_t ulPin, uint32_t ulMode)
 {
@@ -70,7 +67,6 @@ void pinMode(uint32_t ulPin, uint32_t ulMode)
         Error_Handler();
         break;
     }
-    set_pin_configured(p, g_digPinConfigured);
   }
 }
 
