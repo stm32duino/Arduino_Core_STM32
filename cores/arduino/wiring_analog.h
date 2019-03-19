@@ -69,6 +69,14 @@ extern void analogReadResolution(int res);
  */
 extern void analogWriteResolution(int res);
 
+/*
+ * \brief Set the frequency of analogWrite. Default is PWM_FREQUENCY (1000) in Hertz.
+ *
+ * \param freq
+ */
+extern void analogWriteFrequency(uint32_t freq);
+
+
 extern void analogOutputInit(void) ;
 
 #ifdef __cplusplus

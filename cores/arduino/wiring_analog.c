@@ -29,6 +29,7 @@ uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
 
 static int _readResolution = 10;
 static int _writeResolution = 8;
+static uint32_t _writeFreq = PWM_FREQUENCY;
 
 void analogReadResolution(int res)
 {
@@ -38,6 +39,11 @@ void analogReadResolution(int res)
 void analogWriteResolution(int res)
 {
   _writeResolution = res;
+}
+
+void analogWriteFrequency(uint32_t freq)
+{
+  _writeFreq = freq;
 }
 
 static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
@@ -97,7 +103,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
           set_pin_configured(p, g_anOutputPinConfigured);
         }
         ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
-        pwm_start(p, PWM_FREQUENCY * PWM_MAX_DUTY_CYCLE,
+        pwm_start(p, _writeFreq * PWM_MAX_DUTY_CYCLE,
                   PWM_MAX_DUTY_CYCLE,
                   ulValue, do_init);
       } else { //DIGITAL PIN ONLY
