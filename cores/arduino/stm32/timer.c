@@ -843,7 +843,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   * @brief  This function will attach timer interrupt to with a particular duty cycle on channel x
   * @param  timer_id : timer_id_e
   * @param  irqHandle : interrupt routine to call
-  * @param  timChannel : timmer channel
+  * @param  timChannel : timer channel
   * @param  pulseWidth : phase of the timer where the callback will happen
   * @retval None
   */
