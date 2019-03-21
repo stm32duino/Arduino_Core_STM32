@@ -51,9 +51,9 @@ extern uint32_t micros(void) ;
  * \brief Pauses the program for the amount of time (in miliseconds) specified as parameter.
  * (There are 1000 milliseconds in a second.)
  *
- * \param dwMs the number of milliseconds to pause (uint32_t)
+ * \param ms the number of milliseconds to pause (uint32_t)
  */
-extern void delay(uint32_t dwMs) ;
+extern void delay(uint32_t ms) ;
 
 /**
  * \brief Pauses the program for the amount of time (in microseconds) specified as parameter.
@@ -69,8 +69,8 @@ static inline void delayMicroseconds(uint32_t us)
 
   while ((int32_t)dwt_getCycles() - start < cycles);
 #else
-  uint32_t start = GetCurrentMicro();
-  while ((start + usec) > GetCurrentMicro());
+  uint32_t start = getCurrentMicros();
+  while ((start + us) > getCurrentMicros());
 #endif
 }
 
