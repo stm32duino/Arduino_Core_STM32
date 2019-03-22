@@ -140,7 +140,6 @@ Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # NUCLEO_F030R8 board
-# Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_F030R8=Nucleo F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.node="NODE_F030R8,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F030R8.upload.maximum_size=65536
@@ -153,7 +152,6 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=NUCLEO_F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F091RC board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
 Nucleo_64.menu.pnum.NUCLEO_F091RC=Nucleo F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.node=NODE_F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.upload.maximum_size=262144
@@ -166,7 +164,6 @@ Nucleo_64.menu.pnum.NUCLEO_F091RC.build.variant=NUCLEO_F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # NUCLEO_F103RB board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PC11, PC10)
 Nucleo_64.menu.pnum.NUCLEO_F103RB=Nucleo F103RB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.node="NODE_F103RB,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F103RB.upload.maximum_size=131072
@@ -179,7 +176,6 @@ Nucleo_64.menu.pnum.NUCLEO_F103RB.build.variant=NUCLEO_F103RB
 Nucleo_64.menu.pnum.NUCLEO_F103RB.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_F302R8 board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
 Nucleo_64.menu.pnum.NUCLEO_F302R8=Nucleo F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.node=NODE_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.upload.maximum_size=65536
@@ -192,7 +188,6 @@ Nucleo_64.menu.pnum.NUCLEO_F302R8.build.variant=NUCLEO_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_F303RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
 Nucleo_64.menu.pnum.NUCLEO_F303RE=Nucleo F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.node=NODE_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_size=524288
@@ -205,7 +200,6 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_F401RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PA1, PA0)
 Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.node=NODE_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_size=524288
@@ -218,7 +212,6 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_F411RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART2 on PC7, PC6)
 Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.node="NODE_F411RE,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_size=524288
@@ -256,7 +249,6 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L053R8 board
-# Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.node=NODE_L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.upload.maximum_size=65536
@@ -270,7 +262,6 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L073RZ board
-# Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_L073RZ=Nucleo L073RZ
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.node=NODE_L073RZ
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.upload.maximum_size=196608
@@ -284,7 +275,6 @@ Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L152RE board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (UART4 on PC11, PC10)
 Nucleo_64.menu.pnum.NUCLEO_L152RE=Nucleo L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.node="NODE_L152RE,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_L152RE.upload.maximum_size=524288
@@ -353,7 +343,6 @@ Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # NUCLEO_L031K6 board
-# Support: Serial2 (USART2 on PA15, PA2)
 Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.node=NODE_L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.upload.maximum_size=32768
@@ -378,7 +367,6 @@ Nucleo_32.menu.pnum.NUCLEO_L412KB.build.variant=NUCLEO_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_L432KC board
-# Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.node=NODE_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_size=262144
@@ -391,7 +379,6 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # NUCLEO_F303K8 board
-# Support: Serial1 (USART2 on PA3, PA2)
 Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_size=65536
@@ -423,7 +410,6 @@ Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # DISCO_F030R8 board
-# Support: Serial1 (USART1 on PA10, PA9)
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
 Disco.menu.pnum.DISCO_F030R8.upload.maximum_size=65536
@@ -448,7 +434,6 @@ Disco.menu.pnum.DISCO_F072RB.build.variant=DISCO_F072RB
 Disco.menu.pnum.DISCO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 #DISCO_F100RB board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial2 (USART3 on PB11, PB10)
 Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
 Disco.menu.pnum.DISCO_F100RB.node=DIS_F100RB
 Disco.menu.pnum.DISCO_F100RB.upload.maximum_size=131071
@@ -461,7 +446,6 @@ Disco.menu.pnum.DISCO_F100RB.build.variant=DISCO_F100RB
 Disco.menu.pnum.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # DISCO_F407VG board
-# Support: USB HID
 Disco.menu.pnum.DISCO_F407VG=STM32F407G-DISC1
 Disco.menu.pnum.DISCO_F407VG.node=DIS_F407VG
 Disco.menu.pnum.DISCO_F407VG.upload.maximum_size=1048576
@@ -474,7 +458,6 @@ Disco.menu.pnum.DISCO_F407VG.build.variant=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # DISCO_F746NG board
-# Support: USB HID, Serial1 (USART6 on PC7, PC6) and Serial2 (UART7 on PF6, PF7)
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
 Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_size=1048576
@@ -487,7 +470,6 @@ Disco.menu.pnum.DISCO_F746NG.build.variant=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
 
 # DISCO_L475VG_IOT board
-# Support: USB HID, Serial1 (USART1 on PA1, PA0)
 Disco.menu.pnum.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.node=DIS_L4IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.upload.maximum_size=1048576
@@ -500,7 +482,6 @@ Disco.menu.pnum.DISCO_L475VG_IOT.build.variant=DISCO_L475VG_IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # DISCO-L072CZ-LRWAN1 board
-# Support: Serial1 (USART1 on PA10, PA9) and Serial=Serial2 (connected to ST-LINK)
 Disco.menu.pnum.DISCO_L072CZ_LRWAN1=Discovery L072CZ-LRWAN1
 Disco.menu.pnum.DISCO_L072CZ_LRWAN1.node="DIS_L072Z,NODE_L072CZ"
 Disco.menu.pnum.DISCO_L072CZ_LRWAN1.upload.maximum_size=196608
@@ -534,7 +515,6 @@ GenF0.build.board=GenF0
 GenF0.build.extra_flags=-D{build.product_line} {build.xSerial}
 
 # DEMO_F030F4 board
-# Support: Serial1 (USART1 on PA3, PA2)
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board
 GenF0.menu.pnum.DEMO_F030F4.upload.maximum_data_size=4096
 GenF0.menu.pnum.DEMO_F030F4.upload.maximum_size=16384
@@ -567,7 +547,6 @@ GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # BLUEPILL_F103C6 board
-# Support: Serial2 (USART2 on PA3, PA2)
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
 GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_size=32768
 GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_data_size=10240
@@ -576,7 +555,6 @@ GenF1.menu.pnum.BLUEPILL_F103C6.build.product_line=STM32F103x6
 GenF1.menu.pnum.BLUEPILL_F103C6.build.variant=BLUEPILL_F103XX
 
 # BLUEPILL_F103C8 board
-# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
 GenF1.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_size=65536
 GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
@@ -592,7 +570,6 @@ GenF1.menu.pnum.BLUEPILL_F103C8B.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.variant=BLUEPILL_F103XX
 
 # BLACKPILL_F103C8 board
-# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
 GenF1.menu.pnum.BLACKPILL_F103C8=BlackPill F103C8
 GenF1.menu.pnum.BLACKPILL_F103C8.upload.maximum_size=65536
 GenF1.menu.pnum.BLACKPILL_F103C8.upload.maximum_data_size=20480
@@ -608,7 +585,6 @@ GenF1.menu.pnum.BLACKPILL_F103C8B.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.variant=BLUEPILL_F103XX
 
 # MAPLEMINI_F103CB board
-# Support: Serial2 (USART2 on PA3, PA2) and Serial3 (USART3 on PB11, PB10)
 GenF1.menu.pnum.MAPLEMINI_F103CB=Maple Mini F103CB
 GenF1.menu.pnum.MAPLEMINI_F103CB.upload.maximum_size=131072
 GenF1.menu.pnum.MAPLEMINI_F103CB.upload.maximum_data_size=20480
@@ -617,7 +593,6 @@ GenF1.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
 
 # HY-TinySTM103TB board
-# Support:
 GenF1.menu.pnum.HY_TinySTM103TB=HY-TinySTM103TB
 GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_size=131072
 GenF1.menu.pnum.HY_TinySTM103TB.upload.maximum_data_size=20480
@@ -652,8 +627,6 @@ GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Black F407VE
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407VE=Black F407VE
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
@@ -662,8 +635,6 @@ GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407XX
 
 # Black F407VG
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407VG=Black F407VG
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_data_size=131072
@@ -672,8 +643,6 @@ GenF4.menu.pnum.BLACK_F407VG.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VG.build.variant=BLACK_F407XX
 
 # Black F407ZE
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407ZE=Black F407ZE
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
@@ -682,8 +651,6 @@ GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407XX
 
 # Black F407ZG
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5 - NRF24 connector and W25Q16 (on board flash))
 GenF4.menu.pnum.BLACK_F407ZG=Black F407ZG
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_data_size=131072
@@ -692,8 +659,6 @@ GenF4.menu.pnum.BLACK_F407ZG.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407ZG.build.variant=BLACK_F407XX
 
 # Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5)
 GenF4.menu.pnum.BLUE_F407VE_Mini=Blue F407VE mini
 GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_size=524288
 GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_data_size=131072
@@ -702,8 +667,6 @@ GenF4.menu.pnum.BLUE_F407VE_Mini.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant=BLUE_F407VE_Mini
 
 # DIYMROE STM32F407VGT board
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5)
 GenF4.menu.pnum.DIYMROE_F407VGT=DIYMROE STM32F407VGT
 GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_size=1048576
 GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_data_size=131072
@@ -712,8 +675,6 @@ GenF4.menu.pnum.DIYMROE_F407VGT.build.product_line=STM32F407xx
 GenF4.menu.pnum.DIYMROE_F407VGT.build.variant=DIYMROE_F407VGT
 
 # FK407M1
-# Support: Serial1 (USART1 on PA10, PA9)
-# Default SPI: SPI (SPI1 on PB3,PB4,PB5)
 GenF4.menu.pnum.FK407M1=FK407M1 STM32F407VET
 GenF4.menu.pnum.FK407M1.upload.maximum_size=524288
 GenF4.menu.pnum.FK407M1.upload.maximum_data_size=131072
@@ -745,7 +706,6 @@ Sparky.build.board=Sparky
 Sparky.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Sparky_V1 board
-# Support: Serial1 (USART1 on PA10, PA9)
 Sparky.menu.pnum.Sparky_V1=Sparky V1
 Sparky.menu.pnum.Sparky_V1.upload.maximum_size=262144
 Sparky.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
@@ -823,7 +783,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.ARMED_V1.build.pid=0x5740
 
 # REMRAM_V1 board
-# Support: Serial1 (USART1 on PA10, PA9)
 3dprinter.menu.pnum.REMRAM_V1=RemRam v1
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_size=2097152
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_data_size=524288
@@ -846,7 +805,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # PRNTR_F407_V1 board
-# Support: Serial1 (USART1 on PA10, PA9)
 3dprinter.menu.pnum.PRNTR_F407_V1=PRNTR F407 v1
 3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_size=524288
 3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_data_size=196608
@@ -869,7 +827,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # MALYANM200_F103CB board
-# Support: Serial2 (USART2 on PA3, PA2)
 3dprinter.menu.pnum.MALYANM200_F103CB=Malyan M200 V1
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_size=122880
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_data_size=20480
@@ -883,7 +840,6 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.MALYANM200_F103CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
 
 # MALYANM200_F070CB board
-# Support: Serial2 (USART2 on PA3, PA2)
 3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
 3dprinter.menu.pnum.MALYANM200_F070CB.upload.maximum_size=122880
 3dprinter.menu.pnum.MALYANM200_F070CB.upload.maximum_data_size=15168
