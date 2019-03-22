@@ -70,7 +70,7 @@ static inline void delayMicroseconds(uint32_t us)
   while ((int32_t)dwt_getCycles() - start < cycles);
 #else
   uint32_t start = getCurrentMicros();
-  while ((start + us) > getCurrentMicros());
+  while (getCurrentMicros() - start < us);
 #endif
 }
 
