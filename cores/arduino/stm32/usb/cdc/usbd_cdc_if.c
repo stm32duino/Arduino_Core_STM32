@@ -263,8 +263,9 @@ void CDC_deInit(void)
 
 bool CDC_connected()
 {
-  uint32_t transmitTime = 0;
-  if (transmitStart) {
+  // Save the transmitStart value in a local variable - fix #478
+  uint32_t transmitTime = transmitStart;
+  if (transmitTime) {
     transmitTime = HAL_GetTick() - transmitStart;
   }
   return hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED
