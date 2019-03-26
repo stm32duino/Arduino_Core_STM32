@@ -1,11 +1,11 @@
 #ifndef _STM32YYXX_LL_H_
 #define _STM32YYXX_LL_H_
-
-/* Include Low Layers drivers */
 /* LL raised several warnings, ignore them */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
+
+/* Include Low Layers drivers */
 #include "stm32yyxx_ll_adc.h"
 #include "stm32yyxx_ll_bdma.h"
 #include "stm32yyxx_ll_bus.h"

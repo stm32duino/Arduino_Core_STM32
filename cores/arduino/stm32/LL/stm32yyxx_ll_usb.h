@@ -1,5 +1,9 @@
 #ifndef _STM32YYXX_LL_USB_H_
 #define _STM32YYXX_LL_USB_H_
+/* LL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
 #ifdef STM32F1xx
 #include "stm32f1xx_ll_usb.h"
@@ -25,4 +29,5 @@
 #ifdef STM32WBxx
 #include "stm32wbxx_ll_usb.h"
 #endif
+#pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_USB_H_ */

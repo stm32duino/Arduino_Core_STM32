@@ -1,5 +1,9 @@
 #ifndef _STM32YYXX_LL_COMP_H_
 #define _STM32YYXX_LL_COMP_H_
+/* LL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
 #ifdef STM32F0xx
 #include "stm32f0xx_ll_comp.h"
@@ -25,4 +29,5 @@
 #ifdef STM32WBxx
 #include "stm32wbxx_ll_comp.h"
 #endif
+#pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_COMP_H_ */
