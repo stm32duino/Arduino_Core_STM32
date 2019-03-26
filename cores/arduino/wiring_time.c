@@ -24,25 +24,24 @@ extern "C" {
 
 uint32_t millis(void)
 {
-  // todo: ensure no interrupts
-  return GetCurrentMilli() ;
+  // ToDo: ensure no interrupts
+  return getCurrentMillis();
 }
 
 // Interrupt-compatible version of micros
 uint32_t micros(void)
 {
-  return GetCurrentMicro();
+  return getCurrentMicros();
 }
 
 void delay(uint32_t ms)
 {
-  if (ms == 0) {
-    return;
+  if (ms != 0) {
+    uint32_t start = getCurrentMillis();
+    do {
+      yield();
+    } while (getCurrentMillis() - start < ms);
   }
-  uint32_t start = GetCurrentMilli();
-  do {
-    yield();
-  } while (GetCurrentMilli() - start < ms);
 }
 
 #ifdef __cplusplus

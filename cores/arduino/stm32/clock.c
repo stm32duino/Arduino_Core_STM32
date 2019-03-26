@@ -48,7 +48,7 @@ extern "C" {
   * @param  None
   * @retval None
   */
-uint32_t GetCurrentMicro(void)
+uint32_t getCurrentMicros(void)
 {
   /* Ensure COUNTFLAG is reset by reading SysTick control and status register */
   LL_SYSTICK_IsActiveCounterFlag();
@@ -66,7 +66,7 @@ uint32_t GetCurrentMicro(void)
   * @param  None
   * @retval None
   */
-uint32_t GetCurrentMilli(void)
+uint32_t getCurrentMillis(void)
 {
   return HAL_GetTick();
 }
@@ -78,7 +78,7 @@ void noOsSystickHandler()
 
 void osSystickHandler() __attribute__((weak, alias("noOsSystickHandler")));
 /**
-  * @brief  Function called when t he tick interruption falls
+  * @brief  Function called when the tick interruption falls
   * @param  None
   * @retval None
   */
