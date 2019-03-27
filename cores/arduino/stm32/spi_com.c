@@ -398,8 +398,42 @@ void spi_deinit(spi_t *obj)
     return;
 
   SPI_HandleTypeDef *handle = &(obj->handle);
+  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_TypeDef *port;
 
   HAL_SPI_DeInit(handle);
+
+  if(obj->pin_mosi != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_mosi));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_mosi);
+    GPIO_InitStruct.Mode      = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_mosi,PinMap_SPI_MOSI));
+    HAL_GPIO_Init(port, &GPIO_InitStruct);
+  }
+
+  if(obj->pin_miso != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_miso));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_miso);
+    GPIO_InitStruct.Mode      = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_miso,PinMap_SPI_MISO));
+    HAL_GPIO_Init(port, &GPIO_InitStruct);
+  }
+
+  if(obj->pin_sclk != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_sclk));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_sclk);
+    GPIO_InitStruct.Mode      = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_sclk,PinMap_SPI_SCLK));
+    HAL_GPIO_Init(port, &GPIO_InitStruct);
+  }
+
+  if(obj->pin_ssel != NC) {
+    port = set_GPIO_Port_Clock(STM_PORT(obj->pin_ssel));
+    GPIO_InitStruct.Pin       = STM_GPIO_PIN(obj->pin_ssel);
+    GPIO_InitStruct.Mode      = GPIO_MODE_ANALOG;
+    GPIO_InitStruct.Pull      = STM_PIN_PUPD(pinmap_function(obj->pin_ssel,PinMap_SPI_SSEL));
+    HAL_GPIO_Init(port, &GPIO_InitStruct);
+  }
 
 #if defined SPI1_BASE
   // Reset SPI and disable clock

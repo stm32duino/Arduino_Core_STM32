@@ -292,11 +292,28 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   */
 void i2c_deinit(i2c_t *obj)
 {
+  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_TypeDef *port;
+
   HAL_NVIC_DisableIRQ(obj->irq);
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
   HAL_NVIC_DisableIRQ(obj->irqER);
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
   HAL_I2C_DeInit(&(obj->handle));
+
+  //SCL
+  port = set_GPIO_Port_Clock(STM_PORT(obj->scl));
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->scl);
+  GPIO_InitStruct.Mode        = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->scl,PinMap_I2C_SCL));
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+  //SDA
+  port = set_GPIO_Port_Clock(STM_PORT(obj->sda));
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->sda);
+  GPIO_InitStruct.Mode        = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(pinmap_function(obj->sda,PinMap_I2C_SDA));
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
 
 #if defined I2C1_BASE
   // Disable I2C1 clock if not done

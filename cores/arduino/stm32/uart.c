@@ -302,6 +302,10 @@ void uart_init(serial_t *obj)
   */
 void uart_deinit(serial_t *obj)
 {
+  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_TypeDef *port;
+  uint32_t function;
+
   // Reset UART and disable clock
   switch (obj->index) {
 #if defined(USART1_BASE)
@@ -399,6 +403,20 @@ void uart_deinit(serial_t *obj)
         break;
 #endif
 }
+
+  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_rx));
+  function = pinmap_function(obj->pin_rx, PinMap_UART_RX);
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_rx);
+  GPIO_InitStruct.Mode        = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+  port = set_GPIO_Port_Clock(STM_PORT(obj->pin_tx));
+  function = pinmap_function(obj->pin_tx, PinMap_UART_TX);
+  GPIO_InitStruct.Pin         = STM_GPIO_PIN(obj->pin_tx);
+  GPIO_InitStruct.Mode        = GPIO_MODE_ANALOG;
+  GPIO_InitStruct.Pull        = STM_PIN_PUPD(function);
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
 
   HAL_UART_DeInit(uart_handlers[obj->index]);
 }
