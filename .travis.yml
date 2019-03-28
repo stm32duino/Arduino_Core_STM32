@@ -51,7 +51,7 @@ matrix:
     # Install STM32 core supported by ST
       - cd $ARDUINO_IDE_PATH
         # Add json packages url to the Arduino IDE
-      - ./arduino --save-prefs --pref "boardsmanager.additional.urls=https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json"
+      - ./arduino --save-prefs --pref "boardsmanager.additional.urls=https://github.com/stm32duino/BoardManagerFiles/raw/dev/STM32/package_stm_index.json"
         # Install the latest core version
       - ./arduino --install-boards STM32:stm32
       - rm -fr $HOME/.arduino15/packages/STM32/hardware/stm32/*
