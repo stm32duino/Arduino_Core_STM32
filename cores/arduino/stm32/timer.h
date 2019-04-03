@@ -68,6 +68,10 @@ struct timer_s {
   uint8_t idx;
   void (*irqHandle)(stimer_t *);
   void (*irqHandleOC)(stimer_t *, uint32_t);
+  void (*irqHandleOC_CH1)(void);
+  void (*irqHandleOC_CH2)(void);
+  void (*irqHandleOC_CH3)(void);
+  void (*irqHandleOC_CH4)(void);
   PinName pin;
   volatile timerPinInfo_t pinInfo;
 };
@@ -208,14 +212,16 @@ void TimerPulseDeinit(stimer_t *obj);
 
 uint32_t getTimerCounter(stimer_t *obj);
 void setTimerCounter(stimer_t *obj, uint32_t value);
-void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
 uint32_t getCCRRegister(stimer_t *obj, uint32_t channel);
+void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
+void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler);
 
 uint32_t getTimerIrq(TIM_TypeDef *tim);
 uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 uint32_t getTimerClkFreq(TIM_TypeDef *tim);
 
 void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
+void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth);
 
 #ifdef __cplusplus
 }
