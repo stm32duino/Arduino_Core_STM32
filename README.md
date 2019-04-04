@@ -60,12 +60,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html) | *1.1.1* |  |
-| :yellow_heart: | [Nucleo-G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | **1.5.1/1.6.0** |  |
+| :yellow_heart: | [Nucleo-G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | **1.6.0** |  |
 | :green_heart: | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | *0.1.0* |  |
 | :green_heart: | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart: | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
 | :green_heart: | [Nucleo L452RE](http://www.st.com/en/evaluation-tools/nucleo-l452re.html) | *1.5.0* |  |
 | :green_heart: | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
+| :yellow_heart: | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | **1.6.0** | No BLE support |
 
 | Status | [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -118,7 +119,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Sparky flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | **1.5.1/1.6.0** |  |
+| :yellow_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | **1.6.0** |  |
 
 ## Next release
 
