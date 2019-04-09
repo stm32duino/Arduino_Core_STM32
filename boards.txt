@@ -179,9 +179,9 @@ mcci_catena_4610.upload.maximum_data_size=20480
 mcci_catena_4610.build.mcu=cortex-m0
 mcci_catena_4610.build.series=STM32L0xx
 mcci_catena_4610.build.variant=CATENA_461x
-mcci_catena_4610.build.variant_extra_flags=-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0
+mcci_catena_4610.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0
 mcci_catena_4610.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4610.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4610 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+mcci_catena_4610.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 # mcci_catena_4610.build.c.Werror=
 # mcci_catena_4610.build.cpp.Werror=
 # mcci_catena_4610.build.S.Werror=
@@ -300,7 +300,7 @@ mcci_catena_4611.upload.maximum_data_size=20480
 mcci_catena_4611.build.mcu=cortex-m0
 mcci_catena_4611.build.series=STM32L0xx
 mcci_catena_4611.build.variant=CATENA_461x
-mcci_catena_4611.build.variant_extra_flags=-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=0
+mcci_catena_4611.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0
 mcci_catena_4611.build.cmsis_lib_gcc=arm_cortexM0l_math
 mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4611 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 # mcci_catena_4611.build.c.Werror=
@@ -421,7 +421,7 @@ mcci_catena_4612.upload.maximum_data_size=20480
 mcci_catena_4612.build.mcu=cortex-m0
 mcci_catena_4612.build.series=STM32L0xx
 mcci_catena_4612.build.variant=CATENA_461x
-mcci_catena_4612.build.variant_extra_flags=-DMCCI_CATENA_461x_PA8_SWITCHES_VDD=1
+mcci_catena_4612.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1
 mcci_catena_4612.build.cmsis_lib_gcc=arm_cortexM0l_math
 mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4612 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 # mcci_catena_4612.build.c.Werror=
@@ -520,6 +520,127 @@ mcci_catena_4612.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DC
 mcci_catena_4612.menu.lorawan_region.projcfg.build.lorawan_flags=
 
 #### end of configuration info for MCCI Catena 4612
+
+#
+# Configuration information for MCCI Catena 4630
+# See template in https://github.com/mcci-catena/Arduino_Core_STM32/boards.template
+#
+mcci_catena_4630.name=MCCI Catena 4630
+mcci_catena_4630.build.vid=0x040E
+mcci_catena_4630.build.pid=0x00B1
+mcci_catena_4630.vid.0=0x040E
+mcci_catena_4630.pid.0=0x00B1
+mcci_catena_4630.build.usb_product="MCCI Catena 4630"
+mcci_catena_4630.build.usb_manufacturer="MCCI Corporation"
+
+mcci_catena_4630.build.core=arduino
+mcci_catena_4630.build.board=MCCI_CATENA_4630
+mcci_catena_4630.build.product_line=STM32L082xx
+
+mcci_catena_4630.upload.maximum_size=196608
+mcci_catena_4630.upload.maximum_data_size=20480
+mcci_catena_4630.build.mcu=cortex-m0
+mcci_catena_4630.build.series=STM32L0xx
+mcci_catena_4630.build.variant=CATENA_4630
+mcci_catena_4630.build.variant_extra_flags=-DMCCI_CATENA_4630_PA0_SWITCHES_VDD=1
+mcci_catena_4630.build.cmsis_lib_gcc=arm_cortexM0l_math
+mcci_catena_4630.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4630 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
+# mcci_catena_4630.build.c.Werror=
+# mcci_catena_4630.build.cpp.Werror=
+# mcci_catena_4630.build.S.Werror=
+
+#
+# menu.upload_method
+mcci_catena_4630.menu.upload_method.DFU=DFU
+mcci_catena_4630.menu.upload_method.DFU.upload.tool=stm32l0_dfu
+mcci_catena_4630.menu.upload_method.DFU.upload.protocol=dfu
+mcci_catena_4630.menu.upload_method.DFU.upload.maximum_size=196608
+mcci_catena_4630.menu.upload_method.DFU.upload.maximum_data_size=20480
+mcci_catena_4630.menu.upload_method.DFU.upload.use_1200bps_touch=true
+mcci_catena_4630.menu.upload_method.DFU.upload.wait_for_upload_port=false
+mcci_catena_4630.menu.upload_method.DFU.upload.native_usb=false
+
+mcci_catena_4630.menu.upload_method.STLink=STLink
+mcci_catena_4630.menu.upload_method.STLink.upload.protocol=STLink
+mcci_catena_4630.menu.upload_method.STLink.upload.tool=stlink_upload
+
+#mcci_catena_4630.menu.upload_method.Serial=Serial
+#mcci_catena_4630.menu.upload_method.Serial.upload.protocol=Serial
+#mcci_catena_4630.menu.upload_method.Serial.upload.tool=serial_upload
+
+#
+# menu.xserial
+mcci_catena_4630.menu.xserial.usb=USB Serial
+mcci_catena_4630.menu.xserial.generic=Generic Serial
+mcci_catena_4630.menu.xserial.none=No Serial
+mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+mcci_catena_4630.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
+#mcci_catena_4630.menu.xserial.all=All (up to 10)
+#mcci_catena_4630.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4630.menu.xserial.third=Enable first third (USART1 to 3 if available)
+mcci_catena_4630.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+
+#
+# menu.sysclk
+mcci_catena_4630.menu.sysclk.pll32m=32 MHz (most power)
+mcci_catena_4630.menu.sysclk.pll24m=24 MHz
+mcci_catena_4630.menu.sysclk.hsi16m=16 MHz
+mcci_catena_4630.menu.sysclk.msi4194k=4.194 MHz (no USB)
+mcci_catena_4630.menu.sysclk.msi2097k=2.097 MHz (no USB, least power)
+mcci_catena_4630.menu.sysclk.pll32m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=32
+mcci_catena_4630.menu.sysclk.pll24m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=24
+mcci_catena_4630.menu.sysclk.hsi16m.build.sysclk_flags=-DCATENA_CFG_SYSCLK=16
+mcci_catena_4630.menu.sysclk.msi4194k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=4
+mcci_catena_4630.menu.sysclk.msi2097k.build.sysclk_flags=-DCATENA_CFG_SYSCLK=2
+
+#
+# menu.opt
+mcci_catena_4630.menu.opt.osstd=Smallest (-Os default)
+mcci_catena_4630.menu.opt.osstd.build.flags.optimize=-Os
+mcci_catena_4630.menu.opt.osstd.build.flags.ldspecs=
+# mcci_catena_4630.menu.opt.oslto=Smallest (-Os) with LTO
+# mcci_catena_4630.menu.opt.oslto.build.flags.optimize=-Os -flto
+# mcci_catena_4630.menu.opt.oslto.build.flags.ldspecs=-flto
+mcci_catena_4630.menu.opt.o1std=Fast (-O1)
+mcci_catena_4630.menu.opt.o1std.build.flags.optimize=-O1
+mcci_catena_4630.menu.opt.o1std.build.flags.ldspecs=
+# mcci_catena_4630.menu.opt.o1lto=Fast (-O1) with LTO
+# mcci_catena_4630.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+# mcci_catena_4630.menu.opt.o1lto.build.flags.ldspecs=-flto
+mcci_catena_4630.menu.opt.o2std=Faster (-O2)
+mcci_catena_4630.menu.opt.o2std.build.flags.optimize=-O2
+mcci_catena_4630.menu.opt.o2std.build.flags.ldspecs=
+# mcci_catena_4630.menu.opt.o2lto=Faster (-O2) with LTO
+# mcci_catena_4630.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+# mcci_catena_4630.menu.opt.o2lto.build.flags.ldspecs=-flto
+mcci_catena_4630.menu.opt.o3std=Fastest (-O3)
+mcci_catena_4630.menu.opt.o3std.build.flags.optimize=-O3
+mcci_catena_4630.menu.opt.o3std.build.flags.ldspecs=
+# mcci_catena_4630.menu.opt.o3lto=Fastest (-O3) with LTO
+# mcci_catena_4630.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+# mcci_catena_4630.menu.opt.o3lto.build.flags.ldspecs=-flto
+mcci_catena_4630.menu.opt.ogstd=Debug (-g)
+mcci_catena_4630.menu.opt.ogstd.build.flags.optimize=-Og -gdwarf-2
+mcci_catena_4630.menu.opt.ogstd.build.flags.ldspecs=
+
+#
+# menu.lorawan_region
+mcci_catena_4630.menu.lorawan_region.us915=North America 915 MHz
+mcci_catena_4630.menu.lorawan_region.eu868=Europe 868 MHz
+mcci_catena_4630.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4630.menu.lorawan_region.as923=Asia 923 MHz
+mcci_catena_4630.menu.lorawan_region.as923jp=Japan 923 MHz
+mcci_catena_4630.menu.lorawan_region.in866=India 866 MHz
+mcci_catena_4630.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.in866.build.lorawan_flags=-DCFG_in866=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.projcfg.build.lorawan_flags=
+
+#### end of configuration info for MCCI Catena 4630
 
 #
 # Configuration information for MCCI Catena 4801

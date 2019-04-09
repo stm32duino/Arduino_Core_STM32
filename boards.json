@@ -45,6 +45,21 @@
 			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1",
 			"build_board_old_flags":	"-DARDUINO_CATENA_{{modelnumber}}"
 			},
+			
+			{
+			"modelnumber": 	"4630",
+			"pid":		"00B1",
+			"build_variant": "CATENA_4630",
+			"build_variant_extra_flags":	"-DMCCI_CATENA_4630_PA0_SWITCHES_VDD=1",
+			"build_board_old_flags":	"-DARDUINO_CATENA_{{modelnumber}}",
+			"extra_sections": [ 
+				{ "name": "usb" }, 
+				{ "name": "DFU" },
+				{ "name": "xserial",
+				  "using": "xserial_usb_third"
+				}
+			]
+			},
 
 			{
 			"modelnumber": 	"4801",
@@ -57,3 +72,4 @@
 			}
 		]
 }
+
