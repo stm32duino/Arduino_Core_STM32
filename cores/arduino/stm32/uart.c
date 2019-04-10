@@ -686,12 +686,14 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
   rx_callback[obj->index] = callback;
   rx_callback_obj[obj->index] = obj;
 
+  /* Must disable interrupt to prevent handle lock contention */
+  HAL_NVIC_DisableIRQ(obj->irq);
+
+  HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
+
+  /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, 0, 1);
   HAL_NVIC_EnableIRQ(obj->irq);
-
-  if (HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1) != HAL_OK) {
-    return;
-  }
 }
 
 /**
@@ -710,14 +712,15 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   tx_callback[obj->index] = callback;
   tx_callback_obj[obj->index] = obj;
 
+  /* Must disable interrupt to prevent handle lock contention */
+  HAL_NVIC_DisableIRQ(obj->irq);
+
+  /* The following function will enable UART_IT_TXE and error interrupts */
+  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
+
   /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, 0, 2);
   HAL_NVIC_EnableIRQ(obj->irq);
-
-  /* The following function will enable UART_IT_TXE and error interrupts */
-  if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-    return;
-  }
 }
 
 /**
