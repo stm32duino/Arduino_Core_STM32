@@ -611,7 +611,7 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
     {
       /* Wait for PLL ready */
     }
-    
+
     RCC->CFGR = save_rcc_cfgr;
 
     while (LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_PLL)
@@ -634,11 +634,11 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *          - WKUP pin 3 (PA02) if enabled, for stm32l031xx devices only.
   *
   *     Per the datasheet:
-  *       After waking up from Standby mode, program execution restarts in the same way 
+  *       After waking up from Standby mode, program execution restarts in the same way
   *       as after a Reset (boot pins sampling, vector reset is fetched, etc.). The SBF
   *       status flag in the PWR_CSR register (see Section 6.4.2) indicates that the MCU
   *       was in Standby mode.
-  * 
+  *
   *     Also per table 38, STANDBY is only entered if the following conditions are
   *     true prior to WFI -- one of them being "no wakeup condition active", which
   *     means we must be prepared for a return from STANDBY request, but it will be
@@ -654,7 +654,7 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *     WUF before enabling events, so that events happening between enable and _WFI()
   *     will cause an immediate wakeup (without entering low-power mode). Thus,
   *     you can't really depend on this routine causing a reboot on wakeup.
-  * 
+  *
   * @retval None; might not return.
   */
 void HAL_PWR_EnterSTANDBYMode(void)
