@@ -483,11 +483,16 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 {
-   uint32_t tmpreg = 0U;
+  uint32_t const save_pwr_cr = PWR->CR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t tmpreg = 0U;
 
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
 
   /* Select the regulator state in Sleep mode ---------------------------------*/
   tmpreg = PWR->CR;
@@ -500,6 +505,9 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 
   /* Store the new value */
   PWR->CR = tmpreg;
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
 
   /* Clear SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
@@ -547,12 +555,18 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
   uint32_t const save_pwr_cr = PWR->CR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t const save_rcc_apb2enr = RCC->APB2ENR;
   uint32_t const save_syscfg_cfgr3 = SYSCFG->CFGR3;
   uint32_t tmpreg;
 
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_STOP_ENTRY(STOPEntry));
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+  RCC->APB2ENR = save_rcc_apb2enr | RCC_APB2ENR_SYSCFGEN;
 
   /* Select the regulator state in Stop mode ---------------------------------*/
   tmpreg = save_pwr_cr;
@@ -575,6 +589,11 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
     SYSCFG->CFGR3 = save_syscfg_cfgr3 & ~SYSCFG_CFGR3_EN_VREFINT;
     PWR->CR |= (PWR_CR_FWU | PWR_CR_ULP);
   }
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
+  RCC->APB2ENR = save_rcc_apb2enr;
+
   /* Select Stop mode entry --------------------------------------------------*/
   if(STOPEntry == PWR_STOPENTRY_WFI)
   {
@@ -595,9 +614,18 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
-  /* restore the register we stuffed */
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+  RCC->APB2ENR = save_rcc_apb2enr | RCC_APB2ENR_SYSCFGEN;
+
+  /* restore the registers we stuffed */
   PWR->CR = save_pwr_cr;
   SYSCFG->CFGR3 = save_syscfg_cfgr3;
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
+  RCC->APB2ENR = save_rcc_apb2enr;
+
   HAL_PWR_RestoreCFGR(save_rcc_cfgr);
 }
 
@@ -622,7 +650,20 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
 }
 
 /**
-  * @brief Try to enter Standby mode.
+  * @brief Enter STOP mode with WFI instruction
+  * @note For legacy reasons, this routine (despite its name) does not enter
+  *       STANDBY mode; instead, it enters stop mode. Existing MCCI code and
+  *       customer code will probably break if you ever change this to use
+  *       real STANDBY mode. For real STANDBY, please use HAL_PWR_EnterTrueSTANDBYMode().
+  * @retval none
+  */
+void HAL_PWR_EnterSTANDBYMode(void)
+{
+  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+}
+
+/**
+  * @brief Enter Standby mode.
   * @note In Standby mode, all I/O pins are high impedance except for:
   *          - Reset pad (still available)
   *          - RTC_AF1 pin (PC13) if configured for tamper, time-stamp, RTC
@@ -652,16 +693,19 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *     SBF. It assumes that clocks are all set up to allow writes to PWR->CR,
   *     SCB->SCR, and FLASCH->ACR. However, the caller is responsible for clearing
   *     WUF before enabling events, so that events happening between enable and _WFI()
-  *     will cause an immediate wakeup (without entering low-power mode). Thus,
-  *     you can't really depend on this routine causing a reboot on wakeup.
+  *     will cause an immediate wakeup and reboot when the _WFI is reached.
   *
-  * @retval None; might not return.
+  * @retval None; does not return.
   */
-void HAL_PWR_EnterSTANDBYMode(void)
+void HAL_PWR_EnterTrueSTANDBYMode(void)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
   uint32_t const save_pwr_cr = PWR->CR;
   uint32_t rPwrCr;
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
 
   /* copy saved power CR to save a (slow) peripheral access */
   rPwrCr = save_pwr_cr;
@@ -672,6 +716,9 @@ void HAL_PWR_EnterSTANDBYMode(void)
 
   /* apply the changes to the power control register */
   PWR->CR = rPwrCr;
+
+  /* now turn off the clock to power registers */
+  RCC->APB1ENR = save_rcc_apb1enr;
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
@@ -686,15 +733,8 @@ void HAL_PWR_EnterSTANDBYMode(void)
     /* Request Wait For Interrupt */
     FLASH->ACR = save_flash_acr | FLASH_ACR_SLEEP_PD;
     __WFI();
-    FLASH->ACR = save_flash_acr;
+    __builtin_unreachable();
   }
-
-  /* Reset SLEEPDEEP bit of Cortex System Control Register */
-  CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
-
-  /* restore the register we stuffed */
-  PWR->CR = save_pwr_cr;
-  HAL_PWR_RestoreCFGR(save_rcc_cfgr);
 }
 
 /**
@@ -748,6 +788,28 @@ void HAL_PWR_DisableSEVOnPend(void)
 {
   /* Clear SEVONPEND bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
+}
+
+/**
+  * @brief Reset the wakeup flag
+  * @note The PWR->CSR WUF, if set, will cause an immediate return from
+  *       STANDBY. It's not cleared by system reset. So, prior to setting
+  *       up a wakeup event, it's a good idea to clear it (otherwise you
+  *       will reboot immediately when you try to enter STANDBY).
+  * @retval None
+  */
+void HAL_PWR_ResetWakeupFlag(void)
+{
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t const save_pwr_cr = PWR->CR;
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+
+  PWR->CR = save_pwr_cr | PWR_CR_CWUF;
+
+  /* now turn off the clock to power registers */
+  RCC->APB1ENR = save_rcc_apb1enr;
 }
 
 /**
