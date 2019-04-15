@@ -483,11 +483,16 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
   */
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 {
-   uint32_t tmpreg = 0U;
+  uint32_t const save_pwr_cr = PWR->CR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t tmpreg = 0U;
 
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
 
   /* Select the regulator state in Sleep mode ---------------------------------*/
   tmpreg = PWR->CR;
@@ -500,6 +505,9 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
 
   /* Store the new value */
   PWR->CR = tmpreg;
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
 
   /* Clear SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
@@ -548,6 +556,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   uint32_t const save_rcc_cfgr = RCC->CFGR;
   uint32_t const save_pwr_cr = PWR->CR;
   uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t const save_rcc_apb2enr = RCC->APB2ENR;
   uint32_t const save_syscfg_cfgr3 = SYSCFG->CFGR3;
   uint32_t tmpreg;
 
@@ -557,6 +566,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 
   /* turn on the clock to the power registers */
   RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+  RCC->APB2ENR = save_rcc_apb2enr | RCC_APB2ENR_SYSCFGEN;
 
   /* Select the regulator state in Stop mode ---------------------------------*/
   tmpreg = save_pwr_cr;
@@ -582,6 +592,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 
   /* restore clock control */
   RCC->APB1ENR = save_rcc_apb1enr;
+  RCC->APB2ENR = save_rcc_apb2enr;
 
   /* Select Stop mode entry --------------------------------------------------*/
   if(STOPEntry == PWR_STOPENTRY_WFI)
@@ -605,14 +616,16 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 
   /* turn on the clock to the power registers */
   RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+  RCC->APB2ENR = save_rcc_apb2enr | RCC_APB2ENR_SYSCFGEN;
 
-  /* restore the register we stuffed */
+  /* restore the registers we stuffed */
   PWR->CR = save_pwr_cr;
+  SYSCFG->CFGR3 = save_syscfg_cfgr3;
 
   /* restore clock control */
   RCC->APB1ENR = save_rcc_apb1enr;
+  RCC->APB2ENR = save_rcc_apb2enr;
 
-  SYSCFG->CFGR3 = save_syscfg_cfgr3;
   HAL_PWR_RestoreCFGR(save_rcc_cfgr);
 }
 
