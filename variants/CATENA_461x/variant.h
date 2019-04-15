@@ -57,7 +57,7 @@ enum {
   PB7,  //D12     D12
   PB2,  //D13     D13_LED
   PA0,  //D14/A0  Controls boost regulator on Catena 4612
-  PA5,  //D15/A1
+  PA5,  //D15/A1  
   PA4,  //D16/A2
   PA3,  //D17/A3  A3_VBAT_DET
   PA2,  //D18/A4  A4_VBUS_DET
