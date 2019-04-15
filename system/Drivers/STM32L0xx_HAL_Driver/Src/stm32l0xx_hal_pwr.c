@@ -547,12 +547,16 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
   uint32_t const save_pwr_cr = PWR->CR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
   uint32_t const save_syscfg_cfgr3 = SYSCFG->CFGR3;
   uint32_t tmpreg;
 
   /* Check the parameters */
   assert_param(IS_PWR_REGULATOR(Regulator));
   assert_param(IS_PWR_STOP_ENTRY(STOPEntry));
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
 
   /* Select the regulator state in Stop mode ---------------------------------*/
   tmpreg = save_pwr_cr;
@@ -575,6 +579,10 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
     SYSCFG->CFGR3 = save_syscfg_cfgr3 & ~SYSCFG_CFGR3_EN_VREFINT;
     PWR->CR |= (PWR_CR_FWU | PWR_CR_ULP);
   }
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
+
   /* Select Stop mode entry --------------------------------------------------*/
   if(STOPEntry == PWR_STOPENTRY_WFI)
   {
@@ -595,8 +603,15 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   /* Reset SLEEPDEEP bit of Cortex System Control Register */
   CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
 
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+
   /* restore the register we stuffed */
   PWR->CR = save_pwr_cr;
+
+  /* restore clock control */
+  RCC->APB1ENR = save_rcc_apb1enr;
+
   SYSCFG->CFGR3 = save_syscfg_cfgr3;
   HAL_PWR_RestoreCFGR(save_rcc_cfgr);
 }
@@ -652,16 +667,19 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *     SBF. It assumes that clocks are all set up to allow writes to PWR->CR,
   *     SCB->SCR, and FLASCH->ACR. However, the caller is responsible for clearing
   *     WUF before enabling events, so that events happening between enable and _WFI()
-  *     will cause an immediate wakeup (without entering low-power mode). Thus,
-  *     you can't really depend on this routine causing a reboot on wakeup.
+  *     will cause an immediate wakeup and reboot when the _WFI is reached.
   *
-  * @retval None; might not return.
+  * @retval None; does not return.
   */
 void HAL_PWR_EnterSTANDBYMode(void)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
   uint32_t const save_pwr_cr = PWR->CR;
   uint32_t rPwrCr;
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
 
   /* copy saved power CR to save a (slow) peripheral access */
   rPwrCr = save_pwr_cr;
@@ -672,6 +690,9 @@ void HAL_PWR_EnterSTANDBYMode(void)
 
   /* apply the changes to the power control register */
   PWR->CR = rPwrCr;
+
+  /* now turn off the clock to power registers */
+  RCC->APB1ENR = save_rcc_apb1enr;
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
