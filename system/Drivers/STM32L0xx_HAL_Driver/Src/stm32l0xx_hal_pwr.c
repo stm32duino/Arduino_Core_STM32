@@ -622,7 +622,7 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
 }
 
 /**
-  * @brief Enters Standby mode.
+  * @brief Try to enter Standby mode.
   * @note In Standby mode, all I/O pins are high impedance except for:
   *          - Reset pad (still available)
   *          - RTC_AF1 pin (PC13) if configured for tamper, time-stamp, RTC
@@ -632,27 +632,46 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *          - WKUP pin 2 (PC13) if enabled.
   *          - WKUP pin 3 (PE06) if enabled, for stm32l07xxx and stm32l08xxx devices only.
   *          - WKUP pin 3 (PA02) if enabled, for stm32l031xx devices only.
-  * @retval None
+  *
+  *     Per the datasheet:
+  *       After waking up from Standby mode, program execution restarts in the same way
+  *       as after a Reset (boot pins sampling, vector reset is fetched, etc.). The SBF
+  *       status flag in the PWR_CSR register (see Section 6.4.2) indicates that the MCU
+  *       was in Standby mode.
+  *
+  *     Also per table 38, STANDBY is only entered if the following conditions are
+  *     true prior to WFI -- one of them being "no wakeup condition active", which
+  *     means we must be prepared for a return from STANDBY request, but it will be
+  *     infrequent.
+  *         - SLEEPDEEP = 1
+  *         - PDDS = 1 in PWR_CR
+  *         - WUF = 0 in PWR_CSR (user must arrange for this)
+  *         - no pending events that would wake us up.
+  *
+  *     This routine establishes the key preconditions are met. It also clears the
+  *     SBF. It assumes that clocks are all set up to allow writes to PWR->CR,
+  *     SCB->SCR, and FLASCH->ACR. However, the caller is responsible for clearing
+  *     WUF before enabling events, so that events happening between enable and _WFI()
+  *     will cause an immediate wakeup (without entering low-power mode). Thus,
+  *     you can't really depend on this routine causing a reboot on wakeup.
+  *
+  * @retval None; might not return.
   */
 void HAL_PWR_EnterSTANDBYMode(void)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
   uint32_t const save_pwr_cr = PWR->CR;
+  uint32_t rPwrCr;
 
-  /* Enable Power interface clock */
-  __HAL_RCC_PWR_CLK_ENABLE();
+  /* copy saved power CR to save a (slow) peripheral access */
+  rPwrCr = save_pwr_cr;
 
-  /* Enable the low power voltage regulator */
-  SET_BIT(PWR->CR, PWR_LOWPOWERREGULATOR_ON);
+  /* set PDDS to signal that we really want STANDBY mode */
+  /* ask PWR_CR to clear standby flag so we know we've been in standby */
+  SET_BIT(rPwrCr, PWR_CR_PDDS | PWR_CR_CSBF);
 
-  /* Set Ultra-Low-power mode by switch-off Vrefint */
-  SET_BIT(PWR->CR, PWR_CR_ULP);
-
-  /* Clear WUF flag */
-  __HAL_PWR_CLEAR_FLAG(PWR_FLAG_WU);
-
-  /* Select Standby mode */
-  SET_BIT(PWR->CR, PWR_CR_PDDS);
+  /* apply the changes to the power control register */
+  PWR->CR = rPwrCr;
 
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
@@ -676,9 +695,6 @@ void HAL_PWR_EnterSTANDBYMode(void)
   /* restore the register we stuffed */
   PWR->CR = save_pwr_cr;
   HAL_PWR_RestoreCFGR(save_rcc_cfgr);
-
-  /* Disable Power interface clock */
-  __HAL_RCC_PWR_CLK_DISABLE();
 }
 
 /**
