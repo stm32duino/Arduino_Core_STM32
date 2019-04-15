@@ -420,6 +420,7 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx);
 void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry);
 void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry);
 void HAL_PWR_EnterSTANDBYMode(void);
+void HAL_PWR_EnterTrueSTANDBYMode(void) __attribute__((noreturn));
 
 void HAL_PWR_EnableSleepOnExit(void);
 void HAL_PWR_DisableSleepOnExit(void);

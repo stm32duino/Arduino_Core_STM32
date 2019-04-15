@@ -650,7 +650,20 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
 }
 
 /**
-  * @brief Try to enter Standby mode.
+  * @brief Enter STOP mode with WFI instruction
+  * @note For legacy reasons, this routine (despite its name) does not enter
+  *       STANDBY mode; instead, it enters stop mode. Existing MCCI code and
+  *       customer code will probably break if you ever change this to use
+  *       real STANDBY mode. For real STANDBY, please use HAL_PWR_EnterTrueSTANDBYMode().
+  * @retval none
+  */
+void HAL_PWR_EnterSTANDBYMode(void)
+{
+  HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+}
+
+/**
+  * @brief Enter Standby mode.
   * @note In Standby mode, all I/O pins are high impedance except for:
   *          - Reset pad (still available)
   *          - RTC_AF1 pin (PC13) if configured for tamper, time-stamp, RTC
@@ -684,7 +697,7 @@ static void HAL_PWR_RestoreCFGR(uint32_t save_rcc_cfgr)
   *
   * @retval None; does not return.
   */
-void HAL_PWR_EnterSTANDBYMode(void)
+void HAL_PWR_EnterTrueSTANDBYMode(void)
 {
   uint32_t const save_rcc_cfgr = RCC->CFGR;
   uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
@@ -720,15 +733,8 @@ void HAL_PWR_EnterSTANDBYMode(void)
     /* Request Wait For Interrupt */
     FLASH->ACR = save_flash_acr | FLASH_ACR_SLEEP_PD;
     __WFI();
-    FLASH->ACR = save_flash_acr;
+    __builtin_unreachable();
   }
-
-  /* Reset SLEEPDEEP bit of Cortex System Control Register */
-  CLEAR_BIT(SCB->SCR, SCB_SCR_SLEEPDEEP_Msk);
-
-  /* restore the register we stuffed */
-  PWR->CR = save_pwr_cr;
-  HAL_PWR_RestoreCFGR(save_rcc_cfgr);
 }
 
 /**
