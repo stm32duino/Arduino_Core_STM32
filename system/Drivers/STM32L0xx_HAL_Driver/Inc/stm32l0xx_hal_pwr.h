@@ -427,6 +427,8 @@ void HAL_PWR_DisableSleepOnExit(void);
 void HAL_PWR_EnableSEVOnPend(void);
 void HAL_PWR_DisableSEVOnPend(void);
 
+void HAL_PWR_ResetWakeupFlag(void);
+
 /**
   * @}
   */

@@ -791,6 +791,28 @@ void HAL_PWR_DisableSEVOnPend(void)
 }
 
 /**
+  * @brief Reset the wakeup flag
+  * @note The PWR->CSR WUF, if set, will cause an immediate return from
+  *       STANDBY. It's not cleared by system reset. So, prior to setting
+  *       up a wakeup event, it's a good idea to clear it (otherwise you
+  *       will reboot immediately when you try to enter STANDBY).
+  * @retval None
+  */
+void HAL_PWR_ResetWakeupFlag(void)
+{
+  uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+  uint32_t const save_pwr_cr = PWR->CR;
+
+  /* turn on the clock to the power registers */
+  RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+
+  PWR->CR = save_pwr_cr | PWR_CR_CWUF;
+
+  /* now turn off the clock to power registers */
+  RCC->APB1ENR = save_rcc_apb1enr;
+}
+
+/**
   * @brief This function handles the PWR PVD interrupt request.
   * @note This API should be called under the PVD_IRQHandler().
   * @retval None
