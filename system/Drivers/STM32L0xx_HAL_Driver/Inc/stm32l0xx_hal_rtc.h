@@ -476,23 +476,19 @@ typedef struct
 /**
   * @brief  Disable the write protection for RTC registers.
   * @param  __HANDLE__: specifies the RTC handle.
-  * @retval None
+  * @retval non-zero: global background protection was previously enabled.
   */
 #define __HAL_RTC_WRITEPROTECTION_DISABLE(__HANDLE__)             \
-                        do{                                       \
-                            (__HANDLE__)->Instance->WPR = 0xCAU;   \
-                            (__HANDLE__)->Instance->WPR = 0x53U;   \
-                          } while(0U)
+                        RTC_DisableWriteProtection(__HANDLE__)
 
 /**
   * @brief  Enable the write protection for RTC registers.
   * @param  __HANDLE__: specifies the RTC handle.
   * @retval None
+  * @note   This function always clears the DBP bit in PWR->CR.
   */
 #define __HAL_RTC_WRITEPROTECTION_ENABLE(__HANDLE__)              \
-                        do{                                       \
-                            (__HANDLE__)->Instance->WPR = 0xFFU;   \
-                          } while(0U)
+                        RTC_EnableWriteProtection(__HANDLE__, 1)
 
 /**
   * @brief  Enable the RTC ALARMA peripheral.
@@ -881,6 +877,9 @@ HAL_RTCStateTypeDef HAL_RTC_GetState(RTC_HandleTypeDef *hrtc);
 HAL_StatusTypeDef  RTC_EnterInitMode(RTC_HandleTypeDef* hrtc);
 uint8_t            RTC_ByteToBcd2(uint8_t Value);
 uint8_t            RTC_Bcd2ToByte(uint8_t Value);
+int                RTC_DisableWriteProtection(RTC_HandleTypeDef* hrtc);
+void               RTC_EnableWriteProtection(RTC_HandleTypeDef* hrtc, int dbp);
+
 /**
   * @}
   */

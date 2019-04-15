@@ -1513,6 +1513,67 @@ uint8_t RTC_Bcd2ToByte(uint8_t Value)
 }
 
 /**
+  * @brief  disable RTC write protection.
+  * @note   The DBP bit is always set by this operation.
+  * @param  hrtc: the real-time clock instance in question.
+  * @retval non-zero if previously write protected.
+  */
+int RTC_DisableWriteProtection(RTC_HandleTypeDef* hrtc)
+{
+  uint32_t const save_pwr_cr = PWR->CR;
+  int result;
+
+  result = 0;
+  if (! READ_BIT(save_pwr_cr, PWR_CR_DBP))
+    {
+    // turn on the clock so we can write to the registers
+    uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+
+    RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+
+    // enable access to the background registers
+    PWR->CR = save_pwr_cr | PWR_CR_DBP;
+
+    // restore clock state
+    RCC->APB1ENR = save_rcc_apb1enr;
+    result = 1;
+    }
+
+  hrtc->Instance->WPR = 0xCAU;
+  hrtc->Instance->WPR = 0x53U;
+
+  return result;
+}
+
+/**
+  * @brief  enable RTC write protection.
+  * @note   The DBP bit is always cleared by this operation.
+  * @param  hrtc: the real-time clock instance in question.
+  * @param  dbp: if non-zero, global background protection is also enabled.
+  */
+void RTC_EnableWriteProtection(RTC_HandleTypeDef* hrtc, int dbp)
+{
+  // do the disable
+  hrtc->Instance->WPR = 0xFFU;
+
+  if (dbp)
+    {
+    // turn off the DBP bit
+    uint32_t const save_pwr_cr = PWR->CR;
+    uint32_t const save_rcc_apb1enr = RCC->APB1ENR;
+
+    // turn on the clock so we can write to the registers
+    RCC->APB1ENR = save_rcc_apb1enr | RCC_APB1ENR_PWREN;
+
+    // turn off the background protect bit
+    PWR->CR = save_pwr_cr & ~PWR_CR_DBP;
+
+    // restore clock state
+    RCC->APB1ENR = save_rcc_apb1enr;
+    }
+}
+
+/**
   * @}
   */
 
