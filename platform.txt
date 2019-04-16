@@ -5,7 +5,7 @@
 # https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
 name=MCCI Catena STM32 Boards
-version=2.2.1
+version=2.3.0
 
 # STM compile variables
 # ----------------------

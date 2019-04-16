@@ -22,7 +22,7 @@ For general information, please check the stm32duino [README.md](https://github.
 
 ## Latest release
 
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.0.0...master)
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.3.0...master)
 
 ## Getting Started
 
@@ -39,7 +39,7 @@ The Arduino IDE allows you to select the following items.
 - **LoRaWAN Region**: when using the Arduino LMIC, you can select North America, Europ, Australia, Asia, Japan, or India as your target region.
 - **Optimization**: choose smallest, fast, faster, fastest, or debug.
 - **Serial interface**: Select "USB Serial", "Generic Serial" or "No Serial".
-- **System clock**: Select "32 MHz (most power)", "24 MHz", "16 MHz", "4.194 MHz (no USB) or "2.097 MHz (no USB, least power)"". If "2.097 MHz (no USB, least power)" or "4.194 MHz (no USB)" is selected, then you cannot use "USB Serial" for serial interface.
+- **System clock**: Select "32 MHz (most power)", "24 MHz", "16 MHz", "4.194 MHz (no USB)" or "2.097 MHz (no USB, least power)". If "2.097 MHz (no USB, least power)" or "4.194 MHz (no USB)" is selected, then you cannot use "USB Serial" for serial interface.
 - **Upload method**: select Mass Storage, DFU, or STLink. DFU works well, but requires use of the boot jumper to select DFU mode, and a little driver wrangling on Windows.
 
 ## Supported Boards and CPUs
@@ -117,6 +117,14 @@ If you want to develop and test changes to this package, we suggest the followin
 Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or `programmers.txt`.
 
 ## Release History
+
+- [v2.3.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.3.0) corrects the handling of clocking in the various SLEEP/STOP/SSTANDBY modes. It also ensures that `.RamFunc` code is properly placed in RAM (initialzed when statics are initialized).
+
+- [v2.2.1](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.2.1) fixed the version number in `platform.txt`, and sets GPIO to reset state when deinitializing SPI, I2C and UARTs.
+
+- [v2.2.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.2.0) increases the serial buffer size to 256 and adds low-power changes for the Catena 4801.
+
+- [v2.1.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.1.0) fixed the device ID register offset, and improved sleep mode power.
 
 - [v2.0.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.0.0) is a major release. It improves wakeup support and power management, and simplifies some of the menus. New boards: 4610 and 4801. The template system was enhanced. USB manufacturer string is no longer "unknown". Changed hardware serial default baud rate to 115,200 from 9600. Moved USB clock control to USB module. Enhanced begin()/end() for USB and I2C to start/stop clocks. (This is a major bump beause the baud rate change may be a breaking change.)
 
