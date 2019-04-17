@@ -783,30 +783,35 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
   */
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-  volatile uint32_t tmpval;
 #if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L1xx)
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear PE flag */
+    __HAL_UART_CLEAR_PEFLAG(huart); /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear FE flag */
+    __HAL_UART_CLEAR_FEFLAG(huart); /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear NE flag */
+    __HAL_UART_CLEAR_NEFLAG(huart); /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear ORE flag */
+    __HAL_UART_CLEAR_OREFLAG(huart); /* Clear ORE flag */
   }
 #else
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear PE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_PEF); /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear FE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_FEF); /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear NE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_NEF); /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear ORE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF); /* Clear ORE flag */
   }
 #endif
-
-  UNUSED(tmpval);
+  /* Restart receive interrupt after any error */
+  uint8_t index = uart_index(huart);
+  if (index < UART_NUM) {
+    serial_t *obj = rx_callback_obj[index];
+    if (obj && !serial_rx_active(obj)) {
+      HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
+    }
+  }
 }
 
 /**
