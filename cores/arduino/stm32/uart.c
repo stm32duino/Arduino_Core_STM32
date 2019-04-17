@@ -607,14 +607,24 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
       if (serial_debug.index >= UART_NUM) {
         return 0;
       }
+    } else {
+      serial_t *obj = rx_callback_obj[serial_debug.index];
+      if (obj) {
+        serial_debug.irq = obj->irq;
+      }
     }
   }
 
+  HAL_NVIC_DisableIRQ(serial_debug.irq);
+
   while (HAL_UART_Transmit(uart_handlers[serial_debug.index], data, size, TX_TIMEOUT) != HAL_OK) {
     if ((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
-      return 0;
+      size = 0;
+      break;
     }
   }
+
+  HAL_NVIC_EnableIRQ(serial_debug.irq);
 
   return size;
 }
