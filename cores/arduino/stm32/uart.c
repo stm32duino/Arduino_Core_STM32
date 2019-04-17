@@ -468,6 +468,11 @@ void uart_deinit(serial_t *obj)
   }
 
   HAL_UART_DeInit(uart_handlers[obj->index]);
+
+  /* Release uart debug to ensure init */
+  if (serial_debug.index == obj->index) {
+    serial_debug.index = UART_NUM;
+  }
 }
 
 #if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
@@ -581,33 +586,31 @@ void uart_debug_init(void)
   */
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
-  uint8_t index = 0;
   uint32_t tickstart = HAL_GetTick();
 
   if (DEBUG_UART == NP) {
     return 0;
   }
-  /* Search if DEBUG_UART already initialized */
-  for (index = 0; index < UART_NUM; index++) {
-    if (uart_handlers[index] != NULL) {
-      if (DEBUG_UART == uart_handlers[index]->Instance) {
-        break;
+  if (serial_debug.index >= UART_NUM) {
+    /* Search if DEBUG_UART already initialized */
+    for (serial_debug.index = 0; serial_debug.index < UART_NUM; serial_debug.index++) {
+      if (uart_handlers[serial_debug.index] != NULL) {
+        if (DEBUG_UART == uart_handlers[serial_debug.index]->Instance) {
+          break;
+        }
       }
     }
-  }
 
-  if (index >= UART_NUM) {
-    /* DEBUG_UART not initialized */
     if (serial_debug.index >= UART_NUM) {
+      /* DEBUG_UART not initialized */
       uart_debug_init();
       if (serial_debug.index >= UART_NUM) {
         return 0;
       }
     }
-    index = serial_debug.index;
   }
 
-  while (HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) != HAL_OK) {
+  while (HAL_UART_Transmit(uart_handlers[serial_debug.index], data, size, TX_TIMEOUT) != HAL_OK) {
     if ((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
       return 0;
     }
