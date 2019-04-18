@@ -60,6 +60,8 @@ struct serial_s {
    */
   USART_TypeDef *uart;
   UART_HandleTypeDef handle;
+  void (*rx_callback)(serial_t *);
+  int (*tx_callback)(serial_t *);
   uint32_t baudrate;
   uint32_t databits;
   uint32_t stopbits;

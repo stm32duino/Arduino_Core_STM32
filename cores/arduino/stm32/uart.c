@@ -97,10 +97,6 @@ typedef enum {
 } uart_index_t;
 
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
-static void (*rx_callback[UART_NUM])(serial_t *);
-static serial_t *rx_callback_obj[UART_NUM];
-static int (*tx_callback[UART_NUM])(serial_t *);
-static serial_t *tx_callback_obj[UART_NUM];
 
 static serial_t serial_debug = { .uart = NP, .index = UART_NUM };
 
@@ -621,7 +617,7 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
         return 0;
       }
     } else {
-      serial_t *obj = rx_callback_obj[serial_debug.index];
+      serial_t *obj = get_serial_obj(uart_handlers[serial_debug.index]);
       if (obj) {
         serial_debug.irq = obj->irq;
       }
@@ -681,8 +677,7 @@ int uart_getc(serial_t *obj, unsigned char *c)
 
   *c = (unsigned char)(obj->recv);
   /* Restart RX irq */
-  UART_HandleTypeDef *huart = uart_handlers[obj->index];
-  HAL_UART_Receive_IT(huart, &(obj->recv), 1);
+  HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
 
   return 0;
 }
@@ -704,9 +699,7 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
   if (serial_rx_active(obj)) {
     return;
   }
-
-  rx_callback[obj->index] = callback;
-  rx_callback_obj[obj->index] = obj;
+  obj->rx_callback = callback;
 
   /* Must disable interrupt to prevent handle lock contention */
   HAL_NVIC_DisableIRQ(obj->irq);
@@ -730,9 +723,7 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   if (obj == NULL) {
     return;
   }
-
-  tx_callback[obj->index] = callback;
-  tx_callback_obj[obj->index] = obj;
+  obj->tx_callback = callback;
 
   /* Must disable interrupt to prevent handle lock contention */
   HAL_NVIC_DisableIRQ(obj->irq);
@@ -750,6 +741,7 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   * @param  UartHandle pointer on the uart reference
   * @retval index
   */
+/*
 uint8_t uart_index(UART_HandleTypeDef *huart)
 {
   uint8_t i = 0;
@@ -765,6 +757,7 @@ uint8_t uart_index(UART_HandleTypeDef *huart)
 
   return i;
 }
+*/
 
 /**
   * @brief  Rx Transfer completed callback
@@ -773,10 +766,9 @@ uint8_t uart_index(UART_HandleTypeDef *huart)
   */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-
-  if (index < UART_NUM) {
-    rx_callback[index](rx_callback_obj[index]);
+  serial_t *obj = get_serial_obj(huart);
+  if (obj) {
+    obj->rx_callback(obj);
   }
 }
 
@@ -787,14 +779,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-  serial_t *obj = tx_callback_obj[index];
+  serial_t *obj = get_serial_obj(huart);
 
-  if (index < UART_NUM) {
-    if (tx_callback[index](obj) != -1) {
-      if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-        return;
-      }
+  if (obj && obj->tx_callback(obj) != -1) {
+    if (HAL_UART_Transmit_IT(huart, &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
+      return;
     }
   }
 }
@@ -828,12 +817,9 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
   }
 #endif
   /* Restart receive interrupt after any error */
-  uint8_t index = uart_index(huart);
-  if (index < UART_NUM) {
-    serial_t *obj = rx_callback_obj[index];
-    if (obj && !serial_rx_active(obj)) {
-      HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
-    }
+  serial_t *obj = get_serial_obj(huart);
+  if (obj && !serial_rx_active(obj)) {
+    HAL_UART_Receive_IT(huart, &(obj->recv), 1);
   }
 }
 
@@ -1044,9 +1030,7 @@ void UART10_IRQHandler(void)
   */
 void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-  serial_t *obj = rx_callback_obj[index];
-
+  serial_t *obj = get_serial_obj(huart);
   HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
 }
 #endif /* HAL_UART_MODULE_ENABLED */
