@@ -95,6 +95,16 @@ void initVariant()
   digitalWrite(PB9, 1);
 }
 
+void USBD_reenumerate(void)
+{
+  pinMode(PB9, OUTPUT);
+  digitalWrite(PB9, HIGH);
+  delay(10);
+  digitalWrite(PB9, LOW);
+  delay(10);
+  digitalWrite(PB9, HIGH);
+}
+
 /**
   * @brief  System Clock Configuration
   *         The system Clock is configured as follow :

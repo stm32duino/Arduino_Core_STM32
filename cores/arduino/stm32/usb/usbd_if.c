@@ -16,7 +16,7 @@
   * @retval None
   */
 
-void USBD_reenumerate(void)
+WEAK void USBD_reenumerate(void)
 {
 #ifndef USBD_REENUM_DISABLED
   /* Re-enumerate the USB */
