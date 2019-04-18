@@ -53,6 +53,11 @@ extern "C" {
 typedef struct serial_s serial_t;
 
 struct serial_s {
+  /*  The 1st 2 members USART_TypeDef *uart
+   *  and UART_HandleTypeDef handle should
+   *  be kept as the first members of this struct
+   *  to have get_serial_obj() function work as expected
+   */
   USART_TypeDef *uart;
   UART_HandleTypeDef handle;
   uint32_t baudrate;

@@ -104,6 +104,19 @@ static serial_t *tx_callback_obj[UART_NUM];
 
 static serial_t serial_debug = { .uart = NP, .index = UART_NUM };
 
+/* Aim of the function is to get serial_s pointer using huart pointer */
+/* Highly inspired from magical linux kernel's "container_of" */
+serial_t *get_serial_obj(UART_HandleTypeDef *huart)
+{
+  struct serial_s *obj_s;
+  serial_t *obj;
+
+  obj_s = (struct serial_s *)((char *)huart - offsetof(struct serial_s, handle));
+  obj = (serial_t *)((char *)obj_s - offsetof(serial_t, uart));
+
+  return (obj);
+}
+
 /**
   * @brief  Function called to initialize the uart interface
   * @param  obj : pointer to serial_t structure
