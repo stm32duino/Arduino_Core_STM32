@@ -35,7 +35,6 @@
   *
   ******************************************************************************
   */
-#include "stm32_def.h"
 #include "interrupt.h"
 
 /* Private Types */
@@ -163,8 +162,8 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_
 
   gpio_irq_conf[id].callback = callback;
 
-  // Enable and set Button EXTI Interrupt to the lowest priority
-  HAL_NVIC_SetPriority(gpio_irq_conf[id].irqnb, 0x06, 0);
+  // Enable and set EXTI Interrupt
+  HAL_NVIC_SetPriority(gpio_irq_conf[id].irqnb, EXTI_IRQ_PRIO, EXTI_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(gpio_irq_conf[id].irqnb);
 }
 

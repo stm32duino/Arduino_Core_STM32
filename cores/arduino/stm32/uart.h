@@ -38,7 +38,6 @@
 #define __UART_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
 #include "variant.h"
 
 #ifdef __cplusplus
@@ -48,6 +47,13 @@ extern "C" {
 #if !defined(HAL_UART_MODULE_ENABLED)
 #define serial_t void*
 #else
+
+#ifndef UART_IRQ_PRIO
+#define UART_IRQ_PRIO       1
+#endif
+#ifndef UART_IRQ_SUBPRIO
+#define UART_IRQ_SUBPRIO    0
+#endif
 
 /* Exported types ------------------------------------------------------------*/
 typedef struct serial_s serial_t;

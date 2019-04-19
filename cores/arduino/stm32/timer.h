@@ -40,8 +40,7 @@
 #define __TIMER_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
-#include "PeripheralPins.h"
+#include "variant.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,6 +76,17 @@ struct timer_s {
 };
 
 /* Exported constants --------------------------------------------------------*/
+#ifndef TIM_IRQ_PRIO
+#if (__CORTEX_M == 0x00U)
+#define TIM_IRQ_PRIO       3
+#else
+#define TIM_IRQ_PRIO       14
+#endif /* __CORTEX_M */
+#endif /* TIM_IRQ_PRIO */
+#ifndef TIM_IRQ_SUBPRIO
+#define TIM_IRQ_SUBPRIO    0
+#endif
+
 #define MAX_FREQ  65535
 
 #if defined(TIM1_BASE) && !defined(TIM1_IRQn)

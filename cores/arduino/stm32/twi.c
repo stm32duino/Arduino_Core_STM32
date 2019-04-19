@@ -36,7 +36,6 @@
   ******************************************************************************
   */
 #include "core_debug.h"
-#include "stm32_def.h"
 #include "twi.h"
 #include "PinAF_STM32F1.h"
 
@@ -198,10 +197,10 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 
   handle->State = HAL_I2C_STATE_RESET;
 
-  HAL_NVIC_SetPriority(obj->irq, 0, 1);
+  HAL_NVIC_SetPriority(obj->irq, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
-  HAL_NVIC_SetPriority(obj->irqER, 0, 1);
+  HAL_NVIC_SetPriority(obj->irqER, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irqER);
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 
