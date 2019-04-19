@@ -53,22 +53,25 @@ extern "C" {
 typedef struct serial_s serial_t;
 
 struct serial_s {
+  /*  The 1st 2 members USART_TypeDef *uart
+   *  and UART_HandleTypeDef handle should
+   *  be kept as the first members of this struct
+   *  to have get_serial_obj() function work as expected
+   */
   USART_TypeDef *uart;
   UART_HandleTypeDef handle;
-  uint8_t index;
-  uint8_t recv;
-  uint32_t baudrate;
-  uint32_t databits;
-  uint32_t stopbits;
-  uint32_t parity;
+  void (*rx_callback)(serial_t *);
+  int (*tx_callback)(serial_t *);
   PinName pin_tx;
   PinName pin_rx;
   IRQn_Type irq;
+  uint8_t index;
+  uint8_t recv;
   uint8_t *rx_buff;
-  volatile uint16_t rx_head;
-  uint16_t rx_tail;
   uint8_t *tx_buff;
+  uint16_t rx_tail;
   uint16_t tx_head;
+  volatile uint16_t rx_head;
   volatile uint16_t tx_tail;
 };
 
@@ -158,7 +161,7 @@ struct serial_s {
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void uart_init(serial_t *obj);
+void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits);
 void uart_deinit(serial_t *obj);
 #if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
 void uart_config_lowpower(serial_t *obj);

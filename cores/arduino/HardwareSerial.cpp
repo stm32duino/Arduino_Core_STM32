@@ -244,7 +244,7 @@ void HardwareSerial::configForLowPower(void)
   // Reconfigure properly Serial instance to use HSI as clock source
   end();
   uart_config_lowpower(&_serial);
-  begin(_serial.baudrate, _config);
+  begin(_baud, _config);
 #endif
 }
 
@@ -290,8 +290,10 @@ int HardwareSerial::_tx_complete_irq(serial_t *obj)
 void HardwareSerial::begin(unsigned long baud, byte config)
 {
   uint32_t databits = 0;
+  uint32_t stopbits = 0;
+  uint32_t parity = 0;
 
-  _serial.baudrate = (uint32_t)baud;
+  _baud = baud;
   _config = config;
 
   // Manage databits
@@ -311,32 +313,32 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   }
 
   if ((config & 0x30) == 0x30) {
-    _serial.parity = UART_PARITY_ODD;
+    parity = UART_PARITY_ODD;
     databits++;
   } else if ((config & 0x20) == 0x20) {
-    _serial.parity = UART_PARITY_EVEN;
+    parity = UART_PARITY_EVEN;
     databits++;
   } else {
-    _serial.parity = UART_PARITY_NONE;
+    parity = UART_PARITY_NONE;
   }
 
   if ((config & 0x08) == 0x08) {
-    _serial.stopbits = UART_STOPBITS_2;
+    stopbits = UART_STOPBITS_2;
   } else {
-    _serial.stopbits = UART_STOPBITS_1;
+    stopbits = UART_STOPBITS_1;
   }
 
   switch (databits) {
 #ifdef UART_WORDLENGTH_7B
     case 7:
-      _serial.databits = UART_WORDLENGTH_7B;
+      databits = UART_WORDLENGTH_7B;
       break;
 #endif
     case 8:
-      _serial.databits = UART_WORDLENGTH_8B;
+      databits = UART_WORDLENGTH_8B;
       break;
     case 9:
-      _serial.databits = UART_WORDLENGTH_9B;
+      databits = UART_WORDLENGTH_9B;
       break;
     default:
     case 0:
@@ -344,7 +346,7 @@ void HardwareSerial::begin(unsigned long baud, byte config)
       break;
   }
 
-  uart_init(&_serial);
+  uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits);
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
 }
 

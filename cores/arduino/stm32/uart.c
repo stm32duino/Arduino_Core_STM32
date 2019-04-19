@@ -97,19 +97,28 @@ typedef enum {
 } uart_index_t;
 
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
-static void (*rx_callback[UART_NUM])(serial_t *);
-static serial_t *rx_callback_obj[UART_NUM];
-static int (*tx_callback[UART_NUM])(serial_t *);
-static serial_t *tx_callback_obj[UART_NUM];
 
 static serial_t serial_debug = { .uart = NP, .index = UART_NUM };
+
+/* Aim of the function is to get serial_s pointer using huart pointer */
+/* Highly inspired from magical linux kernel's "container_of" */
+serial_t *get_serial_obj(UART_HandleTypeDef *huart)
+{
+  struct serial_s *obj_s;
+  serial_t *obj;
+
+  obj_s = (struct serial_s *)((char *)huart - offsetof(struct serial_s, handle));
+  obj = (serial_t *)((char *)obj_s - offsetof(serial_t, uart));
+
+  return (obj);
+}
 
 /**
   * @brief  Function called to initialize the uart interface
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void uart_init(serial_t *obj)
+void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits)
 {
   if (obj == NULL) {
     return;
@@ -284,10 +293,10 @@ void uart_init(serial_t *obj)
   /* Configure uart */
   uart_handlers[obj->index] = huart;
   huart->Instance          = (USART_TypeDef *)(obj->uart);
-  huart->Init.BaudRate     = obj->baudrate;
-  huart->Init.WordLength   = obj->databits;
-  huart->Init.StopBits     = obj->stopbits;
-  huart->Init.Parity       = obj->parity;
+  huart->Init.BaudRate     = baudrate;
+  huart->Init.WordLength   = databits;
+  huart->Init.StopBits     = stopbits;
+  huart->Init.Parity       = parity;
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
@@ -306,7 +315,7 @@ void uart_init(serial_t *obj)
    * check Reference Manual
    */
   if (obj->uart == LPUART1) {
-    if (obj->baudrate <= 9600) {
+    if (baudrate <= 9600) {
 #if defined(USART_CR3_UCESM)
       HAL_UARTEx_EnableClockStopMode(huart);
 #endif
@@ -323,7 +332,7 @@ void uart_init(serial_t *obj)
     }
     /* Trying to change LPUART clock source */
     /* If baudrate is lower than or equal to 9600 try to change to LSE */
-    if (obj->baudrate <= 9600) {
+    if (baudrate <= 9600) {
       /* Enable the clock if not already set by user */
       enableClock(LSE_CLOCK);
 
@@ -468,6 +477,11 @@ void uart_deinit(serial_t *obj)
   }
 
   HAL_UART_DeInit(uart_handlers[obj->index]);
+
+  /* Release uart debug to ensure init */
+  if (serial_debug.index == obj->index) {
+    serial_debug.index = UART_NUM;
+  }
 }
 
 #if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
@@ -564,12 +578,8 @@ void uart_debug_init(void)
 #else
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
-    serial_debug.baudrate = DEBUG_UART_BAUDRATE;
-    serial_debug.parity = UART_PARITY_NONE;
-    serial_debug.databits = UART_WORDLENGTH_8B;
-    serial_debug.stopbits = UART_STOPBITS_1;
 
-    uart_init(&serial_debug);
+    uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1);
   }
 }
 
@@ -581,37 +591,45 @@ void uart_debug_init(void)
   */
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
-  uint8_t index = 0;
   uint32_t tickstart = HAL_GetTick();
 
   if (DEBUG_UART == NP) {
     return 0;
   }
-  /* Search if DEBUG_UART already initialized */
-  for (index = 0; index < UART_NUM; index++) {
-    if (uart_handlers[index] != NULL) {
-      if (DEBUG_UART == uart_handlers[index]->Instance) {
-        break;
+  if (serial_debug.index >= UART_NUM) {
+    /* Search if DEBUG_UART already initialized */
+    for (serial_debug.index = 0; serial_debug.index < UART_NUM; serial_debug.index++) {
+      if (uart_handlers[serial_debug.index] != NULL) {
+        if (DEBUG_UART == uart_handlers[serial_debug.index]->Instance) {
+          break;
+        }
       }
     }
-  }
 
-  if (index >= UART_NUM) {
-    /* DEBUG_UART not initialized */
     if (serial_debug.index >= UART_NUM) {
+      /* DEBUG_UART not initialized */
       uart_debug_init();
       if (serial_debug.index >= UART_NUM) {
         return 0;
       }
+    } else {
+      serial_t *obj = get_serial_obj(uart_handlers[serial_debug.index]);
+      if (obj) {
+        serial_debug.irq = obj->irq;
+      }
     }
-    index = serial_debug.index;
   }
 
-  while (HAL_UART_Transmit(uart_handlers[index], data, size, TX_TIMEOUT) != HAL_OK) {
+  HAL_NVIC_DisableIRQ(serial_debug.irq);
+
+  while (HAL_UART_Transmit(uart_handlers[serial_debug.index], data, size, TX_TIMEOUT) != HAL_OK) {
     if ((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
-      return 0;
+      size = 0;
+      break;
     }
   }
+
+  HAL_NVIC_EnableIRQ(serial_debug.irq);
 
   return size;
 }
@@ -655,8 +673,7 @@ int uart_getc(serial_t *obj, unsigned char *c)
 
   *c = (unsigned char)(obj->recv);
   /* Restart RX irq */
-  UART_HandleTypeDef *huart = uart_handlers[obj->index];
-  HAL_UART_Receive_IT(huart, &(obj->recv), 1);
+  HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
 
   return 0;
 }
@@ -678,16 +695,16 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
   if (serial_rx_active(obj)) {
     return;
   }
+  obj->rx_callback = callback;
 
-  rx_callback[obj->index] = callback;
-  rx_callback_obj[obj->index] = obj;
+  /* Must disable interrupt to prevent handle lock contention */
+  HAL_NVIC_DisableIRQ(obj->irq);
 
+  HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
+
+  /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, 0, 1);
   HAL_NVIC_EnableIRQ(obj->irq);
-
-  if (HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1) != HAL_OK) {
-    return;
-  }
 }
 
 /**
@@ -702,18 +719,17 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   if (obj == NULL) {
     return;
   }
+  obj->tx_callback = callback;
 
-  tx_callback[obj->index] = callback;
-  tx_callback_obj[obj->index] = obj;
+  /* Must disable interrupt to prevent handle lock contention */
+  HAL_NVIC_DisableIRQ(obj->irq);
+
+  /* The following function will enable UART_IT_TXE and error interrupts */
+  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
 
   /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, 0, 2);
   HAL_NVIC_EnableIRQ(obj->irq);
-
-  /* The following function will enable UART_IT_TXE and error interrupts */
-  if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-    return;
-  }
 }
 
 /**
@@ -721,6 +737,7 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   * @param  UartHandle pointer on the uart reference
   * @retval index
   */
+/*
 uint8_t uart_index(UART_HandleTypeDef *huart)
 {
   uint8_t i = 0;
@@ -736,6 +753,7 @@ uint8_t uart_index(UART_HandleTypeDef *huart)
 
   return i;
 }
+*/
 
 /**
   * @brief  Rx Transfer completed callback
@@ -744,10 +762,9 @@ uint8_t uart_index(UART_HandleTypeDef *huart)
   */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-
-  if (index < UART_NUM) {
-    rx_callback[index](rx_callback_obj[index]);
+  serial_t *obj = get_serial_obj(huart);
+  if (obj) {
+    obj->rx_callback(obj);
   }
 }
 
@@ -758,14 +775,11 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
   */
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-  serial_t *obj = tx_callback_obj[index];
+  serial_t *obj = get_serial_obj(huart);
 
-  if (index < UART_NUM) {
-    if (tx_callback[index](obj) != -1) {
-      if (HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-        return;
-      }
+  if (obj && obj->tx_callback(obj) != -1) {
+    if (HAL_UART_Transmit_IT(huart, &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
+      return;
     }
   }
 }
@@ -777,30 +791,32 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
   */
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 {
-  volatile uint32_t tmpval;
 #if defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L1xx)
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear PE flag */
+    __HAL_UART_CLEAR_PEFLAG(huart); /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear FE flag */
+    __HAL_UART_CLEAR_FEFLAG(huart); /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear NE flag */
+    __HAL_UART_CLEAR_NEFLAG(huart); /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->DR; /* Clear ORE flag */
+    __HAL_UART_CLEAR_OREFLAG(huart); /* Clear ORE flag */
   }
 #else
   if (__HAL_UART_GET_FLAG(huart, UART_FLAG_PE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear PE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_PEF); /* Clear PE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_FE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear FE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_FEF); /* Clear FE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_NE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear NE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_NEF); /* Clear NE flag */
   } else if (__HAL_UART_GET_FLAG(huart, UART_FLAG_ORE) != RESET) {
-    tmpval = huart->Instance->RDR; /* Clear ORE flag */
+    __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_OREF); /* Clear ORE flag */
   }
 #endif
-
-  UNUSED(tmpval);
+  /* Restart receive interrupt after any error */
+  serial_t *obj = get_serial_obj(huart);
+  if (obj && !serial_rx_active(obj)) {
+    HAL_UART_Receive_IT(huart, &(obj->recv), 1);
+  }
 }
 
 /**
@@ -1010,9 +1026,7 @@ void UART10_IRQHandler(void)
   */
 void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
 {
-  uint8_t index = uart_index(huart);
-  serial_t *obj = rx_callback_obj[index];
-
+  serial_t *obj = get_serial_obj(huart);
   HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
 }
 #endif /* HAL_UART_MODULE_ENABLED */
