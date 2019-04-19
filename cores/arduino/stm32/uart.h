@@ -62,10 +62,6 @@ struct serial_s {
   UART_HandleTypeDef handle;
   void (*rx_callback)(serial_t *);
   int (*tx_callback)(serial_t *);
-  uint32_t baudrate;
-  uint32_t databits;
-  uint32_t stopbits;
-  uint32_t parity;
   PinName pin_tx;
   PinName pin_rx;
   IRQn_Type irq;
@@ -165,7 +161,7 @@ struct serial_s {
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-void uart_init(serial_t *obj);
+void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits);
 void uart_deinit(serial_t *obj);
 #if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
 void uart_config_lowpower(serial_t *obj);

@@ -150,6 +150,7 @@ class HardwareSerial : public Stream {
     static int _tx_complete_irq(serial_t *obj);
   private:
     uint8_t _config;
+    unsigned long _baud;
     void init(void);
     void configForLowPower(void);
 };

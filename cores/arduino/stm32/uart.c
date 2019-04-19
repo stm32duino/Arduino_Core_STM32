@@ -118,7 +118,7 @@ serial_t *get_serial_obj(UART_HandleTypeDef *huart)
   * @param  obj : pointer to serial_t structure
   * @retval None
   */
-void uart_init(serial_t *obj)
+void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits)
 {
   if (obj == NULL) {
     return;
@@ -293,10 +293,10 @@ void uart_init(serial_t *obj)
   /* Configure uart */
   uart_handlers[obj->index] = huart;
   huart->Instance          = (USART_TypeDef *)(obj->uart);
-  huart->Init.BaudRate     = obj->baudrate;
-  huart->Init.WordLength   = obj->databits;
-  huart->Init.StopBits     = obj->stopbits;
-  huart->Init.Parity       = obj->parity;
+  huart->Init.BaudRate     = baudrate;
+  huart->Init.WordLength   = databits;
+  huart->Init.StopBits     = stopbits;
+  huart->Init.Parity       = parity;
   huart->Init.Mode         = UART_MODE_TX_RX;
   huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
@@ -315,7 +315,7 @@ void uart_init(serial_t *obj)
    * check Reference Manual
    */
   if (obj->uart == LPUART1) {
-    if (obj->baudrate <= 9600) {
+    if (baudrate <= 9600) {
 #if defined(USART_CR3_UCESM)
       HAL_UARTEx_EnableClockStopMode(huart);
 #endif
@@ -332,7 +332,7 @@ void uart_init(serial_t *obj)
     }
     /* Trying to change LPUART clock source */
     /* If baudrate is lower than or equal to 9600 try to change to LSE */
-    if (obj->baudrate <= 9600) {
+    if (baudrate <= 9600) {
       /* Enable the clock if not already set by user */
       enableClock(LSE_CLOCK);
 
@@ -578,12 +578,8 @@ void uart_debug_init(void)
 #else
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
-    serial_debug.baudrate = DEBUG_UART_BAUDRATE;
-    serial_debug.parity = UART_PARITY_NONE;
-    serial_debug.databits = UART_WORDLENGTH_8B;
-    serial_debug.stopbits = UART_STOPBITS_1;
 
-    uart_init(&serial_debug);
+    uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1);
   }
 }
 
