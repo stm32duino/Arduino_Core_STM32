@@ -27,7 +27,6 @@ extern "C" {
 
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
 #include "variant.h"
 
 #if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)
@@ -104,6 +103,14 @@ extern "C" {
 #ifndef USBD_AUDIO_FREQ
 #define USBD_AUDIO_FREQ                     22100U
 #endif /* USBD_AUDIO_FREQ */
+
+/* Interrupt priority */
+#ifndef USBD_IRQ_PRIO
+#define USBD_IRQ_PRIO                       1
+#endif /* USBD_IRQ_PRIO */
+#ifndef USBD_IRQ_SUBPRIO
+#define USBD_IRQ_SUBPRIO                    0
+#endif /* USBD_IRQ_SUBPRIO */
 
 /* Memory management macros */
 #ifndef USBD_malloc

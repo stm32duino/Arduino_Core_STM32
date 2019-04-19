@@ -41,8 +41,7 @@
 #define __TWI_H__
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32_def.h"
-#include "PeripheralPins.h"
+#include "variant.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,6 +50,14 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* offsetof is a gcc built-in function, this is the manual implementation */
 #define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
+
+/* Interrupt priority */
+#ifndef I2C_IRQ_PRIO
+#define I2C_IRQ_PRIO       2
+#endif
+#ifndef I2C_IRQ_SUBPRIO
+#define I2C_IRQ_SUBPRIO    0
+#endif
 
 /* I2C Tx/Rx buffer size */
 #define I2C_TXRX_BUFFER_SIZE    32

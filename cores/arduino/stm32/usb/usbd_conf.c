@@ -89,13 +89,13 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #endif
 
 #if defined(STM32WBxx)
-    HAL_NVIC_SetPriority(USB_HP_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(USB_HP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
     HAL_NVIC_EnableIRQ(USB_HP_IRQn);
-    HAL_NVIC_SetPriority(USB_LP_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(USB_LP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
     HAL_NVIC_EnableIRQ(USB_LP_IRQn);
 #else
     /* Set USB FS Interrupt priority */
-    HAL_NVIC_SetPriority(USB_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(USB_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
     /* Enable USB FS Interrupt */
     HAL_NVIC_EnableIRQ(USB_IRQn);
@@ -134,7 +134,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
 
     /* Set USB FS Interrupt priority */
-    HAL_NVIC_SetPriority(OTG_FS_IRQn, 5, 0);
+    HAL_NVIC_SetPriority(OTG_FS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
     /* Enable USB FS Interrupt */
     HAL_NVIC_EnableIRQ(OTG_FS_IRQn);
@@ -146,7 +146,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT();
 #if !defined(STM32L4xx)
       /* Set EXTI Wakeup Interrupt priority */
-      HAL_NVIC_SetPriority(OTG_FS_WKUP_IRQn, 0, 0);
+      HAL_NVIC_SetPriority(OTG_FS_WKUP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
       /* Enable EXTI Interrupt */
       HAL_NVIC_EnableIRQ(OTG_FS_WKUP_IRQn);
@@ -169,8 +169,8 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     /* Enable USB HS Clocks */
     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
 
-    /* Set USBHS Interrupt to the lowest priority */
-    HAL_NVIC_SetPriority(OTG_HS_IRQn, 5, 0);
+    /* Set USBHS Interrupt priority */
+    HAL_NVIC_SetPriority(OTG_HS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
     /* Enable USB HS Interrupt */
     HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
@@ -182,7 +182,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_IT();
 
       /* Set EXTI Wakeup Interrupt priority */
-      HAL_NVIC_SetPriority(OTG_HS_WKUP_IRQn, 0, 0);
+      HAL_NVIC_SetPriority(OTG_HS_WKUP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
       /* Enable EXTI Interrupt */
       HAL_NVIC_EnableIRQ(OTG_HS_WKUP_IRQn);

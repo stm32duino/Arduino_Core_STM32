@@ -335,7 +335,7 @@ void RTC_init(hourFormat_t format, sourceClock_t source, bool reset)
   HAL_RTCEx_EnableBypassShadow(&RtcHandle);
 #endif /* !STM32F1xx && !STM32F2xx */
 
-  HAL_NVIC_SetPriority(RTC_Alarm_IRQn, 2, 0);
+  HAL_NVIC_SetPriority(RTC_Alarm_IRQn, RTC_IRQ_PRIO, RTC_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
   /* Ensure backup domain is enabled */
   enableBackupRegister();

@@ -40,7 +40,7 @@
 #define __RTC_H
 
 /* Includes ------------------------------------------------------------------*/
-#include <stdbool.h>
+#include "variant.h"
 #include "backup.h"
 #include "clock.h"
 
@@ -77,6 +77,14 @@ typedef enum {
 typedef void(*voidCallbackPtr)(void *);
 
 /* Exported constants --------------------------------------------------------*/
+/* Interrupt priority */
+#ifndef RTC_IRQ_PRIO
+#define RTC_IRQ_PRIO       2
+#endif
+#ifndef RTC_IRQ_SUBPRIO
+#define RTC_IRQ_SUBPRIO    0
+#endif
+
 
 #define HSE_RTC_MAX 1000000U
 

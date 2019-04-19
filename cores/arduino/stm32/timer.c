@@ -142,7 +142,7 @@ void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
 {
   timer_enable_clock(htim_base);
 
-  HAL_NVIC_SetPriority(getTimerIrq(htim_base->Instance), 15, 0);
+  HAL_NVIC_SetPriority(getTimerIrq(htim_base->Instance), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(getTimerIrq(htim_base->Instance));
 }
 
@@ -1131,7 +1131,7 @@ void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChann
   sConfig.OCIdleState   = TIM_OCIDLESTATE_RESET;
   sConfig.OCNIdleState  = TIM_OCNIDLESTATE_RESET;
 #endif
-  HAL_NVIC_SetPriority(getTimerIrq(obj->timer), 14, 0);
+  HAL_NVIC_SetPriority(getTimerIrq(obj->timer), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(getTimerIrq(obj->timer));
 
   if (HAL_TIM_OC_Init(handle) != HAL_OK) {
