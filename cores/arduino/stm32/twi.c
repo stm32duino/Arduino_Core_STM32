@@ -391,11 +391,11 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
   */
 i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials)
 {
-  i2c_status_e ret = HAL_OK;
+  i2c_status_e ret = I2C_OK;
 
   switch (HAL_I2C_IsDeviceReady(&(obj->handle), devAddr, trials, I2C_TIMEOUT_TICK)) {
     case HAL_OK:
-      ret = HAL_OK;
+      ret = I2C_OK;
       break;
     case HAL_TIMEOUT:
       ret = I2C_TIMEOUT;
