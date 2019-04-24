@@ -123,9 +123,20 @@ Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
 Nucleo_144.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
-Nucleo_144.menu.upload_method.STLink=STLink
-Nucleo_144.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_144.menu.upload_method.STLink.upload.tool=stlink_upload
+Nucleo_144.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Nucleo_144.menu.upload_method.swdMethod.upload.protocol=0
+Nucleo_144.menu.upload_method.swdMethod.upload.options=-rst
+Nucleo_144.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Nucleo_144.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Nucleo_144.menu.upload_method.serialMethod.upload.protocol=1
+Nucleo_144.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_144.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=2
+Nucleo_144.menu.upload_method.dfuMethod.upload.options=
+Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Nucleo 64 boards
@@ -326,9 +337,20 @@ Nucleo_64.menu.upload_method.MassStorage=Mass Storage
 Nucleo_64.menu.upload_method.MassStorage.upload.protocol=
 Nucleo_64.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
-Nucleo_64.menu.upload_method.STLink=STLink
-Nucleo_64.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_64.menu.upload_method.STLink.upload.tool=stlink_upload
+Nucleo_64.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Nucleo_64.menu.upload_method.swdMethod.upload.protocol=0
+Nucleo_64.menu.upload_method.swdMethod.upload.options=-rst
+Nucleo_64.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Nucleo_64.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Nucleo_64.menu.upload_method.serialMethod.upload.protocol=1
+Nucleo_64.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_64.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=2
+Nucleo_64.menu.upload_method.dfuMethod.upload.options=
+Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Nucleo 32 boards
@@ -393,9 +415,20 @@ Nucleo_32.menu.upload_method.MassStorage=Mass Storage
 Nucleo_32.menu.upload_method.MassStorage.upload.protocol=
 Nucleo_32.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
-Nucleo_32.menu.upload_method.STLink=STLink
-Nucleo_32.menu.upload_method.STLink.upload.protocol=STLink
-Nucleo_32.menu.upload_method.STLink.upload.tool=stlink_upload
+Nucleo_32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Nucleo_32.menu.upload_method.swdMethod.upload.protocol=0
+Nucleo_32.menu.upload_method.swdMethod.upload.options=-rst
+Nucleo_32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Nucleo_32.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Nucleo_32.menu.upload_method.serialMethod.upload.protocol=1
+Nucleo_32.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Nucleo_32.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=2
+Nucleo_32.menu.upload_method.dfuMethod.upload.options=
+Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Discovery boards
@@ -497,9 +530,20 @@ Disco.menu.upload_method.MassStorage=Mass Storage
 Disco.menu.upload_method.MassStorage.upload.protocol=
 Disco.menu.upload_method.MassStorage.upload.tool=massStorageCopy
 
-Disco.menu.upload_method.STLink=STLink
-Disco.menu.upload_method.STLink.upload.protocol=STLink
-Disco.menu.upload_method.STLink.upload.tool=stlink_upload
+Disco.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Disco.menu.upload_method.swdMethod.upload.protocol=0
+Disco.menu.upload_method.swdMethod.upload.options=-rst
+Disco.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Disco.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Disco.menu.upload_method.serialMethod.upload.protocol=1
+Disco.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Disco.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Disco.menu.upload_method.dfuMethod.upload.protocol=2
+Disco.menu.upload_method.dfuMethod.upload.options=
+Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Other boards
@@ -524,13 +568,20 @@ GenF0.menu.pnum.DEMO_F030F4.build.variant=DEMO_F030F4
 GenF0.menu.pnum.DEMO_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # Upload menu
-GenF0.menu.upload_method.STLinkMethod=STLink
-GenF0.menu.upload_method.STLinkMethod.upload.protocol=STLink
-GenF0.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF0.menu.upload_method.swdMethod.upload.protocol=0
+GenF0.menu.upload_method.swdMethod.upload.options=-rst
+GenF0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-GenF0.menu.upload_method.serialMethod=Serial
-GenF0.menu.upload_method.serialMethod.upload.protocol=maple_serial
-GenF0.menu.upload_method.serialMethod.upload.tool=serial_upload
+GenF0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF0.menu.upload_method.serialMethod.upload.protocol=1
+GenF0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF0.menu.upload_method.dfuMethod.upload.protocol=2
+GenF0.menu.upload_method.dfuMethod.upload.options=
+GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Generic F1
@@ -599,13 +650,20 @@ GenF1.menu.pnum.HY_TinySTM103TB.build.product_line=STM32F103xB
 GenF1.menu.pnum.HY_TinySTM103TB.build.variant=HY_TinySTM103T
 
 # Upload menu
-GenF1.menu.upload_method.STLinkMethod=STLink
-GenF1.menu.upload_method.STLinkMethod.upload.protocol=STLink
-GenF1.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF1.menu.upload_method.swdMethod.upload.protocol=0
+GenF1.menu.upload_method.swdMethod.upload.options=-rst
+GenF1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-GenF1.menu.upload_method.serialMethod=Serial
-GenF1.menu.upload_method.serialMethod.upload.protocol=maple_serial
-GenF1.menu.upload_method.serialMethod.upload.tool=serial_upload
+GenF1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF1.menu.upload_method.serialMethod.upload.protocol=1
+GenF1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF1.menu.upload_method.dfuMethod.upload.protocol=2
+GenF1.menu.upload_method.dfuMethod.upload.options=
+GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
@@ -681,13 +739,20 @@ GenF4.menu.pnum.FK407M1.build.product_line=STM32F407xx
 GenF4.menu.pnum.FK407M1.build.variant=FK407M1
 
 # Upload menu
-GenF4.menu.upload_method.STLink=STLink
-GenF4.menu.upload_method.STLink.upload.protocol=STLink
-GenF4.menu.upload_method.STLink.upload.tool=stlink_upload
+GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF4.menu.upload_method.swdMethod.upload.protocol=0
+GenF4.menu.upload_method.swdMethod.upload.options=-rst
+GenF4.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-GenF4.menu.upload_method.serialMethod=Serial
-GenF4.menu.upload_method.serialMethod.upload.protocol=maple_serial
-GenF4.menu.upload_method.serialMethod.upload.tool=serial_upload
+GenF4.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF4.menu.upload_method.serialMethod.upload.protocol=1
+GenF4.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF4.menu.upload_method.dfuMethod.upload.protocol=2
+GenF4.menu.upload_method.dfuMethod.upload.options=
+GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
@@ -715,9 +780,20 @@ Sparky.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
 Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Upload menu
-Sparky.menu.upload_method.STLinkMethod=STLink
-Sparky.menu.upload_method.STLinkMethod.upload.protocol=STLink
-Sparky.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+Sparky.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Sparky.menu.upload_method.swdMethod.upload.protocol=0
+Sparky.menu.upload_method.swdMethod.upload.options=-rst
+Sparky.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Sparky.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Sparky.menu.upload_method.serialMethod.upload.protocol=1
+Sparky.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Sparky.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Sparky.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Sparky.menu.upload_method.dfuMethod.upload.protocol=2
+Sparky.menu.upload_method.dfuMethod.upload.options=
+Sparky.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # RAK boards
@@ -748,13 +824,20 @@ RAK.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
 RAK.menu.pnum.RAK811_TRACKERA.build.variant=RAK811_TRACKER
 
 # Upload menu
-RAK.menu.upload_method.serialMethod=Serial
-RAK.menu.upload_method.serialMethod.upload.protocol=maple_serial
-RAK.menu.upload_method.serialMethod.upload.tool=serial_upload
+RAK.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+RAK.menu.upload_method.swdMethod.upload.protocol=0
+RAK.menu.upload_method.swdMethod.upload.options=-rst
+RAK.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-RAK.menu.upload_method.STLink=STLink
-RAK.menu.upload_method.STLink.upload.protocol=STLink
-RAK.menu.upload_method.STLink.upload.tool=stlink_upload
+RAK.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+RAK.menu.upload_method.serialMethod.upload.protocol=1
+RAK.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+RAK.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+RAK.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+RAK.menu.upload_method.dfuMethod.upload.protocol=2
+RAK.menu.upload_method.dfuMethod.upload.options=
+RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
 # 3D printer boards
@@ -824,6 +907,18 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # MALYANM200_F103CB board
+3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+3dprinter.menu.upload_method.swdMethod.upload.protocol=SWD
+3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+3dprinter.menu.upload_method.STLinkMethod=STLink (deprecated)
+3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
+3dprinter.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+
+3dprinter.menu.upload_method.serialMethod=Serial
+3dprinter.menu.upload_method.serialMethod.upload.protocol=maple_serial
+3dprinter.menu.upload_method.serialMethod.upload.tool=serial_upload
+
 3dprinter.menu.pnum.MALYANM200_F103CB=Malyan M200 V1
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_size=122880
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_data_size=20480
@@ -850,13 +945,20 @@ RAK.menu.upload_method.STLink.upload.tool=stlink_upload
 3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
 
 # Upload menu
-3dprinter.menu.upload_method.STLinkMethod=STLink
-3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
-3dprinter.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
+3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+3dprinter.menu.upload_method.swdMethod.upload.protocol=0
+3dprinter.menu.upload_method.swdMethod.upload.options=-rst
+3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-3dprinter.menu.upload_method.serialMethod=Serial
-3dprinter.menu.upload_method.serialMethod.upload.protocol=maple_serial
-3dprinter.menu.upload_method.serialMethod.upload.tool=serial_upload
+3dprinter.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+3dprinter.menu.upload_method.serialMethod.upload.protocol=1
+3dprinter.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+3dprinter.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+3dprinter.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+3dprinter.menu.upload_method.dfuMethod.upload.protocol=2
+3dprinter.menu.upload_method.dfuMethod.upload.options=
+3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Serialx activation
