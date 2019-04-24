@@ -148,30 +148,16 @@ tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
-# ST-Link upload
-tools.stlink_upload.cmd=stlink_upload
-tools.stlink_upload.cmd.windows=stlink_upload.bat
-tools.stlink_upload.path.windows={runtime.hardware.path}/tools/win
-tools.stlink_upload.path.macosx={runtime.hardware.path}/tools/macosx
-tools.stlink_upload.path.linux={runtime.hardware.path}/tools/linux
-tools.stlink_upload.path.linux64={runtime.hardware.path}/tools/linux64
-tools.stlink_upload.upload.params.verbose=-d
-tools.stlink_upload.upload.params.quiet=
-tools.stlink_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
-
-# Serial upload for generic STM32
-# Note: Boot0 line needs to be high on board reset to enable it
-# at the end up the upload the program is automatically run, without the board being reset
-tools.serial_upload.cmd=serial_upload
-tools.serial_upload.cmd.windows=serial_upload.bat
-tools.serial_upload.cmd.macosx=serial_upload
-tools.serial_upload.path={runtime.hardware.path}/tools/win
-tools.serial_upload.path.macosx={runtime.hardware.path}/tools/macosx
-tools.serial_upload.path.linux={runtime.hardware.path}/tools/linux
-tools.serial_upload.path.linux64={runtime.hardware.path}/tools/linux64
-tools.serial_upload.upload.params.verbose=-d
-tools.serial_upload.upload.params.quiet=n
-tools.serial_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+# STM32CubeProgrammer upload
+tools.stm32CubeProg.cmd=stm32CubeProg.sh
+tools.stm32CubeProg.cmd.macosx=stm32CubeProg
+tools.stm32CubeProg.cmd.windows=stm32CubeProg.bat
+tools.stm32CubeProg.path.linux={runtime.hardware.path}/tools/linux
+tools.stm32CubeProg.path.macosx={runtime.hardware.path}/tools/macosx
+tools.stm32CubeProg.path.windows={runtime.hardware.path}/tools/win
+tools.stm32CubeProg.upload.params.verbose=
+tools.stm32CubeProg.upload.params.quiet=
+tools.stm32CubeProg.upload.pattern="{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {upload.options}
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb
