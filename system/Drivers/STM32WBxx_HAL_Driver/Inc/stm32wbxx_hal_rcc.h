@@ -877,7 +877,6 @@ typedef struct
 #define __HAL_RCC_LPUART1_CLK_ENABLE()         LL_APB1_GRP2_EnableClock(LL_APB1_GRP2_PERIPH_LPUART1)
 
 #define __HAL_RCC_RTCAPB_CLK_DISABLE()         LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_RTCAPB)
-#define __HAL_RCC_WWDG_CLK_DISABLE()           LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_WWDG)
 #define __HAL_RCC_TIM2_CLK_DISABLE()           LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_TIM2)
 #define __HAL_RCC_LCD_CLK_DISABLE()            LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_LCD)
 #define __HAL_RCC_SPI2_CLK_DISABLE()           LL_APB1_GRP1_DisableClock(LL_APB1_GRP1_PERIPH_SPI2)
@@ -2227,9 +2226,6 @@ typedef struct
   * @note   After enabling the LSI1, the application software should wait on
   *         LSI1RDY flag to be set indicating that LSI1 clock is stable and can
   *         be used to clock the IWDG and/or the RTC.
-  * @note   LSI1 can not be disabled if the IWDG is running.
-  * @note   When the LSI1 is stopped, LSI1RDY flag goes low after 6 LSI1 oscillator
-  *         clock cycles.
   * @retval None
   */
 #define __HAL_RCC_LSI1_ENABLE()         LL_RCC_LSI1_Enable()
@@ -2239,9 +2235,6 @@ typedef struct
   * @note   After enabling the LSI2, the application software should wait on
   *         LSI2RDY flag to be set indicating that LSI2 clock is stable and can
   *         be used to clock the IWDG and/or the RTC.
-  * @note   LSI2 can not be disabled if the IWDG is running.
-  * @note   When the LSI2 is stopped, LSI2RDY flag goes low after 6 LSI2 oscillator
-  *         clock cycles.
   * @retval None
   */
 #define __HAL_RCC_LSI2_ENABLE()         LL_RCC_LSI2_Enable()

@@ -18,8 +18,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32WBxx_LL_TIM_H
-#define STM32WBxx_LL_TIM_H
+#ifndef __STM32WBxx_LL_TIM_H
+#define __STM32WBxx_LL_TIM_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -158,7 +158,7 @@ static const uint8_t SHIFT_TAB_OISx[] =
 
 /** Legacy definitions for compatibility purpose
 @cond 0
-*/
+  */
 /**
 @endcond
   */
@@ -185,14 +185,14 @@ static const uint8_t SHIFT_TAB_OISx[] =
   * @retval none
   */
 #define TIM_GET_CHANNEL_INDEX( __CHANNEL__) \
-(((__CHANNEL__) == LL_TIM_CHANNEL_CH1) ? 0U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH1N) ? 1U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH2) ? 2U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH2N) ? 3U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH3) ? 4U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH3N) ? 5U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH4) ? 6U :\
-((__CHANNEL__) == LL_TIM_CHANNEL_CH5) ? 7U : 8U)
+  (((__CHANNEL__) == LL_TIM_CHANNEL_CH1) ? 0U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH1N) ? 1U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH2) ? 2U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH2N) ? 3U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH3) ? 4U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH3N) ? 5U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH4) ? 6U :\
+   ((__CHANNEL__) == LL_TIM_CHANNEL_CH5) ? 7U : 8U)
 
 /** @brief  Calculate the deadtime sampling period(in ps).
   * @param  __TIMCLK__ timer input clock frequency (in Hz).
@@ -203,9 +203,9 @@ static const uint8_t SHIFT_TAB_OISx[] =
   * @retval none
   */
 #define TIM_CALC_DTS(__TIMCLK__, __CKD__)                                                        \
-    (((__CKD__) == LL_TIM_CLOCKDIVISION_DIV1) ? ((uint64_t)1000000000000U/(__TIMCLK__))         : \
-     ((__CKD__) == LL_TIM_CLOCKDIVISION_DIV2) ? ((uint64_t)1000000000000U/((__TIMCLK__) >> 1U)) : \
-     ((uint64_t)1000000000000U/((__TIMCLK__) >> 2U)))
+  (((__CKD__) == LL_TIM_CLOCKDIVISION_DIV1) ? ((uint64_t)1000000000000U/(__TIMCLK__))         : \
+   ((__CKD__) == LL_TIM_CLOCKDIVISION_DIV2) ? ((uint64_t)1000000000000U/((__TIMCLK__) >> 1U)) : \
+   ((uint64_t)1000000000000U/((__TIMCLK__) >> 2U)))
 /**
   * @}
   */
@@ -1175,7 +1175,7 @@ typedef struct
 
 /** Legacy definitions for compatibility purpose
 @cond 0
-*/
+  */
 #define LL_TIM_BKIN_SOURCE_DFBK  LL_TIM_BKIN_SOURCE_DF1BK
 /**
 @endcond
@@ -1225,7 +1225,7 @@ typedef struct
   * @retval UIF status bit
   */
 #define __LL_TIM_GETFLAG_UIFCPY(__CNT__)  \
-   (READ_BIT((__CNT__), TIM_CNT_UIFCPY) >> TIM_CNT_UIFCPY_Pos)
+  (READ_BIT((__CNT__), TIM_CNT_UIFCPY) >> TIM_CNT_UIFCPY_Pos)
 
 /**
   * @brief  HELPER macro calculating DTG[0:7] in the TIMx_BDTR register to achieve the requested dead time duration.
@@ -1239,11 +1239,11 @@ typedef struct
   * @retval DTG[0:7]
   */
 #define __LL_TIM_CALC_DEADTIME(__TIMCLK__, __CKD__, __DT__)  \
-    ( (((uint64_t)((__DT__)*1000U)) < ((DT_DELAY_1+1U) * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))           ? (uint8_t)(((uint64_t)((__DT__)*1000U) / TIM_CALC_DTS((__TIMCLK__), (__CKD__)))  & DT_DELAY_1) :                                               \
-      (((uint64_t)((__DT__)*1000U)) < ((64U + (DT_DELAY_2+1U)) * 2U * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))  ? (uint8_t)(DT_RANGE_2 | ((uint8_t)((uint8_t)((((uint64_t)((__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 1U) - (uint8_t) 64) & DT_DELAY_2)) :\
-      (((uint64_t)((__DT__)*1000U)) < ((32U + (DT_DELAY_3+1U)) * 8U * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))  ? (uint8_t)(DT_RANGE_3 | ((uint8_t)((uint8_t)(((((uint64_t)(__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 3U) - (uint8_t) 32) & DT_DELAY_3)) :\
-      (((uint64_t)((__DT__)*1000U)) < ((32U + (DT_DELAY_4+1U)) * 16U * TIM_CALC_DTS((__TIMCLK__), (__CKD__)))) ? (uint8_t)(DT_RANGE_4 | ((uint8_t)((uint8_t)(((((uint64_t)(__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 4U) - (uint8_t) 32) & DT_DELAY_4)) :\
-       0U)
+  ( (((uint64_t)((__DT__)*1000U)) < ((DT_DELAY_1+1U) * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))    ? (uint8_t)(((uint64_t)((__DT__)*1000U) / TIM_CALC_DTS((__TIMCLK__), (__CKD__)))  & DT_DELAY_1) :                                               \
+    (((uint64_t)((__DT__)*1000U)) < ((64U + (DT_DELAY_2+1U)) * 2U * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))  ? (uint8_t)(DT_RANGE_2 | ((uint8_t)((uint8_t)((((uint64_t)((__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 1U) - (uint8_t) 64) & DT_DELAY_2)) :\
+    (((uint64_t)((__DT__)*1000U)) < ((32U + (DT_DELAY_3+1U)) * 8U * TIM_CALC_DTS((__TIMCLK__), (__CKD__))))  ? (uint8_t)(DT_RANGE_3 | ((uint8_t)((uint8_t)(((((uint64_t)(__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 3U) - (uint8_t) 32) & DT_DELAY_3)) :\
+    (((uint64_t)((__DT__)*1000U)) < ((32U + (DT_DELAY_4+1U)) * 16U * TIM_CALC_DTS((__TIMCLK__), (__CKD__)))) ? (uint8_t)(DT_RANGE_4 | ((uint8_t)((uint8_t)(((((uint64_t)(__DT__)*1000U))/ TIM_CALC_DTS((__TIMCLK__), (__CKD__))) >> 4U) - (uint8_t) 32) & DT_DELAY_4)) :\
+    0U)
 
 /**
   * @brief  HELPER macro calculating the prescaler value to achieve the required counter clock frequency.
@@ -1253,7 +1253,7 @@ typedef struct
   * @retval Prescaler value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_PSC(__TIMCLK__, __CNTCLK__)   \
-   (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)(((__TIMCLK__)/(__CNTCLK__)) - 1U) : 0U)
+  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)(((__TIMCLK__)/(__CNTCLK__)) - 1U) : 0U)
 
 /**
   * @brief  HELPER macro calculating the auto-reload value to achieve the required output signal frequency.
@@ -1264,7 +1264,7 @@ typedef struct
   * @retval  Auto-reload value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_ARR(__TIMCLK__, __PSC__, __FREQ__) \
-     ((((__TIMCLK__)/((__PSC__) + 1U)) >= (__FREQ__)) ? (((__TIMCLK__)/((__FREQ__) * ((__PSC__) + 1U))) - 1U) : 0U)
+  ((((__TIMCLK__)/((__PSC__) + 1U)) >= (__FREQ__)) ? (((__TIMCLK__)/((__FREQ__) * ((__PSC__) + 1U))) - 1U) : 0U)
 
 /**
   * @brief  HELPER macro calculating the compare value required to achieve the required timer output compare active/inactive delay.
@@ -1275,8 +1275,8 @@ typedef struct
   * @retval Compare value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_DELAY(__TIMCLK__, __PSC__, __DELAY__)  \
-((uint32_t)(((uint64_t)(__TIMCLK__) * (uint64_t)(__DELAY__)) \
-          / ((uint64_t)1000000U * (uint64_t)((__PSC__) + 1U))))
+  ((uint32_t)(((uint64_t)(__TIMCLK__) * (uint64_t)(__DELAY__)) \
+              / ((uint64_t)1000000U * (uint64_t)((__PSC__) + 1U))))
 
 /**
   * @brief  HELPER macro calculating the auto-reload value to achieve the required pulse duration (when the timer operates in one pulse mode).
@@ -1288,8 +1288,8 @@ typedef struct
   * @retval Auto-reload value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_PULSE(__TIMCLK__, __PSC__, __DELAY__, __PULSE__)  \
- ((uint32_t)(__LL_TIM_CALC_DELAY((__TIMCLK__), (__PSC__), (__PULSE__)) \
-           + __LL_TIM_CALC_DELAY((__TIMCLK__), (__PSC__), (__DELAY__))))
+  ((uint32_t)(__LL_TIM_CALC_DELAY((__TIMCLK__), (__PSC__), (__PULSE__)) \
+              + __LL_TIM_CALC_DELAY((__TIMCLK__), (__PSC__), (__DELAY__))))
 
 /**
   * @brief  HELPER macro retrieving the ratio of the input capture prescaler
@@ -1302,7 +1302,7 @@ typedef struct
   * @retval Input capture prescaler ratio (1, 2, 4 or 8)
   */
 #define __LL_TIM_GET_ICPSC_RATIO(__ICPSC__)  \
-   ((uint32_t)(0x01U << (((__ICPSC__) >> 16U) >> TIM_CCMR1_IC1PSC_Pos)))
+  ((uint32_t)(0x01U << (((__ICPSC__) >> 16U) >> TIM_CCMR1_IC1PSC_Pos)))
 
 
 /**
@@ -1512,7 +1512,7 @@ __STATIC_INLINE void LL_TIM_EnableARRPreload(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_DisableARRPreload(TIM_TypeDef *TIMx)
 {
-  CLEAR_BIT(TIMx->CR1,TIM_CR1_ARPE);
+  CLEAR_BIT(TIMx->CR1, TIM_CR1_ARPE);
 }
 
 /**
@@ -3357,7 +3357,8 @@ __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
   *         @arg @ref LL_TIM_BREAK_FILTER_FDIV32_N8
   * @retval None
   */
-__STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity, uint32_t BreakFilter)
+__STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity,
+                                      uint32_t BreakFilter)
 {
   MODIFY_REG(TIMx->BDTR, TIM_BDTR_BKP | TIM_BDTR_BKF, BreakPolarity | BreakFilter);
 }
@@ -4784,5 +4785,5 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDT
 }
 #endif
 
-#endif /* STM32WBxx_LL_TIM_H */
+#endif /* __STM32WBxx_LL_TIM_H */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
