@@ -71,6 +71,8 @@
 #define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      ((__VALUE__) <= LL_DMAMUX_REQ_UCPD2_TX)
 #elif defined(STM32G070xx)
 #define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      ((__VALUE__) <= LL_DMAMUX_REQ_USART4_TX)
+#elif defined(STM32G041xx)||defined(STM32G031xx)||defined(STM32G030xx)
+#define IS_LL_DMA_PERIPHREQUEST(__VALUE__)      ((__VALUE__) <= LL_DMAMUX_REQ_USART2_TX)
 #endif
 
 #define IS_LL_DMA_PRIORITY(__VALUE__)           (((__VALUE__) == LL_DMA_PRIORITY_LOW)    || \
@@ -87,6 +89,13 @@
                                                              ((CHANNEL) == LL_DMA_CHANNEL_5) || \
                                                              ((CHANNEL) == LL_DMA_CHANNEL_6) || \
                                                              ((CHANNEL) == LL_DMA_CHANNEL_7))))
+#elif defined(STM32G041xx) ||  defined(STM32G031xx) || defined(STM32G030xx)
+#define IS_LL_DMA_ALL_CHANNEL_INSTANCE(INSTANCE, CHANNEL)  ((((INSTANCE) == DMA1) && \
+                                                            (((CHANNEL) == LL_DMA_CHANNEL_1) || \
+                                                             ((CHANNEL) == LL_DMA_CHANNEL_2) || \
+                                                             ((CHANNEL) == LL_DMA_CHANNEL_3) || \
+                                                             ((CHANNEL) == LL_DMA_CHANNEL_4) || \
+                                                             ((CHANNEL) == LL_DMA_CHANNEL_5))))
 #endif
 /**
   * @}

@@ -5,30 +5,30 @@
   * @brief   TIM HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the Timer (TIM) peripheral:
-  *           + Time Base Initialization
-  *           + Time Base Start
-  *           + Time Base Start Interruption
-  *           + Time Base Start DMA
-  *           + Time Output Compare/PWM Initialization
-  *           + Time Output Compare/PWM Channel Configuration
-  *           + Time Output Compare/PWM  Start
-  *           + Time Output Compare/PWM  Start Interruption
-  *           + Time Output Compare/PWM Start DMA
-  *           + Time Input Capture Initialization
-  *           + Time Input Capture Channel Configuration
-  *           + Time Input Capture Start
-  *           + Time Input Capture Start Interruption
-  *           + Time Input Capture Start DMA
-  *           + Time One Pulse Initialization
-  *           + Time One Pulse Channel Configuration
-  *           + Time One Pulse Start
-  *           + Time Encoder Interface Initialization
-  *           + Time Encoder Interface Start
-  *           + Time Encoder Interface Start Interruption
-  *           + Time Encoder Interface Start DMA
+  *           + TIM Time Base Initialization
+  *           + TIM Time Base Start
+  *           + TIM Time Base Start Interruption
+  *           + TIM Time Base Start DMA
+  *           + TIM Output Compare/PWM Initialization
+  *           + TIM Output Compare/PWM Channel Configuration
+  *           + TIM Output Compare/PWM  Start
+  *           + TIM Output Compare/PWM  Start Interruption
+  *           + TIM Output Compare/PWM Start DMA
+  *           + TIM Input Capture Initialization
+  *           + TIM Input Capture Channel Configuration
+  *           + TIM Input Capture Start
+  *           + TIM Input Capture Start Interruption
+  *           + TIM Input Capture Start DMA
+  *           + TIM One Pulse Initialization
+  *           + TIM One Pulse Channel Configuration
+  *           + TIM One Pulse Start
+  *           + TIM Encoder Interface Initialization
+  *           + TIM Encoder Interface Start
+  *           + TIM Encoder Interface Start Interruption
+  *           + TIM Encoder Interface Start DMA
   *           + Commutation Event configuration with Interruption and DMA
-  *           + Time OCRef clear configuration
-  *           + Time External Clock configuration
+  *           + TIM OCRef clear configuration
+  *           + TIM External Clock configuration
   @verbatim
   ==============================================================================
                       ##### TIMER Generic features #####
@@ -98,18 +98,22 @@
     *** Callback registration ***
   =============================================
 
+  [..]
   The compilation define  USE_HAL_TIM_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
 
+  [..]
   Use Function @ref HAL_TIM_RegisterCallback() to register a callback.
   @ref HAL_TIM_RegisterCallback() takes as parameters the HAL peripheral handle,
   the Callback ID and a pointer to the user callback function.
 
+  [..]
   Use function @ref HAL_TIM_UnRegisterCallback() to reset a callback to the default
   weak function.
   @ref HAL_TIM_UnRegisterCallback takes as parameters the HAL peripheral handle,
   and the Callback ID.
 
+  [..]
   These functions allow to register/unregister following callbacks:
     (+) Base_MspInitCallback       : TIM Base Msp Init Callback.
     (+) Base_MspDeInitCallback     : TIM Base Msp DeInit Callback.
@@ -140,15 +144,18 @@
     (+) BreakCallback              : TIM Break Callback.
     (+) Break2Callback                    : TIM Break2 Callback.
 
+  [..]
   By default, after the Init and when the state is HAL_TIM_STATE_RESET
   all interrupt callbacks are set to the corresponding weak functions:
   examples @ref HAL_TIM_TriggerCallback(), @ref HAL_TIM_ErrorCallback().
 
+  [..]
   Exception done for MspInit and MspDeInit functions that are reset to the legacy weak
   functionalities in the Init/DeInit only when these callbacks are null
   (not registered beforehand). If not, MspInit or MspDeInit are not null, the Init/DeInit
   keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
+  [..]
   Callbacks can be registered/unregistered in HAL_TIM_STATE_READY state only.
   Exception done MspInit/MspDeInit that can be registered/unregistered
   in HAL_TIM_STATE_READY or HAL_TIM_STATE_RESET state,
@@ -156,6 +163,7 @@
   In that case first register the MspInit/MspDeInit user callbacks
   using @ref HAL_TIM_RegisterCallback() before calling DeInit or Init function.
 
+  [..]
   When The compilation define USE_HAL_TIM_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
@@ -3157,7 +3165,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   * @}
   */
 /** @defgroup TIM_Exported_Functions_Group7 TIM IRQ handler management
- *  @brief    IRQ handler management
+ *  @brief    TIM IRQ handler management
  *
 @verbatim
   ==============================================================================
@@ -3851,7 +3859,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
 /**
   * @brief  Configure the DMA Burst to transfer Data from the memory to the TIM peripheral
   * @param  htim TIM handle
-  * @param  BurstBaseAddress TIM Base address from where the DMA will start the Data write
+  * @param  BurstBaseAddress TIM Base address from where the DMA  will start the Data write
   *         This parameter can be one of the following values:
   *            @arg TIM_DMABASE_CR1
   *            @arg TIM_DMABASE_CR2
@@ -3871,9 +3879,13 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   *            @arg TIM_DMABASE_CCR3
   *            @arg TIM_DMABASE_CCR4
   *            @arg TIM_DMABASE_BDTR
-  *            @arg TIM_DMABASE_DCR
+  *            @arg TIM_DMABASE_OR1
+  *            @arg TIM_DMABASE_CCMR3
+  *            @arg TIM_DMABASE_CCR5
+  *            @arg TIM_DMABASE_CCR6
   *            @arg TIM_DMABASE_AF1
   *            @arg TIM_DMABASE_AF2
+  *            @arg TIM_DMABASE_TISEL
   * @param  BurstRequestSrc TIM DMA Request sources
   *         This parameter can be one of the following values:
   *            @arg TIM_DMA_UPDATE: TIM update Interrupt source
@@ -3886,6 +3898,7 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
   *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_18TRANSFERS.
+  * @note   This function should be used only when BurstLength is equal to DMA data transfer length.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,
@@ -3936,7 +3949,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t 
     }
     case TIM_DMA_CC1:
     {
-      /* Set the DMA compare callback */
+      /* Set the DMA compare callbacks */
       htim->hdma[TIM_DMA_ID_CC1]->XferCpltCallback =  TIM_DMADelayPulseCplt;
       htim->hdma[TIM_DMA_ID_CC1]->XferHalfCpltCallback = TIM_DMADelayPulseHalfCplt;
 
@@ -4132,9 +4145,13 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
   *            @arg TIM_DMABASE_CCR3
   *            @arg TIM_DMABASE_CCR4
   *            @arg TIM_DMABASE_BDTR
-  *            @arg TIM_DMABASE_DCR
+  *            @arg TIM_DMABASE_OR1
+  *            @arg TIM_DMABASE_CCMR3
+  *            @arg TIM_DMABASE_CCR5
+  *            @arg TIM_DMABASE_CCR6
   *            @arg TIM_DMABASE_AF1
   *            @arg TIM_DMABASE_AF2
+  *            @arg TIM_DMABASE_TISEL
   * @param  BurstRequestSrc TIM DMA Request sources
   *         This parameter can be one of the following values:
   *            @arg TIM_DMA_UPDATE: TIM update Interrupt source
@@ -4147,6 +4164,7 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
   * @param  BurstBuffer The Buffer address.
   * @param  BurstLength DMA Burst length. This parameter can be one value
   *         between: TIM_DMABURSTLENGTH_1TRANSFER and TIM_DMABURSTLENGTH_18TRANSFERS.
+  * @note   This function should be used only when BurstLength is equal to DMA data transfer length.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress, uint32_t BurstRequestSrc,

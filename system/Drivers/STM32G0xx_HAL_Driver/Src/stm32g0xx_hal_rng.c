@@ -106,7 +106,7 @@
 
 #ifdef HAL_RNG_MODULE_ENABLED
 
-#if defined(STM32G081xx)
+#if defined(STM32G081xx) || defined(STM32G041xx)
 /* Private types -------------------------------------------------------------*/
 /* Private defines -----------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/

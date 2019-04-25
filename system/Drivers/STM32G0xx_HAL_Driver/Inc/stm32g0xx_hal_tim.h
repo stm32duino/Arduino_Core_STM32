@@ -462,6 +462,7 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef * htim); /*!< pointer to
 #define TIM_DMABASE_CCR6                   0x00000017U
 #define TIM_DMABASE_AF1                    0x00000018U
 #define TIM_DMABASE_AF2                    0x00000019U
+#define TIM_DMABASE_TISEL                  0x0000001AU
 /**
   * @}
   */
@@ -1632,7 +1633,8 @@ mode.
                                    ((__BASE__) == TIM_DMABASE_CCR6)  || \
                                    ((__BASE__) == TIM_DMABASE_OR1)   || \
                                    ((__BASE__) == TIM_DMABASE_AF1)   || \
-                                   ((__BASE__) == TIM_DMABASE_AF2))
+                                   ((__BASE__) == TIM_DMABASE_AF2)   || \
+                                   ((__BASE__) == TIM_DMABASE_TISEL))
 
 #define IS_TIM_EVENT_SOURCE(__SOURCE__) ((((__SOURCE__) & 0xFFFFFE00U) == 0x00000000U) && ((__SOURCE__) != 0x00000000U))
 

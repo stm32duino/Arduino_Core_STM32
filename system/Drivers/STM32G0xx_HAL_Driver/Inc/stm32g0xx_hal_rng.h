@@ -25,7 +25,7 @@
 extern "C" {
 #endif
 
-#if defined(STM32G081xx)
+#if defined(STM32G081xx) || defined(STM32G041xx)
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g0xx_hal_def.h"
 

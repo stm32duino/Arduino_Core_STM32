@@ -1736,9 +1736,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON)
 }
 
 /**
-  * @brief  Set parameter common to several ADC: Clock low frequency mode.
-  *         Refer to reference manual for alignments formats
-  *         dependencies to ADC resolutions.
+  * @brief  Legacy feature, useless on STM32G0 (ADC common clock low frequency
+            mode is automatically managed by ADC peripheral on STM32G0).
+            Function kept for legacy purpose.
   * @note   On this STM32 serie, setting of this feature is conditioned to
   *         ADC state:
   *         ADC must be disabled or enabled without conversion on going
@@ -1746,20 +1746,20 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON)
   * @rmtoll CCR      LFMEN          LL_ADC_SetCommonFrequencyMode
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
-  * @param  Resolution This parameter can be one of the following values:
+  * @param  CommonFrequencyMode This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CLOCK_FREQ_MODE_HIGH
   *         @arg @ref LL_ADC_CLOCK_FREQ_MODE_LOW
   * @retval None
   */
-__STATIC_INLINE void LL_ADC_SetCommonFrequencyMode(ADC_Common_TypeDef *ADCxy_COMMON, uint32_t Resolution)
+__STATIC_INLINE void LL_ADC_SetCommonFrequencyMode(ADC_Common_TypeDef *ADCxy_COMMON, uint32_t CommonFrequencyMode)
 {
-  MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_LFMEN, Resolution);
+  MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_LFMEN, CommonFrequencyMode);
 }
 
 /**
-  * @brief  Get parameter common to several ADC: Clock low frequency mode.
-  *         Refer to reference manual for alignments formats
-  *         dependencies to ADC resolutions.
+  * @brief  Legacy feature, useless on STM32G0 (ADC common clock low frequency
+            mode is automatically managed by ADC peripheral on STM32G0).
+            Function kept for legacy purpose.
   * @rmtoll CCR      LFMEN          LL_ADC_GetCommonFrequencyMode
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
