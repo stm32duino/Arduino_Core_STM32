@@ -11,7 +11,7 @@
   * STM32L0: 1.9.0
   * STM32L1: 2.3.0
   * STM32L4: 1.5.1
-  * STM32WB: 1.0.0
+  * STM32WB: 1.1.0
 
 Release notes of each STM32YYxx CMSIS available here:
 
