@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -54,7 +38,7 @@
 
 /** @addtogroup LCD
   * @{
-  */ 
+  */
 
 /* Exported types ------------------------------------------------------------*/
 
@@ -62,22 +46,22 @@
   * @{
   */
 
-/** 
+/**
   * @brief LCD Init structure definition
   */
 
 typedef struct
 {
-  uint32_t Prescaler;       /*!< Configures the LCD Prescaler. 
+  uint32_t Prescaler;       /*!< Configures the LCD Prescaler.
                                  This parameter can be one value of @ref LCD_Prescaler */
   uint32_t Divider;         /*!< Configures the LCD Divider.
                                  This parameter can be one value of @ref LCD_Divider */
   uint32_t Duty;            /*!< Configures the LCD Duty.
                                  This parameter can be one value of @ref LCD_Duty */
   uint32_t Bias;            /*!< Configures the LCD Bias.
-                                 This parameter can be one value of @ref LCD_Bias */ 
+                                 This parameter can be one value of @ref LCD_Bias */
   uint32_t VoltageSource;   /*!< Selects the LCD Voltage source.
-                                 This parameter can be one value of @ref LCD_Voltage_Source */  
+                                 This parameter can be one value of @ref LCD_Voltage_Source */
   uint32_t Contrast;        /*!< Configures the LCD Contrast.
                                  This parameter can be one value of @ref LCD_Contrast */
   uint32_t DeadTime;        /*!< Configures the LCD Dead Time.
@@ -91,12 +75,12 @@ typedef struct
   uint32_t BlinkFrequency;  /*!< Configures the LCD Blink frequency.
                                  This parameter can be one value of @ref LCD_BlinkFrequency */
   uint32_t MuxSegment;      /*!< Enable or disable mux segment.
-                                 This parameter can be set to ENABLE or DISABLE. */ 
+                                 This parameter can be set to ENABLE or DISABLE. */
 }LCD_InitTypeDef;
 
-/** 
+/**
   * @brief HAL LCD State structures definition
-  */ 
+  */
 typedef enum
 {
   HAL_LCD_STATE_RESET             = 0x00,    /*!< Peripheral is not yet Initialized */
@@ -106,21 +90,21 @@ typedef enum
   HAL_LCD_STATE_ERROR             = 0x04     /*!< Error */
 }HAL_LCD_StateTypeDef;
 
-/** 
+/**
   * @brief  UART handle Structure definition
-  */  
+  */
 typedef struct
 {
   LCD_TypeDef                   *Instance;  /* LCD registers base address */
-  
+
   LCD_InitTypeDef               Init;       /* LCD communication parameters */
 
   HAL_LockTypeDef               Lock;       /* Locking object */
 
   __IO HAL_LCD_StateTypeDef     State;      /* LCD communication state */
-  
+
   __IO uint32_t                 ErrorCode;  /* LCD Error code */
-  
+
 }LCD_HandleTypeDef;
 
 /**
@@ -189,7 +173,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /** @defgroup LCD_Divider LCD Divider
   * @{
   */
@@ -236,7 +220,7 @@ typedef struct
 /** @defgroup LCD_Duty LCD Duty
   * @{
   */
-  
+
 #define LCD_DUTY_STATIC                 (0x00000000U)                     /*!< Static duty */
 #define LCD_DUTY_1_2                    (LCD_CR_DUTY_0)                   /*!< 1/2 duty    */
 #define LCD_DUTY_1_3                    (LCD_CR_DUTY_1)                   /*!< 1/3 duty    */
@@ -251,13 +235,13 @@ typedef struct
 
 /**
   * @}
-  */ 
-  
+  */
+
 
 /** @defgroup LCD_Bias LCD Bias
   * @{
   */
-  
+
 #define LCD_BIAS_1_4                    (0x00000000U)           /*!< 1/4 Bias */
 #define LCD_BIAS_1_2                    LCD_CR_BIAS_0           /*!< 1/2 Bias */
 #define LCD_BIAS_1_3                    LCD_CR_BIAS_1           /*!< 1/3 Bias */
@@ -267,12 +251,12 @@ typedef struct
                                ((__BIAS__) == LCD_BIAS_1_3))
 /**
   * @}
-  */ 
-    
+  */
+
 /** @defgroup LCD_Voltage_Source LCD Voltage Source
   * @{
   */
-  
+
 #define LCD_VOLTAGESOURCE_INTERNAL      (0x00000000U)           /*!< Internal voltage source for the LCD */
 #define LCD_VOLTAGESOURCE_EXTERNAL      LCD_CR_VSEL             /*!< External voltage source for the LCD */
 
@@ -281,7 +265,7 @@ typedef struct
 
 /**
   * @}
-  */  
+  */
 
 /** @defgroup LCD_Interrupts LCD Interrupts
   * @{
@@ -362,7 +346,7 @@ typedef struct
 
 #define LCD_BLINKMODE_OFF               (0x00000000U)           /*!< Blink disabled            */
 #define LCD_BLINKMODE_SEG0_COM0         (LCD_FCR_BLINK_0)       /*!< Blink enabled on SEG[0], COM[0] (1 pixel)   */
-#define LCD_BLINKMODE_SEG0_ALLCOM       (LCD_FCR_BLINK_1)       /*!< Blink enabled on SEG[0], all COM (up to 
+#define LCD_BLINKMODE_SEG0_ALLCOM       (LCD_FCR_BLINK_1)       /*!< Blink enabled on SEG[0], all COM (up to
                                                                     8 pixels according to the programmed duty)  */
 #define LCD_BLINKMODE_ALLSEG_ALLCOM     (LCD_FCR_BLINK)         /*!< Blink enabled on all SEG and all COM (all pixels)  */
 
@@ -372,7 +356,7 @@ typedef struct
                                      ((__MODE__) == LCD_BLINKMODE_ALLSEG_ALLCOM))
 /**
   * @}
-  */    
+  */
 
 /** @defgroup LCD_BlinkFrequency LCD Blink Frequency
   * @{
@@ -423,7 +407,7 @@ typedef struct
 /**
   * @}
   */
-      
+
 /** @defgroup LCD_MuxSegment LCD Mux Segment
   * @{
   */
@@ -436,7 +420,7 @@ typedef struct
 /**
   * @}
   */
-      
+
 /** @defgroup LCD_Flag LCD Flag
   * @{
   */
@@ -450,7 +434,7 @@ typedef struct
 
 /**
   * @}
-  */   
+  */
 
 /** @defgroup LCD_RAMRegister LCD RAMRegister
   * @{
@@ -492,8 +476,8 @@ typedef struct
 
 /**
   * @}
-  */  
-   
+  */
+
 /**
   * @}
   */
@@ -505,24 +489,24 @@ typedef struct
   */
 
 /** @brief Reset LCD handle state
-  * @param  __HANDLE__: specifies the LCD Handle.
+  * @param  __HANDLE__ specifies the LCD Handle.
   * @retval None
   */
 #define __HAL_LCD_RESET_HANDLE_STATE(__HANDLE__)  ((__HANDLE__)->State = HAL_LCD_STATE_RESET)
 
 /** @brief  macros to enables or disables the LCD
-  * @param  __HANDLE__: specifies the LCD Handle.  
+  * @param  __HANDLE__ specifies the LCD Handle.
   * @retval None
-  */     
+  */
 #define __HAL_LCD_ENABLE(__HANDLE__)              (SET_BIT((__HANDLE__)->Instance->CR, LCD_CR_LCDEN))
 #define __HAL_LCD_DISABLE(__HANDLE__)             (CLEAR_BIT((__HANDLE__)->Instance->CR, LCD_CR_LCDEN))
 
-/** @brief  Macros to enable or disable the low resistance divider. Displays with high 
-  *         internal resistance may need a longer drive time to achieve 
-  *         satisfactory contrast. This function is useful in this case if some 
+/** @brief  Macros to enable or disable the low resistance divider. Displays with high
+  *         internal resistance may need a longer drive time to achieve
+  *         satisfactory contrast. This function is useful in this case if some
   *         additional power consumption can be tolerated.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @note   When this mode is enabled, the PulseOn Duration (PON) have to be 
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @note   When this mode is enabled, the PulseOn Duration (PON) have to be
   *         programmed to 1/CK_PS (LCD_PULSEONDURATION_1).
   * @retval None
   */
@@ -540,8 +524,8 @@ typedef struct
 
 /**
   * @brief  Macro to configure the LCD pulses on duration.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __DURATION__: specifies the LCD pulse on duration in terms of 
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __DURATION__ specifies the LCD pulse on duration in terms of
   *         CK_PS (prescaled LCD clock period) pulses.
   *   This parameter can be one of the following values:
   *     @arg LCD_PULSEONDURATION_0: 0 pulse
@@ -562,8 +546,8 @@ typedef struct
 
 /**
   * @brief  Macro to configure the LCD dead time.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __DEADTIME__: specifies the LCD dead time.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __DEADTIME__ specifies the LCD dead time.
   *   This parameter can be one of the following values:
   *     @arg LCD_DEADTIME_0: No dead Time
   *     @arg LCD_DEADTIME_1: One Phase between different couple of Frame
@@ -571,7 +555,7 @@ typedef struct
   *     @arg LCD_DEADTIME_3: Three Phase between different couple of Frame
   *     @arg LCD_DEADTIME_4: Four Phase between different couple of Frame
   *     @arg LCD_DEADTIME_5: Five Phase between different couple of Frame
-  *     @arg LCD_DEADTIME_6: Six Phase between different couple of Frame 
+  *     @arg LCD_DEADTIME_6: Six Phase between different couple of Frame
   *     @arg LCD_DEADTIME_7: Seven Phase between different couple of Frame
   * @retval None
   */
@@ -583,8 +567,8 @@ typedef struct
 
 /**
   * @brief  Macro to configure the LCD Contrast.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __CONTRAST__: specifies the LCD Contrast.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __CONTRAST__ specifies the LCD Contrast.
   *   This parameter can be one of the following values:
   *     @arg LCD_CONTRASTLEVEL_0: Maximum Voltage = 2.60V
   *     @arg LCD_CONTRASTLEVEL_1: Maximum Voltage = 2.73V
@@ -600,24 +584,24 @@ typedef struct
         do{                                                                       \
             MODIFY_REG((__HANDLE__)->Instance->FCR, LCD_FCR_CC, (__CONTRAST__));  \
             LCD_WaitForSynchro(__HANDLE__);                                       \
-           } while(0) 
+           } while(0)
 
 /**
   * @brief  Macro to configure the LCD Blink mode and Blink frequency.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __BLINKMODE__: specifies the LCD blink mode.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __BLINKMODE__ specifies the LCD blink mode.
   *   This parameter can be one of the following values:
   *     @arg LCD_BLINKMODE_OFF:           Blink disabled
   *     @arg LCD_BLINKMODE_SEG0_COM0:     Blink enabled on SEG[0], COM[0] (1 pixel)
-  *     @arg LCD_BLINKMODE_SEG0_ALLCOM:   Blink enabled on SEG[0], all COM (up to 8 
+  *     @arg LCD_BLINKMODE_SEG0_ALLCOM:   Blink enabled on SEG[0], all COM (up to 8
   *                                       pixels according to the programmed duty)
-  *     @arg LCD_BLINKMODE_ALLSEG_ALLCOM: Blink enabled on all SEG and all COM 
+  *     @arg LCD_BLINKMODE_ALLSEG_ALLCOM: Blink enabled on all SEG and all COM
   *                                       (all pixels)
-  * @param  __BLINKFREQUENCY__: specifies the LCD blink frequency.
+  * @param  __BLINKFREQUENCY__ specifies the LCD blink frequency.
   *     @arg LCD_BLINKFREQUENCY_DIV8:    The Blink frequency = fLcd/8
   *     @arg LCD_BLINKFREQUENCY_DIV16:   The Blink frequency = fLcd/16
   *     @arg LCD_BLINKFREQUENCY_DIV32:   The Blink frequency = fLcd/32
-  *     @arg LCD_BLINKFREQUENCY_DIV64:   The Blink frequency = fLcd/64 
+  *     @arg LCD_BLINKFREQUENCY_DIV64:   The Blink frequency = fLcd/64
   *     @arg LCD_BLINKFREQUENCY_DIV128:  The Blink frequency = fLcd/128
   *     @arg LCD_BLINKFREQUENCY_DIV256:  The Blink frequency = fLcd/256
   *     @arg LCD_BLINKFREQUENCY_DIV512:  The Blink frequency = fLcd/512
@@ -631,8 +615,8 @@ typedef struct
           }while(0)
 
 /** @brief  Enables or disables the specified LCD interrupt.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __INTERRUPT__: specifies the LCD interrupt source to be enabled or disabled.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __INTERRUPT__ specifies the LCD interrupt source to be enabled or disabled.
   *          This parameter can be one of the following values:
   *     @arg LCD_IT_SOF: Start of Frame Interrupt
   *     @arg LCD_IT_UDD: Update Display Done Interrupt
@@ -642,7 +626,7 @@ typedef struct
                          do{                                                          \
                              SET_BIT((__HANDLE__)->Instance->FCR, (__INTERRUPT__));   \
                              LCD_WaitForSynchro(__HANDLE__);                          \
-                            }while(0)         
+                            }while(0)
 #define __HAL_LCD_DISABLE_IT(__HANDLE__, __INTERRUPT__)                               \
                          do{                                                          \
                              CLEAR_BIT((__HANDLE__)->Instance->FCR, (__INTERRUPT__)); \
@@ -650,43 +634,43 @@ typedef struct
                             }while(0)
 
 /** @brief  Checks whether the specified LCD interrupt is enabled or not.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __IT__: specifies the LCD interrupt source to check.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __IT__ specifies the LCD interrupt source to check.
   *        This parameter can be one of the following values:
   *        @arg LCD_IT_SOF: Start of Frame Interrupt
   *        @arg LCD_IT_UDD: Update Display Done Interrupt.
-  * @note If the device is in STOP mode (PCLK not provided) UDD will not 
-  *          generate an interrupt even if UDDIE = 1. 
+  * @note If the device is in STOP mode (PCLK not provided) UDD will not
+  *          generate an interrupt even if UDDIE = 1.
   *          If the display is not enabled the UDD interrupt will never occur.
   * @retval The state of __IT__ (TRUE or FALSE).
   */
 #define __HAL_LCD_GET_IT_SOURCE(__HANDLE__, __IT__) (((__HANDLE__)->Instance->FCR) & (__IT__))
 
 /** @brief  Checks whether the specified LCD flag is set or not.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __FLAG__: specifies the flag to check.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __FLAG__ specifies the flag to check.
   *        This parameter can be one of the following values:
   *        @arg LCD_FLAG_ENS: LCD Enabled flag. It indicates the LCD controller status.
-  * @note  The ENS bit is set immediately when the LCDEN bit in the LCD_CR 
-  *             goes from 0 to 1. On deactivation it reflects the real status of 
-  *             LCD so it becomes 0 at the end of the last displayed frame.  
-  *        @arg LCD_FLAG_SOF: Start of Frame flag. This flag is set by hardware at 
-  *             the beginning of a new frame, at the same time as the display data is 
+  * @note  The ENS bit is set immediately when the LCDEN bit in the LCD_CR
+  *             goes from 0 to 1. On deactivation it reflects the real status of
+  *             LCD so it becomes 0 at the end of the last displayed frame.
+  *        @arg LCD_FLAG_SOF: Start of Frame flag. This flag is set by hardware at
+  *             the beginning of a new frame, at the same time as the display data is
   *             updated.
   *        @arg LCD_FLAG_UDR: Update Display Request flag.
-  *        @arg LCD_FLAG_UDD: Update Display Done flag. 
-  *        @arg LCD_FLAG_RDY: Step_up converter Ready flag. It indicates the status 
+  *        @arg LCD_FLAG_UDD: Update Display Done flag.
+  *        @arg LCD_FLAG_RDY: Step_up converter Ready flag. It indicates the status
   *             of the step-up converter.
-  *        @arg LCD_FLAG_FCRSF: LCD Frame Control Register Synchronization Flag. 
-  *             This flag is set by hardware each time the LCD_FCR register is updated 
-  *             in the LCDCLK domain. 
+  *        @arg LCD_FLAG_FCRSF: LCD Frame Control Register Synchronization Flag.
+  *             This flag is set by hardware each time the LCD_FCR register is updated
+  *             in the LCDCLK domain.
   * @retval The new state of __FLAG__ (TRUE or FALSE).
   */
-#define __HAL_LCD_GET_FLAG(__HANDLE__, __FLAG__)    (((__HANDLE__)->Instance->SR & (__FLAG__)) == (__FLAG__))   
+#define __HAL_LCD_GET_FLAG(__HANDLE__, __FLAG__)    (((__HANDLE__)->Instance->SR & (__FLAG__)) == (__FLAG__))
 
 /** @brief  Clears the specified LCD pending flag.
-  * @param  __HANDLE__: specifies the LCD Handle.
-  * @param  __FLAG__: specifies the flag to clear.
+  * @param  __HANDLE__ specifies the LCD Handle.
+  * @param  __FLAG__ specifies the flag to clear.
   *        This parameter can be any combination of the following values:
   *        @arg LCD_FLAG_SOF: Start of Frame Interrupt
   *        @arg LCD_FLAG_UDD: Update Display Done Interrupt
@@ -697,7 +681,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /* Exported functions ------------------------------------------------------- */
 
 /** @addtogroup LCD_Exported_Functions

@@ -6,43 +6,27 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L1xx_HAL_OPAMP_EX_H
-#define __STM32L1xx_HAL_OPAMP_EX_H
+#ifndef STM32L1xx_HAL_OPAMP_EX_H
+#define STM32L1xx_HAL_OPAMP_EX_H
 
 #ifdef __cplusplus
  extern "C" {
 #endif
 
 #if defined (STM32L151xCA) || defined (STM32L151xD) || defined (STM32L152xCA) || defined (STM32L152xD) || defined (STM32L162xCA) || defined (STM32L162xD) || defined (STM32L151xE) || defined (STM32L151xDX) || defined (STM32L152xE) || defined (STM32L152xDX) || defined (STM32L162xE) || defined (STM32L162xDX) || defined (STM32L162xC) || defined (STM32L152xC) || defined (STM32L151xC)
-   
+
 /* Includes ------------------------------------------------------------------*/
 #include "stm32l1xx_hal_def.h"
 
@@ -61,13 +45,13 @@
 #if defined (STM32L151xD) || defined (STM32L152xD) || defined (STM32L162xD)
 #define OPAMP_CSR_OPAXPD_ALL                                                   \
   (OPAMP_CSR_OPA1PD | OPAMP_CSR_OPA2PD | OPAMP_CSR_OPA3PD)
-    
+
 #define OPAMP_CSR_OPAXCAL_L_ALL                                                \
   (OPAMP_CSR_OPA1CAL_L | OPAMP_CSR_OPA2CAL_L | OPAMP_CSR_OPA3CAL_L)
 
 #define OPAMP_CSR_OPAXCAL_H_ALL                                                \
   (OPAMP_CSR_OPA1CAL_H | OPAMP_CSR_OPA2CAL_H | OPAMP_CSR_OPA3CAL_H)
-    
+
 #define OPAMP_CSR_ALL_SWITCHES_ALL_OPAMPS                                      \
   (OPAMP_CSR_S3SEL1 | OPAMP_CSR_S4SEL1 | OPAMP_CSR_S5SEL1 | OPAMP_CSR_S6SEL1 | \
    OPAMP_CSR_ANAWSEL1                                                        | \
@@ -78,13 +62,13 @@
 #else
 #define OPAMP_CSR_OPAXPD_ALL                                                   \
   (OPAMP_CSR_OPA1PD | OPAMP_CSR_OPA2PD)
-    
+
 #define OPAMP_CSR_OPAXCAL_L_ALL                                                \
   (OPAMP_CSR_OPA1CAL_L | OPAMP_CSR_OPA2CAL_L)
 
 #define OPAMP_CSR_OPAXCAL_H_ALL                                                \
   (OPAMP_CSR_OPA1CAL_H | OPAMP_CSR_OPA2CAL_H)
-    
+
 #define OPAMP_CSR_ALL_SWITCHES_ALL_OPAMPS                                      \
   (OPAMP_CSR_S3SEL1 | OPAMP_CSR_S4SEL1 | OPAMP_CSR_S5SEL1 | OPAMP_CSR_S6SEL1 | \
    OPAMP_CSR_ANAWSEL1                                                        | \
@@ -95,13 +79,13 @@
 /**
   * @}
   */
-  
+
 /* Exported macro ------------------------------------------------------------*/
-    
+
 /** @defgroup OPAMPEx_Exported_Macro OPAMPEx Exported Macro
   * @{
   */
-    
+
 #if defined (STM32L151xD) || defined (STM32L152xD) || defined (STM32L162xD)
 /**
   * @brief Enable internal analog switch SW1 to connect OPAMP3 ouput to ADC
@@ -112,24 +96,24 @@
 #define __HAL_OPAMP_OPAMP3OUT_CONNECT_ADC_COMP1()    __HAL_RI_SWITCH_COMP1_SW1_CLOSE()
 
 /**
-  * @brief Disable internal analog switch SW1 to disconnect OPAMP3 ouput from 
+  * @brief Disable internal analog switch SW1 to disconnect OPAMP3 ouput from
   * ADC switch matrix (ADC channel VCOMP, channel 26) and COMP1 non-inverting
   * input.
   * @retval None
   */
 #define __HAL_OPAMP_OPAMP3OUT_DISCONNECT_ADC_COMP1() __HAL_RI_SWITCH_COMP1_SW1_OPEN()
 #endif /* STM32L151xD || STM32L152xD || STM32L162xD */
-    
+
 /**
   * @}
   */
-      
+
 /* Private macro -------------------------------------------------------------*/
 
 /** @defgroup OPAMPEx_Private_Macro OPAMPEx Private Macro
   * @{
   */
-   
+
 #if defined (STM32L151xD) || defined (STM32L152xD) || defined (STM32L162xD)
 /**
   * @brief Get the OPAMP instance in decimal number for further
@@ -140,13 +124,13 @@
 #define OPAMP_INSTANCE_DECIMAL(__HANDLE__)                                     \
   ( ( ((__HANDLE__)->Instance == OPAMP1)                                       \
     )?                                                                         \
-     ((uint32_t)0)                                                             \
+     ((uint32_t)0UL)                                                             \
      :                                                                         \
      ( ( ((__HANDLE__)->Instance == OPAMP2)                                    \
        )?                                                                      \
-        ((uint32_t)1)                                                          \
+        ((uint32_t)1UL)                                                          \
         :                                                                      \
-        ((uint32_t)2)                                                          \
+        ((uint32_t)2UL)                                                          \
      )                                                                         \
   )
 #else
@@ -159,9 +143,9 @@
 #define OPAMP_INSTANCE_DECIMAL(__HANDLE__)                                     \
   ( ( ((__HANDLE__)->Instance == OPAMP1)                                       \
     )?                                                                         \
-     ((uint32_t)0)                                                             \
+     ((uint32_t)0UL)                                                             \
      :                                                                         \
-     ((uint32_t)1)                                                             \
+     ((uint32_t)1UL)                                                             \
   )
 #endif /* STM32L151xD || STM32L152xD || STM32L162xD */
 
@@ -170,7 +154,7 @@
 /**
   * @brief Check OPAMP non-inverting input in function of OPAMPx instance
   * @param __HANDLE__: OPAMP handle
-  * @param INPUT: OPAMP non-inverting input                                        
+  * @param INPUT: OPAMP non-inverting input
   * @retval None
   */
 #define IS_OPAMP_NONINVERTING_INPUT_CHECK_INSTANCE(__HANDLE__, INPUT)          \
@@ -199,7 +183,7 @@
 /**
   * @brief Check OPAMP non-inverting input in function of OPAMPx instance
   * @param __HANDLE__: OPAMP handle
-  * @param INPUT: OPAMP non-inverting input                                        
+  * @param INPUT: OPAMP non-inverting input
   * @retval None
   */
 #define IS_OPAMP_NONINVERTING_INPUT_CHECK_INSTANCE(__HANDLE__, INPUT)          \
@@ -221,7 +205,7 @@
 /**
   * @}
   */
-    
+
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup OPAMPEx_Exported_Functions
   * @{
@@ -243,7 +227,7 @@ HAL_StatusTypeDef HAL_OPAMPEx_SelfCalibrateAll(OPAMP_HandleTypeDef *hopamp1, OPA
 /** @addtogroup OPAMPEx_Exported_Functions_Group2
   * @{
   */
-HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef *hopamp); 
+HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef *hopamp);
 /**
   * @}
   */
@@ -267,6 +251,6 @@ HAL_StatusTypeDef HAL_OPAMPEx_Unlock(OPAMP_HandleTypeDef *hopamp);
 #endif
 
 
-#endif /* __STM32L1xx_HAL_OPAMP_EX_H */
+#endif /* STM32L1xx_HAL_OPAMP_EX_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
