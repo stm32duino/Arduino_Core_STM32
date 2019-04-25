@@ -234,6 +234,18 @@ typedef struct
   * @}
   */
 
+/** @defgroup USB_LL Device Speed
+  * @{
+  */
+#define USBD_HS_SPEED               0U
+#define USBD_HSINFS_SPEED           1U
+#define USBH_HS_SPEED               0U
+#define USBD_FS_SPEED               2U
+#define USBH_FS_SPEED               1U
+/**
+  * @}
+  */
+
 /** @defgroup USB_LL_Core_Speed USB Low Layer Core Speed
   * @{
   */
