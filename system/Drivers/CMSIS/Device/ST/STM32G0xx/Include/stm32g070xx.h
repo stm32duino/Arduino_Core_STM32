@@ -1302,9 +1302,10 @@ typedef struct
 #define ADC_CCR_VBATEN_Msk             (0x1UL << ADC_CCR_VBATEN_Pos)           /*!< 0x01000000 */
 #define ADC_CCR_VBATEN                 ADC_CCR_VBATEN_Msk                      /*!< ADC internal path to battery voltage enable */
 
+/* Legacy */
 #define ADC_CCR_LFMEN_Pos              (25U)
 #define ADC_CCR_LFMEN_Msk              (0x1UL << ADC_CCR_LFMEN_Pos)            /*!< 0x02000000 */
-#define ADC_CCR_LFMEN                  ADC_CCR_LFMEN_Msk                       /*!< ADC common clock low frequency mode */
+#define ADC_CCR_LFMEN                  ADC_CCR_LFMEN_Msk                       /*!< Legacy feature, useless on STM32G0 (ADC common clock low frequency mode is automatically managed by ADC peripheral on STM32G0) */
 
 
 /******************************************************************************/
@@ -7532,7 +7533,9 @@ typedef struct
                                             ((INSTANCE) == TIM15))
 
 /******************* TIM Instances : Timer input selection ********************/
-#define IS_TIM_TISEL_INSTANCE(INSTANCE) (((INSTANCE) == TIM14)  || \
+#define IS_TIM_TISEL_INSTANCE(INSTANCE) (((INSTANCE) == TIM1)   || \
+                                         ((INSTANCE) == TIM3)   || \
+                                         ((INSTANCE) == TIM14)  || \
                                          ((INSTANCE) == TIM15)  || \
                                          ((INSTANCE) == TIM16)  || \
                                          ((INSTANCE) == TIM17))

@@ -57,7 +57,7 @@
    application
   */
 
-#if !defined (STM32G071xx) && !defined (STM32G081xx) && !defined (STM32G070xx)
+#if !defined (STM32G071xx) && !defined (STM32G081xx) && !defined (STM32G070xx) && !defined (STM32G030xx) && !defined (STM32G031xx) && !defined (STM32G041xx)
   /* #define STM32G070xx */   /*!< STM32G070xx Devices */
   /* #define STM32G071xx */   /*!< STM32G071xx Devices */
   /* #define STM32G081xx */   /*!< STM32G081xx Devices */
@@ -79,7 +79,7 @@
   * @brief CMSIS Device version number $VERSION$
   */
 #define __STM32G0_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32G0_CMSIS_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
+#define __STM32G0_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
 #define __STM32G0_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32G0_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32G0_CMSIS_VERSION        ((__STM32G0_CMSIS_VERSION_MAIN << 24)\
@@ -101,6 +101,12 @@
   #include "stm32g081xx.h"
 #elif defined(STM32G070xx)
   #include "stm32g070xx.h"
+#elif defined(STM32G031xx)
+  #include "stm32g031xx.h"
+#elif defined(STM32G041xx)
+  #include "stm32g041xx.h"
+#elif defined(STM32G030xx)
+  #include "stm32g030xx.h"
 #else
  #error "Please select first the target STM32G0xx device used in your application (in stm32g0xx.h file)"
 #endif
