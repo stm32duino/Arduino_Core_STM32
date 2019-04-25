@@ -1,12 +1,12 @@
 /**
   ******************************************************************************
-  * @file    stm32l4xx_hal_sd_ex.h
+  * @file    stm32l4xx_hal_mmc_ex.h
   * @author  MCD Application Team
   * @brief   Header file of SD HAL extended module.
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -18,8 +18,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32L4xx_HAL_SD_EX_H
-#define STM32L4xx_HAL_SD_EX_H
+#ifndef STM32L4xx_HAL_MMC_EX_H
+#define STM32L4xx_HAL_MMC_EX_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -34,25 +34,25 @@
   * @{
   */
 
-/** @addtogroup SDEx
+/** @addtogroup MMCEx
   * @brief SD HAL extended module driver
   * @{
   */
 
 /* Exported types ------------------------------------------------------------*/
-/** @defgroup SDEx_Exported_Types SDEx Exported Types
+/** @addtogroup MMCEx_Exported_Types
   * @{
   */
 
-/** @defgroup SDEx_Exported_Types_Group1 SD Card Internal DMA Buffer structure
+/** @addtogroup MMCEx_Exported_Types_Group1
   * @{
   */
 typedef enum
 {
-  SD_DMA_BUFFER0      = 0x00U,    /*!< selects SD internal DMA Buffer 0     */
-  SD_DMA_BUFFER1      = 0x01U,    /*!< selects SD internal DMA Buffer 1     */
+  MMC_DMA_BUFFER0      = 0x00U,    /*!< selects MMC internal DMA Buffer 0     */
+  MMC_DMA_BUFFER1      = 0x01U,    /*!< selects MMC internal DMA Buffer 1     */
 
-}HAL_SDEx_DMABuffer_MemoryTypeDef;
+}HAL_MMCEx_DMABuffer_MemoryTypeDef;
 
 
 /**
@@ -65,33 +65,22 @@ typedef enum
 /* Exported constants --------------------------------------------------------*/
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
-/** @defgroup SDEx_Exported_Functions SDEx Exported Functions
+/** @defgroup MMCEx_Exported_Functions MMCEx Exported Functions
   * @{
   */
 
-/** @defgroup SDEx_Exported_Functions_Group1 HighSpeed functions
+/** @defgroup MMCEx_Exported_Functions_Group1 MultiBuffer functions
   * @{
   */
-uint32_t HAL_SDEx_HighSpeed (SD_HandleTypeDef *hsd);
+HAL_StatusTypeDef HAL_MMCEx_ConfigDMAMultiBuffer(MMC_HandleTypeDef *hmmc, uint32_t * pDataBuffer0, uint32_t * pDataBuffer1, uint32_t BufferSize);
+HAL_StatusTypeDef HAL_MMCEx_ReadBlocksDMAMultiBuffer(MMC_HandleTypeDef *hmmc, uint32_t BlockAdd, uint32_t NumberOfBlocks);
+HAL_StatusTypeDef HAL_MMCEx_WriteBlocksDMAMultiBuffer(MMC_HandleTypeDef *hmmc, uint32_t BlockAdd, uint32_t NumberOfBlocks);
+HAL_StatusTypeDef HAL_MMCEx_ChangeDMABuffer(MMC_HandleTypeDef *hmmc, HAL_MMCEx_DMABuffer_MemoryTypeDef Buffer, uint32_t *pDataBuffer);
 
-void HAL_SDEx_DriveTransceiver_1_8V_Callback(FlagStatus status);
-
-/**
-  * @}
-  */
-
-/** @defgroup SDEx_Exported_Functions_Group2 MultiBuffer functions
-  * @{
-  */
-HAL_StatusTypeDef HAL_SDEx_ConfigDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t * pDataBuffer0, uint32_t * pDataBuffer1, uint32_t BufferSize);
-HAL_StatusTypeDef HAL_SDEx_ReadBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint32_t NumberOfBlocks);
-HAL_StatusTypeDef HAL_SDEx_WriteBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint32_t NumberOfBlocks);
-HAL_StatusTypeDef HAL_SDEx_ChangeDMABuffer(SD_HandleTypeDef *hsd, HAL_SDEx_DMABuffer_MemoryTypeDef Buffer, uint32_t *pDataBuffer);
-
-void HAL_SDEx_Read_DMADoubleBuffer0CpltCallback(SD_HandleTypeDef *hsd);
-void HAL_SDEx_Read_DMADoubleBuffer1CpltCallback(SD_HandleTypeDef *hsd);
-void HAL_SDEx_Write_DMADoubleBuffer0CpltCallback(SD_HandleTypeDef *hsd);
-void HAL_SDEx_Write_DMADoubleBuffer1CpltCallback(SD_HandleTypeDef *hsd);
+void HAL_MMCEx_Read_DMADoubleBuffer0CpltCallback(MMC_HandleTypeDef *hmmc);
+void HAL_MMCEx_Read_DMADoubleBuffer1CpltCallback(MMC_HandleTypeDef *hmmc);
+void HAL_MMCEx_Write_DMADoubleBuffer0CpltCallback(MMC_HandleTypeDef *hmmc);
+void HAL_MMCEx_Write_DMADoubleBuffer1CpltCallback(MMC_HandleTypeDef *hmmc);
 
 /**
   * @}
@@ -116,7 +105,6 @@ void HAL_SDEx_Write_DMADoubleBuffer1CpltCallback(SD_HandleTypeDef *hsd);
 /**
   * @}
   */
-
 #endif /* STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
 #ifdef __cplusplus
@@ -124,6 +112,6 @@ void HAL_SDEx_Write_DMADoubleBuffer1CpltCallback(SD_HandleTypeDef *hsd);
 #endif
 
 
-#endif /* STM32L4xx_HAL_SDEx_H */
+#endif /* STM32L4xx_HAL_MMCEx_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

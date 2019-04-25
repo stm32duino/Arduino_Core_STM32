@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -52,14 +36,14 @@
 
 /** @addtogroup GFXMMU
   * @{
-  */ 
+  */
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup GFXMMU_Exported_Types GFXMMU Exported Types
   * @{
   */
 
-/** 
+/**
   * @brief  HAL GFXMMU states definition
   */
 typedef enum
@@ -68,7 +52,7 @@ typedef enum
   HAL_GFXMMU_STATE_READY = 0x01U, /*!< GFXMMU initialized and ready for use */
 }HAL_GFXMMU_StateTypeDef;
 
-/** 
+/**
   * @brief  GFXMMU buffers structure definition
   */
 typedef struct
@@ -79,7 +63,7 @@ typedef struct
   uint32_t Buf3Address; /*!< Physical address of buffer 3. */
 }GFXMMU_BuffersTypeDef;
 
-/** 
+/**
   * @brief  GFXMMU interrupts structure definition
   */
 typedef struct
@@ -90,7 +74,7 @@ typedef struct
                                        @note: Usefull only when interrupts are enabled. */
 }GFXMMU_InterruptsTypeDef;
 
-/** 
+/**
   * @brief  GFXMMU init structure definition
   */
 typedef struct
@@ -102,10 +86,14 @@ typedef struct
   GFXMMU_InterruptsTypeDef    Interrupts;    /*!< Interrupts parameters. */
 }GFXMMU_InitTypeDef;
 
-/** 
+/**
   * @brief  GFXMMU handle structure definition
   */
+#if (USE_HAL_GFXMMU_REGISTER_CALLBACKS == 1)
 typedef struct __GFXMMU_HandleTypeDef
+#else
+typedef struct
+#endif
 {
   GFXMMU_TypeDef          *Instance; /*!< GFXMMU instance */
   GFXMMU_InitTypeDef      Init;      /*!< GFXMMU init parameters */
@@ -118,7 +106,7 @@ typedef struct __GFXMMU_HandleTypeDef
 #endif
 }GFXMMU_HandleTypeDef;
 
-/** 
+/**
   * @brief  GFXMMU LUT line structure definition
   */
 typedef struct
@@ -156,7 +144,7 @@ typedef void (*pGFXMMU_CallbackTypeDef)(GFXMMU_HandleTypeDef *hgfxmmu);
 
 /**
   * @}
-  */ 
+  */
 /* End of exported types -----------------------------------------------------*/
 
 /* Exported constants --------------------------------------------------------*/
@@ -212,7 +200,7 @@ typedef void (*pGFXMMU_CallbackTypeDef)(GFXMMU_HandleTypeDef *hgfxmmu);
 
 /**
   * @}
-  */ 
+  */
 /* End of exported constants -------------------------------------------------*/
 
 /* Exported macros -----------------------------------------------------------*/
@@ -327,12 +315,12 @@ uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu);
 #define IS_GFXMMU_LUT_LINE_OFFSET(VALUE) (((VALUE) >= -4080) && ((VALUE) <= 4190208))
 /**
   * @}
-  */ 
+  */
 /* End of private macros -----------------------------------------------------*/
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
