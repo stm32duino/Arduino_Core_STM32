@@ -398,6 +398,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
         CLEAR_BIT(EXTI->FTSR1, exti_line);
       }
 
+#if !defined (DUAL_CORE)
       /* Clear COMP EXTI pending bit (if any) */
       WRITE_REG(EXTI_D1->PR1, exti_line);
 
@@ -429,6 +430,7 @@ HAL_StatusTypeDef HAL_COMP_Init(COMP_HandleTypeDef *hcomp)
 
       /* Disable EXTI interrupt mode */
       CLEAR_BIT(EXTI_D1->IMR1, exti_line);
+#endif
     }
     /* Set HAL COMP handle state */
     /* Note: Transition from state reset to state ready,                      */
@@ -862,11 +864,11 @@ HAL_StatusTypeDef HAL_COMP_Start_IT(COMP_HandleTypeDef *hcomp)
 HAL_StatusTypeDef HAL_COMP_Stop_IT(COMP_HandleTypeDef *hcomp)
 {
   HAL_StatusTypeDef status;
-
+#if !defined (DUAL_CORE)
   /* Disable the EXTI Line interrupt mode */
    CLEAR_BIT(EXTI_D1->IMR1, COMP_GET_EXTI_LINE(hcomp->Instance));
-
-   /* Disable the Interrupt comparator */
+#endif
+  /* Disable the Interrupt comparator */
    CLEAR_BIT(hcomp->Instance->CFGR, COMP_CFGRx_ITEN);
 
   status = HAL_COMP_Stop(hcomp);
@@ -885,6 +887,11 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
   /* Get the EXTI line corresponding to the selected COMP instance */
   uint32_t exti_line = COMP_GET_EXTI_LINE(hcomp->Instance);
 
+
+#if defined(DUAL_CORE)
+  /* EXTI line interrupt detected */
+ if (HAL_GetCurrentCPUID() == CM7_CPUID)
+ {
     /* Check COMP EXTI flag */
     if(READ_BIT(EXTI_D1->PR1, exti_line) != 0UL)
     {
@@ -913,6 +920,72 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
     HAL_COMP_TriggerCallback(hcomp);
 #endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
     }
+
+
+ }
+ else
+ {
+    /* Check COMP EXTI flag */
+    if(READ_BIT(EXTI_D2->PR1, exti_line) != 0UL)
+    {
+       /* Check whether comparator is in independent or window mode */
+        if(READ_BIT(COMP12_COMMON->CFGR, COMP_CFGRx_WINMODE) != 0UL)
+        {
+          /* Clear COMP EXTI line pending bit of the pair of comparators          */
+          /* in window mode.                                                      */
+          /* Note: Pair of comparators in window mode can both trig IRQ when      */
+          /*       input voltage is changing from "out of window" area            */
+          /*       (low or high ) to the other "out of window" area (high or low).*/
+          /*       Both flags must be cleared to call comparator trigger          */
+          /*       callback is called once.                                       */
+          WRITE_REG(EXTI_D2->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
+        }
+        else
+        {
+          /* Clear COMP EXTI line pending bit */
+          WRITE_REG(EXTI_D2->PR1, exti_line);
+        }
+
+    /* COMP trigger user callback */
+#if (USE_HAL_COMP_REGISTER_CALLBACKS == 1)
+    hcomp->TriggerCallback(hcomp);
+#else
+    HAL_COMP_TriggerCallback(hcomp);
+#endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
+    }
+
+
+ }
+#else
+    /* Check COMP EXTI flag */
+    if(READ_BIT(EXTI_D1->PR1, exti_line) != 0UL)
+    {
+       /* Check whether comparator is in independent or window mode */
+        if(READ_BIT(COMP12_COMMON->CFGR, COMP_CFGRx_WINMODE) != 0UL)
+        {
+          /* Clear COMP EXTI line pending bit of the pair of comparators          */
+          /* in window mode.                                                      */
+          /* Note: Pair of comparators in window mode can both trig IRQ when      */
+          /*       input voltage is changing from "out of window" area            */
+          /*       (low or high ) to the other "out of window" area (high or low).*/
+          /*       Both flags must be cleared to call comparator trigger          */
+          /*       callback is called once.                                       */
+          WRITE_REG(EXTI_D1->PR1, (COMP_EXTI_LINE_COMP1 | COMP_EXTI_LINE_COMP2));
+        }
+        else
+        {
+          /* Clear COMP EXTI line pending bit */
+          WRITE_REG(EXTI_D1->PR1, exti_line);
+        }
+
+    /* COMP trigger user callback */
+#if (USE_HAL_COMP_REGISTER_CALLBACKS == 1)
+    hcomp->TriggerCallback(hcomp);
+#else
+    HAL_COMP_TriggerCallback(hcomp);
+#endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
+    }
+#endif /*DUAL_CORE*/
 
    /* Get COMP interrupt source */
   if (__HAL_COMP_GET_IT_SOURCE(hcomp, COMP_IT_EN) != RESET)

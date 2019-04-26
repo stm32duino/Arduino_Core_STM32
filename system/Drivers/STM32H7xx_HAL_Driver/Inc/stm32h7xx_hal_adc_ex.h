@@ -34,26 +34,26 @@
 
 /** @addtogroup ADCEx
   * @{
-  */ 
+  */
 
 /* Exported types ------------------------------------------------------------*/
 /** @defgroup ADCEx_Exported_Types ADC Extended Exported Types
   * @{
   */
 
-/** 
+/**
   * @brief  ADC Injected Conversion Oversampling structure definition
   */
 typedef struct
 {
   uint32_t Ratio;                         /*!< Configures the oversampling ratio.
                                                This parameter can be a value of @ref ADC_HAL_EC_OVS_RATIO */
-                                               
+
   uint32_t RightBitShift;                 /*!< Configures the division coefficient for the Oversampler.
                                                This parameter can be a value of @ref ADC_HAL_EC_OVS_SHIFT */
-}ADC_InjOversamplingTypeDef;  
+}ADC_InjOversamplingTypeDef;
 
-/** 
+/**
   * @brief  Structure definition of ADC group injected and ADC channel affected to ADC group injected
   * @note   Parameters of this structure are shared within 2 scopes:
   *          - Scope channel: InjectedChannel, InjectedRank, InjectedSamplingTime , InjectedSingleDiff, InjectedOffsetNumber, InjectedOffset
@@ -64,12 +64,12 @@ typedef struct
   *          - For all parameters: ADC disabled (this is the only possible ADC state to modify parameter 'InjectedSingleDiff')
   *          - For parameters 'InjectedDiscontinuousConvMode', 'QueueInjectedContext', 'InjecOversampling': ADC enabled without conversion on going on injected group.
   *          - For parameters 'InjectedSamplingTime', 'InjectedOffset', 'InjectedOffsetNumber', 'AutoInjectedConv': ADC enabled without conversion on going on regular and injected groups.
-  *          - For parameters 'InjectedChannel', 'InjectedRank', 'InjectedNbrOfConversion', 'ExternalTrigInjecConv', 'ExternalTrigInjecConvEdge': ADC enabled and while conversion on going 
+  *          - For parameters 'InjectedChannel', 'InjectedRank', 'InjectedNbrOfConversion', 'ExternalTrigInjecConv', 'ExternalTrigInjecConvEdge': ADC enabled and while conversion on going
   *            on ADC groups regular and injected.
   *         If ADC is not in the appropriate state to modify some parameters, these parameters setting is bypassed
   *         without error reporting (as it can be the expected behavior in case of intended action to update another parameter (which fulfills the ADC state condition) on the fly).
   */
-typedef struct 
+typedef struct
 {
   uint32_t InjectedChannel;               /*!< Specifies the channel to configure into ADC group injected.
                                                This parameter can be a value of @ref ADC_HAL_EC_CHANNEL
@@ -77,7 +77,7 @@ typedef struct
 
   uint32_t InjectedRank;                  /*!< Specifies the rank in the ADC group injected sequencer.
                                                This parameter must be a value of @ref ADC_INJ_SEQ_RANKS.
-                                               Note: to disable a channel or change order of conversion sequencer, rank containing a previous channel setting can be overwritten by 
+                                               Note: to disable a channel or change order of conversion sequencer, rank containing a previous channel setting can be overwritten by
                                                the new channel setting (or parameter number of conversions adjusted) */
 
   uint32_t InjectedSamplingTime;          /*!< Sampling time value to be set for the selected channel.
@@ -100,7 +100,7 @@ typedef struct
                                                Note: Refer to Reference Manual to ensure the selected channel is available in differential mode.
                                                Note: When configuring a channel 'i' in differential mode, the channel 'i+1' is not usable separately.
                                                Note: This parameter must be modified when ADC is disabled (before ADC start conversion or after ADC stop conversion).
-                                               If ADC is enabled, this parameter setting is bypassed without error reporting (as it can be the expected behavior in case 
+                                               If ADC is enabled, this parameter setting is bypassed without error reporting (as it can be the expected behavior in case
                                                of another parameter update on the fly) */
 
   uint32_t InjectedOffsetNumber;          /*!< Selects the offset number.
@@ -111,35 +111,37 @@ typedef struct
                                                Offset value must be a positive number.
                                                Depending of ADC resolution selected (12, 10, 8 or 6 bits), this parameter must be a number
                                                between Min_Data = 0x000 and Max_Data = 0xFFF,  0x3FF, 0xFF or 0x3F respectively.
-                                               Note: This parameter must be modified when no conversion is on going on both regular and injected groups (ADC disabled, or ADC enabled 
+                                               Note: This parameter must be modified when no conversion is on going on both regular and injected groups (ADC disabled, or ADC enabled
                                                without continuous mode or external trigger that could launch a conversion). */
 
   uint32_t InjectedOffsetRightShift;       /*!< Specifies whether the 1 bit Right-shift feature is used or not.
                                                 This parameter is applied only for 16-bit or 8-bit resolution.
                                                 This parameter can be set to ENABLE or DISABLE. */
+
   FunctionalState InjectedOffsetSignedSaturation;      /*!< Specifies whether the Signed saturation feature is used or not.
                                                This parameter is applied only for 16-bit or 8-bit resolution.
                                                This parameter can be set to ENABLE or DISABLE. */
   uint32_t InjectedLeftBitShift;          /*!< Configures the left shifting applied to the final result with or without oversampling.
                                                This parameter can be a value of @ref ADCEx_Left_Bit_Shift */
+
   uint32_t InjectedNbrOfConversion;       /*!< Specifies the number of ranks that will be converted within the ADC group injected sequencer.
                                                To use the injected group sequencer and convert several ranks, parameter 'ScanConvMode' must be enabled.
                                                This parameter must be a number between Min_Data = 1 and Max_Data = 4.
-                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
+                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
                                                         configure a channel on injected group can impact the configuration of other channels previously set. */
 
   FunctionalState InjectedDiscontinuousConvMode; /*!< Specifies whether the conversions sequence of ADC group injected is performed in Complete-sequence/Discontinuous-sequence
                                                (main sequence subdivided in successive parts).
                                                Discontinuous mode is used only if sequencer is enabled (parameter 'ScanConvMode'). If sequencer is disabled, this parameter is discarded.
-                                               Discontinuous mode can be enabled only if continuous mode is disabled. 
+                                               Discontinuous mode can be enabled only if continuous mode is disabled.
                                                This parameter can be set to ENABLE or DISABLE.
                                                Note: This parameter must be modified when ADC is disabled (before ADC start conversion or after ADC stop conversion).
                                                Note: For injected group, discontinuous mode converts the sequence channel by channel (discontinuous length fixed to 1 rank).
-                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
+                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
                                                         configure a channel on injected group can impact the configuration of other channels previously set. */
 
   FunctionalState AutoInjectedConv;       /*!< Enables or disables the selected ADC group injected automatic conversion after regular one
-                                               This parameter can be set to ENABLE or DISABLE.      
+                                               This parameter can be set to ENABLE or DISABLE.
                                                Note: To use Automatic injected conversion, discontinuous mode must be disabled ('DiscontinuousConvMode' and 'InjectedDiscontinuousConvMode' set to DISABLE)
                                                Note: To use Automatic injected conversion, injected group external triggers must be disabled ('ExternalTrigInjecConv' set to ADC_INJECTED_SOFTWARE_START)
                                                Note: In case of DMA used with regular group: if DMA configured in normal mode (single shot) JAUTO will be stopped upon DMA transfer complete.
@@ -150,11 +152,11 @@ typedef struct
   FunctionalState QueueInjectedContext;   /*!< Specifies whether the context queue feature is enabled.
                                                This parameter can be set to ENABLE or DISABLE.
                                                If context queue is enabled, injected sequencer&channels configurations are queued on up to 2 contexts. If a
-                                               new injected context is set when queue is full, error is triggered by interruption and through function 
+                                               new injected context is set when queue is full, error is triggered by interruption and through function
                                                'HAL_ADCEx_InjectedQueueOverflowCallback'.
                                                Caution: This feature request that the sequence is fully configured before injected conversion start.
                                                         Therefore, configure channels with as many calls to HAL_ADCEx_InjectedConfigChannel() as the 'InjectedNbrOfConversion' parameter.
-                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
+                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
                                                         configure a channel on injected group can impact the configuration of other channels previously set.
                                                Note: This parameter must be modified when ADC is disabled (before ADC start conversion or after ADC stop conversion). */
 
@@ -167,7 +169,7 @@ typedef struct
   uint32_t ExternalTrigInjecConvEdge;     /*!< Selects the external trigger edge of injected group.
                                                This parameter can be a value of @ref ADC_injected_external_trigger_edge.
                                                If trigger source is set to ADC_INJECTED_SOFTWARE_START, this parameter is discarded.
-                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to 
+                                               Caution: this setting impacts the entire injected group. Therefore, call of HAL_ADCEx_InjectedConfigChannel() to
                                                         configure a channel on injected group can impact the configuration of other channels previously set. */
 
   FunctionalState InjecOversamplingMode;         /*!< Specifies whether the oversampling feature is enabled or disabled.
@@ -175,29 +177,31 @@ typedef struct
                                                       Note: This parameter can be modified only if there is no conversion is ongoing (both ADSTART and JADSTART cleared). */
 
   ADC_InjOversamplingTypeDef  InjecOversampling; /*!< Specifies the Oversampling parameters.
-                                                      Caution: this setting overwrites the previous oversampling configuration if oversampling already enabled.    
+                                                      Caution: this setting overwrites the previous oversampling configuration if oversampling already enabled.
                                                       Note: This parameter can be modified only if there is no conversion is ongoing (both ADSTART and JADSTART cleared). */
 }ADC_InjectionConfTypeDef;
 
-/** 
+/**
   * @brief  Structure definition of ADC multimode
   * @note   The setting of these parameters by function HAL_ADCEx_MultiModeConfigChannel() is conditioned by ADCs state (both Master and Slave ADCs).
   *         Both Master and Slave ADCs must be disabled.
   */
 typedef struct
 {
-  uint32_t Mode;              /*!< Configures the ADC to operate in independent or multimode. 
+  uint32_t Mode;              /*!< Configures the ADC to operate in independent or multimode.
                                    This parameter can be a value of @ref ADC_HAL_EC_MULTI_MODE. */
+
   uint32_t DualModeData;      /*!< Configures the Dual ADC Mode Data Format:
                                    This parameter can be a value of @ref ADCEx_Dual_Mode_Data_Format */
+
   uint32_t TwoSamplingDelay;  /*!< Configures the Delay between 2 sampling phases.
                                    This parameter can be a value of @ref ADC_HAL_EC_MULTI_TWOSMP_DELAY.
-                                   Delay range depends on selected resolution:                           */
-                                /*  from 1 to 9 clock cycles for 16 bits,
-                                    from 1 to 9 clock cycles for 14 bits
-                                    from 1 to 8 clock cycles for 12 bits
-                                    from 1 to 6 clock cycles for 10 bits
-                                    from 1 to 6 clock cycles for 8 bits     */
+                                   Delay range depends on selected resolution:
+                                   from 1 to 9 clock cycles for 16 bits,
+                                   from 1 to 9 clock cycles for 14 bits
+                                   from 1 to 8 clock cycles for 12 bits
+                                   from 1 to 6 clock cycles for 10 bits
+                                   from 1 to 6 clock cycles for 8 bits     */
 }ADC_MultiModeTypeDef;
 
 /**
@@ -215,28 +219,27 @@ typedef struct
   */
 /* ADC group regular trigger sources for all ADC instances */
 #define ADC_INJECTED_SOFTWARE_START        (LL_ADC_INJ_TRIG_SOFTWARE)            /*!< Software triggers injected group conversion start */
-#define ADC_EXTERNALTRIGINJEC_T1_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO)   /*!< Event 0 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T1_CC4        (LL_ADC_INJ_TRIG_EXT_TIM1_CH4)    /*!< Event 1 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T2_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM2_TRGO)   /*!< Event 2 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T2_CC1        (LL_ADC_INJ_TRIG_EXT_TIM2_CH1)    /*!< Event 3 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T3_CC4        (LL_ADC_INJ_TRIG_EXT_TIM3_CH4)    /*!< Event 4 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T4_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM4_TRGO)   /*!< Event 5 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_EXT_IT15      (LL_ADC_INJ_TRIG_EXT_EXTI_LINE15) /*!< Event 6 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T8_CC4        (LL_ADC_INJ_TRIG_EXT_TIM8_CH4)    /*!< Event 7 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T1_TRGO2      (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO2)  /*!< Event 8 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T8_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM8_TRGO)   /*!< Event 9 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T8_TRGO2      (LL_ADC_INJ_TRIG_EXT_TIM8_TRGO2)  /*!< Event 10 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T3_CC3        (LL_ADC_INJ_TRIG_EXT_TIM3_CH3)    /*!< Event 11 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T3_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM3_TRGO)   /*!< Event 12 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T3_CC1        (LL_ADC_INJ_TRIG_EXT_TIM3_CH1)    /*!< Event 13 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T6_TRGO       (LL_ADC_INJ_TRIG_EXT_TIM6_TRGO)   /*!< Event 14 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_T15_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM15_TRGO)  /*!< Event 15 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_HR1_ADCTRG2   (LL_ADC_INJ_TRIG_EXT_HRTIM_TRG2)  /*!< Event 16 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_HR1_ADCTRG4   (LL_ADC_INJ_TRIG_EXT_HRTIM_TRG4)  /*!< Event 17 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_LPTIM1_OUT    (LL_ADC_INJ_TRIG_EXT_LPTIM1_OUT)  /*!< Event 18 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_LPTIM2_OUT    (LL_ADC_INJ_TRIG_EXT_LPTIM2_OUT)  /*!< Event 19 triggers injected group conversion start  */
-#define ADC_EXTERNALTRIGINJEC_LPTIM3_OUT    (LL_ADC_INJ_TRIG_EXT_LPTIM3_OUT)  /*!< Event 20 triggers injected group conversion start  */
-
+#define ADC_EXTERNALTRIGINJEC_T1_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM1 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T1_CC4       (LL_ADC_INJ_TRIG_EXT_TIM1_CH4)        /*!< ADC group injected conversion trigger from external peripheral: TIM1 channel 4 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T2_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM2_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM2 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T2_CC1       (LL_ADC_INJ_TRIG_EXT_TIM2_CH1)        /*!< ADC group injected conversion trigger from external peripheral: TIM2 channel 1 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T3_CC4       (LL_ADC_INJ_TRIG_EXT_TIM3_CH4)        /*!< ADC group injected conversion trigger from external peripheral: TIM3 channel 4 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T4_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM4_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM4 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_EXT_IT15     (LL_ADC_INJ_TRIG_EXT_EXTI_LINE15)     /*!< ADC group injected conversion trigger from external peripheral: external interrupt line 15. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T8_CC4       (LL_ADC_INJ_TRIG_EXT_TIM8_CH4)        /*!< ADC group injected conversion trigger from external peripheral: TIM8 channel 4 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T1_TRGO2     (LL_ADC_INJ_TRIG_EXT_TIM1_TRGO2)      /*!< ADC group injected conversion trigger from external peripheral: TIM1 TRGO2 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T8_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM8_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM8 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T8_TRGO2     (LL_ADC_INJ_TRIG_EXT_TIM8_TRGO2)      /*!< ADC group injected conversion trigger from external peripheral: TIM8 TRGO2 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T3_CC3       (LL_ADC_INJ_TRIG_EXT_TIM3_CH3)        /*!< ADC group injected conversion trigger from external peripheral: TIM3 channel 3 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T3_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM3_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM3 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T3_CC1       (LL_ADC_INJ_TRIG_EXT_TIM3_CH1)        /*!< ADC group injected conversion trigger from external peripheral: TIM3 channel 1 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T6_TRGO      (LL_ADC_INJ_TRIG_EXT_TIM6_TRGO)       /*!< ADC group injected conversion trigger from external peripheral: TIM6 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_T15_TRGO     (LL_ADC_INJ_TRIG_EXT_TIM15_TRGO)      /*!< ADC group injected conversion trigger from external peripheral: TIM15 TRGO event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_HR1_ADCTRG2  (LL_ADC_INJ_TRIG_EXT_HRTIM_TRG2)      /*!< ADC group injected conversion trigger from external peripheral: HRTIM1 TRG2 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_HR1_ADCTRG4  (LL_ADC_INJ_TRIG_EXT_HRTIM_TRG4)      /*!< ADC group injected conversion trigger from external peripheral: HRTIM1 TRG4 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_LPTIM1_OUT   (LL_ADC_INJ_TRIG_EXT_LPTIM1_OUT)      /*!< ADC group injected conversion trigger from external peripheral: LPTIM1 OUT event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_LPTIM2_OUT   (LL_ADC_INJ_TRIG_EXT_LPTIM2_OUT)      /*!< ADC group injected conversion trigger from external peripheral: LPTIM2 OUT event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIGINJEC_LPTIM3_OUT   (LL_ADC_INJ_TRIG_EXT_LPTIM3_OUT)      /*!< ADC group injected conversion trigger from external peripheral: LPTIM3 OUT event. Trigger edge set to rising edge (default setting). */
 /**
   * @}
   */
@@ -244,10 +247,10 @@ typedef struct
 /** @defgroup ADC_injected_external_trigger_edge ADC group injected trigger edge (when external trigger is selected)
   * @{
   */
-#define ADC_EXTERNALTRIGINJECCONV_EDGE_NONE           (0x00000000UL)        /*!< Injected conversions hardware trigger detection disabled                             */ 
-#define ADC_EXTERNALTRIGINJECCONV_EDGE_RISING         (ADC_JSQR_JEXTEN_0)   /*!< Injected conversions hardware trigger detection on the rising edge                   */ 
-#define ADC_EXTERNALTRIGINJECCONV_EDGE_FALLING        (ADC_JSQR_JEXTEN_1)   /*!< Injected conversions hardware trigger detection on the falling edge                  */ 
-#define ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING  (ADC_JSQR_JEXTEN)     /*!< Injected conversions hardware trigger detection on both the rising and falling edges */ 
+#define ADC_EXTERNALTRIGINJECCONV_EDGE_NONE           (0x00000000UL)        /*!< Injected conversions hardware trigger detection disabled                             */
+#define ADC_EXTERNALTRIGINJECCONV_EDGE_RISING         (ADC_JSQR_JEXTEN_0)   /*!< Injected conversions hardware trigger detection on the rising edge                   */
+#define ADC_EXTERNALTRIGINJECCONV_EDGE_FALLING        (ADC_JSQR_JEXTEN_1)   /*!< Injected conversions hardware trigger detection on the falling edge                  */
+#define ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING  (ADC_JSQR_JEXTEN)     /*!< Injected conversions hardware trigger detection on both the rising and falling edges */
 /**
   * @}
   */
@@ -295,15 +298,17 @@ typedef struct
 #define ADC_DUALMODE_REGSIMULT_INJECSIMULT (LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM) /*!< ADC dual mode enabled: Combined group regular simultaneous + group injected simultaneous */
 #define ADC_DUALMODE_REGSIMULT_ALTERTRIG   (LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT) /*!< ADC dual mode enabled: Combined group regular simultaneous + group injected alternate trigger */
 #define ADC_DUALMODE_REGINTERL_INJECSIMULT (LL_ADC_MULTI_DUAL_REG_INT_INJ_SIM) /*!< ADC dual mode enabled: Combined group regular interleaved + group injected simultaneous */
+
 /** @defgroup ADCEx_Dual_Mode_Data_Format ADC Extended Dual Mode Data Formatting
   * @{
   */
-#define ADC_DUALMODEDATAFORMAT_DISABLED      ((uint32_t)0x00000000)                        /*!< Dual ADC mode without data packing: ADCx_CDR and ADCx_CDR2 registers not used */
-#define ADC_DUALMODEDATAFORMAT_32_10_BITS    ((uint32_t)ADC_CCR_DAMDF_1)                    /*!< Data formatting mode for 32 down to 10-bit resolution */
-#define ADC_DUALMODEDATAFORMAT_8_BITS        ((uint32_t)(ADC_CCR_DAMDF_0 |ADC_CCR_DAMDF_1)) /*!< Data formatting mode for 8-bit resolution */
+#define ADC_DUALMODEDATAFORMAT_DISABLED      (0x00000000UL)                       /*!< Dual ADC mode without data packing: ADCx_CDR and ADCx_CDR2 registers not used */
+#define ADC_DUALMODEDATAFORMAT_32_10_BITS    (ADC_CCR_DAMDF_1)                    /*!< Data formatting mode for 32 down to 10-bit resolution */
+#define ADC_DUALMODEDATAFORMAT_8_BITS        ((ADC_CCR_DAMDF_0 |ADC_CCR_DAMDF_1)) /*!< Data formatting mode for 8-bit resolution */
 /**
   * @}
   */
+
 /** @defgroup ADC_HAL_EC_MULTI_TWOSMP_DELAY  Multimode - Delay between two sampling phases
   * @{
   */
@@ -346,7 +351,7 @@ typedef struct
 /**
   * @}
   */
-  
+
 /** @defgroup ADC_SMPR1_fields ADCx SMPR1 fields
   * @{
   */
@@ -358,12 +363,12 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_CFGR_fields_2 ADCx CFGR sub fields 
+/** @defgroup ADC_CFGR_fields_2 ADCx CFGR sub fields
   * @{
   */
 /* ADC_CFGR fields of parameters that can be updated when no conversion
    (neither regular nor injected) is on-going  */
-#define ADC_CFGR_FIELDS_2  ((uint32_t)(ADC_CFGR_DMNGT | ADC_CFGR_AUTDLY)) 
+#define ADC_CFGR_FIELDS_2  ((uint32_t)(ADC_CFGR_DMNGT | ADC_CFGR_AUTDLY))
 /**
   * @}
   */
@@ -396,9 +401,9 @@ typedef struct
   * @note   Standard way of multimode configuration change is done from
   *         HAL ADC handle of ADC master using function
   *         "HAL_ADCEx_MultiModeConfigChannel(..., ADC_MODE_INDEPENDENT)" )".
-  *         Usage of this macro is not the Standard way of multimode 
-  *         configuration and can lead to have HAL ADC handles status 
-  *         misaligned. Usage of this macro must be limited to cases 
+  *         Usage of this macro is not the Standard way of multimode
+  *         configuration and can lead to have HAL ADC handles status
+  *         misaligned. Usage of this macro must be limited to cases
   *         mentionned above.
   * @param __HANDLE__ ADC handle.
   * @retval None
@@ -447,7 +452,7 @@ typedef struct
 /**
   * @brief Check whether or not ADC is independent.
   * @param __HANDLE__ ADC handle.
-  * @note  When multimode feature is not available, the macro always returns SET.   
+  * @note  When multimode feature is not available, the macro always returns SET.
   * @retval SET (ADC is independent) or RESET (ADC is not).
   */
 #define ADC_IS_INDEPENDENT(__HANDLE__)    \
@@ -514,6 +519,7 @@ typedef struct
   * @retval None
   */
 #define ADC_CFGR_DMACONTREQ(__DMACONTREQ_MODE__) ((__DMACONTREQ_MODE__))
+
 /**
   * @brief Configure the channel number into offset OFRx register.
   * @param __CHANNEL__ ADC Channel.
@@ -526,7 +532,7 @@ typedef struct
   * @param __CHANNEL__ ADC Channel.
   * @retval None
   */
-#define ADC_DIFSEL_CHANNEL(__CHANNEL__) (1UL << (__CHANNEL__)) 
+#define ADC_DIFSEL_CHANNEL(__CHANNEL__) (1UL << (__CHANNEL__))
 
 /**
   * @brief Configure calibration factor in differential mode to be set into calibration register.
@@ -569,11 +575,15 @@ typedef struct
   * @param __OFFSET__: Value to be shifted
   * @retval None
   */
-#define ADC_OFFSET_SHIFT_RESOLUTION(__HANDLE__, __OFFSET__) \
-          (((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)?   \
-            ((__OFFSET__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL )*2UL)):                                       \
-            ((__OFFSET__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL)))
-
+#define ADC_OFFSET_SHIFT_RESOLUTION(__HANDLE__, __OFFSET__)                                                     \
+        (((DBGMCU->IDCODE & 0xF0000000UL) == 0x10000000UL)                                                      \
+          ? ((__OFFSET__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                       \
+             :                                                                                                  \
+            ((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)                                          \
+              ? ((__OFFSET__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                   \
+               :                                                                                                \
+               ((__OFFSET__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL))  \
+        )
 
 /**
   * @brief Shift the AWD1 threshold in function of the selected ADC resolution.
@@ -588,10 +598,15 @@ typedef struct
   * @param __THRESHOLD__: Value to be shifted
   * @retval None
   */
-#define ADC_AWD1THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__) \
-          (((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)?  \
-            ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL )*2UL)):                                   \
-            ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL)))
+#define ADC_AWD1THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__)                                             \
+        (((DBGMCU->IDCODE & 0xF0000000UL) == 0x10000000UL)                                                        \
+         ? ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                       \
+            :                                                                                                     \
+           ((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)                                             \
+            ? ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                    \
+              :                                                                                                   \
+              ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL))  \
+        )
 
 /**
   * @brief Shift the AWD2 and AWD3 threshold in function of the selected ADC resolution.
@@ -606,12 +621,15 @@ typedef struct
   * @param __THRESHOLD__: Value to be shifted
   * @retval None
   */
-#define ADC_AWD23THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__) \
-          (((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)?  \
-            ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL )*2UL)):                                   \
-            ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL)))
-			
-			
+#define ADC_AWD23THRESHOLD_SHIFT_RESOLUTION(__HANDLE__, __THRESHOLD__)                                              \
+        (((DBGMCU->IDCODE & 0xF0000000UL) == 0x10000000UL)                                                          \
+          ? ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                        \
+            :                                                                                                       \
+            ((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES_2) == 0UL)                                              \
+              ? ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & ADC_CFGR_RES)>> 2UL)*2UL))                    \
+                :                                                                                                   \
+                ((__THRESHOLD__)<<(((((__HANDLE__)->Instance->CFGR) & (ADC_CFGR_RES & 0xFFFFFFF3UL))>> 2UL )*2UL))  \
+        )
 /**
   * @brief Clear Common Control Register.
   * @param __HANDLE__ ADC handle.
@@ -623,14 +641,12 @@ typedef struct
   * @retval Common control register
   */
 #define ADC12_COMMON_REGISTER(__HANDLE__)   (ADC12_COMMON)
-
 /**
-  * @brief Report common register to ADC1 and ADC2
+  * @brief Report common register to ADC3
   * @param __HANDLE__: ADC handle
   * @retval Common control register
   */
 #define ADC3_COMMON_REGISTER(__HANDLE__)   (ADC3_COMMON)
-
 /**
   * @brief Report Master Instance
   * @param __HANDLE__: ADC handle
@@ -659,7 +675,7 @@ typedef struct
      :                                                                           \
      RESET                                                                       \
   )
-  
+
 /**
   * @brief Verification of condition for ADC start conversion: ADC must be in non-MultiMode or MultiMode with handle of ADC master
   * @param __HANDLE__: ADC handle
@@ -691,6 +707,7 @@ typedef struct
   * @param __HANDLE__: ADC handle
   * @retval SET (Independent or Master, or Slave without dual regular conversions enabled) or RESET (Slave ADC with dual regular conversions enabled)
   */
+
 #define ADC_INDEPENDENT_OR_NONMULTIMODEREGULAR_SLAVE(__HANDLE__)            \
   ( ( ((__HANDLE__)->Instance == ADC1) || ((__HANDLE__)->Instance == ADC3)  \
     )?                                                                      \
@@ -705,6 +722,7 @@ typedef struct
   * @param __HANDLE__: ADC handle
   * @retval SET (non-MultiMode or Master, or Slave without dual injected conversions enabled) or RESET (Slave ADC with dual injected conversions enabled)
   */
+
 #define ADC_INDEPENDENT_OR_NONMULTIMODEINJECTED_SLAVE(__HANDLE__)         \
   ( ( ((__HANDLE__)->Instance == ADC1) || ((__HANDLE__)->Instance == ADC3) \
     )?                                                                     \
@@ -713,9 +731,7 @@ typedef struct
      ( ((ADC12_COMMON->CCR & ADC_CCR_DUAL) == ADC_MODE_INDEPENDENT)    || \
        ((ADC12_COMMON->CCR & ADC_CCR_DUAL) == ADC_DUALMODE_REGSIMULT)  || \
        ((ADC12_COMMON->CCR & ADC_CCR_DUAL) == ADC_DUALMODE_INTERL) ))
-  
-  
-  
+
 #define ADC_CLEAR_COMMON_CONTROL_REGISTER(__HANDLE__) CLEAR_BIT(__LL_ADC_COMMON_INSTANCE((__HANDLE__)->Instance)->CCR, ADC_CCR_CKMODE    | \
                                                                                                       ADC_CCR_PRESC     | \
                                                                                                       ADC_CCR_VBATEN    | \
@@ -731,10 +747,10 @@ typedef struct
   * @param __HANDLE_SLAVE__ ADC slave handle.
   * @note if __HANDLE_MASTER__ is the handle of a slave ADC (ADC2) or an independent ADC, __HANDLE_SLAVE__ instance is set to NULL.
   * @retval None
-  */  
+  */
 #define ADC_MULTI_SLAVE(__HANDLE_MASTER__, __HANDLE_SLAVE__)             \
   ( (((__HANDLE_MASTER__)->Instance == ADC1)) ? ((__HANDLE_SLAVE__)->Instance = ADC2) : ((__HANDLE_SLAVE__)->Instance = NULL) )
- 
+
 
 /**
   * @brief Verify the ADC instance connected to the temperature sensor.
@@ -759,7 +775,7 @@ typedef struct
 
 /**
   * @brief Verify the length of scheduled injected conversions group.
-  * @param __LENGTH__ number of programmed conversions.   
+  * @param __LENGTH__ number of programmed conversions.
   * @retval SET (__LENGTH__ is within the maximum number of possible programmable injected conversions) or RESET (__LENGTH__ is null or too large)
   */
 #define IS_ADC_INJECTED_NB_CONV(__LENGTH__) (((__LENGTH__) >= (1U)) && ((__LENGTH__) <= (4U)))
@@ -774,10 +790,10 @@ typedef struct
 
 /**
   * @brief Verify the ADC channel setting.
-  * @param __CHANNEL__ programmed ADC channel. 
+  * @param __CHANNEL__ programmed ADC channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
-#define IS_ADC_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_0)       || \
+#define IS_ADC_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_0)           || \
                                      ((__CHANNEL__) == ADC_CHANNEL_1)           || \
                                      ((__CHANNEL__) == ADC_CHANNEL_2)           || \
                                      ((__CHANNEL__) == ADC_CHANNEL_3)           || \
@@ -808,7 +824,7 @@ typedef struct
   * @param __CHANNEL__: programmed ADC channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
-#define IS_ADC1_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)|| \
+#define IS_ADC1_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)      || \
                                            ((__CHANNEL__) == ADC_CHANNEL_2)      ||\
                                            ((__CHANNEL__) == ADC_CHANNEL_3)      ||\
                                            ((__CHANNEL__) == ADC_CHANNEL_4)      ||\
@@ -824,37 +840,35 @@ typedef struct
   * @param __CHANNEL__: programmed ADC channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
-#define IS_ADC2_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)|| \
-                                      ((__CHANNEL__) == ADC_CHANNEL_2)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_3)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_4)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_5)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_10)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_11)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_12)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_18)      )
+#define IS_ADC2_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_2)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_3)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_4)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_5)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_10)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_11)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_12)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_18)      )
 
 /**
   * @brief Verify the ADC channel setting in differential mode for ADC3.
   * @param __CHANNEL__: programmed ADC channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
-#define IS_ADC3_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1) || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_2)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_3)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_4)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_5)      || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_10)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_11)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_13)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_14)     || \
-                                      ((__CHANNEL__) == ADC_CHANNEL_15)       )
-
-
+#define IS_ADC3_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_2)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_3)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_4)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_5)      || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_10)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_11)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_13)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_14)     || \
+                                           ((__CHANNEL__) == ADC_CHANNEL_15)       )
 
 /**
   * @brief Verify the ADC single-ended input or differential mode setting.
-  * @param __SING_DIFF__ programmed channel setting. 
+  * @param __SING_DIFF__ programmed channel setting.
   * @retval SET (__SING_DIFF__ is valid) or RESET (__SING_DIFF__ is invalid)
   */
 #define IS_ADC_SINGLE_DIFFERENTIAL(__SING_DIFF__) (((__SING_DIFF__) == ADC_SINGLE_ENDED)      || \
@@ -862,24 +876,24 @@ typedef struct
 
 /**
   * @brief Verify the ADC offset management setting.
-  * @param __OFFSET_NUMBER__ ADC offset management. 
+  * @param __OFFSET_NUMBER__ ADC offset management.
   * @retval SET (__OFFSET_NUMBER__ is valid) or RESET (__OFFSET_NUMBER__ is invalid)
   */
 #define IS_ADC_OFFSET_NUMBER(__OFFSET_NUMBER__) (((__OFFSET_NUMBER__) == ADC_OFFSET_NONE) || \
                                                  ((__OFFSET_NUMBER__) == ADC_OFFSET_1)    || \
                                                  ((__OFFSET_NUMBER__) == ADC_OFFSET_2)    || \
                                                  ((__OFFSET_NUMBER__) == ADC_OFFSET_3)    || \
-                                                 ((__OFFSET_NUMBER__) == ADC_OFFSET_4)      ) 
+                                                 ((__OFFSET_NUMBER__) == ADC_OFFSET_4)      )
 
 /**
   * @brief Verify the ADC injected channel setting.
-  * @param __CHANNEL__ programmed ADC injected channel. 
+  * @param __CHANNEL__ programmed ADC injected channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
 #define IS_ADC_INJECTED_RANK(__CHANNEL__) (((__CHANNEL__) == ADC_INJECTED_RANK_1) || \
                                            ((__CHANNEL__) == ADC_INJECTED_RANK_2) || \
                                            ((__CHANNEL__) == ADC_INJECTED_RANK_3) || \
-                                           ((__CHANNEL__) == ADC_INJECTED_RANK_4)   ) 
+                                           ((__CHANNEL__) == ADC_INJECTED_RANK_4)   )
 
 /**
   * @brief Verify the ADC injected conversions external trigger.
@@ -902,25 +916,24 @@ typedef struct
                                           ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T3_CC1)      || \
                                           ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T6_TRGO)     || \
                                           ((__INJTRIG__) == ADC_EXTERNALTRIGINJEC_T15_TRGO)    || \
-                                                                                                  \
-                                          ((__INJTRIG__) == ADC_SOFTWARE_START)                   )
-
+                                                                                          \
+                                           ((__INJTRIG__) == ADC_SOFTWARE_START)                   )
 
 /**
   * @brief Verify the ADC edge trigger setting for injected group.
   * @param __EDGE__ programmed ADC edge trigger setting.
   * @retval SET (__EDGE__ is a valid value) or RESET (__EDGE__ is invalid)
-  */ 
+  */
 #define IS_ADC_EXTTRIGINJEC_EDGE(__EDGE__) (((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_NONE)        || \
                                            ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISING)       || \
                                            ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_FALLING)      || \
-                                           ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING) ) 
+                                           ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING) )
 
 /**
   * @brief Verify the ADC multimode setting.
   * @param __MODE__ programmed ADC multimode setting.
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
-  */ 
+  */
 #define IS_ADC_MULTIMODE(__MODE__) (((__MODE__) == ADC_MODE_INDEPENDENT)          || \
                                ((__MODE__) == ADC_DUALMODE_REGSIMULT_INJECSIMULT) || \
                                ((__MODE__) == ADC_DUALMODE_REGSIMULT_ALTERTRIG)   || \
@@ -931,15 +944,6 @@ typedef struct
                                ((__MODE__) == ADC_DUALMODE_ALTERTRIG)               )
 
 /**
-  * @brief Verify the ADC multimode DMA access setting.
-  * @param __MODE__ programmed ADC multimode DMA access setting.
-  * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
-  */
-#define IS_ADC_DMA_ACCESS_MULTIMODE(__MODE__) (((__MODE__) == ADC_DMAACCESSMODE_DISABLED)   || \
-                                               ((__MODE__) == ADC_DMAACCESSMODE_12_10_BITS) || \
-                                               ((__MODE__) == ADC_DMAACCESSMODE_8_6_BITS)     )
-											   
-/**
   * @brief Verify the ADC dual data mode setting.
   * @param MODE: programmed ADC dual mode setting.
   * @retval SET (MODE is valid) or RESET (MODE is invalid)
@@ -947,7 +951,7 @@ typedef struct
 #define IS_ADC_DUAL_DATA_MODE(MODE) (((MODE) == ADC_DUALMODEDATAFORMAT_DISABLED)   || \
                                      ((MODE) == ADC_DUALMODEDATAFORMAT_32_10_BITS) || \
                                      ((MODE) == ADC_DUALMODEDATAFORMAT_8_BITS)     )
-											   
+
 /**
   * @brief Verify the ADC multimode delay setting.
   * @param __DELAY__ programmed ADC multimode delay setting.
@@ -961,8 +965,7 @@ typedef struct
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_6CYCLES)  || \
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_7CYCLES)  || \
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_8CYCLES)  || \
-                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_9CYCLES)    )										  
-								
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_9CYCLES)    )
 
 /**
   * @brief Verify the ADC analog watchdog setting.
@@ -971,7 +974,7 @@ typedef struct
   */
 #define IS_ADC_ANALOG_WATCHDOG_NUMBER(__WATCHDOG__) (((__WATCHDOG__) == ADC_ANALOGWATCHDOG_1) || \
                                                      ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_2) || \
-                                                     ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_3)   ) 
+                                                     ((__WATCHDOG__) == ADC_ANALOGWATCHDOG_3)   )
 
 /**
   * @brief Verify the ADC analog watchdog mode setting.
@@ -984,7 +987,7 @@ typedef struct
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_SINGLE_REGINJEC)  || \
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_REG)          || \
                                                         ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_INJEC)        || \
-                                                        ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_REGINJEC)       ) 
+                                                        ((__WATCHDOG_MODE__) == ADC_ANALOGWATCHDOG_ALL_REGINJEC)       )
 
 /**
   * @brief Verify the ADC conversion (regular or injected or both).
@@ -1005,15 +1008,17 @@ typedef struct
                                      ((__EVENT__) == ADC_AWD2_EVENT)   || \
                                      ((__EVENT__) == ADC_AWD3_EVENT)   || \
                                      ((__EVENT__) == ADC_OVR_EVENT)    || \
-                                     ((__EVENT__) == ADC_JQOVF_EVENT)  ) 
+                                     ((__EVENT__) == ADC_JQOVF_EVENT)  )
+
 /**
-  * @brief Verify the ADC oversampling ratio. 
+  * @brief Verify the ADC oversampling ratio.
   * @param RATIO: programmed ADC oversampling ratio.
   * @retval SET (RATIO is a valid value) or RESET (RATIO is invalid)
   */
 #define IS_ADC_OVERSAMPLING_RATIO(RATIO)  ((RATIO) < 1024UL)
+
 /**
-  * @brief Verify the ADC oversampling shift. 
+  * @brief Verify the ADC oversampling shift.
   * @param __SHIFT__ programmed ADC oversampling shift.
   * @retval SET (__SHIFT__ is a valid value) or RESET (__SHIFT__ is invalid)
   */
@@ -1028,27 +1033,27 @@ typedef struct
                                                   ((__SHIFT__) == ADC_RIGHTBITSHIFT_8   ))
 
 /**
-  * @brief Verify the ADC oversampling triggered mode. 
-  * @param __MODE__ programmed ADC oversampling triggered mode. 
+  * @brief Verify the ADC oversampling triggered mode.
+  * @param __MODE__ programmed ADC oversampling triggered mode.
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
   */
 #define IS_ADC_TRIGGERED_OVERSAMPLING_MODE(__MODE__) (((__MODE__) == ADC_TRIGGEREDMODE_SINGLE_TRIGGER) || \
-                                                      ((__MODE__) == ADC_TRIGGEREDMODE_MULTI_TRIGGER) ) 
+                                                      ((__MODE__) == ADC_TRIGGEREDMODE_MULTI_TRIGGER) )
 
 /**
-  * @brief Verify the ADC oversampling regular conversion resumed or continued mode. 
-  * @param __MODE__ programmed ADC oversampling regular conversion resumed or continued mode. 
+  * @brief Verify the ADC oversampling regular conversion resumed or continued mode.
+  * @param __MODE__ programmed ADC oversampling regular conversion resumed or continued mode.
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
   */
 #define IS_ADC_REGOVERSAMPLING_MODE(__MODE__) (((__MODE__) == ADC_REGOVERSAMPLING_CONTINUED_MODE) || \
-                                               ((__MODE__) == ADC_REGOVERSAMPLING_RESUMED_MODE) )              
+                                               ((__MODE__) == ADC_REGOVERSAMPLING_RESUMED_MODE) )
 
 /**
-  * @brief Verify the DFSDM mode configuration. 
-  * @param __HANDLE__ ADC handle. 
+  * @brief Verify the DFSDM mode configuration.
+  * @param __HANDLE__ ADC handle.
   * @note When DMSDFM configuration is not supported, the macro systematically reports SET. For
   *      this reason, the input parameter is the ADC handle and not the configuration parameter
-  *      directly.      
+  *      directly.
   * @retval SET (DFSDM mode configuration is valid) or RESET (DFSDM mode configuration is invalid)
   */
 #if defined(DFSDM1_Channel0)
@@ -1060,15 +1065,15 @@ typedef struct
 
 /**
   * @brief Return the DFSDM configuration mode.
-  * @param __HANDLE__ ADC handle. 
-  * @note When DMSDFM configuration is not supported, the macro systematically reports 0x0 (i.e disabled). 
+  * @param __HANDLE__ ADC handle.
+  * @note When DMSDFM configuration is not supported, the macro systematically reports 0x0 (i.e disabled).
   *       For this reason, the input parameter is the ADC handle and not the configuration parameter
-  *       directly.      
+  *       directly.
   * @retval DFSDM configuration mode
   */
 #if defined(DFSDM1_Channel0)
 #define ADC_CFGR_DFSDM(__HANDLE__) ((__HANDLE__)->Init.DFSDMConfig)
-#else                                               
+#else
 #define ADC_CFGR_DFSDM(__HANDLE__) (0x0UL)
 #endif
 
@@ -1105,7 +1110,7 @@ HAL_StatusTypeDef       HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef* hadc);
 
 /* ADC multimode */
 HAL_StatusTypeDef       HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, uint32_t Length);
-HAL_StatusTypeDef       HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc); 
+HAL_StatusTypeDef       HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc);
 uint32_t                HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc);
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */
