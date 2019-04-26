@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32h743xx.s
+  * @file      startup_stm32h742xx.s
   * @author    MCD Application Team
-  * @brief     STM32H743xx Devices vector table for GCC based toolchain. 
+  * @brief     STM32H742xx Devices vector table for GCC based toolchain. 
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -14,7 +14,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -230,8 +230,8 @@ g_pfnVectors:
   .word     SPI5_IRQHandler                   /* SPI5                         */
   .word     SPI6_IRQHandler                   /* SPI6                         */
   .word     SAI1_IRQHandler                   /* SAI1                         */
-  .word     LTDC_IRQHandler                   /* LTDC                         */
-  .word     LTDC_ER_IRQHandler                /* LTDC error                   */
+  .word     0                                 /* Reserved                     */
+  .word     0                                 /* Reserved                     */
   .word     DMA2D_IRQHandler                  /* DMA2D                        */
   .word     SAI2_IRQHandler                   /* SAI2                         */
   .word     QUADSPI_IRQHandler                /* QUADSPI                      */
@@ -263,7 +263,7 @@ g_pfnVectors:
   .word     TIM17_IRQHandler                  /* TIM17 global Interrupt      */      
   .word     MDIOS_WKUP_IRQHandler             /* MDIOS Wakeup  Interrupt     */     
   .word     MDIOS_IRQHandler                  /* MDIOS global Interrupt      */    
-  .word     JPEG_IRQHandler                   /* JPEG global Interrupt       */    
+  .word     0                                 /* Reserved                    */    
   .word     MDMA_IRQHandler                   /* MDMA global Interrupt       */    
   .word     0                                 /* Reserved                    */    
   .word     SDMMC2_IRQHandler                 /* SDMMC2 global Interrupt     */    
@@ -572,12 +572,6 @@ g_pfnVectors:
 
    .weak      SAI1_IRQHandler            
    .thumb_set SAI1_IRQHandler,Default_Handler
-   
-   .weak      LTDC_IRQHandler            
-   .thumb_set LTDC_IRQHandler,Default_Handler
-
-   .weak      LTDC_ER_IRQHandler            
-   .thumb_set LTDC_ER_IRQHandler,Default_Handler
 
    .weak      DMA2D_IRQHandler            
    .thumb_set DMA2D_IRQHandler,Default_Handler   
@@ -670,10 +664,7 @@ g_pfnVectors:
    .thumb_set MDIOS_WKUP_IRQHandler,Default_Handler 
 
    .weak      MDIOS_IRQHandler            
-   .thumb_set MDIOS_IRQHandler,Default_Handler 
-
-   .weak      JPEG_IRQHandler            
-   .thumb_set JPEG_IRQHandler,Default_Handler 
+   .thumb_set MDIOS_IRQHandler,Default_Handler
 
    .weak      MDMA_IRQHandler            
    .thumb_set MDMA_IRQHandler,Default_Handler 

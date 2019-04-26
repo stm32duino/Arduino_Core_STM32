@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32h743xx.s
+  * @file      startup_stm32h745xx.s
   * @author    MCD Application Team
-  * @brief     STM32H743xx Devices vector table for GCC based toolchain. 
+  * @brief     STM32H745xx Devices vector table for GCC based toolchain. 
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -14,7 +14,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -142,7 +142,7 @@ g_pfnVectors:
   .word  SysTick_Handler
   
   /* External Interrupts */
-  .word     WWDG_IRQHandler                   /* Window WatchDog              */                                        
+  .word     WWDG_IRQHandler                   /* Window WatchDog Interrupt ( wwdg1_it, wwdg2_it) */                                        
   .word     PVD_AVD_IRQHandler                /* PVD/AVD through EXTI Line detection */                        
   .word     TAMP_STAMP_IRQHandler             /* Tamper and TimeStamps through the EXTI line */            
   .word     RTC_WKUP_IRQHandler               /* RTC Wakeup through the EXTI line */                      
@@ -205,9 +205,9 @@ g_pfnVectors:
   .word     DMA2_Stream4_IRQHandler           /* DMA2 Stream 4                */                   
   .word     ETH_IRQHandler                    /* Ethernet                     */                   
   .word     ETH_WKUP_IRQHandler               /* Ethernet Wakeup through EXTI line */                     
-  .word     FDCAN_CAL_IRQHandler              /* FDCAN calibration unit interrupt*/                                               
-  .word     0                                 /* Reserved                     */                          
-  .word     0                                 /* Reserved                     */                       
+  .word     FDCAN_CAL_IRQHandler              /* FDCAN calibration unit interrupt  */                                               
+  .word     CM7_SEV_IRQHandler                /* CM7 Send event interrupt for CM4  */                          
+  .word     CM4_SEV_IRQHandler                /* CM4 Send event interrupt for CM7  */                       
   .word     0                                 /* Reserved                     */                           
   .word     0                                 /* Reserved                     */                  
   .word     DMA2_Stream5_IRQHandler           /* DMA2 Stream 5                */                   
@@ -265,10 +265,10 @@ g_pfnVectors:
   .word     MDIOS_IRQHandler                  /* MDIOS global Interrupt      */    
   .word     JPEG_IRQHandler                   /* JPEG global Interrupt       */    
   .word     MDMA_IRQHandler                   /* MDMA global Interrupt       */    
-  .word     0                                 /* Reserved                    */    
+  .word     0                                 /* Reserved                   */    
   .word     SDMMC2_IRQHandler                 /* SDMMC2 global Interrupt     */    
   .word     HSEM1_IRQHandler                  /* HSEM1 global Interrupt      */    
-  .word     0                                 /* Reserved                    */    
+  .word     HSEM2_IRQHandler                  /* HSEM1 global Interrupt      */    
   .word     ADC3_IRQHandler                   /* ADC3 global Interrupt       */    
   .word     DMAMUX2_OVR_IRQHandler            /* DMAMUX Overrun interrupt    */    
   .word     BDMA_Channel0_IRQHandler          /* BDMA Channel 0 global Interrupt */
@@ -285,12 +285,12 @@ g_pfnVectors:
   .word     LPTIM4_IRQHandler                 /* LP TIM4 global interrupt   */     
   .word     LPTIM5_IRQHandler                 /* LP TIM5 global interrupt   */     
   .word     LPUART1_IRQHandler                /* LP UART1 interrupt         */     
-  .word     0                                 /* Reserved                   */     
+  .word     WWDG_RST_IRQHandler               /* Window Watchdog reset interrupt (exti_d2_wwdg_it, exti_d1_wwdg_it) */     
   .word     CRS_IRQHandler                    /* Clock Recovery Global Interrupt */ 
   .word     ECC_IRQHandler                    /* ECC diagnostic Global Interrupt */  
   .word     SAI4_IRQHandler                   /* SAI4 global interrupt      */      
   .word     0                                 /* Reserved                   */      
-  .word     0                                 /* Reserved                   */      
+  .word     HOLD_CORE_IRQHandler              /* Hold core interrupt        */      
   .word     WAKEUP_PIN_IRQHandler             /* Interrupt for all 6 wake-up pins */
 
 /*******************************************************************************
@@ -516,6 +516,12 @@ g_pfnVectors:
    .weak      FDCAN_CAL_IRQHandler   
    .thumb_set FDCAN_CAL_IRQHandler,Default_Handler   
                                                                   
+   .weak      CM7_SEV_IRQHandler   
+   .thumb_set CM7_SEV_IRQHandler,Default_Handler   
+
+   .weak      CM4_SEV_IRQHandler   
+   .thumb_set CM4_SEV_IRQHandler,Default_Handler   
+
    .weak      DMA2_Stream5_IRQHandler               
    .thumb_set DMA2_Stream5_IRQHandler,Default_Handler
                   
@@ -684,6 +690,9 @@ g_pfnVectors:
    .weak      HSEM1_IRQHandler            
    .thumb_set HSEM1_IRQHandler,Default_Handler
 
+   .weak      HSEM2_IRQHandler            
+   .thumb_set HSEM2_IRQHandler,Default_Handler
+
    .weak      ADC3_IRQHandler            
    .thumb_set ADC3_IRQHandler,Default_Handler 
 
@@ -732,6 +741,9 @@ g_pfnVectors:
    .weak      LPUART1_IRQHandler            
    .thumb_set LPUART1_IRQHandler,Default_Handler 
 
+   .weak      WWDG_RST_IRQHandler            
+   .thumb_set WWDG_RST_IRQHandler,Default_Handler
+
    .weak      CRS_IRQHandler            
    .thumb_set CRS_IRQHandler,Default_Handler 
 
@@ -740,6 +752,9 @@ g_pfnVectors:
 
    .weak      SAI4_IRQHandler            
    .thumb_set SAI4_IRQHandler,Default_Handler 
+
+   .weak      HOLD_CORE_IRQHandler            
+   .thumb_set HOLD_CORE_IRQHandler,Default_Handler 
 
    .weak      WAKEUP_PIN_IRQHandler            
    .thumb_set WAKEUP_PIN_IRQHandler,Default_Handler 
