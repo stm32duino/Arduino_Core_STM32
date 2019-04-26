@@ -17,6 +17,9 @@
 #ifdef STM32G0xx
 #include "stm32g0xx_hal_timebase_rtc_wakeup_template.c"
 #endif
+#ifdef STM32H7xx
+#include "stm32h7xx_hal_timebase_rtc_wakeup_template.c"
+#endif
 #ifdef STM32WBxx
 #include "stm32wbxx_hal_timebase_rtc_wakeup_template.c"
 #endif

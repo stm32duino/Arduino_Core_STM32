@@ -210,8 +210,8 @@
   */
 
 /** @defgroup COMP_Exported_Functions_Group1 Initialization/de-initialization functions
- *  @brief    Initialization and de-initialization functions.
- *
+  *  @brief    Initialization and de-initialization functions.
+  *
 @verbatim
  ===============================================================================
               ##### Initialization and de-initialization functions #####
@@ -697,8 +697,8 @@ HAL_StatusTypeDef HAL_COMP_UnRegisterCallback(COMP_HandleTypeDef *hcomp, HAL_COM
   */
 
 /** @defgroup COMP_Exported_Functions_Group2 Start-Stop operation functions
- *  @brief   Start-Stop operation functions.
- *
+  *  @brief   Start-Stop operation functions.
+  *
 @verbatim
  ===============================================================================
                       ##### IO operation functions #####
@@ -885,8 +885,8 @@ void HAL_COMP_IRQHandler(COMP_HandleTypeDef *hcomp)
   */
 
 /** @defgroup COMP_Exported_Functions_Group3 Peripheral Control functions
- *  @brief   Management functions.
- *
+  *  @brief   Management functions.
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -997,8 +997,8 @@ __weak void HAL_COMP_TriggerCallback(COMP_HandleTypeDef *hcomp)
   */
 
 /** @defgroup COMP_Exported_Functions_Group4 Peripheral State functions
- *  @brief   Peripheral State functions.
- *
+  *  @brief   Peripheral State functions.
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral State functions #####

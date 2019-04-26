@@ -155,83 +155,24 @@
          (##) Final phase: peripheral generates the authenticated tag (T) using the last block of data.
       (#)  structure of message construction in GCM is defined as below  :
          (##) 16 bytes Initial Counter Block (ICB)composed of IV and counter
-
-                                  ICB
-          +-------------------------------------------------------+
-          |       Initialization vector (IV)      |  Counter      |
-          |----------------|----------------|-----------|---------|
-         127              95                63            31       0
-
-
-              Bit Number    Register           Contents
-              ----------   ---------------       -----------
-              127 ...96    CRYP_IV1R[31:0]     ICB[127:96]
-              95  ...64    CRYP_IV1L[31:0]     B0[95:64]
-              63 ... 32    CRYP_IV0R[31:0]     ICB[63:32]
-              31 ... 0     CRYP_IV0L[31:0]     ICB[31:0], where 32-bit counter= 0x2
-
-
-
          (##) The authenticated header A (also knows as Additional Authentication Data AAD)
           this part of the message is only authenticated, not encrypted.
          (##) The plaintext message P is both authenticated and encrypted as ciphertext.
           GCM standard specifies that ciphertext has same bit length as the plaintext.
          (##) The last block is composed of the length of A (on 64 bits) and the length of ciphertext
           (on 64 bits)
-                                 GCM last block definition
-          +-------------------------------------------------------------------+
-          |  Bit[0]   |  Bit[32]           |  Bit[64]  | Bit[96]              |
-          |-----------|--------------------|-----------|----------------------|
-          |   0x0     | Header length[31:0]|     0x0   | Payload length[31:0] |
-          |-----------|--------------------|-----------|----------------------|
+          
+    [..]  A more detailed description of the GCM message structure is available below.         
 
     [..]  This section describe The AES Counter with Cipher Block Chaining-Message
           Authentication Code (CCM) supported by both CRYP1 and TinyAES peripheral:
       (#)  Specific parameters for CCM  :
 
-         (##) B0 block  : According to NIST Special Publication 800-38C,
-            The first block B0 is formatted as follows, where l(m) is encoded in
-            most-significant-byte first order:
-
-                Octet Number   Contents
-                ------------   ---------
-                0              Flags
-                1 ... 15-q     Nonce N
-                16-q ... 15    Q
-
-            the Flags field is formatted as follows:
-
-                Bit Number   Contents
-                ----------   ----------------------
-                7            Reserved (always zero)
-                6            Adata
-                5 ... 3      (t-2)/2
-                2 ... 0      [q-1]3
-
-              - Q: a bit string representation of the octet length of P (plaintext)
-              - q The octet length of the binary representation of the octet length of the payload
-              - A nonce (N), n The octet length of the where n+q=15.
-              - Flags: most significant octet containing four flags for control information,
-              - t The octet length of the MAC.
-         (##) B1 block (header) : associated data length(a) concatenated with Associated Data (A)
-              the associated data length expressed in bytes (a) defined as below:
-            - If 0 < a < 216-28, then it is encoded as [a]16, i.e. two octets
-            - If 216-28 < a < 232, then it is encoded as 0xff || 0xfe || [a]32, i.e. six octets
-            - If 232 < a < 264, then it is encoded as 0xff || 0xff || [a]64, i.e. ten octets
+         (##) B0 block  : follows NIST Special Publication 800-38C,
+         (##) B1 block (header) 
          (##) CTRx block  : control blocks
-            - Generation of CTR1 from first block B0 information :
-              equal to B0 with first 5 bits zeroed and most significant bits storing octet
-              length of P also zeroed, then incremented by one
-
-                Bit Number    Register           Contents
-                ----------   ---------------       -----------
-                127 ...96    CRYP_IV1R[31:0]     B0[127:96], where Q length bits are set to 0, except for
-                                                 bit 0 that is set to 1
-                95  ...64    CRYP_IV1L[31:0]     B0[95:64]
-                63 ... 32    CRYP_IV0R[31:0]     B0[63:32]
-                31 ... 0     CRYP_IV0L[31:0]     B0[31:0], where flag bits set to 0
-
-            - Generation of CTR0: same as CTR1 with bit[0] set to zero.
+             
+    [..]  A detailed description of the CCM message structure is available below.             
 
       (#)  Four phases are performed in CCM for CRYP1 peripheral:
          (##) Init phase: peripheral prepares the GCM hash subkey (H) and do the IV processing
@@ -1149,6 +1090,81 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
 @endverbatim
   * @{
   */
+
+/* GCM message structure additional details
+
+                                  ICB
+          +-------------------------------------------------------+
+          |       Initialization vector (IV)      |  Counter      |
+          |----------------|----------------|-----------|---------|
+         127              95                63            31       0
+
+
+              Bit Number    Register           Contents
+              ----------   ---------------       -----------
+              127 ...96    CRYP_IV1R[31:0]     ICB[127:96]
+              95  ...64    CRYP_IV1L[31:0]     B0[95:64]
+              63 ... 32    CRYP_IV0R[31:0]     ICB[63:32]
+              31 ... 0     CRYP_IV0L[31:0]     ICB[31:0], where 32-bit counter= 0x2
+
+
+
+                                 GCM last block definition
+          +-------------------------------------------------------------------+
+          |  Bit[0]   |  Bit[32]           |  Bit[64]  | Bit[96]              |
+          |-----------|--------------------|-----------|----------------------|
+          |   0x0     | Header length[31:0]|     0x0   | Payload length[31:0] |
+          |-----------|--------------------|-----------|----------------------|
+
+*/
+
+/* CCM message blocks description
+
+         (##) B0 block  : According to NIST Special Publication 800-38C,
+            The first block B0 is formatted as follows, where l(m) is encoded in
+            most-significant-byte first order:
+
+                Octet Number   Contents
+                ------------   ---------
+                0              Flags
+                1 ... 15-q     Nonce N
+                16-q ... 15    Q
+
+            the Flags field is formatted as follows:
+
+                Bit Number   Contents
+                ----------   ----------------------
+                7            Reserved (always zero)
+                6            Adata
+                5 ... 3      (t-2)/2
+                2 ... 0      [q-1]3
+
+              - Q: a bit string representation of the octet length of P (plaintext)
+              - q The octet length of the binary representation of the octet length of the payload
+              - A nonce (N), n The octet length of the where n+q=15.
+              - Flags: most significant octet containing four flags for control information,
+              - t The octet length of the MAC.
+         (##) B1 block (header) : associated data length(a) concatenated with Associated Data (A)
+              the associated data length expressed in bytes (a) defined as below:
+            - If 0 < a < 216-28, then it is encoded as [a]16, i.e. two octets
+            - If 216-28 < a < 232, then it is encoded as 0xff || 0xfe || [a]32, i.e. six octets
+            - If 232 < a < 264, then it is encoded as 0xff || 0xff || [a]64, i.e. ten octets
+         (##) CTRx block  : control blocks
+            - Generation of CTR1 from first block B0 information :
+              equal to B0 with first 5 bits zeroed and most significant bits storing octet
+              length of P also zeroed, then incremented by one
+
+                Bit Number    Register           Contents
+                ----------   ---------------       -----------
+                127 ...96    CRYP_IV1R[31:0]     B0[127:96], where Q length bits are set to 0, except for
+                                                 bit 0 that is set to 1
+                95  ...64    CRYP_IV1L[31:0]     B0[95:64]
+                63 ... 32    CRYP_IV0R[31:0]     B0[63:32]
+                31 ... 0     CRYP_IV0L[31:0]     B0[31:0], where flag bits set to 0
+
+            - Generation of CTR0: same as CTR1 with bit[0] set to zero.
+
+*/
 
 /**
   * @brief  Encryption mode.

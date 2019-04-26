@@ -1,6 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32h7xx_hal_conf_template.h
+  * @author  MCD Application Team
   * @brief   HAL configuration template file.
   *          This file should be copied to the application folder and renamed
   *          to stm32h7xx_hal_conf.h.
@@ -45,7 +46,9 @@ extern "C" {
 /* #define HAL_DFSDM_MODULE_ENABLED */
 #define HAL_DMA_MODULE_ENABLED
 /* #define HAL_DMA2D_MODULE_ENABLED */
+/* #define HAL_DSI_MODULE_ENABLED */
 #define HAL_ETH_MODULE_ENABLED
+/* #define HAL_EXTI_MODULE_ENABLED */
 /* #define HAL_FDCAN_MODULE_ENABLED */
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
@@ -69,6 +72,7 @@ extern "C" {
 /* #define HAL_PCD_MODULE_ENABLED */
 #define HAL_PWR_MODULE_ENABLED
 /* #define HAL_QSPI_MODULE_ENABLED */
+/* #define HAL_RAMECC_MODULE_ENABLED */
 #define HAL_RCC_MODULE_ENABLED
 /* #define HAL_RNG_MODULE_ENABLED */
 #define HAL_RTC_MODULE_ENABLED
@@ -118,15 +122,6 @@ extern "C" {
 #endif /* HSI_VALUE */
 
 /**
-  * @brief Internal Low Speed oscillator (LSI) value.
-  */
-#if !defined  (LSI_VALUE)
-#define LSI_VALUE  32000U                  /*!< LSI Typical Value in Hz*/
-#endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.  */
-
-/**
   * @brief External Low Speed oscillator (LSE) value.
   *        This value is used by the UART, RTC HAL module to compute the system frequency
   */
@@ -139,6 +134,11 @@ in voltage and temperature.  */
 #define LSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for LSE start up, in ms */
 #endif /* LSE_STARTUP_TIMEOUT */
 
+#if !defined  (LSI_VALUE)
+#define LSI_VALUE  ((uint32_t)32000)      /*!< LSI Typical Value in Hz*/
+#endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
+The real value may vary depending on the variations
+in voltage and temperature.*/
 /**
   * @brief External clock source for I2S peripheral
   *        This value is used by the I2S HAL module to compute the I2S clock source
@@ -168,6 +168,7 @@ in voltage and temperature.  */
 #define  USE_HAL_DCMI_REGISTER_CALLBACKS    0U /* DCMI register callback disabled    */
 #define  USE_HAL_DFSDM_REGISTER_CALLBACKS   0U /* DFSDM register callback disabled   */
 #define  USE_HAL_DMA2D_REGISTER_CALLBACKS   0U /* DMA2D register callback disabled   */
+#define  USE_HAL_DSI_REGISTER_CALLBACKS     0U /* DSI register callback disabled     */
 #define  USE_HAL_ETH_REGISTER_CALLBACKS     0U /* ETH register callback disabled     */
 #define  USE_HAL_FDCAN_REGISTER_CALLBACKS   0U /* FDCAN register callback disabled   */
 #define  USE_HAL_NAND_REGISTER_CALLBACKS    0U /* NAND register callback disabled    */
@@ -195,13 +196,11 @@ in voltage and temperature.  */
 #define  USE_HAL_SWPMI_REGISTER_CALLBACKS   0U /* SWPMI register callback disabled   */
 #define  USE_HAL_TIM_REGISTER_CALLBACKS     0U /* TIM register callback disabled     */
 #define  USE_HAL_WWDG_REGISTER_CALLBACKS    0U /* WWDG register callback disabled    */
+
 /* ########################### Ethernet Configuration ######################### */
 #define ETH_TX_DESC_CNT         4  /* number of Ethernet Tx DMA descriptors */
 #define ETH_RX_DESC_CNT         4  /* number of Ethernet Rx DMA descriptors */
 
-/* Section 1 : Ethernet peripheral configuration */
-
-/* MAC ADDRESS: MAC_ADDR0:MAC_ADDR1:MAC_ADDR2:MAC_ADDR3:MAC_ADDR4:MAC_ADDR5 */
 #define ETH_MAC_ADDR0    ((uint8_t)0x02)
 #define ETH_MAC_ADDR1    ((uint8_t)0x00)
 #define ETH_MAC_ADDR2    ((uint8_t)0x00)
@@ -209,54 +208,6 @@ in voltage and temperature.  */
 #define ETH_MAC_ADDR4    ((uint8_t)0x00)
 #define ETH_MAC_ADDR5    ((uint8_t)0x00)
 
-/* Definition of the Ethernet driver buffers size and count */
-#define ETH_RX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for receive               */
-#define ETH_TX_BUF_SIZE                ETH_MAX_PACKET_SIZE /* buffer size for transmit              */
-#define ETH_RXBUFNB                    (5U)                /* 5 Rx buffers of size ETH_RX_BUF_SIZE  */
-#define ETH_TXBUFNB                    (5U)                /* 5 Tx buffers of size ETH_TX_BUF_SIZE  */
-
-/* Section 2: PHY configuration section */
-/* LAN8742A PHY Address*/
-#define LAN8742A_PHY_ADDRESS            0x00U
-/* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
-#define PHY_RESET_DELAY                 0x000000FFU
-/* PHY Configuration delay */
-#define PHY_CONFIG_DELAY                0x00000FFFU
-
-#define PHY_READ_TO                     0x0000FFFFU
-#define PHY_WRITE_TO                    0x0000FFFFU
-
-/* Section 3: Common PHY Registers */
-
-#define PHY_BCR                         ((uint16_t)0x0000)  /*!< Transceiver Basic Control Register   */
-#define PHY_BSR                         ((uint16_t)0x0001)  /*!< Transceiver Basic Status Register    */
-
-#define PHY_RESET                       ((uint16_t)0x8000)  /*!< PHY Reset */
-#define PHY_LOOPBACK                    ((uint16_t)0x4000)  /*!< Select loop-back mode */
-#define PHY_FULLDUPLEX_100M             ((uint16_t)0x2100)  /*!< Set the full-duplex mode at 100 Mb/s */
-#define PHY_HALFDUPLEX_100M             ((uint16_t)0x2000)  /*!< Set the half-duplex mode at 100 Mb/s */
-#define PHY_FULLDUPLEX_10M              ((uint16_t)0x0100)  /*!< Set the full-duplex mode at 10 Mb/s  */
-#define PHY_HALFDUPLEX_10M              ((uint16_t)0x0000)  /*!< Set the half-duplex mode at 10 Mb/s  */
-#define PHY_AUTONEGOTIATION             ((uint16_t)0x1000)  /*!< Enable auto-negotiation function     */
-#define PHY_RESTART_AUTONEGOTIATION     ((uint16_t)0x0200)  /*!< Restart auto-negotiation function    */
-#define PHY_POWERDOWN                   ((uint16_t)0x0800)  /*!< Select the power down mode           */
-#define PHY_ISOLATE                     ((uint16_t)0x0400)  /*!< Isolate PHY from MII                 */
-
-#define PHY_AUTONEGO_COMPLETE           ((uint16_t)0x0020)  /*!< Auto-Negotiation process completed   */
-#define PHY_LINKED_STATUS               ((uint16_t)0x0004)  /*!< Valid link established               */
-#define PHY_JABBER_DETECTION            ((uint16_t)0x0002)  /*!< Jabber condition detected            */
-
-/* Section 4: Extended PHY Registers */
-
-#define PHY_SR                          ((uint16_t)0x1F)    /*!< PHY special control/ status register Offset     */
-
-#define PHY_SPEED_STATUS                ((uint16_t)0x0004)  /*!< PHY Speed mask                                  */
-#define PHY_DUPLEX_STATUS               ((uint16_t)0x0010)  /*!< PHY Duplex mask                                 */
-
-
-#define PHY_ISFR                        ((uint16_t)0x1D)    /*!< PHY Interrupt Source Flag register Offset       */
-#define PHY_IMR                         ((uint16_t)0x1E)    /*!< PHY Interrupt Mask register Offset              */
-#define PHY_ISFR_INT4                   ((uint16_t)0x0010)  /*!< PHY Link down inturrupt                         */
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -264,16 +215,6 @@ in voltage and temperature.  */
   *        HAL drivers code
   */
 /* #define USE_FULL_ASSERT    1 */
-
-/* ################## SPI peripheral configuration ########################## */
-/**
-  * @brief Used to activate CRC feature inside HAL SPI Driver
-  *        Activated   (1U): CRC code is compiled within HAL SPI driver
-  *        Deactivated (0U): CRC code excluded from HAL SPI driver
-  */
-
-#define USE_SPI_CRC                   0U
-
 
 /* Includes ------------------------------------------------------------------*/
 /**
@@ -307,6 +248,10 @@ in voltage and temperature.  */
 #ifdef HAL_DMA2D_MODULE_ENABLED
 #include "stm32h7xx_hal_dma2d.h"
 #endif /* HAL_DMA2D_MODULE_ENABLED */
+
+#ifdef HAL_DSI_MODULE_ENABLED
+#include "stm32h7xx_hal_dsi.h"
+#endif /* HAL_DSI_MODULE_ENABLED */
 
 #ifdef HAL_DFSDM_MODULE_ENABLED
 #include "stm32h7xx_hal_dfsdm.h"
@@ -502,11 +447,11 @@ in voltage and temperature.  */
   *         If expr is true, it returns no value.
   * @retval None
   */
-#define assert_param(expr) ((expr) ? (void)0 : assert_failed((uint8_t *)__FILE__, __LINE__))
+#define assert_param(expr) ((expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__))
 /* Exported functions ------------------------------------------------------- */
 void assert_failed(uint8_t *file, uint32_t line);
 #else
-#define assert_param(expr) ((void)0)
+#define assert_param(expr) ((void)0U)
 #endif /* USE_FULL_ASSERT */
 
 #ifdef __cplusplus

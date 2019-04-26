@@ -44,8 +44,8 @@ extern "C" {
 /** @defgroup FLASHEx_Empty_Check FLASHEx Empty Check
   * @{
   */
-#define FLASH_PROG_NOT_EMPTY                0x00000000u         /*!< 1st location in Flash is programmed */
-#define FLASH_PROG_EMPTY                    FLASH_ACR_PROGEMPTY /*!< 1st location in Flash is empty */
+#define FLASH_PROG_NOT_EMPTY                0x00000000u          /*!< 1st location in Flash is programmed */
+#define FLASH_PROG_EMPTY                    FLASH_ACR_PROGEMPTY  /*!< 1st location in Flash is empty */
 /**
   * @}
   */
@@ -86,8 +86,8 @@ void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
 /** @defgroup FLASHEx_Private_Constants FLASHEx Private Constants
   * @{
   */
-#define FLASH_PCROP_GRANULARITY_OFFSET             9u
-#define FLASH_PCROP_GRANULARITY                    (1u << FLASH_PCROP_GRANULARITY_OFFSET)
+#define FLASH_PCROP_GRANULARITY_OFFSET             9u                                        /*!< FLASH Code Readout Protection granularity offset */
+#define FLASH_PCROP_GRANULARITY                    (1UL << FLASH_PCROP_GRANULARITY_OFFSET)   /*!< FLASH Code Readout Protection granularity, 512 Bytes */
 /**
   * @}
   */

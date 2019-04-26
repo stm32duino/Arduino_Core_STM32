@@ -947,7 +947,7 @@ HAL_StatusTypeDef HAL_SD_ReadBlocks_IT(SD_HandleTypeDef *hsd, uint8_t *pData, ui
     hsd->pRxBuffPtr = (uint32_t *)pData;
     hsd->RxXferSize = BLOCKSIZE * NumberOfBlocks;
 
-#ifdef SDIO_STA_STBITER
+#ifdef SDIO_STA_STBITERR
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_RXOVERR | SDIO_IT_DATAEND | SDIO_FLAG_RXFIFOHF | SDIO_IT_STBITERR));
 #else /* SDIO_STA_STBITERR not defined */
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_RXOVERR | SDIO_IT_DATAEND | SDIO_FLAG_RXFIFOHF));
@@ -1053,7 +1053,7 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks_IT(SD_HandleTypeDef *hsd, uint8_t *pData, u
     hsd->TxXferSize = BLOCKSIZE * NumberOfBlocks;
 
     /* Enable transfer interrupts */
-#ifdef SDIO_STA_STBITER
+#ifdef SDIO_STA_STBITERR
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_TXUNDERR | SDIO_IT_DATAEND | SDIO_FLAG_TXFIFOHE | SDIO_IT_STBITERR));
 #else /* SDIO_STA_STBITERR not defined */
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_TXUNDERR | SDIO_IT_DATAEND | SDIO_FLAG_TXFIFOHE));
@@ -1155,7 +1155,7 @@ HAL_StatusTypeDef HAL_SD_ReadBlocks_DMA(SD_HandleTypeDef *hsd, uint8_t *pData, u
     /* Initialize data control register */
     hsd->Instance->DCTRL = 0U;
 
-#ifdef SDIO_STA_STBITER
+#ifdef SDIO_STA_STBITERR
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_RXOVERR | SDIO_IT_DATAEND | SDIO_IT_STBITERR));
 #else /* SDIO_STA_STBITERR not defined */
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_RXOVERR | SDIO_IT_DATAEND));
@@ -1273,7 +1273,7 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks_DMA(SD_HandleTypeDef *hsd, uint8_t *pData, 
     hsd->Instance->DCTRL = 0U;
 
     /* Enable SD Error interrupts */
-#ifdef SDIO_STA_STBITER
+#ifdef SDIO_STA_STBITERR
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_TXUNDERR | SDIO_IT_STBITERR));
 #else /* SDIO_STA_STBITERR not defined */
     __HAL_SD_ENABLE_IT(hsd, (SDIO_IT_DCRCFAIL | SDIO_IT_DTIMEOUT | SDIO_IT_TXUNDERR));

@@ -6,12 +6,12 @@
   * STM32F3: 2.3.3
   * STM32F4: 2.6.3
   * STM32F7: 1.2.4
-  * STM32G0: 1.1.0
-  * STM32H7: 1.4.0
+  * STM32G0: 1.2.0
+  * STM32H7: 1.5.0
   * STM32L0: 1.9.0
-  * STM32L1: 2.2.3
-  * STM32L4: 1.5.0
-  * STM32WB: 1.0.0
+  * STM32L1: 2.3.0
+  * STM32L4: 1.5.1
+  * STM32WB: 1.1.0
 
 Release notes of each STM32YYxx CMSIS available here:
 

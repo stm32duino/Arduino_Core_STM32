@@ -214,6 +214,7 @@
   * @{
   */
 #define SPI_DEFAULT_TIMEOUT 100U
+#define SPI_BSY_FLAG_WORKAROUND_TIMEOUT 1000U /*!< Timeout 1000 µs             */
 /**
   * @}
   */
@@ -3444,11 +3445,36 @@ static HAL_StatusTypeDef SPI_EndRxTransaction(SPI_HandleTypeDef *hspi,  uint32_t
     __HAL_SPI_DISABLE(hspi);
   }
 
-  /* Control the BSY flag */
-  if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+  /* Erratasheet: BSY bit may stay high at the end of a data transfer in Slave mode */
+  if (hspi->Init.Mode == SPI_MODE_MASTER)
   {
-    SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
-    return HAL_TIMEOUT;
+    if (hspi->Init.Direction != SPI_DIRECTION_2LINES_RXONLY)
+    {
+      /* Control the BSY flag */
+      if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+      {
+        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+        return HAL_TIMEOUT;
+      }
+    }
+    else
+    {
+      /* Wait the RXNE reset */
+      if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, RESET, Timeout, Tickstart) != HAL_OK)
+      {
+        SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+        return HAL_TIMEOUT;
+      }
+    }
+  }
+  else
+  {
+    /* Wait the RXNE reset */
+    if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_RXNE, RESET, Timeout, Tickstart) != HAL_OK)
+    {
+      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+      return HAL_TIMEOUT;
+    }
   }
   return HAL_OK;
 }
@@ -3462,12 +3488,35 @@ static HAL_StatusTypeDef SPI_EndRxTransaction(SPI_HandleTypeDef *hspi,  uint32_t
   */
 static HAL_StatusTypeDef SPI_EndRxTxTransaction(SPI_HandleTypeDef *hspi, uint32_t Timeout, uint32_t Tickstart)
 {
-  /* Control the BSY flag */
-  if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+  /* Timeout in µs */
+  __IO uint32_t count = SPI_BSY_FLAG_WORKAROUND_TIMEOUT * (SystemCoreClock / 24U / 1000000U);
+  /* Erratasheet: BSY bit may stay high at the end of a data transfer in Slave mode */
+  if (hspi->Init.Mode == SPI_MODE_MASTER)
   {
-    SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
-    return HAL_TIMEOUT;
+    /* Control the BSY flag */
+    if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+    {
+      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+      return HAL_TIMEOUT;
+    }
   }
+  else
+  {
+    /* Wait BSY flag during 1 Byte time transfer in case of Full-Duplex and Tx transfer
+    * If Timeout is reached, the transfer is considered as finish.
+    * User have to calculate the timeout value to fit with the time of 1 byte transfer.
+    * This time is directly link with the SPI clock from Master device.
+    */
+    do
+    {
+      if (count == 0U)
+      {
+        break;
+      }
+      count--;
+    } while (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_BSY) != RESET);
+  }
+
   return HAL_OK;
 }
 

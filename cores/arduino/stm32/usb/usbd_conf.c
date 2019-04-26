@@ -141,8 +141,12 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 
     if (hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI Line 18 for USB wakeup */
+#ifdef __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG
       __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
+#endif
+#ifdef __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
+#endif
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT();
 #if !defined(STM32L4xx)
       /* Set EXTI Wakeup Interrupt priority */
@@ -177,8 +181,12 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 
     if (hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI Line 20 for USB wakeup */
+#ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG
       __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
+#endif
+#ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
+#endif
       __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_IT();
 
       /* Set EXTI Wakeup Interrupt priority */
@@ -434,13 +442,13 @@ void USBWakeUp_IRQHandler(void)
     /* ungate PHY clock */
     __HAL_PCD_UNGATE_PHYCLOCK((&g_hpcd));
   }
-#ifdef USE_USB_HS
+#ifdef USE_USB_HS &&  defined(__HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG)
   /* Clear EXTI pending Bit*/
   __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
-#elif defined(USB_OTG_FS)
+#elif defined(USB_OTG_FS) && defined(__HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG)
   /* Clear EXTI pending Bit*/
   __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
-#else
+#elif defined(__HAL_USB_WAKEUP_EXTI_CLEAR_FLAG)
   __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
 #endif
 }

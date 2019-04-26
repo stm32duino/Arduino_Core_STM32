@@ -81,7 +81,7 @@ extern "C" {
   * @retval Pointer to register address
   */
 #define __COMP_PTR_REG_OFFSET(__REG__, __REG_OFFFSET__)                        \
- ((__IO uint32_t *)((uint32_t) ((uint32_t)(&(__REG__)) + ((__REG_OFFFSET__) << 2UL))))
+  ((__IO uint32_t *)((uint32_t) ((uint32_t)(&(__REG__)) + ((__REG_OFFFSET__) << 2UL))))
 
 /**
   * @}
@@ -380,7 +380,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowMode(COMP_Common_TypeDef *COMPxy
   register const uint32_t window_mode_comp_odd = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_ODD, COMP_CSR_WINMODE);
   register const uint32_t window_mode_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINMODE);
 
-  return (uint32_t)(  window_mode_comp_odd
+  return (uint32_t)(window_mode_comp_odd
                     | window_mode_comp_even
                     | ((window_mode_comp_even >> LL_COMP_WINDOWMODE_BITOFFSET_POS) * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK));
 }
@@ -435,7 +435,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetCommonWindowOutput(COMP_Common_TypeDef *COMP
   register const uint32_t window_output_comp_even = (uint32_t)READ_BIT(COMPxy_COMMON->CSR_EVEN, COMP_CSR_WINOUT);
 
   /* Construct value corresponding to LL_COMP_WINDOWOUTPUT_xxx */
-  return (uint32_t)(  window_output_comp_odd
+  return (uint32_t)(window_output_comp_odd
                     | window_output_comp_even
                     | ((window_output_comp_even >> COMP_CSR_WINOUT_Pos) * LL_COMP_WINDOWMODE_COMP_EVEN_REGOFFSET_MASK)
                     | (window_output_comp_odd + window_output_comp_even));

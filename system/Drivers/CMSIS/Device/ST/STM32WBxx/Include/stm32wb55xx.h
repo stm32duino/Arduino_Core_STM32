@@ -4054,9 +4054,9 @@ typedef struct
 #define FLASH_ACR_LATENCY_Pos               (0U)                               
 #define FLASH_ACR_LATENCY_Msk               (0x7UL << FLASH_ACR_LATENCY_Pos)   /*!< 0x00000007 */
 #define FLASH_ACR_LATENCY                   FLASH_ACR_LATENCY_Msk              /*!< Latency                                             */
-#define FLASH_ACR_LATENCY_0                 (0x1U << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000001 */
-#define FLASH_ACR_LATENCY_1                 (0x2U << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000002 */
-#define FLASH_ACR_LATENCY_2                 (0x4U << FLASH_ACR_LATENCY_Pos)    /*!< 0x00000004 */
+#define FLASH_ACR_LATENCY_0                 (0x1UL << FLASH_ACR_LATENCY_Pos)   /*!< 0x00000001 */
+#define FLASH_ACR_LATENCY_1                 (0x2UL << FLASH_ACR_LATENCY_Pos)   /*!< 0x00000002 */
+#define FLASH_ACR_LATENCY_2                 (0x4UL << FLASH_ACR_LATENCY_Pos)   /*!< 0x00000004 */
 #define FLASH_ACR_PRFTEN_Pos                (8U)                               
 #define FLASH_ACR_PRFTEN_Msk                (0x1UL << FLASH_ACR_PRFTEN_Pos)    /*!< 0x00000100 */
 #define FLASH_ACR_PRFTEN                    FLASH_ACR_PRFTEN_Msk               /*!< Prefetch enable                                     */

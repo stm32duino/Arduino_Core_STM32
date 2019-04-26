@@ -5449,11 +5449,13 @@ static void I2C_Master_SB(I2C_HandleTypeDef *hi2c)
         hi2c->Instance->DR = I2C_7BIT_ADD_READ(hi2c->Devaddress);
       }
 
-      if (((hi2c->hdmatx) && (hi2c->hdmatx->XferCpltCallback != NULL)) ||
-          ((hi2c->hdmarx) && (hi2c->hdmarx->XferCpltCallback != NULL)))
+      if ((hi2c->hdmatx != NULL) || (hi2c->hdmarx != NULL))
       {
-        /* Enable DMA Request */
-        SET_BIT(hi2c->Instance->CR2, I2C_CR2_DMAEN);
+        if ((hi2c->hdmatx->XferCpltCallback != NULL) || (hi2c->hdmarx->XferCpltCallback != NULL))
+        {
+          /* Enable DMA Request */
+          SET_BIT(hi2c->Instance->CR2, I2C_CR2_DMAEN);
+        }
       }
     }
     else

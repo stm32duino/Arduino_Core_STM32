@@ -469,6 +469,45 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   */
 #define __HAL_COMP_COMP1_EXTID3_DISABLE_EVENT()        CLEAR_BIT(EXTI->D3PMR1, COMP_EXTI_LINE_COMP1)
 
+#if defined(DUAL_CORE)
+/**
+  * @brief  Enable the COMP1 D2 EXTI line in interrupt mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP1_EXTID2_ENABLE_IT()           SET_BIT(EXTI_D2->IMR1, COMP_EXTI_LINE_COMP1)
+
+/**
+  * @brief  Disable the COMP1 D2 EXTI line in interrupt mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP1_EXTID2_DISABLE_IT()          CLEAR_BIT(EXTI_D2->IMR1, COMP_EXTI_LINE_COMP1)
+
+/**
+  * @brief  Enable the COMP1 D2 EXTI Line in event mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP1_EXTID2_ENABLE_EVENT()         SET_BIT(EXTI_D2->EMR1, COMP_EXTI_LINE_COMP1)
+
+/**
+  * @brief  Disable the COMP1 D2 EXTI Line in event mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP1_EXTID2_DISABLE_EVENT()        CLEAR_BIT(EXTI_D2->EMR1, COMP_EXTI_LINE_COMP1)
+
+/**
+  * @brief  Check whether the COMP1 D2 EXTI line flag is set or not.
+  * @retval RESET or SET
+  */
+#define __HAL_COMP_COMP1_EXTID2_GET_FLAG()              READ_BIT(EXTI_D2->PR1, COMP_EXTI_LINE_COMP1)
+
+/**
+  * @brief  Clear the COMP1 D2 EXTI flag.
+  * @retval None
+  */
+#define __HAL_COMP_COMP1_EXTID2_CLEAR_FLAG()            WRITE_REG(EXTI_D2->PR1, COMP_EXTI_LINE_COMP1)
+
+#endif
+
 /**
   * @brief  Enable the COMP2 EXTI line rising edge trigger.
   * @retval None
@@ -564,6 +603,50 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
   */
 #define __HAL_COMP_COMP2_EXTI_GENERATE_SWIT()         SET_BIT(EXTI->SWIER1, COMP_EXTI_LINE_COMP2)
 
+#if defined(DUAL_CORE)
+/**
+  * @brief  Enable the COMP2 D2 EXTI line
+  * @retval None
+  */
+#define __HAL_COMP_COMP2_EXTID2_ENABLE_IT()           SET_BIT(EXTI_D2->IMR1, COMP_EXTI_LINE_COMP2)
+
+
+/**
+  * @brief  Disable the COMP2 D2 EXTI line.
+  * @retval None
+  */
+#define __HAL_COMP_COMP2_EXTID2_DISABLE_IT()          CLEAR_BIT(EXTI_D2->IMR1, COMP_EXTI_LINE_COMP2)
+
+
+
+/**
+  * @brief  Enable the COMP2 D2 EXTI Line in event mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP2_EXTID2_ENABLE_EVENT()         SET_BIT(EXTI_D2->EMR1, COMP_EXTI_LINE_COMP2)
+
+
+
+/**
+  * @brief  Disable the COMP2 D2 EXTI Line in event mode.
+  * @retval None
+  */
+#define __HAL_COMP_COMP2_EXTID2_DISABLE_EVENT()        CLEAR_BIT(EXTI_D2->EMR1, COMP_EXTI_LINE_COMP2)
+
+
+/**
+  * @brief  Check whether the COMP2 D2 EXTI line flag is set or not.
+  * @retval RESET or SET
+  */
+#define __HAL_COMP_COMP2_EXTID2_GET_FLAG()            READ_BIT(EXTI_D2->PR1, COMP_EXTI_LINE_COMP2)
+
+/**
+  * @brief  Clear the the COMP2 D2 EXTI flag.
+  * @retval None
+  */
+#define __HAL_COMP_COMP2_EXTID2_CLEAR_FLAG()          WRITE_REG(EXTI_D2->PR1, COMP_EXTI_LINE_COMP2)
+
+#endif
 /** @brief  Checks if the specified COMP interrupt source is enabled or disabled.
   * @param  __HANDLE__: specifies the COMP Handle.
   *         This parameter can be COMP1 where x: 1 or 2 to select the COMP peripheral.

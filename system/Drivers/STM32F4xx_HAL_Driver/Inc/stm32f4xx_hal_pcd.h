@@ -152,9 +152,9 @@ typedef struct
 /** @defgroup PCD_Speed PCD Speed
   * @{
   */
-#define PCD_SPEED_HIGH               0U
-#define PCD_SPEED_HIGH_IN_FULL       1U
-#define PCD_SPEED_FULL               2U
+#define PCD_SPEED_HIGH               USBD_HS_SPEED
+#define PCD_SPEED_HIGH_IN_FULL       USBD_HSINFS_SPEED
+#define PCD_SPEED_FULL               USBD_FS_SPEED
 /**
   * @}
   */
@@ -211,20 +211,20 @@ typedef struct
 #define __HAL_USB_OTG_HS_WAKEUP_EXTI_GET_FLAG()     EXTI->PR & (USB_OTG_HS_WAKEUP_EXTI_LINE)
 #define __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG()   EXTI->PR = (USB_OTG_HS_WAKEUP_EXTI_LINE)
 
-#define __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE()                 \
-                        do {                                        \
+#define __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE() \
+                        do { \
                              EXTI->FTSR &= ~(USB_OTG_HS_WAKEUP_EXTI_LINE); \
-                             EXTI->RTSR |= USB_OTG_HS_WAKEUP_EXTI_LINE;    \
+                             EXTI->RTSR |= USB_OTG_HS_WAKEUP_EXTI_LINE; \
                            } while(0U)
 #define __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT()    EXTI->IMR |= USB_OTG_FS_WAKEUP_EXTI_LINE
 #define __HAL_USB_OTG_FS_WAKEUP_EXTI_DISABLE_IT()   EXTI->IMR &= ~(USB_OTG_FS_WAKEUP_EXTI_LINE)
 #define __HAL_USB_OTG_FS_WAKEUP_EXTI_GET_FLAG()     EXTI->PR & (USB_OTG_FS_WAKEUP_EXTI_LINE)
 #define __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG()   EXTI->PR = USB_OTG_FS_WAKEUP_EXTI_LINE
 
-#define __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE()                 \
-                        do {                                        \
+#define __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE() \
+                        do { \
                              EXTI->FTSR &= ~(USB_OTG_FS_WAKEUP_EXTI_LINE); \
-                             EXTI->RTSR |= USB_OTG_FS_WAKEUP_EXTI_LINE;    \
+                             EXTI->RTSR |= USB_OTG_FS_WAKEUP_EXTI_LINE; \
                            } while(0U)
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 

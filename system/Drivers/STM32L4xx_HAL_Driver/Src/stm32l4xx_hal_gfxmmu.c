@@ -2,13 +2,13 @@
   ******************************************************************************
   * @file    stm32l4xx_hal_gfxmmu.c
   * @author  MCD Application Team
-  * @brief   This file provides firmware functions to manage the following 
+  * @brief   This file provides firmware functions to manage the following
   *          functionalities of the Graphic MMU (GFXMMU) peripheral:
   *           + Initialization and De-initialization.
   *           + LUT configuration.
   *           + Modify physical buffer adresses.
   *           + Error management.
-  *         
+  *
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -21,7 +21,7 @@
         (++) Enable GFXMMU clock interface with __HAL_RCC_GFXMMU_CLK_ENABLE().
         (++) If interrupts are used, enable and configure GFXMMU global
             interrupt with HAL_NVIC_SetPriority() and HAL_NVIC_EnableIRQ().
-      (#) Configure the number of blocks per line, default value, physical 
+      (#) Configure the number of blocks per line, default value, physical
           buffer addresses and interrupts using the HAL_GFXMMU_Init() function.
 
     *** LUT configuration ***
@@ -34,7 +34,7 @@
 
     *** Modify physical buffer adresses ***
     =======================================
-    [..]    
+    [..]
       (#) Use HAL_GFXMMU_ModifyBuffers() to modify physical buffer addresses.
 
     *** Error management ***
@@ -46,7 +46,7 @@
 
     *** De-initialization ***
     =========================
-    [..]    
+    [..]
       (#) As prerequisite, fill in the HAL_GFXMMU_MspDeInit() :
         (++) Disable GFXMMU clock interface with __HAL_RCC_GFXMMU_CLK_ENABLE().
         (++) If interrupts has been used, disable GFXMMU global interrupt with
@@ -55,44 +55,51 @@
 
     *** Callback registration ***
     =============================
-
+    [..]
     The compilation define USE_HAL_GFXMMU_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
-    Use functions @ref HAL_GFXMMU_RegisterCallback() to register a user callback.
+    Use functions HAL_GFXMMU_RegisterCallback() to register a user callback.
 
-    Function @ref HAL_GFXMMU_RegisterCallback() allows to register following callbacks:
+    [..]
+    Function HAL_GFXMMU_RegisterCallback() allows to register following callbacks:
       (+) ErrorCallback      : GFXMMU error.
       (+) MspInitCallback    : GFXMMU MspInit.
       (+) MspDeInitCallback  : GFXMMU MspDeInit.
+    [..]
     This function takes as parameters the HAL peripheral handle, the callback ID
     and a pointer to the user callback function.
 
-    Use function @ref HAL_GFXMMU_UnRegisterCallback() to reset a callback to the default
+    [..]
+    Use function HAL_GFXMMU_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function.
-    @ref HAL_GFXMMU_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+    HAL_GFXMMU_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the callback ID.
+    [..]
     This function allows to reset following callbacks:
       (+) ErrorCallback      : GFXMMU error.
       (+) MspInitCallback    : GFXMMU MspInit.
       (+) MspDeInitCallback  : GFXMMU MspDeInit.
 
-    By default, after the @ref HAL_GFXMMU_Init and if the state is HAL_GFXMMU_STATE_RESET
+    [..]
+    By default, after the HAL_GFXMMU_Init and if the state is HAL_GFXMMU_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions:
-    examples @ref HAL_GFXMMU_ErrorCallback().
+    examples HAL_GFXMMU_ErrorCallback().
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_GFXMMU_Init
-    and @ref  HAL_GFXMMU_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_GFXMMU_Init and @ref HAL_GFXMMU_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_GFXMMU_Init
+    and HAL_GFXMMU_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_GFXMMU_Init and HAL_GFXMMU_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
+    [..]
     Callbacks can be registered/unregistered in READY state only.
     Exception done for MspInit/MspDeInit callbacks that can be registered/unregistered
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_GFXMMU_RegisterCallback before calling @ref HAL_GFXMMU_DeInit
-    or @ref HAL_GFXMMU_Init function.
+    using HAL_GFXMMU_RegisterCallback before calling HAL_GFXMMU_DeInit
+    or HAL_GFXMMU_Init function.
 
+    [..]
     When the compilation define USE_HAL_GFXMMU_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
@@ -101,29 +108,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -155,7 +146,7 @@
   */
 
 /** @defgroup GFXMMU_Exported_Functions_Group1 Initialization and de-initialization functions
- *  @brief    Initialization and de-initialization functions 
+ *  @brief    Initialization and de-initialization functions
  *
 @verbatim
   ==============================================================================
@@ -177,7 +168,7 @@
 HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check GFXMMU handle */
   if(hgfxmmu == NULL)
   {
@@ -193,7 +184,7 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
     assert_param(IS_GFXMMU_BUFFER_ADDRESS(hgfxmmu->Init.Buffers.Buf2Address));
     assert_param(IS_GFXMMU_BUFFER_ADDRESS(hgfxmmu->Init.Buffers.Buf3Address));
     assert_param(IS_FUNCTIONAL_STATE(hgfxmmu->Init.Interrupts.Activation));
-    
+
 #if (USE_HAL_GFXMMU_REGISTER_CALLBACKS == 1)
     /* Reset callback pointers to the weak predefined callbacks */
     hgfxmmu->ErrorCallback = HAL_GFXMMU_ErrorCallback;
@@ -208,7 +199,7 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
     /* Call GFXMMU MSP init function */
     HAL_GFXMMU_MspInit(hgfxmmu);
 #endif
-    
+
     /* Configure blocks per line and interrupts parameters on GFXMMU_CR register */
     hgfxmmu->Instance->CR &= ~(GFXMMU_CR_B0OIE | GFXMMU_CR_B1OIE | GFXMMU_CR_B2OIE | GFXMMU_CR_B3OIE |
                                GFXMMU_CR_AMEIE | GFXMMU_CR_192BM);
@@ -218,19 +209,19 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
       assert_param(IS_GFXMMU_INTERRUPTS(hgfxmmu->Init.Interrupts.UsedInterrupts));
       hgfxmmu->Instance->CR |= hgfxmmu->Init.Interrupts.UsedInterrupts;
     }
-    
+
     /* Configure default value on GFXMMU_DVR register */
     hgfxmmu->Instance->DVR = hgfxmmu->Init.DefaultValue;
-    
+
     /* Configure physical buffer adresses on GFXMMU_BxCR registers */
     hgfxmmu->Instance->B0CR = hgfxmmu->Init.Buffers.Buf0Address;
     hgfxmmu->Instance->B1CR = hgfxmmu->Init.Buffers.Buf1Address;
     hgfxmmu->Instance->B2CR = hgfxmmu->Init.Buffers.Buf2Address;
     hgfxmmu->Instance->B3CR = hgfxmmu->Init.Buffers.Buf3Address;
-    
+
     /* Reset GFXMMU error code */
     hgfxmmu->ErrorCode = GFXMMU_ERROR_NONE;
-    
+
     /* Set GFXMMU to ready state */
     hgfxmmu->State = HAL_GFXMMU_STATE_READY;
   }
@@ -246,7 +237,7 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
 HAL_StatusTypeDef HAL_GFXMMU_DeInit(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check GFXMMU handle */
   if(hgfxmmu == NULL)
   {
@@ -256,11 +247,11 @@ HAL_StatusTypeDef HAL_GFXMMU_DeInit(GFXMMU_HandleTypeDef *hgfxmmu)
   {
     /* Check parameters */
     assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
-    
+
     /* Disable all interrupts on GFXMMU_CR register */
     hgfxmmu->Instance->CR &= ~(GFXMMU_CR_B0OIE | GFXMMU_CR_B1OIE | GFXMMU_CR_B2OIE | GFXMMU_CR_B3OIE |
                                GFXMMU_CR_AMEIE);
-    
+
     /* Call GFXMMU MSP de-init function */
 #if (USE_HAL_GFXMMU_REGISTER_CALLBACKS == 1)
     if(hgfxmmu->MspDeInitCallback == NULL)
@@ -271,7 +262,7 @@ HAL_StatusTypeDef HAL_GFXMMU_DeInit(GFXMMU_HandleTypeDef *hgfxmmu)
 #else
     HAL_GFXMMU_MspDeInit(hgfxmmu);
 #endif
-    
+
     /* Set GFXMMU to reset state */
     hgfxmmu->State = HAL_GFXMMU_STATE_RESET;
   }
@@ -288,7 +279,7 @@ __weak void HAL_GFXMMU_MspInit(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hgfxmmu);
-  
+
   /* NOTE : This function should not be modified, when the function is needed,
             the HAL_GFXMMU_MspInit could be implemented in the user file.
    */
@@ -303,7 +294,7 @@ __weak void HAL_GFXMMU_MspDeInit(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hgfxmmu);
-  
+
   /* NOTE : This function should not be modified, when the function is needed,
             the HAL_GFXMMU_MspDeInit could be implemented in the user file.
    */
@@ -488,12 +479,12 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(GFXMMU_HandleTypeDef *hgfxmmu,
                                        uint32_t Address)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check parameters */
   assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
   assert_param(IS_GFXMMU_LUT_LINE(FirstLine));
   assert_param(IS_GFXMMU_LUT_LINES_NUMBER(LinesNumber));
-  
+
   /* Check GFXMMU state and coherent parameters */
   if((hgfxmmu->State != HAL_GFXMMU_STATE_READY) || ((FirstLine + LinesNumber) > 1024U))
   {
@@ -502,13 +493,13 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLut(GFXMMU_HandleTypeDef *hgfxmmu,
   else
   {
     uint32_t current_address, current_line, lutxl_address, lutxh_address;
-    
+
     /* Initialize local variables */
     current_address = Address;
     current_line    = 0U;
     lutxl_address   = (uint32_t) &(hgfxmmu->Instance->LUT[2U * FirstLine]);
     lutxh_address   = (uint32_t) &(hgfxmmu->Instance->LUT[(2U * FirstLine) + 1U]);
-    
+
     /* Copy LUT from flash to look up RAM */
     while(current_line < LinesNumber)
     {
@@ -539,12 +530,12 @@ HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
                                              uint32_t LinesNumber)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check parameters */
   assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
   assert_param(IS_GFXMMU_LUT_LINE(FirstLine));
   assert_param(IS_GFXMMU_LUT_LINES_NUMBER(LinesNumber));
-  
+
   /* Check GFXMMU state and coherent parameters */
   if((hgfxmmu->State != HAL_GFXMMU_STATE_READY) || ((FirstLine + LinesNumber) > 1024U))
   {
@@ -553,12 +544,12 @@ HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
   else
   {
     uint32_t current_line, lutxl_address, lutxh_address;
-    
+
     /* Initialize local variables */
     current_line    = 0U;
     lutxl_address   = (uint32_t) &(hgfxmmu->Instance->LUT[2U * FirstLine]);
     lutxh_address   = (uint32_t) &(hgfxmmu->Instance->LUT[(2U * FirstLine) + 1U]);
-    
+
     /* Disable LUT lines */
     while(current_line < LinesNumber)
     {
@@ -582,7 +573,7 @@ HAL_StatusTypeDef HAL_GFXMMU_DisableLutLines(GFXMMU_HandleTypeDef *hgfxmmu,
 HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_LutLineTypeDef *lutLine)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check parameters */
   assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
   assert_param(IS_GFXMMU_LUT_LINE(lutLine->LineNumber));
@@ -590,7 +581,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   assert_param(IS_GFXMMU_LUT_BLOCK(lutLine->FirstVisibleBlock));
   assert_param(IS_GFXMMU_LUT_BLOCK(lutLine->LastVisibleBlock));
   assert_param(IS_GFXMMU_LUT_LINE_OFFSET(lutLine->LineOffset));
-  
+
   /* Check GFXMMU state */
   if(hgfxmmu->State != HAL_GFXMMU_STATE_READY)
   {
@@ -599,17 +590,17 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   else
   {
     uint32_t lutxl_address, lutxh_address;
-    
+
     /* Initialize local variables */
     lutxl_address   = (uint32_t) &(hgfxmmu->Instance->LUT[2U * lutLine->LineNumber]);
     lutxh_address   = (uint32_t) &(hgfxmmu->Instance->LUT[(2U * lutLine->LineNumber) + 1U]);
-    
+
     /* Configure LUT line */
     if(lutLine->LineStatus == GFXMMU_LUT_LINE_ENABLE)
     {
       /* Enable and configure LUT line */
-      *((uint32_t *)lutxl_address) = (lutLine->LineStatus | 
-                                     (lutLine->FirstVisibleBlock << GFXMMU_LUTXL_FVB_OFFSET) | 
+      *((uint32_t *)lutxl_address) = (lutLine->LineStatus |
+                                     (lutLine->FirstVisibleBlock << GFXMMU_LUTXL_FVB_OFFSET) |
                                      (lutLine->LastVisibleBlock << GFXMMU_LUTXL_LVB_OFFSET));
       *((uint32_t *)lutxh_address) = (uint32_t) lutLine->LineOffset;
     }
@@ -633,14 +624,14 @@ HAL_StatusTypeDef HAL_GFXMMU_ConfigLutLine(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
 HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU_BuffersTypeDef *Buffers)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  
+
   /* Check parameters */
   assert_param(IS_GFXMMU_ALL_INSTANCE(hgfxmmu->Instance));
   assert_param(IS_GFXMMU_BUFFER_ADDRESS(Buffers->Buf0Address));
   assert_param(IS_GFXMMU_BUFFER_ADDRESS(Buffers->Buf1Address));
   assert_param(IS_GFXMMU_BUFFER_ADDRESS(Buffers->Buf2Address));
   assert_param(IS_GFXMMU_BUFFER_ADDRESS(Buffers->Buf3Address));
-  
+
   /* Check GFXMMU state */
   if(hgfxmmu->State != HAL_GFXMMU_STATE_READY)
   {
@@ -666,20 +657,20 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
 void HAL_GFXMMU_IRQHandler(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   uint32_t flags, interrupts, error;
-  
+
   /* Read current flags and interrupts and determine which error occurs */
   flags = hgfxmmu->Instance->SR;
   interrupts = (hgfxmmu->Instance->CR & GFXMMU_CR_ITS_MASK);
   error = (flags & interrupts);
-  
+
   if(error != 0U)
   {
     /* Clear flags on GFXMMU_FCR register */
     hgfxmmu->Instance->FCR = error;
-    
+
     /* Update GFXMMU error code */
     hgfxmmu->ErrorCode |= error;
-    
+
     /* Call GFXMMU error callback */
 #if (USE_HAL_GFXMMU_REGISTER_CALLBACKS == 1)
     hgfxmmu->ErrorCallback(hgfxmmu);
@@ -690,7 +681,7 @@ void HAL_GFXMMU_IRQHandler(GFXMMU_HandleTypeDef *hgfxmmu)
 }
 
 /**
-  * @brief  Error callback. 
+  * @brief  Error callback.
   * @param  hgfxmmu GFXMMU handle.
   * @retval None.
   */
@@ -698,7 +689,7 @@ __weak void HAL_GFXMMU_ErrorCallback(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hgfxmmu);
-  
+
   /* NOTE : This function should not be modified, when the callback is needed,
             the HAL_GFXMMU_ErrorCallback could be implemented in the user file.
    */
@@ -741,17 +732,17 @@ HAL_GFXMMU_StateTypeDef HAL_GFXMMU_GetState(GFXMMU_HandleTypeDef *hgfxmmu)
 uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu)
 {
   uint32_t error_code;
-  
+
   /* Enter in critical section */
-  __disable_irq();  
-  
+  __disable_irq();
+
   /* Store and reset GFXMMU error code */
   error_code = hgfxmmu->ErrorCode;
   hgfxmmu->ErrorCode = GFXMMU_ERROR_NONE;
-  
+
   /* Exit from critical section */
   __enable_irq();
-  
+
   /* Return GFXMMU error code */
   return error_code;
 }

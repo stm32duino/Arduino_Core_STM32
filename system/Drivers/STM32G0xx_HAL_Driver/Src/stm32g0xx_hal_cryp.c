@@ -248,13 +248,15 @@
          (##) Final phase: peripheral generates the authenticated tag (T) using the last block of data.
 
   *** Callback registration ***
-  =============================================
+  =============================
 
+  [..]
   The compilation define  USE_HAL_CRYP_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
   Use Functions @ref HAL_CRYP_RegisterCallback() or HAL_CRYP_RegisterXXXCallback()
   to register an interrupt callback.
 
+  [..]
   Function @ref HAL_CRYP_RegisterCallback() allows to register following callbacks:
     (+) InCpltCallback     :  Input FIFO transfer completed callback.
     (+) OutCpltCallback    : Output FIFO transfer completed callback.
@@ -264,6 +266,7 @@
   This function takes as parameters the HAL peripheral handle, the Callback ID
   and a pointer to the user callback function.
 
+  [..]
   Use function @ref HAL_CRYP_UnRegisterCallback() to reset a callback to the default
   weak function.
   @ref HAL_CRYP_UnRegisterCallback() takes as parameters the HAL peripheral handle,
@@ -275,6 +278,7 @@
     (+) MspInitCallback    : CRYP MspInit.
     (+) MspDeInitCallback  : CRYP MspDeInit.
 
+  [..]
   By default, after the @ref HAL_CRYP_Init() and when the state is HAL_CRYP_STATE_RESET
   all callbacks are set to the corresponding weak functions :
   examples @ref HAL_CRYP_InCpltCallback() , @ref HAL_CRYP_OutCpltCallback().
@@ -284,6 +288,7 @@
   if not, MspInit or MspDeInit are not null, the @ref HAL_CRYP_Init() / @ref HAL_CRYP_DeInit()
   keep and use the user MspInit/MspDeInit functions (registered beforehand)
 
+  [..]
   Callbacks can be registered/unregistered in HAL_CRYP_STATE_READY state only.
   Exception done MspInit/MspDeInit callbacks that can be registered/unregistered
   in HAL_CRYP_STATE_READY or HAL_CRYP_STATE_RESET state,
@@ -292,14 +297,16 @@
   using @ref HAL_CRYP_RegisterCallback() before calling @ref HAL_CRYP_DeInit()
   or @ref HAL_CRYP_Init() function.
 
+  [..]
   When The compilation define USE_HAL_CRYP_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
 
 
   *** Suspend/Resume feature ***
-  =============================================
+  ==============================
 
+  [..]
   The compilation define USE_HAL_CRYP_SUSPEND_RESUME when set to 1
   allows the user to resort to the suspend/resume feature.
   A low priority block processing can be suspended to process a high priority block

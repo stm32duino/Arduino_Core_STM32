@@ -14,7 +14,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -1370,9 +1370,10 @@ typedef struct
 #define ADC_CCR_VBATEN_Msk             (0x1UL << ADC_CCR_VBATEN_Pos)           /*!< 0x01000000 */
 #define ADC_CCR_VBATEN                 ADC_CCR_VBATEN_Msk                      /*!< ADC internal path to battery voltage enable */
 
+/* Legacy */
 #define ADC_CCR_LFMEN_Pos              (25U)
 #define ADC_CCR_LFMEN_Msk              (0x1UL << ADC_CCR_LFMEN_Pos)            /*!< 0x02000000 */
-#define ADC_CCR_LFMEN                  ADC_CCR_LFMEN_Msk                       /*!< ADC common clock low frequency mode */
+#define ADC_CCR_LFMEN                  ADC_CCR_LFMEN_Msk                       /*!< Legacy feature, useless on STM32G0 (ADC common clock low frequency mode is automatically managed by ADC peripheral on STM32G0) */
 
 
 /******************************************************************************/

@@ -3,7 +3,7 @@
   * @file    stm32l1xx_hal_iwdg.c
   * @author  MCD Application Team
   * @brief   IWDG HAL module driver.
-  *          This file provides firmware functions to manage the following 
+  *          This file provides firmware functions to manage the following
   *          functionalities of the Independent Watchdog (IWDG) peripheral:
   *           + Initialization and Start functions
   *           + IO operation functions
@@ -19,12 +19,12 @@
     (+) The IWDG is clocked by Low-Speed clock (LSI) and thus stays active even
         if the main clock fails.
 
-    (+) Once the IWDG is started, the LSI is forced ON and both can not be 
+    (+) Once the IWDG is started, the LSI is forced ON and both can not be
         disabled. The counter starts counting down from the reset value (0xFFF).
-        When it reaches the end of count value (0x000) a reset signal is 
+        When it reaches the end of count value (0x000) a reset signal is
         generated (IWDG reset).
 
-    (+) Whenever the key value 0x0000 AAAA is written in the IWDG_KR register, 
+    (+) Whenever the key value 0x0000 AAAA is written in the IWDG_KR register,
         the IWDG_RLR value is reloaded in the counter and the watchdog reset is
         prevented.
 
@@ -34,7 +34,7 @@
         reset occurs.
 
     (+) Debug mode : When the microcontroller enters debug mode (core halted),
-        the IWDG counter either continues to work normally or stops, depending 
+        the IWDG counter either continues to work normally or stops, depending
         on DBG_IWDG_STOP configuration bit in DBG module, accessible through
         __HAL_DBGMCU_FREEZE_IWDG() and __HAL_DBGMCU_UNFREEZE_IWDG() macros
 
@@ -42,18 +42,18 @@
          The IWDG timeout may vary due to LSI frequency dispersion. STM32L1xx
          devices provide the capability to measure the LSI frequency (LSI clock
          connected internally to TIM10 CH1 input capture). The measured value
-         can be used to have an IWDG timeout with an acceptable accuracy. 
+         can be used to have an IWDG timeout with an acceptable accuracy.
          For more information, please refer to the STM32L1xx Reference manual.
 
                      ##### How to use this driver #####
   ==============================================================================
   [..]
     (#) Use IWDG using HAL_IWDG_Init() function to :
-      (++) Enable instance by writing Start keyword in IWDG_KEY register. LSI 
+      (++) Enable instance by writing Start keyword in IWDG_KEY register. LSI
            clock is forced ON and IWDG counter starts downcounting.
       (++) Enable write access to configuration register: IWDG_PR, IWDG_RLR.
-      (++) Configure the IWDG prescaler and counter reload value. This reload 
-           value will be loaded in the IWDG counter each time the watchdog is 
+      (++) Configure the IWDG prescaler and counter reload value. This reload
+           value will be loaded in the IWDG counter each time the watchdog is
            reloaded, then the IWDG will start counting down from this value.
       (++) wait for status flags to be reset"
 
@@ -73,29 +73,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -118,8 +102,8 @@
 /** @defgroup IWDG_Private_Defines IWDG Private Defines
   * @{
   */
-/* Status register need 5 RC LSI divided by prescaler clock to be updated. With 
-   higher prescaler (256), and according to HSI variation, we need to wait at 
+/* Status register need 5 RC LSI divided by prescaler clock to be updated. With
+   higher prescaler (256), and according to HSI variation, we need to wait at
    least 6 cycles so 48 ms. */
 #define HAL_IWDG_DEFAULT_TIMEOUT            48u
 /**
@@ -143,9 +127,9 @@
           ##### Initialization and Start functions #####
  ===============================================================================
  [..]  This section provides functions allowing to:
-      (+) Initialize the IWDG according to the specified parameters in the 
+      (+) Initialize the IWDG according to the specified parameters in the
           IWDG_InitTypeDef of associated handle.
-      (+) Once initialization is performed in HAL_IWDG_Init function, Watchdog 
+      (+) Once initialization is performed in HAL_IWDG_Init function, Watchdog
           is reloaded in order to exit function with correct time base.
 
 @endverbatim
@@ -153,8 +137,8 @@
   */
 
 /**
-  * @brief  Initialize the IWDG according to the specified parameters in the 
-  *         IWDG_InitTypeDef and start watchdog. Before exiting function, 
+  * @brief  Initialize the IWDG according to the specified parameters in the
+  *         IWDG_InitTypeDef and start watchdog. Before exiting function,
   *         watchdog is refreshed in order to have correct time base.
   * @param  hiwdg  pointer to a IWDG_HandleTypeDef structure that contains
   *                the configuration information for the specified IWDG module.
