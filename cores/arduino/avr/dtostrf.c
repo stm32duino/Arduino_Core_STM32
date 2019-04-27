@@ -18,6 +18,10 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifndef _DEFAULT_SOURCE
+#define _DEFAULT_SOURCE // to enable strdup() availability
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
