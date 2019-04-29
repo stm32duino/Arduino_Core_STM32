@@ -442,7 +442,7 @@ void USBWakeUp_IRQHandler(void)
     /* ungate PHY clock */
     __HAL_PCD_UNGATE_PHYCLOCK((&g_hpcd));
   }
-#ifdef USE_USB_HS &&  defined(__HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG)
+#if defined(USE_USB_HS) && defined(__HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG)
   /* Clear EXTI pending Bit*/
   __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
 #elif defined(USB_OTG_FS) && defined(__HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG)
