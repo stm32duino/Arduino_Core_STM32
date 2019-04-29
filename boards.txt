@@ -9,8 +9,6 @@ menu.xusb=USB speed (if available)
 menu.opt=Optimize
 menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
-menu.flash=Flash Memory Size
-menu.ram=RAM Size
 
 ################################################################################
 # Nucleo 144 boards
@@ -729,26 +727,25 @@ RAK.name=RAKWireless
 RAK.build.vid=0x0483
 RAK.build.core=arduino
 RAK.build.board=RAK
+RAK.build.mcu=cortex-m3
+RAK.build.series=STM32L1xx
+RAK.build.cmsis_lib_gcc=arm_cortexM3l_math
 RAK.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # RAK811_TRACKER board
-RAK.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker
+RAK.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
+RAK.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
 RAK.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
-RAK.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
 RAK.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
-RAK.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 RAK.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
 RAK.menu.pnum.RAK811_TRACKER.build.variant=RAK811_TRACKER
-RAK.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
-RAK.menu.ram.xB=16Kb (default)
-RAK.menu.ram.xB.upload.maximum_data_size=16384
-RAK.menu.ram.xB.build.ldscript=ldscript.ld
-RAK.menu.ram.xB.build.product_line=STM32L151xB
-RAK.menu.ram.xBA=32Kb
-RAK.menu.ram.xBA.upload.maximum_data_size=32768
-RAK.menu.ram.xBA.build.ldscript=ldscript_xba.ld
-RAK.menu.ram.xBA.build.product_line=STM32L151xBA
+RAK.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
+RAK.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
+RAK.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
+RAK.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
+RAK.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
+RAK.menu.pnum.RAK811_TRACKERA.build.variant=RAK811_TRACKER
 
 # Upload menu
 RAK.menu.upload_method.serialMethod=Serial
