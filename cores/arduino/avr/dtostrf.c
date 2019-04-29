@@ -80,7 +80,8 @@ char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
     memset(fmt, ' ', 128);
     fmt[w - strlen(sout)] = '\0';
     if (negative == 0) {
-      char *tmp = strdup(sout);
+      char *tmp = malloc(strlen(sout) + 1);
+      strcpy(tmp, sout);
       strcpy(sout, fmt);
       strcat(sout, tmp);
       free(tmp);

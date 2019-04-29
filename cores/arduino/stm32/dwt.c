@@ -43,9 +43,9 @@ uint32_t dwt_init(void)
   DWT->CTRL |=  DWT_CTRL_CYCCNTENA_Msk;
 
   /* 3 NO OPERATION instructions */
-  asm volatile(" nop      \n\t"
-               " nop      \n\t"
-               " nop      \n\t");
+  __asm volatile(" nop      \n\t"
+                 " nop      \n\t"
+                 " nop      \n\t");
 
   /* Check if clock cycle counter has started */
   return (DWT->CYCCNT) ? 0 : 1;
