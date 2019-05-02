@@ -31,7 +31,7 @@ char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
   return sout;*/
 
   // Handle negative numbers
-  unsigned int negative = 0;
+  uint8_t negative = 0;
   if (val < 0.0) {
     negative = 1;
     val = -val;
@@ -49,10 +49,6 @@ char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
   unsigned long int_part = (unsigned long)val;
   double remainder = val - (double)int_part;
 
-  if (negative) {
-    int_part = -int_part;
-  }
-
   // Extract digits from the remainder
   unsigned long dec_part = 0;
   double decade = 1.0;
@@ -62,8 +58,11 @@ char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
   remainder *= decade;
   dec_part = (int)remainder;
 
-  sprintf(sout, "%ld.%0*ld", int_part, prec, dec_part);
-
+  if (negative) {
+    sprintf(sout, "-%ld.%0*ld", int_part, prec, dec_part);
+  } else {
+    sprintf(sout, "%ld.%0*ld", int_part, prec, dec_part);
+  }
   // Handle minimum field width of the output string
   // width is signed value, negative for left adjustment.
   // Range -128,127
