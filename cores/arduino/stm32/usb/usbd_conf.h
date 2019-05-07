@@ -27,6 +27,7 @@ extern "C" {
 
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
+#include "stm32_def.h"
 #include "variant.h"
 
 #if !defined(USB_BASE) && !defined(USB_OTG_DEVICE_BASE)

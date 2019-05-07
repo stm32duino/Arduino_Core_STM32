@@ -33,7 +33,7 @@
  * for DIYMROE_STM32F407VGT board
  */
 
-#include "variant.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C" {

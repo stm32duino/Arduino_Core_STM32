@@ -40,6 +40,7 @@
 #define __INTERRUPT_H
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32_def.h"
 #include "variant.h"
 
 #if defined(STM32F3xx)

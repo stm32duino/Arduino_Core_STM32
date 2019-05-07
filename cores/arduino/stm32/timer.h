@@ -40,7 +40,9 @@
 #define __TIMER_H
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32_def.h"
 #include "variant.h"
+#include "PinNames.h"
 
 #ifdef __cplusplus
 extern "C" {

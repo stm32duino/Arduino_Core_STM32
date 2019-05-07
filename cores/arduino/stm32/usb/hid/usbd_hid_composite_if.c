@@ -34,7 +34,7 @@
   */
 #ifdef USBCON
 #ifdef USBD_USE_HID_COMPOSITE
-
+#include <stdbool.h>
 #include "usbd_desc.h"
 #include "usbd_hid_composite_if.h"
 #include "usbd_hid_composite.h"

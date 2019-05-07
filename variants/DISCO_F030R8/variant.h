@@ -31,12 +31,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -44,7 +38,6 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // P1 connector Right side (bottom view)
 #define PC13 0
