@@ -41,7 +41,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
-#include "variant.h"
 #include "PinNames.h"
 
 #ifdef __cplusplus

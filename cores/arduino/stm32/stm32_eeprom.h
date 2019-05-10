@@ -38,7 +38,6 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
-#include "variant.h"
 
 #ifdef __cplusplus
 extern "C" {

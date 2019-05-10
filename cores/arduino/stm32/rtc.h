@@ -42,7 +42,6 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdbool.h>
 #include "stm32_def.h"
-#include "variant.h"
 #include "backup.h"
 #include "clock.h"
 
