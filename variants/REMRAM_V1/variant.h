@@ -173,6 +173,10 @@ extern "C"
 #define PIN_SERIAL_RX 0
 #define PIN_SERIAL_TX 1
 
+/* HAL configuration */
+#define HSE_VALUE               24000000U
+#define TICK_INT_PRIORITY       0x0U
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

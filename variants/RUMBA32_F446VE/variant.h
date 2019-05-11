@@ -146,6 +146,9 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
+/* HAL configuration */
+#define HSE_VALUE               12000000U
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

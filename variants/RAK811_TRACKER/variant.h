@@ -140,6 +140,9 @@ extern "C" {
 #define LIS3DH_INT1_PIN         PB14
 #define LIS3DH_INT2_PIN         PB15
 
+/* HAL configuration */
+#define HSE_VALUE               12000000U
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

@@ -113,6 +113,9 @@ extern "C" {
 #define PIN_SERIAL_RX           0
 #define PIN_SERIAL_TX           1
 
+/* Extra HAL modules */
+#define HAL_DAC_MODULE_ENABLED
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
