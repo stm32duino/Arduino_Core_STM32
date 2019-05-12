@@ -65,7 +65,11 @@
 #undef HAL_SD_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_QSPI_MODULE_DISABLED)
 /*#define HAL_QSPI_MODULE_ENABLED*/
+#else
+#undef HAL_QSPI_MODULE_ENABLED
+#endif
 
 /*
  * Disabled HAL modules, handled thanks Arduino menu
