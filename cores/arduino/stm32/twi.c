@@ -42,6 +42,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#if defined(HAL_I2C_MODULE_ENABLED)
 
 /* Private Defines */
 /// @brief I2C timout in tick unit
@@ -694,6 +695,7 @@ void I2C4_ER_IRQHandler(void)
 }
 #endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 #endif // I2C4_BASE
+#endif /* HAL_I2C_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }
