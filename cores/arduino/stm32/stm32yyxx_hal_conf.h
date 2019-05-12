@@ -59,7 +59,12 @@
 #undef HAL_ETH_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_SD_MODULE_DISABLED)
 /*#define HAL_SD_MODULE_ENABLED*/
+#else
+#undef HAL_SD_MODULE_ENABLED
+#endif
+
 /*#define HAL_QSPI_MODULE_ENABLED*/
 
 /*
