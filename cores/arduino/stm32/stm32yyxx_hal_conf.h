@@ -29,7 +29,12 @@
 #endif
 
 #define HAL_RTC_MODULE_ENABLED
+
+#if !defined(HAL_SPI_MODULE_DISABLED)
 #define HAL_SPI_MODULE_ENABLED
+#else
+#undef HAL_SPI_MODULE_ENABLED
+#endif
 
 /*
  * Not defined by default
