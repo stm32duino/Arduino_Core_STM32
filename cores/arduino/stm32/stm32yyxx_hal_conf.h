@@ -28,7 +28,11 @@
 #undef HAL_I2C_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_RTC_MODULE_DISABLED)
 #define HAL_RTC_MODULE_ENABLED
+#else
+#undef HAL_RTC_MODULE_ENABLED
+#endif
 
 #if !defined(HAL_SPI_MODULE_DISABLED)
 #define HAL_SPI_MODULE_ENABLED
