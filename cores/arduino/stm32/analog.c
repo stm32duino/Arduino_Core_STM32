@@ -44,7 +44,13 @@
 extern "C" {
 #endif
 
+
+/* Private_Variables */
+static PinName g_current_pin = NC;
+
 /* Private_Defines */
+#ifdef HAL_ADC_MODULE_ENABLED
+
 #if defined(ADC_SAMPLETIME_8CYCLES_5)
 #define SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
 #elif defined(ADC_SAMPLETIME_12CYCLES_5)
@@ -78,9 +84,6 @@ extern "C" {
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
 #endif
-
-/* Private_Variables */
-static PinName g_current_pin = NC;
 
 /* Private Functions */
 static uint32_t get_adc_channel(PinName pin)
@@ -155,6 +158,7 @@ static uint32_t get_adc_channel(PinName pin)
   }
   return channel;
 }
+#endif /* HAL_ADC_MODULE_ENABLED */
 
 static uint32_t get_pwm_channel(PinName pin)
 {
@@ -337,7 +341,7 @@ void dac_stop(PinName pin)
 }
 #endif //HAL_DAC_MODULE_ENABLED
 
-
+#ifdef HAL_ADC_MODULE_ENABLED
 ////////////////////////// ADC INTERFACE FUNCTIONS /////////////////////////////
 
 /**
@@ -641,6 +645,7 @@ uint16_t adc_read_value(PinName pin)
 
   return uhADCxConvertedValue;
 }
+#endif /* HAL_ADC_MODULE_ENABLED */
 
 ////////////////////////// PWM INTERFACE FUNCTIONS /////////////////////////////
 

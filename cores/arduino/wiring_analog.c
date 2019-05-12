@@ -64,11 +64,15 @@ static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
 uint32_t analogRead(uint32_t ulPin)
 {
   uint32_t value = 0;
+#ifdef HAL_ADC_MODULE_ENABLED
   PinName p = analogInputToPinName(ulPin);
   if (p != NC) {
     value = adc_read_value(p);
     value = mapResolution(value, ADC_RESOLUTION, _readResolution);
   }
+#else
+  UNUSED(ulPin);
+#endif
   return value;
 }
 
