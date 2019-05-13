@@ -53,6 +53,14 @@
 #undef HAL_DAC_MODULE_ENABLED
 #endif
 
+/* Note: interrupt API does not used HAL EXTI module */
+/* anyway API is cleaned with HAL_EXTI_MODULE_DISABLED */
+#if !defined(HAL_EXTI_MODULE_DISABLED)
+/*#define HAL_EXTI_MODULE_ENABLED*/
+#else
+#undef HAL_EXTI_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_ETH_MODULE_DISABLED)
 /*#define HAL_ETH_MODULE_ENABLED*/
 #else
