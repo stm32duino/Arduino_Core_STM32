@@ -11,7 +11,6 @@
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
-#define HAL_TIM_MODULE_ENABLED
 
 /*
  * Optional HAL modules, can be enabled/disabled using
@@ -42,6 +41,12 @@
 #define HAL_SPI_MODULE_ENABLED
 #else
 #undef HAL_SPI_MODULE_ENABLED
+#endif
+
+#if !defined(HAL_TIM_MODULE_DISABLED)
+#define HAL_TIM_MODULE_ENABLED
+#else
+#undef HAL_TIM_MODULE_ENABLED
 #endif
 
 /*

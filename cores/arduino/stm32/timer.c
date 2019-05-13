@@ -42,6 +42,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef HAL_TIM_MODULE_ENABLED
 
 /* Private Variables */
 typedef enum {
@@ -1507,6 +1508,7 @@ void TIM22_IRQHandler(void)
   }
 }
 #endif //TIM22_BASE
+#endif /* HAL_TIM_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }
