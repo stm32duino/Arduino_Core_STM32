@@ -593,6 +593,39 @@ Disco.menu.upload_method.dfuMethod.upload.options=-g
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Eval boards
+
+Eval.name=Eval
+
+Eval.build.vid=0x0483
+Eval.build.core=arduino
+Eval.build.board=Eval
+Eval.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# STEVAL_MKSBOX1V1 board
+Eval.menu.pnum.STEVAL_MKSBOX1V1=SensorTile.box
+Eval.menu.pnum.STEVAL_MKSBOX1V1.upload.maximum_size=2097152
+Eval.menu.pnum.STEVAL_MKSBOX1V1.upload.maximum_data_size=655360
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.board=STEVAL_MKSBOX1V1
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.series=STM32L4xx
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.product_line=STM32L4R9xx
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.variant=STEVAL_MKSBOX1V1
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# Upload menu
+Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Eval.menu.upload_method.swdMethod.upload.protocol=0
+Eval.menu.upload_method.swdMethod.upload.options=-g
+Eval.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Eval.menu.upload_method.dfuMethod.upload.protocol=2
+Eval.menu.upload_method.dfuMethod.upload.options=-g
+Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+
+################################################################################
 # Other boards
 
 ###############################
@@ -1128,6 +1161,12 @@ Disco.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Disco.menu.xserial.disabled=Disabled (no Serial support)
 Disco.menu.xserial.disabled.build.xSerial=
 
+Eval.menu.xserial.generic=Enabled (generic 'Serial')
+Eval.menu.xserial.none=Enabled (no generic 'Serial')
+Eval.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Eval.menu.xserial.disabled=Disabled (no Serial support)
+Eval.menu.xserial.disabled.build.xSerial=
+
 GenF0.menu.xserial.generic=Enabled (generic 'Serial')
 GenF0.menu.xserial.none=Enabled (no generic 'Serial')
 GenF0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -1222,6 +1261,19 @@ Disco.menu.xusb.HS=High Speed
 Disco.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Disco.menu.xusb.HSFS=High Speed in Full Speed mode
 Disco.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Eval.menu.usb.none=None
+Eval.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Eval.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Eval.menu.usb.CDC=CDC (no generic 'Serial')
+Eval.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Eval.menu.usb.HID=HID (keyboard and mouse)
+Eval.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Eval.menu.xusb.FS=Low/Full Speed
+Eval.menu.xusb.HS=High Speed
+Eval.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Eval.menu.xusb.HSFS=High Speed in Full Speed mode
+Eval.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF1.menu.usb.none=None
 GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1356,6 +1408,24 @@ Disco.menu.opt.o3lto=Fastest (-O3) with LTO
 Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Disco.menu.opt.ogstd=Debug (-g)
 Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+Eval.menu.opt.osstd=Smallest (-Os default)
+Eval.menu.opt.oslto=Smallest (-Os) with LTO
+Eval.menu.opt.oslto.build.flags.optimize=-Os -flto
+Eval.menu.opt.o1std=Fast (-O1)
+Eval.menu.opt.o1std.build.flags.optimize=-O1
+Eval.menu.opt.o1lto=Fast (-O1) with LTO
+Eval.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Eval.menu.opt.o2std=Faster (-O2)
+Eval.menu.opt.o2std.build.flags.optimize=-O2
+Eval.menu.opt.o2lto=Faster (-O2) with LTO
+Eval.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Eval.menu.opt.o3std=Fastest (-O3)
+Eval.menu.opt.o3std.build.flags.optimize=-O3
+Eval.menu.opt.o3lto=Fastest (-O3) with LTO
+Eval.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Eval.menu.opt.ogstd=Debug (-g)
+Eval.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenF0.menu.opt.osstd=Smallest (-Os default)
 GenF0.menu.opt.oslto=Smallest (-Os) with LTO
@@ -1525,6 +1595,16 @@ Disco.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Disco.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Disco.menu.rtlib.full=Newlib Standard
 Disco.menu.rtlib.full.build.flags.ldspecs=
+
+Eval.menu.rtlib.nano=Newlib Nano (default)
+Eval.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Eval.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Eval.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Eval.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Eval.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Eval.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Eval.menu.rtlib.full=Newlib Standard
+Eval.menu.rtlib.full.build.flags.ldspecs=
 
 GenF0.menu.rtlib.nano=Newlib Nano (default)
 GenF0.menu.rtlib.nanofp=Newlib Nano + Float Printf
