@@ -587,7 +587,14 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
     return;
   }
 
-  obj->timer = TIMER_TONE;
+  if (obj->timer == NULL) {
+#ifdef TIMER_TONE
+    obj->timer = TIMER_TONE;
+#else
+    return;
+#endif
+  }
+
   obj->pinInfo.state = 0;
 
   if (frequency == 0) {
@@ -635,8 +642,10 @@ void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration)
   */
 void TimerPinDeinit(stimer_t *obj)
 {
-  TimerHandleDeinit(obj);
-  pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+  if (obj->timer != NULL) {
+    TimerHandleDeinit(obj);
+    pin_function(obj->pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+  }
 }
 
 /**
@@ -652,7 +661,11 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
   TIM_HandleTypeDef *handle = &(obj->handle);
 
   if (obj->timer == NULL) {
+#ifdef TIMER_SERVO
     obj->timer = TIMER_SERVO;
+#else
+    return;
+#endif
   }
 
   //min pulse = 1us - max pulse = 65535us
@@ -683,13 +696,15 @@ void TimerPulseDeinit(stimer_t *obj)
   obj->irqHandleOC_CH3 = NULL;
   obj->irqHandleOC_CH4 = NULL;
 
-  HAL_NVIC_DisableIRQ(getTimerIrq(obj->timer));
+  if (obj->timer != NULL) {
+    HAL_NVIC_DisableIRQ(getTimerIrq(obj->timer));
 
-  if (HAL_TIM_OC_DeInit(handle) != HAL_OK) {
-    return;
-  }
-  if (HAL_TIM_OC_Stop_IT(handle, TIM_CHANNEL_1) != HAL_OK) {
-    return;
+    if (HAL_TIM_OC_DeInit(handle) != HAL_OK) {
+      return;
+    }
+    if (HAL_TIM_OC_Stop_IT(handle, TIM_CHANNEL_1) != HAL_OK) {
+      return;
+    }
   }
 }
 

@@ -113,7 +113,7 @@ extern "C" {
 //#define PIN_WIRE_SDA            14 // Default for Arduino connector compatibility
 //#define PIN_WIRE_SCL            15 // Default for Arduino connector compatibility
 
-// Timer Definitions
+// Timer Definitions (optional)
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
 #define TIMER_TONE              TIMx
 
