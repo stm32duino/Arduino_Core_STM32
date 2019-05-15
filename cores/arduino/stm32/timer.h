@@ -40,11 +40,13 @@
 #define __TIMER_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "variant.h"
+#include "stm32_def.h"
+#include "PinNames.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+#ifdef HAL_TIM_MODULE_ENABLED
 
 /* Exported types ------------------------------------------------------------*/
 #define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
@@ -232,6 +234,7 @@ uint32_t getTimerClkFreq(TIM_TypeDef *tim);
 
 void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
 void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth);
+#endif /* HAL_TIM_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }

@@ -17,8 +17,11 @@
 */
 #ifndef _PINS_ARDUINO_H_
 #define _PINS_ARDUINO_H_
+#include <stdlib.h> /* Required for static_assert */
 // Include board variant
 #include "variant.h"
+#include "PinNames.h"
+
 
 // Avoid PortName issue
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
@@ -201,6 +204,7 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 #ifdef __cplusplus
 extern "C" {
 #endif
+extern const PinName digitalPin[];
 
 #define NOT_AN_INTERRUPT            NC // -1
 

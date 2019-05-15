@@ -40,7 +40,8 @@
 #define __RTC_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "variant.h"
+#include <stdbool.h>
+#include "stm32_def.h"
 #include "backup.h"
 #include "clock.h"
 

@@ -31,11 +31,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -43,7 +38,6 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // Match Table 11. NUCLEO-L4R5ZI, NUCLEO-L4R5ZI-P pin assignments
 // from UM2179 STM32 Nucleo-144 board
@@ -210,6 +204,9 @@ extern const PinName digitalPin[];
 // Required by Firmata
 #define PIN_SERIAL_RX           PG8
 #define PIN_SERIAL_TX           PG7
+
+/* Extra HAL modules */
+#define HAL_DAC_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"

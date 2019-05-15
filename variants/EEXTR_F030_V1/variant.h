@@ -31,12 +31,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -44,7 +38,6 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // P1 connector Right side (bottom view)
 #define PC13 0
@@ -124,6 +117,8 @@ extern const PinName digitalPin[];
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
+
+#define HSE_VALUE               16000000U  /*!< Value of the External oscillator in Hz */
 
 #ifdef __cplusplus
 } // extern "C"

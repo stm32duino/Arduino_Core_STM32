@@ -41,6 +41,7 @@
 #define __CDC_QUEUE_H
 
 /* Includes ------------------------------------------------------------------*/
+#include <stdbool.h>
 #include "usbd_def.h"
 
 #ifdef __cplusplus

@@ -37,7 +37,7 @@
 #define __STM32_EEPROM_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "variant.h"
+#include "stm32_def.h"
 
 #ifdef __cplusplus
 extern "C" {

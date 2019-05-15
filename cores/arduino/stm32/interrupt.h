@@ -40,7 +40,9 @@
 #define __INTERRUPT_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "variant.h"
+#include "stm32_def.h"
+
+#if !defined(HAL_EXTI_MODULE_DISABLED)
 
 #if defined(STM32F3xx)
 #define EXTI2_IRQn    EXTI2_TSC_IRQn
@@ -67,6 +69,7 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_
 /* Exported functions ------------------------------------------------------- */
 void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
 void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
+#endif /* !HAL_EXTI_MODULE_DISABLED */
 
 #endif /* __INTERRUPT_H */
 

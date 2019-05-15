@@ -22,6 +22,8 @@
 #include "Arduino.h"
 
 PinName g_lastPin = NC;
+
+#ifdef HAL_TIM_MODULE_ENABLED
 static stimer_t _timer;
 
 // frequency (in hertz) and duration (in milliseconds).
@@ -47,3 +49,16 @@ void noTone(uint8_t _pin)
     g_lastPin = NC;
   }
 }
+#else
+void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
+{
+  UNUSED(_pin);
+  UNUSED(frequency);
+  UNUSED(duration);
+}
+
+void noTone(uint8_t _pin)
+{
+  UNUSED(_pin);
+}
+#endif /* HAL_TIM_MODULE_ENABLED */

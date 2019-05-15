@@ -37,6 +37,8 @@
   */
 #include "interrupt.h"
 
+#if !defined(HAL_EXTI_MODULE_DISABLED)
+
 /* Private Types */
 
 /*As we can have only one interrupt/pin id, don't need to get the port info*/
@@ -370,5 +372,6 @@ void EXTI15_10_IRQHandler(void)
 #ifdef __cplusplus
 }
 #endif
+#endif /* !HAL_EXTI_MODULE_DISABLED */
 #endif
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

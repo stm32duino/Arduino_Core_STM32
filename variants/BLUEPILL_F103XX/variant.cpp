@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
  */
-#include "variant.h"
+#include "pins_arduino.h"
 
 #ifdef __cplusplus
 extern "C" {

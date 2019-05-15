@@ -31,11 +31,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -43,7 +38,6 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 #if defined(ARDUINO_BLACK_F407VE) || defined(ARDUINO_BLACK_F407VG)
 // Right Side
 #define PE1  0
@@ -321,6 +315,13 @@ extern const PinName digitalPin[];
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
+
+/* HAL configuration */
+#define TICK_INT_PRIORITY       0U
+
+/* Extra HAL modules */
+#define HAL_DAC_MODULE_ENABLED
+#define HAL_SD_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"

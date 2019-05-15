@@ -31,11 +31,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C"
 {
@@ -44,7 +39,6 @@ extern "C"
 /*----------------------------------------------------------------------------
 *        Pins
 *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // USART
 #define PA10 0  // RX
@@ -178,6 +172,10 @@ extern const PinName digitalPin[];
 // Default pin used for 'Serial' instance
 #define PIN_SERIAL_RX 0
 #define PIN_SERIAL_TX 1
+
+/* HAL configuration */
+#define HSE_VALUE               24000000U
+#define TICK_INT_PRIORITY       0x0U
 
 #ifdef __cplusplus
 } // extern "C"

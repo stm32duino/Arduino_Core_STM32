@@ -36,11 +36,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*------------------------------------------------------------------
- *        Headers
- *------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -52,7 +47,6 @@ extern "C" {
  * ... Right / Left / Top: oriented relative to USB socket at bottom
  *
  *------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // Header right (as viewed with USB socket at the bottom), numbered from bottom
 #define PE3  0  // Header right, pin 1
@@ -187,6 +181,9 @@ extern const PinName digitalPin[];
 // Default pin used for 'Serial1' instance
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
+
+/* Extra HAL modules */
+#define HAL_DAC_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"

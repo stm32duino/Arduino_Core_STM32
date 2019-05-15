@@ -30,11 +30,6 @@
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 
-/*----------------------------------------------------------------------------
- *        Headers
- *----------------------------------------------------------------------------*/
-#include "PeripheralPins.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif // __cplusplus
@@ -42,7 +37,6 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-extern const PinName digitalPin[];
 
 // USB connector on the top, MCU side
 // Left Side
@@ -113,6 +107,67 @@ extern const PinName digitalPin[];
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
+
+/* Dedicated definitions */
+#ifndef MAX_PRIORITY
+#define MAX_PRIORITY            15
+#endif
+#ifndef MIN_PRIORITY
+#define MIN_PRIORITY            0
+#endif
+
+#ifndef SYSTICK_INT_PRIORITY
+#if FREERTOS
+#define SYSTICK_INT_PRIORITY    MAX_PRIORITY
+#define STM32_INT_PRIORITY      5
+#else
+#define SYSTICK_INT_PRIORITY    MIN_PRIORITY
+#define STM32_INT_PRIORITY      5
+#endif
+#endif
+
+#ifndef TAMPER_PRIORITY         /*f1 2*/
+#define TAMPER_PRIORITY         STM32_INT_PRIORITY
+#endif
+#ifndef RTC_PRIORITY            /*f1 3*/
+#define RTC_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef RCC_PRIORITY            /*f1 5*/
+#define RCC_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef EXTI_PRIORITY           /*f1 6~10,23,40*/
+#define EXTI_PRIORITY           MAX_PRIORITY+1  //f1 6~9 botton  use 0x0f
+#endif
+#ifndef DMA1_PRIORITY           /*f1 11~17*/
+#define DMA1_PRIORITY           STM32_INT_PRIORITY
+#endif
+#ifndef ADC_PRIORITY            /*f1 18*/
+#define ADC_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef USB_HP_PRIORITY         /*f1 19*/
+#define USB_HP_PRIORITY         STM32_INT_PRIORITY
+#endif
+#ifndef USB_LP_PRIORITY         /*f1 20*/
+#define USB_LP_PRIORITY         STM32_INT_PRIORITY
+#endif
+#ifndef TIM_PRIORITY            /*f1 24~30 43~46 54~55*/
+#define TIM_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef I2C_PRIORITY            /*f1 31~34*/
+#define I2C_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef SPI_PRIORITY            /*f1 35 36 51*/
+#define SPI_PRIORITY            STM32_INT_PRIORITY
+#endif
+#ifndef USART_PRIORITY          /*f1 37~39 52~53*/
+#define USART_PRIORITY          STM32_INT_PRIORITY
+#endif
+#ifndef SDIO_PRIORITY           /*f1 49*/
+#define SDIO_PRIORITY           STM32_INT_PRIORITY-1
+#endif
+#ifndef DMA2_PRIORITY           /*f1 56~59*/
+#define DMA2_PRIORITY           STM32_INT_PRIORITY
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

@@ -46,6 +46,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#if defined(HAL_SPI_MODULE_ENABLED)
 
 /* Exported types ------------------------------------------------------------*/
 
@@ -101,6 +102,7 @@ spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
 spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
                           uint8_t *rx_buffer, uint16_t len, uint32_t Timeout);
 uint32_t spi_getClkFreq(spi_t *obj);
+#endif /* HAL_SPI_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }

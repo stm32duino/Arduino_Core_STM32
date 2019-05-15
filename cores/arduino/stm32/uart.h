@@ -38,7 +38,8 @@
 #define __UART_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "variant.h"
+#include "stm32_def.h"
+#include "PinNames.h"
 
 #ifdef __cplusplus
 extern "C" {

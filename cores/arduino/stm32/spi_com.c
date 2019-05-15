@@ -44,6 +44,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#if defined(HAL_SPI_MODULE_ENABLED)
 
 /* Private Functions */
 /**
@@ -402,6 +403,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
 
   return ret;
 }
+#endif /* HAL_SPI_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }

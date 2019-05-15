@@ -23,9 +23,10 @@
 extern "C" {
 #endif
 
-
+#if defined(HAL_DAC_MODULE_ENABLED) || defined(HAL_TIM_MODULE_ENABLED)
 //This is the list of the IOs configured
 uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
+#endif
 
 static int _readResolution = 10;
 static int _writeResolution = 8;
@@ -64,11 +65,15 @@ static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
 uint32_t analogRead(uint32_t ulPin)
 {
   uint32_t value = 0;
+#ifdef HAL_ADC_MODULE_ENABLED
   PinName p = analogInputToPinName(ulPin);
   if (p != NC) {
     value = adc_read_value(p);
     value = mapResolution(value, ADC_RESOLUTION, _readResolution);
   }
+#else
+  UNUSED(ulPin);
+#endif
   return value;
 }
 
@@ -83,8 +88,9 @@ void analogOutputInit(void)
 // to digital output.
 void analogWrite(uint32_t ulPin, uint32_t ulValue)
 {
-
+#if defined(HAL_DAC_MODULE_ENABLED) || defined(HAL_TIM_MODULE_ENABLED)
   uint8_t do_init = 0;
+#endif
   PinName p = digitalPinToPinName(ulPin);
   if (p != NC) {
 #ifdef HAL_DAC_MODULE_ENABLED
@@ -97,6 +103,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
       dac_write_value(p, ulValue, do_init);
     } else
 #endif //HAL_DAC_MODULE_ENABLED
+#ifdef HAL_TIM_MODULE_ENABLED
       if (pin_in_pinmap(p, PinMap_PWM)) {
         if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
           do_init = 1;
@@ -106,7 +113,10 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
         pwm_start(p, _writeFreq * PWM_MAX_DUTY_CYCLE,
                   PWM_MAX_DUTY_CYCLE,
                   ulValue, do_init);
-      } else { //DIGITAL PIN ONLY
+      } else
+#endif /* HAL_TIM_MODULE_ENABLED */
+      {
+        //DIGITAL PIN ONLY
         // Defaults to digital write
         pinMode(ulPin, OUTPUT);
         ulValue = mapResolution(ulValue, _writeResolution, 8);
