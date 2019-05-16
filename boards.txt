@@ -907,18 +907,6 @@ RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.EEXTR_F030_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # MALYANM200_F103CB board
-3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-3dprinter.menu.upload_method.swdMethod.upload.protocol=SWD
-3dprinter.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-3dprinter.menu.upload_method.STLinkMethod=STLink (deprecated)
-3dprinter.menu.upload_method.STLinkMethod.upload.protocol=STLink
-3dprinter.menu.upload_method.STLinkMethod.upload.tool=stlink_upload
-
-3dprinter.menu.upload_method.serialMethod=Serial
-3dprinter.menu.upload_method.serialMethod.upload.protocol=maple_serial
-3dprinter.menu.upload_method.serialMethod.upload.tool=serial_upload
-
 3dprinter.menu.pnum.MALYANM200_F103CB=Malyan M200 V1
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_size=122880
 3dprinter.menu.pnum.MALYANM200_F103CB.upload.maximum_data_size=20480
