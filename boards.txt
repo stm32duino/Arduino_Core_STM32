@@ -759,6 +759,54 @@ GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ###############################
+Vake403d.name=VAkE 403d
+
+Vake403d.build.vid=0x1EAF
+Vake403d.build.pid=0x0004
+Vake403d.vid.0=0x1EAF
+Vake403d.pid.0=0x0004
+
+Vake403d.build.core=arduino
+Vake403d.build.board=Vake403
+Vake403d.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# Vake F446VE
+# Support: Serial1 (USART1 on PA10, PA9)
+# Default SPI: SPI
+Vake403d.menu.pnum.VAKE_F446VE=Vake F446VE
+Vake403d.menu.pnum.VAKE_F446VE.upload.maximum_size=524288
+Vake403d.menu.pnum.VAKE_F446VE.upload.maximum_data_size=131072
+Vake403d.menu.pnum.VAKE_F446VE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Vake403d.menu.pnum.VAKE_F446VE.build.board=VAKE403
+Vake403d.menu.pnum.VAKE_F446VE.build.series=STM32F4xx
+Vake403d.menu.pnum.VAKE_F446VE.build.product_line=STM32F446xx
+Vake403d.menu.pnum.VAKE_F446VE.build.variant=VAKE_F446VE
+Vake403d.menu.pnum.VAKE_F446VE.build.f_cpu=180000000L
+Vake403d.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# Upload menu
+Vake403d.menu.upload_method.STLink=STLink
+Vake403d.menu.upload_method.STLink.upload.protocol=STLink
+Vake403d.menu.upload_method.STLink.upload.tool=stlink_upload
+
+Vake403d.menu.upload_method.serialMethod=Serial UART1 [TX/PA9, RX/PA10, BOOT0=1, BOOT1=0]
+Vake403d.menu.upload_method.serialMethod.upload.protocol=maple_serial
+Vake403d.menu.upload_method.serialMethod.upload.tool=serial_upload
+Vake403d.menu.upload_method.serialMethod.build.extra_flags_serial_auto=-DMENU_SERIAL_AUTO=SerialUART1
+
+Vake403d.menu.usb.SerialUSB=Serial [Virtual COM port, PA11/PA12 pins]
+Vake403d.menu.usb.SerialUSB.build.extra_flags_usb=-DMENU_USB_SERIAL
+Vake403d.menu.usb.SerialMSC=Mass storage [testing, see documentation]
+Vake403d.menu.usb.SerialMSC.build.extra_flags_usb=-DMENU_USB_MASS_STORAGE
+Vake403d.menu.usb.Disabled=Disabled, no USB
+
+Vake403d.menu.serial.Automatic=Automatically selected based on upload method
+Vake403d.menu.serial.SerialUSB=SerialUSB
+Vake403d.menu.serial.SerialUSB.build.extra_flags_serial=-DMENU_SERIAL=SerialUSB
+Vake403d.menu.serial.SerialUART1=SerialUART1
+Vake403d.menu.serial.SerialUART1.build.extra_flags_serial=-DMENU_SERIAL=SerialUART1
+
+###############################
 # Sparky Flight Controllers
 
 Sparky.name=Sparky flight controllers
