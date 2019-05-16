@@ -932,6 +932,17 @@ RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
 
+# VAkE v1.0
+3dprinter.menu.pnum.VAKE_F446VE=VAkE v1.0
+3dprinter.menu.pnum.VAKE_F446VE.upload.maximum_size=524288
+3dprinter.menu.pnum.VAKE_F446VE.upload.maximum_data_size=131072
+3dprinter.menu.pnum.VAKE_F446VE.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.VAKE_F446VE.build.board=VAKE403
+3dprinter.menu.pnum.VAKE_F446VE.build.series=STM32F4xx
+3dprinter.menu.pnum.VAKE_F446VE.build.product_line=STM32F446xx
+3dprinter.menu.pnum.VAKE_F446VE.build.variant=VAKE_F446VE
+3dprinter.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 3dprinter.menu.upload_method.swdMethod.upload.protocol=0
