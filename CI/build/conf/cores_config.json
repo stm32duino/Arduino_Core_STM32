@@ -59,6 +59,7 @@
             "PRNTR_F407_V1",
             "RUMBA32",
             "RAK811_TRACKER",
+            "RAK811_TRACKERA",
             "REMRAM_V1",
             "Sparky_V1"
           ]
@@ -158,17 +159,18 @@
             "MALYANM200_F103CB",
             "NUCLEO_L031K6",
             "RAK811_TRACKER",
+            "RAK811_TRACKERA",
             "REMRAM_V1" ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "REMRAM_V1" ]
+          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA", "REMRAM_V1" ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER" ]
+          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA" ]
         },
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
