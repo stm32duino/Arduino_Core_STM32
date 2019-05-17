@@ -316,9 +316,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-/* HAL configuration */
-#define TICK_INT_PRIORITY       0U
-
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED

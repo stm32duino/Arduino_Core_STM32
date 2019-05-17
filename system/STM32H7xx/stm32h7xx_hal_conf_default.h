@@ -161,7 +161,7 @@ in voltage and temperature.*/
   */
 #define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */
 #if !defined (TICK_INT_PRIORITY)
-#define  TICK_INT_PRIORITY            ((uint32_t)0x0F) /*!< tick interrupt priority */
+#define  TICK_INT_PRIORITY            ((uint32_t)0x00) /*!< tick interrupt priority */
 #endif
 #if !defined (USE_RTOS)
 #define  USE_RTOS                     0
