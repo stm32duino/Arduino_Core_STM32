@@ -300,7 +300,7 @@ void RTC_init(hourFormat_t format, sourceClock_t source, bool reset)
   initFormat = format;
 
   if (reset) {
-    resetBackupRegister();
+    resetBackupDomain();
   }
 
   /* Init RTC clock */
@@ -338,7 +338,7 @@ void RTC_init(hourFormat_t format, sourceClock_t source, bool reset)
   HAL_NVIC_SetPriority(RTC_Alarm_IRQn, RTC_IRQ_PRIO, RTC_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
   /* Ensure backup domain is enabled */
-  enableBackupRegister();
+  enableBackupDomain();
 }
 
 /**

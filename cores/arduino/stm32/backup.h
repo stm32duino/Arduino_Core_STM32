@@ -48,7 +48,7 @@ extern "C" {
 
 
 /* Exported functions ------------------------------------------------------- */
-static inline void resetBackupRegister(void)
+static inline void resetBackupDomain(void)
 {
 #ifdef HAL_PWR_MODULE_ENABLED
   /*  Enable access to the RTC registers */
@@ -63,7 +63,7 @@ static inline void resetBackupRegister(void)
   __HAL_RCC_BACKUPRESET_RELEASE();
 }
 
-static inline void enableBackupRegister(void)
+static inline void enableBackupDomain(void)
 {
   /* Enable Power Clock */
 #ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
@@ -76,19 +76,27 @@ static inline void enableBackupRegister(void)
   HAL_PWR_EnableBkUpAccess();
 #endif
 #ifdef __HAL_RCC_BKP_CLK_ENABLE
-  /* Enable BKP CLK enable for backup registers */
+  /* Enable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_BKPSRAM_CLK_ENABLE
+  /* Enable BKPSRAM CLK for backup SRAM */
+  __HAL_RCC_BKPSRAM_CLK_ENABLE();
 #endif
 }
 
-static inline void disableBackupRegister(void)
+static inline void disableBackupDomain(void)
 {
 #ifdef HAL_PWR_MODULE_ENABLED
   /* Forbid access to Backup domain */
   HAL_PWR_DisableBkUpAccess();
 #endif
+#ifdef __HAL_RCC_BKPSRAM_CLK_DISABLE
+  /* Disnable BKPSRAM CLK for backup SRAM */
+  __HAL_RCC_BKPSRAM_CLK_DISABLE();
+#endif
 #ifdef __HAL_RCC_BKP_CLK_DISABLE
-  /* Disable BKP CLK enable for backup registers */
+  /* Disable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_DISABLE();
 #endif
   /* Disable Power Clock */
@@ -128,6 +136,36 @@ static inline uint32_t getBackupRegister(uint32_t index)
   UNUSED(index);
   return 0;
 #endif
+#endif
+}
+
+static inline void writeBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
+{
+#if defined(BKPSRAM_BASE)
+  uint32_t i = 0;
+  /* Write 32-Bit data to Backup SRAM */
+  for (i = 0; i < length; i++) {
+    *(__IO uint32_t *)(BKPSRAM_BASE + (offset + i) * 4) = data[i];
+  }
+#else
+  UNUSED(offset);
+  UNUSED(data);
+  UNUSED(length);
+#endif
+}
+
+static inline void readBackupSRAM(uint32_t offset, uint32_t *data, uint32_t length)
+{
+#if defined(BKPSRAM_BASE)
+  uint32_t i = 0;
+  /* Read 32-Bit data from Backup SRAM */
+  for (i = 0; i < length; i++) {
+    data[i] = *(__IO uint32_t *)(BKPSRAM_BASE + (offset + i) * 4);
+  }
+#else
+  UNUSED(offset);
+  UNUSED(data);
+  UNUSED(length);
 #endif
 }
 

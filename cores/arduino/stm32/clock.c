@@ -99,7 +99,7 @@ void enableClock(sourceClock_t source)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
 
-  enableBackupRegister();
+  enableBackupDomain();
 
   switch (source) {
     case LSI_CLOCK:
