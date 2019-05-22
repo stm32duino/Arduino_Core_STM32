@@ -34,12 +34,8 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-#ifdef USBD_USE_HID_COMPOSITE
-extern USBD_DescriptorsTypeDef HID_Desc;
-#endif
-#ifdef USBD_USE_CDC
-extern USBD_DescriptorsTypeDef CDC_Desc;
-#endif
+extern USBD_DescriptorsTypeDef USBD_Desc;
+
 #endif /* USBCON */
 #endif /* __USBD_DESC_H*/
 

@@ -59,7 +59,7 @@ void HID_Composite_Init(HID_Interface device)
   if (IS_HID_INTERFACE(device) &&
       !HID_keyboard_initialized && !HID_mouse_initialized) {
     /* Init Device Library */
-    if (USBD_Init(&hUSBD_Device_HID, &HID_Desc, 0) == USBD_OK) {
+    if (USBD_Init(&hUSBD_Device_HID, &USBD_Desc, 0) == USBD_OK) {
       /* Add Supported Class */
       if (USBD_RegisterClass(&hUSBD_Device_HID, USBD_COMPOSITE_HID_CLASS) == USBD_OK) {
         /* Start Device Process */
