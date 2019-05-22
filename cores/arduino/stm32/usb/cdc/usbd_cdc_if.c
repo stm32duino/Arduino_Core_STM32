@@ -237,7 +237,7 @@ void CDC_init(void)
 {
   if (!CDC_initialized) {
     /* Init Device Library */
-    if (USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0) == USBD_OK) {
+    if (USBD_Init(&hUSBD_Device_CDC, &USBD_Desc, 0) == USBD_OK) {
       /* Add Supported Class */
       if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
         /* Add CDC Interface Class */
