@@ -23,6 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_desc.h"
 #include "usbd_cdc_if.h"
+#include "bootloader.h"
 
 #ifdef USE_USB_HS
 #define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE

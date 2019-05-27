@@ -593,7 +593,7 @@ GenF1.build.board=GenF1
 GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
-GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
@@ -668,6 +668,22 @@ GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
+GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
+GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
+GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
+GenF1.menu.upload_method.dfu2Method.upload.altID=2
+GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
+GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+
+GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
+GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
+GenF1.menu.upload_method.dfuoMethod.upload.tool=maple_upload
+GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
+GenF1.menu.upload_method.dfuoMethod.upload.altID=1
+GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
+GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
 ################################################################################
 # Generic F4
