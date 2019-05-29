@@ -221,7 +221,9 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 
   handle->Init.TIMode            = SPI_TIMODE_DISABLE;
-#if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) || defined(STM32L4xx)
+#if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) ||\
+    defined(STM32G0xx) || defined(STM32H7xx) || defined(STM32L4xx) ||\
+    defined(STM32WBxx)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
 #endif
 
