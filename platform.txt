@@ -37,7 +37,7 @@ compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.wa
 
 compiler.ar.flags=rcs
 
-compiler.c.elf.flags=-mcpu={build.mcu} -mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--defsym=LD_MAX_SIZE={upload.maximum_size} -Wl,--defsym=LD_MAX_DATA_SIZE={upload.maximum_data_size} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common
+compiler.c.elf.flags=-mcpu={build.mcu} -mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--defsym=LD_FLASH_OFFSET={build.flash_offset} -Wl,--defsym=LD_MAX_SIZE={upload.maximum_size} -Wl,--defsym=LD_MAX_DATA_SIZE={upload.maximum_data_size} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common
 
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 
@@ -50,6 +50,7 @@ compiler.define=-DARDUINO=
 
 # These can be overriden in boards.txt
 build.extra_flags=
+build.bootloader_flags=
 build.ldscript=ldscript.ld
 
 # These can be overridden in platform.local.txt
@@ -83,6 +84,7 @@ build.usb_speed=
 build.startup_file=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
+build.flash_offset=0
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
@@ -166,3 +168,14 @@ tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
 tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
+
+# Upload using Maple bootloader over DFU
+tools.maple_upload.cmd=maple_upload
+tools.maple_upload.cmd.windows=maple_upload.bat
+tools.maple_upload.path={runtime.hardware.path}/tools/win
+tools.maple_upload.path.macosx={runtime.hardware.path}/tools/macosx
+tools.maple_upload.path.linux={runtime.hardware.path}/tools/linux
+tools.maple_upload.path.linux64={runtime.hardware.path}/tools/linux64
+tools.maple_upload.upload.params.verbose=-d
+tools.maple_upload.upload.params.quiet=n
+tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
