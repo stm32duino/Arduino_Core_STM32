@@ -185,20 +185,17 @@ void HAL_TIM_OC_MspDeInit(TIM_HandleTypeDef *htim)
   */
 void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
 {
-  uint32_t channel = 0;
   stimer_t *obj = get_timer_obj(htim);
   switch (htim->Channel) {
     case HAL_TIM_ACTIVE_CHANNEL_1:
-      channel = TIM_CHANNEL_1 / 4;
       if (obj->irqHandleOC_CH1 != NULL) {
         obj->irqHandleOC_CH1();
       }
       if (obj->irqHandleOC != NULL) {
-        obj->irqHandleOC(obj, channel);
+        obj->irqHandleOC(obj, TIM_CHANNEL_1);
       }
       break;
     case HAL_TIM_ACTIVE_CHANNEL_2:
-      channel = TIM_CHANNEL_2 / 4;
       if (obj->irqHandleOC_CH2 != NULL) {
         obj->irqHandleOC_CH2();
       }
@@ -207,13 +204,11 @@ void HAL_TIM_OC_DelayElapsedCallback(TIM_HandleTypeDef *htim)
       if (obj->irqHandleOC_CH3 != NULL) {
         obj->irqHandleOC_CH3();
       }
-      channel = TIM_CHANNEL_3 / 4;
       break;
     case HAL_TIM_ACTIVE_CHANNEL_4:
       if (obj->irqHandleOC_CH4 != NULL) {
         obj->irqHandleOC_CH4();
       }
-      channel = TIM_CHANNEL_4 / 4;
       break;
     default:
       break;
@@ -679,7 +674,7 @@ void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*
 #endif
   obj->irqHandleOC = irqHandle;
 
-  attachIntHandleOC(obj, NULL, 1, pulseWidth);
+  attachIntHandleOC(obj, NULL, TIM_CHANNEL_1, pulseWidth);
 }
 
 /**
@@ -732,7 +727,12 @@ void setTimerCounter(stimer_t *obj, uint32_t value)
 /**
   * @brief  Set the TIM Capture Compare Register value.
   * @param  timer_id : id of the timer
-  * @param  channel : TIM Channels to be configured.
+  * @param  channel : TIM Channel associated with the capture compare register.
+  *         This parameter can be one of the following values:
+  *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+  *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+  *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
   * @retval CRR value.
   */
 uint32_t getCCRRegister(stimer_t *obj, uint32_t channel)
@@ -744,12 +744,17 @@ uint32_t getCCRRegister(stimer_t *obj, uint32_t channel)
   * @brief  Set the TIM Capture Compare Register value.
   * @param  timer_id : id of the timer
   * @param  channel : TIM Channels to be configured.
+  *         This parameter can be one of the following values:
+  *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+  *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+  *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
   * @param  value : register new register.
   * @retval None
   */
 void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value)
 {
-  __HAL_TIM_SET_COMPARE(&(obj->handle), channel * 4, value);
+  __HAL_TIM_SET_COMPARE(&(obj->handle), channel, value);
 }
 
 /**
@@ -1129,11 +1134,16 @@ void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *))
   * @brief  This function will attach timer interrupt to with a particular duty cycle on channel x
   * @param  timer_id : timer_id_e
   * @param  irqHandle : interrupt routine to call
-  * @param  timChannel : timer channel
+  * @param  timChannel : TIM Channel to use
+  *         This parameter can be one of the following values:
+  *            @arg TIM_CHANNEL_1: TIM Channel 1 selected
+  *            @arg TIM_CHANNEL_2: TIM Channel 2 selected
+  *            @arg TIM_CHANNEL_3: TIM Channel 3 selected
+  *            @arg TIM_CHANNEL_4: TIM Channel 4 selected
   * @param  pulseWidth : phase of the timer where the callback will happen
   * @retval None
   */
-void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth)
+void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint32_t timChannel, uint16_t pulseWidth)
 {
   TIM_OC_InitTypeDef sConfig = {};
   TIM_HandleTypeDef *handle = &(obj->handle);
@@ -1154,27 +1164,27 @@ void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChann
     return;
   }
   switch (timChannel) {
-    case 1:
+    case TIM_CHANNEL_1:
       obj->irqHandleOC_CH1 = irqHandle;
       if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_1) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_1);
       }
       break;
-    case 2:
+    case TIM_CHANNEL_2:
       obj->irqHandleOC_CH2 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_2) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_2) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_2);
       }
       break;
-    case 3:
+    case TIM_CHANNEL_3:
       obj->irqHandleOC_CH3 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_3) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_3) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_3);
       }
       break;
-    case 4:
+    case TIM_CHANNEL_4:
       obj->irqHandleOC_CH4 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_4) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_4) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_4);
       }
       break;
