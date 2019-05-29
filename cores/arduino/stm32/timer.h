@@ -233,7 +233,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 uint32_t getTimerClkFreq(TIM_TypeDef *tim);
 
 void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
-void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChannel, uint16_t pulseWidth);
+void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint32_t timChannel, uint16_t pulseWidth);
 #endif /* HAL_TIM_MODULE_ENABLED */
 
 #ifdef __cplusplus
