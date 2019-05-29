@@ -1162,19 +1162,19 @@ void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint16_t timChann
       break;
     case 2:
       obj->irqHandleOC_CH2 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_2) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_2) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_2);
       }
       break;
     case 3:
       obj->irqHandleOC_CH3 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_3) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_3) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_3);
       }
       break;
     case 4:
       obj->irqHandleOC_CH4 = irqHandle;
-      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_4) != HAL_OK) {
+      if (HAL_TIM_OC_ConfigChannel(handle, &sConfig, TIM_CHANNEL_4) == HAL_OK) {
         HAL_TIM_OC_Start_IT(handle, TIM_CHANNEL_4);
       }
       break;
