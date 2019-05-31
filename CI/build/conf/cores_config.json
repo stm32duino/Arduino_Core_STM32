@@ -77,7 +77,7 @@
         {
           "pattern": "Firmata/",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "VAKE_F446VE" ]
         },
         {
           "pattern": "Blink(WithoutDelay)?.ino",
