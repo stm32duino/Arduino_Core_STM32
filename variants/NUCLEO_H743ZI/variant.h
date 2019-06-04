@@ -9,45 +9,76 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PB7  0  // USART_A_RX
+#define PB6  1  // USART_A_TX
+#define PG14 2
+#else
 #define PG9  0  // USART_A_RX
 #define PG14 1  // USART_A_TX
 #define PF15 2
+#endif
 #define PE13 3  // TIMER_A_PWM3
-#define PF14 4  // A11
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PE14 4
+#else
+#define PF14 4
+#endif
 #define PE11 5  // TIMER_A_PWM2
 #define PE9  6  // TIMER_A_PWM1
-#define PF13 7  // A12
-#define PF12 8  // A13
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PG12 7
+#define PF3  8
+#else
+#define PF13 7
+#define PF12 8
+#endif
 #define PD15 9  // TIMER_B_PWM2
 #define PD14 10 // SPI_A_CS/ TIM_B_PWM3
-#define PA7  11 // SPI_A_MOSI/If JP6 ON used also for Ethernet PHY as RMII_DV - A14
-#define PA6  12 // SPI_A_MISO - A15
-#define PA5  13 // SPI_A_SCK - A16
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PB5  11 // SPI_A_MOSI/ PA7 if SB33 ON and SB35 OFF
+#else
+#define PA7  11 // SPI_A_MOSI/ Used by ETH when JP6 ON
+#endif
+#define PA6  12 // SPI_A_MISO
+#define PA5  13 // SPI_A_SCK
 #define PB9  14 // I2C_A_SDA
 #define PB8  15 // I2C_A_SCL
 #define PC6  16 // I2S_A_MCK
 #define PB15 17 // I2S_A_SD
-#define PB13 18 // I2S_A_CK/If JP7 ON used also for Ethernet PHY as RMII_TXD1
+#define PB13 18 // I2S_A_CK / Used by ETH when JP7(ZI)/JP6(ZI2) ON
 #define PB12 19 // I2S_A_WS
 #define PA15 20 // I2S_B_WS
 #define PC7  21 // I2S_B_MCK
+#ifdef ARDUINO_NUCLEO_H743ZI2
+// 22 is PB5 (11)
+#else
 #define PB5  22 // I2S_B_SD/SPI_B_MOSI
+#endif
 #define PB3  23 // I2S_B_CK/SPI_B_SCK - SWO
-#define PA4  24 // SPI_B_NSS - A17
+#define PA4  24 // SPI_B_NSS
 #define PB4  25 // SPI_B_MISO
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PG6  26 // QSPI_CS
+#else
 #define PB6  26 // QSPI_CS
+#endif
 #define PB2  27 // QSPI_CLK
 #define PD13 28 // QSPI_BK1_IO3
 #define PD12 29 // QSPI_BK1_IO1
 #define PD11 30 // QSPI_BK1_IO0
 #define PE2  31 // SAI_A_MCLK/QSPI_BK1_IO2
-#define PA0  32 // TIMER_C_PWM1 - A18
+#define PA0  32 // TIMER_C_PWM1
 #define PB0  33 // TIMER_D_PWM1 - LD1 LED_GREEN
 #define PE0  34 // TIMER_B_ETR
 #define PB11 35 // TIMER_C_PWM3
 #define PB10 36 // TIMER_C_PWM2
 #define PE15 37 // TIMER_A_BKIN1
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PE6  38
+#else
 #define PE14 38
+#endif
 #define PE12 39 // TIMER_A_PWM3N
 #define PE10 40 // TIMER_A_PWM2N
 #define PE7  41 // TIMER_A_ETR
@@ -68,11 +99,15 @@ extern "C" {
 // 56 is PE2 (31)
 #define PE4  57 // SAI_A_FS
 #define PE5  58 // SAI_A_SCK
+#ifdef ARDUINO_NUCLEO_H743ZI2
+// 59 is PE6 (38)
+#else
 #define PE6  59 // SAI_A_SD
+#endif
 #define PE3  60 // SAI_B_SD
-#define PF8  61 // SAI_B_SCK - A19
-#define PF7  62 // SAI_B_MCLK - A20
-#define PF9  63 // SAI_B_FS - A21
+#define PF8  61 // SAI_B_SCK
+#define PF7  62 // SAI_B_MCLK
+#define PF9  63 // SAI_B_FS
 #define PG1  64
 #define PG0  65
 #define PD1  66 // CAN_TX
@@ -80,43 +115,78 @@ extern "C" {
 #define PF0  68 // I2C_B_SDA
 #define PF1  69 // I2C_B_SCL
 #define PF2  70 // I2C_B_SMBA
+#ifdef ARDUINO_NUCLEO_H743ZI2
+// 71 is PE9 (6)
+// 72 is PB2 (27)
+#define PE1  73 // LD2 LED_BLUE
+#else
 // 71 is PA7 (11)
 // 72 is NC
 #define PB7  73 // LD2 LED_BLUE
+#endif
 #define PB14 74 // LD3 LED_RED
 #define PC13 75 // USER_BTN
 #define PD9  76 // Serial Rx
 #define PD8  77 // Serial Tx
-#define PD10 78
-#define PE1  79
-#define PG4  80
-#define PG5  81
-#define PG8  82
-#define PG10 83
-#define PG12 84
-#define PG15 85
-#define PA3  86 // A0
-#define PC0  87 // A1
-#define PC3  88 // A2
-#define PF3  89 // A3
-#define PF5  90 // A4
-#define PF10 91 // A5
-#define PB1  92 // A6
-#define PC2  93 // A7
-#define PF4  94 // A8
-#define PF6  95 // A9
-#define PF11 96 // A10
+#define PA3  78 // A0
+#define PC0  79 // A1
+#define PC3  80 // A2
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PB1  81 // A3
+#define PC2  82 // A4
+#else
+#define PF3  81 // A3
+#define PF5  82 // A4
+#endif
+#define PF10 83 // A5
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PF4  84 // A6
+#define PF5  85 // A7
+#define PF6  86 // A8
+#else
+#define PB1  84 // A6
+#define PC2  85 // A7
+#define PF4  86 // A8
+#endif
+#define PF11 87 // A9
+#define PD10 88
+#define PG4  89
+#define PG5  90
+#define PG8  91
+#define PG10 92
+#define PG15 93
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define PA7  94 // SPI_A_MOSI/Used by ETH when SB31 ON
+#define PF12 95
+#define PF13 96
+#define PF14 97
+#define PF15 98
+#define PG9  99
+#else
+#define PE1  94
+#define PF6  95
+#define PG6  96
+#define PG12 97
+#endif
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        108
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define NUM_DIGITAL_PINS        99
+#else
+#define NUM_DIGITAL_PINS        97
+#endif
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       22
-#define NUM_ANALOG_FIRST        86
+#define NUM_ANALOG_INPUTS       10
+#define NUM_ANALOG_FIRST        78
 
 // On-board LED pin number
 #define LED_BUILTIN             PB0  // LD1
 #define LED_GREEN               LED_BUILTIN
+#ifdef ARDUINO_NUCLEO_H743ZI2
+#define LED_YELLOW              PE1  // LD2
+#else
 #define LED_BLUE                PB7  // LD2
+#endif
 #define LED_RED                 PB14 // LD3
 
 // On-board user button

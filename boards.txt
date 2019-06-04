@@ -70,6 +70,17 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.variant=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.cmsis_lib_gcc=arm_cortexM7l_math
 
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2=Nucleo H743ZI2
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node=NODE_H743ZI
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_data_size=131072
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.mcu=cortex-m7 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.board=NUCLEO_H743ZI2
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=NUCLEO_H743ZI
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.cmsis_lib_gcc=arm_cortexM7l_math
+
 # NUCLEO_L496ZG board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.node=NODE_L496ZG

@@ -5,36 +5,61 @@ extern "C" {
 #endif
 
 // Pin number
-// Match Table 20. NUCLEO-H743ZI pin assignments
-// from UM1974 STM32 Nucleo-144 board
 const PinName digitalPin[] = {
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PB_7,  //D0 - USART_A_RX
+  PB_6,  //D1 - USART_A_TX
+  PG_14, //D2
+#else
   PG_9,  //D0 - USART_A_RX
   PG_14, //D1 - USART_A_TX
   PF_15, //D2
+#endif
   PE_13, //D3 - TIMER_A_PWM3
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PE_14, //D4
+#else
   PF_14, //D4
+#endif
   PE_11, //D5 - TIMER_A_PWM2
   PE_9,  //D6 - TIMER_A_PWM1
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PG_12, //D7
+  PF_3,  //D8
+#else
   PF_13, //D7
   PF_12, //D8
-  PD_15, //D9  - TIMER_B_PWM2
+#endif
+  PD_15, //D9 - TIMER_B_PWM2
   PD_14, //D10 - SPI_A_CS/ TIM_B_PWM3
-  PA_7,  //D11 - SPI_A_MOSI/If JP6 ON used also for Ethernet PHY as RMII_DV
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PB_5,  //D11 - SPI_A_MOSI/PA7 if SB33 ON and SB35 OFF
+#else
+  PA_7,  //D11 - SPI_A_MOSI/Used by ETH when JP6 ON
+#endif
   PA_6,  //D12 - SPI_A_MISO
   PA_5,  //D13 - SPI_A_SCK
   PB_9,  //D14 - I2C_A_SDA
   PB_8,  //D15 - I2C_A_SCL
   PC_6,  //D16 - I2S_A_MCK
   PB_15, //D17 - I2S_A_SD
-  PB_13, //D18 - I2S_A_CK/If JP7 ON used also for Ethernet PHY as RMII_TXD1
+  PB_13, //D18 - I2S_A_CK/Used by ETH when JP7(ZI)/JP6(ZI2) ON
   PB_12, //D19 - I2S_A_WS
   PA_15, //D20 - I2S_B_WS
   PC_7,  //D21 - I2S_B_MCK
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PB_5,  //D22
+#else
   PB_5,  //D22 - I2S_B_SD/SPI_B_MOSI
+#endif
   PB_3,  //D23 - I2S_B_CK/SPI_B_SCK - SWO
   PA_4,  //D24 - SPI_B_NSS
   PB_4,  //D25 - SPI_B_MISO
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PG_6,  //D26 - QSPI_CS
+#else
   PB_6,  //D26 - QSPI_CS
+#endif
   PB_2,  //D27 - QSPI_CLK
   PD_13, //D28 - QSPI_BK1_IO3
   PD_12, //D29 - QSPI_BK1_IO1
@@ -46,7 +71,11 @@ const PinName digitalPin[] = {
   PB_11, //D35 - TIMER_C_PWM3
   PB_10, //D36 - TIMER_C_PWM2
   PE_15, //D37 - TIMER_A_BKIN1
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PE_6,  //D38
+#else
   PE_14, //D38
+#endif
   PE_12, //D39 - TIMER_A_PWM3N
   PE_10, //D40 - TIMER_A_PWM2N
   PE_7,  //D41 - TIMER_A_ETR
@@ -64,10 +93,14 @@ const PinName digitalPin[] = {
   PD_5,  //D53 - USART_B_TX
   PD_4,  //D54 - USART_B_RTS
   PD_3,  //D55 - USART_B_CTS
-  PE_2,  //D56 - SAI_A_MCLK/QSPI_BK1_IO2 - D31
+  PE_2,  //D56
   PE_4,  //D57 - SAI_A_FS
   PE_5,  //D58 - SAI_A_SCK
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PE_6,  //D59
+#else
   PE_6,  //D59 - SAI_A_SD
+#endif
   PE_3,  //D60 - SAI_B_SD
   PF_8,  //D61 - SAI_B_SCK
   PF_7,  //D62 - SAI_B_MCLK
@@ -79,44 +112,59 @@ const PinName digitalPin[] = {
   PF_0,  //D68 - I2C_B_SDA
   PF_1,  //D69 - I2C_B_SCL
   PF_2,  //D70 - I2C_B_SMBA
-  PA_7,  //D71 - D11
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PE_9,  //D71
+  PB_2,  //D72
+  PE_1,  //D73 - LD2 LED_BLUE
+#else
+  PA_7,  //D71
   NC,    //D72
   PB_7,  //D73 - LD2 LED_BLUE
+#endif
   PB_14, //D74 - LD3 LED_RED
   PC_13, //D75 - USER_BTN
   PD_9,  //D76 - Serial Rx
   PD_8,  //D77 - Serial Tx
-  PD_10, //D78
-  PE_1,  //D79
-  PG_4,  //D80
-  PG_5,  //D81
-  PG_8,  //D82
-  PG_10, //D83
-  PG_12, //D84
-  PG_15, //D85
-  PA_3,  //D86/A0
-  PC_0,  //D87/A1
-  PC_3,  //D88/A2
-  PF_3,  //D89/A3
-  PF_5,  //D90/A4
-  PF_10, //D91/A5
-  PB_1,  //D92/A6
-  PC_2,  //D93/A7
-  PF_4,  //D94/A8
-  PF_6,  //D95/A9
-  PF_11, //D96/A10
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PF_14, //D97/A11 = D4
-  PF_13, //D98/A12 = D7
-  PF_12, //D99/A13 = D8
-  PA_7,  //D100/A14 = D11
-  PA_6,  //D101/A15 = D12
-  PA_5,  //D102/A16 = D13
-  PA_4,  //D103/A17 = D24
-  PA_0,  //D104/A18 = D32
-  PF_8,  //D105/A19 = D61
-  PF_7,  //D106/A20 = D62
-  PF_9,  //D107/A21 = D63
+  PA_3,  //D78 - A0
+  PC_0,  //D79 - A1
+  PC_3,  //D80 - A2
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PB_1,  //D81 - A3
+  PC_2,  //D82 - A4
+#else
+  PF_3,  //D81 - A3
+  PF_5,  //D82 - A4
+#endif
+  PF_10, //D83 - A5
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PF_4,  //D84 - A6
+  PF_5,  //D85 - A7
+  PF_6,  //D86 - A8
+#else
+  PB_1,  //D84 - A6
+  PC_2,  //D85 - A7
+  PF_4,  //D86 - A8
+#endif
+  PF_11, //D87 - A9
+  PD_10, //D88
+  PG_4,  //D89
+  PG_5,  //D90
+  PG_8,  //D91
+  PG_10, //D92
+  PG_15, //D93
+#ifdef ARDUINO_NUCLEO_H743ZI2
+  PA_7,  //D94 - SPI_A_MOSI/Used by ETH when SB31 ON
+  PF_12, //D95
+  PF_13, //D96
+  PF_14, //D97
+  PF_15, //D98
+  PG_9,  //D99
+#else
+  PE_1,  //D94
+  PF_6,  //D95
+  PG_6,  //D96
+  PG_12  //D97
+#endif
 };
 
 #ifdef __cplusplus
