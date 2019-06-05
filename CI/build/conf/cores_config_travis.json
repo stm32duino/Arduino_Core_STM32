@@ -1,0 +1,32 @@
+{
+  "cores": [
+    {
+      "maintainer": "STM32",
+      "architecture": "stm32",
+      "boards": [
+        {
+          "name": "NUCLEO_L031K6",
+          "options": "opt=oslto"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "^.*$",
+          "applicable": false,
+          "boards": [
+            "BLACKPILL_F103C8B",
+            "BLACK_F407VG",
+            "BLACK_F407ZE",
+            "BLACK_F407ZG",
+            "BLUEPILL_F103C6",
+            "BLUEPILL_F103C8B",
+            "NUCLEO_H743ZI",
+            "NUCLEO_L496ZG",
+            "NUCLEO_L4R5ZI",
+            "RAK811_TRACKERA"
+          ]
+        }
+      ]
+    }
+  ]
+}
