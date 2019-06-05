@@ -202,7 +202,7 @@ def get_ide_version():
             [os.path.join(arduino_path, "arduino"), "--version"],
             stderr=subprocess.DEVNULL,
         )
-        res = re.match("\D*(\d)\.(\d+)\.(\d+)", output.decode("utf-8"))
+        res = re.match("\\D*(\\d)\\.(\\d+)\\.(\\d+)", output.decode("utf-8"))
         if res:
             core_api_version = (
                 res.group(1) + res.group(2).zfill(2) + res.group(3).zfill(2)
@@ -210,7 +210,7 @@ def get_ide_version():
             print("Arduino IDE version used: " + core_api_version)
         else:
             raise subprocess.CalledProcessError(1, "re")
-    except subprocess.CalledProcessError as err:
+    except subprocess.CalledProcessError:
         print("Unable to define Arduino IDE version, use default: " + core_api_version)
 
 
@@ -414,7 +414,7 @@ def find_board():
     # genericSTM32F103C.menu.device_variant.STM32F103C8=
     # genericSTM32F103R.menu.device_variant.STM32F103R8.build.variant
     board_pattern = re.compile(
-        "([^#\.]+)(?:\.menu\.(?:pnum|device_variant)\.)?([^\.]+)?(?:\.build\.variant)?="
+        "([^#\\.]+)(?:\\.menu\\.(?:pnum|device_variant)\\.)?([^\\.]+)?(?:\\.build\\.variant)?="
     )
     core_pattern = re.compile(
         "\\"
