@@ -25,6 +25,7 @@ extern "C" {
 
 /*
  * \brief SAM3 products have only one reference for ADC
+ * This is kept only for compatibility with existing AVR based API.
  */
 typedef enum _eAnalogReference {
   AR_DEFAULT,
