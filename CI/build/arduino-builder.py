@@ -126,6 +126,7 @@ sketch_default = os.path.join(
 )
 exclude_file_default = os.path.join("conf", "exclude_list.txt")
 cores_config_file_default = os.path.join("conf", "cores_config.json")
+cores_config_file_travis = os.path.join("conf", "cores_config_travis.json")
 
 maintainer_default = "STM32"
 arch_default = "stm32"
@@ -224,7 +225,10 @@ def load_core_config():
         ), "User core configuration JSON file does not exist"
         cores_config_filename = args.config
     else:
-        cores_config_filename = cores_config_file_default
+        if args.travis:
+            cores_config_filename = cores_config_file_travis
+        else:
+            cores_config_filename = cores_config_file_default
     print("Cores configuration JSON file that will be used: " + cores_config_filename)
     try:
         cores_config_file = open(cores_config_filename, "r")
