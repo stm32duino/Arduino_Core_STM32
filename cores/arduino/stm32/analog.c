@@ -70,6 +70,35 @@ static PinName g_current_pin = NC;
 #endif
 #endif /* !ADC_SAMPLINGTIME */
 
+/*
+ * Minimum ADC sampling time is required when reading
+ * internal channels so set it to max possible value.
+ * It can be defined more precisely by defining:
+ * ADC_SAMPLINGTIME_INTERNAL
+ * to the desired ADC sample time.
+ */
+#ifndef ADC_SAMPLINGTIME_INTERNAL
+#if defined(ADC_SAMPLETIME_480CYCLES)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_480CYCLES
+#elif defined(ADC_SAMPLETIME_384CYCLES)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_384CYCLES
+#elif defined(ADC_SAMPLETIME_810CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_810CYCLES_5
+#elif defined(ADC_SAMPLETIME_640CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_640CYCLES_5
+#elif defined(ADC_SAMPLETIME_601CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_601CYCLES_5
+#elif defined(ADC_SAMPLETIME_247CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_247CYCLES_5
+#elif defined(ADC_SAMPLETIME_239CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_239CYCLES_5
+#elif defined(ADC_SAMPLETIME_160CYCLES_5)
+#define ADC_SAMPLINGTIME_INTERNAL ADC_SAMPLETIME_160CYCLES_5
+#else
+#error "ADC sampling time could not be defined for internal channels!"
+#endif
+#endif /* !ADC_SAMPLINGTIME_INTERNAL */
+
 #ifndef ADC_CLOCK_DIV
 #ifdef ADC_CLOCK_SYNC_PCLK_DIV4
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV4
@@ -197,6 +226,32 @@ static uint32_t get_adc_channel(PinName pin)
       channel = ADC_CHANNEL_31;
       break;
 #endif
+#endif
+    default:
+      channel = 0;
+      break;
+  }
+  return channel;
+}
+
+static uint32_t get_adc_internal_channel(PinName pin)
+{
+  uint32_t channel = 0;
+  switch (pin) {
+#ifdef ADC_CHANNEL_TEMPSENSOR
+    case PADC_TEMP:
+      channel = ADC_CHANNEL_TEMPSENSOR;
+      break;
+#endif
+#ifdef ADC_CHANNEL_VREFINT
+    case PADC_VREF:
+      channel = ADC_CHANNEL_VREFINT;
+      break;
+#endif
+#ifdef ADC_CHANNEL_VBAT
+    case PADC_VBAT:
+      channel = ADC_CHANNEL_VBAT;
+      break;
 #endif
     default:
       channel = 0;
@@ -449,7 +504,9 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #endif
 
   /* Configure ADC GPIO pin */
-  pinmap_pinout(g_current_pin, PinMap_ADC);
+  if (!(g_current_pin & PADC_BASE)) {
+    pinmap_pinout(g_current_pin, PinMap_ADC);
+  }
 }
 
 /**
@@ -554,8 +611,21 @@ uint16_t adc_read_value(PinName pin)
   ADC_HandleTypeDef AdcHandle = {};
   ADC_ChannelConfTypeDef  AdcChannelConf = {};
   __IO uint16_t uhADCxConvertedValue = 0;
+  uint32_t samplingTime = ADC_SAMPLINGTIME;
+  uint32_t channel = 0;
 
-  AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
+  if (pin & PADC_BASE) {
+#if defined(STM32H7xx)
+    AdcHandle.Instance = ADC3;
+#else
+    AdcHandle.Instance = ADC1;
+#endif
+    channel = get_adc_internal_channel(pin);
+    samplingTime = ADC_SAMPLINGTIME_INTERNAL;
+  } else {
+    AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
+    channel = get_adc_channel(pin);
+  }
 
   if (AdcHandle.Instance == NP) {
     return 0;
@@ -613,16 +683,16 @@ uint16_t adc_read_value(PinName pin)
 #endif
 
 #if defined(STM32F0xx)
-  AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLINGTIME;
+  AdcHandle.Init.SamplingTimeCommon    = samplingTime;
 #endif
 #if defined(STM32G0xx)
-  AdcHandle.Init.SamplingTimeCommon1   = ADC_SAMPLINGTIME;              /* Set sampling time common to a group of channels. */
-  AdcHandle.Init.SamplingTimeCommon2   = ADC_SAMPLINGTIME;              /* Set sampling time common to a group of channels, second common setting possible.*/
+  AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
+  AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
   AdcHandle.Init.TriggerFrequencyMode  = ADC_TRIGGER_FREQ_HIGH;
 #endif
 #if defined(STM32L0xx)
   AdcHandle.Init.LowPowerFrequencyMode = DISABLE;                       /* To be enabled only if ADC clock < 2.8 MHz */
-  AdcHandle.Init.SamplingTime          = ADC_SAMPLINGTIME;
+  AdcHandle.Init.SamplingTime          = samplingTime;
 #endif
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32F3xx) && !defined(STM32F4xx) && !defined(STM32F7xx) && \
@@ -649,7 +719,8 @@ uint16_t adc_read_value(PinName pin)
     return 0;
   }
 
-  AdcChannelConf.Channel      = get_adc_channel(pin);             /* Specifies the channel to configure into ADC */
+  AdcChannelConf.Channel      = channel;                          /* Specifies the channel to configure into ADC */
+
 #if defined(STM32L4xx) || defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
     return 0;
@@ -662,7 +733,7 @@ uint16_t adc_read_value(PinName pin)
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #if !defined(STM32L0xx)
 #if !defined(STM32G0xx)
-  AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
+  AdcChannelConf.SamplingTime = samplingTime;                     /* Sampling time value to be set for the selected channel */
 #else
   AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;        /* Sampling time value to be set for the selected channel */
 #endif

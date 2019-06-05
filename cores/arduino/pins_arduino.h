@@ -201,6 +201,18 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
 
+// ADC internal channels (not a pins)
+// Only used for analogRead()
+#ifdef ADC_CHANNEL_TEMPSENSOR
+#define ATEMP        (NUM_DIGITAL_PINS + 1)
+#endif
+#ifdef ADC_CHANNEL_VREFINT
+#define AVREF        (NUM_DIGITAL_PINS + 2)
+#endif
+#ifdef ADC_CHANNEL_VBAT
+#define AVBAT        (NUM_DIGITAL_PINS + 3)
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -218,7 +230,8 @@ uint32_t pinNametoDigitalPin(PinName p);
 // Used by analogRead api to have A0 == 0
 #define analogInputToDigitalPin(p)  (((uint32_t)p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
 // Convert an analog pin number Axx to a PinName PX_n
-#define analogInputToPinName(p)     (digitalPinToPinName(analogInputToDigitalPin(p)))
+PinName analogInputToPinName(uint32_t pin);
+
 // All pins could manage EXTI
 #define digitalPinToInterrupt(p)    (digitalPinIsValid(p) ? p : NOT_AN_INTERRUPT)
 
