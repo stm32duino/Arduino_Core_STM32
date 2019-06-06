@@ -54,35 +54,31 @@ static PinName g_current_pin = NC;
 /* Private_Defines */
 #ifdef HAL_ADC_MODULE_ENABLED
 
+#ifndef ADC_SAMPLINGTIME
 #if defined(ADC_SAMPLETIME_8CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_8CYCLES_5;
 #elif defined(ADC_SAMPLETIME_12CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_12CYCLES_5;
 #elif defined(ADC_SAMPLETIME_13CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_13CYCLES_5;
 #elif defined(ADC_SAMPLETIME_15CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_15CYCLES;
 #elif defined(ADC_SAMPLETIME_16CYCLES)
-#define SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_16CYCLES;
 #elif defined(ADC_SAMPLETIME_19CYCLES_5)
-#define SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
-#else
-#error "ADC SAMPLINGTIME could not be defined"
+#define ADC_SAMPLINGTIME        ADC_SAMPLETIME_19CYCLES_5;
 #endif
+#endif /* !ADC_SAMPLINGTIME */
 
-#ifndef STM32F1xx
+#ifndef ADC_CLOCK_DIV
 #ifdef ADC_CLOCK_SYNC_PCLK_DIV4
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV4
 #elif ADC_CLOCK_SYNC_PCLK_DIV2
 #define ADC_CLOCK_DIV       ADC_CLOCK_SYNC_PCLK_DIV2
 #elif defined(ADC_CLOCK_ASYNC_DIV1)
 #define ADC_CLOCK_DIV       ADC_CLOCK_ASYNC_DIV1
-#elif defined(ADC_CLOCKPRESCALER_PCLK_DIV2)
-#define ADC_CLOCK_DIV       ADC_CLOCKPRESCALER_PCLK_DIV2
-#else
-#error "ADC_CLOCK_DIV could not be defined"
 #endif
-#endif /* STM32F1xx */
+#endif /* !ADC_CLOCK_DIV */
 
 #ifndef ADC_REGULAR_RANK_1
 #define ADC_REGULAR_RANK_1  1
@@ -570,16 +566,16 @@ uint16_t adc_read_value(PinName pin)
 #endif
 
 #if defined(STM32F0xx)
-  AdcHandle.Init.SamplingTimeCommon    = SAMPLINGTIME;
+  AdcHandle.Init.SamplingTimeCommon    = ADC_SAMPLINGTIME;
 #endif
 #if defined(STM32G0xx)
-  AdcHandle.Init.SamplingTimeCommon1   = SAMPLINGTIME;                  /* Set sampling time common to a group of channels. */
-  AdcHandle.Init.SamplingTimeCommon2   = SAMPLINGTIME;                  /* Set sampling time common to a group of channels, second common setting possible.*/
+  AdcHandle.Init.SamplingTimeCommon1   = ADC_SAMPLINGTIME;              /* Set sampling time common to a group of channels. */
+  AdcHandle.Init.SamplingTimeCommon2   = ADC_SAMPLINGTIME;              /* Set sampling time common to a group of channels, second common setting possible.*/
   AdcHandle.Init.TriggerFrequencyMode  = ADC_TRIGGER_FREQ_HIGH;
 #endif
 #if defined(STM32L0xx)
   AdcHandle.Init.LowPowerFrequencyMode = DISABLE;                       /* To be enabled only if ADC clock < 2.8 MHz */
-  AdcHandle.Init.SamplingTime          = SAMPLINGTIME;
+  AdcHandle.Init.SamplingTime          = ADC_SAMPLINGTIME;
 #endif
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32F3xx) && !defined(STM32F4xx) && !defined(STM32F7xx) && \
@@ -619,7 +615,7 @@ uint16_t adc_read_value(PinName pin)
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #if !defined(STM32L0xx)
 #if !defined(STM32G0xx)
-  AdcChannelConf.SamplingTime = SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
+  AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME;                     /* Sampling time value to be set for the selected channel */
 #else
   AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;        /* Sampling time value to be set for the selected channel */
 #endif
