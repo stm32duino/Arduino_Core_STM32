@@ -140,16 +140,63 @@ static uint32_t get_adc_channel(PinName pin)
     case 15:
       channel = ADC_CHANNEL_15;
       break;
+#ifdef ADC_CHANNEL_16
     case 16:
-      channel = ADC_CHANNEL_TEMPSENSOR;
+      channel = ADC_CHANNEL_16;
       break;
+#endif
     case 17:
-      channel = ADC_CHANNEL_VREFINT;
+      channel = ADC_CHANNEL_17;
       break;
-#ifdef ADC_CHANNEL_VBAT
+#ifdef ADC_CHANNEL_18
     case 18:
-      channel = ADC_CHANNEL_VBAT;
+      channel = ADC_CHANNEL_18;
       break;
+#endif
+#ifdef ADC_CHANNEL_19
+    case 19:
+      channel = ADC_CHANNEL_19;
+      break;
+#endif
+#ifdef ADC_CHANNEL_20
+    case 20:
+      channel = ADC_CHANNEL_20;
+      break;
+    case 21:
+      channel = ADC_CHANNEL_21;
+      break;
+    case 22:
+      channel = ADC_CHANNEL_22;
+      break;
+    case 23:
+      channel = ADC_CHANNEL_23;
+      break;
+    case 24:
+      channel = ADC_CHANNEL_24;
+      break;
+    case 25:
+      channel = ADC_CHANNEL_25;
+      break;
+    case 26:
+      channel = ADC_CHANNEL_26;
+      break;
+#ifdef ADC_CHANNEL_27
+    case 27:
+      channel = ADC_CHANNEL_27;
+      break;
+    case 28:
+      channel = ADC_CHANNEL_28;
+      break;
+    case 29:
+      channel = ADC_CHANNEL_29;
+      break;
+    case 30:
+      channel = ADC_CHANNEL_30;
+      break;
+    case 31:
+      channel = ADC_CHANNEL_31;
+      break;
+#endif
 #endif
     default:
       channel = 0;
