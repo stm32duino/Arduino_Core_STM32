@@ -39,6 +39,7 @@
 #include "analog.h"
 #include "timer.h"
 #include "PinAF_STM32F1.h"
+#include "stm32yyxx_ll_adc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -808,6 +809,8 @@ uint16_t adc_read_value(PinName pin)
   if (HAL_ADC_DeInit(&AdcHandle) != HAL_OK) {
     return 0;
   }
+
+  LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance), LL_ADC_PATH_INTERNAL_NONE);
 
   return uhADCxConvertedValue;
 }
