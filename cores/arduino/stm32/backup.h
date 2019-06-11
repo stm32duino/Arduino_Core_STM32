@@ -56,7 +56,7 @@ extern "C" {
 #ifndef HID_MAGIC_NUMBER_BKP_VALUE
 #define HID_MAGIC_NUMBER_BKP_VALUE 0x424C
 #endif /* HID_MAGIC_NUMBER_BKP_VALUE */
-#endif /* BL_HID */                  
+#endif /* BL_HID */
 
 /* Exported functions ------------------------------------------------------- */
 static inline void resetBackupDomain(void)
