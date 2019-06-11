@@ -35,6 +35,33 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
   return i;
 }
 
+PinName analogInputToPinName(uint32_t pin)
+{
+  PinName pn = digitalPinToPinName(analogInputToDigitalPin(pin));
+  if (pn == NC) {
+    switch (pin) {
+#ifdef ATEMP
+      case ATEMP:
+        pn = PADC_TEMP;
+        break;
+#endif
+#ifdef AVREF
+      case AVREF:
+        pn = PADC_VREF;
+        break;
+#endif
+#ifdef AVBAT
+      case AVBAT:
+        pn = PADC_VBAT;
+        break;
+#endif
+      default:
+        break;
+    }
+  }
+  return pn;
+}
+
 #ifdef __cplusplus
 }
 #endif

@@ -208,6 +208,17 @@ typedef enum {
   PK_14 = (PortK << 4) + 0x0E,
   PK_15 = (PortK << 4) + 0x0F,
 #endif
+  // Specific pin name
+  PADC_BASE = 0x100,
+#ifdef ADC_CHANNEL_TEMPSENSOR
+  PADC_TEMP,
+#endif
+#ifdef ADC_CHANNEL_VREFINT
+  PADC_VREF,
+#endif
+#ifdef ADC_CHANNEL_VBAT
+  PADC_VBAT,
+#endif
   // Specific pin name define in the variant
 #if __has_include("PinNamesVar.h")
 #include "PinNamesVar.h"
