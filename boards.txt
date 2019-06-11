@@ -680,6 +680,12 @@ GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF1.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF1.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+GenF1.menu.upload_method.hidMethod=HID Bootloader 2.2
+GenF1.menu.upload_method.hidMethod.upload.protocol=hid22
+GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
+GenF1.menu.upload_method.hidMethod.build.flash_offset=0x800
+GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}                         
+
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
 GenF1.menu.upload_method.dfu2Method.upload.tool=maple_upload
@@ -704,7 +710,7 @@ GenF4.name=Generic STM32F4 series
 GenF4.build.vid=0x0483
 GenF4.build.core=arduino
 GenF4.build.board=GenF4
-GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF4.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4l_math
@@ -784,6 +790,12 @@ GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenF4.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenF4.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+GenF4.menu.upload_method.hidMethod=HID Bootloader 2.2
+GenF4.menu.upload_method.hidMethod.upload.protocol=hid22
+GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
+GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
+GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}                                                                                                        
 
 ###############################
 # Sparky Flight Controllers

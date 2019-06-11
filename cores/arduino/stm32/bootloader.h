@@ -2,10 +2,10 @@
 #define _BOOTLOADER_H_
 
 /* Ensure DTR_TOGGLING_SEQ enabled */
-#ifdef BL_LEGACY_LEAF
+#if defined(BL_LEGACY_LEAF) || defined(BL_HID)
 #ifndef DTR_TOGGLING_SEQ
 #define DTR_TOGGLING_SEQ
-#endif /* DTR_TOGGLING_SEQ */
+#endif /* DTR_TOGGLING_SEQ || BL_HID */
 #endif /* BL_LEGACY_LEAF */
 
 #ifdef __cplusplus
