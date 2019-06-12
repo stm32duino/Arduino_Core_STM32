@@ -159,7 +159,9 @@ in voltage and temperature.*/
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined (VDD_VALUE)
 #define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */
+#endif
 #if !defined (TICK_INT_PRIORITY)
 #define  TICK_INT_PRIORITY            ((uint32_t)0x00) /*!< tick interrupt priority */
 #endif
