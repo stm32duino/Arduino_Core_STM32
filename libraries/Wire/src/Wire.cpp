@@ -59,12 +59,12 @@ TwoWire::TwoWire(uint8_t sda, uint8_t scl)
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-void TwoWire::begin(void)
+void TwoWire::begin(bool generalCall)
 {
-  begin(MASTER_ADDRESS);
+  begin(MASTER_ADDRESS, generalCall);
 }
 
-void TwoWire::begin(uint8_t address)
+void TwoWire::begin(uint8_t address, bool generalCall)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
@@ -80,6 +80,8 @@ void TwoWire::begin(uint8_t address)
 
   _i2c.isMaster = (address == MASTER_ADDRESS) ? 1 : 0;
 
+  _i2c.generalCall = (generalCall == true) ? 1 : 0;
+
   i2c_custom_init(&_i2c, I2C_100KHz, I2C_ADDRESSINGMODE_7BIT, ownAddress);
 
   if (_i2c.isMaster == 0) {
@@ -91,9 +93,9 @@ void TwoWire::begin(uint8_t address)
   }
 }
 
-void TwoWire::begin(int address)
+void TwoWire::begin(int address, bool generalCall)
 {
-  begin((uint8_t)address);
+  begin((uint8_t)address, generalCall);
 }
 
 void TwoWire::end(void)

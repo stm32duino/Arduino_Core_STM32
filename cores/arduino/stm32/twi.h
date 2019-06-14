@@ -107,6 +107,7 @@ struct i2c_s {
   volatile uint8_t i2cTxRxBufferSize;
   volatile uint8_t slaveMode;
   uint8_t isMaster;
+  uint8_t generalCall;
 };
 
 ///@brief I2C state
