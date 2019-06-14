@@ -78,15 +78,11 @@ void TwoWire::begin(uint8_t address)
 
   ownAddress = address << 1;
 
-  if (address == MASTER_ADDRESS) {
-    master = true;
-  } else {
-    master = false;
-  }
+  _i2c.isMaster = (address == MASTER_ADDRESS) ? 1 : 0;
 
-  i2c_custom_init(&_i2c, I2C_100KHz, I2C_ADDRESSINGMODE_7BIT, ownAddress, master);
+  i2c_custom_init(&_i2c, I2C_100KHz, I2C_ADDRESSINGMODE_7BIT, ownAddress);
 
-  if (master == false) {
+  if (_i2c.isMaster == 0) {
     // i2c_attachSlaveTxEvent(&_i2c, reinterpret_cast<void(*)(i2c_t*)>(&TwoWire::onRequestService));
     // i2c_attachSlaveRxEvent(&_i2c, reinterpret_cast<void(*)(i2c_t*, uint8_t*, int)>(&TwoWire::onReceiveService));
 
@@ -119,7 +115,7 @@ void TwoWire::setClock(uint32_t frequency)
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
 {
   UNUSED(sendStop);
-  if (master == true) {
+  if (_i2c.isMaster == 1) {
     allocateRxBuffer(quantity);
     // error if no memory block available to allocate the buffer
     if (rxBuffer == nullptr) {
@@ -216,7 +212,7 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
   UNUSED(sendStop);
   int8_t ret = 4;
 
-  if (master == true) {
+  if (_i2c.isMaster == 1) {
     // transmit buffer (blocking)
     switch (i2c_master_write(&_i2c, txAddress, txBuffer, txBufferLength)) {
       case I2C_OK :

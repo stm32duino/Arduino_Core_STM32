@@ -49,7 +49,6 @@ class TwoWire : public Stream {
     static uint8_t transmitting;
 
     uint8_t ownAddress;
-    bool master;
     i2c_t _i2c;
 
     static void (*user_onRequest)(void);
