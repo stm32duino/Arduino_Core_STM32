@@ -100,13 +100,14 @@ struct i2c_s {
 #if !defined(STM32F0xx) && !defined(STM32L0xx)
   IRQn_Type irqER;
 #endif //!defined(STM32F0xx) && !defined(STM32L0xx)
-  volatile uint8_t slaveMode;
-  uint8_t isMaster;
   volatile int slaveRxNbData; // Number of accumulated bytes received in Slave mode
   void (*i2c_onSlaveReceive)(uint8_t *, int);
   void (*i2c_onSlaveTransmit)(void);
   volatile uint8_t i2cTxRxBuffer[I2C_TXRX_BUFFER_SIZE];
   volatile uint8_t i2cTxRxBufferSize;
+  volatile uint8_t slaveMode;
+  uint8_t isMaster;
+  uint8_t generalCall;
 };
 
 ///@brief I2C state
@@ -153,7 +154,7 @@ typedef enum {
 /* Exported functions ------------------------------------------------------- */
 void i2c_init(i2c_t *obj);
 void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode,
-                     uint32_t ownAddress, uint8_t master);
+                     uint32_t ownAddress);
 void i2c_deinit(i2c_t *obj);
 void i2c_setTiming(i2c_t *obj, uint32_t frequency);
 i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size);
