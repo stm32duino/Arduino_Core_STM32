@@ -47,6 +47,20 @@
 			},
 			
 			{
+			"modelnumber": 	"4617",
+			"pid": 		"00C1",
+			"build_variant": "CATENA_461x",
+			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1"
+			},
+			
+			{
+			"modelnumber": 	"4618",
+			"pid": 		"00D1",
+			"build_variant": "CATENA_461x",
+			"build_variant_extra_flags":	"-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1"
+			},
+			
+			{
 			"modelnumber": 	"4630",
 			"pid":		"00B1",
 			"build_variant": "CATENA_4630",
@@ -69,7 +83,6 @@
 				  "using": "xserial_nousb"
 				}
 			]
-			}
+			},
 		]
 }
-

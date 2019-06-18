@@ -51,21 +51,25 @@ The Arduino IDE allows you to select the following items.
 | MCCI Catena 4611 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 | MCCI Catena 4612 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
 | MCCI Catena 4801 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| MCCI Catena 4617 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| MCCI Catena 4618 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+
+
 
 ### Simple Board Comparison Chart (4551/461x series)
 
-| Feature | 4551 | 4610 | 4611 | 4612 |
-|---------|------|------|------|------|
-| TCXO control | Always on (power consumption issue) | Controlled by code | Controlled by code | Controlled by code |
-| Battery type | Primary (non-rechargeable) reference is 2x AAA cells | Secondary (LiPo rechargeable), compatible with Adafruit | Feather batteries | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells |
-| System voltage | 3.3V | 3.3V | 3.3V | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
-| Regulator control | EN pin on Feather disables VDD altogether | No boost regulator; EN disables VDD altogether. | EN pin on JP2-3 shuts down boost regulator | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. |
-| High-side switch for external sensors | No switch, screw terminal power is from VDD (3.3V) | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals |
-| Feather electrical compatibility  | Good, except for different battery system | Very good | Very good | Good physical compatibility but the varying VDD may be an issue |
-| Feather physical compatibility | Yes | Yes | Yes | Yes |
-| USB | Supported | Supported | Supported | Supported |
-| Sensors | BME280, Si1123 | BME280, Si1113 | BME280, Si1113 | BME280, Si1113 |
-| Screw terminals for external sensors | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin |
+| Feature | 4551 | 4610 | 4611 | 4612 | 4617 | 4618 |
+|---------|------|------|------|------|------|------|
+| TCXO control | Always on (power consumption issue) | Controlled by code | Controlled by code | Controlled by code | Controlled by code | Controlled by code |
+| Battery type | Primary (non-rechargeable) reference is 2x AAA cells | Secondary (LiPo rechargeable), compatible with Adafruit | Feather batteries | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells |
+| System voltage | 3.3V | 3.3V | 3.3V | 2.2V to 3.3V, depending on whether boost regulator is enabled. | 2.2V to 3.3V, depending on whether boost regulator is enabled. | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
+| Regulator control | EN pin on Feather disables VDD altogether | No boost regulator; EN disables VDD altogether. | EN pin on JP2-3 shuts down boost regulator | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. | EN output from CPU controls boost regulator, and 4617 normally runs with boost regulator off for lower power. | EN output from CPU controls boost regulator, and 4618 normally runs with boost regulator off for lower power. |
+| High-side switch for external sensors | No switch, screw terminal power is from VDD (3.3V) | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals |
+| Feather electrical compatibility  | Good, except for different battery system | Very good | Very good | Good physical compatibility but the varying VDD may be an issue | Good physical compatibility but the varying VDD may be an issue | Good physical compatibility but the varying VDD may be an issue |
+| Feather physical compatibility | Yes | Yes | Yes | Yes | Yes | Yes |
+| USB | Supported | Supported | Supported | Supported | Supported | Supported |
+| Sensors | BME280, Si1123 | BME280, Si1113 | BME280, Si1113 | BME280, Si1113 | HS3001, Si1133 | SHT31, Si1133 |
+| Screw terminals for external sensors | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin |
 
 ### Catena 4801 Features
 
