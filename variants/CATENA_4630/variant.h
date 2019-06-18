@@ -123,11 +123,11 @@ enum {
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
+//#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           D0
-#define PIN_SERIAL_TX           D1
+//#define PIN_SERIAL_RX           D0
+//#define PIN_SERIAL_TX           D1
 
 #ifdef __cplusplus
 } // extern "C"
@@ -154,9 +154,14 @@ enum {
 //                            pins are NOT connected to anything by default.
 #ifdef USBCON
 # define SERIAL_PORT_MONITOR  SerialUSB
+#define HAVE_HWSERIAL1
+#define HAVE_HWSERIAL2
 #elif defined(NO_HWSERIAL)
 # define SERIAL_PORT_MONITOR  SerialNo
 #else
+#define SERIAL_UART_INSTANCE    1
+#define PIN_SERIAL_RX           D0
+#define PIN_SERIAL_TX           D1
 # define SERIAL_PORT_MONITOR  Serial
 #endif
 #define SERIAL_PORT_HARDWARE  Serial
