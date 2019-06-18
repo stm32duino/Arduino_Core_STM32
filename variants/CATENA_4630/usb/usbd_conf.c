@@ -588,7 +588,7 @@ USBD_LL_ConnectionState_WEAK uint32_t USBD_LL_ConnectionState(void)
 {
   uint32_t vBus;
 
-  vBus = analogRead(18);
+  vBus = analogRead(16);
   return vBus > 250 ? 1 : 0;
 }
 
