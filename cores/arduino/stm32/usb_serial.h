@@ -70,9 +70,7 @@ private:
 
 extern USBSerial SerialUSB;
 
-#ifdef NO_HWSERIAL
 # define Serial SerialUSB
-#endif
 
 #endif /* USBCON */
 
