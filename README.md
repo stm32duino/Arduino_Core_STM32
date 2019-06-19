@@ -97,6 +97,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 
+| Status | Generic STM32F3xx | Release | Comment |
+| :---: | --- | :---: | :--- |
+| :green_heart: | [RobotDyn BlackPill F303CC](https://robotdyn.com/catalog/development-boards/stm-boards-and-shields.html) | *1.6.1* |  |
+
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant) | *1.4.0* | VG/ZE/ZG in *1.5.0* |

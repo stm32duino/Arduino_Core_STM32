@@ -703,6 +703,47 @@ GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
 ################################################################################
+# Generic F3
+
+GenF3.name=Generic STM32F3 series
+
+GenF3.build.vid=0x0483
+GenF3.build.core=arduino
+GenF3.build.board=GenF3
+GenF3.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF3.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF3.build.series=STM32F3xx
+GenF3.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# BLACKPILL_F303CC
+GenF3.menu.pnum.BLACKPILL_F303XX=RobotDyn BlackPill F303CC
+GenF3.menu.pnum.BLACKPILL_F303XX.upload.maximum_size=262144
+GenF3.menu.pnum.BLACKPILL_F303XX.upload.maximum_data_size=40960
+GenF3.menu.pnum.BLACKPILL_F303XX.build.board=BLACKPILL_F303CC
+GenF3.menu.pnum.BLACKPILL_F303XX.build.product_line=STM32F303xC
+GenF3.menu.pnum.BLACKPILL_F303XX.build.variant=PILL_F303XX
+
+# Upload menu
+GenF3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF3.menu.upload_method.swdMethod.upload.protocol=0
+GenF3.menu.upload_method.swdMethod.upload.options=-g
+GenF3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenF3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF3.menu.upload_method.serialMethod.upload.protocol=1
+GenF3.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF3.menu.upload_method.dfuMethod.upload.protocol=2
+GenF3.menu.upload_method.dfuMethod.upload.options=-g
+GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenF3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenF3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+################################################################################
 # Generic F4
 
 GenF4.name=Generic STM32F4 series
@@ -1047,6 +1088,12 @@ GenF1.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF1.menu.xserial.disabled=Disabled (no Serial support)
 GenF1.menu.xserial.disabled.build.xSerial=
 
+GenF3.menu.xserial.generic=Enabled (generic 'Serial')
+GenF3.menu.xserial.none=Enabled (no generic 'Serial')
+GenF3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF3.menu.xserial.disabled=Disabled (no Serial support)
+GenF3.menu.xserial.disabled.build.xSerial=
+
 GenF4.menu.xserial.generic=Enabled (generic 'Serial')
 GenF4.menu.xserial.none=Enabled (no generic 'Serial')
 GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -1136,6 +1183,19 @@ GenF1.menu.xusb.HS=High Speed
 GenF1.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF1.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF1.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenF3.menu.usb.none=None
+GenF3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF3.menu.usb.CDC=CDC (no generic 'Serial')
+GenF3.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF3.menu.usb.HID=HID (keyboard and mouse)
+GenF3.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF3.menu.xusb.FS=Low/Full Speed
+GenF3.menu.xusb.HS=High Speed
+GenF3.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF3.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF4.menu.usb.none=None
 GenF4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1281,6 +1341,25 @@ GenF1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF1.menu.opt.ogstd=Debug (-g)
 GenF1.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenF3.menu.opt.osstd=Smallest (-Os default)
+GenF3.menu.opt.osstd.build.flags.optimize=-Os
+GenF3.menu.opt.oslto=Smallest (-Os) with LTO
+GenF3.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF3.menu.opt.o1std=Fast (-O1)
+GenF3.menu.opt.o1std.build.flags.optimize=-O1
+GenF3.menu.opt.o1lto=Fast (-O1) with LTO
+GenF3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF3.menu.opt.o2std=Faster (-O2)
+GenF3.menu.opt.o2std.build.flags.optimize=-O2
+GenF3.menu.opt.o2lto=Faster (-O2) with LTO
+GenF3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF3.menu.opt.o3std=Fastest (-O3)
+GenF3.menu.opt.o3std.build.flags.optimize=-O3
+GenF3.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF3.menu.opt.ogstd=Debug (-g)
+GenF3.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 GenF4.menu.opt.osstd=Smallest (-Os default)
 GenF4.menu.opt.osstd.build.flags.optimize=-Os
 GenF4.menu.opt.oslto=Smallest (-Os) with LTO
@@ -1414,6 +1493,16 @@ GenF1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF1.menu.rtlib.full=Newlib Standard
 GenF1.menu.rtlib.full.build.flags.ldspecs=
+
+GenF3.menu.rtlib.nano=Newlib Nano (default)
+GenF3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF3.menu.rtlib.full=Newlib Standard
+GenF3.menu.rtlib.full.build.flags.ldspecs=
 
 GenF4.menu.rtlib.nano=Newlib Nano (default)
 GenF4.menu.rtlib.nanofp=Newlib Nano + Float Printf
