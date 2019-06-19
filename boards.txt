@@ -93,6 +93,8 @@ mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4551.menu.xserial.all=All (up to 10)
 #mcci_catena_4551.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4551.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4551.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4551.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4551.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -214,6 +216,8 @@ mcci_catena_4610.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4610.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4610.menu.xserial.all=All (up to 10)
 #mcci_catena_4610.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4610.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4610.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4610.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4610.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -335,6 +339,8 @@ mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4611.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4611.menu.xserial.all=All (up to 10)
 #mcci_catena_4611.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4611.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4611.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4611.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4611.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -456,6 +462,8 @@ mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4612.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4612.menu.xserial.all=All (up to 10)
 #mcci_catena_4612.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4612.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4612.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4612.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4612.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -577,6 +585,8 @@ mcci_catena_4617.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4617.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4617.menu.xserial.all=All (up to 10)
 #mcci_catena_4617.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4617.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4617.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4617.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4617.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -698,6 +708,8 @@ mcci_catena_4618.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4618.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4618.menu.xserial.all=All (up to 10)
 #mcci_catena_4618.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4618.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4618.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #mcci_catena_4618.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #mcci_catena_4618.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 
@@ -786,7 +798,7 @@ mcci_catena_4630.build.series=STM32L0xx
 mcci_catena_4630.build.variant=CATENA_4630
 mcci_catena_4630.build.variant_extra_flags=-DMCCI_CATENA_4630_PA0_SWITCHES_VDD=1
 mcci_catena_4630.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4630.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4630 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags} 
+mcci_catena_4630.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4630 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.variant_extra_flags}
 # mcci_catena_4630.build.c.Werror=
 # mcci_catena_4630.build.cpp.Werror=
 # mcci_catena_4630.build.S.Werror=
@@ -815,10 +827,12 @@ mcci_catena_4630.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4630.menu.xserial.usb=USB Serial
 mcci_catena_4630.menu.xserial.generic=Generic Serial
 mcci_catena_4630.menu.xserial.none=No Serial
-mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags}
+mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4630.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #mcci_catena_4630.menu.xserial.all=All (up to 10)
 #mcci_catena_4630.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+mcci_catena_4630.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+mcci_catena_4630.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 mcci_catena_4630.menu.xserial.third=Enable first third (USART1 to 3 if available)
 mcci_catena_4630.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 

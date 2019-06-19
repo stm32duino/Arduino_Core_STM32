@@ -205,6 +205,8 @@ $section xserial
 {{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #{{board}}.menu.xserial.all=All (up to 10)
 #{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+{{board}}.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+{{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 #{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
 #{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 %%-xserial_usb
@@ -217,6 +219,8 @@ $section xserial
 {{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
 #{{board}}.menu.xserial.all=All (up to 10)
 #{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
+{{board}}.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
+{{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
 {{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
 {{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
 %%-xserial_usb_third
