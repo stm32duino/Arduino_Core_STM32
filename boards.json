@@ -70,7 +70,7 @@
 				{ "name": "usb" }, 
 				{ "name": "DFU" },
 				{ "name": "xserial",
-				  "using": "xserial_usb_third"
+				  "using": "xserial_usb_serial12"
 				}
 			]
 			},

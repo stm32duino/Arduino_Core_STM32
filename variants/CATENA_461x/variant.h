@@ -146,24 +146,7 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#if defined (USBCON) && defined (USB_TWO_HWSERIAL)
-# define SERIAL_PORT_MONITOR  SerialUSB
-# define HAVE_HWSERIAL1
-# define HAVE_HWSERIAL2
-#elif defined (USBCON)
-# define SERIAL_PORT_MONITOR  SerialUSB
-#elif defined(NO_HWSERIAL)
-# define SERIAL_PORT_MONITOR  SerialNo
-#else
-// Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    1
-// Default pin used for 'Serial' instance (ex: ST-Link)
-// Mandatory for Firmata
-# define PIN_SERIAL_RX           D0
-# define PIN_SERIAL_TX           D1
-# define SERIAL_PORT_MONITOR  Serial
-#endif
-# define SERIAL_PORT_HARDWARE  Serial
-#endif
+
+#include "../mcci_common_uart.h"
 
 #endif /* _VARIANT_ARDUINO_CATENA_461x_ */

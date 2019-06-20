@@ -89,14 +89,11 @@ mcci_catena_4551.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4551.menu.xserial.usb=USB Serial
 mcci_catena_4551.menu.xserial.generic=Generic Serial
 mcci_catena_4551.menu.xserial.none=No Serial
-mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4551.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4551.menu.xserial.all=All (up to 10)
-#mcci_catena_4551.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4551.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4551.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4551.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4551.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4551.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4551.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4551.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4551.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4551.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -212,14 +209,11 @@ mcci_catena_4610.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4610.menu.xserial.usb=USB Serial
 mcci_catena_4610.menu.xserial.generic=Generic Serial
 mcci_catena_4610.menu.xserial.none=No Serial
-mcci_catena_4610.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4610.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4610.menu.xserial.all=All (up to 10)
-#mcci_catena_4610.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4610.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4610.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4610.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4610.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4610.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4610.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4610.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4610.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4610.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -335,14 +329,11 @@ mcci_catena_4611.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4611.menu.xserial.usb=USB Serial
 mcci_catena_4611.menu.xserial.generic=Generic Serial
 mcci_catena_4611.menu.xserial.none=No Serial
-mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4611.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4611.menu.xserial.all=All (up to 10)
-#mcci_catena_4611.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4611.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4611.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4611.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4611.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4611.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4611.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4611.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4611.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4611.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -458,14 +449,11 @@ mcci_catena_4612.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4612.menu.xserial.usb=USB Serial
 mcci_catena_4612.menu.xserial.generic=Generic Serial
 mcci_catena_4612.menu.xserial.none=No Serial
-mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4612.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4612.menu.xserial.all=All (up to 10)
-#mcci_catena_4612.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4612.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4612.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4612.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4612.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4612.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4612.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4612.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4612.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4612.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -581,14 +569,11 @@ mcci_catena_4617.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4617.menu.xserial.usb=USB Serial
 mcci_catena_4617.menu.xserial.generic=Generic Serial
 mcci_catena_4617.menu.xserial.none=No Serial
-mcci_catena_4617.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4617.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4617.menu.xserial.all=All (up to 10)
-#mcci_catena_4617.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4617.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4617.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4617.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4617.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4617.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4617.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4617.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4617.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4617.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -704,14 +689,11 @@ mcci_catena_4618.menu.upload_method.STLink.upload.tool=stlink_upload
 mcci_catena_4618.menu.xserial.usb=USB Serial
 mcci_catena_4618.menu.xserial.generic=Generic Serial
 mcci_catena_4618.menu.xserial.none=No Serial
-mcci_catena_4618.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4618.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4618.menu.xserial.all=All (up to 10)
-#mcci_catena_4618.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4618.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-mcci_catena_4618.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#mcci_catena_4618.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#mcci_catena_4618.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4618.menu.xserial.usbhwserial=USB + HW Serial
+mcci_catena_4618.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+mcci_catena_4618.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4618.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4618.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 
 #
 # menu.sysclk
@@ -824,17 +806,14 @@ mcci_catena_4630.menu.upload_method.STLink.upload.tool=stlink_upload
 
 #
 # menu.xserial
-mcci_catena_4630.menu.xserial.usb=USB Serial
+mcci_catena_4630.menu.xserial.usbhwserial=USB + Two HW Serial
+mcci_catena_4630.menu.xserial.usb=USB Serial Only
 mcci_catena_4630.menu.xserial.generic=Generic Serial
 mcci_catena_4630.menu.xserial.none=No Serial
-mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-mcci_catena_4630.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4630.menu.xserial.all=All (up to 10)
-#mcci_catena_4630.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4630.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
 mcci_catena_4630.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-mcci_catena_4630.menu.xserial.third=Enable first third (USART1 to 3 if available)
-mcci_catena_4630.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+mcci_catena_4630.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4630.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
 
 #
 # menu.sysclk
@@ -933,13 +912,12 @@ mcci_catena_4801.menu.upload_method.STLink.upload.tool=stlink_upload
 
 #
 # menu.xserial
-mcci_catena_4801.menu.xserial.none=No Serial
 mcci_catena_4801.menu.xserial.generic=Generic Serial
-mcci_catena_4801.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#mcci_catena_4801.menu.xserial.all=All (up to 10)
-#mcci_catena_4801.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-mcci_catena_4801.menu.xserial.third=Enable first third (USART1 to 3 if available)
-mcci_catena_4801.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+mcci_catena_4801.menu.xserial.two=Two HW Serial
+mcci_catena_4801.menu.xserial.none=No Serial
+mcci_catena_4801.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+mcci_catena_4801.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+mcci_catena_4801.menu.xserial.two.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x6
 
 #
 # menu.sysclk

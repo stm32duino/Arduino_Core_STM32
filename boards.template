@@ -201,36 +201,29 @@ $section xserial
 {{board}}.menu.xserial.usb=USB Serial
 {{board}}.menu.xserial.generic=Generic Serial
 {{board}}.menu.xserial.none=No Serial
-{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#{{board}}.menu.xserial.all=All (up to 10)
-#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-{{board}}.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
-{{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-#{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
-#{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+{{board}}.menu.xserial.usbhwserial=USB + HW Serial
+{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x1
+{{board}}.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+{{board}}.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+{{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x3
 %%-xserial_usb
 
-%%+xserial_usb_third
-{{board}}.menu.xserial.usb=USB Serial
+%%+xserial_usb_serial12
+{{board}}.menu.xserial.usbhwserial=USB + Two HW Serial
+{{board}}.menu.xserial.usb=USB Serial Only
 {{board}}.menu.xserial.generic=Generic Serial
 {{board}}.menu.xserial.none=No Serial
-{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
-{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#{{board}}.menu.xserial.all=All (up to 10)
-#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-{{board}}.menu.xserial.usbhwserial=USB+HW Serial (USART1 and 2 if available)
 {{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
-{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
-{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
-%%-xserial_usb_third
+{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+{{board}}.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+{{board}}.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+%%-xserial_usb_serial12
 
 %%+xserial_nousb
-{{board}}.menu.xserial.none=No Serial
 {{board}}.menu.xserial.generic=Generic Serial
-{{board}}.menu.xserial.none.build.xSerial=-DNO_HWSERIAL
-#{{board}}.menu.xserial.all=All (up to 10)
-#{{board}}.menu.xserial.all.build.xSerial=-DALL_HWSERIAL
-{{board}}.menu.xserial.third=Enable first third (USART1 to 3 if available)
-{{board}}.menu.xserial.third.build.xSerial=-DFIRST_THIRD_HWSERIAL
+{{board}}.menu.xserial.two=Two HW Serial
+{{board}}.menu.xserial.none=No Serial
+{{board}}.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
+{{board}}.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
+{{board}}.menu.xserial.two.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x6
 %%-xserial_nousb
