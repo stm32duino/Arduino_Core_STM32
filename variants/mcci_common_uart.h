@@ -60,8 +60,8 @@ is correct.
 */
 
 #define ARDUINO_BSP_SERIAL_UART_IS_ENABLED(iSerial) \
-        ((iSerial) > 0 &&   \
-         (ARDUINO_BSP_CONFIG_SERIAL_MASK & (1u << (iSerial)) != 0)
+         (((iSerial) > 0) &&   \
+         ((ARDUINO_BSP_CONFIG_SERIAL_MASK & (1u << (iSerial))) != 0))
 
 #define ARDUINO_BSP_SERIAL_USB_IS_ENABLED() \
         ((ARDUINO_BSP_CONFIG_SERIAL_MASK & 1) != 0)
@@ -84,6 +84,7 @@ is correct.
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    1
 # else
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    2
+#endif
 #endif
 
 // check that configurations match.
@@ -175,6 +176,7 @@ is correct.
 #endif
 
 // post-condition: PIN_SERIAL_RX and _TX are defined.
+//if ! ARDUINO_BSP_SERIAL_USB_IS_ENABLED() &&
 #if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
 # define PIN_SERIAL_RX           D0
 # define PIN_SERIAL_TX           D1
@@ -182,6 +184,7 @@ is correct.
 # define PIN_SERIAL_RX           (-1)
 # define PIN_SERIAL_TX           (-1)
 #endif
+//#endif
 
 // end of file.
 #endif /* _MCCI_COMMON_UART_H_ */

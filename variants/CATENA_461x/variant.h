@@ -148,5 +148,6 @@ enum {
 //                            pins are NOT connected to anything by default.
 
 #include "../mcci_common_uart.h"
+#endif // __cplusplus
 
 #endif /* _VARIANT_ARDUINO_CATENA_461x_ */

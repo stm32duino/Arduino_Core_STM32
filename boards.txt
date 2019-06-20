@@ -810,7 +810,7 @@ mcci_catena_4630.menu.xserial.usbhwserial=USB + Two HW Serial
 mcci_catena_4630.menu.xserial.usb=USB Serial Only
 mcci_catena_4630.menu.xserial.generic=Generic Serial
 mcci_catena_4630.menu.xserial.none=No Serial
-mcci_catena_4630.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DUSB_TWO_HWSERIAL
+mcci_catena_4630.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x7
 mcci_catena_4630.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
 mcci_catena_4630.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
 mcci_catena_4630.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
