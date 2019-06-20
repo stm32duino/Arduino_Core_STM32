@@ -57,6 +57,13 @@ Note that support for a UART or a USB in this file does not imply
 support on the targeted board. We assume info from the boards.txt
 is correct.
 
+`variant.h` originally only defined any of the following symbols if compiling
+C++ code; otherwise Serial<whatever> isn't in scope. In refactoring this, we
+decided to make some of these settings available to C compiles. However,
+`variant.h` doesn't call this file unless it detects a C++ compile. You have to
+explicitly include this file in a C compile if you want the macros and settings
+available.
+
 */
 
 #define ARDUINO_BSP_SERIAL_UART_IS_ENABLED(iSerial) \
@@ -69,25 +76,44 @@ is correct.
 #define ARDUINO_BSP_SERIAL_ANY_UART_IS_ENABLED() \
         ((ARDUINO_BSP_CONFIG_SERIAL_MASK & ~1u) != 0)
 
-// handle anything passed in on command line.
+//
+// If ARDUINO_BSP_CONFIG_SERIAL_MASK is not defined, we try to calculate a suitable
+// value based on other configuration settings.
+//
+// Post-condition: ARDUINO_BSP_CONFIG_SERiAL_MASK is defined
+//
 #ifndef ARDUINO_BSP_CONFIG_SERIAL_MASK
+
+  // we want to encourage people to migrate, but we'll be gentle for now.
+  // however, we'll enforce this more rigorously in the future.
 # warning "ARDUINO_BSP_CONFIG_SERIAL_MASK must be defined in boards.txt"
+
+  //
+  // compute a suitable value for ARDUINO_BSP_CONFIG_SERIAL_MASK
+  //
 # if defined(NO_HWSERIAL) && ! defined(USBCON)
+   // legacy configuration: no USB serial, no UART
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    0
 # elif defined(NO_HWSERIAL) && defined(USBCON)
+   // legacy configuration: USB serial, no UART
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    1
 # elif defined(FIRST_THIRD_HWSERIAL)
 #  error "FIRST_THIRD_HWSERIAL Not supported for this BSP, use ARDUINO_BSP_CONFIG_SERIAL_MASK"
 # elif defined(ALL_HWSERIAL)
 #  error "ALL_HWSERIAL Not supported for this BSP, use ARDUINO_BSP_CONFIG_SERIAL_MASK"
 # elif defined(USBCON)
+   // USB, no UART
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    1
 # else
+   // with no other knowledge, assume generic uart, no USB
 #  define ARDUINO_BSP_CONFIG_SERIAL_MASK    2
-#endif
-#endif
+# endif
+#endif /* ndef ARDUINO_BSP_CONFIG_SERIAL_MASK */
 
-// check that configurations match.
+//
+// check that the explicit configuration doesn't conflict with the
+// configuration implied by -D switches on the compile line.
+//
 #if defined(USBCON) && ! ARDUINO_BSP_SERIAL_USB_IS_ENABLED()
 # error "USBCON defined but not enabled in ARDUINO_BSP_CONFIG_SERIAL_MASK"
 #endif
@@ -104,14 +130,12 @@ is correct.
 // we'll take care of this below.
 #endif
 
-/*
-|| Although our caller might be more strict, if this file is called
-|| directly, we'll allow some changes even in a C compile.
-*/
-
-// post condition: Serial and SerialEvent are pointing to the desired
-// SERIAL_PORT_MONITOR value.
-// this is C++ only.
+//
+// Post condition: Serial and SerialEvent are pointing to the desired Serial<x>,
+// and SERIAL_PORT_MONITOR points to the desired Serial<x>.
+//
+// This is C++ only.
+//
 #ifdef __cplusplus
 # if ARDUINO_BSP_SERIAL_USB_IS_ENABLED()
 #  define Serial SerialUSB
@@ -136,8 +160,12 @@ is correct.
 # define SERIAL_PORT_MONITOR    Serial
 #endif // __cplusplus
 
-// post condition: SERIAL_PORT_HARDWARE is the lowest-numbered port
+//
+// Post condition: SERIAL_PORT_HARDWARE is the lowest-numbered HardwareSerial
+// Serial<x> port.
+//
 // C++ only
+//
 #ifdef __cplusplus
 # if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
 #  define SERIAL_PORT_HARDWARE   Serial1
@@ -154,8 +182,12 @@ is correct.
 # endif
 #endif // __cplusplus
 
-// post-condition: the appropriate HAVE_HWSERIALx or NO_HWSERIAL symbols
-// are defined. This is C or C++.
+//
+// Post condition: the appropriate ENABLE_HWSERIALx or NO_HWSERIAL symbols
+// are defined, based on the configuration.
+//
+// This is C or C++.
+//
 #if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
 # define ENABLE_HWSERIAL1
 #endif
@@ -175,15 +207,19 @@ is correct.
 # define NO_HWSERIAL
 #endif
 
-// post-condition: PIN_SERIAL_RX and _TX are defined.
-#if ! ARDUINO_BSP_SERIAL_USB_IS_ENABLED()
+//
+// Post-condition: PIN_SERIAL_RX and _TX are defined.
+// to be D0 and D1, otherwise -1/-1, based on UART1
+// being enabled.
+//
+// This is C or C++
+//
 #if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
 # define PIN_SERIAL_RX           D0
 # define PIN_SERIAL_TX           D1
 #else
 # define PIN_SERIAL_RX           (-1)
 # define PIN_SERIAL_TX           (-1)
-#endif
 #endif
 
 // end of file.
