@@ -176,7 +176,7 @@ is correct.
 #endif
 
 // post-condition: PIN_SERIAL_RX and _TX are defined.
-//if ! ARDUINO_BSP_SERIAL_USB_IS_ENABLED() &&
+if ! ARDUINO_BSP_SERIAL_USB_IS_ENABLED() &&
 #if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
 # define PIN_SERIAL_RX           D0
 # define PIN_SERIAL_TX           D1
@@ -184,7 +184,7 @@ is correct.
 # define PIN_SERIAL_RX           (-1)
 # define PIN_SERIAL_TX           (-1)
 #endif
-//#endif
+#endif
 
 // end of file.
 #endif /* _MCCI_COMMON_UART_H_ */
