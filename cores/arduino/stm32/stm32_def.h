@@ -7,7 +7,7 @@
  */
 #define STM32_CORE_VERSION_MAJOR    (0x01U) /*!< [31:24] major version */
 #define STM32_CORE_VERSION_MINOR    (0x06U) /*!< [23:16] minor version */
-#define STM32_CORE_VERSION_PATCH    (0x00U) /*!< [15:8]  patch version */
+#define STM32_CORE_VERSION_PATCH    (0x01U) /*!< [15:8]  patch version */
 /*
  * Extra label for development:
  * 0: official release
