@@ -716,12 +716,12 @@ GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # BLACKPILL_F303CC
-GenF3.menu.pnum.BLACKPILL_F303XX=RobotDyn BlackPill F303CC
-GenF3.menu.pnum.BLACKPILL_F303XX.upload.maximum_size=262144
-GenF3.menu.pnum.BLACKPILL_F303XX.upload.maximum_data_size=40960
-GenF3.menu.pnum.BLACKPILL_F303XX.build.board=BLACKPILL_F303CC
-GenF3.menu.pnum.BLACKPILL_F303XX.build.product_line=STM32F303xC
-GenF3.menu.pnum.BLACKPILL_F303XX.build.variant=PILL_F303XX
+GenF3.menu.pnum.BLACKPILL_F303CC=RobotDyn BlackPill F303CC
+GenF3.menu.pnum.BLACKPILL_F303CC.upload.maximum_size=262144
+GenF3.menu.pnum.BLACKPILL_F303CC.upload.maximum_data_size=40960
+GenF3.menu.pnum.BLACKPILL_F303CC.build.board=BLACKPILL_F303CC
+GenF3.menu.pnum.BLACKPILL_F303CC.build.product_line=STM32F303xC
+GenF3.menu.pnum.BLACKPILL_F303CC.build.variant=PILL_F303XX
 
 # Upload menu
 GenF3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
