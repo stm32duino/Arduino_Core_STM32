@@ -578,6 +578,17 @@ GenF0.menu.pnum.DEMO_F030F4.build.product_line=STM32F030x6
 GenF0.menu.pnum.DEMO_F030F4.build.variant=DEMO_F030F4
 GenF0.menu.pnum.DEMO_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# DEMO_16M_F030F4 board
+GenF0.menu.pnum.DEMO_16M_F030F4=STM32F030F4 Demo board 16Mhz
+GenF0.menu.pnum.DEMO_16M_F030F4.upload.maximum_data_size=4096
+GenF0.menu.pnum.DEMO_16M_F030F4.upload.maximum_size=16384
+GenF0.menu.pnum.DEMO_16M_F030F4.build.mcu=cortex-m0
+GenF0.menu.pnum.DEMO_16M_F030F4.build.board=DEMO_16M_F030F4
+GenF0.menu.pnum.DEMO_16M_F030F4.build.series=STM32F0xx
+GenF0.menu.pnum.DEMO_16M_F030F4.build.product_line=STM32F030x6
+GenF0.menu.pnum.DEMO_16M_F030F4.build.variant=DEMO_16M_F030F4
+GenF0.menu.pnum.DEMO_16M_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=0
