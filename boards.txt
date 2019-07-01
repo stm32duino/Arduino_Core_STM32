@@ -565,18 +565,26 @@ GenF0.name=Generic STM32F0 series
 
 GenF0.build.core=arduino
 GenF0.build.board=GenF0
+GenF0.build.mcu=cortex-m0
+GenF0.build.series=STM32F0xx
+GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.extra_flags=-D{build.product_line} {build.xSerial}
 
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board
 GenF0.menu.pnum.DEMO_F030F4.upload.maximum_data_size=4096
 GenF0.menu.pnum.DEMO_F030F4.upload.maximum_size=16384
-GenF0.menu.pnum.DEMO_F030F4.build.mcu=cortex-m0
 GenF0.menu.pnum.DEMO_F030F4.build.board=DEMO_F030F4
-GenF0.menu.pnum.DEMO_F030F4.build.series=STM32F0xx
 GenF0.menu.pnum.DEMO_F030F4.build.product_line=STM32F030x6
 GenF0.menu.pnum.DEMO_F030F4.build.variant=DEMO_F030F4
-GenF0.menu.pnum.DEMO_F030F4.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# DEMO_F030F4_16M board
+GenF0.menu.pnum.DEMO_F030F4_16M=STM32F030F4 Demo board (16Mhz)
+GenF0.menu.pnum.DEMO_F030F4_16M.upload.maximum_data_size=4096
+GenF0.menu.pnum.DEMO_F030F4_16M.upload.maximum_size=16384
+GenF0.menu.pnum.DEMO_F030F4_16M.build.board=DEMO_F030F4_16M
+GenF0.menu.pnum.DEMO_F030F4_16M.build.product_line=STM32F030x6
+GenF0.menu.pnum.DEMO_F030F4_16M.build.variant=DEMO_F030F4
 
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
