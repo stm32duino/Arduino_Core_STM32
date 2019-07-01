@@ -89,6 +89,10 @@ extern "C" {
 #define PIN_SERIAL_RX           PA3
 #define PIN_SERIAL_TX           PA2
 
+#ifdef ARDUINO_DEMO_F030F4_16M
+#define HSE_VALUE               16000000U  /*!< Value of the External oscillator in Hz */
+#endif
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
