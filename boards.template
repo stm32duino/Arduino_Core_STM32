@@ -214,7 +214,7 @@ $section xserial
 {{board}}.menu.xserial.generic=Generic Serial
 {{board}}.menu.xserial.none=No Serial
 {{board}}.menu.xserial.usbhwserial.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x7
-{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DNO_HWSERIAL
+{{board}}.menu.xserial.usb.build.xSerial={build.usb_flags} -DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
 {{board}}.menu.xserial.generic.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x2
 {{board}}.menu.xserial.none.build.xSerial=-DARDUINO_BSP_CONFIG_SERIAL_MASK=0x0
 %%-xserial_usb_serial12
