@@ -10,7 +10,9 @@ For general information, please check the stm32duino [README.md](https://github.
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Supported Boards and CPUs](#supported-boards-and-cpus)
-	- [Simple Board Comparison Chart (4551/461x series)](#simple-board-comparison-chart-4551461x-series)
+	- [Catena 461x Series](#catena-461x-series)
+		- [Sensors on Catena 4612, 4617, and 4618](#sensors-on-catena-4612-4617-and-4618)
+	- [Catena 4630 Features](#catena-4630-features)
 	- [Catena 4801 Features](#catena-4801-features)
 - [Troubleshooting](#troubleshooting)
 - [Installing a Development Copy of this BSP](#installing-a-development-copy-of-this-bsp)
@@ -44,32 +46,60 @@ The Arduino IDE allows you to select the following items.
 
 ## Supported Boards and CPUs
 
-| Board | CPU/SOC | Comment |
-|-------|:-------:|---------|
-| MCCI Catena 4551 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4610 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4611 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4612 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4801 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4617 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
-| MCCI Catena 4618 | STM32L082 | This board uses a Murata CMWX1ZZABZ module, containing the STM32L082 CPU |
+| Board | CPU/SOC/Module | Section | Comment |
+|:-----:|:--------------:|:-------:|---------|
+| MCCI Catena 4551 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | Obsolete |
+| MCCI Catena 4610 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | LiPo battery |
+| MCCI Catena 4611 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | Special order only |
+| MCCI Catena 4612 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | Primary battery, BME280 |
+| MCCI Catena 4617 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | Primary battery, HS3001 |
+| MCCI Catena 4618 | Murata CMWX1ZZABZ module, STM32L082 | [461x](#catena-461x-series) | Primary battery, SHT31-DIS-F |
+| MCCI Catena 4630 | Murata CMWX1ZZABZ module, STM32L082 | [4630](#catena-4630-features) | LiPo battery,ZMOD4410, PMS7003 |
+| MCCI Catena 4801 | Murata CMWX1ZZABZ module, STM32L082 | [4801](#catena-4801-features) | Primary battery, Modbus |
 
+### Catena 461x Series
 
-
-### Simple Board Comparison Chart (4551/461x series)
-
-| Feature | 4551 | 4610 | 4611 | 4612 | 4617 | 4618 |
-|---------|------|------|------|------|------|------|
+| Feature | 4551 | 4610 | 4611 | 4612 / 4617 / 4618 |
+|---------|------|------|------|------|
 | TCXO control | Always on (power consumption issue) | Controlled by code | Controlled by code | Controlled by code | Controlled by code | Controlled by code |
-| Battery type | Primary (non-rechargeable) reference is 2x AAA cells | Secondary (LiPo rechargeable), compatible with Adafruit | Feather batteries | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells |
-| System voltage | 3.3V | 3.3V | 3.3V | 2.2V to 3.3V, depending on whether boost regulator is enabled. | 2.2V to 3.3V, depending on whether boost regulator is enabled. | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
-| Regulator control | EN pin on Feather disables VDD altogether | No boost regulator; EN disables VDD altogether. | EN pin on JP2-3 shuts down boost regulator | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. | EN output from CPU controls boost regulator, and 4617 normally runs with boost regulator off for lower power. | EN output from CPU controls boost regulator, and 4618 normally runs with boost regulator off for lower power. |
-| High-side switch for external sensors | No switch, screw terminal power is from VDD (3.3V) | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals |
-| Feather electrical compatibility  | Good, except for different battery system | Very good | Very good | Good physical compatibility but the varying VDD may be an issue | Good physical compatibility but the varying VDD may be an issue | Good physical compatibility but the varying VDD may be an issue |
-| Feather physical compatibility | Yes | Yes | Yes | Yes | Yes | Yes |
+| Battery type | Primary (non-rechargeable) reference is 2x AAA cells | Secondary (LiPo rechargeable), compatible with Adafruit | Feather batteries | Primary (non-rechargeable) reference is 2x AAA cells | Primary (non-rechargeable) reference is 2x AAA cells |
+| System voltage | 3.3V | 3.3V | 3.3V | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
+| Regulator control | EN pin on Feather disables VDD altogether | No boost regulator; EN disables VDD altogether. | EN pin on JP2-3 shuts down boost regulator | EN output from CPU controls boost regulator. 4612/4617/4618 normally run with boost regulator off for lower power. |
+| High-side switch for external sensors | No switch, screw terminal power is from VDD (3.3V) | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals | High-side switch allows software to turn off power to the external sensor screw terminals |
+| Feather electrical compatibility  | Good, except for different battery system | Very good | Very good | Good physical compatibility but the varying VDD may be an issue |
+| Feather physical compatibility | Yes | Yes | Yes | Yes |
 | USB | Supported | Supported | Supported | Supported | Supported | Supported |
-| Sensors | BME280, Si1123 | BME280, Si1113 | BME280, Si1113 | BME280, Si1113 | HS3001, Si1133 | SHT31, Si1133 |
+| Sensors | BME280, Si1123 | BME280, Si1113 | BME280, Si1113 | See [Catena 4612/7/8 Sensors](#sensors-on-catena-4612-4617-and-4618), below |
 | Screw terminals for external sensors | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin | 2x4 pin |
+| Boot mode enable | Jumper | Dedicated switch | Jumper | Jumper |
+
+#### Sensors on Catena 4612, 4617, and 4618
+
+All three boards incorporate a Silicon Labs Si1133 ambient light sensor. They differ in the environmental sensor.
+
+Board | Sensor | Temperature | Humidity | Barometric Pressure | Comments
+:----:|:------:|:-----------:|:--------:|:-------------------:|:----------
+4612  | BME280 | Yes | Yes | Yes | Not suitable for outdoor applications or high-humidity environments.
+4617  | HS3001 | Yes | Yes | **No** | Suitable for general-purpose use.
+4618  | SHT31-DIS-F | Yes | Yes | **No** | Sensor protected by an IP66 PTFE membrane, best for outdoor deployments.
+
+### Catena 4630 Features
+
+The 4630 is a Feather-compatible board designed for field air-quality monitoring.
+
+| Feature | 4630 |
+|---------|------|
+| TCXO Control | Controlled by code |
+| Battery type | LiPo with on-board charger |
+| System voltage | 3.3V, plus programmable 5V regulator for PMS7003 PM2.5 sensor support. |
+| Regulator control | No boost regulator for 3.3V; EN disables VDD altogether. D12 controls 5V boost regulator for PMS7003. |
+| High-side switch for power for external sensors | No |
+| Screw terminals for external sensors | None |
+| Feather electrical compatibilty | Yes |
+| Feather physical compatibility | Yes |
+| USB | Yes, DFU download, runtime data, and charging |
+| Sensors | ZMOD4410 VOC sensor; BME280 temperature/pressure/humidity |
+| External interfaces | TTL Serial, dedicated cable for connecting to PMS7003 PM2.5 sensor |
 
 ### Catena 4801 Features
 
@@ -80,7 +110,7 @@ The 4801 is a dedicated board for remote Modbus applications, using the Murata m
 | TCXO Control | Controlled by code |
 | Battery type | Primary battery, boost regulator (but can tolerate up to 3.7V battery) |
 | System voltage | 2.2V to 3.3V, depending on whether boost regulator is enabled. |
-| Regulator control | EN output from CPU controls boost regulator, and 4612 normally runs with boost regulator off for lower power. |
+| Regulator control | EN output from CPU controls boost regulator, and 4801 normally runs with boost regulator off for lower power. |
 | High-side switch for power for external sensors | Yes |
 | Screw terminals for external sensors | 1x4 pin |
 | Feather physical compatibility | No |
