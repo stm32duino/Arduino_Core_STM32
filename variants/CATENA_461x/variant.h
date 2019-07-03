@@ -122,12 +122,6 @@ enum {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-// Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
-// Default pin used for 'Serial' instance (ex: ST-Link)
-// Mandatory for Firmata
-#define PIN_SERIAL_RX           D0
-#define PIN_SERIAL_TX           D1
 
 #ifdef __cplusplus
 } // extern "C"
@@ -152,14 +146,8 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#ifdef USBCON
-# define SERIAL_PORT_MONITOR  SerialUSB
-#elif defined(NO_HWSERIAL)
-# define SERIAL_PORT_MONITOR  SerialNo
-#else
-# define SERIAL_PORT_MONITOR  Serial
-#endif
-#define SERIAL_PORT_HARDWARE  Serial
-#endif
+
+#include "../mcci_common_uart.h"
+#endif // __cplusplus
 
 #endif /* _VARIANT_ARDUINO_CATENA_461x_ */

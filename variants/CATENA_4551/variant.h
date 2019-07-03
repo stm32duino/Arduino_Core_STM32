@@ -1,5 +1,6 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2018-2019 MCCI Corporation. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -16,8 +17,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
  */
 
-#ifndef _VARIANT_ARDUINO_STM32_
-#define _VARIANT_ARDUINO_STM32_
+#ifndef _VARIANT_ARDUINO_MCCI_CATENA_4551_H_
+#define _VARIANT_ARDUINO_MCCI_CATENA_4551_H_
 
 /*----------------------------------------------------------------------------
  *        Headers
@@ -121,12 +122,6 @@ enum {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-// Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
-// Default pin used for 'Serial' instance (ex: ST-Link)
-// Mandatory for Firmata
-#define PIN_SERIAL_RX           D0
-#define PIN_SERIAL_TX           D1
 
 #ifdef __cplusplus
 } // extern "C"
@@ -151,14 +146,7 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#ifdef USBCON
-# define SERIAL_PORT_MONITOR  SerialUSB
-#elif defined(NO_HWSERIAL)
-# define SERIAL_PORT_MONITOR  SerialNo
-#else
-# define SERIAL_PORT_MONITOR  Serial
-#endif
-#define SERIAL_PORT_HARDWARE  Serial
+# include "../mcci_common_uart.h"
 #endif
 
-#endif /* _VARIANT_ARDUINO_STM32_ */
+#endif /* _VARIANT_ARDUINO_MCCI_CATENA_4551_H_ */

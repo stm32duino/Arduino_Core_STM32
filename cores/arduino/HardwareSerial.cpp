@@ -155,9 +155,13 @@ HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
 HardwareSerial::HardwareSerial(void* peripheral)
 {
 // If Serial is defined in variant set
-// the Rx/Tx pins for com port if defined
-#if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
-  if (this == &Serial)
+// the Rx/Tx pins for com port if defined. Allegedly this is needed
+// for Firmaata. The complicated #if allows PIN_SERIAL_RX/TX to be
+// defined but negative; and the typecasts allow Serial to be of
+// type other than HardwareSerial.
+#if defined(Serial) && defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX) && \
+    PIN_SERIAL_RX >= 0 && PIN_SERIAL_TX >= 0
+  if ((void *)this == (void *)&Serial)
   {
     setRx(PIN_SERIAL_RX);
     setTx(PIN_SERIAL_TX);
