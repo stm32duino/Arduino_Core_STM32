@@ -24,7 +24,7 @@ For general information, please check the stm32duino [README.md](https://github.
 
 ## Latest release
 
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.3.0...master)
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.4.0...master)
 
 ## Getting Started
 
@@ -151,6 +151,8 @@ If you want to develop and test changes to this package, we suggest the followin
 Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or `programmers.txt`.
 
 ## Release History
+
+- [v2.4.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.4.0) Added support for new boards: 4617, 4618 and 4630. Serial interface configuration in `boards.template` has been updated with new option to use both USB Serial and Hardware Serial at same time.
 
 - [v2.3.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.3.0) corrects the handling of clocking in the various SLEEP/STOP/SSTANDBY modes. It also ensures that `.RamFunc` code is properly placed in RAM (initialzed when statics are initialized).
 
