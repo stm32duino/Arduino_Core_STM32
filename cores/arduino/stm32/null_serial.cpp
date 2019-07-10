@@ -28,11 +28,11 @@
  * @brief USB virtual serial terminal
  */
 
-#if defined(NO_HWSERIAL) && ! defined(USBCON)
-
 #include <string.h>
 
 #include "wiring.h"
+
+#if defined(NO_HWSERIAL) && ! defined(USBCON)
 
 NullSerial SerialNull;
 
