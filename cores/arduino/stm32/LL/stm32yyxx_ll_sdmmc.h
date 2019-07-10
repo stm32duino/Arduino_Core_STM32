@@ -26,5 +26,8 @@
 #ifdef STM32L4xx
 #include "stm32l4xx_ll_sdmmc.h"
 #endif
+#ifdef STM32MP1xx
+#include "stm32mp1xx_ll_sdmmc.h"
+#endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_SDMMC_H_ */
