@@ -38,6 +38,11 @@
 #include <stddef.h>
 #include "dma.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+#if defined(HAL_DMA_MODULE_ENABLED)
+
 #define NC -1
 
 typedef enum
@@ -366,5 +371,11 @@ void DMA2_Channel7_IRQHandler() {
 void DMA2_Channel8_IRQHandler() {
   if (dma_handles[DMA2_CHANNEL8_INDEX] != NULL)
     HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL8_INDEX]);
+}
+#endif
+
+#endif /* HAL_DMA_MODULE_ENABLED */
+
+#ifdef __cplusplus
 }
 #endif
