@@ -43,57 +43,104 @@ extern "C" {
 #endif
 #if defined(HAL_DMA_MODULE_ENABLED)
 
-#define NC -1
-
-typedef enum
-{
+typedef enum {
 #ifdef DMA1_Channel1
-    DMA1_CHANNEL1_INDEX,
+  DMA1_CHANNEL1_INDEX,
 #endif
 #ifdef DMA1_Channel2
-    DMA1_CHANNEL2_INDEX,
+  DMA1_CHANNEL2_INDEX,
 #endif
 #ifdef DMA1_Channel3
-    DMA1_CHANNEL3_INDEX,
+  DMA1_CHANNEL3_INDEX,
 #endif
 #ifdef DMA1_Channel4
-    DMA1_CHANNEL4_INDEX,
+  DMA1_CHANNEL4_INDEX,
 #endif
 #ifdef DMA1_Channel5
-    DMA1_CHANNEL5_INDEX,
+  DMA1_CHANNEL5_INDEX,
 #endif
 #ifdef DMA1_Channel6
-    DMA1_CHANNEL6_INDEX,
+  DMA1_CHANNEL6_INDEX,
 #endif
 #ifdef DMA1_Channel7
-    DMA1_CHANNEL7_INDEX,
+  DMA1_CHANNEL7_INDEX,
 #endif
 #ifdef DMA2_Channel1
-    DMA2_CHANNEL1_INDEX,
+  DMA2_CHANNEL1_INDEX,
 #endif
 #ifdef DMA2_Channel2
-    DMA2_CHANNEL2_INDEX,
+  DMA2_CHANNEL2_INDEX,
 #endif
 #ifdef DMA2_Channel3
-    DMA2_CHANNEL3_INDEX,
+  DMA2_CHANNEL3_INDEX,
 #endif
 #ifdef DMA2_Channel4
-    DMA2_CHANNEL4_INDEX,
+  DMA2_CHANNEL4_INDEX,
 #endif
 #ifdef DMA2_Channel5
-    DMA2_CHANNEL5_INDEX,
+  DMA2_CHANNEL5_INDEX,
 #endif
 #ifdef DMA2_Channel6
-    DMA2_CHANNEL6_INDEX,
+  DMA2_CHANNEL6_INDEX,
 #endif
 #ifdef DMA2_Channel7
-    DMA2_CHANNEL7_INDEX,
+  DMA2_CHANNEL7_INDEX,
 #endif
 #ifdef DMA2_Channel8
-    DMA2_CHANNEL8_INDEX,
+  DMA2_CHANNEL8_INDEX,
 #endif
-    DMA_CHANNEL_NUM
+#ifdef DMA1_Stream0
+  DMA1_STREAM0_INDEX,
+#endif
+#ifdef DMA1_Stream1
+  DMA1_STREAM1_INDEX,
+#endif
+#ifdef DMA1_Stream2
+  DMA1_STREAM2_INDEX,
+#endif
+#ifdef DMA1_Stream3
+  DMA1_STREAM3_INDEX,
+#endif
+#ifdef DMA1_Stream4
+  DMA1_STREAM4_INDEX,
+#endif
+#ifdef DMA1_Stream5
+  DMA1_STREAM5_INDEX,
+#endif
+#ifdef DMA1_Stream6
+  DMA1_STREAM6_INDEX,
+#endif
+#ifdef DMA1_Stream7
+  DMA1_STREAM7_INDEX,
+#endif
+#ifdef DMA2_Stream0
+  DMA2_STREAM0_INDEX,
+#endif
+#ifdef DMA2_Stream1
+  DMA2_STREAM1_INDEX,
+#endif
+#ifdef DMA2_Stream2
+  DMA2_STREAM2_INDEX,
+#endif
+#ifdef DMA2_Stream3
+  DMA2_STREAM3_INDEX,
+#endif
+#ifdef DMA2_Stream4
+  DMA2_STREAM4_INDEX,
+#endif
+#ifdef DMA2_Stream5
+  DMA2_STREAM5_INDEX,
+#endif
+#ifdef DMA2_Stream6
+  DMA2_STREAM6_INDEX,
+#endif
+#ifdef DMA2_Stream7
+  DMA2_STREAM7_INDEX,
+#endif
+  DMA_CHANNEL_NUM
 } dma_index_t;
+
+#define NC (dma_index_t)-1
 
 static DMA_HandleTypeDef *dma_handles[DMA_CHANNEL_NUM] = {NULL};
 
@@ -102,71 +149,142 @@ static DMA_HandleTypeDef *dma_handles[DMA_CHANNEL_NUM] = {NULL};
   * @param  instance : dma instance
   * @retval None
   */
-static dma_index_t get_dma_index(DMA_Channel_TypeDef *instance) {
-    switch ((uint32_t)instance) {
+static dma_index_t get_dma_index(
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+  DMA_Stream_TypeDef
+#else
+  DMA_Channel_TypeDef
+#endif
+  *instance)
+{
+  switch ((uint32_t)instance) {
 #ifdef DMA1_Channel1
     case (uint32_t)DMA1_Channel1:
-        return DMA1_CHANNEL1_INDEX;
+      return DMA1_CHANNEL1_INDEX;
 #endif
 #ifdef DMA1_Channel2
     case (uint32_t)DMA1_Channel2:
-        return DMA1_CHANNEL2_INDEX;
+      return DMA1_CHANNEL2_INDEX;
 #endif
 #ifdef DMA1_Channel3
     case (uint32_t)DMA1_Channel3:
-        return DMA1_CHANNEL3_INDEX;
+      return DMA1_CHANNEL3_INDEX;
 #endif
 #ifdef DMA1_Channel4
     case (uint32_t)DMA1_Channel4:
-        return DMA1_CHANNEL4_INDEX;
+      return DMA1_CHANNEL4_INDEX;
 #endif
 #ifdef DMA1_Channel5
     case (uint32_t)DMA1_Channel5:
-        return DMA1_CHANNEL5_INDEX;
+      return DMA1_CHANNEL5_INDEX;
 #endif
 #ifdef DMA1_Channel6
     case (uint32_t)DMA1_Channel6:
-        return DMA1_CHANNEL6_INDEX;
+      return DMA1_CHANNEL6_INDEX;
 #endif
 #ifdef DMA1_Channel7
     case (uint32_t)DMA1_Channel7:
-        return DMA1_CHANNEL7_INDEX;
+      return DMA1_CHANNEL7_INDEX;
 #endif
 #ifdef DMA2_Channel1
     case (uint32_t)DMA2_Channel1:
-        return DMA2_CHANNEL1_INDEX;
+      return DMA2_CHANNEL1_INDEX;
 #endif
 #ifdef DMA2_Channel2
     case (uint32_t)DMA2_Channel2:
-        return DMA2_CHANNEL2_INDEX;
+      return DMA2_CHANNEL2_INDEX;
 #endif
 #ifdef DMA2_Channel3
     case (uint32_t)DMA2_Channel3:
-        return DMA2_CHANNEL3_INDEX;
+      return DMA2_CHANNEL3_INDEX;
 #endif
 #ifdef DMA2_Channel4
     case (uint32_t)DMA2_Channel4:
-        return DMA2_CHANNEL4_INDEX;
+      return DMA2_CHANNEL4_INDEX;
 #endif
 #ifdef DMA2_Channel5
     case (uint32_t)DMA2_Channel5:
-        return DMA2_CHANNEL5_INDEX;
+      return DMA2_CHANNEL5_INDEX;
 #endif
 #ifdef DMA2_Channel6
     case (uint32_t)DMA2_Channel6:
-        return DMA2_CHANNEL6_INDEX;
+      return DMA2_CHANNEL6_INDEX;
 #endif
 #ifdef DMA2_Channel7
     case (uint32_t)DMA2_Channel7:
-        return DMA2_CHANNEL7_INDEX;
+      return DMA2_CHANNEL7_INDEX;
 #endif
 #ifdef DMA2_Channel8
     case (uint32_t)DMA2_Channel8:
-        return DMA2_CHANNEL8_INDEX;
+      return DMA2_CHANNEL8_INDEX;
+#endif
+#ifdef DMA1_Stream0
+    case (uint32_t)DMA1_Stream0:
+      return DMA1_STREAM0_INDEX;
+#endif
+#ifdef DMA1_Stream1
+    case (uint32_t)DMA1_Stream1:
+      return DMA1_STREAM1_INDEX;
+#endif
+#ifdef DMA1_Stream2
+    case (uint32_t)DMA1_Stream2:
+      return DMA1_STREAM2_INDEX;
+#endif
+#ifdef DMA1_Stream3
+    case (uint32_t)DMA1_Stream3:
+      return DMA1_STREAM3_INDEX;
+#endif
+#ifdef DMA1_Stream4
+    case (uint32_t)DMA1_Stream4:
+      return DMA1_STREAM4_INDEX;
+#endif
+#ifdef DMA1_Stream5
+    case (uint32_t)DMA1_Stream5:
+      return DMA1_STREAM5_INDEX;
+#endif
+#ifdef DMA1_Stream6
+    case (uint32_t)DMA1_Stream6:
+      return DMA1_STREAM6_INDEX;
+#endif
+#ifdef DMA1_Stream7
+    case (uint32_t)DMA1_Stream7:
+      return DMA1_STREAM7_INDEX;
+#endif
+#ifdef DMA2_Stream0
+    case (uint32_t)DMA2_Stream0:
+      return DMA2_STREAM0_INDEX;
+#endif
+#ifdef DMA2_Stream1
+    case (uint32_t)DMA2_Stream1:
+      return DMA2_STREAM1_INDEX;
+#endif
+#ifdef DMA2_Stream2
+    case (uint32_t)DMA2_Stream2:
+      return DMA2_STREAM2_INDEX;
+#endif
+#ifdef DMA2_Stream3
+    case (uint32_t)DMA2_Stream3:
+      return DMA2_STREAM3_INDEX;
+#endif
+#ifdef DMA2_Stream4
+    case (uint32_t)DMA2_Stream4:
+      return DMA2_STREAM4_INDEX;
+#endif
+#ifdef DMA2_Stream5
+    case (uint32_t)DMA2_Stream5:
+      return DMA2_STREAM5_INDEX;
+#endif
+#ifdef DMA2_Stream6
+    case (uint32_t)DMA2_Stream6:
+      return DMA2_STREAM6_INDEX;
+#endif
+#ifdef DMA2_Stream7
+    case (uint32_t)DMA2_Stream7:
+      return DMA2_STREAM7_INDEX;
 #endif
     default:
-        return NC;
-    }
+      return NC;
+  }
 }
 
 /**
@@ -174,12 +292,13 @@ static dma_index_t get_dma_index(DMA_Channel_TypeDef *instance) {
   * @param  dma_handle : dma handle
   * @retval None
   */
-void prepare_dma(DMA_HandleTypeDef *dma_handle) {
-    dma_index_t dma_index = get_dma_index(dma_handle->Instance);
-    if (dma_index == NC) {
-        return;
-    }
-    dma_handles[dma_index] = dma_handle;
+void prepare_dma(DMA_HandleTypeDef *dma_handle)
+{
+  dma_index_t dma_index = get_dma_index(dma_handle->Instance);
+  if (dma_index == NC) {
+    return;
+  }
+  dma_handles[dma_index] = dma_handle;
 }
 
 /**
@@ -187,12 +306,13 @@ void prepare_dma(DMA_HandleTypeDef *dma_handle) {
   * @param  dma_handle : dma handle
   * @retval None
   */
-void end_dma(DMA_HandleTypeDef *dma_handle) {
-    dma_index_t dma_index = get_dma_index(dma_handle->Instance);
-    if (dma_index == NC) {
-        return;
-    }
-    dma_handles[dma_index] = NULL;
+void end_dma(DMA_HandleTypeDef *dma_handle)
+{
+  dma_index_t dma_index = get_dma_index(dma_handle->Instance);
+  if (dma_index == NC) {
+    return;
+  }
+  dma_handles[dma_index] = NULL;
 }
 
 #ifdef DMA1_Channel1
@@ -201,9 +321,11 @@ void end_dma(DMA_HandleTypeDef *dma_handle) {
   * @param  None
   * @retval None
   */
-void DMA1_Channel1_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL1_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL1_INDEX]);
+void DMA1_Channel1_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL1_INDEX]);
+  }
 }
 #endif
 
@@ -213,9 +335,11 @@ void DMA1_Channel1_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel2_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL2_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL2_INDEX]);
+void DMA1_Channel2_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL2_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL2_INDEX]);
+  }
 }
 #endif
 
@@ -225,9 +349,11 @@ void DMA1_Channel2_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel3_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL3_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL3_INDEX]);
+void DMA1_Channel3_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL3_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL3_INDEX]);
+  }
 }
 #endif
 
@@ -237,9 +363,11 @@ void DMA1_Channel3_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel4_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL4_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL4_INDEX]);
+void DMA1_Channel4_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL4_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL4_INDEX]);
+  }
 }
 #endif
 
@@ -249,9 +377,11 @@ void DMA1_Channel4_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel5_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL5_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL5_INDEX]);
+void DMA1_Channel5_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL5_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL5_INDEX]);
+  }
 }
 #endif
 
@@ -260,9 +390,11 @@ void DMA1_Channel5_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel6_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL6_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL6_INDEX]);
+void DMA1_Channel6_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL6_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL6_INDEX]);
+  }
 }
 #endif
 
@@ -272,9 +404,11 @@ void DMA1_Channel6_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA1_Channel7_IRQHandler() {
-    if (dma_handles[DMA1_CHANNEL7_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL7_INDEX]);
+void DMA1_Channel7_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL7_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL7_INDEX]);
+  }
 }
 #endif
 
@@ -284,9 +418,11 @@ void DMA1_Channel7_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel1_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL1_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL1_INDEX]);
+void DMA2_Channel1_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL1_INDEX]);
+  }
 }
 #endif
 
@@ -296,9 +432,11 @@ void DMA2_Channel1_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel1_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL2_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL2_INDEX]);
+void DMA2_Channel2_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL2_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL2_INDEX]);
+  }
 }
 #endif
 
@@ -308,9 +446,11 @@ void DMA2_Channel1_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel3_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL3_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL3_INDEX]);
+void DMA2_Channel3_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL3_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL3_INDEX]);
+  }
 }
 #endif
 
@@ -320,9 +460,11 @@ void DMA2_Channel3_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel4_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL4_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL4_INDEX]);
+void DMA2_Channel4_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL4_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL4_INDEX]);
+  }
 }
 #endif
 
@@ -332,9 +474,11 @@ void DMA2_Channel4_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel5_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL5_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL5_INDEX]);
+void DMA2_Channel5_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL5_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL5_INDEX]);
+  }
 }
 #endif
 
@@ -344,9 +488,11 @@ void DMA2_Channel5_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel6_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL6_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL6_INDEX]);
+void DMA2_Channel6_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL6_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL6_INDEX]);
+  }
 }
 #endif
 
@@ -356,9 +502,11 @@ void DMA2_Channel6_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel7_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL7_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL7_INDEX]);
+void DMA2_Channel7_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL7_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL7_INDEX]);
+  }
 }
 #endif
 
@@ -368,9 +516,155 @@ void DMA2_Channel7_IRQHandler() {
   * @param  None
   * @retval None
   */
-void DMA2_Channel8_IRQHandler() {
-    if (dma_handles[DMA2_CHANNEL8_INDEX] != NULL)
-        HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL8_INDEX]);
+void DMA2_Channel8_IRQHandler()
+{
+  if (dma_handles[DMA2_CHANNEL8_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL8_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream0
+void DMA1_Stream0_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM0_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM0_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream1
+void DMA1_Stream1_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM1_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream2
+void DMA1_Stream2_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM2_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM2_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream3
+void DMA1_Stream3_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM3_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM3_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream4
+void DMA1_Stream4_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM4_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM4_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream5
+void DMA1_Stream5_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM5_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM5_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream6
+void DMA1_Stream6_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM6_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM6_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA1_Stream7
+void DMA1_Stream7_IRQHandler()
+{
+  if (dma_handles[DMA1_STREAM7_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_STREAM7_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream0
+void DMA2_Stream0_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM0_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM0_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream1
+void DMA2_Stream1_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM1_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream2
+void DMA2_Stream2_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM2_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM2_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream3
+void DMA2_Stream3_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM3_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM3_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream4
+void DMA2_Stream4_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM4_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM4_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream5
+void DMA2_Stream5_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM5_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM5_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream6
+void DMA2_Stream6_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM6_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM6_INDEX]);
+  }
+}
+#endif
+
+#ifdef DMA2_Stream7
+void DMA2_Stream7_IRQHandler()
+{
+  if (dma_handles[DMA2_STREAM7_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_STREAM7_INDEX]);
+  }
 }
 #endif
 
