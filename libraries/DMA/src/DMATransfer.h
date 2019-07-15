@@ -17,6 +17,7 @@ struct dmatransfer_s {
      */
   DMA_HandleTypeDef *dma_settings;
   DMA_CS_Selection channel_stream;
+  uint32_t transfer_direction;
   boolean circular;
   void (*transferComplete)(DMA_HandleTypeDef *);
   void (*transferHalfComplete)(DMA_HandleTypeDef *);
