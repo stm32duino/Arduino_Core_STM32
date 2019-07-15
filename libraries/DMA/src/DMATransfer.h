@@ -6,17 +6,17 @@
 typedef struct dmatransfer_s dmatransfer_t;
 
 #if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
-  typedef DMA_Stream_TypeDef DMA_CS_Selection;
+typedef DMA_Stream_TypeDef DMA_CS_Selection;
 #else
-  typedef DMA_Channel_TypeDef DMA_CS_Selection;
+typedef DMA_Channel_TypeDef DMA_CS_Selection;
 #endif
 
 
 struct dmatransfer_s {
-    /*  Keep this the first member so casting back and forth is easy
-     */
-  DMA_HandleTypeDef *dma_settings;
-  DMA_CS_Selection channel_stream;
+  /*  Keep this the first member so casting back and forth is easy
+   */
+  DMA_HandleTypeDef dma_settings;
+  DMA_CS_Selection *channel_stream;
   uint32_t transfer_direction;
   boolean circular;
   void (*transferComplete)(DMA_HandleTypeDef *);

@@ -40,6 +40,10 @@
 #ifndef __DMA_H
 #define __DMA_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stm32_def.h>
 
 /**
@@ -55,5 +59,9 @@ void prepare_dma(DMA_HandleTypeDef *dma_handle);
   * @retval None
   */
 void end_dma(DMA_HandleTypeDef *dma_handle);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
