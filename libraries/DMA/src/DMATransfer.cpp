@@ -30,6 +30,8 @@ void DMATransferClass::prepare(dmatransfer_t *settings)
 
     // Call dma prepare
     prepare_dma(&_transfer_settings.dma_settings);
+
+    _prepared = true;
   }
 }
 
@@ -45,13 +47,15 @@ void DMATransferClass::begin(int bytes_to_transfer)
   }
 
   // Reset flags so it starts over
-  __HAL_DMA_CLEAR_FLAG(&_transfer_settings, DMA_FLAG_TC2 | DMA_FLAG_HT2 | DMA_FLAG_TE2);
+  __HAL_DMA_CLEAR_FLAG(&_transfer_settings.dma_settings, DMA_FLAG_TC2 | DMA_FLAG_HT2 | DMA_FLAG_TE2);
 
   // Set size to transfer
   _transfer_settings.dma_settings.Instance->CNDTR = bytes_to_transfer;
 
   // and enable it
   __HAL_DMA_ENABLE(&_transfer_settings.dma_settings);
+
+  HAL_DMA_Start(&_transfer_settings.dma_settings, _transfer_settings.source, _transfer_settings.destination, bytes_to_transfer);
 }
 
 /**

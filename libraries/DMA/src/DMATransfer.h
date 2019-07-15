@@ -19,12 +19,14 @@ struct dmatransfer_s {
   DMA_CS_Selection *channel_stream;
   uint32_t transfer_direction;
   boolean circular;
+  uint32_t source;
+  uint32_t destination;
   void (*transferComplete)(DMA_HandleTypeDef *);
   void (*transferHalfComplete)(DMA_HandleTypeDef *);
   void (*transferError)(DMA_HandleTypeDef *);
 };
 
-class DMATransferClass {
+typedef class DMATransferClass {
 
   public:
     void prepare(dmatransfer_t *settings);
@@ -33,7 +35,7 @@ class DMATransferClass {
   private:
     bool _prepared;
     dmatransfer_t _transfer_settings;
-};
+} DMATransfer;
 
 
 #endif /* __DMATRANSFER_H__ */
