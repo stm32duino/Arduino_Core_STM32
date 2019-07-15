@@ -125,7 +125,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     obj->irq = I2C1_EV_IRQn;
 #if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C1_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
     i2c_handles[I2C1_INDEX] = handle;
   }
 #endif // I2C1_BASE
@@ -138,7 +138,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     obj->irq = I2C2_EV_IRQn;
 #if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C2_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
     i2c_handles[I2C2_INDEX] = handle;
   }
 #endif // I2C2_BASE
@@ -149,9 +149,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C3_FORCE_RESET();
     __HAL_RCC_I2C3_RELEASE_RESET();
     obj->irq = I2C3_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32L0xx)
     obj->irqER = I2C3_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32L0xx */
     i2c_handles[I2C3_INDEX] = handle;
   }
 #endif // I2C3_BASE
@@ -162,9 +162,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C4_FORCE_RESET();
     __HAL_RCC_I2C4_RELEASE_RESET();
     obj->irq = I2C4_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C4_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
     i2c_handles[I2C4_INDEX] = handle;
   }
 #endif // I2C4_BASE
@@ -199,10 +197,10 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 
   HAL_NVIC_SetPriority(obj->irq, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   HAL_NVIC_SetPriority(obj->irqER, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irqER);
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 
   /* Init the I2C */
   if (HAL_I2C_Init(handle) != HAL_OK) {
@@ -223,9 +221,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 void i2c_deinit(i2c_t *obj)
 {
   HAL_NVIC_DisableIRQ(obj->irq);
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   HAL_NVIC_DisableIRQ(obj->irqER);
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
   HAL_I2C_DeInit(&(obj->handle));
 }
 
@@ -588,12 +586,12 @@ void I2C1_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C1 interrupt.
 * @param  None
@@ -604,7 +602,7 @@ void I2C1_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 #endif // I2C1_BASE
 
 #if defined(I2C2_BASE)
@@ -617,12 +615,12 @@ void I2C2_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C2 interrupt.
 * @param  None
@@ -633,7 +631,7 @@ void I2C2_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 #endif // I2C2_BASE
 
 #if defined(I2C3_BASE)
@@ -646,12 +644,12 @@ void I2C3_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C3 interrupt.
 * @param  None
@@ -662,7 +660,7 @@ void I2C3_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32L0xx */
 #endif // I2C3_BASE
 
 #if defined(I2C4_BASE)
@@ -675,12 +673,9 @@ void I2C4_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C4 interrupt.
 * @param  None
@@ -691,7 +686,6 @@ void I2C4_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 #endif // I2C4_BASE
 #endif /* HAL_I2C_MODULE_ENABLED */
 
