@@ -47,6 +47,19 @@ extern "C" {
 #include <stm32_def.h>
 
 /**
+  * @brief  This function will get the interrupt number for a DMA
+  * @param  dma_handle : dma channel or strea
+  * @retval None
+  */
+IRQn_Type get_dma_interrupt(
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+  DMA_Stream_TypeDef
+#else
+  DMA_Channel_TypeDef
+#endif
+  *instance);
+
+/**
   * @brief  This function will store the DMA handle in the appropriate slot
   * @param  dma_handle : dma handle
   * @retval None

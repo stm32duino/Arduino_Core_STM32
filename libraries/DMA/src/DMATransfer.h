@@ -11,30 +11,20 @@ typedef DMA_Stream_TypeDef DMA_CS_Selection;
 typedef DMA_Channel_TypeDef DMA_CS_Selection;
 #endif
 
-
-struct dmatransfer_s {
-  /*  Keep this the first member so casting back and forth is easy
-   */
-  DMA_HandleTypeDef dma_settings;
-  DMA_CS_Selection *channel_stream;
-  uint32_t transfer_direction;
-  boolean circular;
-  uint32_t source;
-  uint32_t destination;
-  void (*transferComplete)(DMA_HandleTypeDef *);
-  void (*transferHalfComplete)(DMA_HandleTypeDef *);
-  void (*transferError)(DMA_HandleTypeDef *);
-};
-
 typedef class DMATransferClass {
 
   public:
-    void prepare(dmatransfer_t *settings);
-    void begin(int bytes_to_transfer);
+    /*
+    DMATransferClass(uint32_t transfer_direction, boolean circular, uint32_t source, uint32_t destination){
+      this->dma.Init.
+    }*/
+
+    void prepare(DMA_HandleTypeDef *settings);
+    void begin(uint32_t source, uint32_t destination, int bytes_to_transfer, bool use_interrupt = false);
     void end();
   private:
     bool _prepared;
-    dmatransfer_t _transfer_settings;
+    DMA_HandleTypeDef _dma;
 } DMATransfer;
 
 
