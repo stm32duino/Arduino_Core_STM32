@@ -476,13 +476,25 @@ static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
     switch (i2c_speed) {
       default:
       case 100000:
+#ifdef I2C_TIMING_SM
+        ret = I2C_TIMING_SM;
+#else
         ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_STANDARD);
+#endif
         break;
       case 400000:
+#ifdef I2C_TIMING_FM
+        ret = I2C_TIMING_FM;
+#else
         ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_FAST);
+#endif
         break;
       case 1000000:
+#ifdef I2C_TIMING_FMP
+        ret = I2C_TIMING_FMP;
+#else
         ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_FAST_PLUS);
+#endif
         break;
     }
   }

@@ -113,6 +113,14 @@ extern "C" {
 //#define PIN_WIRE_SDA            14 // Default for Arduino connector compatibility
 //#define PIN_WIRE_SCL            15 // Default for Arduino connector compatibility
 
+// I2C timing definitions (optional), avoid time spent to compute if defined
+// * I2C_TIMING_SM for Standard Mode (100kHz)
+// * I2C_TIMING_FM for Fast Mode (400kHz)
+// * I2C_TIMING_FMP for Fast Mode Plus (1000kHz)
+//#define I2C_TIMING_SM           0x00000000
+//#define I2C_TIMING_FM           0x00000000
+//#define I2C_TIMING_FMP          0x00000000
+
 // Timer Definitions (optional)
 //Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
 #define TIMER_TONE              TIMx
