@@ -59,6 +59,9 @@ extern "C" {
 #endif
 
 #ifdef I2C_TIMING
+#ifndef I2C_VALID_TIMING_NBR
+#define I2C_VALID_TIMING_NBR          8U
+#endif
 #define I2C_SPEED_FREQ_STANDARD       0U /* 100 kHz */
 #define I2C_SPEED_FREQ_FAST           1U /* 400 kHz */
 #define I2C_SPEED_FREQ_FAST_PLUS      2U /* 1 MHz */
@@ -337,6 +340,7 @@ valid config.
 static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
 {
   uint32_t ret = 0xFFFFFFFFU;
+  uint32_t valid_timing_nbr = 0;
   uint32_t ti2cclk;
   uint32_t ti2cspeed;
   uint32_t prev_error;
@@ -399,6 +403,10 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
           if ((tsdadel >= (uint32_t)tsdadel_min) && (tsdadel <=
                                                      (uint32_t)tsdadel_max)) {
             if (presc != prev_presc) {
+              valid_timing_nbr ++;
+              if (valid_timing_nbr >= I2C_VALID_TIMING_NBR) {
+                return ret;
+              }
               /* tPRESC = (PRESC+1) x tI2CCLK*/
               uint32_t tpresc = (presc + 1U) * ti2cclk;
               for (scll = 0; scll < I2C_SCLL_MAX; scll++) {
