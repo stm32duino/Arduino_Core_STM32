@@ -7,6 +7,9 @@
 #ifdef STM32F7xx
 #include "stm32f7xx_ll_fmc.c"
 #endif
+#ifdef STM32G4xx
+#include "stm32g4xx_ll_fmc.c"
+#endif
 #ifdef STM32H7xx
 /*
  * Build issue as not properly guard in current
