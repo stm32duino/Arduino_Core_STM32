@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -242,7 +226,7 @@ extern "C" {
   * @retval Pointer to register address
   */
 #define __ADC_PTR_REG_OFFSET(__REG__, __REG_OFFFSET__)                         \
- ((uint32_t *)((uint32_t) ((uint32_t)(&(__REG__)) + ((__REG_OFFFSET__) << 2U))))
+ ((__IO uint32_t *)((uint32_t) ((uint32_t)(&(__REG__)) + ((__REG_OFFFSET__) << 2U))))
 
 /**
   * @}
@@ -269,7 +253,7 @@ typedef struct
 {
   uint32_t Multimode;                   /*!< Set ADC multimode configuration to operate in independent mode or multimode (for devices with several ADC instances).
                                              This parameter can be a value of @ref ADC_LL_EC_MULTI_MODE
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_SetMultimode(). */
 } LL_ADC_CommonInitTypeDef;
 /**
@@ -296,12 +280,12 @@ typedef struct
 {
   uint32_t DataAlignment;               /*!< Set ADC conversion data alignment.
                                              This parameter can be a value of @ref ADC_LL_EC_DATA_ALIGN
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_SetDataAlignment(). */
 
   uint32_t SequencersScanMode;          /*!< Set ADC scan selection.
                                              This parameter can be a value of @ref ADC_LL_EC_SCAN_SELECTION
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_SetSequencersScanMode(). */
 
 } LL_ADC_InitTypeDef;
@@ -331,31 +315,31 @@ typedef struct
                                              This parameter can be a value of @ref ADC_LL_EC_REG_TRIGGER_SOURCE
                                              @note On this STM32 serie, external trigger is set with trigger polarity: rising edge
                                                    (only trigger polarity available on this STM32 serie).
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetTriggerSource(). */
 
   uint32_t SequencerLength;             /*!< Set ADC group regular sequencer length.
                                              This parameter can be a value of @ref ADC_LL_EC_REG_SEQ_SCAN_LENGTH
                                              @note This parameter is discarded if scan mode is disabled (refer to parameter 'ADC_SequencersScanMode').
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetSequencerLength(). */
 
   uint32_t SequencerDiscont;            /*!< Set ADC group regular sequencer discontinuous mode: sequence subdivided and scan conversions interrupted every selected number of ranks.
                                              This parameter can be a value of @ref ADC_LL_EC_REG_SEQ_DISCONT_MODE
                                              @note This parameter has an effect only if group regular sequencer is enabled
                                                    (scan length of 2 ranks or more).
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetSequencerDiscont(). */
 
   uint32_t ContinuousMode;              /*!< Set ADC continuous conversion mode on ADC group regular, whether ADC conversions are performed in single mode (one conversion per trigger) or in continuous mode (after the first trigger, following conversions launched successively automatically).
                                              This parameter can be a value of @ref ADC_LL_EC_REG_CONTINUOUS_MODE
                                              Note: It is not possible to enable both ADC group regular continuous mode and discontinuous mode.
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetContinuousMode(). */
 
   uint32_t DMATransfer;                 /*!< Set ADC group regular conversion data transfer: no transfer or transfer by DMA, and DMA requests mode.
                                              This parameter can be a value of @ref ADC_LL_EC_REG_DMA_TRANSFER
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_REG_SetDMATransfer(). */
 
 } LL_ADC_REG_InitTypeDef;
@@ -385,26 +369,26 @@ typedef struct
                                              This parameter can be a value of @ref ADC_LL_EC_INJ_TRIGGER_SOURCE
                                              @note On this STM32 serie, external trigger is set with trigger polarity: rising edge
                                                    (only trigger polarity available on this STM32 serie).
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_INJ_SetTriggerSource(). */
 
   uint32_t SequencerLength;             /*!< Set ADC group injected sequencer length.
                                              This parameter can be a value of @ref ADC_LL_EC_INJ_SEQ_SCAN_LENGTH
                                              @note This parameter is discarded if scan mode is disabled (refer to parameter 'ADC_SequencersScanMode').
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_INJ_SetSequencerLength(). */
 
   uint32_t SequencerDiscont;            /*!< Set ADC group injected sequencer discontinuous mode: sequence subdivided and scan conversions interrupted every selected number of ranks.
                                              This parameter can be a value of @ref ADC_LL_EC_INJ_SEQ_DISCONT_MODE
                                              @note This parameter has an effect only if group injected sequencer is enabled
                                                    (scan length of 2 ranks or more).
-                                             
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_INJ_SetSequencerDiscont(). */
 
   uint32_t TrigAuto;                    /*!< Set ADC group injected conversion trigger: independent or from ADC group regular.
                                              This parameter can be a value of @ref ADC_LL_EC_INJ_TRIG_AUTO
-                                             Note: This parameter must be set to set to independent trigger if injected trigger source is set to an external trigger. 
-                                             
+                                             Note: This parameter must be set to set to independent trigger if injected trigger source is set to an external trigger.
+
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_INJ_SetTrigAuto(). */
 
 } LL_ADC_INJ_InitTypeDef;
@@ -898,7 +882,7 @@ typedef struct
   *         above each literal definition.
   * @{
   */
-  
+
 /* Note: Only ADC IP HW delays are defined in ADC LL driver driver,           */
 /*       not timeout values.                                                  */
 /*       Timeout values for ADC operations are dependent to device clock      */
@@ -1012,7 +996,7 @@ typedef struct
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval Value between Min_Data=0 and Max_Data=18
   */
@@ -1047,7 +1031,7 @@ typedef struct
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.\n
   *         (1) For ADC channel read back from ADC register,
   *             comparison with internal channel parameter to be done
@@ -1104,7 +1088,7 @@ typedef struct
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval Value "0" if the channel corresponds to a parameter definition of a ADC external channel (channel connected to a GPIO pin).
   *         Value "1" if the channel corresponds to a parameter definition of a ADC internal channel.
@@ -1146,7 +1130,7 @@ typedef struct
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_0
@@ -1188,7 +1172,7 @@ typedef struct
   * @param  __CHANNEL__ This parameter can be one of the following values:
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval Value "0" if the internal channel selected is not available on the ADC instance selected.
   *         Value "1" if the internal channel selected is available on the ADC instance selected.
@@ -1233,7 +1217,7 @@ typedef struct
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.\n
   *         (1) For ADC channel read back from ADC register,
   *             comparison with internal channel parameter to be done
@@ -1247,35 +1231,35 @@ typedef struct
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_INJ
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_REG
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_INJ
@@ -1307,7 +1291,7 @@ typedef struct
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_REG       (1)
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_INJ       (1)
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_REG_INJ   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   */
 #define __LL_ADC_ANALOGWD_CHANNEL_GROUP(__CHANNEL__, __GROUP__)                                           \
@@ -1344,7 +1328,7 @@ typedef struct
 
 /**
   * @brief  Helper macro to get the value of ADC analog watchdog threshold high
-  *         or low in function of ADC resolution, when ADC resolution is 
+  *         or low in function of ADC resolution, when ADC resolution is
   *         different of 12 bits.
   * @note   To be used with function @ref LL_ADC_GetAnalogWDThresholds().
   *         Example, with a ADC resolution of 8 bits, to get the value of
@@ -1609,7 +1593,7 @@ typedef struct
   * @param  Register This parameter can be one of the following values:
   *         @arg @ref LL_ADC_DMA_REG_REGULAR_DATA
   *         @arg @ref LL_ADC_DMA_REG_REGULAR_DATA_MULTI (1)
-  *         
+  *
   *         (1) Available on devices with several ADC instances.
   * @retval ADC register address
   */
@@ -1617,7 +1601,7 @@ typedef struct
 __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Register)
 {
   register uint32_t data_reg_addr = 0U;
-  
+
   if (Register == LL_ADC_DMA_REG_REGULAR_DATA)
   {
     /* Retrieve address of register DR */
@@ -1628,7 +1612,7 @@ __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Regis
     /* Retrieve address of register of multimode data */
     data_reg_addr = (uint32_t)&(ADC12_COMMON->DR);
   }
-  
+
   return data_reg_addr;
 }
 #else
@@ -1800,7 +1784,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSequencersScanMode(ADC_TypeDef *ADCx)
   *         external interrupt line).
   * @note   On this STM32 serie, external trigger is set with trigger polarity:
   *         rising edge (only trigger polarity available on this STM32 serie).
-  * @note   Availability of parameters of trigger sources from timer 
+  * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      EXTSEL         LL_ADC_REG_SetTriggerSource
   * @param  ADCx ADC instance
@@ -1821,7 +1805,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSequencersScanMode(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM8_TRGO      (3)
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM5_CH1       (3)
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM5_CH3       (3)
-  *         
+  *
   *         (1) On STM32F1, parameter available on all ADC instances: ADC1, ADC2, ADC3 (for ADC instances ADCx available on the selected device).\n
   *         (2) On STM32F1, parameter available only on ADC instances: ADC1, ADC2 (for ADC instances ADCx available on the selected device).\n
   *         (3) On STM32F1, parameter available only on ADC instances: ADC3 (for ADC instances ADCx available on the selected device).\n
@@ -1845,10 +1829,10 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   * @note   To determine whether group regular trigger source is
   *         internal (SW start) or external, without detail
   *         of which peripheral is selected as external trigger,
-  *         (equivalent to 
+  *         (equivalent to
   *         "if(LL_ADC_REG_GetTriggerSource(ADC1) == LL_ADC_REG_TRIG_SOFTWARE)")
   *         use function @ref LL_ADC_REG_IsTriggerSourceSWStart.
-  * @note   Availability of parameters of trigger sources from timer 
+  * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      EXTSEL         LL_ADC_REG_GetTriggerSource
   * @param  ADCx ADC instance
@@ -1869,7 +1853,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM8_TRGO      (3)
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM5_CH1       (3)
   *         @arg @ref LL_ADC_REG_TRIG_EXT_TIM5_CH3       (3)
-  *         
+  *
   *         (1) On STM32F1, parameter available on all ADC instances: ADC1, ADC2, ADC3 (for ADC instances ADCx available on the selected device).\n
   *         (2) On STM32F1, parameter available only on ADC instances: ADC1, ADC2 (for ADC instances ADCx available on the selected device).\n
   *         (3) On STM32F1, parameter available only on ADC instances: ADC3 (for ADC instances ADCx available on the selected device).\n
@@ -2022,7 +2006,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(ADC_TypeDef *ADCx)
   * @brief  Set ADC group regular sequencer discontinuous mode:
   *         sequence subdivided and scan conversions interrupted every selected
   *         number of ranks.
-  * @note   It is not possible to enable both ADC group regular 
+  * @note   It is not possible to enable both ADC group regular
   *         continuous mode and sequencer discontinuous mode.
   * @note   It is not possible to enable both ADC auto-injected mode
   *         and ADC group regular sequencer discontinuous mode.
@@ -2140,7 +2124,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval None
   */
@@ -2150,8 +2134,8 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   /* in register and register position depending on parameter "Rank".         */
   /* Parameters "Rank" and "Channel" are used with masks because containing   */
   /* other bits reserved for other purpose.                                   */
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
+
   MODIFY_REG(*preg,
              ADC_CHANNEL_ID_NUMBER_MASK << (Rank & ADC_REG_RANK_ID_SQRX_MASK),
              (Channel & ADC_CHANNEL_ID_NUMBER_MASK) << (Rank & ADC_REG_RANK_ID_SQRX_MASK));
@@ -2232,7 +2216,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.\n
   *         (1) For ADC channel read back from ADC register,
   *             comparison with internal channel parameter to be done
@@ -2240,8 +2224,8 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   */
 __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SQR1, __ADC_MASK_SHIFT(Rank, ADC_REG_SQRX_REGOFFSET_MASK));
+
   return (uint32_t) (READ_BIT(*preg,
                               ADC_CHANNEL_ID_NUMBER_MASK << (Rank & ADC_REG_RANK_ID_SQRX_MASK))
                      >> (Rank & ADC_REG_RANK_ID_SQRX_MASK)
@@ -2254,7 +2238,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_
   *         - single mode: one conversion per trigger
   *         - continuous mode: after the first trigger, following
   *           conversions launched successively automatically.
-  * @note   It is not possible to enable both ADC group regular 
+  * @note   It is not possible to enable both ADC group regular
   *         continuous mode and sequencer discontinuous mode.
   * @rmtoll CR2      CONT           LL_ADC_REG_SetContinuousMode
   * @param  ADCx ADC instance
@@ -2362,7 +2346,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   *         external interrupt line).
   * @note   On this STM32 serie, external trigger is set with trigger polarity:
   *         rising edge (only trigger polarity available on this STM32 serie).
-  * @note   Availability of parameters of trigger sources from timer 
+  * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      JEXTSEL        LL_ADC_INJ_SetTriggerSource
   * @param  ADCx ADC instance
@@ -2382,7 +2366,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM8_CH4      (3)
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM5_TRGO     (3)
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM5_CH4      (3)
-  *         
+  *
   *         (1) On STM32F1, parameter available on all ADC instances: ADC1, ADC2, ADC3 (for ADC instances ADCx available on the selected device).\n
   *         (2) On STM32F1, parameter available only on ADC instances: ADC1, ADC2 (for ADC instances ADCx available on the selected device).\n
   *         (3) On STM32F1, parameter available only on ADC instances: ADC3 (for ADC instances ADCx available on the selected device).\n
@@ -2406,10 +2390,10 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   * @note   To determine whether group injected trigger source is
   *         internal (SW start) or external, without detail
   *         of which peripheral is selected as external trigger,
-  *         (equivalent to 
+  *         (equivalent to
   *         "if(LL_ADC_INJ_GetTriggerSource(ADC1) == LL_ADC_INJ_TRIG_SOFTWARE)")
   *         use function @ref LL_ADC_INJ_IsTriggerSourceSWStart.
-  * @note   Availability of parameters of trigger sources from timer 
+  * @note   Availability of parameters of trigger sources from timer
   *         depends on timers availability on the selected device.
   * @rmtoll CR2      JEXTSEL        LL_ADC_INJ_GetTriggerSource
   * @param  ADCx ADC instance
@@ -2429,7 +2413,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM8_CH4      (3)
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM5_TRGO     (3)
   *         @arg @ref LL_ADC_INJ_TRIG_EXT_TIM5_CH4      (3)
-  *         
+  *
   *         (1) On STM32F1, parameter available on all ADC instances: ADC1, ADC2, ADC3 (for ADC instances ADCx available on the selected device).\n
   *         (2) On STM32F1, parameter available only on ADC instances: ADC1, ADC2 (for ADC instances ADCx available on the selected device).\n
   *         (3) On STM32F1, parameter available only on ADC instances: ADC3 (for ADC instances ADCx available on the selected device).\n
@@ -2584,7 +2568,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerDiscont(ADC_TypeDef *ADCx)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval None
   */
@@ -2595,7 +2579,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   /* Parameters "Rank" and "Channel" are used with masks because containing   */
   /* other bits reserved for other purpose.                                   */
   register uint32_t tmpreg1 = (READ_BIT(ADCx->JSQR, ADC_JSQR_JL) >> ADC_JSQR_JL_Pos) + 1U;
-  
+
   MODIFY_REG(ADCx->JSQR,
              ADC_CHANNEL_ID_NUMBER_MASK << (5U * (uint8_t)(((Rank) + 3U) - (tmpreg1))),
              (Channel & ADC_CHANNEL_ID_NUMBER_MASK) << (5U * (uint8_t)(((Rank) + 3U) - (tmpreg1))));
@@ -2648,7 +2632,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.\n
   *         (1) For ADC channel read back from ADC register,
   *             comparison with internal channel parameter to be done
@@ -2657,7 +2641,7 @@ __STATIC_INLINE void LL_ADC_INJ_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
 __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Rank)
 {
   register uint32_t tmpreg1 = (READ_BIT(ADCx->JSQR, ADC_JSQR_JL) >> ADC_JSQR_JL_Pos)  + 1U;
-  
+
   return (uint32_t)(READ_BIT(ADCx->JSQR,
                              ADC_CHANNEL_ID_NUMBER_MASK << (5U * (uint8_t)(((Rank) + 3U) - (tmpreg1))))
                     >> (5U * (uint8_t)(((Rank) + 3U) - (tmpreg1)))
@@ -2668,18 +2652,18 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_
   * @brief  Set ADC group injected conversion trigger:
   *         independent or from ADC group regular.
   * @note   This mode can be used to extend number of data registers
-  *         updated after one ADC conversion trigger and with data 
+  *         updated after one ADC conversion trigger and with data
   *         permanently kept (not erased by successive conversions of scan of
   *         ADC sequencer ranks), up to 5 data registers:
   *         1 data register on ADC group regular, 4 data registers
-  *         on ADC group injected.            
+  *         on ADC group injected.
   * @note   If ADC group injected injected trigger source is set to an
   *         external trigger, this feature must be must be set to
   *         independent trigger.
-  *         ADC group injected automatic trigger is compliant only with 
-  *         group injected trigger source set to SW start, without any 
-  *         further action on  ADC group injected conversion start or stop: 
-  *         in this case, ADC group injected is controlled only 
+  *         ADC group injected automatic trigger is compliant only with
+  *         group injected trigger source set to SW start, without any
+  *         further action on  ADC group injected conversion start or stop:
+  *         in this case, ADC group injected is controlled only
   *         from ADC group regular.
   * @note   It is not possible to enable both ADC group injected
   *         auto-injected mode and sequencer discontinuous mode.
@@ -2736,8 +2720,8 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetTrigAuto(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_INJ_SetOffset(ADC_TypeDef *ADCx, uint32_t Rank, uint32_t OffsetLevel)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JOFR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JOFRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JOFR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JOFRX_REGOFFSET_MASK));
+
   MODIFY_REG(*preg,
              ADC_JOFR1_JOFFSET1,
              OffsetLevel);
@@ -2763,8 +2747,8 @@ __STATIC_INLINE void LL_ADC_INJ_SetOffset(ADC_TypeDef *ADCx, uint32_t Rank, uint
   */
 __STATIC_INLINE uint32_t LL_ADC_INJ_GetOffset(ADC_TypeDef *ADCx, uint32_t Rank)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JOFR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JOFRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JOFR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JOFRX_REGOFFSET_MASK));
+
   return (uint32_t)(READ_BIT(*preg,
                              ADC_JOFR1_JOFFSET1)
                    );
@@ -2837,7 +2821,7 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_GetOffset(ADC_TypeDef *ADCx, uint32_t Rank)
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @param  SamplingTime This parameter can be one of the following values:
   *         @arg @ref LL_ADC_SAMPLINGTIME_1CYCLE_5
@@ -2856,8 +2840,8 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   /* in register and register position depending on parameter "Channel".      */
   /* Parameter "Channel" is used with masks because containing                */
   /* other bits reserved for other purpose.                                   */
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
+
   MODIFY_REG(*preg,
              ADC_SMPR2_SMP0 << __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPx_BITOFFSET_MASK),
              SamplingTime   << __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPx_BITOFFSET_MASK));
@@ -2911,7 +2895,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   *         @arg @ref LL_ADC_CHANNEL_17
   *         @arg @ref LL_ADC_CHANNEL_VREFINT      (1)
   *         @arg @ref LL_ADC_CHANNEL_TEMPSENSOR   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_SAMPLINGTIME_1CYCLE_5
@@ -2925,8 +2909,8 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   */
 __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t Channel)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->SMPR1, __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPRX_REGOFFSET_MASK));
+
   return (uint32_t)(READ_BIT(*preg,
                              ADC_SMPR2_SMP0 << __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPx_BITOFFSET_MASK))
                     >> __ADC_MASK_SHIFT(Channel, ADC_CHANNEL_SMPx_BITOFFSET_MASK)
@@ -2966,35 +2950,35 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_INJ
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_REG
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_INJ
@@ -3026,7 +3010,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_REG       (1)
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_INJ       (1)
   *         @arg @ref LL_ADC_AWD_CH_TEMPSENSOR_REG_INJ   (1)
-  *         
+  *
   *         (1) On STM32F1, parameter available only on ADC instance: ADC1.
   * @retval None
   */
@@ -3068,35 +3052,35 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_INJ
   *         @arg @ref LL_ADC_AWD_ALL_CHANNELS_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_0_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_0_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_1_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_1_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_2_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_2_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_3_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_3_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_4_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_4_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_5_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_5_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_6_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_6_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_7_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_7_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_8_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_8_REG_INJ
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG 
-  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ 
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG
+  *         @arg @ref LL_ADC_AWD_CHANNEL_9_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_9_REG_INJ
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_REG
   *         @arg @ref LL_ADC_AWD_CHANNEL_10_INJ
@@ -3149,8 +3133,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDThresholdsHighLow, uint32_t AWDThresholdValue)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->HTR, AWDThresholdsHighLow);
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->HTR, AWDThresholdsHighLow);
+
   MODIFY_REG(*preg,
              ADC_HTR_HT,
              AWDThresholdValue);
@@ -3172,8 +3156,8 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
 */
 __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AWDThresholdsHighLow)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->HTR, AWDThresholdsHighLow);
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->HTR, AWDThresholdsHighLow);
+
   return (uint32_t)(READ_BIT(*preg, ADC_HTR_HT));
 }
 
@@ -3196,14 +3180,14 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
   * @param  Multimode This parameter can be one of the following values:
-  *         @arg @ref LL_ADC_MULTI_INDEPENDENT             
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIMULT         
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_FAST    
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_SLOW    
-  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_SIMULT         
-  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_ALTERN         
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM    
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT    
+  *         @arg @ref LL_ADC_MULTI_INDEPENDENT
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIMULT
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_FAST
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_SLOW
+  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_SIMULT
+  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_ALTERN
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT
   *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTFAST_INJ_SIM
   *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTSLOW_INJ_SIM
   * @retval None
@@ -3224,13 +3208,13 @@ __STATIC_INLINE void LL_ADC_SetMultimode(ADC_Common_TypeDef *ADCxy_COMMON, uint3
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_ADC_MULTI_INDEPENDENT
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIMULT         
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_FAST    
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_SLOW    
-  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_SIMULT         
-  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_ALTERN         
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM    
-  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT    
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIMULT
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_FAST
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTERL_SLOW
+  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_SIMULT
+  *         @arg @ref LL_ADC_MULTI_DUAL_INJ_ALTERN
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_SIM
+  *         @arg @ref LL_ADC_MULTI_DUAL_REG_SIM_INJ_ALT
   *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTFAST_INJ_SIM
   *         @arg @ref LL_ADC_MULTI_DUAL_REG_INTSLOW_INJ_SIM
   */
@@ -3250,7 +3234,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetMultimode(ADC_Common_TypeDef *ADCxy_COMMON)
 
 /**
   * @brief  Enable the selected ADC instance.
-  * @note   On this STM32 serie, after ADC enable, a delay for 
+  * @note   On this STM32 serie, after ADC enable, a delay for
   *         ADC internal analog stabilization is required before performing a
   *         ADC conversion start.
   *         Refer to device datasheet, parameter tSTAB.
@@ -3331,9 +3315,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsCalibrationOnGoing(ADC_TypeDef *ADCx)
   *         - If ADC trigger has been set to software start, ADC conversion
   *           starts immediately.
   *         - If ADC trigger has been set to external trigger, ADC conversion
-  *           start must be performed using function 
+  *           start must be performed using function
   *           @ref LL_ADC_REG_StartConversionExtTrig().
-  *           (if external trigger edge would have been set during ADC other 
+  *           (if external trigger edge would have been set during ADC other
   *           settings, ADC conversion would start at trigger event
   *           as soon as ADC is enabled).
   * @rmtoll CR2      SWSTART        LL_ADC_REG_StartConversionSWStart
@@ -3349,7 +3333,7 @@ __STATIC_INLINE void LL_ADC_REG_StartConversionSWStart(ADC_TypeDef *ADCx)
   * @brief  Start ADC group regular conversion from external trigger.
   * @note   ADC conversion will start at next trigger event (on the selected
   *         trigger edge) following the ADC start conversion command.
-  * @note   On this STM32 serie, this function is relevant for 
+  * @note   On this STM32 serie, this function is relevant for
   *         ADC conversion start from external trigger.
   *         If internal trigger (SW start) is needed, perform ADC conversion
   *         start using function @ref LL_ADC_REG_StartConversionSWStart().
@@ -3379,7 +3363,7 @@ __STATIC_INLINE void LL_ADC_REG_StartConversionExtTrig(ADC_TypeDef *ADCx, uint32
   */
 __STATIC_INLINE void LL_ADC_REG_StopConversionExtTrig(ADC_TypeDef *ADCx)
 {
-  CLEAR_BIT(ADCx->CR2, ADC_CR2_EXTSEL);
+  CLEAR_BIT(ADCx->CR2, ADC_CR2_EXTTRIG);
 }
 
 /**
@@ -3457,9 +3441,9 @@ __STATIC_INLINE uint32_t LL_ADC_REG_ReadMultiConversionData32(ADC_TypeDef *ADCx,
   *         - If ADC trigger has been set to software start, ADC conversion
   *           starts immediately.
   *         - If ADC trigger has been set to external trigger, ADC conversion
-  *           start must be performed using function 
+  *           start must be performed using function
   *           @ref LL_ADC_INJ_StartConversionExtTrig().
-  *           (if external trigger edge would have been set during ADC other 
+  *           (if external trigger edge would have been set during ADC other
   *           settings, ADC conversion would start at trigger event
   *           as soon as ADC is enabled).
   * @rmtoll CR2      JSWSTART       LL_ADC_INJ_StartConversionSWStart
@@ -3475,7 +3459,7 @@ __STATIC_INLINE void LL_ADC_INJ_StartConversionSWStart(ADC_TypeDef *ADCx)
   * @brief  Start ADC group injected conversion from external trigger.
   * @note   ADC conversion will start at next trigger event (on the selected
   *         trigger edge) following the ADC start conversion command.
-  * @note   On this STM32 serie, this function is relevant for 
+  * @note   On this STM32 serie, this function is relevant for
   *         ADC conversion start from external trigger.
   *         If internal trigger (SW start) is needed, perform ADC conversion
   *         start using function @ref LL_ADC_INJ_StartConversionSWStart().
@@ -3505,7 +3489,7 @@ __STATIC_INLINE void LL_ADC_INJ_StartConversionExtTrig(ADC_TypeDef *ADCx, uint32
   */
 __STATIC_INLINE void LL_ADC_INJ_StopConversionExtTrig(ADC_TypeDef *ADCx)
 {
-  CLEAR_BIT(ADCx->CR2, ADC_CR2_JEXTSEL);
+  CLEAR_BIT(ADCx->CR2, ADC_CR2_JEXTTRIG);
 }
 
 /**
@@ -3527,8 +3511,8 @@ __STATIC_INLINE void LL_ADC_INJ_StopConversionExtTrig(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(ADC_TypeDef *ADCx, uint32_t Rank)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
+
   return (uint32_t)(READ_BIT(*preg,
                              ADC_JDR1_JDATA)
                    );
@@ -3554,8 +3538,8 @@ __STATIC_INLINE uint32_t LL_ADC_INJ_ReadConversionData32(ADC_TypeDef *ADCx, uint
   */
 __STATIC_INLINE uint16_t LL_ADC_INJ_ReadConversionData12(ADC_TypeDef *ADCx, uint32_t Rank)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->JDR1, __ADC_MASK_SHIFT(Rank, ADC_INJ_JDRX_REGOFFSET_MASK));
+
   return (uint16_t)(READ_BIT(*preg,
                              ADC_JDR1_JDATA)
                    );
@@ -3683,9 +3667,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_EOS(ADC_Common_TypeDef *ADCxy_C
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "EOC" is corresponding to flag "EOS"                 */
   /*       in other STM32 families).                                          */
-  
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
-  
+
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
+
   return (READ_BIT(*preg, LL_ADC_FLAG_EOS_SLV) == (LL_ADC_FLAG_EOS_SLV));
 }
 
@@ -3719,9 +3703,9 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_JEOS(ADC_Common_TypeDef *ADCxy_
   /*       end of unitary conversion.                                         */
   /*       Flag noted as "JEOC" is corresponding to flag "JEOS"               */
   /*       in other STM32 families).                                          */
-  
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
-  
+
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
+
   return (READ_BIT(*preg, LL_ADC_FLAG_JEOS_SLV) == (LL_ADC_FLAG_JEOS_SLV));
 }
 
@@ -3746,8 +3730,8 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_AWD1(ADC_Common_TypeDef *ADCxy_
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV_AWD1(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  register uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
-  
+  register __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCxy_COMMON->SR, 1U);
+
   return (READ_BIT(*preg, LL_ADC_FLAG_AWD1) == (LL_ADC_FLAG_AWD1));
 }
 
