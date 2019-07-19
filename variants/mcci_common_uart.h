@@ -33,17 +33,17 @@ This block of code establishes the following post-conditions.
    Bit 2 enables USART2. Bit 3 enables LPUAR1 as "Serial3". Bit 4 enables
    USART4. Bit 5 enables USART5.
 
-2. Serial is defined as a reference variable to either `SerialNo` (if the
+2. Serial is defined as a reference variable to either `SerialNull` (if the
    serial mask is zero), to USB (if configured), otherwise to the lowest-
    numbered serial port that is enabled.
 
 3. SERIAL_PORT_MONITOR is defined to Serial
 
 4. SERIAL_PORT_USBVIRTUAL is defined to SerialUSB if configured,
-   otherwise SerialNo.
+   otherwise SerialNull.
 
 5. SERIAL_PORT_HARDWARE is defined to the lowest configured physical
-   serial port, otherwise SerialNo.
+   serial port, otherwise SerialNull.
 
 6. SERIAL_PORT_HARDWRE_OPEN, SERIAL_PORT_LINUXBRIDGE are left undefined.
 
@@ -134,53 +134,49 @@ available.
 // Post condition: Serial and SerialEvent are pointing to the desired Serial<x>,
 // and SERIAL_PORT_MONITOR points to the desired Serial<x>.
 //
-// This is C++ only.
+// This is C or C++.
 //
-#ifdef __cplusplus
-# if ARDUINO_BSP_SERIAL_USB_IS_ENABLED()
-#  define Serial SerialUSB
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
-#  define Serial Serial1
-#  define SerialEvent SerialEvent1
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(2)
-#  define Serial Serial2
-#  define SerialEvent SerialEvent2
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(3)
-#  define Serial Serial3
-#  define SerialEvent SerialEvent3
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(4)
-#  define Serial Serial4
-#  define SerialEvent SerialEvent4
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(5)
-#  define Serial Serial5
-#  define SerialEvent SerialEvent5
-# else
-#  define Serial SerialNo
-# endif
-# define SERIAL_PORT_MONITOR    Serial
-#endif // __cplusplus
+#if ARDUINO_BSP_SERIAL_USB_IS_ENABLED()
+# define Serial SerialUSB
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
+# define Serial Serial1
+# define SerialEvent SerialEvent1
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(2)
+# define Serial Serial2
+# define SerialEvent SerialEvent2
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(3)
+# define Serial Serial3
+# define SerialEvent SerialEvent3
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(4)
+# define Serial Serial4
+# define SerialEvent SerialEvent4
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(5)
+# define Serial Serial5
+# define SerialEvent SerialEvent5
+#else
+# define Serial SerialNull
+#endif
+#define SERIAL_PORT_MONITOR    Serial
 
 //
 // Post condition: SERIAL_PORT_HARDWARE is the lowest-numbered HardwareSerial
 // Serial<x> port.
 //
-// C++ only
+// This is C or C++.
 //
-#ifdef __cplusplus
-# if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
-#  define SERIAL_PORT_HARDWARE   Serial1
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(2)
-#  define SERIAL_PORT_HARDWARE   Serial2
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(3)
-#  define SERIAL_PORT_HARDWARE   Serial3
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(4)
-#  define SERIAL_PORT_HARDWARE   Serial4
-# elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(5)
-#  define SERIAL_PORT_HARDWARE   Serial5
-# else
-#  define SERIAL_PORT_HARDWARE   SerialNo
-# endif
-#endif // __cplusplus
+#if ARDUINO_BSP_SERIAL_UART_IS_ENABLED(1)
+# define SERIAL_PORT_HARDWARE   Serial1
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(2)
+# define SERIAL_PORT_HARDWARE   Serial2
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(3)
+# define SERIAL_PORT_HARDWARE   Serial3
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(4)
+# define SERIAL_PORT_HARDWARE   Serial4
+#elif ARDUINO_BSP_SERIAL_UART_IS_ENABLED(5)
+# define SERIAL_PORT_HARDWARE   Serial5
+#else
+# define SERIAL_PORT_HARDWARE   SerialNull
+#endif
 
 //
 // Post condition: the appropriate ENABLE_HWSERIALx or NO_HWSERIAL symbols
