@@ -38,9 +38,24 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
+<input type="checkbox" id="collapse-section8" checked aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.6.0 / 28-June-2019</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Add definition of “ART_TypeDef” structure: ART accelerator for Cortex-M4 available in Dual Core devices</li>
+<li>Add definition of “ART” instance: pointer to “ART_TypeDef” structure</li>
+<li>Add definition of “ART” bit fields: ART_CTR_EN and ART_CTR_PCACHEADDR<br />
+</li>
+<li>Update definitions of “HRTIM1_TIMA” to “HRTIM1_TIME” : pointer to HRTIM_Timerx_TypeDef structure instead of HRTIM_TIM_TypeDef</li>
+<li>Fix Typo in “ETH_TypeDef” definition: use uint32_t for “RESERVED16” registers instead of int32_t</li>
+<li>Remove useless definition of “SDMMC” instance (keep only definitions of “SDMMC1” and “SDMMC2”)</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>General updates to align Bit and registers definition with the STM32H7 reference manual</li>
 <li>Updates to aligned with STM32H7xx <strong>rev.V</strong> devices</li>
@@ -104,7 +119,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.3.1 / 31-January-2019</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li><strong>Patch Release on top of V1.3.0</strong></li>
 <li>Add Definition of UID_BASE ( Unique device ID register base address) to the STM32H7xx include files:
@@ -117,7 +132,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 30-November-2018</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>STM32H7xx include files:
 <ul>
@@ -162,7 +177,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 29-June-2018</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>Add support for stm32h750xx value line devices:
 <ul>
@@ -175,7 +190,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section3"  aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 29-December-2017</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>Update FDCAN bit definition</li>
 <li>Update SystemCoreClockUpdate() function in system_stm32h7xx.c file to use direct register access</li>
@@ -185,7 +200,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 31-August-2017</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Update USB OTG bit definition</li>
 <li>Adjust PLL fractional computation</li>
@@ -195,7 +210,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 21-April-2017</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>First official release for <strong>STM32H743xx/753xx</strong> devices</li>
 </ul>
