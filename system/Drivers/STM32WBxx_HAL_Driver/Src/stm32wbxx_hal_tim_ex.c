@@ -409,11 +409,11 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
   /* Check the parameters */
   assert_param(IS_TIM_HALL_SENSOR_INTERFACE_INSTANCE(htim->Instance));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -721,11 +721,11 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
   /* Check the parameters */
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -1129,11 +1129,11 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   /* Check the parameters */
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -1705,6 +1705,9 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
   * @param  htim TIM handle
   * @param  sBreakDeadTimeConfig pointer to a TIM_ConfigBreakDeadConfigTypeDef structure that
   *         contains the BDTR Register configuration  information for the TIM peripheral.
+  * @note   Interrupts can be generated when an active level is detected on the
+  *         break input, the break 2 input or the system break input. Break
+  *         interrupt can be enabled by calling the @ref __HAL_TIM_ENABLE_IT macro.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
@@ -1777,10 +1780,10 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
 
 {
   uint32_t tmporx;
-  uint32_t bkin_enable_mask = 0U;
-  uint32_t bkin_polarity_mask = 0U;
-  uint32_t bkin_enable_bitpos = 0U;
-  uint32_t bkin_polarity_bitpos = 0U;
+  uint32_t bkin_enable_mask;
+  uint32_t bkin_polarity_mask;
+  uint32_t bkin_enable_bitpos;
+  uint32_t bkin_polarity_bitpos;
 
   /* Check the parameters */
   assert_param(IS_TIM_BREAK_INSTANCE(htim->Instance));
@@ -1797,10 +1800,12 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
     case TIM_BREAKINPUTSOURCE_BKIN:
     {
       bkin_enable_mask = TIM1_AF1_BKINE;
+      bkin_enable_bitpos = TIM1_AF1_BKINE_Pos;
       bkin_polarity_mask = TIM1_AF1_BKINP;
       bkin_polarity_bitpos = TIM1_AF1_BKINP_Pos;
       break;
     }
+#if defined(COMP1) && defined(COMP2)
     case TIM_BREAKINPUTSOURCE_COMP1:
     {
       bkin_enable_mask = TIM1_AF1_BKCMP1E;
@@ -1817,9 +1822,16 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
       bkin_polarity_bitpos = TIM1_AF1_BKCMP2P_Pos;
       break;
     }
+#endif /* COMP1 && COMP2 */
 
     default:
+    {
+      bkin_enable_mask = 0U;
+      bkin_polarity_mask = 0U;
+      bkin_enable_bitpos = 0U;
+      bkin_polarity_bitpos = 0U;
       break;
+    }
   }
 
   switch (BreakInput)
@@ -1878,29 +1890,29 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *            @arg TIM_TIM1_ETR_ADC1_AWD1:           TIM1_ETR is connected to ADC1 AWD1
   *            @arg TIM_TIM1_ETR_ADC1_AWD2:           TIM1_ETR is connected to ADC1 AWD2
   *            @arg TIM_TIM1_ETR_ADC1_AWD3:           TIM1_ETR is connected to ADC1 AWD3
-  *            @arg TIM_TIM1_ETR_COMP1:               TIM1_ETR is connected to COMP1 output
-  *            @arg TIM_TIM1_ETR_COMP2:               TIM1_ETR is connected to COMP2 output
+  *            @arg TIM_TIM1_ETR_COMP1:               TIM1_ETR is connected to COMP1 output (*)
+  *            @arg TIM_TIM1_ETR_COMP2:               TIM1_ETR is connected to COMP2 output (*)
   *       field2 can have the following values:
   *            @arg TIM_TIM1_TI1_GPIO:                TIM1 TI1 is connected to I/O
-  *            @arg TIM_TIM1_TI1_COMP1:               TIM1 TI1 is connected to COMP1 output
+  *            @arg TIM_TIM1_TI1_COMP1:               TIM1 TI1 is connected to COMP1 output (*)
   *
   *        For TIM2, the parameter is a combination of 3 fields (field1 | field2 | field3):
   *
   *       field1 can have the following values:
   *            @arg TIM_TIM2_ITR1_NONE:               No internal trigger on TIM2_ITR1
-  *            @arg TIM_TIM2_ITR1_USB:                TIM2_ITR1 is connected to USB SOF
+  *            @arg TIM_TIM2_ITR1_USB:                TIM2_ITR1 is connected to USB SOF (*)
   *
   *       field2 can have the following values:
   *            @arg TIM_TIM2_ETR_GPIO:                TIM2_ETR is connected to I/O
   *            @arg TIM_TIM2_ETR_LSE:                 TIM2_ETR is connected to LSE
-  *            @arg TIM_TIM2_ETR_COMP1:               TIM2_ETR is connected to COMP1 output
-  *            @arg TIM_TIM2_ETR_COMP2:               TIM2_ETR is connected to COMP2 output
+  *            @arg TIM_TIM2_ETR_COMP1:               TIM2_ETR is connected to COMP1 output (*)
+  *            @arg TIM_TIM2_ETR_COMP2:               TIM2_ETR is connected to COMP2 output (*)
   *
   *       field3 can have the following values:
   *            @arg TIM_TIM2_TI4_GPIO:                TIM2 TI4 is connected to I/O
-  *            @arg TIM_TIM2_TI4_COMP1:               TIM2 TI4 is connected to COMP1 output
-  *            @arg TIM_TIM2_TI4_COMP2:               TIM2 TI4 is connected to COMP2 output
-  *            @arg TIM_TIM2_TI4_COMP1_COMP2:         TIM2 TI4 is connected to logical OR between COMP1 and COMP2 output
+  *            @arg TIM_TIM2_TI4_COMP1:               TIM2 TI4 is connected to COMP1 output (*)
+  *            @arg TIM_TIM2_TI4_COMP2:               TIM2 TI4 is connected to COMP2 output (*)
+  *            @arg TIM_TIM2_TI4_COMP1_COMP2:         TIM2 TI4 is connected to logical OR between COMP1 and COMP2 output (*)
   *
   *     For TIM16, the parameter can have the following values:
   *            @arg TIM_TIM16_TI1_GPIO:              TIM16 TI1 is connected to I/O
@@ -1910,9 +1922,11 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakInput(TIM_HandleTypeDef *htim,
   *
   *     For TIM17, the parameter can have the following values:
   *            @arg TIM_TIM17_TI1_GPIO:              TIM17 TI1 is connected to I/O
-  *            @arg TIM_TIM17_TI1_MSI:               TIM17 TI1 is connected to MSI  (contraints: MSI clock < 1/4 TIM APB clock)
+  *            @arg TIM_TIM17_TI1_MSI:               TIM17 TI1 is connected to MSI  (constraint: MSI clock < 1/4 TIM APB clock)
   *            @arg TIM_TIM17_TI1_HSE:               TIM17 TI1 is connected to HSE div 32
   *            @arg TIM_TIM17_TI1_MCO:               TIM17 TI1 is connected to MCO
+  *
+  *         (*)  Value not defined in all devices.
   *
   * @retval HAL status
   */

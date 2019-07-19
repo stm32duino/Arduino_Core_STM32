@@ -168,7 +168,7 @@
 
 #ifdef HAL_COMP_MODULE_ENABLED
 
-
+#if defined (COMP1) || defined (COMP2)
 
 /** @defgroup COMP COMP
   * @brief COMP HAL module driver
@@ -981,7 +981,7 @@ uint32_t HAL_COMP_GetError(COMP_HandleTypeDef *hcomp)
   * @}
   */
 
-
+#endif /* COMP1 || COMP2 */
 
 #endif /* HAL_COMP_MODULE_ENABLED */
 
