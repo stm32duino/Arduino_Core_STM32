@@ -277,6 +277,7 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_UCPD2_RX         60U               /*!< DMAMUX UCPD2 RX request       */
 #define DMA_REQUEST_UCPD2_TX         61U               /*!< DMAMUX UCPD2 TX request       */
 #endif
+
 /**
   * @}
   */

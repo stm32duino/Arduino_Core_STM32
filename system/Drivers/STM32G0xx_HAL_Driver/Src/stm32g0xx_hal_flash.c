@@ -586,6 +586,7 @@ uint32_t HAL_FLASH_GetError(void)
 HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
 {
   uint32_t error;
+  uint32_t eccerr;
   /* Wait for the FLASH operation to complete by polling on BUSY flag to be reset.
      Even if the FLASH operation fails, the BUSY flag will be reset and an error
      flag will be set */
@@ -603,10 +604,18 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   /* check flash errors. Only ECC correction can be checked here as ECCD
       generates NMI */
   error = (FLASH->SR & FLASH_FLAG_SR_ERROR);
-  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
 
-  /* clear error flags */
-  __HAL_FLASH_CLEAR_FLAG(error);
+  /* Clear SR register */
+  FLASH->SR = FLASH_FLAG_SR_CLEAR;
+
+  /* Update error with ECC error value */
+  eccerr = (FLASH->ECCR & FLASH_FLAG_ECCC);
+
+  if(eccerr != 0x00u)
+  {
+    FLASH->ECCR |= eccerr;
+    error |= eccerr;
+  }
 
   if (error != 0x00U)
   {

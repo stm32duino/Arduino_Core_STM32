@@ -164,6 +164,9 @@ extern "C" {
 #define LL_PWR_GPIO_B                      ((uint32_t)(&(PWR->PUCRB)))
 #define LL_PWR_GPIO_C                      ((uint32_t)(&(PWR->PUCRC)))
 #define LL_PWR_GPIO_D                      ((uint32_t)(&(PWR->PUCRD)))
+#if defined(GPIOE)
+#define LL_PWR_GPIO_E                      ((uint32_t)(&(PWR->PUCRE)))
+#endif
 #define LL_PWR_GPIO_F                      ((uint32_t)(&(PWR->PUCRF)))
 /**
   * @}
