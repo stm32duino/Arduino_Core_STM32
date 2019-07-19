@@ -36,7 +36,7 @@
 <p>This driver provides the CMSIS device files for the stm32g0xx products. This covers</p>
 <ul>
 <li>STM32G081/71/70xx devices</li>
-<li><strong>STM32G041/31/30xx</strong> devices</li>
+<li>STM32G041/31/30xx devices</li>
 </ul>
 <p>This driver is composed of the descriptions of the registers under “Include” directory.</p>
 <p>Various template files are provided to easily build an application. They can be adapted to fit applications requirements.</p>
@@ -49,9 +49,61 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 05-April-2019 </label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.3.0 / 25-June-2019 </label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<h3 id="maintenance-release">Maintenance release</h3>
+<p>Maintenance release for STM32G0xx CMSIS supporting stm32g030xx, stm32g031xx, stm32g041xx, stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
+<table>
+<caption>Fixed bugs list<br />
+</caption>
+<thead>
+<tr class="header">
+<th>Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Remove all DMAMUX register/bit definition related to internal debug features</td>
+</tr>
+</tbody>
+</table>
+<h2 id="contents">Contents</h2>
+<p>CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</p>
+<p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<table>
+<caption>Requirements not met or planned in a forthcoming release</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">[MISRAC2012-Rule-8.9_b] Global variable APBPrescTable is only referenced from a single function</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
+<li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<ul>
+<li>STM32G041xx, STM32G031xx and STM32G030xx devices</li>
+<li>STM32G081xx, STM32G071xx and STM32G070xx devices</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 05-April-2019 </label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update">Maintenance release and Product Update</h3>
 <p>First release for STM32G0xx CMSIS introducing <strong>stm32g030xx, stm32g031xx, stm32g041xx</strong> devices.</p>
 <table>
@@ -85,10 +137,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents">Contents</h2>
+<h2 id="contents-1">Contents</h2>
 <p>CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</p>
 <p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <table>
 <caption>Requirements not met or planned in a forthcoming release</caption>
 <thead>
@@ -107,13 +159,13 @@
 </table>
 <p><br />
 </p>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
 <ul>
 <li>STM32G041xx, STM32G031xx and STM32G030xx devices</li>
 <li>STM32G081xx, STM32G071xx and STM32G070xx devices</li>
@@ -123,8 +175,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 06-February-2019 </label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release">Maintenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
 <p>Maintenance release for <strong>STM32G0xx</strong> devices (stm32g070xx, stm32g071xx, stm32g081xx devices)</p>
 <table>
 <caption>Fixed bugs list</caption>
@@ -148,17 +200,17 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"> V1.0.0 / 26-October-2018 </label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release for <strong>STM32G0xx</strong> devices</p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>CMSIS devices files for STM32G070xx, STM32G071xx and STM32G081xx</li>
 </ul>
