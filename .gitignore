@@ -4,3 +4,4 @@
 astyle.out
 boards.local.txt
 platform.local.txt
+*.code-workspace

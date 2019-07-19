@@ -64,7 +64,7 @@ extern "C" {
 /* I2C Tx/Rx buffer size */
 #define I2C_TXRX_BUFFER_SIZE    32
 
-/* Redefinition of IRQ for F0 & L0 family */
+/* Redefinition of IRQ for F0/G0/L0 families */
 #if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
 #if defined(I2C1_BASE)
 #define I2C1_EV_IRQn        I2C1_IRQn
@@ -74,15 +74,17 @@ extern "C" {
 #define I2C2_EV_IRQn        I2C2_IRQn
 #define I2C2_EV_IRQHandler  I2C2_IRQHandler
 #endif // defined(I2C2_BASE)
+/* Only for STM32L0xx */
 #if defined(I2C3_BASE)
 #define I2C3_EV_IRQn        I2C3_IRQn
 #define I2C3_EV_IRQHandler  I2C3_IRQHandler
 #endif // defined(I2C3_BASE)
+/* Defined but no one has it */
 #if defined(I2C4_BASE)
 #define I2C4_EV_IRQn        I2C4_IRQn
 #define I2C4_EV_IRQHandler  I2C4_IRQHandler
-#endif // defined(I2C4_BASE)-
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif // defined(I2C4_BASE)
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
 
 typedef struct i2c_s i2c_t;
 
@@ -97,9 +99,9 @@ struct i2c_s {
   PinName sda;
   PinName scl;
   IRQn_Type irq;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   IRQn_Type irqER;
-#endif //!defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
   volatile int slaveRxNbData; // Number of accumulated bytes received in Slave mode
   void (*i2c_onSlaveReceive)(uint8_t *, int);
   void (*i2c_onSlaveTransmit)(void);
@@ -118,42 +120,9 @@ typedef enum {
   I2C_BUSY = 3
 } i2c_status_e;
 
-typedef enum {
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32L0xx)
-  //calculated with SYSCLK = 64MHz at
-  /*https://www.google.fr/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&cad=rja&uact=8&ved=0ahUKEwiC4q6O7ojMAhWCOhoKHYlyBtIQFggmMAE&url=http%3A%2F%2Fuglyduck.ath.cx%2FPDF%2FSTMicro%2FARM%2FSTM32F0%2FI2C_Timing_Configuration_V1.0.1.xls&usg=AFQjCNGGjPSUAzVUdbUqMUxPub8Ojzhh9w&sig2=4YgzXFixj15GhqkAzVS4tA*/
-  I2C_10KHz =   0xE010A9FF,
-  I2C_50KHz =   0x2070A8FD,
-  I2C_100KHz =  0x10B07EBA,
-  I2C_200KHz =  0x00C034FF,
-  I2C_400KHz =  0x00C0246F,
-  I2C_600KHz =  0x00900E50,
-  I2C_800KHz =  0x00900E35,
-  I2C_1000KHz = 0x00900E25
-#elif defined (STM32L4xx)
-  I2C_10KHz =   0xF010F3FE,
-  I2C_50KHz =   0x30608CFF,
-  I2C_100KHz =  0x10D0A4E4,
-  I2C_200KHz =  0x00F082FF,
-  I2C_400KHz =  0x00F02E8B,
-  I2C_600KHz =  0x00B01265,
-  I2C_800KHz =  0x00B01243,
-  I2C_1000KHz = 0x00B0122F
-#else //STM32F4xx
-  I2C_10KHz =   10000,
-  I2C_50KHz =   50000,
-  I2C_100KHz =  100000,
-  I2C_200KHz =  200000,
-  I2C_400KHz =  400000,
-  /*  I2C_600KHz =  600000,
-    I2C_800KHz =  800000,
-    I2C_1000KHz = 1000000*/ //Not supported
-#endif
-} i2c_timing_e;
-
 /* Exported functions ------------------------------------------------------- */
 void i2c_init(i2c_t *obj);
-void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode,
+void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode,
                      uint32_t ownAddress);
 void i2c_deinit(i2c_t *obj);
 void i2c_setTiming(i2c_t *obj, uint32_t frequency);

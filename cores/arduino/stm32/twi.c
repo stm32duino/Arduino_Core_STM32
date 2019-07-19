@@ -52,6 +52,96 @@ extern "C" {
 #define SLAVE_MODE_RECEIVE      1
 #define SLAVE_MODE_LISTEN       2
 
+/* Generic definition for series requiring I2C timing calculation */
+#if !defined (STM32F1xx) && !defined (STM32F2xx) && !defined (STM32F4xx) &&\
+    !defined (STM32L1xx)
+#define I2C_TIMING
+#endif
+
+#ifdef I2C_TIMING
+#ifndef I2C_VALID_TIMING_NBR
+#define I2C_VALID_TIMING_NBR          8U
+#endif
+#define I2C_SPEED_FREQ_STANDARD       0U /* 100 kHz */
+#define I2C_SPEED_FREQ_FAST           1U /* 400 kHz */
+#define I2C_SPEED_FREQ_FAST_PLUS      2U /* 1 MHz */
+#define I2C_ANALOG_FILTER_DELAY_MIN  50U /* ns */
+#ifndef I2C_ANALOG_FILTER_DELAY_MAX
+#define I2C_ANALOG_FILTER_DELAY_MAX 260U /* ns */
+#endif
+#ifndef I2C_USE_ANALOG_FILTER
+#define I2C_USE_ANALOG_FILTER         1U
+#endif
+#ifndef I2C_DIGITAL_FILTER_COEF
+#define I2C_DIGITAL_FILTER_COEF       0U
+#endif
+#define I2C_PRESC_MAX                16U
+#define I2C_SCLDEL_MAX               16U
+#define I2C_SDADEL_MAX               16U
+#define I2C_SCLH_MAX                256U
+#define I2C_SCLL_MAX                256U
+#define SEC2NSEC            1000000000UL
+
+typedef struct {
+  uint32_t freq;      /* Frequency in Hz */
+  uint32_t freq_min;  /* Minimum frequency in Hz */
+  uint32_t freq_max;  /* Maximum frequency in Hz */
+  uint16_t hddat_min; /* Minimum data hold time in ns */
+  uint16_t vddat_max; /* Maximum data valid time in ns */
+  uint16_t sudat_min; /* Minimum data setup time in ns */
+  uint16_t lscl_min;  /* Minimum low period of the SCL clock in ns */
+  uint16_t hscl_min;  /* Minimum high period of SCL clock in ns */
+  uint16_t trise;     /* Rise time in ns */
+  uint16_t tfall;     /* Fall time in ns */
+  uint8_t dnf;       /* Digital noise filter coefficient */
+} I2C_Charac_t;
+
+static const I2C_Charac_t I2C_Charac[] = {
+  [I2C_SPEED_FREQ_STANDARD] =
+  {
+    .freq = 100000,
+    .freq_min = 80000,
+    .freq_max = 120000,
+    .hddat_min = 0,
+    .vddat_max = 3450,
+    .sudat_min = 250,
+    .lscl_min = 4700,
+    .hscl_min = 4000,
+    .trise = 640,
+    .tfall = 20,
+    .dnf = I2C_DIGITAL_FILTER_COEF,
+  },
+  [I2C_SPEED_FREQ_FAST] =
+  {
+    .freq = 400000,
+    .freq_min = 320000,
+    .freq_max = 480000,
+    .hddat_min = 0,
+    .vddat_max = 900,
+    .sudat_min = 100,
+    .lscl_min = 1300,
+    .hscl_min = 600,
+    .trise = 250,
+    .tfall = 100,
+    .dnf = I2C_DIGITAL_FILTER_COEF,
+  },
+  [I2C_SPEED_FREQ_FAST_PLUS] =
+  {
+    .freq = 1000000,
+    .freq_min = 800000,
+    .freq_max = 1200000,
+    .hddat_min = 0,
+    .vddat_max = 450,
+    .sudat_min = 50,
+    .lscl_min = 500,
+    .hscl_min = 260,
+    .trise = 60,
+    .tfall = 100,
+    .dnf = I2C_DIGITAL_FILTER_COEF,
+  }
+};
+#endif /* I2C_TIMING */
+
 /*  Family specific description for I2C */
 typedef enum {
 #if defined(I2C1_BASE)
@@ -72,6 +162,359 @@ typedef enum {
 /* Private Variables */
 static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 
+#ifdef I2C_TIMING
+/**
+  * @brief  This function return the I2C clock source frequency.
+  * @param  i2c: I2C instance
+  * @retval frequency in Hz
+  */
+static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
+{
+  uint32_t clkSrcFreq = 0;
+#ifdef STM32H7xx
+  PLL3_ClocksTypeDef PLL3_Clocks;
+#endif
+#if defined I2C1_BASE
+  if (i2c == I2C1) {
+    switch (__HAL_RCC_GET_I2C1_SOURCE()) {
+      case RCC_I2C1CLKSOURCE_HSI:
+        clkSrcFreq = HSI_VALUE;
+        break;
+#ifdef RCC_I2C1CLKSOURCE_SYSCLK
+      case RCC_I2C1CLKSOURCE_SYSCLK:
+        clkSrcFreq = SystemCoreClock;
+        break;
+#endif
+#if defined(RCC_I2C1CLKSOURCE_PCLK1) || defined(RCC_I2C1CLKSOURCE_D2PCLK1)
+#ifdef RCC_I2C1CLKSOURCE_PCLK1
+      case RCC_I2C1CLKSOURCE_PCLK1:
+#endif
+#ifdef RCC_I2C1CLKSOURCE_D2PCLK1
+      case RCC_I2C1CLKSOURCE_D2PCLK1:
+#endif
+        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+        break;
+#endif
+#ifdef RCC_I2C1CLKSOURCE_CSI
+      case RCC_I2C1CLKSOURCE_CSI:
+        clkSrcFreq = CSI_VALUE;
+        break;
+#endif
+#ifdef RCC_I2C1CLKSOURCE_PLL3
+      case RCC_I2C1CLKSOURCE_PLL3:
+        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+        break;
+#endif
+      default:
+        Error_Handler();
+    }
+  }
+#endif // I2C1_BASE
+#if defined I2C2_BASE
+  if (i2c == I2C2) {
+#ifdef __HAL_RCC_GET_I2C2_SOURCE
+    switch (__HAL_RCC_GET_I2C2_SOURCE()) {
+      case RCC_I2C2CLKSOURCE_HSI:
+        clkSrcFreq = HSI_VALUE;
+        break;
+#ifdef RCC_I2C2CLKSOURCE_SYSCLK
+      case RCC_I2C2CLKSOURCE_SYSCLK:
+        clkSrcFreq = SystemCoreClock;
+        break;
+#endif
+#if defined(RCC_I2C2CLKSOURCE_PCLK1) || defined(RCC_I2C2CLKSOURCE_D2PCLK1)
+#ifdef RCC_I2C2CLKSOURCE_PCLK1
+      case RCC_I2C2CLKSOURCE_PCLK1:
+#endif
+#ifdef RCC_I2C2CLKSOURCE_D2PCLK1
+      case RCC_I2C2CLKSOURCE_D2PCLK1:
+#endif
+        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+        break;
+#endif
+#ifdef RCC_I2C2CLKSOURCE_CSI
+      case RCC_I2C2CLKSOURCE_CSI:
+        clkSrcFreq = CSI_VALUE;
+        break;
+#endif
+#ifdef RCC_I2C2CLKSOURCE_PLL3
+      case RCC_I2C2CLKSOURCE_PLL3:
+        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+        break;
+#endif
+      default:
+        Error_Handler();
+    }
+#else
+    /* STM32 L0/G0 I2C2 has no independent clock */
+    clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+#endif
+  }
+#endif // I2C2_BASE
+#if defined I2C3_BASE
+  if (i2c == I2C3) {
+    switch (__HAL_RCC_GET_I2C3_SOURCE()) {
+      case RCC_I2C3CLKSOURCE_HSI:
+        clkSrcFreq = HSI_VALUE;
+        break;
+#ifdef RCC_I2C3CLKSOURCE_SYSCLK
+      case RCC_I2C3CLKSOURCE_SYSCLK:
+        clkSrcFreq = SystemCoreClock;
+        break;
+#endif
+#if defined(RCC_I2C3CLKSOURCE_PCLK1) || defined(RCC_I2C3CLKSOURCE_D2PCLK1)
+#ifdef RCC_I2C3CLKSOURCE_PCLK1
+      case RCC_I2C3CLKSOURCE_PCLK1:
+#endif
+#ifdef RCC_I2C3CLKSOURCE_D2PCLK1
+      case RCC_I2C3CLKSOURCE_D2PCLK1:
+#endif
+        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+        break;
+#endif
+#ifdef RCC_I2C3CLKSOURCE_CSI
+      case RCC_I2C3CLKSOURCE_CSI:
+        clkSrcFreq = CSI_VALUE;
+        break;
+#endif
+#ifdef RCC_I2C3CLKSOURCE_PLL3
+      case RCC_I2C3CLKSOURCE_PLL3:
+        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+        break;
+#endif
+      default:
+        Error_Handler();
+    }
+  }
+#endif // I2C3_BASE
+#if defined I2C4_BASE
+  if (i2c == I2C4) {
+    switch (__HAL_RCC_GET_I2C4_SOURCE()) {
+      case RCC_I2C4CLKSOURCE_HSI:
+        clkSrcFreq = HSI_VALUE;
+        break;
+#ifdef RCC_I2C4CLKSOURCE_SYSCLK
+      case RCC_I2C4CLKSOURCE_SYSCLK:
+        clkSrcFreq = SystemCoreClock;
+        break;
+#endif
+#ifdef RCC_I2C4CLKSOURCE_PCLK1
+      case RCC_I2C4CLKSOURCE_PCLK1:
+        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+        break;
+#endif
+#ifdef RCC_I2C4CLKSOURCE_D3PCLK1
+      case RCC_I2C4CLKSOURCE_D3PCLK1:
+        clkSrcFreq = HAL_RCCEx_GetD3PCLK1Freq();
+        break;
+#endif
+#ifdef RCC_I2C4CLKSOURCE_CSI
+      case RCC_I2C4CLKSOURCE_CSI:
+        clkSrcFreq = CSI_VALUE;
+        break;
+#endif
+#ifdef RCC_I2C4CLKSOURCE_PLL3
+      case RCC_I2C4CLKSOURCE_PLL3:
+        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+        break;
+#endif
+      default:
+        Error_Handler();
+    }
+  }
+#endif // I2C4_BASE
+  return clkSrcFreq;
+}
+
+/**
+* @brief Calculate PRESC, SCLDEL, SDADEL, SCLL and SCLH and find best configuration.
+* @param clkSrcFreq I2C source clock in HZ.
+* @param i2c_speed I2C frequency (index).
+* @retval config index (0 to I2C_VALID_TIMING_NBR], 0xFFFFFFFF for no
+valid config.
+*/
+static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
+{
+  uint32_t ret = 0xFFFFFFFFU;
+  uint32_t valid_timing_nbr = 0;
+  uint32_t ti2cclk;
+  uint32_t ti2cspeed;
+  uint32_t prev_error;
+  uint32_t dnf_delay;
+  uint32_t clk_min, clk_max;
+  uint16_t scll, sclh;
+  uint8_t prev_presc = I2C_PRESC_MAX;
+
+  int32_t tsdadel_min, tsdadel_max;
+  int32_t tscldel_min;
+  uint8_t presc, scldel, sdadel;
+  uint32_t tafdel_min, tafdel_max;
+
+  ti2cclk = (SEC2NSEC + (clkSrcFreq / 2U)) / clkSrcFreq;
+  ti2cspeed = (SEC2NSEC + (I2C_Charac[i2c_speed].freq / 2U)) / I2C_Charac[i2c_speed].freq;
+
+  tafdel_min = (I2C_USE_ANALOG_FILTER == 1U) ? I2C_ANALOG_FILTER_DELAY_MIN : 0U;
+  tafdel_max = (I2C_USE_ANALOG_FILTER == 1U) ? I2C_ANALOG_FILTER_DELAY_MAX : 0U;
+  /*
+   * tDNF = DNF x tI2CCLK
+   * tPRESC = (PRESC+1) x tI2CCLK
+   * SDADEL >= {tf +tHD;DAT(min) - tAF(min) - tDNF - [3 x tI2CCLK]} / {tPRESC}
+   * SDADEL <= {tVD;DAT(max) - tr - tAF(max) - tDNF- [4 x tI2CCLK]} / {tPRESC}
+   */
+  tsdadel_min = (int32_t)I2C_Charac[i2c_speed].tfall +
+                (int32_t)I2C_Charac[i2c_speed].hddat_min -
+                (int32_t)tafdel_min - (int32_t)(((int32_t)I2C_Charac[i2c_speed].dnf +
+                                                 3) * (int32_t)ti2cclk);
+  tsdadel_max = (int32_t)I2C_Charac[i2c_speed].vddat_max -
+                (int32_t)I2C_Charac[i2c_speed].trise -
+                (int32_t)tafdel_max - (int32_t)(((int32_t)I2C_Charac[i2c_speed].dnf +
+                                                 4) * (int32_t)ti2cclk);
+  /* {[tr+ tSU;DAT(min)] / [tPRESC]} - 1 <= SCLDEL */
+  tscldel_min = (int32_t)I2C_Charac[i2c_speed].trise +
+                (int32_t)I2C_Charac[i2c_speed].sudat_min;
+  if (tsdadel_min <= 0) {
+    tsdadel_min = 0;
+  }
+  if (tsdadel_max <= 0) {
+    tsdadel_max = 0;
+  }
+
+  /* tDNF = DNF x tI2CCLK */
+  dnf_delay = I2C_Charac[i2c_speed].dnf * ti2cclk;
+
+  clk_max = SEC2NSEC / I2C_Charac[i2c_speed].freq_min;
+  clk_min = SEC2NSEC / I2C_Charac[i2c_speed].freq_max;
+
+  prev_error = ti2cspeed;
+
+  for (presc = 0; presc < I2C_PRESC_MAX; presc++) {
+    for (scldel = 0; scldel < I2C_SCLDEL_MAX; scldel++) {
+      /* TSCLDEL = (SCLDEL+1) * (PRESC+1) * TI2CCLK */
+      uint32_t tscldel = (scldel + 1U) * (presc + 1U) * ti2cclk;
+      if (tscldel >= (uint32_t)tscldel_min) {
+
+        for (sdadel = 0; sdadel < I2C_SDADEL_MAX; sdadel++) {
+          /* TSDADEL = SDADEL * (PRESC+1) * TI2CCLK */
+          uint32_t tsdadel = (sdadel * (presc + 1U)) * ti2cclk;
+          if ((tsdadel >= (uint32_t)tsdadel_min) && (tsdadel <=
+                                                     (uint32_t)tsdadel_max)) {
+            if (presc != prev_presc) {
+              valid_timing_nbr ++;
+              if (valid_timing_nbr >= I2C_VALID_TIMING_NBR) {
+                return ret;
+              }
+              /* tPRESC = (PRESC+1) x tI2CCLK*/
+              uint32_t tpresc = (presc + 1U) * ti2cclk;
+              for (scll = 0; scll < I2C_SCLL_MAX; scll++) {
+                /* tLOW(min) <= tAF(min) + tDNF + 2 x tI2CCLK + [(SCLL+1) x tPRESC ] */
+                uint32_t tscl_l = tafdel_min + dnf_delay + (2U * ti2cclk) + ((scll + 1U) * tpresc);
+                /* The I2CCLK period tI2CCLK must respect the following conditions:
+                tI2CCLK < (tLOW - tfilters) / 4 and tI2CCLK < tHIGH */
+                if ((tscl_l > I2C_Charac[i2c_speed].lscl_min) &&
+                    (ti2cclk < ((tscl_l - tafdel_min - dnf_delay) / 4U))) {
+                  for (sclh = 0; sclh < I2C_SCLH_MAX; sclh++) {
+                    /* tHIGH(min) <= tAF(min) + tDNF + 2 x tI2CCLK + [(SCLH+1) x tPRESC] */
+                    uint32_t tscl_h = tafdel_min + dnf_delay + (2U * ti2cclk) + ((sclh + 1U) * tpresc);
+                    /* tSCL = tf + tLOW + tr + tHIGH */
+                    uint32_t tscl = tscl_l + tscl_h + I2C_Charac[i2c_speed].trise +
+                                    I2C_Charac[i2c_speed].tfall;
+                    if ((tscl >= clk_min) && (tscl <= clk_max) &&
+                        (tscl_h >= I2C_Charac[i2c_speed].hscl_min) && (ti2cclk < tscl_h)) {
+                      int32_t error = (int32_t)tscl - (int32_t)ti2cspeed;
+                      if (error < 0) {
+                        error = -error;
+                      }
+                      /* look for the timings with the lowest clock error */
+                      if ((uint32_t)error < prev_error) {
+                        prev_error = (uint32_t)error;
+                        ret = ((presc & 0x0FU) << 28) | \
+                              ((scldel & 0x0FU) << 20) | \
+                              ((sdadel & 0x0FU) << 16) | \
+                              ((sclh & 0xFFU) << 8) | \
+                              ((scll & 0xFFU) << 0);
+                        prev_presc = presc;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return ret;
+}
+#endif /* I2C_TIMING */
+
+/**
+* @brief Compute I2C timing according current I2C clock source and
+required I2C clock.
+* @param  obj : pointer to i2c_t structure
+* @param frequency
+ Required I2C clock in Hz.
+* @retval I2C timing or 0 in case of error.
+*/
+static uint32_t i2c_getTiming(i2c_t *obj, uint32_t frequency)
+{
+  uint32_t ret = 0;
+  uint32_t i2c_speed = 0;
+  if (frequency <= 100000) {
+    i2c_speed = 100000;
+  } else if (frequency <= 400000) {
+    i2c_speed = 400000;
+  } else if (frequency <= 1000000) {
+    i2c_speed = 1000000;
+  }
+#ifdef I2C_TIMING
+  if (i2c_speed != 0U) {
+    switch (i2c_speed) {
+      default:
+      case 100000:
+#ifdef I2C_TIMING_SM
+        ret = I2C_TIMING_SM;
+#else
+        ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_STANDARD);
+#endif
+        break;
+      case 400000:
+#ifdef I2C_TIMING_FM
+        ret = I2C_TIMING_FM;
+#else
+        ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_FAST);
+#endif
+        break;
+      case 1000000:
+#ifdef I2C_TIMING_FMP
+        ret = I2C_TIMING_FMP;
+#else
+        ret = i2c_computeTiming(i2c_getClkFreq(obj->i2c), I2C_SPEED_FREQ_FAST_PLUS);
+#endif
+        break;
+    }
+  }
+  /* Kept for future if more speed are proposed */
+  /* uint32_t speed;
+   * for (speed = 0; speed <= (uint32_t)I2C_SPEED_FREQ_FAST_PLUS; speed++) {
+   *   if ((i2c_speed >= I2C_Charac[speed].freq_min) &&
+   *       (i2c_speed <= I2C_Charac[speed].freq_max)) {
+   *     i2c_computeTiming(i2c_getClkFreq(obj->i2c), speed);
+   *     break;
+   *   }
+   * }
+   */
+#else
+  UNUSED(obj);
+  ret = i2c_speed;
+#endif /* I2C_TIMING */
+  return ret;
+}
+
 /**
   * @brief  Default init and setup GPIO and I2C peripheral
   * @param  obj : pointer to i2c_t structure
@@ -79,7 +522,7 @@ static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
   */
 void i2c_init(i2c_t *obj)
 {
-  i2c_custom_init(obj, I2C_100KHz, I2C_ADDRESSINGMODE_7BIT, 0x33);
+  i2c_custom_init(obj, 100000, I2C_ADDRESSINGMODE_7BIT, 0x33);
 }
 
 /**
@@ -90,7 +533,7 @@ void i2c_init(i2c_t *obj)
   * @param  ownAddress : device address
   * @retval none
   */
-void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, uint32_t ownAddress)
+void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint32_t ownAddress)
 {
   if (obj == NULL) {
     return;
@@ -125,7 +568,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     obj->irq = I2C1_EV_IRQn;
 #if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C1_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
     i2c_handles[I2C1_INDEX] = handle;
   }
 #endif // I2C1_BASE
@@ -138,7 +581,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     obj->irq = I2C2_EV_IRQn;
 #if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
     obj->irqER = I2C2_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
     i2c_handles[I2C2_INDEX] = handle;
   }
 #endif // I2C2_BASE
@@ -149,9 +592,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C3_FORCE_RESET();
     __HAL_RCC_I2C3_RELEASE_RESET();
     obj->irq = I2C3_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32L0xx)
     obj->irqER = I2C3_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32L0xx */
     i2c_handles[I2C3_INDEX] = handle;
   }
 #endif // I2C3_BASE
@@ -162,9 +605,7 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
     __HAL_RCC_I2C4_FORCE_RESET();
     __HAL_RCC_I2C4_RELEASE_RESET();
     obj->irq = I2C4_EV_IRQn;
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
     obj->irqER = I2C4_ER_IRQn;
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
     i2c_handles[I2C4_INDEX] = handle;
   }
 #endif // I2C4_BASE
@@ -174,12 +615,10 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
   pinmap_pinout(obj->sda, PinMap_I2C_SDA);
 
   handle->Instance             = obj->i2c;
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\
-    defined (STM32G0xx) || defined (STM32H7xx) || defined (STM32L0xx) ||\
-     defined (STM32L4xx) || defined (STM32WBxx)
-  handle->Init.Timing      = timing;
+#ifdef I2C_TIMING
+  handle->Init.Timing      = i2c_getTiming(obj, timing);
 #else
-  handle->Init.ClockSpeed      = timing;
+  handle->Init.ClockSpeed      = i2c_getTiming(obj, timing);
   /* Standard mode (sm) is up to 100kHz, then it's Fast mode (fm)     */
   /* In fast mode duty cyble bit must be set in CCR register          */
   if (timing > 100000) {
@@ -199,10 +638,10 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 
   HAL_NVIC_SetPriority(obj->irq, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   HAL_NVIC_SetPriority(obj->irqER, I2C_IRQ_PRIO, I2C_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irqER);
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 
   /* Init the I2C */
   if (HAL_I2C_Init(handle) != HAL_OK) {
@@ -223,9 +662,9 @@ void i2c_custom_init(i2c_t *obj, i2c_timing_e timing, uint32_t addressingMode, u
 void i2c_deinit(i2c_t *obj)
 {
   HAL_NVIC_DisableIRQ(obj->irq);
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
   HAL_NVIC_DisableIRQ(obj->irqER);
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
   HAL_I2C_DeInit(&(obj->handle));
 }
 
@@ -237,24 +676,10 @@ void i2c_deinit(i2c_t *obj)
   */
 void i2c_setTiming(i2c_t *obj, uint32_t frequency)
 {
-  uint32_t f = I2C_10KHz;
+  uint32_t f = i2c_getTiming(obj, frequency);
   __HAL_I2C_DISABLE(&(obj->handle));
 
-  if (frequency <= 10000) {
-    f = I2C_10KHz;
-  } else if (frequency <= 50000) {
-    f = I2C_50KHz;
-  } else if (frequency <= 100000) {
-    f = I2C_100KHz;
-  } else if (frequency <= 200000) {
-    f = I2C_200KHz;
-  } else if (frequency <= 400000) {
-    f = I2C_400KHz;
-  }
-
-#if defined (STM32F0xx) || defined (STM32F3xx) || defined (STM32F7xx) ||\
-    defined (STM32G0xx) || defined (STM32H7xx) || defined (STM32L0xx) ||\
-     defined (STM32L4xx) || defined (STM32WBxx)
+#ifdef I2C_TIMING
   obj->handle.Init.Timing = f;
 #else
   obj->handle.Init.ClockSpeed = f;
@@ -266,14 +691,6 @@ void i2c_setTiming(i2c_t *obj, uint32_t frequency)
     obj->handle.Init.DutyCycle       = I2C_DUTYCYCLE_2;
   }
 #endif
-  /*
-    else if(frequency <= 600000)
-      g_i2c_init_info[i2c_id].i2c_handle.Init.ClockSpeed = I2C_600KHz;
-    else if(frequency <= 800000)
-      g_i2c_init_info[i2c_id].i2c_handle.Init.ClockSpeed = I2C_800KHz;
-    else
-      g_i2c_init_info[i2c_id].i2c_handle.Init.ClockSpeed = I2C_1000KHz;
-  */
   HAL_I2C_Init(&(obj->handle));
   __HAL_I2C_ENABLE(&(obj->handle));
 }
@@ -588,12 +1005,12 @@ void I2C1_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C1 interrupt.
 * @param  None
@@ -604,7 +1021,7 @@ void I2C1_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C1_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 #endif // I2C1_BASE
 
 #if defined(I2C2_BASE)
@@ -617,12 +1034,12 @@ void I2C2_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32F0xx || STM32G0xx || STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C2 interrupt.
 * @param  None
@@ -633,7 +1050,7 @@ void I2C2_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C2_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
 #endif // I2C2_BASE
 
 #if defined(I2C3_BASE)
@@ -646,12 +1063,12 @@ void I2C3_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
+#if defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
+#endif /* STM32L0xx */
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
+#if !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C3 interrupt.
 * @param  None
@@ -662,7 +1079,7 @@ void I2C3_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C3_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
+#endif /* !STM32L0xx */
 #endif // I2C3_BASE
 
 #if defined(I2C4_BASE)
@@ -675,12 +1092,9 @@ void I2C4_EV_IRQHandler(void)
 {
   I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_EV_IRQHandler(handle);
-#if defined(STM32F0xx) || defined(STM32L0xx)
   HAL_I2C_ER_IRQHandler(handle);
-#endif // defined(STM32F0xx) || defined(STM32L0xx)
 }
 
-#if !defined(STM32F0xx) && !defined(STM32L0xx)
 /**
 * @brief  This function handles I2C4 interrupt.
 * @param  None
@@ -691,7 +1105,6 @@ void I2C4_ER_IRQHandler(void)
   I2C_HandleTypeDef *handle = i2c_handles[I2C4_INDEX];
   HAL_I2C_ER_IRQHandler(handle);
 }
-#endif // !defined(STM32F0xx) && !defined(STM32L0xx)
 #endif // I2C4_BASE
 #endif /* HAL_I2C_MODULE_ENABLED */
 
