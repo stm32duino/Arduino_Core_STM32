@@ -203,7 +203,7 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 
 // ADC internal channels (not a pins)
 // Only used for analogRead()
-#ifdef ADC_CHANNEL_TEMPSENSOR
+#if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
 #define ATEMP        (NUM_DIGITAL_PINS + 1)
 #endif
 #ifdef ADC_CHANNEL_VREFINT
@@ -211,6 +211,9 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 #endif
 #ifdef ADC_CHANNEL_VBAT
 #define AVBAT        (NUM_DIGITAL_PINS + 3)
+#endif
+#if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+#define ATEMP_ADC5   (NUM_DIGITAL_PINS + 4)
 #endif
 
 #ifdef __cplusplus

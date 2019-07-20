@@ -210,8 +210,11 @@ typedef enum {
 #endif
   // Specific pin name
   PADC_BASE = 0x100,
-#ifdef ADC_CHANNEL_TEMPSENSOR
+#if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
   PADC_TEMP,
+#endif
+#if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+  PADC_TEMP_ADC5,
 #endif
 #ifdef ADC_CHANNEL_VREFINT
   PADC_VREF,

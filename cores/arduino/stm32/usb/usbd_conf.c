@@ -88,7 +88,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     __HAL_REMAPINTERRUPT_USB_ENABLE();
 #endif
 
-#if defined(STM32WBxx)
+#if defined(STM32G4xx) || defined(STM32WBxx)
     HAL_NVIC_SetPriority(USB_HP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
     HAL_NVIC_EnableIRQ(USB_HP_IRQn);
     HAL_NVIC_SetPriority(USB_LP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
