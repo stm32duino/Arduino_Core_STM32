@@ -38,7 +38,7 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-// Bluepill USB connector on the top, MCU side - Blackpill USB connector on bottom, MCU Side  (pins are reversed vertically for Arduino Ananlog pin correct sequence.
+// USB connector on bottom, MCU Side
 // Left Side
 #define PB9  0
 #define PB8  1
@@ -56,9 +56,9 @@ extern "C" {
 #define PB15 13
 #define PB14 14
 #define PB13 15
-#define PB12 16 // LED Blackpill
+#define PB12 16
 // Right side
-#define PC13 17 // LED Bluepill
+#define PC13 17 // LED
 #define PC14 18
 #define PC15 19
 #define PA0  20 // A0
