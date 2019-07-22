@@ -99,11 +99,8 @@ extern "C" {
 #define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE              TIM3
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_TONE              TIM10
+#define TIMER_SERVO             TIM11
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
@@ -114,10 +111,6 @@ extern "C" {
 
 /* HAL configuration */
 #define HSE_VALUE               25000000U
-
-/* Extra HAL modules */
-//#define HAL_DAC_MODULE_ENABLED
-//#define HAL_SD_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"
@@ -143,7 +136,7 @@ extern "C" {
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial
+#define SERIAL_PORT_HARDWARE    Serial1
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
