@@ -268,6 +268,18 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=NUCLEO_G071RB
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# NUCLEO_G431RB board
+Nucleo_64.menu.pnum.NUCLEO_G431RB=Nucleo G431RB
+Nucleo_64.menu.pnum.NUCLEO_G431RB.node=NODE_G431RB
+Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_data_size=32768
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.board=NUCLEO_G431RB
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.series=STM32G4xx
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.product_line=STM32G431xx
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.variant=NUCLEO_G431RB
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # NUCLEO_G474RE board
 Nucleo_64.menu.pnum.NUCLEO_G474RE=Nucleo G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.node=NODE_G474RE
