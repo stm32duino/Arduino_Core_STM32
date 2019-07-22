@@ -74,6 +74,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
+| :yellow_heart: | [Nucleo-G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | **1.7.0** |  |
 | :green_heart: | [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html) | *1.1.1* |  |
 | :green_heart: | [Nucleo L412KB](http://www.st.com/en/evaluation-tools/nucleo-l412kb.html) | *1.5.0* |  |
 | :green_heart: | [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html) | *0.2.0* |  |
