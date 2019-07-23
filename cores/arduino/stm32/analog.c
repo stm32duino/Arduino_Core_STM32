@@ -239,9 +239,19 @@ static uint32_t get_adc_internal_channel(PinName pin)
 {
   uint32_t channel = 0;
   switch (pin) {
-#ifdef ADC_CHANNEL_TEMPSENSOR
+#if defined(ADC_CHANNEL_TEMPSENSOR)
     case PADC_TEMP:
       channel = ADC_CHANNEL_TEMPSENSOR;
+      break;
+#endif
+#if defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
+    case PADC_TEMP:
+      channel = ADC_CHANNEL_TEMPSENSOR_ADC1;
+      break;
+#endif
+#if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+    case PADC_TEMP_ADC5:
+      channel = ADC_CHANNEL_TEMPSENSOR_ADC5;
       break;
 #endif
 #ifdef ADC_CHANNEL_VREFINT
@@ -326,18 +336,43 @@ static uint32_t get_dac_channel(PinName pin)
   */
 void HAL_DAC_MspInit(DAC_HandleTypeDef *hdac)
 {
-  UNUSED(hdac);
-
   /* DAC Periph clock enable */
-#ifdef __HAL_RCC_DAC1_CLK_ENABLE
-  __HAL_RCC_DAC1_CLK_ENABLE();
-#endif
+  if (hdac->Instance == DAC1) {
 #ifdef __HAL_RCC_DAC_CLK_ENABLE
-  __HAL_RCC_DAC_CLK_ENABLE();
+    __HAL_RCC_DAC_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_DAC1_CLK_ENABLE
+    __HAL_RCC_DAC1_CLK_ENABLE();
 #endif
 #ifdef __HAL_RCC_DAC12_CLK_ENABLE
-  __HAL_RCC_DAC12_CLK_ENABLE();
+    __HAL_RCC_DAC12_CLK_ENABLE();
 #endif
+  }
+#ifdef DAC2
+  else if (hdac->Instance == DAC2) {
+#ifdef __HAL_RCC_DAC2_CLK_ENABLE
+    __HAL_RCC_DAC2_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_DAC12_CLK_ENABLE
+    __HAL_RCC_DAC12_CLK_ENABLE();
+#endif
+  }
+#endif
+#ifdef DAC3
+  else if (hdac->Instance == DAC3) {
+#ifdef __HAL_RCC_DAC3_CLK_ENABLE
+    __HAL_RCC_DAC3_CLK_ENABLE();
+#endif
+  }
+#endif
+#ifdef DAC4
+  else if (hdac->Instance == DAC4) {
+#ifdef __HAL_RCC_DAC4_CLK_ENABLE
+    __HAL_RCC_DAC4_CLK_ENABLE();
+#endif
+  }
+#endif
+
   /* Configure DAC GPIO pins */
   pinmap_pinout(g_current_pin, PinMap_DAC);
 }
@@ -362,7 +397,11 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
     return;
   }
   dacChannel = get_dac_channel(pin);
+#if defined(STM32G4xx)
+  if (!IS_DAC_CHANNEL(DacHandle.Instance, dacChannel)) {
+#else
   if (!IS_DAC_CHANNEL(dacChannel)) {
+#endif
     return;
   }
   if (do_init == 1) {
@@ -406,13 +445,83 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   */
 void HAL_DAC_MspDeInit(DAC_HandleTypeDef *hdac)
 {
-  UNUSED(hdac);
   /* DAC Periph clock disable */
-#ifdef __HAL_RCC_DAC1_CLK_DISABLE
-  __HAL_RCC_DAC1_CLK_DISABLE();
+  if (hdac->Instance == DAC1) {
+#ifdef __HAL_RCC_DAC_FORCE_RESET
+    __HAL_RCC_DAC_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC1_FORCE_RESET
+    __HAL_RCC_DAC1_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC12_FORCE_RESET
+    __HAL_RCC_DAC12_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC_RELEASE_RESET
+    __HAL_RCC_DAC_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC1_RELEASE_RESET
+    __HAL_RCC_DAC1_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC12_RELEASE_RESET
+    __HAL_RCC_DAC12_RELEASE_RESET();
 #endif
 #ifdef __HAL_RCC_DAC_CLK_DISABLE
-  __HAL_RCC_DAC_CLK_DISABLE();
+    __HAL_RCC_DAC_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_DAC1_CLK_DISABLE
+    __HAL_RCC_DAC1_CLK_DISABLE();
+#endif
+#ifdef __HAL_RCC_DAC12_CLK_ENABLE
+    __HAL_RCC_DAC12_CLK_ENABLE();
+#endif
+  }
+#ifdef DAC2
+  else if (hdac->Instance == DAC2) {
+#ifdef __HAL_RCC_DAC2_FORCE_RESET
+    __HAL_RCC_DAC2_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC12_FORCE_RESET
+    __HAL_RCC_DAC12_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC2_RELEASE_RESET
+    __HAL_RCC_DAC2_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC12_RELEASE_RESET
+    __HAL_RCC_DAC12_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC2_CLK_ENABLE
+    __HAL_RCC_DAC2_CLK_ENABLE();
+#endif
+#ifdef __HAL_RCC_DAC12_CLK_ENABLE
+    __HAL_RCC_DAC12_CLK_ENABLE();
+#endif
+  }
+#endif
+#ifdef DAC3
+  else if (hdac->Instance == DAC3) {
+#ifdef __HAL_RCC_DAC3_FORCE_RESET
+    __HAL_RCC_DAC3_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC3_RELEASE_RESET
+    __HAL_RCC_DAC3_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC3_CLK_DISABLE
+    __HAL_RCC_DAC3_CLK_DISABLE();
+#endif
+  }
+#endif
+#ifdef DAC4
+  else if (hdac->Instance == DAC4) {
+#ifdef __HAL_RCC_DAC4_FORCE_RESET
+    __HAL_RCC_DAC4_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC4_RELEASE_RESET
+    __HAL_RCC_DAC4_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_DAC4_CLK_DISABLE
+    __HAL_RCC_DAC4_CLK_DISABLE();
+#endif
+  }
 #endif
 }
 
@@ -432,7 +541,11 @@ void dac_stop(PinName pin)
     return;
   }
   dacChannel = get_dac_channel(pin);
+#if defined(STM32G4xx)
+  if (!IS_DAC_CHANNEL(DacHandle.Instance, dacChannel)) {
+#else
   if (!IS_DAC_CHANNEL(dacChannel)) {
+#endif
     return;
   }
 
@@ -486,14 +599,28 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC34_CLK_ENABLE
     __HAL_RCC_ADC34_CLK_ENABLE();
 #endif
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_CLK_ENABLE();
+#endif
   }
 #endif
 #ifdef ADC4
   else if (hadc->Instance == ADC4) {
+#ifdef __HAL_RCC_ADC34_CLK_ENABLE
     __HAL_RCC_ADC34_CLK_ENABLE();
+#endif
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_CLK_ENABLE();
+#endif
   }
 #endif
-
+#ifdef ADC5
+  else if (hadc->Instance == ADC5) {
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_CLK_ENABLE();
+#endif
+  }
+#endif
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
@@ -586,13 +713,38 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC34_CLK_DISABLE
     __HAL_RCC_ADC34_CLK_DISABLE();
 #endif
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_FORCE_RESET();
+    __HAL_RCC_ADC345_RELEASE_RESET();
+    __HAL_RCC_ADC345_CLK_DISABLE();
+#endif
   }
 #endif
 #ifdef ADC4
   else if (hadc->Instance == ADC4) {
+#ifdef __HAL_RCC_ADC34_FORCE_RESET
     __HAL_RCC_ADC34_FORCE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC34_RELEASE_RESET
     __HAL_RCC_ADC34_RELEASE_RESET();
+#endif
+#ifdef __HAL_RCC_ADC34_CLK_DISABLE
     __HAL_RCC_ADC34_CLK_DISABLE();
+#endif
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_FORCE_RESET();
+    __HAL_RCC_ADC345_RELEASE_RESET();
+    __HAL_RCC_ADC345_CLK_DISABLE();
+#endif
+  }
+#endif
+#ifdef ADC5
+  else if (hadc->Instance == ADC5) {
+#if defined(ADC345_COMMON)
+    __HAL_RCC_ADC345_FORCE_RESET();
+    __HAL_RCC_ADC345_RELEASE_RESET();
+    __HAL_RCC_ADC345_CLK_DISABLE();
+#endif
   }
 #endif
 #ifdef __HAL_RCC_ADC_CLK_DISABLE
@@ -620,6 +772,11 @@ uint16_t adc_read_value(PinName pin)
     AdcHandle.Instance = ADC3;
 #else
     AdcHandle.Instance = ADC1;
+#if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
+    if (pin == PADC_TEMP_ADC5) {
+      AdcHandle.Instance = ADC5;
+    }
+#endif
 #endif
     channel = get_adc_internal_channel(pin);
     samplingTime = ADC_SAMPLINGTIME_INTERNAL;
@@ -650,8 +807,8 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
-    !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32H7xx) && \
-    !defined(STM32L4xx) && !defined(STM32WBxx)
+    !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
+    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32WBxx)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_A
@@ -724,13 +881,13 @@ uint16_t adc_read_value(PinName pin)
 
 #if defined(STM32L4xx) || defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
-    return 0;
-  }
+#elif defined(STM32G4xx)
+  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
+#endif /* STM32L4xx || STM32WBxx */
     return 0;
   }
-#endif /* STM32L4xx || STM32WBxx */
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
 #if !defined(STM32L0xx)
 #if !defined(STM32G0xx)
@@ -763,8 +920,8 @@ uint16_t adc_read_value(PinName pin)
   }
 
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx) || \
-    defined(STM32G0xx) || defined(STM32H7xx) || defined(STM32L0xx) || \
-    defined(STM32L4xx) || defined(STM32WBxx)
+    defined(STM32G0xx) || defined(STM32G4xx) || defined(STM32H7xx) || \
+    defined(STM32L0xx) || defined(STM32L4xx) || defined(STM32WBxx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32F1xx) || \
     defined(STM32F373xC) || defined(STM32F378xx)

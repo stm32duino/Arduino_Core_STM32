@@ -1218,7 +1218,8 @@ void TIM1_IRQHandler(void)
 #endif
 #endif
 
-#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32L4xx) || defined(STM32WBxx)
+#if defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32G4xx) || defined(STM32L4xx) || \
+    defined(STM32WBxx)
 #if defined (TIM16_BASE)
   if (timer_handles[TIMER16_INDEX] != NULL) {
     HAL_TIM_IRQHandler(timer_handles[TIMER16_INDEX]);
@@ -1435,7 +1436,7 @@ void TIM15_IRQHandler(void)
 #endif //TIM15_BASE
 
 #if defined(TIM16_BASE)
-#if !defined(STM32F1xx) && !defined(STM32F3xx) && !defined(STM32L4xx)
+#if !defined(STM32F1xx) && !defined(STM32F3xx) && !defined(STM32G4xx) && !defined(STM32L4xx)
 /**
   * @brief  TIM16 IRQHandler
   * @param  None

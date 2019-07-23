@@ -7,6 +7,9 @@
 #ifdef STM32G0xx
 #include "stm32g0xx_hal_comp.c"
 #endif
+#ifdef STM32G4xx
+#include "stm32g4xx_hal_comp.c"
+#endif
 #ifdef STM32H7xx
 #include "stm32h7xx_hal_comp.c"
 #endif

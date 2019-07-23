@@ -8,5 +8,8 @@
 #ifdef STM32G0xx
 #include "stm32g0xx_ll_ucpd.h"
 #endif
+#ifdef STM32G4xx
+#include "stm32g4xx_ll_ucpd.h"
+#endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_UCPD_H_ */

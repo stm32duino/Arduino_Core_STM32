@@ -19,6 +19,9 @@
 #ifdef STM32G0xx
 #include "system_stm32g0xx.c"
 #endif
+#ifdef STM32G4xx
+#include "system_stm32g4xx.c"
+#endif
 #ifdef STM32H7xx
 #include "system_stm32h7xx.c"
 #endif
