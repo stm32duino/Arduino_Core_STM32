@@ -97,6 +97,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | BluePill F103C(6-8-B) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | BlackPill F103C(8-B) | *1.5.0* |  |
+| :yellow_heart: | BlackPill F401CC | **1.7.0* |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 
