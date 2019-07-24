@@ -1151,6 +1151,77 @@ RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.options=-g
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+
+###############################
+# Genericflight Flight Controllers
+
+Genericflight.name=Generic flight controllers
+
+Genericflight.build.vid=0x0483
+Genericflight.build.core=arduino
+Genericflight.build.board=Genericflight
+Genericflight.build.mcu=cortex-m3
+Genericflight.build.series=STM32F1xx
+Genericflight.build.cmsis_lib_gcc=arm_cortexM3l_math
+Genericflight.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+
+# AfroFlight Rev5 
+Genericflight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_size=131072
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_data_size=20480
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.variant=AFROFLIGHT_F103CB
+
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M=Afro Flight Rev5 (12MHz)
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_size=131072
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_data_size=20480
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=AFROFLIGHT_F103CB
+
+# Upload menu
+Genericflight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Genericflight.menu.upload_method.swdMethod.upload.protocol=0
+Genericflight.menu.upload_method.swdMethod.upload.options=-g
+Genericflight.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Genericflight.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Genericflight.menu.upload_method.serialMethod.upload.protocol=1
+Genericflight.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Genericflight.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Genericflight.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Genericflight.menu.upload_method.dfuMethod.upload.protocol=2
+Genericflight.menu.upload_method.dfuMethod.upload.options=-g
+Genericflight.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Genericflight.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+Genericflight.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+Genericflight.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+Genericflight.menu.upload_method.hidMethod=HID Bootloader 2.2
+Genericflight.menu.upload_method.hidMethod.upload.protocol=hid22
+Genericflight.menu.upload_method.hidMethod.upload.tool=hid_upload
+Genericflight.menu.upload_method.hidMethod.build.flash_offset=0x800
+Genericflight.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+
+Genericflight.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
+Genericflight.menu.upload_method.dfu2Method.upload.protocol=maple
+Genericflight.menu.upload_method.dfu2Method.upload.tool=maple_upload
+Genericflight.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
+Genericflight.menu.upload_method.dfu2Method.upload.altID=2
+Genericflight.menu.upload_method.dfu2Method.build.flash_offset=0x2000
+Genericflight.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+
+Genericflight.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
+Genericflight.menu.upload_method.dfuoMethod.upload.protocol=maple
+Genericflight.menu.upload_method.dfuoMethod.upload.tool=maple_upload
+Genericflight.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
+Genericflight.menu.upload_method.dfuoMethod.upload.altID=1
+Genericflight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
+Genericflight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+
 ################################################################################
 # Midatronics boards
 
@@ -1266,6 +1337,12 @@ RAK.menu.xserial.disabled.build.xSerial=
 3dprinter.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 3dprinter.menu.xserial.disabled=Disabled (no Serial support)
 3dprinter.menu.xserial.disabled.build.xSerial=
+
+Genericflight.menu.xserial.generic=Enabled (generic 'Serial')
+Genericflight.menu.xserial.none=Enabled (no generic 'Serial')
+Genericflight.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Genericflight.menu.xserial.disabled=Disabled (no Serial support)
+Genericflight.menu.xserial.disabled.build.xSerial=
 
 Midatronics.menu.xserial.generic=Enabled (generic 'Serial')
 Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
@@ -1399,6 +1476,19 @@ Sparky.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 3dprinter.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
 3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Genericflight.menu.usb.none=None
+Genericflight.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Genericflight.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Genericflight.menu.usb.CDC=CDC (no generic 'Serial')
+Genericflight.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Genericflight.menu.usb.HID=HID (keyboard and mouse)
+Genericflight.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Genericflight.menu.xusb.FS=Low/Full Speed
+Genericflight.menu.xusb.HS=High Speed
+Genericflight.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Genericflight.menu.xusb.HSFS=High Speed in Full Speed mode
+Genericflight.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 Midatronics.menu.usb.none=None
 Midatronics.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1632,6 +1722,24 @@ RAK.menu.opt.ogstd.build.flags.optimize=-g -Og
 3dprinter.menu.opt.ogstd=Debug (-g)
 3dprinter.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+Genericflight.menu.opt.osstd=Smallest (-Os default)
+Genericflight.menu.opt.oslto=Smallest (-Os) with LTO
+Genericflight.menu.opt.oslto.build.flags.optimize=-Os -flto
+Genericflight.menu.opt.o1std=Fast (-O1)
+Genericflight.menu.opt.o1std.build.flags.optimize=-O1
+Genericflight.menu.opt.o1lto=Fast (-O1) with LTO
+Genericflight.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Genericflight.menu.opt.o2std=Faster (-O2)
+Genericflight.menu.opt.o2std.build.flags.optimize=-O2
+Genericflight.menu.opt.o2lto=Faster (-O2) with LTO
+Genericflight.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Genericflight.menu.opt.o3std=Fastest (-O3)
+Genericflight.menu.opt.o3std.build.flags.optimize=-O3
+Genericflight.menu.opt.o3lto=Fastest (-O3) with LTO
+Genericflight.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Genericflight.menu.opt.ogstd=Debug (-g)
+Genericflight.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 Midatronics.menu.opt.osstd=Smallest (-Os default)
 Midatronics.menu.opt.oslto=Smallest (-Os) with LTO
 Midatronics.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -1770,6 +1878,16 @@ RAK.menu.rtlib.full.build.flags.ldspecs=
 3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 3dprinter.menu.rtlib.full=Newlib Standard
 3dprinter.menu.rtlib.full.build.flags.ldspecs=
+
+Genericflight.menu.rtlib.nano=Newlib Nano (default)
+Genericflight.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Genericflight.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Genericflight.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Genericflight.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Genericflight.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Genericflight.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Genericflight.menu.rtlib.full=Newlib Standard
+Genericflight.menu.rtlib.full.build.flags.ldspecs=
 
 Midatronics.menu.rtlib.nano=Newlib Nano (default)
 Midatronics.menu.rtlib.nanofp=Newlib Nano + Float Printf
