@@ -91,7 +91,7 @@ extern "C" {
 #define LED_BUILTIN             PB4
 #endif
 #define LED_GREEN               PB3
-#define LED_RED 				LED_BUILTIN
+#define LED_RED             LED_BUILTIN
 
 
 // SPI Definitions
@@ -104,11 +104,10 @@ extern "C" {
 //#define PIN_WIRE_SDA            PB7
 //#define PIN_WIRE_SCL            PB6
 //On afroflight Rev 5 it's on i2c port 2 that MPU6050 is connected too
-#define PIN_WIRE_SDA			PB11
-#define PIN_WIRE_SCL			PB10
+#define PIN_WIRE_SDA      PB11
+#define PIN_WIRE_SCL      PB10
 
-  //Wire.setSDA(PB11);
-  //Wire.setSCL(PB10);
+
 // Timer Definitions
 // Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM3
@@ -128,30 +127,30 @@ extern "C" {
 #define MPU_ADDR 0x68;
 #define MPU_INT PB13;
 /*
- * RC_CH1 T2C1 				PA0
- * RC_CH2 T2C2 				PA1
- * RC_CH3 T2C3/UA2_TX 		PA2
- * RC_CH4 T2C4/UA2_RX		PA3
- * RC_CH5 T3C1				PA6
- * RC_CH6 T3C2				PA7
- * RC_CH7 T3C3				PB0
- * RC_CH8 T3C4				PB1
- * 
- * PWM1 T1C1				PA8
- * PMW2 T1C4				PA11			
- * PMW3 T4C1				PB6
- * PMW4 T4C2				PB7
- * PMW5 T4C3				PB8
- * PMW6 T4C4				PB9
- * SONAR_INT PA15
- * GPIO_BOTTOM PB5
- * TELEM_OUT PA13 //warning, you loose SWD access when using this pin , bootloader via uart is required after 
+ * RC_CH1 T2C1        PA0
+ * RC_CH2 T2C2        PA1
+ * RC_CH3 T2C3/UA2_TX     PA2
+ * RC_CH4 T2C4/UA2_RX   PA3
+ * RC_CH5 T3C1        PA6
+ * RC_CH6 T3C2        PA7
+ * RC_CH7 T3C3        PB0
+ * RC_CH8 T3C4        PB1
  *
- * Power ADC ADC12_IN4 PA4 connected to 6 pin header Battery voltage in via resistor devider 
- * ACC_INT PA5 // Connected to Intterupt pin of MMA84520 accelerometer I2C
+ * PWM1 T1C1        PA8
+ * PMW2 T1C4        PA11
+ * PMW3 T4C1        PB6
+ * PMW4 T4C2        PB7
+ * PMW5 T4C3        PB8
+ * PMW6 T4C4        PB9
+ * SONAR_INT        PA15
+ * GPIO_BOTTOM        PB5
+ * TELEM_OUT        PA13//warning, you loose SWD access when using this pin , bootloader via uart is required after 
+ *
+ * BAT_ADC        PA4 //Connected to 6 pin header Battery voltage in via resistor divider 
+ * ACC_INT        PA5 //Connected to Intterupt pin of MMA84520 accelerometer I2C
  * 
- * MAG_DRD 	PB12; //connected to HMC5883L compass I2C
- * BEEP	PA12; //connected to Beep out transistor on 6 pin header
+ * MAG_DRD        PB12; //Connected to HMC5883L compass I2C
+ * BEEP        PA12; //Connected to Beep out transistor on 6 pin header
  * 
  */
   
