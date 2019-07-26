@@ -105,11 +105,9 @@ extern "C" {
 //#define I2C_TIMING_FMP          0x00000000
 
 // Timer Definitions (optional)
-//Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
-#define TIMER_TONE              TIMx
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+#define TIMER_TONE              TIM6
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name

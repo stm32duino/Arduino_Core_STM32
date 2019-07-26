@@ -1,39 +1,15 @@
-/**
-  ******************************************************************************
-  * @file    timer.h
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   Header for timer module
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/*
+ *******************************************************************************
+ * Copyright (c) 2019, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __TIMER_H
@@ -48,35 +24,6 @@ extern "C" {
 #endif
 #ifdef HAL_TIM_MODULE_ENABLED
 
-/* Exported types ------------------------------------------------------------*/
-#define OFFSETOF(type, member) ((uint32_t) (&(((type *)(0))->member)))
-
-typedef struct {
-  int32_t count;
-  uint8_t state;
-} timerPinInfo_t;
-
-typedef struct timer_s stimer_t;
-
-struct timer_s {
-  /*  The 1st 2 members TIM_TypeDef *timer
-     *  and TIM_HandleTypeDef handle should
-     *  be kept as the first members of this struct
-     *  to have get_timer_obj() function work as expected
-     */
-  TIM_TypeDef *timer;
-  TIM_HandleTypeDef handle;
-  uint8_t idx;
-  void (*irqHandle)(stimer_t *);
-  void (*irqHandleOC)(stimer_t *, uint32_t);
-  void (*irqHandleOC_CH1)(void);
-  void (*irqHandleOC_CH2)(void);
-  void (*irqHandleOC_CH3)(void);
-  void (*irqHandleOC_CH4)(void);
-  PinName pin;
-  volatile timerPinInfo_t pinInfo;
-};
-
 /* Exported constants --------------------------------------------------------*/
 #ifndef TIM_IRQ_PRIO
 #if (__CORTEX_M == 0x00U)
@@ -88,8 +35,6 @@ struct timer_s {
 #ifndef TIM_IRQ_SUBPRIO
 #define TIM_IRQ_SUBPRIO    0
 #endif
-
-#define MAX_FREQ  65535
 
 #if defined(TIM1_BASE) && !defined(TIM1_IRQn)
 #if defined(STM32F0xx) || defined(STM32G0xx)
@@ -213,32 +158,88 @@ struct timer_s {
 #endif
 #endif
 
+typedef enum {
+#if defined(TIM1_BASE)
+  TIMER1_INDEX,
+#endif
+#if defined(TIM2_BASE)
+  TIMER2_INDEX,
+#endif
+#if defined(TIM3_BASE)
+  TIMER3_INDEX,
+#endif
+#if defined(TIM4_BASE)
+  TIMER4_INDEX,
+#endif
+#if defined(TIM5_BASE)
+  TIMER5_INDEX,
+#endif
+#if defined(TIM6_BASE)
+  TIMER6_INDEX,
+#endif
+#if defined(TIM7_BASE)
+  TIMER7_INDEX,
+#endif
+#if defined(TIM8_BASE)
+  TIMER8_INDEX,
+#endif
+#if defined(TIM9_BASE)
+  TIMER9_INDEX,
+#endif
+#if defined(TIM10_BASE)
+  TIMER10_INDEX,
+#endif
+#if defined(TIM11_BASE)
+  TIMER11_INDEX,
+#endif
+#if defined(TIM12_BASE)
+  TIMER12_INDEX,
+#endif
+#if defined(TIM13_BASE)
+  TIMER13_INDEX,
+#endif
+#if defined(TIM14_BASE)
+  TIMER14_INDEX,
+#endif
+#if defined(TIM15_BASE)
+  TIMER15_INDEX,
+#endif
+#if defined(TIM16_BASE)
+  TIMER16_INDEX,
+#endif
+#if defined(TIM17_BASE)
+  TIMER17_INDEX,
+#endif
+#if defined(TIM18_BASE)
+  TIMER18_INDEX,
+#endif
+#if defined(TIM19_BASE)
+  TIMER19_INDEX,
+#endif
+#if defined(TIM20_BASE)
+  TIMER20_INDEX,
+#endif
+#if defined(TIM21_BASE)
+  TIMER21_INDEX,
+#endif
+#if defined(TIM22_BASE)
+  TIMER22_INDEX,
+#endif
+  TIMER_NUM,
+  UNKNOWN_TIMER = 0XFFFF
+} timer_index_t;
+
 /* Exported functions ------------------------------------------------------- */
 
-void timer_enable_clock(TIM_HandleTypeDef *htim);
-void timer_disable_clock(TIM_HandleTypeDef *htim);
-
-void TimerHandleInit(stimer_t *obj, uint16_t period, uint16_t prescaler);
-void TimerHandleDeinit(stimer_t *obj);
-
-void TimerPinInit(stimer_t *obj, uint32_t frequency, uint32_t duration);
-void TimerPinDeinit(stimer_t *obj);
-
-void TimerPulseInit(stimer_t *obj, uint16_t period, uint16_t pulseWidth, void (*irqHandle)(stimer_t *, uint32_t));
-void TimerPulseDeinit(stimer_t *obj);
-
-uint32_t getTimerCounter(stimer_t *obj);
-void setTimerCounter(stimer_t *obj, uint32_t value);
-uint32_t getCCRRegister(stimer_t *obj, uint32_t channel);
-void setCCRRegister(stimer_t *obj, uint32_t channel, uint32_t value);
-void setTimerPrescalerRegister(stimer_t *obj, uint32_t prescaler);
+void enableTimerClock(TIM_HandleTypeDef *htim);
+void disableTimerClock(TIM_HandleTypeDef *htim);
 
 uint32_t getTimerIrq(TIM_TypeDef *tim);
 uint8_t getTimerClkSrc(TIM_TypeDef *tim);
-uint32_t getTimerClkFreq(TIM_TypeDef *tim);
 
-void attachIntHandle(stimer_t *obj, void (*irqHandle)(stimer_t *));
-void attachIntHandleOC(stimer_t *obj, void (*irqHandle)(void), uint32_t timChannel, uint16_t pulseWidth);
+IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
+IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
+
 #endif /* HAL_TIM_MODULE_ENABLED */
 
 #ifdef __cplusplus

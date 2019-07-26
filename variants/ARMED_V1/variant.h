@@ -134,7 +134,7 @@ extern "C" {
 #define PIN_WIRE_SCL            PB8
 
 // Timer Definitions
-// Do not use timer used by PWM pin. See PinMap_PWM.
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
 

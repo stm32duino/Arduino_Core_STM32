@@ -302,13 +302,13 @@ PinName analogInputToPinName(uint32_t pin);
 #define DACC_RESOLUTION             12
 #endif
 #ifndef PWM_RESOLUTION
-#define PWM_RESOLUTION              8
+#define PWM_RESOLUTION              12
 #endif
 #ifndef PWM_FREQUENCY
 #define PWM_FREQUENCY               1000
 #endif
 #ifndef PWM_MAX_DUTY_CYCLE
-#define PWM_MAX_DUTY_CYCLE          255
+#define PWM_MAX_DUTY_CYCLE          4095
 #endif
 
 #endif /*_PINS_ARDUINO_H_*/

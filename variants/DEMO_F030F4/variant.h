@@ -76,11 +76,9 @@ extern "C" {
 #define PIN_WIRE_SCL            PA9  // Default for Arduino connector compatibility
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM17
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM16  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM16
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
