@@ -95,11 +95,11 @@ extern "C" {
   */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInit;
-#ifdef USBCON
-  RCC_CRSInitTypeDef RCC_CRSInitStruct;
+  RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = { 0 };
+#if 0	/* Move clock setting code to usbd_conf.c */
+  RCC_CRSInitTypeDef RCC_CRSInitStruct = { 0 };
 #endif
 
     /**Configure the main internal regulator output voltage
@@ -108,7 +108,7 @@ void SystemClock_Config(void)
 
     /**Initializes the CPU, AHB and APB busses clocks
     */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI|
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSE|
 #ifdef USBCON
                                      RCC_OSCILLATORTYPE_HSI48|
 #endif
@@ -117,10 +117,10 @@ void SystemClock_Config(void)
 #else
                                      RCC_OSCILLATORTYPE_HSI;
 #endif
-  RCC_OscInitStruct.LSIState = RCC_LSI_ON;
+  RCC_OscInitStruct.LSEState = RCC_LSE_ON;
 #if CATENA_CFG_SYSCLK < 16
   RCC_OscInitStruct.MSIState = RCC_MSI_ON;
-  RCC_OscInitStruct.MSICalibrationValue = 0;
+  RCC_OscInitStruct.MSICalibrationValue = 2;
 # if CATENA_CFG_SYSCLK == 2
   RCC_OscInitStruct.MSIClockRange = RCC_MSIRANGE_5;
 # else	/* CATENA_CFG_SYSCLK == 4 */
@@ -130,7 +130,7 @@ void SystemClock_Config(void)
 
 #else	/* CATENA_CFG_SYSCLK >= 16 */
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = 16;
+  RCC_OscInitStruct.HSICalibrationValue = 18;
 
 # ifdef USBCON
   RCC_OscInitStruct.HSI48State = RCC_HSI48_ON;
@@ -186,7 +186,7 @@ void SystemClock_Config(void)
   PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_HSI;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_HSI;
 #endif
-  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
+  PeriphClkInit.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
 #ifdef USBCON
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 #endif
@@ -198,7 +198,7 @@ void SystemClock_Config(void)
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
 #endif
 
-#ifdef USBCON
+#if 0	/* Move clock setting code to usbd_conf.c */
     /**Enable the SYSCFG APB clock
     */
   __HAL_RCC_CRS_CLK_ENABLE();

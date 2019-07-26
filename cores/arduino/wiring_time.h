@@ -84,8 +84,8 @@ static inline void delayMicroseconds(uint32_t usec)
   // fetch initial time as a tick count.
   const uint32_t now = SysTick->VAL;
 
-  // fetch max count, which is tics/millisecond.
-  const uint32_t tickmax = SysTick->LOAD;
+  // fetch max count, which is ticks/millisecond.
+  const uint32_t tickmax = SysTick->LOAD + 1;
 
   // convert usec to an equivalent numer of ticks
   // there are tickmax/1000 ticks per microsecond.

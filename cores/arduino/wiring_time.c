@@ -38,10 +38,15 @@ void delay( uint32_t ms )
 {
   if (ms == 0)
       return;
+  uint32_t startVAL = SysTick->VAL;
   uint32_t start = GetCurrentMilli();
+  uint32_t minVAL = (SysTick->LOAD + 1) / 1000;
+  if (startVAL < minVAL)
+      startVAL = minVAL;
   do {
       yield();
   } while (GetCurrentMilli() - start < ms);
+  while (SysTick->VAL > startVAL);
 }
 
 #ifdef __cplusplus
