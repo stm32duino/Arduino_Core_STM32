@@ -230,8 +230,10 @@ in voltage and temperature. */
 #define ETH_TXBUFNB                    (5U)                /* 5 Tx buffers of size ETH_TX_BUF_SIZE  */
 
 /* Section 2: PHY configuration section */
+#if !defined  (LAN8742A_PHY_ADDRESS)
 /* LAN8742A PHY Address*/
 #define LAN8742A_PHY_ADDRESS            0x00U
+#endif
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
 #define PHY_RESET_DELAY                 0x000000FFU
 /* PHY Configuration delay */
