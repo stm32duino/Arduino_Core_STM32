@@ -622,6 +622,14 @@ GenF0.menu.pnum.DEMO_F030F4_16M.build.board=DEMO_F030F4_16M
 GenF0.menu.pnum.DEMO_F030F4_16M.build.product_line=STM32F030x6
 GenF0.menu.pnum.DEMO_F030F4_16M.build.variant=DEMO_F030F4
 
+# DEMO_F030F4_HSI board
+GenF0.menu.pnum.DEMO_F030F4_HSI=STM32F030F4 Demo board (internal RC oscillator)
+GenF0.menu.pnum.DEMO_F030F4_HSI.upload.maximum_data_size=4096
+GenF0.menu.pnum.DEMO_F030F4_HSI.upload.maximum_size=16384
+GenF0.menu.pnum.DEMO_F030F4_HSI.build.board=DEMO_F030F4_HSI
+GenF0.menu.pnum.DEMO_F030F4_HSI.build.product_line=STM32F030x6
+GenF0.menu.pnum.DEMO_F030F4_HSI.build.variant=DEMO_F030F4
+
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=0
