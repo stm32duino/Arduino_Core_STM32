@@ -579,18 +579,5 @@ void USBD_LL_DisableIRQ(void)
   HAL_NVIC_DisableIRQ(USB_IRQn);
 }
 
-/**
-  * @brief  Get USB connection state
-  * @param  None
-  * @retval 0 if disconnected
-  */
-uint32_t USBD_LL_ConnectionState(void)
-{
-  uint32_t vBus;
-
-  vBus = analogRead(18);
-  return vBus > 800 ? 1 : 0;
-}
-
 #endif // USBCON
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
