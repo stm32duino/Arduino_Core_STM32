@@ -29,6 +29,24 @@
 #error "GCC version 6.3 or higher is required"
 #endif
 
+// MCCI Arduino Version
+#define _mcci_arduino_version_calc(major, minor, patch, local)	\
+	(((major) << 24u) | ((minor) << 16u) | ((patch) << 8u) | (local))
+
+#define	_mcci_arduino_version	_mcci_arduino_version_calc(2, 4, 0, 90)	/* v2.4.0.90 */
+
+#define	_mcci_arduino_version_get_major(v)	\
+	(((v) >> 24u) & 0xFFu)
+
+#define	_mcci_arduino_version_get_minor(v)	\
+	(((v) >> 16u) & 0xFFu)
+
+#define	_mcci_arduino_version_get_patch(v)	\
+	(((v) >> 8u) & 0xFFu)
+
+#define	_mcci_arduino_version_get_local(v)	\
+	((v) & 0xFFu)
+
 #include "wiring.h"
 
 /* sketch */
