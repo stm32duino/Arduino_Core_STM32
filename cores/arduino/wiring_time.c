@@ -1,5 +1,6 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2019 MCCI Corporation. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public

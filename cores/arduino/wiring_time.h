@@ -1,7 +1,7 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
   Copyright (c) 2013 by Paul Stoffregen <paul@pjrc.com> (delayMicroseconds)
-  Copyright (c) 2018 MCCI Corporation (correct delayMicroseconds)
+  Copyright (c) 2018-2019 MCCI Corporation (correct delayMicroseconds)
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -84,7 +84,7 @@ static inline void delayMicroseconds(uint32_t usec)
   // fetch initial time as a tick count.
   const uint32_t now = SysTick->VAL;
 
-  // fetch max count, which is ticks/millisecond.
+  // fetch max count, which is ticks/millisecond - 1.
   const uint32_t tickmax = SysTick->LOAD + 1;
 
   // convert usec to an equivalent numer of ticks
