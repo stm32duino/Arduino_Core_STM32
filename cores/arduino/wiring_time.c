@@ -1,5 +1,6 @@
 /*
   Copyright (c) 2011 Arduino.  All right reserved.
+  Copyright (c) 2019 MCCI Corporation. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -38,10 +39,15 @@ void delay( uint32_t ms )
 {
   if (ms == 0)
       return;
+  uint32_t startVAL = SysTick->VAL;
   uint32_t start = GetCurrentMilli();
+  uint32_t minVAL = (SysTick->LOAD + 1) / 1000;
+  if (startVAL < minVAL)
+      startVAL = minVAL;
   do {
       yield();
   } while (GetCurrentMilli() - start < ms);
+  while (SysTick->VAL > startVAL);
 }
 
 #ifdef __cplusplus
