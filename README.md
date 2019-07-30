@@ -1,12 +1,17 @@
 # Arduino core support for STM32L082-based boards
 
-This repository is MCCI's version of https://github.com/stm32duino/Arduino_Core_STM32, adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&trade; boards. Several of these boarsd are closely compatible with the Adafruit Feather M0 LoRa. See [Supported Boards and CPUs](#supported-boards-and-cpus) for more info.
+This repository is MCCI's version of [Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32), adapted for the STM32L082. The BSP here targets the STM32L082 as used in the Murata CMWX1ZZABZ LoRa&reg; module, as further in the MCCI Catena&reg; LoRaWAN&reg; technology boards. Several of these boards are closely compatible with the Adafruit Feather M0 LoRa. See [Supported Boards and CPUs](#supported-boards-and-cpus) for more info.
 
 For general information, please check the stm32duino [README.md](https://github.com/stm32duino/Arduino_Core_STM32#arduino-core-support-for-stm32-based-boards), especially the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started) section.
 
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.5.0...master)
+
+**Contents:**
+<!-- markdownlint-disable MD033 -->
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable -->
 <!-- TOC depthFrom:2 updateOnSave:true -->
 
-- [Latest release](#latest-release)
 - [Getting Started](#getting-started)
 - [Features](#features)
 - [Supported Boards and CPUs](#supported-boards-and-cpus)
@@ -18,13 +23,11 @@ For general information, please check the stm32duino [README.md](https://github.
 - [Installing a Development Copy of this BSP](#installing-a-development-copy-of-this-bsp)
 - [Release History](#release-history)
 - [Notes and Acknowledgements](#notes-and-acknowledgements)
-- [Support Open-Source Software, Hardware, and Community IoT!](#support-open-source-software-hardware-and-community-iot)
+- [Support Open-Source Software, Hardware, and Community IoT](#support-open-source-software-hardware-and-community-iot)
 
 <!-- /TOC -->
-
-## Latest release
-
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.4.0...master)
+<!-- markdownlint-restore -->
+<!-- Due to a bug in Markdown TOC, the table is formatted incorrectly if tab indentation is set other than 4. Due to another bug, this comment must be *after* the TOC entry. -->
 
 ## Getting Started
 
@@ -139,18 +142,20 @@ If you want to develop and test changes to this package, we suggest the followin
    | macOS | <code>~/Library/Arduino15</code> |
    | Linux | <code>~/.arduino15</code> |
 
-4. From this location, change directory to `packages/mcci/stm32`.
-5. Look at the direcory contents with `ls`. You'll see a directory named like a version number, for example `1.0.8`.
-5. Move the directory you just found away from the `stm32` directory. It's convenient to have it around, so we sugest not delete it.
-6. Create a symbolic link to the sandbox you created in step (3) above. On macOS and Linux, this is done using the `ln -s` command. On Windows 10, this is done with the `mklink /d` command. (On older versions of Windows, unless you're very experienced, you might want to use a Linux VM in VirtualBox -- we can't advise on the best way to do this.)
-7. Open the Arduino IDE.
-8. Use the menu `File>New` to create an empty sketch (or reuse the sketch from step 3).
-9. Make sure the board you want to develop for is selected in `Tools>Boards`.
-10. Make changes and build.
+7. From this location, change directory to `packages/mcci/stm32`.
+8. Look at the direcory contents with `ls`. You'll see a directory named like a version number, for example `1.0.8`.
+9. Move the directory you just found away from the `stm32` directory. It's convenient to have it around, so we sugest not delete it.
+10. Create a symbolic link to the sandbox you created in step (3) above. On macOS and Linux, this is done using the `ln -s` command. On Windows 10, this is done with the `mklink /d` command. (On older versions of Windows, unless you're very experienced, you might want to use a Linux VM in VirtualBox -- we can't advise on the best way to do this.)
+11. Open the Arduino IDE.
+12. Use the menu `File>New` to create an empty sketch (or reuse the sketch from step 3).
+13. Make sure the board you want to develop for is selected in `Tools>Boards`.
+14. Make changes and build.
 
 Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or `programmers.txt`.
 
 ## Release History
+
+- [v2.5.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.5.0) enables the crystal controlled LSE clock, and uses it to run the RTC. Code was substantially refactored to move common code to common directories. Bug fixes.
 
 - [v2.4.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.4.0) Added support for new boards: 4617, 4618 and 4630. Serial interface configuration in `boards.template` has been updated with new option to use both USB Serial and Hardware Serial at same time.
 
@@ -170,10 +175,10 @@ Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or 
 
 MCCI and MCCI Catena are registered trademarks of MCCI Corporation. ChaeHee Won, Sungjoon Park, and Terry Moore of MCCI maintain this BSP.
 
-LoRa is a registered trademark of the LoRa Alliance. LoRaWAN is a trademark of the LoRa Alliance.
+LoRa is a registered trademark of the LoRa Alliance. LoRaWAN is a registered trademark of the LoRa Alliance.
 
 All other trademarks are the property of their respective owners.
 
-## Support Open-Source Software, Hardware, and Community IoT!
+## Support Open-Source Software, Hardware, and Community IoT
 
 Everyone at MCCI invests time and resources providing this open-source code and open-source hardware. MCCI is also the principal corporate sponsor of [The Things Network New York](https://thethings.nyc) and [Ithaca](https://ttni.tech). Please support our work by purchasing products from MCCI! Visit our on-line store at [store.mcci.com](https://store.mcci.com).
