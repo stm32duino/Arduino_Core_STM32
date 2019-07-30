@@ -1,5 +1,5 @@
 
-/* Define to prevent recursive inclusion -------------------------------------*/ 
+/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USB_MSC_CDC_COMPOSITE_H
 #define __USB_MSC_CDC_COMPOSITE_H
 
@@ -19,55 +19,55 @@
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
   */
-  
+
 
 /** @defgroup USBD_MSC_CDC_Exported_Defines
   * @{
-  */ 
-#define MSC_INTERFACE_IDX 0x2                            	// Index of MSC interface
-#define CDC_INTERFACE_IDX 0x0                            	// Index of CDC interface
+  */
+#define MSC_INTERFACE_IDX 0x2                             // Index of MSC interface
+#define CDC_INTERFACE_IDX 0x0                             // Index of CDC interface
 
 // endpoints numbers
 #define MSC_EP_IDX                      0x01  // only EP 0, EP 1 & EP 2 are bidirectional
 #define CDC_CMD_EP_IDX                  0x03  // unable to determine why EP 3 will not transmit
 #define CDC_EP_IDX                      0x02  // EP 3 can receive data from the host because there
-                                              // is just one receive FIFO and then the packets are
-                                              // distributed by the top layer                                             
+  // is just one receive FIFO and then the packets are
+  // distributed by the top layer
 
-#define IN_EP_DIR						0x80 // Adds a direction bit
+#define IN_EP_DIR           0x80 // Adds a direction bit
 
 #define MSC_OUT_EP                      MSC_EP_IDX                  /* EP1 for BULK OUT */
 #define MSC_IN_EP                       (MSC_EP_IDX | IN_EP_DIR)    /* EP1 for BULK IN */
 
 #ifdef CDC_CMD_EP
-  #undef CDC_CMD_EP
+#undef CDC_CMD_EP
 #endif
 #define CDC_CMD_EP                      (CDC_CMD_EP_IDX| IN_EP_DIR) /* EP2 for CDC commands */
 
 #ifdef CDC_OUT_EP
-  #undef CDC_OUT_EP
+#undef CDC_OUT_EP
 #endif
 #define CDC_OUT_EP                      CDC_EP_IDX                  /* EP3 for data OUT */
 
 #ifdef CDC_IN_EP
-  #undef CDC_IN_EP
+#undef CDC_IN_EP
 #endif
 #define CDC_IN_EP                       (CDC_EP_IDX | IN_EP_DIR)    /* EP3 for data IN */
 
-#ifdef USB_MAX_PACKET_SIZE 
-  #undef USB_MAX_PACKET_SIZE 
+#ifdef USB_MAX_PACKET_SIZE
+#undef USB_MAX_PACKET_SIZE
 #endif
 #define USB_MAX_PACKET_SIZE             USB_MAX_EP0_SIZE
-                                        
-#ifdef CDC_CMD_PACKET_SIZE              
-  #undef CDC_CMD_PACKET_SIZE            
-#endif                                  
-#define CDC_CMD_PACKET_SIZE		          8  /* Control Endpoint Packet size */
-                                        
-#ifdef CDC_DATA_PACKET_SIZE             
-  #undef CDC_DATA_PACKET_SIZE           
-#endif                                  
-#define CDC_DATA_PACKET_SIZE		        USB_MAX_PACKET_SIZE
+
+#ifdef CDC_CMD_PACKET_SIZE
+#undef CDC_CMD_PACKET_SIZE
+#endif
+#define CDC_CMD_PACKET_SIZE             8  /* Control Endpoint Packet size */
+
+#ifdef CDC_DATA_PACKET_SIZE
+#undef CDC_DATA_PACKET_SIZE
+#endif
+#define CDC_DATA_PACKET_SIZE            USB_MAX_PACKET_SIZE
 
 #define USB_MSC_PACKET_SIZE             64
 
@@ -109,19 +109,19 @@
 /** @defgroup USB_CORE_Exported_Types
   * @{
   */
-  
+
 // forward declarations
 //struct _USBD_MSC_BOT_CBWTypeDef;
 //struct _USBD_MSC_BOT_CSWTypeDef;
 struct _SENSE_ITEM;  // USBD_SCSI_SenseTypeDef
-  
+
 typedef struct _USBD_STORAGE
 {
-  int8_t (* Init) (uint8_t lun);
-  int8_t (* GetCapacity) (uint8_t lun, uint32_t *block_num, uint16_t *block_size);
-  int8_t (* IsReady) (uint8_t lun);
-  int8_t (* IsWriteProtected) (uint8_t lun);
-  int8_t (* Read) (uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
+  int8_t (* Init)(uint8_t lun);
+  int8_t (* GetCapacity)(uint8_t lun, uint32_t *block_num, uint16_t *block_size);
+  int8_t (* IsReady)(uint8_t lun);
+  int8_t (* IsWriteProtected)(uint8_t lun);
+  int8_t (* Read)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* Write)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* GetMaxLun)(void);
   int8_t *pInquiry;
@@ -173,8 +173,8 @@ uint8_t  USBD_MSC_RegisterStorage  (USBD_HandleTypeDef   *pdev,
 #endif  /* __USB_MSC_CDC_COMPOSITE_H */
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */

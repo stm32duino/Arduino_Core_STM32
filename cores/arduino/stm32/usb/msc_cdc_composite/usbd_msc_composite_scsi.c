@@ -89,8 +89,8 @@ static int8_t SCSI_RequestSense (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t
 static int8_t SCSI_StartStopUnit(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_ModeSense6 (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_ModeSense10 (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
-static int8_t SCSI_Write10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *params);
-static int8_t SCSI_Read10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *params);
+static int8_t SCSI_Write10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
+static int8_t SCSI_Read10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_Verify10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_CheckAddressRange (USBD_HandleTypeDef *pdev, uint8_t lun,
                                       uint32_t blk_offset, uint32_t blk_nbr);
@@ -123,11 +123,11 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
     SCSI_TestUnitReady(pdev, lun, cmd);
     break;
 
-  case SCSI_REQUEST_SENSE:   // 0x03
+  case SCSI_REQUEST_SENSE:  // 0x03
     SCSI_RequestSense (pdev, lun, cmd);
     break;
-    
-  case SCSI_INQUIRY:         // 0x12U  18
+
+  case SCSI_INQUIRY:  // 0x12U  18
     SCSI_Inquiry(pdev, lun, cmd);
     break;
 
@@ -139,11 +139,11 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
     SCSI_StartStopUnit(pdev, lun, cmd);
     break;
 
-  case SCSI_MODE_SENSE6:           // 0x1AU  26
+  case SCSI_MODE_SENSE6:  // 0x1AU  26
     SCSI_ModeSense6 (pdev, lun, cmd);
     break;
 
-  case SCSI_MODE_SENSE10:         // 0x5AU 90
+  case SCSI_MODE_SENSE10:  // 0x5AU 90
     SCSI_ModeSense10 (pdev, lun, cmd);
     break;
 
@@ -151,19 +151,19 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
     SCSI_ReadFormatCapacity(pdev, lun, cmd);
     break;
 
-  case SCSI_READ_CAPACITY10:        // 0x25U  37
+  case SCSI_READ_CAPACITY10:  // 0x25U  37
     SCSI_ReadCapacity10(pdev, lun, cmd);
     break;
 
-  case SCSI_READ10:                 // 0x28U  40
+  case SCSI_READ10:  // 0x28U  40
     SCSI_Read10(pdev, lun, cmd);
     break;
 
-  case SCSI_WRITE10:                // 0x2AU  42
+  case SCSI_WRITE10:  // 0x2AU  42
     SCSI_Write10(pdev, lun, cmd);
     break;
 
-  case SCSI_VERIFY10:               // 0x2FU  47
+  case SCSI_VERIFY10:  // 0x2FU  47
     SCSI_Verify10(pdev, lun, cmd);
     break;
 
@@ -194,7 +194,7 @@ static int8_t SCSI_TestUnitReady(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t
     return -1;
   }
 
-  if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
+  if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
   {
     SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
     hmsc->bot_state = USBD_BOT_NO_DATA;
@@ -229,13 +229,11 @@ static int8_t  SCSI_Inquiry(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *par
       len--;
       hmsc->bot_data[len] = MSC_Page00_Inquiry_Data[len];
     }
-  }
-  else
-  {
-    pPage = (uint8_t *)(void *)&((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
-    len = (uint16_t)pPage[4] + 5U;
+  } else {
+    pPage =(uint8_t *)(void *)&((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
+    len =(uint16_t)pPage[4] + 5U;
 
-    if (params[4] <= len)
+    if (params[4] < = len)
     {
       len = params[4];
     }
@@ -262,23 +260,21 @@ static int8_t SCSI_ReadCapacity10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef*)pdev->pClassDataMSC;
 
-  if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->GetCapacity(lun, &hmsc->scsi_blk_nbr, &hmsc->scsi_blk_size) != 0)
+  if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->GetCapacity(lun, &hmsc->scsi_blk_nbr, &hmsc->scsi_blk_size) != 0)
   {
     SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
     return -1;
-  }
-  else
-  {
+  } else {
 
-    hmsc->bot_data[0] = (uint8_t)((hmsc->scsi_blk_nbr - 1U) >> 24);
-    hmsc->bot_data[1] = (uint8_t)((hmsc->scsi_blk_nbr - 1U) >> 16);
-    hmsc->bot_data[2] = (uint8_t)((hmsc->scsi_blk_nbr - 1U) >>  8);
-    hmsc->bot_data[3] = (uint8_t)(hmsc->scsi_blk_nbr - 1U);
+    hmsc->bot_data[0] =(uint8_t)((hmsc->scsi_blk_nbr - 1U) >> 24);
+    hmsc->bot_data[1] =(uint8_t)((hmsc->scsi_blk_nbr - 1U) >> 16);
+    hmsc->bot_data[2] =(uint8_t)((hmsc->scsi_blk_nbr - 1U) >>  8);
+    hmsc->bot_data[3] =(uint8_t)(hmsc->scsi_blk_nbr - 1U);
 
-    hmsc->bot_data[4] = (uint8_t)(hmsc->scsi_blk_size >>  24);
-    hmsc->bot_data[5] = (uint8_t)(hmsc->scsi_blk_size >>  16);
-    hmsc->bot_data[6] = (uint8_t)(hmsc->scsi_blk_size >>  8);
-    hmsc->bot_data[7] = (uint8_t)(hmsc->scsi_blk_size);
+    hmsc->bot_data[4] =(uint8_t)(hmsc->scsi_blk_size >>  24);
+    hmsc->bot_data[5] =(uint8_t)(hmsc->scsi_blk_size >>  16);
+    hmsc->bot_data[6] =(uint8_t)(hmsc->scsi_blk_size >>  8);
+    hmsc->bot_data[7] =(uint8_t)(hmsc->scsi_blk_size);
 
     hmsc->bot_data_length = 8U;
     return 0;
@@ -299,28 +295,25 @@ static int8_t SCSI_ReadFormatCapacity(USBD_HandleTypeDef  *pdev, uint8_t lun, ui
   uint32_t blk_nbr;
   uint16_t i;
 
-  for(i = 0U; i < 12U ; i++)
-  {
+  for (i = 0U; i < 12U ; i++) {
     hmsc->bot_data[i] = 0U;
   }
 
-  if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->GetCapacity(lun, &blk_nbr, &blk_size) != 0U)
+  if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->GetCapacity(lun, &blk_nbr, &blk_size) != 0U)
   {
     SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
     return -1;
-  }
-  else
-  {
+  } else {
     hmsc->bot_data[3] = 0x08U;
-    hmsc->bot_data[4] = (uint8_t)((blk_nbr - 1U) >> 24);
-    hmsc->bot_data[5] = (uint8_t)((blk_nbr - 1U) >> 16);
-    hmsc->bot_data[6] = (uint8_t)((blk_nbr - 1U) >>  8);
-    hmsc->bot_data[7] = (uint8_t)(blk_nbr - 1U);
+    hmsc->bot_data[4] =(uint8_t)((blk_nbr - 1U) >> 24);
+    hmsc->bot_data[5] =(uint8_t)((blk_nbr - 1U) >> 16);
+    hmsc->bot_data[6] =(uint8_t)((blk_nbr - 1U) >>  8);
+    hmsc->bot_data[7] =(uint8_t)(blk_nbr - 1U);
 
     hmsc->bot_data[8] = 0x02U;
-    hmsc->bot_data[9] = (uint8_t)(blk_size >>  16);
-    hmsc->bot_data[10] = (uint8_t)(blk_size >>  8);
-    hmsc->bot_data[11] = (uint8_t)(blk_size);
+    hmsc->bot_data[9] =(uint8_t)(blk_size >>  16);
+    hmsc->bot_data[10] =(uint8_t)(blk_size >>  8);
+    hmsc->bot_data[11] =(uint8_t)(blk_size);
 
     hmsc->bot_data_length = 12U;
     return 0;
@@ -383,15 +376,14 @@ static int8_t SCSI_RequestSense (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t
   uint8_t i;
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef*)pdev->pClassDataMSC;
 
-  for(i = 0U ;i < REQUEST_SENSE_DATA_LEN; i++)
-  {
+  for (i = 0U ;i < REQUEST_SENSE_DATA_LEN; i++) {
     hmsc->bot_data[i] = 0U;
   }
 
-  hmsc->bot_data[0]	= 0x70U;
-  hmsc->bot_data[7]	= REQUEST_SENSE_DATA_LEN - 6U;
+  hmsc->bot_data[0]  = 0x70U;
+  hmsc->bot_data[7]  = REQUEST_SENSE_DATA_LEN - 6U;
 
-  if((hmsc->scsi_sense_head != hmsc->scsi_sense_tail)) {
+  if ((hmsc->scsi_sense_head != hmsc->scsi_sense_tail)) {
 
     hmsc->bot_data[2]     = hmsc->scsi_sense[hmsc->scsi_sense_head].Skey;
     hmsc->bot_data[12]    = hmsc->scsi_sense[hmsc->scsi_sense_head].w.b.ASCQ;
@@ -405,7 +397,7 @@ static int8_t SCSI_RequestSense (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t
   }
   hmsc->bot_data_length = REQUEST_SENSE_DATA_LEN;
 
-  if (params[4] <= REQUEST_SENSE_DATA_LEN)
+  if (params[4] < = REQUEST_SENSE_DATA_LEN)
   {
     hmsc->bot_data_length = params[4];
   }
@@ -458,31 +450,31 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef*) pdev->pClassDataMSC;
 
-  if(hmsc->bot_state == USBD_BOT_IDLE)  /* Idle */
+  if (hmsc->bot_state == USBD_BOT_IDLE)  /* Idle */
   {
     /* case 10 : Ho <> Di */
     if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U)
     {
-      SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);    
+      SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
       return -1;
     }
 
-    if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
+    if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
     {
-      SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);    
+      SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
       return -1;
     }
 
     hmsc->scsi_blk_addr = ((uint32_t)params[2] << 24) |
                           ((uint32_t)params[3] << 16) |
                           ((uint32_t)params[4] <<  8) |
-                           (uint32_t)params[5];
+                          (uint32_t)params[5];
 
-    hmsc->scsi_blk_len =  ((uint32_t)params[7] <<  8) | (uint32_t)params[8];
+    hmsc->scsi_blk_len =  ((uint32_t)params[7] <<  8) |(uint32_t)params[8];
 
-    if(SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
+    if (SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
                               hmsc->scsi_blk_len) < 0)
-    {     
+    {
       return -1; /* error */
     }
 
@@ -491,7 +483,7 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
     /* cases 4,5 : Hi <> Dn */
     if (hmsc->cbw.dDataLength != (hmsc->scsi_blk_len * hmsc->scsi_blk_size))
     {
-      SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);   
+      SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
       return -1;
     }
   }
@@ -508,7 +500,7 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 * @retval status
 */
 
-static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *params)
+static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef*) pdev->pClassDataMSC;
   uint32_t len;
@@ -523,14 +515,14 @@ static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *pa
     }
 
     /* Check whether Media is ready */
-    if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
+    if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsReady(lun) != 0)
     {
       SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
       return -1;
     }
 
     /* Check If media is write-protected */
-    if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsWriteProtected(lun) != 0)
+    if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->IsWriteProtected(lun) != 0)
     {
       SCSI_SenseCode(pdev, lun, NOT_READY, WRITE_PROTECTED);
       return -1;
@@ -539,13 +531,13 @@ static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *pa
     hmsc->scsi_blk_addr = ((uint32_t)params[2] << 24) |
                           ((uint32_t)params[3] << 16) |
                           ((uint32_t)params[4] << 8) |
-                           (uint32_t)params[5];
+                          (uint32_t)params[5];
 
     hmsc->scsi_blk_len = ((uint32_t)params[7] << 8) |
-                          (uint32_t)params[8];
+                         (uint32_t)params[8];
 
     /* check if LBA address is in the right range */
-    if(SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
+    if (SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
                               hmsc->scsi_blk_len) < 0)
     {
       return -1; /* error */
@@ -565,9 +557,7 @@ static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *pa
     /* Prepare EP to receive first data packet */
     hmsc->bot_state = USBD_BOT_DATA_OUT;
     USBD_LL_PrepareReceive (pdev, MSC_OUT_EP, hmsc->bot_data, len);
-  }
-  else /* Write Process ongoing */
-  {
+  } else { /* Write Process ongoing */
     return SCSI_ProcessWrite(pdev, lun);
   }
   return 0;
@@ -582,7 +572,7 @@ static int8_t SCSI_Write10 (USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *pa
 * @retval status
 */
 
-static int8_t SCSI_Verify10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *params)
+static int8_t SCSI_Verify10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef*) pdev->pClassDataMSC;
 
@@ -592,7 +582,7 @@ static int8_t SCSI_Verify10(USBD_HandleTypeDef  *pdev, uint8_t lun , uint8_t *pa
     return -1; /* Error, Verify Mode Not supported*/
   }
 
-  if(SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
+  if (SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
                             hmsc->scsi_blk_len) < 0)
   {
     return -1; /* error */
@@ -635,7 +625,7 @@ static int8_t SCSI_ProcessRead (USBD_HandleTypeDef  *pdev, uint8_t lun)
 
   len = MIN(len, MSC_MEDIA_PACKET);
 
-  if( ((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->Read(lun,
+  if ( ((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->Read(lun,
                               hmsc->bot_data,
                               hmsc->scsi_blk_addr,
                               (len / hmsc->scsi_blk_size)) < 0)
@@ -673,7 +663,7 @@ static int8_t SCSI_ProcessWrite (USBD_HandleTypeDef  *pdev, uint8_t lun)
 
   len = MIN(len, MSC_MEDIA_PACKET);
 
-  if(((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->Write(lun, hmsc->bot_data,
+  if (((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->Write(lun, hmsc->bot_data,
                              hmsc->scsi_blk_addr,
                              (len / hmsc->scsi_blk_size)) < 0)
   {
@@ -691,9 +681,7 @@ static int8_t SCSI_ProcessWrite (USBD_HandleTypeDef  *pdev, uint8_t lun)
   if (hmsc->scsi_blk_len == 0U)
   {
     MSC_BOT_SendCSW (pdev, USBD_CSW_CMD_PASSED);
-  }
-  else
-  {
+  } else {
     len = MIN((hmsc->scsi_blk_len * hmsc->scsi_blk_size), MSC_MEDIA_PACKET);
     /* Prepare EP to Receive next packet */
     USBD_LL_PrepareReceive (pdev, MSC_OUT_EP, hmsc->bot_data, len);

@@ -46,11 +46,11 @@
 #define CDC_CMD_EP                                  0x82U  /* EP2 for CDC commands */
 
 #ifndef CDC_HS_BINTERVAL
-  #define CDC_HS_BINTERVAL                          0x10U
+#define CDC_HS_BINTERVAL                          0x10U
 #endif /* CDC_HS_BINTERVAL */
 
 #ifndef CDC_FS_BINTERVAL
-  #define CDC_FS_BINTERVAL                          0x10U
+#define CDC_FS_BINTERVAL                          0x10U
 #endif /* CDC_FS_BINTERVAL */
 
 /* CDC Endpoints parameters: you can fine tune these values depending on the needed baudrates and performance. */
@@ -100,16 +100,16 @@ typedef struct
 
 typedef struct _USBD_CDC_Itf
 {
-  int8_t (* Init)          (void);
-  int8_t (* DeInit)        (void);
-  int8_t (* Control)       (uint8_t cmd, uint8_t* pbuf, uint16_t length);
-  int8_t (* Receive)       (uint8_t* Buf, uint32_t *Len);
-  int8_t (* Transferred)   (void);
+  int8_t (* Init)(void);
+  int8_t (* DeInit)(void);
+  int8_t (* Control)      (uint8_t cmd, uint8_t* pbuf, uint16_t length);
+  int8_t (* Receive)      (uint8_t* Buf, uint32_t *Len);
+  int8_t (* Transferred)(void);
 
 }USBD_CDC_ItfTypeDef;
 
 #ifndef __IO
-  #define     __IO    volatile             /*!< \brief Defines 'read / write' permissions */
+#define     __IO    volatile             /*!< \brief Defines 'read / write' permissions */
 #endif
 
 typedef struct _USBD_CDC_HandleTypeDef

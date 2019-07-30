@@ -56,14 +56,13 @@ __IO bool receivePended = true;
 
 /** USBD_CDC Private Function Prototypes */
 
-static int8_t USBD_CDC_Init     (void);
-static int8_t USBD_CDC_DeInit   (void);
-static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length);
-static int8_t USBD_CDC_Receive  (uint8_t* pbuf, uint32_t *Len);
-static int8_t USBD_CDC_Transferred (void);
+static int8_t USBD_CDC_Init(void);
+static int8_t USBD_CDC_DeInit(void);
+static int8_t USBD_CDC_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length);
+static int8_t USBD_CDC_Receive (uint8_t* pbuf, uint32_t *Len);
+static int8_t USBD_CDC_Transferred(void);
 
-USBD_CDC_ItfTypeDef USBD_CDC_fops =
-{
+USBD_CDC_ItfTypeDef USBD_CDC_fops = {
   USBD_CDC_Init,
   USBD_CDC_DeInit,
   USBD_CDC_Control,
@@ -89,6 +88,7 @@ USBD_CDC_LineCodingTypeDef linecoding =
   */
 static int8_t USBD_CDC_Init(void)
 {
+
   /* Set Application Buffers */
   CDC_TransmitQueue_Init(&TransmitQueue);
   CDC_ReceiveQueue_Init(&ReceiveQueue);
@@ -106,6 +106,7 @@ static int8_t USBD_CDC_Init(void)
   */
 static int8_t USBD_CDC_DeInit(void)
 {
+
   return (USBD_OK);
 }
 
@@ -118,7 +119,7 @@ static int8_t USBD_CDC_DeInit(void)
   * @param  length: Number of data to be sent (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
+static int8_t USBD_CDC_Control (uint8_t cmd, uint8_t* pbuf, uint16_t length)
 {
   UNUSED(length);
   switch (cmd)
@@ -161,7 +162,7 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   /* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
   /*******************************************************************************/
   case CDC_SET_LINE_CODING:
-    linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
+    linecoding.bitrate    =(uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
                             (pbuf[2] << 16) | (pbuf[3] << 24));
     linecoding.format     = pbuf[4];
     linecoding.paritytype = pbuf[5];
@@ -169,10 +170,10 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
     break;
 
   case CDC_GET_LINE_CODING:
-    pbuf[0] = (uint8_t)(linecoding.bitrate);
-    pbuf[1] = (uint8_t)(linecoding.bitrate >> 8);
-    pbuf[2] = (uint8_t)(linecoding.bitrate >> 16);
-    pbuf[3] = (uint8_t)(linecoding.bitrate >> 24);
+    pbuf[0] =(uint8_t)(linecoding.bitrate);
+    pbuf[1] =(uint8_t)(linecoding.bitrate >> 8);
+    pbuf[2] =(uint8_t)(linecoding.bitrate >> 16);
+    pbuf[3] =(uint8_t)(linecoding.bitrate >> 24);
     pbuf[4] = linecoding.format;
     pbuf[5] = linecoding.paritytype;
     pbuf[6] = linecoding.datatype;
@@ -211,10 +212,11 @@ static int8_t USBD_CDC_Control  (uint8_t cmd, uint8_t* pbuf, uint16_t length)
   * @param  Len: Number of data received (in bytes)
   * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
   */
-static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
+static int8_t USBD_CDC_Receive(uint8_t* Buf, uint32_t *Len)
+{
   UNUSED(Buf);
   /* It always contains required amount of free space for writing */
-  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
+  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue,(uint16_t)(*Len));
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
   CDC_resume_receive();
@@ -222,21 +224,25 @@ static int8_t USBD_CDC_Receive (uint8_t* Buf, uint32_t *Len) {
 }
 
 
-static int8_t USBD_CDC_Transferred (void) {
+static int8_t USBD_CDC_Transferred(void)
+{
+
   CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
   return (USBD_OK);
 }
 
 #ifndef p_CDC_ClassData
-  #ifdef USBD_USE_CDC_COMPOSITE
-   #define p_CDC_ClassData pClassDataCDC 
-  #else
-    #define p_CDC_ClassData pClassData
-  #endif
+#ifdef USBD_USE_CDC_COMPOSITE
+#define p_CDC_ClassData pClassDataCDC
+#else
+#define p_CDC_ClassData pClassData
+#endif
 #endif
 
-void CDC_continue_transmit(void) {
+void CDC_continue_transmit(void)
+{
+
   uint16_t size;
   uint8_t *buffer;
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.p_CDC_ClassData;
@@ -261,7 +267,9 @@ void CDC_continue_transmit(void) {
   }
 }
 
-void CDC_resume_receive(void) {
+void CDC_resume_receive(void)
+{
+
   /*
    * TS: main and IRQ threads can't pass it at same time, because
    * IRQ may occur only if receivePended is true. So it is thread-safe!
@@ -289,7 +297,7 @@ USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDe
 USBD_StatusTypeDef USBD_Start  (USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_Stop   (USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev);
-  
+
 /**
 * @brief  USBD_MSC_RegisterStorage
 * @param  fops: storage callback
@@ -298,14 +306,16 @@ USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev);
 uint8_t  USBD_MSC_RegisterStorage  (USBD_HandleTypeDef   *pdev,
                                     USBD_StorageTypeDef *fops)
 {
-  if(fops != NULL)
+  if (fops != NULL)
   {
     pdev->pClassSpecificInterfaceMSC = fops;
   }
   return USBD_OK;
 }
 
-void CDC_init(void) {
+void CDC_init(void)
+{
+
   if (!CDC_initialized) {
     /* Init Device Library */
     USBD_Init(&hUSBD_Device_CDC, &CDC_Desc, 0);
@@ -321,7 +331,9 @@ void CDC_init(void) {
   }
 }
 
-void CDC_deInit(void) {
+void CDC_deInit(void)
+{
+
   if (CDC_initialized) {
     USBD_Stop(&hUSBD_Device_CDC);
     USBD_MSC_DeInit(&hUSBD_Device_CDC, 1);

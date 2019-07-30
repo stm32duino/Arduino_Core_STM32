@@ -133,7 +133,7 @@ typedef struct _SENSE_ITEM {
       char ASC;
       char ASCQ;
     }b;
-    uint8_t	ASC;
+    uint8_t ASC;
     char *pData;
   } w;
 } USBD_SCSI_SenseTypeDef;
