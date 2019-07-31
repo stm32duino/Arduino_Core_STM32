@@ -181,7 +181,6 @@ struct _USBD_CDC_Itf;
 #endif
 
 typedef  struct  usb_setup_req {
-
   uint8_t   bmRequest;
   uint8_t   bRequest;
   uint16_t  wValue;
@@ -201,7 +200,7 @@ typedef struct _Device_cb {
   /* Class Specific Endpoints*/
   uint8_t (*DataIn)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
   uint8_t (*DataOut)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
-  uint8_t (*SOF)struct _USBD_HandleTypeDef *pdev);
+  uint8_t (*SOF)(struct _USBD_HandleTypeDef *pdev);
   uint8_t (*IsoINIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
   uint8_t (*IsoOUTIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
 
@@ -276,7 +275,7 @@ typedef struct _USBD_HandleTypeDef {
   USBD_DescriptorsTypeDef *pDesc;
   USBD_ClassTypeDef       *pClass;
 
-#ifdef USBD_USE_CDC_COMPOSITE  // MSC & CDC need seperate variable structures
+#ifdef USBD_USE_CDC_COMPOSITE  // MSC & CDC need separate variable structures
   struct _USBD_MSC_BOT_HandleTypeDef    *pClassDataMSC;
   struct _USBD_STORAGE                  *pClassSpecificInterfaceMSC;   // USBD_StorageTypeDef
   struct _USBD_CDC_HandleTypeDef        *pClassDataCDC;

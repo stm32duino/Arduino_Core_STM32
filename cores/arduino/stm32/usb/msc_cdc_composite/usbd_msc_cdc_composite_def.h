@@ -17,6 +17,22 @@
   ******************************************************************************
   */
 
+/**
+  ******************************************************************************
+  *
+  * The composite MSC CDC USB device requires a modified USBD_HandleTypeDef
+  * structure.  The MSC and CDC classes require dedicated data structures.
+  *
+  * The modified USBD_HandleTypeDef structure is copied from the GPSlogger
+  * repository https://github.com/grafalex82/GPSLogger/tree/master/Libs/USB
+  *
+  * See the article "CDC + MSC USB Composite Device for STM32 HAL" (URL:
+  * https://habr.com/en/post/335018/) for the theory behind the MSC CDC
+  * composite device as implemented in the above repository.
+  *
+  ******************************************************************************
+  */
+
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_DEF_H
 #define __USBD_DEF_H
@@ -178,14 +194,14 @@ typedef struct _Device_cb {
   uint8_t (*Init)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
   uint8_t (*DeInit)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
   /* Control Endpoints*/
-  uint8_t (*Setup(struct _USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
-           uint8_t (*EP0_TxSent)(struct _USBD_HandleTypeDef *pdev);
-           uint8_t (*EP0_RxReady)(struct _USBD_HandleTypeDef *pdev);
-           /* Class Specific Endpoints*/
-           uint8_t (*DataIn)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
-           uint8_t (*DataOut)struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t (*Setup)(struct _USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef  *req);
+  uint8_t (*EP0_TxSent)(struct _USBD_HandleTypeDef *pdev);
+  uint8_t (*EP0_RxReady)(struct _USBD_HandleTypeDef *pdev);
+  /* Class Specific Endpoints*/
+  uint8_t (*DataIn)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t (*DataOut)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
   uint8_t (*SOF)(struct _USBD_HandleTypeDef *pdev);
-  uint8_t (*IsoINIncomplete)struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t (*IsoINIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
   uint8_t (*IsoOUTIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
 
   uint8_t *(*GetHSConfigDescriptor)(uint16_t *length);
@@ -196,7 +212,7 @@ typedef struct _Device_cb {
   uint8_t *(*GetUsrStrDescriptor)(struct _USBD_HandleTypeDef *pdev, uint8_t index, uint16_t *length);
 #endif
 
-  } USBD_ClassTypeDef;
+} USBD_ClassTypeDef;
 
 /* Following USB Device Speed */
 typedef enum {
@@ -246,6 +262,8 @@ typedef struct _USBD_HandleTypeDef {
   USBD_EndpointTypeDef    ep_out[15];
   uint32_t                ep0_state;
   uint32_t                ep0_data_len;
+  uint32_t                ep0_rem_len;
+  uint32_t                ep0_total_len;
   uint8_t                 dev_state;
   uint8_t                 dev_old_state;
   uint8_t                 dev_address;
@@ -257,7 +275,7 @@ typedef struct _USBD_HandleTypeDef {
   USBD_DescriptorsTypeDef *pDesc;
   USBD_ClassTypeDef       *pClass;
 
-#ifdef USBD_USE_CDC_COMPOSITE
+#ifdef USBD_USE_CDC_COMPOSITE  // MSC & CDC need separate variable structures
   struct _USBD_MSC_BOT_HandleTypeDef    *pClassDataMSC;
   struct _USBD_STORAGE                  *pClassSpecificInterfaceMSC;  // USBD_StorageTypeDef
   struct _USBD_CDC_HandleTypeDef        *pClassDataCDC;
