@@ -212,7 +212,7 @@ typedef struct _Device_cb {
   uint8_t *(*GetUsrStrDescriptor)(struct _USBD_HandleTypeDef *pdev, uint8_t index, uint16_t *length);
 #endif
 
-  } USBD_ClassTypeDef;
+} USBD_ClassTypeDef;
 
 /* Following USB Device Speed */
 typedef enum {
