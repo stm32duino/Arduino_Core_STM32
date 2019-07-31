@@ -246,7 +246,7 @@ int8_t  SD_MSC_IsReady(uint8_t lun)
 
 
 int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
-  {
+{
   (void)lun; // Not used
 
   if (HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS)) {
