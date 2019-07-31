@@ -90,7 +90,7 @@ void SD_LowLevel_Init(void)
   //Initialize the SDIO (with initial <400Khz Clock)
   tempreg = 0;  //Reset value
   tempreg |= SDIO_CLKCR_CLKEN;  //Clock is enabled
-  tempreg |=(uint32_t)0x76;  //Clock Divider. Clock = 48000/(118+2) = 400Khz
+  tempreg |= (uint32_t)0x76;  //Clock Divider. Clock = 48000/(118+2) = 400Khz
   //Keep the rest at 0 => HW_Flow Disabled, Rising Clock Edge, Disable CLK ByPass, Bus Width = 0, Power save Disable
   SDIO->CLKCR = tempreg;
 
@@ -122,36 +122,33 @@ HAL_StatusTypeDef SD_SDIO_Init()
 
 void init_SDIO_pins(void)
 {
-
   GPIO_InitTypeDef GPIO_InitStruct = {0};
 
+  /**SDIO GPIO Configuration
+  PC8     ------> SDIO_D0
+  PC12    ------> SDIO_CK
+  PD2     ------> SDIO_CMD
+  */
+  GPIO_InitStruct.Pin = GPIO_PIN_8;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    /**SDIO GPIO Configuration
-    PC8     ------> SDIO_D0
-    PC12    ------> SDIO_CK
-    PD2     ------> SDIO_CMD
-    */
-    GPIO_InitStruct.Pin = GPIO_PIN_8;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = GPIO_PIN_12;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
-
-    GPIO_InitStruct.Pin = GPIO_PIN_2;
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
-
+  GPIO_InitStruct.Pin = GPIO_PIN_2;
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
+  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
 }
 
 
@@ -164,22 +161,22 @@ void init_SDIO_pins(void)
 int8_t SD_MSC_Init(uint8_t lun);
 
 int8_t SD_MSC_GetCapacity(uint8_t lun,
-                           uint32_t *block_num,
-                           uint16_t *block_size);
+                         uint32_t *block_num,
+                         uint16_t *block_size);
 
 int8_t SD_MSC_IsReady(uint8_t lun);
 
 int8_t SD_MSC_IsWriteProtected(uint8_t lun);
 
 int8_t SD_MSC_Read(uint8_t lun,
-                        uint8_t *buf,
-                        uint32_t blk_addr,
-                        uint16_t blk_len);
+                  uint8_t *buf,
+                  uint32_t blk_addr,
+                  uint16_t blk_len);
 
 int8_t SD_MSC_Write(uint8_t lun,
-                        uint8_t *buf,
-                        uint32_t blk_addr,
-                        uint16_t blk_len);
+                   uint8_t *buf,
+                   uint32_t blk_addr,
+                   uint16_t blk_len);
 
 int8_t SD_MSC_GetMaxLun(void);
 
@@ -202,7 +199,7 @@ uint8_t SD_MSC_Inquirydata[] = {/* 36 */
   'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
   'P', 'r', 'o', 'd', 'u', 'c', 't', ' ', /* Product      : 16 Bytes */
   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-  '0', '.', '0','1',                     /* Version      : 4 Bytes */
+  '0', '.', '0', '1',                     /* Version      : 4 Bytes */
 };
 
 
@@ -235,7 +232,7 @@ int8_t SD_MSC_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size
   *block_num  = hsd.SdCard.BlockNbr;  // Card Capacity in blocks
   *block_size = hsd.SdCard.BlockSize;  // number of bytes in a block
 
-return USBD_OK;
+  return USBD_OK;
 }
 
 
@@ -248,8 +245,7 @@ int8_t  SD_MSC_IsReady(uint8_t lun)
 }
 
 
-int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf,  uint32_t blk_addr, uint16_t blk_len)
-  {
+int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf,  uint32_t blk_addr, uint16_t blk_len) {
   (void)lun; // Not used
 
   if (HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS))

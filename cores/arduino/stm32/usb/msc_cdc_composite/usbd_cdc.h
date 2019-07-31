@@ -22,7 +22,7 @@
 #define __USB_CDC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -90,20 +90,18 @@
 /**
   * @}
   */
-typedef struct
-{
+typedef struct {
   uint32_t bitrate;
   uint8_t  format;
   uint8_t  paritytype;
   uint8_t  datatype;
 }USBD_CDC_LineCodingTypeDef;
 
-typedef struct _USBD_CDC_Itf
-{
+typedef struct _USBD_CDC_Itf {
   int8_t (* Init)(void);
   int8_t (* DeInit)(void);
-  int8_t (* Control)      (uint8_t cmd, uint8_t* pbuf, uint16_t length);
-  int8_t (* Receive)      (uint8_t* Buf, uint32_t *Len);
+  int8_t (* Control)(uint8_t cmd, uint8_t *pbuf, uint16_t length);
+  int8_t (* Receive)(uint8_t *Buf, uint32_t *Len);
   int8_t (* Transferred)(void);
 
 }USBD_CDC_ItfTypeDef;
@@ -112,8 +110,7 @@ typedef struct _USBD_CDC_Itf
 #define     __IO    volatile             /*!< \brief Defines 'read / write' permissions */
 #endif
 
-typedef struct _USBD_CDC_HandleTypeDef
-{
+typedef struct _USBD_CDC_HandleTypeDef {
   uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
@@ -124,8 +121,7 @@ typedef struct _USBD_CDC_HandleTypeDef
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
-}
-USBD_CDC_HandleTypeDef;
+} USBD_CDC_HandleTypeDef;
 
 
 
@@ -149,9 +145,6 @@ extern struct _Device_cb  USBD_CDC;
 
 /** @defgroup USB_CORE_Exported_Functions
   * @{
-  */
-
-  * @}
   */
 
 #ifdef __cplusplus

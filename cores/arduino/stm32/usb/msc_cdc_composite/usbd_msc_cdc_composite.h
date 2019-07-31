@@ -6,7 +6,7 @@
 
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -15,6 +15,7 @@
 #include "usbd_msc_scsi.h"
 #include "usbd_msc_cdc_composite_bot.h"
 #include "cdc_queue.h"
+#include <stdint.h>
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -115,8 +116,7 @@
 //struct _USBD_MSC_BOT_CSWTypeDef;
 struct _SENSE_ITEM;  // USBD_SCSI_SenseTypeDef
 
-typedef struct _USBD_STORAGE
-{
+typedef struct _USBD_STORAGE {
   int8_t (* Init)(uint8_t lun);
   int8_t (* GetCapacity)(uint8_t lun, uint32_t *block_num, uint16_t *block_size);
   int8_t (* IsReady)(uint8_t lun);
@@ -126,11 +126,10 @@ typedef struct _USBD_STORAGE
   int8_t (* GetMaxLun)(void);
   int8_t *pInquiry;
 
-}USBD_StorageTypeDef;
+} USBD_StorageTypeDef;
 
 
-typedef struct _USBD_MSC_BOT_HandleTypeDef
-{
+typedef struct _USBD_MSC_BOT_HandleTypeDef {
   uint32_t                 max_lun;
   uint32_t                 interface;
   uint8_t                  bot_state;
@@ -149,8 +148,7 @@ typedef struct _USBD_MSC_BOT_HandleTypeDef
 
   uint32_t                 scsi_blk_addr;
   uint32_t                 scsi_blk_len;
-}
-USBD_MSC_BOT_HandleTypeDef;
+} USBD_MSC_BOT_HandleTypeDef;
 
 /* Structure for MSC process */
 extern USBD_ClassTypeDef  USBD_MSC;

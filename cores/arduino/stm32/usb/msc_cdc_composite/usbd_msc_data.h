@@ -22,11 +22,12 @@
 #define __USBD_MSC_DATA_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_conf.h"
+#include <stdint.h>
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{

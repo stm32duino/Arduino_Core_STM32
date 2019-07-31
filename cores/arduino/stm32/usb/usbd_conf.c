@@ -46,9 +46,12 @@
 #endif
 
 #ifndef p_Data
-  #ifdef USBD_USE_CDC_COMPOSITE
-    #define p_Data pPCDHandle
-  #else
+#ifdef USBD_USE_CDC_COMPOSITE
+#define p_Data pPCDHandle
+#else
+#define p_Data pData
+#endif
+#endif  
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -91,7 +94,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   }
 #endif
 #ifdef STM32H7xx
-  if(!LL_PWR_IsActiveFlag_USB()) {
+  if (!LL_PWR_IsActiveFlag_USB()) {
     HAL_PWREx_EnableUSBVoltageDetector();
   }
 #endif
@@ -491,11 +494,11 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   USBD_reenumerate();
   /* Set common LL Driver parameters */
-  #ifdef USBD_USE_CDC_COMPOSITE
-    g_hpcd.Init.dev_endpoints = 7;
-  #else
-    g_hpcd.Init.dev_endpoints = 4;
-  #endif
+#ifdef USBD_USE_CDC_COMPOSITE
+  g_hpcd.Init.dev_endpoints = 7;
+#else
+  g_hpcd.Init.dev_endpoints = 4;
+#endif
   g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
 #if !defined(STM32F1xx) && !defined(STM32F2xx) || defined(USB)
   g_hpcd.Init.lpm_enable = DISABLE;
@@ -540,7 +543,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     Error_Handler();
   }
 
-// set the FIFO start and length registers in the USB controller
+  // set the FIFO start and length registers in the USB controller
 #ifdef USE_USB_COMPOSITE
   // MSC + CDC buffers
   HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x100);
@@ -683,8 +686,7 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 {
   PCD_HandleTypeDef *hpcd = pdev->p_Data;
 
-  if((ep_addr & 0x80) == 0x80)
-  {
+  if((ep_addr & 0x80) == 0x80) {
     return hpcd->IN_ep[ep_addr & 0x7F].is_stall;
   }
   else

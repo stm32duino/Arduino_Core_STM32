@@ -81,53 +81,53 @@
 #define USBD_SUPPORT_USER_STRING                        0U
 #endif /* USBD_SUPPORT_USER_STRING */
 
-#define  USB_LEN_DEV_QUALIFIER_DESC                     0x0AU
-#define  USB_LEN_DEV_DESC                               0x12U
-#define  USB_LEN_CFG_DESC                               0x09U
-#define  USB_LEN_IF_DESC                                0x09U
-#define  USB_LEN_EP_DESC                                0x07U
-#define  USB_LEN_OTG_DESC                               0x03U
-#define  USB_LEN_LANGID_STR_DESC                        0x04U
-#define  USB_LEN_OTHER_SPEED_DESC_SIZ                   0x09U
-
-#define  USBD_IDX_LANGID_STR                            0x00U
-#define  USBD_IDX_MFC_STR                               0x01U
-#define  USBD_IDX_PRODUCT_STR                           0x02U
-#define  USBD_IDX_SERIAL_STR                            0x03U
-#define  USBD_IDX_CONFIG_STR                            0x04U
-#define  USBD_IDX_INTERFACE_STR                         0x05U
-
-#define  USB_REQ_TYPE_STANDARD                          0x00U
-#define  USB_REQ_TYPE_CLASS                             0x20U
-#define  USB_REQ_TYPE_VENDOR                            0x40U
-#define  USB_REQ_TYPE_MASK                              0x60U
-
-#define  USB_REQ_RECIPIENT_DEVICE                       0x00U
-#define  USB_REQ_RECIPIENT_INTERFACE                    0x01U
-#define  USB_REQ_RECIPIENT_ENDPOINT                     0x02U
-#define  USB_REQ_RECIPIENT_MASK                         0x03U
-
-#define  USB_REQ_GET_STATUS                             0x00U
-#define  USB_REQ_CLEAR_FEATURE                          0x01U
-#define  USB_REQ_SET_FEATURE                            0x03U
-#define  USB_REQ_SET_ADDRESS                            0x05U
-#define  USB_REQ_GET_DESCRIPTOR                         0x06U
-#define  USB_REQ_SET_DESCRIPTOR                         0x07U
-#define  USB_REQ_GET_CONFIGURATION                      0x08U
-#define  USB_REQ_SET_CONFIGURATION                      0x09U
-#define  USB_REQ_GET_INTERFACE                          0x0AU
-#define  USB_REQ_SET_INTERFACE                          0x0BU
-#define  USB_REQ_SYNCH_FRAME                            0x0CU
-
-#define  USB_DESC_TYPE_DEVICE                           0x01U
-#define  USB_DESC_TYPE_CONFIGURATION                    0x02U
-#define  USB_DESC_TYPE_STRING                           0x03U
-#define  USB_DESC_TYPE_INTERFACE                        0x04U
-#define  USB_DESC_TYPE_ENDPOINT                         0x05U
-#define  USB_DESC_TYPE_DEVICE_QUALIFIER                 0x06U
-#define  USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION        0x07U
-#define  USB_DESC_TYPE_BOS                              0x0FU
-
+#define USB_LEN_DEV_QUALIFIER_DESC                      0x0AU
+#define USB_LEN_DEV_DESC                                0x12U
+#define USB_LEN_CFG_DESC                                0x09U
+#define USB_LEN_IF_DESC                                 0x09U
+#define USB_LEN_EP_DESC                                 0x07U
+#define USB_LEN_OTG_DESC                                0x03U
+#define USB_LEN_LANGID_STR_DESC                         0x04U
+#define USB_LEN_OTHER_SPEED_DESC_SIZ                    0x09U
+                                                     
+#define USBD_IDX_LANGID_STR                             0x00U
+#define USBD_IDX_MFC_STR                                0x01U
+#define USBD_IDX_PRODUCT_STR                            0x02U
+#define USBD_IDX_SERIAL_STR                             0x03U
+#define USBD_IDX_CONFIG_STR                             0x04U
+#define USBD_IDX_INTERFACE_STR                          0x05U
+                                                     
+#define USB_REQ_TYPE_STANDARD                           0x00U
+#define USB_REQ_TYPE_CLASS                              0x20U
+#define USB_REQ_TYPE_VENDOR                             0x40U
+#define USB_REQ_TYPE_MASK                               0x60U
+                                                     
+#define USB_REQ_RECIPIENT_DEVICE                        0x00U
+#define USB_REQ_RECIPIENT_INTERFACE                     0x01U
+#define USB_REQ_RECIPIENT_ENDPOINT                      0x02U
+#define USB_REQ_RECIPIENT_MASK                          0x03U
+                                                     
+#define USB_REQ_GET_STATUS                              0x00U
+#define USB_REQ_CLEAR_FEATURE                           0x01U
+#define USB_REQ_SET_FEATURE                             0x03U
+#define USB_REQ_SET_ADDRESS                             0x05U
+#define USB_REQ_GET_DESCRIPTOR                          0x06U
+#define USB_REQ_SET_DESCRIPTOR                          0x07U
+#define USB_REQ_GET_CONFIGURATION                       0x08U
+#define USB_REQ_SET_CONFIGURATION                       0x09U
+#define USB_REQ_GET_INTERFACE                           0x0AU
+#define USB_REQ_SET_INTERFACE                           0x0BU
+#define USB_REQ_SYNCH_FRAME                             0x0CU
+                                                     
+#define USB_DESC_TYPE_DEVICE                            0x01U
+#define USB_DESC_TYPE_CONFIGURATION                     0x02U
+#define USB_DESC_TYPE_STRING                            0x03U
+#define USB_DESC_TYPE_INTERFACE                         0x04U
+#define USB_DESC_TYPE_ENDPOINT                          0x05U
+#define USB_DESC_TYPE_DEVICE_QUALIFIER                  0x06U
+#define USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION         0x07U
+#define USB_DESC_TYPE_BOS                               0x0FU
+        
 #define USB_CONFIG_REMOTE_WAKEUP                        0x02U
 #define USB_CONFIG_SELF_POWERED                         0x01U
 
@@ -182,28 +182,28 @@
 
 typedef  struct  usb_setup_req {
 
-    uint8_t   bmRequest;
-    uint8_t   bRequest;
-    uint16_t  wValue;
-    uint16_t  wIndex;
-    uint16_t  wLength;
-}USBD_SetupReqTypedef;
+  uint8_t   bmRequest;
+  uint8_t   bRequest;
+  uint16_t  wValue;
+  uint16_t  wIndex;
+  uint16_t  wLength;
+} USBD_SetupReqTypedef;
 
 struct _USBD_HandleTypeDef;
 
 typedef struct _Device_cb {
-  uint8_t  (*Init)             (struct _USBD_HandleTypeDef *pdev , uint8_t cfgidx);
-  uint8_t  (*DeInit)           (struct _USBD_HandleTypeDef *pdev , uint8_t cfgidx);
- /* Control Endpoints*/
-  uint8_t  (*Setup)            (struct _USBD_HandleTypeDef *pdev , USBD_SetupReqTypedef  *req);
-  uint8_t  (*EP0_TxSent)       (struct _USBD_HandleTypeDef *pdev );
-  uint8_t  (*EP0_RxReady)      (struct _USBD_HandleTypeDef *pdev );
+  uint8_t  (*Init)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+  uint8_t  (*DeInit)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+  /* Control Endpoints*/
+  uint8_t  (*Setup)(struct _USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef  *req);
+  uint8_t  (*EP0_TxSent)(struct _USBD_HandleTypeDef *pdev );
+  uint8_t  (*EP0_RxReady)(struct _USBD_HandleTypeDef *pdev );
   /* Class Specific Endpoints*/
-  uint8_t  (*DataIn)           (struct _USBD_HandleTypeDef *pdev , uint8_t epnum);
-  uint8_t  (*DataOut)          (struct _USBD_HandleTypeDef *pdev , uint8_t epnum);
-  uint8_t  (*SOF)              (struct _USBD_HandleTypeDef *pdev);
-  uint8_t  (*IsoINIncomplete)  (struct _USBD_HandleTypeDef *pdev , uint8_t epnum);
-  uint8_t  (*IsoOUTIncomplete) (struct _USBD_HandleTypeDef *pdev , uint8_t epnum);
+  uint8_t  (*DataIn)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t  (*DataOut)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t  (*SOF)struct _USBD_HandleTypeDef *pdev);
+  uint8_t  (*IsoINIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
+  uint8_t  (*IsoOUTIncomplete)(struct _USBD_HandleTypeDef *pdev, uint8_t epnum);
 
   uint8_t  *(*GetHSConfigDescriptor)(uint16_t *length);
   uint8_t  *(*GetFSConfigDescriptor)(uint16_t *length);
@@ -231,15 +231,15 @@ typedef enum {
 
 /* USB Device descriptors structure */
 typedef struct {
-  uint8_t  *(*GetDeviceDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetLangIDStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetManufacturerStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetProductStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetSerialStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetConfigurationStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
-  uint8_t  *(*GetInterfaceStrDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
+  uint8_t  *(*GetDeviceDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetLangIDStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetManufacturerStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetProductStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetSerialStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetConfigurationStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
+  uint8_t  *(*GetInterfaceStrDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
 #if (USBD_LPM_ENABLED == 1U)
-  uint8_t  *(*GetBOSDescriptor)( USBD_SpeedTypeDef speed , uint16_t *length);
+  uint8_t  *(*GetBOSDescriptor)( USBD_SpeedTypeDef speed, uint16_t *length);
 #endif
 } USBD_DescriptorsTypeDef;
 
@@ -276,17 +276,17 @@ typedef struct _USBD_HandleTypeDef {
   USBD_DescriptorsTypeDef *pDesc;
   USBD_ClassTypeDef       *pClass;
 
-  #ifdef USBD_USE_CDC_COMPOSITE  // MSC & CDC need seperate variable structures
-    struct _USBD_MSC_BOT_HandleTypeDef    *pClassDataMSC;
-    struct _USBD_STORAGE                  *pClassSpecificInterfaceMSC;   // USBD_StorageTypeDef
-    struct _USBD_CDC_HandleTypeDef        *pClassDataCDC;
-    struct _USBD_CDC_Itf                  *pClassSpecificInterfaceCDC;   // USBD_CDC_ItfTypeDef
-    PCD_HandleTypeDef                     *pPCDHandle;
-  #else
-    void                          *pClassData;
-    void                          *pUserData;
-    void                          *pData;
-  #endif
+#ifdef USBD_USE_CDC_COMPOSITE  // MSC & CDC need seperate variable structures
+  struct _USBD_MSC_BOT_HandleTypeDef    *pClassDataMSC;
+  struct _USBD_STORAGE                  *pClassSpecificInterfaceMSC;   // USBD_StorageTypeDef
+  struct _USBD_CDC_HandleTypeDef        *pClassDataCDC;
+  struct _USBD_CDC_Itf                  *pClassSpecificInterfaceCDC;   // USBD_CDC_ItfTypeDef
+  PCD_HandleTypeDef                     *pPCDHandle;
+#else
+  void                          *pClassData;
+  void                          *pUserData;
+  void                          *pData;
+#endif
 
 } USBD_HandleTypeDef;
 
@@ -309,12 +309,12 @@ typedef struct _USBD_HandleTypeDef {
 
 
 #if  defined ( __GNUC__ )
-  #ifndef __weak
-    #define __weak   __attribute__((weak))
-  #endif /* __weak */
-  #ifndef __packed
-    #define __packed __attribute__((__packed__))
-  #endif /* __packed */
+#ifndef __weak
+#define __weak   __attribute__((weak))
+#endif /* __weak */
+#ifndef __packed
+#define __packed __attribute__((__packed__))
+#endif /* __packed */
 #endif /* __GNUC__ */
 
 
@@ -322,17 +322,17 @@ typedef struct _USBD_HandleTypeDef {
    with the DMA during the transaction process should be 4-bytes aligned */
 
 #if defined   (__GNUC__)        /* GNU Compiler */
-  #define __ALIGN_END    __attribute__ ((aligned (4)))
-  #define __ALIGN_BEGIN
+#define __ALIGN_END    __attribute__ ((aligned (4)))
+#define __ALIGN_BEGIN
 #else
-  #define __ALIGN_END
-  #if defined   (__CC_ARM)      /* ARM Compiler */
-    #define __ALIGN_BEGIN    __align(4)
-  #elif defined (__ICCARM__)    /* IAR Compiler */
-    #define __ALIGN_BEGIN
-  #elif defined  (__TASKING__)  /* TASKING Compiler */
-    #define __ALIGN_BEGIN    __align(4)
-  #endif /* __CC_ARM */
+#define __ALIGN_END
+#if defined   (__CC_ARM)      /* ARM Compiler */
+#define __ALIGN_BEGIN    __align(4)
+#elif defined (__ICCARM__)    /* IAR Compiler */
+#define __ALIGN_BEGIN
+#elif defined  (__TASKING__)  /* TASKING Compiler */
+#define __ALIGN_BEGIN    __align(4)
+#endif /* __CC_ARM */
 #endif /* __GNUC__ */
 
 
