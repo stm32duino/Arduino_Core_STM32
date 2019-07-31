@@ -29,16 +29,12 @@
 typedef struct {
   PinName pin;
   int32_t count;
-  uint8_t state;
 } timerPinInfo_t;
 
 static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration);
 static void tonePeriodElapsedCallback(HardwareTimer *HT);
-static timerPinInfo_t TimerTone_pinInfo;
-
+static timerPinInfo_t TimerTone_pinInfo = {NC, 0};
 static HardwareTimer *TimerTone = NULL;
-
-PinName g_lastPin = NC;
 
 /**
   * @brief  Tone Period elapsed callback in non-blocking mode
@@ -55,14 +51,12 @@ static void tonePeriodElapsedCallback(HardwareTimer *HT)
       if (TimerTone_pinInfo.count > 0) {
         TimerTone_pinInfo.count--;
       }
-      TimerTone_pinInfo.state = (TimerTone_pinInfo.state == 0) ? 1 : 0;
-      digital_io_write(port, STM_LL_GPIO_PIN(TimerTone_pinInfo.pin), TimerTone_pinInfo.state);
+      digital_io_toggle(port, STM_LL_GPIO_PIN(TimerTone_pinInfo.pin));
     } else {
       digital_io_write(port, STM_LL_GPIO_PIN(TimerTone_pinInfo.pin), 0);
     }
   }
 }
-
 
 /**
   * @brief  This function will reset the tone timer
@@ -72,40 +66,40 @@ static void tonePeriodElapsedCallback(HardwareTimer *HT)
   */
 static void timerTonePinDeinit()
 {
-  TimerTone->timerHandleDeinit();
-  pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+  if (TimerTone != NULL) {
+    TimerTone->timerHandleDeinit();
+  }
+  if (TimerTone_pinInfo.pin != NC) {
+    pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, 0));
+    TimerTone_pinInfo.pin = NC;
+  }
 }
 
 static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
 {
   uint32_t timFreq = 2 * frequency;
 
-  TimerTone_pinInfo.pin = p;
+  if (frequency <= MAX_FREQ) {
+    if (frequency == 0) {
+      timerTonePinDeinit();
+    } else {
+      TimerTone_pinInfo.pin = p;
 
-  if (frequency > MAX_FREQ) {
-    return;
+      //Calculate the toggle count
+      if (duration > 0) {
+        TimerTone_pinInfo.count = ((timFreq * duration) / 1000);
+      } else {
+        TimerTone_pinInfo.count = -1;
+      }
+
+      pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
+
+      TimerTone->setMode(1, TIMER_OUTPUT_COMPARE, NC);
+      TimerTone->setOverflow(timFreq, HERTZ_FORMAT);
+      TimerTone->attachInterrupt(tonePeriodElapsedCallback);
+      TimerTone->resume();
+    }
   }
-
-  TimerTone_pinInfo.state = 0;
-
-  if (frequency == 0) {
-    timerTonePinDeinit();
-    return;
-  }
-
-  //Calculate the toggle count
-  if (duration > 0) {
-    TimerTone_pinInfo.count = ((timFreq * duration) / 1000);
-  } else {
-    TimerTone_pinInfo.count = -1;
-  }
-
-  pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
-
-  TimerTone->setMode(1, TIMER_OUTPUT_COMPARE, NC);
-  TimerTone->setOverflow(timFreq, HERTZ_FORMAT);
-  TimerTone->attachInterrupt(tonePeriodElapsedCallback);
-  TimerTone->resume();
 }
 
 // frequency (in hertz) and duration (in milliseconds).
@@ -118,10 +112,8 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   }
 
   if (p != NC) {
-    if ((g_lastPin == NC) || (g_lastPin == p)) {
-
+    if ((TimerTone_pinInfo.pin == NC) || (TimerTone_pinInfo.pin == p)) {
       timerTonePinInit(p, frequency, duration);
-      g_lastPin = p;
     }
   }
 }
@@ -129,19 +121,16 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 void noTone(uint8_t _pin, bool destruct)
 {
   PinName p = digitalPinToPinName(_pin);
-  if (p != NC) {
+  if ((p != NC) && (TimerTone_pinInfo.pin == p)) {
     timerTonePinDeinit();
-    g_lastPin = NC;
-  }
-  if (destruct) {
-    if (TimerTone != NULL) {
+
+    if ((destruct) && (TimerTone != NULL)) {
       delete (TimerTone);
       TimerTone = NULL;
     }
   }
 }
 #else
-
 #warning "TIMER_TONE or HAL_TIM_MODULE_ENABLED not defined"
 void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 {
@@ -154,5 +143,4 @@ void noTone(uint8_t _pin)
 {
   UNUSED(_pin);
 }
-
 #endif /* HAL_TIM_MODULE_ENABLED && TIMER_TONE */
