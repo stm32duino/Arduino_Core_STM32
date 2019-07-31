@@ -111,7 +111,7 @@ typedef struct _USBD_MSC_BOT_HandleTypeDef {
 extern USBD_ClassTypeDef  USBD_MSC;
 #define USBD_MSC_CLASS    &USBD_MSC
 
-uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
+uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
                                  USBD_StorageTypeDef *fops);
 /**
   * @}

@@ -27,8 +27,8 @@
 #include "usbd_msc_cdc_composite.h"
 
 
-uint8_t  USBD_CDC_SetTxBuffer(USBD_HandleTypeDef   *pdev, uint8_t  *pbuff, uint16_t length);
-uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef   *pdev, uint8_t  *pbuff);
+uint8_t  USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff, uint16_t length);
+uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
 uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
 uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 
@@ -72,8 +72,8 @@ USBD_CDC_ItfTypeDef USBD_CDC_fops = {
 
 USBD_CDC_LineCodingTypeDef linecoding = {
   250000, /* baud rate*/
-  0x00,   /* stop bits-1*/
-  0x00,   /* parity - none*/
+  0x00,  /* stop bits-1*/
+  0x00,  /* parity - none*/
   0x08    /* nb. of bits 8*/
 };
 
@@ -156,7 +156,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     /*******************************************************************************/
     case CDC_SET_LINE_CODING:
       linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
-                              (pbuf[2] << 16) | (pbuf[3] << 24));
+                                         (pbuf[2] << 16) | (pbuf[3] << 24));
       linecoding.format     = pbuf[4];
       linecoding.paritytype = pbuf[5];
       linecoding.datatype   = pbuf[6];
@@ -175,7 +175,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
 
     case CDC_SET_CONTROL_LINE_STATE:
       lineState =
-          (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
+        (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
       break;
 
     case CDC_SEND_BREAK:
@@ -208,7 +208,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 {
   UNUSED(Buf);
   /* It always contains required amount of free space for writing */
-  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue,(uint16_t)(*Len));
+  CDC_ReceiveQueue_CommitBlock(&ReceiveQueue, (uint16_t)(*Len));
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
   CDC_resume_receive();
@@ -283,11 +283,11 @@ extern USBD_ClassTypeDef  USBD_MSC_CDC_ClassDriver;
 
 extern USBD_CDC_ItfTypeDef USBD_MSC_CDC_fops;
 extern USBD_StorageTypeDef SdMscDriver;
-uint8_t  USBD_CDC_RegisterInterface  (USBD_HandleTypeDef   *pdev, USBD_CDC_ItfTypeDef *fops);
+uint8_t  USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev, USBD_CDC_ItfTypeDef *fops);
 USBD_StatusTypeDef USBD_Init(USBD_HandleTypeDef *pdev, USBD_DescriptorsTypeDef *pdesc, uint8_t id);
 USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDef *pclass);
 USBD_StatusTypeDef USBD_Start(USBD_HandleTypeDef *pdev);
-USBD_StatusTypeDef USBD_Stop (USBD_HandleTypeDef *pdev);
+USBD_StatusTypeDef USBD_Stop(USBD_HandleTypeDef *pdev);
 USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev);
 
 /**
@@ -295,8 +295,8 @@ USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev);
 * @param  fops: storage callback
 * @retval status
 */
-uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
-                                 USBD_StorageTypeDef *fops)
+uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
+                                  USBD_StorageTypeDef *fops)
 {
   if (fops != NULL) {
     pdev->pClassSpecificInterfaceMSC = fops;

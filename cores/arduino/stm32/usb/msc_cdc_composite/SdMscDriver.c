@@ -1,7 +1,5 @@
 #ifdef USBD_USE_CDC_COMPOSITE
 
-
-
 #include <stdint.h>
 
 #include "usbd_msc_bot.h"
@@ -100,7 +98,8 @@ void SD_LowLevel_Init(void)
 }
 
 
-void HAL_SD_MspInit(SD_HandleTypeDef *hsd) { // application specific init
+void HAL_SD_MspInit(SD_HandleTypeDef *hsd) // application specific init
+{
   UNUSED(hsd);   /* Prevent unused argument(s) compilation warning */
   __HAL_RCC_SDIO_CLK_ENABLE();  // turn on SDIO clock
 }
@@ -161,22 +160,22 @@ void init_SDIO_pins(void)
 int8_t SD_MSC_Init(uint8_t lun);
 
 int8_t SD_MSC_GetCapacity(uint8_t lun,
-                         uint32_t *block_num,
-                         uint16_t *block_size);
+                          uint32_t *block_num,
+                          uint16_t *block_size);
 
 int8_t SD_MSC_IsReady(uint8_t lun);
 
 int8_t SD_MSC_IsWriteProtected(uint8_t lun);
 
 int8_t SD_MSC_Read(uint8_t lun,
-                  uint8_t *buf,
-                  uint32_t blk_addr,
-                  uint16_t blk_len);
-
-int8_t SD_MSC_Write(uint8_t lun,
                    uint8_t *buf,
                    uint32_t blk_addr,
                    uint16_t blk_len);
+
+int8_t SD_MSC_Write(uint8_t lun,
+                    uint8_t *buf,
+                    uint32_t blk_addr,
+                    uint16_t blk_len);
 
 int8_t SD_MSC_GetMaxLun(void);
 
@@ -199,7 +198,7 @@ uint8_t SD_MSC_Inquirydata[] = {/* 36 */
   'S', 'T', 'M', ' ', ' ', ' ', ' ', ' ', /* Manufacturer : 8 bytes */
   'P', 'r', 'o', 'd', 'u', 'c', 't', ' ', /* Product      : 16 Bytes */
   ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ',
-  '0', '.', '0', '1',                     /* Version      : 4 Bytes */
+  '0', '.', '0', '1',                    /* Version      : 4 Bytes */
 };
 
 
@@ -239,17 +238,19 @@ int8_t SD_MSC_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size
 int8_t  SD_MSC_IsReady(uint8_t lun)
 {
   (void)lun; // Not used
-  if (hsd.State == HAL_SD_STATE_READY)
+  if (hsd.State == HAL_SD_STATE_READY) {
     return USBD_OK;
+  }
   return USBD_FAIL;
 }
 
 
-int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf,  uint32_t blk_addr, uint16_t blk_len) {
+int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len) {
   (void)lun; // Not used
 
-  if (HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS))
+  if (HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS)) {
     return USBD_FAIL;
+  }
   return USBD_OK;
 }
 
@@ -258,8 +259,9 @@ int8_t SD_MSC_Write(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_l
 {
   (void)lun; // Not used
 
-  if (HAL_SD_WriteBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS))
+  if (HAL_SD_WriteBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS)) {
     return USBD_FAIL;
+  }
   return USBD_OK;
 }
 

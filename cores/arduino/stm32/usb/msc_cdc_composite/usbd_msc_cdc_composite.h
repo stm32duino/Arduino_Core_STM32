@@ -32,8 +32,6 @@ extern "C" {
 #define MSC_EP_IDX                      0x01  // only EP 0, EP 1 & EP 2 are bidirectional
 #define CDC_CMD_EP_IDX                  0x03  // unable to determine why EP 3 will not transmit
 #define CDC_EP_IDX                      0x02  // EP 3 can receive data from the host because there
-  // is just one receive FIFO and then the packets are
-  // distributed by the top layer
 
 #define IN_EP_DIR           0x80 // Adds a direction bit
 
@@ -154,8 +152,8 @@ typedef struct _USBD_MSC_BOT_HandleTypeDef {
 extern USBD_ClassTypeDef  USBD_MSC;
 #define USBD_MSC_CLASS    &USBD_MSC
 
-uint8_t  USBD_MSC_RegisterStorage  (USBD_HandleTypeDef   *pdev,
-                                    USBD_StorageTypeDef *fops);
+uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
+                                  USBD_StorageTypeDef *fops);
 /**
   * @}
   */

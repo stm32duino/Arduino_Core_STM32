@@ -42,8 +42,6 @@
 #ifndef HAL_PCD_MODULE_ENABLED
 #error "HAL_PCD_MODULE_ENABLED is required"
 #else
-  #define HAL_MMC_MODULE_ENABLED
-#endif
 
 #ifndef p_Data
 #ifdef USBD_USE_CDC_COMPOSITE
@@ -446,7 +444,7 @@ void USB_LP_IRQHandler(void)
 {
   HAL_PCD_IRQHandler(&g_hpcd);
 }
-  #else
+#else
 /**
   * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
   * @param  None
@@ -688,9 +686,7 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 
   if((ep_addr & 0x80) == 0x80) {
     return hpcd->IN_ep[ep_addr & 0x7F].is_stall;
-  }
-  else
-  {
+  } else {
     return hpcd->OUT_ep[ep_addr & 0x7F].is_stall;
   }
 }

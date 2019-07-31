@@ -95,7 +95,7 @@ typedef struct {
   uint8_t  format;
   uint8_t  paritytype;
   uint8_t  datatype;
-}USBD_CDC_LineCodingTypeDef;
+} USBD_CDC_LineCodingTypeDef;
 
 typedef struct _USBD_CDC_Itf {
   int8_t (* Init)(void);
@@ -104,7 +104,7 @@ typedef struct _USBD_CDC_Itf {
   int8_t (* Receive)(uint8_t *Buf, uint32_t *Len);
   int8_t (* Transferred)(void);
 
-}USBD_CDC_ItfTypeDef;
+} USBD_CDC_ItfTypeDef;
 
 #ifndef __IO
 #define     __IO    volatile             /*!< \brief Defines 'read / write' permissions */
@@ -114,8 +114,8 @@ typedef struct _USBD_CDC_HandleTypeDef {
   uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
-  uint8_t  *RxBuffer;
-  uint8_t  *TxBuffer;
+  uint8_t *RxBuffer;
+  uint8_t *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
 
