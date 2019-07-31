@@ -192,7 +192,7 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 
     case USBD_BOT_SEND_DATA:
     case USBD_BOT_LAST_DATA_IN:
-      MSC_BOT_SendCSW (pdev, USBD_CSW_CMD_PASSED);
+      MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
 
       break;
 
@@ -207,8 +207,7 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 * @param  epnum: endpoint index
 * @retval None
 */
-void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev,
-                      uint8_t epnum)
+void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = pdev->pClassDataMSC;
 
@@ -222,7 +221,7 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev,
       if (SCSI_ProcessCmd(pdev,
                           hmsc->cbw.bLUN,
                           &hmsc->cbw.CB[0]) < 0) {
-        MSC_BOT_SendCSW (pdev, USBD_CSW_CMD_FAILED);
+        MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
       }
 
       break;
@@ -245,7 +244,7 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
   hmsc->csw.dTag = hmsc->cbw.dTag;
   hmsc->csw.dDataResidue = hmsc->cbw.dDataLength;
 
-  if ((USBD_LL_GetRxDataSize(pdev,MSC_OUT_EP) != USBD_BOT_CBW_LENGTH) ||
+  if ((USBD_LL_GetRxDataSize(pdev, MSC_OUT_EP) != USBD_BOT_CBW_LENGTH) ||
       (hmsc->cbw.dSignature != USBD_BOT_CBW_SIGNATURE) ||
       (hmsc->cbw.bLUN > 1) ||
       (hmsc->cbw.bCBLength < 1) ||
@@ -279,8 +278,7 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
                          hmsc->bot_data,
                          hmsc->bot_data_length);
       } else if (hmsc->bot_data_length == 0) {
-        MSC_BOT_SendCSW (pdev,
-                         USBD_CSW_CMD_PASSED);
+        MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
       }
     }
   }
@@ -380,7 +378,7 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef *pdev, uint8_t epnum)
     USBD_LL_StallEP(pdev, MSC_IN_EP);
     hmsc->bot_status = USBD_BOT_STATUS_NORMAL;
   } else if (((epnum & 0x80) == 0x80) && (hmsc->bot_status != USBD_BOT_STATUS_RECOVERY)) {
-    MSC_BOT_SendCSW (pdev, USBD_CSW_CMD_FAILED);
+    MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
   }
 
 }

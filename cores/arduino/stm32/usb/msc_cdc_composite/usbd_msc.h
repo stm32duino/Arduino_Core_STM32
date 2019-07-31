@@ -112,7 +112,7 @@ extern USBD_ClassTypeDef  USBD_MSC;
 #define USBD_MSC_CLASS    &USBD_MSC
 
 uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
-                                 USBD_StorageTypeDef *fops);
+                                  USBD_StorageTypeDef *fops);
 /**
   * @}
   */

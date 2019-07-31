@@ -123,7 +123,7 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
       break;
 
     case SCSI_REQUEST_SENSE:  // 0x03
-      SCSI_RequestSense (pdev, lun, cmd);
+      SCSI_RequestSense(pdev, lun, cmd);
       break;
 
     case SCSI_INQUIRY:  // 0x12U  18
@@ -139,7 +139,7 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
       break;
 
     case SCSI_MODE_SENSE6:  // 0x1AU  26
-      SCSI_ModeSense6 (pdev, lun, cmd);
+      SCSI_ModeSense6(pdev, lun, cmd);
       break;
 
     case SCSI_MODE_SENSE10:  // 0x5AU 90
@@ -453,7 +453,7 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
                           ((uint32_t)params[4] <<  8) |
                           (uint32_t)params[5];
 
-    hmsc->scsi_blk_len = ((uint32_t)params[7] <<  8) |(uint32_t)params[8];
+    hmsc->scsi_blk_len = ((uint32_t)params[7] <<  8) | (uint32_t)params[8];
 
     if (SCSI_CheckAddressRange(pdev, lun, hmsc->scsi_blk_addr,
                                hmsc->scsi_blk_len) < 0) {
@@ -648,7 +648,7 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun)
   hmsc->csw.dDataResidue -= len;
 
   if (hmsc->scsi_blk_len == 0U) {
-    MSC_BOT_SendCSW (pdev, USBD_CSW_CMD_PASSED);
+    MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
   } else {
     len = MIN((hmsc->scsi_blk_len * hmsc->scsi_blk_size), MSC_MEDIA_PACKET);
     /* Prepare EP to Receive next packet */

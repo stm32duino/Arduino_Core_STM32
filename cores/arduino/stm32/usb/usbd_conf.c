@@ -49,7 +49,7 @@
 #else
 #define p_Data pData
 #endif
-#endif  
+#endif
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -684,7 +684,7 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 {
   PCD_HandleTypeDef *hpcd = pdev->p_Data;
 
-  if((ep_addr & 0x80) == 0x80) {
+  if ((ep_addr & 0x80) == 0x80) {
     return hpcd->IN_ep[ep_addr & 0x7F].is_stall;
   } else {
     return hpcd->OUT_ep[ep_addr & 0x7F].is_stall;

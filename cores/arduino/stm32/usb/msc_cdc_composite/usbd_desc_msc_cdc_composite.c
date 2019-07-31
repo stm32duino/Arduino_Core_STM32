@@ -1227,13 +1227,13 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
                                                                              (uint8_t *)(void *)hcdc->data,
                                                                              req->wLength);
 
-          USBD_CtlSendData (pdev, (uint8_t *)(void *)hcdc->data, req->wLength);
+          USBD_CtlSendData(pdev, (uint8_t *)(void *)hcdc->data, req->wLength);
         } else {
 
           hcdc->CmdOpCode = req->bRequest;
           hcdc->CmdLength = (uint8_t)req->wLength;
 
-          USBD_CtlPrepareRx (pdev, (uint8_t *)(void *)hcdc->data, req->wLength);
+          USBD_CtlPrepareRx(pdev, (uint8_t *)(void *)hcdc->data, req->wLength);
         }
       } else {
         ((USBD_CDC_ItfTypeDef *)pdev->pClassSpecificInterfaceCDC)->Control(req->bRequest,
@@ -1245,7 +1245,7 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       switch (req->bRequest) {
         case USB_REQ_GET_STATUS:
           if (pdev->dev_state == USBD_STATE_CONFIGURED) {
-            USBD_CtlSendData (pdev, (uint8_t *)(void *)&status_info, 2U);
+            USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
           } else {
 
             USBD_CtlError(pdev, req);
@@ -1255,7 +1255,7 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
         case USB_REQ_GET_INTERFACE:
           if (pdev->dev_state == USBD_STATE_CONFIGURED) {
-            USBD_CtlSendData (pdev, &ifalt, 1U);
+            USBD_CtlSendData(pdev, &ifalt, 1U);
           } else {
 
             USBD_CtlError(pdev, req);
@@ -1274,7 +1274,7 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           USBD_CtlError(pdev, req);
           ret = USBD_FAIL;
           break;
-        }
+      }
       break;
 
     default:
@@ -1565,7 +1565,7 @@ static uint8_t USBD_MSC_CDC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 */
 uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
-  USBD_MSC_BOT_HandleTypeDef * hmsc = pdev->pClassDataMSC;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = pdev->pClassDataMSC;
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK) {
 
@@ -1575,43 +1575,39 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
         case BOT_GET_MAX_LUN :
 
           if ((req->wValue  == 0) &&
-             (req->wLength == 1) &&
-             ((req->bmRequest & 0x80) == 0x80))
-          {
+              (req->wLength == 1) &&
+              ((req->bmRequest & 0x80) == 0x80)) {
             hmsc->max_lun = pdev->pClassSpecificInterfaceMSC->GetMaxLun();
-            USBD_CtlSendData (pdev, (uint8_t *)&hmsc->max_lun, 1);
+            USBD_CtlSendData(pdev, (uint8_t *)&hmsc->max_lun, 1);
           } else {
 
-             USBD_CtlError(pdev, req);
-             return USBD_FAIL;
+           USBD_CtlError(pdev, req);
+           return USBD_FAIL;
           }
           break;
 
       case BOT_RESET :
         if ((req->wValue  == 0) &&
-           (req->wLength == 0) &&
-          ((req->bmRequest & 0x80) != 0x80))
-        {
+            (req->wLength == 0) &&
+            ((req->bmRequest & 0x80) != 0x80)) {
           MSC_BOT_Reset(pdev);
         } else {
 
-           USBD_CtlError(pdev, req);
-           return USBD_FAIL;
+         USBD_CtlError(pdev, req);
+         return USBD_FAIL;
         }
         break;
 
       default:
-         USBD_CtlError(pdev, req);
-         return USBD_FAIL;
+        USBD_CtlError(pdev, req);
+        return USBD_FAIL;
     }
     break;
   /* Interface & Endpoint request */
   case USB_REQ_TYPE_STANDARD:
     switch (req->bRequest) {
       case USB_REQ_GET_INTERFACE :
-        USBD_CtlSendData (pdev,
-                         (uint8_t *)&hmsc->interface,
-                          1);
+        USBD_CtlSendData(pdev, (uint8_t *)&hmsc->interface, 1);
         break;
 
       case USB_REQ_SET_INTERFACE :
@@ -1626,18 +1622,12 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
         /* Reactivate the EP */
         USBD_LL_CloseEP (pdev, (uint8_t)req->wIndex);
         if ((((uint8_t)req->wIndex) & 0x80) == 0x80) {
-      /* Open EP IN */
-      USBD_LL_OpenEP(pdev,
-               MSC_IN_EP,
-                           USBD_EP_TYPE_BULK,
-               USB_MAX_PACKET_SIZE);
+          /* Open EP IN */
+          USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
         } else {
 
-      /* Open EP IN */
-      USBD_LL_OpenEP(pdev,
-               MSC_OUT_EP,
-                           USBD_EP_TYPE_BULK,
-               USB_MAX_PACKET_SIZE);
+          /* Open EP OUT */
+          USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
         }
 
         /* Handle BOT error */
@@ -1678,12 +1668,11 @@ uint8_t USBD_MSC_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   * @param  epnum: endpoint index
   * @retval status
   */
-static uint8_t USBD_MSC_CDC_DataIn(USBD_HandleTypeDef *pdev,
-                                   uint8_t epnum)
+static uint8_t USBD_MSC_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   if (epnum == MSC_EP_IDX) {
     return USBD_MSC_DataIn(pdev, epnum);
-  {
+  }
   return USBD_CDC_DataIn(pdev, epnum);
 }
 
@@ -1694,8 +1683,7 @@ static uint8_t USBD_MSC_CDC_DataIn(USBD_HandleTypeDef *pdev,
   * @param  epnum: endpoint index
   * @retval status
   */
-static uint8_t USBD_MSC_CDC_DataOut(USBD_HandleTypeDef *pdev,
-                                    uint8_t epnum)
+static uint8_t USBD_MSC_CDC_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   if (epnum == MSC_EP_IDX) {
     return USBD_MSC_DataOut(pdev, epnum);  }
@@ -1748,5 +1736,5 @@ static uint8_t *USBD_MSC_CDC_GetOtherSpeedCfgDesc(uint16_t *length)
   return USBD_MSC_CDC_OtherSpeedCfgDesc;
 }
 
-#endif /* USBCON & USBD_USE_CDC) && USBD_USE_CDC_COMPOSITE */
+#endif /* USBCON && USBD_USE_CDC_COMPOSITE */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

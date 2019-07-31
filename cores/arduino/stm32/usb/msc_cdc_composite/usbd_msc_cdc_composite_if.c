@@ -155,7 +155,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     /* 6      | bDataBits  |   1   | Number Data bits (5, 6, 7, 8 or 16).          */
     /*******************************************************************************/
     case CDC_SET_LINE_CODING:
-      linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) |\
+      linecoding.bitrate    = (uint32_t)(pbuf[0] | (pbuf[1] << 8) | \
                                          (pbuf[2] << 16) | (pbuf[3] << 24));
       linecoding.format     = pbuf[4];
       linecoding.paritytype = pbuf[5];
