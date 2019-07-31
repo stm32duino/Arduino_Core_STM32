@@ -1619,7 +1619,7 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           USBD_LL_FlushEP(pdev, (uint8_t)req->wIndex);
 
           /* Reactivate the EP */
-          USBD_LL_CloseEP (pdev, (uint8_t)req->wIndex);
+          USBD_LL_CloseEP(pdev, (uint8_t)req->wIndex);
           if ((((uint8_t)req->wIndex) & 0x80) == 0x80) {
             /* Open EP IN */
             USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
@@ -1652,7 +1652,7 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 uint8_t USBD_MSC_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   // Route requests to MSC interface or its endpoints to MSC class implementaion
-  if(((req->bmRequest & USB_REQ_RECIPIENT_MASK) == USB_REQ_RECIPIENT_INTERFACE && req->wIndex == MSC_INTERFACE_IDX) ||
+  if (((req->bmRequest & USB_REQ_RECIPIENT_MASK) == USB_REQ_RECIPIENT_INTERFACE && req->wIndex == MSC_INTERFACE_IDX) ||
       ((req->bmRequest & USB_REQ_RECIPIENT_MASK) == USB_REQ_RECIPIENT_ENDPOINT &&((req->wIndex & 0x7F) == MSC_EP_IDX))) {
     return USBD_MSC_Setup(pdev, req);
   }
@@ -1686,7 +1686,6 @@ static uint8_t USBD_MSC_CDC_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   if (epnum == MSC_EP_IDX) {
     return USBD_MSC_DataOut(pdev, epnum);  }
-
   return USBD_CDC_DataOut(pdev, epnum);
 }
 
