@@ -11,8 +11,12 @@ void DMATransferClass::prepare(DMA_HandleTypeDef *settings)
 {
   if (!_prepared) {
     // TODO - figure out which DMA to enable the clock for.
-    __HAL_RCC_DMA1_CLK_ENABLE();
-
+    #ifdef DMA1_BASE
+      __HAL_RCC_DMA1_CLK_ENABLE();
+    #endif
+    #ifdef DMA2_BASE
+      __HAL_RCC_DMA2_CLK_ENABLE();
+    #endif
     memcpy(&_dma, settings, sizeof(DMA_HandleTypeDef));
     /*
     _transfer_settings.dma_settings.Init.Direction = _transfer_settings.transfer_direction;
@@ -46,16 +50,45 @@ void DMATransferClass::prepare(DMA_HandleTypeDef *settings)
   */
 void DMATransferClass::begin(uint32_t source, uint32_t destination, int bytes_to_transfer, bool use_interrupt)
 {
+  // Make sure we're set to initialize
+  this->end();
+
   if (!_prepared) {
     // call dma prepare
     prepare_dma(&_dma);
   }
 
+  /**
+    * @brief  Clear the DMA Stream pending flags.
+    * @param  __HANDLE__: DMA handle
+    * @param  __FLAG__: specifies the flag to clear.
+    *          This parameter can be any combination of the following values:
+    *            @arg DMA_FLAG_TCIFx: Transfer complete flag.
+    *            @arg DMA_FLAG_HTIFx: Half transfer complete flag.
+    *            @arg DMA_FLAG_TEIFx: Transfer error flag.
+    *            @arg DMA_FLAG_DMEIFx: Direct mode error flag.
+    *            @arg DMA_FLAG_FEIFx: FIFO error flag.
+    *         Where x can be 0_4, 1_5, 2_6 or 3_7 to select the DMA Stream flag.
+    * @retval None
+    */
+
   // Reset flags so it starts over
-  __HAL_DMA_CLEAR_FLAG(&_dma, DMA_FLAG_TC2 | DMA_FLAG_HT2 | DMA_FLAG_TE2);
+  __HAL_DMA_CLEAR_FLAG(&_dma, __HAL_DMA_GET_TC_FLAG_INDEX(&_dma));
+  __HAL_DMA_CLEAR_FLAG(&_dma, __HAL_DMA_GET_HT_FLAG_INDEX(&_dma));
+  __HAL_DMA_CLEAR_FLAG(&_dma, __HAL_DMA_GET_TE_FLAG_INDEX(&_dma));
+
+  #if defined(STM32F2xx) || #defined(STM32F4xx) || #defined(STM32F7xx)
+  __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_DME_FLAG_INDEX(hdma));
+  __HAL_DMA_CLEAR_FLAG(hdma, __HAL_DMA_GET_FE_FLAG_INDEX(hdma));
+  #endif
 
   // Set size to transfer
+
+  #if defined(__HAL_DMA_SET_COUNTER)
+  __HAL_DMA_SET_COUNTER(&_dma, bytes_to_transfer);
+  #else
   _dma.Instance->CNDTR = bytes_to_transfer;
+  #endif
 
   // and enable it
   __HAL_DMA_ENABLE(&_dma);
