@@ -91,7 +91,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | [Eval](https://www.st.com/en/evaluation-tools/stm32-eval-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | **1.6.0** |  |
+| :yellow_heart: | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | **1.7.0** |  |
 
 | Status | Generic STM32F0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
