@@ -146,9 +146,9 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 
     // perform blocking read into buffer
     uint8_t read = 0;
-    if(sendStop!=false) {
+    if (sendStop != false) {
       _i2c.handle.XferOptions = I2C_LAST_FRAME;
-    }else{
+    } else {
       _i2c.handle.XferOptions = I2C_NO_OPTION_FRAME;
     }
     if (I2C_OK == i2c_master_read(&_i2c, address << 1, rxBuffer, quantity)) {
@@ -219,9 +219,9 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
   //UNUSED(sendStop);
   int8_t ret = 4;
   // check transfer options and store it in the I2C handle
-  if(sendStop==false) {
+  if (sendStop == false) {
     _i2c.handle.XferOptions = I2C_FIRST_FRAME;
-  }else{
+  } else {
     _i2c.handle.XferOptions = I2C_FIRST_AND_LAST_FRAME;
   }
 
