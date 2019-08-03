@@ -717,7 +717,7 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
   }
 
   do {
-    if (HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+    if (HAL_I2C_Master_Seq_Transmit_IT(&(obj->handle), dev_address, data, size,obj->handle.XferOptions) == HAL_OK) {
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
@@ -778,7 +778,7 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
   uint32_t delta = 0;
 
   do {
-    if (HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+    if (HAL_I2C_Master_Seq_Receive_IT(&(obj->handle), dev_address, data, size, obj->handle.XferOptions) == HAL_OK) {
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
