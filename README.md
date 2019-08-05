@@ -101,7 +101,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | BluePill F103C(6-8-B) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | BlackPill F103C(8-B) | *1.5.0* |  |
-| :yellow_heart: | BlackPill F401CC | **1.7.0** |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 
@@ -111,6 +110,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
+| :yellow_heart: | BlackPill F401CC | **1.7.0** |  |
 | :green_heart: | [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini) | *1.4.0* |  |
 | :green_heart: | DIYMROE STM32F407VGT | *1.5.0* |  |
