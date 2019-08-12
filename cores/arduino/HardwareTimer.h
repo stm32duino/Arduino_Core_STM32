@@ -77,9 +77,9 @@ typedef enum {
 // This structure is used to be able to get HardwareTimer instance (C++ class)
 // from handler (C structure) specially for interrupt management
 typedef struct  {
-  void    *__this;  // Those 2 first field must remain in this order at the beginning of the structure
-  TIM_HandleTypeDef handle; // Those 2 first field must remain in this order at the beginning of the structure
-  // void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer*); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
+  // Those 2 first fields must remain in this order at the beginning of the structure
+  void    *__this;
+  TIM_HandleTypeDef handle;
 } HardwareTimerObj_t;
 
 #ifdef __cplusplus
