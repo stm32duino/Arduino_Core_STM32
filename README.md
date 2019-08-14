@@ -98,7 +98,7 @@ The 4630 is a Feather-compatible board designed for field air-quality monitoring
 | Regulator control | No boost regulator for 3.3V; EN disables VDD altogether. D12 controls 5V boost regulator for PMS7003. |
 | High-side switch for power for external sensors | No |
 | Screw terminals for external sensors | None |
-| Feather electrical compatibilty | Yes |
+| Feather electrical compatibility | Yes |
 | Feather physical compatibility | Yes |
 | USB | Yes, DFU download, runtime data, and charging |
 | Sensors | ZMOD4410 VOC sensor; BME280 temperature/pressure/humidity |
@@ -123,7 +123,7 @@ The 4801 is a dedicated board for remote Modbus applications, using the Murata m
 
 ## Troubleshooting
 
-If you have any issue, you may [file an issue on Github](https://github.com/mcci-catena/Arduino_Core_STM32/issues/new).  You may also submit a support request on the [MCCI support forum](http://portal.mcci.com).
+If you have any issue, you may [file an issue on GitHub](https://github.com/mcci-catena/Arduino_Core_STM32/issues/new).  You may also submit a support request on the [MCCI support forum](http://portal.mcci.com).
 
 ## Installing a Development Copy of this BSP
 
@@ -143,8 +143,8 @@ If you want to develop and test changes to this package, we suggest the followin
    | Linux | <code>~/.arduino15</code> |
 
 7. From this location, change directory to `packages/mcci/stm32`.
-8. Look at the direcory contents with `ls`. You'll see a directory named like a version number, for example `1.0.8`.
-9. Move the directory you just found away from the `stm32` directory. It's convenient to have it around, so we sugest not delete it.
+8. Look at the directory contents with `ls`. You'll see a directory named like a version number, for example `1.0.8`.
+9. Move the directory you just found away from the `stm32` directory. It's convenient to have it around, so we suggest that you not delete it.
 10. Create a symbolic link to the sandbox you created in step (3) above. On macOS and Linux, this is done using the `ln -s` command. On Windows 10, this is done with the `mklink /d` command. (On older versions of Windows, unless you're very experienced, you might want to use a Linux VM in VirtualBox -- we can't advise on the best way to do this.)
 11. Open the Arduino IDE.
 12. Use the menu `File>New` to create an empty sketch (or reuse the sketch from step 3).
@@ -155,13 +155,15 @@ Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or 
 
 ## Release History
 
+- HEAD adds support for KR-920 (Korea 920 MHz) in the region selection menu.
+
 - [v2.5.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.5.0) enables the crystal controlled LSE clock, and uses it to run the RTC. Code was substantially refactored to move common code to common directories. Bug fixes.
 
 - [v2.4.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.4.0) Added support for new boards: 4617, 4618 and 4630. Serial interface configuration in `boards.template` has been updated with new option to use both USB Serial and Hardware Serial at same time.
 
 - [v2.3.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.3.0) corrects the handling of clocking in the various SLEEP/STOP/SSTANDBY modes. It also ensures that `.RamFunc` code is properly placed in RAM (initialzed when statics are initialized).
 
-- [v2.2.1](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.2.1) fixed the version number in `platform.txt`, and sets GPIO to reset state when deinitializing SPI, I2C and UARTs.
+- [v2.2.1](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.2.1) fixed the version number in `platform.txt`, and sets GPIO to reset state when de-initializing SPI, I2C and UARTs.
 
 - [v2.2.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.2.0) increases the serial buffer size to 256 and adds low-power changes for the Catena 4801.
 
