@@ -20,18 +20,16 @@
 
 #include <Arduino.h>
 #include <Servo.h>
+#include <HardwareTimer.h>
+
+#if defined(HAL_TIM_MODULE_ENABLED) && defined(TIMER_SERVO)
 
 static servo_t servos[MAX_SERVOS];                         // static array of servo structures
-static volatile int8_t timerChannel[_Nbr_16timers ];       // counter for the servo being pulsed for each timer (or -1 if refresh interval)
+static volatile int8_t timerChannel[_Nbr_16timers] = {-1}; // counter for the servo being pulsed for each timer (or -1 if refresh interval)
+
+static HardwareTimer TimerServo(TIMER_SERVO);
 
 uint8_t ServoCount = 0;                                    // the total number of attached servos
-stimer_t _timer;
-
-// convenience macros
-#define SERVO_INDEX_TO_TIMER(_servo_nbr) ((timer16_Sequence_t)(_servo_nbr / SERVOS_PER_TIMER))   // returns the timer controlling this servo
-#define SERVO_INDEX_TO_CHANNEL(_servo_nbr) (_servo_nbr % SERVOS_PER_TIMER)                       // returns the index of the servo on this timer
-#define SERVO_INDEX(_timer,_channel)  ((_timer*SERVOS_PER_TIMER) + _channel)                     // macro to access servo index by timer and channel
-#define SERVO(_timer,_channel)  (servos[SERVO_INDEX(_timer,_channel)])                           // macro to access servo class by timer and channel
 
 #define SERVO_MIN() (MIN_PULSE_WIDTH - this->min * 4)   // minimum value in uS for this servo
 #define SERVO_MAX() (MAX_PULSE_WIDTH - this->max * 4)   // maximum value in uS for this servo
@@ -40,57 +38,62 @@ stimer_t _timer;
 #define SERVO_TIMER(_timer_id)  ((timer16_Sequence_t)(_timer_id))
 
 /************ static functions common to all instances ***********************/
-static void ServoIrqHandle(stimer_t *obj, uint32_t channel)
-{
-  uint8_t timer_id = obj->idx;
 
-  if (timerChannel[SERVO_TIMER(timer_id)] < 0) {
-    setTimerCounter(obj, 0); // channel set to -1 indicated that refresh interval completed so reset the timer
+volatile uint32_t CumulativeCountSinceRefresh = 0;
+static void Servo_PeriodElapsedCallback(HardwareTimer *HT)
+{
+  UNUSED(HT);
+  // Only 1 timer used
+  timer16_Sequence_t timer_id = _timer1;
+
+  if (timerChannel[timer_id] < 0) {
+    // Restart from 1st servo
+    CumulativeCountSinceRefresh = 0;
   } else {
-    if (SERVO_INDEX(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
-        SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true) {
-      digitalWrite(SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr, LOW); // pulse this channel low if activated
+    if (timerChannel[timer_id] < ServoCount && servos[timerChannel[timer_id]].Pin.isActive == true) {
+      digitalWrite(servos[timerChannel[timer_id]].Pin.nbr, LOW); // pulse this channel low if activated
     }
   }
 
-  timerChannel[SERVO_TIMER(timer_id)]++;    // increment to the next channel
-  if (SERVO_INDEX(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]) < ServoCount &&
-      timerChannel[SERVO_TIMER(timer_id)] < SERVOS_PER_TIMER) {
-    if (SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.isActive == true) {   // check if activated
-      digitalWrite(SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).Pin.nbr, HIGH); // its an active channel so pulse it high
+  timerChannel[timer_id]++;    // increment to the next channel
+  if (timerChannel[timer_id] < ServoCount && timerChannel[timer_id] < SERVOS_PER_TIMER) {
+    TimerServo.setOverflow(servos[timerChannel[timer_id]].ticks);
+    CumulativeCountSinceRefresh += servos[timerChannel[timer_id]].ticks;
+    if (servos[timerChannel[timer_id]].Pin.isActive == true) {
+      // check if activated
+      digitalWrite(servos[timerChannel[timer_id]].Pin.nbr, HIGH); // its an active channel so pulse it high
     }
-    setCCRRegister(obj, channel, getTimerCounter(obj) + SERVO(SERVO_TIMER(timer_id), timerChannel[SERVO_TIMER(timer_id)]).ticks);
   } else {
     // finished all channels so wait for the refresh period to expire before starting over
-    if (getTimerCounter(obj) + 4 < REFRESH_INTERVAL) {   // allow a few ticks to ensure the next OCR1A not missed
-      setCCRRegister(obj, channel, (unsigned int)REFRESH_INTERVAL);
+    if (CumulativeCountSinceRefresh + 4 < REFRESH_INTERVAL) {
+      // allow a few ticks to ensure the next OCR1A not missed
+      TimerServo.setOverflow(REFRESH_INTERVAL - CumulativeCountSinceRefresh);
     } else {
-      setCCRRegister(obj, channel, getTimerCounter(obj) + 4);  // at least REFRESH_INTERVAL has elapsed
+      // generate update to restart immediately from the beginning with the 1st servo
+      TimerServo.refresh();
     }
-    timerChannel[SERVO_TIMER(timer_id)] = -1; // this will get incremented at the end of the refresh period to start again at the first channel
+    timerChannel[timer_id] = -1; // this will get incremented at the end of the refresh period to start again at the first channel
   }
 }
 
-static void initISR(stimer_t *obj)
+static void TimerServoInit()
 {
-  /*
-   * Timer clock set by default at 1us.
-   * Period set to REFRESH_INTERVAL*3
-   * Default pulse width set to DEFAULT_PULSE_WIDTH
-   */
-  TimerPulseInit(obj, REFRESH_INTERVAL * 3, DEFAULT_PULSE_WIDTH, ServoIrqHandle);
+  // prescaler is computed so that timer tick correspond to 1 microseconde
+  uint32_t prescaler = TimerServo.getTimerClkFreq() / 1000000;
+
+  TimerServo.setMode(1, TIMER_OUTPUT_COMPARE, NC);
+  TimerServo.setPrescaleFactor(prescaler);
+  TimerServo.setOverflow(REFRESH_INTERVAL); // thanks to prescaler Tick = microsec
+  TimerServo.attachInterrupt(Servo_PeriodElapsedCallback);
+  TimerServo.resume();
 }
 
-static void finISR(stimer_t *obj)
-{
-  TimerPulseDeinit(obj);
-}
 
-static bool isTimerActive(timer16_Sequence_t timer)
+static bool isTimerActive()
 {
   // returns true if any servo is active on this timer
   for (uint8_t channel = 0; channel < SERVOS_PER_TIMER; channel++) {
-    if (SERVO(timer, channel).Pin.isActive == true) {
+    if (servos[channel].Pin.isActive == true) {
       return true;
     }
   }
@@ -116,19 +119,16 @@ uint8_t Servo::attach(int pin)
 
 uint8_t Servo::attach(int pin, int min, int max)
 {
-  timer16_Sequence_t timer;
-
   if (this->servoIndex < MAX_SERVOS) {
     pinMode(pin, OUTPUT);                                   // set servo pin to output
     servos[this->servoIndex].Pin.nbr = pin;
+    servos[this->servoIndex].ticks = DEFAULT_PULSE_WIDTH;
     // todo min/max check: abs(min - MIN_PULSE_WIDTH) /4 < 128
     this->min  = (MIN_PULSE_WIDTH - min) / 4; //resolution of min/max is 4 uS
     this->max  = (MAX_PULSE_WIDTH - max) / 4;
     // initialize the timer if it has not already been initialized
-    timer = SERVO_INDEX_TO_TIMER(servoIndex);
-    if (isTimerActive(timer) == false) {
-      _timer.idx = timer;
-      initISR(&_timer);
+    if (isTimerActive() == false) {
+      TimerServoInit();
     }
     servos[this->servoIndex].Pin.isActive = true;  // this must be set after the check for isTimerActive
   }
@@ -137,12 +137,10 @@ uint8_t Servo::attach(int pin, int min, int max)
 
 void Servo::detach()
 {
-  timer16_Sequence_t timer;
-
   servos[this->servoIndex].Pin.isActive = false;
-  timer = SERVO_INDEX_TO_TIMER(servoIndex);
-  if (isTimerActive(timer) == false) {
-    finISR(&_timer);
+
+  if (isTimerActive() == false) {
+    TimerServo.pause();
   }
 }
 
@@ -197,5 +195,42 @@ bool Servo::attached()
 {
   return servos[this->servoIndex].Pin.isActive;
 }
+
+#else
+
+#warning "TIMER_TONE or HAL_TIM_MODULE_ENABLED not defined"
+Servo::Servo() {}
+uint8_t Servo::attach(int pin)
+{
+  UNUSED(pin);
+  return 0;
+}
+uint8_t Servo::attach(int pin, int min, int max)
+{
+  UNUSED(pin);
+  UNUSED(min);
+  UNUSED(max);
+  return 0;
+}
+void Servo::detach() {}
+void Servo::write(int value)
+{
+  UNUSED(value);
+}
+void Servo::writeMicroseconds(int value)
+{
+  UNUSED(value);
+}
+int Servo::read()
+{
+  return 0;
+}
+int Servo::readMicroseconds()
+{
+  return 0;
+}
+bool Servo::attached() {}
+
+#endif /* HAL_TIM_MODULE_ENABLED && TIMER_SERVO */
 
 #endif // ARDUINO_ARCH_STM32

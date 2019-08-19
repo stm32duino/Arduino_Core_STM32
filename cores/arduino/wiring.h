@@ -41,6 +41,7 @@
 #include <board.h>
 
 #ifdef __cplusplus
+#include "HardwareTimer.h"
 #include "Tone.h"
 #include "WCharacter.h"
 #include "WSerial.h"

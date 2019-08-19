@@ -37,7 +37,7 @@
   */
 #include "stm32_def.h"
 #include "analog.h"
-#include "timer.h"
+#include "HardwareTimer.h"
 #include "PinAF_STM32F1.h"
 #include "stm32yyxx_ll_adc.h"
 
@@ -273,7 +273,7 @@ static uint32_t get_adc_internal_channel(PinName pin)
 #endif /* HAL_ADC_MODULE_ENABLED */
 
 #ifdef HAL_TIM_MODULE_ENABLED
-static uint32_t get_pwm_channel(PinName pin)
+uint32_t get_pwm_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_PWM);
   uint32_t channel = 0;
@@ -392,7 +392,7 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
   DAC_ChannelConfTypeDef dacChannelConf = {};
   uint32_t dacChannel;
 
-  DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
+  DacHandle.Instance = (DAC_TypeDef *)pinmap_peripheral(pin, PinMap_DAC);
   if (DacHandle.Instance == NP) {
     return;
   }
@@ -536,7 +536,7 @@ void dac_stop(PinName pin)
   DAC_HandleTypeDef DacHandle;
   uint32_t dacChannel;
 
-  DacHandle.Instance = pinmap_peripheral(pin, PinMap_DAC);
+  DacHandle.Instance = (DAC_TypeDef *)pinmap_peripheral(pin, PinMap_DAC);
   if (DacHandle.Instance == NP) {
     return;
   }
@@ -781,7 +781,7 @@ uint16_t adc_read_value(PinName pin)
     channel = get_adc_internal_channel(pin);
     samplingTime = ADC_SAMPLINGTIME_INTERNAL;
   } else {
-    AdcHandle.Instance = pinmap_peripheral(pin, PinMap_ADC);
+    AdcHandle.Instance = (ADC_TypeDef *)pinmap_peripheral(pin, PinMap_ADC);
     channel = get_adc_channel(pin);
   }
 
@@ -976,106 +976,32 @@ uint16_t adc_read_value(PinName pin)
 #ifdef HAL_TIM_MODULE_ENABLED
 ////////////////////////// PWM INTERFACE FUNCTIONS /////////////////////////////
 
-
-/**
-  * @brief TIM MSP Initialization
-  *        This function configures the hardware resources used in this example:
-  *           - Peripheral's clock enable
-  *           - Peripheral's GPIO Configuration
-  * @param htim: TIM handle pointer
-  * @retval None
-  */
-void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef *htim)
-{
-  /*##-1- Enable peripherals and GPIO Clocks #################################*/
-  /* TIMx Peripheral clock enable */
-  timer_enable_clock(htim);
-
-  /* Configure PWM GPIO pins */
-  pinmap_pinout(g_current_pin, PinMap_PWM);
-}
-
-/**
-  * @brief  DeInitializes TIM PWM MSP.
-  * @param  htim : TIM handle
-  * @retval None
-  */
-void HAL_TIM_PWM_MspDeInit(TIM_HandleTypeDef *htim)
-{
-  timer_disable_clock(htim);
-}
-
 /**
   * @brief  This function will set the PWM to the required value
   * @param  port : the gpio port to use
   * @param  pin : the gpio pin to use
   * @param  clock_freq : frequency of the tim clock
-  * @param  period : period of the tim counter
   * @param  value : the value to push on the PWM output
-  * @param  do_init : if set to 1 the initialization of the PWM is done
   * @retval None
   */
-void pwm_start(PinName pin, uint32_t clock_freq,
-               uint32_t period, uint32_t value, uint8_t do_init)
+void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value)
 {
-  TIM_HandleTypeDef timHandle = {};
-  TIM_OC_InitTypeDef timConfig = {};
-  uint32_t timChannel;
-
-  /* Compute the prescaler value to have TIM counter clock equal to clock_freq Hz */
-  timHandle.Instance               = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NP) {
-    return;
-  }
-  timHandle.Init.Prescaler         = (uint32_t)(getTimerClkFreq(timHandle.Instance) / clock_freq) - 1;
-  timHandle.Init.Period            = period - 1;
-  timHandle.Init.ClockDivision     = TIM_CLOCKDIVISION_DIV1;
-  timHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-#if !defined(STM32L0xx) && !defined(STM32L1xx)
-  timHandle.Init.RepetitionCounter = 0;
-#endif
-  timHandle.State = HAL_TIM_STATE_RESET;
-  // TBC: is timHandle.State field should be saved ?
-
-  if (do_init == 1) {
-    g_current_pin = pin;
-    if (HAL_TIM_PWM_Init(&timHandle) != HAL_OK) {
-      return;
-    }
-  }
-  timChannel = get_pwm_channel(pin);
-  if (!IS_TIM_CHANNELS(timChannel)) {
-    return;
-  }
-  //HAL_TIM_PWM_Stop(&timHandle, timChannel);
-
-  /*##-2- Configure the PWM channels #########################################*/
-  /* Common configuration for all channels */
-  timConfig.OCMode       = TIM_OCMODE_PWM1;
-  timConfig.OCPolarity   = TIM_OCPOLARITY_HIGH;
-  timConfig.OCFastMode   = TIM_OCFAST_DISABLE;
-#if !defined(STM32L0xx) && !defined(STM32L1xx)
-  timConfig.OCNPolarity  = TIM_OCNPOLARITY_HIGH;
-  timConfig.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  timConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
-#endif
-  timConfig.Pulse = value;
-
-  if (HAL_TIM_PWM_ConfigChannel(&timHandle, &timConfig, timChannel) != HAL_OK) {
-    /*##-2- Configure the PWM channels #########################################*/
-    return;
+  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
+  HardwareTimer *HT;
+  uint32_t index = get_timer_index(Instance);
+  if (HardwareTimer_Handle[index] == NULL) {
+    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM));
   }
 
-#if !defined(STM32L0xx) && !defined(STM32L1xx)
-  if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
-    HAL_TIMEx_PWMN_Start(&timHandle, timChannel);
-  } else
-#endif
-  {
-    HAL_TIM_PWM_Start(&timHandle, timChannel);
-  }
+  HT = (HardwareTimer *)(HardwareTimer_Handle[index]->__this);
+
+  uint32_t channel = STM_PIN_CHANNEL(pinmap_function(pin, PinMap_PWM));
+
+  HT->setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
+  HT->setOverflow(PWM_freq, HERTZ_FORMAT);
+  HT->setCaptureCompare(channel, value, RESOLUTION_12B_COMPARE_FORMAT);
+  HT->resume();
 }
-
 /**
   * @brief  This function will disable the PWM
   * @param  port : the gpio port to use
@@ -1084,28 +1010,18 @@ void pwm_start(PinName pin, uint32_t clock_freq,
   */
 void pwm_stop(PinName pin)
 {
-  TIM_HandleTypeDef timHandle;
-  uint32_t timChannel;
-
-  timHandle.Instance = pinmap_peripheral(pin, PinMap_PWM);
-  if (timHandle.Instance == NP) {
-    return;
-  }
-  timChannel = get_pwm_channel(pin);
-  if (!IS_TIM_CHANNELS(timChannel)) {
-    return;
+  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
+  HardwareTimer *HT;
+  uint32_t index = get_timer_index(Instance);
+  if (HardwareTimer_Handle[index] == NULL) {
+    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM));
   }
 
-#if !defined(STM32L0xx) && !defined(STM32L1xx)
-  if (STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM))) {
-    HAL_TIMEx_PWMN_Stop(&timHandle, timChannel);
-  } else
-#endif
-  {
-    HAL_TIM_PWM_Stop(&timHandle, timChannel);
+  HT = (HardwareTimer *)(HardwareTimer_Handle[index]->__this);
+  if (HT != NULL) {
+    delete (HT);
+    HT = NULL;
   }
-
-  HAL_TIM_PWM_DeInit(&timHandle);
 }
 #endif /* HAL_TIM_MODULE_ENABLED */
 
