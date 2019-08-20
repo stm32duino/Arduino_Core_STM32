@@ -149,8 +149,6 @@ If you have any issue, you could [file an issue on Github](https://github.com/st
 
 For question, support, ...,  you could submit a topic on the [stm32duino forum](http://stm32duino.com):
 
- * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=48)
- 
- * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=49)
+**Important note: currently http://stm32duino.com is down. Forum alternative is under investigation.**
 
-In any case, it always fine to search on those topics before submit an issue.
+In any case, it always fine to search if your issue was not already existing before submit a new one.
