@@ -247,7 +247,7 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
 //
 uint8_t TwoWire::endTransmission(void)
 {
-  return endTransmission(true);
+  return endTransmission((uint8_t)true);
 }
 
 // must be called in:
