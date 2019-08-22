@@ -151,7 +151,7 @@ extern "C" {
  *
  * MAG_DRD        PB12; //Connected to HMC5883L compass I2C
  * BEEP        PA12; //Connected to Beep out transistor on 6 pin header
- * 
+ *
  */
   
 #ifdef __cplusplus
