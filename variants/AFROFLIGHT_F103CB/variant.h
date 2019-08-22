@@ -146,7 +146,7 @@ extern "C" {
  * GPIO_BOTTOM        PB5
  * TELEM_OUT        PA13 // Warning, SWD access is lost when using this pin, bootloader via uart is required after
  *
- * BAT_ADC        PA4 //Connected to 6 pin header Battery voltage in via resistor divider 
+ * BAT_ADC        PA4 // Connected to 6 pin header Battery voltage in via resistor divider
  * ACC_INT        PA5 //Connected to Intterupt pin of MMA84520 accelerometer I2C
  * 
  * MAG_DRD        PB12; //Connected to HMC5883L compass I2C
