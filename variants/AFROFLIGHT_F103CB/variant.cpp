@@ -137,7 +137,7 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
     Error_Handler();
   }
-} 
+}
 #ifdef __cplusplus
 }
 #endif
