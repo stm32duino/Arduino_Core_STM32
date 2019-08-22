@@ -144,7 +144,7 @@ extern "C" {
  * PMW6 T4C4        PB9
  * SONAR_INT        PA15
  * GPIO_BOTTOM        PB5
- * TELEM_OUT        PA13//warning, you loose SWD access when using this pin , bootloader via uart is required after 
+ * TELEM_OUT        PA13 // Warning, SWD access is lost when using this pin, bootloader via uart is required after
  *
  * BAT_ADC        PA4 //Connected to 6 pin header Battery voltage in via resistor divider 
  * ACC_INT        PA5 //Connected to Intterupt pin of MMA84520 accelerometer I2C
