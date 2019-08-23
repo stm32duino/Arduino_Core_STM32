@@ -1,6 +1,6 @@
 # Arduino core support for STM32 based boards
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
-![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0) 
+![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
 [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.6.1.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.6.1...master)
 [![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32)
 
@@ -95,12 +95,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32F0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :green_heart: | STM32F030F4 Demo board | *1.5.0* |  |
+| :green_heart: | [STM32F030F4 Demo board](https://stm32-base.org/boards/STM32F030F4P6-STM32F030-DEMO-BOARD-V1.1) | *1.5.0* |  |
 
 | Status | Generic STM32F1xx | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :green_heart: | BluePill F103C(6-8-B) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
-| :green_heart: | BlackPill F103C(8-B) | *1.5.0* |  |
+| :green_heart: | [BluePill F103C(6-8-B)](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
+| :green_heart: | [BlackPill F103C(8-B)](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 
@@ -111,9 +111,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :yellow_heart: | BlackPill F401CC | **1.7.0** |  |
-| :green_heart: | [Black F407VET6](http://wiki.stm32duino.com/index.php?title=STM32F407#.22Black_VET6.22_STM32F407VET6_Variant) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
-| :green_heart: | [Blue F407VET6 Mini](http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini) | *1.4.0* |  |
-| :green_heart: | DIYMROE STM32F407VGT | *1.5.0* |  |
+| :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
+| :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
+| :green_heart: | [DIYMROE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
 
 | Status | 3D printer boards | Release | Comment |
