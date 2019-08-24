@@ -35,8 +35,6 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  /* USB connector on the top, MCU side */
-  /* Left Side */
   PB_9,  //D0
   PB_8,  //D1
   PB_7,  //D2
@@ -45,17 +43,16 @@ const PinName digitalPin[] = {
   PB_4,  //D5
   PB_3,  //D6
   PA_15, //D7
-  PA_12, //D8 - USB DP
-  PA_11, //D9 - USB DM
+  PA_12, //D8
+  PA_11, //D9
   PA_10, //D10
   PA_9,  //D11
   PA_8,  //D12
   PB_15, //D13
   PB_14, //D14
   PB_13, //D15
-  PB_12, //D16 - LED Blackpill
-  /* Right side */
-  PC_13, //D17 - LED Bluepill
+  PB_12, //D16
+  PC_13, //D17
   PC_14, //D18
   PC_15, //D19
   PA_0,  //D20/A0
@@ -87,24 +84,12 @@ extern "C" {
 
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow :
-  *            System Clock source            = PLL (HSE)
-  *            SYSCLK(Hz)                     = 72000000
-  *            HCLK(Hz)                       = 72000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 2
-  *            APB2 Prescaler                 = 1
-  *            PLL_Source                     = HSE
-  *            PLL_Mul                        = 9
-  *            Flash Latency(WS)              = 2
-  *            ADC Prescaler                  = 6
-  *            USB Prescaler                  = 1.5
   * @param  None
   * @retval None
   */
 WEAK void SystemClock_Config(void)
 {
-//Board has 12mhz xtal, iám currenlty using HSI internal xtal , i've not figured settings for external 12mhz
+  // Board has external 12MHz Xtal, currenlty using HSI internal Xtal
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;

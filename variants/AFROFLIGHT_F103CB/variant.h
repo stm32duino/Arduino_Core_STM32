@@ -38,27 +38,24 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-// Bluepill USB connector on the top, MCU side - Blackpill USB connector on bottom, MCU Side  (pins are reversed vertically for Arduino Ananlog pin correct sequence.
-// Left Side
 #define PB9  0
 #define PB8  1
 #define PB7  2
 #define PB6  3
 #define PB5  4
-#define PB4  5
-#define PB3  6
+#define PB4  5  // LED0
+#define PB3  6  // LED1
 #define PA15 7
-#define PA12 8  // USB DP
-#define PA11 9  // USB DM
+#define PA12 8
+#define PA11 9
 #define PA10 10
 #define PA9  11
 #define PA8  12
 #define PB15 13
 #define PB14 14
 #define PB13 15
-#define PB12 16 // LED Blackpill
-// Right side
-#define PC13 17 // LED Bluepill
+#define PB12 16
+#define PC13 17
 #define PC14 18
 #define PC15 19
 #define PA0  20 // A0
@@ -85,14 +82,10 @@ extern "C" {
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
-#ifdef ARDUINO_BLUEPILL_F103C8
-#define LED_BUILTIN             PC13
-#else
-#define LED_BUILTIN             PB4
-#endif
-#define LED_GREEN               PB3
-#define LED_RED             LED_BUILTIN
+#define LED0                    PB4
+#define LED1                    PB3
 
+#define LED_BUILTIN             LED0
 
 // SPI Definitions
 #define PIN_SPI_SS              PA4
@@ -101,19 +94,13 @@ extern "C" {
 #define PIN_SPI_SCK             PA5
 
 // I2C Definitions
-//#define PIN_WIRE_SDA            PB7
-//#define PIN_WIRE_SCL            PB6
 //On afroflight Rev 5 it's on i2c port 2 that MPU6050 is connected too
-#define PIN_WIRE_SDA      PB11
-#define PIN_WIRE_SCL      PB10
-
+#define PIN_WIRE_SDA            PB11
+#define PIN_WIRE_SCL            PB10
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM3
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM2
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
@@ -122,38 +109,38 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-#define MPU_I2C_SDA PB11;
-#define MPU_I2C_SCL PB10;
-#define MPU_ADDR 0x68;
-#define MPU_INT PB13;
+#define MPU_I2C_SDA             PB11
+#define MPU_I2C_SCL             PB10
+#define MPU_ADDR                0x68
+#define MPU_INT                 PB13
 /*
- * RC_CH1 T2C1        PA0
- * RC_CH2 T2C2        PA1
- * RC_CH3 T2C3/UA2_TX     PA2
- * RC_CH4 T2C4/UA2_RX   PA3
- * RC_CH5 T3C1        PA6
- * RC_CH6 T3C2        PA7
- * RC_CH7 T3C3        PB0
- * RC_CH8 T3C4        PB1
+ * RC_CH1 T2C1                    PA0
+ * RC_CH2 T2C2                    PA1
+ * RC_CH3 T2C3/UA2_TX             PA2
+ * RC_CH4 T2C4/UA2_RX             PA3
+ * RC_CH5 T3C1                    PA6
+ * RC_CH6 T3C2                    PA7
+ * RC_CH7 T3C3                    PB0
+ * RC_CH8 T3C4                    PB1
  *
- * PWM1 T1C1        PA8
- * PMW2 T1C4        PA11
- * PMW3 T4C1        PB6
- * PMW4 T4C2        PB7
- * PMW5 T4C3        PB8
- * PMW6 T4C4        PB9
- * SONAR_INT        PA15
- * GPIO_BOTTOM        PB5
- * TELEM_OUT        PA13 // Warning, SWD access is lost when using this pin, bootloader via uart is required after
+ * PWM1 T1C1                      PA8
+ * PMW2 T1C4                      PA11
+ * PMW3 T4C1                      PB6
+ * PMW4 T4C2                      PB7
+ * PMW5 T4C3                      PB8
+ * PMW6 T4C4                      PB9
+ * SONAR_INT                      PA15
+ * GPIO_BOTTOM                    PB5
+ * TELEM_OUT                      PA13 // Warning, SWD access is lost when using this pin, bootloader via uart is required after
  *
- * BAT_ADC        PA4 // Connected to 6 pin header Battery voltage in via resistor divider
- * ACC_INT        PA5 //Connected to Intterupt pin of MMA84520 accelerometer I2C
+ * BAT_ADC                        PA4 // Connected to 6 pin header Battery voltage in via resistor divider
+ * ACC_INT                        PA5 // Connected to Intterupt pin of MMA84520 accelerometer I2C
  *
- * MAG_DRD        PB12; //Connected to HMC5883L compass I2C
- * BEEP        PA12; //Connected to Beep out transistor on 6 pin header
+ * MAG_DRD                        PB12 //Connected to HMC5883L compass I2C
+ * BEEP                           PA12 //Connected to Beep out transistor on 6 pin header
  *
  */
-  
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
