@@ -20,7 +20,6 @@
                                         |(STM32_CORE_VERSION_PATCH << 8U )\
                                         |(STM32_CORE_VERSION_EXTRA))
 
-#define F_CPU SystemCoreClock
 #define USE_HAL_DRIVER
 
 #ifdef STM32F0xx
@@ -51,6 +50,10 @@
 #include "stm32wbxx.h"
 #else
 #error "STM32YYxx chip series is not defined in boards.txt."
+#endif
+
+#ifndef F_CPU
+#define F_CPU SystemCoreClock
 #endif
 
 // Here define some compatibility
