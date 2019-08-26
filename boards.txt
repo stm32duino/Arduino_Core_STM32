@@ -1117,13 +1117,19 @@ Genericflight.build.cmsis_lib_gcc=arm_cortexM3l_math
 Genericflight.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # AfroFlight Rev5 
-Genericflight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5
+Genericflight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_size=131072
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_data_size=20480
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
-Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.series=STM32F1xx
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.variant=AFROFLIGHT_F103CB
+
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M=Afro Flight Rev5 (12MHz)
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_size=131072
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_data_size=20480
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=AFROFLIGHT_F103CB
 
 # Upload menu
 Genericflight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)

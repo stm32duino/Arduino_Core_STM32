@@ -141,6 +141,10 @@ extern "C" {
  *
  */
 
+#ifdef ARDUINO_AFROFLIGHT_F103CB_12M
+#define HSE_VALUE    12000000U /*!< Value of the External oscillator in Hz */
+#endif
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
