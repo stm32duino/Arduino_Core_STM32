@@ -136,6 +136,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
 
+| Status | [Midatronics](https://midatronics.com/) | Release | Comment |
+| :---: | --- | :---: | :--- |
+| :yellow_heart: | [SharkyMKR](https://midatronics.com/Development_Boards/MKR_Sharky_I) | **1.7.0** |  |
+
 ## Next release
 
   See [milestones](https://github.com/stm32duino/Arduino_Core_STM32/milestones) to have an overview of the next release content.
