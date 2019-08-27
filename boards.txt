@@ -1144,6 +1144,48 @@ RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Midatronics boards
+
+Midatronics.name=Midatronics boards
+
+Midatronics.build.vid=0x0483
+Midatronics.build.core=arduino
+Midatronics.build.board=Midatronics
+Midatronics.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# MKR_SHARKY board
+Midatronics.menu.pnum.MKR_SHARKY=MKR Sharky
+Midatronics.menu.pnum.MKR_SHARKY.node=NODE_WB55CE
+Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_size=524288
+Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_data_size=196604
+Midatronics.menu.pnum.MKR_SHARKY.build.mcu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
+Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
+Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
+Midatronics.menu.pnum.MKR_SHARKY.build.variant=MKR_SHARKY
+Midatronics.menu.pnum.MKR_SHARKY.build.cmsis_lib_gcc=arm_cortexM4l_math
+
+# Upload menu
+Midatronics.menu.upload_method.MassStorage=Mass Storage
+Midatronics.menu.upload_method.MassStorage.upload.protocol=
+Midatronics.menu.upload_method.MassStorage.upload.tool=massStorageCopy
+
+Midatronics.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Midatronics.menu.upload_method.swdMethod.upload.protocol=0
+Midatronics.menu.upload_method.swdMethod.upload.options=-g
+Midatronics.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Midatronics.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Midatronics.menu.upload_method.serialMethod.upload.protocol=1
+Midatronics.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Midatronics.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
+Midatronics.menu.upload_method.dfuMethod.upload.options=-g
+Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
@@ -1216,6 +1258,12 @@ RAK.menu.xserial.disabled.build.xSerial=
 3dprinter.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 3dprinter.menu.xserial.disabled=Disabled (no Serial support)
 3dprinter.menu.xserial.disabled.build.xSerial=
+
+Midatronics.menu.xserial.generic=Enabled (generic 'Serial')
+Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
+Midatronics.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Midatronics.menu.xserial.disabled=Disabled (No Serial support)
+Midatronics.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -1343,6 +1391,19 @@ Sparky.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 3dprinter.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
 3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Midatronics.menu.usb.none=None
+Midatronics.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Midatronics.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Midatronics.menu.usb.CDC=CDC (no generic 'Serial')
+Midatronics.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Midatronics.menu.usb.HID=HID (keyboard and mouse)
+Midatronics.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Midatronics.menu.xusb.FS=Low/Full Speed
+Midatronics.menu.xusb.HS=High Speed
+Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
+Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -1563,6 +1624,24 @@ RAK.menu.opt.ogstd.build.flags.optimize=-g -Og
 3dprinter.menu.opt.ogstd=Debug (-g)
 3dprinter.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+Midatronics.menu.opt.osstd=Smallest (-Os default)
+Midatronics.menu.opt.oslto=Smallest (-Os) with LTO
+Midatronics.menu.opt.oslto.build.flags.optimize=-Os -flto
+Midatronics.menu.opt.o1std=Fast (-O1)
+Midatronics.menu.opt.o1std.build.flags.optimize=-O1
+Midatronics.menu.opt.o1lto=Fast (-O1) with LTO
+Midatronics.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Midatronics.menu.opt.o2std=Faster (-O2)
+Midatronics.menu.opt.o2std.build.flags.optimize=-O2
+Midatronics.menu.opt.o2lto=Faster (-O2) with LTO
+Midatronics.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Midatronics.menu.opt.o3std=Fastest (-O3)
+Midatronics.menu.opt.o3std.build.flags.optimize=-O3
+Midatronics.menu.opt.o3lto=Fastest (-O3) with LTO
+Midatronics.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Midatronics.menu.opt.ogstd=Debug (-g)
+Midatronics.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
 Nucleo_144.menu.rtlib.nanofp=Newlib Nano + Float Printf
@@ -1683,3 +1762,13 @@ RAK.menu.rtlib.full.build.flags.ldspecs=
 3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 3dprinter.menu.rtlib.full=Newlib Standard
 3dprinter.menu.rtlib.full.build.flags.ldspecs=
+
+Midatronics.menu.rtlib.nano=Newlib Nano (default)
+Midatronics.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Midatronics.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Midatronics.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Midatronics.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Midatronics.menu.rtlib.full=Newlib Standard
+Midatronics.menu.rtlib.full.build.flags.ldspecs=
