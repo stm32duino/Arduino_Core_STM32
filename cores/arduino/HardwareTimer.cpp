@@ -688,6 +688,8 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
 
 /**
   * @brief  Generate an update event to force all registers (Autoreload, prescaler, compare) to be taken into account
+  * @note   Refresh() can only be called after a 1st call to resume() to be sure timer is initialised.
+  *         It is usefull while timer is running after some registers update
   * @retval None
   */
 void HardwareTimer::refresh()

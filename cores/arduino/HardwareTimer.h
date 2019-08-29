@@ -93,7 +93,7 @@ class HardwareTimer {
     void pause(void);  // Pause counter and all output channels
     void resume(void); // Resume counter and all output channels
 
-    void setPrescaleFactor(uint32_t format = TICK_FORMAT); // set prescaler register (which is factor value - 1)
+    void setPrescaleFactor(uint32_t prescaler); // set prescaler register (which is factor value - 1)
     uint32_t getPrescaleFactor();
 
     void setOverflow(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set AutoReload register depending on format provided
@@ -122,7 +122,10 @@ class HardwareTimer {
 
     void timerHandleDeinit();  // Timer deinitialization
 
+    // Refresh() can only be called after a 1st call to resume() to be sure timer is initialised.
+    // It is usefull while timer is running after some registers update
     void refresh(void); // Generate update event to force all registers (Autoreload, prescaler, compare) to be taken into account
+
 
     uint32_t getTimerClkFreq();  // return timer clock frequency in Hz.
 
