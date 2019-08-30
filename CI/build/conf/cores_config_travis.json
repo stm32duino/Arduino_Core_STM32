@@ -14,6 +14,7 @@
           "pattern": "^.*$",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB_12M",
             "BLACKPILL_F103C8B",
             "BLACK_F407VG",
             "BLACK_F407ZE",
@@ -21,6 +22,9 @@
             "BLUEPILL_F103C6",
             "BLUEPILL_F103C8B",
             "DEMO_F030F4_16M",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",

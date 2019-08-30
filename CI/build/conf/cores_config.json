@@ -7,13 +7,17 @@
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
+        },
+        {
+          "name": "STEVAL_MKSBOX1V1",
+          "options": "usb=CDCgen"
         }
       ],
       "sketches": [
         {
           "pattern": "^((?!BareMinimum.ino).)*$",
           "applicable": false,
-          "boards": [ "DEMO_F030F4" ]
+          "boards": [ "DEMO_F030F4", "DEMO_F030F4_16M", "DEMO_F030F4_HSI" ]
         },
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
@@ -39,6 +43,8 @@
           "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB",
+            "AFROFLIGHT_F103CB_12M",
             "ARMED_V1",
             "BLUE_F407VE_Mini",
             "BLACKPILL_F103C8",
@@ -47,6 +53,8 @@
             "BLUEPILL_F103C8",
             "BLUEPILL_F103C8B",
             "BLACKPILL_F303CC",
+            "BLACKPILL_F401CC",
+            "CoreBoard_F401RC",
             "DIYMROE_F407VGT",
             "EEXTR_F030_V1",
             "HY_TinySTM103TB",
@@ -120,6 +128,8 @@
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB",
+            "AFROFLIGHT_F103CB_12M",
             "ARMED_V1",
             "BLACKPILL_F103C8",
             "BLACKPILL_F103C8B",
@@ -127,7 +137,9 @@
             "BLUEPILL_F103C8",
             "BLUEPILL_F103C8B",
             "BLACKPILL_F303CC",
+            "BLACKPILL_F401CC",
             "BLUE_F407VE_Mini",
+            "CoreBoard_F401RC",
             "DIYMROE_F407VGT",
             "EEXTR_F030_V1",
             "HY_TinySTM103TB",
@@ -135,6 +147,7 @@
             "MALYANM200_F103CB",
             "MAPLEMINI_F103CB",
             "NUCLEO_F303K8",
+            "NUCLEO_G431KB",
             "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "PRNTR_F407_V1",
@@ -163,7 +176,8 @@
             "NUCLEO_L031K6",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
-            "REMRAM_V1" ]
+            "REMRAM_V1"
+          ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
@@ -178,7 +192,7 @@
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
@@ -189,6 +203,15 @@
           "pattern": "ArduinoISP",
           "applicable": true,
           "boards": [ "" ]
+        },
+        {
+          "pattern": "tone|p07_Keyboard",
+          "applicable": false,
+          "boards": [
+            "ST3DP001_EVAL",
+            "STEVAL_MKSBOX1V1",
+            "VAKE_F446VE"
+          ]
         }
       ]
     },
