@@ -216,7 +216,6 @@ void TwoWire::beginTransmission(int address)
 //
 uint8_t TwoWire::endTransmission(uint8_t sendStop)
 {
-  //UNUSED(sendStop);
   int8_t ret = 4;
   // check transfer options and store it in the I2C handle
   if (sendStop == false) {
