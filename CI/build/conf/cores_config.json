@@ -57,6 +57,10 @@
             "CoreBoard_F401RC",
             "DIYMROE_F407VGT",
             "EEXTR_F030_V1",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
+            "Generic_F103RET6",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
@@ -65,6 +69,7 @@
             "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
+            "NUCLEO_G431KB",
             "PRNTR_F407_V1",
             "RUMBA32",
             "RAK811_TRACKER",
@@ -86,7 +91,7 @@
         {
           "pattern": "Firmata/",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "VAKE_F446VE" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "STEVAL_MKSBOX1V1", "VAKE_F446VE" ]
         },
         {
           "pattern": "Blink(WithoutDelay)?.ino",
@@ -142,6 +147,10 @@
             "CoreBoard_F401RC",
             "DIYMROE_F407VGT",
             "EEXTR_F030_V1",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
+            "Generic_F103RET6",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
@@ -176,18 +185,32 @@
             "NUCLEO_L031K6",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
-            "REMRAM_V1"
+            "REMRAM_V1",
+            "STEVAL_MKSBOX1V1"
           ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA", "REMRAM_V1" ]
+          "boards": [
+            "ARMED_V1",
+            "EEXTR_F030_V1",
+            "RAK811_TRACKER",
+            "RAK811_TRACKERA",
+            "REMRAM_V1",
+            "STEVAL_MKSBOX1V1"
+          ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA" ]
+          "boards": [
+            "ARMED_V1",
+            "EEXTR_F030_V1",
+            "RAK811_TRACKER",
+            "RAK811_TRACKERA",
+            "STEVAL_MKSBOX1V1"
+          ]
         },
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
