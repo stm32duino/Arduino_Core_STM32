@@ -106,7 +106,7 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_F030R8", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "09.USB",
@@ -220,7 +220,7 @@
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "STEVAL_MKSBOX1V1" ]
         },
         {
           "pattern": "ArduinoISP",
