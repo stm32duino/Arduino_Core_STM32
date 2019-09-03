@@ -115,7 +115,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
 | :yellow_heart: | Core Board F401RC | **1.7.0** |  |
-| :green_heart: | [DIYMROE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
+| :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
 
 | Status | 3D printer boards | Release | Comment |
