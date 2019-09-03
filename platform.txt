@@ -27,7 +27,7 @@ compiler.c.elf.cmd=arm-none-eabi-gcc
 compiler.objcopy.cmd=arm-none-eabi-objcopy
 compiler.elf2hex.cmd=arm-none-eabi-objcopy
 
-compiler.extra_flags=-mcpu={build.mcu} -mthumb "@{build.opt.path}"
+compiler.extra_flags=-mcpu={build.mcu} {build.flags.fp} -mthumb "@{build.opt.path}"
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 
@@ -37,7 +37,7 @@ compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {compiler.wa
 
 compiler.ar.flags=rcs
 
-compiler.c.elf.flags=-mcpu={build.mcu} -mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--defsym=LD_FLASH_OFFSET={build.flash_offset} -Wl,--defsym=LD_MAX_SIZE={upload.maximum_size} -Wl,--defsym=LD_MAX_DATA_SIZE={upload.maximum_data_size} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common
+compiler.c.elf.flags=-mcpu={build.mcu} {build.flags.fp} -mthumb {build.flags.optimize} {build.flags.ldspecs} -Wl,--defsym=LD_FLASH_OFFSET={build.flash_offset} -Wl,--defsym=LD_MAX_SIZE={upload.maximum_size} -Wl,--defsym=LD_MAX_DATA_SIZE={upload.maximum_data_size} -Wl,--cref -Wl,--check-sections -Wl,--gc-sections -Wl,--entry=Reset_Handler -Wl,--unresolved-symbols=report-all -Wl,--warn-common
 
 compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
 
@@ -82,6 +82,7 @@ build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
 build.usb_speed=
 build.startup_file=
+build.flags.fp=
 build.flags.optimize=-Os
 build.flags.ldspecs=--specs=nano.specs
 build.flash_offset=0
