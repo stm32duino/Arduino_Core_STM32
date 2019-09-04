@@ -146,7 +146,7 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 
     // perform blocking read into buffer
     uint8_t read = 0;
-    if (sendStop != false) {
+    if (sendStop != 0) {
       _i2c.handle.XferOptions = I2C_LAST_FRAME;
     } else {
       _i2c.handle.XferOptions = I2C_NO_OPTION_FRAME;
