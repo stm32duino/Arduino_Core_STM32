@@ -938,13 +938,13 @@ GenF4.menu.pnum.BLUE_F407VE_Mini.build.board=BLUE_F407VE_Mini
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant=BLUE_F407VE_Mini
 
-# DIYMROE STM32F407VGT board
-GenF4.menu.pnum.DIYMROE_F407VGT=DIYMROE STM32F407VGT
-GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_size=1048576
-GenF4.menu.pnum.DIYMROE_F407VGT.upload.maximum_data_size=131072
-GenF4.menu.pnum.DIYMROE_F407VGT.build.board=DIYMROE_F407VGT
-GenF4.menu.pnum.DIYMROE_F407VGT.build.product_line=STM32F407xx
-GenF4.menu.pnum.DIYMROE_F407VGT.build.variant=DIYMROE_F407VGT
+# DIYMORE STM32F407VGT board
+GenF4.menu.pnum.DIYMORE_F407VGT=DIYMORE STM32F407VGT
+GenF4.menu.pnum.DIYMORE_F407VGT.upload.maximum_size=1048576
+GenF4.menu.pnum.DIYMORE_F407VGT.upload.maximum_data_size=131072
+GenF4.menu.pnum.DIYMORE_F407VGT.build.board=DIYMORE_F407VGT
+GenF4.menu.pnum.DIYMORE_F407VGT.build.product_line=STM32F407xx
+GenF4.menu.pnum.DIYMORE_F407VGT.build.variant=DIYMORE_F407VGT
 
 # FK407M1
 GenF4.menu.pnum.FK407M1=FK407M1 STM32F407VET

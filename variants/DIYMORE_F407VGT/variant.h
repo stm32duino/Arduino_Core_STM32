@@ -30,7 +30,7 @@
 
 /*
  * This version created by Andrew W Symons (AWS), 19-Nov-18
- * for DIYMROE_STM32F407VGT board
+ * for DIYMORE_STM32F407VGT board
  */
 
 #ifndef _VARIANT_ARDUINO_STM32_
