@@ -218,7 +218,7 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
 {
   int8_t ret = 4;
   // check transfer options and store it in the I2C handle
-  if (sendStop == false) {
+  if (sendStop == 0) {
     _i2c.handle.XferOptions = I2C_FIRST_FRAME;
   } else {
     _i2c.handle.XferOptions = I2C_FIRST_AND_LAST_FRAME;
