@@ -46,9 +46,9 @@
 #include <stm32_def.h>
 #include <digital_io.h>
 
-//#define FORCE_BAUD_RATE 19200
 #define OVERSAMPLE 3
-
+// defined in bit-periods
+#define HALFDUPLEX_SWITCH_DELAY 5
 // It's best to define TIMER_SERIAL in variant.h. If not defined, we choose one here
 // The order is based on (lack of) features and compare channels, we choose the simplest available
 // because we only need an update interrupt
@@ -161,7 +161,7 @@ bool SoftwareSerial::listen()
     if (active_listener) {
       active_listener->stopListening();
     }
-    rx_tick_cnt = 1;
+    rx_tick_cnt = 0;
     rx_bit_cnt = -1;
     setSpeed(_speed);
     active_listener = this;
@@ -194,7 +194,11 @@ bool SoftwareSerial::stopListening()
 
 inline void SoftwareSerial::setTX()
 {
-  digitalWriteFast(digitalPinToPinName(_transmitPin), _inverse_logic ? LOW : HIGH);
+  if (_inverse_logic) {
+    LL_GPIO_ResetOutputPin(_transmitPinPort, _transmitPinNumber);
+  } else {
+    LL_GPIO_SetOutputPin(_transmitPinPort, _transmitPinNumber);
+  }
   pinMode(_transmitPin, OUTPUT);
 }
 
@@ -212,7 +216,7 @@ inline void SoftwareSerial::setRXTX(bool input)
       if (active_in != this) {
         setRX();
         rx_bit_cnt = -1;
-        rx_tick_cnt = 2;
+        rx_tick_cnt = 1;
         active_in = this;
       }
     } else {
@@ -226,24 +230,28 @@ inline void SoftwareSerial::setRXTX(bool input)
 
 inline void SoftwareSerial::send()
 {
-  if (--tx_tick_cnt <= 0) {
+  if (--tx_tick_cnt < 0) {
     if (tx_bit_cnt++ < 10) {
       // send data (including start and stop bits)
-      digitalWriteFast(digitalPinToPinName(_transmitPin), (tx_buffer & 1) ? ~_inverse_logic : _inverse_logic);
+      if (tx_buffer & 1) {
+        LL_GPIO_SetOutputPin(_transmitPinPort, _transmitPinNumber);
+      } else {
+        LL_GPIO_ResetOutputPin(_transmitPinPort, _transmitPinNumber);
+
+      }
       tx_buffer >>= 1;
-      tx_tick_cnt = OVERSAMPLE;
+      tx_tick_cnt = OVERSAMPLE - 1; // first sample sent, OVERSAMPLE - 1 more samples to go
     } else {
-      tx_tick_cnt = 1;
-      if (_output_pending) {
+      tx_tick_cnt = 0;
+      if (_output_pending || !(_half_duplex && active_listener == this)) {
         active_out = nullptr;
-      } else if (tx_bit_cnt > 10 + OVERSAMPLE * 5) {
-        if (_half_duplex && active_listener == this) {
-          // setRXTX(true);
-          pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
-          rx_bit_cnt = -1;
-          rx_tick_cnt = 2;
-          active_in = this;
-        }
+        // When in half-duplex mode, we wait for HALFDUPLEX_SWITCH_DELAY bit-periods after the byte has
+        // been transmitted before allowing the switch to RX mode
+      } else if (tx_bit_cnt > 10 + HALFDUPLEX_SWITCH_DELAY) {
+        pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
+        rx_bit_cnt = -1;
+        rx_tick_cnt = 1;
+        active_in = this;
         active_out = nullptr;
       }
     }
@@ -255,18 +263,17 @@ inline void SoftwareSerial::send()
 //
 inline void SoftwareSerial::recv()
 {
-  if (--rx_tick_cnt <= 0) {
-    //    uint8_t inbit = gpio_get(_receivePin);
-    uint8_t inbit = digitalReadFast(digitalPinToPinName(_receivePin));
+  if (--rx_tick_cnt < 0) {
+    bool inbit = LL_GPIO_IsInputPinSet(_receivePinPort, _receivePinNumber) ^ _inverse_logic;
     if (rx_bit_cnt == -1) {
       // waiting for start bit
       if (!inbit) {
         // got start bit
         rx_bit_cnt = 0;
-        rx_tick_cnt = OVERSAMPLE + 1;
+        rx_tick_cnt = OVERSAMPLE - 1; // first sample received, we need OVERSAMPLE - 1 more samples
         rx_buffer = 0;
       } else {
-        rx_tick_cnt = 1;
+        rx_tick_cnt = 0;
       }
     } else if (rx_bit_cnt >= 8) {
       if (inbit) {
@@ -280,7 +287,7 @@ inline void SoftwareSerial::recv()
           _buffer_overflow = true;
         }
       }
-      rx_tick_cnt = 1;
+      rx_tick_cnt = 0;
       rx_bit_cnt = -1;
     } else {
       // data bits
@@ -289,7 +296,7 @@ inline void SoftwareSerial::recv()
         rx_buffer |= 0x80;
       }
       rx_bit_cnt++;
-      rx_tick_cnt = OVERSAMPLE;
+      rx_tick_cnt = OVERSAMPLE - 1; // first sample received, we need OVERSAMPLE - 1 more samples
     }
   }
 }
@@ -314,6 +321,10 @@ inline void SoftwareSerial::handleInterrupt(HardwareTimer *timer)
 SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool inverse_logic /* = false */) :
   _receivePin(receivePin),
   _transmitPin(transmitPin),
+  _receivePinPort(digitalPinToPort(receivePin)),
+  _receivePinNumber(STM_LL_GPIO_PIN(digitalPinToPinName(receivePin))),
+  _transmitPinPort(digitalPinToPort(transmitPin)),
+  _transmitPinNumber(STM_LL_GPIO_PIN(digitalPinToPinName(transmitPin))),
   _speed(0),
   _buffer_overflow(false),
   _inverse_logic(inverse_logic),
@@ -323,8 +334,8 @@ SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool i
   _receive_buffer_head(0)
 {
   /* Enable GPIO clock for tx and rx pin*/
-  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(_transmitPin)));
-  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(_receivePin)));
+  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
+  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
 }
 
 //
@@ -363,8 +374,6 @@ void SoftwareSerial::end()
 // Read data from buffer
 int SoftwareSerial::read()
 {
-  //printf("hd %d active_in %d tx %d rx %d\n", _half_duplex, active_in, _receivePin, _transmitPin);
-
   // Empty buffer?
   if (_receive_buffer_head == _receive_buffer_tail) {
     return -1;
@@ -389,6 +398,9 @@ size_t SoftwareSerial::write(uint8_t b)
     ;
   // add start and stop bits.
   tx_buffer = b << 1 | 0x200;
+  if (_inverse_logic) {
+    tx_buffer = ~tx_buffer;
+  }
   tx_bit_cnt = 0;
   tx_tick_cnt = OVERSAMPLE;
   setSpeed(_speed);

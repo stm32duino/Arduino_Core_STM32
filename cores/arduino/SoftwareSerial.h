@@ -50,6 +50,10 @@ class SoftwareSerial : public Stream {
     // per object data
     uint16_t _receivePin;
     uint16_t _transmitPin;
+    GPIO_TypeDef *_receivePinPort;
+    uint32_t _receivePinNumber;
+    GPIO_TypeDef *_transmitPinPort;
+    uint32_t _transmitPinNumber;
     uint32_t _speed;
 
     uint16_t _buffer_overflow: 1;
