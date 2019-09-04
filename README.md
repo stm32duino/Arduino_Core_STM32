@@ -83,7 +83,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [32F0308DISCOVERY](http://www.st.com/en/evaluation-tools/32f0308discovery.html) | *1.3.0* |  |
 | :green_heart: | [32F072BDISCOVERY](https://www.st.com/en/evaluation-tools/32f072bdiscovery.html) | *1.5.0* |  |
-| :green_heart: | [STM32VLDISCOVERY](https://community.st.com/external-link.jspa?url=http%3A%2F%2Fwww.st.com%2Fen%2Fevaluation-tools%2Fstm32vldiscovery.html) | 0.2.1 |  |
+| :green_heart: | [STM32VLDISCOVERY](https://www.st.com/en/evaluation-tools/stm32vldiscovery.html) | 0.2.1 |  |
 | :green_heart: | [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html) | *0.1.0* |  |
 | :green_heart: | [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | *0.1.0* |  |
 | :green_heart: | [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html) | *1.1.0* |  |
