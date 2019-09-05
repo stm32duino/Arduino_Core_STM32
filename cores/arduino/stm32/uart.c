@@ -131,7 +131,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
   /* Pins Rx/Tx must not be NP */
-  if (uart_rx == NP || uart_tx == NP) {
+  if ((obj->pin_rx != NC && uart_rx == NP) || uart_tx == NP) {
     core_debug("ERROR: at least one UART pin has no peripheral\n");
     return;
   }
@@ -288,7 +288,9 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   /* Configure UART GPIO pins */
   pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
-  pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
+  if (uart_rx != NP) {
+    pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
+  }
 
   /* Configure uart */
   uart_handlers[obj->index] = huart;
@@ -359,7 +361,11 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   }
 #endif
 
-  if (HAL_UART_Init(huart) != HAL_OK) {
+  if (uart_rx == NP) {
+    if (HAL_HalfDuplex_Init(huart) != HAL_OK) {
+      return;
+    }
+  } else if (HAL_UART_Init(huart) != HAL_OK) {
     return;
   }
 }
@@ -730,6 +736,32 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   /* Enable interrupt */
   HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
+}
+
+/**
+ * Enable transmitter for half-duplex mode. NOOP in full-fuplex mode
+ *
+ * @param obj : pointer to serial_t structure
+ * @retval none
+ */
+void uart_enable_tx(serial_t *obj)
+{
+  if (obj != NULL && obj->pin_rx == NC) {
+    HAL_HalfDuplex_EnableTransmitter(uart_handlers[obj->index]);
+  }
+}
+
+/**
+ * Enable receiver for half-duplex mode. NOOP in full-fuplex mode
+ *
+ * @param obj : pointer to serial_t structure
+ * @retval none
+ */
+void uart_enable_rx(serial_t *obj)
+{
+  if (obj != NULL && obj->pin_rx == NC) {
+    HAL_HalfDuplex_EnableReceiver(uart_handlers[obj->index]);
+  }
 }
 
 /**

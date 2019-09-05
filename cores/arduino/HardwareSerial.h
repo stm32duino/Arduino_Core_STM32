@@ -143,12 +143,24 @@ class HardwareSerial : public Stream {
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    // Enable half-duplex mode by setting the Rx pin to NC
+    // This needs to be done before the call to begin()
+    inline void setHalfDuplex()
+    {
+      setRx(NC);
+    }
+    inline bool isHalfDuplex() const
+    {
+      return _serial.pin_rx == NC;
+    }
+
     friend class STM32LowPower;
 
     // Interrupt handlers
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
   private:
+    bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
     void init(void);

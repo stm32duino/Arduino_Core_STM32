@@ -347,6 +347,11 @@ void HardwareSerial::begin(unsigned long baud, byte config)
   }
 
   uart_init(&_serial, (uint32_t)baud, databits, parity, stopbits);
+  if (isHalfDuplex()) {
+    // Start half duplex communication in receive mode.
+    _rx_enabled = true;
+    uart_enable_rx(&_serial);
+  }
   uart_attach_rx_callback(&_serial, _rx_complete_irq);
 }
 
@@ -377,6 +382,15 @@ int HardwareSerial::peek(void)
 
 int HardwareSerial::read(void)
 {
+  if (isHalfDuplex()) {
+    // In half duplex mode we have to wait for all TX characters to
+    // be transmitted before we can receive data.
+    flush();
+    if (!_rx_enabled) {
+      _rx_enabled = true;
+      uart_enable_rx(&_serial);
+    }
+  }
   // if the head isn't ahead of the tail, we don't have any characters
   if (_serial.rx_head == _serial.rx_tail) {
     return -1;
@@ -417,6 +431,12 @@ void HardwareSerial::flush()
 size_t HardwareSerial::write(uint8_t c)
 {
   _written = true;
+  if (isHalfDuplex()) {
+    if (_rx_enabled) {
+      _rx_enabled = false;
+      uart_enable_tx(&_serial);
+    }
+  }
 
   tx_buffer_index_t i = (_serial.tx_head + 1) % SERIAL_TX_BUFFER_SIZE;
 
