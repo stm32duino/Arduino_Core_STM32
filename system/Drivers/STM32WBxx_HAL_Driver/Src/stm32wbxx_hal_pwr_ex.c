@@ -79,6 +79,7 @@
   */
   
 
+#if defined(PWR_CR1_VOS)
 /**
   * @brief Return Voltage Scaling Range.
   * @retval VOS bit field (PWR_REGULATOR_VOLTAGE_RANGE1 or PWR_REGULATOR_VOLTAGE_RANGE2)
@@ -145,7 +146,8 @@ HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
   }
   
   return HAL_OK;
-}  
+}
+#endif
 
 /****************************************************************************/
 
@@ -179,7 +181,7 @@ void HAL_PWREx_DisableBatteryCharging(void)
 }  
 
 /****************************************************************************/
-
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief Enable VDDUSB supply.
   * @note  Remove VDDUSB electrical and logical isolation, once VDDUSB supply is present.
@@ -198,6 +200,7 @@ void HAL_PWREx_DisableVddUSB(void)
 {
   CLEAR_BIT(PWR->CR2, PWR_CR2_USV);
 }
+#endif
 
 /****************************************************************************/
 
@@ -219,7 +222,7 @@ void HAL_PWREx_DisableInternalWakeUpLine(void)
   CLEAR_BIT(PWR->CR3, PWR_CR3_EIWUL);
 }
 
-
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief Enable BORH and SMPS step down converter forced in bypass mode
   *        interrupt for CPU1
@@ -239,7 +242,7 @@ void HAL_PWREx_DisableBORH_SMPSBypassIT(void)
 {
   CLEAR_BIT(PWR->CR3, PWR_CR3_EBORHSMPSFB);
 }
-
+#endif
 
 /**
   * @brief Enable RF Phase interrupt.
@@ -358,11 +361,13 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
     case PWR_GPIO_C:
        SET_BIT(PWR->PUCRC, GPIONumber);
        CLEAR_BIT(PWR->PDCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
     case PWR_GPIO_D:
        SET_BIT(PWR->PUCRD, GPIONumber);
        CLEAR_BIT(PWR->PDCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        SET_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        CLEAR_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
@@ -411,10 +416,12 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber
        break; 
     case PWR_GPIO_C:
        CLEAR_BIT(PWR->PUCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
     case PWR_GPIO_D:
        CLEAR_BIT(PWR->PUCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        CLEAR_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        break;
@@ -472,11 +479,13 @@ HAL_StatusTypeDef HAL_PWREx_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumbe
     case PWR_GPIO_C:
        SET_BIT(PWR->PDCRC, GPIONumber);
        CLEAR_BIT(PWR->PUCRC, GPIONumber);
-       break; 
+       break;
+#if defined(GPIOD)
   case PWR_GPIO_D:
        SET_BIT(PWR->PDCRD, GPIONumber);
        CLEAR_BIT(PWR->PUCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        SET_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        CLEAR_BIT(PWR->PUCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
@@ -526,9 +535,11 @@ HAL_StatusTypeDef HAL_PWREx_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumb
     case PWR_GPIO_C:
        CLEAR_BIT(PWR->PDCRC, GPIONumber);
        break; 
+#if defined(GPIOD)
     case PWR_GPIO_D:
        CLEAR_BIT(PWR->PDCRD, GPIONumber);
        break;
+#endif
     case PWR_GPIO_E:
        CLEAR_BIT(PWR->PDCRE, (GPIONumber & PWR_PORTE_AVAILABLE_PINS));
        break;
@@ -571,6 +582,7 @@ void HAL_PWREx_DisablePullUpPullDownConfig(void)
 
 /****************************************************************************/
 
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief  Set BOR configuration
   * @param  BORConfiguration This parameter can be one of the following values:
@@ -592,6 +604,7 @@ uint32_t HAL_PWREx_GetBORConfig(void)
 {
   return LL_PWR_GetBORConfig();
 }
+#endif
 
 /****************************************************************************/
 /**
@@ -690,6 +703,7 @@ void HAL_PWREx_DisableFlashPowerDown(uint32_t PowerMode)
 }
 
 /****************************************************************************/
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief Enable the Power Voltage Monitoring 1: VDDUSB versus 1.2V.
   * @retval None
@@ -707,6 +721,8 @@ void HAL_PWREx_DisablePVM1(void)
 {
   CLEAR_BIT(PWR->CR2, PWR_PVM_1);
 }
+#endif
+
 /**
   * @brief Enable the Power Voltage Monitoring 3: VDDA versus 1.62V.
   * @retval None
@@ -753,6 +769,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
      configure the corresponding EXTI line accordingly. */
   switch (sConfigPVM->PVMType)
   {
+#if defined(PWR_CR2_PVME1)
    case PWR_PVM_1:
       /* Clear any previous config. Keep it clear if no event or IT mode is selected */
       __HAL_PWR_PVM1_EXTI_DISABLE_EVENT();
@@ -782,7 +799,8 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
       {
         __HAL_PWR_PVM1_EXTI_ENABLE_FALLING_EDGE();
       }
-      break; 
+      break;
+#endif
       
     case PWR_PVM_3:
       /* Clear any previous config. Keep it clear if no event or IT mode is selected */
@@ -824,6 +842,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
   return status;
 }
 
+#if defined(PWR_CR5_SMPSEN)
 /**
   * @brief Configure the SMPS step down converter.
   * @note   SMPS output voltage is calibrated in production,
@@ -867,13 +886,13 @@ HAL_StatusTypeDef HAL_PWREx_ConfigSMPS(PWR_SMPSTypeDef *sConfigSMPS)
       OutputVoltageLevelTrimmed = 0;
       status = HAL_ERROR;
     }
-    else if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
-    {
-      OutputVoltageLevelTrimmed = (int32_t)PWR_CR5_SMPSVOS;
-      status = HAL_ERROR;
-    }
     else
     {
+      if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
+      {
+        OutputVoltageLevelTrimmed = (int32_t)PWR_CR5_SMPSVOS;
+        status = HAL_ERROR;
+      }
     }
     
     /* Update register */
@@ -923,6 +942,7 @@ uint32_t HAL_PWREx_SMPS_GetEffectiveMode(void)
 {
   return (uint32_t)(READ_BIT(PWR->SR2, (PWR_SR2_SMPSF | PWR_SR2_SMPSBF)));
 }
+#endif
 
 /****************************************************************************/
 
@@ -1270,7 +1290,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
     __HAL_PWR_PVD_EXTI_CLEAR_FLAG();
   }
 
-
+#if defined(PWR_CR2_PVME1)
   /* Next, successively check PVMx exti flags */
   if(__HAL_PWR_PVM1_EXTI_GET_FLAG() != 0U) 
   {
@@ -1280,6 +1300,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
     /* Clear PVM1 exti pending bit */
     __HAL_PWR_PVM1_EXTI_CLEAR_FLAG();
   }
+#endif
 
   if(__HAL_PWR_PVM3_EXTI_GET_FLAG() != 0U) 
   {
@@ -1291,7 +1312,7 @@ void HAL_PWREx_PVD_PVM_IRQHandler(void)
   }
 }
 
-
+#if defined(PWR_CR2_PVME1)
 /**
   * @brief PWR PVM1 interrupt callback
   * @retval None
@@ -1302,6 +1323,7 @@ __weak void HAL_PWREx_PVM1Callback(void)
             HAL_PWREx_PVM1Callback() API can be implemented in the user file
    */
 }
+#endif
 
 /**
   * @brief PWR PVM3 interrupt callback

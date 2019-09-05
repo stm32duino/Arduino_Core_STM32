@@ -896,7 +896,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       if (obj->i2c_onSlaveTransmit != NULL) {
         obj->i2c_onSlaveTransmit();
       }
-#if defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
       HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
                                     obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
 #else
@@ -908,7 +908,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       obj->slaveMode = SLAVE_MODE_RECEIVE;
       /*  We don't know in advance how many bytes will be sent by master so
        *  we'll fetch one by one until master ends the sequence */
-#if defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
       HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                    1, I2C_NEXT_FRAME);
 #else
@@ -959,7 +959,7 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
   }
   /* Restart interrupt mode for next Byte */
   if (obj->slaveMode == SLAVE_MODE_RECEIVE) {
-#if defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+#if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
     HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                  1, I2C_NEXT_FRAME);
 #else

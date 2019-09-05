@@ -2213,6 +2213,7 @@ static HAL_StatusTypeDef IRDA_SetConfig(IRDA_HandleTypeDef *hirda)
   IRDA_ClockSourceTypeDef clocksource;
   HAL_StatusTypeDef ret               = HAL_OK;
   const uint16_t IRDAPrescTable[12] = {1U, 2U, 4U, 6U, 8U, 10U, 12U, 16U, 32U, 64U, 128U, 256U};
+  uint32_t pclk;
 
   /* Check the communication parameters */
   assert_param(IS_IRDA_BAUDRATE(hirda->Init.BaudRate));
@@ -2241,7 +2242,7 @@ static HAL_StatusTypeDef IRDA_SetConfig(IRDA_HandleTypeDef *hirda)
   MODIFY_REG(hirda->Instance->PRESC, USART_PRESC_PRESCALER, hirda->Init.ClockPrescaler);
 
   /*-------------------------- USART GTPR Configuration ----------------------*/
-  MODIFY_REG(hirda->Instance->GTPR, USART_GTPR_PSC, hirda->Init.Prescaler);
+  MODIFY_REG(hirda->Instance->GTPR, (uint16_t)USART_GTPR_PSC, (uint16_t)hirda->Init.Prescaler);
 
   /*-------------------------- USART BRR Configuration -----------------------*/
   IRDA_GETCLOCKSOURCE(hirda, clocksource);
@@ -2249,13 +2250,15 @@ static HAL_StatusTypeDef IRDA_SetConfig(IRDA_HandleTypeDef *hirda)
   switch (clocksource)
   {
     case IRDA_CLOCKSOURCE_PCLK2:
-      tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16(HAL_RCC_GetPCLK2Freq(), hirda->Init.BaudRate, hirda->Init.ClockPrescaler));
+      pclk = HAL_RCC_GetPCLK2Freq();
+      tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16(pclk, hirda->Init.BaudRate, hirda->Init.ClockPrescaler));
       break;
     case IRDA_CLOCKSOURCE_HSI:
       tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16(HSI_VALUE, hirda->Init.BaudRate, hirda->Init.ClockPrescaler));
       break;
     case IRDA_CLOCKSOURCE_SYSCLK:
-      tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16(HAL_RCC_GetSysClockFreq(), hirda->Init.BaudRate, hirda->Init.ClockPrescaler));
+      pclk = HAL_RCC_GetSysClockFreq();
+      tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16(pclk, hirda->Init.BaudRate, hirda->Init.ClockPrescaler));
       break;
     case IRDA_CLOCKSOURCE_LSE:
       tmpreg = (uint16_t)(IRDA_DIV_SAMPLING16((uint32_t)LSE_VALUE, hirda->Init.BaudRate, hirda->Init.ClockPrescaler));

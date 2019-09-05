@@ -327,7 +327,7 @@ __STATIC_INLINE uint32_t LL_IWDG_IsReady(IWDG_TypeDef *IWDGx)
   * @}
   */
 
-#endif /* IWDG) */
+#endif /* IWDG */
 
 /**
   * @}

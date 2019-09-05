@@ -375,13 +375,18 @@
 /** @defgroup GPIOEx_Get_Port_Index GPIOEx Get Port Index
 * @{
   */
-
+#if defined (STM32WB55xx)
 #define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0uL :\
                                       ((__GPIOx__) == (GPIOB))? 1uL :\
                                       ((__GPIOx__) == (GPIOC))? 2uL :\
                                       ((__GPIOx__) == (GPIOD))? 3uL :\
                                       ((__GPIOx__) == (GPIOE))? 4uL : 7uL)
-
+#else
+#define GPIO_GET_INDEX(__GPIOx__)    (((__GPIOx__) == (GPIOA))? 0uL :\
+                                      ((__GPIOx__) == (GPIOB))? 1uL :\
+                                      ((__GPIOx__) == (GPIOC))? 2uL :\
+                                      ((__GPIOx__) == (GPIOE))? 4uL : 7uL)
+#endif
  /**
   * @}
   */

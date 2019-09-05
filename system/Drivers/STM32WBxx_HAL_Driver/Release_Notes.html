@@ -46,9 +46,88 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 05-April-2019</label>
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-June-2019</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<h3 id="stm32wb50xx-introduction-and-maintenance-release">STM32WB50xx introduction and maintenance release</h3>
+<p>First release for STM32WBxx HAL drivers introducing <strong>stm32wb50xx</strong> devices.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Peripheral</th>
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>RCC</td>
+<td style="text-align: left;">Add capabilty to configure RNG clock in one step.</td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: left;">Before two steps were required: USB clock then RNG clock.</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: left;">Two step method is still supported and compatible.</td>
+</tr>
+<tr class="even">
+<td>IRDA</td>
+<td style="text-align: left;">Avoid using macros with function calls as argument</td>
+</tr>
+<tr class="odd">
+<td>LPTIM</td>
+<td style="text-align: left;">Add polling mechanims to check xxOK flags</td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: left;">Add new EXTI macros to manage LPTIM wakeup EXTI interrupts</td>
+</tr>
+<tr class="odd">
+<td>USB</td>
+<td style="text-align: left;">Improve ep OUT interrupt handler</td>
+</tr>
+<tr class="even">
+<td></td>
+<td style="text-align: left;">Ensure 16 bit access to USB PMA</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td style="text-align: left;">Enable BCD</td>
+</tr>
+<tr class="even">
+<td>RNG</td>
+<td style="text-align: left;">Add new error definitions</td>
+</tr>
+<tr class="odd">
+<td>SAI</td>
+<td style="text-align: left;">Correct SAI frequency calculation in case of SPDIF output</td>
+</tr>
+<tr class="even">
+<td>SMARTCARD</td>
+<td style="text-align: left;">Avoid using macros with function calls as argument</td>
+</tr>
+<tr class="odd">
+<td>UART</td>
+<td style="text-align: left;">Avoid using macros with function calls as argument</td>
+</tr>
+<tr class="even">
+<td>USART</td>
+<td style="text-align: left;">Avoid using macros with function calls as argument</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>This software release is compatible with:</p>
+<p>STM32CubeMX V5.3.0</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 05-April-2019</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32WB55xx devices.</p>
 <table>
@@ -102,9 +181,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="dependencies-1">Dependencies</h2>
 <p>This software release is compatible with:</p>
 <p>STM32CubeMX V5.2.0</p>
 </div>
@@ -112,7 +191,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1"  aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 06-February-2019</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32WB55xx.</p>
 </div>

@@ -171,6 +171,9 @@ in voltage and temperature.*/
 #if !defined (USE_SD_TRANSCEIVER)
 #define  USE_SD_TRANSCEIVER           1U               /*!< use uSD Transceiver */
 #endif
+#if !defined (USE_SPI_CRC)
+#define  USE_SPI_CRC                  0U               /*!< use CRC in SPI */
+#endif
 
 #define  USE_HAL_ADC_REGISTER_CALLBACKS     0U /* ADC register callback disabled     */
 #define  USE_HAL_CEC_REGISTER_CALLBACKS     0U /* CEC register callback disabled     */

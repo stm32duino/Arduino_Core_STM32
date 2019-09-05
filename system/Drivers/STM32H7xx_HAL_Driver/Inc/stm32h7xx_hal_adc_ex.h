@@ -22,7 +22,7 @@
 #define STM32H7xx_HAL_ADC_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -47,11 +47,11 @@
 typedef struct
 {
   uint32_t Ratio;                         /*!< Configures the oversampling ratio.
-                                               This parameter can be a value of @ref ADC_HAL_EC_OVS_RATIO */
+                                               This parameter can be a value between 1 and 1024 */
 
   uint32_t RightBitShift;                 /*!< Configures the division coefficient for the Oversampler.
                                                This parameter can be a value of @ref ADC_HAL_EC_OVS_SHIFT */
-}ADC_InjOversamplingTypeDef;
+} ADC_InjOversamplingTypeDef;
 
 /**
   * @brief  Structure definition of ADC group injected and ADC channel affected to ADC group injected
@@ -179,7 +179,7 @@ typedef struct
   ADC_InjOversamplingTypeDef  InjecOversampling; /*!< Specifies the Oversampling parameters.
                                                       Caution: this setting overwrites the previous oversampling configuration if oversampling already enabled.
                                                       Note: This parameter can be modified only if there is no conversion is ongoing (both ADSTART and JADSTART cleared). */
-}ADC_InjectionConfTypeDef;
+} ADC_InjectionConfTypeDef;
 
 /**
   * @brief  Structure definition of ADC multimode
@@ -202,7 +202,7 @@ typedef struct
                                    from 1 to 8 clock cycles for 12 bits
                                    from 1 to 6 clock cycles for 10 bits
                                    from 1 to 6 clock cycles for 8 bits     */
-}ADC_MultiModeTypeDef;
+} ADC_MultiModeTypeDef;
 
 /**
   * @}
@@ -455,6 +455,7 @@ typedef struct
   * @note  When multimode feature is not available, the macro always returns SET.
   * @retval SET (ADC is independent) or RESET (ADC is not).
   */
+
 #define ADC_IS_INDEPENDENT(__HANDLE__)    \
   ( ( ( ((__HANDLE__)->Instance) == ADC3) \
     )?                                    \
@@ -641,6 +642,7 @@ typedef struct
   * @retval Common control register
   */
 #define ADC12_COMMON_REGISTER(__HANDLE__)   (ADC12_COMMON)
+
 /**
   * @brief Report common register to ADC3
   * @param __HANDLE__: ADC handle
@@ -707,7 +709,6 @@ typedef struct
   * @param __HANDLE__: ADC handle
   * @retval SET (Independent or Master, or Slave without dual regular conversions enabled) or RESET (Slave ADC with dual regular conversions enabled)
   */
-
 #define ADC_INDEPENDENT_OR_NONMULTIMODEREGULAR_SLAVE(__HANDLE__)            \
   ( ( ((__HANDLE__)->Instance == ADC1) || ((__HANDLE__)->Instance == ADC3)  \
     )?                                                                      \
@@ -924,24 +925,24 @@ typedef struct
   * @param __EDGE__ programmed ADC edge trigger setting.
   * @retval SET (__EDGE__ is a valid value) or RESET (__EDGE__ is invalid)
   */
-#define IS_ADC_EXTTRIGINJEC_EDGE(__EDGE__) (((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_NONE)        || \
-                                           ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISING)       || \
-                                           ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_FALLING)      || \
-                                           ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING) )
+#define IS_ADC_EXTTRIGINJEC_EDGE(__EDGE__) (((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_NONE)         || \
+                                            ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISING)       || \
+                                            ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_FALLING)      || \
+                                            ((__EDGE__) == ADC_EXTERNALTRIGINJECCONV_EDGE_RISINGFALLING) )
 
 /**
   * @brief Verify the ADC multimode setting.
   * @param __MODE__ programmed ADC multimode setting.
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
   */
-#define IS_ADC_MULTIMODE(__MODE__) (((__MODE__) == ADC_MODE_INDEPENDENT)          || \
-                               ((__MODE__) == ADC_DUALMODE_REGSIMULT_INJECSIMULT) || \
-                               ((__MODE__) == ADC_DUALMODE_REGSIMULT_ALTERTRIG)   || \
-                               ((__MODE__) == ADC_DUALMODE_REGINTERL_INJECSIMULT) || \
-                               ((__MODE__) == ADC_DUALMODE_INJECSIMULT)           || \
-                               ((__MODE__) == ADC_DUALMODE_REGSIMULT)             || \
-                               ((__MODE__) == ADC_DUALMODE_INTERL)                || \
-                               ((__MODE__) == ADC_DUALMODE_ALTERTRIG)               )
+#define IS_ADC_MULTIMODE(__MODE__) (((__MODE__) == ADC_MODE_INDEPENDENT)               || \
+                                    ((__MODE__) == ADC_DUALMODE_REGSIMULT_INJECSIMULT) || \
+                                    ((__MODE__) == ADC_DUALMODE_REGSIMULT_ALTERTRIG)   || \
+                                    ((__MODE__) == ADC_DUALMODE_REGINTERL_INJECSIMULT) || \
+                                    ((__MODE__) == ADC_DUALMODE_INJECSIMULT)           || \
+                                    ((__MODE__) == ADC_DUALMODE_REGSIMULT)             || \
+                                    ((__MODE__) == ADC_DUALMODE_INTERL)                || \
+                                    ((__MODE__) == ADC_DUALMODE_ALTERTRIG)               )
 
 /**
   * @brief Verify the ADC dual data mode setting.
@@ -994,28 +995,28 @@ typedef struct
   * @param __CONVERSION__ ADC conversion group.
   * @retval SET (__CONVERSION__ is valid) or RESET (__CONVERSION__ is invalid)
   */
-#define IS_ADC_CONVERSION_GROUP(__CONVERSION__) (((__CONVERSION__) == ADC_REGULAR_GROUP)     || \
-                                             ((__CONVERSION__) == ADC_INJECTED_GROUP)        || \
-                                             ((__CONVERSION__) == ADC_REGULAR_INJECTED_GROUP)  )
+#define IS_ADC_CONVERSION_GROUP(__CONVERSION__) (((__CONVERSION__) == ADC_REGULAR_GROUP)         || \
+                                                 ((__CONVERSION__) == ADC_INJECTED_GROUP)        || \
+                                                 ((__CONVERSION__) == ADC_REGULAR_INJECTED_GROUP)  )
 
 /**
   * @brief Verify the ADC event type.
   * @param __EVENT__ ADC event.
   * @retval SET (__EVENT__ is valid) or RESET (__EVENT__ is invalid)
   */
-#define IS_ADC_EVENT_TYPE(__EVENT__) (((__EVENT__) == ADC_EOSMP_EVENT) || \
-                                     ((__EVENT__) == ADC_AWD_EVENT)    || \
-                                     ((__EVENT__) == ADC_AWD2_EVENT)   || \
-                                     ((__EVENT__) == ADC_AWD3_EVENT)   || \
-                                     ((__EVENT__) == ADC_OVR_EVENT)    || \
-                                     ((__EVENT__) == ADC_JQOVF_EVENT)  )
+#define IS_ADC_EVENT_TYPE(__EVENT__) (((__EVENT__) == ADC_EOSMP_EVENT)  || \
+                                      ((__EVENT__) == ADC_AWD_EVENT)    || \
+                                      ((__EVENT__) == ADC_AWD2_EVENT)   || \
+                                      ((__EVENT__) == ADC_AWD3_EVENT)   || \
+                                      ((__EVENT__) == ADC_OVR_EVENT)    || \
+                                      ((__EVENT__) == ADC_JQOVF_EVENT)  )
 
 /**
   * @brief Verify the ADC oversampling ratio.
   * @param RATIO: programmed ADC oversampling ratio.
   * @retval SET (RATIO is a valid value) or RESET (RATIO is invalid)
   */
-#define IS_ADC_OVERSAMPLING_RATIO(RATIO)  ((RATIO) < 1024UL)
+#define IS_ADC_OVERSAMPLING_RATIO(RATIO)  (((RATIO) >= 1UL) && ((RATIO) <= 1024UL))
 
 /**
   * @brief Verify the ADC oversampling shift.
@@ -1093,20 +1094,21 @@ typedef struct
 /* IO operation functions *****************************************************/
 
 /* ADC calibration */
-HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t CalibrationMode, uint32_t SingleDiff);
+HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t CalibrationMode, uint32_t SingleDiff);
 uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff);
-HAL_StatusTypeDef       HAL_ADCEx_LinearCalibration_GetValue(ADC_HandleTypeDef* hadc, uint32_t* LinearCalib_Buffer);
+HAL_StatusTypeDef       HAL_ADCEx_LinearCalibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t* LinearCalib_Buffer);
 HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff, uint32_t CalibrationFactor);
 HAL_StatusTypeDef       HAL_ADCEx_LinearCalibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t* LinearCalib_Buffer);
+HAL_StatusTypeDef       HAL_ADCEx_LinearCalibration_FactorLoad(ADC_HandleTypeDef *hadc);
 
 /* Blocking mode: Polling */
-HAL_StatusTypeDef       HAL_ADCEx_InjectedStart(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_InjectedStop(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_InjectedPollForConversion(ADC_HandleTypeDef* hadc, uint32_t Timeout);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedStart(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedStop(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedPollForConversion(ADC_HandleTypeDef *hadc, uint32_t Timeout);
 
 /* Non-blocking mode: Interruption */
-HAL_StatusTypeDef       HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc);
 
 /* ADC multimode */
 HAL_StatusTypeDef       HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, uint32_t Length);
@@ -1114,20 +1116,20 @@ HAL_StatusTypeDef       HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc);
 uint32_t                HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc);
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */
-uint32_t                HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef* hadc, uint32_t InjectedRank);
+uint32_t                HAL_ADCEx_InjectedGetValue(ADC_HandleTypeDef *hadc, uint32_t InjectedRank);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption) */
-void                    HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_InjectedQueueOverflowCallback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef* hadc);
+void                    HAL_ADCEx_InjectedConvCpltCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_InjectedQueueOverflowCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef *hadc);
 
 /* ADC group regular conversions stop */
-HAL_StatusTypeDef HAL_ADCEx_RegularStop(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef HAL_ADCEx_RegularStop_IT(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef HAL_ADCEx_RegularStop_DMA(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef HAL_ADCEx_RegularMultiModeStop_DMA(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef HAL_ADCEx_RegularStop(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef HAL_ADCEx_RegularStop_IT(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef HAL_ADCEx_RegularStop_DMA(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef HAL_ADCEx_RegularMultiModeStop_DMA(ADC_HandleTypeDef *hadc);
 
 /**
   * @}
@@ -1137,12 +1139,12 @@ HAL_StatusTypeDef HAL_ADCEx_RegularMultiModeStop_DMA(ADC_HandleTypeDef* hadc);
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef       HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef* hadc,ADC_InjectionConfTypeDef* sConfigInjected);
+HAL_StatusTypeDef       HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc,ADC_InjectionConfTypeDef* sConfigInjected);
 HAL_StatusTypeDef       HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_MultiModeTypeDef *multimode);
-HAL_StatusTypeDef       HAL_ADCEx_EnableInjectedQueue(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_DisableInjectedQueue(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_EnterADCDeepPowerDownMode(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef       HAL_ADCEx_EnableInjectedQueue(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_DisableInjectedQueue(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_EnterADCDeepPowerDownMode(ADC_HandleTypeDef *hadc);
 
 /**
   * @}
