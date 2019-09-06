@@ -115,6 +115,8 @@ int32_t SoftwareSerial::tx_bit_cnt = 0;
 uint32_t SoftwareSerial::rx_buffer = 0;
 int32_t SoftwareSerial::rx_bit_cnt = -1;
 uint32_t SoftwareSerial::cur_speed = 0;
+uint8_t SoftwareSerial::rx_high_count = 0;
+uint8_t SoftwareSerial::rx_low_count = 0;
 
 //
 // Private methods
@@ -247,7 +249,7 @@ inline void SoftwareSerial::send()
         active_out = nullptr;
         // When in half-duplex mode, we wait for HALFDUPLEX_SWITCH_DELAY bit-periods after the byte has
         // been transmitted before allowing the switch to RX mode
-      } else if (tx_bit_cnt > 10 + HALFDUPLEX_SWITCH_DELAY) {
+      } else if (tx_bit_cnt > 10 + HALFDUPLEX_SWITCH_DELAY * OVERSAMPLE) {
         pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
         rx_bit_cnt = -1;
         rx_tick_cnt = 1;
@@ -263,14 +265,22 @@ inline void SoftwareSerial::send()
 //
 inline void SoftwareSerial::recv()
 {
+  if (LL_GPIO_IsInputPinSet(_receivePinPort, _receivePinNumber)) {
+	  rx_high_count++;
+  }
+  else {
+	  rx_low_count++;
+  }
   if (--rx_tick_cnt < 0) {
-    bool inbit = LL_GPIO_IsInputPinSet(_receivePinPort, _receivePinNumber) ^ _inverse_logic;
+    bool inbit = (rx_high_count > rx_low_count) ^ _inverse_logic;
+    rx_high_count = 0;
+    rx_low_count = 0;
     if (rx_bit_cnt == -1) {
       // waiting for start bit
       if (!inbit) {
         // got start bit
         rx_bit_cnt = 0;
-        rx_tick_cnt = OVERSAMPLE - 1; // first sample received, we need OVERSAMPLE - 1 more samples
+        rx_tick_cnt = OVERSAMPLE - 1; // First sample taken, we will take OVERSAMPLE - 1 more samples
         rx_buffer = 0;
       } else {
         rx_tick_cnt = 0;
@@ -296,7 +306,7 @@ inline void SoftwareSerial::recv()
         rx_buffer |= 0x80;
       }
       rx_bit_cnt++;
-      rx_tick_cnt = OVERSAMPLE - 1; // first sample received, we need OVERSAMPLE - 1 more samples
+      rx_tick_cnt = OVERSAMPLE - 1; // First sample taken, we will take OVERSAMPLE - 1 more samples
     }
   }
 }

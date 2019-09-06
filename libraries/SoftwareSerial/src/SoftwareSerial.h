@@ -80,6 +80,8 @@ class SoftwareSerial : public Stream {
     static uint32_t rx_buffer;
     static int32_t rx_bit_cnt;
     static uint32_t cur_speed;
+    static uint8_t rx_high_count;
+    static uint8_t rx_low_count;
 
     // private methods
     void send();
