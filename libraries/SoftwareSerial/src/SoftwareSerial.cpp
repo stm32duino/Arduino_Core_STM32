@@ -266,10 +266,9 @@ inline void SoftwareSerial::send()
 inline void SoftwareSerial::recv()
 {
   if (LL_GPIO_IsInputPinSet(_receivePinPort, _receivePinNumber)) {
-	  rx_high_count++;
-  }
-  else {
-	  rx_low_count++;
+    rx_high_count++;
+  } else {
+    rx_low_count++;
   }
   if (--rx_tick_cnt < 0) {
     bool inbit = (rx_high_count > rx_low_count) ^ _inverse_logic;
