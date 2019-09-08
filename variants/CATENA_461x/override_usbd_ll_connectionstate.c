@@ -43,7 +43,7 @@ USBD_LL_ConnectionState_WEAK uint32_t USBD_LL_ConnectionState(void)
   uint32_t vBus;
 
   vBus = analogRead(18);
-  return vBus > 800 ? 1 : 0;
+  return vBus > 270 ? 1 : 0;
 }
 
 #endif // USBCON
