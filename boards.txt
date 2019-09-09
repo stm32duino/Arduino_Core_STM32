@@ -1991,3 +1991,35 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
+
+###############################
+# ThunderPack
+ThunderPack.name=ThunderPack
+ThunderPack.build.core=arduino
+ThunderPack.build.product_line=STM32L072xx
+ThunderPack.build.board=ThunderPack
+ThunderPack.build.variant=THUNDER_PACK
+ThunderPack.build.mcu=cortex-m0plus
+ThunderPack.build.series=STM32L0xx
+ThunderPack.build.cmsis_lib_gcc=arm_cortexM0l_math
+ThunderPack.build.vid=0x0483
+ThunderPack.build.extra_flags={build.usb_flags} -DUSBD_USE_CDC -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
+ThunderPack.upload.maximum_size=196608
+ThunderPack.upload.maximum_data_size=20480
+
+ThunderPack.menu.upload_method.dfuUtil=DFU Util
+ThunderPack.menu.upload_method.dfuUtil.upload.tool=dfu_util
+ThunderPack.menu.upload_method.dfuUtil.upload.protocol=
+ThunderPack.menu.upload_method.dfuUtil.upload.usbID=0483:df11
+ThunderPack.menu.upload_method.dfuUtil.upload.address=0x08000000:leave
+
+ThunderPack.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+ThunderPack.menu.upload_method.swdMethod.upload.protocol=0
+ThunderPack.menu.upload_method.swdMethod.upload.options=-g
+ThunderPack.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+ThunderPack.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+ThunderPack.menu.upload_method.dfuMethod.upload.protocol=2
+ThunderPack.menu.upload_method.dfuMethod.upload.options=-g
+ThunderPack.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
