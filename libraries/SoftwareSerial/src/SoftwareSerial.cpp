@@ -34,17 +34,7 @@
 //
 // Includes
 //
-#include <stdint.h>
-#include <stdarg.h>
-
-#include <wiring_digital.h>
-#include <time.h>
-
-#include <Arduino.h>
 #include "SoftwareSerial.h"
-#include <HardwareTimer.h>
-#include <stm32_def.h>
-#include <digital_io.h>
 
 #define OVERSAMPLE 3 // in RX, Timer will generate interruption OVERSAMPLE time during a bit. Thus OVERSAMPLE ticks in a bit. (interrupt not synchonized with edge).
 
