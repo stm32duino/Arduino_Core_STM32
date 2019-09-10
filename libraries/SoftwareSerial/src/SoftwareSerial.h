@@ -34,10 +34,6 @@
 #define SOFTWARESERIAL_H
 
 #include <Arduino.h>
-#include <stdint.h>
-#include <Stream.h>
-#include <Print.h>
-#include <HardwareTimer.h>
 
 /******************************************************************************
 * Definitions
@@ -124,14 +120,5 @@ class SoftwareSerial : public Stream {
 
     using Print::write;
 };
-
-// Arduino 0012 workaround
-#undef int
-#undef char
-#undef long
-#undef byte
-#undef float
-#undef abs
-#undef round
 
 #endif // SOFTWARESERIAL_H
