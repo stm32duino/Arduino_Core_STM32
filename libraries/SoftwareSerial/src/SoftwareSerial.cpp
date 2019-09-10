@@ -154,7 +154,7 @@ bool SoftwareSerial::listen()
     setSpeed(_speed);
     active_listener = this;
     if (!_half_duplex) {
-    active_in = this;
+      active_in = this;
     }
     return true;
   }
@@ -319,9 +319,9 @@ SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool i
   _receive_buffer_head(0)
 {
   if ((receivePin < NUM_DIGITAL_PINS) || (transmitPin < NUM_DIGITAL_PINS)) {
-  /* Enable GPIO clock for tx and rx pin*/
-  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
-  set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
+    /* Enable GPIO clock for tx and rx pin*/
+    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
+    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
   } else {
     _Error_Handler("ERROR: invalid pin number\n", -1);
   }
