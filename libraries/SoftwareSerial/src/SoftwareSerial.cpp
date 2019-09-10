@@ -145,19 +145,16 @@ void SoftwareSerial::setSpeed(uint32_t speed)
 // one and returns true if it replaces another
 bool SoftwareSerial::listen()
 {
-  if (_receivePin >= 0) {
+  if (active_listener != this) {
     // wait for any transmit to complete as we may change speed
-    while (active_out)
-      ;
-    if (active_listener) {
-      active_listener->stopListening();
-    }
+    while (active_out);
+    active_listener->stopListening();
     rx_tick_cnt = 1; // 1 : next interrupt will decrease rx_tick_cnt to 0 which means RX pin level will be considered.
     rx_bit_cnt = -1; // rx_bit_cnt = -1 :  waiting for start bit
     setSpeed(_speed);
     active_listener = this;
     if (!_half_duplex) {
-      active_in = this;
+    active_in = this;
     }
     return true;
   }
@@ -169,8 +166,7 @@ bool SoftwareSerial::stopListening()
 {
   if (active_listener == this) {
     // wait for any output to complete
-    while (active_out)
-      ;
+    while (active_out);
     if (_half_duplex) {
       setRXTX(false);
     }
@@ -195,9 +191,7 @@ inline void SoftwareSerial::setTX()
 
 inline void SoftwareSerial::setRX()
 {
-  if (_receivePin > 0) {
-    pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
-  }
+  pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
 }
 
 inline void SoftwareSerial::setRXTX(bool input)
@@ -298,6 +292,7 @@ inline void SoftwareSerial::recv()
 /* static */
 inline void SoftwareSerial::handleInterrupt(HardwareTimer *timer)
 {
+  UNUSED(timer);
   if (active_in) {
     active_in->recv();
   }
@@ -323,9 +318,13 @@ SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool i
   _receive_buffer_tail(0),
   _receive_buffer_head(0)
 {
+  if ((receivePin < NUM_DIGITAL_PINS) || (transmitPin < NUM_DIGITAL_PINS)) {
   /* Enable GPIO clock for tx and rx pin*/
   set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
   set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
+  } else {
+    _Error_Handler("ERROR: invalid pin number\n", -1);
+  }
 }
 
 //
