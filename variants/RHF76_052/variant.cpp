@@ -41,7 +41,9 @@ const PinName digitalPin[] = {
   PB_11, //D12 - NRST
   PC_0, //D13
   PB_6, //D14 - UART_TX
-  PB_7  //D15 - UART_RX
+  PB_7,  //D15 - UART_RX
+  PA_9, //D16 - UART_TX
+  PA_10  //D17 - UART_RX
 };
 
 #ifdef __cplusplus

@@ -41,11 +41,14 @@ extern "C" {
 #define PB10  11
 #define PB11  12
 #define PC0  13 // A0 Dummie
-#define PB6  14 // TX
+#define PB6  14 // TX Module LoRa
 #define PB7  15 // RX
+#define PA9  16 // TX Boot
+#define PA10  17 // RX Boot
+
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        15
+#define NUM_DIGITAL_PINS        17
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       1
 #define NUM_ANALOG_FIRST        1
@@ -54,8 +57,11 @@ extern "C" {
 #define LED_BUILTIN             PB4
 #define LED_GREEN               LED_BUILTIN
 
-// On-board user button
-//#define USER_BTN                PC13
+// SPI Definitions
+#define PIN_SPI_SS              PA4
+#define PIN_SPI_MOSI            PA7
+#define PIN_SPI_MISO            PA6
+#define PIN_SPI_SCK             PA5
 
 // Timer Definitions
 // Do not use timer used by PWM pins when possible. See PinMap_PWM.
@@ -65,11 +71,14 @@ extern "C" {
 #define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1 //Connected to ST-Link
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           15
-#define PIN_SERIAL_TX           14
+#define PIN_SERIAL_RX           PB7
+#define PIN_SERIAL_TX           PB6
+
+//#define PIN_SERIAL1_RX           PB7
+//#define PIN_SERIAL1_TX           PB6
 
 /* Extra HAL modules */
 //#define HAL_DAC_MODULE_ENABLED
@@ -98,7 +107,7 @@ extern "C" {
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial
+#define SERIAL_PORT_HARDWARE    Serial1
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
