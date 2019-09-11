@@ -49,7 +49,7 @@ extern "C" {
 #define NUM_ANALOG_FIRST        1
 
 // On-board LED pin number
-#define LED_BUILTIN             2
+#define LED_BUILTIN             10
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
