@@ -38,7 +38,10 @@ const PinName digitalPin[] = {
   PB_4, //D9 - Status LED trigger, connect to an external LED to show status of LoRaWAN processing
   PB_5, //D10 - Status LED trigger, connect to an external LED, Reserved
   PB_10, //D11 - DIO0
-  PB_11 //D12 - NRST
+  PB_11, //D12 - NRST
+  PC_0, //D13
+  PB_6, //D14 - UART_TX
+  PB_7  //D15 - UART_RX
 };
 
 #ifdef __cplusplus

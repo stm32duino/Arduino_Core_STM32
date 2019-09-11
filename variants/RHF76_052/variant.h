@@ -41,15 +41,17 @@ extern "C" {
 #define PB10  11
 #define PB11  12
 #define PC0  13 // A0 Dummie
+#define PB6  14 // TX
+#define PB7  15 // RX
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        14
+#define NUM_DIGITAL_PINS        15
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       1
 #define NUM_ANALOG_FIRST        1
 
 // On-board LED pin number
-#define LED_BUILTIN             10
+#define LED_BUILTIN             PB4
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
@@ -66,8 +68,8 @@ extern "C" {
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           0
-#define PIN_SERIAL_TX           1
+#define PIN_SERIAL_RX           15
+#define PIN_SERIAL_TX           14
 
 /* Extra HAL modules */
 //#define HAL_DAC_MODULE_ENABLED
