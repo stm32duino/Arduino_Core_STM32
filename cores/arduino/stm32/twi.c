@@ -375,7 +375,8 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
     return I2C_ClockTiming[i2c_speed].timing;
   }
 
-  I2C_ClockTiming[i2c_speed].input_clock = clkSrcFreq;  // Save the I2C input clock for which we will save timing
+  /* Save the I2C input clock for which the timing will be saved */
+  I2C_ClockTiming[i2c_speed].input_clock = clkSrcFreq;
 
   ti2cclk = (SEC2NSEC + (clkSrcFreq / 2U)) / clkSrcFreq;
   ti2cspeed = (SEC2NSEC + (I2C_Charac[i2c_speed].freq / 2U)) / I2C_Charac[i2c_speed].freq;
