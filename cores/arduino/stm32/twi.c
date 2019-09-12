@@ -84,7 +84,7 @@ typedef enum {
   I2C_SPEED_FREQ_FAST,      /* 400 kHz */
   I2C_SPEED_FREQ_FAST_PLUS, /* 1 MHz */
   I2C_SPEED_FREQ_NUMBER     /* Must be the last entry */
-} i2c_speed_freq_t;
+} I2C_speed_freq_t;
 
 typedef struct {
   uint32_t input_clock;      /* I2C Input clock */
