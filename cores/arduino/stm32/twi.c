@@ -92,7 +92,6 @@ typedef struct {
 } I2C_timing_t;
 
 static I2C_timing_t I2C_ClockTiming[I2C_SPEED_FREQ_NUMBER] = {0};
-#endif
 
 typedef struct {
   uint32_t freq;      /* Frequency in Hz */
