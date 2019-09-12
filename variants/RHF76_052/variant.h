@@ -48,7 +48,7 @@ extern "C" {
 
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        17
+#define NUM_DIGITAL_PINS        18
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       1
 #define NUM_ANALOG_FIRST        1
@@ -63,25 +63,15 @@ extern "C" {
 #define PIN_SPI_MISO            PA6
 #define PIN_SPI_SCK             PA5
 
-// Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE              TIM6
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
-
 // UART Definitions
-#define SERIAL_UART_INSTANCE    1 //Connected to ST-Link
-// Default pin used for 'Serial' instance (ex: ST-Link)
+#define SERIAL_UART_INSTANCE    1
+
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
 
-//#define PIN_SERIAL1_RX           PB7
-//#define PIN_SERIAL1_TX           PB6
-
 /* Extra HAL modules */
-//#define HAL_DAC_MODULE_ENABLED
+#define HAL_ADC_MODULE_DISABLED
 
 #ifdef __cplusplus
 } // extern "C"
