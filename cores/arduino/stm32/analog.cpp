@@ -47,8 +47,7 @@ extern "C" {
 
 
 /* Private_Variables */
-#if defined(HAL_ADC_MODULE_ENABLED) || defined(HAL_DAC_MODULE_ENABLED) ||\
-  defined(HAL_TIM_MODULE_ENABLED)
+#if defined(HAL_ADC_MODULE_ENABLED) || defined(HAL_DAC_MODULE_ENABLED)
 static PinName g_current_pin = NC;
 #endif
 
