@@ -62,9 +62,6 @@ extern "C" {
 #ifndef I2C_VALID_TIMING_NBR
 #define I2C_VALID_TIMING_NBR          8U
 #endif
-#define I2C_SPEED_FREQ_STANDARD       0U /* 100 kHz */
-#define I2C_SPEED_FREQ_FAST           1U /* 400 kHz */
-#define I2C_SPEED_FREQ_FAST_PLUS      2U /* 1 MHz */
 #define I2C_ANALOG_FILTER_DELAY_MIN  50U /* ns */
 #ifndef I2C_ANALOG_FILTER_DELAY_MAX
 #define I2C_ANALOG_FILTER_DELAY_MAX 260U /* ns */
@@ -81,6 +78,20 @@ extern "C" {
 #define I2C_SCLH_MAX                256U
 #define I2C_SCLL_MAX                256U
 #define SEC2NSEC            1000000000UL
+
+typedef enum {
+  I2C_SPEED_FREQ_STANDARD,  /* 100 kHz */
+  I2C_SPEED_FREQ_FAST,      /* 400 kHz */
+  I2C_SPEED_FREQ_FAST_PLUS, /* 1 MHz */
+  I2C_SPEED_FREQ_NUMBER     /* Must be the last entry */
+} I2C_speed_freq_t;
+
+typedef struct {
+  uint32_t input_clock;      /* I2C Input clock */
+  uint32_t timing;           /* I2C timing corresponding to Input clock */
+} I2C_timing_t;
+
+static I2C_timing_t I2C_ClockTiming[I2C_SPEED_FREQ_NUMBER] = {0};
 
 typedef struct {
   uint32_t freq;      /* Frequency in Hz */
@@ -354,6 +365,17 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
   uint8_t presc, scldel, sdadel;
   uint32_t tafdel_min, tafdel_max;
 
+  if (i2c_speed > I2C_SPEED_FREQ_NUMBER) {
+    return ret;
+  }
+  /* Don't compute timing if already available value for the requested speed with the same I2C input frequency */
+  if ((I2C_ClockTiming[i2c_speed].input_clock == clkSrcFreq) && (I2C_ClockTiming[i2c_speed].timing != 0U)) {
+    return I2C_ClockTiming[i2c_speed].timing;
+  }
+
+  /* Save the I2C input clock for which the timing will be saved */
+  I2C_ClockTiming[i2c_speed].input_clock = clkSrcFreq;
+
   ti2cclk = (SEC2NSEC + (clkSrcFreq / 2U)) / clkSrcFreq;
   ti2cspeed = (SEC2NSEC + (I2C_Charac[i2c_speed].freq / 2U)) / I2C_Charac[i2c_speed].freq;
 
@@ -437,6 +459,8 @@ static uint32_t i2c_computeTiming(uint32_t clkSrcFreq, uint32_t i2c_speed)
                               ((sclh & 0xFFU) << 8) | \
                               ((scll & 0xFFU) << 0);
                         prev_presc = presc;
+                        /* Save I2C Timing found for further reuse (and avoid to compute again) */
+                        I2C_ClockTiming[i2c_speed].timing = ret;
                       }
                     }
                   }
@@ -716,8 +740,16 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
     return i2c_IsDeviceReady(obj, dev_address, 1);
   }
 
+#if defined(I2C_OTHER_FRAME)
+  uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
+#endif
+
   do {
+#if defined(I2C_OTHER_FRAME)
+    if (HAL_I2C_Master_Seq_Transmit_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
+#else
     if (HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+#endif
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
@@ -736,7 +768,6 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
        Master restarts communication */
   } while (((HAL_I2C_GetError(&(obj->handle)) & HAL_I2C_ERROR_AF) == HAL_I2C_ERROR_AF)
            && (delta < I2C_TIMEOUT_TICK));
-
   return ret;
 }
 
@@ -780,8 +811,16 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
   uint32_t tickstart = HAL_GetTick();
   uint32_t delta = 0;
 
+#if defined(I2C_OTHER_FRAME)
+  uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
+#endif
+
   do {
+#if defined(I2C_OTHER_FRAME)
+    if (HAL_I2C_Master_Seq_Receive_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
+#else
     if (HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+#endif
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
