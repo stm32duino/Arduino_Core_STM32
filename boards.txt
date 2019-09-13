@@ -1037,34 +1037,36 @@ Sparky.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 ################################################################################
 # LoRa boards
 
-LoRa.name=LoRaBoards
+LoRa.name=LoRa boards
 
 LoRa.build.vid=0x0483
 LoRa.build.core=arduino
-LoRa.build.board=RAK
-LoRa.build.mcu=cortex-m3
-LoRa.build.series=STM32L1xx
-LoRa.build.cmsis_lib_gcc=arm_cortexM3l_math
+LoRa.build.board=LoRa
 LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
 LoRa.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
 LoRa.menu.pnum.RAK811_TRACKER.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
 LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
 LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKERA.build.mcu=cortex-m3
 LoRa.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
+LoRa.menu.pnum.RAK811_TRACKERA.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # RHF76_052 board
-LoRa.menu.pnum.RHF76_052=RHF76_052
-LoRa.menu.pnum.RHF76_052.node=NODE_RHF76_052
+LoRa.menu.pnum.RHF76_052=RHF76 052
 LoRa.menu.pnum.RHF76_052.upload.maximum_size=65536
 LoRa.menu.pnum.RHF76_052.upload.maximum_data_size=8192
 LoRa.menu.pnum.RHF76_052.build.mcu=cortex-m0plus
@@ -1975,3 +1977,4 @@ Midatronics.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_f
 Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
+Midatronics.menu.rtlib.full.build.flags.ldspecs=

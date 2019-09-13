@@ -29,29 +29,26 @@ extern "C" {
 
 #define PA1  0
 #define PA2  1
-#define PA4 2
+#define PA4  2
 #define PA5  3
 #define PA6  4
 #define PA7  5
-#define PB0 6
+#define PB0  6
 #define PB1  7
 #define PB2  8
 #define PB4  9
 #define PB5  10
-#define PB10  11
-#define PB11  12
-#define PC0  13 // A0 Dummie
+#define PB10 11
+#define PB11 12
+#define PC0  13
 #define PB6  14 // TX Module LoRa
 #define PB7  15 // RX
 #define PA9  16 // TX Boot
-#define PA10  17 // RX Boot
+#define PA10 17 // RX Boot
 
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        18
-// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       1
-#define NUM_ANALOG_FIRST        1
 
 // On-board LED pin number
 #define LED_BUILTIN             PB4
@@ -69,9 +66,6 @@ extern "C" {
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
-
-/* Extra HAL modules */
-#define HAL_ADC_MODULE_DISABLED
 
 #ifdef __cplusplus
 } // extern "C"
