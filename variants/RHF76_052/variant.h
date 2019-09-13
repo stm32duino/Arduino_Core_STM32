@@ -67,9 +67,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
 
-/* Extra HAL modules */
-#define HAL_ADC_MODULE_DISABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif
