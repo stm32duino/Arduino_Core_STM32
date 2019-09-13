@@ -51,6 +51,8 @@ extern "C" {
 #define NUM_DIGITAL_PINS        0
 
 // Allow to define Arduino style alias for analog input pin number --> Ax
+// If no analog pin required then NUM_ANALOG_INPUTS and NUM_ANALOG_FIRST
+// could not be defined or set to respectively `0` and `NUM_DIGITAL_PINS`
 // All pins are digital, analog inputs are a subset of digital pins
 // and must be contiguous to be able to loop on each value
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
