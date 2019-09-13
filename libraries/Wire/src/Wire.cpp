@@ -27,7 +27,6 @@ extern "C" {
 
 #include "Wire.h"
 
-#define I2C_NO_OPTION_FRAME       0xFFFF0000U /*!< XferOptions default value */
 // Initialize Class Variables //////////////////////////////////////////////////
 uint8_t *TwoWire::rxBuffer = nullptr;
 uint8_t TwoWire::rxBufferAllocated = 0;
@@ -117,6 +116,10 @@ void TwoWire::setClock(uint32_t frequency)
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
 {
+#if !defined(I2C_OTHER_FRAME)
+  UNUSED(sendStop);
+#endif
+
   if (_i2c.isMaster == 1) {
     allocateRxBuffer(quantity);
     // error if no memory block available to allocate the buffer
@@ -146,11 +149,15 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 
     // perform blocking read into buffer
     uint8_t read = 0;
-    if (sendStop != 0) {
-      _i2c.handle.XferOptions = I2C_LAST_FRAME;
+
+#if defined(I2C_OTHER_FRAME)
+    if (sendStop == 0) {
+      _i2c.handle.XferOptions = I2C_OTHER_FRAME ;
     } else {
-      _i2c.handle.XferOptions = I2C_NO_OPTION_FRAME;
+      _i2c.handle.XferOptions = I2C_OTHER_AND_LAST_FRAME;
     }
+#endif
+
     if (I2C_OK == i2c_master_read(&_i2c, address << 1, rxBuffer, quantity)) {
       read = quantity;
     }
@@ -216,13 +223,18 @@ void TwoWire::beginTransmission(int address)
 //
 uint8_t TwoWire::endTransmission(uint8_t sendStop)
 {
+#if !defined(I2C_OTHER_FRAME)
+  UNUSED(sendStop);
+#endif
   int8_t ret = 4;
   // check transfer options and store it in the I2C handle
+#if defined(I2C_OTHER_FRAME)
   if (sendStop == 0) {
-    _i2c.handle.XferOptions = I2C_FIRST_FRAME;
+    _i2c.handle.XferOptions = I2C_OTHER_FRAME ;
   } else {
-    _i2c.handle.XferOptions = I2C_FIRST_AND_LAST_FRAME;
+    _i2c.handle.XferOptions = I2C_OTHER_AND_LAST_FRAME;
   }
+#endif
 
   if (_i2c.isMaster == 1) {
     // transmit buffer (blocking)
