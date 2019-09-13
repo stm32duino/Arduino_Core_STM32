@@ -22,27 +22,24 @@
 extern "C" {
 #endif
 
-// Pin number
-// This array allows to wrap Arduino pin number(Dx or x)
-// to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-  PA_1, //D0 - RFSW0
-  PA_2, //D1 - RFSW1
-  PA_4, //D2 - NSS
-  PA_5, //D3 - CLK
-  PA_6, //D4 - MISO
-  PA_7, //D5 - MOSI
-  PB_0, //D6 - DIO2
-  PB_1, //D7 - DIO3
-  PB_2, //D8 - DIO1
-  PB_4, //D9 - Status LED trigger, connect to an external LED to show status of LoRaWAN processing
-  PB_5, //D10 - Status LED trigger, connect to an external LED, Reserved
+  PA_1,  //D0 - RFSW0
+  PA_2,  //D1 - RFSW1
+  PA_4,  //D2 - NSS
+  PA_5,  //D3 - CLK
+  PA_6,  //D4 - MISO
+  PA_7,  //D5 - MOSI
+  PB_0,  //D6 - DIO2
+  PB_1,  //D7 - DIO3
+  PB_2,  //D8 - DIO1
+  PB_4,  //D9 - Status LED trigger, connect to an external LED to show status of LoRaWAN processing
+  PB_5,  //D10 - Status LED trigger, connect to an external LED, Reserved
   PB_10, //D11 - DIO0
   PB_11, //D12 - NRST
-  PC_0, //D13
-  PB_6, //D14 - UART_TX
+  PC_0,  //D13
+  PB_6,  //D14 - UART_TX
   PB_7,  //D15 - UART_RX
-  PA_9, //D16 - UART_TX
+  PA_9,  //D16 - UART_TX
   PA_10  //D17 - UART_RX
 };
 
@@ -58,17 +55,6 @@ extern "C" {
 /**
   * @brief  System Clock Configuration
   *         The system Clock is configured as follow :
-  *            System Clock source            = PLL (HSI)
-  *            SYSCLK(Hz)                     = 32000000
-  *            HCLK(Hz)                       = 32000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 1
-  *            APB2 Prescaler                 = 1
-  *            HSE Frequency(Hz)              = 8000000
-  *            HSI Frequency(Hz)              = 16000000
-  *            PLLMUL                         = 8
-  *            PLLDIV                         = 2
-  *            Flash Latency(WS)              = 1
   * @retval None
   */
 WEAK void SystemClock_Config(void)
