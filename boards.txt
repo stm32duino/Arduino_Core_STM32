@@ -1035,48 +1035,63 @@ Sparky.menu.upload_method.dfuMethod.upload.options=-g
 Sparky.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
-# RAK boards
+# LoRa boards
 
-RAK.name=RAKWireless
+LoRa.name=LoRa boards
 
-RAK.build.vid=0x0483
-RAK.build.core=arduino
-RAK.build.board=RAK
-RAK.build.mcu=cortex-m3
-RAK.build.series=STM32L1xx
-RAK.build.cmsis_lib_gcc=arm_cortexM3l_math
-RAK.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+LoRa.build.vid=0x0483
+LoRa.build.core=arduino
+LoRa.build.board=LoRa
+LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # RAK811_TRACKER board
-RAK.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
-RAK.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
-RAK.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
-RAK.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
-RAK.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
-RAK.menu.pnum.RAK811_TRACKER.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
+LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
+LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
+LoRa.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
+LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
+LoRa.menu.pnum.RAK811_TRACKER.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
-RAK.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
-RAK.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
-RAK.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
-RAK.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
-RAK.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
-RAK.menu.pnum.RAK811_TRACKERA.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
+LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
+LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKERA.build.mcu=cortex-m3
+LoRa.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
+LoRa.menu.pnum.RAK811_TRACKERA.build.series=STM32L1xx
+LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
+LoRa.menu.pnum.RAK811_TRACKERA.build.variant=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# RHF76_052 board
+LoRa.menu.pnum.RHF76_052=RHF76 052
+LoRa.menu.pnum.RHF76_052.upload.maximum_size=65536
+LoRa.menu.pnum.RHF76_052.upload.maximum_data_size=8192
+LoRa.menu.pnum.RHF76_052.build.mcu=cortex-m0plus
+LoRa.menu.pnum.RHF76_052.build.board=RHF76_052
+LoRa.menu.pnum.RHF76_052.build.series=STM32L0xx
+LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
+LoRa.menu.pnum.RHF76_052.build.variant=RHF76_052
+LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.RHF76_052.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # Upload menu
-RAK.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-RAK.menu.upload_method.swdMethod.upload.protocol=0
-RAK.menu.upload_method.swdMethod.upload.options=-g
-RAK.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+LoRa.menu.upload_method.swdMethod.upload.protocol=0
+LoRa.menu.upload_method.swdMethod.upload.options=-g
+LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-RAK.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-RAK.menu.upload_method.serialMethod.upload.protocol=1
-RAK.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-RAK.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+LoRa.menu.upload_method.serialMethod.upload.protocol=1
+LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
-RAK.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-RAK.menu.upload_method.dfuMethod.upload.protocol=2
-RAK.menu.upload_method.dfuMethod.upload.options=-g
-RAK.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+LoRa.menu.upload_method.dfuMethod.upload.protocol=2
+LoRa.menu.upload_method.dfuMethod.upload.options=-g
+LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
 # 3D printer boards
@@ -1391,11 +1406,11 @@ Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Sparky.menu.xserial.disabled=Disabled (no Serial support)
 Sparky.menu.xserial.disabled.build.xSerial=
 
-RAK.menu.xserial.generic=Enabled (generic 'Serial')
-RAK.menu.xserial.none=Enabled (no generic 'Serial')
-RAK.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-RAK.menu.xserial.disabled=Disabled (no Serial support)
-RAK.menu.xserial.disabled.build.xSerial=
+LoRa.menu.xserial.generic=Enabled (generic 'Serial')
+LoRa.menu.xserial.none=Enabled (no generic 'Serial')
+LoRa.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+LoRa.menu.xserial.disabled=Disabled (no Serial support)
+LoRa.menu.xserial.disabled.build.xSerial=
 
 3dprinter.menu.xserial.generic=Enabled (generic 'Serial')
 3dprinter.menu.xserial.none=Enabled (no generic 'Serial')
@@ -1751,23 +1766,23 @@ Sparky.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Sparky.menu.opt.ogstd=Debug (-g)
 Sparky.menu.opt.ogstd.build.flags.optimize=-g -Og
 
-RAK.menu.opt.osstd=Smallest (-Os default)
-RAK.menu.opt.oslto=Smallest (-Os) with LTO
-RAK.menu.opt.oslto.build.flags.optimize=-Os -flto
-RAK.menu.opt.o1std=Fast (-O1)
-RAK.menu.opt.o1std.build.flags.optimize=-O1
-RAK.menu.opt.o1lto=Fast (-O1) with LTO
-RAK.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-RAK.menu.opt.o2std=Faster (-O2)
-RAK.menu.opt.o2std.build.flags.optimize=-O2
-RAK.menu.opt.o2lto=Faster (-O2) with LTO
-RAK.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-RAK.menu.opt.o3std=Fastest (-O3)
-RAK.menu.opt.o3std.build.flags.optimize=-O3
-RAK.menu.opt.o3lto=Fastest (-O3) with LTO
-RAK.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-RAK.menu.opt.ogstd=Debug (-g)
-RAK.menu.opt.ogstd.build.flags.optimize=-g -Og
+LoRa.menu.opt.osstd=Smallest (-Os default)
+LoRa.menu.opt.oslto=Smallest (-Os) with LTO
+LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
+LoRa.menu.opt.o1std=Fast (-O1)
+LoRa.menu.opt.o1std.build.flags.optimize=-O1
+LoRa.menu.opt.o1lto=Fast (-O1) with LTO
+LoRa.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+LoRa.menu.opt.o2std=Faster (-O2)
+LoRa.menu.opt.o2std.build.flags.optimize=-O2
+LoRa.menu.opt.o2lto=Faster (-O2) with LTO
+LoRa.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+LoRa.menu.opt.o3std=Fastest (-O3)
+LoRa.menu.opt.o3std.build.flags.optimize=-O3
+LoRa.menu.opt.o3lto=Fastest (-O3) with LTO
+LoRa.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+LoRa.menu.opt.ogstd=Debug (-g)
+LoRa.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 3dprinter.menu.opt.osstd=Smallest (-Os default)
 3dprinter.menu.opt.oslto=Smallest (-Os) with LTO
@@ -1924,15 +1939,15 @@ Sparky.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_floa
 Sparky.menu.rtlib.full=Newlib Standard
 Sparky.menu.rtlib.full.build.flags.ldspecs=
 
-RAK.menu.rtlib.nano=Newlib Nano (default)
-RAK.menu.rtlib.nanofp=Newlib Nano + Float Printf
-RAK.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-RAK.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-RAK.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-RAK.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-RAK.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-RAK.menu.rtlib.full=Newlib Standard
-RAK.menu.rtlib.full.build.flags.ldspecs=
+LoRa.menu.rtlib.nano=Newlib Nano (default)
+LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
+LoRa.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+LoRa.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+LoRa.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+LoRa.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+LoRa.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+LoRa.menu.rtlib.full=Newlib Standard
+LoRa.menu.rtlib.full.build.flags.ldspecs=
 
 3dprinter.menu.rtlib.nano=Newlib Nano (default)
 3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf
