@@ -130,9 +130,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
 | :green_heart: | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
 
-| Status | RAK Wireless | Release | Comment |
+| Status | LoRa boards | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | Basic support |
+| :yellow_heart: | [RHF76-052](https://www.ai-thinker.com/) | **1.7.0** | Basic support |
 
 | Status | Sparky flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
