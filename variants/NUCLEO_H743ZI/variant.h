@@ -205,6 +205,12 @@ extern "C" {
 #define PIN_SERIAL_RX           PD9
 #define PIN_SERIAL_TX           PD8
 
+// HSE default value is 25MHz in HAL
+// HSE_BYPASS is 8MHz
+#ifndef HSE_BYPASS_NOT_USED
+#define HSE_VALUE 8000000
+#endif
+
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_ETH_MODULE_ENABLED
