@@ -64,7 +64,7 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7l_math
 Nucleo_144.menu.pnum.NUCLEO_H743ZI=Nucleo H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.node=NODE_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_size=2097152
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_data_size=131072
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.mcu=cortex-m7
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
@@ -74,9 +74,9 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.variant=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.cmsis_lib_gcc=arm_cortexM7l_math
 
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2=Nucleo H743ZI2
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node=NODE_H743ZI
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node="NODE_H743ZI,NOD_H743ZI2"
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_size=2097152
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_data_size=131072
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.mcu=cortex-m7
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.board=NUCLEO_H743ZI2
