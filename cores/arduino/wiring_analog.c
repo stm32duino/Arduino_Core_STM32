@@ -49,17 +49,16 @@ void analogWriteFrequency(uint32_t freq)
 
 static inline uint32_t mapResolution(uint32_t value, uint32_t from, uint32_t to)
 {
-  if (from == to) {
-    return value;
+  if (from != to) {
+    if (from > to) {
+      value = (value < (uint32_t)(1 << (from - to))) ? 0 : ((value + 1) >> (from - to)) - 1;
+    } else {
+      if (value != 0) {
+        value = ((value + 1) << (to - from)) - 1;
+      }
+    }
   }
-  if (value == 0) {
-    return value;
-  }
-  if (from > to) {
-    return (((value + 1) >> (from - to)) - 1);
-  } else {
-    return (((value + 1) << (to - from)) - 1);
-  }
+  return value;
 }
 
 void analogReference(eAnalogReference ulMode)
