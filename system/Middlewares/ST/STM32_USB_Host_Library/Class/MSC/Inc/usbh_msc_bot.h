@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -50,7 +50,8 @@ extern "C" {
   * @{
   */
 
-typedef enum {
+typedef enum
+{
   BOT_OK          = 0,
   BOT_FAIL        = 1,
   BOT_PHASE_ERROR = 2,
@@ -58,7 +59,8 @@ typedef enum {
 }
 BOT_StatusTypeDef;
 
-typedef enum {
+typedef enum
+{
   BOT_CMD_IDLE  = 0,
   BOT_CMD_SEND,
   BOT_CMD_WAIT,
@@ -66,7 +68,8 @@ typedef enum {
 BOT_CMDStateTypeDef;
 
 /* CSW Status Definitions */
-typedef enum {
+typedef enum
+{
 
   BOT_CSW_CMD_PASSED   =        0x00,
   BOT_CSW_CMD_FAILED   =        0x01,
@@ -74,7 +77,8 @@ typedef enum {
 }
 BOT_CSWStatusTypeDef;
 
-typedef enum {
+typedef enum
+{
   BOT_SEND_CBW  = 1,
   BOT_SEND_CBW_WAIT,
   BOT_DATA_IN,
@@ -89,8 +93,10 @@ typedef enum {
 }
 BOT_StateTypeDef;
 
-typedef union {
-  struct __CBW {
+typedef union
+{
+  struct __CBW
+  {
     uint32_t Signature;
     uint32_t Tag;
     uint32_t DataTransferLength;
@@ -103,8 +109,10 @@ typedef union {
 }
 BOT_CBWTypeDef;
 
-typedef union {
-  struct __CSW {
+typedef union
+{
+  struct __CSW
+  {
     uint32_t Signature;
     uint32_t Tag;
     uint32_t DataResidue;
@@ -114,7 +122,8 @@ typedef union {
 }
 BOT_CSWTypeDef;
 
-typedef struct {
+typedef struct
+{
   uint32_t                   data[16];
   BOT_StateTypeDef           state;
   BOT_StateTypeDef           prev_state;

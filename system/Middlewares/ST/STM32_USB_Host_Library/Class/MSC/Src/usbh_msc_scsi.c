@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -106,7 +106,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_TestUnitReady(USBH_HandleTypeDef *phost,
   USBH_StatusTypeDef    error = USBH_FAIL ;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/
@@ -148,7 +149,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_ReadCapacity(USBH_HandleTypeDef *phost,
   USBH_StatusTypeDef    error = USBH_BUSY ;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/
@@ -170,7 +172,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_ReadCapacity(USBH_HandleTypeDef *phost,
 
       error = USBH_MSC_BOT_Process(phost, lun);
 
-      if (error == USBH_OK) {
+      if (error == USBH_OK)
+      {
         /*assign the capacity*/
         capacity->block_nbr = MSC_Handle->hbot.pbuf[3] | ((uint32_t)MSC_Handle->hbot.pbuf[2] << 8U) | \
                               ((uint32_t)MSC_Handle->hbot.pbuf[1] << 16U) | ((uint32_t)MSC_Handle->hbot.pbuf[0] << 24U);
@@ -201,7 +204,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_Inquiry(USBH_HandleTypeDef *phost, uint8_t lun,
   USBH_StatusTypeDef error = USBH_FAIL;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/
@@ -228,15 +232,19 @@ USBH_StatusTypeDef USBH_MSC_SCSI_Inquiry(USBH_HandleTypeDef *phost, uint8_t lun,
 
       error = USBH_MSC_BOT_Process(phost, lun);
 
-      if (error == USBH_OK) {
+      if (error == USBH_OK)
+      {
         USBH_memset(inquiry, 0, sizeof(SCSI_StdInquiryDataTypeDef));
         /*assign Inquiry Data */
         inquiry->DeviceType = MSC_Handle->hbot.pbuf[0] & 0x1FU;
         inquiry->PeripheralQualifier = MSC_Handle->hbot.pbuf[0] >> 5U;
 
-        if (((uint32_t)MSC_Handle->hbot.pbuf[1] & 0x80U) == 0x80U) {
+        if (((uint32_t)MSC_Handle->hbot.pbuf[1] & 0x80U) == 0x80U)
+        {
           inquiry->RemovableMedia = 1U;
-        } else {
+        }
+        else
+        {
           inquiry->RemovableMedia = 0U;
         }
 
@@ -268,7 +276,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_RequestSense(USBH_HandleTypeDef *phost,
   USBH_StatusTypeDef    error = USBH_FAIL ;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/
@@ -294,7 +303,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_RequestSense(USBH_HandleTypeDef *phost,
 
       error = USBH_MSC_BOT_Process(phost, lun);
 
-      if (error == USBH_OK) {
+      if (error == USBH_OK)
+      {
         sense_data->key  = MSC_Handle->hbot.pbuf[2] & 0x0FU;
         sense_data->asc  = MSC_Handle->hbot.pbuf[12];
         sense_data->ascq = MSC_Handle->hbot.pbuf[13];
@@ -328,7 +338,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_Write(USBH_HandleTypeDef *phost,
 
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/
@@ -387,7 +398,8 @@ USBH_StatusTypeDef USBH_MSC_SCSI_Read(USBH_HandleTypeDef *phost,
   USBH_StatusTypeDef    error = USBH_FAIL ;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (MSC_Handle->hbot.cmd_state) {
+  switch (MSC_Handle->hbot.cmd_state)
+  {
     case BOT_CMD_SEND:
 
       /*Prepare the CBW and relevent field*/

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -90,14 +90,16 @@ extern "C" {
 /**
   * @}
   */
-typedef struct {
+typedef struct
+{
   uint32_t bitrate;
   uint8_t  format;
   uint8_t  paritytype;
   uint8_t  datatype;
 } USBD_CDC_LineCodingTypeDef;
 
-typedef struct _USBD_CDC_Itf {
+typedef struct _USBD_CDC_Itf
+{
   int8_t (* Init)(void);
   int8_t (* DeInit)(void);
   int8_t (* Control)(uint8_t cmd, uint8_t *pbuf, uint16_t length);
@@ -106,7 +108,8 @@ typedef struct _USBD_CDC_Itf {
 } USBD_CDC_ItfTypeDef;
 
 
-typedef struct {
+typedef struct
+{
   uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
@@ -154,7 +157,6 @@ uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef   *pdev,
                               uint8_t  *pbuff);
 
 uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
-uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
 
 uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 /**

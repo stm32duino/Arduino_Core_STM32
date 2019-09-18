@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -272,9 +272,9 @@ static void Get_SerialNum(void)
 
   deviceserial0 += deviceserial2;
 
-  if (deviceserial0 != 0) {
-    IntToUnicode(deviceserial0, &USBD_StringSerial[2], 8);
-    IntToUnicode(deviceserial1, &USBD_StringSerial[18], 4);
+  if (deviceserial0 != 0U) {
+    IntToUnicode(deviceserial0, &USBD_StringSerial[2], 8U);
+    IntToUnicode(deviceserial1, &USBD_StringSerial[18], 4U);
   }
 }
 
@@ -287,18 +287,18 @@ static void Get_SerialNum(void)
   */
 static void IntToUnicode(uint32_t value, uint8_t *pbuf, uint8_t len)
 {
-  uint8_t idx = 0;
+  uint8_t idx = 0U;
 
-  for (idx = 0 ; idx < len ; idx ++) {
-    if (((value >> 28)) < 0xA) {
-      pbuf[ 2 * idx] = (value >> 28) + '0';
+  for (idx = 0U ; idx < len ; idx ++) {
+    if (((value >> 28)) < 0xAU) {
+      pbuf[ 2U * idx] = (value >> 28) + '0';
     } else {
-      pbuf[2 * idx] = (value >> 28) + 'A' - 10;
+      pbuf[2U * idx] = (value >> 28) + 'A' - 10U;
     }
 
     value = value << 4;
 
-    pbuf[ 2 * idx + 1] = 0;
+    pbuf[2U * idx + 1] = 0U;
   }
 }
 #endif /* USBCON */

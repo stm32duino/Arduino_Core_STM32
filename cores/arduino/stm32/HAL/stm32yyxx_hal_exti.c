@@ -1,3 +1,6 @@
+#ifdef STM32F1xx
+#include "stm32f1xx_hal_exti.c"
+#endif
 #ifdef STM32F2xx
 #include "stm32f2xx_hal_exti.c"
 #endif

@@ -2,38 +2,21 @@
   ******************************************************************************
   * @file    stm32f1xx_hal_pcd_ex.c
   * @author  MCD Application Team
-  * @brief   Extended PCD HAL module driver.
-  *          This file provides firmware functions to manage the following 
+  * @brief   PCD Extended HAL module driver.
+  *          This file provides firmware functions to manage the following
   *          functionalities of the USB Peripheral Controller:
-  *           + Extended features functions: Update FIFO configuration, 
-  *           PMA configuration for EPs  
+  *           + Extended features functions
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -70,7 +53,7 @@
   */
 
 /** @defgroup PCDEx_Exported_Functions_Group1 Peripheral Control functions
-  * @brief    PCDEx control functions 
+  * @brief    PCDEx control functions
   *
 @verbatim
  ===============================================================================
@@ -96,19 +79,19 @@ HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uin
 {
   uint8_t index = 0;
   uint32_t Tx_Offset = 0U;
-  
+
   /*  TXn min size = 16 words. (n  : Transmit FIFO index)
-      When a TxFIFO is not used, the Configuration should be as follows: 
+      When a TxFIFO is not used, the Configuration should be as follows:
           case 1 :  n > m    and Txn is not used    (n,m  : Transmit FIFO indexes)
          --> Txm can use the space allocated for Txn.
          case2  :  n < m    and Txn is not used    (n,m  : Transmit FIFO indexes)
          --> Txn should be configured with the minimum space of 16 words
-     The FIFO is used optimally when used TxFIFOs are allocated in the top 
+     The FIFO is used optimally when used TxFIFOs are allocated in the top
          of the FIFO.Ex: use EP1 and EP2 as IN instead of EP1 and EP3 as IN ones.
      When DMA is used 3n * FIFO locations should be reserved for internal DMA registers */
-  
+
   Tx_Offset = hpcd->Instance->GRXFSIZ;
-  
+
   if(fifo == 0U)
   {
     hpcd->Instance->DIEPTXF0_HNPTXFSIZ = (size << 16U) | Tx_Offset;
@@ -120,12 +103,12 @@ HAL_StatusTypeDef HAL_PCDEx_SetTxFiFo(PCD_HandleTypeDef *hpcd, uint8_t fifo, uin
     {
       Tx_Offset += (hpcd->Instance->DIEPTXF[index] >> 16U);
     }
-    
+
     /* Multiply Tx_Size by 2 to get higher performance */
     hpcd->Instance->DIEPTXF[fifo - 1U] = (size << 16U) | Tx_Offset;
-    
+
   }
-  
+
   return HAL_OK;
 }
 
@@ -160,14 +143,14 @@ HAL_StatusTypeDef HAL_PCDEx_SetRxFiFo(PCD_HandleTypeDef *hpcd, uint16_t size)
   * @retval HAL status
   */
 
-HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd, 
+HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd,
                                        uint16_t ep_addr,
                                        uint16_t ep_kind,
                                        uint32_t pmaadress)
 
 {
   PCD_EPTypeDef *ep = NULL;
-  
+
   /* initialize ep structure*/
   if ((ep_addr & 0x80U) == 0x80U)
   {
@@ -177,7 +160,7 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd,
   {
     ep = &hpcd->OUT_ep[ep_addr];
   }
-  
+
   /* Here we check if the endpoint is single or double Buffer*/
   if (ep_kind == PCD_SNG_BUF)
   {
@@ -194,8 +177,8 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd,
     ep->pmaaddr0 =  pmaadress & 0x0000FFFFU;
     ep->pmaaddr1 =  (pmaadress & 0xFFFF0000U) >> 16U;
   }
-  
-  return HAL_OK; 
+
+  return HAL_OK;
 }
 #endif /* USB */
 /**
@@ -203,12 +186,12 @@ HAL_StatusTypeDef  HAL_PCDEx_PMAConfig(PCD_HandleTypeDef *hpcd,
   */
 
 /** @defgroup PCDEx_Exported_Functions_Group2 Peripheral State functions
-  * @brief    Manage device connection state  
+  * @brief    Manage device connection state
   * @{
   */
 /**
-  * @brief  Software Device Connection,  
-  *         this function is not required by USB OTG FS peripheral, it is used 
+  * @brief  Software Device Connection,
+  *         this function is not required by USB OTG FS peripheral, it is used
   *         only by USB Device FS peripheral.
   * @param  hpcd: PCD handle
   * @param  state: connection state (0 : disconnected / 1: connected)
@@ -221,7 +204,7 @@ __weak void HAL_PCDEx_SetConnectionState(PCD_HandleTypeDef *hpcd, uint8_t state)
   UNUSED(state);
   /* NOTE : This function Should not be modified, when the callback is needed,
             the HAL_PCDEx_SetConnectionState could be implemented in the user file
-   */ 
+   */
 }
 /**
   * @}
