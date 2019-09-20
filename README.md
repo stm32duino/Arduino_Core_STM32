@@ -1,7 +1,7 @@
 # Arduino core support for STM32 based boards
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.6.1.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.6.1...master)
+[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.7.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.7.0...master)
 [![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32)
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -62,8 +62,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html) | *1.1.1* |  |
 | :green_heart: | [Nucleo-G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | *1.6.0* |  |
-| :yellow_heart: | [Nucleo-G431RB](https://www.st.com/en/evaluation-tools/nucleo-g431rb.html) | **1.7.0** |  |
-| :yellow_heart: | [Nucleo-G474RE](https://www.st.com/en/evaluation-tools/nucleo-g474re.html) | **1.7.0** |  |
+| :green_heart: | [Nucleo-G431RB](https://www.st.com/en/evaluation-tools/nucleo-g431rb.html) | *1.7.0* |  |
+| :green_heart: | [Nucleo-G474RE](https://www.st.com/en/evaluation-tools/nucleo-g474re.html) | *1.7.0* |  |
 | :green_heart: | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | *0.1.0* |  |
 | :green_heart: | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart: | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
@@ -74,7 +74,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
-| :yellow_heart: | [Nucleo-G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | **1.7.0** |  |
+| :green_heart: | [Nucleo-G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
 | :green_heart: | [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html) | *1.1.1* |  |
 | :green_heart: | [Nucleo L412KB](http://www.st.com/en/evaluation-tools/nucleo-l412kb.html) | *1.5.0* |  |
 | :green_heart: | [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html) | *0.2.0* |  |
@@ -91,7 +91,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | [Eval](https://www.st.com/en/evaluation-tools/stm32-eval-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | **1.7.0** |  |
+| :green_heart: | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | *1.7.0* |  |
 
 | Status | Generic STM32F0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -101,7 +101,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [BluePill F103C(6-8-B)](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | [BlackPill F103C(8-B)](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
-| :yellow_heart: | [Generic F103R(8-B-C-E)T6](https://stm32-base.org/boards/STM32F103RET6-Generic-Board) | **1.7.0** | Blue Button |
+| :green_heart: | [Generic F103R(8-B-C-E)T6](https://stm32-base.org/boards/STM32F103RET6-Generic-Board) | *1.7.0* | Blue Button |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 
@@ -111,10 +111,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | BlackPill F401CC | **1.7.0** |  |
+| :green_heart: | BlackPill F401CC | *1.7.0* |  |
 | :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
-| :yellow_heart: | Core Board F401RC | **1.7.0** |  |
+| :green_heart: | Core Board F401RC | *1.7.0* |  |
 | :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
 
@@ -133,7 +133,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | LoRa boards | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | Basic support |
-| :yellow_heart: | [RHF76-052](https://www.ai-thinker.com/) | **1.7.0** | Basic support |
+| :green_heart: | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
 
 | Status | Sparky flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -141,11 +141,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | Afro Flight Rev5 (8/12MHz) | **1.7.0** |  |
+| :green_heart: | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
 
 | Status | [Midatronics](https://midatronics.com/) | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [SharkyMKR](https://midatronics.com/Development_Boards/MKR_Sharky_I) | **1.7.0** |  |
+| :green_heart: | [SharkyMKR](https://midatronics.com/Development_Boards/MKR_Sharky_I) | *1.7.0* |  |
 
 ## Next release
 
@@ -154,12 +154,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 ## Troubleshooting
 
 ### Important notice:
-[stm32duino forum](http://stm32duino.com) will be transfer to STM. See [here](http://stm32duino.com/viewtopic.php?f=16&t=4671).
+
+**Currently [stm32duino forum](http://stm32duino.com) is down. Forum alternative is under investigation.**
 
 If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
 
 For question, support, ...,  you could submit a topic on the [stm32duino forum](http://stm32duino.com):
-
-**Important note: currently http://stm32duino.com is down. Forum alternative is under investigation.**
 
 In any case, it always fine to search if your issue was not already existing before submit a new one.
