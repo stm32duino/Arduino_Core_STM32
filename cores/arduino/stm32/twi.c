@@ -740,16 +740,8 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
     return i2c_IsDeviceReady(obj, dev_address, 1);
   }
 
-#if defined(I2C_OTHER_FRAME)
-  uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
-#endif
-
   do {
-#if defined(I2C_OTHER_FRAME)
-    if (HAL_I2C_Master_Seq_Transmit_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
-#else
     if (HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
-#endif
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
@@ -811,16 +803,8 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
   uint32_t tickstart = HAL_GetTick();
   uint32_t delta = 0;
 
-#if defined(I2C_OTHER_FRAME)
-  uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
-#endif
-
   do {
-#if defined(I2C_OTHER_FRAME)
-    if (HAL_I2C_Master_Seq_Receive_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
-#else
     if (HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
-#endif
       ret = I2C_OK;
       // wait for transfer completion
       while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
