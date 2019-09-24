@@ -17,7 +17,7 @@
         {
           "pattern": "^((?!BareMinimum.ino).)*$",
           "applicable": false,
-          "boards": [ "DEMO_F030F4", "DEMO_F030F4_16M", "DEMO_F030F4_HSI" ]
+          "boards": [ "DEMO_F030F4", "DEMO_F030F4_16M", "DEMO_F030F4_HSI", "RHF76_052" ]
         },
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
