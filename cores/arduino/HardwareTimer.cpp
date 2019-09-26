@@ -764,9 +764,9 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
 HardwareTimer::~HardwareTimer()
 {
   uint32_t index = get_timer_index(_HardwareTimerObj.handle.Instance);
+  disableTimerClock(&(_HardwareTimerObj.handle));
   HardwareTimer_Handle[index] = NULL;
   _HardwareTimerObj.__this = NULL;
-  enableTimerClock(&(_HardwareTimerObj.handle));
 }
 
 /**
