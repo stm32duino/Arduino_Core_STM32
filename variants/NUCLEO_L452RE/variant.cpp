@@ -24,6 +24,7 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
+#ifdef ARDUINO_NUCLEO_L452RE
   PA_3,  //D0
   PA_2,  //D1
   PA_10, //D2
@@ -44,49 +45,114 @@ const PinName digitalPin[] = {
   // CN7 Left Side
   PC_10, //D16
   PC_12, //D17
-  NC,    //D18 - BOOT0
+  PA_13, //D18 - SWD
+  PA_14, //D19 - SWD
+  PA_15, //D20
+  PB_7,  //D21
+  PC_13, //D22
+  PC_14, //D23
+  PC_15, //D24
+  PH_0,  //D25
+  PH_1,  //D26
+  PC_2,  //D27
+  PC_3,  //D28
+  // CN7 Right Side
+  PC_11, //D29
+  PD_2,  //D30
+  // CN10 Left Side
+  PC_9,  //D31
+  // CN10 Right side
+  PC_8,  //D32
+  PC_6,  //D33
+  PC_5,  //D34
+  PA_12, //D35
+  PA_11, //D36
+  PB_12, //D37
+  PB_11, //D38
+  PB_2,  //D39
+  PB_1,  //D40
+  PB_15, //D41
+  PB_14, //D42
+  PB_13, //D43
+  PC_4,  //D44
+  PA_0,  //D45/A0
+  PA_1,  //D46/A1
+  PA_4,  //D47/A2
+  PB_0,  //D48/A3
+  PC_1,  //D49/A4
+  PC_0,  //D50/A5
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  PA_7,  //D51/A6  = D11
+  PA_6,  //D52/A7  = D12
+  PC_2,  //D53/A8  = D27
+  PC_3,  //D54/A9  = D28
+  PC_4   //D55/A10 = D44
+#else
+  PA_10, //D0
+  PA_9,  //D1
+  PA_12, //D2
+  PB_3,  //D3
+  PB_5,  //D4
+  PA_15, //D5
+  PB_10, //D6
+  PC_7,  //D7
+  PB_6,  //D8
+  PA_8,  //D9
+  PA_11, //D10
+  PB_15, //D11
+  PB_14, //D12
+  PB_13, //D13 - LED
+  PB_7,  //D14
+  PB_8,  //D15
+  // ST Morpho
+  // CN5 Left Side
+  PC_10, //D16
+  PC_12, //D17
+  PB_12, //D18
   PA_13, //D19 - SWD
   PA_14, //D20 - SWD
-  PA_15, //D21
-  PB_7,  //D22
-  PC_13, //D23
-  PC_14, //D24
-  PC_15, //D25
-  PH_0,  //D26
-  PH_1,  //D27
-  PC_2,  //D28
-  PC_3,  //D29
-  // CN7 Right Side
-  PC_11, //D30
-  PD_2,  //D31
-  // CN10 Left Side
-  PC_9,  //D32
-  // CN10 Right side
-  PC_8,  //D33
-  PC_6,  //D34
-  PC_5,  //D35
-  PA_12, //D36
-  PA_11, //D37
-  PB_12, //D38
-  PB_11, //D39
-  PB_2,  //D40
-  PB_1,  //D41
-  PB_15, //D42
-  PB_14, //D43
-  PB_13, //D44
-  PC_4,  //D45
-  PA_0,  //D46/A0
-  PA_1,  //D47/A1
-  PA_4,  //D48/A2
-  PB_0,  //D49/A3
-  PC_1,  //D50/A4
-  PC_0,  //D51/A5
+  PC_13, //D21
+  PC_14, //D22
+  PC_15, //D23
+  PH_0,  //D24
+  PH_1,  //D25
+  PB_4,  //D26
+  PB_9,  //D27
+  // CN5 Right Side
+  PC_11, //D28
+  PD_2,  //D29
+  // CN6 Left Side
+  PC_9,  //D30
+  // CN6 Right side
+  PC_8,  //D31
+  PC_6,  //D32
+  PC_5,  //D33
+  PB_0,  //D34
+  PB_11, //D35
+  PB_2,  //D36
+  PB_1,  //D37
+  PA_7,  //D38
+  PA_6,  //D39
+  PA_5,  //D40
+  PA_4,  //D41
+  PC_4,  //D42
+  PA_3,  //D43
+  PA_2,  //D44
+  PA_0,  //D45 // A0
+  PA_1,  //D46 // A1
+  PC_3,  //D47 // A2
+  PC_2,  //D48 // A3
+  PC_1,  //D49 // A4
+  PC_0,  //D50 // A5
   // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_7,  //D52/A6  = D11
-  PA_6,  //D53/A7  = D12
-  PC_2,  //D54/A8  = D28
-  PC_3,  //D55/A9  = D29
-  PC_4   //D56/A10 = D45
+  PA_4,  //D51 // A6  = D41
+  PA_5,  //D52 // A7  = D40
+  PA_6,  //D53 // A8  = D39
+  PA_7,  //D54 // A9  = D38
+  PB_0,  //D55 // A10 = D34
+  PB_1,  //D56 // A11 = D37
+  PC_4   //D57 // A12 = D42
+#endif
 };
 
 #ifdef __cplusplus
