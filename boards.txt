@@ -358,6 +358,19 @@ Nucleo_64.menu.pnum.NUCLEO_L452RE.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.variant=NUCLEO_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.cmsis_lib_gcc=arm_cortexM4l_math
 
+# NUCLEO_L452RE-P board
+Nucleo_64.menu.pnum.NUCLEO_L452REP=Nucleo L452RE-P
+Nucleo_64.menu.pnum.NUCLEO_L452REP.node=NODE_L452RE
+Nucleo_64.menu.pnum.NUCLEO_L452REP.upload.maximum_size=524288
+Nucleo_64.menu.pnum.NUCLEO_L452REP.upload.maximum_data_size=163840
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.board=NUCLEO_L452RE_P
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.series=STM32L4xx
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.product_line=STM32L452xx
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.variant=NUCLEO_L452RE
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # NUCLEO_L476RG board
 # Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
