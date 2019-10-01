@@ -9,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc/" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src/" "-I{build.system.path}/{build.series}/" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -92,10 +92,22 @@ build.opt.name=build_opt.h
 build.opt.sourcepath={build.source.path}/{build.opt.name}
 build.opt.path={build.path}/sketch/{build.opt.name}
 
+build.src_wrapper.path={build.path}/sketch/SrcWrapper.cpp
+
+# Create sketch dir if not exists
+recipe.hooks.prebuild.1.pattern.windows=cmd /c if not exist "{build.path}\sketch" mkdir "{build.path}\sketch"
+recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
+recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
+
 # Create empty {build.opt} if not exists in the sketch dir
-recipe.hooks.prebuild.1.pattern.windows=cmd /c if not exist "{build.opt.sourcepath}" mkdir "{build.path}\sketch" & type NUL > "{build.opt.path}"
-recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
-recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || (mkdir -p {build.path}/sketch && touch {build.opt.path})"
+recipe.hooks.prebuild.2.pattern.windows=cmd /c if not exist "{build.opt.sourcepath}" type NUL > "{build.opt.path}"
+recipe.hooks.prebuild.2.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
+recipe.hooks.prebuild.2.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
+
+# Force include of SrcWrapper library
+recipe.hooks.prebuild.3.pattern.windows=cmd /c echo #include ^<SrcWrapper.h^> > "{build.src_wrapper.path}"
+recipe.hooks.prebuild.3.pattern.linux=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
+recipe.hooks.prebuild.3.pattern.macosx=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
 
 # compile patterns
 # ---------------------
