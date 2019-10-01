@@ -45,6 +45,31 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
+#if defined(STM32MP1xx)
+/* Note for STM32MP1xx devices:
+ * Those devices do not have non-volatile memory. The emulation is done
+ * in RETRAM. Therefore data will be preserved *only* when VBAT is supplied
+ * (e.g. A coin battery is connected to CN3 on STM32MP157A_DK1) and
+ * the coprocessor is waken up from STANBY mode.
+ * The data won't be preserved from cold boot, even if VBAT is connected.
+ * See: https://community.st.com/s/question/0D50X0000B44pHUSQY/doesnt-the-mcu-coprocessor-have-nonvolatile-memory
+ */
+#define EEPROM_RETRAM_MODE
+/* 4kB is the same size as EEPROM size of ATMega2560. */
+#ifndef EEPROM_RETRAM_MODE_SIZE
+#define EEPROM_RETRAM_MODE_SIZE ((uint32_t)(4*1024))
+#endif
+/* RETRAM start address is 0x00000000 (retset entry) and end address is
+ * 0x00020000 (64kB in total). The by default, ldscript.ld for STM32MP1xx
+ * does not define address between 0x00000298 (end of ISR Vector) and 0x00020000.
+ * So it is okay to use in this address range. Make sure ldscript.ld does not
+ * overrap the following address range.
+ */
+#ifndef EEPROM_RETRAM_START_ADDRESS
+#define EEPROM_RETRAM_START_ADDRESS (0x00000400UL)
+#endif
+#define E2END (EEPROM_RETRAM_MODE_SIZE - 1)
+#else
 #ifndef FLASH_PAGE_SIZE
 /*
  * FLASH_PAGE_SIZE is not defined for STM32F2xx, STM32F4xx and STM32F7xx
@@ -56,6 +81,7 @@ extern "C" {
 #define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) /* 16kB page */
 #endif
 #define E2END (FLASH_PAGE_SIZE - 1)
+#endif
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
