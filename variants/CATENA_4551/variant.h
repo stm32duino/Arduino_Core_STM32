@@ -99,7 +99,6 @@ enum {
 #define RADIO_MISO              D3
 #define RADIO_SCK               D4
 #define RADIO_RESET             D8
-#define RADIO_TCXO              D33
 #define RADIO_DIO_0             D25 
 #define RADIO_DIO_1             D26 
 #define RADIO_DIO_2             D27 
