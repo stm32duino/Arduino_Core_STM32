@@ -69,8 +69,11 @@ typedef enum {
 #if defined GPIOK_BASE
   PortK,
 #endif
+#if defined GPIOZ_BASE
   PortZ,
-  LastPort = PortZ - 1
+#endif
+  PortEND,
+  LastPort = PortEND - 1
 } PortName;
 
 #define MAX_NB_PORT (LastPort-FirstPort+1)
