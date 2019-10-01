@@ -623,9 +623,10 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-  /* For STM32F1xx and STM32H7xx, ADC prescaler is configured in
+  /* For STM32F1xx, STM32H7xx, and STM32MP1xx ADC prescaler is configured in
      SystemClock_Config (variant.cpp) */
-#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && !defined(STM32H7xx)
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && \
+    !defined(STM32H7xx) && !defined(STM32MP1xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
@@ -766,7 +767,7 @@ uint16_t adc_read_value(PinName pin)
   uint32_t samplingTime = ADC_SAMPLINGTIME;
   uint32_t channel = 0;
 
-  if (pin & PADC_BASE) {
+  if ((pin & PADC_BASE) && (pin < ANA_START)) {
 #if defined(STM32H7xx)
     AdcHandle.Instance = ADC3;
 #else
@@ -811,7 +812,8 @@ uint16_t adc_read_value(PinName pin)
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
-    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32WBxx)
+    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32MP1xx) && \
+    !defined(STM32WBxx)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_A
@@ -829,7 +831,7 @@ uint16_t adc_read_value(PinName pin)
 #if !defined(STM32F1xx) && !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
 #endif
-#if !defined(STM32F1xx) && !defined(STM32H7xx) && \
+#if !defined(STM32F1xx) && !defined(STM32H7xx) && !defined(STM32MP1xx) && \
     !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif

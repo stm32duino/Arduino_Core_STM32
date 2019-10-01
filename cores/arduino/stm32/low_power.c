@@ -63,7 +63,7 @@ static void (*WakeUpUartCb)(void) = NULL;
   */
 void LowPower_init()
 {
-#if !defined(STM32H7xx) && ! defined(STM32WBxx)
+#if !defined(STM32H7xx) && !defined(STM32MP1xx) && !defined(STM32WBxx)
   /* Enable Power Clock */
   __HAL_RCC_PWR_CLK_ENABLE();
 #endif

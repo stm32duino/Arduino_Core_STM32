@@ -167,6 +167,12 @@ typedef enum {
 #if defined(I2C4_BASE)
   I2C4_INDEX,
 #endif
+#if defined(I2C5_BASE)
+  I2C5_INDEX,
+#endif
+#if defined(I2C6_BASE)
+  I2C6_INDEX,
+#endif
   I2C_NUM
 } i2c_index_t;
 
@@ -182,6 +188,7 @@ static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 {
   uint32_t clkSrcFreq = 0;
+#if !defined(STM32MP1xx)
 #ifdef STM32H7xx
   PLL3_ClocksTypeDef PLL3_Clocks;
 #endif
@@ -338,6 +345,32 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
     }
   }
 #endif // I2C4_BASE
+
+#elif defined(STM32MP1xx)
+  if (i2c == I2C1) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
+  }
+  if (i2c == I2C2) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
+  }
+  if (i2c == I2C3) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
+  }
+  if (i2c == I2C4) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
+  }
+#endif // STM32MP1xx
+
+#if defined I2C5_BASE
+  if (i2c == I2C5) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
+  }
+#endif // I2C5_BASE
+#if defined I2C6_BASE
+  if (i2c == I2C6) {
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
+  }
+#endif // I2C6_BASE
   return clkSrcFreq;
 }
 
@@ -631,6 +664,28 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
           i2c_handles[I2C4_INDEX] = handle;
         }
 #endif // I2C4_BASE
+#if defined I2C5_BASE
+        // Enable I2C5 clock if not done
+        if (obj->i2c == I2C5) {
+          __HAL_RCC_I2C5_CLK_ENABLE();
+          __HAL_RCC_I2C5_FORCE_RESET();
+          __HAL_RCC_I2C5_RELEASE_RESET();
+          obj->irq = I2C5_EV_IRQn;
+          obj->irqER = I2C5_ER_IRQn;
+          i2c_handles[I2C5_INDEX] = handle;
+        }
+#endif // I2C5_BASE
+#if defined I2C6_BASE
+        // Enable I2C6 clock if not done
+        if (obj->i2c == I2C6) {
+          __HAL_RCC_I2C6_CLK_ENABLE();
+          __HAL_RCC_I2C6_FORCE_RESET();
+          __HAL_RCC_I2C6_RELEASE_RESET();
+          obj->irq = I2C6_EV_IRQn;
+          obj->irqER = I2C6_ER_IRQn;
+          i2c_handles[I2C6_INDEX] = handle;
+        }
+#endif // I2C6_BASE
 
         /* Configure I2C GPIO pins */
         pinmap_pinout(obj->scl, PinMap_I2C_SCL);
@@ -935,7 +990,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
         obj->i2c_onSlaveTransmit();
       }
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
-    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32MP1xx)
       HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
                                     obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
 #else
@@ -948,7 +1003,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       /*  We don't know in advance how many bytes will be sent by master so
        *  we'll fetch one by one until master ends the sequence */
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
-    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32MP1xx)
       HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                    1, I2C_NEXT_FRAME);
 #else
@@ -997,7 +1052,7 @@ void HAL_I2C_SlaveRxCpltCallback(I2C_HandleTypeDef *hi2c)
   /* Restart interrupt mode for next Byte */
   if (obj->slaveMode == SLAVE_MODE_RECEIVE) {
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
-    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx)
+    defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32MP1xx)
     HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
                                  1, I2C_NEXT_FRAME);
 #else
@@ -1150,6 +1205,55 @@ void I2C4_ER_IRQHandler(void)
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // I2C4_BASE
+
+#if defined(I2C5_BASE)
+/**
+* @brief  This function handles I2C5 interrupt.
+* @param  None
+* @retval None
+*/
+void I2C5_EV_IRQHandler(void)
+{
+  I2C_HandleTypeDef *handle = i2c_handles[I2C5_INDEX];
+  HAL_I2C_EV_IRQHandler(handle);
+}
+
+/**
+* @brief  This function handles I2C5 interrupt.
+* @param  None
+* @retval None
+*/
+void I2C5_ER_IRQHandler(void)
+{
+  I2C_HandleTypeDef *handle = i2c_handles[I2C5_INDEX];
+  HAL_I2C_ER_IRQHandler(handle);
+}
+#endif // I2C5_BASE
+
+#if defined(I2C6_BASE)
+/**
+* @brief  This function handles I2C6 interrupt.
+* @param  None
+* @retval None
+*/
+void I2C6_EV_IRQHandler(void)
+{
+  I2C_HandleTypeDef *handle = i2c_handles[I2C6_INDEX];
+  HAL_I2C_EV_IRQHandler(handle);
+}
+
+/**
+* @brief  This function handles I2C6 interrupt.
+* @param  None
+* @retval None
+*/
+void I2C6_ER_IRQHandler(void)
+{
+  I2C_HandleTypeDef *handle = i2c_handles[I2C6_INDEX];
+  HAL_I2C_ER_IRQHandler(handle);
+}
+#endif // I2C6_BASE
+
 #endif /* HAL_I2C_MODULE_ENABLED */
 
 #ifdef __cplusplus

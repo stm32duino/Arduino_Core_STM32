@@ -947,6 +947,11 @@ timer_index_t get_timer_index(TIM_TypeDef *instance)
   */
 uint32_t HardwareTimer::getTimerClkFreq()
 {
+#if defined(STM32MP1xx)
+  uint8_t timerClkSrc = getTimerClkSrc(_timerObj.handle.Instance);
+  uint64_t clkSelection = timerClkSrc == 1 ? RCC_PERIPHCLK_TIMG1 : RCC_PERIPHCLK_TIMG2;
+  return HAL_RCCEx_GetPeriphCLKFreq(clkSelection);
+#else
   RCC_ClkInitTypeDef    clkconfig = {};
   uint32_t              pFLatency = 0U;
   uint32_t              uwTimclock = 0U, uwAPBxPrescaler = 0U;
@@ -1062,6 +1067,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
     }
 #endif /* STM32H7xx */
   return uwTimclock;
+#endif /* STM32MP1xx */
 }
 
 /**
