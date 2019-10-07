@@ -64,6 +64,9 @@
   * @brief FMC driver modules
   * @{
   */
+#if (defined (HAL_SRAM_MODULE_ENABLED) || defined(HAL_SDRAM_MODULE_ENABLED)) && defined(HAL_MDMA_MODULE_ENABLED) || \
+  defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED)
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -1042,6 +1045,8 @@ uint32_t FMC_SDRAM_GetModeStatus(FMC_SDRAM_TypeDef *Device, uint32_t Bank)
 /**
   * @}
   */
+
+#endif /* (HAL_SRAM_MODULE_ENABLED || HAL_NOR_MODULE_ENABLED) && HAL_MDMA_MODULE_ENABLED || HAL_NAND_MODULE_ENABLED || HAL_SDRAM_MODULE_ENABLED */
 
 /**
   * @}
