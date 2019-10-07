@@ -24,6 +24,7 @@
 extern "C" {
 #endif
 
+#if defined(HAL_MDMA_MODULE_ENABLED)
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_ll_fmc.h"
@@ -210,7 +211,7 @@ HAL_SRAM_StateTypeDef HAL_SRAM_GetState(SRAM_HandleTypeDef *hsram);
 /**
   * @}
   */
-
+#endif /* HAL_MDMA_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }
