@@ -731,9 +731,10 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
                               uint8_t *data, uint16_t size)
 
 {
-  i2c_status_e ret = I2C_ERROR;
+  i2c_status_e ret = I2C_OK;
   uint32_t tickstart = HAL_GetTick();
   uint32_t delta = 0;
+  uint32_t err = 0;
 
   /* When size is 0, this is usually an I2C scan / ping to check if device is there and ready */
   if (size == 0) {
@@ -744,30 +745,28 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
   uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
 #endif
 
-  do {
 #if defined(I2C_OTHER_FRAME)
-    if (HAL_I2C_Master_Seq_Transmit_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
+  if (HAL_I2C_Master_Seq_Transmit_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
 #else
-    if (HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+  if (HAL_I2C_Master_Transmit_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
 #endif
-      ret = I2C_OK;
-      // wait for transfer completion
-      while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
-             && (ret == I2C_OK)) {
-        delta = (HAL_GetTick() - tickstart);
-        uint32_t err = HAL_I2C_GetError(&(obj->handle));
-        if ((delta > I2C_TIMEOUT_TICK)
-            || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
-          ret = I2C_TIMEOUT;
-        } else if (err != HAL_I2C_ERROR_NONE) {
-          ret = I2C_ERROR;
-        }
+    // wait for transfer completion
+    while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY) && (delta < I2C_TIMEOUT_TICK)) {
+      delta = (HAL_GetTick() - tickstart);
+      if (HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
+        break;
       }
     }
-    /* When Acknowledge failure occurs (Slave don't acknowledge it's address)
-       Master restarts communication */
-  } while (((HAL_I2C_GetError(&(obj->handle)) & HAL_I2C_ERROR_AF) == HAL_I2C_ERROR_AF)
-           && (delta < I2C_TIMEOUT_TICK));
+
+    err = HAL_I2C_GetError(&(obj->handle));
+    if ((delta > I2C_TIMEOUT_TICK)
+        || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
+      ret = I2C_TIMEOUT;
+    } else if (err != HAL_I2C_ERROR_NONE) {
+      ret = I2C_ERROR;
+    }
+  }
+
   return ret;
 }
 
@@ -807,38 +806,36 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
   */
 i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uint16_t size)
 {
-  i2c_status_e ret = I2C_ERROR;
+  i2c_status_e ret = I2C_OK;
   uint32_t tickstart = HAL_GetTick();
   uint32_t delta = 0;
+  uint32_t err = 0;
 
 #if defined(I2C_OTHER_FRAME)
   uint32_t XferOptions = obj->handle.XferOptions; // save XferOptions value, because handle can be modified by HAL, which cause issue in case of NACK from slave
 #endif
 
-  do {
 #if defined(I2C_OTHER_FRAME)
-    if (HAL_I2C_Master_Seq_Receive_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
+  if (HAL_I2C_Master_Seq_Receive_IT(&(obj->handle), dev_address, data, size, XferOptions) == HAL_OK) {
 #else
-    if (HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
+  if (HAL_I2C_Master_Receive_IT(&(obj->handle), dev_address, data, size) == HAL_OK) {
 #endif
-      ret = I2C_OK;
-      // wait for transfer completion
-      while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY)
-             && (ret == I2C_OK)) {
-        delta = (HAL_GetTick() - tickstart);
-        uint32_t err = HAL_I2C_GetError(&(obj->handle));
-        if ((delta > I2C_TIMEOUT_TICK)
-            || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
-          ret = I2C_TIMEOUT;
-        } else if (err != HAL_I2C_ERROR_NONE) {
-          ret = I2C_ERROR;
-        }
+    // wait for transfer completion
+    while ((HAL_I2C_GetState(&(obj->handle)) != HAL_I2C_STATE_READY) && (delta < I2C_TIMEOUT_TICK)) {
+      delta = (HAL_GetTick() - tickstart);
+      if (HAL_I2C_GetError(&(obj->handle)) != HAL_I2C_ERROR_NONE) {
+        break;
       }
     }
-    /* When Acknowledge failure occurs (Slave don't acknowledge it's address)
-       Master restarts communication */
-  } while (((HAL_I2C_GetError(&(obj->handle)) & HAL_I2C_ERROR_AF) == HAL_I2C_ERROR_AF)
-           && (delta < I2C_TIMEOUT_TICK));
+
+    err = HAL_I2C_GetError(&(obj->handle));
+    if ((delta > I2C_TIMEOUT_TICK)
+        || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
+      ret = I2C_TIMEOUT;
+    } else if (err != HAL_I2C_ERROR_NONE) {
+      ret = I2C_ERROR;
+    }
+  }
 
   return ret;
 }
