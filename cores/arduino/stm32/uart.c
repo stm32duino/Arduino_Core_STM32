@@ -130,9 +130,14 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
 
-  /* Pins Rx/Tx must not be NP */
-  if ((obj->pin_rx != NC && uart_rx == NP) || uart_tx == NP) {
-    core_debug("ERROR: at least one UART pin has no peripheral\n");
+  /* Pin Tx must not be NP */
+  if (uart_tx == NP) {
+    core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
+    return;
+  }
+  /* Pin Rx must not be NP if not half-duplex */
+  if ((obj->pin_rx != NC) && (uart_rx == NP)) {
+    core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
     return;
   }
 
@@ -143,7 +148,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
 
   if (obj->uart == NP) {
-    core_debug("ERROR: U(S)ART pins mismatch\n");
+    core_debug("ERROR: [U(S)ART] Rx and Tx pins peripherals mismatch!\n");
     return;
   }
 
