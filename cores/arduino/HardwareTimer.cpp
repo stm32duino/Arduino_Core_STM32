@@ -414,7 +414,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
       _channelIC[channel - 1].ICPolarity = TIMER_NOT_USED;
       break;
     case TIMER_OUTPUT_COMPARE_INACTIVE:
-      _channelOC[channel - 1].OCMode = TIM_OCMODE_ACTIVE;
+      _channelOC[channel - 1].OCMode = TIM_OCMODE_INACTIVE;
       _channelIC[channel - 1].ICPolarity = TIMER_NOT_USED;
       break;
     case TIMER_OUTPUT_COMPARE_TOGGLE:
