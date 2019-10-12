@@ -22,8 +22,8 @@
   */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32MP1xx_HAL_CONF_H
-#define __STM32MP1xx_HAL_CONF_H
+#ifndef __STM32MP1xx_HAL_CONF_DEFAULT_H
+#define __STM32MP1xx_HAL_CONF_DEFAULT_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -34,54 +34,58 @@
 
 /* ########################## Module Selection ############################## */
 /**
-  * @brief This is the list of modules to be used in the HAL driver 
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
   */
-#define HAL_MODULE_ENABLED  
-/*#define HAL_ADC_MODULE_ENABLED   */
-/*#define HAL_CEC_MODULE_ENABLED   */
-/*#define HAL_CRC_MODULE_ENABLED   */
-/*#define HAL_CRYP_MODULE_ENABLED   */
-/*#define HAL_DAC_MODULE_ENABLED   */
-/*#define HAL_DCMI_MODULE_ENABLED   */
-/*#define HAL_DSI_MODULE_ENABLED   */
-/*#define HAL_DFSDM_MODULE_ENABLED   */
-/*#define HAL_ETH_MODULE_ENABLED   */
-/*#define HAL_FDCAN_MODULE_ENABLED   */
-/*#define HAL_HASH_MODULE_ENABLED   */
-/*#define HAL_HCD_MODULE_ENABLED   */
-/*#define HAL_I2C_MODULE_ENABLED   */
-/*#define HAL_I2S_MODULE_ENABLED   */
-/*#define HAL_IPCC_MODULE_ENABLED   */
-/*#define HAL_IWDG_MODULE_ENABLED   */
-/*#define HAL_LPTIM_MODULE_ENABLED   */
-/*#define HAL_LTDC_MODULE_ENABLED   */
-/*#define HAL_NAND_MODULE_ENABLED   */
-/*#define HAL_NOR_MODULE_ENABLED   */
-/*#define HAL_PCD_MODULE_ENABLED   */
-/*#define HAL_QSPI_MODULE_ENABLED   */
-/*#define HAL_RNG_MODULE_ENABLED   */
-/*#define HAL_SAI_MODULE_ENABLED   */
-/*#define HAL_SD_MODULE_ENABLED   */
-/*#define HAL_MMC_MODULE_ENABLED   */
-/*#define HAL_RTC_MODULE_ENABLED   */
-/*#define HAL_SMBUS_MODULE_ENABLED   */
-/*#define HAL_SPDIFRX_MODULE_ENABLED   */
-/*#define HAL_SPI_MODULE_ENABLED   */
-/*#define HAL_SRAM_MODULE_ENABLED   */
-/*#define HAL_TAMP_MODULE_ENABLED   */
-/*#define HAL_TIM_MODULE_ENABLED   */
-/*#define HAL_TMPSENS_MODULE_ENABLED   */
-/*#define HAL_UART_MODULE_ENABLED   */
-/*#define HAL_USART_MODULE_ENABLED   */
-/*#define HAL_WWDG_MODULE_ENABLED   */
+#include "stm32yyxx_hal_conf.h"
+#if 0
+/**
+  * @brief This is the list of modules to be used in the HAL driver
+  */
+#define HAL_MODULE_ENABLED
+#define HAL_ADC_MODULE_ENABLED
+#define HAL_CEC_MODULE_ENABLED
+#define HAL_CRC_MODULE_ENABLED
+#define HAL_DAC_MODULE_ENABLED
+#define HAL_DSI_MODULE_ENABLED
+#define HAL_DFSDM_MODULE_ENABLED
+#define HAL_ETH_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
+#define HAL_FDCAN_MODULE_ENABLED
+#define HAL_HASH_MODULE_ENABLED
 #define HAL_HSEM_MODULE_ENABLED
+#define HAL_HCD_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
+#define HAL_I2S_MODULE_ENABLED
+#define HAL_IPCC_MODULE_ENABLED
+#define HAL_IWDG_MODULE_ENABLED
+#define HAL_LPTIM_MODULE_ENABLED
+#define HAL_LTDC_MODULE_ENABLED
+#define HAL_NAND_MODULE_ENABLED
+#define HAL_NOR_MODULE_ENABLED
+#define HAL_PCD_MODULE_ENABLED
+#define HAL_QSPI_MODULE_ENABLED
+#define HAL_RNG_MODULE_ENABLED
+#define HAL_SAI_MODULE_ENABLED
+#define HAL_SD_MODULE_ENABLED
+#define HAL_RTC_MODULE_ENABLED
+#define HAL_SMBUS_MODULE_ENABLED
+#define HAL_SPDIFRX_MODULE_ENABLED
+#define HAL_SPI_MODULE_ENABLED
+#define HAL_SRAM_MODULE_ENABLED
+#define HAL_TAMP_MODULE_ENABLED
+#define HAL_TIM_MODULE_ENABLED
+#define HAL_TMPSENS_MODULE_ENABLED
+#define HAL_UART_MODULE_ENABLED
+#define HAL_USART_MODULE_ENABLED
+#define HAL_WWDG_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 /*#define HAL_MDMA_MODULE_ENABLED   */
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
+#endif
 
 /* ########################## Oscillator Values adaptation ####################*/
 /**
@@ -384,5 +388,4 @@
 }
 #endif
 
-#endif /* __STM32MP1xx_HAL_CONF_H */
- 
+#endif /* __STM32MP1xx_HAL_CONF_DEFAULT_H */
