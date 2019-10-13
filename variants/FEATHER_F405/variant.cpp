@@ -46,14 +46,12 @@ const PinName digitalPin[] = {
   PC_7,
   PC_6,
   PA_15,  // D7
-
   PC_0,   // D8
   PB_8,
   PB_9,
   PC_3,
   PC_2,
   PC_1,   // D13
-
   PA_4,   // D14 - A0
   PA_5,
   PA_6,
@@ -61,13 +59,11 @@ const PinName digitalPin[] = {
   PC_4,
   PC_5,
   PA_3,   // D20 - A6
-
   PB_6,   // D21 SCL
   PB_7,   // D22 SDA
   PB_13,  // D23 SCK
   PB_14,  // D24 MISO
   PB_15,  // D25 MOSI
-
   PC_8,   // D26 SDIO
   PC_9,
   PC_10,
@@ -75,7 +71,6 @@ const PinName digitalPin[] = {
   PC_12,
   PD_2,
   PB_12,  // D32 - SD Detect
-  
   PC_14,  // D33 - OSC32
   PC_15,  // D34 - OSC32
   PA_11,  // D35 D+
