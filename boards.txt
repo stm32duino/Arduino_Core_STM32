@@ -983,6 +983,14 @@ GenF4.menu.pnum.CoreBoard_F401RC.build.board=CoreBoard_F401RC
 GenF4.menu.pnum.CoreBoard_F401RC.build.product_line=STM32F401xC
 GenF4.menu.pnum.CoreBoard_F401RC.build.variant=CoreBoard_F401RC
 
+# Adafruit Feather STM32F405 board
+GenF4.menu.pnum.FEATHER_F405=Adafruit Feather STM32F405
+GenF4.menu.pnum.FEATHER_F405.upload.maximum_size=1048576
+GenF4.menu.pnum.FEATHER_F405.upload.maximum_data_size=131072
+GenF4.menu.pnum.FEATHER_F405.build.board=FEATHER_F405
+GenF4.menu.pnum.FEATHER_F405.build.product_line=STM32F405xx
+GenF4.menu.pnum.FEATHER_F405.build.variant=FEATHER_F405
+
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
