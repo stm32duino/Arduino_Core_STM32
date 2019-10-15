@@ -111,6 +111,8 @@ extern "C" {
 // On-board LED pin number
 #define LED_BUILTIN             PC1
 
+#define SD_DETECT_PIN           PB12
+
 // On-board user button
 //#define BTN_K_UP              PA0   - no user button
 
