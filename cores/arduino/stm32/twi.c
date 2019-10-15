@@ -762,8 +762,12 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
       if ((delta > I2C_TIMEOUT_TICK)
           || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
         ret = I2C_TIMEOUT;
-      } else if (err != HAL_I2C_ERROR_NONE) {
-        ret = I2C_ERROR;
+      } else {
+        if ((err & HAL_I2C_ERROR_AF) == HAL_I2C_ERROR_AF) {
+          ret = I2C_NACK_DATA;
+        } else if (err != HAL_I2C_ERROR_NONE) {
+          ret = I2C_ERROR;
+        }
       }
     }
   }
@@ -784,7 +788,7 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
 
   // Protection to not override the TxBuffer
   if (size > I2C_TXRX_BUFFER_SIZE) {
-    ret = I2C_ERROR;
+    ret = I2C_DATA_TOO_LONG;
   } else {
     // Check the communication status
     for (i = 0; i < size; i++) {
@@ -832,8 +836,12 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
     if ((delta > I2C_TIMEOUT_TICK)
         || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
       ret = I2C_TIMEOUT;
-    } else if (err != HAL_I2C_ERROR_NONE) {
-      ret = I2C_ERROR;
+    } else {
+      if ((err & HAL_I2C_ERROR_AF) == HAL_I2C_ERROR_AF) {
+        ret = I2C_NACK_DATA;
+      } else if (err != HAL_I2C_ERROR_NONE) {
+        ret = I2C_ERROR;
+      }
     }
   }
   return ret;
@@ -855,13 +863,13 @@ i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials)
       ret = I2C_OK;
       break;
     case HAL_TIMEOUT:
-      ret = I2C_TIMEOUT;
+      ret = (obj->handle.State != HAL_I2C_STATE_READY) ? I2C_TIMEOUT : I2C_NACK_ADDR;
       break;
     case HAL_BUSY:
-      ret = I2C_BUSY;
+      ret = (obj->handle.State != HAL_I2C_STATE_READY) ? I2C_BUSY : I2C_NACK_ADDR;
       break;
     default:
-      ret = I2C_TIMEOUT;
+      ret = (obj->handle.State != HAL_I2C_STATE_READY) ? I2C_ERROR : I2C_NACK_ADDR;
       break;
   }
   return ret;

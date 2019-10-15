@@ -115,9 +115,12 @@ struct i2c_s {
 ///@brief I2C state
 typedef enum {
   I2C_OK = 0,
-  I2C_TIMEOUT = 1,
-  I2C_ERROR = 2,
-  I2C_BUSY = 3
+  I2C_DATA_TOO_LONG = 1,
+  I2C_NACK_ADDR = 2,
+  I2C_NACK_DATA = 3,
+  I2C_ERROR = 4,
+  I2C_TIMEOUT = 5,
+  I2C_BUSY = 6
 } i2c_status_e;
 
 /* Exported functions ------------------------------------------------------- */

@@ -100,13 +100,13 @@ void TwoWire::begin(int address, bool generalCall)
 
 void TwoWire::end(void)
 {
+  i2c_deinit(&_i2c);
   free(txBuffer);
   txBuffer = nullptr;
   txBufferAllocated = 0;
   free(rxBuffer);
   rxBuffer = nullptr;
   rxBufferAllocated = 0;
-  i2c_deinit(&_i2c);
 }
 
 void TwoWire::setClock(uint32_t frequency)
@@ -237,11 +237,20 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
     // transmit buffer (blocking)
     switch (i2c_master_write(&_i2c, txAddress, txBuffer, txBufferLength)) {
       case I2C_OK :
-        ret = 0;
+        ret = 0; // Success
         break;
-      case I2C_TIMEOUT :
+      case I2C_DATA_TOO_LONG :
         ret = 1;
         break;
+      case I2C_NACK_ADDR:
+        ret = 2;
+        break;
+      case I2C_NACK_DATA:
+        ret = 3;
+        break;
+      case I2C_TIMEOUT:
+      case I2C_BUSY:
+      case I2C_ERROR:
       default:
         ret = 4;
         break;
