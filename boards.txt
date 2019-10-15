@@ -45,7 +45,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F767ZI board
 Nucleo_144.menu.pnum.NUCLEO_F767ZI=Nucleo F767ZI
@@ -58,7 +58,7 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=NUCLEO_F767ZI
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7l_math
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_H743ZI board
 Nucleo_144.menu.pnum.NUCLEO_H743ZI=Nucleo H743ZI
@@ -71,7 +71,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.variant=NUCLEO_H743ZI
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.cmsis_lib_gcc=arm_cortexM7l_math
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2=Nucleo H743ZI2
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node="NODE_H743ZI,NOD_H743ZI2"
@@ -83,7 +83,7 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.board=NUCLEO_H743ZI2
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.variant=NUCLEO_H743ZI
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.cmsis_lib_gcc=arm_cortexM7l_math
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_L496ZG board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG=Nucleo L496ZG
@@ -96,7 +96,7 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.board=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.variant=NUCLEO_L496ZG
-Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L496ZG-P board
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P=Nucleo L496ZG-P
@@ -109,7 +109,7 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.variant=NUCLEO_L496ZG
-Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L4R5ZI board
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI=Nucleo L4R5ZI
@@ -122,7 +122,7 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.board=NUCLEO_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.variant=NUCLEO_L4R5ZI
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L4R5ZI-P board
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P=Nucleo L4R5ZI-P
@@ -135,7 +135,7 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.board=NUCLEO_L4R5ZI_P
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.variant=NUCLEO_L4R5ZI
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
@@ -214,7 +214,7 @@ Nucleo_64.menu.pnum.NUCLEO_F302R8.build.board=NUCLEO_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.product_line=STM32F302x8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.variant=NUCLEO_F302R8
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_F302R8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F303RE board
 Nucleo_64.menu.pnum.NUCLEO_F303RE=Nucleo F303RE
@@ -227,7 +227,7 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.product_line=STM32F303xE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.variant=NUCLEO_F303RE
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_F303RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F401RE board
 Nucleo_64.menu.pnum.NUCLEO_F401RE=Nucleo F401RE
@@ -240,7 +240,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=NUCLEO_F401RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F411RE board
 Nucleo_64.menu.pnum.NUCLEO_F411RE=Nucleo F411RE
@@ -253,7 +253,7 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=NUCLEO_F411RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F446RE board
 Nucleo_64.menu.pnum.NUCLEO_F446RE=Nucleo F446RE
@@ -266,7 +266,7 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=NUCLEO_F446RE
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G071RB board
 Nucleo_64.menu.pnum.NUCLEO_G071RB=Nucleo G071RB
@@ -292,7 +292,7 @@ Nucleo_64.menu.pnum.NUCLEO_G431RB.build.board=NUCLEO_G431RB
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.product_line=STM32G431xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.variant=NUCLEO_G431RB
-Nucleo_64.menu.pnum.NUCLEO_G431RB.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G474RE board
 Nucleo_64.menu.pnum.NUCLEO_G474RE=Nucleo G474RE
@@ -305,7 +305,7 @@ Nucleo_64.menu.pnum.NUCLEO_G474RE.build.board=NUCLEO_G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.product_line=STM32G474xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.variant=NUCLEO_G474RE
-Nucleo_64.menu.pnum.NUCLEO_G474RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_G474RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L053R8 board
 Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
@@ -356,7 +356,7 @@ Nucleo_64.menu.pnum.NUCLEO_L452RE.build.board=NUCLEO_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.variant=NUCLEO_L452RE
-Nucleo_64.menu.pnum.NUCLEO_L452RE.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_L452RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L452RE-P board
 Nucleo_64.menu.pnum.NUCLEO_L452REP=Nucleo L452RE-P
@@ -369,7 +369,7 @@ Nucleo_64.menu.pnum.NUCLEO_L452REP.build.board=NUCLEO_L452RE_P
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.product_line=STM32L452xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.variant=NUCLEO_L452RE
-Nucleo_64.menu.pnum.NUCLEO_L452REP.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L476RG board
 # Support: Serial1 (USART1 on PA10, PA9)
@@ -383,7 +383,7 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=NUCLEO_L476RG
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PNUCLEO_WB55RG board
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG=P-Nucleo WB55RG
@@ -396,7 +396,7 @@ Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.board=PNUCLEO_WB55RG
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.series=STM32WBxx
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.variant=PNUCLEO_WB55RG
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Nucleo_64.menu.upload_method.MassStorage=Mass Storage
@@ -451,7 +451,7 @@ Nucleo_32.menu.pnum.NUCLEO_L412KB.build.board=NUCLEO_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.product_line=STM32L412xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.variant=NUCLEO_L412KB
-Nucleo_32.menu.pnum.NUCLEO_L412KB.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L432KC board
 Nucleo_32.menu.pnum.NUCLEO_L432KC=Nucleo L432KC
@@ -464,7 +464,7 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.variant=NUCLEO_L432KC
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_32.menu.pnum.NUCLEO_L432KC.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F303K8 board
 Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
@@ -477,7 +477,7 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=NUCLEO_F303K8
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G431KB board
 Nucleo_32.menu.pnum.NUCLEO_G431KB=Nucleo G431KB
@@ -490,7 +490,7 @@ Nucleo_32.menu.pnum.NUCLEO_G431KB.build.board=NUCLEO_G431KB
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.series=STM32G4xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.product_line=STM32G431xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.variant=NUCLEO_G431KB
-Nucleo_32.menu.pnum.NUCLEO_G431KB.build.cmsis_lib_gcc=arm_cortexM4l_math
+Nucleo_32.menu.pnum.NUCLEO_G431KB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Nucleo_32.menu.upload_method.MassStorage=Mass Storage
@@ -569,7 +569,7 @@ Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
 Disco.menu.pnum.DISCO_F407VG.build.variant=DISCO_F407VG
-Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4l_math
+Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
@@ -582,7 +582,7 @@ Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
 Disco.menu.pnum.DISCO_F746NG.build.variant=DISCO_F746NG
-Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7l_math
+Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # DISCO_L475VG_IOT board
 Disco.menu.pnum.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
@@ -595,7 +595,7 @@ Disco.menu.pnum.DISCO_L475VG_IOT.build.board=DISCO_L475VG_IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.build.series=STM32L4xx
 Disco.menu.pnum.DISCO_L475VG_IOT.build.product_line=STM32L475xx
 Disco.menu.pnum.DISCO_L475VG_IOT.build.variant=DISCO_L475VG_IOT
-Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4l_math
+Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO-L072CZ-LRWAN1 board
 Disco.menu.pnum.DISCO_L072CZ_LRWAN1=Discovery L072CZ-LRWAN1
@@ -650,7 +650,7 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.board=STEVAL_MKSBOX1V1
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.series=STM32L4xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.product_line=STM32L4R9xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.variant=STEVAL_MKSBOX1V1
-Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -867,7 +867,7 @@ GenF3.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenF3.build.mcu=cortex-m4
 GenF3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF3.build.series=STM32F3xx
-GenF3.build.cmsis_lib_gcc=arm_cortexM4l_math
+GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # BLACKPILL_F303CC
 GenF3.menu.pnum.BLACKPILL_F303CC=RobotDyn BlackPill F303CC
@@ -909,7 +909,7 @@ GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenF4.build.mcu=cortex-m4
 GenF4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.build.series=STM32F4xx
-GenF4.build.cmsis_lib_gcc=arm_cortexM4l_math
+GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Black F407VE
 GenF4.menu.pnum.BLACK_F407VE=Black F407VE
@@ -1029,7 +1029,7 @@ Sparky.menu.pnum.Sparky_V1.build.board=Sparky_V1
 Sparky.menu.pnum.Sparky_V1.build.series=STM32F3xx
 Sparky.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
 Sparky.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
-Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Sparky.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -1126,7 +1126,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.ARMED_V1.build.variant=ARMED_V1
-3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.ARMED_V1.build.vid=0x0483
 3dprinter.menu.pnum.ARMED_V1.build.pid=0x5740
 
@@ -1140,7 +1140,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.REMRAM_V1.build.series=STM32F7xx
 3dprinter.menu.pnum.REMRAM_V1.build.product_line=STM32F765xx
 3dprinter.menu.pnum.REMRAM_V1.build.variant=REMRAM_V1
-3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7l_math
+3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # RUMBA32 board
 3dprinter.menu.pnum.RUMBA32=RUMBA32
@@ -1152,7 +1152,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.RUMBA32.build.series=STM32F4xx
 3dprinter.menu.pnum.RUMBA32.build.product_line=STM32F446xx
 3dprinter.menu.pnum.RUMBA32.build.variant=RUMBA32_F446VE
-3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # STEVAL-3DP001V1 board
 3dprinter.menu.pnum.ST3DP001_EVAL=STEVAL-3DP001V1
@@ -1164,7 +1164,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ST3DP001_EVAL.build.series=STM32F4xx
 3dprinter.menu.pnum.ST3DP001_EVAL.build.product_line=STM32F401xE
 3dprinter.menu.pnum.ST3DP001_EVAL.build.variant=ST3DP001_EVAL
-3dprinter.menu.pnum.ST3DP001_EVAL.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.ST3DP001_EVAL.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PRNTR_F407_V1 board
 3dprinter.menu.pnum.PRNTR_F407_V1=PRNTR F407 v1
@@ -1176,7 +1176,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_F407_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.PRNTR_F407_V1.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_F407_V1
-3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
@@ -1225,7 +1225,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.VAKE_F446VE.build.series=STM32F4xx
 3dprinter.menu.pnum.VAKE_F446VE.build.product_line=STM32F446xx
 3dprinter.menu.pnum.VAKE_F446VE.build.variant=VAKE_F446VE
-3dprinter.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4l_math
+3dprinter.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -1335,7 +1335,7 @@ Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
 Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
 Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
 Midatronics.menu.pnum.MKR_SHARKY.build.variant=MKR_SHARKY
-Midatronics.menu.pnum.MKR_SHARKY.build.cmsis_lib_gcc=arm_cortexM4l_math
+Midatronics.menu.pnum.MKR_SHARKY.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Midatronics.menu.upload_method.MassStorage=Mass Storage
