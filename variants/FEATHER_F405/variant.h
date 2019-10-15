@@ -97,24 +97,12 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       7
 #define NUM_ANALOG_FIRST        16
 
-// Below ADC, DAC and PWM definitions already done in the core
-// Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
-
-// PWM resolution
-//#define PWM_RESOLUTION          8
-//#define PWM_FREQUENCY           1000
-//#define PWM_MAX_DUTY_CYCLE      255
-
 // On-board LED pin number
 #define LED_BUILTIN             PC1
 
 #define SD_DETECT_PIN           PB12
 
-// On-board user button
-//#define BTN_K_UP              PA0   - no user button
+// No user button
 
 // SPI Definitions
 #define PIN_SPI_MOSI            PB15
@@ -122,10 +110,11 @@ extern "C" {
 #define PIN_SPI_SCK             PB13
 #define PIN_SPI_SS              PA15
 
-#define PIN_SPI1_MOSI           PB5
-#define PIN_SPI1_MISO           PB4
-#define PIN_SPI1_SCK            PB3
-#define PIN_SPI1_SS             PA15
+// SPI FLASH
+#define PIN_SPI3_MOSI           PB5
+#define PIN_SPI3_MISO           PB4
+#define PIN_SPI3_SCK            PB3
+#define PIN_SPI3_SS             PA15
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
