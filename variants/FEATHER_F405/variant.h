@@ -58,16 +58,16 @@ extern "C" {
 #define PC2  12
 #define PC1  13
 
-#define PA4  14  // A0
-#define PA5  15  // A1
-#define PA6  16  // A2
-#define PA7  17  // A3
-#define PC4  18  // A4
-#define PC5  19  // A5
-#define PA3  20  // A6 - VDIV
+#define PB7  14  // SDA
+#define PB6  15  // SCL
 
-#define PB6  21  // SCL
-#define PB7  22  // SDA
+#define PA4  16  // A0
+#define PA5  17  // A1
+#define PA6  18  // A2
+#define PA7  19  // A3
+#define PC4  20  // A4
+#define PC5  21  // A5
+#define PA3  22  // A6 - VDIV
 
 #define PB13 23  // SCK
 #define PB14 24  // MISO
@@ -95,7 +95,7 @@ extern "C" {
 #define NUM_DIGITAL_PINS        39
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        14
+#define NUM_ANALOG_FIRST        16
 
 // Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
@@ -116,22 +116,16 @@ extern "C" {
 // On-board user button
 //#define BTN_K_UP              PA0   - no user button
 
-// Below SPI and I2C definitions already done in the core
-// Could be redefined here if differs from the default one
 // SPI Definitions
 #define PIN_SPI_MOSI            PB15
 #define PIN_SPI_MISO            PB14
 #define PIN_SPI_SCK             PB13
 #define PIN_SPI_SS              PA15
 
-#define PIN_SPI1_MOSI            PB5
-#define PIN_SPI1_MISO            PB4
-#define PIN_SPI1_SCK             PB3
-#define PIN_SPI1_SS              PA15
-
-// I2C Definitions
-#define PIN_WIRE_SDA            PB7
-#define PIN_WIRE_SCL            PB6
+#define PIN_SPI1_MOSI           PB5
+#define PIN_SPI1_MISO           PB4
+#define PIN_SPI1_SCK            PB3
+#define PIN_SPI1_SS             PA15
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
@@ -140,15 +134,9 @@ extern "C" {
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    3 //ex: 2 for Serial2 (USART2)
-// DEBUG_UART could be redefined to print on another instance than 'Serial'
-//#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
-// DEBUG_UART baudrate, default: 9600 if not defined
-//#define DEBUG_UART_BAUDRATE     x
-// DEBUG_UART Tx pin name, default: the first one found in PinMap_UART_TX for DEBUG_UART
-//#define DEBUG_PINNAME_TX        PX_n // PinName used for TX
+#define SERIAL_UART_INSTANCE    3
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB11
 #define PIN_SERIAL_TX           PB10

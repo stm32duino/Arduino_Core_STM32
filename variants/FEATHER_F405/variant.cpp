@@ -52,15 +52,15 @@ const PinName digitalPin[] = {
   PC_3,
   PC_2,
   PC_1,   // D13
-  PA_4,   // D14 - A0
+  PB_7,   // D14 SDA
+  PB_6,   // D15 SCL
+  PA_4,   // D16 - A0
   PA_5,
   PA_6,
   PA_7,
   PC_4,
   PC_5,
-  PA_3,   // D20 - A6
-  PB_6,   // D21 SCL
-  PB_7,   // D22 SDA
+  PA_3,   // D22 - A6
   PB_13,  // D23 SCK
   PB_14,  // D24 MISO
   PB_15,  // D25 MOSI
