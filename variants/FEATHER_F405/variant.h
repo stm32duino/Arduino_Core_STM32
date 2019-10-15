@@ -122,6 +122,11 @@ extern "C" {
 #define PIN_SPI_SCK             PB13
 #define PIN_SPI_SS              PA15
 
+#define PIN_SPI1_MOSI            PB5
+#define PIN_SPI1_MISO            PB4
+#define PIN_SPI1_SCK             PB3
+#define PIN_SPI1_SS              PA15
+
 // I2C Definitions
 #define PIN_WIRE_SDA            PB7
 #define PIN_WIRE_SCL            PB6
@@ -133,7 +138,7 @@ extern "C" {
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name
-#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
+#define SERIAL_UART_INSTANCE    3 //ex: 2 for Serial2 (USART2)
 // DEBUG_UART could be redefined to print on another instance than 'Serial'
 //#define DEBUG_UART              ((USART_TypeDef *) U(S)ARTX) // ex: USART3
 // DEBUG_UART baudrate, default: 9600 if not defined
