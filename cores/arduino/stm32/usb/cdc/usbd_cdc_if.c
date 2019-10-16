@@ -169,6 +169,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       linecoding.format     = pbuf[4];
       linecoding.paritytype = pbuf[5];
       linecoding.datatype   = pbuf[6];
+      if (linecoding.bitrate == 1200) {
+        jumpToBootloaderRequested();
+      }
       break;
 
     case CDC_GET_LINE_CODING:

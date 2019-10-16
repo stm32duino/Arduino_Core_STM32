@@ -35,10 +35,11 @@
   *
   ******************************************************************************
   */
-#include "stm32_def.h"
+#include "bootloader.h"
+#include "dwt.h"
 #include "hw_config.h"
 #include "usbd_if.h"
-#include "dwt.h"
+#include "stm32_def.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +59,9 @@ void hw_config_init(void)
 
   /* Initialize the HAL */
   HAL_Init();
+
+  /* Check if a jump to system memory boot requested */
+  jumpToBootloader();
 
   /* Configure the system clock */
   SystemClock_Config();

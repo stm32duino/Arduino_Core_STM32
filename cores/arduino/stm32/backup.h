@@ -59,6 +59,15 @@ extern "C" {
 #endif /* HID_MAGIC_NUMBER_BKP_VALUE */
 #endif /* BL_HID */
 
+#if !defined(SYSBL_MAGIC_NUMBER_BKP_INDEX) && defined(ENABLE_BACKUP_SUPPORT)
+#define SYSBL_MAGIC_NUMBER_BKP_INDEX LL_RTC_BKP_DR2
+#else
+#define SYSBL_MAGIC_NUMBER_BKP_INDEX 0
+#endif /* SYSBL_MAGIC_NUMBER_BKP_INDEX */
+#ifndef SYSBL_MAGIC_NUMBER_BKP_VALUE
+#define SYSBL_MAGIC_NUMBER_BKP_VALUE 0x515B
+#endif /* SYSBL_MAGIC_NUMBER_BKP_VALUE */
+
 /* Exported functions ------------------------------------------------------- */
 static inline void resetBackupDomain(void)
 {

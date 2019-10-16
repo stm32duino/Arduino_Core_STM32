@@ -14,6 +14,12 @@
 extern "C" {
 #endif /* __cplusplus */
 
+/* Request to jump to system memory boot */
+void jumpToBootloaderRequested(void);
+
+/* Jump to system memory boot from user application */
+void jumpToBootloader(void);
+
 #ifdef DTR_TOGGLING_SEQ
 /* DTR toggling sequence management */
 void dtr_togglingHook(uint8_t *buf, uint32_t *len);
