@@ -54,12 +54,15 @@ extern "C" {
 #define PA10 10 //D10   - SDA (RX UART header)
 #define PA13 11 //D11   - SWDIO
 #define PA14 12 //D12   - SWCLK
+// Boards without a crystal can use these pins as well:
+#define PF0  13
+#define PF1  14
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        22
+#define NUM_DIGITAL_PINS        24
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       9
-#define NUM_ANALOG_FIRST        13
+#define NUM_ANALOG_FIRST        15
 
 // On-board LED pin number
 #define LED_BUILTIN             PA4
