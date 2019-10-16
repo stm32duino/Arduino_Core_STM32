@@ -56,8 +56,7 @@ __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
 #ifdef DTR_TOGGLING_SEQ
-  /* DTR toggling sequence management */
-  extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
+
   uint8_t dtr_toggling = 0;
 #endif
 
