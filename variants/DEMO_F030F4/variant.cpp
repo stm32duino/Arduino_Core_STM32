@@ -54,17 +54,20 @@ const PinName digitalPin[] = {
   PA_10, //D10 - SDA (RX UART Header)
   PA_13, //D11 - SWDIO
   PA_14, //D12 - SWCLK
+  // These two are only available on boards without a crystal:
+  PF_0,
+  PF_1,
   // Duplicated pins in order to be aligned with PinMap_ADC
   // A0 have to be greater than NUM_ANALOG_INPUTS
-  PA_0,  //D13/A0 ~ D0
-  PA_1,  //D14/A1 ~ D1
-  PA_2,  //D15/A2 ~ D2
-  PA_3,  //D16/A3 ~ D3
-  PA_4,  //D17/A4 ~ D4
-  PA_5,  //D18/A5 ~ D5
-  PA_6,  //D19/A6 ~ D6
-  PA_7,  //D20/A7 ~ D7
-  PB_1   //D21/A8 ~ D8
+  PA_0,  //D15/A0 ~ D0
+  PA_1,  //D16/A1 ~ D1
+  PA_2,  //D17/A2 ~ D2
+  PA_3,  //D18/A3 ~ D3
+  PA_4,  //D19/A4 ~ D4
+  PA_5,  //D20/A5 ~ D5
+  PA_6,  //D21/A6 ~ D6
+  PA_7,  //D22/A7 ~ D7
+  PB_1   //D23/A8 ~ D8
 };
 
 #ifdef __cplusplus
