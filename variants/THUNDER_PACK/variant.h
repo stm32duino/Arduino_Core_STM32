@@ -61,7 +61,7 @@ extern "C" {
 #define PA14 20 // SWD
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        19
+#define NUM_DIGITAL_PINS        21
 
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       4
