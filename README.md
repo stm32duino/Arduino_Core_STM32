@@ -112,6 +112,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
+| :yellow_heart: | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | **1.8.0** |  |
 | :green_heart: | BlackPill F401CC | *1.7.0* |  |
 | :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
