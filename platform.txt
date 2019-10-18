@@ -200,14 +200,3 @@ tools.maple_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
 tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
-
-# Upload using dfu-util
-tools.dfu_util.cmd=dfu-util
-tools.dfu_util.cmd.windows=dfu-util.exe
-tools.dfu_util.path={runtime.tools.STM32Tools.path}/tools/win/dfu-util
-tools.dfu_util.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
-tools.dfu_util.path.linux={runtime.tools.STM32Tools.path}/tools/linux/dfu-util
-tools.dfu_util.path.linux64={runtime.tools.STM32Tools.path}/tools/linux64/dfu-util
-tools.dfu_util.upload.params.verbose=-v
-tools.dfu_util.upload.params.quiet=
-tools.dfu_util.upload.pattern="{path}/{cmd}" --device {upload.usbID} -a 0 --dfuse-address {upload.address} -D "{build.path}/{build.project_name}.bin"
