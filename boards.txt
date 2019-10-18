@@ -1009,6 +1009,46 @@ GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}                                                                                                        
 
+################################################################################
+# Generic L0
+GenL0.name=Generic STM32L0 series
+GenL0.build.vid=0x0483
+GenL0.build.core=arduino
+GenL0.build.board=GenL0
+GenL0.build.extra_flags={build.usb_flags} -DUSBD_USE_CDC -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenL0.build.mcu=cortex-m0plus
+GenL0.build.series=STM32L0xx
+GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# ThunderPack
+GenL0.menu.pnum.THUNDER_PACK=ThunderPack
+GenL0.menu.pnum.THUNDER_PACK.upload.maximum_size=196608
+GenL0.menu.pnum.THUNDER_PACK.upload.maximum_data_size=20480
+GenL0.menu.pnum.THUNDER_PACK.build.board=THUNDER_PACK
+GenL0.menu.pnum.THUNDER_PACK.build.product_line=STM32L072xx
+GenL0.menu.pnum.THUNDER_PACK.build.variant=THUNDER_PACK
+
+# Upload menu
+GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenL0.menu.upload_method.swdMethod.upload.protocol=0
+GenL0.menu.upload_method.swdMethod.upload.options=-g
+GenL0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenL0.menu.upload_method.serialMethod.upload.protocol=1
+GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenL0.menu.upload_method.dfuMethod.upload.protocol=2
+GenL0.menu.upload_method.dfuMethod.upload.options=-g
+GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+
 ###############################
 # Sparky Flight Controllers
 
@@ -1991,35 +2031,3 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
-
-###############################
-# ThunderPack
-ThunderPack.name=ThunderPack
-ThunderPack.build.core=arduino
-ThunderPack.build.product_line=STM32L072xx
-ThunderPack.build.board=ThunderPack
-ThunderPack.build.variant=THUNDER_PACK
-ThunderPack.build.mcu=cortex-m0plus
-ThunderPack.build.series=STM32L0xx
-ThunderPack.build.cmsis_lib_gcc=arm_cortexM0l_math
-ThunderPack.build.vid=0x0483
-ThunderPack.build.extra_flags={build.usb_flags} -DUSBD_USE_CDC -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-
-ThunderPack.upload.maximum_size=196608
-ThunderPack.upload.maximum_data_size=20480
-
-ThunderPack.menu.upload_method.dfuUtil=DFU Util
-ThunderPack.menu.upload_method.dfuUtil.upload.tool=dfu_util
-ThunderPack.menu.upload_method.dfuUtil.upload.protocol=
-ThunderPack.menu.upload_method.dfuUtil.upload.usbID=0483:df11
-ThunderPack.menu.upload_method.dfuUtil.upload.address=0x08000000:leave
-
-ThunderPack.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-ThunderPack.menu.upload_method.swdMethod.upload.protocol=0
-ThunderPack.menu.upload_method.swdMethod.upload.options=-g
-ThunderPack.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-ThunderPack.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-ThunderPack.menu.upload_method.dfuMethod.upload.protocol=2
-ThunderPack.menu.upload_method.dfuMethod.upload.options=-g
-ThunderPack.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
