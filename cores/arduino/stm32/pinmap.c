@@ -18,6 +18,10 @@
 #include "pinconfig.h"
 #include "stm32yyxx_ll_gpio.h"
 
+#if defined(STM32MP1xx)
+#include "lock_resource.h"
+#endif
+
 /* Map STM_PIN to LL */
 const uint32_t pin_map_ll[16] = {
   LL_GPIO_PIN_0,
@@ -70,6 +74,9 @@ void pin_function(PinName pin, int function)
   /* Enable GPIO clock */
   GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
 
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(gpio);
+#endif
   /*  Set default speed to high.
    *  For most families there are dedicated registers so it is
    *  not so important, register can be set at any time.
@@ -128,6 +135,10 @@ void pin_function(PinName pin, int function)
   pin_PullConfig(gpio, ll_pin, STM_PIN_PUPD(function));
 
   pin_DisconnectDebug(pin);
+
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(gpio);
+#endif
 }
 
 void pinmap_pinout(PinName pin, const PinMap *map)
