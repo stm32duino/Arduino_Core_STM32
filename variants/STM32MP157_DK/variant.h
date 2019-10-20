@@ -58,47 +58,47 @@ extern "C" {
 // CN2 Raspberry Pi GPIO connectors
 // #define PA12  16  // RPI_3 - GPIO2 / I2C5_SDA
 // #define PA11  17  // RPI_5 - GPIO3 / I2C5_SCL
-#define PA8   18  // RPI_7 - GPIO4 / MCO1
-#define PB10  19  // RPI_8 - GPIO14 / USART3_TX
-#define PB12  20  // RPI_10 - GPIO15 / USART3_RX
-#define PG8   21  // RPI_11 - GPIO17 / USART3_RTS
-#define PI5   22  // RPI_12 - GPIO18 / SAI2_SCKA
-#define PD7   23  // RPI_13 - GPIO27 / SDMMC3_D3
-#define PG15  24  // RPI_15 - GPIO22 / SDMMC3_CK
-#define PF1   25  // RPI_16 - GPIO23 / SDMMC3_CMD
-#define PF0   26  // RPI_18 - GPIO24 / SDMMC3_D0
-#define PF9   27  // RPI_19 - GPIO10 / SPI5_MOSI
-#define PF8   28  // RPI_21 - GPIO9 / SPI5_MISO
-#define PF4   29  // RPI_22 - GPIO25 / SDMMC3_D1
-#define PF7   30  // RPI_23 - GPIO11 / SPI5_SCK
-#define PF6   31  // RPI_24 - GPIO8 / SPI5_NSS
-#define PF3   32  // RPI_26 - GPIO7
-#define PF15  33  // RPI_27 - I2C1_SDA
-#define PD12  34  // RPI_28 - I2C1_SCL
-#define PG2   35  // RPI_29 - GPIO5 / MCO2
-#define PH11  36  // RPI_31 - GPIO6 / TIM5_CH2
-#define PD13  37  // RPI_32 - GPIO12 / TIM4_CH2
-#define PC7   38  // RPI_33 - GPIO13 /TIM3_CH2
-#define PI7   39  // RPI_35 - GPIO19 / SAI2_FSA
-#define PB13  40  // RPI_36 - GPIO16 / USART3_CTS
-#define PF5   41  // RPI_37 - GPIO26 / SDMMC3_D2
-#define PI6   42  // RPI_38 - GPIO20 / SAI2_SDA
-#define PF11  43  // RPI_40 - GPIO21 / SAI2_SDB
-#define PA14  44  // LED LD5, Green, Active Low, Connected to B3 (USER1 Button)
-#define PA13  45  // LED LD6, Red, Active Low, Connected to B4 (USER2 Button)
-#define PH7   46  // LED LD7, Orange, Active High
+// #define PA8   18  // RPI_7 - GPIO4 / MCO1
+// #define PB10  19  // RPI_8 - GPIO14 / USART3_TX
+// #define PB12  20  // RPI_10 - GPIO15 / USART3_RX
+// #define PG8   21  // RPI_11 - GPIO17 / USART3_RTS
+// #define PI5   22  // RPI_12 - GPIO18 / SAI2_SCKA
+// #define PD7   23  // RPI_13 - GPIO27 / SDMMC3_D3
+// #define PG15  24  // RPI_15 - GPIO22 / SDMMC3_CK
+// #define PF1   25  // RPI_16 - GPIO23 / SDMMC3_CMD
+// #define PF0   26  // RPI_18 - GPIO24 / SDMMC3_D0
+// #define PF9   27  // RPI_19 - GPIO10 / SPI5_MOSI
+// #define PF8   28  // RPI_21 - GPIO9 / SPI5_MISO
+// #define PF4   29  // RPI_22 - GPIO25 / SDMMC3_D1
+// #define PF7   30  // RPI_23 - GPIO11 / SPI5_SCK
+// #define PF6   31  // RPI_24 - GPIO8 / SPI5_NSS
+// #define PF3   32  // RPI_26 - GPIO7
+// #define PF15  33  // RPI_27 - I2C1_SDA
+// #define PD12  34  // RPI_28 - I2C1_SCL
+// #define PG2   35  // RPI_29 - GPIO5 / MCO2
+// #define PH11  36  // RPI_31 - GPIO6 / TIM5_CH2
+// #define PD13  37  // RPI_32 - GPIO12 / TIM4_CH2
+// #define PC7   38  // RPI_33 - GPIO13 /TIM3_CH2
+// #define PI7   39  // RPI_35 - GPIO19 / SAI2_FSA
+// #define PB13  40  // RPI_36 - GPIO16 / USART3_CTS
+// #define PF5   41  // RPI_37 - GPIO26 / SDMMC3_D2
+// #define PI6   42  // RPI_38 - GPIO20 / SAI2_SDA
+// #define PF11  43  // RPI_40 - GPIO21 / SAI2_SDB
+#define PA14  16 // 44  // LED LD5, Green, Active Low, Connected to B3 (USER1 Button)
+#define PA13  17 // 45  // LED LD6, Red, Active Low, Connected to B4 (USER2 Button)
+#define PH7   18 // 46  // LED LD7, Orange, Active High
 // CN17  CN17 Left Arduino Analog Pins
-#define PF14  47  // A0 - ADC1_IN0
-#define PF13  48  // A1 - ADC1_IN1
-#define ANA0  49  // A2 - ADC1_IN6
-#define ANA1  50  // A3 - ADC1_IN2
-#define PC3   51  // A4 - ADC1_IN13, or PA_12 (D14) with SB23 ON / SB24 OFF
-#define PF12  52  // A5 - ADC1_IN14, or PA_11 (D15) with SB25 ON / SB26 OFF
+#define PF14  19 // 47  // A0 - ADC1_IN0
+#define PF13  20 // 48  // A1 - ADC1_IN1
+#define ANA0  21 // 49  // A2 - ADC1_IN6
+#define ANA1  22 // 50  // A3 - ADC1_IN2
+#define PC3   23 // 51  // A4 - ADC1_IN13, or PA_12 (D14) with SB23 ON / SB24 OFF
+#define PF12  24 // 52  // A5 - ADC1_IN14, or PA_11 (D15) with SB25 ON / SB26 OFF
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        53
+#define NUM_DIGITAL_PINS        25 // 53
 #define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        47
+#define NUM_ANALOG_FIRST        19 // 47
 
 // On-board LED pin number
 #define LED_GREEN               PA14
@@ -150,8 +150,8 @@ extern "C" {
 // Used when user instanciate a hardware Serial using its peripheral name.
 // Example: HardwareSerial mySerial(USART3);
 // will use PIN_SERIAL3_RX and PIN_SERIAL3_TX if defined.
-#define PIN_SERIAL3_RX          PB10 // RPi Serial RX
-#define PIN_SERIAL3_TX          PB12 // RPi Serial TX
+// #define PIN_SERIAL3_RX          PB10 // RPi Serial RX
+// #define PIN_SERIAL3_TX          PB12 // RPi Serial TX
 
 #ifdef __cplusplus
 } // extern "C"

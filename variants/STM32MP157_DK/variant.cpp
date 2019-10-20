@@ -57,59 +57,59 @@ const PinName digitalPin[] = {
   PE_12, //D13 - SPI4_SCK and TIM1_CH3N
   PA_12, //D14 - I2C5_SDA
   PA_11, //D15 - I2C5_SCL
-  // CN2 Raspberry Pi GPIO connectors
-  // NC,      // RPI_1 - 3V3
-  // NC,      // RPI_2 - 5V
-  PA_12, //D16 - RPI_3 - GPIO2 / I2C5_SDA
-  // NC,      // PRI_4 - 5V
-  PA_11, //D17 - RPI_5 - GPIO3 / I2C5_SCL
-  // NC,      // RPI_6 - GND
-  PA_8,  //D18 - RPI_7 - GPIO4 / MCO1
-  PB_10, //D19 - RPI_8 - GPIO14 / USART3_TX
-  // NC,      // RPI_9 - GND
-  PB_12, //D20 - RPI_10 - GPIO15 / USART3_RX
-  PG_8,  //D21 - RPI_11 - GPIO17 / USART3_RTS
-  PI_5,  //D22 - RPI_12 - GPIO18 / SAI2_SCKA
-  PD_7,  //D23 - RPI_13 - GPIO27 / SDMMC3_D3
-  // NC,      // RPI_14 - GND
-  PG_15, //D24 - RPI_15 - GPIO22 / SDMMC3_CK
-  PF_1,  //D25 - RPI_16 - GPIO23 / SDMMC3_CMD
-  // NC,      // RPI_17 - 3V3
-  PF_0,  //D26 - RPI_18 - GPIO24 / SDMMC3_D0
-  PF_9,  //D27 - RPI_19 - GPIO10 / SPI5_MOSI
-  // NC,      // RPI_20 - GND
-  PF_8,  //D28 - RPI_21 - GPIO9 / SPI5_MISO
-  PF_4,  //D29 - RPI_22 - GPIO25 / SDMMC3_D1
-  PF_7,  //D30 - RPI_23 - GPIO11 / SPI5_SCK
-  PF_6,  //D31 - RPI_24 - GPIO8 / SPI5_NSS
-  // NC,      // RPI_25 - GND
-  PF_3,  //D32 - RPI_26 - GPIO7
-  PF_15, //D33 - RPI_27 - I2C1_SDA
-  PD_12, //D34 - RPI_28 - I2C1_SCL
-  PG_2,  //D35 - RPI_29 - GPIO5 / MCO2
-  // NC,      // RPI_30 - GND
-  PH_11, //D36 - RPI_31 - GPIO6 / TIM5_CH2
-  PD_13, //D37 - RPI_32 - GPIO12 / TIM4_CH2
-  PC_7,  //D38 - RPI_33 - GPIO13 /TIM3_CH2
-  // NC,      // RPI_34 - GND
-  PI_7,  //D39 - RPI_35 - GPIO19 / SAI2_FSA
-  PB_13, //D40 - RPI_36 - GPIO16 / USART3_CTS
-  PF_5,  //D41 - RPI_37 - GPIO26 / SDMMC3_D2
-  PI_6,  //D42 - RPI_38 - GPIO20 / SAI2_SDA
-  // NC,      // RPI_39 - GND
-  PF_11, //D43 - RPI_40 - GPIO21 / SAI2_SDB
+  // // CN2 Raspberry Pi GPIO connectors
+  // // NC,      // RPI_1 - 3V3
+  // // NC,      // RPI_2 - 5V
+  // PA_12, //D16 - RPI_3 - GPIO2 / I2C5_SDA
+  // // NC,      // PRI_4 - 5V
+  // PA_11, //D17 - RPI_5 - GPIO3 / I2C5_SCL
+  // // NC,      // RPI_6 - GND
+  // PA_8,  //D18 - RPI_7 - GPIO4 / MCO1
+  // PB_10, //D19 - RPI_8 - GPIO14 / USART3_TX
+  // // NC,      // RPI_9 - GND
+  // PB_12, //D20 - RPI_10 - GPIO15 / USART3_RX
+  // PG_8,  //D21 - RPI_11 - GPIO17 / USART3_RTS
+  // PI_5,  //D22 - RPI_12 - GPIO18 / SAI2_SCKA
+  // PD_7,  //D23 - RPI_13 - GPIO27 / SDMMC3_D3
+  // // NC,      // RPI_14 - GND
+  // PG_15, //D24 - RPI_15 - GPIO22 / SDMMC3_CK
+  // PF_1,  //D25 - RPI_16 - GPIO23 / SDMMC3_CMD
+  // // NC,      // RPI_17 - 3V3
+  // PF_0,  //D26 - RPI_18 - GPIO24 / SDMMC3_D0
+  // PF_9,  //D27 - RPI_19 - GPIO10 / SPI5_MOSI
+  // // NC,      // RPI_20 - GND
+  // PF_8,  //D28 - RPI_21 - GPIO9 / SPI5_MISO
+  // PF_4,  //D29 - RPI_22 - GPIO25 / SDMMC3_D1
+  // PF_7,  //D30 - RPI_23 - GPIO11 / SPI5_SCK
+  // PF_6,  //D31 - RPI_24 - GPIO8 / SPI5_NSS
+  // // NC,      // RPI_25 - GND
+  // PF_3,  //D32 - RPI_26 - GPIO7
+  // PF_15, //D33 - RPI_27 - I2C1_SDA
+  // PD_12, //D34 - RPI_28 - I2C1_SCL
+  // PG_2,  //D35 - RPI_29 - GPIO5 / MCO2
+  // // NC,      // RPI_30 - GND
+  // PH_11, //D36 - RPI_31 - GPIO6 / TIM5_CH2
+  // PD_13, //D37 - RPI_32 - GPIO12 / TIM4_CH2
+  // PC_7,  //D38 - RPI_33 - GPIO13 /TIM3_CH2
+  // // NC,      // RPI_34 - GND
+  // PI_7,  //D39 - RPI_35 - GPIO19 / SAI2_FSA
+  // PB_13, //D40 - RPI_36 - GPIO16 / USART3_CTS
+  // PF_5,  //D41 - RPI_37 - GPIO26 / SDMMC3_D2
+  // PI_6,  //D42 - RPI_38 - GPIO20 / SAI2_SDA
+  // // NC,      // RPI_39 - GND
+  // PF_11, //D43 - RPI_40 - GPIO21 / SAI2_SDB
   // Built-In LEDs
-  PA_14, //D44 - LED LD5, Green, Active Low, Connected to B3 (USER1 Button)
-  PA_13, //D45 - LED LD6, Red, Active Low, Connected to B4 (USER2 Button)
-  PH_7,  //D46 - LED LD7, Orange, Active High
+  PA_14, //D16, D44 - LED LD5, Green, Active Low, Connected to B3 (USER1 Button)
+  PA_13, //D17, D45 - LED LD6, Red, Active Low, Connected to B4 (USER2 Button)
+  PH_7,  //D18, D46 - LED LD7, Orange, Active High
   // NC,    // PD_11, LED LD8, Blue, but Used in Linux heartbeat signal. Active High
   // CN17 Left Arduino Analog Pins
-  PF_14, //D47/A0 - ADC2_INP6
-  PF_13, //D48/A1 - ADC2_INP2
-  ANA_0, //D49/A2 - ADC1_INP0
-  ANA_1, //D50/A3 - ADC1_INP1
-  PC_3,  //D51/A4 - ADC1_INP13, or PA_12 (D14) with SB23 ON / SB24 OFF
-  PF_12  //D52/A5 - ADC1_INP6, or PA_11 (D15) with SB25 ON / SB26 OFF
+  PF_14, //A0 - D19, D47 - ADC2_INP6
+  PF_13, //A1 - D20, D48 - ADC2_INP2
+  ANA_0, //A2 - D21, D49 - ADC1_INP0
+  ANA_1, //A3 - D22, D50 - ADC1_INP1
+  PC_3,  //A4 - D23, D51 - ADC1_INP13, or PA_12 (D14) with SB23 ON / SB24 OFF
+  PF_12  //A5 - D24, D52 - ADC1_INP6, or PA_11 (D15) with SB25 ON / SB26 OFF
   // // Duplicated pins in order to be aligned with PinMap_ADC
 };
 
