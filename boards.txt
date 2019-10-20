@@ -718,10 +718,6 @@ GenF0.menu.upload_method.dfuMethod.upload.protocol=2
 GenF0.menu.upload_method.dfuMethod.upload.options=-g
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
-GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
-GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
-
 ################################################################################
 # Generic F1
 GenF1.name=Generic STM32F1 series
@@ -1048,6 +1044,10 @@ GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL0.menu.upload_method.dfuMethod.upload.protocol=2
 GenL0.menu.upload_method.dfuMethod.upload.options=-g
 GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ###############################
 # Sparky Flight Controllers
