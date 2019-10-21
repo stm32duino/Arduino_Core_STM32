@@ -9,7 +9,7 @@
  *                        opensource.org/licenses/BSD-3-Clause
  *
  *******************************************************************************
- * Automatically generated from STM32L072C(B-Z)Tx.xml
+ * Automatically generated from STM32L072K(B-Z)Tx.xml
  */
 #include "Arduino.h"
 #include "PeripheralPins.h"
@@ -57,7 +57,6 @@ WEAK const PinMap PinMap_I2C_SCL[] = {
   {PA_8,  I2C3, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF7_I2C3)},
   {PA_9,  I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF6_I2C1)},
   {PB_6,  I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF1_I2C1)},
-  {PB_8,  I2C1, STM_PIN_DATA(STM_MODE_AF_OD, GPIO_NOPULL, GPIO_AF4_I2C1)},
   {NC,    NP,    0}
 };
 #endif
@@ -77,6 +76,8 @@ WEAK const PinMap PinMap_PWM[] = {
   //  {PA_6,  TIM22,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_TIM22, 1, 0)}, // TIM22_CH1
   {PA_7,  TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_TIM3, 2, 0)}, // TIM3_CH2
   //  {PA_7,  TIM22,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF5_TIM22, 2, 0)}, // TIM22_CH2
+  {PB_5,  TIM3,   STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF4_TIM3, 2, 0)}, // TIM3_CH2
+  //  {PB_5,  TIM22,  STM_PIN_DATA_EXT(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF4_TIM22, 2, 0)}, // TIM22_CH2
   {NC,    NP,    0}
 };
 #endif
@@ -121,6 +122,7 @@ WEAK const PinMap PinMap_UART_CTS[] = {
 #ifdef HAL_SPI_MODULE_ENABLED
 WEAK const PinMap PinMap_SPI_MOSI[] = {
   {PA_7,  SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF0_SPI1)},
+  {PB_5,  SPI1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF0_SPI1)},
   {NC,    NP,    0}
 };
 #endif
@@ -166,3 +168,5 @@ WEAK const PinMap PinMap_USB[] = {
 //*** No USB_OTG_FS ***
 
 //*** No USB_OTG_HS ***
+
+//*** No SD ***

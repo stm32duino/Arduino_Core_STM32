@@ -39,10 +39,10 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-#define PA0  0
-#define PA1  1
-#define PA2  2
-#define PA3  3
+#define PA0  0 // LED 1
+#define PA1  1 // LED 2
+#define PA2  2 // LED 3
+#define PA3  3 // LED 4
 #define PA4  4 // A0
 #define PA5  5 // A1
 #define PA6  6 // A2
@@ -68,12 +68,12 @@ extern "C" {
 #define NUM_ANALOG_FIRST        4
 
 // On-board LED pin number
-#define LED_BUILTIN             0
+#define LED_BUILTIN             PA0
 #define LED_GREEN               LED_BUILTIN
-#define LED_1                   0
-#define LED_2                   1
-#define LED_3                   2
-#define LED_4                   3
+#define LED_1                   PA0
+#define LED_2                   PA1
+#define LED_3                   PA2
+#define LED_4                   PA3
 
 // On-board user button
 #define USER_BTN                PB4
@@ -88,8 +88,8 @@ extern "C" {
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           12
-#define PIN_SERIAL_TX           11
+#define PIN_SERIAL_RX           PB7
+#define PIN_SERIAL_TX           PB6
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
