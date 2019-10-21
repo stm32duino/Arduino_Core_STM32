@@ -1055,6 +1055,33 @@ Sparky.menu.upload_method.dfuMethod.upload.protocol=2
 Sparky.menu.upload_method.dfuMethod.upload.options=-g
 Sparky.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
+###############################
+
+# Wraith32 Electonic Speed Controller
+
+Wraith32.name=Wraith32 speed controller
+
+Wraith32.build.core=arduino
+Wraith32.build.board=Wraith32
+Wraith32.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# Wraith32_V1 board
+Wraith32.menu.pnum.Sparky_V1=Wraith32 V1
+Wraith32.menu.pnum.Sparky_V1.upload.maximum_size=32768
+Wraith32.menu.pnum.Sparky_V1.upload.maximum_data_size=8192
+Wraith32.menu.pnum.Sparky_V1.build.mcu=cortex-m0
+Wraith32.menu.pnum.Sparky_V1.build.board=Wraith32_V1
+Wraith32.menu.pnum.Sparky_V1.build.series=STM32F0xx
+Wraith32.menu.pnum.Sparky_V1.build.product_line=STM32F051x8
+Wraith32.menu.pnum.Sparky_V1.build.variant=WRAITH32_F051K6
+Wraith32.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# Upload menu
+Wraith32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Wraith32.menu.upload_method.swdMethod.upload.protocol=0
+Wraith32.menu.upload_method.swdMethod.upload.options=-g
+Wraith32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
 ################################################################################
 # LoRa boards
 
@@ -1427,6 +1454,12 @@ Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Sparky.menu.xserial.disabled=Disabled (no Serial support)
 Sparky.menu.xserial.disabled.build.xSerial=
 
+Wraith32.menu.xserial.generic=Enabled (generic 'Serial')
+Wraith32.menu.xserial.none=Enabled (no generic 'Serial')
+Wraith32.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Wraith32.menu.xserial.disabled=Disabled (no Serial support)
+Wraith32.menu.xserial.disabled.build.xSerial=
+
 LoRa.menu.xserial.generic=Enabled (generic 'Serial')
 LoRa.menu.xserial.none=Enabled (no generic 'Serial')
 LoRa.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -1787,6 +1820,24 @@ Sparky.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Sparky.menu.opt.ogstd=Debug (-g)
 Sparky.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+Wraith32.menu.opt.osstd=Smallest (-Os default)
+Wraith32.menu.opt.oslto=Smallest (-Os) with LTO
+Wraith32.menu.opt.oslto.build.flags.optimize=-Os -flto
+Wraith32.menu.opt.o1std=Fast (-O1)
+Wraith32.menu.opt.o1std.build.flags.optimize=-O1
+Wraith32.menu.opt.o1lto=Fast (-O1) with LTO
+Wraith32.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Wraith32.menu.opt.o2std=Faster (-O2)
+Wraith32.menu.opt.o2std.build.flags.optimize=-O2
+Wraith32.menu.opt.o2lto=Faster (-O2) with LTO
+Wraith32.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Wraith32.menu.opt.o3std=Fastest (-O3)
+Wraith32.menu.opt.o3std.build.flags.optimize=-O3
+Wraith32.menu.opt.o3lto=Fastest (-O3) with LTO
+Wraith32.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Wraith32.menu.opt.ogstd=Debug (-g)
+Wraith32.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 LoRa.menu.opt.osstd=Smallest (-Os default)
 LoRa.menu.opt.oslto=Smallest (-Os) with LTO
 LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -1959,6 +2010,16 @@ Sparky.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Sparky.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Sparky.menu.rtlib.full=Newlib Standard
 Sparky.menu.rtlib.full.build.flags.ldspecs=
+
+Wraith32.menu.rtlib.nano=Newlib Nano (default)
+Wraith32.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Wraith32.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Wraith32.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Wraith32.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Wraith32.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Wraith32.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Wraith32.menu.rtlib.full=Newlib Standard
+Wraith32.menu.rtlib.full.build.flags.ldspecs=
 
 LoRa.menu.rtlib.nano=Newlib Nano (default)
 LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
