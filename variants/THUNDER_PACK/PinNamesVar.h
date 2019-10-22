@@ -1,9 +1,9 @@
 /* SYS_WKUP */
 #ifdef PWR_WAKEUP_PIN1
-SYS_WKUP1 = NC,
+SYS_WKUP1 = PA_0,
 #endif
 #ifdef PWR_WAKEUP_PIN2
-SYS_WKUP2 = NC,
+SYS_WKUP2 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN3
 SYS_WKUP3 = NC,
