@@ -1057,70 +1057,42 @@ GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
-###############################
-# Sparky Flight Controllers
+################################################################################
+# Electronic Speed Controller boards
 
-Sparky.name=Sparky flight controllers
+ESC_board.name=Electronic speed controllers
 
-Sparky.build.vid=0x0483
-Sparky.build.core=arduino
-Sparky.build.board=Sparky
-Sparky.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# Sparky_V1 board
-Sparky.menu.pnum.Sparky_V1=Sparky V1
-Sparky.menu.pnum.Sparky_V1.upload.maximum_size=262144
-Sparky.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
-Sparky.menu.pnum.Sparky_V1.build.mcu=cortex-m4
-Sparky.menu.pnum.Sparky_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Sparky.menu.pnum.Sparky_V1.build.board=Sparky_V1
-Sparky.menu.pnum.Sparky_V1.build.series=STM32F3xx
-Sparky.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
-Sparky.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
-Sparky.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
-
-# Upload menu
-Sparky.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-Sparky.menu.upload_method.swdMethod.upload.protocol=0
-Sparky.menu.upload_method.swdMethod.upload.options=-g
-Sparky.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-Sparky.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-Sparky.menu.upload_method.serialMethod.upload.protocol=1
-Sparky.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-Sparky.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-Sparky.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-Sparky.menu.upload_method.dfuMethod.upload.protocol=2
-Sparky.menu.upload_method.dfuMethod.upload.options=-g
-Sparky.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-###############################
-
-# Wraith32 Electonic Speed Controller
-
-Wraith32.name=Wraith32 speed controller
-
-Wraith32.build.core=arduino
-Wraith32.build.board=Wraith32
-Wraith32.build.extra_flags=-D{build.product_line} {build.xSerial}
+ESC_board.build.vid=0x0483
+ESC_board.build.core=arduino
+ESC_board.build.board=FCE_board
+ESC_board.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Wraith32_V1 board
-Wraith32.menu.pnum.Sparky_V1=Wraith32 V1
-Wraith32.menu.pnum.Sparky_V1.upload.maximum_size=32768
-Wraith32.menu.pnum.Sparky_V1.upload.maximum_data_size=8192
-Wraith32.menu.pnum.Sparky_V1.build.mcu=cortex-m0
-Wraith32.menu.pnum.Sparky_V1.build.board=Wraith32_V1
-Wraith32.menu.pnum.Sparky_V1.build.series=STM32F0xx
-Wraith32.menu.pnum.Sparky_V1.build.product_line=STM32F051x8
-Wraith32.menu.pnum.Sparky_V1.build.variant=WRAITH32_F051K6
-Wraith32.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
+ESC_board.menu.pnum.Wraith32_V1=Wraith V1 ESC
+ESC_board.menu.pnum.Wraith32_V1.upload.maximum_size=32768
+ESC_board.menu.pnum.Wraith32_V1.upload.maximum_data_size=7936
+ESC_board.menu.pnum.Wraith32_V1.build.mcu=cortex-m0
+ESC_board.menu.pnum.Wraith32_V1.build.board=Wraith32_V1
+ESC_board.menu.pnum.Wraith32_V1.build.series=STM32F0xx
+ESC_board.menu.pnum.Wraith32_V1.build.product_line=STM32F051x8
+ESC_board.menu.pnum.Wraith32_V1.build.variant=WRAITH32_F051K6
+ESC_board.menu.pnum.Wraith32_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # Upload menu
-Wraith32.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-Wraith32.menu.upload_method.swdMethod.upload.protocol=0
-Wraith32.menu.upload_method.swdMethod.upload.options=-g
-Wraith32.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+ESC_board.menu.upload_method.swdMethod.upload.protocol=0
+ESC_board.menu.upload_method.swdMethod.upload.options=-g
+ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+ESC_board.menu.upload_method.serialMethod.upload.protocol=1
+ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
+ESC_board.menu.upload_method.dfuMethod.upload.options=-g
+ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # LoRa boards
@@ -1347,6 +1319,18 @@ Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=AFROFLIGHT_F103CB
 
+# Sparky_V1 board
+Genericflight.menu.pnum.Sparky_V1=Sparky V1 F303 FC
+Genericflight.menu.pnum.Sparky_V1.upload.maximum_size=262144
+Genericflight.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
+Genericflight.menu.pnum.Sparky_V1.build.mcu=cortex-m4
+Genericflight.menu.pnum.Sparky_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Genericflight.menu.pnum.Sparky_V1.build.board=Sparky_V1
+Genericflight.menu.pnum.Sparky_V1.build.series=STM32F3xx
+Genericflight.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
+Genericflight.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
+Genericflight.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # Upload menu
 Genericflight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Genericflight.menu.upload_method.swdMethod.upload.protocol=0
@@ -1494,17 +1478,11 @@ GenL0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL0.menu.xserial.disabled=Disabled (no Serial support)
 GenL0.menu.xserial.disabled.build.xSerial=
 
-Sparky.menu.xserial.generic=Enabled (generic 'Serial')
-Sparky.menu.xserial.none=Enabled (no generic 'Serial')
-Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Sparky.menu.xserial.disabled=Disabled (no Serial support)
-Sparky.menu.xserial.disabled.build.xSerial=
-
-Wraith32.menu.xserial.generic=Enabled (generic 'Serial')
-Wraith32.menu.xserial.none=Enabled (no generic 'Serial')
-Wraith32.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Wraith32.menu.xserial.disabled=Disabled (no Serial support)
-Wraith32.menu.xserial.disabled.build.xSerial=
+ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
+ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
+ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+ESC_board.menu.xserial.disabled=Disabled (no Serial support)
+ESC_board.menu.xserial.disabled.build.xSerial=
 
 LoRa.menu.xserial.generic=Enabled (generic 'Serial')
 LoRa.menu.xserial.none=Enabled (no generic 'Serial')
@@ -1642,17 +1620,6 @@ GenL0.menu.usb.CDC=CDC (no generic 'Serial')
 GenL0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 GenL0.menu.usb.HID=HID (keyboard and mouse)
 GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-
-Sparky.menu.usb.none=None
-Sparky.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-Sparky.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Sparky.menu.usb.CDC=CDC (no generic 'Serial')
-Sparky.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-Sparky.menu.xusb.FS=Low/Full Speed
-Sparky.menu.xusb.HS=High Speed
-Sparky.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-Sparky.menu.xusb.HSFS=High Speed in Full Speed mode
-Sparky.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1874,41 +1841,23 @@ GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL0.menu.opt.ogstd=Debug (-g)
 GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
-Sparky.menu.opt.osstd=Smallest (-Os default)
-Sparky.menu.opt.oslto=Smallest (-Os) with LTO
-Sparky.menu.opt.oslto.build.flags.optimize=-Os -flto
-Sparky.menu.opt.o1std=Fast (-O1)
-Sparky.menu.opt.o1std.build.flags.optimize=-O1
-Sparky.menu.opt.o1lto=Fast (-O1) with LTO
-Sparky.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Sparky.menu.opt.o2std=Faster (-O2)
-Sparky.menu.opt.o2std.build.flags.optimize=-O2
-Sparky.menu.opt.o2lto=Faster (-O2) with LTO
-Sparky.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Sparky.menu.opt.o3std=Fastest (-O3)
-Sparky.menu.opt.o3std.build.flags.optimize=-O3
-Sparky.menu.opt.o3lto=Fastest (-O3) with LTO
-Sparky.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Sparky.menu.opt.ogstd=Debug (-g)
-Sparky.menu.opt.ogstd.build.flags.optimize=-g -Og
-
-Wraith32.menu.opt.osstd=Smallest (-Os default)
-Wraith32.menu.opt.oslto=Smallest (-Os) with LTO
-Wraith32.menu.opt.oslto.build.flags.optimize=-Os -flto
-Wraith32.menu.opt.o1std=Fast (-O1)
-Wraith32.menu.opt.o1std.build.flags.optimize=-O1
-Wraith32.menu.opt.o1lto=Fast (-O1) with LTO
-Wraith32.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Wraith32.menu.opt.o2std=Faster (-O2)
-Wraith32.menu.opt.o2std.build.flags.optimize=-O2
-Wraith32.menu.opt.o2lto=Faster (-O2) with LTO
-Wraith32.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Wraith32.menu.opt.o3std=Fastest (-O3)
-Wraith32.menu.opt.o3std.build.flags.optimize=-O3
-Wraith32.menu.opt.o3lto=Fastest (-O3) with LTO
-Wraith32.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Wraith32.menu.opt.ogstd=Debug (-g)
-Wraith32.menu.opt.ogstd.build.flags.optimize=-g -Og
+ESC_board.menu.opt.osstd=Smallest (-Os default)
+ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
+ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
+ESC_board.menu.opt.o1std=Fast (-O1)
+ESC_board.menu.opt.o1std.build.flags.optimize=-O1
+ESC_board.menu.opt.o1lto=Fast (-O1) with LTO
+ESC_board.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+ESC_board.menu.opt.o2std=Faster (-O2)
+ESC_board.menu.opt.o2std.build.flags.optimize=-O2
+ESC_board.menu.opt.o2lto=Faster (-O2) with LTO
+ESC_board.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+ESC_board.menu.opt.o3std=Fastest (-O3)
+ESC_board.menu.opt.o3std.build.flags.optimize=-O3
+ESC_board.menu.opt.o3lto=Fastest (-O3) with LTO
+ESC_board.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+ESC_board.menu.opt.ogstd=Debug (-g)
+ESC_board.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 LoRa.menu.opt.osstd=Smallest (-Os default)
 LoRa.menu.opt.oslto=Smallest (-Os) with LTO
@@ -2083,25 +2032,15 @@ GenL0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float
 GenL0.menu.rtlib.full=Newlib Standard
 GenL0.menu.rtlib.full.build.flags.ldspecs=
 
-Sparky.menu.rtlib.nano=Newlib Nano (default)
-Sparky.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Sparky.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Sparky.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Sparky.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Sparky.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Sparky.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Sparky.menu.rtlib.full=Newlib Standard
-Sparky.menu.rtlib.full.build.flags.ldspecs=
-
-Wraith32.menu.rtlib.nano=Newlib Nano (default)
-Wraith32.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Wraith32.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Wraith32.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Wraith32.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Wraith32.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Wraith32.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Wraith32.menu.rtlib.full=Newlib Standard
-Wraith32.menu.rtlib.full.build.flags.ldspecs=
+ESC_board.menu.rtlib.nano=Newlib Nano (default)
+ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
+ESC_board.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+ESC_board.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+ESC_board.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+ESC_board.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+ESC_board.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+ESC_board.menu.rtlib.full=Newlib Standard
+ESC_board.menu.rtlib.full.build.flags.ldspecs=
 
 LoRa.menu.rtlib.nano=Newlib Nano (default)
 LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
