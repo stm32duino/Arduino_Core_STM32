@@ -1016,7 +1016,7 @@ GenL0.name=Generic STM32L0 series
 GenL0.build.vid=0x0483
 GenL0.build.core=arduino
 GenL0.build.board=GenL0
-GenL0.build.extra_flags={build.usb_flags} -DUSBD_USE_CDC -D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenL0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
