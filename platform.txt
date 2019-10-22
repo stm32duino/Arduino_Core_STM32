@@ -68,7 +68,7 @@ compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.5.1.path}/CMSIS/DSP/Lib/GCC
 
 # USB Flags
 # ---------
-build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED 
+build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED
 
 # Default usb manufacturer will be replaced at compile time using
 # numeric vendor ID if available or by board's specific value.
@@ -189,7 +189,7 @@ tools.hid_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
 tools.hid_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
-tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}                                                                                                                             
+tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
 
 # Upload using Maple bootloader over DFU
 tools.maple_upload.cmd=maple_upload
@@ -200,3 +200,13 @@ tools.maple_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
 tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
+
+# USB upload using dfu-util
+tools.dfu_util.cmd=dfu-util
+tools.dfu_util.cmd.windows=dfu-util.exe
+tools.dfu_util.path={runtime.tools.STM32Tools.path}/tools/win/dfu-util
+tools.dfu_util.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
+tools.dfu_util.path.linux={runtime.tools.STM32Tools.path}/tools/linux/dfu-util
+tools.dfu_util.upload.params.verbose=-v
+tools.dfu_util.upload.params.quiet=
+tools.dfu_util.upload.pattern="{path}/{cmd}" --device {upload.usbID} -a 0 --dfuse-address {upload.address} -D "{build.path}/{build.project_name}.bin"
