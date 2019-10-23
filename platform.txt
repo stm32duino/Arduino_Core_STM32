@@ -204,7 +204,7 @@ tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altI
 # USB upload using dfu-util
 tools.dfu_util.cmd=dfu-util
 tools.dfu_util.cmd.windows=dfu-util.exe
-tools.dfu_util.path={runtime.tools.STM32Tools.path}/tools/win/dfu-util
+tools.dfu_util.path={runtime.tools.STM32Tools.path}/tools/win
 tools.dfu_util.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
 tools.dfu_util.path.linux={runtime.tools.STM32Tools.path}/tools/linux/dfu-util
 tools.dfu_util.upload.params.verbose=-v
