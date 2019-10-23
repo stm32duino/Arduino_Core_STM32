@@ -40,12 +40,12 @@ const PinName digitalPin[] = {
   PB_3,  //D13
   PA_0,  //D14/A0
   PA_1,  //D15/A1
-  PA_2,  //D16/A2
-  PA_3,  //D17/A3
-  PA_4,  //D18/A4
-  PA_5,  //D19/A5
-  PA_6,  //D20/A6
-  PA_7,  //D21/A7
+  PA_3,  //D16/A2
+  PA_4,  //D17/A3
+  PA_5,  //D18/A4
+  PA_6,  //D19/A5
+  PA_7,  //D20/A6
+  PA_2,  //D21
   PA_15  //D22
 };
 
@@ -88,15 +88,6 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
   while (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK);
-
-  // Configure the Systick interrupt time
-  HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq() / 1000);
-
-  // Configure the Systick
-  HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
-
-  // SysTick_IRQn interrupt configuration
-  HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
 #ifdef __cplusplus

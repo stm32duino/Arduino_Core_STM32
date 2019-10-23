@@ -1299,15 +1299,15 @@ Genericflight.name=Generic flight controllers
 Genericflight.build.vid=0x0483
 Genericflight.build.core=arduino
 Genericflight.build.board=Genericflight
-Genericflight.build.mcu=cortex-m3
-Genericflight.build.series=STM32F1xx
-Genericflight.build.cmsis_lib_gcc=arm_cortexM3l_math
 Genericflight.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # AfroFlight Rev5
 Genericflight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_size=131072
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.upload.maximum_data_size=20480
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.mcu=cortex-m3
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.series=STM32F1xx
+Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.board=AFROFLIGHT_F103CB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.product_line=STM32F103xB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.variant=AFROFLIGHT_F103CB
@@ -1315,6 +1315,9 @@ Genericflight.menu.pnum.AFROFLIGHT_F103CB.build.variant=AFROFLIGHT_F103CB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M=Afro Flight Rev5 (12MHz)
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_size=131072
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.upload.maximum_data_size=20480
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.mcu=cortex-m3
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.series=STM32F1xx
+Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.cmsis_lib_gcc=arm_cortexM3l_math
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.board=AFROFLIGHT_F103CB_12M
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.product_line=STM32F103xB
 Genericflight.menu.pnum.AFROFLIGHT_F103CB_12M.build.variant=AFROFLIGHT_F103CB
@@ -1324,12 +1327,12 @@ Genericflight.menu.pnum.Sparky_V1=Sparky V1 F303 FC
 Genericflight.menu.pnum.Sparky_V1.upload.maximum_size=262144
 Genericflight.menu.pnum.Sparky_V1.upload.maximum_data_size=40960
 Genericflight.menu.pnum.Sparky_V1.build.mcu=cortex-m4
-Genericflight.menu.pnum.Sparky_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Genericflight.menu.pnum.Sparky_V1.build.board=Sparky_V1
 Genericflight.menu.pnum.Sparky_V1.build.series=STM32F3xx
-Genericflight.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
-Genericflight.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
 Genericflight.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Genericflight.menu.pnum.Sparky_V1.build.board=Sparky_V1
+Genericflight.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
+Genericflight.menu.pnum.Sparky_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Genericflight.menu.pnum.Sparky_V1.build.variant=SPARKY_F303CC
 
 # Upload menu
 Genericflight.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)

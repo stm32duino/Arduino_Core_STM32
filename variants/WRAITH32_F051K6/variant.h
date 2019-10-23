@@ -31,8 +31,8 @@ extern "C" {
 #define PA9  1
 #define PA12 2
 #define PB0  3
-#define PB7  4
-#define PB6  5
+#define PB7  4 // RX, SDA
+#define PB6  5 // TX, SCL
 #define PB1  6
 #define PF0  7
 #define PF1  8
@@ -43,33 +43,33 @@ extern "C" {
 #define PB3  13 // LED_GREEN
 #define PA0  14 // A0
 #define PA1  15 // A1
-#define PA2  16 // A2 - RC Input
-#define PA3  17 // A3
-#define PA4  18 // A4
-#define PA5  19 // A5 
-#define PA6  20 // A6
-#define PA7  21 // A7
+#define PA3  16 // A2
+#define PA4  17 // A3
+#define PA5  18 // A4 
+#define PA6  19 // A5
+#define PA7  20 // A6
+#define PA2  21 // RC Input
 #define PA15 22 // LED_RED
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        23
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       8
+#define NUM_ANALOG_INPUTS       7
 #define NUM_ANALOG_FIRST        14
 
 // On-board LED pin number
-#define LED_BUILTIN             13
-#define LED_GREEN               LED_BUILTIN
-#define LED_BLUE                12
-#define LED_RED                 22
+#define LED_GREEN               PB3
+#define LED_BLUE                PB4
+#define LED_RED                 PA15
+#define LED_BUILTIN             LED_GREEN
 
 
 // On-board user button
 //#define USER_BTN              NC
 
 // I2C Definitions
-#define PIN_WIRE_SDA            4
-#define PIN_WIRE_SCL            5
+#define PIN_WIRE_SDA            PB7 // 4
+#define PIN_WIRE_SCL            PB6 // 5
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
