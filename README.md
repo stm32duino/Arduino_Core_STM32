@@ -120,6 +120,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
 
+| Status | Generic STM32L0xx | Release | Comment |
+| :---: | --- | :---: | :--- |
+| :yellow_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | **1.8.0** |  |
+
+
 | Status | 3D printer boards | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [ARMED V1](https://github.com/ktand/Armed) | *1.5.0* |  |

@@ -1023,6 +1023,52 @@ GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
 
+################################################################################
+# Generic L0
+GenL0.name=Generic STM32L0 series
+
+GenL0.build.vid=0x0483
+GenL0.build.core=arduino
+GenL0.build.board=GenL0
+GenL0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenL0.build.mcu=cortex-m0plus
+GenL0.build.series=STM32L0xx
+GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# ThunderPack
+GenL0.menu.pnum.THUNDER_PACK=ThunderPack
+GenL0.menu.pnum.THUNDER_PACK.upload.maximum_size=196608
+GenL0.menu.pnum.THUNDER_PACK.upload.maximum_data_size=20480
+GenL0.menu.pnum.THUNDER_PACK.build.board=THUNDER_PACK
+GenL0.menu.pnum.THUNDER_PACK.build.product_line=STM32L072xx
+GenL0.menu.pnum.THUNDER_PACK.build.variant=THUNDER_PACK
+
+# Upload menu
+GenL0.menu.upload_method.dfuUtil=USB (dfu-util)
+GenL0.menu.upload_method.dfuUtil.upload.tool=dfu_util
+GenL0.menu.upload_method.dfuUtil.upload.protocol=
+GenL0.menu.upload_method.dfuUtil.upload.usbID=0483:df11
+GenL0.menu.upload_method.dfuUtil.upload.address=0x08000000:leave
+
+GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenL0.menu.upload_method.swdMethod.upload.protocol=0
+GenL0.menu.upload_method.swdMethod.upload.options=-g
+GenL0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenL0.menu.upload_method.serialMethod.upload.protocol=1
+GenL0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenL0.menu.upload_method.dfuMethod.upload.protocol=2
+GenL0.menu.upload_method.dfuMethod.upload.options=-g
+GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
 ###############################
 # Sparky Flight Controllers
 
@@ -1427,6 +1473,12 @@ GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
+GenL0.menu.xserial.generic=Enabled (generic 'Serial')
+GenL0.menu.xserial.none=Enabled (no generic 'Serial')
+GenL0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenL0.menu.xserial.disabled=Disabled (no Serial support)
+GenL0.menu.xserial.disabled.build.xSerial=
+
 Sparky.menu.xserial.generic=Enabled (generic 'Serial')
 Sparky.menu.xserial.none=Enabled (no generic 'Serial')
 Sparky.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -1561,6 +1613,14 @@ GenF4.menu.xusb.HS=High Speed
 GenF4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenL0.menu.usb.none=None
+GenL0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenL0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenL0.menu.usb.CDC=CDC (no generic 'Serial')
+GenL0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenL0.menu.usb.HID=HID (keyboard and mouse)
+GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 Sparky.menu.usb.none=None
 Sparky.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -1775,6 +1835,24 @@ GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF4.menu.opt.ogstd=Debug (-g)
 GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenL0.menu.opt.osstd=Smallest (-Os default)
+GenL0.menu.opt.oslto=Smallest (-Os) with LTO
+GenL0.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenL0.menu.opt.o1std=Fast (-O1)
+GenL0.menu.opt.o1std.build.flags.optimize=-O1
+GenL0.menu.opt.o1lto=Fast (-O1) with LTO
+GenL0.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenL0.menu.opt.o2std=Faster (-O2)
+GenL0.menu.opt.o2std.build.flags.optimize=-O2
+GenL0.menu.opt.o2lto=Faster (-O2) with LTO
+GenL0.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenL0.menu.opt.o3std=Fastest (-O3)
+GenL0.menu.opt.o3std.build.flags.optimize=-O3
+GenL0.menu.opt.o3lto=Fastest (-O3) with LTO
+GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenL0.menu.opt.ogstd=Debug (-g)
+GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 Sparky.menu.opt.osstd=Smallest (-Os default)
 Sparky.menu.opt.oslto=Smallest (-Os) with LTO
 Sparky.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -1955,6 +2033,16 @@ GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF4.menu.rtlib.full=Newlib Standard
 GenF4.menu.rtlib.full.build.flags.ldspecs=
+
+GenL0.menu.rtlib.nano=Newlib Nano (default)
+GenL0.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenL0.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenL0.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenL0.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenL0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenL0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenL0.menu.rtlib.full=Newlib Standard
+GenL0.menu.rtlib.full.build.flags.ldspecs=
 
 Sparky.menu.rtlib.nano=Newlib Nano (default)
 Sparky.menu.rtlib.nanofp=Newlib Nano + Float Printf
