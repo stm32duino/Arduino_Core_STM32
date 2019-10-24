@@ -124,7 +124,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :yellow_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | **1.8.0** |  |
 
-
 | Status | 3D printer boards | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [ARMED V1](https://github.com/ktand/Armed) | *1.5.0* |  |
@@ -142,13 +141,14 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | Basic support |
 | :green_heart: | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
 
-| Status | Sparky flight controllers | Release | Comment |
+| Status | Electronic Speed Controller boards | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :green_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
+| :yellow_heart: | Wraith V1 ESC | **1.8.0** |  |
 
 | Status | Generic flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
+| :green_heart: | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
 
 | Status | [Midatronics](https://midatronics.com/) | Release | Comment |
 | :---: | --- | :---: | :--- |
