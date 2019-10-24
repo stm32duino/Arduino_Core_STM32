@@ -5,6 +5,9 @@
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
+#ifdef STM32F0xx
+#include "stm32f0xx_ll_usb.h"
+#endif
 #ifdef STM32F1xx
 #include "stm32f1xx_ll_usb.h"
 #endif

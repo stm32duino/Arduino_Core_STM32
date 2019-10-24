@@ -1,3 +1,6 @@
+#ifdef STM32F0xx
+#include "stm32f0xx_ll_usb.c"
+#endif
 #ifdef STM32F1xx
 #include "stm32f1xx_ll_usb.c"
 #endif

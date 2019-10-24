@@ -1,3 +1,6 @@
+#ifdef STM32F0xx
+#include "stm32f0xx_hal_usart_ex.c"
+#endif
 #ifdef STM32G0xx
 #include "stm32g0xx_hal_usart_ex.c"
 #endif
