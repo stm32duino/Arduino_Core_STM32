@@ -1062,7 +1062,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsWakeUpPinPolarityLow(uint32_t WakeUpPin)
   */
 __STATIC_INLINE void LL_PWR_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
 {
-  SET_BIT(*((uint32_t *)GPIO), GPIONumber);
+  SET_BIT(*((__IO uint32_t *)GPIO), GPIONumber);
 }
 
 /**
@@ -1103,7 +1103,7 @@ __STATIC_INLINE void LL_PWR_EnableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
   */
 __STATIC_INLINE void LL_PWR_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
 {
-  CLEAR_BIT(*((uint32_t *)GPIO), GPIONumber);
+  CLEAR_BIT(*((__IO uint32_t *)GPIO), GPIONumber);
 }
 
 /**
@@ -1142,7 +1142,7 @@ __STATIC_INLINE void LL_PWR_DisableGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledGPIOPullUp(uint32_t GPIO, uint32_t GPIONumber)
 {
-  return ((READ_BIT(*((uint32_t *)(GPIO)), GPIONumber) == (GPIONumber)) ? 1UL : 0UL);
+  return ((READ_BIT(*((__IO uint32_t *)GPIO), GPIONumber) == (GPIONumber)) ? 1UL : 0UL);
 }
 
 /**
@@ -1183,8 +1183,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledGPIOPullUp(uint32_t GPIO, uint32_t GPIO
   */
 __STATIC_INLINE void LL_PWR_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumber)
 {
-  register __IO uint32_t temp = (uint32_t)(GPIO) + 4UL;
-  SET_BIT(*((uint32_t *)(temp)), GPIONumber);
+  SET_BIT(*((__IO uint32_t *)(GPIO + 4UL)), GPIONumber);
 }
 
 /**
@@ -1225,8 +1224,7 @@ __STATIC_INLINE void LL_PWR_EnableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumbe
   */
 __STATIC_INLINE void LL_PWR_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumber)
 {
-  register __IO uint32_t temp = (uint32_t)(GPIO) + 4UL;
-  CLEAR_BIT(*((uint32_t *)(temp)), GPIONumber);
+  CLEAR_BIT(*((__IO uint32_t *)(GPIO + 4UL)), GPIONumber);
 }
 
 /**
@@ -1265,8 +1263,7 @@ __STATIC_INLINE void LL_PWR_DisableGPIOPullDown(uint32_t GPIO, uint32_t GPIONumb
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledGPIOPullDown(uint32_t GPIO, uint32_t GPIONumber)
 {
-  register __IO uint32_t temp = (uint32_t)(GPIO) + 4UL;
-  return ((READ_BIT(*((uint32_t *)(temp)), GPIONumber) == (GPIONumber)) ? 1UL : 0UL);
+  return ((READ_BIT(*((__IO uint32_t *)(GPIO + 4UL)), GPIONumber) == (GPIONumber)) ? 1UL : 0UL);
 }
 
 #if defined(PWR_CR5_SMPSEN)
@@ -1573,12 +1570,12 @@ __STATIC_INLINE uint32_t LL_PWR_SMPS_GetOutputVoltageLevel(void)
     {
       OutputVoltageLevelTrimmed = (int32_t)LL_PWR_SMPS_OUTPUT_VOLTAGE_1V20;
     }
-    else if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
-    {
-      OutputVoltageLevelTrimmed = (int32_t)LL_PWR_SMPS_OUTPUT_VOLTAGE_1V90;
-    }
     else
     {
+      if(OutputVoltageLevelTrimmed > (int32_t)PWR_CR5_SMPSVOS)
+      {
+        OutputVoltageLevelTrimmed = (int32_t)LL_PWR_SMPS_OUTPUT_VOLTAGE_1V90;
+      }
     }
 
     return (uint32_t)OutputVoltageLevelTrimmed;

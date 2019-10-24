@@ -53,7 +53,9 @@
   *
   */
 
- /*     |   AF0    |   AF1    |   AF2    |   AF3    |   AF4    |   AF5    |   AF6    |   AF7    |
+#if defined (STM32WB55xx) || defined (STM32WB50xx)
+
+  /*     |   AF0    |   AF1    |   AF2    |   AF3    |   AF4    |   AF5    |   AF6    |   AF7    |
   *_____________________________________________________________________________________________
   *     |SYS_AF    |TIM       |TIM       |SPI/SAI/TI|I2C       | I2C      | RF       |  USART   |
   *_____________________________________________________________________________________________
@@ -357,6 +359,9 @@
 #define GPIO_AF15_EVENTOUT          ((uint8_t)0x0f)  /*!< EVENTOUT Alternate Function mapping      */
 
 #define IS_GPIO_AF(AF)              ((AF) <= (uint8_t)0x0f)
+
+#endif
+
 
 
 /**
