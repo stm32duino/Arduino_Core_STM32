@@ -14,6 +14,9 @@
 #ifdef STM32F2xx
 #include "stm32f2xx_ll_usb.h"
 #endif
+#ifdef STM32F3xx
+#include "stm32f3xx_ll_usb.h"
+#endif
 #ifdef STM32F4xx
 #include "stm32f4xx_ll_usb.h"
 #endif
