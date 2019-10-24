@@ -302,7 +302,7 @@ typedef struct
 typedef struct
 {
   __IO uint32_t ACR;           /*!< FLASH Access control register,                      Address offset: 0x00      */
-  __IO uint32_t PDKEYR;        /*!< FLASH Power-down in run mode flash key              Address offset: 0x04      */
+  __IO uint32_t RESERVED;      /*!< Reserved,                                           Address offset: 0x04      */
   __IO uint32_t KEYR;          /*!< FLASH Key register,                                 Address offset: 0x08      */
   __IO uint32_t OPTKEYR;       /*!< FLASH Option Key register,                          Address offset: 0x0C      */
   __IO uint32_t SR;            /*!< FLASH Status register,                              Address offset: 0x10      */
@@ -932,7 +932,8 @@ typedef struct
 #define SRAM2A_BASE            (SRAM_BASE + 0x00030000UL)/*!< SRAM2A(32 KB) base address       */
 #define SRAM2B_BASE            (SRAM_BASE + 0x00038000UL)/*!< SRAM2B(32 KB) base address       */
 
-/* Size SRAMx */
+/* Memory Size */
+#define FLASH_SIZE              (((uint32_t)(*((uint16_t *)FLASHSIZE_BASE)) & (0x07FFUL)) << 10U)
 #define SRAM1_SIZE              0x00030000UL   /*!< SRAM1 default size : 192 kB  */
 #define SRAM2A_SIZE             0x00008000UL   /*!< SRAM2a default size : 32 kB  */
 #define SRAM2B_SIZE             0x00008000UL   /*!< SRAM2b default size : 32 kB  */
@@ -4127,7 +4128,7 @@ typedef struct
 #define FLASH_CR_RDERRIE                    FLASH_CR_RDERRIE_Msk               /*!< PCROP read error interrupt enable                   */
 #define FLASH_CR_OBL_LAUNCH_Pos             (27U)                              
 #define FLASH_CR_OBL_LAUNCH_Msk             (0x1UL << FLASH_CR_OBL_LAUNCH_Pos) /*!< 0x08000000 */
-#define FLASH_CR_OBL_LAUNCH                 FLASH_CR_OBL_LAUNCH_Msk            /*!< Force the option bute loading                       */
+#define FLASH_CR_OBL_LAUNCH                 FLASH_CR_OBL_LAUNCH_Msk            /*!< Force the option byte loading                       */
 #define FLASH_CR_OPTLOCK_Pos                (30U)                              
 #define FLASH_CR_OPTLOCK_Msk                (0x1UL << FLASH_CR_OPTLOCK_Pos)    /*!< 0x40000000 */
 #define FLASH_CR_OPTLOCK                    FLASH_CR_OPTLOCK_Msk               /*!< Options lock                                        */
@@ -7266,7 +7267,8 @@ typedef struct
 * @brief Specific device feature definitions
 */
 #define RCC_SMPS_SUPPORT
-#define RCC_PLLSAI_SUPPORT
+#define RCC_MCO3_SUPPORT
+#define RCC_LSCO3_SUPPORT
 
 /********************  Bit definition for RCC_CR register  *****************/
 #define RCC_CR_MSION_Pos                     (0U)                              
@@ -13633,9 +13635,6 @@ typedef struct
 #define IS_TIM_REPETITION_COUNTER_INSTANCE(INSTANCE)  (((INSTANCE) == TIM1)  || \
                                                        ((INSTANCE) == TIM16) || \
                                                        ((INSTANCE) == TIM17))
-
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
 
 /****************** TIM Instances : supporting ADC triggering through TRGO2 ***/
 #define IS_TIM_TRGO2_INSTANCE(INSTANCE)    ((INSTANCE) == TIM1)
