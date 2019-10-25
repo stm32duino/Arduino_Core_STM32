@@ -917,7 +917,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsmartcard, uin
         return HAL_TIMEOUT;
       }
       *ptmpdata = (uint8_t)(hsmartcard->Instance->RDR & (uint8_t)0x00FF);
-      *ptmpdata++;
+      ptmpdata++;
     }
 
     /* At end of Rx process, restore hsmartcard->RxState to Ready */

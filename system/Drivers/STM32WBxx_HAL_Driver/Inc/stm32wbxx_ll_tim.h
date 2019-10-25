@@ -924,14 +924,15 @@ typedef struct
 /** @defgroup TIM_LL_EC_ETRSOURCE External Trigger Source
   * @{
   */
-#define LL_TIM_ETRSOURCE_GPIO                  0x00000000U                                                 /*!< ETR input is connected to GPIO */
+#define LL_TIM_ETRSOURCE_LEGACY                0x00000000U                                       /*!< ETR legacy mode */
 #if defined(COMP1) && defined(COMP2)
 #define LL_TIM_ETRSOURCE_COMP1                 TIM1_AF1_ETRSEL_0                                 /*!< ETR input is connected to COMP1_OUT */
 #define LL_TIM_ETRSOURCE_COMP2                 TIM1_AF1_ETRSEL_1                                 /*!< ETR input is connected to COMP2_OUT */
 #endif /* COMP1 && COMP2 */
-#define LL_TIM_ETRSOURCE_ADC1_AWD1             (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to ADC1 analog watchdog 1 */
-#define LL_TIM_ETRSOURCE_ADC1_AWD2             TIM1_AF1_ETRSEL_2                                 /*!< ETR input is connected to ADC1 analog watchdog 2 */
-#define LL_TIM_ETRSOURCE_ADC1_AWD3             (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to ADC1 analog watchdog 3 */
+#define LL_TIM_ETRSOURCE_GPIO                  LL_TIM_ETRSOURCE_LEGACY                           /*!< ETR input is connected to GPIO through TIMx ETR remapping capability */
+#define LL_TIM_ETRSOURCE_ADC1_AWD1             LL_TIM_ETRSOURCE_LEGACY                           /*!< ETR input is connected to ADC1 analog watchdog 1 through TIMx ETR remapping capability */
+#define LL_TIM_ETRSOURCE_ADC1_AWD2             LL_TIM_ETRSOURCE_LEGACY                           /*!< ETR input is connected to ADC1 analog watchdog 2 through TIMx ETR remapping capability */
+#define LL_TIM_ETRSOURCE_ADC1_AWD3             LL_TIM_ETRSOURCE_LEGACY                           /*!< ETR input is connected to ADC1 analog watchdog 3 through TIMx ETR remapping capability */
 /**
   * @}
   */
@@ -1129,7 +1130,7 @@ typedef struct
 /** @defgroup TIM_LL_EC_TIM2_ITR1_RMP  TIM2 Internal Trigger1 Remap
   * @{
   */
-#define LL_TIM_TIM2_ITR1_RMP_NONE          0x00000000U                                                /* !< No internal trigger on TIM2_ITR1 */
+#define LL_TIM_TIM2_ITR1_RMP_NONE          TIM2_OR_RMP_MASK                                           /* !< No internal trigger on TIM2_ITR1 */
 #if defined(USB)
 #define LL_TIM_TIM2_ITR1_RMP_USB_SOF       (TIM2_OR_ITR1_RMP)                                         /* !< TIM2_ITR1 is connected to USB SOF */
 #endif /* USB */
@@ -3294,15 +3295,19 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   * @brief  Select the external trigger (ETR) input source.
   * @note Macro IS_TIM_ETRSEL_INSTANCE(TIMx) can be used to check whether or
   *       not a timer instance supports ETR source selection.
+  * @note When this function is called with LL_TIM_ETRSOURCE_GPIO, 
+  *       LL_TIM_ETRSOURCE_ADC1_AWD1, LL_TIM_ETRSOURCE_ADC1_AWD2 or 
+  *       LL_TIM_ETRSOURCE_ADC1_AWD3, ETR source relies on TIMx ETR remapping
+  *       capability configured through the function @ref LL_TIM_SetRemap().
   * @rmtoll AF1          ETRSEL        LL_TIM_SetETRSource
   * @param  TIMx Timer instance
   * @param  ETRSource This parameter can be one of the following values:
   *         @arg @ref LL_TIM_ETRSOURCE_GPIO
-  *         @arg @ref LL_TIM_ETRSOURCE_COMP1
-  *         @arg @ref LL_TIM_ETRSOURCE_COMP2
   *         @arg @ref LL_TIM_ETRSOURCE_ADC1_AWD1
   *         @arg @ref LL_TIM_ETRSOURCE_ADC1_AWD2
   *         @arg @ref LL_TIM_ETRSOURCE_ADC1_AWD3
+  *         @arg @ref LL_TIM_ETRSOURCE_COMP1
+  *         @arg @ref LL_TIM_ETRSOURCE_COMP2
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetETRSource(TIM_TypeDef *TIMx, uint32_t ETRSource)

@@ -2632,8 +2632,8 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim,  TIM_Encoder_Ini
   assert_param(IS_TIM_ENCODER_MODE(sConfig->EncoderMode));
   assert_param(IS_TIM_IC_SELECTION(sConfig->IC1Selection));
   assert_param(IS_TIM_IC_SELECTION(sConfig->IC2Selection));
-  assert_param(IS_TIM_IC_POLARITY(sConfig->IC1Polarity));
-  assert_param(IS_TIM_IC_POLARITY(sConfig->IC2Polarity));
+  assert_param(IS_TIM_ENCODERINPUT_POLARITY(sConfig->IC1Polarity));
+  assert_param(IS_TIM_ENCODERINPUT_POLARITY(sConfig->IC2Polarity));
   assert_param(IS_TIM_IC_PRESCALER(sConfig->IC1Prescaler));
   assert_param(IS_TIM_IC_PRESCALER(sConfig->IC2Prescaler));
   assert_param(IS_TIM_IC_FILTER(sConfig->IC1Filter));

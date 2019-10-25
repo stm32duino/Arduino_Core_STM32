@@ -1089,6 +1089,8 @@ HAL_StatusTypeDef HAL_PWREx_DisableLowPowerRunMode(void)
   *         is set; the MSI oscillator is selected if STOPWUCK is cleared.  
   * @note  By keeping the internal regulator ON during Stop 0 mode, the consumption
   *         is higher although the startup time is reduced.
+  * @note  Case of Stop0 mode with SMPS: Before entering Stop 0 mode with SMPS Step Down converter enabled,
+  *        the HSI16 must be kept on by enabling HSI kernel clock (set HSIKERON register bit).
   * @note  According to system power policy, system entering in Stop mode
   *        is depending on other CPU power mode.
   * @param STOPEntry  specifies if Stop mode in entered with WFI or WFE instruction.
@@ -1197,6 +1199,15 @@ void HAL_PWREx_EnterSTOP1Mode(uint8_t STOPEntry)
   * @note  When exiting Stop 2 mode by issuing an interrupt or a wakeup event,
   *         the HSI RC oscillator is selected as system clock if STOPWUCK bit in RCC_CFGR register
   *         is set; the MSI oscillator is selected if STOPWUCK is cleared.
+  * @note  Case of Stop2 mode and debugger probe attached: a workaround should be applied.
+  *        Issue specified in "ES0394 - STM32WB55Cx/Rx/Vx device errata":
+  *        2.2.9 Incomplete Stop 2 mode entry after a wakeup from debug upon EXTI line 48 event
+  *        "With the JTAG debugger enabled on GPIO pins and after a wakeup from debug triggered by an event on EXTI
+  *        line 48 (CDBGPWRUPREQ), the device may enter in a state in which attempts to enter Stop 2 mode are not fully
+  *        effective ..."
+  *        Workaround implementation example using LL driver:
+  *        LL_EXTI_DisableIT_32_63(LL_EXTI_LINE_48);
+  *        LL_C2_EXTI_DisableIT_32_63(LL_EXTI_LINE_48);
   * @note  According to system power policy, system entering in Stop mode
   *        is depending on other CPU power mode.
   * @param STOPEntry  specifies if Stop mode in entered with WFI or WFE instruction.

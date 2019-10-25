@@ -191,7 +191,7 @@ extern "C" {
 #endif
 
 #if defined(SAI1)
-#define IS_RCC_PLLSAI1N_VALUE(__VALUE__)   ((8U <= (__VALUE__)) && ((__VALUE__) <= 86U))
+#define IS_RCC_PLLSAI1N_VALUE(__VALUE__)   ((6U <= (__VALUE__)) && ((__VALUE__) <= 127U))
 
 #define IS_RCC_PLLSAI1P_VALUE(__VALUE__)   ((RCC_PLLP_DIV2 <= (__VALUE__)) && ((__VALUE__) <= RCC_PLLP_DIV32))
 
@@ -242,7 +242,7 @@ typedef struct
 {
 
   uint32_t PLLN;             /*!< PLLN: specifies the multiplication factor for PLLSAI1 VCO output clock.
-                                  This parameter must be a number between Min_Data=8 and Max_Data=86. */
+                                  This parameter must be a number between Min_Data=6 and Max_Data=127. */
 
   uint32_t PLLP;             /*!< PLLP: specifies the division factor for SAI clock.
                                   This parameter must be a value of @ref RCC_PLLP_Clock_Divider */
@@ -757,9 +757,9 @@ typedef struct
   *         @ref __HAL_RCC_PLL_CONFIG() macro)
   *
   * @param  __PLLN__ specifies the multiplication factor for PLLSAI1 VCO output clock.
-  *         This parameter must be a number between 4 and 86.
+  *         This parameter must be a number between 6 and 127.
   * @note   You have to set the PLLN parameter correctly to ensure that the VCO
-  *         output frequency is between 64 and 344 MHz.
+  *         output frequency is between 96 and 344 MHz.
   *         PLLSAI1 clock frequency = f(PLLSAI1) multiplied by PLLN
   *
   * @param  __PLLP__ specifies the division factor for SAI clock.
@@ -789,9 +789,9 @@ typedef struct
   *         @ref __HAL_RCC_PLL_CONFIG() macro)
   *
   * @param  __PLLN__ specifies the multiplication factor for PLLSAI1 VCO output clock.
-  *          This parameter must be a number between Min_Data=4 and Max_Data=86.
+  *          This parameter must be a number between Min_Data=6 and Max_Data=127.
   * @note   You have to set the PLLN parameter correctly to ensure that the VCO
-  *         output frequency is between 64 and 344 MHz.
+  *         output frequency is between 96 and 344 MHz.
   *         Use to set PLLSAI1 clock frequency = f(PLLSAI1) multiplied by PLLN
   *
   * @retval None
