@@ -20,7 +20,7 @@ In both objects, a special array variable is used to parameterize the lines in t
      "using": "{{replacementname}}" }
    ```
 
-After section substitution, the board specification is scancced for strings within doubled-curly-braces (`{{...}}`). These are taken as macro names; the name is looked up, first in boards.json `boards` then in `defaults`. If found, the value is substituted. Substitutions are further macro-expanded.
+After section substitution, the board specification is scanned for strings within doubled-curly-braces (`{{...}}`). These are taken as macro names; the name is looked up, first in `boards.json` object `boards`, then in object `defaults`. If found, the value is substituted. Substitutions are further macro-expanded.
 
 The template file is divided into sections.
 
@@ -60,28 +60,28 @@ $section usb
 And `boards.json` is
 
 ```json
-	{
-	"boards":
-		[
-			{
-			"modelnumber": 	"one",
-			"extra_sections": []
-			},
-			{
-			"modelnumber": "two",
-			"extra_sections": [
-				{"name": "usb"}
-				]
-			},
-			{
-			"modelnumber": "three",
-			"extra_sections": [
-				{"name": "usb"},
-				{"using": "usb_disable" }
-				]
-			}
-		]
-	}
+    {
+    "boards":
+        [
+            {
+            "modelnumber": "one",
+            "extra_sections": []
+            },
+            {
+            "modelnumber": "two",
+            "extra_sections": [
+                {"name": "usb"}
+                ]
+            },
+            {
+            "modelnumber": "three",
+            "extra_sections": [
+                {"name": "usb"},
+                {"using": "usb_disable" }
+                ]
+            }
+        ]
+    }
 ```
 
 Then the output will be:
@@ -97,13 +97,13 @@ Then the output will be:
 
 The following template macros are used in `boards.template`.
 
-- `{{board}}` identifies the board tuple to the Arduino IDE. It is conventionally `mcci_catena_{{modelnumber}}`. Characters should be chosen from C++ indentifier characters (`[a-zA-Z0-9_]`).
-- `{{modelnumber}}` is assigned by marketing; it's typically a number but might have a regional suffix. Characters should be chosen from C++ indentifier characters (`[a-zA-Z0-9_]`).
+- `{{board}}` identifies the board tuple to the Arduino IDE. It is conventionally `mcci_catena_{{modelnumber}}`. Characters should be chosen from C++ identifier characters (`[a-zA-Z0-9_]`).
+- `{{modelnumber}}` is assigned by marketing; it's typically a number but might have a regional suffix. Characters should be chosen from C++ identifier characters (`[a-zA-Z0-9_]`).
 - `{{name}}` is the UI name of the board, assigned by marketing; it's typically `MCCI Catena {{modelnumber}}`.
-- `{{build_board}}` is used to form the C pre-processor symbol for the board. It's normally `MCCI_CATENA_{{modelnumber}}`. Characters should be chosen from C++ indentifier characters (`[a-zA-Z0-9_]`).  `platform.txt` normally arranges for `ARDUINO_{{build_board}}` to be defined at compile time.
+- `{{build_board}}` is used to form the C pre-processor symbol for the board. It's normally `MCCI_CATENA_{{modelnumber}}`. Characters should be chosen from C++ identifier characters (`[a-zA-Z0-9_]`).  `platform.txt` normally arranges for `ARDUINO_{{build_board}}` to be defined at compile time.
 - `{{vid}}` is the USB vendor ID: for MCCI products, it's 040E.  This should be four hexadecimal digits.
 - `{{pid}}` is the USB product ID -- a 4-digit hex number. This is controlled by MCCI sysadmin. This should be four hexadecimal digits.
-- `{{build_variant}}` is the directory name (in `variants/`) for the variant-specfic source files for this board. Note that this might be shared with other boards.{}
+- `{{build_variant}}` is the directory name (in `variants/`) for the variant-specific source files for this board. Note that this might be shared with other boards.{}
 - `{{build_variant_extra_flags}}` specifies additional compile flags for this variant.
 
 The following command is used to generate `boards.txt`.

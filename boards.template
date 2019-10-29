@@ -154,7 +154,7 @@ $section xserial
 # menu.lorawan_region
 {{board}}.menu.lorawan_region.us915=North America 915 MHz
 {{board}}.menu.lorawan_region.eu868=Europe 868 MHz
-{{board}}.menu.lorawan_region.au921=Australia 921 MHz
+{{board}}.menu.lorawan_region.au915=Australia 915 MHz
 {{board}}.menu.lorawan_region.as923=Asia 923 MHz
 {{board}}.menu.lorawan_region.as923jp=Japan 923 MHz
 {{board}}.menu.lorawan_region.kr920=Korea 920 MHz
@@ -162,7 +162,7 @@ $section xserial
 {{board}}.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 {{board}}.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 {{board}}.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-{{board}}.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+{{board}}.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 {{board}}.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 {{board}}.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 {{board}}.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
