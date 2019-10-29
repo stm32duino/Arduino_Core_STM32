@@ -142,7 +142,7 @@ mcci_catena_4551.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4551.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4551.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4551.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4551.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4551.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4551.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4551.menu.lorawan_region.kr920=Korea 920 MHz
@@ -150,7 +150,7 @@ mcci_catena_4551.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4551.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4551.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4551.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4551.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4551.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4551.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4551.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4551.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -264,7 +264,7 @@ mcci_catena_4610.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4610.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4610.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4610.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4610.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4610.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4610.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4610.menu.lorawan_region.kr920=Korea 920 MHz
@@ -272,7 +272,7 @@ mcci_catena_4610.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4610.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4610.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4610.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4610.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4610.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4610.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4610.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4610.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -386,7 +386,7 @@ mcci_catena_4611.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4611.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4611.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4611.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4611.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4611.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4611.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4611.menu.lorawan_region.kr920=Korea 920 MHz
@@ -394,7 +394,7 @@ mcci_catena_4611.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4611.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4611.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4611.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4611.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4611.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4611.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4611.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4611.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -508,7 +508,7 @@ mcci_catena_4612.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4612.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4612.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4612.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4612.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4612.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4612.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4612.menu.lorawan_region.kr920=Korea 920 MHz
@@ -516,7 +516,7 @@ mcci_catena_4612.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4612.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4612.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4612.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4612.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4612.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4612.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4612.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4612.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -630,7 +630,7 @@ mcci_catena_4617.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4617.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4617.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4617.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4617.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4617.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4617.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4617.menu.lorawan_region.kr920=Korea 920 MHz
@@ -638,7 +638,7 @@ mcci_catena_4617.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4617.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4617.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4617.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4617.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4617.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4617.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4617.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4617.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -752,7 +752,7 @@ mcci_catena_4618.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4618.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4618.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4618.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4618.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4618.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4618.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4618.menu.lorawan_region.kr920=Korea 920 MHz
@@ -760,7 +760,7 @@ mcci_catena_4618.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4618.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4618.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4618.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4618.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4618.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4618.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4618.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4618.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -874,7 +874,7 @@ mcci_catena_4630.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4630.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4630.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4630.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4630.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4630.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4630.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4630.menu.lorawan_region.kr920=Korea 920 MHz
@@ -882,7 +882,7 @@ mcci_catena_4630.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4630.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4630.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4630.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4630.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4630.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4630.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4630.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4630.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
@@ -980,7 +980,7 @@ mcci_catena_4801.menu.opt.ogstd.build.flags.ldspecs=
 # menu.lorawan_region
 mcci_catena_4801.menu.lorawan_region.us915=North America 915 MHz
 mcci_catena_4801.menu.lorawan_region.eu868=Europe 868 MHz
-mcci_catena_4801.menu.lorawan_region.au921=Australia 921 MHz
+mcci_catena_4801.menu.lorawan_region.au915=Australia 915 MHz
 mcci_catena_4801.menu.lorawan_region.as923=Asia 923 MHz
 mcci_catena_4801.menu.lorawan_region.as923jp=Japan 923 MHz
 mcci_catena_4801.menu.lorawan_region.kr920=Korea 920 MHz
@@ -988,7 +988,7 @@ mcci_catena_4801.menu.lorawan_region.in866=India 866 MHz
 mcci_catena_4801.menu.lorawan_region.projcfg=Use arduino-lmic/project_confic/lmic_project_lmic_config_preconditions.h
 mcci_catena_4801.menu.lorawan_region.us915.build.lorawan_flags=-DCFG_us915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4801.menu.lorawan_region.eu868.build.lorawan_flags=-DCFG_eu868=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
-mcci_catena_4801.menu.lorawan_region.au921.build.lorawan_flags=-DCFG_au921=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
+mcci_catena_4801.menu.lorawan_region.au915.build.lorawan_flags=-DCFG_au921=1 -DCFG_au915=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4801.menu.lorawan_region.as923.build.lorawan_flags=-DCFG_as923=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4801.menu.lorawan_region.as923jp.build.lorawan_flags=-DCFG_as923=1 -DLMIC_COUNTRY_CODE=LMIC_COUNTRY_CODE_JP -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
 mcci_catena_4801.menu.lorawan_region.kr920.build.lorawan_flags=-DCFG_kr920=1 -DCFG_sx1276_radio=1 -DARDUINO_LMIC_PROJECT_CONFIG_H=lmic_config_preconditions.h
