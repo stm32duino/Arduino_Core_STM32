@@ -3,14 +3,14 @@ Before reporting any issue:
 - Make sure you are using the latest Arduino_Core_STM32 version. See
   https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest
 
-- Make sure the issue is not already reported on the GitHub [issues page](https://github.com/mcci-catena/Arduino_Core_STM32/issues).
+- Make sure the issue is not already reported on GitHub [issues page](https://github.com/mcci-catena/Arduino_Core_STM32/issues).
 
 - Check whether the issue has been discussed on the [MCCI Support forum](https://portal.mcci.com)
 
-- Submit a GitHub issue only for reporting a problem related to the Arduino_Core_STM32.
+- Submit a GitHub issue only for reporting a problem related to Arduino_Core_STM32.
 
 - **Please do not** submit a GitHub issue for project troubleshooting.
- 
+
 Any questions/feedback/suggestions should be discussed on the [MCCI support forum](https://portal.mcci.com).
 
 When reporting any issue, please try to provide all relevant information:
