@@ -22,6 +22,7 @@
 ** @attention
 **
 ** <h2><center>&copy; COPYRIGHT(c) 2014 Ac6</center></h2>
+** <h2><center>Portions &copy; COPYRIGHT(c) 2019 MCCI Corporation</center></h2>
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -148,9 +149,10 @@ SECTIONS
   
   /* Uninitialized data section */
   . = ALIGN(4);
-  .bss :
+  .bss ALIGN(4):
   {
-    /* This is used by the startup in order to initialize the .bss secion */
+    . = ALIGN(4);
+    /* This is used by the startup in order to initialize the .bss section */
     _sbss = .;         /* define a global symbol at bss start */
     __bss_start__ = _sbss;
     *(.bss)
