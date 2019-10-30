@@ -59,12 +59,14 @@ extern "C" {
 #endif
 #endif
 #if defined(TIM6_BASE) && !defined(TIM6_IRQn)
+#if defined(DAC_BASE) || defined(DAC1_BASE)
 #if defined(STM32G0xx)
 #define TIM6_IRQn TIM6_DAC_LPTIM1_IRQn
 #define TIM6_IRQHandler TIM6_DAC_LPTIM1_IRQHandler
 #elif !defined(STM32F1xx) && !defined(STM32L1xx)
 #define TIM6_IRQn TIM6_DAC_IRQn
 #define TIM6_IRQHandler TIM6_DAC_IRQHandler
+#endif
 #endif
 #endif
 #if defined(TIM7_BASE) && !defined(TIM7_IRQn)
