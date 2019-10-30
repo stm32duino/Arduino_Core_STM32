@@ -822,7 +822,7 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-#if !defined(STM32F1xx)
+#if !defined(STM32F1xx) && !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32H7xx) && \
