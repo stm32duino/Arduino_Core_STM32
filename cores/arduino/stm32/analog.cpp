@@ -797,7 +797,11 @@ uint16_t adc_read_value(PinName pin)
 #ifdef ADC_DATAALIGN_RIGHT
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
 #endif
+#ifdef ADC_SCAN_SEQ_FIXED
+  AdcHandle.Init.ScanConvMode          = ADC_SCAN_SEQ_FIXED;            /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+#else
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+#endif
 #ifdef ADC_EOC_SINGLE_CONV
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
 #endif
@@ -845,7 +849,6 @@ uint16_t adc_read_value(PinName pin)
 #if defined(STM32G0xx)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
-  AdcHandle.Init.TriggerFrequencyMode  = ADC_TRIGGER_FREQ_HIGH;
 #endif
 #if defined(STM32L0xx)
   AdcHandle.Init.LowPowerFrequencyMode = DISABLE;                       /* To be enabled only if ADC clock < 2.8 MHz */
@@ -887,7 +890,11 @@ uint16_t adc_read_value(PinName pin)
 #endif /* STM32L4xx || STM32WBxx */
     return 0;
   }
+#ifdef ADC_SCAN_SEQ_FIXED
+  AdcChannelConf.Rank         = ADC_RANK_CHANNEL_NUMBER;          /* Enable the rank of the selected channels when not fully configurable */
+#else
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
+#endif
 #if !defined(STM32L0xx)
 #if !defined(STM32G0xx)
   AdcChannelConf.SamplingTime = samplingTime;                     /* Sampling time value to be set for the selected channel */
