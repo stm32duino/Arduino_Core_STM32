@@ -36,13 +36,12 @@
   ******************************************************************************
   */
 #include "core_debug.h"
-#include "twi.h"
+#include "utility/twi.h"
 #include "PinAF_STM32F1.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if defined(HAL_I2C_MODULE_ENABLED)
 
 /* Private Defines */
 /// @brief I2C timout in tick unit
@@ -1253,8 +1252,6 @@ void I2C6_ER_IRQHandler(void)
   HAL_I2C_ER_IRQHandler(handle);
 }
 #endif // I2C6_BASE
-
-#endif /* HAL_I2C_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }

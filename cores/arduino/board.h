@@ -17,7 +17,6 @@
 #include "spi_com.h"
 #include "stm32_eeprom.h"
 #include "timer.h"
-#include "twi.h"
 #include "uart.h"
 
 #ifdef __cplusplus
