@@ -14,6 +14,9 @@
 
 #include "Arduino.h"
 #include <stdio.h>
+extern "C" {
+#include "utility/spi_com.h"
+}
 
 // SPI_HAS_TRANSACTION means SPI has
 //   - beginTransaction()

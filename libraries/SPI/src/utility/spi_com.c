@@ -37,14 +37,13 @@
   */
 #include "core_debug.h"
 #include "stm32_def.h"
-#include "spi_com.h"
+#include "utility/spi_com.h"
 #include "PinAF_STM32F1.h"
 #include "pinconfig.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if defined(HAL_SPI_MODULE_ENABLED)
 
 /* Private Functions */
 /**
@@ -430,7 +429,6 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
 
   return ret;
 }
-#endif /* HAL_SPI_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }
