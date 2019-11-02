@@ -48,7 +48,7 @@ extern "C" {
 
 /* Private_Variables */
 #if (defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)) ||\
-    defined(HAL_DAC_MODULE_ENABLED)
+    (defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY))
 static PinName g_current_pin = NC;
 #endif
 
@@ -298,7 +298,7 @@ uint32_t get_pwm_channel(PinName pin)
 }
 #endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
-#ifdef HAL_DAC_MODULE_ENABLED
+#if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
 static uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
@@ -556,7 +556,8 @@ void dac_stop(PinName pin)
     return;
   }
 }
-#endif //HAL_DAC_MODULE_ENABLED
+#endif //HAL_DAC_MODULE_ENABLED && !HAL_DAC_MODULE_ONLY
+
 
 #if defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)
 ////////////////////////// ADC INTERFACE FUNCTIONS /////////////////////////////
