@@ -71,7 +71,7 @@ void analogReference(eAnalogReference ulMode)
 uint32_t analogRead(uint32_t ulPin)
 {
   uint32_t value = 0;
-#ifdef HAL_ADC_MODULE_ENABLED
+#if defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)
   PinName p = analogInputToPinName(ulPin);
   if (p != NC) {
     value = adc_read_value(p);
