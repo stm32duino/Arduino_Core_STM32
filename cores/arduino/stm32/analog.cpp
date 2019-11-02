@@ -271,7 +271,7 @@ static uint32_t get_adc_internal_channel(PinName pin)
 }
 #endif /* HAL_ADC_MODULE_ENABLED */
 
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 uint32_t get_pwm_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_PWM);
@@ -295,7 +295,7 @@ uint32_t get_pwm_channel(PinName pin)
   }
   return channel;
 }
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef HAL_DAC_MODULE_ENABLED
 static uint32_t get_dac_channel(PinName pin)
@@ -982,7 +982,7 @@ uint16_t adc_read_value(PinName pin)
 }
 #endif /* HAL_ADC_MODULE_ENABLED */
 
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 ////////////////////////// PWM INTERFACE FUNCTIONS /////////////////////////////
 
 /**
@@ -1032,7 +1032,7 @@ void pwm_stop(PinName pin)
     HT = NULL;
   }
 }
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

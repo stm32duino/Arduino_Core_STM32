@@ -26,7 +26,7 @@
 #include "Arduino.h"
 #include "HardwareTimer.h"
 
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 /* Private Defines */
 #define PIN_NOT_USED 0xFF
@@ -1472,4 +1472,4 @@ extern "C" {
 #endif //TIM22_BASE
 }
 
-#endif // HAL_TIM_MODULE_ENABLED
+#endif // HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY

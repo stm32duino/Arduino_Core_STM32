@@ -30,7 +30,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "timer.h"
 
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 #define  TIMER_CHANNELS 4    // channel5 and channel 6 are not considered here has they don't have gpio output and they don't have interrupt
 
@@ -149,5 +149,5 @@ extern timer_index_t get_timer_index(TIM_TypeDef *htim);
 
 #endif /* __cplusplus */
 
-#endif  // HAL_TIM_MODULE_ENABLED
+#endif  // HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY
 #endif  // HARDWARETIMER_H_
