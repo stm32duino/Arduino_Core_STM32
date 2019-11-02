@@ -38,7 +38,7 @@
 
 #include "rtc.h"
 
-#ifdef HAL_RTC_MODULE_ENABLED
+#if defined(HAL_RTC_MODULE_ENABLED) && !defined(HAL_RTC_MODULE_ONLY)
 #if defined(STM32MP1xx)
 /**
  * Currently there is no RTC driver for STM32MP1xx. If RTC is used in the future
@@ -704,6 +704,6 @@ void RTC_Alarm_IRQHandler(void)
 }
 #endif
 
-#endif /* HAL_RTC_MODULE_ENABLED */
+#endif /* HAL_RTC_MODULE_ENABLED  && !HAL_RTC_MODULE_ONLY */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

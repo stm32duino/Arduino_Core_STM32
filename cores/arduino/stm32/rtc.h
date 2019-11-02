@@ -45,7 +45,7 @@
 #include "backup.h"
 #include "clock.h"
 
-#ifdef HAL_RTC_MODULE_ENABLED
+#if defined(HAL_RTC_MODULE_ENABLED) && !defined(HAL_RTC_MODULE_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
@@ -170,7 +170,7 @@ void detachAlarmCallback(void);
 }
 #endif
 
-#endif /* HAL_RTC_MODULE_ENABLED */
+#endif /* HAL_RTC_MODULE_ENABLED  && !HAL_RTC_MODULE_ONLY */
 
 #endif /* __RTC_H */
 
