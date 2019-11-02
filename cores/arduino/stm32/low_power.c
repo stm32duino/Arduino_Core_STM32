@@ -39,7 +39,7 @@
 #include "Arduino.h"
 #include "low_power.h"
 
-#ifdef HAL_PWR_MODULE_ENABLED
+#if defined(HAL_PWR_MODULE_ENABLED) && !defined(HAL_PWR_MODULE_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
@@ -346,6 +346,6 @@ WEAK void SystemClock_ConfigFromStop(void)
 }
 #endif
 
-#endif /* HAL_PWR_MODULE_ENABLED */
+#endif /* HAL_PWR_MODULE_ENABLED  && !HAL_PWR_MODULE_ONLY */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
