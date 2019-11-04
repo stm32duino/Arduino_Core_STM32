@@ -66,6 +66,8 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
 
   _timerObj.handle.Instance = instance;
   _timerObj.__this = (void *)this;
+  _timerObj.preemptPriority = TIM_IRQ_PRIO;
+  _timerObj.subPriority = TIM_IRQ_SUBPRIO;
 
   // Enable Timer clock
   enableTimerClock(&(_timerObj.handle));
@@ -636,6 +638,19 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
     attachInterrupt(channel, CompareCallback);
   }
   resume();
+}
+
+/**
+  * @brief  Set the priority of the interrupt
+  * @note   Must be call before resume()
+  * @param  preemptPriority: the pre-emption priority for the IRQn channel
+  * @param  subPriority: the subpriority level for the IRQ channel.
+  * @retval None
+  */
+void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
+{
+  _timerObj.preemptPriority = preemptPriority;
+  _timerObj.subPriority = subPriority;
 }
 
 /**

@@ -238,6 +238,8 @@ typedef struct  {
   // Those 2 first fields must remain in this order at the beginning of the structure
   void    *__this;
   TIM_HandleTypeDef handle;
+  uint32_t preemptPriority;
+  uint32_t subPriority;
 } timerObj_t;
 
 /* Exported functions ------------------------------------------------------- */

@@ -105,6 +105,8 @@ class HardwareTimer {
 
     void setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format = TICK_COMPARE_FORMAT);  // set Compare register value of specified channel depending on format provided
 
+    void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
+
     //Add interrupt to period update
     void attachInterrupt(void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon update event (timer rollover)
     void detachInterrupt();  // remove interrupt callback which was attached to update event

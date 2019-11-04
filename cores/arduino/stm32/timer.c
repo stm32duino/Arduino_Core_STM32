@@ -37,15 +37,16 @@ timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
   */
 void HAL_TIM_Base_MspInit(TIM_HandleTypeDef *htim_base)
 {
+  timerObj_t *obj = get_timer_obj(htim_base);
   enableTimerClock(htim_base);
 
   // configure Update interrupt
-  HAL_NVIC_SetPriority(getTimerUpIrq(htim_base->Instance), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
+  HAL_NVIC_SetPriority(getTimerUpIrq(htim_base->Instance), obj->preemptPriority, obj->subPriority);
   HAL_NVIC_EnableIRQ(getTimerUpIrq(htim_base->Instance));
 
   if (getTimerCCIrq(htim_base->Instance) != getTimerUpIrq(htim_base->Instance)) {
     // configure Capture Compare interrupt
-    HAL_NVIC_SetPriority(getTimerCCIrq(htim_base->Instance), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
+    HAL_NVIC_SetPriority(getTimerCCIrq(htim_base->Instance), obj->preemptPriority, obj->subPriority);
     HAL_NVIC_EnableIRQ(getTimerCCIrq(htim_base->Instance));
   }
 }
@@ -69,15 +70,16 @@ void HAL_TIM_Base_MspDeInit(TIM_HandleTypeDef *htim_base)
   */
 void HAL_TIM_OC_MspInit(TIM_HandleTypeDef *htim)
 {
+  timerObj_t *obj = get_timer_obj(htim);
   enableTimerClock(htim);
 
   // configure Update interrupt
-  HAL_NVIC_SetPriority(getTimerUpIrq(htim->Instance), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
+  HAL_NVIC_SetPriority(getTimerUpIrq(htim->Instance), obj->preemptPriority, obj->subPriority);
   HAL_NVIC_EnableIRQ(getTimerUpIrq(htim->Instance));
 
   if (getTimerCCIrq(htim->Instance) != getTimerUpIrq(htim->Instance)) {
     // configure Capture Compare interrupt
-    HAL_NVIC_SetPriority(getTimerCCIrq(htim->Instance), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
+    HAL_NVIC_SetPriority(getTimerCCIrq(htim->Instance), obj->preemptPriority, obj->subPriority);
     HAL_NVIC_EnableIRQ(getTimerCCIrq(htim->Instance));
   }
 }
