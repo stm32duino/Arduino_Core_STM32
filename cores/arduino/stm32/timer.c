@@ -20,6 +20,15 @@ extern "C" {
 #ifdef HAL_TIM_MODULE_ENABLED
 
 /* Private Functions */
+/* Aim of the function is to get _timerObj pointer using htim pointer */
+/* Highly inspired from magical linux kernel's "container_of" */
+/* (which was not directly used since not compatible with IAR toolchain) */
+timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
+{
+  timerObj_t *obj;
+  obj = (timerObj_t *)((char *)htim - offsetof(timerObj_t, handle));
+  return (obj);
+}
 
 /**
   * @brief  TIMER Initialization - clock init and nvic init
