@@ -35,6 +35,7 @@
 // Includes
 //
 #include "SoftwareSerial.h"
+#include <timer.h>
 
 #define OVERSAMPLE 3 // in RX, Timer will generate interruption OVERSAMPLE time during a bit. Thus OVERSAMPLE ticks in a bit. (interrupt not synchonized with edge).
 
@@ -96,6 +97,8 @@
 // Statics
 //
 HardwareTimer SoftwareSerial::timer(TIMER_SERIAL);
+const IRQn_Type SoftwareSerial::timer_interrupt_number = static_cast<IRQn_Type>(getTimerUpIrq(TIMER_SERIAL));
+uint32_t SoftwareSerial::timer_interrupt_priority = NVIC_EncodePriority(NVIC_GetPriorityGrouping(), TIM_IRQ_PRIO, TIM_IRQ_SUBPRIO);
 SoftwareSerial *SoftwareSerial::active_listener = nullptr;
 SoftwareSerial *volatile SoftwareSerial::active_out = nullptr;
 SoftwareSerial *volatile SoftwareSerial::active_in = nullptr;
@@ -106,6 +109,12 @@ int32_t SoftwareSerial::tx_bit_cnt = 0;
 uint32_t SoftwareSerial::rx_buffer = 0;
 int32_t SoftwareSerial::rx_bit_cnt = -1; // rx_bit_cnt = -1 :  waiting for start bit
 uint32_t SoftwareSerial::cur_speed = 0;
+
+void SoftwareSerial::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
+{
+  timer_interrupt_priority = NVIC_EncodePriority(NVIC_GetPriorityGrouping(), preemptPriority, subPriority);
+  NVIC_SetPriority(timer_interrupt_number, timer_interrupt_priority);
+}
 
 //
 // Private methods
@@ -134,6 +143,7 @@ void SoftwareSerial::setSpeed(uint32_t speed)
       timer.setCount(0);
       timer.attachInterrupt(&handleInterrupt);
       timer.resume();
+      NVIC_SetPriority(timer_interrupt_number, timer_interrupt_priority);
     } else {
       timer.detachInterrupt();
     }

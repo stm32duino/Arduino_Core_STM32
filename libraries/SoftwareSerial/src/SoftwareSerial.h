@@ -66,6 +66,8 @@ class SoftwareSerial : public Stream {
     // static data
     static bool initialised;
     static HardwareTimer timer;
+    static const IRQn_Type timer_interrupt_number;
+    static uint32_t timer_interrupt_priority;
     static SoftwareSerial *active_listener;
     static SoftwareSerial *volatile active_out;
     static SoftwareSerial *volatile active_in;
@@ -117,6 +119,8 @@ class SoftwareSerial : public Stream {
     {
       return true;
     }
+
+    static void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority);
 
     using Print::write;
 };
