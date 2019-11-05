@@ -33,7 +33,7 @@
 #define MAX_RELOAD ((1 << 16) - 1) // Currently even 32b timers are used as 16b to have generic behavior
 
 /* Private Variables */
-HardwareTimerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
+timerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
 
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
@@ -50,25 +50,27 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
     Error_Handler();
   }
 
-  HardwareTimer_Handle[index] = &_HardwareTimerObj;
+  HardwareTimer_Handle[index] = &_timerObj;
 
-  _HardwareTimerObj.handle.Instance = instance;
-  _HardwareTimerObj.handle.Channel = HAL_TIM_ACTIVE_CHANNEL_CLEARED;
-  _HardwareTimerObj.handle.hdma[0] = NULL;
-  _HardwareTimerObj.handle.hdma[1] = NULL;
-  _HardwareTimerObj.handle.hdma[2] = NULL;
-  _HardwareTimerObj.handle.hdma[3] = NULL;
-  _HardwareTimerObj.handle.hdma[4] = NULL;
-  _HardwareTimerObj.handle.hdma[5] = NULL;
-  _HardwareTimerObj.handle.hdma[6] = NULL;
-  _HardwareTimerObj.handle.Lock = HAL_UNLOCKED;
-  _HardwareTimerObj.handle.State = HAL_TIM_STATE_RESET;
+  _timerObj.handle.Instance = instance;
+  _timerObj.handle.Channel = HAL_TIM_ACTIVE_CHANNEL_CLEARED;
+  _timerObj.handle.hdma[0] = NULL;
+  _timerObj.handle.hdma[1] = NULL;
+  _timerObj.handle.hdma[2] = NULL;
+  _timerObj.handle.hdma[3] = NULL;
+  _timerObj.handle.hdma[4] = NULL;
+  _timerObj.handle.hdma[5] = NULL;
+  _timerObj.handle.hdma[6] = NULL;
+  _timerObj.handle.Lock = HAL_UNLOCKED;
+  _timerObj.handle.State = HAL_TIM_STATE_RESET;
 
-  _HardwareTimerObj.handle.Instance = instance;
-  _HardwareTimerObj.__this = (void *)this;
+  _timerObj.handle.Instance = instance;
+  _timerObj.__this = (void *)this;
+  _timerObj.preemptPriority = TIM_IRQ_PRIO;
+  _timerObj.subPriority = TIM_IRQ_SUBPRIO;
 
   // Enable Timer clock
-  enableTimerClock(&(_HardwareTimerObj.handle));
+  enableTimerClock(&(_timerObj.handle));
 
   // Configure HAL structure for all channels
   for (int i = 0; i < TIMER_CHANNELS; i++) {
@@ -103,7 +105,7 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
   */
 void HardwareTimer::pause()
 {
-  HAL_TIM_Base_Stop_IT(&(_HardwareTimerObj.handle));
+  HAL_TIM_Base_Stop_IT(&(_timerObj.handle));
 }
 
 /**
@@ -113,19 +115,19 @@ void HardwareTimer::pause()
   */
 void HardwareTimer::resume(void)
 {
-  _HardwareTimerObj.handle.Init.CounterMode = TIM_COUNTERMODE_UP;
-  _HardwareTimerObj.handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  _timerObj.handle.Init.CounterMode = TIM_COUNTERMODE_UP;
+  _timerObj.handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 #if defined(TIM_RCR_REP)
-  _HardwareTimerObj.handle.Init.RepetitionCounter = 0;
+  _timerObj.handle.Init.RepetitionCounter = 0;
 #endif
-  _HardwareTimerObj.handle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  HAL_TIM_Base_Init(&(_HardwareTimerObj.handle));
+  _timerObj.handle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  HAL_TIM_Base_Init(&(_timerObj.handle));
 
   // Start timer with IT if required
   if (callbacks[0] != NULL) {
-    HAL_TIM_Base_Start_IT(&(_HardwareTimerObj.handle));
+    HAL_TIM_Base_Start_IT(&(_timerObj.handle));
   } else {
-    HAL_TIM_Base_Start(&(_HardwareTimerObj.handle));
+    HAL_TIM_Base_Start(&(_timerObj.handle));
   }
 
   resumeChannel(1);
@@ -175,58 +177,58 @@ void HardwareTimer::resumeChannel(uint32_t channel)
   }
 
   if (IS_TIM_PWM_MODE(_channelOC[channel - 1].OCMode)) {
-    HAL_TIM_PWM_ConfigChannel(&(_HardwareTimerObj.handle), &_channelOC[channel - 1], timChannel);
+    HAL_TIM_PWM_ConfigChannel(&(_timerObj.handle), &_channelOC[channel - 1], timChannel);
 
     if ((channel < (TIMER_CHANNELS + 1)) && (callbacks[channel] != NULL)) {
       // Only channel 1..4 can have interruption
 #if defined(TIM_CCER_CC1NE)
       if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_PWMN_Start_IT(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIMEx_PWMN_Start_IT(&(_timerObj.handle), timChannel);
       } else
 #endif
       {
-        HAL_TIM_PWM_Start_IT(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIM_PWM_Start_IT(&(_timerObj.handle), timChannel);
       }
     } else {
 #if defined(TIM_CCER_CC1NE)
       if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_PWMN_Start(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIMEx_PWMN_Start(&(_timerObj.handle), timChannel);
       } else
 #endif
       {
-        HAL_TIM_PWM_Start(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIM_PWM_Start(&(_timerObj.handle), timChannel);
       }
     }
   } else if (IS_TIM_OC_MODE(_channelOC[channel - 1].OCMode)) {
-    HAL_TIM_OC_ConfigChannel(&(_HardwareTimerObj.handle), &_channelOC[channel - 1], timChannel);
+    HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &_channelOC[channel - 1], timChannel);
 
     if ((channel < (TIMER_CHANNELS + 1)) && (callbacks[channel] != NULL)) {
       // Only channel 1..4 can have interruption
 #if defined(TIM_CCER_CC1NE)
       if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_OCN_Start_IT(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIMEx_OCN_Start_IT(&(_timerObj.handle), timChannel);
       } else
 #endif
       {
-        HAL_TIM_OC_Start_IT(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIM_OC_Start_IT(&(_timerObj.handle), timChannel);
       }
     } else {
 #if defined(TIM_CCER_CC1NE)
       if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_OCN_Start(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIMEx_OCN_Start(&(_timerObj.handle), timChannel);
       } else
 #endif
       {
-        HAL_TIM_OC_Start(&(_HardwareTimerObj.handle), timChannel);
+        HAL_TIM_OC_Start(&(_timerObj.handle), timChannel);
       }
     }
   } else if (_channelIC[channel - 1].ICPolarity != TIMER_NOT_USED) {
-    HAL_TIM_IC_ConfigChannel(&(_HardwareTimerObj.handle), &_channelIC[channel - 1], timChannel);
+    HAL_TIM_IC_ConfigChannel(&(_timerObj.handle), &_channelIC[channel - 1], timChannel);
 
     if (callbacks[channel] != NULL) {
-      HAL_TIM_IC_Start_IT(&(_HardwareTimerObj.handle), timChannel);
+      HAL_TIM_IC_Start_IT(&(_timerObj.handle), timChannel);
     } else {
-      HAL_TIM_IC_Start(&(_HardwareTimerObj.handle), timChannel);
+      HAL_TIM_IC_Start(&(_timerObj.handle), timChannel);
     }
   }
 }
@@ -239,7 +241,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
 uint32_t HardwareTimer::getPrescaleFactor()
 {
   // Hardware register correspond to prescaler-1. Example PSC register value 0 means divided by 1
-  return (_HardwareTimerObj.handle.Init.Prescaler + 1);
+  return (_timerObj.handle.Init.Prescaler + 1);
 }
 
 /**
@@ -250,8 +252,8 @@ uint32_t HardwareTimer::getPrescaleFactor()
 void HardwareTimer::setPrescaleFactor(uint32_t prescaler)
 {
   // Hardware register correspond to prescaler-1. Example PSC register value 0 means divided by 1
-  __HAL_TIM_SET_PRESCALER(&_HardwareTimerObj.handle, prescaler - 1);
-  _HardwareTimerObj.handle.Init.Prescaler = prescaler - 1;
+  __HAL_TIM_SET_PRESCALER(&_timerObj.handle, prescaler - 1);
+  _timerObj.handle.Init.Prescaler = prescaler - 1;
 }
 
 /**
@@ -265,8 +267,8 @@ void HardwareTimer::setPrescaleFactor(uint32_t prescaler)
 uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
 {
   // Hardware register correspond to period count-1. Example ARR register value 9 means period of 10 timer cycle
-  uint32_t ARR_RegisterValue = __HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle));
-  uint32_t Prescalerfactor = _HardwareTimerObj.handle.Instance->PSC + 1;
+  uint32_t ARR_RegisterValue = __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
+  uint32_t Prescalerfactor = _timerObj.handle.Instance->PSC + 1;
   uint32_t return_value;
   switch (format) {
     case MICROSEC_FORMAT:
@@ -302,15 +304,15 @@ void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
     case MICROSEC_FORMAT:
       period_cyc = overflow * (getTimerClkFreq() / 1000000);
       Prescalerfactor = (period_cyc / 0x10000) + 1;
-      __HAL_TIM_SET_PRESCALER(&_HardwareTimerObj.handle, Prescalerfactor - 1);
-      _HardwareTimerObj.handle.Init.Prescaler = Prescalerfactor - 1;
+      __HAL_TIM_SET_PRESCALER(&_timerObj.handle, Prescalerfactor - 1);
+      _timerObj.handle.Init.Prescaler = Prescalerfactor - 1;
       ARR_RegisterValue = (period_cyc / Prescalerfactor) - 1;
       break;
     case HERTZ_FORMAT:
       period_cyc = getTimerClkFreq() / overflow;
       Prescalerfactor = (period_cyc / 0x10000) + 1;
-      __HAL_TIM_SET_PRESCALER(&_HardwareTimerObj.handle, Prescalerfactor - 1);
-      _HardwareTimerObj.handle.Init.Prescaler = Prescalerfactor - 1;
+      __HAL_TIM_SET_PRESCALER(&_timerObj.handle, Prescalerfactor - 1);
+      _timerObj.handle.Init.Prescaler = Prescalerfactor - 1;
       ARR_RegisterValue = (period_cyc / Prescalerfactor) - 1;
       break;
     case TICK_FORMAT:
@@ -319,8 +321,8 @@ void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
       break;
   }
 
-  __HAL_TIM_SET_AUTORELOAD(&_HardwareTimerObj.handle, ARR_RegisterValue);
-  _HardwareTimerObj.handle.Init.Period = ARR_RegisterValue;
+  __HAL_TIM_SET_AUTORELOAD(&_timerObj.handle, ARR_RegisterValue);
+  _timerObj.handle.Init.Period = ARR_RegisterValue;
 }
 
 /**
@@ -333,8 +335,8 @@ void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
   */
 uint32_t HardwareTimer::getCount(TimerFormat_t format)
 {
-  uint32_t CNT_RegisterValue = __HAL_TIM_GET_COUNTER(&(_HardwareTimerObj.handle));
-  uint32_t Prescalerfactor = _HardwareTimerObj.handle.Instance->PSC + 1;
+  uint32_t CNT_RegisterValue = __HAL_TIM_GET_COUNTER(&(_timerObj.handle));
+  uint32_t Prescalerfactor = _timerObj.handle.Instance->PSC + 1;
   uint32_t return_value;
   switch (format) {
     case MICROSEC_FORMAT:
@@ -363,7 +365,7 @@ uint32_t HardwareTimer::getCount(TimerFormat_t format)
 void HardwareTimer::setCount(uint32_t counter, TimerFormat_t format)
 {
   uint32_t CNT_RegisterValue;
-  uint32_t Prescalerfactor = _HardwareTimerObj.handle.Instance->PSC + 1;
+  uint32_t Prescalerfactor = _timerObj.handle.Instance->PSC + 1;
   switch (format) {
     case MICROSEC_FORMAT:
       CNT_RegisterValue = ((counter * (getTimerClkFreq() / 1000000)) / Prescalerfactor) - 1 ;
@@ -376,7 +378,7 @@ void HardwareTimer::setCount(uint32_t counter, TimerFormat_t format)
       CNT_RegisterValue = counter - 1;
       break;
   }
-  __HAL_TIM_SET_COUNTER(&(_HardwareTimerObj.handle), CNT_RegisterValue);
+  __HAL_TIM_SET_COUNTER(&(_timerObj.handle), CNT_RegisterValue);
 }
 
 /**
@@ -519,7 +521,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format)
 {
   int timChannel = getChannel(channel);
-  uint32_t Prescalerfactor = _HardwareTimerObj.handle.Instance->PSC + 1;
+  uint32_t Prescalerfactor = _timerObj.handle.Instance->PSC + 1;
   uint32_t CCR_RegisterValue;
 
   if (timChannel == -1) {
@@ -534,13 +536,13 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
       CCR_RegisterValue = (getTimerClkFreq() / (compare * Prescalerfactor)) - 1;
       break;
     case PERCENT_COMPARE_FORMAT:
-      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle)) + 1) * compare) / 100;
+      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 100;
       break;
     case RESOLUTION_8B_COMPARE_FORMAT:
-      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle)) + 1) * compare) / 255 ;
+      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 255 ;
       break;
     case RESOLUTION_12B_COMPARE_FORMAT:
-      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle)) + 1) * compare) / 4095 ;
+      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 4095 ;
       break;
     case TICK_COMPARE_FORMAT:
     default :
@@ -548,7 +550,7 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
       break;
   }
 
-  __HAL_TIM_SET_COMPARE(&(_HardwareTimerObj.handle), timChannel, CCR_RegisterValue);
+  __HAL_TIM_SET_COMPARE(&(_timerObj.handle), timChannel, CCR_RegisterValue);
   _channelOC[channel - 1].Pulse = CCR_RegisterValue;
 }
 
@@ -564,8 +566,8 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
 uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_t format)
 {
   int timChannel = getChannel(channel);
-  uint32_t CCR_RegisterValue = __HAL_TIM_GET_COMPARE(&(_HardwareTimerObj.handle), timChannel);
-  uint32_t Prescalerfactor = _HardwareTimerObj.handle.Instance->PSC + 1;
+  uint32_t CCR_RegisterValue = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);
+  uint32_t Prescalerfactor = _timerObj.handle.Instance->PSC + 1;
   uint32_t return_value;
 
   if (timChannel == -1) {
@@ -580,13 +582,13 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
       return_value = (uint32_t)(getTimerClkFreq() / (CCR_RegisterValue  * Prescalerfactor));
       break;
     case PERCENT_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 100) / __HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle));
+      return_value = (CCR_RegisterValue * 100) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
       break;
     case RESOLUTION_8B_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 255) / __HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle));
+      return_value = (CCR_RegisterValue * 255) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
       break;
     case RESOLUTION_12B_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 4095) / __HAL_TIM_GET_AUTORELOAD(&(_HardwareTimerObj.handle));
+      return_value = (CCR_RegisterValue * 4095) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
       break;
     case TICK_COMPARE_FORMAT:
     default :
@@ -636,6 +638,19 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
     attachInterrupt(channel, CompareCallback);
   }
   resume();
+}
+
+/**
+  * @brief  Set the priority of the interrupt
+  * @note   Must be call before resume()
+  * @param  preemptPriority: the pre-emption priority for the IRQn channel
+  * @param  subPriority: the subpriority level for the IRQ channel.
+  * @retval None
+  */
+void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
+{
+  _timerObj.preemptPriority = preemptPriority;
+  _timerObj.subPriority = subPriority;
 }
 
 /**
@@ -694,7 +709,7 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
   */
 void HardwareTimer::refresh()
 {
-  HAL_TIM_GenerateEvent(&(_HardwareTimerObj.handle), TIM_EVENTSOURCE_UPDATE);
+  HAL_TIM_GenerateEvent(&(_timerObj.handle), TIM_EVENTSOURCE_UPDATE);
 }
 
 /**
@@ -708,7 +723,7 @@ void HardwareTimer::updateCallback(TIM_HandleTypeDef *htim)
     Error_Handler();
   }
 
-  HardwareTimerObj_t *obj = get_timer_obj(htim);
+  timerObj_t *obj = get_timer_obj(htim);
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[0] != NULL) {
@@ -749,7 +764,7 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
       return;
   }
 
-  HardwareTimerObj_t *obj = get_timer_obj(htim);
+  timerObj_t *obj = get_timer_obj(htim);
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[channel] != NULL) {
@@ -763,10 +778,10 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
   */
 HardwareTimer::~HardwareTimer()
 {
-  uint32_t index = get_timer_index(_HardwareTimerObj.handle.Instance);
-  disableTimerClock(&(_HardwareTimerObj.handle));
+  uint32_t index = get_timer_index(_timerObj.handle.Instance);
+  disableTimerClock(&(_timerObj.handle));
   HardwareTimer_Handle[index] = NULL;
-  _HardwareTimerObj.__this = NULL;
+  _timerObj.__this = NULL;
 }
 
 /**
@@ -904,7 +919,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
 
   /* Get clock configuration */
   HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
-  switch (getTimerClkSrc(_HardwareTimerObj.handle.Instance)) {
+  switch (getTimerClkSrc(_timerObj.handle.Instance)) {
     case 1:
       uwAPBxPrescaler = clkconfig.APB1CLKDivider;
       uwTimclock = HAL_RCC_GetPCLK1Freq();
@@ -1015,16 +1030,6 @@ uint32_t HardwareTimer::getTimerClkFreq()
   return uwTimclock;
 }
 
-/* Aim of the function is to get _HardwareTimerObj_s pointer using htim pointer */
-/* Highly inspired from magical linux kernel's "container_of" */
-/* (which was not directly used since not compatible with IAR toolchain) */
-HardwareTimerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
-{
-  HardwareTimerObj_t *obj;
-  obj = (HardwareTimerObj_t *)((char *)htim - offsetof(HardwareTimerObj_t, handle));
-  return (obj);
-}
-
 /**
   * @brief  This function will reset the timer
   * @param  obj : Hardware timer instance ex: Timer6, ...
@@ -1032,8 +1037,8 @@ HardwareTimerObj_t *get_timer_obj(TIM_HandleTypeDef *htim)
   */
 void HardwareTimer::timerHandleDeinit()
 {
-  HAL_TIM_Base_Stop_IT(&(_HardwareTimerObj.handle));
-  HAL_TIM_Base_DeInit(&(_HardwareTimerObj.handle));
+  HAL_TIM_Base_Stop_IT(&(_timerObj.handle));
+  HAL_TIM_Base_DeInit(&(_timerObj.handle));
 }
 
 /******************************************************************************/

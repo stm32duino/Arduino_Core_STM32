@@ -419,3 +419,8 @@ int SoftwareSerial::peek()
   // Read from "head"
   return _receive_buffer[_receive_buffer_head];
 }
+
+void SoftwareSerial::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
+{
+  timer.setInterruptPriority(preemptPriority, subPriority);
+}

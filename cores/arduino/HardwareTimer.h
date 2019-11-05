@@ -74,14 +74,6 @@ typedef enum {
   RESOLUTION_12B_COMPARE_FORMAT  // used for Dutycycle: [0.. 4095]
 } TimerCompareFormat_t;
 
-// This structure is used to be able to get HardwareTimer instance (C++ class)
-// from handler (C structure) specially for interrupt management
-typedef struct  {
-  // Those 2 first fields must remain in this order at the beginning of the structure
-  void    *__this;
-  TIM_HandleTypeDef handle;
-} HardwareTimerObj_t;
-
 #ifdef __cplusplus
 
 /* Class --------------------------------------------------------*/
@@ -113,6 +105,8 @@ class HardwareTimer {
 
     void setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format = TICK_COMPARE_FORMAT);  // set Compare register value of specified channel depending on format provided
 
+    void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
+
     //Add interrupt to period update
     void attachInterrupt(void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon update event (timer rollover)
     void detachInterrupt();  // remove interrupt callback which was attached to update event
@@ -135,7 +129,7 @@ class HardwareTimer {
   private:
     TIM_OC_InitTypeDef _channelOC[TIMER_CHANNELS];
     TIM_IC_InitTypeDef _channelIC[TIMER_CHANNELS];
-    HardwareTimerObj_t _HardwareTimerObj;
+    timerObj_t _timerObj;
     void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
 
     int getChannel(uint32_t channel);
@@ -145,9 +139,7 @@ class HardwareTimer {
 #endif
 };
 
-HardwareTimerObj_t *get_timer_obj(TIM_HandleTypeDef *htim);
-
-extern HardwareTimerObj_t *HardwareTimer_Handle[TIMER_NUM];
+extern timerObj_t *HardwareTimer_Handle[TIMER_NUM];
 
 extern timer_index_t get_timer_index(TIM_TypeDef *htim);
 

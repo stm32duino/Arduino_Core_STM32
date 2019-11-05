@@ -231,7 +231,19 @@ typedef enum {
   UNKNOWN_TIMER = 0XFFFF
 } timer_index_t;
 
+
+// This structure is used to be able to get HardwareTimer instance (C++ class)
+// from handler (C structure) specially for interrupt management
+typedef struct  {
+  // Those 2 first fields must remain in this order at the beginning of the structure
+  void    *__this;
+  TIM_HandleTypeDef handle;
+  uint32_t preemptPriority;
+  uint32_t subPriority;
+} timerObj_t;
+
 /* Exported functions ------------------------------------------------------- */
+timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim);
 
 void enableTimerClock(TIM_HandleTypeDef *htim);
 void disableTimerClock(TIM_HandleTypeDef *htim);

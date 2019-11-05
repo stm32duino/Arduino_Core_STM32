@@ -118,6 +118,8 @@ class SoftwareSerial : public Stream {
       return true;
     }
 
+    static void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority);
+
     using Print::write;
 };
 
