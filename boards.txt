@@ -181,6 +181,7 @@ Nucleo_144.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Nucleo_144.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_144.menu.upload_method.dfuMethod.upload.protocol=2
 Nucleo_144.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_144.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Nucleo_144.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -466,6 +467,7 @@ Nucleo_64.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Nucleo_64.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_64.menu.upload_method.dfuMethod.upload.protocol=2
 Nucleo_64.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_64.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Nucleo_64.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -571,6 +573,7 @@ Nucleo_32.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Nucleo_32.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Nucleo_32.menu.upload_method.dfuMethod.upload.protocol=2
 Nucleo_32.menu.upload_method.dfuMethod.upload.options=-g
+Nucleo_32.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Nucleo_32.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -727,6 +730,7 @@ Disco.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=2
 Disco.menu.upload_method.dfuMethod.upload.options=-g
+Disco.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -759,6 +763,7 @@ Eval.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 Eval.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Eval.menu.upload_method.dfuMethod.upload.protocol=2
 Eval.menu.upload_method.dfuMethod.upload.options=-g
+Eval.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Eval.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -847,6 +852,7 @@ GenF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 GenF0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF0.menu.upload_method.dfuMethod.upload.protocol=2
 GenF0.menu.upload_method.dfuMethod.upload.options=-g
+GenF0.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 GenF0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1152,6 +1158,7 @@ GenF1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 GenF1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF1.menu.upload_method.dfuMethod.upload.protocol=2
 GenF1.menu.upload_method.dfuMethod.upload.options=-g
+GenF1.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 GenF1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF1.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1215,6 +1222,7 @@ GenF3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 GenF3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF3.menu.upload_method.dfuMethod.upload.protocol=2
 GenF3.menu.upload_method.dfuMethod.upload.options=-g
+GenF3.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 GenF3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1623,6 +1631,7 @@ GenF4.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 GenF4.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenF4.menu.upload_method.dfuMethod.upload.protocol=2
 GenF4.menu.upload_method.dfuMethod.upload.options=-g
+GenF4.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 GenF4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenF4.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1712,6 +1721,7 @@ GenL0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 GenL0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 GenL0.menu.upload_method.dfuMethod.upload.protocol=2
 GenL0.menu.upload_method.dfuMethod.upload.options=-g
+GenL0.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 GenL0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -1752,6 +1762,7 @@ ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
 ESC_board.menu.upload_method.dfuMethod.upload.options=-g
+ESC_board.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
@@ -1834,6 +1845,7 @@ LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 LoRa.menu.upload_method.dfuMethod.upload.protocol=2
 LoRa.menu.upload_method.dfuMethod.upload.options=-g
+LoRa.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
@@ -2010,6 +2022,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 3dprinter.menu.upload_method.dfuMethod.upload.protocol=2
 3dprinter.menu.upload_method.dfuMethod.upload.options=-g
+3dprinter.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 
@@ -2069,6 +2082,7 @@ Genericflight.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Genericflight.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Genericflight.menu.upload_method.dfuMethod.upload.protocol=2
 Genericflight.menu.upload_method.dfuMethod.upload.options=-g
+Genericflight.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Genericflight.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 Genericflight.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
@@ -2199,6 +2213,7 @@ Midatronics.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
 Midatronics.menu.upload_method.dfuMethod.upload.options=-g
+Midatronics.menu.upload_method.dfuMethod.upload.use_1200bps_touch=true
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
