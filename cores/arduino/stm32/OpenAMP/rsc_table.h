@@ -12,20 +12,14 @@
 /* This file populates resource table for BM remote
  * for use by the Linux Master */
 
-#ifndef RSC_TABLE_H_
-#define RSC_TABLE_H_
+#ifndef __OPENAMP_RSC_TABLE_H
+#define __OPENAMP_RSC_TABLE_H
 
 #ifdef VIRTIOCON
 
+#include "virtio_config.h"
 #include "openamp/open_amp.h"
 #include "openamp_conf.h"
-
-/* Place resource table in special ELF section */
-//#define __section_t(S)          __attribute__((__section__(#S)))
-//#define __resource              __section_t(.resource_table)
-
-
-
 
 /* Resource table for the given remote */
 struct shared_resource_table {
@@ -45,4 +39,4 @@ struct shared_resource_table {
 void resource_table_init(int RPMsgRole, void **table_ptr, int *length);
 
 #endif /* VIRTIOCON */
-#endif /* RSC_TABLE_H_ */
+#endif /* __OPENAMP_RSC_TABLE_H */

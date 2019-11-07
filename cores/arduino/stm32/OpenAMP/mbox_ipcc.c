@@ -21,25 +21,22 @@
 
 /*
  * Channel direction and usage:
- * virtio_rpmsg_bus.c                                       rpmsg_virtio.c
- *  ========   <-- new msg ---=============--------<------   =======
- * ||      || rvq (rx)       || CHANNEL 1 ||    svq (tx_vq) ||     ||
- * ||  A7  ||  ------->-------=============--- buf free-->  || M4  ||
- * ||      ||                                               ||     ||
- * ||master||  <-- buf free---=============--------<------  ||slave||
- * ||      || svq (tx)       || CHANNEL 2 ||    rvq (rx_vq) ||     ||
- *  ========   ------->-------=============----new msg -->   =======
+virtio_rpmsg_bus.c                           virtqueue      vring   rpmsg_virtio.c
+ ========   <-- new msg ---=============--------<------             ==========
+||      || rvq (rx)    || IPCC CHANNEL 1 ||  svq (tx_vq) -> vring0 ||        ||
+||  A7  ||  ------->-------=============--- buf free-->            ||   M4   ||
+||      ||                                                         ||        ||
+||master||  <-- buf free---=============--------<------            || slave  ||
+||      || svq (tx)    || IPCC CHANNEL 2 ||  rvq (rx_vq) -> vring1 ||(remote)||
+ ========   ------->-------=============----new msg -->             ==========
  */
 
 /* Includes ------------------------------------------------------------------*/
-#include "openamp/open_amp.h"
+#include "virtio_config.h"
+#include <openamp/open_amp.h>
 #include "stm32_def.h"
 #include "openamp_conf.h"
-
-/* Within 'USER CODE' section, code will be kept by default at each generation */
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
+#include "mbox_ipcc.h"
 
 /* Private define ------------------------------------------------------------*/
 #define MASTER_CPU_ID       0
@@ -47,29 +44,20 @@
 #define IPCC_CPU_A7         MASTER_CPU_ID
 #define IPCC_CPU_M4         REMOTE_CPU_ID
 
-#define RX_NO_MSG           0
-#define RX_NEW_MSG          1
-#define RX_BUF_FREE         2
+typedef enum {
+  MBOX_NO_MSG = 0,
+  MBOX_NEW_MSG = 1,
+  MBOX_BUF_FREE = 2
+} mbox_status_t;
 
 /* Private variables ---------------------------------------------------------*/
-extern IPCC_HandleTypeDef hipcc;
-int msg_received_ch1 = RX_NO_MSG;
-int msg_received_ch2 = RX_NO_MSG;
-uint32_t vring0_id = 0; /* used for channel 1 */
-uint32_t vring1_id = 1; /* used for channel 2 */
-
-
-
-
 IPCC_HandleTypeDef hipcc;
-
-
-
+mbox_status_t msg_received_ch1 = MBOX_NO_MSG;
+mbox_status_t msg_received_ch2 = MBOX_NO_MSG;
 
 /* Private function prototypes -----------------------------------------------*/
 void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
 void IPCC_channel2_callback(IPCC_HandleTypeDef *hipcc, uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir);
-
 
 /**
   * @brief  Initialize MAILBOX with IPCC peripheral
@@ -81,6 +69,7 @@ int MAILBOX_Init(void)
   __HAL_RCC_IPCC_CLK_ENABLE();
   HAL_NVIC_SetPriority(IPCC_RX1_IRQn, IPCC_IRQ_PRIO, IPCC_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(IPCC_RX1_IRQn);
+
   hipcc.Instance = IPCC;
   if (HAL_IPCC_Init(&hipcc) != HAL_OK) {
     Error_Handler();
@@ -102,49 +91,58 @@ int MAILBOX_Init(void)
 }
 
 /**
-  * @brief  Initialize MAILBOX with IPCC peripheral
-  * @param  virtio device
-  * @retval : Operation result
-  */
-int MAILBOX_Poll(struct virtio_device *vdev)
+ * @brief  Process vring messages received from IPCC ISR
+ * @param vdev: virtio device
+ * @param vring_id: Vring ID
+ * @retval : Operation result
+ */
+int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id)
 {
-  /* If we got an interrupt, ask for the corresponding virtqueue processing */
+  int ret = -1;
 
-  if (msg_received_ch1 == RX_BUF_FREE) {
-    OPENAMP_log_dbg("Running virt0 (ch_1 buf free)\r\n");
-    rproc_virtio_notified(vdev, VRING0_ID);
-    msg_received_ch1 = RX_NO_MSG;
-    return 0;
+  switch (vring_id) {
+    case VRING0_ID:
+      if (msg_received_ch1 == MBOX_BUF_FREE) {
+        /* This calls rpmsg_virtio_tx_callback(), which actually does nothing. */
+        rproc_virtio_notified(vdev, VRING0_ID);
+        msg_received_ch1 = MBOX_NO_MSG;
+        ret = 0;
+      }
+      break;
+    case VRING1_ID:
+      if (msg_received_ch2 == MBOX_NEW_MSG) {
+        /**
+         * This calls rpmsg_virtio_rx_callback(), which calls virt_uart rx callback
+         * RING_NUM_BUFFS times at maximum.
+         */
+        rproc_virtio_notified(vdev, VRING1_ID);
+        msg_received_ch2 = MBOX_NO_MSG;
+        ret = 0;
+      }
+      break;
+    default:
+      break;
   }
 
-  if (msg_received_ch2 == RX_NEW_MSG) {
-    OPENAMP_log_dbg("Running virt1 (ch_2 new msg)\r\n");
-    rproc_virtio_notified(vdev, VRING1_ID);
-    msg_received_ch2 = RX_NO_MSG;
-
-    /* The OpenAMP framework does not notify for free buf: do it here */
-    rproc_virtio_notified(NULL, VRING1_ID);
-    return 0;
-  }
-
-  return -1;
+  return ret;
 }
 
-
 /**
-  * @brief  Callback function called by OpenAMP MW to notify message processing
-  * @param  VRING id
+  * @brief  Callback function called by OpenAMP MW to notify message processing (aka. kick)
+  * @note   This callback is called by virtqueue_kick() in rpmsg_virtio_send_offchannel_raw().
+  *         Therefore, it is only called while tx, but not rx.
+  * @param  Vring id
   * @retval Operation result
   */
-int MAILBOX_Notify(void *priv, uint32_t id)
+int MAILBOX_Notify(void *priv, uint32_t vring_id)
 {
-  uint32_t channel;
   (void)priv;
+  uint32_t channel;
 
   /* Called after virtqueue processing: time to inform the remote */
-  if (id == VRING0_ID) {
+  if (vring_id == VRING0_ID) {
     channel = IPCC_CHANNEL_1;
-  } else if (id == VRING1_ID) {
+  } else if (vring_id == VRING1_ID) {
     /* Note: the OpenAMP framework never notifies this */
     channel = IPCC_CHANNEL_2;
     return -1;
@@ -154,12 +152,12 @@ int MAILBOX_Notify(void *priv, uint32_t id)
 
   /* Check that the channel is free (otherwise wait until it is) */
   if (HAL_IPCC_GetChannelStatus(&hipcc, channel, IPCC_CHANNEL_DIR_TX) == IPCC_CHANNEL_STATUS_OCCUPIED) {
-    // Wait for channel to be freed
+    /* Wait for channel to be freed */
     while (HAL_IPCC_GetChannelStatus(&hipcc, channel, IPCC_CHANNEL_DIR_TX) == IPCC_CHANNEL_STATUS_OCCUPIED)
       ;
   }
 
-  /* Inform A7 (either new message, or buf free) */
+  /* Inform the host processor (either new message, or buf free) */
   HAL_IPCC_NotifyCPU(&hipcc, channel, IPCC_CHANNEL_DIR_TX);
   return 0;
 }
@@ -169,13 +167,10 @@ int MAILBOX_Notify(void *priv, uint32_t id)
 void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc,
                             uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir)
 {
-  if (msg_received_ch1 != RX_NO_MSG) {
-    OPENAMP_log_dbg("IPCC_channel1_callback: previous IRQ not treated (status = %d)\r\n", msg_received_ch1);
-  }
+  (void) ChannelDir;
+  msg_received_ch1 = MBOX_BUF_FREE;
 
-  msg_received_ch1 = RX_BUF_FREE;
-
-  /* Inform A7 that we have received the 'buff free' msg */
+  /* Inform the host processor that we have received the 'buff free' msg */
   HAL_IPCC_NotifyCPU(hipcc, ChannelIndex, IPCC_CHANNEL_DIR_RX);
 }
 
@@ -183,14 +178,10 @@ void IPCC_channel1_callback(IPCC_HandleTypeDef *hipcc,
 void IPCC_channel2_callback(IPCC_HandleTypeDef *hipcc,
                             uint32_t ChannelIndex, IPCC_CHANNELDirTypeDef ChannelDir)
 {
-  if (msg_received_ch2 != RX_NO_MSG) {
-    OPENAMP_log_dbg("IPCC_channel2_callback: previous IRQ not treated (status = %d)\r\n", msg_received_ch2);
-  }
+  (void) ChannelDir;
+  msg_received_ch2 = MBOX_NEW_MSG;
 
-  msg_received_ch2 = RX_NEW_MSG;
-
-  /* Inform A7 that we have received the new msg */
-  OPENAMP_log_dbg("Ack new message on ch2\r\n");
+  /* Inform the host processor that we have received the msg */
   HAL_IPCC_NotifyCPU(hipcc, ChannelIndex, IPCC_CHANNEL_DIR_RX);
 }
 
@@ -199,12 +190,7 @@ void IPCC_channel2_callback(IPCC_HandleTypeDef *hipcc,
   */
 void IPCC_RX1_IRQHandler(void)
 {
-  /* USER CODE BEGIN IPCC_RX1_IRQn 0 */
-  /* USER CODE END IPCC_RX1_IRQn 0 */
   HAL_IPCC_RX_IRQHandler(&hipcc);
-  /* USER CODE BEGIN IPCC_RX1_IRQn 1 */
-
-  /* USER CODE END IPCC_RX1_IRQn 1 */
 }
 
 #endif /* VIRTIOCON */

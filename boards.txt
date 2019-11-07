@@ -5,6 +5,7 @@ menu.pnum=Board part number
 menu.xserial=U(S)ART support
 menu.usb=USB support (if available)
 menu.xusb=USB speed (if available)
+menu.virtio=Virtual serial support
 
 menu.opt=Optimize
 menu.rtlib=C Runtime Library
@@ -707,7 +708,7 @@ STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
-STM32MP1.build.extra_flags=-DCORE_CM4 -DUSE_FULL_LL_DRIVER -D{build.product_line} {build.xSerial}
+STM32MP1.build.extra_flags=-DCORE_CM4 -DUSE_FULL_LL_DRIVER -D{build.product_line} {build.enable_virtio} {build.xSerial}
 
 # STM32MP157A-DK1 board
 STM32MP1.menu.pnum.STM32MP157A_DK1=STM32MP157A-DK1
@@ -1885,6 +1886,13 @@ Eval.menu.xserial.none=Enabled (no generic 'Serial')
 Eval.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Eval.menu.xserial.disabled=Disabled (no Serial support)
 Eval.menu.xserial.disabled.build.xSerial=
+
+STM32MP1.menu.virtio.disable=Disabled (no SerialVirtIO nor /dev/ttyRPMSG0 available)
+STM32MP1.menu.virtio.disable.build.enable_virtio=
+STM32MP1.menu.virtio.generic=SerialVirtIO (= generic 'Serial') <=> /dev/ttyRPMSG0
+STM32MP1.menu.virtio.generic.build.enable_virtio={build.virtio_flags}
+STM32MP1.menu.virtio.enabled=SerialVirtIO <=> /dev/ttyRPMSG0
+STM32MP1.menu.virtio.enabled.build.enable_virtio={build.virtio_flags} -DDISABLE_GENERIC_SERIALVIRTIO
 
 STM32MP1.menu.xserial.generic=UART only (generic 'Serial')
 STM32MP1.menu.xserial.generic.build.xSerial=-DHAL_UART_MODULE_ENABLED
