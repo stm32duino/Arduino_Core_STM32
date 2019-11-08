@@ -632,9 +632,10 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   */
 void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
 {
-  if (callbacks[0] == null) //if there's no callback the ISR here is not enabled
+  if (callbacks[0] == null) { //if there's no callback the ISR here is not enabled
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
-
+  }
+  
   callbacks[0] = callback; //set or replace user callback
 }
 
@@ -660,7 +661,7 @@ void HardwareTimer::detachInterrupt()
   */
 void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *))
 {
-    if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
+  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
   }
 
@@ -668,9 +669,8 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
 
   callbacks[channel] = callback;
 
-  if (mustActivateISR)
-    switch (channel)
-    {
+  if (mustActivateISR) {
+    switch (channel) {
       case 1:
       {
         __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Enable the TIM Capture/Compare 1 interrupt
@@ -692,6 +692,7 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
         break;
       }
     }
+  }
 }
 
 /**
@@ -701,8 +702,7 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   */
 void HardwareTimer::detachInterrupt(uint32_t channel)
 {
-  switch (channel)
-  {
+  switch (channel) {
     case 1:
     {
       __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Disable the TIM Capture/Compare 1 interrupt
