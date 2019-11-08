@@ -702,6 +702,25 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
 }
 
 /**
+  * @brief  Checks if there's an interrupt callback attached on Rollover event
+  * @retval returns true if a timer rollover interrupt has already been set
+  */
+bool HardwareTimer::hasInterrupt()
+{
+  return callbacks[0] != NULL;
+}
+
+/**
+  * @brief  Checks if there's an interrupt callback attached on Capture/Compare event
+  * @param  channel: Arduino channel [1..4]
+  * @retval returns true if a channel compare match interrupt has already been set
+  */
+bool HardwareTimer::hasInterrupt(uint32_t channel);
+{
+  return callbacks[channel] != NULL;
+}
+
+/**
   * @brief  Generate an update event to force all registers (Autoreload, prescaler, compare) to be taken into account
   * @note   Refresh() can only be called after a 1st call to resume() to be sure timer is initialised.
   *         It is usefull while timer is running after some registers update
