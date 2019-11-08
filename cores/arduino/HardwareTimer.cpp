@@ -632,7 +632,7 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   */
 void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
 {
-  if (callbacks[0] == null) { //if there's no callback the ISR here is not enabled
+  if (callbacks[0] == NULL) { //if there's no callback the ISR here is not enabled
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
   }
 
@@ -665,7 +665,7 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
     Error_Handler();  // only channel 1..4 have an interrupt
   }
 
-  bool mustActivateISR = callbacks[channel] == null; //no user callback means ISR is disabled
+  bool mustActivateISR = (callbacks[channel] == NULL); //no user callback means ISR is disabled
 
   callbacks[channel] = callback;
 
