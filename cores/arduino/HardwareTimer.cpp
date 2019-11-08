@@ -635,7 +635,7 @@ void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
   if (callbacks[0] == null) { //if there's no callback the ISR here is not enabled
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
   }
-  
+
   callbacks[0] = callback; //set or replace user callback
 }
 
