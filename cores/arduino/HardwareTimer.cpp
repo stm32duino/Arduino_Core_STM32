@@ -715,8 +715,11 @@ bool HardwareTimer::hasInterrupt()
   * @param  channel: Arduino channel [1..4]
   * @retval returns true if a channel compare match interrupt has already been set
   */
-bool HardwareTimer::hasInterrupt(uint32_t channel);
+bool HardwareTimer::hasInterrupt(uint32_t channel)
 {
+  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
+    Error_Handler();  // only channel 1..4 have an interrupt
+  }
   return callbacks[channel] != NULL;
 }
 
