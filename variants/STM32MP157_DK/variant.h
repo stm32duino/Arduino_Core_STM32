@@ -178,6 +178,7 @@ extern "C" {
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR     Serial
 #define SERIAL_PORT_HARDWARE    Serial
+#define SERIAL_PORT_LINUXBRIDGE SerialVirtIO
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
