@@ -179,57 +179,29 @@ void HardwareTimer::resumeChannel(uint32_t channel)
   if (IS_TIM_PWM_MODE(_channelOC[channel - 1].OCMode)) {
     HAL_TIM_PWM_ConfigChannel(&(_timerObj.handle), &_channelOC[channel - 1], timChannel);
 
-    if ((channel < (TIMER_CHANNELS + 1)) && (callbacks[channel] != NULL)) {
-      // Only channel 1..4 can have interruption
 #if defined(TIM_CCER_CC1NE)
-      if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_PWMN_Start_IT(&(_timerObj.handle), timChannel);
-      } else
+    if (isComplementaryChannel[channel]) {
+      HAL_TIMEx_PWMN_Start(&(_timerObj.handle), timChannel);
+    } else
 #endif
-      {
-        HAL_TIM_PWM_Start_IT(&(_timerObj.handle), timChannel);
-      }
-    } else {
-#if defined(TIM_CCER_CC1NE)
-      if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_PWMN_Start(&(_timerObj.handle), timChannel);
-      } else
-#endif
-      {
-        HAL_TIM_PWM_Start(&(_timerObj.handle), timChannel);
-      }
+    {
+      HAL_TIM_PWM_Start(&(_timerObj.handle), timChannel);
     }
   } else if (IS_TIM_OC_MODE(_channelOC[channel - 1].OCMode)) {
     HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &_channelOC[channel - 1], timChannel);
 
-    if ((channel < (TIMER_CHANNELS + 1)) && (callbacks[channel] != NULL)) {
-      // Only channel 1..4 can have interruption
 #if defined(TIM_CCER_CC1NE)
-      if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_OCN_Start_IT(&(_timerObj.handle), timChannel);
-      } else
+    if (isComplementaryChannel[channel]) {
+      HAL_TIMEx_OCN_Start(&(_timerObj.handle), timChannel);
+    } else
 #endif
-      {
-        HAL_TIM_OC_Start_IT(&(_timerObj.handle), timChannel);
-      }
-    } else {
-#if defined(TIM_CCER_CC1NE)
-      if (isComplementaryChannel[channel]) {
-        HAL_TIMEx_OCN_Start(&(_timerObj.handle), timChannel);
-      } else
-#endif
-      {
-        HAL_TIM_OC_Start(&(_timerObj.handle), timChannel);
-      }
+    {
+      HAL_TIM_OC_Start(&(_timerObj.handle), timChannel);
     }
   } else if (_channelIC[channel - 1].ICPolarity != TIMER_NOT_USED) {
     HAL_TIM_IC_ConfigChannel(&(_timerObj.handle), &_channelIC[channel - 1], timChannel);
 
-    if (callbacks[channel] != NULL) {
-      HAL_TIM_IC_Start_IT(&(_timerObj.handle), timChannel);
-    } else {
-      HAL_TIM_IC_Start(&(_timerObj.handle), timChannel);
-    }
+    HAL_TIM_IC_Start(&(_timerObj.handle), timChannel);
   }
 }
 
@@ -660,7 +632,10 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   */
 void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
 {
-  callbacks[0] = callback;
+  if (callbacks[0] == null) //if there's no callback the ISR here is not enabled
+    __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
+
+  callbacks[0] = callback; //set or replace user callback
 }
 
 /**
@@ -669,6 +644,11 @@ void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
   */
 void HardwareTimer::detachInterrupt()
 {
+  __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE); //disables the interrupt call to save cpu cycles for useless context switching
+  //we don't need memory barriers, as specified here
+  //( https://dzone.com/articles/nvic-disabling-interrupts-on-arm-cortex-m-and-the )
+  //since, even if the ISR here could be called again it will not call back in the user-space because we clear the user callback below.
+  //so actually if the user wants to detach the interrupt and there are pending calls the user doesn't get notified anymore.
   callbacks[0] = NULL;
 }
 
@@ -680,11 +660,38 @@ void HardwareTimer::detachInterrupt()
   */
 void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *))
 {
-  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
+    if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
   }
 
+  bool mustActivateISR = callbacks[channel] == null; //no user callback means ISR is disabled
+
   callbacks[channel] = callback;
+
+  if (mustActivateISR)
+    switch (channel)
+    {
+      case 1:
+      {
+        __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Enable the TIM Capture/Compare 1 interrupt
+        break;
+      }
+      case 2:
+      {
+        __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC2); // Enable the TIM Capture/Compare 2 interrupt
+        break;
+      }
+      case 3:
+      {
+        __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC3); // Enable the TIM Capture/Compare 3 interrupt
+        break;
+      }
+      case 4:
+      {
+        __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC4); // Enable the TIM Capture/Compare 4 interrupt
+        break;
+      }
+    }
 }
 
 /**
@@ -694,10 +701,33 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   */
 void HardwareTimer::detachInterrupt(uint32_t channel)
 {
-  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
-    Error_Handler();  // only channel 1..4 have an interrupt
+  switch (channel)
+  {
+    case 1:
+    {
+      __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Disable the TIM Capture/Compare 1 interrupt
+      break;
+    }
+    case 2:
+    {
+      __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC2); // Disable the TIM Capture/Compare 2 interrupt
+      break;
+    }
+    case 3:
+    {
+      __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC3); // Disable the TIM Capture/Compare 3 interrupt
+      break;
+    }
+    case 4:
+    {
+      __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC4); // Disable the TIM Capture/Compare 4 interrupt
+      break;
+    }
+    default:
+      Error_Handler();  // only channel 1..4 have an interrupt
   }
 
+  //look at the detachInterrupt() for notes
   callbacks[channel] = NULL;
 }
 
