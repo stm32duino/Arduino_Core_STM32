@@ -672,25 +672,17 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   if (mustActivateISR) {
     switch (channel) {
       case 1:
-      {
         __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Enable the TIM Capture/Compare 1 interrupt
         break;
-      }
       case 2:
-      {
         __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC2); // Enable the TIM Capture/Compare 2 interrupt
         break;
-      }
       case 3:
-      {
         __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC3); // Enable the TIM Capture/Compare 3 interrupt
         break;
-      }
       case 4:
-      {
         __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_CC4); // Enable the TIM Capture/Compare 4 interrupt
         break;
-      }
     }
   }
 }
@@ -704,25 +696,17 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
 {
   switch (channel) {
     case 1:
-    {
       __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC1); // Disable the TIM Capture/Compare 1 interrupt
       break;
-    }
     case 2:
-    {
       __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC2); // Disable the TIM Capture/Compare 2 interrupt
       break;
-    }
     case 3:
-    {
       __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC3); // Disable the TIM Capture/Compare 3 interrupt
       break;
-    }
     case 4:
-    {
       __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC4); // Disable the TIM Capture/Compare 4 interrupt
       break;
-    }
     default:
       Error_Handler();  // only channel 1..4 have an interrupt
   }
