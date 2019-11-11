@@ -713,6 +713,18 @@ void HardwareTimer::refresh()
 }
 
 /**
+  * @brief  Return the timer object handle object for more advanced setup
+  * @note   Using this function and editing the Timer handle is at own risk! No support will
+  *         be provided whatsoever if the HardwareTimer does not work as expected when editing
+  *         the handle using the HAL functionality or other custom coding.
+  * @retval TIM_HandleTypeDef address
+  */
+TIM_HandleTypeDef *HardwareTimer::getHandle()
+{
+  return &_timerObj.handle;
+}
+
+/**
   * @brief  Generic Update (rollover) callback which will call user callback
   * @param  htim: HAL timer handle
   * @retval None
