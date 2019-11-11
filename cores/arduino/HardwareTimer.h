@@ -128,6 +128,8 @@ class HardwareTimer {
     static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Caputre and Compare callback which will call user callback
     static void updateCallback(TIM_HandleTypeDef *htim);  // Generic Update (rollover) callback which will call user callback
 
+    // The following function(s) are available for more advanced timer options
+    TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
   private:
     TIM_OC_InitTypeDef _channelOC[TIMER_CHANNELS];
     TIM_IC_InitTypeDef _channelIC[TIMER_CHANNELS];
