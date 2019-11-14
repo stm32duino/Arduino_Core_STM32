@@ -110,7 +110,6 @@ const PinName digitalPin[] = {
   ANA_1, //A3 - D22, D50 - ADC1_INP1
   PC_3,  //A4 - D23, D51 - ADC1_INP13, or PA_12 (D14) with SB23 ON / SB24 OFF
   PF_12  //A5 - D24, D52 - ADC1_INP6, or PA_11 (D15) with SB25 ON / SB26 OFF
-  // // Duplicated pins in order to be aligned with PinMap_ADC
 };
 
 #ifdef __cplusplus
@@ -150,6 +149,7 @@ void SystemClock_Config(void)
 
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {};
 
   /**Configure LSE Drive Capability
   */
@@ -254,6 +254,19 @@ void SystemClock_Config(void)
   /**Set the HSE division factor for RTC clock
   */
   __HAL_RCC_RTC_HSEDIV(24);
+
+  /* Configure ADCx clock prescaler */
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PER;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
+    Error_Handler();
+  }
+
+  /* Configure VREFBUF */
+  __HAL_RCC_VREF_CLK_ENABLE();
+  HAL_SYSCFG_VREFBUF_HighImpedanceConfig(SYSCFG_VREFBUF_HIGH_IMPEDANCE_DISABLE);
+  HAL_SYSCFG_EnableVREFBUF();
+
 }
 
 #ifdef __cplusplus
