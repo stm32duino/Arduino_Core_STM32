@@ -110,7 +110,7 @@ extern "C" {
                                       ((__VALUE__) == RCC_PLLM_DIV7)  || \
                                       ((__VALUE__) == RCC_PLLM_DIV8))
 
-#define IS_RCC_PLLN_VALUE(__VALUE__) ((8U <= (__VALUE__)) && ((__VALUE__) <= 86U))
+#define IS_RCC_PLLN_VALUE(__VALUE__) ((6U <= (__VALUE__)) && ((__VALUE__) <= 127U))
 
 #define IS_RCC_PLLP_VALUE(__VALUE__) ((RCC_PLLP_DIV2 <= (__VALUE__)) && ((__VALUE__) <= RCC_PLLP_DIV32))
 
@@ -220,7 +220,7 @@ typedef struct
                             This parameter must be a value of @ref RCC_PLLM_Clock_Divider             */
 
   uint32_t PLLN;       /*!< PLLN: Multiplication factor for PLL VCO output clock.
-                            This parameter must be a number between Min_Data = 8 and Max_Data = 86    */
+                            This parameter must be a number between Min_Data = 6 and Max_Data = 127    */
 
   uint32_t PLLP;       /*!< PLLP: Division factor for SAI & ADC clock.
                             This parameter must be a value of @ref RCC_PLLP_Clock_Divider             */
@@ -2861,13 +2861,13 @@ typedef struct
   * @param  __PLLM__  specifies the division factor for PLL VCO input clock.
   *         This parameter must be a value of @ref RCC_PLLM_Clock_Divider.
   * @note   You have to set the PLLM parameter correctly to ensure that the VCO input
-  *         frequency ranges from 4 to 16 MHz. It is recommended to select a frequency
+  *         frequency ranges from 2.66 to 16 MHz. It is recommended to select a frequency
   *         of 16 MHz to limit PLL jitter.
   *
   * @param  __PLLN__  specifies the multiplication factor for PLL VCO output clock.
-  *         This parameter must be a number between 8 and 86.
+  *         This parameter must be a number between 6 and 127.
   * @note   You have to set the PLLN parameter correctly to ensure that the VCO
-  *         output frequency is between 64 and 344 MHz.
+  *         output frequency is between 96 and 344 MHz.
   *
   * @param  __PLLP__  specifies the division factor for ADC and SAI1 clock.
   *         This parameter must be a value of @ref RCC_PLLP_Clock_Divider.

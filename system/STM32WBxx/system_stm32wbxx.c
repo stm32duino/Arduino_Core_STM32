@@ -226,8 +226,10 @@ void SystemInit(void)
   /* Reset PLLCFGR register */
   RCC->PLLCFGR = 0x22041000U;
 
+#if defined(STM32WB55xx)
   /* Reset PLLSAI1CFGR register */
   RCC->PLLSAI1CFGR = 0x22041000U;
+#endif
 
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;

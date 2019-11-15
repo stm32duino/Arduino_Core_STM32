@@ -849,7 +849,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLN__ Between Min_Data = 8 and Max_Data = 86
+  * @param  __PLLN__ Between Min_Data = 6 and Max_Data = 127
   * @param  __PLLR__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLR_DIV_2
   *         @arg @ref LL_RCC_PLLR_DIV_3
@@ -878,7 +878,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLN__ Between Min_Data = 8 and Max_Data = 86
+  * @param  __PLLN__ Between Min_Data = 6 and Max_Data = 127
   * @param  __PLLP__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -930,7 +930,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLN__ Between Min_Data = 8 and Max_Data = 86
+  * @param  __PLLN__ Between Min_Data = 6 and Max_Data = 127
   * @param  __PLLP__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -982,7 +982,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLN__ Between Min_Data = 8 and Max_Data = 86
+  * @param  __PLLN__ Between Min_Data = 6 and Max_Data = 127
   * @param  __PLLQ__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLQ_DIV_2
   *         @arg @ref LL_RCC_PLLQ_DIV_3
@@ -1011,7 +1011,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 6 and 127
   * @param  __PLLSAI1P__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -1064,7 +1064,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 6 and 127
   * @param  __PLLSAI1Q__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_3
@@ -1093,7 +1093,7 @@ typedef struct
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  __PLLSAI1N__ Between 8 and 86
+  * @param  __PLLSAI1N__ Between 6 and 127
   * @param  __PLLSAI1R__ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_3
@@ -2956,7 +2956,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLL_IsReady(void)
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLR_DIV_2
   *         @arg @ref LL_RCC_PLLR_DIV_4
@@ -2994,7 +2994,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SYS(uint32_t Source, uint32_t PLLM,
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -3059,7 +3059,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_SAI(uint32_t Source, uint32_t PLLM,
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLP_DIV_2
   *         @arg @ref LL_RCC_PLLP_DIV_3
@@ -3124,7 +3124,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_ADC(uint32_t Source, uint32_t PLLM,
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLQ_DIV_2
   *         @arg @ref LL_RCC_PLLQ_DIV_3
@@ -3144,7 +3144,7 @@ __STATIC_INLINE void LL_RCC_PLL_ConfigDomain_48M(uint32_t Source, uint32_t PLLM,
 /**
   * @brief  Get Main PLL multiplication factor for VCO
   * @rmtoll PLLCFGR      PLLN          LL_RCC_PLL_GetN
-  * @retval Between 8 and 86
+  * @retval Between 6 and 127
   */
 __STATIC_INLINE uint32_t LL_RCC_PLL_GetN(void)
 {
@@ -3402,7 +3402,7 @@ __STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsReady(void)
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLQ This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1Q_DIV_3
@@ -3443,7 +3443,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_48M(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLP This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1P_DIV_3
@@ -3509,7 +3509,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_SAI(uint32_t Source, uint32_t P
   *         @arg @ref LL_RCC_PLLM_DIV_6
   *         @arg @ref LL_RCC_PLLM_DIV_7
   *         @arg @ref LL_RCC_PLLM_DIV_8
-  * @param  PLLN Between 8 and 86
+  * @param  PLLN Between 6 and 127
   * @param  PLLR This parameter can be one of the following values:
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_2
   *         @arg @ref LL_RCC_PLLSAI1R_DIV_3
@@ -3529,7 +3529,7 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_ConfigDomain_ADC(uint32_t Source, uint32_t P
 /**
   * @brief  Get SAI1PLL multiplication factor for VCO
   * @rmtoll PLLSAI1CFGR  PLLN      LL_RCC_PLLSAI1_GetN
-  * @retval Between 8 and 86
+  * @retval Between 6 and 127
   */
 __STATIC_INLINE uint32_t LL_RCC_PLLSAI1_GetN(void)
 {

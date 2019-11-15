@@ -623,9 +623,10 @@ void HAL_ADC_MspInit(ADC_HandleTypeDef *hadc)
 #ifdef __HAL_RCC_ADC_CLK_ENABLE
   __HAL_RCC_ADC_CLK_ENABLE();
 #endif
-  /* For STM32F1xx and STM32H7xx, ADC prescaler is configured in
+  /* For STM32F1xx, STM32H7xx, and STM32MP1xx ADC prescaler is configured in
      SystemClock_Config (variant.cpp) */
-#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && !defined(STM32H7xx)
+#if defined(__HAL_RCC_ADC_CONFIG) && !defined(STM32F1xx) && \
+    !defined(STM32H7xx) && !defined(STM32MP1xx)
   /* ADC Periph interface clock configuration */
   __HAL_RCC_ADC_CONFIG(RCC_ADCCLKSOURCE_SYSCLK);
 #endif
@@ -766,7 +767,7 @@ uint16_t adc_read_value(PinName pin)
   uint32_t samplingTime = ADC_SAMPLINGTIME;
   uint32_t channel = 0;
 
-  if (pin & PADC_BASE) {
+  if ((pin & PADC_BASE) && (pin < ANA_START)) {
 #if defined(STM32H7xx)
     AdcHandle.Instance = ADC3;
 #else
@@ -797,7 +798,11 @@ uint16_t adc_read_value(PinName pin)
 #ifdef ADC_DATAALIGN_RIGHT
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */
 #endif
+#ifdef ADC_SCAN_SEQ_FIXED
+  AdcHandle.Init.ScanConvMode          = ADC_SCAN_SEQ_FIXED;            /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+#else
   AdcHandle.Init.ScanConvMode          = DISABLE;                       /* Sequencer disabled (ADC conversion on only 1 channel: channel set on rank 1) */
+#endif
 #ifdef ADC_EOC_SINGLE_CONV
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
 #endif
@@ -807,7 +812,8 @@ uint16_t adc_read_value(PinName pin)
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
-    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32WBxx)
+    !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32MP1xx) && \
+    !defined(STM32WBxx)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_A
@@ -822,10 +828,10 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-#if !defined(STM32F1xx)
+#if !defined(STM32F1xx) && !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
 #endif
-#if !defined(STM32F1xx) && !defined(STM32H7xx) && \
+#if !defined(STM32F1xx) && !defined(STM32H7xx) && !defined(STM32MP1xx) && \
     !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif
@@ -845,7 +851,6 @@ uint16_t adc_read_value(PinName pin)
 #if defined(STM32G0xx)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
-  AdcHandle.Init.TriggerFrequencyMode  = ADC_TRIGGER_FREQ_HIGH;
 #endif
 #if defined(STM32L0xx)
   AdcHandle.Init.LowPowerFrequencyMode = DISABLE;                       /* To be enabled only if ADC clock < 2.8 MHz */
@@ -887,7 +892,11 @@ uint16_t adc_read_value(PinName pin)
 #endif /* STM32L4xx || STM32WBxx */
     return 0;
   }
+#ifdef ADC_SCAN_SEQ_FIXED
+  AdcChannelConf.Rank         = ADC_RANK_CHANNEL_NUMBER;          /* Enable the rank of the selected channels when not fully configurable */
+#else
   AdcChannelConf.Rank         = ADC_REGULAR_RANK_1;               /* Specifies the rank in the regular group sequencer */
+#endif
 #if !defined(STM32L0xx)
 #if !defined(STM32G0xx)
   AdcChannelConf.SamplingTime = samplingTime;                     /* Sampling time value to be set for the selected channel */

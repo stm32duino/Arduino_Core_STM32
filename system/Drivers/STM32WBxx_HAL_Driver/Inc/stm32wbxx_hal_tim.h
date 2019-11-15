@@ -167,7 +167,7 @@ typedef struct
                                This parameter can be a value of @ref TIM_Encoder_Mode */
 
   uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
 
   uint32_t IC1Selection;  /*!< Specifies the input.
                                This parameter can be a value of @ref TIM_Input_Capture_Selection */
@@ -179,7 +179,7 @@ typedef struct
                                This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
 
   uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
 
   uint32_t IC2Selection;  /*!< Specifies the input.
                               This parameter can be a value of @ref TIM_Input_Capture_Selection */
@@ -612,6 +612,15 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 #define  TIM_ICPOLARITY_RISING             TIM_INPUTCHANNELPOLARITY_RISING      /*!< Capture triggered by rising edge on timer input                  */
 #define  TIM_ICPOLARITY_FALLING            TIM_INPUTCHANNELPOLARITY_FALLING     /*!< Capture triggered by falling edge on timer input                 */
 #define  TIM_ICPOLARITY_BOTHEDGE           TIM_INPUTCHANNELPOLARITY_BOTHEDGE    /*!< Capture triggered by both rising and falling edges on timer input*/
+/**
+  * @}
+  */
+
+/** @defgroup TIM_Encoder_Input_Polarity TIM Encoder Input Polarity
+  * @{
+  */
+#define  TIM_ENCODERINPUTPOLARITY_RISING   TIM_INPUTCHANNELPOLARITY_RISING      /*!< Encoder input with rising edge polarity  */
+#define  TIM_ENCODERINPUTPOLARITY_FALLING  TIM_INPUTCHANNELPOLARITY_FALLING     /*!< Encoder input with falling edge polarity */
 /**
   * @}
   */
@@ -1685,6 +1694,9 @@ mode.
 
 #define IS_TIM_OCNIDLE_STATE(__STATE__)    (((__STATE__) == TIM_OCNIDLESTATE_SET) || \
                                             ((__STATE__) == TIM_OCNIDLESTATE_RESET))
+
+#define IS_TIM_ENCODERINPUT_POLARITY(__POLARITY__)   (((__POLARITY__) == TIM_ENCODERINPUTPOLARITY_RISING)   || \
+                                                      ((__POLARITY__) == TIM_ENCODERINPUTPOLARITY_FALLING))
 
 #define IS_TIM_IC_POLARITY(__POLARITY__)   (((__POLARITY__) == TIM_ICPOLARITY_RISING)   || \
                                             ((__POLARITY__) == TIM_ICPOLARITY_FALLING)  || \

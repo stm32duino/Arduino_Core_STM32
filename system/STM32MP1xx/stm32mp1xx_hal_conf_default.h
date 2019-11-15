@@ -19,7 +19,7 @@
   *
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32MP1xx_HAL_CONF_DEFAULT_H
@@ -37,6 +37,19 @@
   * @brief Include the default list of modules to be used in the HAL driver
   *        and manage module deactivation
   */
+
+#define HAL_RTC_MODULE_DISABLED /* RTC MODULE on Cortex-M side is not supported.
+                                   Linux on Cortex-A will handle this. */
+#define HAL_ETH_MODULE_DISABLED /* ETH module is also not intended to be used */
+#define HAL_HSEM_MODULE_ENABLED
+#define HAL_MDMA_MODULE_ENABLED /* Some other modules (e.g. USART) require this */
+
+#if defined(ARDUINO_STM32MP157A_DK1) || defined(ARDUINO_STM32MP157C_DK2)
+// Cannot use them in this board, or define them in the kernel device tree.
+#define HAL_QSPI_MODULE_DISABLED
+#define HAL_FDCAN_MODULE_DISABLED
+#endif // defined(ARDUINO_STM32MP157A_DK1) && defined(ARDUINO_STM32MP157C_DK2)
+
 #include "stm32yyxx_hal_conf.h"
 #if 0
 /**

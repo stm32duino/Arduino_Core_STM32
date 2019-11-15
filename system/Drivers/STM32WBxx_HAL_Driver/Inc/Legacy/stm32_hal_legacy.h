@@ -460,7 +460,9 @@
 #define FLASH_FLAG_SNECCE_BANK2RR FLASH_FLAG_SNECCERR_BANK2
 #define FLASH_FLAG_DBECCE_BANK2RR FLASH_FLAG_DBECCERR_BANK2
 #define FLASH_FLAG_STRBER_BANK2R  FLASH_FLAG_STRBERR_BANK2
-#endif
+#define FLASH_FLAG_WDW            FLASH_FLAG_WBNE
+#define OB_WRP_SECTOR_All         OB_WRP_SECTOR_ALL
+#endif /* STM32H7 */
 
 /**
   * @}
@@ -735,6 +737,33 @@
 #define HRTIM_OUTPUTRESET_TIMFEV8_TIMECMP2 HRTIM_OUTPUTSET_TIMEV_8
 #define HRTIM_OUTPUTRESET_TIMFEV9_TIMECMP3 HRTIM_OUTPUTSET_TIMEV_9
 #endif /* STM32H7 */
+   
+#if defined(STM32F3)
+#define HRTIM_OUTPUTSET_TIMEV_1   HRTIM_OUTPUTSET_TIMAEV1_TIMBCMP1
+#define HRTIM_OUTPUTSET_TIMEV_2   HRTIM_OUTPUTSET_TIMAEV2_TIMBCMP2
+#define HRTIM_OUTPUTSET_TIMEV_3   HRTIM_OUTPUTSET_TIMAEV3_TIMBCMP4
+#define HRTIM_OUTPUTSET_TIMEV_4   HRTIM_OUTPUTSET_TIMAEV4_TIMCCMP2
+#define HRTIM_OUTPUTSET_TIMEV_5   HRTIM_OUTPUTSET_TIMAEV5_TIMCCMP3
+#define HRTIM_OUTPUTSET_TIMEV_6   HRTIM_OUTPUTSET_TIMAEV6_TIMDCMP1
+#define HRTIM_OUTPUTSET_TIMEV_7   HRTIM_OUTPUTSET_TIMAEV7_TIMDCMP2
+#define HRTIM_OUTPUTSET_TIMEV_8   HRTIM_OUTPUTSET_TIMAEV8_TIMECMP3
+#define HRTIM_OUTPUTSET_TIMEV_9   HRTIM_OUTPUTSET_TIMAEV9_TIMECMP4
+
+#define HRTIM_OUTPUTRESET_TIMEV_1 HRTIM_OUTPUTRESET_TIMAEV1_TIMBCMP1
+#define HRTIM_OUTPUTRESET_TIMEV_2 HRTIM_OUTPUTRESET_TIMAEV2_TIMBCMP2
+#define HRTIM_OUTPUTRESET_TIMEV_3 HRTIM_OUTPUTRESET_TIMAEV3_TIMBCMP4
+#define HRTIM_OUTPUTRESET_TIMEV_4 HRTIM_OUTPUTRESET_TIMAEV4_TIMCCMP2
+#define HRTIM_OUTPUTRESET_TIMEV_5 HRTIM_OUTPUTRESET_TIMAEV5_TIMCCMP3
+#define HRTIM_OUTPUTRESET_TIMEV_6 HRTIM_OUTPUTRESET_TIMAEV6_TIMDCMP1
+#define HRTIM_OUTPUTRESET_TIMEV_7 HRTIM_OUTPUTRESET_TIMAEV7_TIMDCMP2
+#define HRTIM_OUTPUTRESET_TIMEV_8 HRTIM_OUTPUTRESET_TIMAEV8_TIMECMP3
+#define HRTIM_OUTPUTRESET_TIMEV_9 HRTIM_OUTPUTRESET_TIMAEV9_TIMECMP4
+              
+#define HRTIM_EVENTSRC_1          HRTIM_EEV1SRC_GPIO
+#define HRTIM_EVENTSRC_2          HRTIM_EEV2SRC_GPIO
+#define HRTIM_EVENTSRC_3          HRTIM_EEV3SRC_GPIO
+#define HRTIM_EVENTSRC_4          HRTIM_EEV4SRC_GPIO
+#endif /* STM32F3 */
 /**
   * @}
   */
@@ -1380,6 +1409,13 @@
 #endif
 #define HAL_ADC_EnableBuffer_Cmd(cmd)  (((cmd)==ENABLE) ? HAL_ADCEx_EnableVREFINT() : HAL_ADCEx_DisableVREFINT())
 #define HAL_ADC_EnableBufferSensor_Cmd(cmd) (((cmd)==ENABLE) ?  HAL_ADCEx_EnableVREFINTTempSensor() : HAL_ADCEx_DisableVREFINTTempSensor())
+#if defined(STM32H7A3xx) || defined(STM32H7B3xx) || defined(STM32H7A3xxQ) || defined(STM32H7B3xxQ)
+#define HAL_EnableSRDomainDBGStopMode      HAL_EnableDomain3DBGStopMode
+#define HAL_DisableSRDomainDBGStopMode     HAL_DisableDomain3DBGStopMode
+#define HAL_EnableSRDomainDBGStandbyMode   HAL_EnableDomain3DBGStandbyMode
+#define HAL_DisableSRDomainDBGStandbyMode  HAL_DisableDomain3DBGStandbyMode
+#endif /* STM32H7A3xx || STM32H7B3xx || STM32H7A3xxQ || STM32H7B3xxQ */
+
 /**
   * @}
   */
@@ -3242,7 +3278,7 @@
 /** @defgroup HAL_RTC_Aliased_Macros HAL RTC Aliased Macros maintained for legacy purpose
   * @{
   */
-#if defined (STM32G0) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined STM32G4
+#if defined (STM32G0) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32G4)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
@@ -3606,12 +3642,12 @@
   * @{
   */
 #if defined (STM32H7) || defined (STM32G4) || defined (STM32F3)
-#define HAL_HRTIM_WaveformCounterStart_IT HAL_HRTIM_WaveformCountStart_IT
-#define HAL_HRTIM_WaveformCounterStart_DMA HAL_HRTIM_WaveformCountStart_DMA
-#define HAL_HRTIM_WaveformCounterStart HAL_HRTIM_WaveformCountStart
-#define HAL_HRTIM_WaveformCounterStop_IT HAL_HRTIM_WaveformCountStop_IT
-#define HAL_HRTIM_WaveformCounterStop_DMA HAL_HRTIM_WaveformCountStop_DMA
-#define HAL_HRTIM_WaveformCounterStop HAL_HRTIM_WaveformCountStop
+#define HAL_HRTIM_WaveformCounterStart_IT      HAL_HRTIM_WaveformCountStart_IT
+#define HAL_HRTIM_WaveformCounterStart_DMA     HAL_HRTIM_WaveformCountStart_DMA
+#define HAL_HRTIM_WaveformCounterStart         HAL_HRTIM_WaveformCountStart
+#define HAL_HRTIM_WaveformCounterStop_IT       HAL_HRTIM_WaveformCountStop_IT
+#define HAL_HRTIM_WaveformCounterStop_DMA      HAL_HRTIM_WaveformCountStop_DMA
+#define HAL_HRTIM_WaveformCounterStop          HAL_HRTIM_WaveformCountStop
 #endif
 /**
   * @}

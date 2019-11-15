@@ -115,6 +115,8 @@ static inline uint32_t get_flash_end(void)
       defined(STM32WBxx)
 /* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
 #define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
+#elif defined(EEPROM_RETRAM_MODE)
+#define FLASH_END  ((uint32_t)(EEPROM_RETRAM_START_ADDRESS + EEPROM_RETRAM_MODE_SIZE -1))
 #endif
 #ifndef FLASH_END
 #error "FLASH_END could not be defined"
@@ -130,6 +132,8 @@ static inline uint32_t get_flash_end(void)
  */
 #if defined(STM32L0xx)
 #define FLASH_BASE_ADDRESS  ((uint32_t)(DATA_EEPROM_BASE))
+#elif defined(EEPROM_RETRAM_MODE)
+#define FLASH_BASE_ADDRESS  EEPROM_RETRAM_START_ADDRESS
 #else
 #define FLASH_BASE_ADDRESS  ((uint32_t)((FLASH_END + 1) - FLASH_PAGE_SIZE))
 #endif
@@ -193,6 +197,20 @@ void eeprom_buffer_fill(void)
 {
   memcpy(eeprom_buffer, (uint8_t *)(FLASH_BASE_ADDRESS), E2END + 1);
 }
+
+#if defined(EEPROM_RETRAM_MODE)
+
+/**
+  * @brief  This function writes the buffer content into the flash
+  * @param  none
+  * @retval none
+  */
+void eeprom_buffer_flush(void)
+{
+  memcpy((uint8_t *)(FLASH_BASE_ADDRESS), eeprom_buffer, E2END + 1);
+}
+
+#else /* defined(EEPROM_RETRAM_MODE) */
 
 /**
   * @brief  This function writes the buffer content into the flash
@@ -305,6 +323,8 @@ void eeprom_buffer_flush(void)
   HAL_FLASH_Lock();
 #endif
 }
+
+#endif /* defined(EEPROM_RETRAM_MODE) */
 
 #ifdef __cplusplus
 }

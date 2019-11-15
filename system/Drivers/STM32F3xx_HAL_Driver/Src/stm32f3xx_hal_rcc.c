@@ -48,32 +48,16 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************  
-*/
+  ******************************************************************************
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_hal.h"
@@ -272,7 +256,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
   SystemCoreClock = HSI_VALUE;
 
   /* Configure the source of time base considering new system clock settings  */
-  if(HAL_InitTick(TICK_INT_PRIORITY) != HAL_OK)
+  if(HAL_InitTick(uwTickPrio) != HAL_OK)
   {
     return HAL_ERROR;
   }
@@ -332,6 +316,10 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
 HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
 {
   uint32_t tickstart;
+  uint32_t pll_config;
+#if defined(RCC_CFGR_PLLSRC_HSI_PREDIV)
+  uint32_t pll_config2;
+#endif /* RCC_CFGR_PLLSRC_HSI_PREDIV */
 
   /* Check Null pointer */
   if(RCC_OscInitStruct == NULL)
@@ -654,10 +642,31 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
     }
     else
     {
-      return HAL_ERROR;
+      /* Check if there is a request to disable the PLL used as System clock source */
+      if((RCC_OscInitStruct->PLL.PLLState) == RCC_PLL_OFF)
+      {
+        return HAL_ERROR;
+      }
+      else
+      {
+        /* Do not return HAL_ERROR if request repeats the current configuration */
+        pll_config = RCC->CFGR;
+#if defined(RCC_CFGR_PLLSRC_HSI_PREDIV)
+        pll_config2 = RCC->CFGR2;
+        if((READ_BIT(pll_config, RCC_CFGR_PLLSRC)   != RCC_OscInitStruct->PLL.PLLSource) ||      
+           (READ_BIT(pll_config, RCC_CFGR_PLLMUL)   != RCC_OscInitStruct->PLL.PLLMUL)    ||      
+           (READ_BIT(pll_config2, RCC_CFGR2_PREDIV)  != RCC_OscInitStruct->PLL.PREDIV))     
+#else
+        if((READ_BIT(pll_config, RCC_CFGR_PLLSRC)   != RCC_OscInitStruct->PLL.PLLSource) ||      
+           (READ_BIT(pll_config, RCC_CFGR_PLLMUL)   != RCC_OscInitStruct->PLL.PLLMUL))
+#endif
+        {
+          return HAL_ERROR;
+        }
+      }
     }
   }
-  
+
   return HAL_OK;
 }
 
@@ -801,7 +810,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   SystemCoreClock = HAL_RCC_GetSysClockFreq() >> AHBPrescTable[(RCC->CFGR & RCC_CFGR_HPRE)>> RCC_CFGR_HPRE_BITNUMBER];
 
   /* Configure the source of time base considering new system clocks settings*/
-  HAL_InitTick (TICK_INT_PRIORITY);
+  HAL_InitTick (uwTickPrio);
   
   return HAL_OK;
 }
@@ -976,23 +985,23 @@ uint32_t HAL_RCC_GetSysClockFreq(void)
       if ((tmpreg & RCC_CFGR_PLLSRC) != RCC_PLLSOURCE_HSI)
       {
         /* HSE used as PLL clock source : PLLCLK = HSE/PREDIV * PLLMUL */
-        pllclk = (HSE_VALUE / prediv) * pllmul;
+        pllclk = (uint32_t)((uint64_t) HSE_VALUE / (uint64_t) (prediv)) * ((uint64_t) pllmul);
       }
       else
       {
         /* HSI used as PLL clock source : PLLCLK = HSI/2 * PLLMUL */
-        pllclk = (HSI_VALUE >> 1U) * pllmul;
+        pllclk = (uint32_t)((uint64_t) (HSI_VALUE >> 1U) * ((uint64_t) pllmul));
       }
 #else
       if ((tmpreg & RCC_CFGR_PLLSRC_HSE_PREDIV) == RCC_CFGR_PLLSRC_HSE_PREDIV)
       {
         /* HSE used as PLL clock source : PLLCLK = HSE/PREDIV * PLLMUL */
-        pllclk = (HSE_VALUE / prediv) * pllmul;
+        pllclk = (uint32_t)((uint64_t) HSE_VALUE / (uint64_t) (prediv)) * ((uint64_t) pllmul);
       }
       else
       {
         /* HSI used as PLL clock source : PLLCLK = HSI/PREDIV * PLLMUL */
-        pllclk = (HSI_VALUE / prediv) * pllmul;
+        pllclk = (uint32_t)((uint64_t) HSI_VALUE / (uint64_t) (prediv)) * ((uint64_t) pllmul);
       }
 #endif /* RCC_CFGR_PLLSRC_HSI_DIV2 */
       sysclockfreq = pllclk;

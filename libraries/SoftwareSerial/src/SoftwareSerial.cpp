@@ -227,15 +227,15 @@ inline void SoftwareSerial::send()
       tx_tick_cnt = OVERSAMPLE; // Wait OVERSAMPLE tick to send next bit
     } else { // Transmission finished
       tx_tick_cnt = 1;
-      if (_output_pending || !(_half_duplex && active_listener == this)) {
+      if (_output_pending) {
         active_out = nullptr;
-        rx_bit_cnt = -1; // rx_bit_cnt = -1 :  waiting for start bit
-        rx_tick_cnt = 2; // 2 : next interrupt will be discarded. 2 interrupts required to consider RX pin level
-        active_in = this;
-        // When in half-duplex mode, we wait for HALFDUPLEX_SWITCH_DELAY bit-periods after the byte has
+
+        // When in half-duplex mode, wait for HALFDUPLEX_SWITCH_DELAY bit-periods after the byte has
         // been transmitted before allowing the switch to RX mode
       } else if (tx_bit_cnt > 10 + OVERSAMPLE * HALFDUPLEX_SWITCH_DELAY) {
-        pinMode(_receivePin, _inverse_logic ? INPUT_PULLDOWN : INPUT_PULLUP); // pullup for normal logic!
+        if (_half_duplex && active_listener == this) {
+          setRXTX(true);
+        }
         active_out = nullptr;
       }
     }
@@ -348,11 +348,10 @@ void SoftwareSerial::begin(long speed)
   if (!_half_duplex) {
     setTX();
     setRX();
+    listen();
   } else {
     setTX();
   }
-
-  listen();
 }
 
 void SoftwareSerial::end()
@@ -418,4 +417,9 @@ int SoftwareSerial::peek()
 
   // Read from "head"
   return _receive_buffer[_receive_buffer_head];
+}
+
+void SoftwareSerial::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
+{
+  timer.setInterruptPriority(preemptPriority, subPriority);
 }

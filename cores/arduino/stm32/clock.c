@@ -43,6 +43,16 @@
 extern "C" {
 #endif
 
+#if defined(STM32MP1xx)
+#include "stm32mp1xx_hal.h"
+/* STM32MP1xx does not have own stm32mp1xx_ll_cortex.h so define functions manually.
+ */
+__STATIC_INLINE uint32_t LL_SYSTICK_IsActiveCounterFlag(void)
+{
+  return ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == (SysTick_CTRL_COUNTFLAG_Msk));
+}
+#endif
+
 /**
   * @brief  Function called to read the current micro second
   * @param  None
@@ -100,6 +110,15 @@ void enableClock(sourceClock_t source)
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
 
+#if defined(STM32MP1xx)
+  /** Clock source selection is done by First Stage Boot Loader on Cortex A
+   *  See variant.cpp for corresponding boards.
+   */
+  if (!IS_ENGINEERING_BOOT_MODE()) {
+    return;
+  }
+#endif /* STM32MP1xx */
+
   enableBackupDomain();
 
   switch (source) {
@@ -118,7 +137,11 @@ void enableClock(sourceClock_t source)
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_HSI;
         RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+#if defined(STM32MP1xx)
+        RCC_OscInitStruct.HSICalibrationValue = 0x00;
+#else
         RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+#endif
       }
       break;
     case LSE_CLOCK:

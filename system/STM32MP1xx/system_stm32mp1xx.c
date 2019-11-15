@@ -58,6 +58,10 @@
   #define HSI_VALUE    ((uint32_t)64000000) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
+#if !defined  (CSI_VALUE)
+  #define CSI_VALUE    4000000U /*!< Value of the Internal oscillator in Hz*/
+#endif /* CSI_VALUE */
+
 /**
   * @}
   */

@@ -202,6 +202,15 @@ tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
 tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
 
+# STM32MP1 self-contained shell script
+tools.remoteproc_gen.path={runtime.tools.STM32Tools.path}/tools
+tools.remoteproc_gen.busybox=
+tools.remoteproc_gen.busybox.windows={path}/win/busybox.exe
+tools.remoteproc_gen.script=run_arduino_gen.sh
+tools.remoteproc_gen.upload.params.verbose=
+tools.remoteproc_gen.upload.params.quiet=
+tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino.sh" 
+
 # USB upload using dfu-util
 tools.dfu_util.cmd=dfu-util
 tools.dfu_util.cmd.windows=dfu-util.exe
