@@ -13,7 +13,10 @@ Because every OS may have different software configurations (especially Device T
 * [STM32 MPU OpenSTLinux Distribution]
 * [Balena OS]
 
-Note that the first two OSes should select `stm32mp157c-dk2-m4-examples-sdcard` boot mode (or device tree configuration) on boot time. `stm32mp157c-dk2-sdcard` boot mode is also known to work but it is not guaranteed. See [ST Wiki page on boot mode] for more detail. If you are using it for your own OS, see the [Linux Device Tree considerations](#Linux-Device-Tree-considerations) section.
+#### Note
+ * Other distributions not listed here may run Arduino firmware but they are not tested.
+ * __The first two OSes should select `stm32mp157c-dk2-m4-examples-sdcard` boot mode (or device tree configuration) on boot time.__
+ * `stm32mp157c-dk2-sdcard` boot mode is also known to work but it is not guaranteed. See [ST Wiki page on boot mode] for more detail. If you are using it for your own OS, see the [Linux Device Tree considerations](#Linux-Device-Tree-considerations) section.
 
 ## How to use
 
@@ -29,7 +32,8 @@ In this example, the user **must** upload `<Arduino build output path>/run_ardui
 
 After uploading the user can use `sh run_arduino.sh start` in the console of host Linux via either SSH or Serial Console, to run the Arduino firmware.
 
-Note: `sh run_arduino.sh start` is a one-shot command: the Arduino firmware only runs for the current boot. If you want to make it run after reboot, you need to use `sh run_arduino.sh install` command. 
+#### Note
+ * `sh run_arduino.sh start` is a one-shot command, the Arduino firmware only runs for the current boot. If you want to make it run after reboot, you need to use `sh run_arduino.sh install` command. 
 
 `run_arduino.sh` help page summary:
 
@@ -55,7 +59,9 @@ Note: `sh run_arduino.sh start` is a one-shot command: the Arduino firmware only
     sh run_arduino.sh restart
         Restart the coprocessor.
 
-See the source code for the full help page and the more details about [run_arduino.sh].
+See the source code [run_arduino_gen.sh] for the full help page and the more details about the `run_arduino.sh` generated.
+
+[run_arduino_gen.sh] is the shell script that produces a copy of the script called `run_arduino.sh` but with the sketch binary self-contained.
 
 ## Pin mapping
 
@@ -96,7 +102,7 @@ There are additional pins for LEDs and buttons.
 
 ## Uploading
 
-As mentioned above `run_arduino.sh` file should be uploaded manually in order to work. There are many ways to upload the file.
+As mentioned above `run_arduino.sh` file have to be uploaded manually from the PC to the board's Linux file system in order to be executed on the board directly through the board's Linux console. There are many ways to upload the file.
 
 ### Over Network
 
@@ -152,7 +158,7 @@ And then the Device Tree should enable TIM1 for the coprocessor, although this d
 [Balena OS]: https://github.com/kbumsik/balena-st-stm32mp
 [ST Wiki page on boot mode]: https://wiki.st.com/stm32mpu/wiki/STM32CubeMP1_Package#Getting_started_with_STM32CubeMP1_Package
 
-[run_arduino.sh]: https://github.com/stm32duino/Arduino_Tools/blob/master/linux/run_arduino_gen.sh
+[run_arduino_gen.sh]: https://github.com/stm32duino/Arduino_Tools/blob/master/run_arduino_gen.sh
 
 [The ST Wiki page on C-Kermit]: https://wiki.st.com/stm32mpu/wiki/How_to_transfer_a_file_over_serial_console
 [a bug in OpenSTLinux]: https://community.st.com/s/question/0D50X0000B9vHa4/cannot-get-download-a-file-using-kermit
