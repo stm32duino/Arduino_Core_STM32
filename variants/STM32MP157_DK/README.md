@@ -22,46 +22,56 @@ Because every OS may have different software configurations (especially Device T
 
 After Verify and Upload, you will see a message similar to the following in Arduino IDE:
 
-    <Arduino build output path>/run_arduino.sh generated successfully.
+    <Arduino build output path>/run_arduino_<sketch name>.sh generated successfully.
     This file should be uploaded manually by SCP, SFTP, Kermit, or etc.
-    Then run "sh ./run_arduino.sh start" command in the board's console.
+    Then run "sh ./run_arduino_<sketch name>.sh start" command in the board's console.
     For detailed instructions, please visit:
         https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md
 
-In this example, the user **must** upload `<Arduino build output path>/run_arduino.sh` file manually. Uploading instruction is described later in the [Uploading](#Uploading) section. 
+`<Arduino build output path>/run_arduino_<sketch name>.sh` looks like this for *Blink* example:
 
-After uploading the user can use `sh run_arduino.sh start` in the console of host Linux via either SSH or Serial Console, to run the Arduino firmware.
+* Windows:
+
+  `C:/Users/%USERNAME%/AppData/Local/Temp/arduino_build_668148/run_arduino.Blink.sh`
+
+* Linux/macOS:
+
+  `/tmp/arduino_build_668148/run_arduino_Blink.sh`
+
+In this example, the user **must** upload `<Arduino build output path>/run_arduino_<sketch name>.sh` file manually. Uploading instruction is described later in the [Uploading](#Uploading) section. 
+
+After uploading the user can use `sh run_arduino_<sketch name>.sh start` in the console of host Linux via either SSH or Serial Console, to run the Arduino firmware.
 
 #### Note
- * `sh run_arduino.sh start` is a one-shot command, the Arduino firmware only runs for the current boot. If you want to make it run after reboot, you need to use `sh run_arduino.sh install` command. 
+ * `sh run_arduino_<sketch name>.sh start` is a one-shot command, the Arduino firmware only runs for the current boot. If you want to make it run after reboot, you need to use `sh run_arduino_<sketch name>.sh install` command. 
 
-`run_arduino.sh` help page summary:
+`run_arduino_<sketch name>.sh` help page summary:
 
-    Usage: sh run_arduino.sh [start|stop|restart|generate|install|uninstall]
+    Usage: sh run_arduino_<sketch name>.sh [start|stop|restart|generate|install|uninstall]
 
-    run_arduino.sh is a helper script that helps managing an Arduino binary
+    run_arduino_<sketch name>.sh is a helper script that helps managing an Arduino binary
     file for the coprocessor using remoteproc framework.
 
-    sh run_arduino.sh start
+    sh run_arduino_<sketch name>.sh start
         Upload the binary to the coprocessor then start it.
         This command must be executed while the script contains the binary
         after generate command is run.
 
-    sh run_arduino.sh install
+    sh run_arduino_<sketch name>.sh install
         Run the binary on boot automatically by installing a systemd service.
 
-    sh run_arduino.sh uninstall
+    sh run_arduino_<sketch name>.sh uninstall
         Uninstall the autostart service.
 
-    sh run_arduino.sh stop
+    sh run_arduino_<sketch name>.sh stop
         Stop the coprocessor.
 
-    sh run_arduino.sh restart
+    sh run_arduino_<sketch name>.sh restart
         Restart the coprocessor.
 
-See the source code [run_arduino_gen.sh] for the full help page and the more details about the `run_arduino.sh` generated.
+See the source code [run_arduino_gen.sh] for the full help page and the more details about the `run_arduino_<sketch name>.sh` generated.
 
-[run_arduino_gen.sh] is the shell script that produces a copy of the script called `run_arduino.sh` but with the sketch binary self-contained.
+[run_arduino_gen.sh] is the shell script that produces a copy of the script called `run_arduino_<sketch name>.sh` but with the sketch binary self-contained.
 
 ## Pin mapping
 
@@ -102,7 +112,7 @@ There are additional pins for LEDs and buttons.
 
 ## Uploading
 
-As mentioned above `run_arduino.sh` file have to be uploaded manually from the PC to the board's Linux file system in order to be executed on the board directly through the board's Linux console. There are many ways to upload the file.
+As mentioned above `run_arduino_<sketch name>.sh` file have to be uploaded manually from the PC to the board's Linux file system in order to be executed on the board directly through the board's Linux console. There are many ways to upload the file.
 
 ### Over Network
 
