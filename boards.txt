@@ -1276,8 +1276,20 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_F407_V1.build.board=PRNTR_F407_V1
 3dprinter.menu.pnum.PRNTR_F407_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.PRNTR_F407_V1.build.product_line=STM32F407xx
-3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_F407_V1
+3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=PRNTR_Vx
 3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# PRNTR_V2 board
+3dprinter.menu.pnum.PRNTR_V2=PRNTR v2
+3dprinter.menu.pnum.PRNTR_V2.upload.maximum_size=524288
+3dprinter.menu.pnum.PRNTR_V2.upload.maximum_data_size=196608
+3dprinter.menu.pnum.PRNTR_V2.build.mcu=cortex-m4
+3dprinter.menu.pnum.PRNTR_V2.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.PRNTR_V2.build.board=PRNTR_V2
+3dprinter.menu.pnum.PRNTR_V2.build.series=STM32F4xx
+3dprinter.menu.pnum.PRNTR_V2.build.product_line=STM32F407xx
+3dprinter.menu.pnum.PRNTR_V2.build.variant=PRNTR_Vx
+3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
