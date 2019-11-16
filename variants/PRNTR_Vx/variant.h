@@ -35,6 +35,10 @@
 extern "C" {
 #endif // __cplusplus
 
+#if !defined(ARDUINO_PRNTR_F407_V1) && !defined(ARDUINO_PRNTR_V2)
+#error Expected either ARDUINO_PRNTR_F407_V1 or ARDUINO_PRNTR_V2 to be defined. Wrong board variant?
+#endif
+
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
@@ -124,6 +128,7 @@ extern "C" {
 #define PA14   78
 #define PA15   79
 
+#ifdef ARDUINO_PRNTR_F407_V1
 #define EXP1_1  PE0
 #define EXP1_2  PE1
 #define EXP1_3  PE2
@@ -167,6 +172,7 @@ extern "C" {
 //      EXP4_8  3.3V
 //      EXP4_9  GND
 //      EXP4_10 5V
+#endif
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        80
@@ -174,30 +180,40 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       8
 #define NUM_ANALOG_FIRST        64
 
+#ifdef ARDUINO_PRNTR_F407_V1
 // On-board LED pin number
 #define LED_BUILTIN             PB2
 #define LED_GREEN               LED_BUILTIN
-
-// On-board user button
-//#define USER_BTN                -1
+#endif
 
 // SPI Definitions
 //#define PIN_SPI_SS2             -1
+#ifdef ARDUINO_PRNTR_F407_V1
 #define PIN_SPI_MOSI            PB5
 #define PIN_SPI_MISO            PB4
+#else // ARDUINO_PRNTR_V2
+#define PIN_SPI_MOSI            PA7
+#define PIN_SPI_MISO            PA6
+#endif
 #define PIN_SPI_SCK             PB3
 
 // I2C Definitions
+#ifdef ARDUINO_PRNTR_F407_V1
 #define PIN_WIRE_SDA            PB9
 #define PIN_WIRE_SCL            PB8
+#else // ARDUINO_PRNTR_V2
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
+#endif
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
+#define TIMER_SERIAL            TIM12
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    1 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
@@ -205,7 +221,9 @@ extern "C" {
 #define PIN_SERIAL_TX           PA9
 
 /* Extra HAL modules */
+#ifdef ARDUINO_PRNTR_F407_V1
 #define HAL_DAC_MODULE_ENABLED
+#endif
 #define HAL_SD_MODULE_ENABLED
 
 #ifdef __cplusplus
