@@ -916,7 +916,7 @@ uint16_t adc_read_value(PinName pin)
     !defined(STM32WBxx) && !defined(STM32F373xC) && !defined(STM32F378xx)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
-#if defined (STM32H7xx)
+#if defined (STM32H7xx) || defined(STM32MP1xx)
   AdcChannelConf.OffsetRightShift = DISABLE;                      /* No Right Offset Shift */
   AdcChannelConf.OffsetSignedSaturation = DISABLE;                /* Signed saturation feature is not used */
 #endif
@@ -929,12 +929,13 @@ uint16_t adc_read_value(PinName pin)
 
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx) || \
     defined(STM32G0xx) || defined(STM32G4xx) || defined(STM32H7xx) || \
-    defined(STM32L0xx) || defined(STM32L4xx) || defined(STM32WBxx)
+    defined(STM32L0xx) || defined(STM32L4xx) || defined(STM32MP1xx) || \
+    defined(STM32WBxx)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
 #if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32F1xx) || \
     defined(STM32F373xC) || defined(STM32F378xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
-#elif defined (STM32H7xx)
+#elif defined (STM32H7xx) || defined(STM32MP1xx)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
 #else
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
