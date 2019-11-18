@@ -15,6 +15,7 @@
 #include <openamp/compiler.h>
 #include <metal/mutex.h>
 #include <metal/list.h>
+#include <metal/utilities.h>
 #include <string.h>
 #include <stdbool.h>
 #include <stdint.h>
@@ -25,7 +26,7 @@ extern "C" {
 
 /* Configurable parameters */
 #define RPMSG_NAME_SIZE		(32)
-#define RPMSG_ADDR_BMP_SIZE	(4)
+#define RPMSG_ADDR_BMP_SIZE	(128)
 
 #define RPMSG_NS_EPT_ADDR	(0x35)
 #define RPMSG_ADDR_ANY		0xFFFFFFFF
@@ -101,7 +102,7 @@ struct rpmsg_device_ops {
 struct rpmsg_device {
 	struct metal_list endpoints;
 	struct rpmsg_endpoint ns_ept;
-	unsigned long bitmap[RPMSG_ADDR_BMP_SIZE];
+	unsigned long bitmap[metal_bitmap_longs(RPMSG_ADDR_BMP_SIZE)];
 	metal_mutex_t lock;
 	rpmsg_ns_bind_cb ns_bind_cb;
 	struct rpmsg_device_ops ops;

@@ -18,6 +18,11 @@
   ******************************************************************************
   @endverbatim
 
+### V1.0.3/08-November-2019 ##
+===============================
+   + openamp_conf_template.h:
+   - replace the "STM32MP157Cxx" define macro with "LINUX_RPROC_MASTER" to support all STM32MP1 varieties
+
 ### V1.0.2/29-July-2019 ###
 ============================
 

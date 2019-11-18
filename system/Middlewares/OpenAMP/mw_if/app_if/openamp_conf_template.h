@@ -74,6 +74,13 @@
 #endif /* VIRTUAL_I2C_MODULE_ENABLED */
 
 
+ /* ########################## Linux Master Selection ############################## */
+ /**
+  * @brief Due to Linux compatibility, it's important to distinguish if the MASTER is Linux or not.
+  *        In that case, the LINUX_RPROC_MASTER define is required
+  */
+//#define LINUX_RPROC_MASTER
+
 
 /* USER CODE BEGIN INCLUDE */
 
@@ -154,7 +161,7 @@ extern int __OPENAMP_region_end__[];    /* defined by linker script */
 
 #endif
 
-#if defined STM32MP157Cxx
+#if defined LINUX_RPROC_MASTER
 #define VRING_RX_ADDRESS        -1        /* allocated by Master processor: CA7 */
 #define VRING_TX_ADDRESS        -1        /* allocated by Master processor: CA7 */
 #define VRING_BUFF_ADDRESS      -1        /* allocated by Master processor: CA7 */

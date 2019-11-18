@@ -19,7 +19,6 @@
 #if defined (__CC_ARM)
 #include <stdio.h>
 #endif
-#include <unistd.h>
 #include <metal/atomic.h>
 #include <stdint.h>
 #include <limits.h>
