@@ -22,6 +22,8 @@
 
 #include <inttypes.h>
 #include <stdio.h> // for size_t
+#include <stdarg.h> // for printf
+#define PRINTF_BUF 80
 
 #include "WString.h"
 #include "Printable.h"
@@ -103,6 +105,8 @@ class Print {
     void println(uint64_t, uint8_t = DEC);
     void print(uint64_t, uint8_t = DEC);
 #endif
+
+    void printf(const char[], ...);
 };
 
 #endif
