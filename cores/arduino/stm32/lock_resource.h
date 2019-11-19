@@ -23,6 +23,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /* Exported types ------------------------------------------------------------*/
 typedef enum {
@@ -42,8 +45,9 @@ typedef enum {
 LockResource_Status_t Periph_Lock(void *Peripheral, uint32_t Timeout);
 void Periph_Unlock(void *Peripheral);
 
-
-
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif /* _LOCK_RESOURCE_H */
 

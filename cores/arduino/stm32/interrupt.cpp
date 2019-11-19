@@ -36,7 +36,9 @@
   ******************************************************************************
   */
 #include "interrupt.h"
-
+#if defined(STM32MP1xx)
+#include "lock_resource.h"
+#endif
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
 /* Private Types */
@@ -177,7 +179,15 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_
 
   GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(port);
+#endif
+
   HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(port);
+#endif
 
   gpio_irq_conf[id].callback = callback;
 
