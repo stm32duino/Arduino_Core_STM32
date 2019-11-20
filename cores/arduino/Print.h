@@ -23,7 +23,6 @@
 #include <inttypes.h>
 #include <stdio.h> // for size_t
 #include <stdarg.h> // for printf
-#define PRINTF_BUF 80
 
 #include "WString.h"
 #include "Printable.h"
@@ -32,6 +31,12 @@
 #define HEX 16
 #define OCT 8
 #define BIN 2
+
+class __FlashStringHelper;
+
+#ifndef PRINTF_BUFFER
+#define PRINTF_BUFFER 80
+#endif
 
 // uncomment next line to support printing of 64 bit ints.
 #define SUPPORT_LONGLONG
@@ -106,7 +111,8 @@ class Print {
     void print(uint64_t, uint8_t = DEC);
 #endif
 
-    void printf(const char[], ...);
+    void printf(const char *format, ...);
+    void printf(const __FlashStringHelper *format, ...);
 };
 
 #endif
