@@ -69,6 +69,23 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}, //GPIO_PIN_13
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}, //GPIO_PIN_14
   {.irqnb = EXTI4_15_IRQn,  .callback = NULL}  //GPIO_PIN_15
+#elif defined (STM32MP1xx)
+  {.irqnb = EXTI0_IRQn,     .callback = NULL}, //GPIO_PIN_0
+  {.irqnb = EXTI1_IRQn,     .callback = NULL}, //GPIO_PIN_1
+  {.irqnb = EXTI2_IRQn,     .callback = NULL}, //GPIO_PIN_2
+  {.irqnb = EXTI3_IRQn,     .callback = NULL}, //GPIO_PIN_3
+  {.irqnb = EXTI4_IRQn,     .callback = NULL}, //GPIO_PIN_4
+  {.irqnb = EXTI5_IRQn,     .callback = NULL}, //GPIO_PIN_5
+  {.irqnb = EXTI6_IRQn,     .callback = NULL}, //GPIO_PIN_6
+  {.irqnb = EXTI7_IRQn,     .callback = NULL}, //GPIO_PIN_7
+  {.irqnb = EXTI8_IRQn,     .callback = NULL}, //GPIO_PIN_8
+  {.irqnb = EXTI9_IRQn,     .callback = NULL}, //GPIO_PIN_9
+  {.irqnb = EXTI10_IRQn,    .callback = NULL}, //GPIO_PIN_10
+  {.irqnb = EXTI11_IRQn,    .callback = NULL}, //GPIO_PIN_11
+  {.irqnb = EXTI12_IRQn,    .callback = NULL}, //GPIO_PIN_12
+  {.irqnb = EXTI13_IRQn,    .callback = NULL}, //GPIO_PIN_13
+  {.irqnb = EXTI14_IRQn,    .callback = NULL}, //GPIO_PIN_14
+  {.irqnb = EXTI15_IRQn,    .callback = NULL}  //GPIO_PIN_15
 #else
   {.irqnb = EXTI0_IRQn,     .callback = NULL}, //GPIO_PIN_0
   {.irqnb = EXTI1_IRQn,     .callback = NULL}, //GPIO_PIN_1

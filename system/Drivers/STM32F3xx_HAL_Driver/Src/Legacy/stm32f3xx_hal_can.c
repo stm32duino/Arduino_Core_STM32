@@ -2,8 +2,7 @@
   ******************************************************************************
   * @file    stm32f3xx_hal_can.c
   * @author  MCD Application Team
-  * @brief   CAN HAL module driver.
-  *          This file provides firmware functions to manage the following 
+  * @brief   This file provides firmware functions to manage the following 
   *          functionalities of the Controller Area Network (CAN) peripheral:
   *           + Initialization and de-initialization functions 
   *           + IO operation functions
@@ -12,6 +11,13 @@
   *
   @verbatim
   ==============================================================================    
+                                 ##### User NOTE #####
+  ==============================================================================
+    [..]
+      (#) This HAL CAN driver is deprecated, it contains some CAN Tx/Rx FIFO management limitations.
+          Another HAL CAN driver version has been designed with new API's, to fix these limitations.
+
+  ==============================================================================
                         ##### How to use this driver #####
   ==============================================================================
     [..]            
@@ -66,38 +72,22 @@
       (+) __HAL_CAN_GET_FLAG: Get the selected CAN's flag status
       
      [..] 
-      (@) You can refer to the CAN HAL driver header file for more useful macros 
+      (@) You can refer to the CAN Legacy HAL driver header file for more useful macros
                 
   @endverbatim
            
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -112,13 +102,21 @@
   * @{
   */ 
   
-#ifdef HAL_CAN_MODULE_ENABLED  
+#ifdef HAL_CAN_LEGACY_MODULE_ENABLED
   
 #if defined(STM32F302xE) || defined(STM32F303xE) || defined(STM32F398xx) || \
     defined(STM32F302xC) || defined(STM32F303xC) || defined(STM32F358xx) || \
     defined(STM32F303x8) || defined(STM32F334x8) || defined(STM32F328xx) || \
     defined(STM32F302x8)                                                 || \
     defined(STM32F373xC) || defined(STM32F378xx)
+#ifdef HAL_CAN_MODULE_ENABLED
+/* Select HAL CAN module in stm32f3xx_hal_conf.h file:
+   (#) HAL_CAN_MODULE_ENABLED for new HAL CAN driver fixing FIFO limitations
+   (#) HAL_CAN_LEGACY_MODULE_ENABLED for legacy HAL CAN driver */
+#error 'The HAL CAN driver cannot be used with its legacy, Please ensure to enable only one HAL CAN module at once in stm32f3xx_hal_conf.h file'
+#endif /* HAL_CAN_MODULE_ENABLED */
+
+#warning 'Legacy HAL CAN driver is enabled! It can be used with known limitations, refer to the release notes. However it is recommended to use rather the new HAL CAN driver'
   
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -1688,7 +1686,7 @@ static HAL_StatusTypeDef CAN_Receive_IT(CAN_HandleTypeDef* hcan, uint8_t FIFONum
        /* STM32F302x8                               || */
        /* STM32F373xC || STM32F378xx                   */
 
-#endif /* HAL_CAN_MODULE_ENABLED */
+#endif /* HAL_CAN_LEGACY_MODULE_ENABLED */
 /**
   * @}
   */

@@ -94,6 +94,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | *1.7.0* |  |
 
+| Status | [STM32MP1 series coprocessor](https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-arm-cortex-mpus/stm32mp1-series.html) | Release | Comment |
+| :---: | --- | :---: | :--- |
+| :yellow_heart: | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | **1.8.0** | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
+| :yellow_heart: | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | **1.8.0** | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
+
+
 | Status | Generic STM32F0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [STM32F030F4 Demo board](https://stm32-base.org/boards/STM32F030F4P6-STM32F030-DEMO-BOARD-V1.1) | *1.5.0* |  |

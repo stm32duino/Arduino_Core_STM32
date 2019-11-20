@@ -78,7 +78,7 @@ void SPIClass::begin(uint8_t _pin)
   _spi.handle.State = HAL_SPI_STATE_RESET;
   spi_init(&_spi, spiSettings[idx].clk,
            spiSettings[idx].dMode,
-           spiSettings[idx].msb);
+           spiSettings[idx].bOrder);
   _CSPinConfig = _pin;
 #if __has_include("WiFi.h")
   // Wait wifi shield initialization.
@@ -115,11 +115,6 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
   spiSettings[idx].clk = settings.clk;
   spiSettings[idx].dMode = settings.dMode;
   spiSettings[idx].bOrder = settings.bOrder;
-  if (spiSettings[idx].bOrder == MSBFIRST) {
-    spiSettings[idx].msb = MSBFIRST;
-  } else {
-    spiSettings[idx].msb = LSBFIRST;
-  }
 
   if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
     pinMode(_pin, OUTPUT);
@@ -128,7 +123,7 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
 
   spi_init(&_spi, spiSettings[idx].clk,
            spiSettings[idx].dMode,
-           spiSettings[idx].msb);
+           spiSettings[idx].bOrder);
   _CSPinConfig = _pin;
 }
 
@@ -173,17 +168,11 @@ void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
     return;
   }
 
-  if (MSBFIRST == _bitOrder) {
-    spiSettings[idx].msb = MSBFIRST;
-    spiSettings[idx].bOrder = MSBFIRST;
-  } else {
-    spiSettings[idx].msb = LSBFIRST;
-    spiSettings[idx].bOrder = LSBFIRST;
-  }
+  spiSettings[idx].bOrder = _bitOrder;
 
   spi_init(&_spi, spiSettings[idx].clk,
            spiSettings[idx].dMode,
-           spiSettings[idx].msb);
+           spiSettings[idx].bOrder);
 }
 
 /**
@@ -221,7 +210,7 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
 
   spi_init(&_spi, spiSettings[idx].clk,
            spiSettings[idx].dMode,
-           spiSettings[idx].msb);
+           spiSettings[idx].bOrder);
 }
 
 /**
@@ -250,7 +239,7 @@ void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 
   spi_init(&_spi, spiSettings[idx].clk,
            spiSettings[idx].dMode,
-           spiSettings[idx].msb);
+           spiSettings[idx].bOrder);
 }
 
 /**
@@ -281,7 +270,7 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
     }
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
-             spiSettings[idx].msb);
+             spiSettings[idx].bOrder);
     _CSPinConfig = _pin;
   }
 
@@ -328,11 +317,11 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
   if (_pin != _CSPinConfig) {
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
-             spiSettings[idx].msb);
+             spiSettings[idx].bOrder);
     _CSPinConfig = _pin;
   }
 
-  if (spiSettings[idx].msb) {
+  if (spiSettings[idx].bOrder) {
     tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
     data = tmp;
   }
@@ -347,7 +336,7 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
     digitalWrite(_pin, HIGH);
   }
 
-  if (spiSettings[idx].msb) {
+  if (spiSettings[idx].bOrder) {
     tmp = ((rx_buffer & 0xff00) >> 8) | ((rx_buffer & 0xff) << 8);
     rx_buffer = tmp;
   }
@@ -382,7 +371,7 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
     }
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
-             spiSettings[idx].msb);
+             spiSettings[idx].bOrder);
     _CSPinConfig = _pin;
   }
 
@@ -425,7 +414,7 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
     }
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
-             spiSettings[idx].msb);
+             spiSettings[idx].bOrder);
     _CSPinConfig = _pin;
   }
 

@@ -19,6 +19,14 @@
 
   @endverbatim
 
+### V1.0.1/11-October-2019 ###
+===============================
+   + Change RPMSG_ADDR_BMP_SIZE to increase the number of Virtual UART instances
+
+     -lib/include/openamp/rpmsg.h
+     -lib/rpmsg/rpmsg.c
+
+
 ### V1.0.0/29-March-2019 ###
 ===============================
    + Integrate official release v2018.10

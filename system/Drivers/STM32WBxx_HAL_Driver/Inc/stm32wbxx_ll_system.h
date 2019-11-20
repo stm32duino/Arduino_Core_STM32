@@ -2182,8 +2182,8 @@ __STATIC_INLINE uint32_t LL_FLASH_GetUDN(void)
   * @brief  Return the Device ID
   * @note   The 64-bit UID64 may be used by Firmware to derive BLE 48-bit Device Address EUI-48 or
   *         802.15.4 64-bit Device Address EUI-64.
-  *         For STM32WBxxxx devices, the device ID is 0x05
-  * @retval Values between Min_Data=0x00 and Max_Data=0xFF (ex: Device ID is 0x05)
+  *         For STM32WBxxxx devices, the device ID is 0x26
+  * @retval Values between Min_Data=0x00 and Max_Data=0xFF (ex: Device ID is 0x26 fo STM32WB55x)
   */
 __STATIC_INLINE uint32_t LL_FLASH_GetDeviceID(void)
 {

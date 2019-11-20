@@ -59,6 +59,9 @@ GPIO_TypeDef *GPIOPort[MAX_NB_PORT] = {
 #if defined GPIOK_BASE
   , (GPIO_TypeDef *)GPIOK_BASE
 #endif
+#if defined GPIOZ_BASE
+  , (GPIO_TypeDef *)GPIOZ_BASE
+#endif
 };
 
 /* Enable GPIO clock and return GPIO base address */
@@ -131,6 +134,12 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx)
     case PortK:
       gpioPort = (GPIO_TypeDef *)GPIOK_BASE;
       __HAL_RCC_GPIOK_CLK_ENABLE();
+      break;
+#endif
+#if defined GPIOZ_BASE
+    case PortZ:
+      gpioPort = (GPIO_TypeDef *)GPIOZ_BASE;
+      __HAL_RCC_GPIOZ_CLK_ENABLE();
       break;
 #endif
     default:

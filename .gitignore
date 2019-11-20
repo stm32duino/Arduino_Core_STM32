@@ -6,3 +6,4 @@ boards.local.txt
 platform.local.txt
 *.code-workspace
 .vscode
+path_config.json

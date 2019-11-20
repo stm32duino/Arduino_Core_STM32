@@ -61,7 +61,7 @@
 #define __resource              __section_t(.resource_table)
 #endif
 
-#if defined (STM32MP157Cxx)
+#if defined (LINUX_RPROC_MASTER)
  #ifdef VIRTIO_MASTER_ONLY
   #define CONST
  #else
@@ -82,7 +82,7 @@ extern char system_log_buf[];
 #endif
 
 #if defined(__GNUC__)
-#if !defined (__CC_ARM) && !defined (STM32MP157Cxx)
+#if !defined (__CC_ARM) && !defined (LINUX_RPROC_MASTER)
 
 /* Since GCC is not initializing the resource_table at startup, it is declared as volatile to avoid compiler optimization
  * for the CM4 (see resource_table_init() below)
@@ -95,7 +95,7 @@ CONST struct shared_resource_table __resource __attribute__((used)) resource_tab
 __root CONST struct shared_resource_table resource_table @ ".resource_table" = {
 #endif
 
-#if defined(__ICCARM__) || defined (__CC_ARM) || defined (STM32MP157Cxx)
+#if defined(__ICCARM__) || defined (__CC_ARM) || defined (LINUX_RPROC_MASTER)
 	.version = 1,
 #if defined (__LOG_TRACE_IO_)
 	.num = 2,
@@ -130,7 +130,7 @@ __root CONST struct shared_resource_table resource_table @ ".resource_table" = {
 void resource_table_init(int RPMsgRole, void **table_ptr, int *length)
 {
 
-#if !defined (STM32MP157Cxx)
+#if !defined (LINUX_RPROC_MASTER)
 #if defined (__GNUC__) && ! defined (__CC_ARM)
 #ifdef VIRTIO_MASTER_ONLY
 

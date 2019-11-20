@@ -60,6 +60,29 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
   UNUSED(spi_inst);
   /* SPIx source CLK is PCKL1 */
   spi_freq = HAL_RCC_GetPCLK1Freq();
+#elif defined(STM32MP1xx)
+  /* Get source clock depending on SPI instance */
+  if (spi_inst != NP) {
+    switch ((uint32_t)spi_inst) {
+      case (uint32_t)SPI1:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI1);
+        break;
+      case (uint32_t)SPI2:
+      case (uint32_t)SPI3:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
+        break;
+      case (uint32_t)SPI4:
+      case (uint32_t)SPI5:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
+        break;
+      case (uint32_t)SPI6:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
+        break;
+      default:
+        core_debug("CLK: SPI instance not set");
+        break;
+    }
+  }
 #else
   if (spi_inst != NP) {
     /* Get source clock depending on SPI instance */
@@ -223,7 +246,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   handle->Init.TIMode            = SPI_TIMODE_DISABLE;
 #if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) ||\
     defined(STM32G0xx) || defined(STM32H7xx) || defined(STM32L4xx) ||\
-    defined(STM32WBxx)
+    defined(STM32WBxx) || defined(STM32MP1xx)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
 #endif
 
