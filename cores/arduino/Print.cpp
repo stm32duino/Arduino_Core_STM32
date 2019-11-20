@@ -196,12 +196,22 @@ size_t Print::println(const Printable &x)
   return n;
 }
 
-void Print::printf(const char format[], ...)
+void Print::printf(const char *format, ...)
 {
-  char buf[PRINTF_BUF];
+  char buf[PRINTF_BUFFER];
   va_list ap;
   va_start(ap, format);
   vsnprintf(buf, sizeof(buf), format, ap);
+  write(buf);
+  va_end(ap);
+}
+
+void Print::printf(const __FlashStringHelper *format, ...)
+{
+  char buf[PRINTF_BUFFER];
+  va_list ap;
+  va_start(ap, format);
+  vsnprintf(buf, sizeof(buf), (const char *)format, ap);
   write(buf);
   va_end(ap);
 }
