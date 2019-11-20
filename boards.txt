@@ -1030,7 +1030,7 @@ GenF4.menu.upload_method.dfuUtil=USB (dfu-util)
 GenF4.menu.upload_method.dfuUtil.upload.tool=dfu_util
 GenF4.menu.upload_method.dfuUtil.upload.protocol=
 GenF4.menu.upload_method.dfuUtil.upload.usbID=0483:df11
-GenF4.menu.upload_method.dfuUtil.upload.address=0x08000000:leave
+GenF4.menu.upload_method.dfuUtil.upload.address=0x08000000
 
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
@@ -1082,7 +1082,7 @@ GenL0.menu.upload_method.dfuUtil=USB (dfu-util)
 GenL0.menu.upload_method.dfuUtil.upload.tool=dfu_util
 GenL0.menu.upload_method.dfuUtil.upload.protocol=
 GenL0.menu.upload_method.dfuUtil.upload.usbID=0483:df11
-GenL0.menu.upload_method.dfuUtil.upload.address=0x08000000:leave
+GenL0.menu.upload_method.dfuUtil.upload.address=0x08000000
 
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=0
