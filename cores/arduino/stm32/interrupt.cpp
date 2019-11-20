@@ -36,7 +36,9 @@
   ******************************************************************************
   */
 #include "interrupt.h"
-
+#if defined(STM32MP1xx)
+#include "lock_resource.h"
+#endif
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
 /* Private Types */
@@ -177,7 +179,15 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_
 
   GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
 
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(port);
+#endif
+
   HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(port);
+#endif
 
   gpio_irq_conf[id].callback = callback;
 
@@ -236,7 +246,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-#if defined (STM32G0xx)
+#if defined (STM32G0xx) || defined (STM32MP1xx)
 /**
   * @brief  EXTI line detection callback.
   * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
@@ -359,7 +369,7 @@ void EXTI4_IRQHandler(void)
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_4);
 }
 
-
+#if !defined(STM32MP1xx)
 /**
   * @brief This function handles external line 5 to 9 interrupt request.
   * @param  None
@@ -385,7 +395,119 @@ void EXTI15_10_IRQHandler(void)
     HAL_GPIO_EXTI_IRQHandler(pin);
   }
 }
+#else /* STM32MP1xx */
 
+/**
+  * @brief This function handles external line 5 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI5_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_5);
+}
+
+/**
+  * @brief This function handles external line 6 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI6_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+}
+
+/**
+  * @brief This function handles external line 7 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI7_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+}
+
+/**
+  * @brief This function handles external line 8 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI8_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+}
+
+/**
+  * @brief This function handles external line 9 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI9_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_9);
+}
+
+/**
+  * @brief This function handles external line 10 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI10_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_10);
+}
+
+/**
+  * @brief This function handles external line 11 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI11_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_11);
+}
+
+/**
+  * @brief This function handles external line 12 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI12_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_12);
+}
+
+/**
+  * @brief This function handles external line 13 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI13_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+}
+
+/**
+  * @brief This function handles external line 14 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI14_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_14);
+}
+
+/**
+  * @brief This function handles external line 15 interrupt request.
+  * @param  None
+  * @retval None
+  */
+void EXTI15_IRQHandler(void)
+{
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
+}
+
+#endif /* !STM32MP1xx */
 #ifdef __cplusplus
 }
 #endif
