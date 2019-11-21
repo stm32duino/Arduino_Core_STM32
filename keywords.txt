@@ -267,8 +267,8 @@ PIN_WIRE_SCL	LITERAL1
 
 # Serial
 HardwareSerial	KEYWORD2
-setRX	KEYWORD2
-setTX	KEYWORD2
+setRx	KEYWORD2
+setTx	KEYWORD2
 setHalfDuplex	KEYWORD2
 isHalfDuplex	KEYWORD2
 enableHalfDuplexRx	KEYWORD2
