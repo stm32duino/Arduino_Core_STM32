@@ -32,7 +32,6 @@
 #define OCT 8
 #define BIN 2
 
-
 #ifndef PRINTF_BUFFER
 #define PRINTF_BUFFER 80
 #endif
