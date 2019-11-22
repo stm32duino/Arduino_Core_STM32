@@ -211,7 +211,7 @@ void Print::printf(const __FlashStringHelper *format, ...)
   char buf[PRINTF_BUFFER];
   va_list ap;
   va_start(ap, format);
-  vsnprintf(buf, sizeof(buf), (const char *)format, ap);
+  vsnprintf_P(buf, sizeof(buf), (const char *)format, ap);
   write(buf);
   va_end(ap);
 }
