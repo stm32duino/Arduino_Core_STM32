@@ -1454,6 +1454,89 @@ Midatronics.menu.upload_method.dfuMethod.upload.options=-g
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Piconomix boards
+Piconomix.name=Piconomix boards
+
+Piconomix.build.vid=0x0483
+Piconomix.build.core=arduino
+Piconomix.build.board=Piconomix
+Piconomix.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
+# PX-HER0
+Piconomix.menu.pnum.PX-HER0=PX-HER0
+Piconomix.menu.pnum.PX-HER0.node=NODE_L072RB
+Piconomix.menu.pnum.PX-HER0.build.board=PX-HER0
+Piconomix.menu.pnum.PX-HER0.build.mcu=cortex-m0plus
+Piconomix.menu.pnum.PX-HER0.build.cmsis_lib_gcc=arm_cortexM0l_math
+Piconomix.menu.pnum.PX-HER0.build.series=STM32L0xx
+Piconomix.menu.pnum.PX-HER0.build.product_line=STM32L072xx
+Piconomix.menu.pnum.PX-HER0.build.variant=PX-HER0
+Piconomix.menu.pnum.PX-HER0.upload.maximum_size=131072
+Piconomix.menu.pnum.PX-HER0.upload.maximum_data_size=20480
+
+# Upload menu
+Piconomix.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Piconomix.menu.upload_method.swdMethod.upload.protocol=0
+Piconomix.menu.upload_method.swdMethod.upload.options=-g
+Piconomix.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Piconomix.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+Piconomix.menu.upload_method.serialMethod.upload.protocol=1
+Piconomix.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+Piconomix.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+Piconomix.menu.upload_method.dfuMethod=STM32CubeProgrammer (USB)
+Piconomix.menu.upload_method.dfuMethod.upload.protocol=2
+Piconomix.menu.upload_method.dfuMethod.upload.options=-g
+Piconomix.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+# Serialx activation
+Piconomix.menu.xserial.generic=Enabled (generic 'Serial')
+Piconomix.menu.xserial.none=Enabled (no generic 'Serial')
+Piconomix.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Piconomix.menu.xserial.disabled=Disabled (no Serial support)
+Piconomix.menu.xserial.disabled.build.xSerial=
+
+# USB connectivity
+Piconomix.menu.usb.none=None
+Piconomix.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Piconomix.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Piconomix.menu.usb.CDC=CDC (no generic 'Serial')
+Piconomix.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Piconomix.menu.usb.HID=HID (keyboard and mouse)
+Piconomix.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
+# Optimizations
+Piconomix.menu.opt.osstd=Smallest (-Os default)
+Piconomix.menu.opt.oslto=Smallest (-Os) with LTO
+Piconomix.menu.opt.oslto.build.flags.optimize=-Os -flto
+Piconomix.menu.opt.o1std=Fast (-O1)
+Piconomix.menu.opt.o1std.build.flags.optimize=-O1
+Piconomix.menu.opt.o1lto=Fast (-O1) with LTO
+Piconomix.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Piconomix.menu.opt.o2std=Faster (-O2)
+Piconomix.menu.opt.o2std.build.flags.optimize=-O2
+Piconomix.menu.opt.o2lto=Faster (-O2) with LTO
+Piconomix.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Piconomix.menu.opt.o3std=Fastest (-O3)
+Piconomix.menu.opt.o3std.build.flags.optimize=-O3
+Piconomix.menu.opt.o3lto=Fastest (-O3) with LTO
+Piconomix.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Piconomix.menu.opt.ogstd=Debug (-g)
+Piconomix.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+# C Runtime Library
+Piconomix.menu.rtlib.nano=Newlib Nano (default)
+Piconomix.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Piconomix.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Piconomix.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Piconomix.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Piconomix.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Piconomix.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Piconomix.menu.rtlib.full=Newlib Standard
+Piconomix.menu.rtlib.full.build.flags.ldspecs=
+
+################################################################################
 # Serialx activation
 Nucleo_144.menu.xserial.generic=Enabled (generic 'Serial')
 Nucleo_144.menu.xserial.none=Enabled (no generic 'Serial')
