@@ -32,10 +32,6 @@
 #define OCT 8
 #define BIN 2
 
-#ifndef PRINTF_BUFFER
-#define PRINTF_BUFFER 80
-#endif
-
 // uncomment next line to support printing of 64 bit ints.
 #define SUPPORT_LONGLONG
 
@@ -109,8 +105,8 @@ class Print {
     void print(uint64_t, uint8_t = DEC);
 #endif
 
-    void printf(const char *format, ...);
-    void printf(const __FlashStringHelper *format, ...);
+    int printf(const char *format, ...);
+    int printf(const __FlashStringHelper *format, ...);
 };
 
 #endif
