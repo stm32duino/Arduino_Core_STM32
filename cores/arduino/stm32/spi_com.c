@@ -215,8 +215,8 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_128;
   } else if (speed >= (spi_freq / SPI_SPEED_CLOCK_DIV256_MHZ)) {
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
-  } else {
-    handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_16;
+  } else { //speed is lower than (spi_freq / SPI_SPEED_CLOCK_DIV256_MHZ). we can't go below this.
+    handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256; // Set prescaler at max value so we have the lowest frequency possible
   }
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
