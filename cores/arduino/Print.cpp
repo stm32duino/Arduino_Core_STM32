@@ -21,8 +21,8 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include <math.h>
 #include "Arduino.h"
 
@@ -196,24 +196,42 @@ size_t Print::println(const Printable &x)
   return n;
 }
 
-void Print::printf(const char *format, ...)
-{
-  char buf[PRINTF_BUFFER];
-  va_list ap;
-  va_start(ap, format);
-  vsnprintf(buf, sizeof(buf), format, ap);
-  write(buf);
-  va_end(ap);
+extern "C" {
+  __attribute__((weak))
+  int _write(int file, char *ptr, int len)
+  {
+#ifdef HAL_UART_MODULE_ENABLED
+    switch (file) {
+      case STDOUT_FILENO:
+      case STDERR_FILENO:
+        uart_debug_write((uint8_t *)ptr, (uint32_t)len);
+        break;
+      case STDIN_FILENO:
+        break;
+      default:
+        ((class Print *)file)->write((uint8_t *)ptr, len);
+        break;
+    }
+#else
+    (void)file;
+    (void)ptr;
+#endif
+    return len;
+  }
 }
 
-void Print::printf(const __FlashStringHelper *format, ...)
+int Print::printf(const char *format, ...)
 {
-  char buf[PRINTF_BUFFER];
   va_list ap;
   va_start(ap, format);
-  vsnprintf_P(buf, sizeof(buf), (const char *)format, ap);
-  write(buf);
-  va_end(ap);
+  return vdprintf((int)this, format, ap);
+}
+
+int Print::printf(const __FlashStringHelper *format, ...)
+{
+  va_list ap;
+  va_start(ap, format);
+  return vdprintf((int)this, (const char *)format, ap);
 }
 
 // Private Methods /////////////////////////////////////////////////////////////
