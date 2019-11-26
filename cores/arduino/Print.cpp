@@ -196,6 +196,26 @@ size_t Print::println(const Printable &x)
   return n;
 }
 
+void Print::printf(const char *format, ...)
+{
+  char buf[PRINTF_BUFFER];
+  va_list ap;
+  va_start(ap, format);
+  vsnprintf(buf, sizeof(buf), format, ap);
+  write(buf);
+  va_end(ap);
+}
+
+void Print::printf(const __FlashStringHelper *format, ...)
+{
+  char buf[PRINTF_BUFFER];
+  va_list ap;
+  va_start(ap, format);
+  vsnprintf_P(buf, sizeof(buf), (const char *)format, ap);
+  write(buf);
+  va_end(ap);
+}
+
 // Private Methods /////////////////////////////////////////////////////////////
 
 size_t Print::printNumber(unsigned long n, uint8_t base)
