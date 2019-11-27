@@ -1071,6 +1071,14 @@ GenL0.menu.pnum.THUNDER_PACK.build.board=THUNDER_PACK
 GenL0.menu.pnum.THUNDER_PACK.build.product_line=STM32L072xx
 GenL0.menu.pnum.THUNDER_PACK.build.variant=THUNDER_PACK
 
+# Piconomix PX-HER0 board
+GenL0.menu.pnum.PX_HER0=PX-HER0
+GenL0.menu.pnum.PX_HER0.upload.maximum_size=131072
+GenL0.menu.pnum.PX_HER0.upload.maximum_data_size=20480
+GenL0.menu.pnum.PX_HER0.build.board=PX_HER0
+GenL0.menu.pnum.PX_HER0.build.product_line=STM32L072xx
+GenL0.menu.pnum.PX_HER0.build.variant=PX_HER0
+
 # Upload menu
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=0
