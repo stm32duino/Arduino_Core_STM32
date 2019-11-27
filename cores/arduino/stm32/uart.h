@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-#if !defined(HAL_UART_MODULE_ENABLED)
+#if !defined(HAL_UART_MODULE_ENABLED) || defined(HAL_UART_MODULE_ONLY)
 #define serial_t void*
 #else
 
@@ -186,7 +186,7 @@ void uart_enable_rx(serial_t *obj);
 
 size_t uart_debug_write(uint8_t *data, uint32_t size);
 
-#endif /* HAL_UART_MODULE_ENABLED */
+#endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 #ifdef __cplusplus
 }
 #endif

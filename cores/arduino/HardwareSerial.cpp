@@ -26,7 +26,7 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
-#if defined(HAL_UART_MODULE_ENABLED)
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
     defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
@@ -528,4 +528,4 @@ void HardwareSerial::enableHalfDuplexRx(void)
   }
 }
 
-#endif // HAL_UART_MODULE_ENABLED
+#endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY

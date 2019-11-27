@@ -200,7 +200,7 @@ extern "C" {
   __attribute__((weak))
   int _write(int file, char *ptr, int len)
   {
-#ifdef HAL_UART_MODULE_ENABLED
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
     switch (file) {
       case STDOUT_FILENO:
       case STDERR_FILENO:
