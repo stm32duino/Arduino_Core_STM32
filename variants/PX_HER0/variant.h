@@ -40,98 +40,98 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 // Mapping of STM32 GPIO pin to digital pin number
-#define PA6                 0      /* PX_GPIO0 */
-#define PA5                 1      /* PX_GPIO1 */
-#define PA1                 2      /* PX_GPIO2 */
-#define PA0                 3      /* PX_GPIO3 */
-#define PC3                 4      /* PX_GPIO4 */
-#define PC2                 5      /* PX_GPIO5 */
-#define PC1                 6      /* PX_GPIO6 */
-#define PB7                 7      /* PX_GPIO7 */
-#define PH0                 8      /* PX_USR_LED */
-#define PC0                 9      /* PX_LCD_BTN_1_LT */
-#define PH1                 10     /* PX_LCD_BTN_2_RT */
-#define PC13                11     /* PX_LCD_BTN_3_UP */
-#define PC12                12     /* PX_LCD_BTN_4_DN */
-#define PA15                13     /* PX_LCD_BTN_5_YES */
-#define PC9                 14     /* PX_LCD_BTN_6_NO */
-#define PA8                 15     /* PX_USB_DET */
-#define PB11                16     /* PX_LCD_RS */
-#define PB12                17     /* PX_LCD_BACKLIGHT */
-#define PC6                 18     /* PX_PWM_BUZZER */
-#define PC7                 19     /* PX_VBAT_MEAS_EN */
-#define PC8                 20     /* PX_PWR_HOLD */
-#define PA9                 21     /* PX_UART1_TX */
-#define PA10                22     /* PX_UART1_RX */
-#define PA2                 23     /* PX_UART2_TX */
-#define PA3                 24     /* PX_UART2_RX */
-#define PC10                25     /* PX_UART4_TX */
-#define PC11                26     /* PX_UART4_RX */
-#define PB8                 27     /* PX_I2C1_SCL */
-#define PB9                 28     /* PX_I2C1_SDA */
-#define PB6                 29     /* PX_SPI1_CS */
-#define PB3                 30     /* PX_SPI1_SCK */
-#define PB5                 31     /* PX_SPI1_MOSI */
-#define PB4                 32     /* PX_SPI1_MISO */
-#define PB2                 33     /* PX_SPI2_CS_SF */
-#define PB10                34     /* PX_SPI2_CS_LCD */
-#define PD2                 35     /* PX_SPI2_CS_SD */
-#define PB13                36     /* PX_SPI2_SCK */
-#define PB15                37     /* PX_SPI2_MOSI */
-#define PB14                38     /* PX_SPI2_MISO */
-#define PA4                 39     /* PX_DAC1 */
-#define PB0                 40     /* PX_ADC0 */
-#define PC5                 41     /* PX_ADC1 */
-#define PC4                 42     /* PX_ADC2 */
-#define PA7                 43     /* PX_ADC3 */
-#define PB1                 44     /* PX_ADC_VBAT */
+#define PA6                     0      /* PX_GPIO0 */
+#define PA5                     1      /* PX_GPIO1 */
+#define PA1                     2      /* PX_GPIO2 */
+#define PA0                     3      /* PX_GPIO3 */
+#define PC3                     4      /* PX_GPIO4 */
+#define PC2                     5      /* PX_GPIO5 */
+#define PC1                     6      /* PX_GPIO6 */
+#define PB7                     7      /* PX_GPIO7 */
+#define PH0                     8      /* PX_USR_LED */
+#define PC0                     9      /* PX_LCD_BTN_1_LT */
+#define PH1                     10     /* PX_LCD_BTN_2_RT */
+#define PC13                    11     /* PX_LCD_BTN_3_UP */
+#define PC12                    12     /* PX_LCD_BTN_4_DN */
+#define PA15                    13     /* PX_LCD_BTN_5_YES */
+#define PC9                     14     /* PX_LCD_BTN_6_NO */
+#define PA8                     15     /* PX_USB_DET */
+#define PB11                    16     /* PX_LCD_RS */
+#define PB12                    17     /* PX_LCD_BACKLIGHT */
+#define PC6                     18     /* PX_PWM_BUZZER */
+#define PC7                     19     /* PX_VBAT_MEAS_EN */
+#define PC8                     20     /* PX_PWR_HOLD */
+#define PA9                     21     /* PX_UART1_TX */
+#define PA10                    22     /* PX_UART1_RX */
+#define PA2                     23     /* PX_UART2_TX */
+#define PA3                     24     /* PX_UART2_RX */
+#define PC10                    25     /* PX_UART4_TX */
+#define PC11                    26     /* PX_UART4_RX */
+#define PB8                     27     /* PX_I2C1_SCL */
+#define PB9                     28     /* PX_I2C1_SDA */
+#define PB6                     29     /* PX_SPI1_CS */
+#define PB3                     30     /* PX_SPI1_SCK */
+#define PB5                     31     /* PX_SPI1_MOSI */
+#define PB4                     32     /* PX_SPI1_MISO */
+#define PB2                     33     /* PX_SPI2_CS_SF */
+#define PB10                    34     /* PX_SPI2_CS_LCD */
+#define PD2                     35     /* PX_SPI2_CS_SD */
+#define PB13                    36     /* PX_SPI2_SCK */
+#define PB15                    37     /* PX_SPI2_MOSI */
+#define PB14                    38     /* PX_SPI2_MISO */
+#define PA4                     39     /* PX_DAC1 */
+#define PB0                     40     /* PX_ADC0 */
+#define PC5                     41     /* PX_ADC1 */
+#define PC4                     42     /* PX_ADC2 */
+#define PA7                     43     /* PX_ADC3 */
+#define PB1                     44     /* PX_ADC_VBAT */
 
 // Mapping of net name to digital pin number
-#define PX_GPIO0            0
-#define PX_GPIO1            1
-#define PX_GPIO2            2
-#define PX_GPIO3            3
-#define PX_GPIO4            4
-#define PX_GPIO5            5
-#define PX_GPIO6            6
-#define PX_GPIO7            7
-#define PX_USR_LED          8
-#define PX_LCD_BTN_1_LT     9
-#define PX_LCD_BTN_2_RT     10
-#define PX_LCD_BTN_3_UP     11
-#define PX_LCD_BTN_4_DN     12
-#define PX_LCD_BTN_5_YES    13
-#define PX_LCD_BTN_6_NO     14
-#define PX_USB_DET          15
-#define PX_LCD_RS           16
-#define PX_LCD_BACKLIGHT    17
-#define PX_PWM_BUZZER       18
-#define PX_VBAT_MEAS_EN     19
-#define PX_PWR_HOLD         20
-#define PX_UART1_TX         21
-#define PX_UART1_RX         22
-#define PX_UART2_TX         23
-#define PX_UART2_RX         24
-#define PX_UART4_TX         25
-#define PX_UART4_RX         26
-#define PX_I2C1_SCL         27
-#define PX_I2C1_SDA         28
-#define PX_SPI1_CS          29
-#define PX_SPI1_SCK         30
-#define PX_SPI1_MOSI        31
-#define PX_SPI1_MISO        32
-#define PX_SPI2_CS_SF       33
-#define PX_SPI2_CS_LCD      34
-#define PX_SPI2_CS_SD       35
-#define PX_SPI2_SCK         36
-#define PX_SPI2_MOSI        37
-#define PX_SPI2_MISO        38
-#define PX_DAC1             39
-#define PX_ADC0             40
-#define PX_ADC1             41
-#define PX_ADC2             42
-#define PX_ADC3             43
-#define PX_ADC_VBAT         44
+#define PX_GPIO0                PA6    /*  0 */
+#define PX_GPIO1                PA5    /*  1 */
+#define PX_GPIO2                PA1    /*  2 */
+#define PX_GPIO3                PA0    /*  3 */
+#define PX_GPIO4                PC3    /*  4 */
+#define PX_GPIO5                PC2    /*  5 */
+#define PX_GPIO6                PC1    /*  6 */
+#define PX_GPIO7                PB7    /*  7 */
+#define PX_USR_LED              PH0    /*  8 */
+#define PX_LCD_BTN_1_LT         PC0    /*  9 */
+#define PX_LCD_BTN_2_RT         PH1    /* 10 */
+#define PX_LCD_BTN_3_UP         PC13   /* 11 */
+#define PX_LCD_BTN_4_DN         PC12   /* 12 */
+#define PX_LCD_BTN_5_YES        PA15   /* 13 */
+#define PX_LCD_BTN_6_NO         PC9    /* 14 */
+#define PX_USB_DET              PA8    /* 15 */
+#define PX_LCD_RS               PB11   /* 16 */
+#define PX_LCD_BACKLIGHT        PB12   /* 17 */
+#define PX_PWM_BUZZER           PC6    /* 18 */
+#define PX_VBAT_MEAS_EN         PC7    /* 19 */
+#define PX_PWR_HOLD             PC8    /* 20 */
+#define PX_UART1_TX             PA9    /* 21 */
+#define PX_UART1_RX             PA10   /* 22 */
+#define PX_UART2_TX             PA2    /* 23 */
+#define PX_UART2_RX             PA3    /* 24 */
+#define PX_UART4_TX             PC10   /* 25 */
+#define PX_UART4_RX             PC11   /* 26 */
+#define PX_I2C1_SCL             PB8    /* 27 */
+#define PX_I2C1_SDA             PB9    /* 28 */
+#define PX_SPI1_CS              PB6    /* 29 */
+#define PX_SPI1_SCK             PB3    /* 30 */
+#define PX_SPI1_MOSI            PB5    /* 31 */
+#define PX_SPI1_MISO            PB4    /* 32 */
+#define PX_SPI2_CS_SF           PB2    /* 33 */
+#define PX_SPI2_CS_LCD          PB10   /* 34 */
+#define PX_SPI2_CS_SD           PD2    /* 35 */
+#define PX_SPI2_SCK             PB13   /* 36 */
+#define PX_SPI2_MOSI            PB15   /* 37 */
+#define PX_SPI2_MISO            PB14   /* 38 */
+#define PX_DAC1                 PA4    /* 39 */
+#define PX_ADC0                 PB0    /* 40 */
+#define PX_ADC1                 PC5    /* 41 */
+#define PX_ADC2                 PC4    /* 42 */
+#define PX_ADC3                 PA7    /* 43 */
+#define PX_ADC_VBAT             PB1    /* 44 */
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        45
@@ -190,12 +190,6 @@ extern "C" {
 #define PIN_SERIAL4_RX          PC11
 #define PIN_SERIALLP1_TX        PA2
 #define PIN_SERIALLP1_RX        PA3
-
-// SD card slot Definitions
-// SD detect signal can be defined if required
-#define SD_DETECT_PIN           PB7
-// SD Read/Write timeout, default value defined in STM32SD library
-//#define SD_DATATIMEOUT          x
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
