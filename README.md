@@ -128,6 +128,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32L0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
+| :yellow_heart: | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | **1.8.0** |  |
 | :yellow_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | **1.8.0** |  |
 
 | Status | 3D printer boards | Release | Comment |
