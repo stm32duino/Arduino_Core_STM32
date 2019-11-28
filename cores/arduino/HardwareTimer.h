@@ -29,6 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "timer.h"
+#include "stm32yyxx_ll_tim.h"
 
 #if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
@@ -83,7 +84,9 @@ class HardwareTimer {
     ~HardwareTimer();  // destructor
 
     void pause(void);  // Pause counter and all output channels
+    void pauseChannel(uint32_t channel); // Timer is still running but channel (output and interrupt) is disabled
     void resume(void); // Resume counter and all output channels
+    void resumeChannel(uint32_t channel); // Resume only one channel
 
     void setPrescaleFactor(uint32_t prescaler); // set prescaler register (which is factor value - 1)
     uint32_t getPrescaleFactor();
@@ -118,8 +121,7 @@ class HardwareTimer {
 
     void timerHandleDeinit();  // Timer deinitialization
 
-    // Refresh() can only be called after a 1st call to resume() to be sure timer is initialised.
-    // It is usefull while timer is running after some registers update
+    // Refresh() is usefull while timer is running after some registers update
     void refresh(void); // Generate update event to force all registers (Autoreload, prescaler, compare) to be taken into account
 
 
@@ -130,14 +132,15 @@ class HardwareTimer {
 
     // The following function(s) are available for more advanced timer options
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
+
   private:
-    TIM_OC_InitTypeDef _channelOC[TIMER_CHANNELS];
-    TIM_IC_InitTypeDef _channelIC[TIMER_CHANNELS];
+    TimerModes_t  _ChannelMode[TIMER_CHANNELS];
     timerObj_t _timerObj;
     void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
-
     int getChannel(uint32_t channel);
-    void resumeChannel(uint32_t channel);
+    int getLLChannel(uint32_t channel);
+    int getIT(uint32_t channel);
+    int getAssociatedChannel(uint32_t channel);
 #if defined(TIM_CCER_CC1NE)
     bool isComplementaryChannel[TIMER_CHANNELS];
 #endif
