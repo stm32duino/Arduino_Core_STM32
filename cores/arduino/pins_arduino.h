@@ -65,9 +65,6 @@ _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
 _Static_assert(NUM_ANALOG_FIRST >= NUM_ANALOG_INPUTS,
                "First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS");
 
-// Defined for backward compatibility with Firmata which unfortunately use it
-#define AEND (NUM_ANALOG_FIRST+NUM_ANALOG_INPUTS)
-
 #if NUM_ANALOG_INPUTS > 0
 #define PIN_A0       NUM_ANALOG_FIRST
 static const uint8_t A0 = PIN_A0;
