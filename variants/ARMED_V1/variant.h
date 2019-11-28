@@ -108,8 +108,8 @@ extern "C" {
 #define PE14  78 //D78
 #define PE15  79 //D79
 
-// This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        83
+// This must be a literal
+#define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
 #define NUM_ANALOG_FIRST        32
