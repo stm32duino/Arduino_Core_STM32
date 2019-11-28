@@ -41,7 +41,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if defined(HAL_UART_MODULE_ENABLED)
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
 
 /* If DEBUG_UART is not defined assume this is the one linked to PIN_SERIAL_TX */
 #if !defined(DEBUG_UART)
@@ -1066,7 +1066,7 @@ void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
   serial_t *obj = get_serial_obj(huart);
   HAL_UART_Receive_IT(huart,  &(obj->recv), 1);
 }
-#endif /* HAL_UART_MODULE_ENABLED */
+#endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

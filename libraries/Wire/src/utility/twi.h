@@ -47,7 +47,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#if defined(HAL_I2C_MODULE_ENABLED)
 
 /* Exported types ------------------------------------------------------------*/
 /* offsetof is a gcc built-in function, this is the manual implementation */
@@ -137,7 +136,6 @@ i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials);
 
 void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t *, int));
 void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void));
-#endif /* HAL_I2C_MODULE_ENABLED */
 
 #ifdef __cplusplus
 }

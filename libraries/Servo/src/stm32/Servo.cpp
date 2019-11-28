@@ -22,7 +22,7 @@
 #include <Servo.h>
 #include <HardwareTimer.h>
 
-#if defined(HAL_TIM_MODULE_ENABLED) && defined(TIMER_SERVO)
+#if defined(HAL_TIM_MODULE_ENABLED) && defined(TIMER_SERVO) && !defined(HAL_TIM_MODULE_ONLY)
 
 static servo_t servos[MAX_SERVOS];                         // static array of servo structures
 static volatile int8_t timerChannel[_Nbr_16timers] = {-1}; // counter for the servo being pulsed for each timer (or -1 if refresh interval)
@@ -231,6 +231,6 @@ int Servo::readMicroseconds()
 }
 bool Servo::attached() {}
 
-#endif /* HAL_TIM_MODULE_ENABLED && TIMER_SERVO */
+#endif /* HAL_TIM_MODULE_ENABLED && TIMER_SERVO & !HAL_TIM_MODULE_ONLY */
 
 #endif // ARDUINO_ARCH_STM32

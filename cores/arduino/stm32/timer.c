@@ -17,7 +17,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 /* Private Functions */
 /* Aim of the function is to get _timerObj pointer using htim pointer */
@@ -716,7 +716,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
 }
 
 
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

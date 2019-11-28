@@ -22,9 +22,11 @@
 #ifndef TwoWire_h
 #define TwoWire_h
 
-#include <inttypes.h>
 #include "Stream.h"
 #include "Arduino.h"
+extern "C" {
+#include "utility/twi.h"
+}
 
 #define BUFFER_LENGTH 32
 

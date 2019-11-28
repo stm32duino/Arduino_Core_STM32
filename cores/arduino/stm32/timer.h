@@ -22,7 +22,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 /* Exported constants --------------------------------------------------------*/
 #ifndef TIM_IRQ_PRIO
@@ -254,7 +254,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

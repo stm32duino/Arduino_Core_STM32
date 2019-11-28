@@ -23,7 +23,8 @@
 extern "C" {
 #endif
 
-#if defined(HAL_DAC_MODULE_ENABLED) || defined(HAL_TIM_MODULE_ENABLED)
+#if (defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)) ||\
+    (defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY))
 //This is the list of the IOs configured
 uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
 #endif
@@ -71,7 +72,7 @@ void analogReference(eAnalogReference ulMode)
 uint32_t analogRead(uint32_t ulPin)
 {
   uint32_t value = 0;
-#ifdef HAL_ADC_MODULE_ENABLED
+#if defined(HAL_ADC_MODULE_ENABLED) && !defined(HAL_ADC_MODULE_ONLY)
   PinName p = analogInputToPinName(ulPin);
   if (p != NC) {
     value = adc_read_value(p);
@@ -94,12 +95,12 @@ void analogOutputInit(void)
 // to digital output.
 void analogWrite(uint32_t ulPin, uint32_t ulValue)
 {
-#if defined(HAL_DAC_MODULE_ENABLED)
+#if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
   uint8_t do_init = 0;
 #endif
   PinName p = digitalPinToPinName(ulPin);
   if (p != NC) {
-#ifdef HAL_DAC_MODULE_ENABLED
+#if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
     if (pin_in_pinmap(p, PinMap_DAC)) {
       if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
         do_init = 1;
@@ -108,8 +109,8 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
       ulValue = mapResolution(ulValue, _writeResolution, DACC_RESOLUTION);
       dac_write_value(p, ulValue, do_init);
     } else
-#endif //HAL_DAC_MODULE_ENABLED
-#ifdef HAL_TIM_MODULE_ENABLED
+#endif //HAL_DAC_MODULE_ENABLED && !HAL_DAC_MODULE_ONLY
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
       if (pin_in_pinmap(p, PinMap_PWM)) {
         if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
           set_pin_configured(p, g_anOutputPinConfigured);
@@ -117,7 +118,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
         ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
         pwm_start(p, _writeFreq, ulValue);
       } else
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
       {
         //DIGITAL PIN ONLY
         // Defaults to digital write
