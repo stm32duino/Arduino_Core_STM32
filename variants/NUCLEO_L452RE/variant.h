@@ -81,7 +81,7 @@ extern "C" {
 #define PA1  46 // A1
 #define PA4  47 // A2
 #define PB0  48 // A3
-#define PC1  19 // A4
+#define PC1  49 // A4
 #define PC0  50 // A5
 #else
 #define PA10 0
