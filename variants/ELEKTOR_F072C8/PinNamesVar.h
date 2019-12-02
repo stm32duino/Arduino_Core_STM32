@@ -6,15 +6,13 @@ SYS_WKUP1 = PA_0,
 SYS_WKUP2 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN3
-    #undef PWR_WAKEUP_PIN3
-//SYS_WKUP3 = NC,
+SYS_WKUP3 = PE_6, /* Not available in LQFP48 */
 #endif
 #ifdef PWR_WAKEUP_PIN4
 SYS_WKUP4 = PA_2,
 #endif
 #ifdef PWR_WAKEUP_PIN5
-#undef PWR_WAKEUP_PIN5
-//SYS_WKUP5 = NC,
+SYS_WKUP5 = PC_5,  /* Not available in LQFP48 */
 #endif
 #ifdef PWR_WAKEUP_PIN6
 SYS_WKUP6 = PB_5,
@@ -23,8 +21,7 @@ SYS_WKUP6 = PB_5,
 SYS_WKUP7 = PB_15,
 #endif
 #ifdef PWR_WAKEUP_PIN8
-    #undef PWR_WAKEUP_PIN8
-    //SYS_WKUP8 = NC,
+SYS_WKUP8 = PF_2, /* Not available in LQFP48 */
 #endif
 /* USB */
 #ifdef USBCON
