@@ -2161,3 +2161,35 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
+
+###############################
+# Elektor LoRa Node Core F0 
+
+ElektorF0.name=Elektor LoRa Node Core F0 Series 
+
+ElektorF0.build.core=arduino
+ElektorF0.build.board=ElektorF0
+ElektorF0.build.mcu=cortex-m0
+ElektorF0.build.series=STM32F0xx
+ElektorF0.build.cmsis_lib_gcc=arm_cortexM0l_math
+ElektorF0.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# ELEKTOR_LORA_NODE_CORE_F072xC
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC=Elektor LoRa Node Core F072
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.upload.maximum_data_size=16384
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.upload.maximum_size=131072
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.board=ELEKTOR_LORA_NODE_CORE_F072xC
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.product_line=STM32F072xB
+ElektorF0.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.variant=ELEKTOR_LORA_NODE_CORE_F072xC
+
+# Upload menu
+
+ElektorF0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+ElektorF0.menu.upload_method.serialMethod.upload.protocol=1
+ElektorF0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+ElektorF0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+ElektorF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+ElektorF0.menu.upload_method.swdMethod.upload.protocol=0
+ElektorF0.menu.upload_method.swdMethod.upload.options=-g
+ElektorF0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
