@@ -665,15 +665,6 @@ GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.extra_flags=-D{build.product_line} {build.xSerial}
 
-# PILL_F072xC
-GenF0.menu.pnum.PILL_F072xC=STM32F072 Moddef BluePill
-GenF0.menu.pnum.PILL_F072xC.upload.maximum_data_size=16384
-GenF0.menu.pnum.PILL_F072xC.upload.maximum_size=131072
-GenF0.menu.pnum.PILL_F072xC.build.board=PILL_F072xC
-GenF0.menu.pnum.PILL_F072xC.build.product_line=STM32F072xB
-GenF0.menu.pnum.PILL_F072xC.build.variant=PILL_F072xC
-
-
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board
 GenF0.menu.pnum.DEMO_F030F4.upload.maximum_data_size=4096
@@ -1098,6 +1089,7 @@ LoRa.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.product_line=STM32F072xB
 LoRa.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.variant=ELEKTOR_LORA_NODE_CORE_F072xC
 LoRa.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ELEKTOR_LORA_NODE_CORE_F072xC.build.extra_flags=-D{build.product_line} {build.xSerial}
+
 
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -2000,6 +1992,3 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
-
-
-
