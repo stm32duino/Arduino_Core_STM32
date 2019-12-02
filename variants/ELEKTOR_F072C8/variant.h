@@ -62,7 +62,7 @@ extern "C" {
 // !!! ...
 //#define PXn x
 
-#define  PA8    0 
+#define  PA8    0
 #define  PA9    1
 #define  PA10   2
 #define  PA11   3
@@ -74,10 +74,10 @@ extern "C" {
 #define  PB3    9
 #define  PB4    10
 #define  PB5    11
-#define PB6     12  
+#define PB6     12
 #define  PB7    13
-#define  PB8    14      
-#define  PB9    15  
+#define  PB8    14
+#define  PB9    15
 #define  PB10   16
 #define  PB11   17
 #define  PB12   18
@@ -94,7 +94,7 @@ extern "C" {
 #define  PA4    29
 #define  PA5    30
 #define  PA6    31
-#define  PA7    32  
+#define  PA7    32
 #define  PB0    33
 #define  PB1    34
 #define  PF0    35
@@ -136,7 +136,7 @@ extern "C" {
 // On-board LED pin number
 #define LED_BUILTIN             PA15
 #define LED_RED                 LED_BUILTIN
-#define LED_GREEN               PB3                 
+#define LED_GREEN               PB3
 
 // On-board user button
 //#define USER_BTN                x

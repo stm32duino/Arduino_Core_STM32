@@ -6,7 +6,7 @@ SYS_WKUP1 = PA_0,
 SYS_WKUP2 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN3
-    #undef PWR_WAKEUP_PIN3
+#undef PWR_WAKEUP_PIN3
 //SYS_WKUP3 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN4
@@ -23,8 +23,8 @@ SYS_WKUP6 = PB_5,
 SYS_WKUP7 = PB_15,
 #endif
 #ifdef PWR_WAKEUP_PIN8
-    #undef PWR_WAKEUP_PIN8
-    //SYS_WKUP8 = NC,
+#undef PWR_WAKEUP_PIN8
+//SYS_WKUP8 = NC,
 #endif
 /* USB */
 #ifdef USBCON
