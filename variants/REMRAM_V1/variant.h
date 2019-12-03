@@ -146,7 +146,6 @@ extern "C"
 #define NUM_ANALOG_FIRST 64
 
 // PWM resolution
-#define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
 #define PWM_MAX_DUTY_CYCLE      255
 

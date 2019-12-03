@@ -313,7 +313,7 @@ PinName analogInputToPinName(uint32_t pin);
 #define DACC_RESOLUTION             12
 #endif
 #ifndef PWM_RESOLUTION
-#define PWM_RESOLUTION              12
+#define PWM_RESOLUTION              8
 #endif
 #ifndef PWM_FREQUENCY
 #define PWM_FREQUENCY               1000
