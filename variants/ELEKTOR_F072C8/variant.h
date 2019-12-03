@@ -83,7 +83,6 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       10
 #define NUM_ANALOG_FIRST        26
 
-// Could be redefined here if needed
 // On-board LED pin number
 #define LED_BUILTIN             PA15
 #define LED_RED                 LED_BUILTIN
