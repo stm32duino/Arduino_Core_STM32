@@ -81,7 +81,9 @@ static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
 
   if (frequency <= MAX_FREQ) {
     if (frequency == 0) {
-      timerTonePinDeinit();
+      if (TimerTone != NULL) {
+        TimerTone->pause();
+      }
     } else {
       TimerTone_pinInfo.pin = p;
 
@@ -121,12 +123,13 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
 void noTone(uint8_t _pin, bool destruct)
 {
   PinName p = digitalPinToPinName(_pin);
-  if ((p != NC) && (TimerTone_pinInfo.pin == p)) {
-    timerTonePinDeinit();
-
-    if ((destruct) && (TimerTone != NULL)) {
+  if ((p != NC) && (TimerTone_pinInfo.pin == p) && (TimerTone != NULL)) {
+    if (destruct) {
+      timerTonePinDeinit();
       delete (TimerTone);
       TimerTone = NULL;
+    } else {
+      TimerTone->pause();
     }
   }
 }
