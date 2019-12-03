@@ -17,6 +17,7 @@
 */
 #ifndef _PINS_ARDUINO_H_
 #define _PINS_ARDUINO_H_
+#include <stdbool.h>
 #include <stdlib.h> /* Required for static_assert */
 // Include board variant
 #include "variant.h"
@@ -323,12 +324,15 @@ PinName analogInputToPinName(uint32_t pin);
 // return first occurence of linked PinName (PYx)
 #define digitalPinFirstOccurence(p) (pinNametoDigitalPin(digitalPinToPinName(p)))
 
-// Specific for Firmata. As some pins could be duplicated,
-// ensure 'p' is not one of the serial pins
+// Specific for Firmata.
+// Some pins could be duplicated, ensure 'p' is not one of the serial pins
 #if defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
 #define pinIsSerial(p)              ((digitalPinFirstOccurence(p) == PIN_SERIAL_RX) ||\
                                      (digitalPinFirstOccurence(p) == PIN_SERIAL_TX))
 #endif
+// Convenient macro to handle Analog
+bool pinIsAnalogInput(uint32_t pin);
+uint32_t digitalPinToAnalogInput(uint32_t pin);
 
 #ifdef __cplusplus
 }
