@@ -30,7 +30,7 @@ uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
 #endif
 
 static int _readResolution = 10;
-static int _writeResolution = 8;
+int _writeResolution = PWM_RESOLUTION;
 static uint32_t _writeFreq = PWM_FREQUENCY;
 
 void analogReadResolution(int res)
@@ -115,8 +115,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
         if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
           set_pin_configured(p, g_anOutputPinConfigured);
         }
-        ulValue = mapResolution(ulValue, _writeResolution, PWM_RESOLUTION);
-        pwm_start(p, _writeFreq, ulValue);
+        pwm_start(p, _writeFreq, ulValue, _writeResolution);
       } else
 #endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
       {

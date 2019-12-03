@@ -538,11 +538,23 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
     case PERCENT_COMPARE_FORMAT:
       CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 100;
       break;
+    case RESOLUTION_1B_COMPARE_FORMAT:
+    case RESOLUTION_2B_COMPARE_FORMAT:
+    case RESOLUTION_3B_COMPARE_FORMAT:
+    case RESOLUTION_4B_COMPARE_FORMAT:
+    case RESOLUTION_5B_COMPARE_FORMAT:
+    case RESOLUTION_6B_COMPARE_FORMAT:
+    case RESOLUTION_7B_COMPARE_FORMAT:
     case RESOLUTION_8B_COMPARE_FORMAT:
-      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 255 ;
-      break;
+    case RESOLUTION_9B_COMPARE_FORMAT:
+    case RESOLUTION_10B_COMPARE_FORMAT:
+    case RESOLUTION_11B_COMPARE_FORMAT:
     case RESOLUTION_12B_COMPARE_FORMAT:
-      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 4095 ;
+    case RESOLUTION_13B_COMPARE_FORMAT:
+    case RESOLUTION_14B_COMPARE_FORMAT:
+    case RESOLUTION_15B_COMPARE_FORMAT:
+    case RESOLUTION_16B_COMPARE_FORMAT:
+      CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / ((1 << format) - 1) ;
       break;
     case TICK_COMPARE_FORMAT:
     default :
@@ -584,11 +596,23 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
     case PERCENT_COMPARE_FORMAT:
       return_value = (CCR_RegisterValue * 100) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
       break;
+    case RESOLUTION_1B_COMPARE_FORMAT:
+    case RESOLUTION_2B_COMPARE_FORMAT:
+    case RESOLUTION_3B_COMPARE_FORMAT:
+    case RESOLUTION_4B_COMPARE_FORMAT:
+    case RESOLUTION_5B_COMPARE_FORMAT:
+    case RESOLUTION_6B_COMPARE_FORMAT:
+    case RESOLUTION_7B_COMPARE_FORMAT:
     case RESOLUTION_8B_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 255) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
-      break;
+    case RESOLUTION_9B_COMPARE_FORMAT:
+    case RESOLUTION_10B_COMPARE_FORMAT:
+    case RESOLUTION_11B_COMPARE_FORMAT:
     case RESOLUTION_12B_COMPARE_FORMAT:
-      return_value = (CCR_RegisterValue * 4095) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
+    case RESOLUTION_13B_COMPARE_FORMAT:
+    case RESOLUTION_14B_COMPARE_FORMAT:
+    case RESOLUTION_15B_COMPARE_FORMAT:
+    case RESOLUTION_16B_COMPARE_FORMAT:
+      return_value = (CCR_RegisterValue * ((1 << format) - 1)) / __HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle));
       break;
     case TICK_COMPARE_FORMAT:
     default :

@@ -37,7 +37,6 @@
   */
 #include "stm32_def.h"
 #include "analog.h"
-#include "HardwareTimer.h"
 #include "PinAF_STM32F1.h"
 #include "stm32yyxx_ll_adc.h"
 
@@ -995,7 +994,7 @@ uint16_t adc_read_value(PinName pin)
   * @param  value : the value to push on the PWM output
   * @retval None
   */
-void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value)
+void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareFormat_t resolution)
 {
   TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
   HardwareTimer *HT;
@@ -1010,7 +1009,7 @@ void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value)
 
   HT->setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
   HT->setOverflow(PWM_freq, HERTZ_FORMAT);
-  HT->setCaptureCompare(channel, value, RESOLUTION_12B_COMPARE_FORMAT);
+  HT->setCaptureCompare(channel, value, resolution);
   HT->resume();
 }
 /**
