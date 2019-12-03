@@ -83,7 +83,6 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       10
 #define NUM_ANALOG_FIRST        26
 
-// Below ADC, DAC and PWM definitions already done in the core
 // Could be redefined here if needed
 // ADC resolution is 12bits
 #define ADC_RESOLUTION          12
