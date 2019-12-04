@@ -1009,6 +1009,14 @@ GenF4.menu.pnum.BLACKPILL_F401CC.build.board=BLACKPILL_F401CC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.product_line=STM32F401xC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=PILL_F401XX
 
+# BlackPill F411CE - Works using PILL_F401XX variant, needs testing
+GenF4.menu.pnum.BLACKPILL_F411CE=BlackPill F411CE
+GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_size=524288
+GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLACKPILL_F411CE.build.board=BLACKPILL_F411CE
+GenF4.menu.pnum.BLACKPILL_F411CE.build.product_line=STM32F411xE
+GenF4.menu.pnum.BLACKPILL_F411CE.build.variant=PILL_F401XX
+
 # Core board F401RCT6
 GenF4.menu.pnum.CoreBoard_F401RC=Core board F401RCT6
 GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_size=262144
