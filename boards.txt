@@ -283,7 +283,7 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {buil
 
 # NUCLEO_G431RB board
 Nucleo_64.menu.pnum.NUCLEO_G431RB=Nucleo G431RB
-Nucleo_64.menu.pnum.NUCLEO_G431RB.node=NODE_G431RB
+Nucleo_64.menu.pnum.NUCLEO_G431RB.node="NODE_G431RB,NOD_G431RB"
 Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_size=131072
 Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_data_size=32768
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.mcu=cortex-m4
@@ -481,7 +481,7 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G431KB board
 Nucleo_32.menu.pnum.NUCLEO_G431KB=Nucleo G431KB
-Nucleo_32.menu.pnum.NUCLEO_G431KB.node=NODE_G431KB
+Nucleo_32.menu.pnum.NUCLEO_G431KB.node="NODE_G431KB,NOD_G431KB"
 Nucleo_32.menu.pnum.NUCLEO_G431KB.upload.maximum_size=131072
 Nucleo_32.menu.pnum.NUCLEO_G431KB.upload.maximum_data_size=32768
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.mcu=cortex-m4
