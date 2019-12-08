@@ -29,7 +29,7 @@ static volatile int8_t timerChannel[_Nbr_16timers] = {-1}; // counter for the se
 
 static HardwareTimer TimerServo(TIMER_SERVO);
 
-uint8_t ServoCount = 0;                                    // the total number of attached servos
+static uint8_t ServoCount = 0;                                    // the total number of attached servos
 
 #define SERVO_MIN() (MIN_PULSE_WIDTH - this->min * 4)   // minimum value in uS for this servo
 #define SERVO_MAX() (MAX_PULSE_WIDTH - this->max * 4)   // maximum value in uS for this servo

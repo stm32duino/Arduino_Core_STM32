@@ -110,8 +110,9 @@ class Servo {
     int read();                        // returns current pulse width as an angle between 0 and 180 degrees
     int readMicroseconds();            // returns current pulse width in microseconds for this servo (was read_us() in first release)
     bool attached();                   // return true if this servo is attached, otherwise false
-  private:
+  protected:
     uint8_t servoIndex;               // index into the channel data for this servo
+  private:
     int8_t min;                       // minimum is this value times 4 added to MIN_PULSE_WIDTH
     int8_t max;                       // maximum is this value times 4 added to MAX_PULSE_WIDTH
 };
