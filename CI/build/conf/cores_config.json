@@ -57,6 +57,8 @@
             "CoreBoard_F401RC",
             "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
+            "ELEKTOR_F072C8",
+            "FEATHER_F405",
             "Generic_F103R8T6",
             "Generic_F103RBT6",
             "Generic_F103RCT6",
@@ -75,7 +77,8 @@
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
             "REMRAM_V1",
-            "Sparky_V1"
+            "Sparky_V1",
+            "Wraith32_V1"
           ]
         },
         {
@@ -181,12 +184,17 @@
             "ARMED_V1",
             "BLUEPILL_F103C6", 
             "EEXTR_F030_V1",
+            "ELEKTOR_F072C8",
+            "FEATHER_F405",
             "MALYANM200_F103CB",
             "NUCLEO_L031K6",
+            "PX_HER0",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
             "REMRAM_V1",
-            "STEVAL_MKSBOX1V1"
+            "STEVAL_MKSBOX1V1",
+            "THUNDER_PACK",
+            "Wraith32_V1"
           ]
         },
         {
@@ -195,10 +203,12 @@
           "boards": [
             "ARMED_V1",
             "EEXTR_F030_V1",
+            "PX_HER0",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
             "REMRAM_V1",
-            "STEVAL_MKSBOX1V1"
+            "STEVAL_MKSBOX1V1",
+            "THUNDER_PACK"
           ]
         },
         {
@@ -215,7 +225,7 @@
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6", "Wraith32_V1"]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
@@ -235,6 +245,19 @@
             "STEVAL_MKSBOX1V1",
             "VAKE_F446VE"
           ]
+        },
+        {
+          "pattern": "IWatchdog|RTC|STM32LowPower",
+          "applicable": false,
+          "boards": [
+            "STM32MP157A_DK1",
+            "STM32MP157C_DK2"
+          ]
+        },
+        {
+          "pattern": "PWM_FullConfiguration",
+          "applicable": false,
+          "boards": [ "THUNDER_PACK" ]
         }
       ]
     },
