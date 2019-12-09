@@ -758,9 +758,10 @@ void HAL_ADC_MspDeInit(ADC_HandleTypeDef *hadc)
 /**
   * @brief  This function will set the ADC to the required value
   * @param  pin : the pin to use
+  * @param  resolution : resolution for converted data: 6/8/10/12/14/16
   * @retval the value of the adc
   */
-uint16_t adc_read_value(PinName pin)
+uint16_t adc_read_value(PinName pin, uint32_t resolution)
 {
   ADC_HandleTypeDef AdcHandle = {};
   ADC_ChannelConfTypeDef  AdcChannelConf = {};
@@ -794,7 +795,35 @@ uint16_t adc_read_value(PinName pin)
   AdcHandle.Init.ClockPrescaler        = ADC_CLOCK_DIV;                 /* (A)synchronous clock mode, input ADC clock divided */
 #endif
 #ifdef ADC_RESOLUTION_12B
-  AdcHandle.Init.Resolution            = ADC_RESOLUTION_12B;            /* 12-bit resolution for converted data */
+  switch (resolution) {
+#ifdef ADC_RESOLUTION_6B
+    case 6:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_6B;             /* resolution for converted data */
+      break;
+#endif
+    case 8:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_8B;             /* resolution for converted data */
+      break;
+    case 10:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_10B;            /* resolution for converted data */
+      break;
+    case 12:
+    default:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_12B;            /* resolution for converted data */
+      break;
+#ifdef ADC_RESOLUTION_14B
+    case 14:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_14B;            /* resolution for converted data */
+      break;
+#endif
+#ifdef ADC_RESOLUTION_16B
+    case 16:
+      AdcHandle.Init.Resolution          = ADC_RESOLUTION_16B;            /* resolution for converted data */
+      break;
+#endif
+  }
+#else
+  UNUSED(resolution);
 #endif
 #ifdef ADC_DATAALIGN_RIGHT
   AdcHandle.Init.DataAlign             = ADC_DATAALIGN_RIGHT;           /* Right-alignment for converted data */

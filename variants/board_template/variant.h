@@ -70,8 +70,8 @@ extern "C" {
 
 // Below ADC and PWM definitions already done in the core
 // Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
+// ADC resolution is 10 bits
+//#define ADC_RESOLUTION          10
 
 // PWM resolution
 //#define PWM_RESOLUTION          8
