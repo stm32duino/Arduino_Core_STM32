@@ -94,7 +94,10 @@
         {
           "pattern": "Firmata/",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "STEVAL_MKSBOX1V1", "VAKE_F446VE" ]
+          "boards": [
+            "BLUEPILL_F103C6", "EEXTR_F030_V1", "ELEKTOR_F072C8", "MALYANM200_F103CB",
+            "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "Wraith32_V1"
+          ]
         },
         {
           "pattern": "Blink(WithoutDelay)?.ino",
@@ -243,7 +246,8 @@
           "boards": [
             "ST3DP001_EVAL",
             "STEVAL_MKSBOX1V1",
-            "VAKE_F446VE"
+            "VAKE_F446VE",
+            "Wraith32_V1"
           ]
         },
         {
