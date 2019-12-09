@@ -123,11 +123,10 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       14
 #define NUM_ANALOG_FIRST        44
 
-// Below ADC, DAC and PWM definitions already done in the core
+// Below ADC and PWM definitions already done in the core
 // Could be redefined here if needed
 // ADC resolution is 12bits
 //#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
 
 // PWM resolution
 //#define PWM_RESOLUTION          8

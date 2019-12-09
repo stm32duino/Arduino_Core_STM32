@@ -309,9 +309,9 @@ PinName analogInputToPinName(uint32_t pin);
 #ifndef ADC_RESOLUTION
 #define ADC_RESOLUTION              12
 #endif
-#ifndef DACC_RESOLUTION
+
 #define DACC_RESOLUTION             12
-#endif
+
 #ifndef PWM_RESOLUTION
 #define PWM_RESOLUTION              8
 #endif
