@@ -262,6 +262,11 @@
           "pattern": "PWM_FullConfiguration",
           "applicable": false,
           "boards": [ "THUNDER_PACK" ]
+        },
+        {
+          "pattern": "HardwareTimer_OutputInput_test",
+          "applicable": true,
+          "boards": [ "NUCLEO_L476RG" ]
         }
       ]
     },
