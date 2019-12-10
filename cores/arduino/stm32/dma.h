@@ -53,11 +53,11 @@ extern "C" {
   */
 IRQn_Type get_dma_interrupt(
 #if defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
-  DMA_Stream_TypeDef
+    DMA_Stream_TypeDef
 #else
-  DMA_Channel_TypeDef
+    DMA_Channel_TypeDef
 #endif
-  *instance);
+    *instance);
 
 /**
   * @brief  This function will store the DMA handle in the appropriate slot
