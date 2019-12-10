@@ -181,7 +181,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   obj->spi = pinmap_merge_peripheral(spi_data, spi_cntl);
 
   // Are all pins connected to the same SPI instance?
-  if (obj->spi == NP) {
+  if (spi_data == NP || spi_cntl == NP || obj->spi == NP) {
     core_debug("ERROR: SPI pins mismatch\n");
     return;
   }
