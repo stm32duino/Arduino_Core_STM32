@@ -667,6 +667,42 @@ void DMA2_Channel8_IRQHandler()
 }
 #endif
 
+
+/* Combined handlers
+DMA1_Ch2_3_DMA2_Ch1_2_IRQn 
+DMA1_Ch4_7_DMA2_Ch3_5_IRQn 
+DMA1_Channel2_3_IRQn 
+DMA1_Channel4_5_6_7_IRQn 
+DMA1_Channel4_5_IRQn 
+DMA2_Channel4_5_IRQn 
+*/
+
+#if defined(DMA1_Channel2) && defined(DMA1_Channel3) && defined(DMA2_Channel1) && defined(DMA2_Channel2)
+/**
+  * @brief  DMA1 and DMA2 hander for channels 2,3 and 1,2
+  * @param  None
+  * @retval None
+  */
+void DMA1_Ch2_3_DMA2_Ch1_2_IRQHandler()
+{
+  if (dma_handles[DMA1_CHANNEL2_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL2_INDEX]);
+  }
+
+  if (dma_handles[DMA1_CHANNEL3_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA1_CHANNEL3_INDEX]);
+  }
+
+  if (dma_handles[DMA2_CHANNEL1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL1_INDEX]);
+  }
+
+  if (dma_handles[DMA2_CHANNEL1_INDEX] != NULL) {
+    HAL_DMA_IRQHandler(dma_handles[DMA2_CHANNEL2_INDEX]);
+  }
+}
+#endif
+
 #ifdef DMA1_Stream0
 void DMA1_Stream0_IRQHandler()
 {
