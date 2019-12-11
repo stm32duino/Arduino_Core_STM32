@@ -1301,7 +1301,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.variant=MALYANM200_F103CB
 3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
-3dprinter.menu.pnum.MALYANM200_F103CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
+3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
+3dprinter.menu.pnum.MALYANM200_F103CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # MALYANM200_F070CB board
 3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
@@ -1311,10 +1312,11 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.board=MALYANM200_F070CB
 3dprinter.menu.pnum.MALYANM200_F070CB.build.series=STM32F0xx
 3dprinter.menu.pnum.MALYANM200_F070CB.build.product_line=STM32F070xB
-3dprinter.menu.pnum.MALYANM200_F070CB.build.variant=MALYANM200_F070CB
+3dprinter.menu.pnum.MALYANM200_F070CB.build.variant=MALYANMx00_F070CB
 3dprinter.menu.pnum.MALYANM200_F070CB.build.cmsis_lib_gcc=arm_cortexM0l_math
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
-3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET=0x2000
+3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
+3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # MALYANM300_F070CB board
 3dprinter.menu.pnum.MALYANM300_F070CB=Malyan M300
@@ -1324,7 +1326,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.board=MALYANM300_F070CB
 3dprinter.menu.pnum.MALYANM300_F070CB.build.series=STM32F0xx
 3dprinter.menu.pnum.MALYANM300_F070CB.build.product_line=STM32F070xB
-3dprinter.menu.pnum.MALYANM300_F070CB.build.variant=MALYANM300_F070CB
+3dprinter.menu.pnum.MALYANM300_F070CB.build.variant=MALYANMx00_F070CB
 3dprinter.menu.pnum.MALYANM300_F070CB.build.cmsis_lib_gcc=arm_cortexM0l_math
 3dprinter.menu.pnum.MALYANM300_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
