@@ -29,8 +29,18 @@ extern "C" {
 uint32_t g_anOutputPinConfigured[MAX_NB_PORT] = {0};
 #endif
 
+#define MAX_PWM_RESOLUTION 16
+
 static int _readResolution = 10;
-int _writeResolution = PWM_RESOLUTION;
+static int _writeResolution = PWM_RESOLUTION;
+static int _internalWriteResolution =
+#if PWM_RESOLUTION > MAX_PWM_RESOLUTION
+  MAX_PWM_RESOLUTION
+#else
+  PWM_RESOLUTION
+#endif
+  ;
+
 static uint32_t _writeFreq = PWM_FREQUENCY;
 
 void analogReadResolution(int res)
@@ -40,7 +50,16 @@ void analogReadResolution(int res)
 
 void analogWriteResolution(int res)
 {
-  _writeResolution = res;
+  if ((res > 0) && (res <= 32)) {
+    _writeResolution = res;
+    if (_writeResolution > MAX_ADC_RESOLUTION) {
+      _internalWriteResolution = MAX_ADC_RESOLUTION;
+    } else {
+      _internalWriteResolution = _writeResolution;
+    }
+  } else {
+    Error_Handler();
+  }
 }
 
 void analogWriteFrequency(uint32_t freq)
@@ -115,7 +134,8 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
         if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
           set_pin_configured(p, g_anOutputPinConfigured);
         }
-        pwm_start(p, _writeFreq, ulValue, _writeResolution);
+        ulValue = mapResolution(ulValue, _writeResolution, _internalWriteResolution);
+        pwm_start(p, _writeFreq, ulValue, _internalWriteResolution);
       } else
 #endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
       {

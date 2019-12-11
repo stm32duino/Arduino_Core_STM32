@@ -315,6 +315,10 @@ PinName analogInputToPinName(uint32_t pin);
 #ifndef PWM_RESOLUTION
 #define PWM_RESOLUTION              8
 #endif
+
+_Static_assert((PWM_RESOLUTION > 0) &&(PWM_RESOLUTION <= 32),
+               "PWM_RESOLUTION must be 0 < x <= 32!");
+
 #ifndef PWM_FREQUENCY
 #define PWM_FREQUENCY               1000
 #endif
