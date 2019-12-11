@@ -40,41 +40,41 @@ extern "C" {
 
 // USB connector on the top, MCU side
 // Left Side
-#define PB9  0  // LED_BLUE
-#define PB8  1  // LED_GREEN
-#define PB7  2  // Z_MIN_PIN
-#define PB6  3  // SD SPI_SS
-#define PB5  4  // SD SPI_MOSI
-#define PB4  5  // SD SPI_MISO
-#define PB3  6  // SD SPI_SCK
-#define PA15 7  // USER_BUTTON
+#define PB9  0
+#define PB8  1
+#define PB7  2
+#define PB6  3
+#define PB5  4
+#define PB4  5
+#define PB3  6
+#define PA15 7
 #define PA12 8  // USB DP
 #define PA11 9  // USB DM
-#define PA10 10 // RX
-#define PA9  11 // TX
-#define PA8  12 // E0_AUTO_FAN_PIN
-#define PB15 13 // LED_RED
-#define PB14 14 // X_STEP_PIN
-#define PB13 15 // X_DIR_PIN
-#define PB12 16 // Y_STEP_PIN
+#define PA10 10
+#define PA9  11
+#define PA8  12
+#define PB15 13
+#define PB14 14
+#define PB13 15
+#define PB12 16
 // Right side
-#define PC13 17 // X_MAX_PIN
-#define PC14 18 // Y_MAX_PIN
-#define PC15 19 // Z_MAX_PIN
-#define PA0  20 // A0 TEMP_0_PIN
-#define PA1  21 // A1 HEATER_0_PIN
+#define PC13 17
+#define PC14 18
+#define PC15 19
+#define PA0  20 // A0
+#define PA1  21 // A1
 #define PA2  22 // A2
 #define PA3  23 // A3
-#define PA4  24 // A4 TEMP_BED_PIN
-#define PA5  25 // A5 HEATER_BED_PIN
-#define PA6  26 // A6 E0_DIR_PIN
-#define PA7  27 // A7 E0_STEP_PIN
-#define PB0  28 // A8 E0_ENABLE_PIN
-#define PB1  29 // A9 Z_DIR_PIN
-#define PB10 30 // XYZ_ENABLE_PIN
-#define PB11 31 // Y_DIR_PIN
+#define PA4  24 // A4
+#define PA5  25 // A5
+#define PA6  26 // A6
+#define PA7  27 // A7
+#define PB0  28 // A8
+#define PB1  29 // A9
+#define PB10 30
+#define PB11 31
 // Other
-#define PB2  32 // BOOT1 Z_STEP_PIN
+#define PB2  32 // BOOT1
 #define PA13 33 // SWDI0
 #define PA14 34 // SWCLK
 
@@ -85,16 +85,27 @@ extern "C" {
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
+#ifdef ARDUINO_MALYANM200_F070CB
+#define LED_GREEN               PC13
+#else // MALYANM300_F070CB
 #define LED_RED                 PB15
 #define LED_GREEN               PB8
 #define LED_BLUE                PB9
+#endif
 #define LED_BUILTIN             LED_GREEN
 
 // SPI Definitions
+#ifdef ARDUINO_MALYANM200_F070CB
+#define PIN_SPI_SS              PA4
+#define PIN_SPI_MOSI            PA7
+#define PIN_SPI_MISO            PA6
+#define PIN_SPI_SCK             PA5
+#else // MALYANM300_F070CB
 #define PIN_SPI_SS              PB6
 #define PIN_SPI_MOSI            PB5
 #define PIN_SPI_MISO            PB4
 #define PIN_SPI_SCK             PB3
+#endif
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PB7
