@@ -669,12 +669,12 @@ void DMA2_Channel8_IRQHandler()
 
 
 /* Combined handlers
-DMA1_Ch2_3_DMA2_Ch1_2_IRQn 
-DMA1_Ch4_7_DMA2_Ch3_5_IRQn 
-DMA1_Channel2_3_IRQn 
-DMA1_Channel4_5_6_7_IRQn 
-DMA1_Channel4_5_IRQn 
-DMA2_Channel4_5_IRQn 
+DMA1_Ch2_3_DMA2_Ch1_2_IRQn
+DMA1_Ch4_7_DMA2_Ch3_5_IRQn
+DMA1_Channel2_3_IRQn
+DMA1_Channel4_5_6_7_IRQn
+DMA1_Channel4_5_IRQn
+DMA2_Channel4_5_IRQn
 */
 
 #if defined(DMA1_Channel2) && defined(DMA1_Channel3) && defined(DMA2_Channel1) && defined(DMA2_Channel2)
