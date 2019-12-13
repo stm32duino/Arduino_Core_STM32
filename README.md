@@ -136,6 +136,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [EExtruder F030 V1](https://github.com/ghent360/PrntrBoard/tree/tmc2130-redesign/EExtruder) | *1.5.0* | Small companion board for Prntr Board V1 |
 | :green_heart: | Malyan M200 V1 | *1.5.0* |  |
 | :green_heart: | Malyan M200 V2 | *1.5.0* |  |
+| :yellow_heart: | [Malyan M300](http://malyansys.com/product/m300/) | **1.8.0** |  |
 | :green_heart: | [Prntr Board V1](https://github.com/ghent360/PrntrBoard) | *1.5.0* |  |
 | :green_heart: | [RemRam v1](https://github.com/hasenbanck/remram) | *1.4.0* |  |
 | :green_heart: | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
