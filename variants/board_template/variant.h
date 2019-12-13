@@ -68,11 +68,10 @@ extern "C" {
 // First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
 #define NUM_ANALOG_FIRST        0
 
-// Below ADC, DAC and PWM definitions already done in the core
+// Below ADC and PWM definitions already done in the core
 // Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
+// ADC resolution is 10 bits
+//#define ADC_RESOLUTION          10
 
 // PWM resolution
 //#define PWM_RESOLUTION          8

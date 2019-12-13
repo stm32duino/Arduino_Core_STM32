@@ -307,14 +307,20 @@ PinName analogInputToPinName(uint32_t pin);
 
 // Default Definitions, could be redefined in variant.h
 #ifndef ADC_RESOLUTION
-#define ADC_RESOLUTION              12
+#define ADC_RESOLUTION              10
 #endif
-#ifndef DACC_RESOLUTION
+
 #define DACC_RESOLUTION             12
-#endif
+
 #ifndef PWM_RESOLUTION
 #define PWM_RESOLUTION              8
 #endif
+
+_Static_assert((ADC_RESOLUTION > 0) &&(ADC_RESOLUTION <= 32),
+               "ADC_RESOLUTION must be 0 < x <= 32!");
+_Static_assert((PWM_RESOLUTION > 0) &&(PWM_RESOLUTION <= 32),
+               "PWM_RESOLUTION must be 0 < x <= 32!");
+
 #ifndef PWM_FREQUENCY
 #define PWM_FREQUENCY               1000
 #endif
