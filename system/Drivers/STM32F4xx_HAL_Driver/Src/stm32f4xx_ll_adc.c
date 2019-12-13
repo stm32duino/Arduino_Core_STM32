@@ -709,8 +709,7 @@ ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *ADC_REG_I
                    ADC_CR1_DISCEN
                  | ADC_CR1_DISCNUM
                 ,
-                   ADC_REG_InitStruct->SequencerLength
-                 | ADC_REG_InitStruct->SequencerDiscont
+                   ADC_REG_InitStruct->SequencerDiscont
                 );
     }
     else
@@ -719,8 +718,7 @@ ErrorStatus LL_ADC_REG_Init(ADC_TypeDef *ADCx, LL_ADC_REG_InitTypeDef *ADC_REG_I
                    ADC_CR1_DISCEN
                  | ADC_CR1_DISCNUM
                 ,
-                   ADC_REG_InitStruct->SequencerLength
-                 | LL_ADC_REG_SEQ_DISCONT_DISABLE
+                   LL_ADC_REG_SEQ_DISCONT_DISABLE
                 );
     }
 
