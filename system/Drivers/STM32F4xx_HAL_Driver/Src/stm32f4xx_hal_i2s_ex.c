@@ -126,7 +126,7 @@ static void I2SEx_RxISR_I2SExt(I2S_HandleTypeDef *hi2s);
 static void I2SEx_TxISR_I2S(I2S_HandleTypeDef *hi2s);
 static void I2SEx_TxISR_I2SExt(I2S_HandleTypeDef *hi2s);
 static HAL_StatusTypeDef I2SEx_FullDuplexWaitFlagStateUntilTimeout(I2S_HandleTypeDef *hi2s, uint32_t Flag,
-    uint32_t State, uint32_t Timeout, I2S_UseTypeDef i2sUsed);
+                                                                   uint32_t State, uint32_t Timeout, I2S_UseTypeDef i2sUsed);
 /**
   * @}
   */
@@ -1088,7 +1088,7 @@ static void I2SEx_RxISR_I2SExt(I2S_HandleTypeDef *hi2s)
   * @retval HAL status
   */
 static HAL_StatusTypeDef I2SEx_FullDuplexWaitFlagStateUntilTimeout(I2S_HandleTypeDef *hi2s, uint32_t Flag,
-    uint32_t State, uint32_t Timeout, I2S_UseTypeDef i2sUsed)
+                                                                   uint32_t State, uint32_t Timeout, I2S_UseTypeDef i2sUsed)
 {
   uint32_t tickstart = HAL_GetTick();
 

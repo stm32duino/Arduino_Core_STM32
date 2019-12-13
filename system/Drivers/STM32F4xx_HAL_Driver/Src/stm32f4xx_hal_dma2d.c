@@ -950,6 +950,119 @@ HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t Lay
   return HAL_OK;
 }
 
+/**
+  * @brief  Start DMA2D CLUT Loading.
+  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  *                   the configuration information for the DMA2D.
+  * @param  CLUTCfg  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+  *                   the configuration information for the color look up table.
+  * @param  LayerIdx DMA2D Layer index.
+  *                   This parameter can be one of the following values:
+  *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx)
+{
+  /* Check the parameters */
+  assert_param(IS_DMA2D_LAYER(LayerIdx));
+  assert_param(IS_DMA2D_CLUT_CM(CLUTCfg->CLUTColorMode));
+  assert_param(IS_DMA2D_CLUT_SIZE(CLUTCfg->Size));
+
+  /* Process locked */
+  __HAL_LOCK(hdma2d);
+
+  /* Change DMA2D peripheral state */
+  hdma2d->State = HAL_DMA2D_STATE_BUSY;
+
+  /* Configure the CLUT of the background DMA2D layer */
+  if(LayerIdx == DMA2D_BACKGROUND_LAYER)
+  {
+    /* Write background CLUT memory address */
+    WRITE_REG(hdma2d->Instance->BGCMAR, (uint32_t)CLUTCfg->pCLUT);
+
+    /* Write background CLUT size and CLUT color mode */
+    MODIFY_REG(hdma2d->Instance->BGPFCCR, (DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM),
+            ((CLUTCfg->Size << DMA2D_BGPFCCR_CS_Pos) | (CLUTCfg->CLUTColorMode << DMA2D_BGPFCCR_CCM_Pos)));
+
+    /* Enable the CLUT loading for the background */
+    SET_BIT(hdma2d->Instance->BGPFCCR, DMA2D_BGPFCCR_START);
+  }
+  /* Configure the CLUT of the foreground DMA2D layer */
+  else
+  {
+    /* Write foreground CLUT memory address */
+    WRITE_REG(hdma2d->Instance->FGCMAR, (uint32_t)CLUTCfg->pCLUT);
+
+    /* Write foreground CLUT size and CLUT color mode */
+    MODIFY_REG(hdma2d->Instance->FGPFCCR, (DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM),
+            ((CLUTCfg->Size << DMA2D_FGPFCCR_CS_Pos) | (CLUTCfg->CLUTColorMode << DMA2D_FGPFCCR_CCM_Pos)));
+
+ /* Enable the CLUT loading for the foreground */
+    SET_BIT(hdma2d->Instance->FGPFCCR, DMA2D_FGPFCCR_START);
+  }
+
+  return HAL_OK;
+}
+
+/**
+  * @brief  Start DMA2D CLUT Loading with interrupt enabled.
+  * @param  hdma2d   Pointer to a DMA2D_HandleTypeDef structure that contains
+  *                   the configuration information for the DMA2D.
+  * @param  CLUTCfg  Pointer to a DMA2D_CLUTCfgTypeDef structure that contains
+  *                   the configuration information for the color look up table.
+  * @param  LayerIdx DMA2D Layer index.
+  *                   This parameter can be one of the following values:
+  *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_DMA2D_CLUTStartLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef *CLUTCfg, uint32_t LayerIdx)
+{
+  /* Check the parameters */
+  assert_param(IS_DMA2D_LAYER(LayerIdx));
+  assert_param(IS_DMA2D_CLUT_CM(CLUTCfg->CLUTColorMode));
+  assert_param(IS_DMA2D_CLUT_SIZE(CLUTCfg->Size));
+
+  /* Process locked */
+  __HAL_LOCK(hdma2d);
+
+  /* Change DMA2D peripheral state */
+  hdma2d->State = HAL_DMA2D_STATE_BUSY;
+
+  /* Configure the CLUT of the background DMA2D layer */
+  if(LayerIdx == DMA2D_BACKGROUND_LAYER)
+  {
+    /* Write background CLUT memory address */
+    WRITE_REG(hdma2d->Instance->BGCMAR, (uint32_t)CLUTCfg->pCLUT);
+
+    /* Write background CLUT size and CLUT color mode */
+    MODIFY_REG(hdma2d->Instance->BGPFCCR, (DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM),
+            ((CLUTCfg->Size << DMA2D_BGPFCCR_CS_Pos) | (CLUTCfg->CLUTColorMode << DMA2D_BGPFCCR_CCM_Pos)));
+
+    /* Enable the CLUT Transfer Complete, transfer Error, configuration Error and CLUT Access Error interrupts */
+    __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CTC | DMA2D_IT_TE | DMA2D_IT_CE |DMA2D_IT_CAE);
+
+    /* Enable the CLUT loading for the background */
+    SET_BIT(hdma2d->Instance->BGPFCCR, DMA2D_BGPFCCR_START);
+  }
+  /* Configure the CLUT of the foreground DMA2D layer */
+  else
+  {
+    /* Write foreground CLUT memory address */
+    WRITE_REG(hdma2d->Instance->FGCMAR, (uint32_t)CLUTCfg->pCLUT);
+
+    /* Write foreground CLUT size and CLUT color mode */
+    MODIFY_REG(hdma2d->Instance->FGPFCCR, (DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM),
+            ((CLUTCfg->Size << DMA2D_FGPFCCR_CS_Pos) | (CLUTCfg->CLUTColorMode << DMA2D_FGPFCCR_CCM_Pos)));
+
+    /* Enable the CLUT Transfer Complete, transfer Error, configuration Error and CLUT Access Error interrupts */
+    __HAL_DMA2D_ENABLE_IT(hdma2d, DMA2D_IT_CTC | DMA2D_IT_TE | DMA2D_IT_CE |DMA2D_IT_CAE);
+
+    /* Enable the CLUT loading for the foreground */
+    SET_BIT(hdma2d->Instance->FGPFCCR, DMA2D_FGPFCCR_START);
+  }
+
+  return HAL_OK;
+}
 
 /**
   * @brief  Start DMA2D CLUT Loading.
@@ -960,7 +1073,9 @@ HAL_StatusTypeDef HAL_DMA2D_EnableCLUT(DMA2D_HandleTypeDef *hdma2d, uint32_t Lay
   * @param  LayerIdx DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
-  * @note Invoking this API is similar to calling HAL_DMA2D_ConfigCLUT() then HAL_DMA2D_EnableCLUT().
+  * @note API obsolete and maintained for compatibility with legacy. User is
+  *      invited to resort to HAL_DMA2D_CLUTStartLoad() instead to benefit from
+  *      code compactness, code size and improved heap usage.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_CLUTLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx)
@@ -1015,6 +1130,9 @@ HAL_StatusTypeDef HAL_DMA2D_CLUTLoad(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgT
   * @param  LayerIdx DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
+  * @note API obsolete and maintained for compatibility with legacy. User is
+  *      invited to resort to HAL_DMA2D_CLUTStartLoad_IT() instead to benefit
+  *      from code compactness, code size and improved heap usage.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_CLUTLoad_IT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx)
@@ -1682,6 +1800,9 @@ HAL_StatusTypeDef HAL_DMA2D_ConfigLayer(DMA2D_HandleTypeDef *hdma2d, uint32_t La
   * @param  LayerIdx DMA2D Layer index.
   *                   This parameter can be one of the following values:
   *                   DMA2D_BACKGROUND_LAYER(0) / DMA2D_FOREGROUND_LAYER(1)
+  * @note API obsolete and maintained for compatibility with legacy. User is invited
+  *      to resort to HAL_DMA2D_CLUTStartLoad() instead to benefit from code compactness,
+  *      code size and improved heap usage.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_DMA2D_ConfigCLUT(DMA2D_HandleTypeDef *hdma2d, DMA2D_CLUTCfgTypeDef CLUTCfg, uint32_t LayerIdx)

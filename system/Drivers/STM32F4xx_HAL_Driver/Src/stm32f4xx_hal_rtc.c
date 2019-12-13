@@ -105,10 +105,12 @@
   *** Callback registration ***
   =============================================
 
+  [..]
   The compilation define  USE_HAL_RTC_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
   Use Function @ref HAL_RTC_RegisterCallback() to register an interrupt callback.
 
+  [..]
   Function @ref HAL_RTC_RegisterCallback() allows to register following callbacks:
     (+) AlarmAEventCallback          : RTC Alarm A Event callback.
     (+) AlarmBEventCallback          : RTC Alarm B Event callback.
@@ -118,9 +120,11 @@
     (+) Tamper2EventCallback         : RTC Tamper 2 Event callback.
     (+) MspInitCallback              : RTC MspInit callback.
     (+) MspDeInitCallback            : RTC MspDeInit callback.
+  [..]
   This function takes as parameters the HAL peripheral handle, the Callback ID
   and a pointer to the user callback function.
 
+  [..]
   Use function @ref HAL_RTC_UnRegisterCallback() to reset a callback to the default
   weak function.
   @ref HAL_RTC_UnRegisterCallback() takes as parameters the HAL peripheral handle,
@@ -135,6 +139,7 @@
     (+) MspInitCallback              : RTC MspInit callback.
     (+) MspDeInitCallback            : RTC MspDeInit callback.
 
+  [..]
   By default, after the @ref HAL_RTC_Init() and when the state is HAL_RTC_STATE_RESET,
   all callbacks are set to the corresponding weak functions :
   examples @ref AlarmAEventCallback(), @ref WakeUpTimerEventCallback().
@@ -144,6 +149,7 @@
   If not, MspInit or MspDeInit are not null, @ref HAL_RTC_Init()/@ref HAL_RTC_DeInit()
   keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
+  [..]
   Callbacks can be registered/unregistered in HAL_RTC_STATE_READY state only.
   Exception done MspInit/MspDeInit that can be registered/unregistered
   in HAL_RTC_STATE_READY or HAL_RTC_STATE_RESET state,
@@ -152,6 +158,7 @@
   using @ref HAL_RTC_RegisterCallback() before calling @ref HAL_RTC_DeInit()
   or @ref HAL_RTC_Init() function.
 
+  [..]
   When The compilation define USE_HAL_RTC_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
@@ -1572,10 +1579,11 @@ HAL_StatusTypeDef HAL_RTC_GetAlarm(RTC_HandleTypeDef *hrtc, RTC_AlarmTypeDef *sA
   */
 void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef* hrtc)
 {
-  if(__HAL_RTC_ALARM_GET_IT(hrtc, RTC_IT_ALRA))
+  /* Get the AlarmA interrupt source enable status */
+  if(__HAL_RTC_ALARM_GET_IT_SOURCE(hrtc, RTC_IT_ALRA) != (uint32_t)RESET)
   {
-    /* Get the status of the Interrupt */
-    if((uint32_t)(hrtc->Instance->CR & RTC_IT_ALRA) != (uint32_t)RESET)
+    /* Get the pending status of the AlarmA Interrupt */
+    if(__HAL_RTC_ALARM_GET_FLAG(hrtc, RTC_FLAG_ALRAF) != (uint32_t)RESET)
     {
       /* AlarmA callback */
     #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
@@ -1584,15 +1592,16 @@ void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef* hrtc)
       HAL_RTC_AlarmAEventCallback(hrtc);
     #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
 
-      /* Clear the Alarm interrupt pending bit */
+      /* Clear the AlarmA interrupt pending bit */
       __HAL_RTC_ALARM_CLEAR_FLAG(hrtc,RTC_FLAG_ALRAF);
     }
   }
 
-  if(__HAL_RTC_ALARM_GET_IT(hrtc, RTC_IT_ALRB))
+  /* Get the AlarmB interrupt source enable status */
+  if(__HAL_RTC_ALARM_GET_IT_SOURCE(hrtc, RTC_IT_ALRB) != (uint32_t)RESET)
   {
-    /* Get the status of the Interrupt */
-    if((uint32_t)(hrtc->Instance->CR & RTC_IT_ALRB) != (uint32_t)RESET)
+    /* Get the pending status of the AlarmB Interrupt */
+    if(__HAL_RTC_ALARM_GET_FLAG(hrtc, RTC_FLAG_ALRBF) != (uint32_t)RESET)
     {
       /* AlarmB callback */
     #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
@@ -1601,7 +1610,7 @@ void HAL_RTC_AlarmIRQHandler(RTC_HandleTypeDef* hrtc)
       HAL_RTCEx_AlarmBEventCallback(hrtc);
     #endif /* USE_HAL_RTC_REGISTER_CALLBACKS */
 
-      /* Clear the Alarm interrupt pending bit */
+      /* Clear the AlarmB interrupt pending bit */
       __HAL_RTC_ALARM_CLEAR_FLAG(hrtc,RTC_FLAG_ALRBF);
     }
   }

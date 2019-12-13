@@ -141,12 +141,13 @@
 
     *** Callback registration ***
     =============================
-
+    [..]
     The compilation define USE_HAL_SAI_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
-    Use functions @ref HAL_SAI_RegisterCallback() to register a user callback.
+    Use functions HAL_SAI_RegisterCallback() to register a user callback.
 
-    Function @ref HAL_SAI_RegisterCallback() allows to register following callbacks:
+    [..]
+    Function HAL_SAI_RegisterCallback() allows to register following callbacks:
       (+) RxCpltCallback     : SAI receive complete.
       (+) RxHalfCpltCallback : SAI receive half complete.
       (+) TxCpltCallback     : SAI transmit complete.
@@ -154,13 +155,16 @@
       (+) ErrorCallback      : SAI error.
       (+) MspInitCallback    : SAI MspInit.
       (+) MspDeInitCallback  : SAI MspDeInit.
+    [..]
     This function takes as parameters the HAL peripheral handle, the callback ID
     and a pointer to the user callback function.
 
-    Use function @ref HAL_SAI_UnRegisterCallback() to reset a callback to the default
+    [..]
+    Use function HAL_SAI_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function.
-    @ref HAL_SAI_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+    HAL_SAI_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the callback ID.
+    [..]
     This function allows to reset following callbacks:
       (+) RxCpltCallback     : SAI receive complete.
       (+) RxHalfCpltCallback : SAI receive half complete.
@@ -170,23 +174,26 @@
       (+) MspInitCallback    : SAI MspInit.
       (+) MspDeInitCallback  : SAI MspDeInit.
 
-    By default, after the @ref HAL_SAI_Init and if the state is HAL_SAI_STATE_RESET
+    [..]
+    By default, after the HAL_SAI_Init and if the state is HAL_SAI_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions:
-    examples @ref HAL_SAI_RxCpltCallback(), @ref HAL_SAI_ErrorCallback().
+    examples HAL_SAI_RxCpltCallback(), HAL_SAI_ErrorCallback().
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_SAI_Init
-    and @ref  HAL_SAI_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_SAI_Init and @ref HAL_SAI_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_SAI_Init
+    and HAL_SAI_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_SAI_Init and HAL_SAI_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
+    [..]
     Callbacks can be registered/unregistered in READY state only.
     Exception done for MspInit/MspDeInit callbacks that can be registered/unregistered
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_SAI_RegisterCallback before calling @ref HAL_SAI_DeInit
-    or @ref HAL_SAI_Init function.
+    using HAL_SAI_RegisterCallback before calling HAL_SAI_DeInit
+    or HAL_SAI_Init function.
 
+    [..]
     When the compilation define USE_HAL_SAI_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
@@ -240,7 +247,6 @@ typedef enum {
 /** @defgroup SAI_Private_Constants  SAI Private Constants
   * @{
   */
-#define SAI_FIFO_SIZE         8U
 #define SAI_DEFAULT_TIMEOUT   4U /* 4ms */
 /**
   * @}
@@ -466,6 +472,9 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
     }
   }
 
+  /* Check the SAI Block master clock divider parameter */
+  assert_param(IS_SAI_BLOCK_MASTER_DIVIDER(hsai->Init.Mckdiv));
+
   /* Compute CKSTR bits of SAI CR1 according to ClockStrobing and AudioMode */
   if((hsai->Init.AudioMode == SAI_MODEMASTER_TX) || (hsai->Init.AudioMode == SAI_MODESLAVE_TX))
   {
@@ -498,6 +507,7 @@ HAL_StatusTypeDef HAL_SAI_Init(SAI_HandleTypeDef *hsai)
   default:
     break;
   }
+
   /* SAI CR1 Configuration */
   hsai->Instance->CR1 &= ~(SAI_xCR1_MODE | SAI_xCR1_PRTCFG |  SAI_xCR1_DS |      \
                            SAI_xCR1_LSBFIRST | SAI_xCR1_CKSTR | SAI_xCR1_SYNCEN |\
@@ -1453,18 +1463,18 @@ HAL_StatusTypeDef HAL_SAI_Receive_DMA(SAI_HandleTypeDef *hsai, uint8_t *pData, u
       return  HAL_ERROR;
     }
 
+    /* Enable the interrupts for error handling */
+    __HAL_SAI_ENABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
+
+    /* Enable SAI Rx DMA Request */
+    hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
+
     /* Check if the SAI is already enabled */
     if((hsai->Instance->CR1 & SAI_xCR1_SAIEN) == RESET)
     {
       /* Enable SAI peripheral */
       __HAL_SAI_ENABLE(hsai);
     }
-
-    /* Enable the interrupts for error handling */
-    __HAL_SAI_ENABLE_IT(hsai, SAI_InterruptFlag(hsai, SAI_MODE_DMA));
-
-    /* Enable SAI Rx DMA Request */
-    hsai->Instance->CR1 |= SAI_xCR1_DMAEN;
 
     /* Process Unlocked */
     __HAL_UNLOCK(hsai);
@@ -1612,6 +1622,9 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
     /* SAI AFSDET interrupt occurred ----------------------------------*/
     else if(((itflags & SAI_FLAG_AFSDET) == SAI_FLAG_AFSDET) && ((itsources & SAI_IT_AFSDET) == SAI_IT_AFSDET))
     {
+      /* Clear the SAI AFSDET flag */
+      __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_AFSDET);
+
       /* Change the SAI error code */
       hsai->ErrorCode |= HAL_SAI_ERROR_AFSDET;
 
@@ -1652,6 +1665,9 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
     /* SAI LFSDET interrupt occurred ----------------------------------*/
     else if(((itflags & SAI_FLAG_LFSDET) == SAI_FLAG_LFSDET) && ((itsources & SAI_IT_LFSDET) == SAI_IT_LFSDET))
     {
+      /* Clear the SAI LFSDET flag */
+      __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_LFSDET);
+
       /* Change the SAI error code */
       hsai->ErrorCode |= HAL_SAI_ERROR_LFSDET;
 
@@ -1692,6 +1708,9 @@ void HAL_SAI_IRQHandler(SAI_HandleTypeDef *hsai)
     /* SAI WCKCFG interrupt occurred ----------------------------------*/
     else if(((itflags & SAI_FLAG_WCKCFG) == SAI_FLAG_WCKCFG) && ((itsources & SAI_IT_WCKCFG) == SAI_IT_WCKCFG))
     {
+      /* Clear the SAI WCKCFG flag */
+      __HAL_SAI_CLEAR_FLAG(hsai, SAI_FLAG_WCKCFG);
+
       /* Change the SAI error code */
       hsai->ErrorCode |= HAL_SAI_ERROR_WCKCFG;
 
@@ -1929,19 +1948,16 @@ static HAL_StatusTypeDef SAI_InitI2S(SAI_HandleTypeDef *hsai, uint32_t protocol,
     return HAL_ERROR;
   }
 
-  switch(protocol)
+  if (protocol == SAI_I2S_STANDARD)
   {
-  case SAI_I2S_STANDARD :
     hsai->FrameInit.FSPolarity = SAI_FS_ACTIVE_LOW;
     hsai->FrameInit.FSOffset   = SAI_FS_BEFOREFIRSTBIT;
-    break;
-  case SAI_I2S_MSBJUSTIFIED :
-  case SAI_I2S_LSBJUSTIFIED :
+  }
+  else
+  {
+     /* SAI_I2S_MSBJUSTIFIED or SAI_I2S_LSBJUSTIFIED */
     hsai->FrameInit.FSPolarity = SAI_FS_ACTIVE_HIGH;
     hsai->FrameInit.FSOffset   = SAI_FS_FIRSTBIT;
-    break;
-  default :
-    return HAL_ERROR;
   }
 
   /* Frame definition */
@@ -2018,16 +2034,14 @@ static HAL_StatusTypeDef SAI_InitPCM(SAI_HandleTypeDef *hsai, uint32_t protocol,
   hsai->SlotInit.SlotNumber      = nbslot;
   hsai->SlotInit.SlotActive      = SAI_SLOTACTIVE_ALL;
 
-  switch(protocol)
+  if (protocol == SAI_PCM_SHORT)
   {
-  case SAI_PCM_SHORT :
-    hsai->FrameInit.ActiveFrameLength = 1U;
-    break;
-  case SAI_PCM_LONG :
-    hsai->FrameInit.ActiveFrameLength = 13U;
-    break;
-  default :
-    return HAL_ERROR;
+    hsai->FrameInit.ActiveFrameLength = 1;
+  }
+  else
+  {
+    /* SAI_PCM_LONG */
+    hsai->FrameInit.ActiveFrameLength = 13;
   }
 
   switch(datasize)
@@ -2339,7 +2353,7 @@ static void SAI_DMATxCplt(DMA_HandleTypeDef *hdma)
 {
   SAI_HandleTypeDef* hsai = (SAI_HandleTypeDef*)((DMA_HandleTypeDef* )hdma)->Parent;
 
-  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
+  if (hdma->Init.Mode != DMA_CIRCULAR)
   {
     hsai->XferCount = 0U;
 
@@ -2384,7 +2398,8 @@ static void SAI_DMATxHalfCplt(DMA_HandleTypeDef *hdma)
 static void SAI_DMARxCplt(DMA_HandleTypeDef *hdma)
 {
   SAI_HandleTypeDef* hsai = ( SAI_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-  if((hdma->Instance->CR & DMA_SxCR_CIRC) == 0U)
+
+  if (hdma->Init.Mode != DMA_CIRCULAR)
   {
     /* Disable Rx DMA Request */
     hsai->Instance->CR1 &= (uint32_t)(~SAI_xCR1_DMAEN);

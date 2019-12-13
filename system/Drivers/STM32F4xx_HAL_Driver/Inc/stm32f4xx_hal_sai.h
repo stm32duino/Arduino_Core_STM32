@@ -104,9 +104,10 @@ typedef struct
   uint32_t AudioFrequency;      /*!< Specifies the audio frequency sampling.
                                      This parameter can be a value of @ref SAI_Audio_Frequency                 */
 
-  uint32_t Mckdiv;              /*!< Specifies the master clock divider, the parameter will be used if for
-                                     AudioFrequency the user choice
-                                     This parameter must be a number between Min_Data = 0 and Max_Data = 15    */
+  uint32_t Mckdiv;              /*!< Specifies the master clock divider.
+                                     This parameter must be a number between Min_Data = 0 and Max_Data = 15.
+                                     @note This parameter is used only if AudioFrequency is set to
+                                           SAI_AUDIO_FREQUENCY_MCKDIV otherwise it is internally computed. */
 
   uint32_t MonoStereoMode;      /*!< Specifies if the mono or stereo mode is selected.
                                      This parameter can be a value of @ref SAI_Mono_Stereo_Mode                */
