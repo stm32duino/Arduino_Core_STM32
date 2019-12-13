@@ -35,7 +35,32 @@ extern "C" {
 #endif // __cplusplus
 
 /*----------------------------------------------------------------------------
- *        Pins
+ * Pin                  M200     M300
+ * X_MIN_PIN            PB4      -
+ * X_MAX_PIN            -        PC13
+ * Y_MIN_PIN            PA15     -
+ * Y_MAX_PIN            -        PC14
+ * Z_MAX_PIN            -        PC15
+ * Z_MIN_PIN            PB5      PB7
+ * X_STEP_PIN           PB14     PB14
+ * X_DIR_PIN            PB15     PB13
+ * X_ENABLE_PIN         PA8      PB10
+ * Y_STEP_PIN           PB12     PB12
+ * Y_DIR_PIN            PB13     PB11
+ * Y_ENABLE_PIN         PA8      PB10
+ * Z_STEP_PIN           PB10     PB2
+ * Z_DIR_PIN            PB2      PB1
+ * Z_ENABLE_PIN         PA8      PB10
+ * E0_STEP_PIN          PB0      PA7
+ * E0_DIR_PIN           PC13     PA6
+ * E0_ENABLE_PIN        PB1      PB0
+ * HEATER_0_PIN         PB6      PA1
+ * HEATER_BED_PIN       PB7      PA5
+ * TEMP_0_PIN           PA0      PA0
+ * TEMP_BED_PIN         PA1      PA4
+ * FAN1_PIN             PB8      PA8
+ * FAN2_PIN             PB3      -
+ *
  *----------------------------------------------------------------------------*/
 
 // USB connector on the top, MCU side
@@ -58,7 +83,7 @@ extern "C" {
 #define PB13 15
 #define PB12 16
 // Right side
-#define PC13 17 // LED
+#define PC13 17
 #define PC14 18
 #define PC15 19
 #define PA0  20 // A0
@@ -85,14 +110,27 @@ extern "C" {
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
-#define LED_BUILTIN             PC13
-#define LED_GREEN               LED_BUILTIN
+#ifdef ARDUINO_MALYANM200_F070CB
+#define LED_GREEN               PC13
+#else // MALYANM300_F070CB
+#define LED_RED                 PB15
+#define LED_GREEN               PB8
+#define LED_BLUE                PB9
+#endif
+#define LED_BUILTIN             LED_GREEN
 
 // SPI Definitions
+#ifdef ARDUINO_MALYANM200_F070CB
 #define PIN_SPI_SS              PA4
 #define PIN_SPI_MOSI            PA7
 #define PIN_SPI_MISO            PA6
 #define PIN_SPI_SCK             PA5
+#else // MALYANM300_F070CB
+#define PIN_SPI_SS              PB6
+#define PIN_SPI_MOSI            PB5
+#define PIN_SPI_MISO            PB4
+#define PIN_SPI_SCK             PB3
+#endif
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PB7
