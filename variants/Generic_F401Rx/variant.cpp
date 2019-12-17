@@ -22,7 +22,7 @@
 extern "C" {
 #endif
 
-// Pin number
+// Digital PinName array
 const PinName digitalPin[] = {
   PA_0,  // Digital pin 0
   PA_1,  // Digital pin 1
@@ -78,6 +78,26 @@ const PinName digitalPin[] = {
 
   PH_0,  // Digital pin 48, used by the external oscillator
   PH_1   // Digital pin 49, used by the external oscillator
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInPin[] = {
+  0,  // A0,  PA0
+  1,  // A1,  PA1
+  2,  // A2,  PA2
+  3,  // A3,  PA3
+  4,  // A4,  PA4
+  5,  // A5,  PA5
+  6,  // A6,  PA6
+  7,  // A7,  PA7
+  16, // A8,  PB0
+  17, // A9,  PB1
+  31, // A10, PC0
+  32, // A11, PC1
+  33, // A12, PC2
+  34, // A13, PC3
+  35, // A14, PC4
+  36  // A15, PC5
 };
 
 #ifdef __cplusplus
