@@ -59,6 +59,13 @@ TwoWire::TwoWire(uint8_t sda, uint8_t scl)
 
 // Public Methods //////////////////////////////////////////////////////////////
 
+void TwoWire::begin(uint8_t sda, uint8_t scl)
+{
+  _i2c.sda = digitalPinToPinName(sda);
+  _i2c.scl = digitalPinToPinName(scl);
+  begin();
+}
+
 void TwoWire::begin(bool generalCall)
 {
   begin(MASTER_ADDRESS, generalCall);

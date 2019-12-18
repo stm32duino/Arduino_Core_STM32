@@ -85,6 +85,7 @@ class TwoWire : public Stream {
       _i2c.sda = sda;
     };
     void begin(bool generalCall = false);
+    void begin(uint8_t, uint8_t);
     void begin(uint8_t, bool generalCall = false);
     void begin(int, bool generalCall = false);
     void end();
