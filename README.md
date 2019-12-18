@@ -167,10 +167,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 ## Troubleshooting
 
-### Important notice:
-
-**Currently [stm32duino forum](http://stm32duino.com) is down. Forum alternative is under investigation.**
-
 If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
 
 For question, support, ...,  you could submit a topic on the [stm32duino forum](http://stm32duino.com):
