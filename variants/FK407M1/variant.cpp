@@ -80,24 +80,27 @@ const PinName digitalPin[] = {
   PD_6,   PD_7,
   PC_7,   PC_8,
   PD_15,  PC_6,
-  PC_13,  PA_15, // LED and Button pins - not broken out on the board
-  // Analog pins
-  PA_0,
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PA_6,
-  PA_7,
-  PB_0,
-  PB_1,
-  PC_0,
-  PC_1,
-  PC_2,
-  PC_3,
-  PC_4,
-  PC_5
+  PC_13,  PA_15 // LED and Button pins - not broken out on the board
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInPin[] = {
+  30, //A0
+  32, //A1
+  31, //A2
+  27, //A3
+  28, //A4
+  26, //A5
+  25, //A6
+  23, //A7
+  22, //A8
+  19, //A9
+  35, //A10
+  36, //A11
+  37, //A12
+  29, //A13
+  24, //A14
+  21  //A15
 };
 
 #ifdef __cplusplus
