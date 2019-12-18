@@ -103,7 +103,9 @@ class HardwareSerial : public Stream {
   public:
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
-    HardwareSerial(void *peripheral);
+    HardwareSerial(void *peripheral, bool halfDuplex = false);
+    HardwareSerial(uint32_t _rxtx);
+    HardwareSerial(PinName _rxtx);
     void begin(unsigned long baud)
     {
       begin(baud, SERIAL_8N1);
@@ -143,15 +145,22 @@ class HardwareSerial : public Stream {
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    // Enable half-duplex mode by setting the Rx pin to NC
+    // This needs to be done before the call to begin()
+    void setHalfDuplex(void);
+    bool isHalfDuplex(void) const;
+    void enableHalfDuplexRx(void);
+
     friend class STM32LowPower;
 
     // Interrupt handlers
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
   private:
+    bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
-    void init(void);
+    void init(PinName _rx, PinName _tx);
     void configForLowPower(void);
 };
 

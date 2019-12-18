@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -48,21 +48,24 @@ extern "C" {
 
 
 /* Capacity data */
-typedef struct {
+typedef struct
+{
   uint32_t block_nbr;
   uint16_t block_size;
 } SCSI_CapacityTypeDef;
 
 
 /* Sense data */
-typedef struct {
+typedef struct
+{
   uint8_t key;
   uint8_t asc;
   uint8_t ascq;
 } SCSI_SenseTypeDef;
 
 /* INQUIRY data */
-typedef struct {
+typedef struct
+{
   uint8_t PeripheralQualifier;
   uint8_t DeviceType;
   uint8_t RemovableMedia;

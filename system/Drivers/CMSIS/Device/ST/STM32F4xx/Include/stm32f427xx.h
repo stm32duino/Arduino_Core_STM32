@@ -14772,7 +14772,7 @@ typedef struct
 #define ETH_DMASR_TPS_Reading                         ETH_DMASR_TPS_Reading_Msk /* Running - reading the data from host memory */
 #define ETH_DMASR_TPS_Suspended_Pos                   (21U)
 #define ETH_DMASR_TPS_Suspended_Msk                   (0x3UL << ETH_DMASR_TPS_Suspended_Pos) /*!< 0x00600000 */
-#define ETH_DMASR_TPS_Suspended                       ETH_DMASR_TPS_Suspended_Msk /* Suspended - Tx Descriptor unavailabe */
+#define ETH_DMASR_TPS_Suspended                       ETH_DMASR_TPS_Suspended_Msk /* Suspended - Tx Descriptor unavailable */
 #define ETH_DMASR_TPS_Closing_Pos                     (20U)
 #define ETH_DMASR_TPS_Closing_Msk                     (0x7UL << ETH_DMASR_TPS_Closing_Pos) /*!< 0x00700000 */
 #define ETH_DMASR_TPS_Closing                         ETH_DMASR_TPS_Closing_Msk /* Running - closing Rx descriptor */
@@ -14794,7 +14794,7 @@ typedef struct
 #define ETH_DMASR_RPS_Closing                         ETH_DMASR_RPS_Closing_Msk /* Running - closing descriptor */
 #define ETH_DMASR_RPS_Queuing_Pos                     (17U)
 #define ETH_DMASR_RPS_Queuing_Msk                     (0x7UL << ETH_DMASR_RPS_Queuing_Pos) /*!< 0x000E0000 */
-#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the recieve frame into host memory */
+#define ETH_DMASR_RPS_Queuing                         ETH_DMASR_RPS_Queuing_Msk /* Running - queuing the receive frame into host memory */
 #define ETH_DMASR_NIS_Pos                             (16U)
 #define ETH_DMASR_NIS_Msk                             (0x1UL << ETH_DMASR_NIS_Pos) /*!< 0x00010000 */
 #define ETH_DMASR_NIS                                 ETH_DMASR_NIS_Msk        /* Normal interrupt summary */
@@ -16399,9 +16399,6 @@ typedef struct
                                     ((INSTANCE) == TIM12)|| \
                                     ((INSTANCE) == TIM13)|| \
                                     ((INSTANCE) == TIM14))
-
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
 
 /************* TIM Instances : at least 1 capture/compare channel *************/
 #define IS_TIM_CC1_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)  || \

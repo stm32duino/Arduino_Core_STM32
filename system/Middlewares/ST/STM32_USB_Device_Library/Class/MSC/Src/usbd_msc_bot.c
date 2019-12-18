@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -77,7 +77,6 @@ EndBSPDependencies */
   * @{
   */
 static void MSC_BOT_CBW_Decode(USBD_HandleTypeDef  *pdev);
-
 static void MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
                              uint16_t len);
 
@@ -146,7 +145,7 @@ void MSC_BOT_Reset(USBD_HandleTypeDef  *pdev)
 void MSC_BOT_DeInit(USBD_HandleTypeDef  *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
-  hmsc->bot_state  = USBD_BOT_IDLE;
+  hmsc->bot_state = USBD_BOT_IDLE;
 }
 
 /**
@@ -161,11 +160,11 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef  *pdev,
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
-  switch (hmsc->bot_state) {
+  switch (hmsc->bot_state)
+  {
     case USBD_BOT_DATA_IN:
-      if (SCSI_ProcessCmd(pdev,
-                          hmsc->cbw.bLUN,
-                          &hmsc->cbw.CB[0]) < 0) {
+      if (SCSI_ProcessCmd(pdev, hmsc->cbw.bLUN, &hmsc->cbw.CB[0]) < 0)
+      {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
       }
       break;
@@ -173,7 +172,6 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef  *pdev,
     case USBD_BOT_SEND_DATA:
     case USBD_BOT_LAST_DATA_IN:
       MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
-
       break;
 
     default:
@@ -192,19 +190,18 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef  *pdev,
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
-  switch (hmsc->bot_state) {
+  switch (hmsc->bot_state)
+  {
     case USBD_BOT_IDLE:
       MSC_BOT_CBW_Decode(pdev);
       break;
 
     case USBD_BOT_DATA_OUT:
 
-      if (SCSI_ProcessCmd(pdev,
-                          hmsc->cbw.bLUN,
-                          &hmsc->cbw.CB[0]) < 0) {
+      if (SCSI_ProcessCmd(pdev, hmsc->cbw.bLUN, &hmsc->cbw.CB[0]) < 0)
+      {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
       }
-
       break;
 
     default:
@@ -228,32 +225,47 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef  *pdev)
   if ((USBD_LL_GetRxDataSize(pdev, MSC_EPOUT_ADDR) != USBD_BOT_CBW_LENGTH) ||
       (hmsc->cbw.dSignature != USBD_BOT_CBW_SIGNATURE) ||
       (hmsc->cbw.bLUN > 1U) ||
-      (hmsc->cbw.bCBLength < 1U) || (hmsc->cbw.bCBLength > 16U)) {
+      (hmsc->cbw.bCBLength < 1U) || (hmsc->cbw.bCBLength > 16U))
+  {
 
     SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
 
     hmsc->bot_status = USBD_BOT_STATUS_ERROR;
     MSC_BOT_Abort(pdev);
-  } else {
-    if (SCSI_ProcessCmd(pdev, hmsc->cbw.bLUN, &hmsc->cbw.CB[0]) < 0) {
-      if (hmsc->bot_state == USBD_BOT_NO_DATA) {
+  }
+  else
+  {
+    if (SCSI_ProcessCmd(pdev, hmsc->cbw.bLUN, &hmsc->cbw.CB[0]) < 0)
+    {
+      if (hmsc->bot_state == USBD_BOT_NO_DATA)
+      {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
-      } else {
+      }
+      else
+      {
         MSC_BOT_Abort(pdev);
       }
     }
     /*Burst xfer handled internally*/
     else if ((hmsc->bot_state != USBD_BOT_DATA_IN) &&
              (hmsc->bot_state != USBD_BOT_DATA_OUT) &&
-             (hmsc->bot_state != USBD_BOT_LAST_DATA_IN)) {
-      if (hmsc->bot_data_length > 0U) {
+             (hmsc->bot_state != USBD_BOT_LAST_DATA_IN))
+    {
+      if (hmsc->bot_data_length > 0U)
+      {
         MSC_BOT_SendData(pdev, hmsc->bot_data, hmsc->bot_data_length);
-      } else if (hmsc->bot_data_length == 0U) {
+      }
+      else if (hmsc->bot_data_length == 0U)
+      {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
-      } else {
+      }
+      else
+      {
         MSC_BOT_Abort(pdev);
       }
-    } else {
+    }
+    else
+    {
       return;
     }
   }
@@ -318,13 +330,15 @@ static void  MSC_BOT_Abort(USBD_HandleTypeDef  *pdev)
 
   if ((hmsc->cbw.bmFlags == 0U) &&
       (hmsc->cbw.dDataLength != 0U) &&
-      (hmsc->bot_status == USBD_BOT_STATUS_NORMAL)) {
+      (hmsc->bot_status == USBD_BOT_STATUS_NORMAL))
+  {
     USBD_LL_StallEP(pdev, MSC_EPOUT_ADDR);
   }
 
   USBD_LL_StallEP(pdev, MSC_EPIN_ADDR);
 
-  if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) {
+  if (hmsc->bot_status == USBD_BOT_STATUS_ERROR)
+  {
     USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, (uint8_t *)(void *)&hmsc->cbw,
                            USBD_BOT_CBW_LENGTH);
   }
@@ -342,12 +356,17 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef  *pdev, uint8_t epnum)
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
-  if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) { /* Bad CBW Signature */
+  if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) /* Bad CBW Signature */
+  {
     USBD_LL_StallEP(pdev, MSC_EPIN_ADDR);
     hmsc->bot_status = USBD_BOT_STATUS_NORMAL;
-  } else if (((epnum & 0x80U) == 0x80U) && (hmsc->bot_status != USBD_BOT_STATUS_RECOVERY)) {
+  }
+  else if (((epnum & 0x80U) == 0x80U) && (hmsc->bot_status != USBD_BOT_STATUS_RECOVERY))
+  {
     MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
-  } else {
+  }
+  else
+  {
     return;
   }
 }

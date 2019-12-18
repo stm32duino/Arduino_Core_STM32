@@ -7,13 +7,17 @@
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
+        },
+        {
+          "name": "STEVAL_MKSBOX1V1",
+          "options": "usb=CDCgen"
         }
       ],
       "sketches": [
         {
           "pattern": "^((?!BareMinimum.ino).)*$",
           "applicable": false,
-          "boards": [ "DEMO_F030F4" ]
+          "boards": [ "DEMO_F030F4", "DEMO_F030F4_16M", "DEMO_F030F4_HSI", "RHF76_052" ]
         },
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
@@ -39,6 +43,8 @@
           "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB",
+            "AFROFLIGHT_F103CB_12M",
             "ARMED_V1",
             "BLUE_F407VE_Mini",
             "BLACKPILL_F103C8",
@@ -47,22 +53,33 @@
             "BLUEPILL_F103C8",
             "BLUEPILL_F103C8B",
             "BLACKPILL_F303CC",
-            "DIYMROE_F407VGT",
+            "BLACKPILL_F401CC",
+            "CoreBoard_F401RC",
+            "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
+            "ELEKTOR_F072C8",
+            "FEATHER_F405",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
+            "Generic_F103RET6",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
+            "MALYANM300_F070CB",
             "MAPLEMINI_F103CB",
             "NUCLEO_L031K6",
             "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
+            "NUCLEO_G431KB",
             "PRNTR_F407_V1",
             "RUMBA32",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
             "REMRAM_V1",
-            "Sparky_V1"
+            "Sparky_V1",
+            "Wraith32_V1"
           ]
         },
         {
@@ -78,7 +95,10 @@
         {
           "pattern": "Firmata/",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "VAKE_F446VE" ]
+          "boards": [
+            "BLUEPILL_F103C6", "EEXTR_F030_V1", "ELEKTOR_F072C8", "MALYANM200_F103CB",
+            "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "Wraith32_V1"
+          ]
         },
         {
           "pattern": "Blink(WithoutDelay)?.ino",
@@ -93,7 +113,7 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_F030R8", "NUCLEO_L031K6" ]
         },
         {
           "pattern": "09.USB",
@@ -120,6 +140,8 @@
           "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
           "applicable": false,
           "boards": [
+            "AFROFLIGHT_F103CB",
+            "AFROFLIGHT_F103CB_12M",
             "ARMED_V1",
             "BLACKPILL_F103C8",
             "BLACKPILL_F103C8B",
@@ -127,14 +149,22 @@
             "BLUEPILL_F103C8",
             "BLUEPILL_F103C8B",
             "BLACKPILL_F303CC",
+            "BLACKPILL_F401CC",
             "BLUE_F407VE_Mini",
-            "DIYMROE_F407VGT",
+            "CoreBoard_F401RC",
+            "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
+            "Generic_F103RET6",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
+            "MALYANM300_F070CB",
             "MAPLEMINI_F103CB",
             "NUCLEO_F303K8",
+            "NUCLEO_G431KB",
             "NUCLEO_L412KB",
             "NUCLEO_L432KC",
             "PRNTR_F407_V1",
@@ -159,36 +189,86 @@
             "ARMED_V1",
             "BLUEPILL_F103C6", 
             "EEXTR_F030_V1",
+            "ELEKTOR_F072C8",
+            "FEATHER_F405",
             "MALYANM200_F103CB",
             "NUCLEO_L031K6",
+            "PX_HER0",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
-            "REMRAM_V1" ]
+            "REMRAM_V1",
+            "STEVAL_MKSBOX1V1",
+            "THUNDER_PACK",
+            "Wraith32_V1"
+          ]
         },
         {
           "pattern": "StringComparisonOperators.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA", "REMRAM_V1" ]
+          "boards": [
+            "ARMED_V1",
+            "EEXTR_F030_V1",
+            "PX_HER0",
+            "RAK811_TRACKER",
+            "RAK811_TRACKERA",
+            "REMRAM_V1",
+            "STEVAL_MKSBOX1V1",
+            "THUNDER_PACK"
+          ]
         },
         {
           "pattern": "ADXL3xx.ino",
           "applicable": false,
-          "boards": [ "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "RAK811_TRACKERA" ]
+          "boards": [
+            "ARMED_V1",
+            "EEXTR_F030_V1",
+            "RAK811_TRACKER",
+            "RAK811_TRACKERA",
+            "STEVAL_MKSBOX1V1"
+          ]
         },
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
-          "boards": [ "NUCLEO_L031K6" ]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6", "Wraith32_V1"]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "STEVAL_MKSBOX1V1" ]
         },
         {
           "pattern": "ArduinoISP",
           "applicable": true,
           "boards": [ "" ]
+        },
+        {
+          "pattern": "tone|p07_Keyboard",
+          "applicable": false,
+          "boards": [
+            "ST3DP001_EVAL",
+            "STEVAL_MKSBOX1V1",
+            "VAKE_F446VE",
+            "Wraith32_V1"
+          ]
+        },
+        {
+          "pattern": "IWatchdog|RTC|STM32LowPower",
+          "applicable": false,
+          "boards": [
+            "STM32MP157A_DK1",
+            "STM32MP157C_DK2"
+          ]
+        },
+        {
+          "pattern": "PWM_FullConfiguration",
+          "applicable": false,
+          "boards": [ "THUNDER_PACK" ]
+        },
+        {
+          "pattern": "HardwareTimer_OutputInput_test",
+          "applicable": true,
+          "boards": [ "NUCLEO_L476RG" ]
         }
       ]
     },

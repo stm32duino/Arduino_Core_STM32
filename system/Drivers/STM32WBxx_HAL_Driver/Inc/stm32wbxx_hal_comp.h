@@ -32,7 +32,7 @@ extern "C" {
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
   */
-
+#if defined (COMP1) || defined (COMP2)
 
 /** @addtogroup COMP
   * @{
@@ -697,7 +697,7 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 /**
   * @}
   */
-
+#endif /* COMP1 || COMP2 */
 /**
   * @}
   */

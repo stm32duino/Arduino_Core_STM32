@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -61,7 +61,8 @@ extern "C" {
 /** @defgroup USBH_MTP_CORE_Exported_Types
 * @{
 */
-typedef enum {
+typedef enum
+{
   MTP_IDLE = 0,
   MTP_GETDEVICEINFO,
   MTP_OPENSESSION,
@@ -72,14 +73,16 @@ typedef enum {
 MTP_StateTypeDef;
 
 
-typedef enum {
+typedef enum
+{
   MTP_EVENTS_INIT = 0,
   MTP_EVENTS_GETDATA,
 }
 MTP_EventsStateTypeDef;
 
 
-typedef struct {
+typedef struct
+{
   MTP_EventsStateTypeDef   state;
   uint32_t timer;
   uint16_t poll;
@@ -87,7 +90,8 @@ typedef struct {
 }
 MTP_EventHandleTypedef;
 
-typedef struct {
+typedef struct
+{
 
   uint32_t        CurrentStorageId;
   uint32_t        ObjectFormatCode;
@@ -98,7 +102,8 @@ typedef struct {
 MTP_ParamsTypedef;
 
 
-typedef struct {
+typedef struct
+{
   PTP_DeviceInfoTypedef     devinfo;
   PTP_StorageIDsTypedef     storids;
   PTP_StorageInfoTypedef    storinfo[MTP_MAX_STORAGE_UNITS_NBR];
@@ -107,7 +112,8 @@ typedef struct {
 MTP_InfoTypedef;
 
 /* Structure for MTP process */
-typedef struct _MTP_Process {
+typedef struct _MTP_Process
+{
   MTP_InfoTypedef       info;
   MTP_ParamsTypedef     params;
 

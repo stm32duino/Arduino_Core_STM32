@@ -98,12 +98,9 @@ extern "C" {
 // On-board user button
 #define USER_BTN                PC13
 
-// Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
@@ -141,6 +138,7 @@ extern "C" {
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR   Serial
 #define SERIAL_PORT_HARDWARE  Serial
-#endif
+#endif //  __cplusplus
+
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

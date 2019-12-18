@@ -108,6 +108,7 @@ extern "C" {
 #define HSI_VALUE    (16000000UL)           /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
+
 /**
   * @brief Internal Low Speed oscillator (LSI) value.
   */
@@ -136,6 +137,7 @@ in voltage and temperature.*/
 #if !defined  (EXTERNAL_I2S1_CLOCK_VALUE)
 #define EXTERNAL_I2S1_CLOCK_VALUE    (48000UL) /*!< Value of the I2S1 External clock source in Hz*/
 #endif /* EXTERNAL_I2S1_CLOCK_VALUE */
+
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
    ===  you can define the HSE value in your toolchain compiler preprocessor. */

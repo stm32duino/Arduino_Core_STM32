@@ -99,11 +99,8 @@ extern "C" {
 #define USER_BTN                PC13
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM10
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM11
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link

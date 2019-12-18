@@ -146,7 +146,6 @@ extern "C"
 #define NUM_ANALOG_FIRST 64
 
 // PWM resolution
-#define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
 #define PWM_MAX_DUTY_CYCLE      255
 
@@ -155,12 +154,9 @@ extern "C"
 #define LED_BUILTIN LED_YELLOW
 
 // Timer Definitions
-
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE TIM6
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO TIM3 //TODO: advanced-control timers don't work
+#define TIMER_SERVO TIM7
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE 1

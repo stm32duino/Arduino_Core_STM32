@@ -107,8 +107,6 @@ void HAL_FMPI2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
 
 
 
-
-
 /**
   * @}
   */

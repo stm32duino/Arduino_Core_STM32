@@ -42,7 +42,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -127,7 +127,7 @@ static uint8_t  USBD_DFU_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum
 
 static uint8_t  USBD_DFU_IsoOutIncomplete(USBD_HandleTypeDef *pdev, uint8_t epnum);
 
-#if (USBD_SUPPORT_USER_STRING == 1U)
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
 static uint8_t *USBD_DFU_GetUsrStringDesc(USBD_HandleTypeDef *pdev, uint8_t index, uint16_t *length);
 #endif
 
@@ -156,7 +156,8 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev);
   * @{
   */
 
-USBD_ClassTypeDef  USBD_DFU = {
+USBD_ClassTypeDef  USBD_DFU =
+{
   USBD_DFU_Init,
   USBD_DFU_DeInit,
   USBD_DFU_Setup,
@@ -171,13 +172,14 @@ USBD_ClassTypeDef  USBD_DFU = {
   USBD_DFU_GetCfgDesc,
   USBD_DFU_GetCfgDesc,
   USBD_DFU_GetDeviceQualifierDesc,
-#if (USBD_SUPPORT_USER_STRING == 1U)
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
   USBD_DFU_GetUsrStringDesc
 #endif
 };
 
 /* USB DFU device Configuration Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_END = {
+__ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_END =
+{
   0x09, /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   USB_DFU_CONFIG_DESC_SIZ,
@@ -244,7 +246,8 @@ __ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_E
 };
 
 /* USB Standard Device Descriptor */
-__ALIGN_BEGIN static uint8_t USBD_DFU_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] __ALIGN_END = {
+__ALIGN_BEGIN static uint8_t USBD_DFU_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] __ALIGN_END =
+{
   USB_LEN_DEV_QUALIFIER_DESC,
   USB_DESC_TYPE_DEVICE_QUALIFIER,
   0x00,
@@ -280,9 +283,12 @@ static uint8_t  USBD_DFU_Init(USBD_HandleTypeDef *pdev,
   /* Allocate Audio structure */
   pdev->pClassData = USBD_malloc(sizeof(USBD_DFU_HandleTypeDef));
 
-  if (pdev->pClassData == NULL) {
+  if (pdev->pClassData == NULL)
+  {
     return USBD_FAIL;
-  } else {
+  }
+  else
+  {
     hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
     hdfu->alt_setting = 0U;
@@ -301,7 +307,8 @@ static uint8_t  USBD_DFU_Init(USBD_HandleTypeDef *pdev,
     hdfu->dev_status[5] = 0U;
 
     /* Initialize Hardware layer */
-    if (((USBD_DFU_MediaTypeDef *)pdev->pUserData)->Init() != USBD_OK) {
+    if (((USBD_DFU_MediaTypeDef *)pdev->pUserData)->Init() != USBD_OK)
+    {
       return USBD_FAIL;
     }
   }
@@ -329,7 +336,8 @@ static uint8_t  USBD_DFU_DeInit(USBD_HandleTypeDef *pdev,
   hdfu->dev_status[4] = DFU_STATE_IDLE;
 
   /* DeInit  physical Interface components */
-  if (pdev->pClassData != NULL) {
+  if (pdev->pClassData != NULL)
+  {
     /* De-Initialize Hardware layer */
     ((USBD_DFU_MediaTypeDef *)pdev->pUserData)->DeInit();
     USBD_free(pdev->pClassData);
@@ -357,9 +365,11 @@ static uint8_t  USBD_DFU_Setup(USBD_HandleTypeDef *pdev,
 
   hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK) {
+  switch (req->bmRequest & USB_REQ_TYPE_MASK)
+  {
     case USB_REQ_TYPE_CLASS:
-      switch (req->bRequest) {
+      switch (req->bRequest)
+      {
         case DFU_DNLOAD:
           DFU_Download(pdev, req);
           break;
@@ -396,18 +406,23 @@ static uint8_t  USBD_DFU_Setup(USBD_HandleTypeDef *pdev,
       break;
 
     case USB_REQ_TYPE_STANDARD:
-      switch (req->bRequest) {
+      switch (req->bRequest)
+      {
         case USB_REQ_GET_STATUS:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_GET_DESCRIPTOR:
-          if ((req->wValue >> 8) == DFU_DESCRIPTOR_TYPE) {
+          if ((req->wValue >> 8) == DFU_DESCRIPTOR_TYPE)
+          {
             pbuf = USBD_DFU_CfgDesc + (9U * (USBD_DFU_MAX_ITF_NUM + 1U));
             len = MIN(USB_DFU_DESC_SIZ, req->wLength);
           }
@@ -416,23 +431,32 @@ static uint8_t  USBD_DFU_Setup(USBD_HandleTypeDef *pdev,
           break;
 
         case USB_REQ_GET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&hdfu->alt_setting, 1U);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_SET_INTERFACE:
-          if ((uint8_t)(req->wValue) < USBD_DFU_MAX_ITF_NUM) {
-            if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if ((uint8_t)(req->wValue) < USBD_DFU_MAX_ITF_NUM)
+          {
+            if (pdev->dev_state == USBD_STATE_CONFIGURED)
+            {
               hdfu->alt_setting = (uint8_t)(req->wValue);
-            } else {
+            }
+            else
+            {
               USBD_CtlError(pdev, req);
               ret = USBD_FAIL;
             }
-          } else {
+          }
+          else
+          {
             /* Call the error management function (command will be nacked */
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
@@ -508,26 +532,36 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
 
   hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
-  if (hdfu->dev_state == DFU_STATE_DNLOAD_BUSY) {
+  if (hdfu->dev_state == DFU_STATE_DNLOAD_BUSY)
+  {
     /* Decode the Special Command*/
-    if (hdfu->wblock_num == 0U) {
-      if ((hdfu->buffer.d8[0] == DFU_CMD_GETCOMMANDS) && (hdfu->wlength == 1U)) {
+    if (hdfu->wblock_num == 0U)
+    {
+      if ((hdfu->buffer.d8[0] == DFU_CMD_GETCOMMANDS) && (hdfu->wlength == 1U))
+      {
 
-      } else if ((hdfu->buffer.d8[0] == DFU_CMD_SETADDRESSPOINTER) && (hdfu->wlength == 5U)) {
+      }
+      else if ((hdfu->buffer.d8[0] == DFU_CMD_SETADDRESSPOINTER) && (hdfu->wlength == 5U))
+      {
         hdfu->data_ptr = hdfu->buffer.d8[1];
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
-      } else if ((hdfu->buffer.d8[0] == DFU_CMD_ERASE) && (hdfu->wlength == 5U)) {
+      }
+      else if ((hdfu->buffer.d8[0] == DFU_CMD_ERASE) && (hdfu->wlength == 5U))
+      {
         hdfu->data_ptr = hdfu->buffer.d8[1];
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[2] << 8;
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[3] << 16;
         hdfu->data_ptr += (uint32_t)hdfu->buffer.d8[4] << 24;
 
-        if (((USBD_DFU_MediaTypeDef *)pdev->pUserData)->Erase(hdfu->data_ptr) != USBD_OK) {
+        if (((USBD_DFU_MediaTypeDef *)pdev->pUserData)->Erase(hdfu->data_ptr) != USBD_OK)
+        {
           return USBD_FAIL;
         }
-      } else {
+      }
+      else
+      {
         /* Reset the global length and block number */
         hdfu->wlength = 0U;
         hdfu->wblock_num = 0U;
@@ -538,14 +572,17 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
       }
     }
     /* Regular Download Command */
-    else {
-      if (hdfu->wblock_num > 1U) {
+    else
+    {
+      if (hdfu->wblock_num > 1U)
+      {
         /* Decode the required address */
         addr = ((hdfu->wblock_num - 2U) * USBD_DFU_XFER_SIZE) + hdfu->data_ptr;
 
         /* Preform the write operation */
         if (((USBD_DFU_MediaTypeDef *)pdev->pUserData)->Write(hdfu->buffer.d8,
-                                                              (uint8_t *)addr, hdfu->wlength) != USBD_OK) {
+                                                              (uint8_t *)addr, hdfu->wlength) != USBD_OK)
+        {
           return USBD_FAIL;
         }
       }
@@ -563,8 +600,11 @@ static uint8_t  USBD_DFU_EP0_TxReady(USBD_HandleTypeDef *pdev)
     hdfu->dev_status[3] = 0U;
     hdfu->dev_status[4] = hdfu->dev_state;
     return USBD_OK;
-  } else {
-    if (hdfu->dev_state == DFU_STATE_MANIFEST) { /* Manifestation in progress */
+  }
+  else
+  {
+    if (hdfu->dev_state == DFU_STATE_MANIFEST)/* Manifestation in progress */
+    {
       /* Start leaving DFU mode */
       DFU_Leave(pdev);
     }
@@ -641,17 +681,19 @@ static uint8_t  *USBD_DFU_GetDeviceQualifierDesc(uint16_t *length)
   * @param  length : pointer data length
   * @retval pointer to the descriptor table or NULL if the descriptor is not supported.
   */
-#if (USBD_SUPPORT_USER_STRING == 1U)
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
 static uint8_t *USBD_DFU_GetUsrStringDesc(USBD_HandleTypeDef *pdev, uint8_t index, uint16_t *length)
 {
   static uint8_t USBD_StrDesc[255];
   /* Check if the requested string interface is supported */
-  if (index <= (USBD_IDX_INTERFACE_STR + USBD_DFU_MAX_ITF_NUM)) {
+  if (index <= (USBD_IDX_INTERFACE_STR + USBD_DFU_MAX_ITF_NUM))
+  {
     USBD_GetString((uint8_t *)((USBD_DFU_MediaTypeDef *)pdev->pUserData)->pStrDesc, USBD_StrDesc, length);
     return USBD_StrDesc;
   }
   /* Not supported Interface Descriptor index */
-  else {
+  else
+  {
     return NULL;
   }
 }
@@ -665,7 +707,8 @@ static uint8_t *USBD_DFU_GetUsrStringDesc(USBD_HandleTypeDef *pdev, uint8_t inde
 uint8_t  USBD_DFU_RegisterMedia(USBD_HandleTypeDef   *pdev,
                                 USBD_DFU_MediaTypeDef *fops)
 {
-  if (fops != NULL) {
+  if (fops != NULL)
+  {
     pdev->pUserData = fops;
   }
   return 0U;
@@ -689,7 +732,8 @@ static void DFU_Detach(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
   if (hdfu->dev_state == DFU_STATE_IDLE || hdfu->dev_state == DFU_STATE_DNLOAD_SYNC
       || hdfu->dev_state == DFU_STATE_DNLOAD_IDLE || hdfu->dev_state == DFU_STATE_MANIFEST_SYNC
-      || hdfu->dev_state == DFU_STATE_UPLOAD_IDLE) {
+      || hdfu->dev_state == DFU_STATE_UPLOAD_IDLE)
+  {
     /* Update the state machine */
     hdfu->dev_state = DFU_STATE_IDLE;
     hdfu->dev_status[0] = DFU_ERROR_NONE;
@@ -703,11 +747,14 @@ static void DFU_Detach(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   }
 
   /* Check the detach capability in the DFU functional descriptor */
-  if ((USBD_DFU_CfgDesc[12U + (9U * USBD_DFU_MAX_ITF_NUM)]) & DFU_DETACH_MASK) {
+  if ((USBD_DFU_CfgDesc[12U + (9U * USBD_DFU_MAX_ITF_NUM)]) & DFU_DETACH_MASK)
+  {
     /* Perform an Attach-Detach operation on USB bus */
     USBD_Stop(pdev);
     USBD_Start(pdev);
-  } else {
+  }
+  else
+  {
     /* Wait for the period of time specified in Detach request */
     USBD_Delay((uint32_t)req->wValue);
   }
@@ -727,8 +774,10 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
   /* Data setup request */
-  if (req->wLength > 0U) {
-    if ((hdfu->dev_state == DFU_STATE_IDLE) || (hdfu->dev_state == DFU_STATE_DNLOAD_IDLE)) {
+  if (req->wLength > 0U)
+  {
+    if ((hdfu->dev_state == DFU_STATE_IDLE) || (hdfu->dev_state == DFU_STATE_DNLOAD_IDLE))
+    {
       /* Update the global length and block number */
       hdfu->wblock_num = req->wValue;
       hdfu->wlength = req->wLength;
@@ -742,22 +791,27 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
                         (uint16_t)hdfu->wlength);
     }
     /* Unsupported state */
-    else {
+    else
+    {
       /* Call the error management function (command will be nacked */
       USBD_CtlError(pdev, req);
     }
   }
   /* 0 Data DNLOAD request */
-  else {
+  else
+  {
     /* End of DNLOAD operation*/
-    if (hdfu->dev_state == DFU_STATE_DNLOAD_IDLE || hdfu->dev_state == DFU_STATE_IDLE) {
+    if (hdfu->dev_state == DFU_STATE_DNLOAD_IDLE || hdfu->dev_state == DFU_STATE_IDLE)
+    {
       hdfu->manif_state = DFU_MANIFEST_IN_PROGRESS;
       hdfu->dev_state = DFU_STATE_MANIFEST_SYNC;
       hdfu->dev_status[1] = 0U;
       hdfu->dev_status[2] = 0U;
       hdfu->dev_status[3] = 0U;
       hdfu->dev_status[4] = hdfu->dev_state;
-    } else {
+    }
+    else
+    {
       /* Call the error management function (command will be nacked */
       USBD_CtlError(pdev, req);
     }
@@ -781,14 +835,17 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   uint32_t addr = 0U;
 
   /* Data setup request */
-  if (req->wLength > 0U) {
-    if ((hdfu->dev_state == DFU_STATE_IDLE) || (hdfu->dev_state == DFU_STATE_UPLOAD_IDLE)) {
+  if (req->wLength > 0U)
+  {
+    if ((hdfu->dev_state == DFU_STATE_IDLE) || (hdfu->dev_state == DFU_STATE_UPLOAD_IDLE))
+    {
       /* Update the global length and block number */
       hdfu->wblock_num = req->wValue;
       hdfu->wlength = req->wLength;
 
       /* DFU Get Command */
-      if (hdfu->wblock_num == 0U) {
+      if (hdfu->wblock_num == 0U)
+      {
         /* Update the state machine */
         hdfu->dev_state = (hdfu->wlength > 3U) ? DFU_STATE_IDLE : DFU_STATE_UPLOAD_IDLE;
 
@@ -804,7 +861,9 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
         /* Send the status data over EP0 */
         USBD_CtlSendData(pdev, (uint8_t *)(&(hdfu->buffer.d8[0])), 3U);
-      } else if (hdfu->wblock_num > 1U) {
+      }
+      else if (hdfu->wblock_num > 1U)
+      {
         hdfu->dev_state = DFU_STATE_UPLOAD_IDLE;
 
         hdfu->dev_status[1] = 0U;
@@ -819,7 +878,9 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
         /* Send the status data over EP0 */
         USBD_CtlSendData(pdev, phaddr, (uint16_t)hdfu->wlength);
-      } else { /* unsupported hdfu->wblock_num */
+      }
+      else  /* unsupported hdfu->wblock_num */
+      {
         hdfu->dev_state = DFU_ERROR_STALLEDPKT;
 
         hdfu->dev_status[1] = 0U;
@@ -832,7 +893,8 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       }
     }
     /* Unsupported state */
-    else {
+    else
+    {
       hdfu->wlength = 0U;
       hdfu->wblock_num = 0U;
       /* Call the error management function (command will be nacked */
@@ -840,7 +902,8 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
     }
   }
   /* No Data setup request */
-  else {
+  else
+  {
     hdfu->dev_state = DFU_STATE_IDLE;
 
     hdfu->dev_status[1] = 0U;
@@ -862,9 +925,11 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
 
   hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
-  switch (hdfu->dev_state) {
+  switch (hdfu->dev_state)
+  {
     case   DFU_STATE_DNLOAD_SYNC:
-      if (hdfu->wlength != 0U) {
+      if (hdfu->wlength != 0U)
+      {
         hdfu->dev_state = DFU_STATE_DNLOAD_BUSY;
 
         hdfu->dev_status[1] = 0U;
@@ -872,12 +937,17 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
 
-        if ((hdfu->wblock_num == 0U) && (hdfu->buffer.d8[0] == DFU_CMD_ERASE)) {
+        if ((hdfu->wblock_num == 0U) && (hdfu->buffer.d8[0] == DFU_CMD_ERASE))
+        {
           ((USBD_DFU_MediaTypeDef *)pdev->pUserData)->GetStatus(hdfu->data_ptr, DFU_MEDIA_ERASE, hdfu->dev_status);
-        } else {
+        }
+        else
+        {
           ((USBD_DFU_MediaTypeDef *)pdev->pUserData)->GetStatus(hdfu->data_ptr, DFU_MEDIA_PROGRAM, hdfu->dev_status);
         }
-      } else { /* (hdfu->wlength==0)*/
+      }
+      else  /* (hdfu->wlength==0)*/
+      {
         hdfu->dev_state = DFU_STATE_DNLOAD_IDLE;
 
         hdfu->dev_status[1] = 0U;
@@ -888,16 +958,20 @@ static void DFU_GetStatus(USBD_HandleTypeDef *pdev)
       break;
 
     case   DFU_STATE_MANIFEST_SYNC :
-      if (hdfu->manif_state == DFU_MANIFEST_IN_PROGRESS) {
+      if (hdfu->manif_state == DFU_MANIFEST_IN_PROGRESS)
+      {
         hdfu->dev_state = DFU_STATE_MANIFEST;
 
         hdfu->dev_status[1] = 1U;             /*bwPollTimeout = 1ms*/
         hdfu->dev_status[2] = 0U;
         hdfu->dev_status[3] = 0U;
         hdfu->dev_status[4] = hdfu->dev_state;
-      } else {
+      }
+      else
+      {
         if ((hdfu->manif_state == DFU_MANIFEST_COMPLETE) &&
-            ((USBD_DFU_CfgDesc[(11U + (9U * USBD_DFU_MAX_ITF_NUM))]) & 0x04U)) {
+            ((USBD_DFU_CfgDesc[(11U + (9U * USBD_DFU_MAX_ITF_NUM))]) & 0x04U))
+        {
           hdfu->dev_state = DFU_STATE_IDLE;
 
           hdfu->dev_status[1] = 0U;
@@ -928,7 +1002,8 @@ static void DFU_ClearStatus(USBD_HandleTypeDef *pdev)
 
   hdfu = (USBD_DFU_HandleTypeDef *) pdev->pClassData;
 
-  if (hdfu->dev_state == DFU_STATE_ERROR) {
+  if (hdfu->dev_state == DFU_STATE_ERROR)
+  {
     hdfu->dev_state = DFU_STATE_IDLE;
     hdfu->dev_status[0] = DFU_ERROR_NONE;/*bStatus*/
     hdfu->dev_status[1] = 0U;
@@ -936,7 +1011,9 @@ static void DFU_ClearStatus(USBD_HandleTypeDef *pdev)
     hdfu->dev_status[3] = 0U; /*bwPollTimeout=0ms*/
     hdfu->dev_status[4] = hdfu->dev_state;/*bState*/
     hdfu->dev_status[5] = 0U;/*iString*/
-  } else {
+  }
+  else
+  {
     /*State Error*/
     hdfu->dev_state = DFU_STATE_ERROR;
     hdfu->dev_status[0] = DFU_ERROR_UNKNOWN;/*bStatus*/
@@ -978,7 +1055,8 @@ static void DFU_Abort(USBD_HandleTypeDef *pdev)
 
   if (hdfu->dev_state == DFU_STATE_IDLE || hdfu->dev_state == DFU_STATE_DNLOAD_SYNC
       || hdfu->dev_state == DFU_STATE_DNLOAD_IDLE || hdfu->dev_state == DFU_STATE_MANIFEST_SYNC
-      || hdfu->dev_state == DFU_STATE_UPLOAD_IDLE) {
+      || hdfu->dev_state == DFU_STATE_UPLOAD_IDLE)
+  {
     hdfu->dev_state = DFU_STATE_IDLE;
     hdfu->dev_status[0] = DFU_ERROR_NONE;
     hdfu->dev_status[1] = 0U;
@@ -1006,7 +1084,8 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev)
 
   hdfu->manif_state = DFU_MANIFEST_COMPLETE;
 
-  if ((USBD_DFU_CfgDesc[(11U + (9U * USBD_DFU_MAX_ITF_NUM))]) & 0x04U) {
+  if ((USBD_DFU_CfgDesc[(11U + (9U * USBD_DFU_MAX_ITF_NUM))]) & 0x04U)
+  {
     hdfu->dev_state = DFU_STATE_MANIFEST_SYNC;
 
     hdfu->dev_status[1] = 0U;
@@ -1014,8 +1093,9 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev)
     hdfu->dev_status[3] = 0U;
     hdfu->dev_status[4] = hdfu->dev_state;
     return;
-  } else {
-
+  }
+  else
+  {
     hdfu->dev_state = DFU_STATE_MANIFEST_WAIT_RESET;
 
     hdfu->dev_status[1] = 0U;
@@ -1032,8 +1112,7 @@ static void DFU_Leave(USBD_HandleTypeDef *pdev)
     /* Generate system reset to allow jumping to the user code */
     NVIC_SystemReset();
 
-    /* This instruction will not be reached (system reset) */
-    for (;;) {}
+    /* The next instructions will not be reached (system reset) */
   }
 }
 

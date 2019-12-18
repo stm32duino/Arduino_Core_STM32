@@ -51,6 +51,13 @@ enum {
 };
 
 // Arduino analog pins
+#ifndef NUM_ANALOG_INPUTS
+#define NUM_ANALOG_INPUTS 0
+#endif
+#ifndef NUM_ANALOG_FIRST
+#define NUM_ANALOG_FIRST NUM_DIGITAL_PINS
+#endif
+
 // Analog pins must be contiguous to be able to loop on each value
 #define MAX_ANALOG_INPUTS 24
 _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
@@ -230,8 +237,12 @@ extern const PinName digitalPin[];
 uint32_t pinNametoDigitalPin(PinName p);
 
 // Convert an analog pin number to a digital pin number
+#if defined(NUM_ANALOG_INPUTS) && (NUM_ANALOG_INPUTS>0)
 // Used by analogRead api to have A0 == 0
 #define analogInputToDigitalPin(p)  (((uint32_t)p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
+#else
+#define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
+#endif
 // Convert an analog pin number Axx to a PinName PX_n
 PinName analogInputToPinName(uint32_t pin);
 
@@ -296,19 +307,25 @@ PinName analogInputToPinName(uint32_t pin);
 
 // Default Definitions, could be redefined in variant.h
 #ifndef ADC_RESOLUTION
-#define ADC_RESOLUTION              12
+#define ADC_RESOLUTION              10
 #endif
-#ifndef DACC_RESOLUTION
+
 #define DACC_RESOLUTION             12
-#endif
+
 #ifndef PWM_RESOLUTION
 #define PWM_RESOLUTION              8
 #endif
+
+_Static_assert((ADC_RESOLUTION > 0) &&(ADC_RESOLUTION <= 32),
+               "ADC_RESOLUTION must be 0 < x <= 32!");
+_Static_assert((PWM_RESOLUTION > 0) &&(PWM_RESOLUTION <= 32),
+               "PWM_RESOLUTION must be 0 < x <= 32!");
+
 #ifndef PWM_FREQUENCY
 #define PWM_FREQUENCY               1000
 #endif
 #ifndef PWM_MAX_DUTY_CYCLE
-#define PWM_MAX_DUTY_CYCLE          255
+#define PWM_MAX_DUTY_CYCLE          4095
 #endif
 
 #endif /*_PINS_ARDUINO_H_*/

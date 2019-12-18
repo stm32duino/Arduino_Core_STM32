@@ -119,7 +119,7 @@
   * @{
   */
 
-#ifdef HAL_SRAM_MODULE_ENABLED
+#if defined (HAL_SRAM_MODULE_ENABLED) && defined (HAL_MDMA_MODULE_ENABLED)
 
 /** @defgroup SRAM SRAM
   * @brief SRAM driver modules

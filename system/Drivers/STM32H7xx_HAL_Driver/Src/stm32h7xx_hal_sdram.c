@@ -118,7 +118,7 @@
   * @{
   */
 
-#ifdef HAL_SDRAM_MODULE_ENABLED
+#if defined (HAL_SDRAM_MODULE_ENABLED) && defined (HAL_MDMA_MODULE_ENABLED)
 
 /** @defgroup SDRAM SDRAM
   * @brief SDRAM driver modules
@@ -1301,7 +1301,7 @@ static void SDRAM_DMAError(MDMA_HandleTypeDef *hmdma)
   * @}
   */
 
-#endif /* HAL_SDRAM_MODULE_ENABLED */
+#endif /* HAL_SDRAM_MODULE_ENABLED && HAL_MDMA_MODULE_ENABLED */
 
 /**
   * @}

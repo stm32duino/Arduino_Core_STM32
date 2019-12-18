@@ -193,6 +193,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal.h"
 
+#if defined(TSC)
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
   */
@@ -1117,4 +1118,5 @@ static uint32_t TSC_extract_groups(uint32_t iomask)
   * @}
   */
 
+#endif /* TSC */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

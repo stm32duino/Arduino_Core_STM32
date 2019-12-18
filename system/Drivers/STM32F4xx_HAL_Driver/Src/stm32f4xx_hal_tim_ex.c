@@ -72,7 +72,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-*/
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -396,11 +396,11 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
   /* Check the parameters */
   assert_param(IS_TIM_HALL_SENSOR_INTERFACE_INSTANCE(htim->Instance));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -708,11 +708,11 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
   /* Check the parameters */
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -1116,11 +1116,11 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   /* Check the parameters */
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, Channel));
 
-  if ((htim->State == HAL_TIM_STATE_BUSY))
+  if (htim->State == HAL_TIM_STATE_BUSY)
   {
     return HAL_BUSY;
   }
-  else if ((htim->State == HAL_TIM_STATE_READY))
+  else if (htim->State == HAL_TIM_STATE_READY)
   {
     if (((uint32_t)pData == 0U) && (Length > 0U))
     {
@@ -1464,7 +1464,8 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
   *            @arg TIM_COMMUTATION_SOFTWARE:  Commutation source is set by software using the COMG bit
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                              uint32_t  CommutationSource)
 {
   /* Check the parameters */
   assert_param(IS_TIM_COMMUTATION_EVENT_INSTANCE(htim->Instance));
@@ -1519,7 +1520,8 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t 
   *            @arg TIM_COMMUTATION_SOFTWARE:  Commutation source is set by software using the COMG bit
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                                 uint32_t  CommutationSource)
 {
   /* Check the parameters */
   assert_param(IS_TIM_COMMUTATION_EVENT_INSTANCE(htim->Instance));
@@ -1575,7 +1577,8 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
   *            @arg TIM_COMMUTATION_SOFTWARE:  Commutation source is set by software using the COMG bit
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource)
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                                  uint32_t  CommutationSource)
 {
   /* Check the parameters */
   assert_param(IS_TIM_COMMUTATION_EVENT_INSTANCE(htim->Instance));
@@ -1630,7 +1633,7 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
   uint32_t tmpsmcr;
 
   /* Check the parameters */
-  assert_param(IS_TIM_SYNCHRO_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_MASTER_INSTANCE(htim->Instance));
   assert_param(IS_TIM_TRGO_SOURCE(sMasterConfig->MasterOutputTrigger));
   assert_param(IS_TIM_MSM_STATE(sMasterConfig->MasterSlaveMode));
 
@@ -1651,16 +1654,19 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
   /* Select the TRGO source */
   tmpcr2 |=  sMasterConfig->MasterOutputTrigger;
 
-  /* Reset the MSM Bit */
-  tmpsmcr &= ~TIM_SMCR_MSM;
-  /* Set master mode */
-  tmpsmcr |= sMasterConfig->MasterSlaveMode;
-
   /* Update TIMx CR2 */
   htim->Instance->CR2 = tmpcr2;
 
-  /* Update TIMx SMCR */
-  htim->Instance->SMCR = tmpsmcr;
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    /* Reset the MSM Bit */
+    tmpsmcr &= ~TIM_SMCR_MSM;
+    /* Set master mode */
+    tmpsmcr |= sMasterConfig->MasterSlaveMode;
+
+    /* Update TIMx SMCR */
+    htim->Instance->SMCR = tmpsmcr;
+  }
 
   /* Change the htim state */
   htim->State = HAL_TIM_STATE_READY;
@@ -1676,6 +1682,9 @@ HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
   * @param  htim TIM handle
   * @param  sBreakDeadTimeConfig pointer to a TIM_ConfigBreakDeadConfigTypeDef structure that
   *         contains the BDTR Register configuration  information for the TIM peripheral.
+  * @note   Interrupts can be generated when an active level is detected on the
+  *         break input, the break 2 input or the system break input. Break
+  *         interrupt can be enabled by calling the @ref __HAL_TIM_ENABLE_IT macro.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
@@ -1886,7 +1895,7 @@ HAL_TIM_StateTypeDef HAL_TIMEx_HallSensor_GetState(TIM_HandleTypeDef *htim)
   */
 
 /* Private functions ---------------------------------------------------------*/
-/** @defgroup TIMEx_Private_Functions TIM Extended Private Functions
+/** @defgroup TIMEx_Private_Functions TIMEx Private Functions
   * @{
   */
 

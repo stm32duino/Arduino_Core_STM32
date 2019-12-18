@@ -48,14 +48,14 @@
   ==============================================================================
   [..]
     (#) Use IWDG using HAL_IWDG_Init() function to :
-      (+) Enable instance by writing Start keyword in IWDG_KEY register. LSI
+      (++) Enable instance by writing Start keyword in IWDG_KEY register. LSI
            clock is forced ON and IWDG counter starts counting down.
-      (+) Enable write access to configuration registers:
+      (++) Enable write access to configuration registers:
           IWDG_PR and IWDG_RLR.
-      (+) Configure the IWDG prescaler and counter reload value. This reload
+      (++) Configure the IWDG prescaler and counter reload value. This reload
            value will be loaded in the IWDG counter each time the watchdog is
            reloaded, then the IWDG will start counting down from this value.
-      (+) Wait for status flags to be reset.
+      (++) Wait for status flags to be reset.
 
     (#) Then the application program must refresh the IWDG counter at regular
         intervals during normal operation to prevent an MCU reset, using
@@ -120,8 +120,8 @@
   */
 
 /** @addtogroup IWDG_Exported_Functions_Group1
- *  @brief    Initialization and Start functions.
- *
+  *  @brief    Initialization and Start functions.
+  *
 @verbatim
  ===============================================================================
           ##### Initialization and Start functions #####
@@ -195,8 +195,8 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
 
 
 /** @addtogroup IWDG_Exported_Functions_Group2
- *  @brief   IO operation functions
- *
+  *  @brief   IO operation functions
+  *
 @verbatim
  ===============================================================================
                       ##### IO operation functions #####

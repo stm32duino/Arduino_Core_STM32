@@ -37,9 +37,9 @@ extern "C" {
 #define PA8  7
 #define PA9  8
 #define PC7  9
-#define PB0  10 // A6
-#define PA7  11 // A7
-#define PA6  12 // A8
+#define PB0  10
+#define PA7  11 // A6
+#define PA6  12 // A7
 #define PA5  13 // LED
 #define PB9  14
 #define PB8  15
@@ -77,10 +77,10 @@ extern "C" {
 #define PA12 42
 #define PC1  43
 #define PC0  44
-#define PB2  45 // A9
+#define PB2  45 // A8
 #define PB6  46
 #define PB15 47
-#define PB10 48 // A10
+#define PB10 48 // A9
 #define PB13 49
 #define PA2  50
 #define PD8  51
@@ -93,9 +93,9 @@ extern "C" {
 #define PB12 58 // A5
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        64
+#define NUM_DIGITAL_PINS        63
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       11
+#define NUM_ANALOG_INPUTS       10
 #define NUM_ANALOG_FIRST        53
 
 // On-board LED pin number
@@ -106,11 +106,9 @@ extern "C" {
 #define USER_BTN                PC13
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link

@@ -61,6 +61,9 @@
   /* #define STM32G070xx */   /*!< STM32G070xx Devices */
   /* #define STM32G071xx */   /*!< STM32G071xx Devices */
   /* #define STM32G081xx */   /*!< STM32G081xx Devices */
+  /* #define STM32G030xx */   /*!< STM32G030xx Devices */
+  /* #define STM32G031xx */   /*!< STM32G031xx Devices */
+  /* #define STM32G041xx */   /*!< STM32G041xx Devices */
 #endif
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
@@ -79,7 +82,7 @@
   * @brief CMSIS Device version number $VERSION$
   */
 #define __STM32G0_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32G0_CMSIS_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
+#define __STM32G0_CMSIS_VERSION_SUB1   (0x03U) /*!< [23:16] sub1 version */
 #define __STM32G0_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32G0_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32G0_CMSIS_VERSION        ((__STM32G0_CMSIS_VERSION_MAIN << 24)\

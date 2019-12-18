@@ -15547,9 +15547,6 @@ typedef struct
                                     ((INSTANCE) == TIM13)|| \
                                     ((INSTANCE) == TIM14))
 
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /************* TIM Instances : at least 1 capture/compare channel *************/
 #define IS_TIM_CC1_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)  || \
                                          ((INSTANCE) == TIM2)  || \
@@ -15860,6 +15857,8 @@ typedef struct
 #define IS_UART_HWFLOW_INSTANCE(INSTANCE) (((INSTANCE) == USART1) || \
                                            ((INSTANCE) == USART2) || \
                                            ((INSTANCE) == USART3) || \
+                                           ((INSTANCE) == UART4)  || \
+                                           ((INSTANCE) == UART5)  || \
                                            ((INSTANCE) == USART6))
 /******************** UART Instances : LIN mode **********************/
 #define IS_UART_LIN_INSTANCE          IS_UART_HALFDUPLEX_INSTANCE

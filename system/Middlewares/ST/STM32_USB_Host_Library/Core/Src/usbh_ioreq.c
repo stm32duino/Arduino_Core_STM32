@@ -12,13 +12,12 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
-
 #include "usbh_ioreq.h"
 
 /** @addtogroup USBH_LIB
@@ -122,7 +121,8 @@ USBH_StatusTypeDef USBH_CtlSendData(USBH_HandleTypeDef *phost,
                                     uint8_t pipe_num,
                                     uint8_t do_ping)
 {
-  if (phost->device.speed != USBH_SPEED_HIGH) {
+  if (phost->device.speed != USBH_SPEED_HIGH)
+  {
     do_ping = 0U;
   }
 
@@ -181,7 +181,8 @@ USBH_StatusTypeDef USBH_BulkSendData(USBH_HandleTypeDef *phost,
                                      uint8_t pipe_num,
                                      uint8_t do_ping)
 {
-  if (phost->device.speed != USBH_SPEED_HIGH) {
+  if (phost->device.speed != USBH_SPEED_HIGH)
+  {
     do_ping = 0U;
   }
 

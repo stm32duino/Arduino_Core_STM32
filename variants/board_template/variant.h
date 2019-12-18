@@ -51,6 +51,8 @@ extern "C" {
 #define NUM_DIGITAL_PINS        0
 
 // Allow to define Arduino style alias for analog input pin number --> Ax
+// If no analog pin required then NUM_ANALOG_INPUTS and NUM_ANALOG_FIRST
+// could not be defined or set to respectively `0` and `NUM_DIGITAL_PINS`
 // All pins are digital, analog inputs are a subset of digital pins
 // and must be contiguous to be able to loop on each value
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
@@ -66,11 +68,10 @@ extern "C" {
 // First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
 #define NUM_ANALOG_FIRST        0
 
-// Below ADC, DAC and PWM definitions already done in the core
+// Below ADC and PWM definitions already done in the core
 // Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
+// ADC resolution is 10 bits
+//#define ADC_RESOLUTION          10
 
 // PWM resolution
 //#define PWM_RESOLUTION          8
@@ -105,11 +106,9 @@ extern "C" {
 //#define I2C_TIMING_FMP          0x00000000
 
 // Timer Definitions (optional)
-//Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
-#define TIMER_TONE              TIMx
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIMx  //TODO: advanced-control timers don't work
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+#define TIMER_TONE              TIM6
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -50,7 +50,8 @@ extern "C" {
 /** @defgroup USBH_HID_PARSER_Exported_Types
   * @{
   */
-typedef struct {
+typedef struct
+{
   uint8_t  *data;
   uint32_t size;
   uint8_t  shift;

@@ -14,6 +14,9 @@
 
 #include "Arduino.h"
 #include <stdio.h>
+extern "C" {
+#include "utility/spi_com.h"
+}
 
 // SPI_HAS_TRANSACTION means SPI has
 //   - beginTransaction()
@@ -69,12 +72,6 @@ class SPISettings {
     SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
     {
       clk = clock;
-
-      if (bitOrder == MSBFIRST) {
-        msb = 1;
-      } else {
-        msb = 0;
-      }
       bOrder = bitOrder;
 
       if (SPI_MODE0 == dataMode) {
@@ -86,14 +83,12 @@ class SPISettings {
       } else if (SPI_MODE3 == dataMode) {
         dMode = SPI_MODE_3;
       }
-
     }
     SPISettings()
     {
       pinCS = -1;
       clk = SPI_SPEED_CLOCK_DEFAULT;
       bOrder = MSBFIRST;
-      msb = 1;
       dMode = SPI_MODE_0;
     }
   private:
@@ -106,7 +101,6 @@ class SPISettings {
     //SPI_MODE1             0                     1
     //SPI_MODE2             1                     0
     //SPI_MODE3             1                     1
-    uint8_t msb;        //set to 1 if msb first
     friend class SPIClass;
 };
 
@@ -279,7 +273,6 @@ class SPIClass {
           spiSettings[i].pinCS = -1;
           spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
           spiSettings[i].bOrder = MSBFIRST;
-          spiSettings[i].msb = 1;
           spiSettings[i].dMode = SPI_MODE_0;
         }
       }
@@ -291,7 +284,6 @@ class SPIClass {
         spiSettings[i].pinCS = -1;
         spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
         spiSettings[i].bOrder = MSBFIRST;
-        spiSettings[i].msb = 1;
         spiSettings[i].dMode = SPI_MODE_0;
       }
     }

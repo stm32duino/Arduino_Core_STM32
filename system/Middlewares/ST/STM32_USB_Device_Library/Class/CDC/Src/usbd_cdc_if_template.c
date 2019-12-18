@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -69,14 +69,16 @@ static int8_t TEMPLATE_DeInit(void);
 static int8_t TEMPLATE_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length);
 static int8_t TEMPLATE_Receive(uint8_t *pbuf, uint32_t *Len);
 
-USBD_CDC_ItfTypeDef USBD_CDC_Template_fops = {
+USBD_CDC_ItfTypeDef USBD_CDC_Template_fops =
+{
   TEMPLATE_Init,
   TEMPLATE_DeInit,
   TEMPLATE_Control,
   TEMPLATE_Receive
 };
 
-USBD_CDC_LineCodingTypeDef linecoding = {
+USBD_CDC_LineCodingTypeDef linecoding =
+{
   115200, /* baud rate*/
   0x00,   /* stop bits-1*/
   0x00,   /* parity - none*/
@@ -124,7 +126,8 @@ static int8_t TEMPLATE_DeInit(void)
   */
 static int8_t TEMPLATE_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
 {
-  switch (cmd) {
+  switch (cmd)
+  {
     case CDC_SEND_ENCAPSULATED_COMMAND:
       /* Add your code here */
       break;

@@ -28,6 +28,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal_def.h"
 
+#if defined(TSC)
+
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{
   */
@@ -640,7 +642,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 
 #define IS_TSC_GROUP_INDEX(__VALUE__)   (((__VALUE__) == 0UL) || (((__VALUE__) > 0UL) && ((__VALUE__) < (uint32_t)TSC_NB_OF_GROUPS)))
 
-#define IS_TSC_GROUP(__VALUE__)         ((((__VALUE__) & TSC_GROUP1_IO1) == TSC_GROUP1_IO1) ||\
+#define IS_TSC_GROUP(__VALUE__)         (((__VALUE__) == 0UL)                               ||\
+                                         (((__VALUE__) & TSC_GROUP1_IO1) == TSC_GROUP1_IO1) ||\
                                          (((__VALUE__) & TSC_GROUP1_IO2) == TSC_GROUP1_IO2) ||\
                                          (((__VALUE__) & TSC_GROUP1_IO3) == TSC_GROUP1_IO3) ||\
                                          (((__VALUE__) & TSC_GROUP1_IO4) == TSC_GROUP1_IO4) ||\
@@ -751,6 +754,7 @@ void HAL_TSC_ErrorCallback(TSC_HandleTypeDef *htsc);
 /**
   * @}
   */
+#endif /* TSC */
 
 #ifdef __cplusplus
 }
