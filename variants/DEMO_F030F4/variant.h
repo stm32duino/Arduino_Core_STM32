@@ -40,16 +40,16 @@ extern "C" {
 
 // USB connector on the top, MCU side
 // Left Side
-#define PA0  0  //D0/A0
-#define PA1  1  //D1/A1
-#define PA2  2  //D2/A2 - TX
-#define PA3  3  //D3/A3 - RX
-#define PA4  4  //D4/A4 - LED
+#define PA0  A0 //D0/A0
+#define PA1  A1 //D1/A1
+#define PA2  A2 //D2/A2 - TX
+#define PA3  A3 //D3/A3 - RX
+#define PA4  A4 //D4/A4 - LED
 // Right side
-#define PA5  5  //D5/A5 - SCK
-#define PA6  6  //D6/A6 - MISO
-#define PA7  7  //D7/A7 - MOSI
-#define PB1  8  //D8/A8 - SS
+#define PA5  A5 //D5/A5 - SCK
+#define PA6  A6 //D6/A6 - MISO
+#define PA7  A7 //D7/A7 - MOSI
+#define PB1  A8 //D8/A8 - SS
 #define PA9  9  //D9    - SCL (TX UART header)
 #define PA10 10 //D10   - SDA (RX UART header)
 #define PA13 11 //D11   - SWDIO
@@ -59,10 +59,9 @@ extern "C" {
 #define PF1  14
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        24
+#define NUM_DIGITAL_PINS        15
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       9
-#define NUM_ANALOG_FIRST        15
 
 // On-board LED pin number
 #define LED_BUILTIN             PA4
