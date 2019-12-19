@@ -138,6 +138,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Malyan M200 V2](http://malyansys.com/product/m200-v2/) | *1.5.0* |  |
 | :yellow_heart: | [Malyan M300](http://malyansys.com/product/m300/) | **1.8.0** |  |
 | :green_heart: | [Prntr Board V1](https://github.com/ghent360/PrntrBoard) | *1.5.0* |  |
+| :yellow_heart: | [Prntr Board V2](https://github.com/ghent360/PrntrBoardV2) | **1.8.0** |  |
 | :green_heart: | [RemRam v1](https://github.com/hasenbanck/remram) | *1.4.0* |  |
 | :green_heart: | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
 | :green_heart: | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
