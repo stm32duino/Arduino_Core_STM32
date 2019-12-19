@@ -124,6 +124,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | Core Board F401RC | *1.7.0* |  |
 | :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
+| :yellow_heart: | Generic F401R(B-C-D-E) | **1.8.0** |  |
 
 | Status | Generic STM32L0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
