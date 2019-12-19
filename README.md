@@ -1,7 +1,7 @@
 # Arduino core support for STM32 based boards
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.7.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.7.0...master)
+[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.8.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.8.0...master)
 [![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32)
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -67,7 +67,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart: | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
 | :green_heart: | [Nucleo L452RE](http://www.st.com/en/evaluation-tools/nucleo-l452re.html) | *1.5.0* |  |
-| :yellow_heart: | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | **1.8.0** |  |
+| :green_heart: | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart: | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
 | :green_heart: | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | No BLE support |
 
@@ -95,8 +95,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | [STM32MP1 series coprocessor](https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-arm-cortex-mpus/stm32mp1-series.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | **1.8.0** | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
-| :yellow_heart: | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | **1.8.0** | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
+| :green_heart: | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
+| :green_heart: | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md) to use this board|
 
 
 | Status | Generic STM32F0xx | Release | Comment |
@@ -117,19 +117,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Generic STM32F4xx | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | **1.8.0** |  |
+| :green_heart: | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | *1.8.0* |  |
 | :green_heart: | BlackPill F401CC | *1.7.0* |  |
 | :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
 | :green_heart: | Core Board F401RC | *1.7.0* |  |
 | :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
-| :yellow_heart: | Generic F401R(B-C-D-E) | **1.8.0** |  |
+| :green_heart: | Generic F401R(B-C-D-E) | *1.8.0* |  |
 
 | Status | Generic STM32L0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | **1.8.0** |  |
-| :yellow_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | **1.8.0** |  |
+| :green_heart: | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
+| :green_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
 
 | Status | 3D printer boards | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -137,9 +137,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [EExtruder F030 V1](https://github.com/ghent360/PrntrBoard/tree/tmc2130-redesign/EExtruder) | *1.5.0* | Small companion board for Prntr Board V1 |
 | :green_heart: | [Malyan M200 V1](http://malyansys.com/product/m200-v1/) | *1.5.0* |  |
 | :green_heart: | [Malyan M200 V2](http://malyansys.com/product/m200-v2/) | *1.5.0* |  |
-| :yellow_heart: | [Malyan M300](http://malyansys.com/product/m300/) | **1.8.0** |  |
+| :green_heart: | [Malyan M300](http://malyansys.com/product/m300/) | *1.8.0* |  |
 | :green_heart: | [Prntr Board V1](https://github.com/ghent360/PrntrBoard) | *1.5.0* |  |
-| :yellow_heart: | [Prntr Board V2](https://github.com/ghent360/PrntrBoardV2) | **1.8.0** |  |
+| :green_heart: | [Prntr Board V2](https://github.com/ghent360/PrntrBoardV2) | *1.8.0* |  |
 | :green_heart: | [RemRam v1](https://github.com/hasenbanck/remram) | *1.4.0* |  |
 | :green_heart: | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
 | :green_heart: | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
@@ -152,7 +152,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Electronic Speed Controller boards | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :yellow_heart: | Wraith V1 ESC | **1.8.0** |  |
+| :green_heart: | Wraith V1 ESC | *1.8.0* |  |
 
 | Status | Generic flight controllers | Release | Comment |
 | :---: | --- | :---: | :--- |
