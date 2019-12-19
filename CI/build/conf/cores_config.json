@@ -74,6 +74,7 @@
             "NUCLEO_F303K8",
             "NUCLEO_G431KB",
             "PRNTR_F407_V1",
+            "PRNTR_V2",
             "RUMBA32",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
@@ -103,7 +104,7 @@
         {
           "pattern": "Blink(WithoutDelay)?.ino",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB" ]
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "PRNTR_V2" ]
         },
         {
           "pattern": "STM32SD",
@@ -113,7 +114,9 @@
         {
           "pattern": "Ethernet/|STM32FreeRTOS",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_F030R8", "NUCLEO_L031K6" ]
+          "boards": [
+            "BLUEPILL_F103C6", "EEXTR_F030_V1", "MALYANM200_F103CB", "NUCLEO_F030R8",
+            "NUCLEO_L031K6", "PRNTR_V2" ]
         },
         {
           "pattern": "09.USB",
@@ -193,6 +196,7 @@
             "FEATHER_F405",
             "MALYANM200_F103CB",
             "NUCLEO_L031K6",
+            "PRNTR_V2",
             "PX_HER0",
             "RAK811_TRACKER",
             "RAK811_TRACKERA",
