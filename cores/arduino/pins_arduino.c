@@ -75,7 +75,7 @@ bool pinIsAnalogInput(uint32_t pin)
   ret = (pin >= A0) && (pin < (A0 + NUM_ANALOG_INPUTS));
 #else
   for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInPin[i] == pin) {
+    if (analogInputPin[i] == pin) {
       ret = true;
       break;
     }
@@ -93,7 +93,7 @@ uint32_t digitalPinToAnalogInput(uint32_t pin)
   ret = pin - A0;
 #else
   for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInPin[i] == pin) {
+    if (analogInputPin[i] == pin) {
       ret = i;
       break;
     }

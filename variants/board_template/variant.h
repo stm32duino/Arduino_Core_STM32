@@ -78,7 +78,7 @@ extern "C" {
 #define NUM_ANALOG_FIRST        0
 //------------------------------------OR------------------------------------------------------
 //   - If they are not contiguous in the digitalPin array:
-//     Add an analogInPin array in the variant.cpp without defining NUM_ANALOG_FIRST
+//     Add an analogInputPin array in the variant.cpp without defining NUM_ANALOG_FIRST
 //     In that case the defined PYn for analog pin have to define the Ax definition instead of
 //     index in digitalPin[] array:
 //     #define PA4  A14

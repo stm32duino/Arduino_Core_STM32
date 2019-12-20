@@ -59,7 +59,7 @@ enum {
 
 // If NUM_ANALOG_FIRST is not defined:
 // - Ax are not contiguous in the digitalPin array
-// - analogInPin array is available
+// - analogInputPin array is available
 #ifndef NUM_ANALOG_FIRST
 #define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
 #define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
@@ -239,7 +239,7 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 extern "C" {
 #endif
 extern const PinName digitalPin[];
-extern const uint32_t analogInPin[];
+extern const uint32_t analogInputPin[];
 
 #define NOT_AN_INTERRUPT            NC // -1
 
@@ -250,7 +250,7 @@ extern const uint32_t analogInPin[];
 #else
 #define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : \
             ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
-                                                digitalPin[analogInPin[p-NUM_ANALOG_FIRST]] : NC)
+                                                digitalPin[analogInputPin[p-NUM_ANALOG_FIRST]] : NC)
 #endif
 // Convert a PinName PX_n to a digital pin number
 uint32_t pinNametoDigitalPin(PinName p);
@@ -264,9 +264,9 @@ uint32_t pinNametoDigitalPin(PinName p);
 #else
 // For non contiguous analog pins definition in digitalPin array
 #define analogInputToDigitalPin(p)  ( \
-            ((uint32_t)p < NUM_ANALOG_INPUTS) ? analogInPin[p] : \
+            ((uint32_t)p < NUM_ANALOG_INPUTS) ? analogInputPin[p] : \
             ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
-                                                analogInPin[p-NUM_ANALOG_FIRST] : p)
+                                                analogInputPin[p-NUM_ANALOG_FIRST] : p)
 #endif // !NUM_ANALOG_LAST
 #else
 // No analog pin defined
