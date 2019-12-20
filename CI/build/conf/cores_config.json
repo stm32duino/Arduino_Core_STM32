@@ -234,12 +234,12 @@
         {
           "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
           "applicable": false,
-          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6", "Wraith32_V1"]
+          "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6", "Wraith32_V1" ]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
           "applicable": false,
-          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "STEVAL_MKSBOX1V1" ]
+          "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "PRNTR_V2", "STEVAL_MKSBOX1V1" ]
         },
         {
           "pattern": "ArduinoISP",
@@ -267,7 +267,10 @@
         {
           "pattern": "PWM_FullConfiguration",
           "applicable": false,
-          "boards": [ "THUNDER_PACK" ]
+          "boards": [
+            "GENERIC_F401RB", "GENERIC_F401RC", "GENERIC_F401RD", "GENERIC_F401RE",
+            "HY_TinySTM103TB", "THUNDER_PACK"
+          ]
         },
         {
           "pattern": "HardwareTimer_OutputInput_test",
