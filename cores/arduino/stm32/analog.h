@@ -52,8 +52,10 @@ extern "C" {
 void dac_write_value(PinName pin, uint32_t value, uint8_t do_init);
 void dac_stop(PinName pin);
 uint16_t adc_read_value(PinName pin, uint32_t resolution);
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 void pwm_start(PinName pin, uint32_t clock_freq, uint32_t value, TimerCompareFormat_t resolution);
 void pwm_stop(PinName pin);
+#endif
 uint32_t get_pwm_channel(PinName pin);
 
 #ifdef __cplusplus
