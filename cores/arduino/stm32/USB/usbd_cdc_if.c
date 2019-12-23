@@ -273,7 +273,7 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
 
   if (Size > 0)
   {
-    if ((UserRxBufPtrIn + Size) > APP_RX_DATA_SIZE)
+    if ((UserRxBufPtrIn + Size) >= APP_RX_DATA_SIZE)
     {
       uint32_t n = APP_RX_DATA_SIZE - UserRxBufPtrIn;
       memcpy((/* not-volatile */ void *)&UserRxBufferFS[UserRxBufPtrIn], Buf, n);
