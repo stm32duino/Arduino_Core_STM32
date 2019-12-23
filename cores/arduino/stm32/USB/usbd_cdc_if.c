@@ -276,14 +276,14 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
     if ((UserRxBufPtrIn + Size) > APP_RX_DATA_SIZE)
     {
       uint32_t n = APP_RX_DATA_SIZE - UserRxBufPtrIn;
-      memcpy(&UserRxBufferFS[UserRxBufPtrIn], Buf, n);
+      memcpy((void *)&UserRxBufferFS[UserRxBufPtrIn], Buf, n);
       if ((Size -= n) != 0)
-        memcpy(UserRxBufferFS, &Buf[n], Size);
+        memcpy((void *)UserRxBufferFS, &Buf[n], Size);
       UserRxBufPtrIn = Size;
     }
     else
     {
-      memcpy(&UserRxBufferFS[UserRxBufPtrIn], Buf, Size);
+      memcpy((void *)&UserRxBufferFS[UserRxBufPtrIn], Buf, Size);
       UserRxBufPtrIn += Size;
     }
   }
@@ -303,7 +303,7 @@ static int8_t CDC_TransmitDone(void)
 {
   if (UserTxBufPtrIn)
   {
-    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, gCDC_pTxBufferFS, UserTxBufPtrIn);
+    USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, (uint8_t *)gCDC_pTxBufferFS, UserTxBufPtrIn);
 
     if (gCDC_pTxBufferFS == (uint8_t *)UserTxBufferFS)
       gCDC_pTxBufferFS = (uint8_t *)StackTxBufferFS;
@@ -439,7 +439,7 @@ size_t CDC_Write(const uint8_t *pBuffer, size_t nBuffer)
     else
       nBytes = nBuffer;
 
-    memcpy(StackTxBufferFS, pBuffer, nBytes);
+    memcpy((void *)StackTxBufferFS, pBuffer, nBytes);
     gCDC_pTxBufferFS = (uint8_t *)UserTxBufferFS;
     UserTxBufPtrIn = 0;
 
@@ -453,7 +453,7 @@ size_t CDC_Write(const uint8_t *pBuffer, size_t nBuffer)
     if (nBytes > nBuffer)
       nBytes = nBuffer;
 
-    memcpy(gCDC_pTxBufferFS + UserTxBufPtrIn, pBuffer, nBytes);
+    memcpy((void *)(gCDC_pTxBufferFS + UserTxBufPtrIn), pBuffer, nBytes);
     UserTxBufPtrIn += nBytes;
   }
 
