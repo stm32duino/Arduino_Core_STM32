@@ -137,11 +137,7 @@ enum {
 #ifdef __cplusplus
 } // extern "C"
 #endif
-/*----------------------------------------------------------------------------
- *        Arduino objects - C++ only
- *----------------------------------------------------------------------------*/
 
-#ifdef __cplusplus
 // These serial port names are intended to allow libraries and architecture-neutral
 // sketches to automatically default to the correct port name for a particular type
 // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
@@ -157,7 +153,6 @@ enum {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-# include "../mcci_common_uart.h"
-#endif
+#include "../mcci_common_uart.h"
 
 #endif /* _VARIANT_ARDUINO_CATENA_4801_ */
