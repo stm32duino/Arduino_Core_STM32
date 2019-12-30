@@ -1,4 +1,4 @@
-# See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
+﻿# See: https://github.com/arduino/Arduino/wiki/Arduino-IDE-1.5-3rd-party-Hardware-specification
 
 menu.pnum=Board part number
 
@@ -846,6 +846,14 @@ GenF1.menu.pnum.MAPLEMINI_F103CB.upload.maximum_data_size=20480
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.board=MAPLEMINI_F103CB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.MAPLEMINI_F103CB.build.variant=MAPLEMINI_F103CB
+
+# VCCGND_F103ZET6 board
+GenF1.menu.pnum.VCCGND_F103ZET6=VCCGND_F103ZET6
+GenF1.menu.pnum.VCCGND_F103ZET6.upload.maximum_size=524288
+GenF1.menu.pnum.VCCGND_F103ZET6.upload.maximum_data_size=65536
+GenF1.menu.pnum.VCCGND_F103ZET6.build.board=VCCGND_F103ZET6
+GenF1.menu.pnum.VCCGND_F103ZET6.build.product_line=STM32F103xE
+GenF1.menu.pnum.VCCGND_F103ZET6.build.variant=VCCGND_F103ZET6
 
 # Upload menu
 GenF1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
