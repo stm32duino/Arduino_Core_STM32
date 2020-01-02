@@ -158,7 +158,11 @@ void HardwareTimer::resume(void)
   if (callbacks[0] != NULL) {
     __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), TIM_FLAG_UPDATE);
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
+
+    // Start timer in Time base mode. Required when there is no channel used but only update interrupt.
+    HAL_TIM_Base_Start(&(_timerObj.handle));
   }
+
   // Resume all channels
   resumeChannel(1);
   resumeChannel(2);
