@@ -144,11 +144,25 @@ extern "C" {
 #define NUM_DIGITAL_PINS        112
 #define NUM_ANALOG_INPUTS       21
 
+// On-board LED pin number
+#ifdef ARDUINO_VCCGND_F103ZET6_MINI
+#define LED_BUILTIN             PG15
+#elif defined(ARDUINO_VCCGND_F103ZET6)
+#define LED_BUILTIN             PC13
+#endif
+
 // SPI Definitions
-#define PIN_SPI_SS              PA4
+#ifdef ARDUINO_VCCGND_F103ZET6
+#define PIN_SPI_SS              PA15
+#define PIN_SPI_MOSI            PB5
+#define PIN_SPI_MISO            PB4
+#define PIN_SPI_SCK             PB3
+#else
+#define PIN_SPI_SS              PC4
 #define PIN_SPI_MOSI            PA7
 #define PIN_SPI_MISO            PA6
 #define PIN_SPI_SCK             PA5
+#endif
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PB7
@@ -178,6 +192,13 @@ extern "C" {
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
+
+#ifdef ARDUINO_VCCGND_F103ZET6_MINI
+#define HAL_SD_MODULE_ENABLED
+// SD card slot Definitions
+// SD detect signal can be defined if required
+#define SD_DETECT_PIN           PF10
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
