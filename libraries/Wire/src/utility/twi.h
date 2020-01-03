@@ -61,7 +61,11 @@ extern "C" {
 #endif
 
 /* I2C Tx/Rx buffer size */
+#if !defined(I2C_TXRX_BUFFER_SIZE)
 #define I2C_TXRX_BUFFER_SIZE    32
+#elif (I2C_TXRX_BUFFER_SIZE >= 256)
+#error I2C buffer size cannot exceed 255
+#endif
 
 /* Redefinition of IRQ for F0/G0/L0 families */
 #if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32L0xx)
