@@ -852,12 +852,17 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   */
 void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
 {
-  callbacks[0] = callback;
-  if (callback != NULL) {
-    // Clear flag before enabling IT
-    __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), TIM_FLAG_UPDATE);
-    // Enable update interrupt only if callback is valid
-    __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
+  if (callbacks[0] != NULL) {
+    // Callback previously configured : do not clear neither enable IT, it is just a change of callback
+    callbacks[0] = callback;
+  } else {
+    callbacks[0] = callback;
+    if (callback != NULL) {
+      // Clear flag before enabling IT
+      __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), TIM_FLAG_UPDATE);
+      // Enable update interrupt only if callback is valid
+      __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
+    }
   }
 }
 
@@ -889,12 +894,17 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
     Error_Handler();  // only channel 1..4 have an interrupt
   }
 
-  callbacks[channel] = callback;
-  if (callback != NULL) {
-    // Clear flag before enabling IT
-    __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), interrupt);
-    // Enable interrupt corresponding to channel, only if callback is valid
-    __HAL_TIM_ENABLE_IT(&(_timerObj.handle), interrupt);
+  if (callbacks[channel] != NULL) {
+    // Callback previously configured : do not clear neither enable IT, it is just a change of callback
+    callbacks[channel] = callback;
+  } else {
+    callbacks[channel] = callback;
+    if (callback != NULL) {
+      // Clear flag before enabling IT
+      __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), interrupt);
+      // Enable interrupt corresponding to channel, only if callback is valid
+      __HAL_TIM_ENABLE_IT(&(_timerObj.handle), interrupt);
+    }
   }
 }
 
