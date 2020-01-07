@@ -26,7 +26,7 @@ extern "C" {
 
 //                  | DIGITAL | ANALOG | USART     | TWI                  | SPI                            | SPECIAL   |
 //                  |---------|--------|-----------|----------------------|--------------------------------|-----------|
-#define PA0  A0  // | 0       | A0     |           |                      | SPI5_SCK                       |           |
+#define PA0  A0  // | 0       | A0     |           |                      |                                |           |
 #define PA1  A1  // | 1       | A1     |           |                      | SPI4_MOSI                      |           |
 #define PA2  A2  // | 2       | A2     | USART2_TX |                      |                                |           |
 #define PA3  A3  // | 3       | A3     | USART2_RX |                      |                                |           |
@@ -43,7 +43,7 @@ extern "C" {
 #define PA14 14  // | 14      |        |           |                      |                                | SWD_SWCLK |
 #define PA15 15  // | 15      |        | USART1_TX |                      | SPI3_SS, (SPI1_SS)             |           |
 //                  |---------|--------|-----------|----------------------|--------------------------------|-----------|
-#define PB0  A8  // | 16      | A8     |           |                      |                                |           |
+#define PB0  A8  // | 16      | A8     |           |                      | SPI5_SCK                       |           |
 #define PB1  A9  // | 17      | A9     |           |                      | SPI5_SS                        |           |
 #define PB2  18  // | 18      |        |           |                      |                                | BOOT1     |
 #define PB3  19  // | 19      |        | USART1_RX | TWI2_SDA             | SPI1_SCK,  (SPI3_SCK)          |           |
@@ -66,7 +66,7 @@ extern "C" {
 #define PC4  A14 // | 35      | A14    |           |                      |                                |           |
 #define PC5  A15 // | 36      | A15    |           |                      |                                |           |
 #define PC6  37  // | 37      |        | USART6_TX |                      |                                |           |
-#define PC7  38  // | 38      |        | USART6_RX |                      |                                |           |
+#define PC7  38  // | 38      |        | USART6_RX |                      | SPI2_SCK                       |           |
 #define PC8  39  // | 39      |        |           |                      |                                |           |
 #define PC9  40  // | 40      |        |           | TWI3_SDA             |                                |           |
 #define PC10 41  // | 41      |        |           |                      | SPI3_SCK                       |           |
