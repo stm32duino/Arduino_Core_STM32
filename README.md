@@ -147,7 +147,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | LoRa boards | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | Basic support |
+| :green_heart: | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
 | :green_heart: | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
 
 | Status | Electronic Speed Controller boards | Release | Comment |
