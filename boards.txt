@@ -584,6 +584,19 @@ Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
 Disco.menu.pnum.DISCO_F746NG.build.variant=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
+# DISCO_G0316 board
+Disco.menu.pnum.DISCO_G0316=STM32G0316-DISCO
+Disco.menu.pnum.DISCO_G0316.node=NODE_G031J6
+Disco.menu.pnum.DISCO_G0316.upload.maximum_size=131072
+Disco.menu.pnum.DISCO_G0316.upload.maximum_data_size=32768
+Disco.menu.pnum.DISCO_G0316.build.mcu=cortex-m0plus
+Disco.menu.pnum.DISCO_G0316.build.board=DISCO_G0316
+Disco.menu.pnum.DISCO_G0316.build.series=STM32G0xx
+Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
+Disco.menu.pnum.DISCO_G0316.build.variant=DISCO_G0316
+Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
+Disco.menu.pnum.DISCO_G0316.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+
 # DISCO_L475VG_IOT board
 Disco.menu.pnum.DISCO_L475VG_IOT=STM32L475VG-DISCOVERY-IOT
 Disco.menu.pnum.DISCO_L475VG_IOT.node=DIS_L4IOT
