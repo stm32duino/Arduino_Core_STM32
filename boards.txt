@@ -1041,6 +1041,22 @@ GenF4.menu.pnum.Generic_F411RC.build.board=GENERIC_F411RC
 GenF4.menu.pnum.Generic_F411RC.build.product_line=STM32F411xE
 GenF4.menu.pnum.Generic_F411RC.build.variant=Generic_F411Rx
 
+# Generic F411CE
+GenF4.menu.pnum.Generic_F411CE=Generic F411CE
+GenF4.menu.pnum.Generic_F411CE.upload.maximum_size=524288
+GenF4.menu.pnum.Generic_F411CE.upload.maximum_data_size=131072
+GenF4.menu.pnum.Generic_F411CE.build.board=GENERIC_F411CE
+GenF4.menu.pnum.Generic_F411CE.build.product_line=STM32F411xE
+GenF4.menu.pnum.Generic_F411CE.build.variant=Generic_F411Cx
+
+# Generic F411CC
+GenF4.menu.pnum.Generic_F411CC=Generic F411CC
+GenF4.menu.pnum.Generic_F411CC.upload.maximum_size=262144
+GenF4.menu.pnum.Generic_F411CC.upload.maximum_data_size=131072
+GenF4.menu.pnum.Generic_F411CC.build.board=GENERIC_F411CC
+GenF4.menu.pnum.Generic_F411CC.build.product_line=STM32F411xE
+GenF4.menu.pnum.Generic_F411CC.build.variant=Generic_F411Cx
+
 # Generic F401RE
 GenF4.menu.pnum.Generic_F401RE=Generic F401RE
 GenF4.menu.pnum.Generic_F401RE.upload.maximum_size=524288
