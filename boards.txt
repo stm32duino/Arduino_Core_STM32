@@ -2253,3 +2253,14 @@ Midatronics.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
+
+
+GenF1.menu.pnum.CANFILTER=CAN Filter
+GenF1.menu.pnum.CANFILTER.build.board=CANFILTER
+GenF1.menu.pnum.CANFILTER.build.variant=CAN_FILTER
+GenF1.menu.pnum.CANFILTER.build.mcu=cortex-m3
+GenF1.menu.pnum.CANFILTER.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF1.menu.pnum.CANFILTER.build.series=STM32F1xx
+GenF1.menu.pnum.CANFILTER.build.product_line=STM32F105xC
+GenF1.menu.pnum.CANFILTER.upload.maximum_size=131072
+GenF1.menu.pnum.CANFILTER.upload.maximum_data_size=65536
