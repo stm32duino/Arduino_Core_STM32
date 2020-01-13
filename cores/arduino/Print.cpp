@@ -200,22 +200,19 @@ extern "C" {
   __attribute__((weak))
   int _write(int file, char *ptr, int len)
   {
-#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
     switch (file) {
       case STDOUT_FILENO:
       case STDERR_FILENO:
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
+        /* Used for core_debug() */
         uart_debug_write((uint8_t *)ptr, (uint32_t)len);
-        break;
+#endif
       case STDIN_FILENO:
         break;
       default:
         ((class Print *)file)->write((uint8_t *)ptr, len);
         break;
     }
-#else
-    (void)file;
-    (void)ptr;
-#endif
     return len;
   }
 }
