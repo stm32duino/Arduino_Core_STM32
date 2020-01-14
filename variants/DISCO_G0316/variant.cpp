@@ -24,12 +24,40 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PC_14, //D0/A0
-  PF_2,  //D1/A1
-  PB_0,  //D2/A2
-  PA_12, //D3/A3/LED
-  PA_13, //D4/A4/SWD
-  PA_14  //D5/A5/SWD
+  PA_0,
+  PA_1,
+  PA_2,
+  PA_8,
+  PA_9,
+  PA_10,
+  PA_11,
+  PA_12,
+  PA_13,
+  PA_14,
+  PA_15,
+  PB_0,
+  PB_1,
+  PB_5,
+  PB_6,
+  PB_7,
+  PB_8,
+  PB_9,
+  PC_14,
+  PF_2
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  0,  //A0
+  1,  //A1
+  2,  //A2
+  6,  //A3
+  7,  //A4
+  8,  //A5
+  9,  //A6
+  11, //A7
+  12, //A8
+  15  //A9
 };
 
 #ifdef __cplusplus

@@ -26,40 +26,53 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
+#define PA0  A0 // package pin number 4
+#define PA1  A1 // package pin number 4
+#define PA2  A2 // package pin number 4
 
-#define PB7  1
-#define PB8  1
-#define PB9  1
-#define PC14 1
-#define PA0  4
-#define PA1  4
-#define PA2  4
-#define PF2  4
-#define PA8  5
-#define PA11 5
-#define PA9  5
-#define PB0  5
-#define PB1  5
-#define PA12 6 // LED
-#define PA10 6
-#define PA13 7
-#define PB5  8
-#define PB6  8
-#define PA14 8
-#define PA15 8
+#define PA8  3  // package pin number 5
+#define PA9  4  // package pin number 5 - shared with PA11
+#define PA10 5  // package pin number 6 - shared with PA12
+#define PA11 A3 // package pin number 5
+#define PA12 A4 // package pin number 6 - LED
+#define PA13 A5 // package pin number 7 - SWDIO
+#define PA14 A6 // package pin number 8 - SWCLK - BOOT0
+#define PA15 10 // package pin number 8
+
+#define PB0  A7 // package pin number 5
+#define PB1  A8 // package pin number 5
+#define PB5  13 // package pin number 8
+#define PB6  14 // package pin number 8
+#define PB7  A9 // package pin number 1
+#define PB8  16 // package pin number 1
+#define PB9  17 // package pin number 1
+
+#define PC14 18 // package pin number 1
+
+#define PF2  19 // package pin number 4
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        6
-// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        0
+#define NUM_DIGITAL_PINS        20
+#define NUM_ANALOG_INPUTS       10
 
 // On-board LED pin number
-#define LED_BUILTIN             6
+#define LED_BUILTIN             PA12
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
 #define USER_BTN                PF2
+
+// Below SPI and I2C definitions already done in the core
+// Could be redefined here if differs from the default one
+// SPI Definitions
+#define PIN_SPI_MOSI            PA12
+#define PIN_SPI_MISO            PA11
+#define PIN_SPI_SCK             PA1
+#define PIN_SPI_SS              PA13
+
+// I2C Definitions
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
 // Use TIM14/TIM16/TIM17 when possible as servo and tone don't need GPIO output pin
@@ -69,7 +82,7 @@ extern "C" {
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
