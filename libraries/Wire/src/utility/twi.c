@@ -813,7 +813,7 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
       }
 
       err = HAL_I2C_GetError(&(obj->handle));
-      if ((delta > I2C_TIMEOUT_TICK)
+      if ((delta >= I2C_TIMEOUT_TICK)
           || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
         ret = I2C_TIMEOUT;
       } else {
@@ -887,7 +887,7 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
     }
 
     err = HAL_I2C_GetError(&(obj->handle));
-    if ((delta > I2C_TIMEOUT_TICK)
+    if ((delta >= I2C_TIMEOUT_TICK)
         || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
       ret = I2C_TIMEOUT;
     } else {
