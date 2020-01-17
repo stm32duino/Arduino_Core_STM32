@@ -1093,6 +1093,38 @@ GenF4.menu.pnum.Generic_F401RB.build.product_line=STM32F401xC
 GenF4.menu.pnum.Generic_F401RB.build.variant=Generic_F401Rx
 GenF4.menu.pnum.Generic_F401RB.node=NODE_F401RE
 
+# Generic F401CE
+GenF4.menu.pnum.Generic_F401CE=Generic F401CE
+GenF4.menu.pnum.Generic_F401CE.upload.maximum_size=524288
+GenF4.menu.pnum.Generic_F401CE.upload.maximum_data_size=98304
+GenF4.menu.pnum.Generic_F401CE.build.board=GENERIC_F401CE
+GenF4.menu.pnum.Generic_F401CE.build.product_line=STM32F401xE
+GenF4.menu.pnum.Generic_F401CE.build.variant=Generic_F401Cx
+
+# Generic F401CD
+GenF4.menu.pnum.Generic_F401CD=Generic F401CD
+GenF4.menu.pnum.Generic_F401CD.upload.maximum_size=393216
+GenF4.menu.pnum.Generic_F401CD.upload.maximum_data_size=98304
+GenF4.menu.pnum.Generic_F401CD.build.board=GENERIC_F401CD
+GenF4.menu.pnum.Generic_F401CD.build.product_line=STM32F401xE
+GenF4.menu.pnum.Generic_F401CD.build.variant=Generic_F401Cx
+
+# Generic F401CC
+GenF4.menu.pnum.Generic_F401CC=Generic F401CC
+GenF4.menu.pnum.Generic_F401CC.upload.maximum_size=262144
+GenF4.menu.pnum.Generic_F401CC.upload.maximum_data_size=65536
+GenF4.menu.pnum.Generic_F401CC.build.board=GENERIC_F401CC
+GenF4.menu.pnum.Generic_F401CC.build.product_line=STM32F401xC
+GenF4.menu.pnum.Generic_F401CC.build.variant=Generic_F401Cx
+
+# Generic F401CB
+GenF4.menu.pnum.Generic_F401CB=Generic F401CB
+GenF4.menu.pnum.Generic_F401CB.upload.maximum_size=131072
+GenF4.menu.pnum.Generic_F401CB.upload.maximum_data_size=65536
+GenF4.menu.pnum.Generic_F401CB.build.board=GENERIC_F401CB
+GenF4.menu.pnum.Generic_F401CB.build.product_line=STM32F401xC
+GenF4.menu.pnum.Generic_F401CB.build.variant=Generic_F401Cx
+
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
