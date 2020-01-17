@@ -26,7 +26,7 @@
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
- * Automatically generated from STM32F401R(D-E)Tx.xml
+ * Automatically generated from STM32F401C(B-C|D-E)Ux.xml
  */
 #include "Arduino.h"
 #include "PeripheralPins.h"
