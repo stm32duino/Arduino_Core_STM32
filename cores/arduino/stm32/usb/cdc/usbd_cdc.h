@@ -28,6 +28,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ioreq.h"
 #include "usbd_ep_conf.h"
+#include "dfu_runtime.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -51,7 +52,7 @@ extern "C" {
 
 /* CDC Endpoints parameters */
 
-#define USB_CDC_CONFIG_DESC_SIZ                     67U
+#define USB_CDC_CONFIG_DESC_SIZ                     67U + /* IAD */ 8 + DFU_RT_IFACE_DESC_SIZE
 #define CDC_DATA_HS_IN_PACKET_SIZE                  CDC_DATA_HS_MAX_PACKET_SIZE
 #define CDC_DATA_HS_OUT_PACKET_SIZE                 CDC_DATA_HS_MAX_PACKET_SIZE
 
