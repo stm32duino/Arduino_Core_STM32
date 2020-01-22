@@ -1,0 +1,63 @@
+{
+  "cores": [
+    {
+      "maintainer": "STM32",
+      "architecture": "stm32",
+      "boards": [
+        {
+          "name": "NUCLEO_L031K6",
+          "options": "opt=oslto"
+        },
+        {
+          "name": "STEVAL_MKSBOX1V1",
+          "options": "usb=CDCgen"
+        }
+      ],
+      "sketches": [
+        {
+          "pattern": "^.*$",
+          "applicable": false,
+          "boards": [
+            "AFROFLIGHT_F103CB_12M",
+            "BLACKPILL_F103C8B",
+            "BLACK_F407VG",
+            "BLACK_F407ZE",
+            "BLACK_F407ZG",
+            "BLUEPILL_F103C6",
+            "BLUEPILL_F103C8B",
+            "DEMO_F030F4_16M",
+            "Generic_F103R8T6",
+            "Generic_F103RBT6",
+            "Generic_F103RCT6",
+            "Generic_F103ZC",
+            "Generic_F103ZD",
+            "Generic_F103ZE",
+            "Generic_F103ZF",
+            "Generic_F401CB",
+            "Generic_F401CC",
+            "Generic_F401CD",
+            "Generic_F401RB",
+            "Generic_F401RC",
+            "Generic_F401RD",
+            "Generic_F407VE",
+            "Generic_F410C8",
+            "Generic_F410R8",
+            "Generic_F411CC",
+            "Generic_F411RE",
+            "Generic_F412CE",
+            "Generic_F412RE",
+            "Generic_F413CG",
+            "Generic_F413RG",
+            "Generic_F417VE",
+            "Generic_F423CH",
+            "Generic_F446RC",
+            "NUCLEO_H743ZI",
+            "NUCLEO_L496ZG",
+            "NUCLEO_L4R5ZI",
+            "RAK811_TRACKERA"
+          ]
+        }
+      ]
+    }
+  ]
+}
