@@ -135,27 +135,27 @@ static uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
   // Enable HSE oscillator and activate PLL with HSE as source
   RCC_OscInitStruct.OscillatorType      = RCC_OSCILLATORTYPE_HSE;
   if (bypass == 0) {
-    RCC_OscInitStruct.HSEState          = RCC_HSE_ON; // External 8 MHz xtal on OSC_IN/OSC_OUT
+    RCC_OscInitStruct.HSEState          = RCC_HSE_ON; // External crystal on OSC_IN/OSC_OUT
   } else {
-    RCC_OscInitStruct.HSEState          = RCC_HSE_BYPASS; // External 8 MHz clock on OSC_IN
+    RCC_OscInitStruct.HSEState          = RCC_HSE_BYPASS; // External clock on OSC_IN
   }
 
   RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM            = 8;             // VCO input clock = 1 MHz (8 MHz / 8)
-  RCC_OscInitStruct.PLL.PLLN            = 336;           // VCO output clock = 336 MHz (1 MHz * 336)
-  RCC_OscInitStruct.PLL.PLLP            = RCC_PLLP_DIV4; // PLLCLK = 84 MHz (336 MHz / 4)
-  RCC_OscInitStruct.PLL.PLLQ            = 7;             // USB clock = 48 MHz (336 MHz / 7) --> OK for USB
+  RCC_OscInitStruct.PLL.PLLM            = HSE_VALUE / 1000000L; // Expects an 8 MHz external clock by default. Redefine HSE_VALUE if not
+  RCC_OscInitStruct.PLL.PLLN            = 200;                  // VCO output clock = 200 MHz (1 MHz * 200)
+  RCC_OscInitStruct.PLL.PLLP            = RCC_PLLP_DIV2;        // PLLCLK = 100 MHz (200 MHz / 2)
+  RCC_OscInitStruct.PLL.PLLQ            = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     return 0; // FAIL
   }
 
   // Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
-  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK; // 84 MHz
-  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 84 MHz
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;           // 42 MHz
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;           // 84 MHz
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK; // 100 MHz
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 100 MHz
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;           // 50 MHz
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;           // 100 MHz
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
     return 0; // FAIL
   }
@@ -163,9 +163,9 @@ static uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
   /* Output clock on MCO1 pin(PA8) for debugging purpose */
   /*
   if (bypass == 0)
-    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_2); // 4 MHz
+    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_2); // HSE_VALUE/1
   else
-    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1); // 8 MHz
+    HAL_RCC_MCOConfig(RCC_MCO1, RCC_MCO1SOURCE_HSE, RCC_MCODIV_1); // HSE_VALUE/2
   */
 
   return 1; // OK
@@ -193,19 +193,19 @@ uint8_t SetSysClock_PLL_HSI(void)
   RCC_OscInitStruct.PLL.PLLState        = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource       = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM            = 16;            // VCO input clock = 1 MHz (16 MHz / 16)
-  RCC_OscInitStruct.PLL.PLLN            = 336;           // VCO output clock = 336 MHz (1 MHz * 336)
-  RCC_OscInitStruct.PLL.PLLP            = RCC_PLLP_DIV4; // PLLCLK = 84 MHz (336 MHz / 4)
-  RCC_OscInitStruct.PLL.PLLQ            = 7;             // USB clock = 48 MHz (336 MHz / 7) --> freq is ok but not precise enough
+  RCC_OscInitStruct.PLL.PLLN            = 200;           // VCO output clock = 200 MHz (1 MHz * 200)
+  RCC_OscInitStruct.PLL.PLLP            = RCC_PLLP_DIV2; // PLLCLK = 100 MHz (200 MHz / 2)
+  RCC_OscInitStruct.PLL.PLLQ            = 4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     return 0; // FAIL
   }
 
   /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 clocks dividers */
   RCC_ClkInitStruct.ClockType      = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
-  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK; // 84 MHz
-  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 84 MHz
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;           // 42 MHz
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;           // 84 MHz
+  RCC_ClkInitStruct.SYSCLKSource   = RCC_SYSCLKSOURCE_PLLCLK; // 100 MHz
+  RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 100 MHz
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;           // 50 MHz
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;           // 100 MHz
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
     return 0; // FAIL
   }
