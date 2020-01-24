@@ -99,6 +99,7 @@ struct i2c_s {
      */
   I2C_TypeDef  *i2c;
   I2C_HandleTypeDef handle;
+  void *__this;
   PinName sda;
   PinName scl;
   IRQn_Type irq;
@@ -106,8 +107,8 @@ struct i2c_s {
   IRQn_Type irqER;
 #endif /* !STM32F0xx && !STM32G0xx && !STM32L0xx */
   volatile int slaveRxNbData; // Number of accumulated bytes received in Slave mode
-  void (*i2c_onSlaveReceive)(uint8_t *, int);
-  void (*i2c_onSlaveTransmit)(void);
+  void (*i2c_onSlaveReceive)(i2c_t *, uint8_t *, int);
+  void (*i2c_onSlaveTransmit)(i2c_t *);
   volatile uint8_t i2cTxRxBuffer[I2C_TXRX_BUFFER_SIZE];
   volatile uint8_t i2cTxRxBufferSize;
   volatile uint8_t slaveMode;
@@ -138,8 +139,8 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
 
 i2c_status_e i2c_IsDeviceReady(i2c_t *obj, uint8_t devAddr, uint32_t trials);
 
-void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t *, int));
-void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void));
+void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *, uint8_t *, int));
+void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *));
 
 #ifdef __cplusplus
 }
