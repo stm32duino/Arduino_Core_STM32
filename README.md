@@ -163,7 +163,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | [Midatronics](https://midatronics.com/) | Release | Comment |
 | :---: | --- | :---: | :--- |
-| :green_heart: | [SharkyMKR](https://midatronics.com/Development_Boards/MKR_Sharky_I) | *1.7.0* |  |
+| :green_heart: | [SharkyMKR](https://midatronics.com/shop/development-boards/mkr-sharky-i/) | *1.7.0* |  |
 
 ## Next release
 
