@@ -850,8 +850,9 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   * @param  callback: interrupt callback
   * @retval None
   */
-void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
+void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *), void *arg)
 {
+  args[0] = arg;
   if (callbacks[0] != NULL) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[0] = callback;
@@ -875,6 +876,7 @@ void HardwareTimer::detachInterrupt()
   // Disable update interrupt and clear callback
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE); // disables the interrupt call to save cpu cycles for useless context switching
   callbacks[0] = NULL;
+  args[0] = NULL;
 }
 
 /**
@@ -883,7 +885,7 @@ void HardwareTimer::detachInterrupt()
   * @param  callback: interrupt callback
   * @retval None
   */
-void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *))
+void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *), void *arg)
 {
   int interrupt = getIT(channel);
   if (interrupt == -1) {
@@ -893,7 +895,7 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
   }
-
+  args[channel] = arg;
   if (callbacks[channel] != NULL) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[channel] = callback;
@@ -927,6 +929,14 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
   // Disable interrupt corresponding to channel and clear callback
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), interrupt);
   callbacks[channel] = NULL;
+  args[channel] = NULL;
+}
+
+void* HardwareTimer::getArg(uint32_t channel){
+  if (channel > (TIMER_CHANNELS + 1)) {
+    Error_Handler();
+  }
+  return args[channel];
 }
 
 /**

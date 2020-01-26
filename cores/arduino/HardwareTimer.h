@@ -126,13 +126,15 @@ class HardwareTimer {
     void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
 
     //Add interrupt to period update
-    void attachInterrupt(void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon update event (timer rollover)
+    void attachInterrupt(void (*handler)(HardwareTimer *), void *arg = NULL); // Attach interrupt callback which will be called upon update event (timer rollover)
     void detachInterrupt();  // remove interrupt callback which was attached to update event
     bool hasInterrupt();  //returns true if a timer rollover interrupt has already been set
     //Add interrupt to capture/compare channel
-    void attachInterrupt(uint32_t channel, void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon compare match event of specified channel
+    void attachInterrupt(uint32_t channel, void (*handler)(HardwareTimer *), void *arg = NULL); // Attach interrupt callback which will be called upon compare match event of specified channel
     void detachInterrupt(uint32_t channel);  // remove interrupt callback which was attached to compare match event of specified channel
     bool hasInterrupt(uint32_t channel);  //returns true if an interrupt has already been set on the channel compare match
+
+    void* getArg(uint32_t channel = 0);
 
     void timerHandleDeinit();  // Timer deinitialization
 
@@ -152,6 +154,8 @@ class HardwareTimer {
     TimerModes_t  _ChannelMode[TIMER_CHANNELS];
     timerObj_t _timerObj;
     void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
+    void *args[1 + TIMER_CHANNELS];
+
     int getChannel(uint32_t channel);
     int getLLChannel(uint32_t channel);
     int getIT(uint32_t channel);
