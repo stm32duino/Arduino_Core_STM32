@@ -932,9 +932,24 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
   args[channel] = NULL;
 }
 
-void* HardwareTimer::getArg(uint32_t channel){
-  if (channel > (TIMER_CHANNELS + 1)) {
-    Error_Handler();
+/**
+ * @brief  Get argument attached to (rollover) event.
+ * @retval Associated pointer to attached argument or NULL if not set.
+ */
+void *HardwareTimer::getArg()
+{
+  return args[0];
+}
+
+/**
+ * @brief Get argument attached to Capture/Compare event.
+ * @param  channel: arduino channel [1..4]
+ * @retval Associated pointer to attached argument or NULL if not set.
+ */
+void *HardwareTimer::getArg(uint32_t channel)
+{
+  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
+    Error_Handler();  // only channel 1..4 have an interrupt
   }
   return args[channel];
 }
