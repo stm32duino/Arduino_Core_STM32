@@ -116,7 +116,7 @@ HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
   init(_rx, _tx);
 }
 
-HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
+HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
 {
   // If PIN_SERIALy_RX is not defined assume half-duplex
   _serial.pin_rx = NC;
@@ -247,7 +247,7 @@ HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
                           _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
                           _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
                         }
-  if (halfDuplex) {
+  if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }
   init(_serial.pin_rx, _serial.pin_tx);
