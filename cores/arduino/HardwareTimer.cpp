@@ -848,6 +848,7 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
 /**
   * @brief  Attach interrupt callback on update (rollover) event
   * @param  callback: interrupt callback
+  * @param  arg: pointer to optional argument to associate with interrupt
   * @retval None
   */
 void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *), void *arg)
@@ -883,6 +884,7 @@ void HardwareTimer::detachInterrupt()
   * @brief  Attach interrupt callback on Capture/Compare event
   * @param  channel: Arduino channel [1..4]
   * @param  callback: interrupt callback
+  * @param  arg: pointer to optional argument to associate with interrupt
   * @retval None
   */
 void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *), void *arg)
