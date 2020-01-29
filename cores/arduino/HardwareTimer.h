@@ -112,7 +112,6 @@ class HardwareTimer {
     void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL); // Set all in one command freq in HZ, Duty in percentage. Including both interrup.
     void setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL);
 
-
     void setCount(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set timer counter to value 'val' depending on format provided
     uint32_t getCount(TimerFormat_t format = TICK_FORMAT);  // return current counter value of timer depending on format provided
 
@@ -120,7 +119,6 @@ class HardwareTimer {
     void setMode(uint32_t channel, TimerModes_t mode, uint32_t pin);
 
     uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
-
     void setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format = TICK_COMPARE_FORMAT);  // set Compare register value of specified channel depending on format provided
 
     void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
@@ -138,7 +136,6 @@ class HardwareTimer {
 
     // Refresh() is usefull while timer is running after some registers update
     void refresh(void); // Generate update event to force all registers (Autoreload, prescaler, compare) to be taken into account
-
 
     uint32_t getTimerClkFreq();  // return timer clock frequency in Hz.
 
