@@ -678,6 +678,28 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 }
 
 /**
+  * @brief  Enable or disable preloading for overflow value
+  *         When disabled, changes to the overflow value take effect
+  *         immediately. When enabled, the value takes effect only at
+  *         the next update event (typically the next overflow).
+  *
+  *         Note that the capture/compare register has its own preload
+  *         enable bit, which is independent and enabled in PWM modes
+  *         and disabled otherwise. If you need more control of that
+  *         bit, you can use the HAL functions directly.
+  * @param  value: true to enable preloading, false to disable
+  * @retval None
+  */
+void HardwareTimer::setPreloadEnable(bool value)
+{
+  if (value) {
+    LL_TIM_EnableARRPreload(_timerObj.handle.Instance);
+  } else {
+    LL_TIM_DisableARRPreload(_timerObj.handle.Instance);
+  }
+}
+
+/**
   * @brief  Set channel Capture/Compare register
   * @param  channel: Arduino channel [1..4]
   * @param  compare: compare value depending on format
