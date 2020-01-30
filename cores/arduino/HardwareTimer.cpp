@@ -87,7 +87,7 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
 
   /* Configure timer with some default values */
   _timerObj.handle.Init.Prescaler = 0;
-  _timerObj.handle.Init.Period = 0xFFFF; // 16bit max value
+  _timerObj.handle.Init.Period = MAX_RELOAD;
   _timerObj.handle.Init.CounterMode = TIM_COUNTERMODE_UP;
   _timerObj.handle.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 #if defined(TIM_RCR_REP)
@@ -452,6 +452,7 @@ uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
 void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
 {
   uint32_t ARR_RegisterValue;
+  uint32_t PeriodTicks;
   uint32_t Prescalerfactor;
   uint32_t period_cyc;
   // Remark: Hardware register correspond to period count-1. Example ARR register value 9 means period of 10 timer cycle
@@ -460,20 +461,27 @@ void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
       period_cyc = overflow * (getTimerClkFreq() / 1000000);
       Prescalerfactor = (period_cyc / 0x10000) + 1;
       LL_TIM_SetPrescaler(_timerObj.handle.Instance, Prescalerfactor - 1);
-      ARR_RegisterValue = (period_cyc / Prescalerfactor) - 1;
+      PeriodTicks = period_cyc / Prescalerfactor;
       break;
     case HERTZ_FORMAT:
       period_cyc = getTimerClkFreq() / overflow;
       Prescalerfactor = (period_cyc / 0x10000) + 1;
       LL_TIM_SetPrescaler(_timerObj.handle.Instance, Prescalerfactor - 1);
-      ARR_RegisterValue = (period_cyc / Prescalerfactor) - 1;
+      PeriodTicks = period_cyc / Prescalerfactor;
       break;
     case TICK_FORMAT:
     default :
-      ARR_RegisterValue = overflow - 1;
+      PeriodTicks = overflow;
       break;
   }
 
+  if (PeriodTicks > 0) {
+    // The register specifies the maximum value, so the period is really one tick longer
+    ARR_RegisterValue = PeriodTicks - 1;
+  } else {
+    // But do not underflow in case a zero period was given somehow.
+    ARR_RegisterValue = 0;
+  }
   __HAL_TIM_SET_AUTORELOAD(&_timerObj.handle, ARR_RegisterValue);
 }
 
@@ -520,14 +528,14 @@ void HardwareTimer::setCount(uint32_t counter, TimerFormat_t format)
   uint32_t Prescalerfactor = LL_TIM_GetPrescaler(_timerObj.handle.Instance) + 1;
   switch (format) {
     case MICROSEC_FORMAT:
-      CNT_RegisterValue = ((counter * (getTimerClkFreq() / 1000000)) / Prescalerfactor) - 1 ;
+      CNT_RegisterValue = ((counter * (getTimerClkFreq() / 1000000)) / Prescalerfactor);
       break;
     case HERTZ_FORMAT:
-      CNT_RegisterValue = (uint32_t)((getTimerClkFreq() / (counter * Prescalerfactor)) - 1);
+      CNT_RegisterValue = (uint32_t)(getTimerClkFreq() / (counter * Prescalerfactor));
       break;
     case TICK_FORMAT:
     default :
-      CNT_RegisterValue = counter - 1;
+      CNT_RegisterValue = counter;
       break;
   }
   __HAL_TIM_SET_COUNTER(&(_timerObj.handle), CNT_RegisterValue);
@@ -699,11 +707,12 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
 
   switch (format) {
     case MICROSEC_COMPARE_FORMAT:
-      CCR_RegisterValue = ((compare * (getTimerClkFreq() / 1000000)) / Prescalerfactor) - 1 ;
+      CCR_RegisterValue = ((compare * (getTimerClkFreq() / 1000000)) / Prescalerfactor);
       break;
     case HERTZ_COMPARE_FORMAT:
-      CCR_RegisterValue = (getTimerClkFreq() / (compare * Prescalerfactor)) - 1;
+      CCR_RegisterValue = getTimerClkFreq() / (compare * Prescalerfactor);
       break;
+    // As per Reference Manual PWM reach 100% with CCRx value strictly greater than ARR (So ARR+1 in our case)
     case PERCENT_COMPARE_FORMAT:
       CCR_RegisterValue = ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) + 1) * compare) / 100;
       break;
@@ -727,8 +736,15 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
       break;
     case TICK_COMPARE_FORMAT:
     default :
-      CCR_RegisterValue = compare - 1;
+      CCR_RegisterValue = compare;
       break;
+  }
+
+  // Special case when ARR is set to the max value, it is not possible to set CCRx to ARR+1 to reach 100%
+  // Then set CCRx to max value. PWM is then 1/0xFFFF = 99.998..%
+  if ((__HAL_TIM_GET_AUTORELOAD(&(_timerObj.handle)) == MAX_RELOAD)
+      && (CCR_RegisterValue == MAX_RELOAD + 1)) {
+    CCR_RegisterValue = MAX_RELOAD;
   }
 
   __HAL_TIM_SET_COMPARE(&(_timerObj.handle), timChannel, CCR_RegisterValue);
