@@ -56,7 +56,7 @@ class TwoWire : public Stream {
     void (*user_onRequest)(void);
     void (*user_onReceive)(int);
     static void onRequestService(i2c_t *);
-    static void onReceiveService(i2c_t *, uint8_t *, int);
+    static void onReceiveService(i2c_t *);
 
     void allocateRxBuffer(size_t length);
     void allocateTxBuffer(size_t length);

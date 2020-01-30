@@ -394,8 +394,11 @@ void TwoWire::flush(void)
 }
 
 // behind the scenes function that is called when data is received
-void TwoWire::onReceiveService(i2c_t *obj, uint8_t *inBytes, int numBytes)
+void TwoWire::onReceiveService(i2c_t *obj)
 {
+  uint8_t *inBytes = (uint8_t *) obj->i2cTxRxBuffer;
+  int numBytes = obj->slaveRxNbData;
+
   TwoWire *TW = (TwoWire *)(obj->__this);
 
   // don't bother if user hasn't registered a callback

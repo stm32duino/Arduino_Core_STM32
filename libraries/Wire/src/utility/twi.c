@@ -948,7 +948,7 @@ i2c_t *get_i2c_obj(I2C_HandleTypeDef *hi2c)
   * @param  function: callback function to use
   * @retval None
   */
-void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *, uint8_t *, int))
+void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *))
 {
   if ((obj != NULL) && (function != NULL)) {
     obj->i2c_onSlaveReceive = function;
@@ -1026,7 +1026,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   /*  Previous master transaction now ended, so inform upper layer if needed
    *  then prepare for listening to next request */
   if ((obj->slaveMode == SLAVE_MODE_RECEIVE) && (obj->slaveRxNbData != 0)) {
-    obj->i2c_onSlaveReceive(obj, (uint8_t *) obj->i2cTxRxBuffer, obj->slaveRxNbData);
+    obj->i2c_onSlaveReceive(obj);
   }
   obj->slaveMode = SLAVE_MODE_LISTEN;
   obj->slaveRxNbData = 0;
