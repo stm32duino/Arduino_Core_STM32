@@ -334,6 +334,10 @@
 #define CMSIS_STARTUP_FILE "startup_stm32l496xx.s"
 #elif defined(STM32L4A6xx)
 #define CMSIS_STARTUP_FILE "startup_stm32l4a6xx.s"
+#elif defined(STM32L4P5xx)
+#define CMSIS_STARTUP_FILE "startup_stm32l4p5xx.s"
+#elif defined(STM32L4Q5xx)
+#define CMSIS_STARTUP_FILE "startup_stm32l4q5xx.s"
 #elif defined(STM32L4R5xx)
 #define CMSIS_STARTUP_FILE "startup_stm32l4r5xx.s"
 #elif defined(STM32L4R7xx)
