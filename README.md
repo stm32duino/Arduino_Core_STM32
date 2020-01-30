@@ -108,8 +108,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [BluePill F103C(6-8-B)](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | [BlackPill F103C(8-B)](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
 | :green_heart: | [Generic F103R(8-B-C-E)T6](https://stm32-base.org/boards/STM32F103RET6-Generic-Board) | *1.7.0* | Blue Button |
+| :yellow_heart: | Generic F103Z(C-D-E-F-G) | **1.8.1** |  |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
+| :yellow_heart: | [Vcc-Gnd F103ZET6](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) | **1.8.1** | [Standard](https://stm32-base.org/boards/STM32F103ZET6-VCC-GND-XLarge) and Mini |
+
 
 | Status | Generic STM32F3xx | Release | Comment |
 | :---: | --- | :---: | :--- |
