@@ -69,11 +69,20 @@ compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.5.1.path}/CMSIS/DSP/Lib/GCC
 
 # USB Flags
 # ---------
-build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED 
+build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} -DHAL_PCD_MODULE_ENABLED
 
-# Default usb manufacturer will be replaced at compile time using
-# numeric vendor ID if available or by board's specific value.
-build.usb_manufacturer="Unknown"
+# Specify defaults for vid/pid, since an empty value is impossible to
+# detect in the preprocessor, but a 0 can be checked for.
+# Boards should specify either both, or neither of these.
+build.vid=0
+build.pid=0
+
+# To customize the USB manufacturer or product string, must add defines
+# for them, e.g.:
+#    some_board.build.extra_flags='-DUSB_MANUFACTURER_STRING="My Company"' '-DUSB_PRODUCT_STRING="My Product"'
+# This cannot be done using build variables and specifying the -D
+# options here, since then the default would be a defined, but empty macro
+# that the preprocessor cannot detect.
 
 # Build information's
 build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
