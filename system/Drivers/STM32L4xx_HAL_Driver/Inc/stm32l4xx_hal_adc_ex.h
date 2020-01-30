@@ -477,7 +477,7 @@ typedef struct
   )
 #elif defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 #define ADC_IS_INDEPENDENT(__HANDLE__)   (SET)
-#elif defined (STM32L412xx) || defined (STM32L422xx)
+#elif defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx)
 #define ADC_IS_INDEPENDENT(__HANDLE__)   (RESET)
 #endif
 
@@ -636,7 +636,7 @@ typedef struct
   */
 #if defined(ADC_MULTIMODE_SUPPORT)
 #define ADC_CLEAR_COMMON_CONTROL_REGISTER(__HANDLE__) CLEAR_BIT(__LL_ADC_COMMON_INSTANCE((__HANDLE__)->Instance)->CCR, \
-								ADC_CCR_CKMODE | \
+                                                                ADC_CCR_CKMODE | \
                                                                 ADC_CCR_PRESC  | \
                                                                 ADC_CCR_VBATEN | \
                                                                 ADC_CCR_TSEN   | \
@@ -655,7 +655,7 @@ typedef struct
 
 #endif /* ADC_MULTIMODE_SUPPORT */
 
-#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || defined (STM32L496xx) || defined (STM32L4A6xx)
+#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || defined (STM32L496xx) || defined (STM32L4A6xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx)
 /**
   * @brief Set handle instance of the ADC slave associated to the ADC master.
   * @param __HANDLE_MASTER__ ADC master handle.
@@ -673,7 +673,7 @@ typedef struct
   * @param __HANDLE__ ADC handle.
   * @retval SET (ADC instance is valid) or RESET (ADC instance is invalid)
   */
-#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
+#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 /*  The temperature sensor measurement path (channel 17) is available on ADC1 */
 #define ADC_TEMPERATURE_SENSOR_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) == ADC1)
 #elif defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || defined (STM32L496xx) || defined (STM32L4A6xx)
@@ -686,7 +686,7 @@ typedef struct
   * @param __HANDLE__ ADC handle.
   * @retval SET (ADC instance is valid) or RESET (ADC instance is invalid)
   */
-#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
+#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 /*  The battery voltage measurement path (channel 18) is available on ADC1 */
 #define ADC_BATTERY_VOLTAGE_INSTANCE(__HANDLE__)  (((__HANDLE__)->Instance) == ADC1)
 #elif defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || defined (STM32L496xx) || defined (STM32L4A6xx)
@@ -784,6 +784,50 @@ typedef struct
                                                           ((__CHANNEL__) == ADC_CHANNEL_14)          || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_15)          || \
                                                           ((__CHANNEL__) == ADC_CHANNEL_16)  )))
+#elif defined (STM32L4P5xx) || defined (STM32L4Q5xx)
+#define IS_ADC_CHANNEL(__HANDLE__, __CHANNEL__)  (((((__HANDLE__)->Instance) == ADC1)  && \
+                                                         (((__CHANNEL__) == ADC_CHANNEL_1)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_2)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_3)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_4)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_5)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_6)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_7)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_8)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_9)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_10)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_11)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_12)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_13)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_14)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_15)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_16)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_17)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_18)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_VREFINT)     || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_TEMPSENSOR)  || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_VBAT)))      || \
+                                                        ((((__HANDLE__)->Instance) == ADC2)  && \
+                                                         (((__CHANNEL__) == ADC_CHANNEL_1)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_2)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_3)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_4)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_5)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_6)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_7)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_8)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_9)           || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_10)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_11)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_12)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_13)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_14)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_15)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_16)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_17)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_18)          || \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_DAC1CH1_ADC2)|| \
+                                                          ((__CHANNEL__) == ADC_CHANNEL_DAC1CH2_ADC2)  )))
 #elif defined (STM32L471xx) || defined (STM32L475xx) || defined (STM32L476xx) || defined (STM32L485xx) || defined (STM32L486xx) || defined (STM32L496xx) || defined (STM32L4A6xx)
 #define IS_ADC_CHANNEL(__HANDLE__, __CHANNEL__)  (((((__HANDLE__)->Instance) == ADC1)  && \
                                                          (((__CHANNEL__) == ADC_CHANNEL_1)           || \
@@ -853,7 +897,7 @@ typedef struct
   * @param __CHANNEL__ programmed ADC channel.
   * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
   */
-#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
+#if defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L431xx) || defined (STM32L432xx) || defined (STM32L433xx) || defined (STM32L442xx) || defined (STM32L443xx) || defined (STM32L451xx) || defined (STM32L452xx) || defined (STM32L462xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32L4R5xx) || defined (STM32L4R7xx) || defined (STM32L4R9xx) || defined (STM32L4S5xx) || defined (STM32L4S7xx) || defined (STM32L4S9xx)
 #define IS_ADC_DIFF_CHANNEL(__HANDLE__, __CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)      || \
                                                       ((__CHANNEL__) == ADC_CHANNEL_2)      || \
                                                       ((__CHANNEL__) == ADC_CHANNEL_3)      || \

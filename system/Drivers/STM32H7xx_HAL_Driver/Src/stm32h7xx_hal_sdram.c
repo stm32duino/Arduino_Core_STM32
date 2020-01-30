@@ -100,7 +100,8 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
   * the "License"; You may not use this file except in compliance with the
@@ -118,7 +119,7 @@
   * @{
   */
 
-#if defined (HAL_SDRAM_MODULE_ENABLED) && defined (HAL_MDMA_MODULE_ENABLED)
+#ifdef HAL_SDRAM_MODULE_ENABLED
 
 /** @defgroup SDRAM SDRAM
   * @brief SDRAM driver modules
@@ -1301,7 +1302,7 @@ static void SDRAM_DMAError(MDMA_HandleTypeDef *hmdma)
   * @}
   */
 
-#endif /* HAL_SDRAM_MODULE_ENABLED && HAL_MDMA_MODULE_ENABLED */
+#endif /* HAL_SDRAM_MODULE_ENABLED */
 
 /**
   * @}

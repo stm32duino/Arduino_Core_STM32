@@ -143,7 +143,7 @@
 
   @endverbatim
   ******************************************************************************
-    * @attention
+  * @attention
   *
   * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
   * All rights reserved.</center></h2>
@@ -175,7 +175,14 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
+/** @addtogroup LPTIM_Private_Constants
+  * @{
+  */
 #define TIMEOUT                                     1000UL /* Timeout is 1s */
+/**
+  * @}
+  */
+
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 #if (USE_HAL_LPTIM_REGISTER_CALLBACKS == 1)
