@@ -112,15 +112,15 @@ class HardwareTimer {
     void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL); // Set all in one command freq in HZ, Duty in percentage. Including both interrup.
     void setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL);
 
-
     void setCount(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set timer counter to value 'val' depending on format provided
     uint32_t getCount(TimerFormat_t format = TICK_FORMAT);  // return current counter value of timer depending on format provided
 
     void setMode(uint32_t channel, TimerModes_t mode, PinName pin = NC); // Configure timer channel with specified mode on specified pin if available
     void setMode(uint32_t channel, TimerModes_t mode, uint32_t pin);
 
-    uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
+    void setPreloadEnable(bool value); // Configure overflow preload enable setting
 
+    uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
     void setCaptureCompare(uint32_t channel, uint32_t compare, TimerCompareFormat_t format = TICK_COMPARE_FORMAT);  // set Compare register value of specified channel depending on format provided
 
     void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
@@ -139,7 +139,6 @@ class HardwareTimer {
     // Refresh() is usefull while timer is running after some registers update
     void refresh(void); // Generate update event to force all registers (Autoreload, prescaler, compare) to be taken into account
 
-
     uint32_t getTimerClkFreq();  // return timer clock frequency in Hz.
 
     static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Caputre and Compare callback which will call user callback
@@ -147,11 +146,6 @@ class HardwareTimer {
 
     // The following function(s) are available for more advanced timer options
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
-
-  private:
-    TimerModes_t  _ChannelMode[TIMER_CHANNELS];
-    timerObj_t _timerObj;
-    void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
     int getChannel(uint32_t channel);
     int getLLChannel(uint32_t channel);
     int getIT(uint32_t channel);
@@ -159,6 +153,10 @@ class HardwareTimer {
 #if defined(TIM_CCER_CC1NE)
     bool isComplementaryChannel[TIMER_CHANNELS];
 #endif
+  private:
+    TimerModes_t  _ChannelMode[TIMER_CHANNELS];
+    timerObj_t _timerObj;
+    void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
 };
 
 extern timerObj_t *HardwareTimer_Handle[TIMER_NUM];

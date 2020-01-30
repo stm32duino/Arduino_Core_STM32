@@ -93,7 +93,7 @@ HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
 #if defined(TIM_RCR_REP)
   _timerObj.handle.Init.RepetitionCounter = 0;
 #endif
-  _timerObj.handle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  _timerObj.handle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
   HAL_TIM_Base_Init(&(_timerObj.handle));
 }
 
@@ -442,6 +442,11 @@ uint32_t HardwareTimer::getOverflow(TimerFormat_t format)
 
 /**
   * @brief  Set overflow (rollover)
+  *
+  *         Note that by default, the new value will not be applied
+  *         immediately, but become effective at the next update event
+  *         (usually the next timer overflow). See setPreloadEnable()
+  *         for controlling this behaviour.
   * @param  overflow: depend on format parameter
   * @param  format of overflow parameter. If ommited default format is Tick
   *           TICK_FORMAT:     overflow is the number of tick for overflow
@@ -682,6 +687,29 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 #if defined(TIM_CCER_CC1NE)
     isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM));
 #endif
+  }
+}
+
+/**
+  * @brief  Enable or disable preloading for overflow value
+  *         When disabled, changes to the overflow value take effect
+  *         immediately. When enabled (the default), the value takes
+  *         effect only at the next update event (typically the next
+  *         overflow).
+  *
+  *         Note that the capture/compare register has its own preload
+  *         enable bit, which is independent and enabled in PWM modes
+  *         and disabled otherwise. If you need more control of that
+  *         bit, you can use the HAL functions directly.
+  * @param  value: true to enable preloading, false to disable
+  * @retval None
+  */
+void HardwareTimer::setPreloadEnable(bool value)
+{
+  if (value) {
+    LL_TIM_EnableARRPreload(_timerObj.handle.Instance);
+  } else {
+    LL_TIM_DisableARRPreload(_timerObj.handle.Instance);
   }
 }
 
