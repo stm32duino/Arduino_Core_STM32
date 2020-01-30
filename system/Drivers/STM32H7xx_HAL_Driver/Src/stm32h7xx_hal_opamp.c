@@ -175,9 +175,9 @@
     |  Non Inverting  | VP_SEL  |                      |                     |
     |                 |         |  VP0 -> PB0 (GPIO)   |  VP0 -> PE9 (GPIO)  |
     |                 |         |  Internal:           |  Internal:          |
-    |    Input        |         |    DAC1_int          |   DAC2_int          |
-    |                 |         |    ADC1_IN8          |    COMP2_INP        |
-    |                 |         |    ADC2_IN8          |                     |
+    |    Input        |         |    DAC1_CH1_int      |   DAC1_CH2_int      |
+    |                 |         |    ADC1_IN8          |   DAC2_CH1_int      |
+    |                 |         |    ADC2_IN8          |   COMP2_INP         |
     |                 |         |    COMP1_INP         |                     |
     +------------------------------------------------------------------------|
 
@@ -231,10 +231,6 @@
 /* CSR register reset value */
 #define OPAMP_CSR_RESET_VALUE             0x00000000U
 
-
-#define OPAMP_CSR_RESET_BITS    (OPAMP_CSR_OPAMPxEN | OPAMP_CSR_OPAHSM  | OPAMP_CSR_VMSEL  \
-                                 | OPAMP_CSR_PGGAIN | OPAMP_CSR_VMSEL | OPAMP_CSR_VPSEL  \
-                                 | OPAMP_CSR_CALON  | OPAMP_CSR_USERTRIM)
 /* CSR Init masks */
 
 #define OPAMP_CSR_INIT_MASK_PGA (OPAMP_CSR_OPAHSM | OPAMP_CSR_VMSEL | OPAMP_CSR_PGGAIN | OPAMP_CSR_PGGAIN  \
@@ -454,10 +450,7 @@ HAL_StatusTypeDef HAL_OPAMP_DeInit(OPAMP_HandleTypeDef *hopamp)
     assert_param(IS_OPAMP_ALL_INSTANCE(hopamp->Instance));
 
     /* Set OPAMP_CSR register to reset value */
-    /* OPAMP shall be disabled first separately */
-
-    CLEAR_BIT(hopamp->Instance->CSR, OPAMP_CSR_OPAMPxEN);
-    MODIFY_REG(hopamp->Instance->CSR, OPAMP_CSR_RESET_BITS, OPAMP_CSR_RESET_VALUE);
+    WRITE_REG(hopamp->Instance->CSR, OPAMP_CSR_RESET_VALUE);
 
     /* DeInit the low level hardware */
 #if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
@@ -536,7 +529,6 @@ __weak void HAL_OPAMP_MspDeInit(OPAMP_HandleTypeDef *hopamp)
   * @param  hopamp OPAMP handle
   * @retval HAL status
   */
-
 HAL_StatusTypeDef HAL_OPAMP_Start(OPAMP_HandleTypeDef *hopamp)
 {
   HAL_StatusTypeDef status = HAL_OK;
@@ -630,7 +622,6 @@ HAL_StatusTypeDef HAL_OPAMP_Stop(OPAMP_HandleTypeDef *hopamp)
   * @retval Updated offset trimming values (PMOS & NMOS), user trimming is enabled
   * @retval HAL status
   */
-
 HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef *hopamp)
 {
 
@@ -915,7 +906,6 @@ HAL_StatusTypeDef HAL_OPAMP_Lock(OPAMP_HandleTypeDef *hopamp)
   *         or OPAMP_FACTORYTRIMMING_DUMMY if trimming value is not available
   *
   */
-
 HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hopamp, uint32_t trimmingoffset)
 {
   HAL_OPAMP_TrimmingValueTypeDef trimmingvalue;
@@ -1028,8 +1018,8 @@ HAL_OPAMP_StateTypeDef HAL_OPAMP_GetState(OPAMP_HandleTypeDef *hopamp)
   * @param hopamp  OPAMP handle
   * @param CallbackId  ID of the callback to be registered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_OPAMP_MSP_INIT_CB_ID       OPAMP MspInit callback ID
-  *          @arg @ref HAL_OPAMP_MSP_DEINIT_CB_ID     OPAMP MspDeInit callback ID
+  *          @arg @ref HAL_OPAMP_MSPINIT_CB_ID       OPAMP MspInit callback ID
+  *          @arg @ref HAL_OPAMP_MSPDEINIT_CB_ID     OPAMP MspDeInit callback ID
   * @param pCallback  pointer to the Callback function
   * @retval status
   */
@@ -1049,10 +1039,10 @@ HAL_StatusTypeDef HAL_OPAMP_RegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_O
   {
     switch (CallbackId)
     {
-    case HAL_OPAMP_MSP_INIT_CB_ID :
+    case HAL_OPAMP_MSPINIT_CB_ID :
       hopamp->MspInitCallback = pCallback;
       break;
-    case HAL_OPAMP_MSP_DEINIT_CB_ID :
+    case HAL_OPAMP_MSPDEINIT_CB_ID :
       hopamp->MspDeInitCallback = pCallback;
       break;
     default :
@@ -1065,10 +1055,10 @@ HAL_StatusTypeDef HAL_OPAMP_RegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_O
   {
     switch (CallbackId)
     {
-    case HAL_OPAMP_MSP_INIT_CB_ID :
+    case HAL_OPAMP_MSPINIT_CB_ID :
       hopamp->MspInitCallback = pCallback;
       break;
-    case HAL_OPAMP_MSP_DEINIT_CB_ID :
+    case HAL_OPAMP_MSPDEINIT_CB_ID :
       hopamp->MspDeInitCallback = pCallback;
       break;
     default :
@@ -1094,12 +1084,11 @@ HAL_StatusTypeDef HAL_OPAMP_RegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_O
   * @param hopamp  OPAMP handle
   * @param CallbackId  ID of the callback to be unregistered
   *        This parameter can be one of the following values:
-  *          @arg @ref HAL_OPAMP_MSP_INIT_CB_ID              OPAMP MSP Init Callback ID
-  *          @arg @ref HAL_OPAMP_MSP_DEINIT_CB_ID            OPAMP MSP DeInit Callback ID
-  *          @arg @ref HAL_OPAMP_ALL_CB_ID                   OPAMP All Callbacks
+  *          @arg @ref HAL_OPAMP_MSPINIT_CB_ID    OPAMP MSP Init Callback ID
+  *          @arg @ref HAL_OPAMP_MSPDEINIT_CB_ID  OPAMP MSP DeInit Callback ID
+  *          @arg @ref HAL_OPAMP_ALL_CB_ID        OPAMP All Callbacks
   * @retval status
   */
-
 HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL_OPAMP_CallbackIDTypeDef CallbackId)
 {
   HAL_StatusTypeDef status = HAL_OK;
@@ -1111,10 +1100,10 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL
   {
     switch (CallbackId)
     {
-      case HAL_OPAMP_MSP_INIT_CB_ID :
+    case HAL_OPAMP_MSPINIT_CB_ID :
       hopamp->MspInitCallback = HAL_OPAMP_MspInit;
       break;
-    case HAL_OPAMP_MSP_DEINIT_CB_ID :
+    case HAL_OPAMP_MSPDEINIT_CB_ID :
       hopamp->MspDeInitCallback = HAL_OPAMP_MspDeInit;
       break;
     case HAL_OPAMP_ALL_CB_ID :
@@ -1131,10 +1120,10 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL
   {
     switch (CallbackId)
     {
-    case HAL_OPAMP_MSP_INIT_CB_ID :
+    case HAL_OPAMP_MSPINIT_CB_ID :
       hopamp->MspInitCallback = HAL_OPAMP_MspInit;
       break;
-    case HAL_OPAMP_MSP_DEINIT_CB_ID :
+    case HAL_OPAMP_MSPDEINIT_CB_ID :
       hopamp->MspDeInitCallback = HAL_OPAMP_MspDeInit;
       break;
     default :
