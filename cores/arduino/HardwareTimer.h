@@ -146,11 +146,6 @@ class HardwareTimer {
 
     // The following function(s) are available for more advanced timer options
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
-
-  private:
-    TimerModes_t  _ChannelMode[TIMER_CHANNELS];
-    timerObj_t _timerObj;
-    void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
     int getChannel(uint32_t channel);
     int getLLChannel(uint32_t channel);
     int getIT(uint32_t channel);
@@ -158,6 +153,10 @@ class HardwareTimer {
 #if defined(TIM_CCER_CC1NE)
     bool isComplementaryChannel[TIMER_CHANNELS];
 #endif
+  private:
+    TimerModes_t  _ChannelMode[TIMER_CHANNELS];
+    timerObj_t _timerObj;
+    void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
 };
 
 extern timerObj_t *HardwareTimer_Handle[TIMER_NUM];
