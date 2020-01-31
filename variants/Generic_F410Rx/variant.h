@@ -37,7 +37,7 @@ extern "C" {
 #define PA5  A5  // | 5       | A5 (ADC1)  | DAC_OUT1   |           |                         | SPI1_SCK  |           |
 #define PA6  A6  // | 6       | A6 (ADC1)  |            |           |                         | SPI1_MISO |           |
 #define PA7  A7  // | 7       | A7 (ADC1)  |            |           |                         | SPI1_MOSI |           |
-#define PA8  8   // | 8       |            |            |           | FMP_TWI1_SCL            |           |           |
+#define PA8  8   // | 8       |            |            |           | (FMP_TWI1_SCL)          |           |           |
 #define PA9  9   // | 9       |            |            | USART1_TX |                         |           |           |
 #define PA10 10  // | 10      |            |            | USART1_RX |                         | SPI5_MOSI |           |
 #define PA11 11  // | 11      |            |            | USART6_TX |                         |           |           |
@@ -60,8 +60,8 @@ extern "C" {
 #define PB11 27  // | 27      |            |            |           | TWI2_SDA                |           |           |
 #define PB12 28  // | 28      |            |            |           |                         | SPI2_SS   |           |
 #define PB13 29  // | 29      |            |            |           |                         | SPI2_SCK  |           |
-#define PB14 30  // | 30      |            |            |           | FMP_TWI1_SDA            | SPI2_MISO |           |
-#define PB15 31  // | 31      |            |            |           | FMP_TWI1_SCL            | SPI2_MOSI |           |
+#define PB14 30  // | 30      |            |            |           | (FMP_TWI1_SDA)          | SPI2_MISO |           |
+#define PB15 31  // | 31      |            |            |           | (FMP_TWI1_SCL)          | SPI2_MOSI |           |
 //                  |---------|------------|------------|-----------|-------------------------|-----------|-----------|
 #define PC0  A10 // | 32      | A10 (ADC1) |            |           |                         |           |           |
 #define PC1  A11 // | 33      | A11 (ADC1) |            |           |                         |           |           |
@@ -69,10 +69,10 @@ extern "C" {
 #define PC3  A13 // | 35      | A13 (ADC1) |            |           |                         | SPI2_MOSI |           |
 #define PC4  A14 // | 36      | A14 (ADC1) |            |           |                         |           |           |
 #define PC5  A15 // | 37      | A15 (ADC1) |            |           |                         |           |           |
-#define PC6  38  // | 38      |            |            | USART6_TX | FMP_TWI1_SCL            |           |           |
-#define PC7  39  // | 39      |            |            | USART6_RX | FMP_TWI1_SDA            | SPI2_SCK  |           |
+#define PC6  38  // | 38      |            |            | USART6_TX | (FMP_TWI1_SCL)          |           |           |
+#define PC7  39  // | 39      |            |            | USART6_RX | (FMP_TWI1_SDA)          | SPI2_SCK  |           |
 #define PC8  40  // | 40      |            |            |           |                         |           |           |
-#define PC9  41  // | 41      |            |            |           | FMP_TWI1_SDA            |           |           |
+#define PC9  41  // | 41      |            |            |           | (FMP_TWI1_SDA)          |           |           |
 #define PC10 42  // | 42      |            |            |           |                         |           |           |
 #define PC11 43  // | 43      |            |            |           |                         |           |           |
 #define PC12 44  // | 44      |            |            |           |                         |           |           |
