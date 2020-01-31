@@ -154,9 +154,9 @@ static uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
   }
 
   // Activate the OverDrive to reach the 180 MHz Frequency
-    if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
-        return 0; // FAIL
-    }
+  if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
+    return 0; // FAIL
+  }
 
   // Select PLLSAI output as USB clock source
   PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
@@ -219,7 +219,7 @@ uint8_t SetSysClock_PLL_HSI(void)
 
   // Activate the OverDrive to reach the 180 MHz Frequency
   if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
-      return 0; // FAIL
+    return 0; // FAIL
   }
 
   // Select PLLSAI output as USB clock source
