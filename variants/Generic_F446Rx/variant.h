@@ -68,8 +68,8 @@ extern "C" {
 #define PC3  A13 // | 34      | A13 (ADC1) |            |                       |                      | SPI2_MOSI                         |           |
 #define PC4  A14 // | 35      | A14 (ADC1) |            |                       |                      |                                   |           |
 #define PC5  A15 // | 36      | A15 (ADC1) |            | USART3_RX             |                      |                                   |           |
-#define PC6  37  // | 37      |            |            | USART6_TX             | FMP_TWI1_SCL         |                                   |           |
-#define PC7  38  // | 38      |            |            | USART6_RX             | FMP_TWI1_SDA         | SPI2_SCK                          |           |
+#define PC6  37  // | 37      |            |            | USART6_TX             | (FMP_TWI1_SCL)       |                                   |           |
+#define PC7  38  // | 38      |            |            | USART6_RX             | (FMP_TWI1_SDA)       | SPI2_SCK                          |           |
 #define PC8  39  // | 39      |            |            |                       |                      |                                   |           |
 #define PC9  40  // | 40      |            |            | USART3_TX             | TWI3_SDA             |                                   |           |
 #define PC10 41  // | 41      |            |            |                       |                      | SPI3_SCK                          |           |
