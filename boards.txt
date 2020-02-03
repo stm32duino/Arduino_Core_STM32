@@ -1050,7 +1050,7 @@ GenF4.menu.pnum.BLACKPILL_F401CC.upload.maximum_size=262144
 GenF4.menu.pnum.BLACKPILL_F401CC.upload.maximum_data_size=65536
 GenF4.menu.pnum.BLACKPILL_F401CC.build.board=BLACKPILL_F401CC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.product_line=STM32F401xC
-GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=PILL_F401XX
+GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=Generic_F401Cx
 
 # Core board F401RCT6
 GenF4.menu.pnum.CoreBoard_F401RC=Core board F401RCT6
