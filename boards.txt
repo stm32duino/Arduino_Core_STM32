@@ -1066,7 +1066,7 @@ GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_size=262144
 GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_data_size=65536
 GenF4.menu.pnum.CoreBoard_F401RC.build.board=CoreBoard_F401RC
 GenF4.menu.pnum.CoreBoard_F401RC.build.product_line=STM32F401xC
-GenF4.menu.pnum.CoreBoard_F401RC.build.variant=CoreBoard_F401RC
+GenF4.menu.pnum.CoreBoard_F401RC.build.variant=Generic_F401Rx
 
 # Adafruit Feather STM32F405 board
 GenF4.menu.pnum.FEATHER_F405=Adafruit Feather STM32F405
