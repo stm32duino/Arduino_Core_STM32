@@ -159,7 +159,7 @@ static uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
   }
 
   // Select PLLSAI output as USB clock source
-  PeriphClkInitStruct.PLLSAI.PLLSAIM = 8;
+  PeriphClkInitStruct.PLLSAI.PLLSAIM = HSE_VALUE / 1000000L;
   PeriphClkInitStruct.PLLSAI.PLLSAIN = 384;
   PeriphClkInitStruct.PLLSAI.PLLSAIP = RCC_PLLSAIP_DIV8;
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48;
