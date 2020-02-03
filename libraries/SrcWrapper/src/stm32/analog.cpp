@@ -1006,8 +1006,9 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
-  LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance), LL_ADC_PATH_INTERNAL_NONE);
-
+  if (__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance) != 0U) {
+    LL_ADC_SetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(AdcHandle.Instance), LL_ADC_PATH_INTERNAL_NONE);
+  }
   return uhADCxConvertedValue;
 }
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY*/
