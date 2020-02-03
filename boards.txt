@@ -1147,7 +1147,6 @@ GenF4.menu.pnum.Generic_F401RE.upload.maximum_data_size=98304
 GenF4.menu.pnum.Generic_F401RE.build.board=GENERIC_F401RE
 GenF4.menu.pnum.Generic_F401RE.build.product_line=STM32F401xE
 GenF4.menu.pnum.Generic_F401RE.build.variant=Generic_F401Rx
-GenF4.menu.pnum.Generic_F401RE.node=NODE_F401RE
 
 # Generic F401RD
 GenF4.menu.pnum.Generic_F401RD=Generic F401RD
@@ -1156,7 +1155,6 @@ GenF4.menu.pnum.Generic_F401RD.upload.maximum_data_size=98304
 GenF4.menu.pnum.Generic_F401RD.build.board=GENERIC_F401RD
 GenF4.menu.pnum.Generic_F401RD.build.product_line=STM32F401xE
 GenF4.menu.pnum.Generic_F401RD.build.variant=Generic_F401Rx
-GenF4.menu.pnum.Generic_F401RD.node=NODE_F401RE
 
 # Generic F401RC
 GenF4.menu.pnum.Generic_F401RC=Generic F401RC
@@ -1165,7 +1163,6 @@ GenF4.menu.pnum.Generic_F401RC.upload.maximum_data_size=65536
 GenF4.menu.pnum.Generic_F401RC.build.board=GENERIC_F401RC
 GenF4.menu.pnum.Generic_F401RC.build.product_line=STM32F401xC
 GenF4.menu.pnum.Generic_F401RC.build.variant=Generic_F401Rx
-GenF4.menu.pnum.Generic_F401RC.node=NODE_F401RE
 
 # Generic F401RB
 GenF4.menu.pnum.Generic_F401RB=Generic F401RB
@@ -1174,7 +1171,6 @@ GenF4.menu.pnum.Generic_F401RB.upload.maximum_data_size=65536
 GenF4.menu.pnum.Generic_F401RB.build.board=GENERIC_F401RB
 GenF4.menu.pnum.Generic_F401RB.build.product_line=STM32F401xC
 GenF4.menu.pnum.Generic_F401RB.build.variant=Generic_F401Rx
-GenF4.menu.pnum.Generic_F401RB.node=NODE_F401RE
 
 # Generic F401CE
 GenF4.menu.pnum.Generic_F401CE=Generic F401CE
