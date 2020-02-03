@@ -93,7 +93,9 @@ extern "C" {
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
+#ifndef USER_BTN
 #define USER_BTN                PC13
+#endif
 
 // SPI definitions
 #define PIN_SPI_SS              PA4
