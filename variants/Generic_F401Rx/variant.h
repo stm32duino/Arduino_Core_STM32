@@ -87,11 +87,15 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
+#ifndef LED_BUILTIN
 #define LED_BUILTIN             PA5
+#endif
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
+#ifndef USER_BTN
 #define USER_BTN                PC13
+#endif
 
 // SPI definitions
 #define PIN_SPI_SS              PA4

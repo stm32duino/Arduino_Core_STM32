@@ -95,7 +95,9 @@ extern "C" {
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
+#ifndef USER_BTN
 #define USER_BTN                PC13
+#endif
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
