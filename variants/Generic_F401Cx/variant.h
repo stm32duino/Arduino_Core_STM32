@@ -71,13 +71,16 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       10
 
 // On-board LED pin number
+#ifdef ARDUINO_BLACKPILL_F401CC
+#define LED_BUILTIN             PC13
+#endif
 #ifndef LED_BUILTIN
 #define LED_BUILTIN             PA5
 #endif
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
-#ifndef USER_BTN
+#if !defined(USER_BTN) && !defined(ARDUINO_GENERIC_F401CC)
 #define USER_BTN                PC13
 #endif
 
@@ -91,20 +94,24 @@ extern "C" {
 #define PIN_SPI_SCK             PA5
 
 // I2C definitions
-#define PIN_WIRE_SDA            PB9
-#define PIN_WIRE_SCL            PB8
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
 #define TIMER_TONE              TIM10
 #define TIMER_SERVO             TIM11
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#define PIN_SERIAL_RX           PA10
+#define PIN_SERIAL_TX           PA9
+
+#ifdef ARDUINO_BLACKPILL_F401CC
+#define HSE_VALUE               25000000U
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
