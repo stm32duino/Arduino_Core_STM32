@@ -1111,7 +1111,7 @@ GenF4.menu.pnum.Generic_F415RG.upload.maximum_size=1048576
 GenF4.menu.pnum.Generic_F415RG.upload.maximum_data_size=196608
 GenF4.menu.pnum.Generic_F415RG.build.board=GENERIC_F415RG
 GenF4.menu.pnum.Generic_F415RG.build.product_line=STM32F415xx
-GenF4.menu.pnum.Generic_F415RG.build.variant=Generic_F4x5Rx
+GenF4.menu.pnum.Generic_F415RG.build.variant=Generic_F4x5RG
 
 # Generic F411RE
 GenF4.menu.pnum.Generic_F411RE=Generic F411RE
@@ -1183,7 +1183,7 @@ GenF4.menu.pnum.Generic_F405RG.upload.maximum_size=1048576
 GenF4.menu.pnum.Generic_F405RG.upload.maximum_data_size=196608
 GenF4.menu.pnum.Generic_F405RG.build.board=GENERIC_F405RG
 GenF4.menu.pnum.Generic_F405RG.build.product_line=STM32F405xx
-GenF4.menu.pnum.Generic_F405RG.build.variant=Generic_F4x5Rx
+GenF4.menu.pnum.Generic_F405RG.build.variant=Generic_F4x5RG
 
 # Generic F401RE
 GenF4.menu.pnum.Generic_F401RE=Generic F401RE

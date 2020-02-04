@@ -24,7 +24,7 @@ extern "C" {
 #endif // __cplusplus
 
 /*----------------------------------------------------------------------------
- *        Pins (STM32F405Rx and STM32F415Rx)
+ *        Pins (STM32F405RG and STM32F415RG)
  *----------------------------------------------------------------------------*/
 
 //                  | DIGITAL | ANALOG IN  | ANALOG OUT | UART/USART            | TWI                  | SPI                               | SPECIAL   |
@@ -106,7 +106,7 @@ extern "C" {
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA3
 #define PIN_SERIAL_TX           PA2
