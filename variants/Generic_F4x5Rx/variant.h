@@ -106,9 +106,6 @@ extern "C" {
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
 
-// UART Definitions
-#define SERIAL_UART_INSTANCE    2 // Connected to ST-Link
-
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA3
