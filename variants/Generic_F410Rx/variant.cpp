@@ -52,7 +52,7 @@ const PinName digitalPin[] = {
   PB_8,  // Digital pin 24
   PB_9,  // Digital pin 25
   PB_10, // Digital pin 26
-  PB_12, // Digital pin 27
+  PB_11, // Digital pin 27
   PB_12, // Digital pin 28
   PB_13, // Digital pin 29
   PB_14, // Digital pin 30
