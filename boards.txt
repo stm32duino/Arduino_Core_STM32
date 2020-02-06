@@ -343,6 +343,19 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=NUCLEO_L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# NUCLEO_L433RC_P board
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P=Nucleo L433RC-P
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.node=NODE_L433RC
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.upload.maximum_size=1048576
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.upload.maximum_data_size=98304
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.board=NUCLEO_L433RC
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.series=STM32L4xx
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.product_line=STM32L433xx
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.variant=NUCLEO_L433RC_P
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # NUCLEO_L452RE board
 Nucleo_64.menu.pnum.NUCLEO_L452RE=Nucleo L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.node=NODE_L452RE
