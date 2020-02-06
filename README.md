@@ -4,7 +4,7 @@ This repository is MCCI's version of [Arduino_Core_STM32](https://github.com/stm
 
 For general information, please check the stm32duino [README.md](https://github.com/stm32duino/Arduino_Core_STM32#arduino-core-support-for-stm32-based-boards), especially the [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started) section.
 
-[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.6.0...master)
+[![GitHub release](https://img.shields.io/github/release/mcci-catena/Arduino_Core_STM32.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/releases/latest) [![GitHub commits](https://img.shields.io/github/commits-since/mcci-catena/Arduino_Core_STM32/latest.svg)](https://github.com/mcci-catena/Arduino_Core_STM32/compare/v2.7.0...master)
 
 **Contents:**
 <!-- markdownlint-disable MD033 -->
@@ -154,6 +154,10 @@ If you want to develop and test changes to this package, we suggest the followin
 Remember to restart the IDE whenever you change `platform.txt`, `boards.txt` or `programmers.txt`.
 
 ## Release History
+
+- [v2.7.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.7.0) adds UI support for LoRaWAN network and subband selection, [#22](https://github.com/mcci-catena/Arduino_Core_STM32/issues/22).  Note, though, that the UI options must be implemented by your target LoRaWAN stack in order to be effective.
+
+- [v2.6.1](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.6.1) fixed numerous compile warnings. Also fixed [#78](https://github.com/mcci-catena/Arduino_Core_STM32/issues/78), which resulted in occasional reuse of the entire input ring buffer.
 
 - [v2.6.0](https://github.com/mcci-catena/Arduino_Core_STM32/releases/tag/v2.6.0) adds support for KR-920 (Korea 920 MHz) in the region selection menu ([#117](https://github.com/mcci-catena/Arduino_Core_STM32/issues/117)). Adds official library.properties fields for linking pre-compiled object and adds additional pins definitions for SX1276 radios ([#128](https://github.com/mcci-catena/Arduino_Core_STM32/issues/128)) (thanks to Kent Williams). Add source-level debugging support ([#122](https://github.com/mcci-catena/Arduino_Core_STM32/issues/122)). Adjust USB `Vbus` check values for Catena 461x platform. Define AU915 as well as AU921 for LMIC migration ([#131](https://github.com/mcci-catena/Arduino_Core_STM32/issues/131)). Fix link "`warning: changing start of section .bss by 4 bytes`" ([#129](https://github.com/mcci-catena/Arduino_Core_STM32/issues/129)). Update issue template.
 
