@@ -184,31 +184,31 @@ mcci_catena_4551.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4551.menu.lorawan_subband.default=Default
+mcci_catena_4551.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4551.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4551.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4551.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4551.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4551.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4551.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4551.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4551.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4551.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4551.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4551.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4551.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4551.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4551.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4551.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4551.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4551.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4551.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4551.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4551.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4551.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4551.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4551.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4551
@@ -358,31 +358,31 @@ mcci_catena_4610.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4610.menu.lorawan_subband.default=Default
+mcci_catena_4610.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4610.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4610.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4610.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4610.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4610.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4610.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4610.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4610.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4610.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4610.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4610.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4610.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4610.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4610.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4610.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4610.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4610.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4610.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4610.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4610.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4610.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4610.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4610.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4610
@@ -532,31 +532,31 @@ mcci_catena_4611.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4611.menu.lorawan_subband.default=Default
+mcci_catena_4611.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4611.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4611.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4611.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4611.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4611.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4611.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4611.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4611.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4611.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4611.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4611.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4611.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4611.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4611.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4611.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4611.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4611.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4611.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4611.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4611.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4611.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4611.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4611.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4611
@@ -706,31 +706,31 @@ mcci_catena_4612.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4612.menu.lorawan_subband.default=Default
+mcci_catena_4612.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4612.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4612.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4612.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4612.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4612.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4612.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4612.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4612.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4612.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4612.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4612.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4612.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4612.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4612.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4612.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4612.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4612.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4612.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4612.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4612.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4612.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4612.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4612.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4612
@@ -880,31 +880,31 @@ mcci_catena_4617.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4617.menu.lorawan_subband.default=Default
+mcci_catena_4617.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4617.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4617.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4617.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4617.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4617.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4617.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4617.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4617.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4617.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4617.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4617.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4617.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4617.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4617.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4617.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4617.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4617.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4617.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4617.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4617.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4617.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4617.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4617.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4617
@@ -1054,31 +1054,31 @@ mcci_catena_4618.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4618.menu.lorawan_subband.default=Default
+mcci_catena_4618.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4618.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4618.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4618.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4618.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4618.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4618.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4618.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4618.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4618.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4618.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4618.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4618.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4618.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4618.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4618.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4618.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4618.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4618.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4618.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4618.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4618.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4618.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4618.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4618
@@ -1228,31 +1228,31 @@ mcci_catena_4630.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4630.menu.lorawan_subband.default=Default
+mcci_catena_4630.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4630.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4630.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4630.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4630.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4630.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4630.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4630.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4630.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4630.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4630.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4630.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4630.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4630.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4630.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4630.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4630.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4630.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4630.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4630.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4630.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4630.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4630.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4630.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4630
@@ -1386,31 +1386,31 @@ mcci_catena_4801.menu.lorawan_network.projcfg.build.lorawan_network_flags=
 
 #
 # menul.lorawan_subband
-mcci_catena_4801.menu.lorawan_subband.default=Default
+mcci_catena_4801.menu.lorawan_subband.default=Default, works everywhere
 mcci_catena_4801.menu.lorawan_subband.default.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=-1
-mcci_catena_4801.menu.lorawan_subband.sb0=0-7 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb0=sb0, ch 0~7 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb0.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=0
-mcci_catena_4801.menu.lorawan_subband.sb1=8-15 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb1=sb1, ch 8~15 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb1.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=1
-mcci_catena_4801.menu.lorawan_subband.sb2=16-23 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb2=sb2, ch 16~23 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb2.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=2
-mcci_catena_4801.menu.lorawan_subband.sb3=24-31 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb3=sb3, ch 24~31 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb3.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=3
-mcci_catena_4801.menu.lorawan_subband.sb4=32-39 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb4=sb4, ch 32~39 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb4.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=4
-mcci_catena_4801.menu.lorawan_subband.sb5=40-47 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb5=sb5, ch 40~47 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb5.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=5
-mcci_catena_4801.menu.lorawan_subband.sb6=48-55 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb6=sb6, ch 48~55 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb6.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=6
-mcci_catena_4801.menu.lorawan_subband.sb7=56-63 (US/AU/CN470)
+mcci_catena_4801.menu.lorawan_subband.sb7=sb7, ch 56~63 (US/AU/CN470)
 mcci_catena_4801.menu.lorawan_subband.sb7.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=7
-mcci_catena_4801.menu.lorawan_subband.sb8=64-71 (CN470)
+mcci_catena_4801.menu.lorawan_subband.sb8=sb8, ch 64~71 (CN470)
 mcci_catena_4801.menu.lorawan_subband.sb8.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=8
-mcci_catena_4801.menu.lorawan_subband.sb9=72-79 (CN470)
+mcci_catena_4801.menu.lorawan_subband.sb9=sb9, ch 72~79 (CN470)
 mcci_catena_4801.menu.lorawan_subband.sb9.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=9
-mcci_catena_4801.menu.lorawan_subband.sb10=80-87 (CN470)
+mcci_catena_4801.menu.lorawan_subband.sb10=sb10, ch 80~87 (CN470)
 mcci_catena_4801.menu.lorawan_subband.sb10.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=10
-mcci_catena_4801.menu.lorawan_subband.sb11=88-95 (CN470)
+mcci_catena_4801.menu.lorawan_subband.sb11=sb11, ch 88~95 (CN470)
 mcci_catena_4801.menu.lorawan_subband.sb11.lorawan_subband_flags=-DARDUINO_LMIC_CFG_SUBBAND=11
 
 #### end of configuration info for MCCI Catena 4801
