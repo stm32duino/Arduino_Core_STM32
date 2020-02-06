@@ -87,7 +87,7 @@ $section usb
 {{board}}.build.variant={{build_variant}}
 {{board}}.build.variant_extra_flags={{build_variant_extra_flags}}
 {{board}}.build.cmsis_lib_gcc=arm_cortexM0l_math
-{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} {{build_board_old_flags}} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+{{board}}.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} {{build_board_old_flags}} -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # {{board}}.build.c.Werror=
 # {{board}}.build.cpp.Werror=
 # {{board}}.build.S.Werror=

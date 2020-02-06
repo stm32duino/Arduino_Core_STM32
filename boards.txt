@@ -62,7 +62,7 @@ mcci_catena_4551.build.series=STM32L0xx
 mcci_catena_4551.build.variant=CATENA_4551
 mcci_catena_4551.build.variant_extra_flags=
 mcci_catena_4551.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4551 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4551.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4551 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4551.build.c.Werror=
 # mcci_catena_4551.build.cpp.Werror=
 # mcci_catena_4551.build.S.Werror=
@@ -236,7 +236,7 @@ mcci_catena_4610.build.series=STM32L0xx
 mcci_catena_4610.build.variant=CATENA_461x
 mcci_catena_4610.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0
 mcci_catena_4610.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4610.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4610.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4610.build.c.Werror=
 # mcci_catena_4610.build.cpp.Werror=
 # mcci_catena_4610.build.S.Werror=
@@ -410,7 +410,7 @@ mcci_catena_4611.build.series=STM32L0xx
 mcci_catena_4611.build.variant=CATENA_461x
 mcci_catena_4611.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=0
 mcci_catena_4611.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4611 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4611.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4611 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4611.build.c.Werror=
 # mcci_catena_4611.build.cpp.Werror=
 # mcci_catena_4611.build.S.Werror=
@@ -584,7 +584,7 @@ mcci_catena_4612.build.series=STM32L0xx
 mcci_catena_4612.build.variant=CATENA_461x
 mcci_catena_4612.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1
 mcci_catena_4612.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4612 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4612.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line} -DARDUINO_CATENA_4612 -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4612.build.c.Werror=
 # mcci_catena_4612.build.cpp.Werror=
 # mcci_catena_4612.build.S.Werror=
@@ -758,7 +758,7 @@ mcci_catena_4617.build.series=STM32L0xx
 mcci_catena_4617.build.variant=CATENA_461x
 mcci_catena_4617.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1
 mcci_catena_4617.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4617.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4617.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4617.build.c.Werror=
 # mcci_catena_4617.build.cpp.Werror=
 # mcci_catena_4617.build.S.Werror=
@@ -932,7 +932,7 @@ mcci_catena_4618.build.series=STM32L0xx
 mcci_catena_4618.build.variant=CATENA_461x
 mcci_catena_4618.build.variant_extra_flags=-DMCCI_CATENA_461x_PA0_SWITCHES_VDD=1
 mcci_catena_4618.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4618.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4618.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4618.build.c.Werror=
 # mcci_catena_4618.build.cpp.Werror=
 # mcci_catena_4618.build.S.Werror=
@@ -1106,7 +1106,7 @@ mcci_catena_4630.build.series=STM32L0xx
 mcci_catena_4630.build.variant=CATENA_4630
 mcci_catena_4630.build.variant_extra_flags=-DMCCI_CATENA_4630_PA0_SWITCHES_VDD=1
 mcci_catena_4630.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4630.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4630.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4630.build.c.Werror=
 # mcci_catena_4630.build.cpp.Werror=
 # mcci_catena_4630.build.S.Werror=
@@ -1274,7 +1274,7 @@ mcci_catena_4801.build.series=STM32L0xx
 mcci_catena_4801.build.variant=CATENA_4801
 mcci_catena_4801.build.variant_extra_flags=
 mcci_catena_4801.build.cmsis_lib_gcc=arm_cortexM0l_math
-mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {build.variant_extra_flags}
+mcci_catena_4801.build.extra_flags=-DARDUINO_STM32 -DARDUINO_{build.series} -DARDUINO_{build.product_line}  -D{build.product_line} {build.sysclk_flags} {build.xSerial} -D__CORTEX_SC=0 -D{build.board} {build.lorawan_flags} {build.lorawan_network_flags} {buid.lorawan_subband_flags} {build.variant_extra_flags}
 # mcci_catena_4801.build.c.Werror=
 # mcci_catena_4801.build.cpp.Werror=
 # mcci_catena_4801.build.S.Werror=
