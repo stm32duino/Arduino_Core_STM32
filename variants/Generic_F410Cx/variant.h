@@ -85,6 +85,19 @@ extern "C" {
 #define USER_BTN                PC13
 #endif
 
+// SPI definitions
+#define PIN_SPI_SS              PA4
+#define PIN_SPI_SS1             PA4
+#define PIN_SPI_SS2             PB12
+#define PIN_SPI_SS5             PB1
+#define PIN_SPI_MOSI            PA7
+#define PIN_SPI_MISO            PA6
+#define PIN_SPI_SCK             PA5
+
+// I2C definitions
+#define PIN_WIRE_SDA            PB9
+#define PIN_WIRE_SCL            PB8
+
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
