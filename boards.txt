@@ -1142,6 +1142,22 @@ GenF4.menu.pnum.Generic_F412RE.build.board=GENERIC_F412RE
 GenF4.menu.pnum.Generic_F412RE.build.product_line=STM32F412Rx
 GenF4.menu.pnum.Generic_F412RE.build.variant=Generic_F412Rx
 
+# Generic F412CG
+GenF4.menu.pnum.Generic_F412CG=Generic F412CG
+GenF4.menu.pnum.Generic_F412CG.upload.maximum_size=1048576
+GenF4.menu.pnum.Generic_F412CG.upload.maximum_data_size=262144
+GenF4.menu.pnum.Generic_F412CG.build.board=GENERIC_F412CG
+GenF4.menu.pnum.Generic_F412CG.build.product_line=STM32F412Cx
+GenF4.menu.pnum.Generic_F412CG.build.variant=Generic_F412Cx
+
+# Generic F412CE
+GenF4.menu.pnum.Generic_F412CE=Generic F412CE
+GenF4.menu.pnum.Generic_F412CE.upload.maximum_size=524288
+GenF4.menu.pnum.Generic_F412CE.upload.maximum_data_size=262144
+GenF4.menu.pnum.Generic_F412CE.build.board=GENERIC_F412CE
+GenF4.menu.pnum.Generic_F412CE.build.product_line=STM32F412Cx
+GenF4.menu.pnum.Generic_F412CE.build.variant=Generic_F412Cx
+
 # Generic F411RE
 GenF4.menu.pnum.Generic_F411RE=Generic F411RE
 GenF4.menu.pnum.Generic_F411RE.upload.maximum_size=524288
