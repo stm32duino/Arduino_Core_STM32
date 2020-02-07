@@ -407,33 +407,22 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
   }
   tickstart = HAL_GetTick();
-  if (skipReceive) {
-    while (size--) {
-      while (!LL_SPI_IsActiveFlag_TXE(_SPI))
-        ;
-      LL_SPI_TransmitData8(_SPI, *tx_buffer++);
+  while (size--) {
+    while (!LL_SPI_IsActiveFlag_TXE(_SPI))
+      ;
+    LL_SPI_TransmitData8(_SPI, *tx_buffer++);
 
-      if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
-        ret = SPI_TIMEOUT;
-        break;
-      }
-    }
-  } else {
-    while (size--) {
-      while (!LL_SPI_IsActiveFlag_TXE(_SPI))
-        ;
-      LL_SPI_TransmitData8(_SPI, *tx_buffer++);
-
+    if (!skipReceive) {
       while (!LL_SPI_IsActiveFlag_RXNE(_SPI))
         ;
       *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
-
-      if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
-        ret = SPI_TIMEOUT;
-        break;
-      }
+    }
+    if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
+      ret = SPI_TIMEOUT;
+      break;
     }
   }
+
   return ret;
 }
 
