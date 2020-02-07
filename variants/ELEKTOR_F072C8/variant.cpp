@@ -66,7 +66,7 @@ const PinName digitalPin[] = {
   //Analog Pins
   PA_0,  //D27, A0
   PA_1,  //D28, A1
-  PA_3,  //D29, A2
+  PA_2,  //D29, A2
   PA_3,  //D30, A3
   PA_4,  //D31, A4
   PA_5,  //D32, A5
