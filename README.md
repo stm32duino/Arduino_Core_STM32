@@ -138,9 +138,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart: | Generic F411R(C-E) | **1.9.0** |  |
 | :yellow_heart: | Generic F412C(E-G) | **1.9.0** |  |
 | :yellow_heart: | Generic F412R(E-G) | **1.9.0** |  |
+| :yellow_heart: | Generic F413C(G-H) | **1.9.0** |  |
 | :yellow_heart: | Generic F413R(G-H) | **1.9.0** |  |
 | :yellow_heart: | Generic F415RG | **1.9.0** |  |
-| :yellow_heart: | Generic F423RH | **1.9.0** |
+| :yellow_heart: | Generic F423CH | **1.9.0** |  |
+| :yellow_heart: | Generic F423RH | **1.9.0** |  |
 | :yellow_heart: | Generic F446R(C-E) | **1.9.0** |  |
 
 | Status | Generic STM32L0xx | Release | Comment |
