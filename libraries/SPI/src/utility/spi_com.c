@@ -393,7 +393,7 @@ spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
   * @param  rx_buffer : data to receive
   * @param  len : length in byte of the data to send and receive
   * @param  Timeout: Timeout duration in tick
-  * @param  skipRecieve: skip recieving data after transmit or not
+  * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
 spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
@@ -407,14 +407,25 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
   }
   tickstart = HAL_GetTick();
+
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+  LL_SPI_StartMasterTransfer(_SPI); // start master transfer
+#endif
+
   while (size--) {
-    while (!LL_SPI_IsActiveFlag_TXE(_SPI))
-      ;
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+    while (!LL_SPI_IsActiveFlag_TXP(_SPI));
+#else
+    while (!LL_SPI_IsActiveFlag_TXE(_SPI));
+#endif
     LL_SPI_TransmitData8(_SPI, *tx_buffer++);
 
     if (!skipReceive) {
-      while (!LL_SPI_IsActiveFlag_RXNE(_SPI))
-        ;
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+      while (!LL_SPI_IsActiveFlag_RXP(_SPI));
+#else
+      while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
+#endif
       *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
     }
     if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
