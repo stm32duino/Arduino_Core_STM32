@@ -409,7 +409,10 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   tickstart = HAL_GetTick();
 
 #if defined(STM32H7xx) || defined(STM32MP1xx)
-  LL_SPI_StartMasterTransfer(_SPI); // start master transfer
+  /* Start transfer */
+  LL_SPI_SetTransferSize(_SPI, size);
+  LL_SPI_Enable(_SPI);
+  LL_SPI_StartMasterTransfer(_SPI);
 #endif
 
   while (size--) {
@@ -433,6 +436,15 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
       break;
     }
   }
+
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+  /* Close transfer */
+  /* Clear flags */
+  LL_SPI_ClearFlag_EOT(_SPI);
+  LL_SPI_ClearFlag_TXTF(_SPI);
+  /* Disable SPI peripheral */
+  LL_SPI_Disable(_SPI);
+#endif
 
   return ret;
 }
