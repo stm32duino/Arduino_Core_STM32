@@ -61,15 +61,6 @@
 /** @addtogroup STM32L1xx_System_Private_Defines
   * @{
   */
-#if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000U) /*!< Default value of the External oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSE_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)8000000U) /*!< Default value of the Internal oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSI_VALUE */
 
 /*!< Uncomment the following line if you need to use external SRAM mounted
      on STM32L152D_EVAL board as data memory  */

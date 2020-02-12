@@ -74,16 +74,6 @@
   * @{
   */
 
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE               8000000U /*!< Default value of the External oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSE_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE               8000000U /*!< Default value of the Internal oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSI_VALUE */
-
 /*!< Uncomment the following line if you need to use external SRAM  */
 #if defined(STM32F100xE) || defined(STM32F101xE) || defined(STM32F101xG) || defined(STM32F103xE) || defined(STM32F103xG)
 /* #define DATA_IN_ExtSRAM */
