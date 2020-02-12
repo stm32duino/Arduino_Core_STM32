@@ -18,12 +18,14 @@
 #include "openamp/open_amp.h"
 #include "openamp_conf.h"
 
-/* Place resource table in special ELF section */
-//#define __section_t(S)          __attribute__((__section__(#S)))
-//#define __resource              __section_t(.resource_table)
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
 
 
-
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
 
 /* Resource table for the given remote */
 struct shared_resource_table {
@@ -39,6 +41,28 @@ struct shared_resource_table {
 	struct fw_rsc_vdev_vring vring1;
 	struct fw_rsc_trace cm_trace;
 };
+
+/* USER CODE END ET */
+
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Private defines -----------------------------------------------------------*/
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END  Private defines */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
+/* USER CODE BEGIN EFP */
+
+/* USER CODE END EFP */
 
 void resource_table_init(int RPMsgRole, void **table_ptr, int *length);
 

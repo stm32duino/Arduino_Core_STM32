@@ -98,6 +98,10 @@ extern "C" {
   */
 
 /* Private macros ------------------------------------------------------------*/
+#if !defined (UNUSED)
+#define UNUSED(x) ((void)(x))
+#endif
+
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup RCC_LL_Private_Macros RCC Private Macros
   * @{

@@ -223,19 +223,32 @@ uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t Single
 HAL_StatusTypeDef HAL_ADCEx_LinearCalibration_GetValue(ADC_HandleTypeDef* hadc, uint32_t* LinearCalib_Buffer)
 {
   uint32_t cnt;
-  HAL_StatusTypeDef tmp_hal_status;
+  HAL_StatusTypeDef tmp_hal_status = HAL_OK;
+  uint32_t temp_REG_IsConversionOngoing = 0UL;
 
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
 
   /* Enable the ADC ADEN = 1 to be able to read the linear calibration factor */
-  tmp_hal_status = ADC_Enable(hadc);
+  if(LL_ADC_IsEnabled(hadc->Instance) == 0UL) 
+    {
+      tmp_hal_status = ADC_Enable(hadc);
+    }
 
   if (tmp_hal_status == HAL_OK)
   {
-   for(cnt = 0UL; cnt < ADC_LINEAR_CALIB_REG_COUNT; cnt++)
+   if(LL_ADC_REG_IsConversionOngoing(hadc->Instance) != 0UL)
     {
-      LinearCalib_Buffer[cnt]=LL_ADC_GetCalibrationLinearFactor(hadc->Instance, ADC_CR_LINCALRDYW6 >> cnt);
+      LL_ADC_REG_StopConversion(hadc->Instance);
+      temp_REG_IsConversionOngoing = 1UL;
+    }
+   for(cnt = ADC_LINEAR_CALIB_REG_COUNT; cnt > 0UL; cnt--)
+    {
+      LinearCalib_Buffer[cnt-1U]=LL_ADC_GetCalibrationLinearFactor(hadc->Instance, ADC_CR_LINCALRDYW6 >> (ADC_LINEAR_CALIB_REG_COUNT-cnt));
+    }
+   if(temp_REG_IsConversionOngoing != 0UL)
+    {
+      LL_ADC_REG_StartConversion(hadc->Instance);
     }
   }
 
