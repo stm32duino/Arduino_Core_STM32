@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32mp157axx_cm4.h
+  * @file    stm32mp157fxx_ca7.h
   * @author  MCD Application Team
-  * @brief   CMSIS stm32mp157axx_cm4 Device Peripheral Access Layer Header File.
+  * @brief   CMSIS stm32mp157fxx_ca7 Device Peripheral Access Layer Header File.
   *
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
@@ -27,12 +27,12 @@
   * @{
   */
 
-/** @addtogroup stm32mp157axx_cm4
+/** @addtogroup stm32mp157fxx_ca7
   * @{
   */
 
-#ifndef __STM32MP157Axx_CM4_H
-#define __STM32MP157Axx_CM4_H
+#ifndef __STM32MP157Fxx_CA7_H
+#define __STM32MP157Fxx_CA7_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -57,168 +57,190 @@
  */
  typedef enum IRQn
  {
- /******  Cortex-M Processor Exceptions Numbers *******************************************************************/
-   NonMaskableInt_IRQn         = -14,   /*!< 2 Non Maskable Interrupt                                             */
-   HardFault_IRQn              = -13,   /*!< 4 Cortex-M Memory Management Interrupt                               */
-   MemoryManagement_IRQn       = -12,   /*!< 4 Cortex-M Memory Management Interrupt                               */
-   BusFault_IRQn               = -11,   /*!< 5 Cortex-M Bus Fault Interrupt                                       */
-   UsageFault_IRQn             = -10,   /*!< 6 Cortex-M Usage Fault Interrupt                                     */
-   SVCall_IRQn                 = -5,    /*!< 11 Cortex-M SV Call Interrupt                                        */
-   DebugMonitor_IRQn           = -4,    /*!< 12 Cortex-M Debug Monitor Interrupt                                  */
-   PendSV_IRQn                 = -2,    /*!< 14 Cortex-M Pend SV Interrupt                                        */
-   SysTick_IRQn                = -1,    /*!< 15 Cortex-M System Tick Interrupt                                    */
- /******  STM32 specific Interrupt Numbers ************************************************************************/
-   WWDG1_IRQn                  = 0,     /*!< Window WatchDog Interrupt                                            */
-   PVD_AVD_IRQn                = 1,     /*!< PVD & AVD detector through EXTI                                      */
-   TAMP_IRQn                   = 2,     /*!< Tamper interrupts through the EXTI line                              */
-   RTC_WKUP_ALARM_IRQn         = 3,     /*!< RTC Wakeup and Alarm (A & B) interrupt through the EXTI line         */
-   RESERVED_4                  = 4,     /*!< RESERVED interrupt                                                   */
-   RCC_IRQn                    = 5,     /*!< RCC global Interrupt                                                 */
-   EXTI0_IRQn                  = 6,     /*!< EXTI Line0 Interrupt                                                 */
-   EXTI1_IRQn                  = 7,     /*!< EXTI Line1 Interrupt                                                 */
-   EXTI2_IRQn                  = 8,     /*!< EXTI Line2 Interrupt                                                 */
-   EXTI3_IRQn                  = 9,     /*!< EXTI Line3 Interrupt                                                 */
-   EXTI4_IRQn                  = 10,    /*!< EXTI Line4 Interrupt                                                 */
-   DMA1_Stream0_IRQn           = 11,    /*!< DMA1 Stream 0 global Interrupt                                       */
-   DMA1_Stream1_IRQn           = 12,    /*!< DMA1 Stream 1 global Interrupt                                       */
-   DMA1_Stream2_IRQn           = 13,    /*!< DMA1 Stream 2 global Interrupt                                       */
-   DMA1_Stream3_IRQn           = 14,    /*!< DMA1 Stream 3 global Interrupt                                       */
-   DMA1_Stream4_IRQn           = 15,    /*!< DMA1 Stream 4 global Interrupt                                       */
-   DMA1_Stream5_IRQn           = 16,    /*!< DMA1 Stream 5 global Interrupt                                       */
-   DMA1_Stream6_IRQn           = 17,    /*!< DMA1 Stream 6 global Interrupt                                       */
-   ADC1_IRQn                   = 18,    /*!< ADC1 global Interrupts                                               */
-   FDCAN1_IT0_IRQn             = 19,    /*!< FDCAN1 Interrupt line 0                                              */
-   FDCAN2_IT0_IRQn             = 20,    /*!< FDCAN2 Interrupt line 0                                              */
-   FDCAN1_IT1_IRQn             = 21,    /*!< FDCAN1 Interrupt line 1                                              */
-   FDCAN2_IT1_IRQn             = 22,    /*!< FDCAN2 Interrupt line 1                                              */
-   EXTI5_IRQn                  = 23,    /*!< External Line[9:5] Interrupts                                        */
-   TIM1_BRK_IRQn               = 24,    /*!< TIM1 Break interrupt                                                 */
-   TIM1_UP_IRQn                = 25,    /*!< TIM1 Update Interrupt                                                */
-   TIM1_TRG_COM_IRQn           = 26,    /*!< TIM1 Trigger and Commutation Interrupt                               */
-   TIM1_CC_IRQn                = 27,    /*!< TIM1 Capture Compare Interrupt                                       */
-   TIM2_IRQn                   = 28,    /*!< TIM2 global Interrupt                                                */
-   TIM3_IRQn                   = 29,    /*!< TIM3 global Interrupt                                                */
-   TIM4_IRQn                   = 30,    /*!< TIM4 global Interrupt                                                */
-   I2C1_EV_IRQn                = 31,    /*!< I2C1 Event Interrupt                                                 */
-   I2C1_ER_IRQn                = 32,    /*!< I2C1 Error Interrupt                                                 */
-   I2C2_EV_IRQn                = 33,    /*!< I2C2 Event Interrupt                                                 */
-   I2C2_ER_IRQn                = 34,    /*!< I2C2 Error Interrupt                                                 */
-   SPI1_IRQn                   = 35,    /*!< SPI1 global Interrupt                                                */
-   SPI2_IRQn                   = 36,    /*!< SPI2 global Interrupt                                                */
-   USART1_IRQn                 = 37,    /*!< USART1 global Interrupt                                              */
-   USART2_IRQn                 = 38,    /*!< USART2 global Interrupt                                              */
-   USART3_IRQn                 = 39,    /*!< USART3 global Interrupt                                              */
-   EXTI10_IRQn                 = 40,    /*!< EXTI Line 10 Interrupts                                              */
-   RTC_TIMESTAMP_IRQn          = 41,    /*!< RTC TimeStamp through EXTI Line Interrupt                            */
-   EXTI11_IRQn                 = 42,    /*!< EXTI Line 11 Interrupts                                              */
-   TIM8_BRK_IRQn               = 43,    /*!< TIM8 Break Interrupt                                                 */
-   TIM8_UP_IRQn                = 44,    /*!< TIM8 Update Interrupt                                                */
-   TIM8_TRG_COM_IRQn           = 45,    /*!< TIM8 Trigger and Commutation Interrupt                               */
-   TIM8_CC_IRQn                = 46,    /*!< TIM8 Capture Compare Interrupt                                       */
-   DMA1_Stream7_IRQn           = 47,    /*!< DMA1 Stream7 Interrupt                                               */
-   FMC_IRQn                    = 48,    /*!< FMC global Interrupt                                                 */
-   SDMMC1_IRQn                 = 49,    /*!< SDMMC1 global Interrupt                                              */
-   TIM5_IRQn                   = 50,    /*!< TIM5 global Interrupt                                                */
-   SPI3_IRQn                   = 51,    /*!< SPI3 global Interrupt                                                */
-   UART4_IRQn                  = 52,    /*!< UART4 global Interrupt                                               */
-   UART5_IRQn                  = 53,    /*!< UART5 global Interrupt                                               */
-   TIM6_IRQn                   = 54,    /*!< TIM6 global                                                          */
-   TIM7_IRQn                   = 55,    /*!< TIM7 global interrupt                                                */
-   DMA2_Stream0_IRQn           = 56,    /*!< DMA2 Stream 0 global Interrupt                                       */
-   DMA2_Stream1_IRQn           = 57,    /*!< DMA2 Stream 1 global Interrupt                                       */
-   DMA2_Stream2_IRQn           = 58,    /*!< DMA2 Stream 2 global Interrupt                                       */
-   DMA2_Stream3_IRQn           = 59,    /*!< GPDMA2 Stream 3 global Interrupt                                     */
-   DMA2_Stream4_IRQn           = 60,    /*!< GPDMA2 Stream 4 global Interrupt                                     */
-   ETH1_IRQn                   = 61,    /*!< Ethernet global Interrupt                                            */
-   ETH1_WKUP_IRQn              = 62,    /*!< Ethernet Wakeup through EXTI line Interrupt                          */
-   FDCAN_CAL_IRQn              = 63,    /*!< CAN calibration unit interrupt                                       */
-   EXTI6_IRQn                  = 64,    /*!< EXTI Line 6 Interrupts                                               */
-   EXTI7_IRQn                  = 65,    /*!< EXTI Line 7 Interrupts                                               */
-   EXTI8_IRQn                  = 66,    /*!< EXTI Line 8 Interrupts                                               */
-   EXTI9_IRQn                  = 67,    /*!< EXTI Line 9 Interrupts                                               */
-   DMA2_Stream5_IRQn           = 68,    /*!< DMA2 Stream 5 global interrupt                                       */
-   DMA2_Stream6_IRQn           = 69,    /*!< DMA2 Stream 6 global interrupt                                       */
-   DMA2_Stream7_IRQn           = 70,    /*!< DMA2 Stream 7 global interrupt                                       */
-   USART6_IRQn                 = 71,    /*!< USART6 global interrupt                                              */
-   I2C3_EV_IRQn                = 72,    /*!< I2C3 event interrupt                                                 */
-   I2C3_ER_IRQn                = 73,    /*!< I2C3 error interrupt                                                 */
-   USBH_OHCI_IRQn              = 74,    /*!< USB OHCI global interrupt                                            */
-   USBH_EHCI_IRQn              = 75,    /*!< USB EHCI global interrupt                                            */
-   EXTI12_IRQn                 = 76,    /*!< EXTI Line 76 Interrupts                                              */
-   EXTI13_IRQn                 = 77,    /*!< EXTI Line 77 Interrupts                                              */
-   DCMI_IRQn                   = 78,    /*!< DCMI global interrupt                                                */
-   RESERVED_79                 = 79,   /*!< RESERVED interrupt                                                    */
-   HASH1_IRQn                  = 80,    /*!< Hash global interrupt                                                */
-   FPU_IRQn                    = 81,    /*!< FPU global interrupt                                                 */
-   UART7_IRQn                  = 82,    /*!< UART7 global interrupt                                               */
-   UART8_IRQn                  = 83,    /*!< UART8 global interrupt                                               */
-   SPI4_IRQn                   = 84,    /*!< SPI4 global Interrupt                                                */
-   SPI5_IRQn                   = 85,    /*!< SPI5 global Interrupt                                                */
-   SPI6_IRQn                   = 86,    /*!< SPI6 global Interrupt                                                */
-   SAI1_IRQn                   = 87,    /*!< SAI1 global Interrupt                                                */
-   LTDC_IRQn                   = 88,    /*!< LTDC global Interrupt                                                */
-   LTDC_ER_IRQn                = 89,    /*!< LTDC Error global Interrupt                                          */
-   ADC2_IRQn                   = 90,    /*!< ADC2 global Interrupts                                               */
-   SAI2_IRQn                   = 91,    /*!< SAI2 global Interrupt                                                */
-   QUADSPI_IRQn                = 92,    /*!< Quad SPI global interrupt                                            */
-   LPTIM1_IRQn                 = 93,    /*!< LP TIM1 interrupt                                                    */
-   CEC_IRQn                    = 94,    /*!< HDMI-CEC global Interrupt                                            */
-   I2C4_EV_IRQn                = 95,    /*!< I2C4 Event Interrupt                                                 */
-   I2C4_ER_IRQn                = 96,    /*!< I2C4 Error Interrupt                                                 */
-   SPDIF_RX_IRQn               = 97,    /*!< SPDIF-RX global Interrupt                                            */
-   OTG_IRQn                   = 98,    /*!< USB On The Go global interrupt                                       */
-   RESERVED_99                 = 99,    /*!< RESERVED interrupt                                                   */
-   IPCC_RX0_IRQn               = 100,   /*!< IPCC RX0 Occupied interrupt (interrupt going to AIEC input as well)  */
-   IPCC_TX0_IRQn               = 101,   /*!< IPCC TX0 Free interrupt (interrupt going to AIEC input as well)      */
-   DMAMUX1_OVR_IRQn            = 102,   /*!< DMAMUX1 Overrun interrupt                                            */
-   IPCC_RX1_IRQn               = 103,   /*!< IPCC RX1 Occupied interrupt (interrupt going to AIEC input as well)  */
-   IPCC_TX1_IRQn               = 104,   /*!< IPCC TX1 Free interrupt (interrupt going to AIEC input as well)      */
-   RESERVED_105                = 105,   /*!< RESERVED interrupt                                                   */
-   HASH2_IRQn                  = 106,   /*!< Crypto Hash2 interrupt                                               */
-   I2C5_EV_IRQn                = 107,   /*!< I2C5 Event Interrupt                                                 */
-   I2C5_ER_IRQn                = 108,   /*!< I2C5 Error Interrupt                                                 */
-   GPU_IRQn                    = 109,   /*!< GPU global Interrupt                                                 */
-   DFSDM1_FLT0_IRQn            = 110,   /*!< DFSDM Filter1 Interrupt                                              */
-   DFSDM1_FLT1_IRQn            = 111,   /*!< DFSDM Filter2 Interrupt                                              */
-   DFSDM1_FLT2_IRQn            = 112,   /*!< DFSDM Filter3 Interrupt                                              */
-   DFSDM1_FLT3_IRQn            = 113,   /*!< DFSDM Filter4 Interrupt                                              */
-   SAI3_IRQn                   = 114,   /*!< SAI3 global Interrupt                                                */
-   DFSDM1_FLT4_IRQn            = 115,   /*!< DFSDM Filter5 Interrupt                                              */
-   TIM15_IRQn                  = 116,   /*!< TIM15 global Interrupt                                               */
-   TIM16_IRQn                  = 117,   /*!< TIM16 global Interrupt                                               */
-   TIM17_IRQn                  = 118,   /*!< TIM17 global Interrupt                                               */
-   TIM12_IRQn                  = 119,   /*!< TIM12 global Interrupt                                               */
-   MDIOS_IRQn                  = 120,   /*!< MDIOS global Interrupt                                               */
-   EXTI14_IRQn                 = 121,   /*!< EXTI Line 14 Interrupts                                              */
-   MDMA_IRQn                   = 122,   /*!< MDMA global Interrupt                                                */
-   DSI_IRQn                    = 123,   /*!< DSI global Interrupt                                                 */
-   SDMMC2_IRQn                 = 124,   /*!< SDMMC2 global Interrupt                                              */
-   HSEM_IT2_IRQn               = 125,   /*!< HSEM Semaphore Interrupt 2                                           */
-   DFSDM1_FLT5_IRQn            = 126,   /*!< DFSDM Filter6 Interrupt                                              */
-   EXTI15_IRQn                 = 127,   /*!< EXTI Line 15 Interrupts                                              */
-   nCTIIRQ1_IRQn               = 128,   /*!< Cortex-M4 CTI interrupt 1                                            */
-   nCTIIRQ2_IRQn               = 129,   /*!< Cortex-M4 CTI interrupt 2                                            */
-   TIM13_IRQn                  = 130,   /*!< TIM13 global interrupt                                               */
-   TIM14_IRQn                  = 131,   /*!< TIM14 global interrupt                                               */
-   DAC_IRQn                    = 132,   /*!< DAC1 and DAC2 underrun error interrupts                              */
-   RNG1_IRQn                   = 133,   /*!< RNG1 interrupt                                                       */
-   RNG2_IRQn                   = 134,   /*!< RNG2 interrupt                                                       */
-   I2C6_EV_IRQn                = 135,   /*!< I2C6 Event Interrupt                                                 */
-   I2C6_ER_IRQn                = 136,   /*!< I2C6 Error Interrupt                                                 */
-   SDMMC3_IRQn                 = 137,   /*!< SDMMC3 global Interrupt                                              */
-   LPTIM2_IRQn                 = 138,   /*!< LP TIM2 global interrupt                                             */
-   LPTIM3_IRQn                 = 139,   /*!< LP TIM3 global interrupt                                             */
-   LPTIM4_IRQn                 = 140,   /*!< LP TIM4 global interrupt                                             */
-   LPTIM5_IRQn                 = 141,   /*!< LP TIM5 global interrupt                                             */
-   ETH1_LPI_IRQn               = 142,   /*!< ETH1_LPI interrupt (LPI: lpi_intr_o)                                 */
-   RESERVED_143                = 143,   /*!< RESERVED interrupt                                                   */
-   MPU_SEV_IRQn                = 144,   /*!< MPU Send Event  interrupt                                            */
-   RCC_WAKEUP_IRQn             = 145,   /*!< RCC Wake up interrupt                                                */
-   SAI4_IRQn                   = 146,   /*!< SAI4 global interrupt                                                */
-   DTS_IRQn                    = 147,   /*!< Temperature sensor Global Interrupt                                  */
-   RESERVED_148                = 148,   /*!< RESERVED interrupt                                                   */
-   WAKEUP_PIN_IRQn             = 149,   /*!< Interrupt for all 6 wake-up pins                                     */
-   MAX_IRQ_n
+   /******  Cortex-A Processor Specific Interrupt Numbers ***************************************************************/
+   /* Software Generated Interrupts                                                                                     */
+   SGI0_IRQn                        =  0,     /*!< Software Generated Interrupt  0                                      */
+   SGI1_IRQn                        =  1,     /*!< Software Generated Interrupt  1                                      */
+   SGI2_IRQn                        =  2,     /*!< Software Generated Interrupt  2                                      */
+   SGI3_IRQn                        =  3,     /*!< Software Generated Interrupt  3                                      */
+   SGI4_IRQn                        =  4,     /*!< Software Generated Interrupt  4                                      */
+   SGI5_IRQn                        =  5,     /*!< Software Generated Interrupt  5                                      */
+   SGI6_IRQn                        =  6,     /*!< Software Generated Interrupt  6                                      */
+   SGI7_IRQn                        =  7,     /*!< Software Generated Interrupt  7                                      */
+   SGI8_IRQn                        =  8,     /*!< Software Generated Interrupt  8                                      */
+   SGI9_IRQn                        =  9,     /*!< Software Generated Interrupt  9                                      */
+   SGI10_IRQn                       = 10,     /*!< Software Generated Interrupt 10                                      */
+   SGI11_IRQn                       = 11,     /*!< Software Generated Interrupt 11                                      */
+   SGI12_IRQn                       = 12,     /*!< Software Generated Interrupt 12                                      */
+   SGI13_IRQn                       = 13,     /*!< Software Generated Interrupt 13                                      */
+   SGI14_IRQn                       = 14,     /*!< Software Generated Interrupt 14                                      */
+   SGI15_IRQn                       = 15,     /*!< Software Generated Interrupt 15                                      */
+   /* Private Peripheral Interrupts                                                                                     */
+   VirtualMaintenanceInterrupt_IRQn = 25,     /*!< Virtual Maintenance Interrupt                                        */
+   HypervisorTimer_IRQn             = 26,     /*!< Hypervisor Timer Interrupt                                           */
+   VirtualTimer_IRQn                = 27,     /*!< Virtual Timer Interrupt                                              */
+   Legacy_nFIQ_IRQn                 = 28,     /*!< Legacy nFIQ Interrupt                                                */
+   SecurePhysicalTimer_IRQn         = 29,     /*!< Secure Physical Timer Interrupt                                      */
+   NonSecurePhysicalTimer_IRQn      = 30,     /*!< Non-Secure Physical Timer Interrupt                                  */
+   Legacy_nIRQ_IRQn                 = 31,     /*!< Legacy nIRQ Interrupt                                                */
+   /******  STM32 specific Interrupt Numbers ****************************************************************************/    
+   WWDG1_IRQn                       = 32,     /*!< Window WatchDog Interrupt                                            */
+   PVD_AVD_IRQn                     = 33,     /*!< PVD & AVD detector through EXTI                                      */
+   TAMP_IRQn                        = 34,     /*!< Tamper interrupts through the EXTI line                              */
+   RTC_WKUP_ALARM_IRQn              = 35,     /*!< RTC Wakeup and Alarm (A & B) interrupt through the EXTI line         */
+   RESERVED_36                      = 36,     /*!< RESERVED interrupt                                                   */
+   RCC_IRQn                         = 37,     /*!< RCC global Interrupt                                                 */
+   EXTI0_IRQn                       = 38,     /*!< EXTI Line0 Interrupt                                                 */
+   EXTI1_IRQn                       = 39,     /*!< EXTI Line1 Interrupt                                                 */
+   EXTI2_IRQn                       = 40,     /*!< EXTI Line2 Interrupt                                                 */
+   EXTI3_IRQn                       = 41,     /*!< EXTI Line3 Interrupt                                                 */
+   EXTI4_IRQn                       = 42,     /*!< EXTI Line4 Interrupt                                                 */
+   DMA1_Stream0_IRQn                = 43,     /*!< DMA1 Stream 0 global Interrupt                                       */
+   DMA1_Stream1_IRQn                = 44,     /*!< DMA1 Stream 1 global Interrupt                                       */
+   DMA1_Stream2_IRQn                = 45,     /*!< DMA1 Stream 2 global Interrupt                                       */
+   DMA1_Stream3_IRQn                = 46,     /*!< DMA1 Stream 3 global Interrupt                                       */
+   DMA1_Stream4_IRQn                = 47,     /*!< DMA1 Stream 4 global Interrupt                                       */
+   DMA1_Stream5_IRQn                = 48,     /*!< DMA1 Stream 5 global Interrupt                                       */
+   DMA1_Stream6_IRQn                = 49,     /*!< DMA1 Stream 6 global Interrupt                                       */
+   ADC1_IRQn                        = 50,     /*!< ADC1 global Interrupts                                               */
+   FDCAN1_IT0_IRQn                  = 51,     /*!< FDCAN1 Interrupt line 0                                              */
+   FDCAN2_IT0_IRQn                  = 52,     /*!< FDCAN2 Interrupt line 0                                              */
+   FDCAN1_IT1_IRQn                  = 53,     /*!< FDCAN1 Interrupt line 1                                              */
+   FDCAN2_IT1_IRQn                  = 54,     /*!< FDCAN2 Interrupt line 1                                              */
+   EXTI5_IRQn                       = 55,     /*!< External Line[9:5] Interrupts                                        */
+   TIM1_BRK_IRQn                    = 56,     /*!< TIM1 Break interrupt                                                 */
+   TIM1_UP_IRQn                     = 57,     /*!< TIM1 Update Interrupt                                                */
+   TIM1_TRG_COM_IRQn                = 58,     /*!< TIM1 Trigger and Commutation Interrupt                               */
+   TIM1_CC_IRQn                     = 59,     /*!< TIM1 Capture Compare Interrupt                                       */
+   TIM2_IRQn                        = 60,     /*!< TIM2 global Interrupt                                                */
+   TIM3_IRQn                        = 61,     /*!< TIM3 global Interrupt                                                */
+   TIM4_IRQn                        = 62,     /*!< TIM4 global Interrupt                                                */
+   I2C1_EV_IRQn                     = 63,     /*!< I2C1 Event Interrupt                                                 */
+   I2C1_ER_IRQn                     = 64,     /*!< I2C1 Error Interrupt                                                 */
+   I2C2_EV_IRQn                     = 65,     /*!< I2C2 Event Interrupt                                                 */
+   I2C2_ER_IRQn                     = 66,     /*!< I2C2 Error Interrupt                                                 */
+   SPI1_IRQn                        = 67,     /*!< SPI1 global Interrupt                                                */
+   SPI2_IRQn                        = 68,     /*!< SPI2 global Interrupt                                                */
+   USART1_IRQn                      = 69,     /*!< USART1 global Interrupt                                              */
+   USART2_IRQn                      = 70,     /*!< USART2 global Interrupt                                              */
+   USART3_IRQn                      = 71,     /*!< USART3 global Interrupt                                              */
+   EXTI10_IRQn                      = 72,     /*!< EXTI Line 10 Interrupts                                              */
+   RTC_TIMESTAMP_IRQn               = 73,     /*!< RTC TimeStamp through EXTI Line Interrupt                            */
+   EXTI11_IRQn                      = 74,     /*!< EXTI Line 11 Interrupts                                              */
+   TIM8_BRK_IRQn                    = 75,     /*!< TIM8 Break Interrupt                                                 */
+   TIM8_UP_IRQn                     = 76,     /*!< TIM8 Update Interrupt                                                */
+   TIM8_TRG_COM_IRQn                = 77,     /*!< TIM8 Trigger and Commutation Interrupt                               */
+   TIM8_CC_IRQn                     = 78,     /*!< TIM8 Capture Compare Interrupt                                       */
+   DMA1_Stream7_IRQn                = 79,     /*!< DMA1 Stream7 Interrupt                                               */
+   FMC_IRQn                         = 80,     /*!< FMC global Interrupt                                                 */
+   SDMMC1_IRQn                      = 81,     /*!< SDMMC1 global Interrupt                                              */
+   TIM5_IRQn                        = 82,     /*!< TIM5 global Interrupt                                                */
+   SPI3_IRQn                        = 83,     /*!< SPI3 global Interrupt                                                */
+   UART4_IRQn                       = 84,     /*!< UART4 global Interrupt                                               */
+   UART5_IRQn                       = 85,     /*!< UART5 global Interrupt                                               */
+   TIM6_IRQn                        = 86,     /*!< TIM6 global                                                          */
+   TIM7_IRQn                        = 87,     /*!< TIM7 global interrupt                                                */
+   DMA2_Stream0_IRQn                = 88,     /*!< DMA2 Stream 0 global Interrupt                                       */
+   DMA2_Stream1_IRQn                = 89,     /*!< DMA2 Stream 1 global Interrupt                                       */
+   DMA2_Stream2_IRQn                = 90,     /*!< DMA2 Stream 2 global Interrupt                                       */
+   DMA2_Stream3_IRQn                = 91,     /*!< GPDMA2 Stream 3 global Interrupt                                     */
+   DMA2_Stream4_IRQn                = 92,     /*!< GPDMA2 Stream 4 global Interrupt                                     */
+   ETH1_IRQn                        = 93,     /*!< Ethernet global Interrupt                                            */
+   ETH1_WKUP_IRQn                   = 94,     /*!< Ethernet Wakeup through EXTI line Interrupt                          */
+   FDCAN_CAL_IRQn                   = 95,     /*!< CAN calibration unit interrupt                                       */
+   EXTI6_IRQn                       = 96,     /*!< EXTI Line 6 Interrupts                                               */
+   EXTI7_IRQn                       = 97,     /*!< EXTI Line 7 Interrupts                                               */
+   EXTI8_IRQn                       = 98,     /*!< EXTI Line 8 Interrupts                                               */
+   EXTI9_IRQn                       = 99,     /*!< EXTI Line 9 Interrupts                                               */
+   DMA2_Stream5_IRQn                = 100,    /*!< DMA2 Stream 5 global interrupt                                       */
+   DMA2_Stream6_IRQn                = 101,    /*!< DMA2 Stream 6 global interrupt                                       */
+   DMA2_Stream7_IRQn                = 102,    /*!< DMA2 Stream 7 global interrupt                                       */
+   USART6_IRQn                      = 103,    /*!< USART6 global interrupt                                              */
+   I2C3_EV_IRQn                     = 104,    /*!< I2C3 event interrupt                                                 */
+   I2C3_ER_IRQn                     = 105,    /*!< I2C3 error interrupt                                                 */
+   USBH_OHCI_IRQn                   = 106,    /*!< USB OHCI global interrupt                                            */
+   USBH_EHCI_IRQn                   = 107,    /*!< USB EHCI global interrupt                                            */
+   EXTI12_IRQn                      = 108,    /*!< EXTI Line 76 Interrupts                                              */
+   EXTI13_IRQn                      = 109,    /*!< EXTI Line 77 Interrupts                                              */
+   DCMI_IRQn                        = 110,    /*!< DCMI global interrupt                                                */
+   CRYP1_IRQn                       = 111,    /*!< CRYP crypto global interrupt                                         */
+   HASH1_IRQn                       = 112,    /*!< Hash global interrupt                                                */
+   RESERVED_113                     = 113,    /*!< reserved                                                             */
+   UART7_IRQn                       = 114,    /*!< UART7 global interrupt                                               */
+   UART8_IRQn                       = 115,    /*!< UART8 global interrupt                                               */
+   SPI4_IRQn                        = 116,    /*!< SPI4 global Interrupt                                                */
+   SPI5_IRQn                        = 117,    /*!< SPI5 global Interrupt                                                */
+   SPI6_IRQn                        = 118,    /*!< SPI6 global Interrupt                                                */
+   SAI1_IRQn                        = 119,    /*!< SAI1 global Interrupt                                                */
+   LTDC_IRQn                        = 120,    /*!< LTDC global Interrupt                                                */
+   LTDC_ER_IRQn                     = 121,    /*!< LTDC Error global Interrupt                                          */
+   ADC2_IRQn                        = 122,    /*!< ADC2 global Interrupts                                               */
+   SAI2_IRQn                        = 123,    /*!< SAI2 global Interrupt                                                */
+   QUADSPI_IRQn                     = 124,    /*!< Quad SPI global interrupt                                            */
+   LPTIM1_IRQn                      = 125,    /*!< LP TIM1 interrupt                                                    */
+   CEC_IRQn                         = 126,    /*!< HDMI-CEC global Interrupt                                            */
+   I2C4_EV_IRQn                     = 127,    /*!< I2C4 Event Interrupt                                                 */
+   I2C4_ER_IRQn                     = 128,    /*!< I2C4 Error Interrupt                                                 */
+   SPDIF_RX_IRQn                    = 129,    /*!< SPDIF-RX global Interrupt                                            */
+   OTG_IRQn                         = 130,    /*!< USB On The Go global interrupt                                       */
+   RESERVED_131                     = 131,    /*!< RESERVED interrupt                                                   */
+   IPCC_RX0_IRQn                    = 132,    /*!< IPCC RX0 Occupied interrupt (interrupt going to AIEC input as well)  */
+   IPCC_TX0_IRQn                    = 133,    /*!< IPCC TX0 Free interrupt (interrupt going to AIEC input as well)      */
+   DMAMUX1_OVR_IRQn                 = 134,    /*!< DMAMUX1 Overrun interrupt                                            */
+   IPCC_RX1_IRQn                    = 135,    /*!< IPCC RX1 Occupied interrupt (interrupt going to AIEC input as well)  */
+   IPCC_TX1_IRQn                    = 136,    /*!< IPCC TX1 Free interrupt (interrupt going to AIEC input as well)      */
+   CRYP2_IRQn                       = 137,    /*!< CRYP2 crypto global interrupt                                        */
+   HASH2_IRQn                       = 138,    /*!< Crypto Hash2 interrupt                                               */
+   I2C5_EV_IRQn                     = 139,    /*!< I2C5 Event Interrupt                                                 */
+   I2C5_ER_IRQn                     = 140,    /*!< I2C5 Error Interrupt                                                 */
+   GPU_IRQn                         = 141,    /*!< GPU global Interrupt                                                 */
+   DFSDM1_FLT0_IRQn                 = 142,    /*!< DFSDM Filter1 Interrupt                                              */
+   DFSDM1_FLT1_IRQn                 = 143,    /*!< DFSDM Filter2 Interrupt                                              */
+   DFSDM1_FLT2_IRQn                 = 144,    /*!< DFSDM Filter3 Interrupt                                              */
+   DFSDM1_FLT3_IRQn                 = 145,    /*!< DFSDM Filter4 Interrupt                                              */
+   SAI3_IRQn                        = 146,    /*!< SAI3 global Interrupt                                                */
+   DFSDM1_FLT4_IRQn                 = 147,    /*!< DFSDM Filter5 Interrupt                                              */
+   TIM15_IRQn                       = 148,    /*!< TIM15 global Interrupt                                               */
+   TIM16_IRQn                       = 149,    /*!< TIM16 global Interrupt                                               */
+   TIM17_IRQn                       = 150,    /*!< TIM17 global Interrupt                                               */
+   TIM12_IRQn                       = 151,    /*!< TIM12 global Interrupt                                               */
+   MDIOS_IRQn                       = 152,    /*!< MDIOS global Interrupt                                               */
+   EXTI14_IRQn                      = 153,    /*!< EXTI Line 14 Interrupts                                              */
+   MDMA_IRQn                        = 154,    /*!< MDMA global Interrupt                                                */
+   DSI_IRQn                         = 155,    /*!< DSI global Interrupt                                                 */
+   SDMMC2_IRQn                      = 156,    /*!< SDMMC2 global Interrupt                                              */
+   HSEM_IT1_IRQn                    = 157,    /*!< HSEM Semaphore Interrupt 1                                           */
+   DFSDM1_FLT5_IRQn                 = 158,    /*!< DFSDM Filter6 Interrupt                                              */
+   EXTI15_IRQn                      = 159,    /*!< EXTI Line 15 Interrupts                                              */
+   MDMA_SEC_IT_IRQn                 = 160,    /*!< MDMA global Secure interrupt                                         */
+   SYSRESETQ_IRQn                   = 161,    /*!< MCU local Reset Request                                              */
+   TIM13_IRQn                       = 162,    /*!< TIM13 global interrupt                                               */
+   TIM14_IRQn                       = 163,    /*!< TIM14 global interrupt                                               */
+   DAC_IRQn                         = 164,    /*!< DAC1 and DAC2 underrun error interrupts                              */
+   RNG1_IRQn                        = 165,    /*!< RNG1 interrupt                                                       */
+   RNG2_IRQn                        = 166,    /*!< RNG2 interrupt                                                       */
+   I2C6_EV_IRQn                     = 167,    /*!< I2C6 Event Interrupt                                                 */
+   I2C6_ER_IRQn                     = 168,    /*!< I2C6 Error Interrupt                                                 */
+   SDMMC3_IRQn                      = 169,    /*!< SDMMC3 global Interrupt                                              */
+   LPTIM2_IRQn                      = 170,    /*!< LP TIM2 global interrupt                                             */
+   LPTIM3_IRQn                      = 171,    /*!< LP TIM3 global interrupt                                             */
+   LPTIM4_IRQn                      = 172,    /*!< LP TIM4 global interrupt                                             */
+   LPTIM5_IRQn                      = 173,    /*!< LP TIM5 global interrupt                                             */
+   ETH1_LPI_IRQn                    = 174,    /*!< ETH1_LPI interrupt (LPI: lpi_intr_o)                                 */
+   WWDG1_RST                        = 175,    /*!< Window Watchdog 1 Reset through AIEC                                 */
+   MCU_SEV_IRQn                     = 176,    /*!< MCU Send Event  interrupt                                            */
+   RCC_WAKEUP_IRQn                  = 177,    /*!< RCC Wake up interrupt                                                */
+   SAI4_IRQn                        = 178,    /*!< SAI4 global interrupt                                                */
+   DTS_IRQn                         = 179,    /*!< Temperature sensor Global Interrupt                                  */
+   RESERVED_180                     = 180,    /*!< reserved                                                             */
+   WAKEUP_PIN_IRQn                  = 181,    /*!< Interrupt for all 6 wake-up pins                                     */
+   IWDG1_IRQn                       = 182,    /*!< IWDG1 Early Interrupt                                                */
+   IWDG2_IRQn                       = 183,    /*!< IWDG2 Early Interrupt                                                */
+   TAMP_SERR_S_IRQn                 = 229,    /*!< TAMP Tamper and Security Error Secure interrupts                     */
+   RTC_WKUP_ALARM_S_IRQn            = 230,    /*!< RTC Wakeup Timer and Alarms (A and B) Secure interrupt               */
+   RTC_TS_SERR_S_IRQn               = 231,    /*!< RTC TimeStamp and Security Error Secure interrupt                    */
+   MAX_IRQ_n,
+   Force_IRQn_enum_size             = 1048    /* Dummy entry to ensure IRQn_Type is more than 8 bits. Otherwise GIC init loop would fail */
  } IRQn_Type;
 
 /** @addtogroup Configuration_section_for_CMSIS
@@ -230,14 +252,26 @@
 /**
   * @brief Configuration of the Cortex-M4/ Cortex-M7 Processor and Core Peripherals
    */
-#define __CM4_REV                 0x0001  /*!< Cortex-M4 revision r0p1                       */
-#define __MPU_PRESENT             1       /*!< CM4 provides an MPU                           */
-#define __NVIC_PRIO_BITS          4       /*!< CM4 uses 4 Bits for the Priority Levels       */
-#define __Vendor_SysTickConfig    0       /*!< Set to 1 if different SysTick Config is used  */
-#define __FPU_PRESENT             1       /*!< FPU present                                   */
 
-#include "core_cm4.h"                     /*!< Cortex-M4 processor and core peripherals      */
-#include "system_stm32mp1xx.h"
+/* =========================================================================================================================== */
+/* ================                           Processor and Core Peripheral Section                           ================ */
+/* =========================================================================================================================== */
+
+/* ===========================  Configuration of the ARM Cortex-A Processor and Core Peripherals  ============================ */
+#define __CORTEX_A                    7U      /*!< Cortex-A# Core                              */
+#define __CA_REV                 0x0005U      /*!< Core revision r0p0                          */
+#define __FPU_PRESENT                 1U      /*!< Set to 1 if FPU is present                  */
+#define __GIC_PRESENT                 1U      /*!< Set to 1 if GIC is present                  */
+#define __TIM_PRESENT                 1U      /*!< Set to 1 if TIM is present                  */
+#define __L2C_PRESENT                 0U      /*!< Set to 1 if L2C is present                  */
+
+#define GIC_BASE             0xA0021000
+#define GIC_DISTRIBUTOR_BASE GIC_BASE
+#define GIC_INTERFACE_BASE   (GIC_BASE+0x1000)
+
+#include "core_ca.h"
+#include "system_stm32mp1xx_A7.h"
+
 
 
 #include <stdint.h>
@@ -2397,6 +2431,54 @@ typedef struct
 
 } WWDG_TypeDef;
 /**
+  * @brief Crypto Processor
+  */
+
+typedef struct
+{
+  __IO uint32_t CR;         /*!< CRYP control register,                                    Address offset: 0x00 */
+  __IO uint32_t SR;         /*!< CRYP status register,                                     Address offset: 0x04 */
+  __IO uint32_t DIN;        /*!< CRYP data input register,                                 Address offset: 0x08 */
+  __IO uint32_t DOUT;       /*!< CRYP data output register,                                Address offset: 0x0C */
+  __IO uint32_t DMACR;      /*!< CRYP DMA control register,                                Address offset: 0x10 */
+  __IO uint32_t IMSCR;      /*!< CRYP interrupt mask set/clear register,                   Address offset: 0x14 */
+  __IO uint32_t RISR;       /*!< CRYP raw interrupt status register,                       Address offset: 0x18 */
+  __IO uint32_t MISR;       /*!< CRYP masked interrupt status register,                    Address offset: 0x1C */
+  __IO uint32_t K0LR;       /*!< CRYP key left  register 0,                                Address offset: 0x20 */
+  __IO uint32_t K0RR;       /*!< CRYP key right register 0,                                Address offset: 0x24 */
+  __IO uint32_t K1LR;       /*!< CRYP key left  register 1,                                Address offset: 0x28 */
+  __IO uint32_t K1RR;       /*!< CRYP key right register 1,                                Address offset: 0x2C */
+  __IO uint32_t K2LR;       /*!< CRYP key left  register 2,                                Address offset: 0x30 */
+  __IO uint32_t K2RR;       /*!< CRYP key right register 2,                                Address offset: 0x34 */
+  __IO uint32_t K3LR;       /*!< CRYP key left  register 3,                                Address offset: 0x38 */
+  __IO uint32_t K3RR;       /*!< CRYP key right register 3,                                Address offset: 0x3C */
+  __IO uint32_t IV0LR;      /*!< CRYP initialization vector left-word  register 0,         Address offset: 0x40 */
+  __IO uint32_t IV0RR;      /*!< CRYP initialization vector right-word register 0,         Address offset: 0x44 */
+  __IO uint32_t IV1LR;      /*!< CRYP initialization vector left-word  register 1,         Address offset: 0x48 */
+  __IO uint32_t IV1RR;      /*!< CRYP initialization vector right-word register 1,         Address offset: 0x4C */
+  __IO uint32_t CSGCMCCM0R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 0,        Address offset: 0x50 */
+  __IO uint32_t CSGCMCCM1R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 1,        Address offset: 0x54 */
+  __IO uint32_t CSGCMCCM2R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 2,        Address offset: 0x58 */
+  __IO uint32_t CSGCMCCM3R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 3,        Address offset: 0x5C */
+  __IO uint32_t CSGCMCCM4R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 4,        Address offset: 0x60 */
+  __IO uint32_t CSGCMCCM5R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 5,        Address offset: 0x64 */
+  __IO uint32_t CSGCMCCM6R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 6,        Address offset: 0x68 */
+  __IO uint32_t CSGCMCCM7R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 7,        Address offset: 0x6C */
+  __IO uint32_t CSGCM0R;    /*!< CRYP GCM/GMAC context swap register 0,                    Address offset: 0x70 */
+  __IO uint32_t CSGCM1R;    /*!< CRYP GCM/GMAC context swap register 1,                    Address offset: 0x74 */
+  __IO uint32_t CSGCM2R;    /*!< CRYP GCM/GMAC context swap register 2,                    Address offset: 0x78 */
+  __IO uint32_t CSGCM3R;    /*!< CRYP GCM/GMAC context swap register 3,                    Address offset: 0x7C */
+  __IO uint32_t CSGCM4R;    /*!< CRYP GCM/GMAC context swap register 4,                    Address offset: 0x80 */
+  __IO uint32_t CSGCM5R;    /*!< CRYP GCM/GMAC context swap register 5,                    Address offset: 0x84 */
+  __IO uint32_t CSGCM6R;    /*!< CRYP GCM/GMAC context swap register 6,                    Address offset: 0x88 */
+  __IO uint32_t CSGCM7R;    /*!< CRYP GCM/GMAC context swap register 7,                    Address offset: 0x8C */
+  uint32_t RESERVED[216];
+  __IO uint32_t HWCFGR;     /*!< CRYP HW Configuration,                                    Address offset: 0x3F0 */
+  __IO uint32_t VERR;       /*!< CRYP version register ,                                   Address offset: 0x3F4 */
+  __IO uint32_t IPIDR;      /*!< CRYP Identification register,                             Address offset: 0x3F8 */
+  __IO uint32_t MID;        /*!< CRYP HW Magic ID register,                                Address offset: 0x3FC */
+} CRYP_TypeDef;
+/**
   * @brief HASH
   */
 
@@ -2736,8 +2818,8 @@ typedef struct
 /** @addtogroup Peripheral_memory_map
   * @{
   */
-#define MCU_AHB_SRAM            ((uint32_t)0x10000000) /*!< Base address of : (up to 288KB) system data RAM accessible over over AHB             */
-#define MCU_AHB_RETRAM          ((uint32_t)0x00000000) /*!< Base address of : (up to 64KB) Retention RAM accessible over over AHB                */
+#define MCU_AHB_SRAM            ((uint32_t)0x30000000) /*!< Base address of : (up to 288KB) system data RAM accessible over over AHB             */
+#define MCU_AHB_RETRAM          ((uint32_t)0x38000000) /*!< Base address of : (up to 64KB) Retention RAM accessible over over AHB                */
 
 #define SYSRAM_BASE             ((uint32_t)0x2FFC0000) /*!< Base address of : (up to 256KB) System RAM accessible over over AXI                  */
 #define RETRAM_BASE             MCU_AHB_RETRAM
@@ -2860,6 +2942,7 @@ typedef struct
 #define HASH2_DIGEST_BASE     (MCU_AHB3_PERIPH_BASE + 0x2310)
 #define RNG2_BASE             (MCU_AHB3_PERIPH_BASE + 0x3000)
 #define CRC2_BASE             (MCU_AHB3_PERIPH_BASE + 0x4000)
+#define CRYP2_BASE            (MCU_AHB3_PERIPH_BASE + 0x5000)
 #define DCMI_BASE             (MCU_AHB3_PERIPH_BASE + 0x6000)
 
 /*!< MCU_AHB4 */
@@ -2904,6 +2987,7 @@ typedef struct
 
 /*!< MCU_AHB5 */
 #define BKPSRAM_BASE          (MPU_AHB5_PERIPH_BASE + 0x0000)
+#define CRYP1_BASE            (MPU_AHB5_PERIPH_BASE + 0x1000)
 #define HASH1_BASE            (MPU_AHB5_PERIPH_BASE + 0x2000)
 #define HASH1_DIGEST_BASE     (MPU_AHB5_PERIPH_BASE + 0x2310)
 #define RNG1_BASE             (MPU_AHB5_PERIPH_BASE + 0x3000)
@@ -3184,12 +3268,14 @@ typedef struct
 #define IPCC                ((IPCC_TypeDef *) IPCC_BASE)
 #define IPCC_C1             ((IPCC_CommonTypeDef *) IPCC_BASE)
 #define IPCC_C2             ((IPCC_CommonTypeDef *) (IPCC_BASE + 0x10U))
+#define CRYP2               ((CRYP_TypeDef *) CRYP2_BASE)
+#define CRYP1               ((CRYP_TypeDef *) CRYP1_BASE)
 #define HASH2               ((HASH_TypeDef *) HASH2_BASE)
 #define HASH1               ((HASH_TypeDef *) HASH1_BASE)
 #define HASH2_DIGEST        ((HASH_DIGEST_TypeDef *) HASH2_DIGEST_BASE)
 #define HASH1_DIGEST        ((HASH_DIGEST_TypeDef *) HASH1_DIGEST_BASE)
-#define HASH                ((HASH_TypeDef *) HASH2)
-#define HASH_DIGEST         ((HASH_DIGEST_TypeDef *) HASH2_DIGEST)
+#define HASH                ((HASH_TypeDef *) HASH1)
+#define HASH_DIGEST         ((HASH_DIGEST_TypeDef *) HASH1_DIGEST)
 #define RNG2                ((RNG_TypeDef *) RNG2_BASE)
 #define RNG1                ((RNG_TypeDef *) RNG1_BASE)
 #define GPIOZ               ((GPIO_TypeDef *) GPIOZ_BASE)
@@ -3261,7 +3347,7 @@ typedef struct
 
 #define JPEG                ((JPEG_TypeDef *) JPGDEC_BASE)
 #define HSEM                ((HSEM_TypeDef *) HSEM_BASE)
-#define HSEM_COMMON         ((HSEM_Common_TypeDef *) (HSEM_BASE + 0x110U))
+#define HSEM_COMMON         ((HSEM_Common_TypeDef *) (HSEM_BASE + 0x100U))
 
 
 #define USBPHYC             ((USBPHYC_GlobalTypeDef *)USBPHYC_BASE)
@@ -6659,6 +6745,151 @@ typedef struct
 #define CRS_ICR_ESYNCC_Msk        (0x1U << CRS_ICR_ESYNCC_Pos)                 /*!< 0x00000008 */
 #define CRS_ICR_ESYNCC            CRS_ICR_ESYNCC_Msk                           /*!< Expected SYNC clear flag */
 
+/******************************************************************************/
+/*                                                                            */
+/*                            Crypto Processor                                */
+/*                                                                            */
+/******************************************************************************/
+/******************* Bits definition for CRYP_CR register  ********************/
+#define CRYP_CR_ALGODIR_Pos              (2U)
+#define CRYP_CR_ALGODIR_Msk              (0x1U << CRYP_CR_ALGODIR_Pos)         /*!< 0x00000004 */
+#define CRYP_CR_ALGODIR                  CRYP_CR_ALGODIR_Msk
+
+#define CRYP_CR_ALGOMODE_Pos             (3U)
+#define CRYP_CR_ALGOMODE_Msk             (0x10007U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00080038 */
+#define CRYP_CR_ALGOMODE                 CRYP_CR_ALGOMODE_Msk
+#define CRYP_CR_ALGOMODE_0               (0x00001U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000008 */
+#define CRYP_CR_ALGOMODE_1               (0x00002U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000010 */
+#define CRYP_CR_ALGOMODE_2               (0x00004U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000020 */
+#define CRYP_CR_ALGOMODE_TDES_ECB        ((uint32_t)0x00000000)
+#define CRYP_CR_ALGOMODE_TDES_CBC_Pos    (3U)
+#define CRYP_CR_ALGOMODE_TDES_CBC_Msk    (0x1U << CRYP_CR_ALGOMODE_TDES_CBC_Pos) /*!< 0x00000008 */
+#define CRYP_CR_ALGOMODE_TDES_CBC        CRYP_CR_ALGOMODE_TDES_CBC_Msk
+#define CRYP_CR_ALGOMODE_DES_ECB_Pos     (4U)
+#define CRYP_CR_ALGOMODE_DES_ECB_Msk     (0x1U << CRYP_CR_ALGOMODE_DES_ECB_Pos) /*!< 0x00000010 */
+#define CRYP_CR_ALGOMODE_DES_ECB         CRYP_CR_ALGOMODE_DES_ECB_Msk
+#define CRYP_CR_ALGOMODE_DES_CBC_Pos     (3U)
+#define CRYP_CR_ALGOMODE_DES_CBC_Msk     (0x3U << CRYP_CR_ALGOMODE_DES_CBC_Pos) /*!< 0x00000018 */
+#define CRYP_CR_ALGOMODE_DES_CBC         CRYP_CR_ALGOMODE_DES_CBC_Msk
+#define CRYP_CR_ALGOMODE_AES_ECB_Pos     (5U)
+#define CRYP_CR_ALGOMODE_AES_ECB_Msk     (0x1U << CRYP_CR_ALGOMODE_AES_ECB_Pos) /*!< 0x00000020 */
+#define CRYP_CR_ALGOMODE_AES_ECB         CRYP_CR_ALGOMODE_AES_ECB_Msk
+#define CRYP_CR_ALGOMODE_AES_CBC_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_CBC_Msk     (0x5U << CRYP_CR_ALGOMODE_AES_CBC_Pos) /*!< 0x00000028 */
+#define CRYP_CR_ALGOMODE_AES_CBC         CRYP_CR_ALGOMODE_AES_CBC_Msk
+#define CRYP_CR_ALGOMODE_AES_CTR_Pos     (4U)
+#define CRYP_CR_ALGOMODE_AES_CTR_Msk     (0x3U << CRYP_CR_ALGOMODE_AES_CTR_Pos) /*!< 0x00000030 */
+#define CRYP_CR_ALGOMODE_AES_CTR         CRYP_CR_ALGOMODE_AES_CTR_Msk
+#define CRYP_CR_ALGOMODE_AES_GCM_Pos     (19U)
+#define CRYP_CR_ALGOMODE_AES_GCM_Msk     (0x1U << CRYP_CR_ALGOMODE_AES_GCM_Pos) /*!< 0x00080000 */
+#define CRYP_CR_ALGOMODE_AES_GCM         CRYP_CR_ALGOMODE_AES_GCM_Msk
+#define CRYP_CR_ALGOMODE_AES_CCM_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_CCM_Msk     (0x10001U << CRYP_CR_ALGOMODE_AES_CCM_Pos) /*!< 0x00080008 */
+#define CRYP_CR_ALGOMODE_AES_CCM         CRYP_CR_ALGOMODE_AES_CCM_Msk
+#define CRYP_CR_ALGOMODE_AES_KEY_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_KEY_Msk     (0x7U << CRYP_CR_ALGOMODE_AES_KEY_Pos) /*!< 0x00000038 */
+#define CRYP_CR_ALGOMODE_AES_KEY         CRYP_CR_ALGOMODE_AES_KEY_Msk
+
+#define CRYP_CR_DATATYPE_Pos             (6U)
+#define CRYP_CR_DATATYPE_Msk             (0x3U << CRYP_CR_DATATYPE_Pos)        /*!< 0x000000C0 */
+#define CRYP_CR_DATATYPE                 CRYP_CR_DATATYPE_Msk
+#define CRYP_CR_DATATYPE_0               (0x1U << CRYP_CR_DATATYPE_Pos)        /*!< 0x00000040 */
+#define CRYP_CR_DATATYPE_1               (0x2U << CRYP_CR_DATATYPE_Pos)        /*!< 0x00000080 */
+#define CRYP_CR_KEYSIZE_Pos              (8U)
+#define CRYP_CR_KEYSIZE_Msk              (0x3U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000300 */
+#define CRYP_CR_KEYSIZE                  CRYP_CR_KEYSIZE_Msk
+#define CRYP_CR_KEYSIZE_0                (0x1U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000100 */
+#define CRYP_CR_KEYSIZE_1                (0x2U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000200 */
+#define CRYP_CR_FFLUSH_Pos               (14U)
+#define CRYP_CR_FFLUSH_Msk               (0x1U << CRYP_CR_FFLUSH_Pos)          /*!< 0x00004000 */
+#define CRYP_CR_FFLUSH                   CRYP_CR_FFLUSH_Msk
+#define CRYP_CR_CRYPEN_Pos               (15U)
+#define CRYP_CR_CRYPEN_Msk               (0x1U << CRYP_CR_CRYPEN_Pos)          /*!< 0x00008000 */
+#define CRYP_CR_CRYPEN                   CRYP_CR_CRYPEN_Msk
+
+#define CRYP_CR_GCM_CCMPH_Pos            (16U)
+#define CRYP_CR_GCM_CCMPH_Msk            (0x3U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00030000 */
+#define CRYP_CR_GCM_CCMPH                CRYP_CR_GCM_CCMPH_Msk
+#define CRYP_CR_GCM_CCMPH_0              (0x1U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00010000 */
+#define CRYP_CR_GCM_CCMPH_1              (0x2U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00020000 */
+#define CRYP_CR_ALGOMODE_3               ((uint32_t)0x00080000)
+#define CRYP_CR_NPBLB_Pos                (20U)
+#define CRYP_CR_NPBLB_Msk                (0xFU << CRYP_CR_NPBLB_Pos)		   /*!< 0x00F00000 */
+#define CRYP_CR_NPBLB                    CRYP_CR_NPBLB_Msk
+
+/****************** Bits definition for CRYP_SR register  *********************/
+#define CRYP_SR_IFEM_Pos                 (0U)
+#define CRYP_SR_IFEM_Msk                 (0x1U << CRYP_SR_IFEM_Pos)            /*!< 0x00000001 */
+#define CRYP_SR_IFEM                     CRYP_SR_IFEM_Msk
+#define CRYP_SR_IFNF_Pos                 (1U)
+#define CRYP_SR_IFNF_Msk                 (0x1U << CRYP_SR_IFNF_Pos)            /*!< 0x00000002 */
+#define CRYP_SR_IFNF                     CRYP_SR_IFNF_Msk
+#define CRYP_SR_OFNE_Pos                 (2U)
+#define CRYP_SR_OFNE_Msk                 (0x1U << CRYP_SR_OFNE_Pos)            /*!< 0x00000004 */
+#define CRYP_SR_OFNE                     CRYP_SR_OFNE_Msk
+#define CRYP_SR_OFFU_Pos                 (3U)
+#define CRYP_SR_OFFU_Msk                 (0x1U << CRYP_SR_OFFU_Pos)            /*!< 0x00000008 */
+#define CRYP_SR_OFFU                     CRYP_SR_OFFU_Msk
+#define CRYP_SR_BUSY_Pos                 (4U)
+#define CRYP_SR_BUSY_Msk                 (0x1U << CRYP_SR_BUSY_Pos)            /*!< 0x00000010 */
+#define CRYP_SR_BUSY                     CRYP_SR_BUSY_Msk
+/****************** Bits definition for CRYP_DMACR register  ******************/
+#define CRYP_DMACR_DIEN_Pos              (0U)
+#define CRYP_DMACR_DIEN_Msk              (0x1U << CRYP_DMACR_DIEN_Pos)         /*!< 0x00000001 */
+#define CRYP_DMACR_DIEN                  CRYP_DMACR_DIEN_Msk
+#define CRYP_DMACR_DOEN_Pos              (1U)
+#define CRYP_DMACR_DOEN_Msk              (0x1U << CRYP_DMACR_DOEN_Pos)         /*!< 0x00000002 */
+#define CRYP_DMACR_DOEN                  CRYP_DMACR_DOEN_Msk
+/*****************  Bits definition for CRYP_IMSCR register  ******************/
+#define CRYP_IMSCR_INIM_Pos              (0U)
+#define CRYP_IMSCR_INIM_Msk              (0x1U << CRYP_IMSCR_INIM_Pos)         /*!< 0x00000001 */
+#define CRYP_IMSCR_INIM                  CRYP_IMSCR_INIM_Msk
+#define CRYP_IMSCR_OUTIM_Pos             (1U)
+#define CRYP_IMSCR_OUTIM_Msk             (0x1U << CRYP_IMSCR_OUTIM_Pos)        /*!< 0x00000002 */
+#define CRYP_IMSCR_OUTIM                 CRYP_IMSCR_OUTIM_Msk
+/****************** Bits definition for CRYP_RISR register  *******************/
+#define CRYP_RISR_OUTRIS_Pos             (0U)
+#define CRYP_RISR_OUTRIS_Msk             (0x1U << CRYP_RISR_OUTRIS_Pos)        /*!< 0x00000001 */
+#define CRYP_RISR_OUTRIS                 CRYP_RISR_OUTRIS_Msk
+#define CRYP_RISR_INRIS_Pos              (1U)
+#define CRYP_RISR_INRIS_Msk              (0x1U << CRYP_RISR_INRIS_Pos)         /*!< 0x00000002 */
+#define CRYP_RISR_INRIS                  CRYP_RISR_INRIS_Msk
+/****************** Bits definition for CRYP_MISR register  *******************/
+#define CRYP_MISR_INMIS_Pos              (0U)
+#define CRYP_MISR_INMIS_Msk              (0x1U << CRYP_MISR_INMIS_Pos)         /*!< 0x00000001 */
+#define CRYP_MISR_INMIS                  CRYP_MISR_INMIS_Msk
+#define CRYP_MISR_OUTMIS_Pos             (1U)
+#define CRYP_MISR_OUTMIS_Msk             (0x1U << CRYP_MISR_OUTMIS_Pos)        /*!< 0x00000002 */
+#define CRYP_MISR_OUTMIS                 CRYP_MISR_OUTMIS_Msk
+
+/**********************  Bit definition for CRYP_HWCFGR register  ***************/
+#define CRYP_HWCFGR_CFG1_Pos  (0U)
+#define CRYP_HWCFGR_CFG1_Msk  (0xFU << CRYP_HWCFGR_CFG1_Pos)          /*!< 0x0000000F */
+#define CRYP_HWCFGR_CFG1      CRYP_HWCFGR_CFG1_Msk                    /*!< HW Generic 1 */
+#define CRYP_HWCFGR_CFG2_Pos  (4U)
+#define CRYP_HWCFGR_CFG2_Msk  (0xFU << CRYP_HWCFGR_CFG2_Pos)          /*!< 0x000000F0 */
+#define CRYP_HWCFGR_CFG2      CRYP_HWCFGR_CFG2_Msk                    /*!< HW Generic 2 */
+#define CRYP_HWCFGR_CFG3_Pos  (8U)
+#define CRYP_HWCFGR_CFG3_Msk  (0xFU << CRYP_HWCFGR_CFG3_Pos)          /*!< 0x00000F00 */
+#define CRYP_HWCFGR_CFG3      CRYP_HWCFGR_CFG3_Msk                    /*!< HW Generic 3 */
+#define CRYP_HWCFGR_CFG4_Pos  (12U)
+#define CRYP_HWCFGR_CFG4_Msk  (0xFU << CRYP_HWCFGR_CFG4_Pos)          /*!< 0x0000F000 */
+#define CRYP_HWCFGR_CFG4      CRYP_HWCFGR_CFG4_Msk                    /*!< HW Generic 4 */
+
+/**********************  Bit definition for CRYP_VERR register  *****************/
+#define CRYP_VERR_VER_Pos      (0U)
+#define CRYP_VERR_VER_Msk      (0xFFU << CRYP_VERR_VER_Pos)               /*!< 0x000000FF */
+#define CRYP_VERR_VER          CRYP_VERR_VER_Msk                         /*!< Revision number */
+
+/**********************  Bit definition for CRYP_IPIDR register  ****************/
+#define CRYP_IPIDR_IPID_Pos       (0U)
+#define CRYP_IPIDR_IPID_Msk       (0xFFFFFFFFU << CRYP_IPIDR_IPID_Pos)         /*!< 0xFFFFFFFF */
+#define CRYP_IPIDR_IPID           CRYP_IPIDR_IPID_Msk                          /*!< IP Identification */
+
+/**********************  Bit definition for CRYP_SIDR register  *****************/
+#define CRYP_MID_MID_Pos         (0U)
+#define CRYP_MID_MID_Msk         (0xFFFFFFFFU << CRYP_MID_MID_Pos)           /*!< 0xFFFFFFFF */
+#define CRYP_MID_MID             CRYP_MID_MID_Msk                            /*!< IP size identification */
 
 /******************************************************************************/
 /*                                                                            */
@@ -22711,6 +22942,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB3RSTSETR register  ************/
 /*!< This register is used to activate the reset of the corresponding peripheral */
 #define RCC_AHB3RSTSETR_DCMIRST               B(0)
+#define RCC_AHB3RSTSETR_CRYP2RST              B(4)
 #define RCC_AHB3RSTSETR_HASH2RST              B(5)
 #define RCC_AHB3RSTSETR_RNG2RST               B(6)
 #define RCC_AHB3RSTSETR_CRC2RST               B(7)
@@ -22720,6 +22952,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB3RSTCLRR register  ************/
 /*!< This register is used to release the reset of the corresponding peripheral */
 #define RCC_AHB3RSTCLRR_DCMIRST               B(0)
+#define RCC_AHB3RSTCLRR_CRYP2RST              B(4)
 #define RCC_AHB3RSTCLRR_HASH2RST              B(5)
 #define RCC_AHB3RSTCLRR_RNG2RST               B(6)
 #define RCC_AHB3RSTCLRR_CRC2RST               B(7)
@@ -22787,6 +23020,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB5RSTSETR register  ************/
 /*!< This register is used to activate the reset of the corresponding peripheral */
 #define RCC_AHB5RSTSETR_GPIOZRST              B(0)
+#define RCC_AHB5RSTSETR_CRYP1RST              B(4)
 #define RCC_AHB5RSTSETR_HASH1RST              B(5)
 #define RCC_AHB5RSTSETR_RNG1RST               B(6)
 #define RCC_AHB5RSTSETR_AXIMCRST              B(16)
@@ -22794,6 +23028,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB5RSTCLRR register  ************/
 /*!< This register is used to release the reset of the corresponding peripheral */
 #define RCC_AHB5RSTCLRR_GPIOZRST              B(0)
+#define RCC_AHB5RSTCLRR_CRYP1RST              B(4)
 #define RCC_AHB5RSTCLRR_HASH1RST              B(5)
 #define RCC_AHB5RSTCLRR_RNG1RST               B(6)
 #define RCC_AHB5RSTCLRR_AXIMCRST              B(16)
@@ -23047,6 +23282,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!<  This register is used to set the peripheral clock enable bit of the corresponding
  * peripheral to 1.  It shall be used to allocate a peripheral to the MCU. */
 #define RCC_MC_AHB5ENSETR_GPIOZEN             B(0)
+#define RCC_MC_AHB5ENSETR_CRYP1EN             B(4)
 #define RCC_MC_AHB5ENSETR_HASH1EN             B(5)
 #define RCC_MC_AHB5ENSETR_RNG1EN              B(6)
 #define RCC_MC_AHB5ENSETR_BKPSRAMEN           B(8)
@@ -23056,6 +23292,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!< This register is used to clear the peripheral clock enable bit of the corresponding
  * peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RCC_MC_AHB5ENCLRR_GPIOZEN             B(0)
+#define RCC_MC_AHB5ENCLRR_CRYP1EN             B(4)
 #define RCC_MC_AHB5ENCLRR_HASH1EN             B(5)
 #define RCC_MC_AHB5ENCLRR_RNG1EN              B(6)
 #define RCC_MC_AHB5ENCLRR_BKPSRAMEN           B(8)
@@ -23126,6 +23363,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!<  This register is used to set the peripheral clock enable bit of the corresponding
  * peripheral to 1.  It shall be used to allocate a peripheral to the MCU. */
 #define RCC_MC_AHB3ENSETR_DCMIEN              B(0)
+#define RCC_MC_AHB3ENSETR_CRYP2EN             B(4)
 #define RCC_MC_AHB3ENSETR_HASH2EN             B(5)
 #define RCC_MC_AHB3ENSETR_RNG2EN              B(6)
 #define RCC_MC_AHB3ENSETR_CRC2EN              B(7)
@@ -23136,6 +23374,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!< This register is used to clear the peripheral clock enable bit of the corresponding
  * peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RCC_MC_AHB3ENCLRR_DCMIEN              B(0)
+#define RCC_MC_AHB3ENCLRR_CRYP2EN             B(4)
 #define RCC_MC_AHB3ENCLRR_HASH2EN             B(5)
 #define RCC_MC_AHB3ENCLRR_RNG2EN              B(6)
 #define RCC_MC_AHB3ENCLRR_CRC2EN              B(7)
@@ -23405,6 +23644,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral to '1'. Writing '0' has no effect, writing '1' enables the peripheral clocks in
  * CSLEEP, reading '1' means that the peripheral clocks are enabled in CSLEEP */
 #define RCC_MC_AHB5LPENSETR_GPIOZLPEN             B(0)
+#define RCC_MC_AHB5LPENSETR_CRYP1LPEN             B(4)
 #define RCC_MC_AHB5LPENSETR_HASH1LPEN             B(5)
 #define RCC_MC_AHB5LPENSETR_RNG1LPEN              B(6)
 #define RCC_MC_AHB5LPENSETR_BKPSRAMLPEN           B(8)
@@ -23414,6 +23654,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral. Writing '0' has no effect, reading will return the effective values of the
  * corresponding bits. Writing a '1' sets the corresponding bit to '0' */
 #define RCC_MC_AHB5LPENCLRR_GPIOZLPEN             B(0)
+#define RCC_MC_AHB5LPENCLRR_CRYP1LPEN             B(4)
 #define RCC_MC_AHB5LPENCLRR_HASH1LPEN             B(5)
 #define RCC_MC_AHB5LPENCLRR_RNG1LPEN              B(6)
 #define RCC_MC_AHB5LPENCLRR_BKPSRAMLPEN           B(8)
@@ -23493,6 +23734,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral to '1'. Writing '0' has no effect, writing '1' enables the peripheral clocks in
  * CSLEEP, reading '1' means that the peripheral clocks are enabled in CSLEEP */
 #define RCC_MC_AHB3LPENSETR_DCMILPEN              B(0)
+#define RCC_MC_AHB3LPENSETR_CRYP2LPEN             B(4)
 #define RCC_MC_AHB3LPENSETR_HASH2LPEN             B(5)
 #define RCC_MC_AHB3LPENSETR_RNG2LPEN              B(6)
 #define RCC_MC_AHB3LPENSETR_CRC2LPEN              B(7)
@@ -23504,6 +23746,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral. Writing '0' has no effect, reading will return the effective values of the
  * corresponding bits. Writing a '1' sets the corresponding bit to '0' */
 #define RCC_MC_AHB3LPENCLRR_DCMILPEN              B(0)
+#define RCC_MC_AHB3LPENCLRR_CRYP2LPEN             B(4)
 #define RCC_MC_AHB3LPENCLRR_HASH2LPEN             B(5)
 #define RCC_MC_AHB3LPENCLRR_RNG2LPEN              B(6)
 #define RCC_MC_AHB3LPENCLRR_CRC2LPEN              B(7)
@@ -31085,7 +31328,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /********************  Bit definition for HSEM_CR register  *****************/
 #define HSEM_CPU1_COREID    (0x00000001U) /* Semaphore Core CA7 ID */
 #define HSEM_CPU2_COREID    (0x00000002U) /* Semaphore Core CM4 ID */
-#define HSEM_CR_COREID_CURRENT   (HSEM_CPU2_COREID << HSEM_CR_COREID_Pos)
+#define HSEM_CR_COREID_CURRENT   (HSEM_CPU1_COREID << HSEM_CR_COREID_Pos)
 
 #define HSEM_SEMID_MIN     (0U)       /* HSEM ID Min*/
 #define HSEM_SEMID_MAX     (31U)      /* HSEM ID Max */
@@ -31752,6 +31995,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /******************************* HASH VERSION ********************************/
 #define HASH_VERSION(INSTANCE) ((INSTANCE)->VER)
 
+/******************************* CRYP VERSION ********************************/
+#define CRYP_VERSION(INSTANCE) ((INSTANCE)->VER)
 
 /******************************* DCMI VERSION ********************************/
 #define DCMI_VERSION(INSTANCE) ((INSTANCE)->VERR)
@@ -31834,6 +32079,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 }
 #endif /* __cplusplus */
 
-#endif /* __STM32MP157Axx_CM4_H */
+#endif /* __STM32MP157Fxx_CA7_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

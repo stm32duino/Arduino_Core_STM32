@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32mp157axx_cm4.h
+  * @file    stm32mp157dxx_cm4.h
   * @author  MCD Application Team
-  * @brief   CMSIS stm32mp157axx_cm4 Device Peripheral Access Layer Header File.
+  * @brief   CMSIS stm32mp157dxx_cm4 Device Peripheral Access Layer Header File.
   *
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
@@ -27,12 +27,12 @@
   * @{
   */
 
-/** @addtogroup stm32mp157axx_cm4
+/** @addtogroup stm32mp157dxx_cm4
   * @{
   */
 
-#ifndef __STM32MP157Axx_CM4_H
-#define __STM32MP157Axx_CM4_H
+#ifndef __STM32MP157Dxx_CM4_H
+#define __STM32MP157Dxx_CM4_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -31834,6 +31834,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 }
 #endif /* __cplusplus */
 
-#endif /* __STM32MP157Axx_CM4_H */
+#endif /* __STM32MP157Dxx_CM4_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    stm32mp157axx_cm4.h
+  * @file    stm32mp157fxx_cm4.h
   * @author  MCD Application Team
-  * @brief   CMSIS stm32mp157axx_cm4 Device Peripheral Access Layer Header File.
+  * @brief   CMSIS stm32mp157fxx_cm4 Device Peripheral Access Layer Header File.
   *
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
@@ -27,12 +27,12 @@
   * @{
   */
 
-/** @addtogroup stm32mp157axx_cm4
+/** @addtogroup stm32mp157fxx_cm4
   * @{
   */
 
-#ifndef __STM32MP157Axx_CM4_H
-#define __STM32MP157Axx_CM4_H
+#ifndef __STM32MP157Fxx_CM4_H
+#define __STM32MP157Fxx_CM4_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -147,7 +147,7 @@
    EXTI12_IRQn                 = 76,    /*!< EXTI Line 76 Interrupts                                              */
    EXTI13_IRQn                 = 77,    /*!< EXTI Line 77 Interrupts                                              */
    DCMI_IRQn                   = 78,    /*!< DCMI global interrupt                                                */
-   RESERVED_79                 = 79,   /*!< RESERVED interrupt                                                    */
+   CRYP1_IRQn                  = 79,    /*!< CRYP crypto global interrupt                                         */
    HASH1_IRQn                  = 80,    /*!< Hash global interrupt                                                */
    FPU_IRQn                    = 81,    /*!< FPU global interrupt                                                 */
    UART7_IRQn                  = 82,    /*!< UART7 global interrupt                                               */
@@ -173,7 +173,7 @@
    DMAMUX1_OVR_IRQn            = 102,   /*!< DMAMUX1 Overrun interrupt                                            */
    IPCC_RX1_IRQn               = 103,   /*!< IPCC RX1 Occupied interrupt (interrupt going to AIEC input as well)  */
    IPCC_TX1_IRQn               = 104,   /*!< IPCC TX1 Free interrupt (interrupt going to AIEC input as well)      */
-   RESERVED_105                = 105,   /*!< RESERVED interrupt                                                   */
+   CRYP2_IRQn                  = 105,   /*!< CRYP2 crypto global interrupt                                        */
    HASH2_IRQn                  = 106,   /*!< Crypto Hash2 interrupt                                               */
    I2C5_EV_IRQn                = 107,   /*!< I2C5 Event Interrupt                                                 */
    I2C5_ER_IRQn                = 108,   /*!< I2C5 Error Interrupt                                                 */
@@ -2397,6 +2397,54 @@ typedef struct
 
 } WWDG_TypeDef;
 /**
+  * @brief Crypto Processor
+  */
+
+typedef struct
+{
+  __IO uint32_t CR;         /*!< CRYP control register,                                    Address offset: 0x00 */
+  __IO uint32_t SR;         /*!< CRYP status register,                                     Address offset: 0x04 */
+  __IO uint32_t DIN;        /*!< CRYP data input register,                                 Address offset: 0x08 */
+  __IO uint32_t DOUT;       /*!< CRYP data output register,                                Address offset: 0x0C */
+  __IO uint32_t DMACR;      /*!< CRYP DMA control register,                                Address offset: 0x10 */
+  __IO uint32_t IMSCR;      /*!< CRYP interrupt mask set/clear register,                   Address offset: 0x14 */
+  __IO uint32_t RISR;       /*!< CRYP raw interrupt status register,                       Address offset: 0x18 */
+  __IO uint32_t MISR;       /*!< CRYP masked interrupt status register,                    Address offset: 0x1C */
+  __IO uint32_t K0LR;       /*!< CRYP key left  register 0,                                Address offset: 0x20 */
+  __IO uint32_t K0RR;       /*!< CRYP key right register 0,                                Address offset: 0x24 */
+  __IO uint32_t K1LR;       /*!< CRYP key left  register 1,                                Address offset: 0x28 */
+  __IO uint32_t K1RR;       /*!< CRYP key right register 1,                                Address offset: 0x2C */
+  __IO uint32_t K2LR;       /*!< CRYP key left  register 2,                                Address offset: 0x30 */
+  __IO uint32_t K2RR;       /*!< CRYP key right register 2,                                Address offset: 0x34 */
+  __IO uint32_t K3LR;       /*!< CRYP key left  register 3,                                Address offset: 0x38 */
+  __IO uint32_t K3RR;       /*!< CRYP key right register 3,                                Address offset: 0x3C */
+  __IO uint32_t IV0LR;      /*!< CRYP initialization vector left-word  register 0,         Address offset: 0x40 */
+  __IO uint32_t IV0RR;      /*!< CRYP initialization vector right-word register 0,         Address offset: 0x44 */
+  __IO uint32_t IV1LR;      /*!< CRYP initialization vector left-word  register 1,         Address offset: 0x48 */
+  __IO uint32_t IV1RR;      /*!< CRYP initialization vector right-word register 1,         Address offset: 0x4C */
+  __IO uint32_t CSGCMCCM0R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 0,        Address offset: 0x50 */
+  __IO uint32_t CSGCMCCM1R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 1,        Address offset: 0x54 */
+  __IO uint32_t CSGCMCCM2R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 2,        Address offset: 0x58 */
+  __IO uint32_t CSGCMCCM3R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 3,        Address offset: 0x5C */
+  __IO uint32_t CSGCMCCM4R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 4,        Address offset: 0x60 */
+  __IO uint32_t CSGCMCCM5R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 5,        Address offset: 0x64 */
+  __IO uint32_t CSGCMCCM6R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 6,        Address offset: 0x68 */
+  __IO uint32_t CSGCMCCM7R; /*!< CRYP GCM/GMAC or CCM/CMAC context swap register 7,        Address offset: 0x6C */
+  __IO uint32_t CSGCM0R;    /*!< CRYP GCM/GMAC context swap register 0,                    Address offset: 0x70 */
+  __IO uint32_t CSGCM1R;    /*!< CRYP GCM/GMAC context swap register 1,                    Address offset: 0x74 */
+  __IO uint32_t CSGCM2R;    /*!< CRYP GCM/GMAC context swap register 2,                    Address offset: 0x78 */
+  __IO uint32_t CSGCM3R;    /*!< CRYP GCM/GMAC context swap register 3,                    Address offset: 0x7C */
+  __IO uint32_t CSGCM4R;    /*!< CRYP GCM/GMAC context swap register 4,                    Address offset: 0x80 */
+  __IO uint32_t CSGCM5R;    /*!< CRYP GCM/GMAC context swap register 5,                    Address offset: 0x84 */
+  __IO uint32_t CSGCM6R;    /*!< CRYP GCM/GMAC context swap register 6,                    Address offset: 0x88 */
+  __IO uint32_t CSGCM7R;    /*!< CRYP GCM/GMAC context swap register 7,                    Address offset: 0x8C */
+  uint32_t RESERVED[216];
+  __IO uint32_t HWCFGR;     /*!< CRYP HW Configuration,                                    Address offset: 0x3F0 */
+  __IO uint32_t VERR;       /*!< CRYP version register ,                                   Address offset: 0x3F4 */
+  __IO uint32_t IPIDR;      /*!< CRYP Identification register,                             Address offset: 0x3F8 */
+  __IO uint32_t MID;        /*!< CRYP HW Magic ID register,                                Address offset: 0x3FC */
+} CRYP_TypeDef;
+/**
   * @brief HASH
   */
 
@@ -2860,6 +2908,7 @@ typedef struct
 #define HASH2_DIGEST_BASE     (MCU_AHB3_PERIPH_BASE + 0x2310)
 #define RNG2_BASE             (MCU_AHB3_PERIPH_BASE + 0x3000)
 #define CRC2_BASE             (MCU_AHB3_PERIPH_BASE + 0x4000)
+#define CRYP2_BASE            (MCU_AHB3_PERIPH_BASE + 0x5000)
 #define DCMI_BASE             (MCU_AHB3_PERIPH_BASE + 0x6000)
 
 /*!< MCU_AHB4 */
@@ -2904,6 +2953,7 @@ typedef struct
 
 /*!< MCU_AHB5 */
 #define BKPSRAM_BASE          (MPU_AHB5_PERIPH_BASE + 0x0000)
+#define CRYP1_BASE            (MPU_AHB5_PERIPH_BASE + 0x1000)
 #define HASH1_BASE            (MPU_AHB5_PERIPH_BASE + 0x2000)
 #define HASH1_DIGEST_BASE     (MPU_AHB5_PERIPH_BASE + 0x2310)
 #define RNG1_BASE             (MPU_AHB5_PERIPH_BASE + 0x3000)
@@ -3184,6 +3234,8 @@ typedef struct
 #define IPCC                ((IPCC_TypeDef *) IPCC_BASE)
 #define IPCC_C1             ((IPCC_CommonTypeDef *) IPCC_BASE)
 #define IPCC_C2             ((IPCC_CommonTypeDef *) (IPCC_BASE + 0x10U))
+#define CRYP2               ((CRYP_TypeDef *) CRYP2_BASE)
+#define CRYP1               ((CRYP_TypeDef *) CRYP1_BASE)
 #define HASH2               ((HASH_TypeDef *) HASH2_BASE)
 #define HASH1               ((HASH_TypeDef *) HASH1_BASE)
 #define HASH2_DIGEST        ((HASH_DIGEST_TypeDef *) HASH2_DIGEST_BASE)
@@ -6659,6 +6711,151 @@ typedef struct
 #define CRS_ICR_ESYNCC_Msk        (0x1U << CRS_ICR_ESYNCC_Pos)                 /*!< 0x00000008 */
 #define CRS_ICR_ESYNCC            CRS_ICR_ESYNCC_Msk                           /*!< Expected SYNC clear flag */
 
+/******************************************************************************/
+/*                                                                            */
+/*                            Crypto Processor                                */
+/*                                                                            */
+/******************************************************************************/
+/******************* Bits definition for CRYP_CR register  ********************/
+#define CRYP_CR_ALGODIR_Pos              (2U)
+#define CRYP_CR_ALGODIR_Msk              (0x1U << CRYP_CR_ALGODIR_Pos)         /*!< 0x00000004 */
+#define CRYP_CR_ALGODIR                  CRYP_CR_ALGODIR_Msk
+
+#define CRYP_CR_ALGOMODE_Pos             (3U)
+#define CRYP_CR_ALGOMODE_Msk             (0x10007U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00080038 */
+#define CRYP_CR_ALGOMODE                 CRYP_CR_ALGOMODE_Msk
+#define CRYP_CR_ALGOMODE_0               (0x00001U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000008 */
+#define CRYP_CR_ALGOMODE_1               (0x00002U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000010 */
+#define CRYP_CR_ALGOMODE_2               (0x00004U << CRYP_CR_ALGOMODE_Pos)    /*!< 0x00000020 */
+#define CRYP_CR_ALGOMODE_TDES_ECB        ((uint32_t)0x00000000)
+#define CRYP_CR_ALGOMODE_TDES_CBC_Pos    (3U)
+#define CRYP_CR_ALGOMODE_TDES_CBC_Msk    (0x1U << CRYP_CR_ALGOMODE_TDES_CBC_Pos) /*!< 0x00000008 */
+#define CRYP_CR_ALGOMODE_TDES_CBC        CRYP_CR_ALGOMODE_TDES_CBC_Msk
+#define CRYP_CR_ALGOMODE_DES_ECB_Pos     (4U)
+#define CRYP_CR_ALGOMODE_DES_ECB_Msk     (0x1U << CRYP_CR_ALGOMODE_DES_ECB_Pos) /*!< 0x00000010 */
+#define CRYP_CR_ALGOMODE_DES_ECB         CRYP_CR_ALGOMODE_DES_ECB_Msk
+#define CRYP_CR_ALGOMODE_DES_CBC_Pos     (3U)
+#define CRYP_CR_ALGOMODE_DES_CBC_Msk     (0x3U << CRYP_CR_ALGOMODE_DES_CBC_Pos) /*!< 0x00000018 */
+#define CRYP_CR_ALGOMODE_DES_CBC         CRYP_CR_ALGOMODE_DES_CBC_Msk
+#define CRYP_CR_ALGOMODE_AES_ECB_Pos     (5U)
+#define CRYP_CR_ALGOMODE_AES_ECB_Msk     (0x1U << CRYP_CR_ALGOMODE_AES_ECB_Pos) /*!< 0x00000020 */
+#define CRYP_CR_ALGOMODE_AES_ECB         CRYP_CR_ALGOMODE_AES_ECB_Msk
+#define CRYP_CR_ALGOMODE_AES_CBC_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_CBC_Msk     (0x5U << CRYP_CR_ALGOMODE_AES_CBC_Pos) /*!< 0x00000028 */
+#define CRYP_CR_ALGOMODE_AES_CBC         CRYP_CR_ALGOMODE_AES_CBC_Msk
+#define CRYP_CR_ALGOMODE_AES_CTR_Pos     (4U)
+#define CRYP_CR_ALGOMODE_AES_CTR_Msk     (0x3U << CRYP_CR_ALGOMODE_AES_CTR_Pos) /*!< 0x00000030 */
+#define CRYP_CR_ALGOMODE_AES_CTR         CRYP_CR_ALGOMODE_AES_CTR_Msk
+#define CRYP_CR_ALGOMODE_AES_GCM_Pos     (19U)
+#define CRYP_CR_ALGOMODE_AES_GCM_Msk     (0x1U << CRYP_CR_ALGOMODE_AES_GCM_Pos) /*!< 0x00080000 */
+#define CRYP_CR_ALGOMODE_AES_GCM         CRYP_CR_ALGOMODE_AES_GCM_Msk
+#define CRYP_CR_ALGOMODE_AES_CCM_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_CCM_Msk     (0x10001U << CRYP_CR_ALGOMODE_AES_CCM_Pos) /*!< 0x00080008 */
+#define CRYP_CR_ALGOMODE_AES_CCM         CRYP_CR_ALGOMODE_AES_CCM_Msk
+#define CRYP_CR_ALGOMODE_AES_KEY_Pos     (3U)
+#define CRYP_CR_ALGOMODE_AES_KEY_Msk     (0x7U << CRYP_CR_ALGOMODE_AES_KEY_Pos) /*!< 0x00000038 */
+#define CRYP_CR_ALGOMODE_AES_KEY         CRYP_CR_ALGOMODE_AES_KEY_Msk
+
+#define CRYP_CR_DATATYPE_Pos             (6U)
+#define CRYP_CR_DATATYPE_Msk             (0x3U << CRYP_CR_DATATYPE_Pos)        /*!< 0x000000C0 */
+#define CRYP_CR_DATATYPE                 CRYP_CR_DATATYPE_Msk
+#define CRYP_CR_DATATYPE_0               (0x1U << CRYP_CR_DATATYPE_Pos)        /*!< 0x00000040 */
+#define CRYP_CR_DATATYPE_1               (0x2U << CRYP_CR_DATATYPE_Pos)        /*!< 0x00000080 */
+#define CRYP_CR_KEYSIZE_Pos              (8U)
+#define CRYP_CR_KEYSIZE_Msk              (0x3U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000300 */
+#define CRYP_CR_KEYSIZE                  CRYP_CR_KEYSIZE_Msk
+#define CRYP_CR_KEYSIZE_0                (0x1U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000100 */
+#define CRYP_CR_KEYSIZE_1                (0x2U << CRYP_CR_KEYSIZE_Pos)         /*!< 0x00000200 */
+#define CRYP_CR_FFLUSH_Pos               (14U)
+#define CRYP_CR_FFLUSH_Msk               (0x1U << CRYP_CR_FFLUSH_Pos)          /*!< 0x00004000 */
+#define CRYP_CR_FFLUSH                   CRYP_CR_FFLUSH_Msk
+#define CRYP_CR_CRYPEN_Pos               (15U)
+#define CRYP_CR_CRYPEN_Msk               (0x1U << CRYP_CR_CRYPEN_Pos)          /*!< 0x00008000 */
+#define CRYP_CR_CRYPEN                   CRYP_CR_CRYPEN_Msk
+
+#define CRYP_CR_GCM_CCMPH_Pos            (16U)
+#define CRYP_CR_GCM_CCMPH_Msk            (0x3U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00030000 */
+#define CRYP_CR_GCM_CCMPH                CRYP_CR_GCM_CCMPH_Msk
+#define CRYP_CR_GCM_CCMPH_0              (0x1U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00010000 */
+#define CRYP_CR_GCM_CCMPH_1              (0x2U << CRYP_CR_GCM_CCMPH_Pos)       /*!< 0x00020000 */
+#define CRYP_CR_ALGOMODE_3               ((uint32_t)0x00080000)
+#define CRYP_CR_NPBLB_Pos                (20U)
+#define CRYP_CR_NPBLB_Msk                (0xFU << CRYP_CR_NPBLB_Pos)		   /*!< 0x00F00000 */
+#define CRYP_CR_NPBLB                    CRYP_CR_NPBLB_Msk
+
+/****************** Bits definition for CRYP_SR register  *********************/
+#define CRYP_SR_IFEM_Pos                 (0U)
+#define CRYP_SR_IFEM_Msk                 (0x1U << CRYP_SR_IFEM_Pos)            /*!< 0x00000001 */
+#define CRYP_SR_IFEM                     CRYP_SR_IFEM_Msk
+#define CRYP_SR_IFNF_Pos                 (1U)
+#define CRYP_SR_IFNF_Msk                 (0x1U << CRYP_SR_IFNF_Pos)            /*!< 0x00000002 */
+#define CRYP_SR_IFNF                     CRYP_SR_IFNF_Msk
+#define CRYP_SR_OFNE_Pos                 (2U)
+#define CRYP_SR_OFNE_Msk                 (0x1U << CRYP_SR_OFNE_Pos)            /*!< 0x00000004 */
+#define CRYP_SR_OFNE                     CRYP_SR_OFNE_Msk
+#define CRYP_SR_OFFU_Pos                 (3U)
+#define CRYP_SR_OFFU_Msk                 (0x1U << CRYP_SR_OFFU_Pos)            /*!< 0x00000008 */
+#define CRYP_SR_OFFU                     CRYP_SR_OFFU_Msk
+#define CRYP_SR_BUSY_Pos                 (4U)
+#define CRYP_SR_BUSY_Msk                 (0x1U << CRYP_SR_BUSY_Pos)            /*!< 0x00000010 */
+#define CRYP_SR_BUSY                     CRYP_SR_BUSY_Msk
+/****************** Bits definition for CRYP_DMACR register  ******************/
+#define CRYP_DMACR_DIEN_Pos              (0U)
+#define CRYP_DMACR_DIEN_Msk              (0x1U << CRYP_DMACR_DIEN_Pos)         /*!< 0x00000001 */
+#define CRYP_DMACR_DIEN                  CRYP_DMACR_DIEN_Msk
+#define CRYP_DMACR_DOEN_Pos              (1U)
+#define CRYP_DMACR_DOEN_Msk              (0x1U << CRYP_DMACR_DOEN_Pos)         /*!< 0x00000002 */
+#define CRYP_DMACR_DOEN                  CRYP_DMACR_DOEN_Msk
+/*****************  Bits definition for CRYP_IMSCR register  ******************/
+#define CRYP_IMSCR_INIM_Pos              (0U)
+#define CRYP_IMSCR_INIM_Msk              (0x1U << CRYP_IMSCR_INIM_Pos)         /*!< 0x00000001 */
+#define CRYP_IMSCR_INIM                  CRYP_IMSCR_INIM_Msk
+#define CRYP_IMSCR_OUTIM_Pos             (1U)
+#define CRYP_IMSCR_OUTIM_Msk             (0x1U << CRYP_IMSCR_OUTIM_Pos)        /*!< 0x00000002 */
+#define CRYP_IMSCR_OUTIM                 CRYP_IMSCR_OUTIM_Msk
+/****************** Bits definition for CRYP_RISR register  *******************/
+#define CRYP_RISR_OUTRIS_Pos             (0U)
+#define CRYP_RISR_OUTRIS_Msk             (0x1U << CRYP_RISR_OUTRIS_Pos)        /*!< 0x00000001 */
+#define CRYP_RISR_OUTRIS                 CRYP_RISR_OUTRIS_Msk
+#define CRYP_RISR_INRIS_Pos              (1U)
+#define CRYP_RISR_INRIS_Msk              (0x1U << CRYP_RISR_INRIS_Pos)         /*!< 0x00000002 */
+#define CRYP_RISR_INRIS                  CRYP_RISR_INRIS_Msk
+/****************** Bits definition for CRYP_MISR register  *******************/
+#define CRYP_MISR_INMIS_Pos              (0U)
+#define CRYP_MISR_INMIS_Msk              (0x1U << CRYP_MISR_INMIS_Pos)         /*!< 0x00000001 */
+#define CRYP_MISR_INMIS                  CRYP_MISR_INMIS_Msk
+#define CRYP_MISR_OUTMIS_Pos             (1U)
+#define CRYP_MISR_OUTMIS_Msk             (0x1U << CRYP_MISR_OUTMIS_Pos)        /*!< 0x00000002 */
+#define CRYP_MISR_OUTMIS                 CRYP_MISR_OUTMIS_Msk
+
+/**********************  Bit definition for CRYP_HWCFGR register  ***************/
+#define CRYP_HWCFGR_CFG1_Pos  (0U)
+#define CRYP_HWCFGR_CFG1_Msk  (0xFU << CRYP_HWCFGR_CFG1_Pos)          /*!< 0x0000000F */
+#define CRYP_HWCFGR_CFG1      CRYP_HWCFGR_CFG1_Msk                    /*!< HW Generic 1 */
+#define CRYP_HWCFGR_CFG2_Pos  (4U)
+#define CRYP_HWCFGR_CFG2_Msk  (0xFU << CRYP_HWCFGR_CFG2_Pos)          /*!< 0x000000F0 */
+#define CRYP_HWCFGR_CFG2      CRYP_HWCFGR_CFG2_Msk                    /*!< HW Generic 2 */
+#define CRYP_HWCFGR_CFG3_Pos  (8U)
+#define CRYP_HWCFGR_CFG3_Msk  (0xFU << CRYP_HWCFGR_CFG3_Pos)          /*!< 0x00000F00 */
+#define CRYP_HWCFGR_CFG3      CRYP_HWCFGR_CFG3_Msk                    /*!< HW Generic 3 */
+#define CRYP_HWCFGR_CFG4_Pos  (12U)
+#define CRYP_HWCFGR_CFG4_Msk  (0xFU << CRYP_HWCFGR_CFG4_Pos)          /*!< 0x0000F000 */
+#define CRYP_HWCFGR_CFG4      CRYP_HWCFGR_CFG4_Msk                    /*!< HW Generic 4 */
+
+/**********************  Bit definition for CRYP_VERR register  *****************/
+#define CRYP_VERR_VER_Pos      (0U)
+#define CRYP_VERR_VER_Msk      (0xFFU << CRYP_VERR_VER_Pos)               /*!< 0x000000FF */
+#define CRYP_VERR_VER          CRYP_VERR_VER_Msk                         /*!< Revision number */
+
+/**********************  Bit definition for CRYP_IPIDR register  ****************/
+#define CRYP_IPIDR_IPID_Pos       (0U)
+#define CRYP_IPIDR_IPID_Msk       (0xFFFFFFFFU << CRYP_IPIDR_IPID_Pos)         /*!< 0xFFFFFFFF */
+#define CRYP_IPIDR_IPID           CRYP_IPIDR_IPID_Msk                          /*!< IP Identification */
+
+/**********************  Bit definition for CRYP_SIDR register  *****************/
+#define CRYP_MID_MID_Pos         (0U)
+#define CRYP_MID_MID_Msk         (0xFFFFFFFFU << CRYP_MID_MID_Pos)           /*!< 0xFFFFFFFF */
+#define CRYP_MID_MID             CRYP_MID_MID_Msk                            /*!< IP size identification */
 
 /******************************************************************************/
 /*                                                                            */
@@ -22711,6 +22908,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB3RSTSETR register  ************/
 /*!< This register is used to activate the reset of the corresponding peripheral */
 #define RCC_AHB3RSTSETR_DCMIRST               B(0)
+#define RCC_AHB3RSTSETR_CRYP2RST              B(4)
 #define RCC_AHB3RSTSETR_HASH2RST              B(5)
 #define RCC_AHB3RSTSETR_RNG2RST               B(6)
 #define RCC_AHB3RSTSETR_CRC2RST               B(7)
@@ -22720,6 +22918,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB3RSTCLRR register  ************/
 /*!< This register is used to release the reset of the corresponding peripheral */
 #define RCC_AHB3RSTCLRR_DCMIRST               B(0)
+#define RCC_AHB3RSTCLRR_CRYP2RST              B(4)
 #define RCC_AHB3RSTCLRR_HASH2RST              B(5)
 #define RCC_AHB3RSTCLRR_RNG2RST               B(6)
 #define RCC_AHB3RSTCLRR_CRC2RST               B(7)
@@ -22787,6 +22986,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB5RSTSETR register  ************/
 /*!< This register is used to activate the reset of the corresponding peripheral */
 #define RCC_AHB5RSTSETR_GPIOZRST              B(0)
+#define RCC_AHB5RSTSETR_CRYP1RST              B(4)
 #define RCC_AHB5RSTSETR_HASH1RST              B(5)
 #define RCC_AHB5RSTSETR_RNG1RST               B(6)
 #define RCC_AHB5RSTSETR_AXIMCRST              B(16)
@@ -22794,6 +22994,7 @@ typedef struct
 /*******************  Bit definition for RCC_AHB5RSTCLRR register  ************/
 /*!< This register is used to release the reset of the corresponding peripheral */
 #define RCC_AHB5RSTCLRR_GPIOZRST              B(0)
+#define RCC_AHB5RSTCLRR_CRYP1RST              B(4)
 #define RCC_AHB5RSTCLRR_HASH1RST              B(5)
 #define RCC_AHB5RSTCLRR_RNG1RST               B(6)
 #define RCC_AHB5RSTCLRR_AXIMCRST              B(16)
@@ -23047,6 +23248,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!<  This register is used to set the peripheral clock enable bit of the corresponding
  * peripheral to 1.  It shall be used to allocate a peripheral to the MCU. */
 #define RCC_MC_AHB5ENSETR_GPIOZEN             B(0)
+#define RCC_MC_AHB5ENSETR_CRYP1EN             B(4)
 #define RCC_MC_AHB5ENSETR_HASH1EN             B(5)
 #define RCC_MC_AHB5ENSETR_RNG1EN              B(6)
 #define RCC_MC_AHB5ENSETR_BKPSRAMEN           B(8)
@@ -23056,6 +23258,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!< This register is used to clear the peripheral clock enable bit of the corresponding
  * peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RCC_MC_AHB5ENCLRR_GPIOZEN             B(0)
+#define RCC_MC_AHB5ENCLRR_CRYP1EN             B(4)
 #define RCC_MC_AHB5ENCLRR_HASH1EN             B(5)
 #define RCC_MC_AHB5ENCLRR_RNG1EN              B(6)
 #define RCC_MC_AHB5ENCLRR_BKPSRAMEN           B(8)
@@ -23126,6 +23329,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!<  This register is used to set the peripheral clock enable bit of the corresponding
  * peripheral to 1.  It shall be used to allocate a peripheral to the MCU. */
 #define RCC_MC_AHB3ENSETR_DCMIEN              B(0)
+#define RCC_MC_AHB3ENSETR_CRYP2EN             B(4)
 #define RCC_MC_AHB3ENSETR_HASH2EN             B(5)
 #define RCC_MC_AHB3ENSETR_RNG2EN              B(6)
 #define RCC_MC_AHB3ENSETR_CRC2EN              B(7)
@@ -23136,6 +23340,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*!< This register is used to clear the peripheral clock enable bit of the corresponding
  * peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RCC_MC_AHB3ENCLRR_DCMIEN              B(0)
+#define RCC_MC_AHB3ENCLRR_CRYP2EN             B(4)
 #define RCC_MC_AHB3ENCLRR_HASH2EN             B(5)
 #define RCC_MC_AHB3ENCLRR_RNG2EN              B(6)
 #define RCC_MC_AHB3ENCLRR_CRC2EN              B(7)
@@ -23405,6 +23610,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral to '1'. Writing '0' has no effect, writing '1' enables the peripheral clocks in
  * CSLEEP, reading '1' means that the peripheral clocks are enabled in CSLEEP */
 #define RCC_MC_AHB5LPENSETR_GPIOZLPEN             B(0)
+#define RCC_MC_AHB5LPENSETR_CRYP1LPEN             B(4)
 #define RCC_MC_AHB5LPENSETR_HASH1LPEN             B(5)
 #define RCC_MC_AHB5LPENSETR_RNG1LPEN              B(6)
 #define RCC_MC_AHB5LPENSETR_BKPSRAMLPEN           B(8)
@@ -23414,6 +23620,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral. Writing '0' has no effect, reading will return the effective values of the
  * corresponding bits. Writing a '1' sets the corresponding bit to '0' */
 #define RCC_MC_AHB5LPENCLRR_GPIOZLPEN             B(0)
+#define RCC_MC_AHB5LPENCLRR_CRYP1LPEN             B(4)
 #define RCC_MC_AHB5LPENCLRR_HASH1LPEN             B(5)
 #define RCC_MC_AHB5LPENCLRR_RNG1LPEN              B(6)
 #define RCC_MC_AHB5LPENCLRR_BKPSRAMLPEN           B(8)
@@ -23493,6 +23700,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral to '1'. Writing '0' has no effect, writing '1' enables the peripheral clocks in
  * CSLEEP, reading '1' means that the peripheral clocks are enabled in CSLEEP */
 #define RCC_MC_AHB3LPENSETR_DCMILPEN              B(0)
+#define RCC_MC_AHB3LPENSETR_CRYP2LPEN             B(4)
 #define RCC_MC_AHB3LPENSETR_HASH2LPEN             B(5)
 #define RCC_MC_AHB3LPENSETR_RNG2LPEN              B(6)
 #define RCC_MC_AHB3LPENSETR_CRC2LPEN              B(7)
@@ -23504,6 +23712,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
  * peripheral. Writing '0' has no effect, reading will return the effective values of the
  * corresponding bits. Writing a '1' sets the corresponding bit to '0' */
 #define RCC_MC_AHB3LPENCLRR_DCMILPEN              B(0)
+#define RCC_MC_AHB3LPENCLRR_CRYP2LPEN             B(4)
 #define RCC_MC_AHB3LPENCLRR_HASH2LPEN             B(5)
 #define RCC_MC_AHB3LPENCLRR_RNG2LPEN              B(6)
 #define RCC_MC_AHB3LPENCLRR_CRC2LPEN              B(7)
@@ -31752,6 +31961,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /******************************* HASH VERSION ********************************/
 #define HASH_VERSION(INSTANCE) ((INSTANCE)->VER)
 
+/******************************* CRYP VERSION ********************************/
+#define CRYP_VERSION(INSTANCE) ((INSTANCE)->VER)
 
 /******************************* DCMI VERSION ********************************/
 #define DCMI_VERSION(INSTANCE) ((INSTANCE)->VERR)
@@ -31834,6 +32045,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 }
 #endif /* __cplusplus */
 
-#endif /* __STM32MP157Axx_CM4_H */
+#endif /* __STM32MP157Fxx_CM4_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
