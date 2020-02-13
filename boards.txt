@@ -1134,6 +1134,22 @@ GenF4.menu.pnum.Generic_F423CH.build.board=GENERIC_F423CH
 GenF4.menu.pnum.Generic_F423CH.build.product_line=STM32F423xx
 GenF4.menu.pnum.Generic_F423CH.build.variant=Generic_F4x3Cx
 
+# Generic F417VG
+GenF4.menu.pnum.Generic_F417VG=Generic F417VG
+GenF4.menu.pnum.Generic_F417VG.upload.maximum_size=1048576
+GenF4.menu.pnum.Generic_F417VG.upload.maximum_data_size=196608
+GenF4.menu.pnum.Generic_F417VG.build.board=GENERIC_F417VG
+GenF4.menu.pnum.Generic_F417VG.build.product_line=STM32F417xx
+GenF4.menu.pnum.Generic_F417VG.build.variant=Generic_F4x7Vx
+
+# Generic F417VE
+GenF4.menu.pnum.Generic_F417VE=Generic F417VE
+GenF4.menu.pnum.Generic_F417VE.upload.maximum_size=524288
+GenF4.menu.pnum.Generic_F417VE.upload.maximum_data_size=196608
+GenF4.menu.pnum.Generic_F417VE.build.board=GENERIC_F417VE
+GenF4.menu.pnum.Generic_F417VE.build.product_line=STM32F417xx
+GenF4.menu.pnum.Generic_F417VE.build.variant=Generic_F4x7Vx
+
 # Generic F415RG
 GenF4.menu.pnum.Generic_F415RG=Generic F415RG
 GenF4.menu.pnum.Generic_F415RG.upload.maximum_size=1048576
@@ -1269,6 +1285,22 @@ GenF4.menu.pnum.Generic_F410C8.upload.maximum_data_size=32768
 GenF4.menu.pnum.Generic_F410C8.build.board=GENERIC_F410C8
 GenF4.menu.pnum.Generic_F410C8.build.product_line=STM32F410Cx
 GenF4.menu.pnum.Generic_F410C8.build.variant=Generic_F410Cx
+
+# Generic F407VG
+GenF4.menu.pnum.Generic_F407VG=Generic F407VG
+GenF4.menu.pnum.Generic_F407VG.upload.maximum_size=1048576
+GenF4.menu.pnum.Generic_F407VG.upload.maximum_data_size=196608
+GenF4.menu.pnum.Generic_F407VG.build.board=GENERIC_F407VG
+GenF4.menu.pnum.Generic_F407VG.build.product_line=STM32F407xx
+GenF4.menu.pnum.Generic_F407VG.build.variant=Generic_F4x7Vx
+
+# Generic F407VE
+GenF4.menu.pnum.Generic_F407VE=Generic F407VE
+GenF4.menu.pnum.Generic_F407VE.upload.maximum_size=524288
+GenF4.menu.pnum.Generic_F407VE.upload.maximum_data_size=196608
+GenF4.menu.pnum.Generic_F407VE.build.board=GENERIC_F407VE
+GenF4.menu.pnum.Generic_F407VE.build.product_line=STM32F407xx
+GenF4.menu.pnum.Generic_F407VE.build.variant=Generic_F4x7Vx
 
 # Generic F405RG
 GenF4.menu.pnum.Generic_F405RG=Generic F405RG
