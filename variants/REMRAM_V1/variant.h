@@ -172,6 +172,11 @@ extern "C"
 /* HAL configuration */
 #define HSE_VALUE               24000000U
 
+// Last Flash sector used for EEPROM emulation, address/sector depends on single/dual bank configuration.
+// By default 2MB single bank
+#define FLASH_BASE_ADDRESS  0x081C0000
+#define FLASH_DATA_SECTOR   11
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
