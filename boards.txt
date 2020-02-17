@@ -398,7 +398,7 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PNUCLEO_WB55RG board
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG=P-Nucleo WB55RG
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.node=NODE_WB55RG
+Nucleo_64.menu.pnum.PNUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.upload.maximum_size=524288
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.upload.maximum_data_size=196604
 Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.mcu=cortex-m4
