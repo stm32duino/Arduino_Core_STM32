@@ -691,6 +691,20 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 }
 
 /**
+  * @brief  Retrieves channel mode configured
+  * @param  channel: Arduino channel [1..4]
+  * @retval returns configured mode
+  */
+TimerModes_t HardwareTimer::getMode(uint32_t channel)
+{
+  if ((1 <= channel) && (channel <= TIMER_CHANNELS)) {
+    return _ChannelMode[channel - 1];
+  } else {
+    return TIMER_DISABLED;
+  }
+}
+
+/**
   * @brief  Enable or disable preloading for overflow value
   *         When disabled, changes to the overflow value take effect
   *         immediately. When enabled (the default), the value takes
