@@ -1028,6 +1028,7 @@ void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareForma
 {
   TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
   HardwareTimer *HT;
+  TimerModes_t previousMode;
   uint32_t index = get_timer_index(Instance);
   if (HardwareTimer_Handle[index] == NULL) {
     HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM));
@@ -1037,10 +1038,15 @@ void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareForma
 
   uint32_t channel = STM_PIN_CHANNEL(pinmap_function(pin, PinMap_PWM));
 
-  HT->setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
+  previousMode = HT->getMode(channel);
+  if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
+    HT->setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
+  }
   HT->setOverflow(PWM_freq, HERTZ_FORMAT);
   HT->setCaptureCompare(channel, value, resolution);
-  HT->resume();
+  if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
+    HT->resume();
+  }
 }
 /**
   * @brief  This function will disable the PWM
