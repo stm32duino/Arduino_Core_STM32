@@ -262,6 +262,10 @@ WEAK void SystemClock_Config(void)
       }
     }
   }
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
+
   /* Output clock on MCO2 pin(PC9) for debugging purpose */
   //HAL_RCC_MCOConfig(RCC_MCO2, RCC_MCO2SOURCE_SYSCLK, RCC_MCODIV_4);
 }

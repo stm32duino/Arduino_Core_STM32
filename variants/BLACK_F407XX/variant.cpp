@@ -222,6 +222,10 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);
   }
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
+
 }
 
 #ifdef __cplusplus
