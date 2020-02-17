@@ -118,6 +118,8 @@ class HardwareTimer {
     void setMode(uint32_t channel, TimerModes_t mode, PinName pin = NC); // Configure timer channel with specified mode on specified pin if available
     void setMode(uint32_t channel, TimerModes_t mode, uint32_t pin);
 
+    TimerModes_t getMode(uint32_t channel);  // Retrieve configured mode
+
     void setPreloadEnable(bool value); // Configure overflow preload enable setting
 
     uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
