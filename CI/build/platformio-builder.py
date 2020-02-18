@@ -35,7 +35,7 @@ def main():
     if boards is None:
         boards = ["nucleo_f401re"]
 
-    libs_dir = os.path.join(os.environ["TRAVIS_BUILD_DIR"], "libraries")
+    libs_dir = os.path.join(os.environ["GITHUB_WORKSPACE"], "libraries")
     if any(run_platformio(example, boards) for example in collect_examples(libs_dir)):
         sys.exit(1)
 
