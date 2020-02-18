@@ -1,5 +1,5 @@
 /*
-*****************************************************************************
+******************************************************************************
 **
 
 **  File        : LinkerScript.ld
@@ -14,14 +14,13 @@
 **
 **  Target      : STMicroelectronics STM32
 **
-**
-**  Distribution: The file is distributed as is, without any warranty
+**  Distribution: The file is distributed “as is,” without any warranty
 **                of any kind.
 **
 *****************************************************************************
 ** @attention
 **
-** <h2><center>&copy; COPYRIGHT(c) 2014 Ac6</center></h2>
+** <h2><center>&copy; COPYRIGHT(c) 2019 STMicroelectronics</center></h2>
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -30,7 +29,7 @@
 **   2. Redistributions in binary form must reproduce the above copyright notice,
 **      this list of conditions and the following disclaimer in the documentation
 **      and/or other materials provided with the distribution.
-**   3. Neither the name of Ac6 nor the names of its contributors
+**   3. Neither the name of STMicroelectronics nor the names of its contributors
 **      may be used to endorse or promote products derived from this software
 **      without specific prior written permission.
 **
@@ -61,6 +60,7 @@ _Min_Stack_Size = 0x400; /* required amount of stack */
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = LD_MAX_DATA_SIZE
+CCMRAM (rw)      : ORIGIN = 0x10000000, LENGTH = 64K
 FLASH (rx)     : ORIGIN = 0x8000000 + LD_FLASH_OFFSET, LENGTH = LD_MAX_SIZE - LD_FLASH_OFFSET
 }
 
@@ -76,7 +76,7 @@ SECTIONS
   } >FLASH
 
   /* The program code and other data goes into FLASH */
-  .text ALIGN(4):
+  .text :
   {
     . = ALIGN(4);
     *(.text)           /* .text sections (code) */
@@ -133,7 +133,7 @@ SECTIONS
   _sidata = LOADADDR(.data);
 
   /* Initialized data sections goes into RAM, load LMA copy after code */
-  .data : 
+  .data :
   {
     . = ALIGN(4);
     _sdata = .;        /* create a global symbol at data start */
@@ -144,7 +144,26 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
 
-  
+  _siccmram = LOADADDR(.ccmram);
+
+  /* CCM-RAM section
+  *
+  * IMPORTANT NOTE!
+  * If initialized variables will be placed in this section,
+  * the startup code needs to be modified to copy the init-values.
+  */
+  .ccmram :
+  {
+    . = ALIGN(4);
+    _sccmram = .;       /* create a global symbol at ccmram start */
+    *(.ccmram)
+    *(.ccmram*)
+
+    . = ALIGN(4);
+    _eccmram = .;       /* create a global symbol at ccmram end */
+  } >CCMRAM AT> FLASH
+
+
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
@@ -172,7 +191,7 @@ SECTIONS
     . = ALIGN(8);
   } >RAM
 
-  
+
 
   /* Remove information from the standard libraries */
   /DISCARD/ :
