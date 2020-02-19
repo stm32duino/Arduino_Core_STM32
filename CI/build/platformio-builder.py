@@ -6,7 +6,8 @@ import sys
 
 def run_platformio(example_path, boards):
     return subprocess.call(
-        ["platformio", "ci", example_path] + ["--board=" + b for b in boards])
+        ["platformio", "ci", example_path] + ["--board=" + b for b in boards]
+    )
 
 
 def collect_examples(libs_dir):
@@ -16,17 +17,15 @@ def collect_examples(libs_dir):
         examples_dir = os.path.join(lib_dir, "examples")
         if os.path.isdir(examples_dir):
             examples.extend(
-                [os.path.join(examples_dir, ex) for ex in os.listdir(examples_dir)])
+                [os.path.join(examples_dir, ex) for ex in os.listdir(examples_dir)]
+            )
     return examples
 
 
 parser = argparse.ArgumentParser(description="Basic PlatformIO runner")
 
 parser.add_argument(
-    "-b",
-    "--board",
-    action="append",
-    help="board ID used for PlatformIO project"
+    "-b", "--board", action="append", help="board ID used for PlatformIO project"
 )
 
 

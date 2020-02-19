@@ -32,8 +32,7 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm32")
-CMSIS_DIR = join(platform.get_package_dir(
-    "framework-arduinoststm32"), "CMSIS", "CMSIS")
+CMSIS_DIR = join(platform.get_package_dir("framework-arduinoststm32"), "CMSIS", "CMSIS")
 assert isdir(FRAMEWORK_DIR)
 assert isdir(CMSIS_DIR)
 
@@ -43,16 +42,18 @@ board_name = env.subst("$BOARD")
 mcu_type = mcu[:-2]
 variant = board.get("build.variant")
 series = mcu_type[:7].upper() + "xx"
-variants_dir = join(
-    "$PROJECT_DIR", board.get("build.variants_dir")) if board.get(
-        "build.variants_dir", "") else join(FRAMEWORK_DIR, "variants")
+variants_dir = (
+    join("$PROJECT_DIR", board.get("build.variants_dir"))
+    if board.get("build.variants_dir", "")
+    else join(FRAMEWORK_DIR, "variants")
+)
 variant_dir = join(variants_dir, variant)
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 
 
 def process_standard_library_configuration(cpp_defines):
     if "PIO_FRAMEWORK_ARDUINO_STANDARD_LIB" in cpp_defines:
-        env['LINKFLAGS'].remove("--specs=nano.specs")
+        env["LINKFLAGS"].remove("--specs=nano.specs")
     if "PIO_FRAMEWORK_ARDUINO_NANOLIB_FLOAT_PRINTF" in cpp_defines:
         env.Append(LINKFLAGS=["-u_printf_float"])
     if "PIO_FRAMEWORK_ARDUINO_NANOLIB_FLOAT_SCANF" in cpp_defines:
@@ -61,7 +62,7 @@ def process_standard_library_configuration(cpp_defines):
 
 def process_usart_configuration(cpp_defines):
     if "PIO_FRAMEWORK_ARDUINO_SERIAL_DISABLED" in cpp_defines:
-        env['CPPDEFINES'].remove("HAL_UART_MODULE_ENABLED")
+        env["CPPDEFINES"].remove("HAL_UART_MODULE_ENABLED")
 
     elif "PIO_FRAMEWORK_ARDUINO_SERIAL_WITHOUT_GENERIC" in cpp_defines:
         env.Append(CPPDEFINES=["HWSERIAL_NONE"])
@@ -85,8 +86,7 @@ def process_usb_configuration(cpp_defines):
     elif "PIO_FRAMEWORK_ARDUINO_ENABLE_HID" in cpp_defines:
         env.Append(CPPDEFINES=["USBD_USE_HID_COMPOSITE"])
 
-    if any(f in env["CPPDEFINES"] for f in (
-            "USBD_USE_CDC", "USBD_USE_HID_COMPOSITE")):
+    if any(f in env["CPPDEFINES"] for f in ("USBD_USE_CDC", "USBD_USE_HID_COMPOSITE")):
         env.Append(CPPDEFINES=["HAL_PCD_MODULE_ENABLED"])
 
 
@@ -122,43 +122,28 @@ def configure_application_offset(mcu, upload_protocol):
             env.Append(CPPDEFINES=["BL_LEGACY_LEAF"])
 
     if offset != 0:
-        env.Append(
-            CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],
-        )
+        env.Append(CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],)
 
     # LD_FLASH_OFFSET is mandatory even if there is no offset
-    env.Append(
-        LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
+    env.Append(LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
 
 
 if any(mcu in board.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")):
     env.Append(
-        CCFLAGS=[
-            "-mfpu=fpv4-sp-d16",
-            "-mfloat-abi=hard"
-        ],
-
-        LINKFLAGS=[
-            "-mfpu=fpv4-sp-d16",
-            "-mfloat-abi=hard"
-        ]
+        CCFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
+        LINKFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
     )
 
 env.Append(
     ASFLAGS=["-x", "assembler-with-cpp"],
-
-    CFLAGS=[
-        "-std=gnu11"
-    ],
-
+    CFLAGS=["-std=gnu11"],
     CXXFLAGS=[
         "-std=gnu++14",
         "-fno-threadsafe-statics",
         "-fno-rtti",
         "-fno-exceptions",
-        "-fno-use-cxa-atexit"
+        "-fno-use-cxa-atexit",
     ],
-
     CCFLAGS=[
         "-Os",  # optimize for size
         "-mcpu=%s" % env.BoardConfig().get("build.cpu"),
@@ -167,18 +152,17 @@ env.Append(
         "-fdata-sections",
         "-Wall",
         "-nostdlib",
-        "--param", "max-inline-insns-single=500"
+        "--param",
+        "max-inline-insns-single=500",
     ],
-
     CPPDEFINES=[
         series,
         ("ARDUINO", 10808),
         "ARDUINO_ARCH_STM32",
         "ARDUINO_%s" % board_name.upper(),
         ("BOARD_NAME", '\\"%s\\"' % board_name.upper()),
-        "HAL_UART_MODULE_ENABLED"
+        "HAL_UART_MODULE_ENABLED",
     ],
-
     CPPPATH=[
         join(FRAMEWORK_DIR, "cores", "arduino", "avr"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32"),
@@ -186,25 +170,54 @@ env.Append(
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "hid"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "cdc"),
-        join(FRAMEWORK_DIR, "system", "Drivers",
-             series + "_HAL_Driver", "Inc"),
-        join(FRAMEWORK_DIR, "system", "Drivers",
-             series + "_HAL_Driver", "Src"),
+        join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Inc"),
+        join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Src"),
         join(FRAMEWORK_DIR, "system", series),
-        join(FRAMEWORK_DIR, "system", "Middlewares", "ST",
-             "STM32_USB_Device_Library", "Core", "Inc"),
-        join(FRAMEWORK_DIR, "system", "Middlewares", "ST",
-             "STM32_USB_Device_Library", "Core", "Src"),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "ST",
+            "STM32_USB_Device_Library",
+            "Core",
+            "Inc",
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "ST",
+            "STM32_USB_Device_Library",
+            "Core",
+            "Src",
+        ),
         join(CMSIS_DIR, "Core", "Include"),
-        join(FRAMEWORK_DIR, "system", "Drivers", "CMSIS",
-             "Device", "ST", series, "Include"),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Drivers",
+            "CMSIS",
+            "Device",
+            "ST",
+            series,
+            "Include",
+        ),
         join(CMSIS_DIR, "DSP", "Include"),
-        join(FRAMEWORK_DIR, "system", "Drivers", "CMSIS",
-             "Device", "ST", series, "Source", "Templates", "gcc"),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Drivers",
+            "CMSIS",
+            "Device",
+            "ST",
+            series,
+            "Source",
+            "Templates",
+            "gcc",
+        ),
         join(FRAMEWORK_DIR, "cores", "arduino"),
-        variant_dir
+        variant_dir,
     ],
-
     LINKFLAGS=[
         "-Os",
         "-mthumb",
@@ -216,18 +229,16 @@ env.Append(
         "-Wl,--unresolved-symbols=report-all",
         "-Wl,--warn-common",
         "-Wl,--defsym=LD_MAX_SIZE=%d" % board.get("upload.maximum_size"),
-        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d" % board.get(
-            "upload.maximum_ram_size")
+        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d" % board.get("upload.maximum_ram_size"),
     ],
-
     LIBS=[
-        get_arm_math_lib(env.BoardConfig().get("build.cpu")), "c", "m", "gcc", "stdc++"
+        get_arm_math_lib(env.BoardConfig().get("build.cpu")),
+        "c",
+        "m",
+        "gcc",
+        "stdc++",
     ],
-
-    LIBPATH=[
-        variant_dir,
-        join(CMSIS_DIR, "DSP", "Lib", "GCC")
-    ]
+    LIBPATH=[variant_dir, join(CMSIS_DIR, "DSP", "Lib", "GCC")],
 )
 
 env.ProcessFlags(board.get("build.framework_extra_flags.arduino", ""))
@@ -260,7 +271,7 @@ env.Append(ASFLAGS=env.get("CCFLAGS", [])[:])
 env.Append(
     LIBSOURCE_DIRS=[
         join(FRAMEWORK_DIR, "libraries", "__cores__", "arduino"),
-        join(FRAMEWORK_DIR, "libraries")
+        join(FRAMEWORK_DIR, "libraries"),
     ]
 )
 
@@ -271,20 +282,15 @@ env.Append(
 libs = []
 
 if "build.variant" in env.BoardConfig():
-    env.Append(
-        CPPPATH=[variant_dir]
-    )
-    env.BuildSources(
-        join("$BUILD_DIR", "FrameworkArduinoVariant"),
-        variant_dir
-    )
+    env.Append(CPPPATH=[variant_dir])
+    env.BuildSources(join("$BUILD_DIR", "FrameworkArduinoVariant"), variant_dir)
 
 env.BuildSources(
-    join("$BUILD_DIR", "FrameworkArduino"),
-    join(FRAMEWORK_DIR, "cores", "arduino"))
+    join("$BUILD_DIR", "FrameworkArduino"), join(FRAMEWORK_DIR, "cores", "arduino")
+)
 
 env.BuildSources(
-    join("$BUILD_DIR", "SrcWrapper"),
-    join(FRAMEWORK_DIR, "libraries", "SrcWrapper"))
+    join("$BUILD_DIR", "SrcWrapper"), join(FRAMEWORK_DIR, "libraries", "SrcWrapper")
+)
 
 env.Prepend(LIBS=libs)
