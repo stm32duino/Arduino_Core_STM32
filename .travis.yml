@@ -34,6 +34,29 @@ matrix:
           else
             echo "Coding style check OK";
           fi
+
+#
+# PlatformIO test
+#
+  - env:
+      - NAME=PlatformIO
+      - CMSIS_VERSION=5.5.1
+    install:
+      # Install PlatformIO
+      - pip install -U platformio
+      # Install the development version of ststm32 platform
+      - platformio platform install https://github.com/platformio/platform-ststm32.git
+      # Prepare framework for CI
+      - python -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/platform.json'), 'r+'); data=json.load(fp); data['packages']['framework-arduinoststm32']['version'] = '*'; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()"
+      - sudo ln -sf $TRAVIS_BUILD_DIR ~/.platformio/packages/framework-arduinoststm32
+      # Download and unpack CMSIS package
+      - wget https://github.com/stm32duino/ArduinoModule-CMSIS/releases/download/$CMSIS_VERSION/CMSIS-$CMSIS_VERSION.tar.bz2
+      - tar -xvjf CMSIS-$CMSIS_VERSION.tar.bz2
+    before_script:
+      - cd $TRAVIS_BUILD_DIR/CI/build/
+    script:
+      - python platformio-builder.py --board=blackpill_f103c8 --board=remram_v1
+          
 #
 # Build test
 #
