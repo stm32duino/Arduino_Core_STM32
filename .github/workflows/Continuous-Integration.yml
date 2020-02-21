@@ -1,5 +1,19 @@
 name: STM32 Core Continuous Integration
-on: [push, pull_request]
+on:
+  push:
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - tools/**
+  pull_request:
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - tools/**
 jobs:
   astyle_check:
     runs-on: ubuntu-latest
