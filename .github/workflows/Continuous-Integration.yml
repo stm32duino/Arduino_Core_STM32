@@ -1,6 +1,8 @@
 name: STM32 Core Continuous Integration
 on:
   push:
+    branches:
+      - master
     paths-ignore:
       - '*.json'
       - '**.md'
