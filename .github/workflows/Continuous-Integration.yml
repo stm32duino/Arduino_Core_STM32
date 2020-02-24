@@ -8,6 +8,8 @@ on:
       - '**.md'
       - keywords.txt
       - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
       - tools/**
   pull_request:
     paths-ignore:
@@ -15,6 +17,8 @@ on:
       - '**.md'
       - keywords.txt
       - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
       - tools/**
 jobs:
   astyle_check:
