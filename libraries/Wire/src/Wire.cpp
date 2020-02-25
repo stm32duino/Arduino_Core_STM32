@@ -59,17 +59,17 @@ void TwoWire::begin(uint8_t address, bool generalCall)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
+  rxBuffer = nullptr;
+  rxBufferAllocated = 0;
   resetRxBuffer();
 
   txBufferIndex = 0;
   txBufferLength = 0;
-  resetTxBuffer();
-
-  rxBuffer = nullptr;
-  rxBufferAllocated = 0;
   txAddress = 0;
   txBuffer = nullptr;
   txBufferAllocated = 0;
+  resetTxBuffer();
+
   _i2c.__this = (void *)this;
   user_onRequest = NULL;
   transmitting = 0;
