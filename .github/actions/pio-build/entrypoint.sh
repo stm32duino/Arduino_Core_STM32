@@ -11,14 +11,14 @@ platformio platform install "https://github.com/platformio/platform-ststm32.git"
 python3 -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/platform.json'), 'r+'); data=json.load(fp); data['packages']['framework-arduinoststm32']['version'] = '*'; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()" || {
   exit 1
 }
-ln -sf "$GITHUB_WORKSPACE" "$HOME/.platformio/packages/framework-arduinoststm32" || {
+ln --symbolic "$GITHUB_WORKSPACE" "$HOME/.platformio/packages/framework-arduinoststm32" || {
   exit 1
 }
 # Download and unpack CMSIS package
 wget --no-verbose "https://github.com/stm32duino/ArduinoModule-CMSIS/releases/download/$CMSIS_VERSION/$CMSIS_ARCHIVE" || {
   exit 1
 }
-tar -xjf "$CMSIS_ARCHIVE" || {
+tar --extract --bzip2 --file="$CMSIS_ARCHIVE" || {
   exit 1
 }
 cd "$GITHUB_WORKSPACE/CI/build/" || {
