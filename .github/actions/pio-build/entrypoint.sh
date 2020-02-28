@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CMSIS_VERSION="$1"
-CMSIS_ARCHIVE="CMSIS-${CMSIS_VERSION}.tar.bz2"
+readonly CMSIS_VERSION="$1"
+readonly CMSIS_ARCHIVE="CMSIS-${CMSIS_VERSION}.tar.bz2"
 
 # Install the development version of ststm32 platform
 platformio platform install "https://github.com/platformio/platform-ststm32.git" || {
