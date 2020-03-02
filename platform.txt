@@ -99,25 +99,13 @@ build.flash_offset=0
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
-build.opt.sourcepath={build.source.path}/{build.opt.name}
 build.opt.path={build.path}/sketch/{build.opt.name}
 
-build.src_wrapper.path={build.path}/sketch/SrcWrapper.cpp
+extras.path={build.system.path}/extras
 
-# Create sketch dir if not exists
-recipe.hooks.prebuild.1.pattern.windows=cmd /c if not exist "{build.path}\sketch" mkdir "{build.path}\sketch"
-recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
-recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
-
-# Create empty {build.opt} if not exists in the sketch dir
-recipe.hooks.prebuild.2.pattern.windows=cmd /c if not exist "{build.opt.sourcepath}" type NUL > "{build.opt.path}"
-recipe.hooks.prebuild.2.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
-recipe.hooks.prebuild.2.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
-
-# Force include of SrcWrapper library
-recipe.hooks.prebuild.3.pattern.windows=cmd /c echo #include ^<SrcWrapper.h^> > "{build.src_wrapper.path}"
-recipe.hooks.prebuild.3.pattern.linux=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
-recipe.hooks.prebuild.3.pattern.macosx=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
+# Create empty {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
+recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" 
+recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/tools/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
 
 # compile patterns
 # ---------------------
