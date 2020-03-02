@@ -48,6 +48,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo F207ZG](http://www.st.com/en/evaluation-tools/nucleo-f207zg.html) | *0.2.0* |  |
 | :green_heart: | [Nucleo F429ZI](http://www.st.com/en/evaluation-tools/nucleo-f429zi.html) | *0.1.0* |  |
 | :green_heart: | [Nucleo F767ZI](http://www.st.com/en/evaluation-tools/nucleo-f767zi.html) | *1.4.0* |  |
+| :yellow_heart: | [Nucleo F746ZG](https://www.st.com/en/evaluation-tools/nucleo-f746zg.html) | **1.9.0** |  |
+| :yellow_heart: | [Nucleo F756ZG](https://www.st.com/en/evaluation-tools/nucleo-f756zg.html) | **1.9.0** |  |
 | :green_heart: | [Nucleo L496ZG](http://www.st.com/en/evaluation-tools/nucleo-l496zg.html) | *1.3.0* |  |
 | :green_heart: | [Nucleo L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg-p.html) | *1.3.0* |  |
 | :green_heart: | [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html) | *1.4.0* |  |
