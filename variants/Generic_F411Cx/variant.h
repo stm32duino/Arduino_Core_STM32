@@ -81,7 +81,10 @@ extern "C" {
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
-#if !defined(USER_BTN) && !defined(ARDUINO_BLACKPILL_F411CE)
+#ifdef ARDUINO_BLACKPILL_F411CE
+#define USER_BTN                PA0
+#endif
+#if !defined(USER_BTN)
 #define USER_BTN                PC13
 #endif
 
