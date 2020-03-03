@@ -81,6 +81,7 @@ print_CMSIS_Startup_list() {
       # File name
       f=$(echo "$fp" | awk -F/ '{print $NF}')
       upper=$(echo "$f" | awk -F'[_.]' '{print toupper($2)}' | tr X x)
+      upper="${upper//MP15xx/MP1xx}"
       echo "#elif defined($upper)
 #define CMSIS_STARTUP_FILE \"$f\"" >> $CMSIS_Startupfile
     done
