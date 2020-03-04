@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 #include "bootloader.h"
 
 #include "stm32_def.h"
@@ -10,6 +12,8 @@
  */
 /* Private definitions to manage system memory address */
 #define SYSMEM_ADDR_COMMON 0xFFF
+
+static bool BootIntoBootloaderAfterReset __attribute__((__section__(".noinit")));
 
 typedef struct {
   uint32_t devID;
@@ -79,18 +83,25 @@ uint32_t getSysMemAddr(void)
 /* Request to jump to system memory boot */
 WEAK void jumpToBootloaderRequested(void)
 {
-  enableBackupDomain();
-  setBackupRegister(SYSBL_MAGIC_NUMBER_BKP_INDEX, SYSBL_MAGIC_NUMBER_BKP_VALUE);
+  BootIntoBootloaderAfterReset = true;
   NVIC_SystemReset();
 }
 
 /* Jump to system memory boot from user application */
 WEAK void jumpToBootloader(void)
 {
-  enableBackupDomain();
-  if (getBackupRegister(SYSBL_MAGIC_NUMBER_BKP_INDEX) == SYSBL_MAGIC_NUMBER_BKP_VALUE) {
-    setBackupRegister(SYSBL_MAGIC_NUMBER_BKP_INDEX, 0);
+  // Boot into bootloader if BootIntoBootloaderAfterReset is set.
+  // Note that BootIntoBootloaderAfterReset is a noinit variable, so it
+  // s not automatically initialized on startup (so it can keep its
+  // value across resets). At initial poweron, its value can be
+  // *anything*, so only consider its value after a software reset. In
+  // all cases, clear its value (this both takes care of giving it an
+  // initial value after power-up, and prevents booting into the
+  // bootloader more than once for a single request).
+  bool doBootloader = __HAL_RCC_GET_FLAG(RCC_FLAG_SFTRST) && BootIntoBootloaderAfterReset;
+  BootIntoBootloaderAfterReset = false;
 
+  if (doBootloader) {
 #ifdef USBCON
     USBD_reenumerate();
 #endif
