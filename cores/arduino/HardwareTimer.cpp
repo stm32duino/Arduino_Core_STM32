@@ -939,7 +939,6 @@ void HardwareTimer::detachInterrupt()
   * @brief  Attach interrupt callback on Capture/Compare event
   * @param  channel: Arduino channel [1..4]
   * @param  callback: interrupt callback
-  * @param  arg: pointer to optional argument to associate with interrupt
   * @retval None
   */
 void HardwareTimer::attachInterrupt(uint32_t channel, callback_function_t callback)

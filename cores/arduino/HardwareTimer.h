@@ -150,7 +150,6 @@ class HardwareTimer {
 
     // The following function(s) are available for more advanced timer options
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
-
     int getChannel(uint32_t channel);
     int getLLChannel(uint32_t channel);
     int getIT(uint32_t channel);
