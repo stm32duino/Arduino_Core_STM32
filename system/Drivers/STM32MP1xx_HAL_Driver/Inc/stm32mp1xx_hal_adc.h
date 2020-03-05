@@ -624,10 +624,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_ConversionDataManagement ADC Conversion Data Management
   * @{
   */
-#define ADC_CONVERSIONDATA_DR                  ((uint32_t)0x00000000)                            /*!< Regular Conversion data stored in DR register only  */
-#define ADC_CONVERSIONDATA_DFSDM               ((uint32_t)ADC_CFGR_DMNGT_1)                      /*!< DFSDM mode selected */
-#define ADC_CONVERSIONDATA_DMA_ONESHOT         ((uint32_t)ADC_CFGR_DMNGT_0)                      /*!< DMA one shot mode selected */
-#define ADC_CONVERSIONDATA_DMA_CIRCULAR        ((uint32_t)(ADC_CFGR_DMNGT_0 | ADC_CFGR_DMNGT_1)) /*!< DMA circular mode selected */
+#define ADC_CONVERSIONDATA_DR                  (0x00000000UL)                          /*!< Regular Conversion data stored in DR register only  */
+#define ADC_CONVERSIONDATA_DFSDM               (ADC_CFGR_DMNGT_1)                      /*!< DFSDM mode selected */
+#define ADC_CONVERSIONDATA_DMA_ONESHOT         (ADC_CFGR_DMNGT_0)                      /*!< DMA one shot mode selected */
+#define ADC_CONVERSIONDATA_DMA_CIRCULAR        (ADC_CFGR_DMNGT_0 | ADC_CFGR_DMNGT_1)   /*!< DMA circular mode selected */
 /**
   * @}
   */

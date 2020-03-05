@@ -142,7 +142,7 @@ static inline uint32_t get_flash_end(void)
 #endif
 #endif /* FLASH_BASE_ADDRESS */
 
-static uint8_t eeprom_buffer[E2END + 1] = {0};
+static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
 
 /**
   * @brief  Function reads a byte from emulated eeprom (flash)

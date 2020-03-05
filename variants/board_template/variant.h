@@ -157,6 +157,11 @@ extern "C" {
 // SD Read/Write timeout, default value defined in STM32SD library
 //#define SD_DATATIMEOUT          x
 
+// USB Vbus sensing. Require to have Vbus pin connected to Vbus signal.
+// Warning, pin is different depending on FullSpeed or High Speed mode used
+// See AN4879 https://www.st.com/content/st_com/en/search.html#q=AN4879-t=resources-page=1
+//#define USBD_VBUS_DETECTION_ENABLE
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

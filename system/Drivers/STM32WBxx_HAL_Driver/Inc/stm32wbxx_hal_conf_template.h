@@ -174,17 +174,17 @@
   */
 #define  VDD_VALUE                    (3300UL) /*!< Value of VDD in mv */
 #define  TICK_INT_PRIORITY            ((1UL<<__NVIC_PRIO_BITS) - 1UL) /*!< tick interrupt priority (lowest by default) */
-#define  USE_RTOS                     0
-#define  PREFETCH_ENABLE              0
-#define  INSTRUCTION_CACHE_ENABLE     1
-#define  DATA_CACHE_ENABLE            1
+#define  USE_RTOS                     0U
+#define  PREFETCH_ENABLE              0U
+#define  INSTRUCTION_CACHE_ENABLE     1U
+#define  DATA_CACHE_ENABLE            1U
 
 /* ########################## Assert Selection ############################## */
 /**
   * @brief Uncomment the line below to expanse the "assert_param" macro in the
   *        HAL drivers code
   */
-/* #define USE_FULL_ASSERT    1 */
+/* #define USE_FULL_ASSERT    1U */
 
 /* ################## SPI peripheral configuration ########################## */
 

@@ -1,8 +1,12 @@
 # Arduino core support for STM32 based boards
+[![forums](https://img.shields.io/badge/join-the%20forums-blue.svg)](https://www.stm32duino.com/)
+[![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/stm32duino/wiki/wiki)
+![Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/workflows/STM32%20Core%20Continuous%20Integration/badge.svg)
+
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
 [![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/1.8.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/1.8.0...master)
-[![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32)
+<!-- [![Build Status](https://travis-ci.com/stm32duino/Arduino_Core_STM32.svg?branch=master)](https://travis-ci.com/stm32duino/Arduino_Core_STM32) -->
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
 * [Getting Started](https://github.com/stm32duino/Arduino_Core_STM32#getting-started)<br>
@@ -60,9 +64,9 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [Nucleo F401RE](http://www.st.com/en/evaluation-tools/nucleo-f401re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F411RE](http://www.st.com/en/evaluation-tools/nucleo-f411re.html) | *0.2.1* |  |
 | :green_heart: | [Nucleo F446RE](http://www.st.com/en/evaluation-tools/nucleo-f446re.html) | *1.1.1* |  |
-| :green_heart: | [Nucleo-G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | *1.6.0* |  |
-| :green_heart: | [Nucleo-G431RB](https://www.st.com/en/evaluation-tools/nucleo-g431rb.html) | *1.7.0* |  |
-| :green_heart: | [Nucleo-G474RE](https://www.st.com/en/evaluation-tools/nucleo-g474re.html) | *1.7.0* |  |
+| :green_heart: | [Nucleo G071RB](https://www.st.com/en/evaluation-tools/nucleo-g071rb.html) | *1.6.0* |  |
+| :green_heart: | [Nucleo G431RB](https://www.st.com/en/evaluation-tools/nucleo-g431rb.html) | *1.7.0* |  |
+| :green_heart: | [Nucleo G474RE](https://www.st.com/en/evaluation-tools/nucleo-g474re.html) | *1.7.0* |  |
 | :green_heart: | [Nucleo L053R8](http://www.st.com/en/evaluation-tools/nucleo-l053r8.html) | *0.1.0* |  |
 | :green_heart: | [Nucleo L073RZ](http://www.st.com/en/evaluation-tools/nucleo-l073rz.html) | *1.4.0* |  |
 | :green_heart: | [Nucleo L152RE](http://www.st.com/en/evaluation-tools/nucleo-l152re.html) | *1.0.0* |  |
@@ -74,7 +78,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
-| :green_heart: | [Nucleo-G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
+| :green_heart: | [Nucleo G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
 | :green_heart: | [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html) | *1.1.1* |  |
 | :green_heart: | [Nucleo L412KB](http://www.st.com/en/evaluation-tools/nucleo-l412kb.html) | *1.5.0* |  |
 | :green_heart: | [Nucleo L432KC](http://www.st.com/en/evaluation-tools/nucleo-l432kc.html) | *0.2.0* |  |
@@ -86,6 +90,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [STM32VLDISCOVERY](https://www.st.com/en/evaluation-tools/stm32vldiscovery.html) | 0.2.1 |  |
 | :green_heart: | [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html) | *0.1.0* |  |
 | :green_heart: | [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | *0.1.0* |  |
+| :yellow_heart: | [STM32G0316-DISCO](https://www.st.com/en/evaluation-tools/stm32g0316-disco.html) | **1.9.0** |  |
 | :green_heart: | [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html) | *1.1.0* |  |
 | :green_heart: | [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) | *1.0.1* |  |
 
@@ -108,8 +113,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [BluePill F103C(6-8-B)](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
 | :green_heart: | [BlackPill F103C(8-B)](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
 | :green_heart: | [Generic F103R(8-B-C-E)T6](https://stm32-base.org/boards/STM32F103RET6-Generic-Board) | *1.7.0* | Blue Button |
+| :yellow_heart: | Generic F103Z(C-D-E-F-G) | **1.9.0** |  |
 | :green_heart: | HY-TinySTM103T | *1.5.0* |  |
 | :green_heart: | MapleMini F103CB | *1.2.0* | USB CDC support since *1.5.0*, Maple bootloaders support since *1.6.0* |
+| :yellow_heart: | [Vcc-Gnd F103ZET6](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) | **1.9.0** | [Standard](https://stm32-base.org/boards/STM32F103ZET6-VCC-GND-XLarge) and Mini |
+
 
 | Status | Generic STM32F3xx | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -119,14 +127,29 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :---: | --- | :---: | :--- |
 | :green_heart: | [Adafruit Feather STM32F405 Express](https://www.adafruit.com/product/4382) | *1.8.0* |  |
 | :green_heart: | BlackPill F401CC | *1.7.0* |  |
+| :yellow_heart: | BlackPill F411CE | **1.9.0** |  |
 | :green_heart: | [Black F407VET6](https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0) | *1.4.0* | VG/ZE/ZG in *1.5.0* |
 | :green_heart: | [Blue F407VET6 Mini](https://stm32-base.org/boards/STM32F407VET6-VCC-GND-Small) | *1.4.0* |  |
 | :green_heart: | Core Board F401RC | *1.7.0* |  |
 | :green_heart: | [DIYMORE STM32F407VGT](https://stm32-base.org/boards/STM32F407VGT6-diymore) | *1.5.0* |  |
 | :green_heart: | FK407M1 | *1.5.0* |  |
+| :yellow_heart: | Generic F401C(B-C-D-E) | **1.9.0** |  |
 | :green_heart: | Generic F401R(B-C-D-E) | *1.8.0* |  |
+| :yellow_heart: | Generic F405RG | **1.9.0** |  |
+| :yellow_heart: | Generic F407V(E-G) | **1.9.0** |  |
+| :yellow_heart: | Generic F410C(8-B) | **1.9.0** |  |
+| :yellow_heart: | Generic F410R(8-B) | **1.9.0** |  |
 | :yellow_heart: | Generic F411C(C-E) | **1.9.0** |  |
 | :yellow_heart: | Generic F411R(C-E) | **1.9.0** |  |
+| :yellow_heart: | Generic F412C(E-G) | **1.9.0** |  |
+| :yellow_heart: | Generic F412R(E-G) | **1.9.0** |  |
+| :yellow_heart: | Generic F413C(G-H) | **1.9.0** |  |
+| :yellow_heart: | Generic F413R(G-H) | **1.9.0** |  |
+| :yellow_heart: | Generic F415RG | **1.9.0** |  |
+| :yellow_heart: | Generic F417V(E-G) | **1.9.0** |  |
+| :yellow_heart: | Generic F423CH | **1.9.0** |  |
+| :yellow_heart: | Generic F423RH | **1.9.0** |  |
+| :yellow_heart: | Generic F446R(C-E) | **1.9.0** |  |
 
 | Status | Generic STM32L0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
@@ -171,8 +194,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 ## Troubleshooting
 
-If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
+For question, support, ...,  you could submit a topic on the [stm32duino forum](http://stm32duino.com).
 
-For question, support, ...,  you could submit a topic on the [stm32duino forum](http://stm32duino.com):
+If you have any issue, you could [file an issue on Github](https://github.com/stm32duino/Arduino_Core_STM32/issues/new).
 
 In any case, it always fine to search if your issue was not already existing before submit a new one.

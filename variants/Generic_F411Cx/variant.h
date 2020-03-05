@@ -45,9 +45,9 @@ extern "C" {
 #define PB0  A8  // | 16      | A8     |           |                      | SPI5_SCK                       |           |
 #define PB1  A9  // | 17      | A9     |           |                      | SPI5_SS                        |           |
 #define PB2  18  // | 18      |        |           |                      |                                | BOOT1     |
-#define PB3  19  // | 19      |        | USART1_RX | TWI2_SDA             | SPI1_SCK,  (SPI3_SCK)          |           |
-#define PB4  20  // | 20      |        |           | TWI3_SDA             | SPI1_MISO, (SPI3_MISO)         |           |
-#define PB5  21  // | 21      |        |           |                      | SPI1_MOSI, (SPI3_MOSI)         |           |
+#define PB3  19  // | 19      |        | USART1_RX | TWI2_SDA             | SPI3_SCK,  (SPI1_SCK)          |           |
+#define PB4  20  // | 20      |        |           | TWI3_SDA             | SPI3_MISO, (SPI1_MISO)         |           |
+#define PB5  21  // | 21      |        |           |                      | SPI3_MOSI, (SPI1_MOSI)         |           |
 #define PB6  22  // | 22      |        | USART1_TX | TWI1_SCL             |                                |           |
 #define PB7  23  // | 23      |        | USART1_RX | TWI1_SDA             |                                |           |
 #define PB8  24  // | 24      |        |           | TWI1_SCL, (TWI3_SDA) | SPI5_MOSI                      |           |
@@ -72,13 +72,21 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       10
 
 // On-board LED pin number
+#ifdef ARDUINO_BLACKPILL_F411CE
+#define LED_BUILTIN             PC13
+#endif
 #ifndef LED_BUILTIN
 #define LED_BUILTIN             PA5
 #endif
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
+#ifdef ARDUINO_BLACKPILL_F411CE
+#define USER_BTN                PA0
+#endif
+#if !defined(USER_BTN)
 #define USER_BTN                PC13
+#endif
 
 // SPI definitions
 #define PIN_SPI_SS              PA4
@@ -91,20 +99,24 @@ extern "C" {
 #define PIN_SPI_SCK             PA5
 
 // I2C definitions
-#define PIN_WIRE_SDA            PB9
-#define PIN_WIRE_SCL            PB8
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
 #define TIMER_TONE              TIM10
 #define TIMER_SERVO             TIM11
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#define PIN_SERIAL_RX           PA10
+#define PIN_SERIAL_TX           PA9
+
+#ifdef ARDUINO_BLACKPILL_F411CE
+#define HSE_VALUE               25000000U
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

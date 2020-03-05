@@ -47,19 +47,6 @@
 
 #include "stm32l0xx.h"
 
-#if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000U) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (MSI_VALUE)
-  #define MSI_VALUE    ((uint32_t)2097152U) /*!< Value of the Internal oscillator in Hz*/
-#endif /* MSI_VALUE */
-   
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)16000000U) /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-
 /**
   * @}
   */

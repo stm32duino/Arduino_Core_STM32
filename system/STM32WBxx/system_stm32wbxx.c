@@ -85,26 +85,6 @@
 
 #include "stm32wbxx.h"
 
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE    (32000000UL) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (MSI_VALUE)
-   #define MSI_VALUE    (4000000UL) /*!< Value of the Internal oscillator in Hz*/
-#endif /* MSI_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    (16000000UL) /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-#if !defined  (LSI_VALUE) 
- #define LSI_VALUE  (32000UL)       /*!< Value of LSI in Hz*/
-#endif /* LSI_VALUE */ 
-
-#if !defined  (LSE_VALUE)
-  #define LSE_VALUE    (32768UL)    /*!< Value of LSE in Hz*/
-#endif /* LSE_VALUE */
-
 /**
   * @}
   */

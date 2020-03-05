@@ -278,36 +278,6 @@
           "boards": [ "NUCLEO_L476RG" ]
         }
       ]
-    },
-    {
-      "maintainer": "Arduino_STM32",
-      "architecture": "STM32F1",
-      "boards": [
-        {
-          "name": "mapleMini",
-          "options": "bootloader_version=original,cpu_speed=speed_72mhz"
-        }
-      ],
-      "sketches": [
-        {
-          "pattern": "sketchbook",
-          "applicable": true,
-          "boards": [ "" ]
-        }
-      ]
-    },
-    {
-      "maintainer": "Arduino_STM32",
-      "architecture": "STM32F4",
-      "boards": [
-      ],
-      "sketches": [
-        {
-          "pattern": "",
-          "applicable": false,
-          "boards": [ "netduino2plus" ]
-        }
-      ]
     }
   ]
 }

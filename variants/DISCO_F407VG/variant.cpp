@@ -190,6 +190,10 @@ WEAK void SystemClock_Config(void)
     /* Enable the Flash prefetch */
     __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
   }
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
+
 }
 
 #ifdef __cplusplus

@@ -57,6 +57,15 @@ typedef uint16_t rx_buffer_index_t;
 typedef uint8_t rx_buffer_index_t;
 #endif
 
+// A bool should be enough for this
+// But it brings an build error due to ambiguous
+// call of overloaded HardwareSerial(int, int)
+// So defining a dedicated type
+typedef enum {
+  HALF_DUPLEX_DISABLED,
+  HALF_DUPLEX_ENABLED
+} HalfDuplexMode_t;
+
 // Define config for Serial.begin(baud, config);
 // below configs are not supported by STM32
 //#define SERIAL_5N1 0x00
@@ -103,7 +112,7 @@ class HardwareSerial : public Stream {
   public:
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
-    HardwareSerial(void *peripheral, bool halfDuplex = false);
+    HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
     HardwareSerial(uint32_t _rxtx);
     HardwareSerial(PinName _rxtx);
     void begin(unsigned long baud)

@@ -80,20 +80,7 @@
 /** @addtogroup STM32F0xx_System_Private_Defines
   * @{
   */
-#if !defined  (HSE_VALUE) 
-  #define HSE_VALUE    ((uint32_t)8000000) /*!< Default value of the External oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSE_VALUE */
 
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    ((uint32_t)8000000) /*!< Default value of the Internal oscillator in Hz.
-                                                This value can be provided and adapted by the user application. */
-#endif /* HSI_VALUE */
-
-#if !defined (HSI48_VALUE)
-#define HSI48_VALUE    ((uint32_t)48000000) /*!< Default value of the HSI48 Internal oscillator in Hz.
-                                                 This value can be provided and adapted by the user application. */
-#endif /* HSI48_VALUE */
 /**
   * @}
   */
