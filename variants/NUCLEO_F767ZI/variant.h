@@ -37,10 +37,10 @@ extern "C" {
 #define PF13 7
 #define PF12 8
 #define PD15 9
-#define PD14 A10
-#define PA7  A11
-#define PA6  A12
-#define PA5  13
+#define PD14 10
+#define PA7  A10
+#define PA6  A11
+#define PA5  A12
 #define PB9  14
 #define PB8  15
 #define PC6  16
