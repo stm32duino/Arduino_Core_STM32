@@ -93,7 +93,7 @@ typedef enum {
 #ifdef __cplusplus
 
 #include <functional>
-typedef std::function<void(void)> callback_function_t;
+using callback_function_t = std::function<void(void)>;
 
 /* Class --------------------------------------------------------*/
 class HardwareTimer {
