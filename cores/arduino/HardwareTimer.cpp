@@ -801,7 +801,7 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
   * @retval None
   */
-void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *), void (*CompareCallback)(HardwareTimer *))
+void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
   setPWM(channel, digitalPinToPinName(pin), frequency, dutycycle, PeriodCallback, CompareCallback);
 }
@@ -818,7 +818,7 @@ void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, u
   *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
   * @retval None
   */
-void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *), void (*CompareCallback)(HardwareTimer *))
+void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
   setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
   setOverflow(frequency, HERTZ_FORMAT);
@@ -848,13 +848,11 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
 /**
   * @brief  Attach interrupt callback on update (rollover) event
   * @param  callback: interrupt callback
-  * @param  arg: pointer to optional argument to associate with interrupt
   * @retval None
   */
-void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *), void *arg)
+void HardwareTimer::attachInterrupt(callback_function_t callback)
 {
-  args[0] = arg;
-  if (callbacks[0] != NULL) {
+  if (callbacks[0] != nullptr) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[0] = callback;
   } else {
@@ -877,7 +875,6 @@ void HardwareTimer::detachInterrupt()
   // Disable update interrupt and clear callback
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE); // disables the interrupt call to save cpu cycles for useless context switching
   callbacks[0] = NULL;
-  args[0] = NULL;
 }
 
 /**
@@ -887,7 +884,7 @@ void HardwareTimer::detachInterrupt()
   * @param  arg: pointer to optional argument to associate with interrupt
   * @retval None
   */
-void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *), void *arg)
+void HardwareTimer::attachInterrupt(uint32_t channel, callback_function_t callback)
 {
   int interrupt = getIT(channel);
   if (interrupt == -1) {
@@ -897,7 +894,6 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
   }
-  args[channel] = arg;
   if (callbacks[channel] != NULL) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[channel] = callback;
@@ -931,29 +927,6 @@ void HardwareTimer::detachInterrupt(uint32_t channel)
   // Disable interrupt corresponding to channel and clear callback
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), interrupt);
   callbacks[channel] = NULL;
-  args[channel] = NULL;
-}
-
-/**
- * @brief  Get argument attached to (rollover) event.
- * @retval Associated pointer to attached argument or NULL if not set.
- */
-void *HardwareTimer::getArg()
-{
-  return args[0];
-}
-
-/**
- * @brief Get argument attached to Capture/Compare event.
- * @param  channel: arduino channel [1..4]
- * @retval Associated pointer to attached argument or NULL if not set.
- */
-void *HardwareTimer::getArg(uint32_t channel)
-{
-  if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
-    Error_Handler();  // only channel 1..4 have an interrupt
-  }
-  return args[channel];
 }
 
 /**
@@ -1016,7 +989,7 @@ void HardwareTimer::updateCallback(TIM_HandleTypeDef *htim)
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[0] != NULL) {
-    HT->callbacks[0](HT);
+    HT->callbacks[0]();
   }
 }
 
@@ -1057,7 +1030,7 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[channel] != NULL) {
-    HT->callbacks[channel](HT);
+    HT->callbacks[channel]();
   }
 }
 
