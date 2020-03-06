@@ -493,11 +493,28 @@ def check_status(status, build_conf, boardKo):
             bin_copy(build_conf[0], sketch_name)
         nb_build_passed += 1
     elif status[1] == 1:
-        result = "\033[31mfailed\033[0m   "
-        boardKo.append(build_conf[0])
-        if args.ci:
-            cat(os.path.join(build_conf[3], sketch_name + ".log"))
-        nb_build_failed += 1
+        # Check if failed due to a region overflowed
+        logFile = os.path.join(build_conf[3], sketch_name + ".log")
+        ld_pattern = re.compile("arm-none-eabi/bin/ld:")
+        overflow_pattern = re.compile(
+            "will not fit in region|region .+ overflowed by [\\d]+ bytes"
+        )
+        for i, line in enumerate(open(logFile)):
+            if ld_pattern.search(line):
+                # If one ld line is not for region overflowed --> failed
+                if overflow_pattern.search(line) is None:
+                    result = "\033[31mfailed\033[0m   "
+                    boardKo.append(build_conf[0])
+                    if args.ci:
+                        cat(logFile)
+                    nb_build_failed += 1
+                    break
+        else:
+            # else consider it succeeded
+            result = "\033[32msucceeded\033[0m"
+            if args.bin:
+                empty_bin(build_conf[0], sketch_name)
+            nb_build_passed += 1
     else:
         result = "\033[31merror\033[0m   "
 
@@ -624,6 +641,21 @@ def log_final_result():
     print("Duration: " + duration)
     print("Logs are available here:")
     print(output_dir)
+
+
+# Create an empty binary
+def empty_bin(board_name, sketch_name):
+    empty_path = os.path.abspath(os.path.join(output_dir, board_name, bin_dir))
+    createFolder(empty_path)
+    empty_file = os.path.join(
+        empty_path, sketch_name + "_COULD_NOT_FIT_IN_THIS_BOARD.bin"
+    )
+    try:
+        f = open(empty_file, "w")
+    except IOError:
+        print("Cannot create empty binary: ", empty_file)
+    else:
+        f.close()
 
 
 # Create a "bin" directory for each board and copy all binary files
