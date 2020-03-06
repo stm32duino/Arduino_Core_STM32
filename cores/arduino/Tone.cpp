@@ -32,7 +32,7 @@ typedef struct {
 } timerPinInfo_t;
 
 static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration);
-static callback_function_t tonePeriodElapsedCallback();
+static void tonePeriodElapsedCallback();
 static timerPinInfo_t TimerTone_pinInfo = {NC, 0};
 static HardwareTimer *TimerTone = NULL;
 
@@ -41,7 +41,7 @@ static HardwareTimer *TimerTone = NULL;
   * @param  htim : timer handle
   * @retval None
   */
-static callback_function_t tonePeriodElapsedCallback()
+static void tonePeriodElapsedCallback()
 {
   GPIO_TypeDef *port = get_GPIO_Port(STM_PORT(TimerTone_pinInfo.pin));
 
