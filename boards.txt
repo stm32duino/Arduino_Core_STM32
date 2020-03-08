@@ -438,6 +438,18 @@ Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# NUCLEO_F031K6 board
+Nucleo_32.menu.pnum.NUCLEO_F031K6=Nucleo F031K6
+Nucleo_32.menu.pnum.NUCLEO_F031K6.node=NODE_F031K6
+Nucleo_32.menu.pnum.NUCLEO_F031K6.upload.maximum_size=32768
+Nucleo_32.menu.pnum.NUCLEO_F031K6.upload.maximum_data_size=4096
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.mcu=cortex-m0
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.board=NUCLEO_F031K6
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.series=STM32F0xx
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.product_line=STM32F031x6
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.variant=NUCLEO_F031K6
+Nucleo_32.menu.pnum.NUCLEO_F031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_L031K6 board
 Nucleo_32.menu.pnum.NUCLEO_L031K6=Nucleo L031K6
 Nucleo_32.menu.pnum.NUCLEO_L031K6.node=NODE_L031K6
