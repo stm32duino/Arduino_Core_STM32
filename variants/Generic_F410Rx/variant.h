@@ -100,9 +100,8 @@ extern "C" {
 #endif
 
 // Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
+#define TIMER_SERVO             TIM11
 
 // SPI definitions
 #define PIN_SPI_SS              PA4

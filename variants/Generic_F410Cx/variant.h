@@ -99,9 +99,8 @@ extern "C" {
 #define PIN_WIRE_SCL            PB8
 
 // Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
+#define TIMER_SERVO             TIM11
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 // Connected to ST-Link
