@@ -29,6 +29,10 @@
 #error "GCC version 6.3 or higher is required"
 #endif
 
+#ifdef __IN_ECLIPSE__
+#include "SrcWrapper.h"
+#endif
+
 #include "wiring.h"
 
 /* sketch */
