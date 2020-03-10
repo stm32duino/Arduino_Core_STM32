@@ -1,7 +1,7 @@
 # Arduino core support for STM32 based boards
 [![forums](https://img.shields.io/badge/join-the%20forums-blue.svg)](https://www.stm32duino.com/)
 [![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/stm32duino/wiki/wiki)
-![Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/workflows/STM32%20Core%20Continuous%20Integration/badge.svg)
+![STM32 Core Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/workflows/STM32%20Core%20Continuous%20Integration/badge.svg?branch=master)
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
@@ -77,6 +77,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |
+| :yellow_heart: | [Nucleo F031K6](https://www.st.com/en/evaluation-tools/nucleo-f031k6.html) | **1.9.0** |  |
 | :green_heart: | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
 | :green_heart: | [Nucleo G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
 | :green_heart: | [Nucleo L031K6](http://www.st.com/en/evaluation-tools/nucleo-l031k6.html) | *1.1.1* |  |
