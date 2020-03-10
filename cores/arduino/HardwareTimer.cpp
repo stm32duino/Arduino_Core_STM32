@@ -910,7 +910,7 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   */
 void HardwareTimer::attachInterrupt(callback_function_t callback)
 {
-  if (callbacks[0] != nullptr) {
+  if (callbacks[0]) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[0] = callback;
   } else {
