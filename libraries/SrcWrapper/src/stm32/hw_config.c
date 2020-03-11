@@ -60,9 +60,6 @@ void hw_config_init(void)
   /* Initialize the HAL */
   HAL_Init();
 
-  /* Check if a jump to system memory boot requested */
-  jumpToBootloader();
-
   /* Configure the system clock */
   SystemClock_Config();
 

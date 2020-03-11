@@ -13,7 +13,7 @@
 /* Private definitions to manage system memory address */
 #define SYSMEM_ADDR_COMMON 0xFFF
 
-static bool BootIntoBootloaderAfterReset __attribute__((__section__(".noinit")));
+static bool BootIntoBootloaderAfterReset;
 
 typedef struct {
   uint32_t devID;
@@ -85,6 +85,18 @@ WEAK void jumpToBootloaderRequested(void)
 {
   BootIntoBootloaderAfterReset = true;
   NVIC_SystemReset();
+}
+
+// This overrides the Reset_Handler that is run on reset before
+// *anything* else (including memory initialization). Only the stack
+// pointer is set up by this time.
+void Reset_Handler()
+{
+  // Jump to the bootloader if needed.
+  jumpToBootloader();
+
+  // Continue with regular startup by calling the original reset handler
+  Original_Reset_Handler();
 }
 
 /* Jump to system memory boot from user application */
