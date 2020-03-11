@@ -92,6 +92,9 @@ typedef enum {
 
 #ifdef __cplusplus
 
+#include <functional>
+using callback_function_t = std::function<void(void)>;
+
 /* Class --------------------------------------------------------*/
 class HardwareTimer {
   public:
@@ -109,8 +112,8 @@ class HardwareTimer {
     void setOverflow(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set AutoReload register depending on format provided
     uint32_t getOverflow(TimerFormat_t format = TICK_FORMAT); // return overflow depending on format provided
 
-    void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL); // Set all in one command freq in HZ, Duty in percentage. Including both interrup.
-    void setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *) = NULL, void (*CompareCallback)(HardwareTimer *) = NULL);
+    void setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr); // Set all in one command freq in HZ, Duty in percentage. Including both interrup.
+    void setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback = nullptr, callback_function_t CompareCallback = nullptr);
 
     void setCount(uint32_t val, TimerFormat_t format = TICK_FORMAT); // set timer counter to value 'val' depending on format provided
     uint32_t getCount(TimerFormat_t format = TICK_FORMAT);  // return current counter value of timer depending on format provided
@@ -128,14 +131,13 @@ class HardwareTimer {
     void setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority); // set interrupt priority
 
     //Add interrupt to period update
-    void attachInterrupt(void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon update event (timer rollover)
+    void attachInterrupt(callback_function_t callback); // Attach interrupt callback which will be called upon update event (timer rollover)
     void detachInterrupt();  // remove interrupt callback which was attached to update event
     bool hasInterrupt();  //returns true if a timer rollover interrupt has already been set
     //Add interrupt to capture/compare channel
-    void attachInterrupt(uint32_t channel, void (*handler)(HardwareTimer *)); // Attach interrupt callback which will be called upon compare match event of specified channel
+    void attachInterrupt(uint32_t channel, callback_function_t callback); // Attach interrupt callback which will be called upon compare match event of specified channel
     void detachInterrupt(uint32_t channel);  // remove interrupt callback which was attached to compare match event of specified channel
     bool hasInterrupt(uint32_t channel);  //returns true if an interrupt has already been set on the channel compare match
-
     void timerHandleDeinit();  // Timer deinitialization
 
     // Refresh() is usefull while timer is running after some registers update
@@ -158,7 +160,7 @@ class HardwareTimer {
   private:
     TimerModes_t  _ChannelMode[TIMER_CHANNELS];
     timerObj_t _timerObj;
-    void (*callbacks[1 + TIMER_CHANNELS])(HardwareTimer *); //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
+    callback_function_t callbacks[1 + TIMER_CHANNELS]; //Callbacks: 0 for update, 1-4 for channels. (channel5/channel6, if any, doesn't have interrupt)
 };
 
 extern timerObj_t *HardwareTimer_Handle[TIMER_NUM];

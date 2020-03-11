@@ -40,9 +40,8 @@ uint8_t ServoCount = 0;                                    // the total number o
 /************ static functions common to all instances ***********************/
 
 volatile uint32_t CumulativeCountSinceRefresh = 0;
-static void Servo_PeriodElapsedCallback(HardwareTimer *HT)
+static void Servo_PeriodElapsedCallback()
 {
-  UNUSED(HT);
   // Only 1 timer used
   timer16_Sequence_t timer_id = _timer1;
 

@@ -859,7 +859,7 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
   * @retval None
   */
-void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *), void (*CompareCallback)(HardwareTimer *))
+void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
   setPWM(channel, digitalPinToPinName(pin), frequency, dutycycle, PeriodCallback, CompareCallback);
 }
@@ -876,7 +876,7 @@ void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, u
   *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
   * @retval None
   */
-void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, void (*PeriodCallback)(HardwareTimer *), void (*CompareCallback)(HardwareTimer *))
+void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
 {
   setMode(channel, TIMER_OUTPUT_COMPARE_PWM1, pin);
   setOverflow(frequency, HERTZ_FORMAT);
@@ -908,9 +908,9 @@ void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subP
   * @param  callback: interrupt callback
   * @retval None
   */
-void HardwareTimer::attachInterrupt(void (*callback)(HardwareTimer *))
+void HardwareTimer::attachInterrupt(callback_function_t callback)
 {
-  if (callbacks[0] != NULL) {
+  if (callbacks[0]) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[0] = callback;
   } else {
@@ -941,7 +941,7 @@ void HardwareTimer::detachInterrupt()
   * @param  callback: interrupt callback
   * @retval None
   */
-void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareTimer *))
+void HardwareTimer::attachInterrupt(uint32_t channel, callback_function_t callback)
 {
   int interrupt = getIT(channel);
   if (interrupt == -1) {
@@ -951,7 +951,6 @@ void HardwareTimer::attachInterrupt(uint32_t channel, void (*callback)(HardwareT
   if ((channel == 0) || (channel > (TIMER_CHANNELS + 1))) {
     Error_Handler();  // only channel 1..4 have an interrupt
   }
-
   if (callbacks[channel] != NULL) {
     // Callback previously configured : do not clear neither enable IT, it is just a change of callback
     callbacks[channel] = callback;
@@ -1047,7 +1046,7 @@ void HardwareTimer::updateCallback(TIM_HandleTypeDef *htim)
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[0] != NULL) {
-    HT->callbacks[0](HT);
+    HT->callbacks[0]();
   }
 }
 
@@ -1088,7 +1087,7 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
   HardwareTimer *HT = (HardwareTimer *)(obj->__this);
 
   if (HT->callbacks[channel] != NULL) {
-    HT->callbacks[channel](HT);
+    HT->callbacks[channel]();
   }
 }
 
