@@ -495,20 +495,26 @@ def check_status(status, build_conf, boardKo):
     elif status[1] == 1:
         # Check if failed due to a region overflowed
         logFile = os.path.join(build_conf[3], sketch_name + ".log")
+        error_pattern = re.compile(":\\d+:\\d+:\\serror:\\s")
         ld_pattern = re.compile("arm-none-eabi/bin/ld:")
         overflow_pattern = re.compile(
             "will not fit in region|region .+ overflowed by [\\d]+ bytes"
         )
+        error_found = False
         for i, line in enumerate(open(logFile)):
-            if ld_pattern.search(line):
+            if error_pattern.search(line):
+                error_found = True
+            elif ld_pattern.search(line):
                 # If one ld line is not for region overflowed --> failed
                 if overflow_pattern.search(line) is None:
-                    result = "\033[31mfailed\033[0m   "
-                    boardKo.append(build_conf[0])
-                    if args.ci:
-                        cat(logFile)
-                    nb_build_failed += 1
-                    break
+                    error_found = True
+            if error_found:
+                result = "\033[31mfailed\033[0m   "
+                boardKo.append(build_conf[0])
+                if args.ci:
+                    cat(logFile)
+                nb_build_failed += 1
+                break
         else:
             # else consider it succeeded
             result = "\033[32msucceeded\033[0m"
