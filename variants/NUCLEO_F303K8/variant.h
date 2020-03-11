@@ -30,10 +30,10 @@ extern "C" {
 #define PA10 0
 #define PA9  1
 #define PA12 2
-#define PB0  3
+#define PB0  A8
 #define PB7  4
 #define PB6  5
-#define PB1  6
+#define PB1  A9
 #define PF0  7
 #define PF1  8
 #define PA8  9
@@ -41,21 +41,20 @@ extern "C" {
 #define PB5  11
 #define PB4  12
 #define PB3  13 // LED
-#define PA0  14 // A0
-#define PA1  15 // A1
-#define PA3  16 // A2
-#define PA4  17 // A3
-#define PA5  18 // A4 - if SB18 ON (default) connected to PB7
-#define PA6  19 // A5 - if SB16 ON (default) connected to PB6
-#define PA7  20 // A6
-#define PA2  21 // A7 - STLink Tx
+#define PA0  A0
+#define PA1  A1
+#define PA3  A2
+#define PA4  A3
+#define PA5  A4 // if SB18 ON (default) connected to PB7
+#define PA6  A5 // if SB16 ON (default) connected to PB6
+#define PA7  A6
+#define PA2  A7 // STLink Tx
 #define PA15 22 // STLink Rx
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        23
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        14
+#define NUM_ANALOG_INPUTS       10
 
 // On-board LED pin number
 #define LED_BUILTIN             13
