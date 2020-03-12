@@ -26,6 +26,7 @@
 *.md text eol=lf
 *.MD text eol=lf
 *.old text eol=lf
+*.patch text eol=lf
 *.pde text eol=lf
 *.properties text eol=lf
 *.py text eol=lf
