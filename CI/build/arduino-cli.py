@@ -80,7 +80,8 @@ fail_count = 0
 skip_count = 0
 
 # format
-build_format = "| {:8} | {:44} | {:9} "
+build_format_header = "| {:^8} | {:42} | {:^10} | {:^7} |"
+build_format_result = "| {:^8} | {:42} | {:^19} | {:^6.2f}s |"
 build_separator = "-" * 80
 
 
@@ -495,31 +496,37 @@ def check_status(status, build_conf, boardKo):
     elif status[1] == 1:
         # Check if failed due to a region overflowed
         logFile = os.path.join(build_conf[3], sketch_name + ".log")
+        error_pattern = re.compile(":\\d+:\\d+:\\serror:\\s")
         ld_pattern = re.compile("arm-none-eabi/bin/ld:")
         overflow_pattern = re.compile(
             "will not fit in region|region .+ overflowed by [\\d]+ bytes"
         )
+        error_found = False
         for i, line in enumerate(open(logFile)):
-            if ld_pattern.search(line):
+            if error_pattern.search(line):
+                error_found = True
+            elif ld_pattern.search(line):
                 # If one ld line is not for region overflowed --> failed
                 if overflow_pattern.search(line) is None:
-                    result = "\033[31mfailed\033[0m   "
-                    boardKo.append(build_conf[0])
-                    if args.ci:
-                        cat(logFile)
-                    nb_build_failed += 1
-                    break
+                    error_found = True
+            if error_found:
+                result = "\033[31mfailed\033[0m"
+                boardKo.append(build_conf[0])
+                if args.ci:
+                    cat(logFile)
+                nb_build_failed += 1
+                break
         else:
             # else consider it succeeded
-            result = "\033[32msucceeded\033[0m"
+            result = "\033[32msucceeded*\033[0m"
             if args.bin:
                 empty_bin(build_conf[0], sketch_name)
             nb_build_passed += 1
     else:
-        result = "\033[31merror\033[0m   "
+        result = "\033[31merror\033[0m"
 
     print(
-        (build_format + "| {:5.2f}s |").format(
+        (build_format_result).format(
             "{}/{}".format(build_conf[1], build_conf[2]),
             build_conf[0],
             result,
@@ -730,12 +737,12 @@ def build_config(sketch, boardSkipped):
                 for pattern in na_sketch_pattern[build_conf_list[idx][0]]:
                     if re.search(pattern, sketch, re.IGNORECASE):
                         print(
-                            (build_format + "| {:5.2f}s |").format(
+                            (build_format_result).format(
                                 "{}/{}".format(
                                     build_conf_list[idx][1], build_conf_list[idx][2]
                                 ),
                                 build_conf_list[idx][0],
-                                "\033[33mskipped\033[0m  ",
+                                "\033[33mskipped\033[0m",
                                 0.00,
                             )
                         )
@@ -782,7 +789,7 @@ def build_all():
         for line in wrapped_path_:
             print("| {:^76} |".format("{}".format(line)))
         print(build_separator)
-        print((build_format + "| {:6} |").format("Num", "Board", "Result", "Time"))
+        print((build_format_header).format("Num", "Board", "Result", "Time"))
         print(build_separator)
 
         build_conf_list = build_config(sketch, boardSkipped)
