@@ -165,6 +165,6 @@ extern void serialEvent10(void) __attribute__((weak));
 extern void serialEventLP1(void) __attribute__((weak));
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 
-extern void serialEventRun(void) __attribute__((weak));
+extern void serialEventRun(void);
 
 #endif /* WIRING_SERIAL_H */

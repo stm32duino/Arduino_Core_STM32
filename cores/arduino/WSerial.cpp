@@ -1,6 +1,6 @@
 #include "WSerial.h"
 
-void serialEventRun(void)
+WEAK void serialEventRun(void)
 {
 #if defined(HAVE_HWSERIAL1)
   if (serialEvent1 && Serial1.available()) {
