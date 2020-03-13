@@ -62,9 +62,7 @@ int main(void)
     CoreCallback();
 #endif
     loop();
-    if (serialEventRun) {
-      serialEventRun();
-    }
+    serialEventRun();
   }
 
   return 0;
