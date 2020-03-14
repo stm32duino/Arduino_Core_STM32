@@ -28,4 +28,15 @@
 #endif
 #define RPMSG_VRING_TOTAL_PAYLOAD_SIZE (RPMSG_VRING_PAYLOAD_SIZE * VRING_NUM_BUFFS)
 
+#if defined (VIRTIO_LOG)
+/**
+ * OpenAMP trace (log) buffer configuration.
+ * Users are free to redefine the size if needed.
+ */
+#ifndef VIRTIO_LOG_BUFFER_SIZE
+#define VIRTIO_LOG_BUFFER_SIZE (2048)
+#endif
+
+#endif
+
 #endif // __OPENAMP_VIRTIO_CONFIG_H

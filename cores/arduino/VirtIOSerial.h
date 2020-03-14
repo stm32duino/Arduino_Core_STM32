@@ -27,7 +27,6 @@
 #if defined (VIRTIOCON)
 #include "Stream.h"
 #include "openamp.h"
-#include "openamp_log.h"
 #include "wiring.h"
 #include "virtio_buffer.h"
 

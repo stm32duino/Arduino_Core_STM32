@@ -27,10 +27,6 @@
 extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
-#if defined (__LOG_TRACE_IO_) || defined(__LOG_UART_IO_)
-#include "openamp_log.h"
-#endif
 /**
  * Note: Do not remove this. Removing this might not trigger compile error but
  * the configuration can be significantly different.

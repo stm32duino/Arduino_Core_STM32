@@ -31,13 +31,13 @@
 /* VirtIO rpmsg device id */
 #define VIRTIO_ID_RPMSG       7
 
-#if defined (__LOG_TRACE_IO_)
-extern char system_log_buf[];
+#if defined (VIRTIO_LOG)
+extern char virtio_log_buffer[];
 #endif
 
 const struct shared_resource_table __attribute__((__section__(".resource_table"))) __attribute__((used)) resource_table = {
   .version = 1,
-#if defined (__LOG_TRACE_IO_)
+#if defined (VIRTIO_LOG)
   .num = 2,
 #else
   .num = 1,
@@ -74,13 +74,13 @@ const struct shared_resource_table __attribute__((__section__(".resource_table")
     .notifyid = VRING1_ID,
     .reserved = 0
   },
-#if defined (__LOG_TRACE_IO_)
+#if defined (VIRTIO_LOG)
   .cm_trace = {
     .type = RSC_TRACE,
-    .da = (uint32_t)system_log_buf,
-    .len = SYSTEM_TRACE_BUF_SZ,
+    .da = (uint32_t)virtio_log_buffer,
+    .len = VIRTIO_LOG_BUFFER_SIZE,
     .reserved = 0,
-    .name = "arduino_core_debug",
+    .name = "arduino_log",
   },
 #endif
 } ;

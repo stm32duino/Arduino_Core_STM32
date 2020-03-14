@@ -85,7 +85,7 @@ build.pid=0
 # that the preprocessor cannot detect.
 
 # VirtIO RPMsg Serial Flags
-build.virtio_flags=-DVIRTIOCON -DHAL_IPCC_MODULE_ENABLED -DNO_ATOMIC_64_SUPPORT -DMETAL_INTERNAL -DMETAL_MAX_DEVICE_REGIONS=2 -DVIRTIO_SLAVE_ONLY -D__LOG_TRACE_IO_
+build.virtio_flags=-DVIRTIOCON -DHAL_IPCC_MODULE_ENABLED -DNO_ATOMIC_64_SUPPORT -DMETAL_INTERNAL -DMETAL_MAX_DEVICE_REGIONS=2 -DVIRTIO_SLAVE_ONLY -DVIRTIO_LOG
 build.virtio_extra_include="-I{build.system.path}/Middlewares/OpenAMP" "-I{build.system.path}/Middlewares/OpenAMP/open-amp/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/libmetal/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/virtual_driver"
 
 # Build information's
