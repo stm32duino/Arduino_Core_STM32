@@ -1576,8 +1576,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 # ARMED_V1 board
 3dprinter.menu.pnum.ARMED_V1=Armed V1
-3dprinter.menu.pnum.ARMED_V1.upload.maximum_size=1048576
-3dprinter.menu.pnum.ARMED_V1.upload.maximum_data_size=196608
+3dprinter.menu.pnum.ARMED_V1.upload.maximum_size=524288
+3dprinter.menu.pnum.ARMED_V1.upload.maximum_data_size=131072
 3dprinter.menu.pnum.ARMED_V1.build.mcu=cortex-m4
 3dprinter.menu.pnum.ARMED_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 3dprinter.menu.pnum.ARMED_V1.build.board=ARMED_V1
