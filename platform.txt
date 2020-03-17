@@ -210,3 +210,10 @@ tools.remoteproc_gen.script=run_arduino_gen.sh
 tools.remoteproc_gen.upload.params.verbose=
 tools.remoteproc_gen.upload.params.quiet=
 tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino_{build.project_name}.sh" 
+
+# Openocd upload
+tools.openocd.cmd=openocd
+tools.openocd.path.linux= /usr/bin
+tools.openocd.upload.params.verbose=
+tools.openocd.upload.params.quiet=
+tools.openocd.upload.pattern="{path}/{cmd}" -s /usr/share/openocd/scripts/ -f interface/stlink-v2.cfg -f board/stm32f103c8_blue_pill.cfg -c "program {build.path}/{build.project_name}.elf verify reset exit"

@@ -973,6 +973,10 @@ GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
+GenF1.menu.upload_method.openocd=OpenOCD
+GenF1.menu.upload_method.openocd.upload.protocol=0
+GenF1.menu.upload_method.openocd.upload.tool=openocd
+
 ################################################################################
 # Generic F3
 
