@@ -1711,6 +1711,18 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.VAKE_F446VE.build.variant=VAKE_F446VE
 3dprinter.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# FYSETC_S6 board
+3dprinter.menu.pnum.FYSETC_S6=FYSETC_S6
+3dprinter.menu.pnum.FYSETC_S6.upload.maximum_size=524288
+3dprinter.menu.pnum.FYSETC_S6.upload.maximum_data_size=131072
+3dprinter.menu.pnum.FYSETC_S6.build.mcu=cortex-m4
+3dprinter.menu.pnum.FYSETC_S6.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.FYSETC_S6.build.board=FYSETC_S6
+3dprinter.menu.pnum.FYSETC_S6.build.series=STM32F4xx
+3dprinter.menu.pnum.FYSETC_S6.build.product_line=STM32F446xx
+3dprinter.menu.pnum.FYSETC_S6.build.variant=FYSETC_S6
+3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 3dprinter.menu.upload_method.swdMethod.upload.protocol=0
