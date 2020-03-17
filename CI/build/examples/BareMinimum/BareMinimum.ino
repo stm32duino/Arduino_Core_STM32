@@ -42,7 +42,8 @@ SoftwareSerial swSerial(10, 11);
 
 void setup() {
   // Serial HW & SW
-#if !defined(USBD_USE_CDC) && !defined(DISABLE_GENERIC_SERIALUSB)
+#if (!defined(USBD_USE_CDC) && !defined(DISABLE_GENERIC_SERIALUSB)) &&\
+    (!defined(VIRTIOCON) && !defined(DISABLE_GENERIC_SERIALVIRTIO))
   Serial.setRx(PIN_SERIAL_RX);
   Serial.setTx(digitalPinToPinName(PIN_SERIAL_TX));
 #endif

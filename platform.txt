@@ -9,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/OpenAMP" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" {build.virtio_extra_include}
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -84,6 +84,10 @@ build.pid=0
 # options here, since then the default would be a defined, but empty macro
 # that the preprocessor cannot detect.
 
+# VirtIO RPMsg Serial Flags
+build.virtio_flags=-DVIRTIOCON -DHAL_IPCC_MODULE_ENABLED -DNO_ATOMIC_64_SUPPORT -DMETAL_INTERNAL -DMETAL_MAX_DEVICE_REGIONS=2 -DVIRTIO_SLAVE_ONLY -DVIRTIO_LOG
+build.virtio_extra_include="-I{build.system.path}/Middlewares/OpenAMP" "-I{build.system.path}/Middlewares/OpenAMP/open-amp/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/libmetal/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/virtual_driver"
+
 # Build information's
 build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
 
@@ -91,6 +95,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
 build.usb_speed=
+build.enable_virtio=
 build.startup_file=
 build.flags.fp=
 build.flags.optimize=-Os

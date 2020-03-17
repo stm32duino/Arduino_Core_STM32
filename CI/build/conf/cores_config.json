@@ -11,6 +11,14 @@
         {
           "name": "STEVAL_MKSBOX1V1",
           "options": "usb=CDCgen"
+        },
+        {
+          "name": "STM32MP157A_DK1",
+          "options": "virtio=enabled"
+        },
+        {
+          "name": "STM32MP157C_DK2",
+          "options": "virtio=generic"
         }
       ],
       "sketches": [
