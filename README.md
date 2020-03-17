@@ -170,6 +170,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | [RUMBA32](https://github.com/Aus3D/RUMBA32) | *1.5.0* |  |
 | :green_heart: | [STEVAL-3DP001V1](https://www.st.com/en/evaluation-tools/steval-3dp001v1.html) | *1.6.0* |  |
 | :green_heart: | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
+| :green_heart: | [FYSETC_S6](https://www.facebook.com/groups/1486217834869117/) | *1.0.0* | |
 
 | Status | LoRa boards | Release | Comment |
 | :---: | --- | :---: | :--- |
