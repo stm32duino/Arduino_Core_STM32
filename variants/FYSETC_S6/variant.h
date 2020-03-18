@@ -59,11 +59,11 @@ extern "C" {
 #define PB13  29 //D29
 #define PB14  30 //D30
 #define PB15  31 //D31
-#define PC0   32 //D32
-#define PC1   33 //D33
-#define PC2   34 //D34
-#define PC3   35 //D35
-#define PC4   36 //D36
+#define PC0   A2 //D32
+#define PC1   A3 //D33
+#define PC2   A4 //D34
+#define PC3   A5 //D35
+#define PC4   A6 //D36
 #define PC5   37 //D37
 #define PC6   38 //D38
 #define PC7   39 //D39
