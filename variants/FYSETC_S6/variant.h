@@ -135,10 +135,9 @@ extern "C" {
 #define TIMER_SERIAL            TIM7
 
 // UART Definitions
-//#define SERIAL_UART_INSTANCE    1 // Connected to EXP3 header
-/* Enable Serial 3 */
+#define SERIAL_UART_INSTANCE    3 // Default usable Serial
+/* Enable Serial1  */
 #define HAVE_HWSERIAL1
-#define HAVE_HWSERIAL3
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
