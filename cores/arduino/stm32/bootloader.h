@@ -18,7 +18,7 @@ extern "C" {
 void jumpToBootloaderRequested(void);
 
 /* Jump to system memory boot from user application */
-void jumpToBootloader(void);
+void jumpToBootloaderIfRequested(void);
 
 #ifdef DTR_TOGGLING_SEQ
 /* DTR toggling sequence management */
