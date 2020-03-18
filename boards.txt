@@ -47,6 +47,19 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_F746ZG board
+Nucleo_144.menu.pnum.NUCLEO_F746ZG=Nucleo F746ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_size=1048576
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_data_size=327680
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.board=NUCLEO_F746ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=NUCLEO_F746ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+
 # NUCLEO_F767ZI board
 Nucleo_144.menu.pnum.NUCLEO_F767ZI=Nucleo F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.node=NODE_F767ZI
