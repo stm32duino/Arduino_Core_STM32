@@ -4,7 +4,7 @@
 
 **  File        : LinkerScript.ld
 **
-**  Abstract    : Linker script for STM32F407VETx Device with
+**  Abstract    : Linker script for STM32F446VETx Device with
 **                512KByte FLASH, 128KByte RAM
 **
 **                Set heap size, stack size and stack location according
@@ -183,5 +183,4 @@ SECTIONS
 
   .ARM.attributes 0 : { *(.ARM.attributes) }
 }
-
 
