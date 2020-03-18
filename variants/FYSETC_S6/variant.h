@@ -112,7 +112,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        80
 
 // PWM resolution
 #define PWM_RESOLUTION          12
