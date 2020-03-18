@@ -36,7 +36,7 @@ extern "C" {
 #endif // __cplusplus
 
 #define HSE_VALUE    ((uint32_t)8000000U) /*!< Value of the External oscillator in Hz */
-  
+
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
@@ -169,9 +169,9 @@ extern "C" {
 #define PIN_WIRE_SCL            PB8 // 15 - Default for Arduino connector compatibility
 
 /* Extra HAL modules */
-#define HAL_MODULE_ENABLED  
+#define HAL_MODULE_ENABLED
 
-  /* #define HAL_ADC_MODULE_ENABLED   */
+/* #define HAL_ADC_MODULE_ENABLED   */
 /* #define HAL_CRYP_MODULE_ENABLED   */
 /* #define HAL_CAN_MODULE_ENABLED   */
 /* #define HAL_CEC_MODULE_ENABLED   */
@@ -213,7 +213,7 @@ extern "C" {
 /* #define HAL_SMBUS_MODULE_ENABLED   */
 /* #define HAL_EXTI_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
-#define HAL_EXTI_MODULE_ENABLED 
+#define HAL_EXTI_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
