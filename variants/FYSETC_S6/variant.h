@@ -174,8 +174,9 @@ extern "C" {
 //
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE_OPEN  Serial
+#define SERIAL_PORT_USBVIRTUAL		SerialUSB
+#define SERIAL_PORT_MONITOR     	SerialUSB
+#define SERIAL_PORT_HARDWARE_OPEN	Serial3
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
