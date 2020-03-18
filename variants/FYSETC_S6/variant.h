@@ -30,8 +30,8 @@ extern "C" {
 #define PA0   0  //D0
 #define PA1   1  //D1
 #define PA2   2  //D2
-#define PA3   3  //D3
-#define PA4   4  //D4
+#define PA3   A0 //D3
+#define PA4   A1 //D4
 #define PA5   5  //D5
 #define PA6   6  //D6
 #define PA7   7  //D7
