@@ -1713,7 +1713,7 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 # FYSETC_S6 board
 3dprinter.menu.pnum.FYSETC_S6=FYSETC_S6
-3dprinter.menu.pnum.FYSETC_S6.upload.maximum_size=524288
+3dprinter.menu.pnum.FYSETC_S6.upload.maximum_size=458752
 3dprinter.menu.pnum.FYSETC_S6.upload.maximum_data_size=131072
 3dprinter.menu.pnum.FYSETC_S6.build.mcu=cortex-m4
 3dprinter.menu.pnum.FYSETC_S6.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
