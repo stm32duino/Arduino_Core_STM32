@@ -108,8 +108,9 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-// USB
-#define USB_DISC_PIN            PB9
+// USB, pull this pin low to enable the USB attach pullup
+#define USBD_ATTACH_PIN         PB9
+#define USBD_ATTACH_LEVEL       LOW
 
 #ifdef __cplusplus
 } // extern "C"

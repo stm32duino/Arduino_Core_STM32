@@ -162,6 +162,19 @@ extern "C" {
 // See AN4879 https://www.st.com/content/st_com/en/search.html#q=AN4879-t=resources-page=1
 //#define USBD_VBUS_DETECTION_ENABLE
 
+// If the board has external USB pullup (on DP/DM depending on speed)
+// that can be controlled using a GPIO pin, define these:
+//  - If the the pullup is disabled (USB detached) by default, define
+//    USBD_ATTACH_PIN to the pin that, when written to
+//    USBD_ATTACH_LEVEL, attaches the pullup.
+//  - If the the pullup is enabled (attached) by default, define
+//    USBD_DETACH_PIN to the pin that, when written to
+//    USBD_DETACH_LEVEL, detaches the pullup.
+//#define USBD_ATTACH_PIN x
+//#define USBD_ATTACH_LEVEL LOW
+//#define USBD_DETACH_PIN x
+//#define USBD_DETACH_LEVEL LOW
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
