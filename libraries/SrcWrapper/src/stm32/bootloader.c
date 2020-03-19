@@ -20,6 +20,9 @@ WEAK void jumpToBootloaderRequested(void)
   NVIC_SystemReset();
 }
 
+// Defined in startup assembly code
+void Original_Reset_Handler();
+
 // This overrides the Reset_Handler that is run on reset before
 // *anything* else (including memory initialization). Only the stack
 // pointer is set up by this time.
