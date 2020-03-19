@@ -94,6 +94,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart: | [STM32G0316-DISCO](https://www.st.com/en/evaluation-tools/stm32g0316-disco.html) | **1.9.0** |  |
 | :green_heart: | [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html) | *1.1.0* |  |
 | :green_heart: | [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) | *1.0.1* |  |
+| :yellow_heart: | [32F413HDISCOVERY](https://www.st.com/en/evaluation-tools/32f413hdiscovery.html) | **1.9.0** |  |
 
 | Status | [Eval](https://www.st.com/en/evaluation-tools/stm32-eval-boards.html) | Release | Comment |
 | :---: | --- | :---: | :--- |

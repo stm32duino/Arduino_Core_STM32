@@ -593,6 +593,19 @@ Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
 Disco.menu.pnum.DISCO_F407VG.build.variant=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# DISCO_F413ZH board
+Disco.menu.pnum.DISCO_F413ZH=STM32F413H-DISCO
+Disco.menu.pnum.DISCO_F413ZH.node=DIS_F413ZH
+Disco.menu.pnum.DISCO_F413ZH.upload.maximum_size=1572864
+Disco.menu.pnum.DISCO_F413ZH.upload.maximum_data_size=327680
+Disco.menu.pnum.DISCO_F413ZH.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F413ZH.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F413ZH.build.board=DISCO_F413ZH
+Disco.menu.pnum.DISCO_F413ZH.build.series=STM32F4xx
+Disco.menu.pnum.DISCO_F413ZH.build.product_line=STM32F413xx
+Disco.menu.pnum.DISCO_F413ZH.build.variant=DISCO_F413ZH
+Disco.menu.pnum.DISCO_F413ZH.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # DISCO_F746NG board
 Disco.menu.pnum.DISCO_F746NG=STM32F746G-DISCOVERY
 Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
