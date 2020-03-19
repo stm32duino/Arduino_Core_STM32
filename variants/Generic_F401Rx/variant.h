@@ -126,7 +126,9 @@ extern "C" {
 #define PIN_SERIAL_TX           PA9
 
 #ifdef ARDUINO_CoreBoard_F401RC
-#define USB_DISC_PIN            PD2
+// USB, pull this pin low to enable the USB attach pullup
+#define USBD_ATTACH_PIN         PD2
+#define USBD_ATTACH_LEVEL       LOW
 #endif
 
 #ifdef __cplusplus

@@ -105,6 +105,10 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
+// USB, pull this pin low to *disable* the USB attach pullup
+#define USBD_DETACH_PIN         PB9
+#define USBD_DETACH_LEVEL       LOW
+
 /* Dedicated definitions */
 #ifndef MAX_PRIORITY
 #define MAX_PRIORITY            15
