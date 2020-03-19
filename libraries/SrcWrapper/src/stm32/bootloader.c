@@ -95,33 +95,24 @@ WEAK void jumpToBootloaderIfRequested(void)
 #ifdef USBCON
     USBD_reenumerate();
 #endif
-    void (*sysMemBootJump)(void);
 
     uint32_t sys = bootloaderAddress();
 
-    /**
-     * Set jump memory location for system memory
-     * Use address with 4 bytes offset which specifies jump location
-     * where program starts
-     */
-    sysMemBootJump = (void (*)(void))(*((uint32_t *)(sysMem_addr + 4)));
+    // This is assembly to prevent modifying the stack pointer after
+    // loading it, and to ensure a jump (not call) to the bootloader.
+    // Not sure if the barriers are really needed, they were taken from
+    // https://github.com/GrumpyOldPizza/arduino-STM32L4/blob/ac659033eadd50cfe001ba1590a1362b2d87bb76/system/STM32L4xx/Source/boot_stm32l4xx.c#L159-L165
+    asm volatile(
+      "ldr r0, [%[sys], #0]   \n\t"  // get address of stack pointer
+      "msr msp, r0            \n\t"  // set stack pointer
+      "ldr r0, [%[sys], #4]   \n\t"  // get address of reset handler
+      "dsb                    \n\t"  // data sync barrier
+      "isb                    \n\t"  // instruction sync barrier
+      "bx r0                  \n\t"  // branch to bootloader
+      : : [sys] "l"(sys) : "r0"
+    );
 
-    /**
-     * Set main stack pointer.
-     * This step must be done last otherwise local variables in this function
-     * don't have proper value since stack pointer is located on different position
-     *
-     * Set direct address location which specifies stack pointer in SRAM location
-     */
-    __set_MSP(*(uint32_t *)sysMem_addr);
-
-    /**
-     * Jump to set location
-     * This will start system memory execution
-     */
-    sysMemBootJump();
-
-    while (1);
+    __builtin_unreachable();
   }
 }
 
