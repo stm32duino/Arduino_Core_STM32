@@ -19,6 +19,7 @@
 
 #ifdef USBCON
 #ifdef USBD_USE_CDC
+#ifndef USBD_USE_CDC_COMPOSITE
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_desc.h"
@@ -335,6 +336,7 @@ bool CDC_resume_receive(void)
   return false;
 }
 
+#endif /* !USBD_USE_CDC_COMPOSITE */
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

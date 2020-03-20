@@ -12,15 +12,17 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
 #ifdef USBCON
+#ifndef USBD_USE_CDC_COMPOSITE
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 #include "usbd_desc.h"
 #include "utils.h"
+#include <variant.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -301,5 +303,6 @@ static void IntToUnicode(uint32_t value, uint8_t *pbuf, uint8_t len)
     pbuf[ 2 * idx + 1] = 0;
   }
 }
+#endif /* !USBD_USE_CDC_COMPOSITE*/
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

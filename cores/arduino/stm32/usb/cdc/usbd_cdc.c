@@ -52,6 +52,7 @@
 
 #ifdef USBCON
 #ifdef USBD_USE_CDC
+#ifndef USBD_USE_CDC_COMPOSITE
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc.h"
@@ -894,6 +895,7 @@ uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
   }
 }
 
+#endif /* !USBD_USE_CDC_COMPOSITE */
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
