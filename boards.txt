@@ -795,6 +795,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.openocd_script=openocd.cfg
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)

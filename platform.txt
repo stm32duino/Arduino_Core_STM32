@@ -210,3 +210,28 @@ tools.remoteproc_gen.script=run_arduino_gen.sh
 tools.remoteproc_gen.upload.params.verbose=
 tools.remoteproc_gen.upload.params.quiet=
 tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino_{build.project_name}.sh" 
+
+#
+# OpenOCD, for upload using programmer
+#
+tools.openocd.path={runtime.tools.openocd-0.10.0-arduino7.path}
+tools.openocd.cmd=bin/openocd
+tools.openocd.cmd.windows=bin/openocd.exe
+
+tools.openocd.program.params.verbose=-d2
+tools.openocd.program.params.quiet=-d0
+tools.openocd.program.init_args=-c "telnet_port disabled" -s "{path}/share/openocd/scripts/"
+tools.openocd.program.interface_args=-c "source [find interface/{program.interface}]"
+tools.openocd.program.board_args=-f "{runtime.platform.path}/variants/{build.variant}/{build.openocd_script}"
+tools.openocd.program.program_args=-c "program {{build.path}/{build.project_name}.elf} verify reset; shutdown"
+tools.openocd.program.pattern="{path}/{cmd}" {program.verbose} {program.init_args} {program.interface_args} {program.board_args} {program.program_args}
+
+# Used for burn bootloader, must exist even if empty
+tools.openocd.erase.params.verbose=-d2
+tools.openocd.erase.params.quiet=-d0
+tools.openocd.erase.pattern=
+
+# Upload bootloader, but which?
+#tools.openocd.bootloader.params.verbose=-d2
+#tools.openocd.bootloader.params.quiet=-d0
+#tools.openocd.bootloader.pattern="{path}/{cmd}" {bootloader.verbose} -s "{path}/share/openocd/scripts/" -f "{runtime.platform.path}/variants/{build.variant}/{build.openocdscript}" -c "telnet_port disabled; init; halt; at91samd bootloader 0; program {{runtime.platform.path}/bootloaders/{bootloader.file}} verify reset; shutdown"
