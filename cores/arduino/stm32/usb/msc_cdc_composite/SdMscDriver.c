@@ -52,77 +52,6 @@ HAL_StatusTypeDef SD_SDIO_Init();
 
 #define TRANSFER_CLOCK_DIV ((uint8_t)SDIO_INIT_CLK_DIV/40)
 
-
-HAL_SD_CardStatusTypeDef bob_get_CardStatus() {  //bob
-  
-  HAL_SD_CardStatusTypeDef temp;
-  
-  HAL_SD_GetCardStatus(&hsd, &temp);
-  
-  
-  //temp.DataBusWidth=       pStatus.DataBusWidth & 0x03;           /*!< uint8_t    Shows the currently defined data bus width                 */   
-  //temp.SecuredMode=        pStatus.SecuredMode & 0x01;            /*!< uint8_t    Card is in secured mode of operation                       */   
-  //temp.CardType=           pStatus.CardType;               /*!< uint16_t   Carries information about card type                        */   
-  //temp.ProtectedAreaSize=  pStatus.ProtectedAreaSize;      /*!< uint32_t   Carries information about the capacity of protected area   */   
-  //temp.SpeedClass=         pStatus.SpeedClass;             /*!< uint8_t    Carries information about the speed class of the card      */   
-  //temp.PerformanceMove=    pStatus.PerformanceMove;        /*!< uint8_t    Carries information about the card's performance move      */   
-  //temp.AllocationUnitSize= pStatus.AllocationUnitSize;     /*!< uint8_t    Carries information about the card's allocation unit size  */   
-  //temp.EraseSize=          pStatus.EraseSize;              /*!< uint16_t   Determines the number of AUs to be erased in one operation */   
-  //temp.EraseTimeout=       pStatus.EraseTimeout;           /*!< uint8_t    Determines the timeout for any number of AU erase          */   
-  //temp.EraseOffset=        pStatus.EraseOffset;            /*!< uint8_t    Carries information about the erase offset                 */ 
-  
-  return  temp;   
-}
-
-struct bob_CSD {
-  uint32_t bob_CSD_0;
-  uint32_t bob_CSD_1;
-  uint32_t bob_CSD_2;
-  uint32_t bob_CSD_3;
-};
-
-
-  
-  
-struct bob_CSD bob_get_CSD() {
-  struct bob_CSD temp;
-  
-  temp.bob_CSD_0 = hsd.CSD[0];
-  temp.bob_CSD_1 = hsd.CSD[1];
-  temp.bob_CSD_2 = hsd.CSD[2];
-  temp.bob_CSD_3 = hsd.CSD[3];
-  
-  return temp;
-}  
-
-struct bob_CSD bob_get_CID() {
-  struct bob_CSD temp;
-  
-  temp.bob_CSD_0 = hsd.CID[0];
-  temp.bob_CSD_1 = hsd.CID[1];
-  temp.bob_CSD_2 = hsd.CID[2];
-  temp.bob_CSD_3 = hsd.CID[3];
-  
-  return temp;
-}  
-
-struct bob_SECTOR {
-  uint8_t bob_sector[512];
-  int8_t  status;
-};
-
-int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
-
-struct bob_SECTOR bob_sector_read(uint32_t sector) {
-  struct bob_SECTOR temp;
-  
-  temp.status = SD_MSC_Read(0, temp.bob_sector, sector, 1);
-
-  return temp;
-} 
-
-
-
 void go_to_transfer_speed() {
 
   SD_InitTypeDef Init;
@@ -133,8 +62,7 @@ void go_to_transfer_speed() {
   Init.ClockPowerSave      = hsd.Init.ClockPowerSave;
   Init.BusWide             = hsd.Init.BusWide;
   Init.HardwareFlowControl = hsd.Init.HardwareFlowControl;
-//  Init.ClockDiv            = TRANSFER_CLOCK_DIV;
- Init.ClockDiv            = SDIO_INIT_CLK_DIV;
+  Init.ClockDiv            = TRANSFER_CLOCK_DIV;
 
   /* Initialize SDIO peripheral interface with default configuration */
   SDIO_Init(hsd.Instance, Init);

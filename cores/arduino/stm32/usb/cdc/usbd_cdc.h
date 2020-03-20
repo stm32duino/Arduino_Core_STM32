@@ -26,7 +26,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include  "usbd_ioreq.h"
+#include "usbd_ioreq.h"
+#include "usbd_ep_conf.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -37,26 +38,18 @@ extern "C" {
   * @{
   */
 
-
 /** @defgroup usbd_cdc_Exported_Defines
   * @{
   */
-#define CDC_IN_EP                                   0x82U  /* EP1 for data IN */
-#define CDC_OUT_EP                                  0x01U  /* EP1 for data OUT */
-#define CDC_CMD_EP                                  0x83U  /* EP2 for CDC commands */
-
 #ifndef CDC_HS_BINTERVAL
-#define CDC_HS_BINTERVAL                          0x10U
+#define CDC_HS_BINTERVAL                            0x10U
 #endif /* CDC_HS_BINTERVAL */
 
 #ifndef CDC_FS_BINTERVAL
-#define CDC_FS_BINTERVAL                          0x10U
+#define CDC_FS_BINTERVAL                            0x10U
 #endif /* CDC_FS_BINTERVAL */
 
-/* CDC Endpoints parameters: you can fine tune these values depending on the needed baudrates and performance. */
-#define CDC_DATA_HS_MAX_PACKET_SIZE                 512U  /* Endpoint IN & OUT Packet size */
-#define CDC_DATA_FS_MAX_PACKET_SIZE                 64U  /* Endpoint IN & OUT Packet size */
-#define CDC_CMD_PACKET_SIZE                         8U  /* Control Endpoint Packet size */
+/* CDC Endpoints parameters */
 
 #define USB_CDC_CONFIG_DESC_SIZ                     67U
 #define CDC_DATA_HS_IN_PACKET_SIZE                  CDC_DATA_HS_MAX_PACKET_SIZE
@@ -115,7 +108,6 @@ typedef struct {
   uint8_t  *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
-  uint32_t TxLastLength;
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
