@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -26,7 +26,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbd_msc_cdc_composite_def.h"
+#include "usbd_def.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -126,10 +126,13 @@ extern  uint8_t ReadFormatCapacity_Data [];
   * @{
   */
 
-typedef struct _SENSE_ITEM {
+typedef struct _SENSE_ITEM
+{
   char Skey;
-  union {
-    struct _ASCs {
+  union
+  {
+    struct _ASCs
+    {
       char ASC;
       char ASCQ;
     } b;

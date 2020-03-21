@@ -23,7 +23,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_desc.h"
 #include "usbd_cdc_if.h"
-#include "usbd_msc_cdc_composite_def.h"
+#include "usbd_def.h"
 #include "usbd_msc_cdc_composite.h"
 
 
@@ -46,6 +46,7 @@ uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 USBD_HandleTypeDef hUSBD_Device_CDC;
 
 static bool CDC_initialized = false;
+static uint32_t transmitStart = 0;
 
 /* Received Data over USB are stored in this buffer       */
 CDC_TransmitQueue_TypeDef TransmitQueue;
@@ -176,6 +177,12 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     case CDC_SET_CONTROL_LINE_STATE:
       lineState =
         (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
+        if (lineState) { // Reset the transmit timeout when the port is connected
+        transmitStart = 0;
+      }
+#ifdef DTR_TOGGLING_SEQ
+      dtr_toggling++; /* Count DTR toggling */
+#endif 
       break;
 
     case CDC_SEND_BREAK:
@@ -232,6 +239,34 @@ static int8_t USBD_CDC_Transferred(void)
 #endif
 #endif
 
+/*
+ * The value USB_CDC_TRANSMIT_TIMEOUT is defined in terms of HAL_GetTick() units.
+ * Typically it is 1ms value. The timeout determines when we would consider the
+ * host "too slow" and threat the USB CDC port as disconnected.
+ */
+#ifndef USB_CDC_TRANSMIT_TIMEOUT
+#define USB_CDC_TRANSMIT_TIMEOUT 0xffffffffll
+#endif
+
+bool CDC_connected()
+{
+  /* Save the transmitStart value in a local variable to avoid twice reading - fix #478 */
+  uint32_t transmitTime = transmitStart;
+  if (transmitTime) {
+    transmitTime = HAL_GetTick() - transmitTime;
+  }
+
+  if (!(hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED)) {
+    return 0; }
+  if (!(transmitTime < USB_CDC_TRANSMIT_TIMEOUT)) {
+    return 0;}
+  if (!lineState) {
+    return 0;}
+  else {
+    return 1;  }     
+}
+
+
 void CDC_continue_transmit(void)
 {
 
@@ -249,6 +284,7 @@ void CDC_continue_transmit(void)
   if (hcdc->TxState == 0U) {
     buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size);
     if (size > 0) {
+      transmitStart = HAL_GetTick();
       USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, buffer, size);
       /*
        * size never exceed PMA buffer and USBD_CDC_TransmitPacket make full
@@ -259,7 +295,7 @@ void CDC_continue_transmit(void)
   }
 }
 
-void CDC_resume_receive(void)
+bool CDC_resume_receive(void)
 {
 
   /*
@@ -273,8 +309,10 @@ void CDC_resume_receive(void)
       /* Set new buffer */
       USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, block);
       USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
+      return true;
     }
   }
+  return false;
 }
 
 uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
@@ -333,6 +371,7 @@ void CDC_deInit(void)
     CDC_initialized = false;
   }
 }
+
 
 #endif /* USBD_USE_CDC_COMPOSITE */
 #endif /* USBCON */

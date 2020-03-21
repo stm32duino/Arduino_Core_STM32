@@ -26,7 +26,7 @@ EndBSPDependencies */
 #ifdef USBD_USE_CDC_COMPOSITE
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbd_msc_cdc_composite_def.h"
+#include "usbd_def.h"
 #include "usbd_msc_cdc_composite_bot.h"
 #include "usbd_msc_scsi.h"
 #include "usbd_msc_cdc_composite.h"
@@ -110,13 +110,14 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun);
 /**
 * @brief  SCSI_ProcessCmd
 *         Process SCSI commands
-* @param  pdev: device instance#define SCSI_START_STOP_UNIT                        0x1BU
+* @param  pdev: device instance
 * @param  lun: Logical unit number
 * @param  params: Command parameters
 * @retval status
 */
 int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 {
+ 
   switch (cmd[0]) {
     case SCSI_TEST_UNIT_READY:  // 0x00
       SCSI_TestUnitReady(pdev, lun, cmd);
@@ -228,7 +229,7 @@ static int8_t  SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *para
     pPage = (uint8_t *)(void *) & ((USBD_StorageTypeDef *)pdev->pClassSpecificInterfaceMSC)->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
     len = (uint16_t)pPage[4] + 5U;
 
-    if (params[4] < = len) {
+    if (params[4] <= len) {
       len = params[4];
     }
     hmsc->bot_data_length = len;
@@ -385,7 +386,7 @@ static int8_t SCSI_RequestSense(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *
   }
   hmsc->bot_data_length = REQUEST_SENSE_DATA_LEN;
 
-  if (params[4] < = REQUEST_SENSE_DATA_LEN) {
+  if (params[4] <= REQUEST_SENSE_DATA_LEN) {
     hmsc->bot_data_length = params[4];
   }
   return 0;
@@ -436,9 +437,10 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *) pdev->pClassDataMSC;
 
-  if (hmsc->bot_state == USBD_BOT_IDLE) {  /* Idle */
+  if (hmsc->bot_state == USBD_BOT_IDLE) {  /* Idle */   
     /* case 10 : Ho <> Di */
-    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U) {
+    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U) { 
+//    if (hmsc->bot_state == USBD_BOT_IDLE) { /* Idle */
       SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
       return -1;
     }
@@ -531,7 +533,7 @@ static int8_t SCSI_Write10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
 
     /* Prepare EP to receive first data packet */
     hmsc->bot_state = USBD_BOT_DATA_OUT;
-    USBD_LL_PrepareReceive(pdev, MSC_OUT_EP, hmsc->bot_data, len);
+    USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, hmsc->bot_data, len);
   } else { /* Write Process ongoing */
     return SCSI_ProcessWrite(pdev, lun);
   }
@@ -605,7 +607,7 @@ static int8_t SCSI_ProcessRead(USBD_HandleTypeDef *pdev, uint8_t lun)
     return -1;
   }
 
-  USBD_LL_Transmit(pdev, MSC_IN_EP, hmsc->bot_data, len);
+  USBD_LL_Transmit(pdev, MSC_EPIN_ADDR, hmsc->bot_data, len);
 
   hmsc->scsi_blk_addr += (len / hmsc->scsi_blk_size);
   hmsc->scsi_blk_len -= (len / hmsc->scsi_blk_size);
@@ -652,7 +654,7 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun)
   } else {
     len = MIN((hmsc->scsi_blk_len * hmsc->scsi_blk_size), MSC_MEDIA_PACKET);
     /* Prepare EP to Receive next packet */
-    USBD_LL_PrepareReceive(pdev, MSC_OUT_EP, hmsc->bot_data, len);
+    USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, hmsc->bot_data, len);
   }
 
   return 0;

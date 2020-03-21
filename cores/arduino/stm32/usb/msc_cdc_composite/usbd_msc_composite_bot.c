@@ -28,7 +28,7 @@
 #if defined(USBCON) && defined(USBD_USE_CDC_COMPOSITE)
 
 /* Includes ------------------------------------------------------------------*/
-#include "usbd_msc_cdc_composite_def.h"
+#include "usbd_def.h"
 #include "usbd_msc_cdc_composite_bot.h"
 #include "usbd_msc_cdc_composite.h"
 #include "usbd_msc_scsi.h"
@@ -134,7 +134,7 @@ void MSC_BOT_Init(USBD_HandleTypeDef *pdev)
   /* Prapare EP to Receive First BOT Cmd */
   USBD_LL_PrepareReceive(pdev,
                          MSC_OUT_EP,
-                         (uint8_t *)&hmsc->cbw,
+                         (uint8_t *)(void *)&hmsc->cbw,
                          USBD_BOT_CBW_LENGTH);
 }
 
@@ -154,7 +154,7 @@ void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
   /* Prapare EP to Receive First BOT Cmd */
   USBD_LL_PrepareReceive(pdev,
                          MSC_OUT_EP,
-                         (uint8_t *)&hmsc->cbw,
+                         (uint8_t *)(void *)&hmsc->cbw,
                          USBD_BOT_CBW_LENGTH);
 }
 
@@ -280,6 +280,14 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
       } else if (hmsc->bot_data_length == 0) {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_PASSED);
       }
+      else
+      {
+        MSC_BOT_Abort(pdev);
+      }
+    }
+    else
+    {
+      return;
     }
   }
 }
@@ -293,7 +301,7 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
 * @retval None
 */
 static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev,
-                              uint8_t *buf,
+                              uint8_t *pbuf,
                               uint16_t len)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = pdev->pClassDataMSC;
@@ -303,7 +311,7 @@ static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev,
   hmsc->csw.bStatus = USBD_CSW_CMD_PASSED;
   hmsc->bot_state = USBD_BOT_SEND_DATA;
 
-  USBD_LL_Transmit(pdev, MSC_IN_EP, buf, len);
+  USBD_LL_Transmit(pdev, MSC_IN_EP, pbuf, len);
 }
 
 /**
@@ -324,13 +332,13 @@ void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev,
 
   USBD_LL_Transmit(pdev,
                    MSC_IN_EP,
-                   (uint8_t *)&hmsc->csw,
+                   (uint8_t *)(void *)&hmsc->csw,
                    USBD_BOT_CSW_LENGTH);
 
   /* Prepare EP to Receive next Cmd */
   USBD_LL_PrepareReceive(pdev,
                          MSC_OUT_EP,
-                         (uint8_t *)&hmsc->cbw,
+                         (uint8_t *)(void *)&hmsc->cbw,
                          USBD_BOT_CBW_LENGTH);
 
 }
@@ -356,7 +364,7 @@ static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
   if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) {
     USBD_LL_PrepareReceive(pdev,
                            MSC_OUT_EP,
-                           (uint8_t *)&hmsc->cbw,
+                           (uint8_t *)(void *)&hmsc->cbw,
                            USBD_BOT_CBW_LENGTH);
   }
 }

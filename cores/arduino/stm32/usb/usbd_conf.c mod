@@ -16,6 +16,23 @@
   *
   ******************************************************************************
   */
+
+/**
+  ******************************************************************************
+  *
+  * The composite MSC CDC USB device is mainly adapted from the GPSlogger
+  * repository https://github.com/grafalex82/GPSLogger/tree/master/Libs/USB
+  *
+  * See the article "CDC + MSC USB Composite Device for STM32 HAL" (URL:
+  * https://habr.com/en/post/335018/) for the theory behind the MSC CDC
+  * composite device as implemented in the above repository.
+  *
+  * The composite MSC CDC USB device requires a modified USBD_HandleTypeDef
+  * structure.  The MSC and CDC classes require dedicated data structures.
+  *
+  ******************************************************************************
+  */
+
 #ifdef USBCON
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
@@ -28,7 +45,7 @@
 #else
 
 #ifndef p_Data
-  #ifdef USBD_USE_CDC_COMPOSITE
+#ifdef USBD_USE_CDC_COMPOSITE
 #define p_Data pPCDHandle
 #else
 #define p_Data pData
@@ -37,7 +54,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-
+/* Size in words, byte size divided by 2 */
+#define PMA_EP0_OUT_ADDR (8 * 4)
+#define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_BASE (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_ADDR ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
+                         (PMA_CDC_OUT_BASE << 16U))
+#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
+#define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 PCD_HandleTypeDef g_hpcd;
@@ -252,7 +276,7 @@ void HAL_PCD_SetupStageCallback(PCD_HandleTypeDef *hpcd)
 void HAL_PCD_DataOutStageCallback(PCD_HandleTypeDef *hpcd, uint8_t epnum)
 {
   USBD_LL_DataOutStage(hpcd->pData, epnum, hpcd->OUT_ep[epnum].xfer_buff);
-}
+  }
 
 /**
   * @brief  DataIn Stage callback.
@@ -298,6 +322,7 @@ void HAL_PCD_ResetCallback(PCD_HandleTypeDef *hpcd)
     default:
       speed = USBD_SPEED_FULL;
       break;
+
   }
 #endif
   /* Reset Device */
@@ -405,7 +430,7 @@ void USB_IRQHandler(void)
   * @brief This function handles USB high priority interrupt.
   * @param  None
   * @retval None
-  */
+*/
 void USB_HP_IRQHandler(void)
 {
   HAL_PCD_IRQHandler(&g_hpcd);
@@ -415,7 +440,7 @@ void USB_HP_IRQHandler(void)
   * @brief This function handles USB low priority interrupt, USB wake-up interrupt through EXTI line 28.
   * @param  None
   * @retval None
-  */
+*/
 void USB_LP_IRQHandler(void)
 {
   HAL_PCD_IRQHandler(&g_hpcd);
@@ -468,7 +493,11 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
 {
   USBD_reenumerate();
   /* Set common LL Driver parameters */
-  g_hpcd.Init.dev_endpoints = DEV_NUM_EP;
+#ifdef USBD_USE_CDC_COMPOSITE
+  g_hpcd.Init.dev_endpoints = 7;
+#else
+  g_hpcd.Init.dev_endpoints = 4;
+#endif
   g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
 #if !defined(STM32F1xx) && !defined(STM32F2xx) || defined(USB)
   g_hpcd.Init.lpm_enable = DISABLE;
@@ -512,11 +541,18 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   if (HAL_PCD_Init(&g_hpcd) != HAL_OK) {
     Error_Handler();
   }
+  // set the FIFO start and length registers in the USB controller
+#ifdef USE_USB_COMPOSITE
+  // MSC + CDC buffers
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x100);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x180);  // EP0 FIFO size
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x180);  // EP1 FIFO size
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 3, 0x40);  // EP3 FIFO size
 
-#if !defined (USB) || defined(USBD_USE_CDC_COMPOSITE)
+#elif !defined (USB)
   /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, ep_def[0].ep_size);
-  for (uint32_t i = 0; i < (DEV_NUM_EP); i++) {
+  for (uint32_t i = 1; i < (DEV_NUM_EP + 1); i++) {
     HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
   }
 #else

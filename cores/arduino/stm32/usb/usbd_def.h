@@ -77,9 +77,9 @@ extern "C" {
 #define USBD_SELF_POWERED                               1U
 #endif /*USBD_SELF_POWERED */
 
-#ifndef USBD_SUPPORT_USER_STRING
-#define USBD_SUPPORT_USER_STRING                        0U
-#endif /* USBD_SUPPORT_USER_STRING */
+#ifndef USBD_SUPPORT_USER_STRING_DESC
+#define USBD_SUPPORT_USER_STRING_DESC                   0U
+#endif /* USBD_SUPPORT_USER_STRING_DESC */
 
 #define USB_LEN_DEV_QUALIFIER_DESC                      0x0AU
 #define USB_LEN_DEV_DESC                                0x12U
@@ -208,7 +208,7 @@ typedef struct _Device_cb {
   uint8_t *(*GetFSConfigDescriptor)(uint16_t *length);
   uint8_t *(*GetOtherSpeedConfigDescriptor)(uint16_t *length);
   uint8_t *(*GetDeviceQualifierDescriptor)(uint16_t *length);
-#if (USBD_SUPPORT_USER_STRING == 1U)
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
   uint8_t *(*GetUsrStrDescriptor)(struct _USBD_HandleTypeDef *pdev, uint8_t index, uint16_t *length);
 #endif
 
@@ -258,8 +258,8 @@ typedef struct _USBD_HandleTypeDef {
   uint32_t                dev_default_config;
   uint32_t                dev_config_status;
   USBD_SpeedTypeDef       dev_speed;
-  USBD_EndpointTypeDef    ep_in[15];
-  USBD_EndpointTypeDef    ep_out[15];
+  USBD_EndpointTypeDef    ep_in[16];
+  USBD_EndpointTypeDef    ep_out[16];
   uint32_t                ep0_state;
   uint32_t                ep0_data_len;
   uint32_t                ep0_rem_len;
@@ -301,8 +301,8 @@ typedef struct _USBD_HandleTypeDef {
 #define  SWAPBYTE(addr)        (((uint16_t)(*((uint8_t *)(addr)))) + \
                                (((uint16_t)(*(((uint8_t *)(addr)) + 1U))) << 8U))
 
-#define LOBYTE(x)  ((uint8_t)(x & 0x00FFU))
-#define HIBYTE(x)  ((uint8_t)((x & 0xFF00U) >> 8U))
+#define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
+#define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
 
@@ -320,18 +320,24 @@ typedef struct _USBD_HandleTypeDef {
 /* In HS mode and when the DMA is used, all variables and data structures dealing
    with the DMA during the transaction process should be 4-bytes aligned */
 
-#if defined   (__GNUC__)        /* GNU Compiler */
-#define __ALIGN_END    __attribute__ ((aligned (4)))
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
+#ifndef __ALIGN_END
+#define __ALIGN_END    __attribute__ ((aligned (4U)))
+#endif /* __ALIGN_END */
+#ifndef __ALIGN_BEGIN
 #define __ALIGN_BEGIN
+#endif /* __ALIGN_BEGIN */
 #else
+#ifndef __ALIGN_END
 #define __ALIGN_END
+#endif /* __ALIGN_END */
+#ifndef __ALIGN_BEGIN
 #if defined   (__CC_ARM)      /* ARM Compiler */
-#define __ALIGN_BEGIN    __align(4)
+#define __ALIGN_BEGIN    __align(4U)
 #elif defined (__ICCARM__)    /* IAR Compiler */
 #define __ALIGN_BEGIN
-#elif defined  (__TASKING__)  /* TASKING Compiler */
-#define __ALIGN_BEGIN    __align(4)
 #endif /* __CC_ARM */
+#endif /* __ALIGN_BEGIN */
 #endif /* __GNUC__ */
 
 

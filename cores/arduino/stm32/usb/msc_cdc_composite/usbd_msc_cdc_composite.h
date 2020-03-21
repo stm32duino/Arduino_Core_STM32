@@ -25,13 +25,32 @@ extern "C" {
 /** @defgroup USBD_MSC_CDC_Exported_Defines
   * @{
   */
-#define MSC_INTERFACE_IDX 0x2                             // Index of MSC interface
-#define CDC_INTERFACE_IDX 0x0                             // Index of CDC interface
+
+typedef enum {
+  MSC_UNLOCKED  = 0U,
+  MSC_USB_LOCK  = 1U,
+  MSC_BOOT_LOCK = 2U,
+  MSC_APP1_LOCK = 3U,
+  MSC_APP2_LOCK = 4U,
+  MSC_APP3_LOCK = 5U,
+  MSC_APP4_LOCK = 6U,
+} MSC_lock_typedef;
+
+extern MSC_lock_typedef MSC_lock_byte;
+#define MSC_LOCK                           // let the world know there is a MSC lock mechanism
 
 // endpoints numbers
 #define MSC_EP_IDX                      0x01  // only EP 0, EP 1 & EP 2 are bidirectional
 #define CDC_CMD_EP_IDX                  0x03  // unable to determine why EP 3 will not transmit
+
+//#define MSC_EP_IDX                      0x03  // only EP 0, EP 1 & EP 2 are bidirectional
+//#define CDC_CMD_EP_IDX                  0x01  // unable to determine why EP 3 will not transmit
 #define CDC_EP_IDX                      0x02  // EP 3 can receive data from the host because there
+
+//#define MSC_INTERFACE_IDX 0x2                             // Index of MSC interface
+//#define CDC_INTERFACE_IDX 0x0                             // Index of CDC interface
+#define MSC_INTERFACE_IDX MSC_EP_IDX                             // Index of MSC interface
+#define CDC_INTERFACE_IDX CDC_EP_IDX                             // Index of CDC interface
 
 #define IN_EP_DIR           0x80 // Adds a direction bit
 
@@ -41,17 +60,17 @@ extern "C" {
 #ifdef CDC_CMD_EP
 #undef CDC_CMD_EP
 #endif
-#define CDC_CMD_EP                      (CDC_CMD_EP_IDX| IN_EP_DIR) /* EP2 for CDC commands */
+#define CDC_CMD_EP                      (CDC_CMD_EP_IDX| IN_EP_DIR) /* EP3 for CDC commands */
 
 #ifdef CDC_OUT_EP
 #undef CDC_OUT_EP
 #endif
-#define CDC_OUT_EP                      CDC_EP_IDX                  /* EP3 for data OUT */
+#define CDC_OUT_EP                      CDC_EP_IDX                  /* EP2 for data OUT */
 
 #ifdef CDC_IN_EP
 #undef CDC_IN_EP
 #endif
-#define CDC_IN_EP                       (CDC_EP_IDX | IN_EP_DIR)    /* EP3 for data IN */
+#define CDC_IN_EP                       (CDC_EP_IDX | IN_EP_DIR)    /* EP2 for data IN */
 
 #ifdef USB_MAX_PACKET_SIZE
 #undef USB_MAX_PACKET_SIZE
@@ -61,7 +80,7 @@ extern "C" {
 #ifdef CDC_CMD_PACKET_SIZE
 #undef CDC_CMD_PACKET_SIZE
 #endif
-#define CDC_CMD_PACKET_SIZE             8  /* Control Endpoint Packet size */
+#define CDC_CMD_PACKET_SIZE             0x0010  // 8  /* Control Endpoint Packet size */
 
 #ifdef CDC_DATA_PACKET_SIZE
 #undef CDC_DATA_PACKET_SIZE
@@ -98,8 +117,8 @@ extern "C" {
 #define USB_MSC_CONFIG_DESC_SIZ      32
 
 
-//#define MSC_EPIN_ADDR                0x83U
-//#define MSC_EPOUT_ADDR               0x03U
+#define MSC_EPIN_ADDR                MSC_IN_EP
+#define MSC_EPOUT_ADDR               MSC_OUT_EP 
 
 /**
   * @}

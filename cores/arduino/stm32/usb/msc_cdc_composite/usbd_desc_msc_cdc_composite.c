@@ -35,11 +35,10 @@
 
 #if defined(USBCON) && defined(USBD_USE_CDC_COMPOSITE)
 /* Includes ------------------------------------------------------------------*/
-#include  "usbd_msc_cdc_composite_def.h"
-
-#include  "usbd_core.h"
-#include  "usbd_desc.h"
-#include  "utils.h"
+#include "usbd_def.h"
+#include "usbd_core.h"
+#include "usbd_desc.h"
+#include "utils.h"
 
 #include "usbd_cdc.h"
 #include "usbd_ctlreq.h"
@@ -48,7 +47,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #if USBD_VID == 0x2341
-#define USBD_MANUFACTURER_STRING "Arduino LLC"
+  #define USBD_MANUFACTURER_STRING "Arduino LLC"
 #elif USBD_VID == 0x2A03
 #define USBD_MANUFACTURER_STRING "Arduino srl"
 #elif USBD_VID == 0x0483
@@ -409,44 +408,13 @@ uint8_t USBD_MSC_CDC_HSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /* 09 bytes */
 
 
-  /********************  Mass Storage interface ********************/
-  0x09,  /* bLength: Interface Descriptor size */
-  0x04,  /* bDescriptorType: */
-  MSC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
-  0x00,  /* bAlternateSetting: Alternate setting */
-  0x02,  /* bNumEndpoints*/
-  0x08,  /* bInterfaceClass: MSC Class */
-  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
-  0x50,  /* nInterfaceProtocol */
-  0x00, /* iInterface: */
-  /* 09 bytes */
-
-  /********************  Mass Storage Endpoints ********************/
-  0x07,  /*Endpoint descriptor length = 7*/
-  0x05,  /*Endpoint descriptor type */
-  MSC_IN_EP,  /*Endpoint address (IN, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,  /*Polling interval in milliseconds */
-  /* 07 bytes */
-
-  0x07,  /*Endpoint descriptor length = 7 */
-  0x05,  /*Endpoint descriptor type */
-  MSC_OUT_EP,  /*Endpoint address (OUT, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,    /*Polling interval in milliseconds*/
-  /* 07 bytes */
-
 
   /******** IAD should be positioned just before the CDC interfaces ******
        IAD to associate the two CDC interfaces */
 
   0x08, /* bLength */
   0x0B, /* bDescriptorType */
-  CDC_INTERFACE_IDX, /* bFirstInterface */
+  0x00, /* bFirstInterface */
   0x02, /* bInterfaceCount */
   0x02, /* bFunctionClass */
   0x02, /* bFunctionSubClass */
@@ -460,7 +428,7 @@ uint8_t USBD_MSC_CDC_HSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   0x09,  /* bLength: Interface Descriptor size */
   USB_DESC_TYPE_INTERFACE, /* bDescriptorType: Interface */
   /* Interface descriptor type */
-  CDC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bInterfaceNumber: Number of Interface */
   0x00,  /* bAlternateSetting: Alternate setting */
   0x01,  /* bNumEndpoints: One endpoints used */
   0x02,  /* bInterfaceClass: Communication Interface Class */
@@ -515,7 +483,7 @@ uint8_t USBD_MSC_CDC_HSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /*Data class interface descriptor*/
   0x09,  /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_INTERFACE,      /* bDescriptorType: */
-  CDC_INTERFACE_IDX + 1,        /* bInterfaceNumber: Number of Interface */
+  0x01,                         /* bInterfaceNumber: Number of Interface */
   0x00,                         /* bAlternateSetting: Alternate setting */
   0x02,                         /* bNumEndpoints: Two endpoints used */
   0x0A,                         /* bInterfaceClass: CDC */
@@ -543,6 +511,40 @@ uint8_t USBD_MSC_CDC_HSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   HIBYTE(CDC_DATA_HS_MAX_PACKET_SIZE),
   0x00,                         /* bInterval: ignore for Bulk transfer */
   /* 07 bytes */
+
+
+
+  /********************  Mass Storage interface ********************/
+  0x09,  /* bLength: Interface Descriptor size */
+  0x04,  /* bDescriptorType: */
+  0x02,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bAlternateSetting: Alternate setting */
+  0x02,  /* bNumEndpoints*/
+  0x08,  /* bInterfaceClass: MSC Class */
+  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
+  0x50,  /* nInterfaceProtocol */
+  0x00, /* iInterface: */
+  /* 09 bytes */
+
+  /********************  Mass Storage Endpoints ********************/
+  0x07,  /*Endpoint descriptor length = 7*/
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPIN_ADDR,  /*Endpoint address (IN, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,  /*Polling interval in milliseconds */
+  /* 07 bytes */
+
+  0x07,  /*Endpoint descriptor length = 7 */
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPOUT_ADDR,  /*Endpoint address (OUT, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,    /*Polling interval in milliseconds*/
+  /* 07 bytes */
+
 
 
 };
@@ -565,37 +567,6 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /* 09 bytes */
 
 
-  /********************  Mass Storage interface ********************/
-  0x09,  /* bLength: Interface Descriptor size */
-  0x04,  /* bDescriptorType: */
-  MSC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
-  0x00,  /* bAlternateSetting: Alternate setting */
-  0x02,  /* bNumEndpoints*/
-  0x08,  /* bInterfaceClass: MSC Class */
-  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
-  0x50,  /* nInterfaceProtocol */
-  0x00, /* iInterface: */
-  /* 09 bytes */
-
-  /********************  Mass Storage Endpoints ********************/
-  0x07,  /*Endpoint descriptor length = 7*/
-  0x05,  /*Endpoint descriptor type */
-  MSC_IN_EP,  /*Endpoint address (IN, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,  /*Polling interval in milliseconds */
-  /* 07 bytes */
-
-  0x07,  /*Endpoint descriptor length = 7 */
-  0x05,  /*Endpoint descriptor type */
-  MSC_OUT_EP,  /*Endpoint address (OUT, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,    /*Polling interval in milliseconds*/
-  /* 07 bytes */
-
 
   /********************  CDC interface ********************/
 
@@ -604,7 +575,7 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
 
   0x08, /* bLength */
   0x0B, /* bDescriptorType */
-  CDC_INTERFACE_IDX, /* bFirstInterface */
+  0x00, /* bFirstInterface */
   0x02, /* bInterfaceCount */
   0x02, /* bFunctionClass */
   0x02, /* bFunctionSubClass */
@@ -618,7 +589,7 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   0x09,  /* bLength: Interface Descriptor size */
   USB_DESC_TYPE_INTERFACE, /* bDescriptorType: Interface */
   /* Interface descriptor type */
-  CDC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bInterfaceNumber: Number of Interface */
   0x00,  /* bAlternateSetting: Alternate setting */
   0x01,  /* bNumEndpoints: One endpoints used */
   0x02,  /* bInterfaceClass: Communication Interface Class */
@@ -660,7 +631,7 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
 
 
 
-  /*Endpoint 2 Descriptor*/
+  /*CMD Endpoint Descriptor*/
   0x07,                         /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,       /* bDescriptorType: Endpoint */
   CDC_CMD_EP,                   /* bEndpointAddress */
@@ -673,7 +644,7 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /*Data class interface descriptor*/
   0x09,  /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_INTERFACE,      /* bDescriptorType: */
-  CDC_INTERFACE_IDX + 1,        /* bInterfaceNumber: Number of Interface */
+  0x01,                         /* bInterfaceNumber: Number of Interface */
   0x00,                         /* bAlternateSetting: Alternate setting */
   0x02,                         /* bNumEndpoints: Two endpoints used */
   0x0A,                         /* bInterfaceClass: CDC */
@@ -703,6 +674,37 @@ uint8_t USBD_MSC_CDC_FSCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /* 07 bytes */
 
 
+  /********************  Mass Storage interface ********************/
+  0x09,  /* bLength: Interface Descriptor size */
+  0x04,  /* bDescriptorType: */
+  0x02,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bAlternateSetting: Alternate setting */
+  0x02,  /* bNumEndpoints*/
+  0x08,  /* bInterfaceClass: MSC Class */
+  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
+  0x50,  /* nInterfaceProtocol */
+  0x00, /* iInterface: */
+  /* 09 bytes */
+
+  /********************  Mass Storage Endpoints ********************/
+  0x07,  /*Endpoint descriptor length = 7*/
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPIN_ADDR,  /*Endpoint address (IN, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,  /*Polling interval in milliseconds */
+  /* 07 bytes */
+
+  0x07,  /*Endpoint descriptor length = 7 */
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPOUT_ADDR,  /*Endpoint address (OUT, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,    /*Polling interval in milliseconds*/
+  /* 07 bytes */
+
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -723,43 +725,12 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /* 09 bytes */
 
 
-  /********************  Mass Storage interface ********************/
-  0x09,  /* bLength: Interface Descriptor size */
-  0x04,  /* bDescriptorType: */
-  MSC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
-  0x00,  /* bAlternateSetting: Alternate setting */
-  0x02,  /* bNumEndpoints*/
-  0x08,  /* bInterfaceClass: MSC Class */
-  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
-  0x50,  /* nInterfaceProtocol */
-  0x00, /* iInterface: */
-  /* 09 bytes */
-
-  /********************  Mass Storage Endpoints ********************/
-  0x07,  /*Endpoint descriptor length = 7*/
-  0x05,  /*Endpoint descriptor type */
-  MSC_IN_EP,  /*Endpoint address (IN, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,  /*Polling interval in milliseconds */
-  /* 07 bytes */
-
-  0x07,  /*Endpoint descriptor length = 7 */
-  0x05,  /*Endpoint descriptor type */
-  MSC_OUT_EP,  /*Endpoint address (OUT, address 1) */
-  0x02,  /*Bulk endpoint type */
-  LOBYTE(USB_MSC_PACKET_SIZE),
-  HIBYTE(USB_MSC_PACKET_SIZE),
-  0x00,    /*Polling interval in milliseconds*/
-  /* 07 bytes */
-
   /******** IAD should be positioned just before the CDC interfaces ******
        IAD to associate the two CDC interfaces */
 
   0x08, /* bLength */
   0x0B, /* bDescriptorType */
-  CDC_INTERFACE_IDX, /* bFirstInterface */
+  0x00, /* bFirstInterface */
   0x02, /* bInterfaceCount */
   0x02, /* bFunctionClass */
   0x02, /* bFunctionSubClass */
@@ -773,7 +744,7 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   0x09,  /* bLength: Interface Descriptor size */
   USB_DESC_TYPE_INTERFACE, /* bDescriptorType: Interface */
   /* Interface descriptor type */
-  CDC_INTERFACE_IDX,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bInterfaceNumber: Number of Interface */
   0x00,  /* bAlternateSetting: Alternate setting */
   0x01,  /* bNumEndpoints: One endpoints used */
   0x02,  /* bInterfaceClass: Communication Interface Class */
@@ -815,7 +786,7 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
 
 
 
-  /*Endpoint 2 Descriptor*/
+  /*CMD Endpoint Descriptor*/
   0x07,                         /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,       /* bDescriptorType: Endpoint */
   CDC_CMD_EP,                   /* bEndpointAddress */
@@ -828,7 +799,7 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   /*Data class interface descriptor*/
   0x09,  /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_INTERFACE,      /* bDescriptorType: */
-  CDC_INTERFACE_IDX + 1,        /* bInterfaceNumber: Number of Interface */
+  0x01,                         /* bInterfaceNumber: Number of Interface */
   0x00,                         /* bAlternateSetting: Alternate setting */
   0x02,                         /* bNumEndpoints: Two endpoints used */
   0x0A,                         /* bInterfaceClass: CDC */
@@ -857,6 +828,38 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   0x00,                         /* bInterval: ignore for Bulk transfer */
   /* 07 bytes */
 
+
+  /********************  Mass Storage interface ********************/
+  0x09,  /* bLength: Interface Descriptor size */
+  0x04,  /* bDescriptorType: */
+  0x02,  /* bInterfaceNumber: Number of Interface */
+  0x00,  /* bAlternateSetting: Alternate setting */
+  0x02,  /* bNumEndpoints*/
+  0x08,  /* bInterfaceClass: MSC Class */
+  0x06,  /* bInterfaceSubClass : SCSI transparent command set*/
+  0x50,  /* nInterfaceProtocol */
+  0x00, /* iInterface: */
+  /* 09 bytes */
+
+  /********************  Mass Storage Endpoints ********************/
+  0x07,  /*Endpoint descriptor length = 7*/
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPIN_ADDR,  /*Endpoint address (IN, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,  /*Polling interval in milliseconds */
+  /* 07 bytes */
+
+  0x07,  /*Endpoint descriptor length = 7 */
+  0x05,  /*Endpoint descriptor type */
+  MSC_EPOUT_ADDR,  /*Endpoint address (OUT, address 1) */
+  0x02,  /*Bulk endpoint type */
+  LOBYTE(USB_MSC_PACKET_SIZE),
+  HIBYTE(USB_MSC_PACKET_SIZE),
+  0x00,    /*Polling interval in milliseconds*/
+  /* 07 bytes */
+  
 };
 
 #if defined (__ICCARM__) /*!< IAR Compiler */
@@ -1015,20 +1018,20 @@ uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   if (pdev->dev_speed == USBD_SPEED_HIGH) {
     /* Open EP OUT */
-    USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
-    pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
+    pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
 
     /* Open EP IN */
-    USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
-    pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
+    pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
   } else {
     /* Open EP OUT */
-    USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
-    pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
+    pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
 
     /* Open EP IN */
-    USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
-    pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
+    pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
   }
   pdev->pClassDataMSC = USBD_malloc(sizeof(USBD_MSC_BOT_HandleTypeDef));
 
@@ -1052,12 +1055,12 @@ uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   /* Close MSC EPs */
-  USBD_LL_CloseEP(pdev, MSC_OUT_EP);
-  pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 0U;
+  USBD_LL_CloseEP(pdev, MSC_EPOUT_ADDR);
+  pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 0U;
 
   /* Close EP IN */
-  USBD_LL_CloseEP(pdev, MSC_IN_EP);
-  pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 0U;
+  USBD_LL_CloseEP(pdev, MSC_EPIN_ADDR);
+  pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 0U;
 
   /* De-Init the BOT layer */
   MSC_BOT_DeInit(pdev);
@@ -1523,10 +1526,10 @@ static uint8_t USBD_MSC_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   }
 
   /* Open EP OUT */
-  USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
+  USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
 
   /* Open EP IN */
-  USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
+  USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
 
 
   /* Init the BOT  layer */
@@ -1622,11 +1625,11 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           USBD_LL_CloseEP(pdev, (uint8_t)req->wIndex);
           if ((((uint8_t)req->wIndex) & 0x80) == 0x80) {
             /* Open EP IN */
-            USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
+            USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
           } else {
 
             /* Open EP OUT */
-            USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
+            USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, USB_MAX_PACKET_SIZE);
           }
 
           /* Handle BOT error */
@@ -1684,7 +1687,7 @@ static uint8_t USBD_MSC_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   */
 static uint8_t USBD_MSC_CDC_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
-  if (epnum == MSC_EP_IDX) {
+  if (epnum == MSC_EPOUT_ADDR) {
     return USBD_MSC_DataOut(pdev, epnum);
   }
   return USBD_CDC_DataOut(pdev, epnum);
