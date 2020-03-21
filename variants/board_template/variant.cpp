@@ -17,7 +17,7 @@
 extern "C" {
 #endif
 
-// Pin number
+// Digital PinName array
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
@@ -38,88 +38,30 @@ const PinName digitalPin[] = {
   P, //D13
   P, //D14
   P, //D15
-  P, //D16
-  P, //D17
-  P, //D18
-  P, //D19
-  P, //D20
-  P, //D21
-  P, //D22
-  P, //D23
-  P, //D24
-  P, //D25
-  P, //D26
-  P, //D27
-  P, //D28
-  P, //D29
-  P, //D30
-  P, //D31
-  P, //D32
-  P, //D33
-  P, //D34
-  P, //D35
-  P, //D36
-  P, //D37
-  P, //D38
-  P, //D39
-  P, //D40
-  P, //D41
-  P, //D42
-  P, //D43
-  P, //D44
-  P, //D45
-  P, //D46
-  P, //D47
-  P, //D48
-  P, //D49
-  P, //D50
-  P, //D51
-  P, //D52
-  P, //D53
-  P, //D54
-  P, //D55
-  P, //D56
-  P, //D57
-  P, //D58
-  P, //D59
-  P, //D60
-  P, //D61
-  P, //D62
-  P, //D63
-  P, //D64
-  P, //D65
-  P, //D66
-  P, //D67
-  P, //D68
-  P, //D69
-  P, //D70
-  P, //D71
-  P, //D72
-  P, //D73
-  P, //D74
-  P, //D75
-  P, //D76
-  P, //D77
-  P, //D78/A0
-  P, //D79/A1
-  P, //D80/A2
-  P, //D81/A3
-  P, //D82/A4
-  P, //D83/A5
-  P, //D84/A6
-  P, //D85/A7
-  P, //D86/A8
-  P, //D87/A9
+  P, //D16/A0
+  P, //D17/A1
+  P, //D18/A2
+  P, //D19/A3
+  P, //D20/A4
+  P, //D21/A5
+  // Required only if Ax pins are automaticaly defined using `NUM_ANALOG_FIRST`
+  // and have to be contiguous in this array
   // Duplicated pins in order to be aligned with PinMap_ADC
-  P, //D88/A10 = D
-  P, //D89/A11 = D
-  P, //D90/A12 = D
-  P, //D91/A13 = D
-  P, //D92/A14 = D
-  P, //D93/A15 = D
-  P, //D94/A16 = D
-  P  //D95/A17 = D
+  P, //D22/A6 = D
+  P, //D23/A7 = D
+  P  //D24/A8 = D
 };
+
+// If analog pins are not contiguous in the digitalPin array:
+// Add the analogInputPin array without defining NUM_ANALOG_FIRST
+// Analog (Ax) pin number array
+// where x is the index to retrieve the digital pin number
+const uint32_t analogInputPin[] = {
+  //PXn, //Ax = Dx
+  2, //A0 = Dx
+  8, //A1 = Dy
+  3  //A2 = Dz
+}
 
 #ifdef __cplusplus
 }
@@ -143,7 +85,7 @@ WEAK void SystemClock_Config(void)
   // available in src/main.c
   // or
   // copied from a STM32CubeYY project examples
-  // where 'YY' could be F0, F1, F2, F3, F4, F7, G0, G4, H7, L0, L1, L4, WB
+  // where 'YY' could be F0, F1, F2, F3, F4, F7, G0, G4, H7, L0, L1, L4, MP1, WB
 }
 
 #ifdef __cplusplus

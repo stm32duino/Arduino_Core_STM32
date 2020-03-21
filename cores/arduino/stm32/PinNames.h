@@ -208,6 +208,24 @@ typedef enum {
   PK_14 = (PortK << 4) + 0x0E,
   PK_15 = (PortK << 4) + 0x0F,
 #endif
+#if defined GPIOZ_BASE
+  PZ_0  = (PortZ << 4) + 0x00,
+  PZ_1  = (PortZ << 4) + 0x01,
+  PZ_2  = (PortZ << 4) + 0x02,
+  PZ_3  = (PortZ << 4) + 0x03,
+  PZ_4  = (PortZ << 4) + 0x04,
+  PZ_5  = (PortZ << 4) + 0x05,
+  PZ_6  = (PortZ << 4) + 0x06,
+  PZ_7  = (PortZ << 4) + 0x07,
+  PZ_8  = (PortZ << 4) + 0x08,
+  PZ_9  = (PortZ << 4) + 0x09,
+  PZ_10 = (PortZ << 4) + 0x0A,
+  PZ_11 = (PortZ << 4) + 0x0B,
+  PZ_12 = (PortZ << 4) + 0x0C,
+  PZ_13 = (PortZ << 4) + 0x0D,
+  PZ_14 = (PortZ << 4) + 0x0E,
+  PZ_15 = (PortZ << 4) + 0x0F,
+#endif
   // Specific pin name
   PADC_BASE = 0x100,
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
@@ -221,6 +239,14 @@ typedef enum {
 #endif
 #ifdef ADC_CHANNEL_VBAT
   PADC_VBAT,
+#endif
+  ANA_START,
+  // ANAx pins for STM32MP1 line, those pins are hard-wired to ADC directly.
+#ifdef SYSCFG_PMCSETR_ANA0_SEL_Pos
+  ANA_0,
+#endif
+#ifdef SYSCFG_PMCSETR_ANA1_SEL_Pos
+  ANA_1,
 #endif
   // Specific pin name define in the variant
 #if __has_include("PinNamesVar.h")

@@ -4,6 +4,7 @@
 #include "variant.h"
 #include "HardwareSerial.h"
 #include "USBSerial.h"
+#include "VirtIOSerial.h"
 
 #if defined (USBCON) && defined(USBD_USE_CDC)
 #ifndef DISABLE_GENERIC_SERIALUSB
@@ -21,7 +22,23 @@
 extern void serialEventUSB(void) __attribute__((weak));
 #endif /* USBCON && USBD_USE_CDC */
 
-#if defined(HAL_UART_MODULE_ENABLED)
+#if defined(VIRTIOCON)
+#ifndef DISABLE_GENERIC_SERIALVIRTIO
+#define ENABLE_SERIALVIRTIO
+#if !defined(Serial)
+#define Serial SerialVirtIO
+#define serialEvent serialEventVirtIO
+#endif
+#endif
+
+#if defined(ENABLE_SERIALVIRTIO)
+#define HAVE_SERIALVIRTIO
+#endif
+
+extern void serialEventVirtIO(void) __attribute__((weak));
+#endif /* VIRTIOCON */
+
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
 #if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
 #if SERIAL_UART_INSTANCE == 0
 #define ENABLE_HWSERIALLP1
@@ -163,8 +180,8 @@ extern void serialEvent8(void) __attribute__((weak));
 extern void serialEvent9(void) __attribute__((weak));
 extern void serialEvent10(void) __attribute__((weak));
 extern void serialEventLP1(void) __attribute__((weak));
-#endif /* HAL_UART_MODULE_ENABLED */
+#endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 
-extern void serialEventRun(void) __attribute__((weak));
+extern void serialEventRun(void);
 
 #endif /* WIRING_SERIAL_H */

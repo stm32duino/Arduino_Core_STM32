@@ -95,11 +95,8 @@ extern "C" {
 #define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE              TIM4
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_TONE              TIM3
+#define TIMER_SERVO             TIM4
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1

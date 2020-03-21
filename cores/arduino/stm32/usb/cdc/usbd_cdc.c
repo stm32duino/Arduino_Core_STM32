@@ -899,3 +899,4 @@ uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

@@ -128,25 +128,28 @@ const PinName digitalPin[] = {
   PB_3,
   PB_5,
   PB_7,
-  PB_9,   //D79 - LED
+  PB_9    //D79 - LED
   //GND
   //3V3
   //GND
-  // Analog pins
-  PA_0,   //D80
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PB_0,
-  PB_1,
-  PC_0,
-  PC_1,
-  PC_2,   //D90
-  PC_3,
-  PC_4,
-  PC_5
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  7,  //A0
+  8,  //A1
+  49, //A2
+  50, //A3
+  9,  //A4
+  51, //A5
+  12, //A6
+  54, //A7
+  5,  //A8
+  47, //A9
+  6,  //A10
+  48, //A11
+  11, //A12
+  53  //A13
 };
 
 #ifdef __cplusplus
@@ -202,6 +205,10 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);
   }
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
+
 }
 
 #ifdef __cplusplus

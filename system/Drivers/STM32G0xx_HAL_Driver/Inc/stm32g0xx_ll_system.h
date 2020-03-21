@@ -130,7 +130,7 @@ extern "C" {
   * @{
   */
 #define LL_SYSCFG_UCPD1_STROBE       SYSCFG_CFGR1_UCPD1_STROBE       /*!< UCPD1 STROBE sw configuration */
-#define LL_SYSCFG_UCPD2_STROBE       SYSCFG_CFGR1_UCPD1_STROBE       /*!< UCPD2 STROBE sw configuration */
+#define LL_SYSCFG_UCPD2_STROBE       SYSCFG_CFGR1_UCPD2_STROBE       /*!< UCPD2 STROBE sw configuration */
 /**
   * @}
   */

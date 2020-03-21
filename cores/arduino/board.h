@@ -14,10 +14,8 @@
 #include "hw_config.h"
 #include "low_power.h"
 #include "rtc.h"
-#include "spi_com.h"
 #include "stm32_eeprom.h"
 #include "timer.h"
-#include "twi.h"
 #include "uart.h"
 
 #ifdef __cplusplus

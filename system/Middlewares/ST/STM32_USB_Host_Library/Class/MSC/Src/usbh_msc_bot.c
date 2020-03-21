@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -178,7 +178,8 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
   uint8_t toggle = 0U;
 
-  switch (MSC_Handle->hbot.state) {
+  switch (MSC_Handle->hbot.state)
+  {
     case BOT_SEND_CBW:
       MSC_Handle->hbot.cbw.field.LUN = lun;
       MSC_Handle->hbot.state = BOT_SEND_CBW_WAIT;
@@ -191,19 +192,25 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 
       URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
-        if (MSC_Handle->hbot.cbw.field.DataTransferLength != 0U) {
+      if (URB_Status == USBH_URB_DONE)
+      {
+        if (MSC_Handle->hbot.cbw.field.DataTransferLength != 0U)
+        {
           /* If there is Data Transfer Stage */
-          if (((MSC_Handle->hbot.cbw.field.Flags) & USB_REQ_DIR_MASK) == USB_D2H) {
+          if (((MSC_Handle->hbot.cbw.field.Flags) & USB_REQ_DIR_MASK) == USB_D2H)
+          {
             /* Data Direction is IN */
             MSC_Handle->hbot.state = BOT_DATA_IN;
-          } else {
+          }
+          else
+          {
             /* Data Direction is OUT */
             MSC_Handle->hbot.state = BOT_DATA_OUT;
           }
         }
 
-        else {
+        else
+        {
           /* If there is NO Data Transfer Stage */
           MSC_Handle->hbot.state = BOT_RECEIVE_CSW;
         }
@@ -216,7 +223,9 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else if (URB_Status == USBH_URB_NOTREADY) {
+      }
+      else if (URB_Status == USBH_URB_NOTREADY)
+      {
         /* Re-send CBW */
         MSC_Handle->hbot.state = BOT_SEND_CBW;
 
@@ -228,8 +237,11 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
-        if (URB_Status == USBH_URB_STALL) {
+      }
+      else
+      {
+        if (URB_Status == USBH_URB_STALL)
+        {
           MSC_Handle->hbot.state  = BOT_ERROR_OUT;
 
 #if (USBH_USE_OS == 1U)
@@ -257,21 +269,28 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 
       URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         /* Adjust Data pointer and data length */
-        if (MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->InEpSize) {
+        if (MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->InEpSize)
+        {
           MSC_Handle->hbot.pbuf += MSC_Handle->InEpSize;
           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->InEpSize;
-        } else {
+        }
+        else
+        {
           MSC_Handle->hbot.cbw.field.DataTransferLength = 0U;
         }
 
         /* More Data To be Received */
-        if (MSC_Handle->hbot.cbw.field.DataTransferLength > 0U) {
+        if (MSC_Handle->hbot.cbw.field.DataTransferLength > 0U)
+        {
           /* Send next packet */
           USBH_BulkReceiveData(phost, MSC_Handle->hbot.pbuf,
                                MSC_Handle->InEpSize, MSC_Handle->InPipe);
-        } else {
+        }
+        else
+        {
           /* If value was 0, and successful transfer, then change the state */
           MSC_Handle->hbot.state  = BOT_RECEIVE_CSW;
 
@@ -284,7 +303,9 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 #endif
 #endif
         }
-      } else if (URB_Status == USBH_URB_STALL) {
+      }
+      else if (URB_Status == USBH_URB_STALL)
+      {
         /* This is Data IN Stage STALL Condition */
         MSC_Handle->hbot.state  = BOT_ERROR_IN;
 
@@ -303,7 +324,9 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
       }
       break;
 
@@ -318,20 +341,27 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
     case BOT_DATA_OUT_WAIT:
       URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->OutPipe);
 
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         /* Adjust Data pointer and data length */
-        if (MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->OutEpSize) {
+        if (MSC_Handle->hbot.cbw.field.DataTransferLength > MSC_Handle->OutEpSize)
+        {
           MSC_Handle->hbot.pbuf += MSC_Handle->OutEpSize;
           MSC_Handle->hbot.cbw.field.DataTransferLength -= MSC_Handle->OutEpSize;
-        } else {
+        }
+        else
+        {
           MSC_Handle->hbot.cbw.field.DataTransferLength = 0U;
         }
 
         /* More Data To be Sent */
-        if (MSC_Handle->hbot.cbw.field.DataTransferLength > 0U) {
+        if (MSC_Handle->hbot.cbw.field.DataTransferLength > 0U)
+        {
           USBH_BulkSendData(phost, MSC_Handle->hbot.pbuf,
                             MSC_Handle->OutEpSize, MSC_Handle->OutPipe, 1U);
-        } else {
+        }
+        else
+        {
           /* If value was 0, and successful transfer, then change the state */
           MSC_Handle->hbot.state  = BOT_RECEIVE_CSW;
         }
@@ -346,7 +376,8 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 #endif
       }
 
-      else if (URB_Status == USBH_URB_NOTREADY) {
+      else if (URB_Status == USBH_URB_NOTREADY)
+      {
         /* Resend same data */
         MSC_Handle->hbot.state  = BOT_DATA_OUT;
 
@@ -360,7 +391,8 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 #endif
       }
 
-      else if (URB_Status == USBH_URB_STALL) {
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MSC_Handle->hbot.state  = BOT_ERROR_OUT;
 
         /* Refer to USB Mass-Storage Class : BOT (www.usb.org)
@@ -378,7 +410,9 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
       }
       break;
 
@@ -395,14 +429,18 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
       URB_Status = USBH_LL_GetURBState(phost, MSC_Handle->InPipe);
 
       /* Decode CSW */
-      if (URB_Status == USBH_URB_DONE) {
+      if (URB_Status == USBH_URB_DONE)
+      {
         MSC_Handle->hbot.state = BOT_SEND_CBW;
         MSC_Handle->hbot.cmd_state = BOT_CMD_SEND;
         CSW_Status = USBH_MSC_DecodeCSW(phost);
 
-        if (CSW_Status == BOT_CSW_CMD_PASSED) {
+        if (CSW_Status == BOT_CSW_CMD_PASSED)
+        {
           status = USBH_OK;
-        } else {
+        }
+        else
+        {
           status = USBH_FAIL;
         }
 
@@ -414,7 +452,9 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else if (URB_Status == USBH_URB_STALL) {
+      }
+      else if (URB_Status == USBH_URB_STALL)
+      {
         MSC_Handle->hbot.state  = BOT_ERROR_IN;
 
 #if (USBH_USE_OS == 1U)
@@ -425,33 +465,44 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      } else {
+      }
+      else
+      {
       }
       break;
 
     case BOT_ERROR_IN:
       error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_IN);
 
-      if (error == USBH_OK) {
+      if (error == USBH_OK)
+      {
         MSC_Handle->hbot.state = BOT_RECEIVE_CSW;
-      } else if (error == USBH_UNRECOVERED_ERROR) {
+      }
+      else if (error == USBH_UNRECOVERED_ERROR)
+      {
         /* This means that there is a STALL Error limit, Do Reset Recovery */
         MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
-      } else {
+      }
+      else
+      {
       }
       break;
 
     case BOT_ERROR_OUT:
       error = USBH_MSC_BOT_Abort(phost, lun, BOT_DIR_OUT);
 
-      if (error == USBH_OK) {
+      if (error == USBH_OK)
+      {
 
         toggle = USBH_LL_GetToggle(phost, MSC_Handle->OutPipe);
         USBH_LL_SetToggle(phost, MSC_Handle->OutPipe, 1U - toggle);
         USBH_LL_SetToggle(phost, MSC_Handle->InPipe, 0U);
         MSC_Handle->hbot.state = BOT_ERROR_IN;
-      } else {
-        if (error == USBH_UNRECOVERED_ERROR) {
+      }
+      else
+      {
+        if (error == USBH_UNRECOVERED_ERROR)
+        {
           MSC_Handle->hbot.state = BOT_UNRECOVERED_ERROR;
         }
       }
@@ -460,7 +511,8 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
 
     case BOT_UNRECOVERED_ERROR:
       status = USBH_MSC_BOT_REQ_Reset(phost);
-      if (status == USBH_OK) {
+      if (status == USBH_OK)
+      {
         MSC_Handle->hbot.state = BOT_SEND_CBW;
       }
       break;
@@ -481,10 +533,14 @@ USBH_StatusTypeDef USBH_MSC_BOT_Process(USBH_HandleTypeDef *phost, uint8_t lun)
   */
 static USBH_StatusTypeDef USBH_MSC_BOT_Abort(USBH_HandleTypeDef *phost, uint8_t lun, uint8_t dir)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(lun);
+
   USBH_StatusTypeDef status = USBH_FAIL;
   MSC_HandleTypeDef *MSC_Handle = (MSC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  switch (dir) {
+  switch (dir)
+  {
     case BOT_DIR_IN :
       /* send ClrFeture on Bulk IN endpoint */
       status = USBH_ClrFeature(phost, MSC_Handle->InEp);
@@ -523,7 +579,8 @@ static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
   BOT_CSWStatusTypeDef status = BOT_CSW_CMD_FAILED;
 
   /*Checking if the transfer length is different than 13*/
-  if (USBH_LL_GetLastXferSize(phost, MSC_Handle->InPipe) != BOT_CSW_LENGTH) {
+  if (USBH_LL_GetLastXferSize(phost, MSC_Handle->InPipe) != BOT_CSW_LENGTH)
+  {
     /*(4) Hi > Dn (Host expects to receive data from the device,
     Device intends to transfer no data)
     (5) Hi > Di (Host expects to receive data from the device,
@@ -535,18 +592,23 @@ static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
 
 
     status = BOT_CSW_PHASE_ERROR;
-  } else {
+  }
+  else
+  {
     /* CSW length is Correct */
 
     /* Check validity of the CSW Signature and CSWStatus */
-    if (MSC_Handle->hbot.csw.field.Signature == BOT_CSW_SIGNATURE) {
+    if (MSC_Handle->hbot.csw.field.Signature == BOT_CSW_SIGNATURE)
+    {
       /* Check Condition 1. dCSWSignature is equal to 53425355h */
 
-      if (MSC_Handle->hbot.csw.field.Tag == MSC_Handle->hbot.cbw.field.Tag) {
+      if (MSC_Handle->hbot.csw.field.Tag == MSC_Handle->hbot.cbw.field.Tag)
+      {
         /* Check Condition 3. dCSWTag matches the dCBWTag from the
         corresponding CBW */
 
-        if (MSC_Handle->hbot.csw.field.Status == 0U) {
+        if (MSC_Handle->hbot.csw.field.Status == 0U)
+        {
           /* Refer to USB Mass-Storage Class : BOT (www.usb.org)
 
           Hn Host expects no data transfers
@@ -568,11 +630,14 @@ static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
           */
 
           status = BOT_CSW_CMD_PASSED;
-        } else if (MSC_Handle->hbot.csw.field.Status == 1U) {
+        }
+        else if (MSC_Handle->hbot.csw.field.Status == 1U)
+        {
           status = BOT_CSW_CMD_FAILED;
         }
 
-        else if (MSC_Handle->hbot.csw.field.Status == 2U) {
+        else if (MSC_Handle->hbot.csw.field.Status == 2U)
+        {
           /* Refer to USB Mass-Storage Class : BOT (www.usb.org)
           Section 6.7
           (2) Hn < Di ( Host expects no data transfers,
@@ -590,11 +655,14 @@ static BOT_CSWStatusTypeDef USBH_MSC_DecodeCSW(USBH_HandleTypeDef *phost)
           */
 
           status = BOT_CSW_PHASE_ERROR;
-        } else {
+        }
+        else
+        {
         }
       } /* CSW Tag Matching is Checked  */
     } /* CSW Signature Correct Checking */
-    else {
+    else
+    {
       /* If the CSW Signature is not valid, We sall return the Phase Error to
       Upper Layers for Reset Recovery */
 

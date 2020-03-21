@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -50,7 +50,8 @@ extern "C" {
   * @{
   */
 
-typedef struct _HID_MOUSE_Info {
+typedef struct _HID_MOUSE_Info
+{
   uint8_t              x;
   uint8_t              y;
   uint8_t              buttons[3];

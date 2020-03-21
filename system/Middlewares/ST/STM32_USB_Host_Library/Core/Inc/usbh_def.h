@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -195,9 +195,11 @@ extern "C" {
                                           ConfigurationDescriptor.wTotalLength)
 
 
-typedef union {
+typedef union
+{
   uint16_t w;
-  struct BW {
+  struct BW
+  {
     uint8_t msb;
     uint8_t lsb;
   }
@@ -206,10 +208,12 @@ typedef union {
 uint16_t_uint8_t;
 
 
-typedef union _USB_Setup {
+typedef union _USB_Setup
+{
   uint32_t d8[2];
 
-  struct _SetupPkt_Struc {
+  struct _SetupPkt_Struc
+  {
     uint8_t           bmRequestType;
     uint8_t           bRequest;
     uint16_t_uint8_t  wValue;
@@ -219,13 +223,15 @@ typedef union _USB_Setup {
 }
 USB_Setup_TypeDef;
 
-typedef  struct  _DescHeader {
+typedef  struct  _DescHeader
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
 }
 USBH_DescHeader_t;
 
-typedef struct _DeviceDescriptor {
+typedef struct _DeviceDescriptor
+{
   uint8_t   bLength;
   uint8_t   bDescriptorType;
   uint16_t  bcdUSB;        /* USB Specification Number which device complies too */
@@ -246,7 +252,8 @@ typedef struct _DeviceDescriptor {
 }
 USBH_DevDescTypeDef;
 
-typedef struct _EndpointDescriptor {
+typedef struct _EndpointDescriptor
+{
   uint8_t   bLength;
   uint8_t   bDescriptorType;
   uint8_t   bEndpointAddress;   /* indicates what endpoint this descriptor is describing */
@@ -256,7 +263,8 @@ typedef struct _EndpointDescriptor {
 }
 USBH_EpDescTypeDef;
 
-typedef struct _InterfaceDescriptor {
+typedef struct _InterfaceDescriptor
+{
   uint8_t bLength;
   uint8_t bDescriptorType;
   uint8_t bInterfaceNumber;
@@ -271,7 +279,8 @@ typedef struct _InterfaceDescriptor {
 USBH_InterfaceDescTypeDef;
 
 
-typedef struct _ConfigurationDescriptor {
+typedef struct _ConfigurationDescriptor
+{
   uint8_t   bLength;
   uint8_t   bDescriptorType;
   uint16_t  wTotalLength;        /* Total Length of Data Returned */
@@ -286,7 +295,8 @@ USBH_CfgDescTypeDef;
 
 
 /* Following USB Host status */
-typedef enum {
+typedef enum
+{
   USBH_OK = 0,
   USBH_BUSY,
   USBH_FAIL,
@@ -300,7 +310,8 @@ typedef enum {
   * @{
   */
 
-typedef enum {
+typedef enum
+{
   USBH_SPEED_HIGH  = 0U,
   USBH_SPEED_FULL  = 1U,
   USBH_SPEED_LOW   = 2U,
@@ -308,7 +319,8 @@ typedef enum {
 } USBH_SpeedTypeDef;
 
 /* Following states are used for gState */
-typedef enum {
+typedef enum
+{
   HOST_IDLE = 0U,
   HOST_DEV_WAIT_FOR_ATTACHMENT,
   HOST_DEV_ATTACHED,
@@ -326,7 +338,8 @@ typedef enum {
 } HOST_StateTypeDef;
 
 /* Following states are used for EnumerationState */
-typedef enum {
+typedef enum
+{
   ENUM_IDLE = 0U,
   ENUM_GET_FULL_DEV_DESC,
   ENUM_SET_ADDR,
@@ -338,7 +351,8 @@ typedef enum {
 } ENUM_StateTypeDef;
 
 /* Following states are used for CtrlXferStateMachine */
-typedef enum {
+typedef enum
+{
   CTRL_IDLE = 0U,
   CTRL_SETUP,
   CTRL_SETUP_WAIT,
@@ -357,13 +371,15 @@ typedef enum {
 
 
 /* Following states are used for RequestState */
-typedef enum {
+typedef enum
+{
   CMD_IDLE = 0U,
   CMD_SEND,
   CMD_WAIT
 } CMD_StateTypeDef;
 
-typedef enum {
+typedef enum
+{
   USBH_URB_IDLE = 0U,
   USBH_URB_DONE,
   USBH_URB_NOTREADY,
@@ -372,7 +388,8 @@ typedef enum {
   USBH_URB_STALL
 } USBH_URBStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   USBH_PORT_EVENT = 1U,
   USBH_URB_EVENT,
   USBH_CONTROL_EVENT,
@@ -382,7 +399,8 @@ typedef enum {
 USBH_OSEventTypeDef;
 
 /* Control request structure */
-typedef struct {
+typedef struct
+{
   uint8_t               pipe_in;
   uint8_t               pipe_out;
   uint8_t               pipe_size;
@@ -396,7 +414,8 @@ typedef struct {
 } USBH_CtrlTypeDef;
 
 /* Attached device structure */
-typedef struct {
+typedef struct
+{
 #if (USBH_KEEP_CFG_DESCRIPTOR == 1U)
   uint8_t                           CfgDesc_Raw[USBH_MAX_SIZE_CONFIGURATION];
 #endif
@@ -404,17 +423,19 @@ typedef struct {
   uint8_t                           address;
   uint8_t                           speed;
   __IO uint8_t                      is_connected;
+  __IO uint8_t                      is_disconnected;
+  __IO uint8_t                      is_ReEnumerated;
   uint8_t                           PortEnabled;
   uint8_t                           current_interface;
   USBH_DevDescTypeDef               DevDesc;
   USBH_CfgDescTypeDef               CfgDesc;
-
 } USBH_DeviceTypeDef;
 
 struct _USBH_HandleTypeDef;
 
 /* USB Host Class structure */
-typedef struct {
+typedef struct
+{
   const char          *Name;
   uint8_t              ClassCode;
   USBH_StatusTypeDef(*Init)(struct _USBH_HandleTypeDef *phost);
@@ -426,7 +447,8 @@ typedef struct {
 } USBH_ClassTypeDef;
 
 /* USB Host handle structure */
-typedef struct _USBH_HandleTypeDef {
+typedef struct _USBH_HandleTypeDef
+{
   __IO HOST_StateTypeDef     gState;       /*  Host State Machine Value */
   ENUM_StateTypeDef     EnumState;    /* Enumeration state Machine */
   CMD_StateTypeDef      RequestState;
@@ -435,7 +457,7 @@ typedef struct _USBH_HandleTypeDef {
   USBH_ClassTypeDef    *pClass[USBH_MAX_NUM_SUPPORTED_CLASS];
   USBH_ClassTypeDef    *pActiveClass;
   uint32_t              ClassNumber;
-  uint32_t              Pipes[15];
+  uint32_t              Pipes[16];
   __IO uint32_t         Timer;
   uint8_t               id;
   void                 *pData;

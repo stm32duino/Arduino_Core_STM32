@@ -314,9 +314,6 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
       tmp &= (0x0FuL << (8u * (position & 0x03u)));
       if (tmp == (GPIO_GET_INDEX(GPIOx) << (8u * (position & 0x03u))))
       {
-        tmp = 0x0FuL << (8u * (position & 0x03u));
-        EXTI->EXTICR[position >> 2u] &= ~tmp;
-
         /* Clear EXTI line configuration */
         EXTI->IMR1 &= ~(iocurrent);
         EXTI->EMR1 &= ~(iocurrent);
@@ -324,6 +321,9 @@ void HAL_GPIO_DeInit(GPIO_TypeDef  *GPIOx, uint32_t GPIO_Pin)
         /* Clear Rising Falling edge configuration */
         EXTI->RTSR1 &= ~(iocurrent);
         EXTI->FTSR1 &= ~(iocurrent);
+
+        tmp = 0x0FuL << (8u * (position & 0x03u));
+        EXTI->EXTICR[position >> 2u] &= ~tmp;
       }
 
       /*------------------------- GPIO Mode Configuration --------------------*/

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -37,14 +37,12 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-/* Size in words, byte size divided by 2 */
-#define PMA_EP0_OUT_ADDR (8 * 4)
-#define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
-#define PMA_CDC_OUT_BASE (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-#define PMA_CDC_OUT_ADDR ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
-                         (PMA_CDC_OUT_BASE << 16U))
-#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
-#define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
+#if !defined(USBD_VBUS_DETECTION_ENABLE)
+#define VBUS_SENSING DISABLE
+#else
+#define VBUS_SENSING ENABLE
+#endif
+
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 PCD_HandleTypeDef g_hpcd;
@@ -495,14 +493,14 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   g_hpcd.Init.phy_itface = PCD_PHY_ULPI;
 #endif
   g_hpcd.Init.speed = PCD_SPEED_HIGH;
-  g_hpcd.Init.vbus_sensing_enable = ENABLE;
+  g_hpcd.Init.vbus_sensing_enable = VBUS_SENSING;
   g_hpcd.Init.use_external_vbus = DISABLE;
 #else /* USE_USB_FS */
 #ifdef USB_OTG_FS
   g_hpcd.Instance = USB_OTG_FS;
   g_hpcd.Init.use_dedicated_ep1 = DISABLE;
   g_hpcd.Init.dma_enable = DISABLE;
-  g_hpcd.Init.vbus_sensing_enable = DISABLE;
+  g_hpcd.Init.vbus_sensing_enable = VBUS_SENSING;
   g_hpcd.Init.use_external_vbus = DISABLE;
 #else
   g_hpcd.Instance = USB;
@@ -520,14 +518,8 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     Error_Handler();
   }
 
-#ifdef USE_USB_HS
-  /* configure EPs FIFOs */
-  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x200);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x80);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x40);
-  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x160);
-#else /* USE_USB_FS */
-#ifdef USB_OTG_FS
+
+#if !defined (USB)
   /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
@@ -537,12 +529,9 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     HAL_PCDEx_SetTxFiFo(&g_hpcd,3, 0x040); 
   #endif
 #else
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, PMA_EP0_OUT_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_SNG_BUF, PMA_EP0_IN_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_DBL_BUF, PMA_CDC_OUT_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, PMA_CDC_IN_ADDR);
-  HAL_PCDEx_PMAConfig(&g_hpcd, 0x83, PCD_SNG_BUF, PMA_CDC_CMD_ADDR);
-#endif
+  for (uint32_t i = 0; i < (DEV_NUM_EP + 1); i++) {
+    HAL_PCDEx_PMAConfig(&g_hpcd, ep_def[i].ep_adress, ep_def[i].ep_kind, ep_def[i].ep_size);
+  }
 #endif /* USE_USB_HS */
   return USBD_OK;
 }

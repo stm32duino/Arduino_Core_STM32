@@ -346,13 +346,13 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 #if defined(UART9)
     else if (USARTx == UART9)
     {
-      periphclk = rcc_clocks.PCLK1_Frequency;
+      periphclk = rcc_clocks.PCLK2_Frequency;
     }
 #endif /* UART9 */
 #if defined(UART10)
     else if (USARTx == UART10)
     {
-      periphclk = rcc_clocks.PCLK1_Frequency;
+      periphclk = rcc_clocks.PCLK2_Frequency;
     }
 #endif /* UART10 */
     else

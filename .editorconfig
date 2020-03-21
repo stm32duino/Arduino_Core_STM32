@@ -1,0 +1,10 @@
+[*.sh]
+# like -i=2
+indent_style = space
+indent_size = 2
+
+#shell_variant      = posix # like -ln=posix
+#binary_next_line   = true  # like -bn
+switch_case_indent = true  # like -ci
+space_redirects    = true  # like -sr
+#keep_padding       = true  # like -kp
