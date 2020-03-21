@@ -520,6 +520,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     Error_Handler();
   }
 
+
 #ifdef USE_USB_HS
   /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x200);
