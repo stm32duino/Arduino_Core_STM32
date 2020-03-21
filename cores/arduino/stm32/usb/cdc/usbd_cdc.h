@@ -27,7 +27,7 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ioreq.h"
-#include "usbd_ep_conf.h"
+#include <stdint.h>
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -38,18 +38,33 @@ extern "C" {
   * @{
   */
 
+
 /** @defgroup usbd_cdc_Exported_Defines
   * @{
   */
+
+#ifdef USBD_USE_CDC_COMPOSITE
+#define CDC_IN_EP                                   0x82U  /* EP2 for data IN */
+#define CDC_OUT_EP                                  0x02U  /* EP2 for data OUT */
+#define CDC_CMD_EP                                  0x83U  /* EP3 for CDC commands */
+#else
+#define CDC_IN_EP                                   0x82U  /* EP1 for data IN */
+#define CDC_OUT_EP                                  0x01U  /* EP1 for data OUT */
+#define CDC_CMD_EP                                  0x83U  /* EP2 for CDC commands */
+#endif
+
 #ifndef CDC_HS_BINTERVAL
-#define CDC_HS_BINTERVAL                            0x10U
+#define CDC_HS_BINTERVAL                          0x10U
 #endif /* CDC_HS_BINTERVAL */
 
 #ifndef CDC_FS_BINTERVAL
-#define CDC_FS_BINTERVAL                            0x10U
+#define CDC_FS_BINTERVAL                          0x10U
 #endif /* CDC_FS_BINTERVAL */
 
-/* CDC Endpoints parameters */
+/* CDC Endpoints parameters: you can fine tune these values depending on the needed baudrates and performance. */
+#define CDC_DATA_HS_MAX_PACKET_SIZE                 512U  /* Endpoint IN & OUT Packet size */
+#define CDC_DATA_FS_MAX_PACKET_SIZE                 64U  /* Endpoint IN & OUT Packet size */
+#define CDC_CMD_PACKET_SIZE                         8U  /* Control Endpoint Packet size */
 
 #define USB_CDC_CONFIG_DESC_SIZ                     67U
 #define CDC_DATA_HS_IN_PACKET_SIZE                  CDC_DATA_HS_MAX_PACKET_SIZE
@@ -99,20 +114,23 @@ typedef struct _USBD_CDC_Itf {
 
 } USBD_CDC_ItfTypeDef;
 
+#ifndef __IO
+#define     __IO    volatile             /*!< \brief Defines 'read / write' permissions */
+#endif
 
-typedef struct {
+typedef struct _USBD_CDC_HandleTypeDef {
   uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
-  uint8_t  *RxBuffer;
-  uint8_t  *TxBuffer;
+  uint8_t *RxBuffer;
+  uint8_t *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
+  uint32_t TxLastLength;                        
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
-}
-USBD_CDC_HandleTypeDef;
+} USBD_CDC_HandleTypeDef;
 
 
 
@@ -127,8 +145,8 @@ USBD_CDC_HandleTypeDef;
 /** @defgroup USBD_CORE_Exported_Variables
   * @{
   */
-
-extern USBD_ClassTypeDef  USBD_CDC;
+struct _Device_cb;  // USBD_ClassTypeDef
+extern struct _Device_cb  USBD_CDC;
 #define USBD_CDC_CLASS    &USBD_CDC
 /**
   * @}
@@ -154,7 +172,7 @@ uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
 uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 /**
   * @}
-  */
+  */  
 
 #ifdef __cplusplus
 }

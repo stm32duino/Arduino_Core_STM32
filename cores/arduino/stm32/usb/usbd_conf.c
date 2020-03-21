@@ -37,7 +37,14 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-
+/* Size in words, byte size divided by 2 */
+#define PMA_EP0_OUT_ADDR (8 * 4)
+#define PMA_EP0_IN_ADDR (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_BASE (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
+#define PMA_CDC_OUT_ADDR ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
+                         (PMA_CDC_OUT_BASE << 16U))
+#define PMA_CDC_IN_ADDR (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
+#define PMA_CDC_CMD_ADDR (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 PCD_HandleTypeDef g_hpcd;
@@ -513,16 +520,29 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
     Error_Handler();
   }
 
-#if !defined (USB) || defined(USBD_USE_CDC_COMPOSITE)
+#ifdef USE_USB_HS
   /* configure EPs FIFOs */
-  HAL_PCDEx_SetRxFiFo(&g_hpcd, ep_def[0].ep_size);
-  for (uint32_t i = 0; i < (DEV_NUM_EP); i++) {
-    HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
-  }
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x200);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x80);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x40);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x160);
+#else /* USE_USB_FS */
+#ifdef USB_OTG_FS
+  /* configure EPs FIFOs */
+  HAL_PCDEx_SetRxFiFo(&g_hpcd, 0x80);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 0, 0x40);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x40);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x40);
+  #ifdef USBD_USE_CDC_COMPOSITE 
+    HAL_PCDEx_SetTxFiFo(&g_hpcd,3, 0x040); 
+  #endif
 #else
-  for (uint32_t i = 0; i < (DEV_NUM_EP + 1); i++) {
-    HAL_PCDEx_PMAConfig(&g_hpcd, ep_def[i].ep_adress, ep_def[i].ep_kind, ep_def[i].ep_size);
-  }
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, PMA_EP0_OUT_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x80, PCD_SNG_BUF, PMA_EP0_IN_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x01, PCD_DBL_BUF, PMA_CDC_OUT_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x82, PCD_SNG_BUF, PMA_CDC_IN_ADDR);
+  HAL_PCDEx_PMAConfig(&g_hpcd, 0x83, PCD_SNG_BUF, PMA_CDC_CMD_ADDR);
+#endif
 #endif /* USE_USB_HS */
   return USBD_OK;
 }

@@ -1232,7 +1232,6 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
           USBD_CtlSendData(pdev, (uint8_t *)(void *)hcdc->data, req->wLength);
         } else {
-
           hcdc->CmdOpCode = req->bRequest;
           hcdc->CmdLength = (uint8_t)req->wLength;
 
@@ -1250,7 +1249,6 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           if (pdev->dev_state == USBD_STATE_CONFIGURED) {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
           } else {
-
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -1260,7 +1258,6 @@ uint8_t  USBD_CDC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
           if (pdev->dev_state == USBD_STATE_CONFIGURED) {
             USBD_CtlSendData(pdev, &ifalt, 1U);
           } else {
-
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -1303,9 +1300,9 @@ uint8_t  USBD_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   USBD_CDC_ItfTypeDef *ctrl = (USBD_CDC_ItfTypeDef *)pdev->pClassSpecificInterfaceCDC;
 
   if (pdev->pClassDataCDC != NULL) {
-    if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U)) {
+    if ((hcdc->TxLastLength > 0U) && ((hcdc->TxLastLength % hpcd->IN_ep[epnum].maxpacket) == 0U)) {
       /* Update the packet total length */
-      pdev->ep_in[epnum].total_length = 0U;
+      hcdc->TxLastLength = 0U;
 
       /* Send ZLP */
       USBD_LL_Transmit(pdev, epnum, NULL, 0U);
@@ -1448,7 +1445,7 @@ uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev)
       hcdc->TxState = 1U;
 
       /* Update the packet total length */
-      pdev->ep_in[CDC_IN_EP & 0xFU].total_length = hcdc->TxLength;
+      hcdc->TxLastLength = hcdc->TxLength;
 
       /* Transmit next packet */
       USBD_LL_Transmit(pdev, CDC_IN_EP, hcdc->TxBuffer,

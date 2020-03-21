@@ -26,6 +26,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "usbd_ioreq.h"
 #include <stdint.h>
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
@@ -43,13 +44,13 @@ extern "C" {
   */
 
 #ifdef USBD_USE_CDC_COMPOSITE
-#define CDC_OUT_EP                    0x02U  /* EP2 for data OUT */
-#define CDC_IN_EP                     0x82U  /* EP2 for data IN */
-#define CDC_CMD_EP                    0x83U  /* EP3 for CDC commands */
+#define CDC_IN_EP                                   0x82U  /* EP2 for data IN */
+#define CDC_OUT_EP                                  0x02U  /* EP2 for data OUT */
+#define CDC_CMD_EP                                  0x83U  /* EP3 for CDC commands */
 #else
-#define CDC_OUT_EP                    0x01U  /* EP1 for data OUT */
-#define CDC_IN_EP                     0x81U  /* EP1 for data IN */
-#define CDC_CMD_EP                    0x82U  /* EP2 for CDC commands */
+#define CDC_IN_EP                                   0x82U  /* EP1 for data IN */
+#define CDC_OUT_EP                                  0x01U  /* EP1 for data OUT */
+#define CDC_CMD_EP                                  0x83U  /* EP2 for CDC commands */
 #endif
 
 #ifndef CDC_HS_BINTERVAL
@@ -125,6 +126,7 @@ typedef struct _USBD_CDC_HandleTypeDef {
   uint8_t *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
+  uint32_t TxLastLength;                        
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
@@ -153,6 +155,24 @@ extern struct _Device_cb  USBD_CDC;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
+uint8_t  USBD_CDC_RegisterInterface(USBD_HandleTypeDef   *pdev,
+                                    USBD_CDC_ItfTypeDef *fops);
+
+uint8_t  USBD_CDC_SetTxBuffer(USBD_HandleTypeDef   *pdev,
+                              uint8_t  *pbuff,
+                              uint16_t length);
+
+uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef   *pdev,
+                              uint8_t  *pbuff);
+
+uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
+
+uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
+
+uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
+/**
+  * @}
+  */  
 
 #ifdef __cplusplus
 }
