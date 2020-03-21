@@ -80,14 +80,23 @@ const PinName digitalPin[] = {
   PA_4,  //D48/A2
   PB_0,  //D49/A3
   PC_1,  //D50/A4
-  PC_0,  //D51/A5
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PC_2,  //D52/A6  = D28
-  PC_3,  //D53/A7  = D29
-  PB_11, //D54/A8  = D39
-  PB_1,  //D55/A9  = D41
-  PA_7,  //D56/A10 = D42
-  PA_6,  //D57/A11 = D43
+  PC_0   //D51/A5
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  46, //A0
+  47, //A1
+  48, //A2
+  49, //A3
+  50, //A4
+  51, //A5
+  28, //A6
+  29, //A7
+  39, //A8
+  41, //A9
+  42, //A10
+  43  //A11
 };
 
 #ifdef __cplusplus

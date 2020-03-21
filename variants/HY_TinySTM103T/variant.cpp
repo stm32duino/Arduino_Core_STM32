@@ -65,19 +65,22 @@ const PinName digitalPin[] = {
   PA_9,
   PA_10,
   PA_11,
-  PA_12,
+  PA_12
   //GND
-  //defines so that analog pins align to arduino mappings
-  PA_0, //A0
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PA_6,
-  PA_7,
-  PB_0,
-  PB_1, //A9
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  2,  //A0
+  1,  //A1
+  0,  //A2
+  11, //A3
+  12, //A4
+  13, //A5
+  14, //A6
+  15, //A7
+  16, //A8
+  17  //A9
 };
 
 #ifdef __cplusplus

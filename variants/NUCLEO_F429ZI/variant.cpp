@@ -37,9 +37,9 @@ const PinName digitalPin[] = {
   PF_12, //D8
   PD_15, //D9
   PD_14, //D10
-  PA_7,  //D11
-  PA_6,  //D12
-  PA_5,  //D13
+  PA_7,  //D11/A10
+  PA_6,  //D12/A11
+  PA_5,  //D13/A12
   PB_9,  //D14
   PB_8,  //D15
   PC_6,  //D16
@@ -50,7 +50,7 @@ const PinName digitalPin[] = {
   PC_7,  //D21
   PB_5,  //D22
   PB_3,  //D23
-  PA_4,  //D24
+  PA_4,  //D24/A13
   PB_4,  //D25
   PB_6,  //D26
   PB_2,  //D27
@@ -58,7 +58,7 @@ const PinName digitalPin[] = {
   PD_12, //D29
   PD_11, //D30
   PE_2,  //D31
-  PA_0,  //D32
+  PA_0,  //D32/A14
   PB_0,  //D33 - LED_GREEN
   PE_0,  //D34
   PB_11, //D35
@@ -87,9 +87,9 @@ const PinName digitalPin[] = {
   PE_5,  //D58
   PE_6,  //D59
   PE_3,  //D60
-  PF_8,  //D61
-  PF_7,  //D62
-  PF_9,  //D63
+  PF_8,  //D61/A15
+  PF_7,  //D62/A16
+  PF_9,  //D63/A17
   PG_1,  //D64
   PG_0,  //D65
   PD_1,  //D66
@@ -113,16 +113,29 @@ const PinName digitalPin[] = {
   PB_1,  //D84/A6
   PC_2,  //D85/A7
   PF_4,  //D86/A8
-  PF_6,  //D87/A9
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_7,  //D88/A10 = D11
-  PA_6,  //D89/A11 = D12
-  PA_5,  //D90/A12 = D13
-  PA_4,  //D91/A13 = D24
-  PA_0,  //D92/A14 = D32
-  PF_8,  //D93/A15 = D61
-  PF_7,  //D94/A16 = D62
-  PF_9   //D95/A17 = D63
+  PF_6   //D87/A9
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  78, //A0
+  79, //A1
+  80, //A2
+  81, //A3
+  82, //A4
+  83, //A5
+  84, //A6
+  85, //A7
+  86, //A8
+  87, //A9
+  11, //A10
+  12, //A11
+  13, //A12
+  24, //A13
+  32, //A14
+  61, //A15
+  62, //A16
+  63  //A17
 };
 
 #ifdef __cplusplus
@@ -190,6 +203,9 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
   HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
 }
 
 #ifdef __cplusplus

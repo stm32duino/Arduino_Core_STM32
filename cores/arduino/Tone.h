@@ -34,7 +34,7 @@ extern void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 
  *
  * \param _pin
  */
-extern void noTone(uint8_t _pin);
+extern void noTone(uint8_t _pin, bool destruct = false);
 
 #endif
 

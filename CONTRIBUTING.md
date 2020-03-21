@@ -11,8 +11,8 @@ But check the following boxes before posting an issue:
 
 - [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [lastest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
 - [ ] `Your issue is NOT a question/feedback/suggestions.` This should be discussed on the [stm32duino forum](http://stm32duino.com):
-  * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=48).
-  * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=49).
+  * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=35).
+  * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=38).
 - [ ] `Make sure your issue is not already reported/fixed on GitHub or discussed on the forum` See [stm32duino forum](http://stm32duino.com).
 - [ ] `Make sure you are working on the right repository.` See the table below.
 

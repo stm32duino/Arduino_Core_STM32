@@ -771,6 +771,8 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
                                          FLASH_FLAG_MISERR | FLASH_FLAG_FASTERR |   \
                                          FLASH_FLAG_OPTVERR)     /*!< All SR error flags */
 #endif
+
+#define FLASH_FLAG_SR_CLEAR             (FLASH_FLAG_SR_ERROR | FLASH_SR_EOP)
 /**
   * @}
   */

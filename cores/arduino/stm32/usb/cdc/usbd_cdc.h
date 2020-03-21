@@ -188,3 +188,4 @@ uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
   */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

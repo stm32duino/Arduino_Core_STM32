@@ -67,6 +67,42 @@ PinName analogInputToPinName(uint32_t pin)
   return pn;
 }
 
+bool pinIsAnalogInput(uint32_t pin)
+{
+  bool ret = false;
+#if NUM_ANALOG_INPUTS > 0
+#ifndef NUM_ANALOG_LAST
+  ret = (pin >= A0) && (pin < (A0 + NUM_ANALOG_INPUTS));
+#else
+  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+    if (analogInputPin[i] == pin) {
+      ret = true;
+      break;
+    }
+  }
+#endif /* NUM_ANALOG_LAST */
+#endif /* NUM_ANALOG_INPUTS > 0 */
+  return ret;
+}
+
+uint32_t digitalPinToAnalogInput(uint32_t pin)
+{
+  uint32_t ret = NUM_ANALOG_INPUTS;
+#if NUM_ANALOG_INPUTS > 0
+#ifndef NUM_ANALOG_LAST
+  ret = pin - A0;
+#else
+  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+    if (analogInputPin[i] == pin) {
+      ret = i;
+      break;
+    }
+  }
+#endif /* NUM_ANALOG_LAST */
+#endif /* NUM_ANALOG_INPUTS > 0 */
+  return ret;
+}
+
 #ifdef __cplusplus
 }
 #endif

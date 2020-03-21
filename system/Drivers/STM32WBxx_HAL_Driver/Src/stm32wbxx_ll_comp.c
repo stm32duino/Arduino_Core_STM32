@@ -31,7 +31,7 @@
   * @{
   */
 
-
+#if defined (COMP1) || defined (COMP2)
 
 /** @addtogroup COMP_LL COMP
   * @{
@@ -245,7 +245,7 @@ void LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct)
   * @}
   */
 
-
+#endif /* COMP1 || COMP2 */
 
 /**
   * @}

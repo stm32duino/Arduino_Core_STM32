@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -61,9 +61,9 @@ extern "C" {
 #define USBD_SELF_POWERED                               1U
 #endif /*USBD_SELF_POWERED */
 
-#ifndef USBD_SUPPORT_USER_STRING
-#define USBD_SUPPORT_USER_STRING                        0U
-#endif /* USBD_SUPPORT_USER_STRING */
+#ifndef USBD_SUPPORT_USER_STRING_DESC
+#define USBD_SUPPORT_USER_STRING_DESC                   0U
+#endif /* USBD_SUPPORT_USER_STRING_DESC */
 
 #define  USB_LEN_DEV_QUALIFIER_DESC                     0x0AU
 #define  USB_LEN_DEV_DESC                               0x12U
@@ -156,8 +156,8 @@ extern "C" {
   * @{
   */
 
-typedef  struct  usb_setup_req {
-
+typedef  struct  usb_setup_req
+{
   uint8_t   bmRequest;
   uint8_t   bRequest;
   uint16_t  wValue;
@@ -167,7 +167,8 @@ typedef  struct  usb_setup_req {
 
 struct _USBD_HandleTypeDef;
 
-typedef struct _Device_cb {
+typedef struct _Device_cb
+{
   uint8_t (*Init)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
   uint8_t (*DeInit)(struct _USBD_HandleTypeDef *pdev, uint8_t cfgidx);
   /* Control Endpoints*/
@@ -185,28 +186,31 @@ typedef struct _Device_cb {
   uint8_t  *(*GetFSConfigDescriptor)(uint16_t *length);
   uint8_t  *(*GetOtherSpeedConfigDescriptor)(uint16_t *length);
   uint8_t  *(*GetDeviceQualifierDescriptor)(uint16_t *length);
-#if (USBD_SUPPORT_USER_STRING == 1U)
+#if (USBD_SUPPORT_USER_STRING_DESC == 1U)
   uint8_t  *(*GetUsrStrDescriptor)(struct _USBD_HandleTypeDef *pdev, uint8_t index,  uint16_t *length);
 #endif
 
 } USBD_ClassTypeDef;
 
 /* Following USB Device Speed */
-typedef enum {
+typedef enum
+{
   USBD_SPEED_HIGH  = 0U,
   USBD_SPEED_FULL  = 1U,
   USBD_SPEED_LOW   = 2U,
 } USBD_SpeedTypeDef;
 
 /* Following USB Device status */
-typedef enum {
+typedef enum
+{
   USBD_OK   = 0U,
   USBD_BUSY,
   USBD_FAIL,
 } USBD_StatusTypeDef;
 
 /* USB Device descriptors structure */
-typedef struct {
+typedef struct
+{
   uint8_t  *(*GetDeviceDescriptor)(USBD_SpeedTypeDef speed, uint16_t *length);
   uint8_t  *(*GetLangIDStrDescriptor)(USBD_SpeedTypeDef speed, uint16_t *length);
   uint8_t  *(*GetManufacturerStrDescriptor)(USBD_SpeedTypeDef speed, uint16_t *length);
@@ -220,27 +224,31 @@ typedef struct {
 } USBD_DescriptorsTypeDef;
 
 /* USB Device handle structure */
-typedef struct {
+typedef struct
+{
   uint32_t                status;
   uint32_t                is_used;
+  uint32_t                total_length;
+  uint32_t                rem_length;
+  uint32_t                maxpacket;
 } USBD_EndpointTypeDef;
 
 /* USB Device handle structure */
-typedef struct _USBD_HandleTypeDef {
+typedef struct _USBD_HandleTypeDef
+{
   uint8_t                 id;
   uint32_t                dev_config;
   uint32_t                dev_default_config;
   uint32_t                dev_config_status;
   USBD_SpeedTypeDef       dev_speed;
-  USBD_EndpointTypeDef    ep_in[15];
-  USBD_EndpointTypeDef    ep_out[15];
+  USBD_EndpointTypeDef    ep_in[16];
+  USBD_EndpointTypeDef    ep_out[16];
   uint32_t                ep0_state;
   uint32_t                ep0_data_len;
-  uint32_t                ep0_rem_len;
-  uint32_t                ep0_total_len;
   uint8_t                 dev_state;
   uint8_t                 dev_old_state;
   uint8_t                 dev_address;
+  uint8_t                 dev_connection_status;
   uint8_t                 dev_test_mode;
   uint32_t                dev_remote_wakeup;
 
@@ -264,8 +272,8 @@ typedef struct _USBD_HandleTypeDef {
 #define  SWAPBYTE(addr)        (((uint16_t)(*((uint8_t *)(addr)))) + \
                                (((uint16_t)(*(((uint8_t *)(addr)) + 1U))) << 8U))
 
-#define LOBYTE(x)  ((uint8_t)(x & 0x00FFU))
-#define HIBYTE(x)  ((uint8_t)((x & 0xFF00U) >> 8U))
+#define LOBYTE(x)  ((uint8_t)((x) & 0x00FFU))
+#define HIBYTE(x)  ((uint8_t)(((x) & 0xFF00U) >> 8U))
 #define MIN(a, b)  (((a) < (b)) ? (a) : (b))
 #define MAX(a, b)  (((a) > (b)) ? (a) : (b))
 
@@ -283,18 +291,24 @@ typedef struct _USBD_HandleTypeDef {
 /* In HS mode and when the DMA is used, all variables and data structures dealing
    with the DMA during the transaction process should be 4-bytes aligned */
 
-#if defined   (__GNUC__)        /* GNU Compiler */
-#define __ALIGN_END    __attribute__ ((aligned (4)))
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
+#ifndef __ALIGN_END
+#define __ALIGN_END    __attribute__ ((aligned (4U)))
+#endif /* __ALIGN_END */
+#ifndef __ALIGN_BEGIN
 #define __ALIGN_BEGIN
+#endif /* __ALIGN_BEGIN */
 #else
+#ifndef __ALIGN_END
 #define __ALIGN_END
+#endif /* __ALIGN_END */
+#ifndef __ALIGN_BEGIN
 #if defined   (__CC_ARM)      /* ARM Compiler */
-#define __ALIGN_BEGIN    __align(4)
+#define __ALIGN_BEGIN    __align(4U)
 #elif defined (__ICCARM__)    /* IAR Compiler */
 #define __ALIGN_BEGIN
-#elif defined  (__TASKING__)  /* TASKING Compiler */
-#define __ALIGN_BEGIN    __align(4)
 #endif /* __CC_ARM */
+#endif /* __ALIGN_BEGIN */
 #endif /* __GNUC__ */
 
 

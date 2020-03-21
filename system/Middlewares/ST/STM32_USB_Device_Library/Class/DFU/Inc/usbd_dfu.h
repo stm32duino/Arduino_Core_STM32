@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -118,7 +118,8 @@ extern "C" {
 #define DFU_DETACH_MASK                (uint8_t)(1 << 4)
 #define DFU_STATUS_DEPTH               6U
 
-typedef enum {
+typedef enum
+{
   DFU_DETACH = 0U,
   DFU_DNLOAD,
   DFU_UPLOAD,
@@ -143,9 +144,9 @@ typedef  void (*pFunction)(void);
                                       USBD_IDX_INTERFACE_STR + (n) + 1U /* iInterface: Index of string descriptor */ \
 
 #define TRANSFER_SIZE_BYTES(size)      ((uint8_t)(size)), /* XFERSIZEB0 */\
-                                       ((uint8_t)(size >> 8)) /* XFERSIZEB1 */
+                                       ((uint8_t)((size) >> 8)) /* XFERSIZEB1 */
 
-#define IS_PROTECTED_AREA(add)         (uint8_t)(((add >= 0x08000000) && (add < (APP_DEFAULT_ADD)))? 1:0)
+#define IS_PROTECTED_AREA(add)         (uint8_t)((((add) >= 0x08000000) && ((add) < (APP_DEFAULT_ADD)))? 1:0)
 
 /**
   * @}
@@ -156,8 +157,10 @@ typedef  void (*pFunction)(void);
   * @{
   */
 
-typedef struct {
-  union {
+typedef struct
+{
+  union
+  {
     uint32_t d32[USBD_DFU_XFER_SIZE / 4U];
     uint8_t  d8[USBD_DFU_XFER_SIZE];
   } buffer;
@@ -174,7 +177,8 @@ typedef struct {
 }
 USBD_DFU_HandleTypeDef;
 
-typedef struct {
+typedef struct
+{
   const uint8_t *pStrDesc;
   uint16_t (* Init)(void);
   uint16_t (* DeInit)(void);

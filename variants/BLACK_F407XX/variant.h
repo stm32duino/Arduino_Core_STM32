@@ -123,17 +123,6 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       14
 #define NUM_ANALOG_FIRST        44
 
-// Below ADC, DAC and PWM definitions already done in the core
-// Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
-
-// PWM resolution
-//#define PWM_RESOLUTION          8
-//#define PWM_FREQUENCY           1000
-//#define PWM_MAX_DUTY_CYCLE      255
-
 // On-board LED pin number
 #define LED_D2                  PA6
 #define LED_D3                  PA7
@@ -295,11 +284,9 @@ extern "C" {
 #define PIN_WIRE_SCL            PB8
 
 // Timer Definitions
-//Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #define TIMER_TONE              TIM6
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 // Define here Serial instance number to map on Serial generic name

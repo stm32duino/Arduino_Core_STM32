@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -51,7 +51,8 @@ extern "C" {
   */
 
 /* States for AUDIO State Machine */
-typedef enum {
+typedef enum
+{
   AUDIO_INIT = 0,
   AUDIO_IDLE,
   AUDIO_CS_REQUESTS,
@@ -76,7 +77,8 @@ typedef enum {
 }
 AUDIO_StateTypeDef;
 
-typedef enum {
+typedef enum
+{
   AUDIO_REQ_INIT = 1,
   AUDIO_REQ_IDLE,
   AUDIO_REQ_SET_DEFAULT_IN_INTERFACE,
@@ -87,7 +89,8 @@ typedef enum {
 }
 AUDIO_ReqStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   AUDIO_REQ_SET_VOLUME = 1,
   AUDIO_REQ_SET_MUTE,
   AUDIO_REQ_GET_CURR_VOLUME,
@@ -99,7 +102,8 @@ typedef enum {
 }
 AUDIO_CSReqStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   AUDIO_PLAYBACK_INIT = 1,
   AUDIO_PLAYBACK_SET_EP,
   AUDIO_PLAYBACK_SET_EP_FREQ,
@@ -108,13 +112,15 @@ typedef enum {
 }
 AUDIO_PlayStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   VOLUME_UP = 1,
   VOLUME_DOWN = 2,
 }
 AUDIO_VolumeCtrlTypeDef;
 
-typedef enum {
+typedef enum
+{
   AUDIO_CONTROL_INIT = 1,
   AUDIO_CONTROL_CHANGE,
   AUDIO_CONTROL_IDLE,
@@ -124,21 +130,24 @@ typedef enum {
 AUDIO_ControlStateTypeDef;
 
 
-typedef enum {
+typedef enum
+{
   AUDIO_DATA_START_OUT = 1,
   AUDIO_DATA_OUT,
 }
 AUDIO_ProcessingTypeDef;
 
 /* Structure for AUDIO process */
-typedef struct {
+typedef struct
+{
   uint8_t   Channels;
   uint8_t   Bits;
   uint32_t  SampleRate;
 }
 AUDIO_FormatTypeDef;
 
-typedef struct {
+typedef struct
+{
   uint8_t              Ep;
   uint16_t             EpSize;
   uint8_t              AltSettings;
@@ -148,7 +157,8 @@ typedef struct {
 }
 AUDIO_STREAMING_IN_HandleTypeDef;
 
-typedef struct {
+typedef struct
+{
   uint8_t              Ep;
   uint16_t             EpSize;
   uint8_t              AltSettings;
@@ -159,7 +169,8 @@ typedef struct {
 AUDIO_STREAMING_OUT_HandleTypeDef;
 
 
-typedef struct {
+typedef struct
+{
   uint8_t              mute;
   uint32_t             volumeMin;
   uint32_t             volumeMax;
@@ -168,7 +179,8 @@ typedef struct {
 }
 AUDIO_ControlAttributeTypeDef;
 
-typedef struct {
+typedef struct
+{
 
   uint8_t              Ep;
   uint16_t             EpSize;
@@ -200,7 +212,8 @@ typedef struct {
 }
 AUDIO_InterfaceStreamPropTypeDef;
 
-typedef struct {
+typedef struct
+{
 
   uint8_t              Ep;
   uint16_t             EpSize;
@@ -214,25 +227,26 @@ typedef struct {
 AUDIO_InterfaceControlPropTypeDef;
 
 
-#define AUDIO_MAX_AUDIO_STD_INTERFACE      0x05U
-#define AUDIO_MAX_FREQ_SUPPORTED           0x05U
-#define AUDIO_MAX_STREAMING_INTERFACE      0x05U
-#define AUDIO_MAX_NUM_IN_TERMINAL          0x04U
-#define AUDIO_MAX_NUM_OUT_TERMINAL         0x04U
-#define AUDIO_MAX_NUM_FEATURE_UNIT         0x04U
-#define AUDIO_MAX_NUM_MIXER_UNIT           0x04U
-#define AUDIO_MAX_NUM_SELECTOR_UNIT        0x04U
+#define AUDIO_MAX_AUDIO_STD_INTERFACE      5U
+#define AUDIO_MAX_FREQ_SUPPORTED           5U
+#define AUDIO_MAX_STREAMING_INTERFACE      5U
+#define AUDIO_MAX_NUM_IN_TERMINAL          4U
+#define AUDIO_MAX_NUM_OUT_TERMINAL         4U
+#define AUDIO_MAX_NUM_FEATURE_UNIT         4U
+#define AUDIO_MAX_NUM_MIXER_UNIT           4U
+#define AUDIO_MAX_NUM_SELECTOR_UNIT        4U
 
-#define HEADPHONE_SUPPORTED                0x01U
-#define MICROPHONE_SUPPORTED               0x02U
-#define HEADSET_SUPPORTED                  0x03U
+#define HEADPHONE_SUPPORTED                1U
+#define MICROPHONE_SUPPORTED               2U
+#define HEADSET_SUPPORTED                  3U
 
 #define AUDIO_MAX_SAMFREQ_NBR              5U
 #define AUDIO_MAX_INTERFACE_NBR            5U
 #define AUDIO_MAX_CONTROLS_NBR             5U
 
 /*Class-Specific AS(Audio Streaming) Interface Descriptor*/
-typedef struct {
+typedef struct
+{
   uint8_t bLength;
   uint8_t bDescriptorType;
   uint8_t bDescriptorSubtype;
@@ -243,7 +257,8 @@ typedef struct {
 AUDIO_ASGeneralDescTypeDef;
 
 /*Class-Specific AS(Audio Streaming) Format Type Descriptor*/
-typedef struct {
+typedef struct
+{
   uint8_t bLength;
   uint8_t bDescriptorType;
   uint8_t bDescriptorSubtype;
@@ -257,7 +272,8 @@ typedef struct {
 AUDIO_ASFormatTypeDescTypeDef;
 
 /*Class-Specific AS(Audio Streaming) Interface Descriptor*/
-typedef struct {
+typedef struct
+{
   AUDIO_ASGeneralDescTypeDef      *GeneralDesc;
   AUDIO_ASFormatTypeDescTypeDef   *FormatTypeDesc;
 }
@@ -265,7 +281,8 @@ AUDIO_ASDescTypeDef;
 
 /* 4.3.2  Class-Specific AC Interface Descriptor */
 
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -277,7 +294,8 @@ typedef struct {
 AUDIO_HeaderDescTypeDef;
 
 /* 4.3.2.1 Input Terminal Descriptor */
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -292,7 +310,8 @@ typedef struct {
 AUDIO_ITDescTypeDef;
 
 /* 4.3.2.2 Output Terminal Descriptor */
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -305,7 +324,8 @@ typedef struct {
 AUDIO_OTDescTypeDef;
 
 /* 4.3.2.3 Feature Descriptor */
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -318,7 +338,8 @@ AUDIO_FeatureDescTypeDef;
 
 
 /* 4.3.2.3 Feature Descriptor */
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -337,7 +358,8 @@ AUDIO_MixerDescTypeDef;
 
 
 /* 4.3.2.3 Feature Descriptor */
-typedef struct {
+typedef struct
+{
   uint8_t  bLength;
   uint8_t  bDescriptorType;
   uint8_t  bDescriptorSubtype;
@@ -349,7 +371,8 @@ typedef struct {
 AUDIO_SelectorDescTypeDef;
 
 /*Class-Specific AC(Audio Control) Interface Descriptor*/
-typedef struct {
+typedef struct
+{
   AUDIO_HeaderDescTypeDef   *HeaderDesc;
   AUDIO_ITDescTypeDef       *InputTerminalDesc [AUDIO_MAX_NUM_IN_TERMINAL];
   AUDIO_OTDescTypeDef       *OutputTerminalDesc[AUDIO_MAX_NUM_OUT_TERMINAL];
@@ -361,7 +384,8 @@ AUDIO_ACDescTypeDef;
 
 /*Class-Specific AC : Global descriptor*/
 
-typedef struct {
+typedef struct
+{
   AUDIO_ACDescTypeDef   cs_desc; /* Only one control descriptor*/
   AUDIO_ASDescTypeDef   as_desc[AUDIO_MAX_STREAMING_INTERFACE];
 
@@ -375,7 +399,8 @@ typedef struct {
 AUDIO_ClassSpecificDescTypedef;
 
 
-typedef struct _AUDIO_Process {
+typedef struct _AUDIO_Process
+{
   AUDIO_ReqStateTypeDef              req_state;
   AUDIO_CSReqStateTypeDef            cs_req_state;
   AUDIO_PlayStateTypeDef             play_state;

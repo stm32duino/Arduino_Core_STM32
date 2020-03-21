@@ -29,7 +29,8 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include  "usbd_ioreq.h"
+#include "usbd_ioreq.h"
+#include "usbd_ep_conf.h"
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{
@@ -45,12 +46,6 @@ extern "C" {
   */
 #define HID_MOUSE_INTERFACE           0x00U
 #define HID_KEYBOARD_INTERFACE        0x01U
-
-#define HID_MOUSE_EPIN_ADDR           0x81U
-#define HID_MOUSE_EPIN_SIZE           0x04U
-
-#define HID_KEYBOARD_EPIN_ADDR        0x82U
-#define HID_KEYBOARD_EPIN_SIZE        0x08U
 
 #define USB_COMPOSITE_HID_CONFIG_DESC_SIZ       59U
 #define USB_HID_DESC_SIZ              9U

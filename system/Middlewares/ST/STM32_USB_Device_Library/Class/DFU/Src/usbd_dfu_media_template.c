@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -40,7 +40,8 @@ uint8_t *MEM_If_Read(uint8_t *src, uint8_t *dest, uint32_t Len);
 uint16_t MEM_If_DeInit(void);
 uint16_t MEM_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *buffer);
 
-USBD_DFU_MediaTypeDef USBD_DFU_MEDIA_Template_fops = {
+USBD_DFU_MediaTypeDef USBD_DFU_MEDIA_Template_fops =
+{
   (uint8_t *)"DFU MEDIA",
   MEM_If_Init,
   MEM_If_DeInit,
@@ -117,7 +118,8 @@ uint8_t *MEM_If_Read(uint8_t *src, uint8_t *dest, uint32_t Len)
   */
 uint16_t MEM_If_GetStatus(uint32_t Add, uint8_t Cmd, uint8_t *buffer)
 {
-  switch (Cmd) {
+  switch (Cmd)
+  {
     case DFU_MEDIA_PROGRAM:
 
       break;

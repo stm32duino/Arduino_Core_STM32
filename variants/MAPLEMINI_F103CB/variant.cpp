@@ -72,18 +72,20 @@ const PinName digitalPin[] = {
   // Other
   PB_8,  //D32 - BOOT0 - User buttons
   PB_1,  //D33 - LED
-  PB_9,  //D34 - USB DISC
-  // Duplicated pins to avoid issue with analogRead
-  // A0 have to be greater than NUM_ANALOG_INPUTS
-  PB_0,  //D35/A0 = D3
-  PA_7,  //D36/A1 = D4
-  PA_6,  //D37/A2 = D5
-  PA_5,  //D38/A3 = D6
-  PA_4,  //D39/A4 = D7
-  PA_3,  //D40/A5 = D8
-  PA_2,  //D41/A6 = D9
-  PA_1,  //D42/A7 = D10
-  PA_0   //D43/A8 = D11
+  PB_9   //D34 - USB DISC
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  3,  //A0
+  4,  //A1
+  5,  //A2
+  6,  //A3
+  7,  //A4
+  8,  //A5
+  9,  //A6
+  10, //A7
+  11  //A8
 };
 
 #ifdef __cplusplus
