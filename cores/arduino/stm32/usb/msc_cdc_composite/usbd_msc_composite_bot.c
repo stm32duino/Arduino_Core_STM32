@@ -258,14 +258,17 @@ static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
     hmsc->bot_status = USBD_BOT_STATUS_ERROR;
     MSC_BOT_Abort(pdev);
 
-  } else {
+  }
+  else
+  {
     if (SCSI_ProcessCmd(pdev,
                         hmsc->cbw.bLUN,
                         &hmsc->cbw.CB[0]) < 0) {
       if (hmsc->bot_state == USBD_BOT_NO_DATA) {
         MSC_BOT_SendCSW(pdev, USBD_CSW_CMD_FAILED);
-      } else {
-
+      }
+      else
+      {
         MSC_BOT_Abort(pdev);
       }
     }

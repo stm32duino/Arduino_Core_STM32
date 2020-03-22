@@ -47,7 +47,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #if USBD_VID == 0x2341
-  #define USBD_MANUFACTURER_STRING "Arduino LLC"
+#define USBD_MANUFACTURER_STRING "Arduino LLC"
 #elif USBD_VID == 0x2A03
 #define USBD_MANUFACTURER_STRING "Arduino srl"
 #elif USBD_VID == 0x0483
@@ -859,7 +859,7 @@ uint8_t USBD_MSC_CDC_OtherSpeedCfgDesc[USB_MSC_CDC_CONFIG_DESC_SIZ] = {
   HIBYTE(USB_MSC_PACKET_SIZE),
   0x00,    /*Polling interval in milliseconds*/
   /* 07 bytes */
-  
+
 };
 
 #if defined (__ICCARM__) /*!< IAR Compiler */

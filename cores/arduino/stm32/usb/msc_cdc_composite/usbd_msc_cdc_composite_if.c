@@ -175,14 +175,13 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       break;
 
     case CDC_SET_CONTROL_LINE_STATE:
-      lineState =
-        (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
-        if (lineState) { // Reset the transmit timeout when the port is connected
-        transmitStart = 0;
+      lineState = (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
+      if (lineState) { // Reset the transmit timeout when the port is connected
+      transmitStart = 0;
       }
 #ifdef DTR_TOGGLING_SEQ
       dtr_toggling++; /* Count DTR toggling */
-#endif 
+#endif
       break;
 
     case CDC_SEND_BREAK:
@@ -257,13 +256,17 @@ bool CDC_connected()
   }
 
   if (!(hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED)) {
-    return 0; }
+    return 0;
+  }
   if (!(transmitTime < USB_CDC_TRANSMIT_TIMEOUT)) {
-    return 0;}
+    return 0;
+  }
   if (!lineState) {
-    return 0;}
+    return 0;
+  }
   else {
-    return 1;  }     
+    return 1;
+  }
 }
 
 

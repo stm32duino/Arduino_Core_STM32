@@ -36,9 +36,6 @@ typedef enum {
   MSC_APP4_LOCK = 6U,
 } MSC_lock_typedef;
 
-extern MSC_lock_typedef MSC_lock_byte;
-#define MSC_LOCK                           // let the world know there is a MSC lock mechanism
-
 // endpoints numbers
 #define MSC_EP_IDX                      0x01  // only EP 0, EP 1 & EP 2 are bidirectional
 #define CDC_CMD_EP_IDX                  0x03  // unable to determine why EP 3 will not transmit
@@ -118,7 +115,7 @@ extern MSC_lock_typedef MSC_lock_byte;
 
 
 #define MSC_EPIN_ADDR                MSC_IN_EP
-#define MSC_EPOUT_ADDR               MSC_OUT_EP 
+#define MSC_EPOUT_ADDR               MSC_OUT_EP
 
 /**
   * @}

@@ -52,7 +52,8 @@ HAL_StatusTypeDef SD_SDIO_Init();
 
 #define TRANSFER_CLOCK_DIV ((uint8_t)SDIO_INIT_CLK_DIV/40)
 
-void go_to_transfer_speed() {
+void go_to_transfer_speed()
+{
 
   SD_InitTypeDef Init;
 
@@ -68,7 +69,8 @@ void go_to_transfer_speed() {
   SDIO_Init(hsd.Instance, Init);
 }
 
-void SD_LowLevel_Init(void) {
+void SD_LowLevel_Init(void)
+{
 
   uint32_t tempreg;
 
@@ -85,12 +87,12 @@ void SD_LowLevel_Init(void) {
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
  // #if defined(SDIO_D1_PIN) && defined(SDIO_D2_PIN) && defined(SDIO_D3_PIN)  // define D1-D3 only if have a four bit wide SDIO bus
-    GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;  // D1-D3
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-    GPIO_InitStruct.Pull = 1;  //GPIO_NOPULL;
-    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
-    HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;  // D1-D3
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  GPIO_InitStruct.Pull = 1;  //GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   //#endif
 
   // Configure PD.02 CMD line
@@ -114,14 +116,16 @@ void SD_LowLevel_Init(void) {
 }
 
 
-void HAL_SD_MspInit(SD_HandleTypeDef *hsd) { // application specific init
+void HAL_SD_MspInit(SD_HandleTypeDef *hsd)   // application specific init
+{
   UNUSED(hsd);   /* Prevent unused argument(s) compilation warning */
   __HAL_RCC_SDIO_CLK_ENABLE();  // turn on SDIO clock
 }
 
 #define SD_RETRY_COUNT 3
 
-HAL_StatusTypeDef SD_SDIO_Init() {
+HAL_StatusTypeDef SD_SDIO_Init()
+{
   //init SDIO and get SD card info
 
   uint8_t retryCnt = SD_RETRY_COUNT;
@@ -134,14 +138,21 @@ HAL_StatusTypeDef SD_SDIO_Init() {
   uint8_t retry_Cnt = retryCnt;
   for (;;) {
     status = HAL_SD_Init(&hsd);  // low level init, enable SDIO & populate some HSD fields, init SD card and get CID & CSD registers
-    if (!status) break;
-    if (!--retry_Cnt) return false;   // return failing status if retries are exhausted
-  }
+    if (!status) {
+      break;
+    }
+    if (!--retry_Cnt) {
+      return false;  // return failing status if retries are exhausted
+    }
 
   retry_Cnt = retryCnt;
   for (;;) {
-    if (!HAL_SD_ConfigWideBusOperation(&hsd, SDIO_BUS_WIDE_4B)) break;  // some cards are only 1 bit wide so a pass here is not required
-    if (!--retry_Cnt) break;
+    if (!HAL_SD_ConfigWideBusOperation(&hsd, SDIO_BUS_WIDE_4B)) {
+      break;  // some cards are only 1 bit wide so a pass here is not required
+    }
+    if (!--retry_Cnt) {
+      break;
+    }
   }
   if (!retry_Cnt) {  // wide bus failed, go back to one bit wide mode
     hsd.State = (HAL_SD_StateTypeDef) 0;  // HAL_SD_STATE_RESET
@@ -149,11 +160,14 @@ HAL_StatusTypeDef SD_SDIO_Init() {
     retry_Cnt = retryCnt;
     for (;;) {
       status = HAL_SD_Init(&hsd);
-      if (!status) break;
-      if (!--retry_Cnt) return false;   // return failing status if retries are exhausted
+      if (!status) {
+      break;
+      }
+      if (!--retry_Cnt) {
+        return false;  // return failing status if retries are exhausted
+      }
     }
   }
-
   return true;
 }
 
@@ -251,20 +265,22 @@ int8_t  SD_MSC_IsReady(uint8_t lun)
   return USBD_FAIL;
 }
 
-uint8_t temp_msc[512];
-
 int8_t SD_MSC_Read(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len)
 {
   (void)lun; // Not used
-  
+
   int8_t status;
   uint8_t retryCnt = SD_RETRY_COUNT;
-  
+
   for (;;) {
     status =  HAL_SD_ReadBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS);  // read 512 byte block(s) with 500mS timeout
     status |= HAL_SD_GetCardState(&hsd);     // make sure all is OK
-    if (!status) return USBD_OK;                  // return passing status
-    if (!--retryCnt) return USBD_FAIL;                   // return failing status if retries are exhausted
+    if (!status) {
+      return USBD_OK;  // return passing status
+    }
+    if (!--retryCnt) {
+      return USBD_FAIL;  // return failing status if retries are exhausted
+    }
   }
 }
 
@@ -278,11 +294,15 @@ int8_t SD_MSC_Write(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_l
   uint8_t retryCnt = SD_RETRY_COUNT;
 
   for (;;) {
-      status =  HAL_SD_WriteBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS);  // write 512 byte block(s) with 500mS timeout
-      status |= HAL_SD_GetCardState(&hsd);     // make sure all is OK
-      if (!status) return (bool) USBD_OK;                // return passing status
-      if (!--retryCnt) return (bool) USBD_FAIL;          // return failing status if retries are exhausted
+    status =  HAL_SD_WriteBlocks(&hsd, buf, blk_addr, blk_len, TIMEOUT_SD_ACCESS);  // write 512 byte block(s) with 500mS timeout
+    status |= HAL_SD_GetCardState(&hsd);     // make sure all is OK
+    if (!status) {
+      return USBD_OK;  // return passing status
     }
+    if (!--retryCnt) {
+      return USBD_FAIL;  // return failing status if retries are exhausted
+    }
+  }
 }
 
 

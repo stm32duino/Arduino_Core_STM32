@@ -117,7 +117,7 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun);
 */
 int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 {
- 
+
   switch (cmd[0]) {
     case SCSI_TEST_UNIT_READY:  // 0x00
       SCSI_TestUnitReady(pdev, lun, cmd);
@@ -437,10 +437,9 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *) pdev->pClassDataMSC;
 
-  if (hmsc->bot_state == USBD_BOT_IDLE) {  /* Idle */   
+  if (hmsc->bot_state == USBD_BOT_IDLE) {  /* Idle */
     /* case 10 : Ho <> Di */
-    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U) { 
-//    if (hmsc->bot_state == USBD_BOT_IDLE) { /* Idle */
+    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U) {
       SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
       return -1;
     }

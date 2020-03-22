@@ -126,7 +126,7 @@ typedef struct _USBD_CDC_HandleTypeDef {
   uint8_t *TxBuffer;
   uint32_t RxLength;
   uint32_t TxLength;
-  uint32_t TxLastLength;                        
+  uint32_t TxLastLength;
 
   __IO uint32_t TxState;
   __IO uint32_t RxState;
@@ -172,7 +172,7 @@ uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
 uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 /**
   * @}
-  */  
+  */
 
 #ifdef __cplusplus
 }
