@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -67,8 +67,7 @@ EndBSPDependencies */
 
 
 /* USB Mass storage Page 0 Inquiry Data */
-const uint8_t  MSC_Page00_Inquiry_Data[] =
-{
+const uint8_t  MSC_Page00_Inquiry_Data[] = {
   0x00,
   0x00,
   0x00,
@@ -78,8 +77,7 @@ const uint8_t  MSC_Page00_Inquiry_Data[] =
   0x83
 };
 /* USB Mass storage sense 6  Data */
-const uint8_t  MSC_Mode_Sense6_data[] =
-{
+const uint8_t  MSC_Mode_Sense6_data[] = {
   0x00,
   0x00,
   0x00,
@@ -90,8 +88,7 @@ const uint8_t  MSC_Mode_Sense6_data[] =
   0x00
 };
 /* USB Mass storage sense 10  Data */
-const uint8_t  MSC_Mode_Sense10_data[] =
-{
+const uint8_t  MSC_Mode_Sense10_data[] = {
   0x00,
   0x06,
   0x00,

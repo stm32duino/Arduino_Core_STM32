@@ -45,8 +45,6 @@
              EXTI_ConfigTypeDef structure.
         (++) For configurable lines, configure rising and/or falling trigger
              "Trigger" member from EXTI_ConfigTypeDef structure.
-        (++) For Exti lines linked to gpio, choose gpio port using "GPIOSel"
-             member from GPIO_InitTypeDef structure.
 
     (#) Get current Exti configuration of a dedicated line using
         HAL_EXTI_GetConfigLine().
@@ -143,8 +141,6 @@
 HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
 {
   uint32_t regval;
-  uint32_t linepos;
-  uint32_t maskline;
 
   /* Check null pointer */
   if ((hexti == NULL) || (pExtiConfig == NULL))
@@ -155,77 +151,37 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   /* Check parameters */
   assert_param(IS_EXTI_LINE(pExtiConfig->Line));
   assert_param(IS_EXTI_MODE(pExtiConfig->Mode));
+  assert_param(IS_EXTI_TRIGGER(pExtiConfig->Trigger));
 
   /* Assign line number to handle */
   hexti->Line = pExtiConfig->Line;
 
-  /* Compute line mask */
-  linepos = (pExtiConfig->Line & EXTI_PIN_MASK);
-  maskline = (1uL << linepos);
+  /* Clear EXTI line configuration */
+  EXTI->IMR &= ~pExtiConfig->Line;
+  EXTI->EMR &= ~pExtiConfig->Line;
 
-  /* Configure triggers for configurable lines */
-  if ((pExtiConfig->Line & EXTI_CONFIG) != 0x00u)
+  /* Select the Mode for the selected external interrupts */
+  regval = (uint32_t)EXTI_BASE;
+  regval += pExtiConfig->Mode;
+  *(__IO uint32_t *) regval |= pExtiConfig->Line;
+
+  /* Clear Rising Falling edge configuration */
+  EXTI->RTSR &= ~pExtiConfig->Line;
+  EXTI->FTSR &= ~pExtiConfig->Line;
+
+  /* Select the trigger for the selected external interrupts */
+  if (pExtiConfig->Trigger == EXTI_TRIGGER_RISING_FALLING)
   {
-    assert_param(IS_EXTI_TRIGGER(pExtiConfig->Trigger));
-
-    /* Configure rising trigger */
-    /* Mask or set line */
-    if ((pExtiConfig->Trigger & EXTI_TRIGGER_RISING) != 0x00u)
-    {
-      EXTI->RTSR |= maskline;
-    }
-    else
-    {
-      EXTI->RTSR &= ~maskline;
-    }
-
-    /* Configure falling trigger */
-    /* Mask or set line */
-    if ((pExtiConfig->Trigger & EXTI_TRIGGER_FALLING) != 0x00u)
-    {
-      EXTI->FTSR |= maskline;
-    }
-    else
-    {
-      EXTI->FTSR &= ~maskline;
-    }
-
-
-    /* Configure gpio port selection in case of gpio exti line */
-    if ((pExtiConfig->Line & EXTI_GPIO) == EXTI_GPIO)
-    {
-      assert_param(IS_EXTI_GPIO_PORT(pExtiConfig->GPIOSel));
-      assert_param(IS_EXTI_GPIO_PIN(linepos));
-
-      regval = SYSCFG->EXTICR[linepos >> 2u];
-      regval &= ~(SYSCFG_EXTICR1_EXTI0 << (SYSCFG_EXTICR1_EXTI1_Pos * (linepos & 0x03u)));
-      regval |= (pExtiConfig->GPIOSel << (SYSCFG_EXTICR1_EXTI1_Pos * (linepos & 0x03u)));
-      SYSCFG->EXTICR[linepos >> 2u] = regval;
-    }
-  }
-
-  /* Configure interrupt mode : read current mode */
-  /* Mask or set line */
-  if ((pExtiConfig->Mode & EXTI_MODE_INTERRUPT) != 0x00u)
-  {
-    EXTI->IMR |= maskline;
+    /* Rising Falling edge */
+    EXTI->RTSR |= pExtiConfig->Line;
+    EXTI->FTSR |= pExtiConfig->Line;
   }
   else
   {
-    EXTI->IMR &= ~maskline;
+    regval = (uint32_t)EXTI_BASE;
+    regval += pExtiConfig->Trigger;
+    *(__IO uint32_t *) regval |= pExtiConfig->Line;
   }
-
-  /* Configure event mode : read current mode */
-  /* Mask or set line */
-  if ((pExtiConfig->Mode & EXTI_MODE_EVENT) != 0x00u)
-  {
-    EXTI->EMR |= maskline;
-  }
-  else
-  {
-    EXTI->EMR &= ~maskline;
-  }
-
   return HAL_OK;
 }
 
@@ -237,10 +193,6 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   */
 HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigTypeDef *pExtiConfig)
 {
-  uint32_t regval;
-  uint32_t linepos;
-  uint32_t maskline;
-
   /* Check null pointer */
   if ((hexti == NULL) || (pExtiConfig == NULL))
   {
@@ -253,67 +205,41 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   /* Store handle line number to configuration structure */
   pExtiConfig->Line = hexti->Line;
 
-  /* Compute line mask */
-  linepos = (pExtiConfig->Line & EXTI_PIN_MASK);
-  maskline = (1uL << linepos);
-
-  /* 1] Get core mode : interrupt */
-
-  /* Check if selected line is enable */
-  if ((EXTI->IMR & maskline) != 0x00u)
+  /* Get EXTI mode to configiguration structure */
+  if ((EXTI->IMR & hexti->Line) == hexti->Line)
   {
     pExtiConfig->Mode = EXTI_MODE_INTERRUPT;
   }
+  else if ((EXTI->EMR & hexti->Line) == hexti->Line)
+  {
+    pExtiConfig->Mode = EXTI_MODE_EVENT;
+  }
   else
   {
-    pExtiConfig->Mode = EXTI_MODE_NONE;
+    /* No MODE selected */
+    pExtiConfig->Mode = 0x0Bu;
   }
 
-  /* Get event mode */
-  /* Check if selected line is enable */
-  if ((EXTI->EMR & maskline) != 0x00u)
+  /* Get EXTI Trigger to configiguration structure */
+  if ((EXTI->RTSR & hexti->Line) == hexti->Line)
   {
-    pExtiConfig->Mode |= EXTI_MODE_EVENT;
-  }
-
-  /* 2] Get trigger for configurable lines : rising */
-  if ((pExtiConfig->Line & EXTI_CONFIG) != 0x00u)
-  {
-    /* Check if configuration of selected line is enable */
-    if ((EXTI->RTSR & maskline) != 0x00u)
+    if ((EXTI->FTSR & hexti->Line) == hexti->Line)
+    {
+      pExtiConfig->Trigger = EXTI_TRIGGER_RISING_FALLING;
+    }
+    else
     {
       pExtiConfig->Trigger = EXTI_TRIGGER_RISING;
     }
-    else
-    {
-      pExtiConfig->Trigger = EXTI_TRIGGER_NONE;
-    }
-
-    /* Get falling configuration */
-    /* Check if configuration of selected line is enable */
-    if ((EXTI->FTSR & maskline) != 0x00u)
-    {
-      pExtiConfig->Trigger |= EXTI_TRIGGER_FALLING;
-    }
-
-    /* Get Gpio port selection for gpio lines */
-    if ((pExtiConfig->Line & EXTI_GPIO) == EXTI_GPIO)
-    {
-      assert_param(IS_EXTI_GPIO_PIN(linepos));
-
-      regval = SYSCFG->EXTICR[linepos >> 2u];
-      pExtiConfig->GPIOSel = ((regval << (SYSCFG_EXTICR1_EXTI1_Pos * (3uL - (linepos & 0x03u)))) >> 24);
-    }
-    else
-    {
-      pExtiConfig->GPIOSel = 0x00u;
-    }
+  }
+  else if ((EXTI->FTSR & hexti->Line) == hexti->Line)
+  {
+    pExtiConfig->Trigger = EXTI_TRIGGER_FALLING;
   }
   else
   {
     /* No Trigger selected */
-    pExtiConfig->Trigger = EXTI_TRIGGER_NONE;
-    pExtiConfig->GPIOSel = 0x00u;
+    pExtiConfig->Trigger = 0x00u;
   }
 
   return HAL_OK;
@@ -326,10 +252,6 @@ HAL_StatusTypeDef HAL_EXTI_GetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
   */
 HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti)
 {
-  uint32_t regval;
-  uint32_t linepos;
-  uint32_t maskline;
-
   /* Check null pointer */
   if (hexti == NULL)
   {
@@ -339,32 +261,15 @@ HAL_StatusTypeDef HAL_EXTI_ClearConfigLine(EXTI_HandleTypeDef *hexti)
   /* Check the parameter */
   assert_param(IS_EXTI_LINE(hexti->Line));
 
-  /* compute line mask */
-  linepos = (hexti->Line & EXTI_PIN_MASK);
-  maskline = (1uL << linepos);
-
   /* 1] Clear interrupt mode */
-  EXTI->IMR = (EXTI->IMR & ~maskline);
+  EXTI->IMR = (EXTI->IMR & ~hexti->Line);
 
   /* 2] Clear event mode */
-  EXTI->EMR = (EXTI->EMR & ~maskline);
+  EXTI->EMR = (EXTI->EMR & ~hexti->Line);
 
-  /* 3] Clear triggers in case of configurable lines */
-  if ((hexti->Line & EXTI_CONFIG) != 0x00u)
-  {
-    EXTI->RTSR = (EXTI->RTSR & ~maskline);
-    EXTI->FTSR = (EXTI->FTSR & ~maskline);
-
-    /* Get Gpio port selection for gpio lines */
-    if ((hexti->Line & EXTI_GPIO) == EXTI_GPIO)
-    {
-      assert_param(IS_EXTI_GPIO_PIN(linepos));
-
-      regval = SYSCFG->EXTICR[linepos >> 2u];
-      regval &= ~(SYSCFG_EXTICR1_EXTI0 << (SYSCFG_EXTICR1_EXTI1_Pos * (linepos & 0x03u)));
-      SYSCFG->EXTICR[linepos >> 2u] = regval;
-    }
-  }
+  /* 3] Clear triggers */
+  EXTI->RTSR = (EXTI->RTSR & ~hexti->Line);
+  EXTI->FTSR = (EXTI->FTSR & ~hexti->Line);
 
   return HAL_OK;
 }
@@ -384,7 +289,7 @@ HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_Call
   switch (CallbackID)
   {
     case  HAL_EXTI_COMMON_CB_ID:
-      hexti->PendingCallback = pPendingCbfn;
+      hexti->RisingCallback = pPendingCbfn;
       break;
 
     default:
@@ -444,23 +349,15 @@ HAL_StatusTypeDef HAL_EXTI_GetHandle(EXTI_HandleTypeDef *hexti, uint32_t ExtiLin
   */
 void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
 {
-  uint32_t regval;
-  uint32_t maskline;
-
-  /* Compute line mask */
-  maskline = (1uL << (hexti->Line & EXTI_PIN_MASK));
-
-  /* Get pending bit  */
-  regval = (EXTI->PR & maskline);
-  if (regval != 0x00u)
+  if (EXTI->PR != 0x00u)
   {
     /* Clear pending bit */
-    EXTI->PR = maskline;
+    EXTI->PR = hexti->Line;
 
     /* Call callback */
-    if (hexti->PendingCallback != NULL)
+    if (hexti->RisingCallback != NULL)
     {
-      hexti->PendingCallback();
+      hexti->RisingCallback();
     }
   }
 }
@@ -476,21 +373,19 @@ void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
   */
 uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
+  __IO uint32_t *regaddr;
   uint32_t regval;
-  uint32_t linepos;
-  uint32_t maskline;
 
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
-  assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
   assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
-  /* Compute line mask */
-  linepos = (hexti->Line & EXTI_PIN_MASK);
-  maskline = (1uL << linepos);
+  /* Get pending bit */
+  regaddr = &EXTI->PR;
 
   /* return 1 if bit is set else 0 */
-  regval = ((EXTI->PR & maskline) >> linepos);
+  regval = ((*regaddr & hexti->Line) >> POSITION_VAL(hexti->Line));
+
   return regval;
 }
 
@@ -505,18 +400,11 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   */
 void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
-  uint32_t maskline;
-
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
-  assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
   assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
-  /* Compute line mask */
-  maskline = (1uL << (hexti->Line & EXTI_PIN_MASK));
-
-  /* Clear Pending bit */
-  EXTI->PR =  maskline;
+  EXTI->PR =  hexti->Line;
 }
 
 /**
@@ -526,17 +414,10 @@ void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   */
 void HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti)
 {
-  uint32_t maskline;
-
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
-  assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
 
-  /* Compute line mask */
-  maskline = (1uL << (hexti->Line & EXTI_PIN_MASK));
-
-  /* Generate Software interrupt */
-  EXTI->SWIER = maskline;
+  EXTI->SWIER = hexti->Line;
 }
 
 /**

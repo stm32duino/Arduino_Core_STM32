@@ -12,12 +12,13 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "usbh_ctlreq.h"
 
 /** @addtogroup USBH_LIB
@@ -71,11 +72,11 @@
 */
 static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost);
 
-static void USBH_ParseDevDesc(USBH_DevDescTypeDef *dev_desc,
-                              uint8_t *buf, uint16_t length);
+static void USBH_ParseDevDesc(USBH_DevDescTypeDef *dev_desc, uint8_t *buf,
+                              uint16_t length);
 
-static void USBH_ParseCfgDesc(USBH_CfgDescTypeDef *cfg_desc,
-                              uint8_t *buf, uint16_t length);
+static void USBH_ParseCfgDesc(USBH_CfgDescTypeDef *cfg_desc, uint8_t *buf,
+                              uint16_t length);
 
 static void USBH_ParseEPDesc(USBH_EpDescTypeDef  *ep_descriptor, uint8_t *buf);
 static void USBH_ParseStringDesc(uint8_t *psrc, uint8_t *pdest, uint16_t length);
@@ -106,17 +107,15 @@ USBH_StatusTypeDef USBH_Get_DevDesc(USBH_HandleTypeDef *phost, uint8_t length)
 
   if ((status = USBH_GetDescriptor(phost,
                                    USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,
-                                   USB_DESC_DEVICE, phost->device.Data,
-                                   (uint16_t)length)) == USBH_OK)
-  {
+                                   USB_DESC_DEVICE,
+                                   phost->device.Data,
+                                   (uint16_t)length)) == USBH_OK) {
     /* Commands successfully sent and Response Received */
     USBH_ParseDevDesc(&phost->device.DevDesc, phost->device.Data,
                       (uint16_t)length);
   }
-
   return status;
 }
-
 
 /**
   * @brief  USBH_Get_CfgDesc
@@ -133,19 +132,23 @@ USBH_StatusTypeDef USBH_Get_CfgDesc(USBH_HandleTypeDef *phost,
 {
   USBH_StatusTypeDef status;
   uint8_t *pData;
-
 #if (USBH_KEEP_CFG_DESCRIPTOR == 1U)
   pData = phost->device.CfgDesc_Raw;
 #else
   pData = phost->device.Data;
 #endif
-  if ((status = USBH_GetDescriptor(phost, (USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD),
-                                   USB_DESC_CONFIGURATION, pData, length)) == USBH_OK)
-  {
-    /* Commands successfully sent and Response Received  */
-    USBH_ParseCfgDesc(&phost->device.CfgDesc, pData, length);
-  }
+  if ((status = USBH_GetDescriptor(phost,
+                                   USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,
+                                   USB_DESC_CONFIGURATION,
+                                   pData,
+                                   length)) == USBH_OK) {
 
+    /* Commands successfully sent and Response Received  */
+    USBH_ParseCfgDesc(&phost->device.CfgDesc,
+                      pData,
+                      length);
+
+  }
   return status;
 }
 
@@ -161,23 +164,21 @@ USBH_StatusTypeDef USBH_Get_CfgDesc(USBH_HandleTypeDef *phost,
   * @retval USBH Status
   */
 USBH_StatusTypeDef USBH_Get_StringDesc(USBH_HandleTypeDef *phost,
-                                       uint8_t string_index, uint8_t *buff,
+                                       uint8_t string_index,
+                                       uint8_t *buff,
                                        uint16_t length)
 {
   USBH_StatusTypeDef status;
-
   if ((status = USBH_GetDescriptor(phost,
                                    USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD,
                                    USB_DESC_STRING | string_index,
-                                   phost->device.Data, length)) == USBH_OK)
-  {
+                                   phost->device.Data,
+                                   length)) == USBH_OK) {
     /* Commands successfully sent and Response Received  */
     USBH_ParseStringDesc(phost->device.Data, buff, length);
   }
-
   return status;
 }
-
 
 /**
   * @brief  USBH_GetDescriptor
@@ -196,26 +197,20 @@ USBH_StatusTypeDef USBH_GetDescriptor(USBH_HandleTypeDef *phost,
                                       uint8_t *buff,
                                       uint16_t length)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_D2H | req_type;
     phost->Control.setup.b.bRequest = USB_REQ_GET_DESCRIPTOR;
     phost->Control.setup.b.wValue.w = value_idx;
 
-    if ((value_idx & 0xff00U) == USB_DESC_STRING)
-    {
+    if ((value_idx & 0xff00U) == USB_DESC_STRING) {
       phost->Control.setup.b.wIndex.w = 0x0409U;
-    }
-    else
-    {
+    } else {
       phost->Control.setup.b.wIndex.w = 0U;
     }
     phost->Control.setup.b.wLength.w = length;
   }
-
   return USBH_CtlReq(phost, buff, length);
 }
-
 
 /**
   * @brief  USBH_SetAddress
@@ -227,8 +222,7 @@ USBH_StatusTypeDef USBH_GetDescriptor(USBH_HandleTypeDef *phost,
 USBH_StatusTypeDef USBH_SetAddress(USBH_HandleTypeDef *phost,
                                    uint8_t DeviceAddress)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE | \
                                            USB_REQ_TYPE_STANDARD;
 
@@ -238,10 +232,8 @@ USBH_StatusTypeDef USBH_SetAddress(USBH_HandleTypeDef *phost,
     phost->Control.setup.b.wIndex.w = 0U;
     phost->Control.setup.b.wLength.w = 0U;
   }
-
   return USBH_CtlReq(phost, 0U, 0U);
 }
-
 
 /**
   * @brief  USBH_SetCfg
@@ -252,8 +244,7 @@ USBH_StatusTypeDef USBH_SetAddress(USBH_HandleTypeDef *phost,
   */
 USBH_StatusTypeDef USBH_SetCfg(USBH_HandleTypeDef *phost, uint16_t cfg_idx)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE
                                            | USB_REQ_TYPE_STANDARD;
 
@@ -266,7 +257,6 @@ USBH_StatusTypeDef USBH_SetCfg(USBH_HandleTypeDef *phost, uint16_t cfg_idx)
   return USBH_CtlReq(phost, 0U, 0U);
 }
 
-
 /**
   * @brief  USBH_SetInterface
   *         The command sets the Interface value to the connected device
@@ -277,8 +267,7 @@ USBH_StatusTypeDef USBH_SetCfg(USBH_HandleTypeDef *phost, uint16_t cfg_idx)
 USBH_StatusTypeDef USBH_SetInterface(USBH_HandleTypeDef *phost, uint8_t ep_num,
                                      uint8_t altSetting)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_INTERFACE
                                            | USB_REQ_TYPE_STANDARD;
 
@@ -287,10 +276,8 @@ USBH_StatusTypeDef USBH_SetInterface(USBH_HandleTypeDef *phost, uint8_t ep_num,
     phost->Control.setup.b.wIndex.w = ep_num;
     phost->Control.setup.b.wLength.w = 0U;
   }
-
   return USBH_CtlReq(phost, 0U, 0U);
 }
-
 
 /**
   * @brief  USBH_SetFeature
@@ -301,8 +288,7 @@ USBH_StatusTypeDef USBH_SetInterface(USBH_HandleTypeDef *phost, uint8_t ep_num,
 */
 USBH_StatusTypeDef USBH_SetFeature(USBH_HandleTypeDef *phost, uint8_t wValue)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_DEVICE
                                            | USB_REQ_TYPE_STANDARD;
 
@@ -315,7 +301,6 @@ USBH_StatusTypeDef USBH_SetFeature(USBH_HandleTypeDef *phost, uint8_t wValue)
   return USBH_CtlReq(phost, 0U, 0U);
 }
 
-
 /**
   * @brief  USBH_ClrFeature
   *         This request is used to clear or disable a specific feature.
@@ -326,8 +311,7 @@ USBH_StatusTypeDef USBH_SetFeature(USBH_HandleTypeDef *phost, uint8_t wValue)
   */
 USBH_StatusTypeDef USBH_ClrFeature(USBH_HandleTypeDef *phost, uint8_t ep_num)
 {
-  if (phost->RequestState == CMD_SEND)
-  {
+  if (phost->RequestState == CMD_SEND) {
     phost->Control.setup.b.bmRequestType = USB_H2D | USB_REQ_RECIPIENT_ENDPOINT
                                            | USB_REQ_TYPE_STANDARD;
 
@@ -338,7 +322,6 @@ USBH_StatusTypeDef USBH_ClrFeature(USBH_HandleTypeDef *phost, uint8_t ep_num)
   }
   return USBH_CtlReq(phost, 0U, 0U);
 }
-
 
 /**
   * @brief  USBH_ParseDevDesc
@@ -359,8 +342,7 @@ static void  USBH_ParseDevDesc(USBH_DevDescTypeDef *dev_desc, uint8_t *buf,
   dev_desc->bDeviceProtocol    = *(uint8_t *)(buf +  6);
   dev_desc->bMaxPacketSize     = *(uint8_t *)(buf +  7);
 
-  if (length > 8U)
-  {
+  if (length > 8U) {
     /* For 1st time after device connection, Host may issue only 8 bytes for
     Device Descriptor Length  */
     dev_desc->idVendor           = LE16(buf +  8);
@@ -372,7 +354,6 @@ static void  USBH_ParseDevDesc(USBH_DevDescTypeDef *dev_desc, uint8_t *buf,
     dev_desc->bNumConfigurations = *(uint8_t *)(buf + 17);
   }
 }
-
 
 /**
   * @brief  USBH_ParseCfgDesc
@@ -404,26 +385,23 @@ static void USBH_ParseCfgDesc(USBH_CfgDescTypeDef *cfg_desc, uint8_t *buf,
   cfg_desc->bmAttributes        = *(uint8_t *)(buf + 7);
   cfg_desc->bMaxPower           = *(uint8_t *)(buf + 8);
 
-  if (length > USB_CONFIGURATION_DESC_SIZE)
-  {
+
+  if (length > USB_CONFIGURATION_DESC_SIZE) {
     ptr = USB_LEN_CFG_DESC;
     pif = (USBH_InterfaceDescTypeDef *)0;
 
-    while ((if_ix < USBH_MAX_NUM_INTERFACES) && (ptr < cfg_desc->wTotalLength))
-    {
+
+    while ((if_ix < USBH_MAX_NUM_INTERFACES) && (ptr < cfg_desc->wTotalLength)) {
       pdesc = USBH_GetNextDesc((uint8_t *)(void *)pdesc, &ptr);
-      if (pdesc->bDescriptorType   == USB_DESC_TYPE_INTERFACE)
-      {
+      if (pdesc->bDescriptorType   == USB_DESC_TYPE_INTERFACE) {
         pif = &cfg_desc->Itf_Desc[if_ix];
         USBH_ParseInterfaceDesc(pif, (uint8_t *)(void *)pdesc);
 
         ep_ix = 0U;
         pep = (USBH_EpDescTypeDef *)0;
-        while ((ep_ix < pif->bNumEndpoints) && (ptr < cfg_desc->wTotalLength))
-        {
+        while ((ep_ix < pif->bNumEndpoints) && (ptr < cfg_desc->wTotalLength)) {
           pdesc = USBH_GetNextDesc((uint8_t *)(void *)pdesc, &ptr);
-          if (pdesc->bDescriptorType   == USB_DESC_TYPE_ENDPOINT)
-          {
+          if (pdesc->bDescriptorType   == USB_DESC_TYPE_ENDPOINT) {
             pep = &cfg_desc->Itf_Desc[if_ix].Ep_Desc[ep_ix];
             USBH_ParseEPDesc(pep, (uint8_t *)(void *)pdesc);
             ep_ix++;
@@ -434,6 +412,7 @@ static void USBH_ParseCfgDesc(USBH_CfgDescTypeDef *cfg_desc, uint8_t *buf,
     }
   }
 }
+
 
 
 /**
@@ -457,7 +436,6 @@ static void  USBH_ParseInterfaceDesc(USBH_InterfaceDescTypeDef *if_descriptor,
   if_descriptor->iInterface         = *(uint8_t *)(buf + 8);
 }
 
-
 /**
   * @brief  USBH_ParseEPDesc
   *         This function Parses the endpoint descriptor
@@ -468,6 +446,7 @@ static void  USBH_ParseInterfaceDesc(USBH_InterfaceDescTypeDef *if_descriptor,
 static void  USBH_ParseEPDesc(USBH_EpDescTypeDef  *ep_descriptor,
                               uint8_t *buf)
 {
+
   ep_descriptor->bLength          = *(uint8_t *)(buf + 0);
   ep_descriptor->bDescriptorType  = *(uint8_t *)(buf + 1);
   ep_descriptor->bEndpointAddress = *(uint8_t *)(buf + 2);
@@ -475,7 +454,6 @@ static void  USBH_ParseEPDesc(USBH_EpDescTypeDef  *ep_descriptor,
   ep_descriptor->wMaxPacketSize   = LE16(buf + 4);
   ep_descriptor->bInterval        = *(uint8_t *)(buf + 6);
 }
-
 
 /**
   * @brief  USBH_ParseStringDesc
@@ -497,8 +475,7 @@ static void USBH_ParseStringDesc(uint8_t *psrc, uint8_t *pdest, uint16_t length)
   /* Check which is lower size, the Size of string or the length of bytes read
   from the device */
 
-  if (psrc[1] == USB_DESC_TYPE_STRING)
-  {
+  if (psrc[1] == USB_DESC_TYPE_STRING) {
     /* Make sure the Descriptor is String Type */
 
     /* psrc[0] contains Size of Descriptor, subtract 2 to get the length of string */
@@ -507,8 +484,7 @@ static void USBH_ParseStringDesc(uint8_t *psrc, uint8_t *pdest, uint16_t length)
     /* Adjust the offset ignoring the String Len and Descriptor type */
     psrc += 2U;
 
-    for (idx = 0U; idx < strlength; idx += 2U)
-    {
+    for (idx = 0U; idx < strlength; idx += 2U) {
       /* Copy Only the string and ignore the UNICODE ID, hence add the src */
       *pdest =  psrc[idx];
       pdest++;
@@ -516,7 +492,6 @@ static void USBH_ParseStringDesc(uint8_t *psrc, uint8_t *pdest, uint16_t length)
     *pdest = 0U; /* mark end of string */
   }
 }
-
 
 /**
   * @brief  USBH_GetNextDesc
@@ -547,14 +522,14 @@ USBH_DescHeader_t  *USBH_GetNextDesc(uint8_t   *pbuf, uint16_t  *ptr)
   * @param  length: length of the response
   * @retval USBH Status
   */
-USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost, uint8_t *buff,
-                               uint16_t length)
+USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost,
+                               uint8_t             *buff,
+                               uint16_t            length)
 {
   USBH_StatusTypeDef status;
   status = USBH_BUSY;
 
-  switch (phost->RequestState)
-  {
+  switch (phost->RequestState) {
     case CMD_SEND:
       /* Start a SETUP transfer */
       phost->Control.buff = buff;
@@ -575,24 +550,18 @@ USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost, uint8_t *buff,
 
     case CMD_WAIT:
       status = USBH_HandleControl(phost);
-      if (status == USBH_OK)
-      {
+      if (status == USBH_OK) {
         /* Commands successfully sent and Response Received  */
         phost->RequestState = CMD_SEND;
         phost->Control.state = CTRL_IDLE;
         status = USBH_OK;
-      }
-      else if (status == USBH_NOT_SUPPORTED)
-      {
+      } else if (status == USBH_NOT_SUPPORTED) {
         /* Commands successfully sent and Response Received  */
         phost->RequestState = CMD_SEND;
         phost->Control.state = CTRL_IDLE;
         status = USBH_NOT_SUPPORTED;
-      }
-      else
-      {
-        if (status == USBH_FAIL)
-        {
+      } else {
+        if (status == USBH_FAIL) {
           /* Failure Mode */
           phost->RequestState = CMD_SEND;
           status = USBH_FAIL;
@@ -606,7 +575,6 @@ USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost, uint8_t *buff,
   return status;
 }
 
-
 /**
   * @brief  USBH_HandleControl
   *         Handles the USB control transfer state machine
@@ -619,8 +587,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
   USBH_StatusTypeDef status = USBH_BUSY;
   USBH_URBStateTypeDef URB_Status = USBH_URB_IDLE;
 
-  switch (phost->Control.state)
-  {
+  switch (phost->Control.state) {
     case CTRL_SETUP:
       /* send a SETUP packet */
       USBH_CtlSendSetup(phost, (uint8_t *)(void *)phost->Control.setup.d8,
@@ -633,35 +600,26 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
 
       URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_out);
       /* case SETUP packet sent successfully */
-      if (URB_Status == USBH_URB_DONE)
-      {
+      if (URB_Status == USBH_URB_DONE) {
         direction = (phost->Control.setup.b.bmRequestType & USB_REQ_DIR_MASK);
 
         /* check if there is a data stage */
-        if (phost->Control.setup.b.wLength.w != 0U)
-        {
-          if (direction == USB_D2H)
-          {
+        if (phost->Control.setup.b.wLength.w != 0U) {
+          if (direction == USB_D2H) {
             /* Data Direction is IN */
             phost->Control.state = CTRL_DATA_IN;
-          }
-          else
-          {
+          } else {
             /* Data Direction is OUT */
             phost->Control.state = CTRL_DATA_OUT;
           }
         }
         /* No DATA stage */
-        else
-        {
+        else {
           /* If there is No Data Transfer Stage */
-          if (direction == USB_D2H)
-          {
+          if (direction == USB_D2H) {
             /* Data Direction is IN */
             phost->Control.state = CTRL_STATUS_OUT;
-          }
-          else
-          {
+          } else {
             /* Data Direction is OUT */
             phost->Control.state = CTRL_STATUS_IN;
           }
@@ -675,11 +633,8 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else
-      {
-        if ((URB_Status == USBH_URB_ERROR) || (URB_Status == USBH_URB_NOTREADY))
-        {
+      } else {
+        if ((URB_Status == USBH_URB_ERROR) || (URB_Status == USBH_URB_NOTREADY)) {
           phost->Control.state = CTRL_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -697,7 +652,9 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
     case CTRL_DATA_IN:
       /* Issue an IN token */
       phost->Control.timer = (uint16_t)phost->Timer;
-      USBH_CtlReceiveData(phost, phost->Control.buff, phost->Control.length,
+      USBH_CtlReceiveData(phost,
+                          phost->Control.buff,
+                          phost->Control.length,
                           phost->Control.pipe_in);
 
       phost->Control.state = CTRL_DATA_IN_WAIT;
@@ -708,8 +665,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_in);
 
       /* check is DATA packet transferred successfully */
-      if (URB_Status == USBH_URB_DONE)
-      {
+      if (URB_Status == USBH_URB_DONE) {
         phost->Control.state = CTRL_STATUS_OUT;
 
 #if (USBH_USE_OS == 1U)
@@ -723,8 +679,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       }
 
       /* manage error cases*/
-      if (URB_Status == USBH_URB_STALL)
-      {
+      if (URB_Status == USBH_URB_STALL) {
         /* In stall case, return to previous machine state*/
         status = USBH_NOT_SUPPORTED;
 
@@ -736,11 +691,8 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else
-      {
-        if (URB_Status == USBH_URB_ERROR)
-        {
+      } else {
+        if (URB_Status == USBH_URB_ERROR) {
           /* Device error */
           phost->Control.state = CTRL_ERROR;
 
@@ -758,9 +710,11 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
 
     case CTRL_DATA_OUT:
 
-      USBH_CtlSendData(phost, phost->Control.buff, phost->Control.length,
-                       phost->Control.pipe_out, 1U);
-
+      USBH_CtlSendData(phost,
+                       phost->Control.buff,
+                       phost->Control.length,
+                       phost->Control.pipe_out,
+                       1U);
       phost->Control.timer = (uint16_t)phost->Timer;
       phost->Control.state = CTRL_DATA_OUT_WAIT;
       break;
@@ -769,8 +723,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
 
       URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_out);
 
-      if (URB_Status == USBH_URB_DONE)
-      {
+      if (URB_Status == USBH_URB_DONE) {
         /* If the Setup Pkt is sent successful, then change the state */
         phost->Control.state = CTRL_STATUS_IN;
 
@@ -785,8 +738,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       }
 
       /* handle error cases */
-      else if (URB_Status == USBH_URB_STALL)
-      {
+      else if (URB_Status == USBH_URB_STALL) {
         /* In stall case, return to previous machine state*/
         phost->Control.state = CTRL_STALLED;
         status = USBH_NOT_SUPPORTED;
@@ -799,9 +751,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else if (URB_Status == USBH_URB_NOTREADY)
-      {
+      } else if (URB_Status == USBH_URB_NOTREADY) {
         /* Nack received from device */
         phost->Control.state = CTRL_DATA_OUT;
 
@@ -813,11 +763,8 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else
-      {
-        if (URB_Status == USBH_URB_ERROR)
-        {
+      } else {
+        if (URB_Status == USBH_URB_ERROR) {
           /* device error */
           phost->Control.state = CTRL_ERROR;
           status = USBH_FAIL;
@@ -834,10 +781,13 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       }
       break;
 
+
     case CTRL_STATUS_IN:
       /* Send 0 bytes out packet */
-      USBH_CtlReceiveData(phost, 0U, 0U, phost->Control.pipe_in);
-
+      USBH_CtlReceiveData(phost,
+                          0U,
+                          0U,
+                          phost->Control.pipe_in);
       phost->Control.timer = (uint16_t)phost->Timer;
       phost->Control.state = CTRL_STATUS_IN_WAIT;
 
@@ -847,8 +797,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
 
       URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_in);
 
-      if (URB_Status == USBH_URB_DONE)
-      {
+      if (URB_Status == USBH_URB_DONE) {
         /* Control transfers completed, Exit the State Machine */
         phost->Control.state = CTRL_COMPLETE;
         status = USBH_OK;
@@ -861,9 +810,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else if (URB_Status == USBH_URB_ERROR)
-      {
+      } else if (URB_Status == USBH_URB_ERROR) {
         phost->Control.state = CTRL_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -874,11 +821,8 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else
-      {
-        if (URB_Status == USBH_URB_STALL)
-        {
+      } else {
+        if (URB_Status == USBH_URB_STALL) {
           /* Control transfers completed, Exit the State Machine */
           status = USBH_NOT_SUPPORTED;
 
@@ -895,16 +839,19 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       break;
 
     case CTRL_STATUS_OUT:
-      USBH_CtlSendData(phost, 0U, 0U, phost->Control.pipe_out, 1U);
-
+      USBH_CtlSendData(phost,
+                       0U,
+                       0U,
+                       phost->Control.pipe_out,
+                       1U);
       phost->Control.timer = (uint16_t)phost->Timer;
       phost->Control.state = CTRL_STATUS_OUT_WAIT;
       break;
 
     case CTRL_STATUS_OUT_WAIT:
+
       URB_Status = USBH_LL_GetURBState(phost, phost->Control.pipe_out);
-      if (URB_Status == USBH_URB_DONE)
-      {
+      if (URB_Status == USBH_URB_DONE) {
         status = USBH_OK;
         phost->Control.state = CTRL_COMPLETE;
 
@@ -916,9 +863,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else if (URB_Status == USBH_URB_NOTREADY)
-      {
+      } else if (URB_Status == USBH_URB_NOTREADY) {
         phost->Control.state = CTRL_STATUS_OUT;
 
 #if (USBH_USE_OS == 1U)
@@ -929,11 +874,8 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      }
-      else
-      {
-        if (URB_Status == USBH_URB_ERROR)
-        {
+      } else {
+        if (URB_Status == USBH_URB_ERROR) {
           phost->Control.state = CTRL_ERROR;
 
 #if (USBH_USE_OS == 1U)
@@ -945,6 +887,7 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
 #endif
 #endif
         }
+
       }
       break;
 
@@ -957,18 +900,17 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
       required to clear the halt or error condition if the next Setup PID is not
       accepted.
       */
-      if (++phost->Control.errorcount <= USBH_MAX_ERROR_COUNT)
-      {
+      if (++ phost->Control.errorcount <= USBH_MAX_ERROR_COUNT) {
+        /* try to recover control */
+        USBH_LL_Stop(phost);
+
         /* Do the transmission again, starting from SETUP Packet */
         phost->Control.state = CTRL_SETUP;
         phost->RequestState = CMD_SEND;
-      }
-      else
-      {
+      } else {
         phost->pUser(phost, HOST_USER_UNRECOVERED_ERROR);
         phost->Control.errorcount = 0U;
-        USBH_ErrLog("Control error: Device not responding");
-        phost->gState = HOST_IDLE;
+        USBH_ErrLog("Control error");
         status = USBH_FAIL;
       }
       break;
@@ -976,7 +918,6 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
     default:
       break;
   }
-
   return status;
 }
 

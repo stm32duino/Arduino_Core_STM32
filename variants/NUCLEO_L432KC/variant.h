@@ -69,9 +69,11 @@ extern "C" {
 #define PIN_WIRE_SCL            5
 
 // Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+//Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
+
+// Do not use basic timer: OC is required
+#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link

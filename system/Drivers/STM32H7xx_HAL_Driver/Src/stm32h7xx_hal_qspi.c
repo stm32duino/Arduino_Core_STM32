@@ -230,14 +230,11 @@
   * @{
   */
 
-#ifdef HAL_QSPI_MODULE_ENABLED
-
-#if defined(QUADSPI)
-
 /** @defgroup QSPI QSPI
   * @brief QSPI HAL module driver
   * @{
   */
+#ifdef HAL_QSPI_MODULE_ENABLED
 
 /* Private typedef -----------------------------------------------------------*/
 
@@ -2606,13 +2603,10 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
   * @}
   */
 
+#endif /* HAL_QSPI_MODULE_ENABLED */
 /**
   * @}
   */
-
-#endif /* QUADSPI */
-
-#endif /* HAL_QSPI_MODULE_ENABLED */
 
 /**
   * @}

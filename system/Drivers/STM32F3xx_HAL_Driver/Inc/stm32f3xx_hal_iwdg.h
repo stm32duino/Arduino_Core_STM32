@@ -6,23 +6,39 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32F3xx_HAL_IWDG_H
-#define STM32F3xx_HAL_IWDG_H
+#ifndef __STM32F3xx_HAL_IWDG_H
+#define __STM32F3xx_HAL_IWDG_H
 
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -41,7 +57,7 @@ extern "C" {
   * @{
   */
 
-/**
+/** 
   * @brief  IWDG Init structure definition
   */
 typedef struct
@@ -50,23 +66,23 @@ typedef struct
                             This parameter can be a value of @ref IWDG_Prescaler */
 
   uint32_t Reload;     /*!< Specifies the IWDG down-counter reload value.
-                            This parameter must be a number between Min_Data = 0 and Max_Data = 0x0FFF */
+                            This parameter must be a number between Min_Data = 0 and Max_Data = 0x0FFFU */
 
   uint32_t Window;     /*!< Specifies the window value to be compared to the down-counter.
-                            This parameter must be a number between Min_Data = 0 and Max_Data = 0x0FFF */
+                            This parameter must be a number between Min_Data = 0 and Max_Data = 0x0FFFU */
 
 } IWDG_InitTypeDef;
 
-/**
-  * @brief  IWDG Handle Structure definition
+/** 
+  * @brief  IWDG Handle Structure definition  
   */
 typedef struct
 {
   IWDG_TypeDef                 *Instance;  /*!< Register base address    */
 
   IWDG_InitTypeDef             Init;       /*!< IWDG required parameters */
-} IWDG_HandleTypeDef;
 
+}IWDG_HandleTypeDef;
 
 /**
   * @}
@@ -80,14 +96,13 @@ typedef struct
 /** @defgroup IWDG_Prescaler IWDG Prescaler
   * @{
   */
-#define IWDG_PRESCALER_4                0x00000000u                                     /*!< IWDG prescaler set to 4   */
-#define IWDG_PRESCALER_8                IWDG_PR_PR_0                                    /*!< IWDG prescaler set to 8   */
-#define IWDG_PRESCALER_16               IWDG_PR_PR_1                                    /*!< IWDG prescaler set to 16  */
-#define IWDG_PRESCALER_32               (IWDG_PR_PR_1 | IWDG_PR_PR_0)                   /*!< IWDG prescaler set to 32  */
-#define IWDG_PRESCALER_64               IWDG_PR_PR_2                                    /*!< IWDG prescaler set to 64  */
-#define IWDG_PRESCALER_128              (IWDG_PR_PR_2 | IWDG_PR_PR_0)                   /*!< IWDG prescaler set to 128 */
-#define IWDG_PRESCALER_256              (IWDG_PR_PR_2 | IWDG_PR_PR_1)                   /*!< IWDG prescaler set to 256 */
-
+#define IWDG_PRESCALER_4                0x00000000u                   /*!< IWDG prescaler set to 4   */
+#define IWDG_PRESCALER_8                IWDG_PR_PR_0                  /*!< IWDG prescaler set to 8   */
+#define IWDG_PRESCALER_16               IWDG_PR_PR_1                  /*!< IWDG prescaler set to 16  */
+#define IWDG_PRESCALER_32               (IWDG_PR_PR_1 | IWDG_PR_PR_0) /*!< IWDG prescaler set to 32  */
+#define IWDG_PRESCALER_64               IWDG_PR_PR_2                  /*!< IWDG prescaler set to 64  */
+#define IWDG_PRESCALER_128              (IWDG_PR_PR_2 | IWDG_PR_PR_0)   /*!< IWDG prescaler set to 128U */
+#define IWDG_PRESCALER_256              (IWDG_PR_PR_2 | IWDG_PR_PR_1)   /*!< IWDG prescaler set to 256U */
 /**
   * @}
   */
@@ -99,7 +114,6 @@ typedef struct
 /**
   * @}
   */
-
 
 /**
   * @}
@@ -119,7 +133,7 @@ typedef struct
 
 /**
   * @brief  Reload IWDG counter with value defined in the reload register
-  *         (write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers disabled).
+  *         (write access to IWDG_PR, IWDG_RLR & IWDG_WINR registers disabled).
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
@@ -160,7 +174,6 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
 /** @defgroup IWDG_Private_Constants IWDG Private Constants
   * @{
   */
-
 /**
   * @brief  IWDG Key Register BitMask
   */
@@ -177,7 +190,6 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
 /** @defgroup IWDG_Private_Macros IWDG Private Macros
   * @{
   */
-
 /**
   * @brief  Enable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers.
   * @param  __HANDLE__  IWDG handle
@@ -219,7 +231,6 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
   */
 #define IS_IWDG_WINDOW(__WINDOW__)            ((__WINDOW__) <= IWDG_WINR_WIN)
 
-
 /**
   * @}
   */
@@ -237,6 +248,6 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
 }
 #endif
 
-#endif /* STM32F3xx_HAL_IWDG_H */
+#endif /* __STM32F3xx_HAL_IWDG_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

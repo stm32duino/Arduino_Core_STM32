@@ -42,7 +42,7 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
-/** @defgroup RNG_LL_Private_Macros RNG Private Macros
+/** @addtogroup RNG_LL_Private_Macros
   * @{
   */
 #define IS_LL_RNG_CED(__MODE__) (((__MODE__) == LL_RNG_CED_ENABLE) || \

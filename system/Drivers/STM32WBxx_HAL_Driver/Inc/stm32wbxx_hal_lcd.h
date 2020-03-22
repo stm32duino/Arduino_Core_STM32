@@ -33,8 +33,6 @@ extern "C" {
   * @{
   */
 
-#if defined (LCD)
-
 /** @addtogroup LCD
   * @{
   */
@@ -756,8 +754,6 @@ HAL_StatusTypeDef     LCD_WaitForSynchro(LCD_HandleTypeDef *hlcd);
 /**
   * @}
   */
-
-#endif /* LCD */
 
 /**
   * @}

@@ -14,7 +14,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -35,8 +35,7 @@ static int8_t TEMPLATE_CUSTOM_HID_Init(void);
 static int8_t TEMPLATE_CUSTOM_HID_DeInit(void);
 static int8_t TEMPLATE_CUSTOM_HID_OutEvent(uint8_t event_idx, uint8_t state);
 /* Private variables ---------------------------------------------------------*/
-USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_template_fops =
-{
+USBD_CUSTOM_HID_ItfTypeDef USBD_CustomHID_template_fops = {
   TEMPLATE_CUSTOM_HID_ReportDesc,
   TEMPLATE_CUSTOM_HID_Init,
   TEMPLATE_CUSTOM_HID_DeInit,

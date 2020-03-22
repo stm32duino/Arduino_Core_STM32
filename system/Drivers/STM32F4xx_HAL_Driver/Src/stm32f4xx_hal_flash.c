@@ -619,14 +619,8 @@ static void FLASH_Program_DoubleWord(uint32_t Address, uint64_t Data)
   FLASH->CR |= FLASH_PSIZE_DOUBLE_WORD;
   FLASH->CR |= FLASH_CR_PG;
 
-  /* Program first word */
+  /* Program the double-word */
   *(__IO uint32_t*)Address = (uint32_t)Data;
-
-  /* Barrier to ensure programming is performed in 2 steps, in right order
-    (independently of compiler optimization behavior) */
-  __ISB();
-
-  /* Program second word */
   *(__IO uint32_t*)(Address+4) = (uint32_t)(Data >> 32);
 }
 

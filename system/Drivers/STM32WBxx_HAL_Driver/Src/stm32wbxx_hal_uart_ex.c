@@ -163,8 +163,7 @@ static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart);
   *       oversampling rate).
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime,
-                                   uint32_t DeassertionTime)
+HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime, uint32_t DeassertionTime)
 {
   uint32_t temp;
 
@@ -239,6 +238,7 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
   /* TEACK and/or REACK to check before moving huart->gState and huart->RxState to Ready */
   return (UART_CheckIdleState(huart));
 }
+
 
 /**
   * @}
@@ -315,7 +315,7 @@ __weak void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart)
 
 /** @defgroup UARTEx_Exported_Functions_Group3 Peripheral Control functions
   * @brief    Extended Peripheral Control functions
-  *
+ *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -335,6 +335,9 @@ __weak void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart)
 @endverbatim
   * @{
   */
+
+
+
 
 /**
   * @brief By default in multiprocessor mode, when the wake up method is set
@@ -374,6 +377,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
   /* TEACK and/or REACK to check before moving huart->gState to Ready */
   return (UART_CheckIdleState(huart));
 }
+
 
 /**
   * @brief Set Wakeup from Stop mode interrupt flag selection.
@@ -435,6 +439,7 @@ HAL_StatusTypeDef HAL_UARTEx_StopModeWakeUpSourceConfig(UART_HandleTypeDef *huar
 
   return status;
 }
+
 
 /**
   * @brief Enable UART Stop Mode.

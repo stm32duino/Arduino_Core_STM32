@@ -7,13 +7,29 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************
   */
@@ -26,7 +42,7 @@
  extern "C" {
 #endif
 
-#if defined(SDADC1) || defined(SDAD2) || defined(SDADC3)
+#if defined(STM32F373xC) || defined(STM32F378xx)
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f3xx_hal_def.h"
@@ -78,7 +94,7 @@ typedef struct
 /** 
   * @brief  SDADC handle Structure definition  
   */  
-typedef struct __SDADC_HandleTypeDef
+typedef struct
 {
   SDADC_TypeDef            *Instance;           /*!< SDADC registers base address */
   SDADC_InitTypeDef        Init;                /*!< SDADC init parameters        */
@@ -94,16 +110,6 @@ typedef struct __SDADC_HandleTypeDef
   uint32_t                 InjectedMultimode;   /*!< Current type of injected multimode */
   HAL_SDADC_StateTypeDef   State;               /*!< SDADC state */
   uint32_t                 ErrorCode;           /*!< SDADC Error code */
-#if (USE_HAL_SDADC_REGISTER_CALLBACKS == 1)
-  void (* ConvHalfCpltCallback)(struct __SDADC_HandleTypeDef *hadc);            /*!< SDADC half regular conversion complete callback */
-  void (* ConvCpltCallback)(struct __SDADC_HandleTypeDef *hadc);                /*!< SDADC regular conversion complete callback */
-  void (* InjectedConvHalfCpltCallback)(struct __SDADC_HandleTypeDef *hadc);    /*!< SDADC half injected conversion complete callback */
-  void (* InjectedConvCpltCallback)(struct __SDADC_HandleTypeDef *hadc);        /*!< SDADC injected conversion complete callback */
-  void (* CalibrationCpltCallback)(struct __SDADC_HandleTypeDef *hadc);         /*!< SDADC calibration callback */
-  void (* ErrorCallback)(struct __SDADC_HandleTypeDef *hadc);                   /*!< SDADC error callback */
-  void (* MspInitCallback)(struct __SDADC_HandleTypeDef *hadc);                 /*!< SDADC Msp Init callback */
-  void (* MspDeInitCallback)(struct __SDADC_HandleTypeDef *hadc);               /*!< SDADC Msp DeInit callback */
-#endif /* USE_HAL_SDADC_REGISTER_CALLBACKS */
 }SDADC_HandleTypeDef;
 
 /** 
@@ -120,29 +126,6 @@ typedef struct
   uint32_t Offset;         /*!< Specifies the 12-bit offset value.
                                 This parameter can be any value lower or equal to 0x00000FFFU */
 }SDADC_ConfParamTypeDef;
-
-#if (USE_HAL_SDADC_REGISTER_CALLBACKS == 1)
-/**
-  * @brief  HAL SDADC Callback ID enumeration definition
-  */
-typedef enum
-{
-  HAL_SDADC_CONVERSION_HALF_CB_ID         = 0x00U,  /*!< SDADC half regular conversion complete callback ID */
-  HAL_SDADC_CONVERSION_COMPLETE_CB_ID     = 0x01U,  /*!< SDADC regular conversion complete callback ID */
-  HAL_SDADC_INJ_CONVERSION_HALF_CB_ID     = 0x02U,  /*!< SDADC half injected conversion complete callback ID */
-  HAL_SDADC_INJ_CONVERSION_COMPLETE_CB_ID = 0x03U,  /*!< SDADC injected conversion complete callback ID */
-  HAL_SDADC_CALIBRATION_COMPLETE_CB_ID    = 0x04U,  /*!< SDADC calibration callback ID */
-  HAL_SDADC_ERROR_CB_ID                   = 0x05U,  /*!< SDADC error callback ID */
-  HAL_SDADC_MSPINIT_CB_ID                 = 0x06U,  /*!< SDADC Msp Init callback ID */
-  HAL_SDADC_MSPDEINIT_CB_ID               = 0x07U   /*!< SDADC Msp DeInit callback ID */
-} HAL_SDADC_CallbackIDTypeDef;
-
-/**
-  * @brief  HAL SDADC Callback pointer definition
-  */
-typedef  void (*pSDADC_CallbackTypeDef)(SDADC_HandleTypeDef *hsdadc); /*!< pointer to a SDADC callback function */
-
-#endif /* USE_HAL_SDADC_REGISTER_CALLBACKS */
 
 /**
   * @}
@@ -356,9 +339,6 @@ typedef  void (*pSDADC_CallbackTypeDef)(SDADC_HandleTypeDef *hsdadc); /*!< point
 #define SDADC_ERROR_REGULAR_OVERRUN          (0x00000001UL) /*!< Overrun occurs during regular conversion */
 #define SDADC_ERROR_INJECTED_OVERRUN         (0x00000002UL) /*!< Overrun occurs during injected conversion */
 #define SDADC_ERROR_DMA                      (0x00000003UL) /*!< DMA error occurs */
-#if (USE_HAL_SDADC_REGISTER_CALLBACKS == 1)
-#define SDADC_ERROR_INVALID_CALLBACK         (0x00000004UL) /*!< Invalid Callback error */
-#endif /* USE_HAL_SDADC_REGISTER_CALLBACKS */
 /**
   * @}
   */
@@ -473,17 +453,7 @@ typedef  void (*pSDADC_CallbackTypeDef)(SDADC_HandleTypeDef *hsdadc); /*!< point
   * @param  __HANDLE__ SDADC handle.
   * @retval None
   */
-#if (USE_HAL_SDADC_REGISTER_CALLBACKS == 1)
-#define __HAL_SDADC_RESET_HANDLE_STATE(__HANDLE__)                             \
-  do{                                                                          \
-     (__HANDLE__)->State = HAL_SDADC_STATE_RESET;                              \
-     (__HANDLE__)->MspInitCallback = NULL;                                     \
-     (__HANDLE__)->MspDeInitCallback = NULL;                                   \
-    } while(0)
-#else
-#define __HAL_SDADC_RESET_HANDLE_STATE(__HANDLE__)                             \
-  ((__HANDLE__)->State = HAL_SDADC_STATE_RESET)
-#endif
+#define __HAL_SDADC_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_SDADC_STATE_RESET)
 
 /**
   * @}
@@ -612,12 +582,6 @@ HAL_StatusTypeDef HAL_SDADC_DeInit(SDADC_HandleTypeDef *hsdadc);
 void HAL_SDADC_MspInit(SDADC_HandleTypeDef* hsdadc);
 void HAL_SDADC_MspDeInit(SDADC_HandleTypeDef* hsdadc);
 
-#if (USE_HAL_SDADC_REGISTER_CALLBACKS == 1)
-/* Callbacks Register/UnRegister functions  ***********************************/
-HAL_StatusTypeDef HAL_SDADC_RegisterCallback(SDADC_HandleTypeDef *sdhadc, HAL_SDADC_CallbackIDTypeDef CallbackID, pSDADC_CallbackTypeDef pCallback);
-HAL_StatusTypeDef HAL_SDADC_UnRegisterCallback(SDADC_HandleTypeDef *sdhadc, HAL_SDADC_CallbackIDTypeDef CallbackID);
-#endif /* USE_HAL_SDADC_REGISTER_CALLBACKS */
-
 /**
   * @}
   */
@@ -728,7 +692,7 @@ uint32_t               HAL_SDADC_GetError(SDADC_HandleTypeDef* hsdadc);
   * @}
   */
 
-#endif /* SDADC1 || SDAD2 || SDADC3 */
+#endif /* defined(STM32F373xC) || defined(STM32F378xx) */
 
 #ifdef __cplusplus
 }

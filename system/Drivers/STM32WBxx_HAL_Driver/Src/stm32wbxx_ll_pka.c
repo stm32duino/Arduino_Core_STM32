@@ -63,6 +63,7 @@
                                       ((__VALUE__) == LL_PKA_MODE_MODULAR_ADD)               ||\
                                       ((__VALUE__) == LL_PKA_MODE_MODULAR_SUB)               ||\
                                       ((__VALUE__) == LL_PKA_MODE_MONTGOMERY_MUL))
+
 /**
   * @}
   */

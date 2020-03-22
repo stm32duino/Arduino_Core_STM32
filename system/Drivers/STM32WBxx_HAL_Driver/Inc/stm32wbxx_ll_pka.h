@@ -115,7 +115,6 @@ typedef struct
 #define LL_PKA_MODE_MODULAR_ADD              ((uint32_t)0x0000000EU) /*!< Modular addition */
 #define LL_PKA_MODE_MODULAR_SUB              ((uint32_t)0x0000000FU) /*!< Modular subtraction */
 #define LL_PKA_MODE_MONTGOMERY_MUL           ((uint32_t)0x00000010U) /*!< Montgomery multiplication */
-
 /**
   * @}
   */
@@ -329,7 +328,6 @@ __STATIC_INLINE void LL_PKA_EnableIT_RAMERR(PKA_TypeDef *PKAx)
   SET_BIT(PKAx->CR, PKA_CR_RAMERRIE);
 }
 
-
 /**
   * @brief  Enable end of operation interrupt.
   * @rmtoll CR           PROCENDIE     LL_PKA_EnableIT_PROCEND
@@ -396,7 +394,6 @@ __STATIC_INLINE uint32_t LL_PKA_IsEnabledIT_RAMERR(PKA_TypeDef *PKAx)
   return ((READ_BIT(PKAx->CR, PKA_CR_RAMERRIE) == (PKA_CR_RAMERRIE)) ? 1UL : 0UL);
 }
 
-
 /**
   * @brief  Check if end of operation interrupt is enabled.
   * @rmtoll CR           PROCENDIE     LL_PKA_IsEnabledIT_PROCEND
@@ -437,7 +434,6 @@ __STATIC_INLINE uint32_t LL_PKA_IsActiveFlag_RAMERR(PKA_TypeDef *PKAx)
 {
   return ((READ_BIT(PKAx->SR, PKA_SR_RAMERRF) == (PKA_SR_RAMERRF)) ? 1UL : 0UL);
 }
-
 
 /**
   * @brief  Get PKA end of operation flag.
@@ -482,7 +478,6 @@ __STATIC_INLINE void LL_PKA_ClearFlag_RAMERR(PKA_TypeDef *PKAx)
 {
   SET_BIT(PKAx->CLRFR, PKA_CLRFR_RAMERRFC);
 }
-
 
 /**
   * @brief  Clear PKA end of operation flag.

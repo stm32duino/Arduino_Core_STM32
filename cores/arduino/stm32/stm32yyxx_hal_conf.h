@@ -89,7 +89,6 @@
  */
 /*#define HAL_UART_MODULE_ENABLED*/
 /*#define HAL_PCD_MODULE_ENABLED*/
-/*#define HAL_IPCC_MODULE_ENABLED*/
 
 /*
  * Unused HAL modules

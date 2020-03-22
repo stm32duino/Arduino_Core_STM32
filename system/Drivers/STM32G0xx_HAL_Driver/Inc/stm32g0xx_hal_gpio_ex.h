@@ -47,8 +47,6 @@ extern "C" {
   * @{
   */
 
-
-
 #if defined (STM32G081xx) || defined (STM32G071xx)
 /*------------------------- STM32G081xx / STM32G071xx ------------------------*/
 /**

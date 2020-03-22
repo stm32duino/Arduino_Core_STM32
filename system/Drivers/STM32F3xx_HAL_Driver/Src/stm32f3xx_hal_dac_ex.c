@@ -22,15 +22,31 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
   *
-  ******************************************************************************
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  ******************************************************************************  
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -676,17 +692,13 @@ void HAL_DAC_IRQHandler(struct __DAC_HandleTypeDef* hdac)
       CLEAR_BIT(hdac->Instance->CR, DAC_CR_DMAEN1);
     
       /* Error callback */ 
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-      hdac->DMAUnderrunCallbackCh1(hdac);
-#else
       HAL_DAC_DMAUnderrunCallbackCh1(hdac);
-#endif
     }
   }
   
   if(__HAL_DAC_GET_IT_SOURCE(hdac, DAC_IT_DMAUDR2))
   {
-    /* Check underrun flag of DAC channel 2 */
+    /* Check underrun flag of DAC channel 1U */
     if (__HAL_DAC_GET_FLAG(hdac, DAC_FLAG_DMAUDR2))
     {
       /* Change DAC state to error state */
@@ -701,12 +713,8 @@ void HAL_DAC_IRQHandler(struct __DAC_HandleTypeDef* hdac)
       /* Disable the selected DAC channel1 DMA request */
       CLEAR_BIT(hdac->Instance->CR, DAC_CR_DMAEN2);
    
-      /* Error callback */
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-      hdac->DMAUnderrunCallbackCh2(hdac);
-#else
+      /* Error callback */ 
       HAL_DACEx_DMAUnderrunCallbackCh2(hdac);
-#endif
     }
   }
 }
@@ -1021,6 +1029,10 @@ __weak void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac)
   * @}
   */
 
+/**
+  * @}
+  */
+
 /** @addtogroup DACEx_Private_Functions
   * @{
   */
@@ -1034,11 +1046,7 @@ static void DAC_DMAConvCpltCh1(DMA_HandleTypeDef *hdma)
 {
   DAC_HandleTypeDef* hdac = ( DAC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
   
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  hdac->ConvCpltCallbackCh1(hdac);
-#else
   HAL_DAC_ConvCpltCallbackCh1(hdac); 
-#endif 
   
   hdac->State= HAL_DAC_STATE_READY;
 }
@@ -1051,13 +1059,8 @@ static void DAC_DMAConvCpltCh1(DMA_HandleTypeDef *hdma)
 static void DAC_DMAHalfConvCpltCh1(DMA_HandleTypeDef *hdma)   
 {
     DAC_HandleTypeDef* hdac = ( DAC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-
     /* Conversion complete callback */
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  hdac->ConvHalfCpltCallbackCh1(hdac);
-#else
     HAL_DAC_ConvHalfCpltCallbackCh1(hdac); 
-#endif
 }
 
 /**
@@ -1072,11 +1075,7 @@ static void DAC_DMAErrorCh1(DMA_HandleTypeDef *hdma)
   /* Set DAC error code to DMA error */
   hdac->ErrorCode |= HAL_DAC_ERROR_DMA;
     
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  hdac->ErrorCallbackCh1(hdac);
-#else  
   HAL_DAC_ErrorCallbackCh1(hdac); 
-#endif
     
   hdac->State= HAL_DAC_STATE_READY;
 }
@@ -1095,11 +1094,7 @@ static void DAC_DMAConvCpltCh2(DMA_HandleTypeDef *hdma)
 {
   DAC_HandleTypeDef* hdac = ( DAC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
   
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)  
-  hdac->ConvCpltCallbackCh2(hdac);
-#else
-  HAL_DACEx_ConvCpltCallbackCh2(hdac); 
-#endif
+  HAL_DACEx_ConvCpltCallbackCh2(hdac);
   
   hdac->State= HAL_DAC_STATE_READY;
 }
@@ -1112,13 +1107,8 @@ static void DAC_DMAConvCpltCh2(DMA_HandleTypeDef *hdma)
 static void DAC_DMAHalfConvCpltCh2(DMA_HandleTypeDef *hdma)   
 {
     DAC_HandleTypeDef* hdac = ( DAC_HandleTypeDef* )((DMA_HandleTypeDef* )hdma)->Parent;
-
     /* Conversion complete callback */
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)  
-  hdac->ConvHalfCpltCallbackCh2(hdac);
-#else
-    HAL_DACEx_ConvHalfCpltCallbackCh2(hdac); 
-#endif
+    HAL_DACEx_ConvHalfCpltCallbackCh2(hdac);
 }
 
 /**
@@ -1133,11 +1123,7 @@ static void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma)
   /* Set DAC error code to DMA error */
   hdac->ErrorCode |= HAL_DAC_ERROR_DMA;
     
-#if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
-  hdac->ErrorCallbackCh2(hdac);
-#else 
-  HAL_DACEx_ErrorCallbackCh2(hdac); 
-#endif
+  HAL_DACEx_ErrorCallbackCh2(hdac);
     
   hdac->State= HAL_DAC_STATE_READY;
 }
@@ -1145,10 +1131,6 @@ static void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma)
        /* STM32F303xC || STM32F358xx                || */
        /* STM32F303x8 || STM32F334x8 || STM32F328xx || */
        /* STM32F373xC || STM32F378xx                   */
-
-/**
-  * @}
-  */
 
 /**
   * @}

@@ -269,7 +269,7 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
     pFlash.Address = Address;
 
     /* Enable End of Operation and Error interrupts */
-    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
+    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
 
     if (TypeProgram == FLASH_TYPEPROGRAM_DOUBLEWORD)
     {
@@ -302,11 +302,13 @@ void HAL_FLASH_IRQHandler(void)
   uint32_t param = 0xFFFFFFFFU;
   uint32_t error;
 
-  /* Check FLASH operation error flags */
-  error = (FLASH->SR & FLASH_FLAG_SR_ERRORS);
+  /* Save flash errors. Only ECC detection can be checked here as ECCC
+     generates NMI */
+  error = (FLASH->SR & FLASH_FLAG_SR_ERROR);
 
   /* Clear Current operation */
   CLEAR_BIT(FLASH->CR, pFlash.ProcedureOnGoing);
+  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
 
   /* A] Set parameter for user or error callbacks */
   /* check operation was a program or erase */
@@ -379,7 +381,7 @@ void HAL_FLASH_IRQHandler(void)
   if (pFlash.ProcedureOnGoing == FLASH_TYPENONE)
   {
     /* Disable End of Operation and Error interrupts */
-    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
+    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
 
     /* Process Unlocked */
     __HAL_UNLOCK(&pFlash);
@@ -579,6 +581,7 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
   *            @arg @ref HAL_FLASH_ERROR_FAST FLASH Fast programming error
   *            @arg @ref HAL_FLASH_ERROR_RD FLASH Read Protection error (PCROP)
   *            @arg @ref HAL_FLASH_ERROR_OPTV FLASH Option validity error
+  *            @arg @ref HAL_FLASH_ERROR_ECCD FLASH two ECC errors have been detected
   */
 uint32_t HAL_FLASH_GetError(void)
 {
@@ -620,7 +623,8 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
     }
   }
 
-  /* Check FLASH operation error flags */
+  /* check flash errors. Only ECC correction can be checked here as ECCD
+      generates NMI */
   error = FLASH->SR;
 
   /* Check FLASH End of Operation flag */
@@ -631,7 +635,10 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   }
 
   /* Now update error variable to only error value */
-  error &= FLASH_FLAG_SR_ERRORS;
+  error &= FLASH_FLAG_SR_ERROR;
+
+  /* Update error with ECC error value */
+  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
 
   /* clear error flags */
   __HAL_FLASH_CLEAR_FLAG(error);

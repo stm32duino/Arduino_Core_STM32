@@ -8,7 +8,6 @@
   *           + Initialization and de-initialization functions
   *           + Monitoring operation functions
   *           + Error informations functions
-  *           + State and error functions
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -18,8 +17,7 @@
 
    (#) For a given Monitor, enable and disable interrupt through
        HAL_RAMECC_EnableNotifiaction().
-       To enable a notification for a given RAMECC instance, use global
-       interrupts.
+       To enable a notification for a given RAMECC instance, use global interrupts.
        To enable a notification for only RAMECC monitor, use monitor interrupts.
        All possible notifications are defined in the driver header file under
        RAMECC_Interrupt group.
@@ -27,47 +25,34 @@
      *** Silent mode ***
      ===================
     [..]
-          (+) Use HAL_RAMECC_StartMonitor() to start RAMECC latch failing
-              information without enabling any notification.
+          (+) Use HAL_RAMECC_StartMonitor() to start RAMECC latch failing information
+              without enabling any notification.
 
      *** Interrupt mode ***
      ======================
     [..]
-          (+) Use HAL_RAMECC_EnableNotifiaction() to enable interrupts for a
-              given error.
-          (+) Configure the RAMECC interrupt priority using
-              HAL_NVIC_SetPriority().
+          (+) Use HAL_RAMECC_EnableNotifiaction() to enable interrupts for a given error.
+          (+) Configure the RAMECC interrupt priority using HAL_NVIC_SetPriority().
           (+) Enable the RAMECC IRQ handler using HAL_NVIC_EnableIRQ().
 
      *** Failing informations ***
      ======================
     [..]
-     (#) Use HAL_RAMECC_GetFailingAddress() function to return the RAMECC
-         failing address.
-     (#) Use HAL_RAMECC_GetFailingDataLow() function to return the RAMECC
-         failing data low.
-     (#) Use HAL_RAMECC_GetFailingDataHigh() function to return the RAMECC
-         failing data high.
-     (#) Use HAL_RAMECC_GetHammingErrorCode() function to return the RAMECC
-         Hamming bits injected.
-     (#) Use HAL_RAMECC_IsECCSingleErrorDetected() function to check if a single
-         error was detected and corrected.
-     (#) Use HAL_RAMECC_IsECCDoubleErrorDetected() function to check if a double
-         error was dedetected.
+     (#) Use HAL_RAMECC_GetFailingAddress() function to return the RAMECC failing address.
+     (#) Use HAL_RAMECC_GetFailingDataLow() function to return the RAMECC failing data low.
+     (#) Use HAL_RAMECC_GetFailingDataHigh() function to return the RAMECC failing data high.
+     (#) Use HAL_RAMECC_GetHammingErrorCode() function to return the RAMECC Hamming bits injected.
 
      *** RAMECC HAL driver macros list ***
      =============================================
      [..]
        Below the list of used macros in RAMECC HAL driver.
 
-      (+) __HAL_RAMECC_ENABLE_IT  : Enable the specified ECCRAM Monitor
-                                    interrupts.
-      (+) __HAL_RAMECC_DISABLE_IT : Disable the specified ECCRAM Monitor
-                                    interrupts.
-      (+) __HAL_RAMECC_GET_FLAG   : Return the current RAMECC Monitor selected
-                                    flag.
-      (+) __HAL_RAMECC_CLEAR_FLAG : Clear the current RAMECC Monitor selected
-                                    flag.
+      (+) __HAL_RAMECC_ENABLE_IT  : Enable the specified ECCRAM Monitor interrupts.
+      (+) __HAL_RAMECC_DISABLE_IT : Disable the specified ECCRAM Monitor interrupts.
+      (+) __HAL_RAMECC_GET_FLAG   : Return the current RAMECC Monitor selected flag.
+      (+) __HAL_RAMECC_CLEAR_FLAG : Clear the current RAMECC Monitor selected flag.
+
   @endverbatim
   ******************************************************************************
   * @attention
@@ -102,8 +87,7 @@
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-/* Exported functions --------------------------------------------------------*/
-
+/* Exported functions ---------------------------------------------------------*/
 /** @addtogroup RAMECC_Exported_Functions
   * @{
   */
@@ -132,17 +116,16 @@
   *                  Monitor.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_Init (RAMECC_HandleTypeDef *hramecc)
+HAL_StatusTypeDef HAL_RAMECC_Init(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the RAMECC peripheral handle */
-  if (hramecc == NULL)
+  if(hramecc == NULL)
   {
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
   /* Change RAMECC peripheral state */
   hramecc->State = HAL_RAMECC_STATE_BUSY;
@@ -151,22 +134,21 @@ HAL_StatusTypeDef HAL_RAMECC_Init (RAMECC_HandleTypeDef *hramecc)
   hramecc->Instance->CR &= ~RAMECC_CR_ECCELEN;
 
   /* Disable all global interrupts */
-  ((RAMECC_TypeDef *)((uint32_t)hramecc->Instance & 0xFFFFFF00U))->IER &= \
+  ((RAMECC_TypeDef *)((uint32_t)&hramecc->Instance & 0xFFFFFF00U))->IER &= \
     ~(RAMECC_IER_GIE | RAMECC_IER_GECCSEIE | RAMECC_IER_GECCDEIE | RAMECC_IER_GECCDEBWIE);
 
   /* Disable all interrupts monitor  */
   hramecc->Instance->CR &= ~(RAMECC_CR_ECCSEIE | RAMECC_CR_ECCDEIE | RAMECC_CR_ECCDEBWIE);
 
   /* Clear RAMECC monitor flags */
-  __HAL_RAMECC_CLEAR_FLAG (hramecc, RAMECC_FLAGS_ALL);
-
-  /* Initialise the RAMECC error code */
-  hramecc->ErrorCode = HAL_RAMECC_ERROR_NONE;
+  __HAL_RAMECC_CLEAR_FLAG(hramecc, RAMECC_FLAGS_ALL);
 
   /* Update the RAMECC state */
   hramecc->State = HAL_RAMECC_STATE_READY;
 
-  /* Return HAL status */
+  /* Clean callback */
+  hramecc->DetectErrorCallback = NULL;
+
   return HAL_OK;
 }
 
@@ -178,46 +160,38 @@ HAL_StatusTypeDef HAL_RAMECC_Init (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_DeInit (RAMECC_HandleTypeDef *hramecc)
+HAL_StatusTypeDef HAL_RAMECC_DeInit(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the RAMECC peripheral handle */
-  if (hramecc == NULL)
+  if(hramecc == NULL)
   {
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
   /* Disable RAMECC monitor */
   hramecc->Instance->CR &= ~RAMECC_CR_ECCELEN;
 
   /* Disable all global interrupts */
-  ((RAMECC_TypeDef *)((uint32_t)hramecc->Instance & 0xFFFFFF00U))->IER &= \
+  ((RAMECC_TypeDef *)((uint32_t)&hramecc->Instance & 0xFFFFFF00U))->IER &= \
     ~(RAMECC_IER_GIE | RAMECC_IER_GECCSEIE | RAMECC_IER_GECCDEIE | RAMECC_IER_GECCDEBWIE);
 
   /* Disable all interrupts monitor  */
   hramecc->Instance->CR &= ~(RAMECC_CR_ECCSEIE | RAMECC_CR_ECCDEIE | RAMECC_CR_ECCDEBWIE);
 
   /* Clear RAMECC monitor flags */
-  __HAL_RAMECC_CLEAR_FLAG (hramecc, RAMECC_FLAGS_ALL);
-
-  /* Clean callback */
-  hramecc->DetectErrorCallback = NULL;
-
-  /* Initialise the RAMECC error code */
-  hramecc->ErrorCode = HAL_RAMECC_ERROR_NONE;
+  __HAL_RAMECC_CLEAR_FLAG(hramecc, RAMECC_FLAGS_ALL);
 
   /* Change RAMECC peripheral state */
   hramecc->State = HAL_RAMECC_STATE_RESET;
 
-  /* Return HAL status */
+  /* Clean callback */
+  hramecc->DetectErrorCallback = NULL;
+
   return HAL_OK;
 }
-/**
-  * @}
-  */
 
 /**
   * @}
@@ -240,39 +214,39 @@ HAL_StatusTypeDef HAL_RAMECC_DeInit (RAMECC_HandleTypeDef *hramecc)
   */
 
 /**
-  * @brief  Starts the RAMECC latching error information.
+  * @brief  Starts the RAMECC latching error informations.
   * @param  hramecc  Pointer to a RAMECC_HandleTypeDef structure that contains
   *                  the configuration information for the specified RAMECC
   *                  Monitor.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_StartMonitor (RAMECC_HandleTypeDef *hramecc)
+HAL_StatusTypeDef HAL_RAMECC_StartMonitor(RAMECC_HandleTypeDef *hramecc)
 {
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
+  {
+    return HAL_ERROR;
+  }
 
-  /* Check RAMECC state */
-  if (hramecc->State == HAL_RAMECC_STATE_READY)
+  /* Check the parameters */
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
+
+  if(hramecc->State == HAL_RAMECC_STATE_READY)
   {
     /* Change RAMECC peripheral state */
     hramecc->State = HAL_RAMECC_STATE_BUSY;
 
     /* Enable RAMECC monitor */
     hramecc->Instance->CR |= RAMECC_CR_ECCELEN;
-
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_READY;
   }
   else
   {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_BUSY;
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
 
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
-  /* Return HAL status */
   return HAL_OK;
 }
 
@@ -284,113 +258,113 @@ HAL_StatusTypeDef HAL_RAMECC_StartMonitor (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_StopMonitor (RAMECC_HandleTypeDef *hramecc)
+HAL_StatusTypeDef HAL_RAMECC_StopMonitor(RAMECC_HandleTypeDef *hramecc)
 {
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
-
-  /* Check RAMECC state */
-  if (hramecc->State == HAL_RAMECC_STATE_READY)
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
   {
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_BUSY;
-
-    /* Disable RAMECC monitor */
-    hramecc->Instance->CR &= ~RAMECC_CR_ECCELEN;
-
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_READY;
-  }
-  else
-  {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_BUSY;
-
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
-  /* Return HAL status */
+  /* Check the parameters */
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
+
+  if(hramecc->State == HAL_RAMECC_STATE_BUSY)
+  {
+    /* Disable RAMECC monitor */
+    hramecc->Instance->CR &= ~RAMECC_CR_ECCELEN;
+  }
+  else
+  {
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
+
+    return HAL_ERROR;
+  }
+
+  /* Change RAMECC peripheral state */
+  hramecc->State = HAL_RAMECC_STATE_READY;
+
   return HAL_OK;
 }
 
 
 /**
   * @brief  Enable the RAMECC error interrupts.
-  * @param  hramecc        Pointer to a RAMECC_HandleTypeDef structure that
-  *                        contains the configuration information for the
-  *                        specified RAMECC Monitor.
+  * @param  hramecc       Pointer to a RAMECC_HandleTypeDef structure that contains
+  *                       the configuration information for the specified RAMECC
+  *                       Monitor.
   * @param  Notifications  Select the notification.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_EnableNotification (RAMECC_HandleTypeDef *hramecc, uint32_t Notifications)
+HAL_StatusTypeDef HAL_RAMECC_EnableNotification(RAMECC_HandleTypeDef *hramecc, uint32_t Notifications)
 {
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
-  assert_param (IS_RAMECC_INTERRUPT (Notifications));
-
-  /* Check RAMECC state */
-  if (hramecc->State == HAL_RAMECC_STATE_READY)
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
   {
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_BUSY;
-
-    /* Enable RAMECC interrupts */
-    __HAL_RAMECC_ENABLE_IT (hramecc, Notifications);
-
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_READY;
-  }
-  else
-  {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_BUSY;
-
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
-  /* Return HAL status */
+  /* Get RAMECC monitor state */
+  HAL_RAMECC_StateTypeDef state = hramecc->State;
+
+  /* Check the parameters */
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
+  assert_param(IS_RAMECC_INTERRUPT(Notifications));
+
+  if((state == HAL_RAMECC_STATE_READY) || (state == HAL_RAMECC_STATE_BUSY))
+  {
+    /* Enable RAMECC interrupts */
+    __HAL_RAMECC_ENABLE_IT(hramecc, Notifications);
+  }
+  else
+  {
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
+
+    return HAL_ERROR;
+  }
+
   return HAL_OK;
 }
 
 
 /**
   * @brief  Disable the RAMECC error interrupts.
-  * @param  hramecc        Pointer to a RAMECC_HandleTypeDef structure that
-  *                        contains the configuration information for the
-  *                        specified RAMECC Monitor.
+  * @param  hramecc       Pointer to a RAMECC_HandleTypeDef structure that contains
+  *                       the configuration information for the specified RAMECC
+  *                       Monitor.
   * @param  Notifications  Select the notification.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_DisableNotification (RAMECC_HandleTypeDef *hramecc, uint32_t Notifications)
+HAL_StatusTypeDef HAL_RAMECC_DisableNotification(RAMECC_HandleTypeDef *hramecc, uint32_t Notifications)
 {
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
-  assert_param (IS_RAMECC_INTERRUPT (Notifications));
-
-  /* Check RAMECC state */
-  if (hramecc->State == HAL_RAMECC_STATE_READY)
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
   {
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_BUSY;
-
-    /* Disable RAMECC interrupts */
-    __HAL_RAMECC_DISABLE_IT (hramecc, Notifications);
-
-    /* Change RAMECC peripheral state */
-    hramecc->State = HAL_RAMECC_STATE_READY;
-  }
-  else
-  {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_BUSY;
-
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
-  /* Return HAL status */
+  /* Get RAMECC monitor state */
+  HAL_RAMECC_StateTypeDef state = hramecc->State;
+
+  /* Check the parameters */
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
+  assert_param(IS_RAMECC_INTERRUPT(Notifications));
+
+  if((state == HAL_RAMECC_STATE_READY) || (state == HAL_RAMECC_STATE_BUSY))
+  {
+    /* Disable RAMECC interrupts */
+    __HAL_RAMECC_DISABLE_IT(hramecc, Notifications);
+  }
+  else
+  {
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
+
+    return HAL_ERROR;
+  }
+
   return HAL_OK;
 }
 
@@ -404,38 +378,30 @@ HAL_StatusTypeDef HAL_RAMECC_DisableNotification (RAMECC_HandleTypeDef *hramecc,
   *                    a RAMECC_HandleTypeDef structure as parameter.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_RegisterCallback (RAMECC_HandleTypeDef *hramecc, void (* pCallback)(RAMECC_HandleTypeDef *_hramecc))
+HAL_StatusTypeDef HAL_RAMECC_RegisterCallback(RAMECC_HandleTypeDef *hramecc, void (* pCallback)(RAMECC_HandleTypeDef *_hramecc))
 {
-  HAL_StatusTypeDef status = HAL_OK;
-
-  if (pCallback == NULL)
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
   {
-    /* Update the error code */
-    hramecc->ErrorCode |= HAL_RAMECC_ERROR_INVALID_CALLBACK;
-
-    /* Return HAL status */
     return HAL_ERROR;
   }
 
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Check RAMECC state */
-  if (hramecc->State == HAL_RAMECC_STATE_READY)
+  if(hramecc->State == HAL_RAMECC_STATE_READY)
   {
     hramecc->DetectErrorCallback = pCallback;
   }
   else
   {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_INVALID_CALLBACK;
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
 
-    /* Update HAL status */
-    status = HAL_ERROR;
+    return HAL_ERROR;
   }
 
-  /* Return HAL status */
-  return status;
+  return HAL_OK;
 }
 
 
@@ -446,29 +412,33 @@ HAL_StatusTypeDef HAL_RAMECC_RegisterCallback (RAMECC_HandleTypeDef *hramecc, vo
   *                    Monitor.
   * @retval HAL status.
   */
-HAL_StatusTypeDef HAL_RAMECC_UnRegisterCallback (RAMECC_HandleTypeDef *hramecc)
+HAL_StatusTypeDef HAL_RAMECC_UnRegisterCallback(RAMECC_HandleTypeDef *hramecc)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  /* Check the RAMECC peripheral handle */
+  if(hramecc == NULL)
+  {
+    return HAL_ERROR;
+  }
+
+  /* Get RAMECC monitor state */
+  HAL_RAMECC_StateTypeDef state = hramecc->State;
 
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Check RAMECC state */
-  if(hramecc->State == HAL_RAMECC_STATE_READY)
+  if((state == HAL_RAMECC_STATE_READY) || (state == HAL_RAMECC_STATE_BUSY))
   {
     hramecc->DetectErrorCallback = NULL;
   }
   else
   {
-    /* Update the error code */
-    hramecc->ErrorCode = HAL_RAMECC_ERROR_INVALID_CALLBACK;
+    /* Change the RAMECC state */
+    hramecc->State = HAL_RAMECC_STATE_ERROR;
 
-    /* Update HAL status */
-    status = HAL_ERROR;
+    return HAL_ERROR;
   }
 
-  /* Return HAL status */
-  return status;
+  return HAL_OK;
 }
 
 
@@ -479,23 +449,22 @@ HAL_StatusTypeDef HAL_RAMECC_UnRegisterCallback (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval None.
   */
-void HAL_RAMECC_IRQHandler (RAMECC_HandleTypeDef *hramecc)
+void HAL_RAMECC_IRQHandler(RAMECC_HandleTypeDef *hramecc)
 {
   uint32_t ier_reg = ((RAMECC_TypeDef *)((uint32_t)hramecc->Instance & 0xFFFFFF00U))->IER;
   uint32_t cr_reg = hramecc->Instance->CR >> 1U;
   uint32_t sr_reg = hramecc->Instance->SR << 1U;
 
-  /* Update global interrupt variables */
-  if ((ier_reg & RAMECC_IER_GIE) == RAMECC_IER_GIE)
+  /* Update gloabl interrupt variables */
+  if((ier_reg & RAMECC_IER_GIE) == RAMECC_IER_GIE)
   {
     ier_reg = RAMECC_IT_GLOBAL_ALL;
   }
 
   /* Clear active flags */
-  __HAL_RAMECC_CLEAR_FLAG (hramecc, (((ier_reg | cr_reg) & sr_reg) >> 1U));
+  __HAL_RAMECC_CLEAR_FLAG(hramecc, (((ier_reg | cr_reg) & sr_reg) >> 1U));
 
-  /* Check if a valid double error callback is registred */
-  if (hramecc->DetectErrorCallback != NULL)
+  if(hramecc->DetectErrorCallback != NULL)
   {
     /* Error detection callback */
     hramecc->DetectErrorCallback(hramecc);
@@ -513,9 +482,7 @@ void HAL_RAMECC_IRQHandler (RAMECC_HandleTypeDef *hramecc)
       (+) Get failing address.
       (+) Get failing data low.
       (+) Get failing data high.
-      (+) Get hamming bits injected.
-      (+) Check single error flag.
-      (+) Check double error flag.
+      (+) Get Hamming bits injected.
 
 @endverbatim
   * @{
@@ -528,12 +495,11 @@ void HAL_RAMECC_IRQHandler (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing address offset.
   */
-uint32_t HAL_RAMECC_GetFailingAddress (RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingAddress(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Return failing address */
   return hramecc->Instance->FAR;
 }
 
@@ -545,12 +511,11 @@ uint32_t HAL_RAMECC_GetFailingAddress (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing data low.
   */
-uint32_t HAL_RAMECC_GetFailingDataLow (RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingDataLow(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Return failing data low */
   return hramecc->Instance->FDRL;
 }
 
@@ -562,12 +527,11 @@ uint32_t HAL_RAMECC_GetFailingDataLow (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Failing data high.
   */
-uint32_t HAL_RAMECC_GetFailingDataHigh (RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetFailingDataHigh(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Return failing data high */
   return hramecc->Instance->FDRH;
 }
 
@@ -579,98 +543,18 @@ uint32_t HAL_RAMECC_GetFailingDataHigh (RAMECC_HandleTypeDef *hramecc)
   *                  Monitor.
   * @retval Hamming bits injected.
   */
-uint32_t HAL_RAMECC_GetHammingErrorCode (RAMECC_HandleTypeDef *hramecc)
+uint32_t HAL_RAMECC_GetHammingErrorCode(RAMECC_HandleTypeDef *hramecc)
 {
   /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
+  assert_param(IS_RAMECC_MONITOR_ALL_INSTANCE(hramecc->Instance));
 
-  /* Return hamming bits injected */
   return hramecc->Instance->FECR;
 }
 
 /**
-  * @brief  Check if an ECC single error was occured.
-  * @param  hramecc  Pointer to a RAMECC_HandleTypeDef structure that contains
-  *                  the configuration information for the specified RAMECC
-  *                  Monitor.
-  * @retval State of bit (1 or 0).
-  */
-uint32_t HAL_RAMECC_IsECCSingleErrorDetected (RAMECC_HandleTypeDef *hramecc)
-{
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
-
-  /* Return the state of SEDC flag */
-  return ((READ_BIT(hramecc->Instance->SR, RAMECC_SR_SEDCF) == (RAMECC_SR_SEDCF)) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Check if an ECC double error was occured.
-  * @param  hramecc  Pointer to a RAMECC_HandleTypeDef structure that contains
-  *                  the configuration information for the specified RAMECC
-  *                  Monitor.
-  * @retval State of bit (1 or 0).
-  */
-uint32_t HAL_RAMECC_IsECCDoubleErrorDetected (RAMECC_HandleTypeDef *hramecc)
-{
-  /* Check the parameters */
-  assert_param (IS_RAMECC_MONITOR_ALL_INSTANCE (hramecc->Instance));
-
-  /* Return the state of DEDF | DEBWDF flags */
-  return ((READ_BIT(hramecc->Instance->SR, (RAMECC_SR_DEDF | RAMECC_SR_DEBWDF)) != 0U) ? 1UL : 0UL);
-}
-/**
   * @}
   */
 
-
-/** @addtogroup RAMECC_Exported_Functions_Group4
-  *
-@verbatim
- ===============================================================================
-                    ##### State and Error Functions  #####
- ===============================================================================
-    [..]
-    This section provides functions allowing to check and get the RAMECC state
-    and the error code .
-    [..]
-    The HAL_RAMECC_GetState() function allows to get the RAMECC peripheral
-    state.
-    The HAL_RAMECC_GetError() function allows to Get the RAMECC peripheral error
-    code.
-
-@endverbatim
-  * @{
-  */
-
-/**
-  * @brief  Get the RAMECC peripheral state.
-  * @param  hramecc       : Pointer to a RAMECC_HandleTypeDef structure that
-  *                         contains the configuration information for the
-  *                         specified RAMECC instance.
-  * @retval RAMECC state.
-  */
-HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState (RAMECC_HandleTypeDef *hramecc)
-{
-  /* Return the RAMECC state */
-  return hramecc->State;
-}
-
-/**
-  * @brief  Get the RAMECC peripheral error code.
-  * @param  hramecc       : Pointer to a RAMECC_HandleTypeDef structure that
-  *                         contains the configuration information for the
-  *                         specified RAMECC instance.
-  * @retval RAMECC error code.
-  */
-uint32_t HAL_RAMECC_GetError (RAMECC_HandleTypeDef *hramecc)
-{
-  /* Return the RAMECC error code */
-  return hramecc->ErrorCode;
-}
-/**
-  * @}
-  */
 #endif /* HAL_RAMECC_MODULE_ENABLED */
 
 /**

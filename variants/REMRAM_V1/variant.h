@@ -146,6 +146,7 @@ extern "C"
 #define NUM_ANALOG_FIRST 64
 
 // PWM resolution
+#define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
 #define PWM_MAX_DUTY_CYCLE      255
 
@@ -154,9 +155,12 @@ extern "C"
 #define LED_BUILTIN LED_YELLOW
 
 // Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+
+// Do not use timer used by PWM pins when possible. See PinMap_PWM.
 #define TIMER_TONE TIM6
-#define TIMER_SERVO TIM7
+
+// Do not use basic timer: OC is required
+#define TIMER_SERVO TIM3 //TODO: advanced-control timers don't work
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE 1
@@ -171,11 +175,6 @@ extern "C"
 
 /* HAL configuration */
 #define HSE_VALUE               24000000U
-
-// Last Flash sector used for EEPROM emulation, address/sector depends on single/dual bank configuration.
-// By default 2MB single bank
-#define FLASH_BASE_ADDRESS  0x081C0000
-#define FLASH_DATA_SECTOR   11
 
 #ifdef __cplusplus
 } // extern "C"

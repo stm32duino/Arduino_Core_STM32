@@ -27,6 +27,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal_def.h"
+#include "stm32wb55xx.h"
 
 /** @addtogroup STM32WBxx_HAL_Driver
   * @{

@@ -25,8 +25,6 @@
  extern "C" {
 #endif
 
-#if defined(ETH)
-
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal_def.h"
 
@@ -345,8 +343,6 @@ uint32_t          HAL_ETHEx_GetMACLPIEvent(ETH_HandleTypeDef *heth);
 /**
   * @}
   */
-
-#endif /* ETH */
 
 #ifdef __cplusplus
 }

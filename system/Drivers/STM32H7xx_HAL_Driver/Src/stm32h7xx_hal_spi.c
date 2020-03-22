@@ -776,10 +776,6 @@ HAL_StatusTypeDef HAL_SPI_UnRegisterCallback(SPI_HandleTypeDef *hspi, HAL_SPI_Ca
   */
 HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
-#if defined (__GNUC__)
-  __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
-#endif /* __GNUC__ */
-
   uint32_t tickstart;
   HAL_StatusTypeDef errorcode = HAL_OK;
 
@@ -886,11 +882,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
         }
         else
         {
-#if defined (__GNUC__)
-          *ptxdr_16bits = *((uint16_t *)hspi->pTxBuffPtr);
-#else
           *((__IO uint16_t *)&hspi->Instance->TXDR) = *((uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
           hspi->pTxBuffPtr += sizeof(uint16_t);
           hspi->TxXferCount--;
         }
@@ -929,11 +921,7 @@ HAL_StatusTypeDef HAL_SPI_Transmit(SPI_HandleTypeDef *hspi, uint8_t *pData, uint
         }
         else if ((hspi->TxXferCount > 1UL) && (hspi->Init.FifoThreshold > SPI_FIFO_THRESHOLD_01DATA))
         {
-#if defined (__GNUC__)
-          *ptxdr_16bits = *((uint16_t *)hspi->pTxBuffPtr);
-#else
           *((__IO uint16_t *)&hspi->Instance->TXDR) = *((uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
           hspi->pTxBuffPtr += sizeof(uint16_t);
           hspi->TxXferCount -= (uint16_t)2UL;
         }
@@ -997,9 +985,6 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
 {
   uint32_t tickstart;
   HAL_StatusTypeDef errorcode = HAL_OK;
-#if defined (__GNUC__)
-  __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
-#endif /* __GNUC__ */
 
   /* Check Direction parameter */
   assert_param(IS_SPI_DIRECTION_2LINES_OR_1LINE_2LINES_RXONLY(hspi->Init.Direction));
@@ -1111,11 +1096,7 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
         }
         else
         {
-#if defined (__GNUC__)
-          *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
           *((uint16_t *)hspi->pRxBuffPtr) = *((__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
           hspi->pRxBuffPtr += sizeof(uint16_t);
           hspi->RxXferCount--;
         }
@@ -1155,11 +1136,7 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
         }
         else if ((hspi->Instance->SR & SPI_FLAG_FRLVL) > SPI_RX_FIFO_1PACKET)
         {
-#if defined (__GNUC__)
-          *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
           *((uint16_t *)hspi->pRxBuffPtr) = *((__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
           hspi->pRxBuffPtr += sizeof(uint16_t);
           hspi->RxXferCount -= (uint16_t)2UL;
         }
@@ -1230,10 +1207,6 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
 {
   HAL_SPI_StateTypeDef tmp_state;
   HAL_StatusTypeDef errorcode = HAL_OK;
-#if defined (__GNUC__)
-  __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
-  __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
-#endif /* __GNUC__ */
 
   uint32_t   tickstart;
   uint32_t   tmp_mode;
@@ -1354,11 +1327,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
         }
         else
         {
-#if defined (__GNUC__)
-          *ptxdr_16bits = *((uint16_t *)hspi->pTxBuffPtr);
-#else
           *((__IO uint16_t *)&hspi->Instance->TXDR) = *((uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
           hspi->pTxBuffPtr += sizeof(uint16_t);
           hspi->TxXferCount--;
           initial_TxXferCount = hspi->TxXferCount;
@@ -1377,11 +1346,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
         }
         else
         {
-#if defined (__GNUC__)
-          *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
           *((uint16_t *)hspi->pRxBuffPtr) = *((__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
           hspi->pRxBuffPtr += sizeof(uint16_t);
           hspi->RxXferCount--;
           initial_RxXferCount = hspi->RxXferCount;
@@ -1420,11 +1385,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
         }
         else if ((initial_TxXferCount > 1UL) && (hspi->Init.FifoThreshold > SPI_FIFO_THRESHOLD_01DATA))
         {
-#if defined (__GNUC__)
-          *ptxdr_16bits = *((uint16_t *)hspi->pTxBuffPtr);
-#else
           *((__IO uint16_t *)&hspi->Instance->TXDR) = *((uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
           hspi->pTxBuffPtr += sizeof(uint16_t);
           hspi->TxXferCount -= (uint16_t)2UL;
           initial_TxXferCount = hspi->TxXferCount;
@@ -1450,11 +1411,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
         }
         else if ((hspi->Instance->SR & SPI_FLAG_FRLVL) > SPI_RX_FIFO_1PACKET)
         {
-#if defined (__GNUC__)
-          *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
           *((uint16_t *)hspi->pRxBuffPtr) = *((__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
           hspi->pRxBuffPtr += sizeof(uint16_t);
           hspi->RxXferCount -= (uint16_t)2UL;
           initial_RxXferCount = hspi->RxXferCount;
@@ -2757,9 +2714,6 @@ void HAL_SPI_IRQHandler(SPI_HandleTypeDef *hspi)
   uint32_t handled  = 0UL;
 
   HAL_SPI_StateTypeDef State = hspi->State;
-#if defined (__GNUC__)
-  __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
-#endif /* __GNUC__ */
 
 
   /* SPI in mode Transmitter and Receiver ------------------------------------*/
@@ -2829,11 +2783,7 @@ void HAL_SPI_IRQHandler(SPI_HandleTypeDef *hspi)
           /* Receive data in 16 Bit mode */
           else if (hspi->Init.DataSize > SPI_DATASIZE_8BIT)
           {
-#if defined (__GNUC__)
-            *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
             *((uint16_t *)hspi->pRxBuffPtr) = *((__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
             hspi->pRxBuffPtr += sizeof(uint16_t);
           }
           /* Receive data in 8 Bit mode */
@@ -3481,13 +3431,7 @@ static void SPI_RxISR_8BIT(SPI_HandleTypeDef *hspi)
 static void SPI_RxISR_16BIT(SPI_HandleTypeDef *hspi)
 {
   /* Receive data in 16 Bit mode */
-#if defined (__GNUC__)
-  __IO uint16_t *prxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->RXDR));
-
-  *((uint16_t *)hspi->pRxBuffPtr) = *prxdr_16bits;
-#else
   *((uint16_t *)hspi->pRxBuffPtr) = (*(__IO uint16_t *)&hspi->Instance->RXDR);
-#endif /* __GNUC__ */
   hspi->pRxBuffPtr += sizeof(uint16_t);
   hspi->RxXferCount--;
 
@@ -3597,13 +3541,7 @@ static void SPI_TxISR_8BIT(SPI_HandleTypeDef *hspi)
 static void SPI_TxISR_16BIT(SPI_HandleTypeDef *hspi)
 {
   /* Transmit data in 16 Bit mode */
-#if defined (__GNUC__)
-  __IO uint16_t *ptxdr_16bits = (__IO uint16_t *)(&(hspi->Instance->TXDR));
-
-  *ptxdr_16bits = *((uint16_t *)hspi->pTxBuffPtr);
-#else
   *((__IO uint16_t *)&hspi->Instance->TXDR) = *((uint16_t *)hspi->pTxBuffPtr);
-#endif /* __GNUC__ */
   hspi->pTxBuffPtr += sizeof(uint16_t);
   hspi->TxXferCount--;
 

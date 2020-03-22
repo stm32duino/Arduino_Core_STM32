@@ -32,7 +32,7 @@ extern "C" {
   * @{
   */
 
-#if defined (RNG)
+#if defined(RNG)
 
 /** @defgroup RNG_LL RNG
   * @{
@@ -49,7 +49,6 @@ extern "C" {
   * @{
   */
 
-
 /**
   * @brief LL RNG Init Structure Definition
   */
@@ -65,6 +64,7 @@ typedef struct
   * @}
   */
 #endif /* USE_FULL_LL_DRIVER */
+
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup RNG_LL_Exported_Constants RNG Exported Constants
   * @{
@@ -386,7 +386,7 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx);
   * @}
   */
 
-#endif /* RNG */
+#endif /* defined(RNG) */
 
 /**
   * @}
@@ -396,6 +396,6 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx);
 }
 #endif
 
-#endif /* __STM32G0xx_LL_RNG_H */
+#endif /* STM32G0xx_LL_RNG_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

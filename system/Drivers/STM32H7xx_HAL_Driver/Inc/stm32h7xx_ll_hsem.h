@@ -84,9 +84,6 @@ extern "C" {
 #define LL_HSEM_SEMAPHORE_13               HSEM_C1IER_ISE13
 #define LL_HSEM_SEMAPHORE_14               HSEM_C1IER_ISE14
 #define LL_HSEM_SEMAPHORE_15               HSEM_C1IER_ISE15
-#if (HSEM_SEMID_MAX == 15)
-#define LL_HSEM_SEMAPHORE_ALL              0x0000FFFFU
-#else /* HSEM_SEMID_MAX == 31 */
 #define LL_HSEM_SEMAPHORE_16               HSEM_C1IER_ISE16
 #define LL_HSEM_SEMAPHORE_17               HSEM_C1IER_ISE17
 #define LL_HSEM_SEMAPHORE_18               HSEM_C1IER_ISE18
@@ -104,7 +101,6 @@ extern "C" {
 #define LL_HSEM_SEMAPHORE_30               HSEM_C1IER_ISE30
 #define LL_HSEM_SEMAPHORE_31               HSEM_C1IER_ISE31
 #define LL_HSEM_SEMAPHORE_ALL              0xFFFFFFFFU
-#endif /* HSEM_SEMID_MAX == 15 */
 /**
   * @}
   */
@@ -350,8 +346,6 @@ __STATIC_INLINE void LL_HSEM_ResetAllLock(HSEM_TypeDef *HSEMx, uint32_t key, uin
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval None
   */
 __STATIC_INLINE void LL_HSEM_EnableIT_C1IER(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)
@@ -397,8 +391,6 @@ __STATIC_INLINE void LL_HSEM_EnableIT_C1IER(HSEM_TypeDef *HSEMx, uint32_t Semaph
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval None
   */
 __STATIC_INLINE void LL_HSEM_DisableIT_C1IER(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)
@@ -444,8 +436,6 @@ __STATIC_INLINE void LL_HSEM_DisableIT_C1IER(HSEM_TypeDef *HSEMx, uint32_t Semap
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_HSEM_IsEnabledIT_C1IER(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)
@@ -635,8 +625,6 @@ __STATIC_INLINE uint32_t LL_HSEM_IsEnabledIT_C2IER(HSEM_TypeDef *HSEMx, uint32_t
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval None
   */
 __STATIC_INLINE void LL_HSEM_ClearFlag_C1ICR(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)
@@ -682,8 +670,6 @@ __STATIC_INLINE void LL_HSEM_ClearFlag_C1ICR(HSEM_TypeDef *HSEMx, uint32_t Semap
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_HSEM_IsActiveFlag_C1ISR(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)
@@ -729,8 +715,6 @@ __STATIC_INLINE uint32_t LL_HSEM_IsActiveFlag_C1ISR(HSEM_TypeDef *HSEMx, uint32_
   *         @arg @ref LL_HSEM_SEMAPHORE_30
   *         @arg @ref LL_HSEM_SEMAPHORE_31
   *         @arg @ref LL_HSEM_SEMAPHORE_ALL
-  * @note   Availability of flags LL_HSEM_SEMAPHORE_16 to LL_HSEM_SEMAPHORE_31
-  *         depends on devices.
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_HSEM_IsActiveFlag_C1MISR(HSEM_TypeDef *HSEMx, uint32_t SemaphoreMask)

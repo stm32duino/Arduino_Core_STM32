@@ -76,7 +76,5 @@ extern const PinMap PinMap_USB[];
 extern const PinMap PinMap_USB_OTG_FS[];
 extern const PinMap PinMap_USB_OTG_HS[];
 
-//*** SD ***
-extern const PinMap PinMap_SD[];
 #endif
 

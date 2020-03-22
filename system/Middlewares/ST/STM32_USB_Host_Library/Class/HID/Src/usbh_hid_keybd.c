@@ -14,7 +14,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -94,11 +94,9 @@ static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost);
 */
 
 HID_KEYBD_Info_TypeDef     keybd_info;
-uint32_t                   keybd_rx_report_buf[2];
 uint32_t                   keybd_report_data[2];
 
-static const HID_Report_ItemTypedef imp_0_lctrl =
-{
+static const HID_Report_ItemTypedef imp_0_lctrl = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   0,     /*shift*/
@@ -110,8 +108,7 @@ static const HID_Report_ItemTypedef imp_0_lctrl =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_lshift =
-{
+static const HID_Report_ItemTypedef imp_0_lshift = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   1,     /*shift*/
@@ -123,8 +120,7 @@ static const HID_Report_ItemTypedef imp_0_lshift =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_lalt =
-{
+static const HID_Report_ItemTypedef imp_0_lalt = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   2,     /*shift*/
@@ -136,8 +132,7 @@ static const HID_Report_ItemTypedef imp_0_lalt =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_lgui =
-{
+static const HID_Report_ItemTypedef imp_0_lgui = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   3,     /*shift*/
@@ -149,8 +144,7 @@ static const HID_Report_ItemTypedef imp_0_lgui =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_rctrl =
-{
+static const HID_Report_ItemTypedef imp_0_rctrl = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   4,     /*shift*/
@@ -162,8 +156,7 @@ static const HID_Report_ItemTypedef imp_0_rctrl =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_rshift =
-{
+static const HID_Report_ItemTypedef imp_0_rshift = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   5,     /*shift*/
@@ -175,8 +168,7 @@ static const HID_Report_ItemTypedef imp_0_rshift =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_ralt =
-{
+static const HID_Report_ItemTypedef imp_0_ralt = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   6,     /*shift*/
@@ -188,8 +180,7 @@ static const HID_Report_ItemTypedef imp_0_ralt =
   1,     /*max value device can report*/
   1      /*resolution*/
 };
-static const HID_Report_ItemTypedef imp_0_rgui =
-{
+static const HID_Report_ItemTypedef imp_0_rgui = {
   (uint8_t *)(void *)keybd_report_data + 0, /*data*/
   1,     /*size*/
   7,     /*shift*/
@@ -202,8 +193,7 @@ static const HID_Report_ItemTypedef imp_0_rgui =
   1      /*resolution*/
 };
 
-static const HID_Report_ItemTypedef imp_0_key_array =
-{
+static const HID_Report_ItemTypedef imp_0_key_array = {
   (uint8_t *)(void *)keybd_report_data + 2, /*data*/
   8,     /*size*/
   0,     /*shift*/
@@ -217,8 +207,7 @@ static const HID_Report_ItemTypedef imp_0_key_array =
 };
 
 #ifdef QWERTY_KEYBOARD
-static  const  uint8_t  HID_KEYBRD_Key[] =
-{
+static  const  uint8_t  HID_KEYBRD_Key[] = {
   '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',
   '7',  '8',  '9',  '0',  '-',  '=',  '\0', '\r',
   '\t',  'q',  'w',  'e',  'r',  't',  'y',  'u',
@@ -239,8 +228,7 @@ static  const  uint8_t  HID_KEYBRD_Key[] =
   '\0', '\0', '\0', '\0'
 };
 
-static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
-{
+static  const  uint8_t  HID_KEYBRD_ShiftKey[] = {
   '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',
   '_',  '+',  '\0', '\0', '\0', 'Q',  'W',  'E',  'R',  'T',  'Y',  'U',
   'I',  'O',  'P',  '{',  '}',  '|',  '\0', 'A',  'S',  'D',  'F',  'G',
@@ -256,8 +244,7 @@ static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
 
 #else
 
-static  const  uint8_t  HID_KEYBRD_Key[] =
-{
+static  const  uint8_t  HID_KEYBRD_Key[] = {
   '\0',  '`',  '1',  '2',  '3',  '4',  '5',  '6',  '7',  '8',  '9',  '0',
   '-',  '=',  '\0', '\r', '\t',  'a',  'z',  'e',  'r',  't',  'y',  'u',
   'i',  'o',  'p',  '[',  ']', '\\', '\0',  'q',  's',  'd',  'f',  'g',
@@ -271,8 +258,7 @@ static  const  uint8_t  HID_KEYBRD_Key[] =
   '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0', '\0'
 };
 
-static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
-{
+static  const  uint8_t  HID_KEYBRD_ShiftKey[] = {
   '\0', '~',  '!',  '@',  '#',  '$',  '%',  '^',  '&',  '*',  '(',  ')',  '_',
   '+',  '\0', '\0', '\0', 'A',  'Z',  'E',  'R',  'T',  'Y',  'U',  'I',  'O',
   'P',  '{',  '}',  '*', '\0', 'Q',  'S',  'D',  'F',  'G',  'H',  'J',  'K',
@@ -286,8 +272,7 @@ static  const  uint8_t  HID_KEYBRD_ShiftKey[] =
 };
 #endif
 
-static  const  uint8_t  HID_KEYBRD_Codes[] =
-{
+static  const  uint8_t  HID_KEYBRD_Codes[] = {
   0,     0,    0,    0,   31,   50,   48,   33,
   19,   34,   35,   36,   24,   37,   38,   39,       /* 0x00 - 0x0F */
   52,    51,   25,   26,   17,   20,   32,   21,
@@ -336,17 +321,14 @@ USBH_StatusTypeDef USBH_HID_KeybdInit(USBH_HandleTypeDef *phost)
   keybd_info.ralt = keybd_info.rgui = 0U;
 
 
-  for (x = 0U; x < (sizeof(keybd_report_data) / sizeof(uint32_t)); x++)
-  {
+  for (x = 0U; x < (sizeof(keybd_report_data) / sizeof(uint32_t)); x++) {
     keybd_report_data[x] = 0U;
-    keybd_rx_report_buf[x] = 0U;
   }
 
-  if (HID_Handle->length > (sizeof(keybd_report_data)))
-  {
-    HID_Handle->length = (sizeof(keybd_report_data));
+  if (HID_Handle->length > (sizeof(keybd_report_data) / sizeof(uint32_t))) {
+    HID_Handle->length = (sizeof(keybd_report_data) / sizeof(uint32_t));
   }
-  HID_Handle->pData = (uint8_t *)(void *)keybd_rx_report_buf;
+  HID_Handle->pData = (uint8_t *)(void *)keybd_report_data;
   USBH_HID_FifoInit(&HID_Handle->fifo, phost->device.Data, HID_QUEUE_SIZE * sizeof(keybd_report_data));
 
   return USBH_OK;
@@ -360,12 +342,9 @@ USBH_StatusTypeDef USBH_HID_KeybdInit(USBH_HandleTypeDef *phost)
   */
 HID_KEYBD_Info_TypeDef *USBH_HID_GetKeybdInfo(USBH_HandleTypeDef *phost)
 {
-  if (USBH_HID_KeybdDecode(phost) == USBH_OK)
-  {
+  if (USBH_HID_KeybdDecode(phost) == USBH_OK) {
     return &keybd_info;
-  }
-  else
-  {
+  } else {
     return NULL;
   }
 }
@@ -381,13 +360,12 @@ static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost)
   uint8_t x;
 
   HID_HandleTypeDef *HID_Handle = (HID_HandleTypeDef *) phost->pActiveClass->pData;
-  if (HID_Handle->length == 0U)
-  {
+  if (HID_Handle->length == 0U) {
     return USBH_FAIL;
   }
   /*Fill report */
-  if (USBH_HID_FifoRead(&HID_Handle->fifo, &keybd_report_data, HID_Handle->length) ==  HID_Handle->length)
-  {
+  if (USBH_HID_FifoRead(&HID_Handle->fifo, &keybd_report_data, HID_Handle->length) ==  HID_Handle->length) {
+
     keybd_info.lctrl = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lctrl, 0U);
     keybd_info.lshift = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lshift, 0U);
     keybd_info.lalt = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_lalt, 0U);
@@ -397,8 +375,7 @@ static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost)
     keybd_info.ralt = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_ralt, 0U);
     keybd_info.rgui = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_rgui, 0U);
 
-    for (x = 0U; x < sizeof(keybd_info.keys); x++)
-    {
+    for (x = 0U; x < sizeof(keybd_info.keys); x++) {
       keybd_info.keys[x] = (uint8_t)HID_ReadItem((HID_Report_ItemTypedef *) &imp_0_key_array, x);
     }
 
@@ -417,12 +394,9 @@ static USBH_StatusTypeDef USBH_HID_KeybdDecode(USBH_HandleTypeDef *phost)
 uint8_t USBH_HID_GetASCIICode(HID_KEYBD_Info_TypeDef *info)
 {
   uint8_t   output;
-  if ((info->lshift == 1U) || (info->rshift))
-  {
+  if ((info->lshift == 1U) || (info->rshift)) {
     output =  HID_KEYBRD_ShiftKey[HID_KEYBRD_Codes[info->keys[0]]];
-  }
-  else
-  {
+  } else {
     output =  HID_KEYBRD_Key[HID_KEYBRD_Codes[info->keys[0]]];
   }
   return output;

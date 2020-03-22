@@ -32,8 +32,6 @@ extern "C" {
   * @{
   */
 
-#if defined (SAI1)
-
 /** @addtogroup SAI
   * @{
   */
@@ -155,7 +153,6 @@ typedef struct
 
 /** @defgroup SAI_Frame_Structure_definition SAI Frame Structure definition
   * @brief  SAI Frame Init structure definition
-  * @note   For SPDIF and AC97 protocol, these parameters are not used (set by hardware).
   * @{
   */
 typedef struct
@@ -188,8 +185,6 @@ typedef struct
 
 /** @defgroup SAI_Slot_Structure_definition SAI Slot Structure definition
   * @brief   SAI Block Slot Init Structure definition
-  * @note    For SPDIF protocol, these parameters are not used (set by hardware).
-  * @note    For AC97 protocol, only SlotActive parameter is used (the others are set by hardware).
   * @{
   */
 typedef struct
@@ -952,8 +947,6 @@ uint32_t HAL_SAI_GetError(SAI_HandleTypeDef *hsai);
 /**
   * @}
   */
-
-#endif /* SAI1 */
 
 /**
   * @}

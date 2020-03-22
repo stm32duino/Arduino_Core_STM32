@@ -18,8 +18,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32L4xx_HAL_FIREWALL_H
-#define STM32L4xx_HAL_FIREWALL_H
+#ifndef __STM32L4xx_HAL_FIREWALL_H
+#define __STM32L4xx_HAL_FIREWALL_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -349,6 +349,6 @@ void HAL_FIREWALL_DisablePreArmFlag(void);
 }
 #endif
 
-#endif /* STM32L4xx_HAL_FIREWALL_H */
+#endif /* __STM32L4xx_HAL_FIREWALL_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

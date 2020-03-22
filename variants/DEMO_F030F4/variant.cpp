@@ -54,22 +54,17 @@ const PinName digitalPin[] = {
   PA_10, //D10 - SDA (RX UART Header)
   PA_13, //D11 - SWDIO
   PA_14, //D12 - SWCLK
-  // These two are only available on boards without a crystal:
-  PF_0,
-  PF_1,
-};
-
-// Analog (Ax) pin number array
-const uint32_t analogInputPin[] = {
-  0, //A0
-  1, //A1
-  2, //A2
-  3, //A3
-  4, //A4
-  5, //A5
-  6, //A6
-  7, //A7
-  8  //A8
+  // Duplicated pins in order to be aligned with PinMap_ADC
+  // A0 have to be greater than NUM_ANALOG_INPUTS
+  PA_0,  //D13/A0 ~ D0
+  PA_1,  //D14/A1 ~ D1
+  PA_2,  //D15/A2 ~ D2
+  PA_3,  //D16/A3 ~ D3
+  PA_4,  //D17/A4 ~ D4
+  PA_5,  //D18/A5 ~ D5
+  PA_6,  //D19/A6 ~ D6
+  PA_7,  //D20/A7 ~ D7
+  PB_1   //D21/A8 ~ D8
 };
 
 #ifdef __cplusplus
@@ -93,27 +88,17 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
 
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-#ifdef ARDUINO_DEMO_F030F4_HSI
-  /* Internal HSI, 48MHz system clock */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
-  RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL12;
-  RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
-#else
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI14 | RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.HSI14State = RCC_HSI14_ON;
   RCC_OscInitStruct.HSI14CalibrationValue = 16;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL6;
 #ifdef ARDUINO_DEMO_F030F4_16M
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV2;
 #else
   RCC_OscInitStruct.PLL.PREDIV = RCC_PREDIV_DIV1;
-#endif
 #endif
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);

@@ -125,7 +125,6 @@ extern "C" {
   * @}
   */
 
-#if defined(SYSCFG_PMCR_EPIS_SEL)
 /** @defgroup SYSTEM_LL_EC_EPIS Ethernet PHY Interface Selection
 * @{
 */
@@ -134,7 +133,6 @@ extern "C" {
 /**
   * @}
   */
-#endif /* SYSCFG_PMCR_EPIS_SEL */
 
 /** @defgroup SYSTEM_LL_EC_EXTI_PORT SYSCFG EXTI PORT
   * @{
@@ -260,7 +258,7 @@ extern "C" {
 /**
   * @}
   */
-#ifdef SYSCFG_PKGR_PKG
+
 /** @defgroup SYSTEM_LL_PACKAGE SYSCFG device package
   * @{
   */
@@ -271,7 +269,6 @@ extern "C" {
 /**
   * @}
   */
-#endif /* SYSCFG_PKGR_PKG */
 
 /** @defgroup SYSTEM_LL_SYSCFG_BOR SYSCFG Brownout Reset Threshold Level
   * @{
@@ -390,7 +387,6 @@ extern "C" {
   * @{
   */
 
-#if defined(SYSCFG_PMCR_EPIS_SEL)
 /**
   * @brief  Select Ethernet PHY interface
   * @rmtoll PMCR    EPIS_SEL    LL_SYSCFG_SetPHYInterface
@@ -416,7 +412,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPHYInterface(void)
   return (uint32_t)(READ_BIT(SYSCFG->PMCR, SYSCFG_PMCR_EPIS_SEL));
 }
 
-#endif /* SYSCFG_PMCR_EPIS_SEL */
 /**
   * @brief  Open an Analog Switch
   * @rmtoll PMCR    PA0SO   LL_SYSCFG_OpenAnalogSwitch
@@ -452,7 +447,7 @@ __STATIC_INLINE void LL_SYSCFG_CloseAnalogSwitch(uint32_t AnalogSwitch)
 {
   CLEAR_BIT(SYSCFG->PMCR, AnalogSwitch);
 }
-#ifdef SYSCFG_PMCR_BOOSTEN
+
 /**
   * @brief  Enable the Analog booster to reduce the total harmonic distortion
   *         of the analog switch when the supply voltage is lower than 2.7 V
@@ -479,7 +474,7 @@ __STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster(void)
 {
  CLEAR_BIT(SYSCFG->PMCR, SYSCFG_PMCR_BOOSTEN) ;
 }
-#endif /*SYSCFG_PMCR_BOOSTEN*/
+
 /**
   * @brief  Enable the I2C fast mode plus driving capability.
   * @rmtoll SYSCFG_PMCR   I2C_PBx_FMP   LL_SYSCFG_EnableFastModePlus\n
@@ -645,13 +640,9 @@ __STATIC_INLINE void LL_SYSCFG_SetTIMBreakInputs(uint32_t Break)
   MODIFY_REG(SYSCFG->CFGR, SYSCFG_CFGR_AXISRAML | SYSCFG_CFGR_ITCML  | SYSCFG_CFGR_DTCML  | SYSCFG_CFGR_SRAM1L | SYSCFG_CFGR_SRAM2L | \
                            SYSCFG_CFGR_SRAM3L   | SYSCFG_CFGR_SRAM4L | SYSCFG_CFGR_BKRAML | SYSCFG_CFGR_CM7L   | SYSCFG_CFGR_FLASHL | \
                            SYSCFG_CFGR_PVDL     | SYSCFG_CFGR_CM4L, Break);
-#elif defined (SYSCFG_CFGR_AXISRAML)
+#else
   MODIFY_REG(SYSCFG->CFGR, SYSCFG_CFGR_AXISRAML | SYSCFG_CFGR_ITCML  | SYSCFG_CFGR_DTCML  | SYSCFG_CFGR_SRAM1L | SYSCFG_CFGR_SRAM2L | \
                            SYSCFG_CFGR_SRAM3L   | SYSCFG_CFGR_SRAM4L | SYSCFG_CFGR_BKRAML | SYSCFG_CFGR_CM7L   | SYSCFG_CFGR_FLASHL | \
-                           SYSCFG_CFGR_PVDL, Break);
-#else
-  MODIFY_REG(SYSCFG->CFGR, SYSCFG_CFGR_ITCML  | SYSCFG_CFGR_DTCML  |\
-                           SYSCFG_CFGR_CM7L   | SYSCFG_CFGR_FLASHL | \
                            SYSCFG_CFGR_PVDL, Break);
 #endif /* DUAL_CORE */
 }
@@ -692,13 +683,10 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetTIMBreakInputs(void)
                                             SYSCFG_CFGR_SRAM1L   | SYSCFG_CFGR_SRAM2L | SYSCFG_CFGR_SRAM3L | \
                                             SYSCFG_CFGR_SRAM4L   | SYSCFG_CFGR_BKRAML | SYSCFG_CFGR_CM7L   | \
                                             SYSCFG_CFGR_FLASHL   | SYSCFG_CFGR_PVDL   | SYSCFG_CFGR_CM4L));
-#elif defined (SYSCFG_CFGR_AXISRAML)
+#else
   return (uint32_t)(READ_BIT(SYSCFG->CFGR,  SYSCFG_CFGR_AXISRAML | SYSCFG_CFGR_ITCML  | SYSCFG_CFGR_DTCML  | \
                                             SYSCFG_CFGR_SRAM1L   | SYSCFG_CFGR_SRAM2L | SYSCFG_CFGR_SRAM3L | \
                                             SYSCFG_CFGR_SRAM4L   | SYSCFG_CFGR_BKRAML | SYSCFG_CFGR_CM7L   | \
-                                            SYSCFG_CFGR_FLASHL   | SYSCFG_CFGR_PVDL ));
-#else
-  return (uint32_t)(READ_BIT(SYSCFG->CFGR,  SYSCFG_CFGR_ITCML    | SYSCFG_CFGR_DTCML  | SYSCFG_CFGR_CM7L   | \
                                             SYSCFG_CFGR_FLASHL   | SYSCFG_CFGR_PVDL ));
 #endif /* DUAL_CORE */
 }
@@ -757,54 +745,8 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_CMPCR(void)
   */
 __STATIC_INLINE void LL_SYSCFG_EnableIOSpeedOptimization(void)
 {
-#if defined(SYSCFG_CCCSR_HSLV)
   SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV);
-#else
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV0);
-#endif   /* SYSCFG_CCCSR_HSLV */
 }
-
-#if defined(SYSCFG_CCCSR_HSLV1)
-/**
-  * @brief  Enable the I/O speed optimization when the product voltage is low.
-  * @rmtoll CCCSR   HSLV1    LL_SYSCFG_EnableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableIOSpeedOptimization1(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV1);
-}
-
-/**
-  * @brief  Enable the I/O speed optimization when the product voltage is low.
-  * @rmtoll CCCSR   HSLV2    LL_SYSCFG_EnableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableIOSpeedOptimization2(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV2);
-}
-
-/**
-  * @brief  Enable the I/O speed optimization when the product voltage is low.
-  * @rmtoll CCCSR   HSLV3    LL_SYSCFG_EnableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_EnableIOSpeedOptimization3(void)
-{
-  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV3);
-}
-#endif /*SYSCFG_CCCSR_HSLV1*/
-
 
 /**
   * @brief  To Disable optimize the I/O speed when the product voltage is low.
@@ -816,53 +758,8 @@ __STATIC_INLINE void LL_SYSCFG_EnableIOSpeedOptimization3(void)
   */
 __STATIC_INLINE void LL_SYSCFG_DisableIOSpeedOptimization(void)
 {
-#if defined(SYSCFG_CCCSR_HSLV)
   CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV);
-#else
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV0);
-#endif   /* SYSCFG_CCCSR_HSLV */
 }
-
-#if defined(SYSCFG_CCCSR_HSLV1)
-/**
-  * @brief  To Disable optimize the I/O speed when the product voltage is low.
-  * @rmtoll CCCSR   HSLV1    LL_SYSCFG_DisableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableIOSpeedOptimization1(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV1);
-}
-
-/**
-  * @brief  To Disable optimize the I/O speed when the product voltage is low.
-  * @rmtoll CCCSR   HSLV2    LL_SYSCFG_DisableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableIOSpeedOptimization2(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV2);
-}
-
-/**
-  * @brief  To Disable optimize the I/O speed when the product voltage is low.
-  * @rmtoll CCCSR   HSLV3    LL_SYSCFG_DisableIOSpeedOptimize
-  * @note   This bit is active only if IO_HSLV user option bit is set. It must be used only if the
-  *         product supply voltage is below 2.7 V. Setting this bit when VDD is higher than 2.7 V
-  *         might be destructive.
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_DisableIOSpeedOptimization3(void)
-{
-  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV3);
-}
-#endif /*SYSCFG_CCCSR_HSLV1*/
 
 /**
   * @brief  Check if the I/O speed optimization is enabled
@@ -871,44 +768,8 @@ __STATIC_INLINE void LL_SYSCFG_DisableIOSpeedOptimization3(void)
   */
 __STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledIOSpeedOptimization(void)
 {
-#if defined(SYSCFG_CCCSR_HSLV)
   return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV) == SYSCFG_CCCSR_HSLV) ? 1UL : 0UL);
-#else
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV0) == SYSCFG_CCCSR_HSLV0) ? 1UL : 0UL);
-#endif /*SYSCFG_CCCSR_HSLV*/
 }
-
-#if defined(SYSCFG_CCCSR_HSLV1)
-/**
-  * @brief  Check if the I/O speed optimization is enabled
-  * @rmtoll CCCSR   HSLV1    LL_SYSCFG_IsEnabledIOSpeedOptimization
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledIOSpeedOptimization1(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV1) == SYSCFG_CCCSR_HSLV1) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Check if the I/O speed optimization is enabled
-  * @rmtoll CCCSR   HSLV2    LL_SYSCFG_IsEnabledIOSpeedOptimization
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledIOSpeedOptimization2(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV2) == SYSCFG_CCCSR_HSLV2) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Check if the I/O speed optimization is enabled
-  * @rmtoll CCCSR   HSLV3    LL_SYSCFG_IsEnabledIOSpeedOptimization
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_IsEnabledIOSpeedOptimization3(void)
-{
-  return ((READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_HSLV3) == SYSCFG_CCCSR_HSLV3) ? 1UL : 0UL);
-}
-#endif /*SYSCFG_CCCSR_HSLV1*/
 
 /**
   * @brief  Set the code selection for the I/O Compensation cell
@@ -935,21 +796,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetCellCompensationCode(void)
 {
   return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS));
 }
-
-#ifdef SYSCFG_CCCSR_CS_MMC
-
-/**
-  * @brief  Get the code selected for the I/O Compensation cell on the VDDMMC power rail
-  * @rmtoll CCCSR   CS    LL_SYSCFG_GetCellCompensationCode
-  * @retval Returned value can be one of the following values:
-  *   @arg LL_SYSCFG_CELL_CODE : Selected Code is from the cell (available in the SYSCFG_CCVR)
-  *   @arg LL_SYSCFG_REGISTER_CODE: Selected Code is from the SYSCFG compensation cell code register (SYSCFG_CCCR)
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_MMCGetCellCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_CS_MMC));
-}
-#endif /*SYSCFG_CCCSR_CS_MMC*/
 
 /**
   * @brief  Get I/O compensation cell value for PMOS transistors
@@ -994,32 +840,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPMOSCompensationCode(void)
   return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC));
 }
 
-#ifdef SYSCFG_CCCR_PCC_MMC
-
-/**
-  * @brief  Set I/O compensation cell code for PMOS transistors corresponding to the VDDMMC power rail
-  * @rmtoll CCCR    PCC   LL_SYSCFG_SetPMOSCompensationCode
-  * @param  PMOSCode PMOS compensation code
-  *         This code is applied to the I/O compensation cell when the CS bit of the
-  *         SYSCFG_CMPCR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_MMCSetPMOSCompensationCode(uint32_t PMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_PCC_MMC, PMOSCode);
-}
-
-/**
-  * @brief  Get I/O compensation cell code for PMOS transistors corresponding to the VDDMMC power rail
-  * @rmtoll CCCR    PCC   LL_SYSCFG_GetPMOSCompensationCode
-  * @retval Returned value is the I/O compensation cell code for PMOS transistors
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_MMCGetPMOSCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_PCC_MMC));
-}
-#endif /* SYSCFG_CCCR_PCC_MMC */
-
 /**
   * @brief  Set I/O compensation cell code for NMOS transistors
   * @rmtoll CCCR    NCC   LL_SYSCFG_SetNMOSCompensationCode
@@ -1043,33 +863,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetNMOSCompensationCode(void)
   return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC));
 }
 
-#ifdef SYSCFG_CCCR_NCC_MMC
-
-/**
-  * @brief  Set I/O compensation cell code for NMOS transistors on the VDDMMC power rail.
-  * @rmtoll CCCR    NCC   LL_SYSCFG_SetNMOSCompensationCode
-  * @param  NMOSCode: NMOS compensation code
-  *         This code is applied to the I/O compensation cell when the CS bit of the
-  *         SYSCFG_CMPCR is set
-  * @retval None
-  */
-__STATIC_INLINE void LL_SYSCFG_VDMMCSetNMOSCompensationCode(uint32_t NMOSCode)
-{
-  MODIFY_REG(SYSCFG->CCCR, SYSCFG_CCCR_NCC_MMC, NMOSCode);
-}
-
-/**
-  * @brief  Get I/O compensation cell code for NMOS transistors on the VDDMMC power rail.
-  * @rmtoll CCCR    NCC   LL_SYSCFG_GetNMOSCompensationCode
-  * @retval Returned value is the I/O compensation cell code for NMOS transistors
-  */
-__STATIC_INLINE uint32_t LL_SYSCFG_VDMMCGetNMOSCompensationCode(void)
-{
-  return (uint32_t)(READ_BIT(SYSCFG->CCCR, SYSCFG_CCCR_NCC_MMC));
-}
-#endif /*SYSCFG_CCCR_NCC_MMC*/
-
-#ifdef SYSCFG_PKGR_PKG
 /**
   * @brief  Get the device package
   * @rmtoll PKGR    PKG   LL_SYSCFG_GetPackage
@@ -1083,9 +876,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetPackage(void)
 {
   return (uint32_t)(READ_BIT(SYSCFG->PKGR, SYSCFG_PKGR_PKG));
 }
-#endif /*SYSCFG_PKGR_PKG*/
 
-#ifdef SYSCFG_UR0_RDP
 /**
   * @brief  Get the Flash memory protection level
   * @rmtoll UR0   RDP   LL_SYSCFG_GetFLashProtectionLevel
@@ -1098,6 +889,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetFLashProtectionLevel(void)
 {
   return (uint32_t)(READ_BIT(SYSCFG->UR0, SYSCFG_UR0_RDP));
 }
+
 /**
   * @brief  Indicate if the Flash memory bank addresses are inverted or not
   * @rmtoll UR0   BKS   LL_SYSCFG_IsFLashBankAddressesSwaped
@@ -1121,6 +913,7 @@ __STATIC_INLINE uint32_t LL_SYSCFG_GetBrownoutResetLevel(void)
 {
   return (uint32_t)(READ_BIT(SYSCFG->UR2, SYSCFG_UR2_BORH));
 }
+
 /**
   * @brief  BootCM7 address 0 configuration
   * @rmtoll UR2   BOOT_ADD0   LL_SYSCFG_SetCM7BootAddress0
@@ -1135,7 +928,6 @@ __STATIC_INLINE void LL_SYSCFG_SetCM7BootAddress0(uint16_t BootAddress)
 #else
   MODIFY_REG(SYSCFG->UR2, SYSCFG_UR2_BOOT_ADD0, ((uint32_t)BootAddress << SYSCFG_UR2_BOOT_ADD0_Pos));
 #endif /*DUAL_CORE*/
-
 }
 
 /**
@@ -1646,7 +1438,6 @@ __STATIC_INLINE uint32_t LL_SYSCFG_IsActiveFlag_IOHSLV(void)
 {
   return ((READ_BIT(SYSCFG->UR17, SYSCFG_UR17_IOHSLV) == SYSCFG_UR17_IOHSLV) ? 1UL : 0UL);
 }
-#endif /*SYSCFG_UR0_RDP*/
 
 /**
   * @}
@@ -1679,8 +1470,8 @@ __STATIC_INLINE uint32_t LL_DBGMCU_GetRevisionID(void)
 }
 
 /**
-  * @brief  Enable D1 Domain/CDomain debug during SLEEP mode
-  * @rmtoll DBGMCU_CR    DBGSLEEP_D1/DBGSLEEP_CD     LL_DBGMCU_EnableD1DebugInSleepMode
+  * @brief  Enable D1 Domain debug during SLEEP mode
+  * @rmtoll DBGMCU_CR    DBGSLEEP_D1     LL_DBGMCU_EnableD1DebugInSleepMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInSleepMode(void)
@@ -1689,8 +1480,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInSleepMode(void)
 }
 
 /**
-  * @brief  Disable D1 Domain/CDomain debug during SLEEP mode
-  * @rmtoll DBGMCU_CR    DBGSLEEP_D1/DBGSLEEP_CD     LL_DBGMCU_DisableD1DebugInSleepMode
+  * @brief  Disable D1 Domain debug during SLEEP mode
+  * @rmtoll DBGMCU_CR    DBGSLEEP_D1     LL_DBGMCU_DisableD1DebugInSleepMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD1DebugInSleepMode(void)
@@ -1699,8 +1490,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableD1DebugInSleepMode(void)
 }
 
 /**
-  * @brief  Enable D1 Domain/CDomain debug during STOP mode
-  * @rmtoll DBGMCU_CR    DBGSTOP_D1/DBGSLEEP_CD     LL_DBGMCU_EnableD1DebugInStopMode
+  * @brief  Enable D1 Domain debug during STOP mode
+  * @rmtoll DBGMCU_CR    DBGSTOP_D1     LL_DBGMCU_EnableD1DebugInStopMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInStopMode(void)
@@ -1709,8 +1500,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInStopMode(void)
 }
 
 /**
-  * @brief  Disable D1 Domain/CDomain debug during STOP mode
-  * @rmtoll DBGMCU_CR    DBGSTOP_D1/DBGSLEEP_CD     LL_DBGMCU_DisableD1DebugInStopMode
+  * @brief  Disable D1 Domain debug during STOP mode
+  * @rmtoll DBGMCU_CR    DBGSTOP_D1     LL_DBGMCU_DisableD1DebugInStopMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD1DebugInStopMode(void)
@@ -1719,8 +1510,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableD1DebugInStopMode(void)
 }
 
 /**
-  * @brief  Enable D1 Domain/CDomain debug during STANDBY mode
-  * @rmtoll DBGMCU_CR    DBGSTBY_D1/DBGSLEEP_CD     LL_DBGMCU_EnableD1DebugInStandbyMode
+  * @brief  Enable D1 Domain debug during STANDBY mode
+  * @rmtoll DBGMCU_CR    DBGSTBY_D1     LL_DBGMCU_EnableD1DebugInStandbyMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInStandbyMode(void)
@@ -1729,8 +1520,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD1DebugInStandbyMode(void)
 }
 
 /**
-  * @brief  Disable D1 Domain/CDomain debug during STANDBY mode
-  * @rmtoll DBGMCU_CR    DBGSTBY_D1/DBGSLEEP_CD     LL_DBGMCU_DisableD1DebugInStandbyMode
+  * @brief  Disable D1 Domain debug during STANDBY mode
+  * @rmtoll DBGMCU_CR    DBGSTBY_D1     LL_DBGMCU_DisableD1DebugInStandbyMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD1DebugInStandbyMode(void)
@@ -1802,8 +1593,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableD2DebugInStandbyMode(void)
 
 
 /**
-  * @brief  Enable D3 Domain/SRDomain debug during STOP mode
-  * @rmtoll DBGMCU_CR    DBGSTOP_D3/DBGSTOP_SRD    LL_DBGMCU_EnableD3DebugInStopMode
+  * @brief  Enable D3 Domain debug during STOP mode
+  * @rmtoll DBGMCU_CR    DBGSTOP_D3     LL_DBGMCU_EnableD3DebugInStopMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD3DebugInStopMode(void)
@@ -1812,8 +1603,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD3DebugInStopMode(void)
 }
 
 /**
-  * @brief  Disable D3 Domain/SRDomain debug during STOP mode
-  * @rmtoll DBGMCU_CR    DBGSTOP_D3/DBGSTOP_SRD     LL_DBGMCU_DisableD3DebugInStopMode
+  * @brief  Disable D3 Domain debug during STOP mode
+  * @rmtoll DBGMCU_CR    DBGSTOP_D3     LL_DBGMCU_DisableD3DebugInStopMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD3DebugInStopMode(void)
@@ -1822,8 +1613,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableD3DebugInStopMode(void)
 }
 
 /**
-  * @brief  Enable D3 Domain/SRDomain debug during STANDBY mode
-  * @rmtoll DBGMCU_CR    DBGSTBY_D3/DBGSTBY_SRD     LL_DBGMCU_EnableD3DebugInStandbyMode
+  * @brief  Enable D3 Domain debug during STANDBY mode
+  * @rmtoll DBGMCU_CR    DBGSTBY_D3     LL_DBGMCU_EnableD3DebugInStandbyMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD3DebugInStandbyMode(void)
@@ -1832,8 +1623,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD3DebugInStandbyMode(void)
 }
 
 /**
-  * @brief  Disable D3 Domain/SRDomain debug during STANDBY mode
-  * @rmtoll DBGMCU_CR    DBGSTBY_D3/DBGSTBY_SRD     LL_DBGMCU_DisableD3DebugInStandbyMode
+  * @brief  Disable D3 Domain debug during STANDBY mode
+  * @rmtoll DBGMCU_CR    DBGSTBY_D3     LL_DBGMCU_DisableD3DebugInStandbyMode
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD3DebugInStandbyMode(void)
@@ -1862,8 +1653,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableTracePortClock(void)
 }
 
 /**
-  * @brief  Enable the Domain1/CDomain debug clock enable
-  * @rmtoll DBGMCU_CR    CKD1EN/CKCDEN     LL_DBGMCU_EnableD1DebugClock
+  * @brief  Enable the D1 debug clock enable
+  * @rmtoll DBGMCU_CR    CKD1EN     LL_DBGMCU_EnableD1DebugClock
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD1DebugClock(void)
@@ -1872,8 +1663,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD1DebugClock(void)
 }
 
 /**
-  * @brief  Disable the Domain1/CDomain debug clock enable
-  * @rmtoll DBGMCU_CR    CKD1EN/CKCDEN     LL_DBGMCU_DisableD1DebugClock
+  * @brief  Disable the D1 debug clock enable
+  * @rmtoll DBGMCU_CR    CKD1EN     LL_DBGMCU_DisableD1DebugClock
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD1DebugClock(void)
@@ -1882,8 +1673,8 @@ __STATIC_INLINE void LL_DBGMCU_DisableD1DebugClock(void)
 }
 
 /**
-  * @brief  Enable the Domain3/SRDomain debug clock enable
-  * @rmtoll DBGMCU_CR    CKD3EN/CKSRDEN     LL_DBGMCU_EnableD3DebugClock
+  * @brief  Enable the D3 debug clock enable
+  * @rmtoll DBGMCU_CR    CKD3EN     LL_DBGMCU_EnableD3DebugClock
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_EnableD3DebugClock(void)
@@ -1892,8 +1683,8 @@ __STATIC_INLINE void LL_DBGMCU_EnableD3DebugClock(void)
 }
 
 /**
-  * @brief  Disable the Domain3/SRDomain debug clock enable
-  * @rmtoll DBGMCU_CR    CKD3EN/CKSRDEN    LL_DBGMCU_DisableD3DebugClock
+  * @brief  Disable the D3 debug clock enable
+  * @rmtoll DBGMCU_CR    CKD3EN     LL_DBGMCU_DisableD3DebugClock
   * @retval None
   */
 __STATIC_INLINE void LL_DBGMCU_DisableD3DebugClock(void)
@@ -2183,69 +1974,6 @@ __STATIC_INLINE uint32_t LL_FLASH_GetLatency(void)
 {
   return (uint32_t)(READ_BIT(FLASH->ACR, FLASH_ACR_LATENCY));
 }
-
-/**
-  * @}
-  */
-
-#if defined(DUAL_CORE)
-/** @defgroup SYSTEM_LL_EF_ART ART
-  * @{
-  */
-
-/**
-  * @brief  Enable the Cortex-M4 ART cache.
-  * @rmtoll ART_CTR    EN   LL_ART_Enable
-  * @retval None
-  */
-__STATIC_INLINE void LL_ART_Enable(void)
-{
- SET_BIT(ART->CTR, ART_CTR_EN);
-}
-
-/**
-  * @brief  Disable the Cortex-M4 ART cache.
-  * @rmtoll ART_CTR    EN   LL_ART_Disable
-  * @retval None
-  */
-__STATIC_INLINE void LL_ART_Disable(void)
-{
- CLEAR_BIT(ART->CTR, ART_CTR_EN);
-}
-
-/**
-  * @brief  Check if the Cortex-M4 ART cache is enabled
-  * @rmtoll ART_CTR   EN    LL_ART_IsEnabled
-  * @retval State of bit (1 or 0).
-  */
-__STATIC_INLINE uint32_t LL_ART_IsEnabled(void)
-{
-  return ((READ_BIT(ART->CTR, ART_CTR_EN) == ART_CTR_EN) ? 1UL : 0UL);
-}
-
-/**
-  * @brief  Set the Cortex-M4 ART cache Base Address.
-  * @rmtoll ART_CTR    PCACHEADDR   LL_ART_SetBaseAddress
-  * @param  BaseAddress Specifies the Base address of 1 Mbyte address page (cacheable page)
-            from which the ART accelerator loads code to the cache.
-  * @retval None
-  */
-__STATIC_INLINE void LL_ART_SetBaseAddress(uint32_t BaseAddress)
-{
- MODIFY_REG(ART->CTR, ART_CTR_PCACHEADDR, (((BaseAddress) >> 12U) & 0x000FFF00UL));
-}
-
-/**
-  * @brief  Get the Cortex-M4 ART cache Base Address.
-  * @rmtoll ART_CTR    PCACHEADDR   LL_ART_GetBaseAddress
-  * @retval the Base address of 1 Mbyte address page (cacheable page)
-            from which the ART accelerator loads code to the cache
-  */
-__STATIC_INLINE uint32_t LL_ART_GetBaseAddress(void)
-{
-  return (uint32_t)(READ_BIT(ART->CTR, ART_CTR_PCACHEADDR) << 12U);
-}
-#endif /* DUAL_CORE */
 
 /**
   * @}

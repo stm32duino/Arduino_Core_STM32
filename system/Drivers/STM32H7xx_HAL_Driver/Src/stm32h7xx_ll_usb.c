@@ -289,8 +289,6 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
   /* VBUS Sensing setup */
   if (cfg.vbus_sensing_enable == 0U)
   {
-    USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS;
-
     /* Deactivate VBUS Sensing B */
     USBx->GCCFG &= ~USB_OTG_GCCFG_VBDEN;
 
@@ -390,6 +388,17 @@ HAL_StatusTypeDef USB_DevInit(USB_OTG_GlobalTypeDef *USBx, USB_OTG_CfgTypeDef cf
   }
 
   USBx_DEVICE->DIEPMSK &= ~(USB_OTG_DIEPMSK_TXFURM);
+
+  if (cfg.dma_enable == 1U)
+  {
+    /*Set threshold parameters */
+    USBx_DEVICE->DTHRCTL = USB_OTG_DTHRCTL_TXTHRLEN_6 |
+                           USB_OTG_DTHRCTL_RXTHRLEN_6;
+
+    USBx_DEVICE->DTHRCTL |= USB_OTG_DTHRCTL_RXTHREN |
+                            USB_OTG_DTHRCTL_ISOTHREN |
+                            USB_OTG_DTHRCTL_NONISOTHREN;
+  }
 
   /* Disable all interrupts. */
   USBx->GINTMSK = 0U;
@@ -922,7 +931,7 @@ HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uin
     count32b = ((uint32_t)len + 3U) / 4U;
     for (i = 0U; i < count32b; i++)
     {
-      USBx_DFIFO((uint32_t)ch_ep_num) = __UNALIGNED_UINT32_READ(pSrc);
+      USBx_DFIFO((uint32_t)ch_ep_num) = *((__packed uint32_t *)pSrc);
       pSrc++;
     }
   }
@@ -931,10 +940,15 @@ HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src, uin
 }
 
 /**
-  * @brief  USB_ReadPacket : read a packet from the RX FIFO
+  * @brief  USB_ReadPacket : read a packet from the Tx FIFO associated
+  *         with the EP/channel
   * @param  USBx  Selected device
   * @param  dest  source pointer
   * @param  len  Number of bytes to read
+  * @param  dma USB dma enabled or disabled
+  *          This parameter can be one of these values:
+  *           0 : DMA feature not used
+  *           1 : DMA feature used
   * @retval pointer to destination buffer
   */
 void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
@@ -946,7 +960,7 @@ void *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len)
 
   for (i = 0U; i < count32b; i++)
   {
-    __UNALIGNED_UINT32_WRITE(pDest, USBx_DFIFO(0U));
+    *(__packed uint32_t *)pDest = USBx_DFIFO(0U);
     pDest++;
   }
 
@@ -1218,9 +1232,13 @@ HAL_StatusTypeDef  USB_ActivateSetup(USB_OTG_GlobalTypeDef *USBx)
 {
   uint32_t USBx_BASE = (uint32_t)USBx;
 
-  /* Set the MPS of the IN EP0 to 64 bytes */
+  /* Set the MPS of the IN EP based on the enumeration speed */
   USBx_INEP(0U)->DIEPCTL &= ~USB_OTG_DIEPCTL_MPSIZ;
 
+  if ((USBx_DEVICE->DSTS & USB_OTG_DSTS_ENUMSPD) == DSTS_ENUMSPD_LS_PHY_6MHZ)
+  {
+    USBx_INEP(0U)->DIEPCTL |= 3U;
+  }
   USBx_DEVICE->DCTL |= USB_OTG_DCTL_CGINAK;
 
   return HAL_OK;
@@ -1893,6 +1911,7 @@ HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)
   uint32_t value;
   uint32_t i;
 
+
   (void)USB_DisableGlobalInt(USBx);
 
   /* Flush FIFO */
@@ -1931,7 +1950,6 @@ HAL_StatusTypeDef USB_StopHost(USB_OTG_GlobalTypeDef *USBx)
   /* Clear any pending Host interrupts */
   USBx_HOST->HAINT = 0xFFFFFFFFU;
   USBx->GINTSTS = 0xFFFFFFFFU;
-
   (void)USB_EnableGlobalInt(USBx);
 
   return HAL_OK;

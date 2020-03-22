@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -135,8 +135,7 @@ extern "C" {
 */
 
 /* States for CDC State Machine */
-typedef enum
-{
+typedef enum {
   CDC_IDLE = 0U,
   CDC_SEND_DATA,
   CDC_SEND_DATA_WAIT,
@@ -145,8 +144,7 @@ typedef enum
 }
 CDC_DataStateTypeDef;
 
-typedef enum
-{
+typedef enum {
   CDC_IDLE_STATE = 0U,
   CDC_SET_LINE_CODING_STATE,
   CDC_GET_LAST_LINE_CODING_STATE,
@@ -157,12 +155,10 @@ CDC_StateTypeDef;
 
 
 /*Line coding structure*/
-typedef union _CDC_LineCodingStructure
-{
+typedef union _CDC_LineCodingStructure {
   uint8_t Array[LINE_CODING_STRUCTURE_SIZE];
 
-  struct
-  {
+  struct {
 
     uint32_t             dwDTERate;     /*Data terminal rate, in bits per second*/
     uint8_t              bCharFormat;   /*Stop bits
@@ -197,8 +193,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            | decimal
 ------|---------------------|-------|------------|------------------------------
 */
-typedef struct _FunctionalDescriptorHeader
-{
+typedef struct _FunctionalDescriptorHeader {
   uint8_t     bLength;            /*Size of this descriptor.*/
   uint8_t     bDescriptorType;    /*CS_INTERFACE (0x24)*/
   uint8_t     bDescriptorSubType; /* Header functional descriptor subtype as*/
@@ -238,8 +233,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            | optionally used for call management.
 ------|---------------------|-------|------------|------------------------------
 */
-typedef struct _CallMgmtFunctionalDescriptor
-{
+typedef struct _CallMgmtFunctionalDescriptor {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes.*/
   uint8_t    bDescriptorType;    /*CS_INTERFACE (0x24)*/
   uint8_t    bDescriptorSubType; /* Call Management functional descriptor subtype*/
@@ -276,8 +270,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            |   SubClass code of Abstract Control Model.
 ------|---------------------|-------|------------|------------------------------
 */
-typedef struct _AbstractCntrlMgmtFunctionalDescriptor
-{
+typedef struct _AbstractCntrlMgmtFunctionalDescriptor {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes.*/
   uint8_t    bDescriptorType;    /*CS_INTERFACE (0x24)*/
   uint8_t    bDescriptorSubType; /* Abstract Control Management functional
@@ -299,8 +292,7 @@ Offset|  field              | Size  |    Value   |   Description
       |                     |       |            | interface in the union.
 ------|---------------------|-------|------------|------------------------------
 */
-typedef struct _UnionFunctionalDescriptor
-{
+typedef struct _UnionFunctionalDescriptor {
   uint8_t    bLength;            /*Size of this functional descriptor, in bytes*/
   uint8_t    bDescriptorType;    /*CS_INTERFACE (0x24)*/
   uint8_t    bDescriptorSubType; /* Union functional descriptor SubType*/
@@ -310,8 +302,7 @@ typedef struct _UnionFunctionalDescriptor
 }
 CDC_UnionFuncDesc_TypeDef;
 
-typedef struct _USBH_CDCInterfaceDesc
-{
+typedef struct _USBH_CDCInterfaceDesc {
   CDC_HeaderFuncDesc_TypeDef           CDC_HeaderFuncDesc;
   CDC_CallMgmtFuncDesc_TypeDef         CDC_CallMgmtFuncDesc;
   CDC_AbstCntrlMgmtFuncDesc_TypeDef    CDC_AbstCntrlMgmtFuncDesc;
@@ -321,8 +312,7 @@ CDC_InterfaceDesc_Typedef;
 
 
 /* Structure for CDC process */
-typedef struct
-{
+typedef struct {
   uint8_t              NotifPipe;
   uint8_t              NotifEp;
   uint8_t              buff[8];
@@ -330,8 +320,7 @@ typedef struct
 }
 CDC_CommItfTypedef ;
 
-typedef struct
-{
+typedef struct {
   uint8_t              InPipe;
   uint8_t              OutPipe;
   uint8_t              OutEp;
@@ -343,8 +332,7 @@ typedef struct
 CDC_DataItfTypedef ;
 
 /* Structure for CDC process */
-typedef struct _CDC_Process
-{
+typedef struct _CDC_Process {
   CDC_CommItfTypedef                CommItf;
   CDC_DataItfTypedef                DataItf;
   uint8_t                           *pTxData;

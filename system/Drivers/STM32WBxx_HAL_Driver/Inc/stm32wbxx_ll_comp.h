@@ -32,7 +32,7 @@ extern "C" {
   * @{
   */
 
-#if defined (COMP1) || defined (COMP2)
+
 
 /** @defgroup COMP_LL COMP
   * @{
@@ -53,14 +53,6 @@ extern "C" {
   */
 
 /* Private macros ------------------------------------------------------------*/
-/** @defgroup COMP_LL_Private_Macros COMP Private Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup COMP_LL_ES_INIT COMP Exported Init structure
@@ -755,7 +747,7 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
   * @}
   */
 
-#endif /* COMP1 || COMP2 */
+
 
 /**
   * @}

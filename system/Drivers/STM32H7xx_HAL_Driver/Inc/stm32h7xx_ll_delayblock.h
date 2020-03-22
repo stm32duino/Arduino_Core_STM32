@@ -53,7 +53,6 @@
 
 
 #define DLYB_MAX_UNIT   ((uint32_t)0x00000080U) /*!< Max UNIT value (128)  */
-#define DLYB_MAX_SELECT ((uint32_t)0x0000000CU) /*!< Max SELECT value (12)  */
 
 /**
   * @}
@@ -65,7 +64,6 @@
   */
 HAL_StatusTypeDef DelayBlock_Enable(DLYB_TypeDef *DLYBx);
 HAL_StatusTypeDef DelayBlock_Disable(DLYB_TypeDef *DLYBx);
-HAL_StatusTypeDef DelayBlock_Configure(DLYB_TypeDef *DLYBx, uint32_t PhaseSel, uint32_t Units);
 
 /**
   * @}

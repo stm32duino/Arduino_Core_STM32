@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      www.st.com/SLA0044
+  *                      http://www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -28,8 +28,6 @@
   */
 USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
 
   return USBH_OK;
 }
@@ -42,8 +40,6 @@ USBH_StatusTypeDef  USBH_LL_Init(USBH_HandleTypeDef *phost)
   */
 USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
 
   return USBH_OK;
 }
@@ -56,8 +52,6 @@ USBH_StatusTypeDef  USBH_LL_DeInit(USBH_HandleTypeDef *phost)
   */
 USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
 
   return USBH_OK;
 }
@@ -70,8 +64,6 @@ USBH_StatusTypeDef  USBH_LL_Start(USBH_HandleTypeDef *phost)
   */
 USBH_StatusTypeDef  USBH_LL_Stop(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
 
   return USBH_OK;
 }
@@ -84,10 +76,8 @@ USBH_StatusTypeDef  USBH_LL_Stop(USBH_HandleTypeDef *phost)
   */
 USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-
   USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
+
 
   return  speed;
 }
@@ -100,8 +90,6 @@ USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
   */
 USBH_StatusTypeDef USBH_LL_ResetPort(USBH_HandleTypeDef *phost)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
 
   return USBH_OK;
 }
@@ -115,11 +103,7 @@ USBH_StatusTypeDef USBH_LL_ResetPort(USBH_HandleTypeDef *phost)
   */
 uint32_t USBH_LL_GetLastXferSize(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-
-  return 0U;
+  return 0;
 }
 
 /**
@@ -142,14 +126,6 @@ USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
                                       uint8_t ep_type,
                                       uint16_t mps)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe_num);
-  UNUSED(epnum);
-  UNUSED(dev_address);
-  UNUSED(speed);
-  UNUSED(ep_type);
-  UNUSED(mps);
 
   return USBH_OK;
 }
@@ -163,10 +139,6 @@ USBH_StatusTypeDef   USBH_LL_OpenPipe(USBH_HandleTypeDef *phost,
   */
 USBH_StatusTypeDef   USBH_LL_ClosePipe(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-
   return USBH_OK;
 }
 
@@ -208,15 +180,6 @@ USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
                                        uint16_t length,
                                        uint8_t do_ping)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-  UNUSED(direction);
-  UNUSED(ep_type);
-  UNUSED(token);
-  UNUSED(pbuff);
-  UNUSED(length);
-  UNUSED(do_ping);
 
   return USBH_OK;
 }
@@ -238,10 +201,6 @@ USBH_StatusTypeDef   USBH_LL_SubmitURB(USBH_HandleTypeDef *phost,
   */
 USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-
   return USBH_URB_IDLE;
 }
 
@@ -258,9 +217,6 @@ USBH_URBStateTypeDef  USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pip
 
 USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(state);
 
   return USBH_OK;
 }
@@ -276,10 +232,6 @@ USBH_StatusTypeDef  USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
   */
 USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, uint8_t toggle)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
-  UNUSED(toggle);
 
   return USBH_OK;
 }
@@ -293,11 +245,8 @@ USBH_StatusTypeDef   USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, 
   */
 uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(phost);
-  UNUSED(pipe);
+  uint8_t toggle = 0;
 
-  uint8_t toggle = 0U;
 
   return toggle;
 }
@@ -309,7 +258,6 @@ uint8_t  USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
   */
 void  USBH_Delay(uint32_t Delay)
 {
-  /* Prevent unused argument(s) compilation warning */
-  UNUSED(Delay);
+
 }
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
