@@ -535,7 +535,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 1, 0x40);
   HAL_PCDEx_SetTxFiFo(&g_hpcd, 2, 0x40);
 #ifdef USBD_USE_CDC_COMPOSITE
-  HAL_PCDEx_SetTxFiFo(&g_hpcd,3, 0x040);
+  HAL_PCDEx_SetTxFiFo(&g_hpcd, 3, 0x40);
 #endif
 #else
   HAL_PCDEx_PMAConfig(&g_hpcd, 0x00, PCD_SNG_BUF, PMA_EP0_OUT_ADDR);

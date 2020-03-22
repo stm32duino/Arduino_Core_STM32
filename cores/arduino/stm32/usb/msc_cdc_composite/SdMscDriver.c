@@ -86,7 +86,7 @@ void SD_LowLevel_Init(void)
   GPIO_InitStruct.Alternate = GPIO_AF12_SDIO;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
- // #if defined(SDIO_D1_PIN) && defined(SDIO_D2_PIN) && defined(SDIO_D3_PIN)  // define D1-D3 only if have a four bit wide SDIO bus
+  // #if defined(SDIO_D1_PIN) && defined(SDIO_D2_PIN) && defined(SDIO_D3_PIN)  // define D1-D3 only if have a four bit wide SDIO bus
   GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10 | GPIO_PIN_11;  // D1-D3
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = 1;  //GPIO_NOPULL;
@@ -144,7 +144,7 @@ HAL_StatusTypeDef SD_SDIO_Init()
     if (!--retry_Cnt) {
       return false;  // return failing status if retries are exhausted
     }
-
+  }
   retry_Cnt = retryCnt;
   for (;;) {
     if (!HAL_SD_ConfigWideBusOperation(&hsd, SDIO_BUS_WIDE_4B)) {
@@ -161,7 +161,7 @@ HAL_StatusTypeDef SD_SDIO_Init()
     for (;;) {
       status = HAL_SD_Init(&hsd);
       if (!status) {
-      break;
+        break;
       }
       if (!--retry_Cnt) {
         return false;  // return failing status if retries are exhausted
