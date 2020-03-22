@@ -19,6 +19,7 @@ indent-classes
 indent-switches
 indent-cases
 indent-col1-comments
+indent-preproc-block
 
 # Remove spaces in and around parentheses
 unpad-paren
