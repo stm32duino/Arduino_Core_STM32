@@ -29,9 +29,9 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #if !defined(USBD_VBUS_DETECTION_ENABLE)
-#define VBUS_SENSING DISABLE
+  #define VBUS_SENSING DISABLE
 #else
-#define VBUS_SENSING ENABLE
+  #define VBUS_SENSING ENABLE
 #endif
 
 /* Private macro -------------------------------------------------------------*/
@@ -386,11 +386,11 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   * @retval None
   */
 #ifdef USE_USB_HS
-void OTG_HS_IRQHandler(void)
+  void OTG_HS_IRQHandler(void)
 #elif defined(USB_OTG_FS)
-void OTG_FS_IRQHandler(void)
+  void OTG_FS_IRQHandler(void)
 #else /* USB */
-void USB_IRQHandler(void)
+  void USB_IRQHandler(void)
 #endif
 {
   HAL_PCD_IRQHandler(&g_hpcd);
@@ -423,11 +423,11 @@ void USB_LP_IRQHandler(void)
   * @retval None
   */
 #ifdef USE_USB_HS
-void OTG_HS_WKUP_IRQHandler(void)
+  void OTG_HS_WKUP_IRQHandler(void)
 #elif defined(USB_OTG_FS)
-void OTG_FS_WKUP_IRQHandler(void)
+  void OTG_FS_WKUP_IRQHandler(void)
 #else
-void USBWakeUp_IRQHandler(void)
+  void USBWakeUp_IRQHandler(void)
 #endif
 {
   if ((&g_hpcd)->Init.low_power_enable) {

@@ -20,7 +20,7 @@
 #include "stm32yyxx_ll_system.h"
 
 #if defined(STM32MP1xx)
-#include "lock_resource.h"
+  #include "lock_resource.h"
 #endif
 
 /* Map STM_PIN to LL */

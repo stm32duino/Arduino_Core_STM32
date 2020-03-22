@@ -23,7 +23,7 @@
 #include "Arduino.h"
 
 #if !defined(IWDG) && defined(IWDG1)
-#define IWDG IWDG1
+  #define IWDG IWDG1
 #endif
 
 // Minimal timeout in microseconds

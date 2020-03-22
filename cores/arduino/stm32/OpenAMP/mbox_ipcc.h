@@ -22,17 +22,17 @@
 
 #ifdef VIRTIOCON
 
-/* Interrupt priority */
-#ifndef IPCC_IRQ_PRIO
-#define IPCC_IRQ_PRIO       1
-#endif
-#ifndef IPCC_IRQ_SUBPRIO
-#define IPCC_IRQ_SUBPRIO    0
-#endif
+  /* Interrupt priority */
+  #ifndef IPCC_IRQ_PRIO
+    #define IPCC_IRQ_PRIO       1
+  #endif
+  #ifndef IPCC_IRQ_SUBPRIO
+    #define IPCC_IRQ_SUBPRIO    0
+  #endif
 
-int MAILBOX_Init(void);
-int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id);
-int MAILBOX_Notify(void *priv, uint32_t id);
+  int MAILBOX_Init(void);
+  int MAILBOX_Poll(struct virtio_device *vdev, uint32_t vring_id);
+  int MAILBOX_Notify(void *priv, uint32_t id);
 
 #endif /* VIRTIOCON */
 #endif /* __OPENAMP_MBOX_IPCC_H */

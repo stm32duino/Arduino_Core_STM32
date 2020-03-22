@@ -40,13 +40,13 @@
 
 #if defined(HAL_RTC_MODULE_ENABLED) && !defined(HAL_RTC_MODULE_ONLY)
 #if defined(STM32MP1xx)
-/**
- * Currently there is no RTC driver for STM32MP1xx. If RTC is used in the future
- * the function call HAL_RCCEx_PeriphCLKConfig() shall be done under
- * if(IS_ENGINEERING_BOOT_MODE()), since clock source selection is done by
- * First Stage Boot Loader on Cortex-A.
- */
-#error "RTC shall not be handled by Arduino in STM32MP1xx."
+  /**
+  * Currently there is no RTC driver for STM32MP1xx. If RTC is used in the future
+  * the function call HAL_RCCEx_PeriphCLKConfig() shall be done under
+  * if(IS_ENGINEERING_BOOT_MODE()), since clock source selection is done by
+  * First Stage Boot Loader on Cortex-A.
+  */
+  #error "RTC shall not be handled by Arduino in STM32MP1xx."
 #endif /* STM32MP1xx */
 
 #ifdef __cplusplus

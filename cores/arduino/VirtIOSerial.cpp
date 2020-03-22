@@ -27,7 +27,7 @@
 #include "core_debug.h"
 
 #if !defined(VIRTIOSERIAL_NUM)
-#define VIRTIOSERIAL_NUM    1
+  #define VIRTIOSERIAL_NUM    1
 #endif
 
 VirtIOSerialObj_t *VirtIOSerial_Handle[VIRTIOSERIAL_NUM] = {NULL};

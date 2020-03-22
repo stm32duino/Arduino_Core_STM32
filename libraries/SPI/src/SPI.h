@@ -61,7 +61,7 @@ enum SPITransferMode {
 
 // Defines a default timeout delay in milliseconds for the SPI transfer
 #ifndef SPI_TRANSFER_TIMEOUT
-#define SPI_TRANSFER_TIMEOUT 1000
+  #define SPI_TRANSFER_TIMEOUT 1000
 #endif
 
 /*
@@ -69,7 +69,7 @@ enum SPITransferMode {
  * Can be redefined in variant.h
  */
 #ifndef NB_SPI_SETTINGS
-#define NB_SPI_SETTINGS 4
+  #define NB_SPI_SETTINGS 4
 #endif
 
 class SPISettings {

@@ -41,20 +41,20 @@
 // often work, but occasionally a race condition can occur that makes
 // Serial behave erratically. See https://github.com/arduino/Arduino/issues/2405
 #if !defined(SERIAL_TX_BUFFER_SIZE)
-#define SERIAL_TX_BUFFER_SIZE 64
+  #define SERIAL_TX_BUFFER_SIZE 64
 #endif
 #if !defined(SERIAL_RX_BUFFER_SIZE)
-#define SERIAL_RX_BUFFER_SIZE 64
+  #define SERIAL_RX_BUFFER_SIZE 64
 #endif
 #if (SERIAL_TX_BUFFER_SIZE>256)
-typedef uint16_t tx_buffer_index_t;
+  typedef uint16_t tx_buffer_index_t;
 #else
-typedef uint8_t tx_buffer_index_t;
+  typedef uint8_t tx_buffer_index_t;
 #endif
 #if  (SERIAL_RX_BUFFER_SIZE>256)
-typedef uint16_t rx_buffer_index_t;
+  typedef uint16_t rx_buffer_index_t;
 #else
-typedef uint8_t rx_buffer_index_t;
+  typedef uint8_t rx_buffer_index_t;
 #endif
 
 // A bool should be enough for this
@@ -78,12 +78,12 @@ typedef enum {
 //#define SERIAL_6N2 0x0A
 
 #ifdef UART_WORDLENGTH_7B
-#define SERIAL_7N1 0x04
-#define SERIAL_7N2 0x0C
-#define SERIAL_6E1 0x22
-#define SERIAL_6E2 0x2A
-#define SERIAL_6O1 0x32
-#define SERIAL_6O2 0x3A
+  #define SERIAL_7N1 0x04
+  #define SERIAL_7N2 0x0C
+  #define SERIAL_6E1 0x22
+  #define SERIAL_6E2 0x2A
+  #define SERIAL_6O1 0x32
+  #define SERIAL_6O2 0x3A
 #endif
 #define SERIAL_8N1 0x06
 #define SERIAL_8N2 0x0E
