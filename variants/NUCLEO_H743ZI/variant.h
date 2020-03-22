@@ -193,11 +193,9 @@ extern "C" {
 #define USER_BTN                PC13
 
 // Timer Definitions
-// Do not use timer used by PWM pins when possible. See PinMap_PWM.
-#define TIMER_TONE              TIM12
-
-// Do not use basic timer: OC is required
-#define TIMER_SERVO             TIM2  //TODO: advanced-control timers don't work
+// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+#define TIMER_TONE              TIM6
+#define TIMER_SERVO             TIM7
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    3 //Connected to ST-Link
@@ -206,6 +204,12 @@ extern "C" {
 // Required by Firmata
 #define PIN_SERIAL_RX           PD9
 #define PIN_SERIAL_TX           PD8
+
+// HSE default value is 25MHz in HAL
+// HSE_BYPASS is 8MHz
+#ifndef HSE_BYPASS_NOT_USED
+#define HSE_VALUE 8000000
+#endif
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED

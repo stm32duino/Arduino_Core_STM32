@@ -72,6 +72,10 @@ def checkAstyle():
                 sys.exit(1)
         else:
             raise subprocess.CalledProcessError(1, "No version found")
+    except FileNotFoundError:
+        print("Astyle binary not found.")
+        print("Check if it is in the PATH environment or use '-p <path>'.")
+        sys.exit(1)
     except subprocess.CalledProcessError as e:
         print(e.output)
         sys.exit(1)
@@ -128,7 +132,11 @@ def manage_exclude_list():
                 exclude_list.append(line.rstrip())
     if exclude_list:
         for pattern in exclude_list:
-            exclude_pattern = re.compile(os.path.join(src_path, pattern) + ".*")
+            if sys.platform.startswith("win32"):
+                winpattern = os.path.join(src_path, pattern.replace("/","\\")) .replace("\\","\\\\")
+                exclude_pattern = re.compile(winpattern + ".*")
+            else:
+                exclude_pattern = re.compile(os.path.join(src_path, pattern) + ".*")
             for s in reversed(source_list):
                 if exclude_pattern.search(s):
                     source_list.remove(s)

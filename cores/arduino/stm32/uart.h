@@ -45,7 +45,7 @@
 extern "C" {
 #endif
 
-#if !defined(HAL_UART_MODULE_ENABLED)
+#if !defined(HAL_UART_MODULE_ENABLED) || defined(HAL_UART_MODULE_ONLY)
 #define serial_t void*
 #else
 
@@ -99,7 +99,7 @@ struct serial_s {
 #endif /* STM32F091xC || STM32F098xx */
 #endif /* STM32F0xx */
 
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) && !defined(STM32G030xx) && !defined(STM32G031xx) && !defined(STM32G041xx)
 #define USART3_IRQn USART3_4_LPUART1_IRQn
 #define USART3_IRQHandler USART3_4_LPUART1_IRQHandler
 #endif /* STM32G0xx */
@@ -118,7 +118,7 @@ struct serial_s {
 #elif defined(STM32L0xx)
 #define USART4_IRQn USART4_5_IRQn
 #endif /* STM32F0xx */
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) && !defined(STM32G030xx) && !defined(STM32G031xx) && !defined(STM32G041xx)
 #define USART4_IRQn USART3_4_LPUART1_IRQn
 #endif /* STM32G0xx */
 
@@ -160,7 +160,7 @@ struct serial_s {
 #endif
 #endif /* STM32F0xx */
 
-#if defined(STM32G0xx)
+#if defined(STM32G0xx)  && !defined(STM32G030xx) && !defined(STM32G031xx) && !defined(STM32G041xx)
 #if defined(LPUART1_BASE) && !defined(LPUART1_IRQn)
 #define LPUART1_IRQn USART3_4_LPUART1_IRQn
 #endif
@@ -181,9 +181,12 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *));
 uint8_t serial_tx_active(serial_t *obj);
 uint8_t serial_rx_active(serial_t *obj);
 
+void uart_enable_tx(serial_t *obj);
+void uart_enable_rx(serial_t *obj);
+
 size_t uart_debug_write(uint8_t *data, uint32_t size);
 
-#endif /* HAL_UART_MODULE_ENABLED */
+#endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 #ifdef __cplusplus
 }
 #endif

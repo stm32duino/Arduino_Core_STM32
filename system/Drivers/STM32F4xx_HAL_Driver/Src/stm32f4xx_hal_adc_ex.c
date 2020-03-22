@@ -36,7 +36,7 @@
      (#) Configure the ADC Injected channels group features, use HAL_ADC_Init()
          and HAL_ADC_ConfigChannel() functions.
 
-     (#) Three operation modes are available within this driver :
+     (#) Three operation modes are available within this driver:
 
      *** Polling mode IO operation ***
      =================================
@@ -57,18 +57,6 @@
        (+) In case of ADC Error, HAL_ADCEx_InjectedErrorCallback() function is executed and user can
             add his own code by customization of function pointer HAL_ADCEx_InjectedErrorCallback
        (+) Stop the ADC peripheral using HAL_ADCEx_InjectedStop_IT()
-
-
-     *** DMA mode IO operation ***
-     ==============================
-     [..]
-       (+) Start the ADC peripheral using HAL_ADCEx_InjectedStart_DMA(), at this stage the user specify the length
-           of data to be transferred at each end of conversion
-       (+) At The end of data transfer ba HAL_ADCEx_InjectedConvCpltCallback() function is executed and user can
-            add his own code by customization of function pointer HAL_ADCEx_InjectedConvCpltCallback
-       (+) In case of transfer Error, HAL_ADCEx_InjectedErrorCallback() function is executed and user can
-            add his own code by customization of function pointer HAL_ADCEx_InjectedErrorCallback
-        (+) Stop the ADC peripheral using HAL_ADCEx_InjectedStop_DMA()
 
      *** Multi mode ADCs Regular channels configuration ***
      ======================================================

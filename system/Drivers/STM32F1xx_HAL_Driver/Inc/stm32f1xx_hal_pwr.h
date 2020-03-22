@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -56,7 +40,7 @@
 
 /** @defgroup PWR_Exported_Types PWR Exported Types
   * @{
-  */ 
+  */
 
 /**
   * @brief  PWR PVD configuration structure definition
@@ -80,7 +64,7 @@ typedef struct
 
 /** @addtogroup PWR_Private_Constants
   * @{
-  */ 
+  */
 
 #define PWR_EXTI_LINE_PVD  ((uint32_t)0x00010000)  /*!< External interrupt line 16 Connected to the PVD EXTI Line */
 
@@ -88,12 +72,12 @@ typedef struct
   * @}
   */
 
- 
+
 /* Exported constants --------------------------------------------------------*/
 
 /** @defgroup PWR_Exported_Constants PWR Exported Constants
   * @{
-  */ 
+  */
 
 /** @defgroup PWR_PVD_detection_level PWR PVD detection level
   * @{
@@ -105,8 +89,8 @@ typedef struct
 #define PWR_PVDLEVEL_4                  PWR_CR_PLS_2V6
 #define PWR_PVDLEVEL_5                  PWR_CR_PLS_2V7
 #define PWR_PVDLEVEL_6                  PWR_CR_PLS_2V8
-#define PWR_PVDLEVEL_7                  PWR_CR_PLS_2V9 
-                                                          
+#define PWR_PVDLEVEL_7                  PWR_CR_PLS_2V9
+
 /**
   * @}
   */
@@ -220,7 +204,7 @@ typedef struct
 #define __HAL_PWR_PVD_EXTI_ENABLE_IT()      SET_BIT(EXTI->IMR, PWR_EXTI_LINE_PVD)
 
 /**
-  * @brief Disable interrupt on PVD Exti Line 16. 
+  * @brief Disable interrupt on PVD Exti Line 16.
   * @retval None.
   */
 #define __HAL_PWR_PVD_EXTI_DISABLE_IT()     CLEAR_BIT(EXTI->IMR, PWR_EXTI_LINE_PVD)
@@ -239,7 +223,7 @@ typedef struct
 
 
 /**
-  * @brief  PVD EXTI line configuration: set falling edge trigger.  
+  * @brief  PVD EXTI line configuration: set falling edge trigger.
   * @retval None.
   */
 #define __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE()  SET_BIT(EXTI->FTSR, PWR_EXTI_LINE_PVD)
@@ -314,7 +298,7 @@ typedef struct
 #define IS_PWR_PVD_MODE(MODE) (((MODE) == PWR_PVD_MODE_IT_RISING)|| ((MODE) == PWR_PVD_MODE_IT_FALLING) || \
                               ((MODE) == PWR_PVD_MODE_IT_RISING_FALLING) || ((MODE) == PWR_PVD_MODE_EVENT_RISING) || \
                               ((MODE) == PWR_PVD_MODE_EVENT_FALLING) || ((MODE) == PWR_PVD_MODE_EVENT_RISING_FALLING) || \
-                              ((MODE) == PWR_PVD_MODE_NORMAL)) 
+                              ((MODE) == PWR_PVD_MODE_NORMAL))
 
 #define IS_PWR_WAKEUP_PIN(PIN) (((PIN) == PWR_WAKEUP_PIN1))
 
@@ -336,8 +320,8 @@ typedef struct
 /** @addtogroup PWR_Exported_Functions PWR Exported Functions
   * @{
   */
-  
-/** @addtogroup PWR_Exported_Functions_Group1 Initialization and de-initialization functions 
+
+/** @addtogroup PWR_Exported_Functions_Group1 Initialization and de-initialization functions
   * @{
   */
 
@@ -350,7 +334,7 @@ void HAL_PWR_DisableBkUpAccess(void);
   * @}
   */
 
-/** @addtogroup PWR_Exported_Functions_Group2 Peripheral Control functions 
+/** @addtogroup PWR_Exported_Functions_Group2 Peripheral Control functions
   * @{
   */
 

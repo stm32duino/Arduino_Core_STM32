@@ -301,13 +301,6 @@ HAL_StatusTypeDef HAL_MDMA_DeInit(MDMA_HandleTypeDef *hmdma)
     return HAL_ERROR;
   }
 
-  /* Check the MDMA peripheral state */
-  if(hmdma->State == HAL_MDMA_STATE_BUSY)
-  {
-    hmdma->ErrorCode = HAL_MDMA_ERROR_BUSY;
-    return HAL_ERROR;
-  }
-
   /* Disable the selected MDMA Channelx */
   __HAL_MDMA_DISABLE(hmdma);
 

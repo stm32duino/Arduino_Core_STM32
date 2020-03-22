@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -100,7 +100,8 @@ extern "C" {
 
 
 /* States for HID State Machine */
-typedef enum {
+typedef enum
+{
   HID_INIT = 0,
   HID_IDLE,
   HID_SEND_DATA,
@@ -112,7 +113,8 @@ typedef enum {
 }
 HID_StateTypeDef;
 
-typedef enum {
+typedef enum
+{
   HID_REQ_INIT = 0,
   HID_REQ_IDLE,
   HID_REQ_GET_REPORT_DESC,
@@ -124,7 +126,8 @@ typedef enum {
 }
 HID_CtlStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   HID_MOUSE    = 0x01,
   HID_KEYBOARD = 0x02,
   HID_UNKNOWN = 0xFF,
@@ -132,7 +135,8 @@ typedef enum {
 HID_TypeTypeDef;
 
 
-typedef  struct  _HID_ReportData {
+typedef  struct  _HID_ReportData
+{
   uint8_t   ReportID;
   uint8_t   ReportType;
   uint16_t  UsagePage;
@@ -155,20 +159,23 @@ typedef  struct  _HID_ReportData {
 }
 HID_ReportDataTypeDef;
 
-typedef  struct  _HID_ReportIDTypeDef {
+typedef  struct  _HID_ReportIDTypeDef
+{
   uint8_t  Size;         /* Report size return by the device id            */
   uint8_t  ReportID;     /* Report Id                                      */
   uint8_t  Type;         /* Report Type (INPUT/OUTPUT/FEATURE)             */
 } HID_ReportIDTypeDef;
 
-typedef struct  _HID_CollectionTypeDef {
+typedef struct  _HID_CollectionTypeDef
+{
   uint32_t                       Usage;
   uint8_t                        Type;
   struct _HID_CollectionTypeDef  *NextPtr;
 } HID_CollectionTypeDef;
 
 
-typedef  struct  _HID_AppCollectionTypeDef {
+typedef  struct  _HID_AppCollectionTypeDef
+{
   uint32_t               Usage;
   uint8_t                Type;
   uint8_t                NbrReportFmt;
@@ -176,7 +183,8 @@ typedef  struct  _HID_AppCollectionTypeDef {
 } HID_AppCollectionTypeDef;
 
 
-typedef struct _HIDDescriptor {
+typedef struct _HIDDescriptor
+{
   uint8_t   bLength;
   uint8_t   bDescriptorType;
   uint16_t  bcdHID;               /* indicates what endpoint this descriptor is describing */
@@ -188,7 +196,8 @@ typedef struct _HIDDescriptor {
 HID_DescTypeDef;
 
 
-typedef struct {
+typedef struct
+{
   uint8_t  *buf;
   uint16_t  head;
   uint16_t tail;
@@ -198,7 +207,8 @@ typedef struct {
 
 
 /* Structure for HID process */
-typedef struct _HID_Process {
+typedef struct _HID_Process
+{
   uint8_t              OutPipe;
   uint8_t              InPipe;
   HID_StateTypeDef     state;

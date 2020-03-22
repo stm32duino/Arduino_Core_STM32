@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -180,7 +180,8 @@ extern "C" {
   * @{
   */
 
-typedef enum {
+typedef enum
+{
   PTP_REQ_IDLE = 0,
   PTP_REQ_SEND,
   PTP_REQ_WAIT,
@@ -188,7 +189,8 @@ typedef enum {
 }
 PTP_RequestStateTypeDef;
 
-typedef enum {
+typedef enum
+{
   PTP_IDLE = 0,
   PTP_OP_REQUEST_STATE,
   PTP_OP_REQUEST_WAIT_STATE,
@@ -203,7 +205,8 @@ typedef enum {
 PTP_ProcessStateTypeDef;
 
 /* PTP request/response/event general PTP container (transport independent) */
-typedef struct {
+typedef struct
+{
   uint16_t Code;
   uint32_t SessionID;
   uint32_t Transaction_ID;
@@ -227,7 +230,8 @@ PTP_ContainerTypedef;
 #define PTP_USB_BULK_REQ_LEN                              (PTP_USB_BULK_HDR_LEN + 5U * sizeof(uint32_t))
 #define PTP_USB_BULK_REQ_RESP_MAX_LEN                     63U
 
-typedef struct {
+typedef struct
+{
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -241,7 +245,8 @@ typedef struct {
 PTP_RespContainerTypedef;
 
 
-typedef struct {
+typedef struct
+{
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -254,13 +259,16 @@ typedef struct {
 }
 PTP_OpContainerTypedef;
 
-typedef struct {
+typedef struct
+{
   uint32_t length;
   uint16_t type;
   uint16_t code;
   uint32_t trans_id;
-  union {
-    struct {
+  union
+  {
+    struct
+    {
       uint32_t param1;
       uint32_t param2;
       uint32_t param3;
@@ -273,7 +281,8 @@ typedef struct {
 PTP_DataContainerTypedef;
 
 /* PTP USB Asynchronous Event Interrupt Data Format */
-typedef struct {
+typedef struct
+{
   uint32_t length;
   uint16_t type;
   uint16_t code;
@@ -285,7 +294,8 @@ typedef struct {
 PTP_EventContainerTypedef;
 
 /* Structure for PTP Transport process */
-typedef struct {
+typedef struct
+{
   PTP_ProcessStateTypeDef      state;
   PTP_RequestStateTypeDef      req_state;
   PTP_OpContainerTypedef       op_container;
@@ -342,7 +352,8 @@ PTP_HandleTypeDef;
 #define PTP_IMAGE_FORMATS_NBR                             100U
 #define PTP_MAX_STR_SIZE                                  255U
 /* PTP device info structure */
-typedef struct {
+typedef struct
+{
   uint16_t StandardVersion;
   uint32_t VendorExtensionID;
   uint16_t VendorExtensionVersion;
@@ -367,7 +378,8 @@ PTP_DeviceInfoTypedef;
 
 #define PTP_MAX_STORAGE_UNITS_NBR                         5
 /* PTP storageIDs structute (returned by GetStorageIDs) */
-typedef struct {
+typedef struct
+{
   uint32_t n;
   uint32_t Storage [PTP_MAX_STORAGE_UNITS_NBR];
 }
@@ -405,7 +417,8 @@ PTP_StorageIDsTypedef;
 #define PTP_AC_ReadOnly                                   0x0001U
 #define PTP_AC_ReadOnly_with_Object_Deletion              0x0002U
 
-typedef struct {
+typedef struct
+{
   uint16_t StorageType;
   uint16_t FilesystemType;
   uint16_t AccessCapability;
@@ -698,7 +711,8 @@ PTP_StorageInfoTypedef;
 #define PTP_AT_AncillaryData                              0x0007U
 
 #define PTP_MAX_HANDLER_NBR                               0x255U
-typedef struct {
+typedef struct
+{
   uint32_t n;
   uint32_t Handler[PTP_MAX_HANDLER_NBR];
 }
@@ -723,7 +737,8 @@ PTP_ObjectHandlesTypedef;
 #define PTP_oi_filenamelen                                52U
 #define PTP_oi_Filename                                   53U
 
-typedef struct {
+typedef struct
+{
   uint32_t StorageID;
   uint16_t ObjectFormat;
   uint16_t ProtectionStatus;
@@ -750,7 +765,8 @@ PTP_ObjectInfoTypedef;
 
 /* Object Property Describing Dataset (DevicePropDesc) */
 
-typedef union  _PTP_PropertyValueTypedef {
+typedef union  _PTP_PropertyValueTypedef
+{
   char  str[PTP_MAX_STR_SIZE];
   uint8_t u8;
   int8_t i8;
@@ -760,13 +776,15 @@ typedef union  _PTP_PropertyValueTypedef {
   int32_t i32;
   uint64_t u64;
   int64_t i64;
-  struct array {
+  struct array
+  {
     uint32_t count;
     union _PTP_PropertyValueTypedef *v;
   } a;
 } PTP_PropertyValueTypedef;
 
-typedef struct {
+typedef struct
+{
   PTP_PropertyValueTypedef MinimumValue;
   PTP_PropertyValueTypedef MaximumValue;
   PTP_PropertyValueTypedef StepSize;
@@ -775,7 +793,8 @@ PTP_PropDescRangeFormTypedef;
 
 /* Property Describing Dataset, Enum Form */
 
-typedef struct {
+typedef struct
+{
   uint16_t NumberOfValues;
   PTP_PropertyValueTypedef SupportedValue[PTP_SUPPORTED_PROPRIETIES_NBR];
 }
@@ -787,14 +806,16 @@ PTP_PropDescEnumFormTypedef;
 #define PTP_opd_GetSet                                    4U
 #define PTP_opd_FactoryDefaultValue                       5U
 
-typedef struct {
+typedef struct
+{
   uint16_t    ObjectPropertyCode;
   uint16_t    DataType;
   uint8_t     GetSet;
   PTP_PropertyValueTypedef FactoryDefaultValue;
   uint32_t    GroupCode;
   uint8_t     FormFlag;
-  union {
+  union
+  {
     PTP_PropDescEnumFormTypedef Enum;
     PTP_PropDescRangeFormTypedef  Range;
   } FORM;
@@ -802,7 +823,8 @@ typedef struct {
 PTP_ObjectPropDescTypeDef;
 
 /* Metadata lists for MTP operations */
-typedef struct {
+typedef struct
+{
   uint16_t   property;
   uint16_t   datatype;
   uint32_t   ObjectHandle;
@@ -836,14 +858,16 @@ MTP_PropertiesTypedef;
 
 /* Device Property Describing Dataset (DevicePropDesc) */
 
-typedef struct {
+typedef struct
+{
   uint16_t  DevicePropertyCode;
   uint16_t  DataType;
   uint8_t   GetSet;
   PTP_PropertyValueTypedef FactoryDefaultValue;
   PTP_PropertyValueTypedef CurrentValue;
   uint8_t   FormFlag;
-  union {
+  union
+  {
     PTP_PropDescEnumFormTypedef  Enum;
     PTP_PropDescRangeFormTypedef  Range;
   } FORM;

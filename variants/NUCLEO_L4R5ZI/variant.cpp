@@ -159,18 +159,30 @@ const PinName digitalPin[] = {
   PC_5,  //D112/A5
   PB_1,  //D113/A6
   PC_2,  //D114/A7
-  PA_1,  //D115/A8
-  // Duplicated pins in order to be aligned with PinMapADC
-  PA_7,  //D116/A9 = D11
-  PA_6,  //D117/A10 = D12
-  PA_5,  //D118/A11 = D13
-  PA_4,  //D119/A12 = D20
-  PA_2,  //D120/A13 = D26
-  PB_0,  //D121/A14 = D29
-  PA_0,  //D122/A15 = D32
+  PA_1   //D115/A8
 #ifdef ARDUINO_NUCLEO_L4R5ZI
-  PG_15  //D123
+  , PG_15 //D116
 #endif
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  107, //A0
+  108, //A1
+  109, //A2
+  110, //A3
+  111, //A4
+  112, //A5
+  113, //A6
+  114, //A7
+  115, //A8
+  11, //A9
+  12, //A10
+  13, //A11
+  20, //A12
+  26, //A13
+  29, //A14
+  32  //A15
 };
 
 #ifdef __cplusplus

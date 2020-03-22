@@ -103,16 +103,18 @@ const PinName digitalPin[] = {
   PE_12, //D76
   PE_13, //D77
   PE_14, //D78
-  PE_15, //D79
+  PE_15  //D79
+};
 
-  //Duplicated ADC Pins
-  PA_3,  //D80/A0
-  PA_4,  //D81/A1
-  PC_0,  //D82/A2
-  PC_1,  //D83/A3
-  PC_2,  //D84/A4
-  PC_3,  //D85/A5
-  PC_4   //D86/A6
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  3,  //A0
+  4,  //A1
+  32, //A2
+  33, //A3
+  34, //A4
+  35, //A5
+  36  //A6
 };
 
 #ifdef __cplusplus
