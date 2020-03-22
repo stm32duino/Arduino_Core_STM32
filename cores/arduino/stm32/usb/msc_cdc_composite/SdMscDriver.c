@@ -16,13 +16,8 @@
 #error "ERROR - Only STM32F103xE, STM32F103xG or STM32F4xx CPUs supported"
 #endif
 
-
-
-
 #define TIMEOUT_SD_ACCESS   0xFF  // guess - don't know units
 #define SD_RETRY_COUNT 3
-
-MSC_lock_typedef MSC_lock_byte = MSC_UNLOCKED;  // start out with MSC unlocked
 
 SD_HandleTypeDef hsd;  // create SDIO structure
 
@@ -44,11 +39,6 @@ HAL_StatusTypeDef HAL_SD_WriteBlocks(SD_HandleTypeDef *hsd, uint8_t *pData, uint
 HAL_StatusTypeDef SDIO_Init(SDIO_TypeDef *SDIOx, SDIO_InitTypeDef Init);
 
 HAL_StatusTypeDef SD_SDIO_Init();
-
-#define MSC_USB_ACQUIRE_DEF (extern "C" {HAL_StatusTypeDef SD_SDIO_Init(); MSC_lock_typedef MSC_lock_byte;}})
-#define MSC_USB_ACQUIRE do {SD_SDIO_Init();}while(0)
-#define MSC_USB_RELEASE_DEF (extern "C" {MSC_lock_typedef MSC_lock_byte;})
-#define MSC_USB_RELEASE do {MSC_lock_byte = MSC_UNLOCKED;}while(0)
 
 #define TRANSFER_CLOCK_DIV ((uint8_t)SDIO_INIT_CLK_DIV/40)
 
