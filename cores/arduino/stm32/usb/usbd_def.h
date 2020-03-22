@@ -36,7 +36,7 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __USBD_DEF_H
 #define __USBD_DEF_H
-
+#define bobwashere
 #ifdef __cplusplus
 extern "C" {
 #endif
