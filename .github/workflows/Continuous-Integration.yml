@@ -32,6 +32,9 @@ jobs:
     - name: Astyle check
       id: Astyle
       uses: stm32duino/actions/astyle-check@master
+      with:
+        astyle-definition: 'CI/astyle/.astylerc'
+        ignore-path-list: 'CI/astyle/.astyleignore'
 
     # Use the output from the `Astyle` step
     - name: Astyle Errors
