@@ -14,6 +14,10 @@
 extern "C" {
 #endif /* __cplusplus */
 
+void scheduleBootloaderReset();
+void cancelBootloaderReset();
+void bootloaderSystickHandler();
+
 /* Request to jump to system memory boot */
 void jumpToBootloaderRequested(void);
 

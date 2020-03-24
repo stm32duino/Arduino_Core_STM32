@@ -11,7 +11,10 @@
  * STM32 built-in bootloader in system memory support
  */
 
+static const uint32_t BOOTLOADER_DELAY_MS = 250;
 static bool BootIntoBootloaderAfterReset;
+static uint32_t countdown = 0;
+
 
 /* Request to jump to system memory boot */
 WEAK void jumpToBootloaderRequested(void)
@@ -113,6 +116,32 @@ WEAK void jumpToBootloaderIfRequested(void)
     );
 
     __builtin_unreachable();
+  }
+}
+
+/**
+  * Scheduler a reset into the bootloader after a delay.
+  */
+void scheduleBootloaderReset()
+{
+  countdown = BOOTLOADER_DELAY_MS;
+}
+
+/**
+  * Cancel a previously scheduled bootloader reset.
+  */
+void cancelBootloaderReset()
+{
+  countdown = 0;
+}
+
+/**
+  * Bootloader systick handler, should be called every ms
+  */
+void bootloaderSystickHandler()
+{
+  if (countdown && --countdown == 0) {
+    jumpToBootloaderRequested();
   }
 }
 
