@@ -35,13 +35,17 @@ extern "C" {
 // !!! // x is PXn (y)
 // !!! Ex:
 // !!! ...
-// !!! #define PA4  20 // A14
+// !!! #define PA4  20 // A14 <-- if NUM_ANALOG_FIRST not defined
+// !!! or
+// !!! #define PA4  A14 // 20 <-- if NUM_ANALOG_FIRST defined
 // !!! #define PB4  21
 // !!! #define PB5  22
 // !!! #define PB3  23
 // !!! // 24 is PA4 (20)
 // !!! // 25 is PB4 (21)
-// !!! #define PA2  26 // A15
+// !!! #define PA2  26 // A15 <-- if NUM_ANALOG_FIRST not defined
+// !!! or
+// !!! #define PA2  A15 // 26 <-- if NUM_ANALOG_FIRST defined
 // !!! ...
 //#define PXn x
 
@@ -51,12 +55,10 @@ extern "C" {
 #define NUM_DIGITAL_PINS        0
 
 // Allow to define Arduino style alias for analog input pin number --> Ax
-// If no analog pin required then NUM_ANALOG_INPUTS and NUM_ANALOG_FIRST
-// could not be defined or set to respectively `0` and `NUM_DIGITAL_PINS`
-// All pins are digital, analog inputs are a subset of digital pins
-// and must be contiguous to be able to loop on each value
-// This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
-// defined in pin_arduino.h
+// If no analog pin required then NUM_ANALOG_INPUTS could not be defined
+// or set to `0`
+// All pins are digital, analog inputs are a subset of digital pins.
+// This must be a literal
 // It is used with preprocessor tests (e.g. #if NUM_ANALOG_INPUTS > 3)
 // so an enum will not work.
 // !!!
@@ -64,15 +66,29 @@ extern "C" {
 // !!! defined in digitalPin[] array in variant.cpp
 // !!!
 #define NUM_ANALOG_INPUTS       0
-// Define digital pin number of the first analog input  (i.e. which digital pin is A0)
-// First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
-#define NUM_ANALOG_FIRST        0
 
-// Below ADC, DAC and PWM definitions already done in the core
+// They are 2 possibles way to define analog pins:
+//-------------------------------------------------------------------------------------------
+//   - If they are contiguous in the digitalPin array:
+//     Simply defined `NUM_ANALOG_FIRST` and all pins Ax will be automatically defined.
+//     It define the digital pin number of the first analog input  (i.e. which digital pin is A0)
+//     First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS
+//     This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
+//     defined in pin_arduino.h
+#define NUM_ANALOG_FIRST        0
+//------------------------------------OR------------------------------------------------------
+//   - If they are not contiguous in the digitalPin array:
+//     Add an analogInputPin array in the variant.cpp without defining NUM_ANALOG_FIRST
+//     In that case the defined PYn for analog pin have to define the Ax definition instead of
+//     index in digitalPin[] array:
+//     #define PA4  A14
+//-------------------------------------------------------------------------------------------
+
+
+// Below ADC and PWM definitions already done in the core
 // Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
+// ADC resolution is 10 bits
+//#define ADC_RESOLUTION          10
 
 // PWM resolution
 //#define PWM_RESOLUTION          8
@@ -140,6 +156,11 @@ extern "C" {
 //#define SD_DETECT_PIN           x
 // SD Read/Write timeout, default value defined in STM32SD library
 //#define SD_DATATIMEOUT          x
+
+// USB Vbus sensing. Require to have Vbus pin connected to Vbus signal.
+// Warning, pin is different depending on FullSpeed or High Speed mode used
+// See AN4879 https://www.st.com/content/st_com/en/search.html#q=AN4879-t=resources-page=1
+//#define USBD_VBUS_DETECTION_ENABLE
 
 #ifdef __cplusplus
 } // extern "C"

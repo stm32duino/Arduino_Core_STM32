@@ -22,7 +22,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 /* Exported constants --------------------------------------------------------*/
 #ifndef TIM_IRQ_PRIO
@@ -51,8 +51,13 @@ extern "C" {
 #define TIM1_IRQn TIM1_UP_TIM16_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM16_IRQHandler
 #elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+#if !defined (TIM10_BASE)
+#define TIM1_IRQn TIM1_UP_IRQn
+#define TIM1_IRQHandler TIM1_UP_IRQHandler
+#else
 #define TIM1_IRQn TIM1_UP_TIM10_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
+#endif
 #elif defined(STM32H7xx) || defined(STM32MP1xx)
 #define TIM1_IRQn TIM1_UP_IRQn
 #define TIM1_IRQHandler TIM1_UP_IRQHandler
@@ -254,7 +259,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

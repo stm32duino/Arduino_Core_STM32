@@ -30,8 +30,8 @@ extern "C" {
 #define PA0   0  //D0
 #define PA1   1  //D1
 #define PA2   2  //D2
-#define PA3   3  //D3
-#define PA4   4  //D4
+#define PA3   A0 //D3
+#define PA4   A1 //D4
 #define PA5   5  //D5
 #define PA6   6  //D6
 #define PA7   7  //D7
@@ -59,11 +59,11 @@ extern "C" {
 #define PB13  29 //D29
 #define PB14  30 //D30
 #define PB15  31 //D31
-#define PC0   32 //D32
-#define PC1   33 //D33
-#define PC2   34 //D34
-#define PC3   35 //D35
-#define PC4   36 //D36
+#define PC0   A2 //D32
+#define PC1   A3 //D33
+#define PC2   A4 //D34
+#define PC3   A5 //D35
+#define PC4   A6 //D36
 #define PC5   37 //D37
 #define PC6   38 //D38
 #define PC7   39 //D39
@@ -108,14 +108,12 @@ extern "C" {
 #define PE14  78 //D78
 #define PE15  79 //D79
 
-// This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        87
+// This must be a literal
+#define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        80
 
 // PWM resolution
-#define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
 #define PWM_MAX_DUTY_CYCLE      255
 

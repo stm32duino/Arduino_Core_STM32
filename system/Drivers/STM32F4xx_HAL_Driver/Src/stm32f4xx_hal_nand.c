@@ -883,11 +883,12 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_8b(NAND_HandleTypeDef *hnand, NAND_Address
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_WRITE_TRUE1;
 
+    /* Get tick */
+    tickstart = HAL_GetTick();
+
     /* Read status until NAND is ready */
     while(HAL_NAND_Read_Status(hnand) != NAND_READY)
     {
-      /* Get tick */
-      tickstart = HAL_GetTick();
 
       if((HAL_GetTick() - tickstart ) > NAND_WRITE_TIMEOUT)
       {
@@ -1010,12 +1011,12 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_16b(NAND_HandleTypeDef *hnand, NAND_Addres
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_WRITE_TRUE1;
 
+    /* Get tick */
+    tickstart = HAL_GetTick();
+
     /* Read status until NAND is ready */
     while(HAL_NAND_Read_Status(hnand) != NAND_READY)
     {
-      /* Get tick */
-      tickstart = HAL_GetTick();
-
       if((HAL_GetTick() - tickstart ) > NAND_WRITE_TIMEOUT)
       {
         return HAL_TIMEOUT;
@@ -1546,12 +1547,12 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_A
 
     *(__IO uint8_t *)((uint32_t)(deviceaddress | CMD_AREA)) = NAND_CMD_WRITE_TRUE1;
 
+    /* Get tick */
+    tickstart = HAL_GetTick();
+
     /* Read status until NAND is ready */
     while(HAL_NAND_Read_Status(hnand) != NAND_READY)
     {
-      /* Get tick */
-      tickstart = HAL_GetTick();
-
       if((HAL_GetTick() - tickstart ) > NAND_WRITE_TIMEOUT)
       {
         return HAL_TIMEOUT;

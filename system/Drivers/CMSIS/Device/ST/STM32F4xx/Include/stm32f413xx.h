@@ -6898,13 +6898,12 @@ typedef struct
 #define FLASH_CR_MER_Msk               (0x1UL << FLASH_CR_MER_Pos)              /*!< 0x00000004 */
 #define FLASH_CR_MER                   FLASH_CR_MER_Msk
 #define FLASH_CR_SNB_Pos               (3U)
-#define FLASH_CR_SNB_Msk               (0x1FUL << FLASH_CR_SNB_Pos)             /*!< 0x000000F8 */
+#define FLASH_CR_SNB_Msk               (0x0FUL << FLASH_CR_SNB_Pos)             /*!< 0x00000078 */
 #define FLASH_CR_SNB                   FLASH_CR_SNB_Msk
 #define FLASH_CR_SNB_0                 (0x01UL << FLASH_CR_SNB_Pos)             /*!< 0x00000008 */
 #define FLASH_CR_SNB_1                 (0x02UL << FLASH_CR_SNB_Pos)             /*!< 0x00000010 */
 #define FLASH_CR_SNB_2                 (0x04UL << FLASH_CR_SNB_Pos)             /*!< 0x00000020 */
 #define FLASH_CR_SNB_3                 (0x08UL << FLASH_CR_SNB_Pos)             /*!< 0x00000040 */
-#define FLASH_CR_SNB_4                 (0x10UL << FLASH_CR_SNB_Pos)             /*!< 0x00000080 */
 #define FLASH_CR_PSIZE_Pos             (8U)
 #define FLASH_CR_PSIZE_Msk             (0x3UL << FLASH_CR_PSIZE_Pos)            /*!< 0x00000300 */
 #define FLASH_CR_PSIZE                 FLASH_CR_PSIZE_Msk
@@ -15057,9 +15056,6 @@ typedef struct
                                     ((INSTANCE) == TIM13)|| \
                                     ((INSTANCE) == TIM14))
 
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /************* TIM Instances : at least 1 capture/compare channel *************/
 #define IS_TIM_CC1_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)  || \
                                          ((INSTANCE) == TIM2)  || \
@@ -15417,8 +15413,6 @@ typedef struct
 
 /****************************** QSPI Instances ********************************/
 #define IS_QSPI_ALL_INSTANCE(__INSTANCE__) ((__INSTANCE__) == QUADSPI)
-/****************************** USB Instances ********************************/
-#define IS_USB_ALL_INSTANCE(INSTANCE) ((INSTANCE) == USB_OTG_FS)
 /****************************** USB Exported Constants ************************/
 #define USB_OTG_FS_HOST_MAX_CHANNEL_NBR                12U
 #define USB_OTG_FS_MAX_IN_ENDPOINTS                    6U    /* Including EP0 */

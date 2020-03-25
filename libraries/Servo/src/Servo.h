@@ -90,8 +90,8 @@
 #if !defined(ARDUINO_ARCH_STM32F4)
 
 typedef struct  {
-  uint8_t nbr        : 6 ;            // a pin number from 0 to 63
-  uint8_t isActive   : 1 ;            // true if this channel is enabled, pin not pulsed if false
+  uint8_t nbr;            // a pin number from 0 to 255
+  uint8_t isActive;       // true if this channel is enabled, pin not pulsed if false
 } ServoPin_t   ;
 
 typedef struct {

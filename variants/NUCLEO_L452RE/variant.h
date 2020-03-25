@@ -38,8 +38,8 @@ extern "C" {
 #define PA9  8
 #define PC7  9
 #define PB6  10
-#define PA7  11 // A6
-#define PA6  12 // A7
+#define PA7  A6
+#define PA6  A7
 #define PA5  13 // LED
 #define PB9  14
 #define PB8  15
@@ -56,8 +56,8 @@ extern "C" {
 #define PC15 24
 #define PH0  25
 #define PH1  26
-#define PC2  27 // A8
-#define PC3  28 // A9
+#define PC2  A8
+#define PC3  A9
 // CN7 Right Side
 #define PC11 29
 #define PD2  30
@@ -66,23 +66,23 @@ extern "C" {
 // CN10 Right side
 #define PC8  32
 #define PC6  33
-#define PC5  34 // A12
+#define PC5  34
 #define PA12 35
 #define PA11 36
 #define PB12 37
 #define PB11 38
 #define PB2  39
-#define PB1  40 // A11
+#define PB1  40
 #define PB15 41
 #define PB14 42
 #define PB13 43
-#define PC4  44 // A10
-#define PA0  45 // A0
-#define PA1  46 // A1
-#define PA4  47 // A2
-#define PB0  48 // A3
-#define PC1  19 // A4
-#define PC0  50 // A5
+#define PC4  A10
+#define PA0  A0
+#define PA1  A1
+#define PA4  A2
+#define PB0  A3
+#define PC1  A4
+#define PC0  A5
 #else
 #define PA10 0
 #define PA9  1
@@ -123,39 +123,34 @@ extern "C" {
 #define PC8  31
 #define PC6  32
 #define PC5  33
-#define PB0  34 // A10
+#define PB0  A10
 #define PB11 35
 #define PB2  36
-#define PB1  37 // A11
-#define PA7  38 // A9
-#define PA6  39 // A8
-#define PA5  40 // A7
-#define PA4  41 // A6
-#define PC4  42 // A12
+#define PB1  A11
+#define PA7  A9
+#define PA6  A8
+#define PA5  A7
+#define PA4  A6
+#define PC4  A12
 #define PA3  43
 #define PA2  44
-#define PA0  45 // A0
-#define PA1  46 // A1
-#define PC3  47 // A2
-#define PC2  48 // A3
-#define PC1  49 // A4
-#define PC0  50 // A5
+#define PA0  A0
+#define PA1  A1
+#define PC3  A2
+#define PC2  A3
+#define PC1  A4
+#define PC0  A5
 #endif
 
 // This must be a literal
+#define NUM_DIGITAL_PINS        51
 #ifdef ARDUINO_NUCLEO_L452RE
-// This must be a literal
-#define NUM_DIGITAL_PINS        56
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       11
 #else
-// This must be a literal
-#define NUM_DIGITAL_PINS        58
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       13
 #endif
-
-#define NUM_ANALOG_FIRST        45
 
 // On-board LED pin number
 #define LED_BUILTIN             13

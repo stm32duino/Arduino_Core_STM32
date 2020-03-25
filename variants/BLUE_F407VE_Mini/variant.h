@@ -47,14 +47,14 @@ extern "C" {
 #define PE4  2
 #define PE6  3
 #define PC14 4  // OSC32_IN
-#define PC0  5  // A8
-#define PC2  6  // A10
-#define PA0  7  // A0
-#define PA1  8  // A1
-#define PA4  9  // A4
+#define PC0  A8
+#define PC2  A10
+#define PA0  A0
+#define PA1  A1
+#define PA4  A4
 #define PA6  10
-#define PC4  11 // A12
-#define PB0  12 // A6
+#define PC4  A12
+#define PB0  A6
 #define PB2  13
 #define PE8  14
 #define PE9  15
@@ -96,14 +96,14 @@ extern "C" {
 #define PE5  44
 #define PC13 45
 #define PC15 46 // OSC32_OUT
-#define PC1  47 // A9
-#define PC3  48 // A11
-#define PA2  49 // A2
-#define PA3  50 // A3
-#define PA5  51 // A5
+#define PC1  A9
+#define PC3  A11
+#define PA2  A2
+#define PA3  A3
+#define PA5  A5
 #define PA7  52
-#define PC5  53 // A13
-#define PB1  54 // A7
+#define PC5  A13
+#define PB1  A7
 #define PE7  55
 #define PE10 56
 #define PE12 57
@@ -135,21 +135,9 @@ extern "C" {
 // GND
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        94
+#define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        80
-
-// Below ADC, DAC and PWM definitions already done in the core
-// Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
-
-// PWM resolution
-//#define PWM_RESOLUTION          8
-//#define PWM_FREQUENCY           1000
-//#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
 #define LED_BUILTIN             PB9

@@ -42,15 +42,15 @@ extern "C" {
 #define PB11 0
 #define PB10 1
 #define PB2  2
-#define PB0  3  // A0
-#define PA7  4  // A1
-#define PA6  5  // A2
-#define PA5  6  // A3
-#define PA4  7  // A4
-#define PA3  8  // A5
-#define PA2  9  // A6
-#define PA1  10 // A7
-#define PA0  11 // A8
+#define PB0  A0
+#define PA7  A1
+#define PA6  A2
+#define PA5  A3
+#define PA4  A4
+#define PA3  A5
+#define PA2  A6
+#define PA1  A7
+#define PA0  A8
 #define PC15 12
 #define PC14 13
 #define PC13 14
@@ -78,10 +78,9 @@ extern "C" {
 #define PB9  34 // USB DISC
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        44
+#define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       9
-#define NUM_ANALOG_FIRST        35
 
 // On-board LED pin number
 #define LED_BUILTIN             PB1

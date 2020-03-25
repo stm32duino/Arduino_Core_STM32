@@ -12,29 +12,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -1186,22 +1170,33 @@ typedef struct
 
 typedef struct
 {
-  __IO uint32_t MODER;    /*!< GPIO port mode register,               Address offset: 0x00      */
-  __IO uint32_t OTYPER;   /*!< GPIO port output type register,        Address offset: 0x04      */
-  __IO uint32_t OSPEEDR;  /*!< GPIO port output speed register,       Address offset: 0x08      */
-  __IO uint32_t PUPDR;    /*!< GPIO port pull-up/pull-down register,  Address offset: 0x0C      */
-  __IO uint32_t IDR;      /*!< GPIO port input data register,         Address offset: 0x10      */
-  __IO uint32_t ODR;      /*!< GPIO port output data register,        Address offset: 0x14      */
-  __IO uint32_t BSRR;     /*!< GPIO port bit set/reset register,      Address offset: 0x18      */
-  __IO uint32_t LCKR;     /*!< GPIO port configuration lock register, Address offset: 0x1C      */
-  __IO uint32_t AFR[2];   /*!< GPIO alternate function registers,     Address offset: 0x20-0x24 */
-  __IO uint32_t BRR;      /*!< GPIO Bit Reset register,               Address offset: 0x28      */
-  uint32_t RESERVED0[2];  /*!< Reserved,                              Address offset: 0x28-0x2C */
-  __IO uint32_t SECR;     /*!< GPIO security register,                Address offset: 0x30      */
-  uint32_t RESERVED1[240];/*!< Reserved, 0x24->0x3F4 */
-  __IO uint32_t VERR;     /*!< GPIO version register,                 Address offset: 0x3F4     */
-  __IO uint32_t IPIDR;    /*!< GPIO version register,                 Address offset: 0x3F8     */
-  __IO uint32_t SIDR;     /*!< GPIO version register,                 Address offset: 0x3FC     */
+  __IO uint32_t MODER;           /*!< GPIO port mode register,                      Address offset: 0x000 */
+  __IO uint32_t OTYPER;          /*!< GPIO port output type register,               Address offset: 0x004 */
+  __IO uint32_t OSPEEDR;         /*!< GPIO port output speed register,              Address offset: 0x008 */
+  __IO uint32_t PUPDR;           /*!< GPIO port pull-up/pull-down register,         Address offset: 0x00C */
+  __IO uint32_t IDR;             /*!< GPIO port input data register,                Address offset: 0x010 */
+  __IO uint32_t ODR;             /*!< GPIO port output data register,               Address offset: 0x014 */
+  __IO uint32_t BSRR;            /*!< GPIO port bit set/reset register,             Address offset: 0x018 */
+  __IO uint32_t LCKR;            /*!< GPIO port configuration lock register,        Address offset: 0x01C */
+  __IO uint32_t AFR[2];          /*!< GPIO alternate function registers,            Address offset: 0x020-0x024 */
+  __IO uint32_t BRR;             /*!< GPIO port bit reset register,                 Address offset: 0x028 */
+       uint32_t RESERVED0;       /*!< Reserved,                                     Address offset: 0x02C */
+  __IO uint32_t SECCFGR;         /*!< GPIO secure configuration register for GPIOZ, Address offset: 0x030 */
+       uint32_t RESERVED1[229];  /*!< Reserved,                                     Address offset: 0x034-0x3C4 */
+  __IO uint32_t HWCFGR10;        /*!< GPIO hardware configuration register 10,      Address offset: 0x3C8 */
+  __IO uint32_t HWCFGR9;         /*!< GPIO hardware configuration register 9,       Address offset: 0x3CC */
+  __IO uint32_t HWCFGR8;         /*!< GPIO hardware configuration register 8,       Address offset: 0x3D0 */
+  __IO uint32_t HWCFGR7;         /*!< GPIO hardware configuration register 7,       Address offset: 0x3D4 */
+  __IO uint32_t HWCFGR6;         /*!< GPIO hardware configuration register 6,       Address offset: 0x3D8 */
+  __IO uint32_t HWCFGR5;         /*!< GPIO hardware configuration register 5,       Address offset: 0x3DC */
+  __IO uint32_t HWCFGR4;         /*!< GPIO hardware configuration register 4,       Address offset: 0x3E0 */
+  __IO uint32_t HWCFGR3;         /*!< GPIO hardware configuration register 3,       Address offset: 0x3E4 */
+  __IO uint32_t HWCFGR2;         /*!< GPIO hardware configuration register 2,       Address offset: 0x3E8 */
+  __IO uint32_t HWCFGR1;         /*!< GPIO hardware configuration register 1,       Address offset: 0x3EC */
+  __IO uint32_t HWCFGR0;         /*!< GPIO hardware configuration register 0,       Address offset: 0x3F0 */
+  __IO uint32_t VERR;            /*!< GPIO version register,                        Address offset: 0x3F4 */
+  __IO uint32_t IPIDR;           /*!< GPIO identification register,                 Address offset: 0x3F8 */
+  __IO uint32_t SIDR;            /*!< GPIO size identification register,            Address offset: 0x3FC */
 } GPIO_TypeDef;
 
 
@@ -1952,6 +1947,12 @@ typedef struct
 
 
 /**
+  * @brief RTC Specific device feature definitions
+  */
+#define RTC_BACKUP_NB       32u /* Backup registers implemented */
+#define RTC_TAMP_NB         3u  /* External tamper events (input pins) supported */
+
+/**
   * @brief Real-Time Clock
   */
 
@@ -1981,7 +1982,7 @@ typedef struct
     __IO uint32_t MISR;           /*!< RTC masked interrupt status register,                      Address offset: 0x54 */
     __IO uint32_t SMISR;          /*!< RTC secure masked interrupt status register,               Address offset: 0x58 */
     __IO uint32_t SCR;            /*!< RTC status clear register,                                 Address offset: 0x5C */
-    __IO uint32_t OR;             /*!< RTC option register,                                       Address offset: 0x60 */
+    __IO uint32_t CFGR;           /*!< RTC Configuration register,                               Address offset: 0x60 */
          uint32_t RESERVED2[227]; /*!< Reserved                                                                        */
     __IO uint32_t HWCFGR;         /*!< RTC hardware configuration register,                       Address offset: 0x3F0 */
     __IO uint32_t VERR;            /*!< RTC version register,                                     Address offset: 0x3F4 */
@@ -1999,7 +2000,7 @@ typedef struct
   __IO uint32_t CR2;           /*!< TAMP tamper control register 2,                         Address offset: 0x04 */
        uint32_t RESERVED;      /*!< Reserved                                                                     */
   __IO uint32_t FLTCR;         /*!< TAMP filter control register,                           Address offset: 0x0C */
-  __IO uint32_t ATCR;          /*!< TAMP active tamper control register,                    Address offset: 0x10 */
+  __IO uint32_t ATCR1;          /*!< TAMP active tamper control register,                   Address offset: 0x10 */
   __IO uint32_t ATSEEDR;       /*!< TAMP active tamper seed register,                       Address offset: 0x14 */
   __IO uint32_t ATOR;          /*!< TAMP active tamper output register,                     Address offset: 0x18 */
        uint32_t RESERVED1;     /*!< Reserved                                                                     */
@@ -2012,7 +2013,7 @@ typedef struct
   __IO uint32_t SCR;           /*!< TAMP status clear register,                             Address offset: 0x3C */
   __IO uint32_t COUNTR;        /*!< TAMP monotonic counter register,                        Address offset: 0x40 */
   uint32_t RESERVED3[3];       /*!< Reserved, 0x044 - 0x04C                                                      */
-  __IO uint32_t OR;            /*!< TAMP option register,                                   Address offset: 0x50 */
+  __IO uint32_t CFGR;          /*!< TAMP Configuration register,                            Address offset: 0x50 */
   uint32_t RESERVED4[43];      /*!< Reserved, 0x054 - 0x0FC                                                      */
   __IO uint32_t BKP0R;         /*!< TAMP backup register 0,                                 Address offset: 0x100 */
   __IO uint32_t BKP1R;         /*!< TAMP backup register 1,                                 Address offset: 0x104 */
@@ -2046,103 +2047,7 @@ typedef struct
   __IO uint32_t BKP29R;        /*!< TAMP backup register 29,                                Address offset: 0x174 */
   __IO uint32_t BKP30R;        /*!< TAMP backup register 30,                                Address offset: 0x178 */
   __IO uint32_t BKP31R;        /*!< TAMP backup register 31,                                Address offset: 0x17C */
-  __IO uint32_t BKP32R;        /*!< TAMP backup register 32,                                Address offset: 0x180 */
-  __IO uint32_t BKP33R;        /*!< TAMP backup register 33,                                Address offset: 0x184 */
-  __IO uint32_t BKP34R;        /*!< TAMP backup register 34,                                Address offset: 0x188 */
-  __IO uint32_t BKP35R;        /*!< TAMP backup register 35,                                Address offset: 0x18C */
-  __IO uint32_t BKP36R;        /*!< TAMP backup register 36,                                Address offset: 0x190 */
-  __IO uint32_t BKP37R;        /*!< TAMP backup register 37,                                Address offset: 0x194 */
-  __IO uint32_t BKP38R;        /*!< TAMP backup register 38,                                Address offset: 0x198 */
-  __IO uint32_t BKP39R;        /*!< TAMP backup register 39,                                Address offset: 0x19C */
-  __IO uint32_t BKP40R;        /*!< TAMP backup register 40,                                Address offset: 0x1A0 */
-  __IO uint32_t BKP41R;        /*!< TAMP backup register 41,                                Address offset: 0x1A4 */
-  __IO uint32_t BKP42R;        /*!< TAMP backup register 42,                                Address offset: 0x1A8 */
-  __IO uint32_t BKP43R;        /*!< TAMP backup register 43,                                Address offset: 0x1AC */
-  __IO uint32_t BKP44R;        /*!< TAMP backup register 44,                                Address offset: 0x1B0 */
-  __IO uint32_t BKP45R;        /*!< TAMP backup register 45,                                Address offset: 0x1B4 */
-  __IO uint32_t BKP46R;        /*!< TAMP backup register 46,                                Address offset: 0x1B8 */
-  __IO uint32_t BKP47R;        /*!< TAMP backup register 47,                                Address offset: 0x1BC */
-  __IO uint32_t BKP48R;        /*!< TAMP backup register 48,                                Address offset: 0x1C0 */
-  __IO uint32_t BKP49R;        /*!< TAMP backup register 49,                                Address offset: 0x1C4 */
-  __IO uint32_t BKP50R;        /*!< TAMP backup register 50,                                Address offset: 0x1C8 */
-  __IO uint32_t BKP51R;        /*!< TAMP backup register 51,                                Address offset: 0x1CC */
-  __IO uint32_t BKP52R;        /*!< TAMP backup register 52,                                Address offset: 0x1D0 */
-  __IO uint32_t BKP53R;        /*!< TAMP backup register 53,                                Address offset: 0x1D4 */
-  __IO uint32_t BKP54R;        /*!< TAMP backup register 54,                                Address offset: 0x1D8 */
-  __IO uint32_t BKP55R;        /*!< TAMP backup register 55,                                Address offset: 0x1DC */
-  __IO uint32_t BKP56R;        /*!< TAMP backup register 56,                                Address offset: 0x1E0 */
-  __IO uint32_t BKP57R;        /*!< TAMP backup register 57,                                Address offset: 0x1E4 */
-  __IO uint32_t BKP58R;        /*!< TAMP backup register 58,                                Address offset: 0x1E8 */
-  __IO uint32_t BKP59R;        /*!< TAMP backup register 59,                                Address offset: 0x1EC */
-  __IO uint32_t BKP60R;        /*!< TAMP backup register 60,                                Address offset: 0x1F0 */
-  __IO uint32_t BKP61R;        /*!< TAMP backup register 61,                                Address offset: 0x1F4 */
-  __IO uint32_t BKP62R;        /*!< TAMP backup register 62,                                Address offset: 0x1F8 */
-  __IO uint32_t BKP63R;        /*!< TAMP backup register 63,                                Address offset: 0x1FC */
-  __IO uint32_t BKP64R;        /*!< TAMP backup register 64,                                Address offset: 0x200 */
-  __IO uint32_t BKP65R;        /*!< TAMP backup register 65,                                Address offset: 0x204 */
-  __IO uint32_t BKP66R;        /*!< TAMP backup register 66,                                Address offset: 0x208 */
-  __IO uint32_t BKP67R;        /*!< TAMP backup register 67,                                Address offset: 0x20C */
-  __IO uint32_t BKP68R;        /*!< TAMP backup register 68,                                Address offset: 0x210 */
-  __IO uint32_t BKP69R;        /*!< TAMP backup register 69,                                Address offset: 0x214 */
-  __IO uint32_t BKP70R;        /*!< TAMP backup register 70,                                Address offset: 0x218 */
-  __IO uint32_t BKP71R;        /*!< TAMP backup register 71,                                Address offset: 0x21C */
-  __IO uint32_t BKP72R;        /*!< TAMP backup register 72,                                Address offset: 0x220 */
-  __IO uint32_t BKP73R;        /*!< TAMP backup register 73,                                Address offset: 0x224 */
-  __IO uint32_t BKP74R;        /*!< TAMP backup register 74,                                Address offset: 0x228 */
-  __IO uint32_t BKP75R;        /*!< TAMP backup register 75,                                Address offset: 0x22C */
-  __IO uint32_t BKP76R;        /*!< TAMP backup register 76,                                Address offset: 0x230 */
-  __IO uint32_t BKP77R;        /*!< TAMP backup register 77,                                Address offset: 0x234 */
-  __IO uint32_t BKP78R;        /*!< TAMP backup register 78,                                Address offset: 0x238 */
-  __IO uint32_t BKP79R;        /*!< TAMP backup register 79,                                Address offset: 0x23C */
-  __IO uint32_t BKP80R;        /*!< TAMP backup register 80,                                Address offset: 0x240 */
-  __IO uint32_t BKP81R;        /*!< TAMP backup register 81,                                Address offset: 0x244 */
-  __IO uint32_t BKP82R;        /*!< TAMP backup register 82,                                Address offset: 0x248 */
-  __IO uint32_t BKP83R;        /*!< TAMP backup register 83,                                Address offset: 0x24C */
-  __IO uint32_t BKP84R;        /*!< TAMP backup register 84,                                Address offset: 0x250 */
-  __IO uint32_t BKP85R;        /*!< TAMP backup register 85,                                Address offset: 0x254 */
-  __IO uint32_t BKP86R;        /*!< TAMP backup register 86,                                Address offset: 0x258 */
-  __IO uint32_t BKP87R;        /*!< TAMP backup register 87,                                Address offset: 0x25C */
-  __IO uint32_t BKP88R;        /*!< TAMP backup register 88,                                Address offset: 0x260 */
-  __IO uint32_t BKP89R;        /*!< TAMP backup register 89,                                Address offset: 0x264 */
-  __IO uint32_t BKP90R;        /*!< TAMP backup register 90,                                Address offset: 0x268 */
-  __IO uint32_t BKP91R;        /*!< TAMP backup register 91,                                Address offset: 0x26C */
-  __IO uint32_t BKP92R;        /*!< TAMP backup register 92,                                Address offset: 0x270 */
-  __IO uint32_t BKP93R;        /*!< TAMP backup register 93,                                Address offset: 0x274 */
-  __IO uint32_t BKP94R;        /*!< TAMP backup register 94,                                Address offset: 0x278 */
-  __IO uint32_t BKP95R;        /*!< TAMP backup register 95,                                Address offset: 0x27C */
-  __IO uint32_t BKP96R;        /*!< TAMP backup register 96,                                Address offset: 0x280 */
-  __IO uint32_t BKP97R;        /*!< TAMP backup register 97,                                Address offset: 0x284 */
-  __IO uint32_t BKP98R;        /*!< TAMP backup register 98,                                Address offset: 0x288 */
-  __IO uint32_t BKP99R;        /*!< TAMP backup register 99,                                Address offset: 0x28C */
-  __IO uint32_t BKP100R;       /*!< TAMP backup register 100,                               Address offset: 0x290 */
-  __IO uint32_t BKP101R;       /*!< TAMP backup register 101,                               Address offset: 0x294 */
-  __IO uint32_t BKP102R;       /*!< TAMP backup register 102,                               Address offset: 0x298 */
-  __IO uint32_t BKP103R;       /*!< TAMP backup register 103,                               Address offset: 0x29C */
-  __IO uint32_t BKP104R;       /*!< TAMP backup register 104,                               Address offset: 0x2A0 */
-  __IO uint32_t BKP105R;       /*!< TAMP backup register 105,                               Address offset: 0x2A4 */
-  __IO uint32_t BKP106R;       /*!< TAMP backup register 106,                               Address offset: 0x2A8 */
-  __IO uint32_t BKP107R;       /*!< TAMP backup register 107,                               Address offset: 0x2AC */
-  __IO uint32_t BKP108R;       /*!< TAMP backup register 108,                               Address offset: 0x2B0 */
-  __IO uint32_t BKP109R;       /*!< TAMP backup register 109,                               Address offset: 0x2B4 */
-  __IO uint32_t BKP110R;       /*!< TAMP backup register 110,                               Address offset: 0x2B8 */
-  __IO uint32_t BKP111R;       /*!< TAMP backup register 111,                               Address offset: 0x2BC */
-  __IO uint32_t BKP112R;       /*!< TAMP backup register 112,                               Address offset: 0x2C0 */
-  __IO uint32_t BKP113R;       /*!< TAMP backup register 113,                               Address offset: 0x2C4 */
-  __IO uint32_t BKP114R;       /*!< TAMP backup register 114,                               Address offset: 0x2C8 */
-  __IO uint32_t BKP115R;       /*!< TAMP backup register 115,                               Address offset: 0x2CC */
-  __IO uint32_t BKP116R;       /*!< TAMP backup register 116,                               Address offset: 0x2D0 */
-  __IO uint32_t BKP117R;       /*!< TAMP backup register 117,                               Address offset: 0x2D4 */
-  __IO uint32_t BKP118R;       /*!< TAMP backup register 118,                               Address offset: 0x2D8 */
-  __IO uint32_t BKP119R;       /*!< TAMP backup register 119,                               Address offset: 0x2DC */
-  __IO uint32_t BKP120R;       /*!< TAMP backup register 120,                               Address offset: 0x2E0 */
-  __IO uint32_t BKP121R;       /*!< TAMP backup register 121,                               Address offset: 0x2E4 */
-  __IO uint32_t BKP122R;       /*!< TAMP backup register 122,                               Address offset: 0x2E8 */
-  __IO uint32_t BKP123R;       /*!< TAMP backup register 123,                               Address offset: 0x2EC */
-  __IO uint32_t BKP124R;       /*!< TAMP backup register 124,                               Address offset: 0x2F0 */
-  __IO uint32_t BKP125R;       /*!< TAMP backup register 125,                               Address offset: 0x2F4 */
-  __IO uint32_t BKP126R;       /*!< TAMP backup register 126,                               Address offset: 0x2F8 */
-  __IO uint32_t BKP127R;       /*!< TAMP backup register 127,                               Address offset: 0x2FC */
-       uint32_t RESERVED5[59]; /*!< Reserved, 0x0300 - 0x3E8                                                      */
+       uint32_t RESERVED5[155]; /*!< Reserved, 0x180 - 0x3E8                                                      */
   __IO uint32_t HWCFGR2;        /*!< TAMP hardware configuration register,                  Address offset: 0x3EC */
   __IO uint32_t HWCFGR1;        /*!< TAMP hardware configuration register,                  Address offset: 0x3F0 */
   __IO uint32_t VERR;           /*!< TAMP version register,                                 Address offset: 0x3F4 */
@@ -2150,7 +2055,6 @@ typedef struct
   __IO uint32_t SIDR;           /*!< TAMP size identification register,                     Address offset: 0x3FC */
 
 } TAMP_TypeDef;
-
 
 
 /**
@@ -2388,8 +2292,7 @@ typedef struct
 
 typedef struct
 {
-  __IO uint16_t CR1;         /*!< TIM control register 1,                   Address offset: 0x00 */
-  uint16_t      RESERVED0;   /*!< Reserved, 0x02                                                 */
+  __IO uint32_t CR1;         /*!< TIM control register 1,                   Address offset: 0x00 */
   __IO uint32_t CR2;         /*!< TIM control register 2,                   Address offset: 0x04 */
   __IO uint32_t SMCR;        /*!< TIM slave mode control register,          Address offset: 0x08 */
   __IO uint32_t DIER;        /*!< TIM DMA/interrupt enable register,        Address offset: 0x0C */
@@ -2399,31 +2302,27 @@ typedef struct
   __IO uint32_t CCMR2;       /*!< TIM capture/compare mode register 2,      Address offset: 0x1C */
   __IO uint32_t CCER;        /*!< TIM capture/compare enable register,      Address offset: 0x20 */
   __IO uint32_t CNT;         /*!< TIM counter register,                     Address offset: 0x24 */
-  __IO uint16_t PSC;         /*!< TIM prescaler,                            Address offset: 0x28 */
-  uint16_t      RESERVED9;   /*!< Reserved, 0x2A                                                 */
+  __IO uint32_t PSC;         /*!< TIM prescaler,                            Address offset: 0x28 */
   __IO uint32_t ARR;         /*!< TIM auto-reload register,                 Address offset: 0x2C */
-  __IO uint16_t RCR;         /*!< TIM repetition counter register,          Address offset: 0x30 */
-  uint16_t      RESERVED10;  /*!< Reserved, 0x32                                                 */
+  __IO uint32_t RCR;         /*!< TIM repetition counter register,          Address offset: 0x30 */
   __IO uint32_t CCR1;        /*!< TIM capture/compare register 1,           Address offset: 0x34 */
   __IO uint32_t CCR2;        /*!< TIM capture/compare register 2,           Address offset: 0x38 */
   __IO uint32_t CCR3;        /*!< TIM capture/compare register 3,           Address offset: 0x3C */
   __IO uint32_t CCR4;        /*!< TIM capture/compare register 4,           Address offset: 0x40 */
   __IO uint32_t BDTR;        /*!< TIM break and dead-time register,         Address offset: 0x44 */
-  __IO uint16_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x48 */
-  uint16_t      RESERVED12;  /*!< Reserved, 0x4A                                                 */
-  __IO uint16_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x4C */
-  uint16_t      RESERVED13;  /*!< Reserved, 0x4E                                                 */
-  uint16_t      RESERVED14;  /*!< Reserved, 0x50                                                 */
+  __IO uint32_t DCR;         /*!< TIM DMA control register,                 Address offset: 0x48 */
+  __IO uint32_t DMAR;        /*!< TIM DMA address for full transfer,        Address offset: 0x4C */
+  uint32_t      RESERVED0;   /*!< Reserved,                                 Address offset: 0x50 */
   __IO uint32_t CCMR3;       /*!< TIM capture/compare mode register 3,      Address offset: 0x54 */
   __IO uint32_t CCR5;        /*!< TIM capture/compare register5,            Address offset: 0x58 */
   __IO uint32_t CCR6;        /*!< TIM capture/compare register6,            Address offset: 0x5C */
   __IO uint32_t AF1;         /*!< TIM alternate function option register 1, Address offset: 0x60 */
   __IO uint32_t AF2;         /*!< TIM alternate function option register 2, Address offset: 0x64 */
   __IO uint32_t TISEL;       /*!< TIM Input Selection register,             Address offset: 0x68 */
-  uint32_t  RESERVED2[226];  /*!< Reserved,                                           0x6C-0x3F0 */
-  __IO uint32_t VERR;        /*!< TIM version register,                    Address offset: 0x3F4 */
-  __IO uint32_t IPIDR;       /*!< TIM Identification register,             Address offset: 0x3F8 */
-  __IO uint32_t SIDR;        /*!< TIM Size Identification register,        Address offset: 0x3FC */
+  uint32_t  RESERVED1[226];  /*!< Reserved,                                 Address offset: 0x6C-0x3F0 */
+  __IO uint32_t VERR;        /*!< TIM version register,                     Address offset: 0x3F4 */
+  __IO uint32_t IPIDR;       /*!< TIM Identification register,              Address offset: 0x3F8 */
+  __IO uint32_t SIDR;        /*!< TIM Size Identification register,         Address offset: 0x3FC */
 } TIM_TypeDef;
 
 /**
@@ -17608,104 +17507,104 @@ typedef struct
 #define GPIO_PUPDR_PUPDR15_1             (0x2U << GPIO_PUPDR_PUPDR15_Pos)      /*!< 0x80000000 */
 
 /******************  Bits definition for GPIO_IDR register  *******************/
-#define GPIO_IDR_ID0_Pos               (0U)
-#define GPIO_IDR_ID0_Msk               (0x1U << GPIO_IDR_ID0_Pos)              /*!< 0x00000001 */
-#define GPIO_IDR_ID0                   GPIO_IDR_ID0_Msk
-#define GPIO_IDR_ID1_Pos               (1U)
-#define GPIO_IDR_ID1_Msk               (0x1U << GPIO_IDR_ID1_Pos)              /*!< 0x00000002 */
-#define GPIO_IDR_ID1                   GPIO_IDR_ID1_Msk
-#define GPIO_IDR_ID2_Pos               (2U)
-#define GPIO_IDR_ID2_Msk               (0x1U << GPIO_IDR_ID2_Pos)              /*!< 0x00000004 */
-#define GPIO_IDR_ID2                   GPIO_IDR_ID2_Msk
-#define GPIO_IDR_ID3_Pos               (3U)
-#define GPIO_IDR_ID3_Msk               (0x1U << GPIO_IDR_ID3_Pos)              /*!< 0x00000008 */
-#define GPIO_IDR_ID3                   GPIO_IDR_ID3_Msk
-#define GPIO_IDR_ID4_Pos               (4U)
-#define GPIO_IDR_ID4_Msk               (0x1U << GPIO_IDR_ID4_Pos)              /*!< 0x00000010 */
-#define GPIO_IDR_ID4                   GPIO_IDR_ID4_Msk
-#define GPIO_IDR_ID5_Pos               (5U)
-#define GPIO_IDR_ID5_Msk               (0x1U << GPIO_IDR_ID5_Pos)              /*!< 0x00000020 */
-#define GPIO_IDR_ID5                   GPIO_IDR_ID5_Msk
-#define GPIO_IDR_ID6_Pos               (6U)
-#define GPIO_IDR_ID6_Msk               (0x1U << GPIO_IDR_ID6_Pos)              /*!< 0x00000040 */
-#define GPIO_IDR_ID6                   GPIO_IDR_ID6_Msk
-#define GPIO_IDR_ID7_Pos               (7U)
-#define GPIO_IDR_ID7_Msk               (0x1U << GPIO_IDR_ID7_Pos)              /*!< 0x00000080 */
-#define GPIO_IDR_ID7                   GPIO_IDR_ID7_Msk
-#define GPIO_IDR_ID8_Pos               (8U)
-#define GPIO_IDR_ID8_Msk               (0x1U << GPIO_IDR_ID8_Pos)              /*!< 0x00000100 */
-#define GPIO_IDR_ID8                   GPIO_IDR_ID8_Msk
-#define GPIO_IDR_ID9_Pos               (9U)
-#define GPIO_IDR_ID9_Msk               (0x1U << GPIO_IDR_ID9_Pos)              /*!< 0x00000200 */
-#define GPIO_IDR_ID9                   GPIO_IDR_ID9_Msk
-#define GPIO_IDR_ID10_Pos              (10U)
-#define GPIO_IDR_ID10_Msk              (0x1U << GPIO_IDR_ID10_Pos)             /*!< 0x00000400 */
-#define GPIO_IDR_ID10                  GPIO_IDR_ID10_Msk
-#define GPIO_IDR_ID11_Pos              (11U)
-#define GPIO_IDR_ID11_Msk              (0x1U << GPIO_IDR_ID11_Pos)             /*!< 0x00000800 */
-#define GPIO_IDR_ID11                  GPIO_IDR_ID11_Msk
-#define GPIO_IDR_ID12_Pos              (12U)
-#define GPIO_IDR_ID12_Msk              (0x1U << GPIO_IDR_ID12_Pos)             /*!< 0x00001000 */
-#define GPIO_IDR_ID12                  GPIO_IDR_ID12_Msk
-#define GPIO_IDR_ID13_Pos              (13U)
-#define GPIO_IDR_ID13_Msk              (0x1U << GPIO_IDR_ID13_Pos)             /*!< 0x00002000 */
-#define GPIO_IDR_ID13                  GPIO_IDR_ID13_Msk
-#define GPIO_IDR_ID14_Pos              (14U)
-#define GPIO_IDR_ID14_Msk              (0x1U << GPIO_IDR_ID14_Pos)             /*!< 0x00004000 */
-#define GPIO_IDR_ID14                  GPIO_IDR_ID14_Msk
-#define GPIO_IDR_ID15_Pos              (15U)
-#define GPIO_IDR_ID15_Msk              (0x1U << GPIO_IDR_ID15_Pos)             /*!< 0x00008000 */
-#define GPIO_IDR_ID15                  GPIO_IDR_ID15_Msk
+#define GPIO_IDR_IDR0_Pos               (0U)
+#define GPIO_IDR_IDR0_Msk               (0x1U << GPIO_IDR_IDR0_Pos)              /*!< 0x00000001 */
+#define GPIO_IDR_IDR0                   GPIO_IDR_IDR0_Msk
+#define GPIO_IDR_IDR1_Pos               (1U)
+#define GPIO_IDR_IDR1_Msk               (0x1U << GPIO_IDR_IDR1_Pos)              /*!< 0x00000002 */
+#define GPIO_IDR_IDR1                   GPIO_IDR_IDR1_Msk
+#define GPIO_IDR_IDR2_Pos               (2U)
+#define GPIO_IDR_IDR2_Msk               (0x1U << GPIO_IDR_IDR2_Pos)              /*!< 0x00000004 */
+#define GPIO_IDR_IDR2                   GPIO_IDR_IDR2_Msk
+#define GPIO_IDR_IDR3_Pos               (3U)
+#define GPIO_IDR_IDR3_Msk               (0x1U << GPIO_IDR_IDR3_Pos)              /*!< 0x00000008 */
+#define GPIO_IDR_IDR3                   GPIO_IDR_IDR3_Msk
+#define GPIO_IDR_IDR4_Pos               (4U)
+#define GPIO_IDR_IDR4_Msk               (0x1U << GPIO_IDR_IDR4_Pos)              /*!< 0x00000010 */
+#define GPIO_IDR_IDR4                   GPIO_IDR_IDR4_Msk
+#define GPIO_IDR_IDR5_Pos               (5U)
+#define GPIO_IDR_IDR5_Msk               (0x1U << GPIO_IDR_IDR5_Pos)              /*!< 0x00000020 */
+#define GPIO_IDR_IDR5                   GPIO_IDR_IDR5_Msk
+#define GPIO_IDR_IDR6_Pos               (6U)
+#define GPIO_IDR_IDR6_Msk               (0x1U << GPIO_IDR_IDR6_Pos)              /*!< 0x00000040 */
+#define GPIO_IDR_IDR6                   GPIO_IDR_IDR6_Msk
+#define GPIO_IDR_IDR7_Pos               (7U)
+#define GPIO_IDR_IDR7_Msk               (0x1U << GPIO_IDR_IDR7_Pos)              /*!< 0x00000080 */
+#define GPIO_IDR_IDR7                   GPIO_IDR_IDR7_Msk
+#define GPIO_IDR_IDR8_Pos               (8U)
+#define GPIO_IDR_IDR8_Msk               (0x1U << GPIO_IDR_IDR8_Pos)              /*!< 0x00000100 */
+#define GPIO_IDR_IDR8                   GPIO_IDR_IDR8_Msk
+#define GPIO_IDR_IDR9_Pos               (9U)
+#define GPIO_IDR_IDR9_Msk               (0x1U << GPIO_IDR_IDR9_Pos)              /*!< 0x00000200 */
+#define GPIO_IDR_IDR9                   GPIO_IDR_IDR9_Msk
+#define GPIO_IDR_IDR10_Pos              (10U)
+#define GPIO_IDR_IDR10_Msk              (0x1U << GPIO_IDR_IDR10_Pos)             /*!< 0x00000400 */
+#define GPIO_IDR_IDR10                  GPIO_IDR_IDR10_Msk
+#define GPIO_IDR_IDR11_Pos              (11U)
+#define GPIO_IDR_IDR11_Msk              (0x1U << GPIO_IDR_IDR11_Pos)             /*!< 0x00000800 */
+#define GPIO_IDR_IDR11                  GPIO_IDR_IDR11_Msk
+#define GPIO_IDR_IDR12_Pos              (12U)
+#define GPIO_IDR_IDR12_Msk              (0x1U << GPIO_IDR_IDR12_Pos)             /*!< 0x00001000 */
+#define GPIO_IDR_IDR12                  GPIO_IDR_IDR12_Msk
+#define GPIO_IDR_IDR13_Pos              (13U)
+#define GPIO_IDR_IDR13_Msk              (0x1U << GPIO_IDR_IDR13_Pos)             /*!< 0x00002000 */
+#define GPIO_IDR_IDR13                  GPIO_IDR_IDR13_Msk
+#define GPIO_IDR_IDR14_Pos              (14U)
+#define GPIO_IDR_IDR14_Msk              (0x1U << GPIO_IDR_IDR14_Pos)             /*!< 0x00004000 */
+#define GPIO_IDR_IDR14                  GPIO_IDR_IDR14_Msk
+#define GPIO_IDR_IDR15_Pos              (15U)
+#define GPIO_IDR_IDR15_Msk              (0x1U << GPIO_IDR_IDR15_Pos)             /*!< 0x00008000 */
+#define GPIO_IDR_IDR15                  GPIO_IDR_IDR15_Msk
 
 /******************  Bits definition for GPIO_ODR register  *******************/
-#define GPIO_ODR_OD0_Pos               (0U)
-#define GPIO_ODR_OD0_Msk               (0x1U << GPIO_ODR_OD0_Pos)              /*!< 0x00000001 */
-#define GPIO_ODR_OD0                   GPIO_ODR_OD0_Msk
-#define GPIO_ODR_OD1_Pos               (1U)
-#define GPIO_ODR_OD1_Msk               (0x1U << GPIO_ODR_OD1_Pos)              /*!< 0x00000002 */
-#define GPIO_ODR_OD1                   GPIO_ODR_OD1_Msk
-#define GPIO_ODR_OD2_Pos               (2U)
-#define GPIO_ODR_OD2_Msk               (0x1U << GPIO_ODR_OD2_Pos)              /*!< 0x00000004 */
-#define GPIO_ODR_OD2                   GPIO_ODR_OD2_Msk
-#define GPIO_ODR_OD3_Pos               (3U)
-#define GPIO_ODR_OD3_Msk               (0x1U << GPIO_ODR_OD3_Pos)              /*!< 0x00000008 */
-#define GPIO_ODR_OD3                   GPIO_ODR_OD3_Msk
-#define GPIO_ODR_OD4_Pos               (4U)
-#define GPIO_ODR_OD4_Msk               (0x1U << GPIO_ODR_OD4_Pos)              /*!< 0x00000010 */
-#define GPIO_ODR_OD4                   GPIO_ODR_OD4_Msk
-#define GPIO_ODR_OD5_Pos               (5U)
-#define GPIO_ODR_OD5_Msk               (0x1U << GPIO_ODR_OD5_Pos)              /*!< 0x00000020 */
-#define GPIO_ODR_OD5                   GPIO_ODR_OD5_Msk
-#define GPIO_ODR_OD6_Pos               (6U)
-#define GPIO_ODR_OD6_Msk               (0x1U << GPIO_ODR_OD6_Pos)              /*!< 0x00000040 */
-#define GPIO_ODR_OD6                   GPIO_ODR_OD6_Msk
-#define GPIO_ODR_OD7_Pos               (7U)
-#define GPIO_ODR_OD7_Msk               (0x1U << GPIO_ODR_OD7_Pos)              /*!< 0x00000080 */
-#define GPIO_ODR_OD7                   GPIO_ODR_OD7_Msk
-#define GPIO_ODR_OD8_Pos               (8U)
-#define GPIO_ODR_OD8_Msk               (0x1U << GPIO_ODR_OD8_Pos)              /*!< 0x00000100 */
-#define GPIO_ODR_OD8                   GPIO_ODR_OD8_Msk
-#define GPIO_ODR_OD9_Pos               (9U)
-#define GPIO_ODR_OD9_Msk               (0x1U << GPIO_ODR_OD9_Pos)              /*!< 0x00000200 */
-#define GPIO_ODR_OD9                   GPIO_ODR_OD9_Msk
-#define GPIO_ODR_OD10_Pos              (10U)
-#define GPIO_ODR_OD10_Msk              (0x1U << GPIO_ODR_OD10_Pos)             /*!< 0x00000400 */
-#define GPIO_ODR_OD10                  GPIO_ODR_OD10_Msk
-#define GPIO_ODR_OD11_Pos              (11U)
-#define GPIO_ODR_OD11_Msk              (0x1U << GPIO_ODR_OD11_Pos)             /*!< 0x00000800 */
-#define GPIO_ODR_OD11                  GPIO_ODR_OD11_Msk
-#define GPIO_ODR_OD12_Pos              (12U)
-#define GPIO_ODR_OD12_Msk              (0x1U << GPIO_ODR_OD12_Pos)             /*!< 0x00001000 */
-#define GPIO_ODR_OD12                  GPIO_ODR_OD12_Msk
-#define GPIO_ODR_OD13_Pos              (13U)
-#define GPIO_ODR_OD13_Msk              (0x1U << GPIO_ODR_OD13_Pos)             /*!< 0x00002000 */
-#define GPIO_ODR_OD13                  GPIO_ODR_OD13_Msk
-#define GPIO_ODR_OD14_Pos              (14U)
-#define GPIO_ODR_OD14_Msk              (0x1U << GPIO_ODR_OD14_Pos)             /*!< 0x00004000 */
-#define GPIO_ODR_OD14                  GPIO_ODR_OD14_Msk
-#define GPIO_ODR_OD15_Pos              (15U)
-#define GPIO_ODR_OD15_Msk              (0x1U << GPIO_ODR_OD15_Pos)             /*!< 0x00008000 */
-#define GPIO_ODR_OD15                  GPIO_ODR_OD15_Msk
+#define GPIO_ODR_ODR0_Pos               (0U)
+#define GPIO_ODR_ODR0_Msk               (0x1U << GPIO_ODR_ODR0_Pos)              /*!< 0x00000001 */
+#define GPIO_ODR_ODR0                   GPIO_ODR_ODR0_Msk
+#define GPIO_ODR_ODR1_Pos               (1U)
+#define GPIO_ODR_ODR1_Msk               (0x1U << GPIO_ODR_ODR1_Pos)              /*!< 0x00000002 */
+#define GPIO_ODR_ODR1                   GPIO_ODR_ODR1_Msk
+#define GPIO_ODR_ODR2_Pos               (2U)
+#define GPIO_ODR_ODR2_Msk               (0x1U << GPIO_ODR_ODR2_Pos)              /*!< 0x00000004 */
+#define GPIO_ODR_ODR2                   GPIO_ODR_ODR2_Msk
+#define GPIO_ODR_ODR3_Pos               (3U)
+#define GPIO_ODR_ODR3_Msk               (0x1U << GPIO_ODR_ODR3_Pos)              /*!< 0x00000008 */
+#define GPIO_ODR_ODR3                   GPIO_ODR_ODR3_Msk
+#define GPIO_ODR_ODR4_Pos               (4U)
+#define GPIO_ODR_ODR4_Msk               (0x1U << GPIO_ODR_ODR4_Pos)              /*!< 0x00000010 */
+#define GPIO_ODR_ODR4                   GPIO_ODR_ODR4_Msk
+#define GPIO_ODR_ODR5_Pos               (5U)
+#define GPIO_ODR_ODR5_Msk               (0x1U << GPIO_ODR_ODR5_Pos)              /*!< 0x00000020 */
+#define GPIO_ODR_ODR5                   GPIO_ODR_ODR5_Msk
+#define GPIO_ODR_ODR6_Pos               (6U)
+#define GPIO_ODR_ODR6_Msk               (0x1U << GPIO_ODR_ODR6_Pos)              /*!< 0x00000040 */
+#define GPIO_ODR_ODR6                   GPIO_ODR_ODR6_Msk
+#define GPIO_ODR_ODR7_Pos               (7U)
+#define GPIO_ODR_ODR7_Msk               (0x1U << GPIO_ODR_ODR7_Pos)              /*!< 0x00000080 */
+#define GPIO_ODR_ODR7                   GPIO_ODR_ODR7_Msk
+#define GPIO_ODR_ODR8_Pos               (8U)
+#define GPIO_ODR_ODR8_Msk               (0x1U << GPIO_ODR_ODR8_Pos)              /*!< 0x00000100 */
+#define GPIO_ODR_ODR8                   GPIO_ODR_ODR8_Msk
+#define GPIO_ODR_ODR9_Pos               (9U)
+#define GPIO_ODR_ODR9_Msk               (0x1U << GPIO_ODR_ODR9_Pos)              /*!< 0x00000200 */
+#define GPIO_ODR_ODR9                   GPIO_ODR_ODR9_Msk
+#define GPIO_ODR_ODR10_Pos              (10U)
+#define GPIO_ODR_ODR10_Msk              (0x1U << GPIO_ODR_ODR10_Pos)             /*!< 0x00000400 */
+#define GPIO_ODR_ODR10                  GPIO_ODR_ODR10_Msk
+#define GPIO_ODR_ODR11_Pos              (11U)
+#define GPIO_ODR_ODR11_Msk              (0x1U << GPIO_ODR_ODR11_Pos)             /*!< 0x00000800 */
+#define GPIO_ODR_ODR11                  GPIO_ODR_ODR11_Msk
+#define GPIO_ODR_ODR12_Pos              (12U)
+#define GPIO_ODR_ODR12_Msk              (0x1U << GPIO_ODR_ODR12_Pos)             /*!< 0x00001000 */
+#define GPIO_ODR_ODR12                  GPIO_ODR_ODR12_Msk
+#define GPIO_ODR_ODR13_Pos              (13U)
+#define GPIO_ODR_ODR13_Msk              (0x1U << GPIO_ODR_ODR13_Pos)             /*!< 0x00002000 */
+#define GPIO_ODR_ODR13                  GPIO_ODR_ODR13_Msk
+#define GPIO_ODR_ODR14_Pos              (14U)
+#define GPIO_ODR_ODR14_Msk              (0x1U << GPIO_ODR_ODR14_Pos)             /*!< 0x00004000 */
+#define GPIO_ODR_ODR14                  GPIO_ODR_ODR14_Msk
+#define GPIO_ODR_ODR15_Pos              (15U)
+#define GPIO_ODR_ODR15_Msk              (0x1U << GPIO_ODR_ODR15_Pos)             /*!< 0x00008000 */
+#define GPIO_ODR_ODR15                  GPIO_ODR_ODR15_Msk
 
 /******************  Bits definition for GPIO_BSRR register  ******************/
 #define GPIO_BSRR_BS0_Pos              (0U)
@@ -17859,220 +17758,623 @@ typedef struct
 #define GPIO_LCKR_LCKK                 GPIO_LCKR_LCKK_Msk
 
 /****************** Bit definition for GPIO_AFRL register *********************/
-#define GPIO_AFRL_AFSEL0_Pos           (0U)
-#define GPIO_AFRL_AFSEL0_Msk           (0xFU << GPIO_AFRL_AFSEL0_Pos)          /*!< 0x0000000F */
-#define GPIO_AFRL_AFSEL0               GPIO_AFRL_AFSEL0_Msk
-#define GPIO_AFRL_AFSEL0_0             (0x1U << GPIO_AFRL_AFSEL0_Pos)          /*!< 0x00000001 */
-#define GPIO_AFRL_AFSEL0_1             (0x2U << GPIO_AFRL_AFSEL0_Pos)          /*!< 0x00000002 */
-#define GPIO_AFRL_AFSEL0_2             (0x4U << GPIO_AFRL_AFSEL0_Pos)          /*!< 0x00000004 */
-#define GPIO_AFRL_AFSEL0_3             (0x8U << GPIO_AFRL_AFSEL0_Pos)          /*!< 0x00000008 */
-#define GPIO_AFRL_AFSEL1_Pos           (4U)
-#define GPIO_AFRL_AFSEL1_Msk           (0xFU << GPIO_AFRL_AFSEL1_Pos)          /*!< 0x000000F0 */
-#define GPIO_AFRL_AFSEL1               GPIO_AFRL_AFSEL1_Msk
-#define GPIO_AFRL_AFSEL1_0             (0x1U << GPIO_AFRL_AFSEL1_Pos)          /*!< 0x00000010 */
-#define GPIO_AFRL_AFSEL1_1             (0x2U << GPIO_AFRL_AFSEL1_Pos)          /*!< 0x00000020 */
-#define GPIO_AFRL_AFSEL1_2             (0x4U << GPIO_AFRL_AFSEL1_Pos)          /*!< 0x00000040 */
-#define GPIO_AFRL_AFSEL1_3             (0x8U << GPIO_AFRL_AFSEL1_Pos)          /*!< 0x00000080 */
-#define GPIO_AFRL_AFSEL2_Pos           (8U)
-#define GPIO_AFRL_AFSEL2_Msk           (0xFU << GPIO_AFRL_AFSEL2_Pos)          /*!< 0x00000F00 */
-#define GPIO_AFRL_AFSEL2               GPIO_AFRL_AFSEL2_Msk
-#define GPIO_AFRL_AFSEL2_0             (0x1U << GPIO_AFRL_AFSEL2_Pos)          /*!< 0x00000100 */
-#define GPIO_AFRL_AFSEL2_1             (0x2U << GPIO_AFRL_AFSEL2_Pos)          /*!< 0x00000200 */
-#define GPIO_AFRL_AFSEL2_2             (0x4U << GPIO_AFRL_AFSEL2_Pos)          /*!< 0x00000400 */
-#define GPIO_AFRL_AFSEL2_3             (0x8U << GPIO_AFRL_AFSEL2_Pos)          /*!< 0x00000800 */
-#define GPIO_AFRL_AFSEL3_Pos           (12U)
-#define GPIO_AFRL_AFSEL3_Msk           (0xFU << GPIO_AFRL_AFSEL3_Pos)          /*!< 0x0000F000 */
-#define GPIO_AFRL_AFSEL3               GPIO_AFRL_AFSEL3_Msk
-#define GPIO_AFRL_AFSEL3_0             (0x1U << GPIO_AFRL_AFSEL3_Pos)          /*!< 0x00001000 */
-#define GPIO_AFRL_AFSEL3_1             (0x2U << GPIO_AFRL_AFSEL3_Pos)          /*!< 0x00002000 */
-#define GPIO_AFRL_AFSEL3_2             (0x4U << GPIO_AFRL_AFSEL3_Pos)          /*!< 0x00004000 */
-#define GPIO_AFRL_AFSEL3_3             (0x8U << GPIO_AFRL_AFSEL3_Pos)          /*!< 0x00008000 */
-#define GPIO_AFRL_AFSEL4_Pos           (16U)
-#define GPIO_AFRL_AFSEL4_Msk           (0xFU << GPIO_AFRL_AFSEL4_Pos)          /*!< 0x000F0000 */
-#define GPIO_AFRL_AFSEL4               GPIO_AFRL_AFSEL4_Msk
-#define GPIO_AFRL_AFSEL4_0             (0x1U << GPIO_AFRL_AFSEL4_Pos)          /*!< 0x00010000 */
-#define GPIO_AFRL_AFSEL4_1             (0x2U << GPIO_AFRL_AFSEL4_Pos)          /*!< 0x00020000 */
-#define GPIO_AFRL_AFSEL4_2             (0x4U << GPIO_AFRL_AFSEL4_Pos)          /*!< 0x00040000 */
-#define GPIO_AFRL_AFSEL4_3             (0x8U << GPIO_AFRL_AFSEL4_Pos)          /*!< 0x00080000 */
-#define GPIO_AFRL_AFSEL5_Pos           (20U)
-#define GPIO_AFRL_AFSEL5_Msk           (0xFU << GPIO_AFRL_AFSEL5_Pos)          /*!< 0x00F00000 */
-#define GPIO_AFRL_AFSEL5               GPIO_AFRL_AFSEL5_Msk
-#define GPIO_AFRL_AFSEL5_0             (0x1U << GPIO_AFRL_AFSEL5_Pos)          /*!< 0x00100000 */
-#define GPIO_AFRL_AFSEL5_1             (0x2U << GPIO_AFRL_AFSEL5_Pos)          /*!< 0x00200000 */
-#define GPIO_AFRL_AFSEL5_2             (0x4U << GPIO_AFRL_AFSEL5_Pos)          /*!< 0x00400000 */
-#define GPIO_AFRL_AFSEL5_3             (0x8U << GPIO_AFRL_AFSEL5_Pos)          /*!< 0x00800000 */
-#define GPIO_AFRL_AFSEL6_Pos           (24U)
-#define GPIO_AFRL_AFSEL6_Msk           (0xFU << GPIO_AFRL_AFSEL6_Pos)          /*!< 0x0F000000 */
-#define GPIO_AFRL_AFSEL6               GPIO_AFRL_AFSEL6_Msk
-#define GPIO_AFRL_AFSEL6_0             (0x1U << GPIO_AFRL_AFSEL6_Pos)          /*!< 0x01000000 */
-#define GPIO_AFRL_AFSEL6_1             (0x2U << GPIO_AFRL_AFSEL6_Pos)          /*!< 0x02000000 */
-#define GPIO_AFRL_AFSEL6_2             (0x4U << GPIO_AFRL_AFSEL6_Pos)          /*!< 0x04000000 */
-#define GPIO_AFRL_AFSEL6_3             (0x8U << GPIO_AFRL_AFSEL6_Pos)          /*!< 0x08000000 */
-#define GPIO_AFRL_AFSEL7_Pos           (28U)
-#define GPIO_AFRL_AFSEL7_Msk           (0xFU << GPIO_AFRL_AFSEL7_Pos)          /*!< 0xF0000000 */
-#define GPIO_AFRL_AFSEL7               GPIO_AFRL_AFSEL7_Msk
-#define GPIO_AFRL_AFSEL7_0             (0x1U << GPIO_AFRL_AFSEL7_Pos)          /*!< 0x10000000 */
-#define GPIO_AFRL_AFSEL7_1             (0x2U << GPIO_AFRL_AFSEL7_Pos)          /*!< 0x20000000 */
-#define GPIO_AFRL_AFSEL7_2             (0x4U << GPIO_AFRL_AFSEL7_Pos)          /*!< 0x40000000 */
-#define GPIO_AFRL_AFSEL7_3             (0x8U << GPIO_AFRL_AFSEL7_Pos)          /*!< 0x80000000 */
+#define GPIO_AFRL_AFR0_Pos           (0U)
+#define GPIO_AFRL_AFR0_Msk           (0xFU << GPIO_AFRL_AFR0_Pos)          /*!< 0x0000000F */
+#define GPIO_AFRL_AFR0               GPIO_AFRL_AFR0_Msk
+#define GPIO_AFRL_AFR0_0             (0x1U << GPIO_AFRL_AFR0_Pos)          /*!< 0x00000001 */
+#define GPIO_AFRL_AFR0_1             (0x2U << GPIO_AFRL_AFR0_Pos)          /*!< 0x00000002 */
+#define GPIO_AFRL_AFR0_2             (0x4U << GPIO_AFRL_AFR0_Pos)          /*!< 0x00000004 */
+#define GPIO_AFRL_AFR0_3             (0x8U << GPIO_AFRL_AFR0_Pos)          /*!< 0x00000008 */
+#define GPIO_AFRL_AFR1_Pos           (4U)
+#define GPIO_AFRL_AFR1_Msk           (0xFU << GPIO_AFRL_AFR1_Pos)          /*!< 0x000000F0 */
+#define GPIO_AFRL_AFR1               GPIO_AFRL_AFR1_Msk
+#define GPIO_AFRL_AFR1_0             (0x1U << GPIO_AFRL_AFR1_Pos)          /*!< 0x00000010 */
+#define GPIO_AFRL_AFR1_1             (0x2U << GPIO_AFRL_AFR1_Pos)          /*!< 0x00000020 */
+#define GPIO_AFRL_AFR1_2             (0x4U << GPIO_AFRL_AFR1_Pos)          /*!< 0x00000040 */
+#define GPIO_AFRL_AFR1_3             (0x8U << GPIO_AFRL_AFR1_Pos)          /*!< 0x00000080 */
+#define GPIO_AFRL_AFR2_Pos           (8U)
+#define GPIO_AFRL_AFR2_Msk           (0xFU << GPIO_AFRL_AFR2_Pos)          /*!< 0x00000F00 */
+#define GPIO_AFRL_AFR2               GPIO_AFRL_AFR2_Msk
+#define GPIO_AFRL_AFR2_0             (0x1U << GPIO_AFRL_AFR2_Pos)          /*!< 0x00000100 */
+#define GPIO_AFRL_AFR2_1             (0x2U << GPIO_AFRL_AFR2_Pos)          /*!< 0x00000200 */
+#define GPIO_AFRL_AFR2_2             (0x4U << GPIO_AFRL_AFR2_Pos)          /*!< 0x00000400 */
+#define GPIO_AFRL_AFR2_3             (0x8U << GPIO_AFRL_AFR2_Pos)          /*!< 0x00000800 */
+#define GPIO_AFRL_AFR3_Pos           (12U)
+#define GPIO_AFRL_AFR3_Msk           (0xFU << GPIO_AFRL_AFR3_Pos)          /*!< 0x0000F000 */
+#define GPIO_AFRL_AFR3               GPIO_AFRL_AFR3_Msk
+#define GPIO_AFRL_AFR3_0             (0x1U << GPIO_AFRL_AFR3_Pos)          /*!< 0x00001000 */
+#define GPIO_AFRL_AFR3_1             (0x2U << GPIO_AFRL_AFR3_Pos)          /*!< 0x00002000 */
+#define GPIO_AFRL_AFR3_2             (0x4U << GPIO_AFRL_AFR3_Pos)          /*!< 0x00004000 */
+#define GPIO_AFRL_AFR3_3             (0x8U << GPIO_AFRL_AFR3_Pos)          /*!< 0x00008000 */
+#define GPIO_AFRL_AFR4_Pos           (16U)
+#define GPIO_AFRL_AFR4_Msk           (0xFU << GPIO_AFRL_AFR4_Pos)          /*!< 0x000F0000 */
+#define GPIO_AFRL_AFR4               GPIO_AFRL_AFR4_Msk
+#define GPIO_AFRL_AFR4_0             (0x1U << GPIO_AFRL_AFR4_Pos)          /*!< 0x00010000 */
+#define GPIO_AFRL_AFR4_1             (0x2U << GPIO_AFRL_AFR4_Pos)          /*!< 0x00020000 */
+#define GPIO_AFRL_AFR4_2             (0x4U << GPIO_AFRL_AFR4_Pos)          /*!< 0x00040000 */
+#define GPIO_AFRL_AFR4_3             (0x8U << GPIO_AFRL_AFR4_Pos)          /*!< 0x00080000 */
+#define GPIO_AFRL_AFR5_Pos           (20U)
+#define GPIO_AFRL_AFR5_Msk           (0xFU << GPIO_AFRL_AFR5_Pos)          /*!< 0x00F00000 */
+#define GPIO_AFRL_AFR5               GPIO_AFRL_AFR5_Msk
+#define GPIO_AFRL_AFR5_0             (0x1U << GPIO_AFRL_AFR5_Pos)          /*!< 0x00100000 */
+#define GPIO_AFRL_AFR5_1             (0x2U << GPIO_AFRL_AFR5_Pos)          /*!< 0x00200000 */
+#define GPIO_AFRL_AFR5_2             (0x4U << GPIO_AFRL_AFR5_Pos)          /*!< 0x00400000 */
+#define GPIO_AFRL_AFR5_3             (0x8U << GPIO_AFRL_AFR5_Pos)          /*!< 0x00800000 */
+#define GPIO_AFRL_AFR6_Pos           (24U)
+#define GPIO_AFRL_AFR6_Msk           (0xFU << GPIO_AFRL_AFR6_Pos)          /*!< 0x0F000000 */
+#define GPIO_AFRL_AFR6               GPIO_AFRL_AFR6_Msk
+#define GPIO_AFRL_AFR6_0             (0x1U << GPIO_AFRL_AFR6_Pos)          /*!< 0x01000000 */
+#define GPIO_AFRL_AFR6_1             (0x2U << GPIO_AFRL_AFR6_Pos)          /*!< 0x02000000 */
+#define GPIO_AFRL_AFR6_2             (0x4U << GPIO_AFRL_AFR6_Pos)          /*!< 0x04000000 */
+#define GPIO_AFRL_AFR6_3             (0x8U << GPIO_AFRL_AFR6_Pos)          /*!< 0x08000000 */
+#define GPIO_AFRL_AFR7_Pos           (28U)
+#define GPIO_AFRL_AFR7_Msk           (0xFU << GPIO_AFRL_AFR7_Pos)          /*!< 0xF0000000 */
+#define GPIO_AFRL_AFR7               GPIO_AFRL_AFR7_Msk
+#define GPIO_AFRL_AFR7_0             (0x1U << GPIO_AFRL_AFR7_Pos)          /*!< 0x10000000 */
+#define GPIO_AFRL_AFR7_1             (0x2U << GPIO_AFRL_AFR7_Pos)          /*!< 0x20000000 */
+#define GPIO_AFRL_AFR7_2             (0x4U << GPIO_AFRL_AFR7_Pos)          /*!< 0x40000000 */
+#define GPIO_AFRL_AFR7_3             (0x8U << GPIO_AFRL_AFR7_Pos)          /*!< 0x80000000 */
 
 /****************** Bit definition for GPIO_AFRH register *********************/
-#define GPIO_AFRH_AFSEL8_Pos           (0U)
-#define GPIO_AFRH_AFSEL8_Msk           (0xFU << GPIO_AFRH_AFSEL8_Pos)          /*!< 0x0000000F */
-#define GPIO_AFRH_AFSEL8               GPIO_AFRH_AFSEL8_Msk
-#define GPIO_AFRH_AFSEL8_0             (0x1U << GPIO_AFRH_AFSEL8_Pos)          /*!< 0x00000001 */
-#define GPIO_AFRH_AFSEL8_1             (0x2U << GPIO_AFRH_AFSEL8_Pos)          /*!< 0x00000002 */
-#define GPIO_AFRH_AFSEL8_2             (0x4U << GPIO_AFRH_AFSEL8_Pos)          /*!< 0x00000004 */
-#define GPIO_AFRH_AFSEL8_3             (0x8U << GPIO_AFRH_AFSEL8_Pos)          /*!< 0x00000008 */
-#define GPIO_AFRH_AFSEL9_Pos           (4U)
-#define GPIO_AFRH_AFSEL9_Msk           (0xFU << GPIO_AFRH_AFSEL9_Pos)          /*!< 0x000000F0 */
-#define GPIO_AFRH_AFSEL9               GPIO_AFRH_AFSEL9_Msk
-#define GPIO_AFRH_AFSEL9_0             (0x1U << GPIO_AFRH_AFSEL9_Pos)          /*!< 0x00000010 */
-#define GPIO_AFRH_AFSEL9_1             (0x2U << GPIO_AFRH_AFSEL9_Pos)          /*!< 0x00000020 */
-#define GPIO_AFRH_AFSEL9_2             (0x4U << GPIO_AFRH_AFSEL9_Pos)          /*!< 0x00000040 */
-#define GPIO_AFRH_AFSEL9_3             (0x8U << GPIO_AFRH_AFSEL9_Pos)          /*!< 0x00000080 */
-#define GPIO_AFRH_AFSEL10_Pos          (8U)
-#define GPIO_AFRH_AFSEL10_Msk          (0xFU << GPIO_AFRH_AFSEL10_Pos)         /*!< 0x00000F00 */
-#define GPIO_AFRH_AFSEL10              GPIO_AFRH_AFSEL10_Msk
-#define GPIO_AFRH_AFSEL10_0            (0x1U << GPIO_AFRH_AFSEL10_Pos)         /*!< 0x00000100 */
-#define GPIO_AFRH_AFSEL10_1            (0x2U << GPIO_AFRH_AFSEL10_Pos)         /*!< 0x00000200 */
-#define GPIO_AFRH_AFSEL10_2            (0x4U << GPIO_AFRH_AFSEL10_Pos)         /*!< 0x00000400 */
-#define GPIO_AFRH_AFSEL10_3            (0x8U << GPIO_AFRH_AFSEL10_Pos)         /*!< 0x00000800 */
-#define GPIO_AFRH_AFSEL11_Pos          (12U)
-#define GPIO_AFRH_AFSEL11_Msk          (0xFU << GPIO_AFRH_AFSEL11_Pos)         /*!< 0x0000F000 */
-#define GPIO_AFRH_AFSEL11              GPIO_AFRH_AFSEL11_Msk
-#define GPIO_AFRH_AFSEL11_0            (0x1U << GPIO_AFRH_AFSEL11_Pos)         /*!< 0x00001000 */
-#define GPIO_AFRH_AFSEL11_1            (0x2U << GPIO_AFRH_AFSEL11_Pos)         /*!< 0x00002000 */
-#define GPIO_AFRH_AFSEL11_2            (0x4U << GPIO_AFRH_AFSEL11_Pos)         /*!< 0x00004000 */
-#define GPIO_AFRH_AFSEL11_3            (0x8U << GPIO_AFRH_AFSEL11_Pos)         /*!< 0x00008000 */
-#define GPIO_AFRH_AFSEL12_Pos          (16U)
-#define GPIO_AFRH_AFSEL12_Msk          (0xFU << GPIO_AFRH_AFSEL12_Pos)         /*!< 0x000F0000 */
-#define GPIO_AFRH_AFSEL12              GPIO_AFRH_AFSEL12_Msk
-#define GPIO_AFRH_AFSEL12_0            (0x1U << GPIO_AFRH_AFSEL12_Pos)         /*!< 0x00010000 */
-#define GPIO_AFRH_AFSEL12_1            (0x2U << GPIO_AFRH_AFSEL12_Pos)         /*!< 0x00020000 */
-#define GPIO_AFRH_AFSEL12_2            (0x4U << GPIO_AFRH_AFSEL12_Pos)         /*!< 0x00040000 */
-#define GPIO_AFRH_AFSEL12_3            (0x8U << GPIO_AFRH_AFSEL12_Pos)         /*!< 0x00080000 */
-#define GPIO_AFRH_AFSEL13_Pos          (20U)
-#define GPIO_AFRH_AFSEL13_Msk          (0xFU << GPIO_AFRH_AFSEL13_Pos)         /*!< 0x00F00000 */
-#define GPIO_AFRH_AFSEL13              GPIO_AFRH_AFSEL13_Msk
-#define GPIO_AFRH_AFSEL13_0            (0x1U << GPIO_AFRH_AFSEL13_Pos)         /*!< 0x00100000 */
-#define GPIO_AFRH_AFSEL13_1            (0x2U << GPIO_AFRH_AFSEL13_Pos)         /*!< 0x00200000 */
-#define GPIO_AFRH_AFSEL13_2            (0x4U << GPIO_AFRH_AFSEL13_Pos)         /*!< 0x00400000 */
-#define GPIO_AFRH_AFSEL13_3            (0x8U << GPIO_AFRH_AFSEL13_Pos)         /*!< 0x00800000 */
-#define GPIO_AFRH_AFSEL14_Pos          (24U)
-#define GPIO_AFRH_AFSEL14_Msk          (0xFU << GPIO_AFRH_AFSEL14_Pos)         /*!< 0x0F000000 */
-#define GPIO_AFRH_AFSEL14              GPIO_AFRH_AFSEL14_Msk
-#define GPIO_AFRH_AFSEL14_0            (0x1U << GPIO_AFRH_AFSEL14_Pos)         /*!< 0x01000000 */
-#define GPIO_AFRH_AFSEL14_1            (0x2U << GPIO_AFRH_AFSEL14_Pos)         /*!< 0x02000000 */
-#define GPIO_AFRH_AFSEL14_2            (0x4U << GPIO_AFRH_AFSEL14_Pos)         /*!< 0x04000000 */
-#define GPIO_AFRH_AFSEL14_3            (0x8U << GPIO_AFRH_AFSEL14_Pos)         /*!< 0x08000000 */
-#define GPIO_AFRH_AFSEL15_Pos          (28U)
-#define GPIO_AFRH_AFSEL15_Msk          (0xFU << GPIO_AFRH_AFSEL15_Pos)         /*!< 0xF0000000 */
-#define GPIO_AFRH_AFSEL15              GPIO_AFRH_AFSEL15_Msk
-#define GPIO_AFRH_AFSEL15_0            (0x1U << GPIO_AFRH_AFSEL15_Pos)         /*!< 0x10000000 */
-#define GPIO_AFRH_AFSEL15_1            (0x2U << GPIO_AFRH_AFSEL15_Pos)         /*!< 0x20000000 */
-#define GPIO_AFRH_AFSEL15_2            (0x4U << GPIO_AFRH_AFSEL15_Pos)         /*!< 0x40000000 */
-#define GPIO_AFRH_AFSEL15_3            (0x8U << GPIO_AFRH_AFSEL15_Pos)         /*!< 0x80000000 */
+#define GPIO_AFRH_AFR8_Pos           (0U)
+#define GPIO_AFRH_AFR8_Msk           (0xFU << GPIO_AFRH_AFR8_Pos)          /*!< 0x0000000F */
+#define GPIO_AFRH_AFR8               GPIO_AFRH_AFR8_Msk
+#define GPIO_AFRH_AFR8_0             (0x1U << GPIO_AFRH_AFR8_Pos)          /*!< 0x00000001 */
+#define GPIO_AFRH_AFR8_1             (0x2U << GPIO_AFRH_AFR8_Pos)          /*!< 0x00000002 */
+#define GPIO_AFRH_AFR8_2             (0x4U << GPIO_AFRH_AFR8_Pos)          /*!< 0x00000004 */
+#define GPIO_AFRH_AFR8_3             (0x8U << GPIO_AFRH_AFR8_Pos)          /*!< 0x00000008 */
+#define GPIO_AFRH_AFR9_Pos           (4U)
+#define GPIO_AFRH_AFR9_Msk           (0xFU << GPIO_AFRH_AFR9_Pos)          /*!< 0x000000F0 */
+#define GPIO_AFRH_AFR9               GPIO_AFRH_AFR9_Msk
+#define GPIO_AFRH_AFR9_0             (0x1U << GPIO_AFRH_AFR9_Pos)          /*!< 0x00000010 */
+#define GPIO_AFRH_AFR9_1             (0x2U << GPIO_AFRH_AFR9_Pos)          /*!< 0x00000020 */
+#define GPIO_AFRH_AFR9_2             (0x4U << GPIO_AFRH_AFR9_Pos)          /*!< 0x00000040 */
+#define GPIO_AFRH_AFR9_3             (0x8U << GPIO_AFRH_AFR9_Pos)          /*!< 0x00000080 */
+#define GPIO_AFRH_AFR10_Pos          (8U)
+#define GPIO_AFRH_AFR10_Msk          (0xFU << GPIO_AFRH_AFR10_Pos)         /*!< 0x00000F00 */
+#define GPIO_AFRH_AFR10              GPIO_AFRH_AFR10_Msk
+#define GPIO_AFRH_AFR10_0            (0x1U << GPIO_AFRH_AFR10_Pos)         /*!< 0x00000100 */
+#define GPIO_AFRH_AFR10_1            (0x2U << GPIO_AFRH_AFR10_Pos)         /*!< 0x00000200 */
+#define GPIO_AFRH_AFR10_2            (0x4U << GPIO_AFRH_AFR10_Pos)         /*!< 0x00000400 */
+#define GPIO_AFRH_AFR10_3            (0x8U << GPIO_AFRH_AFR10_Pos)         /*!< 0x00000800 */
+#define GPIO_AFRH_AFR11_Pos          (12U)
+#define GPIO_AFRH_AFR11_Msk          (0xFU << GPIO_AFRH_AFR11_Pos)         /*!< 0x0000F000 */
+#define GPIO_AFRH_AFR11              GPIO_AFRH_AFR11_Msk
+#define GPIO_AFRH_AFR11_0            (0x1U << GPIO_AFRH_AFR11_Pos)         /*!< 0x00001000 */
+#define GPIO_AFRH_AFR11_1            (0x2U << GPIO_AFRH_AFR11_Pos)         /*!< 0x00002000 */
+#define GPIO_AFRH_AFR11_2            (0x4U << GPIO_AFRH_AFR11_Pos)         /*!< 0x00004000 */
+#define GPIO_AFRH_AFR11_3            (0x8U << GPIO_AFRH_AFR11_Pos)         /*!< 0x00008000 */
+#define GPIO_AFRH_AFR12_Pos          (16U)
+#define GPIO_AFRH_AFR12_Msk          (0xFU << GPIO_AFRH_AFR12_Pos)         /*!< 0x000F0000 */
+#define GPIO_AFRH_AFR12              GPIO_AFRH_AFR12_Msk
+#define GPIO_AFRH_AFR12_0            (0x1U << GPIO_AFRH_AFR12_Pos)         /*!< 0x00010000 */
+#define GPIO_AFRH_AFR12_1            (0x2U << GPIO_AFRH_AFR12_Pos)         /*!< 0x00020000 */
+#define GPIO_AFRH_AFR12_2            (0x4U << GPIO_AFRH_AFR12_Pos)         /*!< 0x00040000 */
+#define GPIO_AFRH_AFR12_3            (0x8U << GPIO_AFRH_AFR12_Pos)         /*!< 0x00080000 */
+#define GPIO_AFRH_AFR13_Pos          (20U)
+#define GPIO_AFRH_AFR13_Msk          (0xFU << GPIO_AFRH_AFR13_Pos)         /*!< 0x00F00000 */
+#define GPIO_AFRH_AFR13              GPIO_AFRH_AFR13_Msk
+#define GPIO_AFRH_AFR13_0            (0x1U << GPIO_AFRH_AFR13_Pos)         /*!< 0x00100000 */
+#define GPIO_AFRH_AFR13_1            (0x2U << GPIO_AFRH_AFR13_Pos)         /*!< 0x00200000 */
+#define GPIO_AFRH_AFR13_2            (0x4U << GPIO_AFRH_AFR13_Pos)         /*!< 0x00400000 */
+#define GPIO_AFRH_AFR13_3            (0x8U << GPIO_AFRH_AFR13_Pos)         /*!< 0x00800000 */
+#define GPIO_AFRH_AFR14_Pos          (24U)
+#define GPIO_AFRH_AFR14_Msk          (0xFU << GPIO_AFRH_AFR14_Pos)         /*!< 0x0F000000 */
+#define GPIO_AFRH_AFR14              GPIO_AFRH_AFR14_Msk
+#define GPIO_AFRH_AFR14_0            (0x1U << GPIO_AFRH_AFR14_Pos)         /*!< 0x01000000 */
+#define GPIO_AFRH_AFR14_1            (0x2U << GPIO_AFRH_AFR14_Pos)         /*!< 0x02000000 */
+#define GPIO_AFRH_AFR14_2            (0x4U << GPIO_AFRH_AFR14_Pos)         /*!< 0x04000000 */
+#define GPIO_AFRH_AFR14_3            (0x8U << GPIO_AFRH_AFR14_Pos)         /*!< 0x08000000 */
+#define GPIO_AFRH_AFR15_Pos          (28U)
+#define GPIO_AFRH_AFR15_Msk          (0xFU << GPIO_AFRH_AFR15_Pos)         /*!< 0xF0000000 */
+#define GPIO_AFRH_AFR15              GPIO_AFRH_AFR15_Msk
+#define GPIO_AFRH_AFR15_0            (0x1U << GPIO_AFRH_AFR15_Pos)         /*!< 0x10000000 */
+#define GPIO_AFRH_AFR15_1            (0x2U << GPIO_AFRH_AFR15_Pos)         /*!< 0x20000000 */
+#define GPIO_AFRH_AFR15_2            (0x4U << GPIO_AFRH_AFR15_Pos)         /*!< 0x40000000 */
+#define GPIO_AFRH_AFR15_3            (0x8U << GPIO_AFRH_AFR15_Pos)         /*!< 0x80000000 */
 
 /******************  Bits definition for GPIO_BRR register  ******************/
 #define GPIO_BRR_BR0_Pos               (0U)
-#define GPIO_BRR_BR0_Msk               (0x1UL << GPIO_BRR_BR0_Pos)              /*!< 0x00000001 */
+#define GPIO_BRR_BR0_Msk               (0x1U << GPIO_BRR_BR0_Pos)              /*!< 0x00000001 */
 #define GPIO_BRR_BR0                   GPIO_BRR_BR0_Msk
 #define GPIO_BRR_BR1_Pos               (1U)
-#define GPIO_BRR_BR1_Msk               (0x1UL << GPIO_BRR_BR1_Pos)              /*!< 0x00000002 */
+#define GPIO_BRR_BR1_Msk               (0x1U << GPIO_BRR_BR1_Pos)              /*!< 0x00000002 */
 #define GPIO_BRR_BR1                   GPIO_BRR_BR1_Msk
 #define GPIO_BRR_BR2_Pos               (2U)
-#define GPIO_BRR_BR2_Msk               (0x1UL << GPIO_BRR_BR2_Pos)              /*!< 0x00000004 */
+#define GPIO_BRR_BR2_Msk               (0x1U << GPIO_BRR_BR2_Pos)              /*!< 0x00000004 */
 #define GPIO_BRR_BR2                   GPIO_BRR_BR2_Msk
 #define GPIO_BRR_BR3_Pos               (3U)
-#define GPIO_BRR_BR3_Msk               (0x1UL << GPIO_BRR_BR3_Pos)              /*!< 0x00000008 */
+#define GPIO_BRR_BR3_Msk               (0x1U << GPIO_BRR_BR3_Pos)              /*!< 0x00000008 */
 #define GPIO_BRR_BR3                   GPIO_BRR_BR3_Msk
 #define GPIO_BRR_BR4_Pos               (4U)
-#define GPIO_BRR_BR4_Msk               (0x1UL << GPIO_BRR_BR4_Pos)              /*!< 0x00000010 */
+#define GPIO_BRR_BR4_Msk               (0x1U << GPIO_BRR_BR4_Pos)              /*!< 0x00000010 */
 #define GPIO_BRR_BR4                   GPIO_BRR_BR4_Msk
 #define GPIO_BRR_BR5_Pos               (5U)
-#define GPIO_BRR_BR5_Msk               (0x1UL << GPIO_BRR_BR5_Pos)              /*!< 0x00000020 */
+#define GPIO_BRR_BR5_Msk               (0x1U << GPIO_BRR_BR5_Pos)              /*!< 0x00000020 */
 #define GPIO_BRR_BR5                   GPIO_BRR_BR5_Msk
 #define GPIO_BRR_BR6_Pos               (6U)
-#define GPIO_BRR_BR6_Msk               (0x1UL << GPIO_BRR_BR6_Pos)              /*!< 0x00000040 */
+#define GPIO_BRR_BR6_Msk               (0x1U << GPIO_BRR_BR6_Pos)              /*!< 0x00000040 */
 #define GPIO_BRR_BR6                   GPIO_BRR_BR6_Msk
 #define GPIO_BRR_BR7_Pos               (7U)
-#define GPIO_BRR_BR7_Msk               (0x1UL << GPIO_BRR_BR7_Pos)              /*!< 0x00000080 */
+#define GPIO_BRR_BR7_Msk               (0x1U << GPIO_BRR_BR7_Pos)              /*!< 0x00000080 */
 #define GPIO_BRR_BR7                   GPIO_BRR_BR7_Msk
 #define GPIO_BRR_BR8_Pos               (8U)
-#define GPIO_BRR_BR8_Msk               (0x1UL << GPIO_BRR_BR8_Pos)              /*!< 0x00000100 */
+#define GPIO_BRR_BR8_Msk               (0x1U << GPIO_BRR_BR8_Pos)              /*!< 0x00000100 */
 #define GPIO_BRR_BR8                   GPIO_BRR_BR8_Msk
 #define GPIO_BRR_BR9_Pos               (9U)
-#define GPIO_BRR_BR9_Msk               (0x1UL << GPIO_BRR_BR9_Pos)              /*!< 0x00000200 */
+#define GPIO_BRR_BR9_Msk               (0x1U << GPIO_BRR_BR9_Pos)              /*!< 0x00000200 */
 #define GPIO_BRR_BR9                   GPIO_BRR_BR9_Msk
 #define GPIO_BRR_BR10_Pos              (10U)
-#define GPIO_BRR_BR10_Msk              (0x1UL << GPIO_BRR_BR10_Pos)             /*!< 0x00000400 */
+#define GPIO_BRR_BR10_Msk              (0x1U << GPIO_BRR_BR10_Pos)             /*!< 0x00000400 */
 #define GPIO_BRR_BR10                  GPIO_BRR_BR10_Msk
 #define GPIO_BRR_BR11_Pos              (11U)
-#define GPIO_BRR_BR11_Msk              (0x1UL << GPIO_BRR_BR11_Pos)             /*!< 0x00000800 */
+#define GPIO_BRR_BR11_Msk              (0x1U << GPIO_BRR_BR11_Pos)             /*!< 0x00000800 */
 #define GPIO_BRR_BR11                  GPIO_BRR_BR11_Msk
 #define GPIO_BRR_BR12_Pos              (12U)
-#define GPIO_BRR_BR12_Msk              (0x1UL << GPIO_BRR_BR12_Pos)             /*!< 0x00001000 */
+#define GPIO_BRR_BR12_Msk              (0x1U << GPIO_BRR_BR12_Pos)             /*!< 0x00001000 */
 #define GPIO_BRR_BR12                  GPIO_BRR_BR12_Msk
 #define GPIO_BRR_BR13_Pos              (13U)
-#define GPIO_BRR_BR13_Msk              (0x1UL << GPIO_BRR_BR13_Pos)             /*!< 0x00002000 */
+#define GPIO_BRR_BR13_Msk              (0x1U << GPIO_BRR_BR13_Pos)             /*!< 0x00002000 */
 #define GPIO_BRR_BR13                  GPIO_BRR_BR13_Msk
 #define GPIO_BRR_BR14_Pos              (14U)
-#define GPIO_BRR_BR14_Msk              (0x1UL << GPIO_BRR_BR14_Pos)             /*!< 0x00004000 */
+#define GPIO_BRR_BR14_Msk              (0x1U << GPIO_BRR_BR14_Pos)             /*!< 0x00004000 */
 #define GPIO_BRR_BR14                  GPIO_BRR_BR14_Msk
 #define GPIO_BRR_BR15_Pos              (15U)
-#define GPIO_BRR_BR15_Msk              (0x1UL << GPIO_BRR_BR15_Pos)             /*!< 0x00008000 */
+#define GPIO_BRR_BR15_Msk              (0x1U << GPIO_BRR_BR15_Pos)             /*!< 0x00008000 */
 #define GPIO_BRR_BR15                  GPIO_BRR_BR15_Msk
 
-/******************  Bits definition for GPIO_SECR register  ******************/
-#define GPIO_SECR_SEC0_Pos            (0U)
-#define GPIO_SECR_SEC0_Msk            (0x1U << GPIO_SECR_SEC0_Pos)           /*!< 0x00000001 */
-#define GPIO_SECR_SEC0                GPIO_SECR_SEC0_Msk
-#define GPIO_SECR_SEC1_Pos            (1U)
-#define GPIO_SECR_SEC1_Msk            (0x1U << GPIO_SECR_SEC1_Pos)           /*!< 0x00000002 */
-#define GPIO_SECR_SEC1                GPIO_SECR_SEC1_Msk
-#define GPIO_SECR_SEC2_Pos            (2U)
-#define GPIO_SECR_SEC2_Msk            (0x1U << GPIO_SECR_SEC2_Pos)           /*!< 0x00000004 */
-#define GPIO_SECR_SEC2                GPIO_SECR_SEC2_Msk
-#define GPIO_SECR_SEC3_Pos            (3U)
-#define GPIO_SECR_SEC3_Msk            (0x1U << GPIO_SECR_SEC3_Pos)           /*!< 0x00000008 */
-#define GPIO_SECR_SEC3                GPIO_SECR_SEC3_Msk
-#define GPIO_SECR_SEC4_Pos            (4U)
-#define GPIO_SECR_SEC4_Msk            (0x1U << GPIO_SECR_SEC4_Pos)           /*!< 0x00000010 */
-#define GPIO_SECR_SEC4                GPIO_SECR_SEC4_Msk
-#define GPIO_SECR_SEC5_Pos            (5U)
-#define GPIO_SECR_SEC5_Msk            (0x1U << GPIO_SECR_SEC5_Pos)           /*!< 0x00000020 */
-#define GPIO_SECR_SEC5                GPIO_SECR_SEC5_Msk
-#define GPIO_SECR_SEC6_Pos            (6U)
-#define GPIO_SECR_SEC6_Msk            (0x1U << GPIO_SECR_SEC6_Pos)           /*!< 0x00000040 */
-#define GPIO_SECR_SEC6                GPIO_SECR_SEC6_Msk
-#define GPIO_SECR_SEC7_Pos            (7U)
-#define GPIO_SECR_SEC7_Msk            (0x1U << GPIO_SECR_SEC7_Pos)           /*!< 0x00000080 */
-#define GPIO_SECR_SEC7                GPIO_SECR_SEC7_Msk
-#define GPIO_SECR_SEC8_Pos            (8U)
-#define GPIO_SECR_SEC8_Msk            (0x1U << GPIO_SECR_SEC8_Pos)           /*!< 0x00000100 */
-#define GPIO_SECR_SEC8                GPIO_SECR_SEC8_Msk
-#define GPIO_SECR_SEC9_Pos            (9U)
-#define GPIO_SECR_SEC9_Msk            (0x1U << GPIO_SECR_SEC9_Pos)           /*!< 0x00000200 */
-#define GPIO_SECR_SEC9                GPIO_SECR_SEC9_Msk
-#define GPIO_SECR_SEC10_Pos           (10U)
-#define GPIO_SECR_SEC10_Msk           (0x1U << GPIO_SECR_SEC10_Pos)          /*!< 0x00000400 */
-#define GPIO_SECR_SEC10               GPIO_SECR_SEC10_Msk
-#define GPIO_SECR_SEC11_Pos           (11U)
-#define GPIO_SECR_SEC11_Msk           (0x1U << GPIO_SECR_SEC11_Pos)          /*!< 0x00000800 */
-#define GPIO_SECR_SEC11               GPIO_SECR_SEC11_Msk
-#define GPIO_SECR_SEC12_Pos           (12U)
-#define GPIO_SECR_SEC12_Msk           (0x1U << GPIO_SECR_SEC12_Pos)          /*!< 0x00001000 */
-#define GPIO_SECR_SEC12               GPIO_SECR_SEC12_Msk
-#define GPIO_SECR_SEC13_Pos           (13U)
-#define GPIO_SECR_SEC13_Msk           (0x1U << GPIO_SECR_SEC13_Pos)          /*!< 0x00002000 */
-#define GPIO_SECR_SEC13               GPIO_SECR_SEC13_Msk
-#define GPIO_SECR_SEC14_Pos           (14U)
-#define GPIO_SECR_SEC14_Msk           (0x1U << GPIO_SECR_SEC14_Pos)          /*!< 0x00004000 */
-#define GPIO_SECR_SEC14               GPIO_SECR_SEC14_Msk
-#define GPIO_SECR_SEC15_Pos           (15U)
-#define GPIO_SECR_SEC15_Msk           (0x1U << GPIO_SECR_SEC15_Pos)          /*!< 0x00008000 */
-#define GPIO_SECR_SEC15               GPIO_SECR_SEC15_Msk
+/******************  Bits definition for GPIO_SECCFGR register  ******************/
+#define GPIO_SECCFGR_SEC0_Pos            (0U)
+#define GPIO_SECCFGR_SEC0_Msk            (0x1U << GPIO_SECCFGR_SEC0_Pos)           /*!< 0x00000001 */
+#define GPIO_SECCFGR_SEC0                GPIO_SECCFGR_SEC0_Msk
+#define GPIO_SECCFGR_SEC1_Pos            (1U)
+#define GPIO_SECCFGR_SEC1_Msk            (0x1U << GPIO_SECCFGR_SEC1_Pos)           /*!< 0x00000002 */
+#define GPIO_SECCFGR_SEC1                GPIO_SECCFGR_SEC1_Msk
+#define GPIO_SECCFGR_SEC2_Pos            (2U)
+#define GPIO_SECCFGR_SEC2_Msk            (0x1U << GPIO_SECCFGR_SEC2_Pos)           /*!< 0x00000004 */
+#define GPIO_SECCFGR_SEC2                GPIO_SECCFGR_SEC2_Msk
+#define GPIO_SECCFGR_SEC3_Pos            (3U)
+#define GPIO_SECCFGR_SEC3_Msk            (0x1U << GPIO_SECCFGR_SEC3_Pos)           /*!< 0x00000008 */
+#define GPIO_SECCFGR_SEC3                GPIO_SECCFGR_SEC3_Msk
+#define GPIO_SECCFGR_SEC4_Pos            (4U)
+#define GPIO_SECCFGR_SEC4_Msk            (0x1U << GPIO_SECCFGR_SEC4_Pos)           /*!< 0x00000010 */
+#define GPIO_SECCFGR_SEC4                GPIO_SECCFGR_SEC4_Msk
+#define GPIO_SECCFGR_SEC5_Pos            (5U)
+#define GPIO_SECCFGR_SEC5_Msk            (0x1U << GPIO_SECCFGR_SEC5_Pos)           /*!< 0x00000020 */
+#define GPIO_SECCFGR_SEC5                GPIO_SECCFGR_SEC5_Msk
+#define GPIO_SECCFGR_SEC6_Pos            (6U)
+#define GPIO_SECCFGR_SEC6_Msk            (0x1U << GPIO_SECCFGR_SEC6_Pos)           /*!< 0x00000040 */
+#define GPIO_SECCFGR_SEC6                GPIO_SECCFGR_SEC6_Msk
+#define GPIO_SECCFGR_SEC7_Pos            (7U)
+#define GPIO_SECCFGR_SEC7_Msk            (0x1U << GPIO_SECCFGR_SEC7_Pos)           /*!< 0x00000080 */
+#define GPIO_SECCFGR_SEC7                GPIO_SECCFGR_SEC7_Msk
+
+/***************  Bit definition for GPIO_HWCFGR10 register  ****************/
+#define GPIO_HWCFGR10_AHB_IOP_Pos     (0U)
+#define GPIO_HWCFGR10_AHB_IOP_Msk     (0xFU << GPIO_HWCFGR10_AHB_IOP_Pos)   /*!< 0x0000000F */
+#define GPIO_HWCFGR10_AHB_IOP         GPIO_HWCFGR10_AHB_IOP_Msk             /*!< Bus interface configuration */
+#define GPIO_HWCFGR10_AHB_IOP_0       (0x1U << GPIO_HWCFGR10_AHB_IOP_Pos)   /*!< 0x00000001 */
+#define GPIO_HWCFGR10_AHB_IOP_1       (0x2U << GPIO_HWCFGR10_AHB_IOP_Pos)   /*!< 0x00000002 */
+#define GPIO_HWCFGR10_AHB_IOP_2       (0x4U << GPIO_HWCFGR10_AHB_IOP_Pos)   /*!< 0x00000004 */
+#define GPIO_HWCFGR10_AHB_IOP_3       (0x8U << GPIO_HWCFGR10_AHB_IOP_Pos)   /*!< 0x00000008 */
+#define GPIO_HWCFGR10_AF_SIZE_Pos     (4U)
+#define GPIO_HWCFGR10_AF_SIZE_Msk     (0xFU << GPIO_HWCFGR10_AF_SIZE_Pos)   /*!< 0x000000F0 */
+#define GPIO_HWCFGR10_AF_SIZE         GPIO_HWCFGR10_AF_SIZE_Msk             /*!< Number of AF available for each I/O */
+#define GPIO_HWCFGR10_AF_SIZE_0       (0x1U << GPIO_HWCFGR10_AF_SIZE_Pos)   /*!< 0x00000010 */
+#define GPIO_HWCFGR10_AF_SIZE_1       (0x2U << GPIO_HWCFGR10_AF_SIZE_Pos)   /*!< 0x00000020 */
+#define GPIO_HWCFGR10_AF_SIZE_2       (0x4U << GPIO_HWCFGR10_AF_SIZE_Pos)   /*!< 0x00000040 */
+#define GPIO_HWCFGR10_AF_SIZE_3       (0x8U << GPIO_HWCFGR10_AF_SIZE_Pos)   /*!< 0x00000080 */
+#define GPIO_HWCFGR10_SPEED_CFG_Pos   (8U)
+#define GPIO_HWCFGR10_SPEED_CFG_Msk   (0xFU << GPIO_HWCFGR10_SPEED_CFG_Pos) /*!< 0x00000F00 */
+#define GPIO_HWCFGR10_SPEED_CFG       GPIO_HWCFGR10_SPEED_CFG_Msk           /*!< Number of speed lines for each I/O */
+#define GPIO_HWCFGR10_SPEED_CFG_0     (0x1U << GPIO_HWCFGR10_SPEED_CFG_Pos) /*!< 0x00000100 */
+#define GPIO_HWCFGR10_SPEED_CFG_1     (0x2U << GPIO_HWCFGR10_SPEED_CFG_Pos) /*!< 0x00000200 */
+#define GPIO_HWCFGR10_SPEED_CFG_2     (0x4U << GPIO_HWCFGR10_SPEED_CFG_Pos) /*!< 0x00000400 */
+#define GPIO_HWCFGR10_SPEED_CFG_3     (0x8U << GPIO_HWCFGR10_SPEED_CFG_Pos) /*!< 0x00000800 */
+#define GPIO_HWCFGR10_LOCK_CFG_Pos    (12U)
+#define GPIO_HWCFGR10_LOCK_CFG_Msk    (0xFU << GPIO_HWCFGR10_LOCK_CFG_Pos)  /*!< 0x0000F000 */
+#define GPIO_HWCFGR10_LOCK_CFG        GPIO_HWCFGR10_LOCK_CFG_Msk            /*!< Lock mechanism activation */
+#define GPIO_HWCFGR10_LOCK_CFG_0      (0x1U << GPIO_HWCFGR10_LOCK_CFG_Pos)  /*!< 0x00001000 */
+#define GPIO_HWCFGR10_LOCK_CFG_1      (0x2U << GPIO_HWCFGR10_LOCK_CFG_Pos)  /*!< 0x00002000 */
+#define GPIO_HWCFGR10_LOCK_CFG_2      (0x4U << GPIO_HWCFGR10_LOCK_CFG_Pos)  /*!< 0x00004000 */
+#define GPIO_HWCFGR10_LOCK_CFG_3      (0x8U << GPIO_HWCFGR10_LOCK_CFG_Pos)  /*!< 0x00008000 */
+#define GPIO_HWCFGR10_SEC_CFG_Pos     (16U)
+#define GPIO_HWCFGR10_SEC_CFG_Msk     (0xFU << GPIO_HWCFGR10_SEC_CFG_Pos)   /*!< 0x000F0000 */
+#define GPIO_HWCFGR10_SEC_CFG         GPIO_HWCFGR10_SEC_CFG_Msk             /*!< Security mechanism activation */
+#define GPIO_HWCFGR10_SEC_CFG_0       (0x1U << GPIO_HWCFGR10_SEC_CFG_Pos)   /*!< 0x00010000 */
+#define GPIO_HWCFGR10_SEC_CFG_1       (0x2U << GPIO_HWCFGR10_SEC_CFG_Pos)   /*!< 0x00020000 */
+#define GPIO_HWCFGR10_SEC_CFG_2       (0x4U << GPIO_HWCFGR10_SEC_CFG_Pos)   /*!< 0x00040000 */
+#define GPIO_HWCFGR10_SEC_CFG_3       (0x8U << GPIO_HWCFGR10_SEC_CFG_Pos)   /*!< 0x00080000 */
+#define GPIO_HWCFGR10_OR_CFG_Pos      (20U)
+#define GPIO_HWCFGR10_OR_CFG_Msk      (0xFU << GPIO_HWCFGR10_OR_CFG_Pos)    /*!< 0x00F00000 */
+#define GPIO_HWCFGR10_OR_CFG          GPIO_HWCFGR10_OR_CFG_Msk              /*!< Option register configuration */
+#define GPIO_HWCFGR10_OR_CFG_0        (0x1U << GPIO_HWCFGR10_OR_CFG_Pos)    /*!< 0x00100000 */
+#define GPIO_HWCFGR10_OR_CFG_1        (0x2U << GPIO_HWCFGR10_OR_CFG_Pos)    /*!< 0x00200000 */
+#define GPIO_HWCFGR10_OR_CFG_2        (0x4U << GPIO_HWCFGR10_OR_CFG_Pos)    /*!< 0x00400000 */
+#define GPIO_HWCFGR10_OR_CFG_3        (0x8U << GPIO_HWCFGR10_OR_CFG_Pos)    /*!< 0x00800000 */
+
+/****************  Bit definition for GPIO_HWCFGR9 register  ****************/
+#define GPIO_HWCFGR9_EN_IO_Pos        (0U)
+#define GPIO_HWCFGR9_EN_IO_Msk        (0xFFFFU << GPIO_HWCFGR9_EN_IO_Pos)       /*!< 0x0000FFFF */
+#define GPIO_HWCFGR9_EN_IO            GPIO_HWCFGR9_EN_IO_Msk                    /*!< Presence granularity, each bit indicate the presence of the IO */
+#define GPIO_HWCFGR9_EN_IO_0          (0x1U << GPIO_HWCFGR9_EN_IO_Pos)          /*!< 0x00000001 */
+#define GPIO_HWCFGR9_EN_IO_1          (0x2U << GPIO_HWCFGR9_EN_IO_Pos)          /*!< 0x00000002 */
+#define GPIO_HWCFGR9_EN_IO_2          (0x4U << GPIO_HWCFGR9_EN_IO_Pos)          /*!< 0x00000004 */
+#define GPIO_HWCFGR9_EN_IO_3          (0x8U << GPIO_HWCFGR9_EN_IO_Pos)          /*!< 0x00000008 */
+#define GPIO_HWCFGR9_EN_IO_4          (0x10U << GPIO_HWCFGR9_EN_IO_Pos)         /*!< 0x00000010 */
+#define GPIO_HWCFGR9_EN_IO_5          (0x20U << GPIO_HWCFGR9_EN_IO_Pos)         /*!< 0x00000020 */
+#define GPIO_HWCFGR9_EN_IO_6          (0x40U << GPIO_HWCFGR9_EN_IO_Pos)         /*!< 0x00000040 */
+#define GPIO_HWCFGR9_EN_IO_7          (0x80U << GPIO_HWCFGR9_EN_IO_Pos)         /*!< 0x00000080 */
+#define GPIO_HWCFGR9_EN_IO_8          (0x100U << GPIO_HWCFGR9_EN_IO_Pos)        /*!< 0x00000100 */
+#define GPIO_HWCFGR9_EN_IO_9          (0x200U << GPIO_HWCFGR9_EN_IO_Pos)        /*!< 0x00000200 */
+#define GPIO_HWCFGR9_EN_IO_10         (0x400U << GPIO_HWCFGR9_EN_IO_Pos)        /*!< 0x00000400 */
+#define GPIO_HWCFGR9_EN_IO_11         (0x800U << GPIO_HWCFGR9_EN_IO_Pos)        /*!< 0x00000800 */
+#define GPIO_HWCFGR9_EN_IO_12         (0x1000U << GPIO_HWCFGR9_EN_IO_Pos)       /*!< 0x00001000 */
+#define GPIO_HWCFGR9_EN_IO_13         (0x2000U << GPIO_HWCFGR9_EN_IO_Pos)       /*!< 0x00002000 */
+#define GPIO_HWCFGR9_EN_IO_14         (0x4000U << GPIO_HWCFGR9_EN_IO_Pos)       /*!< 0x00004000 */
+#define GPIO_HWCFGR9_EN_IO_15         (0x8000U << GPIO_HWCFGR9_EN_IO_Pos)       /*!< 0x00008000 */
+
+/****************  Bit definition for GPIO_HWCFGR8 register  ****************/
+#define GPIO_HWCFGR8_AF_PRIO8_Pos     (0U)
+#define GPIO_HWCFGR8_AF_PRIO8_Msk     (0xFU << GPIO_HWCFGR8_AF_PRIO8_Pos)  /*!< 0x0000000F */
+#define GPIO_HWCFGR8_AF_PRIO8         GPIO_HWCFGR8_AF_PRIO8_Msk            /*!< Indicate the priority AF for I/O8 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO8_0       (0x1U << GPIO_HWCFGR8_AF_PRIO8_Pos)  /*!< 0x00000001 */
+#define GPIO_HWCFGR8_AF_PRIO8_1       (0x2U << GPIO_HWCFGR8_AF_PRIO8_Pos)  /*!< 0x00000002 */
+#define GPIO_HWCFGR8_AF_PRIO8_2       (0x4U << GPIO_HWCFGR8_AF_PRIO8_Pos)  /*!< 0x00000004 */
+#define GPIO_HWCFGR8_AF_PRIO8_3       (0x8U << GPIO_HWCFGR8_AF_PRIO8_Pos)  /*!< 0x00000008 */
+#define GPIO_HWCFGR8_AF_PRIO9_Pos     (4U)
+#define GPIO_HWCFGR8_AF_PRIO9_Msk     (0xFU << GPIO_HWCFGR8_AF_PRIO9_Pos)  /*!< 0x000000F0 */
+#define GPIO_HWCFGR8_AF_PRIO9         GPIO_HWCFGR8_AF_PRIO9_Msk            /*!< Indicate the priority AF for I/O9 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO9_0       (0x1U << GPIO_HWCFGR8_AF_PRIO9_Pos)  /*!< 0x00000010 */
+#define GPIO_HWCFGR8_AF_PRIO9_1       (0x2U << GPIO_HWCFGR8_AF_PRIO9_Pos)  /*!< 0x00000020 */
+#define GPIO_HWCFGR8_AF_PRIO9_2       (0x4U << GPIO_HWCFGR8_AF_PRIO9_Pos)  /*!< 0x00000040 */
+#define GPIO_HWCFGR8_AF_PRIO9_3       (0x8U << GPIO_HWCFGR8_AF_PRIO9_Pos)  /*!< 0x00000080 */
+#define GPIO_HWCFGR8_AF_PRIO10_Pos    (8U)
+#define GPIO_HWCFGR8_AF_PRIO10_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO10_Pos) /*!< 0x00000F00 */
+#define GPIO_HWCFGR8_AF_PRIO10        GPIO_HWCFGR8_AF_PRIO10_Msk           /*!< Indicate the priority AF for I/O10 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO10_0      (0x1U << GPIO_HWCFGR8_AF_PRIO10_Pos) /*!< 0x00000100 */
+#define GPIO_HWCFGR8_AF_PRIO10_1      (0x2U << GPIO_HWCFGR8_AF_PRIO10_Pos) /*!< 0x00000200 */
+#define GPIO_HWCFGR8_AF_PRIO10_2      (0x4U << GPIO_HWCFGR8_AF_PRIO10_Pos) /*!< 0x00000400 */
+#define GPIO_HWCFGR8_AF_PRIO10_3      (0x8U << GPIO_HWCFGR8_AF_PRIO10_Pos) /*!< 0x00000800 */
+#define GPIO_HWCFGR8_AF_PRIO11_Pos    (12U)
+#define GPIO_HWCFGR8_AF_PRIO11_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO11_Pos) /*!< 0x0000F000 */
+#define GPIO_HWCFGR8_AF_PRIO11        GPIO_HWCFGR8_AF_PRIO11_Msk           /*!< Indicate the priority AF for I/O11 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO11_0      (0x1U << GPIO_HWCFGR8_AF_PRIO11_Pos) /*!< 0x00001000 */
+#define GPIO_HWCFGR8_AF_PRIO11_1      (0x2U << GPIO_HWCFGR8_AF_PRIO11_Pos) /*!< 0x00002000 */
+#define GPIO_HWCFGR8_AF_PRIO11_2      (0x4U << GPIO_HWCFGR8_AF_PRIO11_Pos) /*!< 0x00004000 */
+#define GPIO_HWCFGR8_AF_PRIO11_3      (0x8U << GPIO_HWCFGR8_AF_PRIO11_Pos) /*!< 0x00008000 */
+#define GPIO_HWCFGR8_AF_PRIO12_Pos    (16U)
+#define GPIO_HWCFGR8_AF_PRIO12_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO12_Pos) /*!< 0x000F0000 */
+#define GPIO_HWCFGR8_AF_PRIO12        GPIO_HWCFGR8_AF_PRIO12_Msk           /*!< Indicate the priority AF for I/O12 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO12_0      (0x1U << GPIO_HWCFGR8_AF_PRIO12_Pos) /*!< 0x00010000 */
+#define GPIO_HWCFGR8_AF_PRIO12_1      (0x2U << GPIO_HWCFGR8_AF_PRIO12_Pos) /*!< 0x00020000 */
+#define GPIO_HWCFGR8_AF_PRIO12_2      (0x4U << GPIO_HWCFGR8_AF_PRIO12_Pos) /*!< 0x00040000 */
+#define GPIO_HWCFGR8_AF_PRIO12_3      (0x8U << GPIO_HWCFGR8_AF_PRIO12_Pos) /*!< 0x00080000 */
+#define GPIO_HWCFGR8_AF_PRIO13_Pos    (20U)
+#define GPIO_HWCFGR8_AF_PRIO13_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO13_Pos) /*!< 0x00F00000 */
+#define GPIO_HWCFGR8_AF_PRIO13        GPIO_HWCFGR8_AF_PRIO13_Msk           /*!< Indicate the priority AF for I/O13 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO13_0      (0x1U << GPIO_HWCFGR8_AF_PRIO13_Pos) /*!< 0x00100000 */
+#define GPIO_HWCFGR8_AF_PRIO13_1      (0x2U << GPIO_HWCFGR8_AF_PRIO13_Pos) /*!< 0x00200000 */
+#define GPIO_HWCFGR8_AF_PRIO13_2      (0x4U << GPIO_HWCFGR8_AF_PRIO13_Pos) /*!< 0x00400000 */
+#define GPIO_HWCFGR8_AF_PRIO13_3      (0x8U << GPIO_HWCFGR8_AF_PRIO13_Pos) /*!< 0x00800000 */
+#define GPIO_HWCFGR8_AF_PRIO14_Pos    (24U)
+#define GPIO_HWCFGR8_AF_PRIO14_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO14_Pos) /*!< 0x0F000000 */
+#define GPIO_HWCFGR8_AF_PRIO14        GPIO_HWCFGR8_AF_PRIO14_Msk           /*!< Indicate the priority AF for I/O14 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO14_0      (0x1U << GPIO_HWCFGR8_AF_PRIO14_Pos) /*!< 0x01000000 */
+#define GPIO_HWCFGR8_AF_PRIO14_1      (0x2U << GPIO_HWCFGR8_AF_PRIO14_Pos) /*!< 0x02000000 */
+#define GPIO_HWCFGR8_AF_PRIO14_2      (0x4U << GPIO_HWCFGR8_AF_PRIO14_Pos) /*!< 0x04000000 */
+#define GPIO_HWCFGR8_AF_PRIO14_3      (0x8U << GPIO_HWCFGR8_AF_PRIO14_Pos) /*!< 0x08000000 */
+#define GPIO_HWCFGR8_AF_PRIO15_Pos    (28U)
+#define GPIO_HWCFGR8_AF_PRIO15_Msk    (0xFU << GPIO_HWCFGR8_AF_PRIO15_Pos) /*!< 0xF0000000 */
+#define GPIO_HWCFGR8_AF_PRIO15        GPIO_HWCFGR8_AF_PRIO15_Msk           /*!< Indicate the priority AF for I/O15 (0 to F) */
+#define GPIO_HWCFGR8_AF_PRIO15_0      (0x1U << GPIO_HWCFGR8_AF_PRIO15_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR8_AF_PRIO15_1      (0x2U << GPIO_HWCFGR8_AF_PRIO15_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR8_AF_PRIO15_2      (0x4U << GPIO_HWCFGR8_AF_PRIO15_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR8_AF_PRIO15_3      (0x8U << GPIO_HWCFGR8_AF_PRIO15_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR7 register  ****************/
+#define GPIO_HWCFGR7_AF_PRIO0_Pos     (0U)
+#define GPIO_HWCFGR7_AF_PRIO0_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO0_Pos) /*!< 0x0000000F */
+#define GPIO_HWCFGR7_AF_PRIO0         GPIO_HWCFGR7_AF_PRIO0_Msk           /*!< Indicate the priority AF for I/O0 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO0_0       (0x1U << GPIO_HWCFGR7_AF_PRIO0_Pos) /*!< 0x00000001 */
+#define GPIO_HWCFGR7_AF_PRIO0_1       (0x2U << GPIO_HWCFGR7_AF_PRIO0_Pos) /*!< 0x00000002 */
+#define GPIO_HWCFGR7_AF_PRIO0_2       (0x4U << GPIO_HWCFGR7_AF_PRIO0_Pos) /*!< 0x00000004 */
+#define GPIO_HWCFGR7_AF_PRIO0_3       (0x8U << GPIO_HWCFGR7_AF_PRIO0_Pos) /*!< 0x00000008 */
+#define GPIO_HWCFGR7_AF_PRIO1_Pos     (4U)
+#define GPIO_HWCFGR7_AF_PRIO1_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO1_Pos) /*!< 0x000000F0 */
+#define GPIO_HWCFGR7_AF_PRIO1         GPIO_HWCFGR7_AF_PRIO1_Msk           /*!< Indicate the priority AF for I/O1 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO1_0       (0x1U << GPIO_HWCFGR7_AF_PRIO1_Pos) /*!< 0x00000010 */
+#define GPIO_HWCFGR7_AF_PRIO1_1       (0x2U << GPIO_HWCFGR7_AF_PRIO1_Pos) /*!< 0x00000020 */
+#define GPIO_HWCFGR7_AF_PRIO1_2       (0x4U << GPIO_HWCFGR7_AF_PRIO1_Pos) /*!< 0x00000040 */
+#define GPIO_HWCFGR7_AF_PRIO1_3       (0x8U << GPIO_HWCFGR7_AF_PRIO1_Pos) /*!< 0x00000080 */
+#define GPIO_HWCFGR7_AF_PRIO2_Pos     (8U)
+#define GPIO_HWCFGR7_AF_PRIO2_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO2_Pos) /*!< 0x00000F00 */
+#define GPIO_HWCFGR7_AF_PRIO2         GPIO_HWCFGR7_AF_PRIO2_Msk           /*!< Indicate the priority AF for I/O2 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO2_0       (0x1U << GPIO_HWCFGR7_AF_PRIO2_Pos) /*!< 0x00000100 */
+#define GPIO_HWCFGR7_AF_PRIO2_1       (0x2U << GPIO_HWCFGR7_AF_PRIO2_Pos) /*!< 0x00000200 */
+#define GPIO_HWCFGR7_AF_PRIO2_2       (0x4U << GPIO_HWCFGR7_AF_PRIO2_Pos) /*!< 0x00000400 */
+#define GPIO_HWCFGR7_AF_PRIO2_3       (0x8U << GPIO_HWCFGR7_AF_PRIO2_Pos) /*!< 0x00000800 */
+#define GPIO_HWCFGR7_AF_PRIO3_Pos     (12U)
+#define GPIO_HWCFGR7_AF_PRIO3_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO3_Pos) /*!< 0x0000F000 */
+#define GPIO_HWCFGR7_AF_PRIO3         GPIO_HWCFGR7_AF_PRIO3_Msk           /*!< Indicate the priority AF for I/O3 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO3_0       (0x1U << GPIO_HWCFGR7_AF_PRIO3_Pos) /*!< 0x00001000 */
+#define GPIO_HWCFGR7_AF_PRIO3_1       (0x2U << GPIO_HWCFGR7_AF_PRIO3_Pos) /*!< 0x00002000 */
+#define GPIO_HWCFGR7_AF_PRIO3_2       (0x4U << GPIO_HWCFGR7_AF_PRIO3_Pos) /*!< 0x00004000 */
+#define GPIO_HWCFGR7_AF_PRIO3_3       (0x8U << GPIO_HWCFGR7_AF_PRIO3_Pos) /*!< 0x00008000 */
+#define GPIO_HWCFGR7_AF_PRIO4_Pos     (16U)
+#define GPIO_HWCFGR7_AF_PRIO4_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO4_Pos) /*!< 0x000F0000 */
+#define GPIO_HWCFGR7_AF_PRIO4         GPIO_HWCFGR7_AF_PRIO4_Msk           /*!< Indicate the priority AF for I/O4 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO4_0       (0x1U << GPIO_HWCFGR7_AF_PRIO4_Pos) /*!< 0x00010000 */
+#define GPIO_HWCFGR7_AF_PRIO4_1       (0x2U << GPIO_HWCFGR7_AF_PRIO4_Pos) /*!< 0x00020000 */
+#define GPIO_HWCFGR7_AF_PRIO4_2       (0x4U << GPIO_HWCFGR7_AF_PRIO4_Pos) /*!< 0x00040000 */
+#define GPIO_HWCFGR7_AF_PRIO4_3       (0x8U << GPIO_HWCFGR7_AF_PRIO4_Pos) /*!< 0x00080000 */
+#define GPIO_HWCFGR7_AF_PRIO5_Pos     (20U)
+#define GPIO_HWCFGR7_AF_PRIO5_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO5_Pos) /*!< 0x00F00000 */
+#define GPIO_HWCFGR7_AF_PRIO5         GPIO_HWCFGR7_AF_PRIO5_Msk           /*!< Indicate the priority AF for I/O5 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO5_0       (0x1U << GPIO_HWCFGR7_AF_PRIO5_Pos) /*!< 0x00100000 */
+#define GPIO_HWCFGR7_AF_PRIO5_1       (0x2U << GPIO_HWCFGR7_AF_PRIO5_Pos) /*!< 0x00200000 */
+#define GPIO_HWCFGR7_AF_PRIO5_2       (0x4U << GPIO_HWCFGR7_AF_PRIO5_Pos) /*!< 0x00400000 */
+#define GPIO_HWCFGR7_AF_PRIO5_3       (0x8U << GPIO_HWCFGR7_AF_PRIO5_Pos) /*!< 0x00800000 */
+#define GPIO_HWCFGR7_AF_PRIO6_Pos     (24U)
+#define GPIO_HWCFGR7_AF_PRIO6_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO6_Pos) /*!< 0x0F000000 */
+#define GPIO_HWCFGR7_AF_PRIO6         GPIO_HWCFGR7_AF_PRIO6_Msk           /*!< Indicate the priority AF for I/O6 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO6_0       (0x1U << GPIO_HWCFGR7_AF_PRIO6_Pos) /*!< 0x01000000 */
+#define GPIO_HWCFGR7_AF_PRIO6_1       (0x2U << GPIO_HWCFGR7_AF_PRIO6_Pos) /*!< 0x02000000 */
+#define GPIO_HWCFGR7_AF_PRIO6_2       (0x4U << GPIO_HWCFGR7_AF_PRIO6_Pos) /*!< 0x04000000 */
+#define GPIO_HWCFGR7_AF_PRIO6_3       (0x8U << GPIO_HWCFGR7_AF_PRIO6_Pos) /*!< 0x08000000 */
+#define GPIO_HWCFGR7_AF_PRIO7_Pos     (28U)
+#define GPIO_HWCFGR7_AF_PRIO7_Msk     (0xFU << GPIO_HWCFGR7_AF_PRIO7_Pos) /*!< 0xF0000000 */
+#define GPIO_HWCFGR7_AF_PRIO7         GPIO_HWCFGR7_AF_PRIO7_Msk           /*!< Indicate the priority AF for I/O7 (0 to F) */
+#define GPIO_HWCFGR7_AF_PRIO7_0       (0x1U << GPIO_HWCFGR7_AF_PRIO7_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR7_AF_PRIO7_1       (0x2U << GPIO_HWCFGR7_AF_PRIO7_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR7_AF_PRIO7_2       (0x4U << GPIO_HWCFGR7_AF_PRIO7_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR7_AF_PRIO7_3       (0x8U << GPIO_HWCFGR7_AF_PRIO7_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR6 register  ****************/
+#define GPIO_HWCFGR6_MODER_RES_Pos    (0U)
+#define GPIO_HWCFGR6_MODER_RES_Msk    (0xFFFFFFFFU << GPIO_HWCFGR6_MODER_RES_Pos) /*!< 0xFFFFFFFF */
+#define GPIO_HWCFGR6_MODER_RES        GPIO_HWCFGR6_MODER_RES_Msk                  /*!< MODER register reset value */
+#define GPIO_HWCFGR6_MODER_RES_0      (0x1U << GPIO_HWCFGR6_MODER_RES_Pos)        /*!< 0x00000001 */
+#define GPIO_HWCFGR6_MODER_RES_1      (0x2U << GPIO_HWCFGR6_MODER_RES_Pos)        /*!< 0x00000002 */
+#define GPIO_HWCFGR6_MODER_RES_2      (0x4U << GPIO_HWCFGR6_MODER_RES_Pos)        /*!< 0x00000004 */
+#define GPIO_HWCFGR6_MODER_RES_3      (0x8U << GPIO_HWCFGR6_MODER_RES_Pos)        /*!< 0x00000008 */
+#define GPIO_HWCFGR6_MODER_RES_4      (0x10U << GPIO_HWCFGR6_MODER_RES_Pos)       /*!< 0x00000010 */
+#define GPIO_HWCFGR6_MODER_RES_5      (0x20U << GPIO_HWCFGR6_MODER_RES_Pos)       /*!< 0x00000020 */
+#define GPIO_HWCFGR6_MODER_RES_6      (0x40U << GPIO_HWCFGR6_MODER_RES_Pos)       /*!< 0x00000040 */
+#define GPIO_HWCFGR6_MODER_RES_7      (0x80U << GPIO_HWCFGR6_MODER_RES_Pos)       /*!< 0x00000080 */
+#define GPIO_HWCFGR6_MODER_RES_8      (0x100U << GPIO_HWCFGR6_MODER_RES_Pos)      /*!< 0x00000100 */
+#define GPIO_HWCFGR6_MODER_RES_9      (0x200U << GPIO_HWCFGR6_MODER_RES_Pos)      /*!< 0x00000200 */
+#define GPIO_HWCFGR6_MODER_RES_10     (0x400U << GPIO_HWCFGR6_MODER_RES_Pos)      /*!< 0x00000400 */
+#define GPIO_HWCFGR6_MODER_RES_11     (0x800U << GPIO_HWCFGR6_MODER_RES_Pos)      /*!< 0x00000800 */
+#define GPIO_HWCFGR6_MODER_RES_12     (0x1000U << GPIO_HWCFGR6_MODER_RES_Pos)     /*!< 0x00001000 */
+#define GPIO_HWCFGR6_MODER_RES_13     (0x2000U << GPIO_HWCFGR6_MODER_RES_Pos)     /*!< 0x00002000 */
+#define GPIO_HWCFGR6_MODER_RES_14     (0x4000U << GPIO_HWCFGR6_MODER_RES_Pos)     /*!< 0x00004000 */
+#define GPIO_HWCFGR6_MODER_RES_15     (0x8000U << GPIO_HWCFGR6_MODER_RES_Pos)     /*!< 0x00008000 */
+#define GPIO_HWCFGR6_MODER_RES_16     (0x10000U << GPIO_HWCFGR6_MODER_RES_Pos)    /*!< 0x00010000 */
+#define GPIO_HWCFGR6_MODER_RES_17     (0x20000U << GPIO_HWCFGR6_MODER_RES_Pos)    /*!< 0x00020000 */
+#define GPIO_HWCFGR6_MODER_RES_18     (0x40000U << GPIO_HWCFGR6_MODER_RES_Pos)    /*!< 0x00040000 */
+#define GPIO_HWCFGR6_MODER_RES_19     (0x80000U << GPIO_HWCFGR6_MODER_RES_Pos)    /*!< 0x00080000 */
+#define GPIO_HWCFGR6_MODER_RES_20     (0x100000U << GPIO_HWCFGR6_MODER_RES_Pos)   /*!< 0x00100000 */
+#define GPIO_HWCFGR6_MODER_RES_21     (0x200000U << GPIO_HWCFGR6_MODER_RES_Pos)   /*!< 0x00200000 */
+#define GPIO_HWCFGR6_MODER_RES_22     (0x400000U << GPIO_HWCFGR6_MODER_RES_Pos)   /*!< 0x00400000 */
+#define GPIO_HWCFGR6_MODER_RES_23     (0x800000U << GPIO_HWCFGR6_MODER_RES_Pos)   /*!< 0x00800000 */
+#define GPIO_HWCFGR6_MODER_RES_24     (0x1000000U << GPIO_HWCFGR6_MODER_RES_Pos)  /*!< 0x01000000 */
+#define GPIO_HWCFGR6_MODER_RES_25     (0x2000000U << GPIO_HWCFGR6_MODER_RES_Pos)  /*!< 0x02000000 */
+#define GPIO_HWCFGR6_MODER_RES_26     (0x4000000U << GPIO_HWCFGR6_MODER_RES_Pos)  /*!< 0x04000000 */
+#define GPIO_HWCFGR6_MODER_RES_27     (0x8000000U << GPIO_HWCFGR6_MODER_RES_Pos)  /*!< 0x08000000 */
+#define GPIO_HWCFGR6_MODER_RES_28     (0x10000000U << GPIO_HWCFGR6_MODER_RES_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR6_MODER_RES_29     (0x20000000U << GPIO_HWCFGR6_MODER_RES_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR6_MODER_RES_30     (0x40000000U << GPIO_HWCFGR6_MODER_RES_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR6_MODER_RES_31     (0x80000000U << GPIO_HWCFGR6_MODER_RES_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR5 register  ****************/
+#define GPIO_HWCFGR5_PUPDR_RES_Pos    (0U)
+#define GPIO_HWCFGR5_PUPDR_RES_Msk    (0xFFFFFFFFU << GPIO_HWCFGR5_PUPDR_RES_Pos) /*!< 0xFFFFFFFF */
+#define GPIO_HWCFGR5_PUPDR_RES        GPIO_HWCFGR5_PUPDR_RES_Msk                  /*!< Pull-up / pull-down register reset value */
+#define GPIO_HWCFGR5_PUPDR_RES_0      (0x1U << GPIO_HWCFGR5_PUPDR_RES_Pos)        /*!< 0x00000001 */
+#define GPIO_HWCFGR5_PUPDR_RES_1      (0x2U << GPIO_HWCFGR5_PUPDR_RES_Pos)        /*!< 0x00000002 */
+#define GPIO_HWCFGR5_PUPDR_RES_2      (0x4U << GPIO_HWCFGR5_PUPDR_RES_Pos)        /*!< 0x00000004 */
+#define GPIO_HWCFGR5_PUPDR_RES_3      (0x8U << GPIO_HWCFGR5_PUPDR_RES_Pos)        /*!< 0x00000008 */
+#define GPIO_HWCFGR5_PUPDR_RES_4      (0x10U << GPIO_HWCFGR5_PUPDR_RES_Pos)       /*!< 0x00000010 */
+#define GPIO_HWCFGR5_PUPDR_RES_5      (0x20U << GPIO_HWCFGR5_PUPDR_RES_Pos)       /*!< 0x00000020 */
+#define GPIO_HWCFGR5_PUPDR_RES_6      (0x40U << GPIO_HWCFGR5_PUPDR_RES_Pos)       /*!< 0x00000040 */
+#define GPIO_HWCFGR5_PUPDR_RES_7      (0x80U << GPIO_HWCFGR5_PUPDR_RES_Pos)       /*!< 0x00000080 */
+#define GPIO_HWCFGR5_PUPDR_RES_8      (0x100U << GPIO_HWCFGR5_PUPDR_RES_Pos)      /*!< 0x00000100 */
+#define GPIO_HWCFGR5_PUPDR_RES_9      (0x200U << GPIO_HWCFGR5_PUPDR_RES_Pos)      /*!< 0x00000200 */
+#define GPIO_HWCFGR5_PUPDR_RES_10     (0x400U << GPIO_HWCFGR5_PUPDR_RES_Pos)      /*!< 0x00000400 */
+#define GPIO_HWCFGR5_PUPDR_RES_11     (0x800U << GPIO_HWCFGR5_PUPDR_RES_Pos)      /*!< 0x00000800 */
+#define GPIO_HWCFGR5_PUPDR_RES_12     (0x1000U << GPIO_HWCFGR5_PUPDR_RES_Pos)     /*!< 0x00001000 */
+#define GPIO_HWCFGR5_PUPDR_RES_13     (0x2000U << GPIO_HWCFGR5_PUPDR_RES_Pos)     /*!< 0x00002000 */
+#define GPIO_HWCFGR5_PUPDR_RES_14     (0x4000U << GPIO_HWCFGR5_PUPDR_RES_Pos)     /*!< 0x00004000 */
+#define GPIO_HWCFGR5_PUPDR_RES_15     (0x8000U << GPIO_HWCFGR5_PUPDR_RES_Pos)     /*!< 0x00008000 */
+#define GPIO_HWCFGR5_PUPDR_RES_16     (0x10000U << GPIO_HWCFGR5_PUPDR_RES_Pos)    /*!< 0x00010000 */
+#define GPIO_HWCFGR5_PUPDR_RES_17     (0x20000U << GPIO_HWCFGR5_PUPDR_RES_Pos)    /*!< 0x00020000 */
+#define GPIO_HWCFGR5_PUPDR_RES_18     (0x40000U << GPIO_HWCFGR5_PUPDR_RES_Pos)    /*!< 0x00040000 */
+#define GPIO_HWCFGR5_PUPDR_RES_19     (0x80000U << GPIO_HWCFGR5_PUPDR_RES_Pos)    /*!< 0x00080000 */
+#define GPIO_HWCFGR5_PUPDR_RES_20     (0x100000U << GPIO_HWCFGR5_PUPDR_RES_Pos)   /*!< 0x00100000 */
+#define GPIO_HWCFGR5_PUPDR_RES_21     (0x200000U << GPIO_HWCFGR5_PUPDR_RES_Pos)   /*!< 0x00200000 */
+#define GPIO_HWCFGR5_PUPDR_RES_22     (0x400000U << GPIO_HWCFGR5_PUPDR_RES_Pos)   /*!< 0x00400000 */
+#define GPIO_HWCFGR5_PUPDR_RES_23     (0x800000U << GPIO_HWCFGR5_PUPDR_RES_Pos)   /*!< 0x00800000 */
+#define GPIO_HWCFGR5_PUPDR_RES_24     (0x1000000U << GPIO_HWCFGR5_PUPDR_RES_Pos)  /*!< 0x01000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_25     (0x2000000U << GPIO_HWCFGR5_PUPDR_RES_Pos)  /*!< 0x02000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_26     (0x4000000U << GPIO_HWCFGR5_PUPDR_RES_Pos)  /*!< 0x04000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_27     (0x8000000U << GPIO_HWCFGR5_PUPDR_RES_Pos)  /*!< 0x08000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_28     (0x10000000U << GPIO_HWCFGR5_PUPDR_RES_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_29     (0x20000000U << GPIO_HWCFGR5_PUPDR_RES_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_30     (0x40000000U << GPIO_HWCFGR5_PUPDR_RES_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR5_PUPDR_RES_31     (0x80000000U << GPIO_HWCFGR5_PUPDR_RES_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR4 register  ****************/
+#define GPIO_HWCFGR4_OSPEED_RES_Pos   (0U)
+#define GPIO_HWCFGR4_OSPEED_RES_Msk   (0xFFFFFFFFU << GPIO_HWCFGR4_OSPEED_RES_Pos)  /*!< 0xFFFFFFFF */
+#define GPIO_HWCFGR4_OSPEED_RES       GPIO_HWCFGR4_OSPEED_RES_Msk                   /*!< OSPEED register reset value */
+#define GPIO_HWCFGR4_OSPEED_RES_0     (0x1U << GPIO_HWCFGR4_OSPEED_RES_Pos)         /*!< 0x00000001 */
+#define GPIO_HWCFGR4_OSPEED_RES_1     (0x2U << GPIO_HWCFGR4_OSPEED_RES_Pos)         /*!< 0x00000002 */
+#define GPIO_HWCFGR4_OSPEED_RES_2     (0x4U << GPIO_HWCFGR4_OSPEED_RES_Pos)         /*!< 0x00000004 */
+#define GPIO_HWCFGR4_OSPEED_RES_3     (0x8U << GPIO_HWCFGR4_OSPEED_RES_Pos)         /*!< 0x00000008 */
+#define GPIO_HWCFGR4_OSPEED_RES_4     (0x10U << GPIO_HWCFGR4_OSPEED_RES_Pos)        /*!< 0x00000010 */
+#define GPIO_HWCFGR4_OSPEED_RES_5     (0x20U << GPIO_HWCFGR4_OSPEED_RES_Pos)        /*!< 0x00000020 */
+#define GPIO_HWCFGR4_OSPEED_RES_6     (0x40U << GPIO_HWCFGR4_OSPEED_RES_Pos)        /*!< 0x00000040 */
+#define GPIO_HWCFGR4_OSPEED_RES_7     (0x80U << GPIO_HWCFGR4_OSPEED_RES_Pos)        /*!< 0x00000080 */
+#define GPIO_HWCFGR4_OSPEED_RES_8     (0x100U << GPIO_HWCFGR4_OSPEED_RES_Pos)       /*!< 0x00000100 */
+#define GPIO_HWCFGR4_OSPEED_RES_9     (0x200U << GPIO_HWCFGR4_OSPEED_RES_Pos)       /*!< 0x00000200 */
+#define GPIO_HWCFGR4_OSPEED_RES_10    (0x400U << GPIO_HWCFGR4_OSPEED_RES_Pos)       /*!< 0x00000400 */
+#define GPIO_HWCFGR4_OSPEED_RES_11    (0x800U << GPIO_HWCFGR4_OSPEED_RES_Pos)       /*!< 0x00000800 */
+#define GPIO_HWCFGR4_OSPEED_RES_12    (0x1000U << GPIO_HWCFGR4_OSPEED_RES_Pos)      /*!< 0x00001000 */
+#define GPIO_HWCFGR4_OSPEED_RES_13    (0x2000U << GPIO_HWCFGR4_OSPEED_RES_Pos)      /*!< 0x00002000 */
+#define GPIO_HWCFGR4_OSPEED_RES_14    (0x4000U << GPIO_HWCFGR4_OSPEED_RES_Pos)      /*!< 0x00004000 */
+#define GPIO_HWCFGR4_OSPEED_RES_15    (0x8000U << GPIO_HWCFGR4_OSPEED_RES_Pos)      /*!< 0x00008000 */
+#define GPIO_HWCFGR4_OSPEED_RES_16    (0x10000U << GPIO_HWCFGR4_OSPEED_RES_Pos)     /*!< 0x00010000 */
+#define GPIO_HWCFGR4_OSPEED_RES_17    (0x20000U << GPIO_HWCFGR4_OSPEED_RES_Pos)     /*!< 0x00020000 */
+#define GPIO_HWCFGR4_OSPEED_RES_18    (0x40000U << GPIO_HWCFGR4_OSPEED_RES_Pos)     /*!< 0x00040000 */
+#define GPIO_HWCFGR4_OSPEED_RES_19    (0x80000U << GPIO_HWCFGR4_OSPEED_RES_Pos)     /*!< 0x00080000 */
+#define GPIO_HWCFGR4_OSPEED_RES_20    (0x100000U << GPIO_HWCFGR4_OSPEED_RES_Pos)    /*!< 0x00100000 */
+#define GPIO_HWCFGR4_OSPEED_RES_21    (0x200000U << GPIO_HWCFGR4_OSPEED_RES_Pos)    /*!< 0x00200000 */
+#define GPIO_HWCFGR4_OSPEED_RES_22    (0x400000U << GPIO_HWCFGR4_OSPEED_RES_Pos)    /*!< 0x00400000 */
+#define GPIO_HWCFGR4_OSPEED_RES_23    (0x800000U << GPIO_HWCFGR4_OSPEED_RES_Pos)    /*!< 0x00800000 */
+#define GPIO_HWCFGR4_OSPEED_RES_24    (0x1000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)   /*!< 0x01000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_25    (0x2000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)   /*!< 0x02000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_26    (0x4000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)   /*!< 0x04000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_27    (0x8000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)   /*!< 0x08000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_28    (0x10000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)  /*!< 0x10000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_29    (0x20000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)  /*!< 0x20000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_30    (0x40000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)  /*!< 0x40000000 */
+#define GPIO_HWCFGR4_OSPEED_RES_31    (0x80000000U << GPIO_HWCFGR4_OSPEED_RES_Pos)  /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR3 register  ****************/
+#define GPIO_HWCFGR3_ODR_RES_Pos      (0U)
+#define GPIO_HWCFGR3_ODR_RES_Msk      (0xFFFFU << GPIO_HWCFGR3_ODR_RES_Pos)     /*!< 0x0000FFFF */
+#define GPIO_HWCFGR3_ODR_RES          GPIO_HWCFGR3_ODR_RES_Msk                  /*!< Output data register reset value */
+#define GPIO_HWCFGR3_ODR_RES_0        (0x1U << GPIO_HWCFGR3_ODR_RES_Pos)        /*!< 0x00000001 */
+#define GPIO_HWCFGR3_ODR_RES_1        (0x2U << GPIO_HWCFGR3_ODR_RES_Pos)        /*!< 0x00000002 */
+#define GPIO_HWCFGR3_ODR_RES_2        (0x4U << GPIO_HWCFGR3_ODR_RES_Pos)        /*!< 0x00000004 */
+#define GPIO_HWCFGR3_ODR_RES_3        (0x8U << GPIO_HWCFGR3_ODR_RES_Pos)        /*!< 0x00000008 */
+#define GPIO_HWCFGR3_ODR_RES_4        (0x10U << GPIO_HWCFGR3_ODR_RES_Pos)       /*!< 0x00000010 */
+#define GPIO_HWCFGR3_ODR_RES_5        (0x20U << GPIO_HWCFGR3_ODR_RES_Pos)       /*!< 0x00000020 */
+#define GPIO_HWCFGR3_ODR_RES_6        (0x40U << GPIO_HWCFGR3_ODR_RES_Pos)       /*!< 0x00000040 */
+#define GPIO_HWCFGR3_ODR_RES_7        (0x80U << GPIO_HWCFGR3_ODR_RES_Pos)       /*!< 0x00000080 */
+#define GPIO_HWCFGR3_ODR_RES_8        (0x100U << GPIO_HWCFGR3_ODR_RES_Pos)      /*!< 0x00000100 */
+#define GPIO_HWCFGR3_ODR_RES_9        (0x200U << GPIO_HWCFGR3_ODR_RES_Pos)      /*!< 0x00000200 */
+#define GPIO_HWCFGR3_ODR_RES_10       (0x400U << GPIO_HWCFGR3_ODR_RES_Pos)      /*!< 0x00000400 */
+#define GPIO_HWCFGR3_ODR_RES_11       (0x800U << GPIO_HWCFGR3_ODR_RES_Pos)      /*!< 0x00000800 */
+#define GPIO_HWCFGR3_ODR_RES_12       (0x1000U << GPIO_HWCFGR3_ODR_RES_Pos)     /*!< 0x00001000 */
+#define GPIO_HWCFGR3_ODR_RES_13       (0x2000U << GPIO_HWCFGR3_ODR_RES_Pos)     /*!< 0x00002000 */
+#define GPIO_HWCFGR3_ODR_RES_14       (0x4000U << GPIO_HWCFGR3_ODR_RES_Pos)     /*!< 0x00004000 */
+#define GPIO_HWCFGR3_ODR_RES_15       (0x8000U << GPIO_HWCFGR3_ODR_RES_Pos)     /*!< 0x00008000 */
+#define GPIO_HWCFGR3_OTYPER_RES_Pos   (16U)
+#define GPIO_HWCFGR3_OTYPER_RES_Msk   (0xFFFFU << GPIO_HWCFGR3_OTYPER_RES_Pos)  /*!< 0xFFFF0000 */
+#define GPIO_HWCFGR3_OTYPER_RES       GPIO_HWCFGR3_OTYPER_RES_Msk               /*!< Output type register reset value */
+#define GPIO_HWCFGR3_OTYPER_RES_0     (0x1U << GPIO_HWCFGR3_OTYPER_RES_Pos)     /*!< 0x00010000 */
+#define GPIO_HWCFGR3_OTYPER_RES_1     (0x2U << GPIO_HWCFGR3_OTYPER_RES_Pos)     /*!< 0x00020000 */
+#define GPIO_HWCFGR3_OTYPER_RES_2     (0x4U << GPIO_HWCFGR3_OTYPER_RES_Pos)     /*!< 0x00040000 */
+#define GPIO_HWCFGR3_OTYPER_RES_3     (0x8U << GPIO_HWCFGR3_OTYPER_RES_Pos)     /*!< 0x00080000 */
+#define GPIO_HWCFGR3_OTYPER_RES_4     (0x10U << GPIO_HWCFGR3_OTYPER_RES_Pos)    /*!< 0x00100000 */
+#define GPIO_HWCFGR3_OTYPER_RES_5     (0x20U << GPIO_HWCFGR3_OTYPER_RES_Pos)    /*!< 0x00200000 */
+#define GPIO_HWCFGR3_OTYPER_RES_6     (0x40U << GPIO_HWCFGR3_OTYPER_RES_Pos)    /*!< 0x00400000 */
+#define GPIO_HWCFGR3_OTYPER_RES_7     (0x80U << GPIO_HWCFGR3_OTYPER_RES_Pos)    /*!< 0x00800000 */
+#define GPIO_HWCFGR3_OTYPER_RES_8     (0x100U << GPIO_HWCFGR3_OTYPER_RES_Pos)   /*!< 0x01000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_9     (0x200U << GPIO_HWCFGR3_OTYPER_RES_Pos)   /*!< 0x02000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_10    (0x400U << GPIO_HWCFGR3_OTYPER_RES_Pos)   /*!< 0x04000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_11    (0x800U << GPIO_HWCFGR3_OTYPER_RES_Pos)   /*!< 0x08000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_12    (0x1000U << GPIO_HWCFGR3_OTYPER_RES_Pos)  /*!< 0x10000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_13    (0x2000U << GPIO_HWCFGR3_OTYPER_RES_Pos)  /*!< 0x20000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_14    (0x4000U << GPIO_HWCFGR3_OTYPER_RES_Pos)  /*!< 0x40000000 */
+#define GPIO_HWCFGR3_OTYPER_RES_15    (0x8000U << GPIO_HWCFGR3_OTYPER_RES_Pos)  /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR2 register  ****************/
+#define GPIO_HWCFGR2_AFRL_RES_Pos     (0U)
+#define GPIO_HWCFGR2_AFRL_RES_Msk     (0xFFFFFFFFU << GPIO_HWCFGR2_AFRL_RES_Pos) /*!< 0xFFFFFFFF */
+#define GPIO_HWCFGR2_AFRL_RES         GPIO_HWCFGR2_AFRL_RES_Msk                  /*!< AF register low reset value */
+#define GPIO_HWCFGR2_AFRL_RES_0       (0x1U << GPIO_HWCFGR2_AFRL_RES_Pos)        /*!< 0x00000001 */
+#define GPIO_HWCFGR2_AFRL_RES_1       (0x2U << GPIO_HWCFGR2_AFRL_RES_Pos)        /*!< 0x00000002 */
+#define GPIO_HWCFGR2_AFRL_RES_2       (0x4U << GPIO_HWCFGR2_AFRL_RES_Pos)        /*!< 0x00000004 */
+#define GPIO_HWCFGR2_AFRL_RES_3       (0x8U << GPIO_HWCFGR2_AFRL_RES_Pos)        /*!< 0x00000008 */
+#define GPIO_HWCFGR2_AFRL_RES_4       (0x10U << GPIO_HWCFGR2_AFRL_RES_Pos)       /*!< 0x00000010 */
+#define GPIO_HWCFGR2_AFRL_RES_5       (0x20U << GPIO_HWCFGR2_AFRL_RES_Pos)       /*!< 0x00000020 */
+#define GPIO_HWCFGR2_AFRL_RES_6       (0x40U << GPIO_HWCFGR2_AFRL_RES_Pos)       /*!< 0x00000040 */
+#define GPIO_HWCFGR2_AFRL_RES_7       (0x80U << GPIO_HWCFGR2_AFRL_RES_Pos)       /*!< 0x00000080 */
+#define GPIO_HWCFGR2_AFRL_RES_8       (0x100U << GPIO_HWCFGR2_AFRL_RES_Pos)      /*!< 0x00000100 */
+#define GPIO_HWCFGR2_AFRL_RES_9       (0x200U << GPIO_HWCFGR2_AFRL_RES_Pos)      /*!< 0x00000200 */
+#define GPIO_HWCFGR2_AFRL_RES_10      (0x400U << GPIO_HWCFGR2_AFRL_RES_Pos)      /*!< 0x00000400 */
+#define GPIO_HWCFGR2_AFRL_RES_11      (0x800U << GPIO_HWCFGR2_AFRL_RES_Pos)      /*!< 0x00000800 */
+#define GPIO_HWCFGR2_AFRL_RES_12      (0x1000U << GPIO_HWCFGR2_AFRL_RES_Pos)     /*!< 0x00001000 */
+#define GPIO_HWCFGR2_AFRL_RES_13      (0x2000U << GPIO_HWCFGR2_AFRL_RES_Pos)     /*!< 0x00002000 */
+#define GPIO_HWCFGR2_AFRL_RES_14      (0x4000U << GPIO_HWCFGR2_AFRL_RES_Pos)     /*!< 0x00004000 */
+#define GPIO_HWCFGR2_AFRL_RES_15      (0x8000U << GPIO_HWCFGR2_AFRL_RES_Pos)     /*!< 0x00008000 */
+#define GPIO_HWCFGR2_AFRL_RES_16      (0x10000U << GPIO_HWCFGR2_AFRL_RES_Pos)    /*!< 0x00010000 */
+#define GPIO_HWCFGR2_AFRL_RES_17      (0x20000U << GPIO_HWCFGR2_AFRL_RES_Pos)    /*!< 0x00020000 */
+#define GPIO_HWCFGR2_AFRL_RES_18      (0x40000U << GPIO_HWCFGR2_AFRL_RES_Pos)    /*!< 0x00040000 */
+#define GPIO_HWCFGR2_AFRL_RES_19      (0x80000U << GPIO_HWCFGR2_AFRL_RES_Pos)    /*!< 0x00080000 */
+#define GPIO_HWCFGR2_AFRL_RES_20      (0x100000U << GPIO_HWCFGR2_AFRL_RES_Pos)   /*!< 0x00100000 */
+#define GPIO_HWCFGR2_AFRL_RES_21      (0x200000U << GPIO_HWCFGR2_AFRL_RES_Pos)   /*!< 0x00200000 */
+#define GPIO_HWCFGR2_AFRL_RES_22      (0x400000U << GPIO_HWCFGR2_AFRL_RES_Pos)   /*!< 0x00400000 */
+#define GPIO_HWCFGR2_AFRL_RES_23      (0x800000U << GPIO_HWCFGR2_AFRL_RES_Pos)   /*!< 0x00800000 */
+#define GPIO_HWCFGR2_AFRL_RES_24      (0x1000000U << GPIO_HWCFGR2_AFRL_RES_Pos)  /*!< 0x01000000 */
+#define GPIO_HWCFGR2_AFRL_RES_25      (0x2000000U << GPIO_HWCFGR2_AFRL_RES_Pos)  /*!< 0x02000000 */
+#define GPIO_HWCFGR2_AFRL_RES_26      (0x4000000U << GPIO_HWCFGR2_AFRL_RES_Pos)  /*!< 0x04000000 */
+#define GPIO_HWCFGR2_AFRL_RES_27      (0x8000000U << GPIO_HWCFGR2_AFRL_RES_Pos)  /*!< 0x08000000 */
+#define GPIO_HWCFGR2_AFRL_RES_28      (0x10000000U << GPIO_HWCFGR2_AFRL_RES_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR2_AFRL_RES_29      (0x20000000U << GPIO_HWCFGR2_AFRL_RES_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR2_AFRL_RES_30      (0x40000000U << GPIO_HWCFGR2_AFRL_RES_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR2_AFRL_RES_31      (0x80000000U << GPIO_HWCFGR2_AFRL_RES_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR1 register  ****************/
+#define GPIO_HWCFGR1_AFRH_RES_Pos     (0U)
+#define GPIO_HWCFGR1_AFRH_RES_Msk     (0xFFFFFFFFU << GPIO_HWCFGR1_AFRH_RES_Pos) /*!< 0xFFFFFFFF */
+#define GPIO_HWCFGR1_AFRH_RES         GPIO_HWCFGR1_AFRH_RES_Msk                  /*!< AF register high reset value */
+#define GPIO_HWCFGR1_AFRH_RES_0       (0x1U << GPIO_HWCFGR1_AFRH_RES_Pos)        /*!< 0x00000001 */
+#define GPIO_HWCFGR1_AFRH_RES_1       (0x2U << GPIO_HWCFGR1_AFRH_RES_Pos)        /*!< 0x00000002 */
+#define GPIO_HWCFGR1_AFRH_RES_2       (0x4U << GPIO_HWCFGR1_AFRH_RES_Pos)        /*!< 0x00000004 */
+#define GPIO_HWCFGR1_AFRH_RES_3       (0x8U << GPIO_HWCFGR1_AFRH_RES_Pos)        /*!< 0x00000008 */
+#define GPIO_HWCFGR1_AFRH_RES_4       (0x10U << GPIO_HWCFGR1_AFRH_RES_Pos)       /*!< 0x00000010 */
+#define GPIO_HWCFGR1_AFRH_RES_5       (0x20U << GPIO_HWCFGR1_AFRH_RES_Pos)       /*!< 0x00000020 */
+#define GPIO_HWCFGR1_AFRH_RES_6       (0x40U << GPIO_HWCFGR1_AFRH_RES_Pos)       /*!< 0x00000040 */
+#define GPIO_HWCFGR1_AFRH_RES_7       (0x80U << GPIO_HWCFGR1_AFRH_RES_Pos)       /*!< 0x00000080 */
+#define GPIO_HWCFGR1_AFRH_RES_8       (0x100U << GPIO_HWCFGR1_AFRH_RES_Pos)      /*!< 0x00000100 */
+#define GPIO_HWCFGR1_AFRH_RES_9       (0x200U << GPIO_HWCFGR1_AFRH_RES_Pos)      /*!< 0x00000200 */
+#define GPIO_HWCFGR1_AFRH_RES_10      (0x400U << GPIO_HWCFGR1_AFRH_RES_Pos)      /*!< 0x00000400 */
+#define GPIO_HWCFGR1_AFRH_RES_11      (0x800U << GPIO_HWCFGR1_AFRH_RES_Pos)      /*!< 0x00000800 */
+#define GPIO_HWCFGR1_AFRH_RES_12      (0x1000U << GPIO_HWCFGR1_AFRH_RES_Pos)     /*!< 0x00001000 */
+#define GPIO_HWCFGR1_AFRH_RES_13      (0x2000U << GPIO_HWCFGR1_AFRH_RES_Pos)     /*!< 0x00002000 */
+#define GPIO_HWCFGR1_AFRH_RES_14      (0x4000U << GPIO_HWCFGR1_AFRH_RES_Pos)     /*!< 0x00004000 */
+#define GPIO_HWCFGR1_AFRH_RES_15      (0x8000U << GPIO_HWCFGR1_AFRH_RES_Pos)     /*!< 0x00008000 */
+#define GPIO_HWCFGR1_AFRH_RES_16      (0x10000U << GPIO_HWCFGR1_AFRH_RES_Pos)    /*!< 0x00010000 */
+#define GPIO_HWCFGR1_AFRH_RES_17      (0x20000U << GPIO_HWCFGR1_AFRH_RES_Pos)    /*!< 0x00020000 */
+#define GPIO_HWCFGR1_AFRH_RES_18      (0x40000U << GPIO_HWCFGR1_AFRH_RES_Pos)    /*!< 0x00040000 */
+#define GPIO_HWCFGR1_AFRH_RES_19      (0x80000U << GPIO_HWCFGR1_AFRH_RES_Pos)    /*!< 0x00080000 */
+#define GPIO_HWCFGR1_AFRH_RES_20      (0x100000U << GPIO_HWCFGR1_AFRH_RES_Pos)   /*!< 0x00100000 */
+#define GPIO_HWCFGR1_AFRH_RES_21      (0x200000U << GPIO_HWCFGR1_AFRH_RES_Pos)   /*!< 0x00200000 */
+#define GPIO_HWCFGR1_AFRH_RES_22      (0x400000U << GPIO_HWCFGR1_AFRH_RES_Pos)   /*!< 0x00400000 */
+#define GPIO_HWCFGR1_AFRH_RES_23      (0x800000U << GPIO_HWCFGR1_AFRH_RES_Pos)   /*!< 0x00800000 */
+#define GPIO_HWCFGR1_AFRH_RES_24      (0x1000000U << GPIO_HWCFGR1_AFRH_RES_Pos)  /*!< 0x01000000 */
+#define GPIO_HWCFGR1_AFRH_RES_25      (0x2000000U << GPIO_HWCFGR1_AFRH_RES_Pos)  /*!< 0x02000000 */
+#define GPIO_HWCFGR1_AFRH_RES_26      (0x4000000U << GPIO_HWCFGR1_AFRH_RES_Pos)  /*!< 0x04000000 */
+#define GPIO_HWCFGR1_AFRH_RES_27      (0x8000000U << GPIO_HWCFGR1_AFRH_RES_Pos)  /*!< 0x08000000 */
+#define GPIO_HWCFGR1_AFRH_RES_28      (0x10000000U << GPIO_HWCFGR1_AFRH_RES_Pos) /*!< 0x10000000 */
+#define GPIO_HWCFGR1_AFRH_RES_29      (0x20000000U << GPIO_HWCFGR1_AFRH_RES_Pos) /*!< 0x20000000 */
+#define GPIO_HWCFGR1_AFRH_RES_30      (0x40000000U << GPIO_HWCFGR1_AFRH_RES_Pos) /*!< 0x40000000 */
+#define GPIO_HWCFGR1_AFRH_RES_31      (0x80000000U << GPIO_HWCFGR1_AFRH_RES_Pos) /*!< 0x80000000 */
+
+/****************  Bit definition for GPIO_HWCFGR0 register  ****************/
+#define GPIO_HWCFGR0_OR_RES_Pos       (0U)
+#define GPIO_HWCFGR0_OR_RES_Msk       (0xFFFFU << GPIO_HWCFGR0_OR_RES_Pos)      /*!< 0x0000FFFF */
+#define GPIO_HWCFGR0_OR_RES           GPIO_HWCFGR0_OR_RES_Msk                   /*!< Option register reset value */
+#define GPIO_HWCFGR0_OR_RES_0         (0x1U << GPIO_HWCFGR0_OR_RES_Pos)         /*!< 0x00000001 */
+#define GPIO_HWCFGR0_OR_RES_1         (0x2U << GPIO_HWCFGR0_OR_RES_Pos)         /*!< 0x00000002 */
+#define GPIO_HWCFGR0_OR_RES_2         (0x4U << GPIO_HWCFGR0_OR_RES_Pos)         /*!< 0x00000004 */
+#define GPIO_HWCFGR0_OR_RES_3         (0x8U << GPIO_HWCFGR0_OR_RES_Pos)         /*!< 0x00000008 */
+#define GPIO_HWCFGR0_OR_RES_4         (0x10U << GPIO_HWCFGR0_OR_RES_Pos)        /*!< 0x00000010 */
+#define GPIO_HWCFGR0_OR_RES_5         (0x20U << GPIO_HWCFGR0_OR_RES_Pos)        /*!< 0x00000020 */
+#define GPIO_HWCFGR0_OR_RES_6         (0x40U << GPIO_HWCFGR0_OR_RES_Pos)        /*!< 0x00000040 */
+#define GPIO_HWCFGR0_OR_RES_7         (0x80U << GPIO_HWCFGR0_OR_RES_Pos)        /*!< 0x00000080 */
+#define GPIO_HWCFGR0_OR_RES_8         (0x100U << GPIO_HWCFGR0_OR_RES_Pos)       /*!< 0x00000100 */
+#define GPIO_HWCFGR0_OR_RES_9         (0x200U << GPIO_HWCFGR0_OR_RES_Pos)       /*!< 0x00000200 */
+#define GPIO_HWCFGR0_OR_RES_10        (0x400U << GPIO_HWCFGR0_OR_RES_Pos)       /*!< 0x00000400 */
+#define GPIO_HWCFGR0_OR_RES_11        (0x800U << GPIO_HWCFGR0_OR_RES_Pos)       /*!< 0x00000800 */
+#define GPIO_HWCFGR0_OR_RES_12        (0x1000U << GPIO_HWCFGR0_OR_RES_Pos)      /*!< 0x00001000 */
+#define GPIO_HWCFGR0_OR_RES_13        (0x2000U << GPIO_HWCFGR0_OR_RES_Pos)      /*!< 0x00002000 */
+#define GPIO_HWCFGR0_OR_RES_14        (0x4000U << GPIO_HWCFGR0_OR_RES_Pos)      /*!< 0x00004000 */
+#define GPIO_HWCFGR0_OR_RES_15        (0x8000U << GPIO_HWCFGR0_OR_RES_Pos)      /*!< 0x00008000 */
 
 /**********************  Bit definition for GPIO_VERR register  *****************/
 #define GPIO_VERR_MINREV_Pos      (0U)
@@ -23788,20 +24090,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*
 * @brief Specific device feature definitions
 */
-//#define RTC_TAMPER1_SUPPORT
-//#define RTC_TAMPER2_SUPPORT
-//#define RTC_TAMPER3_SUPPORT
-
-//#define RTC_BACKUP_SUPPORT
-//#define RTC_BACKUP32_SUPPORT
-//#define RTC_BACKUP128_SUPPORT
-
-#define RTC_CPU2_SUPPORT //not for G0, only first wb trials
-
-#define RTC_WAKEUP_SUPPORT
-#define RTC_INTERNALTS_SUPPORT
-
-#define RTC_SECUREMODE_SUPPORT
 
 /********************  Bits definition for RTC_TR register  *******************/
 #define RTC_TR_PM_Pos                     (22U)
@@ -23896,33 +24184,33 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_SSR_SS                        RTC_SSR_SS_Msk
 
 /****************  Bits definition for RTC_ICSR (RTC_ISR) register *************/
-#define RTC_ISR_RECALPF_Pos               (16U)
-#define RTC_ISR_RECALPF_Msk               (0x1U << RTC_ISR_RECALPF_Pos)        /*!< 0x00010000 */
-#define RTC_ISR_RECALPF                   RTC_ISR_RECALPF_Msk
-#define RTC_ISR_INIT_Pos                  (7U)
-#define RTC_ISR_INIT_Msk                  (0x1U << RTC_ISR_INIT_Pos)           /*!< 0x00000080 */
-#define RTC_ISR_INIT                      RTC_ISR_INIT_Msk
-#define RTC_ISR_INITF_Pos                 (6U)
-#define RTC_ISR_INITF_Msk                 (0x1U << RTC_ISR_INITF_Pos)          /*!< 0x00000040 */
-#define RTC_ISR_INITF                     RTC_ISR_INITF_Msk
-#define RTC_ISR_RSF_Pos                   (5U)
-#define RTC_ISR_RSF_Msk                   (0x1U << RTC_ISR_RSF_Pos)            /*!< 0x00000020 */
-#define RTC_ISR_RSF                       RTC_ISR_RSF_Msk
-#define RTC_ISR_INITS_Pos                 (4U)
-#define RTC_ISR_INITS_Msk                 (0x1U << RTC_ISR_INITS_Pos)          /*!< 0x00000010 */
-#define RTC_ISR_INITS                     RTC_ISR_INITS_Msk
-#define RTC_ISR_SHPF_Pos                  (3U)
-#define RTC_ISR_SHPF_Msk                  (0x1U << RTC_ISR_SHPF_Pos)           /*!< 0x00000008 */
-#define RTC_ISR_SHPF                      RTC_ISR_SHPF_Msk
-#define RTC_ISR_WUTWF_Pos                 (2U)
-#define RTC_ISR_WUTWF_Msk                 (0x1U << RTC_ISR_WUTWF_Pos)          /*!< 0x00000004 */
-#define RTC_ISR_WUTWF                     RTC_ISR_WUTWF_Msk
-#define RTC_ISR_ALRBWF_Pos                (1U)
-#define RTC_ISR_ALRBWF_Msk                (0x1U << RTC_ISR_ALRBWF_Pos)         /*!< 0x00000002 */
-#define RTC_ISR_ALRBWF                    RTC_ISR_ALRBWF_Msk
-#define RTC_ISR_ALRAWF_Pos                (0U)
-#define RTC_ISR_ALRAWF_Msk                (0x1U << RTC_ISR_ALRAWF_Pos)         /*!< 0x00000001 */
-#define RTC_ISR_ALRAWF                    RTC_ISR_ALRAWF_Msk
+#define RTC_ICSR_RECALPF_Pos         (16U)
+#define RTC_ICSR_RECALPF_Msk         (0x1UL << RTC_ICSR_RECALPF_Pos)           /*!< 0x00010000 */
+#define RTC_ICSR_RECALPF             RTC_ICSR_RECALPF_Msk
+#define RTC_ICSR_INIT_Pos            (7U)
+#define RTC_ICSR_INIT_Msk            (0x1UL << RTC_ICSR_INIT_Pos)              /*!< 0x00000080 */
+#define RTC_ICSR_INIT                RTC_ICSR_INIT_Msk
+#define RTC_ICSR_INITF_Pos           (6U)
+#define RTC_ICSR_INITF_Msk           (0x1UL << RTC_ICSR_INITF_Pos)             /*!< 0x00000040 */
+#define RTC_ICSR_INITF               RTC_ICSR_INITF_Msk
+#define RTC_ICSR_RSF_Pos             (5U)
+#define RTC_ICSR_RSF_Msk             (0x1UL << RTC_ICSR_RSF_Pos)               /*!< 0x00000020 */
+#define RTC_ICSR_RSF                 RTC_ICSR_RSF_Msk
+#define RTC_ICSR_INITS_Pos           (4U)
+#define RTC_ICSR_INITS_Msk           (0x1UL << RTC_ICSR_INITS_Pos)             /*!< 0x00000010 */
+#define RTC_ICSR_INITS               RTC_ICSR_INITS_Msk
+#define RTC_ICSR_SHPF_Pos            (3U)
+#define RTC_ICSR_SHPF_Msk            (0x1UL << RTC_ICSR_SHPF_Pos)              /*!< 0x00000008 */
+#define RTC_ICSR_SHPF                RTC_ICSR_SHPF_Msk
+#define RTC_ICSR_WUTWF_Pos           (2U)
+#define RTC_ICSR_WUTWF_Msk           (0x1UL << RTC_ICSR_WUTWF_Pos)             /*!< 0x00000004 */
+#define RTC_ICSR_WUTWF               RTC_ICSR_WUTWF_Msk
+#define RTC_ICSR_ALRBWF_Pos          (1U)
+#define RTC_ICSR_ALRBWF_Msk          (0x1UL << RTC_ICSR_ALRBWF_Pos)            /*!< 0x00000002 */
+#define RTC_ICSR_ALRBWF              RTC_ICSR_ALRBWF_Msk
+#define RTC_ICSR_ALRAWF_Pos          (0U)
+#define RTC_ICSR_ALRAWF_Msk          (0x1UL << RTC_ICSR_ALRAWF_Pos)            /*!< 0x00000001 */
+#define RTC_ICSR_ALRAWF              RTC_ICSR_ALRAWF_Msk
 
 
 /********************  Bits definition for RTC_PRER register  *****************/
@@ -23948,7 +24236,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_CR_TAMPALRM_PU_Pos            (29U)
 #define RTC_CR_TAMPALRM_PU_Msk            (0x1U << RTC_CR_TAMPALRM_PU_Pos)     /*!< 0x20000000 */
 #define RTC_CR_TAMPALRM_PU                RTC_CR_TAMPALRM_PU_Msk
-
 #define RTC_CR_TAMPOE_Pos                 (26U)
 #define RTC_CR_TAMPOE_Msk                 (0x1U << RTC_CR_TAMPOE_Pos)          /*!< 0x04000000 */
 #define RTC_CR_TAMPOE                     RTC_CR_TAMPOE_Msk
@@ -23972,9 +24259,9 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_CR_COSEL_Pos                  (19U)
 #define RTC_CR_COSEL_Msk                  (0x1U << RTC_CR_COSEL_Pos)           /*!< 0x00080000 */
 #define RTC_CR_COSEL                      RTC_CR_COSEL_Msk
-#define RTC_CR_BCK_Pos                    (18U)
-#define RTC_CR_BCK_Msk                    (0x1U << RTC_CR_BCK_Pos)             /*!< 0x00040000 */
-#define RTC_CR_BCK                        RTC_CR_BCK_Msk
+#define RTC_CR_BKP_Pos                    (18U)
+#define RTC_CR_BKP_Msk                    (0x1U << RTC_CR_BKP_Pos)             /*!< 0x00040000 */
+#define RTC_CR_BKP                        RTC_CR_BKP_Msk
 #define RTC_CR_SUB1H_Pos                  (17U)
 #define RTC_CR_SUB1H_Msk                  (0x1U << RTC_CR_SUB1H_Pos)           /*!< 0x00020000 */
 #define RTC_CR_SUB1H                      RTC_CR_SUB1H_Msk
@@ -24025,12 +24312,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_CR_WUCKSEL_2                  (0x4U << RTC_CR_WUCKSEL_Pos)         /*!< 0x00000004 */
 
 /********************  Bits definition for RTC_SMCR register  *******************/
-#define RTC_SMCR_ERREN_Pos                (31U)
-#define RTC_SMCR_ERREN_Msk                (0x1U << RTC_SMCR_ERREN_Pos)         /*!< 0x80000000 */
-#define RTC_SMCR_ERREN                    RTC_SMCR_ERREN_Msk
-#define RTC_SMCR_ERRMODE_Pos              (30U)
-#define RTC_SMCR_ERRMODE_Msk              (0x1U << RTC_SMCR_ERRMODE_Pos)       /*!< 0x40000000 */
-#define RTC_SMCR_ERRMODE                  RTC_SMCR_ERRMODE_Msk
 #define RTC_SMCR_DECPROT_Pos              (15U)
 #define RTC_SMCR_DECPROT_Msk              (0x1U << RTC_SMCR_DECPROT_Pos)       /*!< 0x00008000 */
 #define RTC_SMCR_DECPROT                  RTC_SMCR_DECPROT_Msk
@@ -24332,9 +24613,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_ALRMBSSR_SS                   RTC_ALRMBSSR_SS_Msk
 
 /********************  Bits definition for RTC_SR register  *************/
-#define RTC_SR_SERRF_Pos                  (15U)
-#define RTC_SR_SERRF_Msk                  (0x1U << RTC_SR_SERRF_Pos)           /*!< 0x00008000 */
-#define RTC_SR_SERRF                      RTC_SR_SERRF_Msk
 #define RTC_SR_ITSF_Pos                   (5U)
 #define RTC_SR_ITSF_Msk                   (0x1U << RTC_SR_ITSF_Pos)            /*!< 0x00000020 */
 #define RTC_SR_ITSF                       RTC_SR_ITSF_Msk
@@ -24375,9 +24653,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_MISR_ALRAMF                   RTC_MISR_ALRAMF_Msk
 
 /********************  Bits definition for RTC_SMISR register  *************/
-#define RTC_SMISR_SERRMF_Pos              (15U)
-#define RTC_SMISR_SERRMF_Msk              (0x1U << RTC_SMISR_SERRMF_Pos)       /*!< 0x00008000 */
-#define RTC_SMISR_SERRMF                  RTC_SMISR_SERRMF_Msk
 #define RTC_SMISR_ITSMF_Pos               (5U)
 #define RTC_SMISR_ITSMF_Msk               (0x1U << RTC_SMISR_ITSMF_Pos)        /*!< 0x00000020 */
 #define RTC_SMISR_ITSMF                   RTC_SMISR_ITSMF_Msk
@@ -24398,9 +24673,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_SMISR_ALRAMF                  RTC_SMISR_ALRAMF_Msk
 
 /********************  Bits definition for RTC_SCR register  *************/
-#define RTC_SCR_CSERRF_Pos                (15U)
-#define RTC_SCR_CSERRF_Msk                (0x1U << RTC_SCR_CSERRF_Pos)         /*!< 0x00008000 */
-#define RTC_SCR_CSERRF                    RTC_SCR_CSERRF_Msk
 #define RTC_SCR_CITSF_Pos                 (5U)
 #define RTC_SCR_CITSF_Msk                 (0x1U << RTC_SCR_CITSF_Pos)          /*!< 0x00000020 */
 #define RTC_SCR_CITSF                     RTC_SCR_CITSF_Msk
@@ -24421,9 +24693,14 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define RTC_SCR_CALRAF                    RTC_SCR_CALRAF_Msk
 
 /********************  Bits definition for RTC_OR register  ****************/
-#define RTC_OR_OUT2_RMP_Pos               (0U)
-#define RTC_OR_OUT2_RMP_Msk               (0x1U << RTC_OR_OUT2_RMP_Pos)        /*!< 0x00000001 */
-#define RTC_OR_OUT2_RMP                   RTC_OR_OUT2_RMP_Msk
+#define RTC_CFGR_LSCOEN_Pos               (1U)
+#define RTC_CFGR_LSCOEN_Msk               (0x3U << RTC_CFGR_LSCOEN_Pos)        /*!< 0x00000006 */
+#define RTC_CFGR_LSCOEN                   RTC_CFGR_LSCOEN_Msk
+#define RTC_CFGR_LSCOEN_0                 (0x1U << RTC_CFGR_LSCOEN_Pos)        /*!< 0x00000002 */
+#define RTC_CFGR_LSCOEN_1                 (0x2U << RTC_CFGR_LSCOEN_Pos)        /*!< 0x00000004 */
+#define RTC_CFGR_OUT2_RMP_Pos             (0U)
+#define RTC_CFGR_OUT2_RMP_Msk             (0x1U << RTC_OR_OUT2_RMP_Pos)        /*!< 0x00000001 */
+#define RTC_CFGR_OUT2_RMP                 RTC_OR_OUT2_RMP_Msk
 
 /********************  Bits definition for RTC_HWCFGR register  *************/
 
@@ -24511,22 +24788,10 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 /*                           Tamper and Backup registers (TAMP)               */
 /*                                                                            */
 /******************************************************************************/
-#define TAMP_TAMPER1_SUPPORT
-#define TAMP_TAMPER2_SUPPORT
-#define TAMP_TAMPER3_SUPPORT
-
-#define TAMP_TAMPER8_SUPPORT
-#define TAMP_INT_TAMPER16_SUPPORT
-
-#define TAMP_BACKUP_SUPPORT
-#define TAMP_BACKUP32_SUPPORT
-#define TAMP_BACKUP128_SUPPORT
-
-#define TAMP_CPU2_SUPPORT
 
 /********************  Bits definition for TAMP_CR1 register  ***************/
 #define TAMP_CR1_TAMPE_Pos                  (0U)
-#define TAMP_CR1_TAMPE_Msk                  (0xFFU << TAMP_CR1_TAMPE_Pos)      /*!< 0x000000FF */
+#define TAMP_CR1_TAMPE_Msk                  (0x7U << TAMP_CR1_TAMPE_Pos)      /*!< 0x000000FF */
 #define TAMP_CR1_TAMPE                      TAMP_CR1_TAMPE_Msk
 #define TAMP_CR1_TAMP1E_Pos                 (0U)
 #define TAMP_CR1_TAMP1E_Msk                 (0x1U << TAMP_CR1_TAMP1E_Pos)      /*!< 0x00000001 */
@@ -24537,23 +24802,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_CR1_TAMP3E_Pos                 (2U)
 #define TAMP_CR1_TAMP3E_Msk                 (0x1U << TAMP_CR1_TAMP3E_Pos)      /*!< 0x00000004 */
 #define TAMP_CR1_TAMP3E                     TAMP_CR1_TAMP3E_Msk
-#define TAMP_CR1_TAMP4E_Pos                 (3U)
-#define TAMP_CR1_TAMP4E_Msk                 (0x1U << TAMP_CR1_TAMP4E_Pos)      /*!< 0x00000008 */
-#define TAMP_CR1_TAMP4E                     TAMP_CR1_TAMP4E_Msk
-#define TAMP_CR1_TAMP5E_Pos                 (4U)
-#define TAMP_CR1_TAMP5E_Msk                 (0x1U << TAMP_CR1_TAMP5E_Pos)      /*!< 0x00000010 */
-#define TAMP_CR1_TAMP5E                     TAMP_CR1_TAMP5E_Msk
-#define TAMP_CR1_TAMP6E_Pos                 (5U)
-#define TAMP_CR1_TAMP6E_Msk                 (0x1U << TAMP_CR1_TAMP6E_Pos)      /*!< 0x00000020 */
-#define TAMP_CR1_TAMP6E                     TAMP_CR1_TAMP6E_Msk
-#define TAMP_CR1_TAMP7E_Pos                 (6U)
-#define TAMP_CR1_TAMP7E_Msk                 (0x1U << TAMP_CR1_TAMP7E_Pos)      /*!< 0x00000040 */
-#define TAMP_CR1_TAMP7E                     TAMP_CR1_TAMP7E_Msk
-#define TAMP_CR1_TAMP8E_Pos                 (7U)
-#define TAMP_CR1_TAMP8E_Msk                 (0x1U << TAMP_CR1_TAMP8E_Pos)      /*!< 0x00000080 */
-#define TAMP_CR1_TAMP8E                     TAMP_CR1_TAMP8E_Msk
 #define TAMP_CR1_ITAMPE_Pos                 (16U)
-#define TAMP_CR1_ITAMPE_Msk                 (0xFFFFU << TAMP_CR1_ITAMPE_Pos)   /*!< 0xFFFF0000 */
+#define TAMP_CR1_ITAMPE_Msk                 (0x9FU << TAMP_CR1_ITAMPE_Pos)   /*!< 0xFFFF0000 */
 #define TAMP_CR1_ITAMPE                     TAMP_CR1_ITAMPE_Msk
 #define TAMP_CR1_ITAMP1E_Pos                (16U)
 #define TAMP_CR1_ITAMP1E_Msk                (0x1U << TAMP_CR1_ITAMP1E_Pos)     /*!< 0x00010000 */
@@ -24570,124 +24820,48 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_CR1_ITAMP5E_Pos                (20U)
 #define TAMP_CR1_ITAMP5E_Msk                (0x1U << TAMP_CR1_ITAMP5E_Pos)     /*!< 0x00100000 */
 #define TAMP_CR1_ITAMP5E                    TAMP_CR1_ITAMP5E_Msk
-#define TAMP_CR1_ITAMP6E_Pos                (21U)
-#define TAMP_CR1_ITAMP6E_Msk                (0x1U << TAMP_CR1_ITAMP6E_Pos)     /*!< 0x00200000 */
-#define TAMP_CR1_ITAMP6E                    TAMP_CR1_ITAMP6E_Msk
-#define TAMP_CR1_ITAMP7E_Pos                (22U)
-#define TAMP_CR1_ITAMP7E_Msk                (0x1U << TAMP_CR1_ITAMP7E_Pos)     /*!< 0x00400000 */
-#define TAMP_CR1_ITAMP7E                    TAMP_CR1_ITAMP7E_Msk
 #define TAMP_CR1_ITAMP8E_Pos                (23U)
 #define TAMP_CR1_ITAMP8E_Msk                (0x1U << TAMP_CR1_ITAMP8E_Pos)     /*!< 0x00800000 */
 #define TAMP_CR1_ITAMP8E                    TAMP_CR1_ITAMP8E_Msk
-#define TAMP_CR1_ITAMP9E_Pos                (24U)
-#define TAMP_CR1_ITAMP9E_Msk                (0x1U << TAMP_CR1_ITAMP9E_Pos)     /*!< 0x01000000 */
-#define TAMP_CR1_ITAMP9E                    TAMP_CR1_ITAMP9E_Msk
-#define TAMP_CR1_ITAMP10E_Pos               (25U)
-#define TAMP_CR1_ITAMP10E_Msk               (0x1U << TAMP_CR1_ITAMP10E_Pos)    /*!< 0x02000000 */
-#define TAMP_CR1_ITAMP10E                   TAMP_CR1_ITAMP10E_Msk
-#define TAMP_CR1_ITAMP11E_Pos               (26U)
-#define TAMP_CR1_ITAMP11E_Msk               (0x1U << TAMP_CR1_ITAMP11E_Pos)    /*!< 0x04000000 */
-#define TAMP_CR1_ITAMP11E                   TAMP_CR1_ITAMP11E_Msk
-#define TAMP_CR1_ITAMP12E_Pos               (23U)
-#define TAMP_CR1_ITAMP12E_Msk               (0x1U << TAMP_CR1_ITAMP12E_Pos)    /*!< 0x00800000 */
-#define TAMP_CR1_ITAMP12E                   TAMP_CR1_ITAMP12E_Msk
-#define TAMP_CR1_ITAMP13E_Pos               (28U)
-#define TAMP_CR1_ITAMP13E_Msk               (0x1U << TAMP_CR1_ITAMP13E_Pos)    /*!< 0x10000000 */
-#define TAMP_CR1_ITAMP13E                   TAMP_CR1_ITAMP13E_Msk
-#define TAMP_CR1_ITAMP14E_Pos               (29U)
-#define TAMP_CR1_ITAMP14E_Msk               (0x1U << TAMP_CR1_ITAMP14E_Pos)    /*!< 0x20000000 */
-#define TAMP_CR1_ITAMP14E                   TAMP_CR1_ITAMP14E_Msk
-#define TAMP_CR1_ITAMP15E_Pos               (30U)
-#define TAMP_CR1_ITAMP15E_Msk               (0x1U << TAMP_CR1_ITAMP15E_Pos)    /*!< 0x40000000 */
-#define TAMP_CR1_ITAMP15E                   TAMP_CR1_ITAMP15E_Msk
-#define TAMP_CR1_ITAMP16E_Pos               (31U)
-#define TAMP_CR1_ITAMP16E_Msk               (0x1U << TAMP_CR1_ITAMP16E_Pos)    /*!< 0x80000000 */
-#define TAMP_CR1_ITAMP16E                   TAMP_CR1_ITAMP16E_Msk
-
 
 
 /********************  Bits definition for TAMP_CR2 register  ***************/
-#define TAMP_CR2_TAMPNOER_Pos               (0U)
-#define TAMP_CR2_TAMPNOER_Msk               (0xFFU << TAMP_CR2_TAMPNOER_Pos)   /*!< 0x000000FF */
-#define TAMP_CR2_TAMPNOER                   TAMP_CR2_TAMPNOER_Msk
-#define TAMP_CR2_TAMP1NOER_Pos              (0U)
-#define TAMP_CR2_TAMP1NOER_Msk              (0x1U << TAMP_CR2_TAMP1NOER_Pos)   /*!< 0x00000001 */
-#define TAMP_CR2_TAMP1NOER                  TAMP_CR2_TAMP1NOER_Msk
-#define TAMP_CR2_TAMP2NOER_Pos              (1U)
-#define TAMP_CR2_TAMP2NOER_Msk              (0x1U << TAMP_CR2_TAMP2NOER_Pos)   /*!< 0x00000002 */
-#define TAMP_CR2_TAMP2NOER                  TAMP_CR2_TAMP2NOER_Msk
-#define TAMP_CR2_TAMP3NOER_Pos              (2U)
-#define TAMP_CR2_TAMP3NOER_Msk              (0x1U << TAMP_CR2_TAMP3NOER_Pos)   /*!< 0x00000004 */
-#define TAMP_CR2_TAMP3NOER                  TAMP_CR2_TAMP3NOER_Msk
-#define TAMP_CR2_TAMP4NOER_Pos              (3U)
-#define TAMP_CR2_TAMP4NOER_Msk              (0x1U << TAMP_CR2_TAMP4NOER_Pos)   /*!< 0x00000008 */
-#define TAMP_CR2_TAMP4NOER                  TAMP_CR2_TAMP4NOER_Msk
-#define TAMP_CR2_TAMP5NOER_Pos              (4U)
-#define TAMP_CR2_TAMP5NOER_Msk              (0x1U << TAMP_CR2_TAMP5NOER_Pos)   /*!< 0x00000010 */
-#define TAMP_CR2_TAMP5NOER                  TAMP_CR2_TAMP5NOER_Msk
-#define TAMP_CR2_TAMP6NOER_Pos              (5U)
-#define TAMP_CR2_TAMP6NOER_Msk              (0x1U << TAMP_CR2_TAMP6NOER_Pos)   /*!< 0x00000020 */
-#define TAMP_CR2_TAMP6NOER                  TAMP_CR2_TAMP6NOER_Msk
-#define TAMP_CR2_TAMP7NOER_Pos              (6U)
-#define TAMP_CR2_TAMP7NOER_Msk              (0x1U << TAMP_CR2_TAMP7NOER_Pos)   /*!< 0x00000040 */
-#define TAMP_CR2_TAMP7NOER                  TAMP_CR2_TAMP7NOER_Msk
-#define TAMP_CR2_TAMP8NOER_Pos              (7U)
-#define TAMP_CR2_TAMP8NOER_Msk              (0x1U << TAMP_CR2_TAMP8NOER_Pos)   /*!< 0x00000080 */
-#define TAMP_CR2_TAMP8NOER                  TAMP_CR2_TAMP8NOER_Msk
-#define TAMP_CR2_TAMPMF_Pos                 (16U)
-#define TAMP_CR2_TAMPMF_Msk                 (0xFFU << TAMP_CR2_TAMPMF_Pos)     /*!< 0x00FF0000 */
-#define TAMP_CR2_TAMPMF                     TAMP_CR2_TAMPMF_Msk
-#define TAMP_CR2_TAMP1MF_Pos                (16U)
-#define TAMP_CR2_TAMP1MF_Msk                (0x1U << TAMP_CR2_TAMP1MF_Pos)     /*!< 0x00010000 */
-#define TAMP_CR2_TAMP1MF                    TAMP_CR2_TAMP1MF_Msk
-#define TAMP_CR2_TAMP2MF_Pos                (17U)
-#define TAMP_CR2_TAMP2MF_Msk                (0x1U << TAMP_CR2_TAMP2MF_Pos)     /*!< 0x00020000 */
-#define TAMP_CR2_TAMP2MF                    TAMP_CR2_TAMP2MF_Msk
-#define TAMP_CR2_TAMP3MF_Pos                (18U)
-#define TAMP_CR2_TAMP3MF_Msk                (0x1U << TAMP_CR2_TAMP3MF_Pos)     /*!< 0x00040000 */
-#define TAMP_CR2_TAMP3MF                    TAMP_CR2_TAMP3MF_Msk
-#define TAMP_CR2_TAMP4MF_Pos                (19U)
-#define TAMP_CR2_TAMP4MF_Msk                (0x1U << TAMP_CR2_TAMP4MF_Pos)     /*!< 0x00080000 */
-#define TAMP_CR2_TAMP4MF                    TAMP_CR2_TAMP4MF_Msk
-#define TAMP_CR2_TAMP5MF_Pos                (20U)
-#define TAMP_CR2_TAMP5MF_Msk                (0x1U << TAMP_CR2_TAMP5MF_Pos)     /*!< 0x00100000 */
-#define TAMP_CR2_TAMP5MF                    TAMP_CR2_TAMP5MF_Msk
-#define TAMP_CR2_TAMP6MF_Pos                (21U)
-#define TAMP_CR2_TAMP6MF_Msk                (0x1U << TAMP_CR2_TAMP6MF_Pos)     /*!< 0x00200000 */
-#define TAMP_CR2_TAMP6MF                    TAMP_CR2_TAMP6MF_Msk
-#define TAMP_CR2_TAMP7MF_Pos                (22U)
-#define TAMP_CR2_TAMP7MF_Msk                (0x1U << TAMP_CR2_TAMP7MF_Pos)     /*!< 0x00400000 */
-#define TAMP_CR2_TAMP7MF                    TAMP_CR2_TAMP7MF_Msk
-#define TAMP_CR2_TAMP8MF_Pos                (23U)
-#define TAMP_CR2_TAMP8MF_Msk                (0x1U << TAMP_CR2_TAMP8MF_Pos)     /*!< 0x00800000 */
-#define TAMP_CR2_TAMP8MF                    TAMP_CR2_TAMP8MF_Msk
-#define TAMP_CR2_TAMPTRG_Pos                (24U)
-#define TAMP_CR2_TAMPTRG_Msk                (0xFFU << TAMP_CR2_TAMPTRG_Pos)    /*!< 0xFF000000 */
-#define TAMP_CR2_TAMPTRG                    TAMP_CR2_TAMPTRG_Msk
-#define TAMP_CR2_TAMP1TRG_Pos               (24U)
-#define TAMP_CR2_TAMP1TRG_Msk               (0x1U << TAMP_CR2_TAMP1TRG_Pos)    /*!< 0x01000000 */
-#define TAMP_CR2_TAMP1TRG                   TAMP_CR2_TAMP1TRG_Msk
-#define TAMP_CR2_TAMP2TRG_Pos               (25U)
-#define TAMP_CR2_TAMP2TRG_Msk               (0x1U << TAMP_CR2_TAMP2TRG_Pos)    /*!< 0x02000000 */
-#define TAMP_CR2_TAMP2TRG                   TAMP_CR2_TAMP2TRG_Msk
-#define TAMP_CR2_TAMP3TRG_Pos               (26U)
-#define TAMP_CR2_TAMP3TRG_Msk               (0x1U << TAMP_CR2_TAMP3TRG_Pos)    /*!< 0x04000000 */
-#define TAMP_CR2_TAMP3TRG                   TAMP_CR2_TAMP3TRG_Msk
-#define TAMP_CR2_TAMP4TRG_Pos               (27U)
-#define TAMP_CR2_TAMP4TRG_Msk               (0x1U << TAMP_CR2_TAMP4TRG_Pos)    /*!< 0x08000000 */
-#define TAMP_CR2_TAMP4TRG                   TAMP_CR2_TAMP4TRG_Msk
-#define TAMP_CR2_TAMP5TRG_Pos               (28U)
-#define TAMP_CR2_TAMP5TRG_Msk               (0x1U << TAMP_CR2_TAMP5TRG_Pos)    /*!< 0x10000000 */
-#define TAMP_CR2_TAMP5TRG                   TAMP_CR2_TAMP5TRG_Msk
-#define TAMP_CR2_TAMP6TRG_Pos               (29U)
-#define TAMP_CR2_TAMP6TRG_Msk               (0x1U << TAMP_CR2_TAMP6TRG_Pos)    /*!< 0x20000000 */
-#define TAMP_CR2_TAMP6TRG                   TAMP_CR2_TAMP6TRG_Msk
-#define TAMP_CR2_TAMP7TRG_Pos               (30U)
-#define TAMP_CR2_TAMP7TRG_Msk               (0x1U << TAMP_CR2_TAMP7TRG_Pos)    /*!< 0x40000000 */
-#define TAMP_CR2_TAMP7TRG                   TAMP_CR2_TAMP7TRG_Msk
-#define TAMP_CR2_TAMP8TRG_Pos               (31U)
-#define TAMP_CR2_TAMP8TRG_Msk               (0x1U << TAMP_CR2_TAMP8TRG_Pos)    /*!< 0x80000000 */
-#define TAMP_CR2_TAMP8TRG                   TAMP_CR2_TAMP8TRG_Msk
+#define TAMP_CR2_TAMPNOERASE_Pos     (0U)
+#define TAMP_CR2_TAMPNOERase_Msk     (0x7U << TAMP_CR2_TAMPNOERASE_Pos)   /*!< 0x000000FF */
+#define TAMP_CR2_TAMPNOER            TAMP_CR2_TAMPNOERase_Msk
+#define TAMP_CR2_TAMP1NOERASE_Pos    (0U)
+#define TAMP_CR2_TAMP1NOERASE_Msk    (0x1UL << TAMP_CR2_TAMP1NOERASE_Pos)      /*!< 0x00000001 */
+#define TAMP_CR2_TAMP1NOERASE        TAMP_CR2_TAMP1NOERASE_Msk
+#define TAMP_CR2_TAMP2NOERASE_Pos    (1U)
+#define TAMP_CR2_TAMP2NOERASE_Msk    (0x1UL << TAMP_CR2_TAMP2NOERASE_Pos)      /*!< 0x00000002 */
+#define TAMP_CR2_TAMP2NOERASE        TAMP_CR2_TAMP2NOERASE_Msk
+#define TAMP_CR2_TAMP3NOERASE_Pos    (2U)
+#define TAMP_CR2_TAMP3NOERASE_Msk    (0x1UL << TAMP_CR2_TAMP3NOERASE_Pos)      /*!< 0x00000004 */
+#define TAMP_CR2_TAMP3NOERASE        TAMP_CR2_TAMP3NOERASE_Msk
+#define TAMP_CR2_TAMPMSK_Pos         (16U)
+#define TAMP_CR2_TAMPMSK_Msk         (0x7U << TAMP_CR2_TAMPMSK_Pos)     /*!< 0x00FF0000 */
+#define TAMP_CR2_TAMPMSK             TAMP_CR2_TAMPMSK_Msk
+#define TAMP_CR2_TAMP1MSK_Pos        (16U)
+#define TAMP_CR2_TAMP1MSK_Msk        (0x1UL << TAMP_CR2_TAMP1MSK_Pos)          /*!< 0x00010000 */
+#define TAMP_CR2_TAMP1MSK            TAMP_CR2_TAMP1MSK_Msk
+#define TAMP_CR2_TAMP2MSK_Pos        (17U)
+#define TAMP_CR2_TAMP2MSK_Msk        (0x1UL << TAMP_CR2_TAMP2MSK_Pos)          /*!< 0x00020000 */
+#define TAMP_CR2_TAMP2MSK            TAMP_CR2_TAMP2MSK_Msk
+#define TAMP_CR2_TAMP3MSK_Pos        (18U)
+#define TAMP_CR2_TAMP3MSK_Msk        (0x1UL << TAMP_CR2_TAMP3MSK_Pos)          /*!< 0x00040000 */
+#define TAMP_CR2_TAMP3MSK            TAMP_CR2_TAMP3MSK_Msk
+#define TAMP_CR2_TAMPTRG_Pos          (24U)
+#define TAMP_CR2_TAMPTRG_Msk          (0xFFU << TAMP_CR2_TAMPTRG_Pos)    /*!< 0xFF000000 */
+#define TAMP_CR2_TAMPTRG              TAMP_CR2_TAMPTRG_Msk
+#define TAMP_CR2_TAMP1TRG_Pos         (24U)
+#define TAMP_CR2_TAMP1TRG_Msk         (0x1U << TAMP_CR2_TAMP1TRG_Pos)    /*!< 0x01000000 */
+#define TAMP_CR2_TAMP1TRG             TAMP_CR2_TAMP1TRG_Msk
+#define TAMP_CR2_TAMP2TRG_Pos         (25U)
+#define TAMP_CR2_TAMP2TRG_Msk         (0x1U << TAMP_CR2_TAMP2TRG_Pos)    /*!< 0x02000000 */
+#define TAMP_CR2_TAMP2TRG             TAMP_CR2_TAMP2TRG_Msk
+#define TAMP_CR2_TAMP3TRG_Pos         (26U)
+#define TAMP_CR2_TAMP3TRG_Msk         (0x1U << TAMP_CR2_TAMP3TRG_Pos)    /*!< 0x04000000 */
+#define TAMP_CR2_TAMP3TRG             TAMP_CR2_TAMP3TRG_Msk
 
 
 /********************  Bits definition for TAMP_FLTCR register  ***************/
@@ -24711,72 +24885,72 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_FLTCR_TAMPPUDIS_Msk            (0x1U << TAMP_FLTCR_TAMPPUDIS_Pos) /*!< 0x00000080 */
 #define TAMP_FLTCR_TAMPPUDIS                TAMP_FLTCR_TAMPPUDIS_Msk
 
-/********************  Bits definition for TAMP_ATCR register  ***************/
-#define TAMP_ATCR_TAMPAE_Pos                (0U)
-#define TAMP_ATCR_TAMPAE_Msk                (0xFFU << TAMP_ATCR_TAMPAE_Pos)    /*!< 0x000000FF */
-#define TAMP_ATCR_TAMPAE                    TAMP_ATCR_TAMPAE_Msk
-#define TAMP_ATCR_TAMP1AE_Pos               (0U)
-#define TAMP_ATCR_TAMP1AE_Msk               (0x1U << TAMP_ATCR_TAMP1AE_Pos)    /*!< 0x00000001 */
-#define TAMP_ATCR_TAMP1AE                   TAMP_ATCR_TAMP1AE_Msk
-#define TAMP_ATCR_TAMP2AE_Pos               (1U)
-#define TAMP_ATCR_TAMP2AE_Msk               (0x1U << TAMP_ATCR_TAMP2AE_Pos)    /*!< 0x00000002 */
-#define TAMP_ATCR_TAMP2AE                   TAMP_ATCR_TAMP2AE_Msk
-#define TAMP_ATCR_TAMP3AE_Pos               (2U)
-#define TAMP_ATCR_TAMP3AE_Msk               (0x1U << TAMP_ATCR_TAMP3AE_Pos)    /*!< 0x00000004 */
-#define TAMP_ATCR_TAMP3AE                   TAMP_ATCR_TAMP3AE_Msk
-#define TAMP_ATCR_TAMP4AE_Pos               (3U)
-#define TAMP_ATCR_TAMP4AE_Msk               (0x1U << TAMP_ATCR_TAMP4AE_Pos)    /*!< 0x00000008 */
-#define TAMP_ATCR_TAMP4AE                   TAMP_ATCR_TAMP4AE_Msk
-#define TAMP_ATCR_TAMP5AE_Pos               (4U)
-#define TAMP_ATCR_TAMP5AE_Msk               (0x1U << TAMP_ATCR_TAMP5AE_Pos)    /*!< 0x00000010 */
-#define TAMP_ATCR_TAMP5AE                   TAMP_ATCR_TAMP5AE_Msk
-#define TAMP_ATCR_TAMP6AE_Pos               (5U)
-#define TAMP_ATCR_TAMP6AE_Msk               (0x1U << TAMP_ATCR_TAMP6AE_Pos)    /*!< 0x00000020 */
-#define TAMP_ATCR_TAMP6AE                   TAMP_ATCR_TAMP6AE_Msk
-#define TAMP_ATCR_TAMP7AE_Pos               (6U)
-#define TAMP_ATCR_TAMP7AE_Msk               (0x1U << TAMP_ATCR_TAMP7AE_Pos)    /*!< 0x00000040 */
-#define TAMP_ATCR_TAMP7AE                   TAMP_ATCR_TAMP7AE_Msk
-#define TAMP_ATCR_TAMP8AE_Pos               (7U)
-#define TAMP_ATCR_TAMP8AE_Msk               (0x1U << TAMP_ATCR_TAMP8AE_Pos)    /*!< 0x00000080 */
-#define TAMP_ATCR_TAMP8AE                   TAMP_ATCR_TAMP8AE_Msk
-#define TAMP_ATCR_ATOSEL1_Pos               (8U)
-#define TAMP_ATCR_ATOSEL1_Msk               (0x3U << TAMP_ATCR_ATOSEL1_Pos)    /*!< 0x00000300 */
-#define TAMP_ATCR_ATOSEL1                   TAMP_ATCR_ATOSEL1_Msk
-#define TAMP_ATCR_ATOSEL1_0                 (0x1U << TAMP_ATCR_ATOSEL1_Pos)    /*!< 0x00000100 */
-#define TAMP_ATCR_ATOSEL1_1                 (0x2U << TAMP_ATCR_ATOSEL1_Pos)    /*!< 0x00000200 */
-#define TAMP_ATCR_ATOSEL2_Pos               (10U)
-#define TAMP_ATCR_ATOSEL2_Msk               (0x3U << TAMP_ATCR_ATOSEL2_Pos)    /*!< 0x00000C00 */
-#define TAMP_ATCR_ATOSEL2                   TAMP_ATCR_ATOSEL2_Msk
-#define TAMP_ATCR_ATOSEL2_0                 (0x1U << TAMP_ATCR_ATOSEL2_Pos)    /*!< 0x00000400 */
-#define TAMP_ATCR_ATOSEL2_1                 (0x2U << TAMP_ATCR_ATOSEL2_Pos)    /*!< 0x00000800 */
-#define TAMP_ATCR_ATOSEL3_Pos               (12U)
-#define TAMP_ATCR_ATOSEL3_Msk               (0x3U << TAMP_ATCR_ATOSEL3_Pos)    /*!< 0x00003000 */
-#define TAMP_ATCR_ATOSEL3                   TAMP_ATCR_ATOSEL3_Msk
-#define TAMP_ATCR_ATOSEL3_0                 (0x1U << TAMP_ATCR_ATOSEL3_Pos)    /*!< 0x00001000 */
-#define TAMP_ATCR_ATOSEL3_1                 (0x2U << TAMP_ATCR_ATOSEL3_Pos)    /*!< 0x00002000 */
-#define TAMP_ATCR_ATOSEL4_Pos               (14U)
-#define TAMP_ATCR_ATOSEL4_Msk               (0x3U << TAMP_ATCR_ATOSEL4_Pos)    /*!< 0x0000C000 */
-#define TAMP_ATCR_ATOSEL4                   TAMP_ATCR_ATOSEL4_Msk
-#define TAMP_ATCR_ATOSEL4_0                 (0x1U << TAMP_ATCR_ATOSEL4_Pos)    /*!< 0x00004000 */
-#define TAMP_ATCR_ATOSEL4_1                 (0x2U << TAMP_ATCR_ATOSEL4_Pos)    /*!< 0x00008000 */
-#define TAMP_ATCR_ATCKSEL_Pos               (16U)
-#define TAMP_ATCR_ATCKSEL_Msk               (0x7U << TAMP_ATCR_ATCKSEL_Pos)    /*!< 0x00070000 */
-#define TAMP_ATCR_ATCKSEL                   TAMP_ATCR_ATCKSEL_Msk
-#define TAMP_ATCR_ATCKSEL_0                 (0x1U << TAMP_ATCR_ATCKSEL_Pos)    /*!< 0x00010000 */
-#define TAMP_ATCR_ATCKSEL_1                 (0x2U << TAMP_ATCR_ATCKSEL_Pos)    /*!< 0x00020000 */
-#define TAMP_ATCR_ATCKSEL_2                 (0x4U << TAMP_ATCR_ATCKSEL_Pos)    /*!< 0x00040000 */
-#define TAMP_ATCR_ATPER_Pos                 (24U)
-#define TAMP_ATCR_ATPER_Msk                 (0x7U << TAMP_ATCR_ATPER_Pos)      /*!< 0x07000000 */
-#define TAMP_ATCR_ATPER                     TAMP_ATCR_ATPER_Msk
-#define TAMP_ATCR_ATPER_0                   (0x1U << TAMP_ATCR_ATPER_Pos)      /*!< 0x01000000 */
-#define TAMP_ATCR_ATPER_1                   (0x2U << TAMP_ATCR_ATPER_Pos)      /*!< 0x02000000 */
-#define TAMP_ATCR_ATPER_2                   (0x4U << TAMP_ATCR_ATPER_Pos)      /*!< 0x04000000 */
-#define TAMP_ATCR_ATOSHARE_Pos              (30U)
-#define TAMP_ATCR_ATOSHARE_Msk              (0x1U << TAMP_ATCR_ATOSHARE_Pos)   /*!< 0x40000000 */
-#define TAMP_ATCR_ATOSHARE                  TAMP_ATCR_ATOSHARE_Msk
-#define TAMP_ATCR_FLTEN_Pos                 (31U)
-#define TAMP_ATCR_FLTEN_Msk                 (0x1U << TAMP_ATCR_FLTEN_Pos)      /*!< 0x80000000 */
-#define TAMP_ATCR_FLTEN                     TAMP_ATCR_FLTEN_Msk
+/********************  Bits definition for TAMP_ATCR1 register  ***************/
+#define TAMP_ATCR1_TAMPAM_Pos        (0U)
+#define TAMP_ATCR1_TAMPAM_Msk        (0xFFU << TAMP_ATCR1_TAMPAM_Pos)    /*!< 0x000000FF */
+#define TAMP_ATCR1_TAMPAM            TAMP_ATCR1_TAMPAM_Msk
+#define TAMP_ATCR1_TAMP1AM_Pos       (0U)
+#define TAMP_ATCR1_TAMP1AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP1AM_Pos)          /*!< 0x00000001 */
+#define TAMP_ATCR1_TAMP1AM           TAMP_ATCR1_TAMP1AM_Msk
+#define TAMP_ATCR1_TAMP2AM_Pos       (1U)
+#define TAMP_ATCR1_TAMP2AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP2AM_Pos)          /*!< 0x00000002 */
+#define TAMP_ATCR1_TAMP2AM           TAMP_ATCR1_TAMP2AM_Msk
+#define TAMP_ATCR1_TAMP3AM_Pos       (2U)
+#define TAMP_ATCR1_TAMP3AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP3AM_Pos)          /*!< 0x00000004 */
+#define TAMP_ATCR1_TAMP3AM           TAMP_ATCR1_TAMP3AM_Msk
+#define TAMP_ATCR1_TAMP4AM_Pos       (3U)
+#define TAMP_ATCR1_TAMP4AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP4AM_Pos)          /*!< 0x00000008 */
+#define TAMP_ATCR1_TAMP4AM           TAMP_ATCR1_TAMP4AM_Msk
+#define TAMP_ATCR1_TAMP5AM_Pos       (4U)
+#define TAMP_ATCR1_TAMP5AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP5AM_Pos)          /*!< 0x00000010 */
+#define TAMP_ATCR1_TAMP5AM           TAMP_ATCR1_TAMP5AM_Msk
+#define TAMP_ATCR1_TAMP6AM_Pos       (6U)
+#define TAMP_ATCR1_TAMP6AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP6AM_Pos)          /*!< 0x00000020 */
+#define TAMP_ATCR1_TAMP6AM           TAMP_ATCR1_TAMP6AM_Msk
+#define TAMP_ATCR1_TAMP7AM_Pos       (6U)
+#define TAMP_ATCR1_TAMP7AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP7AM_Pos)          /*!< 0x00000040 */
+#define TAMP_ATCR1_TAMP7AM           TAMP_ATCR1_TAMP7AM_Msk
+#define TAMP_ATCR1_TAMP8AM_Pos       (7U)
+#define TAMP_ATCR1_TAMP8AM_Msk       (0x1UL <<TAMP_ATCR1_TAMP8AM_Pos)          /*!< 0x00000080 */
+#define TAMP_ATCR1_TAMP8AM           TAMP_ATCR1_TAMP8AM_Msk
+#define TAMP_ATCR1_ATOSEL1_Pos       (8U)
+#define TAMP_ATCR1_ATOSEL1_Msk       (0x3UL <<TAMP_ATCR1_ATOSEL1_Pos)          /*!< 0x00000300 */
+#define TAMP_ATCR1_ATOSEL1            TAMP_ATCR1_ATOSEL1_Msk
+#define TAMP_ATCR1_ATOSEL1_0         (0x1UL << TAMP_ATCR1_ATOSEL1_Pos)         /*!< 0x00000100 */
+#define TAMP_ATCR1_ATOSEL1_1         (0x2UL << TAMP_ATCR1_ATOSEL1_Pos)         /*!< 0x00000200 */
+#define TAMP_ATCR1_ATOSEL2_Pos       (10U)
+#define TAMP_ATCR1_ATOSEL2_Msk       (0x3UL <<TAMP_ATCR1_ATOSEL2_Pos)          /*!< 0x00000C00 */
+#define TAMP_ATCR1_ATOSEL2            TAMP_ATCR1_ATOSEL2_Msk
+#define TAMP_ATCR1_ATOSEL2_0         (0x1UL << TAMP_ATCR1_ATOSEL2_Pos)         /*!< 0x00000400 */
+#define TAMP_ATCR1_ATOSEL2_1         (0x2UL << TAMP_ATCR1_ATOSEL2_Pos)         /*!< 0x00000800 */
+#define TAMP_ATCR1_ATOSEL3_Pos       (12U)
+#define TAMP_ATCR1_ATOSEL3_Msk       (0x3UL <<TAMP_ATCR1_ATOSEL3_Pos)          /*!< 0x00003000 */
+#define TAMP_ATCR1_ATOSEL3            TAMP_ATCR1_ATOSEL3_Msk
+#define TAMP_ATCR1_ATOSEL3_0         (0x1UL << TAMP_ATCR1_ATOSEL3_Pos)         /*!< 0x00001000 */
+#define TAMP_ATCR1_ATOSEL3_1         (0x2UL << TAMP_ATCR1_ATOSEL3_Pos)         /*!< 0x00002000 */
+#define TAMP_ATCR1_ATOSEL4_Pos       (14U)
+#define TAMP_ATCR1_ATOSEL4_Msk       (0x3UL <<TAMP_ATCR1_ATOSEL4_Pos)          /*!< 0x0000C000 */
+#define TAMP_ATCR1_ATOSEL4            TAMP_ATCR1_ATOSEL4_Msk
+#define TAMP_ATCR1_ATOSEL4_0         (0x1UL << TAMP_ATCR1_ATOSEL4_Pos)         /*!< 0x00004000 */
+#define TAMP_ATCR1_ATOSEL4_1         (0x2UL << TAMP_ATCR1_ATOSEL4_Pos)         /*!< 0x00008000 */
+#define TAMP_ATCR1_ATCKSEL_Pos       (16U)
+#define TAMP_ATCR1_ATCKSEL_Msk       (0x7UL <<TAMP_ATCR1_ATCKSEL_Pos)          /*!< 0x00070000 */
+#define TAMP_ATCR1_ATCKSEL            TAMP_ATCR1_ATCKSEL_Msk
+#define TAMP_ATCR1_ATCKSEL_0         (0x1UL << TAMP_ATCR1_ATCKSEL_Pos)         /*!< 0x00010000 */
+#define TAMP_ATCR1_ATCKSEL_1         (0x2UL << TAMP_ATCR1_ATCKSEL_Pos)         /*!< 0x00020000 */
+#define TAMP_ATCR1_ATCKSEL_2         (0x4UL << TAMP_ATCR1_ATCKSEL_Pos)         /*!< 0x00040000 */
+#define TAMP_ATCR1_ATPER_Pos         (24U)
+#define TAMP_ATCR1_ATPER_Msk         (0x7UL <<TAMP_ATCR1_ATPER_Pos)            /*!< 0x07000000 */
+#define TAMP_ATCR1_ATPER              TAMP_ATCR1_ATPER_Msk
+#define TAMP_ATCR1_ATPER_0           (0x1UL << TAMP_ATCR1_ATPER_Pos)           /*!< 0x01000000 */
+#define TAMP_ATCR1_ATPER_1           (0x2UL << TAMP_ATCR1_ATPER_Pos)           /*!< 0x02000000 */
+#define TAMP_ATCR1_ATPER_2           (0x4UL << TAMP_ATCR1_ATPER_Pos)           /*!< 0x04000000 */
+#define TAMP_ATCR1_ATOSHARE_Pos      (30U)
+#define TAMP_ATCR1_ATOSHARE_Msk      (0x1UL <<TAMP_ATCR1_ATOSHARE_Pos)         /*!< 0x40000000 */
+#define TAMP_ATCR1_ATOSHARE          TAMP_ATCR1_ATOSHARE_Msk
+#define TAMP_ATCR1_FLTEN_Pos         (31U)
+#define TAMP_ATCR1_FLTEN_Msk         (0x1UL <<TAMP_ATCR1_FLTEN_Pos)            /*!< 0x80000000 */
+#define TAMP_ATCR1_FLTEN             TAMP_ATCR1_FLTEN_Msk
 
 /********************  Bits definition for TAMP_ATSEEDR register  ***************/
 #define TAMP_ATSEEDR_SEED_Pos               (0U)
@@ -24814,11 +24988,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SMCR_BKPRWDPROT_5              (0x20U << TAMP_SMCR_BKPRWDPROT_Pos) /*!< 0x00000020 */
 #define TAMP_SMCR_BKPRWDPROT_6              (0x40U << TAMP_SMCR_BKPRWDPROT_Pos) /*!< 0x00000040 */
 #define TAMP_SMCR_BKPRWDPROT_7              (0x80U << TAMP_SMCR_BKPRWDPROT_Pos) /*!< 0x00000080 */
-#define TAMP_SMCR_IAIE_Pos                  (14U)
-#define TAMP_SMCR_IAIE_Msk                  (0x3U << TAMP_SMCR_IAIE_Pos)       /*!< 0x0000C000 */
-#define TAMP_SMCR_IAIE                      TAMP_SMCR_IAIE_Msk
-#define TAMP_SMCR_IAIE_0                    (0x1U << TAMP_SMCR_IAIE_Pos)       /*!< 0x00004000 */
-#define TAMP_SMCR_IAIE_1                    (0x2U << TAMP_SMCR_IAIE_Pos)       /*!< 0x00008000 */
 #define TAMP_SMCR_BKPWDPROT_Pos             (16U)
 #define TAMP_SMCR_BKPWDPROT_Msk             (0xFFU << TAMP_SMCR_BKPWDPROT_Pos) /*!< 0x00FF0000 */
 #define TAMP_SMCR_BKPWDPROT                 TAMP_SMCR_BKPWDPROT_Msk
@@ -24836,7 +25005,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 
 /********************  Bits definition for TAMP_IER register  ***************/
 #define TAMP_IER_TAMPIE_Pos                 (0U)
-#define TAMP_IER_TAMPIE_Msk                 (0xFFU << TAMP_IER_TAMPIE_Pos)     /*!< 0x000000FF */
+#define TAMP_IER_TAMPIE_Msk                 (0x7U << TAMP_IER_TAMPIE_Pos)     /*!< 0x000000FF */
 #define TAMP_IER_TAMPIE                     TAMP_IER_TAMPIE_Msk
 #define TAMP_IER_TAMP1IE_Pos                (0U)
 #define TAMP_IER_TAMP1IE_Msk                (0x1U << TAMP_IER_TAMP1IE_Pos)     /*!< 0x00000001 */
@@ -24847,23 +25016,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_IER_TAMP3IE_Pos                (2U)
 #define TAMP_IER_TAMP3IE_Msk                (0x1U << TAMP_IER_TAMP3IE_Pos)     /*!< 0x00000004 */
 #define TAMP_IER_TAMP3IE                    TAMP_IER_TAMP3IE_Msk
-#define TAMP_IER_TAMP4IE_Pos                (3U)
-#define TAMP_IER_TAMP4IE_Msk                (0x1U << TAMP_IER_TAMP4IE_Pos)     /*!< 0x00000008 */
-#define TAMP_IER_TAMP4IE                    TAMP_IER_TAMP4IE_Msk
-#define TAMP_IER_TAMP5IE_Pos                (4U)
-#define TAMP_IER_TAMP5IE_Msk                (0x1U << TAMP_IER_TAMP5IE_Pos)     /*!< 0x00000010 */
-#define TAMP_IER_TAMP5IE                    TAMP_IER_TAMP5IE_Msk
-#define TAMP_IER_TAMP6IE_Pos                (5U)
-#define TAMP_IER_TAMP6IE_Msk                (0x1U << TAMP_IER_TAMP6IE_Pos)     /*!< 0x00000020 */
-#define TAMP_IER_TAMP6IE                    TAMP_IER_TAMP6IE_Msk
-#define TAMP_IER_TAMP7IE_Pos                (6U)
-#define TAMP_IER_TAMP7IE_Msk                (0x1U << TAMP_IER_TAMP7IE_Pos)     /*!< 0x00000040 */
-#define TAMP_IER_TAMP7IE                    TAMP_IER_TAMP7IE_Msk
-#define TAMP_IER_TAMP8IE_Pos                (7U)
-#define TAMP_IER_TAMP8IE_Msk                (0x1U << TAMP_IER_TAMP8IE_Pos)     /*!< 0x00000080 */
-#define TAMP_IER_TAMP8IE                    TAMP_IER_TAMP8IE_Msk
 #define TAMP_IER_ITAMPIE_Pos                (16U)
-#define TAMP_IER_ITAMPIE_Msk                (0xFFFFU << TAMP_IER_ITAMPIE_Pos)  /*!< 0xFFFF0000 */
+#define TAMP_IER_ITAMPIE_Msk                (0x9FU << TAMP_IER_ITAMPIE_Pos)  /*!< 0xFFFF0000 */
 #define TAMP_IER_ITAMPIE                    TAMP_IER_ITAMPIE_Msk
 #define TAMP_IER_ITAMP1IE_Pos               (16U)
 #define TAMP_IER_ITAMP1IE_Msk               (0x1U << TAMP_IER_ITAMP1IE_Pos)    /*!< 0x00010000 */
@@ -24880,43 +25034,14 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_IER_ITAMP5IE_Pos               (20U)
 #define TAMP_IER_ITAMP5IE_Msk               (0x1U << TAMP_IER_ITAMP5IE_Pos)    /*!< 0x00100000 */
 #define TAMP_IER_ITAMP5IE                   TAMP_IER_ITAMP5IE_Msk
-#define TAMP_IER_ITAMP6IE_Pos               (21U)
-#define TAMP_IER_ITAMP6IE_Msk               (0x1U << TAMP_IER_ITAMP6IE_Pos)    /*!< 0x00200000 */
-#define TAMP_IER_ITAMP6IE                   TAMP_IER_ITAMP6IE_Msk
-#define TAMP_IER_ITAMP7IE_Pos               (22U)
-#define TAMP_IER_ITAMP7IE_Msk               (0x1U << TAMP_IER_ITAMP7IE_Pos)    /*!< 0x00400000 */
-#define TAMP_IER_ITAMP7IE                   TAMP_IER_ITAMP7IE_Msk
 #define TAMP_IER_ITAMP8IE_Pos               (23U)
 #define TAMP_IER_ITAMP8IE_Msk               (0x1U << TAMP_IER_ITAMP8IE_Pos)    /*!< 0x00800000 */
 #define TAMP_IER_ITAMP8IE                   TAMP_IER_ITAMP8IE_Msk
-#define TAMP_IER_ITAMP9IE_Pos               (24U)
-#define TAMP_IER_ITAMP9IE_Msk               (0x1U << TAMP_IER_ITAMP9IE_Pos)    /*!< 0x01000000 */
-#define TAMP_IER_ITAMP9IE                   TAMP_IER_ITAMP9IE_Msk
-#define TAMP_IER_ITAMP10IE_Pos              (25U)
-#define TAMP_IER_ITAMP10IE_Msk              (0x1U << TAMP_IER_ITAMP10IE_Pos)   /*!< 0x02000000 */
-#define TAMP_IER_ITAMP10IE                  TAMP_IER_ITAMP10IE_Msk
-#define TAMP_IER_ITAMP11IE_Pos              (26U)
-#define TAMP_IER_ITAMP11IE_Msk              (0x1U << TAMP_IER_ITAMP11IE_Pos)   /*!< 0x04000000 */
-#define TAMP_IER_ITAMP11IE                  TAMP_IER_ITAMP11IE_Msk
-#define TAMP_IER_ITAMP12IE_Pos              (27U)
-#define TAMP_IER_ITAMP12IE_Msk              (0x1U << TAMP_IER_ITAMP12IE_Pos)   /*!< 0x08000000 */
-#define TAMP_IER_ITAMP12IE                  TAMP_IER_ITAMP12IE_Msk
-#define TAMP_IER_ITAMP13IE_Pos              (28U)
-#define TAMP_IER_ITAMP13IE_Msk              (0x1U << TAMP_IER_ITAMP13IE_Pos)   /*!< 0x10000000 */
-#define TAMP_IER_ITAMP13IE                  TAMP_IER_ITAMP13IE_Msk
-#define TAMP_IER_ITAMP14IE_Pos              (29U)
-#define TAMP_IER_ITAMP14IE_Msk              (0x1U << TAMP_IER_ITAMP14IE_Pos)   /*!< 0x20000000 */
-#define TAMP_IER_ITAMP14IE                  TAMP_IER_ITAMP14IE_Msk
-#define TAMP_IER_ITAMP15IE_Pos              (30U)
-#define TAMP_IER_ITAMP15IE_Msk              (0x1U << TAMP_IER_ITAMP15IE_Pos)   /*!< 0x40000000 */
-#define TAMP_IER_ITAMP15IE                  TAMP_IER_ITAMP15IE_Msk
-#define TAMP_IER_ITAMP16IE_Pos              (31U)
-#define TAMP_IER_ITAMP16IE_Msk              (0x1U << TAMP_IER_ITAMP16IE_Pos)   /*!< 0x80000000 */
-#define TAMP_IER_ITAMP16IE                  TAMP_IER_ITAMP16IE_Msk
+
 
 /********************  Bits definition for TAMP_SR register  ***************/
 #define TAMP_SR_TAMPF_Pos                   (0U)
-#define TAMP_SR_TAMPF_Msk                   (0xFFU << TAMP_SR_TAMPF_Pos)       /*!< 0x000000FF */
+#define TAMP_SR_TAMPF_Msk                   (0x7U << TAMP_SR_TAMPF_Pos)       /*!< 0x000000FF */
 #define TAMP_SR_TAMPF                       TAMP_SR_TAMPF_Msk
 #define TAMP_SR_TAMP1F_Pos                  (0U)
 #define TAMP_SR_TAMP1F_Msk                  (0x1U << TAMP_SR_TAMP1F_Pos)       /*!< 0x00000001 */
@@ -24927,26 +25052,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SR_TAMP3F_Pos                  (2U)
 #define TAMP_SR_TAMP3F_Msk                  (0x1U << TAMP_SR_TAMP3F_Pos)       /*!< 0x00000004 */
 #define TAMP_SR_TAMP3F                      TAMP_SR_TAMP3F_Msk
-#define TAMP_SR_TAMP4F_Pos                  (3U)
-#define TAMP_SR_TAMP4F_Msk                  (0x1U << TAMP_SR_TAMP4F_Pos)       /*!< 0x00000008 */
-#define TAMP_SR_TAMP4F                      TAMP_SR_TAMP4F_Msk
-#define TAMP_SR_TAMP5F_Pos                  (4U)
-#define TAMP_SR_TAMP5F_Msk                  (0x1U << TAMP_SR_TAMP5F_Pos)       /*!< 0x00000010 */
-#define TAMP_SR_TAMP5F                      TAMP_SR_TAMP5F_Msk
-#define TAMP_SR_TAMP6F_Pos                  (5U)
-#define TAMP_SR_TAMP6F_Msk                  (0x1U << TAMP_SR_TAMP6F_Pos)       /*!< 0x00000020 */
-#define TAMP_SR_TAMP6F                      TAMP_SR_TAMP6F_Msk
-#define TAMP_SR_TAMP7F_Pos                  (6U)
-#define TAMP_SR_TAMP7F_Msk                  (0x1U << TAMP_SR_TAMP7F_Pos)       /*!< 0x00000040 */
-#define TAMP_SR_TAMP7F                      TAMP_SR_TAMP7F_Msk
-#define TAMP_SR_TAMP8F_Pos                  (7U)
-#define TAMP_SR_TAMP8F_Msk                  (0x1U << TAMP_SR_TAMP8F_Pos)       /*!< 0x00000080 */
-#define TAMP_SR_TAMP8F                      TAMP_SR_TAMP8F_Msk
-#define TAMP_SR_IAF_Pos                     (15U)
-#define TAMP_SR_IAF_Msk                     (0x1U << TAMP_SR_IAF_Pos)          /*!< 0x00008000 */
-#define TAMP_SR_IAF                         TAMP_SR_IAF_Msk
 #define TAMP_SR_ITAMPF_Pos                  (16U)
-#define TAMP_SR_ITAMPF_Msk                  (0xFFFFU << TAMP_SR_ITAMPF_Pos)    /*!< 0xFFFF0000 */
+#define TAMP_SR_ITAMPF_Msk                  (0x9FU << TAMP_SR_ITAMPF_Pos)    /*!< 0xFFFF0000 */
 #define TAMP_SR_ITAMPF                      TAMP_SR_ITAMPF_Msk
 #define TAMP_SR_ITAMP1F_Pos                 (16U)
 #define TAMP_SR_ITAMP1F_Msk                 (0x1U << TAMP_SR_ITAMP1F_Pos)      /*!< 0x00010000 */
@@ -24963,43 +25070,14 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SR_ITAMP5F_Pos                 (20U)
 #define TAMP_SR_ITAMP5F_Msk                 (0x1U << TAMP_SR_ITAMP5F_Pos)      /*!< 0x00100000 */
 #define TAMP_SR_ITAMP5F                     TAMP_SR_ITAMP5F_Msk
-#define TAMP_SR_ITAMP6F_Pos                 (21U)
-#define TAMP_SR_ITAMP6F_Msk                 (0x1U << TAMP_SR_ITAMP6F_Pos)      /*!< 0x00200000 */
-#define TAMP_SR_ITAMP6F                     TAMP_SR_ITAMP6F_Msk
-#define TAMP_SR_ITAMP7F_Pos                 (22U)
-#define TAMP_SR_ITAMP7F_Msk                 (0x1U << TAMP_SR_ITAMP7F_Pos)      /*!< 0x00400000 */
-#define TAMP_SR_ITAMP7F                     TAMP_SR_ITAMP7F_Msk
 #define TAMP_SR_ITAMP8F_Pos                 (23U)
 #define TAMP_SR_ITAMP8F_Msk                 (0x1U << TAMP_SR_ITAMP8F_Pos)      /*!< 0x00800000 */
 #define TAMP_SR_ITAMP8F                     TAMP_SR_ITAMP8F_Msk
-#define TAMP_SR_ITAMP9F_Pos                 (24U)
-#define TAMP_SR_ITAMP9F_Msk                 (0x1U << TAMP_SR_ITAMP9F_Pos)      /*!< 0x01000000 */
-#define TAMP_SR_ITAMP9F                     TAMP_SR_ITAMP9F_Msk
-#define TAMP_SR_ITAMP10F_Pos                (25U)
-#define TAMP_SR_ITAMP10F_Msk                (0x1U << TAMP_SR_ITAMP10F_Pos)     /*!< 0x02000000 */
-#define TAMP_SR_ITAMP10F                    TAMP_SR_ITAMP10F_Msk
-#define TAMP_SR_ITAMP11F_Pos                (26U)
-#define TAMP_SR_ITAMP11F_Msk                (0x1U << TAMP_SR_ITAMP11F_Pos)     /*!< 0x04000000 */
-#define TAMP_SR_ITAMP11F                    TAMP_SR_ITAMP11F_Msk
-#define TAMP_SR_ITAMP12F_Pos                (27U)
-#define TAMP_SR_ITAMP12F_Msk                (0x1U << TAMP_SR_ITAMP12F_Pos)     /*!< 0x08000000 */
-#define TAMP_SR_ITAMP12F                    TAMP_SR_ITAMP12F_Msk
-#define TAMP_SR_ITAMP13F_Pos                (28U)
-#define TAMP_SR_ITAMP13F_Msk                (0x1U << TAMP_SR_ITAMP13F_Pos)     /*!< 0x10000000 */
-#define TAMP_SR_ITAMP13F                    TAMP_SR_ITAMP13F_Msk
-#define TAMP_SR_ITAMP14F_Pos                (29U)
-#define TAMP_SR_ITAMP14F_Msk                (0x1U << TAMP_SR_ITAMP14F_Pos)     /*!< 0x20000000 */
-#define TAMP_SR_ITAMP14F                    TAMP_SR_ITAMP14F_Msk
-#define TAMP_SR_ITAMP15F_Pos                (30U)
-#define TAMP_SR_ITAMP15F_Msk                (0x1U << TAMP_SR_ITAMP15F_Pos)     /*!< 0x40000000 */
-#define TAMP_SR_ITAMP15F                    TAMP_SR_ITAMP15F_Msk
-#define TAMP_SR_ITAMP16F_Pos                (31U)
-#define TAMP_SR_ITAMP16F_Msk                (0x1U << TAMP_SR_ITAMP16F_Pos)     /*!< 0x80000000 */
-#define TAMP_SR_ITAMP16F                    TAMP_SR_ITAMP16F_Msk
+
 
 /********************  Bits definition for TAMP_MISR register  ***************/
 #define TAMP_MISR_TAMPMF_Pos                (0U)
-#define TAMP_MISR_TAMPMF_Msk                (0xFFU << TAMP_MISR_TAMPMF_Pos)    /*!< 0x000000FF */
+#define TAMP_MISR_TAMPMF_Msk                (0x7U << TAMP_MISR_TAMPMF_Pos)    /*!< 0x000000FF */
 #define TAMP_MISR_TAMPMF                    TAMP_MISR_TAMPMF_Msk
 #define TAMP_MISR_TAMP1MF_Pos               (0U)
 #define TAMP_MISR_TAMP1MF_Msk               (0x1U << TAMP_MISR_TAMP1MF_Pos)    /*!< 0x00000001 */
@@ -25010,24 +25088,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_MISR_TAMP3MF_Pos               (2U)
 #define TAMP_MISR_TAMP3MF_Msk               (0x1U << TAMP_MISR_TAMP3MF_Pos)    /*!< 0x00000004 */
 #define TAMP_MISR_TAMP3MF                   TAMP_MISR_TAMP3MF_Msk
-#define TAMP_MISR_TAMP4MF_Pos               (3U)
-#define TAMP_MISR_TAMP4MF_Msk               (0x1U << TAMP_MISR_TAMP4MF_Pos)    /*!< 0x00000008 */
-#define TAMP_MISR_TAMP4MF                   TAMP_MISR_TAMP4MF_Msk
-#define TAMP_MISR_TAMP5MF_Pos               (4U)
-#define TAMP_MISR_TAMP5MF_Msk               (0x1U << TAMP_MISR_TAMP5MF_Pos)    /*!< 0x00000010 */
-#define TAMP_MISR_TAMP5MF                   TAMP_MISR_TAMP5MF_Msk
-#define TAMP_MISR_TAMP6MF_Pos               (5U)
-#define TAMP_MISR_TAMP6MF_Msk               (0x1U << TAMP_MISR_TAMP6MF_Pos)    /*!< 0x00000020 */
-#define TAMP_MISR_TAMP6MF                   TAMP_MISR_TAMP6MF_Msk
-#define TAMP_MISR_TAMP7MF_Pos               (6U)
-#define TAMP_MISR_TAMP7MF_Msk               (0x1U << TAMP_MISR_TAMP7MF_Pos)    /*!< 0x00000040 */
-#define TAMP_MISR_TAMP7MF                   TAMP_MISR_TAMP7MF_Msk
-#define TAMP_MISR_TAMP8MF_Pos               (7U)
-#define TAMP_MISR_TAMP8MF_Msk               (0x1U << TAMP_MISR_TAMP8MF_Pos)    /*!< 0x00000080 */
-#define TAMP_MISR_TAMP8MF                   TAMP_MISR_TAMP8MF_Msk
-
 #define TAMP_MISR_ITAMPMF_Pos               (16U)
-#define TAMP_MISR_ITAMPMF_Msk               (0xFFFFU << TAMP_MISR_ITAMPMF_Pos) /*!< 0xFFFF0000 */
+#define TAMP_MISR_ITAMPMF_Msk               (0x9FU << TAMP_MISR_ITAMPMF_Pos) /*!< 0xFFFF0000 */
 #define TAMP_MISR_ITAMPMF                   TAMP_MISR_ITAMPMF_Msk
 #define TAMP_MISR_ITAMP1MF_Pos              (16U)
 #define TAMP_MISR_ITAMP1MF_Msk              (0x1U << TAMP_MISR_ITAMP1MF_Pos)   /*!< 0x00010000 */
@@ -25044,43 +25106,14 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_MISR_ITAMP5MF_Pos              (20U)
 #define TAMP_MISR_ITAMP5MF_Msk              (0x1U << TAMP_MISR_ITAMP5MF_Pos)   /*!< 0x00100000 */
 #define TAMP_MISR_ITAMP5MF                  TAMP_MISR_ITAMP5MF_Msk
-#define TAMP_MISR_ITAMP6MF_Pos              (21U)
-#define TAMP_MISR_ITAMP6MF_Msk              (0x1U << TAMP_MISR_ITAMP6MF_Pos)   /*!< 0x00200000 */
-#define TAMP_MISR_ITAMP6MF                  TAMP_MISR_ITAMP6MF_Msk
-#define TAMP_MISR_ITAMP7MF_Pos              (22U)
-#define TAMP_MISR_ITAMP7MF_Msk              (0x1U << TAMP_MISR_ITAMP7MF_Pos)   /*!< 0x00400000 */
-#define TAMP_MISR_ITAMP7MF                  TAMP_MISR_ITAMP7MF_Msk
 #define TAMP_MISR_ITAMP8MF_Pos              (23U)
 #define TAMP_MISR_ITAMP8MF_Msk              (0x1U << TAMP_MISR_ITAMP8MF_Pos)   /*!< 0x00800000 */
 #define TAMP_MISR_ITAMP8MF                  TAMP_MISR_ITAMP8MF_Msk
-#define TAMP_MISR_ITAMP9MF_Pos              (24U)
-#define TAMP_MISR_ITAMP9MF_Msk              (0x1U << TAMP_MISR_ITAMP9MF_Pos)   /*!< 0x01000000 */
-#define TAMP_MISR_ITAMP9MF                  TAMP_MISR_ITAMP9MF_Msk
-#define TAMP_MISR_ITAMP10MF_Pos             (25U)
-#define TAMP_MISR_ITAMP10MF_Msk             (0x1U << TAMP_MISR_ITAMP10MF_Pos)  /*!< 0x02000000 */
-#define TAMP_MISR_ITAMP10MF                 TAMP_MISR_ITAMP10MF_Msk
-#define TAMP_MISR_ITAMP11MF_Pos             (26U)
-#define TAMP_MISR_ITAMP11MF_Msk             (0x1U << TAMP_MISR_ITAMP11MF_Pos)  /*!< 0x04000000 */
-#define TAMP_MISR_ITAMP11MF                 TAMP_MISR_ITAMP11MF_Msk
-#define TAMP_MISR_ITAMP12MF_Pos             (27U)
-#define TAMP_MISR_ITAMP12MF_Msk             (0x1U << TAMP_MISR_ITAMP12MF_Pos)  /*!< 0x08000000 */
-#define TAMP_MISR_ITAMP12MF                 TAMP_MISR_ITAMP12MF_Msk
-#define TAMP_MISR_ITAMP13MF_Pos             (28U)
-#define TAMP_MISR_ITAMP13MF_Msk             (0x1U << TAMP_MISR_ITAMP13MF_Pos)  /*!< 0x10000000 */
-#define TAMP_MISR_ITAMP13MF                 TAMP_MISR_ITAMP13MF_Msk
-#define TAMP_MISR_ITAMP14MF_Pos             (29U)
-#define TAMP_MISR_ITAMP14MF_Msk             (0x1U << TAMP_MISR_ITAMP14MF_Pos)  /*!< 0x20000000 */
-#define TAMP_MISR_ITAMP14MF                 TAMP_MISR_ITAMP14MF_Msk
-#define TAMP_MISR_ITAMP15MF_Pos             (30U)
-#define TAMP_MISR_ITAMP15MF_Msk             (0x1U << TAMP_MISR_ITAMP15MF_Pos)  /*!< 0x40000000 */
-#define TAMP_MISR_ITAMP15MF                 TAMP_MISR_ITAMP15MF_Msk
-#define TAMP_MISR_ITAMP16MF_Pos             (31U)
-#define TAMP_MISR_ITAMP16MF_Msk             (0x1U << TAMP_MISR_ITAMP16MF_Pos)  /*!< 0x80000000 */
-#define TAMP_MISR_ITAMP16MF                 TAMP_MISR_ITAMP16MF_Msk
+
 
 /********************  Bits definition for TAMP_SMISR register  ***************/
 #define TAMP_SMISR_TAMPMF_Pos               (0U)
-#define TAMP_SMISR_TAMPMF_Msk               (0xFFU << TAMP_SMISR_TAMPMF_Pos)   /*!< 0x000000FF */
+#define TAMP_SMISR_TAMPMF_Msk               (0x7U << TAMP_SMISR_TAMPMF_Pos)   /*!< 0x000000FF */
 #define TAMP_SMISR_TAMPMF                   TAMP_SMISR_TAMPMF_Msk
 #define TAMP_SMISR_TAMP1MF_Pos              (0U)
 #define TAMP_SMISR_TAMP1MF_Msk              (0x1U << TAMP_SMISR_TAMP1MF_Pos)   /*!< 0x00000001 */
@@ -25091,28 +25124,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SMISR_TAMP3MF_Pos              (2U)
 #define TAMP_SMISR_TAMP3MF_Msk              (0x1U << TAMP_SMISR_TAMP3MF_Pos)   /*!< 0x00000004 */
 #define TAMP_SMISR_TAMP3MF                  TAMP_SMISR_TAMP3MF_Msk
-#define TAMP_SMISR_TAMP4MF_Pos              (3U)
-#define TAMP_SMISR_TAMP4MF_Msk              (0x1U << TAMP_SMISR_TAMP4MF_Pos)   /*!< 0x00000008 */
-#define TAMP_SMISR_TAMP4MF                  TAMP_SMISR_TAMP4MF_Msk
-#define TAMP_SMISR_TAMP5MF_Pos              (4U)
-#define TAMP_SMISR_TAMP5MF_Msk              (0x1U << TAMP_SMISR_TAMP5MF_Pos)   /*!< 0x00000010 */
-#define TAMP_SMISR_TAMP5MF                  TAMP_SMISR_TAMP5MF_Msk
-#define TAMP_SMISR_TAMP6MF_Pos              (5U)
-#define TAMP_SMISR_TAMP6MF_Msk              (0x1U << TAMP_SMISR_TAMP6MF_Pos)   /*!< 0x00000020 */
-#define TAMP_SMISR_TAMP6MF                  TAMP_SMISR_TAMP6MF_Msk
-#define TAMP_SMISR_TAMP7MF_Pos              (6U)
-#define TAMP_SMISR_TAMP7MF_Msk              (0x1U << TAMP_SMISR_TAMP7MF_Pos)   /*!< 0x00000040 */
-#define TAMP_SMISR_TAMP7MF                  TAMP_SMISR_TAMP7MF_Msk
-#define TAMP_SMISR_TAMP8MF_Pos              (7U)
-#define TAMP_SMISR_TAMP8MF_Msk              (0x1U << TAMP_SMISR_TAMP8MF_Pos)   /*!< 0x00000080 */
-#define TAMP_SMISR_TAMP8MF                  TAMP_SMISR_TAMP8MF_Msk
-
-#define TAMP_SMISR_IAMF_Pos                 (15U)
-#define TAMP_SMISR_IAMF_Msk                 (0x1U << TAMP_SMISR_IAMF_Pos)      /*!< 0x00008000 */
-#define TAMP_SMISR_IAMF                     TAMP_SMISR_IAMF_Msk
-
 #define TAMP_SMISR_ITAMPMF_Pos              (16U)
-#define TAMP_SMISR_ITAMPMF_Msk              (0xFFFFU << TAMP_SMISR_ITAMPMF_Pos) /*!< 0xFFFF0000 */
+#define TAMP_SMISR_ITAMPMF_Msk              (0x9FU << TAMP_SMISR_ITAMPMF_Pos) /*!< 0xFFFF0000 */
 #define TAMP_SMISR_ITAMPMF                  TAMP_SMISR_ITAMPMF_Msk
 #define TAMP_SMISR_ITAMP1MF_Pos             (16U)
 #define TAMP_SMISR_ITAMP1MF_Msk             (0x1U << TAMP_SMISR_ITAMP1MF_Pos)  /*!< 0x00010000 */
@@ -25129,43 +25142,14 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SMISR_ITAMP5MF_Pos             (20U)
 #define TAMP_SMISR_ITAMP5MF_Msk             (0x1U << TAMP_SMISR_ITAMP5MF_Pos)  /*!< 0x00100000 */
 #define TAMP_SMISR_ITAMP5MF                 TAMP_SMISR_ITAMP5MF_Msk
-#define TAMP_SMISR_ITAMP6MF_Pos             (21U)
-#define TAMP_SMISR_ITAMP6MF_Msk             (0x1U << TAMP_SMISR_ITAMP6MF_Pos)  /*!< 0x00200000 */
-#define TAMP_SMISR_ITAMP6MF                 TAMP_SMISR_ITAMP6MF_Msk
-#define TAMP_SMISR_ITAMP7MF_Pos             (22U)
-#define TAMP_SMISR_ITAMP7MF_Msk             (0x1U << TAMP_SMISR_ITAMP7MF_Pos)  /*!< 0x00400000 */
-#define TAMP_SMISR_ITAMP7MF                 TAMP_SMISR_ITAMP7MF_Msk
 #define TAMP_SMISR_ITAMP8MF_Pos             (23U)
 #define TAMP_SMISR_ITAMP8MF_Msk             (0x1U << TAMP_SMISR_ITAMP8MF_Pos)  /*!< 0x00800000 */
 #define TAMP_SMISR_ITAMP8MF                 TAMP_SMISR_ITAMP8MF_Msk
-#define TAMP_SMISR_ITAMP9MF_Pos             (24U)
-#define TAMP_SMISR_ITAMP9MF_Msk             (0x1U << TAMP_SMISR_ITAMP9MF_Pos)  /*!< 0x01000000 */
-#define TAMP_SMISR_ITAMP9MF                 TAMP_SMISR_ITAMP9MF_Msk
-#define TAMP_SMISR_ITAMP10MF_Pos            (25U)
-#define TAMP_SMISR_ITAMP10MF_Msk            (0x1U << TAMP_SMISR_ITAMP10MF_Pos) /*!< 0x02000000 */
-#define TAMP_SMISR_ITAMP10MF                TAMP_SMISR_ITAMP10MF_Msk
-#define TAMP_SMISR_ITAMP11MF_Pos            (26U)
-#define TAMP_SMISR_ITAMP11MF_Msk            (0x1U << TAMP_SMISR_ITAMP11MF_Pos) /*!< 0x04000000 */
-#define TAMP_SMISR_ITAMP11MF                TAMP_SMISR_ITAMP11MF_Msk
-#define TAMP_SMISR_ITAMP12MF_Pos            (27U)
-#define TAMP_SMISR_ITAMP12MF_Msk            (0x1U << TAMP_SMISR_ITAMP12MF_Pos) /*!< 0x08000000 */
-#define TAMP_SMISR_ITAMP12MF                TAMP_SMISR_ITAMP12MF_Msk
-#define TAMP_SMISR_ITAMP13MF_Pos            (28U)
-#define TAMP_SMISR_ITAMP13MF_Msk            (0x1U << TAMP_SMISR_ITAMP13MF_Pos) /*!< 0x10000000 */
-#define TAMP_SMISR_ITAMP13MF                TAMP_SMISR_ITAMP13MF_Msk
-#define TAMP_SMISR_ITAMP14MF_Pos            (29U)
-#define TAMP_SMISR_ITAMP14MF_Msk            (0x1U << TAMP_SMISR_ITAMP14MF_Pos) /*!< 0x20000000 */
-#define TAMP_SMISR_ITAMP14MF                TAMP_SMISR_ITAMP14MF_Msk
-#define TAMP_SMISR_ITAMP15MF_Pos            (30U)
-#define TAMP_SMISR_ITAMP15MF_Msk            (0x1U << TAMP_SMISR_ITAMP15MF_Pos) /*!< 0x40000000 */
-#define TAMP_SMISR_ITAMP15MF                TAMP_SMISR_ITAMP15MF_Msk
-#define TAMP_SMISR_ITAMP16MF_Pos            (31U)
-#define TAMP_SMISR_ITAMP16MF_Msk            (0x1U << TAMP_SMISR_ITAMP16MF_Pos) /*!< 0x80000000 */
-#define TAMP_SMISR_ITAMP16MF                TAMP_SMISR_ITAMP16MF_Msk
+
 
 /********************  Bits definition for TAMP_SCR register  ***************/
 #define TAMP_SCR_CTAMPF_Pos                 (0U)
-#define TAMP_SCR_CTAMPF_Msk                 (0xFFU << TAMP_SCR_CTAMPF_Pos)     /*!< 0x000000FF */
+#define TAMP_SCR_CTAMPF_Msk                 (0x7U << TAMP_SCR_CTAMPF_Pos)     /*!< 0x000000FF */
 #define TAMP_SCR_CTAMPF                     TAMP_SCR_CTAMPF_Msk
 #define TAMP_SCR_CTAMP1F_Pos                (0U)
 #define TAMP_SCR_CTAMP1F_Msk                (0x1U << TAMP_SCR_CTAMP1F_Pos)     /*!< 0x00000001 */
@@ -25176,28 +25160,8 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SCR_CTAMP3F_Pos                (2U)
 #define TAMP_SCR_CTAMP3F_Msk                (0x1U << TAMP_SCR_CTAMP3F_Pos)     /*!< 0x00000004 */
 #define TAMP_SCR_CTAMP3F                    TAMP_SCR_CTAMP3F_Msk
-#define TAMP_SCR_CTAMP4F_Pos                (3U)
-#define TAMP_SCR_CTAMP4F_Msk                (0x1U << TAMP_SCR_CTAMP4F_Pos)     /*!< 0x00000008 */
-#define TAMP_SCR_CTAMP4F                    TAMP_SCR_CTAMP4F_Msk
-#define TAMP_SCR_CTAMP5F_Pos                (4U)
-#define TAMP_SCR_CTAMP5F_Msk                (0x1U << TAMP_SCR_CTAMP5F_Pos)     /*!< 0x00000010 */
-#define TAMP_SCR_CTAMP5F                    TAMP_SCR_CTAMP5F_Msk
-#define TAMP_SCR_CTAMP6F_Pos                (5U)
-#define TAMP_SCR_CTAMP6F_Msk                (0x1U << TAMP_SCR_CTAMP6F_Pos)     /*!< 0x00000020 */
-#define TAMP_SCR_CTAMP6F                    TAMP_SCR_CTAMP6F_Msk
-#define TAMP_SCR_CTAMP7F_Pos                (6U)
-#define TAMP_SCR_CTAMP7F_Msk                (0x1U << TAMP_SCR_CTAMP7F_Pos)     /*!< 0x00000040 */
-#define TAMP_SCR_CTAMP7F                    TAMP_SCR_CTAMP7F_Msk
-#define TAMP_SCR_CTAMP8F_Pos                (7U)
-#define TAMP_SCR_CTAMP8F_Msk                (0x1U << TAMP_SCR_CTAMP8F_Pos)     /*!< 0x00000080 */
-#define TAMP_SCR_CTAMP8F                    TAMP_SCR_CTAMP8F_Msk
-
-#define TAMP_SCR_CIAF_Pos                   (15U)
-#define TAMP_SCR_CIAF_Msk                   (0x1U << TAMP_SCR_CIAF_Pos)        /*!< 0x00008000 */
-#define TAMP_SCR_CIAF                       TAMP_SCR_CIAF_Msk
-
 #define TAMP_SCR_CITAMPF_Pos                (16U)
-#define TAMP_SCR_CITAMPF_Msk                (0xFFFFU << TAMP_SCR_CITAMPF_Pos)  /*!< 0xFFFF0000 */
+#define TAMP_SCR_CITAMPF_Msk                (0x9FU << TAMP_SCR_CITAMPF_Pos)  /*!< 0xFFFF0000 */
 #define TAMP_SCR_CITAMPF                    TAMP_SCR_CITAMPF_Msk
 #define TAMP_SCR_CITAMP1F_Pos               (16U)
 #define TAMP_SCR_CITAMP1F_Msk               (0x1U << TAMP_SCR_CITAMP1F_Pos)    /*!< 0x00010000 */
@@ -25214,45 +25178,15 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_SCR_CITAMP5F_Pos               (20U)
 #define TAMP_SCR_CITAMP5F_Msk               (0x1U << TAMP_SCR_CITAMP5F_Pos)    /*!< 0x00100000 */
 #define TAMP_SCR_CITAMP5F                   TAMP_SCR_CITAMP5F_Msk
-#define TAMP_SCR_CITAMP6F_Pos               (21U)
-#define TAMP_SCR_CITAMP6F_Msk               (0x1U << TAMP_SCR_CITAMP6F_Pos)    /*!< 0x00200000 */
-#define TAMP_SCR_CITAMP6F                   TAMP_SCR_CITAMP6F_Msk
-#define TAMP_SCR_CITAMP7F_Pos               (22U)
-#define TAMP_SCR_CITAMP7F_Msk               (0x1U << TAMP_SCR_CITAMP7F_Pos)    /*!< 0x00400000 */
-#define TAMP_SCR_CITAMP7F                   TAMP_SCR_CITAMP7F_Msk
 #define TAMP_SCR_CITAMP8F_Pos               (23U)
 #define TAMP_SCR_CITAMP8F_Msk               (0x1U << TAMP_SCR_CITAMP8F_Pos)    /*!< 0x00800000 */
 #define TAMP_SCR_CITAMP8F                   TAMP_SCR_CITAMP8F_Msk
-#define TAMP_SCR_CITAMP9F_Pos               (24U)
-#define TAMP_SCR_CITAMP9F_Msk               (0x1U << TAMP_SCR_CITAMP9F_Pos)    /*!< 0x01000000 */
-#define TAMP_SCR_CITAMP9F                   TAMP_SCR_CITAMP9F_Msk
-#define TAMP_SCR_CITAMP10F_Pos              (25U)
-#define TAMP_SCR_CITAMP10F_Msk              (0x1U << TAMP_SCR_CITAMP10F_Pos)   /*!< 0x02000000 */
-#define TAMP_SCR_CITAMP10F                  TAMP_SCR_CITAMP10F_Msk
-#define TAMP_SCR_CITAMP11F_Pos              (26U)
-#define TAMP_SCR_CITAMP11F_Msk              (0x1U << TAMP_SCR_CITAMP11F_Pos)   /*!< 0x04000000 */
-#define TAMP_SCR_CITAMP11F                  TAMP_SCR_CITAMP11F_Msk
-#define TAMP_SCR_CITAMP12F_Pos              (27U)
-#define TAMP_SCR_CITAMP12F_Msk              (0x1U << TAMP_SCR_CITAMP12F_Pos)   /*!< 0x08000000 */
-#define TAMP_SCR_CITAMP12F                  TAMP_SCR_CITAMP12F_Msk
-#define TAMP_SCR_CITAMP13F_Pos              (28U)
-#define TAMP_SCR_CITAMP13F_Msk              (0x1U << TAMP_SCR_CITAMP13F_Pos)   /*!< 0x10000000 */
-#define TAMP_SCR_CITAMP13F                  TAMP_SCR_CITAMP13F_Msk
-#define TAMP_SCR_CITAMP14F_Pos              (29U)
-#define TAMP_SCR_CITAMP14F_Msk              (0x1U << TAMP_SCR_CITAMP14F_Pos)   /*!< 0x20000000 */
-#define TAMP_SCR_CITAMP14F                  TAMP_SCR_CITAMP14F_Msk
-#define TAMP_SCR_CITAMP15F_Pos              (30U)
-#define TAMP_SCR_CITAMP15F_Msk              (0x1U << TAMP_SCR_CITAMP15F_Pos)   /*!< 0x40000000 */
-#define TAMP_SCR_CITAMP15F                  TAMP_SCR_CITAMP15F_Msk
-#define TAMP_SCR_CITAMP16F_Pos              (31U)
-#define TAMP_SCR_CITAMP16F_Msk              (0x1U << TAMP_SCR_CITAMP16F_Pos)   /*!< 0x80000000 */
-#define TAMP_SCR_CITAMP16F                  TAMP_SCR_CITAMP16F_Msk
 
 
-/********************  Bits definition for TAMP_OR register  ****************/
-#define TAMP_OR_OUT3_RMP_Pos                (0U)
-#define TAMP_OR_OUT3_RMP_Msk                (0x1U << TAMP_OR_OUT3_RMP_Pos)     /*!< 0x00000001 */
-#define TAMP_OR_OUT3_RMP                    TAMP_OR_OUT3_RMP_Msk
+/********************  Bits definition for TAMP_OR register (TAMP_CFGR)  ****************/
+#define TAMP_CFGR_OUT3_RMP_Pos                (0U)
+#define TAMP_CFGR_OUT3_RMP_Msk                (0x1U << TAMP_CFGR_OUT3_RMP_Pos)     /*!< 0x00000001 */
+#define TAMP_CFGR_OUT3_RMP                    TAMP_CFGR_OUT3_RMP_Msk
 
 
 /********************  Bits definition for TAMP_COUNTR register  ****************/
@@ -25260,10 +25194,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_COUNTR_COUNT_Msk               (0xFFFFFFFFU << TAMP_COUNTR_COUNT_Pos) /*!< 0xFFFFFFFF */
 #define TAMP_COUNTR_COUNT                   TAMP_COUNTR_COUNT_Msk
 
-/********************  Bits definition for TAMP_OR register  ****************/
-#define TAMP_OR_OUT3_RMP_Pos                (0U)
-#define TAMP_OR_OUT3_RMP_Msk                (0x1U << TAMP_OR_OUT3_RMP_Pos)     /*!< 0x00000001 */
-#define TAMP_OR_OUT3_RMP                    TAMP_OR_OUT3_RMP_Msk
 
 /********************  Bits definition for TAMP_BKPxR register  ****************/
 #define TAMP_BKP0R_Pos                      (0U)
@@ -25362,297 +25292,7 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TAMP_BKP31R_Pos                     (0U)
 #define TAMP_BKP31R_Msk                     (0xFFFFFFFFU << TAMP_BKP31R_Pos)   /*!< 0xFFFFFFFF */
 #define TAMP_BKP31R                         TAMP_BKP31R_Msk
-#define TAMP_BKP32R_Pos                     (0U)
-#define TAMP_BKP32R_Msk                     (0xFFFFFFFFU << TAMP_BKP32R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP32R                         TAMP_BKP32R_Msk
-#define TAMP_BKP33R_Pos                     (0U)
-#define TAMP_BKP33R_Msk                     (0xFFFFFFFFU << TAMP_BKP33R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP33R                         TAMP_BKP33R_Msk
-#define TAMP_BKP34R_Pos                     (0U)
-#define TAMP_BKP34R_Msk                     (0xFFFFFFFFU << TAMP_BKP34R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP34R                         TAMP_BKP34R_Msk
-#define TAMP_BKP35R_Pos                     (0U)
-#define TAMP_BKP35R_Msk                     (0xFFFFFFFFU << TAMP_BKP35R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP35R                         TAMP_BKP35R_Msk
-#define TAMP_BKP36R_Pos                     (0U)
-#define TAMP_BKP36R_Msk                     (0xFFFFFFFFU << TAMP_BKP36R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP36R                         TAMP_BKP36R_Msk
-#define TAMP_BKP37R_Pos                     (0U)
-#define TAMP_BKP37R_Msk                     (0xFFFFFFFFU << TAMP_BKP37R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP37R                         TAMP_BKP37R_Msk
-#define TAMP_BKP38R_Pos                     (0U)
-#define TAMP_BKP38R_Msk                     (0xFFFFFFFFU << TAMP_BKP38R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP38R                         TAMP_BKP38R_Msk
-#define TAMP_BKP39R_Pos                     (0U)
-#define TAMP_BKP39R_Msk                     (0xFFFFFFFFU << TAMP_BKP39R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP39R                         TAMP_BKP39R_Msk
-#define TAMP_BKP40R_Pos                     (0U)
-#define TAMP_BKP40R_Msk                     (0xFFFFFFFFU << TAMP_BKP40R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP40R                         TAMP_BKP40R_Msk
-#define TAMP_BKP41R_Pos                     (0U)
-#define TAMP_BKP41R_Msk                     (0xFFFFFFFFU << TAMP_BKP41R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP41R                         TAMP_BKP41R_Msk
-#define TAMP_BKP42R_Pos                     (0U)
-#define TAMP_BKP42R_Msk                     (0xFFFFFFFFU << TAMP_BKP42R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP42R                         TAMP_BKP42R_Msk
-#define TAMP_BKP43R_Pos                     (0U)
-#define TAMP_BKP43R_Msk                     (0xFFFFFFFFU << TAMP_BKP43R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP43R                         TAMP_BKP43R_Msk
-#define TAMP_BKP44R_Pos                     (0U)
-#define TAMP_BKP44R_Msk                     (0xFFFFFFFFU << TAMP_BKP44R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP44R                         TAMP_BKP44R_Msk
-#define TAMP_BKP45R_Pos                     (0U)
-#define TAMP_BKP45R_Msk                     (0xFFFFFFFFU << TAMP_BKP45R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP45R                         TAMP_BKP45R_Msk
-#define TAMP_BKP46R_Pos                     (0U)
-#define TAMP_BKP46R_Msk                     (0xFFFFFFFFU << TAMP_BKP46R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP46R                         TAMP_BKP46R_Msk
-#define TAMP_BKP47R_Pos                     (0U)
-#define TAMP_BKP47R_Msk                     (0xFFFFFFFFU << TAMP_BKP47R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP47R                         TAMP_BKP47R_Msk
-#define TAMP_BKP48R_Pos                     (0U)
-#define TAMP_BKP48R_Msk                     (0xFFFFFFFFU << TAMP_BKP48R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP48R                         TAMP_BKP48R_Msk
-#define TAMP_BKP49R_Pos                     (0U)
-#define TAMP_BKP49R_Msk                     (0xFFFFFFFFU << TAMP_BKP49R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP49R                         TAMP_BKP49R_Msk
-#define TAMP_BKP50R_Pos                     (0U)
-#define TAMP_BKP50R_Msk                     (0xFFFFFFFFU << TAMP_BKP50R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP50R                         TAMP_BKP50R_Msk
-#define TAMP_BKP51R_Pos                     (0U)
-#define TAMP_BKP51R_Msk                     (0xFFFFFFFFU << TAMP_BKP51R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP51R                         TAMP_BKP51R_Msk
-#define TAMP_BKP52R_Pos                     (0U)
-#define TAMP_BKP52R_Msk                     (0xFFFFFFFFU << TAMP_BKP52R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP52R                         TAMP_BKP52R_Msk
-#define TAMP_BKP53R_Pos                     (0U)
-#define TAMP_BKP53R_Msk                     (0xFFFFFFFFU << TAMP_BKP53R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP53R                         TAMP_BKP53R_Msk
-#define TAMP_BKP54R_Pos                     (0U)
-#define TAMP_BKP54R_Msk                     (0xFFFFFFFFU << TAMP_BKP54R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP54R                         TAMP_BKP54R_Msk
-#define TAMP_BKP55R_Pos                     (0U)
-#define TAMP_BKP55R_Msk                     (0xFFFFFFFFU << TAMP_BKP55R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP55R                         TAMP_BKP55R_Msk
-#define TAMP_BKP56R_Pos                     (0U)
-#define TAMP_BKP56R_Msk                     (0xFFFFFFFFU << TAMP_BKP56R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP56R                         TAMP_BKP56R_Msk
-#define TAMP_BKP57R_Pos                     (0U)
-#define TAMP_BKP57R_Msk                     (0xFFFFFFFFU << TAMP_BKP57R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP57R                         TAMP_BKP57R_Msk
-#define TAMP_BKP58R_Pos                     (0U)
-#define TAMP_BKP58R_Msk                     (0xFFFFFFFFU << TAMP_BKP58R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP58R                         TAMP_BKP58R_Msk
-#define TAMP_BKP59R_Pos                     (0U)
-#define TAMP_BKP59R_Msk                     (0xFFFFFFFFU << TAMP_BKP59R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP59R                         TAMP_BKP59R_Msk
-#define TAMP_BKP60R_Pos                     (0U)
-#define TAMP_BKP60R_Msk                     (0xFFFFFFFFU << TAMP_BKP60R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP60R                         TAMP_BKP60R_Msk
-#define TAMP_BKP61R_Pos                     (0U)
-#define TAMP_BKP61R_Msk                     (0xFFFFFFFFU << TAMP_BKP61R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP61R                         TAMP_BKP61R_Msk
-#define TAMP_BKP62R_Pos                     (0U)
-#define TAMP_BKP62R_Msk                     (0xFFFFFFFFU << TAMP_BKP62R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP62R                         TAMP_BKP62R_Msk
-#define TAMP_BKP63R_Pos                     (0U)
-#define TAMP_BKP63R_Msk                     (0xFFFFFFFFU << TAMP_BKP63R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP63R                         TAMP_BKP63R_Msk
-#define TAMP_BKP64R_Pos                     (0U)
-#define TAMP_BKP64R_Msk                     (0xFFFFFFFFU << TAMP_BKP64R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP64R                         TAMP_BKP64R_Msk
-#define TAMP_BKP65R_Pos                     (0U)
-#define TAMP_BKP65R_Msk                     (0xFFFFFFFFU << TAMP_BKP65R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP65R                         TAMP_BKP65R_Msk
-#define TAMP_BKP66R_Pos                     (0U)
-#define TAMP_BKP66R_Msk                     (0xFFFFFFFFU << TAMP_BKP66R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP66R                         TAMP_BKP66R_Msk
-#define TAMP_BKP67R_Pos                     (0U)
-#define TAMP_BKP67R_Msk                     (0xFFFFFFFFU << TAMP_BKP67R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP67R                         TAMP_BKP67R_Msk
-#define TAMP_BKP68R_Pos                     (0U)
-#define TAMP_BKP68R_Msk                     (0xFFFFFFFFU << TAMP_BKP68R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP68R                         TAMP_BKP68R_Msk
-#define TAMP_BKP69R_Pos                     (0U)
-#define TAMP_BKP69R_Msk                     (0xFFFFFFFFU << TAMP_BKP69R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP69R                         TAMP_BKP69R_Msk
-#define TAMP_BKP70R_Pos                     (0U)
-#define TAMP_BKP70R_Msk                     (0xFFFFFFFFU << TAMP_BKP70R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP70R                         TAMP_BKP70R_Msk
-#define TAMP_BKP71R_Pos                     (0U)
-#define TAMP_BKP71R_Msk                     (0xFFFFFFFFU << TAMP_BKP71R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP71R                         TAMP_BKP71R_Msk
-#define TAMP_BKP72R_Pos                     (0U)
-#define TAMP_BKP72R_Msk                     (0xFFFFFFFFU << TAMP_BKP72R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP72R                         TAMP_BKP72R_Msk
-#define TAMP_BKP73R_Pos                     (0U)
-#define TAMP_BKP73R_Msk                     (0xFFFFFFFFU << TAMP_BKP73R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP73R                         TAMP_BKP73R_Msk
-#define TAMP_BKP74R_Pos                     (0U)
-#define TAMP_BKP74R_Msk                     (0xFFFFFFFFU << TAMP_BKP74R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP74R                         TAMP_BKP74R_Msk
-#define TAMP_BKP75R_Pos                     (0U)
-#define TAMP_BKP75R_Msk                     (0xFFFFFFFFU << TAMP_BKP75R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP75R                         TAMP_BKP75R_Msk
-#define TAMP_BKP76R_Pos                     (0U)
-#define TAMP_BKP76R_Msk                     (0xFFFFFFFFU << TAMP_BKP76R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP76R                         TAMP_BKP76R_Msk
-#define TAMP_BKP77R_Pos                     (0U)
-#define TAMP_BKP77R_Msk                     (0xFFFFFFFFU << TAMP_BKP77R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP77R                         TAMP_BKP77R_Msk
-#define TAMP_BKP78R_Pos                     (0U)
-#define TAMP_BKP78R_Msk                     (0xFFFFFFFFU << TAMP_BKP78R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP78R                         TAMP_BKP78R_Msk
-#define TAMP_BKP79R_Pos                     (0U)
-#define TAMP_BKP79R_Msk                     (0xFFFFFFFFU << TAMP_BKP79R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP79R                         TAMP_BKP79R_Msk
-#define TAMP_BKP80R_Pos                     (0U)
-#define TAMP_BKP80R_Msk                     (0xFFFFFFFFU << TAMP_BKP80R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP80R                         TAMP_BKP80R_Msk
-#define TAMP_BKP80R_Pos                     (0U)
-#define TAMP_BKP80R_Msk                     (0xFFFFFFFFU << TAMP_BKP80R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP80R                         TAMP_BKP80R_Msk
-#define TAMP_BKP81R_Pos                     (0U)
-#define TAMP_BKP81R_Msk                     (0xFFFFFFFFU << TAMP_BKP81R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP81R                         TAMP_BKP81R_Msk
-#define TAMP_BKP82R_Pos                     (0U)
-#define TAMP_BKP82R_Msk                     (0xFFFFFFFFU << TAMP_BKP82R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP82R                         TAMP_BKP82R_Msk
-#define TAMP_BKP83R_Pos                     (0U)
-#define TAMP_BKP83R_Msk                     (0xFFFFFFFFU << TAMP_BKP83R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP83R                         TAMP_BKP83R_Msk
-#define TAMP_BKP84R_Pos                     (0U)
-#define TAMP_BKP84R_Msk                     (0xFFFFFFFFU << TAMP_BKP84R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP84R                         TAMP_BKP84R_Msk
-#define TAMP_BKP85R_Pos                     (0U)
-#define TAMP_BKP85R_Msk                     (0xFFFFFFFFU << TAMP_BKP85R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP85R                         TAMP_BKP85R_Msk
-#define TAMP_BKP86R_Pos                     (0U)
-#define TAMP_BKP86R_Msk                     (0xFFFFFFFFU << TAMP_BKP86R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP86R                         TAMP_BKP86R_Msk
-#define TAMP_BKP87R_Pos                     (0U)
-#define TAMP_BKP87R_Msk                     (0xFFFFFFFFU << TAMP_BKP87R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP87R                         TAMP_BKP87R_Msk
-#define TAMP_BKP88R_Pos                     (0U)
-#define TAMP_BKP88R_Msk                     (0xFFFFFFFFU << TAMP_BKP88R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP88R                         TAMP_BKP88R_Msk
-#define TAMP_BKP89R_Pos                     (0U)
-#define TAMP_BKP89R_Msk                     (0xFFFFFFFFU << TAMP_BKP89R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP89R                         TAMP_BKP89R_Msk
-#define TAMP_BKP90R_Pos                     (0U)
-#define TAMP_BKP90R_Msk                     (0xFFFFFFFFU << TAMP_BKP90R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP90R                         TAMP_BKP90R_Msk
-#define TAMP_BKP91R_Pos                     (0U)
-#define TAMP_BKP91R_Msk                     (0xFFFFFFFFU << TAMP_BKP91R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP91R                         TAMP_BKP91R_Msk
-#define TAMP_BKP92R_Pos                     (0U)
-#define TAMP_BKP92R_Msk                     (0xFFFFFFFFU << TAMP_BKP92R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP92R                         TAMP_BKP92R_Msk
-#define TAMP_BKP93R_Pos                     (0U)
-#define TAMP_BKP93R_Msk                     (0xFFFFFFFFU << TAMP_BKP93R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP93R                         TAMP_BKP93R_Msk
-#define TAMP_BKP94R_Pos                     (0U)
-#define TAMP_BKP94R_Msk                     (0xFFFFFFFFU << TAMP_BKP94R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP94R                         TAMP_BKP94R_Msk
-#define TAMP_BKP95R_Pos                     (0U)
-#define TAMP_BKP95R_Msk                     (0xFFFFFFFFU << TAMP_BKP95R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP95R                         TAMP_BKP95R_Msk
-#define TAMP_BKP96R_Pos                     (0U)
-#define TAMP_BKP96R_Msk                     (0xFFFFFFFFU << TAMP_BKP96R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP96R                         TAMP_BKP96R_Msk
-#define TAMP_BKP97R_Pos                     (0U)
-#define TAMP_BKP97R_Msk                     (0xFFFFFFFFU << TAMP_BKP97R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP97R                         TAMP_BKP97R_Msk
-#define TAMP_BKP98R_Pos                     (0U)
-#define TAMP_BKP98R_Msk                     (0xFFFFFFFFU << TAMP_BKP98R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP98R                         TAMP_BKP98R_Msk
-#define TAMP_BKP99R_Pos                     (0U)
-#define TAMP_BKP99R_Msk                     (0xFFFFFFFFU << TAMP_BKP99R_Pos)   /*!< 0xFFFFFFFF */
-#define TAMP_BKP99R                         TAMP_BKP99R_Msk
-#define TAMP_BKP100R_Pos                    (0U)
-#define TAMP_BKP100R_Msk                    (0xFFFFFFFFU << TAMP_BKP100R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP100R                        TAMP_BKP100R_Msk
-#define TAMP_BKP101R_Pos                    (0U)
-#define TAMP_BKP101R_Msk                    (0xFFFFFFFFU << TAMP_BKP101R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP101R                        TAMP_BKP101R_Msk
-#define TAMP_BKP102R_Pos                    (0U)
-#define TAMP_BKP102R_Msk                    (0xFFFFFFFFU << TAMP_BKP102R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP102R                        TAMP_BKP102R_Msk
-#define TAMP_BKP103R_Pos                    (0U)
-#define TAMP_BKP103R_Msk                    (0xFFFFFFFFU << TAMP_BKP103R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP103R                        TAMP_BKP103R_Msk
-#define TAMP_BKP104R_Pos                    (0U)
-#define TAMP_BKP104R_Msk                    (0xFFFFFFFFU << TAMP_BKP104R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP104R                        TAMP_BKP104R_Msk
-#define TAMP_BKP105R_Pos                    (0U)
-#define TAMP_BKP105R_Msk                    (0xFFFFFFFFU << TAMP_BKP105R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP105R                        TAMP_BKP105R_Msk
-#define TAMP_BKP106R_Pos                    (0U)
-#define TAMP_BKP106R_Msk                    (0xFFFFFFFFU << TAMP_BKP106R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP106R                        TAMP_BKP106R_Msk
-#define TAMP_BKP107R_Pos                    (0U)
-#define TAMP_BKP107R_Msk                    (0xFFFFFFFFU << TAMP_BKP107R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP107R                        TAMP_BKP107R_Msk
-#define TAMP_BKP108R_Pos                    (0U)
-#define TAMP_BKP108R_Msk                    (0xFFFFFFFFU << TAMP_BKP108R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP108R                        TAMP_BKP108R_Msk
-#define TAMP_BKP109R_Pos                    (0U)
-#define TAMP_BKP109R_Msk                    (0xFFFFFFFFU << TAMP_BKP109R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP109R                        TAMP_BKP109R_Msk
-#define TAMP_BKP110R_Pos                    (0U)
-#define TAMP_BKP110R_Msk                    (0xFFFFFFFFU << TAMP_BKP110R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP110R                        TAMP_BKP110R_Msk
-#define TAMP_BKP111R_Pos                    (0U)
-#define TAMP_BKP111R_Msk                    (0xFFFFFFFFU << TAMP_BKP111R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP111R                        TAMP_BKP111R_Msk
-#define TAMP_BKP112R_Pos                    (0U)
-#define TAMP_BKP112R_Msk                    (0xFFFFFFFFU << TAMP_BKP112R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP112R                        TAMP_BKP112R_Msk
-#define TAMP_BKP113R_Pos                    (0U)
-#define TAMP_BKP113R_Msk                    (0xFFFFFFFFU << TAMP_BKP113R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP113R                        TAMP_BKP113R_Msk
-#define TAMP_BKP114R_Pos                    (0U)
-#define TAMP_BKP114R_Msk                    (0xFFFFFFFFU << TAMP_BKP114R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP114R                        TAMP_BKP114R_Msk
-#define TAMP_BKP115R_Pos                    (0U)
-#define TAMP_BKP115R_Msk                    (0xFFFFFFFFU << TAMP_BKP115R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP115R                        TAMP_BKP115R_Msk
-#define TAMP_BKP116R_Pos                    (0U)
-#define TAMP_BKP116R_Msk                    (0xFFFFFFFFU << TAMP_BKP116R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP116R                        TAMP_BKP116R_Msk
-#define TAMP_BKP117R_Pos                    (0U)
-#define TAMP_BKP117R_Msk                    (0xFFFFFFFFU << TAMP_BKP117R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP117R                        TAMP_BKP117R_Msk
-#define TAMP_BKP118R_Pos                    (0U)
-#define TAMP_BKP118R_Msk                    (0xFFFFFFFFU << TAMP_BKP118R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP118R                        TAMP_BKP118R_Msk
-#define TAMP_BKP119R_Pos                    (0U)
-#define TAMP_BKP119R_Msk                    (0xFFFFFFFFU << TAMP_BKP119R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP119R                        TAMP_BKP119R_Msk
-#define TAMP_BKP120R_Pos                    (0U)
-#define TAMP_BKP120R_Msk                    (0xFFFFFFFFU << TAMP_BKP120R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP120R                        TAMP_BKP120R_Msk
-#define TAMP_BKP121R_Pos                    (0U)
-#define TAMP_BKP121R_Msk                    (0xFFFFFFFFU << TAMP_BKP121R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP121R                        TAMP_BKP121R_Msk
-#define TAMP_BKP122R_Pos                    (0U)
-#define TAMP_BKP122R_Msk                    (0xFFFFFFFFU << TAMP_BKP122R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP122R                        TAMP_BKP122R_Msk
-#define TAMP_BKP123R_Pos                    (0U)
-#define TAMP_BKP123R_Msk                    (0xFFFFFFFFU << TAMP_BKP123R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP123R                        TAMP_BKP123R_Msk
-#define TAMP_BKP124R_Pos                    (0U)
-#define TAMP_BKP124R_Msk                    (0xFFFFFFFFU << TAMP_BKP124R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP124R                        TAMP_BKP124R_Msk
-#define TAMP_BKP125R_Pos                    (0U)
-#define TAMP_BKP125R_Msk                    (0xFFFFFFFFU << TAMP_BKP125R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP125R                        TAMP_BKP125R_Msk
-#define TAMP_BKP126R_Pos                    (0U)
-#define TAMP_BKP126R_Msk                    (0xFFFFFFFFU << TAMP_BKP126R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP126R                        TAMP_BKP126R_Msk
-#define TAMP_BKP127R_Pos                    (0U)
-#define TAMP_BKP127R_Msk                    (0xFFFFFFFFU << TAMP_BKP127R_Pos)  /*!< 0xFFFFFFFF */
-#define TAMP_BKP127R                        TAMP_BKP127R_Msk
+
 
 /********************  Bits definition for TAMP_HWCFGR2 register  *************/
 #define TAMP_HWCFGR2_TRUST_ZONE_Pos         (8U)
@@ -28137,10 +27777,6 @@ peripheral. It shall be used to deallocate a peripheral from MCU */
 #define TIM_SMCR_SMS_1            (0x00002U << TIM_SMCR_SMS_Pos)               /*!< 0x00000002 */
 #define TIM_SMCR_SMS_2            (0x00004U << TIM_SMCR_SMS_Pos)               /*!< 0x00000004 */
 #define TIM_SMCR_SMS_3            (0x10000U << TIM_SMCR_SMS_Pos)               /*!< 0x00010000 */
-
-#define TIM_SMCR_OCCS_Pos         (3U)
-#define TIM_SMCR_OCCS_Msk         (0x1U << TIM_SMCR_OCCS_Pos)                  /*!< 0x00000008 */
-#define TIM_SMCR_OCCS             TIM_SMCR_OCCS_Msk                            /*!< OCREF clear selection */
 
 #define TIM_SMCR_TS_Pos           (4U)
 #define TIM_SMCR_TS_Msk           (0x30007U << TIM_SMCR_TS_Pos)                /*!< 0x00300070 */

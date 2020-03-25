@@ -133,24 +133,27 @@ const PinName digitalPin[] = {
   PB_6,  // 74 Header left, pin 25
   PB_5,  // 75 Header left, pin 26
   PE_0,  // 76 Header left, pin 27 and LED_BUILTIN
-  PB_7,  // 77 Header left, pin 28
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_0,  // 78/A0
-  PA_1,  // 79/A1
-  PA_2,  // 80/A2
-  PA_3,  // 81/A3
-  PA_4,  // 82/A4
-  PA_5,  // 83/A5
-  PA_6,  // 84/A6
-  PA_7,  // 85/A7
-  PB_0,  // 86/A8
-  PB_1,  // 87/A9
-  PC_0,  // 88/A10
-  PC_1,  // 89/A11
-  PC_2,  // 90/A12
-  PC_3,  // 91/A13
-  PC_4,  // 92/A14
-  PC_5   // 93/A15
+  PB_7   // 77 Header left, pin 28
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  8,  //A0
+  11, //A1
+  10, //A2
+  12, //A3
+  15, //A4
+  14, //A5
+  17, //A6
+  16, //A7
+  21, //A8
+  20, //A9
+  7,  //A10
+  6,  //A11
+  9,  //A12
+  13, //A13
+  19, //A14
+  18  //A15
 };
 
 #ifdef __cplusplus
@@ -203,6 +206,10 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     _Error_Handler(__FILE__, __LINE__);
   }
+
+  /* Ensure CCM RAM clock is enabled */
+  __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
+
 }
 
 #ifdef __cplusplus

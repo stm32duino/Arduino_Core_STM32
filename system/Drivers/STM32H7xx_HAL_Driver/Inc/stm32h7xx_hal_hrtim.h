@@ -28,6 +28,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_hal_def.h"
 
+#if defined(HRTIM1)
 /** @addtogroup STM32H7xx_HAL_Driver
   * @{
   */
@@ -1131,9 +1132,6 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 #define HRTIM_CAPTURETRIGGER_TE1_RESET    (HRTIM_CPT1CR_TE1RST)    /*!< Capture is triggered by TE1 output active to inactive transition */
 #define HRTIM_CAPTURETRIGGER_TIMERE_CMP1  (HRTIM_CPT1CR_TIMECMP1)  /*!< Timer E Compare 1 triggers Capture */
 #define HRTIM_CAPTURETRIGGER_TIMERE_CMP2  (HRTIM_CPT1CR_TIMECMP2)  /*!< Timer E Compare 2 triggers Capture */
-/**
-  * @}
-  */
 /**
   * @}
   */
@@ -2726,18 +2724,13 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
      ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_114)  || \
      ((CALIBRATIONRATE) == HRTIM_CALIBRATIONRATE_14))
 
-#define IS_HRTIM_TIMER_BURSTDMA(TIMER, BURSTDMA)                                       \
-   ((((TIMER) == HRTIM_TIMERINDEX_MASTER) && (((BURSTDMA) & 0xFFFFFC000U) == 0x00000000U)) \
-    ||                                                                                 \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
-    ||                                                                                 \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
-    ||                                                                                 \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
-    ||                                                                                 \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
-    ||                                                                                 \
-    (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)))
+#define IS_HRTIM_TIMER_BURSTDMA(TIMER, BURSTDMA)                                            \
+    ((((TIMER) == HRTIM_TIMERINDEX_MASTER)  && (((BURSTDMA) & 0xFFFFC000U) == 0x00000000U)) \
+  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_A) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
+  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_B) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
+  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_C) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
+  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_D) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)) \
+  || (((TIMER) == HRTIM_TIMERINDEX_TIMER_E) && (((BURSTDMA) & 0xFFE00000U) == 0x00000000U)))
 
 #define IS_HRTIM_BURSTMODECTL(BURSTMODECTL)\
     (((BURSTMODECTL) == HRTIM_BURSTMODECTL_DISABLED)  || \
@@ -3657,6 +3650,7 @@ HAL_StatusTypeDef HAL_HRTIM_TIMxUnRegisterCallback(HRTIM_HandleTypeDef *       h
   * @}
   */
 
+#endif /* HRTIM1 */
 
 #ifdef __cplusplus
 }

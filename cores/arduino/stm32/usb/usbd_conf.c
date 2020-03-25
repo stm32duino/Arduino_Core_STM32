@@ -28,6 +28,11 @@
 #else
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+#if !defined(USBD_VBUS_DETECTION_ENABLE)
+#define VBUS_SENSING DISABLE
+#else
+#define VBUS_SENSING ENABLE
+#endif
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -479,14 +484,14 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   g_hpcd.Init.phy_itface = PCD_PHY_ULPI;
 #endif
   g_hpcd.Init.speed = PCD_SPEED_HIGH;
-  g_hpcd.Init.vbus_sensing_enable = ENABLE;
+  g_hpcd.Init.vbus_sensing_enable = VBUS_SENSING;
   g_hpcd.Init.use_external_vbus = DISABLE;
 #else /* USE_USB_FS */
 #ifdef USB_OTG_FS
   g_hpcd.Instance = USB_OTG_FS;
   g_hpcd.Init.use_dedicated_ep1 = DISABLE;
   g_hpcd.Init.dma_enable = DISABLE;
-  g_hpcd.Init.vbus_sensing_enable = DISABLE;
+  g_hpcd.Init.vbus_sensing_enable = VBUS_SENSING;
   g_hpcd.Init.use_external_vbus = DISABLE;
 #else
   g_hpcd.Instance = USB;

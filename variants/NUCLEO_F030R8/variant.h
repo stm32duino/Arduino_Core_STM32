@@ -38,8 +38,8 @@ extern "C" {
 #define PA9  8
 #define PC7  9
 #define PB6  10
-#define PA7  11 // A6
-#define PA6  12 // A7
+#define PA7  A6
+#define PA6  A7
 #define PA5  13
 #define PB9  14
 #define PB8  15
@@ -58,8 +58,8 @@ extern "C" {
 #define PC15 26
 #define PF0  27
 #define PF1  28
-#define PC2  29 // A8
-#define PC3  30 // A9
+#define PC2  A8
+#define PC3  A9
 // CN7 Right Side
 #define PC11 31
 #define PD2  32
@@ -68,7 +68,7 @@ extern "C" {
 // CN10 Right side
 #define PC8  34
 #define PC6  35
-#define PC5  36 // A10
+#define PC5  A10
 #define PA12 37
 #define PA11 38
 #define PB12 39
@@ -78,21 +78,20 @@ extern "C" {
 #define PB15 43
 #define PB14 44
 #define PB13 45
-#define PC4  46 // A11
+#define PC4  A11
 #define PF5  47
 #define PF4  48
-#define PA0  49 // A0
-#define PA1  50 // A1
-#define PA4  51 // A2
-#define PB0  52 // A3
-#define PC1  53 // A4
-#define PC0  54 // A5
+#define PA0  A0
+#define PA1  A1
+#define PA4  A2
+#define PB0  A3
+#define PC1  A4
+#define PC0  A5
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        61
+#define NUM_DIGITAL_PINS        55
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       12
-#define NUM_ANALOG_FIRST        49
 
 // On-board LED pin number
 #define LED_BUILTIN             13

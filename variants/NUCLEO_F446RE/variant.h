@@ -38,9 +38,9 @@ extern "C" {
 #define PA9   8
 #define PC7   9
 #define PB6   10
-#define PA7   11 // A6
-#define PA6   12 // A7
-#define PA5   13 // A8 - LD2
+#define PA7   A6
+#define PA6   A7
+#define PA5   A8 // LD2
 #define PB9   14
 #define PB8   15
 // ST Morpho
@@ -57,8 +57,8 @@ extern "C" {
 #define PC15  25 // NC by default SB48 opened
 #define PH0   26 // NC by default SB55 opened
 #define PH1   27
-#define PC2   28 // A9
-#define PC3   29 // A10
+#define PC2   A9
+#define PC3   A10
 // CN7 Right Side
 #define PC11  30
 #define PD2   31
@@ -67,29 +67,28 @@ extern "C" {
 // CN10 Right side
 #define PC8   33
 #define PC6   34
-#define PC5   35 // A11
+#define PC5   A11
 #define PA12  36
 #define PA11  37
 #define PB12  38
 // 39 is NC
 #define PB2   40
-#define PB1   41 // A12
+#define PB1   A12
 #define PB15  42
 #define PB14  43
 #define PB13  44
-#define PC4   45 // A13
-#define PA0   46 // A0
-#define PA1   47 // A1
-#define PA4   48 // A2
-#define PB0   49 // A3
-#define PC1   50 // A4
-#define PC0   51 // A5
+#define PC4   A13
+#define PA0   A0
+#define PA1   A1
+#define PA4   A2
+#define PB0   A3
+#define PC1   A4
+#define PC0   A5
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        60
+#define NUM_DIGITAL_PINS        52
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        46
 
 // On-board LED pin number
 #define LED_BUILTIN             13

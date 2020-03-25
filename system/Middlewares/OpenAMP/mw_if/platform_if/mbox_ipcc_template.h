@@ -20,20 +20,39 @@
 #ifndef MBOX_IPCC_H_
 #define MBOX_IPCC_H_
 
-/* USER CODE BEGIN firstSection */
-/* can be used to modify / undefine following code or add new definitions */
-/* USER CODE END firstSection */
+/* Private includes ----------------------------------------------------------*/
+/* USER CODE BEGIN Includes */
 
-/* Includes ------------------------------------------------------------------*/
+/* USER CODE END Includes */
+
+
 /* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
+
+/* USER CODE END ET */
+
 /* Exported constants --------------------------------------------------------*/
-/* Exported functions ------------------------------------------------------- */
+/* USER CODE BEGIN EC */
+
+/* USER CODE END EC */
+
+/* Private defines -----------------------------------------------------------*/
+/* USER CODE BEGIN Private defines */
+
+/* USER CODE END  Private defines */
+
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
+
+/* USER CODE END EM */
+
+/* Exported functions prototypes ---------------------------------------------*/
+/* USER CODE BEGIN EFP */
+
+/* USER CODE END EFP */
+
 int MAILBOX_Notify(void *priv, uint32_t id);
 int MAILBOX_Init(void);
 int MAILBOX_Poll(struct virtio_device *vdev);
-
-/* USER CODE BEGIN lastSection */
-/* can be used to modify / undefine previous code or add new definitions */
-/* USER CODE END lastSection */
 
 #endif /* MBOX_IPCC_H_ */

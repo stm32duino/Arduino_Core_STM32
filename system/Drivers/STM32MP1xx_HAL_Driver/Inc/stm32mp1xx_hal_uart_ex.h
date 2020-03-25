@@ -18,8 +18,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32MP1xx_HAL_UART_EX_H
-#define __STM32MP1xx_HAL_UART_EX_H
+#ifndef STM32MP1xx_HAL_UART_EX_H
+#define STM32MP1xx_HAL_UART_EX_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -46,7 +46,7 @@ extern "C" {
   */
 typedef struct
 {
-  uint32_t WakeUpEvent;        /*!< Specifies which event will activat the Wakeup from Stop mode flag (WUF).
+  uint32_t WakeUpEvent;        /*!< Specifies which event will activate the Wakeup from Stop mode flag (WUF).
                                     This parameter can be a value of @ref UART_WakeUp_from_Stop_Selection.
                                     If set to UART_WAKEUP_ON_ADDRESS, the two other fields below must
                                     be filled up. */
@@ -69,9 +69,9 @@ typedef struct
 /** @defgroup UARTEx_Word_Length UARTEx Word Length
   * @{
   */
-#define UART_WORDLENGTH_7B                  USART_CR1_M1   /*!< 7-bit long UART frame */
-#define UART_WORDLENGTH_8B                  0x00000000U    /*!< 8-bit long UART frame */
-#define UART_WORDLENGTH_9B                  USART_CR1_M0   /*!< 9-bit long UART frame */
+#define UART_WORDLENGTH_7B          USART_CR1_M1   /*!< 7-bit long UART frame */
+#define UART_WORDLENGTH_8B          0x00000000U    /*!< 8-bit long UART frame */
+#define UART_WORDLENGTH_9B          USART_CR1_M0   /*!< 9-bit long UART frame */
 /**
   * @}
   */
@@ -79,8 +79,8 @@ typedef struct
 /** @defgroup UARTEx_WakeUp_Address_Length UARTEx WakeUp Address Length
   * @{
   */
-#define UART_ADDRESS_DETECT_4B              0x00000000U      /*!< 4-bit long wake-up address */
-#define UART_ADDRESS_DETECT_7B              USART_CR2_ADDM7  /*!< 7-bit long wake-up address */
+#define UART_ADDRESS_DETECT_4B      0x00000000U      /*!< 4-bit long wake-up address */
+#define UART_ADDRESS_DETECT_7B      USART_CR2_ADDM7  /*!< 7-bit long wake-up address */
 /**
   * @}
   */
@@ -89,8 +89,8 @@ typedef struct
   * @brief    UART FIFO mode
   * @{
   */
-#define UART_FIFOMODE_DISABLE        0x00000000U       /*!< FIFO mode disable */
-#define UART_FIFOMODE_ENABLE         USART_CR1_FIFOEN  /*!< FIFO mode enable  */
+#define UART_FIFOMODE_DISABLE       0x00000000U       /*!< FIFO mode disable */
+#define UART_FIFOMODE_ENABLE        USART_CR1_FIFOEN  /*!< FIFO mode enable  */
 /**
   * @}
   */
@@ -138,7 +138,8 @@ typedef struct
   */
 
 /* Initialization and de-initialization functions  ****************************/
-HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime, uint32_t DeassertionTime);
+HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime,
+                                   uint32_t DeassertionTime);
 
 /**
   * @}
@@ -165,7 +166,9 @@ void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UARTEx_StopModeWakeUpSourceConfig(UART_HandleTypeDef *huart, UART_WakeUpTypeDef WakeUpSelection);
 HAL_StatusTypeDef HAL_UARTEx_EnableStopMode(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UARTEx_DisableStopMode(UART_HandleTypeDef *huart);
+
 HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *huart, uint32_t AddressLength);
+
 HAL_StatusTypeDef HAL_UARTEx_EnableFifoMode(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UARTEx_DisableFifoMode(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UARTEx_SetTxFifoThreshold(UART_HandleTypeDef *huart, uint32_t Threshold);
@@ -321,7 +324,7 @@ HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint3
         case RCC_USART6CLKSOURCE_PCLK2:                       \
           (__CLOCKSOURCE__) = UART_CLOCKSOURCE_PCLK2;         \
           break;                                              \
-          case RCC_USART6CLKSOURCE_PLL4:                      \
+        case RCC_USART6CLKSOURCE_PLL4:                        \
           (__CLOCKSOURCE__) = UART_CLOCKSOURCE_PLL4Q;         \
           break;                                              \
         case RCC_USART6CLKSOURCE_HSI:                         \
@@ -386,6 +389,10 @@ HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint3
           break;                                              \
       }                                                       \
     }                                                         \
+    else                                                      \
+    {                                                         \
+      (__CLOCKSOURCE__) = UART_CLOCKSOURCE_UNDEFINED;         \
+    }                                                         \
   } while(0U)
 
 /** @brief  Report the UART mask to apply to retrieve the received data
@@ -399,41 +406,44 @@ HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint3
   */
 #define UART_MASK_COMPUTATION(__HANDLE__)                             \
   do {                                                                \
-  if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_9B)            \
-  {                                                                   \
-     if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)               \
-     {                                                                \
+    if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_9B)          \
+    {                                                                 \
+      if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)              \
+      {                                                               \
         (__HANDLE__)->Mask = 0x01FFU ;                                \
-     }                                                                \
-     else                                                             \
-     {                                                                \
+      }                                                               \
+      else                                                            \
+      {                                                               \
         (__HANDLE__)->Mask = 0x00FFU ;                                \
-     }                                                                \
-  }                                                                   \
-  else if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_8B)       \
-  {                                                                   \
-     if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)               \
-     {                                                                \
+      }                                                               \
+    }                                                                 \
+    else if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_8B)     \
+    {                                                                 \
+      if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)              \
+      {                                                               \
         (__HANDLE__)->Mask = 0x00FFU ;                                \
-     }                                                                \
-     else                                                             \
-     {                                                                \
+      }                                                               \
+      else                                                            \
+      {                                                               \
         (__HANDLE__)->Mask = 0x007FU ;                                \
-     }                                                                \
-  }                                                                   \
-  else if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_7B)       \
-  {                                                                   \
-     if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)               \
-     {                                                                \
+      }                                                               \
+    }                                                                 \
+    else if ((__HANDLE__)->Init.WordLength == UART_WORDLENGTH_7B)     \
+    {                                                                 \
+      if ((__HANDLE__)->Init.Parity == UART_PARITY_NONE)              \
+      {                                                               \
         (__HANDLE__)->Mask = 0x007FU ;                                \
-     }                                                                \
-     else                                                             \
-     {                                                                \
+      }                                                               \
+      else                                                            \
+      {                                                               \
         (__HANDLE__)->Mask = 0x003FU ;                                \
-     }                                                                \
-  }                                                                   \
-} while(0U)
-
+      }                                                               \
+    }                                                                 \
+    else                                                              \
+    {                                                                 \
+      (__HANDLE__)->Mask = 0x0000U;                                   \
+    }                                                                 \
+  } while(0U)
 
 /**
   * @brief Ensure that UART frame length is valid.
@@ -494,6 +504,6 @@ HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint3
 }
 #endif
 
-#endif /* __STM32MP1xx_HAL_UART_EX_H */
+#endif /* STM32MP1xx_HAL_UART_EX_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

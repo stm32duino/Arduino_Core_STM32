@@ -80,13 +80,7 @@ const PinName digitalPin[] = {
   PA_4,  //D47/A2
   PB_0,  //D48/A3
   PC_1,  //D49/A4
-  PC_0,  //D50/A5
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_7,  //D51/A6  = D11
-  PA_6,  //D52/A7  = D12
-  PC_2,  //D53/A8  = D27
-  PC_3,  //D54/A9  = D28
-  PC_4   //D55/A10 = D44
+  PC_0   //D50/A5
 #else
   PA_10, //D0
   PA_9,  //D1
@@ -143,15 +137,32 @@ const PinName digitalPin[] = {
   PC_3,  //D47 // A2
   PC_2,  //D48 // A3
   PC_1,  //D49 // A4
-  PC_0,  //D50 // A5
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  PA_4,  //D51 // A6  = D41
-  PA_5,  //D52 // A7  = D40
-  PA_6,  //D53 // A8  = D39
-  PA_7,  //D54 // A9  = D38
-  PB_0,  //D55 // A10 = D34
-  PB_1,  //D56 // A11 = D37
-  PC_4   //D57 // A12 = D42
+  PC_0   //D50 // A5
+#endif
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  45, //A0
+  46, //A1
+  47, //A2
+  48, //A3
+  49, //A4
+  50, //A5
+#ifdef ARDUINO_NUCLEO_L452RE
+  11, //A6
+  12, //A7
+  27, //A8
+  28, //A9
+  44  //A10
+#else
+  41, //A6
+  40, //A7
+  39, //A8
+  38, //A9
+  34, //A10
+  37, //A11
+  42  //A12
 #endif
 };
 

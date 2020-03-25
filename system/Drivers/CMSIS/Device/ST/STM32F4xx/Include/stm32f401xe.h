@@ -8408,10 +8408,6 @@ typedef struct
                                          ((INSTANCE) == TIM4) || \
                                          ((INSTANCE) == TIM5) || \
                                          ((INSTANCE) == TIM9))
-
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /********************** TIM Instances : 32 bit Counter ************************/
 #define IS_TIM_32B_COUNTER_INSTANCE(INSTANCE)(((INSTANCE) == TIM2) || \
                                               ((INSTANCE) == TIM5))

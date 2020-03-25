@@ -202,9 +202,9 @@ typedef struct
   */
 
 /** @addtogroup TIMEx_Exported_Functions_Group1 Extended Timer Hall Sensor functions
- *  @brief    Timer Hall Sensor functions
- * @{
- */
+  *  @brief    Timer Hall Sensor functions
+  * @{
+  */
 /*  Timer Hall Sensor functions  **********************************************/
 HAL_StatusTypeDef HAL_TIMEx_HallSensor_Init(TIM_HandleTypeDef *htim, TIM_HallSensor_InitTypeDef *sConfig);
 HAL_StatusTypeDef HAL_TIMEx_HallSensor_DeInit(TIM_HandleTypeDef *htim);
@@ -226,9 +226,9 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Stop_DMA(TIM_HandleTypeDef *htim);
   */
 
 /** @addtogroup TIMEx_Exported_Functions_Group2 Extended Timer Complementary Output Compare functions
- *  @brief   Timer Complementary Output Compare functions
- * @{
- */
+  *  @brief   Timer Complementary Output Compare functions
+  * @{
+  */
 /*  Timer Complementary Output Compare functions  *****************************/
 /* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_TIMEx_OCN_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
@@ -246,9 +246,9 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chann
   */
 
 /** @addtogroup TIMEx_Exported_Functions_Group3 Extended Timer Complementary PWM functions
- *  @brief    Timer Complementary PWM functions
- * @{
- */
+  *  @brief    Timer Complementary PWM functions
+  * @{
+  */
 /*  Timer Complementary PWM functions  ****************************************/
 /* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_TIMEx_PWMN_Start(TIM_HandleTypeDef *htim, uint32_t Channel);
@@ -265,9 +265,9 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
   */
 
 /** @addtogroup TIMEx_Exported_Functions_Group4 Extended Timer Complementary One Pulse functions
- *  @brief    Timer Complementary One Pulse functions
- * @{
- */
+  *  @brief    Timer Complementary One Pulse functions
+  * @{
+  */
 /*  Timer Complementary One Pulse functions  **********************************/
 /* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start(TIM_HandleTypeDef *htim, uint32_t OutputChannel);
@@ -281,15 +281,20 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Stop_IT(TIM_HandleTypeDef *htim, uint32_t 
   */
 
 /** @addtogroup TIMEx_Exported_Functions_Group5 Extended Peripheral Control functions
- *  @brief    Peripheral Control functions
- * @{
- */
+  *  @brief    Peripheral Control functions
+  * @{
+  */
 /* Extended Control functions  ************************************************/
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource);
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource);
-HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger, uint32_t  CommutationSource);
-HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim, TIM_MasterConfigTypeDef *sMasterConfig);
-HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim, TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig);
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                              uint32_t  CommutationSource);
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                                 uint32_t  CommutationSource);
+HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint32_t  InputTrigger,
+                                                  uint32_t  CommutationSource);
+HAL_StatusTypeDef HAL_TIMEx_MasterConfigSynchronization(TIM_HandleTypeDef *htim,
+                                                        TIM_MasterConfigTypeDef *sMasterConfig);
+HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
+                                                TIM_BreakDeadTimeConfigTypeDef *sBreakDeadTimeConfig);
 HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap);
 /**
   * @}
@@ -323,7 +328,7 @@ HAL_TIM_StateTypeDef HAL_TIMEx_HallSensor_GetState(TIM_HandleTypeDef *htim);
 /* End of exported functions -------------------------------------------------*/
 
 /* Private functions----------------------------------------------------------*/
-/** @defgroup TIMEx_Private_Functions TIM Extended Private Functions
+/** @addtogroup TIMEx_Private_Functions TIMEx Private Functions
   * @{
   */
 void TIMEx_DMACommutationCplt(DMA_HandleTypeDef *hdma);

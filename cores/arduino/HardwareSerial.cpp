@@ -26,7 +26,7 @@
 #include "Arduino.h"
 #include "HardwareSerial.h"
 
-#if defined(HAL_UART_MODULE_ENABLED)
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
     defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
     defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
@@ -116,7 +116,7 @@ HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
   init(_rx, _tx);
 }
 
-HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
+HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
 {
   // If PIN_SERIALy_RX is not defined assume half-duplex
   _serial.pin_rx = NC;
@@ -247,7 +247,7 @@ HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
                           _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
                           _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
                         }
-  if (halfDuplex) {
+  if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }
   init(_serial.pin_rx, _serial.pin_tx);
@@ -528,4 +528,4 @@ void HardwareSerial::enableHalfDuplexRx(void)
   }
 }
 
-#endif // HAL_UART_MODULE_ENABLED
+#endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
