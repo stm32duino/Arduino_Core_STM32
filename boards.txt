@@ -544,6 +544,18 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# DISCO_B-G474E-DPOW1 board
+Disco.menu.pnum.DISCO_B-G474E-DPOW1=DISCO_G474E_DPOW1
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.upload.maximum_size=524288
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.upload.maximum_data_size=131072
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.board=DISCO_G474E_DPOW1
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.series=STM32G4xx
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.product_line=STM32G474xx
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.variant=DISCO_G474E_DPOW1
+Disco.menu.pnum.DISCO_B-G474E-DPOW1.build.cmsis_lib_gcc=arm_cortexM4l_math
+
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
