@@ -155,8 +155,9 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # -------------------
 
 # Upload to board via mass storage
-tools.massStorageCopy.cmd=massStorageCopy.sh
+tools.massStorageCopy.cmd=massStorageCopy
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
+tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
 tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
 tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
 tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
@@ -166,6 +167,7 @@ tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.
 
 # STM32CubeProgrammer upload
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
+tools.stm32CubeProg.cmd.macosx=stm32CubeProg
 tools.stm32CubeProg.cmd.windows=stm32CubeProg.bat
 tools.stm32CubeProg.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.stm32CubeProg.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
@@ -193,7 +195,7 @@ tools.hid_upload.upload.params.quiet=n
 tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}                                                                                                                             
 
 # Upload using Maple bootloader over DFU
-tools.maple_upload.cmd=maple_upload.sh
+tools.maple_upload.cmd=maple_upload
 tools.maple_upload.cmd.windows=maple_upload.bat
 tools.maple_upload.path={runtime.tools.STM32Tools.path}/tools/win
 tools.maple_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
