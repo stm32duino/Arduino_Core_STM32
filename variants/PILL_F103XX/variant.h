@@ -85,10 +85,14 @@ extern "C" {
 #define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
-#ifdef ARDUINO_BLUEPILL_F103C8
+#if defined(ARDUINO_BLUEPILL_F103C6) || defined(ARDUINO_BLUEPILL_F103C8) ||\
+    defined(ARDUINO_BLUEPILL_F103CB)
 #define LED_BUILTIN             PC13
 #else
+#ifndef LED_BUILTIN
+// Default for Blackpill
 #define LED_BUILTIN             PB12
+#endif
 #endif
 #define LED_GREEN               LED_BUILTIN
 
