@@ -210,7 +210,8 @@
             "RAK811_TRACKERA",
             "REMRAM_V1",
             "STEVAL_MKSBOX1V1",
-            "THUNDER_PACK",
+            "THUNDERPACK_F411",
+            "THUNDERPACK_L072",
             "Wraith32_V1"
           ]
         },
@@ -225,7 +226,8 @@
             "RAK811_TRACKERA",
             "REMRAM_V1",
             "STEVAL_MKSBOX1V1",
-            "THUNDER_PACK"
+            "THUNDERPACK_F411",
+            "THUNDERPACK_L072"
           ]
         },
         {
@@ -277,7 +279,7 @@
           "applicable": false,
           "boards": [
             "GENERIC_F401RB", "GENERIC_F401RC", "GENERIC_F401RD", "GENERIC_F401RE",
-            "HY_TinySTM103TB", "THUNDER_PACK"
+            "HY_TinySTM103TB", "THUNDERPACK_F411", "THUNDERPACK_L072"
           ]
         },
         {
