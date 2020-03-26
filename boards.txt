@@ -834,6 +834,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.openocd_script=openocd.cfg
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
@@ -842,6 +843,8 @@ GenF1.menu.pnum.BLUEPILL_F103C6.upload.maximum_data_size=10240
 GenF1.menu.pnum.BLUEPILL_F103C6.build.board=BLUEPILL_F103C6
 GenF1.menu.pnum.BLUEPILL_F103C6.build.product_line=STM32F103x6
 GenF1.menu.pnum.BLUEPILL_F103C6.build.variant=PILL_F103XX
+GenF1.menu.pnum.BLUEPILL_F103C6.hid_bootloader=hid-bootloader/F103/low_and_medium_density/hid_generic_pc13.bin
+GenF1.menu.pnum.BLUEPILL_F103C6.stm32duino_bootloader=stm32duino-bootloader/generic_boot20_pc13.bin
 
 # BLUEPILL_F103C8 board
 GenF1.menu.pnum.BLUEPILL_F103C8=BluePill F103C8
@@ -850,6 +853,8 @@ GenF1.menu.pnum.BLUEPILL_F103C8.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLUEPILL_F103C8.build.board=BLUEPILL_F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLUEPILL_F103C8.build.variant=PILL_F103XX
+GenF1.menu.pnum.BLUEPILL_F103C8.hid_bootloader=hid-bootloader/F103/low_and_medium_density/hid_generic_pc13.bin
+GenF1.menu.pnum.BLUEPILL_F103C8.stm32duino_bootloader=stm32duino-bootloader/generic_boot20_pc13.bin
 
 GenF1.menu.pnum.BLUEPILL_F103C8B=BluePill F103C8 (128k)
 GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_size=131072
@@ -857,6 +862,8 @@ GenF1.menu.pnum.BLUEPILL_F103C8B.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.board=BLUEPILL_F103C8
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLUEPILL_F103C8B.build.variant=PILL_F103XX
+GenF1.menu.pnum.BLUEPILL_F103C8B.hid_bootloader=hid-bootloader/F103/low_and_medium_density/hid_generic_pc13.bin
+GenF1.menu.pnum.BLUEPILL_F103C8B.stm32duino_bootloader=stm32duino-bootloader/generic_boot20_pc13.bin
 
 # BLACKPILL_F103C8 board
 GenF1.menu.pnum.BLACKPILL_F103C8=BlackPill F103C8
@@ -865,6 +872,8 @@ GenF1.menu.pnum.BLACKPILL_F103C8.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLACKPILL_F103C8.build.board=BLACKPILL_F103C8
 GenF1.menu.pnum.BLACKPILL_F103C8.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLACKPILL_F103C8.build.variant=PILL_F103XX
+GenF1.menu.pnum.BLACKPILL_F103C8.hid_bootloader=hid-bootloader/F103/low_and_medium_density/hid_generic_pc13.bin
+GenF1.menu.pnum.BLACKPILL_F103C8.stm32duino_bootloader=stm32duino-bootloader/generic_boot20_pc13.bin
 
 GenF1.menu.pnum.BLACKPILL_F103C8B=BlackPill F103C8 (128k)
 GenF1.menu.pnum.BLACKPILL_F103C8B.upload.maximum_size=131072
@@ -872,6 +881,8 @@ GenF1.menu.pnum.BLACKPILL_F103C8B.upload.maximum_data_size=20480
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.board=BLACKPILL_F103C8
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLACKPILL_F103C8B.build.variant=PILL_F103XX
+GenF1.menu.pnum.BLACKPILL_F103C8B.hid_bootloader=hid-bootloader/F103/low_and_medium_density/hid_generic_pc13.bin
+GenF1.menu.pnum.BLACKPILL_F103C8B.stm32duino_bootloader=stm32duino-bootloader/generic_boot20_pc13.bin
 
 # Generic STM32F103Rx boards (Blue button)
 GenF1.menu.pnum.Generic_F103R8T6=Generic F103R8T6 (Blue Button)
@@ -995,6 +1006,7 @@ GenF1.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF1.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF1.menu.upload_method.hidMethod.build.flash_offset=0x800
 GenF1.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.hidMethod.bootloader.file={hid_bootloader}
 
 GenF1.menu.upload_method.dfu2Method=Maple DFU Bootloader 2.0
 GenF1.menu.upload_method.dfu2Method.upload.protocol=maple
@@ -1003,6 +1015,7 @@ GenF1.menu.upload_method.dfu2Method.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfu2Method.upload.altID=2
 GenF1.menu.upload_method.dfu2Method.build.flash_offset=0x2000
 GenF1.menu.upload_method.dfu2Method.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+GenF1.menu.upload_method.dfu2Method.bootloader.file={stm32duino_bootloader}
 
 GenF1.menu.upload_method.dfuoMethod=Maple DFU Bootloader original
 GenF1.menu.upload_method.dfuoMethod.upload.protocol=maple
