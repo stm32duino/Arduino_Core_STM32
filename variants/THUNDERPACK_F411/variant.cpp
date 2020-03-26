@@ -50,14 +50,6 @@ const PinName digitalPin[] = {
   PH_1   // Digital pin 35, used by the external oscillator if present
 };
 
-// Analog (Ax) pin number array
-const uint32_t analogInputPin[] = {
-  4,  // A4,  PA4
-  5,  // A5,  PA5
-  6,  // A6,  PA6
-  7,  // A7,  PA7
-};
-
 #ifdef __cplusplus
 }
 #endif
