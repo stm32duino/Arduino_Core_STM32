@@ -371,23 +371,21 @@ void SystemCoreClockUpdate (void)
   */
 void SystemInit_ExtMemCtl(void)
 {
-  __IO uint32_t tmpreg;
-  /*!< FSMC Bank1 NOR/SRAM3 is used for the STM3210E-EVAL, if another Bank is
+   /*!< FSMC Bank1 NOR/SRAM3 is used for the STM3210E-EVAL, if another Bank is
     required, then adjust the Register Addresses */
 
   /* Enable FSMC clock */
   RCC->AHBENR = 0x00000114U;
 
   /* Delay after an RCC peripheral clock enabling */
-  tmpreg = READ_BIT(RCC->AHBENR, RCC_AHBENR_FSMCEN);
+  READ_BIT(RCC->AHBENR, RCC_AHBENR_FSMCEN);
 
   /* Enable GPIOD, GPIOE, GPIOF and GPIOG clocks */
   RCC->APB2ENR = 0x000001E0U;
 
   /* Delay after an RCC peripheral clock enabling */
-  tmpreg = READ_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPDEN);
+  READ_BIT(RCC->APB2ENR, RCC_APB2ENR_IOPDEN);
 
-  (void)(tmpreg);
 
 /* ---------------  SRAM Data lines, NOE and NWE configuration ---------------*/
 /*----------------  SRAM Address lines configuration -------------------------*/

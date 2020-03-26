@@ -3505,13 +3505,11 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
 __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   SET_BIT(TIMx->BDTR, TIM_BDTR_BKE);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 
@@ -3526,13 +3524,11 @@ __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
 __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BKE);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 
@@ -3570,13 +3566,11 @@ __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity,
                                       uint32_t BreakFilter)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   MODIFY_REG(TIMx->BDTR, TIM_BDTR_BKP | TIM_BDTR_BKF, BreakPolarity | BreakFilter);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to BKP bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 
@@ -3595,13 +3589,11 @@ __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity,
 __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   MODIFY_REG(TIMx->BDTR, TIM_BDTR_BKP, BreakPolarity);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to BKP bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 
@@ -3618,13 +3610,11 @@ __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity)
 __STATIC_INLINE void LL_TIM_EnableBRK2(TIM_TypeDef *TIMx)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   SET_BIT(TIMx->BDTR, TIM_BDTR_BK2E);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 
@@ -3639,13 +3629,11 @@ __STATIC_INLINE void LL_TIM_EnableBRK2(TIM_TypeDef *TIMx)
 __STATIC_INLINE void LL_TIM_DisableBRK2(TIM_TypeDef *TIMx)
 {
 #if defined(TIM_IP_V2_1)
-  __IO uint32_t tmpreg;
 #endif /* TIM_IP_V2_1 */
   CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BK2E);
 #if defined(TIM_IP_V2_1)
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 #endif /* TIM_IP_V2_1 */
 }
 

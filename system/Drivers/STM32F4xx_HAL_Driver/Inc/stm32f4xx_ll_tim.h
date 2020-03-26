@@ -2790,11 +2790,9 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   */
 __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
 {
-  __IO uint32_t tmpreg;
   SET_BIT(TIMx->BDTR, TIM_BDTR_BKE);
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 }
 
 /**
@@ -2807,11 +2805,9 @@ __STATIC_INLINE void LL_TIM_EnableBRK(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
 {
-  __IO uint32_t tmpreg;
   CLEAR_BIT(TIMx->BDTR, TIM_BDTR_BKE);
   /* Note: Any write operation to this bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 }
 
 /**
@@ -2827,11 +2823,9 @@ __STATIC_INLINE void LL_TIM_DisableBRK(TIM_TypeDef *TIMx)
   */
 __STATIC_INLINE void LL_TIM_ConfigBRK(TIM_TypeDef *TIMx, uint32_t BreakPolarity)
 {
-  __IO uint32_t tmpreg;
   MODIFY_REG(TIMx->BDTR, TIM_BDTR_BKP, BreakPolarity);
   /* Note: Any write operation to BKP bit takes a delay of 1 APB clock cycle to become effective. */
-  tmpreg = READ_REG(TIMx->BDTR);
-  (void)(tmpreg);
+  READ_REG(TIMx->BDTR);
 }
 
 /**
