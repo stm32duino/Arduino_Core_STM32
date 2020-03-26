@@ -5,6 +5,7 @@ cmsis_dap.program.protocol=
 cmsis_dap.program.interface=cmsis-dap.cfg
 cmsis_dap.program.tool=openocd
 cmsis_dap.program.extra_params=
+cmsis_dap.bootloader.tool=openocd
 
 stlink.name=ST-LINK
 stlink.communication=USB
@@ -13,3 +14,4 @@ stlink.program.protocol=
 stlink.program.interface=stlink.cfg
 stlink.program.tool=openocd
 stlink.program.extra_params=
+stlink.bootloader.tool=openocd
