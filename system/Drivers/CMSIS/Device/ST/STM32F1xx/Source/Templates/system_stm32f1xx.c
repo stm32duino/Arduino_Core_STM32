@@ -371,7 +371,7 @@ void SystemCoreClockUpdate (void)
   */
 void SystemInit_ExtMemCtl(void)
 {
-   /*!< FSMC Bank1 NOR/SRAM3 is used for the STM3210E-EVAL, if another Bank is
+  /*!< FSMC Bank1 NOR/SRAM3 is used for the STM3210E-EVAL, if another Bank is
     required, then adjust the Register Addresses */
 
   /* Enable FSMC clock */
