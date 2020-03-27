@@ -1134,7 +1134,7 @@ GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_size=524288
 GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_data_size=131072
 GenF4.menu.pnum.THUNDERPACK_F411.build.board=THUNDERPACK_F411
 GenF4.menu.pnum.THUNDERPACK_F411.build.product_line=STM32F411xE
-GenF4.menu.pnum.THUNDERPACK_F411.build.variant=THUNDERPACK_F411
+GenF4.menu.pnum.THUNDERPACK_F411.build.variant=THUNDERPACK
 
 # Generic F446RE
 GenF4.menu.pnum.Generic_F446RE=Generic F446RE
@@ -1451,7 +1451,7 @@ GenL0.menu.pnum.THUNDERPACK_L072.upload.maximum_size=196608
 GenL0.menu.pnum.THUNDERPACK_L072.upload.maximum_data_size=20480
 GenL0.menu.pnum.THUNDERPACK_L072.build.board=THUNDERPACK_L072
 GenL0.menu.pnum.THUNDERPACK_L072.build.product_line=STM32L072xx
-GenL0.menu.pnum.THUNDERPACK_L072.build.variant=THUNDERPACK_L072
+GenL0.menu.pnum.THUNDERPACK_L072.build.variant=THUNDERPACK
 
 # Piconomix PX-HER0 board
 GenL0.menu.pnum.PX_HER0=PX-HER0
