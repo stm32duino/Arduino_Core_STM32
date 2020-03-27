@@ -23,7 +23,7 @@
       ],
       "sketches": [
         {
-          "pattern": "^((?!BareMinimum.ino).)*$",
+          "pattern": "^((?!BareMinimum).)*$",
           "applicable": false,
           "boards": [ "DEMO_F030F4", "DEMO_F030F4_16M", "DEMO_F030F4_HSI", "RHF76_052" ]
         },
@@ -33,22 +33,22 @@
           "boards": [ "DISCO_L475VG_IOT" ]
         },
         {
-          "pattern": "SPBTLE_BeaconDemo.ino|SPBTLE_SensorDemo.ino|BTLE_sensors_TimeOfFlight_demo.ino",
+          "pattern": "SPBTLE_BeaconDemo|SPBTLE_SensorDemo|BTLE_sensors_TimeOfFlight_demo",
           "applicable": true,
           "boards": [ "DISCO_L475VG_IOT" ]
         },
         {
-          "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io.ino|Hello_stm32",
+          "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io|Hello_stm32",
           "applicable": true,
           "boards": [ "NUCLEO_F429ZI", "DISCO_F746NG" ]
         },
         {
-          "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io.ino|mqtt_B-L475E-IOT01A.ino",
+          "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io|mqtt_B-L475E-IOT01A",
           "applicable": true,
           "boards": [ "DISCO_L475VG_IOT" ]
         },
         {
-          "pattern": "ExternalWakeup.ino|BleSensors_SensiBLE|NucleoCar",
+          "pattern": "ExternalWakeup|BleSensors_SensiBLE|NucleoCar",
           "applicable": false,
           "boards": [
             "AFROFLIGHT_F103CB",
@@ -110,7 +110,7 @@
           ]
         },
         {
-          "pattern": "Blink(WithoutDelay)?.ino",
+          "pattern": "Blink(WithoutDelay)?",
           "applicable": false,
           "boards": [ "EEXTR_F030_V1", "MALYANM200_F103CB", "PRNTR_V2" ]
         },
@@ -148,7 +148,7 @@
           "options": "usb=HID"
         },
         {
-          "pattern": "X_NUCLEO_IDB05A1_HelloWorld.ino",
+          "pattern": "X_NUCLEO_IDB05A1_HelloWorld",
           "applicable": false,
           "boards": [
             "AFROFLIGHT_F103CB",
@@ -184,7 +184,7 @@
           ]
         },
         {
-          "pattern": "X_NUCLEO_NFC03A1_HelloWorld.ino",
+          "pattern": "X_NUCLEO_NFC03A1_HelloWorld",
           "applicable": false,
           "boards": [
             "DISCO_F030R8",
@@ -215,7 +215,7 @@
           ]
         },
         {
-          "pattern": "StringComparisonOperators.ino",
+          "pattern": "StringComparisonOperators",
           "applicable": false,
           "boards": [
             "ARMED_V1",
@@ -229,7 +229,7 @@
           ]
         },
         {
-          "pattern": "ADXL3xx.ino",
+          "pattern": "ADXL3xx",
           "applicable": false,
           "boards": [
             "ARMED_V1",
@@ -240,7 +240,7 @@
           ]
         },
         {
-          "pattern": "SerialLoop.ino|Tests_basic_functions.ino",
+          "pattern": "SerialLoop|Tests_basic_functions",
           "applicable": false,
           "boards": [ "BLUEPILL_F103C6", "NUCLEO_L031K6", "Wraith32_V1" ]
         },

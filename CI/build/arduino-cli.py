@@ -38,7 +38,7 @@ log_file = ""
 bin_dir = "binaries"
 
 # Default
-sketch_default = os.path.join(script_path, "examples", "BareMinimum", "BareMinimum.ino")
+sketch_default = os.path.join(script_path, "examples", "BareMinimum")
 exclude_file_default = os.path.join("conf", "exclude_list.txt")
 cores_config_file_default = os.path.join("conf", "cores_config.json")
 cores_config_file_ci = os.path.join("conf", "cores_config_ci.json")
@@ -351,11 +351,20 @@ def manage_inos():
     # Only one sketch
     elif args.ino:
         if os.path.exists(args.ino):
-            sketch_list.append(args.ino)
+            # Store only the path
+            if os.path.isfile(args.ino):
+                sketch_list.append(os.path.dirname(args.ino))
+            else:
+                sketch_list.append(args.ino)
         else:
             for path in sketches_path_list:
-                if os.path.exists(os.path.join(path, args.ino)):
-                    sketch_list.append(os.path.join(path, args.ino))
+                fp = os.path.join(path, args.ino)
+                if os.path.exists(fp):
+                    # Store only the path
+                    if os.path.isfile(fp):
+                        sketch_list.append(os.path.dirname(fp))
+                    else:
+                        sketch_list.append(fp)
                     break
             else:
                 print("Sketch {} path does not exist!".format(args.ino))
@@ -368,11 +377,20 @@ def manage_inos():
                 if line.rstrip():
                     ino = line.rstrip()
                     if os.path.exists(ino):
-                        sketch_list.append(ino)
+                        # Store only the path
+                        if os.path.isfile(ino):
+                            sketch_list.append(os.path.dirname(ino))
+                        else:
+                            sketch_list.append(ino)
                     else:
                         for path in sketches_path_list:
-                            if os.path.exists(os.path.join(path, ino)):
-                                sketch_list.append(os.path.join(path, ino))
+                            fp = os.path.join(path, ino)
+                            if os.path.exists(fp):
+                                # Store only the path
+                                if os.path.isfile(fp):
+                                    sketch_list.append(os.path.dirname(fp))
+                                else:
+                                    sketch_list.append(fp)
                                 break
                         else:
                             print("Ignore {} as it does not exist.".format(ino))
@@ -384,17 +402,10 @@ def manage_inos():
         quit()
 
 
-# Find all .ino files
+# Find all .ino files and save directory
 def find_inos():
-    # Path list order is important to avoid duplicated sketch name.
-    # Last one found will be kept.
-    # So sketches_path_list must take this in account, the last path
-    # should be the one with higher priority.
-
+    global sketch_list
     # key: path, value: name
-    ordered_path = collections.OrderedDict()
-    # key: name, value: path
-    ordered_name = collections.OrderedDict()
     if args.sketches:
         arg_sketch_pattern = re.compile(args.sketches, re.IGNORECASE)
     for path in sketches_path_list:
@@ -404,23 +415,8 @@ def find_inos():
                     if args.sketches:
                         if arg_sketch_pattern.search(os.path.join(root, file)) is None:
                             continue
-                    if root in ordered_path:
-                        # If several sketch are in the same path
-                        # Check which one to kept
-                        # Commonly, example structure is:
-                        # dirname/dirname.ino
-                        if (
-                            os.path.basename(root)
-                            == os.path.splitext(ordered_path[root])[0]
-                        ):
-                            continue
-                    ordered_path[root] = file
-    # Remove duplicated sketch name
-    for path, name in ordered_path.items():
-        ordered_name[name] = path
-    for name, path in ordered_name.items():
-        sketch_list.append(os.path.join(path, name))
-    sketch_list.sort()
+                    sketch_list.append(root)
+    sketch_list = sorted(set(sketch_list))
 
 
 # Return a list of all board using the arduino-cli for the specified architecture
@@ -871,7 +867,7 @@ parser.add_argument(
 
 g1 = parser.add_mutually_exclusive_group()
 g1.add_argument("--bin", help="save binaries", action="store_true")
-g1.add_argument("--ci", help="Custom configuration for CI build", action="store_true")
+g1.add_argument("--ci", help="custom configuration for CI build", action="store_true")
 
 # Sketch options
 sketchg0 = parser.add_argument_group(
@@ -880,7 +876,7 @@ sketchg0 = parser.add_argument_group(
 
 sketchg1 = sketchg0.add_mutually_exclusive_group()
 sketchg1.add_argument(
-    "-i", "--ino", metavar="<shetch filepath>", help="single ino file to build"
+    "-i", "--ino", metavar="<shetch filepath>", help="single sketch file to build"
 )
 sketchg1.add_argument(
     "-f",
@@ -898,7 +894,7 @@ sketchg1.add_argument(
     "-e",
     "--exclude",
     metavar="<excluded sketches list filepath>",
-    help="file containing pattern of sketches to ignore.\
+    help="file containing sketches pattern to ignore.\
     Default path : "
     + os.path.join(script_path, exclude_file_default),
 )
