@@ -98,8 +98,6 @@ extern "C" {
 #ifdef ARDUINO_THUNDERPACK_L072
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
-#else
-#define HSE_VALUE               24000000U
 #endif
 
 #ifdef __cplusplus
