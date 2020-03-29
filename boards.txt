@@ -264,7 +264,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=h
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=NUCLEO_F401RE
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=NUCLEO_F4x1RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F411RE board
@@ -277,7 +277,7 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=h
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=NUCLEO_F411RE
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=NUCLEO_F4x1RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F446RE board

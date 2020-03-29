@@ -44,7 +44,7 @@ const PinName digitalPin[] = {
   // CN7 Left Side
   PC_10, //D16
   PC_12, //D17
-  NC,    //D18 - BOOT0
+  NC,   //D18 - BOOT0
   PA_13, //D19 - SWD
   PA_14, //D20 - SWD
   PA_15, //D21
@@ -111,21 +111,8 @@ extern "C" {
 #endif
 /**
   * @brief  System Clock Configuration
-  *         The system Clock is configured as follow :
-  *            System Clock source            = PLL (HSE_BYPASS)
-  *            SYSCLK(Hz)                     = 84000000
-  *            HCLK(Hz)                       = 84000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 2
-  *            APB2 Prescaler                 = 1
-  *            HSE Frequency(Hz)              = 8000000
-  *            PLL_M                          = 8
-  *            PLL_N                          = 336
-  *            PLL_P                          = 4
-  *            PLL_Q                          = 7
-  *            VDD(V)                         = 3.3
-  *            Main regulator output voltage  = Scale2 mode
-  *            Flash Latency(WS)              = 2
+  *         SYSCLK = 100000000 Hz for ARDUINO_NUCLEO_F411RE
+  *         SYSCLK = 84000000 Hz for ARDUINO_NUCLEO_F401RE
   * @param  None
   * @retval None
   */
@@ -136,16 +123,27 @@ WEAK void SystemClock_Config(void)
 
   /* Configure the main internal regulator output voltage */
   __HAL_RCC_PWR_CLK_ENABLE();
+#ifdef ARDUINO_NUCLEO_F401RE
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE2);
+#else /* ARDUINO_NUCLEO_F411RE */
+  __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+#endif
   /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_BYPASS;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+#ifdef ARDUINO_NUCLEO_F401RE
   RCC_OscInitStruct.PLL.PLLM = 8;
   RCC_OscInitStruct.PLL.PLLN = 336;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV4;
   RCC_OscInitStruct.PLL.PLLQ = 7;
+#else /* ARDUINO_NUCLEO_F411RE */
+  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLN = 100;
+  RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
+  RCC_OscInitStruct.PLL.PLLQ = 4;
+#endif
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
@@ -157,7 +155,11 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
+#ifdef ARDUINO_NUCLEO_F401RE
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
+#else /* ARDUINO_NUCLEO_F411RE */
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_3) != HAL_OK) {
+#endif
     Error_Handler();
   }
 }

@@ -91,7 +91,7 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       13
 
 // On-board LED pin number
-#define LED_BUILTIN             13
+#define LED_BUILTIN             PA5
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
@@ -106,8 +106,8 @@ extern "C" {
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           0
-#define PIN_SERIAL_TX           1
+#define PIN_SERIAL_RX           PA3
+#define PIN_SERIAL_TX           PA2
 
 #ifdef __cplusplus
 } // extern "C"
