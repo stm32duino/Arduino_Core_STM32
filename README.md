@@ -154,11 +154,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart: | Generic F423CH | **1.9.0** |  |
 | :yellow_heart: | Generic F423RH | **1.9.0** |  |
 | :yellow_heart: | Generic F446R(C-E) | **1.9.0** |  |
+| :yellow_heart: | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | **1.9.0** | Based on STM32F411CEUx |
 
 | Status | Generic STM32L0xx | Release | Comment |
 | :---: | --- | :---: | :--- |
 | :green_heart: | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
-| :green_heart: | [ThunderPack](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
+| :green_heart: | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* | Based on STM32L072KZTx |
 
 | Status | 3D printer boards | Release | Comment |
 | :---: | --- | :---: | :--- |

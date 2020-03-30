@@ -1154,6 +1154,14 @@ GenF4.menu.pnum.FEATHER_F405.build.board=FEATHER_F405
 GenF4.menu.pnum.FEATHER_F405.build.product_line=STM32F405xx
 GenF4.menu.pnum.FEATHER_F405.build.variant=FEATHER_F405
 
+# ThunderPack F411xxE
+GenF4.menu.pnum.THUNDERPACK_F411=ThunderPack v1.1+
+GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_size=524288
+GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_data_size=131072
+GenF4.menu.pnum.THUNDERPACK_F411.build.board=THUNDERPACK_F411
+GenF4.menu.pnum.THUNDERPACK_F411.build.product_line=STM32F411xE
+GenF4.menu.pnum.THUNDERPACK_F411.build.variant=THUNDERPACK
+
 # Generic F446RE
 GenF4.menu.pnum.Generic_F446RE=Generic F446RE
 GenF4.menu.pnum.Generic_F446RE.upload.maximum_size=524288
@@ -1464,12 +1472,12 @@ GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # ThunderPack
-GenL0.menu.pnum.THUNDER_PACK=ThunderPack
-GenL0.menu.pnum.THUNDER_PACK.upload.maximum_size=196608
-GenL0.menu.pnum.THUNDER_PACK.upload.maximum_data_size=20480
-GenL0.menu.pnum.THUNDER_PACK.build.board=THUNDER_PACK
-GenL0.menu.pnum.THUNDER_PACK.build.product_line=STM32L072xx
-GenL0.menu.pnum.THUNDER_PACK.build.variant=THUNDER_PACK
+GenL0.menu.pnum.THUNDERPACK_L072=ThunderPack v1.0
+GenL0.menu.pnum.THUNDERPACK_L072.upload.maximum_size=196608
+GenL0.menu.pnum.THUNDERPACK_L072.upload.maximum_data_size=20480
+GenL0.menu.pnum.THUNDERPACK_L072.build.board=THUNDERPACK_L072
+GenL0.menu.pnum.THUNDERPACK_L072.build.product_line=STM32L072xx
+GenL0.menu.pnum.THUNDERPACK_L072.build.variant=THUNDERPACK
 
 # Piconomix PX-HER0 board
 GenL0.menu.pnum.PX_HER0=PX-HER0

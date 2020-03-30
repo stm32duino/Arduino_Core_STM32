@@ -79,20 +79,28 @@ extern "C" {
 #define USER_BTN                PB4
 
 // Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+#ifdef ARDUINO_THUNDERPACK_L072
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
+#else /* ARDUINO_THUNDERPACK_F411 */
+#define TIMER_TONE              TIM10
+#define TIMER_SERVO             TIM11
+#endif
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    1 //ex: 2 for Serial2 (USART2)
+#define SERIAL_UART_INSTANCE    1
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
 
+#ifdef ARDUINO_THUNDERPACK_L072
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
+#else
+#define HSE_VALUE               24000000U
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
