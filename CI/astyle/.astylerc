@@ -13,6 +13,7 @@ style=kr
 # 2 spaces, convert tabs to spaces
 indent=spaces=2
 convert-tabs
+lineend=linux
 
 # Indent switches and cases
 indent-classes
