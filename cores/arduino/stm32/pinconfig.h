@@ -35,7 +35,7 @@
 #include "stm32yyxx_ll_gpio.h"
 
 #if defined(STM32MP1xx)
-#include "lock_resource.h"
+  #include "lock_resource.h"
 #endif
 
 static inline void pin_DisconnectDebug(PinName pin)

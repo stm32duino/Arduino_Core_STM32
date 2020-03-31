@@ -54,18 +54,18 @@ enum {
 // Arduino analog pins
 
 #ifndef NUM_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS 0
+  #define NUM_ANALOG_INPUTS 0
 #endif
 
 // If NUM_ANALOG_FIRST is not defined:
 // - Ax are not contiguous in the digitalPin array
 // - analogInputPin array is available
 #ifndef NUM_ANALOG_FIRST
-#define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
-#define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
-#define NUM_ANALOG_INTERNAL_FIRST (NUM_ANALOG_LAST + 1)
+  #define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
+  #define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
+  #define NUM_ANALOG_INTERNAL_FIRST (NUM_ANALOG_LAST + 1)
 #else
-#define NUM_ANALOG_INTERNAL_FIRST (NUM_DIGITAL_PINS + 1)
+  #define NUM_ANALOG_INTERNAL_FIRST (NUM_DIGITAL_PINS + 1)
 #endif
 
 // If NUM_ANALOG_INPUTS is not defined there is no analog pins defined.
@@ -80,125 +80,125 @@ _Static_assert(NUM_ANALOG_FIRST >= NUM_ANALOG_INPUTS,
                "First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS");
 
 #if NUM_ANALOG_INPUTS > 0
-#define PIN_A0       NUM_ANALOG_FIRST
-static const uint8_t A0 = PIN_A0;
+  #define PIN_A0       NUM_ANALOG_FIRST
+  static const uint8_t A0 = PIN_A0;
 #endif
 #if NUM_ANALOG_INPUTS > 1
-#define PIN_A1       (PIN_A0 + 1)
-static const uint8_t A1 = PIN_A1;
+  #define PIN_A1       (PIN_A0 + 1)
+  static const uint8_t A1 = PIN_A1;
 #endif
 #if NUM_ANALOG_INPUTS > 2
-#define PIN_A2       (PIN_A1 + 1)
-static const uint8_t A2 = PIN_A2;
+  #define PIN_A2       (PIN_A1 + 1)
+  static const uint8_t A2 = PIN_A2;
 #endif
 #if NUM_ANALOG_INPUTS > 3
-#define PIN_A3       (PIN_A2 + 1)
-static const uint8_t A3 = PIN_A3;
+  #define PIN_A3       (PIN_A2 + 1)
+  static const uint8_t A3 = PIN_A3;
 #endif
 #if NUM_ANALOG_INPUTS > 4
-#define PIN_A4       (PIN_A3 + 1)
-static const uint8_t A4 = PIN_A4;
+  #define PIN_A4       (PIN_A3 + 1)
+  static const uint8_t A4 = PIN_A4;
 #endif
 #if NUM_ANALOG_INPUTS > 5
-#define PIN_A5       (PIN_A4 + 1)
-static const uint8_t A5 = PIN_A5;
+  #define PIN_A5       (PIN_A4 + 1)
+  static const uint8_t A5 = PIN_A5;
 #endif
 #if NUM_ANALOG_INPUTS > 6
-#define PIN_A6       (PIN_A5 + 1)
-static const uint8_t A6 = PIN_A6;
+  #define PIN_A6       (PIN_A5 + 1)
+  static const uint8_t A6 = PIN_A6;
 #endif
 #if NUM_ANALOG_INPUTS > 7
-#define PIN_A7       (PIN_A6 + 1)
-static const uint8_t A7 = PIN_A7;
+  #define PIN_A7       (PIN_A6 + 1)
+  static const uint8_t A7 = PIN_A7;
 #endif
 #if NUM_ANALOG_INPUTS > 8
-#define PIN_A8       (PIN_A7 + 1)
-static const uint8_t A8 = PIN_A8;
+  #define PIN_A8       (PIN_A7 + 1)
+  static const uint8_t A8 = PIN_A8;
 #endif
 #if NUM_ANALOG_INPUTS > 9
-#define PIN_A9       (PIN_A8 + 1)
-static const uint8_t A9 = PIN_A9;
+  #define PIN_A9       (PIN_A8 + 1)
+  static const uint8_t A9 = PIN_A9;
 #endif
 #if NUM_ANALOG_INPUTS > 10
-#define PIN_A10      (PIN_A9 + 1)
-static const uint8_t A10 = PIN_A10;
+  #define PIN_A10      (PIN_A9 + 1)
+  static const uint8_t A10 = PIN_A10;
 #endif
 #if NUM_ANALOG_INPUTS > 11
-#define PIN_A11      (PIN_A10 + 1)
-static const uint8_t A11 = PIN_A11;
+  #define PIN_A11      (PIN_A10 + 1)
+  static const uint8_t A11 = PIN_A11;
 #endif
 #if NUM_ANALOG_INPUTS > 12
-#define PIN_A12      (PIN_A11 + 1)
-static const uint8_t A12 = PIN_A12;
+  #define PIN_A12      (PIN_A11 + 1)
+  static const uint8_t A12 = PIN_A12;
 #endif
 #if NUM_ANALOG_INPUTS > 13
-#define PIN_A13      (PIN_A12 + 1)
-static const uint8_t A13 = PIN_A13;
+  #define PIN_A13      (PIN_A12 + 1)
+  static const uint8_t A13 = PIN_A13;
 #endif
 #if NUM_ANALOG_INPUTS > 14
-#define PIN_A14      (PIN_A13 + 1)
-static const uint8_t A14 = PIN_A14;
+  #define PIN_A14      (PIN_A13 + 1)
+  static const uint8_t A14 = PIN_A14;
 #endif
 #if NUM_ANALOG_INPUTS > 15
-#define PIN_A15      (PIN_A14 + 1)
-static const uint8_t A15 = PIN_A15;
+  #define PIN_A15      (PIN_A14 + 1)
+  static const uint8_t A15 = PIN_A15;
 #endif
 #if NUM_ANALOG_INPUTS > 16
-#define PIN_A16      (PIN_A15 + 1)
-static const uint8_t A16 = PIN_A16;
+  #define PIN_A16      (PIN_A15 + 1)
+  static const uint8_t A16 = PIN_A16;
 #endif
 #if NUM_ANALOG_INPUTS > 17
-#define PIN_A17      (PIN_A16 + 1)
-static const uint8_t A17 = PIN_A17;
+  #define PIN_A17      (PIN_A16 + 1)
+  static const uint8_t A17 = PIN_A17;
 #endif
 #if NUM_ANALOG_INPUTS > 18
-#define PIN_A18      (PIN_A17 + 1)
-static const uint8_t A18 = PIN_A18;
+  #define PIN_A18      (PIN_A17 + 1)
+  static const uint8_t A18 = PIN_A18;
 #endif
 #if NUM_ANALOG_INPUTS > 19
-#define PIN_A19      (PIN_A18 + 1)
-static const uint8_t A19 = PIN_A19;
+  #define PIN_A19      (PIN_A18 + 1)
+  static const uint8_t A19 = PIN_A19;
 #endif
 #if NUM_ANALOG_INPUTS > 20
-#define PIN_A20      (PIN_A19 + 1)
-static const uint8_t A20 = PIN_A20;
+  #define PIN_A20      (PIN_A19 + 1)
+  static const uint8_t A20 = PIN_A20;
 #endif
 #if NUM_ANALOG_INPUTS > 21
-#define PIN_A21      (PIN_A20 + 1)
-static const uint8_t A21 = PIN_A21;
+  #define PIN_A21      (PIN_A20 + 1)
+  static const uint8_t A21 = PIN_A21;
 #endif
 #if NUM_ANALOG_INPUTS > 22
-#define PIN_A22      (PIN_A21 + 1)
-static const uint8_t A22 = PIN_A22;
+  #define PIN_A22      (PIN_A21 + 1)
+  static const uint8_t A22 = PIN_A22;
 #endif
 #if NUM_ANALOG_INPUTS > 23
-#define PIN_A23      (PIN_A22 + 1)
-static const uint8_t A23 = PIN_A23;
+  #define PIN_A23      (PIN_A22 + 1)
+  static const uint8_t A23 = PIN_A23;
 #endif
 #endif /* NUM_ANALOG_INPUTS > 0 */
 
 // Default for Arduino connector compatibility
 // SPI Definitions
 #ifndef PIN_SPI_SS
-#define PIN_SPI_SS                  10
+  #define PIN_SPI_SS                  10
 #endif
 #ifndef PIN_SPI_SS1
-#define PIN_SPI_SS1                 4
+  #define PIN_SPI_SS1                 4
 #endif
 #ifndef PIN_SPI_SS2
-#define PIN_SPI_SS2                 7
+  #define PIN_SPI_SS2                 7
 #endif
 #ifndef PIN_SPI_SS3
-#define PIN_SPI_SS3                 8
+  #define PIN_SPI_SS3                 8
 #endif
 #ifndef PIN_SPI_MOSI
-#define PIN_SPI_MOSI                11
+  #define PIN_SPI_MOSI                11
 #endif
 #ifndef PIN_SPI_MISO
-#define PIN_SPI_MISO                12
+  #define PIN_SPI_MISO                12
 #endif
 #ifndef PIN_SPI_SCK
-#define PIN_SPI_SCK                 13
+  #define PIN_SPI_SCK                 13
 #endif
 
 static const uint8_t SS   = PIN_SPI_SS;
@@ -211,10 +211,10 @@ static const uint8_t SCK  = PIN_SPI_SCK;
 
 // I2C Definitions
 #ifndef PIN_WIRE_SDA
-#define PIN_WIRE_SDA                14
+  #define PIN_WIRE_SDA                14
 #endif
 #ifndef PIN_WIRE_SCL
-#define PIN_WIRE_SCL                15
+  #define PIN_WIRE_SCL                15
 #endif
 
 static const uint8_t SDA = PIN_WIRE_SDA;
@@ -223,16 +223,16 @@ static const uint8_t SCL = PIN_WIRE_SCL;
 // ADC internal channels (not a pins)
 // Only used for analogRead()
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
-#define ATEMP        (NUM_ANALOG_INTERNAL_FIRST)
+  #define ATEMP        (NUM_ANALOG_INTERNAL_FIRST)
 #endif
 #ifdef ADC_CHANNEL_VREFINT
-#define AVREF        (NUM_ANALOG_INTERNAL_FIRST + 2)
+  #define AVREF        (NUM_ANALOG_INTERNAL_FIRST + 2)
 #endif
 #ifdef ADC_CHANNEL_VBAT
-#define AVBAT        (NUM_ANALOG_INTERNAL_FIRST + 3)
+  #define AVBAT        (NUM_ANALOG_INTERNAL_FIRST + 3)
 #endif
 #if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
-#define ATEMP_ADC5   (NUM_ANALOG_INTERNAL_FIRST + 4)
+  #define ATEMP_ADC5   (NUM_ANALOG_INTERNAL_FIRST + 4)
 #endif
 
 #ifdef __cplusplus
@@ -340,13 +340,13 @@ uint32_t digitalPinToAnalogInput(uint32_t pin);
 
 // Default Definitions, could be redefined in variant.h
 #ifndef ADC_RESOLUTION
-#define ADC_RESOLUTION              10
+  #define ADC_RESOLUTION              10
 #endif
 
 #define DACC_RESOLUTION             12
 
 #ifndef PWM_RESOLUTION
-#define PWM_RESOLUTION              8
+  #define PWM_RESOLUTION              8
 #endif
 
 _Static_assert((ADC_RESOLUTION > 0) &&(ADC_RESOLUTION <= 32),
@@ -355,10 +355,10 @@ _Static_assert((PWM_RESOLUTION > 0) &&(PWM_RESOLUTION <= 32),
                "PWM_RESOLUTION must be 0 < x <= 32!");
 
 #ifndef PWM_FREQUENCY
-#define PWM_FREQUENCY               1000
+  #define PWM_FREQUENCY               1000
 #endif
 #ifndef PWM_MAX_DUTY_CYCLE
-#define PWM_MAX_DUTY_CYCLE          4095
+  #define PWM_MAX_DUTY_CYCLE          4095
 #endif
 
 #endif /*_PINS_ARDUINO_H_*/

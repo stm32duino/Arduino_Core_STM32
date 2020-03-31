@@ -2,13 +2,13 @@
 #define __OPENAMP_VIRTIO_CONFIG_H
 
 #ifndef RPMSG_BUFFER_SIZE
-/**
- * @brief Size of buffer of each vring buffers
- * @note  If the host processor is Linux, RPMSG_BUFFER_SIZE must be aligned
- *        with the kernel definition.
- *        Reference: https://elixir.bootlin.com/linux/v5.5.2/source/drivers/rpmsg/virtio_rpmsg_bus.c#L137
- */
-#define RPMSG_BUFFER_SIZE (512)
+  /**
+  * @brief Size of buffer of each vring buffers
+  * @note  If the host processor is Linux, RPMSG_BUFFER_SIZE must be aligned
+  *        with the kernel definition.
+  *        Reference: https://elixir.bootlin.com/linux/v5.5.2/source/drivers/rpmsg/virtio_rpmsg_bus.c#L137
+  */
+  #define RPMSG_BUFFER_SIZE (512)
 #endif
 
 /** Size of header of a vqueue message */
@@ -24,18 +24,18 @@
  * (RPMSG_VRING_PAYLOAD_SIZE * VRING_NUM_BUFFS) at minimum to prevent overflow.
  */
 #ifndef VRING_NUM_BUFFS
-#define VRING_NUM_BUFFS         (16)
+  #define VRING_NUM_BUFFS         (16)
 #endif
 #define RPMSG_VRING_TOTAL_PAYLOAD_SIZE (RPMSG_VRING_PAYLOAD_SIZE * VRING_NUM_BUFFS)
 
 #if defined (VIRTIO_LOG)
-/**
- * OpenAMP trace (log) buffer configuration.
- * Users are free to redefine the size if needed.
- */
-#ifndef VIRTIO_LOG_BUFFER_SIZE
-#define VIRTIO_LOG_BUFFER_SIZE (2048)
-#endif
+  /**
+  * OpenAMP trace (log) buffer configuration.
+  * Users are free to redefine the size if needed.
+  */
+  #ifndef VIRTIO_LOG_BUFFER_SIZE
+    #define VIRTIO_LOG_BUFFER_SIZE (2048)
+  #endif
 
 #endif
 

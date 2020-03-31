@@ -185,8 +185,8 @@ extern "C"
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-#define SERIAL_PORT_MONITOR Serial
-#define SERIAL_PORT_HARDWARE Serial
+  #define SERIAL_PORT_MONITOR Serial
+  #define SERIAL_PORT_HARDWARE Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

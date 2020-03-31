@@ -7,7 +7,7 @@
 
 #include "stm32_def.h"
 #if defined (  __GNUC__  ) /* GCC CS3 */
-#include <sys/stat.h>
+  #include <sys/stat.h>
 #endif
 #include <errno.h>
 #undef errno
@@ -18,12 +18,12 @@ extern size_t uart_debug_write(uint8_t *data, uint32_t size);
 // Helper macro to mark unused parameters and prevent compiler warnings.
 // Appends _UNUSED to the variable name to prevent accidentally using them.
 #ifdef UNUSED
-#undef UNUSED
+  #undef UNUSED
 #endif
 #ifdef __GNUC__
-#define UNUSED(x) x ## _UNUSED __attribute__((__unused__))
+  #define UNUSED(x) x ## _UNUSED __attribute__((__unused__))
 #else
-#define UNUSED(x) x ## _UNUSED
+  #define UNUSED(x) x ## _UNUSED
 #endif
 
 __attribute__((weak))

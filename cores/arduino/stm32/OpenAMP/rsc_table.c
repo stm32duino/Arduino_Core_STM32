@@ -32,7 +32,7 @@
 #define VIRTIO_ID_RPMSG       7
 
 #if defined (VIRTIO_LOG)
-extern char virtio_log_buffer[];
+  extern char virtio_log_buffer[];
 #endif
 
 const struct shared_resource_table __attribute__((__section__(".resource_table"))) __attribute__((used)) resource_table = {

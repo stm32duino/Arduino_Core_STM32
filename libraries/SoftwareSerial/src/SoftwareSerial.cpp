@@ -44,53 +44,53 @@
 // The order is based on (lack of) features and compare channels, we choose the simplest available
 // because we only need an update interrupt
 #if !defined(TIMER_SERIAL)
-#if defined (TIM18_BASE)
-#define TIMER_SERIAL TIM18
-#elif defined (TIM7_BASE)
-#define TIMER_SERIAL TIM7
-#elif defined (TIM6_BASE)
-#define TIMER_SERIAL TIM6
-#elif defined (TIM22_BASE)
-#define TIMER_SERIAL TIM22
-#elif defined (TIM21_BASE)
-#define TIMER_SERIAL TIM21
-#elif defined (TIM17_BASE)
-#define TIMER_SERIAL TIM17
-#elif defined (TIM16_BASE)
-#define TIMER_SERIAL TIM16
-#elif defined (TIM15_BASE)
-#define TIMER_SERIAL TIM15
-#elif defined (TIM14_BASE)
-#define TIMER_SERIAL TIM14
-#elif defined (TIM13_BASE)
-#define TIMER_SERIAL TIM13
-#elif defined (TIM11_BASE)
-#define TIMER_SERIAL TIM11
-#elif defined (TIM10_BASE)
-#define TIMER_SERIAL TIM10
-#elif defined (TIM12_BASE)
-#define TIMER_SERIAL TIM12
-#elif defined (TIM19_BASE)
-#define TIMER_SERIAL TIM19
-#elif defined (TIM9_BASE)
-#define TIMER_SERIAL TIM9
-#elif defined (TIM5_BASE)
-#define TIMER_SERIAL TIM5
-#elif defined (TIM4_BASE)
-#define TIMER_SERIAL TIM4
-#elif defined (TIM3_BASE)
-#define TIMER_SERIAL TIM3
-#elif defined (TIM2_BASE)
-#define TIMER_SERIAL TIM2
-#elif defined (TIM20_BASE)
-#define TIMER_SERIAL TIM20
-#elif defined (TIM8_BASE)
-#define TIMER_SERIAL TIM8
-#elif defined (TIM1_BASE)
-#define TIMER_SERIAL TIM1
-#else
-#error No suitable timer found for SoftwareSerial, define TIMER_SERIAL in variant.h
-#endif
+  #if defined (TIM18_BASE)
+    #define TIMER_SERIAL TIM18
+  #elif defined (TIM7_BASE)
+    #define TIMER_SERIAL TIM7
+  #elif defined (TIM6_BASE)
+    #define TIMER_SERIAL TIM6
+  #elif defined (TIM22_BASE)
+    #define TIMER_SERIAL TIM22
+  #elif defined (TIM21_BASE)
+    #define TIMER_SERIAL TIM21
+  #elif defined (TIM17_BASE)
+    #define TIMER_SERIAL TIM17
+  #elif defined (TIM16_BASE)
+    #define TIMER_SERIAL TIM16
+  #elif defined (TIM15_BASE)
+    #define TIMER_SERIAL TIM15
+  #elif defined (TIM14_BASE)
+    #define TIMER_SERIAL TIM14
+  #elif defined (TIM13_BASE)
+    #define TIMER_SERIAL TIM13
+  #elif defined (TIM11_BASE)
+    #define TIMER_SERIAL TIM11
+  #elif defined (TIM10_BASE)
+    #define TIMER_SERIAL TIM10
+  #elif defined (TIM12_BASE)
+    #define TIMER_SERIAL TIM12
+  #elif defined (TIM19_BASE)
+    #define TIMER_SERIAL TIM19
+  #elif defined (TIM9_BASE)
+    #define TIMER_SERIAL TIM9
+  #elif defined (TIM5_BASE)
+    #define TIMER_SERIAL TIM5
+  #elif defined (TIM4_BASE)
+    #define TIMER_SERIAL TIM4
+  #elif defined (TIM3_BASE)
+    #define TIMER_SERIAL TIM3
+  #elif defined (TIM2_BASE)
+    #define TIMER_SERIAL TIM2
+  #elif defined (TIM20_BASE)
+    #define TIMER_SERIAL TIM20
+  #elif defined (TIM8_BASE)
+    #define TIMER_SERIAL TIM8
+  #elif defined (TIM1_BASE)
+    #define TIMER_SERIAL TIM1
+  #else
+    #error No suitable timer found for SoftwareSerial, define TIMER_SERIAL in variant.h
+  #endif
 #endif
 //
 // Statics

@@ -26,11 +26,11 @@
 #include "bootloader.h"
 
 #ifdef USE_USB_HS
-#define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
 #elif defined(USB_OTG_FS) || defined(USB_OTG_FS_MAX_PACKET_SIZE)
-#define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
 #else /* USB */
-#define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
 #endif
 
 /*
@@ -39,7 +39,7 @@
  * host "too slow" and threat the USB CDC port as disconnected.
  */
 #ifndef USB_CDC_TRANSMIT_TIMEOUT
-#define USB_CDC_TRANSMIT_TIMEOUT 3
+  #define USB_CDC_TRANSMIT_TIMEOUT 3
 #endif
 
 /* USBD_CDC Private Variables */
@@ -56,9 +56,9 @@ __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
 #ifdef DTR_TOGGLING_SEQ
-/* DTR toggling sequence management */
-extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
-uint8_t dtr_toggling = 0;
+  /* DTR toggling sequence management */
+  extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
+  uint8_t dtr_toggling = 0;
 #endif
 
 /** USBD_CDC Private Function Prototypes */

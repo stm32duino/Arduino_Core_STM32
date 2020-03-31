@@ -37,28 +37,28 @@ typedef struct {
 /* CDC Endpoints Configurations */
 #ifdef USBD_USE_CDC
 
-#define CDC_OUT_EP                    0x01U  /* EP1 for data OUT */
-#define CDC_IN_EP                     0x82U  /* EP1 for data IN */
-#define CDC_CMD_EP                    0x83U  /* EP2 for CDC commands */
+  #define CDC_OUT_EP                    0x01U  /* EP1 for data OUT */
+  #define CDC_IN_EP                     0x82U  /* EP1 for data IN */
+  #define CDC_CMD_EP                    0x83U  /* EP2 for CDC commands */
 
-#define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 */
+  #define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 */
 
-/* CDC Endpoints parameters*/
-#define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
-#define CDC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
-#define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
+  /* CDC Endpoints parameters*/
+  #define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define CDC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
 #endif /* USBD_USE_CDC */
 
 
 /* HID composite (Mouse + Keyboard) Endpoints Configurations */
 #ifdef USBD_USE_HID_COMPOSITE
-#define HID_MOUSE_EPIN_ADDR           0x81U
-#define HID_KEYBOARD_EPIN_ADDR        0x82U
+  #define HID_MOUSE_EPIN_ADDR           0x81U
+  #define HID_KEYBOARD_EPIN_ADDR        0x82U
 
-#define HID_MOUSE_EPIN_SIZE           0x04U
-#define HID_KEYBOARD_EPIN_SIZE        0x08U
+  #define HID_MOUSE_EPIN_SIZE           0x04U
+  #define HID_KEYBOARD_EPIN_SIZE        0x08U
 
-#define DEV_NUM_EP                    0x03U   /* Device Endpoints number including EP0 */
+  #define DEV_NUM_EP                    0x03U   /* Device Endpoints number including EP0 */
 #endif /* USBD_USE_HID_COMPOSITE */
 
 /* Require DEV_NUM_EP to be defined */
@@ -75,8 +75,8 @@ typedef struct {
 #define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
 #endif /* USBD_USE_CDC */
 #ifdef USBD_USE_HID_COMPOSITE
-#define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
-#define PMA_KEYBOARD_IN_ADDR    (PMA_MOUSE_IN_ADDR + HID_KEYBOARD_EPIN_SIZE)
+  #define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
+  #define PMA_KEYBOARD_IN_ADDR    (PMA_MOUSE_IN_ADDR + HID_KEYBOARD_EPIN_SIZE)
 #endif /* USBD_USE_HID_COMPOSITE */
 #endif /* USB */
 

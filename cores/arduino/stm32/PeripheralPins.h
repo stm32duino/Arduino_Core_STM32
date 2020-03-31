@@ -33,7 +33,7 @@
 
 #include "pinmap.h"
 #ifdef STM32F1xx
-#include "PinAF_STM32F1.h"
+  #include "PinAF_STM32F1.h"
 #endif
 
 //*** ADC ***
