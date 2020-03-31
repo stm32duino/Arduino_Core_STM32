@@ -1,3 +1,7 @@
+[*]
+end_of_line = lf
+insert_final_newline = true
+
 [*.sh]
 # like -i=2
 indent_style = space
