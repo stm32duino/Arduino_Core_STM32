@@ -29,11 +29,12 @@ all_LL_file=stm32yyxx_ll.h
 
 # Create the file
 print_C_header() {
-  if [[ $1 = *"template"* ]]; then
-    echo "#if 0" > "$1"
-  else
-    touch "$1"
-  fi
+  # if [[ $1 = *"template"* ]]; then
+  #   echo "#if 0" > "$1"
+  # else
+  #   touch "$1"
+  # fi
+  touch "$1"
 }
 
 # Add some pragma to ll header files to avoid several warnings
@@ -57,11 +58,11 @@ print_CMSIS_Startup_header() {
 }
 
 print_CMSIS_Startup_footer() {
-  echo "#else
-#error UNKNOWN CHIP
-#endif
+  echo "  #else
+    #error UNKNOWN CHIP
+  #endif
 #else
-#warning \"No CMSIS startup file defined, custom one should be used\"
+  #warning \"No CMSIS startup file defined, custom one should be used\"
 #endif /* !CMSIS_STARTUP_FILE && !CUSTOM_STARTUP_FILE */
 #endif /* _STM32_DEF_BUILD_ */" >> $CMSIS_Startupfile
 }
@@ -73,8 +74,8 @@ print_CMSIS_Startup_list() {
   local upper
   f=$(echo "${list[0]}" | awk -F/ '{print $NF}')
   upper=$(echo "$f" | awk -F'[_.]' '{print toupper($2)}' | tr X x)
-  echo "#if defined($upper)
-#define CMSIS_STARTUP_FILE \"$f\"" >> $CMSIS_Startupfile
+  echo "  #if defined($upper)
+    #define CMSIS_STARTUP_FILE \"$f\"" >> $CMSIS_Startupfile
 
   if [ ${#list[@]} -gt 1 ]; then
     for fp in "${list[@]:1}"; do
@@ -82,8 +83,8 @@ print_CMSIS_Startup_list() {
       f=$(echo "$fp" | awk -F/ '{print $NF}')
       upper=$(echo "$f" | awk -F'[_.]' '{print toupper($2)}' | tr X x)
       upper="${upper//MP15xx/MP1xx}"
-      echo "#elif defined($upper)
-#define CMSIS_STARTUP_FILE \"$f\"" >> $CMSIS_Startupfile
+      echo "  #elif defined($upper)
+    #define CMSIS_STARTUP_FILE \"$f\"" >> $CMSIS_Startupfile
     done
   fi
 }
@@ -108,6 +109,10 @@ for serie in "${series[@]}"; do
     # Generate stm32yyxx_[hal|ll]*.c file
     filelist=($(find $HALDrivers_path/STM32"${serie}"xx_HAL_Driver/Src -maxdepth 1 -name "stm32${lower}xx_*.c"))
     for fp in "${filelist[@]}"; do
+      # No need for template
+      if [[ $fp = *"template"* ]]; then
+        continue
+      fi
       outp=$HALoutSrc_path
       # File name
       f=$(echo "$fp" | awk -F/ '{print $NF}')
@@ -122,7 +127,7 @@ for serie in "${series[@]}"; do
       # Amend file name under serie switch
       {
         echo "#ifdef STM32${serie}xx"
-        echo "#include \"$f\""
+        echo "  #include \"$f\""
         echo "#endif"
       } >> $outp/"$g"
     done
@@ -143,7 +148,7 @@ for serie in "${series[@]}"; do
       # Amend file name under serie switch
       {
         echo "#ifdef STM32${serie}xx"
-        echo "#include \"$f\""
+        echo "  #include \"$f\""
         echo "#endif"
       } >> $LLoutInc_path/"$g"
     done
@@ -160,10 +165,10 @@ sort -u $LLoutInc_path/${all_LL_file}.tmp >> $LLoutInc_path/${all_LL_file}
 rm -f $LLoutInc_path/${all_LL_file}.tmp
 
 # Search all template file to end "#if 0"
-filelist=($(find $HALoutSrc_path -maxdepth 1 -name "stm32*_template.c"))
-for fp in "${filelist[@]}"; do
-  echo "#endif /* 0 */" >> "$fp"
-done
+# filelist=($(find $HALoutSrc_path -maxdepth 1 -name "stm32*_template.c"))
+# for fp in "${filelist[@]}"; do
+#   echo "#endif /* 0 */" >> "$fp"
+# done
 
 # Search all LL header files to end guard
 filelist=($(find $LLoutInc_path -maxdepth 1 -name "stm32yyxx_ll*.h"))
