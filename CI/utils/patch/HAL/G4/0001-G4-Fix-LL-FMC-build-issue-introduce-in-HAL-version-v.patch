@@ -1,0 +1,38 @@
+From d7d9cd95fe4cf23e3ed5aadd8023bfcae40303f1 Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Sat, 4 Apr 2020 15:00:12 +0200
+Subject: [PATCH 1/1] [G4] Fix LL FMC build issue introduce in HAL version
+ v1.1.1
+
+Guard have been removed while they should not.
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ system/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_fmc.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/system/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_fmc.c b/system/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_fmc.c
+index 12439fe3..6272a9d7 100644
+--- a/system/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_fmc.c
++++ b/system/Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_fmc.c
+@@ -63,7 +63,7 @@
+   * @brief FMC driver modules
+   * @{
+   */
+-
++#if defined (HAL_SRAM_MODULE_ENABLED) || defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED)
+ /* Private typedef -----------------------------------------------------------*/
+ /* Private define ------------------------------------------------------------*/
+ 
+@@ -766,7 +766,7 @@ HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, ui
+ /**
+   * @}
+   */
+-
++#endif /* HAL_SRAM_MODULE_ENABLED || HAL_NOR_MODULE_ENABLED || HAL_NAND_MODULE_ENABLED */
+ /**
+   * @}
+   */
+-- 
+2.25.1.windows.1
+
