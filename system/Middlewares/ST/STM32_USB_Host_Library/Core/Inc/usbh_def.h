@@ -53,6 +53,9 @@ extern "C" {
 #define TRUE  1U
 #endif
 
+#ifndef USBH_DEV_RESET_TIMEOUT
+#define USBH_DEV_RESET_TIMEOUT                        1000U
+#endif
 
 #define ValBit(VAR,POS)                               (VAR & (1 << POS))
 #define SetBit(VAR,POS)                               (VAR |= (1 << POS))
@@ -416,12 +419,12 @@ typedef struct
 /* Attached device structure */
 typedef struct
 {
-#if (USBH_KEEP_CFG_DESCRIPTOR == 1U)
   uint8_t                           CfgDesc_Raw[USBH_MAX_SIZE_CONFIGURATION];
-#endif
   uint8_t                           Data[USBH_MAX_DATA_BUFFER];
   uint8_t                           address;
   uint8_t                           speed;
+  uint8_t                           EnumCnt;
+  uint8_t                           RstCnt;
   __IO uint8_t                      is_connected;
   __IO uint8_t                      is_disconnected;
   __IO uint8_t                      is_ReEnumerated;
@@ -459,6 +462,7 @@ typedef struct _USBH_HandleTypeDef
   uint32_t              ClassNumber;
   uint32_t              Pipes[16];
   __IO uint32_t         Timer;
+  uint32_t              Timeout;
   uint8_t               id;
   void                 *pData;
   void (* pUser)(struct _USBH_HandleTypeDef *pHandle, uint8_t id);
