@@ -243,8 +243,10 @@ void SystemCoreClockUpdate(void)
       }
       pllvco = pllvco * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos);
       pllr = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLR) >> RCC_PLLCFGR_PLLR_Pos) + 1UL);
+
       SystemCoreClock = pllvco/pllr;
       break;
+
     case RCC_CFGR_SWS_HSI:  /* HSI used as system clock */
     default:                /* HSI used as system clock */
       hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV))>> RCC_CR_HSIDIV_Pos));
