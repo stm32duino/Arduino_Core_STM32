@@ -27,67 +27,70 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-#define PA8  0
-#define PA9  1
-#define PA10 2
-#define PA11 3
-#define PA12 4
-#define PA13 5
-#define PA14 6
-#define PA15 7
-#define PB2  8
-#define PB3  9
-#define PB4  10
-#define PB5  11
-#define PB6  12
-#define PB7  13
-#define PB8  14
-#define PB9  15
-#define PB10 16
-#define PB11 17
-#define PB12 18
-#define PB13 19
-#define PB14 20
-#define PB15 21
-#define PC6  22
-#define PC7  23
-#define PC8  24
-#define PC9  25
-#define PC10 26
-#define PC11 27
-#define PC12 28
-#define PC13 29
-#define PC14 30
-#define PC15 31
-#define PD0  32
-#define PD1  33
-#define PD2  34
+#define PA0  A0
+#define PA1  A1
+#define PA2  A2
+#define PA3  A3
+#define PA4  A4
+#define PA5  A5
+#define PA6  A6
+#define PA7  A7
+#define PA8  8
+#define PA9  9
+#define PA10 10
+#define PA11 11
+#define PA12 12
+#define PA13 13
+#define PA14 14
+#define PA15 15
 
-#define PA0  35
-#define PA1  36
-#define PA2  37
-#define PA3  38
-#define PA4  39
-#define PA5  40
-#define PA6  41
-#define PA7  42
-#define PB0  43
-#define PB1  44
-#define PC0  45
-#define PC1  46
-#define PC2  47
-#define PC3  48
-#define PC4  49
-#define PC5  50
+#define PB0  A8
+#define PB1  A9
+#define PB2  18
+#define PB3  19
+#define PB4  20
+#define PB5  21
+#define PB6  22
+#define PB7  23
+#define PB8  24
+#define PB9  25
+#define PB10 26
+#define PB11 27
+#define PB12 28
+#define PB13 29
+#define PB14 30
+#define PB15 31
+
+#define PC0  A10
+#define PC1  A11
+#define PC2  A12
+#define PC3  A13
+#define PC4  A14
+#define PC5  A15
+#define PC6  38
+#define PC7  39
+#define PC8  40
+#define PC9  41
+#define PC10 42
+#define PC11 43
+#define PC12 44
+#define PC13 45
+#define PC14 46
+#define PC15 47
+
+#define PD0  48
+#define PD1  49
+#define PD2  50
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        51
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16
-#define NUM_ANALOG_FIRST        35
 
 // On-board LED pin number
-#define LED_BUILTIN             PB11
+#ifndef LED_BUILTIN
+#define LED_BUILTIN             PB11 // On some generic board with a blue button
+#endif
 #define LED_GREEN               LED_BUILTIN
 
 // Override default Arduino configuration

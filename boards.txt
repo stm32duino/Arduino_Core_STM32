@@ -873,29 +873,29 @@ GenF1.menu.pnum.BLACKPILL_F103CB.build.board=BLACKPILL_F103CB
 GenF1.menu.pnum.BLACKPILL_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLACKPILL_F103CB.build.variant=PILL_F103XX
 
-# Generic STM32F103Rx boards (Blue button)
-GenF1.menu.pnum.Generic_F103R8T6=Generic F103R8T6 (Blue Button)
+# Generic STM32F103Rx boards
+GenF1.menu.pnum.Generic_F103R8T6=Generic F103R8T6
 GenF1.menu.pnum.Generic_F103R8T6.upload.maximum_size=65536
 GenF1.menu.pnum.Generic_F103R8T6.upload.maximum_data_size=20480
 GenF1.menu.pnum.Generic_F103R8T6.build.board=GENERIC_F103R8T6
 GenF1.menu.pnum.Generic_F103R8T6.build.product_line=STM32F103xB
 GenF1.menu.pnum.Generic_F103R8T6.build.variant=Generic_F103Rx
 
-GenF1.menu.pnum.Generic_F103RBT6=Generic F103RBT6 (Blue Button)
+GenF1.menu.pnum.Generic_F103RBT6=Generic F103RBT6
 GenF1.menu.pnum.Generic_F103RBT6.upload.maximum_size=131072
 GenF1.menu.pnum.Generic_F103RBT6.upload.maximum_data_size=20480
 GenF1.menu.pnum.Generic_F103RBT6.build.board=GENERIC_F103RBT6
 GenF1.menu.pnum.Generic_F103RBT6.build.product_line=STM32F103xB
 GenF1.menu.pnum.Generic_F103RBT6.build.variant=Generic_F103Rx
 
-GenF1.menu.pnum.Generic_F103RCT6=Generic F103RCT6 (Blue Button)
+GenF1.menu.pnum.Generic_F103RCT6=Generic F103RCT6
 GenF1.menu.pnum.Generic_F103RCT6.upload.maximum_size=262144
 GenF1.menu.pnum.Generic_F103RCT6.upload.maximum_data_size=49152
 GenF1.menu.pnum.Generic_F103RCT6.build.board=GENERIC_F103RCT6
 GenF1.menu.pnum.Generic_F103RCT6.build.product_line=STM32F103xE
 GenF1.menu.pnum.Generic_F103RCT6.build.variant=Generic_F103Rx
 
-GenF1.menu.pnum.Generic_F103RET6=Generic F103RET6 (Blue Button)
+GenF1.menu.pnum.Generic_F103RET6=Generic F103RET6
 GenF1.menu.pnum.Generic_F103RET6.upload.maximum_size=524288
 GenF1.menu.pnum.Generic_F103RET6.upload.maximum_data_size=65536
 GenF1.menu.pnum.Generic_F103RET6.build.board=GENERIC_F103RET6
