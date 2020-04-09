@@ -93,6 +93,11 @@ extern "C" {
 #endif
 #define LED_GREEN               LED_BUILTIN
 
+// On-board user button
+#ifndef USER_BTN
+#define USER_BTN                PC13
+#endif
+
 // Override default Arduino configuration
 // SPI Definitions
 #define PIN_SPI_SS              PA4

@@ -153,6 +153,11 @@ extern "C" {
 #define LED_BUILTIN             PC13
 #endif
 
+// On-board user button
+#ifndef USER_BTN
+#define USER_BTN                PB1
+#endif
+
 // SPI Definitions
 #ifdef ARDUINO_VCCGND_F103ZET6
 #define PIN_SPI_SS              PA15
