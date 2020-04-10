@@ -74,8 +74,7 @@ extern "C" {
 // On-board LED pin number
 #ifdef ARDUINO_BLACKPILL_F411CE
 #define LED_BUILTIN             PC13
-#endif
-#ifndef LED_BUILTIN
+#elif !defined(LED_BUILTIN)
 #define LED_BUILTIN             PA5
 #endif
 #define LED_GREEN               LED_BUILTIN
@@ -83,8 +82,7 @@ extern "C" {
 // On-board user button
 #ifdef ARDUINO_BLACKPILL_F411CE
 #define USER_BTN                PA0
-#endif
-#if !defined(USER_BTN)
+#elif !defined(USER_BTN)
 #define USER_BTN                PC13
 #endif
 

@@ -149,6 +149,13 @@ extern "C" {
 #define LED_BUILTIN             PG15
 #elif defined(ARDUINO_VCCGND_F103ZET6)
 #define LED_BUILTIN             PC13
+#elif !defined(LED_BUILTIN)
+#define LED_BUILTIN             PC13
+#endif
+
+// On-board user button
+#ifndef USER_BTN
+#define USER_BTN                PB1
 #endif
 
 // SPI Definitions

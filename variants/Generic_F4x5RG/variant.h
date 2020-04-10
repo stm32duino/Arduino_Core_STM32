@@ -106,6 +106,10 @@ extern "C" {
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM7
 
+// UART Definitions
+// Define here Serial instance number to map on Serial generic name
+#define SERIAL_UART_INSTANCE    2
+
 // Default pin used for 'Serial' instance
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA3
