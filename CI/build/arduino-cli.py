@@ -584,7 +584,7 @@ def log_sketch_build_result(sketch, boardKo, boardSkipped):
             "\033[32msucceeded\033[0m",
             len(boardKo),
             "\033[31mfailed\033[0m",
-            boardSkipped,
+            len(boardSkipped),
             "\033[33mskipped\033[0m",
         )
     )
