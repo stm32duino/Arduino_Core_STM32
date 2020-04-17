@@ -135,7 +135,7 @@ def create_config():
             os.path.join(script_path, path_config_filename)
         )
     )
-    path_config_file = open(path_config_filename, "w")
+    path_config_file = open(os.path.join(script_path, path_config_filename), "w")
     path_config_file.write(
         json.dumps(
             {
