@@ -496,7 +496,7 @@ def check_status(status, build_conf, boardKo):
         error_pattern = re.compile(r":\d+:\d+:\s.*error:\s")
         ld_pattern = re.compile("arm-none-eabi/bin/ld:")
         overflow_pattern = re.compile(
-            r"will not fit in region|region .+ overflowed by [\d]+ bytes"
+            r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"
         )
         error_found = False
         for i, line in enumerate(open(logFile)):
