@@ -119,11 +119,6 @@ extern "C" {
 // Define here Serial instance number to map on Serial generic name
 #define SERIAL_UART_INSTANCE    1
 
-/* Extra HAL modules */
-#ifdef STM32F103xE
-#define HAL_DAC_MODULE_ENABLED
-#endif
-
 // Default pin used for 'Serial1' instance
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
