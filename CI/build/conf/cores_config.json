@@ -154,11 +154,12 @@
           "boards": [ "" ]
         },
         {
-          "pattern": "Firmata/",
+          "pattern": "Firmata[\\\\/]",
           "applicable": false,
           "boards": [
-            "EEXTR_F030_V1", "ELEKTOR_F072C8", "FYSETC_S6", "MALYANM200_F103CB",
-            "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "Wraith32_V1"
+            "EEXTR_F030_V1", "ELEKTOR_F072C8", "FYSETC_S6", "Generic_F103ZG", "MALYANM200_F103CB",
+            "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "VCCGND_F103ZET6",
+            "VCCGND_F103ZET6Mini", "Wraith32_V1"
           ]
         },
         {
@@ -170,6 +171,12 @@
           "pattern": "STM32SD",
           "applicable": true,
           "boards": [ "DISCO_F746NG", "BLACK_F407VE", "BLUE_F407VE_Mini" ]
+        },
+        {
+          "comment": "Require LED_BUILTIN",
+          "pattern": "NonBlockingWrite",
+          "applicable": false,
+          "boards": [ "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2" ]
         },
         {
           "pattern": "Ethernet/|FreeRTOS",
@@ -241,25 +248,42 @@
           "pattern": "StringComparisonOperators",
           "applicable": false,
           "boards": [
-            "ARMED_V1",
-            "EEXTR_F030_V1",
-            "PX_HER0",
-            "RAK811_TRACKER",
-            "REMRAM_V1",
-            "STEVAL_MKSBOX1V1",
-            "THUNDERPACK_F411",
-            "THUNDERPACK_L072"
+            "ARMED_V1", "EEXTR_F030_V1", "PX_HER0", "RAK811_TRACKER", "REMRAM_V1",
+            "STEVAL_MKSBOX1V1", "THUNDERPACK_F411", "THUNDERPACK_L072"
           ]
         },
         {
           "pattern": "ADXL3xx",
           "applicable": false,
           "boards": [
-            "ARMED_V1",
-            "EEXTR_F030_V1",
-            "RAK811_TRACKER",
-            "STEVAL_MKSBOX1V1"
+            "ARMED_V1", "EEXTR_F030_V1", "RAK811_TRACKER", "STEVAL_MKSBOX1V1"
           ]
+        },
+        {
+          "pattern": "ASM330LHH|LSM6DSR",
+          "applicable": false,
+          "boards": [
+            "ARMED_V1", "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0",
+            "RAK811_TRACKER", "REMRAM_V1", "STEVAL_MKSBOX1V1", "THUNDERPACK_F411", "THUNDERPACK_L072"
+          ]
+        },
+        {
+          "pattern": "X_NUCLEO_GNSS1A1",
+          "applicable": false,
+          "boards": [
+            "DISCO_F746NG", "DISCO_L475VG_IOT", "NUCLEO_F207ZG", "NUCLEO_F429ZI", "NUCLEO_F767ZI",
+            "NUCLEO_H743ZI2", "PNUCLEO_WB55RG", "STM32MP157C_DK2"
+          ]
+        },
+        {
+          "pattern": "IKS01A3_S2LP_P2P_Demo|X_NUCLEO_S2868A1_HelloWorld",
+          "applicable": false,
+          "boards": [ "DISCO_L072CZ_LRWAN1", "STM32MP157C_DK2" ]
+        },
+        {
+          "pattern": "MicroNMEA[\\\\/]",
+          "applicable": true,
+          "boards": [ "" ]
         },
         {
           "pattern": "SerialLoop|Tests_basic_functions",
@@ -280,19 +304,13 @@
           "pattern": "tone|p07_Keyboard",
           "applicable": false,
           "boards": [
-            "ST3DP001_EVAL",
-            "STEVAL_MKSBOX1V1",
-            "VAKE_F446VE",
-            "Wraith32_V1"
+            "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "Wraith32_V1"
           ]
         },
         {
-          "pattern": "IWatchdog|RTC|Low ?Power",
+          "pattern": "IWatchdog|RTC|Low_?Power",
           "applicable": false,
-          "boards": [
-            "STM32MP157A_DK1",
-            "STM32MP157C_DK2"
-          ]
+          "boards": [ "STM32MP157A_DK1", "STM32MP157C_DK2" ]
         },
         {
           "pattern": "PWM_FullConfiguration",
