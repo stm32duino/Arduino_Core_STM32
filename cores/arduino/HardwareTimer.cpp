@@ -668,17 +668,15 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 
   if (pin != NC) {
     if ((int)get_pwm_channel(pin) == timChannel) {
+      /* Configure PWM GPIO pins */
+      pinmap_pinout(pin, PinMap_PWM);
 #if defined(STM32F1xx)
       if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
           || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
         // on F1 family, input alternate function must configure GPIO in input mode
-        pinMode(pin, INPUT);
-      } else
-#endif
-      {
-        /* Configure PWM GPIO pins */
-        pinmap_pinout(pin, PinMap_PWM);
+        pinMode(pinNametoDigitalPin(pin), INPUT);
       }
+#endif
     } else {
       // Pin doesn't match with timer output channels
       Error_Handler();

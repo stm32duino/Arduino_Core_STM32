@@ -121,6 +121,10 @@ void pin_function(PinName pin, int function)
   switch (mode) {
     case STM_PIN_INPUT:
       ll_mode = LL_GPIO_MODE_INPUT;
+#if defined(STM32F1xx)
+      // on F1 family, input mode may be associated with an alternate function
+      pin_SetAFPin(gpio, pin, afnum);
+#endif
       break;
     case STM_PIN_OUTPUT:
       ll_mode = LL_GPIO_MODE_OUTPUT;
