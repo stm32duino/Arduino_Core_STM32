@@ -966,6 +966,35 @@ GenF1.menu.pnum.Generic_F103RG.build.board=GENERIC_F103RG
 GenF1.menu.pnum.Generic_F103RG.build.product_line=STM32F103xG
 GenF1.menu.pnum.Generic_F103RG.build.variant=Generic_F103Rx
 
+# Generic STM32F103Tx boards
+GenF1.menu.pnum.Generic_F103T4=Generic F103T4
+GenF1.menu.pnum.Generic_F103T4.upload.maximum_size=16384
+GenF1.menu.pnum.Generic_F103T4.upload.maximum_data_size=6144
+GenF1.menu.pnum.Generic_F103T4.build.board=GENERIC_F103T4
+GenF1.menu.pnum.Generic_F103T4.build.product_line=STM32F103x6
+GenF1.menu.pnum.Generic_F103T4.build.variant=Generic_F103Tx
+
+GenF1.menu.pnum.Generic_F103T6=Generic F103T6
+GenF1.menu.pnum.Generic_F103T6.upload.maximum_size=32768
+GenF1.menu.pnum.Generic_F103T6.upload.maximum_data_size=10240
+GenF1.menu.pnum.Generic_F103T6.build.board=GENERIC_F103T6
+GenF1.menu.pnum.Generic_F103T6.build.product_line=STM32F103x6
+GenF1.menu.pnum.Generic_F103T6.build.variant=Generic_F103Tx
+
+GenF1.menu.pnum.Generic_F103T8=Generic F103T8
+GenF1.menu.pnum.Generic_F103T8.upload.maximum_size=65536
+GenF1.menu.pnum.Generic_F103T8.upload.maximum_data_size=20480
+GenF1.menu.pnum.Generic_F103T8.build.board=GENERIC_F103T8
+GenF1.menu.pnum.Generic_F103T8.build.product_line=STM32F103xB
+GenF1.menu.pnum.Generic_F103T8.build.variant=Generic_F103Tx
+
+GenF1.menu.pnum.Generic_F103TB=Generic F103TB
+GenF1.menu.pnum.Generic_F103TB.upload.maximum_size=131072
+GenF1.menu.pnum.Generic_F103TB.upload.maximum_data_size=20480
+GenF1.menu.pnum.Generic_F103TB.build.board=GENERIC_F103TB
+GenF1.menu.pnum.Generic_F103TB.build.product_line=STM32F103xB
+GenF1.menu.pnum.Generic_F103TB.build.variant=Generic_F103Tx
+
 # Generic STM32F103Vx boards
 GenF1.menu.pnum.Generic_F103V8=Generic F103V8
 GenF1.menu.pnum.Generic_F103V8.upload.maximum_size=65536
