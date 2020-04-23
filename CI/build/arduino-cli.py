@@ -17,11 +17,11 @@ if sys.platform.startswith("win32"):
 
     init(autoreset=True)
 
-path_config_filename = "path_config.json"
 home = os.path.expanduser("~")
 tempdir = tempfile.gettempdir()
 build_id = time.strftime("_%Y-%m-%d_%H-%M-%S")
 script_path = os.path.dirname(os.path.abspath(__file__))
+path_config_filename = os.path.join(script_path, "path_config.json")
 
 arduino_cli_path = ""
 stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json"
@@ -39,10 +39,9 @@ bin_dir = "binaries"
 
 # Default
 sketch_default = os.path.join(script_path, "examples", "BareMinimum")
-exclude_file_default = os.path.join("conf", "exclude_list.txt")
-cores_config_file_default = os.path.join("conf", "cores_config.json")
-cores_config_file_ci = os.path.join("conf", "cores_config_ci.json")
-path_config_ci_filename = os.path.join("conf", "path_config_ci.json")
+exclude_file_default = os.path.join(script_path, "conf", "exclude_list.txt")
+cores_config_file_default = os.path.join(script_path, "conf", "cores_config.json")
+cores_config_file_ci = os.path.join(script_path, "conf", "cores_config_ci.json")
 
 maintainer_default = "STM32"
 arch_default = "stm32"
@@ -132,10 +131,10 @@ def create_config():
     # Create a Json file for a better path management
     print(
         "'{}' file created. Please check the configuration.".format(
-            os.path.join(script_path, path_config_filename)
+            path_config_filename
         )
     )
-    path_config_file = open(os.path.join(script_path, path_config_filename), "w")
+    path_config_file = open(path_config_filename, "w")
     path_config_file.write(
         json.dumps(
             {
@@ -160,11 +159,9 @@ def check_config():
     global output_dir
     global log_file
     if args.ci is False:
-        if os.path.isfile(os.path.join(script_path, path_config_filename)):
+        if os.path.isfile(path_config_filename):
             try:
-                path_config_file = open(
-                    os.path.join(script_path, path_config_filename), "r"
-                )
+                path_config_file = open(path_config_filename, "r")
                 path_config = json.load(path_config_file)
                 # Common path
                 arduino_cli_path = path_config["ARDUINO_CLI_PATH"]
@@ -244,9 +241,10 @@ def load_core_config():
             cores_config_filename = cores_config_file_ci
         else:
             cores_config_filename = cores_config_file_default
-    print("Cores configuration JSON file that will be used: " + cores_config_filename)
+    print("Cores configuration JSON file that will be used:")
+    print(cores_config_filename)
     try:
-        cores_config_file = open(os.path.join(script_path, cores_config_filename), "r")
+        cores_config_file = open(cores_config_filename, "r")
         cores_config = json.load(cores_config_file)
         cores_config_file.close()
 
@@ -859,7 +857,7 @@ parser.add_argument(
     then applicable to all board. Default core configuration is for '"
     + arch_default
     + " 'architecture in: "
-    + os.path.join(script_path, cores_config_file_default),
+    + cores_config_file_default,
 )
 
 parser.add_argument(
@@ -897,7 +895,7 @@ sketchg1.add_argument(
     metavar="<excluded sketches list filepath>",
     help="file containing sketches pattern to ignore.\
     Default path : "
-    + os.path.join(script_path, exclude_file_default),
+    + exclude_file_default,
 )
 
 args = parser.parse_args()

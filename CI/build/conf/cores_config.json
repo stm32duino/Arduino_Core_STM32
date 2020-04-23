@@ -47,6 +47,12 @@
             "Generic_F103RD",
             "Generic_F103RF",
             "Generic_F103RG",
+            "Generic_F103V8",
+            "Generic_F103VB",
+            "Generic_F103VC",
+            "Generic_F103VD",
+            "Generic_F103VE",
+            "Generic_F103VF",
             "Generic_F103ZC",
             "Generic_F103ZD",
             "Generic_F103ZE",
@@ -127,6 +133,7 @@
             "FYSETC_S6",
             "Generic_F103CB",
             "Generic_F103RE",
+            "Generic_F103VF",
             "HY_TinySTM103TB",
             "MALYANM200_F070CB",
             "MALYANM200_F103CB",
@@ -280,7 +287,7 @@
           ]
         },
         {
-          "pattern": "IKS01A3_S2LP_P2P_Demo|X_NUCLEO_S2868A1_HelloWorld",
+          "pattern": "IKS01A3_S2LP_P2P_Demo|X_NUCLEO_(S2868A1|S2868A2|S2915A1)_HelloWorld",
           "applicable": false,
           "boards": [ "DISCO_L072CZ_LRWAN1", "STM32MP157C_DK2" ]
         },
