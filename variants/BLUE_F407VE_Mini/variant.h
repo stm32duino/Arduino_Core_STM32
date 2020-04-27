@@ -184,6 +184,13 @@ extern "C" {
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
 
+// This indicates that there is an external and fixed 1.5k pullup
+// on the D+ line. This define is only needed on boards that have
+// internal pullups *and* an external pullup. Note that it would have
+// been better to omit the pullup and exclusively use the internal
+// pullups instead.
+#define USBD_FIXED_PULLUP
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

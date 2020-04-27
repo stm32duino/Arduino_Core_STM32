@@ -68,6 +68,9 @@
 #if defined(USBD_DETACH_PIN) && !defined(USBD_DETACH_LEVEL)
   #error "USBD_DETACH_PIN also needs USBD_DETACH_LEVEL defined"
 #endif /* defined(USBD_DETACH_PIN) && !defined(USBD_DETACH_LEVEL) */
+#if (defined(USBD_DETACH_PIN) || defined(USBD_ATTACH_PIN)) && defined(USBD_FIXED_PULLUP)
+  #error "Cannot define both USBD_FIXED_PULLUP and USBD_ATTACH_PIN or USBD_DETACH_PIN"
+#endif /* (defined(USBD_DETACH_PIN) || defined(USBD_ATTACH_PIN)) && defined(USBD_FIXED_PULLUP) */
 
 /* Either of these bits indicate that there are internal pullups */
 #if defined(USB_BCDR_DPPU) || defined(USB_OTG_DCTL_SDIS)
@@ -78,10 +81,13 @@
  * in USBD_LL_Init in usbd_conf.c. */
 #if defined(USE_USB_HS)
   #define USBD_USB_INSTANCE USB_OTG_HS
+  #define USBD_DP_PINNAME USB_OTG_HS_DP
 #elif defined(USB_OTG_FS)
   #define USBD_USB_INSTANCE USB_OTG_FS
+  #define USBD_DP_PINNAME USB_OTG_FS_DP
 #elif defined(USB)
   #define USBD_USB_INSTANCE USB
+  #define USBD_DP_PINNAME USB_DP
 #endif
 
 /*
@@ -97,15 +103,13 @@
 #elif defined(USBD_DETACH_PIN)
   #define USBD_PULLUP_CONTROL_PINNAME digitalPinToPinName(USBD_DETACH_PIN)
   #define USBD_ATTACH_LEVEL !(USBD_DETACH_LEVEL)
-#elif !defined(USBD_HAVE_INTERNAL_PULLUPS)
+#elif !defined(USBD_HAVE_INTERNAL_PULLUPS) || defined(USBD_FIXED_PULLUP)
   /* When no USB attach and detach pins were defined, and there are also
   * no internal pullups, assume there is a fixed external pullup and apply
-  * the D+ trick. This should happen only for the USB peripheral, since
-  * USB_OTG_HS and USB_OTG_FS always have internal pullups. */
-  #if !defined(USB)
-    #error "Unexpected USB configuration"
-  #endif
-  #define USBD_PULLUP_CONTROL_PINNAME USB_DP
+  * the D+ trick. Also do this when there are internal *and* external
+  * pulups (which is a hardware bug, but there are boards out there with
+  * this). */
+  #define USBD_PULLUP_CONTROL_PINNAME USBD_DP_PINNAME
   #define USBD_DETACH_LEVEL LOW
   // USBD_ATTACH_LEVEL not needed.
   #define USBD_DP_TRICK
