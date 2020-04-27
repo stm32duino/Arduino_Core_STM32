@@ -1210,6 +1210,7 @@ GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Black F407VE
+# https://github.com/mcauser/BLACK_F407VEZ
 GenF4.menu.pnum.BLACK_F407VE=Black F407VE
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
@@ -1218,6 +1219,7 @@ GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VE.build.variant=BLACK_F407XX
 
 # Black F407VG
+# https://github.com/mcauser/BLACK_F407VEZ with bigger chip
 GenF4.menu.pnum.BLACK_F407VG=Black F407VG
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_data_size=131072
@@ -1226,6 +1228,7 @@ GenF4.menu.pnum.BLACK_F407VG.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407VG.build.variant=BLACK_F407XX
 
 # Black F407ZE
+# https://github.com/mcauser/BLACK_F407ZE
 GenF4.menu.pnum.BLACK_F407ZE=Black F407ZE
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
@@ -1234,6 +1237,7 @@ GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
 GenF4.menu.pnum.BLACK_F407ZE.build.variant=BLACK_F407XX
 
 # Black F407ZG
+# https://github.com/mcauser/BLACK_F407ZG
 GenF4.menu.pnum.BLACK_F407ZG=Black F407ZG
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_data_size=131072
@@ -1274,6 +1278,7 @@ GenF4.menu.pnum.BLACKPILL_F401CC.build.product_line=STM32F401xC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=Generic_F401Cx
 
 # BlackPill F411CE
+# https://github.com/mcauser/WEACT_F411CEU6
 GenF4.menu.pnum.BLACKPILL_F411CE=BlackPill F411CE
 GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_data_size=131072
@@ -1282,6 +1287,7 @@ GenF4.menu.pnum.BLACKPILL_F411CE.build.product_line=STM32F411xE
 GenF4.menu.pnum.BLACKPILL_F411CE.build.variant=Generic_F411Cx
 
 # Core board F401RCT6
+# https://stm32-base.org/boards/STM32F401RCT6-STM32F-Core-Board
 GenF4.menu.pnum.CoreBoard_F401RC=Core board F401RCT6
 GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_size=262144
 GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_data_size=65536
@@ -1298,6 +1304,7 @@ GenF4.menu.pnum.FEATHER_F405.build.product_line=STM32F405xx
 GenF4.menu.pnum.FEATHER_F405.build.variant=FEATHER_F405
 
 # ThunderPack F411xxE
+# https://github.com/jgillick/ThunderPack/tree/STM32F4
 GenF4.menu.pnum.THUNDERPACK_F411=ThunderPack v1.1+
 GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_size=524288
 GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_data_size=131072
