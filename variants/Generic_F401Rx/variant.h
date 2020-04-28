@@ -127,8 +127,11 @@ extern "C" {
 
 #ifdef ARDUINO_CoreBoard_F401RC
 // USB, pull this pin low to enable the USB attach pullup
-#define USBD_ATTACH_PIN         PD2
-#define USBD_ATTACH_LEVEL       LOW
+// It is documented here, but not actually used, since there are also
+// internal pullups which are automatically used and using both would
+// violate the USB specification for pullup strength.
+//#define USBD_ATTACH_PIN         PD2
+//#define USBD_ATTACH_LEVEL       LOW
 #endif
 
 #ifdef __cplusplus
