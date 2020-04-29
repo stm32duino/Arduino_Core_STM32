@@ -174,7 +174,17 @@ extern "C" {
 //#define USBD_ATTACH_LEVEL LOW
 //#define USBD_DETACH_PIN x
 //#define USBD_DETACH_LEVEL LOW
-
+//
+// This indicates that there is an external and fixed 1.5k pullup
+// on the D+ line. This define is not normally needed, since a
+// fixed pullup is assumed by default. It is only required when
+// the USB peripheral has an internal pullup *and* an external
+// fixed pullup is present (which is actually a hardware bug, since just
+// the internal pullup is sufficient and having two pullups violates the
+// USB specification). In this case, defining this forces
+// the "write D+ LOW"-trick to be used. In the future, it might also
+// disable the internal pullups, but this is not currently implemented.
+// #define USBD_FIXED_PULLUP
 #ifdef __cplusplus
 } // extern "C"
 #endif
