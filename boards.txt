@@ -204,6 +204,18 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.product_line=STM32F030x8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=NUCLEO_F030R8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# NUCLEO_F072RB board
+Nucleo_64.menu.pnum.NUCLEO_F072RB=Nucleo F072RB
+Nucleo_64.menu.pnum.NUCLEO_F072RB.node="NODE_F072RB,NUCLEO"
+Nucleo_64.menu.pnum.NUCLEO_F072RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_F072RB.upload.maximum_data_size=16384
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.mcu=cortex-m0
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.board=NUCLEO_F072RB
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.series=STM32F0xx
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.product_line=STM32F072xB
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.variant=NUCLEO_F072RB
+Nucleo_64.menu.pnum.NUCLEO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_F091RC board
 Nucleo_64.menu.pnum.NUCLEO_F091RC=Nucleo F091RC
 Nucleo_64.menu.pnum.NUCLEO_F091RC.node=NODE_F091RC
