@@ -22,13 +22,13 @@ const PinName digitalPin[] = {
   PB_9, // D12
   PB_6, // D13
   PB_7, // D14
-  // AUDIO IN L
-  // AUDIO IN R
-  // AUDIO OUT L
-  // AUDIO OUT R
-  // AGND
+  // NC, AUDIO IN L
+  // NC, AUDIO IN R
+  // NC, AUDIO OUT L
+  // NC, AUDIO OUT R
+  // NC, AGND
   /* Left Side: */
-  // 3v3A Out
+  // NC, 3v3A Out
   PC_0, // D15/A0
   PA_3, // D16/A1
   PB_1, // D17/A2
@@ -45,10 +45,26 @@ const PinName digitalPin[] = {
   PA_2, // D28/A11
   PB_14, // D29
   PB_15, // D30
-  // 3v3D Out
-  // VIN
-  // DGND
+  // NC, 3v3D Out
+  // NC, VIN
+  // NC, DGND
 };
+
+const uint32_t analogInputPin[] = {
+    // PXn, // Ax = Dx
+    15, // A0 = D15
+    16, // A1 = D16
+    17, // A2 = D17
+    18, // A3 = D18
+    19, // A4 = D19
+    20, // A5 = D20
+    21, // A6 = D21
+    22, // A7 = D22
+    23, // A8 = D23
+    24, // A9 = D24
+    25, // A10 = D25
+    28, // A11 = D28
+}
 
 #ifdef __cplusplus
 }

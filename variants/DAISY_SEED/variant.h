@@ -51,8 +51,29 @@ extern "C" {
 #define LED_BUILTIN             PC7  
 #define LED_RED                 LED_BUILTIN
 
+// Below SPI and I2C definitions already done in the core
+// Could be redefined here if differs from the default one
+// SPI Definitions
+#define PIN_SPI_SS              7  // Default for Arduino connector compatibility
+#define PIN_SPI_MOSI            10 // Default for Arduino connector compatibility
+#define PIN_SPI_MISO            9  // Default for Arduino connector compatibility
+#define PIN_SPI_SCK             8  // Default for Arduino connector compatibility
+
+// I2C Definitions
+#define PIN_WIRE_SDA            12 // Default for Arduino connector compatibility
+#define PIN_WIRE_SCL            8  // Default for Arduino connector compatibility
+
+// I2C timing definitions (optional), avoid time spent to compute if defined
+// * I2C_TIMING_SM for Standard Mode (100kHz)
+// * I2C_TIMING_FM for Fast Mode (400kHz)
+// * I2C_TIMING_FMP for Fast Mode Plus (1000kHz)
+#define I2C_TIMING_SM           0x30E0628A
+#define I2C_TIMING_FM           0x20D01132
+#define I2C_TIMING_FMP          0x1080091A
+
+
 // On-board user button
-// #define USER_BTN                No User Button Available...
+#define USER_BTN                x   // No User Button Available...
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
