@@ -1736,16 +1736,28 @@ LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.RHF76_052.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # ELEKTOR_F072C8
-LoRa.menu.pnum.ELEKTOR_F072C8=Elektor LoRa Node Core F072
+LoRa.menu.pnum.ELEKTOR_F072C8=Elektor LoRa Node Core F072C8 (64kB)
 LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_data_size=16384
-LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_size=131072
+LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_size=65536
 LoRa.menu.pnum.ELEKTOR_F072C8.build.mcu=cortex-m0
 LoRa.menu.pnum.ELEKTOR_F072C8.build.board=ELEKTOR_F072C8
 LoRa.menu.pnum.ELEKTOR_F072C8.build.series=STM32F0xx
 LoRa.menu.pnum.ELEKTOR_F072C8.build.product_line=STM32F072xB
-LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=ELEKTOR_F072C8
+LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=ELEKTOR_F072Cx
 LoRa.menu.pnum.ELEKTOR_F072C8.build.cmsis_lib_gcc=arm_cortexM0l_math
 LoRa.menu.pnum.ELEKTOR_F072C8.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# ELEKTOR_F072CB
+LoRa.menu.pnum.ELEKTOR_F072CB=Elektor LoRa Node Core F072CB (128kB)
+LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_data_size=16384
+LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_size=131072
+LoRa.menu.pnum.ELEKTOR_F072CB.build.mcu=cortex-m0
+LoRa.menu.pnum.ELEKTOR_F072CB.build.board=ELEKTOR_F072CB
+LoRa.menu.pnum.ELEKTOR_F072CB.build.series=STM32F0xx
+LoRa.menu.pnum.ELEKTOR_F072CB.build.product_line=STM32F072xB
+LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=ELEKTOR_F072Cx
+LoRa.menu.pnum.ELEKTOR_F072CB.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.ELEKTOR_F072CB.build.extra_flags=-D{build.product_line} {build.xSerial}
 
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
