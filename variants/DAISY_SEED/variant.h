@@ -40,6 +40,7 @@ extern "C" {
 #define  PA2 28
 #define  PB14 29
 #define  PB15 30
+#define  PC7 31 // LED_BUILTIN
 
 // This must be a literal with the same value as PEND
 #define NUM_DIGITAL_PINS        31
@@ -85,8 +86,8 @@ extern "C" {
 
 // Serial pin used for console (ex: ST-Link)
 // Required by Firmata
-#define PIN_SERIAL_RX           PB6
-#define PIN_SERIAL_TX           PB7
+#define PIN_SERIAL_RX           PB7
+#define PIN_SERIAL_TX           PB6
 
 // HSE default value is 25MHz in HAL
 // HSE_BYPASS is 8MHz ?
@@ -97,7 +98,8 @@ extern "C" {
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
-#define HAL_QSPI_MODULE_ENABLED
+//#define HAL_MDMA_MODULE_ENABLED // Needed for QSPI
+//#define HAL_QSPI_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"
