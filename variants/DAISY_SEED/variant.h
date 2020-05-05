@@ -62,7 +62,7 @@ extern "C" {
 
 // I2C Definitions
 #define PIN_WIRE_SDA            12 // Default for Arduino connector compatibility
-#define PIN_WIRE_SCL            8  // Default for Arduino connector compatibility
+#define PIN_WIRE_SCL            11  // Default for Arduino connector compatibility
 
 // I2C timing definitions (optional), avoid time spent to compute if defined
 // * I2C_TIMING_SM for Standard Mode (100kHz)
