@@ -43,7 +43,7 @@ extern "C" {
 #define  PC7 31 // LED_BUILTIN
 
 // This must be a literal with the same value as PEND
-#define NUM_DIGITAL_PINS        31
+#define NUM_DIGITAL_PINS        32
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       12
 #define NUM_ANALOG_FIRST        15

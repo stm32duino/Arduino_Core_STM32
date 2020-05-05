@@ -48,23 +48,24 @@ const PinName digitalPin[] = {
   // NC, 3v3D Out
   // NC, VIN
   // NC, DGND
+  PC_7, // LED_BUILTIN
 };
 
 const uint32_t analogInputPin[] = {
-    // PXn, // Ax = Dx
-    15, // A0 = D15
-    16, // A1 = D16
-    17, // A2 = D17
-    18, // A3 = D18
-    19, // A4 = D19
-    20, // A5 = D20
-    21, // A6 = D21
-    22, // A7 = D22
-    23, // A8 = D23
-    24, // A9 = D24
-    25, // A10 = D25
-    28, // A11 = D28
-}
+	// PXn, // Ax = Dx
+	15, // A0 = D15
+	16, // A1 = D16
+	17, // A2 = D17
+	18, // A3 = D18
+	19, // A4 = D19
+	20, // A5 = D20
+	21, // A6 = D21
+	22, // A7 = D22
+	23, // A8 = D23
+	24, // A9 = D24
+	25, // A10 = D25
+	28, // A11 = D28
+};
 
 #ifdef __cplusplus
 }
