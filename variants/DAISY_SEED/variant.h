@@ -46,7 +46,7 @@ extern "C" {
 #define NUM_DIGITAL_PINS        32
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       12
-#define NUM_ANALOG_FIRST        15
+//#define NUM_ANALOG_FIRST        15 // commented out to use analogInputPin[]
 
 // On-board LED pin number
 #define LED_BUILTIN             PC7  
