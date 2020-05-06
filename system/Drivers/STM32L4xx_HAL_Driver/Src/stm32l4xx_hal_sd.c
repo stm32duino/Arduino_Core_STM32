@@ -3556,8 +3556,6 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
           /* Clean Status flags */
           hsd->Instance->ICR = 0xFFFFFFFFU;
         }
-
-        hsd->SdCard.CardSpeed = CARD_ULTRA_HIGH_SPEED;
       }
     }
 #endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
@@ -3732,7 +3730,7 @@ static uint32_t SD_SendStatus(SD_HandleTypeDef *hsd, uint32_t *pCardStatus)
   */
 static uint32_t SD_WideBus_Enable(SD_HandleTypeDef *hsd)
 {
-  uint32_t scr[2U] = {0U, 0U};
+  uint32_t scr[2U] = {0UL, 0UL};
   uint32_t errorstate;
 
   if((SDMMC_GetResponse(hsd->Instance, SDMMC_RESP1) & SDMMC_CARD_LOCKED) == SDMMC_CARD_LOCKED)
@@ -3779,7 +3777,7 @@ static uint32_t SD_WideBus_Enable(SD_HandleTypeDef *hsd)
   */
 static uint32_t SD_WideBus_Disable(SD_HandleTypeDef *hsd)
 {
-  uint32_t scr[2U] = {0U, 0U};
+  uint32_t scr[2U] = {0UL, 0UL};
   uint32_t errorstate;
 
   if((SDMMC_GetResponse(hsd->Instance, SDMMC_RESP1) & SDMMC_CARD_LOCKED) == SDMMC_CARD_LOCKED)
@@ -3832,7 +3830,7 @@ static uint32_t SD_FindSCR(SD_HandleTypeDef *hsd, uint32_t *pSCR)
   uint32_t errorstate;
   uint32_t tickstart = HAL_GetTick();
   uint32_t index = 0U;
-  uint32_t tempscr[2U] = {0U, 0U};
+  uint32_t tempscr[2U] = {0UL, 0UL};
   uint32_t *scr = pSCR;
 
   /* Set Block Size To 8 Bytes */
@@ -4086,8 +4084,6 @@ uint32_t SD_HighSpeed(SD_HandleTypeDef *hsd)
     {
       __HAL_SD_CLEAR_FLAG(hsd, SDMMC_FLAG_DTIMEOUT);
 
-      errorstate = 0;
-
       return errorstate;
     }
     else if (__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DCRCFAIL))
@@ -4200,8 +4196,6 @@ static uint32_t SD_UltraHighSpeed(SD_HandleTypeDef *hsd)
     if (__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DTIMEOUT))
     {
       __HAL_SD_CLEAR_FLAG(hsd, SDMMC_FLAG_DTIMEOUT);
-
-      errorstate = 0;
 
       return errorstate;
     }
@@ -4331,8 +4325,6 @@ static uint32_t SD_DDR_Mode(SD_HandleTypeDef *hsd)
     if (__HAL_SD_GET_FLAG(hsd, SDMMC_FLAG_DTIMEOUT))
     {
       __HAL_SD_CLEAR_FLAG(hsd, SDMMC_FLAG_DTIMEOUT);
-
-      errorstate = 0;
 
       return errorstate;
     }
