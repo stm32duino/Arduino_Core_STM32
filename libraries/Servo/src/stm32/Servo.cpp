@@ -84,6 +84,7 @@ static void TimerServoInit()
   TimerServo.setPrescaleFactor(prescaler);
   TimerServo.setOverflow(REFRESH_INTERVAL); // thanks to prescaler Tick = microsec
   TimerServo.attachInterrupt(Servo_PeriodElapsedCallback);
+  TimerServo.setPreloadEnable(false);
   TimerServo.resume();
 }
 
