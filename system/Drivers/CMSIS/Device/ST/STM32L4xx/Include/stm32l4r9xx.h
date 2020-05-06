@@ -18422,6 +18422,9 @@ typedef struct
 #define OCTOSPI_DCR1_FRCK_Pos          (1U)
 #define OCTOSPI_DCR1_FRCK_Msk          (0x1UL << OCTOSPI_DCR1_FRCK_Pos)        /*!< 0x00000002 */
 #define OCTOSPI_DCR1_FRCK              OCTOSPI_DCR1_FRCK_Msk                   /*!< Free Running Clock */
+#define OCTOSPI_DCR1_DLYBYP_Pos        (1U)
+#define OCTOSPI_DCR1_DLYBYP_Msk        (0x1UL << OCTOSPI_DCR1_DLYBYP_Pos)      /*!< 0x00000004 */
+#define OCTOSPI_DCR1_DLYBYP            OCTOSPI_DCR1_DLYBYP_Msk                 /*!< Delay Block Bypass */
 #define OCTOSPI_DCR1_CSHT_Pos          (8U)
 #define OCTOSPI_DCR1_CSHT_Msk          (0x7UL << OCTOSPI_DCR1_CSHT_Pos)        /*!< 0x00000700 */
 #define OCTOSPI_DCR1_CSHT              OCTOSPI_DCR1_CSHT_Msk                   /*!< Chip Select High Time */

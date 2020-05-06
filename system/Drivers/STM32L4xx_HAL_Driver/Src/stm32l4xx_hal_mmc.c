@@ -2532,7 +2532,7 @@ HAL_StatusTypeDef HAL_MMC_ConfigSpeedBusOperation(MMC_HandleTypeDef *hmmc, uint3
   {
     case SDMMC_SPEED_MODE_AUTO:
     {
-      if (((device_type & 0x04U) != 0U) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS) != 0U))
+      if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS) != 0U) && ((device_type & 0x04U) != 0U))
       {
         /* High Speed DDR mode allowed */
         errorstate = MMC_HighSpeed(hmmc, ENABLE);
@@ -2558,11 +2558,15 @@ HAL_StatusTypeDef HAL_MMC_ConfigSpeedBusOperation(MMC_HandleTypeDef *hmmc, uint3
           hmmc->ErrorCode |= errorstate;
         }
       }
+      else
+      {
+        /* Nothing to do : keep current speed */
+      }
       break;
     }
     case SDMMC_SPEED_MODE_DDR:
     {
-      if (((device_type & 0x04U) != 0U) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS) != 0U))
+      if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS) != 0U) && ((device_type & 0x04U) != 0U))
       {
         /* High Speed DDR mode allowed */
         errorstate = MMC_HighSpeed(hmmc, ENABLE);
@@ -3022,9 +3026,7 @@ static uint32_t MMC_InitCard(MMC_HandleTypeDef *hmmc)
   HAL_MMC_CardCSDTypeDef CSD;
   uint32_t errorstate;
   uint16_t mmc_rca = 1U;
-#if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
   MMC_InitTypeDef Init;
-#endif
 
   /* Check the power State */
   if(SDMMC_GetPowerState(hmmc->Instance) == 0U)
@@ -3077,23 +3079,6 @@ static uint32_t MMC_InitCard(MMC_HandleTypeDef *hmmc)
   /* Get the Card Class */
   hmmc->MmcCard.Class = (SDMMC_GetResponse(hmmc->Instance, SDMMC_RESP2) >> 20U);
 
-#if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
-  /* Get CSD parameters */
-  if (HAL_MMC_GetCardCSD(hmmc, &CSD) != HAL_OK)
-  {
-    return hmmc->ErrorCode;
-  }
-
-  /* Select the Card */
-  errorstate = SDMMC_CmdSelDesel(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
-  if(errorstate != HAL_MMC_ERROR_NONE)
-  {
-    return errorstate;
-  }
-
-  /* Configure SDMMC peripheral interface */
-  (void)SDMMC_Init(hmmc->Instance, hmmc->Init);
-#else
    /* Select the Card */
   errorstate = SDMMC_CmdSelDesel(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
   if(errorstate != HAL_MMC_ERROR_NONE)
@@ -3121,7 +3106,6 @@ static uint32_t MMC_InitCard(MMC_HandleTypeDef *hmmc)
   Init.HardwareFlowControl = hmmc->Init.HardwareFlowControl;
   Init.ClockDiv            = hmmc->Init.ClockDiv;
   (void)SDMMC_Init(hmmc->Instance, Init);
-#endif
 
   /* All cards are initialized */
   return HAL_MMC_ERROR_NONE;
@@ -3274,7 +3258,7 @@ static HAL_StatusTypeDef MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFiel
         tmp_data = SDMMC_ReadFIFO(hmmc->Instance);
         /* eg : SEC_COUNT   : FieldIndex = 212 => i+count = 53 */
         /*      DEVICE_TYPE : FieldIndex = 196 => i+count = 49 */
-        if ((i + count) == (FieldIndex/4))
+        if ((i + count) == ((uint32_t)FieldIndex/4U))
         {
           *pFieldData = tmp_data;
         }
@@ -3395,16 +3379,16 @@ static void MMC_Write_IT(MMC_HandleTypeDef *hmmc)
 static uint32_t MMC_HighSpeed(MMC_HandleTypeDef *hmmc, FunctionalState state)
 {
   uint32_t errorstate = HAL_MMC_ERROR_NONE;
-  uint32_t response = 0U, count = 0U;
+  uint32_t response, count;
   SDMMC_InitTypeDef Init;
 
-  if ((state == DISABLE) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_BUSSPEED) != 0U))
+  if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_BUSSPEED) != 0U) && (state == DISABLE))
   {
     /* Index : 185 - Value : 0 */
     errorstate = SDMMC_CmdSwitch(hmmc->Instance, 0x03B90000U);
   }
 
-  if ((state != DISABLE) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_BUSSPEED) == 0U))
+  if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_BUSSPEED) == 0U) && (state != DISABLE))
   {
     /* Index : 185 - Value : 1 */
     errorstate = SDMMC_CmdSwitch(hmmc->Instance, 0x03B90100U);
@@ -3479,9 +3463,9 @@ static uint32_t MMC_HighSpeed(MMC_HandleTypeDef *hmmc, FunctionalState state)
 static uint32_t MMC_DDR_Mode(MMC_HandleTypeDef *hmmc, FunctionalState state)
 {
   uint32_t errorstate = HAL_MMC_ERROR_NONE;
-  uint32_t response = 0U, count = 0U;
+  uint32_t response, count;
 
-  if ((state == DISABLE) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) != 0U))
+  if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) != 0U) && (state == DISABLE))
   {
     if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS_0) != 0U)
     {
@@ -3495,7 +3479,7 @@ static uint32_t MMC_DDR_Mode(MMC_HandleTypeDef *hmmc, FunctionalState state)
     }
   }
 
-  if ((state != DISABLE) && ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U))
+  if (((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U) && (state != DISABLE))
   {
     if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_WIDBUS_0) != 0U)
     {
