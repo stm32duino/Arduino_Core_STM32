@@ -139,17 +139,6 @@ HAL_StatusTypeDef HAL_SDEx_ReadBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint3
       add *= 512U;
     }
 
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hsd->Instance, BLOCKSIZE);
-    if(errorstate != HAL_SD_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_SD_CLEAR_FLAG(hsd, SDMMC_STATIC_FLAGS);
-      hsd->ErrorCode |= errorstate;
-      hsd->State = HAL_SD_STATE_READY;
-      return HAL_ERROR;
-    }
-
     /* Configure the SD DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
     config.DataLength    = BLOCKSIZE * NumberOfBlocks;
@@ -229,17 +218,6 @@ HAL_StatusTypeDef HAL_SDEx_WriteBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint
     if(hsd->SdCard.CardType != CARD_SDHC_SDXC)
     {
       add *= 512U;
-    }
-
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hsd->Instance, BLOCKSIZE);
-    if(errorstate != HAL_SD_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_SD_CLEAR_FLAG(hsd, SDMMC_STATIC_FLAGS);
-      hsd->ErrorCode |= errorstate;
-      hsd->State = HAL_SD_STATE_READY;
-      return HAL_ERROR;
     }
 
     /* Configure the SD DPSM (Data Path State Machine) */

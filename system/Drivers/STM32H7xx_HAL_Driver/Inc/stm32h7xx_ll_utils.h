@@ -121,13 +121,13 @@ typedef struct
                         This feature can be modified afterwards using unitary function
                         @ref LL_RCC_PLL1_SetFRACN(). */
 
-  uint32_t VCO_Input;  /*!< Fractional part of the multiplication factor for PLL VCO.
+  uint32_t VCO_Input;  /*!< PLL clock Input range.
                         This parameter can be a value of @ref RCC_LL_EC_PLLINPUTRANGE
 
                         This feature can be modified afterwards using unitary function
                         @ref LL_RCC_PLL1_SetVCOInputRange(). */
 
-  uint32_t VCO_Output;  /*!< Fractional part of the multiplication factor for PLL VCO.
+  uint32_t VCO_Output;  /*!< PLL clock Output range.
                         This parameter can be a value of @ref RCC_LL_EC_PLLVCORANGE
 
                       This feature can be modified afterwards using unitary function
@@ -213,11 +213,11 @@ typedef struct
 #define LL_UTILS_PACKAGETYPE_LQFP144                 0x00000005UL                  /*!< LQFP144 package type             */
 #define LL_UTILS_PACKAGETYPE_LQFP144_SMPS            0x00000006UL                  /*!< LQFP144 with SMPS package type   */
 #define LL_UTILS_PACKAGETYPE_UFBGA169                0x00000007UL                  /*!< UFBGA169 package type            */
-#define LL_UTILS_PACKAGETYPE_UFBGA176_LQFP176        0x00000010UL                  /*!< UFBGA176 or LQFP176 package type */
-#define LL_UTILS_PACKAGETYPE_LQFP176_SMPS            0x00000011UL                  /*!< LQFP176 with SMPS package type   */
-#define LL_UTILS_PACKAGETYPE_UFBGA176_SMPS           0x00000012UL                  /*!< UFBGA176 with SMPS package type  */
-#define LL_UTILS_PACKAGETYPE_TFBGA216                0x00000014UL                  /*!< TFBGA216  package type           */
-#define LL_UTILS_PACKAGETYPE_TFBGA225                0x00000016UL                  /*!< TFBGA225  package type           */
+#define LL_UTILS_PACKAGETYPE_UFBGA176_LQFP176        0x00000008UL                  /*!< UFBGA176 or LQFP176 package type */
+#define LL_UTILS_PACKAGETYPE_LQFP176_SMPS            0x00000009UL                  /*!< LQFP176 with SMPS package type   */
+#define LL_UTILS_PACKAGETYPE_UFBGA176_SMPS           0x0000000AUL                  /*!< UFBGA176 with SMPS package type  */
+#define LL_UTILS_PACKAGETYPE_TFBGA216                0x0000000CUL                  /*!< TFBGA216  package type           */
+#define LL_UTILS_PACKAGETYPE_TFBGA225                0x0000000EUL                  /*!< TFBGA225  package type           */
 #endif /* SYSCFG_PKGR_PKG */
 /**
   * @}
@@ -355,6 +355,7 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency,
                                          uint32_t HSEBypass,
                                          LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
                                          LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
+ErrorStatus LL_SetFlashLatency(uint32_t HCLK_Frequency);
 
 /**
   * @}
