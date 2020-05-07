@@ -294,10 +294,10 @@ typedef struct
 /** @defgroup RCC_PLL1_VCI_Range  RCC PLL1 VCI Range
   * @{
   */
-#define RCC_PLL1VCIRANGE_0                RCC_PLLCFGR_PLL1RGE_0
-#define RCC_PLL1VCIRANGE_1                RCC_PLLCFGR_PLL1RGE_1
-#define RCC_PLL1VCIRANGE_2                RCC_PLLCFGR_PLL1RGE_2
-#define RCC_PLL1VCIRANGE_3                RCC_PLLCFGR_PLL1RGE_3
+#define RCC_PLL1VCIRANGE_0                RCC_PLLCFGR_PLL1RGE_0       /*!< Clock range frequency between 1 and 2 MHz  */
+#define RCC_PLL1VCIRANGE_1                RCC_PLLCFGR_PLL1RGE_1       /*!< Clock range frequency between 2 and 4 MHz  */
+#define RCC_PLL1VCIRANGE_2                RCC_PLLCFGR_PLL1RGE_2       /*!< Clock range frequency between 4 and 8 MHz  */
+#define RCC_PLL1VCIRANGE_3                RCC_PLLCFGR_PLL1RGE_3       /*!< Clock range frequency between 8 and 16 MHz */
 
 
 /**
@@ -1176,6 +1176,7 @@ typedef struct
                                        } while(0)
 #endif /* DCMI && PSSI */
 
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
@@ -1183,7 +1184,9 @@ typedef struct
                                         tmpreg = READ_BIT(RCC->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* CRYP */
 
+#if defined(HASH)
 #define __HAL_RCC_HASH_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC->AHB2ENR, RCC_AHB2ENR_HASHEN);\
@@ -1191,6 +1194,7 @@ typedef struct
                                         tmpreg = READ_BIT(RCC->AHB2ENR, RCC_AHB2ENR_HASHEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* HASH */
 
 #define __HAL_RCC_RNG_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
@@ -1280,8 +1284,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_CLK_DISABLE()             (RCC->AHB2ENR &= ~ (RCC_AHB2ENR_DCMIEN))
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_CLK_DISABLE()             (RCC->AHB2ENR &= ~ (RCC_AHB2ENR_CRYPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_CLK_DISABLE()             (RCC->AHB2ENR &= ~ (RCC_AHB2ENR_HASHEN))
+#endif /* HASH */
 #define __HAL_RCC_RNG_CLK_DISABLE()              (RCC->AHB2ENR &= ~ (RCC_AHB2ENR_RNGEN))
 #define __HAL_RCC_SDMMC2_CLK_DISABLE()           (RCC->AHB2ENR &= ~ (RCC_AHB2ENR_SDMMC2EN))
 #if defined(RCC_AHB2ENR_D2SRAM1EN)
@@ -1316,8 +1324,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_IS_CLK_ENABLED()              ((RCC->AHB2ENR & RCC_AHB2ENR_DCMIEN)    != 0U)
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_IS_CLK_ENABLED()              ((RCC->AHB2ENR & RCC_AHB2ENR_CRYPEN)    != 0U)
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_IS_CLK_ENABLED()              ((RCC->AHB2ENR & RCC_AHB2ENR_HASHEN)    != 0U)
+#endif /* HASH */
 #define __HAL_RCC_RNG_IS_CLK_ENABLED()               ((RCC->AHB2ENR & RCC_AHB2ENR_RNGEN)     != 0U)
 #define __HAL_RCC_SDMMC2_IS_CLK_ENABLED()            ((RCC->AHB2ENR & RCC_AHB2ENR_SDMMC2EN)  != 0U)
 #if defined(RCC_AHB2ENR_D2SRAM1EN)
@@ -1346,8 +1358,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_IS_CLK_DISABLED()             ((RCC->AHB2ENR & RCC_AHB2ENR_DCMIEN)    == 0U)
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_IS_CLK_DISABLED()             ((RCC->AHB2ENR & RCC_AHB2ENR_CRYPEN)    == 0U)
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_IS_CLK_DISABLED()             ((RCC->AHB2ENR & RCC_AHB2ENR_HASHEN)    == 0U)
+#endif /* HASH */
 #define __HAL_RCC_RNG_IS_CLK_DISABLED()              ((RCC->AHB2ENR & RCC_AHB2ENR_RNGEN)     == 0U)
 #define __HAL_RCC_SDMMC2_IS_CLK_DISABLED()           ((RCC->AHB2ENR & RCC_AHB2ENR_SDMMC2EN)  == 0U)
 #if defined(RCC_AHB2ENR_D2SRAM1EN)
@@ -2711,7 +2727,7 @@ typedef struct
                                         tmpreg = READ_BIT(RCC_C1->AHB2ENR, RCC_AHB2ENR_DCMIEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
-
+#if defined(CRYP)
 #define __HAL_RCC_C1_CRYP_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC_C1->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
@@ -2719,7 +2735,9 @@ typedef struct
                                         tmpreg = READ_BIT(RCC_C1->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* CRYP */
 
+#if defined(HASH)
 #define __HAL_RCC_C1_HASH_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC_C1->AHB2ENR, RCC_AHB2ENR_HASHEN);\
@@ -2727,6 +2745,7 @@ typedef struct
                                         tmpreg = READ_BIT(RCC_C1->AHB2ENR, RCC_AHB2ENR_HASHEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* HASH */
 
 #define __HAL_RCC_C1_RNG_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
@@ -2769,8 +2788,12 @@ typedef struct
                                        } while(0)
 
 #define __HAL_RCC_C1_DCMI_CLK_DISABLE()             (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_DCMIEN))
+#if defined(CRYP)
 #define __HAL_RCC_C1_CRYP_CLK_DISABLE()             (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_CRYPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C1_HASH_CLK_DISABLE()             (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_HASHEN))
+#endif /* HASH */
 #define __HAL_RCC_C1_RNG_CLK_DISABLE()              (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_RNGEN))
 #define __HAL_RCC_C1_SDMMC2_CLK_DISABLE()           (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_SDMMC2EN))
 #define __HAL_RCC_C1_D2SRAM1_CLK_DISABLE()          (RCC_C1->AHB2ENR &= ~ (RCC_AHB2ENR_D2SRAM1EN))
@@ -3734,6 +3757,7 @@ typedef struct
                                         UNUSED(tmpreg); \
                                        } while(0)
 
+#if defined(CRYP)
 #define __HAL_RCC_C2_CRYP_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC_C2->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
@@ -3741,7 +3765,9 @@ typedef struct
                                         tmpreg = READ_BIT(RCC_C2->AHB2ENR, RCC_AHB2ENR_CRYPEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* CRYP */
 
+#if defined(HASH)
 #define __HAL_RCC_C2_HASH_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
                                         SET_BIT(RCC_C2->AHB2ENR, RCC_AHB2ENR_HASHEN);\
@@ -3749,6 +3775,7 @@ typedef struct
                                         tmpreg = READ_BIT(RCC_C2->AHB2ENR, RCC_AHB2ENR_HASHEN);\
                                         UNUSED(tmpreg); \
                                        } while(0)
+#endif /* HASH */
 
 #define __HAL_RCC_C2_RNG_CLK_ENABLE()   do { \
                                         __IO uint32_t tmpreg; \
@@ -3791,8 +3818,12 @@ typedef struct
                                        } while(0)
 
 #define __HAL_RCC_C2_DCMI_CLK_DISABLE()             (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_DCMIEN))
+#if defined(CRYP)
 #define __HAL_RCC_C2_CRYP_CLK_DISABLE()             (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_CRYPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C2_HASH_CLK_DISABLE()             (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_HASHEN))
+#endif /* HASH */
 #define __HAL_RCC_C2_RNG_CLK_DISABLE()              (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_RNGEN))
 #define __HAL_RCC_C2_SDMMC2_CLK_DISABLE()           (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_SDMMC2EN))
 #define __HAL_RCC_C2_D2SRAM1_CLK_DISABLE()          (RCC_C2->AHB2ENR &= ~ (RCC_AHB2ENR_D2SRAM1EN))
@@ -4528,7 +4559,7 @@ typedef struct
 /** @brief  Enable or disable the AHB3 peripheral reset.
   */
 
-#define __HAL_RCC_AHB3_FORCE_RESET()          (RCC->AHB3RSTR = 0xFFFFFFFFU)
+#define __HAL_RCC_AHB3_FORCE_RESET()          (RCC->AHB3RSTR = 0x7FFFFFFFU)
 #define __HAL_RCC_MDMA_FORCE_RESET()          (RCC->AHB3RSTR |= (RCC_AHB3RSTR_MDMARST))
 #define __HAL_RCC_DMA2D_FORCE_RESET()         (RCC->AHB3RSTR |= (RCC_AHB3RSTR_DMA2DRST))
 #if defined(JPEG)
@@ -4637,8 +4668,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_FORCE_RESET()             (RCC->AHB2RSTR |= (RCC_AHB2RSTR_DCMIRST))
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_FORCE_RESET()             (RCC->AHB2RSTR |= (RCC_AHB2RSTR_CRYPRST))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_FORCE_RESET()             (RCC->AHB2RSTR |= (RCC_AHB2RSTR_HASHRST))
+#endif /* HASH */
 #define __HAL_RCC_RNG_FORCE_RESET()              (RCC->AHB2RSTR |= (RCC_AHB2RSTR_RNGRST))
 #define __HAL_RCC_SDMMC2_FORCE_RESET()           (RCC->AHB2RSTR |= (RCC_AHB2RSTR_SDMMC2RST))
 #if defined(RCC_AHB2RSTR_HSEMRST)
@@ -4655,8 +4690,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_RELEASE_RESET()             (RCC->AHB2RSTR &= ~ (RCC_AHB2RSTR_DCMIRST))
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_RELEASE_RESET()             (RCC->AHB2RSTR &= ~ (RCC_AHB2RSTR_CRYPRST))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_RELEASE_RESET()             (RCC->AHB2RSTR &= ~ (RCC_AHB2RSTR_HASHRST))
+#endif /* HASH */
 #define __HAL_RCC_RNG_RELEASE_RESET()              (RCC->AHB2RSTR &= ~ (RCC_AHB2RSTR_RNGRST))
 #define __HAL_RCC_SDMMC2_RELEASE_RESET()           (RCC->AHB2RSTR &= ~ (RCC_AHB2RSTR_SDMMC2RST))
 #if defined(RCC_AHB2RSTR_HSEMRST)
@@ -5240,8 +5279,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_CLK_SLEEP_ENABLE()             (RCC->AHB2LPENR |= (RCC_AHB2LPENR_DCMILPEN))
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_CLK_SLEEP_ENABLE()             (RCC->AHB2LPENR |= (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_CLK_SLEEP_ENABLE()             (RCC->AHB2LPENR |= (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_RNG_CLK_SLEEP_ENABLE()              (RCC->AHB2LPENR |= (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_SDMMC2_CLK_SLEEP_ENABLE()           (RCC->AHB2LPENR |= (RCC_AHB2LPENR_SDMMC2LPEN))
 #if defined(RCC_AHB2LPENR_DFSDMDMALPEN)
@@ -5267,8 +5310,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_CLK_SLEEP_DISABLE()             (RCC->AHB2LPENR &= ~ (RCC_AHB2LPENR_DCMILPEN))
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_CLK_SLEEP_DISABLE()             (RCC->AHB2LPENR &= ~ (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_CLK_SLEEP_DISABLE()             (RCC->AHB2LPENR &= ~ (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_RNG_CLK_SLEEP_DISABLE()              (RCC->AHB2LPENR &= ~ (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_SDMMC2_CLK_SLEEP_DISABLE()           (RCC->AHB2LPENR &= ~ (RCC_AHB2LPENR_SDMMC2LPEN))
 #if defined(RCC_AHB2LPENR_DFSDMDMALPEN)
@@ -5301,8 +5348,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_IS_CLK_SLEEP_ENABLED()              ((RCC->AHB2LPENR & (RCC_AHB2LPENR_DCMILPEN))    != 0U)
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_IS_CLK_SLEEP_ENABLED()              ((RCC->AHB2LPENR & (RCC_AHB2LPENR_CRYPLPEN))    != 0U)
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_IS_CLK_SLEEP_ENABLED()              ((RCC->AHB2LPENR & (RCC_AHB2LPENR_HASHLPEN))    != 0U)
+#endif /* HASH */
 #define __HAL_RCC_RNG_IS_CLK_SLEEP_ENABLED()               ((RCC->AHB2LPENR & (RCC_AHB2LPENR_RNGLPEN))     != 0U)
 #define __HAL_RCC_SDMMC2_IS_CLK_SLEEP_ENABLED()            ((RCC->AHB2LPENR & (RCC_AHB2LPENR_SDMMC2LPEN))  != 0U)
 #if defined(RCC_AHB2LPENR_DFSDMDMALPEN)
@@ -5328,8 +5379,12 @@ typedef struct
 #else
 #define __HAL_RCC_DCMI_IS_CLK_SLEEP_DISABLED()             ((RCC->AHB2LPENR & (RCC_AHB2LPENR_DCMILPEN))    == 0U)
 #endif /* DCMI && PSSI */
+#if defined(CRYP)
 #define __HAL_RCC_CRYP_IS_CLK_SLEEP_DISABLED()             ((RCC->AHB2LPENR & (RCC_AHB2LPENR_CRYPLPEN))    == 0U)
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_HASH_IS_CLK_SLEEP_DISABLED()             ((RCC->AHB2LPENR & (RCC_AHB2LPENR_HASHLPEN))    == 0U)
+#endif /* HASH */
 #define __HAL_RCC_RNG_IS_CLK_SLEEP_DISABLED()              ((RCC->AHB2LPENR & (RCC_AHB2LPENR_RNGLPEN))     == 0U)
 #if defined(RCC_AHB2LPENR_DFSDMDMALPEN)
 #define __HAL_RCC_DFSDMDMA_IS_CLK_SLEEP_DISABLED()         ((RCC->AHB2LPENR & (RCC_AHB2LPENR_DFSDMDMALPEN)) == 0U)
@@ -6010,8 +6065,12 @@ typedef struct
   */
 
 #define __HAL_RCC_C1_DCMI_CLK_SLEEP_ENABLE()             (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_DCMILPEN))
+#if defined(CRYP)
 #define __HAL_RCC_C1_CRYP_CLK_SLEEP_ENABLE()             (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C1_HASH_CLK_SLEEP_ENABLE()             (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_C1_RNG_CLK_SLEEP_ENABLE()              (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_C1_SDMMC2_CLK_SLEEP_ENABLE()           (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_SDMMC2LPEN))
 #define __HAL_RCC_C1_D2SRAM1_CLK_SLEEP_ENABLE()          (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_D2SRAM1LPEN))
@@ -6019,8 +6078,12 @@ typedef struct
 #define __HAL_RCC_C1_D2SRAM3_CLK_SLEEP_ENABLE()          (RCC_C1->AHB2LPENR |= (RCC_AHB2LPENR_D2SRAM3LPEN))
 
 #define __HAL_RCC_C1_DCMI_CLK_SLEEP_DISABLE()             (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_DCMILPEN))
+#if defined(CRYP)
 #define __HAL_RCC_C1_CRYP_CLK_SLEEP_DISABLE()             (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C1_HASH_CLK_SLEEP_DISABLE()             (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_C1_RNG_CLK_SLEEP_DISABLE()              (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_C1_SDMMC2_CLK_SLEEP_DISABLE()           (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_SDMMC2LPEN))
 #define __HAL_RCC_C1_D2SRAM1_CLK_SLEEP_DISABLE()          (RCC_C1->AHB2LPENR &= ~ (RCC_AHB2LPENR_D2SRAM1LPEN))
@@ -6298,8 +6361,12 @@ typedef struct
   */
 
 #define __HAL_RCC_C2_DCMI_CLK_SLEEP_ENABLE()             (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_DCMILPEN))
+#if defined(CRYP)
 #define __HAL_RCC_C2_CRYP_CLK_SLEEP_ENABLE()             (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C2_HASH_CLK_SLEEP_ENABLE()             (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_C2_RNG_CLK_SLEEP_ENABLE()              (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_C2_SDMMC2_CLK_SLEEP_ENABLE()           (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_SDMMC2LPEN))
 #define __HAL_RCC_C2_D2SRAM1_CLK_SLEEP_ENABLE()          (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_D2SRAM1LPEN))
@@ -6307,8 +6374,12 @@ typedef struct
 #define __HAL_RCC_C2_D2SRAM3_CLK_SLEEP_ENABLE()          (RCC_C2->AHB2LPENR |= (RCC_AHB2LPENR_D2SRAM3LPEN))
 
 #define __HAL_RCC_C2_DCMI_CLK_SLEEP_DISABLE()             (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_DCMILPEN))
+#if defined(CRYP)
 #define __HAL_RCC_C2_CRYP_CLK_SLEEP_DISABLE()             (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_CRYPLPEN))
+#endif /* CRYP */
+#if defined(HASH)
 #define __HAL_RCC_C2_HASH_CLK_SLEEP_DISABLE()             (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_HASHLPEN))
+#endif /* HASH */
 #define __HAL_RCC_C2_RNG_CLK_SLEEP_DISABLE()              (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_RNGLPEN))
 #define __HAL_RCC_C2_SDMMC2_CLK_SLEEP_DISABLE()           (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_SDMMC2LPEN))
 #define __HAL_RCC_C2_D2SRAM1_CLK_SLEEP_DISABLE()          (RCC_C2->AHB2LPENR &= ~ (RCC_AHB2LPENR_D2SRAM1LPEN))

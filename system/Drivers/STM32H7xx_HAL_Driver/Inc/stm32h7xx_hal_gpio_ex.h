@@ -303,7 +303,6 @@ extern "C" {
 #define GPIO_AF13_PSSI          ((uint8_t)0x0D)   /* PSSI Alternate Function mapping  */
 #endif /* PSSI */
 #define GPIO_AF13_TIM1          ((uint8_t)0x0D)    /* TIM1 Alternate Function mapping */
-#define GPIO_AF13_TIM8          ((uint8_t)0x0D)    /* TIM8 Alternate Function mapping : available on STM32H74xxx/STM32H75xxx  */
 
 /**
   * @brief   AF 14 selection
@@ -364,7 +363,7 @@ extern "C" {
 #define GPIOI_PIN_AVAILABLE  GPIO_PIN_All
 #define GPIOJ_PIN_AVAILABLE  GPIO_PIN_All
 #define GPIOH_PIN_AVAILABLE  GPIO_PIN_All
-#define GPIOK_PIN_AVAILABLE  (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_3 | GPIO_PIN_4 | \
+#define GPIOK_PIN_AVAILABLE  (GPIO_PIN_0 | GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3 | GPIO_PIN_4 | \
                               GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7)
 
 /**

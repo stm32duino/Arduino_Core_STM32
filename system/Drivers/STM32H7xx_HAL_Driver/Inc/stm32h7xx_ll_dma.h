@@ -970,6 +970,50 @@ __STATIC_INLINE uint32_t LL_DMA_GetStreamPriorityLevel(DMA_TypeDef *DMAx, uint32
 }
 
 /**
+  * @brief Enable DMA stream bufferable transfer.
+  * @rmtoll CR          TRBUFF            LL_DMA_EnableBufferableTransfer
+  * @param  DMAx DMAx Instance
+  * @param  Stream This parameter can be one of the following values:
+  *         @arg @ref LL_DMA_STREAM_0
+  *         @arg @ref LL_DMA_STREAM_1
+  *         @arg @ref LL_DMA_STREAM_2
+  *         @arg @ref LL_DMA_STREAM_3
+  *         @arg @ref LL_DMA_STREAM_4
+  *         @arg @ref LL_DMA_STREAM_5
+  *         @arg @ref LL_DMA_STREAM_6
+  *         @arg @ref LL_DMA_STREAM_7
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_EnableBufferableTransfer(DMA_TypeDef *DMAx, uint32_t Stream)
+{
+  register uint32_t dma_base_addr = (uint32_t)DMAx;
+
+  SET_BIT(((DMA_Stream_TypeDef *)(dma_base_addr + LL_DMA_STR_OFFSET_TAB[Stream]))->CR, DMA_SxCR_TRBUFF);
+}
+
+/**
+  * @brief Disable DMA stream bufferable transfer.
+  * @rmtoll CR          TRBUFF            LL_DMA_DisableBufferableTransfer
+  * @param  DMAx DMAx Instance
+  * @param  Stream This parameter can be one of the following values:
+  *         @arg @ref LL_DMA_STREAM_0
+  *         @arg @ref LL_DMA_STREAM_1
+  *         @arg @ref LL_DMA_STREAM_2
+  *         @arg @ref LL_DMA_STREAM_3
+  *         @arg @ref LL_DMA_STREAM_4
+  *         @arg @ref LL_DMA_STREAM_5
+  *         @arg @ref LL_DMA_STREAM_6
+  *         @arg @ref LL_DMA_STREAM_7
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_DisableBufferableTransfer(DMA_TypeDef *DMAx, uint32_t Stream)
+{
+  register uint32_t dma_base_addr = (uint32_t)DMAx;
+
+  CLEAR_BIT(((DMA_Stream_TypeDef *)(dma_base_addr + LL_DMA_STR_OFFSET_TAB[Stream]))->CR, DMA_SxCR_TRBUFF);
+}
+
+/**
   * @brief Set Number of data to transfer.
   * @rmtoll NDTR          NDT           LL_DMA_SetDataLength
   * @note   This action has no effect if
