@@ -1,0 +1,73 @@
+name: STM32 Core Continuous Integration
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
+      - tools/**
+  pull_request:
+    paths-ignore:
+      - '*.json'
+      - '**.md'
+      - keywords.txt
+      - CI/**
+      - '!CI/build/arduino-cli.py'
+      - '!CI/build/platformio-builder.py'
+      - tools/**
+jobs:
+  astyle_check:
+    runs-on: ubuntu-latest
+    name: AStyle check
+    steps:
+    # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Astyle check
+      id: Astyle
+      uses: stm32duino/actions/astyle-check@master
+      with:
+        astyle-definition: 'CI/astyle/.astylerc'
+        ignore-path-list: 'CI/astyle/.astyleignore'
+
+    # Use the output from the `Astyle` step
+    - name: Astyle Errors
+      if: failure()
+      run: |
+        cat ${{ steps.Astyle.outputs.astyle-result }}
+        exit 1
+  core_build:
+    runs-on: ubuntu-latest
+    name: Core compilation
+    steps:
+    # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: Compilation
+      id: Compile
+      uses: stm32duino/actions/compile-examples@master
+
+    # Use the output from the `Compile` step
+    - name: Compilation Errors
+      if: failure()
+      run: |
+        cat ${{ steps.Compile.outputs.compile-result }}
+        exit 1
+  pio_build:
+    runs-on: ubuntu-latest
+    name: PlatformIO test
+    steps:
+      # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: PlatformIO
+      id: Compile
+      uses: ./.github/actions/pio-build

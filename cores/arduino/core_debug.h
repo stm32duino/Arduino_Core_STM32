@@ -1,8 +1,8 @@
 #ifndef _CORE_DEBUG_H
 #define _CORE_DEBUG_H
 #ifdef CORE_DEBUG
-#include <stdio.h>
-#include <stdarg.h>
+  #include <stdio.h>
+  #include <stdarg.h>
 #endif /* CORE_DEBUG */
 
 #ifdef __cplusplus

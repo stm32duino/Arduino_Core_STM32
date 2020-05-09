@@ -269,7 +269,7 @@ HAL_StatusTypeDef HAL_FLASH_Program_IT(uint32_t TypeProgram, uint32_t Address, u
     pFlash.Address = Address;
 
     /* Enable End of Operation and Error interrupts */
-    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
+    __HAL_FLASH_ENABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
 
     if (TypeProgram == FLASH_TYPEPROGRAM_DOUBLEWORD)
     {
@@ -302,13 +302,11 @@ void HAL_FLASH_IRQHandler(void)
   uint32_t param = 0xFFFFFFFFU;
   uint32_t error;
 
-  /* Save flash errors. Only ECC detection can be checked here as ECCC
-     generates NMI */
-  error = (FLASH->SR & FLASH_FLAG_SR_ERROR);
+  /* Check FLASH operation error flags */
+  error = (FLASH->SR & FLASH_FLAG_SR_ERRORS);
 
   /* Clear Current operation */
   CLEAR_BIT(FLASH->CR, pFlash.ProcedureOnGoing);
-  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
 
   /* A] Set parameter for user or error callbacks */
   /* check operation was a program or erase */
@@ -317,9 +315,9 @@ void HAL_FLASH_IRQHandler(void)
     /* return adress being programmed */
     param = pFlash.Address;
   }
-  else if ((pFlash.ProcedureOnGoing & (FLASH_TYPEERASE_MASSERASE | FLASH_TYPEERASE_PAGES)) != 0U)
+  else if ((pFlash.ProcedureOnGoing & (FLASH_TYPEERASE_PAGES)) != 0U)
   {
-    /* return page number being erased (0 for mass erase) */
+    /* return page number being erased */
     param = pFlash.Page;
   }
   else
@@ -381,7 +379,7 @@ void HAL_FLASH_IRQHandler(void)
   if (pFlash.ProcedureOnGoing == FLASH_TYPENONE)
   {
     /* Disable End of Operation and Error interrupts */
-    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR | FLASH_IT_ECCC);
+    __HAL_FLASH_DISABLE_IT(FLASH_IT_EOP | FLASH_IT_OPERR);
 
     /* Process Unlocked */
     __HAL_UNLOCK(&pFlash);
@@ -391,7 +389,6 @@ void HAL_FLASH_IRQHandler(void)
 /**
   * @brief  FLASH end of operation interrupt callback.
   * @param  ReturnValue The value saved in this parameter depends on the ongoing procedure
-  *                  Mass Erase: 0
   *                  Page Erase: Page which has been erased
   *                  Program: Address which was selected for data program
   * @retval None
@@ -409,7 +406,6 @@ __weak void HAL_FLASH_EndOfOperationCallback(uint32_t ReturnValue)
 /**
   * @brief  FLASH operation error interrupt callback.
   * @param  ReturnValue The value saved in this parameter depends on the ongoing procedure
-  *                 Mass Erase: 0
   *                 Page Erase: Page number which returned an error
   *                 Program: Address which was selected for data program
   * @retval None
@@ -581,7 +577,6 @@ HAL_StatusTypeDef HAL_FLASH_OB_Launch(void)
   *            @arg @ref HAL_FLASH_ERROR_FAST FLASH Fast programming error
   *            @arg @ref HAL_FLASH_ERROR_RD FLASH Read Protection error (PCROP)
   *            @arg @ref HAL_FLASH_ERROR_OPTV FLASH Option validity error
-  *            @arg @ref HAL_FLASH_ERROR_ECCD FLASH two ECC errors have been detected
   */
 uint32_t HAL_FLASH_GetError(void)
 {
@@ -623,8 +618,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
     }
   }
 
-  /* check flash errors. Only ECC correction can be checked here as ECCD
-      generates NMI */
+  /* Check FLASH operation error flags */
   error = FLASH->SR;
 
   /* Check FLASH End of Operation flag */
@@ -635,10 +629,7 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
   }
 
   /* Now update error variable to only error value */
-  error &= FLASH_FLAG_SR_ERROR;
-
-  /* Update error with ECC error value */
-  error |= (FLASH->ECCR & FLASH_FLAG_ECCC);
+  error &= FLASH_FLAG_SR_ERRORS;
 
   /* clear error flags */
   __HAL_FLASH_CLEAR_FLAG(error);

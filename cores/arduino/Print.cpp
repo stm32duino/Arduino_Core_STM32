@@ -21,12 +21,16 @@
  */
 
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 #include <math.h>
 #include "Arduino.h"
 
 #include "Print.h"
+
+#if defined (VIRTIO_LOG)
+  #include "virtio_log.h"
+#endif
 
 // Public Methods //////////////////////////////////////////////////////////////
 
@@ -194,6 +198,44 @@ size_t Print::println(const Printable &x)
   size_t n = print(x);
   n += println();
   return n;
+}
+
+extern "C" {
+  __attribute__((weak))
+  int _write(int file, char *ptr, int len)
+  {
+    switch (file) {
+      case STDOUT_FILENO:
+      case STDERR_FILENO:
+        /* Used for core_debug() */
+#if defined (VIRTIO_LOG)
+        virtio_log((uint8_t *)ptr, (uint32_t)len);
+#elif defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
+        uart_debug_write((uint8_t *)ptr, (uint32_t)len);
+#endif
+        break;
+      case STDIN_FILENO:
+        break;
+      default:
+        ((class Print *)file)->write((uint8_t *)ptr, len);
+        break;
+    }
+    return len;
+  }
+}
+
+int Print::printf(const char *format, ...)
+{
+  va_list ap;
+  va_start(ap, format);
+  return vdprintf((int)this, format, ap);
+}
+
+int Print::printf(const __FlashStringHelper *format, ...)
+{
+  va_list ap;
+  va_start(ap, format);
+  return vdprintf((int)this, (const char *)format, ap);
 }
 
 // Private Methods /////////////////////////////////////////////////////////////

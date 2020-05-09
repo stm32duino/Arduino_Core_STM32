@@ -560,6 +560,8 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   *         startup delay is incurred when waking up.
   *         By keeping the internal regulator ON during Stop mode (Stop 0), the consumption
   *         is higher although the startup time is reduced.
+  * @note  Case of Stop0 mode with SMPS: Before entering Stop 0 mode with SMPS Step Down converter enabled,
+  *        the HSI16 must be kept on by enabling HSI kernel clock (set HSIKERON register bit).
   * @note  According to system power policy, system entering in Stop mode
   *        is depending on other CPU power mode.
   * @param Regulator Specifies the regulator state in Stop mode.

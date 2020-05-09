@@ -1,0 +1,29 @@
+From 094df96e87da0370f30012eba4458f8765796522 Mon Sep 17 00:00:00 2001
+From: Frederic Pillon <frederic.pillon@st.com>
+Date: Fri, 10 Jan 2020 17:42:33 +0100
+Subject: [PATCH 1/1] [G0] Fix HAL definition
+
+PWR_WAKEUP_PIN5 should be defined only if PWR_CR3_EWUP5 is defined
+
+Signed-off-by: Frederic Pillon <frederic.pillon@st.com>
+---
+ system/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/system/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h b/system/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h
+index 65e25db6..79819d60 100644
+--- a/system/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h
++++ b/system/Drivers/STM32G0xx_HAL_Driver/Inc/stm32g0xx_hal_pwr.h
+@@ -133,7 +133,9 @@ typedef struct
+ #define PWR_WAKEUP_PIN1                     PWR_CR3_EWUP1  /*!< Wakeup pin 1 (with high level detection) */
+ #define PWR_WAKEUP_PIN2                     PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level detection) */
+ #define PWR_WAKEUP_PIN4                     PWR_CR3_EWUP4  /*!< Wakeup pin 4 (with high level detection) */
++#if defined(PWR_CR3_EWUP5)
+ #define PWR_WAKEUP_PIN5                     PWR_CR3_EWUP5  /*!< Wakeup pin 5 (with high level detection) */
++#endif
+ #define PWR_WAKEUP_PIN6                     PWR_CR3_EWUP6  /*!< Wakeup pin 6 (with high level detection) */
+ #define PWR_WAKEUP_PIN1_HIGH                PWR_CR3_EWUP1  /*!< Wakeup pin 1 (with high level detection) */
+ #define PWR_WAKEUP_PIN2_HIGH                PWR_CR3_EWUP2  /*!< Wakeup pin 2 (with high level detection) */
+-- 
+2.25.1.windows.1
+

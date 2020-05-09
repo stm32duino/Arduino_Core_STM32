@@ -30,8 +30,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32L4xx_LL_UTILS_H
-#define __STM32L4xx_LL_UTILS_H
+#ifndef STM32L4xx_LL_UTILS_H
+#define STM32L4xx_LL_UTILS_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -297,6 +297,7 @@ void        LL_mDelay(uint32_t Delay);
   */
 
 void        LL_SetSystemCoreClock(uint32_t HCLKFrequency);
+ErrorStatus LL_SetFlashLatency(uint32_t HCLKFrequency);
 ErrorStatus LL_PLL_ConfigSystemClock_MSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
                                          LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 ErrorStatus LL_PLL_ConfigSystemClock_HSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
@@ -324,6 +325,6 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypa
 }
 #endif
 
-#endif /* __STM32L4xx_LL_UTILS_H */
+#endif /* STM32L4xx_LL_UTILS_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

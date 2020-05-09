@@ -146,7 +146,6 @@ extern "C"
 #define NUM_ANALOG_FIRST 64
 
 // PWM resolution
-#define PWM_RESOLUTION          8
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
 #define PWM_MAX_DUTY_CYCLE      255
 
@@ -173,6 +172,11 @@ extern "C"
 /* HAL configuration */
 #define HSE_VALUE               24000000U
 
+// Last Flash sector used for EEPROM emulation, address/sector depends on single/dual bank configuration.
+// By default 2MB single bank
+#define FLASH_BASE_ADDRESS  0x081C0000
+#define FLASH_DATA_SECTOR   11
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
@@ -181,8 +185,8 @@ extern "C"
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-#define SERIAL_PORT_MONITOR Serial
-#define SERIAL_PORT_HARDWARE Serial
+  #define SERIAL_PORT_MONITOR Serial
+  #define SERIAL_PORT_HARDWARE Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

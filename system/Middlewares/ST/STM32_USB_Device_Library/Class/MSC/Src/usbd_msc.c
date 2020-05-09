@@ -27,7 +27,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -80,30 +80,16 @@ EndBSPDependencies */
 /** @defgroup MSC_CORE_Private_FunctionPrototypes
   * @{
   */
-uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev,
-                       uint8_t cfgidx);
-
-uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
-                         uint8_t cfgidx);
-
-uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev,
-                        USBD_SetupReqTypedef *req);
-
-uint8_t  USBD_MSC_DataIn(USBD_HandleTypeDef *pdev,
-                         uint8_t epnum);
-
-
-uint8_t  USBD_MSC_DataOut(USBD_HandleTypeDef *pdev,
-                          uint8_t epnum);
+uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
+uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
+uint8_t  USBD_MSC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum);
+uint8_t  USBD_MSC_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum);
 
 uint8_t  *USBD_MSC_GetHSCfgDesc(uint16_t *length);
-
 uint8_t  *USBD_MSC_GetFSCfgDesc(uint16_t *length);
-
 uint8_t  *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length);
-
 uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length);
-
 
 /**
   * @}
@@ -115,7 +101,8 @@ uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length);
   */
 
 
-USBD_ClassTypeDef  USBD_MSC = {
+USBD_ClassTypeDef  USBD_MSC =
+{
   USBD_MSC_Init,
   USBD_MSC_DeInit,
   USBD_MSC_Setup,
@@ -134,7 +121,8 @@ USBD_ClassTypeDef  USBD_MSC = {
 
 /* USB Mass storage device Configuration Descriptor */
 /*   All Descriptors (Configuration, Interface, Endpoint, Class, Vendor */
-__ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END = {
+__ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
+{
 
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION,   /* bDescriptorType: Configuration */
@@ -177,8 +165,8 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
 
 /* USB Mass storage device Configuration Descriptor */
 /*   All Descriptors (Configuration, Interface, Endpoint, Class, Vendor */
-uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END = {
-
+__ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
+{
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION,   /* bDescriptorType: Configuration */
   USB_MSC_CONFIG_DESC_SIZ,
@@ -218,8 +206,8 @@ uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END = {
   0x00     /*Polling interval in milliseconds*/
 };
 
-__ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __ALIGN_END  = {
-
+__ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __ALIGN_END  =
+{
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
   USB_MSC_CONFIG_DESC_SIZ,
@@ -260,7 +248,8 @@ __ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __AL
 };
 
 /* USB Standard Device Descriptor */
-__ALIGN_BEGIN  uint8_t USBD_MSC_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END = {
+__ALIGN_BEGIN  uint8_t USBD_MSC_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC]  __ALIGN_END =
+{
   USB_LEN_DEV_QUALIFIER_DESC,
   USB_DESC_TYPE_DEVICE_QUALIFIER,
   0x00,
@@ -288,9 +277,10 @@ __ALIGN_BEGIN  uint8_t USBD_MSC_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] 
   * @param  cfgidx: configuration index
   * @retval status
   */
-uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
+uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
-  if (pdev->dev_speed == USBD_SPEED_HIGH) {
+  if (pdev->dev_speed == USBD_SPEED_HIGH)
+  {
     /* Open EP OUT */
     USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
     pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
@@ -298,7 +288,9 @@ uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
     /* Open EP IN */
     USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
     pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
-  } else {
+  }
+  else
+  {
     /* Open EP OUT */
     USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
     pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
@@ -309,7 +301,8 @@ uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   }
   pdev->pClassData = USBD_malloc(sizeof(USBD_MSC_BOT_HandleTypeDef));
 
-  if (pdev->pClassData == NULL) {
+  if (pdev->pClassData == NULL)
+  {
     return USBD_FAIL;
   }
 
@@ -326,7 +319,7 @@ uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   * @param  cfgidx: configuration index
   * @retval status
   */
-uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
+uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
                          uint8_t cfgidx)
 {
   /* Close MSC EPs */
@@ -341,10 +334,12 @@ uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
   MSC_BOT_DeInit(pdev);
 
   /* Free MSC Class Resources */
-  if (pdev->pClassData != NULL) {
+  if (pdev->pClassData != NULL)
+  {
     USBD_free(pdev->pClassData);
     pdev->pClassData  = NULL;
   }
+
   return USBD_OK;
 }
 /**
@@ -354,23 +349,27 @@ uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
 * @param  req: USB request
 * @retval status
 */
-uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
+uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *) pdev->pClassData;
   uint8_t ret = USBD_OK;
   uint16_t status_info = 0U;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK) {
-
+  switch (req->bmRequest & USB_REQ_TYPE_MASK)
+  {
     /* Class request */
     case USB_REQ_TYPE_CLASS:
-      switch (req->bRequest) {
+      switch (req->bRequest)
+      {
         case BOT_GET_MAX_LUN:
           if ((req->wValue  == 0U) && (req->wLength == 1U) &&
-              ((req->bmRequest & 0x80U) == 0x80U)) {
+              ((req->bmRequest & 0x80U) == 0x80U))
+          {
             hmsc->max_lun = (uint32_t)((USBD_StorageTypeDef *)pdev->pUserData)->GetMaxLun();
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&hmsc->max_lun, 1U);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -378,9 +377,12 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
         case BOT_RESET :
           if ((req->wValue  == 0U) && (req->wLength == 0U) &&
-              ((req->bmRequest & 0x80U) != 0x80U)) {
+              ((req->bmRequest & 0x80U) != 0x80U))
+          {
             MSC_BOT_Reset(pdev);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -394,29 +396,39 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       break;
     /* Interface & Endpoint request */
     case USB_REQ_TYPE_STANDARD:
-      switch (req->bRequest) {
+      switch (req->bRequest)
+      {
         case USB_REQ_GET_STATUS:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_GET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&hmsc->interface, 1U);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_SET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
             hmsc->interface = (uint8_t)(req->wValue);
-          } else {
+          }
+          else
+          {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -429,25 +441,34 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
           /* Reactivate the EP */
           USBD_LL_CloseEP(pdev, (uint8_t)req->wIndex);
-          if ((((uint8_t)req->wIndex) & 0x80U) == 0x80U) {
+          if ((((uint8_t)req->wIndex) & 0x80U) == 0x80U)
+          {
             pdev->ep_in[(uint8_t)req->wIndex & 0xFU].is_used = 0U;
-            if (pdev->dev_speed == USBD_SPEED_HIGH) {
+            if (pdev->dev_speed == USBD_SPEED_HIGH)
+            {
               /* Open EP IN */
               USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
-            } else {
+            }
+            else
+            {
               /* Open EP IN */
               USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);
             }
             pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
-          } else {
+          }
+          else
+          {
             pdev->ep_out[(uint8_t)req->wIndex & 0xFU].is_used = 0U;
-            if (pdev->dev_speed == USBD_SPEED_HIGH) {
+            if (pdev->dev_speed == USBD_SPEED_HIGH)
+            {
               /* Open EP OUT */
               USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
-            } else {
+            }
+            else
+            {
               /* Open EP OUT */
               USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);
@@ -482,10 +503,10 @@ uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 * @param  epnum: endpoint index
 * @retval status
 */
-uint8_t  USBD_MSC_DataIn(USBD_HandleTypeDef *pdev,
-                         uint8_t epnum)
+uint8_t USBD_MSC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   MSC_BOT_DataIn(pdev, epnum);
+
   return USBD_OK;
 }
 
@@ -496,10 +517,10 @@ uint8_t  USBD_MSC_DataIn(USBD_HandleTypeDef *pdev,
 * @param  epnum: endpoint index
 * @retval status
 */
-uint8_t  USBD_MSC_DataOut(USBD_HandleTypeDef *pdev,
-                          uint8_t epnum)
+uint8_t USBD_MSC_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   MSC_BOT_DataOut(pdev, epnum);
+
   return USBD_OK;
 }
 
@@ -509,9 +530,10 @@ uint8_t  USBD_MSC_DataOut(USBD_HandleTypeDef *pdev,
 * @param  length : pointer data length
 * @retval pointer to descriptor buffer
 */
-uint8_t  *USBD_MSC_GetHSCfgDesc(uint16_t *length)
+uint8_t *USBD_MSC_GetHSCfgDesc(uint16_t *length)
 {
   *length = sizeof(USBD_MSC_CfgHSDesc);
+
   return USBD_MSC_CfgHSDesc;
 }
 
@@ -521,9 +543,10 @@ uint8_t  *USBD_MSC_GetHSCfgDesc(uint16_t *length)
 * @param  length : pointer data length
 * @retval pointer to descriptor buffer
 */
-uint8_t  *USBD_MSC_GetFSCfgDesc(uint16_t *length)
+uint8_t *USBD_MSC_GetFSCfgDesc(uint16_t *length)
 {
   *length = sizeof(USBD_MSC_CfgFSDesc);
+
   return USBD_MSC_CfgFSDesc;
 }
 
@@ -533,9 +556,10 @@ uint8_t  *USBD_MSC_GetFSCfgDesc(uint16_t *length)
 * @param  length : pointer data length
 * @retval pointer to descriptor buffer
 */
-uint8_t  *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length)
+uint8_t *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length)
 {
   *length = sizeof(USBD_MSC_OtherSpeedCfgDesc);
+
   return USBD_MSC_OtherSpeedCfgDesc;
 }
 /**
@@ -544,9 +568,10 @@ uint8_t  *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length)
 * @param  length : pointer data length
 * @retval pointer to descriptor buffer
 */
-uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length)
+uint8_t *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length)
 {
   *length = sizeof(USBD_MSC_DeviceQualifierDesc);
+
   return USBD_MSC_DeviceQualifierDesc;
 }
 
@@ -555,12 +580,14 @@ uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length)
 * @param  fops: storage callback
 * @retval status
 */
-uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
-                                  USBD_StorageTypeDef *fops)
+uint8_t USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
+                                 USBD_StorageTypeDef *fops)
 {
-  if (fops != NULL) {
+  if (fops != NULL)
+  {
     pdev->pUserData = fops;
   }
+
   return USBD_OK;
 }
 

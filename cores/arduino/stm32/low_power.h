@@ -43,7 +43,7 @@
 #include "stm32_def.h"
 #include "uart.h"
 
-#ifdef HAL_PWR_MODULE_ENABLED
+#if defined(HAL_PWR_MODULE_ENABLED) && !defined(HAL_PWR_MODULE_ONLY)
 
 #ifdef __cplusplus
 extern "C" {
@@ -67,6 +67,6 @@ void SystemClock_ConfigFromStop(void);
 }
 #endif
 
-#endif /* HAL_PWR_MODULE_ENABLED */
+#endif /* HAL_PWR_MODULE_ENABLED  && !HAL_PWR_MODULE_ONLY */
 
 #endif /* __LOW_POWER_H */

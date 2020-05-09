@@ -7,6 +7,14 @@
         {
           "name": "NUCLEO_L031K6",
           "options": "opt=oslto"
+        },
+        {
+          "name": "STM32MP157A_DK1",
+          "options": "virtio=enabled"
+        },
+        {
+          "name": "STM32MP157C_DK2",
+          "options": "virtio=generic"
         }
       ],
       "sketches": [
@@ -15,12 +23,12 @@
           "applicable": false,
           "boards": [
             "AFROFLIGHT_F103CB_12M",
-            "BLACKPILL_F103C8B",
+            "BLACKPILL_F103CB",
             "BLACK_F407VG",
             "BLACK_F407ZE",
             "BLACK_F407ZG",
             "BLUEPILL_F103C6",
-            "BLUEPILL_F103C8B",
+            "BLUEPILL_F103CB",
             "DEMO_F030F4_16M",
             "Generic_F103R8T6",
             "Generic_F103RBT6",

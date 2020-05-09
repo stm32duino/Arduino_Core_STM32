@@ -32,12 +32,11 @@
         (++) min time (mS) = 1000 * (Counter - Window) / WWDG clock
         (++) max time (mS) = 1000 * (Counter - 0x40) / WWDG clock
     (+) Typical values:
-        (++) Counter min (T[5;0] = 0x00) @56 MHz(PCLK1) with zero prescaler:
-             max timeout before reset: approximately 73.14 microseconds
-        (++) Counter max (T[5;0] = 0x3F) @56 MHz(PCLK1) with prescaler dividing by 128:
-             max timeout before reset: approximately 599.18 milliseconds
+        (++) Counter min (T[5;0] = 0x00) at 64 MHz (PCLK1) with zero prescaler:
+             max timeout before reset: approximately 64us
+        (++) Counter max (T[5;0] = 0x3F) at 64 MHz (PCLK1) with prescaler dividing by 128:
+             max timeout before reset: approximately 524.28ms
 
-  ==============================================================================
                      ##### How to use this driver #####
   ==============================================================================
 
@@ -67,31 +66,31 @@
   [..]
     The compilation define  USE_HAL_WWDG_REGISTER_CALLBACKS when set to 1 allows
     the user to configure dynamically the driver callbacks. Use Functions
-    @ref HAL_WWDG_RegisterCallback() to register a user callback.
+    HAL_WWDG_RegisterCallback() to register a user callback.
 
-    (+) Function @ref HAL_WWDG_RegisterCallback() allows to register following
+    (+) Function HAL_WWDG_RegisterCallback() allows to register following
         callbacks:
         (++) EwiCallback : callback for Early WakeUp Interrupt.
         (++) MspInitCallback : WWDG MspInit.
     This function takes as parameters the HAL peripheral handle, the Callback ID
     and a pointer to the user callback function.
 
-    (+) Use function @ref HAL_WWDG_UnRegisterCallback() to reset a callback to
-    the default weak (surcharged) function. @ref HAL_WWDG_UnRegisterCallback()
+    (+) Use function HAL_WWDG_UnRegisterCallback() to reset a callback to
+    the default weak (surcharged) function. HAL_WWDG_UnRegisterCallback()
     takes as parameters the HAL peripheral handle and the Callback ID.
     This function allows to reset following callbacks:
         (++) EwiCallback : callback for  Early WakeUp Interrupt.
         (++) MspInitCallback : WWDG MspInit.
 
     [..]
-    When calling @ref HAL_WWDG_Init function, callbacks are reset to the
-    corresponding legacy weak (surcharged) functions: 
-    @ref HAL_WWDG_EarlyWakeupCallback() and HAL_WWDG_MspInit() only if they have
+    When calling HAL_WWDG_Init function, callbacks are reset to the
+    corresponding legacy weak (surcharged) functions:
+    HAL_WWDG_EarlyWakeupCallback() and HAL_WWDG_MspInit() only if they have
     not been registered before.
 
     [..]
     When compilation define USE_HAL_WWDG_REGISTER_CALLBACKS is set to 0 or
-    not defined, the callback registering feature is not available 
+    not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
 
     *** WWDG HAL driver macros list ***
@@ -143,8 +142,8 @@
   */
 
 /** @defgroup WWDG_Exported_Functions_Group1 Initialization and Configuration functions
- *  @brief    Initialization and Configuration functions.
- *
+  *  @brief    Initialization and Configuration functions.
+  *
 @verbatim
   ==============================================================================
           ##### Initialization and Configuration functions #####
@@ -183,12 +182,12 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 
 #if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
   /* Reset Callback pointers */
-  if(hwwdg->EwiCallback == NULL)
+  if (hwwdg->EwiCallback == NULL)
   {
     hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
   }
 
-  if(hwwdg->MspInitCallback == NULL)
+  if (hwwdg->MspInitCallback == NULL)
   {
     hwwdg->MspInitCallback = HAL_WWDG_MspInit;
   }
@@ -247,13 +246,13 @@ HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  if(pCallback == NULL)
+  if (pCallback == NULL)
   {
     status = HAL_ERROR;
   }
   else
   {
-    switch(CallbackID)
+    switch (CallbackID)
     {
       case HAL_WWDG_EWI_CB_ID:
         hwwdg->EwiCallback = pCallback;
@@ -275,7 +274,7 @@ HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_
 
 /**
   * @brief  Unregister a WWDG Callback
-  *         WWDG Callback is redirected to the weak (surcharged) predefined callback 
+  *         WWDG Callback is redirected to the weak (surcharged) predefined callback
   * @param  hwwdg WWDG handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -287,7 +286,7 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  switch(CallbackID)
+  switch (CallbackID)
   {
     case HAL_WWDG_EWI_CB_ID:
       hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
@@ -311,8 +310,8 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
   */
 
 /** @defgroup WWDG_Exported_Functions_Group2 IO operation functions
- *  @brief    IO operation functions
- *
+  *  @brief    IO operation functions
+  *
 @verbatim
   ==============================================================================
                       ##### IO operation functions #####

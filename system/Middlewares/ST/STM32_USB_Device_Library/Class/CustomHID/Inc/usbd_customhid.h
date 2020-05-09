@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -84,13 +84,15 @@ extern "C" {
 /** @defgroup USBD_CORE_Exported_TypesDefinitions
   * @{
   */
-typedef enum {
+typedef enum
+{
   CUSTOM_HID_IDLE = 0U,
   CUSTOM_HID_BUSY,
 }
 CUSTOM_HID_StateTypeDef;
 
-typedef struct _USBD_CUSTOM_HID_Itf {
+typedef struct _USBD_CUSTOM_HID_Itf
+{
   uint8_t                  *pReport;
   int8_t (* Init)(void);
   int8_t (* DeInit)(void);
@@ -98,7 +100,8 @@ typedef struct _USBD_CUSTOM_HID_Itf {
 
 } USBD_CUSTOM_HID_ItfTypeDef;
 
-typedef struct {
+typedef struct
+{
   uint8_t              Report_buf[USBD_CUSTOMHID_OUTREPORT_BUF_SIZE];
   uint32_t             Protocol;
   uint32_t             IdleState;

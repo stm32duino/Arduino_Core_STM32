@@ -22,9 +22,11 @@
 #ifndef TwoWire_h
 #define TwoWire_h
 
-#include <inttypes.h>
 #include "Stream.h"
 #include "Arduino.h"
+extern "C" {
+#include "utility/twi.h"
+}
 
 #define BUFFER_LENGTH 32
 
@@ -35,28 +37,28 @@
 
 class TwoWire : public Stream {
   private:
-    static uint8_t *rxBuffer;
-    static uint8_t rxBufferAllocated;
-    static uint8_t rxBufferIndex;
-    static uint8_t rxBufferLength;
+    uint8_t *rxBuffer;
+    uint8_t rxBufferAllocated;
+    uint8_t rxBufferIndex;
+    uint8_t rxBufferLength;
 
-    static uint8_t txAddress;
-    static uint8_t *txBuffer;
-    static uint8_t txBufferAllocated;
-    static uint8_t txBufferIndex;
-    static uint8_t txBufferLength;
+    uint8_t txAddress;
+    uint8_t *txBuffer;
+    uint8_t txBufferAllocated;
+    uint8_t txBufferIndex;
+    uint8_t txBufferLength;
 
-    static uint8_t transmitting;
+    uint8_t transmitting;
 
     uint8_t ownAddress;
     i2c_t _i2c;
 
-    static void (*user_onRequest)(void);
-    static void (*user_onReceive)(int);
-    static void onRequestService(void);
-    static void onReceiveService(uint8_t *, int);
+    void (*user_onRequest)(void);
+    void (*user_onReceive)(int);
+    static void onRequestService(i2c_t *);
+    static void onReceiveService(i2c_t *);
 
-    static void allocateRxBuffer(size_t length);
+    void allocateRxBuffer(size_t length);
     void allocateTxBuffer(size_t length);
 
     void resetRxBuffer(void);
@@ -83,6 +85,7 @@ class TwoWire : public Stream {
       _i2c.sda = sda;
     };
     void begin(bool generalCall = false);
+    void begin(uint8_t, uint8_t);
     void begin(uint8_t, bool generalCall = false);
     void begin(int, bool generalCall = false);
     void end();

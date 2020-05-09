@@ -22,7 +22,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#ifdef HAL_TIM_MODULE_ENABLED
+#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 
 /* Exported constants --------------------------------------------------------*/
 #ifndef TIM_IRQ_PRIO
@@ -51,20 +51,27 @@ extern "C" {
 #define TIM1_IRQn TIM1_UP_TIM16_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM16_IRQHandler
 #elif defined(STM32F2xx) || defined(STM32F4xx) || defined(STM32F7xx)
+#if !defined (TIM10_BASE)
+#define TIM1_IRQn TIM1_UP_IRQn
+#define TIM1_IRQHandler TIM1_UP_IRQHandler
+#else
 #define TIM1_IRQn TIM1_UP_TIM10_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
-#elif defined(STM32H7xx)
+#endif
+#elif defined(STM32H7xx) || defined(STM32MP1xx)
 #define TIM1_IRQn TIM1_UP_IRQn
 #define TIM1_IRQHandler TIM1_UP_IRQHandler
 #endif
 #endif
 #if defined(TIM6_BASE) && !defined(TIM6_IRQn)
+#if defined(DAC_BASE) || defined(DAC1_BASE)
 #if defined(STM32G0xx)
 #define TIM6_IRQn TIM6_DAC_LPTIM1_IRQn
 #define TIM6_IRQHandler TIM6_DAC_LPTIM1_IRQHandler
-#elif !defined(STM32F1xx) && !defined(STM32L1xx)
+#elif !defined(STM32F1xx) && !defined(STM32L1xx) && !defined(STM32MP1xx)
 #define TIM6_IRQn TIM6_DAC_IRQn
 #define TIM6_IRQHandler TIM6_DAC_IRQHandler
+#endif
 #endif
 #endif
 #if defined(TIM7_BASE) && !defined(TIM7_IRQn)
@@ -82,7 +89,7 @@ extern "C" {
  || defined(STM32H7xx)
 #define TIM8_IRQn TIM8_UP_TIM13_IRQn
 #define TIM8_IRQHandler TIM8_UP_TIM13_IRQHandler
-#elif  defined(STM32F3xx) || defined(STM32G4xx) || defined(STM32L4xx)
+#elif  defined(STM32F3xx) || defined(STM32G4xx) || defined(STM32L4xx) || defined(STM32MP1xx)
 #define TIM8_IRQn TIM8_UP_IRQn
 #define TIM8_IRQHandler TIM8_UP_IRQHandler
 #endif
@@ -229,7 +236,19 @@ typedef enum {
   UNKNOWN_TIMER = 0XFFFF
 } timer_index_t;
 
+
+// This structure is used to be able to get HardwareTimer instance (C++ class)
+// from handler (C structure) specially for interrupt management
+typedef struct  {
+  // Those 2 first fields must remain in this order at the beginning of the structure
+  void    *__this;
+  TIM_HandleTypeDef handle;
+  uint32_t preemptPriority;
+  uint32_t subPriority;
+} timerObj_t;
+
 /* Exported functions ------------------------------------------------------- */
+timerObj_t *get_timer_obj(TIM_HandleTypeDef *htim);
 
 void enableTimerClock(TIM_HandleTypeDef *htim);
 void disableTimerClock(TIM_HandleTypeDef *htim);
@@ -240,7 +259,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
-#endif /* HAL_TIM_MODULE_ENABLED */
+#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
 #ifdef __cplusplus
 }

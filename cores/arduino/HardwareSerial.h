@@ -41,21 +41,30 @@
 // often work, but occasionally a race condition can occur that makes
 // Serial behave erratically. See https://github.com/arduino/Arduino/issues/2405
 #if !defined(SERIAL_TX_BUFFER_SIZE)
-#define SERIAL_TX_BUFFER_SIZE 64
+  #define SERIAL_TX_BUFFER_SIZE 64
 #endif
 #if !defined(SERIAL_RX_BUFFER_SIZE)
-#define SERIAL_RX_BUFFER_SIZE 64
+  #define SERIAL_RX_BUFFER_SIZE 64
 #endif
 #if (SERIAL_TX_BUFFER_SIZE>256)
-typedef uint16_t tx_buffer_index_t;
+  typedef uint16_t tx_buffer_index_t;
 #else
-typedef uint8_t tx_buffer_index_t;
+  typedef uint8_t tx_buffer_index_t;
 #endif
 #if  (SERIAL_RX_BUFFER_SIZE>256)
-typedef uint16_t rx_buffer_index_t;
+  typedef uint16_t rx_buffer_index_t;
 #else
-typedef uint8_t rx_buffer_index_t;
+  typedef uint8_t rx_buffer_index_t;
 #endif
+
+// A bool should be enough for this
+// But it brings an build error due to ambiguous
+// call of overloaded HardwareSerial(int, int)
+// So defining a dedicated type
+typedef enum {
+  HALF_DUPLEX_DISABLED,
+  HALF_DUPLEX_ENABLED
+} HalfDuplexMode_t;
 
 // Define config for Serial.begin(baud, config);
 // below configs are not supported by STM32
@@ -69,12 +78,12 @@ typedef uint8_t rx_buffer_index_t;
 //#define SERIAL_6N2 0x0A
 
 #ifdef UART_WORDLENGTH_7B
-#define SERIAL_7N1 0x04
-#define SERIAL_7N2 0x0C
-#define SERIAL_6E1 0x22
-#define SERIAL_6E2 0x2A
-#define SERIAL_6O1 0x32
-#define SERIAL_6O2 0x3A
+  #define SERIAL_7N1 0x04
+  #define SERIAL_7N2 0x0C
+  #define SERIAL_6E1 0x22
+  #define SERIAL_6E2 0x2A
+  #define SERIAL_6O1 0x32
+  #define SERIAL_6O2 0x3A
 #endif
 #define SERIAL_8N1 0x06
 #define SERIAL_8N2 0x0E
@@ -103,7 +112,9 @@ class HardwareSerial : public Stream {
   public:
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
-    HardwareSerial(void *peripheral);
+    HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
+    HardwareSerial(uint32_t _rxtx);
+    HardwareSerial(PinName _rxtx);
     void begin(unsigned long baud)
     {
       begin(baud, SERIAL_8N1);
@@ -143,15 +154,22 @@ class HardwareSerial : public Stream {
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    // Enable half-duplex mode by setting the Rx pin to NC
+    // This needs to be done before the call to begin()
+    void setHalfDuplex(void);
+    bool isHalfDuplex(void) const;
+    void enableHalfDuplexRx(void);
+
     friend class STM32LowPower;
 
     // Interrupt handlers
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
   private:
+    bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
-    void init(void);
+    void init(PinName _rx, PinName _tx);
     void configForLowPower(void);
 };
 

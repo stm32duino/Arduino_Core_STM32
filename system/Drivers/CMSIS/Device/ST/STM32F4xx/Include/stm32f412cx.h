@@ -13117,9 +13117,6 @@ typedef struct
                                     ((INSTANCE) == TIM13)|| \
                                     ((INSTANCE) == TIM14))
 
-/****************** TIM Instances : supporting synchronization ****************/
-#define IS_TIM_SYNCHRO_INSTANCE(INSTANCE)  IS_TIM_MASTER_INSTANCE(INSTANCE)
-
 /************* TIM Instances : at least 1 capture/compare channel *************/
 #define IS_TIM_CC1_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)  || \
                                          ((INSTANCE) == TIM2)  || \
@@ -13461,8 +13458,6 @@ typedef struct
 /***************************** FMPI2C Instances *******************************/
 #define IS_FMPI2C_ALL_INSTANCE(__INSTANCE__) ((__INSTANCE__) == FMPI2C1)
 #define IS_FMPSMBUS_ALL_INSTANCE         IS_FMPI2C_ALL_INSTANCE
-/****************************** USB Instances ********************************/
-#define IS_USB_ALL_INSTANCE(INSTANCE) ((INSTANCE) == USB_OTG_FS)
 /****************************** USB Exported Constants ************************/
 #define USB_OTG_FS_HOST_MAX_CHANNEL_NBR                12U
 #define USB_OTG_FS_MAX_IN_ENDPOINTS                    6U    /* Including EP0 */

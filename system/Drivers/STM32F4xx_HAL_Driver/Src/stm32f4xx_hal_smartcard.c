@@ -1570,7 +1570,7 @@ void HAL_SMARTCARD_IRQHandler(SMARTCARD_HandleTypeDef *hsc)
     }
 
     /* SMARTCARD Over-Run interrupt occurred -------------------------------*/
-    if(((isrflags & SMARTCARD_FLAG_ORE) != RESET) && ((cr3its & USART_CR3_EIE) != RESET))
+    if(((isrflags & SMARTCARD_FLAG_ORE) != RESET) && (((cr1its & USART_CR1_RXNEIE) != RESET) || ((cr3its & USART_CR3_EIE) != RESET)))
     {
       hsc->ErrorCode |= HAL_SMARTCARD_ERROR_ORE;
     }
@@ -2269,6 +2269,7 @@ static void SMARTCARD_DMARxOnlyAbortCallback(DMA_HandleTypeDef *hdma)
 static void SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsc)
 {
   uint32_t tmpreg = 0x00U;
+  uint32_t pclk;
 
   /* Check the parameters */
   assert_param(IS_SMARTCARD_INSTANCE(hsc->Instance));
@@ -2335,17 +2336,20 @@ static void SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsc)
 #if defined(USART6)
   if((hsc->Instance == USART1) || (hsc->Instance == USART6))
   {
-    hsc->Instance->BRR = SMARTCARD_BRR(HAL_RCC_GetPCLK2Freq(), hsc->Init.BaudRate);
+    pclk = HAL_RCC_GetPCLK2Freq();
+    hsc->Instance->BRR = SMARTCARD_BRR(pclk, hsc->Init.BaudRate);
   }
 #else
   if(hsc->Instance == USART1)
   {
-    hsc->Instance->BRR = SMARTCARD_BRR(HAL_RCC_GetPCLK2Freq(), hsc->Init.BaudRate);
+    pclk = HAL_RCC_GetPCLK2Freq();
+    hsc->Instance->BRR = SMARTCARD_BRR(pclk, hsc->Init.BaudRate);
   }
 #endif /* USART6 */
   else
   {
-    hsc->Instance->BRR = SMARTCARD_BRR(HAL_RCC_GetPCLK1Freq(), hsc->Init.BaudRate);
+    pclk = HAL_RCC_GetPCLK1Freq();
+    hsc->Instance->BRR = SMARTCARD_BRR(pclk, hsc->Init.BaudRate);
   }
 }
 

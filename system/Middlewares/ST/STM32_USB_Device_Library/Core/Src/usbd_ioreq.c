@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -84,13 +84,13 @@
 * @param  len: length of data to be sent
 * @retval status
 */
-USBD_StatusTypeDef USBD_CtlSendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
-                                    uint16_t len)
+USBD_StatusTypeDef USBD_CtlSendData(USBD_HandleTypeDef *pdev,
+                                    uint8_t *pbuf, uint16_t len)
 {
   /* Set EP0 State */
   pdev->ep0_state = USBD_EP0_DATA_IN;
-  pdev->ep0_total_len = len;
-  pdev->ep0_rem_len   = len;
+  pdev->ep_in[0].total_length = len;
+  pdev->ep_in[0].rem_length   = len;
 
   /* Start the transfer */
   USBD_LL_Transmit(pdev, 0x00U, pbuf, len);
@@ -123,13 +123,13 @@ USBD_StatusTypeDef USBD_CtlContinueSendData(USBD_HandleTypeDef *pdev,
 * @param  len: length of data to be received
 * @retval status
 */
-USBD_StatusTypeDef USBD_CtlPrepareRx(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
-                                     uint16_t len)
+USBD_StatusTypeDef USBD_CtlPrepareRx(USBD_HandleTypeDef *pdev,
+                                     uint8_t *pbuf, uint16_t len)
 {
   /* Set EP0 State */
   pdev->ep0_state = USBD_EP0_DATA_OUT;
-  pdev->ep0_total_len = len;
-  pdev->ep0_rem_len   = len;
+  pdev->ep_out[0].total_length = len;
+  pdev->ep_out[0].rem_length   = len;
 
   /* Start the transfer */
   USBD_LL_PrepareReceive(pdev, 0U, pbuf, len);
@@ -145,8 +145,8 @@ USBD_StatusTypeDef USBD_CtlPrepareRx(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
 * @param  len: length of data to be received
 * @retval status
 */
-USBD_StatusTypeDef USBD_CtlContinueRx(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
-                                      uint16_t len)
+USBD_StatusTypeDef USBD_CtlContinueRx(USBD_HandleTypeDef *pdev,
+                                      uint8_t *pbuf, uint16_t len)
 {
   USBD_LL_PrepareReceive(pdev, 0U, pbuf, len);
 

@@ -57,22 +57,22 @@ extern "C" {
 #define PE6  5  // Header right, pin 6
 // Header right, pin 7 = GND
 // Header right, pin 8 = 3.3V
-#define PC1  6  // Header right, pin 9
-#define PC0  7  // Header right, pin 10
-#define PA0  8  // Header right, pin 11
-#define PC2  9  // Header right, pin 12
-#define PA2  10 // Header right, pin 13
-#define PA1  11 // Header right, pin 14
-#define PA3  12 // Header right, pin 15
-#define PC3  13 // Header right, pin 16
-#define PA5  14 // Header right, pin 17
-#define PA4  15 // Header right, pin 18
-#define PA7  16 // Header right, pin 19
-#define PA6  17 // Header right, pin 20
-#define PC5  18 // Header right, pin 21
-#define PC4  19 // Header right, pin 22
-#define PB1  20 // Header right, pin 23
-#define PB0  21 // Header right, pin 24
+#define PC1  A11  // Header right, pin 9
+#define PC0  A10  // Header right, pin 10
+#define PA0  A0 // Header right, pin 11
+#define PC2  A12 // Header right, pin 12
+#define PA2  A2 // Header right, pin 13
+#define PA1  A1 // Header right, pin 14
+#define PA3  A3 // Header right, pin 15
+#define PC3  A13 // Header right, pin 16
+#define PA5  A5  // Header right, pin 17
+#define PA4  A4 // Header right, pin 18
+#define PA7  A7 // Header right, pin 19
+#define PA6  A6 // Header right, pin 20
+#define PC5  A15 // Header right, pin 21
+#define PC4  A14 // Header right, pin 22
+#define PB1  A9 // Header right, pin 23
+#define PB0  A8 // Header right, pin 24
 #define PB9  22 // Header right, pin 25
 #define PB8  23 // Header right, pin 26
 #define PE7  24 // Header right, pin 27
@@ -139,11 +139,10 @@ extern "C" {
 #define PB7  77 // Header left, pin 28
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        94  // Number of definitions above
+#define NUM_DIGITAL_PINS        78  // Number of definitions above
 
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16
-#define NUM_ANALOG_FIRST        78
 
 // On-board LED pin number
 #define LED_BUILTIN             PE0
@@ -191,23 +190,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial1
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR     Serial
+  #define SERIAL_PORT_HARDWARE    Serial1
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

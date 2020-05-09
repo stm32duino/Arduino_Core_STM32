@@ -26,7 +26,7 @@ extern "C" {
 /*----------------------------------------------------------------------------
  *        Pins
  *----------------------------------------------------------------------------*/
-
+#ifdef ARDUINO_NUCLEO_L452RE
 #define PA3  0
 #define PA2  1
 #define PA10 2
@@ -38,8 +38,8 @@ extern "C" {
 #define PA9  8
 #define PC7  9
 #define PB6  10
-#define PA7  11 // A6
-#define PA6  12 // A7
+#define PA7  A6
+#define PA6  A7
 #define PA5  13 // LED
 #define PB9  14
 #define PB8  15
@@ -47,49 +47,110 @@ extern "C" {
 // CN7 Left Side
 #define PC10 16
 #define PC12 17
-// 18 is NC - BOOT0
+#define PA13 18 // SWD
+#define PA14 19 // SWD
+#define PA15 20
+#define PB7  21
+#define PC13 22
+#define PC14 23
+#define PC15 24
+#define PH0  25
+#define PH1  26
+#define PC2  A8
+#define PC3  A9
+// CN7 Right Side
+#define PC11 29
+#define PD2  30
+// CN10 Left Side
+#define PC9  31
+// CN10 Right side
+#define PC8  32
+#define PC6  33
+#define PC5  34
+#define PA12 35
+#define PA11 36
+#define PB12 37
+#define PB11 38
+#define PB2  39
+#define PB1  40
+#define PB15 41
+#define PB14 42
+#define PB13 43
+#define PC4  A10
+#define PA0  A0
+#define PA1  A1
+#define PA4  A2
+#define PB0  A3
+#define PC1  A4
+#define PC0  A5
+#else
+#define PA10 0
+#define PA9  1
+#define PA12 2
+#define PB3  3
+#define PB5  4
+#define PA15 5
+#define PB10 6
+#define PC7  7
+#define PB6  8
+#define PA8  9
+#define PA11 10
+#define PB15 11
+#define PB14 12
+#define PB13 13 // LED
+#define PB7  14
+#define PB8  15
+// ST Morpho
+// CN5 Left Side
+#define PC10 16
+#define PC12 17
+#define PB12 18
 #define PA13 19 // SWD
 #define PA14 20 // SWD
-#define PA15 21
-#define PB7  22
-#define PC13 23
-#define PC14 24
-#define PC15 25
-#define PH0  26
-#define PH1  27
-#define PC2  28 // A8
-#define PC3  29 // A9
-// CN7 Right Side
-#define PC11 30
-#define PD2  31
-// CN10 Left Side
-#define PC9  32
-// CN10 Right side
-#define PC8  33
-#define PC6  34
-#define PC5  35
-#define PA12 36
-#define PA11 37
-#define PB12 38
-#define PB11 39
-#define PB2  40
-#define PB1  41
-#define PB15 42
-#define PB14 43
-#define PB13 44
-#define PC4  45 // A10
-#define PA0  46 // A0
-#define PA1  47 // A1
-#define PA4  48 // A2
-#define PB0  49 // A3
-#define PC1  50 // A4
-#define PC0  51 // A5
+#define PC13 21
+#define PC14 22
+#define PC15 23
+#define PH0  24
+#define PH1  25
+#define PB4  26
+#define PB9  27
+// CN5 Right Side
+#define PC11 28
+#define PD2  29
+// CN6 Left Side
+#define PC9  30
+// CN6 Right side
+#define PC8  31
+#define PC6  32
+#define PC5  33
+#define PB0  A10
+#define PB11 35
+#define PB2  36
+#define PB1  A11
+#define PA7  A9
+#define PA6  A8
+#define PA5  A7
+#define PA4  A6
+#define PC4  A12
+#define PA3  43
+#define PA2  44
+#define PA0  A0
+#define PA1  A1
+#define PC3  A2
+#define PC2  A3
+#define PC1  A4
+#define PC0  A5
+#endif
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        57
+#define NUM_DIGITAL_PINS        51
+#ifdef ARDUINO_NUCLEO_L452RE
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       11
-#define NUM_ANALOG_FIRST        46
+#else
+// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
+#define NUM_ANALOG_INPUTS       13
+#endif
 
 // On-board LED pin number
 #define LED_BUILTIN             13
@@ -104,12 +165,16 @@ extern "C" {
 #define TIMER_SERVO             TIM2
 
 // UART Definitions
+#ifdef ARDUINO_NUCLEO_L452RE
 #define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#else
+#define SERIAL_UART_INSTANCE    0 //Connected to ST-Link
+#endif
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           0
-#define PIN_SERIAL_TX           1
+#define PIN_SERIAL_RX           PA3
+#define PIN_SERIAL_TX           PA2
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
@@ -122,23 +187,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial2
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR   Serial
+  #define SERIAL_PORT_HARDWARE  Serial2
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

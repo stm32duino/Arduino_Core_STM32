@@ -47,14 +47,14 @@ extern "C" {
 #define PE4  2
 #define PE6  3
 #define PC14 4  // OSC32_IN
-#define PC0  5  // A8
-#define PC2  6  // A10
-#define PA0  7  // A0
-#define PA1  8  // A1
-#define PA4  9  // A4
+#define PC0  A8
+#define PC2  A10
+#define PA0  A0
+#define PA1  A1
+#define PA4  A4
 #define PA6  10
-#define PC4  11 // A12
-#define PB0  12 // A6
+#define PC4  A12
+#define PB0  A6
 #define PB2  13
 #define PE8  14
 #define PE9  15
@@ -96,14 +96,14 @@ extern "C" {
 #define PE5  44
 #define PC13 45
 #define PC15 46 // OSC32_OUT
-#define PC1  47 // A9
-#define PC3  48 // A11
-#define PA2  49 // A2
-#define PA3  50 // A3
-#define PA5  51 // A5
+#define PC1  A9
+#define PC3  A11
+#define PA2  A2
+#define PA3  A3
+#define PA5  A5
 #define PA7  52
-#define PC5  53 // A13
-#define PB1  54 // A7
+#define PC5  A13
+#define PB1  A7
 #define PE7  55
 #define PE10 56
 #define PE12 57
@@ -135,21 +135,9 @@ extern "C" {
 // GND
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        94
+#define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        80
-
-// Below ADC, DAC and PWM definitions already done in the core
-// Could be redefined here if needed
-// ADC resolution is 12bits
-//#define ADC_RESOLUTION          12
-//#define DACC_RESOLUTION         12
-
-// PWM resolution
-//#define PWM_RESOLUTION          8
-//#define PWM_FREQUENCY           1000
-//#define PWM_MAX_DUTY_CYCLE      255
 
 // On-board LED pin number
 #define LED_BUILTIN             PB9
@@ -196,6 +184,13 @@ extern "C" {
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_SD_MODULE_ENABLED
 
+// This indicates that there is an external and fixed 1.5k pullup
+// on the D+ line. This define is only needed on boards that have
+// internal pullups *and* an external pullup. Note that it would have
+// been better to omit the pullup and exclusively use the internal
+// pullups instead.
+#define USBD_FIXED_PULLUP
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
@@ -204,23 +199,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial1
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR     Serial
+  #define SERIAL_PORT_HARDWARE    Serial1
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

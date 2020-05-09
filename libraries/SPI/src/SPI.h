@@ -14,6 +14,9 @@
 
 #include "Arduino.h"
 #include <stdio.h>
+extern "C" {
+#include "utility/spi_com.h"
+}
 
 // SPI_HAS_TRANSACTION means SPI has
 //   - beginTransaction()
@@ -41,6 +44,9 @@
 #define SPI_MODE2 0x02
 #define SPI_MODE3 0x03
 
+#define SPI_TRANSMITRECEIVE 0x0
+#define SPI_TRANSMITONLY 0x1
+
 // Transfer mode
 enum SPITransferMode {
   SPI_CONTINUE, /* Transfer not finished: CS pin kept active */
@@ -54,28 +60,25 @@ enum SPITransferMode {
 #define NO_CONFIG   ((int16_t)(-1))
 
 // Defines a default timeout delay in milliseconds for the SPI transfer
-#define SPI_TRANSFER_TIMEOUT    1000
+#ifndef SPI_TRANSFER_TIMEOUT
+  #define SPI_TRANSFER_TIMEOUT 1000
+#endif
 
 /*
  * Defines the number of settings saved per SPI instance. Must be in range 1 to 254.
  * Can be redefined in variant.h
  */
 #ifndef NB_SPI_SETTINGS
-#define NB_SPI_SETTINGS 4
+  #define NB_SPI_SETTINGS 4
 #endif
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
     {
       clk = clock;
-
-      if (bitOrder == MSBFIRST) {
-        msb = 1;
-      } else {
-        msb = 0;
-      }
       bOrder = bitOrder;
+      noReceive = noRecv;
 
       if (SPI_MODE0 == dataMode) {
         dMode = SPI_MODE_0;
@@ -86,14 +89,12 @@ class SPISettings {
       } else if (SPI_MODE3 == dataMode) {
         dMode = SPI_MODE_3;
       }
-
     }
     SPISettings()
     {
       pinCS = -1;
       clk = SPI_SPEED_CLOCK_DEFAULT;
       bOrder = MSBFIRST;
-      msb = 1;
       dMode = SPI_MODE_0;
     }
   private:
@@ -106,8 +107,8 @@ class SPISettings {
     //SPI_MODE1             0                     1
     //SPI_MODE2             1                     0
     //SPI_MODE3             1                     1
-    uint8_t msb;        //set to 1 if msb first
     friend class SPIClass;
+    bool noReceive;
 };
 
 class SPIClass {
@@ -279,7 +280,6 @@ class SPIClass {
           spiSettings[i].pinCS = -1;
           spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
           spiSettings[i].bOrder = MSBFIRST;
-          spiSettings[i].msb = 1;
           spiSettings[i].dMode = SPI_MODE_0;
         }
       }
@@ -291,7 +291,6 @@ class SPIClass {
         spiSettings[i].pinCS = -1;
         spiSettings[i].clk = SPI_SPEED_CLOCK_DEFAULT;
         spiSettings[i].bOrder = MSBFIRST;
-        spiSettings[i].msb = 1;
         spiSettings[i].dMode = SPI_MODE_0;
       }
     }

@@ -40,9 +40,9 @@ extern "C" {
 
 // Right side
 
-#define PA2  0
-#define PA1  1 // LED
-#define PA0  2
+#define PA2  A2
+#define PA1  A1 // LED
+#define PA0  A0
 #define PA14 3
 #define PA13 4
 #define PB7  5
@@ -52,14 +52,14 @@ extern "C" {
 #define PB3  9
 #define PA15 10
 // Left side
-#define PA3  11
-#define PA4  12
-#define PA5  13
-#define PA6  14
-#define PA7  15
-#define PB0  16
-#define PB1  17
-#define PB2  18//BOOT1
+#define PA3  A3
+#define PA4  A4
+#define PA5  A5
+#define PA6  A6
+#define PA7  A7
+#define PB0  A8
+#define PB1  A9
+#define PB2  18 //BOOT1
 #define PA8  19
 #define PA9  20
 #define PA10 21
@@ -67,10 +67,9 @@ extern "C" {
 #define PA12 23
 
 // This must be a literal
-#define NUM_DIGITAL_PINS        34
+#define NUM_DIGITAL_PINS        24
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       10
-#define NUM_ANALOG_FIRST        24
 
 // On-board LED pin number
 #define LED_BUILTIN             PA1
@@ -106,23 +105,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial1
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR     Serial
+  #define SERIAL_PORT_HARDWARE    Serial1
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

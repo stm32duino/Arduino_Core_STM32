@@ -110,7 +110,7 @@ extern "C" {
                                       ((__VALUE__) == RCC_PLLM_DIV7)  || \
                                       ((__VALUE__) == RCC_PLLM_DIV8))
 
-#define IS_RCC_PLLN_VALUE(__VALUE__) ((8U <= (__VALUE__)) && ((__VALUE__) <= 86U))
+#define IS_RCC_PLLN_VALUE(__VALUE__) ((6U <= (__VALUE__)) && ((__VALUE__) <= 127U))
 
 #define IS_RCC_PLLP_VALUE(__VALUE__) ((RCC_PLLP_DIV2 <= (__VALUE__)) && ((__VALUE__) <= RCC_PLLP_DIV32))
 
@@ -120,9 +120,9 @@ extern "C" {
 
 #if defined(SAI1)
 #define IS_RCC_PLLSAI1CLOCKOUT_VALUE(__VALUE__) (((((__VALUE__) & RCC_PLLSAI1_ADCCLK) == RCC_PLLSAI1_ADCCLK) || \
-                                                (((__VALUE__) & RCC_PLLSAI1_SAI1CLK) == RCC_PLLSAI1_SAI1CLK)  || \
-                                                (((__VALUE__) & RCC_PLLSAI1_USBCLK) == RCC_PLLSAI1_USBCLK)) && \
-                                                (((__VALUE__) & ~(RCC_PLLSAI1_ADCCLK|RCC_PLLSAI1_SAI1CLK|RCC_PLLSAI1_USBCLK)) == 0U))
+    (((__VALUE__) & RCC_PLLSAI1_SAI1CLK) == RCC_PLLSAI1_SAI1CLK) || \
+    (((__VALUE__) & RCC_PLLSAI1_USBCLK)  == RCC_PLLSAI1_USBCLK)) && \
+    (((__VALUE__) & ~(RCC_PLLSAI1_ADCCLK | RCC_PLLSAI1_SAI1CLK | RCC_PLLSAI1_USBCLK)) == 0U))
 #endif
 #define IS_RCC_MSI_CLOCK_RANGE(__RANGE__) (((__RANGE__) == RCC_MSIRANGE_0)  || \
                                            ((__RANGE__) == RCC_MSIRANGE_1)  || \
@@ -164,7 +164,14 @@ extern "C" {
                                          ((__SOURCE__) == RCC_RTCCLKSOURCE_LSI) || \
                                          ((__SOURCE__) == RCC_RTCCLKSOURCE_HSE_DIV32))
 
-#define IS_RCC_MCO(__MCOX__) ( ((__MCOX__) == RCC_MCO1) || ((__MCOX__) == RCC_MCO2) || ((__MCOX__) == RCC_MCO3) )
+#if defined(RCC_MCO3_SUPPORT)
+#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1) || \
+                              ((__MCOX__) == RCC_MCO2) || \
+                              ((__MCOX__) == RCC_MCO3))
+#else
+#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1) || \
+                              ((__MCOX__) == RCC_MCO2))
+#endif
 
 #define IS_RCC_MCO1SOURCE(__SOURCE__) (((__SOURCE__) == RCC_MCO1SOURCE_NOCLOCK) || \
                                        ((__SOURCE__) == RCC_MCO1SOURCE_SYSCLK) || \
@@ -220,7 +227,7 @@ typedef struct
                             This parameter must be a value of @ref RCC_PLLM_Clock_Divider             */
 
   uint32_t PLLN;       /*!< PLLN: Multiplication factor for PLL VCO output clock.
-                            This parameter must be a number between Min_Data = 8 and Max_Data = 86    */
+                            This parameter must be a number between Min_Data = 6 and Max_Data = 127    */
 
   uint32_t PLLP;       /*!< PLLP: Division factor for SAI & ADC clock.
                             This parameter must be a value of @ref RCC_PLLP_Clock_Divider             */
@@ -510,6 +517,9 @@ typedef struct
 #define RCC_PLL_SAI1CLK                RCC_PLLCFGR_PLLPEN      /*!< PLLSAI1CLK selection from main PLL */
 #endif
 #define RCC_PLL_ADCCLK                 RCC_PLLCFGR_PLLPEN      /*!< PLLADCCLK selection from main PLL */
+#if defined(SPI_I2S_SUPPORT)
+#define RCC_PLL_I2SCLK                 RCC_PLLCFGR_PLLPEN      /*!< PLLI2SCLK selection from main PLL */
+#endif
 /**
   * @}
   */
@@ -629,7 +639,9 @@ typedef struct
   */
 #define RCC_MCO1                       0x00000000U          /*!< MCO1 index */
 #define RCC_MCO2                       0x00000001U          /*!< MCO2 index */
+#if defined(RCC_MCO3_SUPPORT)
 #define RCC_MCO3                       0x00000002U          /*!< MCO3 index */
+#endif
 
 #define RCC_MCO                        RCC_MCO1             /*!< MCO1 to be compliant with other families with 1 MCO*/
 /**
@@ -729,7 +741,9 @@ typedef struct
 #define RCC_FLAG_HSIRDY                ((CR_REG_INDEX << 5U) | RCC_CR_HSIRDY_Pos)      /*!< HSI Ready flag */
 #define RCC_FLAG_HSERDY                ((CR_REG_INDEX << 5U) | RCC_CR_HSERDY_Pos)      /*!< HSE Ready flag */
 #define RCC_FLAG_PLLRDY                ((CR_REG_INDEX << 5U) | RCC_CR_PLLRDY_Pos)      /*!< PLL Ready flag */
+#if defined(SAI1)
 #define RCC_FLAG_PLLSAI1RDY            ((CR_REG_INDEX << 5U) | RCC_CR_PLLSAI1RDY_Pos)  /*!< PLLSAI1 Ready flag */
+#endif
 
 /* Flags in the BDCR register */
 #define RCC_FLAG_LSERDY                ((BDCR_REG_INDEX << 5U) | RCC_BDCR_LSERDY_Pos)  /*!< LSE Ready flag */
@@ -1216,7 +1230,7 @@ typedef struct
 #define __HAL_RCC_C2GPIOE_CLK_ENABLE()           LL_C2_AHB2_GRP1_EnableClock(LL_C2_AHB2_GRP1_PERIPH_GPIOE)
 #define __HAL_RCC_C2GPIOH_CLK_ENABLE()           LL_C2_AHB2_GRP1_EnableClock(LL_C2_AHB2_GRP1_PERIPH_GPIOH)
 #define __HAL_RCC_C2ADC_CLK_ENABLE()             LL_C2_AHB2_GRP1_EnableClock(LL_C2_AHB2_GRP1_PERIPH_ADC)
-#if defined(GPIOD)
+#if defined(AES1)
 #define __HAL_RCC_C2AES1_CLK_ENABLE()            LL_C2_AHB2_GRP1_EnableClock(LL_C2_AHB2_GRP1_PERIPH_AES1)
 #endif
 
@@ -2861,13 +2875,13 @@ typedef struct
   * @param  __PLLM__  specifies the division factor for PLL VCO input clock.
   *         This parameter must be a value of @ref RCC_PLLM_Clock_Divider.
   * @note   You have to set the PLLM parameter correctly to ensure that the VCO input
-  *         frequency ranges from 4 to 16 MHz. It is recommended to select a frequency
+  *         frequency ranges from 2.66 to 16 MHz. It is recommended to select a frequency
   *         of 16 MHz to limit PLL jitter.
   *
   * @param  __PLLN__  specifies the multiplication factor for PLL VCO output clock.
-  *         This parameter must be a number between 8 and 86.
+  *         This parameter must be a number between 6 and 127.
   * @note   You have to set the PLLN parameter correctly to ensure that the VCO
-  *         output frequency is between 64 and 344 MHz.
+  *         output frequency is between 96 and 344 MHz.
   *
   * @param  __PLLP__  specifies the division factor for ADC and SAI1 clock.
   *         This parameter must be a value of @ref RCC_PLLP_Clock_Divider.
@@ -2921,6 +2935,7 @@ typedef struct
   *            @arg @ref RCC_PLL_USBCLK  This Clock is used to generate the clock for the USB FS (48 MHz)
   *            @arg @ref RCC_PLL_RNGCLK  This clock is used to generate the clock for RNG
   *            @arg @ref RCC_PLL_SYSCLK  This Clock is used to generate the high speed system clock (up to 64MHz)
+  *            @arg @ref RCC_PLL_I2SCLK  This Clock is used to generate the clock for the I2S
   * @retval None
   */
 #define __HAL_RCC_PLLCLKOUT_ENABLE(__PLLCLOCKOUT__)   SET_BIT(RCC->PLLCFGR, (__PLLCLOCKOUT__))

@@ -1056,7 +1056,7 @@ __STATIC_INLINE uint32_t LL_SPI_IsEnabledDMAReq_TX(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint32_t LL_SPI_DMA_GetRegAddr(SPI_TypeDef *SPIx)
 {
-  return (uint32_t) & (SPIx->DR);
+  return (uint32_t) &(SPIx->DR);
 }
 
 /**
@@ -1103,7 +1103,7 @@ __STATIC_INLINE void LL_SPI_TransmitData8(SPI_TypeDef *SPIx, uint8_t TxData)
   *spidr = TxData;
 #else
   *((__IO uint8_t *)&SPIx->DR) = TxData;
-#endif
+#endif /* __GNUC__ */
 }
 
 /**
@@ -1120,7 +1120,7 @@ __STATIC_INLINE void LL_SPI_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
   *spidr = TxData;
 #else
   SPIx->DR = TxData;
-#endif
+#endif /* __GNUC__ */
 }
 
 /**

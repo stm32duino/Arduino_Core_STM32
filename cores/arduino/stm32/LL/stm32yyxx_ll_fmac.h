@@ -6,7 +6,7 @@
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
 #ifdef STM32G4xx
-#include "stm32g4xx_ll_fmac.h"
+  #include "stm32g4xx_ll_fmac.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_FMAC_H_ */

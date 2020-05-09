@@ -190,7 +190,7 @@ __ALIGN_BEGIN uint8_t USBD_CDC_CfgHSDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIGN_END = 
   0x01,   /* bNumEndpoints: One endpoints used */
   0x02,   /* bInterfaceClass: Communication Interface Class */
   0x02,   /* bInterfaceSubClass: Abstract Control Model */
-  0x01,   /* bInterfaceProtocol: Common AT commands */
+  0x00,   /* bInterfaceProtocol: No specific protocol */
   0x00,   /* iInterface: */
 
   /*Header Functional Descriptor*/
@@ -285,7 +285,7 @@ __ALIGN_BEGIN uint8_t USBD_CDC_CfgFSDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIGN_END = 
   0x01,   /* bNumEndpoints: One endpoints used */
   0x02,   /* bInterfaceClass: Communication Interface Class */
   0x02,   /* bInterfaceSubClass: Abstract Control Model */
-  0x01,   /* bInterfaceProtocol: Common AT commands */
+  0x00,   /* bInterfaceProtocol: No specific protocol */
   0x00,   /* iInterface: */
 
   /*Header Functional Descriptor*/
@@ -375,7 +375,7 @@ __ALIGN_BEGIN uint8_t USBD_CDC_OtherSpeedCfgDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIG
   0x01,   /* bNumEndpoints: One endpoints used */
   0x02,   /* bInterfaceClass: Communication Interface Class */
   0x02,   /* bInterfaceSubClass: Abstract Control Model */
-  0x01,   /* bInterfaceProtocol: Common AT commands */
+  0x00,   /* bInterfaceProtocol: No specific protocol */
   0x00,   /* iInterface: */
 
   /*Header Functional Descriptor*/
@@ -651,9 +651,9 @@ static uint8_t  USBD_CDC_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   USBD_CDC_ItfTypeDef *ctrl = (USBD_CDC_ItfTypeDef *)pdev->pUserData;
 
   if (pdev->pClassData != NULL) {
-    if ((hcdc->TxLastLength > 0U) && ((hcdc->TxLastLength % hpcd->IN_ep[epnum].maxpacket) == 0U)) {
+    if ((pdev->ep_in[epnum].total_length > 0U) && ((pdev->ep_in[epnum].total_length % hpcd->IN_ep[epnum].maxpacket) == 0U)) {
       /* Update the packet total length */
-      hcdc->TxLastLength = 0U;
+      pdev->ep_in[epnum].total_length = 0U;
 
       /* Send ZLP */
       USBD_LL_Transmit(pdev, epnum, NULL, 0U);
@@ -835,7 +835,7 @@ uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev)
       hcdc->TxState = 1U;
 
       /* Update the packet total length */
-      hcdc->TxLastLength = hcdc->TxLength;
+      pdev->ep_in[CDC_IN_EP & 0xFU].total_length = hcdc->TxLength;
 
       /* Transmit next packet */
       USBD_LL_Transmit(pdev, CDC_IN_EP, hcdc->TxBuffer,

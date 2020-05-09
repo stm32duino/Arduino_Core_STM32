@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -75,14 +75,16 @@ extern "C" {
 /** @defgroup USBD_CORE_Exported_TypesDefinitions
   * @{
   */
-typedef enum {
+typedef enum
+{
   HID_IDLE = 0,
   HID_BUSY,
 }
 HID_StateTypeDef;
 
 
-typedef struct {
+typedef struct
+{
   uint32_t             Protocol;
   uint32_t             IdleState;
   uint32_t             AltSetting;

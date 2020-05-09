@@ -418,22 +418,6 @@ __weak void HAL_SYSTICK_Callback(void)
 
 #if (__MPU_PRESENT == 1)
 /**
-  * @brief  Disable the MPU.
-  * @retval None
-  */
-void HAL_MPU_Disable(void)
-{
-  /* Make sure outstanding transfers are done */
-  __DMB();
-
-  /* Disable fault exceptions */
-  SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
-
-  /* Disable the MPU and clear the control register*/
-  MPU->CTRL = 0U;
-}
-
-/**
   * @brief  Enable the MPU.
   * @param  MPU_Control: Specifies the control mode of the MPU during hard fault,
   *          NMI, FAULTMASK and privileged accessto the default memory
@@ -447,15 +431,27 @@ void HAL_MPU_Disable(void)
 void HAL_MPU_Enable(uint32_t MPU_Control)
 {
   /* Enable the MPU */
-  MPU->CTRL = MPU_Control | MPU_CTRL_ENABLE_Msk;
+  MPU->CTRL = (MPU_Control | MPU_CTRL_ENABLE_Msk);
 
-  /* Enable fault exceptions */
-  SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-
-  /* Ensure MPU settings take effects */
+  /* Ensure MPU setting take effects */
   __DSB();
   __ISB();
 }
+
+
+/**
+  * @brief  Disable the MPU.
+  * @retval None
+  */
+void HAL_MPU_Disable(void)
+{
+  /* Make sure outstanding transfers are done */
+  __DMB();
+
+  /* Disable the MPU and clear the control register*/
+  MPU->CTRL  = 0;
+}
+
 
 /**
   * @brief  Initialize and configure the Region and the memory to be protected.

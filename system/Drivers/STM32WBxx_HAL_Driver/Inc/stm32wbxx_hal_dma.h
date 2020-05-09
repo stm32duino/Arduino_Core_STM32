@@ -204,8 +204,10 @@ typedef struct __DMA_HandleTypeDef
 #define DMA_REQUEST_LPUART1_RX          LL_DMAMUX_REQ_LPUART1_RX        /*!< DMAMUX LP_UART1_RX request */
 #define DMA_REQUEST_LPUART1_TX          LL_DMAMUX_REQ_LPUART1_TX        /*!< DMAMUX LP_UART1_RX request */
 
+#if defined (SAI1)
 #define DMA_REQUEST_SAI1_A              LL_DMAMUX_REQ_SAI1_A            /*!< DMAMUX SAI1 A request      */
 #define DMA_REQUEST_SAI1_B              LL_DMAMUX_REQ_SAI1_B            /*!< DMAMUX SAI1 B request      */
+#endif /* SAI1 */
 
 #define DMA_REQUEST_QUADSPI             LL_DMAMUX_REQ_QUADSPI           /*!< DMAMUX QUADSPI request     */
 

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -47,7 +47,7 @@ extern "C" {
 #define USBD_MAX_NUM_INTERFACES               1U
 #define USBD_MAX_NUM_CONFIGURATION            1U
 #define USBD_MAX_STR_DESC_SIZ                 0x100U
-#define USBD_SUPPORT_USER_STRING              0U
+#define USBD_SUPPORT_USER_STRING_DESC         0U
 #define USBD_SELF_POWERED                     1U
 #define USBD_DEBUG_LEVEL                      2U
 

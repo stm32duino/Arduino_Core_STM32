@@ -46,9 +46,201 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-June-2019</label>
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">v1.5.0 / 12-February-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<h3 id="introduction-of-stm32wb5m-stm32wb35xx-and-stm32wb30xx-product">Introduction of STM32WB5M, STM32WB35xx and STM32WB30xx product</h3>
+<p>This release introduce the support of STM32WB5Mxx, STM32WB35xx product and its value line STM32WB30xx.</p>
+<p>Added features:</p>
+<ul>
+<li>Introduction of I2S peripheral support. This only apply to STM32WB35xx.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Peripheral</th>
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>HAL/LL</td>
+<td style="text-align: left;">VREFBUF trimming calibration must be written by software</td>
+</tr>
+<tr class="even">
+<td>HAL</td>
+<td style="text-align: left;">HAL_SetTickFreq() should update frequency on Systick_LOAD register and uwTickFreq correctly</td>
+</tr>
+<tr class="odd">
+<td>GPIO</td>
+<td style="text-align: left;">LL_GPIO_Init() generate undesired pulse</td>
+</tr>
+<tr class="even">
+<td>I2C</td>
+<td style="text-align: left;">HardFault in I2C_DMAXferCplt</td>
+</tr>
+<tr class="odd">
+<td>I2C</td>
+<td style="text-align: left;">Incorrectly enable interrupts in I2C_Enable_IRQ routine when InterruptRequest = I2C_XFER_CPLT_IT</td>
+</tr>
+<tr class="even">
+<td>RCC</td>
+<td style="text-align: left;">Cannot enable PLL if PLL OFF with identical PLL config</td>
+</tr>
+<tr class="odd">
+<td>RCC</td>
+<td style="text-align: left;">Clock reconfiguration issues once PLLSAI used</td>
+</tr>
+<tr class="even">
+<td>I2S</td>
+<td style="text-align: left;">Add peripheral for STM32WB35xx</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5"  aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">v1.4.0 / 15-December-2019</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maitenance-release">Maitenance release</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Peripheral</th>
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CRYP</td>
+<td style="text-align: left;">Correct suspend and resume operation with a different parameter size.</td>
+</tr>
+<tr class="even">
+<td>I2C</td>
+<td style="text-align: left;">Correct MISRA error. The value assigned to variable tmpITFlags was never used.</td>
+</tr>
+<tr class="odd">
+<td>I2C</td>
+<td style="text-align: left;">Correct I2C slave interrupt handling issue.</td>
+</tr>
+<tr class="even">
+<td>IPCC</td>
+<td style="text-align: left;">Add LL_IPCC_GetChannelNumber API which return the number of channel supported by the device.</td>
+</tr>
+<tr class="odd">
+<td>LPTIM</td>
+<td style="text-align: left;">Correct doxygen group names.</td>
+</tr>
+<tr class="even">
+<td>PKA</td>
+<td style="text-align: left;">Use a macro __PKA_RAM_PARAM_END to clear the last word of any input parameters.</td>
+</tr>
+<tr class="odd">
+<td>TSC</td>
+<td style="text-align: left;">Correct MISRA error related to tag __TSC_HandleTypeDef which is unused.</td>
+</tr>
+<tr class="even">
+<td>ADC</td>
+<td style="text-align: left;">Add two functions to ease configuration of internal channels.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+<h2 id="dependencies">Dependencies</h2>
+<p>This software release is compatible with:</p>
+<p>STM32CubeMX V6.0.0</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">v1.3.0 / 11-September-2019</label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maitenance-release-1">Maitenance release</h3>
+<table>
+<thead>
+<tr class="header">
+<th>Peripheral</th>
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>CRYP</td>
+<td style="text-align: left;">Document a restriction regarding size field on HAL_CRYP_Encrypt_DMA, HAL_CRYP_Decrypt_DMA API.</td>
+</tr>
+<tr class="even">
+<td>CRYP</td>
+<td style="text-align: left;">Correct several MISRA C:2012 and Code Sonar compliancy improvements.</td>
+</tr>
+<tr class="odd">
+<td>FLASH</td>
+<td style="text-align: left;">Move FLASH_SIZE define from hal flash. h to cmsis device file</td>
+</tr>
+<tr class="even">
+<td>FLASH</td>
+<td style="text-align: left;">Correct ECC management in HAL FLASH driver</td>
+</tr>
+<tr class="odd">
+<td>FLASH</td>
+<td style="text-align: left;">Correct #define in stm32wbxx_hal_flash.h - FLASH_PAGE_NB</td>
+</tr>
+<tr class="even">
+<td>RCC</td>
+<td style="text-align: left;">Correct PLL characteristics</td>
+</tr>
+<tr class="odd">
+<td>TIMER</td>
+<td style="text-align: left;">Add assertion check inside HAL_TIMEx_MasterConfigSynchronization</td>
+</tr>
+<tr class="even">
+<td>TIMER</td>
+<td style="text-align: left;">Make LL_TIM_SetETRSource in line with RM0434</td>
+</tr>
+<tr class="odd">
+<td>WWDG</td>
+<td style="text-align: left;">Correct typical frequency computation description inside the header file</td>
+</tr>
+<tr class="even">
+<td>IRDA</td>
+<td style="text-align: left;">Improve the description of the APIs</td>
+</tr>
+<tr class="odd">
+<td>SMARTCARD</td>
+<td style="text-align: left;">Fix GCC compilation warning</td>
+</tr>
+<tr class="even">
+<td>UART</td>
+<td style="text-align: left;">Correct possible overflow with wordlength = 9bits and NO parity in HAL_UART_Transmit() and HAL_IRDA_Transmit()</td>
+</tr>
+<tr class="odd">
+<td>UART</td>
+<td style="text-align: left;">Fix GCC compilation warning</td>
+</tr>
+<tr class="even">
+<td>USART</td>
+<td style="text-align: left;">Correct possible overflow with wordlength = 9bits and NO parity in HAL_UART_Transmit() and HAL_IRDA_Transmit()</td>
+</tr>
+<tr class="odd">
+<td>USART</td>
+<td style="text-align: left;">Fix GCC compilation warning</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+<h2 id="dependencies-1">Dependencies</h2>
+<p>This software release is compatible with:</p>
+<p>STM32CubeMX V5.4.0</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-June-2019</label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="stm32wb50xx-introduction-and-maintenance-release">STM32WB50xx introduction and maintenance release</h3>
 <p>First release for STM32WBxx HAL drivers introducing <strong>stm32wb50xx</strong> devices.</p>
 <table>
@@ -117,9 +309,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies">Dependencies</h2>
+<h2 id="dependencies-2">Dependencies</h2>
 <p>This software release is compatible with:</p>
 <p>STM32CubeMX V5.3.0</p>
 </div>
@@ -127,7 +319,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32WB55xx devices.</p>
 <table>
@@ -181,9 +373,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-4">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
-<h2 id="dependencies-1">Dependencies</h2>
+<h2 id="dependencies-3">Dependencies</h2>
 <p>This software release is compatible with:</p>
 <p>STM32CubeMX V5.2.0</p>
 </div>
@@ -191,7 +383,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1"  aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 06-February-2019</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32WB55xx.</p>
 </div>

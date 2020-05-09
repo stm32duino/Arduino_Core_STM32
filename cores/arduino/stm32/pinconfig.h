@@ -34,6 +34,10 @@
 #include "PinAF_STM32F1.h"
 #include "stm32yyxx_ll_gpio.h"
 
+#if defined(STM32MP1xx)
+  #include "lock_resource.h"
+#endif
+
 static inline void pin_DisconnectDebug(PinName pin)
 {
 #ifdef STM32F1xx
@@ -45,6 +49,9 @@ static inline void pin_DisconnectDebug(PinName pin)
 
 static inline void pin_PullConfig(GPIO_TypeDef *gpio, uint32_t ll_pin, uint32_t pull_config)
 {
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(gpio);
+#endif
 #ifdef STM32F1xx
   uint32_t function = LL_GPIO_GetPinMode(gpio, ll_pin);
 #endif
@@ -77,10 +84,16 @@ static inline void pin_PullConfig(GPIO_TypeDef *gpio, uint32_t ll_pin, uint32_t 
 #endif
       break;
   }
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(gpio);
+#endif
 }
 
 static inline void pin_SetAFPin(GPIO_TypeDef *gpio, PinName pin, uint32_t afnum)
 {
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(gpio);
+#endif
 #ifdef STM32F1xx
   UNUSED(gpio);
   UNUSED(pin);
@@ -93,6 +106,9 @@ static inline void pin_SetAFPin(GPIO_TypeDef *gpio, PinName pin, uint32_t afnum)
   } else {
     LL_GPIO_SetAFPin_0_7(gpio, ll_pin, afnum);
   }
+#endif
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(gpio);
 #endif
 }
 

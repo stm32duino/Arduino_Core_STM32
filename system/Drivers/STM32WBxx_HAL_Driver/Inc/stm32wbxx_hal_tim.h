@@ -167,7 +167,7 @@ typedef struct
                                This parameter can be a value of @ref TIM_Encoder_Mode */
 
   uint32_t IC1Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
 
   uint32_t IC1Selection;  /*!< Specifies the input.
                                This parameter can be a value of @ref TIM_Input_Capture_Selection */
@@ -179,7 +179,7 @@ typedef struct
                                This parameter can be a number between Min_Data = 0x0 and Max_Data = 0xF */
 
   uint32_t IC2Polarity;   /*!< Specifies the active edge of the input signal.
-                               This parameter can be a value of @ref TIM_Input_Capture_Polarity */
+                               This parameter can be a value of @ref TIM_Encoder_Input_Polarity */
 
   uint32_t IC2Selection;  /*!< Specifies the input.
                               This parameter can be a value of @ref TIM_Input_Capture_Selection */
@@ -523,6 +523,15 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
   * @}
   */
 
+/** @defgroup TIM_Update_Interrupt_Flag_Remap TIM Update Interrupt Flag Remap
+  * @{
+  */
+#define TIM_UIFREMAP_DISABLE               0x00000000U                          /*!< Update interrupt flag remap disabled */
+#define TIM_UIFREMAP_ENABLE                TIM_CR1_UIFREMAP                     /*!< Update interrupt flag remap enabled */
+/**
+  * @}
+  */
+
 /** @defgroup TIM_ClockDivision TIM Clock Division
   * @{
   */
@@ -612,6 +621,15 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 #define  TIM_ICPOLARITY_RISING             TIM_INPUTCHANNELPOLARITY_RISING      /*!< Capture triggered by rising edge on timer input                  */
 #define  TIM_ICPOLARITY_FALLING            TIM_INPUTCHANNELPOLARITY_FALLING     /*!< Capture triggered by falling edge on timer input                 */
 #define  TIM_ICPOLARITY_BOTHEDGE           TIM_INPUTCHANNELPOLARITY_BOTHEDGE    /*!< Capture triggered by both rising and falling edges on timer input*/
+/**
+  * @}
+  */
+
+/** @defgroup TIM_Encoder_Input_Polarity TIM Encoder Input Polarity
+  * @{
+  */
+#define  TIM_ENCODERINPUTPOLARITY_RISING   TIM_INPUTCHANNELPOLARITY_RISING      /*!< Encoder input with rising edge polarity  */
+#define  TIM_ENCODERINPUTPOLARITY_FALLING  TIM_INPUTCHANNELPOLARITY_FALLING     /*!< Encoder input with falling edge polarity */
 /**
   * @}
   */
@@ -1304,6 +1322,31 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
 #define __HAL_TIM_CLEAR_IT(__HANDLE__, __INTERRUPT__)      ((__HANDLE__)->Instance->SR = ~(__INTERRUPT__))
 
 /**
+  * @brief  Force a continuous copy of the update interrupt flag (UIF) into the timer counter register (bit 31).
+  * @note This allows both the counter value and a potential roll-over condition signalled by the UIFCPY flag to be read in an atomic way.
+  * @param  __HANDLE__ TIM handle.
+  * @retval None
+mode.
+  */
+#define __HAL_TIM_UIFREMAP_ENABLE(__HANDLE__)    (((__HANDLE__)->Instance->CR1 |= TIM_CR1_UIFREMAP))
+
+/**
+  * @brief  Disable update interrupt flag (UIF) remapping.
+  * @param  __HANDLE__ TIM handle.
+  * @retval None
+mode.
+  */
+#define __HAL_TIM_UIFREMAP_DISABLE(__HANDLE__)    (((__HANDLE__)->Instance->CR1 &= ~TIM_CR1_UIFREMAP))
+
+/**
+  * @brief  Get update interrupt flag (UIF) copy status.
+  * @param  __COUNTER__ Counter value.
+  * @retval The state of UIFCPY (TRUE or FALSE).
+mode.
+  */
+#define __HAL_TIM_GET_UIFCPY(__COUNTER__)    (((__COUNTER__) & (TIM_CNT_UIFCPY)) == (TIM_CNT_UIFCPY))
+
+/**
   * @brief  Indicates whether or not the TIM Counter is used as downcounter.
   * @param  __HANDLE__ TIM handle.
   * @retval False (Counter used as upcounter) or True (Counter used as downcounter)
@@ -1322,6 +1365,8 @@ mode.
 
 /**
   * @brief  Set the TIM Counter Register value on runtime.
+  * Note Please check if the bit 31 of CNT register is used as UIF copy or not, this may affect the counter range in case of 32 bits counter TIM instance.
+  *      Bit 31 of CNT can be enabled/disabled using __HAL_TIM_UIFREMAP_ENABLE()/__HAL_TIM_UIFREMAP_DISABLE() macros.
   * @param  __HANDLE__ TIM handle.
   * @param  __COUNTER__ specifies the Counter register new value.
   * @retval None
@@ -1631,29 +1676,29 @@ mode.
                                              ((__MODE__) == TIM_CLEARINPUTSOURCE_COMP2)    || \
                                              ((__MODE__) == TIM_CLEARINPUTSOURCE_NONE))
 
-#define IS_TIM_DMA_BASE(__BASE__) (((__BASE__) == TIM_DMABASE_CR1)   || \
-                                   ((__BASE__) == TIM_DMABASE_CR2)   || \
-                                   ((__BASE__) == TIM_DMABASE_SMCR)  || \
-                                   ((__BASE__) == TIM_DMABASE_DIER)  || \
-                                   ((__BASE__) == TIM_DMABASE_SR)    || \
-                                   ((__BASE__) == TIM_DMABASE_EGR)   || \
-                                   ((__BASE__) == TIM_DMABASE_CCMR1) || \
-                                   ((__BASE__) == TIM_DMABASE_CCMR2) || \
-                                   ((__BASE__) == TIM_DMABASE_CCER)  || \
-                                   ((__BASE__) == TIM_DMABASE_CNT)   || \
-                                   ((__BASE__) == TIM_DMABASE_PSC)   || \
-                                   ((__BASE__) == TIM_DMABASE_ARR)   || \
-                                   ((__BASE__) == TIM_DMABASE_RCR)   || \
-                                   ((__BASE__) == TIM_DMABASE_CCR1)  || \
-                                   ((__BASE__) == TIM_DMABASE_CCR2)  || \
-                                   ((__BASE__) == TIM_DMABASE_CCR3)  || \
-                                   ((__BASE__) == TIM_DMABASE_CCR4)  || \
-                                   ((__BASE__) == TIM_DMABASE_BDTR)  || \
-                                   ((__BASE__) == TIM_DMABASE_OR)    || \
-                                   ((__BASE__) == TIM_DMABASE_CCMR3) || \
-                                   ((__BASE__) == TIM_DMABASE_CCR5)  || \
-                                   ((__BASE__) == TIM_DMABASE_CCR6)  || \
-                                   ((__BASE__) == TIM_DMABASE_AF1)   || \
+#define IS_TIM_DMA_BASE(__BASE__) (((__BASE__) == TIM_DMABASE_CR1)    || \
+                                   ((__BASE__) == TIM_DMABASE_CR2)    || \
+                                   ((__BASE__) == TIM_DMABASE_SMCR)   || \
+                                   ((__BASE__) == TIM_DMABASE_DIER)   || \
+                                   ((__BASE__) == TIM_DMABASE_SR)     || \
+                                   ((__BASE__) == TIM_DMABASE_EGR)    || \
+                                   ((__BASE__) == TIM_DMABASE_CCMR1)  || \
+                                   ((__BASE__) == TIM_DMABASE_CCMR2)  || \
+                                   ((__BASE__) == TIM_DMABASE_CCER)   || \
+                                   ((__BASE__) == TIM_DMABASE_CNT)    || \
+                                   ((__BASE__) == TIM_DMABASE_PSC)    || \
+                                   ((__BASE__) == TIM_DMABASE_ARR)    || \
+                                   ((__BASE__) == TIM_DMABASE_RCR)    || \
+                                   ((__BASE__) == TIM_DMABASE_CCR1)   || \
+                                   ((__BASE__) == TIM_DMABASE_CCR2)   || \
+                                   ((__BASE__) == TIM_DMABASE_CCR3)   || \
+                                   ((__BASE__) == TIM_DMABASE_CCR4)   || \
+                                   ((__BASE__) == TIM_DMABASE_BDTR)   || \
+                                   ((__BASE__) == TIM_DMABASE_OR)     || \
+                                   ((__BASE__) == TIM_DMABASE_CCMR3)  || \
+                                   ((__BASE__) == TIM_DMABASE_CCR5)   || \
+                                   ((__BASE__) == TIM_DMABASE_CCR6)   || \
+                                   ((__BASE__) == TIM_DMABASE_AF1)    || \
                                    ((__BASE__) == TIM_DMABASE_AF2))
 
 #define IS_TIM_EVENT_SOURCE(__SOURCE__) ((((__SOURCE__) & 0xFFFFFE00U) == 0x00000000U) && ((__SOURCE__) != 0x00000000U))
@@ -1663,6 +1708,9 @@ mode.
                                             ((__MODE__) == TIM_COUNTERMODE_CENTERALIGNED1)  || \
                                             ((__MODE__) == TIM_COUNTERMODE_CENTERALIGNED2)  || \
                                             ((__MODE__) == TIM_COUNTERMODE_CENTERALIGNED3))
+
+#define IS_TIM_UIFREMAP_MODE(__MODE__)     (((__MODE__) == TIM_UIFREMAP_DISABLE) || \
+                                            ((__MODE__) == TIM_UIFREMAP_ENALE))
 
 #define IS_TIM_CLOCKDIVISION_DIV(__DIV__)  (((__DIV__) == TIM_CLOCKDIVISION_DIV1) || \
                                             ((__DIV__) == TIM_CLOCKDIVISION_DIV2) || \
@@ -1685,6 +1733,9 @@ mode.
 
 #define IS_TIM_OCNIDLE_STATE(__STATE__)    (((__STATE__) == TIM_OCNIDLESTATE_SET) || \
                                             ((__STATE__) == TIM_OCNIDLESTATE_RESET))
+
+#define IS_TIM_ENCODERINPUT_POLARITY(__POLARITY__)   (((__POLARITY__) == TIM_ENCODERINPUTPOLARITY_RISING)   || \
+                                                      ((__POLARITY__) == TIM_ENCODERINPUTPOLARITY_FALLING))
 
 #define IS_TIM_IC_POLARITY(__POLARITY__)   (((__POLARITY__) == TIM_ICPOLARITY_RISING)   || \
                                             ((__POLARITY__) == TIM_ICPOLARITY_FALLING)  || \

@@ -44,31 +44,31 @@
 
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
-#if defined(STM32F3xx)
-#define EXTI2_IRQn    EXTI2_TSC_IRQn
-#endif
+  #if defined(STM32F3xx)
+    #define EXTI2_IRQn    EXTI2_TSC_IRQn
+  #endif
 
-#ifndef EXTI_IRQ_PRIO
-#if (__CORTEX_M == 0x00U)
-#define EXTI_IRQ_PRIO       3
-#else
-#define EXTI_IRQ_PRIO       6
-#endif /* __CORTEX_M */
-#endif /* EXTI_IRQ_PRIO */
-#ifndef EXTI_IRQ_SUBPRIO
-#define EXTI_IRQ_SUBPRIO    0
-#endif
+  #ifndef EXTI_IRQ_PRIO
+    #if (__CORTEX_M == 0x00U)
+      #define EXTI_IRQ_PRIO       3
+    #else
+      #define EXTI_IRQ_PRIO       6
+    #endif /* __CORTEX_M */
+  #endif /* EXTI_IRQ_PRIO */
+  #ifndef EXTI_IRQ_SUBPRIO
+    #define EXTI_IRQ_SUBPRIO    0
+  #endif
 
-#ifdef __cplusplus
-#include <functional>
+  #ifdef __cplusplus
+    #include <functional>
 
-typedef std::function<void(void)> callback_function_t;
-void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_t callback, uint32_t mode);
-#endif
+    typedef std::function<void(void)> callback_function_t;
+    void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, callback_function_t callback, uint32_t mode);
+  #endif
 
-/* Exported functions ------------------------------------------------------- */
-void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
-void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
+  /* Exported functions ------------------------------------------------------- */
+  void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
+  void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 
 #endif /* __INTERRUPT_H */

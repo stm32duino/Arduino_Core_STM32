@@ -22,7 +22,7 @@
 #include <Servo.h>
 #include <HardwareTimer.h>
 
-#if defined(HAL_TIM_MODULE_ENABLED) && defined(TIMER_SERVO)
+#if defined(HAL_TIM_MODULE_ENABLED) && defined(TIMER_SERVO) && !defined(HAL_TIM_MODULE_ONLY)
 
 static servo_t servos[MAX_SERVOS];                         // static array of servo structures
 static volatile int8_t timerChannel[_Nbr_16timers] = {-1}; // counter for the servo being pulsed for each timer (or -1 if refresh interval)
@@ -40,9 +40,8 @@ uint8_t ServoCount = 0;                                    // the total number o
 /************ static functions common to all instances ***********************/
 
 volatile uint32_t CumulativeCountSinceRefresh = 0;
-static void Servo_PeriodElapsedCallback(HardwareTimer *HT)
+static void Servo_PeriodElapsedCallback()
 {
-  UNUSED(HT);
   // Only 1 timer used
   timer16_Sequence_t timer_id = _timer1;
 
@@ -85,6 +84,7 @@ static void TimerServoInit()
   TimerServo.setPrescaleFactor(prescaler);
   TimerServo.setOverflow(REFRESH_INTERVAL); // thanks to prescaler Tick = microsec
   TimerServo.attachInterrupt(Servo_PeriodElapsedCallback);
+  TimerServo.setPreloadEnable(false);
   TimerServo.resume();
 }
 
@@ -231,6 +231,6 @@ int Servo::readMicroseconds()
 }
 bool Servo::attached() {}
 
-#endif /* HAL_TIM_MODULE_ENABLED && TIMER_SERVO */
+#endif /* HAL_TIM_MODULE_ENABLED && TIMER_SERVO & !HAL_TIM_MODULE_ONLY */
 
 #endif // ARDUINO_ARCH_STM32

@@ -5756,9 +5756,8 @@ static void CRYP_Workaround(CRYP_HandleTypeDef *hcryp, uint32_t Timeout )
       /* Disable CRYP to start the final phase */
       __HAL_CRYP_DISABLE(hcryp);
 
-      /*Load CRYP_IV1R register content in a temporary variable. Decrement the value
-      by 1 and reinsert the result in CRYP_IV1R register*/
-      hcryp->Instance->IV1RR = 0x5U;
+      /*Update CRYP_IV1R register and ALGOMODE*/
+      hcryp->Instance->IV1RR = ((hcryp->Instance->CSGCMCCM7R)-1);
       MODIFY_REG(hcryp->Instance->CR, CRYP_CR_ALGOMODE, CRYP_AES_CTR);
 
       /* Enable CRYP to start the final phase */
@@ -5821,6 +5820,66 @@ static void CRYP_Workaround(CRYP_HandleTypeDef *hcryp, uint32_t Timeout )
       /* configured  final phase  */
       MODIFY_REG(hcryp->Instance->CR, CRYP_CR_GCM_CCMPH, CRYP_PHASE_FINAL);
 
+      if ( (hcryp->Instance->CR & CRYP_CR_DATATYPE) == CRYP_DATATYPE_32B)
+      {
+        if ((npblb %4U)==1U)
+        {
+          intermediate_data[lastwordsize-1U] &= 0xFFFFFF00U;
+        }
+        if ((npblb %4U)==2U)
+        {
+          intermediate_data[lastwordsize-1U] &= 0xFFFF0000U;
+        }
+        if ((npblb %4U)==3U)
+        {
+          intermediate_data[lastwordsize-1U] &= 0xFF000000U;
+        }
+      }
+      else if ((hcryp->Instance->CR & CRYP_CR_DATATYPE) == CRYP_DATATYPE_8B)
+      {
+        if ((npblb %4U)==1U)
+        {
+          intermediate_data[lastwordsize-1U] &= __REV(0xFFFFFF00U);
+        }
+        if ((npblb %4U)==2U)
+        {
+          intermediate_data[lastwordsize-1U] &= __REV(0xFFFF0000U);
+        }
+        if ((npblb %4U)==3U)
+        {
+          intermediate_data[lastwordsize-1U] &= __REV(0xFF000000U);
+        }
+      }
+      else if ((hcryp->Instance->CR & CRYP_CR_DATATYPE) == CRYP_DATATYPE_16B)
+      {
+        if ((npblb %4U)==1U)
+        {
+          intermediate_data[lastwordsize-1U] &= __ROR((0xFFFFFF00U), 16);
+        }
+        if ((npblb %4U)==2U)
+        {
+          intermediate_data[lastwordsize-1U] &= __ROR((0xFFFF0000U), 16);
+        }
+        if ((npblb %4U)==3U)
+        {
+          intermediate_data[lastwordsize-1U] &= __ROR((0xFF000000U), 16);
+        }
+      }
+      else /*CRYP_DATATYPE_1B*/
+      {
+        if ((npblb %4U)==1U)
+        {
+          intermediate_data[lastwordsize-1U] &= __RBIT(0xFFFFFF00U);
+        }
+        if ((npblb %4U)==2U)
+        {
+          intermediate_data[lastwordsize-1U] &= __RBIT(0xFFFF0000U);
+        }
+        if ((npblb %4U)==3U)
+        {
+          intermediate_data[lastwordsize-1U] &= __RBIT(0xFF000000U);
+        }
+      }
       for (index=0U; index < lastwordsize; index ++)
       {
         /*Write the intermediate_data in the IN FIFO */
@@ -6058,6 +6117,67 @@ static void CRYP_Workaround(CRYP_HandleTypeDef *hcryp, uint32_t Timeout )
     /* Select final phase */
     MODIFY_REG(hcryp->Instance->CR, AES_CR_GCMPH, CRYP_PHASE_FINAL);
 
+    if ( (hcryp->Instance->CR & AES_CR_DATATYPE) == CRYP_DATATYPE_32B)
+    {
+      if ((npblb %4U)==1U)
+      {
+        intermediate_data[lastwordsize-1U] &= 0xFFFFFF00U;
+      }
+      if ((npblb %4U)==2U)
+      {
+        intermediate_data[lastwordsize-1U] &= 0xFFFF0000U;
+      }
+      if ((npblb %4U)==3U)
+      {
+        intermediate_data[lastwordsize-1U] &= 0xFF000000U;
+      }
+    }
+    else if ((hcryp->Instance->CR & AES_CR_DATATYPE) == CRYP_DATATYPE_8B)
+    {
+      if ((npblb %4U)==1U)
+      {
+        intermediate_data[lastwordsize-1U] &= __REV(0xFFFFFF00U);
+      }
+      if ((npblb %4U)==2U)
+      {
+        intermediate_data[lastwordsize-1U] &= __REV(0xFFFF0000U);
+      }
+      if ((npblb %4U)==3U)
+      {
+        intermediate_data[lastwordsize-1U] &= __REV(0xFF000000U);
+      }
+    }
+    else if ((hcryp->Instance->CR & AES_CR_DATATYPE) == CRYP_DATATYPE_16B)
+    {
+      if ((npblb %4U)==1U)
+      {
+        intermediate_data[lastwordsize-1U] &= __ROR((0xFFFFFF00U), 16);
+      }
+      if ((npblb %4U)==2U)
+      {
+        intermediate_data[lastwordsize-1U] &= __ROR((0xFFFF0000U), 16);
+      }
+      if ((npblb %4U)==3U)
+      {
+        intermediate_data[lastwordsize-1U] &= __ROR((0xFF000000U), 16);
+      }
+    }
+    else /*CRYP_DATATYPE_1B*/
+    {
+      if ((npblb %4U)==1U)
+      {
+        intermediate_data[lastwordsize-1U] &= __RBIT(0xFFFFFF00U);
+      }
+      if ((npblb %4U)==2U)
+      {
+        intermediate_data[lastwordsize-1U] &= __RBIT(0xFFFF0000U);
+      }
+      if ((npblb %4U)==3U)
+      {
+        intermediate_data[lastwordsize-1U] &= __RBIT(0xFF000000U);
+      }
+    }
+
     /*Write the intermediate_data in the IN FIFO */
     for(index = 0U; index < lastwordsize; index ++)
     {
@@ -6097,7 +6217,6 @@ static void CRYP_Workaround(CRYP_HandleTypeDef *hcryp, uint32_t Timeout )
       intermediate_data[index]=hcryp->Instance->DOUTR;
     }
   }/*End of Workaround 2*/
-
 #endif /* End AES or CRYP */
 }
 #endif /* AES or GCM CCM defined*/

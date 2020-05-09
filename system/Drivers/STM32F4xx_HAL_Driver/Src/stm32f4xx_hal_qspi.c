@@ -318,9 +318,6 @@ HAL_StatusTypeDef HAL_QSPI_Init(QSPI_HandleTypeDef *hqspi)
     assert_param(IS_QSPI_FLASH_ID(hqspi->Init.FlashID));
   }
 
-  /* Process locked */
-  __HAL_LOCK(hqspi);
-
   if(hqspi->State == HAL_QSPI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
@@ -400,9 +397,6 @@ HAL_StatusTypeDef HAL_QSPI_DeInit(QSPI_HandleTypeDef *hqspi)
   {
     return HAL_ERROR;
   }
-
-  /* Process locked */
-  __HAL_LOCK(hqspi);
 
   /* Disable the QSPI Peripheral Clock */
   __HAL_QSPI_DISABLE(hqspi);

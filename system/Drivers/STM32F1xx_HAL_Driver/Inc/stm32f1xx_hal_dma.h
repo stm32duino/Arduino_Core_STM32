@@ -6,29 +6,13 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.</center></h2>
   *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  * This software component is licensed by ST under BSD 3-Clause license,
+  * the "License"; You may not use this file except in compliance with the
+  * License. You may obtain a copy of the License at:
+  *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
   */
@@ -63,7 +47,7 @@
   */
 typedef struct
 {
-  uint32_t Direction;                 /*!< Specifies if the data will be transferred from memory to peripheral, 
+  uint32_t Direction;                 /*!< Specifies if the data will be transferred from memory to peripheral,
                                            from memory to memory or from peripheral to memory.
                                            This parameter can be a value of @ref DMA_Data_transfer_direction */
 
@@ -108,49 +92,49 @@ typedef enum
   HAL_DMA_HALF_TRANSFER           = 0x01U     /*!< Half Transfer     */
 }HAL_DMA_LevelCompleteTypeDef;
 
-/** 
+/**
   * @brief  HAL DMA Callback ID structure definition
   */
 typedef enum
 {
   HAL_DMA_XFER_CPLT_CB_ID          = 0x00U,    /*!< Full transfer     */
   HAL_DMA_XFER_HALFCPLT_CB_ID      = 0x01U,    /*!< Half transfer     */
-  HAL_DMA_XFER_ERROR_CB_ID         = 0x02U,    /*!< Error             */ 
-  HAL_DMA_XFER_ABORT_CB_ID         = 0x03U,    /*!< Abort             */ 
-  HAL_DMA_XFER_ALL_CB_ID           = 0x04U     /*!< All               */ 
-    
+  HAL_DMA_XFER_ERROR_CB_ID         = 0x02U,    /*!< Error             */
+  HAL_DMA_XFER_ABORT_CB_ID         = 0x03U,    /*!< Abort             */
+  HAL_DMA_XFER_ALL_CB_ID           = 0x04U     /*!< All               */
+
 }HAL_DMA_CallbackIDTypeDef;
 
-/** 
+/**
   * @brief  DMA handle Structure definition
   */
 typedef struct __DMA_HandleTypeDef
 {
   DMA_Channel_TypeDef   *Instance;                       /*!< Register base address                  */
-  
-  DMA_InitTypeDef       Init;                            /*!< DMA communication parameters           */ 
-  
-  HAL_LockTypeDef       Lock;                            /*!< DMA locking object                     */  
-  
+
+  DMA_InitTypeDef       Init;                            /*!< DMA communication parameters           */
+
+  HAL_LockTypeDef       Lock;                            /*!< DMA locking object                     */
+
   HAL_DMA_StateTypeDef  State;                           /*!< DMA transfer state                     */
-  
-  void                  *Parent;                                                      /*!< Parent object state                    */  
-  
+
+  void                  *Parent;                                                      /*!< Parent object state                    */
+
   void                  (* XferCpltCallback)( struct __DMA_HandleTypeDef * hdma);     /*!< DMA transfer complete callback         */
-  
+
   void                  (* XferHalfCpltCallback)( struct __DMA_HandleTypeDef * hdma); /*!< DMA Half transfer complete callback    */
-  
+
   void                  (* XferErrorCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer error callback            */
 
-  void                  (* XferAbortCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer abort callback            */  
-  
+  void                  (* XferAbortCallback)( struct __DMA_HandleTypeDef * hdma);    /*!< DMA transfer abort callback            */
+
   __IO uint32_t         ErrorCode;                                                    /*!< DMA Error code                         */
 
   DMA_TypeDef            *DmaBaseAddress;                                             /*!< DMA Channel Base Address               */
-  
-  uint32_t               ChannelIndex;                                                /*!< DMA Channel Index                      */  
 
-} DMA_HandleTypeDef;    
+  uint32_t               ChannelIndex;                                                /*!< DMA Channel Index                      */
+
+} DMA_HandleTypeDef;
 /**
   * @}
   */
@@ -168,7 +152,7 @@ typedef struct __DMA_HandleTypeDef
 #define HAL_DMA_ERROR_TE                       0x00000001U    /*!< Transfer error       */
 #define HAL_DMA_ERROR_NO_XFER                  0x00000004U    /*!< no ongoing transfer  */
 #define HAL_DMA_ERROR_TIMEOUT                  0x00000020U    /*!< Timeout error        */
-#define HAL_DMA_ERROR_NOT_SUPPORTED            0x00000100U    /*!< Not supported mode                    */ 
+#define HAL_DMA_ERROR_NOT_SUPPORTED            0x00000100U    /*!< Not supported mode                    */
 /**
   * @}
   */
@@ -369,7 +353,7 @@ typedef struct __DMA_HandleTypeDef
   */
 
 /* Include DMA HAL Extension module */
-#include "stm32f1xx_hal_dma_ex.h"   
+#include "stm32f1xx_hal_dma_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup DMA_Exported_Functions
@@ -452,7 +436,7 @@ uint32_t HAL_DMA_GetError(DMA_HandleTypeDef *hdma);
 
 /**
   * @}
-  */ 
+  */
 
 /* Private functions ---------------------------------------------------------*/
 
