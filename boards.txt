@@ -2049,6 +2049,68 @@ Genericflight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 Genericflight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
 ################################################################################
+# Garatronic-McHobby STM32 boards
+
+Garatronic.name=Garatronic/McHobby
+
+Garatronic.build.core=arduino
+Garatronic.build.board=Garatronic
+Garatronic.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# PYBSTICK26(DUINO) board with F072RB
+Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
+Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_size=131072
+Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_data_size=16384
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.mcu=cortex-m0
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.board=PYBSTICK26_DUINO
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.series=STM32F0xx
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.product_line=STM32F072xB
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.variant=PYBSTICK26_DUINO
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# PYBSTICK26(LITE) board with F401CE
+Garatronic.menu.pnum.PYBSTICK26_LITE=PYBSTICK26 Lite
+Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_data_size=98304
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.board=PYBSTICK26_LITE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=PYBSTICK26_LITE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26(STD/Programmez!) board with F411RE
+Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD/Programmez!
+Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_data_size=131072
+Garatronic.menu.pnum.PYBSTICK26_STD.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_STD.build.board=PYBSTICK26_STD
+Garatronic.menu.pnum.PYBSTICK26_STD.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
+Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=PYBSTICK26_STD
+Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_STD.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26(PRO) board with F412RE
+Garatronic.menu.pnum.PYBSTICK26_PRO=PYBSTICK26 Pro
+Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_data_size=262144
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.board=PYBSTICK26_PRO
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=PYBSTICK26_PRO
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26 boards upload method
+Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Garatronic.menu.upload_method.dfuMethod.upload.protocol=2
+Garatronic.menu.upload_method.dfuMethod.upload.options=-g
+Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Midatronics boards
 
 Midatronics.name=Midatronics boards
@@ -2189,6 +2251,12 @@ Genericflight.menu.xserial.none=Enabled (no generic 'Serial')
 Genericflight.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Genericflight.menu.xserial.disabled=Disabled (no Serial support)
 Genericflight.menu.xserial.disabled.build.xSerial=
+
+Garatronic.menu.xserial.generic=Enabled (generic 'Serial')
+Garatronic.menu.xserial.none=Enabled (no generic 'Serial')
+Garatronic.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Garatronic.menu.xserial.disabled=Disabled (no Serial support)
+Garatronic.menu.xserial.disabled.build.xSerial=
 
 Midatronics.menu.xserial.generic=Enabled (generic 'Serial')
 Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
@@ -2332,6 +2400,14 @@ Genericflight.menu.xusb.HS=High Speed
 Genericflight.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Genericflight.menu.xusb.HSFS=High Speed in Full Speed mode
 Genericflight.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Garatronic.menu.usb.none=None
+Garatronic.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Garatronic.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Garatronic.menu.usb.CDC=CDC (no generic 'Serial')
+Garatronic.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Garatronic.menu.usb.HID=HID (keyboard and mouse)
+Garatronic.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 Midatronics.menu.usb.none=None
 Midatronics.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -2619,6 +2695,24 @@ Genericflight.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Genericflight.menu.opt.ogstd=Debug (-g)
 Genericflight.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+Garatronic.menu.opt.osstd=Smallest (-Os default)
+Garatronic.menu.opt.oslto=Smallest (-Os) with LTO
+Garatronic.menu.opt.oslto.build.flags.optimize=-Os -flto
+Garatronic.menu.opt.o1std=Fast (-O1)
+Garatronic.menu.opt.o1std.build.flags.optimize=-O1
+Garatronic.menu.opt.o1lto=Fast (-O1) with LTO
+Garatronic.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Garatronic.menu.opt.o2std=Faster (-O2)
+Garatronic.menu.opt.o2std.build.flags.optimize=-O2
+Garatronic.menu.opt.o2lto=Faster (-O2) with LTO
+Garatronic.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Garatronic.menu.opt.o3std=Fastest (-O3)
+Garatronic.menu.opt.o3std.build.flags.optimize=-O3
+Garatronic.menu.opt.o3lto=Fastest (-O3) with LTO
+Garatronic.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Garatronic.menu.opt.ogstd=Debug (-g)
+Garatronic.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 Midatronics.menu.opt.osstd=Smallest (-Os default)
 Midatronics.menu.opt.oslto=Smallest (-Os) with LTO
 Midatronics.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -2787,6 +2881,16 @@ Genericflight.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 Genericflight.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 Genericflight.menu.rtlib.full=Newlib Standard
 Genericflight.menu.rtlib.full.build.flags.ldspecs=
+
+Garatronic.menu.rtlib.nano=Newlib Nano (default)
+Garatronic.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Garatronic.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Garatronic.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Garatronic.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Garatronic.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Garatronic.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Garatronic.menu.rtlib.full=Newlib Standard
+Garatronic.menu.rtlib.full.build.flags.ldspecs=
 
 Midatronics.menu.rtlib.nano=Newlib Nano (default)
 Midatronics.menu.rtlib.nanofp=Newlib Nano + Float Printf
