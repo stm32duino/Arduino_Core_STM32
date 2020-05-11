@@ -461,10 +461,10 @@ typedef struct
 /** @defgroup RCC_PLL2_VCI_Range  RCC PLL2 VCI Range
   * @{
   */
-#define RCC_PLL2VCIRANGE_0                RCC_PLLCFGR_PLL2RGE_0
-#define RCC_PLL2VCIRANGE_1                RCC_PLLCFGR_PLL2RGE_1
-#define RCC_PLL2VCIRANGE_2                RCC_PLLCFGR_PLL2RGE_2
-#define RCC_PLL2VCIRANGE_3                RCC_PLLCFGR_PLL2RGE_3
+#define RCC_PLL2VCIRANGE_0                RCC_PLLCFGR_PLL2RGE_0        /*!< Clock range frequency between 1 and 2 MHz  */
+#define RCC_PLL2VCIRANGE_1                RCC_PLLCFGR_PLL2RGE_1        /*!< Clock range frequency between 2 and 4 MHz  */
+#define RCC_PLL2VCIRANGE_2                RCC_PLLCFGR_PLL2RGE_2        /*!< Clock range frequency between 4 and 8 MHz  */
+#define RCC_PLL2VCIRANGE_3                RCC_PLLCFGR_PLL2RGE_3        /*!< Clock range frequency between 8 and 16 MHz */
 
 /**
   * @}
@@ -484,10 +484,10 @@ typedef struct
 /** @defgroup RCC_PLL3_VCI_Range  RCC PLL3 VCI Range
   * @{
   */
-#define RCC_PLL3VCIRANGE_0                RCC_PLLCFGR_PLL3RGE_0
-#define RCC_PLL3VCIRANGE_1                RCC_PLLCFGR_PLL3RGE_1
-#define RCC_PLL3VCIRANGE_2                RCC_PLLCFGR_PLL3RGE_2
-#define RCC_PLL3VCIRANGE_3                RCC_PLLCFGR_PLL3RGE_3
+#define RCC_PLL3VCIRANGE_0                RCC_PLLCFGR_PLL3RGE_0         /*!< Clock range frequency between 1 and 2 MHz  */
+#define RCC_PLL3VCIRANGE_1                RCC_PLLCFGR_PLL3RGE_1         /*!< Clock range frequency between 2 and 4 MHz  */
+#define RCC_PLL3VCIRANGE_2                RCC_PLLCFGR_PLL3RGE_2         /*!< Clock range frequency between 4 and 8 MHz  */
+#define RCC_PLL3VCIRANGE_3                RCC_PLLCFGR_PLL3RGE_3         /*!< Clock range frequency between 8 and 16 MHz */
 
 /**
   * @}
@@ -1510,6 +1510,14 @@ typedef struct
   */
 
 #endif /*DUAL_CORE*/
+
+/** @defgroup RCCEx_EXTI_LINE_LSECSS  RCC LSE CSS external interrupt line
+  * @{
+  */
+#define RCC_EXTI_LINE_LSECSS           EXTI_IMR1_IM18        /*!< External interrupt line 19 connected to the LSE CSS EXTI Line */
+/**
+  * @}
+  */
 
 /** @defgroup RCCEx_CRS_Status RCCEx CRS Status
   * @{
@@ -3403,6 +3411,134 @@ typedef struct
 /**
   * @}
   */
+
+/**
+  * @brief Enable the RCC LSE CSS Extended Interrupt Line.
+  * @retval None
+  */
+#define __HAL_RCC_LSECSS_EXTI_ENABLE_IT()      SET_BIT(EXTI->IMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Disable the RCC LSE CSS Extended Interrupt Line.
+  * @retval None
+  */
+#define __HAL_RCC_LSECSS_EXTI_DISABLE_IT()     CLEAR_BIT(EXTI->IMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Enable the RCC LSE CSS Event Line.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_ENABLE_EVENT()   SET_BIT(EXTI->EMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Disable the RCC LSE CSS Event Line.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_DISABLE_EVENT()  CLEAR_BIT(EXTI->EMR1, RCC_EXTI_LINE_LSECSS)
+
+#if defined(DUAL_CORE)
+/**
+  * @brief Enable the RCC LSE CSS Extended Interrupt Line for CM4.
+  * @retval None
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_ENABLE_IT()       SET_BIT(EXTI->C2IMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Disable the RCC LSE CSS Extended Interrupt Line for CM4.
+  * @retval None
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_DISABLE_IT()      CLEAR_BIT(EXTI->C2IMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Enable the RCC LSE CSS Event Line for CM4.
+  * @retval None.
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_ENABLE_EVENT()    SET_BIT(EXTI->C2EMR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Disable the RCC LSE CSS Event Line for CM4.
+  * @retval None.
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_DISABLE_EVENT()   CLEAR_BIT(EXTI->C2EMR1, RCC_EXTI_LINE_LSECSS)
+#endif /* DUAL_CORE */
+
+/**
+  * @brief  Enable the RCC LSE CSS Extended Interrupt Falling Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_ENABLE_FALLING_EDGE()  SET_BIT(EXTI->FTSR1, RCC_EXTI_LINE_LSECSS)
+
+
+/**
+  * @brief Disable the RCC LSE CSS Extended Interrupt Falling Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_DISABLE_FALLING_EDGE()  CLEAR_BIT(EXTI->FTSR1, RCC_EXTI_LINE_LSECSS)
+
+
+/**
+  * @brief  Enable the RCC LSE CSS Extended Interrupt Rising Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_ENABLE_RISING_EDGE()   SET_BIT(EXTI->RTSR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Disable the RCC LSE CSS Extended Interrupt Rising Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_DISABLE_RISING_EDGE()  CLEAR_BIT(EXTI->RTSR1, RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Enable the RCC LSE CSS Extended Interrupt Rising & Falling Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_ENABLE_RISING_FALLING_EDGE()  \
+  do {                                                      \
+    __HAL_RCC_LSECSS_EXTI_ENABLE_RISING_EDGE();             \
+    __HAL_RCC_LSECSS_EXTI_ENABLE_FALLING_EDGE();            \
+  } while(0)
+
+/**
+  * @brief Disable the RCC LSE CSS Extended Interrupt Rising & Falling Trigger.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_DISABLE_RISING_FALLING_EDGE()  \
+  do {                                                       \
+    __HAL_RCC_LSECSS_EXTI_DISABLE_RISING_EDGE();             \
+    __HAL_RCC_LSECSS_EXTI_DISABLE_FALLING_EDGE();            \
+  } while(0)
+
+/**
+  * @brief Check whether the specified RCC LSE CSS EXTI interrupt flag is set or not.
+  * @retval EXTI RCC LSE CSS Line Status.
+  */
+#define __HAL_RCC_LSECSS_EXTI_GET_FLAG()       (READ_BIT(EXTI->PR1, RCC_EXTI_LINE_LSECSS) == RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Clear the RCC LSE CSS EXTI flag.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_CLEAR_FLAG()     WRITE_REG(EXTI->PR1, RCC_EXTI_LINE_LSECSS)
+
+#if defined(DUAL_CORE)
+/**
+  * @brief Check whether the specified RCC LSE CSS EXTI interrupt flag is set or not for CM4.
+  * @retval EXTI RCC LSE CSS Line Status.
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_GET_FLAG()       (READ_BIT(EXTI->C2PR1, RCC_EXTI_LINE_LSECSS) == RCC_EXTI_LINE_LSECSS)
+
+/**
+  * @brief Clear the RCC LSE CSS EXTI flag or not for CM4.
+  * @retval None.
+  */
+#define __HAL_RCC_C2_LSECSS_EXTI_CLEAR_FLAG()     WRITE_REG(EXTI->C2PR1, RCC_EXTI_LINE_LSECSS)
+#endif /* DUAL_CORE */
+/**
+  * @brief Generate a Software interrupt on the RCC LSE CSS EXTI line.
+  * @retval None.
+  */
+#define __HAL_RCC_LSECSS_EXTI_GENERATE_SWIT()  SET_BIT(EXTI->SWIER1, RCC_EXTI_LINE_LSECSS)
+
 /**
   * @brief  Enable the specified CRS interrupts.
   * @param  __INTERRUPT__ specifies the CRS interrupt sources to be enabled.
@@ -3583,6 +3719,9 @@ void HAL_RCCEx_WakeUpStopCLKConfig(uint32_t WakeUpClk);
 void HAL_RCCEx_KerWakeUpStopCLKConfig(uint32_t WakeUpClk);
 void HAL_RCCEx_EnableLSECSS(void);
 void HAL_RCCEx_DisableLSECSS(void);
+void HAL_RCCEx_EnableLSECSS_IT(void);
+void HAL_RCCEx_LSECSS_IRQHandler(void);
+void HAL_RCCEx_LSECSS_Callback(void);
 #if defined(DUAL_CORE)
 void HAL_RCCEx_EnableBootCore(uint32_t RCC_BootCx);
 #endif /*DUAL_CORE*/

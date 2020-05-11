@@ -107,6 +107,7 @@
             "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
             "ELEKTOR_F072C8",
+            "ELEKTOR_F072CB",
             "FEATHER_F405",
             "FYSETC_S6",
             "Generic_F103CB",
@@ -148,9 +149,9 @@
           "pattern": "Firmata[\\\\/]",
           "applicable": false,
           "boards": [
-            "EEXTR_F030_V1", "ELEKTOR_F072C8", "FYSETC_S6", "Generic_F103ZG", "MALYANM200_F103CB",
-            "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "VCCGND_F103ZET6",
-            "VCCGND_F103ZET6Mini", "Wraith32_V1"
+            "EEXTR_F030_V1", "ELEKTOR_F072C8", "ELEKTOR_F072CB", "FYSETC_S6", "Generic_F103ZG",
+            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE",
+            "VCCGND_F103ZET6", "VCCGND_F103ZET6Mini", "Wraith32_V1"
           ]
         },
         {

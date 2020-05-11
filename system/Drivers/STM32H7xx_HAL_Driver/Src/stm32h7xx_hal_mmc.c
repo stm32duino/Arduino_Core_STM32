@@ -387,7 +387,6 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
 {
   uint32_t errorstate;
   MMC_InitTypeDef Init;
-  HAL_StatusTypeDef status;
 
   /* Default SDMMC peripheral configuration for MMC card initialization */
   Init.ClockEdge           = SDMMC_CLOCK_EDGE_RISING;
@@ -397,18 +396,10 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
   Init.ClockDiv            = SDMMC_INIT_CLK_DIV;
 
   /* Initialize SDMMC peripheral interface with default configuration */
-  status = SDMMC_Init(hmmc->Instance, Init);
-  if(status == HAL_ERROR)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_Init(hmmc->Instance, Init);
 
   /* Set Power State to ON */
-  status = SDMMC_PowerState_ON(hmmc->Instance);
-  if(status == HAL_ERROR)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_PowerState_ON(hmmc->Instance);
 
   /* Identify card operating voltage */
   errorstate = MMC_PowerON(hmmc);
@@ -425,6 +416,17 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
   {
     hmmc->State = HAL_MMC_STATE_READY;
     hmmc->ErrorCode |= errorstate;
+    return HAL_ERROR;
+  }
+
+  /* Set Block Size for Card */
+  errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
+  if(errorstate != HAL_MMC_ERROR_NONE)
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+    hmmc->ErrorCode |= errorstate;
+    hmmc->State = HAL_MMC_STATE_READY;
     return HAL_ERROR;
   }
 
@@ -566,20 +568,6 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, ui
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode |= errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -753,20 +741,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, u
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode |= errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -943,20 +917,6 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData,
       add *= 512U;
     }
 
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode |= errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
-    }
-
     /* Configure the MMC DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
     config.DataLength    = MMC_BLOCKSIZE * NumberOfBlocks;
@@ -1048,20 +1008,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode |= errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -1158,20 +1104,6 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pData
       add *= 512U;
     }
 
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode = errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
-    }
-
     /* Configure the MMC DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
     config.DataLength    = MMC_BLOCKSIZE * NumberOfBlocks;
@@ -1266,20 +1198,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pDat
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-    {
-      /* Set Block Size for Card */
-      errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-      if(errorstate != HAL_MMC_ERROR_NONE)
-      {
-        /* Clear all the static flags */
-        __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-        hmmc->ErrorCode |= errorstate;
-        hmmc->State = HAL_MMC_STATE_READY;
-        return HAL_ERROR;
-      }
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -2754,29 +2672,6 @@ HAL_StatusTypeDef MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFieldData, 
 
   /* Initialize data control register */
   hmmc->Instance->DCTRL = 0;
-
-  /* Configure the MMC DPSM (Data Path State Machine) */
-  config.DataTimeOut   = SDMMC_DATATIMEOUT;
-  config.DataLength    = 0;
-  config.DataBlockSize = SDMMC_DATABLOCK_SIZE_1B;
-  config.TransferDir   = SDMMC_TRANSFER_DIR_TO_SDMMC;
-  config.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
-  config.DPSM          = SDMMC_DPSM_DISABLE;
-  (void)SDMMC_ConfigData(hmmc->Instance, &config);
-
-  if ((hmmc->Instance->CLKCR & SDMMC_CLKCR_DDR) == 0U)
-  {
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
-    }
-  }
 
   /* Configure the MMC DPSM (Data Path State Machine) */
   config.DataTimeOut   = SDMMC_DATATIMEOUT;

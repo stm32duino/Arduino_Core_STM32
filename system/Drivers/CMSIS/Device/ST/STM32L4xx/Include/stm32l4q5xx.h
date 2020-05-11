@@ -16284,6 +16284,9 @@ typedef struct
 #define OCTOSPI_DCR1_FRCK_Pos          (1U)
 #define OCTOSPI_DCR1_FRCK_Msk          (0x1UL << OCTOSPI_DCR1_FRCK_Pos)        /*!< 0x00000002 */
 #define OCTOSPI_DCR1_FRCK              OCTOSPI_DCR1_FRCK_Msk                   /*!< Free Running Clock */
+#define OCTOSPI_DCR1_DLYBYP_Pos        (1U)
+#define OCTOSPI_DCR1_DLYBYP_Msk        (0x1UL << OCTOSPI_DCR1_DLYBYP_Pos)      /*!< 0x00000004 */
+#define OCTOSPI_DCR1_DLYBYP            OCTOSPI_DCR1_DLYBYP_Msk                 /*!< Delay Block Bypass */
 #define OCTOSPI_DCR1_CSHT_Pos          (8U)
 #define OCTOSPI_DCR1_CSHT_Msk          (0x7UL << OCTOSPI_DCR1_CSHT_Pos)        /*!< 0x00000700 */
 #define OCTOSPI_DCR1_CSHT              OCTOSPI_DCR1_CSHT_Msk                   /*!< Chip Select High Time */
@@ -16309,6 +16312,9 @@ typedef struct
 #define OCTOSPI_DCR2_WRAPSIZE_2        (0x4UL << OCTOSPI_DCR2_WRAPSIZE_Pos)    /*!< 0x00040000 */
 
 /****************  Bit definition for OCTOSPI_DCR3 register  ******************/
+#define OCTOSPI_DCR3_MAXTRAN_Pos       (0U)
+#define OCTOSPI_DCR3_MAXTRAN_Msk       (0xFFUL << OCTOSPI_DCR3_MAXTRAN_Pos)    /*!< 0x000000FF */
+#define OCTOSPI_DCR3_MAXTRAN           OCTOSPI_DCR3_MAXTRAN_Msk                /*!< Maximum Transfer */
 #define OCTOSPI_DCR3_CSBOUND_Pos       (16U)
 #define OCTOSPI_DCR3_CSBOUND_Msk       (0x1FUL << OCTOSPI_DCR3_CSBOUND_Pos)    /*!< 0x001F0000 */
 #define OCTOSPI_DCR3_CSBOUND           OCTOSPI_DCR3_CSBOUND_Msk                /*!< CS Boundary */

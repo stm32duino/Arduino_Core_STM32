@@ -38,9 +38,31 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section9" checked aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.7.0 / 06-December-2019</strong></label>
+<input type="checkbox" id="collapse-section10" checked aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.8.0 / 14-February-2020</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>General updates to align Bits and registers definitions with the STM32H7 reference manual<br />
+</li>
+<li>Update “ErrorStatus” enumeration definition in stm32h7xx.h file with SUCCESS set to numerical value zero</li>
+<li>Add definition of DMA_SxCR_TRBUFF bit field of DMA SxCR register allowing to enabled/disable bufferable transfers</li>
+<li>Remove RCC_AHB2ENR_CRYPEN/RCC_AHB2RSTR_CRYPRST/RCC_AHB2LPENR_CRYPLPEN and RCC_AHB2ENR_HASHEN/RCC_AHB2RSTR_HASHRST/RCC_AHB2LPENR_HASHLPEN from H7 devices that doesn’t support CRYP/HASH (STM32H742/43/45/47/A3)</li>
+<li>Add STM32H7_DEV_ID define allowing to identfy the H7 Device ID</li>
+<li>Update OCTOSPIM_TypeDef structure definition with 3 PCR registers instead of 8 (on STM32H7A3/B3/B0 devices supporting OctoSPI)</li>
+<li>Add definition for OCTOSPIM_CR_MUXEN and OCTOSPIM_CR_REQ2ACK_TIME in order to support OctoSPI IO Manager multiplexed mode feature (on STM32H7A3/B3/B0 devices supporting OctoSPI)</li>
+<li>Update system_stm32h7xx.c to reflect the current core clock in SystemCoreClock global variable (Corex-M7 or Corext-M4 clock depending of the current context in case of Dual Core)</li>
+<li>Add EWARM linker files for STM32H7A3 devices with reduced Flash size to 1MB:
+<ul>
+<li>stm32h7a3xg_flash.icf, stm32h7a3xg_flash_rw_sram1.icf, stm32h7a3xg_flash_rw_sram2.icf.</li>
+<li>stm32h7a3xgq_flash.icf, stm32h7a3xgq_flash_rw_sram1.icf, stm32h7a3xgq_flash_rw_sram2.icf.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.7.0 / 06-December-2019</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li><p>General updates to align Bit and registers definition with the STM32H7 reference manual</p></li>
 <li>Add support of stm32h7A3xx, stm32h7A3xxQ, stm32h7B3xx, stm32h7B3xxQ, stm32h7B0xx and stm32h7B0xxQ devices:
@@ -70,7 +92,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.6.0 / 28-June-2019</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Add definition of “ART_TypeDef” structure: ART accelerator for Cortex-M4 available in Dual Core devices</li>
 <li>Add definition of “ART” instance: pointer to “ART_TypeDef” structure</li>
@@ -85,7 +107,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>General updates to align Bit and registers definition with the STM32H7 reference manual</li>
 <li>Updates to aligned with STM32H7xx <strong>rev.V</strong> devices</li>
@@ -149,7 +171,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.3.1 / 31-January-2019</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><strong>Patch Release on top of V1.3.0</strong></li>
 <li>Add Definition of UID_BASE ( Unique device ID register base address) to the STM32H7xx include files:
@@ -162,7 +184,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 30-November-2018</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>STM32H7xx include files:
 <ul>
@@ -207,7 +229,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 29-June-2018</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Add support for stm32h750xx value line devices:
 <ul>
@@ -220,7 +242,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section3"  aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 29-December-2017</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>Update FDCAN bit definition</li>
 <li>Update SystemCoreClockUpdate() function in system_stm32h7xx.c file to use direct register access</li>
@@ -230,7 +252,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 31-August-2017</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>Update USB OTG bit definition</li>
 <li>Adjust PLL fractional computation</li>
@@ -240,7 +262,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 21-April-2017</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>First official release for <strong>STM32H743xx/753xx</strong> devices</li>
 </ul>

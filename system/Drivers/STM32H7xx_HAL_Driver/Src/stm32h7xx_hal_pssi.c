@@ -185,6 +185,7 @@ void PSSI_DMAReceiveCplt(DMA_HandleTypeDef *hdma);
 void PSSI_DMAError(DMA_HandleTypeDef *hdma);
 void PSSI_DMAAbort(DMA_HandleTypeDef *hdma);
 
+
 /* Private functions to handle IT transfer */
 static void PSSI_Error(PSSI_HandleTypeDef *hpssi, uint32_t ErrorCode);
 
@@ -613,6 +614,10 @@ HAL_StatusTypeDef HAL_PSSI_Transmit(PSSI_HandleTypeDef *hpssi, uint8_t *pData, u
   uint32_t tickstart;
   uint32_t  transfer_size = Size;
 
+#if defined (__GNUC__)
+  __IO uint16_t *pdr_16bits = (__IO uint16_t *)(&(hpssi->Instance->DR));
+#endif /* __GNUC__ */
+
   if (((hpssi->Init.DataWidth == HAL_PSSI_8BITS) && (hpssi->Init.BusWidth != HAL_PSSI_8LINES)) ||
       ((hpssi->Init.DataWidth == HAL_PSSI_16BITS) && ((Size%2U) != 0U)) ||
       ((hpssi->Init.DataWidth == HAL_PSSI_32BITS) && ((Size%4U) != 0U)))
@@ -682,7 +687,11 @@ HAL_StatusTypeDef HAL_PSSI_Transmit(PSSI_HandleTypeDef *hpssi, uint8_t *pData, u
           return HAL_ERROR;
         }
         /* Write data to DR */
+#if defined (__GNUC__)
+        *pdr_16bits = *pbuffer;
+#else
         *(__IO uint16_t *)((uint32_t)(&hpssi->Instance->DR)) = *pbuffer;
+#endif /* __GNUC__ */
 
         /* Increment Buffer pointer */
         pbuffer++;
@@ -763,6 +772,9 @@ HAL_StatusTypeDef HAL_PSSI_Receive(PSSI_HandleTypeDef *hpssi, uint8_t *pData, ui
 {
   uint32_t tickstart;
   uint32_t  transfer_size = Size;
+#if defined (__GNUC__)
+  __IO uint16_t *pdr_16bits = (__IO uint16_t *)(&(hpssi->Instance->DR));
+#endif /* __GNUC__ */
 
   if (((hpssi->Init.DataWidth == HAL_PSSI_8BITS) && (hpssi->Init.BusWidth != HAL_PSSI_8LINES)) ||
       ((hpssi->Init.DataWidth == HAL_PSSI_16BITS) && ((Size%2U) != 0U)) ||
@@ -833,7 +845,12 @@ HAL_StatusTypeDef HAL_PSSI_Receive(PSSI_HandleTypeDef *hpssi, uint8_t *pData, ui
         }
 
         /* Read data from DR */
+#if defined (__GNUC__)
+        *pbuffer = *pdr_16bits;
+#else
         *pbuffer = *(__IO uint16_t *)((uint32_t)&hpssi->Instance->DR);
+#endif /* __GNUC__ */
+
         pbuffer++;
         transfer_size -= 2U;
 

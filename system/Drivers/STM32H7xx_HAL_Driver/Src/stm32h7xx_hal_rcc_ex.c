@@ -2635,21 +2635,37 @@ void HAL_RCCEx_GetPLL1ClockFreq(PLL1_ClocksTypeDef* PLL1_Clocks)
 }
 
 /**
-  * @brief  Returns the main Core frequency
-  * @note   Each time core clock changes, this function must be called to update the
-  *         right system core clock value. Otherwise, any configuration based on this function will be incorrect.
-  * @note   The SystemCoreClock CMSIS variable is used to store System Clock Frequency
+  * @brief  Returns the main System frequency
+  * @note   Each time System clock changes, this function must be called to update the
+  *         right core clock value. Otherwise, any configuration based on this function will be incorrect.
+  * @note   The SystemCoreClock CMSIS variable is used to store System current Core Clock Frequency
   *         and updated within this function
   * @retval HCLK frequency
   */
 uint32_t HAL_RCCEx_GetD1SysClockFreq(void)
 {
+uint32_t common_system_clock;
+
 #if defined(RCC_D1CFGR_D1CPRE)
-  SystemCoreClock = HAL_RCC_GetSysClockFreq() >> (D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_D1CPRE)>> RCC_D1CFGR_D1CPRE_Pos] & 0x1FU);
+  common_system_clock = HAL_RCC_GetSysClockFreq() >> (D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_D1CPRE)>> RCC_D1CFGR_D1CPRE_Pos] & 0x1FU);
 #else
-  SystemCoreClock = HAL_RCC_GetSysClockFreq() >> (D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_CDCPRE)>> RCC_CDCFGR1_CDCPRE_Pos] & 0x1FU);
+  common_system_clock = HAL_RCC_GetSysClockFreq() >> (D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_CDCPRE)>> RCC_CDCFGR1_CDCPRE_Pos] & 0x1FU);
 #endif
-  return SystemCoreClock;
+
+  /* Update the SystemD2Clock global variable */
+#if defined(RCC_D1CFGR_HPRE)
+  SystemD2Clock = (common_system_clock >> ((D1CorePrescTable[(RCC->D1CFGR & RCC_D1CFGR_HPRE)>> RCC_D1CFGR_HPRE_Pos]) & 0x1FU));
+#else
+  SystemD2Clock = (common_system_clock >> ((D1CorePrescTable[(RCC->CDCFGR1 & RCC_CDCFGR1_HPRE)>> RCC_CDCFGR1_HPRE_Pos]) & 0x1FU));
+#endif
+
+#if defined(DUAL_CORE) && defined(CORE_CM4)
+  SystemCoreClock = SystemD2Clock;
+#else
+  SystemCoreClock = common_system_clock;
+#endif /* DUAL_CORE && CORE_CM4 */
+
+  return common_system_clock;
 }
 /**
   * @}
@@ -2681,6 +2697,28 @@ void HAL_RCCEx_DisableLSECSS(void)
   CLEAR_BIT(RCC->BDCR, RCC_BDCR_LSECSSON) ;
   /* Disable LSE CSS IT if any */
   __HAL_RCC_DISABLE_IT(RCC_IT_LSECSS);
+}
+
+/**
+  * @brief  Enable the LSE Clock Security System Interrupt & corresponding EXTI line.
+  * @note   LSE Clock Security System Interrupt is mapped on EXTI line 18
+  * @retval None
+  */
+void HAL_RCCEx_EnableLSECSS_IT(void)
+{
+  /* Enable LSE CSS */
+  SET_BIT(RCC->BDCR, RCC_BDCR_LSECSSON) ;
+
+  /* Enable LSE CSS IT */
+  __HAL_RCC_ENABLE_IT(RCC_IT_LSECSS);
+
+  /* Enable IT on EXTI Line 18 */
+#if defined(DUAL_CORE) && defined(CORE_CM4)
+  __HAL_RCC_C2_LSECSS_EXTI_ENABLE_IT();
+#else
+  __HAL_RCC_LSECSS_EXTI_ENABLE_IT();
+#endif /* DUAL_CORE && CORE_CM4 */
+  __HAL_RCC_LSECSS_EXTI_ENABLE_RISING_EDGE();
 }
 
 /**
@@ -3350,6 +3388,38 @@ static HAL_StatusTypeDef RCCEx_PLL3_Config(RCC_PLL3InitTypeDef *pll3, uint32_t D
 
   return status;
 }
+
+/**
+  * @brief Handle the RCC LSE Clock Security System interrupt request.
+  * @retval None
+  */
+void HAL_RCCEx_LSECSS_IRQHandler(void)
+{
+  /* Check RCC LSE CSSF flag  */
+  if(__HAL_RCC_GET_IT(RCC_IT_LSECSS))
+  {
+
+    /* Clear RCC LSE CSS pending bit */
+    __HAL_RCC_CLEAR_IT(RCC_IT_LSECSS);
+
+    /* RCC LSE Clock Security System interrupt user callback */
+    HAL_RCCEx_LSECSS_Callback();
+
+  }
+}
+
+/**
+  * @brief  RCCEx LSE Clock Security System interrupt callback.
+  * @retval none
+  */
+__weak void HAL_RCCEx_LSECSS_Callback(void)
+{
+  /* NOTE : This function should not be modified, when the callback is needed,
+            the @ref HAL_RCCEx_LSECSS_Callback should be implemented in the user file
+   */
+}
+
+
 
 /**
   * @}
