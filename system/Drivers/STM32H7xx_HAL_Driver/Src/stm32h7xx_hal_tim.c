@@ -2617,10 +2617,10 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Init(TIM_HandleTypeDef *htim,  TIM_Encoder_Ini
   }
 
   /* Check the parameters */
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
   assert_param(IS_TIM_COUNTER_MODE(htim->Init.CounterMode));
   assert_param(IS_TIM_CLOCKDIVISION_DIV(htim->Init.ClockDivision));
   assert_param(IS_TIM_AUTORELOAD_PRELOAD(htim->Init.AutoReloadPreload));
-  assert_param(IS_TIM_CC2_INSTANCE(htim->Instance));
   assert_param(IS_TIM_ENCODER_MODE(sConfig->EncoderMode));
   assert_param(IS_TIM_IC_SELECTION(sConfig->IC1Selection));
   assert_param(IS_TIM_IC_SELECTION(sConfig->IC2Selection));
@@ -2783,7 +2783,7 @@ __weak void HAL_TIM_Encoder_MspDeInit(TIM_HandleTypeDef *htim)
 HAL_StatusTypeDef HAL_TIM_Encoder_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_CC2_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   /* Enable the encoder interface channels */
   switch (Channel)
@@ -2827,7 +2827,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Start(TIM_HandleTypeDef *htim, uint32_t Channe
 HAL_StatusTypeDef HAL_TIM_Encoder_Stop(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_CC2_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   /* Disable the Input Capture channels 1 and 2
     (in the EncoderInterface the two possible channels that can be used are TIM_CHANNEL_1 and TIM_CHANNEL_2) */
@@ -2873,7 +2873,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Stop(TIM_HandleTypeDef *htim, uint32_t Channel
 HAL_StatusTypeDef HAL_TIM_Encoder_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_CC2_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   /* Enable the encoder interface channels */
   /* Enable the capture compare Interrupts 1 and/or 2 */
@@ -2923,7 +2923,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Start_IT(TIM_HandleTypeDef *htim, uint32_t Cha
 HAL_StatusTypeDef HAL_TIM_Encoder_Stop_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_CC2_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   /* Disable the Input Capture channels 1 and 2
     (in the EncoderInterface the two possible channels that can be used are TIM_CHANNEL_1 and TIM_CHANNEL_2) */
@@ -2978,7 +2978,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Ch
                                             uint32_t *pData2, uint16_t Length)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   if (htim->State == HAL_TIM_STATE_BUSY)
   {
@@ -3112,7 +3112,7 @@ HAL_StatusTypeDef HAL_TIM_Encoder_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Ch
 HAL_StatusTypeDef HAL_TIM_Encoder_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
+  assert_param(IS_TIM_ENCODER_INTERFACE_INSTANCE(htim->Instance));
 
   /* Disable the Input Capture channels 1 and 2
     (in the EncoderInterface the two possible channels that can be used are TIM_CHANNEL_1 and TIM_CHANNEL_2) */

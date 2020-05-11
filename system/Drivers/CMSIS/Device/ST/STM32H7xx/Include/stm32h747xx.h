@@ -8684,6 +8684,9 @@ typedef struct
 #define DMA_SxCR_PBURST          DMA_SxCR_PBURST_Msk                           /*!< Peripheral burst transfer configuration */
 #define DMA_SxCR_PBURST_0        (0x1UL << DMA_SxCR_PBURST_Pos)                 /*!< 0x00200000 */
 #define DMA_SxCR_PBURST_1        (0x2UL << DMA_SxCR_PBURST_Pos)                 /*!< 0x00400000 */
+#define DMA_SxCR_TRBUFF_Pos      (20U)
+#define DMA_SxCR_TRBUFF_Msk      (0x1UL << DMA_SxCR_TRBUFF_Pos)                 /*!< 0x00100000 */
+#define DMA_SxCR_TRBUFF          DMA_SxCR_TRBUFF_Msk                            /*!< bufferable transfers enabled/disable */
 #define DMA_SxCR_CT_Pos          (19U)
 #define DMA_SxCR_CT_Msk          (0x1UL << DMA_SxCR_CT_Pos)                    /*!< 0x00080000 */
 #define DMA_SxCR_CT              DMA_SxCR_CT_Msk                               /*!< Current target (only in double buffer mode) */
@@ -18913,12 +18916,6 @@ typedef struct
 #define RCC_AHB2ENR_DCMIEN_Pos                 (0U)
 #define RCC_AHB2ENR_DCMIEN_Msk                 (0x1UL << RCC_AHB2ENR_DCMIEN_Pos)          /*!< 0x00000001 */
 #define RCC_AHB2ENR_DCMIEN                     RCC_AHB2ENR_DCMIEN_Msk
-#define RCC_AHB2ENR_CRYPEN_Pos                 (4U)
-#define RCC_AHB2ENR_CRYPEN_Msk                 (0x1UL << RCC_AHB2ENR_CRYPEN_Pos)          /*!< 0x00000010 */
-#define RCC_AHB2ENR_CRYPEN                     RCC_AHB2ENR_CRYPEN_Msk
-#define RCC_AHB2ENR_HASHEN_Pos                 (5U)
-#define RCC_AHB2ENR_HASHEN_Msk                 (0x1UL << RCC_AHB2ENR_HASHEN_Pos)          /*!< 0x00000020 */
-#define RCC_AHB2ENR_HASHEN                     RCC_AHB2ENR_HASHEN_Msk
 #define RCC_AHB2ENR_RNGEN_Pos                  (6U)
 #define RCC_AHB2ENR_RNGEN_Msk                  (0x1UL << RCC_AHB2ENR_RNGEN_Pos)           /*!< 0x00000040 */
 #define RCC_AHB2ENR_RNGEN                      RCC_AHB2ENR_RNGEN_Msk
@@ -19247,12 +19244,6 @@ typedef struct
 #define RCC_AHB2RSTR_DCMIRST_Pos               (0U)
 #define RCC_AHB2RSTR_DCMIRST_Msk               (0x1UL << RCC_AHB2RSTR_DCMIRST_Pos)       /*!< 0x00000001 */
 #define RCC_AHB2RSTR_DCMIRST                   RCC_AHB2RSTR_DCMIRST_Msk
-#define RCC_AHB2RSTR_CRYPRST_Pos               (4U)
-#define RCC_AHB2RSTR_CRYPRST_Msk               (0x1UL << RCC_AHB2RSTR_CRYPRST_Pos)       /*!< 0x00000010 */
-#define RCC_AHB2RSTR_CRYPRST                   RCC_AHB2RSTR_CRYPRST_Msk
-#define RCC_AHB2RSTR_HASHRST_Pos               (5U)
-#define RCC_AHB2RSTR_HASHRST_Msk               (0x1UL << RCC_AHB2RSTR_HASHRST_Pos)       /*!< 0x00000020 */
-#define RCC_AHB2RSTR_HASHRST                   RCC_AHB2RSTR_HASHRST_Msk
 #define RCC_AHB2RSTR_RNGRST_Pos                (6U)
 #define RCC_AHB2RSTR_RNGRST_Msk                (0x1UL << RCC_AHB2RSTR_RNGRST_Pos)        /*!< 0x00000040 */
 #define RCC_AHB2RSTR_RNGRST                    RCC_AHB2RSTR_RNGRST_Msk
@@ -19643,12 +19634,6 @@ typedef struct
 #define RCC_AHB2LPENR_DCMILPEN_Pos             (0U)
 #define RCC_AHB2LPENR_DCMILPEN_Msk             (0x1UL << RCC_AHB2LPENR_DCMILPEN_Pos) /*!< 0x00000001 */
 #define RCC_AHB2LPENR_DCMILPEN                 RCC_AHB2LPENR_DCMILPEN_Msk
-#define RCC_AHB2LPENR_CRYPLPEN_Pos             (4U)
-#define RCC_AHB2LPENR_CRYPLPEN_Msk             (0x1UL << RCC_AHB2LPENR_CRYPLPEN_Pos) /*!< 0x00000010 */
-#define RCC_AHB2LPENR_CRYPLPEN                 RCC_AHB2LPENR_CRYPLPEN_Msk
-#define RCC_AHB2LPENR_HASHLPEN_Pos             (5U)
-#define RCC_AHB2LPENR_HASHLPEN_Msk             (0x1UL << RCC_AHB2LPENR_HASHLPEN_Pos) /*!< 0x00000020 */
-#define RCC_AHB2LPENR_HASHLPEN                 RCC_AHB2LPENR_HASHLPEN_Msk
 #define RCC_AHB2LPENR_RNGLPEN_Pos              (6U)
 #define RCC_AHB2LPENR_RNGLPEN_Msk              (0x1UL << RCC_AHB2LPENR_RNGLPEN_Pos) /*!< 0x00000040 */
 #define RCC_AHB2LPENR_RNGLPEN                  RCC_AHB2LPENR_RNGLPEN_Msk
@@ -24844,6 +24829,8 @@ typedef struct
 /*                                DBG                                         */
 /*                                                                            */
 /******************************************************************************/
+/*********************************  DEVICE ID  ********************************/
+#define STM32H7_DEV_ID           0x450UL
 
 /********************  Bit definition for DBGMCU_IDCODE register  *************/
 #define DBGMCU_IDCODE_DEV_ID_Pos          (0U)

@@ -60,7 +60,7 @@
 
 #if !defined (STM32H743xx) && !defined (STM32H753xx)  && !defined (STM32H750xx) && !defined (STM32H742xx) && \
     !defined (STM32H745xx) && !defined (STM32H755xx)  && !defined (STM32H747xx) && !defined (STM32H757xx) && \
-    !defined (STM32H7A3xx) && !defined (STM32H7A3xxQ) && !defined (STM32H7B3xx) && !defined (STM32H7B3xxQ) && !defined (STM32H7B0xx) && !defined (STM32H7B0xxQ)
+    !defined (STM32H7A3xx) && !defined (STM32H7A3xxQ) && !defined (STM32H7B3xx) && !defined (STM32H7B3xxQ) && !defined (STM32H7B0xx)  && !defined (STM32H7B0xxQ)
   /* #define STM32H742xx */   /*!< STM32H742VI, STM32H742ZI, STM32H742AI, STM32H742II, STM32H742BI, STM32H742XI Devices */
   /* #define STM32H743xx */   /*!< STM32H743VI, STM32H743ZI, STM32H743AI, STM32H743II, STM32H743BI, STM32H743XI Devices */
   /* #define STM32H753xx */   /*!< STM32H753VI, STM32H753ZI, STM32H753AI, STM32H753II, STM32H753BI, STM32H753XI Devices */
@@ -94,10 +94,10 @@
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number V1.7.0
+  * @brief CMSIS Device version number V1.8.0
   */
 #define __STM32H7xx_CMSIS_DEVICE_VERSION_MAIN   (0x01) /*!< [31:24] main version */
-#define __STM32H7xx_CMSIS_DEVICE_VERSION_SUB1   (0x07) /*!< [23:16] sub1 version */
+#define __STM32H7xx_CMSIS_DEVICE_VERSION_SUB1   (0x08) /*!< [23:16] sub1 version */
 #define __STM32H7xx_CMSIS_DEVICE_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
 #define __STM32H7xx_CMSIS_DEVICE_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32H7xx_CMSIS_DEVICE_VERSION        ((__CMSIS_DEVICE_VERSION_MAIN     << 24)\
@@ -167,8 +167,8 @@ typedef enum
 
 typedef enum
 {
-  ERROR = 0,
-  SUCCESS = !ERROR
+  SUCCESS = 0,
+  ERROR = !SUCCESS
 } ErrorStatus;
 
 /**

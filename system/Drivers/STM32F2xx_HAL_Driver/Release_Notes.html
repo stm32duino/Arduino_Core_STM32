@@ -25,7 +25,7 @@
 <h1 id="release-notes-for-stm32f2xx-hal-drivers"><strong>Release Notes for STM32F2xx HAL Drivers</strong></h1>
 <p>Copyright © 2017 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="../../_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
 </center>
 </div>
 </div>
@@ -38,15 +38,82 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.2.3 / 26-June-2019</strong></label>
+<input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.2.4 / 31-December-2019</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
-<li>Add support of HAL callback registration feature</li>
-<li>Add new <strong>HAL EXTI</strong> driver</li>
+<li><strong>HAL/LL GPIO</strong> update
+<ul>
+<li>Update GPIO initialization sequence to avoid unwanted pulse on GPIO Pin’s</li>
+</ul></li>
+<li><strong>HAL I2C</strong> update
+<ul>
+<li>Update HAL_I2C_EV_IRQHandler() API to fix I2C send break issue
+<ul>
+<li>Add additional check on hi2c-&gt;hdmatx, hdmatx-&gt;XferCpltCallback, hi2c-&gt;hdmarx, hdmarx-&gt;XferCpltCallback in I2C_Master_SB() API to avoid enabling DMA request when IT mode is used.</li>
+</ul></li>
+<li>Update HAL_I2C_ER_IRQHandler() API to fix acknowledge failure issue with I2C memory IT processes
+<ul>
+<li>Add stop condition generation when NACK occurs.</li>
+</ul></li>
+<li>Update HAL_I2C_Init() API to force software reset before setting new I2C configuration.</li>
+<li>Update HAL I2C processes to report ErrorCode when wrong I2C start condition occurs
+<ul>
+<li>Add new ErrorCode define: HAL_I2C_WRONG_START</li>
+<li>Set ErrorCode parameter in I2C handle to HAL_I2C_WRONG_START</li>
+</ul></li>
+<li>Update I2C_DMAXferCplt(), I2C_DMAError() and I2C_DMAAbort() APIs to fix hardfault issue when hdmatx and hdmarx parameters in i2c handle aren’t initialized (NULL pointer).
+<ul>
+<li>Add additional check on hi2c-&gt;hdmtx and hi2c-&gt;hdmarx before resetting DMA Tx/Rx complete callbacks.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL IRDA</strong> update
+<ul>
+<li>Update IRDA interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_IRDA_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong> update
+<ul>
+<li>Update SMARTCARD interruption handler to manage correctly the overrun interrupt.
+<ul>
+<li>Add in the HAL_SMARTCARD_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL UART</strong> update
+<ul>
+<li>Update UART polling processes to handle efficiently the Lock mechanism
+<ul>
+<li>Move the process unlock at the top of the HAL_UART_Receive() and HAL_UART_Transmit() API.</li>
+</ul></li>
+<li>Update UART interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_UART_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL USART</strong> update
+<ul>
+<li>Update USART interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_USART_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.2.3 / 26-June-2019</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li>HAL drivers clean up: remove double casting ‘uint32_t’ and ‘U’</li>
 <li>General updates to fix CodeSonar compilation warnings</li>
 <li>General updates to fix the user manual .chm files</li>
+<li>Add support of HAL callback registration feature</li>
+<li>Add new <strong>HAL EXTI</strong> driver</li>
 <li><strong>The following changes done on the HAL drivers require an update on the application code based on older HAL versions</strong>
 <ul>
 <li><strong>HAL/LL Generic</strong> update
@@ -96,7 +163,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>HAL_IS_BIT_SET()/HAL_IS_BIT_CLR() macros implementation update</li>
 <li>“stdio.h” include updated with “stddef.h”</li>
 </ul></li>
-<li>Add HAL_GetUIDw0(), HAL_GetUIDw1() and HAL_GetUIDw2() API in order to return the unique device identifier</li>
+<li>Add HAL_GetUIDw0(), HAL_GetUIDw1() and HAL_GetUIDw2() API in order to returns the unique device identifier</li>
 </ul></li>
 <li><strong>HAL CAN</strong> update
 <ul>
@@ -104,25 +171,47 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <ul>
 <li>SJW to SyncJumpWidth, BS1 to TimeSeg1, BS2 to TimeSeg2, TTCM to TimeTriggeredMode, ABOM to AutoBusOff, AWUM to AutoWakeUp, NART to AutoRetransmission (inversed), RFLM to ReceiveFifoLocked and TXFP to TransmitFifoPriority</li>
 </ul></li>
+<li>Rename CAN_FilterConfTypeDef structure to CAN_FilterTypeDef and update some fields:
+<ul>
+<li>FilterNumber to FilterBank</li>
+<li>BankNumber to SlaveStartFilterBank</li>
+</ul></li>
+<li>Rename CanTxMsgTypeDef structure to CAN_TxHeaderTypeDef and update some fields:
+<ul>
+<li>Data to TransmitGlobalTime</li>
+</ul></li>
+<li>Rename CanRxMsgTypeDef structure to CAN_RxHeaderTypeDef and update some fields:
+<ul>
+<li>Data to Timestamp</li>
+<li>FMI to FilterMatchIndex</li>
+</ul></li>
 <li>Update possible values list for FilterActivation parameter in CAN_FilterTypeDef structure
 <ul>
 <li>CAN_FILTER_ENABLE instead of ENABLE</li>
 <li>CAN_FILTER_DISABLE instead of DISABLE</li>
 </ul></li>
-<li>HAL_CAN_Init() is split into HAL_CAN_Init() and HAL_CAN_Start() APIs</li>
+<li>HAL_CAN_Init() is split into both HAL_CAN_Init() and HAL_CAN_Start() API’s</li>
 <li>HAL_CAN_Transmit() is replaced by HAL_CAN_AddTxMessage() to place Tx Request, then HAL_CAN_GetTxMailboxesFreeLevel() for polling until completion.</li>
-<li>HAL_CAN_Transmit_IT() is replaced by HAL_CAN_ActivateNotification() to enable transmit IT, then HAL_CAN_AddTxMessage() to place Tx request.</li>
-<li>HAL_CAN_Receive() is replaced by HAL_CAN_GetRxFifoFillLevel() for polling until reception, then HAL_CAN_GetRxMessage() to get Rx message.</li>
-<li>HAL_CAN_Receive_IT() is replaced by HAL_CAN_ActivateNotification() to enable receive IT, then HAL_CAN_GetRxMessage() in the receive callback to get Rx message</li>
+<li>HAL_CAN_Transmit_IT() is replaced by HAL_CAN_ActivateNotification() to enable transmit IT, then HAL_CAN_AddTxMessage() for place Tx request.</li>
+<li>HAL_CAN_Receive() is replaced by HAL_CAN_GetRxFifoFillLevel() for polling until reception, then HAL_CAN_GetRxMessage()</li>
+<li>to get Rx message.</li>
+<li>HAL_CAN_Receive_IT() is replaced by HAL_CAN_ActivateNotification() to enable receive IT, then HAL_CAN_GetRxMessage()</li>
+<li>in the receive callback to get Rx message</li>
 <li>HAL_CAN_Slepp() is renamed as HAL_CAN_RequestSleep()</li>
 <li>HAL_CAN_TxCpltCallback() is split into HAL_CAN_TxMailbox0CompleteCallback(), HAL_CAN_TxMailbox1CompleteCallback() and HAL_CAN_TxMailbox2CompleteCallback().</li>
 <li>HAL_CAN_RxCpltCallback is split into HAL_CAN_RxFifo0MsgPendingCallback() and HAL_CAN_RxFifo1MsgPendingCallback().</li>
 <li>More complete “How to use the new driver” is detailed in the driver header section itself.</li>
+<li><em>Refer to the following example to identify the changes</em></li>
 </ul></li>
 <li><strong>HAL CRC</strong> update
 <ul>
-<li>Update HAL_CRC_DeInit() API to be more safe</li>
-<li>Remove lock mechanism on the followings API’s:
+<li>Update __HAL_CRC_DR_RESET() macro</li>
+<li>Update HAL_CRC_DeInit() API to
+<ul>
+<li>Be able to return HAL status when CRC is is already busy</li>
+<li>DeInit the low level hardware after reset IDR register content</li>
+</ul></li>
+<li>Remove extra call to HAL_LOCK/HAL_UNLOCK from the followings API’s:
 <ul>
 <li>HAL_CRC_Accumulate()</li>
 <li>HAL_CRC_Calculate()</li>
@@ -130,7 +219,8 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li><strong>HAL CRYP</strong> update
 <ul>
-<li><strong>The CRYP_InitTypeDef</strong> is no more supported, changed by <strong>CRYP_ConfigTypedef</strong> to allow parameters change using HAL_CRYP_setConfig() API without reinitializing the CRYP IP using the HAL_CRYP_Init() API</li>
+<li><strong>The CRYP_InitTypeDef</strong> is no more supported, changed by <strong>CRYP_ConfigTypedef</strong> to allow changing parameters</li>
+<li>Using HAL_CRYP_setConfig() API without reinitialize the CRYP IP using the HAL_CRYP_Init() API</li>
 <li>New parameters added in the <strong>CRYP_ConfigTypeDef</strong> structure: <strong>B0</strong> and <strong>DataWidthUnit</strong></li>
 <li>Input data size and error code parameters are added in the <strong>CRYP_HandleTypeDef</strong> structure</li>
 <li>Add new APIs to manage the CRYP configuration:
@@ -147,32 +237,49 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>HAL_CRYP_Encypt_DMA()</li>
 <li>HAL_CRYP_Decypt_DMA()</li>
 </ul></li>
+<li>More complete “How to use the new driver” is detailed in the driver header section itself.</li>
+<li><em>Refer to the following example to identify the changes</em></li>
 </ul></li>
 <li><strong>HAL DAC</strong> update
 <ul>
-<li>General updates for more efficiency implementation</li>
-<li>Update HAL_DAC_IRQHandler() to manage DAC Under-run error only once DAC DMAUDR interrupt is enabled</li>
+<li>Overall rework of the driver for a more efficient implementation
+<ul>
+<li>Update HAL_DAC_Start(), HAL_DAC_Start_DMA(), HAL_DAC_Stop_DMA() and HAL_DAC_ConfigChannel() API to
+<ul>
+<li>Update lock mechanism for DAC process</li>
+<li>Optimize code by using direct register read</li>
+</ul></li>
+<li>Update HAL_DAC_IRQHandler() function to
+<ul>
+<li>Add error management in case DMA errors through HAL_DAC_DMAUnderrunCallbackCh1() and HAL_DACEx_DMAUnderrunCallbackCh2()</li>
+<li>Optimize code by using direct register read</li>
+</ul></li>
+</ul></li>
 </ul></li>
 <li><strong>HAL DCMI</strong> update
 <ul>
+<li>Update HAL_DCMI_Start_DMA() function to Enable the DCMI peripheral</li>
 <li>Add new timeout implementation based on cpu cycles for DCMI stop</li>
-<li>Update HAL_DCMI_IRQHandler() API to clear the End of Frame flag in case of Frame error</li>
-<li>The extension files stm32f2xx_hal_dcmi_ex.c/.h is added and kept empty for compatibility reason with other STM32 series</li>
+<li>Update lock mechanism for DCMI process</li>
+<li>Update HAL_DCMI_IRQHandler() function to:
+<ul>
+<li>Optimize code by using direct register read</li>
+</ul></li>
+<li>The extension files stm32f2xx_hal_dcmi_ex.c/.h is added and kept empty for projects compatibility reason</li>
 <li>Add DCMI_SyncUnmaskTypeDef structure and HAL_DCMI_ConfigSyncUnmask() API to manage embedded synchronization delimiters unmasks</li>
 <li>HAL DCMI driver clean-up: remove non referenced callback APIs: HAL_DCMI_VsyncCallback() and HAL_DCMI_HsyncCallback()</li>
 </ul></li>
 <li><strong>HAL DMA</strong> update
 <ul>
-<li>HAL_DMA_DeInit() API: Add clean of DMA handler callbacks</li>
-<li>HAL_DMA_Start_IT API: Remove FIFO error management
+<li>Add clean of callbacks in HAL_DMA_DeInit() API</li>
+<li>Remove FIFO error enabling in “HAL_DMA_Start_IT”
 <ul>
-<li>when FIFO error monitoring is requested in IT mode, the macro __HAL_DMA_ENABLE_IT can be used to enable the FIFO error IT in user application</li>
+<li>when FIFO error monitoring is requested in IT model, the macro __HAL_DMA_ENABLE_IT can be used to enable the FIFO error IT at the user Msp functio</li>
 </ul></li>
 </ul></li>
 <li><strong>HAL FLASH</strong> update
 <ul>
-<li>HAL_FLASH_Unlock() update to return state error when flash is still locked.</li>
-<li>FLASH_Program_DoubleWord() updated to fix Program DoubleWord fails (PGAERR) when using STRD assembly instruction.</li>
+<li>HAL_FLASH_Unlock() update to return state error when the FLASH is already unlocked</li>
 </ul></li>
 <li><strong>HAL GPIO</strong> update
 <ul>
@@ -183,6 +290,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <ul>
 <li>Overall rework of the driver for a more efficient implementation
 <ul>
+<li>HASH API changes for MISRA-C 2012 compliance</li>
 <li>Update HASH_Start_DMA() to add check on HASH_CR_MDMAT bit before checking input buffer length in case of multi-buffer processing</li>
 <li>Fill-up empty statement in HAL_HASH_DMAFeed_ProcessSuspend() to correct CodeSonar warning</li>
 </ul></li>
@@ -210,62 +318,17 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li>Fix I2C send break issue in IT processes
 <ul>
-<li>Add additional check on hi2c-&gt;hdmatx and hi2c-&gt;hdmarx to avoid the DMA request enable when ITmode is used.</li>
+<li>Add additional check on hi2c-&gt;hdmatxand hi2c-&gt;hdmarx to avoid the DMA request enable when ITmode is used.</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL IRDA</strong> driver
+<li><strong>HAL UART/USART/IrDA/SMARTCARD</strong> update
 <ul>
-<li>Align HAL IRDA driver with latest updates and enhancements</li>
-<li>Add callback registration feature
+<li>Overall rework of the driver for a more efficient implementation
 <ul>
-<li>Add HAL_IRDA_RegisterCallback() and HAL_IRDA_UnRegisterCallback() APIs</li>
-<li>Add callback identifiers in HAL_IRDA_CallbackIDTypeDef enumerated typedef</li>
+<li>Improve I/O operation functions: separate transfer process and <em>PPP</em> state management</li>
+<li>Update the HAL_<em>PPP</em>_IRQHandler function by optimizing the management of interrupt errors</li>
+<li>Align driver with the Reference Manual regarding registers and bit definition naming</li>
 </ul></li>
-<li>Review IRDA state machine to avoid cases where IRDA state is overwritten by IRDA IRQ</li>
-<li>Implement new APIs for HAL IRDA Abort management:
-<ul>
-<li>HAL_IRDA_Abort(), HAL_IRDA_AbortTransmit(), HAL_IRDA_AbortReceive(), HAL_IRDA_Abort_IT(), HAL_IRDA_AbortTransmit_IT(), HAL_IRDA_AbortReceive_IT()</li>
-</ul></li>
-<li>Optimize WaitOnFlag management in IRDA_Transmit() function</li>
-<li>Optimize all HAL IRQ Handler routines</li>
-<li>Optimize HAL IRDA to avoid using macros as argument of function calls</li>
-</ul></li>
-<li><strong>HAL SMARTCARD</strong> driver
-<ul>
-<li>Align HAL SMARTCARD driver with latest updates and enhancements</li>
-<li>Add callback registration feature
-<ul>
-<li>Add HAL_SMARTCARD_RegisterCallback() and HAL_SMARTCARD_UnRegisterCallback() APIs</li>
-<li>Add callback identifiers in HAL_SMARTCARD_CallbackIDTypeDef enumerated typedef</li>
-</ul></li>
-<li>Review SMARTCARD state machine to avoid cases where SMARTCARD state is overwritten by SMARTCARD IRQ</li>
-<li>Implement new APIs for HAL SMARTCARD Abort management:
-<ul>
-<li>HAL_SMARTCARD_Abort(), HAL_SMARTCARD_AbortTransmit(), HAL_SMARTCARD_AbortReceive(), HAL_SMARTCARD_Abort_IT(), HAL_SMARTCARD_AbortTransmit_IT(), HAL_SMARTCARD_AbortReceive_IT()</li>
-</ul></li>
-<li>Optimize WaitOnFlag management in SMARTCARD_Transmit() function</li>
-<li>Optimize all HAL IRQ Handler routines</li>
-<li>Optimize HAL SMARTCARD to avoid using macros as argument of function calls</li>
-</ul></li>
-<li><strong>HAL UART/USART</strong> driver
-<ul>
-<li>Align HAL UART/USART driver with latest updates and enhancements</li>
-<li>Add callback registration feature
-<ul>
-<li>Add HAL_UART/USART_RegisterCallback() and HAL_UART/USART_UnRegisterCallback() APIs</li>
-<li>Add callback identifiers in HAL_UART/USART_CallbackIDTypeDef enumerated typedef</li>
-</ul></li>
-<li>Add missing __IO in UART/USART_HandleTypeDef definition (for TxXferCount and RxXferCount)</li>
-<li>Review UART/USART state machine to avoid cases where UART/USART state is overwritten by UART/USART IRQ</li>
-<li>Implement new APIs for HAL UART/USART Abort management:
-<ul>
-<li>HAL_UART/USART_Abort(), HAL_UART/USART_AbortTransmit(), HAL_UART/USART_AbortReceive(), HAL_UART/USART_Abort_IT(), HAL_UART/USART_AbortTransmit_IT(), HAL_UART/USART_AbortReceive_IT()</li>
-</ul></li>
-<li>Optimize WaitOnFlag management in UART/USART_Transmit() function</li>
-<li>Optimize all HAL IRQ Handler routines</li>
-<li>Align __HAL_UART_GET_IT and __HAL_UART_GET_IT_SOURCE with other series</li>
-<li>Optimize HAL UART/USART to avoid using macros as argument of function calls</li>
-<li>Update USART BRR calculation</li>
 </ul></li>
 <li><strong>LL IWDG</strong> update
 <ul>
@@ -273,12 +336,9 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li><strong>HAL RNG</strong> update
 <ul>
-<li>Update to manage RNG error:
-<ul>
 <li>Add ErrorCode parameter in HAL RNG Handler structure</li>
 <li>Add HAL_RNG_GetError() API</li>
-</ul></li>
-<li>Remove lock mechanism from HAL_RNG_GenerateRandomNumber_IT() API</li>
+<li>HAL Lock/Unlock mecanism update</li>
 </ul></li>
 <li><strong>HAL/LL RTC</strong> update
 <ul>
@@ -293,39 +353,37 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update HAL_RCC_DeInit() and LL_RCC_DeInit() APIs to
 <ul>
 <li>Be able to return HAL/LL status</li>
-<li>Add checks on HSI, PLL and PLLI2S ready flags before modifying RCC CFGR registers</li>
-<li>Clear all RCC interrupt flags</li>
+<li>Add checks for HSI, PLL and PLLI2S ready before modifying RCC CFGR registers</li>
+<li>Clear all interrupt flags</li>
 <li>Initialize systick interrupt period</li>
 </ul></li>
 </ul></li>
 <li><strong>HAL SDMMC</strong> update
 <ul>
-<li>Align HAL SDMMC driver with latest updates and enhancements</li>
-<li>Due to limitation SDIO hardware flow control indicated in Errata Sheet :
-<ul>
-<li>In 4-bits bus wide mode, do not use the HAL_SD_WriteBlocks_IT() or HAL_SD_WriteBlocks() APIs otherwise underrun will occur and there is not possibility to activate the flow control</li>
-<li>Use DMA mode when using 4-bits bus wide mode or decrease the frequency</li>
-</ul></li>
-<li>Add callback registration feature
-<ul>
-<li>Add HAL_SD_RegisterCallback(),HAL_SD_UnRegisterCallback(), HAL_SD_RegisterTransceiverCallback() and HAL_SD_UnRegisterTransceiverCallback APIs</li>
-<li>Add callback identifiers in HAL_SD_CallbackIDTypeDef enumerated typedef</li>
-</ul></li>
+<li>Add API HAL_SD_ConfigSpeedBusOperation() to configure the SD card speed bus mode</li>
+<li>Fix and improve state and error management</li>
+<li>Fix preprocessing compilation issue with SDIO STA STBITERR interrupt</li>
+<li>Align driver with the Reference Manual regarding registers and bit definition naming</li>
 </ul></li>
 <li><strong>HAL SPI</strong> update
 <ul>
-<li>Align HAL/LL SPI driver with latest updates and enhancements</li>
-<li>Fix issue in HAL_SPI_Transmit() and HAL_SPI_TransmitReceive() functions</li>
-<li>Add SPI Abort transfer API’s:
+<li>Overall rework of the driver for a more efficient implementation
 <ul>
-<li>HAL_SPI_Abort()</li>
-<li>HAL_SPI_Abort_IT()</li>
+<li>Add the following new macros:
+<ul>
+<li>SPI_CHECK_FLAG()</li>
+<li>SPI_CHECK_IT_SOURCE()</li>
 </ul></li>
-<li>Update HAL/LL SPI driver to manage TI mode not supported by all STM32F2xx devices</li>
-<li>Add callback registration feature
+<li>Update HAL_SPI_StateTypeDef structure to add new state: HAL_SPI_STATE_ABORT</li>
+<li>Add HAL_SPI_Abort() to manage abort issue in SPI TX or Rx mode only</li>
+<li>Update HAL_SPI_Transmit()/HAL_SPI_Receive() API’s to fix memory overflow issue.</li>
+<li>Update HAL_SPI_Transmit_DMA : checking hmdtx instead of hdmrx.</li>
+<li>Update HAL_SPI_IRQHandler() function to
 <ul>
-<li>Add HAL_SPI_RegisterCallback() and HAL_SPI_UnRegisterCallback() APIs</li>
-<li>Add callback identifiers in HAL_SPI_CallbackIDTypeDef enumerated typedef</li>
+<li>Add error management in case DMA errors through HAL_DMA_Abort_IT() and ErrorCallback()</li>
+<li>Optimize code by using direct register read</li>
+</ul></li>
+<li>Align driver with the Reference Manual regarding registers and bit definition naming</li>
 </ul></li>
 </ul></li>
 <li><strong>HAL I2S</strong> update
@@ -357,7 +415,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li><strong>HAL/LL TIM</strong> update
 <ul>
-<li>Move the following TIM structures from stm32f2xx_hal_tim_ex.h into stm32f2xx_hal_tim.h
+<li>Move the following TIM structures from stm32f4xx_hal_tim_ex.h into stm32f4xx_hal_tim.h
 <ul>
 <li>TIM_MasterConfigTypeDef()</li>
 <li>TIM_BreakDeadTimeConfigTypeDef()</li>
@@ -384,11 +442,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>HAL/LL USB</strong> update
 <ul>
 <li>Rework USB interrupt handler and improve HS DMA support in Device mode</li>
-<li>Fix BCD handling of OTG instance in device mode</li>
+<li>Fix BCD handling for OTG instance in device mode</li>
 <li>cleanup reference to low speed in device mode</li>
-<li>Allow writing TX FIFO when transfer length is equal to available space in the TX FIFO</li>
+<li>Allow writing TX FIFO in case of transfer length is equal to available space in the TX FIFO</li>
 <li>Fix Toggle OUT interrupt channel in host mode</li>
-<li>Add new callback to be used to handle the usb device connection/disconnection
+<li>Add new callback to be used to handle usb device connection/disconnection
 <ul>
 <li>HAL_HCD_PortEnabled_Callback()</li>
 <li>HAL_HCD_PortDisabled_Callback()</li>
@@ -396,10 +454,10 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update to prevent reactivate host interrupt channel</li>
 <li>Updated USB_WritePacket(), USB_ReadPacket()APIs to prevent compilation warning with GCC GNU v8.2.0</li>
 <li>Rework USB_EPStartXfer() API to enable theUSB endpoint before unmasking the TX FiFo empty interrupt in case DMA is not used</li>
-<li>Update USB HAL_HCD_Init() and HAL_PCD_Init() APIs to avoid enabling USB DMA feature for OTG FS instance, USB DMAfeature is available only on OTG HS Instance</li>
+<li>USB HAL_HCD_Init() and HAL_PCD_Init() APIsupdated to avoid enabling USB DMA feature for OTG FS instance, USB DMAfeature is available only on OTG HS Instance</li>
 <li>Remove duplicated line in hal_hcd.c header file comment section</li>
-<li>Rework USB HAL driver to use instancePCD_SPEED_xxx, HCD_SPEED_xx instead of OTG register Core speed definition during the instance initialization</li>
-<li>Software Quality improvement with a fix of CodeSonar warnings on PCD_Port_IRQHandler() and HCD_Port_IRQHandler()interrupt handlers</li>
+<li>Rework USB HAL driver to use instancePCD_SPEED_xxx, HCD_SPEED_xx speeds instead of OTG register Core speed definition during the instance initialization</li>
+<li>Software Quality improvement with a fix ofCodeSonar warning on PCD_Port_IRQHandler() and HCD_Port_IRQHandler()interrupt handlers</li>
 </ul></li>
 <li><strong>HAL UTILS</strong> update
 <ul>
@@ -411,7 +469,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.2.2 / 29-September-2017</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Fix compilation warning with GCC compiler</li>
@@ -477,7 +535,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.2.1 / 14-April-2017</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL CONF Template</strong> update
@@ -498,7 +556,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.2.0 / 17-March-2017</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><strong>Add Low Layer drivers allowing performance and footprint optimization</strong>
 <ul>
@@ -616,7 +674,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.1.3 / 29-June-2016</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Enhance HAL delay and time base implementation:
@@ -970,7 +1028,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.1.2 / 11-December-2015</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li><strong>HAL RCC</strong> update
 <ul>
@@ -986,7 +1044,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.1.1 / 20-November-2015</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>One change done on the HAL CRYP requires an update on the application code based on HAL V1.1.0</strong>
@@ -1049,7 +1107,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.1.0 / 09-October-2015</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Macros and literals renaming to ensure compatibles across STM32 series</strong>, backward compatibility maintained thanks to new added file stm32_hal_legacy.h under /Inc/Legacy</li>
@@ -1879,7 +1937,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.0.1 / 25-March-2014</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Patch release : moved macros related to RNG from hal_rcc_ex.h to hal_rcc.h as RNG is present in all versions of the STM32F2</li>
 </ul>
@@ -1888,7 +1946,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 07-March-2014</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>First official release</li>
 </ul>

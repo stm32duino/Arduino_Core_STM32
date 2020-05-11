@@ -1594,7 +1594,6 @@ uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupReg
 /** @defgroup RTCEx_Private_Constants RTCEx Private Constants
   * @{
   */
-//#define RTC_EXTI_LINE_ALARM_EVENT           EXTI_IMR1_IM18  /*!< External interrupt line 18 Connected to the RTC Alarm event */
 #if defined (STM32L4P5xx) || defined (STM32L4Q5xx)
 #define RTC_EXTI_LINE_SSRU_EVENT              EXTI_IMR1_IM18  /*!< External interrupt line 18 Connected to the RTC SSR Underflow event  */
 #endif
