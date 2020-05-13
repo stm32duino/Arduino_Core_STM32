@@ -1669,6 +1669,48 @@ GenL0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
 GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
+
+################################################################################
+# Generic H7
+
+GenH7.name=Generic STM32H7 Series
+
+GenH7.build.core=arduino
+GenH7.build.board=GenH7
+GenH7.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+GenH7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenH7.build.series=STM32H7xx
+GenH7.build.mcu=cortex-m7
+
+# Daisy Seed board
+GenH7.menu.pnum.DAISY_SEED=Daisy Seed
+GenH7.menu.pnum.DAISY_SEED.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+GenH7.menu.pnum.DAISY_SEED.upload.maximum_size=131072
+GenH7.menu.pnum.DAISY_SEED.upload.maximum_data_size=524288
+GenH7.menu.pnum.DAISY_SEED.build.board=DAISY_SEED
+GenH7.menu.pnum.DAISY_SEED.build.series=STM32H7xx
+GenH7.menu.pnum.DAISY_SEED.build.product_line=STM32H750xx
+GenH7.menu.pnum.DAISY_SEED.build.variant=DAISY_SEED
+
+# Upload menu
+
+GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenH7.menu.upload_method.swdMethod.upload.protocol=0
+GenH7.menu.upload_method.swdMethod.upload.options=-g
+GenH7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenH7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenH7.menu.upload_method.serialMethod.upload.protocol=1
+GenH7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenH7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenH7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenH7.menu.upload_method.dfuMethod.upload.protocol=2
+GenH7.menu.upload_method.dfuMethod.upload.options=-g
+GenH7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+
 ################################################################################
 # Electronic Speed Controller boards
 
@@ -2048,6 +2090,7 @@ Genericflight.menu.upload_method.dfuoMethod.upload.altID=1
 Genericflight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 Genericflight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
+
 ################################################################################
 # Midatronics boards
 
@@ -2089,45 +2132,6 @@ Midatronics.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Midatronics.menu.upload_method.dfuMethod.upload.protocol=2
 Midatronics.menu.upload_method.dfuMethod.upload.options=-g
 Midatronics.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-################################################################################
-# Daisy boards
-
-Daisy.name=Daisy
-
-Daisy.build.core=arduino
-Daisy.build.board=Daisy
-Daisy.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# Daisy Seed board
-Daisy.menu.pnum.DAISY_SEED=Daisy Seed
-Daisy.menu.pnum.DAISY_SEED.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
-Daisy.menu.pnum.DAISY_SEED.upload.maximum_size=131072
-Daisy.menu.pnum.DAISY_SEED.upload.maximum_data_size=524288
-Daisy.menu.pnum.DAISY_SEED.build.mcu=cortex-m7
-Daisy.menu.pnum.DAISY_SEED.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Daisy.menu.pnum.DAISY_SEED.build.board=DAISY_SEED
-Daisy.menu.pnum.DAISY_SEED.build.series=STM32H7xx
-Daisy.menu.pnum.DAISY_SEED.build.product_line=STM32H750xx
-Daisy.menu.pnum.DAISY_SEED.build.variant=DAISY_SEED
-Daisy.menu.pnum.DAISY_SEED.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
-
-# Upload menu
-
-Daisy.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-Daisy.menu.upload_method.swdMethod.upload.protocol=0
-Daisy.menu.upload_method.swdMethod.upload.options=-g
-Daisy.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-Daisy.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-Daisy.menu.upload_method.serialMethod.upload.protocol=1
-Daisy.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-Daisy.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-Daisy.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-Daisy.menu.upload_method.dfuMethod.upload.protocol=2
-Daisy.menu.upload_method.dfuMethod.upload.options=-g
-Daisy.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Serialx activation
@@ -2205,6 +2209,12 @@ GenL0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL0.menu.xserial.disabled=Disabled (no Serial support)
 GenL0.menu.xserial.disabled.build.xSerial=
 
+GenH7.menu.xserial.generic=Enabled (generic 'Serial')
+GenH7.menu.xserial.none=Enabled (no generic 'Serial')
+GenH7.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenH7.menu.xserial.disabled=Disabled (No Serial support)
+GenH7.menu.xserial.disabled.build.xSerial=
+
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -2234,12 +2244,6 @@ Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
 Midatronics.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 Midatronics.menu.xserial.disabled=Disabled (No Serial support)
 Midatronics.menu.xserial.disabled.build.xSerial=
-
-Daisy.menu.xserial.generic=Enabled (generic 'Serial')
-Daisy.menu.xserial.none=Enabled (no generic 'Serial')
-Daisy.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Daisy.menu.xserial.disabled=Disabled (No Serial support)
-Daisy.menu.xserial.disabled.build.xSerial=
 
 # USB connectivity
 Nucleo_144.menu.usb.none=None
@@ -2354,6 +2358,17 @@ GenL0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_G
 GenL0.menu.usb.HID=HID (keyboard and mouse)
 GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
+GenH7.menu.usb.none=None
+GenH7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenH7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenH7.menu.usb.CDC=CDC (no generic 'Serial')
+GenH7.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenH7.menu.usb.HID=HID (keyboard and mouse)
+GenH7.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenH7.menu.xusb.FS=Low/Full Speed
+GenH7.menu.xusb.HSFS=High Speed in Full Speed mode
+GenH7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 3dprinter.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -2390,17 +2405,6 @@ Midatronics.menu.xusb.HS=High Speed
 Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
-Daisy.menu.usb.none=None
-Daisy.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-Daisy.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Daisy.menu.usb.CDC=CDC (no generic 'Serial')
-Daisy.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-Daisy.menu.usb.HID=HID (keyboard and mouse)
-Daisy.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Daisy.menu.xusb.FS=Low/Full Speed
-Daisy.menu.xusb.HSFS=High Speed in Full Speed mode
-Daisy.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -2603,6 +2607,24 @@ GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL0.menu.opt.ogstd=Debug (-g)
 GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenH7.menu.opt.osstd=Smallest (-Os default)
+GenH7.menu.opt.oslto=Smallest (-Os) with LTO
+GenH7.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenH7.menu.opt.o1std=Fast (-O1)
+GenH7.menu.opt.o1std.build.flags.optimize=-O1
+GenH7.menu.opt.o1lto=Fast (-O1) with LTO
+GenH7.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenH7.menu.opt.o2std=Faster (-O2)
+GenH7.menu.opt.o2std.build.flags.optimize=-O2
+GenH7.menu.opt.o2lto=Faster (-O2) with LTO
+GenH7.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenH7.menu.opt.o3std=Fastest (-O3)
+GenH7.menu.opt.o3std.build.flags.optimize=-O3
+GenH7.menu.opt.o3lto=Fastest (-O3) with LTO
+GenH7.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenH7.menu.opt.ogstd=Debug (-g)
+GenH7.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -2692,24 +2714,6 @@ Midatronics.menu.opt.o3lto=Fastest (-O3) with LTO
 Midatronics.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 Midatronics.menu.opt.ogstd=Debug (-g)
 Midatronics.menu.opt.ogstd.build.flags.optimize=-g -Og
-
-Daisy.menu.opt.osstd=Smallest (-Os default)
-Daisy.menu.opt.oslto=Smallest (-Os) with LTO
-Daisy.menu.opt.oslto.build.flags.optimize=-Os -flto
-Daisy.menu.opt.o1std=Fast (-O1)
-Daisy.menu.opt.o1std.build.flags.optimize=-O1
-Daisy.menu.opt.o1lto=Fast (-O1) with LTO
-Daisy.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Daisy.menu.opt.o2std=Faster (-O2)
-Daisy.menu.opt.o2std.build.flags.optimize=-O2
-Daisy.menu.opt.o2lto=Faster (-O2) with LTO
-Daisy.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Daisy.menu.opt.o3std=Fastest (-O3)
-Daisy.menu.opt.o3std.build.flags.optimize=-O3
-Daisy.menu.opt.o3lto=Fastest (-O3) with LTO
-Daisy.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Daisy.menu.opt.ogstd=Debug (-g)
-Daisy.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
@@ -2822,6 +2826,16 @@ GenL0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float
 GenL0.menu.rtlib.full=Newlib Standard
 GenL0.menu.rtlib.full.build.flags.ldspecs=
 
+GenH7.menu.rtlib.nano=Newlib Nano (default)
+GenH7.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenH7.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenH7.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenH7.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenH7.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenH7.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenH7.menu.rtlib.full=Newlib Standard
+GenH7.menu.rtlib.full.build.flags.ldspecs=
+
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
 ESC_board.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
@@ -2872,12 +2886,3 @@ Midatronics.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf
 Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
 
-Daisy.menu.rtlib.nano=Newlib Nano (default)
-Daisy.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Daisy.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Daisy.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Daisy.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Daisy.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Daisy.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Daisy.menu.rtlib.full=Newlib Standard
-Daisy.menu.rtlib.full.build.flags.ldspecs=
