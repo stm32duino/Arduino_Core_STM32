@@ -910,8 +910,13 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
   */
 void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
 {
-  // Set priority for immediate use
-  NVIC_SetPriority(getTimerUpIrq(_timerObj.handle.Instance), NVIC_EncodePriority(NVIC_GetPriorityGrouping(), preemptPriority, subPriority));
+  // Set Update interrupt priority for immediate use
+  HAL_NVIC_SetPriority(getTimerUpIrq(_timerObj.handle.Instance), preemptPriority, subPriority);
+
+  // Set Capture/Compare interrupt priority if timer provides a unique IRQ
+  if (getTimerCCIrq(_timerObj.handle.Instance) != getTimerUpIrq(_timerObj.handle.Instance)) {
+    HAL_NVIC_SetPriority(getTimerCCIrq(_timerObj.handle.Instance), preemptPriority, subPriority);
+  }
 
   // Store priority for use if timer is re-initialized
   _timerObj.preemptPriority = preemptPriority;
