@@ -49,7 +49,7 @@ extern "C" {
 //#define NUM_ANALOG_FIRST        15 // commented out to use analogInputPin[]
 
 // On-board LED pin number
-#define LED_BUILTIN             PC7  
+#define LED_BUILTIN             PC7
 #define LED_RED                 LED_BUILTIN
 
 // Below SPI and I2C definitions already done in the core
@@ -91,7 +91,7 @@ extern "C" {
 
 // HSE default value is 25MHz in HAL
 // HSE_BYPASS is 8MHz ?
-  // HSE is 16MHz on Daisy Seed.
+// HSE is 16MHz on Daisy Seed.
 #ifndef HSE_BYPASS_NOT_USED
 #define HSE_VALUE 16000000
 #endif

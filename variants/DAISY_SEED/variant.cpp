@@ -52,19 +52,19 @@ const PinName digitalPin[] = {
 };
 
 const uint32_t analogInputPin[] = {
-	// PXn, // Ax = Dx
-	15, // A0 = D15
-	16, // A1 = D16
-	17, // A2 = D17
-	18, // A3 = D18
-	19, // A4 = D19
-	20, // A5 = D20
-	21, // A6 = D21
-	22, // A7 = D22
-	23, // A8 = D23
-	24, // A9 = D24
-	25, // A10 = D25
-	28, // A11 = D28
+  // PXn, // Ax = Dx
+  15, // A0 = D15
+  16, // A1 = D16
+  17, // A2 = D17
+  18, // A3 = D18
+  19, // A4 = D19
+  20, // A5 = D20
+  21, // A6 = D21
+  22, // A7 = D22
+  23, // A8 = D23
+  24, // A9 = D24
+  25, // A10 = D25
+  28, // A11 = D28
 };
 
 #ifdef __cplusplus
@@ -89,19 +89,19 @@ WEAK void SystemClock_Config(void)
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = { 0 };
 
   /** Supply configuration update enable
-*/
+  */
   HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
   /** Configure the main internal regulator output voltage
-*/
+  */
   //__HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1); // 400MHz Mode.
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0); // 480MHz
 
   while (!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
   /** Macro to configure the PLL clock source
-*/
+  */
   __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSE);
   /** Initializes the CPU, AHB and APB busses clocks
-*/
+  */
   RCC_OscInitStruct.OscillatorType
     = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -112,20 +112,19 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLN = 200; // 400MHz Mode
   //RCC_OscInitStruct.PLL.PLLN = 240; // 480MHz Mode
   RCC_OscInitStruct.PLL.PLLP = 2;
-  RCC_OscInitStruct.PLL.PLLQ = 5; 
+  RCC_OscInitStruct.PLL.PLLQ = 5;
   RCC_OscInitStruct.PLL.PLLR = 2;
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
   RCC_OscInitStruct.PLL.PLLFRACN = 0;
-  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
-  {
+  if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
   /** Initializes the CPU, AHB and APB busses clocks
-*/
+  */
   RCC_ClkInitStruct.ClockType
     = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_PCLK1
-    | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
+      | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1 | RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
@@ -134,15 +133,14 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
   RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
 
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK)
-  {
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
     Error_Handler();
   }
   PeriphClkInitStruct.PeriphClockSelection
     = RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_RNG | RCC_PERIPHCLK_SPI1
-    | RCC_PERIPHCLK_SAI2 | RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SDMMC
-    | RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_ADC | RCC_PERIPHCLK_I2C1
-    | RCC_PERIPHCLK_USB | RCC_PERIPHCLK_QSPI | RCC_PERIPHCLK_FMC;
+      | RCC_PERIPHCLK_SAI2 | RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SDMMC
+      | RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_ADC | RCC_PERIPHCLK_I2C1
+      | RCC_PERIPHCLK_USB | RCC_PERIPHCLK_QSPI | RCC_PERIPHCLK_FMC;
   // PLL 2
   PeriphClkInitStruct.PLL2.PLL2M = 4;
   //  PeriphClkInitStruct.PLL2.PLL2N = 115; // Max Freq @ 3v3 (overclocked SDRAM)
@@ -175,12 +173,11 @@ WEAK void SystemClock_Config(void)
   PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PLL3;
   PeriphClkInitStruct.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
   PeriphClkInitStruct.AdcClockSelection = RCC_ADCCLKSOURCE_PLL3;
-  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK)
-  {
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
   }
   /** Enable USB Voltage detector
-*/
+  */
   HAL_PWREx_EnableUSBVoltageDetector();
 }
 
