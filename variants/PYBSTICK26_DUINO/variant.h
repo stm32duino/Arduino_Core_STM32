@@ -64,6 +64,29 @@ extern "C" {
 #define NUM_DIGITAL_PINS        32
 #define NUM_ANALOG_INPUTS       8
 
+// PYBSTICK26 Sx pinout
+#define S3  PB9
+#define S5  PB8
+#define S7  PB6
+#define S8  PA2
+#define S10 PA3
+#define S11 PB3
+#define S12 PA0
+#define S13 PB10
+#define S13A  PC3
+#define S15 PB12
+#define S15A  PC5
+#define S16 PB13
+#define S16A  PC6
+#define S18 PB14
+#define S18A  PC7
+#define S19 PA7
+#define S21 PAB4
+#define S22 PA10
+#define S23 PA5
+#define S24 PA15
+#define S26 PA4
+
 // On-board LED pin number
 #define LED_GREEN               PA14
 #define LED_RED                 PA13
