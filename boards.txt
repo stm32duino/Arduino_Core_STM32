@@ -2117,7 +2117,7 @@ Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 
 # PYBSTICK26(STD/Programmez!) board with F411RE
-Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD/Programmez!
+Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD-Programmez
 Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_size=524288
 Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_data_size=131072
 Garatronic.menu.pnum.PYBSTICK26_STD.build.mcu=cortex-m4
