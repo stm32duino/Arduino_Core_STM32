@@ -57,6 +57,7 @@
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",
+            "PYBSTICK26_DUINO", "PYBSTICK26_LITE", "PYBSTICK26_STD",
             "RAK811_TRACKERA"
           ]
         }
