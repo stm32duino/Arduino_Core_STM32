@@ -58,6 +58,7 @@
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",
+            "PYBSTICK26_DUINO", "PYBSTICK26_LITE", "PYBSTICK26_STD",
             "RAK811_TRACKERA"
           ]
         },
@@ -104,6 +105,7 @@
             "BLACKPILL_F303CC",
             "BLACKPILL_F401CC",
             "CoreBoard_F401RC",
+            "DAISY_SEED",
             "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
             "ELEKTOR_F072C8",
