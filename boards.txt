@@ -820,6 +820,14 @@ GenF0.menu.pnum.DEMO_F030F4_HSI.build.board=DEMO_F030F4_HSI
 GenF0.menu.pnum.DEMO_F030F4_HSI.build.product_line=STM32F030x6
 GenF0.menu.pnum.DEMO_F030F4_HSI.build.variant=DEMO_F030F4
 
+# DEMO_F030C8 board
+GenF0.menu.pnum.DEMO_F030C8=STM32F030C8 Demo board
+GenF0.menu.pnum.DEMO_F030C8.upload.maximum_data_size=8192
+GenF0.menu.pnum.DEMO_F030C8.upload.maximum_size=65536
+GenF0.menu.pnum.DEMO_F030C8.build.board=DEMO_F030C8
+GenF0.menu.pnum.DEMO_F030C8.build.product_line=STM32F030x8
+GenF0.menu.pnum.DEMO_F030C8.build.variant=DEMO_F030C8
+
 # Upload menu
 GenF0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF0.menu.upload_method.swdMethod.upload.protocol=0
