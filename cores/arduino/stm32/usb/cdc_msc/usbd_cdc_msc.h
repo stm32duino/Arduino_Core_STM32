@@ -34,6 +34,8 @@
 
 #define USB_CDC_MSC_CONFIG_DESC_SIZ  (USB_CDC_CONFIG_DESC_SIZ - 9 + USB_MSC_CONFIG_DESC_SIZ)
 
+extern USBD_ClassTypeDef  USBD_CDC_MSC_CLASS;
+
 #endif  /* __USB_CDC_MSC_CORE_H_ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

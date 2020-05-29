@@ -754,8 +754,11 @@ uint8_t  *USBD_CDC_GetDeviceQualifierDescriptor(uint16_t *length)
 uint8_t  USBD_CDC_RegisterInterface(USBD_HandleTypeDef   *pdev,
                                     USBD_CDC_ItfTypeDef *fops)
 {
-  if (fops == NULL) {
-    return (uint8_t)USBD_FAIL;
+  uint8_t  ret = USBD_FAIL;
+
+  if (fops != NULL) {
+    cdc_itf = fops;
+    ret = USBD_OK;
   }
 
   pdev->pUserData = fops;

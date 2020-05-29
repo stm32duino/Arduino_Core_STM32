@@ -51,7 +51,7 @@ typedef struct {
 #endif /* USBD_USE_CDC */
 
 
-#ifdef USBD_USE_CDC_MSC_COMPOSITE
+#ifdef USBD_USE_CDC_MSC
   #define USBD_USE_CDC_CLASS
   #define USBD_USE_MSC_CLASS
 

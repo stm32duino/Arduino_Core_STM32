@@ -115,7 +115,7 @@ static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev);
   * @{
   */
 
-USBD_ClassTypeDef  USBD_COMPOSITE_ClassDriver =
+USBD_ClassTypeDef  USBD_CDC_MSC_CLASS =
 {
   USBD_COMPOSITE_Init,
   USBD_COMPOSITE_DeInit,
