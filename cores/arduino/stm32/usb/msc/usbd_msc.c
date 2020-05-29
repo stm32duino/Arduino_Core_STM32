@@ -40,6 +40,7 @@ EndBSPDependencies */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc.h"
+#include "usbd_msc_storage_if.h"
 
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
@@ -268,7 +269,7 @@ __ALIGN_BEGIN  uint8_t USBD_MSC_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] 
 USBD_MSC_BOT_HandleTypeDef msc_handle_dat;
 USBD_MSC_BOT_HandleTypeDef *msc_handle = &msc_handle_dat;
 
-USBD_StorageTypeDef *msc_storage = NULL;
+USBD_StorageTypeDef *msc_storage = &USBD_MSC_Template_fops;
 
 /** @defgroup MSC_CORE_Private_Functions
   * @{
