@@ -22,9 +22,12 @@
 #if defined (USBCON)
 #include "Stream.h"
 #include "usbd_core.h"
+#include "usbd_msc.h"
 
 class USB {
   public:
+    void register_msc(USBD_StorageTypeDef* fops);
+
     void begin(void);
 
     void end(void);

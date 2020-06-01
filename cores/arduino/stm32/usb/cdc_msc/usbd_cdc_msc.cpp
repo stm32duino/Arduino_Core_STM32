@@ -87,10 +87,10 @@ USBD_ClassTypeDef  USBD_CDC_MSC =
 #pragma data_alignment=4
 #endif
 /* USB COMPOSITE device Configuration Descriptor */
-static uint8_t USBD_COMPOSITE_CfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
+static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
 {
   0x09, /* bLength: Configuation Descriptor size */
-  USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION, /* bDescriptorType: Configuration */
+  USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   USB_CDC_MSC_CONFIG_DESC_SIZ,
   /* wTotalLength: Bytes returned */
   0x00,
@@ -198,16 +198,16 @@ static uint8_t USBD_COMPOSITE_CfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
   0x05,                                            /* Endpoint descriptor type */
   MSC_EPIN_ADDR,                                   /* Endpoint address (IN, address 1) */
   0x02,                                            /* Bulk endpoint type */
-  LOBYTE(MSC_MAX_HS_PACKET),
-  HIBYTE(MSC_MAX_HS_PACKET),
+  LOBYTE(MSC_MAX_FS_PACKET),
+  HIBYTE(MSC_MAX_FS_PACKET),
   0x00,                                            /* Polling interval in milliseconds */
 
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
   MSC_EPOUT_ADDR,                                  /* Endpoint address (OUT, address 1) */
   0x02,                                            /* Bulk endpoint type */
-  LOBYTE(MSC_MAX_HS_PACKET),
-  HIBYTE(MSC_MAX_HS_PACKET),
+  LOBYTE(MSC_MAX_FS_PACKET),
+  HIBYTE(MSC_MAX_FS_PACKET),
   0x00                                             /* Polling interval in milliseconds */
 };
 
@@ -325,8 +325,8 @@ static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
   */
 static uint8_t  *USBD_COMPOSITE_GetCfgDesc(uint16_t *length)
 {
-  *length = sizeof(USBD_COMPOSITE_CfgDesc);
-  return USBD_COMPOSITE_CfgDesc;
+  *length = sizeof(USBD_COMPOSITE_CfgFSDesc);
+  return USBD_COMPOSITE_CfgFSDesc;
 }
 
 /**

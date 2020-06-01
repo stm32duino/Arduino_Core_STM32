@@ -31,6 +31,10 @@ void USB::begin() {
   if (!initialized) initialize();
 }
 
+void USB::register_msc(USBD_StorageTypeDef* fops) {
+  USBD_MSC_RegisterStorage(&hUSBD_Device, fops);
+}
+
 void USB::initialize() {
   hUSBD_Device_CDC = &hUSBD_Device;
 
@@ -38,9 +42,9 @@ void USB::initialize() {
   if (USBD_Init(&hUSBD_Device, &USBD_Desc, 0) == USBD_OK) {
   #ifdef USBD_USE_CDC
     /* Add Supported Class */
-    if (USBD_RegisterClass(&hUSBD_Device_CDC, &USBD_CDC) == USBD_OK) {
+    if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC) == USBD_OK) {
       /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
+      if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) == USBD_OK) {
         /* Start Device Process */
         USBD_Start(&hUSBD_Device_CDC);
         initialized = true;
@@ -51,12 +55,9 @@ void USB::initialize() {
     if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) == USBD_OK) {
       /* Add CDC Interface Class */
       if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) == USBD_OK) {
-          /* Add MSC Interface Class */
-        if (USBD_MSC_RegisterStorage(&hUSBD_Device, &USBD_MSC_fops) == USBD_OK) {
-          /* Start Device Process */
-          USBD_Start(&hUSBD_Device);
-          initialized = true;
-        }
+        /* Start Device Process */
+        USBD_Start(&hUSBD_Device);
+        initialized = true;
       }
     }
   #endif

@@ -54,7 +54,6 @@ int8_t STORAGE_GetMaxLun(void);
 /* USB Mass storage Standard Inquiry Data */
 int8_t  STORAGE_Inquirydata[] =  /* 36 */
 {
-
   /* LUN 0 */
   0x00,
   0x80,
@@ -82,6 +81,7 @@ USBD_StorageTypeDef USBD_MSC_fops =
   STORAGE_Inquirydata,
 
 };
+
 /*******************************************************************************
 * Function Name  : Read_Memory
 * Description    : Handle the Read operation from the microSD card.
@@ -144,6 +144,7 @@ int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
 {
   return 0;
 }
+
 /*******************************************************************************
 * Function Name  : Write_Memory
 * Description    : Handle the Write operation to the STORAGE card.
@@ -156,6 +157,7 @@ int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
 {
   return (0);
 }
+
 /*******************************************************************************
 * Function Name  : Write_Memory
 * Description    : Handle the Write operation to the STORAGE card.
