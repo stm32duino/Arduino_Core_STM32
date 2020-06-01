@@ -50,13 +50,15 @@
   ******************************************************************************
   */
 
+#include "usbd_ep_conf.h"
+
 #ifdef USBCON
+#ifdef USBD_USE_CDC_CLASS
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_cdc.h"
 #include "usbd_ctlreq.h"
 
-#ifdef USBD_USE_CDC_CLASS
 
 /** @addtogroup STM32_USB_DEVICE_LIBRARY
   * @{

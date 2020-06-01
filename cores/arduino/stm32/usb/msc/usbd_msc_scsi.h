@@ -28,19 +28,6 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_def.h"
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-/** @defgroup USBD_SCSI
-  * @brief header file for the storage disk file
-  * @{
-  */
-
-/** @defgroup USBD_SCSI_Exported_Defines
-  * @{
-  */
-
 #define SENSE_LIST_DEEPTH                           4U
 
 /* SCSI Commands */
@@ -117,14 +104,7 @@ extern  uint8_t Mode_Sense10_data[];
 extern  uint8_t Scsi_Sense_Data[];
 extern  uint8_t ReadCapacity10_Data[];
 extern  uint8_t ReadFormatCapacity_Data [];
-/**
-  * @}
-  */
 
-
-/** @defgroup USBD_SCSI_Exported_TypesDefinitions
-  * @{
-  */
 
 typedef struct _SENSE_ITEM
 {
@@ -140,53 +120,18 @@ typedef struct _SENSE_ITEM
     char *pData;
   } w;
 } USBD_SCSI_SenseTypeDef;
-/**
-  * @}
-  */
 
-/** @defgroup USBD_SCSI_Exported_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup USBD_SCSI_Exported_Variables
-  * @{
-  */
-
-/**
-  * @}
-  */
-/** @defgroup USBD_SCSI_Exported_FunctionsPrototype
-  * @{
-  */
 int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd);
 
 void SCSI_SenseCode(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t sKey,
                     uint8_t ASC);
 
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* __USBD_MSC_SCSI_H */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-* @}
-*/
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

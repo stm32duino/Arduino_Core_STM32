@@ -25,24 +25,10 @@
 extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
 #include  "usbd_msc_bot.h"
 #include  "usbd_msc_scsi.h"
 #include  "usbd_ioreq.h"
 
-/** @addtogroup USBD_MSC_BOT
-  * @{
-  */
-
-/** @defgroup USBD_MSC
-  * @brief This file is the Header file for usbd_msc.c
-  * @{
-  */
-
-
-/** @defgroup USBD_BOT_Exported_Defines
-  * @{
-  */
 /* MSC Class Config */
 #ifndef MSC_MEDIA_PACKET
 #define MSC_MEDIA_PACKET             512U
@@ -59,13 +45,6 @@ extern "C" {
 #define MSC_EPIN_ADDR                0x81U
 #define MSC_EPOUT_ADDR               0x01U
 
-/**
-  * @}
-  */
-
-/** @defgroup USB_CORE_Exported_Types
-  * @{
-  */
 typedef struct _USBD_STORAGE
 {
   int8_t (* Init)(uint8_t lun);
@@ -78,7 +57,6 @@ typedef struct _USBD_STORAGE
   int8_t *pInquiry;
 
 } USBD_StorageTypeDef;
-
 
 typedef struct
 {
@@ -113,13 +91,6 @@ extern USBD_StorageTypeDef *msc_storage;
 
 uint8_t  USBD_MSC_RegisterStorage(USBD_HandleTypeDef   *pdev,
                                   USBD_StorageTypeDef *fops);
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }

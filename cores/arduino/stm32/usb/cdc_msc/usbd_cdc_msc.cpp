@@ -35,54 +35,13 @@
   ******************************************************************************
   */
 
-/* Includes ------------------------------------------------------------------*/
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_CDC_MSC
 
 #include "usbd_cdc_msc.h"
 #include "usbd_ctlreq.h"
-
-
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-
-/** @defgroup USBD_COMPOSITE
-  * @brief usbd core module
-  * @{
-  */
-
-/** @defgroup USBD_COMPOSITE_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup USBD_COMPOSITE_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup USBD_COMPOSITE_Private_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-
-
-/** @defgroup USBD_COMPOSITE_Private_FunctionPrototypes
-  * @{
-  */
-
 
 static uint8_t  USBD_COMPOSITE_Init(USBD_HandleTypeDef *pdev,
                                    uint8_t cfgidx);
@@ -103,19 +62,9 @@ static uint8_t  USBD_COMPOSITE_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum);
 
 static uint8_t  USBD_COMPOSITE_EP0_RxReady(USBD_HandleTypeDef *pdev);
 
-static uint8_t  USBD_COMPOSITE_EP0_TxReady(USBD_HandleTypeDef *pdev);
-
 static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev);
 
-/**
-  * @}
-  */
-
-/** @defgroup USBD_COMPOSITE_Private_Variables
-  * @{
-  */
-
-USBD_ClassTypeDef  USBD_CDC_MSC_CLASS =
+USBD_ClassTypeDef  USBD_CDC_MSC =
 {
   USBD_COMPOSITE_Init,
   USBD_COMPOSITE_DeInit,
@@ -279,14 +228,6 @@ static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] =
   0x01,
   0x00,
 };
-
-/**
-  * @}
-  */
-
-/** @defgroup USBD_COMPOSITE_Private_Functions
-  * @{
-  */
 
 /**
   * @brief  USBD_COMPOSITE_Init
@@ -491,18 +432,7 @@ uint8_t  *USBD_COMPOSITE_GetDeviceQualifierDesc(uint16_t *length)
   return USBD_COMPOSITE_DeviceQualifierDesc;
 }
 
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -28,19 +28,6 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-/** @defgroup MSC_BOT
-  * @brief This file is the Header file for usbd_msc_bot.c
-  * @{
-  */
-
-
-/** @defgroup USBD_CORE_Exported_Defines
-  * @{
-  */
 #define USBD_BOT_IDLE                      0U       /* Idle state */
 #define USBD_BOT_DATA_OUT                  1U       /* Data Out state */
 #define USBD_BOT_DATA_IN                   2U       /* Data In state */
@@ -69,13 +56,6 @@ extern "C" {
 #define USBD_DIR_OUT                       1U
 #define USBD_BOTH_DIR                      2U
 
-/**
-  * @}
-  */
-
-/** @defgroup MSC_CORE_Private_TypesDefinitions
-  * @{
-  */
 
 typedef struct
 {
@@ -101,21 +81,6 @@ typedef struct
 }
 USBD_MSC_BOT_CSWTypeDef;
 
-/**
-  * @}
-  */
-
-
-/** @defgroup USBD_CORE_Exported_Types
-  * @{
-  */
-
-/**
-  * @}
-  */
-/** @defgroup USBD_CORE_Exported_FunctionsPrototypes
-  * @{
-  */
 void MSC_BOT_Init(USBD_HandleTypeDef  *pdev);
 void MSC_BOT_Reset(USBD_HandleTypeDef  *pdev);
 void MSC_BOT_DeInit(USBD_HandleTypeDef  *pdev);
@@ -130,21 +95,12 @@ void MSC_BOT_SendCSW(USBD_HandleTypeDef  *pdev,
 
 void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef  *pdev,
                             uint8_t epnum);
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* __USBD_MSC_BOT_H */
-/**
-  * @}
-  */
 
-/**
-* @}
-*/
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

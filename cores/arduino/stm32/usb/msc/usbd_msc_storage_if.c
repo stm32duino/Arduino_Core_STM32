@@ -17,23 +17,18 @@
   ******************************************************************************
   */
 
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_MSC_CLASS
+
 /* BSPDependencies
 - "stm32xxxxx_{eval}{discovery}{nucleo_144}.c"
 - "stm32xxxxx_{eval}{discovery}_io.c"
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
-/* Includes ------------------------------------------------------------------*/
-#include "usbd_msc_storage_template.h"
-
-
-/* Private typedef -----------------------------------------------------------*/
-/* Private define ------------------------------------------------------------*/
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private function prototypes -----------------------------------------------*/
-/* Extern function prototypes ------------------------------------------------*/
-/* Private functions ---------------------------------------------------------*/
+#include "usbd_msc_storage_if.h"
 
 #define STORAGE_LUN_NBR                  1U
 #define STORAGE_BLK_NBR                  0x10000U
@@ -75,7 +70,7 @@ int8_t  STORAGE_Inquirydata[] =  /* 36 */
   '0', '.', '0', '1',                     /* Version      : 4 Bytes */
 };
 
-USBD_StorageTypeDef USBD_MSC_Template_fops =
+USBD_StorageTypeDef USBD_MSC_fops =
 {
   STORAGE_Init,
   STORAGE_GetCapacity,
@@ -173,5 +168,7 @@ int8_t STORAGE_GetMaxLun(void)
   return (STORAGE_LUN_NBR - 1);
 }
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

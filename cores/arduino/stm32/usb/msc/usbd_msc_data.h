@@ -28,76 +28,22 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_conf.h"
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
 
-/** @defgroup USB_INFO
-  * @brief general defines for the usb device library file
-  * @{
-  */
-
-/** @defgroup USB_INFO_Exported_Defines
-  * @{
-  */
 #define MODE_SENSE6_LEN                    8U
 #define MODE_SENSE10_LEN                   8U
 #define LENGTH_INQUIRY_PAGE00              7U
 #define LENGTH_FORMAT_CAPACITIES           20U
 
-/**
-  * @}
-  */
 
-
-/** @defgroup USBD_INFO_Exported_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-
-/** @defgroup USBD_INFO_Exported_Macros
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @defgroup USBD_INFO_Exported_Variables
-  * @{
-  */
 extern const uint8_t MSC_Page00_Inquiry_Data[];
 extern const uint8_t MSC_Mode_Sense6_data[];
 extern const uint8_t MSC_Mode_Sense10_data[] ;
 
-/**
-  * @}
-  */
-
-/** @defgroup USBD_INFO_Exported_FunctionsPrototype
-  * @{
-  */
-
-/**
-  * @}
-  */
 
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* __USBD_MSC_DATA_H */
-
-/**
-  * @}
-  */
-
-/**
-* @}
-*/
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

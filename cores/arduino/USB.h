@@ -33,9 +33,12 @@ class USB {
     void initialize();
     void deinitialize();
 
-    bool initialized();
+    bool initialized;
     
     USBD_HandleTypeDef hUSBD_Device;
-}
+};
 
-#endif
+extern USB USBDevice;
+
+#endif // USBCON
+#endif // _USB_H_

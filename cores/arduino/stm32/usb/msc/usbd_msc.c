@@ -38,49 +38,15 @@
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
-/* Includes ------------------------------------------------------------------*/
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_MSC_CLASS
+
 #include "usbd_msc.h"
 #include "usbd_msc_storage_if.h"
 
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-
-/** @defgroup MSC_CORE
-  * @brief Mass storage core module
-  * @{
-  */
-
-/** @defgroup MSC_CORE_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_CORE_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_CORE_Private_Macros
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_CORE_Private_FunctionPrototypes
-  * @{
-  */
 uint8_t  USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
 uint8_t  USBD_MSC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx);
 uint8_t  USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req);
@@ -91,15 +57,6 @@ uint8_t  *USBD_MSC_GetHSCfgDesc(uint16_t *length);
 uint8_t  *USBD_MSC_GetFSCfgDesc(uint16_t *length);
 uint8_t  *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length);
 uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length);
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_CORE_Private_Variables
-  * @{
-  */
 
 
 USBD_ClassTypeDef  USBD_MSC =
@@ -269,11 +226,7 @@ __ALIGN_BEGIN  uint8_t USBD_MSC_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] 
 USBD_MSC_BOT_HandleTypeDef msc_handle_dat;
 USBD_MSC_BOT_HandleTypeDef *msc_handle = &msc_handle_dat;
 
-USBD_StorageTypeDef *msc_storage = &USBD_MSC_Template_fops;
-
-/** @defgroup MSC_CORE_Private_Functions
-  * @{
-  */
+USBD_StorageTypeDef *msc_storage = &USBD_MSC_fops;
 
 /**
   * @brief  USBD_MSC_Init
@@ -313,7 +266,7 @@ uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
 /**
   * @brief  USBD_MSC_DeInit
-  *         DeInitilaize  the mass storage configuration
+  *         DeInitialize the mass storage configuration
   * @param  pdev: device instance
   * @param  cfgidx: configuration index
   * @retval status
@@ -334,6 +287,7 @@ uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
 
   return USBD_OK;
 }
+
 /**
 * @brief  USBD_MSC_Setup
 *         Handle the MSC specific requests
@@ -585,18 +539,7 @@ uint8_t USBD_MSC_RegisterStorage(USBD_HandleTypeDef *pdev,
   return USBD_OK;
 }
 
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

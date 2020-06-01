@@ -23,6 +23,11 @@
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_MSC_CLASS
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_bot.h"
 #include "usbd_msc_scsi.h"
@@ -31,53 +36,6 @@ EndBSPDependencies */
 
 
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-
-/** @defgroup MSC_SCSI
-  * @brief Mass storage SCSI layer module
-  * @{
-  */
-
-/** @defgroup MSC_SCSI_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_SCSI_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_SCSI_Private_Macros
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_SCSI_Private_Variables
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_SCSI_Private_FunctionPrototypes
-  * @{
-  */
 static int8_t SCSI_TestUnitReady(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params);
 static int8_t SCSI_ReadFormatCapacity(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params);
@@ -94,14 +52,6 @@ static int8_t SCSI_CheckAddressRange(USBD_HandleTypeDef *pdev, uint8_t lun,
 
 static int8_t SCSI_ProcessRead(USBD_HandleTypeDef *pdev, uint8_t lun);
 static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun);
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_SCSI_Private_Functions
-  * @{
-  */
 
 
 /**
@@ -505,7 +455,6 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 * @param  params: Command parameters
 * @retval status
 */
-
 static int8_t SCSI_Write10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef  *hmsc = msc_handle;
@@ -699,18 +648,8 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef  *pdev, uint8_t lun)
 
   return 0;
 }
-/**
-  * @}
-  */
 
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

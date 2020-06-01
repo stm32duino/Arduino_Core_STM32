@@ -128,7 +128,6 @@ typedef struct {
 
 
 extern USBD_ClassTypeDef  USBD_CDC;
-#define USBD_CDC_CLASS    &USBD_CDC
 
 extern USBD_CDC_HandleTypeDef *cdc_handle;
 

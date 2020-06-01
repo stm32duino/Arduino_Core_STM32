@@ -23,47 +23,13 @@
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_MSC_CLASS
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_data.h"
-
-
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-
-/** @defgroup MSC_DATA
-  * @brief Mass storage info/data module
-  * @{
-  */
-
-/** @defgroup MSC_DATA_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_DATA_Private_Defines
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_DATA_Private_Macros
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_DATA_Private_Variables
-  * @{
-  */
 
 
 /* USB Mass storage Page 0 Inquiry Data */
@@ -101,35 +67,9 @@ const uint8_t  MSC_Mode_Sense10_data[] =
   0x00,
   0x00
 };
-/**
-  * @}
-  */
 
 
-/** @defgroup MSC_DATA_Private_FunctionPrototypes
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_DATA_Private_Functions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

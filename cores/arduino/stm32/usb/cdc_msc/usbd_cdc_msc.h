@@ -24,7 +24,7 @@
 #ifndef __USB_CDC_MSC_CORE_H_
 #define __USB_CDC_MSC_CORE_H_
 
-#include "../cdc/usbd_cdc.h"
+#include "usbd_cdc.h"
 #include "usbd_msc.h"
 #include "usbd_ioreq.h"
 
@@ -34,7 +34,7 @@
 
 #define USB_CDC_MSC_CONFIG_DESC_SIZ  (USB_CDC_CONFIG_DESC_SIZ - 9 + USB_MSC_CONFIG_DESC_SIZ)
 
-extern USBD_ClassTypeDef  USBD_CDC_MSC_CLASS;
+extern USBD_ClassTypeDef  USBD_CDC_MSC;
 
 #endif  /* __USB_CDC_MSC_CORE_H_ */
 

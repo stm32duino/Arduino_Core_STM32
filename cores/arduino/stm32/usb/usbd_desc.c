@@ -37,7 +37,7 @@
   #define USBD_VID 0x0483
   #if defined(USBD_USE_HID_COMPOSITE)
     #define USBD_PID                      0x5711
-  #elif defined(USBD_USE_CDC)
+  #elif defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
     #define USBD_PID                      0x5740
   #endif
 #endif /* !USBD_PID && !USBD_VID */
@@ -70,7 +70,7 @@
 #elif defined(USBD_USE_HID_COMPOSITE)
   #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "HID in HS Mode")
   #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "HID in FS Mode")
-#elif defined(USBD_USE_CDC)
+#elif defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
   #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "CDC in HS Mode")
   #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "CDC in FS Mode")
 #else
@@ -85,7 +85,7 @@
   #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "HID Interface")
 #endif /* USBD_USE_HID_COMPOSITE */
 
-#ifdef USBD_USE_CDC
+#if defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
   #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "CDC Config")
   #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
   #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "CDC Config")
@@ -158,7 +158,7 @@ __ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
 }; /* USB_DeviceDescriptor */
 #endif /* USBD_USE_HID_COMPOSITE */
 
-#ifdef USBD_USE_CDC
+#if defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
 /* USB Standard Device Descriptor */
 __ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
   0x12,                       /* bLength */
@@ -185,7 +185,7 @@ __ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
   USBD_IDX_SERIAL_STR,        /* Index of serial number string */
   USBD_MAX_NUM_CONFIGURATION  /* bNumConfigurations */
 }; /* USB_DeviceDescriptor */
-#endif /* USBD_USE_CDC */
+#endif /* USBD_USE_CDC || USBD_USE_CDC_MSC */
 
 /* USB Device LPM BOS descriptor */
 #if (USBD_LPM_ENABLED == 1)

@@ -23,73 +23,22 @@
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
+#include "usbd_ep_conf.h"
+
+#ifdef USBCON
+#ifdef USBD_USE_MSC_CLASS
+
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_msc_bot.h"
 #include "usbd_msc.h"
 #include "usbd_msc_scsi.h"
 #include "usbd_ioreq.h"
 
-/** @addtogroup STM32_USB_DEVICE_LIBRARY
-  * @{
-  */
-
-
-/** @defgroup MSC_BOT
-  * @brief BOT protocol module
-  * @{
-  */
-
-/** @defgroup MSC_BOT_Private_TypesDefinitions
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_BOT_Private_Defines
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_BOT_Private_Macros
-  * @{
-  */
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_BOT_Private_Variables
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_BOT_Private_FunctionPrototypes
-  * @{
-  */
 static void MSC_BOT_CBW_Decode(USBD_HandleTypeDef  *pdev);
 static void MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf,
                              uint16_t len);
 
 static void MSC_BOT_Abort(USBD_HandleTypeDef  *pdev);
-/**
-  * @}
-  */
-
-
-/** @defgroup MSC_BOT_Private_Functions
-  * @{
-  */
-
 
 
 /**
@@ -370,18 +319,8 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef  *pdev, uint8_t epnum)
     return;
   }
 }
-/**
-  * @}
-  */
 
-
-/**
-  * @}
-  */
-
-
-/**
-  * @}
-  */
+#endif /* USBD_USE_MSC_CLASS */
+#endif /* USBCON */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

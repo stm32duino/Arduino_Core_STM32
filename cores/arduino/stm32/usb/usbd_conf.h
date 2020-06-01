@@ -108,18 +108,6 @@ extern "C" {
 #define USB_BB_MAX_NUM_ALT_MODE             0x2U
 #endif /* USB_BB_MAX_NUM_ALT_MODE */
 
-
-/*  Endpoint Configuration */
-
-#define CDC_IN_EP                       0x81  /* EP1 for data IN */
-#define CDC_OUT_EP                      0x01  /* EP1 for data OUT */
-#define CDC_CMD_EP                      0x82  /* EP2 for CDC commands */
-
-#define MSC_IN_EP                       0x83 /* EP3 for Interrupt IN */
-#define MSC_OUT_EP                       0x02 /* EP3 for Interrupt IN */
-
-
-
 /* MSC Class Config */
 #ifndef MSC_MEDIA_PACKET
 #define MSC_MEDIA_PACKET                    8192U
