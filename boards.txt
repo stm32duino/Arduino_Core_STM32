@@ -685,7 +685,7 @@ Disco.menu.pnum.DISCO_L475VG_IOT.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # B_L4S5I_IOT01A board
 Disco.menu.pnum.B_L4S5I_IOT01A=B-L4S5I-IOT01A
-Disco.menu.pnum.B_L4S5I_IOT01A.node=DIS_L4IOT
+Disco.menu.pnum.B_L4S5I_IOT01A.node="DIS_L4IOT,DIS_L4S5VI"
 Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_size=2097152
 Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_data_size=655360
 Disco.menu.pnum.B_L4S5I_IOT01A.build.mcu=cortex-m4
