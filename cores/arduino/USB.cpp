@@ -16,6 +16,8 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
+#ifdef USBCON
+
 #include "usbd_cdc.h"
 #include "usbd_cdc_msc.h"
 #include "usbd_msc.h"
@@ -87,3 +89,5 @@ void USB::deinitialize()
   USBD_DeInit(&hUSBD_Device);
   initialized = false;
 }
+
+#endif // USBCON

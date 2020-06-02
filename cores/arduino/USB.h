@@ -19,8 +19,8 @@
 #ifndef _USB_H_
 #define _USB_H_
 
-#if defined (USBCON)
-#include "Stream.h"
+#ifdef USBCON
+
 #include "usbd_core.h"
 #include "usbd_msc.h"
 
