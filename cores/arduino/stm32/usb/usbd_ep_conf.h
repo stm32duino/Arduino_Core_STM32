@@ -59,10 +59,10 @@ typedef struct {
   #define CDC_IN_EP                     0x81U /*  EP1 for CDC data IN */
   #define CDC_CMD_EP                    0x82U /*  EP2 for CDC commands */
 
-  #define MSC_OUT_EP                    0x02U /*  EP2 for MSC data IN */
+  #define MSC_OUT_EP                    0x03U /*  EP3 for MSC data IN */
   #define MSC_IN_EP                     0x83U /*  EP3 for MSC data IN */
 
-  #define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 */
+  #define DEV_NUM_EP                    0x07U   /* Device Endpoints number including EP0 */
 
   /* CDC Endpoints parameters*/
   #define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */

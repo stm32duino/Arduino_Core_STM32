@@ -164,20 +164,20 @@ static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
   0x00,   /* iInterface: */
 
   /*Endpoint OUT Descriptor*/
-  0x07,   /* bLength: Endpoint Descriptor size */
-  USB_DESC_TYPE_ENDPOINT,      /* bDescriptorType: Endpoint */
-  CDC_OUT_EP,                        /* bEndpointAddress */
-  0x02,                              /* bmAttributes: Bulk */
-  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_OUT_EP,                          /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
   HIBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),
-  0x00,                              /* bInterval: ignore for Bulk transfer */
+  0x00,                                /* bInterval: ignore for Bulk transfer */
 
   /*Endpoint IN Descriptor*/
-  0x07,   /* bLength: Endpoint Descriptor size */
-  USB_DESC_TYPE_ENDPOINT,      /* bDescriptorType: Endpoint */
-  CDC_IN_EP,                         /* bEndpointAddress */
-  0x02,                              /* bmAttributes: Bulk */
-  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_IN_EP,                           /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
   HIBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),
   0x00,
 
@@ -196,7 +196,7 @@ static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
   /********************  Mass Storage Endpoints ********************/
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_EPIN_ADDR,                                   /* Endpoint address (IN, address 1) */
+  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -204,7 +204,7 @@ static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
 
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_EPOUT_ADDR,                                  /* Endpoint address (OUT, address 1) */
+  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),

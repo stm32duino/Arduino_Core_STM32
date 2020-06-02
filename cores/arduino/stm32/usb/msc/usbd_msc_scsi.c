@@ -511,7 +511,7 @@ static int8_t SCSI_Write10(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *para
 
     /* Prepare EP to receive first data packet */
     hmsc->bot_state = USBD_BOT_DATA_OUT;
-    USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, hmsc->bot_data, len);
+    USBD_LL_PrepareReceive(pdev, MSC_OUT_EP, hmsc->bot_data, len);
   }
   else /* Write Process ongoing */
   {
@@ -591,7 +591,7 @@ static int8_t SCSI_ProcessRead(USBD_HandleTypeDef  *pdev, uint8_t lun)
     return -1;
   }
 
-  USBD_LL_Transmit(pdev, MSC_EPIN_ADDR, hmsc->bot_data, len);
+  USBD_LL_Transmit(pdev, MSC_IN_EP, hmsc->bot_data, len);
 
   hmsc->scsi_blk_addr += (len / hmsc->scsi_blk_size);
   hmsc->scsi_blk_len -= (len / hmsc->scsi_blk_size);
@@ -643,7 +643,7 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef  *pdev, uint8_t lun)
   {
     len = MIN((hmsc->scsi_blk_len * hmsc->scsi_blk_size), MSC_MEDIA_PACKET);
     /* Prepare EP to Receive next packet */
-    USBD_LL_PrepareReceive(pdev, MSC_EPOUT_ADDR, hmsc->bot_data, len);
+    USBD_LL_PrepareReceive(pdev, MSC_OUT_EP, hmsc->bot_data, len);
   }
 
   return 0;

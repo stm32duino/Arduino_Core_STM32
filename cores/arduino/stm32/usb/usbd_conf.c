@@ -514,7 +514,9 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, ep_def[0].ep_size);
   for (uint32_t i = 1; i < (DEV_NUM_EP + 1); i++) {
-    HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
+    if (ep_def[i].ep_adress & 0xF0U) {
+      HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
+    }
   }
 #else
   uint32_t offset = 0;

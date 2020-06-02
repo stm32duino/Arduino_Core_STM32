@@ -106,7 +106,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
   /********************  Mass Storage Endpoints ********************/
   0x07,   /*Endpoint descriptor length = 7*/
   0x05,   /*Endpoint descriptor type */
-  MSC_EPIN_ADDR,   /*Endpoint address (IN, address 1) */
+  MSC_IN_EP,   /*Endpoint address (IN, address 1) */
   0x02,   /*Bulk endpoint type */
   LOBYTE(MSC_MAX_HS_PACKET),
   HIBYTE(MSC_MAX_HS_PACKET),
@@ -114,7 +114,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
 
   0x07,   /*Endpoint descriptor length = 7 */
   0x05,   /*Endpoint descriptor type */
-  MSC_EPOUT_ADDR,   /*Endpoint address (OUT, address 1) */
+  MSC_OUT_EP,   /*Endpoint address (OUT, address 1) */
   0x02,   /*Bulk endpoint type */
   LOBYTE(MSC_MAX_HS_PACKET),
   HIBYTE(MSC_MAX_HS_PACKET),
@@ -149,7 +149,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
   /********************  Mass Storage Endpoints ********************/
   0x07,   /*Endpoint descriptor length = 7*/
   0x05,   /*Endpoint descriptor type */
-  MSC_EPIN_ADDR,   /*Endpoint address (IN, address 1) */
+  MSC_IN_EP,   /*Endpoint address (IN, address 1) */
   0x02,   /*Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -157,7 +157,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
 
   0x07,   /*Endpoint descriptor length = 7 */
   0x05,   /*Endpoint descriptor type */
-  MSC_EPOUT_ADDR,   /*Endpoint address (OUT, address 1) */
+  MSC_OUT_EP,   /*Endpoint address (OUT, address 1) */
   0x02,   /*Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -190,7 +190,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __AL
   /********************  Mass Storage Endpoints ********************/
   0x07,   /*Endpoint descriptor length = 7*/
   0x05,   /*Endpoint descriptor type */
-  MSC_EPIN_ADDR,   /*Endpoint address (IN, address 1) */
+  MSC_IN_EP,   /*Endpoint address (IN, address 1) */
   0x02,   /*Bulk endpoint type */
   0x40,
   0x00,
@@ -198,7 +198,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __AL
 
   0x07,   /*Endpoint descriptor length = 7 */
   0x05,   /*Endpoint descriptor type */
-  MSC_EPOUT_ADDR,   /*Endpoint address (OUT, address 1) */
+  MSC_OUT_EP,   /*Endpoint address (OUT, address 1) */
   0x02,   /*Bulk endpoint type */
   0x40,
   0x00,
@@ -240,22 +240,22 @@ uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   if (pdev->dev_speed == USBD_SPEED_HIGH)
   {
     /* Open EP OUT */
-    USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
-    pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
+    pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
 
     /* Open EP IN */
-    USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
-    pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
+    pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
   }
   else
   {
     /* Open EP OUT */
-    USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
-    pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
+    pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
 
     /* Open EP IN */
-    USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
-    pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
+    USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
+    pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
   }
 
   /* Init the BOT  layer */
@@ -275,12 +275,12 @@ uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
                          uint8_t cfgidx)
 {
   /* Close MSC EPs */
-  USBD_LL_CloseEP(pdev, MSC_EPOUT_ADDR);
-  pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 0U;
+  USBD_LL_CloseEP(pdev, MSC_OUT_EP);
+  pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 0U;
 
   /* Close EP IN */
-  USBD_LL_CloseEP(pdev, MSC_EPIN_ADDR);
-  pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 0U;
+  USBD_LL_CloseEP(pdev, MSC_IN_EP);
+  pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 0U;
 
   /* De-Init the BOT layer */
   MSC_BOT_DeInit(pdev);
@@ -398,16 +398,16 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
             if (pdev->dev_speed == USBD_SPEED_HIGH)
             {
               /* Open EP IN */
-              USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK,
+              USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
             }
             else
             {
               /* Open EP IN */
-              USBD_LL_OpenEP(pdev, MSC_EPIN_ADDR, USBD_EP_TYPE_BULK,
+              USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);
             }
-            pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 1U;
+            pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
           }
           else
           {
@@ -415,16 +415,16 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
             if (pdev->dev_speed == USBD_SPEED_HIGH)
             {
               /* Open EP OUT */
-              USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK,
+              USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
             }
             else
             {
               /* Open EP OUT */
-              USBD_LL_OpenEP(pdev, MSC_EPOUT_ADDR, USBD_EP_TYPE_BULK,
+              USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);
             }
-            pdev->ep_out[MSC_EPOUT_ADDR & 0xFU].is_used = 1U;
+            pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
           }
 
           /* Handle BOT error */
