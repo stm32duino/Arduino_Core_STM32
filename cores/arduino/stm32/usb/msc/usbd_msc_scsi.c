@@ -387,8 +387,7 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
   if (hmsc->bot_state == USBD_BOT_IDLE) {
     /* Idle */
     /* case 10 : Ho <> Di */
-    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U)
-    {
+    if ((hmsc->cbw.bmFlags & 0x80U) != 0x80U) {
       SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
       return -1;
     }
