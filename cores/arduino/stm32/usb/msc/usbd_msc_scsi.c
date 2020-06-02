@@ -66,50 +66,50 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 {
   switch (cmd[0]) {
     case SCSI_TEST_UNIT_READY:
-      SCSI_TestUnitReady(pdev, lun, cmd);
+      return SCSI_TestUnitReady(pdev, lun, cmd);
       break;
 
     case SCSI_REQUEST_SENSE:
-      SCSI_RequestSense(pdev, lun, cmd);
+      return SCSI_RequestSense(pdev, lun, cmd);
       break;
     case SCSI_INQUIRY:
-      SCSI_Inquiry(pdev, lun, cmd);
+      return SCSI_Inquiry(pdev, lun, cmd);
       break;
 
     case SCSI_START_STOP_UNIT:
-      SCSI_StartStopUnit(pdev, lun, cmd);
+      return SCSI_StartStopUnit(pdev, lun, cmd);
       break;
 
     case SCSI_ALLOW_MEDIUM_REMOVAL:
-      SCSI_StartStopUnit(pdev, lun, cmd);
+      return SCSI_StartStopUnit(pdev, lun, cmd);
       break;
 
     case SCSI_MODE_SENSE6:
-      SCSI_ModeSense6(pdev, lun, cmd);
+      return SCSI_ModeSense6(pdev, lun, cmd);
       break;
 
     case SCSI_MODE_SENSE10:
-      SCSI_ModeSense10(pdev, lun, cmd);
+      return SCSI_ModeSense10(pdev, lun, cmd);
       break;
 
     case SCSI_READ_FORMAT_CAPACITIES:
-      SCSI_ReadFormatCapacity(pdev, lun, cmd);
+      return SCSI_ReadFormatCapacity(pdev, lun, cmd);
       break;
 
     case SCSI_READ_CAPACITY10:
-      SCSI_ReadCapacity10(pdev, lun, cmd);
+      return SCSI_ReadCapacity10(pdev, lun, cmd);
       break;
 
     case SCSI_READ10:
-      SCSI_Read10(pdev, lun, cmd);
+      return SCSI_Read10(pdev, lun, cmd);
       break;
 
     case SCSI_WRITE10:
-      SCSI_Write10(pdev, lun, cmd);
+      return SCSI_Write10(pdev, lun, cmd);
       break;
 
     case SCSI_VERIFY10:
-      SCSI_Verify10(pdev, lun, cmd);
+      return SCSI_Verify10(pdev, lun, cmd);
       break;
 
     default:
