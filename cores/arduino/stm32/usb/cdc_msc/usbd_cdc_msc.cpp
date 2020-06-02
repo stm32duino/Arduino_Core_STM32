@@ -270,10 +270,9 @@ static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
 static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
                                      USBD_SetupReqTypedef *req)
 {
-  switch (req->bmRequest & USB_REQ_RECIPIENT_MASK)
-  {
+  switch (req->bmRequest & USB_REQ_RECIPIENT_MASK) {
     case USB_REQ_RECIPIENT_INTERFACE:
-      switch(req->wIndex) {
+      switch (req->wIndex) {
         case CDC_ACM_INTERFACE:
         case CDC_COM_INTERFACE:
           return USBD_CDC.Setup(pdev, req);
@@ -397,10 +396,9 @@ static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev)
   * @retval status
   */
 static uint8_t  USBD_COMPOSITE_DataOut(USBD_HandleTypeDef *pdev,
-                                      uint8_t epnum)
+                                       uint8_t epnum)
 {
-  switch (epnum)
-  {
+  switch (epnum) {
     case CDC_IN_EP:
     case CDC_CMD_EP:
     case CDC_OUT_EP:

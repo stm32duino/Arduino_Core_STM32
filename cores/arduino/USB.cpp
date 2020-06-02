@@ -34,7 +34,7 @@ void USB::begin()
   }
 }
 
-void USB::register_msc(USBD_StorageTypeDef* fops) 
+void USB::register_msc(USBD_StorageTypeDef *fops)
 {
   USBD_MSC_RegisterStorage(&hUSBD_Device, fops);
 }
@@ -70,7 +70,7 @@ void USB::initialize()
 #endif
 
   /* Start Device Process */
-  USBD_Start(&hUSBD_Device_CDC);
+  USBD_Start(&hUSBD_Device);
   initialized = true;
 }
 
