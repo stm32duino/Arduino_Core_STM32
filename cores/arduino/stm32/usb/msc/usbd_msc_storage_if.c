@@ -69,8 +69,7 @@ int8_t  STORAGE_Inquirydata[] =  /* 36 */
   '0', '.', '0', '1',                     /* Version      : 4 Bytes */
 };
 
-USBD_StorageTypeDef USBD_MSC_fops =
-{
+USBD_StorageTypeDef USBD_MSC_fops = {
   STORAGE_Init,
   STORAGE_GetCapacity,
   STORAGE_IsReady,
@@ -113,11 +112,12 @@ int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_siz
 * Description    : Handle the Read operation from the STORAGE card.
 * Input          : None.
 * Output         : None.
-* Return         : None.
+* Return         : 0 if device is ready, otherwise not ready
 *******************************************************************************/
 int8_t  STORAGE_IsReady(uint8_t lun)
 {
-  return (0);
+  // the dummy device is never ready
+  return 1;
 }
 
 /*******************************************************************************

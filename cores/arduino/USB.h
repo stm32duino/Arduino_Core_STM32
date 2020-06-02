@@ -26,7 +26,7 @@
 
 class USB {
   public:
-    void register_msc(USBD_StorageTypeDef* fops);
+    void register_msc(USBD_StorageTypeDef *fops);
 
     void begin(void);
 
@@ -37,7 +37,7 @@ class USB {
     void deinitialize();
 
     bool initialized;
-    
+
     USBD_HandleTypeDef hUSBD_Device;
 };
 

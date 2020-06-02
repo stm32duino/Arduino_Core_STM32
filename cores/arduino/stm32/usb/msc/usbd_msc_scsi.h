@@ -106,13 +106,10 @@ extern  uint8_t ReadCapacity10_Data[];
 extern  uint8_t ReadFormatCapacity_Data [];
 
 
-typedef struct _SENSE_ITEM
-{
+typedef struct _SENSE_ITEM {
   char Skey;
-  union
-  {
-    struct _ASCs
-    {
+  union {
+    struct _ASCs {
       char ASC;
       char ASCQ;
     } b;

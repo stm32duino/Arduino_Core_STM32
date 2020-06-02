@@ -59,8 +59,7 @@ uint8_t  *USBD_MSC_GetOtherSpeedCfgDesc(uint16_t *length);
 uint8_t  *USBD_MSC_GetDeviceQualifierDescriptor(uint16_t *length);
 
 
-USBD_ClassTypeDef  USBD_MSC =
-{
+USBD_ClassTypeDef  USBD_MSC = {
   USBD_MSC_Init,
   USBD_MSC_DeInit,
   USBD_MSC_Setup,
@@ -79,8 +78,7 @@ USBD_ClassTypeDef  USBD_MSC =
 
 /* USB Mass storage device Configuration Descriptor */
 /*   All Descriptors (Configuration, Interface, Endpoint, Class, Vendor */
-__ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
-{
+__ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END = {
 
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION,   /* bDescriptorType: Configuration */
@@ -123,8 +121,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgHSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
 
 /* USB Mass storage device Configuration Descriptor */
 /*   All Descriptors (Configuration, Interface, Endpoint, Class, Vendor */
-__ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
-{
+__ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END = {
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION,   /* bDescriptorType: Configuration */
   USB_MSC_CONFIG_DESC_SIZ,
@@ -164,8 +161,7 @@ __ALIGN_BEGIN uint8_t USBD_MSC_CfgFSDesc[USB_MSC_CONFIG_DESC_SIZ]  __ALIGN_END =
   0x00     /*Polling interval in milliseconds*/
 };
 
-__ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __ALIGN_END  =
-{
+__ALIGN_BEGIN uint8_t USBD_MSC_OtherSpeedCfgDesc[USB_MSC_CONFIG_DESC_SIZ]   __ALIGN_END  = {
   0x09,   /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
   USB_MSC_CONFIG_DESC_SIZ,
@@ -237,8 +233,7 @@ USBD_StorageTypeDef *msc_storage = &USBD_MSC_fops;
   */
 uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
-  if (pdev->dev_speed == USBD_SPEED_HIGH)
-  {
+  if (pdev->dev_speed == USBD_SPEED_HIGH) {
     /* Open EP OUT */
     USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
     pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
@@ -246,9 +241,7 @@ uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
     /* Open EP IN */
     USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
     pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
-  }
-  else
-  {
+  } else {
     /* Open EP OUT */
     USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_FS_PACKET);
     pdev->ep_out[MSC_OUT_EP & 0xFU].is_used = 1U;
@@ -272,7 +265,7 @@ uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   * @retval status
   */
 uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
-                         uint8_t cfgidx)
+                        uint8_t cfgidx)
 {
   /* Close MSC EPs */
   USBD_LL_CloseEP(pdev, MSC_OUT_EP);
@@ -301,26 +294,21 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   uint8_t ret = USBD_OK;
   uint16_t status_info = 0U;
 
-  switch (req->bmRequest & USB_REQ_TYPE_MASK)
-  {
+  switch (req->bmRequest & USB_REQ_TYPE_MASK) {
     /* Class request */
     case USB_REQ_TYPE_CLASS:
       switch (req->bRequest)
       {
         case BOT_GET_MAX_LUN:
           if ((req->wValue  == 0U) && (req->wLength == 1U) &&
-              ((req->bmRequest & 0x80U) == 0x80U))
-          {
+              ((req->bmRequest & 0x80U) == 0x80U)) {
             if (msc_storage != NULL) {
               hmsc->max_lun = (uint32_t)msc_storage->GetMaxLun();
               USBD_CtlSendData(pdev, (uint8_t *)(void *)&hmsc->max_lun, 1U);
-            }
-            else {
+            } else {
               ret = USBD_FAIL;
             }
-          }
-          else
-          {
+          } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -328,12 +316,9 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
         case BOT_RESET :
           if ((req->wValue  == 0U) && (req->wLength == 0U) &&
-              ((req->bmRequest & 0x80U) != 0x80U))
-          {
+              ((req->bmRequest & 0x80U) != 0x80U)) {
             MSC_BOT_Reset(pdev);
-          }
-          else
-          {
+          } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -347,39 +332,29 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
       break;
     /* Interface & Endpoint request */
     case USB_REQ_TYPE_STANDARD:
-      switch (req->bRequest)
-      {
+      switch (req->bRequest) {
         case USB_REQ_GET_STATUS:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED)
-          {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&status_info, 2U);
-          }
-          else
-          {
+          } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_GET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED)
-          {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
             USBD_CtlSendData(pdev, (uint8_t *)(void *)&hmsc->interface, 1U);
-          }
-          else
-          {
+          } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
           break;
 
         case USB_REQ_SET_INTERFACE:
-          if (pdev->dev_state == USBD_STATE_CONFIGURED)
-          {
+          if (pdev->dev_state == USBD_STATE_CONFIGURED) {
             hmsc->interface = (uint8_t)(req->wValue);
-          }
-          else
-          {
+          } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;
           }
@@ -392,34 +367,25 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
 
           /* Reactivate the EP */
           USBD_LL_CloseEP(pdev, (uint8_t)req->wIndex);
-          if ((((uint8_t)req->wIndex) & 0x80U) == 0x80U)
-          {
+          if ((((uint8_t)req->wIndex) & 0x80U) == 0x80U) {
             pdev->ep_in[(uint8_t)req->wIndex & 0xFU].is_used = 0U;
-            if (pdev->dev_speed == USBD_SPEED_HIGH)
-            {
+            if (pdev->dev_speed == USBD_SPEED_HIGH) {
               /* Open EP IN */
               USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
-            }
-            else
-            {
+            } else {
               /* Open EP IN */
               USBD_LL_OpenEP(pdev, MSC_IN_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);
             }
             pdev->ep_in[MSC_IN_EP & 0xFU].is_used = 1U;
-          }
-          else
-          {
+          } else {
             pdev->ep_out[(uint8_t)req->wIndex & 0xFU].is_used = 0U;
-            if (pdev->dev_speed == USBD_SPEED_HIGH)
-            {
+            if (pdev->dev_speed == USBD_SPEED_HIGH) {
               /* Open EP OUT */
               USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_HS_PACKET);
-            }
-            else
-            {
+            } else {
               /* Open EP OUT */
               USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK,
                              MSC_MAX_FS_PACKET);

@@ -44,13 +44,13 @@
 #include "usbd_ctlreq.h"
 
 static uint8_t  USBD_COMPOSITE_Init(USBD_HandleTypeDef *pdev,
-                                   uint8_t cfgidx);
+                                    uint8_t cfgidx);
 
 static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
-                                     uint8_t cfgidx);
+                                      uint8_t cfgidx);
 
 static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
-                                    USBD_SetupReqTypedef *req);
+                                     USBD_SetupReqTypedef *req);
 
 static uint8_t  *USBD_COMPOSITE_GetCfgDesc(uint16_t *length);
 
@@ -64,8 +64,7 @@ static uint8_t  USBD_COMPOSITE_EP0_RxReady(USBD_HandleTypeDef *pdev);
 
 static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev);
 
-USBD_ClassTypeDef  USBD_CDC_MSC =
-{
+USBD_ClassTypeDef  USBD_CDC_MSC = {
   USBD_COMPOSITE_Init,
   USBD_COMPOSITE_DeInit,
   USBD_COMPOSITE_Setup,
@@ -84,11 +83,10 @@ USBD_ClassTypeDef  USBD_CDC_MSC =
 
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-#pragma data_alignment=4
+  #pragma data_alignment=4
 #endif
 /* USB COMPOSITE device Configuration Descriptor */
-static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
-{
+static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
   0x09, /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   USB_CDC_MSC_CONFIG_DESC_SIZ,
@@ -212,11 +210,10 @@ static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] =
 };
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-#pragma data_alignment=4
+  #pragma data_alignment=4
 #endif
 /* USB Standard Device Descriptor */
-static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] =
-{
+static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] = {
   USB_LEN_DEV_QUALIFIER_DESC,
   USB_DESC_TYPE_DEVICE_QUALIFIER,
   0x00,
@@ -237,7 +234,7 @@ static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] =
   * @retval status
   */
 static uint8_t  USBD_COMPOSITE_Init(USBD_HandleTypeDef *pdev,
-                                   uint8_t cfgidx)
+                                    uint8_t cfgidx)
 {
   USBD_MSC.Init(pdev, cfgidx);
 
@@ -254,7 +251,7 @@ static uint8_t  USBD_COMPOSITE_Init(USBD_HandleTypeDef *pdev,
   * @retval status
   */
 static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
-                                     uint8_t cfgidx)
+                                      uint8_t cfgidx)
 {
   USBD_MSC.DeInit(pdev, cfgidx);
 
@@ -271,7 +268,7 @@ static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
   * @retval status
   */
 static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
-                                    USBD_SetupReqTypedef *req)
+                                     USBD_SetupReqTypedef *req)
 {
   switch (req->bmRequest & USB_REQ_RECIPIENT_MASK)
   {
@@ -285,12 +282,12 @@ static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
         case MSC_INTERFACE:
           return USBD_MSC.Setup(pdev, req);
           break;
-      
+
         // invalid interface
         default:
           return USBD_FAIL;
       }
-    break;
+      break;
 
     case USB_REQ_RECIPIENT_ENDPOINT:
       switch (req->wIndex) {
@@ -307,7 +304,7 @@ static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
         default:
           return USBD_FAIL;
       }
-    break;
+      break;
 
     default:
       break;
@@ -350,10 +347,9 @@ uint8_t  *USBD_COMPOSITE_DeviceQualifierDescriptor(uint16_t *length)
   * @retval status
   */
 static uint8_t  USBD_COMPOSITE_DataIn(USBD_HandleTypeDef *pdev,
-                                     uint8_t epnum)
+                                      uint8_t epnum)
 {
-  switch (epnum)
-  {
+  switch (epnum) {
     case CDC_IN_EP:
     case CDC_CMD_EP:
     case CDC_OUT_EP:

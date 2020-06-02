@@ -27,48 +27,62 @@
 
 USB USBDevice;
 
-void USB::begin() {
-  if (!initialized) initialize();
-}
-
-void USB::register_msc(USBD_StorageTypeDef* fops) {
-  USBD_MSC_RegisterStorage(&hUSBD_Device, fops);
-}
-
-void USB::initialize() {
-  hUSBD_Device_CDC = &hUSBD_Device;
-
-  /* Init Device Library */
-  if (USBD_Init(&hUSBD_Device, &USBD_Desc, 0) == USBD_OK) {
-  #ifdef USBD_USE_CDC
-    /* Add Supported Class */
-    if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC) == USBD_OK) {
-      /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) == USBD_OK) {
-        /* Start Device Process */
-        USBD_Start(&hUSBD_Device_CDC);
-        initialized = true;
-      }
-    }
-  #elif USBD_USE_CDC_MSC
-    /* Add Supported Class */
-    if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) == USBD_OK) {
-      /* Add CDC Interface Class */
-      if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) == USBD_OK) {
-        /* Start Device Process */
-        USBD_Start(&hUSBD_Device);
-        initialized = true;
-      }
-    }
-  #endif
+void USB::begin()
+{
+  if (!initialized) {
+    initialize();
   }
 }
 
-void USB::end() {
-  if (initialized) deinitialize();
+void USB::register_msc(USBD_StorageTypeDef* fops) 
+{
+  USBD_MSC_RegisterStorage(&hUSBD_Device, fops);
 }
 
-void USB::deinitialize() {
+void USB::initialize()
+{
+  hUSBD_Device_CDC = &hUSBD_Device;
+
+  /* Init Device Library */
+  if (USBD_Init(&hUSBD_Device, &USBD_Desc, 0) != USBD_OK) {
+    return;
+  }
+
+  /* Add Supported Class and register interface */
+#ifdef USBD_USE_CDC
+  if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC) != USBD_OK) {
+    return;
+  }
+  if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) != USBD_OK) {
+    return;
+  }
+#elif USBD_USE_CDC_MSC
+  if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) != USBD_OK) {
+    return;
+  }
+  if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) != USBD_OK) {
+    return;
+  }
+#elif USBD_USE_MSC
+  if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) != USBD_OK) {
+    return;
+  }
+#endif
+
+  /* Start Device Process */
+  USBD_Start(&hUSBD_Device_CDC);
+  initialized = true;
+}
+
+void USB::end()
+{
+  if (initialized) {
+    deinitialize();
+  }
+}
+
+void USB::deinitialize()
+{
   USBD_Stop(&hUSBD_Device);
   USBD_DeInit(&hUSBD_Device);
   initialized = false;

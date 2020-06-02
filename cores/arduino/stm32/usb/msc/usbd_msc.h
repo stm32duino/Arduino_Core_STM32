@@ -41,8 +41,7 @@ extern "C" {
 #define BOT_RESET                    0xFF
 #define USB_MSC_CONFIG_DESC_SIZ      32
 
-typedef struct _USBD_STORAGE
-{
+typedef struct _USBD_STORAGE {
   int8_t (* Init)(uint8_t lun);
   int8_t (* GetCapacity)(uint8_t lun, uint32_t *block_num, uint16_t *block_size);
   int8_t (* IsReady)(uint8_t lun);
@@ -54,8 +53,7 @@ typedef struct _USBD_STORAGE
 
 } USBD_StorageTypeDef;
 
-typedef struct
-{
+typedef struct {
   uint32_t                 max_lun;
   uint32_t                 interface;
   uint8_t                  bot_state;

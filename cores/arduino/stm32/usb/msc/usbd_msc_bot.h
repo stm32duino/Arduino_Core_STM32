@@ -57,8 +57,7 @@ extern "C" {
 #define USBD_BOTH_DIR                      2U
 
 
-typedef struct
-{
+typedef struct {
   uint32_t dSignature;
   uint32_t dTag;
   uint32_t dDataLength;
@@ -71,8 +70,7 @@ typedef struct
 USBD_MSC_BOT_CBWTypeDef;
 
 
-typedef struct
-{
+typedef struct {
   uint32_t dSignature;
   uint32_t dTag;
   uint32_t dDataResidue;
