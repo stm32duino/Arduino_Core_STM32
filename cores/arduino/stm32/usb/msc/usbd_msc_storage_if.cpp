@@ -138,7 +138,7 @@ int8_t  STORAGE_IsWriteProtected(uint8_t lun)
 {
   HANDLER_LUN_CHECK
 
-  return !ppUsbMscHandlers[lun]->IsWriteProtected();
+  return ppUsbMscHandlers[lun]->IsWriteProtected();
 }
 
 /*******************************************************************************
