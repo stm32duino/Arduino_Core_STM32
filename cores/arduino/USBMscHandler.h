@@ -30,15 +30,15 @@ class USBMscHandler {
   public:
     // Example: A 128 MB SD card has 245760 blocks, at a block size of 512 bytes
     // Returns true if successful, otherwise false.
-    virtual bool GetCapacity(uint32_t * blockNum, uint16_t * blockSize) = 0;
+    virtual bool GetCapacity(uint32_t *pBlockNum, uint16_t *pBlockSize) = 0;
 
     // Read [blk_len] blocks, starting at [blk_addr] into [buf].
     // Returns true if successful, otherwise false.
-    virtual bool Read(uint8_t * pBuf, uint32_t blkAddr, uint16_t blkLen) = 0;
+    virtual bool Read(uint8_t *pBuf, uint32_t blkAddr, uint16_t blkLen) = 0;
 
     // Write [blk_len] blocks, starting at [blk_addr] into [buf].
     // Returns true if successful, otherwise false.
-    virtual bool Write(uint8_t * pBuf, uint32_t blkAddr, uint16_t blkLen) = 0;
+    virtual bool Write(uint8_t *pBuf, uint32_t blkAddr, uint16_t blkLen) = 0;
 
     /** Optional functions **/
 
