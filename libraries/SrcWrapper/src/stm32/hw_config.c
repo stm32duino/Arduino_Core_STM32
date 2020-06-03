@@ -62,10 +62,6 @@ void hw_config_init(void)
   /* Configure the system clock */
   SystemClock_Config();
 
-#if defined (USBCON) && defined(USBD_USE_CDC)
-  USBD_CDC_init();
-#endif
-
 #if defined (STM32MP1xx)
   __HAL_RCC_HSEM_CLK_ENABLE();
 #endif

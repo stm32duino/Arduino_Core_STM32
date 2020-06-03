@@ -18,14 +18,20 @@
 
 #ifdef USBCON
 
-#include "usbd_cdc.h"
-#include "usbd_cdc_msc.h"
-#include "usbd_msc.h"
-#include "usbd_msc_storage_if.h"
-#include "usbd_cdc_if.h"
 #include "usbd_desc.h"
 #include "USB.h"
 #include "wiring.h"
+
+#ifdef USBD_USE_CDC_CLASS
+  #include "usbd_cdc.h"
+  #include "usbd_cdc_msc.h"
+  #include "usbd_cdc_if.h"
+#endif
+
+#ifdef USBD_USE_MSC_CLASS
+  #include "usbd_msc.h"
+  #include "usbd_msc_storage_if.h"
+#endif
 
 USB USBDevice;
 
