@@ -41,7 +41,7 @@ DummyUSBMscHandler dummyHandler;
 
 void USB::registerMscHandler(USBMscHandler &handler)
 {
-  pSingleMscHandler= &handler;
+  pSingleMscHandler = &handler;
   registerMscHandlers(1, &pSingleMscHandler, USBD_MSC_fops.pInquiry);
 }
 

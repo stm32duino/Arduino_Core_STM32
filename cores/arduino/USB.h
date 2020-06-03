@@ -25,7 +25,7 @@
 #include "usbd_ep_conf.h"
 
 #ifdef USBD_USE_MSC_CLASS
-#include "USBMscHandler.h"
+  #include "USBMscHandler.h"
 #endif
 
 class USB {
