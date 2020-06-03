@@ -89,8 +89,7 @@ typedef struct {
 /* Require DEV_NUM_EP to be defined */
 #if defined (USB)
   /* Size in words, byte size divided by 2 */
-  #define PMA_EP0_OUT_ADDR    (8 * DEV_NUM_EP)
-  #define PMA_EP0_IN_ADDR     (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
+  #define PMA_BASE_OFFSET     (8 * DEV_NUM_EP)
 #endif /* USB */
 
 // *INDENT-ON*
