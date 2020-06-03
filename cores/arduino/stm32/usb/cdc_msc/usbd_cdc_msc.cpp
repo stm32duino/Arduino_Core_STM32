@@ -52,7 +52,11 @@ static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
 static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
                                      USBD_SetupReqTypedef *req);
 
-static uint8_t  *USBD_COMPOSITE_GetCfgDesc(uint16_t *length);
+static uint8_t  *USBD_COMPOSITE_GetHSCfgDesc(uint16_t *length);
+
+static uint8_t  *USBD_COMPOSITE_GetFSCfgDesc(uint16_t *length);
+
+static uint8_t  *USBD_COMPOSITE_GetOtherSpeedCfgDesc(uint16_t *length);
 
 static uint8_t  *USBD_COMPOSITE_GetDeviceQualifierDesc(uint16_t *length);
 
@@ -75,18 +79,144 @@ USBD_ClassTypeDef  USBD_CDC_MSC = {
   USBD_COMPOSITE_SOF,
   nullptr,
   nullptr,
-  USBD_COMPOSITE_GetCfgDesc,
-  USBD_COMPOSITE_GetCfgDesc,
-  USBD_COMPOSITE_GetCfgDesc,
+  USBD_COMPOSITE_GetHSCfgDesc,
+  USBD_COMPOSITE_GetFSCfgDesc,
+  USBD_COMPOSITE_GetOtherSpeedCfgDesc,
   USBD_COMPOSITE_GetDeviceQualifierDesc,
 };
-
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4
 #endif
 /* USB COMPOSITE device Configuration Descriptor */
-static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
+static uint8_t USBD_COMPOSITE_HSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
+  0x09, /* bLength: Configuation Descriptor size */
+  USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
+  USB_CDC_MSC_CONFIG_DESC_SIZ,
+  /* wTotalLength: Bytes returned */
+  0x00,
+  0x03,         /*bNumInterfaces: 3 interface*/
+  0x01,         /*bConfigurationValue: Configuration value*/
+  0x02,         /*iConfiguration: Index of string descriptor describing the configuration*/
+  0xC0,         /*bmAttributes: bus powered and Supports Remote Wakeup */
+  0x32,         /*MaxPower 100 mA: this current is used for detecting Vbus*/
+  /* 09 */
+
+  /*---------------------------------------------------------------------------*/
+
+  /*Interface Descriptor */
+  0x09,   /* bLength: Interface Descriptor size */
+  USB_DESC_TYPE_INTERFACE,  /* bDescriptorType: Interface */
+  /* Interface descriptor type */
+  0x00,   /* bInterfaceNumber: Number of Interface */
+  0x00,   /* bAlternateSetting: Alternate setting */
+  0x01,   /* bNumEndpoints: One endpoints used */
+  0x02,   /* bInterfaceClass: Communication Interface Class */
+  0x02,   /* bInterfaceSubClass: Abstract Control Model */
+  0x01,   /* bInterfaceProtocol: Common AT commands */
+  0x00,   /* iInterface: */
+
+  /*Header Functional Descriptor*/
+  0x05,   /* bLength: Endpoint Descriptor size */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x00,   /* bDescriptorSubtype: Header Func Desc */
+  0x10,   /* bcdCDC: spec release number */
+  0x01,
+
+  /*Call Management Functional Descriptor*/
+  0x05,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x01,   /* bDescriptorSubtype: Call Management Func Desc */
+  0x00,   /* bmCapabilities: D0+D1 */
+  0x01,   /* bDataInterface: 1 */
+
+  /*ACM Functional Descriptor*/
+  0x04,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x02,   /* bDescriptorSubtype: Abstract Control Management desc */
+  0x02,   /* bmCapabilities */
+
+  /*Union Functional Descriptor*/
+  0x05,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x06,   /* bDescriptorSubtype: Union func desc */
+  0x00,   /* bMasterInterface: Communication class interface */
+  0x01,   /* bSlaveInterface0: Data Class Interface */
+
+  /*Endpoint 2 Descriptor*/
+  0x07,                           /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,   /* bDescriptorType: Endpoint */
+  CDC_CMD_EP,                     /* bEndpointAddress */
+  0x03,                           /* bmAttributes: Interrupt */
+  LOBYTE(CDC_CMD_PACKET_SIZE),     /* wMaxPacketSize: */
+  HIBYTE(CDC_CMD_PACKET_SIZE),
+  CDC_HS_BINTERVAL,                           /* bInterval: */
+  /*---------------------------------------------------------------------------*/
+
+  /*Data class interface descriptor*/
+  0x09,   /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_INTERFACE,  /* bDescriptorType: */
+  0x01,   /* bInterfaceNumber: Number of Interface */
+  0x00,   /* bAlternateSetting: Alternate setting */
+  0x02,   /* bNumEndpoints: Two endpoints used */
+  0x0A,   /* bInterfaceClass: CDC */
+  0x00,   /* bInterfaceSubClass: */
+  0x00,   /* bInterfaceProtocol: */
+  0x00,   /* iInterface: */
+
+  /*Endpoint OUT Descriptor*/
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_OUT_EP,                          /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_HS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
+  HIBYTE(CDC_DATA_HS_MAX_PACKET_SIZE),
+  0x00,                                /* bInterval: ignore for Bulk transfer */
+
+  /*Endpoint IN Descriptor*/
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_IN_EP,                           /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_HS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
+  HIBYTE(CDC_DATA_HS_MAX_PACKET_SIZE),
+  0x00,
+
+
+  /********************  Mass Storage interface ********************/
+  0x09,                                            /* bLength: Interface Descriptor size */
+  0x04,                                            /* bDescriptorType: */
+  0x02,                                            /* bInterfaceNumber: Number of Interface */
+  0x00,                                            /* bAlternateSetting: Alternate setting */
+  0x02,                                            /* bNumEndpoints */
+  0x08,                                            /* bInterfaceClass: MSC Class */
+  0x06,                                            /* bInterfaceSubClass : SCSI transparent */
+  0x50,                                            /* nInterfaceProtocol */
+  0x05,                                            /* iInterface: */
+
+  /********************  Mass Storage Endpoints ********************/
+  0x07,                                            /* Endpoint descriptor length = 7 */
+  0x05,                                            /* Endpoint descriptor type */
+  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
+  0x02,                                            /* Bulk endpoint type */
+  LOBYTE(MSC_MAX_HS_PACKET),
+  HIBYTE(MSC_MAX_HS_PACKET),
+  0x00,                                            /* Polling interval in milliseconds */
+
+  0x07,                                            /* Endpoint descriptor length = 7 */
+  0x05,                                            /* Endpoint descriptor type */
+  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
+  0x02,                                            /* Bulk endpoint type */
+  LOBYTE(MSC_MAX_HS_PACKET),
+  HIBYTE(MSC_MAX_HS_PACKET),
+  0x00                                             /* Polling interval in milliseconds */
+};
+
+#if defined ( __ICCARM__ ) /*!< IAR Compiler */
+  #pragma data_alignment=4
+#endif
+/* USB COMPOSITE device Configuration Descriptor */
+static uint8_t USBD_COMPOSITE_FSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
   0x09, /* bLength: Configuation Descriptor size */
   USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
   USB_CDC_MSC_CONFIG_DESC_SIZ,
@@ -212,6 +342,134 @@ static uint8_t USBD_COMPOSITE_CfgFSDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4
 #endif
+/* USB COMPOSITE device Configuration Descriptor */
+static uint8_t USBD_COMPOSITE_OtherSpeedCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
+  0x09, /* bLength: Configuation Descriptor size */
+  USB_DESC_TYPE_CONFIGURATION, /* bDescriptorType: Configuration */
+  USB_CDC_MSC_CONFIG_DESC_SIZ,
+  /* wTotalLength: Bytes returned */
+  0x00,
+  0x03,         /*bNumInterfaces: 3 interface*/
+  0x01,         /*bConfigurationValue: Configuration value*/
+  0x02,         /*iConfiguration: Index of string descriptor describing the configuration*/
+  0xC0,         /*bmAttributes: bus powered and Supports Remote Wakeup */
+  0x32,         /*MaxPower 100 mA: this current is used for detecting Vbus*/
+  /* 09 */
+
+  /*---------------------------------------------------------------------------*/
+
+  /*Interface Descriptor */
+  0x09,   /* bLength: Interface Descriptor size */
+  USB_DESC_TYPE_INTERFACE,  /* bDescriptorType: Interface */
+  /* Interface descriptor type */
+  0x00,   /* bInterfaceNumber: Number of Interface */
+  0x00,   /* bAlternateSetting: Alternate setting */
+  0x01,   /* bNumEndpoints: One endpoints used */
+  0x02,   /* bInterfaceClass: Communication Interface Class */
+  0x02,   /* bInterfaceSubClass: Abstract Control Model */
+  0x01,   /* bInterfaceProtocol: Common AT commands */
+  0x00,   /* iInterface: */
+
+  /*Header Functional Descriptor*/
+  0x05,   /* bLength: Endpoint Descriptor size */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x00,   /* bDescriptorSubtype: Header Func Desc */
+  0x10,   /* bcdCDC: spec release number */
+  0x01,
+
+  /*Call Management Functional Descriptor*/
+  0x05,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x01,   /* bDescriptorSubtype: Call Management Func Desc */
+  0x00,   /* bmCapabilities: D0+D1 */
+  0x01,   /* bDataInterface: 1 */
+
+  /*ACM Functional Descriptor*/
+  0x04,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x02,   /* bDescriptorSubtype: Abstract Control Management desc */
+  0x02,   /* bmCapabilities */
+
+  /*Union Functional Descriptor*/
+  0x05,   /* bFunctionLength */
+  0x24,   /* bDescriptorType: CS_INTERFACE */
+  0x06,   /* bDescriptorSubtype: Union func desc */
+  0x00,   /* bMasterInterface: Communication class interface */
+  0x01,   /* bSlaveInterface0: Data Class Interface */
+
+  /*Endpoint 2 Descriptor*/
+  0x07,                           /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,   /* bDescriptorType: Endpoint */
+  CDC_CMD_EP,                     /* bEndpointAddress */
+  0x03,                           /* bmAttributes: Interrupt */
+  LOBYTE(CDC_CMD_PACKET_SIZE),     /* wMaxPacketSize: */
+  HIBYTE(CDC_CMD_PACKET_SIZE),
+  CDC_FS_BINTERVAL,                           /* bInterval: */
+  /*---------------------------------------------------------------------------*/
+
+  /*Data class interface descriptor*/
+  0x09,   /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_INTERFACE,  /* bDescriptorType: */
+  0x01,   /* bInterfaceNumber: Number of Interface */
+  0x00,   /* bAlternateSetting: Alternate setting */
+  0x02,   /* bNumEndpoints: Two endpoints used */
+  0x0A,   /* bInterfaceClass: CDC */
+  0x00,   /* bInterfaceSubClass: */
+  0x00,   /* bInterfaceProtocol: */
+  0x00,   /* iInterface: */
+
+  /*Endpoint OUT Descriptor*/
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_OUT_EP,                          /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
+  HIBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),
+  0x00,                                /* bInterval: ignore for Bulk transfer */
+
+  /*Endpoint IN Descriptor*/
+  0x07,                                /* bLength: Endpoint Descriptor size */
+  USB_DESC_TYPE_ENDPOINT,              /* bDescriptorType: Endpoint */
+  CDC_IN_EP,                           /* bEndpointAddress */
+  0x02,                                /* bmAttributes: Bulk */
+  LOBYTE(CDC_DATA_FS_MAX_PACKET_SIZE), /* wMaxPacketSize: */
+  HIBYTE(CDC_DATA_FS_MAX_PACKET_SIZE),
+  0x00,
+
+
+  /********************  Mass Storage interface ********************/
+  0x09,                                            /* bLength: Interface Descriptor size */
+  0x04,                                            /* bDescriptorType: */
+  0x02,                                            /* bInterfaceNumber: Number of Interface */
+  0x00,                                            /* bAlternateSetting: Alternate setting */
+  0x02,                                            /* bNumEndpoints */
+  0x08,                                            /* bInterfaceClass: MSC Class */
+  0x06,                                            /* bInterfaceSubClass : SCSI transparent */
+  0x50,                                            /* nInterfaceProtocol */
+  0x05,                                            /* iInterface: */
+
+  /********************  Mass Storage Endpoints ********************/
+  0x07,                                            /* Endpoint descriptor length = 7 */
+  0x05,                                            /* Endpoint descriptor type */
+  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
+  0x02,                                            /* Bulk endpoint type */
+  LOBYTE(MSC_MAX_FS_PACKET),
+  HIBYTE(MSC_MAX_FS_PACKET),
+  0x00,                                            /* Polling interval in milliseconds */
+
+  0x07,                                            /* Endpoint descriptor length = 7 */
+  0x05,                                            /* Endpoint descriptor type */
+  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
+  0x02,                                            /* Bulk endpoint type */
+  LOBYTE(MSC_MAX_FS_PACKET),
+  HIBYTE(MSC_MAX_FS_PACKET),
+  0x00                                             /* Polling interval in milliseconds */
+};
+
+
+#if defined ( __ICCARM__ ) /*!< IAR Compiler */
+  #pragma data_alignment=4
+#endif
 /* USB Standard Device Descriptor */
 static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] = {
   USB_LEN_DEV_QUALIFIER_DESC,
@@ -314,15 +572,39 @@ static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
 
 
 /**
-  * @brief  USBD_COMPOSITE_GetCfgDesc
+  * @brief  USBD_COMPOSITE_GetHSCfgDesc
   *         return configuration descriptor
   * @param  length : pointer data length
   * @retval pointer to descriptor buffer
   */
-static uint8_t  *USBD_COMPOSITE_GetCfgDesc(uint16_t *length)
+static uint8_t  *USBD_COMPOSITE_GetHSCfgDesc(uint16_t *length)
 {
-  *length = sizeof(USBD_COMPOSITE_CfgFSDesc);
-  return USBD_COMPOSITE_CfgFSDesc;
+  *length = sizeof(USBD_COMPOSITE_HSCfgDesc);
+  return USBD_COMPOSITE_HSCfgDesc;
+}
+
+/**
+  * @brief  USBD_COMPOSITE_GetFSCfgDesc
+  *         return configuration descriptor
+  * @param  length : pointer data length
+  * @retval pointer to descriptor buffer
+  */
+static uint8_t  *USBD_COMPOSITE_GetFSCfgDesc(uint16_t *length)
+{
+  *length = sizeof(USBD_COMPOSITE_FSCfgDesc);
+  return USBD_COMPOSITE_FSCfgDesc;
+}
+
+/**
+  * @brief  USBD_COMPOSITE_GetOtherSpeedCfgDesc
+  *         return configuration descriptor
+  * @param  length : pointer data length
+  * @retval pointer to descriptor buffer
+  */
+static uint8_t  *USBD_COMPOSITE_GetOtherSpeedCfgDesc(uint16_t *length)
+{
+  *length = sizeof(USBD_COMPOSITE_OtherSpeedCfgDesc);
+  return USBD_COMPOSITE_OtherSpeedCfgDesc;
 }
 
 /**
