@@ -173,7 +173,7 @@ static int8_t  SCSI_Inquiry(USBD_HandleTypeDef  *pdev, uint8_t lun, uint8_t *par
       hmsc->bot_data[len] = MSC_Page00_Inquiry_Data[len];
     }
   } else {
-    pPage = (uint8_t *)(void *) & msc_storage->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
+    pPage = &msc_storage->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
     len = (uint16_t)pPage[4] + 5U;
 
     if (params[4] <= len) {

@@ -36,14 +36,31 @@ void USB::begin()
   }
 }
 
-void USB::register_msc(USBD_StorageTypeDef *fops)
+#ifdef USBD_USE_MSC_CLASS
+DummyUSBMscHandler dummyHandler;
+
+void USB::registerMscHandler(USBMscHandler &handler)
 {
-  USBD_MSC_RegisterStorage(&hUSBD_Device, fops);
+  pSingleMscHandler= &handler;
+  registerMscHandlers(1, &pSingleMscHandler, USBD_MSC_fops.pInquiry);
 }
+
+void USB::registerMscHandlers(uint8_t count, USBMscHandler **ppHandlers, uint8_t *pInquiryData)
+{
+  if (count == 0) {
+    registerMscHandler(dummyHandler);
+  } else {
+    ppUsbMscHandlers = ppHandlers;
+    usbMscMaxLun = count - 1;
+    USBD_MSC_fops.pInquiry = pInquiryData;
+  }
+}
+#endif
 
 void USB::initialize()
 {
   hUSBD_Device_CDC = &hUSBD_Device;
+
 
   /* Init Device Library */
   if (USBD_Init(&hUSBD_Device, &USBD_Desc, 0) != USBD_OK) {
@@ -55,18 +72,27 @@ void USB::initialize()
   if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC) != USBD_OK) {
     return;
   }
-  if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) != USBD_OK) {
-    return;
-  }
 #elif USBD_USE_CDC_MSC
   if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) != USBD_OK) {
     return;
   }
+#elif USBD_USE_MSC
+  if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) != USBD_OK) {
+    return;
+  }
+#endif
+
+#ifdef USBD_USE_CDC_CLASS
   if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) != USBD_OK) {
     return;
   }
-#elif USBD_USE_MSC
-  if (USBD_RegisterClass(&hUSBD_Device, &USBD_CDC_MSC) != USBD_OK) {
+#endif
+
+#ifdef USBD_USE_MSC_CLASS
+  if (ppUsbMscHandlers == nullptr) {
+    registerMscHandler(dummyHandler);
+  }
+  if (USBD_MSC_RegisterStorage(&hUSBD_Device, &USBD_MSC_fops) != USBD_OK) {
     return;
   }
 #endif

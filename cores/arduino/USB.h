@@ -22,11 +22,18 @@
 #ifdef USBCON
 
 #include "usbd_core.h"
-#include "usbd_msc.h"
+#include "usbd_ep_conf.h"
+
+#ifdef USBD_USE_MSC_CLASS
+#include "USBMscHandler.h"
+#endif
 
 class USB {
   public:
-    void register_msc(USBD_StorageTypeDef *fops);
+#ifdef USBD_USE_MSC_CLASS
+    void registerMscHandler(USBMscHandler &pHandler);
+    void registerMscHandlers(uint8_t count, USBMscHandler **pHandlers, uint8_t *pInquiryData);
+#endif
 
     void begin(void);
 
@@ -39,6 +46,10 @@ class USB {
     bool initialized;
 
     USBD_HandleTypeDef hUSBD_Device;
+
+#ifdef USBD_USE_MSC_CLASS
+    USBMscHandler *pSingleMscHandler;
+#endif
 };
 
 extern USB USBDevice;

@@ -33,6 +33,7 @@ typedef struct {
 #endif
 } ep_desc_t;
 
+// *INDENT-OFF*
 
 /* CDC Endpoints Configurations */
 #ifdef USBD_USE_CDC
@@ -90,28 +91,9 @@ typedef struct {
   /* Size in words, byte size divided by 2 */
   #define PMA_EP0_OUT_ADDR    (8 * DEV_NUM_EP)
   #define PMA_EP0_IN_ADDR     (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
-
-  #ifdef USBD_USE_CDC
-    #define PMA_CDC_OUT_BASE    (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-    #define PMA_CDC_OUT_ADDR    ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
-                                (PMA_CDC_OUT_BASE << 16U))
-    #define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
-    #define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
-  #endif /* USBD_USE_CDC */
-  #ifdef USBD_USE_CDC_MSC
-    #define PMA_CDC_OUT_ADDR0   (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-    #define PMA_CDC_OUT_ADDR1   (PMA_CDC_OUT_ADDR1 + USB_FS_MAX_PACKET_SIZE)
-    #define PMA_CDC_OUT_ADDR    (PMA_CDC_OUT_ADDR0 | (PMA_CDC_OUT_ADDR1 << 16U)) // cdc out has a double buffer
-    #define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_ADDR1 + USB_FS_MAX_PACKET_SIZE)
-    #define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
-    #define PMA_MSC_IN_ADDR     (PMA_CDC_CMD_ADDR + CDC_CMD_PACKET_SIZE)
-    #define PMA_MSC_IN_ADDR     (PMA_MSC_IN_ADDR + USB_FS_MAX_PACKET_SIZE)
-  #endif /* USBD_USE_CDC_MSC */
-  #ifdef USBD_USE_HID_COMPOSITE
-    #define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
-    #define PMA_KEYBOARD_IN_ADDR    (PMA_MOUSE_IN_ADDR + HID_KEYBOARD_EPIN_SIZE)
-  #endif /* USBD_USE_HID_COMPOSITE */
 #endif /* USB */
+
+// *INDENT-ON*
 
 extern const ep_desc_t ep_def[DEV_NUM_EP + 1];
 

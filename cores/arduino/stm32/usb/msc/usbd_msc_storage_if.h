@@ -30,6 +30,13 @@ extern "C" {
 extern USBD_StorageTypeDef  USBD_MSC_fops;
 
 #ifdef __cplusplus
+#include "USBMscHandler.h"
+
+extern uint8_t usbMscMaxLun;
+extern USBMscHandler **ppUsbMscHandlers;
+#endif
+
+#ifdef __cplusplus
 }
 #endif
 

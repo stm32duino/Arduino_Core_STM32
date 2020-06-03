@@ -49,7 +49,7 @@ typedef struct _USBD_STORAGE {
   int8_t (* Read)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* Write)(uint8_t lun, uint8_t *buf, uint32_t blk_addr, uint16_t blk_len);
   int8_t (* GetMaxLun)(void);
-  int8_t *pInquiry;
+  uint8_t *pInquiry;
 
 } USBD_StorageTypeDef;
 

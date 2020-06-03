@@ -28,11 +28,11 @@
 - "stm32xxxxx_{eval}{discovery}{adafruit}_sd.c"
 EndBSPDependencies */
 
+#include "USBMscHandler.h"
 #include "usbd_msc_storage_if.h"
 
-#define STORAGE_LUN_NBR                  1U
-#define STORAGE_BLK_NBR                  0x10000U
-#define STORAGE_BLK_SIZ                  0x200U
+uint8_t usbMscMaxLun = 0;
+USBMscHandler **ppUsbMscHandlers = nullptr;
 
 int8_t STORAGE_Init(uint8_t lun);
 
@@ -52,7 +52,7 @@ int8_t STORAGE_Write(uint8_t lun, uint8_t *buf, uint32_t blk_addr,
 int8_t STORAGE_GetMaxLun(void);
 
 /* USB Mass storage Standard Inquiry Data */
-int8_t  STORAGE_Inquirydata[] =  /* 36 */
+uint8_t  STORAGE_Inquirydata[] =  /* 36 */
 {
   /* LUN 0 */
   0x00,
@@ -78,8 +78,12 @@ USBD_StorageTypeDef USBD_MSC_fops = {
   STORAGE_Write,
   STORAGE_GetMaxLun,
   STORAGE_Inquirydata,
-
 };
+
+#define HANDLER_LUN_CHECK \
+  if (lun > usbMscMaxLun) { \
+    return 1; \
+  }
 
 /*******************************************************************************
 * Function Name  : Read_Memory
@@ -90,7 +94,9 @@ USBD_StorageTypeDef USBD_MSC_fops = {
 *******************************************************************************/
 int8_t STORAGE_Init(uint8_t lun)
 {
-  return (0);
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->Init();
 }
 
 /*******************************************************************************
@@ -102,9 +108,9 @@ int8_t STORAGE_Init(uint8_t lun)
 *******************************************************************************/
 int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
-  *block_num  = STORAGE_BLK_NBR;
-  *block_size = STORAGE_BLK_SIZ;
-  return (0);
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->GetCapacity(block_num, block_size);
 }
 
 /*******************************************************************************
@@ -116,8 +122,9 @@ int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_siz
 *******************************************************************************/
 int8_t  STORAGE_IsReady(uint8_t lun)
 {
-  // the dummy device is never ready
-  return 1;
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->IsReady();
 }
 
 /*******************************************************************************
@@ -129,7 +136,9 @@ int8_t  STORAGE_IsReady(uint8_t lun)
 *******************************************************************************/
 int8_t  STORAGE_IsWriteProtected(uint8_t lun)
 {
-  return  0;
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->IsWriteProtected();
 }
 
 /*******************************************************************************
@@ -142,7 +151,9 @@ int8_t  STORAGE_IsWriteProtected(uint8_t lun)
 int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
                     uint32_t blk_addr, uint16_t blk_len)
 {
-  return 0;
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->Read(buf, blk_addr, blk_len);
 }
 
 /*******************************************************************************
@@ -155,7 +166,9 @@ int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
 int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
                      uint32_t blk_addr, uint16_t blk_len)
 {
-  return (0);
+  HANDLER_LUN_CHECK
+
+  return !ppUsbMscHandlers[lun]->Write(buf, blk_addr, blk_len);
 }
 
 /*******************************************************************************
@@ -167,7 +180,7 @@ int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
 *******************************************************************************/
 int8_t STORAGE_GetMaxLun(void)
 {
-  return (STORAGE_LUN_NBR - 1);
+  return usbMscMaxLun;
 }
 
 #endif /* USBD_USE_MSC_CLASS */
