@@ -25,6 +25,8 @@
   #define EP_DESC(ADDR, SIZE, KIND_TYP)  {ADDR, SIZE, KIND_TYP}
 #endif
 
+// *INDENT-OFF*
+
 #ifdef USBD_USE_CDC
   #ifdef USE_USB_HS
     #define CDC_DATA_MAX_PACKET_SIZE  CDC_DATA_HS_MAX_PACKET_SIZE
@@ -71,7 +73,7 @@
   #else /* USE_USB_FS */
     #define HID_MAX_PACKET_SIZE  USB_FS_MAX_PACKET_SIZE
   #endif
-  
+
   const ep_desc_t ep_def[] = {
     EP_DESC(0x00,                   HID_MAX_PACKET_SIZE, PCD_SNG_BUF),
     EP_DESC(0x80,                   HID_MAX_PACKET_SIZE, PCD_SNG_BUF),
@@ -79,6 +81,8 @@
     EP_DESC(HID_KEYBOARD_EPIN_ADDR, HID_MOUSE_EPIN_SIZE, PCD_SNG_BUF)
   };
 #endif /* USBD_USE_HID_COMPOSITE */
+
+// *INDENT-OFF*
 
 #endif /* HAL_PCD_MODULE_ENABLED && USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

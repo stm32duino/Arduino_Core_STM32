@@ -20,7 +20,7 @@
 #ifndef _USB_MSC_HANDLER_H_
 #define _USB_MSC_HANDLER_H_
 
-#ifdef USBCON
+#if defined(USBCON) && defined(USBD_USE_MSC_CLASS)
 
 #include "usbd_core.h"
 #include "usbd_msc.h"
@@ -42,24 +42,47 @@ class USBMscHandler {
 
     /** Optional functions **/
 
-    virtual bool Init() { return true; }
+    virtual bool Init()
+    {
+      return true;
+    }
 
     // Return false if the mass storage device has not been connected or initialized yet.
-    virtual bool IsReady() { return true; }
+    virtual bool IsReady()
+    {
+      return true;
+    }
 
     // If the device should be read-only then this function should return true.
-    virtual bool IsWriteProtected() { return false; }
+    virtual bool IsWriteProtected()
+    {
+      return false;
+    }
 };
 
 class DummyUSBMscHandler : public USBMscHandler {
   public:
     // Any call to one of these functions always fails.
-    bool GetCapacity(uint32_t *pBlockNum, uint16_t *pBlockSize) { return false; }
-    bool Read(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen) { return false; }
-    bool Write(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen) { return false; }
+    bool GetCapacity(uint32_t *pBlockNum, uint16_t *pBlockSize)
+    {
+      return false;
+    }
+
+    bool Read(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen)
+    {
+      return false;
+    }
+
+    bool Write(uint8_t *pBuf, uint32_t blockAddr, uint16_t blkLen)
+    {
+      return false;
+    }
 
     // The dummy handler is never ready.
-    bool IsReady() { return false; }
+    bool IsReady()
+    {
+      return false;
+    }
 };
 
 #endif
