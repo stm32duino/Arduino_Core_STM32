@@ -197,7 +197,7 @@ static uint8_t USBD_COMPOSITE_HSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
   /********************  Mass Storage Endpoints ********************/
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
+  MSC_EPIN_ADDR,                                   /* Endpoint address (IN, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_HS_PACKET),
   HIBYTE(MSC_MAX_HS_PACKET),
@@ -205,7 +205,7 @@ static uint8_t USBD_COMPOSITE_HSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
 
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
+  MSC_EPOUT_ADDR,                                  /* Endpoint address (OUT, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_HS_PACKET),
   HIBYTE(MSC_MAX_HS_PACKET),
@@ -324,7 +324,7 @@ static uint8_t USBD_COMPOSITE_FSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
   /********************  Mass Storage Endpoints ********************/
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
+  MSC_EPIN_ADDR,                                   /* Endpoint address (IN, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -332,7 +332,7 @@ static uint8_t USBD_COMPOSITE_FSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
 
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
+  MSC_EPOUT_ADDR,                                  /* Endpoint address (OUT, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -451,7 +451,7 @@ static uint8_t USBD_COMPOSITE_OtherSpeedCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
   /********************  Mass Storage Endpoints ********************/
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_IN_EP,                                       /* Endpoint address (IN, address 1) */
+  MSC_EPIN_ADDR,                                   /* Endpoint address (IN, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -459,7 +459,7 @@ static uint8_t USBD_COMPOSITE_OtherSpeedCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
 
   0x07,                                            /* Endpoint descriptor length = 7 */
   0x05,                                            /* Endpoint descriptor type */
-  MSC_OUT_EP,                                      /* Endpoint address (OUT, address 1) */
+  MSC_EPOUT_ADDR,                                  /* Endpoint address (OUT, address 1) */
   0x02,                                            /* Bulk endpoint type */
   LOBYTE(MSC_MAX_FS_PACKET),
   HIBYTE(MSC_MAX_FS_PACKET),
@@ -561,8 +561,8 @@ static uint8_t  USBD_COMPOSITE_Setup(USBD_HandleTypeDef *pdev,
         case CDC_CMD_EP:
           return USBD_CDC.Setup(pdev, req);
 
-        case MSC_IN_EP:
-        case MSC_OUT_EP:
+        case MSC_EPIN_ADDR:
+        case MSC_EPOUT_ADDR:
           return USBD_MSC.Setup(pdev, req);
 
         // invalid endpoint
@@ -644,8 +644,8 @@ static uint8_t  USBD_COMPOSITE_DataIn(USBD_HandleTypeDef *pdev,
     case CDC_OUT_EP:
       return USBD_CDC.DataIn(pdev, epnum);
 
-    case MSC_IN_EP:
-    case MSC_OUT_EP:
+    case MSC_EPIN_ADDR:
+    case MSC_EPOUT_ADDR:
       return USBD_MSC.DataIn(pdev, epnum);
 
     // invalid endpoint
@@ -694,8 +694,8 @@ static uint8_t  USBD_COMPOSITE_DataOut(USBD_HandleTypeDef *pdev,
     case CDC_OUT_EP:
       return USBD_CDC.DataOut(pdev, epnum);
 
-    case MSC_IN_EP:
-    case MSC_OUT_EP:
+    case MSC_EPIN_ADDR:
+    case MSC_EPOUT_ADDR:
       return USBD_MSC.DataOut(pdev, epnum);
 
     // invalid endpoint
