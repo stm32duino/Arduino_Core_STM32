@@ -484,6 +484,8 @@ static uint8_t USBD_COMPOSITE_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_DESC] = 
   0x00,
 };
 
+int cdcMscInitialised;
+
 /**
   * @brief  USBD_COMPOSITE_Init
   *         Initialize the COMPOSITE interface
@@ -497,6 +499,8 @@ static uint8_t  USBD_COMPOSITE_Init(USBD_HandleTypeDef *pdev,
   USBD_MSC.Init(pdev, cfgidx);
 
   USBD_CDC.Init(pdev, cfgidx);
+
+  pdev->pClassData = &cdcMscInitialised;
 
   return (uint8_t)USBD_OK;
 }
@@ -514,6 +518,10 @@ static uint8_t  USBD_COMPOSITE_DeInit(USBD_HandleTypeDef *pdev,
   USBD_MSC.DeInit(pdev, cfgidx);
 
   USBD_CDC.DeInit(pdev, cfgidx);
+
+  if (pdev->pClassData == &cdcMscInitialised) {
+    pdev->pClassData = nullptr;
+  }
 
   return USBD_OK;
 }

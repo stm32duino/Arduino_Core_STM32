@@ -223,6 +223,8 @@ USBD_MSC_BOT_HandleTypeDef *msc_handle = &msc_handle_dat;
 
 USBD_StorageTypeDef *msc_storage = &USBD_MSC_fops;
 
+int mscInitialized;
+
 /**
   * @brief  USBD_MSC_Init
   *         Initialize  the mass storage configuration
@@ -232,6 +234,8 @@ USBD_StorageTypeDef *msc_storage = &USBD_MSC_fops;
   */
 uint8_t USBD_MSC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
+  pdev->pClassData = &mscInitialized;
+
   if (pdev->dev_speed == USBD_SPEED_HIGH) {
     /* Open EP OUT */
     USBD_LL_OpenEP(pdev, MSC_OUT_EP, USBD_EP_TYPE_BULK, MSC_MAX_HS_PACKET);
@@ -276,6 +280,11 @@ uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev,
 
   /* De-Init the BOT layer */
   MSC_BOT_DeInit(pdev);
+
+  if (pdev->pClassData == &mscInitialized) {
+    // only mark as uninitialised if we own the initialisation
+    pdev->pClassData = NULL;
+  }
 
   return USBD_OK;
 }

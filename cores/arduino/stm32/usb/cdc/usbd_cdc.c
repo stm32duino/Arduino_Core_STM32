@@ -421,7 +421,7 @@ USBD_CDC_HandleTypeDef *cdc_handle = &cdc_handle_dat;
 
 USBD_CDC_ItfTypeDef *cdc_itf = NULL; /* TODO */
 
-
+int cdcInitialized;
 
 /**
   * @}
@@ -444,14 +444,7 @@ static uint8_t  USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
 
-  hcdc = USBD_malloc(sizeof(USBD_CDC_HandleTypeDef));
-
-  if (hcdc == NULL) {
-    pdev->pClassData = NULL;
-    return (uint8_t)USBD_EMEM;
-  }
-
-  pdev->pClassData = (void *)hcdc;
+  pdev->pClassData = &cdcInitialized;
 
   if (pdev->dev_speed == USBD_SPEED_HIGH) {
     /* Open EP IN */
@@ -534,9 +527,15 @@ static uint8_t  USBD_CDC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   pdev->ep_in[CDC_CMD_EP & 0xFU].is_used = 0U;
   pdev->ep_in[CDC_CMD_EP & 0xFU].bInterval = 0U;
 
-  /* DeInit  physical Interface components */
-  /* TODO remove user data reference */
-  cdc_itf->DeInit();
+  if (pdev->pClassData) {
+    /* DeInit physical Interface components */
+    cdc_itf->DeInit();
+  }
+
+  if (pdev->pClassData == &cdcInitialized) {
+    // only mark as uninitialised if we own the initialisation
+    pdev->pClassData = NULL;
+  }
 
   return ret;
 }
@@ -682,7 +681,7 @@ static uint8_t  USBD_CDC_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
 
-  if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU)) {
+  if (hcdc->CmdOpCode != 0xFFU) {
     cdc_itf->Control(hcdc->CmdOpCode,
                      (uint8_t *)(void *)hcdc->data,
                      (uint16_t)hcdc->CmdLength);
