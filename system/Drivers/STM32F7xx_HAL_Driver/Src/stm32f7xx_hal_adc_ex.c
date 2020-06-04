@@ -58,18 +58,6 @@
             add his own code by customization of function pointer HAL_ADCEx_InjectedErrorCallback
        (+) Stop the ADC peripheral using HAL_ADCEx_InjectedStop_IT()
 
-
-     *** DMA mode IO operation ***
-     ==============================
-     [..]
-       (+) Start the ADC peripheral using HAL_ADCEx_InjectedStart_DMA(), at this stage the user specify the length
-           of data to be transferred at each end of conversion
-       (+) At The end of data transfer ba HAL_ADCEx_InjectedConvCpltCallback() function is executed and user can
-            add his own code by customization of function pointer HAL_ADCEx_InjectedConvCpltCallback
-       (+) In case of transfer Error, HAL_ADCEx_InjectedErrorCallback() function is executed and user can
-            add his own code by customization of function pointer HAL_ADCEx_InjectedErrorCallback
-        (+) Stop the ADC peripheral using HAL_ADCEx_InjectedStop_DMA()
-
      *** Multi mode ADCs Regular channels configuration ***
      ======================================================
      [..]

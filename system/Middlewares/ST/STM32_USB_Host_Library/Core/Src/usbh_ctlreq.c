@@ -132,13 +132,8 @@ USBH_StatusTypeDef USBH_Get_CfgDesc(USBH_HandleTypeDef *phost,
 
 {
   USBH_StatusTypeDef status;
-  uint8_t *pData;
+  uint8_t *pData = phost->device.CfgDesc_Raw;;
 
-#if (USBH_KEEP_CFG_DESCRIPTOR == 1U)
-  pData = phost->device.CfgDesc_Raw;
-#else
-  pData = phost->device.Data;
-#endif
   if ((status = USBH_GetDescriptor(phost, (USB_REQ_RECIPIENT_DEVICE | USB_REQ_TYPE_STANDARD),
                                    USB_DESC_CONFIGURATION, pData, length)) == USBH_OK)
   {
@@ -575,29 +570,29 @@ USBH_StatusTypeDef USBH_CtlReq(USBH_HandleTypeDef *phost, uint8_t *buff,
 
     case CMD_WAIT:
       status = USBH_HandleControl(phost);
-      if (status == USBH_OK)
+      if ((status == USBH_OK) || (status == USBH_NOT_SUPPORTED))
       {
-        /* Commands successfully sent and Response Received  */
+        /* Transaction completed, move control state to idle */
         phost->RequestState = CMD_SEND;
         phost->Control.state = CTRL_IDLE;
-        status = USBH_OK;
       }
-      else if (status == USBH_NOT_SUPPORTED)
+      else if (status == USBH_FAIL)
       {
-        /* Commands successfully sent and Response Received  */
+        /* Failure Mode */
         phost->RequestState = CMD_SEND;
-        phost->Control.state = CTRL_IDLE;
-        status = USBH_NOT_SUPPORTED;
       }
       else
       {
-        if (status == USBH_FAIL)
-        {
-          /* Failure Mode */
-          phost->RequestState = CMD_SEND;
-          status = USBH_FAIL;
-        }
+        /* .. */
       }
+#if (USBH_USE_OS == 1U)
+      phost->os_msg = (uint32_t)USBH_CONTROL_EVENT;
+#if (osCMSIS < 0x20000U)
+      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
       break;
 
     default:
@@ -968,6 +963,11 @@ static USBH_StatusTypeDef USBH_HandleControl(USBH_HandleTypeDef *phost)
         phost->pUser(phost, HOST_USER_UNRECOVERED_ERROR);
         phost->Control.errorcount = 0U;
         USBH_ErrLog("Control error: Device not responding");
+
+        /* Free control pipes */
+        USBH_FreePipe(phost, phost->Control.pipe_out);
+        USBH_FreePipe(phost, phost->Control.pipe_in);
+
         phost->gState = HOST_IDLE;
         status = USBH_FAIL;
       }
