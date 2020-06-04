@@ -444,8 +444,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
               (pdev->dev_state == USBD_STATE_CONFIGURED))
           {
             pdev->pClass->EP0_TxSent(pdev);
+            (void)USBD_LL_StallEP(pdev, 0x80U);
           }
-          (void)USBD_LL_StallEP(pdev, 0x80U);
           (void)USBD_CtlReceiveStatus(pdev);
         }
       }
