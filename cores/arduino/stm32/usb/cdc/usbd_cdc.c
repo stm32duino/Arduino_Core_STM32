@@ -680,7 +680,7 @@ static uint8_t USBD_CDC_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
 
-  if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU)) {
+  if ((hcdc->CmdOpCode != 0xFFU)) {
     cdc_itf->Control(hcdc->CmdOpCode,
                      (uint8_t *)hcdc->data,
                      (uint16_t)hcdc->CmdLength);

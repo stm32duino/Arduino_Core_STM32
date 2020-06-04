@@ -562,7 +562,7 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
       return -1;
     }
 
-    if (((USBD_StorageTypeDef *)pdev->pUserData)->IsReady(lun) != 0) {
+    if (msc_storage->IsReady(lun) != 0) {
       SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
       return -1;
     }
