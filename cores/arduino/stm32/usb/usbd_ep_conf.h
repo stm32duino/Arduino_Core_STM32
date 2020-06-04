@@ -51,6 +51,18 @@ typedef struct {
   #define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
 #endif /* USBD_USE_CDC */
 
+#ifdef USBD_USE_MSC
+  #define USBD_USE_MSC_CLASS
+
+  #define MSC_EPOUT_ADDR                0x01U /*  EP1 for MSC data IN */
+  #define MSC_EPIN_ADDR                 0x81U /*  EP1 for MSC data IN */
+
+  #define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 IN and EP0 OUT */
+
+  /* MSC Endpoints parameters*/
+  #define MSC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define MSC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+#endif
 
 #ifdef USBD_USE_CDC_MSC
   #define USBD_USE_CDC_CLASS
@@ -60,8 +72,8 @@ typedef struct {
   #define CDC_IN_EP                     0x81U /*  EP1 for CDC data IN */
   #define CDC_CMD_EP                    0x82U /*  EP2 for CDC commands */
 
-  #define MSC_OUT_EP                    0x03U /*  EP3 for MSC data IN */
-  #define MSC_IN_EP                     0x83U /*  EP3 for MSC data IN */
+  #define MSC_EPOUT_ADDR                0x03U /*  EP3 for MSC data IN */
+  #define MSC_EPIN_ADDR                 0x83U /*  EP3 for MSC data IN */
 
   #define DEV_NUM_EP                    0x07U   /* Device Endpoints number including EP0 */
 
