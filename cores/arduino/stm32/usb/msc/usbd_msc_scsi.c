@@ -71,7 +71,7 @@ static int8_t SCSI_UpdateBotData(USBD_MSC_BOT_HandleTypeDef *hmsc,
 int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 {
   int8_t ret;
-  USBD_MSC_BOT_HandleTypeDef *hmsc = msc_storage;
+  USBD_MSC_BOT_HandleTypeDef *hmsc = msc_handle;
 
   switch (cmd[0]) {
     case SCSI_TEST_UNIT_READY:

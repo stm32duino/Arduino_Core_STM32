@@ -431,6 +431,7 @@ int cdcInitialized;
 static uint8_t USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   UNUSED(cfgidx);
+  UNUSED(ret);
 
   USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
 
