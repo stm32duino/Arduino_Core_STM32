@@ -431,7 +431,6 @@ int cdcInitialized;
 static uint8_t USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 {
   UNUSED(cfgidx);
-  UNUSED(ret);
 
   USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
 
@@ -855,6 +854,18 @@ uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev)
   }
 
   return (uint8_t)USBD_OK;
+}
+
+uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
+{
+  /* Suspend or Resume USB Out process */
+  if (pdev->pClassData != NULL) {
+    /* Prepare Out endpoint to receive next packet */
+    USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
+    return (uint8_t)USBD_OK;
+  } else {
+    return (uint8_t)USBD_FAIL;
+  }
 }
 
 #endif /* USBD_USE_CDC_CLASS */

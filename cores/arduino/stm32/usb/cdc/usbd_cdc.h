@@ -150,8 +150,7 @@ uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
 uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
 uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
 uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
-
-uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
 
 /**
   * @}

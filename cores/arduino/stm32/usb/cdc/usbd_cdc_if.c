@@ -242,7 +242,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 
 
 /**
-  * @brief  TEMPLATE_TransmitCplt
+  * @brief  USBD_CDC_TransmitCplt
   *         Data transmited callback
   *
   *         @note
@@ -320,14 +320,6 @@ bool CDC_resume_receive(void)
     }
   }
   return false;
-}
-
-uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
-{
-  /* Suspend or Resume USB Out process */
-  /* Prepare Out endpoint to receive next packet */
-  USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
-  return USBD_OK;
 }
 
 #endif /* USBD_USE_CDC */
