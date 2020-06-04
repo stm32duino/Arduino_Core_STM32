@@ -441,31 +441,31 @@ static uint8_t USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
     (void)USBD_LL_OpenEP(pdev, CDC_IN_EP, USBD_EP_TYPE_BULK,
                          CDC_DATA_HS_IN_PACKET_SIZE);
 
-     pdev->ep_in[CDC_IN_EP & 0xFU].is_used = 1U;
+    pdev->ep_in[CDC_IN_EP & 0xFU].is_used = 1U;
 
-     /* Open EP OUT */
-     (void)USBD_LL_OpenEP(pdev, CDC_OUT_EP, USBD_EP_TYPE_BULK,
-                          CDC_DATA_HS_OUT_PACKET_SIZE);
+    /* Open EP OUT */
+    (void)USBD_LL_OpenEP(pdev, CDC_OUT_EP, USBD_EP_TYPE_BULK,
+                         CDC_DATA_HS_OUT_PACKET_SIZE);
 
-      pdev->ep_out[CDC_OUT_EP & 0xFU].is_used = 1U;
+    pdev->ep_out[CDC_OUT_EP & 0xFU].is_used = 1U;
 
-      /* Set bInterval for CDC CMD Endpoint */
-      pdev->ep_in[CDC_CMD_EP & 0xFU].bInterval = CDC_HS_BINTERVAL;
+    /* Set bInterval for CDC CMD Endpoint */
+    pdev->ep_in[CDC_CMD_EP & 0xFU].bInterval = CDC_HS_BINTERVAL;
   } else {
     /* Open EP IN */
     (void)USBD_LL_OpenEP(pdev, CDC_IN_EP, USBD_EP_TYPE_BULK,
                          CDC_DATA_FS_IN_PACKET_SIZE);
 
-     pdev->ep_in[CDC_IN_EP & 0xFU].is_used = 1U;
+    pdev->ep_in[CDC_IN_EP & 0xFU].is_used = 1U;
 
      /* Open EP OUT */
-     (void)USBD_LL_OpenEP(pdev, CDC_OUT_EP, USBD_EP_TYPE_BULK,
-                          CDC_DATA_FS_OUT_PACKET_SIZE);
+    (void)USBD_LL_OpenEP(pdev, CDC_OUT_EP, USBD_EP_TYPE_BULK,
+                         CDC_DATA_FS_OUT_PACKET_SIZE);
 
-      pdev->ep_out[CDC_OUT_EP & 0xFU].is_used = 1U;
+    pdev->ep_out[CDC_OUT_EP & 0xFU].is_used = 1U;
 
-      /* Set bInterval for CMD Endpoint */
-      pdev->ep_in[CDC_CMD_EP & 0xFU].bInterval = CDC_FS_BINTERVAL;
+    /* Set bInterval for CMD Endpoint */
+    pdev->ep_in[CDC_CMD_EP & 0xFU].bInterval = CDC_FS_BINTERVAL;
   }
 
   /* Open Command IN EP */
@@ -580,7 +580,7 @@ static uint8_t USBD_CDC_Setup(USBD_HandleTypeDef *pdev,
 
         case USB_REQ_GET_INTERFACE:
           if (pdev->dev_state == USBD_STATE_CONFIGURED) {
-           (void)USBD_CtlSendData(pdev, &ifalt, 1U);
+            (void)USBD_CtlSendData(pdev, &ifalt, 1U);
           } else {
             USBD_CtlError(pdev, req);
             ret = USBD_FAIL;

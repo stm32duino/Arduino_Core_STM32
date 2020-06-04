@@ -170,8 +170,7 @@ static int8_t SCSI_TestUnitReady(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t 
     return -1;
   }
 
-  if (msc_storage->IsReady(lun) != 0)
-  {
+  if (msc_storage->IsReady(lun) != 0) {
     SCSI_SenseCode(pdev, lun, NOT_READY, MEDIUM_NOT_PRESENT);
     hmsc->bot_state = USBD_BOT_NO_DATA;
 
@@ -196,8 +195,7 @@ static int8_t SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
   uint16_t len;
   USBD_MSC_BOT_HandleTypeDef  *hmsc = msc_handle;
 
-  if (hmsc->cbw.dDataLength == 0U)
-  {
+  if (hmsc->cbw.dDataLength == 0U) {
     SCSI_SenseCode(pdev, hmsc->cbw.bLUN, ILLEGAL_REQUEST, INVALID_CDB);
     return -1;
   }
@@ -293,7 +291,7 @@ static int8_t SCSI_ReadCapacity16(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t
   hmsc->bot_data_length = ((uint32_t)params[10] << 24) |
                           ((uint32_t)params[11] << 16) |
                           ((uint32_t)params[12] <<  8) |
-                           (uint32_t)params[13];
+                          (uint32_t)params[13];
 
   for (idx = 0U; idx < hmsc->bot_data_length; idx++) {
     hmsc->bot_data[idx] = 0U;
@@ -312,7 +310,7 @@ static int8_t SCSI_ReadCapacity16(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t
   hmsc->bot_data_length = ((uint32_t)params[10] << 24) |
                           ((uint32_t)params[11] << 16) |
                           ((uint32_t)params[12] <<  8) |
-                           (uint32_t)params[13];
+                          (uint32_t)params[13];
 
   return 0;
 }
@@ -433,8 +431,7 @@ static int8_t SCSI_RequestSense(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *
   hmsc->bot_data[0] = 0x70U;
   hmsc->bot_data[7] = REQUEST_SENSE_DATA_LEN - 6U;
 
-  if ((hmsc->scsi_sense_head != hmsc->scsi_sense_tail))
-  {
+  if ((hmsc->scsi_sense_head != hmsc->scsi_sense_tail)) {
     hmsc->bot_data[2] = (uint8_t)hmsc->scsi_sense[hmsc->scsi_sense_head].Skey;
     hmsc->bot_data[12] = (uint8_t)hmsc->scsi_sense[hmsc->scsi_sense_head].w.b.ASC;
     hmsc->bot_data[13] = (uint8_t)hmsc->scsi_sense[hmsc->scsi_sense_head].w.b.ASCQ;
@@ -498,8 +495,8 @@ static int8_t SCSI_StartStopUnit(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t 
     return -1;
   }
 
-  if ((params[4] & 0x3U) == 0x1U) /* START=1 */
-  {
+  if ((params[4] & 0x3U) == 0x1U) {
+    /* START=1 */
     hmsc->scsi_medium_state = SCSI_MEDIUM_UNLOCKED;
   } else if ((params[4] & 0x3U) == 0x2U) {
     /* START=0 and LOEJ Load Eject=1 */
