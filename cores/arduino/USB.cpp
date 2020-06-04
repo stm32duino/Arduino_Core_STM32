@@ -89,6 +89,7 @@ void USB::initialize()
 #endif
 
 #ifdef USBD_USE_CDC_CLASS
+  hUSBD_Device_CDC = &hUSBD_Device;
   if (USBD_CDC_RegisterInterface(&hUSBD_Device, &USBD_CDC_fops) != USBD_OK) {
     return;
   }
