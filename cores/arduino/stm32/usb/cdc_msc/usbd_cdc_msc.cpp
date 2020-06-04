@@ -66,7 +66,6 @@ static uint8_t  USBD_COMPOSITE_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum);
 
 static uint8_t  USBD_COMPOSITE_EP0_RxReady(USBD_HandleTypeDef *pdev);
 
-static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev);
 
 USBD_ClassTypeDef  USBD_CDC_MSC = {
   USBD_COMPOSITE_Init,
@@ -76,7 +75,7 @@ USBD_ClassTypeDef  USBD_CDC_MSC = {
   USBD_COMPOSITE_EP0_RxReady,
   USBD_COMPOSITE_DataIn,
   USBD_COMPOSITE_DataOut,
-  USBD_COMPOSITE_SOF,
+  nullptr,
   nullptr,
   nullptr,
   USBD_COMPOSITE_GetHSCfgDesc,
@@ -664,18 +663,6 @@ static uint8_t  USBD_COMPOSITE_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   // only needed by CDC
   return USBD_CDC.EP0_RxReady(pdev);
-}
-
-/**
-  * @brief  USBD_COMPOSITE_SOF
-  *         handle SOF event
-  * @param  pdev: device instance
-  * @retval status
-  */
-static uint8_t  USBD_COMPOSITE_SOF(USBD_HandleTypeDef *pdev)
-{
-  // only needed for CDC
-  return USBD_CDC.SOF(pdev);
 }
 
 /**
