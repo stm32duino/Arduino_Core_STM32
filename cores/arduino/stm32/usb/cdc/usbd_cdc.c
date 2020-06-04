@@ -458,7 +458,7 @@ static uint8_t USBD_CDC_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
     pdev->ep_in[CDC_IN_EP & 0xFU].is_used = 1U;
 
-     /* Open EP OUT */
+    /* Open EP OUT */
     (void)USBD_LL_OpenEP(pdev, CDC_OUT_EP, USBD_EP_TYPE_BULK,
                          CDC_DATA_FS_OUT_PACKET_SIZE);
 

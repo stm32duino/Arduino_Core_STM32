@@ -322,6 +322,14 @@ bool CDC_resume_receive(void)
   return false;
 }
 
+uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev)
+{
+  /* Suspend or Resume USB Out process */
+  /* Prepare Out endpoint to receive next packet */
+  USBD_LL_PrepareReceive(pdev, CDC_OUT_EP, 0, 0);
+  return USBD_OK;
+}
+
 #endif /* USBD_USE_CDC */
 #endif /* USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
