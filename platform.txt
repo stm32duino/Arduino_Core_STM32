@@ -140,7 +140,7 @@ build.preferred_out_format=bin
 
 ## Save binary
 recipe.output.tmp_file={build.project_name}.{build.preferred_out_format}
-recipe.output.save_file={build.project_name}.{build.variant}.{build.preferred_out_format}
+recipe.output.save_file={build.project_name}.{build.board}.{build.preferred_out_format}
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
