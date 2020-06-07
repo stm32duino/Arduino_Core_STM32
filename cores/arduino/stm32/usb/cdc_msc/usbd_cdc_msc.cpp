@@ -247,7 +247,7 @@ static uint8_t USBD_COMPOSITE_FSCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
 
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-#pragma data_alignment=4
+  #pragma data_alignment=4
 #endif
 /* USB COMPOSITE device Configuration Descriptor */
 static uint8_t USBD_COMPOSITE_OtherSpeedCfgDesc[USB_CDC_MSC_CONFIG_DESC_SIZ] = {
