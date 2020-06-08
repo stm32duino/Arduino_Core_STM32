@@ -27,14 +27,14 @@ extern "C" {
  *        Pins
  *----------------------------------------------------------------------------*/
 
-#define PA0   0   //D0
-#define PA1   1   //D1
-#define PA2   2   //D2
+#define PA0   A7  //D0
+#define PA1   A8  //D1
+#define PA2   A9  //D2
 #define PA3   A0  //D3
 #define PA4   A1  //D4
-#define PA5   5   //D5
-#define PA6   6   //D6
-#define PA7   7   //D7
+#define PA5   A10 //D5
+#define PA6   A11 //D6
+#define PA7   A12 //D7
 #define PA8   8   //D8
 #define PA9   9   //D9
 #define PA10  10  //D10
@@ -43,8 +43,8 @@ extern "C" {
 #define PA13  13  //D13
 #define PA14  14  //D14
 #define PA15  15  //D15
-#define PB0   16  //D16
-#define PB1   17  //D17
+#define PB0   A13 //D16
+#define PB1   A14 //D17
 #define PB2   18  //D18
 #define PB3   19  //D19
 #define PB4   20  //D20
@@ -64,7 +64,7 @@ extern "C" {
 #define PC2   A4  //D34
 #define PC3   A5  //D35
 #define PC4   A6  //D36
-#define PC5   37  //D37
+#define PC5   A15 //D37
 #define PC6   38  //D38
 #define PC7   39  //D39
 #define PC8   40  //D40
@@ -111,7 +111,7 @@ extern "C" {
 // This must be a literal
 #define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       7
+#define NUM_ANALOG_INPUTS       16
 
 // PWM resolution
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans
