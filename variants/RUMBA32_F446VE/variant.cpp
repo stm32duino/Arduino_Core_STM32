@@ -27,8 +27,8 @@ const PinName digitalPin[] = {
   PA_0,  //D0
   PA_1,  //D1
   PA_2,  //D2
-  PA_3,  //D3
-  PA_4,  //D4
+  PA_3,  //D3   //A0
+  PA_4,  //D4   //A1
   PA_5,  //D5
   PA_6,  //D6
   PA_7,  //D7
@@ -56,11 +56,11 @@ const PinName digitalPin[] = {
   PB_13, //D29
   PB_14, //D30
   PB_15, //D31
-  PC_0,  //D32
-  PC_1,  //D33
-  PC_2,  //D34
-  PC_3,  //D35
-  PC_4,  //D36
+  PC_0,  //D32  //A2
+  PC_1,  //D33  //A3
+  PC_2,  //D34  //A4
+  PC_3,  //D35  //A5
+  PC_4,  //D36  //A6
   PC_5,  //D37
   PC_6,  //D38
   PC_7,  //D39
@@ -108,13 +108,13 @@ const PinName digitalPin[] = {
 
 // Analog (Ax) pin number array
 const uint32_t analogInputPin[] = {
-  3,  //A0
-  4,  //A1
-  32, //A2
-  33, //A3
-  34, //A4
-  35, //A5
-  36  //A6
+  3,  //D3   //A0
+  4,  //D4   //A1
+  32, //D32  //A2
+  33, //D33  //A3
+  34, //D34  //A4
+  35, //D35  //A5
+  36  //D36  //A6
 };
 
 #ifdef __cplusplus
