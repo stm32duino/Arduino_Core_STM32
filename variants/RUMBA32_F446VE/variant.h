@@ -133,9 +133,17 @@ extern "C" {
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
+#ifndef TIMER_TONE
 #define TIMER_TONE              TIM6
+#endif
+
+#ifndef TIMER_SERVO
 #define TIMER_SERVO             TIM7
+#endif
+
+#ifndef TIMER_SERIAL
 #define TIMER_SERIAL            TIM9
+#endif
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1 // Connected to EXP3 header
