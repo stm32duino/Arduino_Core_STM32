@@ -317,12 +317,12 @@ SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool i
   _receive_buffer_tail(0),
   _receive_buffer_head(0)
 {
-  if ((receivePin < NUM_DIGITAL_PINS) || (transmitPin < NUM_DIGITAL_PINS)) {
-    /* Enable GPIO clock for tx and rx pin*/
-    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
-    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
-  } else {
-    _Error_Handler("ERROR: invalid pin number\n", -1);
+  /* Enable GPIO clock for tx and rx pin*/
+  if (set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin))) == 0) {
+    _Error_Handler("ERROR: invalid transmit pin number\n", -1);
+  }
+  if ((!_half_duplex) && (set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin))) == 0)) {
+    _Error_Handler("ERROR: invalid receive pin number\n", -1);
   }
 }
 
