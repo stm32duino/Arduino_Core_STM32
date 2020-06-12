@@ -235,7 +235,7 @@ void LowPower_stop(serial_t *obj)
  #if defined(STM32L4xx) 
   if (WakeUpUart == NULL)
     // STM32L4xx supports STOP2 mode which halves consumption
-    HAL_PWREx_EnterSTOP2Mode(STOPEntry);
+    HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
   else
  #endif
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
