@@ -18,3 +18,5 @@ assignees: ''
 **Note that user can add a STM32 based board following this [wiki](https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-(board))**
 
 Any contribution is welcome, so do not hesitate to submit a PR.
+
+All new variant request will be moved to [New Variant] request list #722 and the related issue will be closed.
