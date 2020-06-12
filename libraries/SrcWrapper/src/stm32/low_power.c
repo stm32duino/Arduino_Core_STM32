@@ -232,7 +232,7 @@ void LowPower_stop(serial_t *obj)
 #endif
 
   /* Enter Stop mode */
-#if defined(STM32L4xx) 
+#if defined(STM32L4xx)
   if (WakeUpUart == NULL) {
     // STM32L4xx supports STOP2 mode which halves consumption
     HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
@@ -243,8 +243,7 @@ void LowPower_stop(serial_t *obj)
   /* Exit Stop mode reset clocks */
   SystemClock_ConfigFromStop();
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
-  if (WakeUpUart != NULL)
-  {
+  if (WakeUpUart != NULL) {
     /* In case of WakeUp from UART, reset its clock source to HSI */
     uart_config_lowpower(obj);
     HAL_UARTEx_DisableStopMode(WakeUpUart);
