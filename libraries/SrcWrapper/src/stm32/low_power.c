@@ -233,8 +233,7 @@ void LowPower_stop(serial_t *obj)
 
   /* Enter Stop mode */
 #if defined(STM32L4xx) 
-  if (WakeUpUart == NULL)
-  {
+  if (WakeUpUart == NULL) {
     // STM32L4xx supports STOP2 mode which halves consumption
     HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
   } else
