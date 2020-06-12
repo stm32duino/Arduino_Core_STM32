@@ -224,20 +224,21 @@ void LowPower_stop(serial_t *obj)
 #endif
 #ifdef __HAL_RCC_WAKEUPSTOP_CLK_CONFIG
   /* Select MSI or HSI as system clock source after Wake Up from Stop mode */
-  #ifdef RCC_STOP_WAKEUPCLOCK_MSI
-    __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_MSI);
-  #else
-    __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
-  #endif
+#ifdef RCC_STOP_WAKEUPCLOCK_MSI
+  __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_MSI);
+#else
+  __HAL_RCC_WAKEUPSTOP_CLK_CONFIG(RCC_STOP_WAKEUPCLOCK_HSI);
+#endif
 #endif
 
   /* Enter Stop mode */
- #if defined(STM32L4xx) 
+#if defined(STM32L4xx) 
   if (WakeUpUart == NULL)
+  {
     // STM32L4xx supports STOP2 mode which halves consumption
     HAL_PWREx_EnterSTOP2Mode(PWR_STOPENTRY_WFI);
-  else
- #endif
+  } else
+#endif
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
 
   /* Exit Stop mode reset clocks */
