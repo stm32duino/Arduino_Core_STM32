@@ -244,7 +244,8 @@ void LowPower_stop(serial_t *obj)
   /* Exit Stop mode reset clocks */
   SystemClock_ConfigFromStop();
 #if defined(UART_IT_WUF) && defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
-  if (WakeUpUart != NULL) {
+  if (WakeUpUart != NULL)
+  {
     /* In case of WakeUp from UART, reset its clock source to HSI */
     uart_config_lowpower(obj);
     HAL_UARTEx_DisableStopMode(WakeUpUart);
