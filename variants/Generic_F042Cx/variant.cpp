@@ -21,9 +21,6 @@ extern "C" {
 // This array allows to wrap Arduino pin number(Dx or x)
 // to STM32 PinName (PX_n)
 const PinName digitalPin[] = {
-  PC_13,  //
-  PF_0,   //I2C1_SDA            CRS_SYNC               I2C1_SDA
-  PF_1,   //I2C1_SCL            I2C1_SCL
   PA_0,   //USART2_CTS          TIM2_CH1/TIM2_ETR      TSC_G1_IO1
   PA_1,   //EVENTOUT            USART2_DE/USART2_RTS   TIM2_CH2    TSC_G1_IO2
   PA_2,   //USART2_TX           TIM2_CH3               TSC_G1_IO3
@@ -32,31 +29,34 @@ const PinName digitalPin[] = {
   PA_5,   //I2S1_CK/SPI1_SCK    CEC         TIM2_CH1/TIM2_ETR    TSC_G2_IO2
   PA_6,   //I2S1_MCK/SPI1_MISO  TIM3_CH1    TIM1_BKIN    TSC_G2_IO3        TIM16_CH1
   PA_7,   //I2S1_SD/SPI1_MOSI   TIM3_CH2    TIM1_CH1N    TSC_G2_IO4    TIM14_CH1    TIM17_CH1
+  PA_8,   //RCC_MCO             USART1_CK   TIM1_CH1    EVENTOUT    CRS_SYNC
+  PA_9,   //USART1_TX           TIM1_CH2    TSC_G4_IO1    I2C1_SCL
+  PA_10,  //TIM17_BKIN          USART1_RX   TIM1_CH3    TSC_G4_IO2    I2C1_SDA
+  PA_11,  //USB_DM              EVENTOUT    USART1_CTS    TIM1_CH4    TSC_G4_IO3    CAN_RX    I2C1_SCL
+  PA_12,  //USB_DP              EVENTOUT    USART1_DE/USART1_RTS    TIM1_ETR    TSC_G4_IO4    CAN_TX    I2C1_SDA
+  PA_13,  //SYS_SWDIO           IR_OUT      USB_NOE
+  PA_14,  //SYS_SWCLK           USART2_TX
+  PA_15,  //I2S1_WS/SPI1_NSS    USART2_RX   TIM2_CH1/TIM2_ETR    EVENTOUT        USB_NOE
   PB_0,   //EVENTOUT            TIM3_CH3    TIM1_CH2N    TSC_G3_IO2
   PB_1,   //TIM14_CH1           TIM3_CH4    TIM1_CH3N    TSC_G3_IO3
   PB_2,   //TSC_G3_IO4
+  PB_3,   //I2S1_CK/SPI1_SCK    EVENTOUT    TIM2_CH2    TSC_G5_IO1
+  PB_4,   //I2S1_MCK/SPI1_MISO  TIM3_CH1    EVENTOUT    TSC_G5_IO2        TIM17_BKIN
+  PB_5,   //I2S1_SD/SPI1_MOSI   TIM3_CH2    TIM16_BKIN    I2C1_SMBA
+  PB_6,   //USART1_TX           I2C1_SCL    TIM16_CH1N    TSC_G5_IO3
+  PB_7,   //USART1_RX           I2C1_SDA    TIM17_CH1N    TSC_G5_IO4
+  PB_8,   //CEC                 I2C1_SCL    TIM16_CH1    TSC_SYNC    CAN_RX
+  PB_9    //IR_OUT              I2C1_SDA    TIM17_CH1    EVENTOUT    CAN_TX    SPI2_NSS
   PB_10,  //CEC    I2C1_SCL     TIM2_CH3    TSC_SYNC     SPI2_SCK
   PB_11,  //EVENTOUT            I2C1_SDA    TIM2_CH4
   PB_12,  //SPI2_NSS            EVENTOUT    TIM1_BKIN
   PB_13,  //SPI2_SCK            TIM1_CH1N
   PB_14,  //SPI2_MISO           TIM1_CH2N
   PB_15,  //SPI2_MOSI           TIM1_CH3N
-  PA_8,   //RCC_MCO             USART1_CK   TIM1_CH1    EVENTOUT    CRS_SYNC
-  PA_9,   //USART1_TX           TIM1_CH2    TSC_G4_IO1    I2C1_SCL    
-  PA_10,  //TIM17_BKIN          USART1_RX   TIM1_CH3    TSC_G4_IO2    I2C1_SDA
-  PA_11,  //USB_DM              EVENTOUT    USART1_CTS    TIM1_CH4    TSC_G4_IO3    CAN_RX    I2C1_SCL
-  PA_12,  //USB_DP              EVENTOUT    USART1_DE/USART1_RTS    TIM1_ETR    TSC_G4_IO4    CAN_TX    I2C1_SDA
-  PA_13,  //SYS_SWDIO           IR_OUT      USB_NOE            
-  PA_14,  //SYS_SWCLK           USART2_TX                
-  PA_15,  //I2S1_WS/SPI1_NSS    USART2_RX   TIM2_CH1/TIM2_ETR    EVENTOUT        USB_NOE
-  PB_3,   //I2S1_CK/SPI1_SCK    EVENTOUT    TIM2_CH2    TSC_G5_IO1        
-  PB_4,   //I2S1_MCK/SPI1_MISO  TIM3_CH1    EVENTOUT    TSC_G5_IO2        TIM17_BKIN
-  PB_5,   //I2S1_SD/SPI1_MOSI   TIM3_CH2    TIM16_BKIN    I2C1_SMBA        
-  PB_6,   //USART1_TX           I2C1_SCL    TIM16_CH1N    TSC_G5_IO3        
-  PB_7,   //USART1_RX           I2C1_SDA    TIM17_CH1N    TSC_G5_IO4        
-  PF_11,  //                    
-  PB_8,   //CEC                 I2C1_SCL    TIM16_CH1    TSC_SYNC    CAN_RX
-  PB_9    //IR_OUT              I2C1_SDA    TIM17_CH1    EVENTOUT    CAN_TX    SPI2_NSS
+  PC_13,  //
+  PF_0,   //I2C1_SDA            CRS_SYNC               I2C1_SDA
+  PF_1,   //I2C1_SCL            I2C1_SCL
+  PF_11,  //
 };
 
 // If analog pins are not contiguous in the digitalPin array:
@@ -64,14 +64,14 @@ const PinName digitalPin[] = {
 // Analog (Ax) pin number array
 // where x is the index to retrieve the digital pin number
 const uint32_t analogInputPin[] = {
+  0,
+  1,
+  2,
   3,
   4,
   5,
   6,
-  7,
-  8,
-  9,
-  10
+  7
 };
 
 #ifdef __cplusplus
