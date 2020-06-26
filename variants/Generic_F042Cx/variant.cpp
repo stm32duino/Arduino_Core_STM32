@@ -46,7 +46,7 @@ const PinName digitalPin[] = {
   PB_6,   //USART1_TX           I2C1_SCL    TIM16_CH1N    TSC_G5_IO3
   PB_7,   //USART1_RX           I2C1_SDA    TIM17_CH1N    TSC_G5_IO4
   PB_8,   //CEC                 I2C1_SCL    TIM16_CH1    TSC_SYNC    CAN_RX
-  PB_9    //IR_OUT              I2C1_SDA    TIM17_CH1    EVENTOUT    CAN_TX    SPI2_NSS
+  PB_9,    //IR_OUT              I2C1_SDA    TIM17_CH1    EVENTOUT    CAN_TX    SPI2_NSS
   PB_10,  //CEC    I2C1_SCL     TIM2_CH3    TSC_SYNC     SPI2_SCK
   PB_11,  //EVENTOUT            I2C1_SDA    TIM2_CH4
   PB_12,  //SPI2_NSS            EVENTOUT    TIM1_BKIN
