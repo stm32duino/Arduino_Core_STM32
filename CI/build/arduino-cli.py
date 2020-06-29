@@ -200,50 +200,62 @@ def check_config():
         output = subprocess.check_output(
             [arduino_cli, "version"], stderr=subprocess.DEVNULL,
         )
+    except subprocess.CalledProcessError as e:
+        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(e.stdout)
+        quit(e.returncode)
+    else:
         res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
-
         if res:
             arduino_cli_version = res.group(1)
             print("Arduino CLI version used: " + arduino_cli_version)
         else:
-            raise subprocess.CalledProcessError(1, "re")
-    except subprocess.CalledProcessError:
-        print(
-            "Unable to define Arduino CLI version, use default: "
-            + arduino_cli_default_version
-        )
+            print(
+                "Unable to define Arduino CLI version, use default: "
+                + arduino_cli_default_version
+            )
 
     try:
         output = subprocess.check_output(
             [arduino_cli, "core", "search", "stm32", "--additional-urls", stm32_url],
             stderr=subprocess.DEVNULL,
         )
+    except subprocess.CalledProcessError as e:
+        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(e.stdout)
+        quit(e.returncode)
+    else:
         if arduino_platform not in output.decode("utf-8"):
-            raise subprocess.CalledProcessError(1, "re")
+            print(arduino_platform + " is not installed!")
+            quit(1)
         # Add core and library path to sketches_path_list
         try:
             output = subprocess.check_output(
                 [arduino_cli, "config", "dump", "--format", "json"],
                 stderr=subprocess.DEVNULL,
             ).decode("utf-8")
+        except subprocess.CalledProcessError as e:
+            print(
+                '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
+            )
+            print(e.stdout)
+            quit(e.returncode)
+        else:
             cli_config = json.loads(output)
             if cli_config is not None:
                 if cli_config["directories"]["data"] is not None:
                     sketches_path_list.append(cli_config["directories"]["data"])
                 else:
-                    raise subprocess.CalledProcessError(3, "No data directory")
+                    print("No data directory")
+                    quit(1)
                 if cli_config["directories"]["user"] is not None:
                     sketches_path_list.append(cli_config["directories"]["user"])
                 else:
-                    raise subprocess.CalledProcessError(2, "No user directory")
+                    print("No user directory!")
+                    quit(1)
             else:
-                raise subprocess.CalledProcessError(1, "No fqbn")
-        except subprocess.CalledProcessError:
-            print("No arduino-cli config!")
-            quit()
-    except subprocess.CalledProcessError:
-        print(arduino_platform + " is not installed!")
-        quit()
+                print("No arduino-cli config!")
+                quit(1)
 
 
 def load_core_config():
@@ -386,7 +398,7 @@ def manage_inos():
                     break
             else:
                 print("Sketch {} path does not exist!".format(args.ino))
-                quit()
+                quit(1)
     # Sketches listed in a file
     elif args.file:
         assert os.path.exists(args.file), "Sketches list file does not exist"
@@ -417,7 +429,7 @@ def manage_inos():
         sketch_list.append(sketch_default)
     if len(sketch_list) == 0:
         print("No sketch to build for " + arduino_platform + "!")
-        quit()
+        quit(1)
 
 
 # Find all .ino files and save directory
@@ -449,32 +461,41 @@ def find_board():
     try:
         output = subprocess.check_output(
             [arduino_cli, "board", "listall", "--format", "json"],
-            stderr=subprocess.DEVNULL,
+            stderr=subprocess.STDOUT,
         ).decode("utf-8")
+    except subprocess.CalledProcessError as e:
+        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(e.stdout)
+        quit(e.returncode)
+    else:
         boards_list = json.loads(output)
         if boards_list is not None:
             for board in boards_list["boards"]:
                 if arduino_platform in board["FQBN"]:
                     fqbn_list_tmp.append(board["FQBN"])
-            if not len(fqbn_list_tmp):
-                raise subprocess.CalledProcessError(2, "No fqbn")
-        else:
-            raise subprocess.CalledProcessError(1, "No fqbn")
-    except subprocess.CalledProcessError:
-        print("No fqbn found for " + arduino_platform + "!")
-        quit()
+        if not len(fqbn_list_tmp):
+            print("No boards found for " + arduino_platform)
+            quit(1)
 
     # For STM32 core, pnum is requested
     for fqbn in fqbn_list_tmp:
         try:
             output = subprocess.check_output(
                 [arduino_cli, "board", "details", "--format", "json", fqbn],
-                stderr=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
             ).decode("utf-8")
+        except subprocess.CalledProcessError as e:
+            print(
+                '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
+            )
+            print(e.stdout)
+            quit(e.returncode)
+        else:
             board_detail = json.loads(output)
             if board_detail is not None:
                 if "config_options" not in board_detail:
-                    raise subprocess.CalledProcessError(3, "No config_options")
+                    print("No config_options found for " + fqbn)
+                    quit(1)
                 for option in board_detail["config_options"]:
                     if option["option"] == "pnum":
                         for value in option["values"]:
@@ -486,14 +507,12 @@ def find_board():
                             )
                     break
             else:
-                raise subprocess.CalledProcessError(1, "No fqbn")
-        except subprocess.CalledProcessError as e:
-            print("No fqbn detail found for " + e.cmd + "!")
+                print('No detail found for:"' + fqbn + '"!')
     if board_found:
         board_fqbn = collections.OrderedDict(sorted(board_found.items()))
     else:
         print("No board found for " + arduino_platform + "!")
-        quit()
+        quit(1)
 
 
 # Check the status
