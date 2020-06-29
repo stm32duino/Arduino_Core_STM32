@@ -118,8 +118,6 @@ def create_output_log_tree():
     # Folders
     for board in board_fqbn:
         createFolder(os.path.join(output_dir, board))
-        if args.bin:
-            createFolder(os.path.join(output_dir, board, bin_dir))
         createFolder(os.path.join(build_output_dir, board))
 
 
@@ -484,8 +482,6 @@ def check_status(status, build_conf, boardKo):
 
     if status[1] == 0:
         result = "\033[32msucceeded\033[0m"
-        if args.bin:
-            bin_copy(build_conf[0], sketch_name)
         nb_build_passed += 1
     elif status[1] == 1:
         # Check if failed due to a region overflowed
@@ -514,8 +510,6 @@ def check_status(status, build_conf, boardKo):
         else:
             # else consider it succeeded
             result = "\033[32msucceeded*\033[0m"
-            if args.bin:
-                empty_bin(build_conf[0], sketch_name)
             nb_build_passed += 1
     else:
         result = "\033[31merror\033[0m"
@@ -645,34 +639,6 @@ def log_final_result():
     print(output_dir)
 
 
-# Create an empty binary
-def empty_bin(board_name, sketch_name):
-    empty_path = os.path.abspath(os.path.join(output_dir, board_name, bin_dir))
-    createFolder(empty_path)
-    empty_file = os.path.join(
-        empty_path, sketch_name + "_COULD_NOT_FIT_IN_THIS_BOARD.bin"
-    )
-    try:
-        f = open(empty_file, "w")
-    except IOError:
-        print("Cannot create empty binary: ", empty_file)
-    else:
-        f.close()
-
-
-# Create a "bin" directory for each board and copy all binary files
-# from the builder output directory into it
-def bin_copy(board_name, sketch_name):
-    try:
-        shutil.copy(
-            os.path.join(build_output_dir, board_name, sketch_name + ".bin"),
-            os.path.abspath(os.path.join(output_dir, board_name, bin_dir)),
-        )
-    except OSError as e:
-        print("Cannot copy the binary from the arduino-cli output: " + e.strerror)
-        raise
-
-
 # Set up specific options to customise arduino builder command
 def get_fqbn(b_name):
     if b_name in board_custom_fqbn and board_custom_fqbn[b_name]:
@@ -696,8 +662,8 @@ def genBasicCommand(b_name):
     cmd.append(build_output_cache_dir)
     if args.verbose:
         cmd.append("--verbose")
-    cmd.append("-o")
-    cmd.append(os.path.join(build_output_dir, b_name, "sketch"))
+    cmd.append("--output-dir")
+    cmd.append(os.path.join(output_dir, b_name, bin_dir))
     cmd.append("--fqbn")
     cmd.append(get_fqbn(b_name))
     cmd.append("dummy_sketch")
@@ -865,7 +831,6 @@ parser.add_argument(
 )
 
 g1 = parser.add_mutually_exclusive_group()
-g1.add_argument("--bin", help="save binaries", action="store_true")
 g1.add_argument("--ci", help="custom configuration for CI build", action="store_true")
 
 # Sketch options
