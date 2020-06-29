@@ -53,6 +53,8 @@ jobs:
     - name: Compilation
       id: Compile
       uses: stm32duino/actions/compile-examples@master
+      with:
+        cli-version: '0.10.0'
 
     # Use the output from the `Compile` step
     - name: Compilation Errors
