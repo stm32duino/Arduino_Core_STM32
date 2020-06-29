@@ -491,7 +491,7 @@ def check_status(status, build_conf, boardKo):
         # Check if failed due to a region overflowed
         logFile = os.path.join(build_conf[3], sketch_name + ".log")
         # error or fatal error
-        error_pattern = re.compile(r":\d+:\d+:\s.*error:\s")
+        error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
         ld_pattern = re.compile("arm-none-eabi/bin/ld:")
         overflow_pattern = re.compile(
             r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"
