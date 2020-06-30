@@ -4,6 +4,7 @@ import concurrent.futures
 from datetime import timedelta
 import json
 import os
+from packaging import version
 import re
 import shutil
 import subprocess
@@ -52,6 +53,8 @@ maintainer = maintainer_default
 arch = arch_default
 arduino_platform = arduino_platform_default
 arduino_cli = ""
+arduino_cli_default_version = "0.10.0"
+arduino_cli_version = arduino_cli_default_version
 
 # List
 sketch_list = []
@@ -117,6 +120,7 @@ def create_output_log_tree():
         file.write(build_separator + "\n")
     # Folders
     for board in board_fqbn:
+        createFolder(os.path.join(output_dir, board, bin_dir))
         createFolder(os.path.join(output_dir, board))
         createFolder(os.path.join(build_output_dir, board))
 
@@ -150,6 +154,7 @@ def create_config():
 
 def check_config():
     global arduino_cli
+    global arduino_cli_version
     global arduino_cli_path
     global sketches_path_list
     global build_output_dir
@@ -190,6 +195,23 @@ def check_config():
         arduino_cli = os.path.join(arduino_cli_path, "arduino-cli")
     else:
         arduino_cli = "arduino-cli"
+
+    try:
+        output = subprocess.check_output(
+            [arduino_cli, "version"], stderr=subprocess.DEVNULL,
+        )
+        res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
+
+        if res:
+            arduino_cli_version = res.group(1)
+            print("Arduino CLI version used: " + arduino_cli_version)
+        else:
+            raise subprocess.CalledProcessError(1, "re")
+    except subprocess.CalledProcessError:
+        print(
+            "Unable to define Arduino CLI version, use default: "
+            + arduino_cli_default_version
+        )
 
     try:
         output = subprocess.check_output(
@@ -662,8 +684,12 @@ def genBasicCommand(b_name):
     cmd.append(build_output_cache_dir)
     if args.verbose:
         cmd.append("--verbose")
-    cmd.append("--output-dir")
-    cmd.append(os.path.join(output_dir, b_name, bin_dir))
+    if version.parse(arduino_cli_version) <= version.parse(arduino_cli_default_version):
+        cmd.append("--output")
+        cmd.append(os.path.join(output_dir, b_name, bin_dir, "dummy_sketch"))
+    else:
+        cmd.append("--output-dir")
+        cmd.append(os.path.join(output_dir, b_name, bin_dir))
     cmd.append("--fqbn")
     cmd.append(get_fqbn(b_name))
     cmd.append("dummy_sketch")
@@ -693,6 +719,9 @@ def build_config(sketch, boardSkipped):
 
     for idx in reversed(range(len(build_conf_list))):
         build_conf_list[idx][4][-1] = sketch
+        build_conf_list[idx][4][-4] = build_conf_list[idx][4][-4].replace(
+            "dummy_sketch", os.path.basename(sketch)
+        )
         if na_sketch_pattern:
             if build_conf_list[idx][0] in na_sketch_pattern:
                 for pattern in na_sketch_pattern[build_conf_list[idx][0]]:
