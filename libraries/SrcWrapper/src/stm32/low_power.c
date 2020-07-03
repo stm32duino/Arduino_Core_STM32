@@ -239,7 +239,7 @@ void LowPower_stop(serial_t *obj)
   } else
 #endif
   {
-      HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
+    HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
   }
 
   /* Exit Stop mode reset clocks */
