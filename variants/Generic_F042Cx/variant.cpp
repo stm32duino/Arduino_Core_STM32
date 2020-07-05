@@ -56,7 +56,7 @@ const PinName digitalPin[] = {
   PC_13,  //
   PF_0,   //I2C1_SDA            CRS_SYNC               I2C1_SDA
   PF_1,   //I2C1_SCL            I2C1_SCL
-  PF_11,  //
+  PF_11  //
 };
 
 // If analog pins are not contiguous in the digitalPin array:
