@@ -1300,6 +1300,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       /* case RCC_APB2_DIV1: */
       case RCC_APB2_DIV2:
       case RCC_APB2_DIV4:
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_APB1_DIV8:
@@ -1316,7 +1317,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       case RCC_APB1_DIV2:
       /* case RCC_APB2_DIV1: */
       case RCC_APB2_DIV2:
-        // uwTimclock*=1;
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_APB1_DIV4:
@@ -1349,6 +1350,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       case RCC_HCLK_DIV1:
       case RCC_HCLK_DIV2:
       case RCC_HCLK_DIV4:
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_HCLK_DIV8:
