@@ -161,6 +161,8 @@ def check_config():
     global root_output_dir
     global output_dir
     global log_file
+    global stm32_url
+
     if args.ci is False:
         if os.path.isfile(path_config_filename):
             try:
@@ -214,6 +216,9 @@ def check_config():
                 "Unable to define Arduino CLI version, use default: "
                 + arduino_cli_default_version
             )
+
+    if args.url:
+        stm32_url = args.url
 
     try:
         output = subprocess.check_output(
@@ -872,6 +877,12 @@ parser.add_argument(
     + arch_default
     + " 'architecture in: "
     + cores_config_file_default,
+)
+
+parser.add_argument(
+    "-u", "--url", metavar="<string>", help="additional URL for the board manager\
+    Default url : "
+    + stm32_url,
 )
 
 parser.add_argument(
