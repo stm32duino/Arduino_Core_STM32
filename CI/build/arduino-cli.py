@@ -198,11 +198,11 @@ def check_config():
 
     try:
         output = subprocess.check_output(
-            [arduino_cli, "version"], stderr=subprocess.DEVNULL,
+            [arduino_cli, "version"], stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
@@ -218,11 +218,11 @@ def check_config():
     try:
         output = subprocess.check_output(
             [arduino_cli, "core", "search", "stm32", "--additional-urls", stm32_url],
-            stderr=subprocess.DEVNULL,
+            stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         if arduino_platform not in output.decode("utf-8"):
@@ -232,13 +232,13 @@ def check_config():
         try:
             output = subprocess.check_output(
                 [arduino_cli, "config", "dump", "--format", "json"],
-                stderr=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
             print(
                 '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
             )
-            print(e.stdout)
+            print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
             cli_config = json.loads(output)
@@ -465,7 +465,7 @@ def find_board():
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         boards_list = json.loads(output)
@@ -488,7 +488,7 @@ def find_board():
             print(
                 '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
             )
-            print(e.stdout)
+            print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
             board_detail = json.loads(output)
