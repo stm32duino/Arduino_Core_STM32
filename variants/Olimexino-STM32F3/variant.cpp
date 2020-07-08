@@ -34,7 +34,6 @@ extern "C" {
 #endif
 
 // Pin number
--  PF_4,		//D38 - UEXT_PWR (not actual D pin)
 const PinName digitalPin[] = {
   PA_3,   //D0 - RX2
   PA_2,   //D1 - TX2
