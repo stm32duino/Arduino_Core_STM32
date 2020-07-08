@@ -39,82 +39,82 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 // Digital connector 1
-#define PA3		0
-#define PA2		1
-#define PA0		2
-#define PA1		3
-#define PB5		4
-#define PB6		5
-#define PA8		6
-#define PA9		7
+#define PA3   0
+#define PA2   1
+#define PA0   2
+#define PA1   3
+#define PB5   4
+#define PB6   5
+#define PA8   6
+#define PA9   7
 
 // Digital connector 2
-#define PA10	8
-#define PB7		9
-#define PA4		10
-#define PA7		11
-#define PA6		12
-#define PA5		13
-#define PB8		14
+#define PA10  8
+#define PB7   9
+#define PA4   10
+#define PA7   11
+#define PA6   12
+#define PA5   13
+#define PB8   14
 
 // Analog connector
-#define PC0		15
-#define PC1		16
-#define PC2		17
-#define PC3		18
-#define PC4		19
-#define PC5		20
+#define PC0   15
+#define PC1   16
+#define PC2   17
+#define PC3   18
+#define PC4   19
+#define PC5   20
 
-#define	PC13	21
+#define PC13  21
 
 // GPIO extention
-#define PC15	23
-#define PB9		24
-#define PD2		25
-#define PC10	26
-#define PB0		27
-#define PB1		28
-#define PB10	29
-#define PB11	30
-#define PB12	31
-#define PB13	32
-#define PB14	33
-#define PB15	34
-#define PC6		35
-#define PC7		36
-#define PC8		37
+#define PC15  23
+#define PB9   24
+#define PD2   25
+#define PC10  26
+#define PB0   27
+#define PB1   28
+#define PB10  29
+#define PB11  30
+#define PB12  31
+#define PB13  32
+#define PB14  33
+#define PB15  34
+#define PC6   35
+#define PC7   36
+#define PC8   37
 
 // UEXT_PWR
-#define	PF4		38
+#define PF4   38
 
 // GPIO extention
-#define	GPIO1	23
-#define	GPIO2	24
-#define	GPIO3	25
-#define	GPIO4	26
-#define	GPIO5	27
-#define	GPIO6	28
-#define	GPIO7	29
-#define	GPIO8	30
-#define	GPIO9	31
-#define	GPIO10	32
-#define	GPIO11	33
-#define	GPIO12	34
-#define	GPIO13	35
-#define	GPIO14	36
-#define	GPIO15	37
+#define GPIO1 23
+#define GPIO2 24
+#define GPIO3 25
+#define GPIO4 26
+#define GPIO5 27
+#define GPIO6 28
+#define GPIO7 29
+#define GPIO8 30
+#define GPIO9 31
+#define GPIO10  32
+#define GPIO11  33
+#define GPIO12  34
+#define GPIO13  35
+#define GPIO14  36
+#define GPIO15  37
 
 // UEXT
-#define	UEXTPWR	38
-#define	UEXT3	29
-#define	UEXT4	30
-#define	UEXT5	7
-#define	UEXT6	8
-#define	UEXT7	12
-#define	UEXT8	11
-#define	UEXT9	13
-#define	UEXT10	4
-//#define	UEXT10	10
+#define UEXTPWR 38
+#define UEXT3 29
+#define UEXT4 30
+#define UEXT5 7
+#define UEXT6 8
+#define UEXT7 12
+#define UEXT8 11
+#define UEXT9 13
+#define UEXT10  4
+//#define UEXT10  10
 
 
 // This must be a literal
@@ -124,39 +124,39 @@ extern "C" {
 #define NUM_ANALOG_FIRST        15
 
 // On-board LED pin number
-#define	LED1		13
-#define	LED_GREEN	LED1
-#define	LED2		3
-#define	LED_YELLOW	LED2
+#define LED1    13
+#define LED_GREEN LED1
+#define LED2    3
+#define LED_YELLOW  LED2
 
 // On-board button pin button
-#define	BUTTON		22
+#define BUTTON    22
 
 // SPI Definitions
 // SPI1
-#define PIN_SPI_SS		PA4		// D10
-#define PIN_SPI_SCK		PA5		// D13
-#define PIN_SPI_MISO	PA6		// D12
-#define PIN_SPI_MOSI	PA7		// D11
+#define PIN_SPI_SS    PA4   // D10
+#define PIN_SPI_SCK   PA5   // D13
+#define PIN_SPI_MISO  PA6   // D12
+#define PIN_SPI_MOSI  PA7   // D11
 
 // SPI2
-#define	PIN_SPI2_SS		PB12	// D31
-#define	PIN_SPI2_SCK	PB13	// D32
-#define	PIN_SPI2_MISO	PB14	// D33
-#define	PIN_SPI2_MOSI	PB15	// D34
+#define PIN_SPI2_SS   PB12  // D31
+#define PIN_SPI2_SCK  PB13  // D32
+#define PIN_SPI2_MISO PB14  // D33
+#define PIN_SPI2_MOSI PB15  // D34
 
 // SPI3
-// #define	PIN_SPI3_SS		-1	// PA_15
-// #define	PIN_SPI3_SCK	-1	// PB_3
-// #define	PIN_SPI3_MISO	-1	// PB_4
-// #define	PIN_SPI3_MOSI	-1	// PB_5
+// #define  PIN_SPI3_SS   -1  // PA_15
+// #define  PIN_SPI3_SCK  -1  // PB_3
+// #define  PIN_SPI3_MISO -1  // PB_4
+// #define  PIN_SPI3_MOSI -1  // PB_5
 
 // SD card SPI2 definitions
-#define	SDCARD_SPI		SPI_2
-#define	SDCARD_SS_PIN	PIN_SPI2_SS		// D31	SPI2_#SS
-#define	SDCARD_SCK_PIN	PIN_SPI2_SCK	// D32
-#define	SDCARD_MISO_PIN	PIN_SPI2_MISO	// D33
-#define	SDCARD_MOSI_PIN	PIN_SPI2_MOSI	// D34
+#define SDCARD_SPI    SPI_2
+#define SDCARD_SS_PIN PIN_SPI2_SS   // D31  SPI2_#SS
+#define SDCARD_SCK_PIN  PIN_SPI2_SCK  // D32
+#define SDCARD_MISO_PIN PIN_SPI2_MISO // D33
+#define SDCARD_MOSI_PIN PIN_SPI2_MOSI // D34
 
 // I2C Definitions
 #define PIN_WIRE_SDA            PA10
@@ -168,17 +168,17 @@ extern "C" {
 #define TIMER_SERVO             TIM2
 
 // UART Definitions
-#define	HAVE_HWSERIAL1
-#define PIN_SERIAL1_TX           PB6	// D5
-#define PIN_SERIAL1_RX           PB7	// D9
+#define HAVE_HWSERIAL1
+#define PIN_SERIAL1_TX           PB6  // D5
+#define PIN_SERIAL1_RX           PB7  // D9
 
-#define	HAVE_HWSERIAL2
-#define PIN_SERIAL2_TX           PA2	// D1
-#define PIN_SERIAL2_RX           PA3	// D0
+#define HAVE_HWSERIAL2
+#define PIN_SERIAL2_TX           PA2  // D1
+#define PIN_SERIAL2_RX           PA3  // D0
 
-#define	HAVE_HWSERIAL3
-#define PIN_SERIAL3_TX           PB10	// TX GPIO29
-#define PIN_SERIAL3_RX           PB11	// RX GPIO30
+#define HAVE_HWSERIAL3
+#define PIN_SERIAL3_TX           PB10 // TX GPIO29
+#define PIN_SERIAL3_RX           PB11 // RX GPIO30
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
