@@ -161,6 +161,8 @@ def check_config():
     global root_output_dir
     global output_dir
     global log_file
+    global stm32_url
+
     if args.ci is False:
         if os.path.isfile(path_config_filename):
             try:
@@ -198,11 +200,11 @@ def check_config():
 
     try:
         output = subprocess.check_output(
-            [arduino_cli, "version"], stderr=subprocess.DEVNULL,
+            [arduino_cli, "version"], stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
@@ -215,14 +217,17 @@ def check_config():
                 + arduino_cli_default_version
             )
 
+    if args.url:
+        stm32_url = args.url
+
     try:
         output = subprocess.check_output(
             [arduino_cli, "core", "search", "stm32", "--additional-urls", stm32_url],
-            stderr=subprocess.DEVNULL,
+            stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         if arduino_platform not in output.decode("utf-8"):
@@ -232,13 +237,13 @@ def check_config():
         try:
             output = subprocess.check_output(
                 [arduino_cli, "config", "dump", "--format", "json"],
-                stderr=subprocess.DEVNULL,
+                stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
             print(
                 '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
             )
-            print(e.stdout)
+            print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
             cli_config = json.loads(output)
@@ -465,7 +470,7 @@ def find_board():
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
-        print(e.stdout)
+        print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         boards_list = json.loads(output)
@@ -488,7 +493,7 @@ def find_board():
             print(
                 '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
             )
-            print(e.stdout)
+            print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
             board_detail = json.loads(output)
@@ -872,6 +877,12 @@ parser.add_argument(
     + arch_default
     + " 'architecture in: "
     + cores_config_file_default,
+)
+
+parser.add_argument(
+    "-u", "--url", metavar="<string>", help="additional URL for the board manager\
+    Default url : "
+    + stm32_url,
 )
 
 parser.add_argument(
