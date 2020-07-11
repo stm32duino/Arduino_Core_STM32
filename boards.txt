@@ -1610,6 +1610,12 @@ GenF4.menu.pnum.Generic_F401CB.build.product_line=STM32F401xC
 GenF4.menu.pnum.Generic_F401CB.build.variant=Generic_F401Cx
 
 # Upload menu
+GenF4.menu.upload_method.dfuUtil=USB (dfu-util)
+GenF4.menu.upload_method.dfuUtil.upload.tool=dfu_util
+GenF4.menu.upload_method.dfuUtil.upload.protocol=
+GenF4.menu.upload_method.dfuUtil.upload.usbID=0483:df11
+GenF4.menu.upload_method.dfuUtil.upload.address=0x08000000
+
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenF4.menu.upload_method.swdMethod.upload.protocol=0
 GenF4.menu.upload_method.swdMethod.upload.options=-g
@@ -1699,6 +1705,12 @@ GenL0.menu.pnum.PX_HER0.build.product_line=STM32L072xx
 GenL0.menu.pnum.PX_HER0.build.variant=PX_HER0
 
 # Upload menu
+GenL0.menu.upload_method.dfuUtil=USB (dfu-util)
+GenL0.menu.upload_method.dfuUtil.upload.tool=dfu_util
+GenL0.menu.upload_method.dfuUtil.upload.protocol=
+GenL0.menu.upload_method.dfuUtil.upload.usbID=0483:df11
+GenL0.menu.upload_method.dfuUtil.upload.address=0x08000000
+
 GenL0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenL0.menu.upload_method.swdMethod.upload.protocol=0
 GenL0.menu.upload_method.swdMethod.upload.options=-g

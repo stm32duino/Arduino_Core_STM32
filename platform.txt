@@ -188,7 +188,7 @@ tools.hid_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
 tools.hid_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
-tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}                                                                                                                             
+tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
 
 # Upload using Maple bootloader over DFU
 tools.maple_upload.cmd=maple_upload.sh
@@ -207,4 +207,15 @@ tools.remoteproc_gen.busybox.windows={path}/win/busybox.exe
 tools.remoteproc_gen.script=run_arduino_gen.sh
 tools.remoteproc_gen.upload.params.verbose=
 tools.remoteproc_gen.upload.params.quiet=
-tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino_{build.project_name}.sh" 
+tools.remoteproc_gen.upload.pattern="{busybox}" sh "{path}/{script}" generate "{build.path}/{build.project_name}.elf" "{build.path}/run_arduino_{build.project_name}.sh"
+
+# USB upload using dfu-util
+tools.dfu_util.cmd=dfu-util
+tools.dfu_util.cmd.linux=dfu-util.sh
+tools.dfu_util.cmd.windows=dfu-util.exe
+tools.dfu_util.path={runtime.tools.STM32Tools.path}/tools/win
+tools.dfu_util.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx/dfu-util
+tools.dfu_util.path.linux={runtime.tools.STM32Tools.path}/tools/linux
+tools.dfu_util.upload.params.verbose=-v
+tools.dfu_util.upload.params.quiet=
+tools.dfu_util.upload.pattern="{path}/{cmd}" --device {upload.usbID} -a 0 --dfuse-address {upload.address} -D "{build.path}/{build.project_name}.bin"
