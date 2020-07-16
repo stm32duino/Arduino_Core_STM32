@@ -79,8 +79,8 @@ extern "C" {
 #define USER_BTN                PB4
 
 // Timer Definitions
-#define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
+#define TIMER_TONE              TIM10
+#define TIMER_SERVO             TIM11
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
@@ -90,8 +90,7 @@ extern "C" {
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
+#define HSE_VALUE               24000000U
 
 #ifdef __cplusplus
 } // extern "C"

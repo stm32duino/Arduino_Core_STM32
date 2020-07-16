@@ -3,7 +3,7 @@
   SYS_WKUP1 = PA_0,
 #endif
 #ifdef PWR_WAKEUP_PIN2
-  SYS_WKUP2 = PC_13,
+  SYS_WKUP2 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN3
   SYS_WKUP3 = NC,
@@ -25,7 +25,9 @@
 #endif
 /* USB */
 #ifdef USBCON
-  USB_DM = PA_11,
-  USB_DP = PA_12,
-  USB_NOE = PA_13,
+  USB_OTG_FS_SOF = PA_8,
+  USB_OTG_FS_VBUS = PA_9,
+  USB_OTG_FS_ID = PA_10,
+  USB_OTG_FS_DM = PA_11,
+  USB_OTG_FS_DP = PA_12,
 #endif
