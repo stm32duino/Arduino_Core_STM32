@@ -87,9 +87,9 @@ extern "C" {
 #define PC3   35 // A13
 #define PC4   36 // A14
 #define PC5   37 // A15
-#define PC6   38 
-#define PC7   39 
-#define PC8   40 
+#define PC6   38
+#define PC7   39
+#define PC8   40
 #define PC9   41
 #define PC10  42
 #define PC11  43
