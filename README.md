@@ -212,6 +212,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :green_heart: | STM32L010RB | Generic Board | *1.x.x* |  |
 | :green_heart: | STM32L072RB | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
 | :green_heart: | STM32L072KZ | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
 
