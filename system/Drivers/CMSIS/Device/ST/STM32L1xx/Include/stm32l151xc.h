@@ -339,7 +339,6 @@ typedef struct
   __IO uint32_t BSRR;         /*!< GPIO port bit set/reset registerBSRR,        Address offset: 0x18      */
   __IO uint32_t LCKR;         /*!< GPIO port configuration lock register,       Address offset: 0x1C      */
   __IO uint32_t AFR[2];       /*!< GPIO alternate function register,            Address offset: 0x20-0x24 */
-  __IO uint32_t BRR;          /*!< GPIO bit reset register,                     Address offset: 0x28      */
 } GPIO_TypeDef;
 
 /**
@@ -3607,24 +3606,6 @@ typedef struct
 #define GPIO_AFRH_AFSEL15_Pos                  (28U)
 #define GPIO_AFRH_AFSEL15_Msk                  (0xFUL << GPIO_AFRH_AFSEL15_Pos)     /*!< 0xF0000000 */
 #define GPIO_AFRH_AFSEL15                      GPIO_AFRH_AFSEL15_Msk
-
-/****************** Bit definition for GPIO_BRR register  *********************/
-#define GPIO_BRR_BR_0                        (0x00000001U)
-#define GPIO_BRR_BR_1                        (0x00000002U)
-#define GPIO_BRR_BR_2                        (0x00000004U)
-#define GPIO_BRR_BR_3                        (0x00000008U)
-#define GPIO_BRR_BR_4                        (0x00000010U)
-#define GPIO_BRR_BR_5                        (0x00000020U)
-#define GPIO_BRR_BR_6                        (0x00000040U)
-#define GPIO_BRR_BR_7                        (0x00000080U)
-#define GPIO_BRR_BR_8                        (0x00000100U)
-#define GPIO_BRR_BR_9                        (0x00000200U)
-#define GPIO_BRR_BR_10                       (0x00000400U)
-#define GPIO_BRR_BR_11                       (0x00000800U)
-#define GPIO_BRR_BR_12                       (0x00001000U)
-#define GPIO_BRR_BR_13                       (0x00002000U)
-#define GPIO_BRR_BR_14                       (0x00004000U)
-#define GPIO_BRR_BR_15                       (0x00008000U)
 
 /******************************************************************************/
 /*                                                                            */
