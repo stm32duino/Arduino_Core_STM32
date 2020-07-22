@@ -226,6 +226,8 @@ typedef struct
   */
 #define LL_UTILS_RPN_STM32MP157Cxx            0U      /*!< STM32MP157Cxx Part Number */
 #define LL_UTILS_RPN_STM32MP157Axx            1U      /*!< STM32MP157Axx Part Number */
+#define LL_UTILS_RPN_STM32MP157Fxx          128U      /*!< STM32MP157Fxx Part Number */
+#define LL_UTILS_RPN_STM32MP157Dxx          129U      /*!< STM32MP157Dxx Part Number */
 
 /**
   * @}
@@ -300,6 +302,8 @@ __STATIC_INLINE uint32_t LL_GetPackageType(void)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_UTILS_RPN_STM32MP157Cxx
   *         @arg @ref LL_UTILS_RPN_STM32MP157Axx
+  *         @arg @ref LL_UTILS_RPN_STM32MP157Fxx
+  *         @arg @ref LL_UTILS_RPN_STM32MP157Dxx
   */
 __STATIC_INLINE uint32_t LL_GetDevicePartNumber(void)
 {

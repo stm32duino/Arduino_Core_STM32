@@ -54,7 +54,7 @@
  * @brief STM32MP1xx HAL Driver version number
    */
 #define __STM32MP1xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32MP1xx_HAL_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
+#define __STM32MP1xx_HAL_VERSION_SUB1   (0x02U) /*!< [23:16] sub1 version */
 #define __STM32MP1xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32MP1xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32MP1xx_HAL_VERSION         ((__STM32MP1xx_HAL_VERSION_MAIN << 24)\
@@ -868,10 +868,17 @@ void HAL_SYSCFG_CompensationCodeConfig(uint32_t SYSCFG_PMOSCode, uint32_t SYSCFG
   */
 void HAL_SYSCFG_DisableIOCompensation(void)
 {
+  uint32_t pmos_val = 0;
+  uint32_t nmos_val = 0;
+
+  /* Get I/O compensation cell values for PMOS and NMOS transistors */
+  pmos_val = __HAL_SYSCFG_GET_PMOS_CMP();
+  nmos_val = __HAL_SYSCFG_GET_NMOS_CMP();
+
   /* Copy actual value of SYSCFG_CMPCR.APSRC[3:0]/ANSRC[3:0] in
    * SYSCFG_CMPCR.RAPSRC[3:0]/RANSRC[3:0]
    */
-  HAL_SYSCFG_CompensationCodeConfig(__HAL_SYSCFG_GET_PMOS_CMP(), __HAL_SYSCFG_GET_NMOS_CMP());
+  HAL_SYSCFG_CompensationCodeConfig(pmos_val, nmos_val);
 
   /* Set SYSCFG_CMPCR.SW_CTRL = 1 */
   HAL_SYSCFG_CompensationCodeSelect(SYSCFG_REGISTER_CODE);

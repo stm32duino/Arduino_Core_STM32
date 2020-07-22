@@ -277,7 +277,7 @@ static USBH_StatusTypeDef USBH_AUDIO_InterfaceInit(USBH_HandleTypeDef *phost)
   {
     USBH_AUDIO_BuildHeadphonePath(phost);
 
-    AUDIO_Handle->headphone.Pipe  = USBH_AllocPipe(phost, AUDIO_Handle->headphone.Ep);
+    AUDIO_Handle->headphone.Pipe = USBH_AllocPipe(phost, AUDIO_Handle->headphone.Ep);
 
     /* Open pipe for IN endpoint */
     USBH_OpenPipe(phost,
@@ -289,13 +289,12 @@ static USBH_StatusTypeDef USBH_AUDIO_InterfaceInit(USBH_HandleTypeDef *phost)
                   AUDIO_Handle->headphone.EpSize);
 
     USBH_LL_SetToggle(phost,  AUDIO_Handle->headphone.Pipe, 0U);
-
   }
 
   if (AUDIO_Handle->microphone.supported == 1U)
   {
     USBH_AUDIO_BuildMicrophonePath(phost);
-    AUDIO_Handle->microphone.Pipe  = USBH_AllocPipe(phost, AUDIO_Handle->microphone.Ep);
+    AUDIO_Handle->microphone.Pipe = USBH_AllocPipe(phost, AUDIO_Handle->microphone.Ep);
 
     /* Open pipe for IN endpoint */
     USBH_OpenPipe(phost,
@@ -389,143 +388,178 @@ static USBH_StatusTypeDef USBH_AUDIO_ClassRequest(USBH_HandleTypeDef *phost)
   /* Switch AUDIO REQ state machine */
   switch (AUDIO_Handle->req_state)
   {
-    case AUDIO_REQ_INIT:
-    case AUDIO_REQ_SET_DEFAULT_IN_INTERFACE:
-      if (AUDIO_Handle->microphone.supported == 1U)
-      {
-        req_status = USBH_SetInterface(phost,
-                                       AUDIO_Handle->microphone.interface,
-                                       0U);
+  case AUDIO_REQ_INIT:
+  case AUDIO_REQ_SET_DEFAULT_IN_INTERFACE:
+    if (AUDIO_Handle->microphone.supported == 1U)
+    {
+      req_status = USBH_SetInterface(phost,
+                                     AUDIO_Handle->microphone.interface,
+                                     0U);
 
-        if (req_status == USBH_OK)
-        {
-          AUDIO_Handle->req_state = AUDIO_REQ_SET_DEFAULT_OUT_INTERFACE;
-        }
-      }
-      else
+      if (req_status == USBH_OK)
       {
         AUDIO_Handle->req_state = AUDIO_REQ_SET_DEFAULT_OUT_INTERFACE;
-
-#if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_URB_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
       }
-      break;
-
-    case AUDIO_REQ_SET_DEFAULT_OUT_INTERFACE:
-      if (AUDIO_Handle->headphone.supported == 1U)
+      else if (req_status == USBH_NOT_SUPPORTED)
       {
-        req_status = USBH_SetInterface(phost,
-                                       AUDIO_Handle->headphone.interface,
-                                       0U);
-
-        if (req_status == USBH_OK)
-        {
-          AUDIO_Handle->req_state = AUDIO_REQ_CS_REQUESTS;
-          AUDIO_Handle->cs_req_state = AUDIO_REQ_GET_VOLUME;
-
-          AUDIO_Handle->temp_feature  = AUDIO_Handle->headphone.asociated_feature;
-          AUDIO_Handle->temp_channels = AUDIO_Handle->headphone.asociated_channels;
-        }
+        USBH_ErrLog("Control error: AUDIO: Device Set interface request failed");
+        status = USBH_FAIL;
       }
       else
       {
-        AUDIO_Handle->req_state = AUDIO_REQ_CS_REQUESTS;
-        AUDIO_Handle->cs_req_state = AUDIO_REQ_GET_VOLUME;
+        /* .. */
+      }
+    }
+    else
+    {
+      AUDIO_Handle->req_state = AUDIO_REQ_SET_DEFAULT_OUT_INTERFACE;
 
 #if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_URB_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
-      }
-      break;
-
-    case AUDIO_REQ_CS_REQUESTS:
-      if (USBH_AUDIO_HandleCSRequest(phost) == USBH_OK)
-      {
-        AUDIO_Handle->req_state = AUDIO_REQ_SET_IN_INTERFACE;
-      }
-      break;
-
-    case AUDIO_REQ_SET_IN_INTERFACE:
-      if (AUDIO_Handle->microphone.supported == 1U)
-      {
-        req_status = USBH_SetInterface(phost,
-                                       AUDIO_Handle->microphone.interface,
-                                       AUDIO_Handle->microphone.AltSettings);
-
-        if (req_status == USBH_OK)
-        {
-          AUDIO_Handle->req_state = AUDIO_REQ_SET_OUT_INTERFACE;
-        }
-      }
-      else
-      {
-        AUDIO_Handle->req_state = AUDIO_REQ_SET_OUT_INTERFACE;
-
-#if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_URB_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
-      }
-      break;
-    case AUDIO_REQ_SET_OUT_INTERFACE:
-      if (AUDIO_Handle->headphone.supported == 1U)
-      {
-        req_status = USBH_SetInterface(phost,
-                                       AUDIO_Handle->headphone.interface,
-                                       AUDIO_Handle->headphone.AltSettings);
-
-        if (req_status == USBH_OK)
-        {
-          AUDIO_Handle->req_state = AUDIO_REQ_IDLE;
-        }
-
-      }
-      else
-      {
-        AUDIO_Handle->req_state = AUDIO_REQ_IDLE;
-
-#if (USBH_USE_OS == 1U)
-        phost->os_msg = (uint32_t)USBH_URB_EVENT;
-#if (osCMSIS < 0x20000U)
-        (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
-#else
-        (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
-#endif
-#endif
-      }
-      break;
-    case AUDIO_REQ_IDLE:
-      AUDIO_Handle->play_state = AUDIO_PLAYBACK_INIT;
-      phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
-      status  = USBH_OK;
-
-#if (USBH_USE_OS == 1U)
-      phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
+      phost->os_msg = (uint32_t)USBH_URB_EVENT;
 #if (osCMSIS < 0x20000U)
       (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
 #else
       (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
 #endif
 #endif
-      break;
+    }
+    break;
 
-    default:
-      break;
+  case AUDIO_REQ_SET_DEFAULT_OUT_INTERFACE:
+    if (AUDIO_Handle->headphone.supported == 1U)
+    {
+      req_status = USBH_SetInterface(phost,
+                                     AUDIO_Handle->headphone.interface,
+                                     0U);
+
+      if (req_status == USBH_OK)
+      {
+        AUDIO_Handle->req_state = AUDIO_REQ_CS_REQUESTS;
+        AUDIO_Handle->cs_req_state = AUDIO_REQ_GET_VOLUME;
+
+        AUDIO_Handle->temp_feature  = AUDIO_Handle->headphone.asociated_feature;
+        AUDIO_Handle->temp_channels = AUDIO_Handle->headphone.asociated_channels;
+      }
+      else if (req_status == USBH_NOT_SUPPORTED)
+      {
+        USBH_ErrLog("Control error: AUDIO: Device Set interface request failed");
+        status = USBH_FAIL;
+      }
+      else
+      {
+        /* .. */
+      }
+    }
+    else
+    {
+      AUDIO_Handle->req_state = AUDIO_REQ_CS_REQUESTS;
+      AUDIO_Handle->cs_req_state = AUDIO_REQ_GET_VOLUME;
+
+#if (USBH_USE_OS == 1U)
+      phost->os_msg = (uint32_t)USBH_URB_EVENT;
+#if (osCMSIS < 0x20000U)
+      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
+    }
+    break;
+
+  case AUDIO_REQ_CS_REQUESTS:
+    if (USBH_AUDIO_HandleCSRequest(phost) == USBH_OK)
+    {
+      AUDIO_Handle->req_state = AUDIO_REQ_SET_IN_INTERFACE;
+    }
+    break;
+
+  case AUDIO_REQ_SET_IN_INTERFACE:
+    if (AUDIO_Handle->microphone.supported == 1U)
+    {
+      req_status = USBH_SetInterface(phost,
+                                     AUDIO_Handle->microphone.interface,
+                                     AUDIO_Handle->microphone.AltSettings);
+
+      if (req_status == USBH_OK)
+      {
+        AUDIO_Handle->req_state = AUDIO_REQ_SET_OUT_INTERFACE;
+      }
+      else if (req_status == USBH_NOT_SUPPORTED)
+      {
+        USBH_ErrLog("Control error: AUDIO: Device Set interface request failed");
+        status = USBH_FAIL;
+      }
+      else
+      {
+        /* .. */
+      }
+    }
+    else
+    {
+      AUDIO_Handle->req_state = AUDIO_REQ_SET_OUT_INTERFACE;
+
+#if (USBH_USE_OS == 1U)
+      phost->os_msg = (uint32_t)USBH_URB_EVENT;
+#if (osCMSIS < 0x20000U)
+      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
+    }
+    break;
+  case AUDIO_REQ_SET_OUT_INTERFACE:
+    if (AUDIO_Handle->headphone.supported == 1U)
+    {
+      req_status = USBH_SetInterface(phost,
+                                     AUDIO_Handle->headphone.interface,
+                                     AUDIO_Handle->headphone.AltSettings);
+
+      if (req_status == USBH_OK)
+      {
+        AUDIO_Handle->req_state = AUDIO_REQ_IDLE;
+      }
+      else if (req_status == USBH_NOT_SUPPORTED)
+      {
+        USBH_ErrLog("Control error: AUDIO: Device Set interface request failed");
+        status = USBH_FAIL;
+      }
+      else
+      {
+        /* .. */
+      }
+    }
+    else
+    {
+      AUDIO_Handle->req_state = AUDIO_REQ_IDLE;
+
+#if (USBH_USE_OS == 1U)
+      phost->os_msg = (uint32_t)USBH_URB_EVENT;
+#if (osCMSIS < 0x20000U)
+      (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+      (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
+    }
+    break;
+  case AUDIO_REQ_IDLE:
+    AUDIO_Handle->play_state = AUDIO_PLAYBACK_INIT;
+    phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
+    status  = USBH_OK;
+
+#if (USBH_USE_OS == 1U)
+    phost->os_msg = (uint32_t)USBH_CLASS_EVENT;
+#if (osCMSIS < 0x20000U)
+    (void)osMessagePut(phost->os_event, phost->os_msg, 0U);
+#else
+    (void)osMessageQueuePut(phost->os_event, &phost->os_msg, 0U, NULL);
+#endif
+#endif
+    break;
+
+  default:
+    break;
   }
   return status;
 }

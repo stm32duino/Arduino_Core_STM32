@@ -40,6 +40,7 @@
 #include "utility/spi_com.h"
 #include "PinAF_STM32F1.h"
 #include "pinconfig.h"
+#include "stm32yyxx_ll_spi.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -381,22 +382,7 @@ void spi_deinit(spi_t *obj)
   */
 spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
 {
-  spi_status_e ret = SPI_OK;
-  HAL_StatusTypeDef hal_status;
-
-  if ((obj == NULL) || (len == 0)) {
-    return SPI_ERROR;
-  }
-
-  hal_status = HAL_SPI_Transmit(&(obj->handle), Data, len, Timeout);
-
-  if (hal_status == HAL_TIMEOUT) {
-    ret = SPI_TIMEOUT;
-  } else if (hal_status != HAL_OK) {
-    ret = SPI_ERROR;
-  }
-
-  return ret;
+  return spi_transfer(obj, Data, Data, len, Timeout, 1 /* SPI_TRANSMITONLY */);
 }
 
 /**
@@ -407,25 +393,58 @@ spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout)
   * @param  rx_buffer : data to receive
   * @param  len : length in byte of the data to send and receive
   * @param  Timeout: Timeout duration in tick
+  * @param  skipReceive: skip receiving data after transmit or not
   * @retval status of the send operation (0) in case of error
   */
-spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
-                          uint8_t *rx_buffer, uint16_t len, uint32_t Timeout)
+spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
+                          uint16_t len, uint32_t Timeout, bool skipReceive)
 {
   spi_status_e ret = SPI_OK;
-  HAL_StatusTypeDef hal_status;
+  uint32_t tickstart, size = len;
+  SPI_TypeDef *_SPI = obj->handle.Instance;
 
-  if ((obj == NULL) || (len == 0)) {
-    return SPI_ERROR;
+  if ((obj == NULL) || (len == 0) || (Timeout == 0U)) {
+    return Timeout > 0U ? SPI_ERROR : SPI_TIMEOUT;
+  }
+  tickstart = HAL_GetTick();
+
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+  /* Start transfer */
+  LL_SPI_SetTransferSize(_SPI, size);
+  LL_SPI_Enable(_SPI);
+  LL_SPI_StartMasterTransfer(_SPI);
+#endif
+
+  while (size--) {
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+    while (!LL_SPI_IsActiveFlag_TXP(_SPI));
+#else
+    while (!LL_SPI_IsActiveFlag_TXE(_SPI));
+#endif
+    LL_SPI_TransmitData8(_SPI, *tx_buffer++);
+
+    if (!skipReceive) {
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+      while (!LL_SPI_IsActiveFlag_RXP(_SPI));
+#else
+      while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
+#endif
+      *rx_buffer++ = LL_SPI_ReceiveData8(_SPI);
+    }
+    if ((Timeout != HAL_MAX_DELAY) && (HAL_GetTick() - tickstart >= Timeout)) {
+      ret = SPI_TIMEOUT;
+      break;
+    }
   }
 
-  hal_status = HAL_SPI_TransmitReceive(&(obj->handle), tx_buffer, rx_buffer, len, Timeout);
-
-  if (hal_status == HAL_TIMEOUT) {
-    ret = SPI_TIMEOUT;
-  } else if (hal_status != HAL_OK) {
-    ret = SPI_ERROR;
-  }
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+  /* Close transfer */
+  /* Clear flags */
+  LL_SPI_ClearFlag_EOT(_SPI);
+  LL_SPI_ClearFlag_TXTF(_SPI);
+  /* Disable SPI peripheral */
+  LL_SPI_Disable(_SPI);
+#endif
 
   return ret;
 }

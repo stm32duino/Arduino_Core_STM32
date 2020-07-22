@@ -15,7 +15,7 @@
 #include "PeripheralPins.h"
 
 #if !defined(ARDUINO_PRNTR_F407_V1) && !defined(ARDUINO_PRNTR_V2)
-#error Expected either ARDUINO_PRNTR_F407_V1 or ARDUINO_PRNTR_V2 to be defined. Wrong board variant?
+  #error Expected either ARDUINO_PRNTR_F407_V1 or ARDUINO_PRNTR_V2 to be defined. Wrong board variant?
 #endif
 
 /* =====

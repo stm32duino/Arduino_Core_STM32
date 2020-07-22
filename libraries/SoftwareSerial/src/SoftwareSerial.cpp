@@ -44,53 +44,53 @@
 // The order is based on (lack of) features and compare channels, we choose the simplest available
 // because we only need an update interrupt
 #if !defined(TIMER_SERIAL)
-#if defined (TIM18_BASE)
-#define TIMER_SERIAL TIM18
-#elif defined (TIM7_BASE)
-#define TIMER_SERIAL TIM7
-#elif defined (TIM6_BASE)
-#define TIMER_SERIAL TIM6
-#elif defined (TIM22_BASE)
-#define TIMER_SERIAL TIM22
-#elif defined (TIM21_BASE)
-#define TIMER_SERIAL TIM21
-#elif defined (TIM17_BASE)
-#define TIMER_SERIAL TIM17
-#elif defined (TIM16_BASE)
-#define TIMER_SERIAL TIM16
-#elif defined (TIM15_BASE)
-#define TIMER_SERIAL TIM15
-#elif defined (TIM14_BASE)
-#define TIMER_SERIAL TIM14
-#elif defined (TIM13_BASE)
-#define TIMER_SERIAL TIM13
-#elif defined (TIM11_BASE)
-#define TIMER_SERIAL TIM11
-#elif defined (TIM10_BASE)
-#define TIMER_SERIAL TIM10
-#elif defined (TIM12_BASE)
-#define TIMER_SERIAL TIM12
-#elif defined (TIM19_BASE)
-#define TIMER_SERIAL TIM19
-#elif defined (TIM9_BASE)
-#define TIMER_SERIAL TIM9
-#elif defined (TIM5_BASE)
-#define TIMER_SERIAL TIM5
-#elif defined (TIM4_BASE)
-#define TIMER_SERIAL TIM4
-#elif defined (TIM3_BASE)
-#define TIMER_SERIAL TIM3
-#elif defined (TIM2_BASE)
-#define TIMER_SERIAL TIM2
-#elif defined (TIM20_BASE)
-#define TIMER_SERIAL TIM20
-#elif defined (TIM8_BASE)
-#define TIMER_SERIAL TIM8
-#elif defined (TIM1_BASE)
-#define TIMER_SERIAL TIM1
-#else
-#error No suitable timer found for SoftwareSerial, define TIMER_SERIAL in variant.h
-#endif
+  #if defined (TIM18_BASE)
+    #define TIMER_SERIAL TIM18
+  #elif defined (TIM7_BASE)
+    #define TIMER_SERIAL TIM7
+  #elif defined (TIM6_BASE)
+    #define TIMER_SERIAL TIM6
+  #elif defined (TIM22_BASE)
+    #define TIMER_SERIAL TIM22
+  #elif defined (TIM21_BASE)
+    #define TIMER_SERIAL TIM21
+  #elif defined (TIM17_BASE)
+    #define TIMER_SERIAL TIM17
+  #elif defined (TIM16_BASE)
+    #define TIMER_SERIAL TIM16
+  #elif defined (TIM15_BASE)
+    #define TIMER_SERIAL TIM15
+  #elif defined (TIM14_BASE)
+    #define TIMER_SERIAL TIM14
+  #elif defined (TIM13_BASE)
+    #define TIMER_SERIAL TIM13
+  #elif defined (TIM11_BASE)
+    #define TIMER_SERIAL TIM11
+  #elif defined (TIM10_BASE)
+    #define TIMER_SERIAL TIM10
+  #elif defined (TIM12_BASE)
+    #define TIMER_SERIAL TIM12
+  #elif defined (TIM19_BASE)
+    #define TIMER_SERIAL TIM19
+  #elif defined (TIM9_BASE)
+    #define TIMER_SERIAL TIM9
+  #elif defined (TIM5_BASE)
+    #define TIMER_SERIAL TIM5
+  #elif defined (TIM4_BASE)
+    #define TIMER_SERIAL TIM4
+  #elif defined (TIM3_BASE)
+    #define TIMER_SERIAL TIM3
+  #elif defined (TIM2_BASE)
+    #define TIMER_SERIAL TIM2
+  #elif defined (TIM20_BASE)
+    #define TIMER_SERIAL TIM20
+  #elif defined (TIM8_BASE)
+    #define TIMER_SERIAL TIM8
+  #elif defined (TIM1_BASE)
+    #define TIMER_SERIAL TIM1
+  #else
+    #error No suitable timer found for SoftwareSerial, define TIMER_SERIAL in variant.h
+  #endif
 #endif
 //
 // Statics
@@ -290,9 +290,8 @@ inline void SoftwareSerial::recv()
 //
 
 /* static */
-inline void SoftwareSerial::handleInterrupt(HardwareTimer *timer)
+inline void SoftwareSerial::handleInterrupt()
 {
-  UNUSED(timer);
   if (active_in) {
     active_in->recv();
   }
@@ -318,12 +317,12 @@ SoftwareSerial::SoftwareSerial(uint16_t receivePin, uint16_t transmitPin, bool i
   _receive_buffer_tail(0),
   _receive_buffer_head(0)
 {
-  if ((receivePin < NUM_DIGITAL_PINS) || (transmitPin < NUM_DIGITAL_PINS)) {
-    /* Enable GPIO clock for tx and rx pin*/
-    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin)));
-    set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin)));
-  } else {
-    _Error_Handler("ERROR: invalid pin number\n", -1);
+  /* Enable GPIO clock for tx and rx pin*/
+  if (set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(transmitPin))) == 0) {
+    _Error_Handler("ERROR: invalid transmit pin number\n", -1);
+  }
+  if ((!_half_duplex) && (set_GPIO_Port_Clock(STM_PORT(digitalPinToPinName(receivePin))) == 0)) {
+    _Error_Handler("ERROR: invalid receive pin number\n", -1);
   }
 }
 

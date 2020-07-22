@@ -1,0 +1,26 @@
+From 01b39c624995928905b99b3ce211482d27d0d1bc Mon Sep 17 00:00:00 2001
+From: Bumsik Kim <k.bumsik@gmail.com>
+Date: Sat, 12 Oct 2019 21:50:30 +0900
+Subject: [PATCH 1/1] [MP1] Review HAL default configuration
+
+---
+ .../Device/ST/STM32MP1xx/Include/stm32mp1xx.h |  6 +-
+ .../STM32MP1xx/stm32mp1xx_hal_conf_default.h  | 89 ++++++++++---------
+ 2 files changed, 49 insertions(+), 46 deletions(-)
+
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32MP1xx/Include/stm32mp1xx.h b/system/Drivers/CMSIS/Device/ST/STM32MP1xx/Include/stm32mp1xx.h
+index 10395b51..528b9b91 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32MP1xx/Include/stm32mp1xx.h
++++ b/system/Drivers/CMSIS/Device/ST/STM32MP1xx/Include/stm32mp1xx.h
+@@ -197,7 +197,7 @@ typedef enum
+   */
+ 
+ #if defined (USE_HAL_DRIVER)
+- #include "stm32mp1xx_hal_conf.h"
++ #include "stm32mp1xx_hal.h"
+ #endif /* USE_HAL_DRIVER */
+ 
+ 
+-- 
+2.25.1.windows.1
+

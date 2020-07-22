@@ -186,6 +186,8 @@ typedef struct
 
   uint16_t                    CrypHeaderCount_saved;   /*!< copy of CRYP header data counter when processing is suspended */
 
+  uint32_t                    SizesSum_saved;          /*!< copy of SizesSum when processing is suspended */
+
   uint32_t                    ResumingFlag;            /*!< resumption flag to bypass steps already carried out */
 
   FunctionalState             AutoKeyDerivation_saved; /*!< copy of CRYP handle auto key derivation parameter */

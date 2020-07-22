@@ -53,6 +53,14 @@ extern "C" {
   */
 
 /* Private macros ------------------------------------------------------------*/
+/** @defgroup COMP_LL_Private_Macros COMP Private Macros
+  * @{
+  */
+
+/**
+  * @}
+  */
+
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup COMP_LL_ES_INIT COMP Exported Init structure
@@ -285,7 +293,7 @@ typedef struct
 
 /**
   * @brief  Set window mode of a pair of comparators instances
-  *         (2 consecutive COMP instances odd and even COMP<x> and COMP<x+1>).
+  *         (2 consecutive COMP instances COMP<x> and COMP<x+1>).
   * @rmtoll CSR      WINMODE        LL_COMP_SetCommonWindowMode
   * @param  COMPxy_COMMON Comparator common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_COMP_COMMON_INSTANCE() )
@@ -303,7 +311,7 @@ __STATIC_INLINE void LL_COMP_SetCommonWindowMode(COMP_Common_TypeDef *COMPxy_COM
 
 /**
   * @brief  Get window mode of a pair of comparators instances
-  *         (2 consecutive COMP instances odd and even COMP<x> and COMP<x+1>).
+  *         (2 consecutive COMP instances COMP<x> and COMP<x+1>).
   * @rmtoll CSR      WINMODE        LL_COMP_GetCommonWindowMode
   * @param  COMPxy_COMMON Comparator common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_COMP_COMMON_INSTANCE() )

@@ -1,0 +1,146 @@
+From 4aba75ec152a2d2c65d07c1912da9eb4ea08be2e Mon Sep 17 00:00:00 2001
+From: Alexandre Bourdiol <alexandre.bourdiol@st.com>
+Date: Mon, 27 Jan 2020 18:23:15 +0100
+Subject: [PATCH 1/1] [F1] I2C HAL fix: generate Start only once Stop is
+ finished
+
+---
+ .../Src/stm32f1xx_hal_i2c.c                   | 87 ++++++++++++++++++-
+ 1 file changed, 86 insertions(+), 1 deletion(-)
+
+diff --git a/system/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c b/system/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
+index 6e74e699..fc108e0b 100644
+--- a/system/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
++++ b/system/Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c
+@@ -3492,6 +3492,27 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Transmit_IT(I2C_HandleTypeDef *hi2c, uint16
+       while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) != RESET);
+     }
+ 
++    /* Before any new treatment like start or restart, check that there is no pending STOP request */
++    /* Wait until STOP flag is reset */
++    count = I2C_TIMEOUT_BUSY_FLAG * (SystemCoreClock / 25U / 1000U);
++    do
++    {
++      count--;
++      if (count == 0U)
++      {
++        hi2c->PreviousState       = I2C_STATE_NONE;
++        hi2c->State               = HAL_I2C_STATE_READY;
++        hi2c->Mode                = HAL_I2C_MODE_NONE;
++        hi2c->ErrorCode           |= HAL_I2C_ERROR_TIMEOUT;
++
++        /* Process Unlocked */
++        __HAL_UNLOCK(hi2c);
++
++        return HAL_ERROR;
++      }
++    }
++    while (READ_BIT(hi2c->Instance->CR1, I2C_CR1_STOP) == I2C_CR1_STOP);
++
+     /* Process Locked */
+     __HAL_LOCK(hi2c);
+ 
+@@ -3591,6 +3612,27 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint1
+       while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) != RESET);
+     }
+ 
++    /* Before any new treatment like start or restart, check that there is no pending STOP request */
++    /* Wait until STOP flag is reset */
++    count = I2C_TIMEOUT_BUSY_FLAG * (SystemCoreClock / 25U / 1000U);
++    do
++    {
++      count--;
++      if (count == 0U)
++      {
++        hi2c->PreviousState       = I2C_STATE_NONE;
++        hi2c->State               = HAL_I2C_STATE_READY;
++        hi2c->Mode                = HAL_I2C_MODE_NONE;
++        hi2c->ErrorCode           |= HAL_I2C_ERROR_TIMEOUT;
++
++        /* Process Unlocked */
++        __HAL_UNLOCK(hi2c);
++
++        return HAL_ERROR;
++      }
++    }
++    while (READ_BIT(hi2c->Instance->CR1, I2C_CR1_STOP) == I2C_CR1_STOP);
++
+     /* Process Locked */
+     __HAL_LOCK(hi2c);
+ 
+@@ -3757,6 +3799,27 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Receive_IT(I2C_HandleTypeDef *hi2c, uint16_
+       while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) != RESET);
+     }
+ 
++    /* Before any new treatment like start or restart, check that there is no pending STOP request */
++    /* Wait until STOP flag is reset */
++    count = I2C_TIMEOUT_BUSY_FLAG * (SystemCoreClock / 25U / 1000U);
++    do
++    {
++      count--;
++      if (count == 0U)
++      {
++        hi2c->PreviousState       = I2C_STATE_NONE;
++        hi2c->State               = HAL_I2C_STATE_READY;
++        hi2c->Mode                = HAL_I2C_MODE_NONE;
++        hi2c->ErrorCode           |= HAL_I2C_ERROR_TIMEOUT;
++
++        /* Process Unlocked */
++        __HAL_UNLOCK(hi2c);
++
++        return HAL_ERROR;
++      }
++    }
++    while (READ_BIT(hi2c->Instance->CR1, I2C_CR1_STOP) == I2C_CR1_STOP);
++
+     /* Process Locked */
+     __HAL_LOCK(hi2c);
+ 
+@@ -3882,6 +3945,27 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16
+       while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) != RESET);
+     }
+ 
++    /* Before any new treatment like start or restart, check that there is no pending STOP request */
++    /* Wait until STOP flag is reset */
++    count = I2C_TIMEOUT_BUSY_FLAG * (SystemCoreClock / 25U / 1000U);
++    do
++    {
++      count--;
++      if (count == 0U)
++      {
++        hi2c->PreviousState       = I2C_STATE_NONE;
++        hi2c->State               = HAL_I2C_STATE_READY;
++        hi2c->Mode                = HAL_I2C_MODE_NONE;
++        hi2c->ErrorCode           |= HAL_I2C_ERROR_TIMEOUT;
++
++        /* Process Unlocked */
++        __HAL_UNLOCK(hi2c);
++
++        return HAL_ERROR;
++      }
++    }
++    while (READ_BIT(hi2c->Instance->CR1, I2C_CR1_STOP) == I2C_CR1_STOP);
++
+     /* Process Locked */
+     __HAL_LOCK(hi2c);
+ 
+@@ -4565,7 +4649,7 @@ HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevA
+   UNUSED(DevAddress);
+ 
+   /* Abort Master transfer during Receive or Transmit process    */
+-  if (hi2c->Mode == HAL_I2C_MODE_MASTER)
++  if ((__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_BUSY) != RESET) && (hi2c->Mode == HAL_I2C_MODE_MASTER))
+   {
+     /* Process Locked */
+     __HAL_LOCK(hi2c);
+@@ -4596,6 +4680,7 @@ HAL_StatusTypeDef HAL_I2C_Master_Abort_IT(I2C_HandleTypeDef *hi2c, uint16_t DevA
+   {
+     /* Wrong usage of abort function */
+     /* This function should be used only in case of abort monitored by master device */
++    /* Or periphal is not in busy state, mean there is no active sequence to be abort */
+     return HAL_ERROR;
+   }
+ }
+-- 
+2.25.1.windows.1
+

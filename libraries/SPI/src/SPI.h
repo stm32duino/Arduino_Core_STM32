@@ -44,6 +44,9 @@ extern "C" {
 #define SPI_MODE2 0x02
 #define SPI_MODE3 0x03
 
+#define SPI_TRANSMITRECEIVE 0x0
+#define SPI_TRANSMITONLY 0x1
+
 // Transfer mode
 enum SPITransferMode {
   SPI_CONTINUE, /* Transfer not finished: CS pin kept active */
@@ -57,22 +60,25 @@ enum SPITransferMode {
 #define NO_CONFIG   ((int16_t)(-1))
 
 // Defines a default timeout delay in milliseconds for the SPI transfer
-#define SPI_TRANSFER_TIMEOUT    1000
+#ifndef SPI_TRANSFER_TIMEOUT
+  #define SPI_TRANSFER_TIMEOUT 1000
+#endif
 
 /*
  * Defines the number of settings saved per SPI instance. Must be in range 1 to 254.
  * Can be redefined in variant.h
  */
 #ifndef NB_SPI_SETTINGS
-#define NB_SPI_SETTINGS 4
+  #define NB_SPI_SETTINGS 4
 #endif
 
 class SPISettings {
   public:
-    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode)
+    SPISettings(uint32_t clock, BitOrder bitOrder, uint8_t dataMode, bool noRecv = SPI_TRANSMITRECEIVE)
     {
       clk = clock;
       bOrder = bitOrder;
+      noReceive = noRecv;
 
       if (SPI_MODE0 == dataMode) {
         dMode = SPI_MODE_0;
@@ -102,6 +108,7 @@ class SPISettings {
     //SPI_MODE2             1                     0
     //SPI_MODE3             1                     1
     friend class SPIClass;
+    bool noReceive;
 };
 
 class SPIClass {

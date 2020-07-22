@@ -108,13 +108,17 @@ typedef struct
 /**
   * @brief  TSC handle Structure definition
   */
+#if (USE_HAL_TSC_REGISTER_CALLBACKS == 1)
 typedef struct __TSC_HandleTypeDef
+#else
+typedef struct
+#endif  /* USE_HAL_TSC_REGISTER_CALLBACKS */
 {
   TSC_TypeDef               *Instance;  /*!< Register base address      */
   TSC_InitTypeDef           Init;       /*!< Initialization parameters  */
   __IO HAL_TSC_StateTypeDef State;      /*!< Peripheral state           */
   HAL_LockTypeDef           Lock;       /*!< Lock feature               */
-  __IO uint32_t             ErrorCode;  /*!< I2C Error code             */
+  __IO uint32_t             ErrorCode;  /*!< TSC Error code             */
 
 #if (USE_HAL_TSC_REGISTER_CALLBACKS == 1)
   void (* ConvCpltCallback)(struct __TSC_HandleTypeDef *htsc);   /*!< TSC Conversion complete callback  */

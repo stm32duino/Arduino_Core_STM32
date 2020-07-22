@@ -99,7 +99,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb);
 void spi_deinit(spi_t *obj);
 spi_status_e spi_send(spi_t *obj, uint8_t *Data, uint16_t len, uint32_t Timeout);
 spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer,
-                          uint8_t *rx_buffer, uint16_t len, uint32_t Timeout);
+                          uint8_t *rx_buffer, uint16_t len, uint32_t Timeout, bool skipReceive);
 uint32_t spi_getClkFreq(spi_t *obj);
 
 #ifdef __cplusplus

@@ -16,7 +16,7 @@
 
 /* Re-enumeration handling*/
 #ifndef USBD_ENUM_DELAY
-#define USBD_ENUM_DELAY 10
+  #define USBD_ENUM_DELAY 10
 #endif
 
 #ifdef __cplusplus

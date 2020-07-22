@@ -22,6 +22,7 @@
 #include "stm32yyxx_ll_exti.h"
 #include "stm32yyxx_ll_fmac.h"
 #include "stm32yyxx_ll_fmc.h"
+#include "stm32yyxx_ll_fmpi2c.h"
 #include "stm32yyxx_ll_fsmc.h"
 #include "stm32yyxx_ll_gpio.h"
 #include "stm32yyxx_ll_hrtim.h"

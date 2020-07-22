@@ -525,7 +525,7 @@ __STATIC_INLINE uint32_t LL_GPIO_GetPinPull(GPIO_TypeDef *GPIOx, uint32_t Pin)
   * @brief  Configure gpio alternate function of a dedicated pin from 0 to 7 for a dedicated port.
   * @note   Possible values are from AF0 to AF15 depending on target.
   * @note   Warning: only one pin can be passed as parameter.
-  * @rmtoll AFRL         AFSELy        LL_GPIO_SetAFPin_0_7
+  * @rmtoll AFRL         AFRy        LL_GPIO_SetAFPin_0_7
   * @param  GPIOx GPIO Port
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref LL_GPIO_PIN_0
@@ -557,13 +557,13 @@ __STATIC_INLINE uint32_t LL_GPIO_GetPinPull(GPIO_TypeDef *GPIOx, uint32_t Pin)
   */
 __STATIC_INLINE void LL_GPIO_SetAFPin_0_7(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Alternate)
 {
-  MODIFY_REG(GPIOx->AFR[0], ((((Pin * Pin) * Pin) * Pin) * GPIO_AFRL_AFSEL0),
+  MODIFY_REG(GPIOx->AFR[0], ((((Pin * Pin) * Pin) * Pin) * GPIO_AFRL_AFR0),
              ((((Pin * Pin) * Pin) * Pin) * Alternate));
 }
 
 /**
   * @brief  Return gpio alternate function of a dedicated pin from 0 to 7 for a dedicated port.
-  * @rmtoll AFRL         AFSELy        LL_GPIO_GetAFPin_0_7
+  * @rmtoll AFRL         AFRy        LL_GPIO_GetAFPin_0_7
   * @param  GPIOx GPIO Port
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref LL_GPIO_PIN_0
@@ -595,14 +595,14 @@ __STATIC_INLINE void LL_GPIO_SetAFPin_0_7(GPIO_TypeDef *GPIOx, uint32_t Pin, uin
 __STATIC_INLINE uint32_t LL_GPIO_GetAFPin_0_7(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
   return (uint32_t)(READ_BIT(GPIOx->AFR[0],
-                             ((((Pin * Pin) * Pin) * Pin) * GPIO_AFRL_AFSEL0)) / (((Pin * Pin) * Pin) * Pin));
+                             ((((Pin * Pin) * Pin) * Pin) * GPIO_AFRL_AFR0)) / (((Pin * Pin) * Pin) * Pin));
 }
 
 /**
   * @brief  Configure gpio alternate function of a dedicated pin from 8 to 15 for a dedicated port.
   * @note   Possible values are from AF0 to AF15 depending on target.
   * @note   Warning: only one pin can be passed as parameter.
-  * @rmtoll AFRH         AFSELy        LL_GPIO_SetAFPin_8_15
+  * @rmtoll AFRH         AFRy        LL_GPIO_SetAFPin_8_15
   * @param  GPIOx GPIO Port
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref LL_GPIO_PIN_8
@@ -634,14 +634,14 @@ __STATIC_INLINE uint32_t LL_GPIO_GetAFPin_0_7(GPIO_TypeDef *GPIOx, uint32_t Pin)
   */
 __STATIC_INLINE void LL_GPIO_SetAFPin_8_15(GPIO_TypeDef *GPIOx, uint32_t Pin, uint32_t Alternate)
 {
-  MODIFY_REG(GPIOx->AFR[1], (((((Pin >> 8U) * (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)) * GPIO_AFRH_AFSEL8),
+  MODIFY_REG(GPIOx->AFR[1], (((((Pin >> 8U) * (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)) * GPIO_AFRH_AFR8),
              (((((Pin >> 8U) * (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)) * Alternate));
 }
 
 /**
   * @brief  Return gpio alternate function of a dedicated pin from 8 to 15 for a dedicated port.
   * @note   Possible values are from AF0 to AF15 depending on target.
-  * @rmtoll AFRH         AFSELy        LL_GPIO_GetAFPin_8_15
+  * @rmtoll AFRH         AFRy        LL_GPIO_GetAFPin_8_15
   * @param  GPIOx GPIO Port
   * @param  Pin This parameter can be one of the following values:
   *         @arg @ref LL_GPIO_PIN_8
@@ -673,7 +673,7 @@ __STATIC_INLINE void LL_GPIO_SetAFPin_8_15(GPIO_TypeDef *GPIOx, uint32_t Pin, ui
 __STATIC_INLINE uint32_t LL_GPIO_GetAFPin_8_15(GPIO_TypeDef *GPIOx, uint32_t Pin)
 {
   return (uint32_t)(READ_BIT(GPIOx->AFR[1],
-                             (((((Pin >> 8U) * (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)) * GPIO_AFRH_AFSEL8)) / ((((Pin >> 8U) *
+                             (((((Pin >> 8U) * (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)) * GPIO_AFRH_AFR8)) / ((((Pin >> 8U) *
                                  (Pin >> 8U)) * (Pin >> 8U)) * (Pin >> 8U)));
 }
 

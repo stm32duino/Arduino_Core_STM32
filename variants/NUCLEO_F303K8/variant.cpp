@@ -27,10 +27,10 @@ const PinName digitalPin[] = {
   PA_10, //D0
   PA_9,  //D1
   PA_12, //D2
-  PB_0,  //D3
+  PB_0,  //D3/A8
   PB_7,  //D4
   PB_6,  //D5
-  PB_1,  //D6
+  PB_1,  //D6/A9
   PF_0,  //D7
   PF_1,  //D8
   PA_8,  //D9
@@ -47,6 +47,23 @@ const PinName digitalPin[] = {
   PA_7,  //D20/A6
   PA_2,  //D21/A7 - STLink Tx
   PA_15  //D22    - STLink Rx
+};
+
+// If analog pins are not contiguous in the digitalPin array:
+// Add the analogInputPin array without defining NUM_ANALOG_FIRST
+// Analog (Ax) pin number array
+// where x is the index to retrieve the digital pin number
+const uint32_t analogInputPin[] = {
+  14, //A0
+  15, //A1
+  16, //A2
+  17, //A3
+  18, //A4
+  19, //A5
+  20, //A6
+  21, //A7
+  3,  //A8
+  6   //A9
 };
 
 #ifdef __cplusplus

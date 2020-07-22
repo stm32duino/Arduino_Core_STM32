@@ -965,6 +965,7 @@ HAL_StatusTypeDef HAL_CRYP_Suspend(CRYP_HandleTypeDef *hcryp)
     hcryp->Phase_saved             = hcryp->Phase;
     hcryp->State_saved             = hcryp->State;
     hcryp->Size_saved              = ( (hcryp->Init.DataWidthUnit == CRYP_DATAWIDTHUNIT_WORD) ? (hcryp->Size /4U) : hcryp->Size);
+    hcryp->SizesSum_saved          = hcryp->SizesSum;
     hcryp->AutoKeyDerivation_saved = hcryp->AutoKeyDerivation;
     hcryp->CrypHeaderCount_saved   = hcryp->CrypHeaderCount;
     hcryp->SuspendRequest          = HAL_CRYP_SUSPEND_NONE;
@@ -1033,6 +1034,7 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
       /* Restore low-priority block CRYP handle parameters */
       hcryp->Phase           = hcryp->Phase_saved;
       hcryp->CrypHeaderCount = hcryp->CrypHeaderCount_saved;
+      hcryp->SizesSum        = hcryp->SizesSum_saved;
 
       /* Disable AES and write-back SUSPxR registers */;
       __HAL_CRYP_DISABLE(hcryp);
@@ -1042,8 +1044,6 @@ HAL_StatusTypeDef HAL_CRYP_Resume(CRYP_HandleTypeDef *hcryp)
       hcryp->Instance->CR = hcryp->CR_saved;
       CRYP_Write_KeyRegisters(hcryp, hcryp->Key_saved, hcryp->Init.KeySize);
       CRYP_Write_IVRegisters(hcryp, hcryp->IV_saved);
-      __HAL_CRYP_ENABLE_IT(hcryp,CRYP_IT_CCFIE | CRYP_IT_ERRIE);
-      __HAL_CRYP_ENABLE(hcryp);
 
       /* At the same time, set handle state back to READY to be able to resume the AES calculations
       without the processing APIs returning HAL_BUSY when called. */
@@ -5233,6 +5233,15 @@ static void CRYP_PhaseProcessingResume(CRYP_HandleTypeDef *hcryp)
   uint16_t lastwordsize;
   uint16_t npblb;
   uint32_t cr_temp;
+
+
+  __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_ERR_CLEAR | CRYP_CCF_CLEAR);
+
+  /* Enable computation complete flag and error interrupts */
+  __HAL_CRYP_ENABLE_IT(hcryp, CRYP_IT_CCFIE | CRYP_IT_ERRIE);
+
+  /* Enable the CRYP peripheral */
+  __HAL_CRYP_ENABLE(hcryp);
 
   /* Case of header phase resumption =================================================*/
   if (hcryp->Phase == CRYP_PHASE_HEADER_SUSPENDED)

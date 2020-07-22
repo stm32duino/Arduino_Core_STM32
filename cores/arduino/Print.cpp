@@ -28,6 +28,10 @@
 
 #include "Print.h"
 
+#if defined (VIRTIO_LOG)
+  #include "virtio_log.h"
+#endif
+
 // Public Methods //////////////////////////////////////////////////////////////
 
 /* default implementation: may be overridden */
@@ -200,11 +204,15 @@ extern "C" {
   __attribute__((weak))
   int _write(int file, char *ptr, int len)
   {
-#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
     switch (file) {
       case STDOUT_FILENO:
       case STDERR_FILENO:
+        /* Used for core_debug() */
+#if defined (VIRTIO_LOG)
+        virtio_log((uint8_t *)ptr, (uint32_t)len);
+#elif defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
         uart_debug_write((uint8_t *)ptr, (uint32_t)len);
+#endif
         break;
       case STDIN_FILENO:
         break;
@@ -212,10 +220,6 @@ extern "C" {
         ((class Print *)file)->write((uint8_t *)ptr, len);
         break;
     }
-#else
-    (void)file;
-    (void)ptr;
-#endif
     return len;
   }
 }

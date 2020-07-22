@@ -43,16 +43,6 @@
 extern "C" {
 #endif
 
-#if defined(STM32MP1xx)
-#include "stm32mp1xx_hal.h"
-/* STM32MP1xx does not have own stm32mp1xx_ll_cortex.h so define functions manually.
- */
-__STATIC_INLINE uint32_t LL_SYSTICK_IsActiveCounterFlag(void)
-{
-  return ((SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk) == (SysTick_CTRL_COUNTFLAG_Msk));
-}
-#endif
-
 /**
   * @brief  Function called to read the current micro second
   * @param  None

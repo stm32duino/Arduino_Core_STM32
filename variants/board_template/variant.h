@@ -157,6 +157,34 @@ extern "C" {
 // SD Read/Write timeout, default value defined in STM32SD library
 //#define SD_DATATIMEOUT          x
 
+// USB Vbus sensing. Require to have Vbus pin connected to Vbus signal.
+// Warning, pin is different depending on FullSpeed or High Speed mode used
+// See AN4879 https://www.st.com/content/st_com/en/search.html#q=AN4879-t=resources-page=1
+//#define USBD_VBUS_DETECTION_ENABLE
+
+// If the board has external USB pullup (on DP/DM depending on speed)
+// that can be controlled using a GPIO pin, define these:
+//  - If the the pullup is disabled (USB detached) by default, define
+//    USBD_ATTACH_PIN to the pin that, when written to
+//    USBD_ATTACH_LEVEL, attaches the pullup.
+//  - If the the pullup is enabled (attached) by default, define
+//    USBD_DETACH_PIN to the pin that, when written to
+//    USBD_DETACH_LEVEL, detaches the pullup.
+//#define USBD_ATTACH_PIN x
+//#define USBD_ATTACH_LEVEL LOW
+//#define USBD_DETACH_PIN x
+//#define USBD_DETACH_LEVEL LOW
+//
+// This indicates that there is an external and fixed 1.5k pullup
+// on the D+ line. This define is not normally needed, since a
+// fixed pullup is assumed by default. It is only required when
+// the USB peripheral has an internal pullup *and* an external
+// fixed pullup is present (which is actually a hardware bug, since just
+// the internal pullup is sufficient and having two pullups violates the
+// USB specification). In this case, defining this forces
+// the "write D+ LOW"-trick to be used. In the future, it might also
+// disable the internal pullups, but this is not currently implemented.
+// #define USBD_FIXED_PULLUP
 #ifdef __cplusplus
 } // extern "C"
 #endif
@@ -165,23 +193,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR     Serial
+  #define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

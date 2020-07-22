@@ -23,6 +23,14 @@ extern "C" {
 #endif
 
 const PinName digitalPin[] = {
+  PA_0,
+  PA_1,
+  PA_2,
+  PA_3,
+  PA_4,
+  PA_5,
+  PA_6,
+  PA_7,
   PA_8,
   PA_9,  // RXD
   PA_10, // TXD
@@ -31,6 +39,8 @@ const PinName digitalPin[] = {
   PA_13, // JTDI
   PA_14, // JTCK
   PA_15,
+  PB_0,
+  PB_1,
   PB_2,
   PB_3,  // JTDO
   PB_4,  // JTRST
@@ -45,6 +55,12 @@ const PinName digitalPin[] = {
   PB_13,
   PB_14,
   PB_15,
+  PC_0,
+  PC_1,
+  PC_2,
+  PC_3,
+  PC_4,
+  PC_5,
   PC_6,
   PC_7,
   PC_8,
@@ -53,28 +69,31 @@ const PinName digitalPin[] = {
   PC_11,
   PC_12,
   PC_13,
-  NC,     // PC_14 OSC32_1
-  NC,     // PC_15 OSC32_2
-  NC,     // PD_0 OSCIN
-  NC,     // PD_1 OSCOUT
-  PD_2,
+  PC_14,  // OSC32_1
+  PC_15,  // OSC32_2
+  PD_0,   // OSCIN
+  PD_1,   // OSCOUT
+  PD_2
+};
 
-  PA_0,
-  PA_1,
-  PA_2,
-  PA_3,
-  PA_4,
-  PA_5,
-  PA_6,
-  PA_7,
-  PB_0,
-  PB_1,
-  PC_0,
-  PC_1,
-  PC_2,
-  PC_3,
-  PC_4,
-  PC_5
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  0,  // A0,  PA0
+  1,  // A1,  PA1
+  2,  // A2,  PA2
+  3,  // A3,  PA3
+  4,  // A4,  PA4
+  5,  // A5,  PA5
+  6,  // A6,  PA6
+  7,  // A7,  PA7
+  16, // A8,  PB0
+  17, // A9,  PB1
+  32, // A10, PC0
+  33, // A11, PC1
+  34, // A12, PC2
+  35, // A13, PC3
+  36, // A14, PC4
+  37  // A15, PC5
 };
 
 #ifdef __cplusplus
@@ -120,7 +139,8 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC | RCC_PERIPHCLK_USB;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV6;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_PLL_DIV1_5;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
     Error_Handler();

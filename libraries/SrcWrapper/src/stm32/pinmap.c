@@ -17,9 +17,10 @@
 #include "pinmap.h"
 #include "pinconfig.h"
 #include "stm32yyxx_ll_gpio.h"
+#include "stm32yyxx_ll_system.h"
 
 #if defined(STM32MP1xx)
-#include "lock_resource.h"
+  #include "lock_resource.h"
 #endif
 
 /* Map STM_PIN to LL */
@@ -71,6 +72,29 @@ void pin_function(PinName pin, int function)
     Error_Handler();
   }
 
+  /* Handle pin remap if any */
+#if defined(LL_SYSCFG_PIN_RMP_PA11) && defined(LL_SYSCFG_PIN_RMP_PA12)
+  if ((pin >= PA_9) && (pin <= PA_12)) {
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    switch ((int)pin) {
+      case PA_9:
+        LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA11);
+        break;
+      case PA_11:
+        LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA11);
+        break;
+      case PA_10:
+        LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA12);
+        break;
+      case PA_12:
+        LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA12);
+        break;
+      default:
+        break;
+    }
+  }
+#endif
+
   /* Enable GPIO clock */
   GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
 
@@ -97,6 +121,10 @@ void pin_function(PinName pin, int function)
   switch (mode) {
     case STM_PIN_INPUT:
       ll_mode = LL_GPIO_MODE_INPUT;
+#if defined(STM32F1xx)
+      // on F1 family, input mode may be associated with an alternate function
+      pin_SetAFPin(gpio, pin, afnum);
+#endif
       break;
     case STM_PIN_OUTPUT:
       ll_mode = LL_GPIO_MODE_OUTPUT;

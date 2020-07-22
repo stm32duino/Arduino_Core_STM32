@@ -37,7 +37,7 @@
   */
 #include "interrupt.h"
 #if defined(STM32MP1xx)
-#include "lock_resource.h"
+  #include "lock_resource.h"
 #endif
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 

@@ -12,7 +12,7 @@
   * This software component is licensed by ST under Ultimate Liberty license
   * SLA0044, the "License"; You may not use this file except in compliance with
   * the License. You may obtain a copy of the License at:
-  *                      http://www.st.com/SLA0044
+  *                      www.st.com/SLA0044
   *
   ******************************************************************************
   */
@@ -26,11 +26,11 @@
 #include "bootloader.h"
 
 #ifdef USE_USB_HS
-#define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_OTG_HS_MAX_PACKET_SIZE
 #elif defined(USB_OTG_FS) || defined(USB_OTG_FS_MAX_PACKET_SIZE)
-#define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_OTG_FS_MAX_PACKET_SIZE
 #else /* USB */
-#define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
+  #define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
 #endif
 
 /*
@@ -39,7 +39,7 @@
  * host "too slow" and threat the USB CDC port as disconnected.
  */
 #ifndef USB_CDC_TRANSMIT_TIMEOUT
-#define USB_CDC_TRANSMIT_TIMEOUT 3
+  #define USB_CDC_TRANSMIT_TIMEOUT 3
 #endif
 
 /* USBD_CDC Private Variables */
@@ -56,9 +56,9 @@ __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
 #ifdef DTR_TOGGLING_SEQ
-/* DTR toggling sequence management */
-extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
-uint8_t dtr_toggling = 0;
+  /* DTR toggling sequence management */
+  extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
+  uint8_t dtr_toggling = 0;
 #endif
 
 /** USBD_CDC Private Function Prototypes */
@@ -67,14 +67,14 @@ static int8_t USBD_CDC_Init(void);
 static int8_t USBD_CDC_DeInit(void);
 static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length);
 static int8_t USBD_CDC_Receive(uint8_t *pbuf, uint32_t *Len);
-static int8_t USBD_CDC_Transferred(void);
+static int8_t USBD_CDC_TransmitCplt(uint8_t *pbuf, uint32_t *Len, uint8_t epnum);
 
 USBD_CDC_ItfTypeDef USBD_CDC_fops = {
   USBD_CDC_Init,
   USBD_CDC_DeInit,
   USBD_CDC_Control,
   USBD_CDC_Receive,
-  USBD_CDC_Transferred
+  USBD_CDC_TransmitCplt
 };
 
 USBD_CDC_LineCodingTypeDef linecoding = {
@@ -100,7 +100,7 @@ static int8_t USBD_CDC_Init(void)
   receivePended = true;
   USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue));
 
-  return (USBD_OK);
+  return ((int8_t)USBD_OK);
 }
 
 /**
@@ -111,7 +111,7 @@ static int8_t USBD_CDC_Init(void)
   */
 static int8_t USBD_CDC_DeInit(void)
 {
-  return (USBD_OK);
+  return ((int8_t)USBD_OK);
 }
 
 
@@ -201,7 +201,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       break;
   }
 
-  return (USBD_OK);
+  return ((int8_t)USBD_OK);
 }
 
 /**
@@ -211,7 +211,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
   *
   *         @note
   *         This function will issue a NAK packet on any OUT packet received on
-  *         USB endpoint untill exiting this function. If you exit this function
+  *         USB endpoint until exiting this function. If you exit this function
   *         before transfer is complete on CDC interface (ie. using DMA controller)
   *         it will result in receiving more data while previous ones are still
   *         not sent.
@@ -237,16 +237,31 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   if (!CDC_resume_receive()) {
     USBD_CDC_ClearBuffer(&hUSBD_Device_CDC);
   }
-  return USBD_OK;
+  return ((int8_t)USBD_OK);
 }
 
 
-static int8_t USBD_CDC_Transferred(void)
+/**
+  * @brief  USBD_CDC_TransmitCplt
+  *         Data transmited callback
+  *
+  *         @note
+  *         This function is IN transfer complete callback used to inform user that
+  *         the submitted Data is successfully sent over USB.
+  *
+  * @param  Buf: Buffer of data to be received
+  * @param  Len: Number of data received (in bytes)
+  * @retval Result of the operation: USBD_OK if all operations are OK else USBD_FAIL
+  */
+static int8_t USBD_CDC_TransmitCplt(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
 {
+  UNUSED(Buf);
+  UNUSED(Len);
+  UNUSED(epnum);
   transmitStart = 0;
   CDC_TransmitQueue_CommitRead(&TransmitQueue);
   CDC_continue_transmit();
-  return (USBD_OK);
+  return ((int8_t)USBD_OK);
 }
 
 void CDC_init(void)
@@ -284,9 +299,9 @@ bool CDC_connected()
   if (transmitTime) {
     transmitTime = HAL_GetTick() - transmitTime;
   }
-  return hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED
-         && transmitTime < USB_CDC_TRANSMIT_TIMEOUT
-         && lineState;
+  return ((hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED)
+          && (transmitTime < USB_CDC_TRANSMIT_TIMEOUT)
+          && lineState);
 }
 
 void CDC_continue_transmit(void)
@@ -296,7 +311,7 @@ void CDC_continue_transmit(void)
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
   /*
    * TS: This method can be called both in the main thread
-   * (via USBSerial::write) and in the IRQ stream (via USBD_CDC_Transferred),
+   * (via USBSerial::write) and in the IRQ stream (via USBD_CDC_TransmistCplt),
    * BUT the main thread cannot pass this condition while waiting for a IRQ!
    * This is not possible because TxState is not zero while waiting for data
    * transfer ending! The IRQ thread is uninterrupted, since its priority

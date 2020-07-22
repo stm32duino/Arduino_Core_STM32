@@ -28,81 +28,81 @@
 
 #if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
-    defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
-    defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
-    defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
-// SerialEvent functions are weak, so when the user doesn't define them,
-// the linker just sets their address to 0 (which is checked below).
-#if defined(HAVE_HWSERIAL1)
-HardwareSerial Serial1(USART1);
-void serialEvent1() __attribute__((weak));
-#endif
+  defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
+  defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
+  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
+  // SerialEvent functions are weak, so when the user doesn't define them,
+  // the linker just sets their address to 0 (which is checked below).
+  #if defined(HAVE_HWSERIAL1)
+    HardwareSerial Serial1(USART1);
+    void serialEvent1() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL2)
-HardwareSerial Serial2(USART2);
-void serialEvent2() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL2)
+    HardwareSerial Serial2(USART2);
+    void serialEvent2() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL3)
-HardwareSerial Serial3(USART3);
-void serialEvent3() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL3)
+    HardwareSerial Serial3(USART3);
+    void serialEvent3() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL4)
-#if defined(USART4)
-HardwareSerial Serial4(USART4);
-#else
-HardwareSerial Serial4(UART4);
-#endif
-void serialEvent4() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL4)
+    #if defined(USART4)
+      HardwareSerial Serial4(USART4);
+    #else
+      HardwareSerial Serial4(UART4);
+    #endif
+    void serialEvent4() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL5)
-#if defined(USART5)
-HardwareSerial Serial5(USART5);
-#else
-HardwareSerial Serial5(UART5);
-#endif
-void serialEvent5() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL5)
+    #if defined(USART5)
+      HardwareSerial Serial5(USART5);
+    #else
+      HardwareSerial Serial5(UART5);
+    #endif
+    void serialEvent5() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL6)
-HardwareSerial Serial6(USART6);
-void serialEvent6() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL6)
+    HardwareSerial Serial6(USART6);
+    void serialEvent6() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL7)
-#if defined(USART7)
-HardwareSerial Serial7(USART7);
-#else
-HardwareSerial Serial7(UART7);
-#endif
-void serialEvent7() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL7)
+    #if defined(USART7)
+      HardwareSerial Serial7(USART7);
+    #else
+      HardwareSerial Serial7(UART7);
+    #endif
+    void serialEvent7() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL8)
-#if defined(USART8)
-HardwareSerial Serial8(USART8);
-#else
-HardwareSerial Serial8(UART8);
-#endif
-void serialEvent8() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL8)
+    #if defined(USART8)
+      HardwareSerial Serial8(USART8);
+    #else
+      HardwareSerial Serial8(UART8);
+    #endif
+    void serialEvent8() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL9)
-HardwareSerial Serial9(UART9);
-void serialEvent9() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL9)
+    HardwareSerial Serial9(UART9);
+    void serialEvent9() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIAL10)
-HardwareSerial Serial10(UART10);
-void serialEvent10() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIAL10)
+    HardwareSerial Serial10(UART10);
+    void serialEvent10() __attribute__((weak));
+  #endif
 
-#if defined(HAVE_HWSERIALLP1)
-HardwareSerial SerialLP1(LPUART1);
-void serialEventLP1() __attribute__((weak));
-#endif
+  #if defined(HAVE_HWSERIALLP1)
+    HardwareSerial SerialLP1(LPUART1);
+    void serialEventLP1() __attribute__((weak));
+  #endif
 #endif // HAVE_HWSERIALx
 
 // Constructors ////////////////////////////////////////////////////////////////
@@ -116,7 +116,7 @@ HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
   init(_rx, _tx);
 }
 
-HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
+HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
 {
   // If PIN_SERIALy_RX is not defined assume half-duplex
   _serial.pin_rx = NC;
@@ -247,7 +247,7 @@ HardwareSerial::HardwareSerial(void *peripheral, bool halfDuplex)
                           _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
                           _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
                         }
-  if (halfDuplex) {
+  if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }
   init(_serial.pin_rx, _serial.pin_tx);

@@ -307,15 +307,24 @@ static USBH_StatusTypeDef USBH_CDC_InterfaceDeInit(USBH_HandleTypeDef *phost)
   */
 static USBH_StatusTypeDef USBH_CDC_ClassRequest(USBH_HandleTypeDef *phost)
 {
-  USBH_StatusTypeDef status = USBH_FAIL ;
+  USBH_StatusTypeDef status;
   CDC_HandleTypeDef *CDC_Handle = (CDC_HandleTypeDef *) phost->pActiveClass->pData;
 
-  /*Issue the get line coding request*/
-  status =   GetLineCoding(phost, &CDC_Handle->LineCoding);
+  /* Issue the get line coding request */
+  status = GetLineCoding(phost, &CDC_Handle->LineCoding);
   if (status == USBH_OK)
   {
     phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
   }
+  else if (status == USBH_NOT_SUPPORTED)
+  {
+    USBH_ErrLog("Control error: CDC: Device Get Line Coding configuration failed");
+  }
+  else
+  {
+    /* .. */
+  }
+
   return status;
 }
 
@@ -392,7 +401,7 @@ static USBH_StatusTypeDef USBH_CDC_Process(USBH_HandleTypeDef *phost)
       if (req_status == USBH_OK)
       {
         /*Change the state to waiting*/
-        CDC_Handle->state = CDC_IDLE_STATE ;
+        CDC_Handle->state = CDC_IDLE_STATE;
       }
       break;
 

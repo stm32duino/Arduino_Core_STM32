@@ -56,11 +56,17 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
+/** @defgroup UARTEX_Private_Constants UARTEx Private Constants
+  * @{
+  */
 /* UART RX FIFO depth */
 #define RX_FIFO_DEPTH 8U
 
 /* UART TX FIFO depth */
 #define TX_FIFO_DEPTH 8U
+/**
+  * @}
+  */
 
 /* Private macros ------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -68,9 +74,6 @@
 /** @defgroup UARTEx_Private_Functions UARTEx Private Functions
   * @{
   */
-#if (USE_HAL_UART_REGISTER_CALLBACKS == 1)
-extern void UART_InitCallbacksToDefault(UART_HandleTypeDef *huart);
-#endif /* USE_HAL_UART_REGISTER_CALLBACKS */
 static void UARTEx_Wakeup_AddressConfig(UART_HandleTypeDef *huart, UART_WakeUpTypeDef WakeUpSelection);
 static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart);
 /**
@@ -160,9 +163,10 @@ static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart);
   *       oversampling rate).
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime, uint32_t DeassertionTime)
+HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity, uint32_t AssertionTime,
+                                   uint32_t DeassertionTime)
 {
-  uint32_t temp = 0x0U;
+  uint32_t temp;
 
   /* Check the UART handle allocation */
   if (huart == NULL)
@@ -235,7 +239,6 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
   /* TEACK and/or REACK to check before moving huart->gState and huart->RxState to Ready */
   return (UART_CheckIdleState(huart));
 }
-
 
 /**
   * @}
@@ -312,7 +315,7 @@ __weak void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart)
 
 /** @defgroup UARTEx_Exported_Functions_Group3 Peripheral Control functions
   * @brief    Extended Peripheral Control functions
- *
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -324,7 +327,6 @@ __weak void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart)
          trigger: address match, Start Bit detection or RXNE bit status.
      (+) HAL_UARTEx_EnableStopMode() API enables the UART to wake up the MCU from stop mode
      (+) HAL_UARTEx_DisableStopMode() API disables the above functionality
-     (+) HAL_UARTEx_WakeupCallback() called upon UART wakeup interrupt
      (+) HAL_UARTEx_EnableFifoMode() API enables the FIFO mode
      (+) HAL_UARTEx_DisableFifoMode() API disables the FIFO mode
      (+) HAL_UARTEx_SetTxFifoThreshold() API sets the TX FIFO threshold
@@ -333,9 +335,6 @@ __weak void HAL_UARTEx_TxFifoEmptyCallback(UART_HandleTypeDef *huart)
 @endverbatim
   * @{
   */
-
-
-
 
 /**
   * @brief By default in multiprocessor mode, when the wake up method is set
@@ -376,7 +375,6 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
   return (UART_CheckIdleState(huart));
 }
 
-
 /**
   * @brief Set Wakeup from Stop mode interrupt flag selection.
   * @note It is the application responsibility to enable the interrupt used as
@@ -392,7 +390,7 @@ HAL_StatusTypeDef HAL_MultiProcessorEx_AddressLength_Set(UART_HandleTypeDef *hua
 HAL_StatusTypeDef HAL_UARTEx_StopModeWakeUpSourceConfig(UART_HandleTypeDef *huart, UART_WakeUpTypeDef WakeUpSelection)
 {
   HAL_StatusTypeDef status = HAL_OK;
-  uint32_t tickstart = 0U;
+  uint32_t tickstart;
 
   /* check the wake-up from stop mode UART instance */
   assert_param(IS_UART_WAKEUP_FROMSTOP_INSTANCE(huart->Instance));
@@ -437,7 +435,6 @@ HAL_StatusTypeDef HAL_UARTEx_StopModeWakeUpSourceConfig(UART_HandleTypeDef *huar
 
   return status;
 }
-
 
 /**
   * @brief Enable UART Stop Mode.
@@ -485,7 +482,7 @@ HAL_StatusTypeDef HAL_UARTEx_DisableStopMode(UART_HandleTypeDef *huart)
   */
 HAL_StatusTypeDef HAL_UARTEx_EnableFifoMode(UART_HandleTypeDef *huart)
 {
-  uint32_t tmpcr1 = 0U;
+  uint32_t tmpcr1;
 
   /* Check parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
@@ -526,7 +523,7 @@ HAL_StatusTypeDef HAL_UARTEx_EnableFifoMode(UART_HandleTypeDef *huart)
   */
 HAL_StatusTypeDef HAL_UARTEx_DisableFifoMode(UART_HandleTypeDef *huart)
 {
-  uint32_t tmpcr1 = 0U;
+  uint32_t tmpcr1;
 
   /* Check parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
@@ -572,7 +569,7 @@ HAL_StatusTypeDef HAL_UARTEx_DisableFifoMode(UART_HandleTypeDef *huart)
   */
 HAL_StatusTypeDef HAL_UARTEx_SetTxFifoThreshold(UART_HandleTypeDef *huart, uint32_t Threshold)
 {
-  uint32_t tmpcr1 = 0U;
+  uint32_t tmpcr1;
 
   /* Check parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
@@ -621,7 +618,7 @@ HAL_StatusTypeDef HAL_UARTEx_SetTxFifoThreshold(UART_HandleTypeDef *huart, uint3
   */
 HAL_StatusTypeDef HAL_UARTEx_SetRxFifoThreshold(UART_HandleTypeDef *huart, uint32_t Threshold)
 {
-  uint32_t tmpcr1 = 0U;
+  uint32_t tmpcr1;
 
   /* Check the parameters */
   assert_param(IS_UART_FIFO_INSTANCE(huart->Instance));
@@ -697,8 +694,8 @@ static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart)
   uint8_t tx_fifo_depth;
   uint8_t rx_fifo_threshold;
   uint8_t tx_fifo_threshold;
-  uint8_t numerator[] = {1U, 1U, 1U, 3U, 7U, 1U};
-  uint8_t denominator[] = {8U, 4U, 2U, 4U, 8U, 1U};
+  uint8_t numerator[] = {1U, 1U, 1U, 3U, 7U, 1U, 0U, 0U};
+  uint8_t denominator[] = {8U, 4U, 2U, 4U, 8U, 1U, 1U, 1U};
 
   if (huart->FifoMode == UART_FIFOMODE_DISABLE)
   {
@@ -711,8 +708,8 @@ static void UARTEx_SetNbDataToProcess(UART_HandleTypeDef *huart)
     tx_fifo_depth = TX_FIFO_DEPTH;
     rx_fifo_threshold = (uint8_t)(READ_BIT(huart->Instance->CR3, USART_CR3_RXFTCFG) >> USART_CR3_RXFTCFG_Pos);
     tx_fifo_threshold = (uint8_t)(READ_BIT(huart->Instance->CR3, USART_CR3_TXFTCFG) >> USART_CR3_TXFTCFG_Pos);
-    huart->NbTxDataToProcess = (uint8_t)(tx_fifo_depth * numerator[tx_fifo_threshold]) / denominator[tx_fifo_threshold];
-    huart->NbRxDataToProcess = (uint8_t)(rx_fifo_depth * numerator[rx_fifo_threshold]) / denominator[rx_fifo_threshold];
+    huart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) / (uint16_t)denominator[tx_fifo_threshold];
+    huart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) / (uint16_t)denominator[rx_fifo_threshold];
   }
 }
 /**

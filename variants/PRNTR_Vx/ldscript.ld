@@ -14,14 +14,13 @@
 **
 **  Target      : STMicroelectronics STM32
 **
-**
-**  Distribution: The file is distributed as is, without any warranty
+**  Distribution: The file is distributed “as is,” without any warranty
 **                of any kind.
 **
 *****************************************************************************
 ** @attention
 **
-** <h2><center>&copy; COPYRIGHT(c) 2014 Ac6</center></h2>
+** <h2><center>&copy; COPYRIGHT(c) 2019 STMicroelectronics</center></h2>
 **
 ** Redistribution and use in source and binary forms, with or without modification,
 ** are permitted provided that the following conditions are met:
@@ -30,7 +29,7 @@
 **   2. Redistributions in binary form must reproduce the above copyright notice,
 **      this list of conditions and the following disclaimer in the documentation
 **      and/or other materials provided with the distribution.
-**   3. Neither the name of Ac6 nor the names of its contributors
+**   3. Neither the name of STMicroelectronics nor the names of its contributors
 **      may be used to endorse or promote products derived from this software
 **      without specific prior written permission.
 **
@@ -77,7 +76,7 @@ SECTIONS
   } >FLASH
 
   /* The program code and other data goes into FLASH */
-  .text ALIGN(8):
+  .text :
   {
     . = ALIGN(4);
     *(.text)           /* .text sections (code) */
@@ -94,7 +93,7 @@ SECTIONS
   } >FLASH
 
   /* Constant data goes into FLASH */
-  .rodata ALIGN(4):
+  .rodata :
   {
     . = ALIGN(4);
     *(.rodata)         /* .rodata sections (constants, strings, etc.) */

@@ -41,14 +41,14 @@ extern "C" {
 #define PA12 12  // | 12      |        | USART6_RX |          |                        |           |
 #define PA13 13  // | 13      |        |           |          |                        | SWD_SWDIO |
 #define PA14 14  // | 14      |        |           |          |                        | SWD_SWCLK |
-#define PA15 15  // | 15      |        |           |          | SPI1_SS, (SPI3_SS)     |           |
+#define PA15 15  // | 15      |        |           |          | SPI3_SS, (SPI1_SS)     |           |
 //                  |---------|--------|-----------|----------|------------------------|-----------|
 #define PB0  A8  // | 16      | A8     |           |          |                        |           |
 #define PB1  A9  // | 17      | A9     |           |          |                        |           |
 #define PB2  18  // | 18      |        |           |          |                        | BOOT1     |
-#define PB3  19  // | 19      |        |           | TWI2_SDA | SPI1_SCK,  (SPI3_SCK)  |           |
-#define PB4  20  // | 20      |        |           | TWI3_SDA | SPI1_MISO, (SPI3_MISO) |           |
-#define PB5  21  // | 21      |        |           |          | SPI1_MOSI, (SPI3_MOSI) |           |
+#define PB3  19  // | 19      |        |           | TWI2_SDA | SPI3_SCK,  (SPI1_SCK)  |           |
+#define PB4  20  // | 20      |        |           | TWI3_SDA | SPI3_MISO, (SPI1_MISO) |           |
+#define PB5  21  // | 21      |        |           |          | SPI3_MOSI, (SPI1_MOSI) |           |
 #define PB6  22  // | 22      |        | USART1_TX | TWI1_SCL |                        |           |
 #define PB7  23  // | 23      |        | USART1_RX | TWI1_SDA |                        |           |
 #define PB8  24  // | 24      |        |           | TWI1_SCL |                        |           |
@@ -87,11 +87,18 @@ extern "C" {
 #define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
+#ifdef ARDUINO_CoreBoard_F401RC
+#define LED_BUILTIN             PB10
+#endif
+#ifndef LED_BUILTIN
 #define LED_BUILTIN             PA5
+#endif
 #define LED_GREEN               LED_BUILTIN
 
 // On-board user button
+#if !defined(USER_BTN) && !defined(ARDUINO_CoreBoard_F401RC)
 #define USER_BTN                PC13
+#endif
 
 // SPI definitions
 #define PIN_SPI_SS              PA4
@@ -111,12 +118,21 @@ extern "C" {
 #define TIMER_SERVO             TIM11
 
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    1
 
-// Default pin used for 'Serial' instance (ex: ST-Link)
+// Default pin used for 'Serial' instance
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#define PIN_SERIAL_RX           PA10
+#define PIN_SERIAL_TX           PA9
+
+#ifdef ARDUINO_CoreBoard_F401RC
+// USB, pull this pin low to enable the USB attach pullup
+// It is documented here, but not actually used, since there are also
+// internal pullups which are automatically used and using both would
+// violate the USB specification for pullup strength.
+//#define USBD_ATTACH_PIN         PD2
+//#define USBD_ATTACH_LEVEL       LOW
+#endif
 
 #ifdef __cplusplus
 } // extern "C"
@@ -126,23 +142,23 @@ extern "C" {
  *----------------------------------------------------------------------------*/
 
 #ifdef __cplusplus
-// These serial port names are intended to allow libraries and architecture-neutral
-// sketches to automatically default to the correct port name for a particular type
-// of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
-// the first hardware serial port whose RX/TX pins are not dedicated to another use.
-//
-// SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
-//
-// SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
-//
-// SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
-//
-// SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
-//
-// SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
-//                            pins are NOT connected to anything by default.
-#define SERIAL_PORT_MONITOR     Serial
-#define SERIAL_PORT_HARDWARE    Serial
+  // These serial port names are intended to allow libraries and architecture-neutral
+  // sketches to automatically default to the correct port name for a particular type
+  // of use.  For example, a GPS module would normally connect to SERIAL_PORT_HARDWARE_OPEN,
+  // the first hardware serial port whose RX/TX pins are not dedicated to another use.
+  //
+  // SERIAL_PORT_MONITOR        Port which normally prints to the Arduino Serial Monitor
+  //
+  // SERIAL_PORT_USBVIRTUAL     Port which is USB virtual serial
+  //
+  // SERIAL_PORT_LINUXBRIDGE    Port which connects to a Linux system via Bridge library
+  //
+  // SERIAL_PORT_HARDWARE       Hardware serial port, physical RX & TX pins.
+  //
+  // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
+  //                            pins are NOT connected to anything by default.
+  #define SERIAL_PORT_MONITOR     Serial
+  #define SERIAL_PORT_HARDWARE    Serial
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */

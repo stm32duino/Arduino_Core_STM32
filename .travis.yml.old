@@ -1,0 +1,93 @@
+language: python
+python:
+  - "3.6"
+os:
+  - linux
+matrix:
+  include:
+#
+# Astyle check
+#
+  - env:
+      - NAME=Astyle
+    install:
+      - curl -L0 https://fossies.org/linux/misc/astyle_3.1_linux.tar.gz --output astyle.tar.gz;
+        mkdir -p BUILD && tar xf astyle.tar.gz -C BUILD;
+        pushd BUILD/astyle/build/gcc;
+        make;
+        export PATH=$PWD/bin:$PATH;
+        popd;
+      - astyle --version
+    before_script:
+      - cd $TRAVIS_BUILD_DIR/CI/astyle/
+    script:
+        # Check coding style only on changed files for PR or all for master
+        - if [[ "$TRAVIS_PULL_REQUEST" == "false" ]]; then python astyle.py; fi
+        - if [[ "$TRAVIS_PULL_REQUEST" != "false" ]]; then python astyle.py -b $TRAVIS_BRANCH; fi
+        - TEST=$([[ -f astyle.out ]] && cat astyle.out | grep Formatted | wc -l || echo 0)
+        - |
+          if [[ $TEST -ne 0 ]]; then
+            cat astyle.out | grep Formatted
+            git --no-pager diff
+            echo "AStyle check failed, please fix style issues as shown above"
+            exit 1
+          else
+            echo "Coding style check OK";
+          fi
+
+#
+# PlatformIO test
+#
+  - env:
+      - NAME=PlatformIO
+      - CMSIS_VERSION=5.5.1
+    install:
+      # Install PlatformIO
+      - pip install -U platformio
+      # Install the development version of ststm32 platform
+      - platformio platform install https://github.com/platformio/platform-ststm32.git
+      # Prepare framework for CI
+      - python -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/platform.json'), 'r+'); data=json.load(fp); data['packages']['framework-arduinoststm32']['version'] = '*'; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()"
+      - sudo ln -sf $TRAVIS_BUILD_DIR ~/.platformio/packages/framework-arduinoststm32
+      # Download and unpack CMSIS package
+      - wget https://github.com/stm32duino/ArduinoModule-CMSIS/releases/download/$CMSIS_VERSION/CMSIS-$CMSIS_VERSION.tar.bz2
+      - tar -xvjf CMSIS-$CMSIS_VERSION.tar.bz2
+    before_script:
+      - cd $TRAVIS_BUILD_DIR/CI/build/
+    script:
+      - python platformio-builder.py --board=blackpill_f103c8 --board=remram_v1
+          
+#
+# Build test
+#
+  - env:
+      - NAME=arduinoCI
+      - IDE_VERSION=1.8.9
+    # Use in CI/build/conf/path_config_travis.json
+      - ARDUINO_IDE_PATH=$HOME/IDE/arduino
+    install:
+    # Install Arduino IDE
+      - mkdir -p $ARDUINO_IDE_PATH
+      - wget http://downloads.arduino.cc/arduino-$IDE_VERSION-linux64.tar.xz
+      - tar xf arduino-$IDE_VERSION-linux64.tar.xz --strip-components=1 -C $ARDUINO_IDE_PATH
+      - rm arduino-$IDE_VERSION-linux64.tar.xz
+    # Install STM32 core supported by ST
+      - cd $ARDUINO_IDE_PATH
+        # Add json packages url to the Arduino IDE
+      - ./arduino --save-prefs --pref "boardsmanager.additional.urls=https://github.com/stm32duino/BoardManagerFiles/raw/dev/STM32/package_stm_index.json"
+        # Install the latest core version
+      - ./arduino --install-boards STM32:stm32
+      - rm -fr $HOME/.arduino15/packages/STM32/hardware/stm32/*
+        # Replace default core with the one being built
+      - sudo ln -s $TRAVIS_BUILD_DIR $HOME/.arduino15/packages/STM32/hardware/stm32/*
+    before_script:
+      - cd $TRAVIS_BUILD_DIR/CI/build/
+      - cp ./conf/path_config_travis.json ./path_config.json
+    script:
+      - python arduino-builder.py --travis
+    after_failure:
+      - echo " The build is failed. If script return a non-zero return status , we suggest you to take the above logs into consideration. Otherwise, consult the TRAVIS CI documentation to learn more about build failure" 
+notifications:
+  email:
+    on_success: always
+    on_failure: always

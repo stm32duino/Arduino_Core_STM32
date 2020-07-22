@@ -813,7 +813,7 @@ i2c_status_e i2c_master_write(i2c_t *obj, uint8_t dev_address,
       }
 
       err = HAL_I2C_GetError(&(obj->handle));
-      if ((delta > I2C_TIMEOUT_TICK)
+      if ((delta >= I2C_TIMEOUT_TICK)
           || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
         ret = I2C_TIMEOUT;
       } else {
@@ -887,7 +887,7 @@ i2c_status_e i2c_master_read(i2c_t *obj, uint8_t dev_address, uint8_t *data, uin
     }
 
     err = HAL_I2C_GetError(&(obj->handle));
-    if ((delta > I2C_TIMEOUT_TICK)
+    if ((delta >= I2C_TIMEOUT_TICK)
         || ((err & HAL_I2C_ERROR_TIMEOUT) == HAL_I2C_ERROR_TIMEOUT)) {
       ret = I2C_TIMEOUT;
     } else {
@@ -948,7 +948,7 @@ i2c_t *get_i2c_obj(I2C_HandleTypeDef *hi2c)
   * @param  function: callback function to use
   * @retval None
   */
-void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t *, int))
+void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(i2c_t *))
 {
   if ((obj != NULL) && (function != NULL)) {
     obj->i2c_onSlaveReceive = function;
@@ -961,7 +961,7 @@ void i2c_attachSlaveRxEvent(i2c_t *obj, void (*function)(uint8_t *, int))
   * @param  function: callback function to use
   * @retval None
   */
-void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(void))
+void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *))
 {
   if ((obj != NULL) && (function != NULL)) {
     obj->i2c_onSlaveTransmit = function;
@@ -986,7 +986,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
       if (obj->i2c_onSlaveTransmit != NULL) {
-        obj->i2c_onSlaveTransmit();
+        obj->i2c_onSlaveTransmit(obj);
       }
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
     defined(STM32F4xx) || defined(STM32L0xx) || defined(STM32L1xx) || defined(STM32MP1xx)
@@ -1026,7 +1026,7 @@ void HAL_I2C_ListenCpltCallback(I2C_HandleTypeDef *hi2c)
   /*  Previous master transaction now ended, so inform upper layer if needed
    *  then prepare for listening to next request */
   if ((obj->slaveMode == SLAVE_MODE_RECEIVE) && (obj->slaveRxNbData != 0)) {
-    obj->i2c_onSlaveReceive((uint8_t *) obj->i2cTxRxBuffer, obj->slaveRxNbData);
+    obj->i2c_onSlaveReceive(obj);
   }
   obj->slaveMode = SLAVE_MODE_LISTEN;
   obj->slaveRxNbData = 0;

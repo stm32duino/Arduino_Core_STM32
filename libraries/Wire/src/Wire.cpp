@@ -27,22 +27,6 @@ extern "C" {
 
 #include "Wire.h"
 
-// Initialize Class Variables //////////////////////////////////////////////////
-uint8_t *TwoWire::rxBuffer = nullptr;
-uint8_t TwoWire::rxBufferAllocated = 0;
-uint8_t TwoWire::rxBufferIndex = 0;
-uint8_t TwoWire::rxBufferLength = 0;
-
-uint8_t TwoWire::txAddress = 0;
-uint8_t *TwoWire::txBuffer = nullptr;
-uint8_t TwoWire::txBufferAllocated = 0;
-uint8_t TwoWire::txBufferIndex = 0;
-uint8_t TwoWire::txBufferLength = 0;
-
-uint8_t TwoWire::transmitting = 0;
-void (*TwoWire::user_onRequest)(void);
-void (*TwoWire::user_onReceive)(int);
-
 // Constructors ////////////////////////////////////////////////////////////////
 
 TwoWire::TwoWire()
@@ -75,12 +59,19 @@ void TwoWire::begin(uint8_t address, bool generalCall)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
+  rxBuffer = nullptr;
+  rxBufferAllocated = 0;
   resetRxBuffer();
 
   txBufferIndex = 0;
   txBufferLength = 0;
+  txAddress = 0;
+  txBuffer = nullptr;
+  txBufferAllocated = 0;
   resetTxBuffer();
 
+  _i2c.__this = (void *)this;
+  user_onRequest = NULL;
   transmitting = 0;
 
   ownAddress = address << 1;
@@ -403,44 +394,51 @@ void TwoWire::flush(void)
 }
 
 // behind the scenes function that is called when data is received
-void TwoWire::onReceiveService(uint8_t *inBytes, int numBytes)
+void TwoWire::onReceiveService(i2c_t *obj)
 {
+  uint8_t *inBytes = (uint8_t *) obj->i2cTxRxBuffer;
+  int numBytes = obj->slaveRxNbData;
+
+  TwoWire *TW = (TwoWire *)(obj->__this);
+
   // don't bother if user hasn't registered a callback
-  if (user_onReceive) {
+  if (TW->user_onReceive) {
     // don't bother if rx buffer is in use by a master requestFrom() op
     // i know this drops data, but it allows for slight stupidity
     // meaning, they may not have read all the master requestFrom() data yet
-    if (rxBufferIndex >= rxBufferLength) {
+    if (TW->rxBufferIndex >= TW->rxBufferLength) {
 
-      allocateRxBuffer(numBytes);
+      TW->allocateRxBuffer(numBytes);
       // error if no memory block available to allocate the buffer
-      if (rxBuffer == nullptr) {
+      if (TW->rxBuffer == nullptr) {
         Error_Handler();
       }
 
       // copy twi rx buffer into local read buffer
       // this enables new reads to happen in parallel
-      memcpy(rxBuffer, inBytes, numBytes);
+      memcpy(TW->rxBuffer, inBytes, numBytes);
       // set rx iterator vars
-      rxBufferIndex = 0;
-      rxBufferLength = numBytes;
+      TW->rxBufferIndex = 0;
+      TW->rxBufferLength = numBytes;
       // alert user program
-      user_onReceive(numBytes);
+      TW->user_onReceive(numBytes);
     }
   }
 }
 
 // behind the scenes function that is called when data is requested
-void TwoWire::onRequestService(void)
+void TwoWire::onRequestService(i2c_t *obj)
 {
+  TwoWire *TW = (TwoWire *)(obj->__this);
+
   // don't bother if user hasn't registered a callback
-  if (user_onRequest) {
+  if (TW->user_onRequest) {
     // reset tx buffer iterator vars
     // !!! this will kill any pending pre-master sendTo() activity
-    txBufferIndex = 0;
-    txBufferLength = 0;
+    TW->txBufferIndex = 0;
+    TW->txBufferLength = 0;
     // alert user program
-    user_onRequest();
+    TW->user_onRequest();
   }
 }
 

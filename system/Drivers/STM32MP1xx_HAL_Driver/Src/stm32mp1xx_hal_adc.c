@@ -2087,6 +2087,8 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, uint32_t *pData, ui
            ADC_IT_OVR is enabled. */
         __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
 
+        /* Enable ADC DMA  mode*/
+        LL_ADC_REG_SetDataTransferMode(hadc->Instance, (uint32_t)hadc->Init.ConversionDataManagement);
 
         /* Start the DMA channel */
         tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);

@@ -78,22 +78,6 @@
 
 #include "stm32g0xx.h"
 
-#if !defined  (HSE_VALUE)
-#define HSE_VALUE    (8000000UL)    /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE  (16000000UL)   /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-#if !defined  (LSI_VALUE)
- #define LSI_VALUE   (32000UL)     /*!< Value of LSI in Hz*/
-#endif /* LSI_VALUE */
-
-#if !defined  (LSE_VALUE)
-  #define LSE_VALUE  (32768UL)      /*!< Value of LSE in Hz*/
-#endif /* LSE_VALUE */
-
 /**
   * @}
   */
@@ -259,8 +243,10 @@ void SystemCoreClockUpdate(void)
       }
       pllvco = pllvco * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> RCC_PLLCFGR_PLLN_Pos);
       pllr = (((RCC->PLLCFGR & RCC_PLLCFGR_PLLR) >> RCC_PLLCFGR_PLLR_Pos) + 1UL);
+
       SystemCoreClock = pllvco/pllr;
       break;
+
     case RCC_CFGR_SWS_HSI:  /* HSI used as system clock */
     default:                /* HSI used as system clock */
       hsidiv = (1UL << ((READ_BIT(RCC->CR, RCC_CR_HSIDIV))>> RCC_CR_HSIDIV_Pos));

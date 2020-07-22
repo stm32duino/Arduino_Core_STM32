@@ -9,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/OpenAMP" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" {build.virtio_extra_include}
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w
@@ -69,11 +69,24 @@ compiler.arm.cmsis.ldflags="-L{runtime.tools.CMSIS-5.5.1.path}/CMSIS/DSP/Lib/GCC
 
 # USB Flags
 # ---------
-build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT="{build.board}"' -DHAL_PCD_MODULE_ENABLED 
+build.usb_flags=-DUSBCON {build.usb_speed} -DUSBD_VID={build.vid} -DUSBD_PID={build.pid} -DHAL_PCD_MODULE_ENABLED
 
-# Default usb manufacturer will be replaced at compile time using
-# numeric vendor ID if available or by board's specific value.
-build.usb_manufacturer="Unknown"
+# Specify defaults for vid/pid, since an empty value is impossible to
+# detect in the preprocessor, but a 0 can be checked for.
+# Boards should specify either both, or neither of these.
+build.vid=0
+build.pid=0
+
+# To customize the USB manufacturer or product string, must add defines
+# for them, e.g.:
+#    some_board.build.extra_flags='-DUSB_MANUFACTURER_STRING="My Company"' '-DUSB_PRODUCT_STRING="My Product"'
+# This cannot be done using build variables and specifying the -D
+# options here, since then the default would be a defined, but empty macro
+# that the preprocessor cannot detect.
+
+# VirtIO RPMsg Serial Flags
+build.virtio_flags=-DVIRTIOCON -DHAL_IPCC_MODULE_ENABLED -DNO_ATOMIC_64_SUPPORT -DMETAL_INTERNAL -DMETAL_MAX_DEVICE_REGIONS=2 -DVIRTIO_SLAVE_ONLY -DVIRTIO_LOG
+build.virtio_extra_include="-I{build.system.path}/Middlewares/OpenAMP" "-I{build.system.path}/Middlewares/OpenAMP/open-amp/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/libmetal/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/virtual_driver"
 
 # Build information's
 build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
@@ -82,6 +95,7 @@ build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{bui
 build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
 build.usb_speed=
+build.enable_virtio=
 build.startup_file=
 build.flags.fp=
 build.flags.optimize=-Os
@@ -90,25 +104,13 @@ build.flash_offset=0
 
 # Pre and post build hooks
 build.opt.name=build_opt.h
-build.opt.sourcepath={build.source.path}/{build.opt.name}
 build.opt.path={build.path}/sketch/{build.opt.name}
 
-build.src_wrapper.path={build.path}/sketch/SrcWrapper.cpp
+extras.path={build.system.path}/extras
 
-# Create sketch dir if not exists
-recipe.hooks.prebuild.1.pattern.windows=cmd /c if not exist "{build.path}\sketch" mkdir "{build.path}\sketch"
-recipe.hooks.prebuild.1.pattern.linux=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
-recipe.hooks.prebuild.1.pattern.macosx=bash -c "[ -f {build.path}/sketch ] || mkdir -p {build.path}/sketch"
-
-# Create empty {build.opt} if not exists in the sketch dir
-recipe.hooks.prebuild.2.pattern.windows=cmd /c if not exist "{build.opt.sourcepath}" type NUL > "{build.opt.path}"
-recipe.hooks.prebuild.2.pattern.linux=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
-recipe.hooks.prebuild.2.pattern.macosx=bash -c "[ -f {build.opt.sourcepath} ] || touch {build.opt.path}"
-
-# Force include of SrcWrapper library
-recipe.hooks.prebuild.3.pattern.windows=cmd /c echo #include ^<SrcWrapper.h^> > "{build.src_wrapper.path}"
-recipe.hooks.prebuild.3.pattern.linux=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
-recipe.hooks.prebuild.3.pattern.macosx=bash -c "echo $0 > {build.src_wrapper.path}" "#include <SrcWrapper.h>"
+# Create empty {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
+recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" 
+recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/tools/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
 
 # compile patterns
 # ---------------------
@@ -126,26 +128,24 @@ recipe.S.o.pattern="{compiler.path}{compiler.S.cmd}" {compiler.S.flags} {build.i
 recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{archive_file_path}" "{object_file}"
 
 ## Combine gc-sections, archives, and objects
-recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-T{build.variant.path}/{build.ldscript}" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} {compiler.libraries.ldflags} "{archive_file_path}" -lc -Wl,--end-group -lm -lgcc -lstdc++
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} "-Wl,--default-script={build.variant.path}/{build.ldscript}" "-Wl,--script={build.system.path}/ldscript.ld" "-Wl,-Map,{build.path}/{build.project_name}.map" {compiler.c.elf.extra_flags} {compiler.ldflags} {compiler.arm.cmsis.ldflags} -o "{build.path}/{build.project_name}.elf" "-L{build.path}" -Wl,--start-group {object_files} {compiler.libraries.ldflags} "{archive_file_path}" -lc -Wl,--end-group -lm -lgcc -lstdc++
 
 ## Create output (.bin file)
 recipe.objcopy.bin.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2bin.flags} {compiler.elf2bin.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.bin"
 
-## Save bin
-recipe.output.tmp_file={build.project_name}.bin
-recipe.output.save_file={build.project_name}.{build.variant}.bin
-
 ## Create output (.hex file)
 recipe.objcopy.hex.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
 
-## Save hex
-recipe.output.tmp_file={build.project_name}.hex
-recipe.output.save_file={build.project_name}.{build.variant}.hex
+build.preferred_out_format=bin
+
+## Save binary
+recipe.output.tmp_file={build.project_name}.{build.preferred_out_format}
+recipe.output.save_file={build.project_name}.{build.variant}.{build.preferred_out_format}
 
 ## Compute size
 recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
 recipe.size.regex=^(?:\.text|\.data|\.rodata)\s+([0-9]+).*
-recipe.size.regex.data=^(?:\.data|\.bss)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
 recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 
 
@@ -153,9 +153,8 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # -------------------
 
 # Upload to board via mass storage
-tools.massStorageCopy.cmd=massStorageCopy
+tools.massStorageCopy.cmd=massStorageCopy.sh
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
-tools.massStorageCopy.cmd.macosx=massStorageCopyMacOsX
 tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
 tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
 tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
@@ -165,7 +164,6 @@ tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.
 
 # STM32CubeProgrammer upload
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
-tools.stm32CubeProg.cmd.macosx=stm32CubeProg
 tools.stm32CubeProg.cmd.windows=stm32CubeProg.bat
 tools.stm32CubeProg.path.linux={runtime.tools.STM32Tools.path}/tools/linux
 tools.stm32CubeProg.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
@@ -176,11 +174,11 @@ tools.stm32CubeProg.upload.pattern="{path}/{cmd}" {upload.protocol} "{build.path
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb
-tools.bmp_upload.path={runtime.tools.arm-none-eabi-gcc.path}/bin/
+tools.bmp_upload.path={runtime.tools.xpack-arm-none-eabi-gcc.path}/bin
 tools.bmp_upload.upload.speed=230400
 tools.bmp_upload.upload.params.verbose=-batch
 tools.bmp_upload.upload.params.quiet=--batch-silent
-tools.bmp_upload.upload.pattern="{path}{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
+tools.bmp_upload.upload.pattern="{path}/{cmd}" -nx -b {upload.speed} {upload.verbose} -ex "set confirm off" -ex "target extended-remote {serial.port}" -ex "monitor swdp_scan" -ex "attach 1" -ex "load" -ex "compare-sections" -ex "kill" "{build.path}/{build.project_name}.elf"
 
 # HID flash 2.2 (HID bootloader v2.2 for STM32F1 and STM32F4 series)
 tools.hid_upload.cmd=hid-flash
@@ -193,7 +191,7 @@ tools.hid_upload.upload.params.quiet=n
 tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}                                                                                                                             
 
 # Upload using Maple bootloader over DFU
-tools.maple_upload.cmd=maple_upload
+tools.maple_upload.cmd=maple_upload.sh
 tools.maple_upload.cmd.windows=maple_upload.bat
 tools.maple_upload.path={runtime.tools.STM32Tools.path}/tools/win
 tools.maple_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
