@@ -2997,88 +2997,88 @@ Midatronics.menu.rtlib.full=Newlib Standard
 Midatronics.menu.rtlib.full.build.flags.ldspecs=
 
 ################################################################################
-Olimexino-STM32F3.name=Olimexino-STM32F3
+OLIMEXINO-STM32F3.name=OLIMEXINO-STM32F3
 
-Olimexino-STM32F3.build.core=arduino
-Olimexino-STM32F3.build.board=OLIMEXINO_STM32F3
-Olimexino-STM32F3.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
-Olimexino-STM32F3.build.mcu=cortex-m4
-Olimexino-STM32F3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Olimexino-STM32F3.build.series=STM32F3xx
-Olimexino-STM32F3.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Olimexino-STM32F3.build.product_line=STM32F303xC
-Olimexino-STM32F3.build.variant=OLIMEXINO-STM32F3
+OLIMEXINO-STM32F3.build.core=arduino
+OLIMEXINO-STM32F3.build.board=OLIMEXINO_STM32F3
+OLIMEXINO-STM32F3.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+OLIMEXINO-STM32F3.build.mcu=cortex-m4
+OLIMEXINO-STM32F3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+OLIMEXINO-STM32F3.build.series=STM32F3xx
+OLIMEXINO-STM32F3.build.cmsis_lib_gcc=arm_cortexM4lf_math
+OLIMEXINO-STM32F3.build.product_line=STM32F303xC
+OLIMEXINO-STM32F3.build.variant=OLIMEXINO-STM32F3
 
-Olimexino-STM32F3.upload.maximum_size=262144
-Olimexino-STM32F3.upload.maximum_data_size=40960
+OLIMEXINO-STM32F3.upload.maximum_size=262144
+OLIMEXINO-STM32F3.upload.maximum_data_size=40960
 
-Olimexino-STM32F3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-Olimexino-STM32F3.menu.upload_method.dfuMethod.upload.protocol=2
-Olimexino-STM32F3.menu.upload_method.dfuMethod.upload.options=-g
-Olimexino-STM32F3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+OLIMEXINO-STM32F3.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+OLIMEXINO-STM32F3.menu.upload_method.dfuMethod.upload.protocol=2
+OLIMEXINO-STM32F3.menu.upload_method.dfuMethod.upload.options=-g
+OLIMEXINO-STM32F3.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-Olimexino-STM32F3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-Olimexino-STM32F3.menu.upload_method.swdMethod.upload.protocol=0
-Olimexino-STM32F3.menu.upload_method.swdMethod.upload.options=-g
-Olimexino-STM32F3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+OLIMEXINO-STM32F3.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+OLIMEXINO-STM32F3.menu.upload_method.swdMethod.upload.protocol=0
+OLIMEXINO-STM32F3.menu.upload_method.swdMethod.upload.options=-g
+OLIMEXINO-STM32F3.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-Olimexino-STM32F3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-Olimexino-STM32F3.menu.upload_method.serialMethod.upload.protocol=1
-Olimexino-STM32F3.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-Olimexino-STM32F3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+OLIMEXINO-STM32F3.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+OLIMEXINO-STM32F3.menu.upload_method.serialMethod.upload.protocol=1
+OLIMEXINO-STM32F3.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+OLIMEXINO-STM32F3.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
-Olimexino-STM32F3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
-Olimexino-STM32F3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
-Olimexino-STM32F3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
-
-
-Olimexino-STM32F3.menu.xserial.generic=Enabled (generic 'Serial')
-Olimexino-STM32F3.menu.xserial.none=Enabled (no generic 'Serial')
-Olimexino-STM32F3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Olimexino-STM32F3.menu.xserial.disabled=Disabled (no Serial support)
-Olimexino-STM32F3.menu.xserial.disabled.build.xSerial=
+OLIMEXINO-STM32F3.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+OLIMEXINO-STM32F3.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+OLIMEXINO-STM32F3.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 
-Olimexino-STM32F3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-Olimexino-STM32F3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Olimexino-STM32F3.menu.usb.none=None
-Olimexino-STM32F3.menu.usb.CDC=CDC (no generic 'Serial')
-Olimexino-STM32F3.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-Olimexino-STM32F3.menu.usb.HID=HID (keyboard and mouse)
-Olimexino-STM32F3.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-Olimexino-STM32F3.menu.xusb.FS=Low/Full Speed
-Olimexino-STM32F3.menu.xusb.HS=High Speed
-Olimexino-STM32F3.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-Olimexino-STM32F3.menu.xusb.HSFS=High Speed in Full Speed mode
-Olimexino-STM32F3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+OLIMEXINO-STM32F3.menu.xserial.generic=Enabled (generic 'Serial')
+OLIMEXINO-STM32F3.menu.xserial.none=Enabled (no generic 'Serial')
+OLIMEXINO-STM32F3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+OLIMEXINO-STM32F3.menu.xserial.disabled=Disabled (no Serial support)
+OLIMEXINO-STM32F3.menu.xserial.disabled.build.xSerial=
 
 
-Olimexino-STM32F3.menu.opt.osstd=Smallest (-Os default)
-Olimexino-STM32F3.menu.opt.osstd.build.flags.optimize=-Os
-Olimexino-STM32F3.menu.opt.oslto=Smallest (-Os) with LTO
-Olimexino-STM32F3.menu.opt.oslto.build.flags.optimize=-Os -flto
-Olimexino-STM32F3.menu.opt.o1std=Fast (-O1)
-Olimexino-STM32F3.menu.opt.o1std.build.flags.optimize=-O1
-Olimexino-STM32F3.menu.opt.o1lto=Fast (-O1) with LTO
-Olimexino-STM32F3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Olimexino-STM32F3.menu.opt.o2std=Faster (-O2)
-Olimexino-STM32F3.menu.opt.o2std.build.flags.optimize=-O2
-Olimexino-STM32F3.menu.opt.o2lto=Faster (-O2) with LTO
-Olimexino-STM32F3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Olimexino-STM32F3.menu.opt.o3std=Fastest (-O3)
-Olimexino-STM32F3.menu.opt.o3std.build.flags.optimize=-O3
-Olimexino-STM32F3.menu.opt.o3lto=Fastest (-O3) with LTO
-Olimexino-STM32F3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Olimexino-STM32F3.menu.opt.ogstd=Debug (-g)
-Olimexino-STM32F3.menu.opt.ogstd.build.flags.optimize=-g -Og
+OLIMEXINO-STM32F3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+OLIMEXINO-STM32F3.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+OLIMEXINO-STM32F3.menu.usb.none=None
+OLIMEXINO-STM32F3.menu.usb.CDC=CDC (no generic 'Serial')
+OLIMEXINO-STM32F3.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+OLIMEXINO-STM32F3.menu.usb.HID=HID (keyboard and mouse)
+OLIMEXINO-STM32F3.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+OLIMEXINO-STM32F3.menu.xusb.FS=Low/Full Speed
+OLIMEXINO-STM32F3.menu.xusb.HS=High Speed
+OLIMEXINO-STM32F3.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+OLIMEXINO-STM32F3.menu.xusb.HSFS=High Speed in Full Speed mode
+OLIMEXINO-STM32F3.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 
-Olimexino-STM32F3.menu.rtlib.nano=Newlib Nano (default)
-Olimexino-STM32F3.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Olimexino-STM32F3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Olimexino-STM32F3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Olimexino-STM32F3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Olimexino-STM32F3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Olimexino-STM32F3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Olimexino-STM32F3.menu.rtlib.full=Newlib Standard
-Olimexino-STM32F3.menu.rtlib.full.build.flags.ldspecs=
+OLIMEXINO-STM32F3.menu.opt.osstd=Smallest (-Os default)
+OLIMEXINO-STM32F3.menu.opt.osstd.build.flags.optimize=-Os
+OLIMEXINO-STM32F3.menu.opt.oslto=Smallest (-Os) with LTO
+OLIMEXINO-STM32F3.menu.opt.oslto.build.flags.optimize=-Os -flto
+OLIMEXINO-STM32F3.menu.opt.o1std=Fast (-O1)
+OLIMEXINO-STM32F3.menu.opt.o1std.build.flags.optimize=-O1
+OLIMEXINO-STM32F3.menu.opt.o1lto=Fast (-O1) with LTO
+OLIMEXINO-STM32F3.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+OLIMEXINO-STM32F3.menu.opt.o2std=Faster (-O2)
+OLIMEXINO-STM32F3.menu.opt.o2std.build.flags.optimize=-O2
+OLIMEXINO-STM32F3.menu.opt.o2lto=Faster (-O2) with LTO
+OLIMEXINO-STM32F3.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+OLIMEXINO-STM32F3.menu.opt.o3std=Fastest (-O3)
+OLIMEXINO-STM32F3.menu.opt.o3std.build.flags.optimize=-O3
+OLIMEXINO-STM32F3.menu.opt.o3lto=Fastest (-O3) with LTO
+OLIMEXINO-STM32F3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+OLIMEXINO-STM32F3.menu.opt.ogstd=Debug (-g)
+OLIMEXINO-STM32F3.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+
+OLIMEXINO-STM32F3.menu.rtlib.nano=Newlib Nano (default)
+OLIMEXINO-STM32F3.menu.rtlib.nanofp=Newlib Nano + Float Printf
+OLIMEXINO-STM32F3.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+OLIMEXINO-STM32F3.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+OLIMEXINO-STM32F3.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+OLIMEXINO-STM32F3.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+OLIMEXINO-STM32F3.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+OLIMEXINO-STM32F3.menu.rtlib.full=Newlib Standard
+OLIMEXINO-STM32F3.menu.rtlib.full.build.flags.ldspecs=
