@@ -52,7 +52,6 @@ typedef enum
 
 }HAL_SDEx_DMABuffer_MemoryTypeDef;
 
-
 /**
   * @}
   */
@@ -70,6 +69,7 @@ typedef enum
 /** @defgroup SDEx_Exported_Functions_Group1 MultiBuffer functions
   * @{
   */
+
 HAL_StatusTypeDef HAL_SDEx_ConfigDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t * pDataBuffer0, uint32_t * pDataBuffer1, uint32_t BufferSize);
 HAL_StatusTypeDef HAL_SDEx_ReadBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint32_t NumberOfBlocks);
 HAL_StatusTypeDef HAL_SDEx_WriteBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint32_t BlockAdd, uint32_t NumberOfBlocks);
