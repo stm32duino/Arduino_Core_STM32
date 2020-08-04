@@ -792,7 +792,7 @@ HAL_StatusTypeDef HAL_FLASHEx_DATAEEPROM_Erase(uint32_t TypeErase, uint32_t Addr
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
-  assert_param(IS_TYPEPROGRAMDATA(TypeErase));
+  assert_param(IS_TYPEERASEDATA(TypeErase));
   assert_param(IS_FLASH_DATA_ADDRESS(Address));
 
   /* Wait for last operation to be completed */
