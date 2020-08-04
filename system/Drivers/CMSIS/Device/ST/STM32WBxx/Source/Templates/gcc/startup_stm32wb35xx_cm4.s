@@ -93,6 +93,8 @@ LoopFillZerobss:
 Reset_Handler:
   ldr   r0, =_estack
   mov   sp, r0          /* set stack pointer */
+/* Call the clock system intitialization function.*/
+  bl  SystemInit
 
 /* Copy the data segment initializers from flash to SRAM */
   INIT_DATA _sdata, _edata, _sidata
@@ -101,8 +103,6 @@ Reset_Handler:
   INIT_BSS _sbss, _ebss
   INIT_BSS _sMB_MEM2, _eMB_MEM2
 
-/* Call the clock system intitialization function.*/
-  bl  SystemInit
 /* Call static constructors */
   bl __libc_init_array
 /* Call the application s entry point.*/
@@ -190,11 +190,11 @@ g_pfnVectors:
   .word I2C3_EV_IRQHandler
   .word I2C3_ER_IRQHandler
   .word SPI1_IRQHandler
-  .word SPI2_IRQHandler
+  .word 0
   .word USART1_IRQHandler
   .word LPUART1_IRQHandler
   .word 0
-  .word TSC_IRQHandler
+  .word 0
   .word EXTI15_10_IRQHandler
   .word RTC_Alarm_IRQHandler
   .word CRS_IRQHandler
@@ -358,17 +358,11 @@ g_pfnVectors:
   .weak  SPI1_IRQHandler
   .thumb_set SPI1_IRQHandler,Default_Handler
 
-  .weak  SPI2_IRQHandler
-  .thumb_set SPI2_IRQHandler,Default_Handler
-
   .weak  USART1_IRQHandler
   .thumb_set USART1_IRQHandler,Default_Handler
 
   .weak  LPUART1_IRQHandler
   .thumb_set LPUART1_IRQHandler,Default_Handler
-
-  .weak  TSC_IRQHandler
-  .thumb_set TSC_IRQHandler,Default_Handler
 
   .weak  EXTI15_10_IRQHandler
   .thumb_set EXTI15_10_IRQHandler,Default_Handler
