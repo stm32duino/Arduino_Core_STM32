@@ -46,9 +46,129 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">v1.5.0 / 12-February-2020</label>
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">v1.6.0 / 05-June-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<h3 id="maitenance-release">Maitenance release</h3>
+<p>All peripheral</p>
+<table>
+<thead>
+<tr class="header">
+<th>Peripheral</th>
+<th style="text-align: left;">Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>All</td>
+<td style="text-align: left;">Remove ‘register’ storage class specifier</td>
+</tr>
+<tr class="even">
+<td>CRYP</td>
+<td style="text-align: left;">AES GCM: Add support data encrypt/decrypt with length not multiple of 16 bytes</td>
+</tr>
+<tr class="odd">
+<td>DMA</td>
+<td style="text-align: left;">LOCK UNLOCK process to modify, as LOCK is done at Start and UNLOCK is done at Completion processus</td>
+</tr>
+<tr class="even">
+<td>DMA</td>
+<td style="text-align: left;">Correct the computation for DMAMUX overrun IT mask</td>
+</tr>
+<tr class="odd">
+<td>GPIO</td>
+<td style="text-align: left;">Correct bug on HAL_GPIO_TogglePin and LL_GPIO_TogglePin to allow to toggle multiple pin</td>
+</tr>
+<tr class="even">
+<td>I2C</td>
+<td style="text-align: left;">Sequential transfer MAX_NBYTE_SIZE correspond to no reload</td>
+</tr>
+<tr class="odd">
+<td>SPI/I2S</td>
+<td style="text-align: left;">HAL_I2S_DMAStop doesn’t check the BSY flag as described in RM0390</td>
+</tr>
+<tr class="even">
+<td>SPI/I2S</td>
+<td style="text-align: left;">problematic timeout management inside SPI DMA xfer complete handler (interrupt context)</td>
+</tr>
+<tr class="odd">
+<td>SPI/I2S</td>
+<td style="text-align: left;">Issue in 3wires communication (Need Disable / Enable SPI)</td>
+</tr>
+<tr class="even">
+<td>IWDG</td>
+<td style="text-align: left;">Correct the IWDG start-up timeout (insufficiently low)</td>
+</tr>
+<tr class="odd">
+<td>USB</td>
+<td style="text-align: left;">Improve OUT EP re-enable with double buffering</td>
+</tr>
+<tr class="even">
+<td>USB</td>
+<td style="text-align: left;">Add workaround for unexpected USB wakeup during stop mode</td>
+</tr>
+<tr class="odd">
+<td>USB</td>
+<td style="text-align: left;">Clear unexpected wakeup during suspend IT</td>
+</tr>
+<tr class="even">
+<td>USB</td>
+<td style="text-align: left;">Adjust IO address access to be volatile</td>
+</tr>
+<tr class="odd">
+<td>USB</td>
+<td style="text-align: left;">Manage IN isoc IN transfer complete interrupt</td>
+</tr>
+<tr class="even">
+<td>RTC</td>
+<td style="text-align: left;">Issue on macro when clearing or getting flag TAMP, TIMESTAMP in EXTI</td>
+</tr>
+<tr class="odd">
+<td>SAI</td>
+<td style="text-align: left;">Issue with ‘register’ storage class specifier, should be removed</td>
+</tr>
+<tr class="even">
+<td>SMARTCARD</td>
+<td style="text-align: left;">No repetition after NACK is received in smartcard T=0</td>
+</tr>
+<tr class="odd">
+<td>SMARTCARD</td>
+<td style="text-align: left;">Improve doxygen visual result</td>
+</tr>
+<tr class="even">
+<td>UART</td>
+<td style="text-align: left;">Rework BRR register value computation in HAL_UART_Init() for ROM size gain</td>
+</tr>
+<tr class="odd">
+<td>Utils</td>
+<td style="text-align: left;">Align package information to RM0434</td>
+</tr>
+<tr class="even">
+<td>Utils</td>
+<td style="text-align: left;">Turn UTILS_SetFlashLatency() into LL_SetFlashLatency() public function</td>
+</tr>
+<tr class="odd">
+<td>Templates</td>
+<td style="text-align: left;">Correct missing I2S definition in stm32wbxx_hal_conf_template.h</td>
+</tr>
+<tr class="even">
+<td>TIM</td>
+<td style="text-align: left;">Order of disabling in HAL_TIM_IC_Stop_DMA function</td>
+</tr>
+<tr class="odd">
+<td>TIM</td>
+<td style="text-align: left;">COUNTERMODE defines are inverted for TIM_CR1_CMS in ll_tim.h</td>
+</tr>
+</tbody>
+</table>
+<h2 id="backward-compatibility">Backward Compatibility</h2>
+<p>This release is compatible with the previous versions.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">v1.5.0 / 12-February-2020</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <h3 id="introduction-of-stm32wb5m-stm32wb35xx-and-stm32wb30xx-product">Introduction of STM32WB5M, STM32WB35xx and STM32WB30xx product</h3>
 <p>This release introduce the support of STM32WB5Mxx, STM32WB35xx product and its value line STM32WB30xx.</p>
 <p>Added features:</p>
@@ -97,15 +217,15 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility">Backward Compatibility</h2>
+<h2 id="backward-compatibility-1">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section5"  aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">v1.4.0 / 15-December-2019</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maitenance-release">Maitenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maitenance-release-1">Maitenance release</h3>
 <table>
 <thead>
 <tr class="header">
@@ -148,7 +268,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-1">Backward Compatibility</h2>
+<h2 id="backward-compatibility-2">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -158,8 +278,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">v1.3.0 / 11-September-2019</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maitenance-release-1">Maitenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maitenance-release-2">Maitenance release</h3>
 <table>
 <thead>
 <tr class="header">
@@ -230,7 +350,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-2">Backward Compatibility</h2>
+<h2 id="backward-compatibility-3">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-1">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -240,7 +360,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 26-June-2019</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3 id="stm32wb50xx-introduction-and-maintenance-release">STM32WB50xx introduction and maintenance release</h3>
 <p>First release for STM32WBxx HAL drivers introducing <strong>stm32wb50xx</strong> devices.</p>
 <table>
@@ -309,7 +429,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-3">Backward Compatibility</h2>
+<h2 id="backward-compatibility-4">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-2">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -319,7 +439,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <p>Maintenance release of HAL and Low layers drivers supporting STM32WB55xx devices.</p>
 <table>
@@ -373,7 +493,7 @@
 </tr>
 </tbody>
 </table>
-<h2 id="backward-compatibility-4">Backward Compatibility</h2>
+<h2 id="backward-compatibility-5">Backward Compatibility</h2>
 <p>This release is compatible with the previous versions.</p>
 <h2 id="dependencies-3">Dependencies</h2>
 <p>This software release is compatible with:</p>
@@ -383,7 +503,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1"  aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 06-February-2019</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32WB55xx.</p>
 </div>
