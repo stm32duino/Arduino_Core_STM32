@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32g473xx.s
+  * @file      startup_stm32g4a1xx.s
   * @author    MCD Application Team
-  * @brief     STM32G473xx devices vector table GCC toolchain.
+  * @brief     STM32G4A1xx devices vector table GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -79,7 +79,7 @@ LoopCopyDataInit:
   adds r4, r0, r3
   cmp r4, r1
   bcc CopyDataInit
-  
+
 /* Zero fill the bss segment. */
   ldr r2, =_sbss
   ldr r4, =_ebss
@@ -126,7 +126,7 @@ Infinite_Loop:
 * 0x0000.0000.
 *
 ******************************************************************************/
- 	.section	.isr_vector,"a",%progbits
+	.section	.isr_vector,"a",%progbits
 	.type	g_pfnVectors, %object
 	.size	g_pfnVectors, .-g_pfnVectors
 
@@ -196,25 +196,25 @@ g_pfnVectors:
 	.word	TIM8_TRG_COM_IRQHandler
 	.word	TIM8_CC_IRQHandler
 	.word	ADC3_IRQHandler
-	.word	FMC_IRQHandler
+	.word	0
 	.word	LPTIM1_IRQHandler
-	.word	TIM5_IRQHandler
+	.word	0
 	.word	SPI3_IRQHandler
 	.word	UART4_IRQHandler
 	.word	UART5_IRQHandler
 	.word	TIM6_DAC_IRQHandler
-	.word	TIM7_DAC_IRQHandler
+	.word	TIM7_IRQHandler
 	.word	DMA2_Channel1_IRQHandler
 	.word	DMA2_Channel2_IRQHandler
 	.word	DMA2_Channel3_IRQHandler
 	.word	DMA2_Channel4_IRQHandler
 	.word	DMA2_Channel5_IRQHandler
-	.word	ADC4_IRQHandler
-	.word	ADC5_IRQHandler
+	.word	0
+	.word	0
 	.word	UCPD1_IRQHandler
 	.word	COMP1_2_3_IRQHandler
-	.word	COMP4_5_6_IRQHandler
-	.word	COMP7_IRQHandler
+	.word	COMP4_IRQHandler
+	.word	0
 	.word	0
 	.word	0
 	.word	0
@@ -230,14 +230,14 @@ g_pfnVectors:
 	.word	TIM20_TRG_COM_IRQHandler
 	.word	TIM20_CC_IRQHandler
 	.word	FPU_IRQHandler
-	.word	I2C4_EV_IRQHandler
-	.word	I2C4_ER_IRQHandler
-	.word	SPI4_IRQHandler
 	.word	0
+	.word	0
+	.word	0
+	.word	AES_IRQHandler
 	.word	FDCAN2_IT0_IRQHandler
 	.word	FDCAN2_IT1_IRQHandler
-	.word	FDCAN3_IT0_IRQHandler
-	.word	FDCAN3_IT1_IRQHandler
+	.word	0
+	.word	0
 	.word	RNG_IRQHandler
 	.word	LPUART1_IRQHandler
 	.word	I2C3_EV_IRQHandler
@@ -430,14 +430,8 @@ g_pfnVectors:
 	.weak	ADC3_IRQHandler
 	.thumb_set ADC3_IRQHandler,Default_Handler
 
-	.weak	FMC_IRQHandler
-	.thumb_set FMC_IRQHandler,Default_Handler
-
 	.weak	LPTIM1_IRQHandler
 	.thumb_set LPTIM1_IRQHandler,Default_Handler
-
-	.weak	TIM5_IRQHandler
-	.thumb_set TIM5_IRQHandler,Default_Handler
 
 	.weak	SPI3_IRQHandler
 	.thumb_set SPI3_IRQHandler,Default_Handler
@@ -451,8 +445,8 @@ g_pfnVectors:
 	.weak	TIM6_DAC_IRQHandler
 	.thumb_set TIM6_DAC_IRQHandler,Default_Handler
 
-	.weak	TIM7_DAC_IRQHandler
-	.thumb_set TIM7_DAC_IRQHandler,Default_Handler
+	.weak	TIM7_IRQHandler
+	.thumb_set TIM7_IRQHandler,Default_Handler
 
 	.weak	DMA2_Channel1_IRQHandler
 	.thumb_set DMA2_Channel1_IRQHandler,Default_Handler
@@ -469,23 +463,14 @@ g_pfnVectors:
 	.weak	DMA2_Channel5_IRQHandler
 	.thumb_set DMA2_Channel5_IRQHandler,Default_Handler
 
-	.weak	ADC4_IRQHandler
-	.thumb_set ADC4_IRQHandler,Default_Handler
-
-	.weak	ADC5_IRQHandler
-	.thumb_set ADC5_IRQHandler,Default_Handler
-
 	.weak	UCPD1_IRQHandler
 	.thumb_set UCPD1_IRQHandler,Default_Handler
 
 	.weak	COMP1_2_3_IRQHandler
 	.thumb_set COMP1_2_3_IRQHandler,Default_Handler
 
-	.weak	COMP4_5_6_IRQHandler
-	.thumb_set COMP4_5_6_IRQHandler,Default_Handler
-
-	.weak	COMP7_IRQHandler
-	.thumb_set COMP7_IRQHandler,Default_Handler
+	.weak	COMP4_IRQHandler
+	.thumb_set COMP4_IRQHandler,Default_Handler
 
 	.weak	CRS_IRQHandler
 	.thumb_set CRS_IRQHandler,Default_Handler
@@ -508,26 +493,14 @@ g_pfnVectors:
 	.weak	FPU_IRQHandler
 	.thumb_set FPU_IRQHandler,Default_Handler
 
-	.weak	I2C4_EV_IRQHandler
-	.thumb_set I2C4_EV_IRQHandler,Default_Handler
-
-	.weak	I2C4_ER_IRQHandler
-	.thumb_set I2C4_ER_IRQHandler,Default_Handler
-
-	.weak	SPI4_IRQHandler
-	.thumb_set SPI4_IRQHandler,Default_Handler
+	.weak	AES_IRQHandler
+	.thumb_set AES_IRQHandler,Default_Handler
 
 	.weak	FDCAN2_IT0_IRQHandler
 	.thumb_set FDCAN2_IT0_IRQHandler,Default_Handler
 
 	.weak	FDCAN2_IT1_IRQHandler
 	.thumb_set FDCAN2_IT1_IRQHandler,Default_Handler
-
-	.weak	FDCAN3_IT0_IRQHandler
-	.thumb_set FDCAN3_IT0_IRQHandler,Default_Handler
-
-	.weak	FDCAN3_IT1_IRQHandler
-	.thumb_set FDCAN3_IT1_IRQHandler,Default_Handler
 
 	.weak	RNG_IRQHandler
 	.thumb_set RNG_IRQHandler,Default_Handler
