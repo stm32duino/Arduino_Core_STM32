@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -29,6 +29,7 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal_def.h"
 
+#if defined(CORDIC)
 /** @addtogroup STM32G4xx_HAL_Driver
   * @{
   */
@@ -267,7 +268,7 @@ typedef  void (*pCORDIC_CallbackTypeDef)(CORDIC_HandleTypeDef *hcordic);  /*!< p
   * @{
   */
 #define CORDIC_NBREAD_1            (0x00000000U)             /*!< One 32-bits read containing either only one
-                                                                  32-bit data ouput (Q1.31 format), or two 16-bit
+                                                                  32-bit data output (Q1.31 format), or two 16-bit
                                                                   data output (Q1.15 format) packed in one 32 bits Data */
 #define CORDIC_NBREAD_2            CORDIC_CSR_NRES           /*!< Two 32-bit Data containing two 32-bits data output
                                                                   (Q1.31 format) */
@@ -586,6 +587,8 @@ uint32_t HAL_CORDIC_GetError(CORDIC_HandleTypeDef *hcordic);
 /**
   * @}
   */
+
+#endif /* CORDIC */
 
 #ifdef __cplusplus
 }

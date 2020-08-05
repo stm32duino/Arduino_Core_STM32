@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32G4xx HAL Drivers</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -39,20 +39,170 @@
 <ul>
 <li>New set of inline function for direct and atomic register access</li>
 <li>One-shot operations that can be used by the HAL drivers or from application level.</li>
-<li>Fully Independant from HAL and can be used in standalone usage (without HAL drivers)</li>
+<li>Fully Independent from HAL and can be used in standalone usage (without HAL drivers)</li>
 <li>Full features coverage of the all the supported peripherals.</li>
 </ul>
 </div>
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.1 / 14-February-2020</label>
+<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.2.0 / 26-June-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance Release</h3>
 <ul>
+<li>Add support for STM32G491xx and STM32G4A1 part numbers</li>
 <li><p>General updates to fix known defects and enhancements implementation</p></li>
-<li><p><strong>HAL/LL CRYP</strong> update</p>
+<li><strong>HAL/LL GPIO</strong> update
+<ul>
+<li>Enhancement GPIO_TogglePin API to allow the toggling of many pins</li>
+<li>Update GPIO initialization sequence to avoid unwanted pulse on GPIO Pin’s</li>
+</ul></li>
+<li><strong>HAL/LL HRTIM</strong> update
+<ul>
+<li>Constants renaming:
+<ul>
+<li>Rename HAL constants HRTIM_TIMEEVENT_… and HRTIM_TIMEEVENTRESETMODE_… respectively HRTIM_EVENT<strong>COUNTER</strong>_… and HRTIM_EVENT<strong>COUNTER</strong>_RSTMODE_… to reflect their relation to external event <strong>counters</strong>.</li>
+<li>Rename LL constants LL_HRTIM_OUTPUTSET_TIM… and LL_HRTIM_OUTPUTRESET_TIM… to make them compliant to the CMSIS bits definitions they correspond to.</li>
+<li><strong>Warning:</strong> Possible <strong>compatibility break</strong> with CubeMX 5.6.0 and previous versions!</li>
+</ul></li>
+<li>Constants removal:
+<ul>
+<li>Remove unused HAL constants HRTIM_RSYNCUPDATE_… and HRTIM_TIMEEVENTCOUNTER_….</li>
+<li>Remove unused LL constant LL_HRTIM_RESETTRIG_OTHER5_CMP4 as the definition it corresponds to (HRTIM_RSTR_TIMFCMP4) exists neither in the CMSIS nor in the reference manual.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL I2S</strong> update
+<ul>
+<li>Update HAL_I2S_DMAStop() API to be more safe
+<ul>
+<li>Add a check on BSY, TXE and RXNE flags before disabling the I2S</li>
+</ul></li>
+<li>Update HAL_I2S_DMAStop() API to fix multi-call transfer issue(to avoid re-initializing the I2S for the next transfer).
+<ul>
+<li>Add __HAL_I2SEXT_FLUSH_RX_DR() and __HAL_I2S_FLUSH_RX_DR() macros to flush the remaining data inside DR registers.</li>
+<li>Add new ErrorCode define: HAL_I2S_ERROR_BUSY_LINE_RX</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL SPI</strong> update
+<ul>
+<li>Update HAL_SPI_Init() API
+<ul>
+<li>To avoid setting the BaudRatePrescaler in case of Slave Motorola Mode</li>
+<li>Use the bit-mask for SPI configuration</li>
+</ul></li>
+<li>Update Transmit/Receive processes in half-duplex mode
+<ul>
+<li>Disable the SPI instance before setting BDIOE bit</li>
+</ul></li>
+<li>Update SPI_DMAReceiveCplt() API to handle efficiently the repeated transfers.
+<ul>
+<li>Disable TX DMA request only in bidirectional receive mode.</li>
+</ul></li>
+<li>Fix wrong timeout management
+<ul>
+<li>Calculate Timeout based on a software loop to avoid blocking issue if Systick is disabled</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL SAI</strong> update
+<ul>
+<li>Update HAL_SAI_Init() API to correct the formula in case of SPDIF is wrong</li>
+</ul></li>
+<li><strong>HAL/LL ADC</strong> update
+<ul>
+<li>Update Channel &amp; external trigger to support <strong>STM32G491/STM32G4A1</strong> embedded with 3 ADC:
+<ul>
+<li>IS_ADC_EXTRIG, IS_ADC_CHANNEL, IS_ADC_EXTRIGINJ, ADC_IS_INDEPENDENT.</li>
+<li>IS_LL_ADC_REG_TRIG_SOURCE, IS_LL_ADC_INJ_TRIG_SOURCE, __LL_ADC_IS_CHANNEL_INTERNAL_AVAILABLE.</li>
+</ul></li>
+<li>Update note in ll_adc.h &amp; hal_adc.h to highlight that the ADC with transfers DMA and ADC mode auto delay can work simultaneously.</li>
+</ul></li>
+<li><strong>HAL COMP</strong> update
+<ul>
+<li>Update Blanking sources to support <strong>STM32G491/STM32G4A1</strong> embedded with 4 COMP:
+<ul>
+<li>IS_COMP_BLANKINGSRC_INSTANCE</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL OPAMP</strong> update
+<ul>
+<li>Update hal_opamp_ex.c to support <strong>STM32G491/STM32G4A1</strong> embedded with 4 OPAMP (OPAMP1/OPAMP2/OPAMP3/OPAMP6):</li>
+</ul></li>
+<li><strong>HAL FLASH</strong> update
+<ul>
+<li>Update FLASH Latency comment param to list all supported flash latency values.</li>
+<li>Update FLASH_PAGE_NB to return the right page number(256 pages for devices embedded with 512KB flash size and 64 for devices embedded with 128KB flash size)</li>
+</ul></li>
+<li><strong>HAL/LL RCC</strong> update
+<ul>
+<li>Update Table 1. HCLK clock frequency for STM32G4xx devices to be aligned with referance manual RM0440</li>
+<li>Update peripheral clock to support <strong>STM32G491/STM32G4A1</strong> devices:
+<ul>
+<li>HAL_RCCEx_GetPeriphCLKConfig</li>
+<li>IS_RCC_PERIPHCLOCK</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong> driver
+<ul>
+<li>Align HAL/LL TIM driver with latest updates and enhancements</li>
+<li>Add new macros to enable and disable the fast mode when using the one pulse mode to output a waveform with a minimum delay
+<ul>
+<li>__HAL_TIM_ENABLE_OCxFAST() and __HAL_TIM_DISABLE_OCxFAST().</li>
+</ul></li>
+<li>Update HAL_TIMEx_MasterConfigSynchronization() API to avoid functional errors and assert fails when using some TIM instances as input trigger.
+<ul>
+<li>Replace IS_TIM_SYNCHRO_INSTANCE() macro by IS_TIM_MASTER_INSTANCE() macro.</li>
+<li>Add IS_TIM_SLAVE_INSTANCE() macro to check on TIM_SMCR_MSM bit.</li>
+</ul></li>
+<li>Remove ‘register’ storage class specifier from LL TIM driver.</li>
+<li>Add new API HAL_TIM_DMABurst_MultiWriteStart() allowing to configure the DMA Burst to transfer multiple Data from the memory to the TIM peripheral</li>
+<li>Add new API HAL_TIM_DMABurst_MultiReadStart() allowing to configure the DMA Burst to transfer Data from the TIM peripheral to the memory</li>
+</ul></li>
+<li><strong>HAL/LL UART</strong> driver
+<ul>
+<li>Update UART polling processes to handle efficiently the Lock mechanism
+<ul>
+<li>Move the process unlock at the top of the HAL_UART_Receive() and HAL_UART_Transmit() API.</li>
+</ul></li>
+<li>Update UART BRR calculation for ROM size gain</li>
+<li>Remove ‘register’ storage class specifier from LL UART driver.</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong> driver
+<ul>
+<li>Remove ‘register’ storage class specifier from LL USART driver.</li>
+</ul></li>
+<li><strong>HAL/LL USB</strong> driver
+<ul>
+<li>Fix USB Bulk transfer double buffer mode</li>
+<li>Remove register keyword from USB defined macros as no more supported by c++ compiler</li>
+<li>minor rework USBD_Start and USBD_Stop API, stop device to be handled by HAL_PCD_DeInit()</li>
+<li>Correct some word spelling issues</li>
+</ul></li>
+</ul>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.40.1</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.29</strong></li>
+<li>STM32CubeIDE toolchain <strong>V1.4.0</strong></li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>STM32G431/41xx</li>
+<li>STM32G471xx</li>
+<li>STM32G473/83xx</li>
+<li>STM32G474/84xx</li>
+<li>STM32G4<strong>91</strong>/<strong>A1</strong>xx</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.1 / 14-February-2020</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance Release</h3>
+<ul>
+<li><p>General updates to fix known defects and enhancements implementation</p></li>
+<li><strong>HAL/LL CRYP</strong> update
 <ul>
 <li>Correct MISRA C:2012 warnings reported by rules 2.2_c, 10.1_R6, 10.3, 10.4_a, 10.6, 12.1, 13.5 15.7</li>
 <li>Perform a new check mechanism on the cryp buffer size in Encryption et Decryption API
@@ -86,11 +236,11 @@
 <li>Update CRYP_GCMCCM_SetPayloadPhase_IT() API</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL FMAC</strong> update</p>
+<li><strong>HAL/LL FMAC</strong> update
 <ul>
 <li>General updates to comply to internal coding rules.</li>
 </ul></li>
-<li><p><strong>HAL GPIO</strong> update</p>
+<li><strong>HAL GPIO</strong> update
 <ul>
 <li>Update the GPIO initialization sequence in HAL_GPIO_Init() API to avoid unwanted glitches on GPIO pins.</li>
 <li>Add missing GPIO Alternate Function definitions:
@@ -98,7 +248,7 @@
 <li>GPIO_AF2_TIM16, GPIO_AF9_TIM8, GPIO_AF11_TIM8, GPIO_AF12_TIM1.</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL HRTIM</strong> update</p>
+<li><strong>HAL HRTIM</strong> update
 <ul>
 <li>Update HAL_HRTIM_WaveformCompareConfig() to clear HRTIM_TIMxCR.DELCMP bitfield when the auto-delayed protection mode is disabled.</li>
 <li>Correct some “HRTIM_OUTPUTSET_TIMxx” constant names which are not compliant with Timer Events Mapping specified in the reference manual
@@ -109,17 +259,12 @@
 </ul></li>
 <li>Update HAL_HRTIM_DLLCalibrationStart() and HAL_HRTIM_DLLCalibrationStart_IT() API by setting HRTIM state ready to avoid some unstable behavior of the TIMER E.</li>
 <li>Add new check field in the IS_HRTIM_EVENTSRC() macro to check also on EVENT</li>
-<li>Add a new check in the HAL_HRTIM_EventConfig() API on event and event source thru the IS_HRTIM_EVENTSRC() macro</li>
+<li>Add a new check in the HAL_HRTIM_EventConfig() API on event and event source through the IS_HRTIM_EVENTSRC() macro</li>
 <li>Remove UPDGAT bits reset from the HRTIM_TimingUnitWaveform_Control() API</li>
 <li>Add a lock and unlock handle process in the HAL_HRTIM_SimpleOCChannelConfig() API</li>
 </ul></li>
-<li><p><strong>HAL I2C</strong> update</p>
+<li><strong>HAL I2C</strong> update
 <ul>
-<li>Update HAL I2C processes to report ErrorCode when wrong I2C start conditionoccurs
-<ul>
-<li>Add new ErrorCode define: HAL_I2C_WRONG_START</li>
-<li>Set ErrorCode parameter in I2C handle to HAL_I2C_WRONG_START</li>
-</ul></li>
 <li>Update I2C_DMAAbort() APIs to fix hardfault issue when hdmatx and hdmarx parameters in i2c handle aren’t initialized (NULL pointer).
 <ul>
 <li>Add additional check on hi2c-&gt;hdmtx and hi2c-&gt;hdmarx before resetting DMA Tx/Rx complete callbacks</li>
@@ -129,7 +274,7 @@
 <li>Update I2C_Slave_ISR_IT() and I2C_Slave_ISR_DMA() APIs to check on STOP condition and handle it before clearing the ADDR flag</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL LPTIM</strong> update</p>
+<li><strong>HAL LPTIM</strong> update
 <ul>
 <li>Add a polling mechanism to check on LPTIM_FLAG_XXOK flags in different API
 <ul>
@@ -148,16 +293,16 @@
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL RTC</strong> update</p>
+<li><strong>HAL/LL RTC</strong> update
 <ul>
 <li>Update API HAL_RTC_SetAlarm_IT() to allow changing alarm time “on the fly” simply by calling the API again.</li>
 <li>Update API LL_RTC_BKP_SetRegister() and API LL_RTC_BKP_GetRegister() to comply to rules 2.2 and 13.2 of MISRAC-2012.</li>
 </ul></li>
-<li><p><strong>HAL SPI</strong> update</p>
+<li><strong>HAL SPI</strong> update
 <ul>
 <li>Update the “Rx DMA transfer complete callback” to disable the Tx DMA request only in case of full-duplex mode and not it in half-duplex mode.</li>
 </ul></li>
-<li><p><strong>HAL TIM</strong> update</p>
+<li><strong>HAL TIM</strong> update
 <ul>
 <li>Update Encoder interface mode to keep TIM_CCER_CCxNP bits low
 <ul>
@@ -180,7 +325,7 @@
 <li>__HAL_TIM_UIFREMAP_ENABLE()</li>
 <li>__HAL_TIM_UIFREMAP_DISABLE()/__HAL_TIM_GET_UIFCPY macro</li>
 </ul></li>
-<li>Add new mecanism to check whether the update interrupt flag (UIF) copy is set or not
+<li>Add new mechanism to check whether the update interrupt flag (UIF) copy is set or not
 <ul>
 <li>Add the __HAL_TIM_GET_UIFCPY() macro in the HAL driver</li>
 <li>Add LL_TIM_IsActiveUIFCPY() API in the LL driver</li>
@@ -193,9 +338,9 @@
 <li>Remove useless TIM trigger selector</li>
 <li>Fix bug when using multiple DMA request to different channels of same timer
 <ul>
-<li>Introduce DMA burst state managment mechanism
+<li>Introduce DMA burst state management mechanism
 <ul>
-<li>Add a new stucture for DMA Burst States definition : HAL_TIM_DMABurstStateTypeDef</li>
+<li>Add a new structure for DMA Burst States definition : HAL_TIM_DMABurstStateTypeDef</li>
 <li>Update __HAL_TIM_RESET_HANDLE_STATE to support DMABurstState</li>
 <li>Add a new API HAL_TIM_DMABurstState() to get the actual state of a DMA burst operation</li>
 <li>Add DMABurstState, the DMA burst operation state, in the TIM_HandleTypeDef structure</li>
@@ -203,7 +348,7 @@
 <li>Add new API TIM_DMADelayPulseNCplt() for TIM DMA Delay Pulse complete callback (complementary channel)</li>
 </ul></li>
 </ul></li>
-<li>Implement TIM channel state managment mechanism
+<li>Implement TIM channel state management mechanism
 <ul>
 <li>Add new macro
 <ul>
@@ -213,13 +358,13 @@
 </ul></li>
 <li>Add new API HAL_TIM_GetActiveChannel()</li>
 <li>Add new API HAL_TIM_GetChannelState() to get actual state of the TIM channel</li>
-<li>Add a new stucture for TIM channel States definition : HAL_TIM_ChannelStateTypeDef</li>
+<li>Add a new structure for TIM channel States definition : HAL_TIM_ChannelStateTypeDef</li>
 <li>Update __HAL_TIM_RESET_HANDLE_STATE to support ChannelState and ChannelNState</li>
 <li>Add a new element in the TIM_HandleTypeDef structure : ChannelState to manage TIM channel operation stat.</li>
 <li>Add a new element in the TIM_HandleTypeDef structure : ChannelNState to manage TIM complementary channel operation state</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL USART</strong> update</p>
+<li><strong>HAL/LL USART</strong> update
 <ul>
 <li>Add support to the Receiver Timeout Interrupt in the HAL_USART_IRQHandler</li>
 <li>Fix wrong value for SlaveMode field in USART handle after HAL_USARTEx_DisableSlaveMode() call
@@ -227,23 +372,23 @@
 <li>Set USART_SLAVEMODE_DISABLE instead of USART_SLAVEMODE_ENABLE</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL USB</strong> update</p>
+<li><strong>HAL USB</strong> update
 <ul>
 <li>Improve USB endpoint out re-enabling with double-buffer mode.</li>
 </ul></li>
-<li><p><strong>LL UTILS</strong> update</p>
+<li><strong>LL UTILS</strong> update
 <ul>
 <li>API UTILS_SetFlashLatency() renamed LL_SetFlashLatency() and set exportable.</li>
 <li>API LL_PLL_ConfigSystemClock_HSI() and API LL_PLL_ConfigSystemClock_HSE() updated to set back the AHB prescaler to 1 after it has been temporarily set to 2 to avoid undershoot when configuring PLL at high frequencies.</li>
 </ul></li>
 </ul>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.32.3</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
-<li>System Workbench STM32 (SW4STM32) toolchain V2.9.0</li>
+<li>STM32CubeIDE toolchain v1.3.0</li>
 </ul>
-<h2 id="supported-devices">Supported Devices</h2>
+<h2 id="supported-devices-1">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -253,10 +398,10 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2" checked aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 28-June-2019</label>
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 28-June-2019</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance Release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance Release</h3>
 <p>Maintenance release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32G431/41xx, STM32G471xx, STM32G473/83xx and STM32G474/84xx.</p>
 <h2 id="contents">Contents</h2>
 <table>
@@ -339,13 +484,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-1">Supported Devices</h2>
+<h2 id="supported-devices-2">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>
@@ -357,16 +502,16 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 12-April-2019</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release of HAL (Hardware Abstraction Layer) and LL (Low layers) drivers to support STM32G431/41xx, STM32G471xx, STM32G473/83xx and STM32G474/84xx.</p>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-2">Supported Devices</h2>
+<h2 id="supported-devices-3">Supported Devices</h2>
 <ul>
 <li>STM32G431/41xx</li>
 <li>STM32G471xx</li>

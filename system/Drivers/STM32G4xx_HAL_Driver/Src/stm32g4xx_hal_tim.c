@@ -422,8 +422,15 @@ HAL_StatusTypeDef HAL_TIM_Base_Start(TIM_HandleTypeDef *htim)
   htim->State = HAL_TIM_STATE_BUSY;
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -477,8 +484,15 @@ HAL_StatusTypeDef HAL_TIM_Base_Start_IT(TIM_HandleTypeDef *htim)
   __HAL_TIM_ENABLE_IT(htim, TIM_IT_UPDATE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -562,8 +576,15 @@ HAL_StatusTypeDef HAL_TIM_Base_Start_DMA(TIM_HandleTypeDef *htim, uint32_t *pDat
   __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_UPDATE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -798,8 +819,15 @@ HAL_StatusTypeDef HAL_TIM_OC_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -916,8 +944,15 @@ HAL_StatusTypeDef HAL_TIM_OC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1130,8 +1165,15 @@ HAL_StatusTypeDef HAL_TIM_OC_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1414,8 +1456,15 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1531,8 +1580,15 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1744,8 +1800,15 @@ HAL_StatusTypeDef HAL_TIM_PWM_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channe
   }
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -2024,8 +2087,15 @@ HAL_StatusTypeDef HAL_TIM_IC_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
   TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_ENABLE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -2132,8 +2202,15 @@ HAL_StatusTypeDef HAL_TIM_IC_Start_IT(TIM_HandleTypeDef *htim, uint32_t Channel)
   TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_ENABLE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -2339,8 +2416,15 @@ HAL_StatusTypeDef HAL_TIM_IC_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Channel
   TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_ENABLE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -2365,6 +2449,9 @@ HAL_StatusTypeDef HAL_TIM_IC_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)
   /* Check the parameters */
   assert_param(IS_TIM_CCX_INSTANCE(htim->Instance, Channel));
   assert_param(IS_TIM_DMA_CC_INSTANCE(htim->Instance));
+
+  /* Disable the Input Capture channel */
+  TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_DISABLE);
 
   switch (Channel)
   {
@@ -2403,9 +2490,6 @@ HAL_StatusTypeDef HAL_TIM_IC_Stop_DMA(TIM_HandleTypeDef *htim, uint32_t Channel)
     default:
       break;
   }
-
-  /* Disable the Input Capture channel */
-  TIM_CCxChannelCmd(htim->Instance, Channel, TIM_CCx_DISABLE);
 
   /* Disable the Peripheral */
   __HAL_TIM_DISABLE(htim);
@@ -4632,7 +4716,6 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_MultiWriteStart(TIM_HandleTypeDef *htim, uint
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t BurstRequestSrc)
 {
-  HAL_StatusTypeDef status = HAL_OK;
   /* Check the parameters */
   assert_param(IS_TIM_DMA_SOURCE(BurstRequestSrc));
 
@@ -4641,54 +4724,51 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
   {
     case TIM_DMA_UPDATE:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_UPDATE]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_UPDATE]);
       break;
     }
     case TIM_DMA_CC1:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC1]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC1]);
       break;
     }
     case TIM_DMA_CC2:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC2]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC2]);
       break;
     }
     case TIM_DMA_CC3:
     {
-      status =  HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC3]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC3]);
       break;
     }
     case TIM_DMA_CC4:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC4]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC4]);
       break;
     }
     case TIM_DMA_COM:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_COMMUTATION]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_COMMUTATION]);
       break;
     }
     case TIM_DMA_TRIGGER:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_TRIGGER]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_TRIGGER]);
       break;
     }
     default:
       break;
   }
 
-  if (HAL_OK == status)
-  {
-    /* Disable the TIM Update DMA request */
-    __HAL_TIM_DISABLE_DMA(htim, BurstRequestSrc);
-  }
+  /* Disable the TIM Update DMA request */
+  __HAL_TIM_DISABLE_DMA(htim, BurstRequestSrc);
 
   /* Change the DMA burst operation state */
   htim->DMABurstState = HAL_DMA_BURST_STATE_READY;
 
   /* Return function status */
-  return status;
+  return HAL_OK;
 }
 
 /**
@@ -4966,7 +5046,6 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_MultiReadStart(TIM_HandleTypeDef *htim, uint3
   */
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStop(TIM_HandleTypeDef *htim, uint32_t BurstRequestSrc)
 {
-  HAL_StatusTypeDef status = HAL_OK;
   /* Check the parameters */
   assert_param(IS_TIM_DMA_SOURCE(BurstRequestSrc));
 
@@ -4975,54 +5054,51 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStop(TIM_HandleTypeDef *htim, uint32_t Bu
   {
     case TIM_DMA_UPDATE:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_UPDATE]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_UPDATE]);
       break;
     }
     case TIM_DMA_CC1:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC1]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC1]);
       break;
     }
     case TIM_DMA_CC2:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC2]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC2]);
       break;
     }
     case TIM_DMA_CC3:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC3]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC3]);
       break;
     }
     case TIM_DMA_CC4:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC4]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_CC4]);
       break;
     }
     case TIM_DMA_COM:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_COMMUTATION]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_COMMUTATION]);
       break;
     }
     case TIM_DMA_TRIGGER:
     {
-      status = HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_TRIGGER]);
+      (void)HAL_DMA_Abort_IT(htim->hdma[TIM_DMA_ID_TRIGGER]);
       break;
     }
     default:
       break;
   }
 
-  if (HAL_OK == status)
-  {
-    /* Disable the TIM Update DMA request */
-    __HAL_TIM_DISABLE_DMA(htim, BurstRequestSrc);
-  }
+  /* Disable the TIM Update DMA request */
+  __HAL_TIM_DISABLE_DMA(htim, BurstRequestSrc);
 
   /* Change the DMA burst operation state */
   htim->DMABurstState = HAL_DMA_BURST_STATE_READY;
 
   /* Return function status */
-  return status;
+  return HAL_OK;
 }
 
 /**
@@ -5112,7 +5188,7 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
       }
       else
       {
-         CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
+        CLEAR_BIT(htim->Instance->SMCR, (TIM_SMCR_ETF | TIM_SMCR_ETPS | TIM_SMCR_ECE | TIM_SMCR_ETP));
       }
       break;
     }
@@ -5130,17 +5206,17 @@ HAL_StatusTypeDef HAL_TIM_ConfigOCrefClear(TIM_HandleTypeDef *htim,
 #if defined (COMP7)
     case TIM_CLEARINPUTSOURCE_COMP7:
 #endif /* COMP7 */
-    {
-      if (IS_TIM_OCCS_INSTANCE(htim->Instance))
       {
-        /* Clear the OCREF clear selection bit */
-        CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
+        if (IS_TIM_OCCS_INSTANCE(htim->Instance))
+        {
+          /* Clear the OCREF clear selection bit */
+          CLEAR_BIT(htim->Instance->SMCR, TIM_SMCR_OCCS);
 
-        /* Clear TIM1_AF2_OCRSEL (reset value) */
-        MODIFY_REG(htim->Instance->AF2, TIMx_AF2_OCRSEL, sClearInputConfig->ClearInputSource);
+          /* Clear TIM1_AF2_OCRSEL (reset value) */
+          MODIFY_REG(htim->Instance->AF2, TIMx_AF2_OCRSEL, sClearInputConfig->ClearInputSource);
+        }
+        break;
       }
-      break;
-    }
 
     case TIM_CLEARINPUTSOURCE_ETR:
     {
@@ -5413,15 +5489,17 @@ HAL_StatusTypeDef HAL_TIM_ConfigClockSource(TIM_HandleTypeDef *htim, TIM_ClockCo
 #if defined (TIM20)
     case TIM_CLOCKSOURCE_ITR9:
 #endif /* TIM20 */
+#if defined (HRTIM1)
     case TIM_CLOCKSOURCE_ITR10:
+#endif /* HRTIM1 */
     case TIM_CLOCKSOURCE_ITR11:
-    {
-      /* Check whether or not the timer instance supports internal trigger input */
-      assert_param(IS_TIM_CLOCKSOURCE_INSTANCE((htim->Instance), sClockSourceConfig->ClockSource));
+      {
+        /* Check whether or not the timer instance supports internal trigger input */
+        assert_param(IS_TIM_CLOCKSOURCE_INSTANCE((htim->Instance), sClockSourceConfig->ClockSource));
 
-      TIM_ITRx_SetConfig(htim->Instance, sClockSourceConfig->ClockSource);
-      break;
-    }
+        TIM_ITRx_SetConfig(htim->Instance, sClockSourceConfig->ClockSource);
+        break;
+      }
 
     default:
       break;
@@ -6833,7 +6911,7 @@ void TIM_Base_SetConfig(TIM_TypeDef *TIMx, TIM_Base_InitTypeDef *Structure)
 /**
   * @brief  Timer Output Compare 1 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 static void TIM_OC1_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
@@ -6908,7 +6986,7 @@ static void TIM_OC1_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
 /**
   * @brief  Timer Output Compare 2 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
@@ -6984,7 +7062,7 @@ void TIM_OC2_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
 /**
   * @brief  Timer Output Compare 3 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 static void TIM_OC3_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
@@ -7058,7 +7136,7 @@ static void TIM_OC3_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
 /**
   * @brief  Timer Output Compare 4 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 static void TIM_OC4_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
@@ -7135,7 +7213,7 @@ static void TIM_OC4_SetConfig(TIM_TypeDef *TIMx, TIM_OC_InitTypeDef *OC_Config)
 /**
   * @brief  Timer Output Compare 5 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 static void TIM_OC5_SetConfig(TIM_TypeDef *TIMx,
@@ -7188,7 +7266,7 @@ static void TIM_OC5_SetConfig(TIM_TypeDef *TIMx,
 /**
   * @brief  Timer Output Compare 6 configuration
   * @param  TIMx to select the TIM peripheral
-  * @param  OC_Config The ouput configuration structure
+  * @param  OC_Config The output configuration structure
   * @retval None
   */
 static void TIM_OC6_SetConfig(TIM_TypeDef *TIMx,
@@ -7354,13 +7432,15 @@ static HAL_StatusTypeDef TIM_SlaveTimer_SetConfig(TIM_HandleTypeDef *htim,
 #if defined (TIM20)
     case TIM_TS_ITR9:
 #endif /* TIM20 */
+#if defined (HRTIM1)
     case TIM_TS_ITR10:
+#endif /* HRTIM1 */
     case TIM_TS_ITR11:
-    {
-      /* Check the parameter */
-      assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE((htim->Instance), sSlaveConfig->InputTrigger));
-      break;
-    }
+      {
+        /* Check the parameter */
+        assert_param(IS_TIM_INTERNAL_TRIGGEREVENT_INSTANCE((htim->Instance), sSlaveConfig->InputTrigger));
+        break;
+      }
 
     default:
       break;
