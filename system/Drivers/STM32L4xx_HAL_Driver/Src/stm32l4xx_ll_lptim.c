@@ -210,16 +210,16 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
   /* Save LPTIM source clock */
   switch ((uint32_t)LPTIMx)
   {
-     case LPTIM1_BASE:
-       tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE);
-       break;
+    case LPTIM1_BASE:
+      tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE);
+      break;
 #if defined(LPTIM2)
-     case LPTIM2_BASE:
-       tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE);
-       break;
+    case LPTIM2_BASE:
+      tmpclksource = LL_RCC_GetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE);
+      break;
 #endif /* LPTIM2 */
-     default:
-       break;
+    default:
+      break;
   }
 
   /* Save LPTIM configuration registers */
@@ -247,16 +247,16 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
     /* Force LPTIM source kernel clock from APB */
     switch ((uint32_t)LPTIMx)
     {
-       case LPTIM1_BASE:
-         LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_PCLK1);
-         break;
+      case LPTIM1_BASE:
+        LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM1_CLKSOURCE_PCLK1);
+        break;
 #if defined(LPTIM2)
-       case LPTIM2_BASE:
-         LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE_PCLK1);
-         break;
+      case LPTIM2_BASE:
+        LL_RCC_SetLPTIMClockSource(LL_RCC_LPTIM2_CLKSOURCE_PCLK1);
+        break;
 #endif /* LPTIM2 */
-       default:
-         break;
+      default:
+        break;
     }
 
     if (tmpCMP != 0UL)
@@ -269,7 +269,8 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
       do
       {
         rcc_clock.SYSCLK_Frequency--; /* Used for timeout */
-      } while (((LL_LPTIM_IsActiveFlag_CMPOK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
+      }
+      while (((LL_LPTIM_IsActiveFlag_CMPOK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
 
       LL_LPTIM_ClearFlag_CMPOK(LPTIMx);
     }
@@ -284,7 +285,8 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
       do
       {
         rcc_clock.SYSCLK_Frequency--; /* Used for timeout */
-      } while (((LL_LPTIM_IsActiveFlag_ARROK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
+      }
+      while (((LL_LPTIM_IsActiveFlag_ARROK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
 
       LL_LPTIM_ClearFlag_ARROK(LPTIMx);
     }
@@ -300,7 +302,8 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
       do
       {
         rcc_clock.SYSCLK_Frequency--; /* Used for timeout */
-      } while (((LL_LPTIM_IsActiveFlag_REPOK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
+      }
+      while (((LL_LPTIM_IsActiveFlag_REPOK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
 
       LL_LPTIM_ClearFlag_REPOK(LPTIMx);
     }
