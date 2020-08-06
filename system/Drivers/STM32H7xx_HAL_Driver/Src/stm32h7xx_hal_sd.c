@@ -472,7 +472,10 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
   Init.ClockPowerSave      = SDMMC_CLOCK_POWER_SAVE_DISABLE;
   Init.BusWide             = SDMMC_BUS_WIDE_1B;
   Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
-  Init.ClockDiv            = SDMMC_INIT_CLK_DIV;
+
+  /* Init Clock should be less or equal to 400Khz*/
+  sdmmc_clk     = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC);
+  Init.ClockDiv = sdmmc_clk/(2U*400000U);
 
 #if (USE_SD_TRANSCEIVER != 0U)
   if (hsd->Init.TranceiverPresent == SDMMC_TRANSCEIVER_PRESENT)
@@ -493,7 +496,7 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 
   /* wait 74 Cycles: required power up waiting time before starting
      the SD initialization sequence */
-  sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC)/(2U*SDMMC_INIT_CLK_DIV);
+  sdmmc_clk = sdmmc_clk/(2U*Init.ClockDiv);
 
   if(sdmmc_clk != 0U)
   {
@@ -1477,7 +1480,7 @@ HAL_StatusTypeDef HAL_SD_Erase(SD_HandleTypeDef *hsd, uint32_t BlockStartAdd, ui
     }
 
     /* Send CMD38 ERASE */
-    errorstate = SDMMC_CmdErase(hsd->Instance);
+    errorstate = SDMMC_CmdErase(hsd->Instance, 0UL);
     if(errorstate != HAL_SD_ERROR_NONE)
     {
       /* Clear all the static flags */

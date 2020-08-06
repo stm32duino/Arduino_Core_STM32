@@ -41,6 +41,7 @@ extern "C" {
 #define HAL_ADC_MODULE_ENABLED
 #define HAL_CEC_MODULE_ENABLED
 #define HAL_COMP_MODULE_ENABLED
+#define HAL_CORDIC_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_CRC_MODULE_ENABLED
 #define HAL_CRYP_MODULE_ENABLED
@@ -56,6 +57,7 @@ extern "C" {
 #define HAL_FDCAN_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GFXMMU_MODULE_ENABLED
+#define HAL_FMAC_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_HASH_MODULE_ENABLED
 #define HAL_HCD_MODULE_ENABLED
@@ -106,11 +108,11 @@ extern "C" {
   *        (when HSE is used as system clock source, directly or through the PLL).
   */
 #if !defined  (HSE_VALUE)
-#define HSE_VALUE    ((uint32_t)25000000) /*!< Value of the External oscillator in Hz */
+#define HSE_VALUE    (25000000UL) /*!< Value of the External oscillator in Hz */
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-#define HSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for HSE start up, in ms */
+#define HSE_STARTUP_TIMEOUT    (5000UL)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -118,7 +120,7 @@ extern "C" {
   *        This value is the default CSI value after Reset.
   */
 #if !defined  (CSI_VALUE)
-#define CSI_VALUE    ((uint32_t)4000000) /*!< Value of the Internal oscillator in Hz*/
+#define CSI_VALUE    (4000000UL) /*!< Value of the Internal oscillator in Hz*/
 #endif /* CSI_VALUE */
 
 /**
@@ -127,7 +129,7 @@ extern "C" {
   *        (when HSI is used as system clock source, directly or through the PLL).
   */
 #if !defined  (HSI_VALUE)
-#define HSI_VALUE    ((uint32_t)64000000) /*!< Value of the Internal oscillator in Hz*/
+#define HSI_VALUE    (64000000UL) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
 /**
@@ -135,16 +137,16 @@ extern "C" {
   *        This value is used by the UART, RTC HAL module to compute the system frequency
   */
 #if !defined  (LSE_VALUE)
-#define LSE_VALUE    ((uint32_t)32768) /*!< Value of the External oscillator in Hz*/
+#define LSE_VALUE    (32768UL) /*!< Value of the External oscillator in Hz*/
 #endif /* LSE_VALUE */
 
 
 #if !defined  (LSE_STARTUP_TIMEOUT)
-#define LSE_STARTUP_TIMEOUT    ((uint32_t)5000)   /*!< Time out for LSE start up, in ms */
+#define LSE_STARTUP_TIMEOUT    (5000UL)   /*!< Time out for LSE start up, in ms */
 #endif /* LSE_STARTUP_TIMEOUT */
 
 #if !defined  (LSI_VALUE)
-#define LSI_VALUE  ((uint32_t)32000)      /*!< LSI Typical Value in Hz*/
+#define LSI_VALUE  (32000UL)      /*!< LSI Typical Value in Hz*/
 #endif /* LSI_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
 The real value may vary depending on the variations
 in voltage and temperature.*/
@@ -166,10 +168,10 @@ in voltage and temperature.*/
   * @brief This is the HAL system configuration section
   */
 #if !defined (VDD_VALUE)
-#define  VDD_VALUE                    ((uint32_t)3300) /*!< Value of VDD in mv */
+#define  VDD_VALUE                    (3300UL) /*!< Value of VDD in mv */
 #endif
 #if !defined (TICK_INT_PRIORITY)
-#define  TICK_INT_PRIORITY            ((uint32_t)0x00) /*!< tick interrupt priority */
+#define  TICK_INT_PRIORITY            (0x00UL) /*!< tick interrupt priority */
 #endif
 #if !defined (USE_RTOS)
 #define  USE_RTOS                     0
@@ -184,6 +186,7 @@ in voltage and temperature.*/
 #define  USE_HAL_ADC_REGISTER_CALLBACKS     0U /* ADC register callback disabled     */
 #define  USE_HAL_CEC_REGISTER_CALLBACKS     0U /* CEC register callback disabled     */
 #define  USE_HAL_COMP_REGISTER_CALLBACKS    0U /* COMP register callback disabled    */
+#define  USE_HAL_CORDIC_REGISTER_CALLBACKS  0U /* CORDIC register callback disabled  */
 #define  USE_HAL_CRYP_REGISTER_CALLBACKS    0U /* CRYP register callback disabled    */
 #define  USE_HAL_DAC_REGISTER_CALLBACKS     0U /* DAC register callback disabled     */
 #define  USE_HAL_DCMI_REGISTER_CALLBACKS    0U /* DCMI register callback disabled    */
@@ -193,6 +196,7 @@ in voltage and temperature.*/
 #define  USE_HAL_DTS_REGISTER_CALLBACKS     0U /* DTS register callback disabled     */
 #define  USE_HAL_ETH_REGISTER_CALLBACKS     0U /* ETH register callback disabled     */
 #define  USE_HAL_FDCAN_REGISTER_CALLBACKS   0U /* FDCAN register callback disabled   */
+#define  USE_HAL_FMAC_REGISTER_CALLBACKS    0U /* FMAC register callback disabled  */
 #define  USE_HAL_NAND_REGISTER_CALLBACKS    0U /* NAND register callback disabled    */
 #define  USE_HAL_NOR_REGISTER_CALLBACKS     0U /* NOR register callback disabled     */
 #define  USE_HAL_SDRAM_REGISTER_CALLBACKS   0U /* SDRAM register callback disabled   */
@@ -232,12 +236,12 @@ in voltage and temperature.*/
 #define ETH_TX_DESC_CNT         4  /* number of Ethernet Tx DMA descriptors */
 #define ETH_RX_DESC_CNT         4  /* number of Ethernet Rx DMA descriptors */
 
-#define ETH_MAC_ADDR0    ((uint8_t)0x02)
-#define ETH_MAC_ADDR1    ((uint8_t)0x00)
-#define ETH_MAC_ADDR2    ((uint8_t)0x00)
-#define ETH_MAC_ADDR3    ((uint8_t)0x00)
-#define ETH_MAC_ADDR4    ((uint8_t)0x00)
-#define ETH_MAC_ADDR5    ((uint8_t)0x00)
+#define ETH_MAC_ADDR0    (0x02UL)
+#define ETH_MAC_ADDR1    (0x00UL)
+#define ETH_MAC_ADDR2    (0x00UL)
+#define ETH_MAC_ADDR3    (0x00UL)
+#define ETH_MAC_ADDR4    (0x00UL)
+#define ETH_MAC_ADDR5    (0x00UL)
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -288,7 +292,7 @@ in voltage and temperature.*/
 #endif /* HAL_DFSDM_MODULE_ENABLED */
 
 #ifdef HAL_DTS_MODULE_ENABLED
- #include "stm32h7xx_hal_dts.h"
+#include "stm32h7xx_hal_dts.h"
 #endif /* HAL_DTS_MODULE_ENABLED */
 
 #ifdef HAL_ETH_MODULE_ENABLED
@@ -319,6 +323,10 @@ in voltage and temperature.*/
 #include "stm32h7xx_hal_comp.h"
 #endif /* HAL_COMP_MODULE_ENABLED */
 
+#ifdef HAL_CORDIC_MODULE_ENABLED
+#include "stm32h7xx_hal_cordic.h"
+#endif /* HAL_CORDIC_MODULE_ENABLED */
+
 #ifdef HAL_CRC_MODULE_ENABLED
 #include "stm32h7xx_hal_crc.h"
 #endif /* HAL_CRC_MODULE_ENABLED */
@@ -338,6 +346,10 @@ in voltage and temperature.*/
 #ifdef HAL_GFXMMU_MODULE_ENABLED
   #include "stm32h7xx_hal_gfxmmu.h"
 #endif /* HAL_GFXMMU_MODULE_ENABLED */
+
+#ifdef HAL_FMAC_MODULE_ENABLED
+#include "stm32h7xx_hal_fmac.h"
+#endif /* HAL_FMAC_MODULE_ENABLED */
 
 #ifdef HAL_HRTIM_MODULE_ENABLED
 #include "stm32h7xx_hal_hrtim.h"
@@ -396,7 +408,7 @@ in voltage and temperature.*/
 #endif /* HAL_OPAMP_MODULE_ENABLED */
 
 #ifdef HAL_OSPI_MODULE_ENABLED
- #include "stm32h7xx_hal_ospi.h"
+#include "stm32h7xx_hal_ospi.h"
 #endif /* HAL_OSPI_MODULE_ENABLED */
 
 #ifdef HAL_OTFDEC_MODULE_ENABLED
@@ -404,7 +416,7 @@ in voltage and temperature.*/
 #endif /* HAL_OTFDEC_MODULE_ENABLED */
 
 #ifdef HAL_PSSI_MODULE_ENABLED
- #include "stm32h7xx_hal_pssi.h"
+#include "stm32h7xx_hal_pssi.h"
 #endif /* HAL_PSSI_MODULE_ENABLED */
 
 #ifdef HAL_PWR_MODULE_ENABLED
