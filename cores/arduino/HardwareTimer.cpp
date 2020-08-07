@@ -115,6 +115,8 @@ void HardwareTimer::pause()
   /* Starting from G4, new Channel state implementation prevents to restart a channel,
      if the channel has not been explicitly be stopped with HAL interface */
   TIM_CHANNEL_STATE_SET_ALL(&(_timerObj.handle), HAL_TIM_CHANNEL_STATE_READY);
+#endif
+#if defined(TIM_CHANNEL_N_STATE_SET_ALL)
   TIM_CHANNEL_N_STATE_SET_ALL(&(_timerObj.handle), HAL_TIM_CHANNEL_STATE_READY);
 #endif
 }
@@ -144,9 +146,12 @@ void HardwareTimer::pauseChannel(uint32_t channel)
 #if defined(TIM_CHANNEL_STATE_SET)
   /* Starting from G4, new Channel state implementation prevents to restart a channel,
      if the channel has not been explicitly be stopped with HAL interface */
+#if defined(TIM_CHANNEL_N_STATE_SET)
   if (isComplementaryChannel[channel - 1]) {
     TIM_CHANNEL_N_STATE_SET(&(_timerObj.handle), getChannel(channel), HAL_TIM_CHANNEL_STATE_READY);
-  } else {
+  } else
+#endif
+  {
     TIM_CHANNEL_STATE_SET(&(_timerObj.handle), getChannel(channel), HAL_TIM_CHANNEL_STATE_READY);
   }
 #endif
