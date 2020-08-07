@@ -139,24 +139,6 @@ const uint8_t APBPrescTable[8]  = {0U, 0U, 0U, 0U, 1U, 2U, 3U, 4U};
   */
 void SystemInit (void)
 {
-  /*!< Set MSION bit */
-  RCC->CR |= (uint32_t)0x00000100;
-
-  /*!< Reset SW[1:0], HPRE[3:0], PPRE1[2:0], PPRE2[2:0], MCOSEL[2:0] and MCOPRE[2:0] bits */
-  RCC->CFGR &= (uint32_t)0x88FFC00C;
-
-  /*!< Reset HSION, HSEON, CSSON and PLLON bits */
-  RCC->CR &= (uint32_t)0xEEFEFFFE;
-
-  /*!< Reset HSEBYP bit */
-  RCC->CR &= (uint32_t)0xFFFBFFFF;
-
-  /*!< Reset PLLSRC, PLLMUL[3:0] and PLLDIV[1:0] bits */
-  RCC->CFGR &= (uint32_t)0xFF02FFFF;
-
-  /*!< Disable all interrupts */
-  RCC->CIR = 0x00000000;
-
 #ifdef DATA_IN_ExtSRAM
   SystemInit_ExtMemCtl();
 #endif /* DATA_IN_ExtSRAM */

@@ -51,11 +51,38 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section11" checked aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V2.3.0 / 05-April-2019</label>
+<input type="checkbox" id="collapse-section12" checked aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V2.3.1 / 24-June-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <h2 id="contents">Contents</h2>
+<ul>
+<li>All header files
+<ul>
+<li>Remove NVIC CMSIS bits definitions to avoid duplication with CMSIS Core V5.x</li>
+<li>Remove GPIOx BRR register from GPIO structure and bit definitions when not supported</li>
+<li>Add ADC VREFINT/TEMPSENSOR addresses definitions in line with products datasheets:
+<ul>
+<li>VREFINT_CAL_ADDR_CMSIS</li>
+<li>TEMPSENSOR_CAL1_ADDR_CMSIS</li>
+<li>TEMPSENSOR_CAL2_ADDR_CMSIS</li>
+</ul></li>
+<li>Remove unused IS_TIM_SYNCHRO_INSTANCE() assert macro</li>
+<li>Update IS_TIM_MASTER_INSTANCE with all supported instances.</li>
+</ul></li>
+<li>system_stm32l1xx.c file
+<ul>
+<li>Update SystemInit() API to don’t reset RCC registers to its reset values</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V2.3.0 / 05-April-2019</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li>stm32l0xx.h
 <ul>
@@ -82,9 +109,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true">V2.2.3 / 12-January-2018</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="patch-release">Patch release</h3>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li>Corrected devices supporting RI_HYSCR3, RI_HYSCR4, RI_ASMRx, RI_CMRx, RI_CICRx registers in CMSIS files.</li>
 </ul>
@@ -93,9 +120,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V2.2.2 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
-<h2 id="contents-2">Contents</h2>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li>Removed DATE and VERSION fields from header files.</li>
 </ul>
@@ -104,9 +131,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V2.2.1 / 21-April-2017</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
-<h2 id="contents-3">Contents</h2>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li>Update CMSIS Devices compliancy with MISRA C 2004 rules:
 <ul>
@@ -122,9 +149,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V2.2.0 / 01-July-2016</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
-<h2 id="contents-4">Contents</h2>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li>Add macros _Pos and _Msk for each constants.
 <ul>
@@ -152,9 +179,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V2.1.3 / 04-March-2016</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
-<h2 id="contents-5">Contents</h2>
+<h2 id="main-changes-6">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li>Add HardFault_IRQn.</li>
 <li>Add BKP5R to BKP19R for RTC_TypeDef for stm32l151xba.</li>
@@ -191,9 +218,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V2.1.2 / 09-October-2015</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="main-changes-7">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
+<h2 id="contents-7">Contents</h2>
 <ul>
 <li>Removing the __IO attribute for PLLMulTable and AHBPrescTable. This was leading to issue during C++ initialisation.</li>
 <li>IDR field of CRC_TypeDef changed from uint32_t to uint8_t to comply with register structure.</li>
@@ -206,9 +233,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V2.1.1 / 31-March-2015</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
-<h3 id="maintenance-release-6">Maintenance release</h3>
-<h2 id="contents-7">Contents</h2>
+<h2 id="main-changes-8">Main Changes</h2>
+<h3 id="maintenance-release-7">Maintenance release</h3>
+<h2 id="contents-8">Contents</h2>
 <ul>
 <li>Ensure compliancy w/ C++</li>
 <li>Minor update on Timer assert.</li>
@@ -219,9 +246,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V2.1.0 / 06-February-2015</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
-<h3 id="maintenance-release-7">Maintenance release</h3>
-<h2 id="contents-8">Contents</h2>
+<h2 id="main-changes-9">Main Changes</h2>
+<h3 id="maintenance-release-8">Maintenance release</h3>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li>Add CMSIS files for new STM32L1 e<strong>X</strong>tended Devices : <strong>STM32L151xDX, STM32L152xDX and STM32L162xDX</strong></li>
 </ul>
@@ -230,9 +257,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V2.0.0 / 05-September-2014</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
-<h3 id="maintenance-release-8">Maintenance release</h3>
-<h2 id="contents-9">Contents</h2>
+<h2 id="main-changes-10">Main Changes</h2>
+<h3 id="maintenance-release-9">Maintenance release</h3>
+<h2 id="contents-10">Contents</h2>
 <ul>
 <li>Update based on STM32Cube specification</li>
 </ul>
