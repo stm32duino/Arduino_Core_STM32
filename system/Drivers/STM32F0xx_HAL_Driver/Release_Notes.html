@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32F0xx HAL Drivers</title>
-  <style type="text/css">
+  <style>
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -38,9 +38,50 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1_7_3" aria-hidden="true"> <label for="collapse-section1_7_3" aria-hidden="true"><strong>V1.7.3 / 12-September-2019</strong></label>
+<input type="checkbox" id="collapse-section1_7_4" checked aria-hidden="true"> <label for="collapse-section1_7_4" aria-hidden="true"><strong>V1.7.4 / 24-July-2020</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>Maintenance release to fix known defects and enhancements implementation</li>
+<li><strong>HAL Drivers changes</strong>
+<ul>
+<li><strong>HAL/LL GPIO</strong> update
+<ul>
+<li>Update GPIO initialization sequence to avoid unwanted pulse on GPIO Pin’s</li>
+<li>Update HAL_GPIO_TogglePin() API to allow the toggling of many pins</li>
+</ul></li>
+<li><strong>HAL/LL I2C</strong> update
+<ul>
+<li>Update HAL_I2C_ER_IRQHandler() API to fix acknowledge failure issue with I2C memory IT processes
+<ul>
+<li>Add stop condition generation when NACK occurs.</li>
+</ul></li>
+<li>Update I2C_DMAXferCplt(), I2C_DMAError() and I2C_DMAAbort() APIs to fix hardfault issue when hdmatx and hdmarx parameters in i2c handle aren’t initialized (NULL pointer).
+<ul>
+<li>Add additional check on hi2c-&gt;hdmtx and hi2c-&gt;hdmarx before resetting DMA Tx/Rx complete callbacks</li>
+</ul></li>
+<li>Update Sequential transfer APIs to adjust xfermode condition.
+<ul>
+<li>Replace hi2c-&gt;XferCount &lt; MAX_NBYTE_SIZE by hi2c-&gt;XferCount &lt;= MAX_NBYTE_SIZE which corresponds to a case without reload</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL USB</strong> driver
+<ul>
+<li>Bug fix: USB_ReadPMA() and USB_WritePMA() by ensuring 16-bits access to USB PMA memory</li>
+<li>Bug fix: correct USB RX count calculation</li>
+<li>Fix USB Bulk transfer double buffer mode</li>
+<li>Remove register keyword from USB defined macros as no more supported by C++ compiler</li>
+<li>Minor rework on USBD_Start() and USBD_Stop() APIs: stopping device will be handled by HAL_PCD_DeInit() API.</li>
+<li>Remove non used API for USB device mode.</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_7_3" aria-hidden="true"> <label for="collapse-section1_7_3" aria-hidden="true"><strong>V1.7.3 / 12-September-2019</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Add support of HAL callback registration feature</li>
@@ -308,7 +349,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_2" aria-hidden="true"> <label for="collapse-section1_7_2" aria-hidden="true"><strong>V1.7.2 / 09-May-2019</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Maintenance release to fix known defects and enhancements implementation</li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -330,7 +371,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_1" aria-hidden="true"> <label for="collapse-section1_7_1" aria-hidden="true"><strong>V1.7.1 / 02-April-2019</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>The following changes done on the HAL drivers require an update on the application code based on older HAL versions</strong>
@@ -373,7 +414,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_7_0" aria-hidden="true"> <label for="collapse-section1_7_0" aria-hidden="true"><strong>V1.7.0 / 25-August-2017</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Generic drivers changes</strong></li>
@@ -409,7 +450,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_6_0" aria-hidden="true"> <label for="collapse-section1_6_0" aria-hidden="true"><strong>V1.6.0 / 07-April-2017</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -531,7 +572,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_5_0" aria-hidden="true"> <label for="collapse-section1_5_0" aria-hidden="true"><strong>V1.5.0 / 04-November-2016</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Drivers changes</strong></li>
@@ -701,7 +742,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_4_0" aria-hidden="true"> <label for="collapse-section1_4_0" aria-hidden="true"><strong>V1.4.0 / 27-May-2016</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li><strong>First official release supporting the Low Level drivers for the STM32F0xx family:</strong>
 <ul>
@@ -833,7 +874,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_3_1" aria-hidden="true"> <label for="collapse-section1_3_1" aria-hidden="true"><strong>V1.3.1 / 29-January-2016</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>HAL Generic</strong>
@@ -951,7 +992,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_3_0" aria-hidden="true"> <label for="collapse-section1_3_0" aria-hidden="true"><strong>V1.3.0 / 26-June-2015</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Complete HAL API alignment (macro/function renaming)</strong></li>
@@ -1098,7 +1139,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true"><strong>V1.2.1 / 09-January-2015</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li><strong>HAL</strong>
 <ul>
@@ -1127,7 +1168,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_0" aria-hidden="true"> <label for="collapse-section1_2_0" aria-hidden="true"><strong>V1.2.0 / 05-December-2014</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong>
 <ul>
@@ -1287,7 +1328,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0" aria-hidden="true"> <label for="collapse-section1_1_0" aria-hidden="true"><strong>V1.1.0 / 03-October-2014</strong></label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong>
 <ul>
@@ -1453,7 +1494,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_1" aria-hidden="true"> <label for="collapse-section1_0_1" aria-hidden="true"><strong>V1.0.1 / 18-June-2014</strong></label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li><strong>HAL generic</strong> update
 <ul>
@@ -1540,7 +1581,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_0" aria-hidden="true"> <label for="collapse-section1_0_0" aria-hidden="true"><strong>V1.0.0 / 12-June-2018</strong></label>
 <div>
-<h2 id="main-changes-13">Main Changes</h2>
+<h2 id="main-changes-14">Main Changes</h2>
 <ul>
 <li>First official release of STM32F0xx HAL drivers for <strong>STM32F030x4/x6, STM32F030x8, STM32F031x4/x6, STM32F051x4/x6/x8, STM32F071x8/xB, STM32F042x4/x6, STM32F072x8/xB, STM32F038xx, STM32F048xx, STM32F058xx and STM32F078xx devices.</strong></li>
 </ul>

@@ -30,7 +30,7 @@
 #include "stm32f0xx.h"
 #if defined(USE_HAL_LEGACY)
   #include "Legacy/stm32_hal_legacy.h"
-#endif
+#endif /* USE_HAL_LEGACY */
 #include <stddef.h>
 
 /* Exported types ------------------------------------------------------------*/
@@ -57,18 +57,18 @@ typedef enum
 
 /* Exported macro ------------------------------------------------------------*/
 
+#define UNUSED(X) (void)X      /* To avoid gcc/g++ warnings */
+
 #define HAL_MAX_DELAY      0xFFFFFFFFU
 
 #define HAL_IS_BIT_SET(REG, BIT)         (((REG) & (BIT)) == (BIT))
 #define HAL_IS_BIT_CLR(REG, BIT)         (((REG) & (BIT)) == 0U)
 
-#define __HAL_LINKDMA(__HANDLE__, __PPP_DMA_FIELD_, __DMA_HANDLE_)                 \
+#define __HAL_LINKDMA(__HANDLE__, __PPP_DMA_FIELD__, __DMA_HANDLE__)               \
                         do{                                                        \
-                              (__HANDLE__)->__PPP_DMA_FIELD_ = &(__DMA_HANDLE_);   \
-                              (__DMA_HANDLE_).Parent = (__HANDLE__);               \
-                          } while(0)
-
-#define UNUSED(X) (void)X      /* To avoid gcc/g++ warnings */
+                              (__HANDLE__)->__PPP_DMA_FIELD__ = &(__DMA_HANDLE__); \
+                              (__DMA_HANDLE__).Parent = (__HANDLE__);             \
+                          } while(0U)
 
 /** @brief Reset the Handle's State field.
   * @param __HANDLE__ specifies the Peripheral Handle.
@@ -85,9 +85,10 @@ typedef enum
   *            HAL_PPP_MspInit() which will reconfigure the low level hardware.
   * @retval None
   */
-#define __HAL_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = 0)
+#define __HAL_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = 0U)
 
-#if (USE_RTOS == 1)
+#if (USE_RTOS == 1U)
+  /* Reserved for future use */
   #error " USE_RTOS should be 0 in the current HAL release "
 #else
   #define __HAL_LOCK(__HANDLE__)                                           \
@@ -100,15 +101,15 @@ typedef enum
                                     {                                      \
                                        (__HANDLE__)->Lock = HAL_LOCKED;    \
                                     }                                      \
-       	                          }while (0)
+                                  }while (0U)
 
   #define __HAL_UNLOCK(__HANDLE__)                                          \
                                   do{                                       \
                                       (__HANDLE__)->Lock = HAL_UNLOCKED;    \
-                                    }while (0)
+                                    }while (0U)
 #endif /* USE_RTOS */
 
-#if  defined ( __GNUC__ )
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
   #ifndef __weak
     #define __weak   __attribute__((weak))
   #endif /* __weak */
@@ -119,7 +120,7 @@ typedef enum
 
 
 /* Macro to get variable aligned on 4-bytes, for __ICCARM__ the directive "#pragma data_alignment=4" must be used instead */
-#if defined   (__GNUC__)        /* GNU Compiler */
+#if defined ( __GNUC__ ) && !defined (__CC_ARM) /* GNU Compiler */
   #ifndef __ALIGN_END
     #define __ALIGN_END    __attribute__ ((aligned (4)))
   #endif /* __ALIGN_END */
@@ -163,4 +164,3 @@ typedef enum
 #endif /* ___STM32F0xx_HAL_DEF */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
