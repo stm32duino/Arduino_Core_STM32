@@ -142,7 +142,9 @@ static inline uint32_t get_flash_end(void)
 #endif
 #endif /* FLASH_BASE_ADDRESS */
 
+#if !defined(DATA_EEPROM_BASE)
 static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
+#endif
 
 /**
   * @brief  Function reads a byte from emulated eeprom (flash)
@@ -156,8 +158,6 @@ uint8_t eeprom_read_byte(const uint32_t pos)
   if (pos <= (DATA_EEPROM_END - DATA_EEPROM_BASE)) {
     /* with actual EEPROM, pos is a relative address */
     data = *(__IO uint8_t *)(DATA_EEPROM_BASE + pos);
-    /* align content of the buffered eeprom */
-    eeprom_buffer[pos] = (uint8_t)data;
   }
   return (uint8_t)data;
 #else
@@ -182,13 +182,13 @@ void eeprom_write_byte(uint32_t pos, uint8_t value)
       HAL_FLASHEx_DATAEEPROM_Lock();
     }
   }
-  /* align content of the buffered eeprom */
-  eeprom_buffer[pos] = (uint8_t)value;
 #else
   eeprom_buffered_write_byte(pos, value);
   eeprom_buffer_flush();
 #endif /* _EEPROM_BASE */
 }
+
+#if !defined(DATA_EEPROM_BASE)
 
 /**
   * @brief  Function reads a byte from the eeprom buffer
@@ -330,6 +330,8 @@ void eeprom_buffer_flush(void)
 }
 
 #endif /* defined(EEPROM_RETRAM_MODE) */
+
+#endif /* ! DATA_EEPROM_BASE */
 
 #ifdef __cplusplus
 }
