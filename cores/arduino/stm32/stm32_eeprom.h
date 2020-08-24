@@ -80,7 +80,25 @@ extern "C" {
  */
 #define FLASH_PAGE_SIZE     ((uint32_t)(16*1024)) /* 16kB page */
 #endif
+
+#if defined(DATA_EEPROM_BASE) || defined(FLASH_EEPROM_BASE)
+
+#if defined (DATA_EEPROM_END)
+#define E2END (DATA_EEPROM_END - DATA_EEPROM_BASE)
+#elif defined (DATA_EEPROM_BANK2_END)
+/* assuming two contiguous banks */
+#define DATA_EEPROM_END DATA_EEPROM_BANK2_END
+#define E2END (DATA_EEPROM_BANK2_END - DATA_EEPROM_BASE)
+#elif defined (FLASH_EEPROM_END)
+#define DATA_EEPROM_BASE FLASH_EEPROM_BASE
+#define DATA_EEPROM_END FLASH_EEPROM_END
+#define E2END (DATA_EEPROM_END - DATA_EEPROM_BASE)
+#endif /* __EEPROM_END */
+
+#else /* _EEPROM_BASE */
 #define E2END (FLASH_PAGE_SIZE - 1)
+#endif /* _EEPROM_BASE */
+
 #endif
 
 /* Exported macro ------------------------------------------------------------*/

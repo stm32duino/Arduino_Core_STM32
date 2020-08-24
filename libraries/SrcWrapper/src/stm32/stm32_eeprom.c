@@ -151,8 +151,19 @@ static uint8_t eeprom_buffer[E2END + 1] __attribute__((aligned(8))) = {0};
   */
 uint8_t eeprom_read_byte(const uint32_t pos)
 {
+#if defined(DATA_EEPROM_BASE)
+  __IO uint8_t data = 0;
+  if (pos <= (DATA_EEPROM_END - DATA_EEPROM_BASE)) {
+    /* with actual EEPROM, pos is a relative address */
+    data = *(__IO uint8_t *)(DATA_EEPROM_BASE + pos);
+    /* align content of the buffered eeprom */
+    eeprom_buffer[pos] = (uint8_t)data;
+  }
+  return (uint8_t)data;
+#else
   eeprom_buffer_fill();
   return eeprom_buffered_read_byte(pos);
+#endif /* _EEPROM_BASE */
 }
 
 /**
@@ -163,8 +174,20 @@ uint8_t eeprom_read_byte(const uint32_t pos)
   */
 void eeprom_write_byte(uint32_t pos, uint8_t value)
 {
+#if defined(DATA_EEPROM_BASE)
+  /* with actual EEPROM, pos is a relative address */
+  if (pos <= (DATA_EEPROM_END - DATA_EEPROM_BASE)) {
+    if (HAL_FLASHEx_DATAEEPROM_Unlock() == HAL_OK) {
+      HAL_FLASHEx_DATAEEPROM_Program(FLASH_TYPEPROGRAMDATA_BYTE, (pos + DATA_EEPROM_BASE), (uint32_t)value);
+      HAL_FLASHEx_DATAEEPROM_Lock();
+    }
+  }
+  /* align content of the buffered eeprom */
+  eeprom_buffer[pos] = (uint8_t)value;
+#else
   eeprom_buffered_write_byte(pos, value);
   eeprom_buffer_flush();
+#endif /* _EEPROM_BASE */
 }
 
 /**
