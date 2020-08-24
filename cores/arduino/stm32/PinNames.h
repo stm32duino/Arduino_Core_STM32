@@ -8,6 +8,26 @@
 extern "C" {
 #endif
 
+// Alternative possibilities which use other HW peripheral instances
+#define ALT0        0x000
+#define ALT1        0x100
+#define ALT2        0x200
+#define ALT3        0x300
+#define ALT4        0x400
+#define ALT5        0x500
+#define ALT6        0x600
+#define ALT7        0x700
+
+// Specific pins
+// Dual pad pin
+// Direct channels are connected to analog I/Os
+// (PY_C) to optimize ADC performance.
+#define PDUAL       0x2000
+// Remap pin
+#define PREMAP      0x3000
+// PinName mask
+#define PNAME_MASK  0xFF
+
 typedef enum {
   // Not connected
   NC = (int)0xFFFFFFFF,
