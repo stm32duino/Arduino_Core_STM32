@@ -22,6 +22,9 @@
 #define EEPROM_h
 
 #include "Arduino.h"
+extern "C" {
+#include "utility/stm32_eeprom.h"
+}
 
 /***
     EERef class.
