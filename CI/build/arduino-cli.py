@@ -486,7 +486,7 @@ def find_board():
     for fqbn in fqbn_list_tmp:
         try:
             output = subprocess.check_output(
-                [arduino_cli, "board", "details", "--format", "json", fqbn],
+                [arduino_cli, "board", "details", "--additional-urls", stm32_url, "--format", "json", fqbn],
                 stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
