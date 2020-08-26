@@ -1687,7 +1687,7 @@ GenL0.menu.pnum.Generic_L010R8=Generic L010R8
 GenL0.menu.pnum.Generic_L010R8.upload.maximum_size=65536
 GenL0.menu.pnum.Generic_L010R8.upload.maximum_data_size=8192
 GenL0.menu.pnum.Generic_L010R8.build.board=GENERIC_L010R8
-GenL0.menu.pnum.Generic_L010R8.build.product_line=STM32L010xx
+GenL0.menu.pnum.Generic_L010R8.build.product_line=STM32L010x8
 GenL0.menu.pnum.Generic_L010R8.build.variant=Generic_L010Rx
 
 # Generic L010RB
@@ -1695,7 +1695,7 @@ GenL0.menu.pnum.Generic_L010RB=Generic L010RB
 GenL0.menu.pnum.Generic_L010RB.upload.maximum_size=131072
 GenL0.menu.pnum.Generic_L010RB.upload.maximum_data_size=20480
 GenL0.menu.pnum.Generic_L010RB.build.board=GENERIC_L010RB
-GenL0.menu.pnum.Generic_L010RB.build.product_line=STM32L010xx
+GenL0.menu.pnum.Generic_L010RB.build.product_line=STM32L010xb
 GenL0.menu.pnum.Generic_L010RB.build.variant=Generic_L010Rx
 
 # ThunderPack
