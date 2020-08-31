@@ -522,13 +522,25 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   /* configure EPs FIFOs */
   HAL_PCDEx_SetRxFiFo(&g_hpcd, ep_def[0].ep_size);
   for (uint32_t i = 1; i < (DEV_NUM_EP + 1); i++) {
-    HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
+    if (ep_def[i].ep_adress & 0xF0U) {
+      HAL_PCDEx_SetTxFiFo(&g_hpcd, ep_def[i].ep_adress & 0xF, ep_def[i].ep_size);
+    }
   }
 #else
+  uint32_t offset = PMA_BASE_OFFSET;
   for (uint32_t i = 0; i < (DEV_NUM_EP + 1); i++) {
-    HAL_PCDEx_PMAConfig(&g_hpcd, ep_def[i].ep_adress, ep_def[i].ep_kind, ep_def[i].ep_size);
+    ep_desc_t *pDesc = &ep_dep[i];
+    uint32_t size = pDesc->ep_size;
+    uint32_t address = offset;
+    if (pDesc->ep_kind == PCD_DBL_BUF) {
+      address = address | ((address + size) << 16U);
+      size *= 2;
+    }
+    HAL_PCDEx_PMAConfig(&g_hpcd, pDesc->ep_adress, pDesc->ep_kind, address);
+    offset += size;
   }
 #endif /* USE_USB_HS */
+
   return USBD_OK;
 }
 

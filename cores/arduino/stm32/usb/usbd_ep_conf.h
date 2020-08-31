@@ -33,9 +33,11 @@ typedef struct {
 #endif
 } ep_desc_t;
 
+// *INDENT-OFF*
 
 /* CDC Endpoints Configurations */
 #ifdef USBD_USE_CDC
+  #define USBD_USE_CDC_CLASS
 
   #define CDC_OUT_EP                    0x01U  /* EP1 for data OUT */
   #define CDC_IN_EP                     0x82U  /* EP1 for data IN */
@@ -49,6 +51,40 @@ typedef struct {
   #define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
 #endif /* USBD_USE_CDC */
 
+#ifdef USBD_USE_MSC
+  #define USBD_USE_MSC_CLASS
+
+  #define MSC_EPOUT_ADDR                0x01U /*  EP1 for MSC data IN */
+  #define MSC_EPIN_ADDR                 0x81U /*  EP1 for MSC data IN */
+
+  #define DEV_NUM_EP                    0x04U   /* Device Endpoints number including EP0 IN and EP0 OUT */
+
+  /* MSC Endpoints parameters*/
+  #define MSC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define MSC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+#endif
+
+#ifdef USBD_USE_CDC_MSC
+  #define USBD_USE_CDC_CLASS
+  #define USBD_USE_MSC_CLASS
+
+  #define CDC_OUT_EP                    0x01U /*  EP1 for CDC data OUT */
+  #define CDC_IN_EP                     0x81U /*  EP1 for CDC data IN */
+  #define CDC_CMD_EP                    0x82U /*  EP2 for CDC commands */
+
+  #define MSC_EPOUT_ADDR                0x03U /*  EP3 for MSC data IN */
+  #define MSC_EPIN_ADDR                 0x83U /*  EP3 for MSC data IN */
+
+  #define DEV_NUM_EP                    0x07U   /* Device Endpoints number including EP0 */
+
+  /* CDC Endpoints parameters*/
+  #define CDC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define CDC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define CDC_CMD_PACKET_SIZE                               8U  /* Control Endpoint Packet size */
+  /* MSC Endpoints parameters*/
+  #define MSC_DATA_HS_MAX_PACKET_SIZE   USB_HS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+  #define MSC_DATA_FS_MAX_PACKET_SIZE   USB_FS_MAX_PACKET_SIZE  /* Endpoint IN & OUT Packet size */
+#endif
 
 /* HID composite (Mouse + Keyboard) Endpoints Configurations */
 #ifdef USBD_USE_HID_COMPOSITE
@@ -61,24 +97,14 @@ typedef struct {
   #define DEV_NUM_EP                    0x03U   /* Device Endpoints number including EP0 */
 #endif /* USBD_USE_HID_COMPOSITE */
 
+
 /* Require DEV_NUM_EP to be defined */
 #if defined (USB)
-/* Size in words, byte size divided by 2 */
-#define PMA_EP0_OUT_ADDR    (8 * DEV_NUM_EP)
-#define PMA_EP0_IN_ADDR     (PMA_EP0_OUT_ADDR + USB_MAX_EP0_SIZE)
-
-#ifdef USBD_USE_CDC
-#define PMA_CDC_OUT_BASE    (PMA_EP0_IN_ADDR + USB_MAX_EP0_SIZE)
-#define PMA_CDC_OUT_ADDR    ((PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE) | \
-                            (PMA_CDC_OUT_BASE << 16U))
-#define PMA_CDC_IN_ADDR     (PMA_CDC_OUT_BASE + USB_FS_MAX_PACKET_SIZE * 2)
-#define PMA_CDC_CMD_ADDR    (PMA_CDC_IN_ADDR + CDC_CMD_PACKET_SIZE)
-#endif /* USBD_USE_CDC */
-#ifdef USBD_USE_HID_COMPOSITE
-  #define PMA_MOUSE_IN_ADDR   (PMA_EP0_IN_ADDR + HID_MOUSE_EPIN_SIZE)
-  #define PMA_KEYBOARD_IN_ADDR    (PMA_MOUSE_IN_ADDR + HID_KEYBOARD_EPIN_SIZE)
-#endif /* USBD_USE_HID_COMPOSITE */
+  /* Size in words, byte size divided by 2 */
+  #define PMA_BASE_OFFSET     (8 * DEV_NUM_EP)
 #endif /* USB */
+
+// *INDENT-ON*
 
 extern const ep_desc_t ep_def[DEV_NUM_EP + 1];
 

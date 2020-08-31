@@ -9,7 +9,7 @@ version=1.0.0
 
 # STM compile variables
 # ----------------------
-compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/OpenAMP" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" {build.virtio_extra_include}
+compiler.stm.extra_include="-I{build.source.path}" "-I{build.core.path}/avr" "-I{build.core.path}/stm32" "-I{build.core.path}/stm32/LL" "-I{build.core.path}/stm32/usb" "-I{build.core.path}/stm32/OpenAMP" "-I{build.core.path}/stm32/usb/hid" "-I{build.core.path}/stm32/usb/cdc" "-I{build.core.path}/stm32/usb/msc" "-I{build.core.path}/stm32/usb/cdc_msc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Inc" "-I{build.system.path}/Drivers/{build.series}_HAL_Driver/Src" "-I{build.system.path}/{build.series}" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc" "-I{build.system.path}/Middlewares/ST/STM32_USB_Device_Library/Core/Src" {build.virtio_extra_include}
 
 compiler.warning_flags=-w
 compiler.warning_flags.none=-w

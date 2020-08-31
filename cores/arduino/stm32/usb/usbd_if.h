@@ -24,9 +24,7 @@ extern "C" {
 #endif
 
 void USBD_reenumerate(void);
-#ifdef USBD_USE_CDC
-void USBD_CDC_init(void);
-#endif
+
 #ifdef __cplusplus
 }
 #endif

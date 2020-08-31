@@ -40,6 +40,7 @@ extern "C" {
 #include <stdlib.h>
 #include <string.h>
 
+
 #if defined(USB_BASE)
 
 #if defined(STM32F1xx)

@@ -155,11 +155,4 @@ WEAK void USBD_reenumerate(void)
 #else /* !defined(USBD_REENUM_DISABLED) */
 WEAK void USBD_reenumerate(void) { }
 #endif
-
-#ifdef USBD_USE_CDC
-void USBD_CDC_init(void)
-{
-  CDC_init();
-}
-#endif /* USBD_USE_CDC */
 #endif /* USBCON */

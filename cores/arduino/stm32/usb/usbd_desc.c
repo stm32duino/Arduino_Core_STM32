@@ -37,7 +37,7 @@
   #define USBD_VID 0x0483
   #if defined(USBD_USE_HID_COMPOSITE)
     #define USBD_PID                      0x5711
-  #elif defined(USBD_USE_CDC)
+  #elif defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
     #define USBD_PID                      0x5740
   #endif
 #endif /* !USBD_PID && !USBD_VID */
@@ -70,7 +70,7 @@
 #elif defined(USBD_USE_HID_COMPOSITE)
   #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "HID in HS Mode")
   #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "HID in FS Mode")
-#elif defined(USBD_USE_CDC)
+#elif defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
   #define USBD_CLASS_PRODUCT_HS_STRING        CONCATS(BOARD_NAME, "CDC in HS Mode")
   #define USBD_CLASS_PRODUCT_FS_STRING        CONCATS(BOARD_NAME, "CDC in FS Mode")
 #else
@@ -85,7 +85,7 @@
   #define USBD_CLASS_INTERFACE_FS_STRING      CONCATS(BOARD_NAME, "HID Interface")
 #endif /* USBD_USE_HID_COMPOSITE */
 
-#ifdef USBD_USE_CDC
+#if defined(USBD_USE_CDC) || defined(USBD_USE_CDC_MSC)
   #define USBD_CLASS_CONFIGURATION_HS_STRING  CONCATS(BOARD_NAME, "CDC Config")
   #define USBD_CLASS_INTERFACE_HS_STRING      CONCATS(BOARD_NAME, "CDC Interface")
   #define USBD_CLASS_CONFIGURATION_FS_STRING  CONCATS(BOARD_NAME, "CDC Config")
@@ -129,81 +129,51 @@ USBD_DescriptorsTypeDef USBD_Desc = {
 #endif
 };
 
-#ifdef USBD_USE_HID_COMPOSITE
-/* USB Standard Device Descriptor */
-__ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
-  0x12,                       /* bLength */
-  USB_DESC_TYPE_DEVICE,       /* bDescriptorType */
+
+#define USB_CDC_CLASS_MULTI 0xEF
+#define CDC_SUBCLASS_ACM    0x02
+#define CDC_PROTOCOL_V25TER 0x01 // Common AT commands
+
+
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
-  0x01,                       /*bcdUSB */     /* changed to USB version 2.01
-                                              in order to support BOS Desc */
+  #define BCD_USB_FLAG 0x01
 #else
-  0x00,                       /* bcdUSB */
+  #define BCD_USB_FLAG 0x00
 #endif
-  0x02,
-  0x00,                       /* bDeviceClass */
-  0x00,                       /* bDeviceSubClass */
-  0x00,                       /* bDeviceProtocol */
-  USB_MAX_EP0_SIZE,           /* bMaxPacketSize */
-  LOBYTE(USBD_VID),           /* idVendor */
-  HIBYTE(USBD_VID),           /* idVendor */
-  LOBYTE(USBD_PID),           /* idProduct */
-  HIBYTE(USBD_PID),           /* idProduct */
-  0x00,                       /* bcdDevice rel. 0.00 */
-  0x00,
-  USBD_IDX_MFC_STR,           /* Index of manufacturer string */
-  USBD_IDX_PRODUCT_STR,       /* Index of product string */
-  USBD_IDX_SERIAL_STR,        /* Index of serial number string */
-  USBD_MAX_NUM_CONFIGURATION  /* bNumConfigurations */
-}; /* USB_DeviceDescriptor */
-#endif /* USBD_USE_HID_COMPOSITE */
+
+
+#define USBD_CLASS_DEVICE_DESCRIPTOR(_CLASS, _SUBCLASS, _PROTO)                \
+__ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = { \
+  0x12,                      /* bLength */ \
+  USB_DESC_TYPE_DEVICE,      /* bDescriptorType */ \
+  BCD_USB_FLAG,              /* bcdUSB */ \
+  0x02, \
+  _CLASS,                    /* bDeviceClass */ \
+  _SUBCLASS,                 /* bDeviceSubClass */ \
+  _PROTO,                    /* bDeviceProtocol */ \
+  USB_MAX_EP0_SIZE,          /* bMaxPacketSize */ \
+  LOBYTE(USBD_VID),          /* idVendor */ \
+  HIBYTE(USBD_VID),          /* idVendor */ \
+  LOBYTE(USBD_PID),          /* idProduct */ \
+  HIBYTE(USBD_PID),          /* idProduct */ \
+  0x00,                      /* bcdDevice rel. 0.00 */ \
+  0x00, \
+  USBD_IDX_MFC_STR,          /* Index of manufacturer string */ \
+  USBD_IDX_PRODUCT_STR,      /* Index of product string */ \
+  USBD_IDX_SERIAL_STR,       /* Index of serial number string */ \
+  USBD_MAX_NUM_CONFIGURATION /* bNumConfigurations */ \
+}
+
+#ifdef USBD_USE_HID_COMPOSITE
+  USBD_CLASS_DEVICE_DESCRIPTOR(0x00, 0x00, 0x00);
+#endif
 
 #ifdef USBD_USE_CDC
-/* USB Standard Device Descriptor */
-__ALIGN_BEGIN uint8_t USBD_Class_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END = {
-  0x12,                       /* bLength */
-  USB_DESC_TYPE_DEVICE,       /* bDescriptorType */
-#if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
-  0x01,                       /*bcdUSB */     /* changed to USB version 2.01
-                                              in order to support BOS Desc */
-#else
-  0x00,                       /* bcdUSB */
+  USBD_CLASS_DEVICE_DESCRIPTOR(0x02, 0x02, 0x00);
 #endif
-  0x02,
-  0x02,                       /* bDeviceClass */
-  0x02,                       /* bDeviceSubClass */
-  0x00,                       /* bDeviceProtocol */
-  USB_MAX_EP0_SIZE,           /* bMaxPacketSize */
-  LOBYTE(USBD_VID),           /* idVendor */
-  HIBYTE(USBD_VID),           /* idVendor */
-  LOBYTE(USBD_PID),           /* idProduct */
-  HIBYTE(USBD_PID),           /* idProduct */
-  0x00,                       /* bcdDevice rel. 0.00 */
-  0x00,
-  USBD_IDX_MFC_STR,           /* Index of manufacturer string */
-  USBD_IDX_PRODUCT_STR,       /* Index of product string */
-  USBD_IDX_SERIAL_STR,        /* Index of serial number string */
-  USBD_MAX_NUM_CONFIGURATION  /* bNumConfigurations */
-}; /* USB_DeviceDescriptor */
-#endif /* USBD_USE_CDC */
 
-/* USB Device LPM BOS descriptor */
-#if (USBD_LPM_ENABLED == 1)
-__ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END = {
-  0x5,
-  USB_DESC_TYPE_BOS,
-  0xC,
-  0x0,
-  0x1,  /* 1 device capability */
-  /* device capability */
-  0x7,
-  USB_DEVICE_CAPABITY_TYPE,
-  0x2,
-  0x6, /*LPM capability bit set */
-  0x0,
-  0x0,
-  0x0
-};
+#ifdef USBD_USE_CDC_MSC
+  USBD_CLASS_DEVICE_DESCRIPTOR(USB_CDC_CLASS_MULTI, CDC_SUBCLASS_ACM, CDC_PROTOCOL_V25TER);
 #endif
 
 /* USB Device Billboard BOS descriptor Template */

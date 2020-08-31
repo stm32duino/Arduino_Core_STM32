@@ -35,8 +35,10 @@
   ******************************************************************************
   */
 
+#include "usbd_ep_conf.h"
+
 #ifdef USBCON
-#ifdef USBD_USE_CDC
+#ifdef USBD_USE_CDC_CLASS
 
 #include "cdc_queue.h"
 

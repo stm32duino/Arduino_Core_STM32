@@ -17,8 +17,10 @@
   ******************************************************************************
   */
 
+#include "usbd_ep_conf.h"
+
 #ifdef USBCON
-#ifdef USBD_USE_CDC
+#ifdef USBD_USE_CDC_CLASS
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_desc.h"
@@ -44,9 +46,7 @@
 
 /* USBD_CDC Private Variables */
 /* USB Device Core CDC handle declaration */
-USBD_HandleTypeDef hUSBD_Device_CDC;
-
-static bool CDC_initialized = false;
+USBD_HandleTypeDef *hUSBD_Device_CDC;
 
 /* Received Data over USB are stored in this buffer       */
 CDC_TransmitQueue_TypeDef TransmitQueue;
@@ -98,7 +98,7 @@ static int8_t USBD_CDC_Init(void)
   CDC_TransmitQueue_Init(&TransmitQueue);
   CDC_ReceiveQueue_Init(&ReceiveQueue);
   receivePended = true;
-  USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue));
+  USBD_CDC_SetRxBuffer(hUSBD_Device_CDC, CDC_ReceiveQueue_ReserveBlock(&ReceiveQueue));
 
   return ((int8_t)USBD_OK);
 }
@@ -235,7 +235,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
   receivePended = false;
   /* If enough space in the queue for a full buffer then continue receive */
   if (!CDC_resume_receive()) {
-    USBD_CDC_ClearBuffer(&hUSBD_Device_CDC);
+    USBD_CDC_ClearBuffer(hUSBD_Device_CDC);
   }
   return ((int8_t)USBD_OK);
 }
@@ -264,34 +264,6 @@ static int8_t USBD_CDC_TransmitCplt(uint8_t *Buf, uint32_t *Len, uint8_t epnum)
   return ((int8_t)USBD_OK);
 }
 
-void CDC_init(void)
-{
-  if (!CDC_initialized) {
-    /* Init Device Library */
-    if (USBD_Init(&hUSBD_Device_CDC, &USBD_Desc, 0) == USBD_OK) {
-      /* Add Supported Class */
-      if (USBD_RegisterClass(&hUSBD_Device_CDC, USBD_CDC_CLASS) == USBD_OK) {
-        /* Add CDC Interface Class */
-        if (USBD_CDC_RegisterInterface(&hUSBD_Device_CDC, &USBD_CDC_fops) == USBD_OK) {
-          /* Start Device Process */
-          USBD_Start(&hUSBD_Device_CDC);
-          CDC_initialized = true;
-        }
-      }
-    }
-  }
-}
-
-void CDC_deInit(void)
-{
-  if (CDC_initialized) {
-    USBD_Stop(&hUSBD_Device_CDC);
-    USBD_CDC_DeInit();
-    USBD_DeInit(&hUSBD_Device_CDC);
-    CDC_initialized = false;
-  }
-}
-
 bool CDC_connected()
 {
   /* Save the transmitStart value in a local variable to avoid twice reading - fix #478 */
@@ -299,16 +271,16 @@ bool CDC_connected()
   if (transmitTime) {
     transmitTime = HAL_GetTick() - transmitTime;
   }
-  return ((hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED)
-          && (transmitTime < USB_CDC_TRANSMIT_TIMEOUT)
-          && lineState);
+  return hUSBD_Device_CDC->dev_state == USBD_STATE_CONFIGURED
+         && transmitTime < USB_CDC_TRANSMIT_TIMEOUT
+         && lineState;
 }
 
 void CDC_continue_transmit(void)
 {
   uint16_t size;
   uint8_t *buffer;
-  USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *) hUSBD_Device_CDC.pClassData;
+  USBD_CDC_HandleTypeDef *hcdc = cdc_handle;
   /*
    * TS: This method can be called both in the main thread
    * (via USBSerial::write) and in the IRQ stream (via USBD_CDC_TransmistCplt),
@@ -321,12 +293,12 @@ void CDC_continue_transmit(void)
     buffer = CDC_TransmitQueue_ReadBlock(&TransmitQueue, &size);
     if (size > 0) {
       transmitStart = HAL_GetTick();
-      USBD_CDC_SetTxBuffer(&hUSBD_Device_CDC, buffer, size);
+      USBD_CDC_SetTxBuffer(hUSBD_Device_CDC, buffer, size);
       /*
        * size never exceed PMA buffer and USBD_CDC_TransmitPacket make full
        * copy of block in PMA, so no need to worry about buffer damage
        */
-      USBD_CDC_TransmitPacket(&hUSBD_Device_CDC);
+      USBD_CDC_TransmitPacket(hUSBD_Device_CDC);
     }
   }
 }
@@ -342,8 +314,8 @@ bool CDC_resume_receive(void)
     if (block != NULL) {
       receivePended = true;
       /* Set new buffer */
-      USBD_CDC_SetRxBuffer(&hUSBD_Device_CDC, block);
-      USBD_CDC_ReceivePacket(&hUSBD_Device_CDC);
+      USBD_CDC_SetRxBuffer(hUSBD_Device_CDC, block);
+      USBD_CDC_ReceivePacket(hUSBD_Device_CDC);
       return true;
     }
   }

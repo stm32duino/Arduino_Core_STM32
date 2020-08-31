@@ -22,7 +22,7 @@
 #define __USBD_CDC_IF_H
 
 #ifdef USBCON
-#ifdef USBD_USE_CDC
+#ifdef USBD_USE_CDC_CLASS
 
 #ifdef __cplusplus
 extern "C" {
@@ -39,6 +39,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
+extern USBD_HandleTypeDef *hUSBD_Device_CDC;
 extern USBD_CDC_ItfTypeDef  USBD_CDC_fops;
 extern CDC_TransmitQueue_TypeDef TransmitQueue;
 extern CDC_ReceiveQueue_TypeDef ReceiveQueue;
@@ -48,8 +49,6 @@ extern CDC_ReceiveQueue_TypeDef ReceiveQueue;
 /* Exported functions ------------------------------------------------------- */
 void CDC_continue_transmit(void);
 bool CDC_resume_receive(void);
-void CDC_init(void);
-void CDC_deInit(void);
 bool CDC_connected(void);
 
 #ifdef __cplusplus

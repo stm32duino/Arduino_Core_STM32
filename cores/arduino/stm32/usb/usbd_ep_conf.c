@@ -19,52 +19,85 @@
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_ep_conf.h"
 
-#ifdef USBD_USE_CDC
-const ep_desc_t ep_def[] = {
-#ifdef USE_USB_HS
-  {0x00,       CDC_DATA_HS_MAX_PACKET_SIZE},
-  {0x80,       CDC_DATA_HS_MAX_PACKET_SIZE},
-  {CDC_OUT_EP, CDC_DATA_HS_MAX_PACKET_SIZE},
-  {CDC_IN_EP,  CDC_DATA_HS_MAX_PACKET_SIZE},
-  {CDC_CMD_EP, CDC_CMD_PACKET_SIZE}
-#else /* USE_USB_FS */
-#ifdef USB_OTG_FS
-  {0x00,       CDC_DATA_FS_MAX_PACKET_SIZE},
-  {0x80,       CDC_DATA_FS_MAX_PACKET_SIZE},
-  {CDC_OUT_EP, CDC_DATA_FS_MAX_PACKET_SIZE},
-  {CDC_IN_EP,  CDC_DATA_FS_MAX_PACKET_SIZE},
-  {CDC_CMD_EP, CDC_CMD_PACKET_SIZE}
+#if defined(USB_OTG_FS) || defined(USE_USB_HS)
+  #define EP_DESC(ADDR, SIZE, KIND_TYP) {ADDR, SIZE}
 #else
-  {0x00,       PMA_EP0_OUT_ADDR, PCD_SNG_BUF},
-  {0x80,       PMA_EP0_IN_ADDR,  PCD_SNG_BUF},
-  {CDC_OUT_EP, PMA_CDC_OUT_ADDR, PCD_DBL_BUF},
-  {CDC_IN_EP,  PMA_CDC_IN_ADDR,  PCD_SNG_BUF},
-  {CDC_CMD_EP, PMA_CDC_CMD_ADDR, PCD_SNG_BUF}
+  #define EP_DESC(ADDR, SIZE, KIND_TYP)  {ADDR, SIZE, KIND_TYP}
 #endif
-#endif
-};
+
+// *INDENT-OFF*
+
+#ifdef USBD_USE_CDC
+  #ifdef USE_USB_HS
+    #define CDC_DATA_MAX_PACKET_SIZE  CDC_DATA_HS_MAX_PACKET_SIZE
+  #else /* USE_USB_FS */
+    #define CDC_DATA_MAX_PACKET_SIZE  CDC_DATA_FS_MAX_PACKET_SIZE
+  #endif
+
+
+  const ep_desc_t ep_def[] = {
+    EP_DESC(0x00,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(0x80,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(CDC_OUT_EP, CDC_DATA_MAX_PACKET_SIZE, PCD_DBL_BUF),
+    EP_DESC(CDC_IN_EP,  CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(CDC_CMD_EP, CDC_CMD_PACKET_SIZE,      PCD_SNG_BUF)
+  };
 #endif /* USBD_USE_CDC */
 
+#ifdef USBD_USE_MSC
+  #ifdef USE_USB_HS
+    #define MSC_DATA_MAX_PACKET_SIZE  MSC_DATA_HS_MAX_PACKET_SIZE
+  #else /* USE_USB_FS */
+    #define MSC_DATA_MAX_PACKET_SIZE  MSC_DATA_FS_MAX_PACKET_SIZE
+  #endif
+
+
+  const ep_desc_t ep_def[] = {
+    EP_DESC(0x00,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(0x80,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(MSC_EPIN_ADDR,  MSC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(MSC_EPOUT_ADDR, MSC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF)
+  };
+#endif /* USBD_USE_MSC */
+
+#ifdef USBD_USE_CDC_MSC
+  #ifdef USE_USB_HS
+    #define CDC_DATA_MAX_PACKET_SIZE  CDC_DATA_HS_MAX_PACKET_SIZE
+    #define MSC_DATA_MAX_PACKET_SIZE  MSC_DATA_HS_MAX_PACKET_SIZE
+  #else /* USE_USB_FS */
+    #define CDC_DATA_MAX_PACKET_SIZE  CDC_DATA_FS_MAX_PACKET_SIZE
+    #define MSC_DATA_MAX_PACKET_SIZE  MSC_DATA_FS_MAX_PACKET_SIZE
+  #endif
+
+
+  const ep_desc_t ep_def[] = {
+    EP_DESC(0x00,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(0x80,       CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(CDC_OUT_EP, CDC_DATA_MAX_PACKET_SIZE, PCD_DBL_BUF),
+    EP_DESC(CDC_IN_EP,  CDC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(CDC_CMD_EP, CDC_CMD_PACKET_SIZE,      PCD_SNG_BUF),
+    EP_DESC(MSC_EPIN_ADDR,  MSC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(MSC_EPOUT_ADDR, MSC_DATA_MAX_PACKET_SIZE, PCD_SNG_BUF)
+  };
+#endif /* USBD_USE_CDC */
+
+
 #ifdef USBD_USE_HID_COMPOSITE
-const ep_desc_t ep_def[] = {
-#if !defined (USB)
-#ifdef USE_USB_HS
-  {0x00,                   USB_HS_MAX_PACKET_SIZE},
-  {0x80,                   USB_HS_MAX_PACKET_SIZE},
-#else
-  {0x00,                   USB_FS_MAX_PACKET_SIZE},
-  {0x80,                   USB_FS_MAX_PACKET_SIZE},
-#endif
-  {HID_MOUSE_EPIN_ADDR,    HID_MOUSE_EPIN_SIZE},
-  {HID_KEYBOARD_EPIN_ADDR, HID_KEYBOARD_EPIN_SIZE},
-#else
-  {0x00,                   PMA_EP0_OUT_ADDR,     PCD_SNG_BUF},
-  {0x80,                   PMA_EP0_IN_ADDR,      PCD_SNG_BUF},
-  {HID_MOUSE_EPIN_ADDR,    PMA_MOUSE_IN_ADDR,    PCD_SNG_BUF},
-  {HID_KEYBOARD_EPIN_ADDR, PMA_KEYBOARD_IN_ADDR, PCD_SNG_BUF},
-#endif
-};
+  #ifdef USE_USB_HS
+    #define HID_MAX_PACKET_SIZE  USB_HS_MAX_PACKET_SIZE
+  #else /* USE_USB_FS */
+    #define HID_MAX_PACKET_SIZE  USB_FS_MAX_PACKET_SIZE
+  #endif
+
+  const ep_desc_t ep_def[] = {
+    EP_DESC(0x00,                   HID_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(0x80,                   HID_MAX_PACKET_SIZE, PCD_SNG_BUF),
+    EP_DESC(HID_MOUSE_EPIN_ADDR,    HID_MOUSE_EPIN_SIZE, PCD_SNG_BUF),
+    EP_DESC(HID_KEYBOARD_EPIN_ADDR, HID_MOUSE_EPIN_SIZE, PCD_SNG_BUF)
+  };
 #endif /* USBD_USE_HID_COMPOSITE */
+
+// *INDENT-OFF*
 
 #endif /* HAL_PCD_MODULE_ENABLED && USBCON */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -86,7 +86,7 @@ def process_usb_configuration(cpp_defines):
     elif "PIO_FRAMEWORK_ARDUINO_ENABLE_HID" in cpp_defines:
         env.Append(CPPDEFINES=["USBD_USE_HID_COMPOSITE"])
 
-    if any(f in env["CPPDEFINES"] for f in ("USBD_USE_CDC", "USBD_USE_HID_COMPOSITE")):
+    if any(f in env["CPPDEFINES"] for f in ["USBCON"]):
         env.Append(CPPDEFINES=["HAL_PCD_MODULE_ENABLED"])
 
 
@@ -170,6 +170,8 @@ env.Append(
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "hid"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "cdc"),
+        join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "msc"),
+        join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "cdc_msc"),
         join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Inc"),
         join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Src"),
         join(FRAMEWORK_DIR, "system", series),

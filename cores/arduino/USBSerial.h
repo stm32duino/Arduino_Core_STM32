@@ -19,9 +19,11 @@
 #ifndef _USBSERIAL_H_
 #define _USBSERIAL_H_
 
-#if defined (USBCON) && defined(USBD_USE_CDC)
-#include "Stream.h"
+#include "usbd_ep_conf.h"
+
+#if defined (USBCON) && defined(USBD_USE_CDC_CLASS)
 #include "usbd_core.h"
+#include "Stream.h"
 
 //================================================================================
 // Serial over CDC
