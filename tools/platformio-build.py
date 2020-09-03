@@ -32,7 +32,7 @@ platform = env.PioPlatform()
 board = env.BoardConfig()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm32")
-CMSIS_DIR = join(platform.get_package_dir("framework-arduinoststm32"), "CMSIS", "CMSIS")
+CMSIS_DIR = join(platform.get_package_dir("framework-cmsis"), "CMSIS")
 assert isdir(FRAMEWORK_DIR)
 assert isdir(CMSIS_DIR)
 
@@ -85,6 +85,22 @@ def process_usb_configuration(cpp_defines):
 
     elif "PIO_FRAMEWORK_ARDUINO_ENABLE_HID" in cpp_defines:
         env.Append(CPPDEFINES=["USBD_USE_HID_COMPOSITE"])
+
+    if any(
+        d in cpp_defines
+        for d in (
+            "PIO_FRAMEWORK_ARDUINO_ENABLE_CDC",
+            "PIO_FRAMEWORK_ARDUINO_ENABLE_CDC_WITHOUT_SERIAL",
+            "PIO_FRAMEWORK_ARDUINO_ENABLE_HID",
+        )
+    ):
+        env.Append(
+            CPPDEFINES=[
+                "USBCON",
+                ("USB_VID", board.get("build.hwids", [[0, 0]])[0][0]),
+                ("USB_PID", board.get("build.hwids", [[0, 0]])[0][1]),
+            ]
+        )
 
     if any(f in env["CPPDEFINES"] for f in ("USBD_USE_CDC", "USBD_USE_HID_COMPOSITE")):
         env.Append(CPPDEFINES=["HAL_PCD_MODULE_ENABLED"])
@@ -168,6 +184,7 @@ env.Append(
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "LL"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb"),
+        join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "OpenAMP"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "hid"),
         join(FRAMEWORK_DIR, "cores", "arduino", "stm32", "usb", "cdc"),
         join(FRAMEWORK_DIR, "system", "Drivers", series + "_HAL_Driver", "Inc"),
@@ -191,6 +208,37 @@ env.Append(
             "Core",
             "Src",
         ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "OpenAMP"
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "OpenAMP",
+            "open-amp",
+            "lib",
+            "include",
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "OpenAMP",
+            "libmetal",
+            "lib",
+            "include",
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "OpenAMP",
+            "virtual_driver"
+        ),
         join(CMSIS_DIR, "Core", "Include"),
         join(
             FRAMEWORK_DIR,
@@ -202,7 +250,6 @@ env.Append(
             series,
             "Include",
         ),
-        join(CMSIS_DIR, "DSP", "Include"),
         join(
             FRAMEWORK_DIR,
             "system",
@@ -215,6 +262,7 @@ env.Append(
             "Templates",
             "gcc",
         ),
+        join(CMSIS_DIR, "DSP", "Include"),
         join(FRAMEWORK_DIR, "cores", "arduino"),
         variant_dir,
     ],
@@ -250,9 +298,10 @@ configure_application_offset(mcu, upload_protocol)
 #
 
 if not board.get("build.ldscript", ""):
+    env.Replace(LDSCRIPT_PATH=join(FRAMEWORK_DIR, "system", "ldscript.ld"))
     if not isfile(join(env.subst(variant_dir), "ldscript.ld")):
         print("Warning! Cannot find linker script for the current target!\n")
-    env.Replace(LDSCRIPT_PATH=join(variant_dir, "ldscript.ld"))
+    env.Append(LINKFLAGS=[("-Wl,--default-script", join(variant_dir, "ldscript.ld"))])
 
 #
 # Process configuration flags
