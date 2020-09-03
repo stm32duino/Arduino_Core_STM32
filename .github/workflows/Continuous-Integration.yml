@@ -11,6 +11,7 @@ on:
       - '!CI/build/arduino-cli.py'
       - '!CI/build/platformio-builder.py'
       - tools/**
+      - '!tools/platformio-build.py'
   pull_request:
     paths-ignore:
       - '*.json'
@@ -20,6 +21,7 @@ on:
       - '!CI/build/arduino-cli.py'
       - '!CI/build/platformio-builder.py'
       - tools/**
+      - '!tools/platformio-build.py'
 jobs:
   astyle_check:
     runs-on: ubuntu-latest
