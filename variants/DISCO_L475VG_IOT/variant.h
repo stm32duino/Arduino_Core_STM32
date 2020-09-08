@@ -142,6 +142,14 @@ extern "C" {
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_QSPI_MODULE_ENABLED
 
+/* QSPI pins for MX25R6435F */
+#define MX25R6435F_D0           PE12
+#define MX25R6435F_D1           PE13
+#define MX25R6435F_D2           PE14
+#define MX25R6435F_D3           PE15
+#define MX25R6435F_SCLK         PE10
+#define MX25R6435F_SSEL         PE11
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
