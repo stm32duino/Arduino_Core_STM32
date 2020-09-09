@@ -108,7 +108,11 @@ void HardwareTimer::pause()
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC3);
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC4);
 
-  // Disable timer unconditionally
+  // Stop timer. Required to restore HAL State: HAL_TIM_STATE_READY
+  HAL_TIM_Base_Stop(&(_timerObj.handle));
+
+  /* Disable timer unconditionally. Required to guarantee timer is stopped,
+   * even if some channels are still running */
   LL_TIM_DisableCounter(_timerObj.handle.Instance);
 
 #if defined(TIM_CHANNEL_STATE_SET_ALL)
