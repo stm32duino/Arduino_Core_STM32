@@ -88,6 +88,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F030R8 | [Nucleo F030R8](http://www.st.com/en/evaluation-tools/nucleo-f030r8.html) | *0.2.0* |  |
+| :yellow_heart:  | STM32F070RB | [Nucleo F070RB](http://www.st.com/en/evaluation-tools/nucleo-f070rb.html) | **2.0.0** |  |
 | :green_heart:  | STM32F072RB | [Nucleo F072RB](http://www.st.com/en/evaluation-tools/nucleo-f072rb.html) | *1.9.0* |  |
 | :green_heart:  | STM32F091RC | [Nucleo F091RC](http://www.st.com/en/evaluation-tools/nucleo-f091rc.html) | *0.1.0* |  |
 | :green_heart:  | STM32F103RB | [Nucleo F103RB](http://www.st.com/en/evaluation-tools/nucleo-f103rb.html) | *0.2.0* |  |
@@ -161,6 +162,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart: | STM32F042C4<br>STM32F042C6 | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32F051K6U<br>STM32F051K8U | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32F070CB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F070RB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32F072C8<br>STM32F072CB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32F072R8<br>STM32F072RB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32F091RB<br>STM32F091RC | Generic Board | **2.0.0** |  |

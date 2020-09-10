@@ -208,6 +208,18 @@ Nucleo_64.menu.pnum.NUCLEO_F030R8.build.product_line=STM32F030x8
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.variant=STM32F0xx/F030R8T
 Nucleo_64.menu.pnum.NUCLEO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# NUCLEO_F070RB board
+Nucleo_64.menu.pnum.NUCLEO_F070RB=Nucleo F070RB
+Nucleo_64.menu.pnum.NUCLEO_F070RB.node="NODE_F070RB,NUCLEO"
+Nucleo_64.menu.pnum.NUCLEO_F070RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_F070RB.upload.maximum_data_size=16384
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.mcu=cortex-m0
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.board=NUCLEO_F070RB
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.series=STM32F0xx
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.product_line=STM32F070xB
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.variant=STM32F0xx/F070RBT
+Nucleo_64.menu.pnum.NUCLEO_F070RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_F072RB board
 Nucleo_64.menu.pnum.NUCLEO_F072RB=Nucleo F072RB
 Nucleo_64.menu.pnum.NUCLEO_F072RB.node="NODE_F072RB,NUCLEO"
@@ -962,6 +974,14 @@ GenF0.menu.pnum.GENERIC_F070CBTX.upload.maximum_data_size=16384
 GenF0.menu.pnum.GENERIC_F070CBTX.build.board=GENERIC_F070CBTX
 GenF0.menu.pnum.GENERIC_F070CBTX.build.product_line=STM32F070xB
 GenF0.menu.pnum.GENERIC_F070CBTX.build.variant=STM32F0xx/F070CBT
+
+# Generic F070RBTx
+GenF0.menu.pnum.GENERIC_F070RBTX=Generic F070RBTx
+GenF0.menu.pnum.GENERIC_F070RBTX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F070RBTX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F070RBTX.build.board=GENERIC_F070RBTX
+GenF0.menu.pnum.GENERIC_F070RBTX.build.product_line=STM32F070xB
+GenF0.menu.pnum.GENERIC_F070RBTX.build.variant=STM32F0xx/F070RBT
 
 # Generic F072C8Tx
 GenF0.menu.pnum.GENERIC_F072C8TX=Generic F072C8Tx
