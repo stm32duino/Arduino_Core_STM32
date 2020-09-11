@@ -204,18 +204,18 @@
 /** @addtogroup FMPSMBUS_Private_Functions FMPSMBUS Private Functions
   * @{
   */
-static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status, uint32_t Timeout);
+static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status, uint32_t Timeout);
 
-static void FMPSMBUS_Enable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
-static void FMPSMBUS_Disable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
-static HAL_StatusTypeDef FMPSMBUS_Master_ISR(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
-static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
+static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
+static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
+static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
+static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags);
 
-static void FMPSMBUS_ConvertOtherXferOptions(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);
+static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
-static void FMPSMBUS_ITErrorHandler(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus);
+static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
-static void FMPSMBUS_TransferConfig(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request);
+static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request);
 /**
   * @}
   */
@@ -1802,7 +1802,7 @@ uint32_t HAL_FMPSMBUS_GetError(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @param  StatusFlags Value of Interrupt Flags.
   * @retval HAL status
   */
-static HAL_StatusTypeDef FMPSMBUS_Master_ISR(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags)
+static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags)
 {
   uint16_t DevAddress;
 
@@ -2086,7 +2086,7 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(struct __FMPSMBUS_HandleTypeDef *hf
   * @param  StatusFlags Value of Interrupt Flags.
   * @retval HAL status
   */
-static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags)
+static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t StatusFlags)
 {
   uint8_t TransferDirection;
   uint16_t SlaveAddrCode;
@@ -2342,7 +2342,7 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(struct __FMPSMBUS_HandleTypeDef *hfm
   * @param  InterruptRequest Value of @ref FMPSMBUS_Interrupt_configuration_definition.
   * @retval HAL status
   */
-static void FMPSMBUS_Enable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest)
+static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest)
 {
   uint32_t tmpisr = 0UL;
 
@@ -2382,7 +2382,7 @@ static void FMPSMBUS_Enable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint
   * @param  InterruptRequest Value of @ref FMPSMBUS_Interrupt_configuration_definition.
   * @retval HAL status
   */
-static void FMPSMBUS_Disable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest)
+static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest)
 {
   uint32_t tmpisr = 0UL;
   uint32_t tmpstate = hfmpsmbus->State;
@@ -2454,7 +2454,7 @@ static void FMPSMBUS_Disable_IRQ(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uin
   * @param  hfmpsmbus FMPSMBUS handle.
   * @retval None
   */
-static void FMPSMBUS_ITErrorHandler(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus)
+static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 {
   uint32_t itflags   = READ_REG(hfmpsmbus->Instance->ISR);
   uint32_t itsources = READ_REG(hfmpsmbus->Instance->CR1);
@@ -2555,7 +2555,7 @@ static void FMPSMBUS_ITErrorHandler(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status, uint32_t Timeout)
+static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status, uint32_t Timeout)
 {
   uint32_t tickstart = HAL_GetTick();
 
@@ -2604,7 +2604,7 @@ static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(struct __FMPSMBUS_Handl
   *     @arg @ref FMPSMBUS_GENERATE_START_WRITE Generate Restart for write request.
   * @retval None
   */
-static void FMPSMBUS_TransferConfig(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request)
+static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode, uint32_t Request)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_ALL_INSTANCE(hfmpsmbus->Instance));
@@ -2621,7 +2621,7 @@ static void FMPSMBUS_TransferConfig(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus, 
   * @param  hfmpsmbus FMPSMBUS handle.
   * @retval None
   */
-static void FMPSMBUS_ConvertOtherXferOptions(struct __FMPSMBUS_HandleTypeDef *hfmpsmbus)
+static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 {
   /* if user set XferOptions to FMPSMBUS_OTHER_FRAME_NO_PEC   */
   /* it request implicitly to generate a restart condition */

@@ -5478,7 +5478,7 @@ static void FMPI2C_ITMasterCplt(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t ITFlags)
 {
   uint32_t tmperror;
   uint32_t tmpITFlags = ITFlags;
-  uint32_t tmp;
+  __IO uint32_t tmpreg;
 
   /* Clear STOP Flag */
   __HAL_FMPI2C_CLEAR_FLAG(hfmpi2c, FMPI2C_FLAG_STOPF);
@@ -5519,9 +5519,8 @@ static void FMPI2C_ITMasterCplt(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t ITFlags)
   if ((hfmpi2c->State == HAL_FMPI2C_STATE_ABORT) && (FMPI2C_CHECK_FLAG(tmpITFlags, FMPI2C_FLAG_RXNE) != RESET))
   {
     /* Read data from RXDR */
-    tmp = (uint8_t)hfmpi2c->Instance->RXDR;
-
-    UNUSED(tmp);
+    tmpreg = (uint8_t)hfmpi2c->Instance->RXDR;
+    UNUSED(tmpreg);
   }
 
   /* Flush TX register */
@@ -6190,8 +6189,14 @@ static void FMPI2C_DMAAbort(DMA_HandleTypeDef *hdma)
   FMPI2C_HandleTypeDef *hfmpi2c = (FMPI2C_HandleTypeDef *)(((DMA_HandleTypeDef *)hdma)->Parent); /* Derogation MISRAC2012-Rule-11.5 */
 
   /* Reset AbortCpltCallback */
-  hfmpi2c->hdmatx->XferAbortCallback = NULL;
-  hfmpi2c->hdmarx->XferAbortCallback = NULL;
+  if (hfmpi2c->hdmatx != NULL)
+  {
+    hfmpi2c->hdmatx->XferAbortCallback = NULL;
+  }
+  if (hfmpi2c->hdmarx != NULL)
+  {
+    hfmpi2c->hdmarx->XferAbortCallback = NULL;
+  }
 
   FMPI2C_TreatErrorCallback(hfmpi2c);
 }

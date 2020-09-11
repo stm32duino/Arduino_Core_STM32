@@ -182,7 +182,11 @@ typedef enum
   * @brief  I2C handle Structure definition
   * @{
   */
+#if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
 typedef struct __I2C_HandleTypeDef
+#else
+typedef struct
+#endif  /* USE_HAL_I2C_REGISTER_CALLBACKS */
 {
   I2C_TypeDef                *Instance;      /*!< I2C registers base address               */
 
