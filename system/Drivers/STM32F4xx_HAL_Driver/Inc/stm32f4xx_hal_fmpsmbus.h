@@ -133,7 +133,11 @@ typedef struct
   * @brief  FMPSMBUS handle Structure definition
   * @{
   */
+#if (USE_HAL_FMPSMBUS_REGISTER_CALLBACKS == 1)
 typedef struct __FMPSMBUS_HandleTypeDef
+#else
+typedef struct
+#endif  /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 {
   FMPI2C_TypeDef                  *Instance;       /*!< FMPSMBUS registers base address       */
 
@@ -327,6 +331,7 @@ typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus
 #define  FMPSMBUS_NEXT_FRAME                       ((uint32_t)(FMPSMBUS_RELOAD_MODE | FMPSMBUS_SOFTEND_MODE))
 #define  FMPSMBUS_FIRST_AND_LAST_FRAME_NO_PEC      FMPSMBUS_AUTOEND_MODE
 #define  FMPSMBUS_LAST_FRAME_NO_PEC                FMPSMBUS_AUTOEND_MODE
+#define  FMPSMBUS_FIRST_FRAME_WITH_PEC             ((uint32_t)(FMPSMBUS_SOFTEND_MODE | FMPSMBUS_SENDPEC_MODE))
 #define  FMPSMBUS_FIRST_AND_LAST_FRAME_WITH_PEC    ((uint32_t)(FMPSMBUS_AUTOEND_MODE | FMPSMBUS_SENDPEC_MODE))
 #define  FMPSMBUS_LAST_FRAME_WITH_PEC              ((uint32_t)(FMPSMBUS_AUTOEND_MODE | FMPSMBUS_SENDPEC_MODE))
 
@@ -583,11 +588,12 @@ typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus
                                                           ((REQUEST) == FMPSMBUS_NO_STARTSTOP))
 
 
-#define IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(REQUEST)      (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(REQUEST)       || \
+#define IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(REQUEST)      (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(REQUEST)        || \
                                                           ((REQUEST) == FMPSMBUS_FIRST_FRAME)                       || \
                                                           ((REQUEST) == FMPSMBUS_NEXT_FRAME)                        || \
                                                           ((REQUEST) == FMPSMBUS_FIRST_AND_LAST_FRAME_NO_PEC)       || \
                                                           ((REQUEST) == FMPSMBUS_LAST_FRAME_NO_PEC)                 || \
+                                                          ((REQUEST) == FMPSMBUS_FIRST_FRAME_WITH_PEC)              || \
                                                           ((REQUEST) == FMPSMBUS_FIRST_AND_LAST_FRAME_WITH_PEC)     || \
                                                           ((REQUEST) == FMPSMBUS_LAST_FRAME_WITH_PEC))
 
