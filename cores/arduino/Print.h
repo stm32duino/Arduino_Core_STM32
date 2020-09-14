@@ -99,6 +99,8 @@ class Print {
 
     int printf(const char *format, ...);
     int printf(const __FlashStringHelper *format, ...);
+
+    virtual void flush() { /* Empty implementation for backward compatibility */ }
 };
 
 #endif
