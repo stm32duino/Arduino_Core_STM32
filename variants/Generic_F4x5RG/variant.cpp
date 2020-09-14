@@ -158,7 +158,7 @@ static uint8_t SetSysClock_PLL_HSE(uint8_t bypass)
   RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 168 MHz
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;           // 42 MHz
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;           // 84 MHz
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     return 0; // FAIL
   }
 
@@ -208,7 +208,7 @@ uint8_t SetSysClock_PLL_HSI(void)
   RCC_ClkInitStruct.AHBCLKDivider  = RCC_SYSCLK_DIV1;         // 168 MHz
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;           // 42 MHz
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;           // 84 MHz
-  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_1) != HAL_OK) {
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK) {
     return 0; // FAIL
   }
 
