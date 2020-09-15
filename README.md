@@ -212,6 +212,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32G030K8 | [Aurora One](https://www.bfy.kr/aurora-one/) | **2.0.0** |
 | :yellow_heart: | STM32G030K6<br>STM32G030K8 | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32G031J4<br>STM32G031J6 | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32G041J6 | Generic Board | **2.0.0** |  |

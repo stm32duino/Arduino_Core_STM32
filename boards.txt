@@ -1691,6 +1691,15 @@ GenG0.build.series=STM32G0xx
 GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenG0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# Aurora One G030K8
+GenG0.menu.pnum.AURORA_ONE=Aurora One
+GenG0.menu.pnum.AURORA_ONE.upload.maximum_size=65536
+GenG0.menu.pnum.AURORA_ONE.upload.maximum_data_size=8192
+GenG0.menu.pnum.AURORA_ONE.build.board=AURORA_ONE
+GenG0.menu.pnum.AURORA_ONE.build.product_line=STM32G030xx
+GenG0.menu.pnum.AURORA_ONE.build.variant=STM32G0xx/G030K(6-8)T
+GenG0.menu.pnum.AURORA_ONE.build.variant_h=variant_{build.board}.h
+
 # Generic G030K6Tx
 GenG0.menu.pnum.GENERIC_G030K6TX=Generic G030K6Tx
 GenG0.menu.pnum.GENERIC_G030K6TX.upload.maximum_size=32768
