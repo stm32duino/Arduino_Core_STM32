@@ -1719,6 +1719,45 @@ GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ################################################################################
+# Generic G0
+GenG0.name=Generic STM32G0 series
+
+GenG0.build.core=arduino
+GenG0.build.board=GenG0
+GenG0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenG0.build.mcu=cortex-m0plus
+GenG0.build.series=STM32G0xx
+GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# Aurora One
+GenG0.menu.pnum.AURORA_ONE=Aurora One
+GenG0.menu.pnum.AURORA_ONE.upload.maximum_size=65536
+GenG0.menu.pnum.AURORA_ONE.upload.maximum_data_size=16384
+GenG0.menu.pnum.AURORA_ONE.build.board=Aurora_One
+GenG0.menu.pnum.AURORA_ONE.build.product_line=STM32G030xx
+GenG0.menu.pnum.AURORA_ONE.build.variant=Aurora_One_G030K8
+
+# Upload menu
+GenG0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenG0.menu.upload_method.swdMethod.upload.protocol=0
+GenG0.menu.upload_method.swdMethod.upload.options=-g
+GenG0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenG0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenG0.menu.upload_method.serialMethod.upload.protocol=1
+GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenG0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenG0.menu.upload_method.dfuMethod.upload.protocol=2
+GenG0.menu.upload_method.dfuMethod.upload.options=-g
+GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+GenG0.menu.upload_method.bmpMethod=BMP (Black Magic Probe)
+GenG0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
+GenG0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
+
+################################################################################
 # Electronic Speed Controller boards
 
 ESC_board.name=Electronic speed controllers
@@ -2283,6 +2322,12 @@ GenL0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL0.menu.xserial.disabled=Disabled (no Serial support)
 GenL0.menu.xserial.disabled.build.xSerial=
 
+GenG0.menu.xserial.generic=Enabled (generic 'Serial')
+GenG0.menu.xserial.none=Enabled (no generic 'Serial')
+GenG0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenG0.menu.xserial.disabled=Disabled (no Serial support)
+GenG0.menu.xserial.disabled.build.xSerial=
+
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -2442,6 +2487,14 @@ GenL0.menu.usb.CDC=CDC (no generic 'Serial')
 GenL0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 GenL0.menu.usb.HID=HID (keyboard and mouse)
 GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
+GenG0.menu.usb.none=None
+GenG0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenG0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenG0.menu.usb.CDC=CDC (no generic 'Serial')
+GenG0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenG0.menu.usb.HID=HID (keyboard and mouse)
+GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -2707,6 +2760,24 @@ GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL0.menu.opt.ogstd=Debug (-g)
 GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenG0.menu.opt.osstd=Smallest (-Os default)
+GenG0.menu.opt.oslto=Smallest (-Os) with LTO
+GenG0.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenG0.menu.opt.o1std=Fast (-O1)
+GenG0.menu.opt.o1std.build.flags.optimize=-O1
+GenG0.menu.opt.o1lto=Fast (-O1) with LTO
+GenG0.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenG0.menu.opt.o2std=Faster (-O2)
+GenG0.menu.opt.o2std.build.flags.optimize=-O2
+GenG0.menu.opt.o2lto=Faster (-O2) with LTO
+GenG0.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenG0.menu.opt.o3std=Fastest (-O3)
+GenG0.menu.opt.o3std.build.flags.optimize=-O3
+GenG0.menu.opt.o3lto=Fastest (-O3) with LTO
+GenG0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenG0.menu.opt.ogstd=Debug (-g)
+GenG0.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -2935,6 +3006,16 @@ GenL0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL0.menu.rtlib.full=Newlib Standard
 GenL0.menu.rtlib.full.build.flags.ldspecs=
+
+GenG0.menu.rtlib.nano=Newlib Nano (default)
+GenG0.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenG0.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenG0.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenG0.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenG0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenG0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenG0.menu.rtlib.full=Newlib Standard
+GenG0.menu.rtlib.full.build.flags.ldspecs=
 
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
