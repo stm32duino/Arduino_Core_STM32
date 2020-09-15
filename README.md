@@ -57,6 +57,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32F4 boards](#generic-stm32f4-boards)
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
+ - [Generic STM32G0 boards](#generic-stm32g0-boards)
  - [3D printer boards](#3d-printer-boards)
  - [LoRa boards](#lora-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
