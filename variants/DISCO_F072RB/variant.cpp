@@ -34,6 +34,12 @@
 extern "C" {
 #endif
 
+#define SYSMEM_RESET_VECTOR            0x1FFFC804
+#define RESET_TO_BOOTLOADER_MAGIC_CODE 0xDEADBEEF
+#define BOOTLOADER_STACK_POINTER       0x20002250
+
+uint32_t dfu_reset_to_bootloader_magic;
+
 // Pin number
 const PinName digitalPin[] = {
   //P2 connector Right side (top view)
@@ -120,6 +126,37 @@ const PinName digitalPin[] = {
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+void __initialize_hardware_early(void)
+{
+  if (dfu_reset_to_bootloader_magic == RESET_TO_BOOTLOADER_MAGIC_CODE) {
+    void (*bootloader)(void) = (void (*)(void)) (*((uint32_t *) SYSMEM_RESET_VECTOR));
+    dfu_reset_to_bootloader_magic = 0;
+    __set_MSP(BOOTLOADER_STACK_POINTER);
+    bootloader();
+    while (42);
+  }
+}
+
+void variant_soft_dfu_hook(uint8_t *Buf, uint32_t *Len)
+{
+  uint32_t i;
+  static unsigned char passkey[] = "1EAF";
+  static unsigned char passkey_index = 0;
+  
+  for (i = 0; i < *Len; i++) {
+    /* reading buffer for a sequential bytes that form a pass key */
+    if (*(Buf+i) == passkey[passkey_index])
+      passkey_index++;
+    else
+      passkey_index = 0;
+    /* jump to DFU mode when the pass key found */
+    if (passkey_index == 4) {
+      dfu_reset_to_bootloader_magic = RESET_TO_BOOTLOADER_MAGIC_CODE;
+      NVIC_SystemReset();
+    }
+  }
+}
 
 /**
   * @brief  System Clock Configuration

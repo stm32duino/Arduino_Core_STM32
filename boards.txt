@@ -580,7 +580,7 @@ Disco.name=Discovery
 
 Disco.build.core=arduino
 Disco.build.board=Disco
-Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
@@ -596,7 +596,7 @@ Disco.menu.pnum.DISCO_F030R8.build.cmsis_lib_gcc=arm_cortexM0l_math
 
 # DISCO_F072RB board
 Disco.menu.pnum.DISCO_F072RB=STM32F072B-DISCOVERY
-Disco.menu.pnum.DISCO_F072RB.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.DISCO_F072RB.node="No_mass_storage_for_this_board_Use_STLink_upload_method_or_softdfu_upload"
 Disco.menu.pnum.DISCO_F072RB.upload.maximum_size=131072
 Disco.menu.pnum.DISCO_F072RB.upload.maximum_data_size=16384
 Disco.menu.pnum.DISCO_F072RB.build.mcu=cortex-m0
@@ -605,6 +605,9 @@ Disco.menu.pnum.DISCO_F072RB.build.series=STM32F0xx
 Disco.menu.pnum.DISCO_F072RB.build.product_line=STM32F072xB
 Disco.menu.pnum.DISCO_F072RB.build.variant=DISCO_F072RB
 Disco.menu.pnum.DISCO_F072RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+Disco.menu.pnum.DISCO_F072RB.build.startup_file=-DCUSTOM_STARTUP_FILE
+Disco.menu.pnum.DISCO_F072RB.build.bootloader_flags=-DVARIANT_SUPPORT_SOFTDFU
+Disco.menu.pnum.DISCO_F072RB.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 
 #DISCO_F100RB board
 Disco.menu.pnum.DISCO_F100RB=STM32F100RB-DISCVL
@@ -728,6 +731,12 @@ Disco.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
 Disco.menu.upload_method.dfuMethod.upload.protocol=2
 Disco.menu.upload_method.dfuMethod.upload.options=-g
 Disco.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+Disco.menu.upload_method.dfusMethod=Soft-DFU Upload
+Disco.menu.upload_method.dfusMethod.upload.protocol=softdfu
+Disco.menu.upload_method.dfusMethod.upload.tool=softdfu_upload
+Disco.menu.upload_method.dfusMethod.upload.usbID=0483:df11
+Disco.menu.upload_method.dfusMethod.upload.altID=0
 
 ################################################################################
 # Eval boards

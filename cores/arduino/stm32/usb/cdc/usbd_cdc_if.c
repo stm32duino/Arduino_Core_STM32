@@ -55,6 +55,10 @@ __IO uint32_t lineState = 0;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
+#ifdef VARIANT_SUPPORT_SOFTDFU
+  void variant_soft_dfu_hook(uint8_t *Buf, uint32_t *Len);
+#endif
+
 #ifdef DTR_TOGGLING_SEQ
   /* DTR toggling sequence management */
   extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
@@ -222,6 +226,9 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
   */
 static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 {
+#ifdef VARIANT_SUPPORT_SOFTDFU
+  variant_soft_dfu_hook(Buf, Len);
+#endif
 #ifdef DTR_TOGGLING_SEQ
   if (dtr_toggling > 3) {
     dtr_togglingHook(Buf, Len);
