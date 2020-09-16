@@ -194,12 +194,18 @@ WEAK void USBD_reenumerate(void)
   digitalWriteFast(USBD_PULLUP_CONTROL_PINNAME, USBD_ATTACH_LEVEL);
 #endif /* defined(USBD_PULLUP_CONTROL_FLOATING) */
 #elif defined(USBD_HAVE_INTERNAL_PULLUPS)
+#ifdef USB_OTG_DCTL_SDIS
   uint32_t USBx_BASE = (uint32_t)USBD_USB_INSTANCE;
   USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS;
   //USB_DevDisconnect(USBD_USB_INSTANCE);
   USBD_early_startup_delay_us(USBD_ENUM_DELAY * 1000);
   //USB_DevConnect(USBD_USB_INSTANCE);
   USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS;
+#else
+  USBD_USB_INSTANCE->BCDR &= (uint16_t)(~(USB_BCDR_DPPU));
+  USBD_early_startup_delay_us(USBD_ENUM_DELAY * 1000);
+  USBD_USB_INSTANCE->BCDR |= (uint16_t)(USB_BCDR_DPPU);
+#endif
 #else
 #warning "No USB attach/detach method, USB might not be reliable through system resets"
 #endif
