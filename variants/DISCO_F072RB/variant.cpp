@@ -130,7 +130,7 @@ extern "C" {
 void __initialize_hardware_early(void)
 {
   if (dfu_reset_to_bootloader_magic == RESET_TO_BOOTLOADER_MAGIC_CODE) {
-    void (*bootloader)(void) = (void (*)(void)) (*((uint32_t *) SYSMEM_RESET_VECTOR));
+    void (*bootloader)(void) = (void (*)(void))(*((uint32_t *) SYSMEM_RESET_VECTOR));
     dfu_reset_to_bootloader_magic = 0;
     __set_MSP(BOOTLOADER_STACK_POINTER);
     bootloader();
@@ -146,7 +146,7 @@ void variant_soft_dfu_hook(uint8_t *Buf, uint32_t *Len)
   
   for (i = 0; i < *Len; i++) {
     /* reading buffer for a sequential bytes that form a pass key */
-    if (*(Buf+i) == passkey[passkey_index])
+    if (*(Buf + i) == passkey[passkey_index])
       passkey_index++;
     else
       passkey_index = 0;
