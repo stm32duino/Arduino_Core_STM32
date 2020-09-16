@@ -46,7 +46,7 @@ extern "C" {
 #define PB9  16
 #define PB8  17
 #define PA15 18
-#define PA14 19 // SWD
+#define PA14 19 // SWD / BOOT0
 #define PA13 20 // SWD
 #define PA0  21
 #define PA1  22
@@ -64,24 +64,15 @@ extern "C" {
 #define LED_BUILTIN             13
 #define LED_GREEN               LED_BUILTIN
 
-// On-board user button
-//#define USER_BTN                PC13
-
-// Timer Definitions
-// Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
-//#define TIMER_TONE              TIM6
-//#define TIMER_SERVO             TIM7
-
 // UART Definitions
-#define SERIAL_UART_INSTANCE    2 //Connected to ST-Link
+#define SERIAL_UART_INSTANCE    2 //Connected to Aurora Connect Lite
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           PA3
-#define PIN_SERIAL_TX           PA2
+#define PIN_SERIAL_RX           PA10
+#define PIN_SERIAL_TX           PA9
 
 /* Extra HAL modules */
-//#define HAL_DAC_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"
