@@ -10,7 +10,7 @@
 /*
  * STM32 built-in bootloader in system memory support
  */
-
+#if !defined(STM32MP1xx)
 static const uint32_t BOOTLOADER_DELAY_MS = 250;
 static bool BootIntoBootloaderAfterReset;
 static uint32_t countdown = 0;
@@ -134,15 +134,18 @@ void cancelBootloaderReset()
 {
   countdown = 0;
 }
+#endif /* !STM32MP1xx */
 
 /**
   * Bootloader systick handler, should be called every ms
   */
 void bootloaderSystickHandler()
 {
+#ifndef STM32MP1xx
   if (countdown && --countdown == 0) {
     jumpToBootloaderRequested();
   }
+#endif /* !STM32MP1xx */
 }
 
 /*
