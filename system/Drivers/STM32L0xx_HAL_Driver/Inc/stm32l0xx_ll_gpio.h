@@ -672,6 +672,7 @@ __STATIC_INLINE void LL_GPIO_LockPin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
   WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | PinMask);
   WRITE_REG(GPIOx->LCKR, PinMask);
   WRITE_REG(GPIOx->LCKR, GPIO_LCKR_LCKK | PinMask);
+  /* Read LCKK register. This read is mandatory to complete key lock sequence */
   temp = READ_REG(GPIOx->LCKR);
   (void) temp;
 }
@@ -900,7 +901,8 @@ __STATIC_INLINE void LL_GPIO_ResetOutputPin(GPIO_TypeDef *GPIOx, uint32_t PinMas
   */
 __STATIC_INLINE void LL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint32_t PinMask)
 {
-  WRITE_REG(GPIOx->ODR, READ_REG(GPIOx->ODR) ^ PinMask);
+  uint32_t odr = READ_REG(GPIOx->ODR);
+  WRITE_REG(GPIOx->BSRR, ((odr & PinMask) << 16u) | (~odr & PinMask));
 }
 
 /**
