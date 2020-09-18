@@ -29,7 +29,9 @@
 #define VRING_COUNT           2
 
 /* VirtIO rpmsg device id */
-#define VIRTIO_ID_RPMSG       7
+#ifndef VIRTIO_ID_RPMSG
+  #define VIRTIO_ID_RPMSG       7
+#endif
 
 #if defined (VIRTIO_LOG)
   extern char virtio_log_buffer[];
