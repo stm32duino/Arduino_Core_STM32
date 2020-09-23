@@ -184,6 +184,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f1xx_hal.h"
+#include <string.h>
 
 /** @addtogroup STM32F1xx_HAL_Driver
   * @{
