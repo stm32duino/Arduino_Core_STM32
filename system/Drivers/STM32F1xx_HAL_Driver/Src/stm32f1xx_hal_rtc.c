@@ -390,30 +390,10 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
       return HAL_ERROR;
     }
 
-    // Copy date data back out of the BackUp registers
-    RTC_DateTypeDef BackupDate;
-    RTC_TimeTypeDef DummyTime;
-    uint32_t dateMem;
-    dateMem = HAL_RTCEx_BKUPRead(hrtc, RTC_BKP_DR3);
-    dateMem |= HAL_RTCEx_BKUPRead(hrtc, RTC_BKP_DR2) << 16;
-    memcpy(&BackupDate, &dateMem, sizeof(uint32_t));
-    if(IS_RTC_YEAR(BackupDate.Year) && IS_RTC_MONTH(BackupDate.Month) && IS_RTC_DATE(BackupDate.Date)) {
-      /* Change the date retrieved from the backup registers */
-      hrtc->DateToUpdate.Year  = BackupDate.Year;
-      hrtc->DateToUpdate.Month = BackupDate.Month;
-      hrtc->DateToUpdate.Date  = BackupDate.Date;
-
-      /* Read the time so that the date is rolled over if required */
-      HAL_RTC_GetTime(hrtc, &DummyTime, RTC_FORMAT_BIN);
-    } else {
-      /* Initialize date to 1st of January 2000 */
-      hrtc->DateToUpdate.Year = 0x00U;
-      hrtc->DateToUpdate.Month = RTC_MONTH_JANUARY;
-      hrtc->DateToUpdate.Date = 0x01U;
-    }
-
-    /* WeekDay set by user can be ignored because automatically calculated */
-    hrtc->DateToUpdate.WeekDay = RTC_WeekDayNum(hrtc->DateToUpdate.Year, hrtc->DateToUpdate.Month, hrtc->DateToUpdate.Date);
+    /* Initialize date to 1st of January 2000 */
+    hrtc->DateToUpdate.Year = 0x00U;
+    hrtc->DateToUpdate.Month = RTC_MONTH_JANUARY;
+    hrtc->DateToUpdate.Date = 0x01U;
 
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_READY;
@@ -975,12 +955,6 @@ HAL_StatusTypeDef HAL_RTC_SetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDat
   /* WeekDay set by user can be ignored because automatically calculated */
   hrtc->DateToUpdate.WeekDay = RTC_WeekDayNum(hrtc->DateToUpdate.Year, hrtc->DateToUpdate.Month, hrtc->DateToUpdate.Date);
   sDate->WeekDay = hrtc->DateToUpdate.WeekDay;
-  
-  /* Store the date in the backup registers so we can pull it back out on RTC_Init (allows us to keep date details through power cycles) */
-  uint32_t dateToStore;
-  memcpy(&dateToStore, &hrtc->DateToUpdate, 4);  
-  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR2, dateToStore >> 16);
-  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
 
   /* Reset time to be aligned on the same day */
   /* Read the time counter*/
@@ -1895,12 +1869,6 @@ static void RTC_DateUpdate(RTC_HandleTypeDef *hrtc, uint32_t DayElapsed)
 
   /* Update day of the week */
   hrtc->DateToUpdate.WeekDay = RTC_WeekDayNum(year, month, day);
-  
-  /* Store the date in the backup registers so we can pull it back out on RTC_Init (allows us to keep date details through power cycles) */
-  uint32_t dateToStore;
-  memcpy(&dateToStore, &hrtc->DateToUpdate, 4);  
-  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR2, dateToStore >> 16);
-  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
 }
 
 /**
