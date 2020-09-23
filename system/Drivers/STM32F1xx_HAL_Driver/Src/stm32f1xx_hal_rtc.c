@@ -412,7 +412,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
       hrtc->DateToUpdate.Date = 0x01U;
     }
 
-    /* Calculate the current weekday */
+    /* WeekDay set by user can be ignored because automatically calculated */
     hrtc->DateToUpdate.WeekDay = RTC_WeekDayNum(hrtc->DateToUpdate.Year, hrtc->DateToUpdate.Month, hrtc->DateToUpdate.Date);
 
     /* Set RTC state */
