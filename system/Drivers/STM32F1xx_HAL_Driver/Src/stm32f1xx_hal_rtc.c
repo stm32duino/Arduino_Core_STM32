@@ -978,8 +978,8 @@ HAL_StatusTypeDef HAL_RTC_SetDate(RTC_HandleTypeDef *hrtc, RTC_DateTypeDef *sDat
   /* Store the date in the backup registers so we can pull it back out on RTC_Init (allows us to keep date details through power cycles) */
   uint32_t dateToStore;
   memcpy(&dateToStore, &hrtc->DateToUpdate, 4);  
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, dateToStore >> 16);
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
+  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR2, dateToStore >> 16);
+  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
 
   /* Reset time to be aligned on the same day */
   /* Read the time counter*/
@@ -1898,8 +1898,8 @@ static void RTC_DateUpdate(RTC_HandleTypeDef *hrtc, uint32_t DayElapsed)
   /* Store the date in the backup registers so we can pull it back out on RTC_Init (allows us to keep date details through power cycles) */
   uint32_t dateToStore;
   memcpy(&dateToStore, &hrtc->DateToUpdate, 4);  
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR2, dateToStore >> 16);
-  HAL_RTCEx_BKUPWrite(&hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
+  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR2, dateToStore >> 16);
+  HAL_RTCEx_BKUPWrite(hrtc, RTC_BKP_DR3, dateToStore & 0xffff);
 }
 
 /**
