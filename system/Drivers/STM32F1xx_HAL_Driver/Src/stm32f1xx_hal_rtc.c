@@ -403,7 +403,7 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
       hrtc->DateToUpdate.Date  = BackupDate.Date;
 
       /* Read the time so that the date is rolled over if required */
-      HAL_RTC_GetTime(&hrtc, &DummyTime, RTC_FORMAT_BIN);
+      HAL_RTC_GetTime(hrtc, &DummyTime, RTC_FORMAT_BIN);
     } else {
       /* Initialize date to 1st of January 2000 */
       hrtc->DateToUpdate.Year = 0x00U;
