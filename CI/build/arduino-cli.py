@@ -533,6 +533,7 @@ def check_status(status, build_conf, boardKo):
         # Check if failed due to a region overflowed
         logFile = os.path.join(build_conf[3], sketch_name + ".log")
         # error or fatal error
+        fork_pattern = re.compile(r"^Error during build: fork/exec")
         error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
         ld_pattern = re.compile("arm-none-eabi/bin/ld:")
         overflow_pattern = re.compile(
@@ -541,6 +542,8 @@ def check_status(status, build_conf, boardKo):
         error_found = False
         for i, line in enumerate(open(logFile)):
             if error_pattern.search(line):
+                error_found = True
+            elif fork_pattern.search(line):
                 error_found = True
             elif ld_pattern.search(line):
                 # If one ld line is not for region overflowed --> failed
