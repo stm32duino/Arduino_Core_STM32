@@ -265,14 +265,18 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32H742VG<br>STM32H742VI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H742ZG<br>STM32H742ZI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H743IG<br>STM32H743II | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32H743VG<br>STM32H743VI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H743ZG<br>STM32H743ZI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H747AG<br>STM32H747AI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H747IG<br>STM32H747II | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H750ZB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H750IB<br>STM32H750II | Generic Board | **2.0.0** |  |
 | :green_heart: | STM32H750IB | [Daisy ](https://www.electro-smith.com/daisy/daisy) | *1.9.0* |  |
+| :yellow_heart: | STM32H750VB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32H753VI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H753ZI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H757AI | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32H757II | Generic Board | **2.0.0** |  |
