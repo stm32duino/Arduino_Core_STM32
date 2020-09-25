@@ -1655,6 +1655,14 @@ GenH7.menu.pnum.DAISY_SEED.build.board=DAISY_SEED
 GenH7.menu.pnum.DAISY_SEED.build.product_line=STM32H750xx
 GenH7.menu.pnum.DAISY_SEED.build.variant=DAISY_SEED
 
+# Generic STM32H743VITx
+GenH7.menu.pnum.STM32H743VITx=Generic_H743Vx
+GenH7.menu.pnum.STM32H743VITx.upload.maximum_size=131072
+GenH7.menu.pnum.STM32H743VITx.upload.maximum_data_size=524288
+GenH7.menu.pnum.STM32H743VITx.build.board=Generic_H743Vx
+GenH7.menu.pnum.STM32H743VITx.build.product_line=STM32H743xx
+GenH7.menu.pnum.STM32H743VITx.build.variant=Generic_H743Vx
+
 # Upload menu
 GenH7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 GenH7.menu.upload_method.swdMethod.upload.protocol=0
