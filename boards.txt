@@ -1657,7 +1657,7 @@ GenH7.menu.pnum.DAISY_SEED.build.variant=DAISY_SEED
 
 # Generic STM32H743VITx
 GenH7.menu.pnum.STM32H743VITx=Generic_H743Vx
-GenH7.menu.pnum.STM32H743VITx.upload.maximum_size=131072
+GenH7.menu.pnum.STM32H743VITx.upload.maximum_size=2097152
 GenH7.menu.pnum.STM32H743VITx.upload.maximum_data_size=524288
 GenH7.menu.pnum.STM32H743VITx.build.board=Generic_H743Vx
 GenH7.menu.pnum.STM32H743VITx.build.product_line=STM32H743xx
