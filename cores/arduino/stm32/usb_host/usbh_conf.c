@@ -61,13 +61,12 @@ USBH_StatusTypeDef USBH_Get_USB_Status(HAL_StatusTypeDef hal_status);
 *******************************************************************************/
 /* MSP Init */
 
-void HAL_HCD_MspInit(HCD_HandleTypeDef* hhcd)
+void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 {
   const PinMap *map = NULL;
 #if defined (USB_OTG_FS)
-  if(hhcd->Instance==USB_OTG_FS)
-  {
-  /* Configure USB FS GPIOs */
+  if (hhcd->Instance == USB_OTG_FS) {
+    /* Configure USB FS GPIOs */
     map = PinMap_USB_OTG_FS;
     while (map->pin != NC) {
       pin_function(map->pin, map->function);
@@ -104,7 +103,7 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef* hhcd)
 #endif
 }
 
-void HAL_HCD_MspDeInit(HCD_HandleTypeDef* hhcd)
+void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
 {
 #if defined (USB_OTG_FS)
   if (hhcd->Instance == USB_OTG_FS) {
@@ -197,23 +196,22 @@ USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
 {
   /* Init USB_IP */
   if (phost->id == HOST_FS) {
-  /* Link the driver to the stack. */
-  hhcd_USB_OTG_FS.pData = phost;
-  phost->pData = &hhcd_USB_OTG_FS;
+    /* Link the driver to the stack. */
+    hhcd_USB_OTG_FS.pData = phost;
+    phost->pData = &hhcd_USB_OTG_FS;
 
-  hhcd_USB_OTG_FS.Instance = USB_OTG_FS;
-  hhcd_USB_OTG_FS.Init.Host_channels = 8;
-  hhcd_USB_OTG_FS.Init.speed = HCD_SPEED_FULL;
-  hhcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-  hhcd_USB_OTG_FS.Init.phy_itface = HCD_PHY_EMBEDDED;
-  hhcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-  if (HAL_HCD_Init(&hhcd_USB_OTG_FS) != HAL_OK)
-  {
-    // Error_Handler( );
-    return USBH_FAIL;
-  }
+    hhcd_USB_OTG_FS.Instance = USB_OTG_FS;
+    hhcd_USB_OTG_FS.Init.Host_channels = 8;
+    hhcd_USB_OTG_FS.Init.speed = HCD_SPEED_FULL;
+    hhcd_USB_OTG_FS.Init.dma_enable = DISABLE;
+    hhcd_USB_OTG_FS.Init.phy_itface = HCD_PHY_EMBEDDED;
+    hhcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
+    if (HAL_HCD_Init(&hhcd_USB_OTG_FS) != HAL_OK) {
+      // Error_Handler( );
+      return USBH_FAIL;
+    }
 
-  USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&hhcd_USB_OTG_FS));
+    USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&hhcd_USB_OTG_FS));
   }
   return USBH_OK;
 }
@@ -278,23 +276,22 @@ USBH_SpeedTypeDef USBH_LL_GetSpeed(USBH_HandleTypeDef *phost)
 {
   USBH_SpeedTypeDef speed = USBH_SPEED_FULL;
 
-  switch (HAL_HCD_GetCurrentSpeed(phost->pData))
-  {
-  case 0 :
-    speed = USBH_SPEED_HIGH;
-    break;
+  switch (HAL_HCD_GetCurrentSpeed(phost->pData)) {
+    case 0 :
+      speed = USBH_SPEED_HIGH;
+      break;
 
-  case 1 :
-    speed = USBH_SPEED_FULL;
-    break;
+    case 1 :
+      speed = USBH_SPEED_FULL;
+      break;
 
-  case 2 :
-    speed = USBH_SPEED_LOW;
-    break;
+    case 2 :
+      speed = USBH_SPEED_LOW;
+      break;
 
-  default:
-   speed = USBH_SPEED_FULL;
-    break;
+    default:
+      speed = USBH_SPEED_FULL;
+      break;
   }
   return  speed;
 }
@@ -404,7 +401,7 @@ USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost, uint8_t pipe, ui
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBH_StatusTypeDef usb_status = USBH_OK;
 
-  hal_status = HAL_HCD_HC_SubmitRequest(phost->pData, pipe, direction ,
+  hal_status = HAL_HCD_HC_SubmitRequest(phost->pData, pipe, direction,
                                         ep_type, token, pbuff, length,
                                         do_ping);
   usb_status =  USBH_Get_USB_Status(hal_status);
@@ -428,7 +425,7 @@ USBH_StatusTypeDef USBH_LL_SubmitURB(USBH_HandleTypeDef *phost, uint8_t pipe, ui
   */
 USBH_URBStateTypeDef USBH_LL_GetURBState(USBH_HandleTypeDef *phost, uint8_t pipe)
 {
-  return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState (phost->pData, pipe);
+  return (USBH_URBStateTypeDef)HAL_HCD_HC_GetURBState(phost->pData, pipe);
 }
 
 /**
@@ -447,18 +444,14 @@ USBH_StatusTypeDef USBH_LL_DriverVBUS(USBH_HandleTypeDef *phost, uint8_t state)
 
   /* USER CODE END 0*/
 
-  if (phost->id == HOST_FS)
-  {
-    if (state == 0)
-    {
+  if (phost->id == HOST_FS) {
+    if (state == 0) {
       /* Drive high Charge pump */
       /* ToDo: Add IOE driver control */
       /* USER CODE BEGIN DRIVE_HIGH_CHARGE_FOR_FS */
 
       /* USER CODE END DRIVE_HIGH_CHARGE_FOR_FS */
-    }
-    else
-    {
+    } else {
       /* Drive low Charge pump */
       /* ToDo: Add IOE driver control */
       /* USER CODE BEGIN DRIVE_LOW_CHARGE_FOR_FS */
@@ -482,12 +475,9 @@ USBH_StatusTypeDef USBH_LL_SetToggle(USBH_HandleTypeDef *phost, uint8_t pipe, ui
   HCD_HandleTypeDef *pHandle;
   pHandle = phost->pData;
 
-  if(pHandle->hc[pipe].ep_is_in)
-  {
+  if (pHandle->hc[pipe].ep_is_in) {
     pHandle->hc[pipe].toggle_in = toggle;
-  }
-  else
-  {
+  } else {
     pHandle->hc[pipe].toggle_out = toggle;
   }
 
@@ -506,12 +496,9 @@ uint8_t USBH_LL_GetToggle(USBH_HandleTypeDef *phost, uint8_t pipe)
   HCD_HandleTypeDef *pHandle;
   pHandle = phost->pData;
 
-  if(pHandle->hc[pipe].ep_is_in)
-  {
+  if (pHandle->hc[pipe].ep_is_in) {
     toggle = pHandle->hc[pipe].toggle_in;
-  }
-  else
-  {
+  } else {
     toggle = pHandle->hc[pipe].toggle_out;
   }
   return toggle;
@@ -536,23 +523,22 @@ USBH_StatusTypeDef USBH_Get_USB_Status(HAL_StatusTypeDef hal_status)
 {
   USBH_StatusTypeDef usb_status = USBH_OK;
 
-  switch (hal_status)
-  {
+  switch (hal_status) {
     case HAL_OK :
       usb_status = USBH_OK;
-    break;
+      break;
     case HAL_ERROR :
       usb_status = USBH_FAIL;
-    break;
+      break;
     case HAL_BUSY :
       usb_status = USBH_BUSY;
-    break;
+      break;
     case HAL_TIMEOUT :
       usb_status = USBH_FAIL;
-    break;
+      break;
     default :
       usb_status = USBH_FAIL;
-    break;
+      break;
   }
   return usb_status;
 }

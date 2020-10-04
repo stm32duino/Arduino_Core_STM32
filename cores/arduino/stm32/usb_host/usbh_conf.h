@@ -23,7 +23,7 @@
 #ifndef __USBH_CONF__H__
 #define __USBH_CONF__H__
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 // #define USBHOST
@@ -98,8 +98,8 @@
 
 /****************************************/
 /* #define for FS and HS identification */
-#define HOST_HS 		0
-#define HOST_FS 		1
+#define HOST_HS     0
+#define HOST_FS     1
 
 /* Interrupt priority */
 #ifndef USBH_IRQ_PRIO
@@ -110,9 +110,9 @@
 #endif /* USBH_IRQ_SUBPRIO */
 
 #if (USBH_USE_OS == 1)
-  #include "cmsis_os.h"
-  #define USBH_PROCESS_PRIO          osPriorityNormal
-  #define USBH_PROCESS_STACK_SIZE    ((uint16_t)0)
+#include "cmsis_os.h"
+#define USBH_PROCESS_PRIO          osPriorityNormal
+#define USBH_PROCESS_STACK_SIZE    ((uint16_t)0)
 #endif /* (USBH_USE_OS == 1) */
 
 /**
@@ -207,7 +207,7 @@ extern void spi_debug(const char *msg, ...);
   * @}
   */
 
- #endif /* USBHOST */
+#endif /* USBHOST */
 
 #ifdef __cplusplus
 }
