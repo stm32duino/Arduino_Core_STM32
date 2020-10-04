@@ -17,13 +17,16 @@
   *
   ******************************************************************************
   */
+#ifdef USBHOST
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbh_core.h"
 #include "Arduino.h"
 
-#include "stm32f4xx_hal_hcd.h"
+#ifndef HAL_HCD_MODULE_ENABLED
+  #error "HAL_HCD_MODULE_ENABLED is required"
+#endif
 
 /* USER CODE BEGIN Includes */
 
@@ -569,3 +572,5 @@ USBH_StatusTypeDef USBH_Get_USB_Status(HAL_StatusTypeDef hal_status)
 }
 
 #endif // !defined(USBCON)
+
+#endif /* USBHOST */
