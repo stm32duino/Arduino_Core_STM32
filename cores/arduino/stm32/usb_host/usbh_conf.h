@@ -140,16 +140,13 @@ extern "C" {
 
 /* DEBUG macros */
 
-extern void spi_debug(const char *msg, ...);
-
 #if (USBH_DEBUG_LEVEL > 0U)
 #define  USBH_UsrLog(...)   do { \
                             printf(__VA_ARGS__); \
                             printf("\n"); \
 } while (0)
 #else
-#define USBH_UsrLog(MSG, ...) spi_debug(MSG __VA_OPT__(,) __VA_ARGS__);
-//do {} while (0)
+#define USBH_UsrLog(MSG, ...) do {} while (0)
 #endif
 
 #if (USBH_DEBUG_LEVEL > 1U)
@@ -160,8 +157,7 @@ extern void spi_debug(const char *msg, ...);
                             printf("\n"); \
 } while (0)
 #else
-#define USBH_ErrLog(MSG, ...) spi_debug(MSG __VA_OPT__(,) __VA_ARGS__);
-//do {} while (0)
+#define USBH_ErrLog(MSG, ...) do {} while (0)
 #endif
 
 #if (USBH_DEBUG_LEVEL > 2U)
@@ -171,8 +167,7 @@ extern void spi_debug(const char *msg, ...);
                             printf("\n"); \
 } while (0)
 #else
-#define USBH_DbgLog(MSG, ...) spi_debug(MSG __VA_OPT__(,) __VA_ARGS__);
-//do {} while (0)
+#define USBH_DbgLog(MSG, ...) do {} while (0)
 #endif
 
 /**
