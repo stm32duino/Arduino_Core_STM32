@@ -33,7 +33,7 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup HCD
+/** @addtogroup HCD HCD
   * @{
   */
 
@@ -262,9 +262,6 @@ HAL_StatusTypeDef HAL_HCD_Stop(HCD_HandleTypeDef *hhcd);
 /**
   * @}
   */
-/**
-  * @}
-  */
 
 /* Peripheral State functions  ************************************************/
 /** @addtogroup HCD_Exported_Functions_Group4 Peripheral State functions
@@ -293,20 +290,11 @@ uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
   * @}
   */
 /* Private functions prototypes ----------------------------------------------*/
-/** @defgroup HCD_Private_Functions_Prototypes HCD Private Functions Prototypes
-  * @{
-  */
 
-/**
+ /**
   * @}
   */
-
-/* Private functions ---------------------------------------------------------*/
-/** @defgroup HCD_Private_Functions HCD Private Functions
-  * @{
-  */
-
-/**
+ /**
   * @}
   */
 #endif /* defined (USB_OTG_FS) */
