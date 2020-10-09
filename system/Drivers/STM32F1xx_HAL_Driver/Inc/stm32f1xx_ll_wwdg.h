@@ -33,6 +33,7 @@ extern "C" {
   */
 
 #if defined (WWDG)
+
 /** @defgroup WWDG_LL WWDG
   * @{
   */
@@ -51,18 +52,18 @@ extern "C" {
   * @brief    IT defines which can be used with LL_WWDG_ReadReg and  LL_WWDG_WriteReg functions
   * @{
   */
-#define LL_WWDG_CFR_EWI                    WWDG_CFR_EWI
+#define LL_WWDG_CFR_EWI                     WWDG_CFR_EWI
 /**
   * @}
   */
 
 /** @defgroup WWDG_LL_EC_PRESCALER  PRESCALER
-* @{
-*/
-#define LL_WWDG_PRESCALER_1                0x00000000U                                             /*!< WWDG counter clock = (PCLK1/4096)/1 */
-#define LL_WWDG_PRESCALER_2                WWDG_CFR_WDGTB_0                                        /*!< WWDG counter clock = (PCLK1/4096)/2 */
-#define LL_WWDG_PRESCALER_4                WWDG_CFR_WDGTB_1                                        /*!< WWDG counter clock = (PCLK1/4096)/4 */
-#define LL_WWDG_PRESCALER_8                (WWDG_CFR_WDGTB_0 | WWDG_CFR_WDGTB_1)                   /*!< WWDG counter clock = (PCLK1/4096)/8 */
+  * @{
+  */
+#define LL_WWDG_PRESCALER_1                 0x00000000u                                               /*!< WWDG counter clock = (PCLK1/4096)/1 */
+#define LL_WWDG_PRESCALER_2                 WWDG_CFR_WDGTB_0                                          /*!< WWDG counter clock = (PCLK1/4096)/2 */
+#define LL_WWDG_PRESCALER_4                 WWDG_CFR_WDGTB_1                                          /*!< WWDG counter clock = (PCLK1/4096)/4 */
+#define LL_WWDG_PRESCALER_8                 (WWDG_CFR_WDGTB_0 | WWDG_CFR_WDGTB_1)                     /*!< WWDG counter clock = (PCLK1/4096)/8 */
 /**
   * @}
   */

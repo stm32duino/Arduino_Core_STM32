@@ -602,6 +602,7 @@ HAL_StatusTypeDef USB_DevInit(USB_TypeDef *USBx, USB_CfgTypeDef cfg);
 HAL_StatusTypeDef USB_EnableGlobalInt(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DisableGlobalInt(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_SetCurrentMode(USB_TypeDef *USBx, USB_ModeTypeDef mode);
+HAL_StatusTypeDef USB_SetDevSpeed(USB_TypeDef *USBx, uint8_t speed);
 HAL_StatusTypeDef USB_FlushRxFifo(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_FlushTxFifo(USB_TypeDef *USBx, uint32_t num);
 HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
@@ -614,6 +615,11 @@ HAL_StatusTypeDef USB_DevConnect(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_DevDisconnect(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_StopDevice(USB_TypeDef *USBx);
 HAL_StatusTypeDef USB_EP0_OutStart(USB_TypeDef *USBx, uint8_t *psetup);
+HAL_StatusTypeDef USB_WritePacket(USB_TypeDef *USBx, uint8_t *src,
+                                  uint8_t ch_ep_num, uint16_t len);
+
+void             *USB_ReadPacket(USB_TypeDef *USBx, uint8_t *dest, uint16_t len);
+
 uint32_t          USB_ReadInterrupts(USB_TypeDef *USBx);
 uint32_t          USB_ReadDevAllOutEpInterrupt(USB_TypeDef *USBx);
 uint32_t          USB_ReadDevOutEPInterrupt(USB_TypeDef *USBx, uint8_t epnum);
