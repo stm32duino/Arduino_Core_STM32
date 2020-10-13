@@ -28,14 +28,14 @@ Explain the **motivation** for making this change. What existing problem does th
 
 **Validation**
 
-* Ensure Travis CI build is passed.
+* Ensure CI build is passed.
 * Demonstrate the code is solid. [e.g. Provide a sketch]
 
-<!-- Make sure tests pass on both Travis CI. -->
+<!-- Make sure tests pass on both CI. -->
 
 **Code formatting**
 
-* Ensure AStyle check is passed thanks Travis CI (soon)
+* Ensure AStyle check is passed thanks CI
 
 <!-- See the simple style guide. -->
 

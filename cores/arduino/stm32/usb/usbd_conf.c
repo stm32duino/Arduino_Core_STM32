@@ -465,7 +465,15 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   USBD_reenumerate();
   /* Set common LL Driver parameters */
   g_hpcd.Init.dev_endpoints = DEV_NUM_EP;
+#ifdef DEP0CTL_MPS_64
   g_hpcd.Init.ep0_mps = DEP0CTL_MPS_64;
+#else
+#ifdef EP_MPS_64
+  g_hpcd.Init.ep0_mps = EP_MPS_64;
+#else
+#error "Missing EP0 MPS definition: DEP0CTL_MPS_64 or EP_MPS_64!"
+#endif
+#endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) || defined(USB)
   g_hpcd.Init.lpm_enable = DISABLE;
   g_hpcd.Init.battery_charging_enable = DISABLE;
@@ -665,7 +673,7 @@ USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev, uint8_t dev_a
 USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev,
                                     uint8_t ep_addr,
                                     uint8_t *pbuf,
-                                    uint16_t size)
+                                    uint32_t size)
 {
   HAL_PCD_EP_Transmit(pdev->pData, ep_addr, pbuf, size);
   return USBD_OK;
@@ -682,7 +690,7 @@ USBD_StatusTypeDef USBD_LL_Transmit(USBD_HandleTypeDef *pdev,
 USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev,
                                           uint8_t ep_addr,
                                           uint8_t *pbuf,
-                                          uint16_t size)
+                                          uint32_t size)
 {
   HAL_PCD_EP_Receive(pdev->pData, ep_addr, pbuf, size);
   return USBD_OK;

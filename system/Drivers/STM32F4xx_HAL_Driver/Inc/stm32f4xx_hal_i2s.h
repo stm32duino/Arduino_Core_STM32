@@ -181,6 +181,7 @@ typedef  void (*pI2S_CallbackTypeDef)(I2S_HandleTypeDef *hi2s); /*!< pointer to 
 #if (USE_HAL_I2S_REGISTER_CALLBACKS == 1U)
 #define HAL_I2S_ERROR_INVALID_CALLBACK   (0x00000020U)  /*!< Invalid Callback error      */
 #endif /* USE_HAL_I2S_REGISTER_CALLBACKS */
+#define HAL_I2S_ERROR_BUSY_LINE_RX       (0x00000040U)  /*!< Busy Rx Line error          */
 /**
   * @}
   */
@@ -420,6 +421,15 @@ typedef  void (*pI2S_CallbackTypeDef)(I2S_HandleTypeDef *hi2s); /*!< pointer to 
                                                 __IO uint32_t tmpreg_udr = 0x00U;\
                                                 tmpreg_udr = ((__HANDLE__)->Instance->SR);\
                                                 UNUSED(tmpreg_udr); \
+                                              }while(0U)
+/** @brief Flush the I2S DR Register.
+  * @param  __HANDLE__ specifies the I2S Handle.
+  * @retval None
+  */
+#define __HAL_I2S_FLUSH_RX_DR(__HANDLE__)  do{\
+                                                __IO uint32_t tmpreg_dr = 0x00U;\
+                                                tmpreg_dr = ((__HANDLE__)->Instance->DR);\
+                                                UNUSED(tmpreg_dr); \
                                               }while(0U)
 /**
   * @}

@@ -18,11 +18,11 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __STM32F7xx_HAL_DCMI_H
-#define __STM32F7xx_HAL_DCMI_H
+#ifndef STM32F7xx_HAL_DCMI_H
+#define STM32F7xx_HAL_DCMI_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -54,7 +54,7 @@ typedef enum
   HAL_DCMI_STATE_TIMEOUT           = 0x03U,  /*!< DCMI timeout state                    */
   HAL_DCMI_STATE_ERROR             = 0x04U,  /*!< DCMI error state                      */
   HAL_DCMI_STATE_SUSPENDED         = 0x05U   /*!< DCMI suspend state                    */
-}HAL_DCMI_StateTypeDef;
+} HAL_DCMI_StateTypeDef;
 
 /**
   * @brief   DCMIEx Embedded Synchronisation CODE Init structure definition
@@ -65,8 +65,18 @@ typedef struct
   uint8_t LineStartCode;  /*!< Specifies the code of the line start delimiter.  */
   uint8_t LineEndCode;    /*!< Specifies the code of the line end delimiter.    */
   uint8_t FrameEndCode;   /*!< Specifies the code of the frame end delimiter.   */
-}DCMI_CodesInitTypeDef;
+} DCMI_CodesInitTypeDef;
 
+/**
+  * @brief   DCMI Embedded Synchronisation CODE Init structure definition
+  */
+typedef struct
+{
+  uint8_t FrameStartUnmask; /*!< Specifies the frame start delimiter unmask. */
+  uint8_t LineStartUnmask;  /*!< Specifies the line start delimiter unmask.  */
+  uint8_t LineEndUnmask;    /*!< Specifies the line end delimiter unmask.    */
+  uint8_t FrameEndUnmask;   /*!< Specifies the frame end delimiter unmask.   */
+} DCMI_SyncUnmaskTypeDef;
 /**
   * @brief   DCMI Init structure definition
   */
@@ -96,6 +106,7 @@ typedef struct
   uint32_t JPEGMode;                    /*!< Enable or Disable the JPEG mode.
                                              This parameter can be a value of @ref DCMI_MODE_JPEG            */
 
+#ifdef DCMI_CR_BSM
   uint32_t ByteSelectMode;              /*!< Specifies the data to be captured by the interface
                                             This parameter can be a value of @ref DCMI_Byte_Select_Mode      */
 
@@ -107,7 +118,8 @@ typedef struct
 
   uint32_t LineSelectStart;             /*!< Specifies if the line of data to be captured by the interface is even or odd
                                             This parameter can be a value of @ref DCMI_Line_Select_Start     */
-}DCMI_InitTypeDef;
+#endif
+} DCMI_InitTypeDef;
 
 /**
   * @brief  DCMI handle Structure definition
@@ -134,14 +146,14 @@ typedef struct __DCMI_HandleTypeDef
 
   __IO uint32_t                 ErrorCode;           /*!< DCMI Error code              */
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
-  void    (* FrameEventCallback) ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Frame Event Callback */
-  void    (* VsyncEventCallback) ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Vsync Event Callback */
-  void    (* LineEventCallback ) ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Line Event Callback  */
-  void    (* ErrorCallback)      ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Error Callback       */
-  void    (* MspInitCallback)    ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Msp Init callback    */
-  void    (* MspDeInitCallback)  ( struct __DCMI_HandleTypeDef *hdcmi);  /*!< DCMI Msp DeInit callback  */
+  void (* FrameEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);       /*!< DCMI Frame Event Callback */
+  void (* VsyncEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);       /*!< DCMI Vsync Event Callback */
+  void (* LineEventCallback)(struct __DCMI_HandleTypeDef *hdcmi);        /*!< DCMI Line Event Callback  */
+  void (* ErrorCallback)(struct __DCMI_HandleTypeDef *hdcmi);            /*!< DCMI Error Callback       */
+  void (* MspInitCallback)(struct __DCMI_HandleTypeDef *hdcmi);          /*!< DCMI Msp Init callback    */
+  void (* MspDeInitCallback)(struct __DCMI_HandleTypeDef *hdcmi);        /*!< DCMI Msp DeInit callback  */
 #endif  /* USE_HAL_DCMI_REGISTER_CALLBACKS */
-}DCMI_HandleTypeDef;
+} DCMI_HandleTypeDef;
 
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
 typedef enum
@@ -153,7 +165,7 @@ typedef enum
   HAL_DCMI_MSPINIT_CB_ID        = 0x04U,    /*!< DCMI MspInit callback ID     */
   HAL_DCMI_MSPDEINIT_CB_ID      = 0x05U     /*!< DCMI MspDeInit callback ID   */
 
-}HAL_DCMI_CallbackIDTypeDef;
+} HAL_DCMI_CallbackIDTypeDef;
 
 typedef void (*pDCMI_CallbackTypeDef)(DCMI_HandleTypeDef *hdcmi);
 #endif /* USE_HAL_DCMI_REGISTER_CALLBACKS */
@@ -500,8 +512,8 @@ typedef void (*pDCMI_CallbackTypeDef)(DCMI_HandleTypeDef *hdcmi);
 /* Initialization and de-initialization functions *****************************/
 HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef HAL_DCMI_DeInit(DCMI_HandleTypeDef *hdcmi);
-void       HAL_DCMI_MspInit(DCMI_HandleTypeDef* hdcmi);
-void       HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi);
+void       HAL_DCMI_MspInit(DCMI_HandleTypeDef *hdcmi);
+void       HAL_DCMI_MspDeInit(DCMI_HandleTypeDef *hdcmi);
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
@@ -516,10 +528,10 @@ HAL_StatusTypeDef HAL_DCMI_UnRegisterCallback(DCMI_HandleTypeDef *hdcmi, HAL_DCM
  * @{
  */
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef* hdcmi, uint32_t DCMI_Mode, uint32_t pData, uint32_t Length);
-HAL_StatusTypeDef HAL_DCMI_Stop(DCMI_HandleTypeDef* hdcmi);
-HAL_StatusTypeDef HAL_DCMI_Suspend(DCMI_HandleTypeDef* hdcmi);
-HAL_StatusTypeDef HAL_DCMI_Resume(DCMI_HandleTypeDef* hdcmi);
+HAL_StatusTypeDef HAL_DCMI_Start_DMA(DCMI_HandleTypeDef *hdcmi, uint32_t DCMI_Mode, uint32_t pData, uint32_t Length);
+HAL_StatusTypeDef HAL_DCMI_Stop(DCMI_HandleTypeDef *hdcmi);
+HAL_StatusTypeDef HAL_DCMI_Suspend(DCMI_HandleTypeDef *hdcmi);
+HAL_StatusTypeDef HAL_DCMI_Resume(DCMI_HandleTypeDef *hdcmi);
 void       HAL_DCMI_ErrorCallback(DCMI_HandleTypeDef *hdcmi);
 void       HAL_DCMI_LineEventCallback(DCMI_HandleTypeDef *hdcmi);
 void       HAL_DCMI_FrameEventCallback(DCMI_HandleTypeDef *hdcmi);
@@ -536,6 +548,7 @@ void       HAL_DCMI_IRQHandler(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef     HAL_DCMI_ConfigCrop(DCMI_HandleTypeDef *hdcmi, uint32_t X0, uint32_t Y0, uint32_t XSize, uint32_t YSize);
 HAL_StatusTypeDef     HAL_DCMI_EnableCrop(DCMI_HandleTypeDef *hdcmi);
 HAL_StatusTypeDef     HAL_DCMI_DisableCrop(DCMI_HandleTypeDef *hdcmi);
+HAL_StatusTypeDef     HAL_DCMI_ConfigSyncUnmask(DCMI_HandleTypeDef *hdcmi, DCMI_SyncUnmaskTypeDef *SyncUnmask);
 
 /**
   * @}
@@ -640,6 +653,6 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
 }
 #endif
 
-#endif /* __STM32F7xx_HAL_DCMI_H */
+#endif /* STM32F7xx_HAL_DCMI_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

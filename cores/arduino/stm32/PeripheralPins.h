@@ -69,7 +69,20 @@ extern const PinMap PinMap_CAN_TD[];
 extern const PinMap PinMap_Ethernet[];
 
 //*** QUADSPI ***
-extern const PinMap PinMap_QUADSPI[];
+extern const PinMap PinMap_QUADSPI_DATA0[];
+extern const PinMap PinMap_QUADSPI_DATA1[];
+extern const PinMap PinMap_QUADSPI_DATA2[];
+extern const PinMap PinMap_QUADSPI_DATA3[];
+extern const PinMap PinMap_QUADSPI_SCLK[];
+extern const PinMap PinMap_QUADSPI_SSEL[];
+
+//*** OCTOSPI ***
+extern const PinMap PinMap_OCTOSPI_DATA0[];
+extern const PinMap PinMap_OCTOSPI_DATA1[];
+extern const PinMap PinMap_OCTOSPI_DATA2[];
+extern const PinMap PinMap_OCTOSPI_DATA3[];
+extern const PinMap PinMap_OCTOSPI_SCLK[];
+extern const PinMap PinMap_OCTOSPI_SSEL[];
 
 //*** USB ***
 extern const PinMap PinMap_USB[];

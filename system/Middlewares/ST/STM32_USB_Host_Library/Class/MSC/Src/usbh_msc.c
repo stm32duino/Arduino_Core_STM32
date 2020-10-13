@@ -274,7 +274,7 @@ static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost)
     case MSC_REQ_IDLE:
     case MSC_REQ_GET_MAX_LUN:
       /* Issue GetMaxLUN request */
-      status = USBH_MSC_BOT_REQ_GetMaxLUN(phost, (uint8_t *)&MSC_Handle->max_lun);
+      status = USBH_MSC_BOT_REQ_GetMaxLUN(phost, &MSC_Handle->max_lun);
 
       /* When devices do not support the GetMaxLun request, this should
          be considred as only one logical unit is supported */
@@ -286,8 +286,8 @@ static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost)
 
       if (status == USBH_OK)
       {
-        MSC_Handle->max_lun = ((MSC_Handle->max_lun & 0xFFU) > MAX_SUPPORTED_LUN) ? MAX_SUPPORTED_LUN : ((MSC_Handle->max_lun & 0xFFU) + 1U);
-        USBH_UsrLog("Number of supported LUN: %lu", MSC_Handle->max_lun);
+        MSC_Handle->max_lun = (MSC_Handle->max_lun > MAX_SUPPORTED_LUN) ? MAX_SUPPORTED_LUN : (MSC_Handle->max_lun + 1U);
+        USBH_UsrLog("Number of supported LUN: %d", MSC_Handle->max_lun);
 
         for (i = 0U; i < MSC_Handle->max_lun; i++)
         {
@@ -297,7 +297,7 @@ static USBH_StatusTypeDef USBH_MSC_ClassRequest(USBH_HandleTypeDef *phost)
       }
       break;
 
-    case MSC_REQ_ERROR :
+    case MSC_REQ_ERROR:
       /* a Clear Feature should be issued here */
       if (USBH_ClrFeature(phost, 0x00U) == USBH_OK)
       {

@@ -228,11 +228,11 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
 
       if (TickPriority < (1UL << __NVIC_PRIO_BITS))
       {
-        HAL_NVIC_SetPriority(RTC_Alarm_IRQn, TickPriority, 0U);
-        HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
+      HAL_NVIC_SetPriority(RTC_Alarm_IRQn, TickPriority, 0U);
+      HAL_NVIC_EnableIRQ(RTC_Alarm_IRQn);
 
         uwTickPrio = TickPriority;
-        return HAL_OK;
+      return HAL_OK;
       }
       else
       {

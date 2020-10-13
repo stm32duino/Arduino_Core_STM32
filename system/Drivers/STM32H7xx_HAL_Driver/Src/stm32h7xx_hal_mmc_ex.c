@@ -57,6 +57,8 @@
   * @{
   */
 
+
+
 /** @addtogroup MMCEx_Exported_Functions_Group1
  *  @brief   Multibuffer functions
  *
@@ -121,6 +123,7 @@ HAL_StatusTypeDef HAL_MMCEx_ReadBlocksDMAMultiBuffer(MMC_HandleTypeDef *hmmc, ui
 
     DmaBase0_reg = hmmc->Instance->IDMABASE0;
     DmaBase1_reg = hmmc->Instance->IDMABASE1;
+
     if ((hmmc->Instance->IDMABSIZE == 0U) || (DmaBase0_reg == 0U) || (DmaBase1_reg == 0U))
     {
       hmmc->ErrorCode = HAL_MMC_ERROR_ADDR_OUT_OF_RANGE;
@@ -201,6 +204,7 @@ HAL_StatusTypeDef HAL_MMCEx_WriteBlocksDMAMultiBuffer(MMC_HandleTypeDef *hmmc, u
 
     DmaBase0_reg = hmmc->Instance->IDMABASE0;
     DmaBase1_reg = hmmc->Instance->IDMABASE1;
+
     if ((hmmc->Instance->IDMABSIZE == 0U) || (DmaBase0_reg == 0U) || (DmaBase1_reg == 0U))
     {
       hmmc->ErrorCode = HAL_MMC_ERROR_ADDR_OUT_OF_RANGE;

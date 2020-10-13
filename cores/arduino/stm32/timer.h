@@ -75,7 +75,7 @@ extern "C" {
 #endif
 #endif
 #if defined(TIM7_BASE) && !defined(TIM7_IRQn)
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) && defined(LPTIM2_BASE)
 #define TIM7_IRQn TIM7_LPTIM2_IRQn
 #define TIM7_IRQHandler TIM7_LPTIM2_IRQHandler
 #elif defined(STM32G4xx)

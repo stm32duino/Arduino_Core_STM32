@@ -358,8 +358,15 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start(TIM_HandleTypeDef *htim)
   TIM_CCxChannelCmd(htim->Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -434,8 +441,15 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_IT(TIM_HandleTypeDef *htim)
   TIM_CCxChannelCmd(htim->Instance, TIM_CHANNEL_1, TIM_CCx_ENABLE);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -533,8 +547,15 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
   __HAL_TIM_ENABLE_DMA(htim, TIM_DMA_CC1);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -633,8 +654,15 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start(TIM_HandleTypeDef *htim, uint32_t Channel)
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -749,8 +777,15 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Chann
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -965,8 +1000,15 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1114,8 +1156,15 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start(TIM_HandleTypeDef *htim, uint32_t Channel
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1228,8 +1277,15 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_IT(TIM_HandleTypeDef *htim, uint32_t Chan
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1445,8 +1501,15 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
   __HAL_TIM_MOE_ENABLE(htim);
 
   /* Enable the Peripheral, except in trigger mode where enable is automatically done with trigger */
-  tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
-  if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+  if (IS_TIM_SLAVE_INSTANCE(htim->Instance))
+  {
+    tmpsmcr = htim->Instance->SMCR & TIM_SMCR_SMS;
+    if (!IS_TIM_SLAVEMODE_TRIGGER_ENABLED(tmpsmcr))
+    {
+      __HAL_TIM_ENABLE(htim);
+    }
+  }
+  else
   {
     __HAL_TIM_ENABLE(htim);
   }
@@ -1794,14 +1857,19 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent(TIM_HandleTypeDef *htim, uint32_t 
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR4)  || (InputTrigger == TIM_TS_ITR5) ||
       (InputTrigger == TIM_TS_ITR6)  || (InputTrigger == TIM_TS_ITR7) ||
-      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR10) ||
-      (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR11))
+#elif defined(TIM20)
+  if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
+      (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
+      (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
+      (InputTrigger == TIM_TS_ITR9)  || (InputTrigger == TIM_TS_ITR11))
 #else
   if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
       (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
-      (InputTrigger == TIM_TS_ITR10) || (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR11))
 #endif /* TIM5 && TIM20 */
   {
     /* Select the Input trigger */
@@ -1880,14 +1948,19 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_IT(TIM_HandleTypeDef *htim, uint32
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR4)  || (InputTrigger == TIM_TS_ITR5) ||
       (InputTrigger == TIM_TS_ITR6)  || (InputTrigger == TIM_TS_ITR7) ||
-      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR10) ||
-      (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR11))
+#elif defined(TIM20)
+  if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
+      (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
+      (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
+      (InputTrigger == TIM_TS_ITR9)  || (InputTrigger == TIM_TS_ITR11))
 #else
   if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
       (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
-      (InputTrigger == TIM_TS_ITR10) || (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR11))
 #endif /* TIM5 && TIM20 */
   {
     /* Select the Input trigger */
@@ -1967,14 +2040,19 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigCommutEvent_DMA(TIM_HandleTypeDef *htim, uint3
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR4)  || (InputTrigger == TIM_TS_ITR5) ||
       (InputTrigger == TIM_TS_ITR6)  || (InputTrigger == TIM_TS_ITR7) ||
-      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR10) ||
-      (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR8)  || (InputTrigger == TIM_TS_ITR11))
+#elif defined(TIM20)
+  if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
+      (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
+      (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
+      (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
+      (InputTrigger == TIM_TS_ITR9)  || (InputTrigger == TIM_TS_ITR11))
 #else
   if ((InputTrigger == TIM_TS_ITR0)  || (InputTrigger == TIM_TS_ITR1) ||
       (InputTrigger == TIM_TS_ITR2)  || (InputTrigger == TIM_TS_ITR3) ||
       (InputTrigger == TIM_TS_ITR5)  || (InputTrigger == TIM_TS_ITR6) ||
       (InputTrigger == TIM_TS_ITR7)  || (InputTrigger == TIM_TS_ITR8) ||
-      (InputTrigger == TIM_TS_ITR10) || (InputTrigger == TIM_TS_ITR11))
+      (InputTrigger == TIM_TS_ITR11))
 #endif /* TIM5 && TIM20 */
   {
     /* Select the Input trigger */

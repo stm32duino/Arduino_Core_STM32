@@ -35,9 +35,6 @@
 /* Private Variables */
 timerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
 
-IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
-IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
-
 /**
   * @brief  HardwareTimer constructor: set default configuration values
   * @param  Timer instance ex: TIM1, ...
@@ -111,13 +108,19 @@ void HardwareTimer::pause()
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC3);
   __HAL_TIM_DISABLE_IT(&(_timerObj.handle), TIM_IT_CC4);
 
-  // Disable timer unconditionally
+  // Stop timer. Required to restore HAL State: HAL_TIM_STATE_READY
+  HAL_TIM_Base_Stop(&(_timerObj.handle));
+
+  /* Disable timer unconditionally. Required to guarantee timer is stopped,
+   * even if some channels are still running */
   LL_TIM_DisableCounter(_timerObj.handle.Instance);
 
 #if defined(TIM_CHANNEL_STATE_SET_ALL)
   /* Starting from G4, new Channel state implementation prevents to restart a channel,
      if the channel has not been explicitly be stopped with HAL interface */
   TIM_CHANNEL_STATE_SET_ALL(&(_timerObj.handle), HAL_TIM_CHANNEL_STATE_READY);
+#endif
+#if defined(TIM_CHANNEL_N_STATE_SET_ALL)
   TIM_CHANNEL_N_STATE_SET_ALL(&(_timerObj.handle), HAL_TIM_CHANNEL_STATE_READY);
 #endif
 }
@@ -147,9 +150,12 @@ void HardwareTimer::pauseChannel(uint32_t channel)
 #if defined(TIM_CHANNEL_STATE_SET)
   /* Starting from G4, new Channel state implementation prevents to restart a channel,
      if the channel has not been explicitly be stopped with HAL interface */
+#if defined(TIM_CHANNEL_N_STATE_SET)
   if (isComplementaryChannel[channel - 1]) {
     TIM_CHANNEL_N_STATE_SET(&(_timerObj.handle), getChannel(channel), HAL_TIM_CHANNEL_STATE_READY);
-  } else {
+  } else
+#endif
+  {
     TIM_CHANNEL_STATE_SET(&(_timerObj.handle), getChannel(channel), HAL_TIM_CHANNEL_STATE_READY);
   }
 #endif
@@ -913,6 +919,15 @@ void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, ui
   */
 void HardwareTimer::setInterruptPriority(uint32_t preemptPriority, uint32_t subPriority)
 {
+  // Set Update interrupt priority for immediate use
+  HAL_NVIC_SetPriority(getTimerUpIrq(_timerObj.handle.Instance), preemptPriority, subPriority);
+
+  // Set Capture/Compare interrupt priority if timer provides a unique IRQ
+  if (getTimerCCIrq(_timerObj.handle.Instance) != getTimerUpIrq(_timerObj.handle.Instance)) {
+    HAL_NVIC_SetPriority(getTimerCCIrq(_timerObj.handle.Instance), preemptPriority, subPriority);
+  }
+
+  // Store priority for use if timer is re-initialized
   _timerObj.preemptPriority = preemptPriority;
   _timerObj.subPriority = subPriority;
 }
@@ -1294,6 +1309,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       /* case RCC_APB2_DIV1: */
       case RCC_APB2_DIV2:
       case RCC_APB2_DIV4:
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_APB1_DIV8:
@@ -1310,7 +1326,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       case RCC_APB1_DIV2:
       /* case RCC_APB2_DIV1: */
       case RCC_APB2_DIV2:
-        // uwTimclock*=1;
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_APB1_DIV4:
@@ -1343,6 +1359,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
       case RCC_HCLK_DIV1:
       case RCC_HCLK_DIV2:
       case RCC_HCLK_DIV4:
+        /* Note: in such cases, HCLK = (APBCLK * DIVx) */
         uwTimclock = HAL_RCC_GetHCLKFreq();
         break;
       case RCC_HCLK_DIV8:

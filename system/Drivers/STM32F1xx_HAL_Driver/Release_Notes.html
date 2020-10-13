@@ -38,9 +38,249 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true"><strong>V1.1.4 / 26-June-2019</strong></label>
+<input type="checkbox" id="collapse-section1_1_6" checked aria-hidden="true"> <label for="collapse-section1_1_6" aria-hidden="true"><strong>V1.1.6 / 07-September-2020</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><strong>HAL/LL ADC</strong> driver
+<ul>
+<li>Update HAL_ADC_Stop_DMA() API to check if DMA state is Busy before calling HAL_DMA_Abort() API to avoid DMA internal error.</li>
+<li>update LL_ADC_REG_Init() API to avoid enabling continuous mode and discontinuous mode simultaneously.</li>
+</ul></li>
+<li><strong>HAL/LL GPIO</strong> driver
+<ul>
+<li>Update HAL_GPIO_TogglePin() API to allow multi Pin’s toggling.</li>
+<li>Update LL_GPIO_TogglePin() API to improve robustness: use BSRR register instead of ODR register.</li>
+<li>Update LL GPIO initialization sequence to avoid unwanted pulse on GPIO Pin’s</li>
+</ul></li>
+<li><strong>HAL/LL I2S</strong> driver
+<ul>
+<li>Update HAL_I2S_DMAStop() API to be more safe
+<ul>
+<li>Add a check on BSY, TXE and RXNE flags before disabling the I2S</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL SPI</strong> driver
+<ul>
+<li>Update SPI_DMAReceiveCplt() API to handle efficiently the repeated transfers.
+<ul>
+<li>Disable TX DMA request only in bidirectional receive mode</li>
+</ul></li>
+<li>Update HAL_SPI_Init() API
+<ul>
+<li>To avoid setting the BaudRatePrescaler in case of Slave Motorola Mode</li>
+<li>Use the bit-mask for SPI configuration</li>
+</ul></li>
+<li>Update Transmit/Receive processes in half-duplex mode
+<ul>
+<li>Disable the SPI instance before setting BDIOE bit</li>
+</ul></li>
+<li>Fix wrong timeout management
+<ul>
+<li>Calculate Timeout based on a software loop to avoid blocking issue if Systick is disabled</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL NOR</strong> driver
+<ul>
+<li>Update address calculation in HAL_NOR_ProgramBuffer()</li>
+<li>Apply adequate commands according to the command set field value
+<ul>
+<li>command set 1 for Micron JS28F512P33</li>
+<li>command set 2 for Micron M29W128G and Cypress S29GL128P</li>
+</ul></li>
+<li>Add new commands operations:
+<ul>
+<li>NOR_CMD_READ_ARRAY</li>
+<li>NOR_CMD_WORD_PROGRAM</li>
+<li>NOR_CMD_BUFFERED_PROGRAM</li>
+<li>NOR_CMD_CONFIRM</li>
+<li>NOR_CMD_BLOCK_ERASE</li>
+<li>NOR_CMD_BLOCK_UNLOCK</li>
+<li>NOR_CMD_READ_STATUS_REG</li>
+<li>NOR_CMD_CLEAR_STATUS_REG</li>
+</ul></li>
+<li>Update some APIs in order to be compliant for memories with another command set.
+<ul>
+<li>HAL_NOR_Init()</li>
+<li>HAL_NOR_Read_ID()</li>
+<li>HAL_NOR_ReturnToReadMode()</li>
+<li>HAL_NOR_Read()</li>
+<li>HAL_NOR_Program()</li>
+<li>HAL_NOR_ReadBuffer()</li>
+<li>HAL_NOR_ProgramBuffer()</li>
+<li>HAL_NOR_Erase_Block()</li>
+<li>HAL_NOR_Erase_Chip()</li>
+<li>HAL_NOR_GetStatus()</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL SRAM</strong> driver
+<ul>
+<li>General update to enhance HAL SRAM driver robustness
+<ul>
+<li>Update HAL_SRAM_Init() API to avoid activation of burst access for SRAM</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL FSMC</strong> driver
+<ul>
+<li>Update FSMC_NORSRAM_Init() API in order to resolve compilation issue with MS Visual 2017</li>
+<li>Update FSMC_NORSRAM_Extended_Timing_Init() API in order to manage Bus turnaround phase duration FSMC_BWTR1_BUSTURN availability.</li>
+</ul></li>
+<li><strong>LL UTILS</strong> driver
+<ul>
+<li>UTILS_SetFlashLatency() API renamed to LL_SetFlashLatency() and set exportable.</li>
+</ul></li>
+<li><strong>HAL/LL IWDG</strong> driver
+<ul>
+<li>Update HAL_IWDG_DEFAULT_TIMEOUT define value to consider LSI value instead of hardcoded value.</li>
+</ul></li>
+<li><strong>HAL/LL TIM</strong> driver
+<ul>
+<li>Align HAL/LL TIM driver with latest updates and enhancements</li>
+<li>Update Encoder interface mode to keep TIM_CCER_CCxNP bits low
+<ul>
+<li>Add TIM_ENCODERINPUTPOLARITY_RISING and TIM_ENCODERINPUTPOLARITY_FALLING definitions to determine encoder input polarity.</li>
+<li>Add IS_TIM_ENCODERINPUT_POLARITY() macro to check the encoder input polarity.</li>
+<li>Update HAL_TIM_Encoder_Init() API</li>
+<li>Replace IS_TIM_IC_POLARITY() macro by IS_TIM_ENCODERINPUT_POLARITY() macro.</li>
+</ul></li>
+<li>Fix bug when using multiple DMA request to different channels of same timer
+<ul>
+<li>Introduce DMA burst state management mechanism
+<ul>
+<li>Add a new structure for DMA Burst States definition : HAL_TIM_DMABurstStateTypeDef</li>
+<li>Update __HAL_TIM_RESET_HANDLE_STATE to support DMABurstState</li>
+<li>Add a new API HAL_TIM_DMABurstState() to get the actual state of a DMA burst operation</li>
+<li>Add DMABurstState, the DMA burst operation state, in the TIM_HandleTypeDef structure</li>
+<li>Add new API TIM_DMAErrorCCxN() for TIM DMA error callback (complementary channel)</li>
+<li>Add new API TIM_DMADelayPulseNCplt() for TIM DMA Delay Pulse complete callback (complementary channel)</li>
+</ul></li>
+</ul></li>
+<li>Implement TIM channel state management mechanism
+<ul>
+<li>Add new macro
+<ul>
+<li>TIM_CHANNEL_STATE_SET_ALL and TIM_CHANNEL_N_STATE_SET_ALL</li>
+<li>TIM_CHANNEL_STATE_SET and TIM_CHANNEL_N_STATE_SET</li>
+<li>TIM_CHANNEL_STATE_GET and TIM_CHANNEL_N_STATE_GET</li>
+</ul></li>
+<li>Add new API HAL_TIM_GetActiveChannel()</li>
+<li>Add new API HAL_TIM_GetChannelState() to get actual state of the TIM channel</li>
+<li>Add a new structure for TIM channel States definition : HAL_TIM_ChannelStateTypeDef</li>
+<li>Update __HAL_TIM_RESET_HANDLE_STATE to support ChannelState and ChannelNState</li>
+<li>Add a new element in the TIM_HandleTypeDef structure : ChannelState to manage TIM channel operation state</li>
+<li>Add a new element in the TIM_HandleTypeDef structure : ChannelNState to manage TIM complementary channel operation state</li>
+</ul></li>
+<li>Update HAL_TIMEx_MasterConfigSynchronization() API to avoid functional errors and assert fails when using some TIM instances as input trigger.
+<ul>
+<li>Replace IS_TIM_SYNCHRO_INSTANCE() macro by IS_TIM_MASTER_INSTANCE() macro.</li>
+<li>Add IS_TIM_SLAVE_INSTANCE() macro to check on TIM_SMCR_MSM bit.</li>
+</ul></li>
+<li>Remove ‘register’ storage class specifier from LL TIM driver.</li>
+<li>Add new API HAL_TIM_DMABurst_MultiWriteStart() allowing to configure the DMA Burst to transfer multiple Data from the memory to the TIM peripheral</li>
+<li>Add new API HAL_TIM_DMABurst_MultiReadStart() allowing to configure the DMA Burst to transfer Data from the TIM peripheral to the memory</li>
+</ul></li>
+<li><strong>HAL/LL UART</strong> driver
+<ul>
+<li>Update UART polling processes to handle efficiently the Lock mechanism
+<ul>
+<li>Move the process unlock at the top of the HAL_UART_Receive() and HAL_UART_Transmit() API.</li>
+</ul></li>
+<li>Update UART polling and interruption processes to fix issues related to accesses out of user specified buffer.
+<ul>
+<li>Update UART_Transmit_IT(), UART_Receive_IT(), HAL_UART_Transmit() and HAL_UART_Receive() APIs.</li>
+</ul></li>
+<li>Update UART interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_UART_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+<li>Update UART BRR calculation for ROM size gain</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong> driver
+<ul>
+<li>Update USART interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_USART_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong> driver
+<ul>
+<li>Update SMARTCARD interruption handler to manage correctly the overrun interrupt
+<ul>
+<li>Add in the HAL_SMARTCARD_IRQHandler() API a check on USART_CR1_RXNEIE bit when an overrun interrupt occurs.</li>
+</ul></li>
+<li>Update SMARTCARD transmission and reception API to handle memory corruption
+<ul>
+<li>HAL_SMARTCARD_Transmit(), HAL_SMARTCARD_Receive(), HAL_SMARTCARD_Transmit_IT() and HAL_SMARTCARD_Receive_IT()</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_1_5" aria-hidden="true"> <label for="collapse-section1_1_5" aria-hidden="true"><strong>V1.1.5 / 30-July-2020</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li><strong>HAL</strong> driver
+<ul>
+<li>Enhance HAL_SetTickFreq() API robustness
+<ul>
+<li>Restore previous tick frequency when a wrong tick initialization occurs.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL I2C</strong> update
+<ul>
+<li>Update HAL_I2C_ER_IRQHandler() API to fix acknowledge failure issue with I2C memory IT processes
+<ul>
+<li>Add stop condition generation when NACK occurs.</li>
+</ul></li>
+<li>Update I2C_DMAXferCplt(), I2C_DMAError() and I2C_DMAAbort() APIs to fix hardfault issue when hdmatx and hdmarx parameters in i2c handle aren’t initialized (NULL pointer).
+<ul>
+<li>Add additional check on hi2c-&gt;hdmtx and hi2c-&gt;hdmarx before resetting DMA Tx/Rx complete callbacks</li>
+</ul></li>
+<li>Update HAL_I2C_ER_IRQHandler() API to fix acknowledge failure issue with I2C memory IT processes
+<ul>
+<li>Add stop condition generation when NACK occursHAL SMBUS</li>
+</ul></li>
+<li>Update HAL_I2C_Init() API to force software reset before setting new I2C configuration.</li>
+<li>Update HAL I2C processes to report ErrorCode when wrong I2C start condition occurs
+<ul>
+<li>Add new ErrorCode define: HAL_I2C_WRONG_START</li>
+<li>Set ErrorCode parameter in I2C handle to HAL_I2C_WRONG_START</li>
+</ul></li>
+<li>Update sequential APIs to avoid requesting a START when a STOP condition is not fully treated
+<ul>
+<li>Wait the end of STOP treatment by polling (with a timeout) the STOP bit on Control register CR1</li>
+</ul></li>
+<li>Update I2C_MasterReceiveRXNE() static API to avoid set the STOP bit again after the bit clearing by Hardware during the masking operation
+<ul>
+<li>Add new API I2C_WaitOnSTOPRequestThroughIT() to wait for stop bit.</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL/LL USB</strong> driver
+<ul>
+<li>Bug fix: USB_ReadPMA() and USB_WritePMA() by ensuring 16-bits access to USB PMA memory</li>
+<li>Bug fix: correct USB RX count calculation</li>
+<li>Fix USB Bulk transfer double buffer mode</li>
+<li>Remove register keyword from USB defined macros as no more supported by C++ compiler</li>
+<li>Minor rework on USBD_Start() and USBD_Stop() APIs: stopping device will be handled by HAL_PCD_DeInit() API.</li>
+<li>Remove non used API for USB device mode.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true"><strong>V1.1.4 / 26-June-2019</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Add support of HAL callback registration feature</li>
@@ -56,7 +296,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>The feature disabled by default is available for the following HAL drivers:
 <ul>
 <li><strong>ADC, CEC, CAN, DAC, ETH, HCD, UART, USART, IRDA, SMARTCARD,</strong></li>
-<li><strong>MMC, NAND, NOR, PCCARD, PCD, RTC, SD, SRAM, I2C, SPI, I2S, TIM and WWDG</strong></li>
+<li><strong>MMC, NAND, NOR, PCCARD, PCD, RTC, SD, SRAM, SPI, I2S, TIM and WWDG</strong></li>
 </ul></li>
 <li>The feature may be enabled individually per HAL PPP driver by setting the corresponding definition USE_HAL_PPP_REGISTER_CALLBACKS to 1U in stm32f1xx_hal_conf.h project configuration file (template file stm32f1xx_hal_conf_template.h available from Drivers/STM32F1xx_HAL_Driver/Inc)</li>
 <li>Once enabled , the user application may resort to HAL_PPP_RegisterCallback() to register specific callback function(s) and unregister it(them) with HAL_PPP_UnRegisterCallback()</li>
@@ -170,32 +410,6 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add callback identifiers in HAL_SD_CallbackIDTypeDef enumerated typedef</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL I2C</strong> update
-<ul>
-<li>I2C API changes for MISRA-C 2012 compliance:
-<ul>
-<li>Rename HAL_I2C_Master_Sequential_Transmit_IT() to HAL_I2C_Master_Seq_Transmit_IT()</li>
-<li>Rename HAL_I2C_Master_Sequentiel_Receive_IT() to HAL_I2C_Master_Seq_Receive_IT()</li>
-<li>Rename HAL_I2C_Slave_Sequentiel_Transmit_IT() to HAL_I2C_Slave_Seq_Transmit_IT()</li>
-<li>Rename HAL_I2C_Slave_Sequentiel_Receive_DMA() to HAL_I2C_Slave_Seq_Receive_DMA()</li>
-</ul></li>
-<li>Add support of I2C repeated start feature in DMA Mode With the following new API’s
-<ul>
-<li>HAL_I2C_Master_Seq_Transmit_DMA()</li>
-<li>HAL_I2C_Master_Seq_Receive_DMA()</li>
-<li>HAL_I2C_Slave_Seq_Transmit_DMA()</li>
-<li>HAL_I2C_Slave_Seq_Receive_DMA()</li>
-</ul></li>
-<li>Add new I2C transfer options to easy manage the sequential transfers
-<ul>
-<li>I2C_OTHER_FRAME</li>
-<li>I2C_OTHER_AND_LAST_FRAME</li>
-</ul></li>
-<li>Fix I2C send break issue in IT processes
-<ul>
-<li>Add additional check on hi2c-&gt;hdmatxand hi2c-&gt;hdmarx to avoid the DMA request enable when ITmode is used.</li>
-</ul></li>
-</ul></li>
 <li><strong>HAL SPI</strong> update
 <ul>
 <li>Align HAL/LL SPI driver with latest updates and enhancements</li>
@@ -273,7 +487,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.1.3 / 09-October-2018</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li><strong>Maintenance release to fix known defects and enhancements implementation</strong></li>
 <li><strong>Generic drivers changes</strong></li>
@@ -316,7 +530,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.1.2 / 09-March-2018</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li>Remove Date and version from header files</li>
@@ -394,7 +608,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.1.1 / 12-May-2017</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL Generic</strong> update
@@ -420,7 +634,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.1.0 / 14-April-2017</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li><strong>Add Low Layer drivers allowing performance and footprint optimization</strong>
 <ul>
@@ -702,7 +916,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.0.5 / 06-December-2016</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>General updates to fix mainly known I2C defects and enhancements implementation</li>
 <li><strong>The following changes done on the HAL drivers require an update on the application code based on HAL V1.0.4</strong>
@@ -798,7 +1012,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.0.4 / 29-April-2016</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 <li><strong>HAL RCC</strong>
@@ -838,7 +1052,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.3 / 11-January-2016</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Remove the #if defined(USE_HAL_LEGACY) condition to include Legacy/stm32_hal_legacy.h by default, in stm32f1xx_hal_def.h.</li>
 </ul>
@@ -847,7 +1061,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.0.2 / 18-December-2015</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 <li><strong>HAL generic</strong>
@@ -933,7 +1147,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.0.1 / 31-July-2015</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation.</li>
 <li><strong>HAL generic</strong>
@@ -1035,7 +1249,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 15-December-2014</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>First Official release of <strong>STM32F1xx HAL Drivers</strong> for all STM32F1 devices.</li>
 <li>This release is in line with <strong>STM32Cube Firmware specification Rev1.0</strong> document</li>

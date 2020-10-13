@@ -79,9 +79,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PA3
 #define PIN_SERIAL_TX           PA2
 
-/* HAL configuration */
-#define HSE_VALUE               (24000000UL)
-
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
 

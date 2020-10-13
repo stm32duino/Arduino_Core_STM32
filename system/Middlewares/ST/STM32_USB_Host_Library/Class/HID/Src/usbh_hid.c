@@ -286,64 +286,78 @@ static USBH_StatusTypeDef USBH_HID_ClassRequest(USBH_HandleTypeDef *phost)
   /* Switch HID state machine */
   switch (HID_Handle->ctl_state)
   {
-    case HID_REQ_INIT:
-    case HID_REQ_GET_HID_DESC:
+  case HID_REQ_INIT:
+  case HID_REQ_GET_HID_DESC:
 
-      /* Get HID Desc */
-      if (USBH_HID_GetHIDDescriptor(phost, USB_HID_DESC_SIZE) == USBH_OK)
-      {
+    USBH_HID_ParseHIDDesc(&HID_Handle->HID_Desc, phost->device.CfgDesc_Raw);
 
-        USBH_HID_ParseHIDDesc(&HID_Handle->HID_Desc, phost->device.Data);
-        HID_Handle->ctl_state = HID_REQ_GET_REPORT_DESC;
-      }
+    HID_Handle->ctl_state = HID_REQ_GET_REPORT_DESC;
 
-      break;
-    case HID_REQ_GET_REPORT_DESC:
+    break;
+  case HID_REQ_GET_REPORT_DESC:
 
+    /* Get Report Desc */
+    classReqStatus = USBH_HID_GetHIDReportDescriptor(phost, HID_Handle->HID_Desc.wItemLength);
+    if (classReqStatus == USBH_OK)
+    {
+      /* The descriptor is available in phost->device.Data */
+      HID_Handle->ctl_state = HID_REQ_SET_IDLE;
+    }
+    else if (classReqStatus == USBH_NOT_SUPPORTED)
+    {
+      USBH_ErrLog("Control error: HID: Device Get Report Descriptor request failed");
+      status = USBH_FAIL;
+    }
+    else
+    {
+      /* .. */
+    }
 
-      /* Get Report Desc */
-      if (USBH_HID_GetHIDReportDescriptor(phost, HID_Handle->HID_Desc.wItemLength) == USBH_OK)
-      {
-        /* The descriptor is available in phost->device.Data */
+    break;
 
-        HID_Handle->ctl_state = HID_REQ_SET_IDLE;
-      }
+  case HID_REQ_SET_IDLE:
 
-      break;
+    classReqStatus = USBH_HID_SetIdle(phost, 0U, 0U);
 
-    case HID_REQ_SET_IDLE:
-
-      classReqStatus = USBH_HID_SetIdle(phost, 0U, 0U);
-
-      /* set Idle */
-      if (classReqStatus == USBH_OK)
+    /* set Idle */
+    if (classReqStatus == USBH_OK)
+    {
+      HID_Handle->ctl_state = HID_REQ_SET_PROTOCOL;
+    }
+    else
+    {
+      if (classReqStatus == USBH_NOT_SUPPORTED)
       {
         HID_Handle->ctl_state = HID_REQ_SET_PROTOCOL;
       }
-      else
-      {
-        if (classReqStatus == USBH_NOT_SUPPORTED)
-        {
-          HID_Handle->ctl_state = HID_REQ_SET_PROTOCOL;
-        }
-      }
-      break;
+    }
+    break;
 
-    case HID_REQ_SET_PROTOCOL:
-      /* set protocol */
-      if (USBH_HID_SetProtocol(phost, 0U) == USBH_OK)
-      {
-        HID_Handle->ctl_state = HID_REQ_IDLE;
+  case HID_REQ_SET_PROTOCOL:
+    /* set protocol */
+    classReqStatus = USBH_HID_SetProtocol(phost, 0U);
+    if (classReqStatus == USBH_OK)
+    {
+      HID_Handle->ctl_state = HID_REQ_IDLE;
 
-        /* all requests performed*/
-        phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
-        status = USBH_OK;
-      }
-      break;
+      /* all requests performed*/
+      phost->pUser(phost, HOST_USER_CLASS_ACTIVE);
+      status = USBH_OK;
+    }
+    else if (classReqStatus == USBH_NOT_SUPPORTED)
+    {
+      USBH_ErrLog("Control error: HID: Device Set protocol request failed");
+      status = USBH_FAIL;
+    }
+    else
+    {
+      /* .. */
+    }
+    break;
 
-    case HID_REQ_IDLE:
-    default:
-      break;
+  case HID_REQ_IDLE:
+  default:
+    break;
   }
 
   return status;
@@ -687,14 +701,33 @@ USBH_StatusTypeDef USBH_HID_SetProtocol(USBH_HandleTypeDef *phost,
   */
 static void  USBH_HID_ParseHIDDesc(HID_DescTypeDef *desc, uint8_t *buf)
 {
+  USBH_DescHeader_t *pdesc = (USBH_DescHeader_t *)buf;
+  uint16_t CfgDescLen;
+  uint16_t ptr;
 
-  desc->bLength                  = *(uint8_t *)(buf + 0);
-  desc->bDescriptorType          = *(uint8_t *)(buf + 1);
-  desc->bcdHID                   =  LE16(buf + 2);
-  desc->bCountryCode             = *(uint8_t *)(buf + 4);
-  desc->bNumDescriptors          = *(uint8_t *)(buf + 5);
-  desc->bReportDescriptorType    = *(uint8_t *)(buf + 6);
-  desc->wItemLength              =  LE16(buf + 7);
+  CfgDescLen = LE16(buf + 2U);
+
+  if (CfgDescLen > USB_CONFIGURATION_DESC_SIZE)
+  {
+    ptr = USB_LEN_CFG_DESC;
+
+    while (ptr < CfgDescLen)
+    {
+      pdesc = USBH_GetNextDesc((uint8_t *)pdesc, &ptr);
+
+      if (pdesc->bDescriptorType == USB_DESC_TYPE_HID)
+      {
+        desc->bLength = *(uint8_t *)((uint8_t *)pdesc + 0U);
+        desc->bDescriptorType = *(uint8_t *)((uint8_t *)pdesc + 1U);
+        desc->bcdHID = LE16((uint8_t *)pdesc + 2U);
+        desc->bCountryCode = *(uint8_t *)((uint8_t *)pdesc + 4U);
+        desc->bNumDescriptors = *(uint8_t *)((uint8_t *)pdesc + 5U);
+        desc->bReportDescriptorType = *(uint8_t *)((uint8_t *)pdesc + 6U);
+        desc->wItemLength = LE16((uint8_t *)pdesc + 7U);
+        break;
+      }
+    }
+  }
 }
 
 /**

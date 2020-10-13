@@ -58,6 +58,7 @@
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",
+            "PYBSTICK26_DUINO", "PYBSTICK26_LITE", "PYBSTICK26_STD",
             "RAK811_TRACKERA"
           ]
         },
@@ -104,9 +105,11 @@
             "BLACKPILL_F303CC",
             "BLACKPILL_F401CC",
             "CoreBoard_F401RC",
+            "DAISY_SEED",
             "DIYMORE_F407VGT",
             "EEXTR_F030_V1",
             "ELEKTOR_F072C8",
+            "ELEKTOR_F072CB",
             "FEATHER_F405",
             "FYSETC_S6",
             "Generic_F103CB",
@@ -148,9 +151,9 @@
           "pattern": "Firmata[\\\\/]",
           "applicable": false,
           "boards": [
-            "EEXTR_F030_V1", "ELEKTOR_F072C8", "FYSETC_S6", "Generic_F103ZG", "MALYANM200_F103CB",
-            "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "VCCGND_F103ZET6",
-            "VCCGND_F103ZET6Mini", "Wraith32_V1"
+            "EEXTR_F030_V1", "ELEKTOR_F072C8", "ELEKTOR_F072CB", "FYSETC_S6", "Generic_F103ZG",
+            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE",
+            "VCCGND_F103ZET6", "VCCGND_F103ZET6Mini", "Wraith32_V1"
           ]
         },
         {
@@ -314,6 +317,16 @@
           "pattern": "HardwareTimer_OutputInput_test",
           "applicable": true,
           "boards": [ "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "ST25DV_",
+          "applicable": true,
+          "boards": [ "ARDUINO_B_L4S5I_IOT01A"]
+        },
+        {
+          "pattern": "X_NUCLEO_IHM05A1",
+          "applicable": true,
+          "boards": [ "NUCLEO_F401RE", "NUCLEO_L053R8", "NUCLEO_L152RE", "NUCLEO_L476RG" ]
         }
       ]
     }

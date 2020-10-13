@@ -44,6 +44,7 @@
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_HSEM_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
+#define HAL_I2S_MODULE_ENABLED
 #define HAL_IPCC_MODULE_ENABLED
 #define HAL_IRDA_MODULE_ENABLED
 #define HAL_IWDG_MODULE_ENABLED
@@ -69,6 +70,7 @@
 #define USE_HAL_ADC_REGISTER_CALLBACKS       0u
 #define USE_HAL_COMP_REGISTER_CALLBACKS      0u
 #define USE_HAL_CRYP_REGISTER_CALLBACKS      0u
+#define USE_HAL_I2C_REGISTER_CALLBACKS       0u
 #define USE_HAL_I2C_REGISTER_CALLBACKS       0u
 #define USE_HAL_IRDA_REGISTER_CALLBACKS      0u
 #define USE_HAL_LPTIM_REGISTER_CALLBACKS     0u
@@ -157,6 +159,15 @@
 #endif /* LSE_STARTUP_TIMEOUT */
 
 /**
+  * @brief External clock source for I2S peripheral
+  *        This value is used by the RCC HAL module to compute the I2S clock source
+  *        frequency.
+  */
+#if !defined  (EXTERNAL_CLOCK_VALUE)
+#define EXTERNAL_CLOCK_VALUE    (48000UL) /*!< Value of the I2S External clock source in Hz*/
+#endif /* EXTERNAL_CLOCK_VALUE */
+
+/**
   * @brief External clock source for SAI1 peripheral
   *        This value is used by the RCC HAL module to compute the SAI1 & SAI2 clock source 
   *        frequency.
@@ -242,6 +253,10 @@
 #ifdef HAL_I2C_MODULE_ENABLED
  #include "stm32wbxx_hal_i2c.h"
 #endif /* HAL_I2C_MODULE_ENABLED */
+
+#ifdef HAL_I2S_MODULE_ENABLED
+  #include "stm32wbxx_hal_i2s.h"
+#endif /* HAL_I2S_MODULE_ENABLED */
 
 #ifdef HAL_IPCC_MODULE_ENABLED
  #include "stm32wbxx_hal_ipcc.h"
