@@ -898,6 +898,35 @@ GenF1.menu.pnum.BLACKPILL_F103CB.build.board=BLACKPILL_F103CB
 GenF1.menu.pnum.BLACKPILL_F103CB.build.product_line=STM32F103xB
 GenF1.menu.pnum.BLACKPILL_F103CB.build.variant=PILL_F103XX
 
+# Generic STM32F100Cx boards
+GenF1.menu.pnum.Generic_F100C4=Generic F100C4 (no USB)
+GenF1.menu.pnum.Generic_F100C4.upload.maximum_size=16384
+GenF1.menu.pnum.Generic_F100C4.upload.maximum_data_size=4096
+GenF1.menu.pnum.Generic_F100C4.build.board=Generic_F100C4
+GenF1.menu.pnum.Generic_F100C4.build.product_line=STM32F100xB
+GenF1.menu.pnum.Generic_F100C4.build.variant=Generic_F100C6
+
+GenF1.menu.pnum.Generic_F100C6=Generic F100C6 (no USB)
+GenF1.menu.pnum.Generic_F100C6.upload.maximum_size=32768
+GenF1.menu.pnum.Generic_F100C6.upload.maximum_data_size=4096
+GenF1.menu.pnum.Generic_F100C6.build.board=Generic_F100C6
+GenF1.menu.pnum.Generic_F100C6.build.product_line=STM32F100xB
+GenF1.menu.pnum.Generic_F100C6.build.variant=Generic_F100C6
+
+GenF1.menu.pnum.Generic_F100C8=Generic F100C8 (no USB)
+GenF1.menu.pnum.Generic_F100C8.upload.maximum_size=65536
+GenF1.menu.pnum.Generic_F100C8.upload.maximum_data_size=8192
+GenF1.menu.pnum.Generic_F100C8.build.board=Generic_F100C8
+GenF1.menu.pnum.Generic_F100C8.build.product_line=STM32F100xB
+GenF1.menu.pnum.Generic_F100C8.build.variant=Generic_F100CB
+
+GenF1.menu.pnum.Generic_F100CB=Generic F100CB (no USB)
+GenF1.menu.pnum.Generic_F100CB.upload.maximum_size=131072
+GenF1.menu.pnum.Generic_F100CB.upload.maximum_data_size=8192
+GenF1.menu.pnum.Generic_F100CB.build.board=Generic_F100CB
+GenF1.menu.pnum.Generic_F100CB.build.product_line=STM32F100xB
+GenF1.menu.pnum.Generic_F100CB.build.variant=Generic_F100CB
+
 # Generic STM32F103Cx boards
 GenF1.menu.pnum.Generic_F103C4=Generic F103C4
 GenF1.menu.pnum.Generic_F103C4.upload.maximum_size=16384
