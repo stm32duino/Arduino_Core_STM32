@@ -1554,11 +1554,11 @@ extern "C" {
     }
 
 #if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx) || defined(STM32H7xx)
-#if defined(TIMER13_BASE)
+#if defined(TIM13_BASE)
     if (HardwareTimer_Handle[TIMER13_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER13_INDEX]->handle);
     }
-#endif // TIMER13_BASE
+#endif // TIM13_BASE
 #endif
   }
 
