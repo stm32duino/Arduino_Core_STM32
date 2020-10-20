@@ -748,30 +748,26 @@ void HardwareTimer::setPreloadEnable(bool value)
 }
 
 /**
-  * @brief  Enable or disable one pulse mode for timer operation.
-  *         When enabled, changes to the overflow value take effect
-  *         immediately. When enabled (the default), the value takes
-  *         effect only at the next update event (typically the next
-  *         overflow).
+  * @brief  Enable or disable one pulse mode for timer operation
   * @param  value: true to enable one pulse mode, false to disable
   * @retval None
   */
 void HardwareTimer::setOnePulseMode(bool value)
 {
-	if (value) {
-		LL_TIM_SetOnePulseMode(_timerObj.handle.Instance, LL_TIM_ONEPULSEMODE_SINGLE);
-	} else {
-		LL_TIM_SetOnePulseMode(_timerObj.handle.Instance, LL_TIM_ONEPULSEMODE_REPETITIVE);
-	}
+  if (value) {
+    LL_TIM_SetOnePulseMode(_timerObj.handle.Instance, LL_TIM_ONEPULSEMODE_SINGLE);
+  } else {
+    LL_TIM_SetOnePulseMode(_timerObj.handle.Instance, LL_TIM_ONEPULSEMODE_REPETITIVE);
+  }
 }
 
 /**
   * @brief  Retrieves channel one pulse mode
-  * @retval returns true if one pulse mode is set 
+  * @retval returns true if one pulse mode is set
   */
 bool HardwareTimer::getOnePulseMode()
 {
-	return LL_TIM_GetOnePulseMode(_timerObj.handle.Instance) == LL_TIM_ONEPULSEMODE_SINGLE;
+  return LL_TIM_GetOnePulseMode(_timerObj.handle.Instance) == LL_TIM_ONEPULSEMODE_SINGLE;
 }
 
 /**
