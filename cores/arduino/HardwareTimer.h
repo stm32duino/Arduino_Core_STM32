@@ -125,7 +125,7 @@ class HardwareTimer {
 
     void setPreloadEnable(bool value); // Configure overflow preload enable setting
 
-    void setOnePulseMode(bool value); // Configure one pulse mode setting 
+    void setOnePulseMode(bool value); // Configure one pulse mode setting
     bool getOnePulseMode(); // Retrieve one pulse mode setting
 
     uint32_t getCaptureCompare(uint32_t channel, TimerCompareFormat_t format = TICK_COMPARE_FORMAT); // return Capture/Compare register value of specified channel depending on format provided
