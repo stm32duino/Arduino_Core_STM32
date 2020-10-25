@@ -248,7 +248,7 @@ class SPIClass {
     {
       uint8_t i;
 
-      if (_pin > NUM_DIGITAL_PINS) {
+      if ((_pin > NUM_DIGITAL_PINS) && (!digitalPinIsValid(_pin))) {
         return NB_SPI_SETTINGS;
       }
 
@@ -271,7 +271,7 @@ class SPIClass {
 
     void RemovePin(uint8_t _pin)
     {
-      if (_pin > NUM_DIGITAL_PINS) {
+      if ((_pin > NUM_DIGITAL_PINS) && (!digitalPinIsValid(_pin))) {
         return;
       }
 

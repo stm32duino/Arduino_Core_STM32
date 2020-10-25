@@ -59,13 +59,7 @@ SPIClass::SPIClass(uint8_t mosi, uint8_t miso, uint8_t sclk, uint8_t ssel) : _CS
   */
 void SPIClass::begin(uint8_t _pin)
 {
-  uint8_t idx;
-
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
-  idx = pinIdx(_pin, ADD_NEW_PIN);
+  uint8_t idx = pinIdx(_pin, ADD_NEW_PIN);
   if (idx >= NB_SPI_SETTINGS) {
     return;
   }
@@ -101,13 +95,7 @@ void SPIClass::begin(uint8_t _pin)
   */
 void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
 {
-  uint8_t idx;
-
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
-  idx = pinIdx(_pin, ADD_NEW_PIN);
+  uint8_t idx = pinIdx(_pin, ADD_NEW_PIN);
   if (idx >= NB_SPI_SETTINGS) {
     return;
   }
@@ -134,10 +122,6 @@ void SPIClass::beginTransaction(uint8_t _pin, SPISettings settings)
   */
 void SPIClass::endTransaction(uint8_t _pin)
 {
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
   RemovePin(_pin);
   _CSPinConfig = NO_CONFIG;
 }
@@ -160,10 +144,6 @@ void SPIClass::end()
   */
 void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
 {
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
   uint8_t idx = pinIdx(_pin, GET_IDX);
   if (idx >= NB_SPI_SETTINGS) {
     return;
@@ -190,10 +170,6 @@ void SPIClass::setBitOrder(uint8_t _pin, BitOrder _bitOrder)
   */
 void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
 {
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
   uint8_t idx = pinIdx(_pin, GET_IDX);
   if (idx >= NB_SPI_SETTINGS) {
     return;
@@ -223,10 +199,6 @@ void SPIClass::setDataMode(uint8_t _pin, uint8_t _mode)
   */
 void SPIClass::setClockDivider(uint8_t _pin, uint8_t _divider)
 {
-  if (_pin > NUM_DIGITAL_PINS) {
-    return;
-  }
-
   uint8_t idx = pinIdx(_pin, GET_IDX);
   if (idx >= NB_SPI_SETTINGS) {
     return;
@@ -260,14 +232,12 @@ byte SPIClass::transfer(uint8_t _pin, uint8_t data, SPITransferMode _mode)
 {
   uint8_t rx_buffer = 0;
 
-  if (_pin > NUM_DIGITAL_PINS) {
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
     return rx_buffer;
   }
-  uint8_t idx = pinIdx(_pin, GET_IDX);
+
   if (_pin != _CSPinConfig) {
-    if (idx >= NB_SPI_SETTINGS) {
-      return rx_buffer;
-    }
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
              spiSettings[idx].bOrder);
@@ -304,10 +274,6 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
 {
   uint16_t rx_buffer = 0;
   uint16_t tmp;
-
-  if (_pin > NUM_DIGITAL_PINS) {
-    return rx_buffer;
-  }
 
   uint8_t idx = pinIdx(_pin, GET_IDX);
   if (idx >= NB_SPI_SETTINGS) {
@@ -361,14 +327,15 @@ uint16_t SPIClass::transfer16(uint8_t _pin, uint16_t data, SPITransferMode _mode
   */
 void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode _mode)
 {
-  if ((_count == 0) || (_buf == NULL) || (_pin > NUM_DIGITAL_PINS)) {
+  if ((_count == 0) || (_buf == NULL)) {
     return;
   }
   uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
   if (_pin != _CSPinConfig) {
-    if (idx >= NB_SPI_SETTINGS) {
-      return;
-    }
+
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
              spiSettings[idx].bOrder);
@@ -404,14 +371,15 @@ void SPIClass::transfer(uint8_t _pin, void *_buf, size_t _count, SPITransferMode
   */
 void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode)
 {
-  if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)  || (_pin > NUM_DIGITAL_PINS)) {
+  if ((_count == 0) || (_bufout == NULL) || (_bufin == NULL)) {
     return;
   }
   uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
+
   if (_pin != _CSPinConfig) {
-    if (idx >= NB_SPI_SETTINGS) {
-      return;
-    }
     spi_init(&_spi, spiSettings[idx].clk,
              spiSettings[idx].dMode,
              spiSettings[idx].bOrder);
