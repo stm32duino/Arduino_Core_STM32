@@ -10,6 +10,7 @@ on:
       - CI/**
       - '!CI/build/arduino-cli.py'
       - '!CI/build/platformio-builder.py'
+      - '!CI/build/examples/**'
       - tools/**
       - '!tools/platformio-build.py'
   pull_request:
@@ -20,6 +21,7 @@ on:
       - CI/**
       - '!CI/build/arduino-cli.py'
       - '!CI/build/platformio-builder.py'
+      - '!CI/build/examples/**'
       - tools/**
       - '!tools/platformio-build.py'
 jobs:
