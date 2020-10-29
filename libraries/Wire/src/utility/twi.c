@@ -846,10 +846,10 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
   } else {
     // Check the communication status
     for (i = 0; i < size; i++) {
-      obj->i2cTxRxBuffer[i] = *(data + i);
+      obj->i2cTxRxBuffer[obj->i2cTxRxBufferSize + i] = *(data + i);
     }
 
-    obj->i2cTxRxBufferSize = size;
+    obj->i2cTxRxBufferSize += size;
   }
   return ret;
 }
@@ -986,6 +986,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
       if (obj->i2c_onSlaveTransmit != NULL) {
+        obj->i2cTxRxBufferSize = 0;
         obj->i2c_onSlaveTransmit(obj);
       }
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
