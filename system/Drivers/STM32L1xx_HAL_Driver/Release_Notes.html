@@ -46,14 +46,34 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.4.2 / 28-August-2020</label>
+<input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true">V1.4.3 / 22-October-2020</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <ul>
-<li>Patch release to fix issue in I2C HAL driver</li>
+<li>General updates to fix known defect.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<ul>
+<li><strong>HAL/LL I2C</strong> driver
+<ul>
+<li>Update to fix hardfault issue with HAL_I2C_Mem_Write_DMA() API:
+<ul>
+<li>Abort the right ongoing DMA transfer when memory write access request operation failed: fix typo “hdmarx” replaced by “hdmatx”</li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true">V1.4.2 / 28-August-2020</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<ul>
+<li>Patch release to fix issue in I2C HAL driver</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <ul>
 <li><strong>HAL I2C</strong> driver
 <ul>
@@ -68,13 +88,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true">V1.4.1 / 24-June-2020</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
 <ul>
 <li>Add new HAL EXTI driver</li>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <ul>
 <li><strong>HAL</strong> driver
 <ul>
@@ -267,14 +287,14 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true">V1.4.0 / 05-April-2019</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <ul>
 <li>Add support of <strong>HAL callback registration</strong> feature</li>
 <li>Add several enhancements implementation</li>
 <li>Fix known defects to be aligned with others STM32 series</li>
 </ul>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
@@ -550,9 +570,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true">V1.3.1 / 25-August-2017</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3 id="patch-release">Patch release</h3>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
@@ -565,9 +585,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true">V1.3.0 / 21-April-2017</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
-<h2 id="contents-4">Contents</h2>
+<h2 id="main-changes-5">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="contents-5">Contents</h2>
 <ul>
 <li><strong>HAL/LL</strong> generic
 <ul>
@@ -638,8 +658,8 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true">V1.2.0 / 01-July-2016</label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
-<h3 id="maintenance-release-4">Maintenance release</h3>
+<h2 id="main-changes-6">Main Changes</h2>
+<h3 id="maintenance-release-5">Maintenance release</h3>
 <ul>
 <li>First official release supporting the <strong>Low Level</strong> drivers for the <strong>STM32L1xx</strong> family:
 <ul>
@@ -648,7 +668,7 @@
 <li>Low Layer drivers APIs are implemented as static inline function in new Inc/stm32l1xx_ll_ppp.h files for PPP peripherals, there is no configuration file and each stm32l1xx_ll_ppp.h file must be included in user code.</li>
 </ul></li>
 </ul>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li><strong>Generic updates</strong>
 <ul>
@@ -743,9 +763,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true">V1.1.3 / 04-March-2016</label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
-<h3 id="maintenance-release-5">Maintenance release</h3>
-<h2 id="contents-6">Contents</h2>
+<h2 id="main-changes-7">Main Changes</h2>
+<h3 id="maintenance-release-6">Maintenance release</h3>
+<h2 id="contents-7">Contents</h2>
 <ul>
 <li><strong>Generic update</strong>
 <ul>
@@ -794,9 +814,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true">V1.1.2 / 09-October-2015</label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
-<h3 id="maintenance-release-6">Maintenance release</h3>
-<h2 id="contents-7">Contents</h2>
+<h2 id="main-changes-8">Main Changes</h2>
+<h3 id="maintenance-release-7">Maintenance release</h3>
+<h2 id="contents-8">Contents</h2>
 <ul>
 <li><strong>ADC</strong>
 <ul>
@@ -880,13 +900,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.1.1 / 31-March-2015</label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
-<h3 id="maintenance-release-7">Maintenance release</h3>
+<h2 id="main-changes-9">Main Changes</h2>
+<h3 id="maintenance-release-8">Maintenance release</h3>
 <ul>
 <li>Include path changes for compilation under Unix environment</li>
 <li>Update drivers to be C++ compliant</li>
 </ul>
-<h2 id="contents-8">Contents</h2>
+<h2 id="contents-9">Contents</h2>
 <ul>
 <li><strong>CORTEX</strong>
 <ul>
@@ -952,12 +972,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 06-February-2015</label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
-<h3 id="maintenance-release-8">Maintenance release</h3>
+<h2 id="main-changes-10">Main Changes</h2>
+<h3 id="maintenance-release-9">Maintenance release</h3>
 <ul>
 <li>Add support of new <strong>STM32L1 eXtended devices</strong> - <strong>STM32l151xDX, STM32l152xDX &amp; STM32l62xDX</strong></li>
 </ul>
-<h2 id="contents-9">Contents</h2>
+<h2 id="contents-10">Contents</h2>
 <ul>
 <li><strong>HAL</strong> generic
 <ul>
@@ -979,7 +999,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true">V1.0.0 / 05-September-2014</label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <h3 id="first-official-release">First official release</h3>
 </div>
 </div>

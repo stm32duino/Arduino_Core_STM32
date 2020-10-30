@@ -41,6 +41,7 @@ HAL Driver L1 | CMSIS Device L1 | CMSIS Core | Was delivered in the full MCU pac
 Tag v1.4.0 | Tag v2.3.0 | Tag v5.4.0_cm3 | Tag v1.9.0 (and following, if any, till next new tag)
 Tag v1.4.1 | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.0 (and following, if any, till next new tag)
 Tag v1.4.2 | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.1 (and following, if any, till next new tag)
+Tag v1.4.3 | Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.2 (and following, if any, till next new tag)
 
 The full **STM32CubeL1** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL1).
 
