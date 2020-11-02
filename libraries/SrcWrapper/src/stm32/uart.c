@@ -315,6 +315,9 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 #endif
 
+  /* Set the NVIC priority for future interrupts */
+  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
+
 #if defined(LPUART1_BASE)
   /*
    * Note that LPUART clock source must be in the range
@@ -714,7 +717,6 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
   HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
 
   /* Enable interrupt */
-  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
 }
 
@@ -739,7 +741,6 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
 
   /* Enable interrupt */
-  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
 }
 
