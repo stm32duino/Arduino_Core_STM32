@@ -94,8 +94,8 @@ extern "C" {
 #define PIN_SPI_SCK             PA5
 
 // I2C definitions
-#define PIN_WIRE_SDA            PB9
-#define PIN_WIRE_SCL            PB8
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB6
 
 // Timer Definitions
 #define TIMER_TONE              TIM10
