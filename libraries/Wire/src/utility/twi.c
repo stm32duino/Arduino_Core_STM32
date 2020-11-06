@@ -45,7 +45,9 @@ extern "C" {
 
 /* Private Defines */
 /// @brief I2C timout in tick unit
+#ifndef I2C_TIMEOUT_TICK
 #define I2C_TIMEOUT_TICK        100
+#endif
 
 #define SLAVE_MODE_TRANSMIT     0
 #define SLAVE_MODE_RECEIVE      1
