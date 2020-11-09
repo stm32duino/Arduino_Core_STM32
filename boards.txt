@@ -582,6 +582,19 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# DISCO_B_G431B_ESC1 board
+Disco.menu.pnum.DISCO_B_G431B_ESC1=B-G431B-ESC1
+Disco.menu.pnum.DISCO_B_G431B_ESC1.node="NODE_G431CB,NOD_G431CB"
+Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_size=131072
+Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_data_size=32768
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.board=DISCO_B_G431B_ESC1
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.series=STM32G4xx
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.product_line=STM32G431xx
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.variant=DISCO_B_G431B_ESC1
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
