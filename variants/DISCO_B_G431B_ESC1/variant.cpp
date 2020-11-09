@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 
-// This board doesn't breakout pins (no arduino r3 connections) 
+// This board doesn't breakout pins (no arduino r3 connections)
 // Pin number
 const PinName digitalPin[] = {
   // LEFT
