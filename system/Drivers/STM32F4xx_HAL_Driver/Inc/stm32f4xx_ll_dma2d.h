@@ -129,7 +129,7 @@ typedef struct
 
                                       This parameter can be modified afterwards using unitary function @ref LL_DMA2D_SetNbrOfLines(). */
 
-  uint32_t NbrOfPixelsPerLines;  /*!< Specifies the number of pixels per lines of the area to be transfered.
+  uint32_t NbrOfPixelsPerLines;  /*!< Specifies the number of pixels per lines of the area to be transferred.
                                       - This parameter must be a number between Min_Data = 0x0000 and Max_Data = 0x3FFF.
 
                                       This parameter can be modified afterwards using unitary function @ref LL_DMA2D_SetNbrOfPixelsPerLines(). */

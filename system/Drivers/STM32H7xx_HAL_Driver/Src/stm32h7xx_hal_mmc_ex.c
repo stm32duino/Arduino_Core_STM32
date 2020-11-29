@@ -77,8 +77,8 @@
 /**
   * @brief  Configure DMA Dual Buffer mode. The Data transfer is managed by an Internal DMA.
   * @param  hmmc: MMC handle
-  * @param  pDataBuffer0: Pointer to the buffer0 that will contain/receive the transfered data
-  * @param  pDataBuffer1: Pointer to the buffer1 that will contain/receive the transfered data
+  * @param  pDataBuffer0: Pointer to the buffer0 that will contain/receive the transferred data
+  * @param  pDataBuffer1: Pointer to the buffer1 that will contain/receive the transferred data
   * @param  BufferSize: Size of Buffer0 in Blocks. Buffer0 and Buffer1 must have the same size.
   * @retval HAL status
   */
@@ -180,7 +180,7 @@ HAL_StatusTypeDef HAL_MMCEx_ReadBlocksDMAMultiBuffer(MMC_HandleTypeDef *hmmc, ui
 }
 
 /**
-  * @brief  Write block(s) to a specified address in a card. The transfered Data are stored in Buffer0 and Buffer1.
+  * @brief  Write block(s) to a specified address in a card. The transferred Data are stored in Buffer0 and Buffer1.
   *         Buffer0, Buffer1 and BufferSize need to be configured by function HAL_MMCEx_ConfigDMAMultiBuffer before call this function.
   * @param  hmmc: MMC handle
   * @param  BlockAdd: Block Address from where data is to be read

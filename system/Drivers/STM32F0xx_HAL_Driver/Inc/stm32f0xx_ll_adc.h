@@ -2809,7 +2809,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsDisableOngoing(ADC_TypeDef *ADCx)
   *         On this STM32 serie, ADC DMA transfer request should be disabled
   *         during calibration:
   *         Calibration factor is available in data register
-  *         and also transfered by DMA.
+  *         and also transferred by DMA.
   *         To not insert ADC calibration factor among ADC conversion data
   *         in array variable, DMA transfer must be disabled during
   *         calibration.

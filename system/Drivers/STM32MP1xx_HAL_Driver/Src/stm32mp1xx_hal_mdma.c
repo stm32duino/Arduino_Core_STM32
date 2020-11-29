@@ -1778,7 +1778,7 @@ uint32_t HAL_MDMA_GetError(MDMA_HandleTypeDef *hmdma)
   * @param  SrcAddress: The source memory Buffer address
   * @param  DstAddress: The destination memory Buffer address
   * @param  BlockDataLength : The length of a block transfer in bytes
-  * @param  BlockCount: The number of blocks to be transfered
+  * @param  BlockCount: The number of blocks to be transferred
   * @retval HAL status
   */
 static void MDMA_SetConfig(MDMA_HandleTypeDef *hmdma, uint32_t SrcAddress, uint32_t DstAddress, uint32_t BlockDataLength, uint32_t BlockCount)
