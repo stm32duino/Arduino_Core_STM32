@@ -694,7 +694,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
 
         handle->Instance             = obj->i2c;
 #ifdef I2C_TIMING
-        handle->Init.Timing      = i2c_getTiming(obj, timing);
+        handle->Init.Timing          = i2c_getTiming(obj, timing);
 #else
         handle->Init.ClockSpeed      = i2c_getTiming(obj, timing);
         /* Standard mode (sm) is up to 100kHz, then it's Fast mode (fm)     */
@@ -706,7 +706,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
         }
 #endif
         handle->Init.OwnAddress1     = ownAddress;
-        handle->Init.OwnAddress2     = 0xFF;
+        handle->Init.OwnAddress2     = 0;
         handle->Init.AddressingMode  = addressingMode;
         handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         handle->Init.GeneralCallMode = (obj->generalCall == 0) ? I2C_GENERALCALL_DISABLE : I2C_GENERALCALL_ENABLE;
