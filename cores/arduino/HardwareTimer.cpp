@@ -1248,7 +1248,7 @@ timer_index_t get_timer_index(TIM_TypeDef *instance)
 #endif
 #if defined(TIM22_BASE)
   if (instance == TIM22) {
-    index = TIMER2_INDEX;
+    index = TIMER22_INDEX;
   }
 #endif
   return index;
