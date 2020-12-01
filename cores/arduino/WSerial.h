@@ -164,7 +164,7 @@
     #endif
   #endif
   #if defined(ENABLE_HWSERIAL10)
-    #if defined(UART10_BASE)
+    #if defined(USART10_BASE) || defined(UART10_BASE)
       #define HAVE_HWSERIAL10
     #endif
   #endif
