@@ -232,13 +232,16 @@ def checkVersion(serie, repo_path):
         "stm32{}xx_hal.c".format(lserie),
     )
     cube_HAL_versions[serie] = parseVersion(HAL_file)
-    HAL_file = os.path.join(
-        hal_dest_path,
-        "STM32{}xx_HAL_Driver".format(userie),
-        "Src",
-        "stm32{}xx_hal.c".format(lserie),
-    )
-    core_HAL_versions[serie] = parseVersion(HAL_file)
+    if upargs.add:
+        core_HAL_versions[serie] = "0.0.0"
+    else:
+        HAL_file = os.path.join(
+            hal_dest_path,
+            "STM32{}xx_HAL_Driver".format(userie),
+            "Src",
+            "stm32{}xx_hal.c".format(lserie),
+        )
+        core_HAL_versions[serie] = parseVersion(HAL_file)
 
     CMSIS_file = os.path.join(
         repo_path,
@@ -248,13 +251,16 @@ def checkVersion(serie, repo_path):
         "stm32{}xx.h".format(lserie),
     )
     cube_CMSIS_versions[serie] = parseVersion(CMSIS_file)
-    CMSIS_file = os.path.join(
-        cmsis_dest_path,
-        "STM32{}xx".format(userie),
-        "Include",
-        "stm32{}xx.h".format(lserie),
-    )
-    core_CMSIS_versions[serie] = parseVersion(CMSIS_file)
+    if upargs.add:
+        core_CMSIS_versions[serie] = "0.0.0"
+    else:
+        CMSIS_file = os.path.join(
+            cmsis_dest_path,
+            "STM32{}xx".format(userie),
+            "Include",
+            "stm32{}xx.h".format(lserie),
+        )
+        core_CMSIS_versions[serie] = parseVersion(CMSIS_file)
 
     # print("STM32Cube" + serie + " HAL version: " + cube_HAL_versions[serie])
     # print("STM32Core " + serie + " HAL version: " + core_HAL_versions[serie])
@@ -417,7 +423,9 @@ def updateCore():
         core_CMSIS_version = core_CMSIS_versions[serie]
         cube_CMSIS_version = cube_CMSIS_versions[serie]
         cube_version = cube_versions[serie]
-        regexmd = re.compile(rf"(STM32{serie}:\s+)\d+.\d+.\d+")
+        regexmd_up = re.compile(rf"(STM32{serie}:\s+)\d+.\d+.\d+")
+        regexmd_serie = re.compile(r"STM32(\w+):\s+\d+.\d+.\d+")
+        regexmd_add = re.compile(r"(STM32)\w+(:\s+)\d+.\d+.\d+")
         HAL_updated = False
         CMSIS_updated = False
         hal_commit_msg = """[{0}] Update STM32{0}xx HAL Drivers to v{1}
@@ -453,9 +461,22 @@ Included in STM32Cube{0} FW {2}""".format(
             )
             copyFolder(HAL_serie_cube_path, HAL_serie_core_path, {"*.chm"})
             # Update MD file
-            for line in fileinput.input(md_HAL_path, inplace=True):
-                line = regexmd.sub(rf"\g<1>{cube_HAL_version}", line)
-                print(line, end="")
+            if upargs.add:  # Add the new STM32YY entry
+                added = False
+                for line in fileinput.input(md_HAL_path, inplace=True):
+                    m = regexmd_serie.search(line)
+                    if not added and m and m.group(1) > serie.upper():
+                        print(
+                            regexmd_add.sub(
+                                rf"\g<1>{serie}\g<2>{cube_HAL_version}", line
+                            ),
+                            end="",
+                        )
+                        added = True
+                    print(line, end="")
+            else:  # Update the version
+                for line in fileinput.input(md_HAL_path, inplace=True):
+                    print(regexmd_up.sub(rf"\g<1>{cube_HAL_version}", line), end="")
             # Commit all HAL files
             commitFiles(core_path, hal_commit_msg)
             HAL_updated = True
@@ -480,9 +501,22 @@ Included in STM32Cube{0} FW {2}""".format(
             )
             copyFolder(CMSIS_serie_cube_path, CMSIS_serie_dest_path, {"iar", "arm"})
             # Update MD file
-            for line in fileinput.input(md_CMSIS_path, inplace=True):
-                line = regexmd.sub(rf"\g<1>{cube_CMSIS_version}", line)
-                print(line, end="")
+            if upargs.add:  # Add the new STM32YY entry
+                added = False
+                for line in fileinput.input(md_CMSIS_path, inplace=True):
+                    m = regexmd_serie.search(line)
+                    if not added and m and m.group(1) > serie.upper():
+                        print(
+                            regexmd_add.sub(
+                                rf"\g<1>{serie}\g<2>{cube_CMSIS_version}", line
+                            ),
+                            end="",
+                        )
+                        added = True
+                    print(line, end="")
+            else:  # Update the version
+                for line in fileinput.input(md_CMSIS_path, inplace=True):
+                    print(regexmd_up.sub(rf"\g<1>{cube_CMSIS_version}", line), end="")
             # Commit all CMSIS files
             commitFiles(core_path, cmsis_commit_msg)
             CMSIS_updated = True
@@ -506,8 +540,12 @@ upparser = argparse.ArgumentParser(
 upparser.add_argument(
     "-c", "--check", help="Check versions. Default all.", action="store_true"
 )
-upparser.add_argument(
+group = upparser.add_mutually_exclusive_group()
+group.add_argument(
     "-s", "--serie", metavar="pattern", help="Pattern of the STM32 serie(s) to update"
+)
+group.add_argument(
+    "-a", "--add", metavar="name", help="STM32 serie name to add. Ex: 'F1'"
 )
 
 upargs = upparser.parse_args()
@@ -519,8 +557,12 @@ def main():
     checkConfig()
     updateCoreRepo()
     stm32_list = genSTM32List(hal_dest_path, upargs.serie)
+    if upargs.add:
+        if upargs.add.upper() not in stm32_list:
+            stm32_list = [upargs.add.upper()]
+        else:
+            print(upargs.add + " can't be added as it already exists!")
     updateSTRepo()
-
     if upargs.check:
         printVersion()
     else:
