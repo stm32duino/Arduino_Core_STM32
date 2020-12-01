@@ -95,7 +95,6 @@ static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
 
       pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
 
-      TimerTone->setMode(1, TIMER_OUTPUT_COMPARE, NC);
       TimerTone->setOverflow(timFreq, HERTZ_FORMAT);
       TimerTone->attachInterrupt(tonePeriodElapsedCallback);
       TimerTone->resume();
