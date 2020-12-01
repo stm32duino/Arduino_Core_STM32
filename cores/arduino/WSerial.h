@@ -40,7 +40,7 @@
 
 #if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
   #if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
-    #if SERIAL_UART_INSTANCE == 0
+    #if SERIAL_UART_INSTANCE == 0 || SERIAL_UART_INSTANCE == 101
       #define ENABLE_HWSERIALLP1
       #if !defined(Serial)
         #define Serial SerialLP1
