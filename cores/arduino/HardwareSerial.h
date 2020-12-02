@@ -173,16 +173,38 @@ class HardwareSerial : public Stream {
     void configForLowPower(void);
 };
 
-extern HardwareSerial Serial1;
-extern HardwareSerial Serial2;
-extern HardwareSerial Serial3;
-extern HardwareSerial Serial4;
-extern HardwareSerial Serial5;
-extern HardwareSerial Serial6;
-extern HardwareSerial Serial7;
-extern HardwareSerial Serial8;
-extern HardwareSerial Serial9;
-extern HardwareSerial Serial10;
-extern HardwareSerial SerialLP1;
+#if defined(USART1)
+  extern HardwareSerial Serial1;
+#endif
+#if defined(USART2)
+  extern HardwareSerial Serial2;
+#endif
+#if defined(USART3)
+  extern HardwareSerial Serial3;
+#endif
+#if defined(UART4) || defined(USART4)
+  extern HardwareSerial Serial4;
+#endif
+#if defined(UART5) || defined(USART5)
+  extern HardwareSerial Serial5;
+#endif
+#if defined(USART6)
+  extern HardwareSerial Serial6;
+#endif
+#if defined(UART7) || defined(USART7)
+  extern HardwareSerial Serial7;
+#endif
+#if defined(UART8) || defined(USART8)
+  extern HardwareSerial Serial8;
+#endif
+#if defined(UART9)
+  extern HardwareSerial Serial9;
+#endif
+#if defined(UART10) || defined(USART10)
+  extern HardwareSerial Serial10;
+#endif
+#if defined(LPUART1)
+  extern HardwareSerial SerialLP1;
+#endif
 
 #endif
