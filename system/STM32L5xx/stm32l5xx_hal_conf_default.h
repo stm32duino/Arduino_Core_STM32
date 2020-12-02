@@ -129,7 +129,7 @@ extern "C" {
   * @brief Internal Low Speed oscillator (LSI) value.
   */
 #if !defined  (LSI_VALUE)
-#define LSE_VALUE          32768UL    /*!< Value of the External oscillator in Hz*/
+#define LSI_VALUE          32000UL    /*!< Value of the External oscillator in Hz*/
 #endif /* LSI_VALUE */                       /*!< Value of the Internal Low Speed oscillator in Hz
 The real value may vary depending on the variations
 in voltage and temperature.*/
@@ -174,7 +174,7 @@ in voltage and temperature.*/
 #define VDD_VALUE          3300UL /*!< Value of VDD in mv */
 #endif
 #if !defined (TICK_INT_PRIORITY)
-#define TICK_INT_PRIORITY  ((1UL<<__NVIC_PRIO_BITS) - 1UL)  /*!< tick interrupt priority (lowest by default) */
+#define  TICK_INT_PRIORITY            (0x00UL) /*!< tick interrupt priority */
 #endif
 #if !defined (USE_RTOS)
 #define  USE_RTOS                     0U
