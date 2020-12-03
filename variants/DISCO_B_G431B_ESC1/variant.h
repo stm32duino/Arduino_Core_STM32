@@ -126,7 +126,7 @@ extern "C" {
 
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
-#define PIN_SERIAL_RX           USART2_TX
+#define PIN_SERIAL_RX           USART2_RX
 #define PIN_SERIAL_TX           USART2_TX
 
 /* HAL configuration */
