@@ -98,9 +98,16 @@ def print_LL_header(open_file, name):
 
 
 def printCMSISStartup(log):
-    filelist = glob.glob(
-        os.path.join(
-            CMSIS_Device_ST_path, "STM32*", "Source", "Templates", "gcc", "startup_*.s",
+    filelist = sorted(
+        glob.glob(
+            os.path.join(
+                CMSIS_Device_ST_path,
+                "STM32*",
+                "Source",
+                "Templates",
+                "gcc",
+                "startup_*.s",
+            )
         )
     )
     if len(filelist):
