@@ -562,6 +562,7 @@ def main():
             stm32_list = [upargs.add.upper()]
         else:
             print(upargs.add + " can't be added as it already exists!")
+            exit(1)
     updateSTRepo()
     if upargs.check:
         printVersion()
