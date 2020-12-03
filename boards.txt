@@ -163,6 +163,19 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.variant=NUCLEO_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI-P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_L552ZE-Q board
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q=Nucleo L552ZE-Q
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.node=NODE_L552ZE
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_size=524288
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.board=NUCLEO_L552ZE_Q
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.series=STM32L5xx
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=NUCLEO_L552ZE_Q
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.cmsis_lib_gcc=arm_cortexM33lf_math
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
