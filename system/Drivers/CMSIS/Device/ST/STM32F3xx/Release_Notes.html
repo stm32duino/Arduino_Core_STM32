@@ -5,7 +5,7 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32F3xx CMSIS</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
@@ -38,9 +38,27 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section2_3_4" aria-hidden="true"> <label for="collapse-section2_3_4" aria-hidden="true"><strong>V2.3.4 / 12-September-2019</strong></label>
+<input type="checkbox" id="collapse-section2_3_5" aria-hidden="true"> <label for="collapse-section2_3_5" aria-hidden="true"><strong>V2.3.5 / 10-November-2020</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>General update
+<ul>
+<li>system_stm32f3xx.c
+<ul>
+<li>Protect Vector table modification following SRAM or FLASH preprocessor directive by a generic preprocessor directive : USER_VECT_TAB_ADDRESS<br />
+</li>
+</ul></li>
+<li>Add License.md and Readme.md files required for GitHub publication</li>
+<li>Improve GCC startup files robustness.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2_3_4" aria-hidden="true"> <label for="collapse-section2_3_4" aria-hidden="true"><strong>V2.3.4 / 12-September-2019</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>General update
 <ul>
@@ -65,7 +83,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.3.3" aria-hidden="true"> <label for="collapse-section2.3.3" aria-hidden="true"><strong>V2.3.3 / 11-June-2018</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>General update
 <ul>
@@ -82,7 +100,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.3.2" aria-hidden="true"> <label for="collapse-section2.3.2" aria-hidden="true"><strong>V2.3.2 / 23-June-2017</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>Remove support of Atollic TrueSTUDIO STM32 (TrueSTUDIO) toolchain.</li>
 <li>FLASH updates
@@ -115,7 +133,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.3.1" aria-hidden="true"> <label for="collapse-section2.3.1" aria-hidden="true"><strong>V2.3.1 / 16-December-2016</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>COMP updates
 <ul>
@@ -156,7 +174,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.3.0" aria-hidden="true"> <label for="collapse-section2.3.0" aria-hidden="true"><strong>V2.3.0 / 29-April-2016</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li>General updates
 <ul>
@@ -235,7 +253,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.2.0" aria-hidden="true"> <label for="collapse-section2.2.0" aria-hidden="true"><strong>V2.2.0 / 13-November-2015</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>General updates
 <ul>
@@ -309,7 +327,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.1.0" aria-hidden="true"> <label for="collapse-section2.1.0" aria-hidden="true"><strong>V2.1.0 / 12-Sept-2014</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>Add the support of the <strong>STM32F302xE</strong> and the <strong>STM32F398xx</strong> devices.</li>
 <li>STM32F303xE update
@@ -329,7 +347,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.1.0.RC2" aria-hidden="true"> <label for="collapse-section2.1.0.RC2" aria-hidden="true"><strong>V2.1.0.RC2 / 25-Aug-2014</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>Add CMSIS files for STM32F303xE products</li>
 </ul>
@@ -338,7 +356,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.0.1" aria-hidden="true"> <label for="collapse-section2.0.1" aria-hidden="true"><strong>V2.0.1 / 18-June-2014</strong></label>
 <div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>General
 <ul>
@@ -395,7 +413,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section2.0.0" aria-hidden="true"> <label for="collapse-section2.0.0" aria-hidden="true"><strong>V2.0.0 / 28-May-2014</strong></label>
 <div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>Major update based on STM32Cube specification: new CMSIS device files release dedicated to <strong>STM32F301x6/x8, STM32F302x6/x8, STM32F302xB/xC, STM32F303x6/x8, STM32F373xB/xC, STM32F334x4/x6/x8, STM32F318xx, STM32F328xx, STM32F358xx and STM32F378xx devices .</strong></li>
 <li><strong>This version has to be used for STM32CubeF3 based development although files can be used independently too.</strong></li>
@@ -405,7 +423,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1.1.1" aria-hidden="true"> <label for="collapse-section1.1.1" aria-hidden="true"><strong>V1.1.1 / 28-March-2014</strong></label>
 <div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>Add new startup files for the STM32F302x8 and STM32F334x8 devices for TrueSTUDIO toolchain.</li>
 <li>Update startup files for EWARM toolchain to cope with compiler enhancement of the V7.10 version.</li>
@@ -415,7 +433,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1.1.0" aria-hidden="true"> <label for="collapse-section1.1.0" aria-hidden="true"><strong>V1.1.0 / 27-February-2014</strong></label>
 <div>
-<h2 id="main-changes-11">Main Changes</h2>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>Add the support of the <strong>STM32F302x8</strong> and the <strong>STM32F334x8</strong> devices.</li>
 <li>Update devices names definition to be in line with the new new STM32F30x family devices names.
@@ -448,7 +466,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section1.0.0" aria-hidden="true"> <label for="collapse-section1.0.0" aria-hidden="true"><strong>V1.0.0 / 04-September-2012</strong></label>
 <div>
-<h2 id="main-changes-12">Main Changes</h2>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li>First official release for <strong>STM32F30x devices</strong> (Standard Library)</li>
 </ul>
