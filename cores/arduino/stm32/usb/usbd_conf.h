@@ -57,6 +57,9 @@ extern "C" {
 #elif defined(STM32L1xx)
 #define USB_IRQn USB_LP_IRQn
 #define USB_IRQHandler USB_LP_IRQHandler
+#elif defined(STM32L5xx)
+#define USB_IRQn USB_FS_IRQn
+#define USB_IRQHandler USB_FS_IRQHandler
 #endif
 
 #endif /* USB_BASE */
