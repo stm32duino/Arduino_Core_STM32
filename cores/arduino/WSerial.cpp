@@ -48,7 +48,7 @@ WEAK void serialEventRun(void)
   }
 #endif
 #if defined(HAVE_HWSERIAL10)
-  if (serialEventl10 && Serial10.available()) {
+  if (serialEvent10 && Serial10.available()) {
     serialEvent10();
   }
 #endif
