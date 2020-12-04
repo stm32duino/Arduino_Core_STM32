@@ -102,7 +102,7 @@ const uint32_t analogInputPin[] = {
   PC2,
   PC3,
   PC4,
-  PC5,  
+  PC5,
   PA4,
   PA5
 };
