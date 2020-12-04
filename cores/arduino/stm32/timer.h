@@ -37,7 +37,10 @@ extern "C" {
 #endif
 
 #if defined(TIM1_BASE) && !defined(TIM1_IRQn)
-#if defined(STM32F0xx) || defined(STM32G0xx)
+#if defined(STM32L5xx)
+#define TIM1_IRQn TIM1_UP_IRQn
+#define TIM1_IRQHandler TIM1_UP_IRQHandler
+#elif defined(STM32F0xx) || defined(STM32G0xx)
 #define TIM1_IRQn TIM1_BRK_UP_TRG_COM_IRQn
 #define TIM1_IRQHandler TIM1_BRK_UP_TRG_COM_IRQHandler
 #elif defined(STM32F1xx) ||defined(STM32G4xx)
@@ -63,17 +66,19 @@ extern "C" {
 #define TIM1_IRQHandler TIM1_UP_IRQHandler
 #endif
 #endif
+
 #if defined(TIM6_BASE) && !defined(TIM6_IRQn)
 #if defined(DAC_BASE) || defined(DAC1_BASE)
 #if defined(STM32G0xx)
 #define TIM6_IRQn TIM6_DAC_LPTIM1_IRQn
 #define TIM6_IRQHandler TIM6_DAC_LPTIM1_IRQHandler
-#elif !defined(STM32F1xx) && !defined(STM32L1xx) && !defined(STM32MP1xx)
+#elif !defined(STM32F1xx) && !defined(STM32L1xx) && !defined(STM32L5xx) && !defined(STM32MP1xx)
 #define TIM6_IRQn TIM6_DAC_IRQn
-#define TIM6_IRQHandler TIM6_DAC_IRQHandler
+#define TIM6_IRQHandler TIM2_DAC_IRQHandler
 #endif
 #endif
 #endif
+
 #if defined(TIM7_BASE) && !defined(TIM7_IRQn)
 #if defined(STM32G0xx) && defined(LPTIM2_BASE)
 #define TIM7_IRQn TIM7_LPTIM2_IRQn
@@ -89,11 +94,13 @@ extern "C" {
  || defined(STM32H7xx)
 #define TIM8_IRQn TIM8_UP_TIM13_IRQn
 #define TIM8_IRQHandler TIM8_UP_TIM13_IRQHandler
-#elif  defined(STM32F3xx) || defined(STM32G4xx) || defined(STM32L4xx) || defined(STM32MP1xx)
+#elif  defined(STM32F3xx) || defined(STM32G4xx) || defined(STM32L4xx)\
+ || defined(STM32L5xx) || defined(STM32MP1xx)
 #define TIM8_IRQn TIM8_UP_IRQn
 #define TIM8_IRQHandler TIM8_UP_IRQHandler
 #endif
 #endif
+
 #if defined(TIM9_BASE) && !defined(TIM9_IRQn)
 #if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx)
 #define TIM9_IRQn TIM1_BRK_TIM9_IRQn
