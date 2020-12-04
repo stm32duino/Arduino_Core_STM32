@@ -233,6 +233,18 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 }
 
 /**
+  * @brief  This function clear the pending interrupts on the selected pin
+  * @param  pin : one of the gpio pin
+  * @retval None
+  */
+void stm32_interrupt_clear_pending(uint16_t pin)
+{
+  uint8_t id = get_pin_id(pin);
+  __HAL_GPIO_EXTI_CLEAR_IT(pin);
+  HAL_NVIC_ClearPendingIRQ(gpio_irq_conf[id].irqnb);
+}
+
+/**
   * @brief This function his called by the HAL if the IRQ is valid
   * @param  GPIO_Pin : one of the gpio pin
   * @retval None
