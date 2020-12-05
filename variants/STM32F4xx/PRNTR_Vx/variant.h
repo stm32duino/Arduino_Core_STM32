@@ -111,14 +111,14 @@ extern "C" {
 #define PD14   62
 #define PD15   63
 
-#define PA0    64
-#define PA1    65
-#define PA2    66
-#define PA3    67
-#define PA4    68
-#define PA5    69
-#define PA6    70
-#define PA7    71
+#define PA0    A0
+#define PA1    A1
+#define PA2    A2
+#define PA3    A3
+#define PA4    A4
+#define PA5    A5
+#define PA6    A6
+#define PA7    A7
 #define PA8    72
 #define PA9    73
 #define PA10   74
@@ -178,7 +178,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       8
-#define NUM_ANALOG_FIRST        64
 
 #ifdef ARDUINO_PRNTR_F407_V1
 // On-board LED pin number

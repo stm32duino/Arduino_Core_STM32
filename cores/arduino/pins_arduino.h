@@ -30,9 +30,6 @@ _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
 
 _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
                "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS");
-/* Analog pins must be contiguous to be able to loop on each value */
-_Static_assert(NUM_ANALOG_FIRST >= NUM_ANALOG_INPUTS,
-               "First analog pin value (A0) must be greater than or equal to NUM_ANALOG_INPUTS");
 
 /* Default for Arduino connector compatibility */
 /* SPI Definitions */
@@ -86,34 +83,29 @@ extern const uint32_t analogInputPin[];
 #define NOT_AN_INTERRUPT            (uint32_t)NC
 
 /* Convert a digital pin number Dxx to a PinName PX_n */
+#if NUM_ANALOG_INPUTS > 0
 /* Note: Analog pin is also a digital pin */
-#ifndef NUM_ANALOG_LAST
-#define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
-#else
 #define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : \
             ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
                                                 digitalPin[analogInputPin[p-NUM_ANALOG_FIRST]] : NC)
-#endif
+#else
+#define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
+#endif /* NUM_ANALOG_INPUTS > 0 */
 /* Convert a PinName PX_n to a digital pin number */
 uint32_t pinNametoDigitalPin(PinName p);
 
 /* Convert an analog pin number to a digital pin number */
 #if NUM_ANALOG_INPUTS > 0
 /* Used by analogRead api to have A0 == 0 */
-/* For contiguous analog pins definition in digitalPin array */
-#ifndef NUM_ANALOG_LAST
-#define analogInputToDigitalPin(p)  (((uint32_t)p < NUM_ANALOG_INPUTS) ? (p+A0) : p)
-#else
-/* For non contiguous analog pins definition in digitalPin array */
+/* Non contiguous analog pins definition in digitalPin array */
 #define analogInputToDigitalPin(p)  ( \
             ((uint32_t)p < NUM_ANALOG_INPUTS) ? analogInputPin[p] : \
             ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
                                                 analogInputPin[p-NUM_ANALOG_FIRST] : p)
-#endif // !NUM_ANALOG_LAST
 #else
 /* No analog pin defined */
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
-#endif // NUM_ANALOG_INPUTS > 0
+#endif /* NUM_ANALOG_INPUTS > 0 */
 
 /* Convert an analog pin number Axx to a PinName PX_n */
 PinName analogInputToPinName(uint32_t pin);

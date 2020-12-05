@@ -123,6 +123,13 @@ const PinName digitalPin[] = {
   PF_2   // CPU_LED2
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  40, // A0
+  41, // A1
+  42  // A2
+};
+
 #ifdef __cplusplus
 }
 #endif

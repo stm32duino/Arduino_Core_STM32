@@ -64,24 +64,22 @@ extern "C" {
 #define  PC13   22
 #define  PC14   23
 #define  PC15   24
-#define  PA0    25
-#define  PA1    26
-#define  PA2    27
-#define  PA3    28
-#define  PA4    29
-#define  PA5    30
-#define  PA6    31
-#define  PA7    32
-#define  PB0    33
-#define  PB1    34
+#define  PA0    A0
+#define  PA1    A1
+#define  PA2    A2
+#define  PA3    A3
+#define  PA4    A4
+#define  PA5    A5
+#define  PA6    A6
+#define  PA7    A7
+#define  PB0    A8
+#define  PB1    A9
 #define  PF0    35
 #define  PF1    36
-
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        37
 #define NUM_ANALOG_INPUTS       10
-#define NUM_ANALOG_FIRST        26
 
 // On-board LED pin number
 #define LED_BUILTIN             PA15

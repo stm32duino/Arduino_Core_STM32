@@ -92,12 +92,12 @@ extern "C" {
 #define PG2  37 // BTN_PWR
 #define PG3  38 // CHG_LED
 #define PG10 39 // CHG_LED2
-#define PC4  40 // AN_VBAT (A0)
+#define PC4  A0 // AN_VBAT
 
 /* MP23ABS1TR (MIC) */
 /* TS922EIJT (OPAMP) */
-#define PA3  41 // M1P (A1)
-#define PB0  42 // MREF (A2)
+#define PA3  A1 // M1P
+#define PB0  A2 // MREF
 #define PA4  43 // DAC_OUT1
 
 /* LDK130PU-R */
@@ -135,7 +135,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        61
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
-#define NUM_ANALOG_FIRST        40
 
 /* On-board LED pin number */
 #define LED_BUILTIN             PF2  // CPU_LED2

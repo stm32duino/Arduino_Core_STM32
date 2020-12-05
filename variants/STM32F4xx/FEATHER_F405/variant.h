@@ -61,13 +61,13 @@ extern "C" {
 #define PB7  14  // SDA
 #define PB6  15  // SCL
 
-#define PA4  16  // A0
-#define PA5  17  // A1
-#define PA6  18  // A2
-#define PA7  19  // A3
-#define PC4  20  // A4
-#define PC5  21  // A5
-#define PA3  22  // A6 - VDIV
+#define PA4  A0
+#define PA5  A1
+#define PA6  A2
+#define PA7  A3
+#define PC4  A4
+#define PC5  A5
+#define PA3  A6  // VDIV
 
 #define PB13 23  // SCK
 #define PB14 24  // MISO
@@ -89,13 +89,12 @@ extern "C" {
 #define PA12 36  // USB_DP
 
 #define PA13 37  // SWDIO
-#define PA14 38  // SWCLK 
+#define PA14 38  // SWCLK
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        39
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        16
 
 // On-board LED pin number
 #define LED_BUILTIN             PC1

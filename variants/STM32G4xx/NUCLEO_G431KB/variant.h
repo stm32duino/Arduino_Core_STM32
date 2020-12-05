@@ -37,20 +37,19 @@ extern "C" {
 #define PB4  12
 // CN3
 #define PB8  13 // LED - SB7 ON SB6 OFF
-#define PA0  14 // A0
-#define PA1  15 // A1
-#define PA4  16 // A2 (A3 silkscreen)
-#define PA5  17 // A3 (A4 silkscreen) - SB3 ON also connected to PB7
-#define PA6  18 // A4 (A5 silkscreen) - SB2 ON also connected to PA15
-#define PA7  19 // A5 (A6 silkscreen)
-#define PA2  20 // (A7 silkscreen) - SB1 ON VCP TX
-#define PA3  21 // (A2 silkscreen) - SB12 ON VCP RX
+#define PA0  A0
+#define PA1  A1
+#define PA3  A2 // SB12 ON VCP RX
+#define PA4  A3
+#define PA5  A4 // SB3 ON also connected to PB7
+#define PA6  A5 // SB2 ON also connected to PA15
+#define PA7  A6
+#define PA2  A7 // SB1 ON VCP TX
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        22
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        14
+#define NUM_ANALOG_INPUTS       8
 
 // On-board LED pin number
 #define LED_BUILTIN             PB8

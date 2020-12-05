@@ -89,6 +89,15 @@ const PinName digitalPin[] = {
   PB_1,   // ADC_VBAT
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  40, // A0
+  41, // A1
+  42, // A2
+  43, // A3
+  44  // A4
+};
+
 #ifdef __cplusplus
 }
 #endif

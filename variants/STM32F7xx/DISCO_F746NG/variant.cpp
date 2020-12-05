@@ -52,6 +52,16 @@ const PinName digitalPin[] = {
   PC_13  //D25 SD detect
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  16, // A0
+  17, // A1
+  18, // A2
+  19, // A3
+  20, // A4
+  21  // A5
+};
+
 #ifdef __cplusplus
 }
 #endif

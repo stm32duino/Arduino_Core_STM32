@@ -55,13 +55,13 @@ extern "C" {
 #define PC1  23
 #define PA12 24
 #define PA11 25
-#define PA0  26 // A0/A1
+#define PA0  A0 // A1
 // 27 is A1 an alias for A0 - requires closing solder bridge SB7
-#define PA4  28 // A2/A3 - RADIO_DIO_5_PORT
+#define PA4  A2 //A3 - RADIO_DIO_5_PORT
 // 29 is A3 an alias for A2 - requires closing solder bridge SB8
 // 30 is A4 - requires closing solder bridge SB11
 // 31 is A5 - requires closing solder bridge SB12
-#define PA5  32 // A6 - RADIO_DIO_4_PORT
+#define PA5  A6 // RADIO_DIO_4_PORT
 #define PC0  33 // RADIO_RESET_PORT
 #define PA7  34 // RADIO_MOSI_PORT
 #define PA6  35 // RADIO_MISO_PORT
@@ -75,7 +75,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        42
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       7
-#define NUM_ANALOG_FIRST        26
 
 // On-board LED pin number
 #define LED_BUILTIN             PA5

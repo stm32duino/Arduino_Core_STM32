@@ -55,9 +55,9 @@ extern "C" {
 #define PB9  13 // I2C_SDA
 #define PB10 14 // GPS_UART_TX
 #define PB11 15 // GPS_UART_RX
-#define PA1  16 // A0
-#define PA2  17 // A1 - ADC_VBAT
-#define PB12 18 // A2
+#define PA1  A0
+#define PA2  A1 // ADC_VBAT
+#define PB12 A2
 #define PB14 19 // LIS3DH_INT1_PIN
 #define PB15 20 // LIS3DH_INT2_PIN
 #define PB13 21 // RADIO_RESET
@@ -79,7 +79,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
-#define NUM_ANALOG_FIRST        16
 
 // On-board LED pin number
 #define LED_BUILTIN             PA12

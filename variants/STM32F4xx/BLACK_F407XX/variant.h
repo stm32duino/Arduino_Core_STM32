@@ -85,20 +85,20 @@ extern "C" {
 #define PE5  41 // BUT K1
 #define PE6  42
 #define PC13 43
-#define PC0  44 // A0
-#define PC1  45 // A1
-#define PC2  46 // A2
-#define PC3  47 // A3
-#define PA0  48 // A4/WK_UP: BUT K_UP
-#define PA1  49 // A5
-#define PA2  50 // A6
-#define PA3  51 // A7
-#define PA4  52 // A8
-#define PA5  53 // A9
-#define PC4  54 // A10
-#define PC5  55 // A11
-#define PB0  56 // A12
-#define PB1  57 // A13
+#define PC0  A0
+#define PC1  A1
+#define PC2  A2
+#define PC3  A3
+#define PA0  A4 // WK_UP: BUT K_UP
+#define PA1  A5
+#define PA2  A6
+#define PA3  A7
+#define PA4  A8
+#define PA5  A9
+#define PC4  A10
+#define PC5  A11
+#define PB0  A12
+#define PB1  A13
 #define PA6  58 // LED D2
 #define PA7  59 // LED D3 (active LOW)
 #define PE7  60
@@ -121,7 +121,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        75
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       14
-#define NUM_ANALOG_FIRST        44
 
 // On-board LED pin number
 #define LED_D2                  PA6
@@ -211,25 +210,25 @@ extern "C" {
 #define PF11 72
 #define PF12 73
 #define PB2  74
-#define PB1  75 // A0
-#define PC5  76 // A1
-#define PB0  77 // A2
-#define PA7  78 // A3
-#define PC4  79 // A4
-#define PA5  80 // A5
-#define PA6  81 // A6
-#define PA3  82 // A7
-#define PA4  83 // A8
-#define PA1  84 // A9
-#define PA2  85 // A10
-#define PC3  86 // A11
-#define PA0  87 // A12/PA_0(WK_UP): BUT K_UP)
-#define PC1  88 // A13
-#define PC2  89 // A14
-#define PC0  90 // A15
-#define PF8  91 // A16
-#define PF6  92 // A17
-#define PF7  93 // A18
+#define PB1  A0
+#define PC5  A1
+#define PB0  A2
+#define PA7  A3
+#define PC4  A4
+#define PA5  A5
+#define PA6  A6
+#define PA3  A7
+#define PA4  A8
+#define PA1  A9
+#define PA2  A10
+#define PC3  A11
+#define PA0  A12 //PA_0(WK_UP): BUT K_UP)
+#define PC1  A13
+#define PC2  A14
+#define PC0  A15
+#define PF8  A16
+#define PF6  A17
+#define PF7  A18
 #define PF9  94 // LED D1 (active low)
 #define PF10 95 // LED D2 (active low)
 #define PF4  96
@@ -251,7 +250,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        110
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       19
-#define NUM_ANALOG_FIRST        75
 
 // On-board LED pin number
 #define LED_D2                  PF10

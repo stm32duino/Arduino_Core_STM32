@@ -45,9 +45,9 @@ extern "C" {
 #define PC15 2
 #define PF0  3
 #define PF1  4
-#define PA0  5  // A0
-#define PA1  6  // A1
-#define PA2  7  // A2
+#define PA0  A0
+#define PA1  A1
+#define PA2  A2
 #define PA3  8
 #define PA4  9
 #define PA5  10
@@ -84,17 +84,10 @@ extern "C" {
 #define NUM_DIGITAL_PINS        39
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
-#define NUM_ANALOG_FIRST        5
-
-//On-board LED pin number
-//#define LED_BUILTIN             -1
-
-//On-board user button
-//#define USER_BTN                -1
 
 // SPI definitions
 // SPI1 is used
-#define PIN_SPI_SS              -1
+#define PIN_SPI_SS              NC
 #define PIN_SPI_MOSI            PA7
 #define PIN_SPI_MISO            PA6
 #define PIN_SPI_SCK             PA5

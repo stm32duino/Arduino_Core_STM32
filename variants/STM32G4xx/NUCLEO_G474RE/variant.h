@@ -59,20 +59,20 @@ extern "C" {
 // CN10 Left Side
 #define PC9  31
 // CN8
-#define PA0  32 // A0
-#define PA1  33 // A1
-#define PA4  34 // A2
-#define PB0  35 // A3
-#define PC1  36 // A4
-#define PC0  37 // A5
+#define PA0  A0
+#define PA1  A1
+#define PA4  A2
+#define PB0  A3
+#define PC1  A4
+#define PC0  A5
 // CN10 Right side
-#define PB13 38 // A6
-#define PB14 39 // A7
-#define PB15 40 // A8
-#define PB1  41 // A9
-#define PB2  42 // A10
-#define PB11 43 // A11
-#define PB12 44 // A12
+#define PB13 A6
+#define PB14 A7
+#define PB15 A8
+#define PB1  A9
+#define PB2  A10
+#define PB11 A11
+#define PB12 A12
 #define PA11 45
 #define PA12 46
 #define PC6  47
@@ -84,7 +84,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        51
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       13
-#define NUM_ANALOG_FIRST        32
 
 // On-board LED pin number
 #define LED_BUILTIN             PA5

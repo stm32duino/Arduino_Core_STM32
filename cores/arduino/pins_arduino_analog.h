@@ -20,18 +20,9 @@
   #define NUM_ANALOG_INPUTS 0
 #endif
 
-/*
- * If NUM_ANALOG_FIRST is not defined:
- * - Ax are not contiguous in the digitalPin array
- * - analogInputPin array is available
- */
-#ifndef NUM_ANALOG_FIRST
-  #define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
-  #define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
-  #define NUM_ANALOG_INTERNAL_FIRST (NUM_ANALOG_LAST + 1)
-#else
-  #define NUM_ANALOG_INTERNAL_FIRST (NUM_DIGITAL_PINS + 1)
-#endif
+#define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
+#define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
+#define NUM_ANALOG_INTERNAL_FIRST (NUM_ANALOG_LAST + 1)
 
 /* ADC internal channels (not a pins) */
 /* Only used for analogRead() */

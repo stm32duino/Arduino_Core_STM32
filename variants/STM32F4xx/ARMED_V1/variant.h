@@ -59,9 +59,9 @@ extern "C" {
 #define PB13  29 //D29
 #define PB14  30 //D30
 #define PB15  31 //D31
-#define PC0   32 //D32/A0
-#define PC1   33 //D33/A1
-#define PC2   34 //D34/A2
+#define PC0   A0 //D32
+#define PC1   A1 //D33
+#define PC2   A2 //D34
 #define PC3   35 //D35
 #define PC4   36 //D36
 #define PC5   37 //D37
@@ -112,7 +112,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        80
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
-#define NUM_ANALOG_FIRST        32
 
 // PWM resolution
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans

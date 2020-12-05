@@ -49,6 +49,18 @@ const PinName digitalPin[] = {
   PA_15  //D22 - STLink Rx
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  14, // A0
+  15, // A1
+  16, // A2
+  17, // A3
+  18, // A4
+  19, // A5
+  20, // A6
+  21  // A7
+};
+
 #ifdef __cplusplus
 }
 #endif

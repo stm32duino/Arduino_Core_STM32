@@ -140,6 +140,15 @@ const PinName digitalPin[] = {
   PC_3  // D68 - FAN_SPEED2
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  64, // A0
+  65, // A1
+  66, // A2
+  67, // A3
+  68  // A4
+};
+
 #ifdef __cplusplus
 }
 #endif

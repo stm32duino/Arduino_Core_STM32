@@ -78,6 +78,20 @@ const PinName digitalPin[] = {
   PF_1   //D38
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  25, // A0
+  26, // A1
+  27, // A2
+  28, // A3
+  29, // A4
+  30, // A5
+  31, // A6
+  32, // A7
+  33, // A8
+  34  // A9
+};
+
 #ifdef __cplusplus
 }
 #endif

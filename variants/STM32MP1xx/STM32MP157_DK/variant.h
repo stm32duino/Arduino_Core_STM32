@@ -88,17 +88,16 @@ extern "C" {
 #define PA13  17 // 45  // LED LD6, Red, Active Low, Connected to B4 (USER2 Button)
 #define PH7   18 // 46  // LED LD7, Orange, Active High
 // CN17  CN17 Left Arduino Analog Pins
-#define PF14  19 // 47  // A0 - ADC1_IN0
-#define PF13  20 // 48  // A1 - ADC1_IN1
-#define ANA0  21 // 49  // A2 - ADC1_IN6
-#define ANA1  22 // 50  // A3 - ADC1_IN2
-#define PC3   23 // 51  // A4 - ADC1_IN13, or PA_12 (D14) with SB23 ON / SB24 OFF
-#define PF12  24 // 52  // A5 - ADC1_IN14, or PA_11 (D15) with SB25 ON / SB26 OFF
+#define PF14  A0 // 47  // ADC1_IN0
+#define PF13  A1 // 48  // ADC1_IN1
+#define ANA0  A2 // 49  // ADC1_IN6
+#define ANA1  A3 // 50  // ADC1_IN2
+#define PC3   A4 // 51  // ADC1_IN13, or PA_12 (D14) with SB23 ON / SB24 OFF
+#define PF12  A5 // 52  // ADC1_IN14, or PA_11 (D15) with SB25 ON / SB26 OFF
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        25 // 53
 #define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        19 // 47
 
 // On-board LED pin number
 #define LED_GREEN               PA14

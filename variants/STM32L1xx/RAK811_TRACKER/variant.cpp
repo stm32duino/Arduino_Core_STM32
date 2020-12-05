@@ -73,6 +73,13 @@ const PinName digitalPin[] = {
   PA_4   //D34 - RADIO_RF_CTX_PA
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  16, // A0
+  17, // A1
+  18  // A2
+};
+
 #ifdef __cplusplus
 }
 #endif

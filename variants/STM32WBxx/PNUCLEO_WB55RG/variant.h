@@ -70,12 +70,12 @@ extern "C" {
 #define PB6  35
 #define PD0  36 // SW2
 #define PD1  37 // SW3
-#define PC0  38 // A0
-#define PC1  39 // A1
-#define PA1  40 // A2
-#define PA0  41 // A3
-#define PC3  42 // A4
-#define PC2  43 // A5
+#define PC0  A0
+#define PC1  A1
+#define PA1  A2
+#define PA0  A3
+#define PC3  A4
+#define PC2  A5
 // Not on connectors
 #define PB5  44 // LED1
 #define PB10 45
@@ -85,7 +85,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        47
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        38
 
 // On-board LED pin number
 #define LED1                    PB5

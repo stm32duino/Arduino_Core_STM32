@@ -79,6 +79,17 @@ const PinName digitalPin[] = {
   PA_14,  // D38 SWCLK
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  16, // A0
+  17, // A1
+  18, // A2
+  19, // A3
+  20, // A4
+  21, // A5
+  22  // A6
+};
+
 #ifdef __cplusplus
 }
 #endif

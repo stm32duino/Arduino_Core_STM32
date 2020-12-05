@@ -134,16 +134,15 @@ extern "C"
 #define PD9  63 // Z_MAX
 
 // ADC
-#define PC0  64 // THERM_1
-#define PC1  65 // THERM_2
-#define PC2  66 // THERM_3
-#define PA4  67 // FAN_SPEED1
-#define PC3  68 // FAN_SPEED2
+#define PC0  A0 // THERM_1
+#define PC1  A1 // THERM_2
+#define PC2  A2 // THERM_3
+#define PA4  A3 // FAN_SPEED1
+#define PC3  A4 // FAN_SPEED2
 
 // PIN definition
 #define NUM_DIGITAL_PINS 69
 #define NUM_ANALOG_INPUTS 5
-#define NUM_ANALOG_FIRST 64
 
 // PWM resolution
 #define PWM_FREQUENCY           20000 // >= 20 Khz => inaudible noise for fans

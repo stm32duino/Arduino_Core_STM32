@@ -38,15 +38,27 @@ const PinName digitalPin[] = {
   PB_5,  //D11
   PB_4,  //D12
   PB_3,  //D13 - LED
-  PA_0,  //D14//A0
-  PA_1,  //D15//A1
-  PA_3,  //D16//A2
-  PA_4,  //D17//A3
-  PA_5,  //D18//A4
-  PA_6,  //D19//A5
-  PA_7,  //D20//A6
-  PA_2,  //D21 - STLink Tx (no A7)
+  PA_0,  //D14/A0
+  PA_1,  //D15/A1
+  PA_3,  //D16/A2
+  PA_4,  //D17/A3
+  PA_5,  //D18/A4
+  PA_6,  //D19/A5
+  PA_7,  //D20/A6
+  PA_2,  //D21/A7 - STLink Tx
   PA_15  //D22 - STLink Rx
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  14, // A0
+  15, // A1
+  16, // A2
+  17, // A3
+  18, // A4
+  19, // A5
+  20, // A6
+  21  // A7
 };
 
 #ifdef __cplusplus

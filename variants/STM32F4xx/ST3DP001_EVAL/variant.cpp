@@ -145,6 +145,16 @@ const PinName digitalPin[] = {
   PB_8   // E3_PWM
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  51, // A0
+  52, // A1
+  53, // A2
+  54, // A3
+  55, // A4
+  56  // A5
+};
+
 #ifdef __cplusplus
 }
 #endif

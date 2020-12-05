@@ -81,10 +81,7 @@ const PinName digitalPin[] = {
   PC_0   //D52/A5
 };
 
-// If analog pins are not contiguous in the digitalPin array:
-// Add the analogInputPin array without defining NUM_ANALOG_FIRST
 // Analog (Ax) pin number array
-// where x is the index to retrieve the digital pin number
 const uint32_t analogInputPin[] = {
   47, //A0
   48, //A1

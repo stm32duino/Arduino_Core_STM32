@@ -94,6 +94,25 @@ const PinName digitalPin[] = {
   PB_13,  PB_14,
   PB_4,
 };
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  44, // A0
+  45, // A1
+  46, // A2
+  47, // A3
+  48, // A4
+  49, // A5
+  50, // A6
+  51, // A7
+  52, // A8
+  53, // A9
+  54, // A10
+  55, // A11
+  56, // A12
+  57  // A13
+};
+
 #endif // ARDUINO_BLACK_F407VE || ARDUINO_BLACK_F407VG
 
 #if defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)
@@ -167,6 +186,30 @@ const PinName digitalPin[] = {
   PE_2,   PE_3,
   PE_0,   PE_1,
 };
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  75, // A0
+  76, // A1
+  77, // A2
+  78, // A3
+  79, // A4
+  80, // A5
+  81, // A6
+  82, // A7
+  83, // A8
+  84, // A9
+  85, // A10
+  86, // A11
+  87, // A12
+  88  // A13
+  89, // A14
+  90, // A15
+  91, // A16
+  92, // A17
+  93  // A18
+};
+
 #endif // ARDUINO_BLACK_F407ZE || ARDUINO_BLACK_F407ZG
 
 #ifdef __cplusplus

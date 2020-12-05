@@ -128,27 +128,27 @@ extern "C" {
 #define PC13 75 // USER_BTN
 #define PD9  76 // Serial Rx
 #define PD8  77 // Serial Tx
-#define PA3  78 // A0
-#define PC0  79 // A1
-#define PC3  80 // A2
+#define PA3  A0
+#define PC0  A1
+#define PC3  A2
 #ifdef ARDUINO_NUCLEO_H743ZI2
-#define PB1  81 // A3
-#define PC2  82 // A4
+#define PB1  A3
+#define PC2  A4
 #else
-#define PF3  81 // A3
-#define PF5  82 // A4
+#define PF3  A3
+#define PF5  A4
 #endif
-#define PF10 83 // A5
+#define PF10 A5
 #ifdef ARDUINO_NUCLEO_H743ZI2
-#define PF4  84 // A6
-#define PF5  85 // A7
-#define PF6  86 // A8
+#define PF4  A6
+#define PF5  A7
+#define PF6  A8
 #else
-#define PB1  84 // A6
-#define PC2  85 // A7
-#define PF4  86 // A8
+#define PB1  A6
+#define PC2  A7
+#define PF4  A8
 #endif
-#define PF11 87 // A9
+#define PF11 A9
 #define PD10 88
 #define PG4  89
 #define PG5  90
@@ -177,7 +177,6 @@ extern "C" {
 #endif
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       10
-#define NUM_ANALOG_FIRST        78
 
 // On-board LED pin number
 #define LED_BUILTIN             PB0  // LD1

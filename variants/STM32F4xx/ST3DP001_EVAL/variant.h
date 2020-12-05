@@ -106,12 +106,12 @@ extern "C" {
 #define PB1  50 // E3_HEAT_PWM
 
 // THERMISTOR
-#define PC2  51 // BED_THERMISTOR_1
-#define PC3  52 // BED_THERMISTOR_2
-#define PA3  53 // BED_THERMISTOR_3
-#define PA0  54 // E1_THERMISTOR
-#define PA1  55 // E2_THERMISTOR
-#define PA2  56 // E3_THERMISTOR
+#define PC2  A0 // BED_THERMISTOR_1
+#define PC3  A1 // BED_THERMISTOR_2
+#define PA3  A2 // BED_THERMISTOR_3
+#define PA0  A3 // E1_THERMISTOR
+#define PA1  A4 // E2_THERMISTOR
+#define PA2  A5 // E3_THERMISTOR
 
 // FANS
 #define PC4  57 // E1_FAN
@@ -152,7 +152,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        78
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        51
 
 // On-board LED pin number
 #define LED_BUILTIN             PE1

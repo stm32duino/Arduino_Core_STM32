@@ -86,22 +86,22 @@ extern "C" {
 #define PC15 28
 #define PF0  29
 #define PF1  30
-#define PC0  31 // A0 - NCS_MEMS_SPI (L3GD20)
-#define PC1  32 // A1 - MEMS INT1 (L3GD20)
-#define PC2  33 // A2 - MEMS INT2 (L3GD20)
-#define PC3  34 // A3
-#define PA0  35 // A4 - USER_BTN
-#define PA1  36 // A5
-#define PA2  37 // A6 - SB27 (default OFF): TS_G1_IO3
-#define PA3  38 // A7 - SB28 (default OFF): TS_G1_IO4
-#define PA4  39 // A8
-#define PA5  40 // A9
-#define PA6  41 // A10 - SB29 (default OFF): TS_G2_IO3
-#define PA7  42 // A11 - SB30 (default OFF): TS_G2_IO4
-#define PC4  43 // A12
-#define PC5  44 // A13 - Ext Reset
-#define PB0  45 // A14 - SB31 (default OFF): TS_G3_IO2
-#define PB1  46 // A15 - SB32 (default OFF): TS_G3_IO3
+#define PC0  A0 // NCS_MEMS_SPI (L3GD20)
+#define PC1  A1 // MEMS INT1 (L3GD20)
+#define PC2  A2 // MEMS INT2 (L3GD20)
+#define PC3  A3
+#define PA0  A4 // USER_BTN
+#define PA1  A5
+#define PA2  A6 // SB27 (default OFF): TS_G1_IO3
+#define PA3  A7 // SB28 (default OFF): TS_G1_IO4
+#define PA4  A8
+#define PA5  A9
+#define PA6  A10 // SB29 (default OFF): TS_G2_IO3
+#define PA7  A11 // SB30 (default OFF): TS_G2_IO4
+#define PC4  A12
+#define PC5  A13 // Ext Reset
+#define PB0  A14 // SB31 (default OFF): TS_G3_IO2
+#define PB1  A15 // SB32 (default OFF): TS_G3_IO3
 #define PB2  47
 #define PB10 48 // I2C2 SCL: Extension / RF EEprom Connector
 #define PB11 49 // I2C2 SDA: Extension / RF EEprom Connector
@@ -111,7 +111,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        51
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       16
-#define NUM_ANALOG_FIRST        31
 
 //On-board LED pin number
 #define LED_BUILTIN             PC9

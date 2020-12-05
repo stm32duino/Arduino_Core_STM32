@@ -44,20 +44,19 @@ extern "C" {
 #define PB6  14
 #define PH3  15 // BOOT0 / USR BTN
 
-#define PA0  16 // A0
-#define PA1  17 // A1
-#define PA2  18 // A2
-#define PA3  19 // A3
-#define PA4  20 // A4
-#define PA5  21 // A5
-#define PA6  22 // A6
-#define PA7  23 // A7 VBAT sense
+#define PA0  A0
+#define PA1  A1
+#define PA2  A2
+#define PA3  A3
+#define PA4  A4
+#define PA5  A5
+#define PA6  A6
+#define PA7  A7 // VBAT sense
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        24
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       8
-#define NUM_ANALOG_FIRST        16
 
 // On-board LED pin number
 #define LED                     PE4

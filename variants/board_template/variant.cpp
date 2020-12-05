@@ -43,19 +43,10 @@ const PinName digitalPin[] = {
   P, //D18/A2
   P, //D19/A3
   P, //D20/A4
-  P, //D21/A5
-  // Required only if Ax pins are automaticaly defined using `NUM_ANALOG_FIRST`
-  // and have to be contiguous in this array
-  // Duplicated pins in order to be aligned with PinMap_ADC
-  P, //D22/A6 = D
-  P, //D23/A7 = D
-  P  //D24/A8 = D
+  P //D21/A5
 };
 
-// If analog pins are not contiguous in the digitalPin array:
-// Add the analogInputPin array without defining NUM_ANALOG_FIRST
 // Analog (Ax) pin number array
-// where x is the index to retrieve the digital pin number
 const uint32_t analogInputPin[] = {
   //PXn, //Ax = Dx
   2, //A0 = Dx

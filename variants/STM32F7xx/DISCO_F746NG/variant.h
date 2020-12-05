@@ -43,12 +43,12 @@ extern "C" {
 #define PI1  13
 #define PB9  14
 #define PB8  15
-#define PA0  16 // A0
-#define PF10 17 // A1
-#define PF9  18 // A2
-#define PF8  19 // A3
-#define PF7  20 // A4
-#define PF6  21 // A5
+#define PA0  A0
+#define PF10 A1
+#define PF9  A2
+#define PF8  A3
+#define PF7  A4
+#define PF6  A5
 #define PI11 22 // User btn
 #define PB7  23 // ST-Link Rx
 #define PA9  24 // ST-Link Tx
@@ -58,7 +58,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        26
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       6
-#define NUM_ANALOG_FIRST        16
 
 // On-board LED pin number
 #define LED_BUILTIN             13

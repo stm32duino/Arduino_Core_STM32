@@ -35,12 +35,24 @@ const PinName digitalPin[] = {
   PB_8,  // D13 - LED - SB7 ON SB6 OFF
   PA_0,  // D14/A0
   PA_1,  // D15/A1
-  PA_4,  // D16/A2 (A3 silkscreen)
-  PA_5,  // D17/A3 (A4 silkscreen) - SB3 ON also connected to PB7
-  PA_6,  // D18/A4 (A5 silkscreen) - SB2 ON also connected to PA15
-  PA_7,  // D19/A5 (A6 silkscreen)
-  PA_2,  // D20 (A7 silkscreen) - SB1 ON VCP TX
-  PA_3   // D21 (A2 silkscreen) - SB12 ON VCP RX
+  PA_3,  // D16/A2 - SB12 ON VCP RX
+  PA_4,  // D17/A3
+  PA_5,  // D18/A4 - SB3 ON also connected to PB7
+  PA_6,  // D19/A5 - SB2 ON also connected to PA15
+  PA_7,  // D20/A6
+  PA_2   // D21/A7 - SB1 ON VCP TX
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  14, // A0
+  15, // A1
+  16, // A2
+  17, // A3
+  18, // A4
+  19, // A5
+  20, // A6
+  21  // A7
 };
 
 #ifdef __cplusplus

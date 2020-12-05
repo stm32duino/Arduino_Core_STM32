@@ -61,16 +61,16 @@ extern "C" {
 #define PC13 17 // LED Bluepill
 #define PC14 18
 #define PC15 19
-#define PA0  20 // A0
-#define PA1  21 // A1
-#define PA2  22 // A2
-#define PA3  23 // A3
-#define PA4  24 // A4
-#define PA5  25 // A5
-#define PA6  26 // A6
-#define PA7  27 // A7
-#define PB0  28 // A8
-#define PB1  29 // A9
+#define PA0  A0
+#define PA1  A1
+#define PA2  A2
+#define PA3  A3
+#define PA4  A4
+#define PA5  A5
+#define PA6  A6
+#define PA7  A7
+#define PB0  A8
+#define PB1  A9
 #define PB10 30
 #define PB11 31
 // Other
@@ -82,7 +82,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        35
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       10
-#define NUM_ANALOG_FIRST        20
 
 // On-board LED pin number
 #if defined(ARDUINO_BLUEPILL_F103C6) || defined(ARDUINO_BLUEPILL_F103C8) ||\

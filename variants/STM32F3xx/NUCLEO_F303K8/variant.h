@@ -48,7 +48,7 @@ extern "C" {
 #define PA5  A4 // if SB18 ON (default) connected to PB7
 #define PA6  A5 // if SB16 ON (default) connected to PB6
 #define PA7  A6
-#define PA2  A7 // STLink Tx
+#define PA2  A7 // SB2 ON STLink Tx
 #define PA15 22 // STLink Rx
 
 // This must be a literal

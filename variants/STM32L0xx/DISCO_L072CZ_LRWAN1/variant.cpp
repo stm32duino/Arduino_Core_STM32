@@ -71,6 +71,17 @@ const PinName digitalPin[] = {
   PC_13, //D41 - RADIO_DIO_3_PORT
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  26, // A0
+  27, // A1
+  28, // A2
+  29, // A3
+  30, // A4
+  31, // A5
+  32  // A6
+};
+
 #ifdef __cplusplus
 }
 #endif

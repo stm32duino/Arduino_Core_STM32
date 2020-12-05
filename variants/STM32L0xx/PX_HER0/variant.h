@@ -80,11 +80,11 @@ extern "C" {
 #define PB15                    37     /* PX_SPI2_MOSI */
 #define PB14                    38     /* PX_SPI2_MISO */
 #define PA4                     39     /* PX_DAC1 */
-#define PB0                     40     /* PX_ADC0 */
-#define PC5                     41     /* PX_ADC1 */
-#define PC4                     42     /* PX_ADC2 */
-#define PA7                     43     /* PX_ADC3 */
-#define PB1                     44     /* PX_ADC_VBAT */
+#define PB0                     A0     /* PX_ADC0 */
+#define PC5                     A1     /* PX_ADC1 */
+#define PC4                     A2     /* PX_ADC2 */
+#define PA7                     A3     /* PX_ADC3 */
+#define PB1                     A4     /* PX_ADC_VBAT */
 
 // Mapping of net name to digital pin number
 #define PX_GPIO0                PA6    /*  0 */
@@ -137,7 +137,6 @@ extern "C" {
 #define NUM_DIGITAL_PINS        45
 
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_FIRST        PB0
 #define NUM_ANALOG_INPUTS       5
 
 // On-board LED pin number

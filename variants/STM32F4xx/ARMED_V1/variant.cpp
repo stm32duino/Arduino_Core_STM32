@@ -118,6 +118,13 @@ const PinName digitalPin[] = {
   PE_15  //D79
 };
 
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  32, // A0
+  33, // A1
+  34  // A2
+};
+
 #ifdef __cplusplus
 }
 #endif

@@ -43,10 +43,10 @@ extern "C" {
 #define PA1  1 // LED 2
 #define PA2  2 // LED 3
 #define PA3  3 // LED 4
-#define PA4  4 // A0
-#define PA5  5 // A1
-#define PA6  6 // A2
-#define PA7  7 // A3
+#define PA4  A0
+#define PA5  A1
+#define PA6  A2
+#define PA7  A3
 #define PA8  8
 #define PA9  9
 #define PA10 10
@@ -65,7 +65,6 @@ extern "C" {
 
 // This must be a literal with a value less than or equal to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       4
-#define NUM_ANALOG_FIRST        4
 
 // On-board LED pin number
 #define LED_BUILTIN             PA0
