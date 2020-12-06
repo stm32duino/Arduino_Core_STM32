@@ -129,7 +129,7 @@ extern "C" {
 #define PIN_WIRE_SCL            PB8
 
 // Timer Definitions
-// Do not use timer used by PWM pin. See PinMap_PWM.
+// Do not use timer used by PWM pin. See PinMap_TIM.
 #define TIMER_TONE              TIM6
 #define TIMER_SERVO             TIM2
 #define TIMER_SERIAL            TIM7

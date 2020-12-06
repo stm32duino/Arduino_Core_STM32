@@ -698,7 +698,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   if (pin != NC) {
     if ((int)get_pwm_channel(pin) == timChannel) {
       /* Configure PWM GPIO pins */
-      pinmap_pinout(pin, PinMap_PWM);
+      pinmap_pinout(pin, PinMap_TIM);
 #if defined(STM32F1xx)
       if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
           || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
@@ -712,7 +712,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
     }
 
 #if defined(TIM_CCER_CC1NE)
-    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM));
+    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM));
 #endif
   }
 }

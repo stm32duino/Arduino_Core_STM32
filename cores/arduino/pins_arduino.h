@@ -281,7 +281,7 @@ PinName analogInputToPinName(uint32_t pin);
 
 #define digitalPinHasI2C(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SDA) ||\
                                      pin_in_pinmap(digitalPinToPinName(p), PinMap_I2C_SCL))
-#define digitalPinHasPWM(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_PWM))
+#define digitalPinHasPWM(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_TIM))
 #define digitalPinHasSerial(p)      (pin_in_pinmap(digitalPinToPinName(p), PinMap_UART_RX) ||\
                                      pin_in_pinmap(digitalPinToPinName(p), PinMap_UART_TX))
 #define digitalPinHasSPI(p)         (pin_in_pinmap(digitalPinToPinName(p), PinMap_SPI_MOSI) ||\

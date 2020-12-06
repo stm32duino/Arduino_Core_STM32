@@ -122,7 +122,7 @@ extern "C" {
 #define USER_BTN                USER1_BTN
 
 // Timer Definitions (optional)
-//Do not use timer used by PWM pins when possible. See PinMap_PWM in PeripheralPins.c
+//Do not use timer used by PWM pins when possible. See PinMap_TIM in PeripheralPins.c
 // Unused Timers: TIM6, TIM7 (Those are basic timers usually for DACs, not capable to PWM)
 //                LPTIM[1:5]
 #define TIMER_TONE              TIM7
