@@ -18,7 +18,8 @@
 
   [..]
       The STM32WBxx device family integrates two analog comparators instances:
-      COMP1, COMP2.
+      COMP1, COMP2 except for the STM32WB15xx, STM32WB10xx products featuring only
+      one instance: COMP1.
       In the rest of the file, all comments related to a pair of comparators are not
       applicable to STM32WB15xx, STM32WB10xx.
       (#) Comparators input minus (inverting input) and input plus (non inverting input)

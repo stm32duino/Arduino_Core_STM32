@@ -180,7 +180,7 @@ typedef struct
 #define LL_EXTI_LINE_ALL_32_63         (LL_EXTI_LINE_33 | LL_EXTI_LINE_36 | LL_EXTI_LINE_37 | \
                                         LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
                                         LL_EXTI_LINE_41 | LL_EXTI_LINE_42 | LL_EXTI_LINE_44 | \
-                                        LL_EXTI_LINE_45 | LL_EXTI_LINE_48)  /*!< All Extended line not reserved*/
+                                        LL_EXTI_LINE_45 | LL_EXTI_LINE_46 | LL_EXTI_LINE_48)  /*!< All Extended line not reserved*/
 #else
 #define LL_EXTI_LINE_ALL_32_63         (LL_EXTI_LINE_33 | LL_EXTI_LINE_36 | LL_EXTI_LINE_37 | \
                                         LL_EXTI_LINE_38 | LL_EXTI_LINE_39 | LL_EXTI_LINE_40 | \
