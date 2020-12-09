@@ -3469,9 +3469,6 @@ typedef struct
 #define EXTI_IMR2_IM42_Pos       (10U)
 #define EXTI_IMR2_IM42_Msk       (0x1UL << EXTI_IMR2_IM42_Pos)                 /*!< 0x00000400 */
 #define EXTI_IMR2_IM42           EXTI_IMR2_IM42_Msk                            /*!< CPU1 Interrupt Mask on line 42 */
-#define EXTI_IMR2_IM43_Pos       (11U)
-#define EXTI_IMR2_IM43_Msk       (0x1UL << EXTI_IMR2_IM43_Pos)                 /*!< 0x00000800 */
-#define EXTI_IMR2_IM43           EXTI_IMR2_IM43_Msk                            /*!< CPU1 Interrupt Mask on line 43 */
 #define EXTI_IMR2_IM44_Pos       (12U)
 #define EXTI_IMR2_IM44_Msk       (0x1UL << EXTI_IMR2_IM44_Pos)                 /*!< 0x00001000 */
 #define EXTI_IMR2_IM44           EXTI_IMR2_IM44_Msk                            /*!< CPU1 Interrupt Mask on line 44 */
@@ -3687,9 +3684,6 @@ typedef struct
 #define EXTI_C2IMR2_IM42_Pos     (10U)
 #define EXTI_C2IMR2_IM42_Msk     (0x1UL << EXTI_C2IMR2_IM42_Pos)               /*!< 0x00000400 */
 #define EXTI_C2IMR2_IM42         EXTI_C2IMR2_IM42_Msk                          /*!< CPU2 Interrupt Mask on line 42 */
-#define EXTI_C2IMR2_IM43_Pos     (11U)
-#define EXTI_C2IMR2_IM43_Msk     (0x1UL << EXTI_C2IMR2_IM43_Pos)               /*!< 0x00000800 */
-#define EXTI_C2IMR2_IM43         EXTI_C2IMR2_IM43_Msk                          /*!< CPU2 Interrupt Mask on line 43 */
 #define EXTI_C2IMR2_IM44_Pos     (12U)
 #define EXTI_C2IMR2_IM44_Msk     (0x1UL << EXTI_C2IMR2_IM44_Pos)               /*!< 0x00001000 */
 #define EXTI_C2IMR2_IM44         EXTI_C2IMR2_IM44_Msk                          /*!< CPU2 Interrupt Mask on line 44 */
