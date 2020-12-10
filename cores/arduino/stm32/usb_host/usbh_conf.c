@@ -41,7 +41,7 @@
 
 /* USER CODE END PV */
 
-HCD_HandleTypeDef hhcd_USB_OTG_FS;
+HCD_HandleTypeDef g_hhcd;
 
 /* USER CODE BEGIN 0 */
 
@@ -100,6 +100,43 @@ void HAL_HCD_MspInit(HCD_HandleTypeDef *hhcd)
 
       /* Enable EXTI Interrupt */
       HAL_NVIC_EnableIRQ(OTG_FS_WKUP_IRQn);
+#endif
+    }
+  }
+#endif
+#if defined(USB_OTG_HS)
+  if (hhcd->Instance == USB_OTG_HS) {
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    map = PinMap_USB_OTG_HS;
+    while (map->pin != NC) {
+      pin_function(map->pin, map->function);
+      map++;
+    }
+
+    /* Peripheral clock enable */
+    __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
+
+    /* Set USB HS Interrupt priority */
+    HAL_NVIC_SetPriority(OTG_HS_IRQn, USBH_IRQ_PRIO, USBH_IRQ_SUBPRIO);
+
+    /* Enable USB HS Interrupt */
+    HAL_NVIC_EnableIRQ(OTG_HS_IRQn);
+
+    if (hhcd->Init.low_power_enable == 1) {
+      /* Enable EXTI Line 18 for USB wakeup */
+#ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG
+      __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
+#endif
+#ifdef __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE
+      __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
+#endif
+      __HAL_USB_OTG_HS_WAKEUP_EXTI_ENABLE_IT();
+#if !defined(STM32L4xx)
+      /* Set EXTI Wakeup Interrupt priority */
+      HAL_NVIC_SetPriority(OTG_HS_WKUP_IRQn, USBH_IRQ_PRIO, USBH_IRQ_SUBPRIO);
+
+      /* Enable EXTI Interrupt */
+      HAL_NVIC_EnableIRQ(OTG_HS_WKUP_IRQn);
 #endif
     }
   }
@@ -200,21 +237,45 @@ USBH_StatusTypeDef USBH_LL_Init(USBH_HandleTypeDef *phost)
   /* Init USB_IP */
   if (phost->id == HOST_FS) {
     /* Link the driver to the stack. */
-    hhcd_USB_OTG_FS.pData = phost;
-    phost->pData = &hhcd_USB_OTG_FS;
+    g_hhcd.pData = phost;
+    phost->pData = &g_hhcd;
 
-    hhcd_USB_OTG_FS.Instance = USB_OTG_FS;
-    hhcd_USB_OTG_FS.Init.Host_channels = 8;
-    hhcd_USB_OTG_FS.Init.speed = HCD_SPEED_FULL;
-    hhcd_USB_OTG_FS.Init.dma_enable = DISABLE;
-    hhcd_USB_OTG_FS.Init.phy_itface = HCD_PHY_EMBEDDED;
-    hhcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
-    if (HAL_HCD_Init(&hhcd_USB_OTG_FS) != HAL_OK) {
+    g_hhcd.Instance = USB_OTG_FS;
+    g_hhcd.Init.Host_channels = 8;
+    g_hhcd.Init.speed = HCD_SPEED_FULL;
+    g_hhcd.Init.dma_enable = DISABLE;
+    g_hhcd.Init.phy_itface = HCD_PHY_EMBEDDED;
+    g_hhcd.Init.Sof_enable = DISABLE;
+    if (HAL_HCD_Init(&g_hhcd) != HAL_OK) {
       // Error_Handler( );
       return USBH_FAIL;
     }
 
-    USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&hhcd_USB_OTG_FS));
+    USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&g_hhcd));
+  } else if (phost->id == HOST_HS) {
+    /* Link the driver to the stack. */
+    g_hhcd.pData = phost;
+    phost->pData = &g_hhcd;
+
+    g_hhcd.Instance = USB_OTG_HS;
+    g_hhcd.Init.Host_channels = 12;
+    g_hhcd.Init.speed = HCD_SPEED_FULL;
+    g_hhcd.Init.dma_enable = DISABLE;
+#ifdef USE_USB_HS_IN_FS
+    g_hhcd.Init.phy_itface = USB_OTG_EMBEDDED_PHY;
+#else
+    g_hhcd.Init.phy_itface = USB_OTG_ULPI_PHY;
+#endif
+    g_hhcd.Init.Sof_enable = DISABLE;
+    g_hhcd.Init.low_power_enable = DISABLE;
+    g_hhcd.Init.vbus_sensing_enable = DISABLE;
+    g_hhcd.Init.use_external_vbus = DISABLE;
+
+    if (HAL_HCD_Init(&g_hhcd) != HAL_OK) {
+      Error_Handler();
+    }
+
+    USBH_LL_SetTimer(phost, HAL_HCD_GetCurrentFrame(&g_hhcd));
   }
   return USBH_OK;
 }
@@ -245,11 +306,8 @@ USBH_StatusTypeDef USBH_LL_Start(USBH_HandleTypeDef *phost)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBH_StatusTypeDef usb_status = USBH_OK;
-
   hal_status = HAL_HCD_Start(phost->pData);
-
   usb_status = USBH_Get_USB_Status(hal_status);
-
   return usb_status;
 }
 
@@ -549,18 +607,12 @@ USBH_StatusTypeDef USBH_Get_USB_Status(HAL_StatusTypeDef hal_status)
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
 
-//#include "stm32f4xx_hal_hcd.c"
-
-#if !defined(USBCON)
-
-// extern HCD_HandleTypeDef hhcd_USB_OTG_FS;
-
 /**
   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
   * @param  None
   * @retval None
   */
-#ifdef USE_USB_HS
+#ifdef USE_USBHOST_HS
   void OTG_HS_IRQHandler(void)
 #elif defined(USB_OTG_FS)
   void OTG_FS_IRQHandler(void)
@@ -568,9 +620,39 @@ USBH_StatusTypeDef USBH_Get_USB_Status(HAL_StatusTypeDef hal_status)
   void USB_IRQHandler(void)
 #endif
 {
-  HAL_HCD_IRQHandler(&hhcd_USB_OTG_FS);
+  HAL_HCD_IRQHandler(&g_hhcd);
 }
 
-#endif // !defined(USBCON)
+/**
+  * @brief  This function handles USB OTG HCD Wakeup IRQ Handler.
+  * @param  None
+  * @retval None
+  */
+#ifdef USE_USBHOST_HS
+  void OTG_HS_WKUP_IRQHandler(void)
+#elif defined(USB_OTG_FS)
+  void OTG_FS_WKUP_IRQHandler(void)
+#else
+  void USBWakeUp_IRQHandler(void)
+#endif
+{
+  if ((&g_hhcd)->Init.low_power_enable) {
+    /* Reset SLEEPDEEP bit of Cortex System Control Register */
+    SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
+
+    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
+    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
+    SystemClock_Config();
+  }
+#if defined(USE_USBHOST_HS) && defined(__HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG)
+  /* Clear EXTI pending Bit*/
+  __HAL_USB_OTG_HS_WAKEUP_EXTI_CLEAR_FLAG();
+#elif defined(USB_OTG_FS) && defined(__HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG)
+  /* Clear EXTI pending Bit*/
+  __HAL_USB_OTG_FS_WAKEUP_EXTI_CLEAR_FLAG();
+#elif defined(__HAL_USB_WAKEUP_EXTI_CLEAR_FLAG)
+  __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
+#endif
+}
 
 #endif /* USBHOST */
