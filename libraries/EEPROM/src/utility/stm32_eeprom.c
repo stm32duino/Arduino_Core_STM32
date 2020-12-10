@@ -42,7 +42,7 @@ extern "C" {
 /* Be able to change FLASH_BANK_NUMBER to use if relevant */
 #if !defined(FLASH_BANK_NUMBER) &&\
     (defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32G4xx) ||\
-     defined(STM32H7xx) || defined(STM32L4xx))
+     defined(STM32H7xx) || defined(STM32L4xx) || defined(STM32L5xx))
 /* For STM32F0xx, FLASH_BANK_1 is not defined only FLASH_BANK1_END is defined */
 #if defined(STM32F0xx)
 #define FLASH_BANK_1 1U
@@ -72,7 +72,7 @@ extern "C" {
 /* Be able to change FLASH_PAGE_NUMBER to use if relevant */
 #if !defined(FLASH_PAGE_NUMBER) &&\
     (defined (STM32G0xx) || defined(STM32G4xx) || defined (STM32L4xx) ||\
-     defined(STM32WBxx))
+     defined (STM32L5xx) || defined(STM32WBxx))
 #define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
 #endif /* !FLASH_PAGE_NUMBER */
 
@@ -112,7 +112,7 @@ static inline uint32_t get_flash_end(void)
 }
 #define FLASH_END  get_flash_end()
 #elif defined(STM32G0xx) || defined(STM32G4xx) || defined (STM32L4xx) || \
-      defined(STM32WBxx)
+      defined (STM32L5xx) || defined(STM32WBxx)
 /* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
 #define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
 #elif defined(EEPROM_RETRAM_MODE)
@@ -248,17 +248,18 @@ void eeprom_buffer_flush(void)
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
 #if defined (STM32F0xx) || defined (STM32F1xx) || defined (STM32F3xx) || \
     defined (STM32G0xx) || defined (STM32G4xx) || \
-    defined (STM32L4xx) || defined (STM32WBxx)
+    defined (STM32L4xx) || defined (STM32L5xx) || defined (STM32WBxx)
   uint32_t pageError = 0;
   uint64_t data = 0;
 
   /* ERASING page */
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
-#if defined (STM32G4xx) || defined (STM32L4xx) || defined (STM32F1xx)
+#if defined (STM32F1xx) || defined (STM32G4xx) || defined (STM32L4xx) || \
+    defined (STM32L5xx)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
 #endif
 #if defined (STM32G0xx) || defined (STM32G4xx) || defined (STM32L4xx) || \
-    defined (STM32WBxx)
+    defined (STM32L5xx) || defined (STM32WBxx)
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
@@ -267,7 +268,7 @@ void eeprom_buffer_flush(void)
 
   if (HAL_FLASH_Unlock() == HAL_OK) {
 #if defined (STM32G0xx) || defined (STM32G4xx) || defined (STM32L4xx) || \
-      defined (STM32WBxx)
+      defined (STM32L5xx) || defined (STM32WBxx)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
 #else
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR);
