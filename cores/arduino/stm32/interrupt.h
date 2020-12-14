@@ -69,7 +69,6 @@
   /* Exported functions ------------------------------------------------------- */
   void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(void), uint32_t mode);
   void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin);
-  void stm32_interrupt_clear_pending(uint16_t pin);
 #endif /* !HAL_EXTI_MODULE_DISABLED */
 
 #endif /* __INTERRUPT_H */

@@ -33,6 +33,4 @@ void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode);
 
 void detachInterrupt(uint32_t pin);
 
-void clearPendingInterrupt(uint32_t pin);
-
 #endif /* _WIRING_INTERRUPTS_ */

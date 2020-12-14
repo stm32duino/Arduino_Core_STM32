@@ -87,13 +87,3 @@ void detachInterrupt(uint32_t pin)
   UNUSED(pin);
 #endif
 }
-
-void clearPendingInterrupt(uint32_t pin)
-{
-#if !defined(HAL_EXTI_MODULE_DISABLED)
-  PinName p = digitalPinToPinName(pin);
-  stm32_interrupt_clear_pending(STM_GPIO_PIN(p));
-#else
-  UNUSED(pin);
-#endif
-}

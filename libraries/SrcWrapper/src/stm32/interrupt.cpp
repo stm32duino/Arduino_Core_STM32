@@ -219,8 +219,18 @@ void stm32_interrupt_enable(GPIO_TypeDef *port, uint16_t pin, void (*callback)(v
   */
 void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
 {
-  UNUSED(port);
+  GPIO_InitTypeDef GPIO_InitStruct;
   uint8_t id = get_pin_id(pin);
+#ifdef STM32F1xx
+  uint8_t position;
+  uint32_t CRxRegOffset = 0;
+  uint32_t ODRRegOffset = 0;
+  volatile uint32_t *CRxRegister;
+  const uint32_t ConfigMask = 0x00000008; //MODE0 == 0x0 && CNF0 == 0x2
+#else
+  uint32_t pull;
+#endif /* STM32F1xx */
+
   gpio_irq_conf[id].callback = NULL;
 
   for (int i = 0; i < NB_EXTI; i++) {
@@ -230,18 +240,58 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
     }
   }
   HAL_NVIC_DisableIRQ(gpio_irq_conf[id].irqnb);
-}
 
-/**
-  * @brief  This function clear the pending interrupts on the selected pin
-  * @param  pin : one of the gpio pin
-  * @retval None
-  */
-void stm32_interrupt_clear_pending(uint16_t pin)
-{
-  uint8_t id = get_pin_id(pin);
-  __HAL_GPIO_EXTI_CLEAR_IT(pin);
-  HAL_NVIC_ClearPendingIRQ(gpio_irq_conf[id].irqnb);
+  //reconfigure the pin as input
+  GPIO_InitStruct.Pin       = pin;
+  GPIO_InitStruct.Mode      = GPIO_MODE_INPUT;
+
+  //read the pull mode directly in the register as no function exists to get it.
+  //Do it in case the user already defines the IO through the digital io
+  //interface
+#ifndef STM32F1xx
+  pull = port->PUPDR;
+#ifdef GPIO_PUPDR_PUPD0
+  pull &= (GPIO_PUPDR_PUPD0 << (id * 2));
+  GPIO_InitStruct.Pull = (GPIO_PUPDR_PUPD0 & (pull >> (id * 2)));
+#else
+  pull &= (GPIO_PUPDR_PUPDR0 << (id * 2));
+  GPIO_InitStruct.Pull = (GPIO_PUPDR_PUPDR0 & (pull >> (id * 2)));
+#endif /* GPIO_PUPDR_PUPD0 */
+#else
+  CRxRegister = (pin < GPIO_PIN_8) ? &port->CRL : &port->CRH;
+
+  for (position = 0; position < 16; position++) {
+    if (pin == (0x0001 << position)) {
+      CRxRegOffset = (pin < GPIO_PIN_8) ? (position << 2) : ((position - 8) << 2);
+      ODRRegOffset = position;
+    }
+  }
+
+  if ((*CRxRegister & ((GPIO_CRL_MODE0 | GPIO_CRL_CNF0) << CRxRegOffset)) == (ConfigMask << CRxRegOffset)) {
+    if ((port->ODR & (GPIO_ODR_ODR0 << ODRRegOffset)) == (GPIO_ODR_ODR0 << ODRRegOffset)) {
+      GPIO_InitStruct.Pull = GPIO_PULLUP;
+    } else {
+      GPIO_InitStruct.Pull = GPIO_PULLDOWN;
+    }
+  } else {
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+  }
+#endif /* STM32F1xx */
+
+  GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_HIGH;
+
+#if defined(STM32MP1xx)
+  PERIPH_LOCK(port);
+#endif
+
+  //call the DeInit before in order to disable the EXTI settings
+  HAL_GPIO_DeInit(port, pin);
+  //reconfigure the pin as input keeping the same pull mode settings
+  HAL_GPIO_Init(port, &GPIO_InitStruct);
+
+#if defined(STM32MP1xx)
+  PERIPH_UNLOCK(port);
+#endif
 }
 
 /**
