@@ -37,6 +37,7 @@
   */
 #include "backup.h"
 #include "clock.h"
+#include "bootloader.h"
 #include "stm32yyxx_ll_cortex.h"
 
 #ifdef __cplusplus
@@ -88,6 +89,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
   HAL_SYSTICK_IRQHandler();
   osSystickHandler();
+  bootloaderSystickHandler();
 }
 
 /**

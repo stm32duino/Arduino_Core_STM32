@@ -116,6 +116,56 @@
 #endif
 
 /**
+ * @brief  USBD_early_startup_delay
+ * @param  us - number of us to delay
+ * @retval None
+ *
+ * This is a minimal delay which is usable in very early startup, when
+ * nothing has been initialized yet (no clocks, no memory, no systick
+ * timer). It works by counting CPU cycles, and assumes the system is
+ * still running from the HSI.
+ *
+ * If the systick timer is already enabled, this assumes everything is
+ * intialized and instead used the normal delayMicroseconds function.
+ *
+ * Max delay depends on HSI, but is around 268 sec with 16Mhz HSI.
+ */
+void USBD_early_startup_delay_us(uint32_t us)
+{
+  if (SysTick->CTRL & SysTick_CTRL_ENABLE_Msk) {
+    delayMicroseconds(us);
+    return;
+  }
+
+#if !HSI_VALUE
+#error "Missing HSI_VALUE"
+#endif
+
+#if HSI_VALUE % 4000000 != 0
+#warning "HSI not multiple of 4MHz, early startup delay will be inaccurate!"
+#endif
+
+  // To simplify this calculation, this assumes the HSI runs at a
+  // multiple of 4Mhz (1Mhz to scale to us, times 4 to account for 4
+  // cycles per loop).
+  const uint32_t loops_per_us = (HSI_VALUE / 1000000) / 4;
+  const uint32_t loop_count = us * loops_per_us;
+
+  // Assembly loop, designed to run at exactly 4 cycles per loop.
+  asm volatile(
+    // Use the unified ARM/Thumb syntax, which seems to be more
+    // universally used and corresponds to what avr-objdump outputs
+    // See https://sourceware.org/binutils/docs/as/ARM_002dInstruction_002dSet.html
+    ".syntax unified\n\t"
+    "1:\n\t"
+    "nop                         /* 1 cycle */\n\t"
+    "subs %[loop], %[loop], #1    /* 1 cycle */\n\t"
+    "bne  1b                     /* 2 if taken, 1 otherwise */\n\t"
+    : : [loop] "l"(loop_count)
+  );
+}
+
+/**
   * @brief  Force to re-enumerate USB.
   *
   * This is intended to be called at startup by core code. It could be
@@ -134,7 +184,7 @@ WEAK void USBD_reenumerate(void)
   digitalWriteFast(USBD_PULLUP_CONTROL_PINNAME, USBD_DETACH_LEVEL);
 
   /* Wait */
-  delay(USBD_ENUM_DELAY);
+  USBD_early_startup_delay_us(USBD_ENUM_DELAY * 1000);
 
   /* Attach */
 #if defined(USBD_DP_TRICK)
@@ -144,9 +194,18 @@ WEAK void USBD_reenumerate(void)
   digitalWriteFast(USBD_PULLUP_CONTROL_PINNAME, USBD_ATTACH_LEVEL);
 #endif /* defined(USBD_PULLUP_CONTROL_FLOATING) */
 #elif defined(USBD_HAVE_INTERNAL_PULLUPS)
-  USB_DevDisconnect(USBD_USB_INSTANCE);
-  delay(USBD_ENUM_DELAY);
-  USB_DevConnect(USBD_USB_INSTANCE);
+#ifdef USB_OTG_DCTL_SDIS
+  uint32_t USBx_BASE = (uint32_t)USBD_USB_INSTANCE;
+  USBx_DEVICE->DCTL |= USB_OTG_DCTL_SDIS;
+  //USB_DevDisconnect(USBD_USB_INSTANCE);
+  USBD_early_startup_delay_us(USBD_ENUM_DELAY * 1000);
+  //USB_DevConnect(USBD_USB_INSTANCE);
+  USBx_DEVICE->DCTL &= ~USB_OTG_DCTL_SDIS;
+#else
+  USBD_USB_INSTANCE->BCDR &= (uint16_t)(~(USB_BCDR_DPPU));
+  USBD_early_startup_delay_us(USBD_ENUM_DELAY * 1000);
+  USBD_USB_INSTANCE->BCDR |= (uint16_t)(USB_BCDR_DPPU);
+#endif
 #else
 #warning "No USB attach/detach method, USB might not be reliable through system resets"
 #endif

@@ -70,7 +70,7 @@ extern "C" {
 #endif
 
 #ifndef USBD_MAX_NUM_INTERFACES
-#define USBD_MAX_NUM_INTERFACES             2U
+#define USBD_MAX_NUM_INTERFACES             3U
 #endif /* USBD_MAX_NUM_INTERFACES */
 
 #ifndef USBD_MAX_NUM_CONFIGURATION

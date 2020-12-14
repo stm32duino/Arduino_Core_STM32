@@ -35,10 +35,11 @@
   *
   ******************************************************************************
   */
-#include "stm32_def.h"
+#include "bootloader.h"
+#include "dwt.h"
 #include "hw_config.h"
 #include "usbd_if.h"
-#include "dwt.h"
+#include "stm32_def.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -33,6 +33,9 @@
   #define CDC_MAX_PACKET_SIZE USB_MAX_EP0_SIZE
 #endif
 
+// TODO: Put this elsewhere
+#define BOOTLOADER_RESET_1200_BAUD
+
 /*
  * The value USB_CDC_TRANSMIT_TIMEOUT is defined in terms of HAL_GetTick() units.
  * Typically it is 1ms value. The timeout determines when we would consider the
@@ -56,8 +59,7 @@ __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
 #ifdef DTR_TOGGLING_SEQ
-  /* DTR toggling sequence management */
-  extern void dtr_togglingHook(uint8_t *buf, uint32_t *len);
+
   uint8_t dtr_toggling = 0;
 #endif
 
@@ -200,6 +202,19 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
     default:
       break;
   }
+
+#ifdef BOOTLOADER_RESET_1200_BAUD
+  if (cmd == CDC_SET_LINE_CODING || cmd == CDC_SET_CONTROL_LINE_STATE) {
+    // Auto-reset into the bootloader is triggered when the port, already
+    // open at 1200 bps, is closed. Cancel the reset when the port is
+    // opened again.
+    if (linecoding.bitrate == 1200 && !lineState) {
+      scheduleBootloaderReset();
+    } else {
+      cancelBootloaderReset();
+    }
+  }
+#endif /* BOOTLOADER_RESET_1200_BAUD */
 
   return ((int8_t)USBD_OK);
 }
