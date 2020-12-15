@@ -187,6 +187,18 @@ SECTIONS
     __bss_end__ = _ebss;
   } >RAM_D1
 
+  .sram1_bss (NOLOAD) :
+  {
+    . = ALIGN(4);
+    _ssram1_bss = .;
+    PROVIDE(__sram1_bss_start = _ssram1_bss);
+    *(.sram1_bss)
+    *(.sram1_bss*)
+    . = ALIGN(4);
+    _esram1_bss = .;
+    PROVIDE(__sram1_bss_end = _esram1_bss);
+  } >RAM_D2
+
   /* User_heap_stack section, used to check that there is enough "RAM_D1" Ram  type memory left */
   ._user_heap_stack :
   {
