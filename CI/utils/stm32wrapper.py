@@ -98,9 +98,16 @@ def print_LL_header(open_file, name):
 
 
 def printCMSISStartup(log):
-    filelist = glob.glob(
-        os.path.join(
-            CMSIS_Device_ST_path, "STM32*", "Source", "Templates", "gcc", "startup_*.s",
+    filelist = sorted(
+        glob.glob(
+            os.path.join(
+                CMSIS_Device_ST_path,
+                "STM32*",
+                "Source",
+                "Templates",
+                "gcc",
+                "startup_*.s",
+            )
         )
     )
     if len(filelist):
@@ -131,9 +138,9 @@ def printCMSISStartup(log):
                 # File name
                 fn = os.path.basename(fp)
                 valueline = re.split("_|\\.", fn)
-                upper = (
-                    valueline[1].upper().replace("X", "x").replace("MP15xx", "MP1xx")
-                )
+                if "stm32mp15" in valueline[1] and not valueline[1].endswith("xx"):
+                    valueline[1] += "xx"
+                upper = valueline[1].upper().replace("X", "x")
                 out_file.write(
                     """  #elif defined({})
     #define CMSIS_STARTUP_FILE \"{}\"

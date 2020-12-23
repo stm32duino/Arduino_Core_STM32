@@ -352,9 +352,9 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start(TIM_HandleTypeDef *htim)
 
   /* Check the TIM channels state */
   if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
+      || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
+      || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
+      || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
   {
     return HAL_ERROR;
   }
@@ -432,9 +432,9 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_IT(TIM_HandleTypeDef *htim)
 
   /* Check the TIM channels state */
   if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
+      || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
+      || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
+      || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
   {
     return HAL_ERROR;
   }
@@ -518,12 +518,12 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
 
   /* Set the TIM channel state */
   if ((channel_1_state == HAL_TIM_CHANNEL_STATE_BUSY)
-    ||(complementary_channel_1_state == HAL_TIM_CHANNEL_STATE_BUSY))
+      || (complementary_channel_1_state == HAL_TIM_CHANNEL_STATE_BUSY))
   {
     return HAL_BUSY;
   }
   else if ((channel_1_state == HAL_TIM_CHANNEL_STATE_READY)
-        && (complementary_channel_1_state == HAL_TIM_CHANNEL_STATE_READY))
+           && (complementary_channel_1_state == HAL_TIM_CHANNEL_STATE_READY))
   {
     if ((pData == NULL) && (Length > 0U))
     {
@@ -553,6 +553,7 @@ HAL_StatusTypeDef HAL_TIMEx_HallSensor_Start_DMA(TIM_HandleTypeDef *htim, uint32
   /* Enable the DMA channel for Capture 1*/
   if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)&htim->Instance->CCR1, (uint32_t)pData, Length) != HAL_OK)
   {
+    /* Return error status */
     return HAL_ERROR;
   }
   /* Enable the capture compare 1 Interrupt */
@@ -918,6 +919,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)pData, (uint32_t)&htim->Instance->CCR1, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Output Compare DMA request */
@@ -937,6 +939,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)pData, (uint32_t)&htim->Instance->CCR2, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Output Compare DMA request */
@@ -956,6 +959,7 @@ HAL_StatusTypeDef HAL_TIMEx_OCN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Chan
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)pData, (uint32_t)&htim->Instance->CCR3, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Output Compare DMA request */
@@ -1372,6 +1376,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC1], (uint32_t)pData, (uint32_t)&htim->Instance->CCR1, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Capture/Compare 1 DMA request */
@@ -1391,6 +1396,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC2], (uint32_t)pData, (uint32_t)&htim->Instance->CCR2, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Capture/Compare 2 DMA request */
@@ -1410,6 +1416,7 @@ HAL_StatusTypeDef HAL_TIMEx_PWMN_Start_DMA(TIM_HandleTypeDef *htim, uint32_t Cha
       /* Enable the DMA channel */
       if (HAL_DMA_Start_IT(htim->hdma[TIM_DMA_ID_CC3], (uint32_t)pData, (uint32_t)&htim->Instance->CCR3, Length) != HAL_OK)
       {
+        /* Return error status */
         return HAL_ERROR;
       }
       /* Enable the TIM Capture/Compare 3 DMA request */
@@ -1550,7 +1557,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start(TIM_HandleTypeDef *htim, uint32_t Ou
 
   /* Check the TIM channels state */
   if ((output_channel_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (input_channel_state != HAL_TIM_CHANNEL_STATE_READY))
+      || (input_channel_state != HAL_TIM_CHANNEL_STATE_READY))
   {
     return HAL_ERROR;
   }
@@ -1626,7 +1633,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start_IT(TIM_HandleTypeDef *htim, uint32_t
 
   /* Check the TIM channels state */
   if ((output_channel_state != HAL_TIM_CHANNEL_STATE_READY)
-   || (input_channel_state != HAL_TIM_CHANNEL_STATE_READY))
+      || (input_channel_state != HAL_TIM_CHANNEL_STATE_READY))
   {
     return HAL_ERROR;
   }
@@ -2662,7 +2669,7 @@ static void TIM_DMADelayPulseNCplt(DMA_HandleTypeDef *hdma)
   * @param  hdma pointer to DMA handle.
   * @retval None
   */
-void TIM_DMAErrorCCxN(DMA_HandleTypeDef *hdma)
+static void TIM_DMAErrorCCxN(DMA_HandleTypeDef *hdma)
 {
   TIM_HandleTypeDef *htim = (TIM_HandleTypeDef *)((DMA_HandleTypeDef *)hdma)->Parent;
 

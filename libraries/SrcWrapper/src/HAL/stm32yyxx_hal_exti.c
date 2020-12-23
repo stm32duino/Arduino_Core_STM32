@@ -25,6 +25,9 @@
 #ifdef STM32H7xx
   #include "stm32h7xx_hal_exti.c"
 #endif
+#ifdef STM32L0xx
+  #include "stm32l0xx_hal_exti.c"
+#endif
 #ifdef STM32L1xx
   #include "stm32l1xx_hal_exti.c"
 #endif

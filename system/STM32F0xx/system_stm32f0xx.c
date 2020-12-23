@@ -100,9 +100,9 @@
       1) by calling CMSIS function SystemCoreClockUpdate()
       2) by calling HAL API function HAL_RCC_GetHCLKFreq()
       3) each time HAL_RCC_ClockConfig() is called to configure the system clock frequency
-         Note: If you use this function to configure the system clock there is no need to
-               call the 2 first functions listed above, since SystemCoreClock variable is
-               updated automatically.
+         Note: If you use this function to configure the system clock; then there
+               is no need to call the 2 first functions listed above, since SystemCoreClock
+               variable is updated automatically.
   */
 uint32_t SystemCoreClock = 8000000;
 
@@ -126,7 +126,7 @@ const uint8_t APBPrescTable[8]  = {0, 0, 0, 0, 1, 2, 3, 4};
   */
 
 /**
-  * @brief  Setup the microcontroller system.
+  * @brief  Setup the microcontroller system
   * @param  None
   * @retval None
   */
@@ -212,14 +212,14 @@ void SystemInit(void)
   *           - If SYSCLK source is PLL, SystemCoreClock will contain the HSE_VALUE(**)
   *             or HSI_VALUE(*) multiplied/divided by the PLL factors.
   *
-  *         (*) HSI_VALUE is a constant defined in stm32f0xx_hal.h file (default value
+  *         (*) HSI_VALUE is a constant defined in stm32f0xx_hal_conf.h file (default value
   *             8 MHz) but the real value may vary depending on the variations
   *             in voltage and temperature.
   *
-  *         (**) HSE_VALUE is a constant defined in stm32f0xx_hal.h file (default value
-  *              8 MHz), user has to ensure that HSE_VALUE is same as the real
-  *              frequency of the crystal used. Otherwise, this function may
-  *              have wrong result.
+  *         (**) HSE_VALUE is a constant defined in stm32f0xx_hal_conf.h file (its value
+  *              depends on the application requirements), user has to ensure that HSE_VALUE
+  *              is same as the real frequency of the crystal used. Otherwise, this function
+  *              may have wrong result.
   *
   *         - The result of this function could be not correct when using fractional
   *           value for HSE crystal.

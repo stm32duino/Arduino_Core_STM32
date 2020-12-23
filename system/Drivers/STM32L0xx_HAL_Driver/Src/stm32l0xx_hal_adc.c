@@ -324,12 +324,12 @@
 /* Delay for ADC stabilization time.                                          */
 /* Maximum delay is 1us (refer to device datasheet, parameter tSTART). */
 /* Unit: us */
-#define ADC_STAB_DELAY_US       ((uint32_t) 1U)
+#define ADC_STAB_DELAY_US       (1U)
 
 /* Delay for temperature sensor stabilization time. */
 /* Maximum delay is 10us (refer to device datasheet, parameter tSTART). */
 /* Unit: us */
-#define ADC_TEMPSENSOR_DELAY_US ((uint32_t) 10U)
+#define ADC_TEMPSENSOR_DELAY_US (10U)
 /**
   * @}
   */
@@ -1502,6 +1502,9 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
     /* Process locked */
     __HAL_LOCK(hadc);
 
+    /* Enable ADC DMA mode */
+    hadc->Instance->CFGR1 |= ADC_CFGR1_DMAEN;
+
     /* Enable the ADC peripheral */
     /* If low power mode AutoPowerOff is enabled, power-on/off phases are       */
     /* performed automatically by hardware.                                     */
@@ -1548,9 +1551,6 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef* hadc, uint32_t* pData, ui
 
       /* Enable ADC overrun interrupt */
       __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
-
-      /* Enable ADC DMA mode */
-      hadc->Instance->CFGR1 |= ADC_CFGR1_DMAEN;
 
       /* Start the DMA channel */
       HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData, Length);
@@ -1600,13 +1600,16 @@ HAL_StatusTypeDef HAL_ADC_Stop_DMA(ADC_HandleTypeDef* hadc)
 
     /* Disable the DMA channel (in case of DMA in circular mode or stop       */
     /* while DMA transfer is on going)                                        */
-    tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
-
-    /* Check if DMA channel effectively disabled */
-    if (tmp_hal_status != HAL_OK)
+    if (hadc->DMA_Handle->State == HAL_DMA_STATE_BUSY)
     {
-      /* Update ADC state machine to error */
-      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      tmp_hal_status = HAL_DMA_Abort(hadc->DMA_Handle);
+
+      /* Check if DMA channel effectively disabled */
+      if (tmp_hal_status != HAL_OK)
+      {
+        /* Update ADC state machine to error */
+        SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_DMA);
+      }
     }
 
     /* Disable ADC overrun interrupt */

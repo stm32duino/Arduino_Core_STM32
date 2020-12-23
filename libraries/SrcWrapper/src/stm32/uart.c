@@ -87,7 +87,7 @@ typedef enum {
 #if defined(UART9_BASE)
   UART9_INDEX,
 #endif
-#if defined(UART10_BASE)
+#if defined(UART10_BASE) || defined(USART10_BASE)
   UART10_INDEX,
 #endif
 #if defined(LPUART1_BASE)
@@ -284,6 +284,15 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     obj->irq = UART10_IRQn;
   }
 #endif
+#if defined(USART10_BASE)
+  else if (obj->uart == USART10) {
+    __HAL_RCC_USART10_FORCE_RESET();
+    __HAL_RCC_USART10_RELEASE_RESET();
+    __HAL_RCC_USART10_CLK_ENABLE();
+    obj->index = UART10_INDEX;
+    obj->irq = USART10_IRQn;
+  }
+#endif
 
 #if defined(STM32F091xC) || defined (STM32F098xx)
   /* Enable SYSCFG Clock */
@@ -314,6 +323,9 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 #ifdef UART_ONE_BIT_SAMPLE_DISABLE
   huart->Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
 #endif
+
+  /* Set the NVIC priority for future interrupts */
+  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
 
 #if defined(LPUART1_BASE)
   /*
@@ -483,6 +495,13 @@ void uart_deinit(serial_t *obj)
       __HAL_RCC_UART10_FORCE_RESET();
       __HAL_RCC_UART10_RELEASE_RESET();
       __HAL_RCC_UART10_CLK_DISABLE();
+      break;
+#endif
+#if defined(USART10_BASE)
+    case UART10_INDEX:
+      __HAL_RCC_USART10_FORCE_RESET();
+      __HAL_RCC_USART10_RELEASE_RESET();
+      __HAL_RCC_USART10_CLK_DISABLE();
       break;
 #endif
   }
@@ -714,7 +733,6 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
   HAL_UART_Receive_IT(uart_handlers[obj->index], &(obj->recv), 1);
 
   /* Enable interrupt */
-  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
 }
 
@@ -739,7 +757,6 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
 
   /* Enable interrupt */
-  HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
   HAL_NVIC_EnableIRQ(obj->irq);
 }
 
@@ -1057,6 +1074,19 @@ void UART9_IRQHandler(void)
 void UART10_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(UART10_IRQn);
+  HAL_UART_IRQHandler(uart_handlers[UART10_INDEX]);
+}
+#endif
+
+/**
+  * @brief  USART 10 IRQ handler
+  * @param  None
+  * @retval None
+  */
+#if defined(USART10_BASE)
+void USART10_IRQHandler(void)
+{
+  HAL_NVIC_ClearPendingIRQ(USART10_IRQn);
   HAL_UART_IRQHandler(uart_handlers[UART10_INDEX]);
 }
 #endif

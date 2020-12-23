@@ -371,7 +371,6 @@ void HardwareTimer::resumeChannel(uint32_t channel)
         }
       }
       break;
-    case TIMER_OUTPUT_COMPARE:
     case TIMER_OUTPUT_COMPARE_ACTIVE:
     case TIMER_OUTPUT_COMPARE_INACTIVE:
     case TIMER_OUTPUT_COMPARE_TOGGLE:
@@ -406,6 +405,7 @@ void HardwareTimer::resumeChannel(uint32_t channel)
       }
       break;
     case TIMER_NOT_USED:
+    case TIMER_OUTPUT_COMPARE:
     default :
       break;
   }
@@ -598,9 +598,6 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
     Error_Handler();
   }
 
-  // Save channel selected mode to object attribute
-  _ChannelMode[channel - 1] = mode;
-
   /* Configure some default values. Maybe overwritten later */
   channelOC.OCMode = TIMER_NOT_USED;
   channelOC.Pulse = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);  // keep same value already written in hardware <register
@@ -626,9 +623,16 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
       HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
       break;
     case TIMER_OUTPUT_COMPARE:
-      channelOC.OCMode = TIM_OCMODE_TIMING;
-      HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
-      break;
+      /* In case of TIMER_OUTPUT_COMPARE, there is no output and thus no pin to
+       * configure, and no channel. So nothing to do. For compatibility reason
+       * restore TIMER_DISABLED if necessary.
+       */
+      if (_ChannelMode[channel - 1] != TIMER_DISABLED) {
+        _ChannelMode[channel - 1] = TIMER_DISABLED;
+        channelOC.OCMode = TIM_OCMODE_TIMING;
+        HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
+      }
+      return;
     case TIMER_OUTPUT_COMPARE_ACTIVE:
       channelOC.OCMode = TIM_OCMODE_ACTIVE;
       HAL_TIM_OC_ConfigChannel(&(_timerObj.handle), &channelOC, timChannel);
@@ -687,6 +691,9 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
     default:
       break;
   }
+
+  // Save channel selected mode to object attribute
+  _ChannelMode[channel - 1] = mode;
 
   if (pin != NC) {
     if ((int)get_pwm_channel(pin) == timChannel) {
@@ -1248,7 +1255,7 @@ timer_index_t get_timer_index(TIM_TypeDef *instance)
 #endif
 #if defined(TIM22_BASE)
   if (instance == TIM22) {
-    index = TIMER2_INDEX;
+    index = TIMER22_INDEX;
   }
 #endif
   return index;
@@ -1554,11 +1561,11 @@ extern "C" {
     }
 
 #if defined(STM32F1xx) || defined(STM32F2xx) ||defined(STM32F4xx) || defined(STM32F7xx) || defined(STM32H7xx)
-#if defined(TIMER13_BASE)
+#if defined(TIM13_BASE)
     if (HardwareTimer_Handle[TIMER13_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER13_INDEX]->handle);
     }
-#endif // TIMER13_BASE
+#endif // TIM13_BASE
 #endif
   }
 

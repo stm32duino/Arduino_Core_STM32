@@ -3043,7 +3043,7 @@ HAL_StatusTypeDef HAL_I2C_Mem_Write_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
         if (I2C_RequestMemoryWrite(hi2c, DevAddress, MemAddress, MemAddSize, I2C_TIMEOUT_FLAG, tickstart) != HAL_OK)
         {
           /* Abort the ongoing DMA */
-          dmaxferstatus = HAL_DMA_Abort_IT(hi2c->hdmarx);
+          dmaxferstatus = HAL_DMA_Abort_IT(hi2c->hdmatx);
 
           /* Prevent unused argument(s) compilation and MISRA warning */
           UNUSED(dmaxferstatus);

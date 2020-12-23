@@ -45,7 +45,9 @@ extern "C" {
 
 /* Private Defines */
 /// @brief I2C timout in tick unit
+#ifndef I2C_TIMEOUT_TICK
 #define I2C_TIMEOUT_TICK        100
+#endif
 
 #define SLAVE_MODE_TRANSMIT     0
 #define SLAVE_MODE_RECEIVE      1
@@ -692,7 +694,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
 
         handle->Instance             = obj->i2c;
 #ifdef I2C_TIMING
-        handle->Init.Timing      = i2c_getTiming(obj, timing);
+        handle->Init.Timing          = i2c_getTiming(obj, timing);
 #else
         handle->Init.ClockSpeed      = i2c_getTiming(obj, timing);
         /* Standard mode (sm) is up to 100kHz, then it's Fast mode (fm)     */
@@ -704,7 +706,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
         }
 #endif
         handle->Init.OwnAddress1     = ownAddress;
-        handle->Init.OwnAddress2     = 0xFF;
+        handle->Init.OwnAddress2     = 0;
         handle->Init.AddressingMode  = addressingMode;
         handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         handle->Init.GeneralCallMode = (obj->generalCall == 0) ? I2C_GENERALCALL_DISABLE : I2C_GENERALCALL_ENABLE;
@@ -846,10 +848,10 @@ i2c_status_e i2c_slave_write_IT(i2c_t *obj, uint8_t *data, uint16_t size)
   } else {
     // Check the communication status
     for (i = 0; i < size; i++) {
-      obj->i2cTxRxBuffer[i] = *(data + i);
+      obj->i2cTxRxBuffer[obj->i2cTxRxBufferSize + i] = *(data + i);
     }
 
-    obj->i2cTxRxBufferSize = size;
+    obj->i2cTxRxBufferSize += size;
   }
   return ret;
 }
@@ -980,12 +982,18 @@ void i2c_attachSlaveTxEvent(i2c_t *obj, void (*function)(i2c_t *))
 void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, uint16_t AddrMatchCode)
 {
   i2c_t *obj = get_i2c_obj(hi2c);
+  if ((obj->slaveMode == SLAVE_MODE_RECEIVE) && (obj->slaveRxNbData != 0)) {
+    obj->i2c_onSlaveReceive(obj);
+    obj->slaveMode = SLAVE_MODE_LISTEN;
+    obj->slaveRxNbData = 0;
+  }
 
   if (AddrMatchCode == hi2c->Init.OwnAddress1) {
     if (TransferDirection == I2C_DIRECTION_RECEIVE) {
       obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
       if (obj->i2c_onSlaveTransmit != NULL) {
+        obj->i2cTxRxBufferSize = 0;
         obj->i2c_onSlaveTransmit(obj);
       }
 #if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F2xx) || defined(STM32F3xx) ||\
