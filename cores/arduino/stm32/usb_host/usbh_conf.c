@@ -149,12 +149,14 @@ void HAL_HCD_MspDeInit(HCD_HandleTypeDef *hhcd)
   if (hhcd->Instance == USB_OTG_FS) {
     /* Disable USB FS Clock */
     __HAL_RCC_USB_OTG_FS_CLK_DISABLE();
+    HAL_NVIC_DisableIRQ(OTG_FS_IRQn);
   }
 #endif
 #if defined (USB_OTG_HS)
   if (hhcd->Instance == USB_OTG_HS) {
     /* Disable USB HS Clocks */
     __HAL_RCC_USB_OTG_HS_CLK_DISABLE();
+    HAL_NVIC_DisableIRQ(OTG_HS_IRQn);
   }
 #endif /* USB_OTG_HS */
 }
@@ -289,11 +291,8 @@ USBH_StatusTypeDef USBH_LL_DeInit(USBH_HandleTypeDef *phost)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBH_StatusTypeDef usb_status = USBH_OK;
-
   hal_status = HAL_HCD_DeInit(phost->pData);
-
   usb_status = USBH_Get_USB_Status(hal_status);
-
   return usb_status;
 }
 
@@ -320,11 +319,8 @@ USBH_StatusTypeDef USBH_LL_Stop(USBH_HandleTypeDef *phost)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBH_StatusTypeDef usb_status = USBH_OK;
-
   hal_status = HAL_HCD_Stop(phost->pData);
-
   usb_status = USBH_Get_USB_Status(hal_status);
-
   return usb_status;
 }
 
@@ -366,11 +362,8 @@ USBH_StatusTypeDef USBH_LL_ResetPort(USBH_HandleTypeDef *phost)
 {
   HAL_StatusTypeDef hal_status = HAL_OK;
   USBH_StatusTypeDef usb_status = USBH_OK;
-
   hal_status = HAL_HCD_ResetPort(phost->pData);
-
   usb_status = USBH_Get_USB_Status(hal_status);
-
   return usb_status;
 }
 
