@@ -251,6 +251,26 @@ env.Append(
             FRAMEWORK_DIR,
             "system",
             "Middlewares",
+            "ST",
+            "STM32_USB_Host_Library",
+            "Class",
+            "HID",
+            "Inc",
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
+            "ST",
+            "STM32_USB_Host_Library",
+            "Class",
+            "HID",
+            "Src",
+        ),
+        join(
+            FRAMEWORK_DIR,
+            "system",
+            "Middlewares",
             "OpenAMP"
         ),
         join(
