@@ -17,6 +17,8 @@ extern "C" {
 #define ALT5        0x500
 #define ALT6        0x600
 #define ALT7        0x700
+// ALTX mask
+#define ALTX_MASK   0x700
 
 // Specific pinmap definition
 // Analog internal

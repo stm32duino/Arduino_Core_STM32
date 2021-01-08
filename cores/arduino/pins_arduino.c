@@ -27,7 +27,8 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
   uint32_t i = NUM_DIGITAL_PINS;
   if (STM_VALID_PINNAME(p)) {
     for (i = 0; i < NUM_DIGITAL_PINS; i++) {
-      if (digitalPin[i] == p) {
+      if (digitalPin[i] == (p & PNAME_MASK)) {
+        i |= ((uint32_t)(p) & ALTX_MASK);
         break;
       }
     }
@@ -80,7 +81,7 @@ bool digitalpinIsAnalogInput(uint32_t pin)
     ret = true;
   } else {
     for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-      if (analogInputPin[i] == pin) {
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
         ret = true;
         break;
       }
@@ -101,11 +102,11 @@ uint32_t digitalPinToAnalogInput(uint32_t pin)
 #if NUM_ANALOG_INPUTS > 0
   if ((pin & PANA) == PANA) {
     /* PYn = Ax */
-    ret = pin & PANA_IDX;
+    ret = (pin & PANA_IDX) | (pin & ALTX_MASK);
   } else {
     for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-      if (analogInputPin[i] == pin) {
-        ret = i;
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
+        ret = i | (pin & ALTX_MASK);
         break;
       }
     }

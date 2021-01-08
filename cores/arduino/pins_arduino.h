@@ -25,6 +25,9 @@
 #include "pins_arduino_analog.h"
 #include "pins_arduino_digital.h"
 
+/* Pin number */
+#define PNUM_MASK 0xFF
+
 /* Avoid PortName issue */
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
 
@@ -85,11 +88,14 @@ extern const uint32_t analogInputPin[];
 /* Convert a digital pin number Dxx to a PinName PX_n */
 #if NUM_ANALOG_INPUTS > 0
 /* Note: Analog pin is also a digital pin */
-#define digitalPinToPinName(p)      (((uint32_t)(p) < NUM_DIGITAL_PINS) ? digitalPin[p] : \
-            (((uint32_t)(p) & PANA) == PANA) && ((uint32_t)(p) < NUM_ANALOG_INTERNAL_FIRST) ? \
-            digitalPin[analogInputPin[(p)&PANA_IDX]] : NC)
+#define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
+            (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : \
+            (((uint32_t)(p) & PANA) == PANA) && \
+            (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
+            (PinName)(digitalPin[analogInputPin[(p) & PANA_IDX]] | ((p) & ALTX_MASK)) : NC)
 #else
-#define digitalPinToPinName(p)      (((uint32_t)(p) < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
+#define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
+            (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : NC)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 /* Convert a PinName PX_n to a digital pin number */
 uint32_t pinNametoDigitalPin(PinName p);
@@ -98,9 +104,11 @@ uint32_t pinNametoDigitalPin(PinName p);
 #if NUM_ANALOG_INPUTS > 0
 /* Used by analogRead api to have A0 == 0 */
 /* Non contiguous analog pins definition in digitalPin array */
-#define analogInputToDigitalPin(p)  (((uint32_t)(p) < NUM_ANALOG_INPUTS) ? analogInputPin[p] : \
-            (((uint32_t)(p) & PANA) == PANA) && ((uint32_t)(p) < NUM_ANALOG_INTERNAL_FIRST) ? \
-            analogInputPin[(p)&PANA_IDX] : (uint32_t)NC)
+#define analogInputToDigitalPin(p)  ((((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INPUTS) ? \
+            analogInputPin[(uint32_t)(p) & PNUM_MASK] | ((uint32_t)(p) & ALTX_MASK) : \
+            (((uint32_t)(p) & PANA) == PANA) && \
+            (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
+            analogInputPin[(p) & PANA_IDX] | ((uint32_t)(p) & ALTX_MASK) : (uint32_t)NC)
 #else/* No analog pin defined */
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
 #endif /* NUM_ANALOG_INPUTS > 0 */
@@ -159,10 +167,11 @@ PinName analogInputToPinName(uint32_t pin);
 #define digitalPinFirstOccurence(p) (pinNametoDigitalPin(digitalPinToPinName(p)))
 
 /* Specific for Firmata */
-/* Some pins could be duplicated, ensure 'p' is not one of the serial pins */
 #if defined(PIN_SERIAL_RX) && defined(PIN_SERIAL_TX)
-#define pinIsSerial(p)              ((digitalPinFirstOccurence(p) == PIN_SERIAL_RX) ||\
-                                     (digitalPinFirstOccurence(p) == PIN_SERIAL_TX))
+#define pinIsSerial(p)              ((digitalPinToPinName(p) == \
+                                      digitalPinToPinName(PIN_SERIAL_RX & PNUM_MASK)) ||\
+                                     (digitalPinToPinName(p) == \
+                                      digitalPinToPinName(PIN_SERIAL_TX & PNUM_MASK)))
 #endif
 /* Convenient macro to handle Analog for Firmata */
 #define pinIsAnalogInput digitalpinIsAnalogInput
