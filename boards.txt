@@ -1916,6 +1916,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.product_line=STM32F407xx
 3dprinter.menu.pnum.PRNTR_V2.build.variant=PRNTR_Vx
 3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
+3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
+3dprinter.menu.pnum.PRNTR_V2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
