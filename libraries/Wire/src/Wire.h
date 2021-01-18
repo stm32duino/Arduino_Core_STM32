@@ -30,8 +30,6 @@ extern "C" {
 
 #define BUFFER_LENGTH 32
 
-#define MASTER_ADDRESS 0x33
-
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
