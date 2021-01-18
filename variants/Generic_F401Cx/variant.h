@@ -110,7 +110,9 @@ extern "C" {
 #define PIN_SERIAL_TX           PA9
 
 #ifdef ARDUINO_BLACKPILL_F401CC
+#ifndef HSE_VALUE
 #define HSE_VALUE               25000000U
+#endif
 #endif
 
 #ifdef __cplusplus
