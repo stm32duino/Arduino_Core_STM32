@@ -134,6 +134,7 @@ extern "C" {
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
+#define HAL_FDCAN_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"
