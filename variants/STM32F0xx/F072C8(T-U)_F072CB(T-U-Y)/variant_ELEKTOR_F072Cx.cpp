@@ -1,17 +1,67 @@
-/*
- *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
- * All rights reserved.
- *
- * This software component is licensed by ST under BSD 3-Clause license,
- * the "License"; You may not use this file except in compliance with the
- * License. You may obtain a copy of the License at:
- *                        opensource.org/licenses/BSD-3-Clause
- *
- *******************************************************************************
- */
-#if defined(ARDUINO_GENERIC_F031K6TX)
+#if defined(ARDUINO_ELEKTOR_F072C8) || defined(ARDUINO_ELEKTOR_F072CB)
+
 #include "pins_arduino.h"
+
+// Pin name
+const PinName digitalPin[] = {
+  PA_8,
+  PA_9,
+  PA_10,
+  PA_11,
+  PA_12,
+  PA_13,
+  PA_14,
+  PA_15,
+  PB_2,
+  PB_3,
+  PB_4,
+  PB_5,
+  PB_6,
+  PB_7,
+  PB_8,
+  PB_9,
+  PB_10,
+  PB_11,
+  PB_12,
+  PB_13,
+  PB_14,
+  PB_15,
+  PC_13,
+  PC_14,
+  PC_15,
+  PA_0,
+  PA_1,
+  PA_2,
+  PA_3,
+  PA_4,
+  PA_5,
+  PA_6,
+  PA_7,
+  PB_0,
+  PB_1,
+  PF_0,
+  PF_1
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  25, // A0
+  26, // A1
+  27, // A2
+  28, // A3
+  29, // A4
+  30, // A5
+  31, // A6
+  32, // A7
+  33, // A8
+  34  // A9
+};
+
+// ----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
   * @brief  System Clock Configuration
@@ -23,9 +73,7 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
 
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+  /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -33,8 +81,7 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
+  /* Initializes the CPU, AHB and APB busses clocks */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                                 | RCC_CLOCKTYPE_PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
@@ -46,4 +93,7 @@ WEAK void SystemClock_Config(void)
   }
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#ifdef __cplusplus
+}
+#endif
+#endif /* ARDUINO_ELEKTOR_F072x */

@@ -112,7 +112,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F031K6 | [Nucleo F031K6](https://www.st.com/en/evaluation-tools/nucleo-f031k6.html) | *1.9.0* |  |
+| :green_heart:  | STM32F031K6T | [Nucleo F031K6](https://www.st.com/en/evaluation-tools/nucleo-f031k6.html) | *1.9.0* |  |
 | :green_heart:  | STM32F303K8 | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
 | :yellow_heart: | STM32G031K8 | [Nucleo G031K8](https://www.st.com/en/evaluation-tools/nucleo-g031k8.html) | **2.0.0** |
 | :green_heart:  | STM32G431KB | [Nucleo G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
@@ -154,6 +154,15 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F030F4 | [STM32F030F4 Demo board](https://stm32-base.org/boards/STM32F030F4P6-STM32F030-DEMO-BOARD-V1.1) | *1.5.0* |  |
+| :yellow_heart: | STM32F030C8 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F030F4 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F030R8 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F031K6T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F051K6U<br>STM32F051K8U | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F070CB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F072C8<br>STM32F072CB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F072R8<br>STM32F072RB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F091RB<br>STM32F091RC | Generic Board | **2.0.0** |  |
 
 ### Generic STM32F1 boards
 
@@ -308,7 +317,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F051K6 | Wraith V1 ESC | *1.8.0* |  |
+| :green_heart:  | STM32F051K6U | [Wraith V1 ESC](https://www.readytoflyquads.com/35a-wraith32-v11-32bit-blheli-esc) | *1.8.0* |  |
 
 ### Generic flight controllers
 
