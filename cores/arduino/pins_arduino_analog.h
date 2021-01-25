@@ -15,10 +15,21 @@
 #include "variant.h"
 #include "PinNames.h"
 
-/* Analog */
-#define PANA       0xC0
-/* Analog index */
-#define PANA_IDX   0x3F
+/*
+ * Pin number Analog base
+ * To check if a pin number is an analog pin:
+ * ((p & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE)
+ * if true then p is an analog pin number
+ * else not
+ */
+#define PNUM_ANALOG_BASE    0xC0
+/*
+ * Pin number Analog index
+ * allows to retrieve the pin number index of an analog pin
+ * in the analogInputPin[] array:
+ * analogInputPin[p & PNUM_ANALOG_INDEX]
+ */
+#define PNUM_ANALOG_INDEX   0x3F
 
 /* Arduino analog pins */
 #ifndef NUM_ANALOG_INPUTS
@@ -26,7 +37,7 @@
 #endif
 
 /* Analog internal pin numbers follow the analog pin number */
-#define NUM_ANALOG_INTERNAL_FIRST (PANA + NUM_ANALOG_INPUTS)
+#define NUM_ANALOG_INTERNAL_FIRST (PNUM_ANALOG_BASE + NUM_ANALOG_INPUTS)
 
 /* ADC internal channels (not a pins) */
 /* Only used for analogRead() */
@@ -46,7 +57,7 @@
 /* If NUM_ANALOG_INPUTS is not defined there is no analog pins defined. */
 /* Anyway ADC internal channels are always available. */
 #if NUM_ANALOG_INPUTS > 0
-#define PIN_A0       PANA
+#define PIN_A0       PNUM_ANALOG_BASE
 #if NUM_ANALOG_INPUTS > 1
   #define PIN_A1      (PIN_A0 + 1)
 #endif

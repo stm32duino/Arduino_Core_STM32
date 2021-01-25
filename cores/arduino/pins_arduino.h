@@ -25,8 +25,14 @@
 #include "pins_arduino_analog.h"
 #include "pins_arduino_digital.h"
 
-/* Pin number */
-#define PNUM_MASK 0xFF
+/*
+ * Pin number mask
+ * allows to retrieve the pin number without ALTx
+ */
+#define PNUM_MASK                   0xFF
+
+/* Pin not defined */
+#define ND                          NUM_DIGITAL_PINS
 
 /* Avoid PortName issue */
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
@@ -90,9 +96,9 @@ extern const uint32_t analogInputPin[];
 /* Note: Analog pin is also a digital pin */
 #define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
             (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : \
-            (((uint32_t)(p) & PANA) == PANA) && \
+            (((uint32_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
             (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
-            (PinName)(digitalPin[analogInputPin[(p) & PANA_IDX]] | ((p) & ALTX_MASK)) : NC)
+            (PinName)(digitalPin[analogInputPin[(p) & PNUM_ANALOG_INDEX]] | ((p) & ALTX_MASK)) : NC)
 #else
 #define digitalPinToPinName(p)      ((((uint32_t)(p) & PNUM_MASK) < NUM_DIGITAL_PINS) ? \
             (PinName)(digitalPin[(uint32_t)(p) & PNUM_MASK] | ((p) & ALTX_MASK)) : NC)
@@ -106,9 +112,9 @@ uint32_t pinNametoDigitalPin(PinName p);
 /* Non contiguous analog pins definition in digitalPin array */
 #define analogInputToDigitalPin(p)  ((((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INPUTS) ? \
             analogInputPin[(uint32_t)(p) & PNUM_MASK] | ((uint32_t)(p) & ALTX_MASK) : \
-            (((uint32_t)(p) & PANA) == PANA) && \
+            (((uint32_t)(p) & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) && \
             (((uint32_t)(p) & PNUM_MASK) < NUM_ANALOG_INTERNAL_FIRST) ? \
-            analogInputPin[(p) & PANA_IDX] | ((uint32_t)(p) & ALTX_MASK) : (uint32_t)NC)
+            analogInputPin[(p) & PNUM_ANALOG_INDEX] | ((uint32_t)(p) & ALTX_MASK) : (uint32_t)NC)
 #else/* No analog pin defined */
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
 #endif /* NUM_ANALOG_INPUTS > 0 */

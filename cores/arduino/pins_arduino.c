@@ -77,7 +77,7 @@ bool digitalpinIsAnalogInput(uint32_t pin)
 {
   bool ret = false;
 #if NUM_ANALOG_INPUTS > 0
-  if ((pin & PANA) == PANA) {
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
     ret = true;
   } else {
     for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
@@ -100,9 +100,9 @@ uint32_t digitalPinToAnalogInput(uint32_t pin)
 {
   uint32_t ret = NUM_ANALOG_INPUTS;
 #if NUM_ANALOG_INPUTS > 0
-  if ((pin & PANA) == PANA) {
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
     /* PYn = Ax */
-    ret = (pin & PANA_IDX) | (pin & ALTX_MASK);
+    ret = (pin & PNUM_ANALOG_INDEX) | (pin & ALTX_MASK);
   } else {
     for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
       if (analogInputPin[i] == (pin & PNUM_MASK)) {

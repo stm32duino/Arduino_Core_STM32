@@ -9,28 +9,28 @@ extern "C" {
 #endif
 
 // Alternative possibilities which use other HW peripheral instances
-#define ALT0        0x000
-#define ALT1        0x100
-#define ALT2        0x200
-#define ALT3        0x300
-#define ALT4        0x400
-#define ALT5        0x500
-#define ALT6        0x600
-#define ALT7        0x700
+#define ALT0                        0x000
+#define ALT1                        0x100
+#define ALT2                        0x200
+#define ALT3                        0x300
+#define ALT4                        0x400
+#define ALT5                        0x500
+#define ALT6                        0x600
+#define ALT7                        0x700
 // ALTX mask
-#define ALTX_MASK   0x700
+#define ALTX_MASK                   0x700
 
 // Specific pinmap definition
 // Analog internal
-#define PANAINT     0x1000
+#define PNAME_ANALOG_INTERNAL_BASE  0x1000
 // Dual pad pin
 // Direct channels are connected to analog I/Os
 // (PY_C) to optimize ADC performance.
-#define PDUAL       0x2000
+#define PDUAL                       0x2000
 // Remap pin
-#define PREMAP      0x3000
+#define PREMAP                      0x3000
 // PinName mask
-#define PNAME_MASK  0xFF
+#define PNAME_MASK                  0xFF
 
 typedef enum {
   // Not connected
@@ -251,7 +251,7 @@ typedef enum {
   PZ_15 = (PortZ << 4) + 0x0F,
 #endif
   // Specific pin name
-  PADC_BASE = PANAINT,
+  PADC_BASE = PNAME_ANALOG_INTERNAL_BASE,
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
   PADC_TEMP,
 #endif
