@@ -822,7 +822,6 @@ STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
-STM32MP1.build.variant_h=variant_STM32MP157_DK.h
 STM32MP1.build.extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
 
 # STM32MP157A-DK1 board
@@ -831,7 +830,9 @@ STM32MP1.menu.pnum.STM32MP157A_DK1.upload.maximum_size=131072
 STM32MP1.menu.pnum.STM32MP157A_DK1.upload.maximum_data_size=131072
 STM32MP1.menu.pnum.STM32MP157A_DK1.build.board=STM32MP157A_DK1
 STM32MP1.menu.pnum.STM32MP157A_DK1.build.product_line=STM32MP157Axx
-STM32MP1.menu.pnum.STM32MP157A_DK1.build.variant=STM32MP1xx/STM32MP157_DK
+STM32MP1.menu.pnum.STM32MP157A_DK1.build.variant=STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC
+STM32MP1.menu.pnum.STM32MP157A_DK1.build.variant_h=variant_STM32MP157_DK.h
+STM32MP1.menu.pnum.STM32MP157A_DK1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # STM32MP157C-DK2 board
 STM32MP1.menu.pnum.STM32MP157C_DK2=STM32MP157C-DK2
@@ -839,7 +840,9 @@ STM32MP1.menu.pnum.STM32MP157C_DK2.upload.maximum_size=131072
 STM32MP1.menu.pnum.STM32MP157C_DK2.upload.maximum_data_size=131072
 STM32MP1.menu.pnum.STM32MP157C_DK2.build.board=STM32MP157C_DK2
 STM32MP1.menu.pnum.STM32MP157C_DK2.build.product_line=STM32MP157Cxx
-STM32MP1.menu.pnum.STM32MP157C_DK2.build.variant=STM32MP1xx/STM32MP157_DK
+STM32MP1.menu.pnum.STM32MP157C_DK2.build.variant=STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC
+STM32MP1.menu.pnum.STM32MP157C_DK2.build.variant_h=variant_STM32MP157_DK.h
+STM32MP1.menu.pnum.STM32MP157C_DK2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Upload menu
 STM32MP1.menu.upload_method.MassStorage=Generate run_arduino.sh (You need to copy this manually)
