@@ -85,11 +85,11 @@ extern const uint32_t analogInputPin[];
 /* Convert a digital pin number Dxx to a PinName PX_n */
 #if NUM_ANALOG_INPUTS > 0
 /* Note: Analog pin is also a digital pin */
-#define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : \
-            ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
-                                                digitalPin[analogInputPin[p-NUM_ANALOG_FIRST]] : NC)
+#define digitalPinToPinName(p)      (((uint32_t)(p) < NUM_DIGITAL_PINS) ? digitalPin[p] : \
+            (((uint32_t)(p) & PANA) == PANA) && ((uint32_t)(p) < NUM_ANALOG_INTERNAL_FIRST) ? \
+            digitalPin[analogInputPin[(p)&PANA_IDX]] : NC)
 #else
-#define digitalPinToPinName(p)      (((uint32_t)p < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
+#define digitalPinToPinName(p)      (((uint32_t)(p) < NUM_DIGITAL_PINS) ? digitalPin[p] : NC)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 /* Convert a PinName PX_n to a digital pin number */
 uint32_t pinNametoDigitalPin(PinName p);
@@ -98,16 +98,14 @@ uint32_t pinNametoDigitalPin(PinName p);
 #if NUM_ANALOG_INPUTS > 0
 /* Used by analogRead api to have A0 == 0 */
 /* Non contiguous analog pins definition in digitalPin array */
-#define analogInputToDigitalPin(p)  ( \
-            ((uint32_t)p < NUM_ANALOG_INPUTS) ? analogInputPin[p] : \
-            ((uint32_t)p >= NUM_ANALOG_FIRST) && ((uint32_t)p <= NUM_ANALOG_LAST) ? \
-                                                analogInputPin[p-NUM_ANALOG_FIRST] : p)
-#else
-/* No analog pin defined */
+#define analogInputToDigitalPin(p)  (((uint32_t)(p) < NUM_ANALOG_INPUTS) ? analogInputPin[p] : \
+            (((uint32_t)(p) & PANA) == PANA) && ((uint32_t)(p) < NUM_ANALOG_INTERNAL_FIRST) ? \
+            analogInputPin[(p)&PANA_IDX] : (uint32_t)NC)
+#else/* No analog pin defined */
 #define analogInputToDigitalPin(p)  (NUM_DIGITAL_PINS)
 #endif /* NUM_ANALOG_INPUTS > 0 */
 
-/* Convert an analog pin number Axx to a PinName PX_n */
+/* Convert an analog pin number Ax to a PinName PX_n */
 PinName analogInputToPinName(uint32_t pin);
 
 /* All pins could manage EXTI */
@@ -166,8 +164,9 @@ PinName analogInputToPinName(uint32_t pin);
 #define pinIsSerial(p)              ((digitalPinFirstOccurence(p) == PIN_SERIAL_RX) ||\
                                      (digitalPinFirstOccurence(p) == PIN_SERIAL_TX))
 #endif
-/* Convenient macro to handle Analog */
-bool pinIsAnalogInput(uint32_t pin);
+/* Convenient macro to handle Analog for Firmata */
+#define pinIsAnalogInput digitalpinIsAnalogInput
+bool digitalpinIsAnalogInput(uint32_t pin);
 uint32_t digitalPinToAnalogInput(uint32_t pin);
 
 #ifdef __cplusplus

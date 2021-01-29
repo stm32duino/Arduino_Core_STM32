@@ -15,14 +15,18 @@
 #include "variant.h"
 #include "PinNames.h"
 
+/* Analog */
+#define PANA       0xC0
+/* Analog index */
+#define PANA_IDX   0x3F
+
 /* Arduino analog pins */
 #ifndef NUM_ANALOG_INPUTS
   #define NUM_ANALOG_INPUTS 0
 #endif
 
-#define NUM_ANALOG_FIRST          (NUM_DIGITAL_PINS + 1)
-#define NUM_ANALOG_LAST           (NUM_DIGITAL_PINS + NUM_ANALOG_INPUTS)
-#define NUM_ANALOG_INTERNAL_FIRST (NUM_ANALOG_LAST + 1)
+/* Analog internal pin numbers follow the analog pin number */
+#define NUM_ANALOG_INTERNAL_FIRST (PANA + NUM_ANALOG_INPUTS)
 
 /* ADC internal channels (not a pins) */
 /* Only used for analogRead() */
@@ -30,19 +34,19 @@
   #define ATEMP        (NUM_ANALOG_INTERNAL_FIRST)
 #endif
 #ifdef ADC_CHANNEL_VREFINT
-  #define AVREF        (NUM_ANALOG_INTERNAL_FIRST + 2)
+  #define AVREF        (NUM_ANALOG_INTERNAL_FIRST + 1)
 #endif
 #ifdef ADC_CHANNEL_VBAT
-  #define AVBAT        (NUM_ANALOG_INTERNAL_FIRST + 3)
+  #define AVBAT        (NUM_ANALOG_INTERNAL_FIRST + 2)
 #endif
 #if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
-  #define ATEMP_ADC5   (NUM_ANALOG_INTERNAL_FIRST + 4)
+  #define ATEMP_ADC5   (NUM_ANALOG_INTERNAL_FIRST + 3)
 #endif
 
 /* If NUM_ANALOG_INPUTS is not defined there is no analog pins defined. */
 /* Anyway ADC internal channels are always available. */
 #if NUM_ANALOG_INPUTS > 0
-  #define PIN_A0       NUM_ANALOG_FIRST
+  #define PIN_A0       PANA
   static const uint8_t A0 = PIN_A0;
   #if NUM_ANALOG_INPUTS > 1
     #define PIN_A1       (PIN_A0 + 1)

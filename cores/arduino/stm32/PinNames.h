@@ -18,7 +18,9 @@ extern "C" {
 #define ALT6        0x600
 #define ALT7        0x700
 
-// Specific pins
+// Specific pinmap definition
+// Analog internal
+#define PANAINT     0x1000
 // Dual pad pin
 // Direct channels are connected to analog I/Os
 // (PY_C) to optimize ADC performance.
@@ -30,7 +32,7 @@ extern "C" {
 
 typedef enum {
   // Not connected
-  NC = (int)0xFFFFFFFF,
+  NC = 0xFFFFFFFF,
 
   // Pin name definition
   PA_0  = (PortA << 4) + 0x00,
@@ -247,7 +249,7 @@ typedef enum {
   PZ_15 = (PortZ << 4) + 0x0F,
 #endif
   // Specific pin name
-  PADC_BASE = 0x100,
+  PADC_BASE = PANAINT,
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)
   PADC_TEMP,
 #endif

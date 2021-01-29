@@ -67,28 +67,47 @@ PinName analogInputToPinName(uint32_t pin)
   return pn;
 }
 
-bool pinIsAnalogInput(uint32_t pin)
+/**
+  * @brief  Return true if a digital pin is an analog input
+  * @param  pin Dx, x or PYn
+  * @retval boolean true if analog or false
+  */
+bool digitalpinIsAnalogInput(uint32_t pin)
 {
   bool ret = false;
 #if NUM_ANALOG_INPUTS > 0
-  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInputPin[i] == pin) {
-      ret = true;
-      break;
+  if ((pin & PANA) == PANA) {
+    ret = true;
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == pin) {
+        ret = true;
+        break;
+      }
     }
   }
 #endif /* NUM_ANALOG_INPUTS > 0 */
   return ret;
 }
 
+/**
+  * @brief  Return the analog input linked to a digital pin
+  * @param  pin Dx, x or PYn
+  * @retval analogInput valid analog input or NUM_ANALOG_INPUTS
+  */
 uint32_t digitalPinToAnalogInput(uint32_t pin)
 {
   uint32_t ret = NUM_ANALOG_INPUTS;
 #if NUM_ANALOG_INPUTS > 0
-  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInputPin[i] == pin) {
-      ret = i;
-      break;
+  if ((pin & PANA) == PANA) {
+    /* PYn = Ax */
+    ret = pin & PANA_IDX;
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == pin) {
+        ret = i;
+        break;
+      }
     }
   }
 #endif /* NUM_ANALOG_INPUTS > 0 */
