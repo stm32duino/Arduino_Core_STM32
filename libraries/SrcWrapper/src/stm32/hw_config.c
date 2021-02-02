@@ -66,7 +66,7 @@ void hw_config_init(void)
   USBD_CDC_init();
 #endif
 
-#if defined (STM32MP1xx)
+#if defined (STM32MP1xx) || defined (STM32WBxx)
   __HAL_RCC_HSEM_CLK_ENABLE();
 #endif
 
