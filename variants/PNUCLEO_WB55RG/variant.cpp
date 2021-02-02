@@ -17,7 +17,6 @@
 */
 
 #include "pins_arduino.h"
-#include "otp.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -89,19 +88,6 @@ const PinName digitalPin[] = {
 extern "C" {
 #endif
 
-static void Config_HSE(void)
-{
-  OTP_BT_t *p_otp;
-
-  /**
-   * Read HSE_Tuning from OTP
-   */
-  p_otp = (OTP_BT_t *) OTP_Read(0);
-  if (p_otp) {
-    LL_RCC_HSE_SetCapacitorTuning(p_otp->hse_tuning);
-  }
-}
-
 /**
   * @brief  System Clock Configuration
   * @param  None
@@ -112,8 +98,6 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
-
-  Config_HSE();
 
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
