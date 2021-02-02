@@ -89,31 +89,14 @@ const PinName digitalPin[] = {
 extern "C" {
 #endif
 
-static uint8_t *OTP_Read(uint8_t id)
-{
-  uint8_t *p_id;
-
-  p_id = (uint8_t *)(CFG_OTP_END_ADDRESS - 7) ;
-
-  while (((*(p_id + 7)) != id) && (p_id != (uint8_t *)CFG_OTP_BASE_ADDRESS)) {
-    p_id -= 8 ;
-  }
-
-  if ((*(p_id + 7)) != id) {
-    p_id = 0 ;
-  }
-
-  return p_id ;
-}
-
 static void Config_HSE(void)
 {
-  OTP_ID0_t *p_otp;
+  OTP_BT_t *p_otp;
 
   /**
    * Read HSE_Tuning from OTP
    */
-  p_otp = (OTP_ID0_t *) OTP_Read(0);
+  p_otp = (OTP_BT_t *) OTP_Read(0);
   if (p_otp) {
     LL_RCC_HSE_SetCapacitorTuning(p_otp->hse_tuning);
   }
