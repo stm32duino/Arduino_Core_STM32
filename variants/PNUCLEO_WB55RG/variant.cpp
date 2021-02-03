@@ -17,6 +17,7 @@
 */
 
 #include "pins_arduino.h"
+#include "lock_resource.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -99,8 +100,14 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
+  /* This prevents concurrent access to RCC registers by CPU2 (M0+) */
+  hsem_lock(CFG_HW_RCC_SEMID, HSEM_LOCK_DEFAULT_RETRY);
+
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  /* This prevents the CPU2 (M0+) to disable the HSI48 oscillator */
+  hsem_lock(CFG_HW_CLK48_CONFIG_SEMID, HSEM_LOCK_DEFAULT_RETRY);
 
   /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI48
@@ -149,6 +156,7 @@ WEAK void SystemClock_Config(void)
   /* Select HSI as system clock source after Wake Up from Stop mode */
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
 
+  hsem_unlock(CFG_HW_RCC_SEMID);
 }
 
 #ifdef __cplusplus

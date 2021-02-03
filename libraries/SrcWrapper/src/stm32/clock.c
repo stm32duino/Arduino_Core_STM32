@@ -12,6 +12,7 @@
  */
 #include "backup.h"
 #include "clock.h"
+#include "lock_resource.h"
 #include "otp.h"
 #include "stm32yyxx_ll_cortex.h"
 #include "stm32yyxx_ll_rcc.h"
@@ -131,9 +132,11 @@ void enableClock(sourceClock_t source)
       break;
   }
   if (RCC_OscInitStruct.OscillatorType != RCC_OSCILLATORTYPE_NONE) {
+    hsem_lock(CFG_HW_RCC_SEMID, HSEM_LOCK_DEFAULT_RETRY);
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
       Error_Handler();
     }
+    hsem_unlock(CFG_HW_RCC_SEMID);
   }
 }
 
