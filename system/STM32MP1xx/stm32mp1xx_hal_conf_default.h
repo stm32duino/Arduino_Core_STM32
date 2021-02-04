@@ -40,7 +40,6 @@
 #define HAL_RTC_MODULE_DISABLED /* RTC MODULE on Cortex-M side is not supported.
                                    Linux on Cortex-A will handle this. */
 #define HAL_ETH_MODULE_DISABLED /* ETH module is also not intended to be used */
-#define HAL_HSEM_MODULE_ENABLED
 #define HAL_MDMA_MODULE_ENABLED /* Some other modules (e.g. USART) require this */
 
 #if defined(ARDUINO_STM32MP157A_DK1) || defined(ARDUINO_STM32MP157C_DK2)

@@ -17,7 +17,7 @@
 */
 
 #include "pins_arduino.h"
-#include "otp.h"
+#include "lock_resource.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -89,36 +89,6 @@ const PinName digitalPin[] = {
 extern "C" {
 #endif
 
-static uint8_t *OTP_Read(uint8_t id)
-{
-  uint8_t *p_id;
-
-  p_id = (uint8_t *)(CFG_OTP_END_ADDRESS - 7) ;
-
-  while (((*(p_id + 7)) != id) && (p_id != (uint8_t *)CFG_OTP_BASE_ADDRESS)) {
-    p_id -= 8 ;
-  }
-
-  if ((*(p_id + 7)) != id) {
-    p_id = 0 ;
-  }
-
-  return p_id ;
-}
-
-static void Config_HSE(void)
-{
-  OTP_ID0_t *p_otp;
-
-  /**
-   * Read HSE_Tuning from OTP
-   */
-  p_otp = (OTP_ID0_t *) OTP_Read(0);
-  if (p_otp) {
-    LL_RCC_HSE_SetCapacitorTuning(p_otp->hse_tuning);
-  }
-}
-
 /**
   * @brief  System Clock Configuration
   * @param  None
@@ -130,10 +100,14 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
-  Config_HSE();
+  /* This prevents concurrent access to RCC registers by CPU2 (M0+) */
+  hsem_lock(CFG_HW_RCC_SEMID, HSEM_LOCK_DEFAULT_RETRY);
 
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+  /* This prevents the CPU2 (M0+) to disable the HSI48 oscillator */
+  hsem_lock(CFG_HW_CLK48_CONFIG_SEMID, HSEM_LOCK_DEFAULT_RETRY);
 
   /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI48
@@ -182,6 +156,7 @@ WEAK void SystemClock_Config(void)
   /* Select HSI as system clock source after Wake Up from Stop mode */
   LL_RCC_SetClkAfterWakeFromStop(LL_RCC_STOP_WAKEUPCLOCK_HSI);
 
+  hsem_unlock(CFG_HW_RCC_SEMID);
 }
 
 #ifdef __cplusplus

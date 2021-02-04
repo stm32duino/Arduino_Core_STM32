@@ -103,9 +103,9 @@ void pin_function(PinName pin, int function)
   __HAL_RCC_PWR_CLK_ENABLE();
   HAL_PWREx_EnableVddIO2();
 #endif /* STM32L5xx */
-#if defined(STM32MP1xx)
-  PERIPH_LOCK(gpio);
-#endif
+
+  hsem_lock(CFG_HW_GPIO_SEMID, HSEM_LOCK_DEFAULT_RETRY);
+
   /*  Set default speed to high.
    *  For most families there are dedicated registers so it is
    *  not so important, register can be set at any time.
@@ -169,9 +169,7 @@ void pin_function(PinName pin, int function)
 
   pin_DisconnectDebug(pin);
 
-#if defined(STM32MP1xx)
-  PERIPH_UNLOCK(gpio);
-#endif
+  hsem_unlock(CFG_HW_GPIO_SEMID);
 }
 
 void pinmap_pinout(PinName pin, const PinMap *map)

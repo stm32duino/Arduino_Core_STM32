@@ -95,7 +95,6 @@ extern "C" {
 #define PIN_SERIAL_TX           PB6
 
 /* Extra HAL configuration */
-#define HAL_HSEM_MODULE_ENABLED
 #define PREFETCH_ENABLE         1U
 
 // Only 512k provided for cpu1, so defined the FLASH_PAGE_NUMBER
