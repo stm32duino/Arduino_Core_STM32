@@ -196,6 +196,58 @@ WEAK void SystemClock_Config(void)
   __HAL_RCC_CCMDATARAMEN_CLK_ENABLE();
 }
 
+#ifdef USE_TIM6_TIMEBASE
+TIM_HandleTypeDef h_tim6;
+extern uint32_t uwTickPrio;
+
+HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
+{
+  RCC_ClkInitTypeDef    clkconfig;
+  uint32_t              uwTimclock = 0;
+  uint32_t              uwPrescalerValue = 0;
+  uint32_t              pFLatency;
+
+  if (TickPriority > 15) {
+    TickPriority = 15;
+  }
+  HAL_NVIC_SetPriority(TIM6_DAC_IRQn, TickPriority, 0);
+  HAL_NVIC_EnableIRQ(TIM6_DAC_IRQn);
+  uwTickPrio = TickPriority;
+
+  __HAL_RCC_TIM6_CLK_ENABLE();
+
+  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+  uwTimclock = 2 * HAL_RCC_GetPCLK1Freq();
+  /* Compute the prescaler value to have TIM6 counter clock equal to 1MHz */
+  uwPrescalerValue = (uint32_t)((uwTimclock / 1000000) - 1);
+
+  h_tim6.Instance = TIM6;
+
+  h_tim6.Init.Period = (1000000 / 1000) - 1;
+  h_tim6.Init.Prescaler = uwPrescalerValue;
+  h_tim6.Init.ClockDivision = 0;
+  h_tim6.Init.CounterMode = TIM_COUNTERMODE_UP;
+  if (HAL_TIM_Base_Init(&h_tim6) == HAL_OK) {
+    /* Start the TIM time Base generation in interrupt mode */
+    return HAL_TIM_Base_Start_IT(&h_tim6);
+  }
+
+  /* Return function status */
+  return HAL_ERROR;
+}
+
+void HAL_SuspendTick(void)
+{
+  __HAL_TIM_DISABLE_IT(&h_tim6, TIM_IT_UPDATE);
+}
+
+void HAL_ResumeTick(void)
+{
+  __HAL_TIM_ENABLE_IT(&h_tim6, TIM_IT_UPDATE);
+}
+
+#endif // USE_TIM6_TIMEBASE
+
 #ifdef __cplusplus
 }
 #endif

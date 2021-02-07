@@ -50,6 +50,8 @@ uint32_t getCurrentMillis(void)
   return HAL_GetTick();
 }
 
+#ifndef USE_TIM6_TIMEBASE
+
 void noOsSystickHandler()
 {
 
@@ -67,6 +69,8 @@ void SysTick_Handler(void)
   HAL_SYSTICK_IRQHandler();
   osSystickHandler();
 }
+
+#endif // USE_TIM6_TIMEBASE
 
 /**
   * @brief  Enable the specified clock if not already set
