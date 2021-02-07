@@ -171,6 +171,9 @@ static inline void hsem_lock(uint32_t semID, uint32_t retry)
       }
     }
   }
+#else
+  UNUSED(semID);
+  UNUSED(retry);
 #endif /* STM32MP1xx || STM32WBxx */
 }
 
@@ -185,6 +188,8 @@ static inline void hsem_unlock(uint32_t semID)
   if ((semID) <= HSEM_SEMID_MAX) {
     LL_HSEM_ReleaseLock(HSEM, semID, 0);
   }
+#else
+  UNUSED(semID);
 #endif /* STM32MP1xx || STM32WBxx */
 }
 
