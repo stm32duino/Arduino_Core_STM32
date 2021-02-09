@@ -90,7 +90,7 @@ static PinName g_current_pin = NC;
 #endif
 
 /* Private Functions */
-static uint32_t get_adc_channel(PinName pin)
+static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
@@ -207,6 +207,15 @@ static uint32_t get_adc_channel(PinName pin)
       channel = 0;
       break;
   }
+#ifdef ADC_CHANNELS_BANK_B
+  if (STM_PIN_ANALOG_CHANNEL_BANK_B(function)) {
+    *bank = ADC_CHANNELS_BANK_B;
+  } else {
+    *bank = ADC_CHANNELS_BANK_A;
+  }
+#else
+  UNUSED(bank);
+#endif
   return channel;
 }
 
@@ -746,6 +755,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   __IO uint16_t uhADCxConvertedValue = 0;
   uint32_t samplingTime = ADC_SAMPLINGTIME;
   uint32_t channel = 0;
+  uint32_t bank = 0;
 
   if ((pin & PADC_BASE) && (pin < ANA_START)) {
 #if defined(STM32H7xx)
@@ -762,7 +772,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     samplingTime = ADC_SAMPLINGTIME_INTERNAL;
   } else {
     AdcHandle.Instance = (ADC_TypeDef *)pinmap_peripheral(pin, PinMap_ADC);
-    channel = get_adc_channel(pin);
+    channel = get_adc_channel(pin, &bank);
   }
 
   if (AdcHandle.Instance == NP) {
@@ -824,7 +834,9 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     !defined(STM32MP1xx) && !defined(STM32WBxx)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
-#ifdef ADC_CHANNELS_BANK_A
+#ifdef ADC_CHANNELS_BANK_B
+  AdcHandle.Init.ChannelsBank          = bank;
+#elif defined(ADC_CHANNELS_BANK_A)
   AdcHandle.Init.ChannelsBank          = ADC_CHANNELS_BANK_A;
 #endif
   AdcHandle.Init.ContinuousConvMode    = DISABLE;                       /* Continuous mode disabled to have only 1 conversion at each conversion trig */
