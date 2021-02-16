@@ -98,12 +98,6 @@ void pin_function(PinName pin, int function)
   /* Enable GPIO clock */
   GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
 
-#if defined (STM32L5xx)
-  /* Validate the VDDIO2 supply for electrical and logical isolation purpose. */
-  __HAL_RCC_PWR_CLK_ENABLE();
-  HAL_PWREx_EnableVddIO2();
-#endif /* STM32L5xx */
-
   hsem_lock(CFG_HW_GPIO_SEMID, HSEM_LOCK_DEFAULT_RETRY);
 
   /*  Set default speed to high.
