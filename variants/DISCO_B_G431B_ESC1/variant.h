@@ -114,6 +114,8 @@ extern "C" {
 #define ENCODER_B     PB7
 #define ENCODER_Z     PB8
 #define CAN_TX        PB9
+#define I2C1_SDA      PB7
+#define I2C1_SCL      PB8
 
 
 // UART Definitions
@@ -129,12 +131,16 @@ extern "C" {
 #define PIN_SERIAL_RX           USART2_RX
 #define PIN_SERIAL_TX           USART2_TX
 
+#define PIN_WIRE_SDA            PB7
+#define PIN_WIRE_SCL            PB8
+
 /* HAL configuration */
 #define HSE_VALUE               (24000000UL)
 
 /* Extra HAL modules */
 #define HAL_DAC_MODULE_ENABLED
 #define HAL_FDCAN_MODULE_ENABLED
+#define HAL_I2C_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"
