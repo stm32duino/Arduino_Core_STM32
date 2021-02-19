@@ -47,6 +47,7 @@ sd_list = []  # 'PIN','name','SD'
 gpiofile = ""
 tim_inst_list = []  # TIMx instance
 usb_inst = {"usb": "", "otg_fs": "", "otg_hs": ""}
+mcu_family = ""
 
 # format
 # Peripheral
@@ -60,6 +61,7 @@ end_array_fmt = """  {{NC,{0:{w1}}NP,{0:{w2}}0}}
 # mcu file parsing
 def parse_IP_file():
     global gpiofile
+    global mcu_family
     tim_regex = r"^(TIM\d+)$"
     usb_regex = r"^(USB(?!PD|_HOST|_DEVICE).*)$"
     gpiofile = ""
@@ -67,6 +69,9 @@ def parse_IP_file():
     usb_inst["usb"] = ""
     usb_inst["otg_fs"] = ""
     usb_inst["otg_hs"] = ""
+
+    mcu_node = xml_mcu.getElementsByTagName("Mcu")[0]
+    mcu_family = mcu_node.attributes["Family"].value
 
     itemlist = xml_mcu.getElementsByTagName("IP")
     for s in itemlist:
@@ -1679,10 +1684,16 @@ j2_env = Environment(
 
 for mcu_file in mcu_list:
     print("Generating files for '{}'...".format(mcu_file.name))
-    if "MP1" in mcu_file.name:
-        mcu_dir = "STM32MP1xx"
-    else:
-        mcu_dir = mcu_file.name[:7] + "xx"
+
+    # Open input file
+    xml_mcu = parse(str(mcu_file))
+    parse_IP_file()
+    if not gpiofile:
+        print("Could not find GPIO file")
+        quit()
+    xml_gpio = parse(str(dirIP / ("GPIO-" + gpiofile + "_Modes.xml")))
+
+    mcu_dir = mcu_family + "xx"
     out_path = root_dir / "variants" / mcu_dir / mcu_file.stem
     periph_c_filepath = out_path / periph_c_filename
     pinvar_h_filepath = out_path / pinvar_h_filename
@@ -1704,14 +1715,6 @@ for mcu_file in mcu_list:
     if variant_h_filepath.exists():
         variant_h_filepath.unlink()
     variant_h_file = open(variant_h_filepath, "w", newline="\n")
-
-    # open input file
-    xml_mcu = parse(str(mcu_file))
-    parse_IP_file()
-    if not gpiofile:
-        print("Could not find GPIO file")
-        quit()
-    xml_gpio = parse(str(dirIP / ("GPIO-" + gpiofile + "_Modes.xml")))
 
     parse_pins()
     sort_my_lists()
