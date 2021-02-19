@@ -48,6 +48,12 @@ gpiofile = ""
 tim_inst_list = []  # TIMx instance
 usb_inst = {"usb": "", "otg_fs": "", "otg_hs": ""}
 mcu_family = ""
+mcu_refname = ""
+mcu_flash = []
+mcu_ram = ""
+
+# Cube information
+startup_dict = {}
 
 # format
 # Peripheral
@@ -59,19 +65,31 @@ end_array_fmt = """  {{NC,{0:{w1}}NP,{0:{w2}}0}}
 
 
 # mcu file parsing
-def parse_IP_file():
+def parse_mcu_file():
     global gpiofile
     global mcu_family
+    global mcu_refname
+    global mcu_ram
+
     tim_regex = r"^(TIM\d+)$"
     usb_regex = r"^(USB(?!PD|_HOST|_DEVICE).*)$"
     gpiofile = ""
     del tim_inst_list[:]
+    del mcu_flash[:]
     usb_inst["usb"] = ""
     usb_inst["otg_fs"] = ""
     usb_inst["otg_hs"] = ""
 
     mcu_node = xml_mcu.getElementsByTagName("Mcu")[0]
     mcu_family = mcu_node.attributes["Family"].value
+    if mcu_family.endswith("+"):
+        mcu_family = mcu_family[:-1]
+    mcu_refname = mcu_node.attributes["RefName"].value
+
+    mcu_ram = int(mcu_node.getElementsByTagName("Ram")[0].firstChild.nodeValue) * 1024
+    flash_node = mcu_node.getElementsByTagName("Flash")
+    for f in flash_node:
+        mcu_flash.append(int(f.firstChild.nodeValue) * 1024)
 
     itemlist = xml_mcu.getElementsByTagName("IP")
     for s in itemlist:
@@ -95,7 +113,7 @@ def parse_IP_file():
 
 
 def get_gpio_af_num(pintofind, iptofind):
-    if "STM32F10" in mcu_file.stem:
+    if "STM32F1" in mcu_family:
         return get_gpio_af_numF1(pintofind, iptofind)
     # DBG print ('pin to find ' + pintofind)
     i = 0
@@ -325,7 +343,7 @@ def adc_pinmap():
     wpin = []
     # For STM32L47xxx/48xxx, it is necessary to configure
     # the GPIOx_ASCR register
-    if re.match("STM32L4[78]+", mcu_file.stem):
+    if re.match("STM32L4[78]+", mcu_refname):
         default_mode = "STM_MODE_ANALOG_ADC_CONTROL"
     else:
         default_mode = "STM_MODE_ANALOG"
@@ -512,7 +530,7 @@ def uart_pinmap(lst):
         inst = p[2].split("_")[0]
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        if "STM32F10" in mcu_file.stem and lst == uartrx_list:
+        if "STM32F1" in mcu_family and lst == uartrx_list:
             mode = "STM_MODE_INPUT"
         else:
             mode = "STM_MODE_AF_PP"
@@ -598,7 +616,7 @@ def can_pinmap(lst):
             inst += "1"
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        if "STM32F10" in mcu_file.stem and lst == canrd_list:
+        if "STM32F1" in mcu_family and lst == canrd_list:
             mode = "STM_MODE_INPUT"
         else:
             mode = "STM_MODE_AF_PP"
@@ -1106,7 +1124,7 @@ def timer_variant():
     return dict(tone=tone, servo=servo)
 
 
-def print_variant(generic_def):
+def print_variant(generic_list):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
 
@@ -1192,7 +1210,7 @@ def print_variant(generic_def):
     variant_h_file.write(
         variant_h_template.render(
             year=datetime.datetime.now().year,
-            generic_def=generic_def,
+            generic_list=generic_list,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
             waltpin=max(waltpin),
@@ -1211,11 +1229,81 @@ def print_variant(generic_def):
     variant_cpp_file.write(
         variant_cpp_template.render(
             year=datetime.datetime.now().year,
-            generic_def=generic_def,
+            generic_list=generic_list,
             pinnames_list=pinnames_list,
             analog_pins_list=analog_pins_list,
         )
     )
+
+
+def print_boards_entry():
+    boards_entry_template = j2_env.get_template(boards_entry_filename)
+    # Search if several flash size
+    # Also used to manage define name (ARDUINO_GENERIC_*)
+    sub = re.search(r"STM32(.*)\((.*)\)(.*)", mcu_refname)
+    generic_list = []
+    if sub:
+        valueline = re.sub(r"\([\s\S]*\)", "x", mcu_refname)
+        for index, flash in enumerate(sub.group(2).split("-")):
+            gen_name = sub.group(1) + flash + sub.group(3)
+            generic_list.append(
+                {
+                    "name": gen_name,
+                    "board": gen_name.upper(),
+                    "flash": mcu_flash[index],
+                }
+            )
+    else:
+        valueline = mcu_refname
+        generic_list.append(
+            {
+                "name": mcu_refname.replace("STM32", ""),
+                "board": mcu_refname.replace("STM32", "").upper(),
+                "flash": mcu_flash[0],
+            }
+        )
+
+    gen_entry = mcu_family.replace("STM32", "Gen")
+
+    # Parse only one time the CMSIS startup file
+    if mcu_family not in startup_dict:
+        # Search the product line
+        CMSIS_startup_file_path = (
+            system_path
+            / "Drivers"
+            / "CMSIS"
+            / "Device"
+            / "ST"
+            / mcu_dir
+            / "Source"
+            / "Templates"
+            / "gcc"
+        )
+        startup_dict[mcu_family] = sorted(
+            [s.name for s in CMSIS_startup_file_path.glob("startup_*.s")]
+        )
+    for s in startup_dict[mcu_family]:
+        mcu_line = re.split("_|\\.", s)[1]
+        if "stm32mp15" in mcu_line and not mcu_line.endswith("xx"):
+            mcu_line += "xx"
+        mcu_line = mcu_line.upper().replace("X", "x")
+        if mcu_line > valueline:
+            break
+    else:
+        # In case of CMSIS device does not exist
+        mcu_line = ""
+
+    boards_entry_file.write(
+        boards_entry_template.render(
+            generic_list=generic_list,
+            gen_entry=gen_entry,
+            mcu_name=mcu_refname,
+            mcu_dir=mcu_dir,
+            mcu_ram=mcu_ram,
+            product_line=mcu_line,
+        )
+    )
+    return generic_list
 
 
 # List management
@@ -1536,12 +1624,15 @@ cur_dir = Path.cwd()
 root_dir = cur_dir.parents[1]
 system_path = root_dir / "system"
 templates_dir = cur_dir / "templates"
+mcu_dir = ""
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = Path("variant_config.json")
 variant_h_filename = "variant.h"
 variant_cpp_filename = "variant.cpp"
+boards_entry_filename = "boards_entry.txt"
 repo_local_path = cur_dir / "repo"
+cubemxdir = ""
 gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
@@ -1553,7 +1644,7 @@ check_config()
 parser = argparse.ArgumentParser(
     description=textwrap.dedent(
         """\
-By default, generate {}, {}, {} and {}
+By default, generate {}, {}, {}, {} and {}
 for all xml files description available in STM32CubeMX internal database.
 Internal database path must be defined in {}.
 It can be the one from STM32CubeMX directory if defined:
@@ -1566,6 +1657,7 @@ or the one from GitHub:
             pinvar_h_filename,
             variant_cpp_filename,
             variant_h_filename,
+            boards_entry_filename,
             config_filename,
             cubemxdir,
             gh_url,
@@ -1687,7 +1779,7 @@ for mcu_file in mcu_list:
 
     # Open input file
     xml_mcu = parse(str(mcu_file))
-    parse_IP_file()
+    parse_mcu_file()
     if not gpiofile:
         print("Could not find GPIO file")
         quit()
@@ -1699,6 +1791,7 @@ for mcu_file in mcu_list:
     pinvar_h_filepath = out_path / pinvar_h_filename
     variant_cpp_filepath = out_path / variant_cpp_filename
     variant_h_filepath = out_path / variant_h_filename
+    boards_entry_filepath = out_path / boards_entry_filename
     out_path.mkdir(parents=True, exist_ok=True)
 
     # open output file
@@ -1715,24 +1808,18 @@ for mcu_file in mcu_list:
     if variant_h_filepath.exists():
         variant_h_filepath.unlink()
     variant_h_file = open(variant_h_filepath, "w", newline="\n")
+    if boards_entry_filepath.exists():
+        boards_entry_filepath.unlink()
+    boards_entry_file = open(boards_entry_filepath, "w", newline="\n")
 
     parse_pins()
     sort_my_lists()
     manage_alternate()
 
-    # manage ARDUINO_GENERIC_* define name
-    # Search if several flash size
-    sub = re.search(r"STM32(.*)\((.*)\)(.*)", mcu_file.stem)
-    generic_def = []
-    if sub:
-        for flash in sub.group(2).split("-"):
-            generic_def.append((sub.group(1) + flash + sub.group(3)).upper())
-    else:
-        generic_def = [mcu_file.stem.upper()]
-
+    generic_list = print_boards_entry()
     print_peripheral()
     print_pinamevar()
-    print_variant(generic_def)
+    print_variant(generic_list)
 
     print(
         "* Total I/O pins found: {}".format(
@@ -1755,3 +1842,6 @@ for mcu_file in mcu_list:
     pinvar_h_file.close()
     variant_h_file.close()
     variant_cpp_file.close()
+    boards_entry_file.close()
+    xml_mcu.unlink()
+    xml_gpio.unlink()
