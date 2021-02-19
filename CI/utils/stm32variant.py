@@ -1101,7 +1101,7 @@ def timer_variant():
     return dict(tone=tone, servo=servo)
 
 
-def print_variant():
+def print_variant(generic_def):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
 
@@ -1184,15 +1184,10 @@ def print_variant():
     if sd_list:
         hal_modules_list.append("HAL_SD_MODULE_ENABLED")
 
-    mcu_serie = re.match(r"STM32([FGHLW][\dBL]|MP[\d])", mcu_file.stem)
-    if not mcu_serie:
-        print("No serie match found!")
-        exit(1)
-    mcu_serie = mcu_serie.group(1).lower()
-
     variant_h_file.write(
         variant_h_template.render(
             year=datetime.datetime.now().year,
+            generic_def=generic_def,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
             waltpin=max(waltpin),
@@ -1211,9 +1206,9 @@ def print_variant():
     variant_cpp_file.write(
         variant_cpp_template.render(
             year=datetime.datetime.now().year,
+            generic_def=generic_def,
             pinnames_list=pinnames_list,
             analog_pins_list=analog_pins_list,
-            mcu_serie=mcu_serie,
         )
     )
 
@@ -1533,10 +1528,12 @@ def manage_repo():
 
 # main
 cur_dir = Path.cwd()
+root_dir = cur_dir.parents[1]
+system_path = root_dir / "system"
 templates_dir = cur_dir / "templates"
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
-config_filename = Path("config.json")
+config_filename = Path("variant_config.json")
 variant_h_filename = "variant.h"
 variant_cpp_filename = "variant.cpp"
 repo_local_path = cur_dir / "repo"
@@ -1572,10 +1569,8 @@ or the one from GitHub:
     epilog=textwrap.dedent(
         """\
 After files generation, review them carefully and please report any issue to GitHub:
-\thttps://github.com/stm32duino/Arduino_Tools/issues\n
-Once generated, you can comment a line if the pin should not be used
-(overlaid with some HW on the board, for instance) and update all undefined pins
-in variant."""
+\thttps://github.com/stm32duino/Arduino_Core_STM32/issues
+"""
     ),
     formatter_class=RawTextHelpFormatter,
 )
@@ -1583,7 +1578,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument(
     "-l",
     "--list",
-    help="list available xml files description in STM32CubeMX",
+    help="list available xml files description in database",
     action="store_true",
 )
 group.add_argument(
@@ -1593,7 +1588,7 @@ group.add_argument(
     help=textwrap.dedent(
         """\
 Generate {}, {}, {} and {}
-for specified mcu xml file description in STM32CubeMX.
+for specified mcu xml file description in database.
 This xml file can contain non alpha characters in its name,
 you should call it with double quotes""".format(
             periph_c_filename,
@@ -1688,7 +1683,7 @@ for mcu_file in mcu_list:
         mcu_dir = "STM32MP1xx"
     else:
         mcu_dir = mcu_file.name[:7] + "xx"
-    out_path = cur_dir / "Arduino" / mcu_dir / mcu_file.stem
+    out_path = root_dir / "variants" / mcu_dir / mcu_file.stem
     periph_c_filepath = out_path / periph_c_filename
     pinvar_h_filepath = out_path / pinvar_h_filename
     variant_cpp_filepath = out_path / variant_cpp_filename
@@ -1721,9 +1716,20 @@ for mcu_file in mcu_list:
     parse_pins()
     sort_my_lists()
     manage_alternate()
+
+    # manage ARDUINO_GENERIC_* define name
+    # Search if several flash size
+    sub = re.search(r"STM32(.*)\((.*)\)(.*)", mcu_file.stem)
+    generic_def = []
+    if sub:
+        for flash in sub.group(2).split("-"):
+            generic_def.append((sub.group(1) + flash + sub.group(3)).upper())
+    else:
+        generic_def = [mcu_file.stem.upper()]
+
     print_peripheral()
     print_pinamevar()
-    print_variant()
+    print_variant(generic_def)
 
     print(
         "* Total I/O pins found: {}".format(

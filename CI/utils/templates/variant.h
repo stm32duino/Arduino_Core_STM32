@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) {{year}}, STMicroelectronics
+ * Copyright (c) 2020-{{year}}, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -11,6 +11,10 @@
  *******************************************************************************
  */
 
+#if !defined(ARDUINO_GENERIC_{{generic_list[0].board}}){% for name in generic_list[1:] %} && !defined(ARDUINO_GENERIC_{{name.board}}){% endfor %}
+
+#include VARIANT_BOARD_H
+#else
 #ifndef _VARIANT_ARDUINO_STM32_
 #define _VARIANT_ARDUINO_STM32_
 #ifdef __cplusplus
@@ -144,4 +148,5 @@ extern "C" {
 #endif
 
 #endif /* _VARIANT_ARDUINO_STM32_ */
+#endif /* !ARDUINO_GENERIC_* */
 
