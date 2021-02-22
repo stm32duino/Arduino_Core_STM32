@@ -1696,6 +1696,13 @@ you should call it with double quotes""".format(
     ),
 )
 
+group.add_argument(
+    "-f",
+    "--family",
+    metavar="name",
+    help="Generate all files for specified mcu family.",
+)
+
 parser.add_argument(
     "-c",
     "--cube",
@@ -1775,11 +1782,15 @@ j2_env = Environment(
 )
 
 for mcu_file in mcu_list:
-    print("Generating files for '{}'...".format(mcu_file.name))
-
     # Open input file
     xml_mcu = parse(str(mcu_file))
     parse_mcu_file()
+    # Generate only for one family
+    if args.family and args.family.upper() not in mcu_family:
+        xml_mcu.unlink()
+        continue
+
+    print("Generating files for '{}'...".format(mcu_file.name))
     if not gpiofile:
         print("Could not find GPIO file")
         quit()
