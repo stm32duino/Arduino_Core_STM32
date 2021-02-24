@@ -55,7 +55,7 @@ build.bootloader_flags=
 build.ldscript=ldscript.ld
 
 # These can be overridden in platform.local.txt
-compiler.c.extra_flags=
+compiler.c.extra_flags={build.peripheral_pins}
 compiler.c.elf.extra_flags=
 compiler.cpp.extra_flags=
 compiler.cpp.std=gnu++14
@@ -96,6 +96,7 @@ build.xSerial=-DHAL_UART_MODULE_ENABLED
 build.enable_usb=
 build.usb_speed=
 build.enable_virtio=
+build.peripheral_pins=
 build.startup_file=
 build.flags.fp=
 build.flags.optimize=-Os
