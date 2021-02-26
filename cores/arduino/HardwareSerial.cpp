@@ -327,7 +327,7 @@ int HardwareSerial::_tx_complete_irq(serial_t *obj)
 {
   // If interrupts are enabled, there must be more data in the output
   // buffer. Send the next byte
-  obj->tx_tail = (obj->tx_tail + 1) % SERIAL_TX_BUFFER_SIZE;
+  obj->tx_tail = (obj->tx_tail + obj->tx_size) % SERIAL_TX_BUFFER_SIZE;
 
   if (obj->tx_head == obj->tx_tail) {
     return -1;
@@ -467,8 +467,12 @@ void HardwareSerial::flush()
   // the hardware finished tranmission (TXC is set).
 }
 
-size_t HardwareSerial::write(uint8_t c)
+size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
 {
+  tx_buffer_index_t i;
+  size_t size_tmp;
+  size_t ret = size;
+
   _written = true;
   if (isHalfDuplex()) {
     if (_rx_enabled) {
@@ -477,22 +481,59 @@ size_t HardwareSerial::write(uint8_t c)
     }
   }
 
-  tx_buffer_index_t i = (_serial.tx_head + 1) % SERIAL_TX_BUFFER_SIZE;
+  // If necessary split transfert till end of TX buffer
+  while (_serial.tx_head + size > SERIAL_TX_BUFFER_SIZE) {
+    size_t size_intermediate = SERIAL_TX_BUFFER_SIZE - _serial.tx_head;
 
-  // If the output buffer is full, there's nothing for it other than to
-  // wait for the interrupt handler to empty it a bit
-  while (i == _serial.tx_tail) {
-    // nop, the interrupt handler will free up space for us
+    write(buffer, size_intermediate);
+    size -= size_intermediate;
+    buffer += size_intermediate;
   }
 
-  _serial.tx_buff[_serial.tx_head] = c;
-  _serial.tx_head = i;
+  // Here size if less or equal to SERIAL_TX_BUFFER_SIZE, but SERIAL_TX_BUFFER_SIZE is not possible as tx_head = tx_tail is ambiguous empty or full
+  if (size == SERIAL_TX_BUFFER_SIZE) {
+    size_t size_intermediate = SERIAL_TX_BUFFER_SIZE - 1;
+
+    write(buffer, size_intermediate);
+    size -= size_intermediate;
+    buffer += size_intermediate;
+  }
+
+  size_tmp = size;
+
+  while (size_tmp) {
+    i = (_serial.tx_head + 1) % SERIAL_TX_BUFFER_SIZE;
+
+
+    // If the output buffer is full, there's nothing for it other than to
+    // wait for the interrupt handler to empty it a bit
+    while (i == _serial.tx_tail) {
+      // nop, the interrupt handler will free up space for us
+    }
+    _serial.tx_buff[_serial.tx_head] = *buffer;
+    _serial.tx_head = i;
+    size_tmp --;
+    buffer ++;
+  }
+
+  while ((_serial.tx_head != (_serial.tx_tail + size) % SERIAL_TX_BUFFER_SIZE)) {
+    // nop, previous transfert no yet completed
+  }
+
+  _serial.tx_size = size;
 
   if (!serial_tx_active(&_serial)) {
-    uart_attach_tx_callback(&_serial, _tx_complete_irq);
+    uart_attach_tx_callback(&_serial, _tx_complete_irq, size);
   }
 
-  return 1;
+  /* There is no real error management so just return transfer size requested*/
+  return ret;
+}
+
+size_t HardwareSerial::write(uint8_t c)
+{
+  uint8_t buff = c;
+  return write(&buff, 1);
 }
 
 void HardwareSerial::setRx(uint32_t _rx)
