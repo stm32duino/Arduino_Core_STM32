@@ -723,7 +723,7 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
  * @param callback : function call at the end of transmission
  * @retval none
  */
-void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
+void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *), size_t size)
 {
   if (obj == NULL) {
     return;
@@ -734,7 +734,7 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   HAL_NVIC_DisableIRQ(obj->irq);
 
   /* The following function will enable UART_IT_TXE and error interrupts */
-  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
+  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], size);
 
   /* Enable interrupt */
   HAL_NVIC_EnableIRQ(obj->irq);
@@ -810,11 +810,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
   serial_t *obj = get_serial_obj(huart);
-
-  if (obj && obj->tx_callback(obj) != -1) {
-    if (HAL_UART_Transmit_IT(huart, &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-      return;
-    }
+  if (obj) {
+    obj->tx_callback(obj);
   }
 }
 
