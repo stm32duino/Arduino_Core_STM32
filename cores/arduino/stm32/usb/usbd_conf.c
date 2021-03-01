@@ -53,16 +53,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
   const PinMap *map = NULL;
 #if defined(PWR_CR2_USV)
   /* Enable VDDUSB on Pwrctrl CR2 register*/
-#if !defined(STM32WBxx)
-  if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_ENABLE();
-    HAL_PWREx_EnableVddUSB();
-    __HAL_RCC_PWR_CLK_DISABLE();
-  } else
-#endif
-  {
-    HAL_PWREx_EnableVddUSB();
-  }
+  HAL_PWREx_EnableVddUSB();
 #endif
 #ifdef STM32H7xx
   if (!LL_PWR_IsActiveFlag_USB()) {
