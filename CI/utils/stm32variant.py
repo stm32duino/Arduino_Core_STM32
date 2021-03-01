@@ -6,6 +6,7 @@ import subprocess
 import sys
 import textwrap
 from argparse import RawTextHelpFormatter
+from collections import OrderedDict
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 from xml.dom.minidom import parse, Node
@@ -50,10 +51,10 @@ usb_inst = {"usb": "", "otg_fs": "", "otg_hs": ""}
 mcu_family = ""
 mcu_refname = ""
 mcu_flash = []
-mcu_ram = ""
+mcu_ram = []
 
 # Cube information
-startup_dict = {}
+product_line_dict = {}
 
 # format
 # Peripheral
@@ -64,17 +65,47 @@ end_array_fmt = """  {{NC,{0:{w1}}NP,{0:{w2}}0}}
 """
 
 
+def rm_tree(pth: Path):
+    if pth.exists():
+        for child in pth.iterdir():
+            if child.is_file():
+                child.unlink()
+            else:
+                rm_tree(child)
+        pth.rmdir()
+
+
+def update_file(filePath, compile_pattern, subs):
+    with open(filePath, "r+", newline="\n") as file:
+        fileContents = file.read()
+        fileContents = compile_pattern.sub(subs, fileContents)
+        file.seek(0)
+        file.truncate()
+        file.write(fileContents)
+
+
+# get xml family
+def get_mcu_family(mcu_file):
+    xml_mcu = parse(str(mcu_file))
+    mcu_node = xml_mcu.getElementsByTagName("Mcu")[0]
+    mcu_family = mcu_node.attributes["Family"].value
+    if mcu_family.endswith("+"):
+        mcu_family = mcu_family[:-1]
+    xml_mcu.unlink()
+    return mcu_family
+
+
 # mcu file parsing
 def parse_mcu_file():
     global gpiofile
     global mcu_family
     global mcu_refname
-    global mcu_ram
 
     tim_regex = r"^(TIM\d+)$"
     usb_regex = r"^(USB(?!PD|_HOST|_DEVICE).*)$"
     gpiofile = ""
     del tim_inst_list[:]
+    del mcu_ram[:]
     del mcu_flash[:]
     usb_inst["usb"] = ""
     usb_inst["otg_fs"] = ""
@@ -86,7 +117,9 @@ def parse_mcu_file():
         mcu_family = mcu_family[:-1]
     mcu_refname = mcu_node.attributes["RefName"].value
 
-    mcu_ram = int(mcu_node.getElementsByTagName("Ram")[0].firstChild.nodeValue) * 1024
+    ram_node = mcu_node.getElementsByTagName("Ram")
+    for f in ram_node:
+        mcu_ram.append(int(f.firstChild.nodeValue) * 1024)
     flash_node = mcu_node.getElementsByTagName("Flash")
     for f in flash_node:
         mcu_flash.append(int(f.firstChild.nodeValue) * 1024)
@@ -1236,37 +1269,55 @@ def print_variant(generic_list):
     )
 
 
+def search_product_line(valueline):
+    product_line = ""
+    if not valueline.startswith("STM32MP1"):
+        for pline in product_line_dict[mcu_family]:
+            vline = valueline
+            product_line = pline
+            # Remove the 'x' character from pline and
+            # the one at same index in the vline
+            while 1:
+                idx = pline.find("x")
+                if idx > 0:
+                    pline = pline.replace("x", "", 1)
+                    vline = vline[:idx] + vline[idx + 1 :]
+                else:
+                    break
+            if pline >= vline:
+                break
+        else:
+            # In case of CMSIS device does not exist
+            product_line = ""
+    else:
+        # previous
+        # Unfortunately, MP1 does not follows the same naming rules
+        for pline in product_line_dict[mcu_family]:
+            vline = valueline
+            product_line = pline
+            # Remove the 'x' character from pline and
+            # the one at same index in the vline
+            while 1:
+                idx = pline.find("x")
+                if idx > 0:
+                    pline = pline.replace("x", "", 1)
+                    if "STM32MP15xx" != vline:
+                        vline = vline[:idx] + vline[idx + 1 :]
+                else:
+                    break
+            if pline >= vline and pline[:10] == vline[:10]:
+                break
+        else:
+            # In case of CMSIS device does not exist
+            product_line = "STM32MP15xx"
+    return product_line
+
+
 def print_boards_entry():
     boards_entry_template = j2_env.get_template(boards_entry_filename)
-    # Search if several flash size
-    # Also used to manage define name (ARDUINO_GENERIC_*)
-    sub = re.search(r"STM32(.*)\((.*)\)(.*)", mcu_refname)
-    generic_list = []
-    if sub:
-        valueline = re.sub(r"\([\s\S]*\)", "x", mcu_refname)
-        for index, flash in enumerate(sub.group(2).split("-")):
-            gen_name = sub.group(1) + flash + sub.group(3)
-            generic_list.append(
-                {
-                    "name": gen_name,
-                    "board": gen_name.upper(),
-                    "flash": mcu_flash[index],
-                }
-            )
-    else:
-        valueline = mcu_refname
-        generic_list.append(
-            {
-                "name": mcu_refname.replace("STM32", ""),
-                "board": mcu_refname.replace("STM32", "").upper(),
-                "flash": mcu_flash[0],
-            }
-        )
-
-    gen_entry = mcu_family.replace("STM32", "Gen")
 
     # Parse only one time the CMSIS startup file
-    if mcu_family not in startup_dict:
+    if mcu_family not in product_line_dict:
         # Search the product line
         CMSIS_startup_file_path = (
             system_path
@@ -1274,33 +1325,69 @@ def print_boards_entry():
             / "CMSIS"
             / "Device"
             / "ST"
-            / mcu_dir
+            / mcu_family_dir
             / "Source"
             / "Templates"
             / "gcc"
         )
-        startup_dict[mcu_family] = sorted(
+        startup_files = sorted(
             [s.name for s in CMSIS_startup_file_path.glob("startup_*.s")]
         )
-    for s in startup_dict[mcu_family]:
-        mcu_line = re.split("_|\\.", s)[1]
-        if "stm32mp15" in mcu_line and not mcu_line.endswith("xx"):
-            mcu_line += "xx"
-        mcu_line = mcu_line.upper().replace("X", "x")
-        if mcu_line > valueline:
-            break
+
+        for idx, s in enumerate(startup_files):
+            # Remove "startup_" and file extension
+            product_line = re.split("_|\\.", s)[1]
+            if product_line.startswith("stm32mp15") and not product_line.endswith("xx"):
+                product_line += "xx"
+            startup_files[idx] = product_line.upper().replace("X", "x")
+        product_line_dict[mcu_family] = startup_files
+
+    # Search if several flash size
+    # Also used to manage define name (ARDUINO_GENERIC_*)
+    sub = re.search(r"STM32(.*)\((.*)\)(.*)", mcu_refname)
+    generic_list = []
+    if sub:
+        valueline = re.sub(r"\([\s\S]*\)", "x", mcu_refname)
+        for index, flash in enumerate(sub.group(2).split("-")):
+            if len(mcu_ram) == index:
+                mcu_ram.append(mcu_ram[0])
+            gen_name = sub.group(1) + flash + sub.group(3)
+            generic_list.append(
+                {
+                    "name": gen_name,
+                    "board": gen_name.upper(),
+                    "flash": mcu_flash[index],
+                    "ram": mcu_ram[index],
+                }
+            )
+        # Search product line for last flash size
+        product_line = search_product_line(
+            "STM32"
+            + sub.group(1)
+            + sub.group(2).split("-")[-1]
+            + package_regex.sub(r"", sub.group(3))
+        )
     else:
-        # In case of CMSIS device does not exist
-        mcu_line = ""
+        valueline = mcu_refname
+        generic_list.append(
+            {
+                "name": mcu_refname.replace("STM32", ""),
+                "board": mcu_refname.replace("STM32", "").upper(),
+                "flash": mcu_flash[0],
+                "ram": mcu_ram[0],
+            }
+        )
+        product_line = search_product_line(package_regex.sub(r"", valueline))
+
+    gen_entry = mcu_family.replace("STM32", "Gen")
 
     boards_entry_file.write(
         boards_entry_template.render(
             generic_list=generic_list,
             gen_entry=gen_entry,
-            mcu_name=mcu_refname,
-            mcu_dir=mcu_dir,
-            mcu_ram=mcu_ram,
-            product_line=mcu_line,
+            mcu_dir=mcu_refname.replace("STM32", ""),
+            mcu_family_dir=mcu_family_dir,
+            product_line=product_line,
         )
     )
     return generic_list
@@ -1621,10 +1708,13 @@ def manage_repo():
 
 # main
 cur_dir = Path.cwd()
+tmp_dir = cur_dir / "variants"
 root_dir = cur_dir.parents[1]
 system_path = root_dir / "system"
 templates_dir = cur_dir / "templates"
-mcu_dir = ""
+mcu_family_dir = ""
+filtered_family = ""
+filtered_mcu_file = ""
 periph_c_filename = "PeripheralPins.c"
 pinvar_h_filename = "PinNamesVar.h"
 config_filename = Path("variant_config.json")
@@ -1766,9 +1856,13 @@ if args.mcu:
         print("\nCheck in " + dirMCU + " the correct name of this file")
         print("\nYou may use double quotes for file containing special characters")
         quit()
-    mcu_list.append(dirMCU / args.mcu)
-else:
-    mcu_list = dirMCU.glob("STM32*.xml")
+    # Get the family of the desired mcu file
+    filtered_mcu_file = dirMCU / args.mcu
+    filtered_family = get_mcu_family(filtered_mcu_file)
+if args.family:
+    filtered_family = args.family.upper()
+# Get all xml files
+mcu_list = sorted(dirMCU.glob("STM32*.xml"))
 
 if args.list:
     print("Available xml files description:")
@@ -1781,12 +1875,17 @@ j2_env = Environment(
     loader=FileSystemLoader(str(templates_dir)), trim_blocks=True, lstrip_blocks=True
 )
 
+# Clean temporary dir
+rm_tree(tmp_dir)
+
+package_regex = re.compile(r"[\w][\w]([ANPQ])?$")
+
 for mcu_file in mcu_list:
     # Open input file
     xml_mcu = parse(str(mcu_file))
     parse_mcu_file()
     # Generate only for one family
-    if args.family and args.family.upper() not in mcu_family:
+    if filtered_family and filtered_family not in mcu_family:
         xml_mcu.unlink()
         continue
 
@@ -1796,31 +1895,20 @@ for mcu_file in mcu_list:
         quit()
     xml_gpio = parse(str(dirIP / ("GPIO-" + gpiofile + "_Modes.xml")))
 
-    mcu_dir = mcu_family + "xx"
-    out_path = root_dir / "variants" / mcu_dir / mcu_file.stem
-    periph_c_filepath = out_path / periph_c_filename
-    pinvar_h_filepath = out_path / pinvar_h_filename
-    variant_cpp_filepath = out_path / variant_cpp_filename
-    variant_h_filepath = out_path / variant_h_filename
-    boards_entry_filepath = out_path / boards_entry_filename
-    out_path.mkdir(parents=True, exist_ok=True)
+    mcu_family_dir = mcu_family + "xx"
+    out_temp_path = tmp_dir / mcu_family_dir / mcu_file.stem.replace("STM32", "")
+    periph_c_filepath = out_temp_path / periph_c_filename
+    pinvar_h_filepath = out_temp_path / pinvar_h_filename
+    variant_cpp_filepath = out_temp_path / variant_cpp_filename
+    variant_h_filepath = out_temp_path / variant_h_filename
+    boards_entry_filepath = out_temp_path / boards_entry_filename
+    out_temp_path.mkdir(parents=True, exist_ok=True)
 
     # open output file
-    # unlink(missing_ok=True) supported since python version 3.8
-    if periph_c_filepath.exists():
-        periph_c_filepath.unlink()
     periph_c_file = open(periph_c_filepath, "w", newline="\n")
-    if pinvar_h_filepath.exists():
-        pinvar_h_filepath.unlink()
     pinvar_h_file = open(pinvar_h_filepath, "w", newline="\n")
-    if variant_cpp_filepath.exists():
-        variant_cpp_filepath.unlink()
     variant_cpp_file = open(variant_cpp_filepath, "w", newline="\n")
-    if variant_h_filepath.exists():
-        variant_h_filepath.unlink()
     variant_h_file = open(variant_h_filepath, "w", newline="\n")
-    if boards_entry_filepath.exists():
-        boards_entry_filepath.unlink()
     boards_entry_file = open(boards_entry_filepath, "w", newline="\n")
 
     parse_pins()
@@ -1856,3 +1944,168 @@ for mcu_file in mcu_list:
     boards_entry_file.close()
     xml_mcu.unlink()
     xml_gpio.unlink()
+
+# Aggregating all genertaed files
+print("Aggregating all generated files...")
+periperalpins_regex = re.compile(r"\S+\.xml")
+variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
+update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
+board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
+
+# Get mcu_family directory
+out_temp_path = cur_dir / "variants"
+mcu_families = sorted(out_temp_path.glob("STM32*/"))
+# Compare per family
+for mcu_family in mcu_families:
+    # Generate only for one family
+    if filtered_family and filtered_family not in mcu_family.name:
+        continue
+    out_family_path = root_dir / "variants" / mcu_family.name
+    # Get all mcu_dir
+    mcu_dirs = sorted(mcu_family.glob("*/"))
+    # Group mcu directories when only pexpressions and xml file name are differents
+    while mcu_dirs:
+        # Pop first item
+        group_mcu_dir = [mcu_dirs.pop(0)]
+        index = 0
+        mcu_dir = group_mcu_dir[0]
+        mcu_dir_files_list = [
+            mcu_dir / periph_c_filename,
+            mcu_dir / pinvar_h_filename,
+            mcu_dir / variant_cpp_filename,
+            mcu_dir / variant_h_filename,
+        ]
+        periph_xml = []
+        variant_exp = []
+        # Compare the first directory to all other directories
+        while mcu_dirs and index < len(mcu_dirs):
+            # Compare all the variant file except the generic_boards.txt
+            mcu_dir2_files_list = [
+                mcu_dirs[index] / periph_c_filename,
+                mcu_dirs[index] / pinvar_h_filename,
+                mcu_dirs[index] / variant_cpp_filename,
+                mcu_dirs[index] / variant_h_filename,
+            ]
+            for index2, fname in enumerate(mcu_dir_files_list):
+                with open(fname, "r") as f1:
+                    with open(mcu_dir2_files_list[index2], "r") as f2:
+                        diff = set(f1).symmetric_difference(f2)
+                        diff.discard("\n")
+                        if not diff or len(diff) == 2:
+                            if index2 == 0:
+                                for line in diff:
+                                    periph_xml += periperalpins_regex.findall(line)
+                            elif index2 == 2:
+                                for line in diff:
+                                    variant_exp += variant_regex.findall(line)
+                            continue
+                        else:
+                            # Not the same directory compare with the next one
+                            index += 1
+                            break
+            # All files compared and matched
+            else:
+                # Matched files append to the group list
+                group_mcu_dir.append(mcu_dirs.pop(index))
+
+        group_mcu_dir.sort()
+        mcu_dir = group_mcu_dir.pop(0)
+        # Merge if needed
+        if group_mcu_dir:
+            new_mcu_dirname = mcu_dir.stem
+            board_entry = ""
+            mcu_dir_name = [package_regex.sub(r"\g<1>", new_mcu_dirname)]
+            # Create a list of dirname without package info
+            for dir_name in group_mcu_dir:
+                mcu_dir_name.append(package_regex.sub(r"\g<1>", dir_name.stem))
+            # Strip first name if needed
+            if (
+                sum(
+                    package_regex.sub(r"\g<1>", new_mcu_dirname) in dname
+                    for dname in mcu_dir_name
+                )
+                > 1
+            ):
+                new_mcu_dirname = package_regex.sub(r"\g<1>", new_mcu_dirname)
+            # Concatenate names
+            for dir_name in group_mcu_dir:
+                # Only one occurence without [ANPQ]
+                if (
+                    sum(
+                        package_regex.sub(r"", dir_name.stem) in dname
+                        for dname in mcu_dir_name
+                    )
+                    == 1
+                ):
+                    new_mcu_dirname += "_" + dir_name.stem
+                else:
+                    # Concatenate once without package information
+                    if (
+                        package_regex.sub(r"\g<1>", dir_name.stem)
+                        not in new_mcu_dirname
+                    ):
+                        new_mcu_dirname += "_" + package_regex.sub(
+                            r"\g<1>", dir_name.stem
+                        )
+
+            # Handle files
+            for dir_name in group_mcu_dir:
+                # Save board entry
+                with open(dir_name / boards_entry_filename) as fp:
+                    for index, line in enumerate(fp):
+                        # Skip first line
+                        if index > 4:
+                            board_entry += line
+                # Delete directory
+                for filepath in dir_name.glob("*.*"):
+                    filepath.unlink()
+                dir_name.rmdir()
+            new_mcu_dir = out_temp_path / mcu_family.name / new_mcu_dirname
+            # Rename it
+            # With python 3.8 and above: mcu_dir = mcu_dir.replace(new_mcu_dir)
+            mcu_dir.replace(new_mcu_dir)
+            mcu_dir = new_mcu_dir
+            # Update files
+            periph_xml.sort()
+            periph_xml = list(OrderedDict.fromkeys(periph_xml))
+            new_line_c = periph_xml.pop(0)
+            for index, xml in enumerate(periph_xml, 1):
+                if index % 2 == 0:
+                    new_line_c += "\n * {}".format(xml)
+                else:
+                    new_line_c += ", {}".format(xml)
+
+            update_file(mcu_dir / periph_c_filename, periperalpins_regex, new_line_c)
+
+            variant_exp.sort()
+            variant_exp = list(OrderedDict.fromkeys(variant_exp))
+            new_line_c = variant_exp[0]
+            new_line_h = "{}".format(variant_exp.pop(0))
+            for index, pre in enumerate(variant_exp, 1):
+                if index % 2 == 0:
+                    new_line_c += " ||\\\n    {}".format(pre)
+                    new_line_h += " &&\\\n    !{}".format(pre)
+                else:
+                    new_line_c += " || {}".format(pre)
+                    new_line_h += " && !{}".format(pre)
+            update_file(mcu_dir / variant_cpp_filename, update_regex, new_line_c)
+
+            update_file(mcu_dir / variant_h_filename, update_regex, new_line_h)
+
+            # Appending to board_entry file
+            with open(mcu_dir / boards_entry_filename, "a", newline="\n") as fp:
+                fp.write(board_entry)
+
+            update_file(
+                mcu_dir / boards_entry_filename,
+                board_entry_regex,
+                rf"\g<1>{mcu_dir.name}",
+            )
+
+        # Move to variants/ folder
+        out_path = out_family_path / mcu_dir.stem
+        out_path.mkdir(parents=True, exist_ok=True)
+        for fname in mcu_dir.glob("*.*"):
+            fname.replace(out_path / fname.name)
+# Clean temporary dir
+rm_tree(tmp_dir)

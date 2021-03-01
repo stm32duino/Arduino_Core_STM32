@@ -14,6 +14,7 @@
  * Automatically generated from {{mcu_file}}
  * CubeMX DB release {{db_release}}
  */
+#if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
@@ -72,4 +73,6 @@ WEAK const PinMap PinMap_{{periph.aname}}[] = {
     {% endfor %}
   {% endfor %}
 {% endif %}
+
+#endif /* !CUSTOM_PERIPHERAL_PINS */
 
