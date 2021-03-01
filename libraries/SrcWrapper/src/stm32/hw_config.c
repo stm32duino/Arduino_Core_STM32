@@ -40,6 +40,11 @@ void hw_config_init(void)
 
   configHSECapacitorTuning();
 
+#if defined(__HAL_RCC_PWR_CLK_ENABLE)
+  /* Enable PWR clock, needed for example: voltage scaling, low power ... */
+  __HAL_RCC_PWR_CLK_ENABLE();
+#endif
+
   /* Configure the system clock */
   SystemClock_Config();
 

@@ -77,12 +77,6 @@ static inline void resetBackupDomain(void)
 
 static inline void enableBackupDomain(void)
 {
-  /* Enable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_ENABLE();
-  }
-#endif
 #ifdef HAL_PWR_MODULE_ENABLED
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
@@ -110,12 +104,6 @@ static inline void disableBackupDomain(void)
 #ifdef __HAL_RCC_BKP_CLK_DISABLE
   /* Disable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_DISABLE();
-#endif
-  /* Disable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (!__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_DISABLE();
-  }
 #endif
 }
 
