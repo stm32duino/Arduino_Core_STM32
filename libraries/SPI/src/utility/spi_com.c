@@ -444,6 +444,9 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   LL_SPI_ClearFlag_TXTF(_SPI);
   /* Disable SPI peripheral */
   LL_SPI_Disable(_SPI);
+#else
+  /* Wait for end of transfer */
+  while (LL_SPI_IsActiveFlag_BSY(_SPI));
 #endif
 
   return ret;
