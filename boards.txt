@@ -772,7 +772,7 @@ STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
-STM32MP1.build.extra_flags=-DCORE_CM4 -DUSE_FULL_LL_DRIVER -D{build.product_line} {build.enable_virtio} {build.xSerial}
+STM32MP1.build.extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
 
 # STM32MP157A-DK1 board
 STM32MP1.menu.pnum.STM32MP157A_DK1=STM32MP157A-DK1
