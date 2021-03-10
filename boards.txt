@@ -846,7 +846,7 @@ GenF0.build.board=GenF0
 GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
-GenF0.build.extra_flags=-D{build.product_line} {build.xSerial}
+GenF0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board (HSE 8Mhz)
@@ -906,6 +906,38 @@ GenF0.menu.pnum.GENERIC_F031K6TX.upload.maximum_data_size=4096
 GenF0.menu.pnum.GENERIC_F031K6TX.build.board=GENERIC_F031K6TX
 GenF0.menu.pnum.GENERIC_F031K6TX.build.product_line=STM32F031x6
 GenF0.menu.pnum.GENERIC_F031K6TX.build.variant=STM32F0xx/F031K6T
+
+# Generic F042C4Tx
+GenF0.menu.pnum.GENERIC_F042C4TX=Generic F042C4Tx
+GenF0.menu.pnum.GENERIC_F042C4TX.upload.maximum_size=16384
+GenF0.menu.pnum.GENERIC_F042C4TX.upload.maximum_data_size=6144
+GenF0.menu.pnum.GENERIC_F042C4TX.build.board=GENERIC_F042C4TX
+GenF0.menu.pnum.GENERIC_F042C4TX.build.product_line=STM32F042x6
+GenF0.menu.pnum.GENERIC_F042C4TX.build.variant=STM32F0xx/F042C(4-6)(T-U)
+
+# Generic F042C6Tx
+GenF0.menu.pnum.GENERIC_F042C6TX=Generic F042C6Tx
+GenF0.menu.pnum.GENERIC_F042C6TX.upload.maximum_size=32768
+GenF0.menu.pnum.GENERIC_F042C6TX.upload.maximum_data_size=6144
+GenF0.menu.pnum.GENERIC_F042C6TX.build.board=GENERIC_F042C6TX
+GenF0.menu.pnum.GENERIC_F042C6TX.build.product_line=STM32F042x6
+GenF0.menu.pnum.GENERIC_F042C6TX.build.variant=STM32F0xx/F042C(4-6)(T-U)
+
+# Generic F042C4Ux
+GenF0.menu.pnum.GENERIC_F042C4UX=Generic F042C4Ux
+GenF0.menu.pnum.GENERIC_F042C4UX.upload.maximum_size=16384
+GenF0.menu.pnum.GENERIC_F042C4UX.upload.maximum_data_size=6144
+GenF0.menu.pnum.GENERIC_F042C4UX.build.board=GENERIC_F042C4UX
+GenF0.menu.pnum.GENERIC_F042C4UX.build.product_line=STM32F042x6
+GenF0.menu.pnum.GENERIC_F042C4UX.build.variant=STM32F0xx/F042C(4-6)(T-U)
+
+# Generic F042C6Ux
+GenF0.menu.pnum.GENERIC_F042C6UX=Generic F042C6Ux
+GenF0.menu.pnum.GENERIC_F042C6UX.upload.maximum_size=32768
+GenF0.menu.pnum.GENERIC_F042C6UX.upload.maximum_data_size=6144
+GenF0.menu.pnum.GENERIC_F042C6UX.build.board=GENERIC_F042C6UX
+GenF0.menu.pnum.GENERIC_F042C6UX.build.product_line=STM32F042x6
+GenF0.menu.pnum.GENERIC_F042C6UX.build.variant=STM32F0xx/F042C(4-6)(T-U)
 
 # Generic F051K6Ux
 GenF0.menu.pnum.GENERIC_F051K6UX=Generic F051K6Ux
@@ -3554,6 +3586,14 @@ Eval.menu.xusb.HS=High Speed
 Eval.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Eval.menu.xusb.HSFS=High Speed in Full Speed mode
 Eval.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenF0.menu.usb.none=None
+GenF0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF0.menu.usb.CDC=CDC (no generic 'Serial')
+GenF0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF0.menu.usb.HID=HID (keyboard and mouse)
+GenF0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenF1.menu.usb.none=None
 GenF1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
