@@ -10,16 +10,7 @@
  *
  *******************************************************************************
  */
-
-#if !defined(ARDUINO_GENERIC_{{generic_list[0].board}}){% for name in generic_list[1:] %} && !defined(ARDUINO_GENERIC_{{name.board}}){% endfor %}
-
-#include VARIANT_BOARD_H
-#else
-#ifndef _VARIANT_ARDUINO_STM32_
-#define _VARIANT_ARDUINO_STM32_
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
+#pragma once
 
 /*----------------------------------------------------------------------------
  *        STM32 pins number
@@ -46,79 +37,77 @@ extern "C" {
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-#define LED_BUILTIN             ND
+  #define LED_BUILTIN           ND
 #endif
 
 // On-board user button
 #ifndef USER_BTN
-#define USER_BTN                ND
+  #define USER_BTN              ND
 #endif
 
 // SPI definitions
 #ifndef PIN_SPI_SS
-#define PIN_SPI_SS              {{spi_pins.ss}}
+  #define PIN_SPI_SS            {{spi_pins.ss}}
 #endif
 #ifndef PIN_SPI_SS1
-#define PIN_SPI_SS1             {{spi_pins.ss1}}
+  #define PIN_SPI_SS1           {{spi_pins.ss1}}
 #endif
 #ifndef PIN_SPI_SS2
-#define PIN_SPI_SS2             {{spi_pins.ss2}}
+  #define PIN_SPI_SS2           {{spi_pins.ss2}}
 #endif
 #ifndef PIN_SPI_SS3
-#define PIN_SPI_SS3             {{spi_pins.ss3}}
+  #define PIN_SPI_SS3           {{spi_pins.ss3}}
 #endif
 #ifndef PIN_SPI_MOSI
-#define PIN_SPI_MOSI            {{spi_pins.mosi}}
+  #define PIN_SPI_MOSI          {{spi_pins.mosi}}
 #endif
 #ifndef PIN_SPI_MISO
-#define PIN_SPI_MISO            {{spi_pins.miso}}
+  #define PIN_SPI_MISO          {{spi_pins.miso}}
 #endif
 #ifndef PIN_SPI_SCK
-#define PIN_SPI_SCK             {{spi_pins.sck}}
+  #define PIN_SPI_SCK           {{spi_pins.sck}}
 #endif
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-#define PIN_WIRE_SDA            {{i2c_pins.sda}}
+  #define PIN_WIRE_SDA          {{i2c_pins.sda}}
 #endif
 #ifndef PIN_WIRE_SCL
-#define PIN_WIRE_SCL            {{i2c_pins.scl}}
+  #define PIN_WIRE_SCL          {{i2c_pins.scl}}
 #endif
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
 #ifndef TIMER_TONE
-#define TIMER_TONE              {{timer.tone}}
+  #define TIMER_TONE            {{timer.tone}}
 #endif
 #ifndef TIMER_SERVO
-#define TIMER_SERVO             {{timer.servo}}
+  #define TIMER_SERVO           {{timer.servo}}
 #endif
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-#define SERIAL_UART_INSTANCE    {{serial.instance}}
+  #define SERIAL_UART_INSTANCE  {{serial.instance}}
 #endif
 
 // Default pin used for generic 'Serial' instance
 // Mandatory for Firmata
 #ifndef PIN_SERIAL_RX
-#define PIN_SERIAL_RX           {{serial.rx}}
+  #define PIN_SERIAL_RX         {{serial.rx}}
 #endif
 #ifndef PIN_SERIAL_TX
-#define PIN_SERIAL_TX           {{serial.tx}}
+  #define PIN_SERIAL_TX         {{serial.tx}}
 #endif
 
 {% if hal_modules_list %}
 // Extra HAL modules
 {% for hal_module in hal_modules_list %}
-#define {{hal_module}}
+#if !defined(HAL_{{hal_module}}_MODULE_DISABLED)
+  #define HAL_{{hal_module}}_MODULE_ENABLED
+#endif
 {% endfor %}
 
 {% endif %}
-#ifdef __cplusplus
-} // extern "C"
-#endif
-
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
@@ -146,7 +135,4 @@ extern "C" {
     #define SERIAL_PORT_HARDWARE  Serial
   #endif
 #endif
-
-#endif /* _VARIANT_ARDUINO_STM32_ */
-#endif /* !ARDUINO_GENERIC_* */
 

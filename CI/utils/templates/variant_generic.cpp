@@ -14,17 +14,13 @@
 
 #include "pins_arduino.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // Digital PinName array
 const PinName digitalPin[] = {
 {% for pinname in pinnames_list %}
 {% if not loop.last %}
-  {{pinname}},
+  {{"%-7s // %s"|format("{},".format(pinname.name), "D{}{}".format(loop.index, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
 {% else %}
-  {{pinname}}
+  {{"%-7s // %s"|format(pinname.name, "D{}{}".format(loop.index, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
 {% endif %}
 {% endfor %}
 };
@@ -35,13 +31,10 @@ const uint32_t analogInputPin[] = {
 {% if not loop.last %}
   {{"%-3s // %-4s %s"|format("{},".format(analog_pin.val), "{},".format(analog_pin.ax), analog_pin.pyn)}}
 {% else %}
-  {{"%-2s  // %-4s %s"|format(analog_pin.val, "{},".format(analog_pin.ax), analog_pin.pyn)}}
+  {{"%-3s // %-4s %s"|format(analog_pin.val, "{},".format(analog_pin.ax), analog_pin.pyn)}}
 {% endif %}
 {% endfor %}
 };
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 #endif /* ARDUINO_GENERIC_* */
 
