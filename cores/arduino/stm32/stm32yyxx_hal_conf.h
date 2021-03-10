@@ -9,9 +9,10 @@
 #define HAL_DMA_MODULE_ENABLED /* Required by other modules */
 #define HAL_FLASH_MODULE_ENABLED
 #define HAL_GPIO_MODULE_ENABLED
+#define HAL_HSEM_MODULE_ENABLED
+#define HAL_IPCC_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
-#define HAL_HSEM_MODULE_ENABLED
 
 /*
  * Optional HAL modules, can be enabled/disabled using
@@ -32,11 +33,24 @@
   #undef HAL_I2C_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_I2S_MODULE_DISABLED)
+  #define HAL_I2S_MODULE_ENABLED
+#else
+  #undef HAL_I2S_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_RTC_MODULE_DISABLED)
   #define HAL_RTC_MODULE_ENABLED
 #else
   #undef HAL_RTC_MODULE_ENABLED
 #endif
+
+#if !defined(HAL_SAI_MODULE_DISABLED)
+  #define HAL_SAI_MODULE_ENABLED
+#else
+  #undef HAL_SAI_MODULE_ENABLED
+#endif
+
 
 #if !defined(HAL_SPI_MODULE_DISABLED)
   #define HAL_SPI_MODULE_ENABLED
@@ -48,18 +62,6 @@
   #define HAL_TIM_MODULE_ENABLED
 #else
   #undef HAL_TIM_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_I2S_MODULE_DISABLED)
-  #define HAL_I2S_MODULE_ENABLED
-#else
-  #undef HAL_I2S_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_SAI_MODULE_DISABLED)
-  #define HAL_SAI_MODULE_ENABLED
-#else
-  #undef HAL_SAI_MODULE_ENABLED
 #endif
 
 /*
@@ -85,10 +87,10 @@
   #undef HAL_ETH_MODULE_ENABLED
 #endif
 
-#if !defined(HAL_SD_MODULE_DISABLED)
-  /*#define HAL_SD_MODULE_ENABLED*/
+#if !defined(HAL_OSPI_MODULE_DISABLED)
+  /*#define HAL_OSPI_MODULE_ENABLED*/
 #else
-  #undef HAL_SD_MODULE_ENABLED
+  #undef HAL_OSPI_MODULE_ENABLED
 #endif
 
 #if !defined(HAL_QSPI_MODULE_DISABLED)
@@ -97,10 +99,10 @@
   #undef HAL_QSPI_MODULE_ENABLED
 #endif
 
-#if !defined(HAL_OSPI_MODULE_DISABLED)
-  /*#define HAL_OSPI_MODULE_ENABLED*/
+#if !defined(HAL_SD_MODULE_DISABLED)
+  /*#define HAL_SD_MODULE_ENABLED*/
 #else
-  #undef HAL_OSPI_MODULE_ENABLED
+  #undef HAL_SD_MODULE_ENABLED
 #endif
 
 /*
@@ -108,7 +110,6 @@
  */
 /*#define HAL_UART_MODULE_ENABLED*/
 /*#define HAL_PCD_MODULE_ENABLED*/
-/*#define HAL_IPCC_MODULE_ENABLED*/
 
 /*
  * Unused HAL modules
@@ -135,7 +136,6 @@
   HAL_HCD_MODULE_ENABLED
   HAL_HRTIM_MODULE_ENABLED
   HAL_ICACHE_MODULE_ENABLED
-  HAL_IPCC_MODULE_ENABLED
   HAL_IRDA_MODULE_ENABLED
   HAL_IWDG_MODULE_ENABLED // IWD built-in library uses LL
   HAL_JPEG_MODULE_ENABLED
