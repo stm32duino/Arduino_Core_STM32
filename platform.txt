@@ -53,6 +53,7 @@ compiler.define=-DARDUINO=
 build.extra_flags=
 build.bootloader_flags=
 build.ldscript=ldscript.ld
+build.variant_h=variant_generic.h
 
 # These can be overridden in platform.local.txt
 compiler.c.extra_flags={build.peripheral_pins}
@@ -89,7 +90,7 @@ build.virtio_flags=-DVIRTIOCON -DNO_ATOMIC_64_SUPPORT -DMETAL_INTERNAL -DMETAL_M
 build.virtio_extra_include="-I{build.system.path}/Middlewares/OpenAMP" "-I{build.system.path}/Middlewares/OpenAMP/open-amp/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/libmetal/lib/include" "-I{build.system.path}/Middlewares/OpenAMP/virtual_driver"
 
 # Build information's
-build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}"
+build.info.flags=-D{build.series} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} -DBOARD_NAME="{build.board}" -DVARIANT_H="{build.variant_h}"
 
 # Defaults config
 build.xSerial=-DHAL_UART_MODULE_ENABLED
