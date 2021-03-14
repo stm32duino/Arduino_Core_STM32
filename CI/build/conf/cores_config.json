@@ -234,7 +234,7 @@
             "NUCLEO_L496ZG-P",
             "NUCLEO_L4R5ZI",
             "NUCLEO_L4R5ZI-P",
-            "PNUCLEO_WB55RG",
+            "P_NUCLEO_WB55RG",
             "STM32MP157C_DK2"
           ]
         },
@@ -266,7 +266,7 @@
           "applicable": false,
           "boards": [
             "DISCO_F746NG", "B_L475E_IOT01A", "NUCLEO_F207ZG", "NUCLEO_F429ZI", "NUCLEO_F767ZI",
-            "NUCLEO_H743ZI2", "PNUCLEO_WB55RG", "STM32MP157C_DK2"
+            "NUCLEO_H743ZI2", "P_NUCLEO_WB55RG", "STM32MP157C_DK2"
           ]
         },
         {

@@ -1,26 +1,18 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+ *******************************************************************************
+ * Copyright (c) 2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
+#if defined(ARDUINO_MKR_SHARKY)
 #include "pins_arduino.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "lock_resource.h"
 
 // Pin number
 const PinName digitalPin[] = {
@@ -59,12 +51,10 @@ const uint32_t analogInputPin[] = {
   20, // A4
   21, // A5
   22, // A6
-  23  // A7
+  23, // A7
+  2,  // A8
+  3   // A9
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
@@ -83,10 +73,14 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
   RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
+  /* This prevents concurrent access to RCC registers by CPU2 (M0+) */
+  hsem_lock(CFG_HW_RCC_SEMID, HSEM_LOCK_DEFAULT_RETRY);
+
   /* Configure LSE Drive Capability */
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
   /* Configure the main internal regulator output voltage */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_LSI1
                                      | RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_LSE
@@ -149,8 +143,11 @@ WEAK void SystemClock_Config(void)
   HAL_RCCEx_EnableLSECSS();
   /* Enable MSI Auto calibration */
   HAL_RCCEx_EnableMSIPLLMode();
+
+  hsem_unlock(CFG_HW_RCC_SEMID);
 }
 
 #ifdef __cplusplus
 }
 #endif
+#endif /* ARDUINO_MKR_SHARKY */

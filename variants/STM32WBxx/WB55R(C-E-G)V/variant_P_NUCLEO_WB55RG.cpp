@@ -1,100 +1,98 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+ *******************************************************************************
+ * Copyright (c) 2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
+#if defined(ARDUINO_P_NUCLEO_WB55RG)
 #include "pins_arduino.h"
 #include "lock_resource.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 // Pin number
 const PinName digitalPin[] = {
-  PA_3,  //D0
-  PA_2,  //D1
-  PC_6,  //D2
-  PA_10, //D3
-  PC_10, //D4
-  PA_15, //D5
-  PA_8,  //D6
-  PC_13, //D7
-  PC_12, //D8
-  PA_9,  //D9
-  PA_4,  //D10
-  PA_7,  //D11
-  PA_6,  //D12
-  PA_5,  //D13
-  PB_9,  //D14
-  PB_8,  //D15
+  PA_3,
+  PA_2,
+  PC_6,
+  PA_10,
+  PC_10,
+  PA_15,
+  PA_8,
+  PC_13,
+  PC_12,
+  PA_9,
+  PA_4,
+  PA_7,
+  PA_6,
+  PA_5,
+  PB_9,
+  PB_8,
   // ST Morpho
   // CN7 Left Side
-  PB_11, //D16
-  PC_5,  //D17
-  PA_13, //D18 // SW
-  PA_14, //D19 // SW
-  PC_14, //D20
-  PC_15, //D21
+  PB_11,
+  PC_5,
+  PA_13,
+  PA_14,
+  PC_14,
+  PC_15,
   // CN7 Right Side
-  PB_2,  //D22
-  PE_4,  //D23
+  PB_2,
+  PE_4,
   // CN10 Left Side
-  PC_4,  //D24
+  PC_4,
   // CN10 Right side
-  PB_4,  //D25
-  PB_7,  //D26
-  PA_12, //D27
-  PA_11, //D28
-  PB_12, //D29
-  PB_0,  //D30
-  PB_1,  //D31
-  PB_15, //D32
-  PB_14, //D33
-  PB_13, //D34
-  PB_6,  //D35
-  PD_0,  //D36
-  PD_1,  //D37
-  PC_0,  //D38 / A0
-  PC_1,  //D39 / A1
-  PA_1,  //D40 / A2
-  PA_0,  //D41 / A3
-  PC_3,  //D42 / A4
-  PC_2,  //D43 / A5
-  PB_5,  //D44
-  PB_10, //D45
-  PC_11  //D46
+  PB_4,
+  PB_7,
+  PA_12,
+  PA_11,
+  PB_12,
+  PB_0,
+  PB_1,
+  PB_15,
+  PB_14,
+  PB_13,
+  PB_6,
+  PD_0,
+  PD_1,
+  PB_3,
+  PC_0,
+  PC_1,
+  PA_1,
+  PA_0,
+  PC_3,
+  PC_2,
+  PB_5,
+  PB_10,
+  PC_11,
+  PH_3
 };
 
 // Analog (Ax) pin number array
 const uint32_t analogInputPin[] = {
-  38, // A0
-  39, // A1
-  40, // A2
-  41, // A3
-  42, // A4
-  43  // A5
+  39, // A0
+  40, // A1
+  41, // A2
+  42, // A3
+  43, // A4
+  44, // A5
+  0,  // A6
+  1,  // A7
+  6,  // A8
+  9,  // A9
+  10, // A10
+  11, // A11
+  12, // A12
+  13, // A13
+  17, // A14
+  24  // A15
 };
 
-#ifdef __cplusplus
-}
-#endif
-
 // ----------------------------------------------------------------------------
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -172,3 +170,4 @@ WEAK void SystemClock_Config(void)
 #ifdef __cplusplus
 }
 #endif
+#endif /* ARDUINO_P_NUCLEO_WB55RG */

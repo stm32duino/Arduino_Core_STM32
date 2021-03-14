@@ -466,18 +466,18 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
-# PNUCLEO_WB55RG board
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG=P-Nucleo WB55RG
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.upload.maximum_size=524288
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.upload.maximum_data_size=196604
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.board=PNUCLEO_WB55RG
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.series=STM32WBxx
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.product_line=STM32WB55xx
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.variant=STM32WBxx/PNUCLEO_WB55RG
-Nucleo_64.menu.pnum.PNUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
+# P_NUCLEO_WB55RG board
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG=P-Nucleo WB55RG
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_size=524288
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_data_size=196608
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.board=P_NUCLEO_WB55RG
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.series=STM32WBxx
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
 Nucleo_64.menu.upload_method.MassStorage=Mass Storage
@@ -862,9 +862,6 @@ STM32MP1.menu.pnum.STM32MP157C_DK2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PIN
 STM32MP1.menu.upload_method.MassStorage=Generate run_arduino.sh (You need to copy this manually)
 STM32MP1.menu.upload_method.MassStorage.upload.protocol=
 STM32MP1.menu.upload_method.MassStorage.upload.tool=remoteproc_gen
-
-################################################################################
-# Other boards
 
 ###############################
 # Generic F0
@@ -3044,7 +3041,83 @@ GenL5.menu.upload_method.dfuMethod.upload.protocol=2
 GenL5.menu.upload_method.dfuMethod.upload.options=-g
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-#################################################################################
+################################################################################
+# Generic WB
+GenWB.name=Generic STM32WB series
+
+GenWB.build.core=arduino
+GenWB.build.board=GenWB
+GenWB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenWB.build.mcu=cortex-m4
+GenWB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenWB.build.series=STM32WBxx
+GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# Generic WB55CCUx
+GenWB.menu.pnum.GENERIC_WB55CCUX=Generic WB55CCUx
+GenWB.menu.pnum.GENERIC_WB55CCUX.upload.maximum_size=131072
+GenWB.menu.pnum.GENERIC_WB55CCUX.upload.maximum_data_size=65536
+GenWB.menu.pnum.GENERIC_WB55CCUX.build.board=GENERIC_WB55CCUX
+GenWB.menu.pnum.GENERIC_WB55CCUX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55CCUX.build.variant=STM32WBxx/WB55C(C-E-G)U
+
+# Generic WB55CEUx
+GenWB.menu.pnum.GENERIC_WB55CEUX=Generic WB55CEUx
+GenWB.menu.pnum.GENERIC_WB55CEUX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB55CEUX.upload.maximum_data_size=196608
+GenWB.menu.pnum.GENERIC_WB55CEUX.build.board=GENERIC_WB55CEUX
+GenWB.menu.pnum.GENERIC_WB55CEUX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55CEUX.build.variant=STM32WBxx/WB55C(C-E-G)U
+
+# Generic WB55CGUx
+GenWB.menu.pnum.GENERIC_WB55CGUX=Generic WB55CGUx
+GenWB.menu.pnum.GENERIC_WB55CGUX.upload.maximum_size=524288
+GenWB.menu.pnum.GENERIC_WB55CGUX.upload.maximum_data_size=196608
+GenWB.menu.pnum.GENERIC_WB55CGUX.build.board=GENERIC_WB55CGUX
+GenWB.menu.pnum.GENERIC_WB55CGUX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55CGUX.build.variant=STM32WBxx/WB55C(C-E-G)U
+
+# Generic WB55RCVx
+GenWB.menu.pnum.GENERIC_WB55RCVX=Generic WB55RCVx
+GenWB.menu.pnum.GENERIC_WB55RCVX.upload.maximum_size=131072
+GenWB.menu.pnum.GENERIC_WB55RCVX.upload.maximum_data_size=65536
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.board=GENERIC_WB55RCVX
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55RCVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+
+# Generic WB55REVx
+GenWB.menu.pnum.GENERIC_WB55REVX=Generic WB55REVx
+GenWB.menu.pnum.GENERIC_WB55REVX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB55REVX.upload.maximum_data_size=196608
+GenWB.menu.pnum.GENERIC_WB55REVX.build.board=GENERIC_WB55REVX
+GenWB.menu.pnum.GENERIC_WB55REVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55REVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+
+# Generic WB55RGVx
+GenWB.menu.pnum.GENERIC_WB55RGVX=Generic WB55RGVx
+GenWB.menu.pnum.GENERIC_WB55RGVX.upload.maximum_size=524288
+GenWB.menu.pnum.GENERIC_WB55RGVX.upload.maximum_data_size=196608
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.board=GENERIC_WB55RGVX
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55RGVX.build.variant=STM32WBxx/WB55R(C-E-G)V
+
+# Upload menu
+GenWB.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenWB.menu.upload_method.swdMethod.upload.protocol=0
+GenWB.menu.upload_method.swdMethod.upload.options=-g
+GenWB.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenWB.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenWB.menu.upload_method.serialMethod.upload.protocol=1
+GenWB.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWB.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenWB.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenWB.menu.upload_method.dfuMethod.upload.protocol=2
+GenWB.menu.upload_method.dfuMethod.upload.options=-g
+GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Electronic Speed Controller boards
 
 ESC_board.name=Electronic speed controllers
@@ -3519,14 +3592,14 @@ Midatronics.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.x
 # MKR_SHARKY board
 Midatronics.menu.pnum.MKR_SHARKY=MKR Sharky
 Midatronics.menu.pnum.MKR_SHARKY.node=NODE_WB55CE
-Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_size=524288
-Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_data_size=196604
+Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_size=262144
+Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_data_size=196608
 Midatronics.menu.pnum.MKR_SHARKY.build.mcu=cortex-m4
 Midatronics.menu.pnum.MKR_SHARKY.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
 Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
 Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
-Midatronics.menu.pnum.MKR_SHARKY.build.variant=STM32WBxx/MKR_SHARKY
+Midatronics.menu.pnum.MKR_SHARKY.build.variant=STM32WBxx/WB55C(C-E-G)U
 Midatronics.menu.pnum.MKR_SHARKY.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # Upload menu
@@ -3660,6 +3733,12 @@ GenL5.menu.xserial.none=Enabled (no generic 'Serial')
 GenL5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL5.menu.xserial.disabled=Disabled (no Serial support)
 GenL5.menu.xserial.disabled.build.xSerial=
+
+GenWB.menu.xserial.generic=Enabled (generic 'Serial')
+GenWB.menu.xserial.none=Enabled (no generic 'Serial')
+GenWB.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenWB.menu.xserial.disabled=Disabled (no Serial support)
+GenWB.menu.xserial.disabled.build.xSerial=
 
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
@@ -3880,6 +3959,19 @@ GenL5.menu.xusb.HS=High Speed
 GenL5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenL5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenWB.menu.usb.none=None
+GenWB.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenWB.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenWB.menu.usb.CDC=CDC (no generic 'Serial')
+GenWB.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenWB.menu.usb.HID=HID (keyboard and mouse)
+GenWB.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenWB.menu.xusb.FS=Low/Full Speed
+GenWB.menu.xusb.HS=High Speed
+GenWB.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenWB.menu.xusb.HSFS=High Speed in Full Speed mode
+GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -4238,6 +4330,25 @@ GenL5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL5.menu.opt.ogstd=Debug (-g)
 GenL5.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenWB.menu.opt.osstd=Smallest (-Os default)
+GenWB.menu.opt.osstd.build.flags.optimize=-Os
+GenWB.menu.opt.oslto=Smallest (-Os) with LTO
+GenWB.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenWB.menu.opt.o1std=Fast (-O1)
+GenWB.menu.opt.o1std.build.flags.optimize=-O1
+GenWB.menu.opt.o1lto=Fast (-O1) with LTO
+GenWB.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenWB.menu.opt.o2std=Faster (-O2)
+GenWB.menu.opt.o2std.build.flags.optimize=-O2
+GenWB.menu.opt.o2lto=Faster (-O2) with LTO
+GenWB.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenWB.menu.opt.o3std=Fastest (-O3)
+GenWB.menu.opt.o3std.build.flags.optimize=-O3
+GenWB.menu.opt.o3lto=Fastest (-O3) with LTO
+GenWB.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenWB.menu.opt.ogstd=Debug (-g)
+GenWB.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -4516,6 +4627,16 @@ GenL5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL5.menu.rtlib.full=Newlib Standard
 GenL5.menu.rtlib.full.build.flags.ldspecs=
+
+GenWB.menu.rtlib.nano=Newlib Nano (default)
+GenWB.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenWB.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenWB.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenWB.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenWB.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenWB.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenWB.menu.rtlib.full=Newlib Standard
+GenWB.menu.rtlib.full.build.flags.ldspecs=
 
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf

@@ -62,6 +62,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
  - [Generic STM32L5 boards](#generic-stm32l5-boards)
+ - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [3D printer boards](#3d-printer-boards)
  - [LoRa boards](#lora-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
@@ -110,7 +111,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L452RE | [Nucleo L452RE](http://www.st.com/en/evaluation-tools/nucleo-l452re.html) | *1.5.0* |  |
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
-| :green_heart:  | STM32WB55RG<br>STM32WB55CG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | No BLE support |
+| :green_heart:  | STM32WB55RG<br>STM32WB55CG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
 
 ### [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
@@ -308,6 +309,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | **2.0.0** |  |
 | :yellow_heart:  | STM32L562ZE-Q | Generic Board | **2.0.0** |  |
 
+### Generic STM32WB boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32WB55CC<br>STM32WB55CE<br>STM32WB55CG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32WB55RC<br>STM32WB55RE<br>STM32WB55RG | Generic Board | **2.0.0** |  |
+
 ### 3D printer boards
 
 | Status | Device(s) | Name | Release | Notes |
@@ -359,7 +367,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32WB55CG | [SharkyMKR](https://midatronics.com/shop/development-boards/mkr-sharky-i/) | *1.7.0* |  |
+| :green_heart:  | STM32WB55CE | [SharkyMKR](https://midatronics.com/shop/development-boards/mkr-sharky-i/) | *1.7.0* |  |
 
 ## Next release
 
