@@ -53,6 +53,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [STM32MP1 series coprocessor boards](#stm32mp1-series-coprocessor-boards)
  - [Generic STM32F0 boards](#generic-stm32f0-boards)
  - [Generic STM32F1 boards](#generic-stm32f1-boards)
+ - [Generic STM32F2 boards](#generic-stm32f2-boards)
  - [Generic STM32F3 boards](#generic-stm32f3-boards)
  - [Generic STM32F4 boards](#generic-stm32f4-boards)
  - [Generic STM32G0 boards](#generic-stm32g0-boards)
@@ -182,6 +183,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F103CB | Maple Mini | *1.2.0* | [More info](https://www.leaflabs.com/maple)<br>USB CDC support since *1.5.0*<br>Maple bootloaders support since *1.6.0* |
 | :green_heart:  | STM32F103ZE | [vcc-gnd.com](https://stm32-base.org/boards/STM32F103ZET6-VCC-GND-XLarge) | *1.9.0* | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) |
 | :green_heart:  | STM32F103ZE | vcc-gnd.com Mini | *1.9.0* | [More info](http://www.vcc-gnd.com/rtd/html/STM32/quickref.html#stm32f1) |
+
+### Generic STM32F2 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32F207ZC<br>STM32F207ZE<br>STM32F207ZF<br>STM32F207G | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32F217ZE<br>STM32F217G | Generic Board | **2.0.0** |  |
 
 ### Generic STM32F3 boards
 

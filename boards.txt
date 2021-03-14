@@ -30,7 +30,8 @@ Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.mcu=cortex-m3
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.board=NUCLEO_F207ZG
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.series=STM32F2xx
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.product_line=STM32F207xx
-Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/NUCLEO_F207ZG
+Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_F429ZI board
@@ -1442,6 +1443,81 @@ GenF1.menu.upload_method.dfuoMethod.upload.usbID=1EAF:0003
 GenF1.menu.upload_method.dfuoMethod.upload.altID=1
 GenF1.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenF1.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
+
+################################################################################
+# Generic F2
+GenF2.name=Generic STM32F2 series
+
+GenF2.build.core=arduino
+GenF2.build.board=GenF2
+GenF2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF2.build.mcu=cortex-m3
+GenF2.build.series=STM32F2xx
+GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# Generic F207ZCTx
+GenF2.menu.pnum.GENERIC_F207ZCTX=Generic F207ZCTx
+GenF2.menu.pnum.GENERIC_F207ZCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F207ZCTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ZCTX.build.board=GENERIC_F207ZCTX
+GenF2.menu.pnum.GENERIC_F207ZCTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ZCTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F207ZETx
+GenF2.menu.pnum.GENERIC_F207ZETX=Generic F207ZETx
+GenF2.menu.pnum.GENERIC_F207ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F207ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ZETX.build.board=GENERIC_F207ZETX
+GenF2.menu.pnum.GENERIC_F207ZETX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ZETX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F207ZFTx
+GenF2.menu.pnum.GENERIC_F207ZFTX=Generic F207ZFTx
+GenF2.menu.pnum.GENERIC_F207ZFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F207ZFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ZFTX.build.board=GENERIC_F207ZFTX
+GenF2.menu.pnum.GENERIC_F207ZFTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ZFTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F207ZGTx
+GenF2.menu.pnum.GENERIC_F207ZGTX=Generic F207ZGTx
+GenF2.menu.pnum.GENERIC_F207ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F207ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ZGTX.build.board=GENERIC_F207ZGTX
+GenF2.menu.pnum.GENERIC_F207ZGTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ZGTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F217ZETx
+GenF2.menu.pnum.GENERIC_F217ZETX=Generic F217ZETx
+GenF2.menu.pnum.GENERIC_F217ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F217ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217ZETX.build.board=GENERIC_F217ZETX
+GenF2.menu.pnum.GENERIC_F217ZETX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217ZETX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F217ZGTx
+GenF2.menu.pnum.GENERIC_F217ZGTX=Generic F217ZGTx
+GenF2.menu.pnum.GENERIC_F217ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F217ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217ZGTX.build.board=GENERIC_F217ZGTX
+GenF2.menu.pnum.GENERIC_F217ZGTX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217ZGTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Upload menu
+GenF2.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF2.menu.upload_method.swdMethod.upload.protocol=0
+GenF2.menu.upload_method.swdMethod.upload.options=-g
+GenF2.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenF2.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF2.menu.upload_method.serialMethod.upload.protocol=1
+GenF2.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF2.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF2.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF2.menu.upload_method.dfuMethod.upload.protocol=2
+GenF2.menu.upload_method.dfuMethod.upload.options=-g
+GenF2.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Generic F3
@@ -3466,6 +3542,12 @@ GenF1.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF1.menu.xserial.disabled=Disabled (no Serial support)
 GenF1.menu.xserial.disabled.build.xSerial=
 
+GenF2.menu.xserial.generic=Enabled (generic 'Serial')
+GenF2.menu.xserial.none=Enabled (no generic 'Serial')
+GenF2.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF2.menu.xserial.disabled=Disabled (no Serial support)
+GenF2.menu.xserial.disabled.build.xSerial=
+
 GenF3.menu.xserial.generic=Enabled (generic 'Serial')
 GenF3.menu.xserial.none=Enabled (no generic 'Serial')
 GenF3.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -3630,6 +3712,19 @@ GenF1.menu.xusb.HS=High Speed
 GenF1.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF1.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF1.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenF2.menu.usb.none=None
+GenF2.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF2.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF2.menu.usb.CDC=CDC (no generic 'Serial')
+GenF2.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF2.menu.usb.HID=HID (keyboard and mouse)
+GenF2.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF2.menu.xusb.FS=Low/Full Speed
+GenF2.menu.xusb.HS=High Speed
+GenF2.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF2.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF2.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenF3.menu.usb.none=None
 GenF3.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -3891,6 +3986,24 @@ GenF1.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF1.menu.opt.ogstd=Debug (-g)
 GenF1.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+GenF2.menu.opt.osstd=Smallest (-Os default)
+GenF2.menu.opt.oslto=Smallest (-Os) with LTO
+GenF2.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF2.menu.opt.o1std=Fast (-O1)
+GenF2.menu.opt.o1std.build.flags.optimize=-O1
+GenF2.menu.opt.o1lto=Fast (-O1) with LTO
+GenF2.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF2.menu.opt.o2std=Faster (-O2)
+GenF2.menu.opt.o2std.build.flags.optimize=-O2
+GenF2.menu.opt.o2lto=Faster (-O2) with LTO
+GenF2.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF2.menu.opt.o3std=Fastest (-O3)
+GenF2.menu.opt.o3std.build.flags.optimize=-O3
+GenF2.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF2.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF2.menu.opt.ogstd=Debug (-g)
+GenF2.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenF3.menu.opt.osstd=Smallest (-Os default)
 GenF3.menu.opt.osstd.build.flags.optimize=-Os
@@ -4210,6 +4323,16 @@ GenF1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF1.menu.rtlib.full=Newlib Standard
 GenF1.menu.rtlib.full.build.flags.ldspecs=
+
+GenF2.menu.rtlib.nano=Newlib Nano (default)
+GenF2.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF2.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF2.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF2.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF2.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF2.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF2.menu.rtlib.full=Newlib Standard
+GenF2.menu.rtlib.full.build.flags.ldspecs=
 
 GenF3.menu.rtlib.nano=Newlib Nano (default)
 GenF3.menu.rtlib.nanofp=Newlib Nano + Float Printf
