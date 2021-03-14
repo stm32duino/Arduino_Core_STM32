@@ -61,6 +61,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
+ - [Generic STM32L5 boards](#generic-stm32l5-boards)
  - [3D printer boards](#3d-printer-boards)
  - [LoRa boards](#lora-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
@@ -82,6 +83,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L496ZG-P | [Nucleo L496ZG-P](http://www.st.com/en/evaluation-tools/nucleo-l496zg-p.html) | *1.3.0* |  |
 | :green_heart:  | STM32L4R5ZI | [Nucleo L4R5ZI](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi.html) | *1.4.0* |  |
 | :green_heart:  | STM32L4R5ZI-P | [Nucleo L4R5ZI-P](http://www.st.com/en/evaluation-tools/nucleo-l4r5zi-p.html) | *1.4.0* |  |
+| :yellow_heart: | STM32L552ZE-Q | [Nucleo L552ZE-Q](https://www.st.com/en/evaluation-tools/nucleo-l552ze-q.html) | **2.0.0** |  |
 | :green_heart:  | STM32H743ZI | [Nucleo H743ZI(2)](https://www.st.com/en/evaluation-tools/nucleo-h743zi.html) | *1.5.0* | Nucleo H743ZI2 since 1.6.0 |
 
 ### [Nucleo 64](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
@@ -298,6 +300,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart:  | STM32L4S7VI | Generic Board | **2.0.0** |  |
 | :yellow_heart:  | STM32L4S7ZITx | Generic Board | **2.0.0** |  |
 | :yellow_heart:  | STM32L4S9ZIJx | Generic Board | **2.0.0** |  |
+
+### Generic STM32L5 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32L552ZC-Q<br>STM32L552ZE-Q | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L562ZE-Q | Generic Board | **2.0.0** |  |
 
 ### 3D printer boards
 

@@ -167,6 +167,19 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.product_line=STM32L4R5xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.variant=STM32L4xx/L4R5ZITxP
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_L552ZE-Q board
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q=Nucleo L552ZE-Q
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.node=NODE_L552ZE
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_size=524288
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.board=NUCLEO_L552ZE_Q
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.series=STM32L5xx
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
@@ -2980,6 +2993,58 @@ GenL4.menu.upload_method.dfuMethod.upload.options=-g
 GenL4.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic L5
+GenL5.name=Generic STM32L5 series
+
+GenL5.build.core=arduino
+GenL5.build.board=GenL5
+GenL5.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenL5.build.mcu=cortex-m33
+GenL5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenL5.build.series=STM32L5xx
+GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
+# Generic L552ZCTxQ
+GenL5.menu.pnum.GENERIC_L552ZCTXQ=Generic L552ZCTxQ
+GenL5.menu.pnum.GENERIC_L552ZCTXQ.upload.maximum_size=262144
+GenL5.menu.pnum.GENERIC_L552ZCTXQ.upload.maximum_data_size=196608
+GenL5.menu.pnum.GENERIC_L552ZCTXQ.build.board=GENERIC_L552ZCTXQ
+GenL5.menu.pnum.GENERIC_L552ZCTXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552ZCTXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
+
+# Generic L552ZETxQ
+GenL5.menu.pnum.GENERIC_L552ZETXQ=Generic L552ZETxQ
+GenL5.menu.pnum.GENERIC_L552ZETXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552ZETXQ.upload.maximum_data_size=196608
+GenL5.menu.pnum.GENERIC_L552ZETXQ.build.board=GENERIC_L552ZETXQ
+GenL5.menu.pnum.GENERIC_L552ZETXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552ZETXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
+
+# Generic L562ZETxQ
+GenL5.menu.pnum.GENERIC_L562ZETXQ=Generic L562ZETxQ
+GenL5.menu.pnum.GENERIC_L562ZETXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562ZETXQ.upload.maximum_data_size=196608
+GenL5.menu.pnum.GENERIC_L562ZETXQ.build.board=GENERIC_L562ZETXQ
+GenL5.menu.pnum.GENERIC_L562ZETXQ.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562ZETXQ.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
+
+# Upload menu
+GenL5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenL5.menu.upload_method.swdMethod.upload.protocol=0
+GenL5.menu.upload_method.swdMethod.upload.options=-g
+GenL5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenL5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenL5.menu.upload_method.serialMethod.upload.protocol=1
+GenL5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenL5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenL5.menu.upload_method.dfuMethod.upload.protocol=2
+GenL5.menu.upload_method.dfuMethod.upload.options=-g
+GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+#################################################################################
 # Electronic Speed Controller boards
 
 ESC_board.name=Electronic speed controllers
@@ -3590,6 +3655,12 @@ GenL4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL4.menu.xserial.disabled=Disabled (no Serial support)
 GenL4.menu.xserial.disabled.build.xSerial=
 
+GenL5.menu.xserial.generic=Enabled (generic 'Serial')
+GenL5.menu.xserial.none=Enabled (no generic 'Serial')
+GenL5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenL5.menu.xserial.disabled=Disabled (no Serial support)
+GenL5.menu.xserial.disabled.build.xSerial=
+
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -3796,6 +3867,19 @@ GenL4.menu.xusb.HS=High Speed
 GenL4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenL4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenL5.menu.usb.none=None
+GenL5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenL5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenL5.menu.usb.CDC=CDC (no generic 'Serial')
+GenL5.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenL5.menu.usb.HID=HID (keyboard and mouse)
+GenL5.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenL5.menu.xusb.FS=Low/Full Speed
+GenL5.menu.xusb.HS=High Speed
+GenL5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenL5.menu.xusb.HSFS=High Speed in Full Speed mode
+GenL5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -4135,6 +4219,25 @@ GenL4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL4.menu.opt.ogstd=Debug (-g)
 GenL4.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenL5.menu.opt.osstd=Smallest (-Os default)
+GenL5.menu.opt.osstd.build.flags.optimize=-Os
+GenL5.menu.opt.oslto=Smallest (-Os) with LTO
+GenL5.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenL5.menu.opt.o1std=Fast (-O1)
+GenL5.menu.opt.o1std.build.flags.optimize=-O1
+GenL5.menu.opt.o1lto=Fast (-O1) with LTO
+GenL5.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenL5.menu.opt.o2std=Faster (-O2)
+GenL5.menu.opt.o2std.build.flags.optimize=-O2
+GenL5.menu.opt.o2lto=Faster (-O2) with LTO
+GenL5.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenL5.menu.opt.o3std=Fastest (-O3)
+GenL5.menu.opt.o3std.build.flags.optimize=-O3
+GenL5.menu.opt.o3lto=Fastest (-O3) with LTO
+GenL5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenL5.menu.opt.ogstd=Debug (-g)
+GenL5.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -4403,6 +4506,16 @@ GenL4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL4.menu.rtlib.full=Newlib Standard
 GenL4.menu.rtlib.full.build.flags.ldspecs=
+
+GenL5.menu.rtlib.nano=Newlib Nano (default)
+GenL5.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenL5.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenL5.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenL5.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenL5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenL5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenL5.menu.rtlib.full=Newlib Standard
+GenL5.menu.rtlib.full.build.flags.ldspecs=
 
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
