@@ -389,12 +389,6 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
     return;
   }
   if (do_init == 1) {
-
-    if (HAL_DAC_DeInit(&DacHandle) != HAL_OK) {
-      /* DeInitialization Error */
-      return;
-    }
-
     /*##-1- Configure the DAC peripheral #######################################*/
     g_current_pin = pin;
     if (HAL_DAC_Init(&DacHandle) != HAL_OK) {
