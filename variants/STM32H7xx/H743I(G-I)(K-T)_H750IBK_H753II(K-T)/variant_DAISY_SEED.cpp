@@ -1,8 +1,17 @@
+/*
+ *******************************************************************************
+ * Copyright (c) 2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
+#if defined(ARDUINO_DAISY_SEED)
 #include "pins_arduino.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // Pin number
 const PinName digitalPin[] = {
@@ -65,10 +74,6 @@ const uint32_t analogInputPin[] = {
   25, // A10
   28  // A11
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
@@ -176,3 +181,4 @@ WEAK void SystemClock_Config(void)
 #ifdef __cplusplus
 }
 #endif
+#endif /* ARDUINO_DAISY_SEED */
