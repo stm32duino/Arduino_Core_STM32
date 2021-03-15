@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2021, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,12 +10,66 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G031K4TX) || defined(ARDUINO_GENERIC_G031K4UX) ||\
-    defined(ARDUINO_GENERIC_G031K6TX) || defined(ARDUINO_GENERIC_G031K6UX) ||\
-    defined(ARDUINO_GENERIC_G031K8TX) || defined(ARDUINO_GENERIC_G031K8UX) ||\
-    defined(ARDUINO_GENERIC_G041K6TX) || defined(ARDUINO_GENERIC_G041K6UX) ||\
-    defined(ARDUINO_GENERIC_G041K8TX) || defined(ARDUINO_GENERIC_G041K8UX)
+#if defined(ARDUINO_NUCLEO_G031K8)
 #include "pins_arduino.h"
+
+// Pin number
+const PinName digitalPin[] = {
+  PB_7,
+  PB_6,
+  PA_15,
+  PB_1,
+  PA_10,
+  PA_9,
+  PB_0,
+  PB_2,
+  PB_8,
+  PA_8,
+  PB_9,
+  PB_5,
+  PB_4,
+  PB_3,
+  PA_0,
+  PA_1,
+  PA_4,
+  PA_5,
+  PA_12,
+  PA_11,
+  PA_6,
+  PA_7,
+  PA_9_R,
+  PA_10_R,
+  PC_6,
+  PA_2,
+  PA_3,
+  PA_13,
+  PA_14,
+  PC_14,
+  PC_15,
+  PF_2
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  14, // A0
+  15, // A1
+  16, // A2
+  17, // A3
+  18, // A4
+  19, // A5
+  20, // A6
+  21, // A7
+  0,  // A8
+  3,  // A9
+  6,  // A10
+  7   // A11
+};
+
+// ----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
   * @brief  System Clock Configuration
@@ -40,10 +94,10 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV1;
-  RCC_OscInitStruct.PLL.PLLN = 8;
+  RCC_OscInitStruct.PLL.PLLN = 16;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = RCC_PLLQ_DIV2;
-  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV2;
+  RCC_OscInitStruct.PLL.PLLR = RCC_PLLR_DIV4;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
@@ -59,4 +113,7 @@ WEAK void SystemClock_Config(void)
   }
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#ifdef __cplusplus
+}
+#endif
+#endif /* ARDUINO_NUCLEO_G031K8 */

@@ -508,6 +508,19 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.variant=STM32F3xx/NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_G031K8 board
+Nucleo_32.menu.pnum.NUCLEO_G031K8=Nucleo G031K8
+Nucleo_32.menu.pnum.NUCLEO_G031K8.node=NOD_G031K8
+Nucleo_32.menu.pnum.NUCLEO_G031K8.upload.maximum_size=65536
+Nucleo_32.menu.pnum.NUCLEO_G031K8.upload.maximum_data_size=8192
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.mcu=cortex-m0plus
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.board=NUCLEO_G031K8
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.series=STM32G0xx
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.product_line=STM32G031xx
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # NUCLEO_G431KB board
 Nucleo_32.menu.pnum.NUCLEO_G431KB=Nucleo G431KB
 Nucleo_32.menu.pnum.NUCLEO_G431KB.node="NODE_G431KB,NOD_G431KB"
@@ -1732,6 +1745,54 @@ GenG0.menu.pnum.GENERIC_G031J6MX.build.board=GENERIC_G031J6MX
 GenG0.menu.pnum.GENERIC_G031J6MX.build.product_line=STM32G031xx
 GenG0.menu.pnum.GENERIC_G031J6MX.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 
+# Generic G031K4Tx
+GenG0.menu.pnum.GENERIC_G031K4TX=Generic G031K4Tx
+GenG0.menu.pnum.GENERIC_G031K4TX.upload.maximum_size=16384
+GenG0.menu.pnum.GENERIC_G031K4TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K4TX.build.board=GENERIC_G031K4TX
+GenG0.menu.pnum.GENERIC_G031K4TX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K4TX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G031K6Tx
+GenG0.menu.pnum.GENERIC_G031K6TX=Generic G031K6Tx
+GenG0.menu.pnum.GENERIC_G031K6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G031K6TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K6TX.build.board=GENERIC_G031K6TX
+GenG0.menu.pnum.GENERIC_G031K6TX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K6TX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G031K8Tx
+GenG0.menu.pnum.GENERIC_G031K8TX=Generic G031K8Tx
+GenG0.menu.pnum.GENERIC_G031K8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G031K8TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K8TX.build.board=GENERIC_G031K8TX
+GenG0.menu.pnum.GENERIC_G031K8TX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K8TX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G031K4Ux
+GenG0.menu.pnum.GENERIC_G031K4UX=Generic G031K4Ux
+GenG0.menu.pnum.GENERIC_G031K4UX.upload.maximum_size=16384
+GenG0.menu.pnum.GENERIC_G031K4UX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K4UX.build.board=GENERIC_G031K4UX
+GenG0.menu.pnum.GENERIC_G031K4UX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K4UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G031K6Ux
+GenG0.menu.pnum.GENERIC_G031K6UX=Generic G031K6Ux
+GenG0.menu.pnum.GENERIC_G031K6UX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G031K6UX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K6UX.build.board=GENERIC_G031K6UX
+GenG0.menu.pnum.GENERIC_G031K6UX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K6UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G031K8Ux
+GenG0.menu.pnum.GENERIC_G031K8UX=Generic G031K8Ux
+GenG0.menu.pnum.GENERIC_G031K8UX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G031K8UX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031K8UX.build.board=GENERIC_G031K8UX
+GenG0.menu.pnum.GENERIC_G031K8UX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031K8UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
 # Generic G041J6Mx
 GenG0.menu.pnum.GENERIC_G041J6MX=Generic G041J6Mx
 GenG0.menu.pnum.GENERIC_G041J6MX.upload.maximum_size=32768
@@ -1739,6 +1800,38 @@ GenG0.menu.pnum.GENERIC_G041J6MX.upload.maximum_data_size=8192
 GenG0.menu.pnum.GENERIC_G041J6MX.build.board=GENERIC_G041J6MX
 GenG0.menu.pnum.GENERIC_G041J6MX.build.product_line=STM32G041xx
 GenG0.menu.pnum.GENERIC_G041J6MX.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
+
+# Generic G041K6Tx
+GenG0.menu.pnum.GENERIC_G041K6TX=Generic G041K6Tx
+GenG0.menu.pnum.GENERIC_G041K6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G041K6TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G041K6TX.build.board=GENERIC_G041K6TX
+GenG0.menu.pnum.GENERIC_G041K6TX.build.product_line=STM32G041xx
+GenG0.menu.pnum.GENERIC_G041K6TX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G041K8Tx
+GenG0.menu.pnum.GENERIC_G041K8TX=Generic G041K8Tx
+GenG0.menu.pnum.GENERIC_G041K8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G041K8TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G041K8TX.build.board=GENERIC_G041K8TX
+GenG0.menu.pnum.GENERIC_G041K8TX.build.product_line=STM32G041xx
+GenG0.menu.pnum.GENERIC_G041K8TX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G041K6Ux
+GenG0.menu.pnum.GENERIC_G041K6UX=Generic G041K6Ux
+GenG0.menu.pnum.GENERIC_G041K6UX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G041K6UX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G041K6UX.build.board=GENERIC_G041K6UX
+GenG0.menu.pnum.GENERIC_G041K6UX.build.product_line=STM32G041xx
+GenG0.menu.pnum.GENERIC_G041K6UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
+
+# Generic G041K8Ux
+GenG0.menu.pnum.GENERIC_G041K8UX=Generic G041K8Ux
+GenG0.menu.pnum.GENERIC_G041K8UX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G041K8UX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G041K8UX.build.board=GENERIC_G041K8UX
+GenG0.menu.pnum.GENERIC_G041K8UX.build.product_line=STM32G041xx
+GenG0.menu.pnum.GENERIC_G041K8UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
 
 # Generic G071R6Tx
 GenG0.menu.pnum.GENERIC_G071R6TX=Generic G071R6Tx
