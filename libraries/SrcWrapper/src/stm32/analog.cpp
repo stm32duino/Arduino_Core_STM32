@@ -404,6 +404,9 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 
     dacChannelConf.DAC_Trigger = DAC_TRIGGER_NONE;
     dacChannelConf.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+#if defined(DAC_OUTPUTSWITCH_ENABLE)
+    dacChannelConf.DAC_OutputSwitch = DAC_OUTPUTSWITCH_ENABLE;
+#endif
     /*##-2- Configure DAC channel1 #############################################*/
     if (HAL_DAC_ConfigChannel(&DacHandle, &dacChannelConf, dacChannel) != HAL_OK) {
       /* Channel configuration Error */
