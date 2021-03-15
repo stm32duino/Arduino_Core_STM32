@@ -1,83 +1,65 @@
 /*
  *******************************************************************************
- * Copyright (c) 2018, STMicroelectronics
+ * Copyright (c) 2021, STMicroelectronics
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
  */
-
-#ifndef _VARIANT_ARDUINO_STM32_
-#define _VARIANT_ARDUINO_STM32_
-
-#ifdef __cplusplus
-extern "C" {
-#endif // __cplusplus
+#pragma once
 
 /*----------------------------------------------------------------------------
- *        Pins
+ *        STM32 pins number
  *----------------------------------------------------------------------------*/
+#define PA0                     0  // GPS_PPS_PIN
+#define PA8                     1
+#define PA9                     2  // UART_TX
+#define PA10                    3  // UART_RX
+#define PA12                    4  // LED1
+#define PA13                    5
+#define PA14                    6
+#define PA15                    7  // GPS_POWER_ON_PIN
+#define PB2                     8
+#define PB3                     9
+#define PB4                     10 // LED2
+#define PB5                     11
+#define PB8                     12 // I2C_SCL
+#define PB9                     13 // I2C_SDA
+#define PB10                    14 // GPS_UART_TX
+#define PB11                    15 // GPS_UART_RX
+#define PA1                     PIN_A0
+#define PA2                     PIN_A1 // ADC_VBAT
+#define PB12                    PIN_A2
+#define PB14                    19 // LIS3DH_INT1_PIN
+#define PB15                    20 // LIS3DH_INT2_PIN
+#define PB13                    21 // RADIO_RESET
+#define PH1                     22 // RADIO_XTAL_EN
+#define PA7                     23 // RADIO_MOSI
+#define PA6                     24 // RADIO_MISO
+#define PA5                     25 // RADIO_SCLK
+#define PB0                     26 // RADIO_NSS
+#define PA11                    27 // RADIO_DIO_0
+#define PB1                     28 // RADIO_DIO_1
+#define PA3                     29 // RADIO_DIO_2
+#define PH0                     30 // RADIO_DIO_3
+#define PC13                    31 // RADIO_DIO_4
+#define PB6                     32 // RADIO_RF_CRX_RX
+#define PB7                     33 // RADIO_RF_CBT_HF
+#define PA4                     34 // RADIO_RF_CTX_PA
 
-#define PA0  0  // GPS_PPS_PIN
-#define PA8  1
-#define PA9  2  // UART_TX
-#define PA10 3  // UART_RX
-#define PA12 4  // LED1
-#define PA13 5
-#define PA14 6
-#define PA15 7  // GPS_POWER_ON_PIN
-#define PB2  8
-#define PB3  9
-#define PB4  10 // LED2
-#define PB5  11
-#define PB8  12 // I2C_SCL
-#define PB9  13 // I2C_SDA
-#define PB10 14 // GPS_UART_TX
-#define PB11 15 // GPS_UART_RX
-#define PA1  A0
-#define PA2  A1 // ADC_VBAT
-#define PB12 A2
-#define PB14 19 // LIS3DH_INT1_PIN
-#define PB15 20 // LIS3DH_INT2_PIN
-#define PB13 21 // RADIO_RESET
-#define PH1  22 // RADIO_XTAL_EN
-#define PA7  23 // RADIO_MOSI
-#define PA6  24 // RADIO_MISO
-#define PA5  25 // RADIO_SCLK
-#define PB0  26 // RADIO_NSS
-#define PA11 27 // RADIO_DIO_0
-#define PB1  28 // RADIO_DIO_1
-#define PA3  29 // RADIO_DIO_2
-#define PH0  30 // RADIO_DIO_3
-#define PC13 31 // RADIO_DIO_4
-#define PB6  32 // RADIO_RF_CRX_RX
-#define PB7  33 // RADIO_RF_CBT_HF
-#define PA4  34 // RADIO_RF_CTX_PA
+// Alternate pins number
+#define PA2_ALT1                (PA2 | ALT1)
+#define PA3_ALT1                (PA3 | ALT1)
+#define PA6_ALT1                (PA6 | ALT1)
+#define PA7_ALT1                (PA7 | ALT1)
+#define PB8_ALT1                (PB8 | ALT1)
+#define PB9_ALT1                (PB9 | ALT1)
 
-// This must be a literal
 #define NUM_DIGITAL_PINS        35
-// This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
 #define NUM_ANALOG_INPUTS       3
 
 // On-board LED pin number
@@ -97,8 +79,12 @@ extern "C" {
 
 // Timer Definitions
 // Use TIM6/TIM7 when possible as servo and tone don't need GPIO output pin
-#define TIMER_TONE              TIM6
-#define TIMER_SERVO             TIM7
+#ifndef TIMER_TONE
+  #define TIMER_TONE            TIM6
+#endif
+#ifndef TIMER_SERVO
+  #define TIMER_SERVO           TIM7
+#endif
 
 // UART Definitions
 #define SERIAL_UART_INSTANCE    1
@@ -140,9 +126,6 @@ extern "C" {
 /* HAL configuration */
 #define HSE_VALUE               12000000U
 
-#ifdef __cplusplus
-} // extern "C"
-#endif
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
@@ -166,5 +149,3 @@ extern "C" {
   #define SERIAL_PORT_MONITOR     Serial
   #define SERIAL_PORT_HARDWARE    Serial
 #endif
-
-#endif /* _VARIANT_ARDUINO_STM32_ */

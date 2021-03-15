@@ -60,6 +60,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32G4 boards](#generic-stm32g4-boards)
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
+ - [Generic STM32L1 boards](#generic-stm32l1-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
  - [Generic STM32L5 boards](#generic-stm32l5-boards)
  - [Generic STM32WB boards](#generic-stm32wb-boards)
@@ -273,6 +274,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32L072RB | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
 | :green_heart: | STM32L072KZ | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
 
+### Generic STM32L1 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32L100C6<br>STM32L100C6-A | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L151C6<br>STM32L151C8<br>STM32L151CB | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L151C6-A<br>STM32L151C8-A<br>STM32L151CB-A | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L152C6<br>STM32L152C8<br>STM32L152CB | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L152C6-A<br>STM32L152C8-A<br>STM32L152CB-A | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L151RE | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L152RE | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32L162RE | Generic Board | **2.0.0** |  |
+
 ### Generic STM32L4 boards
 
 | Status | Device(s) | Name | Release | Notes |
@@ -338,7 +352,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
-| :green_heart:  | STM32L151RB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
+| :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
 | :green_heart:  | STM32L051C8 | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
 
 ### Electronic Speed Controller boards

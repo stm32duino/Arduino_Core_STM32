@@ -411,7 +411,7 @@ Nucleo_64.menu.pnum.NUCLEO_L152RE.build.mcu=cortex-m3
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.board=NUCLEO_L152RE
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.series=STM32L1xx
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.product_line=STM32L152xE
-Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/NUCLEO_L152RE
+Nucleo_64.menu.pnum.NUCLEO_L152RE.build.variant=STM32L1xx/L151RET_L152RET_L162RET
 Nucleo_64.menu.pnum.NUCLEO_L152RE.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # NUCLEO_L433RC_P board
@@ -2538,6 +2538,265 @@ GenL0.menu.upload_method.bmpMethod.upload.protocol=gdb_bmp
 GenL0.menu.upload_method.bmpMethod.upload.tool=bmp_upload
 
 ################################################################################
+# Generic L1
+GenL1.name=Generic STM32L1 series
+
+GenL1.build.core=arduino
+GenL1.build.board=GenL1
+GenL1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenL1.build.mcu=cortex-m3
+GenL1.build.series=STM32L1xx
+GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# Generic L100C6Ux
+GenL1.menu.pnum.GENERIC_L100C6UX=Generic L100C6Ux
+GenL1.menu.pnum.GENERIC_L100C6UX.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L100C6UX.upload.maximum_data_size=4096
+GenL1.menu.pnum.GENERIC_L100C6UX.build.board=GENERIC_L100C6UX
+GenL1.menu.pnum.GENERIC_L100C6UX.build.product_line=STM32L100xB
+GenL1.menu.pnum.GENERIC_L100C6UX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L100C6UxA
+GenL1.menu.pnum.GENERIC_L100C6UXA=Generic L100C6UxA
+GenL1.menu.pnum.GENERIC_L100C6UXA.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L100C6UXA.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L100C6UXA.build.board=GENERIC_L100C6UXA
+GenL1.menu.pnum.GENERIC_L100C6UXA.build.product_line=STM32L100xB
+GenL1.menu.pnum.GENERIC_L100C6UXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C6Tx
+GenL1.menu.pnum.GENERIC_L151C6TX=Generic L151C6Tx
+GenL1.menu.pnum.GENERIC_L151C6TX.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L151C6TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151C6TX.build.board=GENERIC_L151C6TX
+GenL1.menu.pnum.GENERIC_L151C6TX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C6TX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C8Tx
+GenL1.menu.pnum.GENERIC_L151C8TX=Generic L151C8Tx
+GenL1.menu.pnum.GENERIC_L151C8TX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151C8TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151C8TX.build.board=GENERIC_L151C8TX
+GenL1.menu.pnum.GENERIC_L151C8TX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C8TX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151CBTx
+GenL1.menu.pnum.GENERIC_L151CBTX=Generic L151CBTx
+GenL1.menu.pnum.GENERIC_L151CBTX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151CBTX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151CBTX.build.board=GENERIC_L151CBTX
+GenL1.menu.pnum.GENERIC_L151CBTX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151CBTX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C6TxA
+GenL1.menu.pnum.GENERIC_L151C6TXA=Generic L151C6TxA
+GenL1.menu.pnum.GENERIC_L151C6TXA.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L151C6TXA.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151C6TXA.build.board=GENERIC_L151C6TXA
+GenL1.menu.pnum.GENERIC_L151C6TXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C6TXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C8TxA
+GenL1.menu.pnum.GENERIC_L151C8TXA=Generic L151C8TxA
+GenL1.menu.pnum.GENERIC_L151C8TXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151C8TXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151C8TXA.build.board=GENERIC_L151C8TXA
+GenL1.menu.pnum.GENERIC_L151C8TXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C8TXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151CBTxA
+GenL1.menu.pnum.GENERIC_L151CBTXA=Generic L151CBTxA
+GenL1.menu.pnum.GENERIC_L151CBTXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151CBTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151CBTXA.build.board=GENERIC_L151CBTXA
+GenL1.menu.pnum.GENERIC_L151CBTXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151CBTXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C6Ux
+GenL1.menu.pnum.GENERIC_L151C6UX=Generic L151C6Ux
+GenL1.menu.pnum.GENERIC_L151C6UX.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L151C6UX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151C6UX.build.board=GENERIC_L151C6UX
+GenL1.menu.pnum.GENERIC_L151C6UX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C6UX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C8Ux
+GenL1.menu.pnum.GENERIC_L151C8UX=Generic L151C8Ux
+GenL1.menu.pnum.GENERIC_L151C8UX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151C8UX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151C8UX.build.board=GENERIC_L151C8UX
+GenL1.menu.pnum.GENERIC_L151C8UX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C8UX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151CBUx
+GenL1.menu.pnum.GENERIC_L151CBUX=Generic L151CBUx
+GenL1.menu.pnum.GENERIC_L151CBUX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151CBUX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151CBUX.build.board=GENERIC_L151CBUX
+GenL1.menu.pnum.GENERIC_L151CBUX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151CBUX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C6UxA
+GenL1.menu.pnum.GENERIC_L151C6UXA=Generic L151C6UxA
+GenL1.menu.pnum.GENERIC_L151C6UXA.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L151C6UXA.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151C6UXA.build.board=GENERIC_L151C6UXA
+GenL1.menu.pnum.GENERIC_L151C6UXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C6UXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151C8UxA
+GenL1.menu.pnum.GENERIC_L151C8UXA=Generic L151C8UxA
+GenL1.menu.pnum.GENERIC_L151C8UXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151C8UXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151C8UXA.build.board=GENERIC_L151C8UXA
+GenL1.menu.pnum.GENERIC_L151C8UXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151C8UXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151CBUxA
+GenL1.menu.pnum.GENERIC_L151CBUXA=Generic L151CBUxA
+GenL1.menu.pnum.GENERIC_L151CBUXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151CBUXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151CBUXA.build.board=GENERIC_L151CBUXA
+GenL1.menu.pnum.GENERIC_L151CBUXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151CBUXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C6Tx
+GenL1.menu.pnum.GENERIC_L152C6TX=Generic L152C6Tx
+GenL1.menu.pnum.GENERIC_L152C6TX.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L152C6TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152C6TX.build.board=GENERIC_L152C6TX
+GenL1.menu.pnum.GENERIC_L152C6TX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C6TX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C8Tx
+GenL1.menu.pnum.GENERIC_L152C8TX=Generic L152C8Tx
+GenL1.menu.pnum.GENERIC_L152C8TX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152C8TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152C8TX.build.board=GENERIC_L152C8TX
+GenL1.menu.pnum.GENERIC_L152C8TX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C8TX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152CBTx
+GenL1.menu.pnum.GENERIC_L152CBTX=Generic L152CBTx
+GenL1.menu.pnum.GENERIC_L152CBTX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152CBTX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152CBTX.build.board=GENERIC_L152CBTX
+GenL1.menu.pnum.GENERIC_L152CBTX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152CBTX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C6TxA
+GenL1.menu.pnum.GENERIC_L152C6TXA=Generic L152C6TxA
+GenL1.menu.pnum.GENERIC_L152C6TXA.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L152C6TXA.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152C6TXA.build.board=GENERIC_L152C6TXA
+GenL1.menu.pnum.GENERIC_L152C6TXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C6TXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C8TxA
+GenL1.menu.pnum.GENERIC_L152C8TXA=Generic L152C8TxA
+GenL1.menu.pnum.GENERIC_L152C8TXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152C8TXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152C8TXA.build.board=GENERIC_L152C8TXA
+GenL1.menu.pnum.GENERIC_L152C8TXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C8TXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152CBTxA
+GenL1.menu.pnum.GENERIC_L152CBTXA=Generic L152CBTxA
+GenL1.menu.pnum.GENERIC_L152CBTXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152CBTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152CBTXA.build.board=GENERIC_L152CBTXA
+GenL1.menu.pnum.GENERIC_L152CBTXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152CBTXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C6Ux
+GenL1.menu.pnum.GENERIC_L152C6UX=Generic L152C6Ux
+GenL1.menu.pnum.GENERIC_L152C6UX.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L152C6UX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152C6UX.build.board=GENERIC_L152C6UX
+GenL1.menu.pnum.GENERIC_L152C6UX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C6UX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C8Ux
+GenL1.menu.pnum.GENERIC_L152C8UX=Generic L152C8Ux
+GenL1.menu.pnum.GENERIC_L152C8UX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152C8UX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152C8UX.build.board=GENERIC_L152C8UX
+GenL1.menu.pnum.GENERIC_L152C8UX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C8UX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152CBUx
+GenL1.menu.pnum.GENERIC_L152CBUX=Generic L152CBUx
+GenL1.menu.pnum.GENERIC_L152CBUX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152CBUX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152CBUX.build.board=GENERIC_L152CBUX
+GenL1.menu.pnum.GENERIC_L152CBUX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152CBUX.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C6UxA
+GenL1.menu.pnum.GENERIC_L152C6UXA=Generic L152C6UxA
+GenL1.menu.pnum.GENERIC_L152C6UXA.upload.maximum_size=32768
+GenL1.menu.pnum.GENERIC_L152C6UXA.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152C6UXA.build.board=GENERIC_L152C6UXA
+GenL1.menu.pnum.GENERIC_L152C6UXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C6UXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152C8UxA
+GenL1.menu.pnum.GENERIC_L152C8UXA=Generic L152C8UxA
+GenL1.menu.pnum.GENERIC_L152C8UXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152C8UXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152C8UXA.build.board=GENERIC_L152C8UXA
+GenL1.menu.pnum.GENERIC_L152C8UXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152C8UXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L152CBUxA
+GenL1.menu.pnum.GENERIC_L152CBUXA=Generic L152CBUxA
+GenL1.menu.pnum.GENERIC_L152CBUXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152CBUXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152CBUXA.build.board=GENERIC_L152CBUXA
+GenL1.menu.pnum.GENERIC_L152CBUXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152CBUXA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+
+# Generic L151RETx
+GenL1.menu.pnum.GENERIC_L151RETX=Generic L151RETx
+GenL1.menu.pnum.GENERIC_L151RETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L151RETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151RETX.build.board=GENERIC_L151RETX
+GenL1.menu.pnum.GENERIC_L151RETX.build.product_line=STM32L151xE
+GenL1.menu.pnum.GENERIC_L151RETX.build.variant=STM32L1xx/L151RET_L152RET_L162RET
+
+# Generic L152RETx
+GenL1.menu.pnum.GENERIC_L152RETX=Generic L152RETx
+GenL1.menu.pnum.GENERIC_L152RETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L152RETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L152RETX.build.board=GENERIC_L152RETX
+GenL1.menu.pnum.GENERIC_L152RETX.build.product_line=STM32L152xE
+GenL1.menu.pnum.GENERIC_L152RETX.build.variant=STM32L1xx/L151RET_L152RET_L162RET
+
+# Generic L162RETx
+GenL1.menu.pnum.GENERIC_L162RETX=Generic L162RETx
+GenL1.menu.pnum.GENERIC_L162RETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L162RETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L162RETX.build.board=GENERIC_L162RETX
+GenL1.menu.pnum.GENERIC_L162RETX.build.product_line=STM32L162xE
+GenL1.menu.pnum.GENERIC_L162RETX.build.variant=STM32L1xx/L151RET_L152RET_L162RET
+
+# Upload menu
+GenL1.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenL1.menu.upload_method.swdMethod.upload.protocol=0
+GenL1.menu.upload_method.swdMethod.upload.options=-g
+GenL1.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenL1.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenL1.menu.upload_method.serialMethod.upload.protocol=1
+GenL1.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenL1.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenL1.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenL1.menu.upload_method.dfuMethod.upload.protocol=2
+GenL1.menu.upload_method.dfuMethod.upload.options=-g
+GenL1.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic L4
 GenL4.name=Generic STM32L4 series
 
@@ -3166,24 +3425,26 @@ LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
-LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
 LoRa.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
 LoRa.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
 LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
-LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
-LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
 LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
 LoRa.menu.pnum.RAK811_TRACKERA.build.mcu=cortex-m3
 LoRa.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
 LoRa.menu.pnum.RAK811_TRACKERA.build.series=STM32L1xx
 LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
-LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
 LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
+LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
 
 # RHF76_052 board
@@ -3722,6 +3983,12 @@ GenL0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL0.menu.xserial.disabled=Disabled (no Serial support)
 GenL0.menu.xserial.disabled.build.xSerial=
 
+GenL1.menu.xserial.generic=Enabled (generic 'Serial')
+GenL1.menu.xserial.none=Enabled (no generic 'Serial')
+GenL1.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenL1.menu.xserial.disabled=Disabled (no Serial support)
+GenL1.menu.xserial.disabled.build.xSerial=
+
 GenL4.menu.xserial.generic=Enabled (generic 'Serial')
 GenL4.menu.xserial.none=Enabled (no generic 'Serial')
 GenL4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -3933,6 +4200,14 @@ GenL0.menu.usb.CDC=CDC (no generic 'Serial')
 GenL0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 GenL0.menu.usb.HID=HID (keyboard and mouse)
 GenL0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
+GenL1.menu.usb.none=None
+GenL1.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenL1.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenL1.menu.usb.CDC=CDC (no generic 'Serial')
+GenL1.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenL1.menu.usb.HID=HID (keyboard and mouse)
+GenL1.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 
 GenL4.menu.usb.none=None
 GenL4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -4292,6 +4567,25 @@ GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL0.menu.opt.ogstd=Debug (-g)
 GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenL1.menu.opt.osstd=Smallest (-Os default)
+GenL1.menu.opt.osstd.build.flags.optimize=-Os
+GenL1.menu.opt.oslto=Smallest (-Os) with LTO
+GenL1.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenL1.menu.opt.o1std=Fast (-O1)
+GenL1.menu.opt.o1std.build.flags.optimize=-O1
+GenL1.menu.opt.o1lto=Fast (-O1) with LTO
+GenL1.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenL1.menu.opt.o2std=Faster (-O2)
+GenL1.menu.opt.o2std.build.flags.optimize=-O2
+GenL1.menu.opt.o2lto=Faster (-O2) with LTO
+GenL1.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenL1.menu.opt.o3std=Fastest (-O3)
+GenL1.menu.opt.o3std.build.flags.optimize=-O3
+GenL1.menu.opt.o3lto=Fastest (-O3) with LTO
+GenL1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenL1.menu.opt.ogstd=Debug (-g)
+GenL1.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 GenL4.menu.opt.osstd=Smallest (-Os default)
 GenL4.menu.opt.osstd.build.flags.optimize=-Os
 GenL4.menu.opt.oslto=Smallest (-Os) with LTO
@@ -4607,6 +4901,16 @@ GenL0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL0.menu.rtlib.full=Newlib Standard
 GenL0.menu.rtlib.full.build.flags.ldspecs=
+
+GenL1.menu.rtlib.nano=Newlib Nano (default)
+GenL1.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenL1.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenL1.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenL1.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenL1.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenL1.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenL1.menu.rtlib.full=Newlib Standard
+GenL1.menu.rtlib.full.build.flags.ldspecs=
 
 GenL4.menu.rtlib.nano=Newlib Nano (default)
 GenL4.menu.rtlib.nanofp=Newlib Nano + Float Printf
