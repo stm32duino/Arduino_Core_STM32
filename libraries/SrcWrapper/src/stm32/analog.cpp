@@ -389,12 +389,6 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
     return;
   }
   if (do_init == 1) {
-
-    if (HAL_DAC_DeInit(&DacHandle) != HAL_OK) {
-      /* DeInitialization Error */
-      return;
-    }
-
     /*##-1- Configure the DAC peripheral #######################################*/
     g_current_pin = pin;
     if (HAL_DAC_Init(&DacHandle) != HAL_OK) {
@@ -404,6 +398,9 @@ void dac_write_value(PinName pin, uint32_t value, uint8_t do_init)
 
     dacChannelConf.DAC_Trigger = DAC_TRIGGER_NONE;
     dacChannelConf.DAC_OutputBuffer = DAC_OUTPUTBUFFER_ENABLE;
+#if defined(DAC_OUTPUTSWITCH_ENABLE)
+    dacChannelConf.DAC_OutputSwitch = DAC_OUTPUTSWITCH_ENABLE;
+#endif
     /*##-2- Configure DAC channel1 #############################################*/
     if (HAL_DAC_ConfigChannel(&DacHandle, &dacChannelConf, dacChannel) != HAL_OK) {
       /* Channel configuration Error */
