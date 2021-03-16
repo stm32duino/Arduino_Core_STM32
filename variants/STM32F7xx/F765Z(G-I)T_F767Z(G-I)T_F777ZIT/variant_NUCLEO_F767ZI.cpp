@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020, STMicroelectronics
+ * Copyright (c) 2020-2021, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -9,13 +9,10 @@
  *                        opensource.org/licenses/BSD-3-Clause
  *
  *******************************************************************************
- */
+*/
+#if defined(ARDUINO_NUCLEO_F767ZI)
 
 #include "pins_arduino.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // Pin number
 const PinName digitalPin[] = {
@@ -52,7 +49,7 @@ const PinName digitalPin[] = {
   PD_11, //D30
   PE_2,  //D31
   PA_0,  //D32
-  PB_0,  //D33 - LED_GREEN
+  PB_0,  //D33/A23 - LED_GREEN
   PE_0,  //D34
   PB_11, //D35
   PB_10, //D36
@@ -162,12 +159,9 @@ const uint32_t analogInputPin[] = {
   89, //A19
   97, //A20
   98, //A21
-  99  //A22
+  99, //A22
+  33  //A23
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
@@ -178,14 +172,14 @@ extern "C" {
 /**
   * @brief  System Clock Configuration
   *         The system Clock is configured as follow :
-  *            System Clock source            = PLL (HSE)
+  *            System Clock source            = PLL (HSI)
   *            SYSCLK(Hz)                     = 216000000
   *            HCLK(Hz)                       = 216000000
   *            AHB Prescaler                  = 1
   *            APB1 Prescaler                 = 4
   *            APB2 Prescaler                 = 2
   *            HSE Frequency(Hz)              = 16000000
-  *            PLL_M                          = 4
+  *            PLL_M                          = 8
   *            PLL_N                          = 216
   *            PLL_P                          = 2
   *            PLL_Q                          = 9
@@ -199,29 +193,34 @@ extern "C" {
   */
 WEAK void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct;
-  RCC_ClkInitTypeDef RCC_ClkInitStruct;
-  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+  RCC_OscInitTypeDef RCC_OscInitStruct = {};
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct = {};
 
   /* Configure the main internal regulator output voltage */
   __HAL_RCC_PWR_CLK_ENABLE();
+
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
   /* Initializes the CPU, AHB and APB busses clocks */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
-  RCC_OscInitStruct.HSEState = RCC_HSE_ON;  //RCC_HSE_BYPASS;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+  RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+  RCC_OscInitStruct.HSICalibrationValue = 16;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 4;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLM = 8;
   RCC_OscInitStruct.PLL.PLLN = 216;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 9;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
+
   /* Activate the Over-Drive mode */
   if (HAL_PWREx_EnableOverDrive() != HAL_OK) {
     Error_Handler();
   }
+
   /* Initializes the CPU, AHB and APB busses clocks */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                                 | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
@@ -231,16 +230,18 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_7) != HAL_OK) {
-    _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
 
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_CLK48;
   PeriphClkInitStruct.Clk48ClockSelection = RCC_CLK48SOURCE_PLL;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
-    _Error_Handler(__FILE__, __LINE__);
+    Error_Handler();
   }
 }
 
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* ARDUINO_NUCLEO_F767ZI */

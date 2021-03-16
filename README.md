@@ -56,6 +56,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32F2 boards](#generic-stm32f2-boards)
  - [Generic STM32F3 boards](#generic-stm32f3-boards)
  - [Generic STM32F4 boards](#generic-stm32f4-boards)
+ - [Generic STM32F7 boards](#generic-stm32f7-boards)
  - [Generic STM32G0 boards](#generic-stm32g0-boards)
  - [Generic STM32G4 boards](#generic-stm32g4-boards)
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
@@ -232,6 +233,24 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F423RH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F446RC<br>STM32F446RE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F411CE | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | *1.9.0* |  |
+
+### Generic STM32F7 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32F745ZE<br>STM32F745ZG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F746BE<br>STM32F746BG<br>STM32F746NE<br>STM32F746NG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F746ZE<br>STM32F746ZG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F750N8 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F750Z8 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F756BG<br>STM32F756NG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F756ZG | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F765VG<br>STM32F765VI | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F765ZG<br>STM32F765ZI | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F767VG<br>STM32F767VI | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F767ZG<br>STM32F767ZI | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F777VI | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32F777ZI | Generic Board | **2.0.0** |  |
 
 ### Generic STM32G0 boards
 

@@ -57,7 +57,7 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.board=NUCLEO_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=STM32F7xx/NUCLEO_F7x6ZG
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
@@ -71,7 +71,7 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.board=NUCLEO_F756ZG
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.product_line=STM32F756xx
-Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant=STM32F7xx/NUCLEO_F7x6ZG
+Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.variant_h=variant_NUCLEO_F7x6ZG.h
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
@@ -85,7 +85,7 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/NUCLEO_F767ZI
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # NUCLEO_H743ZI board
@@ -699,7 +699,8 @@ Disco.menu.pnum.DISCO_F746NG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
-Disco.menu.pnum.DISCO_F746NG.build.variant=STM32F7xx/DISCO_F746NG
+Disco.menu.pnum.DISCO_F746NG.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+Disco.menu.pnum.DISCO_F746NG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # DISCO_G0316 board
@@ -1992,6 +1993,283 @@ GenF4.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+
+################################################################################
+# Generic F7
+
+GenF7.name=Generic STM32F7 series
+
+GenF7.build.core=arduino
+GenF7.build.board=GenF7
+GenF7.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF7.build.mcu=cortex-m7
+GenF7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF7.build.series=STM32F7xx
+GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+
+# Generic F745ZETx
+GenF7.menu.pnum.GENERIC_F745ZETX=Generic F745ZETx
+GenF7.menu.pnum.GENERIC_F745ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F745ZETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745ZETX.build.board=GENERIC_F745ZETX
+GenF7.menu.pnum.GENERIC_F745ZETX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745ZETX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F745ZGTx
+GenF7.menu.pnum.GENERIC_F745ZGTX=Generic F745ZGTx
+GenF7.menu.pnum.GENERIC_F745ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F745ZGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745ZGTX.build.board=GENERIC_F745ZGTX
+GenF7.menu.pnum.GENERIC_F745ZGTX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745ZGTX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F746BETx
+GenF7.menu.pnum.GENERIC_F746BETX=Generic F746BETx
+GenF7.menu.pnum.GENERIC_F746BETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746BETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746BETX.build.board=GENERIC_F746BETX
+GenF7.menu.pnum.GENERIC_F746BETX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746BETX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F746BGTx
+GenF7.menu.pnum.GENERIC_F746BGTX=Generic F746BGTx
+GenF7.menu.pnum.GENERIC_F746BGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746BGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746BGTX.build.board=GENERIC_F746BGTX
+GenF7.menu.pnum.GENERIC_F746BGTX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746BGTX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F746NEHx
+GenF7.menu.pnum.GENERIC_F746NEHX=Generic F746NEHx
+GenF7.menu.pnum.GENERIC_F746NEHX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746NEHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746NEHX.build.board=GENERIC_F746NEHX
+GenF7.menu.pnum.GENERIC_F746NEHX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746NEHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F746NGHx
+GenF7.menu.pnum.GENERIC_F746NGHX=Generic F746NGHx
+GenF7.menu.pnum.GENERIC_F746NGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746NGHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746NGHX.build.board=GENERIC_F746NGHX
+GenF7.menu.pnum.GENERIC_F746NGHX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746NGHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F746ZETx
+GenF7.menu.pnum.GENERIC_F746ZETX=Generic F746ZETx
+GenF7.menu.pnum.GENERIC_F746ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746ZETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746ZETX.build.board=GENERIC_F746ZETX
+GenF7.menu.pnum.GENERIC_F746ZETX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746ZETX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F746ZEYx
+GenF7.menu.pnum.GENERIC_F746ZEYX=Generic F746ZEYx
+GenF7.menu.pnum.GENERIC_F746ZEYX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746ZEYX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746ZEYX.build.board=GENERIC_F746ZEYX
+GenF7.menu.pnum.GENERIC_F746ZEYX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746ZEYX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F746ZGTx
+GenF7.menu.pnum.GENERIC_F746ZGTX=Generic F746ZGTx
+GenF7.menu.pnum.GENERIC_F746ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746ZGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746ZGTX.build.board=GENERIC_F746ZGTX
+GenF7.menu.pnum.GENERIC_F746ZGTX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746ZGTX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F746ZGYx
+GenF7.menu.pnum.GENERIC_F746ZGYX=Generic F746ZGYx
+GenF7.menu.pnum.GENERIC_F746ZGYX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746ZGYX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746ZGYX.build.board=GENERIC_F746ZGYX
+GenF7.menu.pnum.GENERIC_F746ZGYX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746ZGYX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F750N8Hx
+GenF7.menu.pnum.GENERIC_F750N8HX=Generic F750N8Hx
+GenF7.menu.pnum.GENERIC_F750N8HX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F750N8HX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F750N8HX.build.board=GENERIC_F750N8HX
+GenF7.menu.pnum.GENERIC_F750N8HX.build.product_line=STM32F750xx
+GenF7.menu.pnum.GENERIC_F750N8HX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F750Z8Tx
+GenF7.menu.pnum.GENERIC_F750Z8TX=Generic F750Z8Tx
+GenF7.menu.pnum.GENERIC_F750Z8TX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F750Z8TX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F750Z8TX.build.board=GENERIC_F750Z8TX
+GenF7.menu.pnum.GENERIC_F750Z8TX.build.product_line=STM32F750xx
+GenF7.menu.pnum.GENERIC_F750Z8TX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F756BGTx
+GenF7.menu.pnum.GENERIC_F756BGTX=Generic F756BGTx
+GenF7.menu.pnum.GENERIC_F756BGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756BGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756BGTX.build.board=GENERIC_F756BGTX
+GenF7.menu.pnum.GENERIC_F756BGTX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756BGTX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F756NGHx
+GenF7.menu.pnum.GENERIC_F756NGHX=Generic F756NGHx
+GenF7.menu.pnum.GENERIC_F756NGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756NGHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756NGHX.build.board=GENERIC_F756NGHX
+GenF7.menu.pnum.GENERIC_F756NGHX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756NGHX.build.variant=STM32F7xx/F746B(E-G)T_F746N(E-G)H_F750N8H_F756BGT_F756NGH
+
+# Generic F756ZGTx
+GenF7.menu.pnum.GENERIC_F756ZGTX=Generic F756ZGTx
+GenF7.menu.pnum.GENERIC_F756ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756ZGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756ZGTX.build.board=GENERIC_F756ZGTX
+GenF7.menu.pnum.GENERIC_F756ZGTX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756ZGTX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F756ZGYx
+GenF7.menu.pnum.GENERIC_F756ZGYX=Generic F756ZGYx
+GenF7.menu.pnum.GENERIC_F756ZGYX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756ZGYX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756ZGYX.build.board=GENERIC_F756ZGYX
+GenF7.menu.pnum.GENERIC_F756ZGYX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756ZGYX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+
+# Generic F765VGHx
+GenF7.menu.pnum.GENERIC_F765VGHX=Generic F765VGHx
+GenF7.menu.pnum.GENERIC_F765VGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F765VGHX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765VGHX.build.board=GENERIC_F765VGHX
+GenF7.menu.pnum.GENERIC_F765VGHX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765VGHX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F765VGTx
+GenF7.menu.pnum.GENERIC_F765VGTX=Generic F765VGTx
+GenF7.menu.pnum.GENERIC_F765VGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F765VGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765VGTX.build.board=GENERIC_F765VGTX
+GenF7.menu.pnum.GENERIC_F765VGTX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765VGTX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F765VIHx
+GenF7.menu.pnum.GENERIC_F765VIHX=Generic F765VIHx
+GenF7.menu.pnum.GENERIC_F765VIHX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F765VIHX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765VIHX.build.board=GENERIC_F765VIHX
+GenF7.menu.pnum.GENERIC_F765VIHX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765VIHX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F765VITx
+GenF7.menu.pnum.GENERIC_F765VITX=Generic F765VITx
+GenF7.menu.pnum.GENERIC_F765VITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F765VITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765VITX.build.board=GENERIC_F765VITX
+GenF7.menu.pnum.GENERIC_F765VITX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765VITX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F765ZGTx
+GenF7.menu.pnum.GENERIC_F765ZGTX=Generic F765ZGTx
+GenF7.menu.pnum.GENERIC_F765ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F765ZGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.board=GENERIC_F765ZGTX
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F765ZITx
+GenF7.menu.pnum.GENERIC_F765ZITX=Generic F765ZITx
+GenF7.menu.pnum.GENERIC_F765ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F765ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765ZITX.build.board=GENERIC_F765ZITX
+GenF7.menu.pnum.GENERIC_F765ZITX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F767VGHx
+GenF7.menu.pnum.GENERIC_F767VGHX=Generic F767VGHx
+GenF7.menu.pnum.GENERIC_F767VGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F767VGHX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767VGHX.build.board=GENERIC_F767VGHX
+GenF7.menu.pnum.GENERIC_F767VGHX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767VGHX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F767VGTx
+GenF7.menu.pnum.GENERIC_F767VGTX=Generic F767VGTx
+GenF7.menu.pnum.GENERIC_F767VGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F767VGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767VGTX.build.board=GENERIC_F767VGTX
+GenF7.menu.pnum.GENERIC_F767VGTX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767VGTX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F767VIHx
+GenF7.menu.pnum.GENERIC_F767VIHX=Generic F767VIHx
+GenF7.menu.pnum.GENERIC_F767VIHX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F767VIHX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767VIHX.build.board=GENERIC_F767VIHX
+GenF7.menu.pnum.GENERIC_F767VIHX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767VIHX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F767VITx
+GenF7.menu.pnum.GENERIC_F767VITX=Generic F767VITx
+GenF7.menu.pnum.GENERIC_F767VITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F767VITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767VITX.build.board=GENERIC_F767VITX
+GenF7.menu.pnum.GENERIC_F767VITX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767VITX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F767ZGTx
+GenF7.menu.pnum.GENERIC_F767ZGTX=Generic F767ZGTx
+GenF7.menu.pnum.GENERIC_F767ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F767ZGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.board=GENERIC_F767ZGTX
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F767ZITx
+GenF7.menu.pnum.GENERIC_F767ZITX=Generic F767ZITx
+GenF7.menu.pnum.GENERIC_F767ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F767ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767ZITX.build.board=GENERIC_F767ZITX
+GenF7.menu.pnum.GENERIC_F767ZITX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F777VIHx
+GenF7.menu.pnum.GENERIC_F777VIHX=Generic F777VIHx
+GenF7.menu.pnum.GENERIC_F777VIHX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F777VIHX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F777VIHX.build.board=GENERIC_F777VIHX
+GenF7.menu.pnum.GENERIC_F777VIHX.build.product_line=STM32F777xx
+GenF7.menu.pnum.GENERIC_F777VIHX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F777VITx
+GenF7.menu.pnum.GENERIC_F777VITX=Generic F777VITx
+GenF7.menu.pnum.GENERIC_F777VITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F777VITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F777VITX.build.board=GENERIC_F777VITX
+GenF7.menu.pnum.GENERIC_F777VITX.build.product_line=STM32F777xx
+GenF7.menu.pnum.GENERIC_F777VITX.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+
+# Generic F777ZITx
+GenF7.menu.pnum.GENERIC_F777ZITX=Generic F777ZITx
+GenF7.menu.pnum.GENERIC_F777ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F777ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F777ZITX.build.board=GENERIC_F777ZITX
+GenF7.menu.pnum.GENERIC_F777ZITX.build.product_line=STM32F777xx
+GenF7.menu.pnum.GENERIC_F777ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Upload menu
+GenF7.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenF7.menu.upload_method.swdMethod.upload.protocol=0
+GenF7.menu.upload_method.swdMethod.upload.options=-g
+GenF7.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenF7.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenF7.menu.upload_method.serialMethod.upload.protocol=1
+GenF7.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenF7.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenF7.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenF7.menu.upload_method.dfuMethod.upload.protocol=2
+GenF7.menu.upload_method.dfuMethod.upload.options=-g
+GenF7.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
 # Generic G0
@@ -3775,7 +4053,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.REMRAM_V1.build.board=REMRAM_V1
 3dprinter.menu.pnum.REMRAM_V1.build.series=STM32F7xx
 3dprinter.menu.pnum.REMRAM_V1.build.product_line=STM32F765xx
-3dprinter.menu.pnum.REMRAM_V1.build.variant=STM32F7xx/REMRAM_V1
+3dprinter.menu.pnum.REMRAM_V1.build.variant=STM32F7xx/F765V(G-I)(H-T)_F767V(G-I)(H-T)_F777VI(H-T)
+3dprinter.menu.pnum.REMRAM_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.REMRAM_V1.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
 # RUMBA32 board
@@ -4200,6 +4479,12 @@ GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
+GenF7.menu.xserial.generic=Enabled (generic 'Serial')
+GenF7.menu.xserial.none=Enabled (no generic 'Serial')
+GenF7.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenF7.menu.xserial.disabled=Disabled (no Serial support)
+GenF7.menu.xserial.disabled.build.xSerial=
+
 GenG0.menu.xserial.generic=Enabled (generic 'Serial')
 GenG0.menu.xserial.none=Enabled (no generic 'Serial')
 GenG0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -4409,6 +4694,19 @@ GenF4.menu.xusb.HS=High Speed
 GenF4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenF4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenF4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenF7.menu.usb.none=None
+GenF7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenF7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenF7.menu.usb.CDC=CDC (no generic 'Serial')
+GenF7.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenF7.menu.usb.HID=HID (keyboard and mouse)
+GenF7.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenF7.menu.xusb.FS=Low/Full Speed
+GenF7.menu.xusb.HS=High Speed
+GenF7.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenF7.menu.xusb.HSFS=High Speed in Full Speed mode
+GenF7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenG4.menu.usb.none=None
 GenG4.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -4734,6 +5032,25 @@ GenF4.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF4.menu.opt.ogstd=Debug (-g)
 GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
+
+GenF7.menu.opt.osstd=Smallest (-Os default)
+GenF7.menu.opt.osstd.build.flags.optimize=-Os
+GenF7.menu.opt.oslto=Smallest (-Os) with LTO
+GenF7.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenF7.menu.opt.o1std=Fast (-O1)
+GenF7.menu.opt.o1std.build.flags.optimize=-O1
+GenF7.menu.opt.o1lto=Fast (-O1) with LTO
+GenF7.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenF7.menu.opt.o2std=Faster (-O2)
+GenF7.menu.opt.o2std.build.flags.optimize=-O2
+GenF7.menu.opt.o2lto=Faster (-O2) with LTO
+GenF7.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenF7.menu.opt.o3std=Fastest (-O3)
+GenF7.menu.opt.o3std.build.flags.optimize=-O3
+GenF7.menu.opt.o3lto=Fastest (-O3) with LTO
+GenF7.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenF7.menu.opt.ogstd=Debug (-g)
+GenF7.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenG0.menu.opt.osstd=Smallest (-Os default)
 GenG0.menu.opt.oslto=Smallest (-Os) with LTO
@@ -5102,6 +5419,16 @@ GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF4.menu.rtlib.full=Newlib Standard
 GenF4.menu.rtlib.full.build.flags.ldspecs=
+
+GenF7.menu.rtlib.nano=Newlib Nano (default)
+GenF7.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenF7.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenF7.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenF7.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenF7.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenF7.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenF7.menu.rtlib.full=Newlib Standard
+GenF7.menu.rtlib.full.build.flags.ldspecs=
 
 GenG0.menu.rtlib.nano=Newlib Nano (default)
 GenG0.menu.rtlib.nanofp=Newlib Nano + Float Printf
