@@ -220,12 +220,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-/* Extra HAL modules */
-#ifdef ARDUINO_PRNTR_F407_V1
-#define HAL_DAC_MODULE_ENABLED
-#endif
-#define HAL_SD_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

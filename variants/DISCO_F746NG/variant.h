@@ -82,11 +82,6 @@ extern "C" {
 // SD detect signal
 #define SD_DETECT_PIN           PC13
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_ETH_MODULE_ENABLED
-#define HAL_SD_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

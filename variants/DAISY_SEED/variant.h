@@ -81,9 +81,6 @@ extern "C" {
 // HSE is 16MHz on Daisy Seed.
 #define HSE_VALUE 16000000
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

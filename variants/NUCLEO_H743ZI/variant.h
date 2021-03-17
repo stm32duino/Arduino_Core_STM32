@@ -211,10 +211,6 @@ extern "C" {
 #define HSE_VALUE 8000000
 #endif
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_ETH_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

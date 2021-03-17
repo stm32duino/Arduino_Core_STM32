@@ -180,9 +180,6 @@ extern "C" {
 /* HAL configuration */
 #define HSE_VALUE               25000000U
 
-/* Extra HAL modules */
-#define HAL_SD_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

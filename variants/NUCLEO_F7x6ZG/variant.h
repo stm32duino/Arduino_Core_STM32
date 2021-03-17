@@ -171,10 +171,6 @@ extern "C" {
 // Value of the External oscillator in Hz
 #define HSE_VALUE               8000000U
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_ETH_MODULE_ENABLED
-
 // Last Flash sector used for EEPROM emulation, address/sector depends on single/dual bank configuration.
 // By default 1MB single bank
 #define FLASH_BASE_ADDRESS      0x080C0000

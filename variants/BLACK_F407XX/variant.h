@@ -297,10 +297,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PA10
 #define PIN_SERIAL_TX           PA9
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_SD_MODULE_ENABLED
-
 // This indicates that there is an external and fixed 1.5k pullup
 // on the D+ line. This define is only needed on boards that have
 // internal pullups *and* an external pullup. Note that it would have

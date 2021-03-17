@@ -89,7 +89,7 @@ extern "C" {
 #define PA12 36  // USB_DP
 
 #define PA13 37  // SWDIO
-#define PA14 38  // SWCLK 
+#define PA14 38  // SWCLK
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        39
@@ -132,10 +132,6 @@ extern "C" {
 
 /* HAL configuration */
 #define HSE_VALUE               12000000U
-
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_SD_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"

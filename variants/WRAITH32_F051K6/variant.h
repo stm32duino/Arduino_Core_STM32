@@ -45,7 +45,7 @@ extern "C" {
 #define PA1  15 // A1
 #define PA3  16 // A2
 #define PA4  17 // A3
-#define PA5  18 // A4 
+#define PA5  18 // A4
 #define PA6  19 // A5
 #define PA7  20 // A6
 #define PA2  21 // RC Input
@@ -80,9 +80,6 @@ extern "C" {
 // Serial Pin Firmata
 #define PIN_SERIAL_RX           PB7  // 4
 #define PIN_SERIAL_TX           PB6  // 5
-
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
 
 #ifdef __cplusplus
 } // extern "C"

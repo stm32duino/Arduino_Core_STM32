@@ -95,10 +95,7 @@ extern "C" {
 #define PIN_SERIAL_RX           PB7
 #define PIN_SERIAL_TX           PB6
 
-#ifdef ARDUINO_THUNDERPACK_L072
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#else
+#ifndef ARDUINO_THUNDERPACK_L072
 #define HSE_VALUE               24000000U
 #endif
 

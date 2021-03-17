@@ -120,8 +120,6 @@ extern "C" {
 // for EEPROM emulation to the last 512k pages.
 #define FLASH_PAGE_NUMBER       127
 
-#define HAL_IPCC_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

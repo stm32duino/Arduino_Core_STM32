@@ -130,8 +130,6 @@ extern "C" {
 #define PIN_SERIAL_RX           PA3
 #define PIN_SERIAL_TX           PA2
 
-/* Extra HAL definitions */
-#define HAL_SD_MODULE_ENABLED
 #define HSE_VALUE               16000000U
 
 #ifdef __cplusplus

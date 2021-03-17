@@ -140,12 +140,6 @@ extern "C" {
 // Define here Serial instance number to map on Serial generic name
 #define SERIAL_UART_INSTANCE    1
 
-// Extra HAL modules
-#if defined(STM32F103xE) || defined(STM32F103xG)
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_SD_MODULE_ENABLED
-#endif
-
 // Default pin used for 'Serial' instance (ex: ST-Link)
 // Mandatory for Firmata
 #define PIN_SERIAL_RX           PA10

@@ -197,11 +197,7 @@ extern "C" {
 #define PIN_SERIAL3_RX          PB11
 #define PIN_SERIAL3_TX          PB10
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-
 #ifdef ARDUINO_VCCGND_F103ZET6_MINI
-#define HAL_SD_MODULE_ENABLED
 // SD card slot Definitions
 // SD detect signal can be defined if required
 #define SD_DETECT_PIN           PF10

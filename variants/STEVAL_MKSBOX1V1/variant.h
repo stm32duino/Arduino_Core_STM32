@@ -166,10 +166,6 @@ extern "C" {
 /* HAL configuration */
 #define HSE_VALUE               16000000U
 
-/* Extra HAL modules */
-#define HAL_DAC_MODULE_ENABLED
-#define HAL_SD_MODULE_ENABLED
-
 #ifdef __cplusplus
 } // extern "C"
 #endif

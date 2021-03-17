@@ -27,6 +27,28 @@
   #undef HAL_ADC_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_DAC_MODULE_DISABLED)
+  #if defined(DAC_BASE) || defined(DAC1_BASE)
+    #define HAL_DAC_MODULE_ENABLED
+  #endif
+#else
+  #undef HAL_DAC_MODULE_ENABLED
+#endif
+
+#if !defined(HAL_ETH_MODULE_DISABLED)
+  #define HAL_ETH_MODULE_ENABLED
+#else
+  #undef HAL_ETH_MODULE_ENABLED
+#endif
+
+/* Note: interrupt API does not used HAL EXTI module */
+/* anyway API is cleaned with HAL_EXTI_MODULE_DISABLED */
+#if !defined(HAL_EXTI_MODULE_DISABLED)
+  /*#define HAL_EXTI_MODULE_ENABLED*/
+#else
+  #undef HAL_EXTI_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_I2C_MODULE_DISABLED)
   #define HAL_I2C_MODULE_ENABLED
 #else
@@ -39,6 +61,22 @@
   #undef HAL_I2S_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_OSPI_MODULE_DISABLED)
+  #if defined(OCTOSPI1_BASE)
+    #define HAL_OSPI_MODULE_ENABLED
+  #endif
+#else
+  #undef HAL_OSPI_MODULE_ENABLED
+#endif
+
+#if !defined(HAL_QSPI_MODULE_DISABLED)
+  #if defined(QSPI_BASE)
+    #define HAL_QSPI_MODULE_ENABLED
+  #endif
+#else
+  #undef HAL_QSPI_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_RTC_MODULE_DISABLED)
   #define HAL_RTC_MODULE_ENABLED
 #else
@@ -46,11 +84,20 @@
 #endif
 
 #if !defined(HAL_SAI_MODULE_DISABLED)
-  #define HAL_SAI_MODULE_ENABLED
+  #if defined(SAI1_BASE)
+    #define HAL_SAI_MODULE_ENABLED
+  #endif
 #else
   #undef HAL_SAI_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_SD_MODULE_DISABLED)
+  #if defined(SDIO_BASE) || defined(SDMMC1_BASE)
+    #define HAL_SD_MODULE_ENABLED
+  #endif
+#else
+  #undef HAL_SD_MODULE_ENABLED
+#endif
 
 #if !defined(HAL_SPI_MODULE_DISABLED)
   #define HAL_SPI_MODULE_ENABLED
@@ -62,47 +109,6 @@
   #define HAL_TIM_MODULE_ENABLED
 #else
   #undef HAL_TIM_MODULE_ENABLED
-#endif
-
-/*
- * Not defined by default
- */
-#if !defined(HAL_DAC_MODULE_DISABLED)
-  /*#define HAL_DAC_MODULE_ENABLED*/
-#else
-  #undef HAL_DAC_MODULE_ENABLED
-#endif
-
-/* Note: interrupt API does not used HAL EXTI module */
-/* anyway API is cleaned with HAL_EXTI_MODULE_DISABLED */
-#if !defined(HAL_EXTI_MODULE_DISABLED)
-  /*#define HAL_EXTI_MODULE_ENABLED*/
-#else
-  #undef HAL_EXTI_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_ETH_MODULE_DISABLED)
-  /*#define HAL_ETH_MODULE_ENABLED*/
-#else
-  #undef HAL_ETH_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_OSPI_MODULE_DISABLED)
-  /*#define HAL_OSPI_MODULE_ENABLED*/
-#else
-  #undef HAL_OSPI_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_QSPI_MODULE_DISABLED)
-  /*#define HAL_QSPI_MODULE_ENABLED*/
-#else
-  #undef HAL_QSPI_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_SD_MODULE_DISABLED)
-  /*#define HAL_SD_MODULE_ENABLED*/
-#else
-  #undef HAL_SD_MODULE_ENABLED
 #endif
 
 /*
