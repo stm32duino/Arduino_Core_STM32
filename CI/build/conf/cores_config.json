@@ -195,7 +195,7 @@
             "DISCO_F072RB",
             "DISCO_F407VG",
             "DISCO_F746NG",
-            "DISCO_L072CZ_LRWAN1",
+            "B_L072Z_LRWAN1",
             "B_L475E_IOT01A"
           ],
           "options": "usb=HID"
@@ -206,7 +206,7 @@
           "applicable": true,
           "boards": [
             "DISCO_F746NG",
-            "DISCO_L072CZ_LRWAN1",
+            "B_L072Z_LRWAN1",
             "B_L475E_IOT01A",
             "NUCLEO_F091RC",
             "NUCLEO_F103RB",
@@ -272,7 +272,7 @@
         {
           "pattern": "IKS01A3_S2LP_P2P_Demo|X_NUCLEO_(S2868A1|S2868A2|S2915A1)_HelloWorld",
           "applicable": false,
-          "boards": [ "DISCO_L072CZ_LRWAN1", "STM32MP157C_DK2" ]
+          "boards": [ "B_L072Z_LRWAN1", "STM32MP157C_DK2" ]
         },
         {
           "pattern": "MicroNMEA[\\\\/]",

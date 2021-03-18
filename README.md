@@ -304,8 +304,22 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart: | STM32L072RB | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
-| :green_heart: | STM32L072KZ | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
+| :yellow_heart: | STM32L031K4T<br>STM32L031K6T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L041K6T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L051C6<br>STM32L051C8 | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L052R6T<br>STM32L052R8T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L053R6T<br>STM32L053R8T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L063R8T | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L072CBY<br>STM32L072CZE<br>STM32L072CZY | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L072KBT<br>STM32L072KZT | Generic Board | **2.0.0** |  |
+| :green_heart: | STM32L072KZT | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
+| :green_heart: | STM32L072RBT | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
+| :yellow_heart: | STM32L072RBT<br>STM32L072RZT | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L073CZY | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L073RBT<br>STM32L073RZT | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L082CZY | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L082KBT<br>STM32L082KZT | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32L083RBT<br>STM32L083RZT | Generic Board | **2.0.0** |  |
 
 ### Generic STM32L1 boards
 

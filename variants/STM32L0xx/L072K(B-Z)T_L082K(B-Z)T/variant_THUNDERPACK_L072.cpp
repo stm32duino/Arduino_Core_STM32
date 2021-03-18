@@ -10,28 +10,64 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_L072CBYX) || defined(ARDUINO_GENERIC_L072CZEX) ||\
-    defined(ARDUINO_GENERIC_L072CZYX) || defined(ARDUINO_GENERIC_L073CZYX) ||\
-    defined(ARDUINO_GENERIC_L082CZYX)
+#if defined(ARDUINO_THUNDERPACK_L072)
+
 #include "pins_arduino.h"
 
-/**
-  * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
-  */
+// Pin number
+const PinName digitalPin[] = {
+  PA_0,
+  PA_1,
+  PA_2,
+  PA_3,
+  PA_4,
+  PA_5,
+  PA_6,
+  PA_7,
+  PA_8,
+  PA_9,
+  PA_10,
+  PB_6,
+  PB_7,
+  PB_8,
+  PB_4,
+  NC,
+  NC,
+  PA_11,
+  PA_12,
+  PA_13,
+  PA_14,
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  4, // A0
+  5, // A1
+  6, // A2
+  7  // A3
+};
+
+// ----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/*
+ * @brief  System Clock Configuration
+ * @param  None
+ * @retval None
+ */
 WEAK void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {};
+
   RCC_PeriphCLKInitTypeDef PeriphClkInit = {};
 
-  /** Configure the main internal regulator output voltage
-  */
+  /* Configure the main internal regulator output voltage */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
-  /** Initializes the RCC Oscillators according to the specified parameters
-  * in the RCC_OscInitTypeDef structure.
-  */
+  /* Initializes the CPU, AHB and APB busses clocks */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI48;
   RCC_OscInitStruct.HSIState = RCC_HSI_ON;
   RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
@@ -43,8 +79,7 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
-  /** Initializes the CPU, AHB and APB buses clocks
-  */
+  /* Initializes the CPU, AHB and APB busses clocks  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
                                 | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -62,4 +97,8 @@ WEAK void SystemClock_Config(void)
   }
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ARDUINO_THUNDERPACK_L072 */
