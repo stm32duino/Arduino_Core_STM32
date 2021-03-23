@@ -1,26 +1,17 @@
 /*
-  Copyright (c) 2011 Arduino.  All right reserved.
-
-  This library is free software; you can redistribute it and/or
-  modify it under the terms of the GNU Lesser General Public
-  License as published by the Free Software Foundation; either
-  version 2.1 of the License, or (at your option) any later version.
-
-  This library is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-  See the GNU Lesser General Public License for more details.
-
-  You should have received a copy of the GNU Lesser General Public
-  License along with this library; if not, write to the Free Software
-  Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
-*/
-
+ *******************************************************************************
+ * Copyright (c) 2017-2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
+#if defined(ARDUINO_NUCLEO_F303K8)
 #include "pins_arduino.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // Pin number
 const PinName digitalPin[] = {
@@ -46,7 +37,9 @@ const PinName digitalPin[] = {
   PA_6,  //D19/A5
   PA_7,  //D20/A6
   PA_2,  //D21/A7 - STLink Tx
-  PA_15  //D22    - STLink Rx
+  PA_15, //D22    - STLink Rx
+  PA_13, //D23    - SWDIO
+  PA_14  //D24    - SWCLK
 };
 
 // Analog (Ax) pin number array
@@ -62,10 +55,6 @@ const uint32_t analogInputPin[] = {
   3,  //A8
   6   //A9
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
@@ -92,7 +81,7 @@ WEAK void SystemClock_Config(void)
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
   RCC_OscInitStruct.PLL.PLLMUL = RCC_PLL_MUL16;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
-    while (1);
+    Error_Handler();
   }
 
   /* Initializes the CPU, AHB and APB busses clocks */
@@ -104,17 +93,19 @@ WEAK void SystemClock_Config(void)
   RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_2) != HAL_OK) {
-    while (1);
+    Error_Handler();
   }
 
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_ADC12;
   PeriphClkInit.Adc12ClockSelection = RCC_ADC12PLLCLK_DIV1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
-    while (1);
+    Error_Handler();
   }
 }
 
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* ARDUINO_NUCLEO_F303K8 */

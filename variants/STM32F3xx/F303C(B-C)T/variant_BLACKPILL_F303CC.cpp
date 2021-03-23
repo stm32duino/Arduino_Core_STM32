@@ -1,37 +1,17 @@
 /*
  *******************************************************************************
- * Copyright (c) 2018, STMicroelectronics
+ * Copyright (c) 2018-2021, STMicroelectronics
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
  */
+#if defined(ARDUINO_BLACKPILL_F303CC)
 #include "pins_arduino.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // Pin number
 const PinName digitalPin[] = {
@@ -48,10 +28,10 @@ const PinName digitalPin[] = {
   PA_10, //D10
   PA_9,  //D11
   PA_8,  //D12
-  PB_15, //D13
-  PB_14, //D14
-  PB_13, //D15
-  PB_12, //D16
+  PB_15, //D13/A14
+  PB_14, //D14/A13
+  PB_13, //D15/A12
+  PB_12, //D16/A11
   PC_13, //D17 - LED
   PC_14, //D18
   PC_15, //D19
@@ -67,9 +47,11 @@ const PinName digitalPin[] = {
   PB_1,  //D29/A9
   PB_10, //D30
   PB_11, //D31
-  PB_2,  //D32 - BOOT1
+  PB_2,  //D32/A10 - BOOT1
   PA_13, //D33 - SWDI0
   PA_14, //D34 - SWCLK
+  PF_0,  //D35 - OSC IN
+  PF_1   //D36 - OSC OUT
 };
 
 // Analog (Ax) pin number array
@@ -83,12 +65,14 @@ const uint32_t analogInputPin[] = {
   26, // A6
   27, // A7
   28, // A8
-  29  // A9
+  29, // A9
+  32, // A10
+  16, // A11
+  15, // A12
+  14, // A13
+  13  // A14
 };
 
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
@@ -134,3 +118,5 @@ WEAK void SystemClock_Config(void)
 #ifdef __cplusplus
 }
 #endif
+
+#endif /* ARDUINO_BLACKPILL_F303CC */
