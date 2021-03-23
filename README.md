@@ -128,6 +128,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F407VG | [STM32F407G-DISC1](http://www.st.com/en/evaluation-tools/stm32f4discovery.html) | *0.1.0* |  |
 | :green_heart:  | STM32F746NG | [STM32F746G-DISCOVERY](http://www.st.com/en/evaluation-tools/32f746gdiscovery.html) | *0.1.0* |  |
 | :green_heart:  | STM32G031J6 | [STM32G0316-DISCO](https://www.st.com/en/evaluation-tools/stm32g0316-disco.html) | *1.9.0* |  |
+| :yellow_heart: | STM32G431CB | [B-G431B-ESC1](https://www.st.com/en/evaluation-tools/b-g431b-esc1.html) | **2.0.0** |  |
 | :green_heart:  | STM32L072CZ | [B-L072Z-LRWAN1](http://www.st.com/en/evaluation-tools/b-l072z-lrwan1.html) | *1.1.0* |  |
 | :green_heart:  | STM32L475VG | [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) | *1.0.1* |  |
 | :green_heart:  | STM32F413ZH | [32F413HDISCOVERY](https://www.st.com/en/evaluation-tools/32f413hdiscovery.html) | *1.9.0* |  |
@@ -210,6 +211,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32G431C6U<br>STM32G431C8U<br>STM32G431CBU | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G441CBU | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32G431K6<br>STM32G431K8<br>STM32G431KB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32G441KB | Generic Board | **2.0.0** |  |
 | :yellow_heart: | STM32G431R6<br>STM32G431R8<br>STM32G431RB | Generic Board | **2.0.0** |  |

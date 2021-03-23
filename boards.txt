@@ -678,6 +678,20 @@ Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/DISCO_G0316
 Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.DISCO_G0316.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
+# DISCO_B_G431B_ESC1 board
+Disco.menu.pnum.DISCO_B_G431B_ESC1=B-G431B-ESC1
+Disco.menu.pnum.DISCO_B_G431B_ESC1.node="NODE_G431CB,NOD_G431CB,DIS_G431CB"
+Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_size=131072
+Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_data_size=32768
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.board=DISCO_B_G431B_ESC1
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.series=STM32G4xx
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.product_line=STM32G431xx
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.DISCO_B_G431B_ESC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # B-L475E-IOT01A board
 Disco.menu.pnum.B_L475E_IOT01A=B-L475E-IOT01A
 Disco.menu.pnum.B_L475E_IOT01A.node=DIS_L4IOT
@@ -1679,6 +1693,30 @@ GenG4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenG4.build.series=STM32G4xx
 GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# Generic G431C6Ux
+GenG4.menu.pnum.GENERIC_G431C6UX=Generic G431C6Ux
+GenG4.menu.pnum.GENERIC_G431C6UX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431C6UX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431C6UX.build.board=GENERIC_G431C6UX
+GenG4.menu.pnum.GENERIC_G431C6UX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431C6UX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+
+# Generic G431C8Ux
+GenG4.menu.pnum.GENERIC_G431C8UX=Generic G431C8Ux
+GenG4.menu.pnum.GENERIC_G431C8UX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431C8UX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431C8UX.build.board=GENERIC_G431C8UX
+GenG4.menu.pnum.GENERIC_G431C8UX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431C8UX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+
+# Generic G431CBUx
+GenG4.menu.pnum.GENERIC_G431CBUX=Generic G431CBUx
+GenG4.menu.pnum.GENERIC_G431CBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431CBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431CBUX.build.board=GENERIC_G431CBUX
+GenG4.menu.pnum.GENERIC_G431CBUX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431CBUX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+
 # Generic G431K6Tx
 GenG4.menu.pnum.GENERIC_G431K6TX=Generic G431K6Tx
 GenG4.menu.pnum.GENERIC_G431K6TX.upload.maximum_size=32768
@@ -1726,6 +1764,14 @@ GenG4.menu.pnum.GENERIC_G431KBUX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G431KBUX.build.board=GENERIC_G431KBUX
 GenG4.menu.pnum.GENERIC_G431KBUX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G441CBUx
+GenG4.menu.pnum.GENERIC_G441CBUX=Generic G441CBUx
+GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441CBUX.build.board=GENERIC_G441CBUX
+GenG4.menu.pnum.GENERIC_G441CBUX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441CBUX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
 
 # Generic G441KBTx
 GenG4.menu.pnum.GENERIC_G441KBTX=Generic G441KBTx

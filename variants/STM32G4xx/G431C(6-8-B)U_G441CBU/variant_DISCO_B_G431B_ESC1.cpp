@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2019, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,14 +10,89 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G431C6UX) || defined(ARDUINO_GENERIC_G431C8UX) ||\
-    defined(ARDUINO_GENERIC_G431CBUX) || defined(ARDUINO_GENERIC_G441CBUX)
+#if defined(ARDUINO_DISCO_B_G431B_ESC1)
+
 #include "pins_arduino.h"
+
+// This board doesn't breakout pins (no arduino r3 connections)
+// Pin number
+const PinName digitalPin[] = {
+  // LEFT
+  PC_13,
+  PC_14,
+  PC_15,
+  PF_0,
+  PF_1,
+  PG_10,
+  PA_0,
+  PA_1,
+  PA_2,
+  PA_3,
+  PA_4,
+  // BOTTOM
+  PA_5,
+  PA_6,
+  PA_7,
+  PC_4,
+  PB_0,
+  PB_1,
+  PB_2,
+  PB_10,
+  PB_11,
+  // RIGHT
+  PB_12,
+  PB_13,
+  PB_14,
+  PB_15,
+  PC_6,
+  PA_8,
+  PA_9,
+  PA_10,
+  PA_11,
+  PA_12,
+  PA_13,
+  // TOP
+  PA_14,
+  PA_15,
+  PC_10,
+  PC_11,
+  PB_3,
+  PB_4,
+  PB_5,
+  PB_6,
+  PB_7,
+  PB_8,
+  PB_9
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  6,  //A0
+  7,  //A1
+  8,  //A2
+  9,  //A3
+  10, //A4
+  11, //A5
+  12, //A6
+  13, //A7
+  14, //A8
+  15, //A9
+  16, //A10
+  17, //A11
+  19, //A12
+  20, //A13
+  22, //A14
+  23  //A15
+};
+
+// ----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
   * @brief  System Clock Configuration
-  * @param  None
-  * @retval None
   */
 WEAK void SystemClock_Config(void)
 {
@@ -66,4 +141,8 @@ WEAK void SystemClock_Config(void)
 #endif
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ARDUINO_DISCO_B_G431B_ESC1 */
