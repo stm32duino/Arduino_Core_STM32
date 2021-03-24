@@ -47,10 +47,12 @@ extern void initVariant() __attribute__((weak));
 extern void setup(void) ;
 extern void loop(void) ;
 
-static void __empty() {
+static void __empty()
+{
   // Empty
 }
-void yield(void) __attribute__ ((weak, alias("__empty")));
+  
+void yield(void) __attribute__((weak, alias("__empty")));
 
 #ifdef __cplusplus
 } // extern "C"
