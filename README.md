@@ -206,6 +206,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F303CC | [RobotDyn Black Pill](https://stm32-base.org/boards/STM32F303CCT6-RobotDyn-Black-Pill) | *1.6.1* | [More info](https://robotdyn.com/catalog/development-boards/stm-boards-and-shields.html) |
 | :yellow_heart:  | STM32F303K6<br>STM32F303K8 | Generic Board | **2.0.0** |  |
 | :yellow_heart:  | STM32F303RD<br>STM32F303RE | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32F303RB<br>STM32F303RC | Generic Board | **2.0.0** |  |
+| :yellow_heart:  | STM32F303RC | [OLIMEXINO-STM32F3](https://www.olimex.com/Products/Duino/STM32/OLIMEXINO-STM32F3/) | **2.0.0** | |
 | :yellow_heart:  | STM32F303VBT<br>STM32F303VCT | Generic Board | **2.0.0** |  |
 | :yellow_heart:  | STM32F334K4<br>STM32F334K6<br>STM32F334K8 | Generic Board | **2.0.0** |  |
 

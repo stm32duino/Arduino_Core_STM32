@@ -1565,6 +1565,15 @@ GenF3.menu.pnum.BLACKPILL_F303CC.build.product_line=STM32F303xC
 GenF3.menu.pnum.BLACKPILL_F303CC.build.variant_h=variant_{build.board}.h
 GenF3.menu.pnum.BLACKPILL_F303CC.build.variant=STM32F3xx/F303C(B-C)T
 
+# OLIMEXINO_STM32F3
+GenF3.menu.pnum.OLIMEXINO_STM32F3=OLIMEXINO-STM32F3
+GenF3.menu.pnum.OLIMEXINO_STM32F3.upload.maximum_size=262144
+GenF3.menu.pnum.OLIMEXINO_STM32F3.upload.maximum_data_size=40960
+GenF3.menu.pnum.OLIMEXINO_STM32F3.build.board=OLIMEXINO_STM32F3
+GenF3.menu.pnum.OLIMEXINO_STM32F3.build.product_line=STM32F303xC
+GenF3.menu.pnum.OLIMEXINO_STM32F3.build.variant_h=variant_{build.board}.h
+GenF3.menu.pnum.OLIMEXINO_STM32F3.build.variant=STM32F3xx/F303R(B-C)T
+
 # Generic F302R6Tx
 GenF3.menu.pnum.GENERIC_F302R6TX=Generic F302R6Tx
 GenF3.menu.pnum.GENERIC_F302R6TX.upload.maximum_size=32768
@@ -1612,6 +1621,22 @@ GenF3.menu.pnum.GENERIC_F303K8TX.upload.maximum_data_size=12288
 GenF3.menu.pnum.GENERIC_F303K8TX.build.board=GENERIC_F303K8TX
 GenF3.menu.pnum.GENERIC_F303K8TX.build.product_line=STM32F303x8
 GenF3.menu.pnum.GENERIC_F303K8TX.build.variant=STM32F3xx/F303K(6-8)T_F334K(4-6-8)T
+
+# Generic F303RBTx
+GenF3.menu.pnum.GENERIC_F303RBTX=Generic F303RBTx
+GenF3.menu.pnum.GENERIC_F303RBTX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F303RBTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F303RBTX.build.board=GENERIC_F303RBTX
+GenF3.menu.pnum.GENERIC_F303RBTX.build.product_line=STM32F303xC
+GenF3.menu.pnum.GENERIC_F303RBTX.build.variant=STM32F3xx/F303R(B-C)T
+
+# Generic F303RCTx
+GenF3.menu.pnum.GENERIC_F303RCTX=Generic F303RCTx
+GenF3.menu.pnum.GENERIC_F303RCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F303RCTX.upload.maximum_data_size=40960
+GenF3.menu.pnum.GENERIC_F303RCTX.build.board=GENERIC_F303RCTX
+GenF3.menu.pnum.GENERIC_F303RCTX.build.product_line=STM32F303xC
+GenF3.menu.pnum.GENERIC_F303RCTX.build.variant=STM32F3xx/F303R(B-C)T
 
 # Generic F303RDTx
 GenF3.menu.pnum.GENERIC_F303RDTX=Generic F303RDTx
