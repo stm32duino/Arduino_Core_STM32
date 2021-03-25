@@ -663,6 +663,19 @@ Disco.menu.pnum.DISCO_F100RB.build.product_line=STM32F100xB
 Disco.menu.pnum.DISCO_F100RB.build.variant=STM32F1xx/DISCO_F100RB
 Disco.menu.pnum.DISCO_F100RB.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# DISCO_F303VC board
+Disco.menu.pnum.DISCO_F303VC=STM32F3-DISCOVERY
+Disco.menu.pnum.DISCO_F303VC.node=DIS_F303VC
+Disco.menu.pnum.DISCO_F303VC.upload.maximum_size=262144
+Disco.menu.pnum.DISCO_F303VC.upload.maximum_data_size=40960
+Disco.menu.pnum.DISCO_F303VC.build.mcu=cortex-m4
+Disco.menu.pnum.DISCO_F303VC.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F303VC.build.board=DISCO_F303VC
+Disco.menu.pnum.DISCO_F303VC.build.series=STM32F3xx
+Disco.menu.pnum.DISCO_F303VC.build.product_line=STM32F303xC
+Disco.menu.pnum.DISCO_F303VC.build.variant=STM32F3xx/F303V(B-C)T
+Disco.menu.pnum.DISCO_F303VC.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # DISCO_F407VG board
 Disco.menu.pnum.DISCO_F407VG=STM32F407G-DISC1
 Disco.menu.pnum.DISCO_F407VG.node=DIS_F407VG
@@ -1615,6 +1628,22 @@ GenF3.menu.pnum.GENERIC_F303RETX.upload.maximum_data_size=65536
 GenF3.menu.pnum.GENERIC_F303RETX.build.board=GENERIC_F303RETX
 GenF3.menu.pnum.GENERIC_F303RETX.build.product_line=STM32F303xE
 GenF3.menu.pnum.GENERIC_F303RETX.build.variant=STM32F3xx/F303R(D-E)T
+
+# Generic F303VBTx
+GenF3.menu.pnum.GENERIC_F303VBTX=Generic F303VBTx
+GenF3.menu.pnum.GENERIC_F303VBTX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F303VBTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F303VBTX.build.board=GENERIC_F303VBTX
+GenF3.menu.pnum.GENERIC_F303VBTX.build.product_line=STM32F303xC
+GenF3.menu.pnum.GENERIC_F303VBTX.build.variant=STM32F3xx/F303V(B-C)T
+
+# Generic F303VCTx
+GenF3.menu.pnum.GENERIC_F303VCTX=Generic F303VCTx
+GenF3.menu.pnum.GENERIC_F303VCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F303VCTX.upload.maximum_data_size=40960
+GenF3.menu.pnum.GENERIC_F303VCTX.build.board=GENERIC_F303VCTX
+GenF3.menu.pnum.GENERIC_F303VCTX.build.product_line=STM32F303xC
+GenF3.menu.pnum.GENERIC_F303VCTX.build.variant=STM32F3xx/F303V(B-C)T
 
 # Generic F334K4Tx
 GenF3.menu.pnum.GENERIC_F334K4TX=Generic F334K4Tx
