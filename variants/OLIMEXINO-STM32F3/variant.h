@@ -88,21 +88,21 @@ extern "C" {
 #define PF4   38
 
 // GPIO extention
-#define GPIO1 23
-#define GPIO2 24
-#define GPIO3 25
-#define GPIO4 26
-#define GPIO5 27
-#define GPIO6 28
-#define GPIO7 29
-#define GPIO8 30
-#define GPIO9 31
-#define GPIO10  32
-#define GPIO11  33
-#define GPIO12  34
-#define GPIO13  35
-#define GPIO14  36
-#define GPIO15  37
+#define EXT_GPIO1 23
+#define EXT_GPIO2 24
+#define EXT_GPIO3 25
+#define EXT_GPIO4 26
+#define EXT_GPIO5 27
+#define EXT_GPIO6 28
+#define EXT_GPIO7 29
+#define EXT_GPIO8 30
+#define EXT_GPIO9 31
+#define EXT_GPIO10  32
+#define EXT_GPIO11  33
+#define EXT_GPIO12  34
+#define EXT_GPIO13  35
+#define EXT_GPIO14  36
+#define EXT_GPIO15  37
 
 // UEXT
 #define UEXTPWR 38
