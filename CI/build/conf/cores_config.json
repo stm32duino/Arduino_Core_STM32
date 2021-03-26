@@ -128,7 +128,7 @@
             "NUCLEO_L432KC",
             "NUCLEO_F303K8",
             "NUCLEO_G431KB",
-            "PRNTR_F407_V1",
+            "PRNTR_V1",
             "PRNTR_V2",
             "RUMBA32",
             "RAK811_TRACKER",
@@ -152,7 +152,7 @@
           "applicable": false,
           "boards": [
             "EEXTR_F030_V1", "ELEKTOR_F072C8", "ELEKTOR_F072CB", "FYSETC_S6", "Generic_F103ZG",
-            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_F446VE",
+            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_V1",
             "VCCGND_F103ZET6", "VCCGND_F103ZET6Mini", "WRAITH32_V1"
           ]
         },
@@ -298,7 +298,7 @@
           "pattern": "tone|p07_Keyboard",
           "applicable": false,
           "boards": [
-            "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_F446VE", "WRAITH32_V1"
+            "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_V1", "WRAITH32_V1"
           ]
         },
         {

@@ -44,7 +44,7 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/NUCLEO_F429ZI
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F746ZG board
@@ -305,8 +305,7 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=h
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=STM32F4xx/NUCLEO_F4x1RE
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant_h=variant_NUCLEO_F4x1RE.h
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.variant=STM32F4xx/F401R(B-C-D-E)T
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F411RE board
@@ -319,8 +318,7 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=h
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=STM32F4xx/NUCLEO_F4x1RE
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant_h=variant_NUCLEO_F4x1RE.h
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.variant=STM32F4xx/F411R(C-E)T
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_F446RE board
@@ -333,7 +331,7 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=h
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=STM32F4xx/NUCLEO_F446RE
+Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=STM32F4xx/F446R(C-E)T
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_G071RB board
@@ -686,7 +684,7 @@ Disco.menu.pnum.DISCO_F407VG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
-Disco.menu.pnum.DISCO_F407VG.build.variant=STM32F4xx/DISCO_F407VG
+Disco.menu.pnum.DISCO_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 Disco.menu.pnum.DISCO_F407VG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F413ZH board
@@ -699,7 +697,8 @@ Disco.menu.pnum.DISCO_F413ZH.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.DISCO_F413ZH.build.board=DISCO_F413ZH
 Disco.menu.pnum.DISCO_F413ZH.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F413ZH.build.product_line=STM32F413xx
-Disco.menu.pnum.DISCO_F413ZH.build.variant=STM32F4xx/DISCO_F413ZH
+Disco.menu.pnum.DISCO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+Disco.menu.pnum.DISCO_F413ZH.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.DISCO_F413ZH.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # DISCO_F746NG board
@@ -1734,8 +1733,9 @@ GenF4.menu.pnum.BLACK_F407VE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407VE.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407VE.build.board=BLACK_F407VE
 GenF4.menu.pnum.BLACK_F407VE.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407VE.build.variant_h=variant_BLACK_F407XX.h
-GenF4.menu.pnum.BLACK_F407VE.build.variant=STM32F4xx/BLACK_F407XX
+GenF4.menu.pnum.BLACK_F407VE.build.variant_h=variant_BLACK_F407VX.h
+GenF4.menu.pnum.BLACK_F407VE.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.BLACK_F407VE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Black F407VG
 # https://github.com/mcauser/BLACK_F407VEZ with bigger chip
@@ -1744,8 +1744,9 @@ GenF4.menu.pnum.BLACK_F407VG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407VG.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407VG.build.board=BLACK_F407VG
 GenF4.menu.pnum.BLACK_F407VG.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407VG.build.variant_h=variant_BLACK_F407XX.h
-GenF4.menu.pnum.BLACK_F407VG.build.variant=STM32F4xx/BLACK_F407XX
+GenF4.menu.pnum.BLACK_F407VG.build.variant_h=variant_BLACK_F407VX.h
+GenF4.menu.pnum.BLACK_F407VG.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.BLACK_F407VG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Black F407ZE
 # https://github.com/mcauser/BLACK_F407ZE
@@ -1754,8 +1755,9 @@ GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACK_F407ZE.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407ZE.build.board=BLACK_F407ZE
 GenF4.menu.pnum.BLACK_F407ZE.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407ZE.build.variant_h=variant_BLACK_F407XX.h
-GenF4.menu.pnum.BLACK_F407ZE.build.variant=STM32F4xx/BLACK_F407XX
+GenF4.menu.pnum.BLACK_F407ZE.build.variant_h=variant_BLACK_F407ZX.h
+GenF4.menu.pnum.BLACK_F407ZE.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.BLACK_F407ZE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Black F407ZG
 # https://github.com/mcauser/BLACK_F407ZG
@@ -1764,17 +1766,19 @@ GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_size=1048576
 GenF4.menu.pnum.BLACK_F407ZG.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACK_F407ZG.build.board=BLACK_F407ZG
 GenF4.menu.pnum.BLACK_F407ZG.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLACK_F407ZG.build.variant_h=variant_BLACK_F407XX.h
-GenF4.menu.pnum.BLACK_F407ZG.build.variant=STM32F4xx/BLACK_F407XX
+GenF4.menu.pnum.BLACK_F407ZG.build.variant_h=variant_BLACK_F407ZX.h
+GenF4.menu.pnum.BLACK_F407ZG.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+GenF4.menu.pnum.BLACK_F407ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Blue F407VE mini: http://wiki.stm32duino.com/index.php?title=Vcc-gnd.com_STM32F407VET6_Mini
-GenF4.menu.pnum.BLUE_F407VE_Mini=Blue F407VE mini
-GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_size=524288
-GenF4.menu.pnum.BLUE_F407VE_Mini.upload.maximum_data_size=131072
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.board=BLUE_F407VE_Mini
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.product_line=STM32F407xx
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.BLUE_F407VE_Mini.build.variant=STM32F4xx/BLUE_F407VE_Mini
+GenF4.menu.pnum.BLUE_F407VE_MINI=Blue F407VE mini
+GenF4.menu.pnum.BLUE_F407VE_MINI.upload.maximum_size=524288
+GenF4.menu.pnum.BLUE_F407VE_MINI.upload.maximum_data_size=131072
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.board=BLUE_F407VE_MINI
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.product_line=STM32F407xx
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+GenF4.menu.pnum.BLUE_F407VE_MINI.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # DIYMORE STM32F407VGT board
 GenF4.menu.pnum.DIYMORE_F407VGT=DIYMORE STM32F407VGT
@@ -1782,8 +1786,8 @@ GenF4.menu.pnum.DIYMORE_F407VGT.upload.maximum_size=1048576
 GenF4.menu.pnum.DIYMORE_F407VGT.upload.maximum_data_size=131072
 GenF4.menu.pnum.DIYMORE_F407VGT.build.board=DIYMORE_F407VGT
 GenF4.menu.pnum.DIYMORE_F407VGT.build.product_line=STM32F407xx
+GenF4.menu.pnum.DIYMORE_F407VGT.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 GenF4.menu.pnum.DIYMORE_F407VGT.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.DIYMORE_F407VGT.build.variant=STM32F4xx/DIYMORE_F407VGT
 
 # FK407M1
 GenF4.menu.pnum.FK407M1=FK407M1 STM32F407VET
@@ -1791,8 +1795,9 @@ GenF4.menu.pnum.FK407M1.upload.maximum_size=524288
 GenF4.menu.pnum.FK407M1.upload.maximum_data_size=131072
 GenF4.menu.pnum.FK407M1.build.board=FK407M1
 GenF4.menu.pnum.FK407M1.build.product_line=STM32F407xx
+GenF4.menu.pnum.FK407M1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 GenF4.menu.pnum.FK407M1.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.FK407M1.build.variant=STM32F4xx/FK407M1
+GenF4.menu.pnum.FK407M1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # BlackPill F401CC
 GenF4.menu.pnum.BLACKPILL_F401CC=BlackPill F401CC
@@ -1800,7 +1805,9 @@ GenF4.menu.pnum.BLACKPILL_F401CC.upload.maximum_size=262144
 GenF4.menu.pnum.BLACKPILL_F401CC.upload.maximum_data_size=65536
 GenF4.menu.pnum.BLACKPILL_F401CC.build.board=BLACKPILL_F401CC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.product_line=STM32F401xC
-GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=STM32F4xx/Generic_F401Cx
+GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
+GenF4.menu.pnum.BLACKPILL_F401CC.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.BLACKPILL_F401CC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # BlackPill F411CE
 # https://github.com/mcauser/WEACT_F411CEU6
@@ -1809,7 +1816,9 @@ GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_size=524288
 GenF4.menu.pnum.BLACKPILL_F411CE.upload.maximum_data_size=131072
 GenF4.menu.pnum.BLACKPILL_F411CE.build.board=BLACKPILL_F411CE
 GenF4.menu.pnum.BLACKPILL_F411CE.build.product_line=STM32F411xE
-GenF4.menu.pnum.BLACKPILL_F411CE.build.variant=STM32F4xx/Generic_F411Cx
+GenF4.menu.pnum.BLACKPILL_F411CE.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.BLACKPILL_F411CE.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.BLACKPILL_F411CE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Core board F401RCT6
 # https://stm32-base.org/boards/STM32F401RCT6-STM32F-Core-Board
@@ -1818,7 +1827,9 @@ GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_size=262144
 GenF4.menu.pnum.CoreBoard_F401RC.upload.maximum_data_size=65536
 GenF4.menu.pnum.CoreBoard_F401RC.build.board=CoreBoard_F401RC
 GenF4.menu.pnum.CoreBoard_F401RC.build.product_line=STM32F401xC
-GenF4.menu.pnum.CoreBoard_F401RC.build.variant=STM32F4xx/Generic_F401Rx
+GenF4.menu.pnum.CoreBoard_F401RC.build.variant=STM32F4xx/F401R(B-C-D-E)T
+GenF4.menu.pnum.CoreBoard_F401RC.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.CoreBoard_F401RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Adafruit Feather STM32F405 board
 GenF4.menu.pnum.FEATHER_F405=Adafruit Feather STM32F405
@@ -1827,7 +1838,8 @@ GenF4.menu.pnum.FEATHER_F405.upload.maximum_data_size=131072
 GenF4.menu.pnum.FEATHER_F405.build.board=FEATHER_F405
 GenF4.menu.pnum.FEATHER_F405.build.product_line=STM32F405xx
 GenF4.menu.pnum.FEATHER_F405.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.FEATHER_F405.build.variant=STM32F4xx/FEATHER_F405
+GenF4.menu.pnum.FEATHER_F405.build.variant=STM32F4xx/F405RGT_F415RGT
+GenF4.menu.pnum.FEATHER_F405.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # ThunderPack F411xxE
 # https://github.com/jgillick/ThunderPack/tree/STM32F4
@@ -1837,279 +1849,632 @@ GenF4.menu.pnum.THUNDERPACK_F411.upload.maximum_data_size=131072
 GenF4.menu.pnum.THUNDERPACK_F411.build.board=THUNDERPACK_F411
 GenF4.menu.pnum.THUNDERPACK_F411.build.product_line=STM32F411xE
 GenF4.menu.pnum.THUNDERPACK_F411.build.variant_h=variant_{build.board}.h
-GenF4.menu.pnum.THUNDERPACK_F411.build.variant=STM32F4xx/THUNDERPACK_F411
+GenF4.menu.pnum.THUNDERPACK_F411.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+GenF4.menu.pnum.THUNDERPACK_F411.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
-# Generic F446RE
-GenF4.menu.pnum.Generic_F446RE=Generic F446RE
-GenF4.menu.pnum.Generic_F446RE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F446RE.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F446RE.build.board=GENERIC_F446RE
-GenF4.menu.pnum.Generic_F446RE.build.product_line=STM32F446xx
-GenF4.menu.pnum.Generic_F446RE.build.variant=STM32F4xx/Generic_F446Rx
+# Generic F401CBUx
+GenF4.menu.pnum.GENERIC_F401CBUX=Generic F401CBUx
+GenF4.menu.pnum.GENERIC_F401CBUX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401CBUX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401CBUX.build.board=GENERIC_F401CBUX
+GenF4.menu.pnum.GENERIC_F401CBUX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401CBUX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F446RC
-GenF4.menu.pnum.Generic_F446RC=Generic F446RC
-GenF4.menu.pnum.Generic_F446RC.upload.maximum_size=262144
-GenF4.menu.pnum.Generic_F446RC.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F446RC.build.board=GENERIC_F446RC
-GenF4.menu.pnum.Generic_F446RC.build.product_line=STM32F446xx
-GenF4.menu.pnum.Generic_F446RC.build.variant=STM32F4xx/Generic_F446Rx
+# Generic F401CCUx
+GenF4.menu.pnum.GENERIC_F401CCUX=Generic F401CCUx
+GenF4.menu.pnum.GENERIC_F401CCUX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401CCUX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401CCUX.build.board=GENERIC_F401CCUX
+GenF4.menu.pnum.GENERIC_F401CCUX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401CCUX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F423RH
-GenF4.menu.pnum.Generic_F423RH=Generic F423RH
-GenF4.menu.pnum.Generic_F423RH.upload.maximum_size=1572864
-GenF4.menu.pnum.Generic_F423RH.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F423RH.build.board=GENERIC_F423RH
-GenF4.menu.pnum.Generic_F423RH.build.product_line=STM32F423xx
-GenF4.menu.pnum.Generic_F423RH.build.variant=STM32F4xx/Generic_F4x3Rx
+# Generic F401CBYx
+GenF4.menu.pnum.GENERIC_F401CBYX=Generic F401CBYx
+GenF4.menu.pnum.GENERIC_F401CBYX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401CBYX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401CBYX.build.board=GENERIC_F401CBYX
+GenF4.menu.pnum.GENERIC_F401CBYX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401CBYX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F423CH
-GenF4.menu.pnum.Generic_F423CH=Generic F423CH
-GenF4.menu.pnum.Generic_F423CH.upload.maximum_size=1572864
-GenF4.menu.pnum.Generic_F423CH.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F423CH.build.board=GENERIC_F423CH
-GenF4.menu.pnum.Generic_F423CH.build.product_line=STM32F423xx
-GenF4.menu.pnum.Generic_F423CH.build.variant=STM32F4xx/Generic_F4x3Cx
+# Generic F401CCYx
+GenF4.menu.pnum.GENERIC_F401CCYX=Generic F401CCYx
+GenF4.menu.pnum.GENERIC_F401CCYX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401CCYX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401CCYX.build.board=GENERIC_F401CCYX
+GenF4.menu.pnum.GENERIC_F401CCYX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401CCYX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F417VG
-GenF4.menu.pnum.Generic_F417VG=Generic F417VG
-GenF4.menu.pnum.Generic_F417VG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F417VG.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F417VG.build.board=GENERIC_F417VG
-GenF4.menu.pnum.Generic_F417VG.build.product_line=STM32F417xx
-GenF4.menu.pnum.Generic_F417VG.build.variant=STM32F4xx/Generic_F4x7Vx
+# Generic F401CDUx
+GenF4.menu.pnum.GENERIC_F401CDUX=Generic F401CDUx
+GenF4.menu.pnum.GENERIC_F401CDUX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401CDUX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401CDUX.build.board=GENERIC_F401CDUX
+GenF4.menu.pnum.GENERIC_F401CDUX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401CDUX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F417VE
-GenF4.menu.pnum.Generic_F417VE=Generic F417VE
-GenF4.menu.pnum.Generic_F417VE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F417VE.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F417VE.build.board=GENERIC_F417VE
-GenF4.menu.pnum.Generic_F417VE.build.product_line=STM32F417xx
-GenF4.menu.pnum.Generic_F417VE.build.variant=STM32F4xx/Generic_F4x7Vx
+# Generic F401CEUx
+GenF4.menu.pnum.GENERIC_F401CEUX=Generic F401CEUx
+GenF4.menu.pnum.GENERIC_F401CEUX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401CEUX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401CEUX.build.board=GENERIC_F401CEUX
+GenF4.menu.pnum.GENERIC_F401CEUX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401CEUX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F415RG
-GenF4.menu.pnum.Generic_F415RG=Generic F415RG
-GenF4.menu.pnum.Generic_F415RG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F415RG.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F415RG.build.board=GENERIC_F415RG
-GenF4.menu.pnum.Generic_F415RG.build.product_line=STM32F415xx
-GenF4.menu.pnum.Generic_F415RG.build.variant=STM32F4xx/Generic_F4x5RG
+# Generic F401CDYx
+GenF4.menu.pnum.GENERIC_F401CDYX=Generic F401CDYx
+GenF4.menu.pnum.GENERIC_F401CDYX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401CDYX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401CDYX.build.board=GENERIC_F401CDYX
+GenF4.menu.pnum.GENERIC_F401CDYX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401CDYX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F413RH
-GenF4.menu.pnum.Generic_F413RH=Generic F413RH
-GenF4.menu.pnum.Generic_F413RH.upload.maximum_size=1572864
-GenF4.menu.pnum.Generic_F413RH.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F413RH.build.board=GENERIC_F413RH
-GenF4.menu.pnum.Generic_F413RH.build.product_line=STM32F413xx
-GenF4.menu.pnum.Generic_F413RH.build.variant=STM32F4xx/Generic_F4x3Rx
+# Generic F401CEYx
+GenF4.menu.pnum.GENERIC_F401CEYX=Generic F401CEYx
+GenF4.menu.pnum.GENERIC_F401CEYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401CEYX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401CEYX.build.board=GENERIC_F401CEYX
+GenF4.menu.pnum.GENERIC_F401CEYX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401CEYX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F413RG
-GenF4.menu.pnum.Generic_F413RG=Generic F413RG
-GenF4.menu.pnum.Generic_F413RG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F413RG.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F413RG.build.board=GENERIC_F413RG
-GenF4.menu.pnum.Generic_F413RG.build.product_line=STM32F413xx
-GenF4.menu.pnum.Generic_F413RG.build.variant=STM32F4xx/Generic_F4x3Rx
+# Generic F401CCFx
+GenF4.menu.pnum.GENERIC_F401CCFX=Generic F401CCFx
+GenF4.menu.pnum.GENERIC_F401CCFX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401CCFX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401CCFX.build.board=GENERIC_F401CCFX
+GenF4.menu.pnum.GENERIC_F401CCFX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401CCFX.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 
-# Generic F413CH
-GenF4.menu.pnum.Generic_F413CH=Generic F413CH
-GenF4.menu.pnum.Generic_F413CH.upload.maximum_size=1572864
-GenF4.menu.pnum.Generic_F413CH.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F413CH.build.board=GENERIC_F413CH
-GenF4.menu.pnum.Generic_F413CH.build.product_line=STM32F413xx
-GenF4.menu.pnum.Generic_F413CH.build.variant=STM32F4xx/Generic_F4x3Cx
+# Generic F401RBTx
+GenF4.menu.pnum.GENERIC_F401RBTX=Generic F401RBTx
+GenF4.menu.pnum.GENERIC_F401RBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401RBTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401RBTX.build.board=GENERIC_F401RBTX
+GenF4.menu.pnum.GENERIC_F401RBTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401RBTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
 
-# Generic F413CG
-GenF4.menu.pnum.Generic_F413CG=Generic F413CG
-GenF4.menu.pnum.Generic_F413CG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F413CG.upload.maximum_data_size=327680
-GenF4.menu.pnum.Generic_F413CG.build.board=GENERIC_F413CG
-GenF4.menu.pnum.Generic_F413CG.build.product_line=STM32F413xx
-GenF4.menu.pnum.Generic_F413CG.build.variant=STM32F4xx/Generic_F4x3Cx
+# Generic F401RCTx
+GenF4.menu.pnum.GENERIC_F401RCTX=Generic F401RCTx
+GenF4.menu.pnum.GENERIC_F401RCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401RCTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401RCTX.build.board=GENERIC_F401RCTX
+GenF4.menu.pnum.GENERIC_F401RCTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401RCTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
 
-# Generic F412RG
-GenF4.menu.pnum.Generic_F412RG=Generic F412RG
-GenF4.menu.pnum.Generic_F412RG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F412RG.upload.maximum_data_size=262144
-GenF4.menu.pnum.Generic_F412RG.build.board=GENERIC_F412RG
-GenF4.menu.pnum.Generic_F412RG.build.product_line=STM32F412Rx
-GenF4.menu.pnum.Generic_F412RG.build.variant=STM32F4xx/Generic_F412Rx
+# Generic F401RDTx
+GenF4.menu.pnum.GENERIC_F401RDTX=Generic F401RDTx
+GenF4.menu.pnum.GENERIC_F401RDTX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401RDTX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401RDTX.build.board=GENERIC_F401RDTX
+GenF4.menu.pnum.GENERIC_F401RDTX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401RDTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
 
-# Generic F412RE
-GenF4.menu.pnum.Generic_F412RE=Generic F412RE
-GenF4.menu.pnum.Generic_F412RE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F412RE.upload.maximum_data_size=262144
-GenF4.menu.pnum.Generic_F412RE.build.board=GENERIC_F412RE
-GenF4.menu.pnum.Generic_F412RE.build.product_line=STM32F412Rx
-GenF4.menu.pnum.Generic_F412RE.build.variant=STM32F4xx/Generic_F412Rx
+# Generic F401RETx
+GenF4.menu.pnum.GENERIC_F401RETX=Generic F401RETx
+GenF4.menu.pnum.GENERIC_F401RETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401RETX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401RETX.build.board=GENERIC_F401RETX
+GenF4.menu.pnum.GENERIC_F401RETX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401RETX.build.variant=STM32F4xx/F401R(B-C-D-E)T
 
-# Generic F412CG
-GenF4.menu.pnum.Generic_F412CG=Generic F412CG
-GenF4.menu.pnum.Generic_F412CG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F412CG.upload.maximum_data_size=262144
-GenF4.menu.pnum.Generic_F412CG.build.board=GENERIC_F412CG
-GenF4.menu.pnum.Generic_F412CG.build.product_line=STM32F412Cx
-GenF4.menu.pnum.Generic_F412CG.build.variant=STM32F4xx/Generic_F412Cx
+# Generic F401VBTx
+GenF4.menu.pnum.GENERIC_F401VBTX=Generic F401VBTx
+GenF4.menu.pnum.GENERIC_F401VBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401VBTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401VBTX.build.board=GENERIC_F401VBTX
+GenF4.menu.pnum.GENERIC_F401VBTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401VBTX.build.variant=STM32F4xx/F401V(B-C-D-E)T
 
-# Generic F412CE
-GenF4.menu.pnum.Generic_F412CE=Generic F412CE
-GenF4.menu.pnum.Generic_F412CE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F412CE.upload.maximum_data_size=262144
-GenF4.menu.pnum.Generic_F412CE.build.board=GENERIC_F412CE
-GenF4.menu.pnum.Generic_F412CE.build.product_line=STM32F412Cx
-GenF4.menu.pnum.Generic_F412CE.build.variant=STM32F4xx/Generic_F412Cx
+# Generic F401VCTx
+GenF4.menu.pnum.GENERIC_F401VCTX=Generic F401VCTx
+GenF4.menu.pnum.GENERIC_F401VCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401VCTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401VCTX.build.board=GENERIC_F401VCTX
+GenF4.menu.pnum.GENERIC_F401VCTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401VCTX.build.variant=STM32F4xx/F401V(B-C-D-E)T
 
-# Generic F411RE
-GenF4.menu.pnum.Generic_F411RE=Generic F411RE
-GenF4.menu.pnum.Generic_F411RE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F411RE.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F411RE.build.board=GENERIC_F411RE
-GenF4.menu.pnum.Generic_F411RE.build.product_line=STM32F411xE
-GenF4.menu.pnum.Generic_F411RE.build.variant=STM32F4xx/Generic_F411Rx
+# Generic F401VDTx
+GenF4.menu.pnum.GENERIC_F401VDTX=Generic F401VDTx
+GenF4.menu.pnum.GENERIC_F401VDTX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401VDTX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401VDTX.build.board=GENERIC_F401VDTX
+GenF4.menu.pnum.GENERIC_F401VDTX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401VDTX.build.variant=STM32F4xx/F401V(B-C-D-E)T
 
-# Generic F411RC
-GenF4.menu.pnum.Generic_F411RC=Generic F411RC
-GenF4.menu.pnum.Generic_F411RC.upload.maximum_size=262144
-GenF4.menu.pnum.Generic_F411RC.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F411RC.build.board=GENERIC_F411RC
-GenF4.menu.pnum.Generic_F411RC.build.product_line=STM32F411xE
-GenF4.menu.pnum.Generic_F411RC.build.variant=STM32F4xx/Generic_F411Rx
+# Generic F401VETx
+GenF4.menu.pnum.GENERIC_F401VETX=Generic F401VETx
+GenF4.menu.pnum.GENERIC_F401VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401VETX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401VETX.build.board=GENERIC_F401VETX
+GenF4.menu.pnum.GENERIC_F401VETX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401VETX.build.variant=STM32F4xx/F401V(B-C-D-E)T
 
-# Generic F411CE
-GenF4.menu.pnum.Generic_F411CE=Generic F411CE
-GenF4.menu.pnum.Generic_F411CE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F411CE.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F411CE.build.board=GENERIC_F411CE
-GenF4.menu.pnum.Generic_F411CE.build.product_line=STM32F411xE
-GenF4.menu.pnum.Generic_F411CE.build.variant=STM32F4xx/Generic_F411Cx
+# Generic F405RGTx
+GenF4.menu.pnum.GENERIC_F405RGTX=Generic F405RGTx
+GenF4.menu.pnum.GENERIC_F405RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F405RGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F405RGTX.build.board=GENERIC_F405RGTX
+GenF4.menu.pnum.GENERIC_F405RGTX.build.product_line=STM32F405xx
+GenF4.menu.pnum.GENERIC_F405RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
 
-# Generic F411CC
-GenF4.menu.pnum.Generic_F411CC=Generic F411CC
-GenF4.menu.pnum.Generic_F411CC.upload.maximum_size=262144
-GenF4.menu.pnum.Generic_F411CC.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F411CC.build.board=GENERIC_F411CC
-GenF4.menu.pnum.Generic_F411CC.build.product_line=STM32F411xE
-GenF4.menu.pnum.Generic_F411CC.build.variant=STM32F4xx/Generic_F411Cx
+# Generic F407VETx
+GenF4.menu.pnum.GENERIC_F407VETX=Generic F407VETx
+GenF4.menu.pnum.GENERIC_F407VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F407VETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407VETX.build.board=GENERIC_F407VETX
+GenF4.menu.pnum.GENERIC_F407VETX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407VETX.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 
-# Generic F410RB
-GenF4.menu.pnum.Generic_F410RB=Generic F410RB
-GenF4.menu.pnum.Generic_F410RB.upload.maximum_size=131072
-GenF4.menu.pnum.Generic_F410RB.upload.maximum_data_size=32768
-GenF4.menu.pnum.Generic_F410RB.build.board=GENERIC_F410RB
-GenF4.menu.pnum.Generic_F410RB.build.product_line=STM32F410Rx
-GenF4.menu.pnum.Generic_F410RB.build.variant=STM32F4xx/Generic_F410Rx
+# Generic F407VGTx
+GenF4.menu.pnum.GENERIC_F407VGTX=Generic F407VGTx
+GenF4.menu.pnum.GENERIC_F407VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F407VGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407VGTX.build.board=GENERIC_F407VGTX
+GenF4.menu.pnum.GENERIC_F407VGTX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407VGTX.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
 
-# Generic F410R8
-GenF4.menu.pnum.Generic_F410R8=Generic F410R8
-GenF4.menu.pnum.Generic_F410R8.upload.maximum_size=65536
-GenF4.menu.pnum.Generic_F410R8.upload.maximum_data_size=32768
-GenF4.menu.pnum.Generic_F410R8.build.board=GENERIC_F410R8
-GenF4.menu.pnum.Generic_F410R8.build.product_line=STM32F410Rx
-GenF4.menu.pnum.Generic_F410R8.build.variant=STM32F4xx/Generic_F410Rx
+# Generic F407ZETx
+GenF4.menu.pnum.GENERIC_F407ZETX=Generic F407ZETx
+GenF4.menu.pnum.GENERIC_F407ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F407ZETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407ZETX.build.board=GENERIC_F407ZETX
+GenF4.menu.pnum.GENERIC_F407ZETX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
 
-# Generic F410CB
-GenF4.menu.pnum.Generic_F410CB=Generic F410CB
-GenF4.menu.pnum.Generic_F410CB.upload.maximum_size=131072
-GenF4.menu.pnum.Generic_F410CB.upload.maximum_data_size=32768
-GenF4.menu.pnum.Generic_F410CB.build.board=GENERIC_F410CB
-GenF4.menu.pnum.Generic_F410CB.build.product_line=STM32F410Cx
-GenF4.menu.pnum.Generic_F410CB.build.variant=STM32F4xx/Generic_F410Cx
+# Generic F407ZGTx
+GenF4.menu.pnum.GENERIC_F407ZGTX=Generic F407ZGTx
+GenF4.menu.pnum.GENERIC_F407ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F407ZGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.board=GENERIC_F407ZGTX
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
 
-# Generic F410C8
-GenF4.menu.pnum.Generic_F410C8=Generic F410C8
-GenF4.menu.pnum.Generic_F410C8.upload.maximum_size=65536
-GenF4.menu.pnum.Generic_F410C8.upload.maximum_data_size=32768
-GenF4.menu.pnum.Generic_F410C8.build.board=GENERIC_F410C8
-GenF4.menu.pnum.Generic_F410C8.build.product_line=STM32F410Cx
-GenF4.menu.pnum.Generic_F410C8.build.variant=STM32F4xx/Generic_F410Cx
+# Generic F410C8Tx
+GenF4.menu.pnum.GENERIC_F410C8TX=Generic F410C8Tx
+GenF4.menu.pnum.GENERIC_F410C8TX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410C8TX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410C8TX.build.board=GENERIC_F410C8TX
+GenF4.menu.pnum.GENERIC_F410C8TX.build.product_line=STM32F410Cx
+GenF4.menu.pnum.GENERIC_F410C8TX.build.variant=STM32F4xx/F410C(8-B)T
 
-# Generic F407VG
-GenF4.menu.pnum.Generic_F407VG=Generic F407VG
-GenF4.menu.pnum.Generic_F407VG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F407VG.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F407VG.build.board=GENERIC_F407VG
-GenF4.menu.pnum.Generic_F407VG.build.product_line=STM32F407xx
-GenF4.menu.pnum.Generic_F407VG.build.variant=STM32F4xx/Generic_F4x7Vx
+# Generic F410C8Ux
+GenF4.menu.pnum.GENERIC_F410C8UX=Generic F410C8Ux
+GenF4.menu.pnum.GENERIC_F410C8UX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410C8UX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410C8UX.build.board=GENERIC_F410C8UX
+GenF4.menu.pnum.GENERIC_F410C8UX.build.product_line=STM32F410Cx
+GenF4.menu.pnum.GENERIC_F410C8UX.build.variant=STM32F4xx/F410C(8-B)U
 
-# Generic F407VE
-GenF4.menu.pnum.Generic_F407VE=Generic F407VE
-GenF4.menu.pnum.Generic_F407VE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F407VE.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F407VE.build.board=GENERIC_F407VE
-GenF4.menu.pnum.Generic_F407VE.build.product_line=STM32F407xx
-GenF4.menu.pnum.Generic_F407VE.build.variant=STM32F4xx/Generic_F4x7Vx
+# Generic F410CBTx
+GenF4.menu.pnum.GENERIC_F410CBTX=Generic F410CBTx
+GenF4.menu.pnum.GENERIC_F410CBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410CBTX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410CBTX.build.board=GENERIC_F410CBTX
+GenF4.menu.pnum.GENERIC_F410CBTX.build.product_line=STM32F410Cx
+GenF4.menu.pnum.GENERIC_F410CBTX.build.variant=STM32F4xx/F410C(8-B)T
 
-# Generic F405RG
-GenF4.menu.pnum.Generic_F405RG=Generic F405RG
-GenF4.menu.pnum.Generic_F405RG.upload.maximum_size=1048576
-GenF4.menu.pnum.Generic_F405RG.upload.maximum_data_size=131072
-GenF4.menu.pnum.Generic_F405RG.build.board=GENERIC_F405RG
-GenF4.menu.pnum.Generic_F405RG.build.product_line=STM32F405xx
-GenF4.menu.pnum.Generic_F405RG.build.variant=STM32F4xx/Generic_F4x5RG
+# Generic F410CBUx
+GenF4.menu.pnum.GENERIC_F410CBUX=Generic F410CBUx
+GenF4.menu.pnum.GENERIC_F410CBUX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410CBUX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410CBUX.build.board=GENERIC_F410CBUX
+GenF4.menu.pnum.GENERIC_F410CBUX.build.product_line=STM32F410Cx
+GenF4.menu.pnum.GENERIC_F410CBUX.build.variant=STM32F4xx/F410C(8-B)U
 
-# Generic F401RE
-GenF4.menu.pnum.Generic_F401RE=Generic F401RE
-GenF4.menu.pnum.Generic_F401RE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F401RE.upload.maximum_data_size=98304
-GenF4.menu.pnum.Generic_F401RE.build.board=GENERIC_F401RE
-GenF4.menu.pnum.Generic_F401RE.build.product_line=STM32F401xE
-GenF4.menu.pnum.Generic_F401RE.build.variant=STM32F4xx/Generic_F401Rx
+# Generic F410R8Ix
+GenF4.menu.pnum.GENERIC_F410R8IX=Generic F410R8Ix
+GenF4.menu.pnum.GENERIC_F410R8IX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410R8IX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410R8IX.build.board=GENERIC_F410R8IX
+GenF4.menu.pnum.GENERIC_F410R8IX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410R8IX.build.variant=STM32F4xx/F410R(8-B)(I-T)
 
-# Generic F401RD
-GenF4.menu.pnum.Generic_F401RD=Generic F401RD
-GenF4.menu.pnum.Generic_F401RD.upload.maximum_size=393216
-GenF4.menu.pnum.Generic_F401RD.upload.maximum_data_size=98304
-GenF4.menu.pnum.Generic_F401RD.build.board=GENERIC_F401RD
-GenF4.menu.pnum.Generic_F401RD.build.product_line=STM32F401xE
-GenF4.menu.pnum.Generic_F401RD.build.variant=STM32F4xx/Generic_F401Rx
+# Generic F410RBIx
+GenF4.menu.pnum.GENERIC_F410RBIX=Generic F410RBIx
+GenF4.menu.pnum.GENERIC_F410RBIX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410RBIX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410RBIX.build.board=GENERIC_F410RBIX
+GenF4.menu.pnum.GENERIC_F410RBIX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410RBIX.build.variant=STM32F4xx/F410R(8-B)(I-T)
 
-# Generic F401RC
-GenF4.menu.pnum.Generic_F401RC=Generic F401RC
-GenF4.menu.pnum.Generic_F401RC.upload.maximum_size=262144
-GenF4.menu.pnum.Generic_F401RC.upload.maximum_data_size=65536
-GenF4.menu.pnum.Generic_F401RC.build.board=GENERIC_F401RC
-GenF4.menu.pnum.Generic_F401RC.build.product_line=STM32F401xC
-GenF4.menu.pnum.Generic_F401RC.build.variant=STM32F4xx/Generic_F401Rx
+# Generic F410R8Tx
+GenF4.menu.pnum.GENERIC_F410R8TX=Generic F410R8Tx
+GenF4.menu.pnum.GENERIC_F410R8TX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410R8TX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410R8TX.build.board=GENERIC_F410R8TX
+GenF4.menu.pnum.GENERIC_F410R8TX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410R8TX.build.variant=STM32F4xx/F410R(8-B)(I-T)
 
-# Generic F401RB
-GenF4.menu.pnum.Generic_F401RB=Generic F401RB
-GenF4.menu.pnum.Generic_F401RB.upload.maximum_size=131072
-GenF4.menu.pnum.Generic_F401RB.upload.maximum_data_size=65536
-GenF4.menu.pnum.Generic_F401RB.build.board=GENERIC_F401RB
-GenF4.menu.pnum.Generic_F401RB.build.product_line=STM32F401xC
-GenF4.menu.pnum.Generic_F401RB.build.variant=STM32F4xx/Generic_F401Rx
+# Generic F410RBTx
+GenF4.menu.pnum.GENERIC_F410RBTX=Generic F410RBTx
+GenF4.menu.pnum.GENERIC_F410RBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410RBTX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410RBTX.build.board=GENERIC_F410RBTX
+GenF4.menu.pnum.GENERIC_F410RBTX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410RBTX.build.variant=STM32F4xx/F410R(8-B)(I-T)
 
-# Generic F401CE
-GenF4.menu.pnum.Generic_F401CE=Generic F401CE
-GenF4.menu.pnum.Generic_F401CE.upload.maximum_size=524288
-GenF4.menu.pnum.Generic_F401CE.upload.maximum_data_size=98304
-GenF4.menu.pnum.Generic_F401CE.build.board=GENERIC_F401CE
-GenF4.menu.pnum.Generic_F401CE.build.product_line=STM32F401xE
-GenF4.menu.pnum.Generic_F401CE.build.variant=STM32F4xx/Generic_F401Cx
+# Generic F411CCUx
+GenF4.menu.pnum.GENERIC_F411CCUX=Generic F411CCUx
+GenF4.menu.pnum.GENERIC_F411CCUX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F411CCUX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411CCUX.build.board=GENERIC_F411CCUX
+GenF4.menu.pnum.GENERIC_F411CCUX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411CCUX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
 
-# Generic F401CD
-GenF4.menu.pnum.Generic_F401CD=Generic F401CD
-GenF4.menu.pnum.Generic_F401CD.upload.maximum_size=393216
-GenF4.menu.pnum.Generic_F401CD.upload.maximum_data_size=98304
-GenF4.menu.pnum.Generic_F401CD.build.board=GENERIC_F401CD
-GenF4.menu.pnum.Generic_F401CD.build.product_line=STM32F401xE
-GenF4.menu.pnum.Generic_F401CD.build.variant=STM32F4xx/Generic_F401Cx
+# Generic F411CEUx
+GenF4.menu.pnum.GENERIC_F411CEUX=Generic F411CEUx
+GenF4.menu.pnum.GENERIC_F411CEUX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F411CEUX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411CEUX.build.board=GENERIC_F411CEUX
+GenF4.menu.pnum.GENERIC_F411CEUX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411CEUX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
 
-# Generic F401CC
-GenF4.menu.pnum.Generic_F401CC=Generic F401CC
-GenF4.menu.pnum.Generic_F401CC.upload.maximum_size=262144
-GenF4.menu.pnum.Generic_F401CC.upload.maximum_data_size=65536
-GenF4.menu.pnum.Generic_F401CC.build.board=GENERIC_F401CC
-GenF4.menu.pnum.Generic_F401CC.build.product_line=STM32F401xC
-GenF4.menu.pnum.Generic_F401CC.build.variant=STM32F4xx/Generic_F401Cx
+# Generic F411CCYx
+GenF4.menu.pnum.GENERIC_F411CCYX=Generic F411CCYx
+GenF4.menu.pnum.GENERIC_F411CCYX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F411CCYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411CCYX.build.board=GENERIC_F411CCYX
+GenF4.menu.pnum.GENERIC_F411CCYX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411CCYX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
 
-# Generic F401CB
-GenF4.menu.pnum.Generic_F401CB=Generic F401CB
-GenF4.menu.pnum.Generic_F401CB.upload.maximum_size=131072
-GenF4.menu.pnum.Generic_F401CB.upload.maximum_data_size=65536
-GenF4.menu.pnum.Generic_F401CB.build.board=GENERIC_F401CB
-GenF4.menu.pnum.Generic_F401CB.build.product_line=STM32F401xC
-GenF4.menu.pnum.Generic_F401CB.build.variant=STM32F4xx/Generic_F401Cx
+# Generic F411CEYx
+GenF4.menu.pnum.GENERIC_F411CEYX=Generic F411CEYx
+GenF4.menu.pnum.GENERIC_F411CEYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F411CEYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411CEYX.build.board=GENERIC_F411CEYX
+GenF4.menu.pnum.GENERIC_F411CEYX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411CEYX.build.variant=STM32F4xx/F411C(C-E)(U-Y)
+
+# Generic F411RCTx
+GenF4.menu.pnum.GENERIC_F411RCTX=Generic F411RCTx
+GenF4.menu.pnum.GENERIC_F411RCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F411RCTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411RCTX.build.board=GENERIC_F411RCTX
+GenF4.menu.pnum.GENERIC_F411RCTX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411RCTX.build.variant=STM32F4xx/F411R(C-E)T
+
+# Generic F411RETx
+GenF4.menu.pnum.GENERIC_F411RETX=Generic F411RETx
+GenF4.menu.pnum.GENERIC_F411RETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F411RETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F411RETX.build.board=GENERIC_F411RETX
+GenF4.menu.pnum.GENERIC_F411RETX.build.product_line=STM32F411xE
+GenF4.menu.pnum.GENERIC_F411RETX.build.variant=STM32F4xx/F411R(C-E)T
+
+# Generic F412CEUx
+GenF4.menu.pnum.GENERIC_F412CEUX=Generic F412CEUx
+GenF4.menu.pnum.GENERIC_F412CEUX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412CEUX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412CEUX.build.board=GENERIC_F412CEUX
+GenF4.menu.pnum.GENERIC_F412CEUX.build.product_line=STM32F412Cx
+GenF4.menu.pnum.GENERIC_F412CEUX.build.variant=STM32F4xx/F412C(E-G)U
+
+# Generic F412CGUx
+GenF4.menu.pnum.GENERIC_F412CGUX=Generic F412CGUx
+GenF4.menu.pnum.GENERIC_F412CGUX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412CGUX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412CGUX.build.board=GENERIC_F412CGUX
+GenF4.menu.pnum.GENERIC_F412CGUX.build.product_line=STM32F412Cx
+GenF4.menu.pnum.GENERIC_F412CGUX.build.variant=STM32F4xx/F412C(E-G)U
+
+# Generic F412RETx
+GenF4.menu.pnum.GENERIC_F412RETX=Generic F412RETx
+GenF4.menu.pnum.GENERIC_F412RETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412RETX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412RETX.build.board=GENERIC_F412RETX
+GenF4.menu.pnum.GENERIC_F412RETX.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412RETX.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F412RGTx
+GenF4.menu.pnum.GENERIC_F412RGTX=Generic F412RGTx
+GenF4.menu.pnum.GENERIC_F412RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412RGTX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412RGTX.build.board=GENERIC_F412RGTX
+GenF4.menu.pnum.GENERIC_F412RGTX.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412RGTX.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F412REYx
+GenF4.menu.pnum.GENERIC_F412REYX=Generic F412REYx
+GenF4.menu.pnum.GENERIC_F412REYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412REYX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412REYX.build.board=GENERIC_F412REYX
+GenF4.menu.pnum.GENERIC_F412REYX.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412REYX.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F412RGYx
+GenF4.menu.pnum.GENERIC_F412RGYX=Generic F412RGYx
+GenF4.menu.pnum.GENERIC_F412RGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412RGYX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412RGYX.build.board=GENERIC_F412RGYX
+GenF4.menu.pnum.GENERIC_F412RGYX.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412RGYX.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F412REYxP
+GenF4.menu.pnum.GENERIC_F412REYXP=Generic F412REYxP
+GenF4.menu.pnum.GENERIC_F412REYXP.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412REYXP.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412REYXP.build.board=GENERIC_F412REYXP
+GenF4.menu.pnum.GENERIC_F412REYXP.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412REYXP.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F412RGYxP
+GenF4.menu.pnum.GENERIC_F412RGYXP=Generic F412RGYxP
+GenF4.menu.pnum.GENERIC_F412RGYXP.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412RGYXP.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412RGYXP.build.board=GENERIC_F412RGYXP
+GenF4.menu.pnum.GENERIC_F412RGYXP.build.product_line=STM32F412Rx
+GenF4.menu.pnum.GENERIC_F412RGYXP.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+
+# Generic F413CGUx
+GenF4.menu.pnum.GENERIC_F413CGUX=Generic F413CGUx
+GenF4.menu.pnum.GENERIC_F413CGUX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413CGUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413CGUX.build.board=GENERIC_F413CGUX
+GenF4.menu.pnum.GENERIC_F413CGUX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413CGUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+
+# Generic F413CHUx
+GenF4.menu.pnum.GENERIC_F413CHUX=Generic F413CHUx
+GenF4.menu.pnum.GENERIC_F413CHUX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413CHUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413CHUX.build.board=GENERIC_F413CHUX
+GenF4.menu.pnum.GENERIC_F413CHUX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413CHUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+
+# Generic F413RGTx
+GenF4.menu.pnum.GENERIC_F413RGTX=Generic F413RGTx
+GenF4.menu.pnum.GENERIC_F413RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413RGTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413RGTX.build.board=GENERIC_F413RGTX
+GenF4.menu.pnum.GENERIC_F413RGTX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413RGTX.build.variant=STM32F4xx/F413R(G-H)T_F423RHT
+
+# Generic F413RHTx
+GenF4.menu.pnum.GENERIC_F413RHTX=Generic F413RHTx
+GenF4.menu.pnum.GENERIC_F413RHTX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413RHTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413RHTX.build.board=GENERIC_F413RHTX
+GenF4.menu.pnum.GENERIC_F413RHTX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413RHTX.build.variant=STM32F4xx/F413R(G-H)T_F423RHT
+
+# Generic F413ZGJx
+GenF4.menu.pnum.GENERIC_F413ZGJX=Generic F413ZGJx
+GenF4.menu.pnum.GENERIC_F413ZGJX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413ZGJX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413ZGJX.build.board=GENERIC_F413ZGJX
+GenF4.menu.pnum.GENERIC_F413ZGJX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413ZGJX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F413ZHJx
+GenF4.menu.pnum.GENERIC_F413ZHJX=Generic F413ZHJx
+GenF4.menu.pnum.GENERIC_F413ZHJX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413ZHJX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413ZHJX.build.board=GENERIC_F413ZHJX
+GenF4.menu.pnum.GENERIC_F413ZHJX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413ZHJX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F413ZGTx
+GenF4.menu.pnum.GENERIC_F413ZGTX=Generic F413ZGTx
+GenF4.menu.pnum.GENERIC_F413ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413ZGTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413ZGTX.build.board=GENERIC_F413ZGTX
+GenF4.menu.pnum.GENERIC_F413ZGTX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413ZGTX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F413ZHTx
+GenF4.menu.pnum.GENERIC_F413ZHTX=Generic F413ZHTx
+GenF4.menu.pnum.GENERIC_F413ZHTX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413ZHTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413ZHTX.build.board=GENERIC_F413ZHTX
+GenF4.menu.pnum.GENERIC_F413ZHTX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413ZHTX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F415RGTx
+GenF4.menu.pnum.GENERIC_F415RGTX=Generic F415RGTx
+GenF4.menu.pnum.GENERIC_F415RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F415RGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F415RGTX.build.board=GENERIC_F415RGTX
+GenF4.menu.pnum.GENERIC_F415RGTX.build.product_line=STM32F415xx
+GenF4.menu.pnum.GENERIC_F415RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
+
+# Generic F417VETx
+GenF4.menu.pnum.GENERIC_F417VETX=Generic F417VETx
+GenF4.menu.pnum.GENERIC_F417VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F417VETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417VETX.build.board=GENERIC_F417VETX
+GenF4.menu.pnum.GENERIC_F417VETX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417VETX.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+
+# Generic F417VGTx
+GenF4.menu.pnum.GENERIC_F417VGTX=Generic F417VGTx
+GenF4.menu.pnum.GENERIC_F417VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F417VGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417VGTX.build.board=GENERIC_F417VGTX
+GenF4.menu.pnum.GENERIC_F417VGTX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417VGTX.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+
+# Generic F417ZETx
+GenF4.menu.pnum.GENERIC_F417ZETX=Generic F417ZETx
+GenF4.menu.pnum.GENERIC_F417ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F417ZETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417ZETX.build.board=GENERIC_F417ZETX
+GenF4.menu.pnum.GENERIC_F417ZETX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+
+# Generic F417ZGTx
+GenF4.menu.pnum.GENERIC_F417ZGTX=Generic F417ZGTx
+GenF4.menu.pnum.GENERIC_F417ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F417ZGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.board=GENERIC_F417ZGTX
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+
+# Generic F423CHUx
+GenF4.menu.pnum.GENERIC_F423CHUX=Generic F423CHUx
+GenF4.menu.pnum.GENERIC_F423CHUX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423CHUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423CHUX.build.board=GENERIC_F423CHUX
+GenF4.menu.pnum.GENERIC_F423CHUX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423CHUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+
+# Generic F423RHTx
+GenF4.menu.pnum.GENERIC_F423RHTX=Generic F423RHTx
+GenF4.menu.pnum.GENERIC_F423RHTX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423RHTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423RHTX.build.board=GENERIC_F423RHTX
+GenF4.menu.pnum.GENERIC_F423RHTX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423RHTX.build.variant=STM32F4xx/F413R(G-H)T_F423RHT
+
+# Generic F423ZHJx
+GenF4.menu.pnum.GENERIC_F423ZHJX=Generic F423ZHJx
+GenF4.menu.pnum.GENERIC_F423ZHJX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423ZHJX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423ZHJX.build.board=GENERIC_F423ZHJX
+GenF4.menu.pnum.GENERIC_F423ZHJX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423ZHJX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F423ZHTx
+GenF4.menu.pnum.GENERIC_F423ZHTX=Generic F423ZHTx
+GenF4.menu.pnum.GENERIC_F423ZHTX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423ZHTX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423ZHTX.build.board=GENERIC_F423ZHTX
+GenF4.menu.pnum.GENERIC_F423ZHTX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423ZHTX.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+
+# Generic F427ZGTx
+GenF4.menu.pnum.GENERIC_F427ZGTX=Generic F427ZGTx
+GenF4.menu.pnum.GENERIC_F427ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F427ZGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427ZGTX.build.board=GENERIC_F427ZGTX
+GenF4.menu.pnum.GENERIC_F427ZGTX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F427ZITx
+GenF4.menu.pnum.GENERIC_F427ZITX=Generic F427ZITx
+GenF4.menu.pnum.GENERIC_F427ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F427ZITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427ZITX.build.board=GENERIC_F427ZITX
+GenF4.menu.pnum.GENERIC_F427ZITX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F429ZETx
+GenF4.menu.pnum.GENERIC_F429ZETX=Generic F429ZETx
+GenF4.menu.pnum.GENERIC_F429ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F429ZETX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429ZETX.build.board=GENERIC_F429ZETX
+GenF4.menu.pnum.GENERIC_F429ZETX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429ZETX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F429ZGTx
+GenF4.menu.pnum.GENERIC_F429ZGTX=Generic F429ZGTx
+GenF4.menu.pnum.GENERIC_F429ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F429ZGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429ZGTX.build.board=GENERIC_F429ZGTX
+GenF4.menu.pnum.GENERIC_F429ZGTX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F429ZGYx
+GenF4.menu.pnum.GENERIC_F429ZGYX=Generic F429ZGYx
+GenF4.menu.pnum.GENERIC_F429ZGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F429ZGYX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429ZGYX.build.board=GENERIC_F429ZGYX
+GenF4.menu.pnum.GENERIC_F429ZGYX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429ZGYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F429ZITx
+GenF4.menu.pnum.GENERIC_F429ZITX=Generic F429ZITx
+GenF4.menu.pnum.GENERIC_F429ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F429ZITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429ZITX.build.board=GENERIC_F429ZITX
+GenF4.menu.pnum.GENERIC_F429ZITX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F429ZIYx
+GenF4.menu.pnum.GENERIC_F429ZIYX=Generic F429ZIYx
+GenF4.menu.pnum.GENERIC_F429ZIYX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F429ZIYX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429ZIYX.build.board=GENERIC_F429ZIYX
+GenF4.menu.pnum.GENERIC_F429ZIYX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429ZIYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F437ZGTx
+GenF4.menu.pnum.GENERIC_F437ZGTX=Generic F437ZGTx
+GenF4.menu.pnum.GENERIC_F437ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F437ZGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F437ZGTX.build.board=GENERIC_F437ZGTX
+GenF4.menu.pnum.GENERIC_F437ZGTX.build.product_line=STM32F437xx
+GenF4.menu.pnum.GENERIC_F437ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F437ZITx
+GenF4.menu.pnum.GENERIC_F437ZITX=Generic F437ZITx
+GenF4.menu.pnum.GENERIC_F437ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F437ZITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F437ZITX.build.board=GENERIC_F437ZITX
+GenF4.menu.pnum.GENERIC_F437ZITX.build.product_line=STM32F437xx
+GenF4.menu.pnum.GENERIC_F437ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F439ZGTx
+GenF4.menu.pnum.GENERIC_F439ZGTX=Generic F439ZGTx
+GenF4.menu.pnum.GENERIC_F439ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F439ZGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439ZGTX.build.board=GENERIC_F439ZGTX
+GenF4.menu.pnum.GENERIC_F439ZGTX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439ZGTX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F439ZITx
+GenF4.menu.pnum.GENERIC_F439ZITX=Generic F439ZITx
+GenF4.menu.pnum.GENERIC_F439ZITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F439ZITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439ZITX.build.board=GENERIC_F439ZITX
+GenF4.menu.pnum.GENERIC_F439ZITX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439ZITX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F439ZGYx
+GenF4.menu.pnum.GENERIC_F439ZGYX=Generic F439ZGYx
+GenF4.menu.pnum.GENERIC_F439ZGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F439ZGYX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439ZGYX.build.board=GENERIC_F439ZGYX
+GenF4.menu.pnum.GENERIC_F439ZGYX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439ZGYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F439ZIYx
+GenF4.menu.pnum.GENERIC_F439ZIYX=Generic F439ZIYx
+GenF4.menu.pnum.GENERIC_F439ZIYX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F439ZIYX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439ZIYX.build.board=GENERIC_F439ZIYX
+GenF4.menu.pnum.GENERIC_F439ZIYX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439ZIYX.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
+
+# Generic F446RCTx
+GenF4.menu.pnum.GENERIC_F446RCTX=Generic F446RCTx
+GenF4.menu.pnum.GENERIC_F446RCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446RCTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446RCTX.build.board=GENERIC_F446RCTX
+GenF4.menu.pnum.GENERIC_F446RCTX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446RCTX.build.variant=STM32F4xx/F446R(C-E)T
+
+# Generic F446RETx
+GenF4.menu.pnum.GENERIC_F446RETX=Generic F446RETx
+GenF4.menu.pnum.GENERIC_F446RETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446RETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446RETX.build.board=GENERIC_F446RETX
+GenF4.menu.pnum.GENERIC_F446RETX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446RETX.build.variant=STM32F4xx/F446R(C-E)T
+
+# Generic F446VCTx
+GenF4.menu.pnum.GENERIC_F446VCTX=Generic F446VCTx
+GenF4.menu.pnum.GENERIC_F446VCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446VCTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446VCTX.build.board=GENERIC_F446VCTX
+GenF4.menu.pnum.GENERIC_F446VCTX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446VCTX.build.variant=STM32F4xx/F446V(C-E)T
+
+# Generic F446VETx
+GenF4.menu.pnum.GENERIC_F446VETX=Generic F446VETx
+GenF4.menu.pnum.GENERIC_F446VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446VETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446VETX.build.board=GENERIC_F446VETX
+GenF4.menu.pnum.GENERIC_F446VETX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446VETX.build.variant=STM32F4xx/F446V(C-E)T
 
 # Upload menu
 GenF4.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -4411,7 +4776,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.build.board=ARMED_V1
 3dprinter.menu.pnum.ARMED_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
-3dprinter.menu.pnum.ARMED_V1.build.variant=STM32F4xx/ARMED_V1
+3dprinter.menu.pnum.ARMED_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+3dprinter.menu.pnum.ARMED_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # REMRAM_V1 board
@@ -4433,10 +4799,11 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.RUMBA32.upload.maximum_data_size=131072
 3dprinter.menu.pnum.RUMBA32.build.mcu=cortex-m4
 3dprinter.menu.pnum.RUMBA32.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-3dprinter.menu.pnum.RUMBA32.build.board=RUMBA32_F446VE
+3dprinter.menu.pnum.RUMBA32.build.board=RUMBA32
 3dprinter.menu.pnum.RUMBA32.build.series=STM32F4xx
 3dprinter.menu.pnum.RUMBA32.build.product_line=STM32F446xx
-3dprinter.menu.pnum.RUMBA32.build.variant=STM32F4xx/RUMBA32_F446VE
+3dprinter.menu.pnum.RUMBA32.build.variant=STM32F4xx/F446V(C-E)T
+3dprinter.menu.pnum.RUMBA32.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.RUMBA32.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # STEVAL-3DP001V1 board
@@ -4448,21 +4815,22 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ST3DP001_EVAL.build.board=ST3DP001_EVAL
 3dprinter.menu.pnum.ST3DP001_EVAL.build.series=STM32F4xx
 3dprinter.menu.pnum.ST3DP001_EVAL.build.product_line=STM32F401xE
-3dprinter.menu.pnum.ST3DP001_EVAL.build.variant=STM32F4xx/ST3DP001_EVAL
+3dprinter.menu.pnum.ST3DP001_EVAL.build.variant=STM32F4xx/F401V(B-C-D-E)T
+3dprinter.menu.pnum.ST3DP001_EVAL.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.ST3DP001_EVAL.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
-# PRNTR_F407_V1 board
-3dprinter.menu.pnum.PRNTR_F407_V1=PRNTR F407 v1
-3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_size=524288
-3dprinter.menu.pnum.PRNTR_F407_V1.upload.maximum_data_size=131072
-3dprinter.menu.pnum.PRNTR_F407_V1.build.mcu=cortex-m4
-3dprinter.menu.pnum.PRNTR_F407_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-3dprinter.menu.pnum.PRNTR_F407_V1.build.board=PRNTR_F407_V1
-3dprinter.menu.pnum.PRNTR_F407_V1.build.series=STM32F4xx
-3dprinter.menu.pnum.PRNTR_F407_V1.build.product_line=STM32F407xx
-3dprinter.menu.pnum.PRNTR_F407_V1.build.variant=STM32F4xx/PRNTR_Vx
-3dprinter.menu.pnum.PRNTR_F407_V1.build.variant_h=variant_PRNTR_Vx.h
-3dprinter.menu.pnum.PRNTR_F407_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+# PRNTR_V1 board
+3dprinter.menu.pnum.PRNTR_V1=PRNTR v1
+3dprinter.menu.pnum.PRNTR_V1.upload.maximum_size=524288
+3dprinter.menu.pnum.PRNTR_V1.upload.maximum_data_size=131072
+3dprinter.menu.pnum.PRNTR_V1.build.mcu=cortex-m4
+3dprinter.menu.pnum.PRNTR_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.PRNTR_V1.build.board=PRNTR_V1
+3dprinter.menu.pnum.PRNTR_V1.build.series=STM32F4xx
+3dprinter.menu.pnum.PRNTR_V1.build.product_line=STM32F407xx
+3dprinter.menu.pnum.PRNTR_V1.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+3dprinter.menu.pnum.PRNTR_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+3dprinter.menu.pnum.PRNTR_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # PRNTR_V2 board
 3dprinter.menu.pnum.PRNTR_V2=PRNTR v2
@@ -4473,8 +4841,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.board=PRNTR_V2
 3dprinter.menu.pnum.PRNTR_V2.build.series=STM32F4xx
 3dprinter.menu.pnum.PRNTR_V2.build.product_line=STM32F407xx
-3dprinter.menu.pnum.PRNTR_V2.build.variant=STM32F4xx/PRNTR_Vx
-3dprinter.menu.pnum.PRNTR_V2.build.variant_h=variant_PRNTR_Vx.h
+3dprinter.menu.pnum.PRNTR_V2.build.variant=STM32F4xx/F407V(E-G)T_F417V(E-G)T
+3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
 3dprinter.menu.pnum.PRNTR_V2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
@@ -4538,16 +4906,17 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # VAkE v1.0
-3dprinter.menu.pnum.VAKE_F446VE=VAkE v1.0
-3dprinter.menu.pnum.VAKE_F446VE.upload.maximum_size=524288
-3dprinter.menu.pnum.VAKE_F446VE.upload.maximum_data_size=131072
-3dprinter.menu.pnum.VAKE_F446VE.build.mcu=cortex-m4
-3dprinter.menu.pnum.VAKE_F446VE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-3dprinter.menu.pnum.VAKE_F446VE.build.board=VAKE_F446VE
-3dprinter.menu.pnum.VAKE_F446VE.build.series=STM32F4xx
-3dprinter.menu.pnum.VAKE_F446VE.build.product_line=STM32F446xx
-3dprinter.menu.pnum.VAKE_F446VE.build.variant=STM32F4xx/VAKE_F446VE
-3dprinter.menu.pnum.VAKE_F446VE.build.cmsis_lib_gcc=arm_cortexM4lf_math
+3dprinter.menu.pnum.VAKE_V1=VAkE v1.0
+3dprinter.menu.pnum.VAKE_V1.upload.maximum_size=524288
+3dprinter.menu.pnum.VAKE_V1.upload.maximum_data_size=131072
+3dprinter.menu.pnum.VAKE_V1.build.mcu=cortex-m4
+3dprinter.menu.pnum.VAKE_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.VAKE_V1.build.board=VAKE_V1
+3dprinter.menu.pnum.VAKE_V1.build.series=STM32F4xx
+3dprinter.menu.pnum.VAKE_V1.build.product_line=STM32F446xx
+3dprinter.menu.pnum.VAKE_V1.build.variant=STM32F4xx/F446V(C-E)T
+3dprinter.menu.pnum.VAKE_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+3dprinter.menu.pnum.VAKE_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # FYSETC_S6 board
 3dprinter.menu.pnum.FYSETC_S6=FYSETC_S6
@@ -4558,7 +4927,8 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.board=FYSETC_S6
 3dprinter.menu.pnum.FYSETC_S6.build.series=STM32F4xx
 3dprinter.menu.pnum.FYSETC_S6.build.product_line=STM32F446xx
-3dprinter.menu.pnum.FYSETC_S6.build.variant=STM32F4xx/FYSETC_S6
+3dprinter.menu.pnum.FYSETC_S6.build.variant=STM32F4xx/F446V(C-E)T
+3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
 3dprinter.menu.pnum.FYSETC_S6.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
@@ -4697,7 +5067,8 @@ Garatronic.menu.pnum.PYBSTICK26_LITE.build.mcu=cortex-m4
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.board=PYBSTICK26_LITE
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/PYBSTICK26_LITE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 
@@ -4709,7 +5080,8 @@ Garatronic.menu.pnum.PYBSTICK26_STD.build.mcu=cortex-m4
 Garatronic.menu.pnum.PYBSTICK26_STD.build.board=PYBSTICK26_STD
 Garatronic.menu.pnum.PYBSTICK26_STD.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
-Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/PYBSTICK26_STD
+Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
+Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_STD.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 
@@ -4721,7 +5093,8 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.mcu=cortex-m4
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.board=PYBSTICK26_PRO
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.series=STM32F4xx
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/PYBSTICK26_PRO
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 

@@ -226,8 +226,10 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F407VE | [FK407M1](https://stm32-base.org/boards/STM32F407VET6-FK407M1-V1.0) | *1.5.0* |  |
 | :green_heart:  | STM32F401CB<br>STM32F401CC<br>STM32F401CD<br>STM32F401CE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F401RB<br>STM32F401RC<br>STM32F401RD<br>STM32F401RE | Generic Board | *1.8.0* |  |
+| :yellow_heart:  | STM32F401VB<br>STM32F401VC<br>STM32F401VD<br>STM32F401VE | Generic Board | ***2.0.0*** |  |
 | :green_heart:  | STM32F405RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F407VE<br>STM32F407VG | Generic Board | *1.9.0* |  |
+| :yellow_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | ***2.0.0*** |  |
 | :green_heart:  | STM32F410C8<br>STM32F410CB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F410R8<br>STM32F410RB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F411CC<br>STM32F411CE | Generic Board | *1.9.0* |  |
@@ -236,11 +238,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F412RE<br>STM32F412RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F413CG<br>STM32F413CH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F413RG<br>STM32F413RH | Generic Board | *1.9.0* |  |
+| :green_heart:  | STM32F413ZG<br>STM32F413ZH | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F415RG | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F417VE<br>STM32F417VG | Generic Board | *1.9.0* |  |
+| :yellow_heart:  | STM32F417ZE<br>STM32F417ZG | Generic Board | ***2.0.0*** |  |
 | :green_heart:  | STM32F423CH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F423RH | Generic Board | *1.9.0* |  |
+| :green_heart:  | STM32F423ZH | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F427ZG<br>STM32F427ZI | Generic Board | ***2.0.0*** |  |
+| :yellow_heart: | STM32F429ZE<br>STM32F429ZG<br>STM32F429ZI | Generic Board | ***2.0.0*** |
+| :yellow_heart: | STM32F437ZG<br>STM32F437ZI | Generic Board | ***2.0.0*** |
+| :yellow_heart: | STM32F439ZG<br>STM32F439ZI | Generic Board | ***2.0.0*** |
 | :green_heart:  | STM32F446RC<br>STM32F446RE | Generic Board | *1.9.0* |  |
+| :yellow_heart: | STM32F446VC<br>STM32F446VE | Generic Board | ***2.0.0*** |
 | :green_heart:  | STM32F411CE | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | *1.9.0* |  |
 
 ### Generic STM32F7 boards
