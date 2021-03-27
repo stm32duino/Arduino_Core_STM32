@@ -810,6 +810,8 @@ def usb_pinmap(lst):
             wpin.append(len(p[0]))
             r = result.split(" ")
             for af in r:
+                if p[2].startswith("USB_D") and "NONE" not in af:
+                    mode = "STM_MODE_AF_PP"
                 usb_pins_list.append(
                     {
                         "hsinfs": hsinfs,
