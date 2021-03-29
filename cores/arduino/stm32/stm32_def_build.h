@@ -381,17 +381,17 @@
   #elif defined(STM32L562xx)
     #define CMSIS_STARTUP_FILE "startup_stm32l562xx.s"
   #elif defined(STM32MP151Axx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp151a_cm4 .s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp151axx_cm4 .s"
   #elif defined(STM32MP151Cxx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp151c_cm4.s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp151cxx_cm4.s"
   #elif defined(STM32MP153Axx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp153a_cm4.s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp153axx_cm4.s"
   #elif defined(STM32MP153Cxx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp153c_cm4.s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp153cxx_cm4.s"
   #elif defined(STM32MP157Axx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp157a_cm4.s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp157axx_cm4.s"
   #elif defined(STM32MP157Cxx)
-    #define CMSIS_STARTUP_FILE "startup_stm32mp157c_cm4.s"
+    #define CMSIS_STARTUP_FILE "startup_stm32mp157cxx_cm4.s"
   #elif defined(STM32MP15xx)
     #define CMSIS_STARTUP_FILE "startup_stm32mp15xx.s"
   #elif defined(STM32WB30xx)
