@@ -11,24 +11,22 @@
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
-<h1 id="release-notes-for-stm32l5xx-hal-drivers"><small>Release Notes for</small> <strong>STM32L5xx HAL Drivers</strong></h1>
+<h1 id="release-notes-for">Release Notes for</h1>
+<h1 id="stm32l5xx-hal-drivers"><mark>STM32L5xx HAL Drivers</mark></h1>
 <p>Copyright © 2019 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="./_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="./_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
-</div>
-</div>
 <h1 id="license">License</h1>
 <p>This software component is licensed by ST under BSD 3-Clause license, the "License"; You may not use this component except in compliance with the License. You may obtain a copy of the License at:</p>
 <p><a href="https://opensource.org/licenses/BSD-3-Clause">https://opensource.org/licenses/BSD-3-Clause</a></p>
@@ -46,14 +44,176 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section4" checked aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.3 / 26-June-2020</strong></label>
+<input type="checkbox" id="collapse-section5" checked aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.0.4 / 10-February-2021</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
-<p><strong>Fourth release</strong></p>
+<p><strong>Maintenance release</strong></p>
 <h2 id="contents">Contents</h2>
-<p>Fourth release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
+<p>Maintenance release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
 <h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL CORTEX</strong> driver
+<ul>
+<li>Add APIs for MPU control:
+<ul>
+<li>HAL_MPU_Enable(), HAL_MPU_Disable(), HAL_MPU_ConfigRegion() and HAL_MPU_ConfigMemoryAttributes()</li>
+<li>HAL_MPU_Enable_NS(), HAL_MPU_Disable_NS(), HAL_MPU_ConfigRegion_NS() and HAL_MPU_ConfigMemoryAttributes_NS() for non-secure MPU control</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL CRYP</strong> driver
+<ul>
+<li>Add capability to manage GCM/GMAC/CCM header feed in DMA mode</li>
+</ul></li>
+<li><strong>HAL DAC</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL ICACHE</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL IWDG</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong> driver
+<ul>
+<li>Update external clock configuration for some ClockSource/CounterSource combinations</li>
+</ul></li>
+<li><strong>HAL MMC</strong> driver
+<ul>
+<li>High speed mode frequency computed based on real clock value</li>
+</ul></li>
+<li><strong>HAL NAND</strong> driver
+<ul>
+<li>Fix read and write in spare area (16-bits addressing)</li>
+</ul></li>
+<li><strong>HAL OPAMP</strong> driver
+<ul>
+<li>Rename definition OPAMP_POWERMODE_NORMAL to OPAMP_POWERMODE_NORMALPOWER</li>
+</ul></li>
+<li><strong>HAL PCD</strong> driver
+<ul>
+<li>Fix device ISO IN double buffer mode</li>
+<li>Fix PMA rx count descriptor update</li>
+</ul></li>
+<li><strong>HAL RCC</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL RNG</strong> driver
+<ul>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL RTC</strong> driver
+<ul>
+<li>Add APIs for daylight saving time:
+<ul>
+<li>HAL_RTC_DST_Add1Hour(), HAL_RTC_DST_Sub1Hour(), HAL_RTC_DST_SetStoreOperation(), HAL_RTC_DST_ClearStoreOperation() and HAL_RTC_DST_ReadStoreOperation()</li>
+</ul></li>
+<li>Add APIs for monitoring functions:
+<ul>
+<li>HAL_RTCEx_EnableTemperatureMonitoring() and HAL_RTCEx_DisableTemperatureMonitoring()</li>
+<li>HAL_RTCEx_EnableVoltageMonitoring() and HAL_RTCEx_DisableVoltageMonitoring()</li>
+<li>HAL_RTCEx_EnableWUTMonitoring() and HAL_RTCEx_DisableWUTMonitoring()</li>
+</ul></li>
+<li>Fix clear of registers synchronization flag (RSF) in HAL_RTC_WaitForSynchro()</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong> driver
+<ul>
+<li>High speed mode frequency computed based on real clock value</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong> driver
+<ul>
+<li><strong>Add extension files stm32l5xx_hal_smbus_ex.h/.c</strong> for new APIs:
+<ul>
+<li>HAL_SMBUSEx_EnableFastModePlus() and HAL_SMBUSEx_DisableFastModePlus()</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL SPI</strong> driver
+<ul>
+<li>Fix code optimization problem in SPI_WaitFifoStateUntilTimeout()</li>
+</ul></li>
+<li><strong>HAL TIM</strong> driver
+<ul>
+<li>Fix HAL_TIM_OnePulse_Start() not to ignore OutputChannel parameter</li>
+<li>Fix counter value latch delay at high frequency in HAL_TIM_IC_Start_DMA()</li>
+<li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
+</ul></li>
+<li><strong>HAL TSC</strong> driver
+<ul>
+<li>Add assert macro to avoid wrong CPLT/PGPSC configuration</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>New LL ICACHE driver: new stm32l5xx_ll_icache.h/.c files</strong>
+<ul>
+<li>Add APIs for ICACHE control:
+<ul>
+<li>LL_ICACHE_Enable(), LL_ICACHE_Disable(), LL_ICACHE_IsEnabled(), LL_ICACHE_SetMode(), LL_ICACHE_GetMode(), LL_ICACHE_Invalidate(), LL_ICACHE_EnableMonitors(), LL_ICACHE_DisableMonitors(), LL_ICACHE_IsEnabledMonitors(), LL_ICACHE_ResetMonitors(), LL_ICACHE_GetHitMonitor() and LL_ICACHE_GetMissMonitor()</li>
+<li>LL_ICACHE_ConfigRegion()</li>
+</ul></li>
+</ul></li>
+<li><strong>LL ADC</strong> driver
+<ul>
+<li>Increase internal regulator stabilization time from 10us to 20us (LL_ADC_DELAY_INTERNAL_REGUL_STAB_US)</li>
+</ul></li>
+<li><strong>LL CORTEX</strong> driver
+<ul>
+<li>Add APIs for MPU control:
+<ul>
+<li>LL_MPU_Enable(), LL_MPU_Disable(), LL_MPU_IsEnabled(), LL_MPU_EnableRegion(), LL_MPU_DisableRegion(), LL_MPU_IsEnabledRegion(), LL_MPU_ConfigRegion(), LL_MPU_ConfigRegionAddress(), LL_MPU_ConfigAttributes(), LL_MPU_SetRegionBaseAddress(), LL_MPU_GetRegionBaseAddress(), LL_MPU_SetRegionLimitAddress(), LL_MPU_GetRegionLimitAddress(), LL_MPU_SetRegionAccess() and LL_MPU_GetRegionAccess()</li>
+<li>LL_MPU_Enable_NS(), LL_MPU_Disable_NS(), LL_MPU_IsEnabled_NS(), LL_MPU_EnableRegion_NS(), LL_MPU_DisableRegion_NS(), LL_MPU_IsEnabledRegion_NS(), LL_MPU_ConfigRegion_NS(), LL_MPU_ConfigRegionAddress_NS(), LL_MPU_ConfigAttributes_NS(), LL_MPU_SetRegionBaseAddress_NS(), LL_MPU_GetRegionBaseAddress_NS(), LL_MPU_SetRegionLimitAddress_NS(), LL_MPU_GetRegionLimitAddress_NS(), LL_MPU_SetRegionAccess_NS() and LL_MPU_GetRegionAccess_NS() for non-secure MPU</li>
+</ul></li>
+</ul></li>
+<li><strong>LL OPAMP</strong> driver
+<ul>
+<li>Rename definition LL_OPAMP_POWERMODE_NORMAL to LL_OPAMP_POWERMODE_NORMALPOWER</li>
+</ul></li>
+<li><strong>LL RTC</strong> driver
+<ul>
+<li>Add APIs for monitoring functions:
+<ul>
+<li>LL_RTC_EnableTemperatureMonitoring() and LL_RTC_DisableTemperatureMonitoring()</li>
+<li>LL_RTC_EnableVoltageMonitoring() and LL_RTC_DisableVoltageMonitoring()</li>
+<li>LL_RTC_EnableWUTMonitoring() and LL_RTC_DisableWUTMonitoring()</li>
+</ul></li>
+</ul></li>
+<li><strong>LL SPI</strong> driver
+<ul>
+<li>Fix LL_SPI_Init() for Rx FIFO threshold if 8-bits mode</li>
+</ul></li>
+<li><strong>LL TIM</strong> driver
+<ul>
+<li>Fix LL_TIM_GetCounterMode()</li>
+<li>Fix inverted comment for One Pulse Mode definitions</li>
+</ul></li>
+<li><strong>LL USART</strong> driver
+<ul>
+<li>Fix LL_USART_ClockInit() to configure clock phase and clock polarity when CR2_CLKEN is cleared</li>
+<li>Remove useless IS_LL_USART_BRR_MAX() macro</li>
+</ul></li>
+</ul>
+<h2 id="notes">Notes</h2>
+<p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
+<p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.0.3 / 26-June-2020</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p><strong>Fourth release</strong></p>
+<h2 id="contents-1">Contents</h2>
+<p>Fourth release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
+<p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
+<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li>Global removal of ‘register’ storage class qualifier deprecated since C++ 11</li>
 <li><strong>HAL</strong> generic driver
@@ -142,7 +302,7 @@
 <li>Rework BRR register value computation in HAL_UART_Init() for ROM size gain</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li>Global removal of ‘register’ storage class qualifier deprecated since C++ 11</li>
 <li><strong>LL GPIO</strong> driver
@@ -167,7 +327,7 @@
 <li>Change default CFGR1 register values in LL_UCPD_StructInit()</li>
 </ul></li>
 </ul>
-<h2 id="notes">Notes</h2>
+<h2 id="notes-1">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -175,12 +335,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.0.2 / 12-February-2020</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <p><strong>Third release</strong></p>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>Third official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-1"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL FLASH</strong> driver
 <ul>
@@ -203,7 +363,7 @@
 <li>Fix HAL_SPI_Receive_DMA() and HAL_SPI_TransmitReceive_DMA() to only disable TX DMA interrupt at end of DMA reception in Master RX 2 lines mode</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL UTILS</strong> driver
 <ul>
@@ -213,7 +373,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="notes-1">Notes</h2>
+<h2 id="notes-2">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 <h2 id="known-limitations">Known Limitations</h2>
@@ -228,12 +388,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.0.1 / 22-January-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <p><strong>Second release</strong></p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <p>Second official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
-<h3 id="hal-drivers-updates-2"><strong>HAL Drivers</strong> updates</h3>
+<h3 id="hal-drivers-updates-3"><strong>HAL Drivers</strong> updates</h3>
 <ul>
 <li><strong>HAL FLASH</strong> driver
 <ul>
@@ -277,7 +437,7 @@
 <li>Add receiver timeout interrupt management with new HAL_USART_ERROR_RTO error code in HAL_USART_IRQHandler()</li>
 </ul></li>
 </ul>
-<h3 id="ll-drivers-updates-2"><strong>LL Drivers</strong> updates</h3>
+<h3 id="ll-drivers-updates-3"><strong>LL Drivers</strong> updates</h3>
 <ul>
 <li><strong>LL GPIO</strong> driver
 <ul>
@@ -292,7 +452,7 @@
 <li>Add LL_SetFlashLatency() API</li>
 </ul></li>
 </ul>
-<h2 id="notes-2">Notes</h2>
+<h2 id="notes-3">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>
@@ -300,9 +460,9 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 13-December-2019</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <p><strong>First release</strong></p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <p>First official release of <strong>HAL and Low Layer drivers</strong> for <strong>STM32L552xx/STM32L562xx</strong> devices</p>
 <p>Superset features device STM32L562xx API User Manual available (STM32L562xx_User_Manual.chm)</p>
 <h3 id="hal-drivers">HAL Drivers</h3>
@@ -314,7 +474,7 @@
 <ul>
 <li>ADC, BUS, COMP, CORTEX, CRC, CRS, CRYP, DAC, DMA, DMAMUX, EXTI, GPIO, I2C, IWDG, LPTIM, LPUART, OPAMP, PKA, PWR, RCC, RNG, RTC, SDMMC, SPI, SYSTEM, TIM, UCPD, USART, UTILS, WWDG</li>
 </ul>
-<h2 id="notes-3">Notes</h2>
+<h2 id="notes-4">Notes</h2>
 <p>For HAL drivers usage, stm32l5xx_hal_conf_template.h file must be copied in user application as stm32l5xx_hal_conf.h with optional configuration update.</p>
 <p>For LL drivers usage, stm32_assert_template.h file must be copied in user application as stm32_assert.h with optional assert configuration update.</p>
 </div>

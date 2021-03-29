@@ -4,9 +4,9 @@
   * @author  MCD Application Team
   * @brief   Template for HAL time base based on the peripheral hardware TIM6.
   *
-  *          This file override the native HAL time base functions (defined as weak)
+  *          This file overrides the native HAL time base functions (defined as weak)
   *          the TIM time base:
-  *           + Initializes the TIM6 peripheral to generate a Period elapsed Event each 1ms
+  *           + Initializes the TIM peripheral to generate a Period elapsed Event each 1ms
   *           + HAL_IncTick is called inside HAL_TIM_PeriodElapsedCallback ie each 1ms
   *
  @verbatim
@@ -64,7 +64,7 @@ void TIM6_IRQHandler(void);
   *         Tick interrupt priority.
   * @note   This function is called  automatically at the beginning of program after
   *         reset by HAL_Init() or at any time when clock is configured, by HAL_RCC_ClockConfig().
-  * @param  TickPriority: Tick interrupt priority.
+  * @param  TickPriority Tick interrupt priority.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
@@ -73,57 +73,84 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   uint32_t              uwTimclock, uwAPB1Prescaler;
   uint32_t              uwPrescalerValue;
   uint32_t              pFLatency;
+  HAL_StatusTypeDef     status = HAL_OK;
 
-  /* Configure the TIM6 IRQ priority */
-  HAL_NVIC_SetPriority(TIM6_IRQn, TickPriority, 0U);
-
-  /* Enable the TIM6 global Interrupt */
-  HAL_NVIC_EnableIRQ(TIM6_IRQn);
-
-  /* Enable TIM6 clock */
-  __HAL_RCC_TIM6_CLK_ENABLE();
-
-  /* Get clock configuration */
-  HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
-
-  /* Get APB1 prescaler */
-  uwAPB1Prescaler = clkconfig.APB1CLKDivider;
-
-  /* Compute TIM6 clock */
-  if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+  /* Check uwTickFreq for MisraC 2012 (even if uwTickFreq is a enum type that don't take the value zero)*/
+  if ((uint32_t)uwTickFreq != 0U)
   {
-    uwTimclock = HAL_RCC_GetPCLK1Freq();
+    /* Enable TIM6 clock */
+    __HAL_RCC_TIM6_CLK_ENABLE();
+
+    /* Get clock configuration */
+    HAL_RCC_GetClockConfig(&clkconfig, &pFLatency);
+
+    /* Get APB1 prescaler */
+    uwAPB1Prescaler = clkconfig.APB1CLKDivider;
+
+    /* Compute TIM6 clock */
+    if (uwAPB1Prescaler == RCC_HCLK_DIV1)
+    {
+      uwTimclock = HAL_RCC_GetPCLK1Freq();
+    }
+    else
+    {
+      uwTimclock = 2U * HAL_RCC_GetPCLK1Freq();
+    }
+
+    /* Compute the prescaler value to have TIM6 counter clock equal to 1MHz */
+    uwPrescalerValue = (uint32_t)((uwTimclock / 1000000U) - 1U);
+
+    /* Initialize TIM6 */
+    TimHandle.Instance = TIM6;
+
+    /* Initialize TIMx peripheral as follows:
+    + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s time base.
+    + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
+    + ClockDivision = 0
+    + Counter direction = Up
+    */
+    TimHandle.Init.Period = (1000000U / 1000U) - 1U;
+    TimHandle.Init.Prescaler = uwPrescalerValue;
+    TimHandle.Init.ClockDivision = 0;
+    TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
+    TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+    if (HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
+    {
+      /* Start the TIM time Base generation in interrupt mode */
+      if (HAL_TIM_Base_Start_IT(&TimHandle) == HAL_OK)
+      {
+        /* Enable the TIM6 global Interrupt */
+        HAL_NVIC_EnableIRQ(TIM6_IRQn);
+
+        /* Configure the SysTick IRQ priority */
+        if (TickPriority < (1UL << __NVIC_PRIO_BITS))
+        {
+          /*Configure the TIM6 IRQ priority */
+          HAL_NVIC_SetPriority(TIM6_IRQn, TickPriority ,0U);
+          uwTickPrio = TickPriority;
+        }
+        else
+        {
+          status = HAL_ERROR;
+        }
+      }
+      else
+      {
+        status = HAL_ERROR;
+      }
+    }
+    else
+    {
+      status = HAL_ERROR;
+    }
   }
   else
   {
-    uwTimclock = 2U*HAL_RCC_GetPCLK1Freq();
-  }
-
-  /* Compute the prescaler value to have TIM6 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
-
-  /* Initialize TIM6 */
-  TimHandle.Instance = TIM6;
-
-  /* Initialize TIMx peripheral as follow:
-  + Period = [(TIM6CLK/1000) - 1]. to have a (1/1000) s time base.
-  + Prescaler = (uwTimclock/1000000 - 1) to have a 1MHz counter clock.
-  + ClockDivision = 0
-  + Counter direction = Up
-  */
-  TimHandle.Init.Period = (1000000U / 1000U) - 1U;
-  TimHandle.Init.Prescaler = uwPrescalerValue;
-  TimHandle.Init.ClockDivision = 0;
-  TimHandle.Init.CounterMode = TIM_COUNTERMODE_UP;
-  TimHandle.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if(HAL_TIM_Base_Init(&TimHandle) == HAL_OK)
-  {
-    /* Start the TIM time Base generation in interrupt mode */
-    return HAL_TIM_Base_Start_IT(&TimHandle);
+    status = HAL_ERROR;
   }
 
   /* Return function status */
-  return HAL_ERROR;
+  return status;
 }
 
 /**
@@ -151,7 +178,7 @@ void HAL_ResumeTick(void)
 /**
   * @brief  Period elapsed callback in non blocking mode
   * @note   This function is called  when TIM6 interrupt took place, inside
-  * HAL_TIM6_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
+  * HAL_TIM_IRQHandler(). It makes a direct call to HAL_IncTick() to increment
   * a global variable "uwTick" used as application time base.
   * @param  htim TIM handle
   * @retval None
