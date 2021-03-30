@@ -40,7 +40,8 @@ HAL Driver L5 | CMSIS Device L5 | CMSIS Core | Was delivered in the full MCU pac
 ------------- | --------------- | ---------- | -------------------------------------
 Tag v1.0.0 | Tag v1.0.0 | Tag v5.4.0_cm33 | Tag v1.1.0
 Tag v1.0.2 | Tag v1.0.2 | Tag v5.4.0_cm33 | Tag v1.2.0
-Tag v1.0.3 | Tag v1.0.3 | Tag v5.6.0_cm33 | Tag v1.3.0 (and following, if any, till next tag)
+Tag v1.0.3 | Tag v1.0.3 | Tag v5.6.0_cm33 | Tag v1.3.0
+Tag v1.0.4 | Tag v1.0.4 | Tag v5.6.0_cm33 | Tag v1.4.0 (and following, if any, till next tag)
 
 The full **STM32CubeL5** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL5).
 
