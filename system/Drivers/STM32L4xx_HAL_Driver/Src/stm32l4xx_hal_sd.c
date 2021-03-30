@@ -288,7 +288,10 @@
 /** @addtogroup SD_Private_Defines
   * @{
   */
-
+/* Frequencies used in the driver for clock divider calculation */
+#define SD_INIT_FREQ                   400000U   /* Initalization phase : 400 kHz max */
+#define SD_NORMAL_SPEED_FREQ           25000000U /* Normal speed phase : 25 MHz max */
+#define SD_HIGH_SPEED_FREQ             50000000U /* High speed phase : 50 MHz max */
 /**
   * @}
   */
@@ -453,6 +456,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
     {
       hsd->ErrorCode = HAL_SD_ERROR_TIMEOUT;
       hsd->State= HAL_SD_STATE_READY;
+      hsd->Context = SD_CONTEXT_NONE;
       return HAL_TIMEOUT;
     }
   }
@@ -502,12 +506,13 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
       return HAL_ERROR;
   }
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
-  Init.ClockDiv = ((sdmmc_clk/400000U) - 2U);
+  Init.ClockDiv = ((sdmmc_clk / SD_INIT_FREQ) - 2U);
 #else
-  Init.ClockDiv = sdmmc_clk/(2U*400000U);
+  Init.ClockDiv = sdmmc_clk / (2U * SD_INIT_FREQ);
 #endif
 
 #if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
+  Init.Transceiver = hsd->Init.Transceiver;
   if(hsd->Init.Transceiver == SDMMC_TRANSCEIVER_ENABLE)
   {
     /* Set Transceiver polarity */
@@ -2627,6 +2632,7 @@ HAL_StatusTypeDef HAL_SD_ConfigWideBusOperation(SD_HandleTypeDef *hsd, uint32_t 
 {
   SDMMC_InitTypeDef Init;
   uint32_t errorstate;
+  uint32_t sdmmc_clk;
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
@@ -2673,41 +2679,101 @@ HAL_StatusTypeDef HAL_SD_ConfigWideBusOperation(SD_HandleTypeDef *hsd, uint32_t 
   }
   else
   {
-    /* Configure the SDMMC peripheral */
-    Init.ClockEdge           = hsd->Init.ClockEdge;
+    sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC1);
+    if (sdmmc_clk != 0U)
+    {
+      /* Configure the SDMMC peripheral */
+      Init.ClockEdge           = hsd->Init.ClockEdge;
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
-    Init.ClockBypass         = hsd->Init.ClockBypass;
+      Init.ClockBypass         = hsd->Init.ClockBypass;
 #endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
-    Init.ClockPowerSave      = hsd->Init.ClockPowerSave;
-    Init.BusWide             = WideMode;
-    Init.HardwareFlowControl = hsd->Init.HardwareFlowControl;
+      Init.ClockPowerSave      = hsd->Init.ClockPowerSave;
+      Init.BusWide             = WideMode;
+      Init.HardwareFlowControl = hsd->Init.HardwareFlowControl;
 
 #if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
-    /* Check if user Clock div < Normal speed 25Mhz, no change in Clockdiv */
-    if(hsd->Init.ClockDiv >= SDMMC_NSpeed_CLK_DIV)
-    {
-      Init.ClockDiv = hsd->Init.ClockDiv;
-    }
-    else if (hsd->SdCard.CardSpeed == CARD_ULTRA_HIGH_SPEED)
-    {
-      /* UltraHigh speed SD card,user Clock div */
-      Init.ClockDiv = hsd->Init.ClockDiv;
-    }
-    else if (hsd->SdCard.CardSpeed == CARD_HIGH_SPEED)
-    {
-      /* High speed SD card, Max Frequency = 50Mhz */
-      Init.ClockDiv = SDMMC_HSpeed_CLK_DIV;
+      /* Check if user Clock div < Normal speed 25Mhz, no change in Clockdiv */
+      if (hsd->Init.ClockDiv >= (sdmmc_clk / (2U * SD_NORMAL_SPEED_FREQ)))
+      {
+        Init.ClockDiv = hsd->Init.ClockDiv;
+      }
+      else if (hsd->SdCard.CardSpeed == CARD_ULTRA_HIGH_SPEED)
+      {
+        /* UltraHigh speed SD card,user Clock div */
+        Init.ClockDiv = hsd->Init.ClockDiv;
+      }
+      else if (hsd->SdCard.CardSpeed == CARD_HIGH_SPEED)
+      {
+        /* High speed SD card, Max Frequency = 50Mhz */
+        if (hsd->Init.ClockDiv == 0U)
+        {
+          if (sdmmc_clk > SD_HIGH_SPEED_FREQ)
+          {
+            Init.ClockDiv = sdmmc_clk / (2U * SD_HIGH_SPEED_FREQ);
+          }
+          else
+          {
+            Init.ClockDiv = hsd->Init.ClockDiv;
+          }
+        }
+        else
+        {
+          if ((sdmmc_clk/(2U * hsd->Init.ClockDiv)) > SD_HIGH_SPEED_FREQ)
+          {
+            Init.ClockDiv = sdmmc_clk / (2U * SD_HIGH_SPEED_FREQ);
+          }
+          else
+          {
+            Init.ClockDiv = hsd->Init.ClockDiv;
+          }
+        }
+      }
+      else
+      {
+        /* No High speed SD card, Max Frequency = 25Mhz */
+        if (hsd->Init.ClockDiv == 0U)
+        {
+          if (sdmmc_clk > SD_NORMAL_SPEED_FREQ)
+          {
+            Init.ClockDiv = sdmmc_clk / (2U * SD_NORMAL_SPEED_FREQ);
+          }
+          else
+          {
+            Init.ClockDiv = hsd->Init.ClockDiv;
+          }
+        }
+        else
+        {
+          if ((sdmmc_clk/(2U * hsd->Init.ClockDiv)) > SD_NORMAL_SPEED_FREQ)
+          {
+            Init.ClockDiv = sdmmc_clk / (2U * SD_NORMAL_SPEED_FREQ);
+          }
+          else
+          {
+            Init.ClockDiv = hsd->Init.ClockDiv;
+          }
+        }
+      }
+
+      Init.Transceiver = hsd->Init.Transceiver;
+#else
+      if ((sdmmc_clk / (Init.ClockDiv + 2U)) > SD_NORMAL_SPEED_FREQ)
+      {
+        Init.ClockDiv = ((sdmmc_clk / SD_NORMAL_SPEED_FREQ) - 2U);
+      }
+      else
+      {
+        Init.ClockDiv = hsd->Init.ClockDiv;
+      }
+#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
+
+      (void)SDMMC_Init(hsd->Instance, Init);
     }
     else
     {
-      /* No High speed SD card, Max Frequency = 25Mhz */
-      Init.ClockDiv = SDMMC_NSpeed_CLK_DIV;
+      hsd->ErrorCode |= SDMMC_ERROR_INVALID_PARAMETER;
+      status = HAL_ERROR;
     }
-#else
-    Init.ClockDiv            = hsd->Init.ClockDiv;
-#endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
-
-    (void)SDMMC_Init(hsd->Instance, Init);
   }
 
   /* Set Block Size for Card */
