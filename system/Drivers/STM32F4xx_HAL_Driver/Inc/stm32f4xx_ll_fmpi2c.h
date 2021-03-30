@@ -361,11 +361,11 @@ typedef struct
   * @retval Value between Min_Data=0 and Max_Data=0xFFFFFFFF
   */
 #define __LL_FMPI2C_CONVERT_TIMINGS(__PRESCALER__, __DATA_SETUP_TIME__, __DATA_HOLD_TIME__, __CLOCK_HIGH_PERIOD__, __CLOCK_LOW_PERIOD__)   \
-        ((((uint32_t)(__PRESCALER__)         << FMPI2C_TIMINGR_PRESC_Pos)  & FMPI2C_TIMINGR_PRESC)   | \
-         (((uint32_t)(__DATA_SETUP_TIME__)   << FMPI2C_TIMINGR_SCLDEL_Pos) & FMPI2C_TIMINGR_SCLDEL)  | \
-         (((uint32_t)(__DATA_HOLD_TIME__)    << FMPI2C_TIMINGR_SDADEL_Pos) & FMPI2C_TIMINGR_SDADEL)  | \
-         (((uint32_t)(__CLOCK_HIGH_PERIOD__) << FMPI2C_TIMINGR_SCLH_Pos)   & FMPI2C_TIMINGR_SCLH)    | \
-         (((uint32_t)(__CLOCK_LOW_PERIOD__)  << FMPI2C_TIMINGR_SCLL_Pos)   & FMPI2C_TIMINGR_SCLL))
+  ((((uint32_t)(__PRESCALER__)         << FMPI2C_TIMINGR_PRESC_Pos)  & FMPI2C_TIMINGR_PRESC)   | \
+   (((uint32_t)(__DATA_SETUP_TIME__)   << FMPI2C_TIMINGR_SCLDEL_Pos) & FMPI2C_TIMINGR_SCLDEL)  | \
+   (((uint32_t)(__DATA_HOLD_TIME__)    << FMPI2C_TIMINGR_SDADEL_Pos) & FMPI2C_TIMINGR_SDADEL)  | \
+   (((uint32_t)(__CLOCK_HIGH_PERIOD__) << FMPI2C_TIMINGR_SCLH_Pos)   & FMPI2C_TIMINGR_SCLH)    | \
+   (((uint32_t)(__CLOCK_LOW_PERIOD__)  << FMPI2C_TIMINGR_SCLL_Pos)   & FMPI2C_TIMINGR_SCLL))
 /**
   * @}
   */
@@ -584,12 +584,12 @@ __STATIC_INLINE uint32_t LL_FMPI2C_DMA_GetRegAddr(FMPI2C_TypeDef *FMPI2Cx, uint3
   if (Direction == LL_FMPI2C_DMA_REG_DATA_TRANSMIT)
   {
     /* return address of TXDR register */
-    data_reg_addr = (uint32_t) & (FMPI2Cx->TXDR);
+    data_reg_addr = (uint32_t) &(FMPI2Cx->TXDR);
   }
   else
   {
     /* return address of RXDR register */
-    data_reg_addr = (uint32_t) & (FMPI2Cx->RXDR);
+    data_reg_addr = (uint32_t) &(FMPI2Cx->RXDR);
   }
 
   return data_reg_addr;
@@ -1125,7 +1125,7 @@ __STATIC_INLINE void LL_FMPI2C_SetSMBusTimeoutB(FMPI2C_TypeDef *FMPI2Cx, uint32_
 }
 
 /**
-  * @brief  Get the SMBus Extented Cumulative Clock TimeoutB setting.
+  * @brief  Get the SMBus Extended Cumulative Clock TimeoutB setting.
   * @note   Macro IS_FMPSMBUS_ALL_INSTANCE(FMPI2Cx) can be used to check whether or not
   *         SMBus feature is supported by the FMPI2Cx Instance.
   * @rmtoll TIMEOUTR     TIMEOUTB      LL_FMPI2C_GetSMBusTimeoutB
@@ -2052,7 +2052,9 @@ __STATIC_INLINE uint32_t LL_FMPI2C_GetSlaveAddr(FMPI2C_TypeDef *FMPI2Cx)
 __STATIC_INLINE void LL_FMPI2C_HandleTransfer(FMPI2C_TypeDef *FMPI2Cx, uint32_t SlaveAddr, uint32_t SlaveAddrSize,
                                            uint32_t TransferSize, uint32_t EndMode, uint32_t Request)
 {
-  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_SADD | FMPI2C_CR2_ADD10 | (FMPI2C_CR2_RD_WRN & (uint32_t)(Request >> (31U - FMPI2C_CR2_RD_WRN_Pos))) | FMPI2C_CR2_START | FMPI2C_CR2_STOP | FMPI2C_CR2_RELOAD |
+  MODIFY_REG(FMPI2Cx->CR2, FMPI2C_CR2_SADD | FMPI2C_CR2_ADD10 |
+             (FMPI2C_CR2_RD_WRN & (uint32_t)(Request >> (31U - FMPI2C_CR2_RD_WRN_Pos))) |
+             FMPI2C_CR2_START | FMPI2C_CR2_STOP | FMPI2C_CR2_RELOAD |
              FMPI2C_CR2_NBYTES | FMPI2C_CR2_AUTOEND | FMPI2C_CR2_HEAD10R,
              SlaveAddr | SlaveAddrSize | (TransferSize << FMPI2C_CR2_NBYTES_Pos) | EndMode | Request);
 }
@@ -2119,7 +2121,7 @@ __STATIC_INLINE uint32_t LL_FMPI2C_IsEnabledSMBusPECCompare(FMPI2C_TypeDef *FMPI
   * @rmtoll PECR         PEC           LL_FMPI2C_GetSMBusPEC
   * @param  FMPI2Cx FMPI2C Instance.
   * @retval Value between Min_Data=0x00 and Max_Data=0xFF
-*/
+  */
 __STATIC_INLINE uint32_t LL_FMPI2C_GetSMBusPEC(FMPI2C_TypeDef *FMPI2Cx)
 {
   return (uint32_t)(READ_BIT(FMPI2Cx->PECR, FMPI2C_PECR_PEC));

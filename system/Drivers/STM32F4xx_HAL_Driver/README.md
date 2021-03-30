@@ -42,7 +42,8 @@ Tag v1.7.6 | Tag v2.6.3 | Tag v5.4.0_cm4 | Tag v1.24.1 (and following, if any, t
 Tag v1.7.7 | Tag v2.6.4 | Tag v5.4.0_cm4 | Tag v1.24.2 (and following, if any, till next tag)
 Tag v1.7.8 | Tag v2.6.5 | Tag v5.4.0_cm4 | Tag v1.25.0 (and following, if any, till next tag)
 Tag v1.7.9 | Tag v2.6.5 | Tag v5.4.0_cm4 | Tag v1.25.1 (and following, if any, till next tag)
-Tag v1.7.10 | Tag v2.6.5 | Tag v5.4.0_cm4 | Tag v1.25.2 (and following, if any, till next tag)
+Tag v1.7.10| Tag v2.6.5 | Tag v5.4.0_cm4 | Tag v1.25.2 (and following, if any, till next tag)
+Tag v1.7.11| Tag v2.6.6 | Tag v5.4.0_cm4 | Tag v1.26.0 (and following, if any, till next tag)
 
 The full **STM32CubeF4** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF4).
 

@@ -186,6 +186,8 @@ typedef struct
 
   uint8_t   *xfer_buff;         /*!< Pointer to transfer buffer.                                                */
 
+  uint32_t  XferSize;             /*!< OTG Channel transfer size.                                                   */
+
   uint32_t  xfer_len;           /*!< Current transfer length.                                                   */
 
   uint32_t  xfer_count;         /*!< Partial transfer length in case of multi packet transfer.                  */
