@@ -505,13 +505,17 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedPollForConversion(ADC_HandleTypeDef *hadc, u
     {
       if (((HAL_GetTick() - tickstart) > Timeout) || (Timeout == 0UL))
       {
-        /* Update ADC state machine to timeout */
-        SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
+        /* New check to avoid false timeout detection in case of preemption */
+        if ((hadc->Instance->ISR & tmp_Flag_End) == 0UL)
+        {
+          /* Update ADC state machine to timeout */
+          SET_BIT(hadc->State, HAL_ADC_STATE_TIMEOUT);
 
-        /* Process unlocked */
-        __HAL_UNLOCK(hadc);
+          /* Process unlocked */
+          __HAL_UNLOCK(hadc);
 
-        return HAL_TIMEOUT;
+          return HAL_TIMEOUT;
+        }
       }
     }
   }

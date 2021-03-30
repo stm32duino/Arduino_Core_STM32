@@ -565,6 +565,7 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_1       (SRAM2B_BASE + 0x0400U)  /*  When in secure mode (SRAM2B_BASE + 0x0400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_2       (SRAM2B_BASE + 0x0800U)  /*  When in secure mode (SRAM2B_BASE + 0x0800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_3       (SRAM2B_BASE + 0x0C00U)  /*  When in secure mode (SRAM2B_BASE + 0x0C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
+#if !defined(STM32WB15xx)
 #define SRAM2B_START_SECURE_ADDR_4       (SRAM2B_BASE + 0x1000U)  /*  When in secure mode (SRAM2B_BASE + 0x1000) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_5       (SRAM2B_BASE + 0x1400U)  /*  When in secure mode (SRAM2B_BASE + 0x1400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_6       (SRAM2B_BASE + 0x1800U)  /*  When in secure mode (SRAM2B_BASE + 0x1800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
@@ -594,6 +595,9 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_30      (SRAM2B_BASE + 0x7800U)  /*  When in secure mode (SRAM2B_BASE + 0x7800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_31      (SRAM2B_BASE + 0x7C00U)  /*  When in secure mode (SRAM2B_BASE + 0x7C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x8000U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
+#else
+#define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x0C00U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
+#endif
 
 /**
   * @}
@@ -852,12 +856,21 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define FLASH_END_ADDR                          (FLASH_BASE + FLASH_SIZE - 1U)
 
 #define FLASH_BANK_SIZE                         FLASH_SIZE   /*!< FLASH Bank Size */
+#if defined(STM32WB15xx)
+#define FLASH_PAGE_SIZE                         0x00000800U  /*!< FLASH Page Size, 2 KBytes */
+#else
 #define FLASH_PAGE_SIZE                         0x00001000U  /*!< FLASH Page Size, 4 KBytes */
+#endif
 #define FLASH_PAGE_NB                           (FLASH_SIZE / FLASH_PAGE_SIZE)
 #define FLASH_TIMEOUT_VALUE                     1000U        /*!< FLASH Execution Timeout, 1 s */
 
+#if defined(STM32WB15xx)
+#define FLASH_PCROP_GRANULARITY_OFFSET          10U                                      /*!< FLASH Code Readout Protection granularity offset */
+#define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 1 KBytes */
+#else
 #define FLASH_PCROP_GRANULARITY_OFFSET          11U                                      /*!< FLASH Code Readout Protection granularity offset */
 #define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 2 KBytes */
+#endif
 
 #define FLASH_TYPENONE                          0x00000000U                                /*!< No Programmation Procedure On Going */
 /**

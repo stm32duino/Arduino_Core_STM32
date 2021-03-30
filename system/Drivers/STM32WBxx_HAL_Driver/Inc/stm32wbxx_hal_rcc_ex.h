@@ -193,6 +193,12 @@ extern "C" {
                 ((__SOURCE__) == RCC_ADCCLKSOURCE_PLL)     || \
                 ((__SOURCE__) == RCC_ADCCLKSOURCE_PLLSAI1) || \
                 ((__SOURCE__) == RCC_ADCCLKSOURCE_SYSCLK))
+#elif defined(STM32WB15xx)
+#define IS_RCC_ADCCLKSOURCE(__SOURCE__)  \
+               (((__SOURCE__) == RCC_ADCCLKSOURCE_NONE) || \
+                ((__SOURCE__) == RCC_ADCCLKSOURCE_PLL)  || \
+                ((__SOURCE__) == RCC_ADCCLKSOURCE_HSI)  || \
+                ((__SOURCE__) == RCC_ADCCLKSOURCE_SYSCLK))
 #else
 #define IS_RCC_ADCCLKSOURCE(__SOURCE__)  \
                (((__SOURCE__) == RCC_ADCCLKSOURCE_NONE) || \
@@ -585,6 +591,8 @@ typedef struct
 #define RCC_ADCCLKSOURCE_NONE          LL_RCC_ADC_CLKSOURCE_NONE      /*!< None clock selected as ADC clock        */
 #if defined(STM32WB55xx) || defined (STM32WB5Mxx) || defined(STM32WB35xx)
 #define RCC_ADCCLKSOURCE_PLLSAI1       LL_RCC_ADC_CLKSOURCE_PLLSAI1   /*!< PLLSAI1 "R" clock selected as ADC clock */
+#elif defined (STM32WB15xx)
+#define RCC_ADCCLKSOURCE_HSI           LL_RCC_ADC_CLKSOURCE_HSI       /*!< HSI clock selected as ADC clock */
 #endif
 #define RCC_ADCCLKSOURCE_PLL           LL_RCC_ADC_CLKSOURCE_PLL       /*!< PLL "P" clock selected as ADC clock     */
 #define RCC_ADCCLKSOURCE_SYSCLK        LL_RCC_ADC_CLKSOURCE_SYSCLK    /*!< SYSCLK clock selected as ADC clock      */

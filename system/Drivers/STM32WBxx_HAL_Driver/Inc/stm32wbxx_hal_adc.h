@@ -268,6 +268,7 @@ typedef struct
                                               sampling time constraints must be respected (sampling time can be adjusted in function of ADC clock frequency and sampling time setting)
                                               Refer to device datasheet for timings values. */
 
+#if !defined (ADC_SUPPORT_2_5_MSPS)
   uint32_t SingleDiff;             /*!< Select single-ended or differential input.
                                         In differential mode: Differential measurement is carried out between the selected channel 'i' (positive input) and channel 'i+1' (negative input).
                                                               Only channel 'i' has to be configured, channel 'i+1' is configured automatically.
@@ -291,6 +292,7 @@ typedef struct
                                         Note: This parameter must be modified when no conversion is on going on both regular and injected groups (ADC disabled, or ADC enabled
                                               without continuous mode or external trigger that could launch a conversion). */
 
+#endif
 } ADC_ChannelConfTypeDef;
 
 /**
