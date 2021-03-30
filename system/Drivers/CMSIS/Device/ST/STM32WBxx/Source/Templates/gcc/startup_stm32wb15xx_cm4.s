@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32wb50xx_cm4.s
+  * @file      startup_stm32wb15xx_cm4.s
   * @author    MCD Application Team
-  * @brief     STM32WB50xx devices vector table GCC toolchain.
+  * @brief     STM32WB15xx devices vector table GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -14,11 +14,11 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
+  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
 * This software component is licensed by ST under Apache License, Version 2.0,
-  * the "License"; You may not use this file except in compliance with the 
+  * the "License"; You may not use this file except in compliance with the
   * License. You may obtain a copy of the License at:
   *                        opensource.org/licenses/Apache-2.0
   *
@@ -110,7 +110,7 @@ Reset_Handler:
 
 LoopForever:
   b LoopForever
-    
+
 .size	Reset_Handler, .-Reset_Handler
 
 /**
@@ -133,7 +133,7 @@ Infinite_Loop:
 * 0x0000.0000.
 *
 ******************************************************************************/
- 	.section	.isr_vector,"a",%progbits
+	.section	.isr_vector,"a",%progbits
 	.type	g_pfnVectors, %object
 	.size	g_pfnVectors, .-g_pfnVectors
 
@@ -177,11 +177,11 @@ g_pfnVectors:
   .word 0
   .word 0
   .word C2SEV_PWR_C2H_IRQHandler
-  .word 0
+  .word COMP_IRQHandler
   .word EXTI9_5_IRQHandler
   .word TIM1_BRK_IRQHandler
-  .word TIM1_UP_TIM16_IRQHandler
-  .word TIM1_TRG_COM_TIM17_IRQHandler
+  .word TIM1_UP_IRQHandler
+  .word TIM1_TRG_COM_IRQHandler
   .word TIM1_CC_IRQHandler
   .word TIM2_IRQHandler
   .word PKA_IRQHandler
@@ -192,13 +192,13 @@ g_pfnVectors:
   .word SPI1_IRQHandler
   .word 0
   .word USART1_IRQHandler
+  .word LPUART1_IRQHandler
   .word 0
-  .word 0
-  .word 0
+  .word TSC_IRQHandler
   .word EXTI15_10_IRQHandler
   .word RTC_Alarm_IRQHandler
   .word 0
-  .word PWR_SOTF_BLEACT_802ACT_RFPHASE_IRQHandler
+  .word PWR_SOTF_BLEACT_RFPHASE_IRQHandler
   .word IPCC_C1_RX_IRQHandler
   .word IPCC_C1_TX_IRQHandler
   .word HSEM_IRQHandler
@@ -228,7 +228,7 @@ g_pfnVectors:
 *******************************************************************************/
   .weak	NMI_Handler
   .thumb_set NMI_Handler,Default_Handler
-  
+
   .weak  HardFault_Handler
   .thumb_set HardFault_Handler,Default_Handler
 
@@ -313,17 +313,20 @@ g_pfnVectors:
   .weak  C2SEV_PWR_C2H_IRQHandler
   .thumb_set C2SEV_PWR_C2H_IRQHandler,Default_Handler
 
+  .weak  COMP_IRQHandler
+  .thumb_set COMP_IRQHandler,Default_Handler
+
   .weak  EXTI9_5_IRQHandler
   .thumb_set EXTI9_5_IRQHandler,Default_Handler
 
   .weak  TIM1_BRK_IRQHandler
   .thumb_set TIM1_BRK_IRQHandler,Default_Handler
 
-  .weak  TIM1_UP_TIM16_IRQHandler
-  .thumb_set TIM1_UP_TIM16_IRQHandler,Default_Handler
+  .weak  TIM1_UP_IRQHandler
+  .thumb_set TIM1_UP_IRQHandler,Default_Handler
 
-  .weak  TIM1_TRG_COM_TIM17_IRQHandler
-  .thumb_set TIM1_TRG_COM_TIM17_IRQHandler,Default_Handler
+  .weak  TIM1_TRG_COM_IRQHandler
+  .thumb_set TIM1_TRG_COM_IRQHandler,Default_Handler
 
   .weak  TIM1_CC_IRQHandler
   .thumb_set TIM1_CC_IRQHandler,Default_Handler
@@ -346,6 +349,9 @@ g_pfnVectors:
   .weak  USART1_IRQHandler
   .thumb_set USART1_IRQHandler,Default_Handler
 
+  .weak  LPUART1_IRQHandler
+  .thumb_set LPUART1_IRQHandler,Default_Handler
+
   .weak  TSC_IRQHandler
   .thumb_set TSC_IRQHandler,Default_Handler
 
@@ -355,8 +361,8 @@ g_pfnVectors:
   .weak  RTC_Alarm_IRQHandler
   .thumb_set RTC_Alarm_IRQHandler,Default_Handler
 
-  .weak  PWR_SOTF_BLEACT_802ACT_RFPHASE_IRQHandler
-  .thumb_set PWR_SOTF_BLEACT_802ACT_RFPHASE_IRQHandler,Default_Handler
+  .weak  PWR_SOTF_BLEACT_RFPHASE_IRQHandler
+  .thumb_set PWR_SOTF_BLEACT_RFPHASE_IRQHandler,Default_Handler
 
   .weak  IPCC_C1_RX_IRQHandler
   .thumb_set IPCC_C1_RX_IRQHandler,Default_Handler

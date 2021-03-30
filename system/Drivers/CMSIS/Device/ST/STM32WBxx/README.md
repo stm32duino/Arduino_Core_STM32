@@ -36,6 +36,7 @@ Tag v1.3.0      | Tag v5.4.0_cm4 | Tag v1.3.0
 Tag v1.4.0      | Tag v5.4.0_cm4 | Tag v1.5.0
 Tag v1.5.0      | Tag v5.4.0_cm4 | Tag v1.8.0
 Tag v1.7.0      | Tag v5.6.0_cm4 | Tag v1.10.0
+Tag v1.8.0      | Tag v5.6.0_cm4 | Tag v1.11.0
 
 The full **STM32CubeWB** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeWB).
 
