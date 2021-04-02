@@ -81,7 +81,8 @@
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              ND
+  // User button is not available on all revision of this board
+  #define USER_BTN              PA0
 #endif
 
 // SPI definitions
