@@ -78,7 +78,7 @@ const PinName digitalPin[] = {
   /*PF_10,*/PC_0,   // PF_10: Moved to allow contiguous analog pins
   PF_8, /*PF_9,*/ // PF_9: Moved to allow contiguous analog pins
   PF_6,   PF_7,
-  PF_10,  PF_9,   // PF_10: LED D2, PF_9: LED D1 (active low)
+  PF_9,   PF_10,  // PF_9: LED D1, PF_10: LED D2 (active low)
   PF_4,   PF_5,
   PF_2,   PF_3,
   PF_0,   PF_1,
