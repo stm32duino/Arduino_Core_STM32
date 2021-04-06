@@ -71,17 +71,17 @@
         {
           "pattern": "DISCO_IOT_|M24SR64-Y|MX25R6435F",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
           "pattern": "SPBTLE_BeaconDemo|SPBTLE_SensorDemo|BTLE_sensors_TimeOfFlight_demo",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
           "pattern": "STM32duinoBLE",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT", "STEVAL_MKSBOX1V1", "NUCLEO_L476RG" ]
+          "boards": [ "B_L475E_IOT01A", "STEVAL_MKSBOX1V1", "NUCLEO_L476RG" ]
         },
         {
           "pattern": "STM32Ethernet|Ethernet_MQTT_Adafruit.io|Hello_stm32",
@@ -91,7 +91,7 @@
         {
           "pattern": "ISM43362-M3G-L44|WiFi_MQTT_Adafruit.io|mqtt_B-L475E-IOT01A",
           "applicable": true,
-          "boards": [ "DISCO_L475VG_IOT" ]
+          "boards": [ "B_L475E_IOT01A" ]
         },
         {
           "pattern": "ExternalWakeup|NucleoCar",
@@ -196,7 +196,7 @@
             "DISCO_F407VG",
             "DISCO_F746NG",
             "DISCO_L072CZ_LRWAN1",
-            "DISCO_L475VG_IOT"
+            "B_L475E_IOT01A"
           ],
           "options": "usb=HID"
         },
@@ -207,7 +207,7 @@
           "boards": [
             "DISCO_F746NG",
             "DISCO_L072CZ_LRWAN1",
-            "DISCO_L475VG_IOT",
+            "B_L475E_IOT01A",
             "NUCLEO_F091RC",
             "NUCLEO_F103RB",
             "NUCLEO_F207ZG",
@@ -265,7 +265,7 @@
           "pattern": "X_NUCLEO_GNSS1A1",
           "applicable": false,
           "boards": [
-            "DISCO_F746NG", "DISCO_L475VG_IOT", "NUCLEO_F207ZG", "NUCLEO_F429ZI", "NUCLEO_F767ZI",
+            "DISCO_F746NG", "B_L475E_IOT01A", "NUCLEO_F207ZG", "NUCLEO_F429ZI", "NUCLEO_F767ZI",
             "NUCLEO_H743ZI2", "PNUCLEO_WB55RG", "STM32MP157C_DK2"
           ]
         },
