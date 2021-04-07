@@ -320,7 +320,7 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.mcu=cortex-m0plus
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.board=NUCLEO_G071RB
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.product_line=STM32G071xx
-Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/NUCLEO_G071RB
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
@@ -428,7 +428,6 @@ Nucleo_64.menu.pnum.NUCLEO_L452REP.build.variant=STM32L4xx/L452RETxP
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # NUCLEO_L476RG board
-# Support: Serial1 (USART1 on PA10, PA9)
 Nucleo_64.menu.pnum.NUCLEO_L476RG=Nucleo L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.node=NODE_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_size=1048576
@@ -668,13 +667,13 @@ Disco.menu.pnum.DISCO_F746NG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 # DISCO_G0316 board
 Disco.menu.pnum.DISCO_G0316=STM32G0316-DISCO
 Disco.menu.pnum.DISCO_G0316.node=NODE_G031J6
-Disco.menu.pnum.DISCO_G0316.upload.maximum_size=131072
-Disco.menu.pnum.DISCO_G0316.upload.maximum_data_size=32768
+Disco.menu.pnum.DISCO_G0316.upload.maximum_size=32768
+Disco.menu.pnum.DISCO_G0316.upload.maximum_data_size=8192
 Disco.menu.pnum.DISCO_G0316.build.mcu=cortex-m0plus
 Disco.menu.pnum.DISCO_G0316.build.board=DISCO_G0316
 Disco.menu.pnum.DISCO_G0316.build.series=STM32G0xx
 Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
-Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/DISCO_G0316
+Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.DISCO_G0316.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
@@ -1680,6 +1679,121 @@ GenF4.menu.upload_method.hidMethod.upload.protocol=hid22
 GenF4.menu.upload_method.hidMethod.upload.tool=hid_upload
 GenF4.menu.upload_method.hidMethod.build.flash_offset=0x4000
 GenF4.menu.upload_method.hidMethod.build.bootloader_flags=-DBL_HID -DVECT_TAB_OFFSET={build.flash_offset}
+
+###############################
+# Generic G0
+GenG0.name=Generic STM32G0 series
+
+GenG0.build.core=arduino
+GenG0.build.board=GenG0
+GenG0.build.mcu=cortex-m0plus
+GenG0.build.series=STM32G0xx
+GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
+GenG0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
+# Generic G030K6Tx
+GenG0.menu.pnum.GENERIC_G030K6TX=Generic G030K6Tx
+GenG0.menu.pnum.GENERIC_G030K6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G030K6TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G030K6TX.build.board=GENERIC_G030K6TX
+GenG0.menu.pnum.GENERIC_G030K6TX.build.product_line=STM32G030xx
+GenG0.menu.pnum.GENERIC_G030K6TX.build.variant=STM32G0xx/G030K(6-8)T
+
+# Generic G030K8Tx
+GenG0.menu.pnum.GENERIC_G030K8TX=Generic G030K8Tx
+GenG0.menu.pnum.GENERIC_G030K8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G030K8TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G030K8TX.build.board=GENERIC_G030K8TX
+GenG0.menu.pnum.GENERIC_G030K8TX.build.product_line=STM32G030xx
+GenG0.menu.pnum.GENERIC_G030K8TX.build.variant=STM32G0xx/G030K(6-8)T
+
+# Generic G031J4Mx
+GenG0.menu.pnum.GENERIC_G031J4MX=Generic G031J4Mx
+GenG0.menu.pnum.GENERIC_G031J4MX.upload.maximum_size=16384
+GenG0.menu.pnum.GENERIC_G031J4MX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031J4MX.build.board=GENERIC_G031J4MX
+GenG0.menu.pnum.GENERIC_G031J4MX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031J4MX.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
+
+# Generic G031J6Mx
+GenG0.menu.pnum.GENERIC_G031J6MX=Generic G031J6Mx
+GenG0.menu.pnum.GENERIC_G031J6MX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G031J6MX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G031J6MX.build.board=GENERIC_G031J6MX
+GenG0.menu.pnum.GENERIC_G031J6MX.build.product_line=STM32G031xx
+GenG0.menu.pnum.GENERIC_G031J6MX.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
+
+# Generic G041J6Mx
+GenG0.menu.pnum.GENERIC_G041J6MX=Generic G041J6Mx
+GenG0.menu.pnum.GENERIC_G041J6MX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G041J6MX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G041J6MX.build.board=GENERIC_G041J6MX
+GenG0.menu.pnum.GENERIC_G041J6MX.build.product_line=STM32G041xx
+GenG0.menu.pnum.GENERIC_G041J6MX.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
+
+# Generic G071R6Tx
+GenG0.menu.pnum.GENERIC_G071R6TX=Generic G071R6Tx
+GenG0.menu.pnum.GENERIC_G071R6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G071R6TX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071R6TX.build.board=GENERIC_G071R6TX
+GenG0.menu.pnum.GENERIC_G071R6TX.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071R6TX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Generic G071R8Tx
+GenG0.menu.pnum.GENERIC_G071R8TX=Generic G071R8Tx
+GenG0.menu.pnum.GENERIC_G071R8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G071R8TX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071R8TX.build.board=GENERIC_G071R8TX
+GenG0.menu.pnum.GENERIC_G071R8TX.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071R8TX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Generic G071RBTx
+GenG0.menu.pnum.GENERIC_G071RBTX=Generic G071RBTx
+GenG0.menu.pnum.GENERIC_G071RBTX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G071RBTX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071RBTX.build.board=GENERIC_G071RBTX
+GenG0.menu.pnum.GENERIC_G071RBTX.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071RBTX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Generic G071RBIx
+GenG0.menu.pnum.GENERIC_G071RBIX=Generic G071RBIx
+GenG0.menu.pnum.GENERIC_G071RBIX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G071RBIX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071RBIX.build.board=GENERIC_G071RBIX
+GenG0.menu.pnum.GENERIC_G071RBIX.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071RBIX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Generic G081RBIx
+GenG0.menu.pnum.GENERIC_G081RBIX=Generic G081RBIx
+GenG0.menu.pnum.GENERIC_G081RBIX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G081RBIX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G081RBIX.build.board=GENERIC_G081RBIX
+GenG0.menu.pnum.GENERIC_G081RBIX.build.product_line=STM32G081xx
+GenG0.menu.pnum.GENERIC_G081RBIX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Generic G081RBTx
+GenG0.menu.pnum.GENERIC_G081RBTX=Generic G081RBTx
+GenG0.menu.pnum.GENERIC_G081RBTX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G081RBTX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G081RBTX.build.board=GENERIC_G081RBTX
+GenG0.menu.pnum.GENERIC_G081RBTX.build.product_line=STM32G081xx
+GenG0.menu.pnum.GENERIC_G081RBTX.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
+
+# Upload menu
+GenG0.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenG0.menu.upload_method.swdMethod.upload.protocol=0
+GenG0.menu.upload_method.swdMethod.upload.options=-g
+GenG0.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenG0.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenG0.menu.upload_method.serialMethod.upload.protocol=1
+GenG0.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenG0.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenG0.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenG0.menu.upload_method.dfuMethod.upload.protocol=2
+GenG0.menu.upload_method.dfuMethod.upload.options=-g
+GenG0.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ###############################
 # Generic G4
@@ -3040,6 +3154,12 @@ GenF4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenF4.menu.xserial.disabled=Disabled (no Serial support)
 GenF4.menu.xserial.disabled.build.xSerial=
 
+GenG0.menu.xserial.generic=Enabled (generic 'Serial')
+GenG0.menu.xserial.none=Enabled (no generic 'Serial')
+GenG0.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenG0.menu.xserial.disabled=Disabled (no Serial support)
+GenG0.menu.xserial.disabled.build.xSerial=
+
 GenG4.menu.xserial.generic=Enabled (generic 'Serial')
 GenG4.menu.xserial.none=Enabled (no generic 'Serial')
 GenG4.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -3478,6 +3598,24 @@ GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenF4.menu.opt.ogstd=Debug (-g)
 GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenG0.menu.opt.osstd=Smallest (-Os default)
+GenG0.menu.opt.oslto=Smallest (-Os) with LTO
+GenG0.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenG0.menu.opt.o1std=Fast (-O1)
+GenG0.menu.opt.o1std.build.flags.optimize=-O1
+GenG0.menu.opt.o1lto=Fast (-O1) with LTO
+GenG0.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenG0.menu.opt.o2std=Faster (-O2)
+GenG0.menu.opt.o2std.build.flags.optimize=-O2
+GenG0.menu.opt.o2lto=Faster (-O2) with LTO
+GenG0.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenG0.menu.opt.o3std=Fastest (-O3)
+GenG0.menu.opt.o3std.build.flags.optimize=-O3
+GenG0.menu.opt.o3lto=Fastest (-O3) with LTO
+GenG0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenG0.menu.opt.ogstd=Debug (-g)
+GenG0.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 GenG4.menu.opt.osstd=Smallest (-Os default)
 GenG4.menu.opt.osstd.build.flags.optimize=-Os
 GenG4.menu.opt.oslto=Smallest (-Os) with LTO
@@ -3760,6 +3898,16 @@ GenF4.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenF4.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenF4.menu.rtlib.full=Newlib Standard
 GenF4.menu.rtlib.full.build.flags.ldspecs=
+
+GenG0.menu.rtlib.nano=Newlib Nano (default)
+GenG0.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenG0.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenG0.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenG0.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenG0.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenG0.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenG0.menu.rtlib.full=Newlib Standard
+GenG0.menu.rtlib.full.build.flags.ldspecs=
 
 GenG4.menu.rtlib.nano=Newlib Nano (default)
 GenG4.menu.rtlib.nanofp=Newlib Nano + Float Printf
