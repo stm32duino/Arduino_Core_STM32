@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F030RCTx
+GenF0.menu.pnum.GENERIC_F030RCTX=Generic F030RCTx
+GenF0.menu.pnum.GENERIC_F030RCTX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F030RCTX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F030RCTX.build.board=GENERIC_F030RCTX
+GenF0.menu.pnum.GENERIC_F030RCTX.build.product_line=STM32F030xC
+GenF0.menu.pnum.GENERIC_F030RCTX.build.variant=STM32F0xx/F030RCT
+

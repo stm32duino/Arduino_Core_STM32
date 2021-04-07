@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F078RBHx
+GenF0.menu.pnum.GENERIC_F078RBHX=Generic F078RBHx
+GenF0.menu.pnum.GENERIC_F078RBHX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F078RBHX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F078RBHX.build.board=GENERIC_F078RBHX
+GenF0.menu.pnum.GENERIC_F078RBHX.build.product_line=STM32F078xx
+GenF0.menu.pnum.GENERIC_F078RBHX.build.variant=STM32F0xx/F078RB(H-T)
+
+# Generic F078RBTx
+GenF0.menu.pnum.GENERIC_F078RBTX=Generic F078RBTx
+GenF0.menu.pnum.GENERIC_F078RBTX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F078RBTX.upload.maximum_data_size=16384
+GenF0.menu.pnum.GENERIC_F078RBTX.build.board=GENERIC_F078RBTX
+GenF0.menu.pnum.GENERIC_F078RBTX.build.product_line=STM32F078xx
+GenF0.menu.pnum.GENERIC_F078RBTX.build.variant=STM32F0xx/F078RB(H-T)
+
