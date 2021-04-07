@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G473RBTx
+GenG4.menu.pnum.GENERIC_G473RBTX=Generic G473RBTx
+GenG4.menu.pnum.GENERIC_G473RBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473RBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473RBTX.build.board=GENERIC_G473RBTX
+GenG4.menu.pnum.GENERIC_G473RBTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473RBTX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G473RCTx
+GenG4.menu.pnum.GENERIC_G473RCTX=Generic G473RCTx
+GenG4.menu.pnum.GENERIC_G473RCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473RCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473RCTX.build.board=GENERIC_G473RCTX
+GenG4.menu.pnum.GENERIC_G473RCTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473RCTX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G473RETx
+GenG4.menu.pnum.GENERIC_G473RETX=Generic G473RETx
+GenG4.menu.pnum.GENERIC_G473RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473RETX.build.board=GENERIC_G473RETX
+GenG4.menu.pnum.GENERIC_G473RETX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G474RBTx
+GenG4.menu.pnum.GENERIC_G474RBTX=Generic G474RBTx
+GenG4.menu.pnum.GENERIC_G474RBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474RBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474RBTX.build.board=GENERIC_G474RBTX
+GenG4.menu.pnum.GENERIC_G474RBTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474RBTX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G474RCTx
+GenG4.menu.pnum.GENERIC_G474RCTX=Generic G474RCTx
+GenG4.menu.pnum.GENERIC_G474RCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474RCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474RCTX.build.board=GENERIC_G474RCTX
+GenG4.menu.pnum.GENERIC_G474RCTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474RCTX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G474RETx
+GenG4.menu.pnum.GENERIC_G474RETX=Generic G474RETx
+GenG4.menu.pnum.GENERIC_G474RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474RETX.build.board=GENERIC_G474RETX
+GenG4.menu.pnum.GENERIC_G474RETX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G483RETx
+GenG4.menu.pnum.GENERIC_G483RETX=Generic G483RETx
+GenG4.menu.pnum.GENERIC_G483RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483RETX.build.board=GENERIC_G483RETX
+GenG4.menu.pnum.GENERIC_G483RETX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G484RETx
+GenG4.menu.pnum.GENERIC_G484RETX=Generic G484RETx
+GenG4.menu.pnum.GENERIC_G484RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484RETX.build.board=GENERIC_G484RETX
+GenG4.menu.pnum.GENERIC_G484RETX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
