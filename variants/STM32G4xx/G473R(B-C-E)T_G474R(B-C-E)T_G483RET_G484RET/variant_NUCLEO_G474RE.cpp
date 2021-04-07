@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2019, STMicroelectronics
+ * Copyright (c) 2019-2021, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,14 +10,11 @@
  *
  *******************************************************************************
  */
+#if defined(ARDUINO_NUCLEO_G474RE)
 
 #include "pins_arduino.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-// Pin number
+// Digital PinName array
 const PinName digitalPin[] = {
   // CN9
   PC_5,  //D0
@@ -64,13 +61,13 @@ const PinName digitalPin[] = {
   PC_1,  //D36/A4
   PC_0,  //D37/A5
   // CN10 Right side
-  PB_14, //D38/A6
-  PB_15, //D39/A7
-  PB_1,  //D40/A8
-  PB_2,  //D41/A9
-  PB_11, //D42/A10
-  PB_12, //D43/A11
-  PB_13, //D44
+  PB_13, //D38/A6
+  PB_14, //D39/A7
+  PB_15, //D40/A8
+  PB_1,  //D41/A9
+  PB_2,  //D42/A10
+  PB_11, //D43/A11
+  PB_12, //D44/A12
   PA_11, //D45
   PA_12, //D46
   PC_6,  //D47
@@ -92,18 +89,15 @@ const uint32_t analogInputPin[] = {
   40, // A8
   41, // A9
   42, // A10
-  43  // A11
+  43, // A11
+  44  // A12
 };
-
-#ifdef __cplusplus
-}
-#endif
 
 // ----------------------------------------------------------------------------
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif // __cplusplus
 
 /**
   * @brief  System Clock Configuration
@@ -156,5 +150,7 @@ WEAK void SystemClock_Config(void)
 }
 
 #ifdef __cplusplus
-}
+} // extern "C"
 #endif
+
+#endif /* ARDUINO_NUCLEO_G474RE */

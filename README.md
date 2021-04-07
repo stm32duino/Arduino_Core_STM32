@@ -55,6 +55,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32F1 boards](#generic-stm32f1-boards)
  - [Generic STM32F3 boards](#generic-stm32f3-boards)
  - [Generic STM32F4 boards](#generic-stm32f4-boards)
+ - [Generic STM32G4 boards](#generic-stm32g4-boards)
  - [Generic STM32H7 boards](#generic-stm32h7-boards)
  - [Generic STM32L0 boards](#generic-stm32l0-boards)
  - [Generic STM32L4 boards](#generic-stm32l4-boards)
@@ -204,6 +205,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F423RH | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F446RC<br>STM32F446RE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F411CE | [ThunderPack v1.1+](https://github.com/jgillick/ThunderPack) | *1.9.0* |  |
+
+### Generic STM32G4 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32G431K6<br>STM32G431K8<br>STM32G431KB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G441KB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G431R6<br>STM32G431R8<br>STM32G431RB | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G441RB  | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G473RB<br>STM32G473RC<br>STM32G473RE | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G474RB<br>STM32G474RC<br>STM32G474RE | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G483RE | Generic Board | **2.0.0** |  |
+| :yellow_heart: | STM32G484RE | Generic Board | **2.0.0** |  |
 
 ### Generic STM32H7 boards
 
