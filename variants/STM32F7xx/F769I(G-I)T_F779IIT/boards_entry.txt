@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F769IGTx
+GenF7.menu.pnum.GENERIC_F769IGTX=Generic F769IGTx
+GenF7.menu.pnum.GENERIC_F769IGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F769IGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F769IGTX.build.board=GENERIC_F769IGTX
+GenF7.menu.pnum.GENERIC_F769IGTX.build.product_line=STM32F769xx
+GenF7.menu.pnum.GENERIC_F769IGTX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+
+# Generic F769IITx
+GenF7.menu.pnum.GENERIC_F769IITX=Generic F769IITx
+GenF7.menu.pnum.GENERIC_F769IITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F769IITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F769IITX.build.board=GENERIC_F769IITX
+GenF7.menu.pnum.GENERIC_F769IITX.build.product_line=STM32F769xx
+GenF7.menu.pnum.GENERIC_F769IITX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+
+# Generic F779IITx
+GenF7.menu.pnum.GENERIC_F779IITX=Generic F779IITx
+GenF7.menu.pnum.GENERIC_F779IITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F779IITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F779IITX.build.board=GENERIC_F779IITX
+GenF7.menu.pnum.GENERIC_F779IITX.build.product_line=STM32F779xx
+GenF7.menu.pnum.GENERIC_F779IITX.build.variant=STM32F7xx/F769I(G-I)T_F779IIT
+

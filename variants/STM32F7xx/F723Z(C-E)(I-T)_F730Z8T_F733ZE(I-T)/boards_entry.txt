@@ -1,0 +1,61 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F723ZCIx
+GenF7.menu.pnum.GENERIC_F723ZCIX=Generic F723ZCIx
+GenF7.menu.pnum.GENERIC_F723ZCIX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723ZCIX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ZCIX.build.board=GENERIC_F723ZCIX
+GenF7.menu.pnum.GENERIC_F723ZCIX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ZCIX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F723ZEIx
+GenF7.menu.pnum.GENERIC_F723ZEIX=Generic F723ZEIx
+GenF7.menu.pnum.GENERIC_F723ZEIX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723ZEIX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ZEIX.build.board=GENERIC_F723ZEIX
+GenF7.menu.pnum.GENERIC_F723ZEIX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ZEIX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F723ZCTx
+GenF7.menu.pnum.GENERIC_F723ZCTX=Generic F723ZCTx
+GenF7.menu.pnum.GENERIC_F723ZCTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723ZCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ZCTX.build.board=GENERIC_F723ZCTX
+GenF7.menu.pnum.GENERIC_F723ZCTX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ZCTX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F723ZETx
+GenF7.menu.pnum.GENERIC_F723ZETX=Generic F723ZETx
+GenF7.menu.pnum.GENERIC_F723ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723ZETX.build.board=GENERIC_F723ZETX
+GenF7.menu.pnum.GENERIC_F723ZETX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723ZETX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F730Z8Tx
+GenF7.menu.pnum.GENERIC_F730Z8TX=Generic F730Z8Tx
+GenF7.menu.pnum.GENERIC_F730Z8TX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F730Z8TX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F730Z8TX.build.board=GENERIC_F730Z8TX
+GenF7.menu.pnum.GENERIC_F730Z8TX.build.product_line=STM32F730xx
+GenF7.menu.pnum.GENERIC_F730Z8TX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F733ZEIx
+GenF7.menu.pnum.GENERIC_F733ZEIX=Generic F733ZEIx
+GenF7.menu.pnum.GENERIC_F733ZEIX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733ZEIX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733ZEIX.build.board=GENERIC_F733ZEIX
+GenF7.menu.pnum.GENERIC_F733ZEIX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733ZEIX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
+# Generic F733ZETx
+GenF7.menu.pnum.GENERIC_F733ZETX=Generic F733ZETx
+GenF7.menu.pnum.GENERIC_F733ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733ZETX.build.board=GENERIC_F733ZETX
+GenF7.menu.pnum.GENERIC_F733ZETX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733ZETX.build.variant=STM32F7xx/F723Z(C-E)(I-T)_F730Z8T_F733ZE(I-T)
+
