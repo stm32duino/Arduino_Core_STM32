@@ -1,0 +1,133 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151V8Hx
+GenL1.menu.pnum.GENERIC_L151V8HX=Generic L151V8Hx
+GenL1.menu.pnum.GENERIC_L151V8HX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151V8HX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151V8HX.build.board=GENERIC_L151V8HX
+GenL1.menu.pnum.GENERIC_L151V8HX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151V8HX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151VBHx
+GenL1.menu.pnum.GENERIC_L151VBHX=Generic L151VBHx
+GenL1.menu.pnum.GENERIC_L151VBHX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151VBHX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151VBHX.build.board=GENERIC_L151VBHX
+GenL1.menu.pnum.GENERIC_L151VBHX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151VBHX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151V8HxA
+GenL1.menu.pnum.GENERIC_L151V8HXA=Generic L151V8HxA
+GenL1.menu.pnum.GENERIC_L151V8HXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151V8HXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151V8HXA.build.board=GENERIC_L151V8HXA
+GenL1.menu.pnum.GENERIC_L151V8HXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151V8HXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151VBHxA
+GenL1.menu.pnum.GENERIC_L151VBHXA=Generic L151VBHxA
+GenL1.menu.pnum.GENERIC_L151VBHXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151VBHXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151VBHXA.build.board=GENERIC_L151VBHXA
+GenL1.menu.pnum.GENERIC_L151VBHXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151VBHXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151V8Tx
+GenL1.menu.pnum.GENERIC_L151V8TX=Generic L151V8Tx
+GenL1.menu.pnum.GENERIC_L151V8TX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151V8TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L151V8TX.build.board=GENERIC_L151V8TX
+GenL1.menu.pnum.GENERIC_L151V8TX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151V8TX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151VBTx
+GenL1.menu.pnum.GENERIC_L151VBTX=Generic L151VBTx
+GenL1.menu.pnum.GENERIC_L151VBTX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151VBTX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L151VBTX.build.board=GENERIC_L151VBTX
+GenL1.menu.pnum.GENERIC_L151VBTX.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151VBTX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151V8TxA
+GenL1.menu.pnum.GENERIC_L151V8TXA=Generic L151V8TxA
+GenL1.menu.pnum.GENERIC_L151V8TXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L151V8TXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151V8TXA.build.board=GENERIC_L151V8TXA
+GenL1.menu.pnum.GENERIC_L151V8TXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151V8TXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L151VBTxA
+GenL1.menu.pnum.GENERIC_L151VBTXA=Generic L151VBTxA
+GenL1.menu.pnum.GENERIC_L151VBTXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L151VBTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151VBTXA.build.board=GENERIC_L151VBTXA
+GenL1.menu.pnum.GENERIC_L151VBTXA.build.product_line=STM32L151xB
+GenL1.menu.pnum.GENERIC_L151VBTXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152V8Hx
+GenL1.menu.pnum.GENERIC_L152V8HX=Generic L152V8Hx
+GenL1.menu.pnum.GENERIC_L152V8HX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152V8HX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152V8HX.build.board=GENERIC_L152V8HX
+GenL1.menu.pnum.GENERIC_L152V8HX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152V8HX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152VBHx
+GenL1.menu.pnum.GENERIC_L152VBHX=Generic L152VBHx
+GenL1.menu.pnum.GENERIC_L152VBHX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152VBHX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152VBHX.build.board=GENERIC_L152VBHX
+GenL1.menu.pnum.GENERIC_L152VBHX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152VBHX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152V8HxA
+GenL1.menu.pnum.GENERIC_L152V8HXA=Generic L152V8HxA
+GenL1.menu.pnum.GENERIC_L152V8HXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152V8HXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152V8HXA.build.board=GENERIC_L152V8HXA
+GenL1.menu.pnum.GENERIC_L152V8HXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152V8HXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152VBHxA
+GenL1.menu.pnum.GENERIC_L152VBHXA=Generic L152VBHxA
+GenL1.menu.pnum.GENERIC_L152VBHXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152VBHXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152VBHXA.build.board=GENERIC_L152VBHXA
+GenL1.menu.pnum.GENERIC_L152VBHXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152VBHXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152V8Tx
+GenL1.menu.pnum.GENERIC_L152V8TX=Generic L152V8Tx
+GenL1.menu.pnum.GENERIC_L152V8TX.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152V8TX.upload.maximum_data_size=10240
+GenL1.menu.pnum.GENERIC_L152V8TX.build.board=GENERIC_L152V8TX
+GenL1.menu.pnum.GENERIC_L152V8TX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152V8TX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152VBTx
+GenL1.menu.pnum.GENERIC_L152VBTX=Generic L152VBTx
+GenL1.menu.pnum.GENERIC_L152VBTX.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152VBTX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L152VBTX.build.board=GENERIC_L152VBTX
+GenL1.menu.pnum.GENERIC_L152VBTX.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152VBTX.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152V8TxA
+GenL1.menu.pnum.GENERIC_L152V8TXA=Generic L152V8TxA
+GenL1.menu.pnum.GENERIC_L152V8TXA.upload.maximum_size=65536
+GenL1.menu.pnum.GENERIC_L152V8TXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152V8TXA.build.board=GENERIC_L152V8TXA
+GenL1.menu.pnum.GENERIC_L152V8TXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152V8TXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
+# Generic L152VBTxA
+GenL1.menu.pnum.GENERIC_L152VBTXA=Generic L152VBTxA
+GenL1.menu.pnum.GENERIC_L152VBTXA.upload.maximum_size=131072
+GenL1.menu.pnum.GENERIC_L152VBTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152VBTXA.build.board=GENERIC_L152VBTXA
+GenL1.menu.pnum.GENERIC_L152VBTXA.build.product_line=STM32L152xB
+GenL1.menu.pnum.GENERIC_L152VBTXA.build.variant=STM32L1xx/L151V(8-B)(H-T)x(A)_L152V(8-B)(H-T)x(A)
+
