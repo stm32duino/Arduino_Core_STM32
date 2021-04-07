@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L071RBHx
+GenL0.menu.pnum.GENERIC_L071RBHX=Generic L071RBHx
+GenL0.menu.pnum.GENERIC_L071RBHX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L071RBHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071RBHX.build.board=GENERIC_L071RBHX
+GenL0.menu.pnum.GENERIC_L071RBHX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071RBHX.build.variant=STM32L0xx/L071R(B-Z)H
+
+# Generic L071RZHx
+GenL0.menu.pnum.GENERIC_L071RZHX=Generic L071RZHx
+GenL0.menu.pnum.GENERIC_L071RZHX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L071RZHX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071RZHX.build.board=GENERIC_L071RZHX
+GenL0.menu.pnum.GENERIC_L071RZHX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071RZHX.build.variant=STM32L0xx/L071R(B-Z)H
+

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L011K3Ux
+GenL0.menu.pnum.GENERIC_L011K3UX=Generic L011K3Ux
+GenL0.menu.pnum.GENERIC_L011K3UX.upload.maximum_size=8192
+GenL0.menu.pnum.GENERIC_L011K3UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011K3UX.build.board=GENERIC_L011K3UX
+GenL0.menu.pnum.GENERIC_L011K3UX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011K3UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+
+# Generic L011K4Ux
+GenL0.menu.pnum.GENERIC_L011K4UX=Generic L011K4Ux
+GenL0.menu.pnum.GENERIC_L011K4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L011K4UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011K4UX.build.board=GENERIC_L011K4UX
+GenL0.menu.pnum.GENERIC_L011K4UX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011K4UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+
+# Generic L021K4Ux
+GenL0.menu.pnum.GENERIC_L021K4UX=Generic L021K4Ux
+GenL0.menu.pnum.GENERIC_L021K4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L021K4UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L021K4UX.build.board=GENERIC_L021K4UX
+GenL0.menu.pnum.GENERIC_L021K4UX.build.product_line=STM32L021xx
+GenL0.menu.pnum.GENERIC_L021K4UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+

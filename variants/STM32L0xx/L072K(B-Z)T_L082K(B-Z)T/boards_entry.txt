@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L072KBTx
+GenL0.menu.pnum.GENERIC_L072KBTX=Generic L072KBTx
+GenL0.menu.pnum.GENERIC_L072KBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072KBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072KBTX.build.board=GENERIC_L072KBTX
+GenL0.menu.pnum.GENERIC_L072KBTX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072KBTX.build.variant=STM32L0xx/L072K(B-Z)T_L082K(B-Z)T
+
+# Generic L072KZTx
+GenL0.menu.pnum.GENERIC_L072KZTX=Generic L072KZTx
+GenL0.menu.pnum.GENERIC_L072KZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072KZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072KZTX.build.board=GENERIC_L072KZTX
+GenL0.menu.pnum.GENERIC_L072KZTX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072KZTX.build.variant=STM32L0xx/L072K(B-Z)T_L082K(B-Z)T
+
+# Generic L082KBTx
+GenL0.menu.pnum.GENERIC_L082KBTX=Generic L082KBTx
+GenL0.menu.pnum.GENERIC_L082KBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L082KBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L082KBTX.build.board=GENERIC_L082KBTX
+GenL0.menu.pnum.GENERIC_L082KBTX.build.product_line=STM32L082xx
+GenL0.menu.pnum.GENERIC_L082KBTX.build.variant=STM32L0xx/L072K(B-Z)T_L082K(B-Z)T
+
+# Generic L082KZTx
+GenL0.menu.pnum.GENERIC_L082KZTX=Generic L082KZTx
+GenL0.menu.pnum.GENERIC_L082KZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L082KZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L082KZTX.build.board=GENERIC_L082KZTX
+GenL0.menu.pnum.GENERIC_L082KZTX.build.product_line=STM32L082xx
+GenL0.menu.pnum.GENERIC_L082KZTX.build.variant=STM32L0xx/L072K(B-Z)T_L082K(B-Z)T
+

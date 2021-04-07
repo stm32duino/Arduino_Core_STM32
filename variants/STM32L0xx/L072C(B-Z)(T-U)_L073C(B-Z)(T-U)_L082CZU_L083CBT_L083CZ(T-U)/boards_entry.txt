@@ -1,0 +1,101 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L072CBTx
+GenL0.menu.pnum.GENERIC_L072CBTX=Generic L072CBTx
+GenL0.menu.pnum.GENERIC_L072CBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072CBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CBTX.build.board=GENERIC_L072CBTX
+GenL0.menu.pnum.GENERIC_L072CBTX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CBTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L072CZTx
+GenL0.menu.pnum.GENERIC_L072CZTX=Generic L072CZTx
+GenL0.menu.pnum.GENERIC_L072CZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072CZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CZTX.build.board=GENERIC_L072CZTX
+GenL0.menu.pnum.GENERIC_L072CZTX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CZTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L072CBUx
+GenL0.menu.pnum.GENERIC_L072CBUX=Generic L072CBUx
+GenL0.menu.pnum.GENERIC_L072CBUX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072CBUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CBUX.build.board=GENERIC_L072CBUX
+GenL0.menu.pnum.GENERIC_L072CBUX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CBUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L072CZUx
+GenL0.menu.pnum.GENERIC_L072CZUX=Generic L072CZUx
+GenL0.menu.pnum.GENERIC_L072CZUX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072CZUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CZUX.build.board=GENERIC_L072CZUX
+GenL0.menu.pnum.GENERIC_L072CZUX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CZUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L073CBTx
+GenL0.menu.pnum.GENERIC_L073CBTX=Generic L073CBTx
+GenL0.menu.pnum.GENERIC_L073CBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L073CBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073CBTX.build.board=GENERIC_L073CBTX
+GenL0.menu.pnum.GENERIC_L073CBTX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073CBTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L073CZTx
+GenL0.menu.pnum.GENERIC_L073CZTX=Generic L073CZTx
+GenL0.menu.pnum.GENERIC_L073CZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L073CZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073CZTX.build.board=GENERIC_L073CZTX
+GenL0.menu.pnum.GENERIC_L073CZTX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073CZTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L073CBUx
+GenL0.menu.pnum.GENERIC_L073CBUX=Generic L073CBUx
+GenL0.menu.pnum.GENERIC_L073CBUX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L073CBUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073CBUX.build.board=GENERIC_L073CBUX
+GenL0.menu.pnum.GENERIC_L073CBUX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073CBUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L073CZUx
+GenL0.menu.pnum.GENERIC_L073CZUX=Generic L073CZUx
+GenL0.menu.pnum.GENERIC_L073CZUX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L073CZUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073CZUX.build.board=GENERIC_L073CZUX
+GenL0.menu.pnum.GENERIC_L073CZUX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073CZUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L082CZUx
+GenL0.menu.pnum.GENERIC_L082CZUX=Generic L082CZUx
+GenL0.menu.pnum.GENERIC_L082CZUX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L082CZUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L082CZUX.build.board=GENERIC_L082CZUX
+GenL0.menu.pnum.GENERIC_L082CZUX.build.product_line=STM32L082xx
+GenL0.menu.pnum.GENERIC_L082CZUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L083CBTx
+GenL0.menu.pnum.GENERIC_L083CBTX=Generic L083CBTx
+GenL0.menu.pnum.GENERIC_L083CBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L083CBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L083CBTX.build.board=GENERIC_L083CBTX
+GenL0.menu.pnum.GENERIC_L083CBTX.build.product_line=STM32L083xx
+GenL0.menu.pnum.GENERIC_L083CBTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L083CZTx
+GenL0.menu.pnum.GENERIC_L083CZTX=Generic L083CZTx
+GenL0.menu.pnum.GENERIC_L083CZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L083CZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L083CZTX.build.board=GENERIC_L083CZTX
+GenL0.menu.pnum.GENERIC_L083CZTX.build.product_line=STM32L083xx
+GenL0.menu.pnum.GENERIC_L083CZTX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
+# Generic L083CZUx
+GenL0.menu.pnum.GENERIC_L083CZUX=Generic L083CZUx
+GenL0.menu.pnum.GENERIC_L083CZUX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L083CZUX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L083CZUX.build.board=GENERIC_L083CZUX
+GenL0.menu.pnum.GENERIC_L083CZUX.build.product_line=STM32L083xx
+GenL0.menu.pnum.GENERIC_L083CZUX.build.variant=STM32L0xx/L072C(B-Z)(T-U)_L073C(B-Z)(T-U)_L082CZU_L083CBT_L083CZ(T-U)
+
