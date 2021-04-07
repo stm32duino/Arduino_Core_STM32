@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F101RBHx
+GenF1.menu.pnum.GENERIC_F101RBHX=Generic F101RBHx
+GenF1.menu.pnum.GENERIC_F101RBHX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F101RBHX.upload.maximum_data_size=16384
+GenF1.menu.pnum.GENERIC_F101RBHX.build.board=GENERIC_F101RBHX
+GenF1.menu.pnum.GENERIC_F101RBHX.build.product_line=STM32F101xB
+GenF1.menu.pnum.GENERIC_F101RBHX.build.variant=STM32F1xx/F101RBH
+

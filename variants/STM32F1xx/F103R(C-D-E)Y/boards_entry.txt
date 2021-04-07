@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F103RCYx
+GenF1.menu.pnum.GENERIC_F103RCYX=Generic F103RCYx
+GenF1.menu.pnum.GENERIC_F103RCYX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F103RCYX.upload.maximum_data_size=49152
+GenF1.menu.pnum.GENERIC_F103RCYX.build.board=GENERIC_F103RCYX
+GenF1.menu.pnum.GENERIC_F103RCYX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103RCYX.build.variant=STM32F1xx/F103R(C-D-E)Y
+
+# Generic F103RDYx
+GenF1.menu.pnum.GENERIC_F103RDYX=Generic F103RDYx
+GenF1.menu.pnum.GENERIC_F103RDYX.upload.maximum_size=393216
+GenF1.menu.pnum.GENERIC_F103RDYX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103RDYX.build.board=GENERIC_F103RDYX
+GenF1.menu.pnum.GENERIC_F103RDYX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103RDYX.build.variant=STM32F1xx/F103R(C-D-E)Y
+
+# Generic F103REYx
+GenF1.menu.pnum.GENERIC_F103REYX=Generic F103REYx
+GenF1.menu.pnum.GENERIC_F103REYX.upload.maximum_size=524288
+GenF1.menu.pnum.GENERIC_F103REYX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103REYX.build.board=GENERIC_F103REYX
+GenF1.menu.pnum.GENERIC_F103REYX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103REYX.build.variant=STM32F1xx/F103R(C-D-E)Y
+
