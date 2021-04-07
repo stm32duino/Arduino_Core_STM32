@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L552QCIxQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ=Generic L552QCIxQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ.upload.maximum_size=262144
+GenL5.menu.pnum.GENERIC_L552QCIXQ.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.board=GENERIC_L552QCIXQ
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552QCIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+
+# Generic L552QEIxQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ=Generic L552QEIxQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552QEIXQ.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.board=GENERIC_L552QEIXQ
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552QEIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+
+# Generic L562QEIxQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ=Generic L562QEIxQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562QEIXQ.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.board=GENERIC_L562QEIXQ
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562QEIXQ.build.variant=STM32L5xx/L552Q(C-E)IxQ_L562QEIxQ
+
