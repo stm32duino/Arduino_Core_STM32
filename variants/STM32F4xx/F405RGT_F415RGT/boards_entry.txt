@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F405RGTx
+GenF4.menu.pnum.GENERIC_F405RGTX=Generic F405RGTx
+GenF4.menu.pnum.GENERIC_F405RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F405RGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F405RGTX.build.board=GENERIC_F405RGTX
+GenF4.menu.pnum.GENERIC_F405RGTX.build.product_line=STM32F405xx
+GenF4.menu.pnum.GENERIC_F405RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
+
+# Generic F415RGTx
+GenF4.menu.pnum.GENERIC_F415RGTX=Generic F415RGTx
+GenF4.menu.pnum.GENERIC_F415RGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F415RGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F415RGTX.build.board=GENERIC_F415RGTX
+GenF4.menu.pnum.GENERIC_F415RGTX.build.product_line=STM32F415xx
+GenF4.menu.pnum.GENERIC_F415RGTX.build.variant=STM32F4xx/F405RGT_F415RGT
+

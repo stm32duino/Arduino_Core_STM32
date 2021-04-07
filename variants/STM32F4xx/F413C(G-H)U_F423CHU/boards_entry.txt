@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F413CGUx
+GenF4.menu.pnum.GENERIC_F413CGUX=Generic F413CGUx
+GenF4.menu.pnum.GENERIC_F413CGUX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413CGUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413CGUX.build.board=GENERIC_F413CGUX
+GenF4.menu.pnum.GENERIC_F413CGUX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413CGUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+
+# Generic F413CHUx
+GenF4.menu.pnum.GENERIC_F413CHUX=Generic F413CHUx
+GenF4.menu.pnum.GENERIC_F413CHUX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413CHUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413CHUX.build.board=GENERIC_F413CHUX
+GenF4.menu.pnum.GENERIC_F413CHUX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413CHUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+
+# Generic F423CHUx
+GenF4.menu.pnum.GENERIC_F423CHUX=Generic F423CHUx
+GenF4.menu.pnum.GENERIC_F423CHUX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423CHUX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423CHUX.build.board=GENERIC_F423CHUX
+GenF4.menu.pnum.GENERIC_F423CHUX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423CHUX.build.variant=STM32F4xx/F413C(G-H)U_F423CHU
+

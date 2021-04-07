@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F407ZETx
+GenF4.menu.pnum.GENERIC_F407ZETX=Generic F407ZETx
+GenF4.menu.pnum.GENERIC_F407ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F407ZETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407ZETX.build.board=GENERIC_F407ZETX
+GenF4.menu.pnum.GENERIC_F407ZETX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+
+# Generic F407ZGTx
+GenF4.menu.pnum.GENERIC_F407ZGTX=Generic F407ZGTx
+GenF4.menu.pnum.GENERIC_F407ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F407ZGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.board=GENERIC_F407ZGTX
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+
+# Generic F417ZETx
+GenF4.menu.pnum.GENERIC_F417ZETX=Generic F417ZETx
+GenF4.menu.pnum.GENERIC_F417ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F417ZETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417ZETX.build.board=GENERIC_F417ZETX
+GenF4.menu.pnum.GENERIC_F417ZETX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417ZETX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+
+# Generic F417ZGTx
+GenF4.menu.pnum.GENERIC_F417ZGTX=Generic F417ZGTx
+GenF4.menu.pnum.GENERIC_F417ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F417ZGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.board=GENERIC_F417ZGTX
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417ZGTX.build.variant=STM32F4xx/F407Z(E-G)T_F417Z(E-G)T
+

@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F401RBTx
+GenF4.menu.pnum.GENERIC_F401RBTX=Generic F401RBTx
+GenF4.menu.pnum.GENERIC_F401RBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F401RBTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401RBTX.build.board=GENERIC_F401RBTX
+GenF4.menu.pnum.GENERIC_F401RBTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401RBTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
+
+# Generic F401RCTx
+GenF4.menu.pnum.GENERIC_F401RCTX=Generic F401RCTx
+GenF4.menu.pnum.GENERIC_F401RCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F401RCTX.upload.maximum_data_size=65536
+GenF4.menu.pnum.GENERIC_F401RCTX.build.board=GENERIC_F401RCTX
+GenF4.menu.pnum.GENERIC_F401RCTX.build.product_line=STM32F401xC
+GenF4.menu.pnum.GENERIC_F401RCTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
+
+# Generic F401RDTx
+GenF4.menu.pnum.GENERIC_F401RDTX=Generic F401RDTx
+GenF4.menu.pnum.GENERIC_F401RDTX.upload.maximum_size=393216
+GenF4.menu.pnum.GENERIC_F401RDTX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401RDTX.build.board=GENERIC_F401RDTX
+GenF4.menu.pnum.GENERIC_F401RDTX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401RDTX.build.variant=STM32F4xx/F401R(B-C-D-E)T
+
+# Generic F401RETx
+GenF4.menu.pnum.GENERIC_F401RETX=Generic F401RETx
+GenF4.menu.pnum.GENERIC_F401RETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F401RETX.upload.maximum_data_size=98304
+GenF4.menu.pnum.GENERIC_F401RETX.build.board=GENERIC_F401RETX
+GenF4.menu.pnum.GENERIC_F401RETX.build.product_line=STM32F401xE
+GenF4.menu.pnum.GENERIC_F401RETX.build.variant=STM32F4xx/F401R(B-C-D-E)T
+
