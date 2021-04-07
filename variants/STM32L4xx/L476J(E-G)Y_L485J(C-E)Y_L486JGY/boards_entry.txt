@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L476JEYx
+GenL4.menu.pnum.GENERIC_L476JEYX=Generic L476JEYx
+GenL4.menu.pnum.GENERIC_L476JEYX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L476JEYX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476JEYX.build.board=GENERIC_L476JEYX
+GenL4.menu.pnum.GENERIC_L476JEYX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476JEYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+
+# Generic L476JGYx
+GenL4.menu.pnum.GENERIC_L476JGYX=Generic L476JGYx
+GenL4.menu.pnum.GENERIC_L476JGYX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L476JGYX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476JGYX.build.board=GENERIC_L476JGYX
+GenL4.menu.pnum.GENERIC_L476JGYX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476JGYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+
+# Generic L485JCYx
+GenL4.menu.pnum.GENERIC_L485JCYX=Generic L485JCYx
+GenL4.menu.pnum.GENERIC_L485JCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L485JCYX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L485JCYX.build.board=GENERIC_L485JCYX
+GenL4.menu.pnum.GENERIC_L485JCYX.build.product_line=STM32L485xx
+GenL4.menu.pnum.GENERIC_L485JCYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+
+# Generic L485JEYx
+GenL4.menu.pnum.GENERIC_L485JEYX=Generic L485JEYx
+GenL4.menu.pnum.GENERIC_L485JEYX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L485JEYX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L485JEYX.build.board=GENERIC_L485JEYX
+GenL4.menu.pnum.GENERIC_L485JEYX.build.product_line=STM32L485xx
+GenL4.menu.pnum.GENERIC_L485JEYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+
+# Generic L486JGYx
+GenL4.menu.pnum.GENERIC_L486JGYX=Generic L486JGYx
+GenL4.menu.pnum.GENERIC_L486JGYX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L486JGYX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L486JGYX.build.board=GENERIC_L486JGYX
+GenL4.menu.pnum.GENERIC_L486JGYX.build.product_line=STM32L486xx
+GenL4.menu.pnum.GENERIC_L486JGYX.build.variant=STM32L4xx/L476J(E-G)Y_L485J(C-E)Y_L486JGY
+

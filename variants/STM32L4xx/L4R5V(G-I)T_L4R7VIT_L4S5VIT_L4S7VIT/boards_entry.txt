@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4R5VGTx
+GenL4.menu.pnum.GENERIC_L4R5VGTX=Generic L4R5VGTx
+GenL4.menu.pnum.GENERIC_L4R5VGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4R5VGTX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R5VGTX.build.board=GENERIC_L4R5VGTX
+GenL4.menu.pnum.GENERIC_L4R5VGTX.build.product_line=STM32L4R5xx
+GenL4.menu.pnum.GENERIC_L4R5VGTX.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+
+# Generic L4R5VITx
+GenL4.menu.pnum.GENERIC_L4R5VITX=Generic L4R5VITx
+GenL4.menu.pnum.GENERIC_L4R5VITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R5VITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R5VITX.build.board=GENERIC_L4R5VITX
+GenL4.menu.pnum.GENERIC_L4R5VITX.build.product_line=STM32L4R5xx
+GenL4.menu.pnum.GENERIC_L4R5VITX.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+
+# Generic L4R7VITx
+GenL4.menu.pnum.GENERIC_L4R7VITX=Generic L4R7VITx
+GenL4.menu.pnum.GENERIC_L4R7VITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R7VITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R7VITX.build.board=GENERIC_L4R7VITX
+GenL4.menu.pnum.GENERIC_L4R7VITX.build.product_line=STM32L4R7xx
+GenL4.menu.pnum.GENERIC_L4R7VITX.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+
+# Generic L4S5VITx
+GenL4.menu.pnum.GENERIC_L4S5VITX=Generic L4S5VITx
+GenL4.menu.pnum.GENERIC_L4S5VITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S5VITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S5VITX.build.board=GENERIC_L4S5VITX
+GenL4.menu.pnum.GENERIC_L4S5VITX.build.product_line=STM32L4S5xx
+GenL4.menu.pnum.GENERIC_L4S5VITX.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+
+# Generic L4S7VITx
+GenL4.menu.pnum.GENERIC_L4S7VITX=Generic L4S7VITx
+GenL4.menu.pnum.GENERIC_L4S7VITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S7VITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S7VITX.build.board=GENERIC_L4S7VITX
+GenL4.menu.pnum.GENERIC_L4S7VITX.build.product_line=STM32L4S7xx
+GenL4.menu.pnum.GENERIC_L4S7VITX.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+

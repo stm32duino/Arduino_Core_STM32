@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L432KBUx
+GenL4.menu.pnum.GENERIC_L432KBUX=Generic L432KBUx
+GenL4.menu.pnum.GENERIC_L432KBUX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L432KBUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L432KBUX.build.board=GENERIC_L432KBUX
+GenL4.menu.pnum.GENERIC_L432KBUX.build.product_line=STM32L432xx
+GenL4.menu.pnum.GENERIC_L432KBUX.build.variant=STM32L4xx/L432K(B-C)U_L442KCU
+
+# Generic L432KCUx
+GenL4.menu.pnum.GENERIC_L432KCUX=Generic L432KCUx
+GenL4.menu.pnum.GENERIC_L432KCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L432KCUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L432KCUX.build.board=GENERIC_L432KCUX
+GenL4.menu.pnum.GENERIC_L432KCUX.build.product_line=STM32L432xx
+GenL4.menu.pnum.GENERIC_L432KCUX.build.variant=STM32L4xx/L432K(B-C)U_L442KCU
+
+# Generic L442KCUx
+GenL4.menu.pnum.GENERIC_L442KCUX=Generic L442KCUx
+GenL4.menu.pnum.GENERIC_L442KCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L442KCUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L442KCUX.build.board=GENERIC_L442KCUX
+GenL4.menu.pnum.GENERIC_L442KCUX.build.product_line=STM32L442xx
+GenL4.menu.pnum.GENERIC_L442KCUX.build.variant=STM32L4xx/L432K(B-C)U_L442KCU
+

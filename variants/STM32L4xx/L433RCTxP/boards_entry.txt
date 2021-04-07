@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L433RCTxP
+GenL4.menu.pnum.GENERIC_L433RCTXP=Generic L433RCTxP
+GenL4.menu.pnum.GENERIC_L433RCTXP.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433RCTXP.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433RCTXP.build.board=GENERIC_L433RCTXP
+GenL4.menu.pnum.GENERIC_L433RCTXP.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433RCTXP.build.variant=STM32L4xx/L433RCTxP
+
