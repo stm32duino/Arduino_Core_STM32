@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F303VDHx
+GenF3.menu.pnum.GENERIC_F303VDHX=Generic F303VDHx
+GenF3.menu.pnum.GENERIC_F303VDHX.upload.maximum_size=393216
+GenF3.menu.pnum.GENERIC_F303VDHX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F303VDHX.build.board=GENERIC_F303VDHX
+GenF3.menu.pnum.GENERIC_F303VDHX.build.product_line=STM32F303xE
+GenF3.menu.pnum.GENERIC_F303VDHX.build.variant=STM32F3xx/F303V(D-E)(H-T)
+
+# Generic F303VEHx
+GenF3.menu.pnum.GENERIC_F303VEHX=Generic F303VEHx
+GenF3.menu.pnum.GENERIC_F303VEHX.upload.maximum_size=524288
+GenF3.menu.pnum.GENERIC_F303VEHX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F303VEHX.build.board=GENERIC_F303VEHX
+GenF3.menu.pnum.GENERIC_F303VEHX.build.product_line=STM32F303xE
+GenF3.menu.pnum.GENERIC_F303VEHX.build.variant=STM32F3xx/F303V(D-E)(H-T)
+
+# Generic F303VDTx
+GenF3.menu.pnum.GENERIC_F303VDTX=Generic F303VDTx
+GenF3.menu.pnum.GENERIC_F303VDTX.upload.maximum_size=393216
+GenF3.menu.pnum.GENERIC_F303VDTX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F303VDTX.build.board=GENERIC_F303VDTX
+GenF3.menu.pnum.GENERIC_F303VDTX.build.product_line=STM32F303xE
+GenF3.menu.pnum.GENERIC_F303VDTX.build.variant=STM32F3xx/F303V(D-E)(H-T)
+
+# Generic F303VETx
+GenF3.menu.pnum.GENERIC_F303VETX=Generic F303VETx
+GenF3.menu.pnum.GENERIC_F303VETX.upload.maximum_size=524288
+GenF3.menu.pnum.GENERIC_F303VETX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F303VETX.build.board=GENERIC_F303VETX
+GenF3.menu.pnum.GENERIC_F303VETX.build.product_line=STM32F303xE
+GenF3.menu.pnum.GENERIC_F303VETX.build.variant=STM32F3xx/F303V(D-E)(H-T)
+

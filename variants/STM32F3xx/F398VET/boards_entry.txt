@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F398VETx
+GenF3.menu.pnum.GENERIC_F398VETX=Generic F398VETx
+GenF3.menu.pnum.GENERIC_F398VETX.upload.maximum_size=524288
+GenF3.menu.pnum.GENERIC_F398VETX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F398VETX.build.board=GENERIC_F398VETX
+GenF3.menu.pnum.GENERIC_F398VETX.build.product_line=STM32F398xx
+GenF3.menu.pnum.GENERIC_F398VETX.build.variant=STM32F3xx/F398VET
+
