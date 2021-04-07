@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F207VCTx
+GenF2.menu.pnum.GENERIC_F207VCTX=Generic F207VCTx
+GenF2.menu.pnum.GENERIC_F207VCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F207VCTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VCTX.build.board=GENERIC_F207VCTX
+GenF2.menu.pnum.GENERIC_F207VCTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VCTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VETx
+GenF2.menu.pnum.GENERIC_F207VETX=Generic F207VETx
+GenF2.menu.pnum.GENERIC_F207VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F207VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VETX.build.board=GENERIC_F207VETX
+GenF2.menu.pnum.GENERIC_F207VETX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VETX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VFTx
+GenF2.menu.pnum.GENERIC_F207VFTX=Generic F207VFTx
+GenF2.menu.pnum.GENERIC_F207VFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F207VFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VFTX.build.board=GENERIC_F207VFTX
+GenF2.menu.pnum.GENERIC_F207VFTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VFTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VGTx
+GenF2.menu.pnum.GENERIC_F207VGTX=Generic F207VGTx
+GenF2.menu.pnum.GENERIC_F207VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F207VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VGTX.build.board=GENERIC_F207VGTX
+GenF2.menu.pnum.GENERIC_F207VGTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VGTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F217VETx
+GenF2.menu.pnum.GENERIC_F217VETX=Generic F217VETx
+GenF2.menu.pnum.GENERIC_F217VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F217VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217VETX.build.board=GENERIC_F217VETX
+GenF2.menu.pnum.GENERIC_F217VETX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217VETX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F217VGTx
+GenF2.menu.pnum.GENERIC_F217VGTX=Generic F217VGTx
+GenF2.menu.pnum.GENERIC_F217VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F217VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217VGTX.build.board=GENERIC_F217VGTX
+GenF2.menu.pnum.GENERIC_F217VGTX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217VGTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
