@@ -66,6 +66,44 @@ end_array_fmt = """  {{NC,{0:{w1}}NP,{0:{w2}}0}}
 #endif
 """
 
+# Choice is based on the fact Tone and Servo do not need output nor compare
+# capabilities, and thus select timer instance which have the less outputs/compare
+# capabilities:
+# - TIM6/TIM7/TIM18 because they have no output and no compare capabilities
+# - TIM10/TIM11/TIM13/TIM14 only 1 compare channel no complementary
+# - TIM16/TIM17 generally only 1 compare channel (with complementary)
+# - TIM9/TIM12/TIM21/TIM22 2 compare channels (no complementary)
+# - TIM15  generally 2 compare channel (with potentially complementary)
+# - TIM3/TIM4/TIM19 up to 4 channels
+# - TIM2/TIM5 (most of the time) the only 32bit timer. Could be reserved
+# for further 32bit support
+# - TIM1/TIM8/TIM20 they are the most advanced/complete timers
+
+tim_inst_order = [
+    "TIM6",
+    "TIM7",
+    "TIM18",
+    "TIM10",
+    "TIM11",
+    "TIM13",
+    "TIM14",
+    "TIM16",
+    "TIM17",
+    "TIM9",
+    "TIM12",
+    "TIM21",
+    "TIM22",
+    "TIM15",
+    "TIM3",
+    "TIM4",
+    "TIM19",
+    "TIM2",
+    "TIM5",
+    "TIM1",
+    "TIM8",
+    "TIM20",
+]
+
 
 def rm_tree(pth: Path):
     if pth.exists():
@@ -197,8 +235,117 @@ def get_gpio_af_num(pintofind, iptofind):
     return mygpioaf
 
 
+def get_gpio_af_numF1_default(pintofind, iptofind):
+    # Default AFIO to disable some remapping, used when:
+    # <RemapBlock Name="TIM2_REMAP0" DefaultRemap="true" />
+    # is present in xml file
+    default_afio_f1 = {
+        "PA0": {"TIM2": "AFIO_TIM2_DISABLE", "USART2": "AFIO_USART2_DISABLE"},
+        "PA1": {"TIM2": "AFIO_TIM2_DISABLE", "USART2": "AFIO_USART2_DISABLE"},
+        "PA2": {
+            "TIM2": "AFIO_TIM2_DISABLE",
+            "TIM9": "AFIO_TIM9_DISABLE",
+            "TIM15": "AFIO_TIM15_DISABLE",
+            "USART2": "AFIO_USART2_DISABLE",
+        },
+        "PA3": {
+            "TIM2": "AFIO_TIM2_DISABLE",
+            "TIM9": "AFIO_TIM9_DISABLE",
+            "TIM15": "AFIO_TIM15_DISABLE",
+            "USART2": "AFIO_USART2_DISABLE",
+        },
+        "PA4": {"SPI1": "AFIO_SPI1_DISABLE", "USART2": "AFIO_USART2_DISABLE"},
+        "PA5": {"SPI1": "AFIO_SPI1_DISABLE"},
+        "PA6": {
+            "SPI1": "AFIO_SPI1_DISABLE",
+            "TIM3": "AFIO_TIM3_DISABLE",
+            "TIM13": "AFIO_TIM13_DISABLE",
+        },
+        "PA7": {
+            "ETH": "AFIO_ETH_DISABLE",
+            "SPI1": "AFIO_SPI1_DISABLE",
+            "TIM3": "AFIO_TIM3_DISABLE",
+            "TIM14": "AFIO_TIM14_DISABLE",
+        },
+        "PA8": {"TIM1": "AFIO_TIM1_DISABLE"},
+        "PA9": {"TIM1": "AFIO_TIM1_DISABLE", "USART1": "AFIO_USART1_DISABLE"},
+        "PA10": {"TIM1": "AFIO_TIM1_DISABLE", "USART1": "AFIO_USART1_DISABLE"},
+        "PA11": {"CAN1": "AFIO_CAN1_1", "TIM1": "AFIO_TIM1_DISABLE"},
+        "PA12": {"CAN1": "AFIO_CAN1_1", "TIM1": "AFIO_TIM1_DISABLE"},
+        "PA15": {
+            "SPI3": (
+                "AFIO_SPI3_DISABLE"
+                if re.match("STM32F10[57]", mcu_refname)
+                else "AFIO_NONE"
+            )
+        },
+        "PB0": {"ETH": "AFIO_ETH_DISABLE", "TIM3": "AFIO_TIM3_DISABLE"},
+        "PB1": {"ETH": "AFIO_ETH_DISABLE", "TIM3": "AFIO_TIM3_DISABLE"},
+        "PB3": {
+            "SPI3": (
+                "AFIO_SPI3_DISABLE"
+                if re.match("STM32F10[57]", mcu_refname)
+                else "AFIO_NONE"
+            )
+        },
+        "PB4": {
+            "SPI3": (
+                "AFIO_SPI3_DISABLE"
+                if re.match("STM32F10[57]", mcu_refname)
+                else "AFIO_NONE"
+            )
+        },
+        "PB5": {
+            "SPI3": (
+                "AFIO_SPI3_DISABLE"
+                if re.match("STM32F10[57]", mcu_refname)
+                else "AFIO_NONE"
+            )
+        },
+        "PB6": {"I2C1": "AFIO_I2C1_DISABLE", "TIM4": "AFIO_TIM4_DISABLE"},
+        "PB7": {"I2C1": "AFIO_I2C1_DISABLE", "TIM4": "AFIO_TIM4_DISABLE"},
+        "PB8": {
+            "TIM4": "AFIO_TIM4_DISABLE",
+            "TIM10": "AFIO_TIM10_DISABLE",
+            "TIM16": "AFIO_TIM16_DISABLE",
+        },
+        "PB9": {
+            "TIM4": "AFIO_TIM4_DISABLE",
+            "TIM11": "AFIO_TIM11_DISABLE",
+            "TIM17": "AFIO_TIM17_DISABLE",
+        },
+        "PB12": {
+            "CAN2": "AFIO_CAN2_DISABLE",
+            "TIM1": "AFIO_TIM1_DISABLE",
+            "USART3": "AFIO_USART3_DISABLE",
+        },
+        "PB13": {
+            "CAN2": "AFIO_CAN2_DISABLE",
+            "TIM1": "AFIO_TIM1_DISABLE",
+            "USART3": "AFIO_USART3_DISABLE",
+        },
+        "PB14": {"TIM1": "AFIO_TIM1_DISABLE"},
+        "PB15": {"TIM1": "AFIO_TIM1_DISABLE"},
+        "PC4": {"ETH": "AFIO_ETH_DISABLE", "TIM12": "AFIO_TIM12_DISABLE"},
+        "PC5": {"ETH": "AFIO_ETH_DISABLE", "TIM12": "AFIO_TIM12_DISABLE"},
+        "PC8": {"TIM13": "AFIO_TIM13_DISABLE"},
+        "PC9": {"TIM14": "AFIO_TIM14_DISABLE"},
+        "PC10": {"USART3": "AFIO_USART3_DISABLE"},
+        "PC11": {"USART3": "AFIO_USART3_DISABLE"},
+        "PC12": {"USART3": "AFIO_USART3_DISABLE"},
+    }
+
+    # return "AFIO_" + iptofind .split("_")[0] + "_DISABLE"
+    ip = iptofind.split("_")[0]
+    afio_default = "AFIO_NONE"
+    if pintofind in default_afio_f1:
+        if ip in default_afio_f1[pintofind]:
+            afio_default = default_afio_f1[pintofind][ip]
+    return afio_default
+
+
 def get_gpio_af_numF1(pintofind, iptofind):
-    # print ('pin to find ' + pintofind + ' ip to find ' + iptofind)
+    #  print ('pin to find ' + pintofind + ' ip to find ' + iptofind)
     i = 0
     mygpioaf = ""
     for n in xml_gpio.documentElement.childNodes:
@@ -232,9 +379,9 @@ def get_gpio_af_numF1(pintofind, iptofind):
                             p.nodeType == Node.ELEMENT_NODE
                             and p.hasChildNodes() is False
                         ):
-                            if mygpioaf != "":
-                                mygpioaf += " "
-                            mygpioaf += "AFIO_NONE"
+                            mygpioaf += (
+                                " " if mygpioaf != "" else ""
+                            ) + get_gpio_af_numF1_default(pintofind, iptofind)
                         else:
                             for s in p.childNodes:
                                 if s.nodeType != Node.ELEMENT_NODE:
@@ -254,7 +401,7 @@ def get_gpio_af_numF1(pintofind, iptofind):
                                         ).replace("_REMAP", "")
                                         # print mygpioaf
     if mygpioaf == "":
-        mygpioaf = "AFIO_NONE"
+        mygpioaf = get_gpio_af_numF1_default(pintofind, iptofind)
     return mygpioaf
 
 
@@ -1089,44 +1236,6 @@ def serial_pins_variant():
 
 
 def timer_variant():
-    # Choice is based on the fact Tone and Servo do not need output nor compare
-    # capabilities, and thus select timer instance which have the less outputs/compare
-    # capabilities:
-    # - TIM6/TIM7/TIM18 because they have no output and no compare capabilities
-    # - TIM10/TIM11/TIM13/TIM14 only 1 compare channel no complementary
-    # - TIM16/TIM17 generally only 1 compare channel (with complementary)
-    # - TIM9/TIM12/TIM21/TIM22 2 compare channels (no complementary)
-    # - TIM15  generally 2 compare channel (with potentially complementary)
-    # - TIM3/TIM4/TIM19 up to 4 channels
-    # - TIM2/TIM5 (most of the time) the only 32bit timer. Could be reserved
-    # for further 32bit support
-    # - TIM1/TIM8/TIM20 they are the most advanced/complete timers
-
-    tim_inst_order = [
-        "TIM6",
-        "TIM7",
-        "TIM18",
-        "TIM10",
-        "TIM11",
-        "TIM13",
-        "TIM14",
-        "TIM16",
-        "TIM17",
-        "TIM9",
-        "TIM12",
-        "TIM21",
-        "TIM22",
-        "TIM15",
-        "TIM3",
-        "TIM4",
-        "TIM19",
-        "TIM2",
-        "TIM5",
-        "TIM1",
-        "TIM8",
-        "TIM20",
-    ]
-
     tone = servo = "TIMx"
     if tim_inst_list:
         for pref in tim_inst_order:
