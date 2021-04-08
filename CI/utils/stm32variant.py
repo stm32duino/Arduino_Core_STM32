@@ -18,33 +18,33 @@ io_list = []  # 'PIN','name'
 alt_list = []  # 'PIN','name'
 dualpad_list = []  # 'PIN','name'
 remap_list = []  # 'PIN','name'
-adclist = []  # 'PIN','name','ADCSignal'
-daclist = []  # 'PIN','name','DACSignal'
-i2cscl_list = []  # 'PIN','name','I2CSCLSignal'
-i2csda_list = []  # 'PIN','name','I2CSDASignal'
-tim_list = []  # 'PIN','name','TIMSignal'
-uarttx_list = []  # 'PIN','name','UARTtx'
-uartrx_list = []  # 'PIN','name','UARTrx'
-uartcts_list = []  # 'PIN','name','UARTcts'
-uartrts_list = []  # 'PIN','name','UARTrts'
-spimosi_list = []  # 'PIN','name','SPIMOSI'
-spimiso_list = []  # 'PIN','name','SPIMISO'
-spissel_list = []  # 'PIN','name','SPISSEL'
-spisclk_list = []  # 'PIN','name','SPISCLK'
-cantd_list = []  # 'PIN','name','CANTD'
-canrd_list = []  # 'PIN','name','CANRD'
-eth_list = []  # 'PIN','name','ETH'
-quadspidata0_list = []  # 'PIN','name','QUADSPIDATA0'
-quadspidata1_list = []  # 'PIN','name','QUADSPIDATA1'
-quadspidata2_list = []  # 'PIN','name','QUADSPIDATA2'
-quadspidata3_list = []  # 'PIN','name','QUADSPIDATA3'
-quadspisclk_list = []  # 'PIN','name','QUADSPISCLK'
-quadspissel_list = []  # 'PIN','name','QUADSPISSEL'
-syswkup_list = []  # 'PIN','name','SYSWKUP'
-usb_list = []  # 'PIN','name','USB'
-usb_otgfs_list = []  # 'PIN','name','USB'
-usb_otghs_list = []  # 'PIN','name','USB'
-sd_list = []  # 'PIN','name','SD'
+adclist = []  # ['PIN','name','ADCSignal']
+daclist = []  # ['PIN','name','DACSignal']
+i2cscl_list = []  # ['PIN','name','I2CSCLSignal', ['af']]
+i2csda_list = []  # ['PIN','name','I2CSDASignal', ['af']
+tim_list = []  # ['PIN','name','TIMSignal', ['af']]
+uarttx_list = []  # ['PIN','name','UARTtx', ['af']]
+uartrx_list = []  # ['PIN','name','UARTrx', ['af']]
+uartcts_list = []  # ['PIN','name','UARTcts', ['af']]
+uartrts_list = []  # ['PIN','name','UARTrts', ['af']]
+spimosi_list = []  # ['PIN','name','SPIMOSI', ['af']]
+spimiso_list = []  # ['PIN','name','SPIMISO', ['af']]
+spissel_list = []  # ['PIN','name','SPISSEL', ['af']]
+spisclk_list = []  # ['PIN','name','SPISCLK', ['af']]
+cantd_list = []  # ['PIN','name','CANTD', ['af']]
+canrd_list = []  # ['PIN','name','CANRD', ['af']]
+eth_list = []  # ['PIN','name','ETH', ['af']]
+quadspidata0_list = []  # ['PIN','name','QUADSPIDATA0', ['af']]
+quadspidata1_list = []  # ['PIN','name','QUADSPIDATA1', ['af']]
+quadspidata2_list = []  # ['PIN','name','QUADSPIDATA2', ['af']]
+quadspidata3_list = []  # ['PIN','name','QUADSPIDATA3', ['af']]
+quadspisclk_list = []  # ['PIN','name','QUADSPISCLK', ['af']]
+quadspissel_list = []  # ['PIN','name','QUADSPISSEL', ['af']]
+syswkup_list = []  # ['PIN','name','SYSWKUP']
+usb_list = []  # ['PIN','name','USB', ['af']]
+usb_otgfs_list = []  # ['PIN','name','USB', ['af']]
+usb_otghs_list = []  # ['PIN','name','USB', ['af']]
+sd_list = []  # ['PIN','name','SD', ['af']]
 
 # IP information
 gpiofile = ""
@@ -473,23 +473,20 @@ def i2c_pinmap(lst):
     else:
         aname = "I2C_SCL"
     for p in lst:
-        result = get_gpio_af_num(p[1], p[2])
         # 2nd element is the I2C XXX signal
         b = p[2].split("_")[0]
         inst = b[: len(b) - 1] + b[len(b) - 1]
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        r = result.split(" ")
-        for af in r:
-            i2c_pins_list.append(
-                {
-                    "pin": p[0],
-                    "inst": inst,
-                    "mode": mode,
-                    "pull": "GPIO_NOPULL",
-                    "af": af,
-                }
-            )
+        i2c_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": mode,
+                "pull": "GPIO_NOPULL",
+                "af": p[3],
+            }
+        )
     return dict(
         name="I2C",
         hal="I2C",
@@ -507,7 +504,6 @@ def tim_pinmap():
     wpin = []
     mode = "STM_MODE_AF_PP"
     for p in tim_list:
-        result = get_gpio_af_num(p[1], p[2])
         # 2nd element is the TIM signal
         a = p[2].split("_")
         inst = a[0]
@@ -521,20 +517,18 @@ def tim_pinmap():
             chan = chan.strip("N")
         else:
             inv = "0"
-        r = result.split(" ")
-        for af in r:
-            tim_pins_list.append(
-                {
-                    "pin": p[0],
-                    "inst": inst,
-                    "mode": mode,
-                    "pull": "GPIO_PULLUP",
-                    "af": af,
-                    "chan": chan,
-                    "inv": inv,
-                    "cmt": p[2],
-                }
-            )
+        tim_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": mode,
+                "pull": "GPIO_PULLUP",
+                "af": p[3],
+                "chan": chan,
+                "inv": inv,
+                "cmt": p[2],
+            }
+        )
     return dict(
         name="TIM",
         hal="TIM",
@@ -560,7 +554,6 @@ def uart_pinmap(lst):
     else:
         aname = "UART_CTS"
     for p in lst:
-        result = get_gpio_af_num(p[1], p[2])
         # 2nd element is the UART_XX signal
         inst = p[2].split("_")[0]
         winst.append(len(inst))
@@ -569,17 +562,15 @@ def uart_pinmap(lst):
             mode = "STM_MODE_INPUT"
         else:
             mode = "STM_MODE_AF_PP"
-        r = result.split(" ")
-        for af in r:
-            uart_pins_list.append(
-                {
-                    "pin": p[0],
-                    "inst": inst,
-                    "mode": mode,
-                    "pull": "GPIO_PULLUP",
-                    "af": af,
-                }
-            )
+        uart_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": mode,
+                "pull": "GPIO_PULLUP",
+                "af": p[3],
+            }
+        )
     return dict(
         name="UART",
         hal="UART",
@@ -604,22 +595,19 @@ def spi_pinmap(lst):
     else:
         aname = "SPI_SSEL"
     for p in lst:
-        result = get_gpio_af_num(p[1], p[2])
         # 2nd element is the SPI_XXXX signal
         inst = p[2].split("_")[0]
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        r = result.split(" ")
-        for af in r:
-            spi_pins_list.append(
-                {
-                    "pin": p[0],
-                    "inst": inst,
-                    "mode": "STM_MODE_AF_PP",
-                    "pull": "GPIO_PULLUP",
-                    "af": af,
-                }
-            )
+        spi_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": "STM_MODE_AF_PP",
+                "pull": "GPIO_PULLUP",
+                "af": p[3],
+            }
+        )
     return dict(
         name="SPI",
         hal="SPI",
@@ -644,7 +632,6 @@ def can_pinmap(lst):
     else:
         aname = "CAN_TD"
     for p in lst:
-        result = get_gpio_af_num(p[1], p[2])
         # 2nd element is the (FD)CAN_XX signal
         inst = p[2].split("_")[0]
         if not inst[-1].isdigit():
@@ -655,17 +642,15 @@ def can_pinmap(lst):
             mode = "STM_MODE_INPUT"
         else:
             mode = "STM_MODE_AF_PP"
-        r = result.split(" ")
-        for af in r:
-            can_pins_list.append(
-                {
-                    "pin": p[0],
-                    "inst": inst,
-                    "mode": mode,
-                    "pull": "GPIO_NOPULL",
-                    "af": af,
-                }
-            )
+        can_pins_list.append(
+            {
+                "pin": p[0],
+                "inst": inst,
+                "mode": mode,
+                "pull": "GPIO_NOPULL",
+                "af": p[3],
+            }
+        )
     return dict(
         name=name,
         hal=name,
@@ -684,7 +669,6 @@ def eth_pinmap():
     for p in eth_list:
         # Note: Some pins are duplicated with only a different signal
         # Now considered as an ALTX pins even ifsame AF
-        af = get_gpio_af_num(p[1], p[2])
         wpin.append(len(p[0]))
         eth_pins_list.append(
             {
@@ -692,7 +676,7 @@ def eth_pinmap():
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
                 "pull": "GPIO_PULLUP",
-                "af": af,
+                "af": p[3],
                 "cmt": p[2],
             }
         )
@@ -731,7 +715,6 @@ def qspi_pinmap(lst):
     else:
         aname = name + "_SSEL"
     for p in lst:
-        af = get_gpio_af_num(p[1], p[2])
         # 2nd element is the XXXXSPI_YYYY signal
         instm = re.match(ospi_regex, p[2])
         if instm:
@@ -749,7 +732,7 @@ def qspi_pinmap(lst):
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
                 "pull": "GPIO_PULLUP",
-                "af": af,
+                "af": p[3],
                 "cmt": p[2],
             }
         )
@@ -780,7 +763,6 @@ def usb_pinmap(lst):
     for nb in range(nb_loop):
         for p in lst:
             hsinfs = 0
-            result = get_gpio_af_num(p[1], p[2])
             if lst == usb_otghs_list:
                 hsinfs = 3
                 if nb == 0:
@@ -806,25 +788,24 @@ def usb_pinmap(lst):
                     mode = "STM_MODE_AF_OD"
                     pull = "GPIO_PULLUP"
             else:
-                # USB_DM/DP and VBUS: INPUT + NOPULL
-                mode = "STM_MODE_INPUT"
+                # USB_DM/DP and VBUS: INPUT/AF + NOPULL
+                if p[2].startswith("USB_D") and "NONE" not in p[3]:
+                    mode = "STM_MODE_AF_PP"
+                else:
+                    mode = "STM_MODE_INPUT"
                 pull = "GPIO_NOPULL"
             wpin.append(len(p[0]))
-            r = result.split(" ")
-            for af in r:
-                if p[2].startswith("USB_D") and "NONE" not in af:
-                    mode = "STM_MODE_AF_PP"
-                usb_pins_list.append(
-                    {
-                        "hsinfs": hsinfs,
-                        "pin": p[0],
-                        "inst": inst,
-                        "mode": mode,
-                        "pull": pull,
-                        "af": af,
-                        "cmt": p[2],
-                    }
-                )
+            usb_pins_list.append(
+                {
+                    "hsinfs": hsinfs,
+                    "pin": p[0],
+                    "inst": inst,
+                    "mode": mode,
+                    "pull": pull,
+                    "af": p[3],
+                    "cmt": p[2],
+                }
+            )
     return dict(
         name="USB",
         hal=["PCD", "HCD"],
@@ -843,7 +824,6 @@ def sd_pinmap():
     mode = "STM_MODE_AF_PP"
 
     for p in sd_list:
-        af = get_gpio_af_num(p[1], p[2])
         # 2nd element is the SD signal
         a = p[2].split("_")
         inst = a[0]
@@ -859,7 +839,7 @@ def sd_pinmap():
                 "inst": inst,
                 "mode": mode,
                 "pull": pull,
-                "af": af,
+                "af": p[3],
                 "cmt": p[2],
             }
         )
@@ -1489,7 +1469,36 @@ def clean_all_lists():
     del sd_list[:]
 
 
-def manage_alternate():
+def manage_af_and_alternate():
+    add_af(i2cscl_list)
+    add_af(i2csda_list)
+
+    add_af(tim_list)
+    add_af(uarttx_list)
+    add_af(uarttx_list)
+    add_af(uartrx_list)
+    add_af(uartcts_list)
+    add_af(uartrts_list)
+    add_af(spimosi_list)
+    add_af(spimiso_list)
+    add_af(spissel_list)
+    add_af(spisclk_list)
+    add_af(cantd_list)
+    add_af(canrd_list)
+    add_af(eth_list)
+    add_af(quadspidata0_list)
+    add_af(quadspidata1_list)
+    add_af(quadspidata2_list)
+    add_af(quadspidata3_list)
+    add_af(quadspisclk_list)
+    add_af(quadspissel_list)
+    add_af(usb_list)
+    add_af(usb_otgfs_list)
+    add_af(usb_otghs_list)
+    add_af(sd_list)
+
+    sort_my_lists()
+
     update_alternate(adclist)
     update_alternate(daclist)
     update_alternate(i2cscl_list)
@@ -1519,6 +1528,21 @@ def manage_alternate():
     update_alternate(sd_list)
 
     alt_list.sort(key=natural_sortkey)
+
+
+def add_af(lst):
+    duplicate_pin = []
+    for index, p in enumerate(lst):
+        result = get_gpio_af_num(p[1], p[2]).split(" ")
+        if len(result) > 1:
+            for af in result[1:]:
+                # Duplicate pin (F1)
+                # Shallow copy
+                duplicate_pin.append(p.copy())
+                duplicate_pin[-1].append(af)
+        lst[index].append(result[0])
+    if len(duplicate_pin):
+        lst.extend(duplicate_pin)
 
 
 def update_alternate(lst):
@@ -2217,8 +2241,7 @@ for mcu_file in mcu_list:
     boards_entry_file = open(boards_entry_filepath, "w", newline="\n")
     generic_clock_file = open(generic_clock_filepath, "w", newline="\n")
     parse_pins()
-    sort_my_lists()
-    manage_alternate()
+    manage_af_and_alternate()
 
     generic_list = print_boards_entry()
     print_general_clock(generic_list)
