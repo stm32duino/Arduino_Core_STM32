@@ -211,6 +211,7 @@
           "boards": [
             "AFROFLIGHT_F103CB",
             "ARMED_V1",
+            "B_L072Z_LRWAN1",
             "BLUE_F407VE_Mini",
             "BLACKPILL_F103C8",
             "BLUEPILL_F103C8",
@@ -246,6 +247,7 @@
             "RAK811_TRACKER",
             "REMRAM_V1",
             "Sparky_V1",
+            "STM32MP157C_DK2",
             "WRAITH32_V1"
           ]
         },
@@ -264,7 +266,7 @@
           "applicable": false,
           "boards": [
             "EEXTR_F030_V1", "ELEKTOR_F072C8", "ELEKTOR_F072CB", "FYSETC_S6", "Generic_F103ZG",
-            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "STEVAL_MKSBOX1V1", "VAKE_V1",
+            "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0", "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_V1",
             "VCCGND_F103ZET6", "VCCGND_F103ZET6Mini", "WRAITH32_V1"
           ]
         },
@@ -354,7 +356,7 @@
           "pattern": "StringComparisonOperators",
           "applicable": false,
           "boards": [
-            "ARMED_V1", "EEXTR_F030_V1", "PX_HER0", "RAK811_TRACKER", "REMRAM_V1",
+            "ARMED_V1", "B_L072Z_LRWAN1", "EEXTR_F030_V1", "PX_HER0", "RAK811_TRACKER", "REMRAM_V1",
             "STEVAL_MKSBOX1V1", "THUNDERPACK_F411", "THUNDERPACK_L072"
           ]
         },
@@ -369,7 +371,7 @@
           "pattern": "ASM330LHH|LSM6DSR",
           "applicable": false,
           "boards": [
-            "ARMED_V1", "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0",
+            "ARMED_V1", "B_L072Z_LRWAN1", "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "PRNTR_V2", "PX_HER0",
             "RAK811_TRACKER", "REMRAM_V1", "STEVAL_MKSBOX1V1", "THUNDERPACK_F411", "THUNDERPACK_L072"
           ]
         },
@@ -387,14 +389,23 @@
           "boards": [ "B_L072Z_LRWAN1", "STM32MP157C_DK2" ]
         },
         {
+          "pattern": "IHM02A1|IKS01A3",
+          "applicable": false,
+          "boards": [ "B_L072Z_LRWAN1" ]
+        },
+        {
           "pattern": "MicroNMEA[\\\\/]",
           "applicable": true,
           "boards": [ "" ]
         },
         {
+          "comment": "Only USART1",
           "pattern": "SerialLoop|Tests_basic_functions",
           "applicable": false,
-          "boards": [ "NUCLEO_F031K6", "NUCLEO_L031K6", "WRAITH32_V1" ]
+          "boards": [
+            "GENERIC_F030F4PX", "GENERIC_F031K6TX", "GENERIC_L031K6TX",
+            "NUCLEO_F031K6", "NUCLEO_L031K6", "WRAITH32_V1"
+          ]
         },
         {
           "pattern": "(Alarm)?TimedWak(e)?up|SerialDeepSleep",
@@ -407,7 +418,7 @@
           "boards": [ "" ]
         },
         {
-          "pattern": "tone|p07_Keyboard",
+          "pattern": "Servo|p07_Keyboard|p12_KnockLock",
           "applicable": false,
           "boards": [
             "ST3DP001_EVAL", "STEVAL_MKSBOX1V1", "VAKE_V1", "WRAITH32_V1"
@@ -439,6 +450,11 @@
           "pattern": "X_NUCLEO_IHM05A1",
           "applicable": true,
           "boards": [ "NUCLEO_F401RE", "NUCLEO_L053R8", "NUCLEO_L152RE", "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "Python_Wave_Serial_Encoder",
+          "applicable": true,
+          "boards": [ "NUCLEO_F401RE", "NUCLEO_L476RG" ]
         }
       ]
     }
