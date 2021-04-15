@@ -1130,7 +1130,7 @@ def print_pinamevar():
 
 # Variant files generation
 def spi_pins_variant():
-    ss_pin = ss1_pin = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "ND"
+    ss_pin = ss1_pin = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "PNUM_NOT_DEFINED"
 
     # Iterate to find match instance if any
     for mosi in spimosi_list:
@@ -1155,13 +1155,13 @@ def spi_pins_variant():
         for ss in spissel_list:
             ss_inst = ss[2].split("_", 1)[0]
             if mosi_inst == ss_inst:
-                if "ND" == ss_pin:
+                if "PNUM_NOT_DEFINED" == ss_pin:
                     ss_pin = ss[0].replace("_", "", 1)
-                elif "ND" == ss1_pin:
+                elif "PNUM_NOT_DEFINED" == ss1_pin:
                     ss1_pin = ss[0].replace("_", "", 1)
-                elif "ND" == ss2_pin:
+                elif "PNUM_NOT_DEFINED" == ss2_pin:
                     ss2_pin = ss[0].replace("_", "", 1)
-                elif "ND" == ss3_pin:
+                elif "PNUM_NOT_DEFINED" == ss3_pin:
                     ss3_pin = ss[0].replace("_", "", 1)
                     break
         break
@@ -1179,7 +1179,7 @@ def spi_pins_variant():
 
 
 def i2c_pins_variant():
-    sda_pin = scl_pin = "ND"
+    sda_pin = scl_pin = "PNUM_NOT_DEFINED"
     # Iterate to find match instance if any
     for sda in i2csda_list:
         sda_inst = sda[2].split("_", 1)[0]
@@ -1229,7 +1229,7 @@ def serial_pins_variant():
             print("No serial instance number found!")
             serialnum = "-1"
     else:
-        serialtx_pin = serialtx_pin = "ND"
+        serialtx_pin = serialtx_pin = "PNUM_NOT_DEFINED"
         serialnum = "-1"
         print("No serial found!")
     return dict(instance=serialnum, rx=serialrx_pin, tx=serialtx_pin)

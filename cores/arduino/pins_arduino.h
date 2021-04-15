@@ -32,7 +32,7 @@
 #define PNUM_MASK                   0xFF
 
 /* Pin not defined */
-#define ND                          NUM_DIGITAL_PINS
+#define PNUM_NOT_DEFINED            NUM_DIGITAL_PINS
 
 /* Avoid PortName issue */
 _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");

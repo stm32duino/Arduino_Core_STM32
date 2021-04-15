@@ -37,12 +37,12 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           ND
+  #define LED_BUILTIN           PNUM_NOT_DEFINED
 #endif
 
 // On-board user button
 #ifndef USER_BTN
-  #define USER_BTN              ND
+  #define USER_BTN              PNUM_NOT_DEFINED
 #endif
 
 // SPI definitions
