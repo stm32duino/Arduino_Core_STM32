@@ -23,6 +23,28 @@
   #include "lock_resource.h"
 #endif
 
+typedef struct {
+  PinName pin;
+  uint32_t LL_AnalogSwitch;
+} PinAnalogSwitch;
+
+#if defined(STM32H7xx)
+#define DUALPAD_ANALOG_SWITCH
+const PinAnalogSwitch PinMapAnalogSwitch[] = {
+  {PA_0,     LL_SYSCFG_ANALOG_SWITCH_PA0},
+  {PA_1,     LL_SYSCFG_ANALOG_SWITCH_PA1},
+  {PC_2,     LL_SYSCFG_ANALOG_SWITCH_PC2},
+  {PC_3,     LL_SYSCFG_ANALOG_SWITCH_PC3},
+  {NC,   0}
+};
+#else
+/**
+ * Even if MP1 support some dual pad (analog switch), we don't consider it
+ * because its behavior is different from H7 and almost useless.
+ * Switches remains open all the time. No need to configure it */
+#undef DUALPAD_ANALOG_SWITCH
+#endif
+
 /* Map STM_PIN to LL */
 const uint32_t pin_map_ll[16] = {
   LL_GPIO_PIN_0,
@@ -42,6 +64,41 @@ const uint32_t pin_map_ll[16] = {
   LL_GPIO_PIN_14,
   LL_GPIO_PIN_15
 };
+
+#if defined(DUALPAD_ANALOG_SWITCH)
+/**
+ * Configure Analog dualpad switch if necessary
+ */
+void configure_dualpad_switch(PinName pin, int function)
+{
+  PinAnalogSwitch *AnalogSwitch = (PinAnalogSwitch *) PinMapAnalogSwitch;
+
+  /* Read through PinMapAnalogSwitch array */
+  while (AnalogSwitch->pin != NC) {
+    /* Check whether pin is or is associated to dualpad Analog Input */
+    if ((AnalogSwitch->pin | PDUAL)  == (pin | PDUAL)) {
+      if (((function & STM_MODE_ANALOG) != STM_MODE_ANALOG)
+          && ((pin & PDUAL) == PDUAL)) {
+        /**
+         * We don't configure an analog function but the pin is an analog pad
+         * (Pxy_C, ANA0 ...) In this cases Analog switch should be closed
+         */
+        LL_SYSCFG_CloseAnalogSwitch(AnalogSwitch->LL_AnalogSwitch);
+        return ;
+      } else {
+        /**
+         * Either we configure an analog function,
+         * or it is not an analog function but it is not an analog pad
+         * (not Pxy_C, ANA0 ...). In both cases Analog switch should be opened
+         */
+        LL_SYSCFG_OpenAnalogSwitch(AnalogSwitch->LL_AnalogSwitch);
+        return ;
+      }
+    }
+    AnalogSwitch ++;
+  }
+}
+#endif /* DUALPAD_ANALOG_SWITCH */
 
 bool pin_in_pinmap(PinName pin, const PinMap *map)
 {
@@ -176,6 +233,10 @@ void pin_function(PinName pin, int function)
   }
 
   pin_PullConfig(gpio, ll_pin, STM_PIN_PUPD(function));
+
+#if defined(DUALPAD_ANALOG_SWITCH)
+  configure_dualpad_switch(pin, function);
+#endif /* DUALPAD_ANALOG_SWITCH */
 
   pin_DisconnectDebug(pin);
 
