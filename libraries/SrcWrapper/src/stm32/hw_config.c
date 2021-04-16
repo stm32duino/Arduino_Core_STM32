@@ -26,6 +26,8 @@ extern "C" {
   */
 void hw_config_init(void)
 {
+  configIPClock();
+
   /* Init DWT if present */
 #ifdef DWT_BASE
   dwt_init();
@@ -34,16 +36,7 @@ void hw_config_init(void)
   /* Initialize the HAL */
   HAL_Init();
 
-#ifdef HSEM_BASE
-  __HAL_RCC_HSEM_CLK_ENABLE();
-#endif
-
   configHSECapacitorTuning();
-
-#if defined(__HAL_RCC_PWR_CLK_ENABLE)
-  /* Enable PWR clock, needed for example: voltage scaling, low power ... */
-  __HAL_RCC_PWR_CLK_ENABLE();
-#endif
 
   /* Configure the system clock */
   SystemClock_Config();

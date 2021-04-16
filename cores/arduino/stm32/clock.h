@@ -37,6 +37,7 @@ typedef enum {
 uint32_t getCurrentMillis(void);
 uint32_t getCurrentMicros(void);
 
+void configIPClock(void);
 void enableClock(sourceClock_t source);
 void configHSECapacitorTuning(void);
 

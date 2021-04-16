@@ -151,7 +151,6 @@ WEAK void USBD_reenumerate(void)
    * do not manage the internal pull-up, so manage
    * internal pull-up manually.
    */
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
   LL_SYSCFG_DisableUSBPullUp();
   delay(USBD_ENUM_DELAY);
   LL_SYSCFG_EnableUSBPullUp();

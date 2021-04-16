@@ -74,7 +74,6 @@ void pin_function(PinName pin, int function)
 
   /* Handle pin remap if any */
 #if defined(LL_SYSCFG_PIN_RMP_PA11) && defined(LL_SYSCFG_PIN_RMP_PA12) || defined(SYSCFG_CFGR1_PA11_PA12_RMP)
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
   switch (pin & PNAME_MASK) {
 #if defined(SYSCFG_CFGR1_PA11_PA12_RMP)
     /* Disable PIN pair PA11/12 mapped instead of PA9/10 */
