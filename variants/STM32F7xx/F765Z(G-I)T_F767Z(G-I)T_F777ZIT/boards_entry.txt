@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F765ZGTx
+GenF7.menu.pnum.GENERIC_F765ZGTX=Generic F765ZGTx
+GenF7.menu.pnum.GENERIC_F765ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F765ZGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.board=GENERIC_F765ZGTX
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F765ZITx
+GenF7.menu.pnum.GENERIC_F765ZITX=Generic F765ZITx
+GenF7.menu.pnum.GENERIC_F765ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F765ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F765ZITX.build.board=GENERIC_F765ZITX
+GenF7.menu.pnum.GENERIC_F765ZITX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F767ZGTx
+GenF7.menu.pnum.GENERIC_F767ZGTX=Generic F767ZGTx
+GenF7.menu.pnum.GENERIC_F767ZGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F767ZGTX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.board=GENERIC_F767ZGTX
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767ZGTX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F767ZITx
+GenF7.menu.pnum.GENERIC_F767ZITX=Generic F767ZITx
+GenF7.menu.pnum.GENERIC_F767ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F767ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F767ZITX.build.board=GENERIC_F767ZITX
+GenF7.menu.pnum.GENERIC_F767ZITX.build.product_line=STM32F767xx
+GenF7.menu.pnum.GENERIC_F767ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+
+# Generic F777ZITx
+GenF7.menu.pnum.GENERIC_F777ZITX=Generic F777ZITx
+GenF7.menu.pnum.GENERIC_F777ZITX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F777ZITX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F777ZITX.build.board=GENERIC_F777ZITX
+GenF7.menu.pnum.GENERIC_F777ZITX.build.product_line=STM32F777xx
+GenF7.menu.pnum.GENERIC_F777ZITX.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
+

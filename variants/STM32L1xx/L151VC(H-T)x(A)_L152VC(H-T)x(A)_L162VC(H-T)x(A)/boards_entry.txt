@@ -1,0 +1,77 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151VCHx
+GenL1.menu.pnum.GENERIC_L151VCHX=Generic L151VCHx
+GenL1.menu.pnum.GENERIC_L151VCHX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151VCHX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151VCHX.build.board=GENERIC_L151VCHX
+GenL1.menu.pnum.GENERIC_L151VCHX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151VCHX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L151VCTx
+GenL1.menu.pnum.GENERIC_L151VCTX=Generic L151VCTx
+GenL1.menu.pnum.GENERIC_L151VCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151VCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151VCTX.build.board=GENERIC_L151VCTX
+GenL1.menu.pnum.GENERIC_L151VCTX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151VCTX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L151VCTxA
+GenL1.menu.pnum.GENERIC_L151VCTXA=Generic L151VCTxA
+GenL1.menu.pnum.GENERIC_L151VCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151VCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151VCTXA.build.board=GENERIC_L151VCTXA
+GenL1.menu.pnum.GENERIC_L151VCTXA.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151VCTXA.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L152VCHx
+GenL1.menu.pnum.GENERIC_L152VCHX=Generic L152VCHx
+GenL1.menu.pnum.GENERIC_L152VCHX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152VCHX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152VCHX.build.board=GENERIC_L152VCHX
+GenL1.menu.pnum.GENERIC_L152VCHX.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152VCHX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L152VCTx
+GenL1.menu.pnum.GENERIC_L152VCTX=Generic L152VCTx
+GenL1.menu.pnum.GENERIC_L152VCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152VCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152VCTX.build.board=GENERIC_L152VCTX
+GenL1.menu.pnum.GENERIC_L152VCTX.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152VCTX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L152VCTxA
+GenL1.menu.pnum.GENERIC_L152VCTXA=Generic L152VCTxA
+GenL1.menu.pnum.GENERIC_L152VCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152VCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152VCTXA.build.board=GENERIC_L152VCTXA
+GenL1.menu.pnum.GENERIC_L152VCTXA.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152VCTXA.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L162VCHx
+GenL1.menu.pnum.GENERIC_L162VCHX=Generic L162VCHx
+GenL1.menu.pnum.GENERIC_L162VCHX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162VCHX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162VCHX.build.board=GENERIC_L162VCHX
+GenL1.menu.pnum.GENERIC_L162VCHX.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162VCHX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L162VCTx
+GenL1.menu.pnum.GENERIC_L162VCTX=Generic L162VCTx
+GenL1.menu.pnum.GENERIC_L162VCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162VCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162VCTX.build.board=GENERIC_L162VCTX
+GenL1.menu.pnum.GENERIC_L162VCTX.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162VCTX.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+
+# Generic L162VCTxA
+GenL1.menu.pnum.GENERIC_L162VCTXA=Generic L162VCTxA
+GenL1.menu.pnum.GENERIC_L162VCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162VCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162VCTXA.build.board=GENERIC_L162VCTXA
+GenL1.menu.pnum.GENERIC_L162VCTXA.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162VCTXA.build.variant=STM32L1xx/L151VC(H-T)x(A)_L152VC(H-T)x(A)_L162VC(H-T)x(A)
+

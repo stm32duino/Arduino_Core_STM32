@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F100VCTx
+GenF1.menu.pnum.GENERIC_F100VCTX=Generic F100VCTx
+GenF1.menu.pnum.GENERIC_F100VCTX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F100VCTX.upload.maximum_data_size=24576
+GenF1.menu.pnum.GENERIC_F100VCTX.build.board=GENERIC_F100VCTX
+GenF1.menu.pnum.GENERIC_F100VCTX.build.product_line=STM32F100xE
+GenF1.menu.pnum.GENERIC_F100VCTX.build.variant=STM32F1xx/F100V(C-D-E)T
+
+# Generic F100VDTx
+GenF1.menu.pnum.GENERIC_F100VDTX=Generic F100VDTx
+GenF1.menu.pnum.GENERIC_F100VDTX.upload.maximum_size=393216
+GenF1.menu.pnum.GENERIC_F100VDTX.upload.maximum_data_size=32768
+GenF1.menu.pnum.GENERIC_F100VDTX.build.board=GENERIC_F100VDTX
+GenF1.menu.pnum.GENERIC_F100VDTX.build.product_line=STM32F100xE
+GenF1.menu.pnum.GENERIC_F100VDTX.build.variant=STM32F1xx/F100V(C-D-E)T
+
+# Generic F100VETx
+GenF1.menu.pnum.GENERIC_F100VETX=Generic F100VETx
+GenF1.menu.pnum.GENERIC_F100VETX.upload.maximum_size=524288
+GenF1.menu.pnum.GENERIC_F100VETX.upload.maximum_data_size=32768
+GenF1.menu.pnum.GENERIC_F100VETX.build.board=GENERIC_F100VETX
+GenF1.menu.pnum.GENERIC_F100VETX.build.product_line=STM32F100xE
+GenF1.menu.pnum.GENERIC_F100VETX.build.variant=STM32F1xx/F100V(C-D-E)T
+

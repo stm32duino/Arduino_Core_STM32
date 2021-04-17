@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L433CBTx
+GenL4.menu.pnum.GENERIC_L433CBTX=Generic L433CBTx
+GenL4.menu.pnum.GENERIC_L433CBTX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L433CBTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CBTX.build.board=GENERIC_L433CBTX
+GenL4.menu.pnum.GENERIC_L433CBTX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CBTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+
+# Generic L433CCTx
+GenL4.menu.pnum.GENERIC_L433CCTX=Generic L433CCTx
+GenL4.menu.pnum.GENERIC_L433CCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433CCTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CCTX.build.board=GENERIC_L433CCTX
+GenL4.menu.pnum.GENERIC_L433CCTX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CCTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+
+# Generic L433CBUx
+GenL4.menu.pnum.GENERIC_L433CBUX=Generic L433CBUx
+GenL4.menu.pnum.GENERIC_L433CBUX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L433CBUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CBUX.build.board=GENERIC_L433CBUX
+GenL4.menu.pnum.GENERIC_L433CBUX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CBUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+
+# Generic L433CCUx
+GenL4.menu.pnum.GENERIC_L433CCUX=Generic L433CCUx
+GenL4.menu.pnum.GENERIC_L433CCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433CCUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CCUX.build.board=GENERIC_L433CCUX
+GenL4.menu.pnum.GENERIC_L433CCUX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CCUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+
+# Generic L443CCTx
+GenL4.menu.pnum.GENERIC_L443CCTX=Generic L443CCTx
+GenL4.menu.pnum.GENERIC_L443CCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443CCTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443CCTX.build.board=GENERIC_L443CCTX
+GenL4.menu.pnum.GENERIC_L443CCTX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443CCTX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+
+# Generic L443CCUx
+GenL4.menu.pnum.GENERIC_L443CCUX=Generic L443CCUx
+GenL4.menu.pnum.GENERIC_L443CCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443CCUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443CCUX.build.board=GENERIC_L443CCUX
+GenL4.menu.pnum.GENERIC_L443CCUX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443CCUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+

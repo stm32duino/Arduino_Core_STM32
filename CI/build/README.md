@@ -1,21 +1,21 @@
-# arduino-builder.py
+# arduino-cli.py
 
-This script manages _[arduino-builder](https://github.com/arduino/arduino-builder)_ command line tool for compiling Arduino sketch(es).
+This script manages _[arduino-cli](https://github.com/arduino/arduino-cli)_ command line tool for compiling Arduino sketch(es).
 
 ## Requirements
-- [Arduino IDE](https://www.arduino.cc/en/Main/Software) (_[arduino-builder](https://github.com/arduino/arduino-builder)_ is included) 
+- [arduino-cli](https://github.com/arduino/arduino-cli)
 - Python version greater than or equal to  3.2 (due to `concurrent.futures` usage)
 
 ## Usage
 
 ```
-usage: arduino-builder.py [-h] [-l [{board,sketch}] | -a] [-b pattern] [-c]
-                          [--arch architecture]
-                          [--config <core configuration file>] [-v]
-                          [--bin | --travis]
-                          [-i <shetch filepath> | -f <sketches list filepath> | -s pattern | -e <excluded sketches list filepath>]
+usage: arduino-cli.py [-h] [-l [{board,sketch}] | -a] [-b pattern] [-c]
+                      [--arch architecture]
+                      [--config <core configuration file>] [-u <string>] [-v]
+                      [--ci]
+                      [-i <shetch filepath> | -f <sketches list filepath> | -s pattern | -e <excluded sketches list filepath>]
 
-Manage arduino-builder command line tool for compiling Arduino sketch(es).
+Manage arduino-cli to build sketche(s) for STM32 boards.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -23,39 +23,43 @@ optional arguments:
                         list available board(s) or sketch(es)
   -a, --all             build all sketches found for all available boards
   -b pattern, --board pattern
-                        pattern to find one or more board(s) to build
-  -c, --clean           clean output directory
-                        <user path config>/arduinoBuilderOutput
+                        pattern to build one or more board(s)
+  -c, --clean           clean output directory.
   --arch architecture   core architecture to build. Default build architecture
-                        is stm32
+                        is 'stm32'
   --config <core configuration file>
                         JSON file containing the build configuration for one
                         or more maintainer/architecture. Board options for
                         build, applicability of sketches for boards or
                         required options. If sketch is not listed then
                         applicable to all board. Default core configuration is
-                        for 'stm32' architecture in: conf/cores_config.json
-  -v, --verbose         enable arduino-builder verbose mode
-  --bin                 save binaries
-  --travis              Custom configuration for Travis CI build
+                        for 'stm32 'architecture in:
+                        <core path>\CI\build\conf\cores_config.json
+  -u <string>, --url <string>
+                        additional URL for the board manager Default url : htt
+                        ps://github.com/stm32duino/BoardManagerFiles/raw/maste
+                        r/STM32/package_stm_index.json
+  -v, --verbose         enable arduino-cli verbose mode
+  --ci                  custom configuration for CI build
 
 Sketch(es) options:
-  By default build <arduino path>/examples/01.Basics/BareMinimum/BareMinimum.ino
+  By default build C:\STM32\arduino\arduino-1.8.13\portable\packages\STM32\h
+  ardware\stm32\2.0.0-dev\CI\build\examples\BareMinimum
 
   -i <shetch filepath>, --ino <shetch filepath>
-                        single ino file to build
+                        single sketch file to build
   -f <sketches list filepath>, --file <sketches list filepath>
                         file containing list of sketches to build
   -s pattern, --sketches pattern
                         pattern to find one or more sketch to build
   -e <excluded sketches list filepath>, --exclude <excluded sketches list filepath>
-                        file containing pattern of sketches to ignore. Default
-                        path : conf/exclude_list.txt
+                        file containing sketches pattern to ignore. Default
+                        path : <core path>\\CI\build\conf\exclude_list.txt
 ```
 
 ## Cores configuration files
 
-Script is able to uses a JSON configuration file containing the build configuration for one or more maintainer/architecture. 
+Script is able to uses a JSON configuration file containing the build configuration for one or more maintainer/architecture.
 A default configuration file is provided: [cores_config.json](conf/cores_config.json)
 
 
@@ -144,7 +148,7 @@ Will build all sketches available in  `09.USB/*` for the listed boards and add `
 
 * List all boards containing `F1` or `L4` (not case sensitive):
 
-`python3 arduino-builder.py -l -b "F1|l4"`
+`python3 arduino-cli.py -l -b "F1|l4"`
 
 Will produce on the [stm32](https://github.com/stm32duino/Arduino_Core_STM32) core:
 ```
@@ -164,7 +168,7 @@ NUCLEO_L496ZG-P
 
 * List all sketch containing `digital` or `analog` (not case sensitive):
 
-`python3 arduino-builder.py -l sketch -s "Digital|analog"`
+`python3 arduino-cli.py -l sketch -s "Digital|analog"`
 
 Will produce on the [stm32](https://github.com/stm32duino/Arduino_Core_STM32) core:
 ```
@@ -194,11 +198,11 @@ Build configuration for 'STM32' maintainer and 'stm32' architecture
 
 * Build all sketches containing `digital` or `analog` for all boards containing `F1` or `L4` (not case sensitive):
 
-`python3 arduino-builder.py -s "Digital|analog" -b "F1|l4"` 
+`python3 arduino-cli.py -s "Digital|analog" -b "F1|l4"`
 
 * List all boards for STM32F1 core:
 
-`python3 arduino-builder.py -l --arch STM32F1`
+`python3 arduino-cli.py -l --arch STM32F1`
 
 Will list:
 ```

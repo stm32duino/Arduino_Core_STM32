@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L010R8Tx
+GenL0.menu.pnum.GENERIC_L010R8TX=Generic L010R8Tx
+GenL0.menu.pnum.GENERIC_L010R8TX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L010R8TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L010R8TX.build.board=GENERIC_L010R8TX
+GenL0.menu.pnum.GENERIC_L010R8TX.build.product_line=STM32L010x8
+GenL0.menu.pnum.GENERIC_L010R8TX.build.variant=STM32L0xx/L010R8T
+

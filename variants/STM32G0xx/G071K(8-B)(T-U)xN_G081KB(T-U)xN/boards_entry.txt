@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G071K8TxN
+GenG0.menu.pnum.GENERIC_G071K8TXN=Generic G071K8TxN
+GenG0.menu.pnum.GENERIC_G071K8TXN.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G071K8TXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071K8TXN.build.board=GENERIC_G071K8TXN
+GenG0.menu.pnum.GENERIC_G071K8TXN.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071K8TXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+
+# Generic G071KBTxN
+GenG0.menu.pnum.GENERIC_G071KBTXN=Generic G071KBTxN
+GenG0.menu.pnum.GENERIC_G071KBTXN.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G071KBTXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071KBTXN.build.board=GENERIC_G071KBTXN
+GenG0.menu.pnum.GENERIC_G071KBTXN.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071KBTXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+
+# Generic G071K8UxN
+GenG0.menu.pnum.GENERIC_G071K8UXN=Generic G071K8UxN
+GenG0.menu.pnum.GENERIC_G071K8UXN.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G071K8UXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071K8UXN.build.board=GENERIC_G071K8UXN
+GenG0.menu.pnum.GENERIC_G071K8UXN.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071K8UXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+
+# Generic G071KBUxN
+GenG0.menu.pnum.GENERIC_G071KBUXN=Generic G071KBUxN
+GenG0.menu.pnum.GENERIC_G071KBUXN.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G071KBUXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071KBUXN.build.board=GENERIC_G071KBUXN
+GenG0.menu.pnum.GENERIC_G071KBUXN.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071KBUXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+
+# Generic G081KBTxN
+GenG0.menu.pnum.GENERIC_G081KBTXN=Generic G081KBTxN
+GenG0.menu.pnum.GENERIC_G081KBTXN.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G081KBTXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G081KBTXN.build.board=GENERIC_G081KBTXN
+GenG0.menu.pnum.GENERIC_G081KBTXN.build.product_line=STM32G081xx
+GenG0.menu.pnum.GENERIC_G081KBTXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+
+# Generic G081KBUxN
+GenG0.menu.pnum.GENERIC_G081KBUXN=Generic G081KBUxN
+GenG0.menu.pnum.GENERIC_G081KBUXN.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G081KBUXN.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G081KBUXN.build.board=GENERIC_G081KBUXN
+GenG0.menu.pnum.GENERIC_G081KBUXN.build.product_line=STM32G081xx
+GenG0.menu.pnum.GENERIC_G081KBUXN.build.variant=STM32G0xx/G071K(8-B)(T-U)xN_G081KB(T-U)xN
+

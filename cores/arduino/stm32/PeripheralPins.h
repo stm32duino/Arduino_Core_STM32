@@ -46,8 +46,10 @@ extern const PinMap PinMap_DAC[];
 extern const PinMap PinMap_I2C_SDA[];
 extern const PinMap PinMap_I2C_SCL[];
 
-//*** PWM ***
-extern const PinMap PinMap_PWM[];
+//*** TIM ***
+/* For backward compatibilty */
+#define PinMap_PWM PinMap_TIM
+extern const PinMap PinMap_TIM[];
 
 //*** SERIAL ***
 extern const PinMap PinMap_UART_TX[];

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L031G4Ux
+GenL0.menu.pnum.GENERIC_L031G4UX=Generic L031G4Ux
+GenL0.menu.pnum.GENERIC_L031G4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L031G4UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031G4UX.build.board=GENERIC_L031G4UX
+GenL0.menu.pnum.GENERIC_L031G4UX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031G4UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+
+# Generic L031G6Ux
+GenL0.menu.pnum.GENERIC_L031G6UX=Generic L031G6Ux
+GenL0.menu.pnum.GENERIC_L031G6UX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L031G6UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031G6UX.build.board=GENERIC_L031G6UX
+GenL0.menu.pnum.GENERIC_L031G6UX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031G6UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+
+# Generic L041G6Ux
+GenL0.menu.pnum.GENERIC_L041G6UX=Generic L041G6Ux
+GenL0.menu.pnum.GENERIC_L041G6UX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L041G6UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L041G6UX.build.board=GENERIC_L041G6UX
+GenL0.menu.pnum.GENERIC_L041G6UX.build.product_line=STM32L041xx
+GenL0.menu.pnum.GENERIC_L041G6UX.build.variant=STM32L0xx/L031G(4-6)U_L041G6U
+

@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4R5ZGTx
+GenL4.menu.pnum.GENERIC_L4R5ZGTX=Generic L4R5ZGTx
+GenL4.menu.pnum.GENERIC_L4R5ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4R5ZGTX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R5ZGTX.build.board=GENERIC_L4R5ZGTX
+GenL4.menu.pnum.GENERIC_L4R5ZGTX.build.product_line=STM32L4R5xx
+GenL4.menu.pnum.GENERIC_L4R5ZGTX.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
+
+# Generic L4R5ZITx
+GenL4.menu.pnum.GENERIC_L4R5ZITX=Generic L4R5ZITx
+GenL4.menu.pnum.GENERIC_L4R5ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R5ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R5ZITX.build.board=GENERIC_L4R5ZITX
+GenL4.menu.pnum.GENERIC_L4R5ZITX.build.product_line=STM32L4R5xx
+GenL4.menu.pnum.GENERIC_L4R5ZITX.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
+
+# Generic L4R7ZITx
+GenL4.menu.pnum.GENERIC_L4R7ZITX=Generic L4R7ZITx
+GenL4.menu.pnum.GENERIC_L4R7ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R7ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R7ZITX.build.board=GENERIC_L4R7ZITX
+GenL4.menu.pnum.GENERIC_L4R7ZITX.build.product_line=STM32L4R7xx
+GenL4.menu.pnum.GENERIC_L4R7ZITX.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
+
+# Generic L4S5ZITx
+GenL4.menu.pnum.GENERIC_L4S5ZITX=Generic L4S5ZITx
+GenL4.menu.pnum.GENERIC_L4S5ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S5ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S5ZITX.build.board=GENERIC_L4S5ZITX
+GenL4.menu.pnum.GENERIC_L4S5ZITX.build.product_line=STM32L4S5xx
+GenL4.menu.pnum.GENERIC_L4S5ZITX.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
+
+# Generic L4S7ZITx
+GenL4.menu.pnum.GENERIC_L4S7ZITX=Generic L4S7ZITx
+GenL4.menu.pnum.GENERIC_L4S7ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S7ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S7ZITX.build.board=GENERIC_L4S7ZITX
+GenL4.menu.pnum.GENERIC_L4S7ZITX.build.product_line=STM32L4S7xx
+GenL4.menu.pnum.GENERIC_L4S7ZITX.build.variant=STM32L4xx/L4R5Z(G-I)T_L4R7ZIT_L4S5ZIT_L4S7ZIT
+

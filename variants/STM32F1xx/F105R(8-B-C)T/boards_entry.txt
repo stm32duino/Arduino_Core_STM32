@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F105R8Tx
+GenF1.menu.pnum.GENERIC_F105R8TX=Generic F105R8Tx
+GenF1.menu.pnum.GENERIC_F105R8TX.upload.maximum_size=65536
+GenF1.menu.pnum.GENERIC_F105R8TX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105R8TX.build.board=GENERIC_F105R8TX
+GenF1.menu.pnum.GENERIC_F105R8TX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105R8TX.build.variant=STM32F1xx/F105R(8-B-C)T
+
+# Generic F105RBTx
+GenF1.menu.pnum.GENERIC_F105RBTX=Generic F105RBTx
+GenF1.menu.pnum.GENERIC_F105RBTX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F105RBTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105RBTX.build.board=GENERIC_F105RBTX
+GenF1.menu.pnum.GENERIC_F105RBTX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105RBTX.build.variant=STM32F1xx/F105R(8-B-C)T
+
+# Generic F105RCTx
+GenF1.menu.pnum.GENERIC_F105RCTX=Generic F105RCTx
+GenF1.menu.pnum.GENERIC_F105RCTX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F105RCTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105RCTX.build.board=GENERIC_F105RCTX
+GenF1.menu.pnum.GENERIC_F105RCTX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105RCTX.build.variant=STM32F1xx/F105R(8-B-C)T
+

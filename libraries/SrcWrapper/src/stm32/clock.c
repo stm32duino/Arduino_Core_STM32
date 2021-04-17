@@ -152,6 +152,28 @@ void configHSECapacitorTuning(void)
 #endif
 }
 
+/**
+  * @brief  This function enables clocks for some system IP
+  * @param  None
+  * @retval None
+  */
+void configIPClock(void)
+{
+#ifdef HSEM_BASE
+  __HAL_RCC_HSEM_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_PWR_CLK_ENABLE)
+  /* Enable PWR clock, needed for example: voltage scaling, low power ... */
+  __HAL_RCC_PWR_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_SYSCFG_CLK_ENABLE)
+  /* Enable SYSCFG clock, needed for example: Pin remap or Analog switch ... */
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+#endif
+}
+
 #ifdef __cplusplus
 }
 #endif

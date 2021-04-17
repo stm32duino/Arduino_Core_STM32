@@ -1,0 +1,61 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L475RCTx
+GenL4.menu.pnum.GENERIC_L475RCTX=Generic L475RCTx
+GenL4.menu.pnum.GENERIC_L475RCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L475RCTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L475RCTX.build.board=GENERIC_L475RCTX
+GenL4.menu.pnum.GENERIC_L475RCTX.build.product_line=STM32L475xx
+GenL4.menu.pnum.GENERIC_L475RCTX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L475RETx
+GenL4.menu.pnum.GENERIC_L475RETX=Generic L475RETx
+GenL4.menu.pnum.GENERIC_L475RETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L475RETX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L475RETX.build.board=GENERIC_L475RETX
+GenL4.menu.pnum.GENERIC_L475RETX.build.product_line=STM32L475xx
+GenL4.menu.pnum.GENERIC_L475RETX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L475RGTx
+GenL4.menu.pnum.GENERIC_L475RGTX=Generic L475RGTx
+GenL4.menu.pnum.GENERIC_L475RGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L475RGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L475RGTX.build.board=GENERIC_L475RGTX
+GenL4.menu.pnum.GENERIC_L475RGTX.build.product_line=STM32L475xx
+GenL4.menu.pnum.GENERIC_L475RGTX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L476RCTx
+GenL4.menu.pnum.GENERIC_L476RCTX=Generic L476RCTx
+GenL4.menu.pnum.GENERIC_L476RCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L476RCTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476RCTX.build.board=GENERIC_L476RCTX
+GenL4.menu.pnum.GENERIC_L476RCTX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476RCTX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L476RETx
+GenL4.menu.pnum.GENERIC_L476RETX=Generic L476RETx
+GenL4.menu.pnum.GENERIC_L476RETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L476RETX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476RETX.build.board=GENERIC_L476RETX
+GenL4.menu.pnum.GENERIC_L476RETX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476RETX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L476RGTx
+GenL4.menu.pnum.GENERIC_L476RGTX=Generic L476RGTx
+GenL4.menu.pnum.GENERIC_L476RGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L476RGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L476RGTX.build.board=GENERIC_L476RGTX
+GenL4.menu.pnum.GENERIC_L476RGTX.build.product_line=STM32L476xx
+GenL4.menu.pnum.GENERIC_L476RGTX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+
+# Generic L486RGTx
+GenL4.menu.pnum.GENERIC_L486RGTX=Generic L486RGTx
+GenL4.menu.pnum.GENERIC_L486RGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L486RGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L486RGTX.build.board=GENERIC_L486RGTX
+GenL4.menu.pnum.GENERIC_L486RGTX.build.product_line=STM32L486xx
+GenL4.menu.pnum.GENERIC_L486RGTX.build.variant=STM32L4xx/L475R(C-E-G)T_L476R(C-E-G)T_L486RGT
+

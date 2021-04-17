@@ -1,0 +1,77 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151RCTx
+GenL1.menu.pnum.GENERIC_L151RCTX=Generic L151RCTx
+GenL1.menu.pnum.GENERIC_L151RCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151RCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151RCTX.build.board=GENERIC_L151RCTX
+GenL1.menu.pnum.GENERIC_L151RCTX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151RCTX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L151RCTxA
+GenL1.menu.pnum.GENERIC_L151RCTXA=Generic L151RCTxA
+GenL1.menu.pnum.GENERIC_L151RCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151RCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151RCTXA.build.board=GENERIC_L151RCTXA
+GenL1.menu.pnum.GENERIC_L151RCTXA.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151RCTXA.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L151RCYx
+GenL1.menu.pnum.GENERIC_L151RCYX=Generic L151RCYx
+GenL1.menu.pnum.GENERIC_L151RCYX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151RCYX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151RCYX.build.board=GENERIC_L151RCYX
+GenL1.menu.pnum.GENERIC_L151RCYX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151RCYX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L151UCYx
+GenL1.menu.pnum.GENERIC_L151UCYX=Generic L151UCYx
+GenL1.menu.pnum.GENERIC_L151UCYX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L151UCYX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L151UCYX.build.board=GENERIC_L151UCYX
+GenL1.menu.pnum.GENERIC_L151UCYX.build.product_line=STM32L151xC
+GenL1.menu.pnum.GENERIC_L151UCYX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L152RCTx
+GenL1.menu.pnum.GENERIC_L152RCTX=Generic L152RCTx
+GenL1.menu.pnum.GENERIC_L152RCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152RCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152RCTX.build.board=GENERIC_L152RCTX
+GenL1.menu.pnum.GENERIC_L152RCTX.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152RCTX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L152RCTxA
+GenL1.menu.pnum.GENERIC_L152RCTXA=Generic L152RCTxA
+GenL1.menu.pnum.GENERIC_L152RCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152RCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152RCTXA.build.board=GENERIC_L152RCTXA
+GenL1.menu.pnum.GENERIC_L152RCTXA.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152RCTXA.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L152UCYx
+GenL1.menu.pnum.GENERIC_L152UCYX=Generic L152UCYx
+GenL1.menu.pnum.GENERIC_L152UCYX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L152UCYX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L152UCYX.build.board=GENERIC_L152UCYX
+GenL1.menu.pnum.GENERIC_L152UCYX.build.product_line=STM32L152xC
+GenL1.menu.pnum.GENERIC_L152UCYX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L162RCTx
+GenL1.menu.pnum.GENERIC_L162RCTX=Generic L162RCTx
+GenL1.menu.pnum.GENERIC_L162RCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162RCTX.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162RCTX.build.board=GENERIC_L162RCTX
+GenL1.menu.pnum.GENERIC_L162RCTX.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162RCTX.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+
+# Generic L162RCTxA
+GenL1.menu.pnum.GENERIC_L162RCTXA=Generic L162RCTxA
+GenL1.menu.pnum.GENERIC_L162RCTXA.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L162RCTXA.upload.maximum_data_size=32768
+GenL1.menu.pnum.GENERIC_L162RCTXA.build.board=GENERIC_L162RCTXA
+GenL1.menu.pnum.GENERIC_L162RCTXA.build.product_line=STM32L162xC
+GenL1.menu.pnum.GENERIC_L162RCTXA.build.variant=STM32L1xx/L151RC(T-Y)x(A)_L151UCY_L152RCTx(A)_L152UCY_L162RCTx(A)
+

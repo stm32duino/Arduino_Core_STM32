@@ -27,7 +27,8 @@ WEAK uint32_t pinNametoDigitalPin(PinName p)
   uint32_t i = NUM_DIGITAL_PINS;
   if (STM_VALID_PINNAME(p)) {
     for (i = 0; i < NUM_DIGITAL_PINS; i++) {
-      if (digitalPin[i] == p) {
+      if (digitalPin[i] == (p & PNAME_MASK)) {
+        i |= ((uint32_t)(p) & ALTX_MASK);
         break;
       }
     }
@@ -67,38 +68,49 @@ PinName analogInputToPinName(uint32_t pin)
   return pn;
 }
 
-bool pinIsAnalogInput(uint32_t pin)
+/**
+  * @brief  Return true if a digital pin is an analog input
+  * @param  pin Dx, x or PYn
+  * @retval boolean true if analog or false
+  */
+bool digitalpinIsAnalogInput(uint32_t pin)
 {
   bool ret = false;
 #if NUM_ANALOG_INPUTS > 0
-#ifndef NUM_ANALOG_LAST
-  ret = (pin >= A0) && (pin < (A0 + NUM_ANALOG_INPUTS));
-#else
-  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInputPin[i] == pin) {
-      ret = true;
-      break;
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
+    ret = true;
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
+        ret = true;
+        break;
+      }
     }
   }
-#endif /* NUM_ANALOG_LAST */
 #endif /* NUM_ANALOG_INPUTS > 0 */
   return ret;
 }
 
+/**
+  * @brief  Return the analog input linked to a digital pin
+  * @param  pin Dx, x or PYn
+  * @retval analogInput valid analog input or NUM_ANALOG_INPUTS
+  */
 uint32_t digitalPinToAnalogInput(uint32_t pin)
 {
   uint32_t ret = NUM_ANALOG_INPUTS;
 #if NUM_ANALOG_INPUTS > 0
-#ifndef NUM_ANALOG_LAST
-  ret = pin - A0;
-#else
-  for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
-    if (analogInputPin[i] == pin) {
-      ret = i;
-      break;
+  if ((pin & PNUM_ANALOG_BASE) == PNUM_ANALOG_BASE) {
+    /* PYn = Ax */
+    ret = (pin & PNUM_ANALOG_INDEX) | (pin & ALTX_MASK);
+  } else {
+    for (uint32_t i = 0; i < NUM_ANALOG_INPUTS; i++) {
+      if (analogInputPin[i] == (pin & PNUM_MASK)) {
+        ret = i | (pin & ALTX_MASK);
+        break;
+      }
     }
   }
-#endif /* NUM_ANALOG_LAST */
 #endif /* NUM_ANALOG_INPUTS > 0 */
   return ret;
 }

@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G473MEYx
+GenG4.menu.pnum.GENERIC_G473MEYX=Generic G473MEYx
+GenG4.menu.pnum.GENERIC_G473MEYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473MEYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473MEYX.build.board=GENERIC_G473MEYX
+GenG4.menu.pnum.GENERIC_G473MEYX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473MEYX.build.variant=STM32G4xx/G473MEY_G474MEY_G483MEY_G484MEY
+
+# Generic G474MEYx
+GenG4.menu.pnum.GENERIC_G474MEYX=Generic G474MEYx
+GenG4.menu.pnum.GENERIC_G474MEYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474MEYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474MEYX.build.board=GENERIC_G474MEYX
+GenG4.menu.pnum.GENERIC_G474MEYX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474MEYX.build.variant=STM32G4xx/G473MEY_G474MEY_G483MEY_G484MEY
+
+# Generic G483MEYx
+GenG4.menu.pnum.GENERIC_G483MEYX=Generic G483MEYx
+GenG4.menu.pnum.GENERIC_G483MEYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483MEYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483MEYX.build.board=GENERIC_G483MEYX
+GenG4.menu.pnum.GENERIC_G483MEYX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483MEYX.build.variant=STM32G4xx/G473MEY_G474MEY_G483MEY_G484MEY
+
+# Generic G484MEYx
+GenG4.menu.pnum.GENERIC_G484MEYX=Generic G484MEYx
+GenG4.menu.pnum.GENERIC_G484MEYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484MEYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484MEYX.build.board=GENERIC_G484MEYX
+GenG4.menu.pnum.GENERIC_G484MEYX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484MEYX.build.variant=STM32G4xx/G473MEY_G474MEY_G483MEY_G484MEY
+

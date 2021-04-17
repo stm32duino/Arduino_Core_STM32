@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F723VCTx
+GenF7.menu.pnum.GENERIC_F723VCTX=Generic F723VCTx
+GenF7.menu.pnum.GENERIC_F723VCTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723VCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723VCTX.build.board=GENERIC_F723VCTX
+GenF7.menu.pnum.GENERIC_F723VCTX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723VCTX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+
+# Generic F723VETx
+GenF7.menu.pnum.GENERIC_F723VETX=Generic F723VETx
+GenF7.menu.pnum.GENERIC_F723VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723VETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723VETX.build.board=GENERIC_F723VETX
+GenF7.menu.pnum.GENERIC_F723VETX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723VETX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+
+# Generic F723VCYx
+GenF7.menu.pnum.GENERIC_F723VCYX=Generic F723VCYx
+GenF7.menu.pnum.GENERIC_F723VCYX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F723VCYX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723VCYX.build.board=GENERIC_F723VCYX
+GenF7.menu.pnum.GENERIC_F723VCYX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723VCYX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+
+# Generic F723VEYx
+GenF7.menu.pnum.GENERIC_F723VEYX=Generic F723VEYx
+GenF7.menu.pnum.GENERIC_F723VEYX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F723VEYX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F723VEYX.build.board=GENERIC_F723VEYX
+GenF7.menu.pnum.GENERIC_F723VEYX.build.product_line=STM32F723xx
+GenF7.menu.pnum.GENERIC_F723VEYX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+
+# Generic F733VETx
+GenF7.menu.pnum.GENERIC_F733VETX=Generic F733VETx
+GenF7.menu.pnum.GENERIC_F733VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733VETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733VETX.build.board=GENERIC_F733VETX
+GenF7.menu.pnum.GENERIC_F733VETX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733VETX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+
+# Generic F733VEYx
+GenF7.menu.pnum.GENERIC_F733VEYX=Generic F733VEYx
+GenF7.menu.pnum.GENERIC_F733VEYX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F733VEYX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F733VEYX.build.board=GENERIC_F733VEYX
+GenF7.menu.pnum.GENERIC_F733VEYX.build.product_line=STM32F733xx
+GenF7.menu.pnum.GENERIC_F733VEYX.build.variant=STM32F7xx/F723V(C-E)(T-Y)_F733VE(T-Y)
+

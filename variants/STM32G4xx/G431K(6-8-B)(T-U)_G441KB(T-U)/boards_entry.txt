@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G431K6Tx
+GenG4.menu.pnum.GENERIC_G431K6TX=Generic G431K6Tx
+GenG4.menu.pnum.GENERIC_G431K6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431K6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431K6TX.build.board=GENERIC_G431K6TX
+GenG4.menu.pnum.GENERIC_G431K6TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431K6TX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G431K8Tx
+GenG4.menu.pnum.GENERIC_G431K8TX=Generic G431K8Tx
+GenG4.menu.pnum.GENERIC_G431K8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431K8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431K8TX.build.board=GENERIC_G431K8TX
+GenG4.menu.pnum.GENERIC_G431K8TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431K8TX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G431KBTx
+GenG4.menu.pnum.GENERIC_G431KBTX=Generic G431KBTx
+GenG4.menu.pnum.GENERIC_G431KBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431KBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431KBTX.build.board=GENERIC_G431KBTX
+GenG4.menu.pnum.GENERIC_G431KBTX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431KBTX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G431K6Ux
+GenG4.menu.pnum.GENERIC_G431K6UX=Generic G431K6Ux
+GenG4.menu.pnum.GENERIC_G431K6UX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431K6UX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431K6UX.build.board=GENERIC_G431K6UX
+GenG4.menu.pnum.GENERIC_G431K6UX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431K6UX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G431K8Ux
+GenG4.menu.pnum.GENERIC_G431K8UX=Generic G431K8Ux
+GenG4.menu.pnum.GENERIC_G431K8UX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431K8UX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431K8UX.build.board=GENERIC_G431K8UX
+GenG4.menu.pnum.GENERIC_G431K8UX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431K8UX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G431KBUx
+GenG4.menu.pnum.GENERIC_G431KBUX=Generic G431KBUx
+GenG4.menu.pnum.GENERIC_G431KBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431KBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431KBUX.build.board=GENERIC_G431KBUX
+GenG4.menu.pnum.GENERIC_G431KBUX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G441KBTx
+GenG4.menu.pnum.GENERIC_G441KBTX=Generic G441KBTx
+GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441KBTX.build.board=GENERIC_G441KBTX
+GenG4.menu.pnum.GENERIC_G441KBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441KBTX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G441KBUx
+GenG4.menu.pnum.GENERIC_G441KBUX=Generic G441KBUx
+GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441KBUX.build.board=GENERIC_G441KBUX
+GenG4.menu.pnum.GENERIC_G441KBUX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+

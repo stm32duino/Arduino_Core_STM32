@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F302ZDTx
+GenF3.menu.pnum.GENERIC_F302ZDTX=Generic F302ZDTx
+GenF3.menu.pnum.GENERIC_F302ZDTX.upload.maximum_size=393216
+GenF3.menu.pnum.GENERIC_F302ZDTX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F302ZDTX.build.board=GENERIC_F302ZDTX
+GenF3.menu.pnum.GENERIC_F302ZDTX.build.product_line=STM32F302xE
+GenF3.menu.pnum.GENERIC_F302ZDTX.build.variant=STM32F3xx/F302Z(D-E)T
+
+# Generic F302ZETx
+GenF3.menu.pnum.GENERIC_F302ZETX=Generic F302ZETx
+GenF3.menu.pnum.GENERIC_F302ZETX.upload.maximum_size=524288
+GenF3.menu.pnum.GENERIC_F302ZETX.upload.maximum_data_size=65536
+GenF3.menu.pnum.GENERIC_F302ZETX.build.board=GENERIC_F302ZETX
+GenF3.menu.pnum.GENERIC_F302ZETX.build.product_line=STM32F302xE
+GenF3.menu.pnum.GENERIC_F302ZETX.build.variant=STM32F3xx/F302Z(D-E)T
+

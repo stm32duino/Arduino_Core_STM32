@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L100RCTx
+GenL1.menu.pnum.GENERIC_L100RCTX=Generic L100RCTx
+GenL1.menu.pnum.GENERIC_L100RCTX.upload.maximum_size=262144
+GenL1.menu.pnum.GENERIC_L100RCTX.upload.maximum_data_size=16384
+GenL1.menu.pnum.GENERIC_L100RCTX.build.board=GENERIC_L100RCTX
+GenL1.menu.pnum.GENERIC_L100RCTX.build.product_line=STM32L100xC
+GenL1.menu.pnum.GENERIC_L100RCTX.build.variant=STM32L1xx/L100RCT
+

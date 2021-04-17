@@ -272,12 +272,6 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   }
 #endif
 
-#if defined(STM32F091xC) || defined (STM32F098xx)
-  /* Enable SYSCFG Clock */
-  /* Required to get SYSCFG interrupt status register */
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-#endif
-
   /* Configure UART GPIO pins */
   pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
   if (uart_rx != NP) {

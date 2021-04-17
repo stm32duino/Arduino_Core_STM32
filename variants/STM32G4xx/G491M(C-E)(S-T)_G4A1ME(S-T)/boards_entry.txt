@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G491MCSx
+GenG4.menu.pnum.GENERIC_G491MCSX=Generic G491MCSx
+GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCSX.build.board=GENERIC_G491MCSX
+GenG4.menu.pnum.GENERIC_G491MCSX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MCSX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491MESx
+GenG4.menu.pnum.GENERIC_G491MESX=Generic G491MESx
+GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MESX.build.board=GENERIC_G491MESX
+GenG4.menu.pnum.GENERIC_G491MESX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491MCTx
+GenG4.menu.pnum.GENERIC_G491MCTX=Generic G491MCTx
+GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCTX.build.board=GENERIC_G491MCTX
+GenG4.menu.pnum.GENERIC_G491MCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MCTX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491METx
+GenG4.menu.pnum.GENERIC_G491METX=Generic G491METx
+GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491METX.build.board=GENERIC_G491METX
+GenG4.menu.pnum.GENERIC_G491METX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G4A1MESx
+GenG4.menu.pnum.GENERIC_G4A1MESX=Generic G4A1MESx
+GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.board=GENERIC_G4A1MESX
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G4A1METx
+GenG4.menu.pnum.GENERIC_G4A1METX=Generic G4A1METx
+GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1METX.build.board=GENERIC_G4A1METX
+GenG4.menu.pnum.GENERIC_G4A1METX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+

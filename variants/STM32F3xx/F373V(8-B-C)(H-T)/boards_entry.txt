@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F373V8Hx
+GenF3.menu.pnum.GENERIC_F373V8HX=Generic F373V8Hx
+GenF3.menu.pnum.GENERIC_F373V8HX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F373V8HX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F373V8HX.build.board=GENERIC_F373V8HX
+GenF3.menu.pnum.GENERIC_F373V8HX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373V8HX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+
+# Generic F373VBHx
+GenF3.menu.pnum.GENERIC_F373VBHX=Generic F373VBHx
+GenF3.menu.pnum.GENERIC_F373VBHX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F373VBHX.upload.maximum_data_size=24576
+GenF3.menu.pnum.GENERIC_F373VBHX.build.board=GENERIC_F373VBHX
+GenF3.menu.pnum.GENERIC_F373VBHX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373VBHX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+
+# Generic F373VCHx
+GenF3.menu.pnum.GENERIC_F373VCHX=Generic F373VCHx
+GenF3.menu.pnum.GENERIC_F373VCHX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F373VCHX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F373VCHX.build.board=GENERIC_F373VCHX
+GenF3.menu.pnum.GENERIC_F373VCHX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373VCHX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+
+# Generic F373V8Tx
+GenF3.menu.pnum.GENERIC_F373V8TX=Generic F373V8Tx
+GenF3.menu.pnum.GENERIC_F373V8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F373V8TX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F373V8TX.build.board=GENERIC_F373V8TX
+GenF3.menu.pnum.GENERIC_F373V8TX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373V8TX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+
+# Generic F373VBTx
+GenF3.menu.pnum.GENERIC_F373VBTX=Generic F373VBTx
+GenF3.menu.pnum.GENERIC_F373VBTX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F373VBTX.upload.maximum_data_size=24576
+GenF3.menu.pnum.GENERIC_F373VBTX.build.board=GENERIC_F373VBTX
+GenF3.menu.pnum.GENERIC_F373VBTX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373VBTX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+
+# Generic F373VCTx
+GenF3.menu.pnum.GENERIC_F373VCTX=Generic F373VCTx
+GenF3.menu.pnum.GENERIC_F373VCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F373VCTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F373VCTX.build.board=GENERIC_F373VCTX
+GenF3.menu.pnum.GENERIC_F373VCTX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373VCTX.build.variant=STM32F3xx/F373V(8-B-C)(H-T)
+

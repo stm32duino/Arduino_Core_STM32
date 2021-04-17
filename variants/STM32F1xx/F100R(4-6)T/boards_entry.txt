@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F100R4Tx
+GenF1.menu.pnum.GENERIC_F100R4TX=Generic F100R4Tx
+GenF1.menu.pnum.GENERIC_F100R4TX.upload.maximum_size=16384
+GenF1.menu.pnum.GENERIC_F100R4TX.upload.maximum_data_size=4096
+GenF1.menu.pnum.GENERIC_F100R4TX.build.board=GENERIC_F100R4TX
+GenF1.menu.pnum.GENERIC_F100R4TX.build.product_line=STM32F100xB
+GenF1.menu.pnum.GENERIC_F100R4TX.build.variant=STM32F1xx/F100R(4-6)T
+
+# Generic F100R6Tx
+GenF1.menu.pnum.GENERIC_F100R6TX=Generic F100R6Tx
+GenF1.menu.pnum.GENERIC_F100R6TX.upload.maximum_size=32768
+GenF1.menu.pnum.GENERIC_F100R6TX.upload.maximum_data_size=4096
+GenF1.menu.pnum.GENERIC_F100R6TX.build.board=GENERIC_F100R6TX
+GenF1.menu.pnum.GENERIC_F100R6TX.build.product_line=STM32F100xB
+GenF1.menu.pnum.GENERIC_F100R6TX.build.variant=STM32F1xx/F100R(4-6)T
+

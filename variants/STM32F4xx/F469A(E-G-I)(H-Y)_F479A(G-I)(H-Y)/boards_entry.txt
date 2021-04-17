@@ -1,0 +1,85 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F469AEHx
+GenF4.menu.pnum.GENERIC_F469AEHX=Generic F469AEHx
+GenF4.menu.pnum.GENERIC_F469AEHX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F469AEHX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AEHX.build.board=GENERIC_F469AEHX
+GenF4.menu.pnum.GENERIC_F469AEHX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AEHX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F469AGHx
+GenF4.menu.pnum.GENERIC_F469AGHX=Generic F469AGHx
+GenF4.menu.pnum.GENERIC_F469AGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F469AGHX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AGHX.build.board=GENERIC_F469AGHX
+GenF4.menu.pnum.GENERIC_F469AGHX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AGHX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F469AIHx
+GenF4.menu.pnum.GENERIC_F469AIHX=Generic F469AIHx
+GenF4.menu.pnum.GENERIC_F469AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F469AIHX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AIHX.build.board=GENERIC_F469AIHX
+GenF4.menu.pnum.GENERIC_F469AIHX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AIHX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F469AEYx
+GenF4.menu.pnum.GENERIC_F469AEYX=Generic F469AEYx
+GenF4.menu.pnum.GENERIC_F469AEYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F469AEYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AEYX.build.board=GENERIC_F469AEYX
+GenF4.menu.pnum.GENERIC_F469AEYX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AEYX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F469AGYx
+GenF4.menu.pnum.GENERIC_F469AGYX=Generic F469AGYx
+GenF4.menu.pnum.GENERIC_F469AGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F469AGYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AGYX.build.board=GENERIC_F469AGYX
+GenF4.menu.pnum.GENERIC_F469AGYX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AGYX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F469AIYx
+GenF4.menu.pnum.GENERIC_F469AIYX=Generic F469AIYx
+GenF4.menu.pnum.GENERIC_F469AIYX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F469AIYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F469AIYX.build.board=GENERIC_F469AIYX
+GenF4.menu.pnum.GENERIC_F469AIYX.build.product_line=STM32F469xx
+GenF4.menu.pnum.GENERIC_F469AIYX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F479AGHx
+GenF4.menu.pnum.GENERIC_F479AGHX=Generic F479AGHx
+GenF4.menu.pnum.GENERIC_F479AGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F479AGHX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479AGHX.build.board=GENERIC_F479AGHX
+GenF4.menu.pnum.GENERIC_F479AGHX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479AGHX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F479AIHx
+GenF4.menu.pnum.GENERIC_F479AIHX=Generic F479AIHx
+GenF4.menu.pnum.GENERIC_F479AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F479AIHX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479AIHX.build.board=GENERIC_F479AIHX
+GenF4.menu.pnum.GENERIC_F479AIHX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479AIHX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F479AGYx
+GenF4.menu.pnum.GENERIC_F479AGYX=Generic F479AGYx
+GenF4.menu.pnum.GENERIC_F479AGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F479AGYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479AGYX.build.board=GENERIC_F479AGYX
+GenF4.menu.pnum.GENERIC_F479AGYX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479AGYX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+
+# Generic F479AIYx
+GenF4.menu.pnum.GENERIC_F479AIYX=Generic F479AIYx
+GenF4.menu.pnum.GENERIC_F479AIYX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F479AIYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F479AIYX.build.board=GENERIC_F479AIYX
+GenF4.menu.pnum.GENERIC_F479AIYX.build.product_line=STM32F479xx
+GenF4.menu.pnum.GENERIC_F479AIYX.build.variant=STM32F4xx/F469A(E-G-I)(H-Y)_F479A(G-I)(H-Y)
+

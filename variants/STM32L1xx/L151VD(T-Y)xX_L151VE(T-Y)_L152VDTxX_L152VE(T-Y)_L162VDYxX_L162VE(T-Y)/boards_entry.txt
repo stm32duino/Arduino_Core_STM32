@@ -1,0 +1,85 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151VDTxX
+GenL1.menu.pnum.GENERIC_L151VDTXX=Generic L151VDTxX
+GenL1.menu.pnum.GENERIC_L151VDTXX.upload.maximum_size=393216
+GenL1.menu.pnum.GENERIC_L151VDTXX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151VDTXX.build.board=GENERIC_L151VDTXX
+GenL1.menu.pnum.GENERIC_L151VDTXX.build.product_line=STM32L151xD
+GenL1.menu.pnum.GENERIC_L151VDTXX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L151VDYxX
+GenL1.menu.pnum.GENERIC_L151VDYXX=Generic L151VDYxX
+GenL1.menu.pnum.GENERIC_L151VDYXX.upload.maximum_size=393216
+GenL1.menu.pnum.GENERIC_L151VDYXX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151VDYXX.build.board=GENERIC_L151VDYXX
+GenL1.menu.pnum.GENERIC_L151VDYXX.build.product_line=STM32L151xD
+GenL1.menu.pnum.GENERIC_L151VDYXX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L151VETx
+GenL1.menu.pnum.GENERIC_L151VETX=Generic L151VETx
+GenL1.menu.pnum.GENERIC_L151VETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L151VETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151VETX.build.board=GENERIC_L151VETX
+GenL1.menu.pnum.GENERIC_L151VETX.build.product_line=STM32L151xE
+GenL1.menu.pnum.GENERIC_L151VETX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L151VEYx
+GenL1.menu.pnum.GENERIC_L151VEYX=Generic L151VEYx
+GenL1.menu.pnum.GENERIC_L151VEYX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L151VEYX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151VEYX.build.board=GENERIC_L151VEYX
+GenL1.menu.pnum.GENERIC_L151VEYX.build.product_line=STM32L151xE
+GenL1.menu.pnum.GENERIC_L151VEYX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L152VDTxX
+GenL1.menu.pnum.GENERIC_L152VDTXX=Generic L152VDTxX
+GenL1.menu.pnum.GENERIC_L152VDTXX.upload.maximum_size=393216
+GenL1.menu.pnum.GENERIC_L152VDTXX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L152VDTXX.build.board=GENERIC_L152VDTXX
+GenL1.menu.pnum.GENERIC_L152VDTXX.build.product_line=STM32L152xD
+GenL1.menu.pnum.GENERIC_L152VDTXX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L152VETx
+GenL1.menu.pnum.GENERIC_L152VETX=Generic L152VETx
+GenL1.menu.pnum.GENERIC_L152VETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L152VETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L152VETX.build.board=GENERIC_L152VETX
+GenL1.menu.pnum.GENERIC_L152VETX.build.product_line=STM32L152xE
+GenL1.menu.pnum.GENERIC_L152VETX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L152VEYx
+GenL1.menu.pnum.GENERIC_L152VEYX=Generic L152VEYx
+GenL1.menu.pnum.GENERIC_L152VEYX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L152VEYX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L152VEYX.build.board=GENERIC_L152VEYX
+GenL1.menu.pnum.GENERIC_L152VEYX.build.product_line=STM32L152xE
+GenL1.menu.pnum.GENERIC_L152VEYX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L162VDYxX
+GenL1.menu.pnum.GENERIC_L162VDYXX=Generic L162VDYxX
+GenL1.menu.pnum.GENERIC_L162VDYXX.upload.maximum_size=393216
+GenL1.menu.pnum.GENERIC_L162VDYXX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L162VDYXX.build.board=GENERIC_L162VDYXX
+GenL1.menu.pnum.GENERIC_L162VDYXX.build.product_line=STM32L162xD
+GenL1.menu.pnum.GENERIC_L162VDYXX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L162VETx
+GenL1.menu.pnum.GENERIC_L162VETX=Generic L162VETx
+GenL1.menu.pnum.GENERIC_L162VETX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L162VETX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L162VETX.build.board=GENERIC_L162VETX
+GenL1.menu.pnum.GENERIC_L162VETX.build.product_line=STM32L162xE
+GenL1.menu.pnum.GENERIC_L162VETX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+
+# Generic L162VEYx
+GenL1.menu.pnum.GENERIC_L162VEYX=Generic L162VEYx
+GenL1.menu.pnum.GENERIC_L162VEYX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L162VEYX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L162VEYX.build.board=GENERIC_L162VEYX
+GenL1.menu.pnum.GENERIC_L162VEYX.build.product_line=STM32L162xE
+GenL1.menu.pnum.GENERIC_L162VEYX.build.variant=STM32L1xx/L151VD(T-Y)xX_L151VE(T-Y)_L152VDTxX_L152VE(T-Y)_L162VDYxX_L162VE(T-Y)
+

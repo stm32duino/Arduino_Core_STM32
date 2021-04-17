@@ -259,7 +259,7 @@ static uint32_t get_adc_internal_channel(PinName pin)
 #if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
 uint32_t get_pwm_channel(PinName pin)
 {
-  uint32_t function = pinmap_function(pin, PinMap_PWM);
+  uint32_t function = pinmap_function(pin, PinMap_TIM);
   uint32_t channel = 0;
   switch (STM_PIN_CHANNEL(function)) {
     case 1:
@@ -1013,17 +1013,17 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   */
 void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareFormat_t resolution)
 {
-  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
+  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM);
   HardwareTimer *HT;
   TimerModes_t previousMode;
   uint32_t index = get_timer_index(Instance);
   if (HardwareTimer_Handle[index] == NULL) {
-    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM));
+    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM));
   }
 
   HT = (HardwareTimer *)(HardwareTimer_Handle[index]->__this);
 
-  uint32_t channel = STM_PIN_CHANNEL(pinmap_function(pin, PinMap_PWM));
+  uint32_t channel = STM_PIN_CHANNEL(pinmap_function(pin, PinMap_TIM));
 
   previousMode = HT->getMode(channel);
   if (previousMode != TIMER_OUTPUT_COMPARE_PWM1) {
@@ -1043,11 +1043,11 @@ void pwm_start(PinName pin, uint32_t PWM_freq, uint32_t value, TimerCompareForma
   */
 void pwm_stop(PinName pin)
 {
-  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM);
+  TIM_TypeDef *Instance = (TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM);
   HardwareTimer *HT;
   uint32_t index = get_timer_index(Instance);
   if (HardwareTimer_Handle[index] == NULL) {
-    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_PWM));
+    HardwareTimer_Handle[index]->__this = new HardwareTimer((TIM_TypeDef *)pinmap_peripheral(pin, PinMap_TIM));
   }
 
   HT = (HardwareTimer *)(HardwareTimer_Handle[index]->__this);

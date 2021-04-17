@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F722ZCTx
+GenF7.menu.pnum.GENERIC_F722ZCTX=Generic F722ZCTx
+GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.board=GENERIC_F722ZCTX
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+
+# Generic F722ZETx
+GenF7.menu.pnum.GENERIC_F722ZETX=Generic F722ZETx
+GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZETX.build.board=GENERIC_F722ZETX
+GenF7.menu.pnum.GENERIC_F722ZETX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+
+# Generic F732ZETx
+GenF7.menu.pnum.GENERIC_F732ZETX=Generic F732ZETx
+GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732ZETX.build.board=GENERIC_F732ZETX
+GenF7.menu.pnum.GENERIC_F732ZETX.build.product_line=STM32F732xx
+GenF7.menu.pnum.GENERIC_F732ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+

@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F328C8Tx
+GenF3.menu.pnum.GENERIC_F328C8TX=Generic F328C8Tx
+GenF3.menu.pnum.GENERIC_F328C8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F328C8TX.upload.maximum_data_size=12288
+GenF3.menu.pnum.GENERIC_F328C8TX.build.board=GENERIC_F328C8TX
+GenF3.menu.pnum.GENERIC_F328C8TX.build.product_line=STM32F328xx
+GenF3.menu.pnum.GENERIC_F328C8TX.build.variant=STM32F3xx/F328C8T
+
