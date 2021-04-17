@@ -290,7 +290,7 @@
           "pattern": "Ethernet/|FreeRTOS",
           "applicable": false,
           "boards": [
-            "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F103CB", "NUCLEO_F030R8",
+            "EEXTR_F030_V1", "FYSETC_S6", "MALYANM200_F070CB", "MALYANM200_F103CB", "NUCLEO_F030R8",
             "NUCLEO_L031K6", "PRNTR_V2" ]
         },
         {
