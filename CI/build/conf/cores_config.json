@@ -452,7 +452,7 @@
           "boards": [ "NUCLEO_F401RE", "NUCLEO_L053R8", "NUCLEO_L152RE", "NUCLEO_L476RG" ]
         },
         {
-          "pattern": "Python_Wave_Serial_Encoder",
+          "pattern": "IKS02A1_Audio_Button|Python_Wave_Serial_Encoder",
           "applicable": true,
           "boards": [ "NUCLEO_F401RE", "NUCLEO_L476RG" ]
         }
