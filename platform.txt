@@ -112,7 +112,7 @@ extras.path={build.system.path}/extras
 
 # Create empty {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
 recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
-recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/tools/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
+recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
 
 # compile patterns
 # ---------------------
@@ -157,9 +157,9 @@ recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
 # Upload to board via mass storage
 tools.massStorageCopy.cmd=massStorageCopy.sh
 tools.massStorageCopy.cmd.windows=massStorageCopy.bat
-tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/tools/win
-tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/tools/linux
+tools.massStorageCopy.path={runtime.tools.STM32Tools.path}/win
+tools.massStorageCopy.path.macosx={runtime.tools.STM32Tools.path}/macosx
+tools.massStorageCopy.path.linux={runtime.tools.STM32Tools.path}/linux
 tools.massStorageCopy.upload.params.verbose=
 tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
@@ -167,9 +167,9 @@ tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.
 # STM32CubeProgrammer upload
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
 tools.stm32CubeProg.cmd.windows=stm32CubeProg.bat
-tools.stm32CubeProg.path.linux={runtime.tools.STM32Tools.path}/tools/linux
-tools.stm32CubeProg.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.stm32CubeProg.path.windows={runtime.tools.STM32Tools.path}/tools/win
+tools.stm32CubeProg.path.linux={runtime.tools.STM32Tools.path}/linux
+tools.stm32CubeProg.path.macosx={runtime.tools.STM32Tools.path}/macosx
+tools.stm32CubeProg.path.windows={runtime.tools.STM32Tools.path}/win
 tools.stm32CubeProg.upload.params.verbose=
 tools.stm32CubeProg.upload.params.quiet=
 tools.stm32CubeProg.upload.pattern="{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {upload.options}
@@ -185,9 +185,9 @@ tools.bmp_upload.upload.pattern="{path}/{cmd}" -nx -b {upload.speed} {upload.ver
 # HID flash 2.2 (HID bootloader v2.2 for STM32F1 and STM32F4 series)
 tools.hid_upload.cmd=hid-flash
 tools.hid_upload.cmd.windows=hid-flash.exe
-tools.hid_upload.path={runtime.tools.STM32Tools.path}/tools/win
-tools.hid_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.hid_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
+tools.hid_upload.path={runtime.tools.STM32Tools.path}/win
+tools.hid_upload.path.macosx={runtime.tools.STM32Tools.path}/macosx
+tools.hid_upload.path.linux={runtime.tools.STM32Tools.path}/linux
 tools.hid_upload.upload.params.verbose=-d
 tools.hid_upload.upload.params.quiet=n
 tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name}.bin" {serial.port.file}
@@ -195,15 +195,15 @@ tools.hid_upload.upload.pattern="{path}/{cmd}" "{build.path}/{build.project_name
 # Upload using Maple bootloader over DFU
 tools.maple_upload.cmd=maple_upload.sh
 tools.maple_upload.cmd.windows=maple_upload.bat
-tools.maple_upload.path={runtime.tools.STM32Tools.path}/tools/win
-tools.maple_upload.path.macosx={runtime.tools.STM32Tools.path}/tools/macosx
-tools.maple_upload.path.linux={runtime.tools.STM32Tools.path}/tools/linux
+tools.maple_upload.path={runtime.tools.STM32Tools.path}/win
+tools.maple_upload.path.macosx={runtime.tools.STM32Tools.path}/macosx
+tools.maple_upload.path.linux={runtime.tools.STM32Tools.path}/linux
 tools.maple_upload.upload.params.verbose=-d
 tools.maple_upload.upload.params.quiet=n
 tools.maple_upload.upload.pattern="{path}/{cmd}" {serial.port.file} {upload.altID} {upload.usbID} "{build.path}/{build.project_name}.bin"
 
 # STM32MP1 self-contained shell script
-tools.remoteproc_gen.path={runtime.tools.STM32Tools.path}/tools
+tools.remoteproc_gen.path={runtime.tools.STM32Tools.path}
 tools.remoteproc_gen.busybox=
 tools.remoteproc_gen.busybox.windows={path}/win/busybox.exe
 tools.remoteproc_gen.script=run_arduino_gen.sh
