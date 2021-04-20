@@ -1,7 +1,7 @@
 {
   "cores": [
     {
-      "maintainer": "STM32",
+      "maintainer": "STMicroelectronics",
       "architecture": "stm32",
       "boards": [
         {

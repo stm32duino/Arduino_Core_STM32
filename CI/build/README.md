@@ -38,7 +38,7 @@ optional arguments:
   -u <string>, --url <string>
                         additional URL for the board manager Default url : htt
                         ps://github.com/stm32duino/BoardManagerFiles/raw/maste
-                        r/STM32/package_stm_index.json
+                        r/package_stmicroelectronics_index.json
   -v, --verbose         enable arduino-cli verbose mode
   --ci                  custom configuration for CI build
 
