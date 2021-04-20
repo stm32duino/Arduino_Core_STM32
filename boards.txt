@@ -5321,7 +5321,7 @@ GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF 
 ################################################################################
 # Garatronic-McHobby STM32 boards
 
-Garatronic.name=Garatronic/McHobby
+Garatronic.name=Garatronic-McHobby
 
 Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
