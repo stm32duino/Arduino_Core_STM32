@@ -58,7 +58,7 @@ jobs:
       id: Compile
       uses: stm32duino/actions/compile-examples@master
       with:
-        additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/STM32/package_stm_index.json'
+        additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/package_stmicroelectronics_index.json'
 
     # Use the output from the `Compile` step
     - name: Compilation Errors
