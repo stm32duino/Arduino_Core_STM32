@@ -113,7 +113,7 @@
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PB3
+  #define PIN_WIRE_SDA          PB7
 #endif
 #ifndef PIN_WIRE_SCL
   #define PIN_WIRE_SCL          PB6
