@@ -657,7 +657,7 @@ static uint8_t USBD_CDC_RNDIS_Setup(USBD_HandleTypeDef *pdev,
                                     USBD_SetupReqTypedef *req)
 {
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
-  USBD_CDC_RNDIS_CtrlMsgTypeDef *Msg = (USBD_CDC_RNDIS_CtrlMsgTypeDef *)hcdc->data;
+  USBD_CDC_RNDIS_CtrlMsgTypeDef *Msg = (USBD_CDC_RNDIS_CtrlMsgTypeDef *)(void *)hcdc->data;
   uint8_t ifalt = 0U;
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
@@ -810,7 +810,11 @@ static uint8_t USBD_CDC_RNDIS_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     else
     {
       hcdc->TxState = 0U;
-      ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+
+      if (((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->TransmitCplt != NULL)
+      {
+        ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+      }
     }
   }
   else if (epnum == (CDC_RNDIS_CMD_EP & 0x7FU))
@@ -866,7 +870,7 @@ static uint8_t USBD_CDC_RNDIS_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
       NACKed till the end of the application Xfer */
 
       /* Call data packet message parsing and processing function */
-      (void)USBD_CDC_RNDIS_ProcessPacketMsg(pdev, (USBD_CDC_RNDIS_PacketMsgTypeDef *)hcdc->RxBuffer);
+      (void)USBD_CDC_RNDIS_ProcessPacketMsg(pdev, (USBD_CDC_RNDIS_PacketMsgTypeDef *)(void *)hcdc->RxBuffer);
     }
     else
     {
@@ -1071,7 +1075,7 @@ uint8_t USBD_CDC_RNDIS_TransmitPacket(USBD_HandleTypeDef *pdev)
   }
 
   hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
-  PacketMsg = (USBD_CDC_RNDIS_PacketMsgTypeDef *)hcdc->TxBuffer;
+  PacketMsg = (USBD_CDC_RNDIS_PacketMsgTypeDef *)(void *)hcdc->TxBuffer;
 
   if (hcdc->TxState == 0U)
   {
@@ -1192,7 +1196,7 @@ uint8_t USBD_CDC_RNDIS_SendNotification(USBD_HandleTypeDef *pdev,
   */
 static uint8_t USBD_CDC_RNDIS_MsgParsing(USBD_HandleTypeDef *pdev, uint8_t *RxBuff)
 {
-  USBD_CDC_RNDIS_CtrlMsgTypeDef *Msg = (USBD_CDC_RNDIS_CtrlMsgTypeDef *)RxBuff;
+  USBD_CDC_RNDIS_CtrlMsgTypeDef *Msg = (USBD_CDC_RNDIS_CtrlMsgTypeDef *)(void *)RxBuff;
   static uint8_t ret = (uint8_t)USBD_OK;
 
   /* Check message type */
@@ -1200,37 +1204,37 @@ static uint8_t USBD_CDC_RNDIS_MsgParsing(USBD_HandleTypeDef *pdev, uint8_t *RxBu
   {
     /* CDC_RNDIS Initialize message */
   case CDC_RNDIS_INITIALIZE_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessInitMsg(pdev, (USBD_CDC_RNDIS_InitMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessInitMsg(pdev, (USBD_CDC_RNDIS_InitMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS Halt message */
   case CDC_RNDIS_HALT_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessHaltMsg(pdev, (USBD_CDC_RNDIS_HaltMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessHaltMsg(pdev, (USBD_CDC_RNDIS_HaltMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS Query message */
   case CDC_RNDIS_QUERY_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessQueryMsg(pdev, (USBD_CDC_RNDIS_QueryMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessQueryMsg(pdev, (USBD_CDC_RNDIS_QueryMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS Set message */
   case CDC_RNDIS_SET_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessSetMsg(pdev, (USBD_CDC_RNDIS_SetMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessSetMsg(pdev, (USBD_CDC_RNDIS_SetMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS Reset message */
   case CDC_RNDIS_RESET_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessResetMsg(pdev, (USBD_CDC_RNDIS_ResetMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessResetMsg(pdev, (USBD_CDC_RNDIS_ResetMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS Keep-Alive message */
   case CDC_RNDIS_KEEPALIVE_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessKeepAliveMsg(pdev, (USBD_CDC_RNDIS_KpAliveMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessKeepAliveMsg(pdev, (USBD_CDC_RNDIS_KpAliveMsgTypeDef *)(void *)Msg);
     break;
 
     /* CDC_RNDIS unsupported message */
   default:
-    ret = USBD_CDC_RNDIS_ProcessUnsupportedMsg(pdev, (USBD_CDC_RNDIS_CtrlMsgTypeDef *)Msg);
+    ret = USBD_CDC_RNDIS_ProcessUnsupportedMsg(pdev, (USBD_CDC_RNDIS_CtrlMsgTypeDef *)(void *)Msg);
     break;
   }
 
@@ -1255,7 +1259,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessInitMsg(USBD_HandleTypeDef *pdev,
   USBD_CDC_RNDIS_InitMsgTypeDef *InitMessage = (USBD_CDC_RNDIS_InitMsgTypeDef *)Msg;
 
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_InitCpltMsgTypeDef *InitResponse = (USBD_CDC_RNDIS_InitCpltMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_InitCpltMsgTypeDef *InitResponse = (USBD_CDC_RNDIS_InitCpltMsgTypeDef *)(void *)Msg;
 
   /* Store the Message Request ID */
   uint32_t ReqId = InitMessage->ReqId;
@@ -1336,7 +1340,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessKeepAliveMsg(USBD_HandleTypeDef *pdev,
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_KpAliveCpltMsgTypeDef *InitResponse = (USBD_CDC_RNDIS_KpAliveCpltMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_KpAliveCpltMsgTypeDef *InitResponse = (USBD_CDC_RNDIS_KpAliveCpltMsgTypeDef *)(void *)Msg;
 
   /* Store the Message Request ID */
   uint32_t ReqId = Msg->ReqId;
@@ -1381,7 +1385,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_QueryCpltMsgTypeDef *QueryResponse = (USBD_CDC_RNDIS_QueryCpltMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_QueryCpltMsgTypeDef *QueryResponse = (USBD_CDC_RNDIS_QueryCpltMsgTypeDef *)(void *)Msg;
 
   /* Store the Message Request ID */
   uint32_t ReqId = Msg->RequestId;
@@ -1524,7 +1528,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessSetMsg(USBD_HandleTypeDef *pdev,
   USBD_CDC_RNDIS_SetMsgTypeDef *SetMessage = (USBD_CDC_RNDIS_SetMsgTypeDef *)Msg;
 
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_SetCpltMsgTypeDef *SetResponse = (USBD_CDC_RNDIS_SetCpltMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_SetCpltMsgTypeDef *SetResponse = (USBD_CDC_RNDIS_SetCpltMsgTypeDef *)(void *)Msg;
 
   /* Store the Message Request ID */
   uint32_t ReqId = SetMessage->ReqId;
@@ -1578,7 +1582,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessResetMsg(USBD_HandleTypeDef *pdev,
   /* Get the CDC_RNDIS handle pointer */
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_ResetCpltMsgTypeDef *ResetResponse = (USBD_CDC_RNDIS_ResetCpltMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_ResetCpltMsgTypeDef *ResetResponse = (USBD_CDC_RNDIS_ResetCpltMsgTypeDef *)(void *)Msg;
 
   if ((ResetMessage->MsgLength != sizeof(USBD_CDC_RNDIS_ResetMsgTypeDef)) || \
       (ResetMessage->Reserved != 0U))
@@ -1662,7 +1666,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessUnsupportedMsg(USBD_HandleTypeDef *pdev,
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
   /* Use same Msg input buffer as response buffer */
-  USBD_CDC_RNDIS_StsChangeMsgTypeDef *Response = (USBD_CDC_RNDIS_StsChangeMsgTypeDef *)Msg;
+  USBD_CDC_RNDIS_StsChangeMsgTypeDef *Response = (USBD_CDC_RNDIS_StsChangeMsgTypeDef *)(void *)Msg;
 
   /* Setup the response buffer content */
   Response->MsgType = CDC_RNDIS_INDICATE_STATUS_MSG_ID;

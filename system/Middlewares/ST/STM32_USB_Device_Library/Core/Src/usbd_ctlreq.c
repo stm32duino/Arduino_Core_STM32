@@ -285,7 +285,7 @@ USBD_StatusTypeDef USBD_StdEPReq(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
             (void)USBD_LL_ClearStallEP(pdev, ep_addr);
           }
           (void)USBD_CtlSendStatus(pdev);
-          (USBD_StatusTypeDef)pdev->pClass->Setup(pdev, req);
+          ret = (USBD_StatusTypeDef)pdev->pClass->Setup(pdev, req);
         }
         break;
 

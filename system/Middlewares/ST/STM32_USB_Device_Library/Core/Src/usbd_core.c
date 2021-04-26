@@ -100,16 +100,10 @@ USBD_StatusTypeDef USBD_Init(USBD_HandleTypeDef *pdev,
     return USBD_FAIL;
   }
 
-  /* Unlink previous class */
-  if (pdev->pClass != NULL)
-  {
-    pdev->pClass = NULL;
-  }
-
-  if (pdev->pConfDesc != NULL)
-  {
-    pdev->pConfDesc = NULL;
-  }
+  /* Unlink previous class resources */
+  pdev->pClass = NULL;
+  pdev->pUserData = NULL;
+  pdev->pConfDesc = NULL;
 
   /* Assign USBD Descriptors */
   if (pdesc != NULL)
@@ -137,6 +131,9 @@ USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev)
 {
   USBD_StatusTypeDef ret;
 
+  /* Disconnect the USB Device */
+  (void)USBD_LL_Stop(pdev);
+
   /* Set Default State */
   pdev->dev_state = USBD_STATE_DEFAULT;
 
@@ -144,22 +141,15 @@ USBD_StatusTypeDef USBD_DeInit(USBD_HandleTypeDef *pdev)
   if (pdev->pClass != NULL)
   {
     pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
+    pdev->pClass = NULL;
+    pdev->pUserData = NULL;
   }
 
-  if (pdev->pConfDesc != NULL)
-  {
-    pdev->pConfDesc = NULL;
-  }
+  /* Free Device descriptors resources */
+  pdev->pDesc = NULL;
+  pdev->pConfDesc = NULL;
 
-  /* Stop the low level driver  */
-  ret = USBD_LL_Stop(pdev);
-
-  if (ret != USBD_OK)
-  {
-    return ret;
-  }
-
-  /* Initialize low level driver */
+  /* DeInitialize low level driver */
   ret = USBD_LL_DeInit(pdev);
 
   return ret;
@@ -188,12 +178,17 @@ USBD_StatusTypeDef USBD_RegisterClass(USBD_HandleTypeDef *pdev, USBD_ClassTypeDe
   pdev->pClass = pclass;
 
   /* Get Device Configuration Descriptor */
-#ifdef USE_USB_FS
-  pdev->pConfDesc = (void *)pdev->pClass->GetFSConfigDescriptor(&len);
-#else /* USE_USB_HS */
-  pdev->pConfDesc = (void *)pdev->pClass->GetHSConfigDescriptor(&len);
+#ifdef USE_USB_HS
+  if (pdev->pClass->GetHSConfigDescriptor != NULL)
+  {
+    pdev->pConfDesc = (void *)pdev->pClass->GetHSConfigDescriptor(&len);
+  }
+#else /* Default USE_USB_FS */
+  if (pdev->pClass->GetFSConfigDescriptor != NULL)
+  {
+    pdev->pConfDesc = (void *)pdev->pClass->GetFSConfigDescriptor(&len);
+  }
 #endif /* USE_USB_FS */
-
 
   return USBD_OK;
 }
@@ -218,23 +213,16 @@ USBD_StatusTypeDef USBD_Start(USBD_HandleTypeDef *pdev)
   */
 USBD_StatusTypeDef USBD_Stop(USBD_HandleTypeDef *pdev)
 {
-  USBD_StatusTypeDef ret;
+  /* Disconnect USB Device */
+  (void)USBD_LL_Stop(pdev);
 
   /* Free Class Resources */
   if (pdev->pClass != NULL)
   {
-    pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
+    (void)pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
   }
 
-  if (pdev->pConfDesc != NULL)
-  {
-    pdev->pConfDesc = NULL;
-  }
-
-  /* Stop the low level driver */
-  ret = USBD_LL_Stop(pdev);
-
-  return ret;
+  return USBD_OK;
 }
 
 /**
@@ -444,8 +432,8 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
               (pdev->dev_state == USBD_STATE_CONFIGURED))
           {
             pdev->pClass->EP0_TxSent(pdev);
-            (void)USBD_LL_StallEP(pdev, 0x80U);
           }
+          (void)USBD_LL_StallEP(pdev, 0x80U);
           (void)USBD_CtlReceiveStatus(pdev);
         }
       }

@@ -391,10 +391,10 @@ static uint8_t *USBD_BB_GetDeviceQualifierDesc(uint16_t *length)
   */
 USBD_BB_DescHeader_t *USBD_BB_GetNextDesc(uint8_t *pbuf, uint16_t *ptr)
 {
-  USBD_BB_DescHeader_t *pnext = (USBD_BB_DescHeader_t *)pbuf;
+  USBD_BB_DescHeader_t *pnext = (USBD_BB_DescHeader_t *)(void *)pbuf;
 
   *ptr += pnext->bLength;
-  pnext = (USBD_BB_DescHeader_t *)(pbuf + pnext->bLength);
+  pnext = (USBD_BB_DescHeader_t *)(void *)(pbuf + pnext->bLength);
 
   return (pnext);
 }
@@ -411,8 +411,8 @@ void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc)
 {
   UNUSED(pdev);
 
-  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)pBosDesc;
+  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
+  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
   USBD_BosBBCapDescTypedef *pCapDesc = NULL;
   uint16_t ptr;
 
@@ -426,7 +426,7 @@ void *USBD_BB_GetCapDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc)
 
       if (pdesc->bDevCapabilityType == USBD_BILLBOARD_CAPABILITY)
       {
-        pCapDesc = (USBD_BosBBCapDescTypedef *)pdesc;
+        pCapDesc = (USBD_BosBBCapDescTypedef *)(void *)pdesc;
         break;
       }
     }
@@ -447,8 +447,8 @@ void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_
 {
   UNUSED(pdev);
 
-  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)pBosDesc;
-  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)pBosDesc;
+  USBD_BB_DescHeader_t *pdesc = (USBD_BB_DescHeader_t *)(void *)pBosDesc;
+  USBD_BosDescTypedef *desc = (USBD_BosDescTypedef *)(void *)pBosDesc;
   USBD_BB_AltModeCapDescTypeDef *pAltModDesc = NULL;
   uint8_t cnt = 0U;
   uint16_t ptr;
@@ -465,7 +465,7 @@ void *USBD_BB_GetAltModeDesc(USBD_HandleTypeDef *pdev, uint8_t *pBosDesc, uint8_
       {
         if (cnt == idx)
         {
-          pAltModDesc = (USBD_BB_AltModeCapDescTypeDef *)pdesc;
+          pAltModDesc = (USBD_BB_AltModeCapDescTypeDef *)(void *)pdesc;
           break;
         }
         else

@@ -716,7 +716,10 @@ static uint8_t USBD_CDC_ECM_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     else
     {
       hcdc->TxState = 0U;
-      ((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+      if (((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt != NULL)
+      {
+        ((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+      }
     }
   }
   else if (epnum == (CDC_ECM_CMD_EP & 0x7FU))
@@ -1020,7 +1023,7 @@ uint8_t USBD_CDC_ECM_SendNotification(USBD_HandleTypeDef *pdev,
   (hcdc->Req).bmRequest = CDC_ECM_BMREQUEST_TYPE_ECM;
   (hcdc->Req).bRequest = (uint8_t)Notif;
 
-  switch (Notif)
+  switch ((hcdc->Req).bRequest)
   {
     case NETWORK_CONNECTION:
       (hcdc->Req).wValue = bVal;
