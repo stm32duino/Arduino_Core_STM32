@@ -257,8 +257,8 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END = {
 
   0x00,                                /* bAlternateMode[0] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
-                                        0 – first Mode entry
-                                        1 – second mode entry */
+                                        0  first Mode entry
+                                        1  second mode entry */
 
   USBD_BB_ALTMODE0_STRING_INDEX,           /* iAlternateModeString[0]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
@@ -268,8 +268,8 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END = {
 
   0x01,                                /* bAlternateMode[1] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
-                                        0 – first Mode entry
-                                        1 – second Mode entry */
+                                        0  first Mode entry
+                                        1  second Mode entry */
 
   USBD_BB_ALTMODE1_STRING_INDEX,           /* iAlternateModeString[1]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
