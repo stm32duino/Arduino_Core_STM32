@@ -7,7 +7,7 @@
   *           - Initialization and Configuration of high and low layer
   *           - Enumeration as BillBoard Device
   *           - Error management
- * @verbatim
+  * @verbatim
   *
   *          ===================================================================
   *                                BillBoard Class Description
@@ -150,8 +150,12 @@ __ALIGN_BEGIN static uint8_t USBD_BB_CfgDesc[USB_BB_CONFIG_DESC_SIZ]  __ALIGN_EN
   0x01,                        /* bNumInterfaces: 1 interface */
   0x01,                        /* bConfigurationValue: Configuration value */
   USBD_IDX_CONFIG_STR,         /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                        /* bmAttributes: bus powered and Support Remote Wake-up */
-  0x00,                        /* MaxPower 100 mA: this current is used for detecting Vbus */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                        /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,              /* MaxPower 100 mA: this current is used for detecting Vbus */
   /* 09 */
 
   /************** Descriptor of BillBoard interface ****************/
@@ -170,15 +174,19 @@ __ALIGN_BEGIN static uint8_t USBD_BB_CfgDesc[USB_BB_CONFIG_DESC_SIZ]  __ALIGN_EN
 /* USB device Other Speed Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_BB_OtherSpeedCfgDesc[USB_BB_CONFIG_DESC_SIZ]   __ALIGN_END  =
 {
-  0x09,                        /* bLength: Configuation Descriptor size */
+  0x09,                        /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
   USB_BB_CONFIG_DESC_SIZ,
   0x00,
   0x01,                        /* bNumInterfaces: 1 interface */
   0x01,                        /* bConfigurationValue: */
   USBD_IDX_CONFIG_STR,         /* iConfiguration: */
-  0xC0,                        /* bmAttributes: */
-  0x00,                        /* MaxPower 100 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                        /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,              /* MaxPower 100 mA */
 
   /************** Descriptor of BillBoard interface ****************/
   /* 09 */
@@ -248,50 +256,50 @@ static uint8_t USBD_BB_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS:
-    break;
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
+    case USB_REQ_TYPE_CLASS:
       break;
-
-    case USB_REQ_GET_INTERFACE:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest)
       {
-        (void)USBD_CtlSendData(pdev, (uint8_t *)&AltSetting, 1U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_SET_INTERFACE:
-    case USB_REQ_CLEAR_FEATURE:
+        case USB_REQ_GET_INTERFACE:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&AltSetting, 1U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_SET_INTERFACE:
+        case USB_REQ_CLEAR_FEATURE:
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
       break;
 
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError(pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return (uint8_t)ret;

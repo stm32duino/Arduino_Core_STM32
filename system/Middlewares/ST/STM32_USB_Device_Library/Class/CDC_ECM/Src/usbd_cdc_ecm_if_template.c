@@ -32,12 +32,12 @@
 /* Private variables ---------------------------------------------------------*/
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4
+#pragma data_alignment=4
 #endif
 __ALIGN_BEGIN static uint8_t UserRxBuffer[CDC_ECM_ETH_MAX_SEGSZE + 100]__ALIGN_END; /* Received Data over USB are stored in this buffer */
 
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4
+#pragma data_alignment=4
 #endif
 __ALIGN_BEGIN  static uint8_t UserTxBuffer[CDC_ECM_ETH_MAX_SEGSZE + 100]__ALIGN_END; /* Received Data over CDC_ECM (CDC_ECM interface) are stored in this buffer */
 
@@ -133,15 +133,15 @@ static int8_t CDC_ECM_Itf_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       /* Add your code here */
       break;
 
-  case CDC_ECM_SET_ETH_PWRM_PATTERN_FILTER:
+    case CDC_ECM_SET_ETH_PWRM_PATTERN_FILTER:
       /* Add your code here */
       break;
 
-  case CDC_ECM_GET_ETH_PWRM_PATTERN_FILTER:
+    case CDC_ECM_GET_ETH_PWRM_PATTERN_FILTER:
       /* Add your code here */
       break;
 
-  case CDC_ECM_SET_ETH_PACKET_FILTER:
+    case CDC_ECM_SET_ETH_PACKET_FILTER:
       /* Check if this is the first time we enter */
       if (hcdc_cdc_ecm->LinkStatus == 0U)
       {
@@ -164,7 +164,7 @@ static int8_t CDC_ECM_Itf_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       /* Add your code here */
       break;
 
-  case CDC_ECM_GET_ETH_STATISTIC:
+    case CDC_ECM_GET_ETH_STATISTIC:
       /* Add your code here */
       break;
 
@@ -201,7 +201,7 @@ static int8_t CDC_ECM_Itf_Receive(uint8_t *Buf, uint32_t *Len)
 
 /**
   * @brief  CDC_ECM_Itf_TransmitCplt
-  *         Data transmited callback
+  *         Data transmitted callback
   *
   *         @note
   *         This function is IN transfer complete callback used to inform user that

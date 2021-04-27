@@ -113,7 +113,8 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_DeviceQualifierDesc[USB_LEN_DEV_QUALIF
 };
 
 static uint32_t ConnSpeedTab[2] = {CDC_ECM_CONNECT_SPEED_UPSTREAM,
-                                   CDC_ECM_CONNECT_SPEED_DOWNSTREAM};
+                                   CDC_ECM_CONNECT_SPEED_DOWNSTREAM
+                                  };
 
 /**
   * @}
@@ -157,8 +158,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgHSDesc[] __ALIGN_END =
   0x02,                                     /* bNumInterfaces: 2 interface */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x00,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower 100 mA */
 
   /*---------------------------------------------------------------------------*/
 
@@ -265,8 +270,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgFSDesc[] __ALIGN_END =
   0x02,                                     /* bNumInterfaces: 2 interface */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x00,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower 100 mA */
 
   /*---------------------------------------------------------------------------*/
   /* IAD descriptor */
@@ -371,8 +380,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
   0x02,                                     /* bNumInterfaces: 2 interface */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x04,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower 100 mA */
 
   /*--------------------------------------- ------------------------------------*/
   /* IAD descriptor */
@@ -602,84 +615,86 @@ static uint8_t USBD_CDC_ECM_Setup(USBD_HandleTypeDef *pdev,
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *) pdev->pClassData;
   USBD_CDC_ECM_ItfTypeDef *EcmInterface = (USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData;
   USBD_StatusTypeDef ret = USBD_OK;
-  uint8_t ifalt = 0U;
+  uint16_t len;
   uint16_t status_info = 0U;
+  uint8_t ifalt = 0U;
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS :
-    if (req->wLength != 0U)
-    {
-      if ((req->bmRequest & 0x80U) != 0U)
+    case USB_REQ_TYPE_CLASS :
+      if (req->wLength != 0U)
       {
-        EcmInterface->Control(req->bRequest,
-                              (uint8_t *)hcdc->data, req->wLength);
+        if ((req->bmRequest & 0x80U) != 0U)
+        {
+          EcmInterface->Control(req->bRequest,
+                                (uint8_t *)hcdc->data, req->wLength);
 
-        (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, req->wLength);
+          len = MIN(CDC_ECM_DATA_BUFFER_SIZE, req->wLength);
+          (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, len);
+        }
+        else
+        {
+          hcdc->CmdOpCode = req->bRequest;
+          hcdc->CmdLength = (uint8_t)req->wLength;
+
+          (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, req->wLength);
+        }
       }
       else
       {
-        hcdc->CmdOpCode = req->bRequest;
-        hcdc->CmdLength = (uint8_t)req->wLength;
-
-        (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, req->wLength);
-      }
-    }
-    else
-    {
-      EcmInterface->Control(req->bRequest, (uint8_t *)req, 0U);
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
+        EcmInterface->Control(req->bRequest, (uint8_t *)req, 0U);
       }
       break;
 
-    case USB_REQ_GET_INTERFACE:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest)
       {
-        (void)USBD_CtlSendData(pdev, &ifalt, 1U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_SET_INTERFACE:
-      if (pdev->dev_state != USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_INTERFACE:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, &ifalt, 1U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_CLEAR_FEATURE:
+        case USB_REQ_SET_INTERFACE:
+          if (pdev->dev_state != USBD_STATE_CONFIGURED)
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_CLEAR_FEATURE:
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
       break;
 
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError(pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return (uint8_t)ret;
@@ -769,7 +784,7 @@ static uint8_t USBD_CDC_ECM_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
     if ((CurrPcktLen < hcdc->MaxPcktLen) || (hcdc->RxLength >= CDC_ECM_ETH_MAX_SEGSZE))
     {
       /* USB data will be immediately processed, this allow next USB traffic being
-      NACKed till the end of the application Xfer */
+      NAKed till the end of the application Xfer */
 
       /* Process data by application (ie. copy to app buffer or notify user)
       hcdc->RxLength must be reset to zero at the end of the call of this function */
@@ -973,7 +988,7 @@ uint8_t USBD_CDC_ECM_TransmitPacket(USBD_HandleTypeDef *pdev)
     /* Transmit next packet */
     (void)USBD_LL_Transmit(pdev, CDC_ECM_IN_EP, hcdc->TxBuffer, hcdc->TxLength);
 
-     ret = USBD_OK;
+    ret = USBD_OK;
   }
 
   return (uint8_t)ret;
@@ -996,7 +1011,7 @@ uint8_t USBD_CDC_ECM_ReceivePacket(USBD_HandleTypeDef *pdev)
   }
 
   /* Prepare Out endpoint to receive next packet */
-  (void)USBD_LL_PrepareReceive(pdev, CDC_ECM_OUT_EP,hcdc->RxBuffer, hcdc->MaxPcktLen);
+  (void)USBD_LL_PrepareReceive(pdev, CDC_ECM_OUT_EP, hcdc->RxBuffer, hcdc->MaxPcktLen);
 
   return (uint8_t)USBD_OK;
 }
@@ -1072,7 +1087,7 @@ uint8_t USBD_CDC_ECM_SendNotification(USBD_HandleTypeDef *pdev,
   /* Transmit notification packet */
   if (ReqSize != 0U)
   {
-    (void)USBD_LL_Transmit(pdev, CDC_ECM_CMD_EP, (uint8_t *)&(hcdc->Req), ReqSize);
+    (void)USBD_LL_Transmit(pdev, CDC_ECM_CMD_EP, (uint8_t *) &(hcdc->Req), ReqSize);
   }
 
   return (uint8_t)ret;

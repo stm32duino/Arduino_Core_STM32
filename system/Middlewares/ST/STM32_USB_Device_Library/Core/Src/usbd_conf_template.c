@@ -21,6 +21,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "usbd_core.h"
+#include "usbd_hid.h" /* Include class header file */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -223,7 +224,7 @@ USBD_StatusTypeDef USBD_LL_PrepareReceive(USBD_HandleTypeDef *pdev,
   * @brief  Returns the last transferred packet size.
   * @param  pdev: Device handle
   * @param  ep_addr: Endpoint Number
-  * @retval Recived Data Size
+  * @retval Received Data Size
   */
 uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 {
@@ -231,6 +232,27 @@ uint32_t USBD_LL_GetRxDataSize(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
   UNUSED(ep_addr);
 
   return 0U;
+}
+
+/**
+  * @brief  Static single allocation.
+  * @param  size: Size of allocated memory
+  * @retval None
+  */
+void *USBD_static_malloc(uint32_t size)
+{
+  static uint32_t mem[(sizeof(USBD_HID_HandleTypeDef) / 4) + 1]; /* On 32-bit boundary */
+  return mem;
+}
+
+/**
+  * @brief  Dummy memory free
+  * @param  p: Pointer to allocated  memory address
+  * @retval None
+  */
+void USBD_static_free(void *p)
+{
+
 }
 
 /**

@@ -75,6 +75,8 @@ extern "C" {
 
 #define CDC_ECM_CONFIG_DESC_SIZ                         79U
 
+#define CDC_ECM_DATA_BUFFER_SIZE                        2000U
+
 #define CDC_ECM_DATA_HS_IN_PACKET_SIZE                  CDC_ECM_DATA_HS_MAX_PACKET_SIZE
 #define CDC_ECM_DATA_HS_OUT_PACKET_SIZE                 CDC_ECM_DATA_HS_MAX_PACKET_SIZE
 
@@ -173,7 +175,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t data[2000 / 4];      /* Force 32bits alignment */
+  uint32_t data[CDC_ECM_DATA_BUFFER_SIZE / 4];      /* Force 32bits alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
   uint8_t  Reserved1;  /* Reserved Byte to force 4 bytes alignment of following fields */

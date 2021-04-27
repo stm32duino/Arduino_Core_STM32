@@ -128,7 +128,7 @@ USBD_ClassTypeDef USBD_TEMPLATE_ClassDriver =
 /* USB TEMPLATE device Configuration Descriptor */
 __ALIGN_BEGIN static uint8_t USBD_TEMPLATE_CfgDesc[USB_TEMPLATE_CONFIG_DESC_SIZ] __ALIGN_END =
 {
-  0x09, /* bLength: Configuation Descriptor size */
+  0x09, /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION, /* bDescriptorType: Configuration */
   USB_TEMPLATE_CONFIG_DESC_SIZ,
   /* wTotalLength: Bytes returned */
@@ -210,35 +210,34 @@ static uint8_t USBD_TEMPLATE_Setup(USBD_HandleTypeDef *pdev,
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS :
-    switch (req->bRequest)
-    {
+    case USB_REQ_TYPE_CLASS :
+      switch (req->bRequest)
+      {
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
+      break;
+
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest)
+      {
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
+      break;
+
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    default:
-      USBD_CtlError(pdev, req);
-      ret = USBD_FAIL;
-      break;
-    }
-    break;
-
-  default:
-    USBD_CtlError(pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return (uint8_t)ret;
 }
-
 
 /**
   * @brief  USBD_TEMPLATE_GetCfgDesc
@@ -253,17 +252,16 @@ static uint8_t *USBD_TEMPLATE_GetCfgDesc(uint16_t *length)
 }
 
 /**
-* @brief  DeviceQualifierDescriptor
-*         return Device Qualifier descriptor
-* @param  length : pointer data length
-* @retval pointer to descriptor buffer
-*/
+  * @brief  DeviceQualifierDescriptor
+  *         return Device Qualifier descriptor
+  * @param  length : pointer data length
+  * @retval pointer to descriptor buffer
+  */
 uint8_t *USBD_TEMPLATE_DeviceQualifierDescriptor(uint16_t *length)
 {
   *length = (uint16_t)sizeof(USBD_TEMPLATE_DeviceQualifierDesc);
   return USBD_TEMPLATE_DeviceQualifierDesc;
 }
-
 
 /**
   * @brief  USBD_TEMPLATE_DataIn
@@ -289,6 +287,7 @@ static uint8_t USBD_TEMPLATE_EP0_RxReady(USBD_HandleTypeDef *pdev)
 
   return (uint8_t)USBD_OK;
 }
+
 /**
   * @brief  USBD_TEMPLATE_EP0_TxReady
   *         handle EP0 TRx Ready event
@@ -300,6 +299,7 @@ static uint8_t USBD_TEMPLATE_EP0_TxReady(USBD_HandleTypeDef *pdev)
 
   return (uint8_t)USBD_OK;
 }
+
 /**
   * @brief  USBD_TEMPLATE_SOF
   *         handle SOF event
@@ -311,6 +311,7 @@ static uint8_t USBD_TEMPLATE_SOF(USBD_HandleTypeDef *pdev)
 
   return (uint8_t)USBD_OK;
 }
+
 /**
   * @brief  USBD_TEMPLATE_IsoINIncomplete
   *         handle data ISO IN Incomplete event
@@ -323,6 +324,7 @@ static uint8_t USBD_TEMPLATE_IsoINIncomplete(USBD_HandleTypeDef *pdev, uint8_t e
 
   return (uint8_t)USBD_OK;
 }
+
 /**
   * @brief  USBD_TEMPLATE_IsoOutIncomplete
   *         handle data ISO OUT Incomplete event
@@ -349,11 +351,11 @@ static uint8_t USBD_TEMPLATE_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 }
 
 /**
-* @brief  DeviceQualifierDescriptor
-*         return Device Qualifier descriptor
-* @param  length : pointer data length
-* @retval pointer to descriptor buffer
-*/
+  * @brief  DeviceQualifierDescriptor
+  *         return Device Qualifier descriptor
+  * @param  length : pointer data length
+  * @retval pointer to descriptor buffer
+  */
 uint8_t *USBD_TEMPLATE_GetDeviceQualifierDesc(uint16_t *length)
 {
   *length = (uint16_t)sizeof(USBD_TEMPLATE_DeviceQualifierDesc);

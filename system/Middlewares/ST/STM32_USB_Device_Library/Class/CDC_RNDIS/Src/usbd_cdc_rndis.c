@@ -144,10 +144,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_RNDIS_DeviceQualifierDesc[USB_LEN_DEV_QUAL
 };
 
 static uint8_t MAC_StrDesc[6] = {CDC_RNDIS_MAC_ADDR0, CDC_RNDIS_MAC_ADDR1, CDC_RNDIS_MAC_ADDR2,
-                                 CDC_RNDIS_MAC_ADDR3, CDC_RNDIS_MAC_ADDR4, CDC_RNDIS_MAC_ADDR5};
+                                 CDC_RNDIS_MAC_ADDR3, CDC_RNDIS_MAC_ADDR4, CDC_RNDIS_MAC_ADDR5
+                                };
 
 static uint32_t ConnSpeedTab[2] = {CDC_RNDIS_CONNECT_SPEED_UPSTREAM,
-                                   CDC_RNDIS_CONNECT_SPEED_DOWNSTREAM};
+                                   CDC_RNDIS_CONNECT_SPEED_DOWNSTREAM
+                                  };
 
 static uint8_t EmptyResponse = 0x00U;
 
@@ -193,8 +195,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_RNDIS_CfgHSDesc[] __ALIGN_END =
   0x02,                                        /* bNumInterfaces: 2 interface */
   0x01,                                        /* bConfigurationValue: Configuration value */
   0x00,                                        /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                        /* bmAttributes: self powered */
-  0x32,                                        /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                        /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                        /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                              /* MaxPower 100 mA */
 
   /*---------------------------------------------------------------------------*/
   /* IAD descriptor */
@@ -298,8 +304,12 @@ __ALIGN_BEGIN static uint8_t  USBD_CDC_RNDIS_CfgFSDesc[] __ALIGN_END =
   0x02,                                        /* bNumInterfaces: 2 interface */
   0x01,                                        /* bConfigurationValue: Configuration value */
   0x00,                                        /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                        /* bmAttributes: self powered */
-  0x32,                                        /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                        /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                        /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                              /* MaxPower 100 mA */
 
   /*---------------------------------------------------------------------------*/
   /* IAD descriptor */
@@ -401,8 +411,12 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_RNDIS_OtherSpeedCfgDesc[] __ALIGN_END =
   0x02,                                        /* bNumInterfaces: 2 interface */
   0x01,                                        /* bConfigurationValue: Configuration value */
   0x04,                                        /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                        /* bmAttributes: self powered */
-  0x32,                                        /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                        /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                        /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                              /* MaxPower 100 mA */
 
   /*---------------------------------------------------------------------------*/
   /* IAD descriptor */
@@ -664,114 +678,114 @@ static uint8_t USBD_CDC_RNDIS_Setup(USBD_HandleTypeDef *pdev,
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS :
-    if (req->wLength != 0U)
-    {
-      /* Control Request Data from Device to Host, send data prepared by device */
-      if ((req->bmRequest & 0x80U) != 0U)
+    case USB_REQ_TYPE_CLASS :
+      if (req->wLength != 0U)
       {
-        /* Update opcode and length */
-        hcdc->CmdOpCode = req->bRequest;
-        hcdc->CmdLength = (uint8_t)req->wLength;
-
-        if (hcdc->CmdOpCode == CDC_RNDIS_GET_ENCAPSULATED_RESPONSE)
+        /* Control Request Data from Device to Host, send data prepared by device */
+        if ((req->bmRequest & 0x80U) != 0U)
         {
-          /* Data of Response Message has already been prepared by USBD_CDC_RNDIS_MsgParsing.
-          Just check that length is corresponding to right expected value */
-          if (req->wLength != Msg->MsgLength)
+          /* Update opcode and length */
+          hcdc->CmdOpCode = req->bRequest;
+          hcdc->CmdLength = (uint8_t)req->wLength;
+
+          if (hcdc->CmdOpCode == CDC_RNDIS_GET_ENCAPSULATED_RESPONSE)
           {
+            /* Data of Response Message has already been prepared by USBD_CDC_RNDIS_MsgParsing.
+            Just check that length is corresponding to right expected value */
+            if (req->wLength != Msg->MsgLength)
+            {
+            }
+          }
+
+          /* Allow application layer to pre-process data or add own processing before sending response */
+          ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->Control(req->bRequest,
+                                                                  (uint8_t *)hcdc->data,
+                                                                  req->wLength);
+          /* Check if Response is ready */
+          if (hcdc->ResponseRdy != 0U)
+          {
+            /* Clear Response Ready flag */
+            hcdc->ResponseRdy = 0U;
+
+            /* Send data on control endpoint */
+            (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, Msg->MsgLength);
+          }
+          else
+          {
+            /* CDC_RNDIS Specification says: If for some reason the device receives a GET ENCAPSULATED RESPONSE
+            and is unable to respond with a valid data on the Control endpoint,
+            then it should return a one-byte packet set to 0x00, rather than
+            stalling the Control endpoint */
+            (void)USBD_CtlSendData(pdev, &EmptyResponse, 1U);
           }
         }
-
-        /* Allow application layer to pre-process data or add own processing before sending response */
-        ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->Control(req->bRequest,
-                                                                (uint8_t *)hcdc->data,
-                                                                req->wLength);
-        /* Check if Response is ready */
-        if (hcdc->ResponseRdy != 0U)
-        {
-          /* Clear Response Ready flag */
-          hcdc->ResponseRdy = 0U;
-
-          /* Send data on control endpoint */
-          (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, Msg->MsgLength);
-        }
+        /* Control Request Data from Host to Device: Prepare reception of control data stage */
         else
         {
-          /* CDC_RNDIS Specification says: If for some reason the device receives a GET ENCAPSULATED RESPONSE
-          and is unable to respond with a valid data on the Control endpoint,
-          then it should return a one-byte packet set to 0x00, rather than
-          stalling the Control endpoint */
-          (void)USBD_CtlSendData(pdev, &EmptyResponse, 1U);
+          hcdc->CmdOpCode = req->bRequest;
+          hcdc->CmdLength = (uint8_t)req->wLength;
+
+          (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, req->wLength);
         }
       }
-      /* Control Request Data from Host to Device: Prepare reception of control data stage */
+      /* No Data control request: there is no such request for CDC_RNDIS protocol,
+      so let application layer manage this case */
       else
       {
-        hcdc->CmdOpCode = req->bRequest;
-        hcdc->CmdLength = (uint8_t)req->wLength;
-
-        (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, req->wLength);
-      }
-    }
-    /* No Data control request: there is no such request for CDC_RNDIS protocol,
-    so let application layer manage this case */
-    else
-    {
-      ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->Control(req->bRequest,
-                                                              (uint8_t *)req, 0U);
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
+        ((USBD_CDC_RNDIS_ItfTypeDef *)pdev->pUserData)->Control(req->bRequest,
+                                                                (uint8_t *)req, 0U);
       }
       break;
 
-    case USB_REQ_GET_INTERFACE:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest)
       {
-        (void)USBD_CtlSendData(pdev, &ifalt, 1U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_SET_INTERFACE:
-      if (pdev->dev_state != USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_INTERFACE:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, &ifalt, 1U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_CLEAR_FEATURE:
+        case USB_REQ_SET_INTERFACE:
+          if (pdev->dev_state != USBD_STATE_CONFIGURED)
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_CLEAR_FEATURE:
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
       break;
 
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError(pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return (uint8_t)ret;
@@ -822,7 +836,7 @@ static uint8_t USBD_CDC_RNDIS_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     if (hcdc->NotificationStatus != 0U)
     {
       (void)USBD_CDC_RNDIS_SendNotification(pdev, CONNECTION_SPEED_CHANGE,
-                                             0U, (uint8_t *)ConnSpeedTab);
+                                            0U, (uint8_t *)ConnSpeedTab);
 
       hcdc->NotificationStatus = 0U;
     }
@@ -867,7 +881,7 @@ static uint8_t USBD_CDC_RNDIS_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
         (hcdc->RxLength >= (CDC_RNDIS_ETH_MAX_SEGSZE + sizeof(USBD_CDC_RNDIS_PacketMsgTypeDef))))
     {
       /* USB data will be immediately processed, this allow next USB traffic being
-      NACKed till the end of the application Xfer */
+      NAKed till the end of the application Xfer */
 
       /* Call data packet message parsing and processing function */
       (void)USBD_CDC_RNDIS_ProcessPacketMsg(pdev, (USBD_CDC_RNDIS_PacketMsgTypeDef *)(void *)hcdc->RxBuffer);
@@ -1101,7 +1115,7 @@ uint8_t USBD_CDC_RNDIS_TransmitPacket(USBD_HandleTypeDef *pdev)
     /* Transmit next packet */
     (void)USBD_LL_Transmit(pdev, CDC_RNDIS_IN_EP, hcdc->TxBuffer, hcdc->TxLength);
 
-     ret = USBD_OK;
+    ret = USBD_OK;
   }
 
   return (uint8_t)ret;
@@ -1160,26 +1174,28 @@ uint8_t USBD_CDC_RNDIS_SendNotification(USBD_HandleTypeDef *pdev,
 
   switch (Notif)
   {
-  case RESPONSE_AVAILABLE:
-    (hcdc->Req).wValue = 0U;
-    (hcdc->Req).wIndex = CDC_RNDIS_CMD_ITF_NBR;
-    (hcdc->Req).wLength = 0U;
-    for (Idx = 0U; Idx < 8U; Idx++)
-    {
-      (hcdc->Req).data[Idx] = 0U;
-    }
-    ReqSize = 8U;
-    break;
+    case RESPONSE_AVAILABLE:
+      (hcdc->Req).wValue = 0U;
+      (hcdc->Req).wIndex = CDC_RNDIS_CMD_ITF_NBR;
+      (hcdc->Req).wLength = 0U;
 
-  default:
-    ret = USBD_FAIL;
-    break;
+      for (Idx = 0U; Idx < 8U; Idx++)
+      {
+        (hcdc->Req).data[Idx] = 0U;
+      }
+
+      ReqSize = 8U;
+      break;
+
+    default:
+      ret = USBD_FAIL;
+      break;
   }
 
   /* Transmit notification packet */
   if (ReqSize != 0U)
   {
-    (void)USBD_LL_Transmit(pdev, CDC_RNDIS_CMD_EP, (uint8_t *)&(hcdc->Req), ReqSize);
+    (void)USBD_LL_Transmit(pdev, CDC_RNDIS_CMD_EP, (uint8_t *) &(hcdc->Req), ReqSize);
   }
 
   return (uint8_t)ret;
@@ -1203,39 +1219,39 @@ static uint8_t USBD_CDC_RNDIS_MsgParsing(USBD_HandleTypeDef *pdev, uint8_t *RxBu
   switch (Msg->MsgType)
   {
     /* CDC_RNDIS Initialize message */
-  case CDC_RNDIS_INITIALIZE_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessInitMsg(pdev, (USBD_CDC_RNDIS_InitMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_INITIALIZE_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessInitMsg(pdev, (USBD_CDC_RNDIS_InitMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS Halt message */
-  case CDC_RNDIS_HALT_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessHaltMsg(pdev, (USBD_CDC_RNDIS_HaltMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_HALT_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessHaltMsg(pdev, (USBD_CDC_RNDIS_HaltMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS Query message */
-  case CDC_RNDIS_QUERY_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessQueryMsg(pdev, (USBD_CDC_RNDIS_QueryMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_QUERY_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessQueryMsg(pdev, (USBD_CDC_RNDIS_QueryMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS Set message */
-  case CDC_RNDIS_SET_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessSetMsg(pdev, (USBD_CDC_RNDIS_SetMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_SET_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessSetMsg(pdev, (USBD_CDC_RNDIS_SetMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS Reset message */
-  case CDC_RNDIS_RESET_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessResetMsg(pdev, (USBD_CDC_RNDIS_ResetMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_RESET_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessResetMsg(pdev, (USBD_CDC_RNDIS_ResetMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS Keep-Alive message */
-  case CDC_RNDIS_KEEPALIVE_MSG_ID:
-    ret = USBD_CDC_RNDIS_ProcessKeepAliveMsg(pdev, (USBD_CDC_RNDIS_KpAliveMsgTypeDef *)(void *)Msg);
-    break;
+    case CDC_RNDIS_KEEPALIVE_MSG_ID:
+      ret = USBD_CDC_RNDIS_ProcessKeepAliveMsg(pdev, (USBD_CDC_RNDIS_KpAliveMsgTypeDef *)(void *)Msg);
+      break;
 
     /* CDC_RNDIS unsupported message */
-  default:
-    ret = USBD_CDC_RNDIS_ProcessUnsupportedMsg(pdev, (USBD_CDC_RNDIS_CtrlMsgTypeDef *)(void *)Msg);
-    break;
+    default:
+      ret = USBD_CDC_RNDIS_ProcessUnsupportedMsg(pdev, (USBD_CDC_RNDIS_CtrlMsgTypeDef *)(void *)Msg);
+      break;
   }
 
   return ret;
@@ -1318,7 +1334,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessHaltMsg(USBD_HandleTypeDef *pdev,
   /* Set CDC_RNDIS state to INITIALIZED */
   hcdc->State = CDC_RNDIS_STATE_UNINITIALIZED;
 
-  /* No response required for this message, so no notification (RESPNSE_AVAILABLE) is sent */
+  /* No response required for this message, so no notification (RESPONSE_AVAILABLE) is sent */
 
   UNUSED(Msg);
 
@@ -1393,106 +1409,106 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
   /* Process the OID depending on its code */
   switch (Msg->Oid)
   {
-  case OID_GEN_SUPPORTED_LIST:
-    QueryResponse->InfoBufLength = sizeof(CDC_RNDIS_SupportedOIDs);
-    (void)USBD_memcpy(QueryResponse->InfoBuf, CDC_RNDIS_SupportedOIDs,
-                      sizeof(CDC_RNDIS_SupportedOIDs));
+    case OID_GEN_SUPPORTED_LIST:
+      QueryResponse->InfoBufLength = sizeof(CDC_RNDIS_SupportedOIDs);
+      (void)USBD_memcpy(QueryResponse->InfoBuf, CDC_RNDIS_SupportedOIDs,
+                        sizeof(CDC_RNDIS_SupportedOIDs));
 
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_HARDWARE_STATUS:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = CDC_RNDIS_HW_STS_READY;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_HARDWARE_STATUS:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = CDC_RNDIS_HW_STS_READY;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_MEDIA_SUPPORTED:
-  case OID_GEN_MEDIA_IN_USE:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = CDC_RNDIS_MEDIUM_802_3;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_MEDIA_SUPPORTED:
+    case OID_GEN_MEDIA_IN_USE:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = CDC_RNDIS_MEDIUM_802_3;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_VENDOR_ID:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = USBD_CDC_RNDIS_VID;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_VENDOR_ID:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = USBD_CDC_RNDIS_VID;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_MAXIMUM_FRAME_SIZE:
-  case OID_GEN_TRANSMIT_BLOCK_SIZE:
-  case OID_GEN_RECEIVE_BLOCK_SIZE:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = CDC_RNDIS_ETH_FRAME_SIZE_MAX;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_MAXIMUM_FRAME_SIZE:
+    case OID_GEN_TRANSMIT_BLOCK_SIZE:
+    case OID_GEN_RECEIVE_BLOCK_SIZE:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = CDC_RNDIS_ETH_FRAME_SIZE_MAX;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_VENDOR_DESCRIPTION:
-    QueryResponse->InfoBufLength = (strlen(USBD_CDC_RNDIS_VENDOR_DESC) + 1U);
-    (void)USBD_memcpy(QueryResponse->InfoBuf, USBD_CDC_RNDIS_VENDOR_DESC,
-                      strlen(USBD_CDC_RNDIS_VENDOR_DESC));
+    case OID_GEN_VENDOR_DESCRIPTION:
+      QueryResponse->InfoBufLength = (strlen(USBD_CDC_RNDIS_VENDOR_DESC) + 1U);
+      (void)USBD_memcpy(QueryResponse->InfoBuf, USBD_CDC_RNDIS_VENDOR_DESC,
+                        strlen(USBD_CDC_RNDIS_VENDOR_DESC));
 
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_MEDIA_CONNECT_STATUS:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = CDC_RNDIS_MEDIA_STATE_CONNECTED;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_MEDIA_CONNECT_STATUS:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = CDC_RNDIS_MEDIA_STATE_CONNECTED;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_MAXIMUM_SEND_PACKETS:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = 1U;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_MAXIMUM_SEND_PACKETS:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = 1U;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_LINK_SPEED:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = USBD_CDC_RNDIS_LINK_SPEED;
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_LINK_SPEED:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = USBD_CDC_RNDIS_LINK_SPEED;
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_802_3_PERMANENT_ADDRESS:
-  case OID_802_3_CURRENT_ADDRESS:
-    QueryResponse->InfoBufLength = 6U;
-    (void)USBD_memcpy(QueryResponse->InfoBuf, MAC_StrDesc, 6);
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_802_3_PERMANENT_ADDRESS:
+    case OID_802_3_CURRENT_ADDRESS:
+      QueryResponse->InfoBufLength = 6U;
+      (void)USBD_memcpy(QueryResponse->InfoBuf, MAC_StrDesc, 6);
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_802_3_MAXIMUM_LIST_SIZE:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = 1U; /* Only one multicast address supported */
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_802_3_MAXIMUM_LIST_SIZE:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = 1U; /* Only one multicast address supported */
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_CURRENT_PACKET_FILTER:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = 0xFFFFFFU; /* USBD_CDC_RNDIS_DEVICE.packetFilter; */
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_CURRENT_PACKET_FILTER:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = 0xFFFFFFU; /* USBD_CDC_RNDIS_DEVICE.packetFilter; */
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_802_3_RCV_ERROR_ALIGNMENT:
-  case OID_802_3_XMIT_ONE_COLLISION:
-  case OID_802_3_XMIT_MORE_COLLISIONS:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    QueryResponse->InfoBuf[0] = 0U; /* Unused OIDs, return zero */
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_802_3_RCV_ERROR_ALIGNMENT:
+    case OID_802_3_XMIT_ONE_COLLISION:
+    case OID_802_3_XMIT_MORE_COLLISIONS:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      QueryResponse->InfoBuf[0] = 0U; /* Unused OIDs, return zero */
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_GEN_MAXIMUM_TOTAL_SIZE:
-    QueryResponse->InfoBufLength = sizeof(uint32_t);
-    /* Indicate maximum overall buffer (Ethernet frame and CDC_RNDIS header) the adapter can handle */
-    QueryResponse->InfoBuf[0] = (CDC_RNDIS_MESSAGE_BUFFER_SIZE + CDC_RNDIS_ETH_FRAME_SIZE_MAX);
-    QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_MAXIMUM_TOTAL_SIZE:
+      QueryResponse->InfoBufLength = sizeof(uint32_t);
+      /* Indicate maximum overall buffer (Ethernet frame and CDC_RNDIS header) the adapter can handle */
+      QueryResponse->InfoBuf[0] = (CDC_RNDIS_MESSAGE_BUFFER_SIZE + CDC_RNDIS_ETH_FRAME_SIZE_MAX);
+      QueryResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  default:
-    /* Unknown or unsupported OID */
-    QueryResponse->InfoBufLength = 0U;
-    QueryResponse->Status = CDC_RNDIS_STATUS_FAILURE;
-    break;
+    default:
+      /* Unknown or unsupported OID */
+      QueryResponse->InfoBufLength = 0U;
+      QueryResponse->Status = CDC_RNDIS_STATUS_FAILURE;
+      break;
   }
 
   /* Setup the response buffer content */
@@ -1507,7 +1523,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
   /* Send Notification on Interrupt EP to inform Host that response is ready */
   (void)USBD_CDC_RNDIS_SendNotification(pdev, RESPONSE_AVAILABLE, 0U, NULL);
 
-  return(uint8_t)USBD_OK;
+  return (uint8_t)USBD_OK;
 }
 
 
@@ -1535,21 +1551,21 @@ static uint8_t USBD_CDC_RNDIS_ProcessSetMsg(USBD_HandleTypeDef *pdev,
 
   switch (SetMessage->Oid)
   {
-  case OID_GEN_CURRENT_PACKET_FILTER:
-    /* Setup the packet filter value */
-    hcdc->PacketFilter = SetMessage->InfoBuf[0];
-    SetResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_GEN_CURRENT_PACKET_FILTER:
+      /* Setup the packet filter value */
+      hcdc->PacketFilter = SetMessage->InfoBuf[0];
+      SetResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  case OID_802_3_MULTICAST_LIST:
-    /* List of multicast addresses on a miniport adapter */
-    SetResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
-    break;
+    case OID_802_3_MULTICAST_LIST:
+      /* List of multicast addresses on a miniport adapter */
+      SetResponse->Status = CDC_RNDIS_STATUS_SUCCESS;
+      break;
 
-  default:
-    /* Report an error */
-    SetResponse->Status = CDC_RNDIS_STATUS_FAILURE;
-    break;
+    default:
+      /* Report an error */
+      SetResponse->Status = CDC_RNDIS_STATUS_FAILURE;
+      break;
   }
 
   /* Prepare response buffer */
@@ -1637,7 +1653,7 @@ static uint8_t USBD_CDC_RNDIS_ProcessPacketMsg(USBD_HandleTypeDef *pdev,
     return (uint8_t)USBD_FAIL;
   }
 
-  /* Point to the payload and udpate the message length */
+  /* Point to the payload and update the message length */
 
   /* Use temporary storage variables to comply with MISRA-C 2012 rule of (+) operand allowed types */
   tmp1 = (uint32_t)PacketMsg;
@@ -1653,12 +1669,12 @@ static uint8_t USBD_CDC_RNDIS_ProcessPacketMsg(USBD_HandleTypeDef *pdev,
 
 
 /**
-* @brief  USBD_CDC_RNDIS_ProcessUnsupportedMsg
-*         Parse, extract data and check correctness of CDC_RNDIS KeepAlive command.
-* @param  pdev: USB Device Handle pointer
-* @param  Msg: Pointer to the message data extracted from SendEncapsulated command
-* @retval status
-*/
+  * @brief  USBD_CDC_RNDIS_ProcessUnsupportedMsg
+  *         Parse, extract data and check correctness of CDC_RNDIS KeepAlive command.
+  * @param  pdev: USB Device Handle pointer
+  * @param  Msg: Pointer to the message data extracted from SendEncapsulated command
+  * @retval status
+  */
 static uint8_t USBD_CDC_RNDIS_ProcessUnsupportedMsg(USBD_HandleTypeDef *pdev,
                                                     USBD_CDC_RNDIS_CtrlMsgTypeDef *Msg)
 {
