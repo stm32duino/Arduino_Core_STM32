@@ -169,14 +169,14 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 /**
   * @brief  Assigns a USB address to the device.
   * @param  pdev: Device handle
-  * @param  ep_addr: Endpoint Number
+  * @param  dev_addr: Endpoint Number
   * @retval USBD Status
   */
 USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev,
                                          uint8_t dev_addr)
 {
   UNUSED(pdev);
-  UNUSED(ep_addr);
+  UNUSED(dev_addr);
 
   return USBD_OK;
 }

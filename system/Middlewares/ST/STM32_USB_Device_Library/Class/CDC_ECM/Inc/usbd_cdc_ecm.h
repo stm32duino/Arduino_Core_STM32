@@ -175,7 +175,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t data[CDC_ECM_DATA_BUFFER_SIZE / 4];      /* Force 32bits alignment */
+  uint32_t data[CDC_ECM_DATA_BUFFER_SIZE / 4U];      /* Force 32-bit alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
   uint8_t  Reserved1;  /* Reserved Byte to force 4 bytes alignment of following fields */

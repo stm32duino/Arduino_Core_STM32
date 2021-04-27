@@ -155,7 +155,7 @@ __ALIGN_BEGIN static uint8_t USBD_BB_CfgDesc[USB_BB_CONFIG_DESC_SIZ]  __ALIGN_EN
 #else
   0x80,                        /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,              /* MaxPower 100 mA: this current is used for detecting Vbus */
+  USBD_MAX_POWER,              /* MaxPower (mA) */
   /* 09 */
 
   /************** Descriptor of BillBoard interface ****************/
@@ -179,14 +179,14 @@ __ALIGN_BEGIN static uint8_t USBD_BB_OtherSpeedCfgDesc[USB_BB_CONFIG_DESC_SIZ]  
   USB_BB_CONFIG_DESC_SIZ,
   0x00,
   0x01,                        /* bNumInterfaces: 1 interface */
-  0x01,                        /* bConfigurationValue: */
-  USBD_IDX_CONFIG_STR,         /* iConfiguration: */
+  0x01,                        /* bConfigurationValue */
+  USBD_IDX_CONFIG_STR,         /* iConfiguration */
 #if (USBD_SELF_POWERED == 1U)
   0xC0,                        /* bmAttributes: Bus Powered according to user configuration */
 #else
   0x80,                        /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,              /* MaxPower 100 mA */
+  USBD_MAX_POWER,              /* MaxPower (mA) */
 
   /************** Descriptor of BillBoard interface ****************/
   /* 09 */

@@ -453,5 +453,8 @@ uint8_t USBD_VIDEO_RegisterInterface(USBD_HandleTypeDef *pdev, USBD_VIDEO_ItfTyp
   * @}
   */
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* _USBD_VIDEO_H_ */

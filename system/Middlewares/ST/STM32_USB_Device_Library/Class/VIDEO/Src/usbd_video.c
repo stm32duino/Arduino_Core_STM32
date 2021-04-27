@@ -138,7 +138,7 @@ __ALIGN_BEGIN static uint8_t USBD_VIDEO_CfgDesc[] __ALIGN_END =
   USB_DESC_TYPE_CONFIGURATION,                   /* bDescriptorType: Configuration */
   LOBYTE(UVC_CONFIG_DESC_SIZ),                   /* wTotalLength: no of returned bytes */
   HIBYTE(UVC_CONFIG_DESC_SIZ),
-  0x02,                                          /* bNumInterfaces: 2 interface */
+  0x02,                                          /* bNumInterfaces: 2 interfaces */
   0x01,                                          /* bConfigurationValue: Configuration value */
   0x00,                                          /* iConfiguration: Index of string descriptor describing the configuration */
 #if (USBD_SELF_POWERED == 1U)
@@ -260,7 +260,11 @@ __ALIGN_BEGIN static uint8_t USBD_VIDEO_CfgDesc[] __ALIGN_END =
   CS_INTERFACE,                                  /* bDescriptorType */
   VS_FRAME_SUBTYPE,                              /* bDescriptorSubType */
   0x01,                                          /* bFrameIndex */
+#ifdef USBD_UVC_FORMAT_UNCOMPRESSED
+  0x00,                                          /* bmCapabilities: no till image capture */
+#else
   0x02,                                          /* bmCapabilities: fixed frame rate supported */
+#endif
   WBVAL(UVC_WIDTH),                              /* wWidth: Image Frame Width */
   WBVAL(UVC_HEIGHT),                             /* wHeight: Image Frame Height */
   DBVAL(UVC_MIN_BIT_RATE(UVC_CAM_FPS_FS)),       /* dwMinBitRate: Minimum supported bit rate in bits/s  */
@@ -378,7 +382,7 @@ static uint8_t  USBD_VIDEO_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   USBD_VIDEO_HandleTypeDef *hVIDEO;
 
   /* Allocate memory for the video control structure */
-  hVIDEO = USBD_malloc(sizeof(USBD_VIDEO_HandleTypeDef));
+  hVIDEO = (USBD_VIDEO_HandleTypeDef *)USBD_malloc(sizeof(USBD_VIDEO_HandleTypeDef));
 
   /* Check if allocated point is NULL, then exit with error code */
   if (hVIDEO == NULL)
@@ -518,7 +522,7 @@ static uint8_t  USBD_VIDEO_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
         case USB_REQ_GET_INTERFACE :
           if (pdev->dev_state == USBD_STATE_CONFIGURED)
           {
-            (void)  USBD_CtlSendData(pdev, (uint8_t *)&hVIDEO->interface, 1);
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&hVIDEO->interface, 1U);
           }
           else
           {
@@ -752,7 +756,8 @@ static void VIDEO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
       }
 
       /* Probe Request */
-      (void) USBD_CtlSendData(pdev, (uint8_t *)&video_Probe_Control, req->wLength);
+      (void)USBD_CtlSendData(pdev, (uint8_t *)&video_Probe_Control,
+                              MIN(req->wLength, sizeof(USBD_VideoControlTypeDef)));
     }
     else if (LOBYTE(req->wValue) == (uint8_t)VS_COMMIT_CONTROL)
     {
@@ -768,12 +773,14 @@ static void VIDEO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
       }
 
       /* Commit Request */
-      (void) USBD_CtlSendData(pdev, (uint8_t *)&video_Commit_Control, req->wLength);
+      (void)USBD_CtlSendData(pdev, (uint8_t *)&video_Commit_Control,
+                              MIN(req->wLength, sizeof(USBD_VideoControlTypeDef)));
     }
     else
     {
-      /* Send the current mute state */
-      (void) USBD_CtlSendData(pdev, hVIDEO->control.data, req->wLength);
+      /* Send the current state */
+      (void) USBD_CtlSendData(pdev, hVIDEO->control.data,
+                              MIN(req->wLength, USB_MAX_EP0_SIZE));
     }
   }
 }
@@ -796,17 +803,20 @@ static void VIDEO_REQ_SetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
     if (LOBYTE(req->wValue) == (uint8_t)VS_PROBE_CONTROL)
     {
       /* Probe Request */
-      (void) USBD_CtlPrepareRx(pdev, (uint8_t *)&video_Probe_Control, req->wLength);
+      (void) USBD_CtlPrepareRx(pdev, (uint8_t *)&video_Probe_Control,
+                               MIN(req->wLength, sizeof(USBD_VideoControlTypeDef)));
     }
     else if (LOBYTE(req->wValue) == (uint8_t)VS_COMMIT_CONTROL)
     {
       /* Commit Request */
-      (void) USBD_CtlPrepareRx(pdev, (uint8_t *)&video_Commit_Control, req->wLength);
+      (void) USBD_CtlPrepareRx(pdev, (uint8_t *)&video_Commit_Control,
+                               MIN(req->wLength, sizeof(USBD_VideoControlTypeDef)));
     }
     else
     {
       /* Prepare the reception of the buffer over EP0 */
-      (void) USBD_CtlPrepareRx(pdev, hVIDEO->control.data, req->wLength);
+      (void) USBD_CtlPrepareRx(pdev, hVIDEO->control.data,
+                               MIN(req->wLength, USB_MAX_EP0_SIZE));
     }
   }
 }
@@ -946,8 +956,9 @@ static void *USBD_VIDEO_GetVSFrameDesc(uint8_t *pConfDesc)
     {
       pdesc = USBD_VIDEO_GetNextDesc((uint8_t *)pdesc, &ptr);
 
-      if ((pdesc->bDescriptorSubType == VS_FRAME_MJPEG) ||
-          (pdesc->bDescriptorSubType == VS_FRAME_UNCOMPRESSED))
+      if (((pdesc->bDescriptorSubType == VS_FRAME_MJPEG) ||
+          (pdesc->bDescriptorSubType == VS_FRAME_UNCOMPRESSED)) &&
+          (pdesc->bLength == VS_FRAME_DESC_SIZE))
       {
         pVSFrameDesc = (USBD_VIDEO_VSFrameDescTypeDef *)(void *)pdesc;
         break;

@@ -165,7 +165,7 @@ __ALIGN_BEGIN static uint8_t USBD_DFU_CfgDesc[USB_DFU_CONFIG_DESC_SIZ] __ALIGN_E
 #else
   0x80,                                                /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,                                      /* MaxPower 100 mA: this current is used for detecting Vbus */
+  USBD_MAX_POWER,                                      /* MaxPower (mA) */
   /* 09 */
 
   /**********  Descriptor of DFU interface 0 Alternate setting 0 **************/
@@ -258,7 +258,7 @@ static uint8_t USBD_DFU_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   USBD_DFU_HandleTypeDef *hdfu;
 
   /* Allocate Audio structure */
-  hdfu = USBD_malloc(sizeof(USBD_DFU_HandleTypeDef));
+  hdfu = (USBD_DFU_HandleTypeDef *)USBD_malloc(sizeof(USBD_DFU_HandleTypeDef));
 
   if (hdfu == NULL)
   {
@@ -744,7 +744,7 @@ static void DFU_Download(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
     {
       /* Update the global length and block number */
       hdfu->wblock_num = req->wValue;
-      hdfu->wlength = req->wLength;
+      hdfu->wlength = MIN(req->wLength, USBD_DFU_XFER_SIZE);
 
       /* Update the state machine */
       hdfu->dev_state = DFU_STATE_DNLOAD_SYNC;
@@ -807,7 +807,7 @@ static void DFU_Upload(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
     {
       /* Update the global length and block number */
       hdfu->wblock_num = req->wValue;
-      hdfu->wlength = req->wLength;
+      hdfu->wlength = MIN(req->wLength, USBD_DFU_XFER_SIZE);
 
       /* DFU Get Command */
       if (hdfu->wblock_num == 0U)

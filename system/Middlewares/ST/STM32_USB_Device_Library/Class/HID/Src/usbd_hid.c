@@ -138,7 +138,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgFSDesc[USB_HID_CONFIG_DESC_SIZ] __ALIGN
 #else
   0xA0,                                               /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,                                     /* MaxPower 100 mA: this current is used for detecting Vbus */
+  USBD_MAX_POWER,                                     /* MaxPower (mA) */
 
   /************** Descriptor of Joystick Mouse interface ****************/
   /* 09 */
@@ -169,7 +169,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgFSDesc[USB_HID_CONFIG_DESC_SIZ] __ALIGN
 
   HID_EPIN_ADDR,                                      /* bEndpointAddress: Endpoint Address (IN) */
   0x03,                                               /* bmAttributes: Interrupt endpoint */
-  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Byte max */
+  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Bytes max */
   0x00,
   HID_FS_BINTERVAL,                                   /* bInterval: Polling Interval */
   /* 34 */
@@ -190,7 +190,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgHSDesc[USB_HID_CONFIG_DESC_SIZ] __ALIGN
 #else
   0xA0,                                               /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,                                     /* MaxPower 100 mA: this current is used for detecting Vbus */
+  USBD_MAX_POWER,                                     /* MaxPower (mA) */
 
   /************** Descriptor of Joystick Mouse interface ****************/
   /* 09 */
@@ -221,7 +221,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_CfgHSDesc[USB_HID_CONFIG_DESC_SIZ] __ALIGN
 
   HID_EPIN_ADDR,                                      /* bEndpointAddress: Endpoint Address (IN) */
   0x03,                                               /* bmAttributes: Interrupt endpoint */
-  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Byte max */
+  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Bytes max */
   0x00,
   HID_HS_BINTERVAL,                                   /* bInterval: Polling Interval */
   /* 34 */
@@ -242,7 +242,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_OtherSpeedCfgDesc[USB_HID_CONFIG_DESC_SIZ]
 #else
   0xA0,                                               /* bmAttributes: Bus Powered according to user configuration */
 #endif
-  USBD_MAX_POWER,                                     /* MaxPower 100 mA: this current is used for detecting Vbus */
+  USBD_MAX_POWER,                                     /* MaxPower (mA) */
 
   /************** Descriptor of Joystick Mouse interface ****************/
   /* 09 */
@@ -273,7 +273,7 @@ __ALIGN_BEGIN static uint8_t USBD_HID_OtherSpeedCfgDesc[USB_HID_CONFIG_DESC_SIZ]
 
   HID_EPIN_ADDR,                                      /* bEndpointAddress: Endpoint Address (IN) */
   0x03,                                               /* bmAttributes: Interrupt endpoint */
-  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Byte max */
+  HID_EPIN_SIZE,                                      /* wMaxPacketSize: 4 Bytes max */
   0x00,
   HID_FS_BINTERVAL,                                   /* bInterval: Polling Interval */
   /* 34 */
@@ -312,52 +312,44 @@ __ALIGN_BEGIN static uint8_t USBD_HID_DeviceQualifierDesc[USB_LEN_DEV_QUALIFIER_
 
 __ALIGN_BEGIN static uint8_t HID_MOUSE_ReportDesc[HID_MOUSE_REPORT_DESC_SIZE] __ALIGN_END =
 {
-  0x05,   0x01,
-  0x09,   0x02,
-  0xA1,   0x01,
-  0x09,   0x01,
-
-  0xA1,   0x00,
-  0x05,   0x09,
-  0x19,   0x01,
-  0x29,   0x03,
-
-  0x15,   0x00,
-  0x25,   0x01,
-  0x95,   0x03,
-  0x75,   0x01,
-
-  0x81,   0x02,
-  0x95,   0x01,
-  0x75,   0x05,
-  0x81,   0x01,
-
-  0x05,   0x01,
-  0x09,   0x30,
-  0x09,   0x31,
-  0x09,   0x38,
-
-  0x15,   0x81,
-  0x25,   0x7F,
-  0x75,   0x08,
-  0x95,   0x03,
-
-  0x81,   0x06,
-  0xC0,   0x09,
-  0x3c,   0x05,
-  0xff,   0x09,
-
-  0x01,   0x15,
-  0x00,   0x25,
-  0x01,   0x75,
-  0x01,   0x95,
-
-  0x02,   0xb1,
-  0x22,   0x75,
-  0x06,   0x95,
-  0x01,   0xb1,
-
-  0x01,   0xc0
+  0x05, 0x01,        /* Usage Page (Generic Desktop Ctrls)     */
+  0x09, 0x02,        /* Usage (Mouse)                          */
+  0xA1, 0x01,        /* Collection (Application)               */
+  0x09, 0x01,        /*   Usage (Pointer)                      */
+  0xA1, 0x00,        /*   Collection (Physical)                */
+  0x05, 0x09,        /*     Usage Page (Button)                */
+  0x19, 0x01,        /*     Usage Minimum (0x01)               */
+  0x29, 0x03,        /*     Usage Maximum (0x03)               */
+  0x15, 0x00,        /*     Logical Minimum (0)                */
+  0x25, 0x01,        /*     Logical Maximum (1)                */
+  0x95, 0x03,        /*     Report Count (3)                   */
+  0x75, 0x01,        /*     Report Size (1)                    */
+  0x81, 0x02,        /*     Input (Data,Var,Abs)               */
+  0x95, 0x01,        /*     Report Count (1)                   */
+  0x75, 0x05,        /*     Report Size (5)                    */
+  0x81, 0x01,        /*     Input (Const,Array,Abs)            */
+  0x05, 0x01,        /*     Usage Page (Generic Desktop Ctrls) */
+  0x09, 0x30,        /*     Usage (X)                          */
+  0x09, 0x31,        /*     Usage (Y)                          */
+  0x09, 0x38,        /*     Usage (Wheel)                      */
+  0x15, 0x81,        /*     Logical Minimum (-127)             */
+  0x25, 0x7F,        /*     Logical Maximum (127)              */
+  0x75, 0x08,        /*     Report Size (8)                    */
+  0x95, 0x03,        /*     Report Count (3)                   */
+  0x81, 0x06,        /*     Input (Data,Var,Rel)               */
+  0xC0,              /*   End Collection                       */
+  0x09, 0x3C,        /*   Usage (Motion Wakeup)                */
+  0x05, 0xFF,        /*   Usage Page (Reserved 0xFF)           */
+  0x09, 0x01,        /*   Usage (0x01)                         */
+  0x15, 0x00,        /*   Logical Minimum (0)                  */
+  0x25, 0x01,        /*   Logical Maximum (1)                  */
+  0x75, 0x01,        /*   Report Size (1)                      */
+  0x95, 0x02,        /*   Report Count (2)                     */
+  0xB1, 0x22,        /*   Feature (Data,Var,Abs,NoWrp)         */
+  0x75, 0x06,        /*   Report Size (6)                      */
+  0x95, 0x01,        /*   Report Count (1)                     */
+  0xB1, 0x01,        /*   Feature (Const,Array,Abs,NoWrp)      */
+  0xC0               /* End Collection                         */
 };
 
 /**
@@ -381,7 +373,7 @@ static uint8_t USBD_HID_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   USBD_HID_HandleTypeDef *hhid;
 
-  hhid = USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
+  hhid = (USBD_HID_HandleTypeDef *)USBD_malloc(sizeof(USBD_HID_HandleTypeDef));
 
   if (hhid == NULL)
   {
