@@ -99,6 +99,11 @@ void MSC_BOT_Init(USBD_HandleTypeDef *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
+  if (hmsc == NULL)
+  {
+    return;
+  }
+
   hmsc->bot_state = USBD_BOT_IDLE;
   hmsc->bot_status = USBD_BOT_STATUS_NORMAL;
 
@@ -126,6 +131,11 @@ void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
+  if (hmsc == NULL)
+  {
+    return;
+  }
+
   hmsc->bot_state  = USBD_BOT_IDLE;
   hmsc->bot_status = USBD_BOT_STATUS_RECOVERY;
 
@@ -146,7 +156,11 @@ void MSC_BOT_Reset(USBD_HandleTypeDef *pdev)
 void MSC_BOT_DeInit(USBD_HandleTypeDef  *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
-  hmsc->bot_state = USBD_BOT_IDLE;
+
+  if (hmsc != NULL)
+  {
+    hmsc->bot_state = USBD_BOT_IDLE;
+  }
 }
 
 /**
@@ -161,6 +175,11 @@ void MSC_BOT_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
   UNUSED(epnum);
 
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   switch (hmsc->bot_state)
   {
@@ -193,6 +212,11 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
+  if (hmsc == NULL)
+  {
+    return;
+  }
+
   switch (hmsc->bot_state)
   {
     case USBD_BOT_IDLE:
@@ -220,6 +244,11 @@ void MSC_BOT_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 static void  MSC_BOT_CBW_Decode(USBD_HandleTypeDef *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   hmsc->csw.dTag = hmsc->cbw.dTag;
   hmsc->csw.dDataResidue = hmsc->cbw.dDataLength;
@@ -286,6 +315,11 @@ static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf, uint32_t 
 
   uint32_t length = MIN(hmsc->cbw.dDataLength, len);
 
+  if (hmsc == NULL)
+  {
+    return;
+  }
+
   hmsc->csw.dDataResidue -= len;
   hmsc->csw.bStatus = USBD_CSW_CMD_PASSED;
   hmsc->bot_state = USBD_BOT_SEND_DATA;
@@ -303,6 +337,11 @@ static void  MSC_BOT_SendData(USBD_HandleTypeDef *pdev, uint8_t *pbuf, uint32_t 
 void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev, uint8_t CSW_Status)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   hmsc->csw.dSignature = USBD_BOT_CSW_SIGNATURE;
   hmsc->csw.bStatus = CSW_Status;
@@ -326,6 +365,11 @@ void  MSC_BOT_SendCSW(USBD_HandleTypeDef *pdev, uint8_t CSW_Status)
 static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   if ((hmsc->cbw.bmFlags == 0U) &&
       (hmsc->cbw.dDataLength != 0U) &&
@@ -354,6 +398,11 @@ static void  MSC_BOT_Abort(USBD_HandleTypeDef *pdev)
 void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef *pdev, uint8_t epnum)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   if (hmsc->bot_status == USBD_BOT_STATUS_ERROR) /* Bad CBW Signature */
   {

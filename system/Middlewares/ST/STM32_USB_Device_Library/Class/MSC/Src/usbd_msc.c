@@ -349,12 +349,12 @@ uint8_t USBD_MSC_DeInit(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
   (void)USBD_LL_CloseEP(pdev, MSC_EPIN_ADDR);
   pdev->ep_in[MSC_EPIN_ADDR & 0xFU].is_used = 0U;
 
-  /* De-Init the BOT layer */
-  MSC_BOT_DeInit(pdev);
-
   /* Free MSC Class Resources */
   if (pdev->pClassData != NULL)
   {
+    /* De-Init the BOT layer */
+    MSC_BOT_DeInit(pdev);
+
     (void)USBD_free(pdev->pClassData);
     pdev->pClassData = NULL;
   }
@@ -373,6 +373,11 @@ uint8_t USBD_MSC_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *req)
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   USBD_StatusTypeDef ret = USBD_OK;
   uint16_t status_info = 0U;
+
+  if (hmsc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {

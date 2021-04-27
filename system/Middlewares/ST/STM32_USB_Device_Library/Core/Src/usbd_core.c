@@ -500,9 +500,12 @@ USBD_StatusTypeDef USBD_LL_Reset(USBD_HandleTypeDef *pdev)
     return USBD_FAIL;
   }
 
-  if (pdev->pClass->DeInit != NULL)
+  if (pdev->pClassData != NULL)
   {
-    (void)pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
+    if (pdev->pClass->DeInit != NULL)
+    {
+      (void)pdev->pClass->DeInit(pdev, (uint8_t)pdev->dev_config);
+    }
   }
 
   /* Open EP0 OUT */

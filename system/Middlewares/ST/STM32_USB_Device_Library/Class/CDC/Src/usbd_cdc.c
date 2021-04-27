@@ -592,6 +592,11 @@ static uint8_t USBD_CDC_Setup(USBD_HandleTypeDef *pdev,
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS:
@@ -753,6 +758,11 @@ static uint8_t USBD_CDC_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU))
   {
     ((USBD_CDC_ItfTypeDef *)pdev->pUserData)->Control(hcdc->CmdOpCode,
@@ -849,6 +859,11 @@ uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev,
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   hcdc->TxBuffer = pbuff;
   hcdc->TxLength = length;
 
@@ -864,6 +879,11 @@ uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev,
 uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff)
 {
   USBD_CDC_HandleTypeDef *hcdc = (USBD_CDC_HandleTypeDef *)pdev->pClassData;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   hcdc->RxBuffer = pbuff;
 

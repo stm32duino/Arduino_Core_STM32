@@ -428,6 +428,11 @@ static uint8_t USBD_AUDIO_Setup(USBD_HandleTypeDef *pdev,
 
   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
 
+  if (haudio == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS:
@@ -565,6 +570,11 @@ static uint8_t USBD_AUDIO_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_AUDIO_HandleTypeDef *haudio;
   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+
+  if (haudio == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   if (haudio->control.cmd == AUDIO_REQ_SET_CUR)
   {
@@ -716,6 +726,11 @@ static uint8_t USBD_AUDIO_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 
   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
 
+  if (haudio == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   if (epnum == AUDIO_OUT_EP)
   {
     /* Get received data packet length */
@@ -771,6 +786,11 @@ static void AUDIO_REQ_GetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
   USBD_AUDIO_HandleTypeDef *haudio;
   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
 
+  if (haudio == NULL)
+  {
+    return;
+  }
+
   (void)USBD_memset(haudio->control.data, 0, 64U);
 
   /* Send the current mute state */
@@ -788,6 +808,11 @@ static void AUDIO_REQ_SetCurrent(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef 
 {
   USBD_AUDIO_HandleTypeDef *haudio;
   haudio = (USBD_AUDIO_HandleTypeDef *)pdev->pClassData;
+
+  if (haudio == NULL)
+  {
+    return;
+  }
 
   if (req->wLength != 0U)
   {

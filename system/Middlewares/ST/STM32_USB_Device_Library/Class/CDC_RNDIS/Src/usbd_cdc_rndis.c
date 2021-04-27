@@ -676,6 +676,11 @@ static uint8_t USBD_CDC_RNDIS_Setup(USBD_HandleTypeDef *pdev,
   uint16_t status_info = 0U;
   USBD_StatusTypeDef ret = USBD_OK;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS :
@@ -912,6 +917,11 @@ static uint8_t USBD_CDC_RNDIS_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU))
   {
     /* Check if the received command is SendEncapsulated command */
@@ -1048,6 +1058,11 @@ uint8_t USBD_CDC_RNDIS_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff, uin
 {
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   hcdc->TxBuffer = pbuff;
   hcdc->TxLength = length;
 
@@ -1064,6 +1079,11 @@ uint8_t USBD_CDC_RNDIS_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff, uin
 uint8_t USBD_CDC_RNDIS_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff)
 {
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   hcdc->RxBuffer = pbuff;
 
@@ -1167,6 +1187,11 @@ uint8_t USBD_CDC_RNDIS_SendNotification(USBD_HandleTypeDef *pdev,
 
   UNUSED(bVal);
   UNUSED(pData);
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   /* Initialize the request fields */
   (hcdc->Req).bmRequest = CDC_RNDIS_BMREQUEST_TYPE_RNDIS;
@@ -1280,6 +1305,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessInitMsg(USBD_HandleTypeDef *pdev,
   /* Store the Message Request ID */
   uint32_t ReqId = InitMessage->ReqId;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   /* Check correctness of the message (MsgType already checked by entry to this function) */
   if ((InitMessage->MsgLength != sizeof(USBD_CDC_RNDIS_InitMsgTypeDef)) || \
       (InitMessage->MajorVersion < CDC_RNDIS_VERSION_MAJOR))
@@ -1331,6 +1361,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessHaltMsg(USBD_HandleTypeDef *pdev,
   /* Get the CDC_RNDIS handle pointer */
   USBD_CDC_RNDIS_HandleTypeDef *hcdc = (USBD_CDC_RNDIS_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   /* Set CDC_RNDIS state to INITIALIZED */
   hcdc->State = CDC_RNDIS_STATE_UNINITIALIZED;
 
@@ -1360,6 +1395,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessKeepAliveMsg(USBD_HandleTypeDef *pdev,
 
   /* Store the Message Request ID */
   uint32_t ReqId = Msg->ReqId;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   /* Check correctness of the message (MsgType already checked by entry to this function) */
   if (Msg->MsgLength != sizeof(USBD_CDC_RNDIS_KpAliveMsgTypeDef))
@@ -1405,6 +1445,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessQueryMsg(USBD_HandleTypeDef *pdev,
 
   /* Store the Message Request ID */
   uint32_t ReqId = Msg->RequestId;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   /* Process the OID depending on its code */
   switch (Msg->Oid)
@@ -1549,6 +1594,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessSetMsg(USBD_HandleTypeDef *pdev,
   /* Store the Message Request ID */
   uint32_t ReqId = SetMessage->ReqId;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   switch (SetMessage->Oid)
   {
     case OID_GEN_CURRENT_PACKET_FILTER:
@@ -1600,6 +1650,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessResetMsg(USBD_HandleTypeDef *pdev,
   /* Use same Msg input buffer as response buffer */
   USBD_CDC_RNDIS_ResetCpltMsgTypeDef *ResetResponse = (USBD_CDC_RNDIS_ResetCpltMsgTypeDef *)(void *)Msg;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   if ((ResetMessage->MsgLength != sizeof(USBD_CDC_RNDIS_ResetMsgTypeDef)) || \
       (ResetMessage->Reserved != 0U))
   {
@@ -1647,6 +1702,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessPacketMsg(USBD_HandleTypeDef *pdev,
   /* Get and format the Msg input */
   USBD_CDC_RNDIS_PacketMsgTypeDef *PacketMsg = (USBD_CDC_RNDIS_PacketMsgTypeDef *)Msg;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   /* Check correctness of the message */
   if ((PacketMsg->MsgType != CDC_RNDIS_PACKET_MSG_ID))
   {
@@ -1683,6 +1743,11 @@ static uint8_t USBD_CDC_RNDIS_ProcessUnsupportedMsg(USBD_HandleTypeDef *pdev,
 
   /* Use same Msg input buffer as response buffer */
   USBD_CDC_RNDIS_StsChangeMsgTypeDef *Response = (USBD_CDC_RNDIS_StsChangeMsgTypeDef *)(void *)Msg;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   /* Setup the response buffer content */
   Response->MsgType = CDC_RNDIS_INDICATE_STATUS_MSG_ID;

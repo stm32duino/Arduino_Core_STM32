@@ -450,6 +450,11 @@ static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *re
   uint8_t *pbuf;
   uint16_t status_info = 0U;
 
+  if (hhid == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
     case USB_REQ_TYPE_CLASS :
@@ -565,6 +570,11 @@ static uint8_t USBD_HID_Setup(USBD_HandleTypeDef *pdev, USBD_SetupReqTypedef *re
 uint8_t USBD_HID_SendReport(USBD_HandleTypeDef *pdev, uint8_t *report, uint16_t len)
 {
   USBD_HID_HandleTypeDef *hhid = (USBD_HID_HandleTypeDef *)pdev->pClassData;
+
+  if (hhid == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   if (pdev->dev_state == USBD_STATE_CONFIGURED)
   {
