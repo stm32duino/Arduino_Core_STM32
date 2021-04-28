@@ -15,17 +15,17 @@
 // This header file override few definitions and then include variant_generic.h
 
 // MOT0
-#define M0_A              PB1  
-#define M0_B              PB0  
-#define M0_C              PA7  
+#define M0_A            PB1
+#define M0_B            PB0
+#define M0_C            PA7
 // MOT1
-#define M1_A              PA6  
-#define M1_B              PA3  
-#define M1_C              PA2  
+#define M1_A            PA6
+#define M1_B            PA3
+#define M1_C            PA2
 // MOT2
-#define M2_A              PB9  
-#define M2_B              PA1  
-#define M2_C              PB8  
+#define M2_A            PB9
+#define M2_B            PA1
+#define M2_C            PB8
 
 // can control sony/canon and Panasonic cameras
 #define IR              PA0
@@ -42,8 +42,8 @@
 #define I2C1_SDA        PB11
 
 #define LED0            PB12
-#define LED_GREEN       PB12 
-#define LED_BUILTIN     PB12 
+#define LED_GREEN       PB12
+#define LED_BUILTIN     PB12
 
 // EITHER SPI (requires desolder RED LED)
 #define SPI2_SCK        PB13
@@ -57,7 +57,7 @@
 #define PIN_SPI_MISO    SPI2_MISO
 #define PIN_SPI_SCK     SPI2_SCK
 
-// OR 
+// OR
 #define LED1            PB13
 #define LED_RED         PB13
 #define AUX0            PB14
@@ -72,8 +72,7 @@
 #define USART1_RX       PA10
 
 #define RC0             PA10
-// #define USB_DM          PA11
-// #define USB_DP          PA12
+
 #define SWDIO           PA13
 #define SWDCL           PA14
 #define AUX2            PA15
@@ -117,7 +116,7 @@
   #define SERIAL_UART_INSTANCE  3
 #endif
 
-// Serial1 is not marked on board (shared with RC1 anf RC2 pins) 
+// Serial1 is not marked on board (shared with RC1 anf RC2 pins)
 #define ENABLE_HWSERIAL1
 
 // Default pin used for 'Serial3' instance
