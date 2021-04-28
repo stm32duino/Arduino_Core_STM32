@@ -73,23 +73,22 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     /* Enable USB FS Clock */
     __HAL_RCC_USB_CLK_ENABLE();
 
-#if defined (USE_USB_INTERRUPT_REMAPPED)
-    /*USB interrupt remapping enable */
+#if defined(SYSCFG_CFGR1_USB_IT_RMP) && defined(USE_USB_INTERRUPT_REMAPPED)
+    /* USB interrupt remapping enable */
     __HAL_REMAPINTERRUPT_USB_ENABLE();
 #endif
 
-#if defined(STM32G4xx) || defined(STM32WBxx)
+#if defined(USB_H_IRQn)
+    /* Set USB High priority Interrupt priority */
     HAL_NVIC_SetPriority(USB_HP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
+    /* Enable USB High priority Interrupt */
     HAL_NVIC_EnableIRQ(USB_HP_IRQn);
-    HAL_NVIC_SetPriority(USB_LP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
-    HAL_NVIC_EnableIRQ(USB_LP_IRQn);
-#else
-    /* Set USB FS Interrupt priority */
+#endif
+    /* Set USB Interrupt priority */
     HAL_NVIC_SetPriority(USB_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
-    /* Enable USB FS Interrupt */
+    /* Enable USB Interrupt */
     HAL_NVIC_EnableIRQ(USB_IRQn);
-#endif /* STM32WBxx */
 
     if (hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI for USB wakeup */
@@ -163,7 +162,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     /* Enable USB HS Clocks */
     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
 
-    /* Set USBHS Interrupt priority */
+    /* Set USB HS Interrupt priority */
     HAL_NVIC_SetPriority(OTG_HS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
     /* Enable USB HS Interrupt */
@@ -387,27 +386,18 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   HAL_PCD_IRQHandler(&g_hpcd);
 }
 
-#if defined(STM32WBxx)
+#if defined(USB_H_IRQn)
 /**
   * @brief This function handles USB high priority interrupt.
   * @param  None
   * @retval None
   */
-void USB_HP_IRQHandler(void)
+void USB_H_IRQHandler(void)
 {
   HAL_PCD_IRQHandler(&g_hpcd);
 }
+#endif /* USB_H_IRQn */
 
-/**
-  * @brief This function handles USB low priority interrupt, USB wake-up interrupt through EXTI line 28.
-  * @param  None
-  * @retval None
-  */
-void USB_LP_IRQHandler(void)
-{
-  HAL_PCD_IRQHandler(&g_hpcd);
-}
-#else
 /**
   * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
   * @param  None
@@ -442,7 +432,7 @@ void USB_LP_IRQHandler(void)
   __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
 #endif
 }
-#endif
+
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
