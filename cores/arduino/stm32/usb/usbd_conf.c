@@ -99,12 +99,12 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
       __HAL_USB_WAKEUP_EXTI_ENABLE_IT();
-#if defined(STM32F1xx) || defined(STM32F3xx)
+#if defined(USB_WKUP_IRQn)
       /* USB Wakeup Interrupt */
-      HAL_NVIC_EnableIRQ(USBWakeUp_IRQn);
+      HAL_NVIC_EnableIRQ(USB_WKUP_IRQn);
 
       /* Enable USB Wake-up interrupt */
-      HAL_NVIC_SetPriority(USBWakeUp_IRQn, 0, 0);
+      HAL_NVIC_SetPriority(USB_WKUP_IRQn, 0, 0);
 #endif
     }
   }
@@ -368,8 +368,6 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   USBD_LL_DevDisconnected(hpcd->pData);
 }
 
-
-
 /**
   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
   * @param  None
@@ -399,7 +397,7 @@ void USB_H_IRQHandler(void)
 #endif /* USB_H_IRQn */
 
 /**
-  * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
+  * @brief  This function handles USB Wakeup IRQ Handler.
   * @param  None
   * @retval None
   */
@@ -407,8 +405,10 @@ void USB_H_IRQHandler(void)
   void OTG_HS_WKUP_IRQHandler(void)
 #elif defined(USB_OTG_FS)
   void OTG_FS_WKUP_IRQHandler(void)
+#elif defined(USB_WKUP_IRQHandler)
+  void USB_WKUP_IRQHandler(void)
 #else
-  void USBWakeUp_IRQHandler(void)
+  void USBWakeUp_IRQHandler_dummy(void)
 #endif
 {
   if ((&g_hpcd)->Init.low_power_enable) {

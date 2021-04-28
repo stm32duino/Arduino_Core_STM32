@@ -49,11 +49,23 @@ extern "C" {
 #define USB_IRQHandler      USB_LP_CAN_RX0_IRQHandler
 #define USB_H_IRQn          USB_HP_CAN_TX_IRQn
 #define USB_H_IRQHandler    USB_HP_CAN_TX_IRQHandler
+#define USB_WKUP_IRQn       USBWakeUp_IRQn
+#define USB_WKUP_IRQHandler USBWakeUp_IRQHandler
 #else
 #define USB_IRQn            USB_LP_IRQn
 #define USB_IRQHandler      USB_LP_IRQHandler
 #define USB_H_IRQn          USB_HP_IRQn
 #define USB_H_IRQHandler    USB_HP_IRQHandler
+#if defined(SYSCFG_CFGR1_USB_IT_RMP) && defined(USE_USB_INTERRUPT_REMAPPED)
+#define USB_WKUP_IRQn       USBWakeUp_RMP_IRQn
+#define USB_WKUP_IRQHandler USBWakeUp_RMP_IRQHandler
+#elif defined(STM32F1xx) || defined(STM32F3xx) || defined(STM32G4xx)
+#define USB_WKUP_IRQn       USBWakeUp_IRQn
+#define USB_WKUP_IRQHandler USBWakeUp_IRQHandler
+#elif defined(STM32L1xx)
+#define USB_WKUP_IRQn       USB_FS_WKUP_IRQn
+#define USB_WKUP_IRQHandler USB_FS_WKUP_IRQHandler
+#endif
 #endif
 #elif defined(STM32L5xx)
 #define USB_IRQn            USB_FS_IRQn
