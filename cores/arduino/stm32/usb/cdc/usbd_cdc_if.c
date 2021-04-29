@@ -243,7 +243,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 
 /**
   * @brief  USBD_CDC_TransmitCplt
-  *         Data transmited callback
+  *         Data transmitted callback
   *
   *         @note
   *         This function is IN transfer complete callback used to inform user that

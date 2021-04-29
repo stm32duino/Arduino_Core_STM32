@@ -73,23 +73,22 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     /* Enable USB FS Clock */
     __HAL_RCC_USB_CLK_ENABLE();
 
-#if defined (USE_USB_INTERRUPT_REMAPPED)
-    /*USB interrupt remapping enable */
+#if defined(SYSCFG_CFGR1_USB_IT_RMP) && defined(USE_USB_INTERRUPT_REMAPPED)
+    /* USB interrupt remapping enable */
     __HAL_REMAPINTERRUPT_USB_ENABLE();
 #endif
 
-#if defined(STM32G4xx) || defined(STM32WBxx)
+#if defined(USB_H_IRQn)
+    /* Set USB High priority Interrupt priority */
     HAL_NVIC_SetPriority(USB_HP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
+    /* Enable USB High priority Interrupt */
     HAL_NVIC_EnableIRQ(USB_HP_IRQn);
-    HAL_NVIC_SetPriority(USB_LP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
-    HAL_NVIC_EnableIRQ(USB_LP_IRQn);
-#else
-    /* Set USB FS Interrupt priority */
+#endif
+    /* Set USB Interrupt priority */
     HAL_NVIC_SetPriority(USB_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
-    /* Enable USB FS Interrupt */
+    /* Enable USB Interrupt */
     HAL_NVIC_EnableIRQ(USB_IRQn);
-#endif /* STM32WBxx */
 
     if (hpcd->Init.low_power_enable == 1) {
       /* Enable EXTI for USB wakeup */
@@ -100,12 +99,12 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
       __HAL_USB_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
       __HAL_USB_WAKEUP_EXTI_ENABLE_IT();
-#if defined(STM32F1xx) || defined(STM32F3xx)
+#if defined(USB_WKUP_IRQn)
       /* USB Wakeup Interrupt */
-      HAL_NVIC_EnableIRQ(USBWakeUp_IRQn);
+      HAL_NVIC_EnableIRQ(USB_WKUP_IRQn);
 
       /* Enable USB Wake-up interrupt */
-      HAL_NVIC_SetPriority(USBWakeUp_IRQn, 0, 0);
+      HAL_NVIC_SetPriority(USB_WKUP_IRQn, 0, 0);
 #endif
     }
   }
@@ -163,7 +162,7 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
     /* Enable USB HS Clocks */
     __HAL_RCC_USB_OTG_HS_CLK_ENABLE();
 
-    /* Set USBHS Interrupt priority */
+    /* Set USB HS Interrupt priority */
     HAL_NVIC_SetPriority(OTG_HS_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
     /* Enable USB HS Interrupt */
@@ -318,7 +317,7 @@ void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
 void HAL_PCD_ResumeCallback(PCD_HandleTypeDef *hpcd)
 {
   if (hpcd->Init.low_power_enable) {
-    SystemClock_Config();
+    USBD_SystemClockConfigFromResume();
 
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
@@ -369,8 +368,6 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   USBD_LL_DevDisconnected(hpcd->pData);
 }
 
-
-
 /**
   * @brief  This function handles USB-On-The-Go FS/HS global interrupt request.
   * @param  None
@@ -387,29 +384,20 @@ void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   HAL_PCD_IRQHandler(&g_hpcd);
 }
 
-#if defined(STM32WBxx)
+#if defined(USB_H_IRQn)
 /**
   * @brief This function handles USB high priority interrupt.
   * @param  None
   * @retval None
   */
-void USB_HP_IRQHandler(void)
+void USB_H_IRQHandler(void)
 {
   HAL_PCD_IRQHandler(&g_hpcd);
 }
+#endif /* USB_H_IRQn */
 
 /**
-  * @brief This function handles USB low priority interrupt, USB wake-up interrupt through EXTI line 28.
-  * @param  None
-  * @retval None
-  */
-void USB_LP_IRQHandler(void)
-{
-  HAL_PCD_IRQHandler(&g_hpcd);
-}
-#else
-/**
-  * @brief  This function handles USB OTG FS Wakeup IRQ Handler.
+  * @brief  This function handles USB Wakeup IRQ Handler.
   * @param  None
   * @retval None
   */
@@ -417,17 +405,18 @@ void USB_LP_IRQHandler(void)
   void OTG_HS_WKUP_IRQHandler(void)
 #elif defined(USB_OTG_FS)
   void OTG_FS_WKUP_IRQHandler(void)
+#elif defined(USB_WKUP_IRQHandler)
+  void USB_WKUP_IRQHandler(void)
 #else
-  void USBWakeUp_IRQHandler(void)
+  void USBWakeUp_IRQHandler_dummy(void)
 #endif
 {
   if ((&g_hpcd)->Init.low_power_enable) {
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
 
-    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
-    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-    SystemClock_Config();
+    /* Configures system clock after wake-up */
+    USBD_SystemClockConfigFromResume();
 
     /* ungate PHY clock */
     __HAL_PCD_UNGATE_PHYCLOCK((&g_hpcd));
@@ -442,7 +431,7 @@ void USB_LP_IRQHandler(void)
   __HAL_USB_WAKEUP_EXTI_CLEAR_FLAG();
 #endif
 }
-#endif
+
 /*******************************************************************************
                        LL Driver Interface (USB Device Library --> PCD)
 *******************************************************************************/
@@ -644,7 +633,7 @@ uint8_t USBD_LL_IsStallEP(USBD_HandleTypeDef *pdev, uint8_t ep_addr)
 /**
   * @brief  Assigns a USB address to the device.
   * @param  pdev: Device handle
-  * @param  ep_addr: Endpoint Number
+  * @param  dev_addr: Endpoint Number
   * @retval USBD Status
   */
 USBD_StatusTypeDef USBD_LL_SetUSBAddress(USBD_HandleTypeDef *pdev, uint8_t dev_addr)

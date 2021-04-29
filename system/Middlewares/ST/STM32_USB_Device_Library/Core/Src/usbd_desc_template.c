@@ -52,7 +52,7 @@ uint8_t *USBD_Class_UserStrDescriptor(USBD_SpeedTypeDef speed, uint8_t idx, uint
 #endif /* USB_CLASS_USER_STRING_DESC */
 
 #if ((USBD_LPM_ENABLED == 1) || (USBD_CLASS_BOS_ENABLED == 1))
-uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed , uint16_t *length);
+uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length);
 #endif
 
 /* Private variables ---------------------------------------------------------*/
@@ -109,7 +109,7 @@ __ALIGN_BEGIN uint8_t USBD_DeviceDesc[USB_LEN_DEV_DESC] __ALIGN_END =
 /* USB Device LPM BOS descriptor */
 #if (USBD_LPM_ENABLED == 1)
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4
+#pragma data_alignment=4
 #endif
 __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 {
@@ -132,87 +132,87 @@ __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 /* USB Device Billboard BOS descriptor Template */
 #if (USBD_CLASS_BOS_ENABLED == 1)
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
-  #pragma data_alignment=4
+#pragma data_alignment=4
 #endif
 __ALIGN_BEGIN  uint8_t USBD_BOSDesc[USB_SIZ_BOS_DESC] __ALIGN_END =
 {
-0x05,                                /* bLength */
-USB_DESC_TYPE_BOS,                   /* Device Descriptor Type */
-USB_SIZ_BOS_DESC,                    /* Total length of BOS descriptor and all of its sub descs */
-0x00,
-0x04,                                /* The number of separate device capability descriptors in the BOS */
+  0x05,                                /* bLength */
+  USB_DESC_TYPE_BOS,                   /* Device Descriptor Type */
+  USB_SIZ_BOS_DESC,                    /* Total length of BOS descriptor and all of its sub descs */
+  0x00,
+  0x04,                                /* The number of separate device capability descriptors in the BOS */
 
-    /* ----------- Device Capability Descriptor: CONTAINER_ID ---------- */
-0x14,                                /* bLength */
-0x10,                                /* bDescriptorType: DEVICE CAPABILITY Type */
-0x04,                                /* bDevCapabilityType: CONTAINER_ID */
-0x00,                                /* bReserved */
-0xa7, 0xd6, 0x1b, 0xfa,              /* ContainerID: This is a Unique 128-bit number GUID */
-0x91, 0xa6, 0xa8, 0x4e,
-0xa8, 0x21, 0x9f, 0x2b,
-0xaf, 0xf7, 0x94, 0xd4,
+  /* ----------- Device Capability Descriptor: CONTAINER_ID ---------- */
+  0x14,                                /* bLength */
+  0x10,                                /* bDescriptorType: DEVICE CAPABILITY Type */
+  0x04,                                /* bDevCapabilityType: CONTAINER_ID */
+  0x00,                                /* bReserved */
+  0xa7, 0xd6, 0x1b, 0xfa,              /* ContainerID: This is a Unique 128-bit number GUID */
+  0x91, 0xa6, 0xa8, 0x4e,
+  0xa8, 0x21, 0x9f, 0x2b,
+  0xaf, 0xf7, 0x94, 0xd4,
 
-    /* ----------- Device Capability Descriptor: BillBoard ---------- */
-0x34,                                /* bLength */
-0x10,                                /* bDescriptorType: DEVICE CAPABILITY Type */
-0x0D,                                /* bDevCapabilityType: BILLBOARD_CAPABILITY */
-USBD_BB_URL_STRING_INDEX,            /* iAddtionalInfoURL: Index of string descriptor providing a URL where the user can go to get more
+  /* ----------- Device Capability Descriptor: BillBoard ---------- */
+  0x34,                                /* bLength */
+  0x10,                                /* bDescriptorType: DEVICE CAPABILITY Type */
+  0x0D,                                /* bDevCapabilityType: BILLBOARD_CAPABILITY */
+  USBD_BB_URL_STRING_INDEX,            /* iAddtionalInfoURL: Index of string descriptor providing a URL where the user can go to get more
                                         detailed information about the product and the various Alternate Modes it supports */
 
-0x02,                                /* bNumberOfAlternateModes: Number of Alternate modes supported. The
+  0x02,                                /* bNumberOfAlternateModes: Number of Alternate modes supported. The
                                         maximum value that this field can be set to is MAX_NUM_ALT_MODE. */
 
-0x00,                                /* bPreferredAlternateMode: Index of the preferred Alternate Mode. System
+  0x00,                                /* bPreferredAlternateMode: Index of the preferred Alternate Mode. System
                                         software may use this information to provide the user with a better user experience. */
 
-0x00, 0x00,                          /* VCONN Power needed by the adapter for full functionality 000b = 1W */
+  0x00, 0x00,                          /* VCONN Power needed by the adapter for full functionality 000b = 1W */
 
-0x01,0x00,0x00,0x00,                 /* bmConfigured. 01b: Alternate Mode configuration not attempted or exited */
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x00,0x00,0x00,0x00,
-0x21, 0x01,                          /* bcdVersion = 0x0121 */
-0x00,                                /* bAdditionalFailureInfo */
-0x00,                                /* bReserved */
-LOBYTE(USBD_VID),
-HIBYTE(USBD_VID),                    /* wSVID[0]: Standard or Vendor ID. This shall match one of the SVIDs
+  0x01, 0x00, 0x00, 0x00,              /* bmConfigured. 01b: Alternate Mode configuration not attempted or exited */
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x00, 0x00, 0x00, 0x00,
+  0x21, 0x01,                          /* bcdVersion = 0x0121 */
+  0x00,                                /* bAdditionalFailureInfo */
+  0x00,                                /* bReserved */
+  LOBYTE(USBD_VID),
+  HIBYTE(USBD_VID),                    /* wSVID[0]: Standard or Vendor ID. This shall match one of the SVIDs
                                         returned in response to a USB PD Discover SVIDs command */
 
-0x00,                                /* bAlternateMode[0] Index of the Alternate Mode within the SVID as
+  0x00,                                /* bAlternateMode[0] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
                                         0 – first Mode entry
                                         1 – second mode entry */
 
-USBD_BB_ALTMODE0_STRING_INDEX,           /* iAlternateModeString[0]: Index of string descriptor describing protocol.
+  USBD_BB_ALTMODE0_STRING_INDEX,           /* iAlternateModeString[0]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
-LOBYTE(USBD_VID),
-HIBYTE(USBD_VID),                    /* wSVID[1]: Standard or Vendor ID. This shall match one of the SVIDs
+  LOBYTE(USBD_VID),
+  HIBYTE(USBD_VID),                    /* wSVID[1]: Standard or Vendor ID. This shall match one of the SVIDs
                                         returned in response to a USB PD Discover SVIDs command */
 
-0x01,                                /* bAlternateMode[1] Index of the Alternate Mode within the SVID as
+  0x01,                                /* bAlternateMode[1] Index of the Alternate Mode within the SVID as
                                         returned in response to a Discover Modes command. Example:
                                         0 – first Mode entry
                                         1 – second Mode entry */
 
-USBD_BB_ALTMODE1_STRING_INDEX,           /* iAlternateModeString[1]: Index of string descriptor describing protocol.
+  USBD_BB_ALTMODE1_STRING_INDEX,           /* iAlternateModeString[1]: Index of string descriptor describing protocol.
                                         It is optional to support this string. */
- /* Alternate Mode Desc */
-    /* ----------- Device Capability Descriptor: BillBoard Alternate Mode Desc ---------- */
-0x08,                                /* bLength */
-0x10,                                /* bDescriptorType: Device Descriptor Type */
-0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
-0x00,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
-0x10, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
+  /* Alternate Mode Desc */
+  /* ----------- Device Capability Descriptor: BillBoard Alternate Mode Desc ---------- */
+  0x08,                                /* bLength */
+  0x10,                                /* bDescriptorType: Device Descriptor Type */
+  0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
+  0x00,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
+  0x10, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
 
-0x08,                                /* bLength */
-0x10,                                /* bDescriptorType: Device Descriptor Type */
-0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
-0x01,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
-0x20, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
+  0x08,                                /* bLength */
+  0x10,                                /* bDescriptorType: Device Descriptor Type */
+  0x0F,                                /* bDevCapabilityType: BILLBOARD ALTERNATE MODE CAPABILITY */
+  0x01,                                /* bIndex: Index of Alternate Mode described in the Billboard Capability Desc */
+  0x20, 0x00, 0x00, 0x00,              /* dwAlternateModeVdo: contents of the Mode VDO for the alternate mode identified by bIndex */
 };
 #endif
 
@@ -395,10 +395,10 @@ static void Get_SerialNum(void)
   * @param  length : pointer to data length variable
   * @retval pointer to descriptor buffer
   */
-uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed , uint16_t *length)
+uint8_t *USBD_USR_BOSDescriptor(USBD_SpeedTypeDef speed, uint16_t *length)
 {
   *length = sizeof(USBD_BOSDesc);
-  return (uint8_t*)USBD_BOSDesc;
+  return (uint8_t *)USBD_BOSDesc;
 }
 #endif
 

@@ -87,7 +87,7 @@ uint8_t MSC_Page80_Inquiry_Data[LENGTH_INQUIRY_PAGE80] =
   0x20,
   0x20,
   0x20
- };
+};
 
 /* USB Mass storage sense 6 Data */
 uint8_t MSC_Mode_Sense6_data[MODE_SENSE6_LEN] =

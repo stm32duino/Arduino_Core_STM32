@@ -88,24 +88,24 @@ USBD_StorageTypeDef USBD_MSC_Template_fops =
 
 };
 /*******************************************************************************
-* Function Name  : Read_Memory
-* Description    : Handle the Read operation from the microSD card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Read_Memory
+  * Description    : Handle the Read operation from the microSD card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t STORAGE_Init(uint8_t lun)
 {
   return (0);
 }
 
 /*******************************************************************************
-* Function Name  : Read_Memory
-* Description    : Handle the Read operation from the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Read_Memory
+  * Description    : Handle the Read operation from the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_size)
 {
   *block_num  = STORAGE_BLK_NBR;
@@ -114,60 +114,60 @@ int8_t STORAGE_GetCapacity(uint8_t lun, uint32_t *block_num, uint16_t *block_siz
 }
 
 /*******************************************************************************
-* Function Name  : Read_Memory
-* Description    : Handle the Read operation from the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Read_Memory
+  * Description    : Handle the Read operation from the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t  STORAGE_IsReady(uint8_t lun)
 {
   return (0);
 }
 
 /*******************************************************************************
-* Function Name  : Read_Memory
-* Description    : Handle the Read operation from the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Read_Memory
+  * Description    : Handle the Read operation from the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t  STORAGE_IsWriteProtected(uint8_t lun)
 {
   return  0;
 }
 
 /*******************************************************************************
-* Function Name  : Read_Memory
-* Description    : Handle the Read operation from the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Read_Memory
+  * Description    : Handle the Read operation from the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t STORAGE_Read(uint8_t lun, uint8_t *buf,
                     uint32_t blk_addr, uint16_t blk_len)
 {
   return 0;
 }
 /*******************************************************************************
-* Function Name  : Write_Memory
-* Description    : Handle the Write operation to the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Write_Memory
+  * Description    : Handle the Write operation to the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t STORAGE_Write(uint8_t lun, uint8_t *buf,
                      uint32_t blk_addr, uint16_t blk_len)
 {
   return (0);
 }
 /*******************************************************************************
-* Function Name  : Write_Memory
-* Description    : Handle the Write operation to the STORAGE card.
-* Input          : None.
-* Output         : None.
-* Return         : None.
-*******************************************************************************/
+  * Function Name  : Write_Memory
+  * Description    : Handle the Write operation to the STORAGE card.
+  * Input          : None.
+  * Output         : None.
+  * Return         : None.
+  *******************************************************************************/
 int8_t STORAGE_GetMaxLun(void)
 {
   return (STORAGE_LUN_NBR - 1);

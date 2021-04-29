@@ -92,6 +92,6 @@ extern USBD_StorageTypeDef  USBD_MSC_Template_fops;
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
