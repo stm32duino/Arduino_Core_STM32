@@ -27,6 +27,10 @@ void USBD_reenumerate(void);
 #ifdef USBD_USE_CDC
 void USBD_CDC_init(void);
 #endif
+
+/* Weaked function */
+void USBD_SystemClockConfigFromResume(void);
+
 #ifdef __cplusplus
 }
 #endif

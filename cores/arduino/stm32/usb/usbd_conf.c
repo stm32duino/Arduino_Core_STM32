@@ -317,7 +317,7 @@ void HAL_PCD_SuspendCallback(PCD_HandleTypeDef *hpcd)
 void HAL_PCD_ResumeCallback(PCD_HandleTypeDef *hpcd)
 {
   if (hpcd->Init.low_power_enable) {
-    SystemClock_Config();
+    USBD_SystemClockConfigFromResume();
 
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
@@ -415,9 +415,8 @@ void USB_H_IRQHandler(void)
     /* Reset SLEEPDEEP bit of Cortex System Control Register */
     SCB->SCR &= (uint32_t)~((uint32_t)(SCB_SCR_SLEEPDEEP_Msk | SCB_SCR_SLEEPONEXIT_Msk));
 
-    /* Configures system clock after wake-up from STOP: enable HSE, PLL and select
-    PLL as system clock source (HSE and PLL are disabled in STOP mode) */
-    SystemClock_Config();
+    /* Configures system clock after wake-up */
+    USBD_SystemClockConfigFromResume();
 
     /* ungate PHY clock */
     __HAL_PCD_UNGATE_PHYCLOCK((&g_hpcd));

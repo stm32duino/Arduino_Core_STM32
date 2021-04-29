@@ -175,4 +175,19 @@ void USBD_CDC_init(void)
   CDC_init();
 }
 #endif /* USBD_USE_CDC */
+
+/**
+  * @brief  Configures system clock and system IP clocks after wake-up from USB
+  *         resume callBack
+  * @note   Weaked function which can be redefined by user at the sketch level.
+  *         By default, calls 'SystemClock_Config()'.
+  * @param  None
+  * @retval None
+  */
+WEAK void USBD_SystemClockConfigFromResume(void)
+{
+  configIPClock();
+  SystemClock_Config();
+}
+
 #endif /* USBCON */
