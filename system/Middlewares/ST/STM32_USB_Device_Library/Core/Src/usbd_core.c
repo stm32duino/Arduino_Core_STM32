@@ -439,7 +439,12 @@ USBD_StatusTypeDef USBD_LL_DataInStage(USBD_HandleTypeDef *pdev,
               pdev->pClass->EP0_TxSent(pdev);
             }
           }
-          (void)USBD_LL_StallEP(pdev, 0x80U);
+          /*
+           * Fix EPO STALL issue in STM32 USB Device library 2.5.1
+           * Issue raised by @makarenya, see #388
+           * USB Specification EP0 should never STALL.
+           */
+          /* (void)USBD_LL_StallEP(pdev, 0x80U); */
           (void)USBD_CtlReceiveStatus(pdev);
         }
       }
