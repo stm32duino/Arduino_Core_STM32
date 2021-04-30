@@ -2,9 +2,11 @@
 
 Big thanks to Olliw for creating this board.
 http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards
- 
 
-This board is specifically for the more common 'RC' flash size (not RB or RG). It is typically used as a 3 axis gimbal controller,
+There are many versions of this board:
+http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3
+
+This board is specifically for the more common 'STM32F103*RC*T' flash size (not RB, RE or RG). It is typically used as a 3 axis gimbal controller,
 but can be used as a generic ESC if care is taken to limit voltage/current.  
 It is probably only suitable for motors with phase resistance > 1ohm
 
