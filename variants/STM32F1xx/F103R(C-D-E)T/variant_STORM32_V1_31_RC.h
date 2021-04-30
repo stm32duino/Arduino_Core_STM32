@@ -135,20 +135,6 @@
   #define HAL_SD_MODULE_ENABLED
 #endif
 
-#if !defined(HAL_ADC_MODULE_ENABLED)
-  #define HAL_ADC_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_I2C_MODULE_ENABLED)
-  #define HAL_I2C_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_SPI_MODULE_ENABLED)
-  #define HAL_SPI_MODULE_ENABLED
-#endif
-
-
-
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/
