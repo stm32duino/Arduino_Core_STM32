@@ -93,13 +93,6 @@
 #define USART3_TX       PC10
 #define USART3_RX       PC11
 
-#ifndef Serial
-  #ifdef USBCON
-    #define Serial          SerialUSB
-  #else
-    #define Serial          Serial3
-  #endif
-#endif
 // On-board user button
 #ifndef USER_BTN
   #define USER_BTN      BUT
