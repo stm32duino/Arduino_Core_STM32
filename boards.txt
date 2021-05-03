@@ -4942,8 +4942,6 @@ ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.cmsis_lib_gcc=arm_cortexM3l_math
 ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant_h=variant_{build.board}.h
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Upload menu
 ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
