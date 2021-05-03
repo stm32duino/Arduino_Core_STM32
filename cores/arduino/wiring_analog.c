@@ -119,8 +119,8 @@ void analogWriteResolution(int res)
 {
   if ((res > 0) && (res <= 32)) {
     _writeResolution = res;
-    if (_writeResolution > MAX_ADC_RESOLUTION) {
-      _internalWriteResolution = MAX_ADC_RESOLUTION;
+    if (_writeResolution > MAX_PWM_RESOLUTION) {
+      _internalWriteResolution = MAX_PWM_RESOLUTION;
     } else {
       _internalWriteResolution = _writeResolution;
     }
