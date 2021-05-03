@@ -1,4 +1,19 @@
-
+/*
+ *******************************************************************************
+ * Copyright (c) 2020-2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
+/*
+ * Automatically generated from STM32F103R(C-D-E)Tx.xml
+ * CubeMX DB release 6.0.21
+ */
 #if defined(ARDUINO_STORM32_V1_31_RC)
 #include "Arduino.h"
 #include "PeripheralPins.h"
