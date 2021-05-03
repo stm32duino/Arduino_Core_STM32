@@ -5870,6 +5870,7 @@ Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 ESC_board.menu.usb.none=None
+ESC_board.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
 ESC_board.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
