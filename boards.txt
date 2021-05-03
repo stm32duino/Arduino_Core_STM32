@@ -4931,6 +4931,18 @@ ESC_board.menu.pnum.WRAITH32_V1.build.variant=STM32F0xx/F051K(6-8)U
 ESC_board.menu.pnum.WRAITH32_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 ESC_board.menu.pnum.WRAITH32_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# STORM32_V1_RC board
+ESC_board.menu.pnum.STORM32_V1_31_RC=STorM32 BGC v1.31 RC
+ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_size=262144
+ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_data_size=49152
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.mcu=cortex-m3
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.board=STORM32_V1_31_RC
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.series=STM32F1xx
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.cmsis_lib_gcc=arm_cortexM3l_math
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
+
 # Upload menu
 ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 ESC_board.menu.upload_method.swdMethod.upload.protocol=0
@@ -5856,6 +5868,17 @@ Midatronics.menu.xusb.HS=High Speed
 Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+ESC_board.menu.usb.none=None
+ESC_board.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
+ESC_board.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+ESC_board.menu.xusb.FS=Low/Full Speed
+ESC_board.menu.xusb.HS=High Speed
+ESC_board.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+ESC_board.menu.xusb.HSFS=High Speed in Full Speed mode
+ESC_board.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)

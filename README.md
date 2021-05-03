@@ -432,6 +432,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F051K6U | [Wraith V1 ESC](https://www.readytoflyquads.com/35a-wraith32-v11-32bit-blheli-esc) | *1.8.0* |  |
+| :yellow_heart:  | STM32F103RCT | [STorM32 V1.31 RC](http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3) | **2.1.0** |  |
 
 ### Generic flight controllers
 
