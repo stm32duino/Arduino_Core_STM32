@@ -5875,7 +5875,9 @@ ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
 ESC_board.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 ESC_board.menu.xusb.FS=Low/Full Speed
+ESC_board.menu.xusb.HS=High Speed
 ESC_board.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+ESC_board.menu.xusb.HSFS=High Speed in Full Speed mode
 ESC_board.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
