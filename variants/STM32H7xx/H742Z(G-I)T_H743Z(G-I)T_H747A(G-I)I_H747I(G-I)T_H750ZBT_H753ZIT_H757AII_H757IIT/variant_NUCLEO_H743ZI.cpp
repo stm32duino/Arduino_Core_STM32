@@ -208,7 +208,7 @@ const PinName digitalPin[] = {
   PF_1,
   PF_2,
   PA_7,
-  NC_,
+  NC,
   PA_3,
   PC_0,
   PC_3_C,
