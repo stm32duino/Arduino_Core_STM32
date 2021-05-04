@@ -24,7 +24,8 @@
 #include "usbd_desc.h"
 #include "wiring.h"
 
-extern __IO  uint32_t lineState;
+extern __IO bool dtrState;
+extern __IO bool rtsState;
 
 USBSerial SerialUSB;
 void serialEventUSB() __attribute__((weak));
@@ -175,9 +176,14 @@ uint8_t USBSerial::numbits()
   return 8;
 }
 
+void USBSerial::dtr(bool enable)
+{
+  CDC_enableDTR(enable);
+}
+
 bool USBSerial::dtr(void)
 {
-  return false;
+  return dtrState;
 }
 
 bool USBSerial::rts(void)
@@ -187,12 +193,8 @@ bool USBSerial::rts(void)
 
 USBSerial::operator bool()
 {
-  bool result = false;
-  if (lineState == 1) {
-    result = true;
-  }
   delay(10);
-  return result;
+  return dtrState;
 }
 
 #endif // USBCON && USBD_USE_CDC

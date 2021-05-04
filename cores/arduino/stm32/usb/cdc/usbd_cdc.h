@@ -73,6 +73,10 @@ extern "C" {
 #define CDC_SET_CONTROL_LINE_STATE                  0x22U
 #define CDC_SEND_BREAK                              0x23U
 
+// Control Line State bits
+#define CLS_DTR   (1 << 0)
+#define CLS_RTS   (1 << 1)
+
 /**
   * @}
   */
