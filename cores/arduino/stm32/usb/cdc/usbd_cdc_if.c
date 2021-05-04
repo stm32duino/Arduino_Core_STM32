@@ -53,6 +53,7 @@ static bool CDC_DTR_enabled = true;
 CDC_TransmitQueue_TypeDef TransmitQueue;
 CDC_ReceiveQueue_TypeDef ReceiveQueue;
 __IO bool dtrState = false; /* lineState */
+__IO bool rtsState = false;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
@@ -190,6 +191,7 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       if (dtrState) { // Reset the transmit timeout when the port is connected
         transmitStart = 0;
       }
+      rtsState = (((USBD_SetupReqTypedef *)pbuf)->wValue & CLS_RTS);
 #ifdef DTR_TOGGLING_SEQ
       dtr_toggling++; /* Count DTR toggling */
 #endif

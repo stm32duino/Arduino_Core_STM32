@@ -188,7 +188,7 @@ bool USBSerial::dtr(void)
 
 bool USBSerial::rts(void)
 {
-  return false;
+  return rtsState;
 }
 
 USBSerial::operator bool()
