@@ -71,6 +71,9 @@ typedef enum {
 #if defined(LPUART1_BASE)
   LPUART1_INDEX,
 #endif
+#if defined(LPUART2_BASE)
+  LPUART2_INDEX,
+#endif
   UART_NUM
 } uart_index_t;
 
@@ -210,6 +213,15 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     obj->irq = LPUART1_IRQn;
   }
 #endif
+#if defined(LPUART2_BASE)
+  else if (obj->uart == LPUART2) {
+    __HAL_RCC_LPUART2_FORCE_RESET();
+    __HAL_RCC_LPUART2_RELEASE_RESET();
+    __HAL_RCC_LPUART2_CLK_ENABLE();
+    obj->index = LPUART2_INDEX;
+    obj->irq = LPUART2_IRQn;
+  }
+#endif
 #if defined(UART7_BASE)
   else if (obj->uart == UART7) {
     __HAL_RCC_UART7_FORCE_RESET();
@@ -299,13 +311,17 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   /* Set the NVIC priority for future interrupts */
   HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
 
-#if defined(LPUART1_BASE)
+#if defined(LPUART1_BASE) || defined(LPUART2_BASE)
   /*
    * Note that LPUART clock source must be in the range
    * [3 x baud rate, 4096 x baud rate]
    * check Reference Manual
    */
-  if (obj->uart == LPUART1) {
+  if ((obj->uart == LPUART1)
+#if defined(LPUART2_BASE)
+      || (obj->uart == LPUART2)
+#endif
+     ) {
     if (baudrate <= 9600) {
 #if defined(USART_CR3_UCESM)
       HAL_UARTEx_EnableClockStopMode(huart);
@@ -326,24 +342,51 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     if (baudrate <= 9600) {
       /* Enable the clock if not already set by user */
       enableClock(LSE_CLOCK);
-
-      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+      if (obj->uart == LPUART1) {
+        __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+      }
+#if defined(LPUART2_BASE)
+      if (obj->uart == LPUART2) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_LSE);
+      }
+#endif
       if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
     if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY)) {
-      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
+      if (obj->uart == LPUART1) {
+        __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
+      }
+#if defined(LPUART2_BASE)
+      if (obj->uart == LPUART2) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_HSI);
+      }
+#endif
       if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
 #ifndef STM32H7xx
-    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
+    if (obj->uart == LPUART1) {
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
+    }
+#if defined(LPUART2_BASE)
+    if (obj->uart == LPUART2) {
+      __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_PCLK1);
+    }
+#endif
     if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
-    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
+    if (obj->uart == LPUART1) {
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
+    }
+#if defined(LPUART2_BASE)
+    if (obj->uart == LPUART2) {
+      __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_SYSCLK);
+    }
+#endif
 #else
     __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
 #endif
@@ -427,6 +470,13 @@ void uart_deinit(serial_t *obj)
       __HAL_RCC_LPUART1_FORCE_RESET();
       __HAL_RCC_LPUART1_RELEASE_RESET();
       __HAL_RCC_LPUART1_CLK_DISABLE();
+      break;
+#endif
+#if defined(LPUART2_BASE)
+    case LPUART2_INDEX:
+      __HAL_RCC_LPUART2_FORCE_RESET();
+      __HAL_RCC_LPUART2_RELEASE_RESET();
+      __HAL_RCC_LPUART2_CLK_DISABLE();
       break;
 #endif
 #if defined(UART7_BASE)
@@ -542,6 +592,13 @@ void uart_config_lowpower(serial_t *obj)
     case LPUART1_INDEX:
       if (__HAL_RCC_GET_LPUART1_SOURCE() != RCC_LPUART1CLKSOURCE_HSI) {
         __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
+      }
+      break;
+#endif
+#if defined(LPUART2_BASE) && defined(__HAL_RCC_LPUART2_CONFIG)
+    case LPUART2_INDEX:
+      if (__HAL_RCC_GET_LPUART2_SOURCE() != RCC_LPUART2CLKSOURCE_HSI) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_HSI);
       }
       break;
 #endif
@@ -866,7 +923,14 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
-  HAL_UART_IRQHandler(uart_handlers[UART2_INDEX]);
+  if (uart_handlers[UART2_INDEX] != NULL) {
+    HAL_UART_IRQHandler(uart_handlers[UART2_INDEX]);
+  }
+#if defined(STM32G0xx) && defined(LPUART2_BASE)
+  if (uart_handlers[LPUART2_INDEX] != NULL) {
+    HAL_UART_IRQHandler(uart_handlers[LPUART2_INDEX]);
+  }
+#endif
 }
 #endif
 
@@ -907,7 +971,7 @@ void USART3_IRQHandler(void)
   if (uart_handlers[UART4_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART4_INDEX]);
   }
-#if defined(STM32F030xC)
+#if defined(STM32F030xC) || defined(STM32G0xx) && defined(LPUART2_BASE)
   if (uart_handlers[UART5_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART5_INDEX]);
   }

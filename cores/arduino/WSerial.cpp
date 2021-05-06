@@ -57,6 +57,11 @@ WEAK void serialEventRun(void)
     serialEventLP1();
   }
 #endif
+#if defined(HAVE_HWSERIALLP2)
+  if (serialEventLP2 && SerialLP2.available()) {
+    serialEventLP2();
+  }
+#endif
 #if defined(HAVE_SERIALUSB)
   if (serialEventUSB && SerialUSB.available()) {
     serialEventUSB();
