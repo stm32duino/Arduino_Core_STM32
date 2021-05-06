@@ -1489,6 +1489,11 @@ extern "C" {
     if (HardwareTimer_Handle[TIMER3_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER3_INDEX]->handle);
     }
+#if defined(STM32G0xx) && defined(TIM4_BASE)
+    if (HardwareTimer_Handle[TIMER4_INDEX]) {
+      HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER4_INDEX]->handle);
+    }
+#endif
   }
 #endif //TIM3_BASE
 
