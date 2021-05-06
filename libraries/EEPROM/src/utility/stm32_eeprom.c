@@ -267,12 +267,7 @@ void eeprom_buffer_flush(void)
   EraseInitStruct.NbPages = 1;
 
   if (HAL_FLASH_Unlock() == HAL_OK) {
-#if defined (STM32G0xx) || defined (STM32G4xx) || defined (STM32L4xx) || \
-      defined (STM32L5xx) || defined (STM32WBxx)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
-#else
-    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP | FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR);
-#endif
     if (HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while (address <= address_end) {
 
