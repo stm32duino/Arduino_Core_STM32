@@ -22,7 +22,7 @@
 #define STM32G0xx_HAL_ADC_EX_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -143,15 +143,15 @@
 /* IO operation functions *****************************************************/
 
 /* ADC calibration */
-HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc);
-uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef* hadc);
-HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32_t CalibrationFactor);
+HAL_StatusTypeDef       HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc);
+HAL_StatusTypeDef       HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t CalibrationFactor);
 
 /* ADC IRQHandler and Callbacks used in non-blocking modes (Interruption) */
-void                    HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef* hadc);
-void                    HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef* hadc);
+void                    HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef *hadc);
+void                    HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef *hadc);
 
 /**
   * @}
@@ -161,7 +161,7 @@ void                    HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef* 
   * @{
   */
 /* Peripheral Control functions ***********************************************/
-HAL_StatusTypeDef       HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef* hadc);
+HAL_StatusTypeDef       HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef *hadc);
 
 /**
   * @}

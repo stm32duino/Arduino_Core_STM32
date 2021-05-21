@@ -46,6 +46,12 @@
         #define Serial SerialLP1
         #define serialEvent serialEventLP1
       #endif
+    #elif SERIAL_UART_INSTANCE == 102
+      #define ENABLE_HWSERIALLP2
+      #if !defined(Serial)
+        #define Serial SerialLP2
+        #define serialEvent serialEventLP2
+      #endif
     #elif SERIAL_UART_INSTANCE == 1
       #define ENABLE_HWSERIAL1
       #if !defined(Serial)
@@ -116,6 +122,11 @@
   #if defined(ENABLE_HWSERIALLP1)
     #if defined(LPUART1_BASE)
       #define HAVE_HWSERIALLP1
+    #endif
+  #endif
+  #if defined(ENABLE_HWSERIALLP2)
+    #if defined(LPUART2_BASE)
+      #define HAVE_HWSERIALLP2
     #endif
   #endif
   #if defined(ENABLE_HWSERIAL1)
@@ -201,6 +212,9 @@
   #endif
   #if defined(HAVE_HWSERIALLP1)
     extern void serialEventLP1(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIALLP2)
+    extern void serialEventLP2(void) __attribute__((weak));
   #endif
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 

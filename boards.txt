@@ -5771,6 +5771,14 @@ GenG4.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenG4.menu.xusb.HSFS=High Speed in Full Speed mode
 GenG4.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
+GenG0.menu.usb.none=None
+GenG0.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenG0.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenG0.menu.usb.CDC=CDC (no generic 'Serial')
+GenG0.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenG0.menu.usb.HID=HID (keyboard and mouse)
+GenG0.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
 GenH7.menu.usb.none=None
 GenH7.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenH7.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC

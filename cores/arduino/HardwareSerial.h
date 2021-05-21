@@ -207,5 +207,7 @@ class HardwareSerial : public Stream {
 #if defined(LPUART1)
   extern HardwareSerial SerialLP1;
 #endif
-
+#if defined(LPUART2)
+  extern HardwareSerial SerialLP2;
+#endif
 #endif

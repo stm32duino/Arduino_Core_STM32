@@ -32,6 +32,10 @@ void hw_config_init(void)
   /* Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral */
   HAL_PWREx_DisableUCPDDeadBattery();
 #endif
+#if defined (SYSCFG_CFGR1_UCPD1_STROBE) || defined (SYSCFG_CFGR1_UCPD2_STROBE)
+  /* Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral */
+  HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
+#endif /* SYSCFG_CFGR1_UCPD1_STROBE || SYSCFG_CFGR1_UCPD2_STROBE */
 
   /* Init DWT if present */
 #ifdef DWT_BASE

@@ -67,6 +67,9 @@ extern "C" {
 #define USB_WKUP_IRQHandler USB_FS_WKUP_IRQHandler
 #endif
 #endif
+#elif defined(STM32G0xx)
+#define USB_IRQn USB_UCPD1_2_IRQn
+#define USB_IRQHandler USB_UCPD1_2_IRQHandler
 #elif defined(STM32L5xx)
 #define USB_IRQn            USB_FS_IRQn
 #define USB_IRQHandler      USB_FS_IRQHandler

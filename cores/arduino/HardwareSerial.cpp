@@ -30,7 +30,7 @@
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
   defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
   defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
-  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
+  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1) || defined(HAVE_HWSERIALLP2)
   // SerialEvent functions are weak, so when the user doesn't define them,
   // the linker just sets their address to 0 (which is checked below).
   #if defined(HAVE_HWSERIAL1)
@@ -106,6 +106,11 @@
   #if defined(HAVE_HWSERIALLP1)
     HardwareSerial SerialLP1(LPUART1);
     void serialEventLP1() __attribute__((weak));
+  #endif
+
+  #if defined(HAVE_HWSERIALLP2)
+    HardwareSerial SerialLP2(LPUART2);
+    void serialEventLP2() __attribute__((weak));
   #endif
 #endif // HAVE_HWSERIALx
 
@@ -252,11 +257,19 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                           setTx(PIN_SERIALLP1_TX);
                         } else
 #endif
-                          // else get the pins of the first peripheral occurence in PinMap
-                        {
-                          _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
-                          _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
-                        }
+#if defined(PIN_SERIALLP2_TX) && defined(LPUART2_BASE)
+                          if (peripheral == LPUART2) {
+#if defined(PIN_SERIALLP2_RX)
+                            setRx(PIN_SERIALLP2_RX);
+#endif
+                            setTx(PIN_SERIALLP2_TX);
+                          } else
+#endif
+                            // else get the pins of the first peripheral occurence in PinMap
+                          {
+                            _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
+                            _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+                          }
   if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }

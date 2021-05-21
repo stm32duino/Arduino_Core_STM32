@@ -8,6 +8,9 @@
 #ifdef STM32F0xx
   #include "stm32f0xx_ll_crs.h"
 #endif
+#ifdef STM32G0xx
+  #include "stm32g0xx_ll_crs.h"
+#endif
 #ifdef STM32G4xx
   #include "stm32g4xx_ll_crs.h"
 #endif

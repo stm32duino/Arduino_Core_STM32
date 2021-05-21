@@ -65,6 +65,12 @@
   #define CAN1 CAN
 #endif
 
+/* STM32G0xx defined USB_DRD_FS */
+#if !defined(USB ) && defined(USB_DRD_FS)
+  #define USB USB_DRD_FS
+  #define PinMap_USB PinMap_USB_DRD_FS
+#endif
+
 /**
  * Libc porting layers
  */
