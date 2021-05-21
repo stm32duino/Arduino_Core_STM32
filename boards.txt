@@ -347,6 +347,19 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# NUCLEO_G0B1RE board
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE=Nucleo G0B1RE
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.node=NOD_G0B1RE
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.upload.maximum_size=262144
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.upload.maximum_data_size=147456
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.board=NUCLEO_G0B1RE
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.series=STM32G0xx
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.product_line=STM32G0B1xx
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # NUCLEO_G431RB board
 Nucleo_64.menu.pnum.NUCLEO_G431RB=Nucleo G431RB
 Nucleo_64.menu.pnum.NUCLEO_G431RB.node="NODE_G431RB,NOD_G431RB"
