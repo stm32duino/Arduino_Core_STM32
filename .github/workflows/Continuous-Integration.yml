@@ -66,14 +66,14 @@ jobs:
       run: |
         cat ${{ steps.Compile.outputs.compile-result }}
         exit 1
-#  pio_build:
-#    runs-on: ubuntu-latest
-#    name: PlatformIO test
-#    steps:
-#      # First of all, clone the repo using the checkout action.
-#    - name: Checkout
-#      uses: actions/checkout@master
+  pio_build:
+    runs-on: ubuntu-latest
+    name: PlatformIO test
+    steps:
+      # First of all, clone the repo using the checkout action.
+    - name: Checkout
+      uses: actions/checkout@master
 
-#    - name: PlatformIO
-#      id: Compile
-#      uses: ./.github/actions/pio-build
+    - name: PlatformIO
+      id: Compile
+      uses: ./.github/actions/pio-build
