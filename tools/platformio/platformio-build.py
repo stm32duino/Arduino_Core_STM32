@@ -22,14 +22,14 @@ kinds of creative coding, interactive objects, spaces or physical experiences.
 https://github.com/stm32duino/Arduino_Core_STM32
 """
 
-
+import json
 from os.path import isfile, isdir, join
 
 from SCons.Script import DefaultEnvironment
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
-board = env.BoardConfig()
+board_config = env.BoardConfig()
 
 FRAMEWORK_DIR = platform.get_package_dir("framework-arduinoststm32")
 CMSIS_DIR = join(platform.get_package_dir("framework-cmsis"), "CMSIS")
@@ -37,14 +37,14 @@ assert isdir(FRAMEWORK_DIR)
 assert isdir(CMSIS_DIR)
 
 
-mcu = env.BoardConfig().get("build.mcu", "")
-board_name = env.subst("$BOARD")
+mcu = board_config.get("build.mcu", "")
 mcu_type = mcu[:-2]
-variant = board.get("build.variant")
+variant = board_config.get(
+    "build.variant", board_config.get("build.arduino.variant", "generic"))
 series = mcu_type[:7].upper() + "xx"
 variants_dir = (
-    join("$PROJECT_DIR", board.get("build.variants_dir"))
-    if board.get("build.variants_dir", "")
+    join("$PROJECT_DIR", board_config.get("build.variants_dir"))
+    if board_config.get("build.variants_dir", "")
     else join(FRAMEWORK_DIR, "variants")
 )
 variant_dir = join(variants_dir, variant)
@@ -97,8 +97,8 @@ def process_usb_configuration(cpp_defines):
         env.Append(
             CPPDEFINES=[
                 "USBCON",
-                ("USB_VID", board.get("build.hwids", [[0, 0]])[0][0]),
-                ("USB_PID", board.get("build.hwids", [[0, 0]])[0][1]),
+                ("USB_VID", board_config.get("build.hwids", [[0, 0]])[0][0]),
+                ("USB_PID", board_config.get("build.hwids", [[0, 0]])[0][1]),
             ]
         )
 
@@ -107,13 +107,15 @@ def process_usb_configuration(cpp_defines):
 
 
 def get_arm_math_lib(cpu):
-    core = board.get("build.cpu")[7:9]
-    if core == "m4":
+    core = board_config.get("build.cpu")
+    if "m33" in core:
+        return "arm_ARMv8MMLlfsp_math"
+    elif "m4" in core:
         return "arm_cortexM4lf_math"
-    elif core == "m7":
+    elif "m7" in core:
         return "arm_cortexM7lfsp_math"
 
-    return "arm_cortex%sl_math" % core.upper()
+    return "arm_cortex%sl_math" % core[7:9].upper()
 
 
 def configure_application_offset(mcu, upload_protocol):
@@ -131,7 +133,7 @@ def configure_application_offset(mcu, upload_protocol):
         # STM32F103 series doesn't have embedded DFU over USB
         # stm32duino bootloader (v1, v2) is used instead
         if mcu.startswith("stm32f103"):
-            if board.get("upload.boot_version", 2) == 1:
+            if board_config.get("upload.boot_version", 2) == 1:
                 offset = 0x5000
             else:
                 offset = 0x2000
@@ -144,11 +146,60 @@ def configure_application_offset(mcu, upload_protocol):
     env.Append(LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
 
 
-if any(mcu in board.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")):
+if any(mcu in board_config.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")):
     env.Append(
         CCFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
         LINKFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
     )
+
+
+def load_boards_remap():
+    remap_file = join(FRAMEWORK_DIR, "tools", "platformio", "boards_remap.json")
+    if not isfile(remap_file):
+        print("Warning! Couldn't find board remap file!")
+        return {}
+
+    with open(remap_file, "r") as fp:
+        try:
+            return json.load(fp)
+        except:
+            print("Warning! Failed to parse board remap file!")
+            return {}
+
+
+def get_arduino_board_id(board_config, mcu):
+    # User-specified value
+    if board_config.get("build.arduino.board", ""):
+        return board_config.get("build.arduino.board")
+
+    # Default boards
+    boards_remap = load_boards_remap()
+    board_id = env.subst("$BOARD")
+    if board_id in boards_remap:
+        return boards_remap[board_id]
+
+    # Fall back to default cases according to MCU value for generic boards
+    if board_id.lower().startswith("generic"):
+        board_id = "GENERIC_"
+        mcu = mcu.upper()
+        if len(mcu) > 12:
+            board_id += mcu[5:12] + "X"
+        else:
+            if len(mcu) > 10:
+                board_id += mcu[5:11] + "TX"
+            else:
+                board_id += mcu
+            print(
+                "Warning! Couldn't generate proper internal board id from the `%s` MCU "
+                "field! At least 12 symbols are required!" % mcu
+            )
+
+            print("Falling back to `%s`." % board_id)
+
+    return board_id.upper()
+
+
+board_id = get_arduino_board_id(board_config, mcu)
 
 env.Append(
     ASFLAGS=["-x", "assembler-with-cpp"],
@@ -162,11 +213,10 @@ env.Append(
     ],
     CCFLAGS=[
         "-Os",  # optimize for size
-        "-mcpu=%s" % env.BoardConfig().get("build.cpu"),
+        "-mcpu=%s" % board_config.get("build.cpu"),
         "-mthumb",
         "-ffunction-sections",  # place each function in its own section
         "-fdata-sections",
-        "-Wall",
         "-nostdlib",
         "--param",
         "max-inline-insns-single=500",
@@ -175,9 +225,23 @@ env.Append(
         series,
         ("ARDUINO", 10808),
         "ARDUINO_ARCH_STM32",
-        "ARDUINO_%s" % board_name.upper(),
-        ("BOARD_NAME", '\\"%s\\"' % board_name.upper()),
+        "ARDUINO_%s" % board_id,
+        ("BOARD_NAME", '\\"%s\\"' % board_id),
         "HAL_UART_MODULE_ENABLED",
+        "USE_FULL_LL_DRIVER",
+        (
+            "VARIANT_H",
+            '\\"%s\\"'
+            % board_config.get(
+                "build.arduino.variant_h",
+                "variant_%s.h"
+                % (
+                    "generic"
+                    if board_id.lower().startswith("generic")
+                    else board_id
+                ),
+            ),
+        ),
     ],
     CPPPATH=[
         join(FRAMEWORK_DIR, "cores", "arduino", "avr"),
@@ -263,33 +327,33 @@ env.Append(
             "gcc",
         ),
         join(CMSIS_DIR, "DSP", "Include"),
+        join(CMSIS_DIR, "DSP", "PrivateInclude"),
         join(FRAMEWORK_DIR, "cores", "arduino"),
-        variant_dir,
     ],
     LINKFLAGS=[
         "-Os",
         "-mthumb",
-        "-mcpu=%s" % env.BoardConfig().get("build.cpu"),
+        "-mcpu=%s" % board_config.get("build.cpu"),
         "--specs=nano.specs",
         "-Wl,--gc-sections,--relax",
         "-Wl,--check-sections",
         "-Wl,--entry=Reset_Handler",
         "-Wl,--unresolved-symbols=report-all",
         "-Wl,--warn-common",
-        "-Wl,--defsym=LD_MAX_SIZE=%d" % board.get("upload.maximum_size"),
-        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d" % board.get("upload.maximum_ram_size"),
+        "-Wl,--defsym=LD_MAX_SIZE=%d" % board_config.get("upload.maximum_size"),
+        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d" % board_config.get("upload.maximum_ram_size"),
     ],
     LIBS=[
-        get_arm_math_lib(env.BoardConfig().get("build.cpu")),
+        get_arm_math_lib(board_config.get("build.cpu")),
         "c",
         "m",
         "gcc",
         "stdc++",
     ],
-    LIBPATH=[variant_dir, join(CMSIS_DIR, "DSP", "Lib", "GCC")],
+    LIBPATH=[join(CMSIS_DIR, "DSP", "Lib", "GCC")],
 )
 
-env.ProcessFlags(board.get("build.framework_extra_flags.arduino", ""))
+env.ProcessFlags(board_config.get("build.framework_extra_flags.arduino", ""))
 
 configure_application_offset(mcu, upload_protocol)
 
@@ -297,11 +361,21 @@ configure_application_offset(mcu, upload_protocol)
 # Linker requires preprocessing with correct RAM|ROM sizes
 #
 
-if not board.get("build.ldscript", ""):
+if not board_config.get("build.ldscript", ""):
     env.Replace(LDSCRIPT_PATH=join(FRAMEWORK_DIR, "system", "ldscript.ld"))
     if not isfile(join(env.subst(variant_dir), "ldscript.ld")):
         print("Warning! Cannot find linker script for the current target!\n")
-    env.Append(LINKFLAGS=[("-Wl,--default-script", join(variant_dir, "ldscript.ld"))])
+    env.Append(
+        LINKFLAGS=[
+            (
+                "-Wl,--default-script",
+                '\"%s\"' % join(
+                    variant_dir,
+                    board_config.get("build.arduino.ldscript", "ldscript.ld"),
+                ),
+            )
+        ]
+    )
 
 #
 # Process configuration flags
@@ -330,13 +404,16 @@ env.Append(
 
 libs = []
 
-if "build.variant" in env.BoardConfig():
-    env.Append(CPPPATH=[variant_dir])
+if "build.variant" in board_config:
+    env.Append(
+        CCFLAGS='"-I%s"' % variant_dir,
+        LINKFLAGS=['"-L%s"' % variant_dir]
+    )
     env.BuildSources(join("$BUILD_DIR", "FrameworkArduinoVariant"), variant_dir)
 
-env.BuildSources(
+libs.append(env.BuildLibrary(
     join("$BUILD_DIR", "FrameworkArduino"), join(FRAMEWORK_DIR, "cores", "arduino")
-)
+))
 
 env.BuildSources(
     join("$BUILD_DIR", "SrcWrapper"), join(FRAMEWORK_DIR, "libraries", "SrcWrapper")
