@@ -12,14 +12,6 @@ python3 -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/pl
   exit 1
 }
 
-# Fix for variant path change while not updated in PIO
-python3 -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/boards/malyanm300_f070cb.json'), 'r+'); data=json.load(fp); data['build']['variant'] = 'STM32F0xx/F070CBT'; data['build']['extra_flags'] = '-DSTM32F070xB -DVARIANT_H=\\\\\"variant_MALYANMx00_F070CB.h\\\\\"'; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()" || {
-  exit 1
-}
-python3 -c "import json; import os; fp=open(os.path.expanduser('~/.platformio/platforms/ststm32/boards/nucleo_l152re.json'), 'r+'); data=json.load(fp); data['build']['variant'] = 'STM32L1xx/L151RET_L152RET_L162RET'; data['build']['extra_flags'] = '-DSTM32L152xE -DVARIANT_H=\\\\\"variant_NUCLEO_L152RE.h\\\\\"'; fp.seek(0); fp.truncate(); json.dump(data, fp); fp.close()" || {
-  exit 1
-}
-
 ln --symbolic "$GITHUB_WORKSPACE" "$HOME/.platformio/packages/framework-arduinoststm32" || {
   exit 1
 }
