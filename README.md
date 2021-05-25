@@ -386,15 +386,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4A6ZG-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R5VG<br>STM32L4R5VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R5ZGTx<br>STM32L4R5ZITx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4R5ZGYx<br>STM32L4R5ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4R5ZI-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R7VITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R7ZITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R9ZGJx<br>STM32L4R9ZIJx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4R9ZGYx<br>STM32L4R9ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4S5VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S5ZITx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4S5ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4S7VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S7ZITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S9ZIJx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4S9ZIYx | Generic Board | **2.1.0** |  |
 
 ### Generic STM32L5 boards
 
