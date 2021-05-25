@@ -4434,6 +4434,16 @@ GenL4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# Swan R5
+GenL4.menu.pnum.SWAN_R5=Swan R5
+GenL4.menu.pnum.SWAN_R5.upload.maximum_size=2097152
+GenL4.menu.pnum.SWAN_R5.upload.maximum_data_size=655360
+GenL4.menu.pnum.SWAN_R5.build.board=SWAN_R5
+GenL4.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
+GenL4.menu.pnum.SWAN_R5.build.variant=STM32L4xx/L4R5Z(G-I)Y_L4R9Z(G-I)Y_L4S5ZIY_L4S9ZIY
+GenL4.menu.pnum.SWAN_R5.build.variant_h=variant_{build.board}.h
+GenL4.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # Generic L412K8Tx
 GenL4.menu.pnum.GENERIC_L412K8TX=Generic L412K8Tx
 GenL4.menu.pnum.GENERIC_L412K8TX.upload.maximum_size=65536
