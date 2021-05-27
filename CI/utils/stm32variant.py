@@ -1768,6 +1768,8 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
                 expanded_dir_list.append(flash + subf.group(3))
         else:
             expanded_dir_list.append(dir_name[index_mcu_base:])
+    # Remove duplicate
+    expanded_dir_list = list(dict.fromkeys(expanded_dir_list))
     expanded_dir_list.sort()
     group_flash_list = [list(g) for _, g in groupby(expanded_dir_list, keyflash)]
     packages_per_flash = OrderedDict()
