@@ -1130,7 +1130,9 @@ def print_pinamevar():
 
 # Variant files generation
 def spi_pins_variant():
-    ss_pin = ss1_pin = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "PNUM_NOT_DEFINED"
+    ss_pin = (
+        ss1_pin
+    ) = ss2_pin = ss3_pin = mosi_pin = miso_pin = sck_pin = "PNUM_NOT_DEFINED"
 
     # Iterate to find match instance if any
     for mosi in spimosi_list:
@@ -1766,6 +1768,8 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
                 expanded_dir_list.append(flash + subf.group(3))
         else:
             expanded_dir_list.append(dir_name[index_mcu_base:])
+    # Remove duplicate
+    expanded_dir_list = list(dict.fromkeys(expanded_dir_list))
     expanded_dir_list.sort()
     group_flash_list = [list(g) for _, g in groupby(expanded_dir_list, keyflash)]
     packages_per_flash = OrderedDict()
@@ -2030,28 +2034,30 @@ def aggregate_dir():
             del mcu_dir1_files_list[:]
 
 
+def default_cubemxdir():
+    global cubemxdir
+    if sys.platform.startswith("win32"):
+        print("Platform is Windows")
+        cubemxdir = Path(r"C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX")
+    elif sys.platform.startswith("linux"):
+        print("Platform is Linux")
+        cubemxdir = Path.home() / "STM32CubeMX"
+    elif sys.platform.startswith("darwin"):
+        print("Platform is Mac OSX")
+        cubemxdir = Path(
+            "/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources"
+        )
+    else:
+        print("Platform unknown")
+        cubemxdir = "<Set CubeMX install directory>"
+
+
 # Config management
 def create_config():
     # Create a Json file for a better path management
     try:
         print("Please set your configuration in '{}' file".format(config_filename))
         config_file = open(config_filename, "w", newline="\n")
-        if sys.platform.startswith("win32"):
-            print("Platform is Windows")
-            cubemxdir = Path(
-                r"C:\Program Files\STMicroelectronics\STM32Cube\STM32CubeMX"
-            )
-        elif sys.platform.startswith("linux"):
-            print("Platform is Linux")
-            cubemxdir = Path.home() / "STM32CubeMX"
-        elif sys.platform.startswith("darwin"):
-            print("Platform is Mac OSX")
-            cubemxdir = Path(
-                "/Applications/STMicroelectronics/STM32CubeMX.app/Contents/Resources"
-            )
-        else:
-            print("Platform unknown")
-            cubemxdir = "<Set CubeMX install directory>"
         config_file.write(
             json.dumps(
                 {
@@ -2071,21 +2077,23 @@ def check_config():
     global cubemxdir
     global repo_local_path
     global repo_path
-
+    default_cubemxdir()
     if config_filename.is_file():
         try:
             config_file = open(config_filename, "r")
             config = json.load(config_file)
             config_file.close()
 
-            conf = config["REPO_LOCAL_PATH"]
-            if conf:
-                if conf != "":
-                    repo_local_path = Path(conf)
-                    repo_path = repo_local_path / repo_name
-            conf = config["CUBEMX_DIRECTORY"]
-            if conf:
-                cubemxdir = Path(conf)
+            if "REPO_LOCAL_PATH" in config:
+                conf = config["REPO_LOCAL_PATH"]
+                if conf:
+                    if conf != "":
+                        repo_local_path = Path(conf)
+                        repo_path = repo_local_path / repo_name
+            if "CUBEMX_DIRECTORY" in config:
+                conf = config["CUBEMX_DIRECTORY"]
+                if conf:
+                    cubemxdir = Path(conf)
         except IOError:
             print("Failed to open " + config_filename)
     else:
@@ -2096,9 +2104,9 @@ def manage_repo():
     global db_release
     repo_local_path.mkdir(parents=True, exist_ok=True)
 
-    print("Updating " + repo_name + "...")
     try:
         if not args.skip:
+            print("Updating " + repo_name + "...")
             if repo_path.is_dir():
                 # Get new tags from the remote
                 git_cmds = [
@@ -2156,7 +2164,7 @@ variant_cpp_filename = "variant_generic.cpp"
 boards_entry_filename = "boards_entry.txt"
 generic_clock_filename = "generic_clock.c"
 repo_local_path = cur_dir / "repo"
-cubemxdir = ""
+cubemxdir = Path()
 gh_url = "https://github.com/STMicroelectronics/STM32_open_pin_data"
 repo_name = gh_url.rsplit("/", 1)[-1]
 repo_path = repo_local_path / repo_name
@@ -2255,6 +2263,7 @@ if not args.cube:
     if manage_repo():
         dirMCU = repo_path / "mcu"
         dirIP = dirMCU / "IP"
+        print("Using GitHub repository database")
     else:
         fallback = True
 if fallback or args.cube:
@@ -2271,6 +2280,7 @@ Please check the value set for 'CUBEMX_DIRECTORY' in '{}' file.""".format(
 
     dirMCU = cubemxdir / "db" / "mcu"
     dirIP = dirMCU / "IP"
+    print("Using STM32CubeMX internal database")
     version_file = cubemxdir / "db" / "package.xml"
     if version_file.is_file():
         xml_file = parse(str(version_file))

@@ -18,9 +18,9 @@
 const PinName digitalPin[] = {
 {% for pinname in pinnames_list %}
 {% if not loop.last %}
-  {{"%-7s // %s"|format("{},".format(pinname.name), "D{}{}".format(loop.index, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
+  {{"%-7s // %s"|format("{},".format(pinname.name), "D{}{}".format(loop.index-1, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
 {% else %}
-  {{"%-7s // %s"|format(pinname.name, "D{}{}".format(loop.index, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
+  {{"%-7s // %s"|format(pinname.name, "D{}{}".format(loop.index-1, "" if pinname.ax == -1 else "/A{}".format(pinname.ax)))}}
 {% endif %}
 {% endfor %}
 };
