@@ -68,8 +68,41 @@ const uint32_t pin_map_ll[16] = {
 #if defined(DUALPAD_ANALOG_SWITCH)
 /**
  * Configure Analog dualpad switch if necessary
+ * LL_AnalogSwitch: LL define to be used to configure Analog switch
  */
-void configure_dualpad_switch(PinName pin, int function)
+static void configure_dualpad_switch(PinName pin, int function, uint32_t LL_AnalogSwitch)
+{
+  if (LL_AnalogSwitch == 0) {
+    return ;
+  }
+
+  if (((function & STM_MODE_ANALOG) != STM_MODE_ANALOG)
+      && ((pin & PDUAL) == PDUAL)) {
+    /**
+      * We don't configure an analog function but the pin is an analog pad
+      * Pxy_C. In this cases Analog switch should be closed
+      */
+    LL_SYSCFG_CloseAnalogSwitch(LL_AnalogSwitch);
+    return ;
+  } else {
+    /**
+      * Either we configure an analog function,
+      * or it is not an analog function but it is not an analog pad Pxy_C.
+      * In both cases Analog switch should be opened
+      * Note: direct ADC is restricted to Pxy_C,  pin only
+      */
+    LL_SYSCFG_OpenAnalogSwitch(LL_AnalogSwitch);
+    return ;
+  }
+}
+
+/**
+ * In case of dual pad, determine whether gpio needs to be configured
+ * pLL_AnalogSwitch: pointer used to retrun LL define to be used to configure
+ * Analog switch
+ * return: true when gpio must be configured
+ */
+static bool is_dualpad_switch_gpio_configurable(PinName pin, int function, uint32_t *pLL_AnalogSwitch)
 {
   PinAnalogSwitch *AnalogSwitch = (PinAnalogSwitch *) PinMapAnalogSwitch;
 
@@ -77,26 +110,22 @@ void configure_dualpad_switch(PinName pin, int function)
   while (AnalogSwitch->pin != NC) {
     /* Check whether pin is or is associated to dualpad Analog Input */
     if ((AnalogSwitch->pin | PDUAL)  == (pin | PDUAL)) {
-      if (((function & STM_MODE_ANALOG) != STM_MODE_ANALOG)
+      *pLL_AnalogSwitch = AnalogSwitch->LL_AnalogSwitch;
+      if (((function & STM_MODE_ANALOG) == STM_MODE_ANALOG)
           && ((pin & PDUAL) == PDUAL)) {
         /**
-         * We don't configure an analog function but the pin is an analog pad
-         * (Pxy_C, ANA0 ...) In this cases Analog switch should be closed
+         * We configure an analog function and the pin is an analog pad Pxy_C
+         * In this case gpio configuration must be skipped
          */
-        LL_SYSCFG_CloseAnalogSwitch(AnalogSwitch->LL_AnalogSwitch);
-        return ;
+        return false;
       } else {
-        /**
-         * Either we configure an analog function,
-         * or it is not an analog function but it is not an analog pad
-         * (not Pxy_C, ANA0 ...). In both cases Analog switch should be opened
-         */
-        LL_SYSCFG_OpenAnalogSwitch(AnalogSwitch->LL_AnalogSwitch);
-        return ;
+        return true;
       }
     }
     AnalogSwitch ++;
   }
+  *pLL_AnalogSwitch = 0;
+  return true;
 }
 #endif /* DUALPAD_ANALOG_SWITCH */
 
@@ -168,6 +197,15 @@ void pin_function(PinName pin, int function)
   }
 #endif
 
+#if defined(DUALPAD_ANALOG_SWITCH)
+  uint32_t LL_AnalogSwitch = 0;
+  if (!is_dualpad_switch_gpio_configurable(pin, function, &LL_AnalogSwitch)) {
+    /* Skip gpio configuration */
+    configure_dualpad_switch(pin, function, LL_AnalogSwitch);
+    return;
+  }
+#endif /* DUALPAD_ANALOG_SWITCH */
+
   /* Enable GPIO clock */
   GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
 
@@ -235,7 +273,7 @@ void pin_function(PinName pin, int function)
   pin_PullConfig(gpio, ll_pin, STM_PIN_PUPD(function));
 
 #if defined(DUALPAD_ANALOG_SWITCH)
-  configure_dualpad_switch(pin, function);
+  configure_dualpad_switch(pin, function, LL_AnalogSwitch);
 #endif /* DUALPAD_ANALOG_SWITCH */
 
   pin_DisconnectDebug(pin);
