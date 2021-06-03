@@ -70,6 +70,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [LoRa boards](#lora-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
  - [Generic flight controllers](#generic-flight-controllers)
+ - [elecgator boards](#elecgator-boards)
  - [Garatronics boards](#Garatronic/McHobby-boards)
  - [Midatronics boards](#midatronics-boards)
 
@@ -444,6 +445,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F103CB | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
 | :green_heart:  | STM32F303CC | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
+
+### [elecgator](https://www.elecgator.com/) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32F746ZET | [EtherCATduino](https://www.elecgator.com/products/info/EtherCATduino) | **2.1.0** |  |
 
 ### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
 
