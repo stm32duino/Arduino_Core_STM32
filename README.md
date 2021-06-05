@@ -30,7 +30,9 @@ This porting is based on:
 
 ## Getting Started
 
-This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores).
+This repo is available as a package usable with [Arduino Boards Manager](https://www.arduino.cc/en/guide/cores) and [PlatformIO](https://docs.platformio.org/en/latest/platforms/ststm32.html#switching-between-arduino-cores).
+
+### Arduino IDE
 
 Add this link in the "*Additional Boards Managers URLs*" field:
 
@@ -43,6 +45,18 @@ For full instructions on using the "**Boards Manager**", see the [Getting Starte
 Advanced user can use the repository to benefit from the latest development. See the [Using git repository](https://github.com/stm32duino/wiki/wiki/Using-git-repository) page.
 
 User can add a STM32 based board following this [wiki](https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-(board)).
+
+### PlatformIO
+
+In your project, set your environment to use the `platform` setting `ststm32` and the `framework` setting `arduino`, e.g:
+
+```dosini
+[env]
+platform  = ststm32
+framework = arduino
+```
+
+Behind the scenes this will create a dependency on the "development platform" ST STM32 ([`ststm32`](https://docs.platformio.org/en/latest/platforms/ststm32.html)) and the framework package `framework-arduinoststm32` (the PlatformIO name of this library as noted in [/package.json](https://github.com/stm32duino/Arduino_Core_STM32/blob/master/package.json)).  This repository should not be confused with the `ststm32` "development platform" which is located at [https://github.com/platformio/platform-ststm32/].
 
 ## Supported boards
 
