@@ -51,6 +51,7 @@ bool CDC_resume_receive(void);
 void CDC_init(void);
 void CDC_deInit(void);
 bool CDC_connected(void);
+void CDC_enableDTR(bool enable);
 
 #ifdef __cplusplus
 }

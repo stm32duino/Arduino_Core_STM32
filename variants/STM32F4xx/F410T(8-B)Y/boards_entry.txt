@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F410T8Yx
+GenF4.menu.pnum.GENERIC_F410T8YX=Generic F410T8Yx
+GenF4.menu.pnum.GENERIC_F410T8YX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410T8YX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410T8YX.build.board=GENERIC_F410T8YX
+GenF4.menu.pnum.GENERIC_F410T8YX.build.product_line=STM32F410Tx
+GenF4.menu.pnum.GENERIC_F410T8YX.build.variant=STM32F4xx/F410T(8-B)Y
+
+# Generic F410TBYx
+GenF4.menu.pnum.GENERIC_F410TBYX=Generic F410TBYx
+GenF4.menu.pnum.GENERIC_F410TBYX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410TBYX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410TBYX.build.board=GENERIC_F410TBYX
+GenF4.menu.pnum.GENERIC_F410TBYX.build.product_line=STM32F410Tx
+GenF4.menu.pnum.GENERIC_F410TBYX.build.variant=STM32F4xx/F410T(8-B)Y
+

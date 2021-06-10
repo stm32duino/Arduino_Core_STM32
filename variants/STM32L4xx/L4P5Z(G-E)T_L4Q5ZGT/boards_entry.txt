@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4P5ZGTx
+GenL4.menu.pnum.GENERIC_L4P5ZGTX=Generic L4P5ZGTx
+GenL4.menu.pnum.GENERIC_L4P5ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4P5ZGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5ZGTX.build.board=GENERIC_L4P5ZGTX
+GenL4.menu.pnum.GENERIC_L4P5ZGTX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5ZGTX.build.variant=STM32L4xx/L4P5Z(G-E)T_L4Q5ZGT
+
+# Generic L4P5ZETx
+GenL4.menu.pnum.GENERIC_L4P5ZETX=Generic L4P5ZETx
+GenL4.menu.pnum.GENERIC_L4P5ZETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L4P5ZETX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5ZETX.build.board=GENERIC_L4P5ZETX
+GenL4.menu.pnum.GENERIC_L4P5ZETX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5ZETX.build.variant=STM32L4xx/L4P5Z(G-E)T_L4Q5ZGT
+
+# Generic L4Q5ZGTx
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX=Generic L4Q5ZGTx
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX.build.board=GENERIC_L4Q5ZGTX
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX.build.product_line=STM32L4Q5xx
+GenL4.menu.pnum.GENERIC_L4Q5ZGTX.build.variant=STM32L4xx/L4P5Z(G-E)T_L4Q5ZGT
+

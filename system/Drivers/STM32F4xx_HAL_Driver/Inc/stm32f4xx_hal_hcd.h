@@ -33,7 +33,7 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup HCD
+/** @addtogroup HCD HCD
   * @{
   */
 
@@ -111,6 +111,10 @@ typedef struct
 #define HCD_SPEED_HIGH               USBH_HS_SPEED
 #define HCD_SPEED_FULL               USBH_FSLS_SPEED
 #define HCD_SPEED_LOW                USBH_FSLS_SPEED
+
+#define HCD_DEVICE_SPEED_HIGH               0U
+#define HCD_DEVICE_SPEED_FULL               1U
+#define HCD_DEVICE_SPEED_LOW                2U
 
 /**
   * @}
@@ -263,9 +267,6 @@ HAL_StatusTypeDef HAL_HCD_Stop(HCD_HandleTypeDef *hhcd);
 /**
   * @}
   */
-/**
-  * @}
-  */
 
 /* Peripheral State functions  ************************************************/
 /** @addtogroup HCD_Exported_Functions_Group4 Peripheral State functions
@@ -294,20 +295,11 @@ uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
   * @}
   */
 /* Private functions prototypes ----------------------------------------------*/
-/** @defgroup HCD_Private_Functions_Prototypes HCD Private Functions Prototypes
-  * @{
-  */
 
-/**
+ /**
   * @}
   */
-
-/* Private functions ---------------------------------------------------------*/
-/** @defgroup HCD_Private_Functions HCD Private Functions
-  * @{
-  */
-
-/**
+ /**
   * @}
   */
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */

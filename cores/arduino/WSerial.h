@@ -40,11 +40,17 @@
 
 #if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
   #if !defined(HWSERIAL_NONE) && defined(SERIAL_UART_INSTANCE)
-    #if SERIAL_UART_INSTANCE == 0
+    #if SERIAL_UART_INSTANCE == 0 || SERIAL_UART_INSTANCE == 101
       #define ENABLE_HWSERIALLP1
       #if !defined(Serial)
         #define Serial SerialLP1
         #define serialEvent serialEventLP1
+      #endif
+    #elif SERIAL_UART_INSTANCE == 102
+      #define ENABLE_HWSERIALLP2
+      #if !defined(Serial)
+        #define Serial SerialLP2
+        #define serialEvent serialEventLP2
       #endif
     #elif SERIAL_UART_INSTANCE == 1
       #define ENABLE_HWSERIAL1
@@ -118,6 +124,11 @@
       #define HAVE_HWSERIALLP1
     #endif
   #endif
+  #if defined(ENABLE_HWSERIALLP2)
+    #if defined(LPUART2_BASE)
+      #define HAVE_HWSERIALLP2
+    #endif
+  #endif
   #if defined(ENABLE_HWSERIAL1)
     #if defined(USART1_BASE)
       #define HAVE_HWSERIAL1
@@ -164,22 +175,47 @@
     #endif
   #endif
   #if defined(ENABLE_HWSERIAL10)
-    #if defined(UART10_BASE)
+    #if defined(USART10_BASE) || defined(UART10_BASE)
       #define HAVE_HWSERIAL10
     #endif
   #endif
 
-  extern void serialEvent1(void) __attribute__((weak));
-  extern void serialEvent2(void) __attribute__((weak));
-  extern void serialEvent3(void) __attribute__((weak));
-  extern void serialEvent4(void) __attribute__((weak));
-  extern void serialEvent5(void) __attribute__((weak));
-  extern void serialEvent6(void) __attribute__((weak));
-  extern void serialEvent7(void) __attribute__((weak));
-  extern void serialEvent8(void) __attribute__((weak));
-  extern void serialEvent9(void) __attribute__((weak));
-  extern void serialEvent10(void) __attribute__((weak));
-  extern void serialEventLP1(void) __attribute__((weak));
+  #if defined(HAVE_HWSERIAL1)
+    extern void serialEvent1(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL2)
+    extern void serialEvent2(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL3)
+    extern void serialEvent3(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL4)
+    extern void serialEvent4(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL5)
+    extern void serialEvent5(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL6)
+    extern void serialEvent6(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL7)
+    extern void serialEvent7(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL8)
+    extern void serialEvent8(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL9)
+    extern void serialEvent9(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIAL10)
+    extern void serialEvent10(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIALLP1)
+    extern void serialEventLP1(void) __attribute__((weak));
+  #endif
+  #if defined(HAVE_HWSERIALLP2)
+    extern void serialEventLP2(void) __attribute__((weak));
+  #endif
 #endif /* HAL_UART_MODULE_ENABLED  && !HAL_UART_MODULE_ONLY */
 
 extern void serialEventRun(void);

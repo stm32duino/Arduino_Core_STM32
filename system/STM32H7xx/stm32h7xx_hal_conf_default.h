@@ -112,7 +112,7 @@ extern "C" {
 #endif /* HSE_VALUE */
 
 #if !defined  (HSE_STARTUP_TIMEOUT)
-#define HSE_STARTUP_TIMEOUT    (5000UL)   /*!< Time out for HSE start up, in ms */
+#define HSE_STARTUP_TIMEOUT    (100UL)   /*!< Time out for HSE start up, in ms */
 #endif /* HSE_STARTUP_TIMEOUT */
 
 /**
@@ -157,7 +157,7 @@ in voltage and temperature.*/
   *        frequency, this source is inserted directly through I2S_CKIN pad.
   */
 #if !defined  (EXTERNAL_CLOCK_VALUE)
-#define EXTERNAL_CLOCK_VALUE    12288000U /*!< Value of the External clock in Hz*/
+#define EXTERNAL_CLOCK_VALUE    12288000L /*!< Value of the External clock in Hz*/
 #endif /* EXTERNAL_CLOCK_VALUE */
 
 /* Tip: To avoid modifying this file each time you need to use different HSE,
@@ -177,7 +177,7 @@ in voltage and temperature.*/
 #define  USE_RTOS                     0
 #endif
 #if !defined (USE_SD_TRANSCEIVER)
-#define  USE_SD_TRANSCEIVER           1U               /*!< use uSD Transceiver */
+#define  USE_SD_TRANSCEIVER           0U               /*!< use uSD Transceiver */
 #endif
 #if !defined (USE_SPI_CRC)
 #define  USE_SPI_CRC                  0U               /*!< use CRC in SPI */

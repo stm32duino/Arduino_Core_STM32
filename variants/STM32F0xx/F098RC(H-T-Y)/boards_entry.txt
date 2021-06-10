@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F098RCHx
+GenF0.menu.pnum.GENERIC_F098RCHX=Generic F098RCHx
+GenF0.menu.pnum.GENERIC_F098RCHX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F098RCHX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F098RCHX.build.board=GENERIC_F098RCHX
+GenF0.menu.pnum.GENERIC_F098RCHX.build.product_line=STM32F098xx
+GenF0.menu.pnum.GENERIC_F098RCHX.build.variant=STM32F0xx/F098RC(H-T-Y)
+
+# Generic F098RCTx
+GenF0.menu.pnum.GENERIC_F098RCTX=Generic F098RCTx
+GenF0.menu.pnum.GENERIC_F098RCTX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F098RCTX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F098RCTX.build.board=GENERIC_F098RCTX
+GenF0.menu.pnum.GENERIC_F098RCTX.build.product_line=STM32F098xx
+GenF0.menu.pnum.GENERIC_F098RCTX.build.variant=STM32F0xx/F098RC(H-T-Y)
+
+# Generic F098RCYx
+GenF0.menu.pnum.GENERIC_F098RCYX=Generic F098RCYx
+GenF0.menu.pnum.GENERIC_F098RCYX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F098RCYX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F098RCYX.build.board=GENERIC_F098RCYX
+GenF0.menu.pnum.GENERIC_F098RCYX.build.product_line=STM32F098xx
+GenF0.menu.pnum.GENERIC_F098RCYX.build.variant=STM32F0xx/F098RC(H-T-Y)
+

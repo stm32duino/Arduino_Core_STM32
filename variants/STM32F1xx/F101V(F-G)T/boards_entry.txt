@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F101VFTx
+GenF1.menu.pnum.GENERIC_F101VFTX=Generic F101VFTx
+GenF1.menu.pnum.GENERIC_F101VFTX.upload.maximum_size=786432
+GenF1.menu.pnum.GENERIC_F101VFTX.upload.maximum_data_size=81920
+GenF1.menu.pnum.GENERIC_F101VFTX.build.board=GENERIC_F101VFTX
+GenF1.menu.pnum.GENERIC_F101VFTX.build.product_line=STM32F101xG
+GenF1.menu.pnum.GENERIC_F101VFTX.build.variant=STM32F1xx/F101V(F-G)T
+
+# Generic F101VGTx
+GenF1.menu.pnum.GENERIC_F101VGTX=Generic F101VGTx
+GenF1.menu.pnum.GENERIC_F101VGTX.upload.maximum_size=1048576
+GenF1.menu.pnum.GENERIC_F101VGTX.upload.maximum_data_size=81920
+GenF1.menu.pnum.GENERIC_F101VGTX.build.board=GENERIC_F101VGTX
+GenF1.menu.pnum.GENERIC_F101VGTX.build.product_line=STM32F101xG
+GenF1.menu.pnum.GENERIC_F101VGTX.build.variant=STM32F1xx/F101V(F-G)T
+

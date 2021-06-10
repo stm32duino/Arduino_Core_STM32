@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L431RBIx
+GenL4.menu.pnum.GENERIC_L431RBIX=Generic L431RBIx
+GenL4.menu.pnum.GENERIC_L431RBIX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L431RBIX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RBIX.build.board=GENERIC_L431RBIX
+GenL4.menu.pnum.GENERIC_L431RBIX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RBIX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+
+# Generic L431RCIx
+GenL4.menu.pnum.GENERIC_L431RCIX=Generic L431RCIx
+GenL4.menu.pnum.GENERIC_L431RCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L431RCIX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RCIX.build.board=GENERIC_L431RCIX
+GenL4.menu.pnum.GENERIC_L431RCIX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RCIX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+
+# Generic L431RBTx
+GenL4.menu.pnum.GENERIC_L431RBTX=Generic L431RBTx
+GenL4.menu.pnum.GENERIC_L431RBTX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L431RBTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RBTX.build.board=GENERIC_L431RBTX
+GenL4.menu.pnum.GENERIC_L431RBTX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RBTX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+
+# Generic L431RCTx
+GenL4.menu.pnum.GENERIC_L431RCTX=Generic L431RCTx
+GenL4.menu.pnum.GENERIC_L431RCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L431RCTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RCTX.build.board=GENERIC_L431RCTX
+GenL4.menu.pnum.GENERIC_L431RCTX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RCTX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+
+# Generic L431RBYx
+GenL4.menu.pnum.GENERIC_L431RBYX=Generic L431RBYx
+GenL4.menu.pnum.GENERIC_L431RBYX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L431RBYX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RBYX.build.board=GENERIC_L431RBYX
+GenL4.menu.pnum.GENERIC_L431RBYX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RBYX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+
+# Generic L431RCYx
+GenL4.menu.pnum.GENERIC_L431RCYX=Generic L431RCYx
+GenL4.menu.pnum.GENERIC_L431RCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L431RCYX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431RCYX.build.board=GENERIC_L431RCYX
+GenL4.menu.pnum.GENERIC_L431RCYX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431RCYX.build.variant=STM32L4xx/L431R(B-C)(I-T-Y)
+

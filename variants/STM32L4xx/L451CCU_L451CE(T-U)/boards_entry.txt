@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L451CCUx
+GenL4.menu.pnum.GENERIC_L451CCUX=Generic L451CCUx
+GenL4.menu.pnum.GENERIC_L451CCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L451CCUX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451CCUX.build.board=GENERIC_L451CCUX
+GenL4.menu.pnum.GENERIC_L451CCUX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451CCUX.build.variant=STM32L4xx/L451CCU_L451CE(T-U)
+
+# Generic L451CEUx
+GenL4.menu.pnum.GENERIC_L451CEUX=Generic L451CEUx
+GenL4.menu.pnum.GENERIC_L451CEUX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L451CEUX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451CEUX.build.board=GENERIC_L451CEUX
+GenL4.menu.pnum.GENERIC_L451CEUX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451CEUX.build.variant=STM32L4xx/L451CCU_L451CE(T-U)
+
+# Generic L451CETx
+GenL4.menu.pnum.GENERIC_L451CETX=Generic L451CETx
+GenL4.menu.pnum.GENERIC_L451CETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L451CETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451CETX.build.board=GENERIC_L451CETX
+GenL4.menu.pnum.GENERIC_L451CETX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451CETX.build.variant=STM32L4xx/L451CCU_L451CE(T-U)
+

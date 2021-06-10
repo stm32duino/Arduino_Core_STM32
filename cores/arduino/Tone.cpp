@@ -95,7 +95,6 @@ static void timerTonePinInit(PinName p, uint32_t frequency, uint32_t duration)
 
       pin_function(TimerTone_pinInfo.pin, STM_PIN_DATA(STM_MODE_OUTPUT_PP, GPIO_NOPULL, 0));
 
-      TimerTone->setMode(1, TIMER_OUTPUT_COMPARE, NC);
       TimerTone->setOverflow(timFreq, HERTZ_FORMAT);
       TimerTone->attachInterrupt(tonePeriodElapsedCallback);
       TimerTone->resume();
@@ -141,8 +140,9 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   UNUSED(duration);
 }
 
-void noTone(uint8_t _pin)
+void noTone(uint8_t _pin, bool destruct)
 {
   UNUSED(_pin);
+  UNUSED(destruct);
 }
 #endif /* HAL_TIM_MODULE_ENABLED && TIMER_TONE && !HAL_TIM_MODULE_ONLY*/

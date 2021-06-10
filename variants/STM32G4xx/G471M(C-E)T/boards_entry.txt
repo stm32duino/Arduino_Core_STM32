@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G471MCTx
+GenG4.menu.pnum.GENERIC_G471MCTX=Generic G471MCTx
+GenG4.menu.pnum.GENERIC_G471MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471MCTX.build.board=GENERIC_G471MCTX
+GenG4.menu.pnum.GENERIC_G471MCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471MCTX.build.variant=STM32G4xx/G471M(C-E)T
+
+# Generic G471METx
+GenG4.menu.pnum.GENERIC_G471METX=Generic G471METx
+GenG4.menu.pnum.GENERIC_G471METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471METX.build.board=GENERIC_G471METX
+GenG4.menu.pnum.GENERIC_G471METX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471METX.build.variant=STM32G4xx/G471M(C-E)T
+

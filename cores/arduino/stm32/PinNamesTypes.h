@@ -1,29 +1,13 @@
-/*  *******************************************************************************
- * Copyright (c) 2016, STMicroelectronics
+/*
+ *******************************************************************************
+ * Copyright (c) 2016-2021, STMicroelectronics
  * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions are met:
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
  *
- * 1. Redistributions of source code must retain the above copyright notice,
- *    this list of conditions and the following disclaimer.
- * 2. Redistributions in binary form must reproduce the above copyright notice,
- *    this list of conditions and the following disclaimer in the documentation
- *    and/or other materials provided with the distribution.
- * 3. Neither the name of STMicroelectronics nor the names of its contributors
- *    may be used to endorse or promote products derived from this software
- *    without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
  */
 #ifndef _PINNAMESTYPES_H
@@ -42,7 +26,8 @@ extern "C" {
  * [19:15]  Channel (Analog/Timer specific)
  *    [20]  Inverted (Analog/Timer specific)
  *    [21]  Analog ADC control - Only valid for specific families
- * [32:22]  Reserved
+ *    [22]  Analog channel bank B - Only valid for specific families
+ * [32:23]  Reserved
  */
 
 #define STM_PIN_FUNCTION_MASK 0x07
@@ -77,16 +62,21 @@ extern "C" {
 #define STM_PIN_AN_CTRL_SHIFT 21
 #define STM_PIN_ANALOG_CONTROL_BIT (STM_PIN_AN_CTRL_MASK << STM_PIN_AN_CTRL_SHIFT)
 
-#define STM_PIN_FUNCTION(X)         (((X) >> STM_PIN_FUNCTION_SHIFT) & STM_PIN_FUNCTION_MASK)
-#define STM_PIN_OD(X)               (((X) >> STM_PIN_OD_SHIFT) & STM_PIN_OD_MASK)
-#define STM_PIN_PUPD(X)             (((X) >> STM_PIN_PUPD_SHIFT) & STM_PIN_PUPD_MASK)
-#define STM_PIN_SPEED(X)            (((X) >> STM_PIN_SPEED_SHIFT) & STM_PIN_SPEED_MASK)
-#define STM_PIN_AFNUM(X)            (((X) >> STM_PIN_AFNUM_SHIFT) & STM_PIN_AFNUM_MASK)
-#define STM_PIN_CHANNEL(X)          (((X) >> STM_PIN_CHAN_SHIFT) & STM_PIN_CHAN_MASK)
-#define STM_PIN_INVERTED(X)         (((X) >> STM_PIN_INV_SHIFT) & STM_PIN_INV_MASK)
-#define STM_PIN_ANALOG_CONTROL(X)   (((X) >> STM_PIN_AN_CTRL_SHIFT) & STM_PIN_AN_CTRL_MASK)
-#define STM_PIN_MODE(X)             ((STM_PIN_OD((X)) << 4) | \
-                                      (STM_PIN_FUNCTION((X)) & (~STM_PIN_OD_BITS)))
+#define STM_PIN_AN_CHAN_BANK_B_MASK 0x01
+#define STM_PIN_AN_CHAN_BANK_B_SHIFT 22
+#define STM_PIN_ANALOG_CHAN_BANK_B_BIT (STM_PIN_AN_CHAN_BANK_B_MASK << STM_PIN_AN_CHAN_BANK_B_SHIFT)
+
+#define STM_PIN_FUNCTION(X)               (((X) >> STM_PIN_FUNCTION_SHIFT) & STM_PIN_FUNCTION_MASK)
+#define STM_PIN_OD(X)                     (((X) >> STM_PIN_OD_SHIFT) & STM_PIN_OD_MASK)
+#define STM_PIN_PUPD(X)                   (((X) >> STM_PIN_PUPD_SHIFT) & STM_PIN_PUPD_MASK)
+#define STM_PIN_SPEED(X)                  (((X) >> STM_PIN_SPEED_SHIFT) & STM_PIN_SPEED_MASK)
+#define STM_PIN_AFNUM(X)                  (((X) >> STM_PIN_AFNUM_SHIFT) & STM_PIN_AFNUM_MASK)
+#define STM_PIN_CHANNEL(X)                (((X) >> STM_PIN_CHAN_SHIFT) & STM_PIN_CHAN_MASK)
+#define STM_PIN_INVERTED(X)               (((X) >> STM_PIN_INV_SHIFT) & STM_PIN_INV_MASK)
+#define STM_PIN_ANALOG_CONTROL(X)         (((X) >> STM_PIN_AN_CTRL_SHIFT) & STM_PIN_AN_CTRL_MASK)
+#define STM_PIN_ANALOG_CHANNEL_BANK_B(X)  (((X) >> STM_PIN_AN_CHAN_BANK_B_SHIFT) & STM_PIN_AN_CHAN_BANK_B_MASK)
+#define STM_PIN_MODE(X)                   ((STM_PIN_OD((X)) << 4) | \
+                                           (STM_PIN_FUNCTION((X)) & (~STM_PIN_OD_BITS)))
 
 #define STM_PIN_DEFINE(FUNC_OD, PUPD, AFNUM)  ((int)(FUNC_OD) |\
                           ((PUPD  & STM_PIN_PUPD_MASK) << STM_PIN_PUPD_SHIFT) |\
@@ -116,13 +106,14 @@ typedef enum {
   STM_PIN_ANALOG = 3,
 } StmPinFunction;
 
-#define STM_MODE_INPUT               (STM_PIN_INPUT)
-#define STM_MODE_OUTPUT_PP           (STM_PIN_OUTPUT)
-#define STM_MODE_OUTPUT_OD           (STM_PIN_OUTPUT | STM_PIN_OD_BITS)
-#define STM_MODE_AF_PP               (STM_PIN_ALTERNATE)
-#define STM_MODE_AF_OD               (STM_PIN_ALTERNATE | STM_PIN_OD_BITS)
-#define STM_MODE_ANALOG              (STM_PIN_ANALOG)
-#define STM_MODE_ANALOG_ADC_CONTROL  (STM_PIN_ANALOG | STM_PIN_ANALOG_CONTROL_BIT)
+#define STM_MODE_INPUT                      (STM_PIN_INPUT)
+#define STM_MODE_OUTPUT_PP                  (STM_PIN_OUTPUT)
+#define STM_MODE_OUTPUT_OD                  (STM_PIN_OUTPUT | STM_PIN_OD_BITS)
+#define STM_MODE_AF_PP                      (STM_PIN_ALTERNATE)
+#define STM_MODE_AF_OD                      (STM_PIN_ALTERNATE | STM_PIN_OD_BITS)
+#define STM_MODE_ANALOG                     (STM_PIN_ANALOG)
+#define STM_MODE_ANALOG_ADC_CONTROL         (STM_PIN_ANALOG | STM_PIN_ANALOG_CONTROL_BIT)
+#define STM_MODE_ANALOG_ADC_CHANNEL_BANK_B  (STM_PIN_ANALOG | STM_PIN_ANALOG_CHAN_BANK_B_BIT)
 
 // High nibble = port number (FirstPort <= PortName <= LastPort)
 // Low nibble  = pin number

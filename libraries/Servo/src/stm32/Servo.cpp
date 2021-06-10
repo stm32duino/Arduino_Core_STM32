@@ -80,7 +80,6 @@ static void TimerServoInit()
   // prescaler is computed so that timer tick correspond to 1 microseconde
   uint32_t prescaler = TimerServo.getTimerClkFreq() / 1000000;
 
-  TimerServo.setMode(1, TIMER_OUTPUT_COMPARE, NC);
   TimerServo.setPrescaleFactor(prescaler);
   TimerServo.setOverflow(REFRESH_INTERVAL); // thanks to prescaler Tick = microsec
   TimerServo.attachInterrupt(Servo_PeriodElapsedCallback);
@@ -112,17 +111,17 @@ Servo::Servo()
   }
 }
 
-uint8_t Servo::attach(int pin)
+uint8_t Servo::attach(int pin, int value)
 {
-  return this->attach(pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH);
+  return this->attach(pin, MIN_PULSE_WIDTH, MAX_PULSE_WIDTH, value);
 }
 
-uint8_t Servo::attach(int pin, int min, int max)
+uint8_t Servo::attach(int pin, int min, int max, int value)
 {
   if (this->servoIndex < MAX_SERVOS) {
     pinMode(pin, OUTPUT);                                   // set servo pin to output
     servos[this->servoIndex].Pin.nbr = pin;
-    servos[this->servoIndex].ticks = DEFAULT_PULSE_WIDTH;
+    write(value);
     // todo min/max check: abs(min - MIN_PULSE_WIDTH) /4 < 128
     this->min  = (MIN_PULSE_WIDTH - min) / 4; //resolution of min/max is 4 uS
     this->max  = (MAX_PULSE_WIDTH - max) / 4;

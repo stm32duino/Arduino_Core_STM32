@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F412ZEJx
+GenF4.menu.pnum.GENERIC_F412ZEJX=Generic F412ZEJx
+GenF4.menu.pnum.GENERIC_F412ZEJX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412ZEJX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412ZEJX.build.board=GENERIC_F412ZEJX
+GenF4.menu.pnum.GENERIC_F412ZEJX.build.product_line=STM32F412Zx
+GenF4.menu.pnum.GENERIC_F412ZEJX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+
+# Generic F412ZGJx
+GenF4.menu.pnum.GENERIC_F412ZGJX=Generic F412ZGJx
+GenF4.menu.pnum.GENERIC_F412ZGJX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412ZGJX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412ZGJX.build.board=GENERIC_F412ZGJX
+GenF4.menu.pnum.GENERIC_F412ZGJX.build.product_line=STM32F412Zx
+GenF4.menu.pnum.GENERIC_F412ZGJX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+
+# Generic F412ZETx
+GenF4.menu.pnum.GENERIC_F412ZETX=Generic F412ZETx
+GenF4.menu.pnum.GENERIC_F412ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F412ZETX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412ZETX.build.board=GENERIC_F412ZETX
+GenF4.menu.pnum.GENERIC_F412ZETX.build.product_line=STM32F412Zx
+GenF4.menu.pnum.GENERIC_F412ZETX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+
+# Generic F412ZGTx
+GenF4.menu.pnum.GENERIC_F412ZGTX=Generic F412ZGTx
+GenF4.menu.pnum.GENERIC_F412ZGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F412ZGTX.upload.maximum_data_size=262144
+GenF4.menu.pnum.GENERIC_F412ZGTX.build.board=GENERIC_F412ZGTX
+GenF4.menu.pnum.GENERIC_F412ZGTX.build.product_line=STM32F412Zx
+GenF4.menu.pnum.GENERIC_F412ZGTX.build.variant=STM32F4xx/F412Z(E-G)(J-T)
+

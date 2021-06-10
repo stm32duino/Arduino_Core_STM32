@@ -83,7 +83,7 @@ static int8_t TEMPLATE_CUSTOM_HID_OutEvent(uint8_t event_idx, uint8_t state)
   UNUSED(event_idx);
   UNUSED(state);
 
-    /* Start next USB packet transfer once data processing is completed */
+  /* Start next USB packet transfer once data processing is completed */
   USBD_CUSTOM_HID_ReceivePacket(&USBD_Device);
 
   return (0);

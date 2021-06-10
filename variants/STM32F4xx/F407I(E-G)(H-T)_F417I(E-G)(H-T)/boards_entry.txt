@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F407IEHx
+GenF4.menu.pnum.GENERIC_F407IEHX=Generic F407IEHx
+GenF4.menu.pnum.GENERIC_F407IEHX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F407IEHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407IEHX.build.board=GENERIC_F407IEHX
+GenF4.menu.pnum.GENERIC_F407IEHX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407IEHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F407IGHx
+GenF4.menu.pnum.GENERIC_F407IGHX=Generic F407IGHx
+GenF4.menu.pnum.GENERIC_F407IGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F407IGHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407IGHX.build.board=GENERIC_F407IGHX
+GenF4.menu.pnum.GENERIC_F407IGHX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407IGHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F407IETx
+GenF4.menu.pnum.GENERIC_F407IETX=Generic F407IETx
+GenF4.menu.pnum.GENERIC_F407IETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F407IETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407IETX.build.board=GENERIC_F407IETX
+GenF4.menu.pnum.GENERIC_F407IETX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407IETX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F407IGTx
+GenF4.menu.pnum.GENERIC_F407IGTX=Generic F407IGTx
+GenF4.menu.pnum.GENERIC_F407IGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F407IGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F407IGTX.build.board=GENERIC_F407IGTX
+GenF4.menu.pnum.GENERIC_F407IGTX.build.product_line=STM32F407xx
+GenF4.menu.pnum.GENERIC_F407IGTX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F417IEHx
+GenF4.menu.pnum.GENERIC_F417IEHX=Generic F417IEHx
+GenF4.menu.pnum.GENERIC_F417IEHX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F417IEHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417IEHX.build.board=GENERIC_F417IEHX
+GenF4.menu.pnum.GENERIC_F417IEHX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417IEHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F417IGHx
+GenF4.menu.pnum.GENERIC_F417IGHX=Generic F417IGHx
+GenF4.menu.pnum.GENERIC_F417IGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F417IGHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417IGHX.build.board=GENERIC_F417IGHX
+GenF4.menu.pnum.GENERIC_F417IGHX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417IGHX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F417IETx
+GenF4.menu.pnum.GENERIC_F417IETX=Generic F417IETx
+GenF4.menu.pnum.GENERIC_F417IETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F417IETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417IETX.build.board=GENERIC_F417IETX
+GenF4.menu.pnum.GENERIC_F417IETX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417IETX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+
+# Generic F417IGTx
+GenF4.menu.pnum.GENERIC_F417IGTX=Generic F417IGTx
+GenF4.menu.pnum.GENERIC_F417IGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F417IGTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F417IGTX.build.board=GENERIC_F417IGTX
+GenF4.menu.pnum.GENERIC_F417IGTX.build.product_line=STM32F417xx
+GenF4.menu.pnum.GENERIC_F417IGTX.build.variant=STM32F4xx/F407I(E-G)(H-T)_F417I(E-G)(H-T)
+

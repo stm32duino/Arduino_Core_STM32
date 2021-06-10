@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L031G6UxS
+GenL0.menu.pnum.GENERIC_L031G6UXS=Generic L031G6UxS
+GenL0.menu.pnum.GENERIC_L031G6UXS.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L031G6UXS.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031G6UXS.build.board=GENERIC_L031G6UXS
+GenL0.menu.pnum.GENERIC_L031G6UXS.build.product_line=STM32L041xx
+GenL0.menu.pnum.GENERIC_L031G6UXS.build.variant=STM32L0xx/L031G6UxS_L041G6UxS
+
+# Generic L041G6UxS
+GenL0.menu.pnum.GENERIC_L041G6UXS=Generic L041G6UxS
+GenL0.menu.pnum.GENERIC_L041G6UXS.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L041G6UXS.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L041G6UXS.build.board=GENERIC_L041G6UXS
+GenL0.menu.pnum.GENERIC_L041G6UXS.build.product_line=STM32L051xx
+GenL0.menu.pnum.GENERIC_L041G6UXS.build.variant=STM32L0xx/L031G6UxS_L041G6UxS
+

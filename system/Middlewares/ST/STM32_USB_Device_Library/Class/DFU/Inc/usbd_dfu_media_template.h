@@ -92,6 +92,6 @@ extern USBD_DFU_MediaTypeDef  USBD_DFU_MEDIA_Template_fops;
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

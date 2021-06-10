@@ -70,6 +70,26 @@ extern "C" {
 #endif
 #define E2END (EEPROM_RETRAM_MODE_SIZE - 1)
 #else
+#ifndef FLASH_FLAG_ALL_ERRORS
+#if defined(STM32F0xx) || defined(STM32F3xx)
+#define FLASH_FLAG_ALL_ERRORS     (FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR)
+#elif defined(STM32F1xx)
+#define FLASH_FLAG_ALL_ERRORS     (FLASH_FLAG_WRPERR | FLASH_FLAG_PGERR | FLASH_FLAG_OPTVERR)
+#elif defined (STM32G0xx)
+#if defined(FLASH_PCROP_SUPPORT)
+#define FLASH_FLAG_ALL_ERRORS     (FLASH_FLAG_OPERR   | FLASH_FLAG_PROGERR | FLASH_FLAG_WRPERR | \
+                                   FLASH_FLAG_PGAERR  | FLASH_FLAG_SIZERR  | FLASH_FLAG_PGSERR | \
+                                   FLASH_FLAG_MISERR  | FLASH_FLAG_FASTERR | FLASH_FLAG_RDERR  | \
+                                   FLASH_FLAG_OPTVERR | FLASH_FLAG_ECCC    | FLASH_FLAG_ECCD)
+#else
+#define FLASH_FLAG_ALL_ERRORS     (FLASH_FLAG_OPERR   | FLASH_FLAG_PROGERR | FLASH_FLAG_WRPERR | \
+                                   FLASH_FLAG_PGAERR  | FLASH_FLAG_SIZERR  | FLASH_FLAG_PGSERR | \
+                                   FLASH_FLAG_MISERR  | FLASH_FLAG_FASTERR | \
+                                   FLASH_FLAG_OPTVERR | FLASH_FLAG_ECCC    | FLASH_FLAG_ECCD)
+#endif /* FLASH_PCROP_SUPPORT */
+#endif
+#endif
+
 #ifndef FLASH_PAGE_SIZE
 /*
  * FLASH_PAGE_SIZE is not defined for STM32F2xx, STM32F4xx and STM32F7xx

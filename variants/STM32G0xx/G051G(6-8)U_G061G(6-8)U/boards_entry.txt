@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G051G6Ux
+GenG0.menu.pnum.GENERIC_G051G6UX=Generic G051G6Ux
+GenG0.menu.pnum.GENERIC_G051G6UX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G051G6UX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G051G6UX.build.board=GENERIC_G051G6UX
+GenG0.menu.pnum.GENERIC_G051G6UX.build.product_line=STM32G051xx
+GenG0.menu.pnum.GENERIC_G051G6UX.build.variant=STM32G0xx/G051G(6-8)U_G061G(6-8)U
+
+# Generic G051G8Ux
+GenG0.menu.pnum.GENERIC_G051G8UX=Generic G051G8Ux
+GenG0.menu.pnum.GENERIC_G051G8UX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G051G8UX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G051G8UX.build.board=GENERIC_G051G8UX
+GenG0.menu.pnum.GENERIC_G051G8UX.build.product_line=STM32G051xx
+GenG0.menu.pnum.GENERIC_G051G8UX.build.variant=STM32G0xx/G051G(6-8)U_G061G(6-8)U
+
+# Generic G061G6Ux
+GenG0.menu.pnum.GENERIC_G061G6UX=Generic G061G6Ux
+GenG0.menu.pnum.GENERIC_G061G6UX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G061G6UX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G061G6UX.build.board=GENERIC_G061G6UX
+GenG0.menu.pnum.GENERIC_G061G6UX.build.product_line=STM32G061xx
+GenG0.menu.pnum.GENERIC_G061G6UX.build.variant=STM32G0xx/G051G(6-8)U_G061G(6-8)U
+
+# Generic G061G8Ux
+GenG0.menu.pnum.GENERIC_G061G8UX=Generic G061G8Ux
+GenG0.menu.pnum.GENERIC_G061G8UX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G061G8UX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G061G8UX.build.board=GENERIC_G061G8UX
+GenG0.menu.pnum.GENERIC_G061G8UX.build.product_line=STM32G061xx
+GenG0.menu.pnum.GENERIC_G061G8UX.build.variant=STM32G0xx/G051G(6-8)U_G061G(6-8)U
+

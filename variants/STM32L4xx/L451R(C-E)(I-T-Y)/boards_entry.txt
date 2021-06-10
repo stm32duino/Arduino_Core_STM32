@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L451RCIx
+GenL4.menu.pnum.GENERIC_L451RCIX=Generic L451RCIx
+GenL4.menu.pnum.GENERIC_L451RCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L451RCIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451RCIX.build.board=GENERIC_L451RCIX
+GenL4.menu.pnum.GENERIC_L451RCIX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451RCIX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+
+# Generic L451REIx
+GenL4.menu.pnum.GENERIC_L451REIX=Generic L451REIx
+GenL4.menu.pnum.GENERIC_L451REIX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L451REIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451REIX.build.board=GENERIC_L451REIX
+GenL4.menu.pnum.GENERIC_L451REIX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451REIX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+
+# Generic L451RCTx
+GenL4.menu.pnum.GENERIC_L451RCTX=Generic L451RCTx
+GenL4.menu.pnum.GENERIC_L451RCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L451RCTX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451RCTX.build.board=GENERIC_L451RCTX
+GenL4.menu.pnum.GENERIC_L451RCTX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451RCTX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+
+# Generic L451RETx
+GenL4.menu.pnum.GENERIC_L451RETX=Generic L451RETx
+GenL4.menu.pnum.GENERIC_L451RETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L451RETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451RETX.build.board=GENERIC_L451RETX
+GenL4.menu.pnum.GENERIC_L451RETX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451RETX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+
+# Generic L451RCYx
+GenL4.menu.pnum.GENERIC_L451RCYX=Generic L451RCYx
+GenL4.menu.pnum.GENERIC_L451RCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L451RCYX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451RCYX.build.board=GENERIC_L451RCYX
+GenL4.menu.pnum.GENERIC_L451RCYX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451RCYX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+
+# Generic L451REYx
+GenL4.menu.pnum.GENERIC_L451REYX=Generic L451REYx
+GenL4.menu.pnum.GENERIC_L451REYX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L451REYX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L451REYX.build.board=GENERIC_L451REYX
+GenL4.menu.pnum.GENERIC_L451REYX.build.product_line=STM32L451xx
+GenL4.menu.pnum.GENERIC_L451REYX.build.variant=STM32L4xx/L451R(C-E)(I-T-Y)
+

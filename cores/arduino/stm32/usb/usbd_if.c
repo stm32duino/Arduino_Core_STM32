@@ -9,6 +9,7 @@
 
 #include "usbd_if.h"
 #include "usbd_cdc_if.h"
+#include "stm32yyxx_ll_system.h"
 
 #if !defined(USBD_REENUM_DISABLED)
 
@@ -73,7 +74,7 @@
 #endif /* (defined(USBD_DETACH_PIN) || defined(USBD_ATTACH_PIN)) && defined(USBD_FIXED_PULLUP) */
 
 /* Either of these bits indicate that there are internal pullups */
-#if defined(USB_BCDR_DPPU) || defined(USB_OTG_DCTL_SDIS)
+#if defined(USB_BCDR_DPPU) || defined(USB_OTG_DCTL_SDIS) || defined(SYSCFG_PMC_USB_PU)
   #define USBD_HAVE_INTERNAL_PULLUPS
 #endif /* defined(USB_BCDR_DPPU) || defined(USB_OTG_DCTL_SDIS) */
 
@@ -144,9 +145,21 @@ WEAK void USBD_reenumerate(void)
   digitalWriteFast(USBD_PULLUP_CONTROL_PINNAME, USBD_ATTACH_LEVEL);
 #endif /* defined(USBD_PULLUP_CONTROL_FLOATING) */
 #elif defined(USBD_HAVE_INTERNAL_PULLUPS)
+#if defined(SYSCFG_PMC_USB_PU)
+  /**
+   * STM32L1xx USB_DevDisconnect() and USB_DevConnect()
+   * do not manage the internal pull-up, so manage
+   * internal pull-up manually.
+   */
+  LL_SYSCFG_DisableUSBPullUp();
+  delay(USBD_ENUM_DELAY);
+  LL_SYSCFG_EnableUSBPullUp();
+
+#else
   USB_DevDisconnect(USBD_USB_INSTANCE);
   delay(USBD_ENUM_DELAY);
   USB_DevConnect(USBD_USB_INSTANCE);
+#endif
 #else
 #warning "No USB attach/detach method, USB might not be reliable through system resets"
 #endif
@@ -162,4 +175,19 @@ void USBD_CDC_init(void)
   CDC_init();
 }
 #endif /* USBD_USE_CDC */
+
+/**
+  * @brief  Configures system clock and system IP clocks after wake-up from USB
+  *         resume callBack
+  * @note   Weaked function which can be redefined by user at the sketch level.
+  *         By default, calls 'SystemClock_Config()'.
+  * @param  None
+  * @retval None
+  */
+WEAK void USBD_SystemClockConfigFromResume(void)
+{
+  configIPClock();
+  SystemClock_Config();
+}
+
 #endif /* USBCON */

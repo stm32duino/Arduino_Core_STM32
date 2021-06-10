@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F410R8Ix
+GenF4.menu.pnum.GENERIC_F410R8IX=Generic F410R8Ix
+GenF4.menu.pnum.GENERIC_F410R8IX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410R8IX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410R8IX.build.board=GENERIC_F410R8IX
+GenF4.menu.pnum.GENERIC_F410R8IX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410R8IX.build.variant=STM32F4xx/F410R(8-B)(I-T)
+
+# Generic F410RBIx
+GenF4.menu.pnum.GENERIC_F410RBIX=Generic F410RBIx
+GenF4.menu.pnum.GENERIC_F410RBIX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410RBIX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410RBIX.build.board=GENERIC_F410RBIX
+GenF4.menu.pnum.GENERIC_F410RBIX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410RBIX.build.variant=STM32F4xx/F410R(8-B)(I-T)
+
+# Generic F410R8Tx
+GenF4.menu.pnum.GENERIC_F410R8TX=Generic F410R8Tx
+GenF4.menu.pnum.GENERIC_F410R8TX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410R8TX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410R8TX.build.board=GENERIC_F410R8TX
+GenF4.menu.pnum.GENERIC_F410R8TX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410R8TX.build.variant=STM32F4xx/F410R(8-B)(I-T)
+
+# Generic F410RBTx
+GenF4.menu.pnum.GENERIC_F410RBTX=Generic F410RBTx
+GenF4.menu.pnum.GENERIC_F410RBTX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410RBTX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410RBTX.build.board=GENERIC_F410RBTX
+GenF4.menu.pnum.GENERIC_F410RBTX.build.product_line=STM32F410Rx
+GenF4.menu.pnum.GENERIC_F410RBTX.build.variant=STM32F4xx/F410R(8-B)(I-T)
+

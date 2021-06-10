@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F102C8Tx
+GenF1.menu.pnum.GENERIC_F102C8TX=Generic F102C8Tx
+GenF1.menu.pnum.GENERIC_F102C8TX.upload.maximum_size=65536
+GenF1.menu.pnum.GENERIC_F102C8TX.upload.maximum_data_size=10240
+GenF1.menu.pnum.GENERIC_F102C8TX.build.board=GENERIC_F102C8TX
+GenF1.menu.pnum.GENERIC_F102C8TX.build.product_line=STM32F102xB
+GenF1.menu.pnum.GENERIC_F102C8TX.build.variant=STM32F1xx/F102C(8-B)T
+
+# Generic F102CBTx
+GenF1.menu.pnum.GENERIC_F102CBTX=Generic F102CBTx
+GenF1.menu.pnum.GENERIC_F102CBTX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F102CBTX.upload.maximum_data_size=16384
+GenF1.menu.pnum.GENERIC_F102CBTX.build.board=GENERIC_F102CBTX
+GenF1.menu.pnum.GENERIC_F102CBTX.build.product_line=STM32F102xB
+GenF1.menu.pnum.GENERIC_F102CBTX.build.variant=STM32F1xx/F102C(8-B)T
+

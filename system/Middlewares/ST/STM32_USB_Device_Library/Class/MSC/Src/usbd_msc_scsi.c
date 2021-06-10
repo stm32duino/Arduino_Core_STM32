@@ -111,85 +111,90 @@ static int8_t SCSI_UpdateBotData(USBD_MSC_BOT_HandleTypeDef *hmsc,
 
 
 /**
-* @brief  SCSI_ProcessCmd
-*         Process SCSI commands
-* @param  pdev: device instance
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ProcessCmd
+  *         Process SCSI commands
+  * @param  pdev: device instance
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 {
   int8_t ret;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
 
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
+
   switch (cmd[0])
   {
-  case SCSI_TEST_UNIT_READY:
-    ret = SCSI_TestUnitReady(pdev, lun, cmd);
-    break;
+    case SCSI_TEST_UNIT_READY:
+      ret = SCSI_TestUnitReady(pdev, lun, cmd);
+      break;
 
-  case SCSI_REQUEST_SENSE:
-    ret = SCSI_RequestSense(pdev, lun, cmd);
-    break;
+    case SCSI_REQUEST_SENSE:
+      ret = SCSI_RequestSense(pdev, lun, cmd);
+      break;
 
-  case SCSI_INQUIRY:
-    ret = SCSI_Inquiry(pdev, lun, cmd);
-    break;
+    case SCSI_INQUIRY:
+      ret = SCSI_Inquiry(pdev, lun, cmd);
+      break;
 
-  case SCSI_START_STOP_UNIT:
-    ret = SCSI_StartStopUnit(pdev, lun, cmd);
-    break;
+    case SCSI_START_STOP_UNIT:
+      ret = SCSI_StartStopUnit(pdev, lun, cmd);
+      break;
 
-  case SCSI_ALLOW_MEDIUM_REMOVAL:
-    ret = SCSI_AllowPreventRemovable(pdev, lun, cmd);
-    break;
+    case SCSI_ALLOW_MEDIUM_REMOVAL:
+      ret = SCSI_AllowPreventRemovable(pdev, lun, cmd);
+      break;
 
-  case SCSI_MODE_SENSE6:
-    ret = SCSI_ModeSense6(pdev, lun, cmd);
-    break;
+    case SCSI_MODE_SENSE6:
+      ret = SCSI_ModeSense6(pdev, lun, cmd);
+      break;
 
-  case SCSI_MODE_SENSE10:
-    ret = SCSI_ModeSense10(pdev, lun, cmd);
-    break;
+    case SCSI_MODE_SENSE10:
+      ret = SCSI_ModeSense10(pdev, lun, cmd);
+      break;
 
-  case SCSI_READ_FORMAT_CAPACITIES:
-    ret = SCSI_ReadFormatCapacity(pdev, lun, cmd);
-    break;
+    case SCSI_READ_FORMAT_CAPACITIES:
+      ret = SCSI_ReadFormatCapacity(pdev, lun, cmd);
+      break;
 
-  case SCSI_READ_CAPACITY10:
-    ret = SCSI_ReadCapacity10(pdev, lun, cmd);
-    break;
+    case SCSI_READ_CAPACITY10:
+      ret = SCSI_ReadCapacity10(pdev, lun, cmd);
+      break;
 
-  case SCSI_READ_CAPACITY16:
-    ret = SCSI_ReadCapacity16(pdev, lun, cmd);
-    break;
+    case SCSI_READ_CAPACITY16:
+      ret = SCSI_ReadCapacity16(pdev, lun, cmd);
+      break;
 
-  case SCSI_READ10:
-    ret = SCSI_Read10(pdev, lun, cmd);
-    break;
+    case SCSI_READ10:
+      ret = SCSI_Read10(pdev, lun, cmd);
+      break;
 
-  case SCSI_READ12:
-    ret = SCSI_Read12(pdev, lun, cmd);
-    break;
+    case SCSI_READ12:
+      ret = SCSI_Read12(pdev, lun, cmd);
+      break;
 
-  case SCSI_WRITE10:
-    ret = SCSI_Write10(pdev, lun, cmd);
-    break;
+    case SCSI_WRITE10:
+      ret = SCSI_Write10(pdev, lun, cmd);
+      break;
 
-  case SCSI_WRITE12:
-    ret = SCSI_Write12(pdev, lun, cmd);
-    break;
+    case SCSI_WRITE12:
+      ret = SCSI_Write12(pdev, lun, cmd);
+      break;
 
-  case SCSI_VERIFY10:
-    ret = SCSI_Verify10(pdev, lun, cmd);
-    break;
+    case SCSI_VERIFY10:
+      ret = SCSI_Verify10(pdev, lun, cmd);
+      break;
 
-  default:
-    SCSI_SenseCode(pdev, lun, ILLEGAL_REQUEST, INVALID_CDB);
-    hmsc->bot_status = USBD_BOT_STATUS_ERROR;
-    ret = -1;
-    break;
+    default:
+      SCSI_SenseCode(pdev, lun, ILLEGAL_REQUEST, INVALID_CDB);
+      hmsc->bot_status = USBD_BOT_STATUS_ERROR;
+      ret = -1;
+      break;
   }
 
   return ret;
@@ -197,16 +202,21 @@ int8_t SCSI_ProcessCmd(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *cmd)
 
 
 /**
-* @brief  SCSI_TestUnitReady
-*         Process SCSI Test Unit Ready Command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_TestUnitReady
+  *         Process SCSI Test Unit Ready Command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_TestUnitReady(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(params);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   /* case 9 : Hi > D0 */
   if (hmsc->cbw.dDataLength != 0U)
@@ -237,17 +247,22 @@ static int8_t SCSI_TestUnitReady(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t 
 
 
 /**
-* @brief  SCSI_Inquiry
-*         Process Inquiry command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Inquiry
+  *         Process Inquiry command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   uint8_t *pPage;
   uint16_t len;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->cbw.dDataLength == 0U)
   {
@@ -275,7 +290,7 @@ static int8_t SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
   }
   else
   {
-    pPage = (uint8_t *)&((USBD_StorageTypeDef *)pdev->pUserData)->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
+    pPage = (uint8_t *) &((USBD_StorageTypeDef *)pdev->pUserData)->pInquiry[lun * STANDARD_INQUIRY_DATA_LEN];
     len = (uint16_t)pPage[4] + 5U;
 
     if (params[4] <= len)
@@ -291,17 +306,22 @@ static int8_t SCSI_Inquiry(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
 
 
 /**
-* @brief  SCSI_ReadCapacity10
-*         Process Read Capacity 10 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ReadCapacity10
+  *         Process Read Capacity 10 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_ReadCapacity10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(params);
   int8_t ret;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   ret = ((USBD_StorageTypeDef *)pdev->pUserData)->GetCapacity(lun, &hmsc->scsi_blk_nbr, &hmsc->scsi_blk_size);
 
@@ -329,18 +349,23 @@ static int8_t SCSI_ReadCapacity10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t
 
 
 /**
-* @brief  SCSI_ReadCapacity16
-*         Process Read Capacity 16 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ReadCapacity16
+  *         Process Read Capacity 16 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_ReadCapacity16(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(params);
   uint8_t idx;
   int8_t ret;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   ret = ((USBD_StorageTypeDef *)pdev->pUserData)->GetCapacity(lun, &hmsc->scsi_blk_nbr, &hmsc->scsi_blk_size);
 
@@ -353,7 +378,7 @@ static int8_t SCSI_ReadCapacity16(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t
   hmsc->bot_data_length = ((uint32_t)params[10] << 24) |
                           ((uint32_t)params[11] << 16) |
                           ((uint32_t)params[12] <<  8) |
-                           (uint32_t)params[13];
+                          (uint32_t)params[13];
 
   for (idx = 0U; idx < hmsc->bot_data_length; idx++)
   {
@@ -373,19 +398,19 @@ static int8_t SCSI_ReadCapacity16(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t
   hmsc->bot_data_length = ((uint32_t)params[10] << 24) |
                           ((uint32_t)params[11] << 16) |
                           ((uint32_t)params[12] <<  8) |
-                           (uint32_t)params[13];
+                          (uint32_t)params[13];
 
   return 0;
 }
 
 
 /**
-* @brief  SCSI_ReadFormatCapacity
-*         Process Read Format Capacity command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ReadFormatCapacity
+  *         Process Read Format Capacity command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_ReadFormatCapacity(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(params);
@@ -394,6 +419,11 @@ static int8_t SCSI_ReadFormatCapacity(USBD_HandleTypeDef *pdev, uint8_t lun, uin
   uint16_t i;
   int8_t ret;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   ret = ((USBD_StorageTypeDef *)pdev->pUserData)->GetCapacity(lun, &blk_nbr, &blk_size);
 
@@ -426,17 +456,22 @@ static int8_t SCSI_ReadFormatCapacity(USBD_HandleTypeDef *pdev, uint8_t lun, uin
 
 
 /**
-* @brief  SCSI_ModeSense6
-*         Process Mode Sense6 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ModeSense6
+  *         Process Mode Sense6 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_ModeSense6(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(lun);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint16_t len = MODE_SENSE6_LEN;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (params[4] <= len)
   {
@@ -450,17 +485,22 @@ static int8_t SCSI_ModeSense6(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *pa
 
 
 /**
-* @brief  SCSI_ModeSense10
-*         Process Mode Sense10 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_ModeSense10
+  *         Process Mode Sense10 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_ModeSense10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(lun);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint16_t len = MODE_SENSE10_LEN;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (params[8] <= len)
   {
@@ -474,17 +514,22 @@ static int8_t SCSI_ModeSense10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *p
 
 
 /**
-* @brief  SCSI_RequestSense
-*         Process Request Sense command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_RequestSense
+  *         Process Request Sense command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_RequestSense(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(lun);
   uint8_t i;
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->cbw.dDataLength == 0U)
   {
@@ -525,18 +570,23 @@ static int8_t SCSI_RequestSense(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *
 
 
 /**
-* @brief  SCSI_SenseCode
-*         Load the last error code in the error list
-* @param  lun: Logical unit number
-* @param  sKey: Sense Key
-* @param  ASC: Additional Sense Code
-* @retval none
+  * @brief  SCSI_SenseCode
+  *         Load the last error code in the error list
+  * @param  lun: Logical unit number
+  * @param  sKey: Sense Key
+  * @param  ASC: Additional Sense Code
+  * @retval none
 
-*/
+  */
 void SCSI_SenseCode(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t sKey, uint8_t ASC)
 {
   UNUSED(lun);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return;
+  }
 
   hmsc->scsi_sense[hmsc->scsi_sense_tail].Skey = sKey;
   hmsc->scsi_sense[hmsc->scsi_sense_tail].w.b.ASC = ASC;
@@ -551,16 +601,21 @@ void SCSI_SenseCode(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t sKey, uint8_t
 
 
 /**
-* @brief  SCSI_StartStopUnit
-*         Process Start Stop Unit command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_StartStopUnit
+  *         Process Start Stop Unit command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_StartStopUnit(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(lun);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if ((hmsc->scsi_medium_state == SCSI_MEDIUM_LOCKED) && ((params[4] & 0x3U) == 2U))
   {
@@ -592,16 +647,21 @@ static int8_t SCSI_StartStopUnit(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t 
 
 
 /**
-* @brief  SCSI_AllowPreventRemovable
-*         Process Allow Prevent Removable medium command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_AllowPreventRemovable
+  *         Process Allow Prevent Removable medium command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_AllowPreventRemovable(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   UNUSED(lun);
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (params[4] == 0U)
   {
@@ -619,15 +679,20 @@ static int8_t SCSI_AllowPreventRemovable(USBD_HandleTypeDef *pdev, uint8_t lun, 
 
 
 /**
-* @brief  SCSI_Read10
-*         Process Read10 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Read10
+  *         Process Read10 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->bot_state == USBD_BOT_IDLE) /* Idle */
   {
@@ -680,15 +745,20 @@ static int8_t SCSI_Read10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 
 
 /**
-* @brief  SCSI_Read12
-*         Process Read12 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Read12
+  *         Process Read12 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Read12(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->bot_state == USBD_BOT_IDLE) /* Idle */
   {
@@ -743,16 +813,21 @@ static int8_t SCSI_Read12(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params
 
 
 /**
-* @brief  SCSI_Write10
-*         Process Write10 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Write10
+  *         Process Write10 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Write10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint32_t len;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->bot_state == USBD_BOT_IDLE) /* Idle */
   {
@@ -823,16 +898,21 @@ static int8_t SCSI_Write10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
 
 
 /**
-* @brief  SCSI_Write12
-*         Process Write12 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Write12
+  *         Process Write12 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Write12(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint32_t len;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if (hmsc->bot_state == USBD_BOT_IDLE) /* Idle */
   {
@@ -907,15 +987,20 @@ static int8_t SCSI_Write12(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *param
 
 
 /**
-* @brief  SCSI_Verify10
-*         Process Verify10 command
-* @param  lun: Logical unit number
-* @param  params: Command parameters
-* @retval status
-*/
+  * @brief  SCSI_Verify10
+  *         Process Verify10 command
+  * @param  lun: Logical unit number
+  * @param  params: Command parameters
+  * @retval status
+  */
 static int8_t SCSI_Verify10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *params)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if ((params[1] & 0x02U) == 0x02U)
   {
@@ -934,17 +1019,22 @@ static int8_t SCSI_Verify10(USBD_HandleTypeDef *pdev, uint8_t lun, uint8_t *para
 }
 
 /**
-* @brief  SCSI_CheckAddressRange
-*         Check address range
-* @param  lun: Logical unit number
-* @param  blk_offset: first block address
-* @param  blk_nbr: number of block to be processed
-* @retval status
-*/
+  * @brief  SCSI_CheckAddressRange
+  *         Check address range
+  * @param  lun: Logical unit number
+  * @param  blk_offset: first block address
+  * @param  blk_nbr: number of block to be processed
+  * @retval status
+  */
 static int8_t SCSI_CheckAddressRange(USBD_HandleTypeDef *pdev, uint8_t lun,
                                      uint32_t blk_offset, uint32_t blk_nbr)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   if ((blk_offset + blk_nbr) > hmsc->scsi_blk_nbr)
   {
@@ -956,15 +1046,20 @@ static int8_t SCSI_CheckAddressRange(USBD_HandleTypeDef *pdev, uint8_t lun,
 }
 
 /**
-* @brief  SCSI_ProcessRead
-*         Handle Read Process
-* @param  lun: Logical unit number
-* @retval status
-*/
+  * @brief  SCSI_ProcessRead
+  *         Handle Read Process
+  * @param  lun: Logical unit number
+  * @retval status
+  */
 static int8_t SCSI_ProcessRead(USBD_HandleTypeDef *pdev, uint8_t lun)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint32_t len = hmsc->scsi_blk_len * hmsc->scsi_blk_size;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   len = MIN(len, MSC_MEDIA_PACKET);
 
@@ -993,15 +1088,20 @@ static int8_t SCSI_ProcessRead(USBD_HandleTypeDef *pdev, uint8_t lun)
 }
 
 /**
-* @brief  SCSI_ProcessWrite
-*         Handle Write Process
-* @param  lun: Logical unit number
-* @retval status
-*/
+  * @brief  SCSI_ProcessWrite
+  *         Handle Write Process
+  * @param  lun: Logical unit number
+  * @retval status
+  */
 static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun)
 {
   USBD_MSC_BOT_HandleTypeDef *hmsc = (USBD_MSC_BOT_HandleTypeDef *)pdev->pClassData;
   uint32_t len = hmsc->scsi_blk_len * hmsc->scsi_blk_size;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   len = MIN(len, MSC_MEDIA_PACKET);
 
@@ -1036,17 +1136,22 @@ static int8_t SCSI_ProcessWrite(USBD_HandleTypeDef *pdev, uint8_t lun)
 
 
 /**
-* @brief  SCSI_UpdateBotData
-*         fill the requested Data to transmit buffer
-* @param  hmsc handler
-* @param  params: Data buffer
-* @param  length: Data length
-* @retval status
-*/
+  * @brief  SCSI_UpdateBotData
+  *         fill the requested Data to transmit buffer
+  * @param  hmsc handler
+  * @param  pBuff: Data buffer
+  * @param  length: Data length
+  * @retval status
+  */
 static int8_t SCSI_UpdateBotData(USBD_MSC_BOT_HandleTypeDef *hmsc,
                                  uint8_t *pBuff, uint16_t length)
 {
   uint16_t len = length;
+
+  if (hmsc == NULL)
+  {
+    return -1;
+  }
 
   hmsc->bot_data_length = len;
 

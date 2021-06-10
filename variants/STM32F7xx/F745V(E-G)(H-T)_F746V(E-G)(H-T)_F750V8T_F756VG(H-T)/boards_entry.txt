@@ -1,0 +1,93 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F745VEHx
+GenF7.menu.pnum.GENERIC_F745VEHX=Generic F745VEHx
+GenF7.menu.pnum.GENERIC_F745VEHX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F745VEHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745VEHX.build.board=GENERIC_F745VEHX
+GenF7.menu.pnum.GENERIC_F745VEHX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745VEHX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F745VGHx
+GenF7.menu.pnum.GENERIC_F745VGHX=Generic F745VGHx
+GenF7.menu.pnum.GENERIC_F745VGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F745VGHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745VGHX.build.board=GENERIC_F745VGHX
+GenF7.menu.pnum.GENERIC_F745VGHX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745VGHX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F745VETx
+GenF7.menu.pnum.GENERIC_F745VETX=Generic F745VETx
+GenF7.menu.pnum.GENERIC_F745VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F745VETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745VETX.build.board=GENERIC_F745VETX
+GenF7.menu.pnum.GENERIC_F745VETX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745VETX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F745VGTx
+GenF7.menu.pnum.GENERIC_F745VGTX=Generic F745VGTx
+GenF7.menu.pnum.GENERIC_F745VGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F745VGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745VGTX.build.board=GENERIC_F745VGTX
+GenF7.menu.pnum.GENERIC_F745VGTX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745VGTX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F746VEHx
+GenF7.menu.pnum.GENERIC_F746VEHX=Generic F746VEHx
+GenF7.menu.pnum.GENERIC_F746VEHX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746VEHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746VEHX.build.board=GENERIC_F746VEHX
+GenF7.menu.pnum.GENERIC_F746VEHX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746VEHX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F746VGHx
+GenF7.menu.pnum.GENERIC_F746VGHX=Generic F746VGHx
+GenF7.menu.pnum.GENERIC_F746VGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746VGHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746VGHX.build.board=GENERIC_F746VGHX
+GenF7.menu.pnum.GENERIC_F746VGHX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746VGHX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F746VETx
+GenF7.menu.pnum.GENERIC_F746VETX=Generic F746VETx
+GenF7.menu.pnum.GENERIC_F746VETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746VETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746VETX.build.board=GENERIC_F746VETX
+GenF7.menu.pnum.GENERIC_F746VETX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746VETX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F746VGTx
+GenF7.menu.pnum.GENERIC_F746VGTX=Generic F746VGTx
+GenF7.menu.pnum.GENERIC_F746VGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746VGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746VGTX.build.board=GENERIC_F746VGTX
+GenF7.menu.pnum.GENERIC_F746VGTX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746VGTX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F750V8Tx
+GenF7.menu.pnum.GENERIC_F750V8TX=Generic F750V8Tx
+GenF7.menu.pnum.GENERIC_F750V8TX.upload.maximum_size=65536
+GenF7.menu.pnum.GENERIC_F750V8TX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F750V8TX.build.board=GENERIC_F750V8TX
+GenF7.menu.pnum.GENERIC_F750V8TX.build.product_line=STM32F750xx
+GenF7.menu.pnum.GENERIC_F750V8TX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F756VGHx
+GenF7.menu.pnum.GENERIC_F756VGHX=Generic F756VGHx
+GenF7.menu.pnum.GENERIC_F756VGHX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756VGHX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756VGHX.build.board=GENERIC_F756VGHX
+GenF7.menu.pnum.GENERIC_F756VGHX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756VGHX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+
+# Generic F756VGTx
+GenF7.menu.pnum.GENERIC_F756VGTX=Generic F756VGTx
+GenF7.menu.pnum.GENERIC_F756VGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756VGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756VGTX.build.board=GENERIC_F756VGTX
+GenF7.menu.pnum.GENERIC_F756VGTX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756VGTX.build.variant=STM32F7xx/F745V(E-G)(H-T)_F746V(E-G)(H-T)_F750V8T_F756VG(H-T)
+

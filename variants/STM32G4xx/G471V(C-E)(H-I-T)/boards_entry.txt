@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G471VCHx
+GenG4.menu.pnum.GENERIC_G471VCHX=Generic G471VCHx
+GenG4.menu.pnum.GENERIC_G471VCHX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCHX.build.board=GENERIC_G471VCHX
+GenG4.menu.pnum.GENERIC_G471VCHX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCHX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VEHx
+GenG4.menu.pnum.GENERIC_G471VEHX=Generic G471VEHx
+GenG4.menu.pnum.GENERIC_G471VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VEHX.build.board=GENERIC_G471VEHX
+GenG4.menu.pnum.GENERIC_G471VEHX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VEHX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VCIx
+GenG4.menu.pnum.GENERIC_G471VCIX=Generic G471VCIx
+GenG4.menu.pnum.GENERIC_G471VCIX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCIX.build.board=GENERIC_G471VCIX
+GenG4.menu.pnum.GENERIC_G471VCIX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCIX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VEIx
+GenG4.menu.pnum.GENERIC_G471VEIX=Generic G471VEIx
+GenG4.menu.pnum.GENERIC_G471VEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VEIX.build.board=GENERIC_G471VEIX
+GenG4.menu.pnum.GENERIC_G471VEIX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VEIX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VCTx
+GenG4.menu.pnum.GENERIC_G471VCTX=Generic G471VCTx
+GenG4.menu.pnum.GENERIC_G471VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCTX.build.board=GENERIC_G471VCTX
+GenG4.menu.pnum.GENERIC_G471VCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCTX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VETx
+GenG4.menu.pnum.GENERIC_G471VETX=Generic G471VETx
+GenG4.menu.pnum.GENERIC_G471VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VETX.build.board=GENERIC_G471VETX
+GenG4.menu.pnum.GENERIC_G471VETX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VETX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+

@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L071VBIx
+GenL0.menu.pnum.GENERIC_L071VBIX=Generic L071VBIx
+GenL0.menu.pnum.GENERIC_L071VBIX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L071VBIX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071VBIX.build.board=GENERIC_L071VBIX
+GenL0.menu.pnum.GENERIC_L071VBIX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071VBIX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+
+# Generic L071VZIx
+GenL0.menu.pnum.GENERIC_L071VZIX=Generic L071VZIx
+GenL0.menu.pnum.GENERIC_L071VZIX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L071VZIX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071VZIX.build.board=GENERIC_L071VZIX
+GenL0.menu.pnum.GENERIC_L071VZIX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071VZIX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+
+# Generic L071VBTx
+GenL0.menu.pnum.GENERIC_L071VBTX=Generic L071VBTx
+GenL0.menu.pnum.GENERIC_L071VBTX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L071VBTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071VBTX.build.board=GENERIC_L071VBTX
+GenL0.menu.pnum.GENERIC_L071VBTX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071VBTX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+
+# Generic L071VZTx
+GenL0.menu.pnum.GENERIC_L071VZTX=Generic L071VZTx
+GenL0.menu.pnum.GENERIC_L071VZTX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L071VZTX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071VZTX.build.board=GENERIC_L071VZTX
+GenL0.menu.pnum.GENERIC_L071VZTX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071VZTX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+
+# Generic L071V8Ix
+GenL0.menu.pnum.GENERIC_L071V8IX=Generic L071V8Ix
+GenL0.menu.pnum.GENERIC_L071V8IX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L071V8IX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071V8IX.build.board=GENERIC_L071V8IX
+GenL0.menu.pnum.GENERIC_L071V8IX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071V8IX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+
+# Generic L071V8Tx
+GenL0.menu.pnum.GENERIC_L071V8TX=Generic L071V8Tx
+GenL0.menu.pnum.GENERIC_L071V8TX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L071V8TX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L071V8TX.build.board=GENERIC_L071V8TX
+GenL0.menu.pnum.GENERIC_L071V8TX.build.product_line=STM32L071xx
+GenL0.menu.pnum.GENERIC_L071V8TX.build.variant=STM32L0xx/L071V(8-B-Z)(I-T)
+

@@ -41,6 +41,7 @@ HAL Driver F3 | CMSIS Device F3 | CMSIS Core | Was delivered in the full MCU pac
 Tag v1.5.2 | Tag v2.3.3 | Tag v4.5_cm4 | Tag v1.10.0 (and following, if any, till next new tag)
 Tag v1.5.3 | Tag v2.3.4 | Tag v5.4.0_cm4 | Tag v1.11.0 (and following, if any, till next new tag)
 Tag v1.5.4 | Tag v2.3.4 | Tag v5.4.0_cm4 | Tag v1.11.1 (and following, if any, till next new tag)
+Tag v1.5.5 | Tag v2.3.5 | Tag v5.4.0_cm4 | Tag v1.11.2 (and following, if any, till next new tag)
 
 The full **STM32CubeF3** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF3).
 

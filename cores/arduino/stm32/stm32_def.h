@@ -6,7 +6,7 @@
  * @brief STM32 core version number
  */
 #define STM32_CORE_VERSION_MAJOR    (0x02U) /*!< [31:24] major version */
-#define STM32_CORE_VERSION_MINOR    (0x00U) /*!< [23:16] minor version */
+#define STM32_CORE_VERSION_MINOR    (0x01U) /*!< [23:16] minor version */
 #define STM32_CORE_VERSION_PATCH    (0x00U) /*!< [15:8]  patch version */
 /*
  * Extra label for development:
@@ -46,6 +46,8 @@
   #include "stm32l1xx.h"
 #elif defined(STM32L4xx)
   #include "stm32l4xx.h"
+#elif defined(STM32L5xx)
+  #include "stm32l5xx.h"
 #elif defined(STM32MP1xx)
   #include "stm32mp1xx.h"
 #elif defined(STM32WBxx)
@@ -61,6 +63,12 @@
 // Here define some compatibility
 #ifndef CAN1
   #define CAN1 CAN
+#endif
+
+/* STM32G0xx defined USB_DRD_FS */
+#if !defined(USB ) && defined(USB_DRD_FS)
+  #define USB USB_DRD_FS
+  #define PinMap_USB PinMap_USB_DRD_FS
 #endif
 
 /**

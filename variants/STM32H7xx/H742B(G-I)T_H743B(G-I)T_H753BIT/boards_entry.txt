@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H742BGTx
+GenH7.menu.pnum.GENERIC_H742BGTX=Generic H742BGTx
+GenH7.menu.pnum.GENERIC_H742BGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H742BGTX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H742BGTX.build.board=GENERIC_H742BGTX
+GenH7.menu.pnum.GENERIC_H742BGTX.build.product_line=STM32H742xx
+GenH7.menu.pnum.GENERIC_H742BGTX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+
+# Generic H742BITx
+GenH7.menu.pnum.GENERIC_H742BITX=Generic H742BITx
+GenH7.menu.pnum.GENERIC_H742BITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H742BITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H742BITX.build.board=GENERIC_H742BITX
+GenH7.menu.pnum.GENERIC_H742BITX.build.product_line=STM32H742xx
+GenH7.menu.pnum.GENERIC_H742BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+
+# Generic H743BGTx
+GenH7.menu.pnum.GENERIC_H743BGTX=Generic H743BGTx
+GenH7.menu.pnum.GENERIC_H743BGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H743BGTX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H743BGTX.build.board=GENERIC_H743BGTX
+GenH7.menu.pnum.GENERIC_H743BGTX.build.product_line=STM32H743xx
+GenH7.menu.pnum.GENERIC_H743BGTX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+
+# Generic H743BITx
+GenH7.menu.pnum.GENERIC_H743BITX=Generic H743BITx
+GenH7.menu.pnum.GENERIC_H743BITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H743BITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H743BITX.build.board=GENERIC_H743BITX
+GenH7.menu.pnum.GENERIC_H743BITX.build.product_line=STM32H743xx
+GenH7.menu.pnum.GENERIC_H743BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+
+# Generic H753BITx
+GenH7.menu.pnum.GENERIC_H753BITX=Generic H753BITx
+GenH7.menu.pnum.GENERIC_H753BITX.upload.maximum_size=2097152
+GenH7.menu.pnum.GENERIC_H753BITX.upload.maximum_data_size=884736
+GenH7.menu.pnum.GENERIC_H753BITX.build.board=GENERIC_H753BITX
+GenH7.menu.pnum.GENERIC_H753BITX.build.product_line=STM32H753xx
+GenH7.menu.pnum.GENERIC_H753BITX.build.variant=STM32H7xx/H742B(G-I)T_H743B(G-I)T_H753BIT
+

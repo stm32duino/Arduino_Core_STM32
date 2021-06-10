@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L452VCIx
+GenL4.menu.pnum.GENERIC_L452VCIX=Generic L452VCIx
+GenL4.menu.pnum.GENERIC_L452VCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452VCIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452VCIX.build.board=GENERIC_L452VCIX
+GenL4.menu.pnum.GENERIC_L452VCIX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452VCIX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+
+# Generic L452VEIx
+GenL4.menu.pnum.GENERIC_L452VEIX=Generic L452VEIx
+GenL4.menu.pnum.GENERIC_L452VEIX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452VEIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452VEIX.build.board=GENERIC_L452VEIX
+GenL4.menu.pnum.GENERIC_L452VEIX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452VEIX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+
+# Generic L452VCTx
+GenL4.menu.pnum.GENERIC_L452VCTX=Generic L452VCTx
+GenL4.menu.pnum.GENERIC_L452VCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452VCTX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452VCTX.build.board=GENERIC_L452VCTX
+GenL4.menu.pnum.GENERIC_L452VCTX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452VCTX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+
+# Generic L452VETx
+GenL4.menu.pnum.GENERIC_L452VETX=Generic L452VETx
+GenL4.menu.pnum.GENERIC_L452VETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452VETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452VETX.build.board=GENERIC_L452VETX
+GenL4.menu.pnum.GENERIC_L452VETX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452VETX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+
+# Generic L462VEIx
+GenL4.menu.pnum.GENERIC_L462VEIX=Generic L462VEIx
+GenL4.menu.pnum.GENERIC_L462VEIX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462VEIX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462VEIX.build.board=GENERIC_L462VEIX
+GenL4.menu.pnum.GENERIC_L462VEIX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462VEIX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+
+# Generic L462VETx
+GenL4.menu.pnum.GENERIC_L462VETX=Generic L462VETx
+GenL4.menu.pnum.GENERIC_L462VETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462VETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462VETX.build.board=GENERIC_L462VETX
+GenL4.menu.pnum.GENERIC_L462VETX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462VETX.build.variant=STM32L4xx/L452V(C-E)(I-T)_L462VE(I-T)
+

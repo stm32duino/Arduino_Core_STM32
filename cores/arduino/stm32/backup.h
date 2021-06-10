@@ -77,12 +77,6 @@ static inline void resetBackupDomain(void)
 
 static inline void enableBackupDomain(void)
 {
-  /* Enable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_ENABLE();
-  }
-#endif
 #ifdef HAL_PWR_MODULE_ENABLED
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
@@ -111,12 +105,6 @@ static inline void disableBackupDomain(void)
   /* Disable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_DISABLE();
 #endif
-  /* Disable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (!__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_DISABLE();
-  }
-#endif
 }
 
 static inline void setBackupRegister(uint32_t index, uint32_t value)
@@ -125,7 +113,7 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
   LL_RTC_BKP_SetRegister(BKP, index, value);
 #elif defined(STM32G0xx)
   LL_RTC_BKP_SetRegister(TAMP, index, value);
-#elif defined(STM32G4xx)
+#elif defined(STM32G4xx) || defined(STM32L5xx)
   LL_RTC_BKP_SetRegister(RTC, index, value);
 #else
 #ifdef ENABLE_BACKUP_SUPPORT
@@ -143,7 +131,7 @@ static inline uint32_t getBackupRegister(uint32_t index)
   return LL_RTC_BKP_GetRegister(BKP, index);
 #elif defined(STM32G0xx)
   return LL_RTC_BKP_GetRegister(TAMP, index);
-#elif defined(STM32G4xx)
+#elif defined(STM32G4xx) || defined(STM32L5xx)
   return LL_RTC_BKP_GetRegister(RTC, index);
 #else
 #ifdef ENABLE_BACKUP_SUPPORT

@@ -10,8 +10,8 @@ import argparse
 fqbn_list = []
 arduino_cli = ""
 arduino_cli_path = ""
-stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json"
-arduino_platform = "STM32:stm32"
+stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/package_stmicroelectronics_index.json"
+arduino_platform = "STMicroelectronics:stm32"
 
 # Parser
 parser = argparse.ArgumentParser(
@@ -50,8 +50,8 @@ def get_fqbn_list():
         boards_list = json.loads(output)
         if boards_list is not None:
             for board in boards_list["boards"]:
-                if arduino_platform in board["FQBN"]:
-                    fqbn_list_tmp.append(board["FQBN"])
+                if arduino_platform in board["fqbn"]:
+                    fqbn_list_tmp.append(board["fqbn"])
             if not len(fqbn_list_tmp):
                 raise subprocess.CalledProcessError(2, "No fqbn")
         else:

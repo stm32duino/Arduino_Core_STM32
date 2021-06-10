@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L151QEHx
+GenL1.menu.pnum.GENERIC_L151QEHX=Generic L151QEHx
+GenL1.menu.pnum.GENERIC_L151QEHX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L151QEHX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L151QEHX.build.board=GENERIC_L151QEHX
+GenL1.menu.pnum.GENERIC_L151QEHX.build.product_line=STM32L151xE
+GenL1.menu.pnum.GENERIC_L151QEHX.build.variant=STM32L1xx/L151QEH_L152QEH
+
+# Generic L152QEHx
+GenL1.menu.pnum.GENERIC_L152QEHX=Generic L152QEHx
+GenL1.menu.pnum.GENERIC_L152QEHX.upload.maximum_size=524288
+GenL1.menu.pnum.GENERIC_L152QEHX.upload.maximum_data_size=81920
+GenL1.menu.pnum.GENERIC_L152QEHX.build.board=GENERIC_L152QEHX
+GenL1.menu.pnum.GENERIC_L152QEHX.build.product_line=STM32L152xE
+GenL1.menu.pnum.GENERIC_L152QEHX.build.variant=STM32L1xx/L151QEH_L152QEH
+

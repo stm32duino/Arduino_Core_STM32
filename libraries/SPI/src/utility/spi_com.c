@@ -60,6 +60,27 @@ uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
   UNUSED(spi_inst);
   /* SPIx source CLK is PCKL1 */
   spi_freq = HAL_RCC_GetPCLK1Freq();
+#elif defined(STM32H7xx)
+  /* Get source clock depending on SPI instance */
+  if (spi_inst != NP) {
+    switch ((uint32_t)spi_inst) {
+      case (uint32_t)SPI1:
+      case (uint32_t)SPI2:
+      case (uint32_t)SPI3:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
+        break;
+      case (uint32_t)SPI4:
+      case (uint32_t)SPI5:
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+        break;
+      case (uint32_t)SPI6:
+        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
+        break;
+      default:
+        core_debug("CLK: SPI instance not set");
+        break;
+    }
+  }
 #elif defined(STM32MP1xx)
   /* Get source clock depending on SPI instance */
   if (spi_inst != NP) {
@@ -444,6 +465,9 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   LL_SPI_ClearFlag_TXTF(_SPI);
   /* Disable SPI peripheral */
   LL_SPI_Disable(_SPI);
+#else
+  /* Wait for end of transfer */
+  while (LL_SPI_IsActiveFlag_BSY(_SPI));
 #endif
 
   return ret;

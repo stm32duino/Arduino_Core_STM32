@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L431KBUx
+GenL4.menu.pnum.GENERIC_L431KBUX=Generic L431KBUx
+GenL4.menu.pnum.GENERIC_L431KBUX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L431KBUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431KBUX.build.board=GENERIC_L431KBUX
+GenL4.menu.pnum.GENERIC_L431KBUX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431KBUX.build.variant=STM32L4xx/L431K(B-C)U
+
+# Generic L431KCUx
+GenL4.menu.pnum.GENERIC_L431KCUX=Generic L431KCUx
+GenL4.menu.pnum.GENERIC_L431KCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L431KCUX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L431KCUX.build.board=GENERIC_L431KCUX
+GenL4.menu.pnum.GENERIC_L431KCUX.build.product_line=STM32L431xx
+GenL4.menu.pnum.GENERIC_L431KCUX.build.variant=STM32L4xx/L431K(B-C)U
+

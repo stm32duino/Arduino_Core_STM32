@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F302VCYx
+GenF3.menu.pnum.GENERIC_F302VCYX=Generic F302VCYx
+GenF3.menu.pnum.GENERIC_F302VCYX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F302VCYX.upload.maximum_data_size=40960
+GenF3.menu.pnum.GENERIC_F302VCYX.build.board=GENERIC_F302VCYX
+GenF3.menu.pnum.GENERIC_F302VCYX.build.product_line=STM32F302xC
+GenF3.menu.pnum.GENERIC_F302VCYX.build.variant=STM32F3xx/F302VCY
+
