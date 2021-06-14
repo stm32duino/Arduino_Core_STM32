@@ -1,8 +1,8 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: "\U0001F41B Bug report"
+about: Report a bug or unexpected behavior while using the STM32 core
 title: ''
-labels: ''
+labels: bug
 assignees: ''
 
 ---
@@ -18,7 +18,8 @@ Any questions/feedback/suggestions should be discussed on the [stm32duino forum]
   * questions on the [STM32 Core](https://www.stm32duino.com/viewforum.php?f=35)
   * bugs/enhancements on the [STM core: Bugs and enhancements](https://www.stm32duino.com/viewforum.php?f=38)
 
-When reporting any issue, please try to provide all relevant information:
+
+&#x26A0; When reporting any issue, please try to provide all relevant information to help on its resolution.
 
 **Describe the bug**
 A clear and concise description of what the bug is.
