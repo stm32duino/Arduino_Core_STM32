@@ -1,5 +1,5 @@
 ---
-name: New variant request
+name: "🎁 New variant request"
 about: Request for a new board support
 title: "[New Variant]"
 labels: New variant
