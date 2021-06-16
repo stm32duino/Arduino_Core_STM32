@@ -1,22 +1,18 @@
 import argparse
-import glob
 import re
-import os
+from pathlib import Path
 from stm32common import createFolder, deleteFolder, genSTM32List
 
-script_path = os.path.dirname(os.path.abspath(__file__))
-home = os.path.expanduser("~")
+script_path = Path(__file__).parent.resolve()
 # Base path
-core_path = os.path.abspath(os.path.join(script_path, "..", ".."))
+core_path = script_path.parent.parent
 SrcWrapper_path = ""
 HALDrivers_path = ""
 CMSIS_Device_ST_path = ""
 CMSIS_DSP_lib_path = ""
 
 # CMSIS outside of the core. Can be updated by arg
-CMSIS_path = os.path.abspath(
-    os.path.join(core_path, "..", "ArduinoModule-CMSIS", "CMSIS_5")
-)
+CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
 CMSIS_DSPSrc_path = ""
 
 # Out sources files
@@ -50,33 +46,27 @@ def checkConfig(arg_core, arg_cmsis):
     global LLoutInc_path
 
     if arg_core is not None:
-        core_path = arg_core
-        CMSIS_path = os.path.abspath(
-            os.path.join(core_path, "..", "ArduinoModule-CMSIS", "CMSIS_5")
-        )
+        core_path = Path(arg_core).resolve()
+        CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
 
-    if not os.path.isdir(core_path):
+    if not core_path.is_dir():
         print("Could not find " + core_path)
         exit(1)
 
-    SrcWrapper_path = os.path.join(core_path, "libraries", "SrcWrapper")
-    HALDrivers_path = os.path.join(core_path, "system", "Drivers")
-    CMSIS_Device_ST_path = os.path.join(
-        core_path, "system", "Drivers", "CMSIS", "Device", "ST"
-    )
-    CMSIS_DSP_lib_path = os.path.join(core_path, "libraries", "CMSIS_DSP")
-    CMSIS_DSP_outSrc_path = os.path.join(CMSIS_DSP_lib_path, "src")
-    CMSIS_Startupfile = os.path.join(
-        core_path, "cores", "arduino", "stm32", "stm32_def_build.h"
-    )
+    SrcWrapper_path = core_path / "libraries" / "SrcWrapper"
+    HALDrivers_path = core_path / "system" / "Drivers"
+    CMSIS_Device_ST_path = core_path / "system" / "Drivers" / "CMSIS" / "Device" / "ST"
+    CMSIS_DSP_lib_path = core_path / "libraries" / "CMSIS_DSP"
+    CMSIS_DSP_outSrc_path = CMSIS_DSP_lib_path / "src"
+    CMSIS_Startupfile = core_path / "cores" / "arduino" / "stm32" / "stm32_def_build.h"
 
-    HALoutSrc_path = os.path.join(SrcWrapper_path, "src", "HAL")
-    LLoutSrc_path = os.path.join(SrcWrapper_path, "src", "LL")
-    LLoutInc_path = os.path.join(core_path, "cores", "arduino", "stm32", "LL")
+    HALoutSrc_path = SrcWrapper_path / "src" / "HAL"
+    LLoutSrc_path = SrcWrapper_path / "src" / "LL"
+    LLoutInc_path = core_path / "cores" / "arduino" / "stm32" / "LL"
 
     if arg_cmsis is not None:
-        CMSIS_path = arg_cmsis
-    CMSIS_DSPSrc_path = os.path.join(CMSIS_path, "CMSIS", "DSP", "Source")
+        CMSIS_path = Path(arg_cmsis).resolve()
+    CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
 
 
 # Add some pragma to ll header files to avoid several warnings
@@ -98,18 +88,7 @@ def print_LL_header(open_file, name):
 
 
 def printCMSISStartup(log):
-    filelist = sorted(
-        glob.glob(
-            os.path.join(
-                CMSIS_Device_ST_path,
-                "STM32*",
-                "Source",
-                "Templates",
-                "gcc",
-                "startup_*.s",
-            )
-        )
-    )
+    filelist = sorted(CMSIS_Device_ST_path.glob("**/startup_*.s"))
     if len(filelist):
         if log:
             print("Number of startup files: %i" % len(filelist))
@@ -123,7 +102,7 @@ def printCMSISStartup(log):
 """
         )
         # File name
-        fn = os.path.basename(filelist.pop(0))
+        fn = (filelist.pop(0)).name
         valueline = re.split("_|\\.", fn)
         upper = valueline[1].upper().replace("X", "x")
         out_file.write(
@@ -136,7 +115,7 @@ def printCMSISStartup(log):
         if len(filelist):
             for fp in filelist:
                 # File name
-                fn = os.path.basename(fp)
+                fn = fp.name
                 valueline = re.split("_|\\.", fn)
                 if "stm32mp15" in valueline[1] and not valueline[1].endswith("xx"):
                     valueline[1] += "xx"
@@ -178,30 +157,30 @@ def wrap(arg_core, arg_cmsis, log):
     createFolder(LLoutSrc_path)
     deleteFolder(LLoutInc_path)
     createFolder(LLoutInc_path)
-    if os.path.isfile(CMSIS_Startupfile):
-        os.remove(CMSIS_Startupfile)
+    if CMSIS_Startupfile.is_file():
+        CMSIS_Startupfile.unlink()
     full_ll_list = []
     # Search all files for each series
     for serie in stm32_series:
-        src = os.path.join(HALDrivers_path, "STM32" + serie + "xx_HAL_Driver", "Src")
-        inc = os.path.join(HALDrivers_path, "STM32" + serie + "xx_HAL_Driver", "Inc")
+        src = HALDrivers_path / ("STM32" + serie + "xx_HAL_Driver") / "Src"
+        inc = HALDrivers_path / ("STM32" + serie + "xx_HAL_Driver") / "Inc"
 
-        if os.path.exists(src):
+        if src.exists():
             if log:
                 print("Generating for " + serie + "...")
             lower = serie.lower()
             # Generate stm32yyxx_[hal|ll]*.c file
-            filelist = glob.glob(os.path.join(src, "stm32" + lower + "xx_*.c"))
+            filelist = src.glob("stm32" + lower + "xx_*.c")
             for fp in filelist:
-                if "_template" in fp:
+                # File name
+                fn = fp.name
+                if "_template" in fn:
                     continue
                 outp = HALoutSrc_path
-                # File name
-                fn = os.path.basename(fp)
                 if "_ll_" in fn:
                     outp = LLoutSrc_path
                 # Compute generic file name with path
-                gp = os.path.join(outp, fn.replace(lower, "yy"))
+                gp = outp / fn.replace(lower, "yy")
                 out_file = open(gp, "a", newline="\n")
                 # Amend file name under serie switch
                 out_file.write("#ifdef STM32" + serie + "xx\n")
@@ -209,17 +188,17 @@ def wrap(arg_core, arg_cmsis, log):
                 out_file.write("#endif\n")
                 out_file.close()
             # Generate stm32yyxx_ll_*.h file
-            filelist = glob.glob(os.path.join(inc, "stm32" + lower + "xx_ll_*.h"))
+            filelist = inc.glob("stm32" + lower + "xx_ll_*.h")
             for fp in filelist:
                 outp = LLoutInc_path
                 # File name
-                fn = os.path.basename(fp)
+                fn = fp.name
                 # Compute generic file name
                 gn = fn.replace(lower, "yy")
                 # with path
-                gp = os.path.join(outp, gn)
+                gp = outp / gn
                 out_file = open(gp, "a", newline="\n")
-                if os.path.getsize(gp) == 0:
+                if gp.stat().st_size == 0:
                     print_LL_header(out_file, gn)
                 # Amend full LL header file
                 full_ll_list.append(gn)
@@ -232,7 +211,7 @@ def wrap(arg_core, arg_cmsis, log):
                 print("done")
 
     # Filter full LL header file
-    full_ll_file = open(os.path.join(LLoutInc_path, all_LL_file), "w", newline="\n")
+    full_ll_file = open(LLoutInc_path / all_LL_file, "w", newline="\n")
     print_LL_header(full_ll_file, all_LL_file)
     full_ll_file.write("/* Include Low Layers drivers */\n")
     full_ll_list = sorted(set(full_ll_list))
@@ -241,10 +220,10 @@ def wrap(arg_core, arg_cmsis, log):
     full_ll_file.close()
 
     # Search all LL header files to end guard
-    filelist = glob.glob(os.path.join(LLoutInc_path, "stm32yyxx_ll*.h"))
+    filelist = LLoutInc_path.glob("stm32yyxx_ll*.h")
     for fp in filelist:
         out_file = open(fp, "a", newline="\n")
-        upper = os.path.basename(fp).upper().replace(".", "_")
+        upper = fp.name.upper().replace(".", "_")
         out_file.write("#pragma GCC diagnostic pop\n")
         out_file.write("#endif /* _" + upper + "_ */\n")
         out_file.close()
@@ -253,23 +232,23 @@ def wrap(arg_core, arg_cmsis, log):
     printCMSISStartup(log)
 
     # CMSIS DSP C source file
-    if not os.path.isdir(CMSIS_path):
-        print("Could not find " + CMSIS_path)
+    if not CMSIS_path.is_dir():
+        print("Could not find {}").format(CMSIS_path)
         print("CMSIS DSP generation skipped.")
     else:
         # Delete all subfolders
-        deleteFolder(os.path.join(CMSIS_DSP_outSrc_path, "*"))
+        deleteFolder(CMSIS_DSP_outSrc_path / "*")
         dirlist = []
-        for root, dirs, files in os.walk(CMSIS_DSPSrc_path):
-            for file in files:
-                if file.endswith(".c"):
-                    dirlist.append(root.replace(CMSIS_DSPSrc_path, "")[1:])
+        for path_object in CMSIS_DSPSrc_path.glob("**/*"):
+            if path_object.is_file():
+                if path_object.name.endswith(".c"):
+                    dirlist.append(path_object.parent.name)
         dirlist = sorted(set(dirlist))
         for dn in dirlist:
-            fdn = os.path.join(CMSIS_DSP_outSrc_path, dn)
-            if not os.path.isdir(fdn):
+            fdn = CMSIS_DSP_outSrc_path / dn
+            if not fdn.is_dir():
                 createFolder(fdn)
-                out_file = open(os.path.join(fdn, dn + ".c"), "w", newline="\n")
+                out_file = open(fdn / (dn + ".c"), "w", newline="\n")
                 out_file.write('#include "../Source/{0}/{0}.c"\n'.format(dn))
                 out_file.close()
     return 0
@@ -284,13 +263,13 @@ if __name__ == "__main__":
         "-c",
         "--core",
         metavar="core_path",
-        help="Root path of the STM32 core. Default: " + core_path,
+        help="Root path of the STM32 core. Default: {}".format(core_path),
     )
     wrapparser.add_argument(
         "-s",
         "--cmsis",
         metavar="cmsis_path",
-        help="Root path of the CMSIS. Default: " + CMSIS_path,
+        help="Root path of the CMSIS. Default: {}".format(CMSIS_path),
     )
 
     wrapargs = wrapparser.parse_args()
