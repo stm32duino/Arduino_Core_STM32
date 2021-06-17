@@ -1,5 +1,6 @@
 import argparse
 import re
+from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
 from stm32common import createFolder, deleteFolder, genSTM32List
 
@@ -26,9 +27,27 @@ LLoutInc_path = ""
 # Out startup files
 CMSIS_Startupfile = ""
 
-all_LL_file = "stm32yyxx_ll.h"
-
+# List of STM32 series
 stm32_series = []
+
+# Templating
+templates_dir = script_path / "templates"
+all_ll_h_file = "stm32yyxx_ll.h"
+ll_h_file = "stm32yyxx_ll_ppp.h"
+c_file = "stm32yyxx_zz_ppp.c"
+
+# Create the jinja2 environment.
+j2_env = Environment(
+    loader=FileSystemLoader(str(templates_dir)), trim_blocks=True, lstrip_blocks=True
+)
+all_ll_header_file_template = j2_env.get_template(all_ll_h_file)
+ll_h_file_template = j2_env.get_template(ll_h_file)
+c_file_template = j2_env.get_template(c_file)
+dsp_file_template = Template('#include "../Source/{{ dsp }}/{{ dsp }}.c"')
+
+# re
+peripheral_c_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).c$")
+peripheral_h_regex = re.compile(r"stm32\w+_(\w+).h$")
 
 
 def checkConfig(arg_core, arg_cmsis):
@@ -67,24 +86,6 @@ def checkConfig(arg_core, arg_cmsis):
     if arg_cmsis is not None:
         CMSIS_path = Path(arg_cmsis).resolve()
     CMSIS_DSPSrc_path = CMSIS_path / "CMSIS" / "DSP" / "Source"
-
-
-# Add some pragma to ll header files to avoid several warnings
-# which will be corrected along Cube update
-def print_LL_header(open_file, name):
-    upper = name.upper().replace(".", "_")
-    open_file.write(
-        """#ifndef _{0}_
-#define _{0}_
-/* LL raised several warnings, ignore them */
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored \"-Wunused-parameter\"
-#pragma GCC diagnostic ignored \"-Wstrict-aliasing\"
-
-""".format(
-            upper
-        )
-    )
 
 
 def printCMSISStartup(log):
@@ -159,7 +160,11 @@ def wrap(arg_core, arg_cmsis, log):
     createFolder(LLoutInc_path)
     if CMSIS_Startupfile.is_file():
         CMSIS_Startupfile.unlink()
-    full_ll_list = []
+    all_ll_h_list = []
+    # key: peripheral, value: serie list
+    ll_h_dict = {}
+    ll_c_dict = {}
+    hal_c_dict = {}
     # Search all files for each series
     for serie in stm32_series:
         src = HALDrivers_path / ("STM32" + serie + "xx_HAL_Driver") / "Src"
@@ -169,64 +174,83 @@ def wrap(arg_core, arg_cmsis, log):
             if log:
                 print("Generating for " + serie + "...")
             lower = serie.lower()
-            # Generate stm32yyxx_[hal|ll]*.c file
+
+            # Search stm32yyxx_[hal|ll]*.c file
             filelist = src.glob("stm32" + lower + "xx_*.c")
             for fp in filelist:
                 # File name
                 fn = fp.name
+                found = peripheral_c_regex.match(fn)
                 if "_template" in fn:
                     continue
-                outp = HALoutSrc_path
+                peripheral = found.group(1) if found else "hal"
                 if "_ll_" in fn:
-                    outp = LLoutSrc_path
-                # Compute generic file name with path
-                gp = outp / fn.replace(lower, "yy")
-                out_file = open(gp, "a", newline="\n")
-                # Amend file name under serie switch
-                out_file.write("#ifdef STM32" + serie + "xx\n")
-                out_file.write('  #include "' + fn + '"\n')
-                out_file.write("#endif\n")
-                out_file.close()
-            # Generate stm32yyxx_ll_*.h file
+                    if peripheral in ll_c_dict:
+                        ll_c_dict[peripheral].append(lower)
+                    else:
+                        ll_c_dict[peripheral] = [lower]
+                else:
+                    if peripheral in hal_c_dict:
+                        hal_c_dict[peripheral].append(lower)
+                    else:
+                        hal_c_dict[peripheral] = [lower]
+
+            # Search stm32yyxx_ll_*.h file
             filelist = inc.glob("stm32" + lower + "xx_ll_*.h")
             for fp in filelist:
-                outp = LLoutInc_path
                 # File name
                 fn = fp.name
-                # Compute generic file name
-                gn = fn.replace(lower, "yy")
-                # with path
-                gp = outp / gn
-                out_file = open(gp, "a", newline="\n")
-                if gp.stat().st_size == 0:
-                    print_LL_header(out_file, gn)
-                # Amend full LL header file
-                full_ll_list.append(gn)
-                # Amend file name under serie switch
-                out_file.write("#ifdef STM32" + serie + "xx\n")
-                out_file.write('  #include "' + fn + '"\n')
-                out_file.write("#endif\n")
+                found = peripheral_h_regex.match(fn)
+                if not found:
+                    continue
+                peripheral = found.group(1)
+                # Amend all LL header list
+                all_ll_h_list.append(fn.replace(lower, "yy"))
+                if peripheral in ll_h_dict:
+                    ll_h_dict[peripheral].append(lower)
+                else:
+                    ll_h_dict[peripheral] = [lower]
+
+            # Generate stm32yyxx_hal_*.c file
+            for key, value in hal_c_dict.items():
+                if key == "hal":
+                    filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace(
+                        "_ppp", ""
+                    )
+                else:
+                    filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace(
+                        "ppp", key
+                    )
+                out_file = open(filepath, "w", newline="\n")
+                out_file.write(
+                    c_file_template.render(periph=key, type="hal", serieslist=value)
+                )
+                out_file.close()
+            # Generate stm32yyxx_ll_*.c file
+            for key, value in ll_c_dict.items():
+                filepath = LLoutSrc_path / c_file.replace("zz", "ll").replace(
+                    "ppp", key
+                )
+                out_file = open(filepath, "w", newline="\n")
+                out_file.write(
+                    c_file_template.render(periph=key, type="ll", serieslist=value)
+                )
+                out_file.close()
+            # Generate stm32yyxx_ll_*.h file
+            for key, value in ll_h_dict.items():
+                filepath = LLoutInc_path / ll_h_file.replace("ppp", key)
+                out_file = open(filepath, "w", newline="\n")
+                out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
                 out_file.close()
             if log:
                 print("done")
 
-    # Filter full LL header file
-    full_ll_file = open(LLoutInc_path / all_LL_file, "w", newline="\n")
-    print_LL_header(full_ll_file, all_LL_file)
-    full_ll_file.write("/* Include Low Layers drivers */\n")
-    full_ll_list = sorted(set(full_ll_list))
-    for hn in full_ll_list:
-        full_ll_file.write('#include "' + hn + '"\n')
-    full_ll_file.close()
-
-    # Search all LL header files to end guard
-    filelist = LLoutInc_path.glob("stm32yyxx_ll*.h")
-    for fp in filelist:
-        out_file = open(fp, "a", newline="\n")
-        upper = fp.name.upper().replace(".", "_")
-        out_file.write("#pragma GCC diagnostic pop\n")
-        out_file.write("#endif /* _" + upper + "_ */\n")
-        out_file.close()
+    # Filter all LL header file
+    all_ll_h_list = sorted(set(all_ll_h_list))
+    # Generate the all LL header file
+    all_ll_file = open(LLoutInc_path / all_ll_h_file, "w", newline="\n")
+    all_ll_file.write(all_ll_header_file_template.render(ll_header_list=all_ll_h_list))
+    all_ll_file.close()
 
     # CMSIS startup files
     printCMSISStartup(log)
@@ -249,7 +273,7 @@ def wrap(arg_core, arg_cmsis, log):
             if not fdn.is_dir():
                 createFolder(fdn)
                 out_file = open(fdn / (dn + ".c"), "w", newline="\n")
-                out_file.write('#include "../Source/{0}/{0}.c"\n'.format(dn))
+                all_ll_file.write(dsp_file_template.render(dsp_path=dn))
                 out_file.close()
     return 0
 
