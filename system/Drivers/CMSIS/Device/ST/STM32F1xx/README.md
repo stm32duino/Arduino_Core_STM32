@@ -32,6 +32,7 @@ CMSIS Device F1 | CMSIS Core | Was delivered in the full MCU package
 Tag v4.3.1 | Tag v5.4.0_cm3 | Tag v1.8.0
 Tag v4.3.1 | Tag v5.4.0_cm3 | Tag v1.8.1
 Tag v4.3.2 | Tag v5.4.0_cm3 | Tag v1.8.2
+Tag v4.3.3 | Tag v5.4.0_cm3 | Tag v1.8.4
 
 The full **STM32CubeF1** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF1).
 
