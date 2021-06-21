@@ -1,7 +1,7 @@
 # STM32YYxx HAL Drivers version:
 
   * STM32F0: 1.7.5
-  * STM32F1: 1.1.7
+  * STM32F1: 1.1.8
   * STM32F2: 1.2.6
   * STM32F3: 1.5.5
   * STM32F4: 1.7.12
