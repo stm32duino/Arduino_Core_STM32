@@ -1,14 +1,14 @@
-#ifndef _STM32YYXX_LL_FMAC_H_
-#define _STM32YYXX_LL_FMAC_H_
+#ifndef _STM32YYXX_LL_H_
+#define _STM32YYXX_LL_H_
 /* LL raised several warnings, ignore them */
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 
-#ifdef STM32G4xx
-  #include "stm32g4xx_ll_fmac.h"
-#elif STM32H7xx
-  #include "stm32h7xx_ll_fmac.h"
-#endif
+/* Include Low Layers drivers */
+{% for ll_header_name in ll_header_list %}
+#include "{{ll_header_name}}"
+{% endfor %}
 #pragma GCC diagnostic pop
-#endif /* _STM32YYXX_LL_FMAC_H_ */
+#endif /* _STM32YYXX_LL_H_ */
+

@@ -2,22 +2,22 @@ import argparse
 import collections
 import fileinput
 import json
-import os
-from packaging import version
 import re
 import subprocess
-import sys
-from urllib.parse import urljoin
 import stm32wrapper
+import sys
+from packaging import version
+from pathlib import Path
 from stm32common import createFolder, deleteFolder, copyFolder, genSTM32List
+from urllib.parse import urljoin
 
 if sys.platform.startswith("win32"):
     from colorama import init
 
     init(autoreset=True)
 
-script_path = os.path.dirname(os.path.abspath(__file__))
-home = os.path.expanduser("~")
+script_path = Path(__file__).parent.resolve()
+home = Path.home()
 path_config_filename = "update_config.json"
 
 # GitHub
@@ -25,15 +25,15 @@ gh_st = "https://github.com/STMicroelectronics/"
 gh_core = "https://github.com/stm32duino/Arduino_Core_STM32.git"
 repo_generic_name = "STM32Cube"
 repo_core_name = "Arduino_Core_STM32"
-repo_local_path = os.path.join(home, "STM32Cube_repo")
+repo_local_path = home / "STM32Cube_repo"
 
 # From
 # Relative to repo path
 hal_src_path = "Drivers"
-cmsis_src_path = os.path.join("Drivers", "CMSIS", "Device", "ST")
+cmsis_src_path = Path("Drivers", "CMSIS", "Device", "ST")
 # To
-hal_dest_path = os.path.join("system", "Drivers")
-cmsis_dest_path = os.path.join("system", "Drivers", "CMSIS", "Device", "ST")
+hal_dest_path = Path("system", "Drivers")
+cmsis_dest_path = Path("system", "Drivers", "CMSIS", "Device", "ST")
 
 stm32_list = []  # Serie
 cube_versions = collections.OrderedDict()  # key: serie name, value: cube version
@@ -53,17 +53,27 @@ out_format = "| {:^12} | {:^7} | {:^8} | {:^8} | {:^1} | {:^8} | {:^8} | {:^1} |
 out_separator = "-" * 70
 
 
+def execute_cmd(cmd, stderror):
+    try:
+        output = subprocess.check_output(cmd, stderr=stderror).decode("utf-8").strip()
+    except subprocess.CalledProcessError as e:
+        print("Failed command: ")
+        print(e.cmd)
+        exit(e.returncode)
+    return output
+
+
 def create_config():
     global repo_local_path
 
     # Create a Json file for a better path management
     print(
         "'{}' file created. Please check the configuration.".format(
-            os.path.join(script_path, path_config_filename)
+            script_path / path_config_filename
         )
     )
     path_config_file = open(path_config_filename, "w")
-    path_config_file.write(json.dumps({"REPO_LOCAL_PATH": repo_local_path}, indent=2))
+    path_config_file.write(json.dumps({"REPO_LOCAL_PATH": str(repo_local_path)}, indent=2))
     path_config_file.close()
     exit(1)
 
@@ -74,23 +84,20 @@ def checkConfig():
     global cmsis_dest_path
     global md_HAL_path
     global md_CMSIS_path
-    if os.path.isfile(os.path.join(script_path, path_config_filename)):
+    config_file_path = script_path / path_config_filename
+    if config_file_path.is_file():
         try:
-            path_config_file = open(
-                os.path.join(script_path, path_config_filename), "r"
-            )
-            path_config = json.load(path_config_file)
+            config_file = open(config_file_path, "r")
+            path_config = json.load(config_file)
             # Common path
-            repo_local_path = path_config["REPO_LOCAL_PATH"]
-            path_config_file.close()
-            hal_dest_path = os.path.join(repo_local_path, repo_core_name, hal_dest_path)
-            md_HAL_path = os.path.join(hal_dest_path, md_HAL_path)
-            cmsis_dest_path = os.path.join(
-                repo_local_path, repo_core_name, cmsis_dest_path
-            )
-            md_CMSIS_path = os.path.join(cmsis_dest_path, md_CMSIS_path)
+            repo_local_path = Path(path_config["REPO_LOCAL_PATH"])
+            config_file.close()
+            hal_dest_path = repo_local_path / repo_core_name / hal_dest_path
+            md_HAL_path = hal_dest_path / md_HAL_path
+            cmsis_dest_path = repo_local_path / repo_core_name / cmsis_dest_path
+            md_CMSIS_path = cmsis_dest_path / md_CMSIS_path
         except IOError:
-            print("Failed to open " + path_config_file)
+            print("Failed to open {}!".format(config_file))
     else:
         create_config()
     createFolder(repo_local_path)
@@ -98,9 +105,9 @@ def checkConfig():
 
 def updateCoreRepo():
     # Handle core repo
-    repo_path = os.path.join(repo_local_path, repo_core_name)
-    print("Updating " + repo_core_name + "...")
-    if os.path.exists(repo_path):
+    repo_path = repo_local_path / repo_core_name
+    print("Updating {}...".format(repo_core_name))
+    if repo_path.exists():
         # Get new tags from the remote
         git_cmds = [
             ["git", "-C", repo_path, "clean", "-fdx"],
@@ -110,23 +117,18 @@ def updateCoreRepo():
     else:
         # Clone it as it does not exists yet
         git_cmds = [["git", "-C", repo_local_path, "clone", gh_core]]
-    try:
-        for cmd in git_cmds:
-            subprocess.check_output(cmd).decode("utf-8")
-    except subprocess.CalledProcessError as e:
-        print("Failed command: ")
-        print(e.cmd)
-        sys.exit(e.returncode)
+    for cmd in git_cmds:
+        execute_cmd(cmd, None)
 
 
 def updateSTRepo():
     # Handle STM32Cube repo
     for serie in stm32_list:
         repo_name = repo_generic_name + serie
-        repo_path = os.path.join(repo_local_path, repo_name)
+        repo_path = repo_local_path / repo_name
         gh_STM32Cube = urljoin(gh_st, repo_name + ".git")
         print("Updating " + repo_name + "...")
-        if os.path.exists(repo_path):
+        if repo_path.exists():
             # Get new tags from the remote
             git_cmds = [
                 ["git", "-C", repo_path, "clean", "-fdx"],
@@ -136,13 +138,8 @@ def updateSTRepo():
         else:
             # Clone it as it does not exists yet
             git_cmds = [["git", "-C", repo_local_path, "clone", gh_STM32Cube]]
-        try:
-            for cmd in git_cmds:
-                subprocess.check_output(cmd).decode("utf-8")
-        except subprocess.CalledProcessError as e:
-            print("Failed command: ")
-            print(e.cmd)
-            sys.exit(e.returncode)
+        for cmd in git_cmds:
+            execute_cmd(cmd, None)
         latestTag(serie, repo_name, repo_path)
         checkVersion(serie, repo_path)
 
@@ -150,37 +147,24 @@ def updateSTRepo():
 def latestTag(serie, repo_name, repo_path):
     global cube_versions
     # Checkout the latest tag
-    try:
-        sha1_id = (
-            subprocess.check_output(
-                ["git", "-C", repo_path, "rev-list", "--tags", "--max-count=1"]
-            )
-            .decode("utf-8")
-            .strip()
-        )
-        version_tag = (
-            subprocess.check_output(
-                ["git", "-C", repo_path, "describe", "--tags", sha1_id]
-            )
-            .decode("utf-8")
-            .strip()
-        )
-        subprocess.check_output(
-            ["git", "-C", repo_path, "checkout", version_tag], stderr=subprocess.DEVNULL
-        )
-        cube_versions[serie] = version_tag
-        # print("Latest tagged version available for " + repo_name + " is " + version_tag)
-    except subprocess.CalledProcessError as e:
-        print("Failed command: ")
-        print(e.cmd)
-        sys.exit(e.returncode)
+
+    sha1_id = execute_cmd(
+        ["git", "-C", repo_path, "rev-list", "--tags", "--max-count=1"], None
+    )
+
+    version_tag = execute_cmd(
+        ["git", "-C", repo_path, "describe", "--tags", sha1_id], None
+    )
+    execute_cmd(["git", "-C", repo_path, "checkout", version_tag], subprocess.DEVNULL)
+    cube_versions[serie] = version_tag
+    # print("Latest tagged version available for " + repo_name + " is " + version_tag)
 
 
 def parseVersion(path):
     main_found = False
     sub1_found = False
     sub2_found = False
-    if "HAL" in path:
+    if "HAL" in str(path):
         main_pattern = re.compile(r"HAL_VERSION_MAIN.*0x([\dA-Fa-f]+)")
         sub1_pattern = re.compile(r"HAL_VERSION_SUB1.*0x([\dA-Fa-f]+)")
         sub2_pattern = re.compile(r"HAL_VERSION_SUB2.*0x([\dA-Fa-f]+)")
@@ -208,7 +192,7 @@ def parseVersion(path):
         if main_found and sub1_found and sub2_found:
             break
     else:
-        print("Could not find the full version in " + path)
+        print("Could not find the full version in {}".format(path))
         if main_found:
             print("main version found: {}".format(VERSION_MAIN))
         VERSION_MAIN = "FF"
@@ -224,41 +208,41 @@ def parseVersion(path):
 def checkVersion(serie, repo_path):
     lserie = serie.lower()
     userie = serie.upper()
-    HAL_file = os.path.join(
-        repo_path,
-        hal_src_path,
-        "STM32{}xx_HAL_Driver".format(userie),
-        "Src",
-        "stm32{}xx_hal.c".format(lserie),
+    HAL_file = (
+        repo_path
+        / hal_src_path
+        / "STM32{}xx_HAL_Driver".format(userie)
+        / "Src"
+        / "stm32{}xx_hal.c".format(lserie)
     )
     cube_HAL_versions[serie] = parseVersion(HAL_file)
     if upargs.add:
         core_HAL_versions[serie] = "0.0.0"
     else:
-        HAL_file = os.path.join(
-            hal_dest_path,
-            "STM32{}xx_HAL_Driver".format(userie),
-            "Src",
-            "stm32{}xx_hal.c".format(lserie),
+        HAL_file = (
+            hal_dest_path
+            / "STM32{}xx_HAL_Driver".format(userie)
+            / "Src"
+            / "stm32{}xx_hal.c".format(lserie)
         )
         core_HAL_versions[serie] = parseVersion(HAL_file)
 
-    CMSIS_file = os.path.join(
-        repo_path,
-        cmsis_src_path,
-        "STM32{}xx".format(userie),
-        "Include",
-        "stm32{}xx.h".format(lserie),
+    CMSIS_file = (
+        repo_path
+        / cmsis_src_path
+        / "STM32{}xx".format(userie)
+        / "Include"
+        / "stm32{}xx.h".format(lserie)
     )
     cube_CMSIS_versions[serie] = parseVersion(CMSIS_file)
     if upargs.add:
         core_CMSIS_versions[serie] = "0.0.0"
     else:
-        CMSIS_file = os.path.join(
-            cmsis_dest_path,
-            "STM32{}xx".format(userie),
-            "Include",
-            "stm32{}xx.h".format(lserie),
+        CMSIS_file = (
+            cmsis_dest_path
+            / "STM32{}xx".format(userie)
+            / "Include"
+            / "stm32{}xx.h".format(lserie)
         )
         core_CMSIS_versions[serie] = parseVersion(CMSIS_file)
 
@@ -317,58 +301,51 @@ def printVersion():
 
 # Commit files without trailing space
 def commitFiles(repo_path, commit_msg):
-    try:
-        # Check if there is something to commit
-        status = subprocess.check_output(
-            ["git", "-C", repo_path, "status", "--untracked-files", "--short"]
-        )
-        if not status:
-            return
-        # Staged all files: new, modified and deleted
-        subprocess.check_output(
-            ["git", "-C", repo_path, "add", "--all"], stderr=subprocess.DEVNULL
-        )
-        # Commit all stage files with signoff and message
-        subprocess.check_output(
-            [
-                "git",
-                "-C",
-                repo_path,
-                "commit",
-                "--all",
-                "--signoff",
-                "--message=" + commit_msg,
-            ],
-            stderr=subprocess.DEVNULL,
-        )
-        # Remove trailing space
-        subprocess.check_output(
-            ["git", "-C", repo_path, "rebase", "--whitespace=fix", "HEAD~1"],
-            stderr=subprocess.DEVNULL,
-        )
-    except subprocess.CalledProcessError as e:
-        print("Failed command: ")
-        print(e.cmd)
-        sys.exit(e.returncode)
+    # Check if there is something to commit
+    status = execute_cmd(
+        ["git", "-C", repo_path, "status", "--untracked-files", "--short"], None
+    )
+    if not status:
+        return
+    # Staged all files: new, modified and deleted
+    execute_cmd(["git", "-C", repo_path, "add", "--all"], subprocess.DEVNULL)
+    # Commit all stage files with signoff and message
+    execute_cmd(
+        [
+            "git",
+            "-C",
+            repo_path,
+            "commit",
+            "--all",
+            "--signoff",
+            "--message=" + commit_msg,
+        ],
+        subprocess.DEVNULL,
+    )
+    # Remove trailing space
+    execute_cmd(
+        ["git", "-C", repo_path, "rebase", "--whitespace=fix", "HEAD~1"],
+        subprocess.DEVNULL,
+    )
 
 
 # Apply all patches found for the dedicated serie
 def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
     # First check if some patch need to be applied
-    patch_path = os.path.join(script_path, "patch")
+    patch_path = script_path / "patch"
     patch_list = []
     if HAL_updated:
-        HAL_patch_path = os.path.join(patch_path, "HAL", serie)
-        if os.path.isdir(HAL_patch_path):
-            for file in os.listdir(HAL_patch_path):
-                if file.endswith(".patch"):
-                    patch_list.append(os.path.join(HAL_patch_path, file))
+        HAL_patch_path = patch_path / "HAL" / serie
+        if HAL_patch_path.is_dir():
+            for file in HAL_patch_path.iterdir():
+                if file.name.endswith(".patch"):
+                    patch_list.append(HAL_patch_path / file)
     if CMSIS_updated:
-        CMSIS_patch_path = os.path.join(patch_path, "CMSIS", serie)
-        if os.path.isdir(CMSIS_patch_path):
-            for file in os.listdir(CMSIS_patch_path):
-                if file.endswith(".patch"):
-                    patch_list.append(os.path.join(CMSIS_patch_path, file))
+        CMSIS_patch_path = patch_path / "CMSIS" / serie
+        if CMSIS_patch_path.is_dir():
+            for file in CMSIS_patch_path.iterdir():
+                if file.name.endswith(".patch"):
+                    patch_list.append(CMSIS_patch_path / file)
 
     if len(patch_list):
         patch_failed = []
@@ -380,16 +357,16 @@ def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
         for patch in patch_list:
             try:
                 # Test the patch before apply it
-                status = subprocess.check_output(
+                status = execute_cmd(
                     ["git", "-C", repo_path, "apply", "--check", patch],
-                    stderr=subprocess.STDOUT,
+                    subprocess.STDOUT,
                 )
                 if status:
                     # print("patch {} can't be applied".format(patch))
                     patch_failed.append([patch, status])
                     continue
                 # Apply the patch
-                status = subprocess.check_output(
+                status = execute_cmd(
                     [
                         "git",
                         "-C",
@@ -399,7 +376,8 @@ def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
                         "--quiet",
                         "--signoff",
                         patch,
-                    ]
+                    ],
+                    None,
                 )
             except subprocess.CalledProcessError as e:
                 patch_failed.append([patch, e.cmd, e.output.decode("utf-8")])
@@ -416,8 +394,8 @@ def applyPatch(serie, HAL_updated, CMSIS_updated, repo_path):
 def updateCore():
     for serie in stm32_list:
         cube_name = repo_generic_name + serie
-        cube_path = os.path.join(repo_local_path, cube_name)
-        core_path = os.path.join(repo_local_path, repo_core_name)
+        cube_path = repo_local_path / cube_name
+        core_path = repo_local_path / repo_core_name
         core_HAL_version = core_HAL_versions[serie]
         cube_HAL_version = cube_HAL_versions[serie]
         core_CMSIS_version = core_CMSIS_versions[serie]
@@ -451,13 +429,13 @@ Included in STM32Cube{0} FW {2}""".format(
                 + cube_HAL_version
             )
             # First delete old HAL version
-            HAL_serie_core_path = os.path.join(
-                core_path, hal_dest_path, "STM32{}xx_HAL_Driver".format(serie)
+            HAL_serie_core_path = (
+                core_path / hal_dest_path / "STM32{}xx_HAL_Driver".format(serie)
             )
             deleteFolder(HAL_serie_core_path)
             # Copy new one
-            HAL_serie_cube_path = os.path.join(
-                cube_path, hal_src_path, "STM32{}xx_HAL_Driver".format(serie)
+            HAL_serie_cube_path = (
+                cube_path / hal_src_path / "STM32{}xx_HAL_Driver".format(serie)
             )
             copyFolder(HAL_serie_cube_path, HAL_serie_core_path, {"*.chm"})
             # Update MD file
@@ -491,13 +469,13 @@ Included in STM32Cube{0} FW {2}""".format(
                 + cube_CMSIS_version
             )
             # First delete CMSIS folder
-            CMSIS_serie_dest_path = os.path.join(
-                core_path, cmsis_dest_path, "STM32{}xx".format(serie.upper())
+            CMSIS_serie_dest_path = (
+                core_path / cmsis_dest_path / "STM32{}xx".format(serie.upper())
             )
             deleteFolder(CMSIS_serie_dest_path)
             # Copy new one
-            CMSIS_serie_cube_path = os.path.join(
-                cube_path, cmsis_src_path, "STM32{}xx".format(serie.upper())
+            CMSIS_serie_cube_path = (
+                cube_path / cmsis_src_path / "STM32{}xx".format(serie.upper())
             )
             copyFolder(CMSIS_serie_cube_path, CMSIS_serie_dest_path, {"iar", "arm"})
             # Update MD file
