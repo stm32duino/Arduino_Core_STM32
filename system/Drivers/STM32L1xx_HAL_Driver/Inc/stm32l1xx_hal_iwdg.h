@@ -84,12 +84,9 @@ typedef struct
 #define IWDG_PRESCALER_64               IWDG_PR_PR_2                                    /*!< IWDG prescaler set to 64  */
 #define IWDG_PRESCALER_128              (IWDG_PR_PR_2 | IWDG_PR_PR_0)                   /*!< IWDG prescaler set to 128 */
 #define IWDG_PRESCALER_256              (IWDG_PR_PR_2 | IWDG_PR_PR_1)                   /*!< IWDG prescaler set to 256 */
-
 /**
   * @}
   */
-
-
 
 /**
   * @}
@@ -109,7 +106,7 @@ typedef struct
 
 /**
   * @brief  Reload IWDG counter with value defined in the reload register
-  *         (write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers disabled).
+  *         (write access to IWDG_PR and IWDG_RLR registers disabled).
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
@@ -128,7 +125,7 @@ typedef struct
   * @{
   */
 /* Initialization/Start functions  ********************************************/
-HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg);
+HAL_StatusTypeDef     HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg);
 /**
   * @}
   */
@@ -137,7 +134,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg);
   * @{
   */
 /* I/O operation functions ****************************************************/
-HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
+HAL_StatusTypeDef     HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
 /**
   * @}
   */
@@ -169,14 +166,14 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg);
   */
 
 /**
-  * @brief  Enable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers.
+  * @brief  Enable write access to IWDG_PR and IWDG_RLR registers.
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
 #define IWDG_ENABLE_WRITE_ACCESS(__HANDLE__)  WRITE_REG((__HANDLE__)->Instance->KR, IWDG_KEY_WRITE_ACCESS_ENABLE)
 
 /**
-  * @brief  Disable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers.
+  * @brief  Disable write access to IWDG_PR and IWDG_RLR registers.
   * @param  __HANDLE__  IWDG handle
   * @retval None
   */
