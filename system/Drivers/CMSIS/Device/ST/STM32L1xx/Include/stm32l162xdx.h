@@ -671,6 +671,7 @@ typedef struct
 #define FLASH_BANK2_BASE      (0x08040000UL)              /*!< FLASH BANK2 base address in the alias region */
 #define FLASH_BANK1_END       (0x0802FFFFUL)              /*!< Program end FLASH BANK1 address  */
 #define FLASH_BANK2_END       (0x0806FFFFUL)              /*!< Program end FLASH BANK2 address  */
+#define FLASH_END             (0x0806FFFFUL)              /*!< Program end FLASH address for Cat6 */
 #define FLASH_EEPROM_END      (0x08083FFFUL)              /*!< FLASH EEPROM end address (16KB) */
 
 /*!< Peripheral memory map */
@@ -847,6 +848,15 @@ typedef struct
 /** @addtogroup Exported_constants
   * @{
   */
+
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 200U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
 
 /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
@@ -3191,6 +3201,10 @@ typedef struct
 /*                        (FLASH, DATA_EEPROM, OB)                            */
 /*                                                                            */
 /******************************************************************************/
+/*
+ * @brief Specific device feature definitions (not present on all devices in the STM32L1 serie)
+ */
+#define FLASH_CUT6
 
 /*******************  Bit definition for FLASH_ACR register  ******************/
 #define FLASH_ACR_LATENCY_Pos                (0U)
@@ -6099,8 +6113,8 @@ typedef struct
 #define SYSCFG_EXTICR1_EXTI3_PC         (0x00002000U)                          /*!< PC[3] pin */
 #define SYSCFG_EXTICR1_EXTI3_PD         (0x00003000U)                          /*!< PD[3] pin */
 #define SYSCFG_EXTICR1_EXTI3_PE         (0x00004000U)                          /*!< PE[3] pin */
-#define SYSCFG_EXTICR1_EXTI3_PF         (0x00003000U)                          /*!< PF[3] pin */
-#define SYSCFG_EXTICR1_EXTI3_PG         (0x00004000U)                          /*!< PG[3] pin */
+#define SYSCFG_EXTICR1_EXTI3_PF         (0x00006000U)                          /*!< PF[3] pin */
+#define SYSCFG_EXTICR1_EXTI3_PG         (0x00007000U)                          /*!< PG[3] pin */
 
 /*****************  Bit definition for SYSCFG_EXTICR2 register  *****************/
 #define SYSCFG_EXTICR2_EXTI4_Pos        (0U)

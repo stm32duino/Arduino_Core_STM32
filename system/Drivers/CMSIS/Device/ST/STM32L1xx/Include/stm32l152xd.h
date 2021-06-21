@@ -692,6 +692,7 @@ typedef struct
 #define FSMC_R_BASE           (0xA0000000UL)              /*!< FSMC registers base address */
 #define SRAM_BB_BASE          (0x22000000UL)              /*!< SRAM base address in the bit-band region */
 #define PERIPH_BB_BASE        (0x42000000UL)              /*!< Peripheral base address in the bit-band region */
+#define FLASH_END             (0x0805FFFFUL)              /*!< Program end FLASH address for Cat4 */
 #define FLASH_BANK2_BASE      (0x08030000UL)              /*!< FLASH BANK2 base address in the alias region */
 #define FLASH_BANK1_END       (0x0802FFFFUL)              /*!< Program end FLASH BANK1 address */
 #define FLASH_BANK2_END       (0x0805FFFFUL)              /*!< Program end FLASH BANK2 address */
@@ -881,6 +882,15 @@ typedef struct
 /** @addtogroup Exported_constants
   * @{
   */
+
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 200U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
 
 /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
@@ -3160,6 +3170,10 @@ typedef struct
 /*                        (FLASH, DATA_EEPROM, OB)                            */
 /*                                                                            */
 /******************************************************************************/
+/*
+ * @brief Specific device feature definitions (not present on all devices in the STM32L1 serie)
+ */
+#define FLASH_CUT4
 
 /*******************  Bit definition for FLASH_ACR register  ******************/
 #define FLASH_ACR_LATENCY_Pos                (0U)
@@ -3352,6 +3366,12 @@ typedef struct
 #define FSMC_BCRx_ASYNCWAIT_Pos             (15U)
 #define FSMC_BCRx_ASYNCWAIT_Msk             (0x1UL << FSMC_BCRx_ASYNCWAIT_Pos)  /*!< 0x00008000 */
 #define FSMC_BCRx_ASYNCWAIT                 FSMC_BCRx_ASYNCWAIT_Msk            /*!< Asynchronous wait */
+#define FSMC_BCRx_CPSIZE_Pos                (16U)
+#define FSMC_BCRx_CPSIZE_Msk                (0x7UL << FSMC_BCRx_CPSIZE_Pos)     /*!< 0x00070000 */
+#define FSMC_BCRx_CPSIZE                    FSMC_BCRx_CPSIZE_Msk               /*!< Cellular RAM page size */
+#define FSMC_BCRx_CPSIZE_0                  (0x1UL << FSMC_BCRx_CPSIZE_Pos)     /*!< 0x00010000 */
+#define FSMC_BCRx_CPSIZE_1                  (0x2UL << FSMC_BCRx_CPSIZE_Pos)     /*!< 0x00020000 */
+#define FSMC_BCRx_CPSIZE_2                  (0x4UL << FSMC_BCRx_CPSIZE_Pos)     /*!< 0x00040000 */
 #define FSMC_BCRx_CBURSTRW_Pos              (19U)
 #define FSMC_BCRx_CBURSTRW_Msk              (0x1UL << FSMC_BCRx_CBURSTRW_Pos)   /*!< 0x00080000 */
 #define FSMC_BCRx_CBURSTRW                  FSMC_BCRx_CBURSTRW_Msk             /*!< Write burst enable */
@@ -6589,8 +6609,8 @@ typedef struct
 #define SYSCFG_EXTICR1_EXTI3_PC         (0x00002000U)                          /*!< PC[3] pin */
 #define SYSCFG_EXTICR1_EXTI3_PD         (0x00003000U)                          /*!< PD[3] pin */
 #define SYSCFG_EXTICR1_EXTI3_PE         (0x00004000U)                          /*!< PE[3] pin */
-#define SYSCFG_EXTICR1_EXTI3_PF         (0x00003000U)                          /*!< PF[3] pin */
-#define SYSCFG_EXTICR1_EXTI3_PG         (0x00004000U)                          /*!< PG[3] pin */
+#define SYSCFG_EXTICR1_EXTI3_PF         (0x00006000U)                          /*!< PF[3] pin */
+#define SYSCFG_EXTICR1_EXTI3_PG         (0x00007000U)                          /*!< PG[3] pin */
 
 /*****************  Bit definition for SYSCFG_EXTICR2 register  *****************/
 #define SYSCFG_EXTICR2_EXTI4_Pos        (0U)
