@@ -38,10 +38,10 @@
         on DBG_IWDG_STOP configuration bit in DBG module, accessible through
         __HAL_DBGMCU_FREEZE_IWDG() and __HAL_DBGMCU_UNFREEZE_IWDG() macros.
 
-    [..] Min-max timeout value @32KHz (LSI): ~125us / ~32.7s
+    [..] Min-max timeout value @37KHz (LSI): ~108.1us / ~28.28s
          The IWDG timeout may vary due to LSI clock frequency dispersion.
          STM32L1xx devices provide the capability to measure the LSI clock
-         frequency (LSI clock is internally connected to TIM16 CH1 input capture).
+         frequency (LSI clock is internally connected to TIM10 CH1 input capture).
          The measured value can be used to have an IWDG timeout with an
          acceptable accuracy.
 
@@ -61,7 +61,7 @@
       (++) Enable instance by writing Start keyword in IWDG_KEY register. LSI
            clock is forced ON and IWDG counter starts counting down.
       (++) Enable write access to configuration registers:
-          IWDG_PR, IWDG_RLR and IWDG_WINR.
+          IWDG_PR and IWDG_RLR.
       (++) Configure the IWDG prescaler and counter reload value. This reload
            value will be loaded in the IWDG counter each time the watchdog is
            reloaded, then the IWDG will start counting down from this value.
@@ -115,11 +115,14 @@
 /* Status register needs up to 5 LSI clock periods divided by the clock
    prescaler to be updated. The number of LSI clock periods is upper-rounded to
    6 for the timeout value calculation.
-   The timeout value is also calculated using the highest prescaler (256) and
+   The timeout value is calculated using the highest prescaler (256) and
    the LSI_VALUE constant. The value of this constant can be changed by the user
    to take into account possible LSI clock period variations.
-   The timeout value is multiplied by 1000 to be converted in milliseconds. */
-#define HAL_IWDG_DEFAULT_TIMEOUT ((6UL * 256UL * 1000UL) / LSI_VALUE)
+   The timeout value is multiplied by 1000 to be converted in milliseconds.
+   LSI startup time is also considered here by adding LSI_STARTUP_TIMEOUT
+   converted in milliseconds. */
+#define HAL_IWDG_DEFAULT_TIMEOUT        (((6UL * 256UL * 1000UL) / LSI_VALUE) + ((LSI_STARTUP_TIME / 1000UL) + 1UL))
+#define IWDG_KERNEL_UPDATE_FLAGS        (IWDG_SR_RVU | IWDG_SR_PVU)
 /**
   * @}
   */
@@ -176,7 +179,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   /* Enable IWDG. LSI is turned on automatically */
   __HAL_IWDG_START(hiwdg);
 
-  /* Enable write access to IWDG_PR, IWDG_RLR and IWDG_WINR registers by writing
+  /* Enable write access to IWDG_PR and IWDG_RLR registers by writing
   0x5555 in KR */
   IWDG_ENABLE_WRITE_ACCESS(hiwdg);
 
@@ -188,11 +191,14 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   tickstart = HAL_GetTick();
 
   /* Wait for register to be updated */
-  while (hiwdg->Instance->SR != 0x00u)
+  while ((hiwdg->Instance->SR & IWDG_KERNEL_UPDATE_FLAGS) != 0x00u)
   {
     if ((HAL_GetTick() - tickstart) > HAL_IWDG_DEFAULT_TIMEOUT)
     {
-      return HAL_TIMEOUT;
+      if ((hiwdg->Instance->SR & IWDG_KERNEL_UPDATE_FLAGS) != 0x00u)
+      {
+        return HAL_TIMEOUT;
+      }
     }
   }
 
@@ -202,6 +208,7 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   /* Return function status */
   return HAL_OK;
 }
+
 
 /**
   * @}
@@ -222,7 +229,6 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   * @{
   */
 
-
 /**
   * @brief  Refresh the IWDG.
   * @param  hiwdg  pointer to a IWDG_HandleTypeDef structure that contains
@@ -237,6 +243,7 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg)
   /* Return function status */
   return HAL_OK;
 }
+
 
 /**
   * @}

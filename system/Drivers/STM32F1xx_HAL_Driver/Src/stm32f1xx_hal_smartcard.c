@@ -737,7 +737,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc,
            and HAL_SMARTCARD_ErrorCallback() user callback is executed. Transfer is kept ongoing on SMARTCARD side.
            If user wants to abort it, Abort services should be called by user.
        (+) Error is considered as Blocking : Transfer could not be completed properly and is aborted.
-           This concerns Frame Error in Interrupt mode tranmission, Overrun Error in Interrupt mode reception and all errors in DMA mode.
+           This concerns Frame Error in Interrupt mode transmission, Overrun Error in Interrupt mode reception and all errors in DMA mode.
            Error code is set to allow user to identify error type, and HAL_SMARTCARD_ErrorCallback() user callback is executed.
 
 @endverbatim
@@ -771,7 +771,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, uint8_t *
     hsc->ErrorCode = HAL_SMARTCARD_ERROR_NONE;
     hsc->gState = HAL_SMARTCARD_STATE_BUSY_TX;
 
-    /* Init tickstart for timeout managment */
+    /* Init tickstart for timeout management */
     tickstart = HAL_GetTick();
 
     hsc->TxXferSize = Size;
@@ -833,7 +833,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsc, uint8_t *p
     hsc->ErrorCode = HAL_SMARTCARD_ERROR_NONE;
     hsc->RxState = HAL_SMARTCARD_STATE_BUSY_RX;
 
-    /* Init tickstart for timeout managment */
+    /* Init tickstart for timeout management */
     tickstart = HAL_GetTick();
 
     hsc->RxXferSize = Size;

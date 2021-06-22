@@ -273,16 +273,15 @@ HAL_StatusTypeDef HAL_OPAMP_Init(OPAMP_HandleTypeDef* hopamp)
     assert_param(IS_OPAMP_NONINVERTING_INPUT_CHECK_INSTANCE(hopamp, hopamp->Init.NonInvertingInput));
     assert_param(IS_OPAMP_TRIMMING(hopamp->Init.UserTrimming));
 
+#if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
     if(hopamp->State == HAL_OPAMP_STATE_RESET)
     {
-#if (USE_HAL_OPAMP_REGISTER_CALLBACKS == 1)
-    if(hopamp->MspInitCallback == NULL)
-    {
-      hopamp->MspInitCallback               = HAL_OPAMP_MspInit;
+      if(hopamp->MspInitCallback == NULL)
+      {
+        hopamp->MspInitCallback               = HAL_OPAMP_MspInit;
+      }
     }
 #endif /* USE_HAL_OPAMP_REGISTER_CALLBACKS */
-    }
-
 
     if (hopamp->Init.Mode != OPAMP_FOLLOWER_MODE)
     {
@@ -908,6 +907,17 @@ HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef* hopamp)
       /* Set user trimming mode */
       hopamp->Init.UserTrimming = OPAMP_TRIMMING_USER;
 
+      /* Check on unsupported value */
+      if(opamp_trimmingvaluep == 0x1FU)  /* 0x1F is not functional */
+      {
+        opamp_trimmingvaluep = 30U;
+      }
+
+      if(opamp_trimmingvaluen == 0x1FU)  /* 0x1F is not functional */
+      {
+        opamp_trimmingvaluen = 30U;
+      }
+
       /* Affect calibration parameters depending on mode normal/low power */
       if (hopamp->Init.PowerMode != OPAMP_POWERMODE_LOWPOWER)
       {
@@ -937,6 +947,7 @@ HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef* hopamp)
   }
 
   return status;
+
 }
 
 /**

@@ -1959,6 +1959,10 @@ typedef struct
                                        LL_ADC_RESOLUTION_12B)                  \
   )
 
+/* Note: On device STM32L100, calibration parameters TS_CAL1 and TS_CAL2 are not available. */
+/*       Therefore, helper macro __LL_ADC_CALC_TEMPERATURE() is not available.*/
+/*       Use helper macro @ref __LL_ADC_CALC_TEMPERATURE_TYP_PARAMS().        */
+#if defined(TEMPSENSOR_CAL1_ADDR_CMSIS)
 /**
   * @brief  Helper macro to calculate the temperature (unit: degree Celsius)
   *         from ADC conversion data of internal temperature sensor.
@@ -2017,6 +2021,7 @@ typedef struct
     ) / (int32_t)((int32_t)*TEMPSENSOR_CAL2_ADDR - (int32_t)*TEMPSENSOR_CAL1_ADDR) \
    ) + TEMPSENSOR_CAL1_TEMP                                                        \
   )
+#endif /* TEMPSENSOR_CAL1_ADDR_CMSIS */
 
 /**
   * @brief  Helper macro to calculate the temperature (unit: degree Celsius)

@@ -3,7 +3,7 @@
   * @file    stm32f2xx_hal_adc.c
   * @author  MCD Application Team
   * @brief   This file provides firmware functions to manage the following 
-  *          functionalities of the Analog to Digital Convertor (ADC) peripheral:
+  *          functionalities of the Analog to Digital Converter (ADC) peripheral:
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *           + State and errors functions
@@ -1554,7 +1554,7 @@ __weak void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
 /**
   * @brief  Error ADC callback.
   * @note   In case of error due to overrun when using ADC with DMA transfer 
-  *         (HAL ADC handle paramater "ErrorCode" to state "HAL_ADC_ERROR_OVR"):
+  *         (HAL ADC handle parameter "ErrorCode" to state "HAL_ADC_ERROR_OVR"):
   *         - Reinitialize the DMA using function "HAL_ADC_Stop_DMA()".
   *         - If needed, restart a new ADC conversion using function
   *           "HAL_ADC_Start_DMA()"
@@ -1672,7 +1672,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef* hadc, ADC_ChannelConf
     /* Enable the TSVREFE channel*/
     ADC->CCR |= ADC_CCR_TSVREFE;
     
-    if((sConfig->Channel == ADC_CHANNEL_TEMPSENSOR))
+    if(sConfig->Channel == ADC_CHANNEL_TEMPSENSOR)
     {
       /* Delay for temperature sensor stabilization time */
       /* Compute number of CPU cycles to wait for */

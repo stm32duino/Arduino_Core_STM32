@@ -59,7 +59,7 @@
 /** @addtogroup STM32F1xx_HAL_Driver
   * @{
   */
-#if (((defined HAL_NOR_MODULE_ENABLED || defined HAL_SRAM_MODULE_ENABLED)) || defined HAL_NAND_MODULE_ENABLED || defined HAL_PCCARD_MODULE_ENABLED )
+#if defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_SRAM_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED) || defined(HAL_PCCARD_MODULE_ENABLED)
 
 /** @defgroup FSMC_LL  FSMC Low Layer
   * @brief FSMC driver modules
@@ -75,7 +75,7 @@
 
 /* ----------------------- FSMC registers bit mask --------------------------- */
 
-#if defined FSMC_BANK1
+#if defined(FSMC_BANK1)
 /* --- BCR Register ---*/
 /* BCR register clear mask */
 
@@ -93,8 +93,9 @@
                                       FSMC_BWTRx_DATAST | FSMC_BWTRx_BUSTURN |\
                                       FSMC_BWTRx_ACCMOD))
 #else
-#define BWTR_CLEAR_MASK   ((uint32_t)(FSMC_BWTRx_ADDSET | FSMC_BWTRx_ADDHLD  |\
-                                      FSMC_BWTRx_DATAST | FSMC_BWTRx_ACCMOD))
+#define BWTR_CLEAR_MASK   ((uint32_t)(FSMC_BWTRx_ADDSET | FSMC_BWTRx_ADDHLD |\
+                                      FSMC_BWTRx_DATAST | FSMC_BWTRx_ACCMOD |\
+                                      FSMC_BWTRx_CLKDIV | FSMC_BWTRx_DATLAT))
 #endif /* FSMC_BWTRx_BUSTURN */
 #endif /* FSMC_BANK1 */
 #if defined(FSMC_BANK3)
@@ -153,7 +154,7 @@
   * @{
   */
 
-#if defined FSMC_BANK1
+#if defined(FSMC_BANK1)
 
 /** @defgroup FSMC_LL_Exported_Functions_NORSRAM FSMC Low Layer NOR SRAM Exported Functions
   * @brief  NORSRAM Controller functions
@@ -363,7 +364,8 @@ HAL_StatusTypeDef FSMC_NORSRAM_Timing_Init(FSMC_NORSRAM_TypeDef *Device,
   * @retval HAL status
   */
 HAL_StatusTypeDef FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeDef *Device,
-                                                   FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank, uint32_t ExtendedMode)
+                                                   FSMC_NORSRAM_TimingTypeDef *Timing, uint32_t Bank,
+                                                   uint32_t ExtendedMode)
 {
   /* Check the parameters */
   assert_param(IS_FSMC_EXTENDED_MODE(ExtendedMode));
@@ -376,17 +378,17 @@ HAL_StatusTypeDef FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeDe
     assert_param(IS_FSMC_ADDRESS_SETUP_TIME(Timing->AddressSetupTime));
     assert_param(IS_FSMC_ADDRESS_HOLD_TIME(Timing->AddressHoldTime));
     assert_param(IS_FSMC_DATASETUP_TIME(Timing->DataSetupTime));
-#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
+#if defined(FSMC_BWTRx_BUSTURN)
     assert_param(IS_FSMC_TURNAROUND_TIME(Timing->BusTurnAroundDuration));
 #else
     assert_param(IS_FSMC_CLK_DIV(Timing->CLKDivision));
     assert_param(IS_FSMC_DATA_LATENCY(Timing->DataLatency));
-#endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG */
+#endif /* FSMC_BWTRx_BUSTURN */
     assert_param(IS_FSMC_ACCESS_MODE(Timing->AccessMode));
     assert_param(IS_FSMC_NORSRAM_BANK(Bank));
 
     /* Set NORSRAM device timing register for write configuration, if extended mode is used */
-#if defined(STM32F101xE) || defined(STM32F103xE) || defined(STM32F101xG) || defined(STM32F103xG)
+#if defined(FSMC_BWTRx_BUSTURN)
     MODIFY_REG(Device->BWTR[Bank], BWTR_CLEAR_MASK, (Timing->AddressSetupTime                                    |
                                                      ((Timing->AddressHoldTime)        << FSMC_BWTRx_ADDHLD_Pos)  |
                                                      ((Timing->DataSetupTime)          << FSMC_BWTRx_DATAST_Pos)  |
@@ -397,9 +399,9 @@ HAL_StatusTypeDef FSMC_NORSRAM_Extended_Timing_Init(FSMC_NORSRAM_EXTENDED_TypeDe
                                                      ((Timing->AddressHoldTime)        << FSMC_BWTRx_ADDHLD_Pos)  |
                                                      ((Timing->DataSetupTime)          << FSMC_BWTRx_DATAST_Pos)  |
                                                      Timing->AccessMode                                          |
-                                                     (((Timing->CLKDivision) - 1U)     << FSMC_BTRx_CLKDIV_Pos)   |
+                                                     (((Timing->CLKDivision) - 1U)     << FSMC_BWTRx_CLKDIV_Pos)  |
                                                      (((Timing->DataLatency) - 2U)     << FSMC_BWTRx_DATLAT_Pos)));
-#endif /* STM32F101xE || STM32F103xE || STM32F101xG || STM32F103xG */
+#endif /* FSMC_BWTRx_BUSTURN */
   }
   else
   {
@@ -855,9 +857,11 @@ HAL_StatusTypeDef FSMC_PCCARD_Init(FSMC_PCCARD_TypeDef *Device, FSMC_PCCARD_Init
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
+#if defined(FSMC_BANK3)
   assert_param(IS_FSMC_WAIT_FEATURE(Init->Waitfeature));
   assert_param(IS_FSMC_TCLR_TIME(Init->TCLRSetupTime));
   assert_param(IS_FSMC_TAR_TIME(Init->TARSetupTime));
+#endif /* FSMC_BANK3 */
 
   /* Set FSMC_PCCARD device control parameters */
   MODIFY_REG(Device->PCR4,
@@ -887,10 +891,12 @@ HAL_StatusTypeDef FSMC_PCCARD_CommonSpace_Timing_Init(FSMC_PCCARD_TypeDef *Devic
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
+#if defined(FSMC_BANK3)
   assert_param(IS_FSMC_SETUP_TIME(Timing->SetupTime));
   assert_param(IS_FSMC_WAIT_TIME(Timing->WaitSetupTime));
   assert_param(IS_FSMC_HOLD_TIME(Timing->HoldSetupTime));
   assert_param(IS_FSMC_HIZ_TIME(Timing->HiZSetupTime));
+#endif /* FSMC_BANK3 */
 
   /* Set PCCARD timing parameters */
   MODIFY_REG(Device->PMEM4, PMEM_CLEAR_MASK,
@@ -914,10 +920,12 @@ HAL_StatusTypeDef FSMC_PCCARD_AttributeSpace_Timing_Init(FSMC_PCCARD_TypeDef *De
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
+#if defined(FSMC_BANK3)
   assert_param(IS_FSMC_SETUP_TIME(Timing->SetupTime));
   assert_param(IS_FSMC_WAIT_TIME(Timing->WaitSetupTime));
   assert_param(IS_FSMC_HOLD_TIME(Timing->HoldSetupTime));
   assert_param(IS_FSMC_HIZ_TIME(Timing->HiZSetupTime));
+#endif /* FSMC_BANK3 */
 
   /* Set PCCARD timing parameters */
   MODIFY_REG(Device->PATT4, PATT_CLEAR_MASK,
@@ -941,10 +949,12 @@ HAL_StatusTypeDef FSMC_PCCARD_IOSpace_Timing_Init(FSMC_PCCARD_TypeDef *Device,
 {
   /* Check the parameters */
   assert_param(IS_FSMC_PCCARD_DEVICE(Device));
+#if defined(FSMC_BANK3)
   assert_param(IS_FSMC_SETUP_TIME(Timing->SetupTime));
   assert_param(IS_FSMC_WAIT_TIME(Timing->WaitSetupTime));
   assert_param(IS_FSMC_HOLD_TIME(Timing->HoldSetupTime));
   assert_param(IS_FSMC_HIZ_TIME(Timing->HiZSetupTime));
+#endif /* FSMC_BANK3 */
 
   /* Set FSMC_PCCARD device timing parameters */
   MODIFY_REG(Device->PIO4, PIO4_CLEAR_MASK,
