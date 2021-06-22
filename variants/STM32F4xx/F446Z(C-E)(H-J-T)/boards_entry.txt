@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F446ZCHx
+GenF4.menu.pnum.GENERIC_F446ZCHX=Generic F446ZCHx
+GenF4.menu.pnum.GENERIC_F446ZCHX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446ZCHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZCHX.build.board=GENERIC_F446ZCHX
+GenF4.menu.pnum.GENERIC_F446ZCHX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZCHX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+
+# Generic F446ZEHx
+GenF4.menu.pnum.GENERIC_F446ZEHX=Generic F446ZEHx
+GenF4.menu.pnum.GENERIC_F446ZEHX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446ZEHX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZEHX.build.board=GENERIC_F446ZEHX
+GenF4.menu.pnum.GENERIC_F446ZEHX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZEHX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+
+# Generic F446ZCJx
+GenF4.menu.pnum.GENERIC_F446ZCJX=Generic F446ZCJx
+GenF4.menu.pnum.GENERIC_F446ZCJX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446ZCJX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZCJX.build.board=GENERIC_F446ZCJX
+GenF4.menu.pnum.GENERIC_F446ZCJX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZCJX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+
+# Generic F446ZEJx
+GenF4.menu.pnum.GENERIC_F446ZEJX=Generic F446ZEJx
+GenF4.menu.pnum.GENERIC_F446ZEJX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446ZEJX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZEJX.build.board=GENERIC_F446ZEJX
+GenF4.menu.pnum.GENERIC_F446ZEJX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZEJX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+
+# Generic F446ZCTx
+GenF4.menu.pnum.GENERIC_F446ZCTX=Generic F446ZCTx
+GenF4.menu.pnum.GENERIC_F446ZCTX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446ZCTX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZCTX.build.board=GENERIC_F446ZCTX
+GenF4.menu.pnum.GENERIC_F446ZCTX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZCTX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+
+# Generic F446ZETx
+GenF4.menu.pnum.GENERIC_F446ZETX=Generic F446ZETx
+GenF4.menu.pnum.GENERIC_F446ZETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446ZETX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446ZETX.build.board=GENERIC_F446ZETX
+GenF4.menu.pnum.GENERIC_F446ZETX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446ZETX.build.variant=STM32F4xx/F446Z(C-E)(H-J-T)
+

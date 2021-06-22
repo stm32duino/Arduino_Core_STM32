@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F091VBTx
+GenF0.menu.pnum.GENERIC_F091VBTX=Generic F091VBTx
+GenF0.menu.pnum.GENERIC_F091VBTX.upload.maximum_size=131072
+GenF0.menu.pnum.GENERIC_F091VBTX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F091VBTX.build.board=GENERIC_F091VBTX
+GenF0.menu.pnum.GENERIC_F091VBTX.build.product_line=STM32F091xC
+GenF0.menu.pnum.GENERIC_F091VBTX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+
+# Generic F091VCTx
+GenF0.menu.pnum.GENERIC_F091VCTX=Generic F091VCTx
+GenF0.menu.pnum.GENERIC_F091VCTX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F091VCTX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F091VCTX.build.board=GENERIC_F091VCTX
+GenF0.menu.pnum.GENERIC_F091VCTX.build.product_line=STM32F091xC
+GenF0.menu.pnum.GENERIC_F091VCTX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+
+# Generic F091VCHx
+GenF0.menu.pnum.GENERIC_F091VCHX=Generic F091VCHx
+GenF0.menu.pnum.GENERIC_F091VCHX.upload.maximum_size=262144
+GenF0.menu.pnum.GENERIC_F091VCHX.upload.maximum_data_size=32768
+GenF0.menu.pnum.GENERIC_F091VCHX.build.board=GENERIC_F091VCHX
+GenF0.menu.pnum.GENERIC_F091VCHX.build.product_line=STM32F091xC
+GenF0.menu.pnum.GENERIC_F091VCHX.build.variant=STM32F0xx/F091VBT_F091VC(H-T)
+

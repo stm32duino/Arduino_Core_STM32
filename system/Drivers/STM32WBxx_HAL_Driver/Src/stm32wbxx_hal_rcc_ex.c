@@ -854,6 +854,17 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
         /* Nothing to do as frequency already initialized to 0U */
       }
       break;
+#elif defined(STM32WB15xx)
+    case LL_RCC_ADC_CLKSOURCE_HSI:           /* HSI clock used as ADC clock source */
+      if (LL_RCC_HSI_IsReady() == 1U)
+      {
+        frequency = HSI_VALUE;
+      }
+      else
+      {
+        /* Nothing to do as frequency already initialized to 0U */
+      }
+      break;
 #endif
     case LL_RCC_ADC_CLKSOURCE_SYSCLK:        /* SYSCLK clock used as ADC clock source */
       frequency = HAL_RCC_GetSysClockFreq();

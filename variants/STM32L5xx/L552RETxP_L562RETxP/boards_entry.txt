@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L552RETxP
+GenL5.menu.pnum.GENERIC_L552RETXP=Generic L552RETxP
+GenL5.menu.pnum.GENERIC_L552RETXP.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L552RETXP.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L552RETXP.build.board=GENERIC_L552RETXP
+GenL5.menu.pnum.GENERIC_L552RETXP.build.product_line=STM32L552xx
+GenL5.menu.pnum.GENERIC_L552RETXP.build.variant=STM32L5xx/L552RETxP_L562RETxP
+
+# Generic L562RETxP
+GenL5.menu.pnum.GENERIC_L562RETXP=Generic L562RETxP
+GenL5.menu.pnum.GENERIC_L562RETXP.upload.maximum_size=524288
+GenL5.menu.pnum.GENERIC_L562RETXP.upload.maximum_data_size=262144
+GenL5.menu.pnum.GENERIC_L562RETXP.build.board=GENERIC_L562RETXP
+GenL5.menu.pnum.GENERIC_L562RETXP.build.product_line=STM32L562xx
+GenL5.menu.pnum.GENERIC_L562RETXP.build.variant=STM32L5xx/L552RETxP_L562RETxP
+

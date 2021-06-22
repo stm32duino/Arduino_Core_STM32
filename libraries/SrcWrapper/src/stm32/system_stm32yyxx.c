@@ -36,6 +36,9 @@
 #ifdef STM32L4xx
   #include "system_stm32l4xx.c"
 #endif
+#ifdef STM32L5xx
+  #include "system_stm32l5xx_ns.c"
+#endif
 #ifdef STM32MP1xx
   #include "system_stm32mp1xx.c"
 #endif

@@ -1,0 +1,85 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F745IEKx
+GenF7.menu.pnum.GENERIC_F745IEKX=Generic F745IEKx
+GenF7.menu.pnum.GENERIC_F745IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F745IEKX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745IEKX.build.board=GENERIC_F745IEKX
+GenF7.menu.pnum.GENERIC_F745IEKX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745IEKX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F745IGKx
+GenF7.menu.pnum.GENERIC_F745IGKX=Generic F745IGKx
+GenF7.menu.pnum.GENERIC_F745IGKX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F745IGKX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745IGKX.build.board=GENERIC_F745IGKX
+GenF7.menu.pnum.GENERIC_F745IGKX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745IGKX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F745IETx
+GenF7.menu.pnum.GENERIC_F745IETX=Generic F745IETx
+GenF7.menu.pnum.GENERIC_F745IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F745IETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745IETX.build.board=GENERIC_F745IETX
+GenF7.menu.pnum.GENERIC_F745IETX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745IETX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F745IGTx
+GenF7.menu.pnum.GENERIC_F745IGTX=Generic F745IGTx
+GenF7.menu.pnum.GENERIC_F745IGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F745IGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F745IGTX.build.board=GENERIC_F745IGTX
+GenF7.menu.pnum.GENERIC_F745IGTX.build.product_line=STM32F745xx
+GenF7.menu.pnum.GENERIC_F745IGTX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F746IEKx
+GenF7.menu.pnum.GENERIC_F746IEKX=Generic F746IEKx
+GenF7.menu.pnum.GENERIC_F746IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746IEKX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746IEKX.build.board=GENERIC_F746IEKX
+GenF7.menu.pnum.GENERIC_F746IEKX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746IEKX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F746IGKx
+GenF7.menu.pnum.GENERIC_F746IGKX=Generic F746IGKx
+GenF7.menu.pnum.GENERIC_F746IGKX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746IGKX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746IGKX.build.board=GENERIC_F746IGKX
+GenF7.menu.pnum.GENERIC_F746IGKX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746IGKX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F746IETx
+GenF7.menu.pnum.GENERIC_F746IETX=Generic F746IETx
+GenF7.menu.pnum.GENERIC_F746IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F746IETX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746IETX.build.board=GENERIC_F746IETX
+GenF7.menu.pnum.GENERIC_F746IETX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746IETX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F746IGTx
+GenF7.menu.pnum.GENERIC_F746IGTX=Generic F746IGTx
+GenF7.menu.pnum.GENERIC_F746IGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F746IGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F746IGTX.build.board=GENERIC_F746IGTX
+GenF7.menu.pnum.GENERIC_F746IGTX.build.product_line=STM32F746xx
+GenF7.menu.pnum.GENERIC_F746IGTX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F756IGKx
+GenF7.menu.pnum.GENERIC_F756IGKX=Generic F756IGKx
+GenF7.menu.pnum.GENERIC_F756IGKX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756IGKX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756IGKX.build.board=GENERIC_F756IGKX
+GenF7.menu.pnum.GENERIC_F756IGKX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756IGKX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+
+# Generic F756IGTx
+GenF7.menu.pnum.GENERIC_F756IGTX=Generic F756IGTx
+GenF7.menu.pnum.GENERIC_F756IGTX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F756IGTX.upload.maximum_data_size=327680
+GenF7.menu.pnum.GENERIC_F756IGTX.build.board=GENERIC_F756IGTX
+GenF7.menu.pnum.GENERIC_F756IGTX.build.product_line=STM32F756xx
+GenF7.menu.pnum.GENERIC_F756IGTX.build.variant=STM32F7xx/F745I(E-G)(K-T)_F746I(E-G)(K-T)_F756IG(K-T)
+

@@ -1,27 +1,22 @@
-/**
-  ******************************************************************************
-  * @file    lock_resource.h
-  * @author  MCD Application Team
-  * @brief   Header for lock_resource.c
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+/*
+ *******************************************************************************
+ * Copyright (c) 2019-2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef _LOCK_RESOURCE_H
 #define _LOCK_RESOURCE_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32_def.h"
+#include "stm32yyxx_ll_hsem.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,15 +30,168 @@ typedef enum {
 } LockResource_Status_t;
 
 /* Exported constants --------------------------------------------------------*/
-#define LOCK_RESOURCE_TIMEOUT   100U /* timeout in ms */
+#if defined(STM32WBxx)
+/*
+ * HW semaphore Complement ID list defined in hw_conf.h from STM32WB.
+ * They could be used also for H7 dualcore targets.
+ */
+/*
+ * Index of the semaphore used by CPU2 to prevent the CPU1 to either write or
+ * erase data in flash. The CPU1 shall not either write or erase in flash when
+ * this semaphore is taken by the CPU2. When the CPU1 needs to either write or
+ * erase in flash, it shall first get the semaphore and release it just
+ * after writing a raw (64bits data) or erasing one sector.
+ * On v1.4.0 and older CPU2 wireless firmware, this semaphore is unused and
+ * CPU2 is using PES bit. By default, CPU2 is using the PES bit to protect its
+ * timing. The CPU1 may request the CPU2 to use the semaphore instead of the
+ * PES bit by sending the system command SHCI_C2_SetFlashActivityControl()
+ */
+#define CFG_HW_BLOCK_FLASH_REQ_BY_CPU2_SEMID                    7U
 
-/* Exported macro ------------------------------------------------------------*/
-#define PERIPH_LOCK(__Periph__)       Periph_Lock(__Periph__, LOCK_RESOURCE_TIMEOUT)
-#define PERIPH_UNLOCK(__Periph__)     Periph_Unlock(__Periph__)
+/*
+ * Index of the semaphore used by CPU1 to prevent the CPU2 to either write or
+ * erase data in flash. In order to protect its timing, the CPU1 may get this
+ * semaphore to prevent the  CPU2 to either write or erase in flash
+ * (as this will stall both CPUs)
+ * The PES bit shall not be used as this may stall the CPU2 in some cases.
+ */
+#define CFG_HW_BLOCK_FLASH_REQ_BY_CPU1_SEMID                    6U
 
-/* Exported functions ------------------------------------------------------- */
-LockResource_Status_t Periph_Lock(void *Peripheral, uint32_t Timeout);
-void Periph_Unlock(void *Peripheral);
+/*
+ * Index of the semaphore used to manage the CLK48 clock configuration
+ * When the USB is required, this semaphore shall be taken before configuring
+ * the CLK48 for USB and should be released after the application switch OFF
+ * the clock when the USB is not used anymore. When using the RNG, it is good
+ * enough to use CFG_HW_RNG_SEMID to control CLK48.
+ * More details in AN5289
+ */
+#define CFG_HW_CLK48_CONFIG_SEMID                               5U
+#define CFG_HW_RCC_CRRCR_CCIPR_SEMID     CFG_HW_CLK48_CONFIG_SEMID
+
+/* Index of the semaphore used to manage the entry Stop Mode procedure */
+#define CFG_HW_ENTRY_STOP_MODE_SEMID                            4U
+#define CFG_HW_ENTRY_STOP_MODE_MASK_SEMID   (1U << CFG_HW_ENTRY_STOP_MODE_SEMID)
+
+/* Index of the semaphore used to access the RCC */
+#define CFG_HW_RCC_SEMID                                        3U
+
+/* Index of the semaphore used to access the FLASH */
+#define CFG_HW_FLASH_SEMID                                      2U
+
+/* Index of the semaphore used to access the PKA */
+#define CFG_HW_PKA_SEMID                                        1U
+
+/* Index of the semaphore used to access the RNG */
+#define CFG_HW_RNG_SEMID                                        0U
+
+/* Index of the semaphore used to access GPIO */
+#define CFG_HW_GPIO_SEMID                                       8U
+
+/* Index of the semaphore used to access the EXTI */
+#define CFG_HW_EXTI_SEMID                                       9U
+
+#elif defined(STM32MP1xx)
+/*
+ * HW semaphore from STM32MP1
+ * EXTI and GPIO are inherited from STM32MP1 Linux.
+ * Other SEMID are not used by linux and must not be used here,
+ * but reserved for MPU.
+ */
+/* Index of the semaphore used to access GPIO */
+#define CFG_HW_GPIO_SEMID                                       0U
+
+/* Index of the semaphore used to access the EXTI */
+#define CFG_HW_EXTI_SEMID                                       1U
+#endif /* STM32WBxx */
+
+/* Fake semaphore ID definition for compilation purpose only */
+#ifndef HSEM_SEMID_MAX
+#define HSEM_SEMID_MAX                                          0U
+#endif
+#ifndef CFG_HW_BLOCK_FLASH_REQ_BY_CPU2_SEMID
+#define CFG_HW_BLOCK_FLASH_REQ_BY_CPU2_SEMID   (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_BLOCK_FLASH_REQ_BY_CPU1_SEMID
+#define CFG_HW_BLOCK_FLASH_REQ_BY_CPU1_SEMID   (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_CLK48_CONFIG_SEMID
+#define CFG_HW_CLK48_CONFIG_SEMID              (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_RCC_CRRCR_CCIPR_SEMID
+#define CFG_HW_RCC_CRRCR_CCIPR_SEMID           (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_ENTRY_STOP_MODE_SEMID
+#define CFG_HW_ENTRY_STOP_MODE_SEMID           (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_RCC_SEMID
+#define CFG_HW_RCC_SEMID                       (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_FLASH_SEMID
+#define CFG_HW_FLASH_SEMID                     (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_PKA_SEMID
+#define CFG_HW_PKA_SEMID                       (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_RNG_SEMID
+#define CFG_HW_RNG_SEMID                       (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_GPIO_SEMID
+#define CFG_HW_GPIO_SEMID                      (HSEM_SEMID_MAX +1)
+#endif
+#ifndef CFG_HW_EXTI_SEMID
+#define CFG_HW_EXTI_SEMID                      (HSEM_SEMID_MAX +1)
+#endif
+
+/* Hardware Semaphore wait forever value */
+#define HSEM_LOCK_WAIT_FOREVER                         0xFFFFFFFFU
+/* Hardware Semaphore default retry value */
+#ifndef HSEM_LOCK_DEFAULT_RETRY
+#define HSEM_LOCK_DEFAULT_RETRY                            0xFFFFU
+#endif
+
+/*
+ * @brief  hsem_lock function is used for register protection of shared Peripheral
+ *         and shall be called before accessing registers of this shared Peripheral
+ *         If Semaphore id is already taken, the function will busy loop waiting for it to
+ *         be released, but give up after @retry downcounter have elapsed
+ * @param  semID: Semaphore id used to identify which peripheral to protect
+ * @param  retry: number of retry
+ * @retval None
+ */
+static inline void hsem_lock(uint32_t semID, uint32_t retry)
+{
+#if defined(STM32MP1xx) || defined(STM32WBxx)
+  if ((semID) <= HSEM_SEMID_MAX) {
+    while (LL_HSEM_1StepLock(HSEM, semID)) {
+      if (retry != HSEM_LOCK_WAIT_FOREVER) {
+        retry--;
+        if (retry == 0) {
+          Error_Handler();
+        }
+      }
+    }
+  }
+#else
+  UNUSED(semID);
+  UNUSED(retry);
+#endif /* STM32MP1xx || STM32WBxx */
+}
+
+/*
+ * @brief  hsem_unlock released a previously-acquired semaphore
+ * @param  semID Semaphore id used to identify which peripheral to release
+ * @retval None
+ */
+static inline void hsem_unlock(uint32_t semID)
+{
+#if defined(STM32MP1xx) || defined(STM32WBxx)
+  if ((semID) <= HSEM_SEMID_MAX) {
+    LL_HSEM_ReleaseLock(HSEM, semID, 0);
+  }
+#else
+  UNUSED(semID);
+#endif /* STM32MP1xx || STM32WBxx */
+}
 
 #ifdef __cplusplus
 } // extern "C"

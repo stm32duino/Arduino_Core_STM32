@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H725ZETx
+GenH7.menu.pnum.GENERIC_H725ZETX=Generic H725ZETx
+GenH7.menu.pnum.GENERIC_H725ZETX.upload.maximum_size=524288
+GenH7.menu.pnum.GENERIC_H725ZETX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H725ZETX.build.board=GENERIC_H725ZETX
+GenH7.menu.pnum.GENERIC_H725ZETX.build.product_line=STM32H725xx
+GenH7.menu.pnum.GENERIC_H725ZETX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+
+# Generic H725ZGTx
+GenH7.menu.pnum.GENERIC_H725ZGTX=Generic H725ZGTx
+GenH7.menu.pnum.GENERIC_H725ZGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H725ZGTX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H725ZGTX.build.board=GENERIC_H725ZGTX
+GenH7.menu.pnum.GENERIC_H725ZGTX.build.product_line=STM32H725xx
+GenH7.menu.pnum.GENERIC_H725ZGTX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+
+# Generic H735ZGTx
+GenH7.menu.pnum.GENERIC_H735ZGTX=Generic H735ZGTx
+GenH7.menu.pnum.GENERIC_H735ZGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H735ZGTX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H735ZGTX.build.board=GENERIC_H735ZGTX
+GenH7.menu.pnum.GENERIC_H735ZGTX.build.product_line=STM32H735xx
+GenH7.menu.pnum.GENERIC_H735ZGTX.build.variant=STM32H7xx/H725Z(E-G)T_H735ZGT
+

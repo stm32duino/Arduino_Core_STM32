@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F358RCTx
+GenF3.menu.pnum.GENERIC_F358RCTX=Generic F358RCTx
+GenF3.menu.pnum.GENERIC_F358RCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F358RCTX.upload.maximum_data_size=40960
+GenF3.menu.pnum.GENERIC_F358RCTX.build.board=GENERIC_F358RCTX
+GenF3.menu.pnum.GENERIC_F358RCTX.build.product_line=STM32F358xx
+GenF3.menu.pnum.GENERIC_F358RCTX.build.variant=STM32F3xx/F358RCT
+

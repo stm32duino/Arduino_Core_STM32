@@ -1,0 +1,61 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic WB55VCQx
+GenWB.menu.pnum.GENERIC_WB55VCQX=Generic WB55VCQx
+GenWB.menu.pnum.GENERIC_WB55VCQX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB55VCQX.upload.maximum_data_size=131072
+GenWB.menu.pnum.GENERIC_WB55VCQX.build.board=GENERIC_WB55VCQX
+GenWB.menu.pnum.GENERIC_WB55VCQX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VCQX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VCYx
+GenWB.menu.pnum.GENERIC_WB55VCYX=Generic WB55VCYx
+GenWB.menu.pnum.GENERIC_WB55VCYX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB55VCYX.upload.maximum_data_size=131072
+GenWB.menu.pnum.GENERIC_WB55VCYX.build.board=GENERIC_WB55VCYX
+GenWB.menu.pnum.GENERIC_WB55VCYX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VCYX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VEQx
+GenWB.menu.pnum.GENERIC_WB55VEQX=Generic WB55VEQx
+GenWB.menu.pnum.GENERIC_WB55VEQX.upload.maximum_size=524288
+GenWB.menu.pnum.GENERIC_WB55VEQX.upload.maximum_data_size=131072
+GenWB.menu.pnum.GENERIC_WB55VEQX.build.board=GENERIC_WB55VEQX
+GenWB.menu.pnum.GENERIC_WB55VEQX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VEQX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VEYx
+GenWB.menu.pnum.GENERIC_WB55VEYX=Generic WB55VEYx
+GenWB.menu.pnum.GENERIC_WB55VEYX.upload.maximum_size=524288
+GenWB.menu.pnum.GENERIC_WB55VEYX.upload.maximum_data_size=262144
+GenWB.menu.pnum.GENERIC_WB55VEYX.build.board=GENERIC_WB55VEYX
+GenWB.menu.pnum.GENERIC_WB55VEYX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VEYX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VGQx
+GenWB.menu.pnum.GENERIC_WB55VGQX=Generic WB55VGQx
+GenWB.menu.pnum.GENERIC_WB55VGQX.upload.maximum_size=1048576
+GenWB.menu.pnum.GENERIC_WB55VGQX.upload.maximum_data_size=131072
+GenWB.menu.pnum.GENERIC_WB55VGQX.build.board=GENERIC_WB55VGQX
+GenWB.menu.pnum.GENERIC_WB55VGQX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VGQX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VGYx
+GenWB.menu.pnum.GENERIC_WB55VGYX=Generic WB55VGYx
+GenWB.menu.pnum.GENERIC_WB55VGYX.upload.maximum_size=1048576
+GenWB.menu.pnum.GENERIC_WB55VGYX.upload.maximum_data_size=262144
+GenWB.menu.pnum.GENERIC_WB55VGYX.build.board=GENERIC_WB55VGYX
+GenWB.menu.pnum.GENERIC_WB55VGYX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VGYX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+
+# Generic WB55VYYx
+GenWB.menu.pnum.GENERIC_WB55VYYX=Generic WB55VYYx
+GenWB.menu.pnum.GENERIC_WB55VYYX.upload.maximum_size=655360
+GenWB.menu.pnum.GENERIC_WB55VYYX.upload.maximum_data_size=262144
+GenWB.menu.pnum.GENERIC_WB55VYYX.build.board=GENERIC_WB55VYYX
+GenWB.menu.pnum.GENERIC_WB55VYYX.build.product_line=STM32WB55xx
+GenWB.menu.pnum.GENERIC_WB55VYYX.build.variant=STM32WBxx/WB55V(C-E-G)(Q-Y)_WB55VYY
+

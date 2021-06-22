@@ -140,8 +140,9 @@ void tone(uint8_t _pin, unsigned int frequency, unsigned long duration)
   UNUSED(duration);
 }
 
-void noTone(uint8_t _pin)
+void noTone(uint8_t _pin, bool destruct)
 {
   UNUSED(_pin);
+  UNUSED(destruct);
 }
 #endif /* HAL_TIM_MODULE_ENABLED && TIMER_TONE && !HAL_TIM_MODULE_ONLY*/

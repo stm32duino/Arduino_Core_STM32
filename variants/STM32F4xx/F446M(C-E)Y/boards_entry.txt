@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F446MCYx
+GenF4.menu.pnum.GENERIC_F446MCYX=Generic F446MCYx
+GenF4.menu.pnum.GENERIC_F446MCYX.upload.maximum_size=262144
+GenF4.menu.pnum.GENERIC_F446MCYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446MCYX.build.board=GENERIC_F446MCYX
+GenF4.menu.pnum.GENERIC_F446MCYX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446MCYX.build.variant=STM32F4xx/F446M(C-E)Y
+
+# Generic F446MEYx
+GenF4.menu.pnum.GENERIC_F446MEYX=Generic F446MEYx
+GenF4.menu.pnum.GENERIC_F446MEYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F446MEYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F446MEYX.build.board=GENERIC_F446MEYX
+GenF4.menu.pnum.GENERIC_F446MEYX.build.product_line=STM32F446xx
+GenF4.menu.pnum.GENERIC_F446MEYX.build.variant=STM32F4xx/F446M(C-E)Y
+

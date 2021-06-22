@@ -127,7 +127,11 @@ static const uint8_t SHIFT_TAB_OISx[] =
 #define TIMx_OR_RMP_SHIFT 16U
 #define TIMx_OR_RMP_MASK  0x0000FFFFU
 #define TIM1_OR_RMP_MASK  ((TIM1_OR_ETR_ADC1_RMP | TIM1_OR_TI1_RMP) << TIMx_OR_RMP_SHIFT)
+#if defined(USB)
+#define TIM2_OR_RMP_MASK  ((TIM2_OR_TI4_RMP | TIM2_OR_ETR_RMP | TIM2_OR_ITR1_RMP) << TIMx_OR_RMP_SHIFT)
+#else
 #define TIM2_OR_RMP_MASK  ((TIM2_OR_TI4_RMP | TIM2_OR_ETR_RMP) << TIMx_OR_RMP_SHIFT)
+#endif
 #if defined(TIM16)
 #define TIM16_OR_RMP_MASK (TIM16_OR_TI1_RMP << TIMx_OR_RMP_SHIFT)
 #endif /* TIM16 */
@@ -598,8 +602,8 @@ typedef struct
 /** @defgroup TIM_LL_EC_ONEPULSEMODE One Pulse Mode
   * @{
   */
-#define LL_TIM_ONEPULSEMODE_SINGLE             TIM_CR1_OPM          /*!< Counter is not stopped at update event */
-#define LL_TIM_ONEPULSEMODE_REPETITIVE         0x00000000U          /*!< Counter stops counting at the next update event */
+#define LL_TIM_ONEPULSEMODE_SINGLE             TIM_CR1_OPM          /*!< Counter stops counting at the next update event */
+#define LL_TIM_ONEPULSEMODE_REPETITIVE         0x00000000U          /*!< Counter is not stopped at update event */
 /**
   * @}
   */
@@ -1544,7 +1548,16 @@ __STATIC_INLINE void LL_TIM_SetCounterMode(TIM_TypeDef *TIMx, uint32_t CounterMo
   */
 __STATIC_INLINE uint32_t LL_TIM_GetCounterMode(TIM_TypeDef *TIMx)
 {
-  return (uint32_t)(READ_BIT(TIMx->CR1, TIM_CR1_DIR | TIM_CR1_CMS));
+  uint32_t counter_mode;
+
+  counter_mode = (uint32_t)(READ_BIT(TIMx->CR1, TIM_CR1_CMS));
+
+  if (counter_mode == 0U)
+  {
+    counter_mode = (uint32_t)(READ_BIT(TIMx->CR1, TIM_CR1_DIR));
+  }
+
+  return counter_mode;
 }
 
 /**

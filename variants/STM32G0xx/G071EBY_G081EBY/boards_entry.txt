@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G071EBYx
+GenG0.menu.pnum.GENERIC_G071EBYX=Generic G071EBYx
+GenG0.menu.pnum.GENERIC_G071EBYX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G071EBYX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G071EBYX.build.board=GENERIC_G071EBYX
+GenG0.menu.pnum.GENERIC_G071EBYX.build.product_line=STM32G071xx
+GenG0.menu.pnum.GENERIC_G071EBYX.build.variant=STM32G0xx/G071EBY_G081EBY
+
+# Generic G081EBYx
+GenG0.menu.pnum.GENERIC_G081EBYX=Generic G081EBYx
+GenG0.menu.pnum.GENERIC_G081EBYX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G081EBYX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G081EBYX.build.board=GENERIC_G081EBYX
+GenG0.menu.pnum.GENERIC_G081EBYX.build.product_line=STM32G081xx
+GenG0.menu.pnum.GENERIC_G081EBYX.build.variant=STM32G0xx/G071EBY_G081EBY
+

@@ -85,7 +85,7 @@ typedef struct
   *             01 : Abort (Abort user request on going)
   *             10 : Timeout
   *             11 : Error
-  *          b5     Peripheral initilisation status
+  *          b5     Peripheral initialization status
   *             0  : Reset (Peripheral not initialized)
   *             1  : Init done (Peripheral initialized and ready to use. HAL I2C Init function called)
   *          b4     (not used)

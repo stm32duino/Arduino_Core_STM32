@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G050K6Tx
+GenG0.menu.pnum.GENERIC_G050K6TX=Generic G050K6Tx
+GenG0.menu.pnum.GENERIC_G050K6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G050K6TX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G050K6TX.build.board=GENERIC_G050K6TX
+GenG0.menu.pnum.GENERIC_G050K6TX.build.product_line=STM32G050xx
+GenG0.menu.pnum.GENERIC_G050K6TX.build.variant=STM32G0xx/G050K(6-8)T
+
+# Generic G050K8Tx
+GenG0.menu.pnum.GENERIC_G050K8TX=Generic G050K8Tx
+GenG0.menu.pnum.GENERIC_G050K8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G050K8TX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G050K8TX.build.board=GENERIC_G050K8TX
+GenG0.menu.pnum.GENERIC_G050K8TX.build.product_line=STM32G050xx
+GenG0.menu.pnum.GENERIC_G050K8TX.build.variant=STM32G0xx/G050K(6-8)T
+

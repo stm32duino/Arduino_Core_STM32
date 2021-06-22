@@ -1,39 +1,17 @@
-/**
-  ******************************************************************************
-  * @file    uart.c
-  * @author  WI6LABS, fpistm
-  * @brief   provide the UART interface
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/*
+ *******************************************************************************
+ * Copyright (c) 2016-2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
 #include "core_debug.h"
+#include "lock_resource.h"
 #include "uart.h"
 #include "Arduino.h"
 #include "PinAF_STM32F1.h"
@@ -92,6 +70,9 @@ typedef enum {
 #endif
 #if defined(LPUART1_BASE)
   LPUART1_INDEX,
+#endif
+#if defined(LPUART2_BASE)
+  LPUART2_INDEX,
 #endif
   UART_NUM
 } uart_index_t;
@@ -232,6 +213,15 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     obj->irq = LPUART1_IRQn;
   }
 #endif
+#if defined(LPUART2_BASE)
+  else if (obj->uart == LPUART2) {
+    __HAL_RCC_LPUART2_FORCE_RESET();
+    __HAL_RCC_LPUART2_RELEASE_RESET();
+    __HAL_RCC_LPUART2_CLK_ENABLE();
+    obj->index = LPUART2_INDEX;
+    obj->irq = LPUART2_IRQn;
+  }
+#endif
 #if defined(UART7_BASE)
   else if (obj->uart == UART7) {
     __HAL_RCC_UART7_FORCE_RESET();
@@ -294,12 +284,6 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   }
 #endif
 
-#if defined(STM32F091xC) || defined (STM32F098xx)
-  /* Enable SYSCFG Clock */
-  /* Required to get SYSCFG interrupt status register */
-  __HAL_RCC_SYSCFG_CLK_ENABLE();
-#endif
-
   /* Configure UART GPIO pins */
   pinmap_pinout(obj->pin_tx, PinMap_UART_TX);
   if (uart_rx != NP) {
@@ -327,13 +311,17 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   /* Set the NVIC priority for future interrupts */
   HAL_NVIC_SetPriority(obj->irq, UART_IRQ_PRIO, UART_IRQ_SUBPRIO);
 
-#if defined(LPUART1_BASE)
+#if defined(LPUART1_BASE) || defined(LPUART2_BASE)
   /*
    * Note that LPUART clock source must be in the range
    * [3 x baud rate, 4096 x baud rate]
    * check Reference Manual
    */
-  if (obj->uart == LPUART1) {
+  if ((obj->uart == LPUART1)
+#if defined(LPUART2_BASE)
+      || (obj->uart == LPUART2)
+#endif
+     ) {
     if (baudrate <= 9600) {
 #if defined(USART_CR3_UCESM)
       HAL_UARTEx_EnableClockStopMode(huart);
@@ -354,24 +342,51 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     if (baudrate <= 9600) {
       /* Enable the clock if not already set by user */
       enableClock(LSE_CLOCK);
-
-      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+      if (obj->uart == LPUART1) {
+        __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_LSE);
+      }
+#if defined(LPUART2_BASE)
+      if (obj->uart == LPUART2) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_LSE);
+      }
+#endif
       if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
     if (__HAL_RCC_GET_FLAG(RCC_FLAG_HSIRDY)) {
-      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
+      if (obj->uart == LPUART1) {
+        __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
+      }
+#if defined(LPUART2_BASE)
+      if (obj->uart == LPUART2) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_HSI);
+      }
+#endif
       if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
 #ifndef STM32H7xx
-    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
+    if (obj->uart == LPUART1) {
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
+    }
+#if defined(LPUART2_BASE)
+    if (obj->uart == LPUART2) {
+      __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_PCLK1);
+    }
+#endif
     if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
-    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
+    if (obj->uart == LPUART1) {
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
+    }
+#if defined(LPUART2_BASE)
+    if (obj->uart == LPUART2) {
+      __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_SYSCLK);
+    }
+#endif
 #else
     __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
 #endif
@@ -457,6 +472,13 @@ void uart_deinit(serial_t *obj)
       __HAL_RCC_LPUART1_CLK_DISABLE();
       break;
 #endif
+#if defined(LPUART2_BASE)
+    case LPUART2_INDEX:
+      __HAL_RCC_LPUART2_FORCE_RESET();
+      __HAL_RCC_LPUART2_RELEASE_RESET();
+      __HAL_RCC_LPUART2_CLK_DISABLE();
+      break;
+#endif
 #if defined(UART7_BASE)
     case UART7_INDEX:
       __HAL_RCC_UART7_FORCE_RESET();
@@ -528,6 +550,7 @@ void uart_config_lowpower(serial_t *obj)
   /* Ensure HSI clock is enable */
   enableClock(HSI_CLOCK);
 
+  hsem_lock(CFG_HW_RCC_CRRCR_CCIPR_SEMID, HSEM_LOCK_DEFAULT_RETRY);
   /* Configure HSI as source clock for low power wakeup clock */
   switch (obj->index) {
 #if defined(USART1_BASE)
@@ -572,7 +595,15 @@ void uart_config_lowpower(serial_t *obj)
       }
       break;
 #endif
+#if defined(LPUART2_BASE) && defined(__HAL_RCC_LPUART2_CONFIG)
+    case LPUART2_INDEX:
+      if (__HAL_RCC_GET_LPUART2_SOURCE() != RCC_LPUART2CLKSOURCE_HSI) {
+        __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_HSI);
+      }
+      break;
+#endif
   }
+  hsem_unlock(CFG_HW_RCC_CRRCR_CCIPR_SEMID);
 }
 #endif
 
@@ -743,7 +774,7 @@ void uart_attach_rx_callback(serial_t *obj, void (*callback)(serial_t *))
  * @param callback : function call at the end of transmission
  * @retval none
  */
-void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
+void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *), size_t size)
 {
   if (obj == NULL) {
     return;
@@ -754,7 +785,7 @@ void uart_attach_tx_callback(serial_t *obj, int (*callback)(serial_t *))
   HAL_NVIC_DisableIRQ(obj->irq);
 
   /* The following function will enable UART_IT_TXE and error interrupts */
-  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], 1);
+  HAL_UART_Transmit_IT(uart_handlers[obj->index], &obj->tx_buff[obj->tx_tail], size);
 
   /* Enable interrupt */
   HAL_NVIC_EnableIRQ(obj->irq);
@@ -830,11 +861,8 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
   serial_t *obj = get_serial_obj(huart);
-
-  if (obj && obj->tx_callback(obj) != -1) {
-    if (HAL_UART_Transmit_IT(huart, &obj->tx_buff[obj->tx_tail], 1) != HAL_OK) {
-      return;
-    }
+  if (obj) {
+    obj->tx_callback(obj);
   }
 }
 
@@ -895,7 +923,14 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART2_IRQn);
-  HAL_UART_IRQHandler(uart_handlers[UART2_INDEX]);
+  if (uart_handlers[UART2_INDEX] != NULL) {
+    HAL_UART_IRQHandler(uart_handlers[UART2_INDEX]);
+  }
+#if defined(STM32G0xx) && defined(LPUART2_BASE)
+  if (uart_handlers[LPUART2_INDEX] != NULL) {
+    HAL_UART_IRQHandler(uart_handlers[LPUART2_INDEX]);
+  }
+#endif
 }
 #endif
 
@@ -936,7 +971,7 @@ void USART3_IRQHandler(void)
   if (uart_handlers[UART4_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART4_INDEX]);
   }
-#if defined(STM32F030xC)
+#if defined(STM32F030xC) || defined(STM32G0xx) && defined(LPUART2_BASE)
   if (uart_handlers[UART5_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART5_INDEX]);
   }

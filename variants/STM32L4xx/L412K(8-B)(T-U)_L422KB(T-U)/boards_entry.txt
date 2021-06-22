@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L412K8Tx
+GenL4.menu.pnum.GENERIC_L412K8TX=Generic L412K8Tx
+GenL4.menu.pnum.GENERIC_L412K8TX.upload.maximum_size=65536
+GenL4.menu.pnum.GENERIC_L412K8TX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412K8TX.build.board=GENERIC_L412K8TX
+GenL4.menu.pnum.GENERIC_L412K8TX.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412K8TX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+
+# Generic L412K8Ux
+GenL4.menu.pnum.GENERIC_L412K8UX=Generic L412K8Ux
+GenL4.menu.pnum.GENERIC_L412K8UX.upload.maximum_size=65536
+GenL4.menu.pnum.GENERIC_L412K8UX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412K8UX.build.board=GENERIC_L412K8UX
+GenL4.menu.pnum.GENERIC_L412K8UX.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412K8UX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+
+# Generic L412KBTx
+GenL4.menu.pnum.GENERIC_L412KBTX=Generic L412KBTx
+GenL4.menu.pnum.GENERIC_L412KBTX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412KBTX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412KBTX.build.board=GENERIC_L412KBTX
+GenL4.menu.pnum.GENERIC_L412KBTX.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412KBTX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+
+# Generic L412KBUx
+GenL4.menu.pnum.GENERIC_L412KBUX=Generic L412KBUx
+GenL4.menu.pnum.GENERIC_L412KBUX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412KBUX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412KBUX.build.board=GENERIC_L412KBUX
+GenL4.menu.pnum.GENERIC_L412KBUX.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412KBUX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+
+# Generic L422KBTx
+GenL4.menu.pnum.GENERIC_L422KBTX=Generic L422KBTx
+GenL4.menu.pnum.GENERIC_L422KBTX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L422KBTX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L422KBTX.build.board=GENERIC_L422KBTX
+GenL4.menu.pnum.GENERIC_L422KBTX.build.product_line=STM32L422xx
+GenL4.menu.pnum.GENERIC_L422KBTX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+
+# Generic L422KBUx
+GenL4.menu.pnum.GENERIC_L422KBUX=Generic L422KBUx
+GenL4.menu.pnum.GENERIC_L422KBUX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L422KBUX.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L422KBUX.build.board=GENERIC_L422KBUX
+GenL4.menu.pnum.GENERIC_L422KBUX.build.product_line=STM32L422xx
+GenL4.menu.pnum.GENERIC_L422KBUX.build.variant=STM32L4xx/L412K(8-B)(T-U)_L422KB(T-U)
+

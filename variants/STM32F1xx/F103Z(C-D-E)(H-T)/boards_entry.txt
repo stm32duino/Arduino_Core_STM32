@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F103ZCHx
+GenF1.menu.pnum.GENERIC_F103ZCHX=Generic F103ZCHx
+GenF1.menu.pnum.GENERIC_F103ZCHX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F103ZCHX.upload.maximum_data_size=49152
+GenF1.menu.pnum.GENERIC_F103ZCHX.build.board=GENERIC_F103ZCHX
+GenF1.menu.pnum.GENERIC_F103ZCHX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZCHX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+
+# Generic F103ZDHx
+GenF1.menu.pnum.GENERIC_F103ZDHX=Generic F103ZDHx
+GenF1.menu.pnum.GENERIC_F103ZDHX.upload.maximum_size=393216
+GenF1.menu.pnum.GENERIC_F103ZDHX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103ZDHX.build.board=GENERIC_F103ZDHX
+GenF1.menu.pnum.GENERIC_F103ZDHX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZDHX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+
+# Generic F103ZEHx
+GenF1.menu.pnum.GENERIC_F103ZEHX=Generic F103ZEHx
+GenF1.menu.pnum.GENERIC_F103ZEHX.upload.maximum_size=524288
+GenF1.menu.pnum.GENERIC_F103ZEHX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103ZEHX.build.board=GENERIC_F103ZEHX
+GenF1.menu.pnum.GENERIC_F103ZEHX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZEHX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+
+# Generic F103ZCTx
+GenF1.menu.pnum.GENERIC_F103ZCTX=Generic F103ZCTx
+GenF1.menu.pnum.GENERIC_F103ZCTX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F103ZCTX.upload.maximum_data_size=49152
+GenF1.menu.pnum.GENERIC_F103ZCTX.build.board=GENERIC_F103ZCTX
+GenF1.menu.pnum.GENERIC_F103ZCTX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZCTX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+
+# Generic F103ZDTx
+GenF1.menu.pnum.GENERIC_F103ZDTX=Generic F103ZDTx
+GenF1.menu.pnum.GENERIC_F103ZDTX.upload.maximum_size=393216
+GenF1.menu.pnum.GENERIC_F103ZDTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103ZDTX.build.board=GENERIC_F103ZDTX
+GenF1.menu.pnum.GENERIC_F103ZDTX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZDTX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+
+# Generic F103ZETx
+GenF1.menu.pnum.GENERIC_F103ZETX=Generic F103ZETx
+GenF1.menu.pnum.GENERIC_F103ZETX.upload.maximum_size=524288
+GenF1.menu.pnum.GENERIC_F103ZETX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F103ZETX.build.board=GENERIC_F103ZETX
+GenF1.menu.pnum.GENERIC_F103ZETX.build.product_line=STM32F103xE
+GenF1.menu.pnum.GENERIC_F103ZETX.build.variant=STM32F1xx/F103Z(C-D-E)(H-T)
+

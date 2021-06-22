@@ -38,6 +38,7 @@ extern "C" {
   * @{
   */
 
+
 /** @defgroup usbd_cdc_Exported_Defines
   * @{
   */
@@ -58,6 +59,7 @@ extern "C" {
 #define CDC_DATA_FS_IN_PACKET_SIZE                  CDC_DATA_FS_MAX_PACKET_SIZE
 #define CDC_DATA_FS_OUT_PACKET_SIZE                 CDC_DATA_FS_MAX_PACKET_SIZE
 
+#define CDC_REQ_MAX_DATA_SIZE                       0x7U
 /*---------------------------------------------------------------------*/
 /*  CDC definitions                                                    */
 /*---------------------------------------------------------------------*/
@@ -70,6 +72,10 @@ extern "C" {
 #define CDC_GET_LINE_CODING                         0x21U
 #define CDC_SET_CONTROL_LINE_STATE                  0x22U
 #define CDC_SEND_BREAK                              0x23U
+
+// Control Line State bits
+#define CLS_DTR   (1 << 0)
+#define CLS_RTS   (1 << 1)
 
 /**
   * @}
@@ -100,7 +106,7 @@ typedef struct _USBD_CDC_Itf {
 
 
 typedef struct {
-  uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32bits alignment */
+  uint32_t data[CDC_DATA_HS_MAX_PACKET_SIZE / 4U];      /* Force 32-bit alignment */
   uint8_t  CmdOpCode;
   uint8_t  CmdLength;
   uint8_t  *RxBuffer;
@@ -126,8 +132,8 @@ typedef struct {
   * @{
   */
 
-extern USBD_ClassTypeDef  USBD_CDC;
-#define USBD_CDC_CLASS    &USBD_CDC
+extern USBD_ClassTypeDef USBD_CDC;
+#define USBD_CDC_CLASS &USBD_CDC
 /**
   * @}
   */
@@ -135,16 +141,16 @@ extern USBD_ClassTypeDef  USBD_CDC;
 /** @defgroup USB_CORE_Exported_Functions
   * @{
   */
-uint8_t  USBD_CDC_RegisterInterface(USBD_HandleTypeDef   *pdev,
-                                    USBD_CDC_ItfTypeDef *fops);
+uint8_t USBD_CDC_RegisterInterface(USBD_HandleTypeDef *pdev,
+                                   USBD_CDC_ItfTypeDef *fops);
 
-uint8_t  USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
-                              uint32_t length);
+uint8_t USBD_CDC_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff,
+                             uint32_t length);
 
-uint8_t  USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
-uint8_t  USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
-uint8_t  USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
-uint8_t  USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff);
+uint8_t USBD_CDC_ReceivePacket(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_ClearBuffer(USBD_HandleTypeDef *pdev);
+uint8_t USBD_CDC_TransmitPacket(USBD_HandleTypeDef *pdev);
 /**
   * @}
   */

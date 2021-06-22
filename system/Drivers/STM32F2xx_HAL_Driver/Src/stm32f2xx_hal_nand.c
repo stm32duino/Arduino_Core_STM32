@@ -181,7 +181,7 @@ HAL_StatusTypeDef  HAL_NAND_Init(NAND_HandleTypeDef *hnand, FSMC_NAND_PCC_Timing
 #else
     /* Initialize the low level hardware (MSP) */
     HAL_NAND_MspInit(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
   }
 
   /* Initialize NAND control Interface */
@@ -221,7 +221,7 @@ HAL_StatusTypeDef HAL_NAND_DeInit(NAND_HandleTypeDef *hnand)
 #else
   /* Initialize the low level hardware (MSP) */
   HAL_NAND_MspDeInit(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
 
   /* Configure the NAND registers with their reset values */
   (void)FSMC_NAND_DeInit(hnand->Instance, hnand->Init.NandBank);
@@ -284,7 +284,7 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
     hnand->ItCallback(hnand);
 #else
     HAL_NAND_ITCallback(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
 
     /* Clear NAND interrupt Rising edge pending bit */
     __FSMC_NAND_CLEAR_FLAG(hnand->Instance, hnand->Init.NandBank, FSMC_FLAG_RISING_EDGE);
@@ -298,7 +298,7 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
     hnand->ItCallback(hnand);
 #else
     HAL_NAND_ITCallback(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
 
     /* Clear NAND interrupt Level pending bit */
     __FSMC_NAND_CLEAR_FLAG(hnand->Instance, hnand->Init.NandBank, FSMC_FLAG_LEVEL);
@@ -312,7 +312,7 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
     hnand->ItCallback(hnand);
 #else
     HAL_NAND_ITCallback(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
 
     /* Clear NAND interrupt Falling edge pending bit */
     __FSMC_NAND_CLEAR_FLAG(hnand->Instance, hnand->Init.NandBank, FSMC_FLAG_FALLING_EDGE);
@@ -326,7 +326,7 @@ void HAL_NAND_IRQHandler(NAND_HandleTypeDef *hnand)
     hnand->ItCallback(hnand);
 #else
     HAL_NAND_ITCallback(hnand);
-#endif
+#endif /* (USE_HAL_NAND_REGISTER_CALLBACKS) */
 
     /* Clear NAND interrupt FIFO empty pending bit */
     __FSMC_NAND_CLEAR_FLAG(hnand->Instance, hnand->Init.NandBank, FSMC_FLAG_FEMPT);
@@ -699,7 +699,7 @@ HAL_StatusTypeDef HAL_NAND_Read_Page_16b(NAND_HandleTypeDef *hnand, NAND_Address
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numpagesread = 0;
+  uint32_t numpagesread = 0U;
   uint32_t nandaddress;
   uint32_t nbpages = NumPageToRead;
   uint16_t *buff = pBuffer;
@@ -817,6 +817,17 @@ HAL_StatusTypeDef HAL_NAND_Read_Page_16b(NAND_HandleTypeDef *hnand, NAND_Address
         __DSB();
       }
 
+      /* Calculate PageSize */
+      if (hnand->Init.MemoryDataWidth == FSMC_NAND_PCC_MEM_BUS_WIDTH_8)
+      {
+        hnand->Config.PageSize = hnand->Config.PageSize / 2U;
+      }
+      else
+      {
+        /* Do nothing */
+        /* Keep the same PageSize for FMC_NAND_MEM_BUS_WIDTH_16*/
+      }
+
       /* Get Data into Buffer */
       for (index = 0U; index < hnand->Config.PageSize; index++)
       {
@@ -863,7 +874,7 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_8b(NAND_HandleTypeDef *hnand, NAND_Address
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numpageswritten = 0;
+  uint32_t numpageswritten = 0U;
   uint32_t nandaddress;
   uint32_t nbpages = NumPageToWrite;
   uint8_t *buff = pBuffer;
@@ -1023,7 +1034,7 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_16b(NAND_HandleTypeDef *hnand, NAND_Addres
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numpageswritten = 0;
+  uint32_t numpageswritten = 0U;
   uint32_t nandaddress;
   uint32_t nbpages = NumPageToWrite;
   uint16_t *buff = pBuffer;
@@ -1115,6 +1126,17 @@ HAL_StatusTypeDef HAL_NAND_Write_Page_16b(NAND_HandleTypeDef *hnand, NAND_Addres
         }
       }
 
+      /* Calculate PageSize */
+      if (hnand->Init.MemoryDataWidth == FSMC_NAND_PCC_MEM_BUS_WIDTH_8)
+      {
+        hnand->Config.PageSize = hnand->Config.PageSize / 2U;
+      }
+      else
+      {
+        /* Do nothing */
+        /* Keep the same PageSize for FMC_NAND_MEM_BUS_WIDTH_16*/
+      }
+
       /* Write data to memory */
       for (index = 0U; index < hnand->Config.PageSize; index++)
       {
@@ -1183,7 +1205,7 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea_8b(NAND_HandleTypeDef *hnand, NAND_Add
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numsparearearead = 0;
+  uint32_t numsparearearead = 0U;
   uint32_t nandaddress;
   uint32_t columnaddress;
   uint32_t nbspare = NumSpareAreaToRead;
@@ -1355,7 +1377,7 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_Ad
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numsparearearead = 0;
+  uint32_t numsparearearead = 0U;
   uint32_t nandaddress;
   uint32_t columnaddress;
   uint32_t nbspare = NumSpareAreaToRead;
@@ -1388,7 +1410,7 @@ HAL_StatusTypeDef HAL_NAND_Read_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_Ad
     nandaddress = ARRAY_ADDRESS(pAddress, hnand);
 
     /* Column in page address */
-    columnaddress = (uint32_t)(COLUMN_ADDRESS(hnand) * 2U);
+    columnaddress = (uint32_t)(COLUMN_ADDRESS(hnand));
 
     /* Spare area(s) read loop */
     while ((nbspare != 0U) && (nandaddress < ((hnand->Config.BlockSize) * (hnand->Config.BlockNbr))))
@@ -1527,7 +1549,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_8b(NAND_HandleTypeDef *hnand, NAND_Ad
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numspareareawritten = 0;
+  uint32_t numspareareawritten = 0U;
   uint32_t nandaddress;
   uint32_t columnaddress;
   uint32_t nbspare = NumSpareAreaTowrite;
@@ -1697,7 +1719,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_A
   uint32_t index;
   uint32_t tickstart;
   uint32_t deviceaddress;
-  uint32_t numspareareawritten = 0;
+  uint32_t numspareareawritten = 0U;
   uint32_t nandaddress;
   uint32_t columnaddress;
   uint32_t nbspare = NumSpareAreaTowrite;
@@ -1730,7 +1752,7 @@ HAL_StatusTypeDef HAL_NAND_Write_SpareArea_16b(NAND_HandleTypeDef *hnand, NAND_A
     nandaddress = ARRAY_ADDRESS(pAddress, hnand);
 
     /* Column in page address */
-    columnaddress = (uint32_t)(COLUMN_ADDRESS(hnand) * 2U);
+    columnaddress = (uint32_t)(COLUMN_ADDRESS(hnand));
 
     /* Spare area(s) write loop */
     while ((nbspare != 0U) && (nandaddress < ((hnand->Config.BlockSize) * (hnand->Config.BlockNbr))))
@@ -2085,7 +2107,7 @@ HAL_StatusTypeDef HAL_NAND_UnRegisterCallback(NAND_HandleTypeDef *hnand, HAL_NAN
   __HAL_UNLOCK(hnand);
   return status;
 }
-#endif
+#endif /* USE_HAL_NAND_REGISTER_CALLBACKS */
 
 /**
   * @}

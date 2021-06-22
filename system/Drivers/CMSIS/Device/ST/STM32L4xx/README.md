@@ -33,6 +33,7 @@ Tag v1.5.1 | Tag v5.4.0_cm4 | Tag v1.14.0 (and following, if any, till next new 
 Tag v1.6.0 | Tag v5.4.0_cm4 | Tag v1.15.0 (and following, if any, till next new tag)
 Tag v1.6.1 | Tag v5.4.0_cm4 | Tag v1.15.1 (and following, if any, till next new tag)
 Tag v1.7.0 | Tag v5.6.0_cm4 | Tag v1.16.0 (and following, if any, till next new tag)
+Tag v1.7.1 | Tag v5.6.0_cm4 | Tag v1.17.0 (and following, if any, till next new tag)
 
 The full **STM32CubeL4** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL4).
 

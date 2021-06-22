@@ -211,6 +211,14 @@ TIMEx_BreakInputConfigTypeDef;
    || (((__INSTANCE__) == TIM2)  && ((((__REMAP__) & 0xFFFE3FF0U) == 0x00000000U)))  \
    || (((__INSTANCE__) == TIM16) && ((((__REMAP__) & 0xFFFFFFFCU) == 0x00000000U)))  \
    || (((__INSTANCE__) == TIM17) && ((((__REMAP__) & 0xFFFFFFFCU) == 0x00000000U))))
+#elif defined(STM32WB10xx)
+#define IS_TIM_REMAP(__INSTANCE__, __REMAP__)                                             \
+  ((((__INSTANCE__) == TIM1)  && ((((__REMAP__) & 0xFFFFFFFCU) == 0x00000000U)))  \
+   || (((__INSTANCE__) == TIM2)  && ((((__REMAP__) & 0xFFFFFFFDU) == 0x00000000U))))
+#elif defined(STM32WB15xx)
+#define IS_TIM_REMAP(__INSTANCE__, __REMAP__)                                             \
+  ((((__INSTANCE__) == TIM1)  && ((((__REMAP__) & 0xFFFF3FECU) == 0x00000000U)))  \
+   || (((__INSTANCE__) == TIM2)  && ((((__REMAP__) & 0xFFFF3FF0U) == 0x00000000U))))
 #else
 #define IS_TIM_REMAP(__INSTANCE__, __REMAP__)                                             \
   ((((__INSTANCE__) == TIM1)  && ((((__REMAP__) & 0xFFFFFFFCU) == 0x00000000U)))  \

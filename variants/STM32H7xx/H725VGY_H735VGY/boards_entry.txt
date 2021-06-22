@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H725VGYx
+GenH7.menu.pnum.GENERIC_H725VGYX=Generic H725VGYx
+GenH7.menu.pnum.GENERIC_H725VGYX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H725VGYX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H725VGYX.build.board=GENERIC_H725VGYX
+GenH7.menu.pnum.GENERIC_H725VGYX.build.product_line=STM32H725xx
+GenH7.menu.pnum.GENERIC_H725VGYX.build.variant=STM32H7xx/H725VGY_H735VGY
+
+# Generic H735VGYx
+GenH7.menu.pnum.GENERIC_H735VGYX=Generic H735VGYx
+GenH7.menu.pnum.GENERIC_H735VGYX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H735VGYX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H735VGYX.build.board=GENERIC_H735VGYX
+GenH7.menu.pnum.GENERIC_H735VGYX.build.product_line=STM32H735xx
+GenH7.menu.pnum.GENERIC_H735VGYX.build.variant=STM32H7xx/H725VGY_H735VGY
+

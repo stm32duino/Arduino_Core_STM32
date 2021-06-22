@@ -7,8 +7,7 @@
 
 #ifdef STM32H7xx
   #include "stm32h7xx_ll_delayblock.h"
-#endif
-#ifdef STM32MP1xx
+#elif STM32MP1xx
   #include "stm32mp1xx_ll_delayblock.h"
 #endif
 #pragma GCC diagnostic pop

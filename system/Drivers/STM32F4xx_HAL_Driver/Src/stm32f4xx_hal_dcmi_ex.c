@@ -102,7 +102,27 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
 #endif /* STM32F446xx || STM32F469xx || STM32F479xx */
   if(hdcmi->State == HAL_DCMI_STATE_RESET)
   {
+    /* Allocate lock resource and initialize it */
+    hdcmi->Lock = HAL_UNLOCKED;
     /* Init the low level hardware */
+  /* Init the DCMI Callback settings */
+#if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
+    hdcmi->FrameEventCallback = HAL_DCMI_FrameEventCallback; /* Legacy weak FrameEventCallback  */
+    hdcmi->VsyncEventCallback = HAL_DCMI_VsyncEventCallback; /* Legacy weak VsyncEventCallback  */
+    hdcmi->LineEventCallback  = HAL_DCMI_LineEventCallback;  /* Legacy weak LineEventCallback   */
+    hdcmi->ErrorCallback      = HAL_DCMI_ErrorCallback;      /* Legacy weak ErrorCallback       */
+
+    if(hdcmi->MspInitCallback == NULL)
+    {
+      /* Legacy weak MspInit Callback        */
+      hdcmi->MspInitCallback = HAL_DCMI_MspInit;
+    }
+    /* Initialize the low level hardware (MSP) */
+    hdcmi->MspInitCallback(hdcmi);
+#else
+    /* Init the low level hardware : GPIO, CLOCK, NVIC and DMA */
+    HAL_DCMI_MspInit(hdcmi);
+#endif /* (USE_HAL_DCMI_REGISTER_CALLBACKS) */
     HAL_DCMI_MspInit(hdcmi);
   }
 

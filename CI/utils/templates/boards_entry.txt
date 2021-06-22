@@ -1,0 +1,15 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+{% for generic in generic_list %}
+# Generic {{generic.name}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}=Generic {{generic.name}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.upload.maximum_size={{generic.flash}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.upload.maximum_data_size={{generic.ram}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.board=GENERIC_{{generic.board}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.product_line={{product_line}}
+{{gen_entry}}.menu.pnum.GENERIC_{{generic.board}}.build.variant={{mcu_family_dir}}/{{mcu_dir}}
+
+{% endfor %}

@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L433VCIx
+GenL4.menu.pnum.GENERIC_L433VCIX=Generic L433VCIx
+GenL4.menu.pnum.GENERIC_L433VCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433VCIX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433VCIX.build.board=GENERIC_L433VCIX
+GenL4.menu.pnum.GENERIC_L433VCIX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433VCIX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+
+# Generic L433VCTx
+GenL4.menu.pnum.GENERIC_L433VCTX=Generic L433VCTx
+GenL4.menu.pnum.GENERIC_L433VCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433VCTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433VCTX.build.board=GENERIC_L433VCTX
+GenL4.menu.pnum.GENERIC_L433VCTX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433VCTX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+
+# Generic L443VCIx
+GenL4.menu.pnum.GENERIC_L443VCIX=Generic L443VCIx
+GenL4.menu.pnum.GENERIC_L443VCIX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443VCIX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443VCIX.build.board=GENERIC_L443VCIX
+GenL4.menu.pnum.GENERIC_L443VCIX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443VCIX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+
+# Generic L443VCTx
+GenL4.menu.pnum.GENERIC_L443VCTX=Generic L443VCTx
+GenL4.menu.pnum.GENERIC_L443VCTX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443VCTX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443VCTX.build.board=GENERIC_L443VCTX
+GenL4.menu.pnum.GENERIC_L443VCTX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443VCTX.build.variant=STM32L4xx/L433VC(I-T)_L443VC(I-T)
+

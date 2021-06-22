@@ -698,7 +698,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   if (pin != NC) {
     if ((int)get_pwm_channel(pin) == timChannel) {
       /* Configure PWM GPIO pins */
-      pinmap_pinout(pin, PinMap_PWM);
+      pinmap_pinout(pin, PinMap_TIM);
 #if defined(STM32F1xx)
       if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
           || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
@@ -712,7 +712,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
     }
 
 #if defined(TIM_CCER_CC1NE)
-    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM));
+    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM));
 #endif
   }
 }
@@ -1489,6 +1489,11 @@ extern "C" {
     if (HardwareTimer_Handle[TIMER3_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER3_INDEX]->handle);
     }
+#if defined(STM32G0xx) && defined(TIM4_BASE)
+    if (HardwareTimer_Handle[TIMER4_INDEX]) {
+      HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER4_INDEX]->handle);
+    }
+#endif
   }
 #endif //TIM3_BASE
 

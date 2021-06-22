@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L471ZEJx
+GenL4.menu.pnum.GENERIC_L471ZEJX=Generic L471ZEJx
+GenL4.menu.pnum.GENERIC_L471ZEJX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L471ZEJX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L471ZEJX.build.board=GENERIC_L471ZEJX
+GenL4.menu.pnum.GENERIC_L471ZEJX.build.product_line=STM32L471xx
+GenL4.menu.pnum.GENERIC_L471ZEJX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+
+# Generic L471ZGJx
+GenL4.menu.pnum.GENERIC_L471ZGJX=Generic L471ZGJx
+GenL4.menu.pnum.GENERIC_L471ZGJX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L471ZGJX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L471ZGJX.build.board=GENERIC_L471ZGJX
+GenL4.menu.pnum.GENERIC_L471ZGJX.build.product_line=STM32L471xx
+GenL4.menu.pnum.GENERIC_L471ZGJX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+
+# Generic L471ZETx
+GenL4.menu.pnum.GENERIC_L471ZETX=Generic L471ZETx
+GenL4.menu.pnum.GENERIC_L471ZETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L471ZETX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L471ZETX.build.board=GENERIC_L471ZETX
+GenL4.menu.pnum.GENERIC_L471ZETX.build.product_line=STM32L471xx
+GenL4.menu.pnum.GENERIC_L471ZETX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+
+# Generic L471ZGTx
+GenL4.menu.pnum.GENERIC_L471ZGTX=Generic L471ZGTx
+GenL4.menu.pnum.GENERIC_L471ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L471ZGTX.upload.maximum_data_size=131072
+GenL4.menu.pnum.GENERIC_L471ZGTX.build.board=GENERIC_L471ZGTX
+GenL4.menu.pnum.GENERIC_L471ZGTX.build.product_line=STM32L471xx
+GenL4.menu.pnum.GENERIC_L471ZGTX.build.variant=STM32L4xx/L471Z(E-G)(J-T)
+

@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G0B0KETx
+GenG0.menu.pnum.GENERIC_G0B0KETX=Generic G0B0KETx
+GenG0.menu.pnum.GENERIC_G0B0KETX.upload.maximum_size=524288
+GenG0.menu.pnum.GENERIC_G0B0KETX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0B0KETX.build.board=GENERIC_G0B0KETX
+GenG0.menu.pnum.GENERIC_G0B0KETX.build.product_line=STM32G0B0xx
+GenG0.menu.pnum.GENERIC_G0B0KETX.build.variant=STM32G0xx/G0B0KET
+

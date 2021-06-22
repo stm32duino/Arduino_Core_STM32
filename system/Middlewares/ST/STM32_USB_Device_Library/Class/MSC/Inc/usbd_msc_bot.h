@@ -144,7 +144,7 @@ void  MSC_BOT_CplClrFeature(USBD_HandleTypeDef  *pdev,
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

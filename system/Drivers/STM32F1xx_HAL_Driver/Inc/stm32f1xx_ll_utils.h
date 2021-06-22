@@ -243,7 +243,10 @@ ErrorStatus LL_PLL_ConfigSystemClock_HSI(LL_UTILS_PLLInitTypeDef *UTILS_PLLInitS
                                          LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
 ErrorStatus LL_PLL_ConfigSystemClock_HSE(uint32_t HSEFrequency, uint32_t HSEBypass,
                                          LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct, LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
-
+#if defined(RCC_PLL2_SUPPORT)
+ErrorStatus LL_PLL_ConfigSystemClock_PLL2(uint32_t HSEFrequency, uint32_t HSEBypass, LL_UTILS_PLLInitTypeDef *UTILS_PLLInitStruct,
+                                          LL_UTILS_PLLInitTypeDef *UTILS_PLL2InitStruct, LL_UTILS_ClkInitTypeDef *UTILS_ClkInitStruct);
+#endif /* RCC_PLL2_SUPPORT */
 /**
   * @}
   */

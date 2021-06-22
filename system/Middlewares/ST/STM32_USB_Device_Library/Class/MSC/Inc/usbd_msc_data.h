@@ -99,7 +99,7 @@ extern uint8_t MSC_Mode_Sense10_data[MODE_SENSE10_LEN];
   */
 
 /**
-* @}
-*/
+  * @}
+  */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -27,6 +27,10 @@ extern "C" {
 
 #include "Wire.h"
 
+// Distinguish master from slave.
+// 0x01 is a reserved value, and thus cannot be used by slave devices
+static const uint8_t MASTER_ADDRESS = 0x01;
+
 // Constructors ////////////////////////////////////////////////////////////////
 
 TwoWire::TwoWire()

@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L072CBYx
+GenL0.menu.pnum.GENERIC_L072CBYX=Generic L072CBYx
+GenL0.menu.pnum.GENERIC_L072CBYX.upload.maximum_size=131072
+GenL0.menu.pnum.GENERIC_L072CBYX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CBYX.build.board=GENERIC_L072CBYX
+GenL0.menu.pnum.GENERIC_L072CBYX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CBYX.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+
+# Generic L072CZYx
+GenL0.menu.pnum.GENERIC_L072CZYX=Generic L072CZYx
+GenL0.menu.pnum.GENERIC_L072CZYX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072CZYX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CZYX.build.board=GENERIC_L072CZYX
+GenL0.menu.pnum.GENERIC_L072CZYX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CZYX.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+
+# Generic L072CZEx
+GenL0.menu.pnum.GENERIC_L072CZEX=Generic L072CZEx
+GenL0.menu.pnum.GENERIC_L072CZEX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L072CZEX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L072CZEX.build.board=GENERIC_L072CZEX
+GenL0.menu.pnum.GENERIC_L072CZEX.build.product_line=STM32L072xx
+GenL0.menu.pnum.GENERIC_L072CZEX.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+
+# Generic L073CZYx
+GenL0.menu.pnum.GENERIC_L073CZYX=Generic L073CZYx
+GenL0.menu.pnum.GENERIC_L073CZYX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L073CZYX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L073CZYX.build.board=GENERIC_L073CZYX
+GenL0.menu.pnum.GENERIC_L073CZYX.build.product_line=STM32L073xx
+GenL0.menu.pnum.GENERIC_L073CZYX.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+
+# Generic L082CZYx
+GenL0.menu.pnum.GENERIC_L082CZYX=Generic L082CZYx
+GenL0.menu.pnum.GENERIC_L082CZYX.upload.maximum_size=196608
+GenL0.menu.pnum.GENERIC_L082CZYX.upload.maximum_data_size=20480
+GenL0.menu.pnum.GENERIC_L082CZYX.build.board=GENERIC_L082CZYX
+GenL0.menu.pnum.GENERIC_L082CZYX.build.product_line=STM32L082xx
+GenL0.menu.pnum.GENERIC_L082CZYX.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+

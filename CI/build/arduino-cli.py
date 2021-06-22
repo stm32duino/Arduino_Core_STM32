@@ -25,7 +25,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 path_config_filename = os.path.join(script_path, "path_config.json")
 
 arduino_cli_path = ""
-stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/STM32/package_stm_index.json"
+stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/package_stmicroelectronics_index.json"
 sketches_path_list = []
 default_build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput")
 build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput" + build_id)
@@ -44,7 +44,7 @@ exclude_file_default = os.path.join(script_path, "conf", "exclude_list.txt")
 cores_config_file_default = os.path.join(script_path, "conf", "cores_config.json")
 cores_config_file_ci = os.path.join(script_path, "conf", "cores_config_ci.json")
 
-maintainer_default = "STM32"
+maintainer_default = "STMicroelectronics"
 arch_default = "stm32"
 arduino_platform_default = maintainer_default + ":" + arch_default
 
@@ -53,7 +53,7 @@ maintainer = maintainer_default
 arch = arch_default
 arduino_platform = arduino_platform_default
 arduino_cli = ""
-arduino_cli_default_version = "0.10.0"
+arduino_cli_default_version = "0.18.0"
 arduino_cli_version = arduino_cli_default_version
 
 # List
@@ -462,6 +462,10 @@ def find_board():
     if args.board:
         arg_board_pattern = re.compile(args.board, re.IGNORECASE)
 
+    if version.parse(arduino_cli_version) >= version.parse("0.18.0"):
+        fqbn_key = "fqbn"
+    else:
+        fqbn_key = "FQBN"
     fqbn_list_tmp = []
     try:
         output = subprocess.check_output(
@@ -476,8 +480,8 @@ def find_board():
         boards_list = json.loads(output)
         if boards_list is not None:
             for board in boards_list["boards"]:
-                if arduino_platform in board["FQBN"]:
-                    fqbn_list_tmp.append(board["FQBN"])
+                if arduino_platform in board[fqbn_key]:
+                    fqbn_list_tmp.append(board[fqbn_key])
         if not len(fqbn_list_tmp):
             print("No boards found for " + arduino_platform)
             quit(1)
@@ -711,7 +715,7 @@ def genBasicCommand(b_name):
     cmd.append(build_output_cache_dir)
     if args.verbose:
         cmd.append("--verbose")
-    if version.parse(arduino_cli_version) <= version.parse(arduino_cli_default_version):
+    if version.parse(arduino_cli_version) <= version.parse("0.10.0"):
         cmd.append("--output")
         cmd.append(os.path.join(output_dir, b_name, bin_dir, "dummy_sketch"))
     else:
