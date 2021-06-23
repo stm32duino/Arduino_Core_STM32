@@ -28,4 +28,6 @@
   #include "stm32mp1xx_hal_pwr.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_pwr.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_pwr.c"
 #endif

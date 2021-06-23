@@ -20,4 +20,6 @@
   #include "stm32mp1xx_hal_uart_ex.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_uart_ex.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_uart_ex.c"
 #endif

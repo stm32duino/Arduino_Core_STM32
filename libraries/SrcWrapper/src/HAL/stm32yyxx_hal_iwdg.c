@@ -26,4 +26,6 @@
   #include "stm32l5xx_hal_iwdg.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_iwdg.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_iwdg.c"
 #endif
