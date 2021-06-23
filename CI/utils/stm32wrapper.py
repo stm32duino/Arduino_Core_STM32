@@ -11,6 +11,7 @@ SrcWrapper_path = ""
 HALDrivers_path = ""
 CMSIS_Device_ST_path = ""
 CMSIS_DSP_lib_path = ""
+system_path = ""
 
 # CMSIS outside of the core. Can be updated by arg
 CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
@@ -27,6 +28,9 @@ LLoutInc_path = ""
 # Out startup files
 CMSIS_Startupfile = ""
 
+# Out system stm32 files
+system_stm32_outfile = ""
+
 # List of STM32 series
 stm32_series = []
 
@@ -35,6 +39,8 @@ templates_dir = script_path / "templates"
 all_ll_h_file = "stm32yyxx_ll.h"
 ll_h_file = "stm32yyxx_ll_ppp.h"
 c_file = "stm32yyxx_zz_ppp.c"
+stm32_def_build_file = "stm32_def_build.h"
+system_stm32_file = "system_stm32yyxx.c"
 
 # Create the jinja2 environment.
 j2_env = Environment(
@@ -44,6 +50,8 @@ all_ll_header_file_template = j2_env.get_template(all_ll_h_file)
 ll_h_file_template = j2_env.get_template(ll_h_file)
 c_file_template = j2_env.get_template(c_file)
 dsp_file_template = Template('#include "../Source/{{ dsp }}/{{ dsp }}.c"')
+stm32_def_build_template = j2_env.get_template(stm32_def_build_file)
+system_stm32_template = j2_env.get_template(system_stm32_file)
 
 # re
 peripheral_c_regex = re.compile(r"stm32\w+_[h]?[al][l]_(.*).c$")
@@ -60,6 +68,8 @@ def checkConfig(arg_core, arg_cmsis):
     global CMSIS_DSP_lib_path
     global CMSIS_DSP_outSrc_path
     global CMSIS_Startupfile
+    global system_path
+    global system_stm32_outfile
     global HALoutSrc_path
     global LLoutSrc_path
     global LLoutInc_path
@@ -72,12 +82,14 @@ def checkConfig(arg_core, arg_cmsis):
         print("Could not find " + core_path)
         exit(1)
 
+    system_path = core_path / "system"
     SrcWrapper_path = core_path / "libraries" / "SrcWrapper"
-    HALDrivers_path = core_path / "system" / "Drivers"
-    CMSIS_Device_ST_path = core_path / "system" / "Drivers" / "CMSIS" / "Device" / "ST"
+    HALDrivers_path = system_path / "Drivers"
+    CMSIS_Device_ST_path = system_path / "Drivers" / "CMSIS" / "Device" / "ST"
     CMSIS_DSP_lib_path = core_path / "libraries" / "CMSIS_DSP"
     CMSIS_DSP_outSrc_path = CMSIS_DSP_lib_path / "src"
-    CMSIS_Startupfile = core_path / "cores" / "arduino" / "stm32" / "stm32_def_build.h"
+    CMSIS_Startupfile = core_path / "cores" / "arduino" / "stm32" / stm32_def_build_file
+    system_stm32_outfile = SrcWrapper_path / "src" / "stm32" / system_stm32_file
 
     HALoutSrc_path = SrcWrapper_path / "src" / "HAL"
     LLoutSrc_path = SrcWrapper_path / "src" / "LL"
@@ -92,57 +104,36 @@ def printCMSISStartup(log):
     filelist = sorted(CMSIS_Device_ST_path.glob("**/startup_*.s"))
     if len(filelist):
         if log:
-            print("Number of startup files: %i" % len(filelist))
+            print("Number of startup files: {}".format(len(filelist)))
+        cmsis_list = []
+        for fp in filelist:
+            # File name
+            fn = fp.name
+            valueline = re.split("_|\\.", fn)
+            vline = valueline[1].upper().replace("X", "x")
+            cmsis_list.append({"vline": vline, "fn": fn})
         out_file = open(CMSIS_Startupfile, "w", newline="\n")
-        # Header
-        out_file.write(
-            """#ifndef _STM32_DEF_BUILD_
-#define _STM32_DEF_BUILD_
-
-#if !defined(CMSIS_STARTUP_FILE) && !defined(CUSTOM_STARTUP_FILE)
-"""
-        )
-        # File name
-        fn = (filelist.pop(0)).name
-        valueline = re.split("_|\\.", fn)
-        upper = valueline[1].upper().replace("X", "x")
-        out_file.write(
-            """  #if defined({})
-    #define CMSIS_STARTUP_FILE \"{}\"
-""".format(
-                upper, fn
-            )
-        )
-        if len(filelist):
-            for fp in filelist:
-                # File name
-                fn = fp.name
-                valueline = re.split("_|\\.", fn)
-                if "stm32mp15" in valueline[1] and not valueline[1].endswith("xx"):
-                    valueline[1] += "xx"
-                upper = valueline[1].upper().replace("X", "x")
-                out_file.write(
-                    """  #elif defined({})
-    #define CMSIS_STARTUP_FILE \"{}\"
-""".format(
-                        upper, fn
-                    )
-                )
-        # footer
-        out_file.write(
-            """  #else
-    #error UNKNOWN CHIP
-  #endif
-#else
-  #warning \"No CMSIS startup file defined, custom one should be used\"
-#endif /* !CMSIS_STARTUP_FILE && !CUSTOM_STARTUP_FILE */
-#endif /* _STM32_DEF_BUILD_ */
-"""
-        )
+        out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
         out_file.close()
     else:
         if log:
             print("No startup files found!")
+
+
+def printSystemSTM32(log):
+    filelist = sorted(system_path.glob("STM32*/system_stm32*.c"))
+    if len(filelist):
+        if log:
+            print("Number of system stm32 files: {}".format(len(filelist)))
+        system_list = []
+        for fp in filelist:
+            system_list.append({"serie": fp.parent.name, "fn": fp.name})
+        out_file = open(system_stm32_outfile, "w", newline="\n")
+        out_file.write(system_stm32_template.render(system_list=system_list))
+        out_file.close()
+    else:
+        if log:
+            print("No system stm32 files found!")
 
 
 def wrap(arg_core, arg_cmsis, log):
@@ -254,10 +245,12 @@ def wrap(arg_core, arg_cmsis, log):
 
     # CMSIS startup files
     printCMSISStartup(log)
+    # system stm32 files
+    printSystemSTM32(log)
 
     # CMSIS DSP C source file
     if not CMSIS_path.is_dir():
-        print("Could not find {}").format(CMSIS_path)
+        print("Could not find {}".format(CMSIS_path))
         print("CMSIS DSP generation skipped.")
     else:
         # Delete all subfolders
