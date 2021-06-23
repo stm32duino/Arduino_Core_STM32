@@ -167,6 +167,7 @@
             "GENERIC_L562ZETXQ",
             "GENERIC_WB55CCUX", "GENERIC_WB55CGUX",
             "GENERIC_WB55RCVX", "GENERIC_WB55REVX",
+            "GENERIC_NODE",
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",

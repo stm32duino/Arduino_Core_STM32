@@ -36,6 +36,7 @@
             "NUCLEO_H743ZI",
             "NUCLEO_L496ZG",
             "NUCLEO_L4R5ZI",
+            "GENERIC_NODE",
             "RAK811_TRACKERA"
           ]
         }
