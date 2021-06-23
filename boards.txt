@@ -4976,6 +4976,42 @@ GenWB.menu.upload_method.dfuMethod.upload.options=-g
 GenWB.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic WL
+GenWL.name=Generic STM32WL series
+
+GenWL.build.core=arduino
+GenWL.build.board=GenWL
+GenWL.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenWL.build.mcu=cortex-m4
+GenWL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenWL.build.series=STM32WLxx
+GenWL.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# Generic Node by TTN WL55CCUx
+GenWL.menu.pnum.GENERIC_NODE=Generic Node TTN
+GenWL.menu.pnum.GENERIC_NODE.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_NODE.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_NODE.build.board=GENERIC_NODE
+GenWL.menu.pnum.GENERIC_NODE.build.product_line=STM32WL55xx
+GenWL.menu.pnum.GENERIC_NODE.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
+# Upload menu
+GenWL.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenWL.menu.upload_method.swdMethod.upload.protocol=0
+GenWL.menu.upload_method.swdMethod.upload.options=-g
+GenWL.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenWL.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenWL.menu.upload_method.serialMethod.upload.protocol=1
+GenWL.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenWL.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenWL.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenWL.menu.upload_method.dfuMethod.upload.protocol=2
+GenWL.menu.upload_method.dfuMethod.upload.options=-g
+GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Electronic Speed Controller boards
 
 ESC_board.name=Electronic speed controllers
@@ -5636,6 +5672,12 @@ GenWB.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWB.menu.xserial.disabled=Disabled (no Serial support)
 GenWB.menu.xserial.disabled.build.xSerial=
 
+GenWL.menu.xserial.generic=Enabled (generic 'Serial')
+GenWL.menu.xserial.none=Enabled (no generic 'Serial')
+GenWL.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenWL.menu.xserial.disabled=Disabled (no Serial support)
+GenWL.menu.xserial.disabled.build.xSerial=
+
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -5897,6 +5939,19 @@ GenWB.menu.xusb.HS=High Speed
 GenWB.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenWB.menu.xusb.HSFS=High Speed in Full Speed mode
 GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenWL.menu.usb.none=None
+GenWL.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenWL.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenWL.menu.usb.CDC=CDC (no generic 'Serial')
+GenWL.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenWL.menu.usb.HID=HID (keyboard and mouse)
+GenWL.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenWL.menu.xusb.FS=Low/Full Speed
+GenWL.menu.xusb.HS=High Speed
+GenWL.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenWL.menu.xusb.HSFS=High Speed in Full Speed mode
+GenWL.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 3dprinter.menu.usb.none=None
 3dprinter.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -6323,6 +6378,25 @@ GenWB.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenWB.menu.opt.ogstd=Debug (-g)
 GenWB.menu.opt.ogstd.build.flags.optimize=-g -Og
 
+GenWL.menu.opt.osstd=Smallest (-Os default)
+GenWL.menu.opt.osstd.build.flags.optimize=-Os
+GenWL.menu.opt.oslto=Smallest (-Os) with LTO
+GenWL.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenWL.menu.opt.o1std=Fast (-O1)
+GenWL.menu.opt.o1std.build.flags.optimize=-O1
+GenWL.menu.opt.o1lto=Fast (-O1) with LTO
+GenWL.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenWL.menu.opt.o2std=Faster (-O2)
+GenWL.menu.opt.o2std.build.flags.optimize=-O2
+GenWL.menu.opt.o2lto=Faster (-O2) with LTO
+GenWL.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenWL.menu.opt.o3std=Fastest (-O3)
+GenWL.menu.opt.o3std.build.flags.optimize=-O3
+GenWL.menu.opt.o3lto=Fastest (-O3) with LTO
+GenWL.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenWL.menu.opt.ogstd=Debug (-g)
+GenWL.menu.opt.ogstd.build.flags.optimize=-g -Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -6631,6 +6705,16 @@ GenWB.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenWB.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenWB.menu.rtlib.full=Newlib Standard
 GenWB.menu.rtlib.full.build.flags.ldspecs=
+
+GenWL.menu.rtlib.nano=Newlib Nano (default)
+GenWL.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenWL.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenWL.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenWL.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenWL.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenWL.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenWL.menu.rtlib.full=Newlib Standard
+GenWL.menu.rtlib.full.build.flags.ldspecs=
 
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
