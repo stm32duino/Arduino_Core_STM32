@@ -30,6 +30,12 @@
 
 /* ########################## Module Selection ############################## */
 /**
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
+  */
+#include "stm32yyxx_hal_conf.h"
+#if 0
+/**
   * @brief This is the list of modules to be used in the HAL driver
   */
 #define HAL_MODULE_ENABLED
@@ -37,7 +43,6 @@
 #define HAL_COMP_MODULE_ENABLED
 #define HAL_CRC_MODULE_ENABLED
 #define HAL_CRYP_MODULE_ENABLED
-#define HAL_DAC_MODULE_ENABLED
 #define HAL_GTZC_MODULE_ENABLED
 #define HAL_HSEM_MODULE_ENABLED
 #define HAL_I2C_MODULE_ENABLED
@@ -64,7 +69,7 @@
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
-
+#endif
 /* ########################## Register Callbacks selection ############################## */
 /**
   * @brief This is the list of modules where register callback can be used
@@ -72,7 +77,6 @@
 #define USE_HAL_ADC_REGISTER_CALLBACKS         0u
 #define USE_HAL_COMP_REGISTER_CALLBACKS        0u
 #define USE_HAL_CRYP_REGISTER_CALLBACKS        0u
-#define USE_HAL_DAC_REGISTER_CALLBACKS         0u
 #define USE_HAL_I2C_REGISTER_CALLBACKS         0u
 #define USE_HAL_I2S_REGISTER_CALLBACKS         0u
 #define USE_HAL_IRDA_REGISTER_CALLBACKS        0u
@@ -182,9 +186,9 @@
 #define USE_SPI_CRC                         1U
 
 /* ################## CRYP peripheral configuration ########################## */
-
-#define USE_HAL_CRYP_SUSPEND_RESUME         1U
-
+#ifndef USE_HAL_CRYP_SUSPEND_RESUME
+#define USE_HAL_CRYP_SUSPEND_RESUME         0u
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 /**
@@ -213,10 +217,6 @@
 #ifdef HAL_CRYP_MODULE_ENABLED
   #include "stm32wlxx_hal_cryp.h"
 #endif /* HAL_CRYP_MODULE_ENABLED */
-
-#ifdef HAL_DAC_MODULE_ENABLED
-  #include "stm32wlxx_hal_dac.h"
-#endif /* HAL_DAC_MODULE_ENABLED */
 
 #ifdef HAL_EXTI_MODULE_ENABLED
   #include "stm32wlxx_hal_exti.h"
