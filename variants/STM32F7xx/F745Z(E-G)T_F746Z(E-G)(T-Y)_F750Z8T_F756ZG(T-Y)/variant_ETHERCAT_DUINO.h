@@ -169,8 +169,8 @@
 // Serial pins
 #define TX0                     PC10          // UART4      
 #define RX0                     PC11          // UART4     
-#define TX0_ALT                 PC10_ALT1     // UART3 
-#define RX0_ALT                 PC11_ALT1     // UART3
+#define TX0_ALT                 PC10_ALT1     // USART3 
+#define RX0_ALT                 PC11_ALT1     // USART3
 
 #define TX1                     PE8           // UART7
 #define RX1                     PE7           // UART7
