@@ -1094,6 +1094,8 @@ typedef struct
 #define TIM1                    ((TIM_TypeDef *) TIM1_BASE)
 #define SPI1                    ((SPI_TypeDef *) SPI1_BASE)
 #define ADC                     ((ADC_TypeDef *) ADC_BASE)
+//TODO: fix temporal for STM32WL ADC1
+#define ADC1                    ((ADC_TypeDef *) ADC_BASE)
 #define ADC_COMMON              ((ADC_Common_TypeDef *) ADC_COMMON_BASE)
 #define TIM16                   ((TIM_TypeDef *) TIM16_BASE)
 #define TIM17                   ((TIM_TypeDef *) TIM17_BASE)
