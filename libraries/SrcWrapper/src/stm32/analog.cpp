@@ -828,7 +828,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G4xx) && \
     !defined(STM32H7xx) && !defined(STM32L4xx) && !defined(STM32L5xx) && \
-    !defined(STM32MP1xx) && !defined(STM32WBxx)
+    !defined(STM32MP1xx) && !defined(STM32WBxx) && !defined(STM32WLxx)
   AdcHandle.Init.LowPowerAutoPowerOff  = DISABLE;                       /* ADC automatically powers-off after a conversion and automatically wakes-up when a new conversion is triggered */
 #endif
 #ifdef ADC_CHANNELS_BANK_B
@@ -841,7 +841,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
 #endif
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
-#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx)
+#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && !defined(STM32WLxx)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
@@ -924,13 +924,14 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G0xx) && \
     !defined(STM32L0xx) && !defined(STM32L1xx) && \
-    !defined(STM32F373xC) && !defined(STM32F378xx)
+    !defined(STM32F373xC) && !defined(STM32F378xx) && !defined(STM32WLxx)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
   AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
 #endif
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32G0xx) && !defined(STM32L0xx) && !defined(STM32L1xx) && \
-    !defined(STM32WBxx) && !defined(STM32F373xC) && !defined(STM32F378xx)
+    !defined(STM32WBxx) && !defined(STM32F373xC) && !defined(STM32F378xx) && \
+    !defined(STM32WLxx)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
 #if defined (STM32H7xx) || defined(STM32MP1xx)

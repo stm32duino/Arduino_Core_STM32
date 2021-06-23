@@ -45,3 +45,6 @@
 #ifdef STM32WBxx
   #include "system_stm32wbxx.c"
 #endif
+#ifdef STM32WLxx
+  #include "system_stm32wlxx.c"
+#endif
