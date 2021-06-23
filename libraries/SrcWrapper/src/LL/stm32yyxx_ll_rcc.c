@@ -28,4 +28,6 @@
   #include "stm32mp1xx_ll_rcc.c"
 #elif STM32WBxx
   #include "stm32wbxx_ll_rcc.c"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_rcc.c"
 #endif
