@@ -35,8 +35,8 @@
   #include "stm32mp1xx_ll_cortex.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_cortex.h"
-#endif
 #elif STM32WLxx
   #include "stm32wlxx_ll_cortex.h"
+#endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_CORTEX_H_ */
