@@ -167,45 +167,26 @@
 #define ECAT_CS                 PB6
 
 // Serial pins
-#define TX1                     PA9
+#define TX0                     PC10          // UART4      
+#define RX0                     PC11          // UART4     
+#define TX0_ALT                 PC10_ALT1     // UART3 
+#define RX0_ALT                 PC11_ALT1     // UART3
 
-#define TX2                     PD5
-#define RX2                     PD6
-#define TX2_ALT                 PA2
-#define RX2_ALT                 PA3
+#define TX1                     PE8           // UART7
+#define RX1                     PE7           // UART7
 
-#define TX3                     PB10
-#define RX3                     PB11
-#define TX3_ALT                 PC10_ALT1
-#define RX3_ALT                 PC11_ALT1
+#define TX2                     PB10          // UART3
+#define RX2                     PB11          // UART3
 
-#define TX4                     PC10
-#define RX4                     PC11
-#define TX4_ALT                 PA0
-#define RX4_ALT                 PA1
-
-#define TX6                     PC6
-#define RX6                     PC7
-#define TX6_ALT                 PG14
-#define RX6_ALT                 PG9
-
-#define TX7                     PE8
-#define RX7                     PE7
+#define TX3                     PD5           // UART2
+#define RX3                     PD6           // UART2
 
 // I2C pins
+#define SDA0                    PF15          // I2C4_ALT
+#define SCL0                    PF14          // I2C4_ALT
+
 #define SDA1                    PB9
 #define SCL1                    PB8
-
-#define SDA2                    PB11
-#define SCL2                    PB10
-
-#define SDA3                    PC9
-#define SCL3                    PA8
-
-#define SDA4                    PD13
-#define SCL4                    PD12
-#define SDA4_ALT                PF15
-#define SCL4_ALT                PF14
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
@@ -244,10 +225,10 @@
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PB9
+  #define PIN_WIRE_SDA          SDA0
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PB8
+  #define PIN_WIRE_SCL          SCL0
 #endif
 
 // Timer Definitions
