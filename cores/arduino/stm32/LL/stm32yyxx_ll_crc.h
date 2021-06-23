@@ -34,7 +34,7 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_crc.h"
 #endif
-#ifdef STM32WLxx
+#elif STM32WLxx
   #include "stm32wlxx_ll_crc.h"
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_CRC_H_ */
