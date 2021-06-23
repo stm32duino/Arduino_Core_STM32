@@ -35,8 +35,8 @@
   #include "stm32mp1xx_ll_bus.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_bus.h"
-#endif
 #elif STM32WLxx
   #include "stm32wlxx_ll_bus.h"
+#endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_BUS_H_ */
