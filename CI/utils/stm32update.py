@@ -406,17 +406,17 @@ def updateCore():
         regexmd_add = re.compile(r"(STM32)\w+(:\s+)\d+.\d+.\d+")
         HAL_updated = False
         CMSIS_updated = False
-        hal_commit_msg = """[{0}] Update STM32{0}xx HAL Drivers to v{1}
+        hal_commit_msg = """system: {0}: update STM32{0}xx HAL Drivers to v{1}
 
 Included in STM32Cube{0} FW {2}""".format(
             serie, cube_HAL_version, cube_version
         )
-        cmsis_commit_msg = """[{0}] Update STM32{0}xx CMSIS Drivers to v{1}
+        cmsis_commit_msg = """system: {0}: update STM32{0}xx CMSIS Drivers to v{1}
 
 Included in STM32Cube{0} FW {2}""".format(
             serie, cube_CMSIS_version, cube_version
         )
-        wrapper_commit_msg = "[{}] Update wrapped files".format(serie)
+        wrapper_commit_msg = "core: {}: update wrapped files".format(serie)
 
         # Update HAL part if needed
         if version.parse(core_HAL_version) < version.parse(cube_HAL_version):
