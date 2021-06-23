@@ -36,5 +36,7 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_i2c.h"
 #endif
+#ifdef STM32WLxx
+  #include "stm32wlxx_ll_i2c.h"
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_I2C_H_ */

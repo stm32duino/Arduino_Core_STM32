@@ -36,5 +36,7 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_spi.h"
 #endif
+#ifdef STM32WLxx
+  #include "stm32wlxx_ll_spi.h"
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_SPI_H_ */

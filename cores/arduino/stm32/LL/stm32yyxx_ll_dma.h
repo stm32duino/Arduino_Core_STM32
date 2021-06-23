@@ -36,5 +36,7 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_dma.h"
 #endif
+#ifdef STM32WLxx
+  #include "stm32wbxx_ll_dma.h"
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_DMA_H_ */

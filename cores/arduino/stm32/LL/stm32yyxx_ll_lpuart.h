@@ -20,5 +20,7 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_lpuart.h"
 #endif
+#ifdef STM32WLxx
+  #include "stm32wlxx_ll_lpuart.h"
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_LPUART_H_ */
