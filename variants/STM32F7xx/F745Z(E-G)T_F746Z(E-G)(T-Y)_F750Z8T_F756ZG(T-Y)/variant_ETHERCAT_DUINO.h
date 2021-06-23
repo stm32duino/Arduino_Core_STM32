@@ -182,8 +182,8 @@
 #define RX3                     PD6           // USART2
 
 // I2C pins
-#define SDA0                    PF15          // I2C4_ALT
-#define SCL0                    PF14          // I2C4_ALT
+#define SDA0                    PF15          // I2C4
+#define SCL0                    PF14          // I2C4
 
 #define SDA1                    PB9
 #define SCL1                    PB8
