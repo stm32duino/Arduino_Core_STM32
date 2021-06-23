@@ -73,7 +73,9 @@ def create_config():
         )
     )
     path_config_file = open(path_config_filename, "w")
-    path_config_file.write(json.dumps({"REPO_LOCAL_PATH": str(repo_local_path)}, indent=2))
+    path_config_file.write(
+        json.dumps({"REPO_LOCAL_PATH": str(repo_local_path)}, indent=2)
+    )
     path_config_file.close()
     exit(1)
 
@@ -103,16 +105,40 @@ def checkConfig():
     createFolder(repo_local_path)
 
 
+def getRepoBranchName(repo_path):
+    bname = ""
+    rname = ""
+    cmd = ["git", "-C", repo_path, "branch", "-r"]
+    bnames = execute_cmd(cmd, None).split("\n")
+    for b in bnames:
+        name_match = re.match(r"\S+/\S+ -> (\S+)/(\S+)", b.strip())
+        if name_match:
+            rname = name_match.group(1)
+            bname = name_match.group(2)
+    if not bname:
+        print("Could not find branch name for {}!".format(repo_path))
+        exit(1)
+    return (rname, bname)
+
+
 def updateCoreRepo():
     # Handle core repo
     repo_path = repo_local_path / repo_core_name
     print("Updating {}...".format(repo_core_name))
     if repo_path.exists():
+        rname, bname = getRepoBranchName(repo_path)
         # Get new tags from the remote
         git_cmds = [
-            ["git", "-C", repo_path, "clean", "-fdx"],
             ["git", "-C", repo_path, "fetch"],
-            ["git", "-C", repo_path, "reset", "--hard", "origin/master"],
+            [
+                "git",
+                "-C",
+                repo_path,
+                "checkout",
+                "-B",
+                bname,
+                "{}/{}".format(rname, bname),
+            ],
         ]
     else:
         # Clone it as it does not exists yet
@@ -129,11 +155,19 @@ def updateSTRepo():
         gh_STM32Cube = urljoin(gh_st, repo_name + ".git")
         print("Updating " + repo_name + "...")
         if repo_path.exists():
+            rname, bname = getRepoBranchName(repo_path)
             # Get new tags from the remote
             git_cmds = [
-                ["git", "-C", repo_path, "clean", "-fdx"],
-                ["git", "-C", repo_path, "fetch", "--tags"],
-                ["git", "-C", repo_path, "reset", "--hard", "origin/master"],
+                ["git", "-C", repo_path, "fetch"],
+                [
+                    "git",
+                    "-C",
+                    repo_path,
+                    "checkout",
+                    "-B",
+                    bname,
+                    "{}/{}".format(rname, bname),
+                ],
             ]
         else:
             # Clone it as it does not exists yet
@@ -512,7 +546,7 @@ Included in STM32Cube{0} FW {2}""".format(
 
 # Parser
 upparser = argparse.ArgumentParser(
-    description="Update HAL drivers and CMSIS devices from STM32cube released on GitHub"
+    description="Manage HAL drivers and CMSIS devices from STM32cube released on GitHub"
 )
 
 upparser.add_argument(
