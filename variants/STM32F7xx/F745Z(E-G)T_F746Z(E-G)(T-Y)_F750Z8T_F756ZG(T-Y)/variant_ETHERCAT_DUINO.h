@@ -178,8 +178,8 @@
 #define TX2                     PB10          // UART3
 #define RX2                     PB11          // UART3
 
-#define TX3                     PD5           // UART2
-#define RX3                     PD6           // UART2
+#define TX3                     PD5           // USART2
+#define RX3                     PD6           // USART2
 
 // I2C pins
 #define SDA0                    PF15          // I2C4_ALT
