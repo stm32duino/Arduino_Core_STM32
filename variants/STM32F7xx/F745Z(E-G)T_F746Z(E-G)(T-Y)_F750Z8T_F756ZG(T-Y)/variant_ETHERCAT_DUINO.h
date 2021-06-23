@@ -175,8 +175,8 @@
 #define TX1                     PE8           // UART7
 #define RX1                     PE7           // UART7
 
-#define TX2                     PB10          // UART3
-#define RX2                     PB11          // UART3
+#define TX2                     PB10          // USART3
+#define RX2                     PB11          // USART3
 
 #define TX3                     PD5           // USART2
 #define RX3                     PD6           // USART2
