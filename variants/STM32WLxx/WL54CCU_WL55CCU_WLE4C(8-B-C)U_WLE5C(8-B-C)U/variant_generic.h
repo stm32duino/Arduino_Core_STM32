@@ -119,11 +119,6 @@
   #define PIN_SERIAL_TX         PA2
 #endif
 
-// Extra HAL modules
-#if !defined(HAL_DAC_MODULE_DISABLED)
-  #define HAL_DAC_MODULE_ENABLED
-#endif
-
 /*----------------------------------------------------------------------------
  *        Arduino objects - C++ only
  *----------------------------------------------------------------------------*/

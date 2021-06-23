@@ -49,14 +49,7 @@ WEAK const PinMap PinMap_ADC[] = {
 };
 #endif
 
-//*** DAC ***
-
-#ifdef HAL_DAC_MODULE_ENABLED
-WEAK const PinMap PinMap_DAC[] = {
-  {PA_10, DAC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 1, 0)}, // DAC_OUT1
-  {NC,    NP,   0}
-};
-#endif
+//*** No DAC ***
 
 //*** I2C ***
 
