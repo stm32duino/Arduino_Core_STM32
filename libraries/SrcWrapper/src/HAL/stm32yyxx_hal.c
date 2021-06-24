@@ -26,8 +26,8 @@
   #include "stm32l5xx_hal.c"
 #elif STM32MP1xx
   #include "stm32mp1xx_hal.c"
-#elif STM32BLxx
-  #include "stm32blxx_hal.c"
+#elif STM32WBxx
+  #include "stm32wbxx_hal.c"
 #elif STM32WLxx
   #include "stm32wlxx_hal.c"
 #endif
