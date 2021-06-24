@@ -85,26 +85,6 @@
 
 #include "stm32wlxx.h"
 
-#if !defined  (HSE_VALUE)
-  #define HSE_VALUE    (32000000UL) /*!< Value of the External oscillator in Hz */
-#endif /* HSE_VALUE */
-
-#if !defined  (MSI_VALUE)
-   #define MSI_VALUE    (4000000UL) /*!< Value of the Internal oscillator in Hz*/
-#endif /* MSI_VALUE */
-
-#if !defined  (HSI_VALUE)
-  #define HSI_VALUE    (16000000UL) /*!< Value of the Internal oscillator in Hz*/
-#endif /* HSI_VALUE */
-
-#if !defined  (LSI_VALUE)
- #define LSI_VALUE  (32000UL)       /*!< Value of LSI in Hz*/
-#endif /* LSI_VALUE */
-
-#if !defined  (LSE_VALUE)
-  #define LSE_VALUE    (32768UL)    /*!< Value of LSE in Hz*/
-#endif /* LSE_VALUE */
-
 /**
   * @}
   */
@@ -121,6 +101,13 @@
   * @{
   */
 
+#ifndef VECT_TAB_OFFSET
+#define VECT_TAB_OFFSET         0x00008000U     /*!< Vector Table base offset field.
+                                                     This value must be a multiple of 0x100. */
+#else
+#define USER_VECT_TAB_ADDRESS
+#endif
+
 /* Note: Following vector table addresses must be defined in line with linker
          configuration. */
 /*!< Uncomment the following line if you need to relocate CPU1 CM4 and/or CPU2
@@ -135,12 +122,8 @@
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM2_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x100. */
-#define VECT_TAB_OFFSET         0x00008000U     /*!< Vector Table base offset field.
-                                                     This value must be a multiple of 0x100. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
-                                                     This value must be a multiple of 0x100. */
-#define VECT_TAB_OFFSET         0x00020000U        /*!< Vector Table base offset field.
                                                      This value must be a multiple of 0x100. */
 #endif
 #else /* CORE_CM4 */
@@ -150,12 +133,8 @@
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM1_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x200. */
-#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
-                                                     This value must be a multiple of 0x200. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
-                                                     This value must be a multiple of 0x200. */
-#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
                                                      This value must be a multiple of 0x200. */
 #endif
 #endif
