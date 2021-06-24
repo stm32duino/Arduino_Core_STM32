@@ -1,3 +1,7 @@
+/* LL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #ifdef STM32G0xx
   #include "stm32g0xx_ll_lpuart.c"
 #elif STM32G4xx
@@ -13,3 +17,4 @@
 #elif STM32WBxx
   #include "stm32wbxx_ll_lpuart.c"
 #endif
+#pragma GCC diagnostic pop
