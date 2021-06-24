@@ -1,3 +1,9 @@
+{% if type == "ll" %}
+/* LL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
+{% endif %}
 {% for serie in serieslist %}
   {% if loop.first %}
 #ifdef STM32{{serie.upper()}}xx
@@ -13,4 +19,7 @@
 #endif
   {% endif %}
 {% endfor %}
+{% if type == "ll" %}
+#pragma GCC diagnostic pop
+{% endif %}
 
