@@ -164,12 +164,24 @@
 /**
   * @brief This is the HAL system configuration section
   */
+#if !defined (VDD_VALUE)
 #define  VDD_VALUE                          3300U                             /*!< Value of VDD in mv */
-#define  TICK_INT_PRIORITY                  ((1uL <<__NVIC_PRIO_BITS) - 1uL)  /*!< tick interrupt priority (lowest by default) */
+#endif
+#if !defined (TICK_INT_PRIORITY)
+#define  TICK_INT_PRIORITY                  0x00U /*!< tick interrupt priority */
+#endif
+#if !defined (USE_RTOS)
 #define  USE_RTOS                           0U
+#endif
+#if !defined (PREFETCH_ENABLE)
 #define  PREFETCH_ENABLE                    0U
+#endif
+#if !defined (INSTRUCTION_CACHE_ENABLE)
 #define  INSTRUCTION_CACHE_ENABLE           1U
+#endif
+#if !defined (DATA_CACHE_ENABLE)
 #define  DATA_CACHE_ENABLE                  1U
+#endif
 
 /* ########################## Assert Selection ############################## */
 /**
@@ -184,13 +196,14 @@
  * Activated: CRC code is present inside driver
  * Deactivated: CRC code cleaned from driver
  */
-
-#define USE_SPI_CRC                         1U
+#if !defined (USE_SPI_CRC)
+#define USE_SPI_CRC                         0U
+#endif
 
 /* ################## CRYP peripheral configuration ########################## */
-
+#if !defined (USE_HAL_CRYP_SUSPEND_RESUME)
 #define USE_HAL_CRYP_SUSPEND_RESUME         1U
-
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 /**
