@@ -1,3 +1,7 @@
+/* HAL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #ifdef STM32F0xx
   #include "stm32f0xx_hal_dac_ex.c"
 #elif STM32F1xx
@@ -27,3 +31,4 @@
 #elif STM32MP1xx
   #include "stm32mp1xx_hal_dac_ex.c"
 #endif
+#pragma GCC diagnostic pop
