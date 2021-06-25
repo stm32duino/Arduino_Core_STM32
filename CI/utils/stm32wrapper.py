@@ -1,5 +1,6 @@
 import argparse
 import re
+from itertools import groupby
 from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
 from stm32common import createFolder, deleteFolder, genSTM32List
@@ -102,16 +103,29 @@ def checkConfig(arg_core, arg_cmsis):
 
 def printCMSISStartup(log):
     filelist = sorted(CMSIS_Device_ST_path.glob("**/startup_*.s"))
+    filelist = [pth.name for pth in filelist]
     if len(filelist):
         if log:
             print("Number of startup files: {}".format(len(filelist)))
+        # Some mcu have two startup files
+        # Ex: WL one for cm0plus and one for cm4
+        # In that case this is the same value line so add an extra defined
+        # to use the correct one.
+        group_startup_list = [
+            list(g) for _, g in groupby(filelist, lambda x: re.split("_|\\.", x)[1])
+        ]
         cmsis_list = []
-        for fp in filelist:
-            # File name
-            fn = fp.name
-            valueline = re.split("_|\\.", fn)
-            vline = valueline[1].upper().replace("X", "x")
-            cmsis_list.append({"vline": vline, "fn": fn})
+        for fn_list in group_startup_list:
+            if len(fn_list) == 1:
+                valueline = re.split("_|\\.", fn_list[0])
+                vline = valueline[1].upper().replace("X", "x")
+                cmsis_list.append({"vline": vline, "fn": fn_list[0], "cm": ""})
+            else:
+                for fn in fn_list:
+                    valueline = re.split("_|\\.", fn)
+                    vline = valueline[1].upper().replace("X", "x")
+                    cm = valueline[2].upper()
+                    cmsis_list.append({"vline": vline, "fn": fn, "cm": cm})
         out_file = open(CMSIS_Startupfile, "w", newline="\n")
         out_file.write(stm32_def_build_template.render(cmsis_list=cmsis_list))
         out_file.close()

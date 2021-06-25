@@ -4,11 +4,11 @@
 #if !defined(CMSIS_STARTUP_FILE) && !defined(CUSTOM_STARTUP_FILE)
 {% for cmsis in cmsis_list %}
   {% if loop.first %}
-  #if defined({{cmsis.vline}})
+  #if defined({{ cmsis.vline }})
   {% else %}
-  #elif defined({{cmsis.vline}})
+  #elif defined({{ cmsis.vline }}){{ " && defined(USE_{}_STARTUP_FILE)".format(cmsis.cm) if cmsis.cm }}
   {% endif %}
-    #define CMSIS_STARTUP_FILE "{{cmsis.fn}}"
+    #define CMSIS_STARTUP_FILE "{{ cmsis.fn }}"
 {% endfor %}
   #else
     #error UNKNOWN CHIP
