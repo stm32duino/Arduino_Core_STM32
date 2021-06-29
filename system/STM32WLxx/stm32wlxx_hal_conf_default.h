@@ -1,8 +1,7 @@
 /**
   ******************************************************************************
-  * @file    stm32wlxx_hal_conf.h
-  * @author  MCD Application Team
-  * @brief   HAL configuration file.
+  * @file    stm32wlxx_hal_conf_default.h
+  * @brief   HAL default configuration file.
   ******************************************************************************
   * @attention
   *
@@ -18,8 +17,8 @@
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef STM32WLxx_HAL_CONF_H
-#define STM32WLxx_HAL_CONF_H
+#ifndef STM32WLxx_HAL_CONF_DEFAULT_H
+#define STM32WLxx_HAL_CONF_DEFAULT_H
 
 #ifdef __cplusplus
  extern "C" {
@@ -29,6 +28,12 @@
 /* Exported constants --------------------------------------------------------*/
 
 /* ########################## Module Selection ############################## */
+/**
+  * @brief Include the default list of modules to be used in the HAL driver
+  *        and manage module deactivation
+  */
+#include "stm32yyxx_hal_conf.h"
+#if 0
 /**
   * @brief This is the list of modules to be used in the HAL driver
   */
@@ -64,6 +69,7 @@
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_PWR_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
+#endif
 
 /* ########################## Register Callbacks selection ############################## */
 /**
@@ -335,6 +341,6 @@
 }
 #endif
 
-#endif /* STM32WLxx_HAL_CONF_H */
+#endif /* STM32WLxx_HAL_CONF_DEFAULT_H */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
