@@ -49,6 +49,9 @@ core_CMSIS_versions = collections.OrderedDict()  # key: serie name, value: CMSIS
 md_CMSIS_path = "STM32YYxx_CMSIS_version.md"
 md_HAL_path = "STM32YYxx_HAL_Driver_version.md"
 
+# stm32 def file to update
+stm32_def = "stm32_def.h"
+
 # Templating
 templates_dir = script_path / "templates"
 stm32yyxx_hal_conf_file = "stm32yyxx_hal_conf.h"
@@ -99,6 +102,8 @@ def checkConfig():
     global system_dest_path
     global md_HAL_path
     global md_CMSIS_path
+    global stm32_def
+
     config_file_path = script_path / path_config_filename
     if config_file_path.is_file():
         try:
@@ -112,11 +117,48 @@ def checkConfig():
             cmsis_dest_path = repo_local_path / repo_core_name / cmsis_dest_path
             system_dest_path = repo_local_path / repo_core_name / system_dest_path
             md_CMSIS_path = cmsis_dest_path / md_CMSIS_path
+            stm32_def = (
+                repo_local_path
+                / repo_core_name
+                / "cores"
+                / "arduino"
+                / "stm32"
+                / stm32_def
+            )
         except IOError:
             print("Failed to open {}!".format(config_file))
     else:
         create_config()
     createFolder(repo_local_path)
+
+
+def updateStm32Def(serie):
+    print("Adding top HAL include for {}...".format(serie))
+    regex_serie = re.compile(r"defined\(STM32(\w+)xx\)")
+    # Add the new STM32YY entry
+    added = False
+    serie_found = ""
+    nb_serie = 0
+    for line in fileinput.input(stm32_def, inplace=True):
+        m = regex_serie.search(line)
+        if m:
+            serie_found = m.group(1)
+            nb_serie += 1
+        if (
+            not added
+            and serie_found
+            and ((serie_found > serie) or (not m and "include" not in line))
+        ):
+            if nb_serie == 1:
+                pcond = "if"
+            else:
+                pcond = "elif"
+            print("#{} defined(STM32{}xx)".format(pcond, serie))
+            print('  #include "stm32{}xx.h"'.format(serie.lower()))
+            print(line.replace("if", "elif"), end="")
+            added = True
+        else:
+            print(line, end="")
 
 
 def updateHalConfDefault(serie):
@@ -531,7 +573,7 @@ def updateMDFile(md_file, serie, version):
                 serie_found = m.group(1)
                 if not new_line:
                     new_line = regexmd_add.sub(rf"\g<1>{serie}\g<2>{version}", line)
-            if not added and serie_found and (serie_found > serie.upper() or not m):
+            if not added and serie_found and (serie_found > serie or not m):
                 print(new_line, end="")
                 added = True
             print(line, end="")
@@ -620,17 +662,24 @@ Included in STM32Cube{0} FW {2}""".format(
             update_hal_conf_commit_msg = (
                 "system: {0}: update STM32{0}xx hal default config".format(serie)
             )
+            update_stm32_def_commit_msg = "core: {0}: add top HAL include".format(serie)
             # Create system files
             createSystemFiles(serie)
-            # Commit all sytem files
+            # Commit all system files
             commitFiles(core_path, system_commit_msg)
+            # Update default HAL configuration
             updateHalConfDefault(serie)
             commitFiles(core_path, update_hal_conf_commit_msg)
-            print("Please, review carefully all the system files added!")
-            print("Add #ifndef/#endif to all definitions which should be")
+            print("\tPlease, review carefully all the system files added!")
+            print("\tAdd #ifndef/#endif to all definitions which should be")
             print(
-                "redefinable in the stm32{}xx_hal_conf_default.h".format(serie.lower())
+                "\tredefinable in the stm32{}xx_hal_conf_default.h".format(
+                    serie.lower()
+                )
             )
+            # Update stm32_def to add top HAL include
+            updateStm32Def(serie)
+            commitFiles(core_path, update_stm32_def_commit_msg)
 
         if HAL_updated or CMSIS_updated:
             # Generate all wrapper files
