@@ -30,5 +30,7 @@
   #include "stm32l5xx_hal_flash.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_flash.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_flash.c"
 #endif
 #pragma GCC diagnostic pop

@@ -33,6 +33,8 @@
   #include "stm32l5xx_ll_iwdg.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_iwdg.h"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_iwdg.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_IWDG_H_ */

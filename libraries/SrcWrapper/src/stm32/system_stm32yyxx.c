@@ -30,4 +30,6 @@
   #include "system_stm32mp1xx.c"
 #elif STM32WBxx
   #include "system_stm32wbxx.c"
+#elif STM32WLxx
+  #include "system_stm32wlxx.c"
 #endif
