@@ -52,6 +52,8 @@
   #include "stm32mp1xx.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
+#elif defined(STM32WLxx)
+  #include "stm32wlxx.h"
 #else
   #error "STM32YYxx chip series is not defined in boards.txt."
 #endif
