@@ -63,8 +63,14 @@
 #endif
 
 // Here define some compatibility
+#ifndef ADC1
+  #define ADC1 ADC
+#endif
 #ifndef CAN1
   #define CAN1 CAN
+#endif
+#ifndef DAC1
+  #define DAC1 DAC
 #endif
 
 /* STM32G0xx defined USB_DRD_FS */
