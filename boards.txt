@@ -502,6 +502,19 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.variant=STM32WBxx/WB55R(C-E-G)V
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_WL55JC1 board
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1=Nucleo WL55JC1
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.node="NOD_WL55JC"
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.upload.maximum_size=262144
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.upload.maximum_data_size=65536
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.mcu=cortex-m4
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.board=NUCLEO_WL55JC1
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.series=STM32WLxx
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.product_line=STM32WLE5xx
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+
 # Upload menu
 Nucleo_64.menu.upload_method.MassStorage=Mass Storage
 Nucleo_64.menu.upload_method.MassStorage.upload.protocol=
