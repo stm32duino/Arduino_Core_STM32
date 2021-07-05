@@ -16,5 +16,7 @@
   #include "stm32l5xx_ll_lpuart.c"
 #elif STM32WBxx
   #include "stm32wbxx_ll_lpuart.c"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_lpuart.c"
 #endif
 #pragma GCC diagnostic pop

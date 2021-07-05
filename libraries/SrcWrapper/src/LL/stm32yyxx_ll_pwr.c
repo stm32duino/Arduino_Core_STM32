@@ -32,5 +32,7 @@
   #include "stm32mp1xx_ll_pwr.c"
 #elif STM32WBxx
   #include "stm32wbxx_ll_pwr.c"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_pwr.c"
 #endif
 #pragma GCC diagnostic pop

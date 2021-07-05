@@ -32,5 +32,7 @@
   #include "stm32mp1xx_hal_dma.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_dma.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_dma.c"
 #endif
 #pragma GCC diagnostic pop

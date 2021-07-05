@@ -30,5 +30,7 @@
   #include "stm32l5xx_hal_dac.c"
 #elif STM32MP1xx
   #include "stm32mp1xx_hal_dac.c"
+#elif STM32WLxx
+  #include "stm32wlxx_hal_dac.c"
 #endif
 #pragma GCC diagnostic pop
