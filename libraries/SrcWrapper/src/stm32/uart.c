@@ -603,6 +603,10 @@ void uart_config_lowpower(serial_t *obj)
       break;
 #endif
   }
+#if defined(UART_WAKEUP_EXTI_LINE)
+  /* Enable EXTI wakeup interrupt if defined */
+  LL_EXTI_EnableIT_0_31(UART_WAKEUP_EXTI_LINE);
+#endif
   hsem_unlock(CFG_HW_RCC_CRRCR_CCIPR_SEMID);
 }
 #endif
