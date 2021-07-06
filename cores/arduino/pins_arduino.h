@@ -80,8 +80,8 @@ static const uint32_t SCK  = PIN_SPI_SCK;
   #define PIN_WIRE_SCL              15
 #endif
 
-static const uint8_t SDA = PIN_WIRE_SDA;
-static const uint8_t SCL = PIN_WIRE_SCL;
+static const uint32_t SDA = PIN_WIRE_SDA;
+static const uint32_t SCL = PIN_WIRE_SCL;
 
 #ifdef __cplusplus
 extern "C" {
