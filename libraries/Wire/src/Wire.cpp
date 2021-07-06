@@ -39,7 +39,7 @@ TwoWire::TwoWire()
   _i2c.scl = digitalPinToPinName(SCL);
 }
 
-TwoWire::TwoWire(uint8_t sda, uint8_t scl)
+TwoWire::TwoWire(uint32_t sda, uint32_t scl)
 {
   _i2c.sda = digitalPinToPinName(sda);
   _i2c.scl = digitalPinToPinName(scl);
@@ -47,7 +47,7 @@ TwoWire::TwoWire(uint8_t sda, uint8_t scl)
 
 // Public Methods //////////////////////////////////////////////////////////////
 
-void TwoWire::begin(uint8_t sda, uint8_t scl)
+void TwoWire::begin(uint32_t sda, uint32_t scl)
 {
   _i2c.sda = digitalPinToPinName(sda);
   _i2c.scl = digitalPinToPinName(scl);
