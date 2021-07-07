@@ -14,7 +14,7 @@
  * Automatically generated from STM32L051C(6-8)Tx.xml, STM32L051C(6-8)Ux.xml
  * CubeMX DB release 6.0.20
  */
-#if !defined(CUSTOM_PERIPHERAL_PINS)
+#if defined(ARDUINO_RHF76_052)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
@@ -192,3 +192,4 @@ WEAK const PinMap PinMap_SPI_SSEL[] = {
 //*** No USB ***
 
 //*** No SD ***
+#endif /* ARDUINO_RHF76_052 */
