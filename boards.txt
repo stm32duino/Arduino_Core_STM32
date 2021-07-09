@@ -823,6 +823,20 @@ Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L072Z_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.B_L072Z_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# STM32WB5MM-DK board
+Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
+Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
+Disco.menu.pnum.STM32WB5MM_DK.upload.maximum_size=827392
+Disco.menu.pnum.STM32WB5MM_DK.upload.maximum_data_size=196608
+Disco.menu.pnum.STM32WB5MM_DK.build.mcu=cortex-m4
+Disco.menu.pnum.STM32WB5MM_DK.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.STM32WB5MM_DK.build.board=STM32WB5MM_DK
+Disco.menu.pnum.STM32WB5MM_DK.build.series=STM32WBxx
+Disco.menu.pnum.STM32WB5MM_DK.build.product_line=STM32WB5Mxx
+Disco.menu.pnum.STM32WB5MM_DK.build.variant=STM32WBxx/WB5MMGH
+Disco.menu.pnum.STM32WB5MM_DK.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.STM32WB5MM_DK.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # Upload menu
 Disco.menu.upload_method.MassStorage=Mass Storage
 Disco.menu.upload_method.MassStorage.upload.protocol=
@@ -4947,6 +4961,14 @@ GenWB.menu.pnum.GENERIC_WB55CGUX.upload.maximum_data_size=196608
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.board=GENERIC_WB55CGUX
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.product_line=STM32WB55xx
 GenWB.menu.pnum.GENERIC_WB55CGUX.build.variant=STM32WBxx/WB55C(C-E-G)U
+
+# Generic WB5MMGHx
+GenWB.menu.pnum.GENERIC_WB5MMGHX=Generic WB5MMGHx
+GenWB.menu.pnum.GENERIC_WB5MMGHX.upload.maximum_size=827392
+GenWB.menu.pnum.GENERIC_WB5MMGHX.upload.maximum_data_size=196608
+GenWB.menu.pnum.GENERIC_WB5MMGHX.build.board=GENERIC_WB5MMGHX
+GenWB.menu.pnum.GENERIC_WB5MMGHX.build.product_line=STM32WB5Mxx
+GenWB.menu.pnum.GENERIC_WB5MMGHX.build.variant=STM32WBxx/WB5MMGH
 
 # Generic WB55RCVx
 GenWB.menu.pnum.GENERIC_WB55RCVX=Generic WB55RCVx

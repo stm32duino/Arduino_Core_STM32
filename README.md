@@ -149,6 +149,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L475VG | [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) | *1.0.1* |  |
 | :green_heart:  | STM32F413ZH | [32F413HDISCOVERY](https://www.st.com/en/evaluation-tools/32f413hdiscovery.html) | *1.9.0* |  |
 | :green_heart: | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
+| :yellow_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | **2.1.0** |  |
 
 ### [Eval](https://www.st.com/en/evaluation-tools/stm32-eval-boards.html) boards
 
@@ -407,6 +408,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32WB55CC<br>STM32WB55CE<br>STM32WB55CG | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32WB5MMG | Generic Board | **2.1.0** |  |
 | :green_heart: | STM32WB55RC<br>STM32WB55RE<br>STM32WB55RG | Generic Board | *2.0.0* |  |
 
 ### Generic STM32WL boards
