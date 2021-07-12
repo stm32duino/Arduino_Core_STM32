@@ -155,7 +155,7 @@ def updateStm32Def(serie):
                 pcond = "elif"
             print("#{} defined(STM32{}xx)".format(pcond, serie))
             print('  #include "stm32{}xx.h"'.format(serie.lower()))
-            print(line.replace("if", "elif"), end="")
+            print(line.replace("#if", "#elif"), end="")
             added = True
         else:
             print(line, end="")
