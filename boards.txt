@@ -5145,6 +5145,22 @@ GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenU5.build.series=STM32U5xx
 GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
+# Generic U575AGIxQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ=Generic U575AGIxQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ.upload.maximum_size=1048576
+GenU5.menu.pnum.GENERIC_U575AGIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.board=GENERIC_U575AGIXQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
+# Generic U575AIIxQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ=Generic U575AIIxQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575AIIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.board=GENERIC_U575AIIXQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
 # Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ=Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_size=1048576
@@ -5160,6 +5176,14 @@ GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_data_size=262144
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.board=GENERIC_U575ZITXQ
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Generic U585AIIxQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ=Generic U585AIIxQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.board=GENERIC_U585AIIXQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 
 # Generic U585ZETxQ
 GenU5.menu.pnum.GENERIC_U585ZETXQ=Generic U585ZETxQ
@@ -6123,6 +6147,12 @@ GenL5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL5.menu.xserial.disabled=Disabled (no Serial support)
 GenL5.menu.xserial.disabled.build.xSerial=
 
+GenU5.menu.xserial.generic=Enabled (generic 'Serial')
+GenU5.menu.xserial.none=Enabled (no generic 'Serial')
+GenU5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenU5.menu.xserial.disabled=Disabled (no Serial support)
+GenU5.menu.xserial.disabled.build.xSerial=
+
 GenWB.menu.xserial.generic=Enabled (generic 'Serial')
 GenWB.menu.xserial.none=Enabled (no generic 'Serial')
 GenWB.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -6389,6 +6419,19 @@ GenL5.menu.xusb.HS=High Speed
 GenL5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenL5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenU5.menu.usb.none=None
+GenU5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenU5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenU5.menu.usb.CDC=CDC (no generic 'Serial')
+GenU5.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenU5.menu.usb.HID=HID (keyboard and mouse)
+GenU5.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenU5.menu.xusb.FS=Low/Full Speed
+GenU5.menu.xusb.HS=High Speed
+GenU5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenU5.menu.xusb.HSFS=High Speed in Full Speed mode
+GenU5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenWB.menu.usb.none=None
 GenWB.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -6814,6 +6857,25 @@ GenL5.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL5.menu.opt.ogstd=Debug (-Og)
 GenL5.menu.opt.ogstd.build.flags.optimize=-Og
+
+GenU5.menu.opt.osstd=Smallest (-Os default)
+GenU5.menu.opt.osstd.build.flags.optimize=-Os
+GenU5.menu.opt.oslto=Smallest (-Os) with LTO
+GenU5.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenU5.menu.opt.o1std=Fast (-O1)
+GenU5.menu.opt.o1std.build.flags.optimize=-O1
+GenU5.menu.opt.o1lto=Fast (-O1) with LTO
+GenU5.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenU5.menu.opt.o2std=Faster (-O2)
+GenU5.menu.opt.o2std.build.flags.optimize=-O2
+GenU5.menu.opt.o2lto=Faster (-O2) with LTO
+GenU5.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenU5.menu.opt.o3std=Fastest (-O3)
+GenU5.menu.opt.o3std.build.flags.optimize=-O3
+GenU5.menu.opt.o3lto=Fastest (-O3) with LTO
+GenU5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenU5.menu.opt.ogstd=Debug (-g)
+GenU5.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenWB.menu.opt.osstd=Smallest (-Os default)
 GenWB.menu.opt.oslto=Smallest (-Os) with LTO
@@ -7280,6 +7342,16 @@ GenL5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL5.menu.rtlib.full=Newlib Standard
 GenL5.menu.rtlib.full.build.flags.ldspecs=
+
+GenU5.menu.rtlib.nano=Newlib Nano (default)
+GenU5.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenU5.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenU5.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenU5.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenU5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenU5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenU5.menu.rtlib.full=Newlib Standard
+GenU5.menu.rtlib.full.build.flags.ldspecs=
 
 GenWB.menu.rtlib.nano=Newlib Nano (default)
 GenWB.menu.rtlib.nanofp=Newlib Nano + Float Printf

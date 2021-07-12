@@ -420,6 +420,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32U575AGIxQ<br>STM32U575AIIxQ<br>STM32U585AIIxQ | Generic Board | *2.1.0* |  |
 | :yellow_heart:  | STM32U575ZGTxQ<br>STM32U575ZITxQ<br>STM32U585ZETxQ | Generic Board | **2.1.0** |  |
 
 ### Generic STM32WB boards
