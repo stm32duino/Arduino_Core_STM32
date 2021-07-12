@@ -105,7 +105,7 @@ build.flags.ldspecs=--specs=nano.specs
 build.flash_offset=0
 
 # Pre and post build hooks
-build.opt.name=build_opt.h
+build.opt.name=build.opt
 build.opt.path={build.path}/sketch/{build.opt.name}
 
 extras.path={build.system.path}/extras
