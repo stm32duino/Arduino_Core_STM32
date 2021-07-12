@@ -28,15 +28,18 @@ void hw_config_init(void)
 {
   configIPClock();
 
-#if defined(PWR_CR3_UCPD_DBDIS) || defined(STM32L5xx)
+#if defined(PWR_CR3_UCPD_DBDIS) || defined(PWR_UCPDR_UCPD_DBDIS)
   /* Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral */
   HAL_PWREx_DisableUCPDDeadBattery();
 #endif
-#if defined (SYSCFG_CFGR1_UCPD1_STROBE) || defined (SYSCFG_CFGR1_UCPD2_STROBE)
+#if defined(SYSCFG_CFGR1_UCPD1_STROBE) || defined(SYSCFG_CFGR1_UCPD2_STROBE)
   /* Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral */
   HAL_SYSCFG_StrobeDBattpinsConfig(SYSCFG_CFGR1_UCPD1_STROBE | SYSCFG_CFGR1_UCPD2_STROBE);
 #endif /* SYSCFG_CFGR1_UCPD1_STROBE || SYSCFG_CFGR1_UCPD2_STROBE */
 
+#if defined(PWR_SVMCR_ASV)
+  HAL_PWREx_EnableVddA();
+#endif
   /* Init DWT if present */
 #ifdef DWT_BASE
   dwt_init();
