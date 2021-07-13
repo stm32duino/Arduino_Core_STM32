@@ -8,6 +8,7 @@ menu.xusb=USB speed (if available)
 menu.virtio=Virtual serial support
 
 menu.opt=Optimize
+menu.dbg=Debug symbols
 menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
 
@@ -6214,8 +6215,8 @@ Nucleo_144.menu.opt.o3std=Fastest (-O3)
 Nucleo_144.menu.opt.o3std.build.flags.optimize=-O3
 Nucleo_144.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_144.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_144.menu.opt.ogstd=Debug (-g)
-Nucleo_144.menu.opt.ogstd.build.flags.optimize=-g -Og
+Nucleo_144.menu.opt.ogstd=Debug (-Og)
+Nucleo_144.menu.opt.ogstd.build.flags.optimize=-Og
 
 Nucleo_64.menu.opt.osstd=Smallest (-Os default)
 Nucleo_64.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6232,8 +6233,8 @@ Nucleo_64.menu.opt.o3std=Fastest (-O3)
 Nucleo_64.menu.opt.o3std.build.flags.optimize=-O3
 Nucleo_64.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_64.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_64.menu.opt.ogstd=Debug (-g)
-Nucleo_64.menu.opt.ogstd.build.flags.optimize=-g -Og
+Nucleo_64.menu.opt.ogstd=Debug (-Og)
+Nucleo_64.menu.opt.ogstd.build.flags.optimize=-Og
 
 Nucleo_32.menu.opt.osstd=Smallest (-Os default)
 Nucleo_32.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6250,8 +6251,8 @@ Nucleo_32.menu.opt.o3std=Fastest (-O3)
 Nucleo_32.menu.opt.o3std.build.flags.optimize=-O3
 Nucleo_32.menu.opt.o3lto=Fastest (-O3) with LTO
 Nucleo_32.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Nucleo_32.menu.opt.ogstd=Debug (-g)
-Nucleo_32.menu.opt.ogstd.build.flags.optimize=-g -Og
+Nucleo_32.menu.opt.ogstd=Debug (-Og)
+Nucleo_32.menu.opt.ogstd.build.flags.optimize=-Og
 
 Disco.menu.opt.osstd=Smallest (-Os default)
 Disco.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6268,8 +6269,8 @@ Disco.menu.opt.o3std=Fastest (-O3)
 Disco.menu.opt.o3std.build.flags.optimize=-O3
 Disco.menu.opt.o3lto=Fastest (-O3) with LTO
 Disco.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Disco.menu.opt.ogstd=Debug (-g)
-Disco.menu.opt.ogstd.build.flags.optimize=-g -Og
+Disco.menu.opt.ogstd=Debug (-Og)
+Disco.menu.opt.ogstd.build.flags.optimize=-Og
 
 Eval.menu.opt.osstd=Smallest (-Os default)
 Eval.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6286,8 +6287,8 @@ Eval.menu.opt.o3std=Fastest (-O3)
 Eval.menu.opt.o3std.build.flags.optimize=-O3
 Eval.menu.opt.o3lto=Fastest (-O3) with LTO
 Eval.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Eval.menu.opt.ogstd=Debug (-g)
-Eval.menu.opt.ogstd.build.flags.optimize=-g -Og
+Eval.menu.opt.ogstd=Debug (-Og)
+Eval.menu.opt.ogstd.build.flags.optimize=-Og
 
 STM32MP1.menu.opt.osstd=Smallest (-Os default)
 STM32MP1.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6304,8 +6305,8 @@ STM32MP1.menu.opt.o3std=Fastest (-O3)
 STM32MP1.menu.opt.o3std.build.flags.optimize=-O3
 STM32MP1.menu.opt.o3lto=Fastest (-O3) with LTO
 STM32MP1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-STM32MP1.menu.opt.ogstd=Debug (-g)
-STM32MP1.menu.opt.ogstd.build.flags.optimize=-g -Og
+STM32MP1.menu.opt.ogstd=Debug (-Og)
+STM32MP1.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF0.menu.opt.osstd=Smallest (-Os default)
 GenF0.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6322,8 +6323,8 @@ GenF0.menu.opt.o3std=Fastest (-O3)
 GenF0.menu.opt.o3std.build.flags.optimize=-O3
 GenF0.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF0.menu.opt.ogstd=Debug (-g)
-GenF0.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF0.menu.opt.ogstd=Debug (-Og)
+GenF0.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF1.menu.opt.osstd=Smallest (-Os default)
 GenF1.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6340,8 +6341,8 @@ GenF1.menu.opt.o3std=Fastest (-O3)
 GenF1.menu.opt.o3std.build.flags.optimize=-O3
 GenF1.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF1.menu.opt.ogstd=Debug (-g)
-GenF1.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF1.menu.opt.ogstd=Debug (-Og)
+GenF1.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF2.menu.opt.osstd=Smallest (-Os default)
 GenF2.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6358,11 +6359,10 @@ GenF2.menu.opt.o3std=Fastest (-O3)
 GenF2.menu.opt.o3std.build.flags.optimize=-O3
 GenF2.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF2.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF2.menu.opt.ogstd=Debug (-g)
-GenF2.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF2.menu.opt.ogstd=Debug (-Og)
+GenF2.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF3.menu.opt.osstd=Smallest (-Os default)
-GenF3.menu.opt.osstd.build.flags.optimize=-Os
 GenF3.menu.opt.oslto=Smallest (-Os) with LTO
 GenF3.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF3.menu.opt.o1std=Fast (-O1)
@@ -6377,11 +6377,10 @@ GenF3.menu.opt.o3std=Fastest (-O3)
 GenF3.menu.opt.o3std.build.flags.optimize=-O3
 GenF3.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF3.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF3.menu.opt.ogstd=Debug (-g)
-GenF3.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF3.menu.opt.ogstd=Debug (-Og)
+GenF3.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF4.menu.opt.osstd=Smallest (-Os default)
-GenF4.menu.opt.osstd.build.flags.optimize=-Os
 GenF4.menu.opt.oslto=Smallest (-Os) with LTO
 GenF4.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF4.menu.opt.o1std=Fast (-O1)
@@ -6396,11 +6395,10 @@ GenF4.menu.opt.o3std=Fastest (-O3)
 GenF4.menu.opt.o3std.build.flags.optimize=-O3
 GenF4.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF4.menu.opt.ogstd=Debug (-g)
-GenF4.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF4.menu.opt.ogstd=Debug (-Og)
+GenF4.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenF7.menu.opt.osstd=Smallest (-Os default)
-GenF7.menu.opt.osstd.build.flags.optimize=-Os
 GenF7.menu.opt.oslto=Smallest (-Os) with LTO
 GenF7.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenF7.menu.opt.o1std=Fast (-O1)
@@ -6415,8 +6413,8 @@ GenF7.menu.opt.o3std=Fastest (-O3)
 GenF7.menu.opt.o3std.build.flags.optimize=-O3
 GenF7.menu.opt.o3lto=Fastest (-O3) with LTO
 GenF7.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenF7.menu.opt.ogstd=Debug (-g)
-GenF7.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenF7.menu.opt.ogstd=Debug (-Og)
+GenF7.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenG0.menu.opt.osstd=Smallest (-Os default)
 GenG0.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6433,11 +6431,10 @@ GenG0.menu.opt.o3std=Fastest (-O3)
 GenG0.menu.opt.o3std.build.flags.optimize=-O3
 GenG0.menu.opt.o3lto=Fastest (-O3) with LTO
 GenG0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenG0.menu.opt.ogstd=Debug (-g)
-GenG0.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenG0.menu.opt.ogstd=Debug (-Og)
+GenG0.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenG4.menu.opt.osstd=Smallest (-Os default)
-GenG4.menu.opt.osstd.build.flags.optimize=-Os
 GenG4.menu.opt.oslto=Smallest (-Os) with LTO
 GenG4.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenG4.menu.opt.o1std=Fast (-O1)
@@ -6452,8 +6449,8 @@ GenG4.menu.opt.o3std=Fastest (-O3)
 GenG4.menu.opt.o3std.build.flags.optimize=-O3
 GenG4.menu.opt.o3lto=Fastest (-O3) with LTO
 GenG4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenG4.menu.opt.ogstd=Debug (-g)
-GenG4.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenG4.menu.opt.ogstd=Debug (-Og)
+GenG4.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenH7.menu.opt.osstd=Smallest (-Os default)
 GenH7.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6470,8 +6467,8 @@ GenH7.menu.opt.o3std=Fastest (-O3)
 GenH7.menu.opt.o3std.build.flags.optimize=-O3
 GenH7.menu.opt.o3lto=Fastest (-O3) with LTO
 GenH7.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenH7.menu.opt.ogstd=Debug (-g)
-GenH7.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenH7.menu.opt.ogstd=Debug (-Og)
+GenH7.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenL0.menu.opt.osstd=Smallest (-Os default)
 GenL0.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6488,11 +6485,10 @@ GenL0.menu.opt.o3std=Fastest (-O3)
 GenL0.menu.opt.o3std.build.flags.optimize=-O3
 GenL0.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL0.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenL0.menu.opt.ogstd=Debug (-g)
-GenL0.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenL0.menu.opt.ogstd=Debug (-Og)
+GenL0.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenL1.menu.opt.osstd=Smallest (-Os default)
-GenL1.menu.opt.osstd.build.flags.optimize=-Os
 GenL1.menu.opt.oslto=Smallest (-Os) with LTO
 GenL1.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenL1.menu.opt.o1std=Fast (-O1)
@@ -6507,11 +6503,10 @@ GenL1.menu.opt.o3std=Fastest (-O3)
 GenL1.menu.opt.o3std.build.flags.optimize=-O3
 GenL1.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL1.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenL1.menu.opt.ogstd=Debug (-g)
-GenL1.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenL1.menu.opt.ogstd=Debug (-Og)
+GenL1.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenL4.menu.opt.osstd=Smallest (-Os default)
-GenL4.menu.opt.osstd.build.flags.optimize=-Os
 GenL4.menu.opt.oslto=Smallest (-Os) with LTO
 GenL4.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenL4.menu.opt.o1std=Fast (-O1)
@@ -6526,11 +6521,10 @@ GenL4.menu.opt.o3std=Fastest (-O3)
 GenL4.menu.opt.o3std.build.flags.optimize=-O3
 GenL4.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL4.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenL4.menu.opt.ogstd=Debug (-g)
-GenL4.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenL4.menu.opt.ogstd=Debug (-Og)
+GenL4.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenL5.menu.opt.osstd=Smallest (-Os default)
-GenL5.menu.opt.osstd.build.flags.optimize=-Os
 GenL5.menu.opt.oslto=Smallest (-Os) with LTO
 GenL5.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenL5.menu.opt.o1std=Fast (-O1)
@@ -6545,11 +6539,10 @@ GenL5.menu.opt.o3std=Fastest (-O3)
 GenL5.menu.opt.o3std.build.flags.optimize=-O3
 GenL5.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenL5.menu.opt.ogstd=Debug (-g)
-GenL5.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenL5.menu.opt.ogstd=Debug (-Og)
+GenL5.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenWB.menu.opt.osstd=Smallest (-Os default)
-GenWB.menu.opt.osstd.build.flags.optimize=-Os
 GenWB.menu.opt.oslto=Smallest (-Os) with LTO
 GenWB.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenWB.menu.opt.o1std=Fast (-O1)
@@ -6564,11 +6557,10 @@ GenWB.menu.opt.o3std=Fastest (-O3)
 GenWB.menu.opt.o3std.build.flags.optimize=-O3
 GenWB.menu.opt.o3lto=Fastest (-O3) with LTO
 GenWB.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenWB.menu.opt.ogstd=Debug (-g)
-GenWB.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenWB.menu.opt.ogstd=Debug (-Og)
+GenWB.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenWL.menu.opt.osstd=Smallest (-Os default)
-GenWL.menu.opt.osstd.build.flags.optimize=-Os
 GenWL.menu.opt.oslto=Smallest (-Os) with LTO
 GenWL.menu.opt.oslto.build.flags.optimize=-Os -flto
 GenWL.menu.opt.o1std=Fast (-O1)
@@ -6583,8 +6575,8 @@ GenWL.menu.opt.o3std=Fastest (-O3)
 GenWL.menu.opt.o3std.build.flags.optimize=-O3
 GenWL.menu.opt.o3lto=Fastest (-O3) with LTO
 GenWL.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenWL.menu.opt.ogstd=Debug (-g)
-GenWL.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenWL.menu.opt.ogstd=Debug (-Og)
+GenWL.menu.opt.ogstd.build.flags.optimize=-Og
 
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6601,8 +6593,8 @@ ESC_board.menu.opt.o3std=Fastest (-O3)
 ESC_board.menu.opt.o3std.build.flags.optimize=-O3
 ESC_board.menu.opt.o3lto=Fastest (-O3) with LTO
 ESC_board.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-ESC_board.menu.opt.ogstd=Debug (-g)
-ESC_board.menu.opt.ogstd.build.flags.optimize=-g -Og
+ESC_board.menu.opt.ogstd=Debug (-Og)
+ESC_board.menu.opt.ogstd.build.flags.optimize=-Og
 
 LoRa.menu.opt.osstd=Smallest (-Os default)
 LoRa.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6619,8 +6611,8 @@ LoRa.menu.opt.o3std=Fastest (-O3)
 LoRa.menu.opt.o3std.build.flags.optimize=-O3
 LoRa.menu.opt.o3lto=Fastest (-O3) with LTO
 LoRa.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-LoRa.menu.opt.ogstd=Debug (-g)
-LoRa.menu.opt.ogstd.build.flags.optimize=-g -Og
+LoRa.menu.opt.ogstd=Debug (-Og)
+LoRa.menu.opt.ogstd.build.flags.optimize=-Og
 
 3dprinter.menu.opt.osstd=Smallest (-Os default)
 3dprinter.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6637,8 +6629,8 @@ LoRa.menu.opt.ogstd.build.flags.optimize=-g -Og
 3dprinter.menu.opt.o3std.build.flags.optimize=-O3
 3dprinter.menu.opt.o3lto=Fastest (-O3) with LTO
 3dprinter.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-3dprinter.menu.opt.ogstd=Debug (-g)
-3dprinter.menu.opt.ogstd.build.flags.optimize=-g -Og
+3dprinter.menu.opt.ogstd=Debug (-Og)
+3dprinter.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenFlight.menu.opt.osstd=Smallest (-Os default)
 GenFlight.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6655,11 +6647,10 @@ GenFlight.menu.opt.o3std=Fastest (-O3)
 GenFlight.menu.opt.o3std.build.flags.optimize=-O3
 GenFlight.menu.opt.o3lto=Fastest (-O3) with LTO
 GenFlight.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenFlight.menu.opt.ogstd=Debug (-g)
-GenFlight.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenFlight.menu.opt.ogstd=Debug (-Og)
+GenFlight.menu.opt.ogstd.build.flags.optimize=-Og
 
 elecgator.menu.opt.osstd=Smallest (-Os default)
-elecgator.menu.opt.osstd.build.flags.optimize=-Os
 elecgator.menu.opt.oslto=Smallest (-Os) with LTO
 elecgator.menu.opt.oslto.build.flags.optimize=-Os -flto
 elecgator.menu.opt.o1std=Fast (-O1)
@@ -6674,8 +6665,8 @@ elecgator.menu.opt.o3std=Fastest (-O3)
 elecgator.menu.opt.o3std.build.flags.optimize=-O3
 elecgator.menu.opt.o3lto=Fastest (-O3) with LTO
 elecgator.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-elecgator.menu.opt.ogstd=Debug (-g)
-elecgator.menu.opt.ogstd.build.flags.optimize=-g -Og
+elecgator.menu.opt.ogstd=Debug (-Og)
+elecgator.menu.opt.ogstd.build.flags.optimize=-Og
 
 Garatronic.menu.opt.osstd=Smallest (-Os default)
 Garatronic.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6692,8 +6683,8 @@ Garatronic.menu.opt.o3std=Fastest (-O3)
 Garatronic.menu.opt.o3std.build.flags.optimize=-O3
 Garatronic.menu.opt.o3lto=Fastest (-O3) with LTO
 Garatronic.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Garatronic.menu.opt.ogstd=Debug (-g)
-Garatronic.menu.opt.ogstd.build.flags.optimize=-g -Og
+Garatronic.menu.opt.ogstd=Debug (-Og)
+Garatronic.menu.opt.ogstd.build.flags.optimize=-Og
 
 Midatronics.menu.opt.osstd=Smallest (-Os default)
 Midatronics.menu.opt.oslto=Smallest (-Os) with LTO
@@ -6710,8 +6701,121 @@ Midatronics.menu.opt.o3std=Fastest (-O3)
 Midatronics.menu.opt.o3std.build.flags.optimize=-O3
 Midatronics.menu.opt.o3lto=Fastest (-O3) with LTO
 Midatronics.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Midatronics.menu.opt.ogstd=Debug (-g)
-Midatronics.menu.opt.ogstd.build.flags.optimize=-g -Og
+Midatronics.menu.opt.ogstd=Debug (-Og)
+Midatronics.menu.opt.ogstd.build.flags.optimize=-Og
+
+# Debug information
+Nucleo_144.menu.dbg.none=None
+Nucleo_144.menu.dbg.enable=Enabled (-g)
+Nucleo_144.menu.dbg.enable.build.flags.debug=-g
+
+Nucleo_64.menu.dbg.none=None
+Nucleo_64.menu.dbg.enable=Enabled (-g)
+Nucleo_64.menu.dbg.enable.build.flags.debug=-g
+
+Nucleo_32.menu.dbg.none=None
+Nucleo_32.menu.dbg.enable=Enabled (-g)
+Nucleo_32.menu.dbg.enable.build.flags.debug=-g
+
+Disco.menu.dbg.none=None
+Disco.menu.dbg.enable=Enabled (-g)
+Disco.menu.dbg.enable.build.flags.debug=-g
+
+Eval.menu.dbg.none=None
+Eval.menu.dbg.enable=Enabled (-g)
+Eval.menu.dbg.enable.build.flags.debug=-g
+
+STM32MP1.menu.dbg.none=None
+STM32MP1.menu.dbg.enable=Enabled (-g)
+STM32MP1.menu.dbg.enable.build.flags.debug=-g
+
+GenF0.menu.dbg.none=None
+GenF0.menu.dbg.enable=Enabled (-g)
+GenF0.menu.dbg.enable.build.flags.debug=-g
+
+GenF1.menu.dbg.none=None
+GenF1.menu.dbg.enable=Enabled (-g)
+GenF1.menu.dbg.enable.build.flags.debug=-g
+
+GenF2.menu.dbg.none=None
+GenF2.menu.dbg.enable=Enabled (-g)
+GenF2.menu.dbg.enable.build.flags.debug=-g
+
+GenF3.menu.dbg.none=None
+GenF3.menu.dbg.enable=Enabled (-g)
+GenF3.menu.dbg.enable.build.flags.debug=-g
+
+GenF4.menu.dbg.none=None
+GenF4.menu.dbg.enable=Enabled (-g)
+GenF4.menu.dbg.enable.build.flags.debug=-g
+
+GenF7.menu.dbg.none=None
+GenF7.menu.dbg.enable=Enabled (-g)
+GenF7.menu.dbg.enable.build.flags.debug=-g
+
+GenG0.menu.dbg.none=None
+GenG0.menu.dbg.enable=Enabled (-g)
+GenG0.menu.dbg.enable.build.flags.debug=-g
+
+GenG4.menu.dbg.none=None
+GenG4.menu.dbg.enable=Enabled (-g)
+GenG4.menu.dbg.enable.build.flags.debug=-g
+
+GenH7.menu.dbg.none=None
+GenH7.menu.dbg.enable=Enabled (-g)
+GenH7.menu.dbg.enable.build.flags.debug=-g
+
+GenL0.menu.dbg.none=None
+GenL0.menu.dbg.enable=Enabled (-g)
+GenL0.menu.dbg.enable.build.flags.debug=-g
+
+GenL1.menu.dbg.none=None
+GenL1.menu.dbg.enable=Enabled (-g)
+GenL1.menu.dbg.enable.build.flags.debug=-g
+
+GenL4.menu.dbg.none=None
+GenL4.menu.dbg.enable=Enabled (-g)
+GenL4.menu.dbg.enable.build.flags.debug=-g
+
+GenL5.menu.dbg.none=None
+GenL5.menu.dbg.enable=Enabled (-g)
+GenL5.menu.dbg.enable.build.flags.debug=-g
+
+GenWB.menu.dbg.none=None
+GenWB.menu.dbg.enable=Enabled (-g)
+GenWB.menu.dbg.enable.build.flags.debug=-g
+
+GenWL.menu.dbg.none=None
+GenWL.menu.dbg.enable=Enabled (-g)
+GenWL.menu.dbg.enable.build.flags.debug=-g
+
+ESC_board.menu.dbg.none=None
+ESC_board.menu.dbg.enable=Enabled (-g)
+ESC_board.menu.dbg.enable.build.flags.debug=-g
+
+LoRa.menu.dbg.none=None
+LoRa.menu.dbg.enable=Enabled (-g)
+LoRa.menu.dbg.enable.build.flags.debug=-g
+
+3dprinter.menu.dbg.none=None
+3dprinter.menu.dbg.enable=Enabled (-g)
+3dprinter.menu.dbg.enable.build.flags.debug=-g
+
+GenFlight.menu.dbg.none=None
+GenFlight.menu.dbg.enable=Enabled (-g)
+GenFlight.menu.dbg.enable.build.flags.debug=-g
+
+elecgator.menu.dbg.none=None
+elecgator.menu.dbg.enable=Enabled (-g)
+elecgator.menu.dbg.enable.build.flags.debug=-g
+
+Garatronic.menu.dbg.none=None
+Garatronic.menu.dbg.enable=Enabled (-g)
+Garatronic.menu.dbg.enable.build.flags.debug=-g
+
+Midatronics.menu.dbg.none=None
+Midatronics.menu.dbg.enable=Enabled (-g)
+Midatronics.menu.dbg.enable.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
