@@ -17,6 +17,7 @@
   */
 
 #include "stm32_eeprom.h"
+#include "stm32yyxx_ll_utils.h"
 #include <string.h>
 
 #ifdef __cplusplus
@@ -47,8 +48,8 @@ extern "C" {
 #endif /* FLASH_SECTOR_TOTAL */
 
 /* Be able to change FLASH_PAGE_NUMBER to use if relevant */
-#if !defined(FLASH_PAGE_NUMBER) && defined (FLASH_SIZE) && defined(FLASH_PAGE_SIZE)
-#define FLASH_PAGE_NUMBER   ((uint32_t)((FLASH_SIZE / FLASH_PAGE_SIZE) - 1))
+#if !defined(FLASH_PAGE_NUMBER) && defined(FLASH_PAGE_SIZE)
+#define FLASH_PAGE_NUMBER   ((uint32_t)(((LL_GetFlashSize() * 1024) / FLASH_PAGE_SIZE) - 1))
 #endif /* !FLASH_PAGE_NUMBER */
 
 /* Be able to change FLASH_END to use */
@@ -61,33 +62,6 @@ extern "C" {
 #define FLASH_END  FLASH_BANK2_END
 #elif defined (FLASH_BANK1_END) && (FLASH_BANK_NUMBER == FLASH_BANK_1)
 #define FLASH_END  FLASH_BANK1_END
-#elif !defined (FLASH_PAGE_NUMBER)
-static inline uint32_t get_flash_end(void)
-{
-  uint32_t size;
-  switch ((*((uint16_t *)FLASH_SIZE_DATA_REGISTER))) {
-    case 0x200U:
-      size = 0x0807FFFFU;
-      break;
-    case 0x100U:
-      size = 0x0803FFFFU;
-      break;
-    case 0x80U:
-      size = 0x0801FFFFU;
-      break;
-    case 0x40U:
-      size = 0x0800FFFFU;
-      break;
-    case 0x20U:
-      size = 0x08007FFFU;
-      break;
-    default:
-      size = 0x08003FFFU;
-      break;
-  }
-  return size;
-}
-#define FLASH_END  get_flash_end()
 #elif defined(FLASH_BASE) && defined(FLASH_PAGE_NUMBER) && defined (FLASH_PAGE_SIZE)
 /* If FLASH_PAGE_NUMBER is defined by user, this is not really end of the flash */
 #define FLASH_END  ((uint32_t)(FLASH_BASE + (((FLASH_PAGE_NUMBER +1) * FLASH_PAGE_SIZE))-1))
@@ -227,7 +201,7 @@ void eeprom_buffer_flush(void)
 #if defined(FLASH_BANK_NUMBER)
   EraseInitStruct.Banks = FLASH_BANK_NUMBER;
 #endif /* FLASH_BANK_NUMBER */
-#if defined (FLASH_PAGE_NUMBER)
+#if defined (FLASH_PAGE_NUMBER) && defined(FLASH_SIZE)
   EraseInitStruct.Page = FLASH_PAGE_NUMBER;
 #else
   EraseInitStruct.PageAddress = FLASH_BASE_ADDRESS;
