@@ -64,13 +64,13 @@ _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
   #define PIN_SPI_SCK               13
 #endif
 
-static const uint8_t SS   = PIN_SPI_SS;
-static const uint8_t SS1  = PIN_SPI_SS1;
-static const uint8_t SS2  = PIN_SPI_SS2;
-static const uint8_t SS3  = PIN_SPI_SS3;
-static const uint8_t MOSI = PIN_SPI_MOSI;
-static const uint8_t MISO = PIN_SPI_MISO;
-static const uint8_t SCK  = PIN_SPI_SCK;
+static const uint32_t SS   = PIN_SPI_SS;
+static const uint32_t SS1  = PIN_SPI_SS1;
+static const uint32_t SS2  = PIN_SPI_SS2;
+static const uint32_t SS3  = PIN_SPI_SS3;
+static const uint32_t MOSI = PIN_SPI_MOSI;
+static const uint32_t MISO = PIN_SPI_MISO;
+static const uint32_t SCK  = PIN_SPI_SCK;
 
 /* I2C Definitions */
 #ifndef PIN_WIRE_SDA
@@ -80,8 +80,8 @@ static const uint8_t SCK  = PIN_SPI_SCK;
   #define PIN_WIRE_SCL              15
 #endif
 
-static const uint8_t SDA = PIN_WIRE_SDA;
-static const uint8_t SCL = PIN_WIRE_SCL;
+static const uint32_t SDA = PIN_WIRE_SDA;
+static const uint32_t SCL = PIN_WIRE_SCL;
 
 #ifdef __cplusplus
 extern "C" {

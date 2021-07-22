@@ -22,7 +22,7 @@
 
 #define USE_HAL_DRIVER
 
-#ifdef STM32F0xx
+#if defined(STM32F0xx)
   #include "stm32f0xx.h"
 #elif defined(STM32F1xx)
   #include "stm32f1xx.h"
@@ -52,6 +52,8 @@
   #include "stm32mp1xx.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
+#elif defined(STM32WLxx)
+  #include "stm32wlxx.h"
 #else
   #error "STM32YYxx chip series is not defined in boards.txt."
 #endif
@@ -61,8 +63,14 @@
 #endif
 
 // Here define some compatibility
+#ifndef ADC1
+  #define ADC1 ADC
+#endif
 #ifndef CAN1
   #define CAN1 CAN
+#endif
+#ifndef DAC1
+  #define DAC1 DAC
 #endif
 
 /* STM32G0xx defined USB_DRD_FS */

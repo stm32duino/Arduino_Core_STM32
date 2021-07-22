@@ -91,7 +91,7 @@ void enableClock(sourceClock_t source)
 
   switch (source) {
     case LSI_CLOCK:
-#ifdef STM32WBxx
+#ifdef RCC_FLAG_LSI1RDY
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSI1RDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI1;
 #else

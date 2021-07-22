@@ -70,6 +70,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [LoRa boards](#lora-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
  - [Generic flight controllers](#generic-flight-controllers)
+ - [elecgator boards](#elecgator-boards)
  - [Garatronics boards](#Garatronic/McHobby-boards)
  - [Midatronics boards](#midatronics-boards)
 
@@ -117,6 +118,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L452RE-P | [Nucleo L452RE-P](http://www.st.com/en/evaluation-tools/nucleo-l452re-p.html) | *1.8.0* |  |
 | :green_heart:  | STM32L476RG | [Nucleo L476RG](http://www.st.com/en/evaluation-tools/nucleo-l476rg.html) | *0.1.0* |  |
 | :green_heart:  | STM32WB55RG<br>STM32WB55CG | [P-Nucleo-WB55RG](https://www.st.com/en/evaluation-tools/p-nucleo-wb55.html) | *1.6.0* | BLE support with [STM32duinoBLE](https://github.com/stm32duino/STM32duinoBLE) |
+| :yellow_heart:  | STM32WL55JC | [Nucleo WL55JC1](https://www.st.com/en/evaluation-tools/nucleo-wl55jc.html) | **2.1.0** | LoRa support not available |
+
 
 ### [Nucleo 32](https://www.st.com/content/st_com/en/products/evaluation-tools/product-evaluation-tools/mcu-eval-tools/stm32-mcu-eval-tools/stm32-nucleo-boards.html) boards
 
@@ -146,6 +149,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L475VG | [B-L475E-IOT01A](http://www.st.com/en/evaluation-tools/b-l475e-iot01a.html) | *1.0.1* |  |
 | :green_heart:  | STM32F413ZH | [32F413HDISCOVERY](https://www.st.com/en/evaluation-tools/32f413hdiscovery.html) | *1.9.0* |  |
 | :green_heart: | STM32L4S5VI | [B-L4S5I-IOT01A](https://www.st.com/en/evaluation-tools/b-l4s5i-iot01a.html) | *2.0.0* | |
+| :yellow_heart: | STM32WB5MMG | [STM32WB5MM-DK](https://www.st.com/en/evaluation-tools/stm32wb5mm-dk.html) | **2.1.0** |  |
 
 ### [Eval](https://www.st.com/en/evaluation-tools/stm32-eval-boards.html) boards
 
@@ -382,15 +386,20 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4A6ZG-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R5VG<br>STM32L4R5VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R5ZGTx<br>STM32L4R5ZITx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4R5ZGYx<br>STM32L4R5ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4R5ZI-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R7VITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R7ZITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4R9ZGJx<br>STM32L4R9ZIJx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4R9ZGYx<br>STM32L4R9ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4S5VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S5ZITx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4S5ZIYx | Generic Board | **2.1.0** |  |
 | :green_heart:  | STM32L4S7VI | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S7ZITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S9ZIJx | Generic Board | *2.0.0* |  |
+| :yellow_heart:  | STM32L4S9ZIYx | Generic Board | **2.1.0** |  |
+| :yellow_heart:  | STM32L4R5ZIYx | Swan R5 | **2.1.0** | [Blues Wireless](https://blues.io/) |
 
 ### Generic STM32L5 boards
 
@@ -404,7 +413,16 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32WB55CC<br>STM32WB55CE<br>STM32WB55CG | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32WB5MMG | Generic Board | **2.1.0** |  |
 | :green_heart: | STM32WB55RC<br>STM32WB55RE<br>STM32WB55RG | Generic Board | *2.0.0* |  |
+
+### Generic STM32WL boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32WL55JC<br>STM32WL55JC | Generic Board | **2.1.0** |  |
+| :yellow_heart: | STM32WLE4J8<br>STM32WLE4JB<br>STM32WLE4JC | Generic Board | **2.1.0** |  |
+| :yellow_heart: | STM32WLE5J8<br>STM32WLE5JB<br>STM32WLE5JC | Generic Board | **2.1.0** |  |
 
 ### 3D printer boards
 
@@ -444,6 +462,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F103CB | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
 | :green_heart:  | STM32F303CC | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
+
+### [elecgator](https://www.elecgator.com/) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32F746ZET | [EtherCATduino](https://www.elecgator.com/products/info/EtherCATduino) | **2.1.0** |  |
 
 ### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
 

@@ -58,7 +58,7 @@ extern "C" {
 #define TIM1_IRQn TIM1_UP_TIM10_IRQn
 #define TIM1_IRQHandler TIM1_UP_TIM10_IRQHandler
 #endif
-#elif defined(STM32H7xx) || defined(STM32L5xx) || defined(STM32MP1xx)
+#elif defined(STM32H7xx) || defined(STM32L5xx) || defined(STM32MP1xx) || defined(STM32WLxx)
 #define TIM1_IRQn TIM1_UP_IRQn
 #define TIM1_IRQHandler TIM1_UP_IRQHandler
 #endif

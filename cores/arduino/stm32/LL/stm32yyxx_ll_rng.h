@@ -25,6 +25,8 @@
   #include "stm32l5xx_ll_rng.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_rng.h"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_rng.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_RNG_H_ */

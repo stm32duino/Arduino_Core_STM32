@@ -1,3 +1,7 @@
+/* {{type.upper()}} raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 {% for serie in serieslist %}
   {% if loop.first %}
 #ifdef STM32{{serie.upper()}}xx
@@ -13,4 +17,5 @@
 #endif
   {% endif %}
 {% endfor %}
+#pragma GCC diagnostic pop
 

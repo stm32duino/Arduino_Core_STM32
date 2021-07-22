@@ -35,6 +35,8 @@
   #include "stm32mp1xx_ll_tim.h"
 #elif STM32WBxx
   #include "stm32wbxx_ll_tim.h"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_tim.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_TIM_H_ */

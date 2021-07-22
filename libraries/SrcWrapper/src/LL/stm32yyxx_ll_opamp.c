@@ -1,3 +1,7 @@
+/* LL raised several warnings, ignore them */
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 #ifdef STM32F3xx
   #include "stm32f3xx_ll_opamp.c"
 #elif STM32G4xx
@@ -11,3 +15,4 @@
 #elif STM32L5xx
   #include "stm32l5xx_ll_opamp.c"
 #endif
+#pragma GCC diagnostic pop

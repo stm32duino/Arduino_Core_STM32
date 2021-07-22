@@ -8,7 +8,7 @@ def createFolder(path):
         if not path.exists():
             path.mkdir()
     except OSError:
-        print("Error: Creating directory. " + path)
+        print("Error: Creating directory {}".format(path))
 
 
 # Delete targeted folder recursively
@@ -23,7 +23,16 @@ def copyFolder(src, dest, ign_patt=set()):
         if src.is_dir():
             shutil.copytree(src, dest, ignore=shutil.ignore_patterns(*ign_patt))
     except OSError as e:
-        print("Error: Folder %s not copied. %s" % src, e)
+        print("Error: Folder {} not copied. {}".format(src, e))
+
+
+# copy one file to dest
+def copyFile(src, dest):
+    try:
+        if src.is_file():
+            shutil.copy(str(src), str(dest))
+    except OSError as e:
+        print("Error: File {} not copied. {}".format(src, e))
 
 
 def genSTM32List(path, pattern):
