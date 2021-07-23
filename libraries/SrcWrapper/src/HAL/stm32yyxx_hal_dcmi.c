@@ -14,5 +14,7 @@
   #include "stm32l4xx_hal_dcmi.c"
 #elif STM32MP1xx
   #include "stm32mp1xx_hal_dcmi.c"
+#elif STM32U5xx
+  #include "stm32u5xx_hal_dcmi.c"
 #endif
 #pragma GCC diagnostic pop

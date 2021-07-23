@@ -6,5 +6,7 @@
   #include "stm32h7xx_hal_otfdec.c"
 #elif STM32L5xx
   #include "stm32l5xx_hal_otfdec.c"
+#elif STM32U5xx
+  #include "stm32u5xx_hal_otfdec.c"
 #endif
 #pragma GCC diagnostic pop

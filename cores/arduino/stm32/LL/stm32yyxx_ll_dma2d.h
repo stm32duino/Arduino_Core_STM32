@@ -13,6 +13,8 @@
   #include "stm32h7xx_ll_dma2d.h"
 #elif STM32L4xx
   #include "stm32l4xx_ll_dma2d.h"
+#elif STM32U5xx
+  #include "stm32u5xx_ll_dma2d.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_DMA2D_H_ */

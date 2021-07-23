@@ -28,6 +28,8 @@
   #include "system_stm32l5xx_ns.c"
 #elif STM32MP1xx
   #include "system_stm32mp1xx.c"
+#elif STM32U5xx
+  #include "system_stm32u5xx.c"
 #elif STM32WBxx
   #include "system_stm32wbxx.c"
 #elif STM32WLxx

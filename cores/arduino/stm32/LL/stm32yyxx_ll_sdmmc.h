@@ -23,6 +23,8 @@
   #include "stm32l5xx_ll_sdmmc.h"
 #elif STM32MP1xx
   #include "stm32mp1xx_ll_sdmmc.h"
+#elif STM32U5xx
+  #include "stm32u5xx_ll_sdmmc.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_SDMMC_H_ */

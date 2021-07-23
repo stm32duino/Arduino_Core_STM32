@@ -11,6 +11,8 @@
   #include "stm32g4xx_ll_ucpd.h"
 #elif STM32L5xx
   #include "stm32l5xx_ll_ucpd.h"
+#elif STM32U5xx
+  #include "stm32u5xx_ll_ucpd.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_UCPD_H_ */
