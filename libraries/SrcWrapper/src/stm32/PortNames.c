@@ -103,7 +103,7 @@ GPIO_TypeDef *set_GPIO_Port_Clock(uint32_t port_idx)
 #endif
 #if defined GPIOG_BASE
     case PortG:
-#if defined(PWR_CR2_IOSV)
+#if defined(PWR_CR2_IOSV) || defined(PWR_SVMCR_IO2VMEN)
       // Enable VDDIO2 supply for 14 I/Os (Port G[15:2])
       HAL_PWREx_EnableVddIO2();
 #endif
