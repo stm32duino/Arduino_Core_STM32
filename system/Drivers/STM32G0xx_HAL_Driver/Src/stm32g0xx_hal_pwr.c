@@ -323,11 +323,11 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
 
   /* Set Regulator parameter */
-  if(Regulator != PWR_MAINREGULATOR_ON)
+  if (Regulator != PWR_MAINREGULATOR_ON)
   {
     /* If in run mode, first move to low-power run mode.
        The system clock frequency must be below 2 MHz at this point. */
-    if((PWR->SR2 & PWR_SR2_REGLPF) == 0x00u)
+    if ((PWR->SR2 & PWR_SR2_REGLPF) == 0x00u)
     {
       HAL_PWREx_EnableLowPowerRunMode();
     }
@@ -335,7 +335,7 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   else
   {
     /* If in low-power run mode at this point, exit it */
-    if((PWR->SR2 & PWR_SR2_REGLPF) != 0x00u)
+    if ((PWR->SR2 & PWR_SR2_REGLPF) != 0x00u)
     {
       if (HAL_PWREx_DisableLowPowerRunMode() != HAL_OK)
       {
@@ -348,7 +348,7 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
   CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
   /* Select SLEEP mode entry -------------------------------------------------*/
-  if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
+  if (SLEEPEntry == PWR_SLEEPENTRY_WFI)
   {
     /* Request Wait For Interrupt */
     __WFI();
@@ -417,7 +417,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
   /* Select Stop mode entry --------------------------------------------------*/
-  if(STOPEntry == PWR_STOPENTRY_WFI)
+  if (STOPEntry == PWR_STOPENTRY_WFI)
   {
     /* Request Wait For Interrupt */
     __WFI();
@@ -459,10 +459,10 @@ void HAL_PWR_EnterSTANDBYMode(void)
   /* Set SLEEPDEEP bit of Cortex System Control Register */
   SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
-/* This option is used to ensure that store operations are completed */
+  /* This option is used to ensure that store operations are completed */
 #if defined ( __CC_ARM)
   __force_stores();
-#endif
+#endif /* __CC_ARM */
 
   /* Request Wait For Interrupt */
   __WFI();
