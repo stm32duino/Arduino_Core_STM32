@@ -238,15 +238,18 @@ HAL_StatusTypeDef HAL_RS485Ex_Init(UART_HandleTypeDef *huart, uint32_t Polarity,
     This subsection provides a set of Wakeup and FIFO mode related callback functions.
 
 #if defined(USART_CR1_UESM)
+#if defined(USART_CR3_WUFIE)
     (#) Wakeup from Stop mode Callback:
         (+) HAL_UARTEx_WakeupCallback()
 
+#endif
 #endif
 @endverbatim
   * @{
   */
 
 #if defined(USART_CR1_UESM)
+#if defined(USART_CR3_WUFIE)
 /**
   * @brief UART wakeup from Stop mode callback.
   * @param huart UART handle.
@@ -262,6 +265,7 @@ __weak void HAL_UARTEx_WakeupCallback(UART_HandleTypeDef *huart)
    */
 }
 
+#endif /* USART_CR3_WUFIE */
 #endif /* USART_CR1_UESM */
 
 /**
@@ -394,8 +398,10 @@ HAL_StatusTypeDef HAL_UARTEx_StopModeWakeUpSourceConfig(UART_HandleTypeDef *huar
   /* Disable the Peripheral */
   __HAL_UART_DISABLE(huart);
 
+#if defined(USART_CR3_WUS)
   /* Set the wake-up selection scheme */
   MODIFY_REG(huart->Instance->CR3, USART_CR3_WUS, WakeUpSelection.WakeUpEvent);
+#endif /* USART_CR3_WUS */
 
   if (WakeUpSelection.WakeUpEvent == UART_WAKEUP_ON_ADDRESS)
   {
@@ -437,7 +443,7 @@ HAL_StatusTypeDef HAL_UARTEx_EnableStopMode(UART_HandleTypeDef *huart)
   __HAL_LOCK(huart);
 
   /* Set UESM bit */
-  SET_BIT(huart->Instance->CR1, USART_CR1_UESM);
+  ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_UESM);
 
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
@@ -456,7 +462,7 @@ HAL_StatusTypeDef HAL_UARTEx_DisableStopMode(UART_HandleTypeDef *huart)
   __HAL_LOCK(huart);
 
   /* Clear UESM bit */
-  CLEAR_BIT(huart->Instance->CR1, USART_CR1_UESM);
+  ATOMIC_CLEAR_BIT(huart->Instance->CR1, USART_CR1_UESM);
 
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
@@ -466,25 +472,29 @@ HAL_StatusTypeDef HAL_UARTEx_DisableStopMode(UART_HandleTypeDef *huart)
 
 #endif /* USART_CR1_UESM */
 /**
-  * @brief Receive an amount of data in blocking mode till either the expected number of data is received or an IDLE event occurs.
-  * @note   HAL_OK is returned if reception is completed (expected number of data has been received)
-  *         or if reception is stopped after IDLE event (less than the expected number of data has been received)
-  *         In this case, RxLen output parameter indicates number of data available in reception buffer.
+  * @brief Receive an amount of data in blocking mode till either the expected number of data
+  *        is received or an IDLE event occurs.
+  * @note  HAL_OK is returned if reception is completed (expected number of data has been received)
+  *        or if reception is stopped after IDLE event (less than the expected number of data has been received)
+  *        In this case, RxLen output parameter indicates number of data available in reception buffer.
+  * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+  *        the received data is handled as a set of uint16_t. In this case, Size must indicate the number
+  *        of uint16_t available through pData.
   * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
-  *         of uint16_t available through pData.
-  * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using uint16_t pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *         (16 bits) (as received data will be handled using uint16_t pointer cast). Depending on compilation chain,
+  *         use of specific alignment compilation directives or pragmas might be required to ensure proper
+  *         alignment for pData.
   * @param huart   UART handle.
   * @param pData   Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size    Amount of data elements (uint8_t or uint16_t) to be received.
-  * @param RxLen   Number of data elements finally received (could be lower than Size, in case reception ends on IDLE event)
+  * @param RxLen   Number of data elements finally received
+  *                (could be lower than Size, in case reception ends on IDLE event)
   * @param Timeout Timeout duration expressed in ms (covers the whole reception sequence).
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint16_t *RxLen, uint32_t Timeout)
+HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint16_t *RxLen,
+                                           uint32_t Timeout)
 {
   uint8_t  *pdata8bits;
   uint16_t *pdata16bits;
@@ -606,17 +616,19 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle(UART_HandleTypeDef *huart, uint8_t *p
 }
 
 /**
-  * @brief Receive an amount of data in interrupt mode till either the expected number of data is received or an IDLE event occurs.
-  * @note   Reception is initiated by this function call. Further progress of reception is achieved thanks
-  *         to UART interrupts raised by RXNE and IDLE events. Callback is called at end of reception indicating
-  *         number of received data elements.
-  * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
-  *         of uint16_t available through pData.
-  * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled using uint16_t pointer cast). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  * @brief Receive an amount of data in interrupt mode till either the expected number of data
+  *        is received or an IDLE event occurs.
+  * @note  Reception is initiated by this function call. Further progress of reception is achieved thanks
+  *        to UART interrupts raised by RXNE and IDLE events. Callback is called at end of reception indicating
+  *        number of received data elements.
+  * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+  *        the received data is handled as a set of uint16_t. In this case, Size must indicate the number
+  *        of uint16_t available through pData.
+  * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+  *        address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *        (16 bits) (as received data will be handled using uint16_t pointer cast). Depending on compilation chain,
+  *        use of specific alignment compilation directives or pragmas might be required
+  *        to ensure proper alignment for pData.
   * @param huart UART handle.
   * @param pData Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size  Amount of data elements (uint8_t or uint16_t) to be received.
@@ -658,7 +670,7 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_IT(UART_HandleTypeDef *huart, uint8_t
       if (huart->ReceptionType == HAL_UART_RECEPTION_TOIDLE)
       {
         __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_IDLEF);
-        SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
+        ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
       }
       else
       {
@@ -679,20 +691,22 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_IT(UART_HandleTypeDef *huart, uint8_t
 }
 
 /**
-  * @brief Receive an amount of data in DMA mode till either the expected number of data is received or an IDLE event occurs.
-  * @note   Reception is initiated by this function call. Further progress of reception is achieved thanks
-  *         to DMA services, transferring automatically received data elements in user reception buffer and
-  *         calling registered callbacks at half/end of reception. UART IDLE events are also used to consider
-  *         reception phase as ended. In all cases, callback execution will indicate number of received data elements.
-  * @note   When the UART parity is enabled (PCE = 1), the received data contain
-  *         the parity bit (MSB position).
-  * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         the received data is handled as a set of uint16_t. In this case, Size must indicate the number
-  *         of uint16_t available through pData.
-  * @note   When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
-  *         address of user data buffer for storing data to be received, should be aligned on a half word frontier (16 bits)
-  *         (as received data will be handled by DMA from halfword frontier). Depending on compilation chain,
-  *         use of specific alignment compilation directives or pragmas might be required to ensure proper alignment for pData.
+  * @brief Receive an amount of data in DMA mode till either the expected number
+  *        of data is received or an IDLE event occurs.
+  * @note  Reception is initiated by this function call. Further progress of reception is achieved thanks
+  *        to DMA services, transferring automatically received data elements in user reception buffer and
+  *        calling registered callbacks at half/end of reception. UART IDLE events are also used to consider
+  *        reception phase as ended. In all cases, callback execution will indicate number of received data elements.
+  * @note  When the UART parity is enabled (PCE = 1), the received data contain
+  *        the parity bit (MSB position).
+  * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+  *        the received data is handled as a set of uint16_t. In this case, Size must indicate the number
+  *        of uint16_t available through pData.
+  * @note  When UART parity is not enabled (PCE = 0), and Word Length is configured to 9 bits (M1-M0 = 01),
+  *        address of user data buffer for storing data to be received, should be aligned on a half word frontier
+  *        (16 bits) (as received data will be handled by DMA from halfword frontier). Depending on compilation chain,
+  *        use of specific alignment compilation directives or pragmas might be required
+  *        to ensure proper alignment for pData.
   * @param huart UART handle.
   * @param pData Pointer to data buffer (uint8_t or uint16_t data elements).
   * @param Size  Amount of data elements (uint8_t or uint16_t) to be received.
@@ -734,7 +748,7 @@ HAL_StatusTypeDef HAL_UARTEx_ReceiveToIdle_DMA(UART_HandleTypeDef *huart, uint8_
       if (huart->ReceptionType == HAL_UART_RECEPTION_TOIDLE)
       {
         __HAL_UART_CLEAR_FLAG(huart, UART_CLEAR_IDLEF);
-        SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
+        ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_IDLEIE);
       }
       else
       {
