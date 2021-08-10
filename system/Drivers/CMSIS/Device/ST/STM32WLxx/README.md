@@ -1,5 +1,7 @@
 # STM32CubeWL CMSIS Device MCU Component
 
+![latest tag](https://img.shields.io/github/v/tag/STMicroelectronics/cmsis_device_wl.svg?color=brightgreen)
+
 ## Overview
 
 **STM32Cube** is an STMicroelectronics original initiative to ease the developers life by reducing efforts, time and cost.
@@ -30,6 +32,7 @@ In this table, you can find the successive versions of this CMSIS Device compone
 CMSIS Device WL | CMSIS Core | Was delivered in the full MCU package
 --------------- | ---------- | -------------------------------------
 Tag v1.0.0 | Tag v5.6.0_cm4 | Tag v1.0.0
+Tag v1.1.0 | Tag v5.6.0_cm4 | Tag v1.1.0
 
 
 The full **STM32CubeWL** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeWL).
@@ -37,4 +40,4 @@ The full **STM32CubeWL** MCU package is available [here](https://github.com/STMi
 ## Troubleshooting
 If you have any issue with the **Software content** of this repo, you can [file an issue on Github](https://github.com/STMicroelectronics/cmsis_device_wl/issues/new).
 
-For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/group/0F90X000000AXsASAW/stm32-mcus).
+For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus).
