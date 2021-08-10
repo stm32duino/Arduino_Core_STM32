@@ -2999,11 +2999,13 @@ __STATIC_INLINE uint32_t LL_RTC_WAKEUP_GetAutoReload(RTC_TypeDef *RTCx)
   */
 __STATIC_INLINE void LL_RTC_BAK_SetRegister(RTC_TypeDef *RTCx, uint32_t BackupRegister, uint32_t Data)
 {
-  __IO uint32_t *tmp;
+  uint32_t temp;
 
-  tmp = &(RTCx->BKP0R) + BackupRegister;
+  temp = (uint32_t)(&(RTCx->BKP0R));
+  temp += (BackupRegister * 4U);
 
-  *tmp = Data;
+  /* Write the specified register */
+  *(__IO uint32_t *)temp = (uint32_t)Data;
 }
 
 /**
@@ -3020,12 +3022,13 @@ __STATIC_INLINE void LL_RTC_BAK_SetRegister(RTC_TypeDef *RTCx, uint32_t BackupRe
   */
 __STATIC_INLINE uint32_t LL_RTC_BAK_GetRegister(RTC_TypeDef *RTCx, uint32_t BackupRegister)
 {
-  const __IO uint32_t *tmp;
+  uint32_t temp;
 
-  tmp = &(RTCx->BKP0R) + BackupRegister;
+  temp = (uint32_t)(&(RTCx->BKP0R));
+  temp += (BackupRegister * 4U);
 
   /* Read the specified register */
-  return *tmp;
+  return (*(__IO uint32_t *)temp);
 }
 
 /**

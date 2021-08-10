@@ -37,7 +37,6 @@ extern "C" {
   */
 
 /* Exported types ------------------------------------------------------------*/
-
 /* Exported constants --------------------------------------------------------*/
 /** @defgroup SMBUSEx_Exported_Constants SMBUS Extended Exported Constants
   * @{
@@ -53,29 +52,29 @@ extern "C" {
 #else
 #define SMBUS_FASTMODEPLUS_PB6            (uint32_t)(0x00000004U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB6 not supported   */
 #define SMBUS_FASTMODEPLUS_PB7            (uint32_t)(0x00000008U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB7 not supported   */
-#endif
+#endif /* SYSCFG_CFGR2_I2C_PB6_FMP */
 #if defined(SYSCFG_CFGR2_I2C_PB8_FMP)
 #define SMBUS_FASTMODEPLUS_PB8            SYSCFG_CFGR2_I2C_PB8_FMP                        /*!< Enable Fast Mode Plus on PB8       */
 #define SMBUS_FASTMODEPLUS_PB9            SYSCFG_CFGR2_I2C_PB9_FMP                        /*!< Enable Fast Mode Plus on PB9       */
 #else
 #define SMBUS_FASTMODEPLUS_PB8            (uint32_t)(0x00000010U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB8 not supported   */
 #define SMBUS_FASTMODEPLUS_PB9            (uint32_t)(0x00000012U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB9 not supported   */
-#endif
+#endif /* SYSCFG_CFGR2_I2C_PB8_FMP */
 #if defined(SYSCFG_CFGR2_I2C1_FMP)
 #define SMBUS_FASTMODEPLUS_I2C1           SYSCFG_CFGR2_I2C1_FMP                           /*!< Enable Fast Mode Plus on I2C1 pins */
 #else
 #define SMBUS_FASTMODEPLUS_I2C1           (uint32_t)(0x00000100U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C1 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C1_FMP */
 #if defined(SYSCFG_CFGR2_I2C2_FMP)
 #define SMBUS_FASTMODEPLUS_I2C2           SYSCFG_CFGR2_I2C2_FMP                           /*!< Enable Fast Mode Plus on I2C2 pins */
 #else
 #define SMBUS_FASTMODEPLUS_I2C2           (uint32_t)(0x00000200U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C2 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C2_FMP */
 #if defined(SYSCFG_CFGR2_I2C3_FMP)
 #define SMBUS_FASTMODEPLUS_I2C3           SYSCFG_CFGR2_I2C3_FMP                           /*!< Enable Fast Mode Plus on I2C3 pins */
 #else
 #define SMBUS_FASTMODEPLUS_I2C3           (uint32_t)(0x00000400U | SMBUS_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C3 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C3_FMP */
 /**
   * @}
   */
@@ -98,13 +97,23 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup SMBUSEx_Exported_Functions_Group3 SMBUS Extended FastModePlus Functions
+/** @addtogroup SMBUSEx_Exported_Functions_Group2 WakeUp Mode Functions
+  * @{
+  */
+/* Peripheral Control functions  ************************************************/
+HAL_StatusTypeDef HAL_SMBUSEx_EnableWakeUp(SMBUS_HandleTypeDef *hsmbus);
+HAL_StatusTypeDef HAL_SMBUSEx_DisableWakeUp(SMBUS_HandleTypeDef *hsmbus);
+/**
+  * @}
+  */
+
+/** @addtogroup SMBUSEx_Exported_Functions_Group3 Fast Mode Plus Functions
   * @{
   */
 #if  (defined(SYSCFG_CFGR2_I2C_PB6_FMP) || defined(SYSCFG_CFGR2_I2C_PB7_FMP)) || (defined(SYSCFG_CFGR2_I2C_PB8_FMP) || defined(SYSCFG_CFGR2_I2C_PB9_FMP)) || (defined(SYSCFG_CFGR2_I2C1_FMP)) || defined(SYSCFG_CFGR2_I2C2_FMP) || defined(SYSCFG_CFGR2_I2C3_FMP)
 void HAL_SMBUSEx_EnableFastModePlus(uint32_t ConfigFastModePlus);
 void HAL_SMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
-#endif
+#endif /* Fast Mode Plus Availability */
 /**
   * @}
   */
@@ -127,12 +136,12 @@ void HAL_SMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
   * @{
   */
 #define IS_SMBUS_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & SMBUS_FMP_NOT_SUPPORTED) != SMBUS_FMP_NOT_SUPPORTED) && \
-                                           ((((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB6))  == SMBUS_FASTMODEPLUS_PB6)     || \
-                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB7))  == SMBUS_FASTMODEPLUS_PB7)     || \
-                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB8))  == SMBUS_FASTMODEPLUS_PB8)     || \
-                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB9))  == SMBUS_FASTMODEPLUS_PB9)     || \
-                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_I2C1)) == SMBUS_FASTMODEPLUS_I2C1)    || \
-                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_I2C2)) == SMBUS_FASTMODEPLUS_I2C2)    || \
+                                           ((((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB6))  == SMBUS_FASTMODEPLUS_PB6)  || \
+                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB7))  == SMBUS_FASTMODEPLUS_PB7)  || \
+                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB8))  == SMBUS_FASTMODEPLUS_PB8)  || \
+                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_PB9))  == SMBUS_FASTMODEPLUS_PB9)  || \
+                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_I2C1)) == SMBUS_FASTMODEPLUS_I2C1) || \
+                                            (((__CONFIG__) & (SMBUS_FASTMODEPLUS_I2C2)) == SMBUS_FASTMODEPLUS_I2C2) || \
                                             (((__CONFIG__) & (SMBUS_FASTMODEPLUS_I2C3)) == SMBUS_FASTMODEPLUS_I2C3)))
 /**
   * @}

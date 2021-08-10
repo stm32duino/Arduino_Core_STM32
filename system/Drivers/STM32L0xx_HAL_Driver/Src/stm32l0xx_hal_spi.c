@@ -950,6 +950,9 @@ error:
   */
 HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
+#if (USE_SPI_CRC != 0U)
+  __IO uint32_t tmpreg = 0U;
+#endif /* USE_SPI_CRC */
   uint32_t tickstart;
   HAL_StatusTypeDef errorcode = HAL_OK;
 
@@ -1108,7 +1111,9 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
     }
 
     /* Read CRC to Flush DR and RXNE flag */
-    READ_REG(hspi->Instance->DR);
+    tmpreg = READ_REG(hspi->Instance->DR);
+    /* To avoid GCC warning */
+    UNUSED(tmpreg);
   }
 #endif /* USE_SPI_CRC */
 
@@ -1155,6 +1160,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   uint32_t             tmp_mode;
   HAL_SPI_StateTypeDef tmp_state;
   uint32_t             tickstart;
+#if (USE_SPI_CRC != 0U)
+  __IO uint32_t tmpreg = 0U;
+#endif /* USE_SPI_CRC */
 
   /* Variable used to alternate Rx and Tx during transfer */
   uint32_t             txallowed = 1U;
@@ -1333,7 +1341,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
       goto error;
     }
     /* Read CRC */
-    READ_REG(hspi->Instance->DR);
+    tmpreg = READ_REG(hspi->Instance->DR);
+    /* To avoid GCC warning */
+    UNUSED(tmpreg);
   }
 
   /* Check if CRC error occurred */
@@ -2773,6 +2783,9 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
 {
   SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)(((DMA_HandleTypeDef *)hdma)->Parent); /* Derogation MISRAC2012-Rule-11.5 */
   uint32_t tickstart;
+#if (USE_SPI_CRC != 0U)
+  __IO uint32_t tmpreg = 0U;
+#endif /* USE_SPI_CRC */
 
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
@@ -2794,7 +2807,9 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
         SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
       }
       /* Read CRC */
-      READ_REG(hspi->Instance->DR);
+      tmpreg = READ_REG(hspi->Instance->DR);
+      /* To avoid GCC warning */
+      UNUSED(tmpreg);
     }
 #endif /* USE_SPI_CRC */
 
@@ -2857,6 +2872,9 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
 {
   SPI_HandleTypeDef *hspi = (SPI_HandleTypeDef *)(((DMA_HandleTypeDef *)hdma)->Parent); /* Derogation MISRAC2012-Rule-11.5 */
   uint32_t tickstart;
+#if (USE_SPI_CRC != 0U)
+  __IO uint32_t tmpreg = 0U;
+#endif /* USE_SPI_CRC */
 
   /* Init tickstart for timeout management*/
   tickstart = HAL_GetTick();
@@ -2877,7 +2895,9 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
         SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
       }
       /* Read CRC to Flush DR and RXNE flag */
-      READ_REG(hspi->Instance->DR);
+      tmpreg = READ_REG(hspi->Instance->DR);
+      /* To avoid GCC warning */
+      UNUSED(tmpreg);
     }
 #endif /* USE_SPI_CRC */
 
@@ -3188,8 +3208,15 @@ static void SPI_2linesRxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_2linesRxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
+  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
+
+  /* Initialize the 8bit temporary pointer */
+  ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
   /* Read 8bit CRC to flush Data Register */
-  READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+  tmpreg8 = *ptmpreg8;
+  /* To avoid GCC warning */
+  UNUSED(tmpreg8);
 
   /* Disable RXNE and ERR interrupt */
   __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_RXNE | SPI_IT_ERR));
@@ -3279,8 +3306,12 @@ static void SPI_2linesRxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_2linesRxISR_16BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
+  __IO uint32_t tmpreg = 0U;
+
   /* Read 16bit CRC to flush Data Register */
-  READ_REG(hspi->Instance->DR);
+  tmpreg = READ_REG(hspi->Instance->DR);
+  /* To avoid GCC warning */
+  UNUSED(tmpreg);
 
   /* Disable RXNE interrupt */
   __HAL_SPI_DISABLE_IT(hspi, SPI_IT_RXNE);
@@ -3335,8 +3366,15 @@ static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_RxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
+  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
+
+  /* Initialize the 8bit temporary pointer */
+  ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
   /* Read 8bit CRC to flush Data Register */
-  READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+  tmpreg8 = *ptmpreg8;
+  /* To avoid GCC warning */
+  UNUSED(tmpreg8);
 
   SPI_CloseRx_ISR(hspi);
 }
@@ -3384,8 +3422,12 @@ static void SPI_RxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_RxISR_16BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
+  __IO uint32_t tmpreg = 0U;
+
   /* Read 16bit CRC to flush Data Register */
-  READ_REG(hspi->Instance->DR);
+  tmpreg = READ_REG(hspi->Instance->DR);
+  /* To avoid GCC warning */
+  UNUSED(tmpreg);
 
   /* Disable RXNE and ERR interrupt */
   __HAL_SPI_DISABLE_IT(hspi, (SPI_IT_RXNE | SPI_IT_ERR));
@@ -3866,6 +3908,7 @@ static void SPI_CloseTx_ISR(SPI_HandleTypeDef *hspi)
   */
 static void SPI_AbortRx_ISR(SPI_HandleTypeDef *hspi)
 {
+  __IO uint32_t tmpreg = 0U;
   __IO uint32_t count = SPI_DEFAULT_TIMEOUT * (SystemCoreClock / 24U / 1000U);
 
   /* Wait until TXE flag is set */
@@ -3885,8 +3928,10 @@ static void SPI_AbortRx_ISR(SPI_HandleTypeDef *hspi)
   /* Disable TXEIE, RXNEIE and ERRIE(mode fault event, overrun error, TI frame error) interrupts */
   CLEAR_BIT(hspi->Instance->CR2, (SPI_CR2_TXEIE | SPI_CR2_RXNEIE | SPI_CR2_ERRIE));
 
-  /* Read CRC to flush Data Register */
-  READ_REG(hspi->Instance->DR);
+  /* Flush Data Register by a blank read */
+  tmpreg = READ_REG(hspi->Instance->DR);
+  /* To avoid GCC warning */
+  UNUSED(tmpreg);
 
   hspi->State = HAL_SPI_STATE_ABORT;
 }
