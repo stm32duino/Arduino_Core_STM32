@@ -963,6 +963,15 @@ typedef struct
   * @{
   */
 
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 85U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
+
   /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
   */
@@ -15027,9 +15036,9 @@ typedef struct
 #define SDADC1_IRQn         ADC4_IRQn
 #define USB_LP_CAN_RX0_IRQn CAN_RX0_IRQn
 #define USB_HP_CAN_TX_IRQn  CAN_TX_IRQn
-#define COMP1_2_IRQn        COMP1_2_3_IRQn
 #define COMP_IRQn           COMP1_2_3_IRQn
 #define COMP2_IRQn          COMP1_2_3_IRQn
+#define COMP1_2_IRQn        COMP1_2_3_IRQn
 #define COMP4_6_IRQn        COMP4_5_6_IRQn
 #define HRTIM1_FLT_IRQn     I2C3_ER_IRQn
 #define HRTIM1_TIME_IRQn    I2C3_EV_IRQn
@@ -15050,9 +15059,9 @@ typedef struct
 #define SDADC1_IRQHandler         ADC4_IRQHandler
 #define USB_LP_CAN_RX0_IRQHandler CAN_RX0_IRQHandler
 #define USB_HP_CAN_TX_IRQHandler  CAN_TX_IRQHandler
-#define COMP1_2_IRQHandler        COMP1_2_3_IRQHandler
 #define COMP_IRQHandler           COMP1_2_3_IRQHandler
 #define COMP2_IRQHandler          COMP1_2_3_IRQHandler
+#define COMP1_2_IRQHandler        COMP1_2_3_IRQHandler
 #define COMP4_6_IRQHandler        COMP4_5_6_IRQHandler
 #define HRTIM1_FLT_IRQHandler     I2C3_ER_IRQHandler
 #define HRTIM1_TIME_IRQHandler    I2C3_EV_IRQHandler

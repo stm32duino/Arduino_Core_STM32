@@ -780,6 +780,15 @@ typedef struct
   * @{
   */
 
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 85U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
+
   /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
   */
@@ -12062,9 +12071,9 @@ typedef struct
 #define ADC1_IRQn           ADC1_2_IRQn
 #define USB_LP_CAN_RX0_IRQn CAN_RX0_IRQn
 #define USB_HP_CAN_TX_IRQn  CAN_TX_IRQn
+#define COMP1_2_IRQn        COMP2_IRQn
 #define COMP_IRQn           COMP2_IRQn
 #define COMP1_2_3_IRQn      COMP2_IRQn
-#define COMP1_2_IRQn        COMP2_IRQn
 #define COMP4_5_6_IRQn      COMP4_6_IRQn
 #define TIM15_IRQn          TIM1_BRK_TIM15_IRQn
 #define TIM18_DAC2_IRQn     TIM1_CC_IRQn
@@ -12078,9 +12087,9 @@ typedef struct
 #define ADC1_IRQHandler           ADC1_2_IRQHandler
 #define USB_LP_CAN_RX0_IRQHandler CAN_RX0_IRQHandler
 #define USB_HP_CAN_TX_IRQHandler  CAN_TX_IRQHandler
+#define COMP1_2_IRQHandler        COMP2_IRQHandler
 #define COMP_IRQHandler           COMP2_IRQHandler
 #define COMP1_2_3_IRQHandler      COMP2_IRQHandler
-#define COMP1_2_IRQHandler        COMP2_IRQHandler
 #define COMP4_5_6_IRQHandler      COMP4_6_IRQHandler
 #define TIM15_IRQHandler          TIM1_BRK_TIM15_IRQHandler
 #define TIM18_DAC2_IRQHandler     TIM1_CC_IRQHandler

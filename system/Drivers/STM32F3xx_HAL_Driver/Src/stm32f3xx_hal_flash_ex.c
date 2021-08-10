@@ -125,15 +125,15 @@ static uint8_t           FLASH_OB_GetUser(void);
   ==============================================================================
 
     [..] The FLASH Memory Erasing functions, includes the following functions:
-    (+) @ref HAL_FLASHEx_Erase: return only when erase has been done
-    (+) @ref HAL_FLASHEx_Erase_IT: end of erase is done when @ref HAL_FLASH_EndOfOperationCallback 
+    (+) HAL_FLASHEx_Erase: return only when erase has been done
+    (+) HAL_FLASHEx_Erase_IT: end of erase is done when HAL_FLASH_EndOfOperationCallback
         is called with parameter 0xFFFFFFFF
 
     [..] Any operation of erase should follow these steps:
-    (#) Call the @ref HAL_FLASH_Unlock() function to enable the flash control register and 
+    (#) Call the HAL_FLASH_Unlock() function to enable the flash control register and
         program memory access.
     (#) Call the desired function to erase page.
-    (#) Call the @ref HAL_FLASH_Lock() to disable the flash program memory access 
+    (#) Call the HAL_FLASH_Lock() to disable the flash program memory access
        (recommended to protect the FLASH memory against possible unwanted operation).
 
 @endverbatim

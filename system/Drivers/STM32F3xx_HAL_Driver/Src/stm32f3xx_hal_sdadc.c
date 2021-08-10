@@ -161,11 +161,11 @@
 
      The compilation flag USE_HAL_SDADC_REGISTER_CALLBACKS, when set to 1,
      allows the user to configure dynamically the driver callbacks.
-     Use Functions @ref HAL_SDADC_RegisterCallback()
+     Use Functions HAL_SDADC_RegisterCallback()
      to register an interrupt callback.
     [..]
 
-     Function @ref HAL_SDADC_RegisterCallback() allows to register following callbacks:
+     Function HAL_SDADC_RegisterCallback() allows to register following callbacks:
        (+) ConvHalfCpltCallback : callback for half regular conversion complete.
        (+) ConvCpltCallback : callback for regular conversion complete
        (+) InjectedConvHalfCpltCallback : callback for half injected conversion complete
@@ -178,11 +178,11 @@
      and a pointer to the user callback function.
     [..]
 
-     Use function @ref HAL_SDADC_UnRegisterCallback to reset a callback to the default
+     Use function HAL_SDADC_UnRegisterCallback to reset a callback to the default
      weak function.
     [..]
 
-     @ref HAL_SDADC_UnRegisterCallback takes as parameters the HAL peripheral handle,
+     HAL_SDADC_UnRegisterCallback takes as parameters the HAL peripheral handle,
      and the Callback ID.
      This function allows to reset following callbacks:
        (+) ConvHalfCpltCallback : callback for half regular conversion complete.
@@ -195,27 +195,27 @@
        (+) MspDeInitCallback : callback for Msp DeInit.
      [..]
 
-     By default, after the @ref HAL_SDADC_Init() and when the state is @ref HAL_SDADC_STATE_RESET
+     By default, after the HAL_SDADC_Init() and when the state is HAL_SDADC_STATE_RESET
      all callbacks are set to the corresponding weak functions:
-     examples @ref HAL_SDADC_ConvCpltCallback(), @ref HAL_SDADC_ErrorCallback().
+     examples HAL_SDADC_ConvCpltCallback(), HAL_SDADC_ErrorCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the @ref HAL_SDADC_Init()/ @ref HAL_SDADC_DeInit() only when
+     reset to the legacy weak functions in the HAL_SDADC_Init()/ HAL_SDADC_DeInit() only when
      these callbacks are null (not registered beforehand).
     [..]
 
-     If MspInit or MspDeInit are not null, the @ref HAL_SDADC_Init()/ @ref HAL_SDADC_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_SDADC_Init()/ HAL_SDADC_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
      [..]
 
-     Callbacks can be registered/unregistered in @ref HAL_SDADC_STATE_READY state only.
+     Callbacks can be registered/unregistered in HAL_SDADC_STATE_READY state only.
      Exception done MspInit/MspDeInit functions that can be registered/unregistered
-     in @ref HAL_SDADC_STATE_READY or @ref HAL_SDADC_STATE_RESET state,
+     in HAL_SDADC_STATE_READY or HAL_SDADC_STATE_RESET state,
      thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
     [..]
 
      Then, the user first registers the MspInit/MspDeInit user callbacks
-     using @ref HAL_SDADC_RegisterCallback() before calling @ref HAL_SDADC_DeInit()
-     or @ref HAL_SDADC_Init() function.
+     using HAL_SDADC_RegisterCallback() before calling HAL_SDADC_DeInit()
+     or HAL_SDADC_Init() function.
      [..]
 
      When the compilation flag USE_HAL_SDADC_REGISTER_CALLBACKS is set to 0 or

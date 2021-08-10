@@ -165,7 +165,7 @@ const uint8_t aPredivFactorTable[16] = { 1U, 2U,  3U,  4U,  5U,  6U,  7U,  8U,
           on AHB bus (DMA, GPIO...). APB1 (PCLK1) and APB2 (PCLK2) clocks are derived
           from AHB clock through configurable prescalers and used to clock
           the peripherals mapped on these buses. You can use
-          "@ref HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
+          "HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
 
       (#) All the peripheral clocks are derived from the System clock (SYSCLK) except:
         (++) The FLASH program/erase clock  which is always HSI 8MHz clock.
