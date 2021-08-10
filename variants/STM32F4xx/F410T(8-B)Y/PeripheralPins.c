@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32F410T(8-B)Yx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
