@@ -14,7 +14,7 @@
  * Automatically generated from STM32L151RDTx.xml, STM32L151RDYx.xml
  * STM32L152RDTx.xml, STM32L152RDYx.xml
  * STM32L162RDTx.xml, STM32L162RDYx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -238,8 +238,8 @@ WEAK const PinMap PinMap_SPI_SSEL[] = {
 
 #if defined(HAL_PCD_MODULE_ENABLED) || defined(HAL_HCD_MODULE_ENABLED)
 WEAK const PinMap PinMap_USB[] = {
-  {PA_11, USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DM
-  {PA_12, USB, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_NOPULL, GPIO_AF10_USB)}, // USB_DP
+  {PA_11, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_DM
+  {PA_12, USB, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_DP
   {NC,    NP,  0}
 };
 #endif
