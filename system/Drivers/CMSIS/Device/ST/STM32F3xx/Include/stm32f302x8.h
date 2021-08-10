@@ -829,6 +829,15 @@ typedef struct
   * @{
   */
 
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 85U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
+
   /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
   */
@@ -12331,8 +12340,8 @@ typedef struct
 /* Aliases for __IRQn */
 #define ADC1_2_IRQn      ADC1_IRQn
 #define COMP1_2_3_IRQn   COMP2_IRQn
-#define COMP1_2_IRQn     COMP2_IRQn
 #define COMP_IRQn        COMP2_IRQn
+#define COMP1_2_IRQn     COMP2_IRQn
 #define COMP4_5_6_IRQn   COMP4_6_IRQn
 #define HRTIM1_FLT_IRQn  I2C3_ER_IRQn
 #define HRTIM1_TIME_IRQn I2C3_EV_IRQn
@@ -12350,8 +12359,8 @@ typedef struct
 /* Aliases for __IRQHandler */
 #define ADC1_2_IRQHandler      ADC1_IRQHandler
 #define COMP1_2_3_IRQHandler   COMP2_IRQHandler
-#define COMP1_2_IRQHandler     COMP2_IRQHandler
 #define COMP_IRQHandler        COMP2_IRQHandler
+#define COMP1_2_IRQHandler     COMP2_IRQHandler
 #define COMP4_5_6_IRQHandler   COMP4_6_IRQHandler
 #define HRTIM1_FLT_IRQHandler  I2C3_ER_IRQHandler
 #define HRTIM1_TIME_IRQHandler I2C3_EV_IRQHandler
