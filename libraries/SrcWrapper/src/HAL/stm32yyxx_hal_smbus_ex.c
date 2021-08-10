@@ -12,5 +12,7 @@
   #include "stm32l4xx_hal_smbus_ex.c"
 #elif STM32L5xx
   #include "stm32l5xx_hal_smbus_ex.c"
+#elif STM32WBxx
+  #include "stm32wbxx_hal_smbus_ex.c"
 #endif
 #pragma GCC diagnostic pop
