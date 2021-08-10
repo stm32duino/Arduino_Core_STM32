@@ -63,7 +63,7 @@ typedef enum
 #if (USE_HAL_DAC_REGISTER_CALLBACKS == 1)
 typedef struct __DAC_HandleTypeDef
 #else
-typedef struct DAC_HandleTypeDef
+typedef struct
 #endif
 {
   DAC_TypeDef                 *Instance;     /*!< Register base address             */
@@ -74,7 +74,7 @@ typedef struct DAC_HandleTypeDef
 
   DMA_HandleTypeDef           *DMA_Handle1;  /*!< Pointer DMA handler for channel 1 */
 
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
   DMA_HandleTypeDef           *DMA_Handle2;  /*!< Pointer DMA handler for channel 2 */
 #endif
 
@@ -149,7 +149,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   */
 #define  HAL_DAC_ERROR_NONE              0x00U    /*!< No error                          */
 #define  HAL_DAC_ERROR_DMAUNDERRUNCH1    0x01U    /*!< DAC channel1 DMA underrun error   */
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define  HAL_DAC_ERROR_DMAUNDERRUNCH2    0x02U    /*!< DAC channel2 DMA underrun error   */
 #endif
 #define  HAL_DAC_ERROR_DMA               0x04U    /*!< DMA error                         */
@@ -171,13 +171,13 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 #define DAC_TRIGGER_EXT_IT9    ((uint32_t)(DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 |                  DAC_CR_TEN1)) /*!< EXTI Line9 event selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_SOFTWARE   ((uint32_t)(DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0 | DAC_CR_TEN1)) /*!< Conversion started by software trigger for DAC channel */
 
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define DAC_TRIGGER_T3_TRGO    ((uint32_t)(                                  DAC_CR_TSEL1_0 | DAC_CR_TEN1)) /*!< TIM3  TRGO selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T3_CH3     ((uint32_t)(                 DAC_CR_TSEL1_1 |                  DAC_CR_TEN1)) /*!< TIM3  CH3  selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T7_TRGO    ((uint32_t)(DAC_CR_TSEL1_2 |                  DAC_CR_TSEL1_0 | DAC_CR_TEN1)) /*!< TIM7  TRGO selected as external conversion trigger for DAC channel */
 #endif
 
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define IS_DAC_TRIGGER(TRIGGER) (((TRIGGER) == DAC_TRIGGER_NONE)       || \
                                  ((TRIGGER) == DAC_TRIGGER_T6_TRGO)    || \
                                  ((TRIGGER) == DAC_TRIGGER_T3_TRGO)    || \
@@ -187,14 +187,14 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
                                  ((TRIGGER) == DAC_TRIGGER_T2_TRGO)    || \
                                  ((TRIGGER) == DAC_TRIGGER_EXT_IT9)    || \
                                  ((TRIGGER) == DAC_TRIGGER_SOFTWARE))
-#else /* STM32L072xx || STM32L073xx || STM32L082xx || STM32L083xx */
+#else
 #define IS_DAC_TRIGGER(TRIGGER) (((TRIGGER) == DAC_TRIGGER_NONE)       || \
                                  ((TRIGGER) == DAC_TRIGGER_T6_TRGO)    || \
                                  ((TRIGGER) == DAC_TRIGGER_T21_TRGO)   || \
                                  ((TRIGGER) == DAC_TRIGGER_T2_TRGO)    || \
                                  ((TRIGGER) == DAC_TRIGGER_EXT_IT9)    || \
                                  ((TRIGGER) == DAC_TRIGGER_SOFTWARE))
-#endif /* STM32L072xx || STM32L073xx || STM32L082xx || STM32L083xx */
+#endif /* DAC_CHANNEL2_SUPPORT */
 /**
   * @}
   */
@@ -215,11 +215,11 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @{
   */
 #define DAC_CHANNEL_1                      (0x00000000U)
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define DAC_CHANNEL_2                      (0x00000010U)
 #endif
 
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define IS_DAC_CHANNEL(CHANNEL) (((CHANNEL) == DAC_CHANNEL_1) || \
                                  ((CHANNEL) == DAC_CHANNEL_2))
 #else
@@ -255,7 +255,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @{
   */
 #define DAC_FLAG_DMAUDR1                   (DAC_SR_DMAUDR1)
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define DAC_FLAG_DMAUDR2                   (DAC_SR_DMAUDR2)
 #endif
 
@@ -267,7 +267,7 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
   * @{
   */
 #define DAC_IT_DMAUDR1                   (DAC_SR_DMAUDR1)
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 #define DAC_IT_DMAUDR2                   (DAC_SR_DMAUDR2)
 #endif
 

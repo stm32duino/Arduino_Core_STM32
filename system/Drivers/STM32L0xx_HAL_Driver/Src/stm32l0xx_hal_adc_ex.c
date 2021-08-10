@@ -143,15 +143,19 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc, uint32_t 
     {
       if((HAL_GetTick() - tickstart) > ADC_CALIBRATION_TIMEOUT)
       {
-        /* Update ADC state machine to error */
-        ADC_STATE_CLR_SET(hadc->State,
-                          HAL_ADC_STATE_BUSY_INTERNAL,
-                          HAL_ADC_STATE_ERROR_INTERNAL);
+        /* New check to avoid false timeout detection in case of preemption */
+        if(HAL_IS_BIT_SET(hadc->Instance->CR, ADC_CR_ADCAL))
+        {
+          /* Update ADC state machine to error */
+          ADC_STATE_CLR_SET(hadc->State,
+                            HAL_ADC_STATE_BUSY_INTERNAL,
+                            HAL_ADC_STATE_ERROR_INTERNAL);
 
-        /* Process unlocked */
-        __HAL_UNLOCK(hadc);
+          /* Process unlocked */
+          __HAL_UNLOCK(hadc);
 
-        return HAL_ERROR;
+          return HAL_ERROR;
+        }
       }
     }
 
@@ -267,7 +271,11 @@ HAL_StatusTypeDef HAL_ADCEx_EnableVREFINT(void)
   {
     if((HAL_GetTick() - tickstart) > SYSCFG_BUF_VREFINT_ENABLE_TIMEOUT)
     {
-      return HAL_ERROR;
+      /* New check to avoid false timeout detection in case of preemption */
+      if(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+      {
+        return HAL_ERROR;
+      }
     }
   }
 
@@ -310,7 +318,11 @@ HAL_StatusTypeDef HAL_ADCEx_EnableVREFINTTempSensor(void)
   {
     if((HAL_GetTick() - tickstart) > SYSCFG_BUF_TEMPSENSOR_ENABLE_TIMEOUT)
     {
-      return HAL_ERROR;
+      /* New check to avoid false timeout detection in case of preemption */
+      if(HAL_IS_BIT_CLR(SYSCFG->CFGR3, SYSCFG_CFGR3_VREFINT_RDYF))
+      {
+        return HAL_ERROR;
+      }
     }
   }
 
