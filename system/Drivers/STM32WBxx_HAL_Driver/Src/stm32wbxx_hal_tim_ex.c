@@ -1567,7 +1567,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start(TIM_HandleTypeDef *htim, uint32_t Ou
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, OutputChannel));
 
   /* Check the TIM channels state */
-   if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
+  if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
       || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
       || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
       || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
@@ -1655,7 +1655,7 @@ HAL_StatusTypeDef HAL_TIMEx_OnePulseN_Start_IT(TIM_HandleTypeDef *htim, uint32_t
   assert_param(IS_TIM_CCXN_INSTANCE(htim->Instance, OutputChannel));
 
   /* Check the TIM channels state */
-   if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
+  if ((channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
       || (channel_2_state != HAL_TIM_CHANNEL_STATE_READY)
       || (complementary_channel_1_state != HAL_TIM_CHANNEL_STATE_READY)
       || (complementary_channel_2_state != HAL_TIM_CHANNEL_STATE_READY))
