@@ -37,6 +37,7 @@
 #define PA10_R                  19
 
 // Alternate pins number
+#define PA2_ALT1                (PA2 | ALT1)
 #define PB0_ALT1                (PB0 | ALT1)
 #define PB1_ALT1                (PB1 | ALT1)
 #define PB1_ALT2                (PB1 | ALT2)
@@ -98,16 +99,16 @@
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-  #define SERIAL_UART_INSTANCE  1
+  #define SERIAL_UART_INSTANCE  2
 #endif
 
 // Default pin used for generic 'Serial' instance
 // Mandatory for Firmata
 #ifndef PIN_SERIAL_RX
-  #define PIN_SERIAL_RX         PA10_R
+  #define PIN_SERIAL_RX         PA15
 #endif
 #ifndef PIN_SERIAL_TX
-  #define PIN_SERIAL_TX         PA9_R
+  #define PIN_SERIAL_TX         PA2_ALT1
 #endif
 
 /*----------------------------------------------------------------------------

@@ -10,8 +10,10 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G0B1RBTX) || defined(ARDUINO_GENERIC_G0B1RCTX) ||\
-    defined(ARDUINO_GENERIC_G0B1RETX) || defined(ARDUINO_GENERIC_G0C1RCTX) ||\
+#if defined(ARDUINO_GENERIC_G0B1RBTX) || defined(ARDUINO_GENERIC_G0B1RCIX) ||\
+    defined(ARDUINO_GENERIC_G0B1RCTX) || defined(ARDUINO_GENERIC_G0B1REIX) ||\
+    defined(ARDUINO_GENERIC_G0B1RETX) || defined(ARDUINO_GENERIC_G0C1RCIX) ||\
+    defined(ARDUINO_GENERIC_G0C1RCTX) || defined(ARDUINO_GENERIC_G0C1REIX) ||\
     defined(ARDUINO_GENERIC_G0C1RETX)
 #include "pins_arduino.h"
 

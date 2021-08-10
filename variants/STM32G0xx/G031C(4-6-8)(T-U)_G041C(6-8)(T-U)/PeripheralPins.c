@@ -11,8 +11,9 @@
  *******************************************************************************
  */
 /*
- * Automatically generated from STM32G031C(4-6-8)Ux.xml, STM32G041C(6-8)Ux.xml
- * CubeMX DB release 6.0.21
+ * Automatically generated from STM32G031C(4-6-8)Tx.xml, STM32G031C(4-6-8)Ux.xml
+ * STM32G041C(6-8)Tx.xml, STM32G041C(6-8)Ux.xml
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -46,7 +47,6 @@ WEAK const PinMap PinMap_ADC[] = {
   {PB_0,  ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 8, 0)}, // ADC1_IN8
   {PB_1,  ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 9, 0)}, // ADC1_IN9
   {PB_2,  ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 10, 0)}, // ADC1_IN10
-  {PB_7,  ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 11, 0)}, // ADC1_IN11
   {PB_10, ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 11, 0)}, // ADC1_IN11
   {PB_11, ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 15, 0)}, // ADC1_IN15
   {PB_12, ADC1, STM_PIN_DATA_EXT(STM_MODE_ANALOG, GPIO_NOPULL, 0, 16, 0)}, // ADC1_IN16

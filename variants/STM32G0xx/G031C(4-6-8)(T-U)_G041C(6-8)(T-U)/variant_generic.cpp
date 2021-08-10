@@ -10,9 +10,11 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G031C4UX) || defined(ARDUINO_GENERIC_G031C6UX) ||\
-    defined(ARDUINO_GENERIC_G031C8UX) || defined(ARDUINO_GENERIC_G041C6UX) ||\
-    defined(ARDUINO_GENERIC_G041C8UX)
+#if defined(ARDUINO_GENERIC_G031C4TX) || defined(ARDUINO_GENERIC_G031C4UX) ||\
+    defined(ARDUINO_GENERIC_G031C6TX) || defined(ARDUINO_GENERIC_G031C6UX) ||\
+    defined(ARDUINO_GENERIC_G031C8TX) || defined(ARDUINO_GENERIC_G031C8UX) ||\
+    defined(ARDUINO_GENERIC_G041C6TX) || defined(ARDUINO_GENERIC_G041C6UX) ||\
+    defined(ARDUINO_GENERIC_G041C8TX) || defined(ARDUINO_GENERIC_G041C8UX)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -40,12 +42,12 @@ const PinName digitalPin[] = {
   PB_4,   // D20
   PB_5,   // D21
   PB_6,   // D22
-  PB_7,   // D23/A13
+  PB_7,   // D23
   PB_8,   // D24
   PB_9,   // D25
-  PB_10,  // D26/A14
-  PB_11,  // D27/A15
-  PB_12,  // D28/A16
+  PB_10,  // D26/A13
+  PB_11,  // D27/A14
+  PB_12,  // D28/A15
   PB_13,  // D29
   PB_14,  // D30
   PB_15,  // D31
@@ -80,10 +82,9 @@ const uint32_t analogInputPin[] = {
   16, // A10, PB0
   17, // A11, PB1
   18, // A12, PB2
-  23, // A13, PB7
-  26, // A14, PB10
-  27, // A15, PB11
-  28  // A16, PB12
+  26, // A13, PB10
+  27, // A14, PB11
+  28  // A15, PB12
 };
 
 #endif /* ARDUINO_GENERIC_* */

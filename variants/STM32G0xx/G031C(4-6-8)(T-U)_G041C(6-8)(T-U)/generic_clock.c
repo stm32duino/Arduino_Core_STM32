@@ -10,9 +10,11 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_G031C4TX) || defined(ARDUINO_GENERIC_G031C6TX) ||\
-    defined(ARDUINO_GENERIC_G031C8TX) || defined(ARDUINO_GENERIC_G041C6TX) ||\
-    defined(ARDUINO_GENERIC_G041C8TX)
+#if defined(ARDUINO_GENERIC_G031C4TX) || defined(ARDUINO_GENERIC_G031C4UX) ||\
+    defined(ARDUINO_GENERIC_G031C6TX) || defined(ARDUINO_GENERIC_G031C6UX) ||\
+    defined(ARDUINO_GENERIC_G031C8TX) || defined(ARDUINO_GENERIC_G031C8UX) ||\
+    defined(ARDUINO_GENERIC_G041C6TX) || defined(ARDUINO_GENERIC_G041C6UX) ||\
+    defined(ARDUINO_GENERIC_G041C8TX) || defined(ARDUINO_GENERIC_G041C8UX)
 #include "pins_arduino.h"
 
 /**

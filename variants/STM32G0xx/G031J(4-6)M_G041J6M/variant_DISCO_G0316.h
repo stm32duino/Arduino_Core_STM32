@@ -40,6 +40,7 @@
 #define PF2                     19     // package pin number 4
 
 // Alternate pins number
+#define PA2_ALT1                (PA2 | ALT1)
 #define PB0_ALT1                (PB0 | ALT1)
 #define PB1_ALT1                (PB1 | ALT1)
 #define PB1_ALT2                (PB1 | ALT2)
