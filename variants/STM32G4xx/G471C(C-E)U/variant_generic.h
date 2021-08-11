@@ -103,6 +103,8 @@
 #define PB15_ALT1               (PB15 | ALT1)
 #define PB15_ALT2               (PB15 | ALT2)
 #define PC6_ALT1                (PC6  | ALT1)
+#define PC10_ALT1               (PC10 | ALT1)
+#define PC11_ALT1               (PC11 | ALT1)
 #define PC13_ALT1               (PC13 | ALT1)
 
 #define NUM_DIGITAL_PINS        42

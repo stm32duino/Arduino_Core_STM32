@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32G050C6Tx.xml, STM32G050C8Tx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

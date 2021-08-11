@@ -499,8 +499,9 @@ def store_qspi(pin, name, signal):
 # Store SYS pins
 def store_sys(pin, name, signal):
     if "_WKUP" in signal:
-        signal = signal.replace("PWR", "SYS")
-        syswkup_list.append([pin, name, signal])
+        if not any(pin.replace("_C", "") in i for i in syswkup_list):
+            signal = signal.replace("PWR", "SYS")
+            syswkup_list.append([pin, name, signal])
 
 
 # Store USB pins
@@ -1880,15 +1881,24 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
         new_mcu_dir = out_temp_path / mcu_family.name / new_mcu_dirname
 
         board_entry = ""
+        with open(mcu_dir / boards_entry_filename) as fp:
+            board_entry = fp.read()
         # Handle files
         # Skip first dir
         for dir_name in group_mcu_dir[1:]:
             # Save board entry
+            skip = False
             with open(dir_name / boards_entry_filename) as fp:
                 for index, line in enumerate(fp):
-                    # Skip first line
-                    if index > 4:
-                        board_entry += line
+                    # Skip until next empty line (included)
+                    if skip:
+                        if line == "\n":
+                            skip = False
+                        continue
+                    if line != "\n" and line in board_entry:
+                        skip = True
+                        continue
+                    board_entry += line
             # Delete directory
             for filepath in dir_name.glob("*.*"):
                 filepath.unlink()
@@ -1926,8 +1936,8 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
         update_file(mcu_dir / generic_clock_filename, update_regex, new_line_c)
         update_file(mcu_dir / variant_h_filename, update_regex, new_line_h)
 
-        # Appending to board_entry file
-        with open(mcu_dir / boards_entry_filename, "a", newline="\n") as fp:
+        # Dump new board_entry file
+        with open(mcu_dir / boards_entry_filename, "w", newline="\n") as fp:
             fp.write(board_entry)
 
         update_file(

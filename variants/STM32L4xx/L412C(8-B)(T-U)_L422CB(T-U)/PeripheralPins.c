@@ -14,7 +14,7 @@
  * Automatically generated from STM32L412C8Tx.xml, STM32L412C8Ux.xml
  * STM32L412CBTx.xml, STM32L412CBUx.xml
  * STM32L422CBTx.xml, STM32L422CBUx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

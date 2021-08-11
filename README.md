@@ -316,6 +316,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32H742IG<br>STM32H742II | Generic Board | *2.1.0* |  |
 | :green_heart: | STM32H742VG<br>STM32H742VI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H742ZG<br>STM32H742ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H743IG<br>STM32H743II | Generic Board | *2.0.0* |  |

@@ -3,6 +3,7 @@ PA_9_R    = PA_9 | PREMAP,
 PA_10_R   = PA_10 | PREMAP,
 
 /* Alternate pin name */
+PA_2_ALT1 = PA_2 | ALT1,
 PB_0_ALT1 = PB_0 | ALT1,
 PB_1_ALT1 = PB_1 | ALT1,
 PB_1_ALT2 = PB_1 | ALT2,

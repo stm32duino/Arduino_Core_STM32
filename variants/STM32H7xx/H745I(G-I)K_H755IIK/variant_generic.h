@@ -154,6 +154,7 @@
 #define PA1_ALT1                (PA1   | ALT1)
 #define PA1_ALT2                (PA1   | ALT2)
 #define PA1_C_ALT1              (PA1_C | ALT1)
+#define PA1_C_ALT2              (PA1_C | ALT2)
 #define PA2_ALT1                (PA2   | ALT1)
 #define PA2_ALT2                (PA2   | ALT2)
 #define PA3_ALT1                (PA3   | ALT1)

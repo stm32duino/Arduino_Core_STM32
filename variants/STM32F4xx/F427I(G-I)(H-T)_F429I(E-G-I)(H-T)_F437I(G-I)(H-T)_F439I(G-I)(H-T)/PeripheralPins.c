@@ -18,7 +18,7 @@
  * STM32F437I(G-I)Hx.xml, STM32F437I(G-I)Tx.xml
  * STM32F439B(G-I)Tx.xml, STM32F439I(G-I)Hx.xml
  * STM32F439I(G-I)Tx.xml, STM32F439N(G-I)Hx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

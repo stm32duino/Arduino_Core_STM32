@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32G0B0KETx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -257,18 +257,7 @@ WEAK const PinMap PinMap_SPI_SSEL[] = {
 
 //*** No QUADSPI ***
 
-//*** USB ***
-
-#if defined(HAL_PCD_MODULE_ENABLED) || defined(HAL_HCD_MODULE_ENABLED)
-WEAK const PinMap PinMap_USB_DRD_FS[] = {
-  {PA_4,  USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_USB)}, // USB_NOE
-  {PA_11, USB_DRD_FS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_DM
-  {PA_12, USB_DRD_FS, STM_PIN_DATA(STM_MODE_INPUT, GPIO_NOPULL, GPIO_AF_NONE)}, // USB_DP
-  {PA_13, USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF2_USB)}, // USB_NOE
-  {PA_15, USB_DRD_FS, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF6_USB)}, // USB_NOE
-  {NC,    NP,         0}
-};
-#endif
+//*** No USB ***
 
 //*** No SD ***
 
