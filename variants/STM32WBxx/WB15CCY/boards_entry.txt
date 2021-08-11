@@ -5,7 +5,7 @@
 
 # Generic WB15CCYx
 GenWB.menu.pnum.GENERIC_WB15CCYX=Generic WB15CCYx
-GenWB.menu.pnum.GENERIC_WB15CCYX.upload.maximum_size=262144
+GenWB.menu.pnum.GENERIC_WB15CCYX.upload.maximum_size=327680
 GenWB.menu.pnum.GENERIC_WB15CCYX.upload.maximum_data_size=49152
 GenWB.menu.pnum.GENERIC_WB15CCYX.build.board=GENERIC_WB15CCYX
 GenWB.menu.pnum.GENERIC_WB15CCYX.build.product_line=STM32WB15xx

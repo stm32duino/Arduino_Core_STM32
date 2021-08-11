@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32WB55CCUx.xml, STM32WB55CEUx.xml
  * STM32WB55CGUx.xml
- * CubeMX DB release 6.0.21
+ * CubeMX DB release 6.0.30
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
