@@ -10,9 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H742IGKX) || defined(ARDUINO_GENERIC_H742IGTX) ||\
-    defined(ARDUINO_GENERIC_H742IIKX) || defined(ARDUINO_GENERIC_H742IITX) ||\
-    defined(ARDUINO_GENERIC_H750IBTX)
+#if defined(ARDUINO_GENERIC_H725VEHX) || defined(ARDUINO_GENERIC_H725VGHX)
 #include "pins_arduino.h"
 
 /**

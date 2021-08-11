@@ -10,9 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H742IGKX) || defined(ARDUINO_GENERIC_H742IGTX) ||\
-    defined(ARDUINO_GENERIC_H742IIKX) || defined(ARDUINO_GENERIC_H742IITX) ||\
-    defined(ARDUINO_GENERIC_H750IBTX)
+#if defined(ARDUINO_GENERIC_H735VGHX)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -90,73 +88,10 @@ const PinName digitalPin[] = {
   PE_8,   // D70
   PE_9,   // D71
   PE_10,  // D72
-  PE_11,  // D73
-  PE_12,  // D74
-  PE_13,  // D75
-  PE_14,  // D76
-  PE_15,  // D77
-  PF_0,   // D78
-  PF_1,   // D79
-  PF_2,   // D80
-  PF_3,   // D81/A14
-  PF_4,   // D82/A15
-  PF_5,   // D83/A16
-  PF_6,   // D84/A17
-  PF_7,   // D85/A18
-  PF_8,   // D86/A19
-  PF_9,   // D87/A20
-  PF_10,  // D88/A21
-  PF_11,  // D89/A22
-  PF_12,  // D90/A23
-  PF_13,  // D91/A24
-  PF_14,  // D92/A25
-  PF_15,  // D93
-  PG_0,   // D94
-  PG_1,   // D95
-  PG_2,   // D96
-  PG_3,   // D97
-  PG_4,   // D98
-  PG_5,   // D99
-  PG_6,   // D100
-  PG_7,   // D101
-  PG_8,   // D102
-  PG_9,   // D103
-  PG_10,  // D104
-  PG_11,  // D105
-  PG_12,  // D106
-  PG_13,  // D107
-  PG_14,  // D108
-  PG_15,  // D109
-  PH_0,   // D110
-  PH_1,   // D111
-  PH_2,   // D112/A26
-  PH_3,   // D113/A27
-  PH_4,   // D114/A28
-  PH_5,   // D115/A29
-  PH_6,   // D116
-  PH_7,   // D117
-  PH_8,   // D118
-  PH_9,   // D119
-  PH_10,  // D120
-  PH_11,  // D121
-  PH_12,  // D122
-  PH_13,  // D123
-  PH_14,  // D124
-  PH_15,  // D125
-  PI_0,   // D126
-  PI_1,   // D127
-  PI_2,   // D128
-  PI_3,   // D129
-  PI_4,   // D130
-  PI_5,   // D131
-  PI_6,   // D132
-  PI_7,   // D133
-  PI_8,   // D134
-  PI_9,   // D135
-  PI_10,  // D136
-  PI_11,  // D137
-  PC_2_C, // D138/A30
-  PC_3_C  // D139/A31
+  PH_0,   // D73
+  PH_1,   // D74
+  PC_2_C, // D75/A14
+  PC_3_C  // D76/A15
 };
 
 // Analog (Ax) pin number array
@@ -175,24 +110,8 @@ const uint32_t analogInputPin[] = {
   33, // A11, PC1
   34, // A12, PC4
   35, // A13, PC5
-  81, // A14, PF3
-  82, // A15, PF4
-  83, // A16, PF5
-  84, // A17, PF6
-  85, // A18, PF7
-  86, // A19, PF8
-  87, // A20, PF9
-  88, // A21, PF10
-  89, // A22, PF11
-  90, // A23, PF12
-  91, // A24, PF13
-  92, // A25, PF14
-  112, // A26, PH2
-  113, // A27, PH3
-  114, // A28, PH4
-  115, // A29, PH5
-  138, // A30, PC2_C
-  139 // A31, PC3_C
+  75, // A14, PC2_C
+  76  // A15, PC3_C
 };
 
 #endif /* ARDUINO_GENERIC_* */

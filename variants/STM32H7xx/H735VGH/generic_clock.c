@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H725VEHX) || defined(ARDUINO_GENERIC_H725VGHX) ||\
-    defined(ARDUINO_GENERIC_H735VGHX)
+#if defined(ARDUINO_GENERIC_H735VGHX)
 #include "pins_arduino.h"
 
 /**

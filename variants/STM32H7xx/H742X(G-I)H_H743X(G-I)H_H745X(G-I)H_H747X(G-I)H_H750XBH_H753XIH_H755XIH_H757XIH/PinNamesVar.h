@@ -10,6 +10,7 @@ PA_0_C_ALT1 = PA_0_C | ALT1,
 PA_1_ALT1   = PA_1   | ALT1,
 PA_1_ALT2   = PA_1   | ALT2,
 PA_1_C_ALT1 = PA_1_C | ALT1,
+PA_1_C_ALT2 = PA_1_C | ALT2,
 PA_2_ALT1   = PA_2   | ALT1,
 PA_2_ALT2   = PA_2   | ALT2,
 PA_3_ALT1   = PA_3   | ALT1,
@@ -123,11 +124,17 @@ PK_1_ALT1   = PK_1   | ALT1,
   #ifdef USB_OTG_HS_ULPI_DIR_PC_2
     USB_OTG_HS_ULPI_DIR = PC_2,
   #endif
+  #ifdef USB_OTG_HS_ULPI_DIR_PC_2_C
+    USB_OTG_HS_ULPI_DIR = PC_2_C,
+  #endif
   #ifdef USB_OTG_HS_ULPI_DIR_PI_11
     USB_OTG_HS_ULPI_DIR = PI_11,
   #endif
   #ifdef USB_OTG_HS_ULPI_NXT_PC_3
     USB_OTG_HS_ULPI_NXT = PC_3,
+  #endif
+  #ifdef USB_OTG_HS_ULPI_NXT_PC_3_C
+    USB_OTG_HS_ULPI_NXT = PC_3_C,
   #endif
   #ifdef USB_OTG_HS_ULPI_NXT_PH_4
     USB_OTG_HS_ULPI_NXT = PH_4,

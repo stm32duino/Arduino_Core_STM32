@@ -88,73 +88,10 @@
 #define PE8                     70
 #define PE9                     71
 #define PE10                    72
-#define PE11                    73
-#define PE12                    74
-#define PE13                    75
-#define PE14                    76
-#define PE15                    77
-#define PF0                     78
-#define PF1                     79
-#define PF2                     80
-#define PF3                     PIN_A14
-#define PF4                     PIN_A15
-#define PF5                     PIN_A16
-#define PF6                     PIN_A17
-#define PF7                     PIN_A18
-#define PF8                     PIN_A19
-#define PF9                     PIN_A20
-#define PF10                    PIN_A21
-#define PF11                    PIN_A22
-#define PF12                    PIN_A23
-#define PF13                    PIN_A24
-#define PF14                    PIN_A25
-#define PF15                    93
-#define PG0                     94
-#define PG1                     95
-#define PG2                     96
-#define PG3                     97
-#define PG4                     98
-#define PG5                     99
-#define PG6                     100
-#define PG7                     101
-#define PG8                     102
-#define PG9                     103
-#define PG10                    104
-#define PG11                    105
-#define PG12                    106
-#define PG13                    107
-#define PG14                    108
-#define PG15                    109
-#define PH0                     110
-#define PH1                     111
-#define PH2                     PIN_A26
-#define PH3                     PIN_A27
-#define PH4                     PIN_A28
-#define PH5                     PIN_A29
-#define PH6                     116
-#define PH7                     117
-#define PH8                     118
-#define PH9                     119
-#define PH10                    120
-#define PH11                    121
-#define PH12                    122
-#define PH13                    123
-#define PH14                    124
-#define PH15                    125
-#define PI0                     126
-#define PI1                     127
-#define PI2                     128
-#define PI3                     129
-#define PI4                     130
-#define PI5                     131
-#define PI6                     132
-#define PI7                     133
-#define PI8                     134
-#define PI9                     135
-#define PI10                    136
-#define PI11                    137
-#define PC2_C                   PIN_A30
-#define PC3_C                   PIN_A31
+#define PH0                     73
+#define PH1                     74
+#define PC2_C                   PIN_A14
+#define PC3_C                   PIN_A15
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -171,6 +108,7 @@
 #define PA7_ALT1                (PA7  | ALT1)
 #define PA7_ALT2                (PA7  | ALT2)
 #define PA7_ALT3                (PA7  | ALT3)
+#define PA8_ALT1                (PA8  | ALT1)
 #define PA9_ALT1                (PA9  | ALT1)
 #define PA10_ALT1               (PA10 | ALT1)
 #define PA11_ALT1               (PA11 | ALT1)
@@ -212,12 +150,10 @@
 #define PC9_ALT1                (PC9  | ALT1)
 #define PC10_ALT1               (PC10 | ALT1)
 #define PC11_ALT1               (PC11 | ALT1)
-#define PF8_ALT1                (PF8  | ALT1)
-#define PF9_ALT1                (PF9  | ALT1)
 
-#define NUM_DIGITAL_PINS        140
+#define NUM_DIGITAL_PINS        77
 #define NUM_DUALPAD_PINS        2
-#define NUM_ANALOG_INPUTS       32
+#define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
@@ -237,7 +173,7 @@
   #define PIN_SPI_SS1           PA15
 #endif
 #ifndef PIN_SPI_SS2
-  #define PIN_SPI_SS2           PG10
+  #define PIN_SPI_SS2           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_SS3
   #define PIN_SPI_SS3           PNUM_NOT_DEFINED
@@ -290,8 +226,8 @@
 #if !defined(HAL_ETH_MODULE_DISABLED)
   #define HAL_ETH_MODULE_ENABLED
 #endif
-#if !defined(HAL_QSPI_MODULE_DISABLED)
-  #define HAL_QSPI_MODULE_ENABLED
+#if !defined(HAL_OSPI_MODULE_DISABLED)
+  #define HAL_OSPI_MODULE_ENABLED
 #endif
 #if !defined(HAL_SD_MODULE_DISABLED)
   #define HAL_SD_MODULE_ENABLED

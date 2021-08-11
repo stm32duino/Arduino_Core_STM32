@@ -82,37 +82,25 @@ PG_13_ALT1  = PG_13  | ALT1,
   SYS_WKUP1 = PA_0,
 #endif
 #ifdef PWR_WAKEUP_PIN2
-  SYS_WKUP2 = NC,
+  SYS_WKUP2 = PA_2,
 #endif
 #ifdef PWR_WAKEUP_PIN3
   SYS_WKUP3 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN4
-  SYS_WKUP4 = NC,
+  SYS_WKUP4 = PC_13,
 #endif
 #ifdef PWR_WAKEUP_PIN5
   SYS_WKUP5 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN6
-  SYS_WKUP6 = NC,
+  SYS_WKUP6 = PC_1,
 #endif
 #ifdef PWR_WAKEUP_PIN7
   SYS_WKUP7 = NC,
 #endif
 #ifdef PWR_WAKEUP_PIN8
   SYS_WKUP8 = NC,
-#endif
-#ifdef PWR_WAKEUP_PIN9
-  SYS_WKUP9 = PA_0_C,
-#endif
-#ifdef PWR_WAKEUP_PIN10
-  SYS_WKUP10 = PA_2,
-#endif
-#ifdef PWR_WAKEUP_PIN11
-  SYS_WKUP11 = PC_13,
-#endif
-#ifdef PWR_WAKEUP_PIN12
-  SYS_WKUP12 = PC_1,
 #endif
 
 /* USB */

@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H725VETX) || defined(ARDUINO_GENERIC_H725VGTX) ||\
-    defined(ARDUINO_GENERIC_H735VGTX)
+#if defined(ARDUINO_GENERIC_H725VETX) || defined(ARDUINO_GENERIC_H725VGTX)
 #include "pins_arduino.h"
 
 // Digital PinName array

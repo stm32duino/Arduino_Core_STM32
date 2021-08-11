@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_H725VEHX) || defined(ARDUINO_GENERIC_H725VGHX) ||\
-    defined(ARDUINO_GENERIC_H735VGHX)
+#if defined(ARDUINO_GENERIC_H735VGTX)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -68,31 +67,23 @@ const PinName digitalPin[] = {
   PD_3,   // D49
   PD_4,   // D50
   PD_5,   // D51
-  PD_6,   // D52
-  PD_7,   // D53
-  PD_8,   // D54
-  PD_9,   // D55
-  PD_10,  // D56
-  PD_11,  // D57
-  PD_12,  // D58
-  PD_13,  // D59
-  PD_14,  // D60
-  PD_15,  // D61
-  PE_0,   // D62
-  PE_1,   // D63
-  PE_2,   // D64
-  PE_3,   // D65
-  PE_4,   // D66
-  PE_5,   // D67
-  PE_6,   // D68
-  PE_7,   // D69
-  PE_8,   // D70
-  PE_9,   // D71
-  PE_10,  // D72
-  PH_0,   // D73
-  PH_1,   // D74
-  PC_2_C, // D75/A14
-  PC_3_C  // D76/A15
+  PD_8,   // D52
+  PD_9,   // D53
+  PD_10,  // D54
+  PD_11,  // D55
+  PD_12,  // D56
+  PD_13,  // D57
+  PD_14,  // D58
+  PD_15,  // D59
+  PE_2,   // D60
+  PE_4,   // D61
+  PE_5,   // D62
+  PE_7,   // D63
+  PE_8,   // D64
+  PH_0,   // D65
+  PH_1,   // D66
+  PC_2_C, // D67/A14
+  PC_3_C  // D68/A15
 };
 
 // Analog (Ax) pin number array
@@ -111,8 +102,8 @@ const uint32_t analogInputPin[] = {
   33, // A11, PC1
   34, // A12, PC4
   35, // A13, PC5
-  75, // A14, PC2_C
-  76  // A15, PC3_C
+  67, // A14, PC2_C
+  68  // A15, PC3_C
 };
 
 #endif /* ARDUINO_GENERIC_* */
