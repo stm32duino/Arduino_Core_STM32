@@ -499,8 +499,9 @@ def store_qspi(pin, name, signal):
 # Store SYS pins
 def store_sys(pin, name, signal):
     if "_WKUP" in signal:
-        signal = signal.replace("PWR", "SYS")
-        syswkup_list.append([pin, name, signal])
+        if not any(pin.replace("_C", "") in i for i in syswkup_list):
+            signal = signal.replace("PWR", "SYS")
+            syswkup_list.append([pin, name, signal])
 
 
 # Store USB pins
