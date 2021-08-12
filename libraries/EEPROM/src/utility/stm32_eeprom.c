@@ -194,7 +194,11 @@ void eeprom_buffer_flush(void)
   uint32_t address_end = FLASH_BASE_ADDRESS + E2END;
 #if defined(FLASH_TYPEERASE_PAGES)
   uint32_t pageError = 0;
+#if defined(FLASH_TYPEPROGRAM_QUADWORD)
+  uint64_t data[2] = {0x0000};
+#else
   uint64_t data = 0;
+#endif
 
   /* ERASING page */
   EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;
@@ -212,12 +216,19 @@ void eeprom_buffer_flush(void)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
     if (HAL_FLASHEx_Erase(&EraseInitStruct, &pageError) == HAL_OK) {
       while (address <= address_end) {
-
+#if defined(FLASH_TYPEPROGRAM_QUADWORD)
+        /* 128 bits */
+        memcpy(&data, eeprom_buffer + offset, 4 * sizeof(uint32_t));
+        if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_QUADWORD, address, (uint32_t)data) == HAL_OK) {
+          address += 16;
+          offset += 16;
+#else
         data = *((uint64_t *)((uint8_t *)eeprom_buffer + offset));
 
         if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_DOUBLEWORD, address, data) == HAL_OK) {
           address += 8;
           offset += 8;
+#endif
         } else {
           address = address_end + 1;
         }
