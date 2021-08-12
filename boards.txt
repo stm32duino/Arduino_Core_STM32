@@ -5081,6 +5081,15 @@ GenWL.build.mcu=cortex-m4
 GenWL.build.series=STM32WLxx
 GenWL.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# Generic node SE by The Things Industries
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI=Generic Node SE (TTI)
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_size=262144
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.upload.maximum_data_size=65536
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.board=GENERIC_NODE_SE_TTI
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.product_line=STM32WL55xx
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.variant_h=variant_GENERIC_NODE_SE_TTI.h
+GenWL.menu.pnum.GENERIC_NODE_SE_TTI.build.variant=STM32WLxx/WL54CCU_WL55CCU_WLE4C(8-B-C)U_WLE5C(8-B-C)U
+
 # Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX=Generic WL54CCUx
 GenWL.menu.pnum.GENERIC_WL54CCUX.upload.maximum_size=262144
