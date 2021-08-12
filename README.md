@@ -420,8 +420,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32WL54CC<br>STM32WL55CC | Generic Board | **2.1.0** |  |
 | :yellow_heart: | STM32WL55JC<br>STM32WL55JC | Generic Board | **2.1.0** |  |
+| :yellow_heart: | STM32WLE4C8<br>STM32WLE4CB<br>STM32WLE4CC | Generic Board | **2.1.0** |  |
 | :yellow_heart: | STM32WLE4J8<br>STM32WLE4JB<br>STM32WLE4JC | Generic Board | **2.1.0** |  |
+| :yellow_heart: | STM32WLE5C8<br>STM32WLE5CB<br>STM32WLE5CC | Generic Board | **2.1.0** |  |
 | :yellow_heart: | STM32WLE5J8<br>STM32WLE5JB<br>STM32WLE5JC | Generic Board | **2.1.0** |  |
 
 ### 3D printer boards
