@@ -5134,6 +5134,58 @@ GenL5.menu.upload_method.dfuMethod.upload.options=-g
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic U5
+GenU5.name=Generic STM32U5 series
+
+GenU5.build.core=arduino
+GenU5.build.board=GenU5
+GenU5.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenU5.build.mcu=cortex-m33
+GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenU5.build.series=STM32U5xx
+GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
+# Generic U575ZGTxQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ=Generic U575ZGTxQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_size=1048576
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.board=GENERIC_U575ZGTXQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Generic U575ZITxQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ=Generic U575ZITxQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.board=GENERIC_U575ZITXQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Generic U585ZETxQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ=Generic U585ZETxQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U585ZETXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.board=GENERIC_U585ZETXQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Upload menu
+GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenU5.menu.upload_method.swdMethod.upload.protocol=0
+GenU5.menu.upload_method.swdMethod.upload.options=-g
+GenU5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenU5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenU5.menu.upload_method.serialMethod.upload.protocol=1
+GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenU5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenU5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenU5.menu.upload_method.dfuMethod.upload.protocol=2
+GenU5.menu.upload_method.dfuMethod.upload.options=-g
+GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic WB
 GenWB.name=Generic STM32WB series
 
