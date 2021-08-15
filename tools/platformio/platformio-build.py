@@ -146,7 +146,7 @@ def configure_application_offset(mcu, upload_protocol):
     env.Append(LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
 
 
-if any(mcu in board_config.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")):
+if any(mcu in board_config.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")) and "stm32wl" not in mcu:
     env.Append(
         CCFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
         LINKFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
