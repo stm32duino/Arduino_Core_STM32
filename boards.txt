@@ -180,6 +180,20 @@ Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
+# NUCLEO_U575ZI_Q board
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q=Nucleo U575ZI-Q
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.node=NOD_U575ZI
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_data_size=262144
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.board=NUCLEO_U575ZI_Q
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.series=STM32U5xx
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.product_line=STM32U575xx
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
