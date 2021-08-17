@@ -53,6 +53,16 @@ void hw_config_init(void)
 #if defined (USBCON) && defined(USBD_USE_CDC)
   USBD_CDC_init();
 #endif
+
+#if (__CORTEX_M == 33U) &&\
+  defined(HAL_ICACHE_MODULE_ENABLED) && !defined(HAL_ICACHE_MODULE_DISABLED)
+  if (HAL_ICACHE_ConfigAssociativityMode(ICACHE_1WAY) != HAL_OK) {
+    Error_Handler();
+  }
+  if (HAL_ICACHE_Enable() != HAL_OK) {
+    Error_Handler();
+  }
+#endif
 }
 #ifdef __cplusplus
 }
