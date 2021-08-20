@@ -1056,32 +1056,21 @@ def print_peripheral():
 
 # PinNamesVar.h generation
 def manage_syswkup():
-    syswkup_pins_list = []
+    syswkup_pins_list = [[] for _ in range(8)]
     if len(syswkup_list) != 0:
-        # H7xx and F446 start from 0, inc by 1
-        inc = 0
+        # H7xx and F446 start from 0
+        base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
-            inc = 1
-        # Fill list with missing SYS_WKUPx set to NC
-        i = 0
-        while i < 8:
-            num = 0
-            if len(syswkup_list) > i:
-                n = syswkup_list[i][2].replace("SYS_WKUP", "")
-                if len(n) != 0:
-                    num = int(n) if inc == 1 else int(n) - 1
-            x = i if inc == 1 else i + 1
-            if num != i:
-                syswkup_list.insert(i, ["NC", "NC_" + str(x), "SYS_WKUP" + str(x)])
-            i += 1
+            base_index = 0
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
-            if (inc == 1) and (p[0] != "NC"):
-                cmt = " /* " + p[2] + " */"
-            else:
+            num = int(num) if num else 1
+            if base_index == 1:
+                num -= 1
                 cmt = ""
-            syswkup_pins_list.append([p[0], cmt])
-
+            else:
+                cmt = " /* " + p[2] + " */"
+            syswkup_pins_list[num].append([p[0], cmt])
     return syswkup_pins_list
 
 
@@ -1127,6 +1116,12 @@ def print_pinamevar():
             usb_pins_list=sorted_usb_pins_list,
         )
     )
+    alt_syswkup_list = []
+    for idx, syswkup_list in enumerate(syswkup_pins_list, start=1):
+        if len(syswkup_list) > 1:
+            for idx2, lst in enumerate(syswkup_list[1:], start=1):
+                alt_syswkup_list.append("{}_{}".format(idx, idx2))
+    return alt_syswkup_list
 
 
 # Variant files generation
@@ -1253,7 +1248,7 @@ def timer_variant():
     return dict(tone=tone, servo=servo)
 
 
-def print_variant(generic_list):
+def print_variant(generic_list, alt_syswkup_list):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
 
@@ -1344,6 +1339,7 @@ def print_variant(generic_list):
             year=datetime.datetime.now().year,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
+            alt_syswkup_list=alt_syswkup_list,
             waltpin=max(waltpin),
             num_digital_pins=num_digital_pins,
             num_dualpad_pins=num_dualpad_pins,
@@ -2375,8 +2371,9 @@ for mcu_file in mcu_list:
     generic_list = print_boards_entry()
     print_general_clock(generic_list)
     print_peripheral()
-    print_pinamevar()
-    print_variant(generic_list)
+    alt_syswkup_list = print_pinamevar()
+    print_variant(generic_list, alt_syswkup_list)
+    del alt_syswkup_list[:]
     del generic_list[:]
     print(
         "* Total I/O pins found: {}".format(

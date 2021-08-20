@@ -21,9 +21,9 @@
 {% if alt_pins_list %}
 
 // Alternate pins number
-{% for alt in alt_pins_list %}
+  {% for alt in alt_pins_list %}
 #define {{"%-23s (%s | %s)"|format(alt.name, alt.base.ljust(waltpin-5), alt.num)}}
-{% endfor %}
+  {% endfor %}
 {% endif %}
 
 #define NUM_DIGITAL_PINS        {{num_digital_pins}}
@@ -101,11 +101,18 @@
 
 {% if hal_modules_list %}
 // Extra HAL modules
-{% for hal_module in hal_modules_list %}
+  {% for hal_module in hal_modules_list %}
 #if !defined(HAL_{{hal_module}}_MODULE_DISABLED)
   #define HAL_{{hal_module}}_MODULE_ENABLED
 #endif
-{% endfor %}
+  {% endfor %}
+
+{% endif %}
+{% if alt_syswkup_list %}
+// Alternate SYS_WKUP definition
+  {% for def in alt_syswkup_list %}
+#define PWR_WAKEUP_PIN{{def}}
+  {% endfor %}
 
 {% endif %}
 /*----------------------------------------------------------------------------

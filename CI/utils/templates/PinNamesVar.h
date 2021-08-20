@@ -1,33 +1,42 @@
 {% if dualpad_pins_list %}
 /* Dual pad pin name */
-{% for dp in dualpad_pins_list %}
+  {% for dp in dualpad_pins_list %}
 {{"%s = %s | PDUAL,"|format(dp.name.ljust(waltpin), dp.base.ljust(waltpin-5))}}
-{% endfor %}
+  {% endfor %}
 
 {% endif %}
 {% if remap_pins_list %}
 /* Remap pin name */
-{% for dp in remap_pins_list %}
+  {% for dp in remap_pins_list %}
 {{"%s = %s | PREMAP,"|format(dp.name.ljust(waltpin), dp.base.ljust(waltpin-5))}}
-{% endfor %}
+  {% endfor %}
 
 {% endif %}
 {% if alt_pins_list %}
 /* Alternate pin name */
-{% for alt in alt_pins_list %}
+  {% for alt in alt_pins_list %}
 {{"%s = %s | %s,"|format(alt.name.ljust(waltpin), alt.base.ljust(waltpin-5), alt.num)}}
-{% endfor %}
+  {% endfor %}
 {% else %}
 /* No alternate */
 {% endif %}
 
 {% if syswkup_pins_list %}
 /* SYS_WKUP */
-{% for syswkup in syswkup_pins_list %}
-#ifdef PWR_WAKEUP_PIN{{loop.index}}
-  SYS_WKUP{{loop.index}} = {{syswkup[0]}},{{syswkup[1]}}
+  {% for syswkup_list in syswkup_pins_list %}
+    {% set outer_loop = loop %}
+    {% if syswkup_list %}
+      {% for syswkup in syswkup_list %}
+#ifdef PWR_WAKEUP_PIN{{outer_loop.index}}
+  SYS_WKUP{{outer_loop.index}}{{"_{}".format(loop.index - 1) if loop.index > 1}} = {{syswkup[0]}},{{syswkup[1]}}
 #endif
-{% endfor %}
+      {% endfor %}
+    {% else %}
+#ifdef PWR_WAKEUP_PIN{{loop.index}}
+  SYS_WKUP{{loop.index}} = NC,
+#endif
+    {% endif %}
+  {% endfor %}
 {% else %}
 /* No SYS_WKUP */
 {% endif %}
