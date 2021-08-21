@@ -4507,6 +4507,16 @@ GenL4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+#Rotary Encoder
+GenL4.menu.pnum.Rotary_Encoder=Rotary Encoder
+GenL4.menu.pnum.Rotary_Encoder.upload.maximum_size=131072
+GenL4.menu.pnum.Rotary_Encoder.upload.maximum_data_size=65536
+GenL4.menu.pnum.Rotary_Encoder.build.board=Rotary_Encoder
+GenL4.menu.pnum.Rotary_Encoder.build.product_line=STM32L433xx
+GenL4.menu.pnum.Rotary_Encoder.build.variant_h=variant_{build.board}.h
+GenL4.menu.pnum.Rotary_Encoder.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.Rotary_Encoder.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # Swan R5
 GenL4.menu.pnum.SWAN_R5=Swan R5
 GenL4.menu.pnum.SWAN_R5.upload.maximum_size=2097152

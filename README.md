@@ -401,6 +401,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4S9ZIJx | Generic Board | *2.0.0* |  |
 | :yellow_heart:  | STM32L4S9ZIYx | Generic Board | **2.1.0** |  |
 | :yellow_heart:  | STM32L4R5ZIYx | Swan R5 | **2.1.0** | [Blues Wireless](https://blues.io/) |
+| :green_heart:  | STM32L433CBUx | [Rotray Encoder board] | *1.0.0* |  |
 
 ### Generic STM32L5 boards
 

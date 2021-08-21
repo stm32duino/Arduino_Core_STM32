@@ -51,3 +51,13 @@ GenL4.menu.pnum.GENERIC_L443CCUX.build.board=GENERIC_L443CCUX
 GenL4.menu.pnum.GENERIC_L443CCUX.build.product_line=STM32L443xx
 GenL4.menu.pnum.GENERIC_L443CCUX.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
 
+#Rotary Encoder
+GenL4.menu.pnum.Rotary_Encoder=Rotary Encoder
+GenL4.menu.pnum.Rotary_Encoder.upload.maximum_size=262144
+GenL4.menu.pnum.Rotary_Encoder.upload.maximum_data_size=65536
+GenL4.menu.pnum.Rotary_Encoder.build.board=Rotary_Encoder
+GenL4.menu.pnum.Rotary_Encoder.build.product_line=STM32L443xx
+GenL4.menu.pnum.Rotary_Encoder.build.variant_h=variant_{build.board}.h
+GenL4.menu.pnum.Rotary_Encoder.build.variant=STM32L4xx/L433C(B-C)(T-U)_L443CC(T-U)
+GenL4.menu.pnum.Rotary_Encoder.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
