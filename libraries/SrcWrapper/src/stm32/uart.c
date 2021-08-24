@@ -334,7 +334,11 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       HAL_UARTEx_DisableStopMode(huart);
     }
     /* Trying default LPUART clock source */
-    if (HAL_UART_Init(huart) == HAL_OK) {
+    if (uart_rx == NP) {
+      if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+        return;
+      }
+    } else if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
     /* Trying to change LPUART clock source */
@@ -350,7 +354,11 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_LSE);
       }
 #endif
-      if (HAL_UART_Init(huart) == HAL_OK) {
+      if (uart_rx == NP) {
+        if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+          return;
+        }
+      } else if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
@@ -363,7 +371,11 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_HSI);
       }
 #endif
-      if (HAL_UART_Init(huart) == HAL_OK) {
+      if (uart_rx == NP) {
+        if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+          return;
+        }
+      } else if (HAL_UART_Init(huart) == HAL_OK) {
         return;
       }
     }
@@ -376,7 +388,11 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
       __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_PCLK1);
     }
 #endif
-    if (HAL_UART_Init(huart) == HAL_OK) {
+    if (uart_rx == NP) {
+      if (HAL_HalfDuplex_Init(huart) == HAL_OK) {
+        return;
+      }
+    } else if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
     if (obj->uart == LPUART1) {
