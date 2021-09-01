@@ -55,95 +55,111 @@ extern "C" {
 uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 {
   uint32_t spi_freq = SystemCoreClock;
-
+  if (spi_inst != NP) {
 #if defined(STM32F0xx) || defined(STM32G0xx)
-  UNUSED(spi_inst);
-  /* SPIx source CLK is PCKL1 */
-  spi_freq = HAL_RCC_GetPCLK1Freq();
-#elif defined(STM32H7xx)
-  /* Get source clock depending on SPI instance */
-  if (spi_inst != NP) {
-    switch ((uint32_t)spi_inst) {
-      case (uint32_t)SPI1:
-      case (uint32_t)SPI2:
-      case (uint32_t)SPI3:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
-        break;
-      case (uint32_t)SPI4:
-      case (uint32_t)SPI5:
-        spi_freq = HAL_RCC_GetPCLK2Freq();
-        break;
-      case (uint32_t)SPI6:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
-        break;
-      default:
-        core_debug("CLK: SPI instance not set");
-        break;
-    }
-  }
-#elif defined(STM32MP1xx)
-  /* Get source clock depending on SPI instance */
-  if (spi_inst != NP) {
-    switch ((uint32_t)spi_inst) {
-      case (uint32_t)SPI1:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI1);
-        break;
-      case (uint32_t)SPI2:
-      case (uint32_t)SPI3:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
-        break;
-      case (uint32_t)SPI4:
-      case (uint32_t)SPI5:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
-        break;
-      case (uint32_t)SPI6:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
-        break;
-      default:
-        core_debug("CLK: SPI instance not set");
-        break;
-    }
-  }
+    /* SPIx source CLK is PCKL1 */
+    spi_freq = HAL_RCC_GetPCLK1Freq();
 #else
-  if (spi_inst != NP) {
-    /* Get source clock depending on SPI instance */
-    switch ((uint32_t)spi_inst) {
-#if defined(SPI1_BASE) || defined(SPI4_BASE) || defined(SPI5_BASE) || defined(SPI6_BASE)
-        /* Some STM32's (eg. STM32F302x8) have no SPI1, but do have SPI2/3. */
-#if defined SPI1_BASE
-      case (uint32_t)SPI1:
+#if defined(SPI1_BASE)
+    if (spi_inst == SPI1) {
+#if defined(RCC_PERIPHCLK_SPI1) || defined(RCC_PERIPHCLK_SPI123)
+#ifdef RCC_PERIPHCLK_SPI1
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI1);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
 #endif
-#if defined SPI4_BASE
-      case (uint32_t)SPI4:
+      if (spi_freq == 0)
 #endif
-#if defined SPI5_BASE
-      case (uint32_t)SPI5:
-#endif
-#if defined SPI6_BASE
-      case (uint32_t)SPI6:
-#endif
+      {
         /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
         spi_freq = HAL_RCC_GetPCLK2Freq();
-        break;
-#endif  /* SPI[1456]_BASE */
-
-#if defined(SPI2_BASE) || defined (SPI3_BASE)
-#if defined SPI2_BASE
-      case (uint32_t)SPI2:
+      }
+    }
+#endif // SPI1_BASE
+#if defined(SPI2_BASE)
+    if (spi_inst == SPI2) {
+#if defined(RCC_PERIPHCLK_SPI2) || defined(RCC_PERIPHCLK_SPI123) ||\
+    defined(RCC_PERIPHCLK_SPI23)
+#ifdef RCC_PERIPHCLK_SPI2
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI2);
+#elif defined(RCC_PERIPHCLK_SPI123)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
 #endif
-#if defined SPI3_BASE
-      case (uint32_t)SPI3:
+      if (spi_freq == 0)
 #endif
+      {
         /* SPI_2 and SPI_3. Source CLK is PCKL1 */
         spi_freq = HAL_RCC_GetPCLK1Freq();
-        break;
-#endif
-      default:
-        core_debug("CLK: SPI instance not set");
-        break;
+      }
     }
-  }
+#endif // SPI2_BASE
+#if defined(SPI3_BASE)
+    if (spi_inst == SPI3) {
+#if defined(RCC_PERIPHCLK_SPI3) || defined(RCC_PERIPHCLK_SPI123) ||\
+    defined(RCC_PERIPHCLK_SPI23)
+#ifdef RCC_PERIPHCLK_SPI3
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI3);
+#elif defined(RCC_PERIPHCLK_SPI123)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
 #endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI_2 and SPI_3. Source CLK is PCKL1 */
+        spi_freq = HAL_RCC_GetPCLK1Freq();
+      }
+    }
+#endif // SPI3_BASE
+#if defined(SPI4_BASE)
+    if (spi_inst == SPI4) {
+#if defined(RCC_PERIPHCLK_SPI4) || defined(RCC_PERIPHCLK_SPI45)
+#ifdef RCC_PERIPHCLK_SPI4
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI4);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
+#endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI4_BASE
+#if defined(SPI5_BASE)
+    if (spi_inst == SPI5) {
+#if defined(RCC_PERIPHCLK_SPI5) || defined(RCC_PERIPHCLK_SPI45)
+#ifdef RCC_PERIPHCLK_SPI5
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI5);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
+#endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI5_BASE
+#if defined(SPI6_BASE)
+    if (spi_inst == SPI6) {
+#if defined(RCC_PERIPHCLK_SPI6)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI6_BASE
+#endif
+  }
   return spi_freq;
 }
 
