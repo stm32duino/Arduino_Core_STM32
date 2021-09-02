@@ -189,192 +189,243 @@ static I2C_HandleTypeDef *i2c_handles[I2C_NUM];
 static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 {
   uint32_t clkSrcFreq = 0;
-#if !defined(STM32MP1xx)
 #ifdef STM32H7xx
   PLL3_ClocksTypeDef PLL3_Clocks;
 #endif
-#if defined I2C1_BASE
+#if defined(I2C1_BASE)
   if (i2c == I2C1) {
-    switch (__HAL_RCC_GET_I2C1_SOURCE()) {
-      case RCC_I2C1CLKSOURCE_HSI:
-        clkSrcFreq = HSI_VALUE;
-        break;
+#if defined(RCC_PERIPHCLK_I2C1) || defined(RCC_PERIPHCLK_I2C12)
+#ifdef RCC_PERIPHCLK_I2C1
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C1);
+#else
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
+#endif
+    if (clkSrcFreq == 0)
+#endif
+    {
+#ifdef __HAL_RCC_GET_I2C1_SOURCE
+      switch (__HAL_RCC_GET_I2C1_SOURCE()) {
+#ifdef RCC_I2C1CLKSOURCE_HSI
+        case RCC_I2C1CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
+#endif
 #ifdef RCC_I2C1CLKSOURCE_SYSCLK
-      case RCC_I2C1CLKSOURCE_SYSCLK:
-        clkSrcFreq = SystemCoreClock;
-        break;
+        case RCC_I2C1CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
 #endif
 #if defined(RCC_I2C1CLKSOURCE_PCLK1) || defined(RCC_I2C1CLKSOURCE_D2PCLK1)
 #ifdef RCC_I2C1CLKSOURCE_PCLK1
-      case RCC_I2C1CLKSOURCE_PCLK1:
+        case RCC_I2C1CLKSOURCE_PCLK1:
 #endif
 #ifdef RCC_I2C1CLKSOURCE_D2PCLK1
-      case RCC_I2C1CLKSOURCE_D2PCLK1:
+        case RCC_I2C1CLKSOURCE_D2PCLK1:
 #endif
-        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
-        break;
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
 #endif
 #ifdef RCC_I2C1CLKSOURCE_CSI
-      case RCC_I2C1CLKSOURCE_CSI:
-        clkSrcFreq = CSI_VALUE;
-        break;
+        case RCC_I2C1CLKSOURCE_CSI:
+          clkSrcFreq = CSI_VALUE;
+          break;
 #endif
 #ifdef RCC_I2C1CLKSOURCE_PLL3
-      case RCC_I2C1CLKSOURCE_PLL3:
-        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
-        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
-        break;
+        case RCC_I2C1CLKSOURCE_PLL3:
+          HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+          clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+          break;
 #endif
-      default:
-        Error_Handler();
+        default:
+          Error_Handler();
+      }
+#else
+      Error_Handler();
+#endif
     }
   }
 #endif // I2C1_BASE
-#if defined I2C2_BASE
+#if defined(I2C2_BASE)
   if (i2c == I2C2) {
+#if defined(RCC_PERIPHCLK_I2C2) || defined(RCC_PERIPHCLK_I2C12)
+#ifdef RCC_PERIPHCLK_I2C2
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C2);
+#else
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
+#endif
+    if (clkSrcFreq == 0)
+#endif
+    {
 #ifdef __HAL_RCC_GET_I2C2_SOURCE
-    switch (__HAL_RCC_GET_I2C2_SOURCE()) {
-      case RCC_I2C2CLKSOURCE_HSI:
-        clkSrcFreq = HSI_VALUE;
-        break;
+      switch (__HAL_RCC_GET_I2C2_SOURCE()) {
+        case RCC_I2C2CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
 #ifdef RCC_I2C2CLKSOURCE_SYSCLK
-      case RCC_I2C2CLKSOURCE_SYSCLK:
-        clkSrcFreq = SystemCoreClock;
-        break;
+        case RCC_I2C2CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
 #endif
 #if defined(RCC_I2C2CLKSOURCE_PCLK1) || defined(RCC_I2C2CLKSOURCE_D2PCLK1)
 #ifdef RCC_I2C2CLKSOURCE_PCLK1
-      case RCC_I2C2CLKSOURCE_PCLK1:
+        case RCC_I2C2CLKSOURCE_PCLK1:
 #endif
 #ifdef RCC_I2C2CLKSOURCE_D2PCLK1
-      case RCC_I2C2CLKSOURCE_D2PCLK1:
+        case RCC_I2C2CLKSOURCE_D2PCLK1:
 #endif
-        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
-        break;
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
 #endif
 #ifdef RCC_I2C2CLKSOURCE_CSI
-      case RCC_I2C2CLKSOURCE_CSI:
-        clkSrcFreq = CSI_VALUE;
-        break;
+        case RCC_I2C2CLKSOURCE_CSI:
+          clkSrcFreq = CSI_VALUE;
+          break;
 #endif
 #ifdef RCC_I2C2CLKSOURCE_PLL3
-      case RCC_I2C2CLKSOURCE_PLL3:
-        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
-        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
-        break;
+        case RCC_I2C2CLKSOURCE_PLL3:
+          HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+          clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+          break;
 #endif
-      default:
-        Error_Handler();
-    }
+        default:
+          Error_Handler();
+      }
 #else
-    /* STM32 L0/G0 I2C2 has no independent clock */
-    clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+      /* STM32 L0/G0 I2C2 has no independent clock */
+      clkSrcFreq = HAL_RCC_GetPCLK1Freq();
 #endif
+    }
   }
 #endif // I2C2_BASE
-#if defined I2C3_BASE
+#if defined(I2C3_BASE)
   if (i2c == I2C3) {
+#if defined(RCC_PERIPHCLK_I2C3) || defined(RCC_PERIPHCLK_I2C35)
+#ifdef RCC_PERIPHCLK_I2C3
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C3);
+#else
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
+#endif
+    if (clkSrcFreq == 0)
+#endif
+    {
 #if defined(__HAL_RCC_GET_I2C3_SOURCE)
-    switch (__HAL_RCC_GET_I2C3_SOURCE()) {
-      case RCC_I2C3CLKSOURCE_HSI:
-        clkSrcFreq = HSI_VALUE;
-        break;
+      switch (__HAL_RCC_GET_I2C3_SOURCE()) {
+        case RCC_I2C3CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
 #ifdef RCC_I2C3CLKSOURCE_SYSCLK
-      case RCC_I2C3CLKSOURCE_SYSCLK:
-        clkSrcFreq = SystemCoreClock;
-        break;
+        case RCC_I2C3CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
 #endif
 #if defined(RCC_I2C3CLKSOURCE_PCLK1) || defined(RCC_I2C3CLKSOURCE_D2PCLK1)
 #ifdef RCC_I2C3CLKSOURCE_PCLK1
-      case RCC_I2C3CLKSOURCE_PCLK1:
+        case RCC_I2C3CLKSOURCE_PCLK1:
 #endif
 #ifdef RCC_I2C3CLKSOURCE_D2PCLK1
-      case RCC_I2C3CLKSOURCE_D2PCLK1:
+        case RCC_I2C3CLKSOURCE_D2PCLK1:
 #endif
-        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
-        break;
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
 #endif
 #ifdef RCC_I2C3CLKSOURCE_CSI
-      case RCC_I2C3CLKSOURCE_CSI:
-        clkSrcFreq = CSI_VALUE;
-        break;
+        case RCC_I2C3CLKSOURCE_CSI:
+          clkSrcFreq = CSI_VALUE;
+          break;
 #endif
 #ifdef RCC_I2C3CLKSOURCE_PLL3
-      case RCC_I2C3CLKSOURCE_PLL3:
-        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
-        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
-        break;
+        case RCC_I2C3CLKSOURCE_PLL3:
+          HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+          clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+          break;
 #endif
-      default:
-        Error_Handler();
-    }
+        default:
+          Error_Handler();
+      }
 #else
-    /* STM32 G0 I2C3 has no independent clock */
-    clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+      /* STM32 G0 I2C3 has no independent clock */
+      clkSrcFreq = HAL_RCC_GetPCLK1Freq();
 #endif
+    }
   }
 #endif // I2C3_BASE
-#if defined I2C4_BASE
+#if defined(I2C4_BASE)
   if (i2c == I2C4) {
-    switch (__HAL_RCC_GET_I2C4_SOURCE()) {
-      case RCC_I2C4CLKSOURCE_HSI:
-        clkSrcFreq = HSI_VALUE;
-        break;
+#if defined(RCC_PERIPHCLK_I2C4) || defined(RCC_PERIPHCLK_I2C46)
+#ifdef RCC_PERIPHCLK_I2C4
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C4);
+#else
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
+#endif
+    if (clkSrcFreq == 0)
+#endif
+    {
+#if defined(__HAL_RCC_GET_I2C4_SOURCE)
+      switch (__HAL_RCC_GET_I2C4_SOURCE()) {
+#ifdef RCC_I2C4CLKSOURCE_HSI
+        case RCC_I2C4CLKSOURCE_HSI:
+          clkSrcFreq = HSI_VALUE;
+          break;
+#endif
 #ifdef RCC_I2C4CLKSOURCE_SYSCLK
-      case RCC_I2C4CLKSOURCE_SYSCLK:
-        clkSrcFreq = SystemCoreClock;
-        break;
+        case RCC_I2C4CLKSOURCE_SYSCLK:
+          clkSrcFreq = SystemCoreClock;
+          break;
 #endif
 #ifdef RCC_I2C4CLKSOURCE_PCLK1
-      case RCC_I2C4CLKSOURCE_PCLK1:
-        clkSrcFreq = HAL_RCC_GetPCLK1Freq();
-        break;
+        case RCC_I2C4CLKSOURCE_PCLK1:
+          clkSrcFreq = HAL_RCC_GetPCLK1Freq();
+          break;
 #endif
 #ifdef RCC_I2C4CLKSOURCE_D3PCLK1
-      case RCC_I2C4CLKSOURCE_D3PCLK1:
-        clkSrcFreq = HAL_RCCEx_GetD3PCLK1Freq();
-        break;
+        case RCC_I2C4CLKSOURCE_D3PCLK1:
+          clkSrcFreq = HAL_RCCEx_GetD3PCLK1Freq();
+          break;
 #endif
 #ifdef RCC_I2C4CLKSOURCE_CSI
-      case RCC_I2C4CLKSOURCE_CSI:
-        clkSrcFreq = CSI_VALUE;
-        break;
+        case RCC_I2C4CLKSOURCE_CSI:
+          clkSrcFreq = CSI_VALUE;
+          break;
 #endif
 #ifdef RCC_I2C4CLKSOURCE_PLL3
-      case RCC_I2C4CLKSOURCE_PLL3:
-        HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
-        clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
-        break;
+        case RCC_I2C4CLKSOURCE_PLL3:
+          HAL_RCCEx_GetPLL3ClockFreq(&PLL3_Clocks);
+          clkSrcFreq = PLL3_Clocks.PLL3_R_Frequency;
+          break;
 #endif
-      default:
-        Error_Handler();
+        default:
+          Error_Handler();
+      }
+#else
+      Error_Handler();
+#endif
     }
   }
 #endif // I2C4_BASE
-
-#elif defined(STM32MP1xx)
-  if (i2c == I2C1) {
-    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
-  }
-  if (i2c == I2C2) {
-    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C12);
-  }
-  if (i2c == I2C3) {
-    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
-  }
-  if (i2c == I2C4) {
-    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
-  }
-#endif // STM32MP1xx
-
-#if defined I2C5_BASE
+#if defined(I2C5_BASE)
   if (i2c == I2C5) {
+#if defined(RCC_PERIPHCLK_I2C5) || defined(RCC_PERIPHCLK_I2C35)
+#ifdef RCC_PERIPHCLK_I2C5
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C5);
+#else
     clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
+#endif
+    if (clkSrcFreq == 0)
+#endif
+    {
+      clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
+    }
   }
 #endif // I2C5_BASE
-#if defined I2C6_BASE
+#if defined(I2C6_BASE)
   if (i2c == I2C6) {
+#if defined(RCC_PERIPHCLK_I2C6) || defined(RCC_PERIPHCLK_I2C46)
+#ifdef RCC_PERIPHCLK_I2C6
+    clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C6);
+#else
     clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C46);
+#endif
+#endif
   }
 #endif // I2C6_BASE
   return clkSrcFreq;
