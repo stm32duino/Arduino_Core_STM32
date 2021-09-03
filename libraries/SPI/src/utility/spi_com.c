@@ -288,6 +288,9 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     defined(STM32WBxx) || defined(STM32MP1xx)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
 #endif
+#ifdef SPI_MASTER_KEEP_IO_STATE_ENABLE
+  handle->Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_ENABLE;  /* Recommanded setting to avoid glitches */
+#endif
 
   /* Configure SPI GPIO pins */
   pinmap_pinout(obj->pin_mosi, PinMap_SPI_MOSI);
