@@ -305,36 +305,48 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   // Enable SPI clock
   if (handle->Instance == SPI1) {
     __HAL_RCC_SPI1_CLK_ENABLE();
+    __HAL_RCC_SPI1_FORCE_RESET();
+    __HAL_RCC_SPI1_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI2_BASE
   if (handle->Instance == SPI2) {
     __HAL_RCC_SPI2_CLK_ENABLE();
+    __HAL_RCC_SPI2_FORCE_RESET();
+    __HAL_RCC_SPI2_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI3_BASE
   if (handle->Instance == SPI3) {
     __HAL_RCC_SPI3_CLK_ENABLE();
+    __HAL_RCC_SPI3_FORCE_RESET();
+    __HAL_RCC_SPI3_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI4_BASE
   if (handle->Instance == SPI4) {
     __HAL_RCC_SPI4_CLK_ENABLE();
+    __HAL_RCC_SPI4_FORCE_RESET();
+    __HAL_RCC_SPI4_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI5_BASE
   if (handle->Instance == SPI5) {
     __HAL_RCC_SPI5_CLK_ENABLE();
+    __HAL_RCC_SPI5_FORCE_RESET();
+    __HAL_RCC_SPI5_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI6_BASE
   if (handle->Instance == SPI6) {
     __HAL_RCC_SPI6_CLK_ENABLE();
+    __HAL_RCC_SPI6_FORCE_RESET();
+    __HAL_RCC_SPI6_RELEASE_RESET();
   }
 #endif
 
