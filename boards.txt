@@ -747,6 +747,20 @@ Disco.menu.pnum.B_L4S5I_IOT01A.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5V
 Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L4S5I_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# B_U585I_IOT02A board
+Disco.menu.pnum.B_U585I_IOT02A=B-U585I-IOT02A
+Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI"
+Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_size=2097152
+Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_data_size=262144
+Disco.menu.pnum.B_U585I_IOT02A.build.mcu=cortex-m33
+Disco.menu.pnum.B_U585I_IOT02A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_U585I_IOT02A.build.board=B_U585I_IOT02A
+Disco.menu.pnum.B_U585I_IOT02A.build.series=STM32U5xx
+Disco.menu.pnum.B_U585I_IOT02A.build.product_line=STM32U585xx
+Disco.menu.pnum.B_U585I_IOT02A.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+Disco.menu.pnum.B_U585I_IOT02A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_U585I_IOT02A.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
