@@ -181,9 +181,23 @@
   #define USER_BTN              PC13
 #endif
 
-// On-board user button
+// Power switch EN pin
 #ifndef ENABLE_3V3
-  #define ENABLE_3V3          PE4
+  #define ENABLE_3V3            PE4
+#endif
+
+// SPI definitions
+#ifndef PIN_SPI_SS
+  #define PIN_SPI_SS            PD0
+#endif
+#ifndef PIN_SPI_MOSI
+  #define PIN_SPI_MOSI          PB15
+#endif
+#ifndef PIN_SPI_MISO
+  #define PIN_SPI_MISO          PB14
+#endif
+#ifndef PIN_SPI_SCK
+  #define PIN_SPI_SCK           PD1
 #endif
 
 // I2C definitions
