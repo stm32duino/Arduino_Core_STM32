@@ -40,6 +40,11 @@ _Static_assert(LastPort <= 0x0F, "PortName must be less than 16");
 _Static_assert(NUM_ANALOG_INPUTS <= MAX_ANALOG_INPUTS,
                "Core NUM_ANALOG_INPUTS limited to MAX_ANALOG_INPUTS");
 
+/* Alias USER_BTN when available */
+#if defined(USER_BTN) && !defined(BUTTON_BUILTIN)
+  #define BUTTON_BUILTIN            USER_BTN
+#endif
+
 /* Default for Arduino connector compatibility */
 /* SPI Definitions */
 #ifndef PIN_SPI_SS
