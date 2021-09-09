@@ -558,6 +558,18 @@ Nucleo_32.menu.pnum.NUCLEO_F031K6.build.product_line=STM32F031x6
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.variant=STM32F0xx/F031K6T
 Nucleo_32.menu.pnum.NUCLEO_F031K6.build.cmsis_lib_gcc=arm_cortexM0l_math
 
+# NUCLEO_F042K6 board
+Nucleo_32.menu.pnum.NUCLEO_F042K6=Nucleo F042K6
+Nucleo_32.menu.pnum.NUCLEO_F042K6.node=NODE_F042K6
+Nucleo_32.menu.pnum.NUCLEO_F042K6.upload.maximum_size=32768
+Nucleo_32.menu.pnum.NUCLEO_F042K6.upload.maximum_data_size=6144
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.mcu=cortex-m0
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.board=NUCLEO_F042K6
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.series=STM32F0xx
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.product_line=STM32F042x6
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.variant=STM32F0xx/F042K(4-6)T
+Nucleo_32.menu.pnum.NUCLEO_F042K6.build.cmsis_lib_gcc=arm_cortexM0l_math
+
 # NUCLEO_F303K8 board
 Nucleo_32.menu.pnum.NUCLEO_F303K8=Nucleo F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8

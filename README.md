@@ -126,6 +126,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F031K6T | [Nucleo F031K6](https://www.st.com/en/evaluation-tools/nucleo-f031k6.html) | *1.9.0* |  |
+| :yellow_heart:  | STM32F042K6T | [Nucleo F042K6](https://www.st.com/en/evaluation-tools/nucleo-f042k6.html) | **2.1.0** |  |
 | :green_heart:  | STM32F303K8 | [Nucleo F303K8](http://www.st.com/en/evaluation-tools/nucleo-f303k8.html) | *1.1.0* |  |
 | :green_heart: | STM32G031K8 | [Nucleo G031K8](https://www.st.com/en/evaluation-tools/nucleo-g031k8.html) | *2.0.0* |
 | :green_heart:  | STM32G431KB | [Nucleo G431KB](https://www.st.com/en/evaluation-tools/nucleo-g431kb.html) | *1.7.0* |  |
