@@ -14,7 +14,7 @@
  * Automatically generated from STM32G431C(6-8-B)Ux.xml, STM32G441CBUx.xml
  * CubeMX DB release 6.0.20
  */
-#if defined(ARDUINO_DISCO_B_G431B_ESC1)
+#if defined(ARDUINO_B_G431B_ESC1)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
@@ -317,4 +317,4 @@ WEAK const PinMap PinMap_USB[] = {
 
 //*** No SD ***
 
-#endif /* ARDUINO_DISCO_B_G431B_ESC1 */
+#endif /* ARDUINO_B_G431B_ESC1 */
