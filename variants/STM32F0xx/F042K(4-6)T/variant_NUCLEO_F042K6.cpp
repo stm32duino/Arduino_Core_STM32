@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2021, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -10,8 +10,58 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_F042K4TX) || defined(ARDUINO_GENERIC_F042K6TX)
+#if defined(ARDUINO_NUCLEO_F042K6)
 #include "pins_arduino.h"
+
+// Digital PinName array
+const PinName digitalPin[] = {
+  PA_10, // D0
+  PA_9,  // D1
+  PA_12, // D2
+  PB_0,  // D3/A8
+  PB_7,  // D4
+  PB_6,  // D5
+  PB_1,  // D6/A9
+  PF_0,  // D7
+  PF_1,  // D8
+  PA_8,  // D9
+  PA_11, // D10
+  PB_5,  // D11
+  PB_4,  // D12
+  PB_3,  // D13
+  PA_0,  // D14/A0
+  PA_1,  // D15/A1
+  PA_3,  // D16/A2
+  PA_4,  // D17/A3
+  PA_5,  // D18/A4
+  PA_6,  // D19/A5
+  PA_7,  // D20/A6
+  PA_2,  // D21/A7
+  PA_15, // D22
+  PA_13, // D23
+  PA_14, // D24
+  PB_8   // D25
+};
+
+// Analog (Ax) pin number array
+const uint32_t analogInputPin[] = {
+  14,  // A0,  PA0
+  15,  // A1,  PA1
+  16,  // A2,  PA3
+  17,  // A3,  PA4
+  18,  // A4,  PA5
+  19,  // A5,  PA6
+  20,  // A6,  PA7
+  21,  // A7,  PA2
+  3,   // A8,  PB0
+  6    // A9,  PB1
+};
+
+// ----------------------------------------------------------------------------
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /**
   * @brief  System Clock Configuration
@@ -48,7 +98,7 @@ WEAK void SystemClock_Config(void)
   }
   PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USB | RCC_PERIPHCLK_USART1
                                        | RCC_PERIPHCLK_I2C1;
-  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_PCLK1;
+  PeriphClkInit.Usart1ClockSelection = RCC_USART1CLKSOURCE_SYSCLK;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_SYSCLK;
   PeriphClkInit.UsbClockSelection = RCC_USBCLKSOURCE_HSI48;
 
@@ -57,4 +107,8 @@ WEAK void SystemClock_Config(void)
   }
 }
 
-#endif /* ARDUINO_GENERIC_* */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* ARDUINO_NUCLEO_F042K6 */
