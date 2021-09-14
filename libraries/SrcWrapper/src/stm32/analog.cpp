@@ -822,7 +822,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.EOCSelection          = ADC_EOC_SINGLE_CONV;           /* EOC flag picked-up to indicate conversion end */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx) && \
-    !defined(STM32F7xx) && !defined(STM32F373xC) && !defined(STM32F378xx)
+    !defined(STM32F7xx) && !defined(ADC1_V2_5)
   AdcHandle.Init.LowPowerAutoWait      = DISABLE;                       /* Auto-delayed conversion feature disabled */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F3xx) && \
@@ -846,11 +846,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
-#if !defined(STM32F1xx) && !defined(STM32F373xC) && !defined(STM32F378xx)
+#if !defined(STM32F1xx) && !defined(ADC1_V2_5)
   AdcHandle.Init.ExternalTrigConvEdge  = ADC_EXTERNALTRIGCONVEDGE_NONE; /* Parameter discarded because software trigger chosen */
 #endif
 #if !defined(STM32F1xx) && !defined(STM32H7xx) && !defined(STM32MP1xx) && \
-    !defined(STM32F373xC) && !defined(STM32F378xx)
+    !defined(ADC1_V2_5)
   AdcHandle.Init.DMAContinuousRequests = DISABLE;                       /* DMA one-shot mode selected (not applied to this example) */
 #endif
 #ifdef ADC_CONVERSIONDATA_DR
@@ -901,13 +901,12 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 
   AdcChannelConf.Channel      = channel;                          /* Specifies the channel to configure into ADC */
 
-#if defined(STM32L4xx) || defined(STM32L5xx) || defined(STM32WBxx)
-  if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
-#elif defined(STM32G4xx)
+#if defined(STM32G4xx) || defined(STM32L4xx) || defined(STM32L5xx) || \
+    defined(STM32WBxx)
   if (!IS_ADC_CHANNEL(&AdcHandle, AdcChannelConf.Channel)) {
 #else
   if (!IS_ADC_CHANNEL(AdcChannelConf.Channel)) {
-#endif /* STM32L4xx || STM32WBxx */
+#endif
     return 0;
   }
 #ifdef ADC_SCAN_SEQ_FIXED
@@ -922,17 +921,14 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcChannelConf.SamplingTime = ADC_SAMPLINGTIME_COMMON_1;        /* Sampling time value to be set for the selected channel */
 #endif
 #endif
-#if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
-    !defined(STM32F4xx) && !defined(STM32F7xx) && !defined(STM32G0xx) && \
-    !defined(STM32L0xx) && !defined(STM32L1xx) && !defined(STM32WLxx) && \
-    !defined(STM32F373xC) && !defined(STM32F378xx)
+#if defined(ADC_DIFFERENTIAL_ENDED) && !defined(ADC1_V2_5)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
   AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
 #endif
 #if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
     !defined(STM32G0xx) && !defined(STM32L0xx) && !defined(STM32L1xx) && \
     !defined(STM32WBxx) && !defined(STM32WLxx) && \
-    !defined(STM32F373xC) && !defined(STM32F378xx)
+    !defined(ADC1_V2_5)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
 #if defined (STM32H7xx) || defined(STM32MP1xx)
@@ -946,18 +942,14 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
     return 0;
   }
 
-#if defined(STM32F0xx) || defined(STM32F1xx) || defined(STM32F3xx) || \
-    defined(STM32G0xx) || defined(STM32G4xx) || defined(STM32H7xx) || \
-    defined(STM32L0xx) || defined(STM32L4xx) || defined(STM32MP1xx) || \
-    defined(STM32WBxx) || defined(STM32WLxx)
+#if defined(ADC_CR_ADCAL) || defined(ADC_CR2_RSTCAL)
   /*##-2.1- Calibrate ADC then Start the conversion process ####################*/
-#if defined(STM32F0xx) || defined(STM32G0xx) || defined(STM32F1xx) || \
-    defined(STM32WLxx) || defined(STM32F373xC) || defined(STM32F378xx)
-  if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
-#elif defined (STM32H7xx) || defined(STM32MP1xx)
+#if defined(ADC_CALIB_OFFSET)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED) != HAL_OK)
-#else
+#elif defined(ADC_SINGLE_ENDED) && !defined(ADC1_V2_5)
   if (HAL_ADCEx_Calibration_Start(&AdcHandle, ADC_SINGLE_ENDED) !=  HAL_OK)
+#else
+  if (HAL_ADCEx_Calibration_Start(&AdcHandle) !=  HAL_OK)
 #endif
   {
     /* ADC Calibration Error */
