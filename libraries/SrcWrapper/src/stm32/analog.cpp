@@ -46,6 +46,10 @@ static PinName g_current_pin = NC;
 #endif
 #endif /* !ADC_SAMPLINGTIME */
 
+#if defined(ADC_VER_V5_V90) && !defined(ADC3_SAMPLINGTIME)
+#define ADC3_SAMPLINGTIME       ADC3_SAMPLETIME_24CYCLES_5;
+#endif
+
 /*
  * Minimum ADC sampling time is required when reading
  * internal channels so set it to max possible value.
@@ -770,6 +774,11 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   } else {
     AdcHandle.Instance = (ADC_TypeDef *)pinmap_peripheral(pin, PinMap_ADC);
     channel = get_adc_channel(pin, &bank);
+#if defined(ADC_VER_V5_V90)
+    if (AdcHandle.Instance == ADC3) {
+      samplingTime = ADC3_SAMPLINGTIME;
+    }
+#endif
   }
 
   if (AdcHandle.Instance == NP) {
