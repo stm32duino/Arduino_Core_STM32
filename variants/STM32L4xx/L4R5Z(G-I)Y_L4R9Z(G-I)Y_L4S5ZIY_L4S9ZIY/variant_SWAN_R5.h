@@ -181,9 +181,14 @@
   #define USER_BTN              PC13
 #endif
 
-// Power switch EN pin
+// Power switch ENABLE and DISCHARGE pins
 #ifndef ENABLE_3V3
   #define ENABLE_3V3            PE4
+#endif
+#ifndef DISCHARGE_3V3
+  #define DISCHARGE_3V3         PE6
+  #define DISABLE_DISCHARGING   HIGH
+  #define ENABLE_DISCHARGING    LOW
 #endif
 
 // SPI definitions

@@ -118,6 +118,23 @@ const uint32_t analogInputPin[] = {
 extern "C" {
 #endif
 
+WEAK void initVariant(void)
+{
+  /* Initialize the 3V3 discharge to be OFF and the output power to be ON */
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  GPIO_InitTypeDef  GPIO_InitStruct;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
+  GPIO_InitStruct.Pin = GPIO_PIN_6;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pin = GPIO_PIN_4;
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_SET);
+}
+
 /**
   * @brief  System Clock Configuration
   * @param  None
