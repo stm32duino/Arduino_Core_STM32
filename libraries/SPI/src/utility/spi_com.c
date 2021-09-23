@@ -35,6 +35,7 @@
   *
   ******************************************************************************
   */
+#include "wiring_time.h"
 #include "core_debug.h"
 #include "stm32_def.h"
 #include "utility/spi_com.h"
@@ -183,6 +184,28 @@ uint32_t spi_getClkFreq(spi_t *obj)
   return spi_freq;
 }
 
+
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+/**
+  * @brief  Compute delay before disabling SPI
+  *         See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+  *         Computed delay is half SPI clock
+  * @param  obj : pointer to spi_t structure
+  * @retval Disable delay in microsecondes
+  */
+static uint32_t compute_disable_delay(spi_t *obj)
+{
+  uint32_t spi_freq = spi_getClkFreqInst(obj->spi);
+  uint32_t disable_delay;
+  uint32_t prescaler;
+  SPI_HandleTypeDef *handle = &(obj->handle);
+
+  prescaler = 1 << ((handle->Init.BaudRatePrescaler >> SPI_CFG1_MBR_Pos) + 1);
+  disable_delay = ((prescaler * 1000000) / spi_freq) / 2;
+  return disable_delay;
+}
+#endif
+
 /**
   * @brief  SPI initialization function
   * @param  obj : pointer to spi_t structure
@@ -257,6 +280,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
      */
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   }
+
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+  // Compute disable delay as baudrate has been modified
+  obj->disable_delay = compute_disable_delay(obj);
+#endif
 
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
@@ -490,6 +518,11 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   }
 
 #if defined(STM32H7xx) || defined(STM32MP1xx)
+  // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
+  // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+  // Computed delay is half SPI clock
+  delayMicroseconds(obj->disable_delay);
+
   /* Close transfer */
   /* Clear flags */
   LL_SPI_ClearFlag_EOT(_SPI);
