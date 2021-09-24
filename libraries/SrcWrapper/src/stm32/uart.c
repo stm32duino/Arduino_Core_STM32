@@ -556,7 +556,7 @@ void uart_deinit(serial_t *obj)
   }
 }
 
-#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+#if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
 /**
   * @brief  Function called to configure the uart interface for low power
   * @param  obj : pointer to serial_t structure

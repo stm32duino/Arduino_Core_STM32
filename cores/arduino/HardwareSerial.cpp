@@ -304,7 +304,7 @@ void HardwareSerial::init(PinName _rx, PinName _tx)
 
 void HardwareSerial::configForLowPower(void)
 {
-#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+#if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
   // Reconfigure properly Serial instance to use HSI as clock source
   end();
   uart_config_lowpower(&_serial);
