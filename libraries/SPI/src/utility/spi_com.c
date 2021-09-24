@@ -185,7 +185,7 @@ uint32_t spi_getClkFreq(spi_t *obj)
 }
 
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_IFCR_EOTC)
 /**
   * @brief  Compute delay before disabling SPI
   *         See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
@@ -281,7 +281,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   }
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_IFCR_EOTC)
   // Compute disable delay as baudrate has been modified
   obj->disable_delay = compute_disable_delay(obj);
 #endif
@@ -311,9 +311,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 
   handle->Init.TIMode            = SPI_TIMODE_DISABLE;
-#if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) ||\
-    defined(STM32G0xx) || defined(STM32H7xx) || defined(STM32L4xx) ||\
-    defined(STM32WBxx) || defined(STM32MP1xx)
+#if defined(SPI_NSS_PULSE_DISABLE)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
 #endif
 #ifdef SPI_MASTER_KEEP_IO_STATE_ENABLE
@@ -488,7 +486,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   }
   tickstart = HAL_GetTick();
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_CR2_TSIZE)
   /* Start transfer */
   LL_SPI_SetTransferSize(_SPI, size);
   LL_SPI_Enable(_SPI);
@@ -496,7 +494,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
 #endif
 
   while (size--) {
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_SR_TXP)
     while (!LL_SPI_IsActiveFlag_TXP(_SPI));
 #else
     while (!LL_SPI_IsActiveFlag_TXE(_SPI));
@@ -504,7 +502,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     LL_SPI_TransmitData8(_SPI, *tx_buffer++);
 
     if (!skipReceive) {
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_SR_RXP)
       while (!LL_SPI_IsActiveFlag_RXP(_SPI));
 #else
       while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
@@ -517,7 +515,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     }
   }
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_IFCR_EOTC)
   // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
   // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
   // Computed delay is half SPI clock
