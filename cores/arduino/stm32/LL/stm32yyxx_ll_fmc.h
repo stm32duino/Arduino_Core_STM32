@@ -21,6 +21,8 @@
   #include "stm32l5xx_ll_fmc.h"
 #elif STM32MP1xx
   #include "stm32mp1xx_ll_fmc.h"
+#elif STM32U5xx
+  #include "stm32u5xx_ll_fmc.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_FMC_H_ */

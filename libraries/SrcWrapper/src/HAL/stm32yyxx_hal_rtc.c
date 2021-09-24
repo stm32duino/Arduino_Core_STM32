@@ -30,6 +30,8 @@
   #include "stm32l5xx_hal_rtc.c"
 #elif STM32MP1xx
   #include "stm32mp1xx_hal_rtc.c"
+#elif STM32U5xx
+  #include "stm32u5xx_hal_rtc.c"
 #elif STM32WBxx
   #include "stm32wbxx_hal_rtc.c"
 #elif STM32WLxx

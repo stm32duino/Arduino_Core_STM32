@@ -214,7 +214,7 @@ struct serial_s {
 /* Exported functions ------------------------------------------------------- */
 void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t parity, uint32_t stopbits);
 void uart_deinit(serial_t *obj);
-#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+#if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
 void uart_config_lowpower(serial_t *obj);
 #endif
 size_t uart_write(serial_t *obj, uint8_t data, uint16_t size);

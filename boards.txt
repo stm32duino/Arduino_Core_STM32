@@ -180,6 +180,20 @@ Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.variant=STM32L5xx/L552Z(C-E)TxQ_L562ZETxQ
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
+# NUCLEO_U575ZI_Q board
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q=Nucleo U575ZI-Q
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.node=NOD_U575ZI
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_size=2097152
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_data_size=262144
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.mcu=cortex-m33
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.board=NUCLEO_U575ZI_Q
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.series=STM32U5xx
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.product_line=STM32U575xx
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # Upload menu
 Nucleo_144.menu.upload_method.MassStorage=Mass Storage
 Nucleo_144.menu.upload_method.MassStorage.upload.protocol=
@@ -677,6 +691,76 @@ Disco.build.board=Disco
 Disco.build.variant_h=variant_{build.board}.h
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# B_G431B_ESC1 board
+Disco.menu.pnum.B_G431B_ESC1=B-G431B-ESC1
+Disco.menu.pnum.B_G431B_ESC1.node="NODE_G431CB,NOD_G431CB,DIS_G431CB"
+Disco.menu.pnum.B_G431B_ESC1.upload.maximum_size=131072
+Disco.menu.pnum.B_G431B_ESC1.upload.maximum_data_size=32768
+Disco.menu.pnum.B_G431B_ESC1.build.mcu=cortex-m4
+Disco.menu.pnum.B_G431B_ESC1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_G431B_ESC1.build.board=B_G431B_ESC1
+Disco.menu.pnum.B_G431B_ESC1.build.series=STM32G4xx
+Disco.menu.pnum.B_G431B_ESC1.build.product_line=STM32G431xx
+Disco.menu.pnum.B_G431B_ESC1.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+Disco.menu.pnum.B_G431B_ESC1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_G431B_ESC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# B-L072Z-LRWAN1 board
+Disco.menu.pnum.B_L072Z_LRWAN1=B-L072Z-LRWAN1
+Disco.menu.pnum.B_L072Z_LRWAN1.node="DIS_L072Z,NODE_L072CZ"
+Disco.menu.pnum.B_L072Z_LRWAN1.upload.maximum_size=196608
+Disco.menu.pnum.B_L072Z_LRWAN1.upload.maximum_data_size=20480
+Disco.menu.pnum.B_L072Z_LRWAN1.build.mcu=cortex-m0plus
+Disco.menu.pnum.B_L072Z_LRWAN1.build.board=B_L072Z_LRWAN1
+Disco.menu.pnum.B_L072Z_LRWAN1.build.series=STM32L0xx
+Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
+Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
+Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_L072Z_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
+Disco.menu.pnum.B_L072Z_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
+# B-L475E-IOT01A board
+Disco.menu.pnum.B_L475E_IOT01A=B-L475E-IOT01A
+Disco.menu.pnum.B_L475E_IOT01A.node=DIS_L4IOT
+Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_size=1048576
+Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_data_size=98304
+Disco.menu.pnum.B_L475E_IOT01A.build.mcu=cortex-m4
+Disco.menu.pnum.B_L475E_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_L475E_IOT01A.build.board=B_L475E_IOT01A
+Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
+Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
+Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx//L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
+Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_L475E_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# B_L4S5I_IOT01A board
+Disco.menu.pnum.B_L4S5I_IOT01A=B-L4S5I-IOT01A
+Disco.menu.pnum.B_L4S5I_IOT01A.node="DIS_L4IOT,DIS_L4S5VI"
+Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_size=2097152
+Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_data_size=655360
+Disco.menu.pnum.B_L4S5I_IOT01A.build.mcu=cortex-m4
+Disco.menu.pnum.B_L4S5I_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_L4S5I_IOT01A.build.board=B_L4S5I_IOT01A
+Disco.menu.pnum.B_L4S5I_IOT01A.build.series=STM32L4xx
+Disco.menu.pnum.B_L4S5I_IOT01A.build.product_line=STM32L4S5xx
+Disco.menu.pnum.B_L4S5I_IOT01A.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
+Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_L4S5I_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
+# B_U585I_IOT02A board
+Disco.menu.pnum.B_U585I_IOT02A=B-U585I-IOT02A
+Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI"
+Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_size=2097152
+Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_data_size=262144
+Disco.menu.pnum.B_U585I_IOT02A.build.mcu=cortex-m33
+Disco.menu.pnum.B_U585I_IOT02A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_U585I_IOT02A.build.board=B_U585I_IOT02A
+Disco.menu.pnum.B_U585I_IOT02A.build.series=STM32U5xx
+Disco.menu.pnum.B_U585I_IOT02A.build.product_line=STM32U585xx
+Disco.menu.pnum.B_U585I_IOT02A.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+Disco.menu.pnum.B_U585I_IOT02A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Disco.menu.pnum.B_U585I_IOT02A.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
@@ -779,62 +863,6 @@ Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
 Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
 Disco.menu.pnum.DISCO_G0316.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
-
-# DISCO_B_G431B_ESC1 board
-Disco.menu.pnum.DISCO_B_G431B_ESC1=B-G431B-ESC1
-Disco.menu.pnum.DISCO_B_G431B_ESC1.node="NODE_G431CB,NOD_G431CB,DIS_G431CB"
-Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_size=131072
-Disco.menu.pnum.DISCO_B_G431B_ESC1.upload.maximum_data_size=32768
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.mcu=cortex-m4
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.board=DISCO_B_G431B_ESC1
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.series=STM32G4xx
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.product_line=STM32G431xx
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.DISCO_B_G431B_ESC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
-
-# B-L475E-IOT01A board
-Disco.menu.pnum.B_L475E_IOT01A=B-L475E-IOT01A
-Disco.menu.pnum.B_L475E_IOT01A.node=DIS_L4IOT
-Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_size=1048576
-Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_data_size=98304
-Disco.menu.pnum.B_L475E_IOT01A.build.mcu=cortex-m4
-Disco.menu.pnum.B_L475E_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.B_L475E_IOT01A.build.board=B_L475E_IOT01A
-Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
-Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
-Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx//L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
-Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L475E_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
-
-# B_L4S5I_IOT01A board
-Disco.menu.pnum.B_L4S5I_IOT01A=B-L4S5I-IOT01A
-Disco.menu.pnum.B_L4S5I_IOT01A.node="DIS_L4IOT,DIS_L4S5VI"
-Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_size=2097152
-Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_data_size=655360
-Disco.menu.pnum.B_L4S5I_IOT01A.build.mcu=cortex-m4
-Disco.menu.pnum.B_L4S5I_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-Disco.menu.pnum.B_L4S5I_IOT01A.build.board=B_L4S5I_IOT01A
-Disco.menu.pnum.B_L4S5I_IOT01A.build.series=STM32L4xx
-Disco.menu.pnum.B_L4S5I_IOT01A.build.product_line=STM32L4S5xx
-Disco.menu.pnum.B_L4S5I_IOT01A.build.variant=STM32L4xx/L4R5V(G-I)T_L4R7VIT_L4S5VIT_L4S7VIT
-Disco.menu.pnum.B_L4S5I_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L4S5I_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
-
-# B-L072Z-LRWAN1 board
-Disco.menu.pnum.B_L072Z_LRWAN1=B-L072Z-LRWAN1
-Disco.menu.pnum.B_L072Z_LRWAN1.node="DIS_L072Z,NODE_L072CZ"
-Disco.menu.pnum.B_L072Z_LRWAN1.upload.maximum_size=196608
-Disco.menu.pnum.B_L072Z_LRWAN1.upload.maximum_data_size=20480
-Disco.menu.pnum.B_L072Z_LRWAN1.build.mcu=cortex-m0plus
-Disco.menu.pnum.B_L072Z_LRWAN1.build.board=B_L072Z_LRWAN1
-Disco.menu.pnum.B_L072Z_LRWAN1.build.series=STM32L0xx
-Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
-Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
-Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Disco.menu.pnum.B_L072Z_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
-Disco.menu.pnum.B_L072Z_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
@@ -5134,6 +5162,82 @@ GenL5.menu.upload_method.dfuMethod.upload.options=-g
 GenL5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
+# Generic U5
+GenU5.name=Generic STM32U5 series
+
+GenU5.build.core=arduino
+GenU5.build.board=GenU5
+GenU5.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenU5.build.mcu=cortex-m33
+GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenU5.build.series=STM32U5xx
+GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
+# Generic U575AGIxQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ=Generic U575AGIxQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ.upload.maximum_size=1048576
+GenU5.menu.pnum.GENERIC_U575AGIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.board=GENERIC_U575AGIXQ
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575AGIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
+# Generic U575AIIxQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ=Generic U575AIIxQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575AIIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.board=GENERIC_U575AIIXQ
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
+# Generic U575ZGTxQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ=Generic U575ZGTxQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_size=1048576
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.board=GENERIC_U575ZGTXQ
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Generic U575ZITxQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ=Generic U575ZITxQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.board=GENERIC_U575ZITXQ
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Generic U585AIIxQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ=Generic U585AIIxQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585AIIXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.board=GENERIC_U585AIIXQ
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585AIIXQ.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+
+# Generic U585ZETxQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ=Generic U585ZETxQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ.upload.maximum_size=524288
+GenU5.menu.pnum.GENERIC_U585ZETXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.board=GENERIC_U585ZETXQ
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585ZETXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ
+
+# Upload menu
+GenU5.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+GenU5.menu.upload_method.swdMethod.upload.protocol=0
+GenU5.menu.upload_method.swdMethod.upload.options=-g
+GenU5.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+GenU5.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+GenU5.menu.upload_method.serialMethod.upload.protocol=1
+GenU5.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+GenU5.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+GenU5.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+GenU5.menu.upload_method.dfuMethod.upload.protocol=2
+GenU5.menu.upload_method.dfuMethod.upload.options=-g
+GenU5.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic WB
 GenWB.name=Generic STM32WB series
 
@@ -6071,6 +6175,12 @@ GenL5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenL5.menu.xserial.disabled=Disabled (no Serial support)
 GenL5.menu.xserial.disabled.build.xSerial=
 
+GenU5.menu.xserial.generic=Enabled (generic 'Serial')
+GenU5.menu.xserial.none=Enabled (no generic 'Serial')
+GenU5.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+GenU5.menu.xserial.disabled=Disabled (no Serial support)
+GenU5.menu.xserial.disabled.build.xSerial=
+
 GenWB.menu.xserial.generic=Enabled (generic 'Serial')
 GenWB.menu.xserial.none=Enabled (no generic 'Serial')
 GenWB.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
@@ -6337,6 +6447,19 @@ GenL5.menu.xusb.HS=High Speed
 GenL5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenL5.menu.xusb.HSFS=High Speed in Full Speed mode
 GenL5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+GenU5.menu.usb.none=None
+GenU5.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+GenU5.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+GenU5.menu.usb.CDC=CDC (no generic 'Serial')
+GenU5.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+GenU5.menu.usb.HID=HID (keyboard and mouse)
+GenU5.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+GenU5.menu.xusb.FS=Low/Full Speed
+GenU5.menu.xusb.HS=High Speed
+GenU5.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+GenU5.menu.xusb.HSFS=High Speed in Full Speed mode
+GenU5.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 GenWB.menu.usb.none=None
 GenWB.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
@@ -6762,6 +6885,25 @@ GenL5.menu.opt.o3lto=Fastest (-O3) with LTO
 GenL5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenL5.menu.opt.ogstd=Debug (-Og)
 GenL5.menu.opt.ogstd.build.flags.optimize=-Og
+
+GenU5.menu.opt.osstd=Smallest (-Os default)
+GenU5.menu.opt.osstd.build.flags.optimize=-Os
+GenU5.menu.opt.oslto=Smallest (-Os) with LTO
+GenU5.menu.opt.oslto.build.flags.optimize=-Os -flto
+GenU5.menu.opt.o1std=Fast (-O1)
+GenU5.menu.opt.o1std.build.flags.optimize=-O1
+GenU5.menu.opt.o1lto=Fast (-O1) with LTO
+GenU5.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+GenU5.menu.opt.o2std=Faster (-O2)
+GenU5.menu.opt.o2std.build.flags.optimize=-O2
+GenU5.menu.opt.o2lto=Faster (-O2) with LTO
+GenU5.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+GenU5.menu.opt.o3std=Fastest (-O3)
+GenU5.menu.opt.o3std.build.flags.optimize=-O3
+GenU5.menu.opt.o3lto=Fastest (-O3) with LTO
+GenU5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+GenU5.menu.opt.ogstd=Debug (-g)
+GenU5.menu.opt.ogstd.build.flags.optimize=-g -Og
 
 GenWB.menu.opt.osstd=Smallest (-Os default)
 GenWB.menu.opt.oslto=Smallest (-Os) with LTO
@@ -7228,6 +7370,16 @@ GenL5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
 GenL5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
 GenL5.menu.rtlib.full=Newlib Standard
 GenL5.menu.rtlib.full.build.flags.ldspecs=
+
+GenU5.menu.rtlib.nano=Newlib Nano (default)
+GenU5.menu.rtlib.nanofp=Newlib Nano + Float Printf
+GenU5.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+GenU5.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+GenU5.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+GenU5.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+GenU5.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+GenU5.menu.rtlib.full=Newlib Standard
+GenU5.menu.rtlib.full.build.flags.ldspecs=
 
 GenWB.menu.rtlib.nano=Newlib Nano (default)
 GenWB.menu.rtlib.nanofp=Newlib Nano + Float Printf

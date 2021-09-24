@@ -10,7 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_DISCO_B_G431B_ESC1)
+#if defined(ARDUINO_B_G431B_ESC1)
 
 #include "pins_arduino.h"
 
@@ -145,4 +145,4 @@ WEAK void SystemClock_Config(void)
 }
 #endif
 
-#endif /* ARDUINO_DISCO_B_G431B_ESC1 */
+#endif /* ARDUINO_B_G431B_ESC1 */

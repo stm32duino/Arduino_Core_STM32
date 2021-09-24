@@ -50,6 +50,8 @@
   #include "stm32l5xx.h"
 #elif defined(STM32MP1xx)
   #include "stm32mp1xx.h"
+#elif defined(STM32U5xx)
+  #include "stm32u5xx.h"
 #elif defined(STM32WBxx)
   #include "stm32wbxx.h"
 #elif defined(STM32WLxx)
@@ -73,8 +75,17 @@
   #define DAC1 DAC
 #endif
 
+#ifdef USB_OTG_FS
+  #if !defined(__HAL_RCC_USB_OTG_FS_CLK_DISABLE) && defined(__HAL_RCC_USB_CLK_DISABLE)
+    #define __HAL_RCC_USB_OTG_FS_CLK_DISABLE __HAL_RCC_USB_CLK_DISABLE
+  #endif
+  #if !defined(__HAL_RCC_USB_OTG_FS_CLK_ENABLE) && defined(__HAL_RCC_USB_CLK_ENABLE)
+    #define __HAL_RCC_USB_OTG_FS_CLK_ENABLE __HAL_RCC_USB_CLK_ENABLE
+  #endif
+#endif
+
 /* STM32G0xx defined USB_DRD_FS */
-#if !defined(USB ) && defined(USB_DRD_FS)
+#if !defined(USB) && defined(USB_DRD_FS)
   #define USB USB_DRD_FS
   #define PinMap_USB PinMap_USB_DRD_FS
 #endif

@@ -83,6 +83,10 @@ extern const PinMap PinMap_OCTOSPI_DATA0[];
 extern const PinMap PinMap_OCTOSPI_DATA1[];
 extern const PinMap PinMap_OCTOSPI_DATA2[];
 extern const PinMap PinMap_OCTOSPI_DATA3[];
+extern const PinMap PinMap_OCTOSPI_DATA4[];
+extern const PinMap PinMap_OCTOSPI_DATA5[];
+extern const PinMap PinMap_OCTOSPI_DATA6[];
+extern const PinMap PinMap_OCTOSPI_DATA7[];
 extern const PinMap PinMap_OCTOSPI_SCLK[];
 extern const PinMap PinMap_OCTOSPI_SSEL[];
 

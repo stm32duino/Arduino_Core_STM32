@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic U575OGYxQ
+GenU5.menu.pnum.GENERIC_U575OGYXQ=Generic U575OGYxQ
+GenU5.menu.pnum.GENERIC_U575OGYXQ.upload.maximum_size=1048576
+GenU5.menu.pnum.GENERIC_U575OGYXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575OGYXQ.build.board=GENERIC_U575OGYXQ
+GenU5.menu.pnum.GENERIC_U575OGYXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575OGYXQ.build.variant=STM32U5xx/U575O(G-I)YxQ_U585OIYxQ
+
+# Generic U575OIYxQ
+GenU5.menu.pnum.GENERIC_U575OIYXQ=Generic U575OIYxQ
+GenU5.menu.pnum.GENERIC_U575OIYXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U575OIYXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575OIYXQ.build.board=GENERIC_U575OIYXQ
+GenU5.menu.pnum.GENERIC_U575OIYXQ.build.product_line=STM32U575xx
+GenU5.menu.pnum.GENERIC_U575OIYXQ.build.variant=STM32U5xx/U575O(G-I)YxQ_U585OIYxQ
+
+# Generic U585OIYxQ
+GenU5.menu.pnum.GENERIC_U585OIYXQ=Generic U585OIYxQ
+GenU5.menu.pnum.GENERIC_U585OIYXQ.upload.maximum_size=2097152
+GenU5.menu.pnum.GENERIC_U585OIYXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585OIYXQ.build.board=GENERIC_U585OIYXQ
+GenU5.menu.pnum.GENERIC_U585OIYXQ.build.product_line=STM32U585xx
+GenU5.menu.pnum.GENERIC_U585OIYXQ.build.variant=STM32U5xx/U575O(G-I)YxQ_U585OIYxQ
+

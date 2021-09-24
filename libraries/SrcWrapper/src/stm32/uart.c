@@ -379,9 +379,14 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
         return;
       }
     }
-#ifndef STM32H7xx
     if (obj->uart == LPUART1) {
+#if defined(RCC_LPUART1CLKSOURCE_CSI)
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
+#elif defined(RCC_LPUART1CLKSOURCE_PCLK1)
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK1);
+#elif defined(RCC_LPUART1CLKSOURCE_PCLK3)
+      __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_PCLK3);
+#endif
     }
 #if defined(LPUART2_BASE)
     if (obj->uart == LPUART2) {
@@ -395,16 +400,15 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     } else if (HAL_UART_Init(huart) == HAL_OK) {
       return;
     }
+#if defined(RCC_LPUART1CLKSOURCE_SYSCLK)
     if (obj->uart == LPUART1) {
       __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_SYSCLK);
     }
+#endif
 #if defined(LPUART2_BASE)
     if (obj->uart == LPUART2) {
       __HAL_RCC_LPUART2_CONFIG(RCC_LPUART2CLKSOURCE_SYSCLK);
     }
-#endif
-#else
-    __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_CSI);
 #endif
   }
 #endif
@@ -552,7 +556,7 @@ void uart_deinit(serial_t *obj)
   }
 }
 
-#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+#if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
 /**
   * @brief  Function called to configure the uart interface for low power
   * @param  obj : pointer to serial_t structure

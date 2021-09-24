@@ -6,5 +6,7 @@
   #include "stm32h7xx_hal_pssi.c"
 #elif STM32L4xx
   #include "stm32l4xx_hal_pssi.c"
+#elif STM32U5xx
+  #include "stm32u5xx_hal_pssi.c"
 #endif
 #pragma GCC diagnostic pop

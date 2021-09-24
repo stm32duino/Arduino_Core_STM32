@@ -38,6 +38,10 @@ quadspidata0_list = []  # ['PIN','name','QUADSPIDATA0', ['af']]
 quadspidata1_list = []  # ['PIN','name','QUADSPIDATA1', ['af']]
 quadspidata2_list = []  # ['PIN','name','QUADSPIDATA2', ['af']]
 quadspidata3_list = []  # ['PIN','name','QUADSPIDATA3', ['af']]
+quadspidata4_list = []  # ['PIN','name','QUADSPIDATA4', ['af']]
+quadspidata5_list = []  # ['PIN','name','QUADSPIDATA5', ['af']]
+quadspidata6_list = []  # ['PIN','name','QUADSPIDATA6', ['af']]
+quadspidata7_list = []  # ['PIN','name','QUADSPIDATA7', ['af']]
 quadspisclk_list = []  # ['PIN','name','QUADSPISCLK', ['af']]
 quadspissel_list = []  # ['PIN','name','QUADSPISSEL', ['af']]
 syswkup_list = []  # ['PIN','name','SYSWKUP']
@@ -480,7 +484,7 @@ def store_eth(pin, name, signal):
     eth_list.append([pin, name, signal])
 
 
-# Store QSPI pins
+# Store O/QSPI pins
 def store_qspi(pin, name, signal):
     if "_IO0" in signal:
         quadspidata0_list.append([pin, name, signal])
@@ -490,6 +494,14 @@ def store_qspi(pin, name, signal):
         quadspidata2_list.append([pin, name, signal])
     if "_IO3" in signal:
         quadspidata3_list.append([pin, name, signal])
+    if "_IO4" in signal:
+        quadspidata4_list.append([pin, name, signal])
+    if "_IO5" in signal:
+        quadspidata5_list.append([pin, name, signal])
+    if "_IO6" in signal:
+        quadspidata6_list.append([pin, name, signal])
+    if "_IO7" in signal:
+        quadspidata7_list.append([pin, name, signal])
     if "_CLK" in signal:
         quadspisclk_list.append([pin, name, signal])
     if "_NCS" in signal:
@@ -858,6 +870,14 @@ def qspi_pinmap(lst):
         aname = name + "_DATA2"
     elif lst == quadspidata3_list:
         aname = name + "_DATA3"
+    elif lst == quadspidata4_list:
+        aname = name + "_DATA4"
+    elif lst == quadspidata5_list:
+        aname = name + "_DATA5"
+    elif lst == quadspidata6_list:
+        aname = name + "_DATA6"
+    elif lst == quadspidata7_list:
+        aname = name + "_DATA7"
     elif lst == quadspisclk_list:
         aname = name + "_SCLK"
     else:
@@ -1044,6 +1064,10 @@ def print_peripheral():
                     qspi_pinmap(quadspidata1_list),
                     qspi_pinmap(quadspidata2_list),
                     qspi_pinmap(quadspidata3_list),
+                    qspi_pinmap(quadspidata4_list),
+                    qspi_pinmap(quadspidata5_list),
+                    qspi_pinmap(quadspidata6_list),
+                    qspi_pinmap(quadspidata7_list),
                     qspi_pinmap(quadspisclk_list),
                     qspi_pinmap(quadspissel_list),
                 ),
@@ -1056,32 +1080,21 @@ def print_peripheral():
 
 # PinNamesVar.h generation
 def manage_syswkup():
-    syswkup_pins_list = []
+    syswkup_pins_list = [[] for _ in range(8)]
     if len(syswkup_list) != 0:
-        # H7xx and F446 start from 0, inc by 1
-        inc = 0
+        # H7xx and F446 start from 0
+        base_index = 1
         if syswkup_list[0][2].replace("SYS_WKUP", "") == "0":
-            inc = 1
-        # Fill list with missing SYS_WKUPx set to NC
-        i = 0
-        while i < 8:
-            num = 0
-            if len(syswkup_list) > i:
-                n = syswkup_list[i][2].replace("SYS_WKUP", "")
-                if len(n) != 0:
-                    num = int(n) if inc == 1 else int(n) - 1
-            x = i if inc == 1 else i + 1
-            if num != i:
-                syswkup_list.insert(i, ["NC", "NC_" + str(x), "SYS_WKUP" + str(x)])
-            i += 1
+            base_index = 0
         for p in syswkup_list:
             num = p[2].replace("SYS_WKUP", "")
-            if (inc == 1) and (p[0] != "NC"):
-                cmt = " /* " + p[2] + " */"
-            else:
+            num = int(num) if num else 1
+            if base_index == 1:
+                num -= 1
                 cmt = ""
-            syswkup_pins_list.append([p[0], cmt])
-
+            else:
+                cmt = " /* " + p[2] + " */"
+            syswkup_pins_list[num].append([p[0], cmt])
     return syswkup_pins_list
 
 
@@ -1127,6 +1140,12 @@ def print_pinamevar():
             usb_pins_list=sorted_usb_pins_list,
         )
     )
+    alt_syswkup_list = []
+    for idx, syswkup_list in enumerate(syswkup_pins_list, start=1):
+        if len(syswkup_list) > 1:
+            for idx2, lst in enumerate(syswkup_list[1:], start=1):
+                alt_syswkup_list.append("{}_{}".format(idx, idx2))
+    return alt_syswkup_list
 
 
 # Variant files generation
@@ -1253,7 +1272,7 @@ def timer_variant():
     return dict(tone=tone, servo=servo)
 
 
-def print_variant(generic_list):
+def print_variant(generic_list, alt_syswkup_list):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
 
@@ -1344,6 +1363,7 @@ def print_variant(generic_list):
             year=datetime.datetime.now().year,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
+            alt_syswkup_list=alt_syswkup_list,
             waltpin=max(waltpin),
             num_digital_pins=num_digital_pins,
             num_dualpad_pins=num_dualpad_pins,
@@ -1538,6 +1558,10 @@ def sort_my_lists():
     quadspidata1_list.sort(key=natural_sortkey)
     quadspidata2_list.sort(key=natural_sortkey)
     quadspidata3_list.sort(key=natural_sortkey)
+    quadspidata4_list.sort(key=natural_sortkey)
+    quadspidata5_list.sort(key=natural_sortkey)
+    quadspidata6_list.sort(key=natural_sortkey)
+    quadspidata7_list.sort(key=natural_sortkey)
     quadspisclk_list.sort(key=natural_sortkey)
     quadspissel_list.sort(key=natural_sortkey)
     syswkup_list.sort(key=natural_sortkey2)
@@ -1572,6 +1596,10 @@ def clean_all_lists():
     del quadspidata1_list[:]
     del quadspidata2_list[:]
     del quadspidata3_list[:]
+    del quadspidata4_list[:]
+    del quadspidata5_list[:]
+    del quadspidata6_list[:]
+    del quadspidata7_list[:]
     del quadspisclk_list[:]
     del quadspissel_list[:]
     del syswkup_list[:]
@@ -1602,6 +1630,10 @@ def manage_af_and_alternate():
     add_af(quadspidata1_list)
     add_af(quadspidata2_list)
     add_af(quadspidata3_list)
+    add_af(quadspidata4_list)
+    add_af(quadspidata5_list)
+    add_af(quadspidata6_list)
+    add_af(quadspidata7_list)
     add_af(quadspisclk_list)
     add_af(quadspissel_list)
     add_af(usb_list)
@@ -1631,6 +1663,10 @@ def manage_af_and_alternate():
     update_alternate(quadspidata1_list)
     update_alternate(quadspidata2_list)
     update_alternate(quadspidata3_list)
+    update_alternate(quadspidata4_list)
+    update_alternate(quadspidata5_list)
+    update_alternate(quadspidata6_list)
+    update_alternate(quadspidata7_list)
     update_alternate(quadspisclk_list)
     update_alternate(quadspissel_list)
     update_alternate(syswkup_list)
@@ -2375,8 +2411,9 @@ for mcu_file in mcu_list:
     generic_list = print_boards_entry()
     print_general_clock(generic_list)
     print_peripheral()
-    print_pinamevar()
-    print_variant(generic_list)
+    alt_syswkup_list = print_pinamevar()
+    print_variant(generic_list, alt_syswkup_list)
+    del alt_syswkup_list[:]
     del generic_list[:]
     print(
         "* Total I/O pins found: {}".format(

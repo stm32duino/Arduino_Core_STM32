@@ -51,7 +51,7 @@ PCD_HandleTypeDef g_hpcd;
 void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
   const PinMap *map = NULL;
-#if defined(PWR_CR2_USV)
+#if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV)
   /* Enable VDDUSB on Pwrctrl CR2 register*/
   HAL_PWREx_EnableVddUSB();
 #endif
@@ -136,8 +136,10 @@ void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 #ifdef __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_RISING_EDGE();
 #endif
+#ifdef __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT
       __HAL_USB_OTG_FS_WAKEUP_EXTI_ENABLE_IT();
-#if !defined(STM32L4xx)
+#endif
+#if !defined(STM32L4xx) && !defined(STM32U5xx)
       /* Set EXTI Wakeup Interrupt priority */
       HAL_NVIC_SetPriority(OTG_FS_WKUP_IRQn, USBD_IRQ_PRIO, USBD_IRQ_SUBPRIO);
 
