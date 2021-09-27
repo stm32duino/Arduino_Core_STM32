@@ -69,11 +69,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WL boards](#generic-stm32wb-boards)
  - [3D printer boards](#3d-printer-boards)
- - [LoRa boards](#lora-boards)
+ - [Elecgator boards](#elecgator-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
- - [Generic flight controllers](#generic-flight-controllers)
- - [elecgator boards](#elecgator-boards)
  - [Garatronics boards](#Garatronic/McHobby-boards)
+ - [Generic flight controllers](#generic-flight-controllers)
+ - [LoRa boards](#lora-boards)
  - [Midatronics boards](#midatronics-boards)
 
 
@@ -460,13 +460,20 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F446RE | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
 | :green_heart:  | STM32F446VE | [FYSETC_S6](https://wiki.fysetc.com/FYSETC_S6/) | *1.9.0* | |
 
-### LoRa boards
+### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
-| :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
-| :green_heart:  | STM32L051C8 | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
+| :green_heart:  | STM32F072RB | [PYBStick 26 Duino](https://shop.mchobby.be/fr/compatibles-arduino/1851-pybstick-duino-arduino-uniquement-3232100018518-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F401CE | [PYBStick 26 Lite](https://shop.mchobby.be/fr/micropython/1830-pybstick-lite-26-micropython-et-arduino-3232100018303-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F411RE | [PYBStick 26 Standard](https://shop.mchobby.be/fr/micropython/1844-pybstick-standard-26-micropython-et-arduino-3232100018440-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F412RE | [PYBStick 26 Pro](https://shop.mchobby.be/fr/micropython/1850-pybstick-pro-26-micropython-et-arduino-3232100018501-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+
+### [Elecgator](https://www.elecgator.com/) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32F746ZET | [EtherCATduino](https://www.elecgator.com/products/info/EtherCATduino) | **2.1.0** |  |
 
 ### Electronic Speed Controller boards
 
@@ -482,20 +489,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F103CB | Afro Flight Rev5 (8/12MHz) | *1.7.0* |  |
 | :green_heart:  | STM32F303CC | [Sparky V1](https://github.com/TauLabs/TauLabs/wiki/Sparky) | *1.6.0* |  |
 
-### [elecgator](https://www.elecgator.com/) boards
+### LoRa boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart:  | STM32F746ZET | [EtherCATduino](https://www.elecgator.com/products/info/EtherCATduino) | **2.1.0** |  |
-
-### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
-
-| Status | Device(s) | Name | Release | Notes |
-| :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F072RB | [PYBStick 26 Duino](https://shop.mchobby.be/fr/compatibles-arduino/1851-pybstick-duino-arduino-uniquement-3232100018518-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F401CE | [PYBStick 26 Lite](https://shop.mchobby.be/fr/micropython/1830-pybstick-lite-26-micropython-et-arduino-3232100018303-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F411RE | [PYBStick 26 Standard](https://shop.mchobby.be/fr/micropython/1844-pybstick-standard-26-micropython-et-arduino-3232100018440-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F412RE | [PYBStick 26 Pro](https://shop.mchobby.be/fr/micropython/1850-pybstick-pro-26-micropython-et-arduino-3232100018501-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
+| :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
+| :green_heart:  | STM32L051C8 | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |
 
 ### [Midatronics](https://midatronics.com/) boards
 

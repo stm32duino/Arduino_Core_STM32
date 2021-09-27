@@ -5487,146 +5487,6 @@ GenWL.menu.upload_method.dfuMethod.upload.options=-g
 GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
-# Electronic Speed Controller boards
-
-ESC_board.name=Electronic speed controllers
-
-ESC_board.build.core=arduino
-ESC_board.build.board=FCE_board
-ESC_board.build.variant_h=variant_{build.board}.h
-ESC_board.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# WRAITH32_V1 board
-ESC_board.menu.pnum.WRAITH32_V1=Wraith V1 ESC
-ESC_board.menu.pnum.WRAITH32_V1.upload.maximum_size=32768
-ESC_board.menu.pnum.WRAITH32_V1.upload.maximum_data_size=7936
-ESC_board.menu.pnum.WRAITH32_V1.build.mcu=cortex-m0
-ESC_board.menu.pnum.WRAITH32_V1.build.board=WRAITH32_V1
-ESC_board.menu.pnum.WRAITH32_V1.build.series=STM32F0xx
-ESC_board.menu.pnum.WRAITH32_V1.build.product_line=STM32F051x8
-ESC_board.menu.pnum.WRAITH32_V1.build.variant=STM32F0xx/F051K(6-8)U
-ESC_board.menu.pnum.WRAITH32_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ESC_board.menu.pnum.WRAITH32_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
-
-# STORM32_V1_RC board
-ESC_board.menu.pnum.STORM32_V1_31_RC=STorM32 BGC v1.31 RC
-ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_size=262144
-ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_data_size=49152
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.mcu=cortex-m3
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.board=STORM32_V1_31_RC
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.series=STM32F1xx
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.cmsis_lib_gcc=arm_cortexM3l_math
-ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
-
-# Upload menu
-ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-ESC_board.menu.upload_method.swdMethod.upload.protocol=0
-ESC_board.menu.upload_method.swdMethod.upload.options=-g
-ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-ESC_board.menu.upload_method.serialMethod.upload.protocol=1
-ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
-ESC_board.menu.upload_method.dfuMethod.upload.options=-g
-ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-################################################################################
-# LoRa boards
-
-LoRa.name=LoRa boards
-LoRa.build.core=arduino
-LoRa.build.board=LoRa
-LoRa.build.variant_h=variant_{build.board}.h
-LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# RAK811_TRACKER board
-LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
-LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
-LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
-LoRa.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
-LoRa.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
-LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
-LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
-LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
-LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
-LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
-LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
-LoRa.menu.pnum.RAK811_TRACKERA.build.mcu=cortex-m3
-LoRa.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
-LoRa.menu.pnum.RAK811_TRACKERA.build.series=STM32L1xx
-LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
-LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
-LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
-LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
-
-# RHF76_052 board
-LoRa.menu.pnum.RHF76_052=RHF76 052
-LoRa.menu.pnum.RHF76_052.upload.maximum_size=65536
-LoRa.menu.pnum.RHF76_052.upload.maximum_data_size=8192
-LoRa.menu.pnum.RHF76_052.build.mcu=cortex-m0plus
-LoRa.menu.pnum.RHF76_052.build.board=RHF76_052
-LoRa.menu.pnum.RHF76_052.build.series=STM32L0xx
-LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
-LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
-LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.RHF76_052.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
-
-# ELEKTOR_F072C8
-LoRa.menu.pnum.ELEKTOR_F072C8=Elektor LoRa Node Core F072C8 (64kB)
-LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_data_size=16384
-LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_size=65536
-LoRa.menu.pnum.ELEKTOR_F072C8.build.mcu=cortex-m0
-LoRa.menu.pnum.ELEKTOR_F072C8.build.board=ELEKTOR_F072C8
-LoRa.menu.pnum.ELEKTOR_F072C8.build.series=STM32F0xx
-LoRa.menu.pnum.ELEKTOR_F072C8.build.product_line=STM32F072xB
-LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
-LoRa.menu.pnum.ELEKTOR_F072C8.build.variant_h=variant_ELEKTOR_F072Cx.h
-LoRa.menu.pnum.ELEKTOR_F072C8.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.ELEKTOR_F072C8.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.ELEKTOR_F072C8.build.extra_flags=-D{build.product_line} {build.xSerial}
-
-# ELEKTOR_F072CB
-LoRa.menu.pnum.ELEKTOR_F072CB=Elektor LoRa Node Core F072CB (128kB)
-LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_data_size=16384
-LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_size=131072
-LoRa.menu.pnum.ELEKTOR_F072CB.build.mcu=cortex-m0
-LoRa.menu.pnum.ELEKTOR_F072CB.build.board=ELEKTOR_F072CB
-LoRa.menu.pnum.ELEKTOR_F072CB.build.series=STM32F0xx
-LoRa.menu.pnum.ELEKTOR_F072CB.build.product_line=STM32F072xB
-LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
-LoRa.menu.pnum.ELEKTOR_F072CB.build.variant_h=variant_ELEKTOR_F072Cx.h
-LoRa.menu.pnum.ELEKTOR_F072CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-LoRa.menu.pnum.ELEKTOR_F072CB.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.ELEKTOR_F072CB.build.extra_flags=-D{build.product_line} {build.xSerial}
-
-# Upload menu
-LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-LoRa.menu.upload_method.swdMethod.upload.protocol=0
-LoRa.menu.upload_method.swdMethod.upload.options=-g
-LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
-
-LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
-LoRa.menu.upload_method.serialMethod.upload.protocol=1
-LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
-LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
-
-LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-LoRa.menu.upload_method.dfuMethod.upload.protocol=2
-LoRa.menu.upload_method.dfuMethod.upload.options=-g
-LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
-
-###############################
 # 3D printer boards
 
 3dprinter.name=3D printer boards
@@ -5819,7 +5679,158 @@ LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.upload_method.dfuMethod.upload.options=-g
 3dprinter.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
-###############################
+################################################################################
+# Elecgator boards
+
+Elecgator.name=Elecgator boards
+
+Elecgator.build.core=arduino
+Elecgator.build.board=elecgator
+Elecgator.build.variant_h=variant_{build.board}.h
+Elecgator.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# EtherCATduino board
+Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
+Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_size=524288
+Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_data_size=327680
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.mcu=cortex-m7
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.board=ETHERCAT_DUINO
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.product_line=STM32F746xx
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# Upload menu
+Elecgator.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+Elecgator.menu.upload_method.swdMethod.upload.protocol=0
+Elecgator.menu.upload_method.swdMethod.upload.options=-g
+Elecgator.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+Elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Elecgator.menu.upload_method.dfuMethod.upload.protocol=2
+Elecgator.menu.upload_method.dfuMethod.upload.options=-g
+Elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
+# Electronic Speed Controller boards
+
+ESC_board.name=Electronic speed controllers
+
+ESC_board.build.core=arduino
+ESC_board.build.board=FCE_board
+ESC_board.build.variant_h=variant_{build.board}.h
+ESC_board.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# WRAITH32_V1 board
+ESC_board.menu.pnum.WRAITH32_V1=Wraith V1 ESC
+ESC_board.menu.pnum.WRAITH32_V1.upload.maximum_size=32768
+ESC_board.menu.pnum.WRAITH32_V1.upload.maximum_data_size=7936
+ESC_board.menu.pnum.WRAITH32_V1.build.mcu=cortex-m0
+ESC_board.menu.pnum.WRAITH32_V1.build.board=WRAITH32_V1
+ESC_board.menu.pnum.WRAITH32_V1.build.series=STM32F0xx
+ESC_board.menu.pnum.WRAITH32_V1.build.product_line=STM32F051x8
+ESC_board.menu.pnum.WRAITH32_V1.build.variant=STM32F0xx/F051K(6-8)U
+ESC_board.menu.pnum.WRAITH32_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+ESC_board.menu.pnum.WRAITH32_V1.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# STORM32_V1_RC board
+ESC_board.menu.pnum.STORM32_V1_31_RC=STorM32 BGC v1.31 RC
+ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_size=262144
+ESC_board.menu.pnum.STORM32_V1_31_RC.upload.maximum_data_size=49152
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.mcu=cortex-m3
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.board=STORM32_V1_31_RC
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.series=STM32F1xx
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.product_line=STM32F103xE
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.cmsis_lib_gcc=arm_cortexM3l_math
+ESC_board.menu.pnum.STORM32_V1_31_RC.build.variant=STM32F1xx/F103R(C-D-E)T
+
+# Upload menu
+ESC_board.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+ESC_board.menu.upload_method.swdMethod.upload.protocol=0
+ESC_board.menu.upload_method.swdMethod.upload.options=-g
+ESC_board.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+ESC_board.menu.upload_method.serialMethod.upload.protocol=1
+ESC_board.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+ESC_board.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
+
+ESC_board.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+ESC_board.menu.upload_method.dfuMethod.upload.protocol=2
+ESC_board.menu.upload_method.dfuMethod.upload.options=-g
+ESC_board.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
+# Garatronic-McHobby STM32 boards
+
+Garatronic.name=Garatronic-McHobby
+
+Garatronic.build.core=arduino
+Garatronic.build.board=Garatronic
+Garatronic.build.variant_h=variant_{build.board}.h
+Garatronic.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+
+# PYBSTICK26(DUINO) board with F072RB
+Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
+Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_size=131072
+Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_data_size=16384
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.mcu=cortex-m0
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.board=PYBSTICK26_DUINO
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.series=STM32F0xx
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.product_line=STM32F072xB
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Garatronic.menu.pnum.PYBSTICK26_DUINO.build.cmsis_lib_gcc=arm_cortexM0l_math
+
+# PYBSTICK26(LITE) board with F401CE
+Garatronic.menu.pnum.PYBSTICK26_LITE=PYBSTICK26 Lite
+Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_data_size=98304
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.board=PYBSTICK26_LITE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26(STD/Programmez!) board with F411RE
+Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD-Programmez
+Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_data_size=131072
+Garatronic.menu.pnum.PYBSTICK26_STD.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_STD.build.board=PYBSTICK26_STD
+Garatronic.menu.pnum.PYBSTICK26_STD.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
+Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
+Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_STD.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26(PRO) board with F412RE
+Garatronic.menu.pnum.PYBSTICK26_PRO=PYBSTICK26 Pro
+Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_size=524288
+Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_data_size=262144
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.mcu=cortex-m4
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.board=PYBSTICK26_PRO
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.series=STM32F4xx
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+
+# PYBSTICK26 boards upload method
+Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+Garatronic.menu.upload_method.dfuMethod.upload.protocol=2
+Garatronic.menu.upload_method.dfuMethod.upload.options=-g
+Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+
+################################################################################
 # Generic Flight Controllers
 
 GenFlight.name=Generic Flight Controllers
@@ -5908,105 +5919,94 @@ GenFlight.menu.upload_method.dfuoMethod.build.flash_offset=0x5000
 GenFlight.menu.upload_method.dfuoMethod.build.bootloader_flags=-DBL_LEGACY_LEAF -DVECT_TAB_OFFSET={build.flash_offset}
 
 ################################################################################
-# elecgator boards
+# LoRa boards
 
-elecgator.name=elecgator boards
+LoRa.name=LoRa boards
+LoRa.build.core=arduino
+LoRa.build.board=LoRa
+LoRa.build.variant_h=variant_{build.board}.h
+LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
-elecgator.build.core=arduino
-elecgator.build.board=elecgator
-elecgator.build.variant_h=variant_{build.board}.h
-elecgator.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+# RAK811_TRACKER board
+LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
+LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_data_size=16384
+LoRa.menu.pnum.RAK811_TRACKER.build.mcu=cortex-m3
+LoRa.menu.pnum.RAK811_TRACKER.build.board=RAK811_TRACKER
+LoRa.menu.pnum.RAK811_TRACKER.build.series=STM32L1xx
+LoRa.menu.pnum.RAK811_TRACKER.build.product_line=STM32L151xB
+LoRa.menu.pnum.RAK811_TRACKER.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+LoRa.menu.pnum.RAK811_TRACKER.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.RAK811_TRACKER.build.cmsis_lib_gcc=arm_cortexM3l_math
 
-# EtherCATduino board
-elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
-elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_size=524288
-elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_data_size=327680
-elecgator.menu.pnum.ETHERCAT_DUINO.build.mcu=cortex-m7
-elecgator.menu.pnum.ETHERCAT_DUINO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-elecgator.menu.pnum.ETHERCAT_DUINO.build.board=ETHERCAT_DUINO
-elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
-elecgator.menu.pnum.ETHERCAT_DUINO.build.product_line=STM32F746xx
-elecgator.menu.pnum.ETHERCAT_DUINO.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
-elecgator.menu.pnum.ETHERCAT_DUINO.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
-elecgator.menu.pnum.ETHERCAT_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.RAK811_TRACKERA=RAK811 LoRa Tracker (32kb RAM)
+LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_size=131072
+LoRa.menu.pnum.RAK811_TRACKERA.upload.maximum_data_size=32768
+LoRa.menu.pnum.RAK811_TRACKERA.build.mcu=cortex-m3
+LoRa.menu.pnum.RAK811_TRACKERA.build.board=RAK811_TRACKERA
+LoRa.menu.pnum.RAK811_TRACKERA.build.series=STM32L1xx
+LoRa.menu.pnum.RAK811_TRACKERA.build.product_line=STM32L151xBA
+LoRa.menu.pnum.RAK811_TRACKERA.build.variant=STM32L1xx/L100C6Ux(A)_L151C(6-8-B)(T-U)x(A)_L152C(6-8-B)(T-U)x(A)
+LoRa.menu.pnum.RAK811_TRACKERA.build.variant_h=variant_RAK811_TRACKER.h
+LoRa.menu.pnum.RAK811_TRACKERA.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.RAK811_TRACKERA.build.cmsis_lib_gcc=arm_cortexM3l_math
+
+# RHF76_052 board
+LoRa.menu.pnum.RHF76_052=RHF76 052
+LoRa.menu.pnum.RHF76_052.upload.maximum_size=65536
+LoRa.menu.pnum.RHF76_052.upload.maximum_data_size=8192
+LoRa.menu.pnum.RHF76_052.build.mcu=cortex-m0plus
+LoRa.menu.pnum.RHF76_052.build.board=RHF76_052
+LoRa.menu.pnum.RHF76_052.build.series=STM32L0xx
+LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
+LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
+LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.RHF76_052.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
+# ELEKTOR_F072C8
+LoRa.menu.pnum.ELEKTOR_F072C8=Elektor LoRa Node Core F072C8 (64kB)
+LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_data_size=16384
+LoRa.menu.pnum.ELEKTOR_F072C8.upload.maximum_size=65536
+LoRa.menu.pnum.ELEKTOR_F072C8.build.mcu=cortex-m0
+LoRa.menu.pnum.ELEKTOR_F072C8.build.board=ELEKTOR_F072C8
+LoRa.menu.pnum.ELEKTOR_F072C8.build.series=STM32F0xx
+LoRa.menu.pnum.ELEKTOR_F072C8.build.product_line=STM32F072xB
+LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
+LoRa.menu.pnum.ELEKTOR_F072C8.build.variant_h=variant_ELEKTOR_F072Cx.h
+LoRa.menu.pnum.ELEKTOR_F072C8.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.ELEKTOR_F072C8.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.ELEKTOR_F072C8.build.extra_flags=-D{build.product_line} {build.xSerial}
+
+# ELEKTOR_F072CB
+LoRa.menu.pnum.ELEKTOR_F072CB=Elektor LoRa Node Core F072CB (128kB)
+LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_data_size=16384
+LoRa.menu.pnum.ELEKTOR_F072CB.upload.maximum_size=131072
+LoRa.menu.pnum.ELEKTOR_F072CB.build.mcu=cortex-m0
+LoRa.menu.pnum.ELEKTOR_F072CB.build.board=ELEKTOR_F072CB
+LoRa.menu.pnum.ELEKTOR_F072CB.build.series=STM32F0xx
+LoRa.menu.pnum.ELEKTOR_F072CB.build.product_line=STM32F072xB
+LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
+LoRa.menu.pnum.ELEKTOR_F072CB.build.variant_h=variant_ELEKTOR_F072Cx.h
+LoRa.menu.pnum.ELEKTOR_F072CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.ELEKTOR_F072CB.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.ELEKTOR_F072CB.build.extra_flags=-D{build.product_line} {build.xSerial}
 
 # Upload menu
-elecgator.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-elecgator.menu.upload_method.swdMethod.upload.protocol=0
-elecgator.menu.upload_method.swdMethod.upload.options=-g
-elecgator.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
+LoRa.menu.upload_method.swdMethod.upload.protocol=0
+LoRa.menu.upload_method.swdMethod.upload.options=-g
+LoRa.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
-elecgator.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-elecgator.menu.upload_method.dfuMethod.upload.protocol=2
-elecgator.menu.upload_method.dfuMethod.upload.options=-g
-elecgator.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.serialMethod=STM32CubeProgrammer (Serial)
+LoRa.menu.upload_method.serialMethod.upload.protocol=1
+LoRa.menu.upload_method.serialMethod.upload.options={serial.port.file} -s
+LoRa.menu.upload_method.serialMethod.upload.tool=stm32CubeProg
 
-################################################################################
-# Garatronic-McHobby STM32 boards
-
-Garatronic.name=Garatronic-McHobby
-
-Garatronic.build.core=arduino
-Garatronic.build.board=Garatronic
-Garatronic.build.variant_h=variant_{build.board}.h
-Garatronic.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
-
-# PYBSTICK26(DUINO) board with F072RB
-Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
-Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_size=131072
-Garatronic.menu.pnum.PYBSTICK26_DUINO.upload.maximum_data_size=16384
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.mcu=cortex-m0
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.board=PYBSTICK26_DUINO
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.series=STM32F0xx
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.product_line=STM32F072xB
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.variant=STM32F0xx/F072R8T_F072RB(H-I-T)
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_DUINO.build.cmsis_lib_gcc=arm_cortexM0l_math
-
-# PYBSTICK26(LITE) board with F401CE
-Garatronic.menu.pnum.PYBSTICK26_LITE=PYBSTICK26 Lite
-Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_size=524288
-Garatronic.menu.pnum.PYBSTICK26_LITE.upload.maximum_data_size=98304
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.mcu=cortex-m4
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.board=PYBSTICK26_LITE
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.series=STM32F4xx
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-
-# PYBSTICK26(STD/Programmez!) board with F411RE
-Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD-Programmez
-Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_size=524288
-Garatronic.menu.pnum.PYBSTICK26_STD.upload.maximum_data_size=131072
-Garatronic.menu.pnum.PYBSTICK26_STD.build.mcu=cortex-m4
-Garatronic.menu.pnum.PYBSTICK26_STD.build.board=PYBSTICK26_STD
-Garatronic.menu.pnum.PYBSTICK26_STD.build.series=STM32F4xx
-Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
-Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
-Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_STD.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-
-# PYBSTICK26(PRO) board with F412RE
-Garatronic.menu.pnum.PYBSTICK26_PRO=PYBSTICK26 Pro
-Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_size=524288
-Garatronic.menu.pnum.PYBSTICK26_PRO.upload.maximum_data_size=262144
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.mcu=cortex-m4
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.board=PYBSTICK26_PRO
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.series=STM32F4xx
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
-
-# PYBSTICK26 boards upload method
-Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
-Garatronic.menu.upload_method.dfuMethod.upload.protocol=2
-Garatronic.menu.upload_method.dfuMethod.upload.options=-g
-Garatronic.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
+LoRa.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
+LoRa.menu.upload_method.dfuMethod.upload.protocol=2
+LoRa.menu.upload_method.dfuMethod.upload.options=-g
+LoRa.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 
 ################################################################################
 # Midatronics boards
@@ -6193,23 +6193,29 @@ GenWL.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 GenWL.menu.xserial.disabled=Disabled (no Serial support)
 GenWL.menu.xserial.disabled.build.xSerial=
 
+3dprinter.menu.xserial.generic=Enabled (generic 'Serial')
+3dprinter.menu.xserial.none=Enabled (no generic 'Serial')
+3dprinter.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+3dprinter.menu.xserial.disabled=Disabled (no Serial support)
+3dprinter.menu.xserial.disabled.build.xSerial=
+
+Elecgator.menu.xserial.generic=Enabled (generic 'Serial')
+Elecgator.menu.xserial.none=Enabled (no generic 'Serial')
+Elecgator.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Elecgator.menu.xserial.disabled=Disabled (no Serial support)
+Elecgator.menu.xserial.disabled.build.xSerial=
+
 ESC_board.menu.xserial.generic=Enabled (generic 'Serial')
 ESC_board.menu.xserial.none=Enabled (no generic 'Serial')
 ESC_board.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
 ESC_board.menu.xserial.disabled=Disabled (no Serial support)
 ESC_board.menu.xserial.disabled.build.xSerial=
 
-LoRa.menu.xserial.generic=Enabled (generic 'Serial')
-LoRa.menu.xserial.none=Enabled (no generic 'Serial')
-LoRa.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-LoRa.menu.xserial.disabled=Disabled (no Serial support)
-LoRa.menu.xserial.disabled.build.xSerial=
-
-3dprinter.menu.xserial.generic=Enabled (generic 'Serial')
-3dprinter.menu.xserial.none=Enabled (no generic 'Serial')
-3dprinter.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-3dprinter.menu.xserial.disabled=Disabled (no Serial support)
-3dprinter.menu.xserial.disabled.build.xSerial=
+Garatronic.menu.xserial.generic=Enabled (generic 'Serial')
+Garatronic.menu.xserial.none=Enabled (no generic 'Serial')
+Garatronic.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+Garatronic.menu.xserial.disabled=Disabled (no Serial support)
+Garatronic.menu.xserial.disabled.build.xSerial=
 
 GenFlight.menu.xserial.generic=Enabled (generic 'Serial')
 GenFlight.menu.xserial.none=Enabled (no generic 'Serial')
@@ -6217,17 +6223,11 @@ GenFlight.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_N
 GenFlight.menu.xserial.disabled=Disabled (no Serial support)
 GenFlight.menu.xserial.disabled.build.xSerial=
 
-elecgator.menu.xserial.generic=Enabled (generic 'Serial')
-elecgator.menu.xserial.none=Enabled (no generic 'Serial')
-elecgator.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-elecgator.menu.xserial.disabled=Disabled (no Serial support)
-elecgator.menu.xserial.disabled.build.xSerial=
-
-Garatronic.menu.xserial.generic=Enabled (generic 'Serial')
-Garatronic.menu.xserial.none=Enabled (no generic 'Serial')
-Garatronic.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
-Garatronic.menu.xserial.disabled=Disabled (no Serial support)
-Garatronic.menu.xserial.disabled.build.xSerial=
+LoRa.menu.xserial.generic=Enabled (generic 'Serial')
+LoRa.menu.xserial.none=Enabled (no generic 'Serial')
+LoRa.menu.xserial.none.build.xSerial=-DHAL_UART_MODULE_ENABLED -DHWSERIAL_NONE
+LoRa.menu.xserial.disabled=Disabled (no Serial support)
+LoRa.menu.xserial.disabled.build.xSerial=
 
 Midatronics.menu.xserial.generic=Enabled (generic 'Serial')
 Midatronics.menu.xserial.none=Enabled (no generic 'Serial')
@@ -6485,6 +6485,38 @@ GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
 3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
+Elecgator.menu.usb.none=None
+Elecgator.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Elecgator.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Elecgator.menu.usb.CDC=CDC (no generic 'Serial')
+Elecgator.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Elecgator.menu.usb.HID=HID (keyboard and mouse)
+Elecgator.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+Elecgator.menu.xusb.FS=Low/Full Speed
+Elecgator.menu.xusb.HS=High Speed
+Elecgator.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+Elecgator.menu.xusb.HSFS=High Speed in Full Speed mode
+Elecgator.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+ESC_board.menu.usb.none=None
+ESC_board.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
+ESC_board.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+ESC_board.menu.xusb.FS=Low/Full Speed
+ESC_board.menu.xusb.HS=High Speed
+ESC_board.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
+ESC_board.menu.xusb.HSFS=High Speed in Full Speed mode
+ESC_board.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
+
+Garatronic.menu.usb.none=None
+Garatronic.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
+Garatronic.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
+Garatronic.menu.usb.CDC=CDC (no generic 'Serial')
+Garatronic.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
+Garatronic.menu.usb.HID=HID (keyboard and mouse)
+Garatronic.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+
 GenFlight.menu.usb.none=None
 GenFlight.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 GenFlight.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -6498,27 +6530,6 @@ GenFlight.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenFlight.menu.xusb.HSFS=High Speed in Full Speed mode
 GenFlight.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
-elecgator.menu.usb.none=None
-elecgator.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-elecgator.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-elecgator.menu.usb.CDC=CDC (no generic 'Serial')
-elecgator.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-elecgator.menu.usb.HID=HID (keyboard and mouse)
-elecgator.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-elecgator.menu.xusb.FS=Low/Full Speed
-elecgator.menu.xusb.HS=High Speed
-elecgator.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-elecgator.menu.xusb.HSFS=High Speed in Full Speed mode
-elecgator.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
-Garatronic.menu.usb.none=None
-Garatronic.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-Garatronic.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-Garatronic.menu.usb.CDC=CDC (no generic 'Serial')
-Garatronic.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-Garatronic.menu.usb.HID=HID (keyboard and mouse)
-Garatronic.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
-
 Midatronics.menu.usb.none=None
 Midatronics.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 Midatronics.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
@@ -6531,17 +6542,6 @@ Midatronics.menu.xusb.HS=High Speed
 Midatronics.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 Midatronics.menu.xusb.HSFS=High Speed in Full Speed mode
 Midatronics.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
-
-ESC_board.menu.usb.none=None
-ESC_board.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
-ESC_board.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
-ESC_board.menu.usb.CDC=CDC (no generic 'Serial')
-ESC_board.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
-ESC_board.menu.xusb.FS=Low/Full Speed
-ESC_board.menu.xusb.HS=High Speed
-ESC_board.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
-ESC_board.menu.xusb.HSFS=High Speed in Full Speed mode
-ESC_board.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
 # Optimizations
 Nucleo_144.menu.opt.osstd=Smallest (-Os default)
@@ -6941,6 +6941,42 @@ GenWL.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenWL.menu.opt.ogstd=Debug (-Og)
 GenWL.menu.opt.ogstd.build.flags.optimize=-Og
 
+3dprinter.menu.opt.osstd=Smallest (-Os default)
+3dprinter.menu.opt.oslto=Smallest (-Os) with LTO
+3dprinter.menu.opt.oslto.build.flags.optimize=-Os -flto
+3dprinter.menu.opt.o1std=Fast (-O1)
+3dprinter.menu.opt.o1std.build.flags.optimize=-O1
+3dprinter.menu.opt.o1lto=Fast (-O1) with LTO
+3dprinter.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+3dprinter.menu.opt.o2std=Faster (-O2)
+3dprinter.menu.opt.o2std.build.flags.optimize=-O2
+3dprinter.menu.opt.o2lto=Faster (-O2) with LTO
+3dprinter.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+3dprinter.menu.opt.o3std=Fastest (-O3)
+3dprinter.menu.opt.o3std.build.flags.optimize=-O3
+3dprinter.menu.opt.o3lto=Fastest (-O3) with LTO
+3dprinter.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+3dprinter.menu.opt.ogstd=Debug (-Og)
+3dprinter.menu.opt.ogstd.build.flags.optimize=-Og
+
+Elecgator.menu.opt.osstd=Smallest (-Os default)
+Elecgator.menu.opt.oslto=Smallest (-Os) with LTO
+Elecgator.menu.opt.oslto.build.flags.optimize=-Os -flto
+Elecgator.menu.opt.o1std=Fast (-O1)
+Elecgator.menu.opt.o1std.build.flags.optimize=-O1
+Elecgator.menu.opt.o1lto=Fast (-O1) with LTO
+Elecgator.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Elecgator.menu.opt.o2std=Faster (-O2)
+Elecgator.menu.opt.o2std.build.flags.optimize=-O2
+Elecgator.menu.opt.o2lto=Faster (-O2) with LTO
+Elecgator.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Elecgator.menu.opt.o3std=Fastest (-O3)
+Elecgator.menu.opt.o3std.build.flags.optimize=-O3
+Elecgator.menu.opt.o3lto=Fastest (-O3) with LTO
+Elecgator.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Elecgator.menu.opt.ogstd=Debug (-Og)
+Elecgator.menu.opt.ogstd.build.flags.optimize=-Og
+
 ESC_board.menu.opt.osstd=Smallest (-Os default)
 ESC_board.menu.opt.oslto=Smallest (-Os) with LTO
 ESC_board.menu.opt.oslto.build.flags.optimize=-Os -flto
@@ -6959,41 +6995,23 @@ ESC_board.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 ESC_board.menu.opt.ogstd=Debug (-Og)
 ESC_board.menu.opt.ogstd.build.flags.optimize=-Og
 
-LoRa.menu.opt.osstd=Smallest (-Os default)
-LoRa.menu.opt.oslto=Smallest (-Os) with LTO
-LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
-LoRa.menu.opt.o1std=Fast (-O1)
-LoRa.menu.opt.o1std.build.flags.optimize=-O1
-LoRa.menu.opt.o1lto=Fast (-O1) with LTO
-LoRa.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-LoRa.menu.opt.o2std=Faster (-O2)
-LoRa.menu.opt.o2std.build.flags.optimize=-O2
-LoRa.menu.opt.o2lto=Faster (-O2) with LTO
-LoRa.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-LoRa.menu.opt.o3std=Fastest (-O3)
-LoRa.menu.opt.o3std.build.flags.optimize=-O3
-LoRa.menu.opt.o3lto=Fastest (-O3) with LTO
-LoRa.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-LoRa.menu.opt.ogstd=Debug (-Og)
-LoRa.menu.opt.ogstd.build.flags.optimize=-Og
-
-3dprinter.menu.opt.osstd=Smallest (-Os default)
-3dprinter.menu.opt.oslto=Smallest (-Os) with LTO
-3dprinter.menu.opt.oslto.build.flags.optimize=-Os -flto
-3dprinter.menu.opt.o1std=Fast (-O1)
-3dprinter.menu.opt.o1std.build.flags.optimize=-O1
-3dprinter.menu.opt.o1lto=Fast (-O1) with LTO
-3dprinter.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-3dprinter.menu.opt.o2std=Faster (-O2)
-3dprinter.menu.opt.o2std.build.flags.optimize=-O2
-3dprinter.menu.opt.o2lto=Faster (-O2) with LTO
-3dprinter.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-3dprinter.menu.opt.o3std=Fastest (-O3)
-3dprinter.menu.opt.o3std.build.flags.optimize=-O3
-3dprinter.menu.opt.o3lto=Fastest (-O3) with LTO
-3dprinter.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-3dprinter.menu.opt.ogstd=Debug (-Og)
-3dprinter.menu.opt.ogstd.build.flags.optimize=-Og
+Garatronic.menu.opt.osstd=Smallest (-Os default)
+Garatronic.menu.opt.oslto=Smallest (-Os) with LTO
+Garatronic.menu.opt.oslto.build.flags.optimize=-Os -flto
+Garatronic.menu.opt.o1std=Fast (-O1)
+Garatronic.menu.opt.o1std.build.flags.optimize=-O1
+Garatronic.menu.opt.o1lto=Fast (-O1) with LTO
+Garatronic.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+Garatronic.menu.opt.o2std=Faster (-O2)
+Garatronic.menu.opt.o2std.build.flags.optimize=-O2
+Garatronic.menu.opt.o2lto=Faster (-O2) with LTO
+Garatronic.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+Garatronic.menu.opt.o3std=Fastest (-O3)
+Garatronic.menu.opt.o3std.build.flags.optimize=-O3
+Garatronic.menu.opt.o3lto=Fastest (-O3) with LTO
+Garatronic.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+Garatronic.menu.opt.ogstd=Debug (-Og)
+Garatronic.menu.opt.ogstd.build.flags.optimize=-Og
 
 GenFlight.menu.opt.osstd=Smallest (-Os default)
 GenFlight.menu.opt.oslto=Smallest (-Os) with LTO
@@ -7013,41 +7031,23 @@ GenFlight.menu.opt.o3lto.build.flags.optimize=-O3 -flto
 GenFlight.menu.opt.ogstd=Debug (-Og)
 GenFlight.menu.opt.ogstd.build.flags.optimize=-Og
 
-elecgator.menu.opt.osstd=Smallest (-Os default)
-elecgator.menu.opt.oslto=Smallest (-Os) with LTO
-elecgator.menu.opt.oslto.build.flags.optimize=-Os -flto
-elecgator.menu.opt.o1std=Fast (-O1)
-elecgator.menu.opt.o1std.build.flags.optimize=-O1
-elecgator.menu.opt.o1lto=Fast (-O1) with LTO
-elecgator.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-elecgator.menu.opt.o2std=Faster (-O2)
-elecgator.menu.opt.o2std.build.flags.optimize=-O2
-elecgator.menu.opt.o2lto=Faster (-O2) with LTO
-elecgator.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-elecgator.menu.opt.o3std=Fastest (-O3)
-elecgator.menu.opt.o3std.build.flags.optimize=-O3
-elecgator.menu.opt.o3lto=Fastest (-O3) with LTO
-elecgator.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-elecgator.menu.opt.ogstd=Debug (-Og)
-elecgator.menu.opt.ogstd.build.flags.optimize=-Og
-
-Garatronic.menu.opt.osstd=Smallest (-Os default)
-Garatronic.menu.opt.oslto=Smallest (-Os) with LTO
-Garatronic.menu.opt.oslto.build.flags.optimize=-Os -flto
-Garatronic.menu.opt.o1std=Fast (-O1)
-Garatronic.menu.opt.o1std.build.flags.optimize=-O1
-Garatronic.menu.opt.o1lto=Fast (-O1) with LTO
-Garatronic.menu.opt.o1lto.build.flags.optimize=-O1 -flto
-Garatronic.menu.opt.o2std=Faster (-O2)
-Garatronic.menu.opt.o2std.build.flags.optimize=-O2
-Garatronic.menu.opt.o2lto=Faster (-O2) with LTO
-Garatronic.menu.opt.o2lto.build.flags.optimize=-O2 -flto
-Garatronic.menu.opt.o3std=Fastest (-O3)
-Garatronic.menu.opt.o3std.build.flags.optimize=-O3
-Garatronic.menu.opt.o3lto=Fastest (-O3) with LTO
-Garatronic.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-Garatronic.menu.opt.ogstd=Debug (-Og)
-Garatronic.menu.opt.ogstd.build.flags.optimize=-Og
+LoRa.menu.opt.osstd=Smallest (-Os default)
+LoRa.menu.opt.oslto=Smallest (-Os) with LTO
+LoRa.menu.opt.oslto.build.flags.optimize=-Os -flto
+LoRa.menu.opt.o1std=Fast (-O1)
+LoRa.menu.opt.o1std.build.flags.optimize=-O1
+LoRa.menu.opt.o1lto=Fast (-O1) with LTO
+LoRa.menu.opt.o1lto.build.flags.optimize=-O1 -flto
+LoRa.menu.opt.o2std=Faster (-O2)
+LoRa.menu.opt.o2std.build.flags.optimize=-O2
+LoRa.menu.opt.o2lto=Faster (-O2) with LTO
+LoRa.menu.opt.o2lto.build.flags.optimize=-O2 -flto
+LoRa.menu.opt.o3std=Fastest (-O3)
+LoRa.menu.opt.o3std.build.flags.optimize=-O3
+LoRa.menu.opt.o3lto=Fastest (-O3) with LTO
+LoRa.menu.opt.o3lto.build.flags.optimize=-O3 -flto
+LoRa.menu.opt.ogstd=Debug (-Og)
+LoRa.menu.opt.ogstd.build.flags.optimize=-Og
 
 Midatronics.menu.opt.osstd=Smallest (-Os default)
 Midatronics.menu.opt.oslto=Smallest (-Os) with LTO
@@ -7152,29 +7152,29 @@ GenWL.menu.dbg.none=None
 GenWL.menu.dbg.enable=Enabled (-g)
 GenWL.menu.dbg.enable.build.flags.debug=-g
 
+3dprinter.menu.dbg.none=None
+3dprinter.menu.dbg.enable=Enabled (-g)
+3dprinter.menu.dbg.enable.build.flags.debug=-g
+
+Elecgator.menu.dbg.none=None
+Elecgator.menu.dbg.enable=Enabled (-g)
+Elecgator.menu.dbg.enable.build.flags.debug=-g
+
 ESC_board.menu.dbg.none=None
 ESC_board.menu.dbg.enable=Enabled (-g)
 ESC_board.menu.dbg.enable.build.flags.debug=-g
 
-LoRa.menu.dbg.none=None
-LoRa.menu.dbg.enable=Enabled (-g)
-LoRa.menu.dbg.enable.build.flags.debug=-g
-
-3dprinter.menu.dbg.none=None
-3dprinter.menu.dbg.enable=Enabled (-g)
-3dprinter.menu.dbg.enable.build.flags.debug=-g
+Garatronic.menu.dbg.none=None
+Garatronic.menu.dbg.enable=Enabled (-g)
+Garatronic.menu.dbg.enable.build.flags.debug=-g
 
 GenFlight.menu.dbg.none=None
 GenFlight.menu.dbg.enable=Enabled (-g)
 GenFlight.menu.dbg.enable.build.flags.debug=-g
 
-elecgator.menu.dbg.none=None
-elecgator.menu.dbg.enable=Enabled (-g)
-elecgator.menu.dbg.enable.build.flags.debug=-g
-
-Garatronic.menu.dbg.none=None
-Garatronic.menu.dbg.enable=Enabled (-g)
-Garatronic.menu.dbg.enable.build.flags.debug=-g
+LoRa.menu.dbg.none=None
+LoRa.menu.dbg.enable=Enabled (-g)
+LoRa.menu.dbg.enable.build.flags.debug=-g
 
 Midatronics.menu.dbg.none=None
 Midatronics.menu.dbg.enable=Enabled (-g)
@@ -7401,6 +7401,26 @@ GenWL.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float
 GenWL.menu.rtlib.full=Newlib Standard
 GenWL.menu.rtlib.full.build.flags.ldspecs=
 
+3dprinter.menu.rtlib.nano=Newlib Nano (default)
+3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf
+3dprinter.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+3dprinter.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+3dprinter.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+3dprinter.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+3dprinter.menu.rtlib.full=Newlib Standard
+3dprinter.menu.rtlib.full.build.flags.ldspecs=
+
+Elecgator.menu.rtlib.nano=Newlib Nano (default)
+Elecgator.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Elecgator.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Elecgator.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Elecgator.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Elecgator.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Elecgator.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Elecgator.menu.rtlib.full=Newlib Standard
+Elecgator.menu.rtlib.full.build.flags.ldspecs=
+
 ESC_board.menu.rtlib.nano=Newlib Nano (default)
 ESC_board.menu.rtlib.nanofp=Newlib Nano + Float Printf
 ESC_board.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
@@ -7411,25 +7431,15 @@ ESC_board.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_f
 ESC_board.menu.rtlib.full=Newlib Standard
 ESC_board.menu.rtlib.full.build.flags.ldspecs=
 
-LoRa.menu.rtlib.nano=Newlib Nano (default)
-LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
-LoRa.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-LoRa.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-LoRa.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-LoRa.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-LoRa.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-LoRa.menu.rtlib.full=Newlib Standard
-LoRa.menu.rtlib.full.build.flags.ldspecs=
-
-3dprinter.menu.rtlib.nano=Newlib Nano (default)
-3dprinter.menu.rtlib.nanofp=Newlib Nano + Float Printf
-3dprinter.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-3dprinter.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-3dprinter.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-3dprinter.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-3dprinter.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-3dprinter.menu.rtlib.full=Newlib Standard
-3dprinter.menu.rtlib.full.build.flags.ldspecs=
+Garatronic.menu.rtlib.nano=Newlib Nano (default)
+Garatronic.menu.rtlib.nanofp=Newlib Nano + Float Printf
+Garatronic.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+Garatronic.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+Garatronic.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+Garatronic.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+Garatronic.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+Garatronic.menu.rtlib.full=Newlib Standard
+Garatronic.menu.rtlib.full.build.flags.ldspecs=
 
 GenFlight.menu.rtlib.nano=Newlib Nano (default)
 GenFlight.menu.rtlib.nanofp=Newlib Nano + Float Printf
@@ -7441,25 +7451,15 @@ GenFlight.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_f
 GenFlight.menu.rtlib.full=Newlib Standard
 GenFlight.menu.rtlib.full.build.flags.ldspecs=
 
-elecgator.menu.rtlib.nano=Newlib Nano (default)
-elecgator.menu.rtlib.nanofp=Newlib Nano + Float Printf
-elecgator.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-elecgator.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-elecgator.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-elecgator.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-elecgator.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-elecgator.menu.rtlib.full=Newlib Standard
-elecgator.menu.rtlib.full.build.flags.ldspecs=
-
-Garatronic.menu.rtlib.nano=Newlib Nano (default)
-Garatronic.menu.rtlib.nanofp=Newlib Nano + Float Printf
-Garatronic.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
-Garatronic.menu.rtlib.nanofs=Newlib Nano + Float Scanf
-Garatronic.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
-Garatronic.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
-Garatronic.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
-Garatronic.menu.rtlib.full=Newlib Standard
-Garatronic.menu.rtlib.full.build.flags.ldspecs=
+LoRa.menu.rtlib.nano=Newlib Nano (default)
+LoRa.menu.rtlib.nanofp=Newlib Nano + Float Printf
+LoRa.menu.rtlib.nanofp.build.flags.ldspecs=--specs=nano.specs -u _printf_float
+LoRa.menu.rtlib.nanofs=Newlib Nano + Float Scanf
+LoRa.menu.rtlib.nanofs.build.flags.ldspecs=--specs=nano.specs -u _scanf_float
+LoRa.menu.rtlib.nanofps=Newlib Nano + Float Printf/Scanf
+LoRa.menu.rtlib.nanofps.build.flags.ldspecs=--specs=nano.specs -u _printf_float -u _scanf_float
+LoRa.menu.rtlib.full=Newlib Standard
+LoRa.menu.rtlib.full.build.flags.ldspecs=
 
 Midatronics.menu.rtlib.nano=Newlib Nano (default)
 Midatronics.menu.rtlib.nanofp=Newlib Nano + Float Printf
