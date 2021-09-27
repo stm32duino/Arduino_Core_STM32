@@ -525,7 +525,7 @@ size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
     memcpy(&_serial.tx_buff[_serial.tx_head], buffer, size);
     size_intermediate = size;
   } else {
-    // memcpy till end of buffer then continue memcopy from begining of buffer
+    // memcpy till end of buffer then continue memcpy from beginning of buffer
     size_intermediate = SERIAL_TX_BUFFER_SIZE - _serial.tx_head;
     memcpy(&_serial.tx_buff[_serial.tx_head], buffer, size_intermediate);
     memcpy(&_serial.tx_buff[0], buffer + size_intermediate,
