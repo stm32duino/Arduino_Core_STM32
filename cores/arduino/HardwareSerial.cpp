@@ -540,7 +540,7 @@ size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
   if (!serial_tx_active(&_serial)) {
     // note: tx_size correspond to size of HAL data transfer,
     // not the total amount of data in the buffer.
-    // to compute size of data in buffer compare head and tail
+    // To compute size of data in buffer compare head and tail
     _serial.tx_size = size_intermediate;
     uart_attach_tx_callback(&_serial, _tx_complete_irq, size_intermediate);
   }
