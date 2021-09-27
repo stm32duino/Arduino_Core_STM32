@@ -346,7 +346,7 @@ int HardwareSerial::_tx_complete_irq(serial_t *obj)
   if (obj->tx_head != obj->tx_tail) {
     remaining_data = (SERIAL_TX_BUFFER_SIZE + obj->tx_head - obj->tx_tail)
                      % SERIAL_TX_BUFFER_SIZE;
-    // Limit the next transmition to the buffer end
+    // Limit the next transmission to the buffer end
     // because HAL is not able to manage rollover
     obj->tx_size = min(remaining_data,
                        (size_t)(SERIAL_TX_BUFFER_SIZE - obj->tx_tail));
