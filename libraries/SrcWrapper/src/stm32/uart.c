@@ -610,6 +610,9 @@ void uart_config_lowpower(serial_t *obj)
 #endif
 #if defined(LPUART1_BASE) && defined(__HAL_RCC_LPUART1_CONFIG)
     case LPUART1_INDEX:
+#ifdef __HAL_RCC_LPUART1_CLKAM_ENABLE
+      __HAL_RCC_LPUART1_CLKAM_ENABLE();
+#endif
       if (__HAL_RCC_GET_LPUART1_SOURCE() != RCC_LPUART1CLKSOURCE_HSI) {
         __HAL_RCC_LPUART1_CONFIG(RCC_LPUART1CLKSOURCE_HSI);
       }
