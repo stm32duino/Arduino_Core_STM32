@@ -166,14 +166,13 @@ tools.massStorageCopy.upload.params.quiet=
 tools.massStorageCopy.upload.pattern="{path}/{cmd}" {upload.verbose} -I "{build.path}/{build.project_name}.bin" -O "{node}"
 
 # STM32CubeProgrammer upload
+tools.stm32CubeProg.path={runtime.tools.STM32Tools.path}
+tools.stm32CubeProg.busybox=
+tools.stm32CubeProg.busybox.windows={path}/win/busybox.exe
 tools.stm32CubeProg.cmd=stm32CubeProg.sh
-tools.stm32CubeProg.cmd.windows=stm32CubeProg.bat
-tools.stm32CubeProg.path.linux={runtime.tools.STM32Tools.path}/linux
-tools.stm32CubeProg.path.macosx={runtime.tools.STM32Tools.path}/macosx
-tools.stm32CubeProg.path.windows={runtime.tools.STM32Tools.path}/win
 tools.stm32CubeProg.upload.params.verbose=
 tools.stm32CubeProg.upload.params.quiet=
-tools.stm32CubeProg.upload.pattern="{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {upload.options}
+tools.stm32CubeProg.upload.pattern="{busybox}" sh "{path}/{cmd}" {upload.protocol} "{build.path}/{build.project_name}.bin" {upload.options}
 
 # blackmagic upload for generic STM32
 tools.bmp_upload.cmd=arm-none-eabi-gdb
