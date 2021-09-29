@@ -26,7 +26,7 @@ After Verify and Upload, you will see a message similar to the following in Ardu
     This file should be uploaded manually by SCP, SFTP, Kermit, or etc.
     Then run "sh ./run_arduino_<sketch name>.sh start" command in the board's console.
     For detailed instructions, please visit:
-        https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP157_DK/README.md
+        https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC
 
 `<Arduino build output path>/run_arduino_<sketch name>.sh` looks like this for *Blink* example:
 
