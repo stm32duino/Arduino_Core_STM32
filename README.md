@@ -69,6 +69,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Generic STM32WB boards](#generic-stm32wb-boards)
  - [Generic STM32WL boards](#generic-stm32wb-boards)
  - [3D printer boards](#3d-printer-boards)
+ - [Blues Wireless boards](#blues-wireless-boards)
  - [Elecgator boards](#elecgator-boards)
  - [Electronic Speed Controller boards](#electronic-speed-controller-boards)
  - [Garatronics boards](#Garatronic/McHobby-boards)
@@ -407,7 +408,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L4S7ZITx | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L4S9ZIJx | Generic Board | *2.0.0* |  |
 | :yellow_heart:  | STM32L4S9ZIYx | Generic Board | **2.1.0** |  |
-| :yellow_heart:  | STM32L4R5ZIYx | Swan R5 | **2.1.0** | [Blues Wireless](https://blues.io/) |
 
 ### Generic STM32L5 boards
 
@@ -460,14 +460,11 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F446RE | [VAkE v1.0](https://www.facebook.com/pages/category/Product-Service/VAkE-Board-2290066274575218/) | *1.6.0* |  |
 | :green_heart:  | STM32F446VE | [FYSETC_S6](https://wiki.fysetc.com/FYSETC_S6/) | *1.9.0* | |
 
-### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
+### [Blues Wireless](https://blues.io/) boards
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F072RB | [PYBStick 26 Duino](https://shop.mchobby.be/fr/compatibles-arduino/1851-pybstick-duino-arduino-uniquement-3232100018518-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F401CE | [PYBStick 26 Lite](https://shop.mchobby.be/fr/micropython/1830-pybstick-lite-26-micropython-et-arduino-3232100018303-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F411RE | [PYBStick 26 Standard](https://shop.mchobby.be/fr/micropython/1844-pybstick-standard-26-micropython-et-arduino-3232100018440-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
-| :green_heart:  | STM32F412RE | [PYBStick 26 Pro](https://shop.mchobby.be/fr/micropython/1850-pybstick-pro-26-micropython-et-arduino-3232100018501-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :yellow_heart:  | STM32L4R5ZIYx | Swan R5 | **2.1.0** |  |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 
@@ -481,6 +478,15 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32F051K6U | [Wraith V1 ESC](https://www.readytoflyquads.com/35a-wraith32-v11-32bit-blheli-esc) | *1.8.0* |  |
 | :yellow_heart:  | STM32F103RCT | [STorM32 V1.31 RC](http://www.olliw.eu/storm32bgc-wiki/STorM32_Boards#STorM32-BGC_v1.3) | **2.1.0** |  |
+
+### [Garatronic](https://www.garatronic.fr)/[McHobby](https://shop.mchobby.be) boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :green_heart:  | STM32F072RB | [PYBStick 26 Duino](https://shop.mchobby.be/fr/compatibles-arduino/1851-pybstick-duino-arduino-uniquement-3232100018518-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F401CE | [PYBStick 26 Lite](https://shop.mchobby.be/fr/micropython/1830-pybstick-lite-26-micropython-et-arduino-3232100018303-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F411RE | [PYBStick 26 Standard](https://shop.mchobby.be/fr/micropython/1844-pybstick-standard-26-micropython-et-arduino-3232100018440-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
+| :green_heart:  | STM32F412RE | [PYBStick 26 Pro](https://shop.mchobby.be/fr/micropython/1850-pybstick-pro-26-micropython-et-arduino-3232100018501-garatronic.html) | *1.9.0* | [More info](https://github.com/mchobby/pyboard-driver/tree/master/PYBStick) |
 
 ### Generic flight controllers
 
