@@ -464,7 +464,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32L4R5ZIYx | Swan R5 | *2.1.0* |  |
+| :green_heart:  | STM32L4R5ZIYx | [Swan R5](https://blues.io/products/swan) | *2.1.0* |  |
 
 ### [Elecgator](https://www.elecgator.com/) boards
 
