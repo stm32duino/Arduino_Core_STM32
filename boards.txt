@@ -5672,7 +5672,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 ################################################################################
 # Blues Wireless boards
 
-BluesW.name= Blues Wireless boards
+BluesW.name=Blues Wireless boards
 
 BluesW.build.core=arduino
 BluesW.build.board=BluesWireless
