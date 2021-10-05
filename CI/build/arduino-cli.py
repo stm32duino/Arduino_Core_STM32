@@ -25,7 +25,7 @@ script_path = os.path.dirname(os.path.abspath(__file__))
 path_config_filename = os.path.join(script_path, "path_config.json")
 
 arduino_cli_path = ""
-stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/package_stmicroelectronics_index.json"
+stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json"
 sketches_path_list = []
 default_build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput")
 build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput" + build_id)

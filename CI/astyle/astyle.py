@@ -24,7 +24,7 @@ else:
 ignore_path = os.path.join(script_path, ignore_filename)
 def_path = os.path.join(script_path, def_filename)
 astyle_out_path = astyle_out_filename
-git_branch = "remotes/origin/master"
+git_branch = "remotes/origin/main"
 
 astyle_major = 3
 astyle_minor = 1

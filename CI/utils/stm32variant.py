@@ -2158,7 +2158,7 @@ def manage_repo():
                 git_cmds = [
                     ["git", "-C", repo_path, "clean", "-fdx"],
                     ["git", "-C", repo_path, "fetch"],
-                    ["git", "-C", repo_path, "reset", "--hard", "origin/master"],
+                    ["git", "-C", repo_path, "reset", "--hard", "origin/main"],
                 ]
             else:
                 # Clone it as it does not exists yet

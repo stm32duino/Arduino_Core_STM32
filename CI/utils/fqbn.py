@@ -10,7 +10,7 @@ import argparse
 fqbn_list = []
 arduino_cli = ""
 arduino_cli_path = ""
-stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/master/package_stmicroelectronics_index.json"
+stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json"
 arduino_platform = "STMicroelectronics:stm32"
 
 # Parser
