@@ -26,7 +26,7 @@ After Verify and Upload, you will see a message similar to the following in Ardu
     This file should be uploaded manually by SCP, SFTP, Kermit, or etc.
     Then run "sh ./run_arduino_<sketch name>.sh start" command in the board's console.
     For detailed instructions, please visit:
-        https://github.com/stm32duino/Arduino_Core_STM32/tree/master/variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC
+        https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP1xx/MP153AAC_MP153CAC_MP153DAC_MP153FAC_MP157AAC_MP157CAC_MP157DAC_MP157FAC
 
 `<Arduino build output path>/run_arduino_<sketch name>.sh` looks like this for *Blink* example:
 
@@ -38,7 +38,7 @@ After Verify and Upload, you will see a message similar to the following in Ardu
 
   `/tmp/arduino_build_668148/run_arduino_Blink.sh`
 
-In this example, the user **must** upload `<Arduino build output path>/run_arduino_<sketch name>.sh` file manually. Uploading instruction is described later in the [Uploading](#Uploading) section. 
+In this example, the user **must** upload `<Arduino build output path>/run_arduino_<sketch name>.sh` file manually. Uploading instruction is described later in the [Uploading](#Uploading) section.
 
 After uploading the user can use `sh run_arduino_<sketch name>.sh start` in the console of host Linux via either SSH or Serial Console, to run the Arduino firmware.
 
@@ -249,7 +249,7 @@ As mentioned above `run_arduino_<sketch name>.sh` file have to be uploaded manua
 ### Over Network
 
 * **SCP** and **SFTP** are good options to upload the file, since STM32MP1 board runs SSH server by default. There are a lot of online resources on how to use them on the internet. Here is the default SSH access information:
-``` 
+```
 host: (Varies. Search online to learn how to figure it out.)
 username: root
 password: (none by default)
@@ -299,7 +299,7 @@ And then the Device Tree should enable TIM1 for the coprocessor, although this d
 [Balena OS]: https://github.com/kbumsik/balena-st-stm32mp
 [ST Wiki page on boot mode]: https://wiki.st.com/stm32mpu/wiki/STM32CubeMP1_Package#Getting_started_with_STM32CubeMP1_Package
 
-[run_arduino_gen.sh]: https://github.com/stm32duino/Arduino_Tools/blob/master/run_arduino_gen.sh
+[run_arduino_gen.sh]: https://github.com/stm32duino/Arduino_Tools/blob/main/run_arduino_gen.sh
 
 [OpenAMP]: https://github.com/OpenAMP/open-amp/wiki/OpenAMP-Overview
 [Linux RPMsg]: https://wiki.st.com/stm32mpu/wiki/Linux_RPMsg_framework_overview
