@@ -24,6 +24,8 @@ on:
       - '!CI/build/examples/**'
       - tools/**
       - '!tools/platformio-build.py'
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
 jobs:
   astyle_check:
     runs-on: ubuntu-latest
