@@ -1,11 +1,14 @@
 import argparse
 import re
+import sys
 from itertools import groupby
 from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
-from stm32common import createFolder, deleteFolder, genSTM32List
 
 script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils import createFolder, deleteFolder, genSTM32List
+
 # Base path
 core_path = script_path.parent.parent
 SrcWrapper_path = ""

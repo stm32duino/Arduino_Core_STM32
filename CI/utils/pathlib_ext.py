@@ -50,3 +50,8 @@ def genSTM32List(path, pattern):
             stm32_list.append(res.group(1))
     stm32_list.sort()
     return stm32_list
+
+
+if __name__ == "__main__":
+    print("This script is not intend to be called directly")
+    sys.exit()

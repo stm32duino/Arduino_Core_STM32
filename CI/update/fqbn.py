@@ -22,7 +22,10 @@ parser.add_argument(
     "-b", "--board", metavar="pattern", help="pattern to find one or more board(s) fqbn"
 )
 parser.add_argument(
-    "-p", "--path", metavar="<arduino-cli path>", help="Path to the arduino-cli tool.",
+    "-p",
+    "--path",
+    metavar="<arduino-cli path>",
+    help="Path to the arduino-cli tool.",
 )
 args = parser.parse_args()
 
@@ -91,9 +94,7 @@ def main():
         arduino_cli_path = args.path
         assert os.path.exists(
             arduino_cli_path
-        ), "Path does not exist: '{}'. Please check the path!".format(
-            arduino_cli_path
-        )
+        ), "Path does not exist: '{}'. Please check the path!".format(arduino_cli_path)
     if sys.platform.startswith("win32"):
         arduino_cli = os.path.join(arduino_cli_path, "arduino-cli.exe")
     else:
