@@ -5,8 +5,7 @@ import shutil
 # Create a folder if not exists
 def createFolder(path):
     try:
-        if not path.exists():
-            path.mkdir()
+        path.mkdir(parents=True, exist_ok=True)
     except OSError:
         print("Error: Creating directory {}".format(path))
 

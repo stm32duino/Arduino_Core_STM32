@@ -5,44 +5,47 @@ from datetime import timedelta
 import json
 import os
 from packaging import version
+from pathlib import Path
 import re
-import shutil
 import subprocess
 import sys
 import tempfile
 import textwrap
 import time
 
+script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils import createFolder, deleteFolder
+
 if sys.platform.startswith("win32"):
     from colorama import init
 
     init(autoreset=True)
 
-home = os.path.expanduser("~")
-tempdir = tempfile.gettempdir()
-build_id = time.strftime("_%Y-%m-%d_%H-%M-%S")
-script_path = os.path.dirname(os.path.abspath(__file__))
-path_config_filename = os.path.join(script_path, "path_config.json")
+home = Path.home()
+tempdir = Path(tempfile.gettempdir())
+build_id = time.strftime(".%Y-%m-%d_%H-%M-%S")
+path_config_filename = script_path / "path_config.json"
 
-arduino_cli_path = ""
+arduino_cli_path = Path("")
 stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json"
 sketches_path_list = []
-default_build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput")
-build_output_dir = os.path.join(tempdir, "build_arduinoCliOutput" + build_id)
-build_output_cache_dir = os.path.join(build_output_dir, "cache")
-root_output_dir = os.path.join(home, "Documents", "arduinoCliOutput")
+default_build_output_dir = tempdir / "build_arduinoCliOutput"
+build_output_dir = tempdir / f"build_arduinoCliOutput{build_id}"
+build_output_cache_dir = build_output_dir / "cache"
+root_output_dir = home / "Documents" / "arduinoCliOutput"
 
-output_dir = ""
-log_file = ""
+output_dir = Path("")
+log_file = Path("")
 
-# Ouput directory path
+# Output directory path
 bin_dir = "binaries"
 
 # Default
-sketch_default = os.path.join(script_path, "examples", "BareMinimum")
-exclude_file_default = os.path.join(script_path, "conf", "exclude_list.txt")
-cores_config_file_default = os.path.join(script_path, "conf", "cores_config.json")
-cores_config_file_ci = os.path.join(script_path, "conf", "cores_config_ci.json")
+sketch_default = script_path / "examples" / "BareMinimum"
+exclude_file_default = script_path / "conf" / "exclude_list.txt"
+cores_config_file_default = script_path / "conf" / "cores_config.json"
+cores_config_file_ci = script_path / "conf" / "cores_config_ci.json"
 
 maintainer_default = "STMicroelectronics"
 arch_default = "stm32"
@@ -87,21 +90,6 @@ build_format_result = "| {:^8} | {:42} | {:^19} | {:^6.2f}s |"
 build_separator = "-" * 80
 
 
-# Create a folder if not exists
-def createFolder(folder):
-    try:
-        if not os.path.exists(folder):
-            os.makedirs(folder)
-    except OSError:
-        print("Error: Creating directory. " + folder)
-
-
-# Delete targeted folder recursively
-def deleteFolder(folder):
-    if os.path.isdir(folder):
-        shutil.rmtree(folder, ignore_errors=True)
-
-
 def cat(file):
     with open(file, "r") as f:
         print(f.read())
@@ -114,15 +102,13 @@ def create_output_log_tree():
     with open(log_file, "w") as file:
         file.write(build_separator + "\nStarts ")
         file.write(time.strftime("%A %d %B %Y %H:%M:%S "))
-        file.write(
-            "\nLog will be available here:\n{}\n".format(os.path.abspath(output_dir))
-        )
         file.write(build_separator + "\n")
+        file.write(f"\nLog will be available here:\n{output_dir.resolve()}\n")
     # Folders
     for board in board_fqbn:
-        createFolder(os.path.join(output_dir, board, bin_dir))
-        createFolder(os.path.join(output_dir, board))
-        createFolder(os.path.join(build_output_dir, board))
+        createFolder(output_dir / board / bin_dir)
+        createFolder(output_dir / board)
+        createFolder(build_output_dir / board)
 
 
 def create_config():
@@ -140,10 +126,10 @@ def create_config():
     path_config_file.write(
         json.dumps(
             {
-                "ARDUINO_CLI_PATH": arduino_cli_path,
-                "SKETCHES_PATHS": sketches_path_list,
-                "BUILD_OUPUT_DIR": default_build_output_dir,
-                "ROOT_OUPUT_DIR": root_output_dir,
+                "ARDUINO_CLI_PATH": str(arduino_cli_path),
+                "SKETCHES_PATHS": [str(fp) for fp in sketches_path_list],
+                "BUILD_OUPUT_DIR": str(default_build_output_dir),
+                "ROOT_OUPUT_DIR": str(root_output_dir),
             },
             indent=2,
         )
@@ -164,43 +150,40 @@ def check_config():
     global stm32_url
 
     if args.ci is False:
-        if os.path.isfile(path_config_filename):
+        if path_config_filename.is_file():
             try:
                 path_config_file = open(path_config_filename, "r")
                 path_config = json.load(path_config_file)
                 # Common path
-                arduino_cli_path = path_config["ARDUINO_CLI_PATH"]
-                sketches_path_list = path_config["SKETCHES_PATHS"]
-                build_output_dir = path_config["BUILD_OUPUT_DIR"] + build_id
-                root_output_dir = path_config["ROOT_OUPUT_DIR"]
+                arduino_cli_path = Path(path_config["ARDUINO_CLI_PATH"])
+                sketches_path_list = [Path(fp) for fp in path_config["SKETCHES_PATHS"]]
+                build_output_dir = Path(path_config["BUILD_OUPUT_DIR"])
+                build_output_dir = build_output_dir.with_suffix(build_id)
+                root_output_dir = Path(path_config["ROOT_OUPUT_DIR"])
                 path_config_file.close()
             except IOError:
                 print("Failed to open " + path_config_file)
         else:
             create_config()
 
-    output_dir = os.path.join(root_output_dir, "build" + build_id)
-    log_file = os.path.join(output_dir, "build_result.log")
+    output_dir = root_output_dir / f"build{build_id}"
+    log_file = output_dir / "build_result.log"
 
-    if arduino_cli_path != "":
-        assert os.path.exists(
-            arduino_cli_path
-        ), "Path does not exist: {} . Please check the path in the json config file".format(
-            arduino_cli_path
+    if arduino_cli_path != Path():
+        assert arduino_cli_path.exists(), (
+            f"Path {arduino_cli_path} does not exist."
+            f" Please check path in the json config file."
         )
 
     if sys.platform.startswith("win32"):
-        arduino_cli = os.path.join(arduino_cli_path, "arduino-cli.exe")
-    elif sys.platform.startswith("linux"):
-        arduino_cli = os.path.join(arduino_cli_path, "arduino-cli")
-    elif sys.platform.startswith("darwin"):
-        arduino_cli = os.path.join(arduino_cli_path, "arduino-cli")
+        arduino_cli = str(arduino_cli_path / "arduino-cli.exe")
     else:
-        arduino_cli = "arduino-cli"
+        arduino_cli = str(arduino_cli_path / "arduino-cli")
 
     try:
         output = subprocess.check_output(
-            [arduino_cli, "version"], stderr=subprocess.STDOUT,
+            [arduino_cli, "version"],
+            stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
         print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
@@ -222,7 +205,14 @@ def check_config():
 
     try:
         output = subprocess.check_output(
-            [arduino_cli, "core", "search", "stm32", "--additional-urls", stm32_url],
+            [
+                arduino_cli,
+                "core",
+                "search",
+                "stm32",
+                "--additional-urls",
+                stm32_url,
+            ],
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
@@ -249,12 +239,12 @@ def check_config():
             cli_config = json.loads(output)
             if cli_config is not None:
                 if cli_config["directories"]["data"] is not None:
-                    sketches_path_list.append(cli_config["directories"]["data"])
+                    sketches_path_list.append(Path(cli_config["directories"]["data"]))
                 else:
                     print("No data directory")
                     quit(1)
                 if cli_config["directories"]["user"] is not None:
-                    sketches_path_list.append(cli_config["directories"]["user"])
+                    sketches_path_list.append(Path(cli_config["directories"]["user"]))
                 else:
                     print("No user directory!")
                     quit(1)
@@ -269,9 +259,7 @@ def load_core_config():
     global arch
     cores_config_filename = ""
     if args.config:
-        assert os.path.exists(
-            args.config
-        ), "User core configuration JSON file does not exist"
+        assert args.config.exists(), "User core configuration JSON file does not exist"
         cores_config_filename = args.config
     else:
         if args.ci:
@@ -379,25 +367,27 @@ def manage_inos():
     if args.all or args.sketches or args.list == "sketch":
         find_inos()
         if args.exclude:
-            assert os.path.exists(args.exclude), "Excluded list file does not exist"
-            manage_exclude_list(args.exclude)
-        elif os.path.exists(exclude_file_default):
+            exclude_file = Path(args.exclude)
+            assert exclude_file.exists(), "Excluded list file does not exist"
+            manage_exclude_list(exclude_file)
+        elif exclude_file_default.exists():
             manage_exclude_list(exclude_file_default)
     # Only one sketch
     elif args.ino:
-        if os.path.exists(args.ino):
+        ino_file = Path(args.ino)
+        if ino_file.exists():
             # Store only the path
-            if os.path.isfile(args.ino):
-                sketch_list.append(os.path.dirname(args.ino))
+            if ino_file.is_file(args.ino):
+                sketch_list.append(ino_file.parent)
             else:
                 sketch_list.append(args.ino)
         else:
             for path in sketches_path_list:
-                fp = os.path.join(path, args.ino)
-                if os.path.exists(fp):
+                fp = path / ino_file
+                if fp.exists():
                     # Store only the path
-                    if os.path.isfile(fp):
-                        sketch_list.append(os.path.dirname(fp))
+                    if fp.is_file():
+                        sketch_list.append(fp.parent)
                     else:
                         sketch_list.append(fp)
                     break
@@ -406,24 +396,25 @@ def manage_inos():
                 quit(1)
     # Sketches listed in a file
     elif args.file:
-        assert os.path.exists(args.file), "Sketches list file does not exist"
-        with open(args.file, "r") as f:
+        sketches_files = Path(args.file)
+        assert sketches_files.exists(), "Sketches list file does not exist"
+        with open(sketches_files, "r") as f:
             for line in f.readlines():
                 if line.rstrip():
-                    ino = line.rstrip()
-                    if os.path.exists(ino):
+                    ino = Path(line.rstrip())
+                    if ino.exists():
                         # Store only the path
-                        if os.path.isfile(ino):
-                            sketch_list.append(os.path.dirname(ino))
+                        if ino.is_file():
+                            sketch_list.append(ino.parent)
                         else:
                             sketch_list.append(ino)
                     else:
                         for path in sketches_path_list:
-                            fp = os.path.join(path, ino)
-                            if os.path.exists(fp):
+                            fp = path / ino
+                            if fp.exists():
                                 # Store only the path
-                                if os.path.isfile(fp):
-                                    sketch_list.append(os.path.dirname(fp))
+                                if fp.is_file():
+                                    sketch_list.append(fp.parent)
                                 else:
                                     sketch_list.append(fp)
                                 break
@@ -443,14 +434,13 @@ def find_inos():
     # key: path, value: name
     if args.sketches:
         arg_sketch_pattern = re.compile(args.sketches, re.IGNORECASE)
-    for path in sketches_path_list:
-        for root, dirs, files in os.walk(path, followlinks=True):
-            for file in files:
-                if file.endswith((".ino", ".pde")):
-                    if args.sketches:
-                        if arg_sketch_pattern.search(os.path.join(root, file)) is None:
-                            continue
-                    sketch_list.append(root)
+    for spath in sketches_path_list:
+        for spath_object in spath.glob("**/*.[ip][nd][oe]"):
+            if args.sketches:
+                if arg_sketch_pattern.search(str(spath_object)) is None:
+                    continue
+            if spath_object.is_file():
+                sketch_list.append(spath_object.parent)
     sketch_list = sorted(set(sketch_list))
 
 
@@ -490,7 +480,16 @@ def find_board():
     for fqbn in fqbn_list_tmp:
         try:
             output = subprocess.check_output(
-                [arduino_cli, "board", "details", "--additional-urls", stm32_url, "--format", "json", fqbn],
+                [
+                    arduino_cli,
+                    "board",
+                    "details",
+                    "--additional-urls",
+                    stm32_url,
+                    "--format",
+                    "json",
+                    fqbn,
+                ],
                 stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
@@ -528,14 +527,14 @@ def find_board():
 def check_status(status, build_conf, boardKo):
     global nb_build_passed
     global nb_build_failed
-    sketch_name = os.path.basename(build_conf[4][-1])
+    sketch_name = build_conf[4][-1].name
 
     if status[1] == 0:
         result = "\033[32msucceeded\033[0m"
         nb_build_passed += 1
     elif status[1] == 1:
         # Check if failed due to a region overflowed
-        logFile = os.path.join(build_conf[3], sketch_name + ".log")
+        logFile = build_conf[3] / f"{sketch_name}.log"
         # error or fatal error
         fork_pattern = re.compile(r"^Error during build: fork/exec")
         error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
@@ -669,7 +668,7 @@ def log_final_result():
         f.write("Duration: ")
         f.write(duration)
         f.write("\nLogs are available here:\n")
-        f.write(output_dir + "\n")
+        f.write(f"{output_dir}\n")
         f.write(build_separator + "\n\n")
 
     # Standard output
@@ -710,17 +709,13 @@ def genBasicCommand(b_name):
     cmd.append("compile")
     # cmd.append("-warnings=all")
     cmd.append("--build-path")
-    cmd.append(os.path.join(build_output_dir, b_name))
+    cmd.append(build_output_dir / b_name)
     cmd.append("--build-cache-path")
     cmd.append(build_output_cache_dir)
     if args.verbose:
         cmd.append("--verbose")
-    if version.parse(arduino_cli_version) <= version.parse("0.10.0"):
-        cmd.append("--output")
-        cmd.append(os.path.join(output_dir, b_name, bin_dir, "dummy_sketch"))
-    else:
-        cmd.append("--output-dir")
-        cmd.append(os.path.join(output_dir, b_name, bin_dir))
+    cmd.append("--output-dir")
+    cmd.append(output_dir / b_name / bin_dir)
     cmd.append("--fqbn")
     cmd.append(get_fqbn(b_name))
     cmd.append("dummy_sketch")
@@ -736,7 +731,7 @@ def create_build_conf_list():
                 b_name,
                 idx,
                 len(board_fqbn),
-                os.path.join(output_dir, b_name),
+                output_dir / b_name,
                 genBasicCommand(b_name),
             )
         )
@@ -750,13 +745,10 @@ def build_config(sketch, boardSkipped):
 
     for idx in reversed(range(len(build_conf_list))):
         build_conf_list[idx][4][-1] = sketch
-        build_conf_list[idx][4][-4] = build_conf_list[idx][4][-4].replace(
-            "dummy_sketch", os.path.basename(sketch)
-        )
         if na_sketch_pattern:
             if build_conf_list[idx][0] in na_sketch_pattern:
                 for pattern in na_sketch_pattern[build_conf_list[idx][0]]:
-                    if re.search(pattern, sketch, re.IGNORECASE):
+                    if re.search(pattern, str(sketch), re.IGNORECASE):
                         print(
                             (build_format_result).format(
                                 "{}/{}".format(
@@ -777,7 +769,7 @@ def build_config(sketch, boardSkipped):
                     for pattern in sketch_options:
                         print
                         if pattern in sketch_options:
-                            if re.search(pattern, sketch, re.IGNORECASE):
+                            if re.search(pattern, str(sketch), re.IGNORECASE):
                                 if build_conf_list[idx][4][-2].count(":") == 3:
                                     build_conf_list[idx][4][-2] += (
                                         "," + sketch_options[pattern]
@@ -801,12 +793,10 @@ def build_all():
         print(build_separator)
         print(
             "| {:^85} |".format(
-                "Sketch \033[34m{}\033[0m ({}/{})".format(
-                    os.path.basename(sketch), sketch_nb, len(sketch_list)
-                )
+                f"Sketch \033[34m{sketch.name}\033[0m ({sketch_nb}/{len(sketch_list)})"
             )
         )
-        wrapped_path_ = wrapper.wrap(text=os.path.dirname(sketch))
+        wrapped_path_ = wrapper.wrap(text=str(sketch.parent))
         for line in wrapped_path_:
             print("| {:^76} |".format("{}".format(line)))
         print(build_separator)
@@ -829,9 +819,7 @@ def build_all():
 def build(build_conf):
     cmd = build_conf[4]
     status = [time.monotonic()]
-    with open(
-        os.path.join(build_conf[3], os.path.basename(cmd[-1]) + ".log"), "w"
-    ) as stdout:
+    with open(build_conf[3] / f"{cmd[-1].name}.log", "w") as stdout:
         res = subprocess.Popen(cmd, stdout=stdout, stderr=subprocess.STDOUT)
         res.wait()
         status[0] = time.monotonic() - status[0]
@@ -877,17 +865,18 @@ parser.add_argument(
 parser.add_argument(
     "--config",
     metavar="<core configuration file>",
-    help="JSON file containing the build configuration for one or more\
+    help=f"JSON file containing the build configuration for one or more\
     maintainer/architecture. Board options for build, applicability of\
     sketches for boards or required options. If sketch is not listed\
-    then applicable to all board. Default core configuration is for '"
-    + arch_default
-    + " 'architecture in: "
-    + cores_config_file_default,
+    then applicable to all board. Default core configuration is for\
+    '{arch_default}' architecture in: {cores_config_file_default}",
 )
 
 parser.add_argument(
-    "-u", "--url", metavar="<string>", help="additional URL for the board manager\
+    "-u",
+    "--url",
+    metavar="<string>",
+    help="additional URL for the board manager\
     Default url : "
     + stm32_url,
 )
@@ -901,7 +890,7 @@ g1.add_argument("--ci", help="custom configuration for CI build", action="store_
 
 # Sketch options
 sketchg0 = parser.add_argument_group(
-    title="Sketch(es) options", description="By default build " + sketch_default
+    title="Sketch(es) options", description=f"By default build {sketch_default}"
 )
 
 sketchg1 = sketchg0.add_mutually_exclusive_group()
@@ -924,9 +913,8 @@ sketchg1.add_argument(
     "-e",
     "--exclude",
     metavar="<excluded sketches list filepath>",
-    help="file containing sketches pattern to ignore.\
-    Default path : "
-    + exclude_file_default,
+    help=f"file containing sketches pattern to ignore.\
+    Default path : {exclude_file_default}",
 )
 
 args = parser.parse_args()
