@@ -28,7 +28,8 @@ build_id = time.strftime(".%Y-%m-%d_%H-%M-%S")
 path_config_filename = script_path / "path_config.json"
 
 arduino_cli_path = Path("")
-stm32_url = "https://github.com/stm32duino/BoardManagerFiles/raw/main/package_stmicroelectronics_index.json"
+stm32_url_base = "https://github.com/stm32duino/BoardManagerFiles/raw/main/"
+stm32_url = f"{stm32_url_base}package_stmicroelectronics_index.json"
 sketches_path_list = []
 default_build_output_dir = tempdir / "build_arduinoCliOutput"
 build_output_dir = tempdir / f"build_arduinoCliOutput{build_id}"
@@ -84,10 +85,22 @@ success_count = 0
 fail_count = 0
 skip_count = 0
 
+# error or fatal error
+fork_pattern = re.compile(r"^Error during build: fork/exec")
+error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
+ld_pattern = re.compile("arm-none-eabi/bin/ld:")
+overflow_pattern = re.compile(
+    r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"
+)
+
 # format
 build_format_header = "| {:^8} | {:42} | {:^10} | {:^7} |"
 build_format_result = "| {:^8} | {:42} | {:^19} | {:^6.2f}s |"
 build_separator = "-" * 80
+fsucc = "\033[32msucceeded\033[0m"
+ffail = "\033[31mfailed\033[0m"
+fskip = "\033[33mskipped\033[0m"
+nl = "\n"
 
 
 def cat(file):
@@ -100,10 +113,10 @@ def cat(file):
 def create_output_log_tree():
     # Log output file
     with open(log_file, "w") as file:
-        file.write(build_separator + "\nStarts ")
+        file.write(f"{build_separator}\nStarts ")
         file.write(time.strftime("%A %d %B %Y %H:%M:%S "))
-        file.write(build_separator + "\n")
         file.write(f"\nLog will be available here:\n{output_dir.resolve()}\n")
+        file.write(f"{build_separator}\n")
     # Folders
     for board in board_fqbn:
         createFolder(output_dir / board / bin_dir)
@@ -117,11 +130,8 @@ def create_config():
     global build_output_dir
     global root_output_dir
     # Create a Json file for a better path management
-    print(
-        "'{}' file created. Please check the configuration.".format(
-            path_config_filename
-        )
-    )
+    print(f"'{path_config_filename}' file created.")
+    print("Please check the configuration.")
     path_config_file = open(path_config_filename, "w")
     path_config_file.write(
         json.dumps(
@@ -186,19 +196,19 @@ def check_config():
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
-        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
         print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
         if res:
             arduino_cli_version = res.group(1)
-            print("Arduino CLI version used: " + arduino_cli_version)
+            print(f"Arduino CLI version used: {arduino_cli_version}")
+            if version.parse(arduino_cli_version) <= version.parse("0.10.0"):
+                print("Arduino CLI version <= 0.10.0 is no more supported")
         else:
-            print(
-                "Unable to define Arduino CLI version, use default: "
-                + arduino_cli_default_version
-            )
+            print("Unable to define Arduino CLI version.")
+            print(f"Use default: {arduino_cli_default_version}")
 
     if args.url:
         stm32_url = args.url
@@ -216,12 +226,12 @@ def check_config():
             stderr=subprocess.STDOUT,
         )
     except subprocess.CalledProcessError as e:
-        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
         print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
         if arduino_platform not in output.decode("utf-8"):
-            print(arduino_platform + " is not installed!")
+            print(f"{arduino_platform} is not installed!")
             quit(1)
         # Add core and library path to sketches_path_list
         try:
@@ -230,9 +240,7 @@ def check_config():
                 stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
-            print(
-                '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
-            )
+            print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
             print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
@@ -259,7 +267,7 @@ def load_core_config():
     global arch
     cores_config_filename = ""
     if args.config:
-        assert args.config.exists(), "User core configuration JSON file does not exist"
+        assert args.config.exists(), f"{args.config} not found"
         cores_config_filename = args.config
     else:
         if args.ci:
@@ -279,35 +287,23 @@ def load_core_config():
             if arch == core["architecture"]:
                 core_config = core
                 maintainer = core["maintainer"]
-                print(
-                    "Build configuration for '"
-                    + maintainer
-                    + "' maintainer and '"
-                    + arch
-                    + "' architecture"
-                )
+                print("Build configuration for:")
+                print(f"- '{maintainer}' maintainer")
+                print(f"- '{arch}' architecture")
                 break
         else:
-            print(
-                "Core architecture '" + arch + "' not found in " + cores_config_filename
-            )
+            print(f"Core architecture '{arch}' not found in:")
+            print(f"{cores_config_filename}")
             arch = arch_default
             core_config = None
     except IOError:
-        print(
-            "Can't open {} file. Build configuration will not be used.".format(
-                cores_config_filename
-            )
-        )
+        print(f"Can't open {cores_config_filename} file.")
+        print("Build configuration will not be used.")
     finally:
         if core_config is None:
-            print(
-                "Using default configuration for '"
-                + maintainer_default
-                + "' maintainer and '"
-                + arch_default
-                + "' architecture"
-            )
+            print("Using default configuration for:")
+            print(f"- '{maintainer_default}' maintainer")
+            print(f"- '{arch_default}' architecture")
 
 
 # Board list have to be initialized before call this function
@@ -347,22 +343,21 @@ def parse_core_config():
     #    print("{}: {}\n".format(key, value))
 
 
-def manage_exclude_list(file):
-    with open(file, "r") as f:
+def manage_exclude_list(exfile):
+    with open(exfile, "r") as f:
         for line in f.readlines():
             if line.rstrip():
                 exclude_list.append(line.rstrip())
     if exclude_list:
         for pattern in exclude_list:
-            exclude_pattern = re.compile(".*" + pattern + ".*", re.IGNORECASE)
+            exclude_pattern = re.compile(f".*{pattern}.*", re.IGNORECASE)
             for s in reversed(sketch_list):
-                if exclude_pattern.search(s):
+                if exclude_pattern.search(str(s)):
                     sketch_list.remove(s)
 
 
 # Manage sketches list
 def manage_inos():
-
     # Find all inos or all patterned inos
     if args.all or args.sketches or args.list == "sketch":
         find_inos()
@@ -392,12 +387,12 @@ def manage_inos():
                         sketch_list.append(fp)
                     break
             else:
-                print("Sketch {} path does not exist!".format(args.ino))
+                print(f"Sketch {args.ino} path does not exist!")
                 quit(1)
     # Sketches listed in a file
     elif args.file:
         sketches_files = Path(args.file)
-        assert sketches_files.exists(), "Sketches list file does not exist"
+        assert sketches_files.exists(), f"{sketches_files} not found"
         with open(sketches_files, "r") as f:
             for line in f.readlines():
                 if line.rstrip():
@@ -419,12 +414,12 @@ def manage_inos():
                                     sketch_list.append(fp)
                                 break
                         else:
-                            print("Ignore {} as it does not exist.".format(ino))
+                            print(f"Ignore {ino} as it does not exist.")
     # Default sketch to build
     else:
         sketch_list.append(sketch_default)
     if len(sketch_list) == 0:
-        print("No sketch to build for " + arduino_platform + "!")
+        print(f"No sketch to build for {arduino_platform}!")
         quit(1)
 
 
@@ -444,7 +439,8 @@ def find_inos():
     sketch_list = sorted(set(sketch_list))
 
 
-# Return a list of all board using the arduino-cli for the specified architecture
+# Return a list of all board using the arduino-cli for the specified
+# architecture
 def find_board():
     global board_fqbn
     board_found = {}
@@ -463,7 +459,7 @@ def find_board():
             stderr=subprocess.STDOUT,
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
-        print('"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode))
+        print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
         print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
@@ -473,7 +469,7 @@ def find_board():
                 if arduino_platform in board[fqbn_key]:
                     fqbn_list_tmp.append(board[fqbn_key])
         if not len(fqbn_list_tmp):
-            print("No boards found for " + arduino_platform)
+            print(f"No boards found for {arduino_platform}")
             quit(1)
 
     # For STM32 core, pnum is requested
@@ -493,9 +489,7 @@ def find_board():
                 stderr=subprocess.STDOUT,
             ).decode("utf-8")
         except subprocess.CalledProcessError as e:
-            print(
-                '"' + " ".join(e.cmd) + '" failed with code: {}!'.format(e.returncode)
-            )
+            print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
             print(e.stdout.decode("utf-8"))
             quit(e.returncode)
         else:
@@ -510,16 +504,16 @@ def find_board():
                             if args.board:
                                 if arg_board_pattern.search(value["value"]) is None:
                                     continue
-                            board_found[value["value"]] = (
-                                fqbn + ":pnum=" + value["value"]
-                            )
+                            board_found[
+                                value["value"]
+                            ] = f"{fqbn}:pnum={value['value']}"
                     break
             else:
-                print('No detail found for:"' + fqbn + '"!')
+                print(f"No detail found for:'{fqbn}'!")
     if board_found:
         board_fqbn = collections.OrderedDict(sorted(board_found.items()))
     else:
-        print("No board found for " + arduino_platform + "!")
+        print(f"No board found for {arduino_platform}!")
         quit(1)
 
 
@@ -530,18 +524,11 @@ def check_status(status, build_conf, boardKo):
     sketch_name = build_conf[4][-1].name
 
     if status[1] == 0:
-        result = "\033[32msucceeded\033[0m"
+        result = fsucc
         nb_build_passed += 1
     elif status[1] == 1:
         # Check if failed due to a region overflowed
         logFile = build_conf[3] / f"{sketch_name}.log"
-        # error or fatal error
-        fork_pattern = re.compile(r"^Error during build: fork/exec")
-        error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
-        ld_pattern = re.compile("arm-none-eabi/bin/ld:")
-        overflow_pattern = re.compile(
-            r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"
-        )
         error_found = False
         for i, line in enumerate(open(logFile)):
             if error_pattern.search(line):
@@ -553,7 +540,7 @@ def check_status(status, build_conf, boardKo):
                 if overflow_pattern.search(line) is None:
                     error_found = True
             if error_found:
-                result = "\033[31mfailed\033[0m"
+                result = ffail
                 boardKo.append(build_conf[0])
                 if args.ci:
                     cat(logFile)
@@ -567,8 +554,8 @@ def check_status(status, build_conf, boardKo):
         result = "\033[31merror\033[0m"
 
     print(
-        (build_format_result).format(
-            "{}/{}".format(build_conf[1], build_conf[2]),
+        f"{build_format_result}".format(
+            f"{build_conf[1]}/{build_conf[2]}",
             build_conf[0],
             result,
             status[0],
@@ -578,60 +565,35 @@ def check_status(status, build_conf, boardKo):
 
 # Log sketch build result
 def log_sketch_build_result(sketch, boardKo, boardSkipped):
+    nb_ok = len(board_fqbn) - len(boardKo) - len(boardSkipped)
+    nb_ko = len(boardKo)
+    nb_na = len(boardSkipped)
     # Log file
     with open(log_file, "a") as f:
         f.write(build_separator + "\n")
-        f.write(
-            "Sketch: {} ({}/{})\n".format(
-                os.path.basename(sketch),
-                sketch_list.index(sketch) + 1,
-                len(sketch_list),
-            )
-        )
-        f.write(os.path.dirname(sketch))
-        f.write(
-            "\n{} {}, {} {}, {} {}\n".format(
-                len(board_fqbn) - len(boardKo) - len(boardSkipped),
-                "succeeded",
-                len(boardKo),
-                "failed",
-                len(boardSkipped),
-                "skipped",
-            )
-        )
+        bcounter = f"{sketch_list.index(sketch) + 1}/{len(sketch_list)}"
+        f.write(f"Sketch: {sketch.name} ({bcounter})\n")
+        f.write(str(sketch.parent))
+        f.write(f"\n{nb_ok} succeeded, {nb_ko} failed, {nb_na} skipped\n")
 
         if len(boardKo):
-            f.write(
-                "Failed boards :\n"
-                + "\n".join(
-                    textwrap.wrap(", ".join(boardKo), 80, break_long_words=False)
-                )
-            )
+            sKo = ", ".join(boardKo)
+            wKo = textwrap.wrap(sKo, 80, break_long_words=False)
+            f.write(f"Failed boards :\n{nl.join(wKo)}")
             # f.write("Failed boards :\n" + "\n".join(boardKo))
             f.write("\n")
         if len(boardSkipped):
-            f.write(
-                "Skipped boards :\n"
-                + "\n".join(
-                    textwrap.wrap(", ".join(boardSkipped), 80, break_long_words=False)
-                )
-            )
+            sskipped = ", ".join(boardSkipped)
+            wskipped = textwrap.wrap(sskipped, 80, break_long_words=False)
+            f.write(f"Skipped boards :\n{nl.join(wskipped)}")
             # f.write("Skipped boards :\n" + "\n".join(boardSkipped))
             f.write("\n")
-        f.write(build_separator + "\n")
+        f.write(f"{build_separator}\n")
 
     # Standard output
     print(build_separator)
-    print(
-        "Build Summary: {} {}, {} {}, {} {}".format(
-            len(board_fqbn) - len(boardKo) - len(boardSkipped),
-            "\033[32msucceeded\033[0m",
-            len(boardKo),
-            "\033[31mfailed\033[0m",
-            len(boardSkipped),
-            "\033[33mskipped\033[0m",
-        )
-    )
+
+    print(f"Build Summary: {nb_ok} {fsucc}, {nb_ko} {ffail}, {nb_na} {fskip}")
     print(build_separator)
 
 
@@ -646,47 +608,24 @@ def log_final_result():
 
     # Log file
     with open(log_file, "a") as f:
-        f.write("\n" + build_separator + "\n")
+        f.write(f"\n{build_separator}\n")
         f.write("| {:^76} |\n".format("Build summary"))
         f.write(build_separator + "\n")
-        f.write(
-            "{} {} ({}%), {} {} ({}%), {} {} ({}%) of {} builds\n".format(
-                nb_build_passed,
-                "succeeded",
-                stat_passed,
-                nb_build_failed,
-                "failed",
-                stat_failed,
-                nb_build_skipped,
-                "skipped",
-                stat_skipped,
-                nb_build_total,
-            )
-        )
-        f.write("Ends ")
-        f.write(time.strftime("%A %d %B %Y %H:%M:%S\n"))
-        f.write("Duration: ")
-        f.write(duration)
-        f.write("\nLogs are available here:\n")
-        f.write(f"{output_dir}\n")
-        f.write(build_separator + "\n\n")
+        ssucc = f"{nb_build_passed} succeeded ({stat_passed}%)"
+        sfail = f"{nb_build_failed} failed ({stat_failed}%)"
+        sskip = f"{nb_build_skipped} skipped ({stat_skipped}%)"
+        f.write(f"{ssucc}, {sfail}, {sskip} of {nb_build_total} builds\n")
+        f.write(f"Ends {time.strftime('%A %d %B %Y %H:%M:%S')}\n")
+        f.write(f"Duration: {duration}\n")
+        f.write(f"Logs are available here:\n{output_dir}\n")
+        f.write(f"{build_separator}\n\n")
 
     # Standard output
-    print(
-        "Builds Summary: {} {} ({}%), {} {} ({}%), {} {} ({}%) of {} builds".format(
-            nb_build_passed,
-            "\033[32msucceeded\033[0m",
-            stat_passed,
-            nb_build_failed,
-            "\033[31mfailed\033[0m",
-            stat_failed,
-            nb_build_skipped,
-            "\033[33mskipped\033[0m",
-            stat_skipped,
-            nb_build_total,
-        )
-    )
-    print("Duration: " + duration)
+    ssucc = f"{nb_build_passed} {fsucc} ({stat_passed}%)"
+    sfail = f"{nb_build_failed} {ffail} ({stat_failed}%)"
+    sskip = f"{nb_build_skipped} {fskip} ({stat_skipped}%)"
+    print(f"Builds Summary: {ssucc}, {sfail}, {sskip} of {nb_build_total} builds")
+    print(f"Duration: {duration}")
     print("Logs are available here:")
     print(output_dir)
 
@@ -755,7 +694,7 @@ def build_config(sketch, boardSkipped):
                                     build_conf_list[idx][1], build_conf_list[idx][2]
                                 ),
                                 build_conf_list[idx][0],
-                                "\033[33mskipped\033[0m",
+                                fskip,
                                 0.00,
                             )
                         )
@@ -798,7 +737,7 @@ def build_all():
         )
         wrapped_path_ = wrapper.wrap(text=str(sketch.parent))
         for line in wrapped_path_:
-            print("| {:^76} |".format("{}".format(line)))
+            print("| {:^76} |".format(f"{line}"))
         print(build_separator)
         print((build_format_header).format("Num", "Board", "Result", "Time"))
         print(build_separator)
@@ -858,9 +797,7 @@ parser.add_argument(
 parser.add_argument(
     "--arch",
     metavar="architecture",
-    help="core architecture to build. Default build architecture is '"
-    + arch_default
-    + "'",
+    help=f"core architecture to build. Default build architecture is {arch_default}",
 )
 parser.add_argument(
     "--config",
@@ -876,9 +813,8 @@ parser.add_argument(
     "-u",
     "--url",
     metavar="<string>",
-    help="additional URL for the board manager\
-    Default url : "
-    + stm32_url,
+    help=f"additional URL for the board manager\
+    Default url : {stm32_url}",
 )
 
 parser.add_argument(
@@ -929,16 +865,16 @@ def main():
     load_core_config()
     find_board()
     if args.list == "board":
-        print("%i board(s) available" % len(board_fqbn))
         for board in board_fqbn:
             print(board)
+        print(f"{len(board_fqbn)} board(s) available")
         quit()
 
     manage_inos()
     if args.list == "sketch":
         for sketch in sketch_list:
             print(sketch)
-        print("%i sketches found" % len(sketch_list))
+        print(f"{len(sketch_list)} sketches found")
         quit()
 
     if core_config:
