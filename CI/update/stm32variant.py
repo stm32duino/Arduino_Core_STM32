@@ -863,25 +863,25 @@ def qspi_pinmap(lst):
         name = "OCTOSPI"
         hal = "OSPI"
     if lst == quadspidata0_list:
-        aname = name + "_DATA0"
+        aname = f"{name}_DATA0"
     elif lst == quadspidata1_list:
-        aname = name + "_DATA1"
+        aname = f"{name}_DATA1"
     elif lst == quadspidata2_list:
-        aname = name + "_DATA2"
+        aname = f"{name}_DATA2"
     elif lst == quadspidata3_list:
-        aname = name + "_DATA3"
+        aname = f"{name}_DATA3"
     elif lst == quadspidata4_list:
-        aname = name + "_DATA4"
+        aname = f"{name}_DATA4"
     elif lst == quadspidata5_list:
-        aname = name + "_DATA5"
+        aname = f"{name}_DATA5"
     elif lst == quadspidata6_list:
-        aname = name + "_DATA6"
+        aname = f"{name}_DATA6"
     elif lst == quadspidata7_list:
-        aname = name + "_DATA7"
+        aname = f"{name}_DATA7"
     elif lst == quadspisclk_list:
-        aname = name + "_SCLK"
+        aname = f"{name}_SCLK"
     else:
-        aname = name + "_SSEL"
+        aname = f"{name}_SSEL"
     for p in lst:
         # 2nd element is the XXXXSPI_YYYY signal
         instm = re.match(ospi_regex, p[2])
@@ -1093,7 +1093,7 @@ def manage_syswkup():
                 num -= 1
                 cmt = ""
             else:
-                cmt = " /* " + p[2] + " */"
+                cmt = f" /* {p[2]} */"
             syswkup_pins_list[num].append([p[0], cmt])
     return syswkup_pins_list
 
@@ -1144,7 +1144,7 @@ def print_pinamevar():
     for idx, syswkup_list in enumerate(syswkup_pins_list, start=1):
         if len(syswkup_list) > 1:
             for idx2, lst in enumerate(syswkup_list[1:], start=1):
-                alt_syswkup_list.append("{}_{}".format(idx, idx2))
+                alt_syswkup_list.append(f"{idx}_{idx2}")
     return alt_syswkup_list
 
 
@@ -1246,7 +1246,7 @@ def serial_pins_variant():
         if serialnum:
             serialnum = serialnum.group(1)
             if serial_inst.startswith("LP"):
-                serialnum = "10" + serialnum
+                serialnum = f"10{serialnum}"
         else:
             print("No serial instance number found!")
             serialnum = "-1"
@@ -1302,8 +1302,8 @@ def print_variant(generic_list, alt_syswkup_list):
     for idx, io in enumerate(io_list):
         pyn = io[0].replace("_", "", 1)
         if [item for item in adclist if item[0] == io[0]]:
-            ax = "A{}".format(analog_index)
-            pins_number_list.append({"name": pyn, "val": "PIN_" + ax})
+            ax = f"A{analog_index}"
+            pins_number_list.append({"name": pyn, "val": f"PIN_{ax}"})
             pinnames_list.append({"name": io[0], "ax": analog_index})
             analog_pins_list.append({"val": idx, "ax": ax, "pyn": pyn})
             analog_index += 1
@@ -1314,8 +1314,8 @@ def print_variant(generic_list, alt_syswkup_list):
     for idx, io in enumerate(dualpad_list):
         pyn = io[0].replace("_", "", 1)
         if [item for item in adclist if item[0] == io[0]]:
-            ax = "A{}".format(analog_index)
-            pins_number_list.append({"name": pyn, "val": "PIN_" + ax})
+            ax = f"A{analog_index}"
+            pins_number_list.append({"name": pyn, "val": f"PIN_{ax}"})
             pinnames_list.append({"name": io[0], "ax": analog_index})
             analog_pins_list.append({"val": idx + idx_sum, "ax": ax, "pyn": pyn})
             analog_index += 1
@@ -1326,8 +1326,8 @@ def print_variant(generic_list, alt_syswkup_list):
     for idx, io in enumerate(remap_list):
         pyn = io[0].replace("_", "", 1)
         if [item for item in adclist if item[0] == io[0]]:
-            ax = "A{}".format(analog_index)
-            pins_number_list.append({"name": pyn, "val": "PIN_" + ax})
+            ax = f"A{analog_index}"
+            pins_number_list.append({"name": pyn, "val": f"PIN_{ax}"})
             pinnames_list.append({"name": io[0], "ax": analog_index})
             analog_pins_list.append({"val": idx + idx_sum, "ax": ax, "pyn": pyn})
             analog_index += 1
@@ -1822,7 +1822,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             ]
             # Merge key
             if key:
-                packages_per_flash[key + "-" + flash] = packages_per_flash.pop(key)
+                packages_per_flash[f"{key}-{flash}"] = packages_per_flash.pop(key)
         else:
             packages_per_flash[flash] = packages_list
 
@@ -1832,7 +1832,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
         if len(key) == 1:
             new_mcu_dirname += key
         else:
-            new_mcu_dirname += "(" + key + ")"
+            new_mcu_dirname += f"({key})"
         # Handle package with ANPQX
         # One case not manage: [Tx, TxX, Yx]
         # Assuming it is not an issue to have non existing mcu
@@ -1845,9 +1845,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             # Assert
             if sub.group(2) != "x":
                 print(
-                    "Package of {} info contains {} instead of 'x'".format(
-                        base_name, sub.group(2)
-                    )
+                    "Package of {base_name} info contains {sub.group(2)} instead of 'x'"
                 )
                 exit(1)
             if sub.group(3):
@@ -1858,7 +1856,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
         if len(pcounter) == 1:
             new_mcu_dirname += package_list[0]
         else:
-            new_mcu_dirname += "(" + "-".join(k for k in sorted(pcounter)) + ")"
+            new_mcu_dirname += f"({'-'.join(k for k in sorted(pcounter))})"
         if len(ecounter):
             new_mcu_dirname += "x"
             if (len(ecounter) == 1) and (
@@ -1867,7 +1865,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
                 # new_mcu_dirname += next(iter(ecounter))
                 new_mcu_dirname += ext_list[0]
             else:
-                new_mcu_dirname += "(" + "-".join(k for k in sorted(ecounter)) + ")"
+                new_mcu_dirname += f"({'-'.join(k for k in sorted(ecounter))})"
         del package_list[:]
         del ext_list[:]
 
@@ -1903,12 +1901,11 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
         for index, glist in enumerate(group_base_list):
             # Only one mcu
             if len(glist) == 1:
-                new_mcu_dirname += ("_" if index != 0 else "") + glist[0].strip("x")
+                new_mcu_dirname += f"{'_' if index != 0 else ''}{glist[0].strip('x')}"
             else:
                 # Group using flash info
-                new_mcu_dirname += ("_" if index != 0 else "") + group_by_flash(
-                    group_base_list, glist, index_mcu_base
-                )
+                gbf = group_by_flash(group_base_list, glist, index_mcu_base)
+                new_mcu_dirname += f"{'_' if index != 0 else ''}{gbf}"
         del group_package_list[:]
         del group_flash_list[:]
         del group_base_list[:]
@@ -1951,23 +1948,23 @@ def merge_dir(out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp)
         new_line_c = periph_xml.pop(0)
         for index, xml in enumerate(periph_xml, 1):
             if index % 2 == 0:
-                new_line_c += "\n * {}".format(xml)
+                new_line_c += f"\n * {xml}"
             else:
-                new_line_c += ", {}".format(xml)
+                new_line_c += f", {xml}"
 
         update_file(mcu_dir / periph_c_filename, periperalpins_regex, new_line_c)
 
         variant_exp.sort()
         variant_exp = list(OrderedDict.fromkeys(variant_exp))
         new_line_c = variant_exp[0]
-        new_line_h = "{}".format(variant_exp.pop(0))
+        new_line_h = f"{variant_exp.pop(0)}"
         for index, pre in enumerate(variant_exp, 1):
             if index % 2 == 0:
-                new_line_c += " ||\\\n    {}".format(pre)
-                new_line_h += " &&\\\n    !{}".format(pre)
+                new_line_c += f" ||\\\n    {pre}"
+                new_line_h += f" &&\\\n    !{pre}"
             else:
-                new_line_c += " || {}".format(pre)
-                new_line_h += " && !{}".format(pre)
+                new_line_c += f" || {pre}"
+                new_line_h += f" && !{pre}"
         update_file(mcu_dir / variant_cpp_filename, update_regex, new_line_c)
         update_file(mcu_dir / generic_clock_filename, update_regex, new_line_c)
         update_file(mcu_dir / variant_h_filename, update_regex, new_line_h)
@@ -2102,7 +2099,7 @@ def default_cubemxdir():
 def create_config():
     # Create a Json file for a better path management
     try:
-        print("Please set your configuration in '{}' file".format(config_filename))
+        print(f"Please set your configuration in '{config_filename}' file")
         config_file = open(config_filename, "w", newline="\n")
         config_file.write(
             json.dumps(
@@ -2115,7 +2112,7 @@ def create_config():
         )
         config_file.close()
     except IOError:
-        print("Failed to open " + config_filename)
+        print(f"Failed to open {config_filename}")
     exit(1)
 
 
@@ -2141,7 +2138,7 @@ def check_config():
                 if conf:
                     cubemxdir = Path(conf)
         except IOError:
-            print("Failed to open " + config_filename)
+            print(f"Failed to open {config_filename}")
     else:
         create_config()
 
@@ -2152,7 +2149,7 @@ def manage_repo():
 
     try:
         if not args.skip:
-            print("Updating " + repo_name + "...")
+            print(f"Updating {repo_name}...")
             if repo_path.is_dir():
                 # Get new tags from the remote
                 git_cmds = [
@@ -2189,7 +2186,7 @@ def manage_repo():
             db_release = version_tag
             return True
     except subprocess.CalledProcessError as e:
-        print("Command {} failed with error code {}".format(e.cmd, e.returncode))
+        print(f"Command {e.cmd} failed with error code {e.returncode}")
     return False
 
 
@@ -2221,32 +2218,22 @@ check_config()
 # By default, generate for all mcu xml files description
 parser = argparse.ArgumentParser(
     description=textwrap.dedent(
-        """\
+        f"""
 By default, generates:
- - {},
- - {},
- - {},
- - {},
- - {}
- - {}
+ - {periph_c_filename},
+ - {pinvar_h_filename},
+ - {variant_cpp_filename},
+ - {variant_h_filename},
+ - {boards_entry_filename}
+ - {generic_clock_filename}
 for all xml files description available in STM32CubeMX internal database.
-Internal database path must be defined in {}.
+Internal database path must be defined in {config_filename}.
 It can be the one from STM32CubeMX directory if defined:
-\t{}
+\t{cubemxdir}
 or the one from GitHub:
-\t{}
+\t{gh_url}
 
-""".format(
-            periph_c_filename,
-            pinvar_h_filename,
-            variant_cpp_filename,
-            variant_h_filename,
-            boards_entry_filename,
-            generic_clock_filename,
-            config_filename,
-            cubemxdir,
-            gh_url,
-        )
+"""
     ),
     epilog=textwrap.dedent(
         """\
@@ -2287,18 +2274,16 @@ parser.add_argument(
     "-c",
     "--cube",
     help=textwrap.dedent(
-        """\
-Use STM32CubeMX internal database. Default use GitHub {} repository.
-""".format(
-            repo_name
-        )
+        f"""\
+Use STM32CubeMX internal database. Default use GitHub {repo_name} repository.
+"""
     ),
     action="store_true",
 )
 parser.add_argument(
     "-s",
     "--skip",
-    help="Skip {} clone/fetch".format(repo_name),
+    help=f"Skip {repo_name} clone/fetch",
     action="store_true",
 )
 args = parser.parse_args()
@@ -2315,12 +2300,10 @@ if not args.cube:
 if fallback or args.cube:
     if not (cubemxdir.is_dir()):
         print(
-            """
+            f"""
 Cube Mx seems not to be installed or not at the specified location.
 
-Please check the value set for 'CUBEMX_DIRECTORY' in '{}' file.""".format(
-                config_filename
-            )
+Please check the value set for 'CUBEMX_DIRECTORY' in '{config_filename}' file."""
         )
         quit()
 
@@ -2339,7 +2322,7 @@ release_regex = r".*(\d+.\d+.\d+)$"
 release_match = re.match(release_regex, db_release)
 if release_match:
     db_release = release_match.group(1)
-print("CubeMX DB release {}\n".format(db_release))
+print(f"CubeMX DB release {db_release}\n")
 
 # if args.mcu:
 #     # Check input file exists
@@ -2382,11 +2365,11 @@ for mcu_file in mcu_list:
         xml_mcu.unlink()
         continue
 
-    print("Generating files for '{}'...".format(mcu_file.name))
+    print(f"Generating files for '{mcu_file.name}'...")
     if not gpiofile:
         print("Could not find GPIO file")
         quit()
-    xml_gpio = parse(str(dirIP / ("GPIO-" + gpiofile + "_Modes.xml")))
+    xml_gpio = parse(str(dirIP / f"GPIO-{gpiofile}_Modes.xml"))
 
     mcu_family_dir = mcu_family + "xx"
     out_temp_path = tmp_dir / mcu_family_dir / mcu_file.stem.replace("STM32", "")
@@ -2415,17 +2398,14 @@ for mcu_file in mcu_list:
     print_variant(generic_list, alt_syswkup_list)
     del alt_syswkup_list[:]
     del generic_list[:]
-    print(
-        "* Total I/O pins found: {}".format(
-            len(io_list) + len(alt_list) + len(dualpad_list) + len(remap_list)
-        )
-    )
-    print("   - {} I/O pins".format(len(io_list)))
+    sum_io = len(io_list) + len(alt_list) + len(dualpad_list) + len(remap_list)
+    print(f"* Total I/O pins found: {sum_io}")
+    print(f"   - {len(io_list)} I/O pins")
     if len(dualpad_list):
-        print("   - {} dual pad".format(len(dualpad_list)))
+        print(f"   - {len(dualpad_list)} dual pad")
     if len(remap_list):
-        print("   - {} remap pins".format(len(remap_list)))
-    print("   - {} ALT I/O pins".format(len(alt_list)))
+        print(f"   - {len(remap_list)} remap pins")
+    print(f"   - {len(alt_list)} ALT I/O pins")
 
     # for io in io_list:
     #     print(io[0] + ", " + io[1])

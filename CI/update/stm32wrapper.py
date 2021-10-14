@@ -1,11 +1,14 @@
 import argparse
 import re
+import sys
 from itertools import groupby
 from jinja2 import Environment, FileSystemLoader, Template
 from pathlib import Path
-from stm32common import createFolder, deleteFolder, genSTM32List
 
 script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils import createFolder, deleteFolder, genSTM32List
+
 # Base path
 core_path = script_path.parent.parent
 SrcWrapper_path = ""
@@ -80,7 +83,7 @@ def checkConfig(arg_core, arg_cmsis):
         CMSIS_path = core_path.parent / "ArduinoModule-CMSIS" / "CMSIS_5"
 
     if not core_path.is_dir():
-        print("Could not find " + core_path)
+        print(f"Could not find {core_path}")
         exit(1)
 
     system_path = core_path / "system"
@@ -106,7 +109,7 @@ def printCMSISStartup(log):
     filelist = [pth.name for pth in filelist]
     if len(filelist):
         if log:
-            print("Number of startup files: {}".format(len(filelist)))
+            print(f"Number of startup files: {len(filelist)}")
         # Some mcu have two startup files
         # Ex: WL one for cm0plus and one for cm4
         # In that case this is the same value line so add an extra defined
@@ -138,7 +141,7 @@ def printSystemSTM32(log):
     filelist = sorted(system_path.glob("STM32*/system_stm32*.c"))
     if len(filelist):
         if log:
-            print("Number of system stm32 files: {}".format(len(filelist)))
+            print(f"Number of system stm32 files: {len(filelist)}")
         system_list = []
         for fp in filelist:
             system_list.append({"serie": fp.parent.name, "fn": fp.name})
@@ -172,16 +175,16 @@ def wrap(arg_core, arg_cmsis, log):
     hal_c_dict = {}
     # Search all files for each series
     for serie in stm32_series:
-        src = HALDrivers_path / ("STM32" + serie + "xx_HAL_Driver") / "Src"
-        inc = HALDrivers_path / ("STM32" + serie + "xx_HAL_Driver") / "Inc"
+        src = HALDrivers_path / f"STM32{serie}xx_HAL_Driver" / "Src"
+        inc = HALDrivers_path / f"STM32{serie}xx_HAL_Driver" / "Inc"
 
         if src.exists():
             if log:
-                print("Generating for " + serie + "...")
+                print(f"Generating for {serie}...")
             lower = serie.lower()
 
             # Search stm32yyxx_[hal|ll]*.c file
-            filelist = src.glob("stm32" + lower + "xx_*.c")
+            filelist = src.glob(f"stm32{lower}xx_*.c")
             for fp in filelist:
                 # File name
                 fn = fp.name
@@ -201,7 +204,7 @@ def wrap(arg_core, arg_cmsis, log):
                         hal_c_dict[peripheral] = [lower]
 
             # Search stm32yyxx_ll_*.h file
-            filelist = inc.glob("stm32" + lower + "xx_ll_*.h")
+            filelist = inc.glob(f"stm32{lower}xx_ll_*.h")
             for fp in filelist:
                 # File name
                 fn = fp.name
@@ -264,7 +267,7 @@ def wrap(arg_core, arg_cmsis, log):
 
     # CMSIS DSP C source file
     if not CMSIS_path.is_dir():
-        print("Could not find {}".format(CMSIS_path))
+        print(f"Could not find {CMSIS_path}")
         print("CMSIS DSP generation skipped.")
     else:
         # Delete all subfolders
@@ -279,7 +282,7 @@ def wrap(arg_core, arg_cmsis, log):
             fdn = CMSIS_DSP_outSrc_path / dn
             if not fdn.is_dir():
                 createFolder(fdn)
-                out_file = open(fdn / (dn + ".c"), "w", newline="\n")
+                out_file = open(fdn / (f"{dn}.c"), "w", newline="\n")
                 all_ll_file.write(dsp_file_template.render(dsp_path=dn))
                 out_file.close()
     return 0
@@ -288,19 +291,19 @@ def wrap(arg_core, arg_cmsis, log):
 if __name__ == "__main__":
     # Parser
     wrapparser = argparse.ArgumentParser(
-        description="Generate all wrappers files need by the STM32 core (HAL, LL, CMSIS, ...)"
+        description="Generate all wrappers files (HAL, LL, CMSIS, ...)"
     )
     wrapparser.add_argument(
         "-c",
         "--core",
         metavar="core_path",
-        help="Root path of the STM32 core. Default: {}".format(core_path),
+        help=f"Root path of the STM32 core. Default: {core_path}",
     )
     wrapparser.add_argument(
         "-s",
         "--cmsis",
         metavar="cmsis_path",
-        help="Root path of the CMSIS. Default: {}".format(CMSIS_path),
+        help=f"Root path of the CMSIS. Default: {CMSIS_path}",
     )
 
     wrapargs = wrapparser.parse_args()
