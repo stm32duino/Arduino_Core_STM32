@@ -6,6 +6,7 @@ import json
 import os
 from packaging import version
 from pathlib import Path
+import random
 import re
 import subprocess
 import sys
@@ -725,6 +726,11 @@ def build_config(sketch, boardSkipped):
 def build_all():
     create_output_log_tree()
     wrapper = textwrap.TextWrapper(width=76)
+    if args.dry:
+        print("Performing a dry run (no build)")
+        build = dry_build
+    else:
+        build = real_build
 
     for sketch_nb, sketch in enumerate(sketch_list, start=1):
         boardKo = []
@@ -756,7 +762,7 @@ def build_all():
 
 
 # Run arduino-cli command
-def build(build_conf):
+def real_build(build_conf):
     cmd = build_conf[4]
     status = [time.monotonic()]
     with open(build_conf[3] / f"{cmd[-1].name}.log", "w") as stdout:
@@ -765,6 +771,23 @@ def build(build_conf):
         status[0] = time.monotonic() - status[0]
         status.append(res.returncode)
         return status
+
+
+# Run arduino-cli command
+def dry_build(build_conf):
+    # cmd = build_conf[4]
+    status = [random.random() * 10, random.randint(0, 1)]
+    if status[1] == 1:
+        # Create dummy log file
+        logFile = build_conf[3] / f"{ build_conf[4][-1].name}.log"
+        # random failed
+        dummy = open(logFile, "w")
+        if random.randint(0, 1) == 1:
+            dummy.writelines("region `FLASH' overflowed by 5612 bytes")
+        else:
+            dummy.writelines("Error:")
+        dummy.close()
+    return status
 
 
 # Parser
@@ -795,6 +818,11 @@ parser.add_argument(
 parser.add_argument(
     "-c", "--clean", help="clean output directory.", action="store_true"
 )
+
+parser.add_argument(
+    "-d", "--dry", help="perform a dry run (no build)", action="store_true"
+)
+
 parser.add_argument(
     "--arch",
     metavar="architecture",
