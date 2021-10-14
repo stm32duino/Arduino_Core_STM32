@@ -892,7 +892,8 @@ def main():
         deleteFolder(root_output_dir)
 
     load_core_config()
-    find_board()
+    if args.list != "sketch":
+        find_board()
     if args.list == "board":
         for board in board_fqbn:
             print(board)
