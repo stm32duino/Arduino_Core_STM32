@@ -535,6 +535,8 @@ typedef struct
 #define LL_RCC_ADC_CLKSOURCE_NONE             0x00000000U        /*!< no Clock used as ADC clock*/
 #if defined(STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_RCC_ADC_CLKSOURCE_PLLSAI1          RCC_CCIPR_ADCSEL_0 /*!< PLLSAI1 selected as ADC clock*/
+#elif defined (STM32WB15xx)
+#define LL_RCC_ADC_CLKSOURCE_HSI              RCC_CCIPR_ADCSEL_0 /*!< HSI selected as ADC clock     */
 #endif
 #define LL_RCC_ADC_CLKSOURCE_PLL              RCC_CCIPR_ADCSEL_1 /*!< PLL selected as ADC clock     */
 #define LL_RCC_ADC_CLKSOURCE_SYSCLK           RCC_CCIPR_ADCSEL   /*!< SYSCLK selected as ADC clock  */

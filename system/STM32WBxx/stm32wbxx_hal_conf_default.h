@@ -93,6 +93,10 @@ extern "C" {
 #define USE_HAL_USART_REGISTER_CALLBACKS     0u
 #define USE_HAL_WWDG_REGISTER_CALLBACKS      0u
 
+#ifndef USE_HAL_CRYP_SUSPEND_RESUME
+#define USE_HAL_CRYP_SUSPEND_RESUME 0u
+#endif
+
 /* ########################## Oscillator Values adaptation ####################*/
 /**
   * @brief Adjust the value of External High Speed oscillator (HSE) used in your application.
@@ -131,16 +135,16 @@ extern "C" {
 #if !defined  (LSI1_VALUE)
 #define LSI1_VALUE  (32000UL)       /*!< LSI1 Typical Value in Hz*/
 #endif /* LSI1_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.*/
+                                             The real value may vary depending on the variations
+                                             in voltage and temperature.*/
 /**
   * @brief Internal Low Speed oscillator (LSI2) value.
   */
 #if !defined  (LSI2_VALUE)
 #define LSI2_VALUE  (32000UL)       /*!< LSI2 Typical Value in Hz*/
 #endif /* LSI2_VALUE */                      /*!< Value of the Internal Low Speed oscillator in Hz
-The real value may vary depending on the variations
-in voltage and temperature.*/
+                                             The real value may vary depending on the variations
+                                             in voltage and temperature.*/
 
 /**
   * @brief External Low Speed oscillator (LSE) value.
@@ -185,16 +189,16 @@ in voltage and temperature.*/
 #define  TICK_INT_PRIORITY            0x00U /*!< tick interrupt priority */
 #endif
 #if !defined (USE_RTOS)
-#define  USE_RTOS                     0
+#define  USE_RTOS                     0U
 #endif
 #if !defined (PREFETCH_ENABLE)
-#define  PREFETCH_ENABLE              0
+#define  PREFETCH_ENABLE              0U
 #endif
 #if !defined (INSTRUCTION_CACHE_ENABLE)
-#define  INSTRUCTION_CACHE_ENABLE     1
+#define  INSTRUCTION_CACHE_ENABLE     1U
 #endif
 #if !defined (DATA_CACHE_ENABLE)
-#define  DATA_CACHE_ENABLE            1
+#define  DATA_CACHE_ENABLE            1U
 #endif
 
 /* ########################## Assert Selection ############################## */

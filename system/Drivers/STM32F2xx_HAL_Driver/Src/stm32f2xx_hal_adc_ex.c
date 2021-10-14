@@ -416,10 +416,14 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedPollForConversion(ADC_HandleTypeDef* hadc, u
     {
       if((Timeout == 0U)||((HAL_GetTick() - tickstart ) > Timeout))
       {
-        hadc->State= HAL_ADC_STATE_TIMEOUT;
-        /* Process unlocked */
-        __HAL_UNLOCK(hadc);
-        return HAL_TIMEOUT;
+        /* New check to avoid false timeout detection in case of preemption */
+        if(!(__HAL_ADC_GET_FLAG(hadc, ADC_FLAG_JEOC)))
+        {
+          hadc->State= HAL_ADC_STATE_TIMEOUT;
+          /* Process unlocked */
+          __HAL_UNLOCK(hadc);
+          return HAL_TIMEOUT;
+        }
       }
     }
   }

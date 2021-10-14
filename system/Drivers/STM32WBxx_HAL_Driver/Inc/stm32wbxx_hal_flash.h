@@ -103,7 +103,7 @@ typedef struct
   uint32_t SecureMode;             /*!< Secure mode activated or desactivated.
                                         This parameter can be a value of @ref FLASH_OB_SECURITY_MODE */
   uint32_t C2BootRegion;           /*!< CPU2 Secure Boot memory region(used for OPTIONBYTE_C2_BOOT_VECT).
-                                        This parameter can be a value of @ref C2_FLASH_OB_BOOT_REGION */
+                                        This parameter can be a value of @ref FLASH_C2_OB_BOOT_REGION */
   uint32_t C2SecureBootVectAddr;   /*!< CPU2 Secure Boot reset vector (used for OPTIONBYTE_C2_BOOT_VECT).
                                         This parameter contains the CPU2 boot reset start address within
                                         the selected memory region. Make sure this parameter is word aligned. */
@@ -503,7 +503,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup C2_FLASH_OB_BOOT_REGION CPU2 Option Bytes Reset Boot Vector
+/** @defgroup FLASH_C2_OB_BOOT_REGION CPU2 Option Bytes Reset Boot Vector
   * @{
   */
 #define OB_C2_BOOT_FROM_SRAM            0x00000000U        /*!< CPU2 boot from Sram  */
@@ -565,6 +565,7 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_1       (SRAM2B_BASE + 0x0400U)  /*  When in secure mode (SRAM2B_BASE + 0x0400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_2       (SRAM2B_BASE + 0x0800U)  /*  When in secure mode (SRAM2B_BASE + 0x0800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_3       (SRAM2B_BASE + 0x0C00U)  /*  When in secure mode (SRAM2B_BASE + 0x0C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
+#if !defined(STM32WB15xx)
 #define SRAM2B_START_SECURE_ADDR_4       (SRAM2B_BASE + 0x1000U)  /*  When in secure mode (SRAM2B_BASE + 0x1000) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_5       (SRAM2B_BASE + 0x1400U)  /*  When in secure mode (SRAM2B_BASE + 0x1400) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_6       (SRAM2B_BASE + 0x1800U)  /*  When in secure mode (SRAM2B_BASE + 0x1800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
@@ -594,6 +595,9 @@ typedef struct
 #define SRAM2B_START_SECURE_ADDR_30      (SRAM2B_BASE + 0x7800U)  /*  When in secure mode (SRAM2B_BASE + 0x7800) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_START_SECURE_ADDR_31      (SRAM2B_BASE + 0x7C00U)  /*  When in secure mode (SRAM2B_BASE + 0x7C00) -> SRAM2B_END_ADDR is accessible only by M0 Plus  */
 #define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x8000U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
+#else
+#define SRAM2B_FULL_UNSECURE             (SRAM2B_BASE + 0x0C00U)  /*  The RAM2B is accessible to M0 Plus and M4                                  */
+#endif
 
 /**
   * @}
@@ -852,12 +856,21 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define FLASH_END_ADDR                          (FLASH_BASE + FLASH_SIZE - 1U)
 
 #define FLASH_BANK_SIZE                         FLASH_SIZE   /*!< FLASH Bank Size */
+#if defined(STM32WB15xx)
+#define FLASH_PAGE_SIZE                         0x00000800U  /*!< FLASH Page Size, 2 KBytes */
+#else
 #define FLASH_PAGE_SIZE                         0x00001000U  /*!< FLASH Page Size, 4 KBytes */
+#endif
 #define FLASH_PAGE_NB                           (FLASH_SIZE / FLASH_PAGE_SIZE)
 #define FLASH_TIMEOUT_VALUE                     1000U        /*!< FLASH Execution Timeout, 1 s */
 
+#if defined(STM32WB15xx)
+#define FLASH_PCROP_GRANULARITY_OFFSET          10U                                      /*!< FLASH Code Readout Protection granularity offset */
+#define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 1 KBytes */
+#else
 #define FLASH_PCROP_GRANULARITY_OFFSET          11U                                      /*!< FLASH Code Readout Protection granularity offset */
 #define FLASH_PCROP_GRANULARITY                 (1UL << FLASH_PCROP_GRANULARITY_OFFSET)  /*!< FLASH Code Readout Protection granularity, 2 KBytes */
+#endif
 
 #define FLASH_TYPENONE                          0x00000000U                                /*!< No Programmation Procedure On Going */
 /**

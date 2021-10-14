@@ -7,21 +7,20 @@
 
 #ifdef STM32G0xx
   #include "stm32g0xx_ll_dmamux.h"
-#endif
-#ifdef STM32G4xx
+#elif STM32G4xx
   #include "stm32g4xx_ll_dmamux.h"
-#endif
-#ifdef STM32H7xx
+#elif STM32H7xx
   #include "stm32h7xx_ll_dmamux.h"
-#endif
-#ifdef STM32L4xx
+#elif STM32L4xx
   #include "stm32l4xx_ll_dmamux.h"
-#endif
-#ifdef STM32MP1xx
+#elif STM32L5xx
+  #include "stm32l5xx_ll_dmamux.h"
+#elif STM32MP1xx
   #include "stm32mp1xx_ll_dmamux.h"
-#endif
-#ifdef STM32WBxx
+#elif STM32WBxx
   #include "stm32wbxx_ll_dmamux.h"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_dmamux.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_DMAMUX_H_ */

@@ -160,7 +160,7 @@
           on AHB bus (DMA, GPIO...). APB1 (PCLK1) clock is derived
           from AHB clock through configurable prescalers and used to clock
           the peripherals mapped on these buses. You can use
-          "@ref HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
+          "HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
 
       (#) All the peripheral clocks are derived from the System clock (SYSCLK) except:
         (++) The FLASH program/erase clock  which is always HSI 8MHz clock.

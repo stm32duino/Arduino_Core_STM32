@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L412RBIxP
+GenL4.menu.pnum.GENERIC_L412RBIXP=Generic L412RBIxP
+GenL4.menu.pnum.GENERIC_L412RBIXP.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412RBIXP.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.board=GENERIC_L412RBIXP
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412RBIXP.build.variant=STM32L4xx/L412RB(I-T)xP
+
+# Generic L412RBTxP
+GenL4.menu.pnum.GENERIC_L412RBTXP=Generic L412RBTxP
+GenL4.menu.pnum.GENERIC_L412RBTXP.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L412RBTXP.upload.maximum_data_size=40960
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.board=GENERIC_L412RBTXP
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.product_line=STM32L412xx
+GenL4.menu.pnum.GENERIC_L412RBTXP.build.variant=STM32L4xx/L412RB(I-T)xP
+

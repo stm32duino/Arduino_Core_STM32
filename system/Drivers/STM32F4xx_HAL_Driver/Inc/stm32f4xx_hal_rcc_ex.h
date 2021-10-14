@@ -103,7 +103,7 @@ typedef struct
   */
 typedef struct
 {
-  uint32_t PLLSAIM;    /*!< Spcifies division factor for PLL VCO input clock.
+  uint32_t PLLSAIM;    /*!< Specifies division factor for PLL VCO input clock.
                             This parameter must be a number between Min_Data = 2 and Max_Data = 63       */
 
   uint32_t PLLSAIN;    /*!< Specifies the multiplication factor for PLLI2S VCO output clock.
@@ -4976,6 +4976,7 @@ typedef struct
                                       tmpreg = READ_BIT(RCC->APB1ENR, RCC_APB1ENR_USART3EN);\
                                       UNUSED(tmpreg); \
                                       } while(0U)
+
 #if defined(STM32F413xx) || defined(STM32F423xx)
 #define __HAL_RCC_UART4_CLK_ENABLE()  do { \
                                       __IO uint32_t tmpreg = 0x00U; \
@@ -6367,7 +6368,7 @@ typedef struct
   * @param  __DFSDM1_CLKSOURCE__ specifies the DFSDM1 clock source.
   *         This parameter can be one of the following values:
   *            @arg RCC_DFSDM1CLKSOURCE_PCLK2: PCLK2 clock used as kernel clock.
-  *            @arg RCC_DFSDM1CLKSOURCE_SYSCLK: System clock used as kernal clock.
+  *            @arg RCC_DFSDM1CLKSOURCE_SYSCLK: System clock used as kernel clock.
   * @retval None
   */
 #define __HAL_RCC_DFSDM1_CONFIG(__DFSDM1_CLKSOURCE__)  MODIFY_REG(RCC->DCKCFGR, RCC_DCKCFGR_CKDFSDM1SEL, (__DFSDM1_CLKSOURCE__))
@@ -6375,7 +6376,7 @@ typedef struct
 /** @brief  Macro to get the DFSDM1 clock source.
   * @retval The clock source can be one of the following values:
   *            @arg RCC_DFSDM1CLKSOURCE_PCLK2: PCLK2 clock used as kernel clock.
-  *            @arg RCC_DFSDM1CLKSOURCE_SYSCLK: System clock used as kernal clock.
+  *            @arg RCC_DFSDM1CLKSOURCE_SYSCLK: System clock used as kernel clock.
   */
 #define __HAL_RCC_GET_DFSDM1_SOURCE() ((uint32_t)(READ_BIT(RCC->DCKCFGR, RCC_DCKCFGR_CKDFSDM1SEL)))
 
@@ -6403,7 +6404,7 @@ typedef struct
   * @param  __DFSDM2_CLKSOURCE__ specifies the DFSDM1 clock source.
   *         This parameter can be one of the following values:
   *            @arg RCC_DFSDM2CLKSOURCE_PCLK2: PCLK2 clock used as kernel clock.
-  *            @arg RCC_DFSDM2CLKSOURCE_SYSCLK: System clock used as kernal clock.
+  *            @arg RCC_DFSDM2CLKSOURCE_SYSCLK: System clock used as kernel clock.
   * @retval None
   */
 #define __HAL_RCC_DFSDM2_CONFIG(__DFSDM2_CLKSOURCE__)  MODIFY_REG(RCC->DCKCFGR, RCC_DCKCFGR_CKDFSDM1SEL, (__DFSDM2_CLKSOURCE__))
@@ -6411,7 +6412,7 @@ typedef struct
 /** @brief  Macro to get the DFSDM2 clock source.
   * @retval The clock source can be one of the following values:
   *            @arg RCC_DFSDM2CLKSOURCE_PCLK2: PCLK2 clock used as kernel clock.
-  *            @arg RCC_DFSDM2CLKSOURCE_SYSCLK: System clock used as kernal clock.
+  *            @arg RCC_DFSDM2CLKSOURCE_SYSCLK: System clock used as kernel clock.
   */
 #define __HAL_RCC_GET_DFSDM2_SOURCE() ((uint32_t)(READ_BIT(RCC->DCKCFGR, RCC_DCKCFGR_CKDFSDM1SEL)))
 
@@ -6850,16 +6851,8 @@ HAL_StatusTypeDef HAL_RCCEx_DisablePLLSAI(void);
 /** @defgroup RCCEx_IS_RCC_Definitions RCC Private macros to check input parameters
   * @{
   */
-#if defined(STM32F411xE)
-#define IS_RCC_PLLN_VALUE(VALUE) ((192U <= (VALUE)) && ((VALUE) <= 432U))
-#define IS_RCC_PLLI2SN_VALUE(VALUE) ((192U <= (VALUE)) && ((VALUE) <= 432U))
-#else /* STM32F405xx || STM32F415xx || STM32F407xx || STM32F417xx || STM32F427xx || STM32F437xx ||
-         STM32F429xx || STM32F439xx || STM32F401xC || STM32F401xE || STM32F410Tx || STM32F410Cx ||
-         STM32F410Rx || STM32F446xx || STM32F469xx || STM32F479xx || STM32F412Cx || STM32F412Rx ||
-         STM32F412Vx || STM32F412Zx || STM32F413xx || STM32F423xx */
 #define IS_RCC_PLLN_VALUE(VALUE) ((50U <= (VALUE)) && ((VALUE) <= 432U))
 #define IS_RCC_PLLI2SN_VALUE(VALUE) ((50U <= (VALUE)) && ((VALUE) <= 432U))
-#endif  /* STM32F411xE */
 
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx)|| defined(STM32F439xx)
 #define IS_RCC_PERIPHCLOCK(SELECTION) ((1U <= (SELECTION)) && ((SELECTION) <= 0x0000007FU))

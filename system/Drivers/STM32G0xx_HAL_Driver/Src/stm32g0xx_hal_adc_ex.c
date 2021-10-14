@@ -3,7 +3,7 @@
   * @file    stm32g0xx_hal_adc_ex.c
   * @author  MCD Application Team
   * @brief   This file provides firmware functions to manage the following
-  *          functionalities of the Analog to Digital Convertor (ADC)
+  *          functionalities of the Analog to Digital Converter (ADC)
   *          peripheral:
   *           + Operation functions
   *             ++ Calibration
@@ -12,12 +12,6 @@
   *          Other functions (generic functions) are available in file
   *          "stm32g0xx_hal_adc.c".
   *
-  @verbatim
-  [..]
-  (@) Sections "ADC peripheral features" and "How to use this driver" are
-      available in file of generic functions "stm32g0xx_hal_adc.c".
-  [..]
-  @endverbatim
   ******************************************************************************
   * @attention
   *
@@ -30,6 +24,12 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
+  @verbatim
+  [..]
+  (@) Sections "ADC peripheral features" and "How to use this driver" are
+      available in file of generic functions "stm32g0xx_hal_adc.c".
+  [..]
+  @endverbatim
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -101,7 +101,7 @@
   * @param  hadc       ADC handle
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
+HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc)
 {
   HAL_StatusTypeDef tmp_hal_status;
   __IO uint32_t wait_loop_index = 0UL;
@@ -110,7 +110,6 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
 
-  /* Process locked */
   __HAL_LOCK(hadc);
 
   /* Calibration prerequisite: ADC must be disabled. */
@@ -127,8 +126,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
                       HAL_ADC_STATE_BUSY_INTERNAL);
 
     /* Disable ADC DMA transfer request during calibration */
-    /* Note: Specificity of this STM32 serie: Calibration factor is           */
-    /*       available in data register and also transfered by DMA.           */
+    /* Note: Specificity of this STM32 series: Calibration factor is          */
+    /*       available in data register and also transferred by DMA.          */
     /*       To not insert ADC calibration factor among ADC conversion data   */
     /*       in array variable, DMA transfer must be disabled during          */
     /*       calibration.                                                     */
@@ -139,7 +138,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
     SET_BIT(hadc->Instance->CR, ADC_CR_ADCAL);
 
     /* Wait for calibration completion */
-    while(LL_ADC_IsCalibrationOnGoing(hadc->Instance) != 0UL)
+    while (LL_ADC_IsCalibrationOnGoing(hadc->Instance) != 0UL)
     {
       wait_loop_index++;
       if (wait_loop_index >= ADC_CALIBRATION_TIMEOUT)
@@ -149,7 +148,6 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
                           HAL_ADC_STATE_BUSY_INTERNAL,
                           HAL_ADC_STATE_ERROR_INTERNAL);
 
-        /* Process unlocked */
         __HAL_UNLOCK(hadc);
 
         return HAL_ERROR;
@@ -172,10 +170,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
     /*       to state "HAL_ERROR" by function disabling the ADC.              */
   }
 
-  /* Process unlocked */
   __HAL_UNLOCK(hadc);
 
-  /* Return function status */
   return tmp_hal_status;
 }
 
@@ -184,7 +180,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef* hadc)
   * @param hadc ADC handle.
   * @retval Calibration value.
   */
-uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef* hadc)
+uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc)
 {
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -200,7 +196,7 @@ uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef* hadc)
   * @param CalibrationFactor Calibration factor (coded on 7 bits maximum)
   * @retval HAL state
   */
-HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32_t CalibrationFactor)
+HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef *hadc, uint32_t CalibrationFactor)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
   uint32_t tmp_adc_is_conversion_on_going_regular;
@@ -209,14 +205,13 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   assert_param(IS_ADC_CALFACT(CalibrationFactor));
 
-  /* Process locked */
   __HAL_LOCK(hadc);
 
   /* Verification of hardware constraints before modifying the calibration    */
   /* factors register: ADC must be enabled, no conversion on going.           */
   tmp_adc_is_conversion_on_going_regular = LL_ADC_REG_IsConversionOngoing(hadc->Instance);
 
-  if (   (LL_ADC_IsEnabled(hadc->Instance) != 0UL)
+  if ((LL_ADC_IsEnabled(hadc->Instance) != 0UL)
       && (tmp_adc_is_conversion_on_going_regular == 0UL)
      )
   {
@@ -234,10 +229,8 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32
     tmp_hal_status = HAL_ERROR;
   }
 
-  /* Process unlocked */
   __HAL_UNLOCK(hadc);
 
-  /* Return function status */
   return tmp_hal_status;
 }
 
@@ -246,7 +239,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_SetValue(ADC_HandleTypeDef* hadc, uint32
   * @param hadc ADC handle
   * @retval None
   */
-__weak void HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef* hadc)
+__weak void HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef *hadc)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hadc);
@@ -261,7 +254,7 @@ __weak void HAL_ADCEx_LevelOutOfWindow2Callback(ADC_HandleTypeDef* hadc)
   * @param hadc ADC handle
   * @retval None
   */
-__weak void HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef* hadc)
+__weak void HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef *hadc)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hadc);
@@ -277,7 +270,7 @@ __weak void HAL_ADCEx_LevelOutOfWindow3Callback(ADC_HandleTypeDef* hadc)
   * @param hadc ADC handle
   * @retval None
   */
-__weak void HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef* hadc)
+__weak void HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef *hadc)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hadc);
@@ -292,7 +285,7 @@ __weak void HAL_ADCEx_EndOfSamplingCallback(ADC_HandleTypeDef* hadc)
   * @param hadc ADC handle
   * @retval None
   */
-__weak void HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef* hadc)
+__weak void HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef *hadc)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hadc);
@@ -315,7 +308,7 @@ __weak void HAL_ADCEx_ChannelConfigReadyCallback(ADC_HandleTypeDef* hadc)
   * @param hadc ADC handle
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef* hadc)
+HAL_StatusTypeDef HAL_ADCEx_DisableVoltageRegulator(ADC_HandleTypeDef *hadc)
 {
   HAL_StatusTypeDef tmp_hal_status;
 

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F413MGYx
+GenF4.menu.pnum.GENERIC_F413MGYX=Generic F413MGYx
+GenF4.menu.pnum.GENERIC_F413MGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F413MGYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413MGYX.build.board=GENERIC_F413MGYX
+GenF4.menu.pnum.GENERIC_F413MGYX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413MGYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+
+# Generic F413MHYx
+GenF4.menu.pnum.GENERIC_F413MHYX=Generic F413MHYx
+GenF4.menu.pnum.GENERIC_F413MHYX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F413MHYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F413MHYX.build.board=GENERIC_F413MHYX
+GenF4.menu.pnum.GENERIC_F413MHYX.build.product_line=STM32F413xx
+GenF4.menu.pnum.GENERIC_F413MHYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+
+# Generic F423MHYx
+GenF4.menu.pnum.GENERIC_F423MHYX=Generic F423MHYx
+GenF4.menu.pnum.GENERIC_F423MHYX.upload.maximum_size=1572864
+GenF4.menu.pnum.GENERIC_F423MHYX.upload.maximum_data_size=327680
+GenF4.menu.pnum.GENERIC_F423MHYX.build.board=GENERIC_F423MHYX
+GenF4.menu.pnum.GENERIC_F423MHYX.build.product_line=STM32F423xx
+GenF4.menu.pnum.GENERIC_F423MHYX.build.variant=STM32F4xx/F413M(G-H)Y_F423MHY
+

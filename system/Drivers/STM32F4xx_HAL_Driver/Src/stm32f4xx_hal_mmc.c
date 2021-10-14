@@ -195,7 +195,7 @@
     The compilation define USE_HAL_MMC_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
 
-    Use Functions @ref HAL_MMC_RegisterCallback() to register a user callback,
+    Use Functions HAL_MMC_RegisterCallback() to register a user callback,
     it allows to register following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -206,7 +206,7 @@
     This function takes as parameters the HAL peripheral handle, the Callback ID
     and a pointer to the user callback function.
 
-    Use function @ref HAL_MMC_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_MMC_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function. It allows to reset following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -216,12 +216,12 @@
       (+) MspDeInitCallback  : MMC MspDeInit.
     This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
-    By default, after the @ref HAL_MMC_Init and if the state is HAL_MMC_STATE_RESET
+    By default, after the HAL_MMC_Init and if the state is HAL_MMC_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions.
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_MMC_Init
-    and @ref  HAL_MMC_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_MMC_Init and @ref HAL_MMC_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_MMC_Init
+    and  HAL_MMC_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_MMC_Init and HAL_MMC_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
     Callbacks can be registered/unregistered in READY state only.
@@ -229,8 +229,8 @@
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_MMC_RegisterCallback before calling @ref HAL_MMC_DeInit
-    or @ref HAL_MMC_Init function.
+    using HAL_MMC_RegisterCallback before calling HAL_MMC_DeInit
+    or HAL_MMC_Init function.
 
     When The compilation define USE_HAL_MMC_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
@@ -287,6 +287,7 @@
 static uint32_t MMC_InitCard(MMC_HandleTypeDef *hmmc);
 static uint32_t MMC_PowerON(MMC_HandleTypeDef *hmmc);
 static uint32_t MMC_SendStatus(MMC_HandleTypeDef *hmmc, uint32_t *pCardStatus);
+static uint32_t MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFieldData, uint16_t FieldIndex, uint32_t Timeout);
 static void     MMC_PowerOFF(MMC_HandleTypeDef *hmmc);
 static void     MMC_Write_IT(MMC_HandleTypeDef *hmmc);
 static void     MMC_Read_IT(MMC_HandleTypeDef *hmmc);
@@ -444,6 +445,17 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
     return HAL_ERROR;
   }
 
+  /* Set Block Size for Card */
+  errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
+  if(errorstate != HAL_MMC_ERROR_NONE)
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
+    hmmc->ErrorCode |= errorstate;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
+
   return HAL_OK;
 }
 
@@ -582,17 +594,6 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, ui
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
     }
 
     /* Configure the MMC DPSM (Data Path State Machine) */
@@ -800,17 +801,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks(MMC_HandleTypeDef *hmmc, uint8_t *pData, u
       add *= 512U;
     }
 
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
-    }
-
     /* Write Blocks in Polling mode */
     if(NumberOfBlocks > 1U)
     {
@@ -996,17 +986,6 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData,
       add *= 512U;
     }
 
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
-    }
-
     /* Configure the MMC DPSM (Data Path State Machine) */
     config.DataTimeOut   = SDMMC_DATATIMEOUT;
     config.DataLength    = MMC_BLOCKSIZE * NumberOfBlocks;
@@ -1102,17 +1081,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_IT(MMC_HandleTypeDef *hmmc, uint8_t *pData
     if ((hmmc->MmcCard.CardType) != MMC_HIGH_CAPACITY_CARD)
     {
       add *= 512U;
-    }
-
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
     }
 
     /* Write Blocks in Polling mode */
@@ -1216,16 +1184,9 @@ HAL_StatusTypeDef HAL_MMC_ReadBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pData
       add *= 512U;
     }
 
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode = errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
-    }
+    /* Force DMA Direction */
+    hmmc->hdmarx->Init.Direction = DMA_PERIPH_TO_MEMORY;
+    MODIFY_REG(hmmc->hdmarx->Instance->CR, DMA_SxCR_DIR, hmmc->hdmarx->Init.Direction);
 
     /* Enable the DMA Channel */
     if(HAL_DMA_Start_IT(hmmc->hdmarx, (uint32_t)&hmmc->Instance->FIFO, (uint32_t)pData, (uint32_t)(MMC_BLOCKSIZE * NumberOfBlocks)/4) != HAL_OK)
@@ -1345,16 +1306,6 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pDat
       add *= 512U;
     }
 
-    /* Set Block Size for Card */
-    errorstate = SDMMC_CmdBlockLength(hmmc->Instance, MMC_BLOCKSIZE);
-    if(errorstate != HAL_MMC_ERROR_NONE)
-    {
-      /* Clear all the static flags */
-      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
-      hmmc->ErrorCode |= errorstate;
-      hmmc->State = HAL_MMC_STATE_READY;
-      return HAL_ERROR;
-    }
 
     /* Write Blocks in Polling mode */
     if(NumberOfBlocks > 1U)
@@ -1383,6 +1334,10 @@ HAL_StatusTypeDef HAL_MMC_WriteBlocks_DMA(MMC_HandleTypeDef *hmmc, uint8_t *pDat
 
     /* Enable SDIO DMA transfer */
     __HAL_MMC_DMA_ENABLE(hmmc);
+
+    /* Force DMA Direction */
+    hmmc->hdmatx->Init.Direction = DMA_MEMORY_TO_PERIPH;
+    MODIFY_REG(hmmc->hdmatx->Instance->CR, DMA_SxCR_DIR, hmmc->hdmatx->Init.Direction);
 
     /* Enable the DMA Channel */
     if(HAL_DMA_Start_IT(hmmc->hdmatx, (uint32_t)pData, (uint32_t)&hmmc->Instance->FIFO, (uint32_t)(MMC_BLOCKSIZE * NumberOfBlocks)/4) != HAL_OK)
@@ -2045,6 +2000,8 @@ HAL_StatusTypeDef HAL_MMC_GetCardCID(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCIDTyp
   */
 HAL_StatusTypeDef HAL_MMC_GetCardCSD(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCSDTypeDef *pCSD)
 {
+  uint32_t block_nbr = 0;
+
   pCSD->CSDStruct = (uint8_t)((hmmc->CSD[0] & 0xC0000000U) >> 30U);
 
   pCSD->SysSpecVersion = (uint8_t)((hmmc->CSD[0] & 0x3C000000U) >> 26U);
@@ -2083,12 +2040,34 @@ HAL_StatusTypeDef HAL_MMC_GetCardCSD(MMC_HandleTypeDef *hmmc, HAL_MMC_CardCSDTyp
 
   pCSD->DeviceSizeMul = (uint8_t)((hmmc->CSD[2] & 0x00038000U) >> 15U);
 
-  hmmc->MmcCard.BlockNbr  = (pCSD->DeviceSize + 1U) ;
-  hmmc->MmcCard.BlockNbr *= (1UL << ((pCSD->DeviceSizeMul & 0x07U) + 2U));
-  hmmc->MmcCard.BlockSize = (1UL << (pCSD->RdBlockLen & 0x0FU));
+  if(MMC_ReadExtCSD(hmmc, &block_nbr, 212, 0x0FFFFFFFU) != HAL_OK) /* Field SEC_COUNT [215:212] */
+  {
+    return HAL_ERROR;
+  }
 
-  hmmc->MmcCard.LogBlockNbr =  (hmmc->MmcCard.BlockNbr) * ((hmmc->MmcCard.BlockSize) / 512U);
-  hmmc->MmcCard.LogBlockSize = 512U;
+  if(hmmc->MmcCard.CardType == MMC_LOW_CAPACITY_CARD)
+  {
+    hmmc->MmcCard.BlockNbr  = (pCSD->DeviceSize + 1U) ;
+    hmmc->MmcCard.BlockNbr *= (1UL << ((pCSD->DeviceSizeMul & 0x07U) + 2U));
+    hmmc->MmcCard.BlockSize = (1UL << (pCSD->RdBlockLen & 0x0FU));
+    hmmc->MmcCard.LogBlockNbr =  (hmmc->MmcCard.BlockNbr) * ((hmmc->MmcCard.BlockSize) / 512U);
+    hmmc->MmcCard.LogBlockSize = 512U;
+  }
+  else if(hmmc->MmcCard.CardType == MMC_HIGH_CAPACITY_CARD)
+  {
+    hmmc->MmcCard.BlockNbr = block_nbr;
+    hmmc->MmcCard.LogBlockNbr = hmmc->MmcCard.BlockNbr;
+    hmmc->MmcCard.BlockSize = 512U;
+    hmmc->MmcCard.LogBlockSize = hmmc->MmcCard.BlockSize;
+  }
+  else
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
+    hmmc->ErrorCode |= HAL_MMC_ERROR_UNSUPPORTED_FEATURE;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
 
   pCSD->EraseGrSize = (uint8_t)((hmmc->CSD[2] & 0x00004000U) >> 14U);
 
@@ -2170,7 +2149,7 @@ HAL_StatusTypeDef HAL_MMC_ConfigWideBusOperation(MMC_HandleTypeDef *hmmc, uint32
   /* Check the parameters */
   assert_param(IS_SDIO_BUS_WIDE(WideMode));
 
-  /* Chnage Satte */
+  /* Change State */
   hmmc->State = HAL_MMC_STATE_BUSY;
 
   /* Update Clock for Bus mode update */
@@ -2809,6 +2788,93 @@ static uint32_t MMC_SendStatus(MMC_HandleTypeDef *hmmc, uint32_t *pCardStatus)
 
   return HAL_MMC_ERROR_NONE;
 }
+
+/**
+  * @brief  Reads extended CSD register to get the sectors number of the device
+  * @param  hmmc: Pointer to MMC handle
+  * @param  pFieldData: Pointer to the read buffer
+  * @param  FieldIndex: Index of the field to be read
+  * @param  Timeout: Specify timeout value
+  * @retval HAL status
+  */
+static uint32_t MMC_ReadExtCSD(MMC_HandleTypeDef *hmmc, uint32_t *pFieldData, uint16_t FieldIndex, uint32_t Timeout)
+{
+  SDIO_DataInitTypeDef config;
+  uint32_t errorstate;
+  uint32_t tickstart = HAL_GetTick();
+  uint32_t count;
+  uint32_t i = 0;
+  uint32_t tmp_data;
+
+  hmmc->ErrorCode = HAL_MMC_ERROR_NONE;
+
+  /* Initialize data control register */
+  hmmc->Instance->DCTRL = 0;
+
+  /* Configure the MMC DPSM (Data Path State Machine) */
+  config.DataTimeOut   = SDMMC_DATATIMEOUT;
+  config.DataLength    = 512;
+  config.DataBlockSize = SDIO_DATABLOCK_SIZE_512B;
+  config.TransferDir   = SDIO_TRANSFER_DIR_TO_SDIO;
+  config.TransferMode  = SDIO_TRANSFER_MODE_BLOCK;
+  config.DPSM          = SDIO_DPSM_ENABLE;
+  (void)SDIO_ConfigData(hmmc->Instance, &config);
+
+  /* Set Block Size for Card */
+  errorstate = SDMMC_CmdSendEXTCSD(hmmc->Instance, 0);
+  if(errorstate != HAL_MMC_ERROR_NONE)
+  {
+    /* Clear all the static flags */
+    __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
+    hmmc->ErrorCode |= errorstate;
+    hmmc->State = HAL_MMC_STATE_READY;
+    return HAL_ERROR;
+  }
+
+  /* Poll on SDMMC flags */
+  while(!__HAL_MMC_GET_FLAG(hmmc, SDIO_FLAG_RXOVERR | SDIO_FLAG_DCRCFAIL | SDIO_FLAG_DTIMEOUT | SDIO_FLAG_DATAEND))
+  {
+    if(__HAL_MMC_GET_FLAG(hmmc, SDIO_FLAG_RXFIFOHF))
+    {
+      /* Read data from SDMMC Rx FIFO */
+      for(count = 0U; count < 8U; count++)
+      {
+        tmp_data = SDIO_ReadFIFO(hmmc->Instance);
+        /* eg : SEC_COUNT   : FieldIndex = 212 => i+count = 53 */
+        /*      DEVICE_TYPE : FieldIndex = 196 => i+count = 49 */
+        if ((i + count) == ((uint32_t)FieldIndex/4U))
+        {
+          *pFieldData = tmp_data;
+        }
+      }
+      i += 8U;
+    }
+
+    if(((HAL_GetTick()-tickstart) >=  Timeout) || (Timeout == 0U))
+    {
+      /* Clear all the static flags */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_FLAGS);
+      hmmc->ErrorCode |= HAL_MMC_ERROR_TIMEOUT;
+      hmmc->State= HAL_MMC_STATE_READY;
+      return HAL_TIMEOUT;
+    }
+  }
+
+  /* While card is not ready for data and trial number for sending CMD13 is not exceeded */
+  errorstate = SDMMC_CmdSendStatus(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16));
+  if(errorstate != HAL_MMC_ERROR_NONE)
+  {
+    hmmc->ErrorCode |= errorstate;
+  }
+
+  /* Clear all the static flags */
+  __HAL_MMC_CLEAR_FLAG(hmmc, SDIO_STATIC_DATA_FLAGS);
+
+  hmmc->State = HAL_MMC_STATE_READY;
+
+  return HAL_OK;
+}
+
 
 /**
   * @brief  Wrap up reading in non-blocking mode.

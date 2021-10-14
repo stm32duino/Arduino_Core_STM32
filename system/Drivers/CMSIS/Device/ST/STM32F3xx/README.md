@@ -32,6 +32,7 @@ CMSIS Device F3 | CMSIS Core | Was delivered in the full MCU package
 Tag v2.3.4 | Tag v5.4.0_cm4 | Tag v1.11.0
 Tag v2.3.4 | Tag v5.4.0_cm4 | Tag v1.11.1
 Tag v2.3.5 | Tag v5.4.0_cm4 | Tag v1.11.2
+Tag v2.3.6 | Tag v5.4.0_cm4 | Tag v1.11.3
 
 The full **STM32CubeF3** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeF3).
 

@@ -38,7 +38,7 @@ void IWatchdogClass::begin(uint32_t timeout, uint32_t window)
   }
 
   // Enable the peripheral clock IWDG
-#ifdef STM32WBxx
+#ifdef RCC_CSR_LSI1ON
   LL_RCC_LSI1_Enable();
   while (LL_RCC_LSI1_IsReady() != 1) {
   }

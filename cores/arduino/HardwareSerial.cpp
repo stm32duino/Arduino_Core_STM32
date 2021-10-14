@@ -30,7 +30,7 @@
 #if defined(HAVE_HWSERIAL1) || defined(HAVE_HWSERIAL2) || defined(HAVE_HWSERIAL3) ||\
   defined(HAVE_HWSERIAL4) || defined(HAVE_HWSERIAL5) || defined(HAVE_HWSERIAL6) ||\
   defined(HAVE_HWSERIAL7) || defined(HAVE_HWSERIAL8) || defined(HAVE_HWSERIAL9) ||\
-  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1)
+  defined(HAVE_HWSERIAL10) || defined(HAVE_HWSERIALLP1) || defined(HAVE_HWSERIALLP2)
   // SerialEvent functions are weak, so when the user doesn't define them,
   // the linker just sets their address to 0 (which is checked below).
   #if defined(HAVE_HWSERIAL1)
@@ -106,6 +106,11 @@
   #if defined(HAVE_HWSERIALLP1)
     HardwareSerial SerialLP1(LPUART1);
     void serialEventLP1() __attribute__((weak));
+  #endif
+
+  #if defined(HAVE_HWSERIALLP2)
+    HardwareSerial SerialLP2(LPUART2);
+    void serialEventLP2() __attribute__((weak));
   #endif
 #endif // HAVE_HWSERIALx
 
@@ -252,11 +257,19 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                           setTx(PIN_SERIALLP1_TX);
                         } else
 #endif
-                          // else get the pins of the first peripheral occurence in PinMap
-                        {
-                          _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
-                          _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
-                        }
+#if defined(PIN_SERIALLP2_TX) && defined(LPUART2_BASE)
+                          if (peripheral == LPUART2) {
+#if defined(PIN_SERIALLP2_RX)
+                            setRx(PIN_SERIALLP2_RX);
+#endif
+                            setTx(PIN_SERIALLP2_TX);
+                          } else
+#endif
+                            // else get the pins of the first peripheral occurence in PinMap
+                          {
+                            _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
+                            _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
+                          }
   if (halfDuplex == HALF_DUPLEX_ENABLED) {
     _serial.pin_rx = NC;
   }
@@ -291,7 +304,7 @@ void HardwareSerial::init(PinName _rx, PinName _tx)
 
 void HardwareSerial::configForLowPower(void)
 {
-#if defined(HAL_PWR_MODULE_ENABLED) && defined(UART_IT_WUF)
+#if defined(HAL_PWR_MODULE_ENABLED) && (defined(UART_IT_WUF) || defined(LPUART1_BASE))
   // Reconfigure properly Serial instance to use HSI as clock source
   end();
   uart_config_lowpower(&_serial);
@@ -321,15 +334,23 @@ void HardwareSerial::_rx_complete_irq(serial_t *obj)
   }
 }
 
-// Actual interrupt handlers //////////////////////////////////////////////////////////////
+// Actual interrupt handlers //////////////////////////////////////////////////
 
 int HardwareSerial::_tx_complete_irq(serial_t *obj)
 {
-  // If interrupts are enabled, there must be more data in the output
-  // buffer. Send the next byte
-  obj->tx_tail = (obj->tx_tail + 1) % SERIAL_TX_BUFFER_SIZE;
+  size_t remaining_data;
+  // previous HAL transfer is finished, move tail pointer accordingly
+  obj->tx_tail = (obj->tx_tail + obj->tx_size) % SERIAL_TX_BUFFER_SIZE;
 
-  if (obj->tx_head == obj->tx_tail) {
+  // If buffer is not empty (head != tail), send remaining data
+  if (obj->tx_head != obj->tx_tail) {
+    remaining_data = (SERIAL_TX_BUFFER_SIZE + obj->tx_head - obj->tx_tail)
+                     % SERIAL_TX_BUFFER_SIZE;
+    // Limit the next transmission to the buffer end
+    // because HAL is not able to manage rollover
+    obj->tx_size = min(remaining_data,
+                       (size_t)(SERIAL_TX_BUFFER_SIZE - obj->tx_tail));
+    uart_attach_tx_callback(obj, _tx_complete_irq, obj->tx_size);
     return -1;
   }
 
@@ -467,8 +488,13 @@ void HardwareSerial::flush()
   // the hardware finished tranmission (TXC is set).
 }
 
-size_t HardwareSerial::write(uint8_t c)
+size_t HardwareSerial::write(const uint8_t *buffer, size_t size)
 {
+  size_t size_intermediate;
+  size_t ret = size;
+  size_t available = availableForWrite();
+  size_t available_till_buffer_end = SERIAL_TX_BUFFER_SIZE - _serial.tx_head;
+
   _written = true;
   if (isHalfDuplex()) {
     if (_rx_enabled) {
@@ -477,22 +503,56 @@ size_t HardwareSerial::write(uint8_t c)
     }
   }
 
-  tx_buffer_index_t i = (_serial.tx_head + 1) % SERIAL_TX_BUFFER_SIZE;
-
   // If the output buffer is full, there's nothing for it other than to
-  // wait for the interrupt handler to empty it a bit
-  while (i == _serial.tx_tail) {
+  // wait for the interrupt handler to free space
+  while (!availableForWrite()) {
     // nop, the interrupt handler will free up space for us
   }
 
-  _serial.tx_buff[_serial.tx_head] = c;
-  _serial.tx_head = i;
-
-  if (!serial_tx_active(&_serial)) {
-    uart_attach_tx_callback(&_serial, _tx_complete_irq);
+  // HAL doesn't manage rollover, so split transfer till end of TX buffer
+  // Also, split transfer according to available space in buffer
+  while ((size > available_till_buffer_end) || (size > available)) {
+    size_intermediate = min(available, available_till_buffer_end);
+    write(buffer, size_intermediate);
+    size -= size_intermediate;
+    buffer += size_intermediate;
+    available = availableForWrite();
+    available_till_buffer_end = SERIAL_TX_BUFFER_SIZE - _serial.tx_head;
   }
 
-  return 1;
+  // Copy data to buffer. Take into account rollover if necessary.
+  if (_serial.tx_head + size <= SERIAL_TX_BUFFER_SIZE) {
+    memcpy(&_serial.tx_buff[_serial.tx_head], buffer, size);
+    size_intermediate = size;
+  } else {
+    // memcpy till end of buffer then continue memcpy from beginning of buffer
+    size_intermediate = SERIAL_TX_BUFFER_SIZE - _serial.tx_head;
+    memcpy(&_serial.tx_buff[_serial.tx_head], buffer, size_intermediate);
+    memcpy(&_serial.tx_buff[0], buffer + size_intermediate,
+           size - size_intermediate);
+  }
+
+  // Data are copied to buffer, move head pointer accordingly
+  _serial.tx_head = (_serial.tx_head + size) % SERIAL_TX_BUFFER_SIZE;
+
+  // Transfer data with HAL only is there is no TX data transfer ongoing
+  // otherwise, data transfer will be done asynchronously from callback
+  if (!serial_tx_active(&_serial)) {
+    // note: tx_size correspond to size of HAL data transfer,
+    // not the total amount of data in the buffer.
+    // To compute size of data in buffer compare head and tail
+    _serial.tx_size = size_intermediate;
+    uart_attach_tx_callback(&_serial, _tx_complete_irq, size_intermediate);
+  }
+
+  /* There is no real error management so just return transfer size requested*/
+  return ret;
+}
+
+size_t HardwareSerial::write(uint8_t c)
+{
+  uint8_t buff = c;
+  return write(&buff, 1);
 }
 
 void HardwareSerial::setRx(uint32_t _rx)

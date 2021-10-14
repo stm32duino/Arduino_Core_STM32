@@ -220,7 +220,7 @@ void SystemInit (void)
 #endif
 
 #if defined (DATA_IN_D2_SRAM)
-  /* in case of initialized data in D2 SRAM (AHB SRAM) , enable the D2 SRAM clock (AHB SRAM clock) */
+  /* in case of initialized data in D2 SRAM (AHB SRAM), enable the D2 SRAM clock (AHB SRAM clock) */
 #if defined(RCC_AHB2ENR_D2SRAM3EN)
   RCC->AHB2ENR |= (RCC_AHB2ENR_D2SRAM1EN | RCC_AHB2ENR_D2SRAM2EN | RCC_AHB2ENR_D2SRAM3EN);
 #elif defined(RCC_AHB2ENR_D2SRAM2EN)
@@ -333,27 +333,26 @@ void SystemCoreClockUpdate (void)
 
     if (pllm != 0U)
     {
-    switch (pllsource)
-    {
+      switch (pllsource)
+      {
         case RCC_PLLCKSELR_PLLSRC_HSI:  /* HSI used as PLL clock source */
-
-      hsivalue = (HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV)>> 3)) ;
-        pllvco = ( (float_t)hsivalue / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
-
-      break;
+          hsivalue = (HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV)>> 3)) ;
+          pllvco = ( (float_t)hsivalue / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
+        break;
 
         case RCC_PLLCKSELR_PLLSRC_CSI:  /* CSI used as PLL clock source */
           pllvco = ((float_t)CSI_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
-      break;
+        break;
 
         case RCC_PLLCKSELR_PLLSRC_HSE:  /* HSE used as PLL clock source */
           pllvco = ((float_t)HSE_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
-      break;
+        break;
 
-    default:
-          pllvco = ((float_t)CSI_VALUE / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
-      break;
-    }
+      default:
+          hsivalue = (HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV)>> 3)) ;
+          pllvco = ((float_t)hsivalue / (float_t)pllm) * ((float_t)(uint32_t)(RCC->PLL1DIVR & RCC_PLL1DIVR_N1) + (fracn1/(float_t)0x2000) +(float_t)1 );
+        break;
+      }
       pllp = (((RCC->PLL1DIVR & RCC_PLL1DIVR_P1) >>9) + 1U ) ;
       common_system_clock =  (uint32_t)(float_t)(pllvco/(float_t)pllp);
     }
@@ -364,7 +363,7 @@ void SystemCoreClockUpdate (void)
     break;
 
   default:
-    common_system_clock = CSI_VALUE;
+    common_system_clock = (uint32_t) (HSI_VALUE >> ((RCC->CR & RCC_CR_HSIDIV)>> 3));
     break;
   }
 

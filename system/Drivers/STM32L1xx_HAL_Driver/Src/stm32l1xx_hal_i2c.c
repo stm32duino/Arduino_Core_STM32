@@ -90,7 +90,7 @@
     [..]
       (+) A specific option field manage the different steps of a sequential transfer
       (+) Option field values are defined through @ref I2C_XferOptions_definition and are listed below:
-      (++) I2C_FIRST_AND_LAST_FRAME: No sequential usage, functionnal is same as associated interfaces in no sequential mode
+      (++) I2C_FIRST_AND_LAST_FRAME: No sequential usage, functional is same as associated interfaces in no sequential mode
       (++) I2C_FIRST_FRAME: Sequential usage, this option allow to manage a sequence with start condition, address
                             and data to transfer without a final stop condition
       (++) I2C_FIRST_AND_NEXT_FRAME: Sequential usage (Master only), this option allow to manage a sequence with start condition, address
@@ -109,7 +109,7 @@
                               or HAL_I2C_Master_Seq_Receive_IT(option I2C_FIRST_AND_NEXT_FRAME then I2C_NEXT_FRAME)
                               or HAL_I2C_Master_Seq_Transmit_DMA(option I2C_FIRST_AND_NEXT_FRAME then I2C_NEXT_FRAME)
                               or HAL_I2C_Master_Seq_Receive_DMA(option I2C_FIRST_AND_NEXT_FRAME then I2C_NEXT_FRAME).
-                            Then usage of this option I2C_LAST_FRAME_NO_STOP at the last Transmit or Receive sequence permit to call the oposite interface Receive or Transmit
+                            Then usage of this option I2C_LAST_FRAME_NO_STOP at the last Transmit or Receive sequence permit to call the opposite interface Receive or Transmit
                               without stopping the communication and so generate a restart condition.
       (++) I2C_OTHER_FRAME: Sequential usage (Master only), this option allow to manage a restart condition after each call of the same master sequential
                             interface.
@@ -119,7 +119,7 @@
                               or HAL_I2C_Master_Seq_Receive_DMA(option I2C_FIRST_FRAME then I2C_OTHER_FRAME).
                             Then usage of this option I2C_OTHER_AND_LAST_FRAME at the last frame to help automatic generation of STOP condition.
 
-      (+) Differents sequential I2C interfaces are listed below:
+      (+) Different sequential I2C interfaces are listed below:
       (++) Sequential transmit in master I2C mode an amount of data in non-blocking mode using @ref HAL_I2C_Master_Seq_Transmit_IT()
             or using @ref HAL_I2C_Master_Seq_Transmit_DMA()
       (+++) At transmission end of current frame transfer, @ref HAL_I2C_MasterTxCpltCallback() is executed and user can
@@ -1695,9 +1695,6 @@ HAL_StatusTypeDef HAL_I2C_Master_Transmit_IT(I2C_HandleTypeDef *hi2c, uint16_t D
     hi2c->XferOptions = I2C_NO_OPTION_FRAME;
     hi2c->Devaddress  = DevAddress;
 
-    /* Generate Start */
-    SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
-
     /* Process Unlocked */
     __HAL_UNLOCK(hi2c);
 
@@ -1706,6 +1703,9 @@ HAL_StatusTypeDef HAL_I2C_Master_Transmit_IT(I2C_HandleTypeDef *hi2c, uint16_t D
               process unlock */
     /* Enable EVT, BUF and ERR interrupt */
     __HAL_I2C_ENABLE_IT(hi2c, I2C_IT_EVT | I2C_IT_BUF | I2C_IT_ERR);
+
+    /* Generate Start */
+    SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
 
     return HAL_OK;
   }
@@ -1775,11 +1775,6 @@ HAL_StatusTypeDef HAL_I2C_Master_Receive_IT(I2C_HandleTypeDef *hi2c, uint16_t De
     hi2c->XferOptions = I2C_NO_OPTION_FRAME;
     hi2c->Devaddress  = DevAddress;
 
-    /* Enable Acknowledge */
-    SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
-
-    /* Generate Start */
-    SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
 
     /* Process Unlocked */
     __HAL_UNLOCK(hi2c);
@@ -1790,6 +1785,12 @@ HAL_StatusTypeDef HAL_I2C_Master_Receive_IT(I2C_HandleTypeDef *hi2c, uint16_t De
 
     /* Enable EVT, BUF and ERR interrupt */
     __HAL_I2C_ENABLE_IT(hi2c, I2C_IT_EVT | I2C_IT_BUF | I2C_IT_ERR);
+
+    /* Enable Acknowledge */
+    SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
+
+    /* Generate Start */
+    SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
 
     return HAL_OK;
   }
@@ -1986,27 +1987,38 @@ HAL_StatusTypeDef HAL_I2C_Master_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint16_t 
 
     if (hi2c->XferSize > 0U)
     {
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
+      if (hi2c->hdmatx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the DMA error callback */
-      hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
+        /* Set the DMA error callback */
+        hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmatx->XferHalfCpltCallback = NULL;
-      hi2c->hdmatx->XferAbortCallback = NULL;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmatx->XferHalfCpltCallback = NULL;
+        hi2c->hdmatx->XferAbortCallback = NULL;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
 
       if (dmaxferstatus == HAL_OK)
       {
-        /* Enable Acknowledge */
-        SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
-
-        /* Generate Start */
-        SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
-
         /* Process Unlocked */
         __HAL_UNLOCK(hi2c);
 
@@ -2019,6 +2031,12 @@ HAL_StatusTypeDef HAL_I2C_Master_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint16_t 
 
         /* Enable DMA Request */
         SET_BIT(hi2c->Instance->CR2, I2C_CR2_DMAEN);
+
+        /* Enable Acknowledge */
+        SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
+
+        /* Generate Start */
+        SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
       }
       else
       {
@@ -2125,18 +2143,35 @@ HAL_StatusTypeDef HAL_I2C_Master_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16_t D
 
     if (hi2c->XferSize > 0U)
     {
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
+      if (hi2c->hdmarx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the DMA error callback */
-      hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
+        /* Set the DMA error callback */
+        hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmarx->XferHalfCpltCallback = NULL;
-      hi2c->hdmarx->XferAbortCallback = NULL;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmarx->XferHalfCpltCallback = NULL;
+        hi2c->hdmarx->XferAbortCallback = NULL;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
 
       if (dmaxferstatus == HAL_OK)
       {
@@ -2176,12 +2211,6 @@ HAL_StatusTypeDef HAL_I2C_Master_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16_t D
     }
     else
     {
-      /* Enable Acknowledge */
-      SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
-
-      /* Generate Start */
-      SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
-
       /* Process Unlocked */
       __HAL_UNLOCK(hi2c);
 
@@ -2191,6 +2220,12 @@ HAL_StatusTypeDef HAL_I2C_Master_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16_t D
 
       /* Enable EVT, BUF and ERR interrupt */
       __HAL_I2C_ENABLE_IT(hi2c, I2C_IT_EVT | I2C_IT_BUF | I2C_IT_ERR);
+
+      /* Enable Acknowledge */
+      SET_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
+
+      /* Generate Start */
+      SET_BIT(hi2c->Instance->CR1, I2C_CR1_START);
     }
 
     return HAL_OK;
@@ -2243,18 +2278,35 @@ HAL_StatusTypeDef HAL_I2C_Slave_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint8_t *p
     hi2c->XferSize    = hi2c->XferCount;
     hi2c->XferOptions = I2C_NO_OPTION_FRAME;
 
-    /* Set the I2C DMA transfer complete callback */
-    hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
+    if (hi2c->hdmatx != NULL)
+    {
+      /* Set the I2C DMA transfer complete callback */
+      hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
 
-    /* Set the DMA error callback */
-    hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
+      /* Set the DMA error callback */
+      hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
 
-    /* Set the unused DMA callbacks to NULL */
-    hi2c->hdmatx->XferHalfCpltCallback = NULL;
-    hi2c->hdmatx->XferAbortCallback = NULL;
+      /* Set the unused DMA callbacks to NULL */
+      hi2c->hdmatx->XferHalfCpltCallback = NULL;
+      hi2c->hdmatx->XferAbortCallback = NULL;
 
-    /* Enable the DMA channel */
-    dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+      /* Enable the DMA channel */
+      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+    }
+    else
+    {
+      /* Update I2C state */
+      hi2c->State     = HAL_I2C_STATE_LISTEN;
+      hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+      /* Update I2C error code */
+      hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+      /* Process Unlocked */
+      __HAL_UNLOCK(hi2c);
+
+      return HAL_ERROR;
+    }
 
     if (dmaxferstatus == HAL_OK)
     {
@@ -2338,18 +2390,35 @@ HAL_StatusTypeDef HAL_I2C_Slave_Receive_DMA(I2C_HandleTypeDef *hi2c, uint8_t *pD
     hi2c->XferSize    = hi2c->XferCount;
     hi2c->XferOptions = I2C_NO_OPTION_FRAME;
 
-    /* Set the I2C DMA transfer complete callback */
-    hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
+    if (hi2c->hdmarx != NULL)
+    {
+      /* Set the I2C DMA transfer complete callback */
+      hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
 
-    /* Set the DMA error callback */
-    hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
+      /* Set the DMA error callback */
+      hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
 
-    /* Set the unused DMA callbacks to NULL */
-    hi2c->hdmarx->XferHalfCpltCallback = NULL;
-    hi2c->hdmarx->XferAbortCallback = NULL;
+      /* Set the unused DMA callbacks to NULL */
+      hi2c->hdmarx->XferHalfCpltCallback = NULL;
+      hi2c->hdmarx->XferAbortCallback = NULL;
 
-    /* Enable the DMA channel */
-    dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+      /* Enable the DMA channel */
+      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+    }
+    else
+    {
+      /* Update I2C state */
+      hi2c->State     = HAL_I2C_STATE_LISTEN;
+      hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+      /* Update I2C error code */
+      hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+      /* Process Unlocked */
+      __HAL_UNLOCK(hi2c);
+
+      return HAL_ERROR;
+    }
 
     if (dmaxferstatus == HAL_OK)
     {
@@ -3014,18 +3083,35 @@ HAL_StatusTypeDef HAL_I2C_Mem_Write_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
 
     if (hi2c->XferSize > 0U)
     {
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
+      if (hi2c->hdmatx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the DMA error callback */
-      hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
+        /* Set the DMA error callback */
+        hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmatx->XferHalfCpltCallback = NULL;
-      hi2c->hdmatx->XferAbortCallback = NULL;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmatx->XferHalfCpltCallback = NULL;
+        hi2c->hdmatx->XferAbortCallback = NULL;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
 
       if (dmaxferstatus == HAL_OK)
       {
@@ -3038,11 +3124,8 @@ HAL_StatusTypeDef HAL_I2C_Mem_Write_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAdd
           /* Prevent unused argument(s) compilation and MISRA warning */
           UNUSED(dmaxferstatus);
 
-          /* Clear directly Complete callback as no XferAbortCallback is used to finalize Abort treatment */
-          if (hi2c->hdmatx != NULL)
-          {
-            hi2c->hdmatx->XferCpltCallback = NULL;
-          }
+          /* Set the unused I2C DMA transfer complete callback to NULL */
+          hi2c->hdmatx->XferCpltCallback = NULL;
 
           /* Disable Acknowledge */
           CLEAR_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
@@ -3178,18 +3261,35 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddr
 
     if (hi2c->XferSize > 0U)
     {
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
+      if (hi2c->hdmarx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the DMA error callback */
-      hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
+        /* Set the DMA error callback */
+        hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmarx->XferHalfCpltCallback = NULL;
-      hi2c->hdmarx->XferAbortCallback = NULL;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmarx->XferHalfCpltCallback = NULL;
+        hi2c->hdmarx->XferAbortCallback = NULL;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
 
       if (dmaxferstatus == HAL_OK)
       {
@@ -3202,11 +3302,8 @@ HAL_StatusTypeDef HAL_I2C_Mem_Read_DMA(I2C_HandleTypeDef *hi2c, uint16_t DevAddr
           /* Prevent unused argument(s) compilation and MISRA warning */
           UNUSED(dmaxferstatus);
 
-          /* Clear directly Complete callback as no XferAbortCallback is used to finalize Abort treatment */
-          if (hi2c->hdmarx != NULL)
-          {
-            hi2c->hdmarx->XferCpltCallback = NULL;
-          }
+          /* Set the unused I2C DMA transfer complete callback to NULL */
+          hi2c->hdmarx->XferCpltCallback = NULL;
 
           /* Disable Acknowledge */
           CLEAR_BIT(hi2c->Instance->CR1, I2C_CR1_ACK);
@@ -3597,18 +3694,35 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint1
 
     if (hi2c->XferSize > 0U)
     {
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
+      if (hi2c->hdmatx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the DMA error callback */
-      hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
+        /* Set the DMA error callback */
+        hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmatx->XferHalfCpltCallback = NULL;
-      hi2c->hdmatx->XferAbortCallback = NULL;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmatx->XferHalfCpltCallback = NULL;
+        hi2c->hdmatx->XferAbortCallback = NULL;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
 
       if (dmaxferstatus == HAL_OK)
       {
@@ -3921,20 +4035,35 @@ HAL_StatusTypeDef HAL_I2C_Master_Seq_Receive_DMA(I2C_HandleTypeDef *hi2c, uint16
           SET_BIT(hi2c->Instance->CR2, I2C_CR2_LAST);
         }
       }
+      if (hi2c->hdmarx != NULL)
+      {
+        /* Set the I2C DMA transfer complete callback */
+        hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
 
-      /* Set the I2C DMA transfer complete callback */
-      hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
+        /* Set the DMA error callback */
+        hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
 
-      /* Set the DMA error callback */
-      hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
+        /* Set the unused DMA callbacks to NULL */
+        hi2c->hdmarx->XferHalfCpltCallback = NULL;
+        hi2c->hdmarx->XferAbortCallback = NULL;
 
-      /* Set the unused DMA callbacks to NULL */
-      hi2c->hdmarx->XferHalfCpltCallback = NULL;
-      hi2c->hdmarx->XferAbortCallback = NULL;
+        /* Enable the DMA channel */
+        dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+      }
+      else
+      {
+        /* Update I2C state */
+        hi2c->State     = HAL_I2C_STATE_READY;
+        hi2c->Mode      = HAL_I2C_MODE_NONE;
 
-      /* Enable the DMA channel */
-      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+        /* Update I2C error code */
+        hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
 
+        /* Process Unlocked */
+        __HAL_UNLOCK(hi2c);
+
+        return HAL_ERROR;
+      }
       if (dmaxferstatus == HAL_OK)
       {
         /* If transfer direction not change and there is no request to start another frame, do not generate Restart Condition */
@@ -4184,18 +4313,35 @@ HAL_StatusTypeDef HAL_I2C_Slave_Seq_Transmit_DMA(I2C_HandleTypeDef *hi2c, uint8_
     hi2c->XferSize    = hi2c->XferCount;
     hi2c->XferOptions = XferOptions;
 
-    /* Set the I2C DMA transfer complete callback */
-    hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
+    if (hi2c->hdmatx != NULL)
+    {
+      /* Set the I2C DMA transfer complete callback */
+      hi2c->hdmatx->XferCpltCallback = I2C_DMAXferCplt;
 
-    /* Set the DMA error callback */
-    hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
+      /* Set the DMA error callback */
+      hi2c->hdmatx->XferErrorCallback = I2C_DMAError;
 
-    /* Set the unused DMA callbacks to NULL */
-    hi2c->hdmatx->XferHalfCpltCallback = NULL;
-    hi2c->hdmatx->XferAbortCallback = NULL;
+      /* Set the unused DMA callbacks to NULL */
+      hi2c->hdmatx->XferHalfCpltCallback = NULL;
+      hi2c->hdmatx->XferAbortCallback = NULL;
 
-    /* Enable the DMA channel */
-    dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+      /* Enable the DMA channel */
+      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmatx, (uint32_t)hi2c->pBuffPtr, (uint32_t)&hi2c->Instance->DR, hi2c->XferSize);
+    }
+    else
+    {
+      /* Update I2C state */
+      hi2c->State     = HAL_I2C_STATE_LISTEN;
+      hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+      /* Update I2C error code */
+      hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+      /* Process Unlocked */
+      __HAL_UNLOCK(hi2c);
+
+      return HAL_ERROR;
+    }
 
     if (dmaxferstatus == HAL_OK)
     {
@@ -4407,18 +4553,35 @@ HAL_StatusTypeDef HAL_I2C_Slave_Seq_Receive_DMA(I2C_HandleTypeDef *hi2c, uint8_t
     hi2c->XferSize    = hi2c->XferCount;
     hi2c->XferOptions = XferOptions;
 
-    /* Set the I2C DMA transfer complete callback */
-    hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
+    if (hi2c->hdmarx != NULL)
+    {
+      /* Set the I2C DMA transfer complete callback */
+      hi2c->hdmarx->XferCpltCallback = I2C_DMAXferCplt;
 
-    /* Set the DMA error callback */
-    hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
+      /* Set the DMA error callback */
+      hi2c->hdmarx->XferErrorCallback = I2C_DMAError;
 
-    /* Set the unused DMA callbacks to NULL */
-    hi2c->hdmarx->XferHalfCpltCallback = NULL;
-    hi2c->hdmarx->XferAbortCallback = NULL;
+      /* Set the unused DMA callbacks to NULL */
+      hi2c->hdmarx->XferHalfCpltCallback = NULL;
+      hi2c->hdmarx->XferAbortCallback = NULL;
 
-    /* Enable the DMA channel */
-    dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+      /* Enable the DMA channel */
+      dmaxferstatus = HAL_DMA_Start_IT(hi2c->hdmarx, (uint32_t)&hi2c->Instance->DR, (uint32_t)hi2c->pBuffPtr, hi2c->XferSize);
+    }
+    else
+    {
+      /* Update I2C state */
+      hi2c->State     = HAL_I2C_STATE_LISTEN;
+      hi2c->Mode      = HAL_I2C_MODE_NONE;
+
+      /* Update I2C error code */
+      hi2c->ErrorCode |= HAL_I2C_ERROR_DMA_PARAM;
+
+      /* Process Unlocked */
+      __HAL_UNLOCK(hi2c);
+
+      return HAL_ERROR;
+    }
 
     if (dmaxferstatus == HAL_OK)
     {
@@ -4649,13 +4812,16 @@ void HAL_I2C_EV_IRQHandler(I2C_HandleTypeDef *hi2c)
         /* BTF set -------------------------------------------------------------*/
         else if ((I2C_CHECK_FLAG(sr1itflags, I2C_FLAG_BTF) != RESET) && (I2C_CHECK_IT_SOURCE(itsources, I2C_IT_EVT) != RESET))
         {
-          if (CurrentMode == HAL_I2C_MODE_MASTER)
+          if (CurrentState == HAL_I2C_STATE_BUSY_TX)
           {
             I2C_MasterTransmit_BTF(hi2c);
           }
           else /* HAL_I2C_MODE_MEM */
           {
-            I2C_MemoryTransmit_TXE_BTF(hi2c);
+            if (CurrentMode == HAL_I2C_MODE_MEM)
+            {
+              I2C_MemoryTransmit_TXE_BTF(hi2c);
+            }
           }
         }
         else
@@ -5209,13 +5375,25 @@ static void I2C_MasterTransmit_BTF(I2C_HandleTypeDef *hi2c)
 
         hi2c->PreviousState = I2C_STATE_NONE;
         hi2c->State = HAL_I2C_STATE_READY;
-        hi2c->Mode = HAL_I2C_MODE_NONE;
+        if (hi2c->Mode == HAL_I2C_MODE_MEM)
+        {
+          hi2c->Mode = HAL_I2C_MODE_NONE;
+#if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
+          hi2c->MemTxCpltCallback(hi2c);
+#else
+          HAL_I2C_MemTxCpltCallback(hi2c);
+#endif /* USE_HAL_I2C_REGISTER_CALLBACKS */
+        }
+        else
+        {
+          hi2c->Mode = HAL_I2C_MODE_NONE;
 
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
-        hi2c->MasterTxCpltCallback(hi2c);
+          hi2c->MasterTxCpltCallback(hi2c);
 #else
-        HAL_I2C_MasterTxCpltCallback(hi2c);
+          HAL_I2C_MasterTxCpltCallback(hi2c);
 #endif /* USE_HAL_I2C_REGISTER_CALLBACKS */
+        }
       }
     }
   }
@@ -5268,6 +5446,8 @@ static void I2C_MemoryTransmit_TXE_BTF(I2C_HandleTypeDef *hi2c)
     {
       /* Generate Restart */
       hi2c->Instance->CR1 |= I2C_CR1_START;
+
+      hi2c->EventCount++;
     }
     else if ((hi2c->XferCount > 0U) && (CurrentState == HAL_I2C_STATE_BUSY_TX))
     {
@@ -5615,13 +5795,11 @@ static void I2C_Master_ADD10(I2C_HandleTypeDef *hi2c)
   /* Send slave address */
   hi2c->Instance->DR = I2C_10BIT_ADDRESS(hi2c->Devaddress);
 
-  if ((hi2c->hdmatx != NULL) || (hi2c->hdmarx != NULL))
+  if (((hi2c->hdmatx != NULL) && (hi2c->hdmatx->XferCpltCallback != NULL))
+      || ((hi2c->hdmarx != NULL) && (hi2c->hdmarx->XferCpltCallback != NULL)))
   {
-    if ((hi2c->hdmatx->XferCpltCallback != NULL) || (hi2c->hdmarx->XferCpltCallback != NULL))
-    {
-      /* Enable DMA Request */
-      SET_BIT(hi2c->Instance->CR2, I2C_CR2_DMAEN);
-    }
+    /* Enable DMA Request */
+    SET_BIT(hi2c->Instance->CR2, I2C_CR2_DMAEN);
   }
 }
 
@@ -5939,7 +6117,7 @@ static void I2C_Slave_ADDR(I2C_HandleTypeDef *hi2c, uint32_t IT2Flags)
   else
   {
     /* Clear ADDR flag */
-    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ADDR);
+    __HAL_I2C_CLEAR_ADDRFLAG(hi2c);
 
     /* Process Unlocked */
     __HAL_UNLOCK(hi2c);
@@ -7277,7 +7455,7 @@ static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c)
 }
 
 /**
-  * @brief  Convert I2Cx OTHER_xxx XferOptions to functionnal XferOptions.
+  * @brief  Convert I2Cx OTHER_xxx XferOptions to functional XferOptions.
   * @param  hi2c I2C handle.
   * @retval None
   */

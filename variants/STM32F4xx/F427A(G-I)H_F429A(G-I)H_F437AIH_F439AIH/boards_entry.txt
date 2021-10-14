@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F427AGHx
+GenF4.menu.pnum.GENERIC_F427AGHX=Generic F427AGHx
+GenF4.menu.pnum.GENERIC_F427AGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F427AGHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427AGHX.build.board=GENERIC_F427AGHX
+GenF4.menu.pnum.GENERIC_F427AGHX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427AGHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+
+# Generic F427AIHx
+GenF4.menu.pnum.GENERIC_F427AIHX=Generic F427AIHx
+GenF4.menu.pnum.GENERIC_F427AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F427AIHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427AIHX.build.board=GENERIC_F427AIHX
+GenF4.menu.pnum.GENERIC_F427AIHX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427AIHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+
+# Generic F429AGHx
+GenF4.menu.pnum.GENERIC_F429AGHX=Generic F429AGHx
+GenF4.menu.pnum.GENERIC_F429AGHX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F429AGHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429AGHX.build.board=GENERIC_F429AGHX
+GenF4.menu.pnum.GENERIC_F429AGHX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429AGHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+
+# Generic F429AIHx
+GenF4.menu.pnum.GENERIC_F429AIHX=Generic F429AIHx
+GenF4.menu.pnum.GENERIC_F429AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F429AIHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429AIHX.build.board=GENERIC_F429AIHX
+GenF4.menu.pnum.GENERIC_F429AIHX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429AIHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+
+# Generic F437AIHx
+GenF4.menu.pnum.GENERIC_F437AIHX=Generic F437AIHx
+GenF4.menu.pnum.GENERIC_F437AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F437AIHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F437AIHX.build.board=GENERIC_F437AIHX
+GenF4.menu.pnum.GENERIC_F437AIHX.build.product_line=STM32F437xx
+GenF4.menu.pnum.GENERIC_F437AIHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+
+# Generic F439AIHx
+GenF4.menu.pnum.GENERIC_F439AIHX=Generic F439AIHx
+GenF4.menu.pnum.GENERIC_F439AIHX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F439AIHX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439AIHX.build.board=GENERIC_F439AIHX
+GenF4.menu.pnum.GENERIC_F439AIHX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439AIHX.build.variant=STM32F4xx/F427A(G-I)H_F429A(G-I)H_F437AIH_F439AIH
+

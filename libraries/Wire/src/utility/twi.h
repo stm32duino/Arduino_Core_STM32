@@ -74,13 +74,21 @@ extern "C" {
 #define I2C1_EV_IRQHandler  I2C1_IRQHandler
 #endif // defined(I2C1_BASE)
 #if defined(I2C2_BASE)
+#if defined(STM32G0xx) && defined(I2C3_BASE)
+#define I2C2_EV_IRQn        I2C2_3_IRQn
+#define I2C2_EV_IRQHandler  I2C2_3_IRQHandler
+#else
 #define I2C2_EV_IRQn        I2C2_IRQn
 #define I2C2_EV_IRQHandler  I2C2_IRQHandler
+#endif
 #endif // defined(I2C2_BASE)
-/* Only for STM32L0xx */
 #if defined(I2C3_BASE)
+#if defined(STM32G0xx)
+#define I2C3_EV_IRQn        I2C2_3_IRQn
+#else
 #define I2C3_EV_IRQn        I2C3_IRQn
 #define I2C3_EV_IRQHandler  I2C3_IRQHandler
+#endif
 #endif // defined(I2C3_BASE)
 /* Defined but no one has it */
 #if defined(I2C4_BASE)

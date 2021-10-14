@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G051F6Px
+GenG0.menu.pnum.GENERIC_G051F6PX=Generic G051F6Px
+GenG0.menu.pnum.GENERIC_G051F6PX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G051F6PX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G051F6PX.build.board=GENERIC_G051F6PX
+GenG0.menu.pnum.GENERIC_G051F6PX.build.product_line=STM32G051xx
+GenG0.menu.pnum.GENERIC_G051F6PX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+
+# Generic G051F8Px
+GenG0.menu.pnum.GENERIC_G051F8PX=Generic G051F8Px
+GenG0.menu.pnum.GENERIC_G051F8PX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G051F8PX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G051F8PX.build.board=GENERIC_G051F8PX
+GenG0.menu.pnum.GENERIC_G051F8PX.build.product_line=STM32G051xx
+GenG0.menu.pnum.GENERIC_G051F8PX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+
+# Generic G051F8Yx
+GenG0.menu.pnum.GENERIC_G051F8YX=Generic G051F8Yx
+GenG0.menu.pnum.GENERIC_G051F8YX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G051F8YX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G051F8YX.build.board=GENERIC_G051F8YX
+GenG0.menu.pnum.GENERIC_G051F8YX.build.product_line=STM32G051xx
+GenG0.menu.pnum.GENERIC_G051F8YX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+
+# Generic G061F6Px
+GenG0.menu.pnum.GENERIC_G061F6PX=Generic G061F6Px
+GenG0.menu.pnum.GENERIC_G061F6PX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G061F6PX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G061F6PX.build.board=GENERIC_G061F6PX
+GenG0.menu.pnum.GENERIC_G061F6PX.build.product_line=STM32G061xx
+GenG0.menu.pnum.GENERIC_G061F6PX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+
+# Generic G061F8Px
+GenG0.menu.pnum.GENERIC_G061F8PX=Generic G061F8Px
+GenG0.menu.pnum.GENERIC_G061F8PX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G061F8PX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G061F8PX.build.board=GENERIC_G061F8PX
+GenG0.menu.pnum.GENERIC_G061F8PX.build.product_line=STM32G061xx
+GenG0.menu.pnum.GENERIC_G061F8PX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+
+# Generic G061F8Yx
+GenG0.menu.pnum.GENERIC_G061F8YX=Generic G061F8Yx
+GenG0.menu.pnum.GENERIC_G061F8YX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G061F8YX.upload.maximum_data_size=18432
+GenG0.menu.pnum.GENERIC_G061F8YX.build.board=GENERIC_G061F8YX
+GenG0.menu.pnum.GENERIC_G061F8YX.build.product_line=STM32G061xx
+GenG0.menu.pnum.GENERIC_G061F8YX.build.variant=STM32G0xx/G051F6P_G051F8(P-Y)_G061F6P_G061F8(P-Y)
+

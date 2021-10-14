@@ -1,0 +1,77 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F427VGTx
+GenF4.menu.pnum.GENERIC_F427VGTX=Generic F427VGTx
+GenF4.menu.pnum.GENERIC_F427VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F427VGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427VGTX.build.board=GENERIC_F427VGTX
+GenF4.menu.pnum.GENERIC_F427VGTX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427VGTX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F427VITx
+GenF4.menu.pnum.GENERIC_F427VITX=Generic F427VITx
+GenF4.menu.pnum.GENERIC_F427VITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F427VITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F427VITX.build.board=GENERIC_F427VITX
+GenF4.menu.pnum.GENERIC_F427VITX.build.product_line=STM32F427xx
+GenF4.menu.pnum.GENERIC_F427VITX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F429VETx
+GenF4.menu.pnum.GENERIC_F429VETX=Generic F429VETx
+GenF4.menu.pnum.GENERIC_F429VETX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F429VETX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429VETX.build.board=GENERIC_F429VETX
+GenF4.menu.pnum.GENERIC_F429VETX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429VETX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F429VGTx
+GenF4.menu.pnum.GENERIC_F429VGTX=Generic F429VGTx
+GenF4.menu.pnum.GENERIC_F429VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F429VGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429VGTX.build.board=GENERIC_F429VGTX
+GenF4.menu.pnum.GENERIC_F429VGTX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429VGTX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F429VITx
+GenF4.menu.pnum.GENERIC_F429VITX=Generic F429VITx
+GenF4.menu.pnum.GENERIC_F429VITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F429VITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F429VITX.build.board=GENERIC_F429VITX
+GenF4.menu.pnum.GENERIC_F429VITX.build.product_line=STM32F429xx
+GenF4.menu.pnum.GENERIC_F429VITX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F437VGTx
+GenF4.menu.pnum.GENERIC_F437VGTX=Generic F437VGTx
+GenF4.menu.pnum.GENERIC_F437VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F437VGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F437VGTX.build.board=GENERIC_F437VGTX
+GenF4.menu.pnum.GENERIC_F437VGTX.build.product_line=STM32F437xx
+GenF4.menu.pnum.GENERIC_F437VGTX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F437VITx
+GenF4.menu.pnum.GENERIC_F437VITX=Generic F437VITx
+GenF4.menu.pnum.GENERIC_F437VITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F437VITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F437VITX.build.board=GENERIC_F437VITX
+GenF4.menu.pnum.GENERIC_F437VITX.build.product_line=STM32F437xx
+GenF4.menu.pnum.GENERIC_F437VITX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F439VGTx
+GenF4.menu.pnum.GENERIC_F439VGTX=Generic F439VGTx
+GenF4.menu.pnum.GENERIC_F439VGTX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F439VGTX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439VGTX.build.board=GENERIC_F439VGTX
+GenF4.menu.pnum.GENERIC_F439VGTX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439VGTX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+
+# Generic F439VITx
+GenF4.menu.pnum.GENERIC_F439VITX=Generic F439VITx
+GenF4.menu.pnum.GENERIC_F439VITX.upload.maximum_size=2097152
+GenF4.menu.pnum.GENERIC_F439VITX.upload.maximum_data_size=196608
+GenF4.menu.pnum.GENERIC_F439VITX.build.board=GENERIC_F439VITX
+GenF4.menu.pnum.GENERIC_F439VITX.build.product_line=STM32F439xx
+GenF4.menu.pnum.GENERIC_F439VITX.build.variant=STM32F4xx/F427V(G-I)T_F429V(E-G-I)T_F437V(G-I)T_F439V(G-I)T
+

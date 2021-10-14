@@ -1,0 +1,69 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G491RCIx
+GenG4.menu.pnum.GENERIC_G491RCIX=Generic G491RCIx
+GenG4.menu.pnum.GENERIC_G491RCIX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491RCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RCIX.build.board=GENERIC_G491RCIX
+GenG4.menu.pnum.GENERIC_G491RCIX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491RCIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G491REIx
+GenG4.menu.pnum.GENERIC_G491REIX=Generic G491REIx
+GenG4.menu.pnum.GENERIC_G491REIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491REIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491REIX.build.board=GENERIC_G491REIX
+GenG4.menu.pnum.GENERIC_G491REIX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491REIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G491RCTx
+GenG4.menu.pnum.GENERIC_G491RCTX=Generic G491RCTx
+GenG4.menu.pnum.GENERIC_G491RCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491RCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RCTX.build.board=GENERIC_G491RCTX
+GenG4.menu.pnum.GENERIC_G491RCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491RCTX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G491RETx
+GenG4.menu.pnum.GENERIC_G491RETX=Generic G491RETx
+GenG4.menu.pnum.GENERIC_G491RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491RETX.build.board=GENERIC_G491RETX
+GenG4.menu.pnum.GENERIC_G491RETX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491RETX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G491REYx
+GenG4.menu.pnum.GENERIC_G491REYX=Generic G491REYx
+GenG4.menu.pnum.GENERIC_G491REYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491REYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491REYX.build.board=GENERIC_G491REYX
+GenG4.menu.pnum.GENERIC_G491REYX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G4A1REIx
+GenG4.menu.pnum.GENERIC_G4A1REIX=Generic G4A1REIx
+GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1REIX.build.board=GENERIC_G4A1REIX
+GenG4.menu.pnum.GENERIC_G4A1REIX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1REIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G4A1RETx
+GenG4.menu.pnum.GENERIC_G4A1RETX=Generic G4A1RETx
+GenG4.menu.pnum.GENERIC_G4A1RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1RETX.build.board=GENERIC_G4A1RETX
+GenG4.menu.pnum.GENERIC_G4A1RETX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1RETX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G4A1REYx
+GenG4.menu.pnum.GENERIC_G4A1REYX=Generic G4A1REYx
+GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1REYX.build.board=GENERIC_G4A1REYX
+GenG4.menu.pnum.GENERIC_G4A1REYX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+

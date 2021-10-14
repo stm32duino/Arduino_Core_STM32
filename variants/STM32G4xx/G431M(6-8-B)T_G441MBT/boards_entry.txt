@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G431M6Tx
+GenG4.menu.pnum.GENERIC_G431M6TX=Generic G431M6Tx
+GenG4.menu.pnum.GENERIC_G431M6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431M6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431M6TX.build.board=GENERIC_G431M6TX
+GenG4.menu.pnum.GENERIC_G431M6TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431M6TX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
+
+# Generic G431M8Tx
+GenG4.menu.pnum.GENERIC_G431M8TX=Generic G431M8Tx
+GenG4.menu.pnum.GENERIC_G431M8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431M8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431M8TX.build.board=GENERIC_G431M8TX
+GenG4.menu.pnum.GENERIC_G431M8TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431M8TX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
+
+# Generic G431MBTx
+GenG4.menu.pnum.GENERIC_G431MBTX=Generic G431MBTx
+GenG4.menu.pnum.GENERIC_G431MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431MBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431MBTX.build.board=GENERIC_G431MBTX
+GenG4.menu.pnum.GENERIC_G431MBTX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431MBTX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
+
+# Generic G441MBTx
+GenG4.menu.pnum.GENERIC_G441MBTX=Generic G441MBTx
+GenG4.menu.pnum.GENERIC_G441MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441MBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441MBTX.build.board=GENERIC_G441MBTX
+GenG4.menu.pnum.GENERIC_G441MBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441MBTX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
+

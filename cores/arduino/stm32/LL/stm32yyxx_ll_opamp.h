@@ -7,18 +7,18 @@
 
 #ifdef STM32F3xx
   #include "stm32f3xx_ll_opamp.h"
-#endif
-#ifdef STM32G4xx
+#elif STM32G4xx
   #include "stm32g4xx_ll_opamp.h"
-#endif
-#ifdef STM32H7xx
+#elif STM32H7xx
   #include "stm32h7xx_ll_opamp.h"
-#endif
-#ifdef STM32L1xx
+#elif STM32L1xx
   #include "stm32l1xx_ll_opamp.h"
-#endif
-#ifdef STM32L4xx
+#elif STM32L4xx
   #include "stm32l4xx_ll_opamp.h"
+#elif STM32L5xx
+  #include "stm32l5xx_ll_opamp.h"
+#elif STM32U5xx
+  #include "stm32u5xx_ll_opamp.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_OPAMP_H_ */

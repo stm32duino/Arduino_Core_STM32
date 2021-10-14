@@ -323,7 +323,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Encrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pP
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 and Size multiple of 16*/
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -399,7 +399,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Encrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pP
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -478,7 +478,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Encrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pP
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -557,7 +557,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Decrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pC
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -633,7 +633,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Decrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pC
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -712,7 +712,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Decrypt(CRYP_HandleTypeDef *hcryp, uint8_t *pC
   __HAL_LOCK(hcryp);
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -776,7 +776,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -862,7 +862,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -951,7 +951,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Encrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1040,7 +1040,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1126,7 +1126,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1215,7 +1215,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Decrypt_IT(CRYP_HandleTypeDef *hcryp, uint8_t 
   uint32_t inputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1304,7 +1304,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1369,7 +1369,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1437,7 +1437,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Encrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1506,7 +1506,7 @@ HAL_StatusTypeDef HAL_CRYP_AESECB_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1575,7 +1575,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCBC_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);
@@ -1647,7 +1647,7 @@ HAL_StatusTypeDef HAL_CRYP_AESCTR_Decrypt_DMA(CRYP_HandleTypeDef *hcryp, uint8_t
   uint32_t inputaddr = 0U, outputaddr = 0U;
 
   /* Check that data aligned on u32 */
-  if((((uint32_t)pPlainData & (uint32_t)0x00000003U) != 0U) || (((uint32_t)pCypherData & (uint32_t)0x00000003U) != 0U) || ((Size & (uint16_t)0x000FU) != 0U))
+  if((((uint32_t)pPlainData & 0x00000003UL) != 0U) || (((uint32_t)pCypherData & 0x00000003UL) != 0U) || ((Size & 0x000FU) != 0U))
   {
     /* Process Locked */
     __HAL_UNLOCK(hcryp);

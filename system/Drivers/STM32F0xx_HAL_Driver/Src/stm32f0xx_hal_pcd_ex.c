@@ -160,7 +160,7 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   USB_TypeDef *USBx = hpcd->Instance;
   uint32_t tickstart = HAL_GetTick();
 
-  /* Wait Detect flag or a timeout is happen*/
+  /* Wait Detect flag or a timeout is happen */
   while ((USBx->BCDR & USB_BCDR_DCDET) == 0U)
   {
     /* Check for the Timeout */

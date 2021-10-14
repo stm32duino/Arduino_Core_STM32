@@ -30,8 +30,6 @@ extern "C" {
 
 #define BUFFER_LENGTH 32
 
-#define MASTER_ADDRESS 0x33
-
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
 
@@ -66,7 +64,7 @@ class TwoWire : public Stream {
 
   public:
     TwoWire();
-    TwoWire(uint8_t sda, uint8_t scl);
+    TwoWire(uint32_t sda, uint32_t scl);
     // setSCL/SDA have to be called before begin()
     void setSCL(uint32_t scl)
     {
@@ -85,7 +83,7 @@ class TwoWire : public Stream {
       _i2c.sda = sda;
     };
     void begin(bool generalCall = false);
-    void begin(uint8_t, uint8_t);
+    void begin(uint32_t, uint32_t);
     void begin(uint8_t, bool generalCall = false);
     void begin(int, bool generalCall = false);
     void end();

@@ -211,7 +211,7 @@ g_pfnVectors:
 	.word	SDADC1_IRQHandler
 	.word	SDADC2_IRQHandler
 	.word	SDADC3_IRQHandler
-	.word	COMP1_2_IRQHandler
+	.word	COMP_IRQHandler
 	.word	0
 	.word	0
 	.word	0
@@ -439,8 +439,8 @@ g_pfnVectors:
 	.weak	SDADC3_IRQHandler
 	.thumb_set SDADC3_IRQHandler,Default_Handler	
 
-	.weak	COMP1_2_IRQHandler
-	.thumb_set COMP1_2_IRQHandler,Default_Handler	
+	.weak	COMP_IRQHandler
+	.thumb_set COMP_IRQHandler,Default_Handler
 		
 	.weak	USB_HP_IRQHandler
 	.thumb_set USB_HP_IRQHandler,Default_Handler

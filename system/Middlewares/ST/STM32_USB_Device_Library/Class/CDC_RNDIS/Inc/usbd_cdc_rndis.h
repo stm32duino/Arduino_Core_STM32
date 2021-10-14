@@ -243,7 +243,7 @@ typedef struct
 
 typedef struct
 {
-  uint32_t        data[2000 / 4]; /* Force 32bits alignment */
+  uint32_t        data[CDC_RNDIS_MAX_DATA_SZE / 4U]; /* Force 32-bit alignment */
   uint8_t         CmdOpCode;
   uint8_t         CmdLength;
   uint8_t         ResponseRdy;     /* Indicates if the Device Response to an CDC_RNDIS msg is ready */

@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4P5ZGTxP
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP=Generic L4P5ZGTxP
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP.build.board=GENERIC_L4P5ZGTXP
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5ZGTXP.build.variant=STM32L4xx/L4P5ZGTxP_L4Q5ZGTxP
+
+# Generic L4Q5ZGTxP
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP=Generic L4Q5ZGTxP
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP.build.board=GENERIC_L4Q5ZGTXP
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP.build.product_line=STM32L4Q5xx
+GenL4.menu.pnum.GENERIC_L4Q5ZGTXP.build.variant=STM32L4xx/L4P5ZGTxP_L4Q5ZGTxP
+

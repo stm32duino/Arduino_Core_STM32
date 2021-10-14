@@ -61,29 +61,29 @@ extern "C" {
 #else
 #define I2C_FASTMODEPLUS_PB6            (uint32_t)(0x00000004U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB6 not supported   */
 #define I2C_FASTMODEPLUS_PB7            (uint32_t)(0x00000008U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB7 not supported   */
-#endif
+#endif /* SYSCFG_CFGR2_I2C_PB6_FMP */
 #if defined(SYSCFG_CFGR2_I2C_PB8_FMP)
 #define I2C_FASTMODEPLUS_PB8            SYSCFG_CFGR2_I2C_PB8_FMP                        /*!< Enable Fast Mode Plus on PB8       */
 #define I2C_FASTMODEPLUS_PB9            SYSCFG_CFGR2_I2C_PB9_FMP                        /*!< Enable Fast Mode Plus on PB9       */
 #else
 #define I2C_FASTMODEPLUS_PB8            (uint32_t)(0x00000010U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB8 not supported   */
 #define I2C_FASTMODEPLUS_PB9            (uint32_t)(0x00000012U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus PB9 not supported   */
-#endif
+#endif /* SYSCFG_CFGR2_I2C_PB8_FMP */
 #if defined(SYSCFG_CFGR2_I2C1_FMP)
 #define I2C_FASTMODEPLUS_I2C1           SYSCFG_CFGR2_I2C1_FMP                           /*!< Enable Fast Mode Plus on I2C1 pins */
 #else
 #define I2C_FASTMODEPLUS_I2C1           (uint32_t)(0x00000100U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C1 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C1_FMP */
 #if defined(SYSCFG_CFGR2_I2C2_FMP)
 #define I2C_FASTMODEPLUS_I2C2           SYSCFG_CFGR2_I2C2_FMP                           /*!< Enable Fast Mode Plus on I2C2 pins */
 #else
 #define I2C_FASTMODEPLUS_I2C2           (uint32_t)(0x00000200U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C2 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C2_FMP */
 #if defined(SYSCFG_CFGR2_I2C3_FMP)
 #define I2C_FASTMODEPLUS_I2C3           SYSCFG_CFGR2_I2C3_FMP                           /*!< Enable Fast Mode Plus on I2C3 pins */
 #else
 #define I2C_FASTMODEPLUS_I2C3           (uint32_t)(0x00000400U | I2C_FMP_NOT_SUPPORTED) /*!< Fast Mode Plus I2C3 not supported  */
-#endif
+#endif /* SYSCFG_CFGR2_I2C3_FMP */
 /**
   * @}
   */
@@ -106,7 +106,7 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup I2CEx_Exported_Functions_Group1 I2C Extended Filter Mode Functions
+/** @addtogroup I2CEx_Exported_Functions_Group1 Filter Mode Functions
   * @{
   */
 /* Peripheral Control functions  ************************************************/
@@ -116,7 +116,7 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
   * @}
   */
 
-/** @addtogroup I2CEx_Exported_Functions_Group2 I2C Extended WakeUp Mode Functions
+/** @addtogroup I2CEx_Exported_Functions_Group2 WakeUp Mode Functions
   * @{
   */
 HAL_StatusTypeDef HAL_I2CEx_EnableWakeUp(I2C_HandleTypeDef *hi2c);
@@ -124,18 +124,17 @@ HAL_StatusTypeDef HAL_I2CEx_DisableWakeUp(I2C_HandleTypeDef *hi2c);
 /**
   * @}
   */
+#if  (defined(SYSCFG_CFGR2_I2C_PB6_FMP) || defined(SYSCFG_CFGR2_I2C_PB7_FMP)) || (defined(SYSCFG_CFGR2_I2C_PB8_FMP) || defined(SYSCFG_CFGR2_I2C_PB9_FMP)) || (defined(SYSCFG_CFGR2_I2C1_FMP)) || defined(SYSCFG_CFGR2_I2C2_FMP) || defined(SYSCFG_CFGR2_I2C3_FMP)
 
-/** @addtogroup I2CEx_Exported_Functions_Group3 I2C Extended FastModePlus Functions
+/** @addtogroup I2CEx_Exported_Functions_Group3 Fast Mode Plus Functions
   * @{
   */
-#if  (defined(SYSCFG_CFGR2_I2C_PB6_FMP) || defined(SYSCFG_CFGR2_I2C_PB7_FMP)) || (defined(SYSCFG_CFGR2_I2C_PB8_FMP) || defined(SYSCFG_CFGR2_I2C_PB9_FMP)) || (defined(SYSCFG_CFGR2_I2C1_FMP)) || defined(SYSCFG_CFGR2_I2C2_FMP) || defined(SYSCFG_CFGR2_I2C3_FMP)
 void HAL_I2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus);
 void HAL_I2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
-#endif
 /**
   * @}
   */
-
+#endif /* Fast Mode Plus Availability */
 
 /**
   * @}

@@ -127,9 +127,6 @@
   * @{
   */
 
-/**
-  @cond 0
-  */
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -138,9 +135,6 @@
 static void SRAM_DMACplt(DMA_HandleTypeDef *hdma);
 static void SRAM_DMACpltProt(DMA_HandleTypeDef *hdma);
 static void SRAM_DMAError(DMA_HandleTypeDef *hdma);
-/**
-  @endcond
-  */
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -197,7 +191,7 @@ HAL_StatusTypeDef HAL_SRAM_Init(SRAM_HandleTypeDef *hsram, FSMC_NORSRAM_TimingTy
 #else
     /* Initialize the low level hardware (MSP) */
     HAL_SRAM_MspInit(hsram);
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
   }
 
   /* Initialize SRAM control Interface */
@@ -238,7 +232,7 @@ HAL_StatusTypeDef HAL_SRAM_DeInit(SRAM_HandleTypeDef *hsram)
 #else
   /* De-Initialize the low level hardware (MSP) */
   HAL_SRAM_MspDeInit(hsram);
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 
   /* Configure the SRAM registers with their reset values */
   (void)FSMC_NORSRAM_DeInit(hsram->Instance, hsram->Extended, hsram->Init.NSBank);
@@ -909,7 +903,7 @@ HAL_StatusTypeDef HAL_SRAM_RegisterDmaCallback(SRAM_HandleTypeDef *hsram, HAL_SR
   __HAL_UNLOCK(hsram);
   return status;
 }
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 
 /**
   * @}
@@ -1037,9 +1031,6 @@ HAL_SRAM_StateTypeDef HAL_SRAM_GetState(SRAM_HandleTypeDef *hsram)
   */
 
 /**
-  @cond 0
-  */
-/**
   * @brief  DMA SRAM process complete callback.
   * @param  hdma : DMA handle
   * @retval None
@@ -1058,7 +1049,7 @@ static void SRAM_DMACplt(DMA_HandleTypeDef *hdma)
   hsram->DmaXferCpltCallback(hdma);
 #else
   HAL_SRAM_DMA_XferCpltCallback(hdma);
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1080,7 +1071,7 @@ static void SRAM_DMACpltProt(DMA_HandleTypeDef *hdma)
   hsram->DmaXferCpltCallback(hdma);
 #else
   HAL_SRAM_DMA_XferCpltCallback(hdma);
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 }
 
 /**
@@ -1102,11 +1093,8 @@ static void SRAM_DMAError(DMA_HandleTypeDef *hdma)
   hsram->DmaXferErrorCallback(hdma);
 #else
   HAL_SRAM_DMA_XferErrorCallback(hdma);
-#endif
+#endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 }
-/**
-  @endcond
-  */
 
 /**
   * @}

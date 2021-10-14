@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L052T6Yx
+GenL0.menu.pnum.GENERIC_L052T6YX=Generic L052T6Yx
+GenL0.menu.pnum.GENERIC_L052T6YX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L052T6YX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052T6YX.build.board=GENERIC_L052T6YX
+GenL0.menu.pnum.GENERIC_L052T6YX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052T6YX.build.variant=STM32L0xx/L052T6Y_L052T8(F-Y)
+
+# Generic L052T8Yx
+GenL0.menu.pnum.GENERIC_L052T8YX=Generic L052T8Yx
+GenL0.menu.pnum.GENERIC_L052T8YX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L052T8YX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052T8YX.build.board=GENERIC_L052T8YX
+GenL0.menu.pnum.GENERIC_L052T8YX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052T8YX.build.variant=STM32L0xx/L052T6Y_L052T8(F-Y)
+
+# Generic L052T8Fx
+GenL0.menu.pnum.GENERIC_L052T8FX=Generic L052T8Fx
+GenL0.menu.pnum.GENERIC_L052T8FX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L052T8FX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052T8FX.build.board=GENERIC_L052T8FX
+GenL0.menu.pnum.GENERIC_L052T8FX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052T8FX.build.variant=STM32L0xx/L052T6Y_L052T8(F-Y)
+

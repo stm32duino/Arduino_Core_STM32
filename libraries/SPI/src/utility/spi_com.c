@@ -35,6 +35,7 @@
   *
   ******************************************************************************
   */
+#include "wiring_time.h"
 #include "core_debug.h"
 #include "stm32_def.h"
 #include "utility/spi_com.h"
@@ -55,74 +56,111 @@ extern "C" {
 uint32_t spi_getClkFreqInst(SPI_TypeDef *spi_inst)
 {
   uint32_t spi_freq = SystemCoreClock;
-
+  if (spi_inst != NP) {
 #if defined(STM32F0xx) || defined(STM32G0xx)
-  UNUSED(spi_inst);
-  /* SPIx source CLK is PCKL1 */
-  spi_freq = HAL_RCC_GetPCLK1Freq();
-#elif defined(STM32MP1xx)
-  /* Get source clock depending on SPI instance */
-  if (spi_inst != NP) {
-    switch ((uint32_t)spi_inst) {
-      case (uint32_t)SPI1:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI1);
-        break;
-      case (uint32_t)SPI2:
-      case (uint32_t)SPI3:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
-        break;
-      case (uint32_t)SPI4:
-      case (uint32_t)SPI5:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
-        break;
-      case (uint32_t)SPI6:
-        spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
-        break;
-      default:
-        core_debug("CLK: SPI instance not set");
-        break;
-    }
-  }
+    /* SPIx source CLK is PCKL1 */
+    spi_freq = HAL_RCC_GetPCLK1Freq();
 #else
-  if (spi_inst != NP) {
-    /* Get source clock depending on SPI instance */
-    switch ((uint32_t)spi_inst) {
-#if defined(SPI1_BASE) || defined(SPI4_BASE) || defined(SPI5_BASE) || defined(SPI6_BASE)
-        /* Some STM32's (eg. STM32F302x8) have no SPI1, but do have SPI2/3. */
-#if defined SPI1_BASE
-      case (uint32_t)SPI1:
+#if defined(SPI1_BASE)
+    if (spi_inst == SPI1) {
+#if defined(RCC_PERIPHCLK_SPI1) || defined(RCC_PERIPHCLK_SPI123)
+#ifdef RCC_PERIPHCLK_SPI1
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI1);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
 #endif
-#if defined SPI4_BASE
-      case (uint32_t)SPI4:
+      if (spi_freq == 0)
 #endif
-#if defined SPI5_BASE
-      case (uint32_t)SPI5:
-#endif
-#if defined SPI6_BASE
-      case (uint32_t)SPI6:
-#endif
+      {
         /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
         spi_freq = HAL_RCC_GetPCLK2Freq();
-        break;
-#endif  /* SPI[1456]_BASE */
-
-#if defined(SPI2_BASE) || defined (SPI3_BASE)
-#if defined SPI2_BASE
-      case (uint32_t)SPI2:
+      }
+    }
+#endif // SPI1_BASE
+#if defined(SPI2_BASE)
+    if (spi_inst == SPI2) {
+#if defined(RCC_PERIPHCLK_SPI2) || defined(RCC_PERIPHCLK_SPI123) ||\
+    defined(RCC_PERIPHCLK_SPI23)
+#ifdef RCC_PERIPHCLK_SPI2
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI2);
+#elif defined(RCC_PERIPHCLK_SPI123)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
 #endif
-#if defined SPI3_BASE
-      case (uint32_t)SPI3:
+      if (spi_freq == 0)
 #endif
+      {
         /* SPI_2 and SPI_3. Source CLK is PCKL1 */
         spi_freq = HAL_RCC_GetPCLK1Freq();
-        break;
-#endif
-      default:
-        core_debug("CLK: SPI instance not set");
-        break;
+      }
     }
-  }
+#endif // SPI2_BASE
+#if defined(SPI3_BASE)
+    if (spi_inst == SPI3) {
+#if defined(RCC_PERIPHCLK_SPI3) || defined(RCC_PERIPHCLK_SPI123) ||\
+    defined(RCC_PERIPHCLK_SPI23)
+#ifdef RCC_PERIPHCLK_SPI3
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI3);
+#elif defined(RCC_PERIPHCLK_SPI123)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI123);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI23);
 #endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI_2 and SPI_3. Source CLK is PCKL1 */
+        spi_freq = HAL_RCC_GetPCLK1Freq();
+      }
+    }
+#endif // SPI3_BASE
+#if defined(SPI4_BASE)
+    if (spi_inst == SPI4) {
+#if defined(RCC_PERIPHCLK_SPI4) || defined(RCC_PERIPHCLK_SPI45)
+#ifdef RCC_PERIPHCLK_SPI4
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI4);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
+#endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI4_BASE
+#if defined(SPI5_BASE)
+    if (spi_inst == SPI5) {
+#if defined(RCC_PERIPHCLK_SPI5) || defined(RCC_PERIPHCLK_SPI45)
+#ifdef RCC_PERIPHCLK_SPI5
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI5);
+#else
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI45);
+#endif
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI5_BASE
+#if defined(SPI6_BASE)
+    if (spi_inst == SPI6) {
+#if defined(RCC_PERIPHCLK_SPI6)
+      spi_freq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SPI6);
+      if (spi_freq == 0)
+#endif
+      {
+        /* SPI1, SPI4, SPI5 and SPI6. Source CLK is PCKL2 */
+        spi_freq = HAL_RCC_GetPCLK2Freq();
+      }
+    }
+#endif // SPI6_BASE
+#endif
+  }
   return spi_freq;
 }
 
@@ -145,6 +183,28 @@ uint32_t spi_getClkFreq(spi_t *obj)
   }
   return spi_freq;
 }
+
+
+#if defined(SPI_IFCR_EOTC)
+/**
+  * @brief  Compute delay before disabling SPI
+  *         See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+  *         Computed delay is half SPI clock
+  * @param  obj : pointer to spi_t structure
+  * @retval Disable delay in microsecondes
+  */
+static uint32_t compute_disable_delay(spi_t *obj)
+{
+  uint32_t spi_freq = spi_getClkFreqInst(obj->spi);
+  uint32_t disable_delay;
+  uint32_t prescaler;
+  SPI_HandleTypeDef *handle = &(obj->handle);
+
+  prescaler = 1 << ((handle->Init.BaudRatePrescaler >> SPI_CFG1_MBR_Pos) + 1);
+  disable_delay = ((prescaler * 1000000) / spi_freq) / 2;
+  return disable_delay;
+}
+#endif
 
 /**
   * @brief  SPI initialization function
@@ -221,6 +281,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
     handle->Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_256;
   }
 
+#if defined(SPI_IFCR_EOTC)
+  // Compute disable delay as baudrate has been modified
+  obj->disable_delay = compute_disable_delay(obj);
+#endif
+
   handle->Init.Direction         = SPI_DIRECTION_2LINES;
 
   if ((mode == SPI_MODE_0) || (mode == SPI_MODE_2)) {
@@ -246,10 +311,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 
   handle->Init.TIMode            = SPI_TIMODE_DISABLE;
-#if defined(STM32F0xx) || defined(STM32F3xx) || defined(STM32F7xx) ||\
-    defined(STM32G0xx) || defined(STM32H7xx) || defined(STM32L4xx) ||\
-    defined(STM32WBxx) || defined(STM32MP1xx)
+#if defined(SPI_NSS_PULSE_DISABLE)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
+#endif
+#ifdef SPI_MASTER_KEEP_IO_STATE_ENABLE
+  handle->Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_ENABLE;  /* Recommanded setting to avoid glitches */
 #endif
 
   /* Configure SPI GPIO pins */
@@ -268,36 +334,48 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   // Enable SPI clock
   if (handle->Instance == SPI1) {
     __HAL_RCC_SPI1_CLK_ENABLE();
+    __HAL_RCC_SPI1_FORCE_RESET();
+    __HAL_RCC_SPI1_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI2_BASE
   if (handle->Instance == SPI2) {
     __HAL_RCC_SPI2_CLK_ENABLE();
+    __HAL_RCC_SPI2_FORCE_RESET();
+    __HAL_RCC_SPI2_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI3_BASE
   if (handle->Instance == SPI3) {
     __HAL_RCC_SPI3_CLK_ENABLE();
+    __HAL_RCC_SPI3_FORCE_RESET();
+    __HAL_RCC_SPI3_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI4_BASE
   if (handle->Instance == SPI4) {
     __HAL_RCC_SPI4_CLK_ENABLE();
+    __HAL_RCC_SPI4_FORCE_RESET();
+    __HAL_RCC_SPI4_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI5_BASE
   if (handle->Instance == SPI5) {
     __HAL_RCC_SPI5_CLK_ENABLE();
+    __HAL_RCC_SPI5_FORCE_RESET();
+    __HAL_RCC_SPI5_RELEASE_RESET();
   }
 #endif
 
 #if defined SPI6_BASE
   if (handle->Instance == SPI6) {
     __HAL_RCC_SPI6_CLK_ENABLE();
+    __HAL_RCC_SPI6_FORCE_RESET();
+    __HAL_RCC_SPI6_RELEASE_RESET();
   }
 #endif
 
@@ -408,7 +486,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
   }
   tickstart = HAL_GetTick();
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_CR2_TSIZE)
   /* Start transfer */
   LL_SPI_SetTransferSize(_SPI, size);
   LL_SPI_Enable(_SPI);
@@ -416,7 +494,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
 #endif
 
   while (size--) {
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_SR_TXP)
     while (!LL_SPI_IsActiveFlag_TXP(_SPI));
 #else
     while (!LL_SPI_IsActiveFlag_TXE(_SPI));
@@ -424,7 +502,7 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     LL_SPI_TransmitData8(_SPI, *tx_buffer++);
 
     if (!skipReceive) {
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_SR_RXP)
       while (!LL_SPI_IsActiveFlag_RXP(_SPI));
 #else
       while (!LL_SPI_IsActiveFlag_RXNE(_SPI));
@@ -437,13 +515,21 @@ spi_status_e spi_transfer(spi_t *obj, uint8_t *tx_buffer, uint8_t *rx_buffer,
     }
   }
 
-#if defined(STM32H7xx) || defined(STM32MP1xx)
+#if defined(SPI_IFCR_EOTC)
+  // Add a delay before disabling SPI otherwise last-bit/last-clock may be truncated
+  // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
+  // Computed delay is half SPI clock
+  delayMicroseconds(obj->disable_delay);
+
   /* Close transfer */
   /* Clear flags */
   LL_SPI_ClearFlag_EOT(_SPI);
   LL_SPI_ClearFlag_TXTF(_SPI);
   /* Disable SPI peripheral */
   LL_SPI_Disable(_SPI);
+#else
+  /* Wait for end of transfer */
+  while (LL_SPI_IsActiveFlag_BSY(_SPI));
 #endif
 
   return ret;

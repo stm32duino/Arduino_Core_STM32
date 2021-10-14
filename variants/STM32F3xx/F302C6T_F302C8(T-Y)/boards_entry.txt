@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F302C6Tx
+GenF3.menu.pnum.GENERIC_F302C6TX=Generic F302C6Tx
+GenF3.menu.pnum.GENERIC_F302C6TX.upload.maximum_size=32768
+GenF3.menu.pnum.GENERIC_F302C6TX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F302C6TX.build.board=GENERIC_F302C6TX
+GenF3.menu.pnum.GENERIC_F302C6TX.build.product_line=STM32F302x8
+GenF3.menu.pnum.GENERIC_F302C6TX.build.variant=STM32F3xx/F302C6T_F302C8(T-Y)
+
+# Generic F302C8Tx
+GenF3.menu.pnum.GENERIC_F302C8TX=Generic F302C8Tx
+GenF3.menu.pnum.GENERIC_F302C8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F302C8TX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F302C8TX.build.board=GENERIC_F302C8TX
+GenF3.menu.pnum.GENERIC_F302C8TX.build.product_line=STM32F302x8
+GenF3.menu.pnum.GENERIC_F302C8TX.build.variant=STM32F3xx/F302C6T_F302C8(T-Y)
+
+# Generic F302C8Yx
+GenF3.menu.pnum.GENERIC_F302C8YX=Generic F302C8Yx
+GenF3.menu.pnum.GENERIC_F302C8YX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F302C8YX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F302C8YX.build.board=GENERIC_F302C8YX
+GenF3.menu.pnum.GENERIC_F302C8YX.build.product_line=STM32F302x8
+GenF3.menu.pnum.GENERIC_F302C8YX.build.variant=STM32F3xx/F302C6T_F302C8(T-Y)
+

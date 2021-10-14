@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F768AIYx
+GenF7.menu.pnum.GENERIC_F768AIYX=Generic F768AIYx
+GenF7.menu.pnum.GENERIC_F768AIYX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F768AIYX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F768AIYX.build.board=GENERIC_F768AIYX
+GenF7.menu.pnum.GENERIC_F768AIYX.build.product_line=STM32F769xx
+GenF7.menu.pnum.GENERIC_F768AIYX.build.variant=STM32F7xx/F768AIY_F769A(G-I)Y_F778AIY_F779AIY
+
+# Generic F769AGYx
+GenF7.menu.pnum.GENERIC_F769AGYX=Generic F769AGYx
+GenF7.menu.pnum.GENERIC_F769AGYX.upload.maximum_size=1048576
+GenF7.menu.pnum.GENERIC_F769AGYX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F769AGYX.build.board=GENERIC_F769AGYX
+GenF7.menu.pnum.GENERIC_F769AGYX.build.product_line=STM32F769xx
+GenF7.menu.pnum.GENERIC_F769AGYX.build.variant=STM32F7xx/F768AIY_F769A(G-I)Y_F778AIY_F779AIY
+
+# Generic F769AIYx
+GenF7.menu.pnum.GENERIC_F769AIYX=Generic F769AIYx
+GenF7.menu.pnum.GENERIC_F769AIYX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F769AIYX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F769AIYX.build.board=GENERIC_F769AIYX
+GenF7.menu.pnum.GENERIC_F769AIYX.build.product_line=STM32F769xx
+GenF7.menu.pnum.GENERIC_F769AIYX.build.variant=STM32F7xx/F768AIY_F769A(G-I)Y_F778AIY_F779AIY
+
+# Generic F778AIYx
+GenF7.menu.pnum.GENERIC_F778AIYX=Generic F778AIYx
+GenF7.menu.pnum.GENERIC_F778AIYX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F778AIYX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F778AIYX.build.board=GENERIC_F778AIYX
+GenF7.menu.pnum.GENERIC_F778AIYX.build.product_line=STM32F779xx
+GenF7.menu.pnum.GENERIC_F778AIYX.build.variant=STM32F7xx/F768AIY_F769A(G-I)Y_F778AIY_F779AIY
+
+# Generic F779AIYx
+GenF7.menu.pnum.GENERIC_F779AIYX=Generic F779AIYx
+GenF7.menu.pnum.GENERIC_F779AIYX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F779AIYX.upload.maximum_data_size=393216
+GenF7.menu.pnum.GENERIC_F779AIYX.build.board=GENERIC_F779AIYX
+GenF7.menu.pnum.GENERIC_F779AIYX.build.product_line=STM32F779xx
+GenF7.menu.pnum.GENERIC_F779AIYX.build.variant=STM32F7xx/F768AIY_F769A(G-I)Y_F778AIY_F779AIY
+

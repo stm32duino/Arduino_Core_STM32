@@ -122,7 +122,7 @@
 HAL_StatusTypeDef HAL_DACEx_TriangleWaveGenerate(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t Amplitude);
 HAL_StatusTypeDef HAL_DACEx_NoiseWaveGenerate(DAC_HandleTypeDef* hdac, uint32_t Channel, uint32_t Amplitude);
 
-#if defined (STM32L072xx) || defined (STM32L073xx) || defined (STM32L082xx) || defined (STM32L083xx)
+#if defined (DAC_CHANNEL2_SUPPORT)
 uint32_t HAL_DACEx_DualGetValue(DAC_HandleTypeDef* hdac);
 HAL_StatusTypeDef HAL_DACEx_DualSetValue(DAC_HandleTypeDef* hdac, uint32_t Alignment, uint32_t Data1, uint32_t Data2);
 void HAL_DACEx_ConvCpltCallbackCh2(DAC_HandleTypeDef* hdac);

@@ -49,19 +49,27 @@ char *dtostrf(double val, signed char width, unsigned char prec, char *sout)
   unsigned long int_part = (unsigned long)val;
   double remainder = val - (double)int_part;
 
-  // Extract digits from the remainder
-  unsigned long dec_part = 0;
-  double decade = 1.0;
-  for (int i = 0; i < prec; i++) {
-    decade *= 10.0;
-  }
-  remainder *= decade;
-  dec_part = (int)remainder;
+  if (prec > 0) {
+    // Extract digits from the remainder
+    unsigned long dec_part = 0;
+    double decade = 1.0;
+    for (int i = 0; i < prec; i++) {
+      decade *= 10.0;
+    }
+    remainder *= decade;
+    dec_part = (int)remainder;
 
-  if (negative) {
-    sprintf(sout, "-%ld.%0*ld", int_part, prec, dec_part);
+    if (negative) {
+      sprintf(sout, "-%ld.%0*ld", int_part, prec, dec_part);
+    } else {
+      sprintf(sout, "%ld.%0*ld", int_part, prec, dec_part);
+    }
   } else {
-    sprintf(sout, "%ld.%0*ld", int_part, prec, dec_part);
+    if (negative) {
+      sprintf(sout, "-%ld", int_part);
+    } else {
+      sprintf(sout, "%ld", int_part);
+    }
   }
   // Handle minimum field width of the output string
   // width is signed value, negative for left adjustment.

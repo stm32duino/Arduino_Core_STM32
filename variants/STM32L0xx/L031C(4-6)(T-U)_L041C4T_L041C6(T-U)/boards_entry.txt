@@ -1,0 +1,61 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L031C4Tx
+GenL0.menu.pnum.GENERIC_L031C4TX=Generic L031C4Tx
+GenL0.menu.pnum.GENERIC_L031C4TX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L031C4TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031C4TX.build.board=GENERIC_L031C4TX
+GenL0.menu.pnum.GENERIC_L031C4TX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031C4TX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L031C6Tx
+GenL0.menu.pnum.GENERIC_L031C6TX=Generic L031C6Tx
+GenL0.menu.pnum.GENERIC_L031C6TX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L031C6TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031C6TX.build.board=GENERIC_L031C6TX
+GenL0.menu.pnum.GENERIC_L031C6TX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031C6TX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L031C4Ux
+GenL0.menu.pnum.GENERIC_L031C4UX=Generic L031C4Ux
+GenL0.menu.pnum.GENERIC_L031C4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L031C4UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031C4UX.build.board=GENERIC_L031C4UX
+GenL0.menu.pnum.GENERIC_L031C4UX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031C4UX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L031C6Ux
+GenL0.menu.pnum.GENERIC_L031C6UX=Generic L031C6Ux
+GenL0.menu.pnum.GENERIC_L031C6UX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L031C6UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L031C6UX.build.board=GENERIC_L031C6UX
+GenL0.menu.pnum.GENERIC_L031C6UX.build.product_line=STM32L031xx
+GenL0.menu.pnum.GENERIC_L031C6UX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L041C4Tx
+GenL0.menu.pnum.GENERIC_L041C4TX=Generic L041C4Tx
+GenL0.menu.pnum.GENERIC_L041C4TX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L041C4TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L041C4TX.build.board=GENERIC_L041C4TX
+GenL0.menu.pnum.GENERIC_L041C4TX.build.product_line=STM32L041xx
+GenL0.menu.pnum.GENERIC_L041C4TX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L041C6Tx
+GenL0.menu.pnum.GENERIC_L041C6TX=Generic L041C6Tx
+GenL0.menu.pnum.GENERIC_L041C6TX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L041C6TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L041C6TX.build.board=GENERIC_L041C6TX
+GenL0.menu.pnum.GENERIC_L041C6TX.build.product_line=STM32L041xx
+GenL0.menu.pnum.GENERIC_L041C6TX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+
+# Generic L041C6Ux
+GenL0.menu.pnum.GENERIC_L041C6UX=Generic L041C6Ux
+GenL0.menu.pnum.GENERIC_L041C6UX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L041C6UX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L041C6UX.build.board=GENERIC_L041C6UX
+GenL0.menu.pnum.GENERIC_L041C6UX.build.product_line=STM32L041xx
+GenL0.menu.pnum.GENERIC_L041C6UX.build.variant=STM32L0xx/L031C(4-6)(T-U)_L041C4T_L041C6(T-U)
+

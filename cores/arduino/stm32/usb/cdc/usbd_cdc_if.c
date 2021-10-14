@@ -47,11 +47,13 @@
 USBD_HandleTypeDef hUSBD_Device_CDC;
 
 static bool CDC_initialized = false;
+static bool CDC_DTR_enabled = true;
 
 /* Received Data over USB are stored in this buffer       */
 CDC_TransmitQueue_TypeDef TransmitQueue;
 CDC_ReceiveQueue_TypeDef ReceiveQueue;
-__IO uint32_t lineState = 0;
+__IO bool dtrState = false; /* lineState */
+__IO bool rtsState = false;
 __IO bool receivePended = true;
 static uint32_t transmitStart = 0;
 
@@ -183,11 +185,13 @@ static int8_t USBD_CDC_Control(uint8_t cmd, uint8_t *pbuf, uint16_t length)
       break;
 
     case CDC_SET_CONTROL_LINE_STATE:
-      lineState =
-        (((USBD_SetupReqTypedef *)pbuf)->wValue & 0x01) != 0; // Check DTR state
-      if (lineState) { // Reset the transmit timeout when the port is connected
+      // Check DTR state
+      dtrState = (CDC_DTR_enabled) ? (((USBD_SetupReqTypedef *)pbuf)->wValue & CLS_DTR) : true;
+
+      if (dtrState) { // Reset the transmit timeout when the port is connected
         transmitStart = 0;
       }
+      rtsState = (((USBD_SetupReqTypedef *)pbuf)->wValue & CLS_RTS);
 #ifdef DTR_TOGGLING_SEQ
       dtr_toggling++; /* Count DTR toggling */
 #endif
@@ -243,7 +247,7 @@ static int8_t USBD_CDC_Receive(uint8_t *Buf, uint32_t *Len)
 
 /**
   * @brief  USBD_CDC_TransmitCplt
-  *         Data transmited callback
+  *         Data transmitted callback
   *
   *         @note
   *         This function is IN transfer complete callback used to inform user that
@@ -301,7 +305,7 @@ bool CDC_connected()
   }
   return ((hUSBD_Device_CDC.dev_state == USBD_STATE_CONFIGURED)
           && (transmitTime < USB_CDC_TRANSMIT_TIMEOUT)
-          && lineState);
+          && dtrState);
 }
 
 void CDC_continue_transmit(void)
@@ -348,6 +352,12 @@ bool CDC_resume_receive(void)
     }
   }
   return false;
+}
+
+void CDC_enableDTR(bool enable)
+{
+  CDC_DTR_enabled = enable;
+  dtrState = true;
 }
 
 #endif /* USBD_USE_CDC */

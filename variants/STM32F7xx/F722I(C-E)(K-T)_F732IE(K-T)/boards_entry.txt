@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F722ICKx
+GenF7.menu.pnum.GENERIC_F722ICKX=Generic F722ICKx
+GenF7.menu.pnum.GENERIC_F722ICKX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F722ICKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ICKX.build.board=GENERIC_F722ICKX
+GenF7.menu.pnum.GENERIC_F722ICKX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ICKX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+
+# Generic F722IEKx
+GenF7.menu.pnum.GENERIC_F722IEKX=Generic F722IEKx
+GenF7.menu.pnum.GENERIC_F722IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722IEKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722IEKX.build.board=GENERIC_F722IEKX
+GenF7.menu.pnum.GENERIC_F722IEKX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722IEKX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+
+# Generic F722ICTx
+GenF7.menu.pnum.GENERIC_F722ICTX=Generic F722ICTx
+GenF7.menu.pnum.GENERIC_F722ICTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F722ICTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ICTX.build.board=GENERIC_F722ICTX
+GenF7.menu.pnum.GENERIC_F722ICTX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ICTX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+
+# Generic F722IETx
+GenF7.menu.pnum.GENERIC_F722IETX=Generic F722IETx
+GenF7.menu.pnum.GENERIC_F722IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722IETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722IETX.build.board=GENERIC_F722IETX
+GenF7.menu.pnum.GENERIC_F722IETX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722IETX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+
+# Generic F732IEKx
+GenF7.menu.pnum.GENERIC_F732IEKX=Generic F732IEKx
+GenF7.menu.pnum.GENERIC_F732IEKX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F732IEKX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732IEKX.build.board=GENERIC_F732IEKX
+GenF7.menu.pnum.GENERIC_F732IEKX.build.product_line=STM32F732xx
+GenF7.menu.pnum.GENERIC_F732IEKX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+
+# Generic F732IETx
+GenF7.menu.pnum.GENERIC_F732IETX=Generic F732IETx
+GenF7.menu.pnum.GENERIC_F732IETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F732IETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732IETX.build.board=GENERIC_F732IETX
+GenF7.menu.pnum.GENERIC_F732IETX.build.product_line=STM32F732xx
+GenF7.menu.pnum.GENERIC_F732IETX.build.variant=STM32F7xx/F722I(C-E)(K-T)_F732IE(K-T)
+

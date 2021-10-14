@@ -143,7 +143,8 @@ class HardwareSerial : public Stream {
     {
       return write((uint8_t)n);
     }
-    using Print::write; // pull in write(str) and write(buf, size) from Print
+    size_t write(const uint8_t *buffer, size_t size);
+    using Print::write; // pull in write(str) from Print
     operator bool()
     {
       return true;
@@ -206,5 +207,7 @@ class HardwareSerial : public Stream {
 #if defined(LPUART1)
   extern HardwareSerial SerialLP1;
 #endif
-
+#if defined(LPUART2)
+  extern HardwareSerial SerialLP2;
+#endif
 #endif

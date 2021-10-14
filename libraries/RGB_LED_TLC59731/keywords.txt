@@ -1,0 +1,31 @@
+#######################################
+# Syntax Coloring Map For RGB_LED_TLC59731
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+RGB_LED_TLC59731	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+on	KEYWORD2
+off	KEYWORD2
+getBrightness	KEYWORD2
+setBrightness	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+OFF	LITERAL1
+RED	LITERAL1
+GREEN	LITERAL1
+BLUE	LITERAL1
+MAGENTA	LITERAL1
+CYAN	LITERAL1
+YELLOW	LITERAL1
+WHITE	LITERAL

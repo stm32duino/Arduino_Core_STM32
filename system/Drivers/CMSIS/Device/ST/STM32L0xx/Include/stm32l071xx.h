@@ -651,6 +651,15 @@ typedef struct
 /** @addtogroup Exported_constants
   * @{
   */
+
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 200U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
   
   /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{

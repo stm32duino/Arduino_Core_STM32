@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F405OEYx
+GenF4.menu.pnum.GENERIC_F405OEYX=Generic F405OEYx
+GenF4.menu.pnum.GENERIC_F405OEYX.upload.maximum_size=524288
+GenF4.menu.pnum.GENERIC_F405OEYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F405OEYX.build.board=GENERIC_F405OEYX
+GenF4.menu.pnum.GENERIC_F405OEYX.build.product_line=STM32F405xx
+GenF4.menu.pnum.GENERIC_F405OEYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+
+# Generic F405OGYx
+GenF4.menu.pnum.GENERIC_F405OGYX=Generic F405OGYx
+GenF4.menu.pnum.GENERIC_F405OGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F405OGYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F405OGYX.build.board=GENERIC_F405OGYX
+GenF4.menu.pnum.GENERIC_F405OGYX.build.product_line=STM32F405xx
+GenF4.menu.pnum.GENERIC_F405OGYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+
+# Generic F415OGYx
+GenF4.menu.pnum.GENERIC_F415OGYX=Generic F415OGYx
+GenF4.menu.pnum.GENERIC_F415OGYX.upload.maximum_size=1048576
+GenF4.menu.pnum.GENERIC_F415OGYX.upload.maximum_data_size=131072
+GenF4.menu.pnum.GENERIC_F415OGYX.build.board=GENERIC_F415OGYX
+GenF4.menu.pnum.GENERIC_F415OGYX.build.product_line=STM32F415xx
+GenF4.menu.pnum.GENERIC_F415OGYX.build.variant=STM32F4xx/F405O(E-G)Y_F415OGY
+

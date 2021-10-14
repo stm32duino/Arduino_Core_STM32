@@ -94,7 +94,7 @@ When different people are working on the Arduino project simultaneously, pull re
 
 Most often pull requests become stale when merge conflicts occur. This happens when two pull requests both modify similar lines in the same file and one gets merged, the unmerged request will now have a merge conflict and needs updating.
 
-When your pull request is stale, you will need to rebase your branch on the current master branch before you can merge it without conflicts.
+When your pull request is stale, you will need to rebase your branch on the current main branch before you can merge it without conflicts.
 
 More information about rebasing can be found at the repository of [edX](https://github.com/edx/edx-platform/wiki/How-to-Rebase-a-Pull-Request).
 

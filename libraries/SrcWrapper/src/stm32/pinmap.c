@@ -23,6 +23,28 @@
   #include "lock_resource.h"
 #endif
 
+typedef struct {
+  PinName pin;
+  uint32_t LL_AnalogSwitch;
+} PinAnalogSwitch;
+
+#if defined(STM32H7xx)
+#define DUALPAD_ANALOG_SWITCH
+const PinAnalogSwitch PinMapAnalogSwitch[] = {
+  {PA_0,     LL_SYSCFG_ANALOG_SWITCH_PA0},
+  {PA_1,     LL_SYSCFG_ANALOG_SWITCH_PA1},
+  {PC_2,     LL_SYSCFG_ANALOG_SWITCH_PC2},
+  {PC_3,     LL_SYSCFG_ANALOG_SWITCH_PC3},
+  {NC,   0}
+};
+#else
+/**
+ * Even if MP1 support some dual pad (analog switch), we don't consider it
+ * because its behavior is different from H7 and almost useless.
+ * Switches remains open all the time. No need to configure it */
+#undef DUALPAD_ANALOG_SWITCH
+#endif
+
 /* Map STM_PIN to LL */
 const uint32_t pin_map_ll[16] = {
   LL_GPIO_PIN_0,
@@ -42,6 +64,70 @@ const uint32_t pin_map_ll[16] = {
   LL_GPIO_PIN_14,
   LL_GPIO_PIN_15
 };
+
+#if defined(DUALPAD_ANALOG_SWITCH)
+/**
+ * Configure Analog dualpad switch if necessary
+ * LL_AnalogSwitch: LL define to be used to configure Analog switch
+ */
+static void configure_dualpad_switch(PinName pin, int function, uint32_t LL_AnalogSwitch)
+{
+  if (LL_AnalogSwitch == 0) {
+    return ;
+  }
+
+  if (((function & STM_MODE_ANALOG) != STM_MODE_ANALOG)
+      && ((pin & PDUAL) == PDUAL)) {
+    /**
+      * We don't configure an analog function but the pin is an analog pad
+      * Pxy_C. In this cases Analog switch should be closed
+      */
+    LL_SYSCFG_CloseAnalogSwitch(LL_AnalogSwitch);
+    return ;
+  } else {
+    /**
+      * Either we configure an analog function,
+      * or it is not an analog function but it is not an analog pad Pxy_C.
+      * In both cases Analog switch should be opened
+      * Note: direct ADC is restricted to Pxy_C,  pin only
+      */
+    LL_SYSCFG_OpenAnalogSwitch(LL_AnalogSwitch);
+    return ;
+  }
+}
+
+/**
+ * In case of dual pad, determine whether gpio needs to be configured
+ * pLL_AnalogSwitch: pointer used to retrun LL define to be used to configure
+ * Analog switch
+ * return: true when gpio must be configured
+ */
+static bool is_dualpad_switch_gpio_configurable(PinName pin, int function, uint32_t *pLL_AnalogSwitch)
+{
+  PinAnalogSwitch *AnalogSwitch = (PinAnalogSwitch *) PinMapAnalogSwitch;
+
+  /* Read through PinMapAnalogSwitch array */
+  while (AnalogSwitch->pin != NC) {
+    /* Check whether pin is or is associated to dualpad Analog Input */
+    if ((AnalogSwitch->pin | PDUAL)  == (pin | PDUAL)) {
+      *pLL_AnalogSwitch = AnalogSwitch->LL_AnalogSwitch;
+      if (((function & STM_MODE_ANALOG) == STM_MODE_ANALOG)
+          && ((pin & PDUAL) == PDUAL)) {
+        /**
+         * We configure an analog function and the pin is an analog pad Pxy_C
+         * In this case gpio configuration must be skipped
+         */
+        return false;
+      } else {
+        return true;
+      }
+    }
+    AnalogSwitch ++;
+  }
+  *pLL_AnalogSwitch = 0;
+  return true;
+}
+#endif /* DUALPAD_ANALOG_SWITCH */
 
 bool pin_in_pinmap(PinName pin, const PinMap *map)
 {
@@ -73,34 +159,58 @@ void pin_function(PinName pin, int function)
   }
 
   /* Handle pin remap if any */
-#if defined(LL_SYSCFG_PIN_RMP_PA11) && defined(LL_SYSCFG_PIN_RMP_PA12)
-  if ((pin >= PA_9) && (pin <= PA_12)) {
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
-    switch ((int)pin) {
-      case PA_9:
+#if defined(LL_SYSCFG_PIN_RMP_PA11) && defined(LL_SYSCFG_PIN_RMP_PA12) || defined(SYSCFG_CFGR1_PA11_PA12_RMP)
+  switch (pin & PNAME_MASK) {
+#if defined(SYSCFG_CFGR1_PA11_PA12_RMP)
+    /* Disable PIN pair PA11/12 mapped instead of PA9/10 */
+    case PA_9:
+    case PA_10:
+      LL_SYSCFG_DisablePinRemap();
+      break;
+    /* Enable PIN pair PA11/12 mapped instead of PA9/10 */
+    case PA_11:
+    case PA_12:
+      if ((pin & PREMAP) == PREMAP) {
+        LL_SYSCFG_EnablePinRemap();
+      }
+      break;
+#else
+    case PA_9:
+      if ((pin & PREMAP) == PREMAP) {
         LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA11);
-        break;
-      case PA_11:
-        LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA11);
-        break;
-      case PA_10:
+      }
+      break;
+    case PA_10:
+      if ((pin & PREMAP) == PREMAP) {
         LL_SYSCFG_EnablePinRemap(LL_SYSCFG_PIN_RMP_PA12);
-        break;
-      case PA_12:
-        LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA12);
-        break;
-      default:
-        break;
-    }
+      }
+      break;
+    case PA_11:
+      LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA11);
+      break;
+    case PA_12:
+      LL_SYSCFG_DisablePinRemap(LL_SYSCFG_PIN_RMP_PA12);
+      break;
+#endif
+    default:
+      break;
   }
 #endif
+
+#if defined(DUALPAD_ANALOG_SWITCH)
+  uint32_t LL_AnalogSwitch = 0;
+  if (!is_dualpad_switch_gpio_configurable(pin, function, &LL_AnalogSwitch)) {
+    /* Skip gpio configuration */
+    configure_dualpad_switch(pin, function, LL_AnalogSwitch);
+    return;
+  }
+#endif /* DUALPAD_ANALOG_SWITCH */
 
   /* Enable GPIO clock */
   GPIO_TypeDef *gpio = set_GPIO_Port_Clock(port);
 
-#if defined(STM32MP1xx)
-  PERIPH_LOCK(gpio);
-#endif
+  hsem_lock(CFG_HW_GPIO_SEMID, HSEM_LOCK_DEFAULT_RETRY);
+
   /*  Set default speed to high.
    *  For most families there are dedicated registers so it is
    *  not so important, register can be set at any time.
@@ -162,11 +272,13 @@ void pin_function(PinName pin, int function)
 
   pin_PullConfig(gpio, ll_pin, STM_PIN_PUPD(function));
 
+#if defined(DUALPAD_ANALOG_SWITCH)
+  configure_dualpad_switch(pin, function, LL_AnalogSwitch);
+#endif /* DUALPAD_ANALOG_SWITCH */
+
   pin_DisconnectDebug(pin);
 
-#if defined(STM32MP1xx)
-  PERIPH_UNLOCK(gpio);
-#endif
+  hsem_unlock(CFG_HW_GPIO_SEMID);
 }
 
 void pinmap_pinout(PinName pin, const PinMap *map)

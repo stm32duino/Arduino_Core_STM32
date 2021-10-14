@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L052R6Tx
+GenL0.menu.pnum.GENERIC_L052R6TX=Generic L052R6Tx
+GenL0.menu.pnum.GENERIC_L052R6TX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L052R6TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052R6TX.build.board=GENERIC_L052R6TX
+GenL0.menu.pnum.GENERIC_L052R6TX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052R6TX.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
+
+# Generic L052R8Tx
+GenL0.menu.pnum.GENERIC_L052R8TX=Generic L052R8Tx
+GenL0.menu.pnum.GENERIC_L052R8TX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L052R8TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L052R8TX.build.board=GENERIC_L052R8TX
+GenL0.menu.pnum.GENERIC_L052R8TX.build.product_line=STM32L052xx
+GenL0.menu.pnum.GENERIC_L052R8TX.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
+
+# Generic L053R6Tx
+GenL0.menu.pnum.GENERIC_L053R6TX=Generic L053R6Tx
+GenL0.menu.pnum.GENERIC_L053R6TX.upload.maximum_size=32768
+GenL0.menu.pnum.GENERIC_L053R6TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L053R6TX.build.board=GENERIC_L053R6TX
+GenL0.menu.pnum.GENERIC_L053R6TX.build.product_line=STM32L053xx
+GenL0.menu.pnum.GENERIC_L053R6TX.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
+
+# Generic L053R8Tx
+GenL0.menu.pnum.GENERIC_L053R8TX=Generic L053R8Tx
+GenL0.menu.pnum.GENERIC_L053R8TX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L053R8TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L053R8TX.build.board=GENERIC_L053R8TX
+GenL0.menu.pnum.GENERIC_L053R8TX.build.product_line=STM32L053xx
+GenL0.menu.pnum.GENERIC_L053R8TX.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
+
+# Generic L063R8Tx
+GenL0.menu.pnum.GENERIC_L063R8TX=Generic L063R8Tx
+GenL0.menu.pnum.GENERIC_L063R8TX.upload.maximum_size=65536
+GenL0.menu.pnum.GENERIC_L063R8TX.upload.maximum_data_size=8192
+GenL0.menu.pnum.GENERIC_L063R8TX.build.board=GENERIC_L063R8TX
+GenL0.menu.pnum.GENERIC_L063R8TX.build.product_line=STM32L063xx
+GenL0.menu.pnum.GENERIC_L063R8TX.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
+

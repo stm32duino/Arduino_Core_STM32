@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F105V8Hx
+GenF1.menu.pnum.GENERIC_F105V8HX=Generic F105V8Hx
+GenF1.menu.pnum.GENERIC_F105V8HX.upload.maximum_size=65536
+GenF1.menu.pnum.GENERIC_F105V8HX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105V8HX.build.board=GENERIC_F105V8HX
+GenF1.menu.pnum.GENERIC_F105V8HX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105V8HX.build.variant=STM32F1xx/F105V(8-B)(H-T)_F105VCT
+
+# Generic F105VBHx
+GenF1.menu.pnum.GENERIC_F105VBHX=Generic F105VBHx
+GenF1.menu.pnum.GENERIC_F105VBHX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F105VBHX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105VBHX.build.board=GENERIC_F105VBHX
+GenF1.menu.pnum.GENERIC_F105VBHX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105VBHX.build.variant=STM32F1xx/F105V(8-B)(H-T)_F105VCT
+
+# Generic F105V8Tx
+GenF1.menu.pnum.GENERIC_F105V8TX=Generic F105V8Tx
+GenF1.menu.pnum.GENERIC_F105V8TX.upload.maximum_size=65536
+GenF1.menu.pnum.GENERIC_F105V8TX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105V8TX.build.board=GENERIC_F105V8TX
+GenF1.menu.pnum.GENERIC_F105V8TX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105V8TX.build.variant=STM32F1xx/F105V(8-B)(H-T)_F105VCT
+
+# Generic F105VBTx
+GenF1.menu.pnum.GENERIC_F105VBTX=Generic F105VBTx
+GenF1.menu.pnum.GENERIC_F105VBTX.upload.maximum_size=131072
+GenF1.menu.pnum.GENERIC_F105VBTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105VBTX.build.board=GENERIC_F105VBTX
+GenF1.menu.pnum.GENERIC_F105VBTX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105VBTX.build.variant=STM32F1xx/F105V(8-B)(H-T)_F105VCT
+
+# Generic F105VCTx
+GenF1.menu.pnum.GENERIC_F105VCTX=Generic F105VCTx
+GenF1.menu.pnum.GENERIC_F105VCTX.upload.maximum_size=262144
+GenF1.menu.pnum.GENERIC_F105VCTX.upload.maximum_data_size=65536
+GenF1.menu.pnum.GENERIC_F105VCTX.build.board=GENERIC_F105VCTX
+GenF1.menu.pnum.GENERIC_F105VCTX.build.product_line=STM32F105xC
+GenF1.menu.pnum.GENERIC_F105VCTX.build.variant=STM32F1xx/F105V(8-B)(H-T)_F105VCT
+

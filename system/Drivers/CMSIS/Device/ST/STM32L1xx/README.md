@@ -31,6 +31,7 @@ CMSIS Device L1 | CMSIS Core | Was delivered in the full MCU package
 --------------- | ---------- | -------------------------------------
 Tag v2.3.0 | Tag v5.4.0_cm3 | Tag v1.9.0 (and following, if any, till next new tag)
 Tag v2.3.1 | Tag v5.4.0_cm3 | Tag v1.10.0 (and following, if any, till next new tag)
+Tag v2.3.2 | Tag v5.4.0_cm3 | Tag v1.10.3 (and following, if any, till next new tag)
 
 The full **STM32CubeL1** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL1).
 

@@ -113,7 +113,8 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_DeviceQualifierDesc[USB_LEN_DEV_QUALIF
 };
 
 static uint32_t ConnSpeedTab[2] = {CDC_ECM_CONNECT_SPEED_UPSTREAM,
-                                   CDC_ECM_CONNECT_SPEED_DOWNSTREAM};
+                                   CDC_ECM_CONNECT_SPEED_DOWNSTREAM
+                                  };
 
 /**
   * @}
@@ -154,11 +155,15 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgHSDesc[] __ALIGN_END =
   USB_DESC_TYPE_CONFIGURATION,              /* bDescriptorType: Configuration */
   LOBYTE(CDC_ECM_CONFIG_DESC_SIZ),          /* wTotalLength:no of returned bytes */
   HIBYTE(CDC_ECM_CONFIG_DESC_SIZ),
-  0x02,                                     /* bNumInterfaces: 2 interface */
+  0x02,                                     /* bNumInterfaces: 2 interfaces */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x00,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower (mA) */
 
   /*---------------------------------------------------------------------------*/
 
@@ -181,7 +186,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgHSDesc[] __ALIGN_END =
   0x02,                                     /* bInterfaceClass: Communication Interface Class */
   0x06,                                     /* bInterfaceSubClass: Ethernet Control Model */
   0x00,                                     /* bInterfaceProtocol: No specific protocol required */
-  0x00,                                     /* iInterface: */
+  0x00,                                     /* iInterface */
 
   /* Header Functional Descriptor */
   0x05,                                     /* bLength: Endpoint Descriptor size */
@@ -217,7 +222,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgHSDesc[] __ALIGN_END =
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_CMD_EP,                           /* bEndpointAddress */
   0x03,                                     /* bmAttributes: Interrupt */
-  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize */
   HIBYTE(CDC_ECM_CMD_PACKET_SIZE),
   CDC_ECM_HS_BINTERVAL,                     /* bInterval */
 
@@ -230,27 +235,27 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgHSDesc[] __ALIGN_END =
   0x00,                                     /* bAlternateSetting: Alternate setting */
   0x02,                                     /* bNumEndpoints: Two endpoints used */
   0x0A,                                     /* bInterfaceClass: CDC */
-  0x00,                                     /* bInterfaceSubClass: */
-  0x00,                                     /* bInterfaceProtocol: */
-  0x00,                                     /* iInterface: */
+  0x00,                                     /* bInterfaceSubClass */
+  0x00,                                     /* bInterfaceProtocol */
+  0x00,                                     /* iInterface */
 
   /* Endpoint OUT Descriptor */
   0x07,                                     /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_OUT_EP,                           /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  LOBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),  /* wMaxPacketSize */
   HIBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),
-  0xFF,                                     /* bInterval: ignore for Bulk transfer */
+  0x00,                                     /* bInterval */
 
   /* Endpoint IN Descriptor */
   0x07,                                     /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_IN_EP,                            /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  LOBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),  /* wMaxPacketSize */
   HIBYTE(CDC_ECM_DATA_HS_MAX_PACKET_SIZE),
-  0xFF                                      /* bInterval: ignore for Bulk transfer */
+  0x00                                      /* bInterval */
 };
 
 
@@ -262,11 +267,15 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgFSDesc[] __ALIGN_END =
   USB_DESC_TYPE_CONFIGURATION,              /* bDescriptorType: Configuration */
   LOBYTE(CDC_ECM_CONFIG_DESC_SIZ),          /* wTotalLength: Total size of the Config descriptor */
   HIBYTE(CDC_ECM_CONFIG_DESC_SIZ),
-  0x02,                                     /* bNumInterfaces: 2 interface */
+  0x02,                                     /* bNumInterfaces: 2 interfaces */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x00,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower (mA) */
 
   /*---------------------------------------------------------------------------*/
   /* IAD descriptor */
@@ -288,7 +297,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgFSDesc[] __ALIGN_END =
   0x02,                                     /* bInterfaceClass: Communication Interface Class */
   0x06,                                     /* bInterfaceSubClass: Ethernet Control Model */
   0x00,                                     /* bInterfaceProtocol: No specific protocol required */
-  0x00,                                     /* iInterface: */
+  0x00,                                     /* iInterface */
 
   /* Header Functional Descriptor */
   0x05,                                     /* bLength: Endpoint Descriptor size */
@@ -325,7 +334,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgFSDesc[] __ALIGN_END =
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_CMD_EP,                           /* bEndpointAddress */
   0x03,                                     /* bmAttributes: Interrupt */
-  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize */
   HIBYTE(CDC_ECM_CMD_PACKET_SIZE),
   CDC_ECM_FS_BINTERVAL,                     /* bInterval */
 
@@ -338,27 +347,27 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_CfgFSDesc[] __ALIGN_END =
   0x00,                                     /* bAlternateSetting: Alternate setting */
   0x02,                                     /* bNumEndpoints: Two endpoints used */
   0x0A,                                     /* bInterfaceClass: CDC_ECM */
-  0x00,                                     /* bInterfaceSubClass: */
-  0x00,                                     /* bInterfaceProtocol: */
-  0x00,                                     /* iInterface: */
+  0x00,                                     /* bInterfaceSubClass */
+  0x00,                                     /* bInterfaceProtocol */
+  0x00,                                     /* iInterface */
 
   /* Endpoint OUT Descriptor */
   0x07,                                     /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_OUT_EP,                           /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  LOBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize */
   HIBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),
-  0xFF,                                     /* bInterval: ignore for Bulk transfer */
+  0x00,                                     /* bInterval */
 
   /* Endpoint IN Descriptor */
   0x07,                                     /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_IN_EP,                            /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  LOBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),  /* wMaxPacketSize */
   HIBYTE(CDC_ECM_DATA_FS_MAX_PACKET_SIZE),
-  0xFF                                      /* bInterval: ignore for Bulk transfer */
+  0x00                                      /* bInterval */
 } ;
 
 __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
@@ -366,13 +375,17 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
   /* Configuration Descriptor */
   0x09,                                     /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_CONFIGURATION,              /* bDescriptorType: Configuration */
-  LOBYTE(CDC_ECM_CONFIG_DESC_SIZ),          /* wTotalLength:no of returned bytes */
+  LOBYTE(CDC_ECM_CONFIG_DESC_SIZ),          /* wTotalLength */
   HIBYTE(CDC_ECM_CONFIG_DESC_SIZ),
-  0x02,                                     /* bNumInterfaces: 2 interface */
+  0x02,                                     /* bNumInterfaces: 2 interfaces */
   0x01,                                     /* bConfigurationValue: Configuration value */
   0x04,                                     /* iConfiguration: Index of string descriptor describing the configuration */
-  0xC0,                                     /* bmAttributes: self powered */
-  0x32,                                     /* MaxPower 0 mA */
+#if (USBD_SELF_POWERED == 1U)
+  0xC0,                                     /* bmAttributes: Bus Powered according to user configuration */
+#else
+  0x80,                                     /* bmAttributes: Bus Powered according to user configuration */
+#endif
+  USBD_MAX_POWER,                           /* MaxPower (mA) */
 
   /*--------------------------------------- ------------------------------------*/
   /* IAD descriptor */
@@ -430,7 +443,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_CMD_EP,                           /* bEndpointAddress */
   0x03,                                     /* bmAttributes: Interrupt */
-  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize: */
+  LOBYTE(CDC_ECM_CMD_PACKET_SIZE),          /* wMaxPacketSize */
   HIBYTE(CDC_ECM_CMD_PACKET_SIZE),
   CDC_ECM_FS_BINTERVAL,                     /* bInterval */
 
@@ -438,13 +451,13 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
 
   /* Data class interface descriptor */
   0x09,                                     /* bLength: Endpoint Descriptor size */
-  USB_DESC_TYPE_INTERFACE,                  /* bDescriptorType: */
+  USB_DESC_TYPE_INTERFACE,                  /* bDescriptorType: interface */
   0x01,                                     /* bInterfaceNumber: Number of Interface */
   0x00,                                     /* bAlternateSetting: Alternate setting */
   0x02,                                     /* bNumEndpoints: Two endpoints used */
   0x0A,                                     /* bInterfaceClass: CDC */
-  0x00,                                     /* bInterfaceSubClass: */
-  0x00,                                     /* bInterfaceProtocol: */
+  0x00,                                     /* bInterfaceSubClass */
+  0x00,                                     /* bInterfaceProtocol */
   0x00,                                     /* iInterface: */
 
   /* Endpoint OUT Descriptor */
@@ -452,18 +465,18 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_ECM_OtherSpeedCfgDesc[] __ALIGN_END =
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_OUT_EP,                           /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  0x40,                                     /* wMaxPacketSize: */
+  0x40,                                     /* wMaxPacketSize */
   0x00,
-  0xFF,                                     /* bInterval: ignore for Bulk transfer */
+  0x00,                                     /* bInterval */
 
   /* Endpoint IN Descriptor */
   0x07,                                     /* bLength: Endpoint Descriptor size */
   USB_DESC_TYPE_ENDPOINT,                   /* bDescriptorType: Endpoint */
   CDC_ECM_IN_EP,                            /* bEndpointAddress */
   0x02,                                     /* bmAttributes: Bulk */
-  0x40,                                     /* wMaxPacketSize: */
+  0x40,                                     /* wMaxPacketSize */
   0x00,
-  0xFF                                      /* bInterval: ignore for Bulk transfer */
+  0x00                                      /* bInterval */
 };
 
 /**
@@ -487,7 +500,7 @@ static uint8_t USBD_CDC_ECM_Init(USBD_HandleTypeDef *pdev, uint8_t cfgidx)
 
   USBD_CDC_ECM_HandleTypeDef *hcdc;
 
-  hcdc = USBD_malloc(sizeof(USBD_CDC_ECM_HandleTypeDef));
+  hcdc = (USBD_CDC_ECM_HandleTypeDef *)USBD_malloc(sizeof(USBD_CDC_ECM_HandleTypeDef));
 
   if (hcdc == NULL)
   {
@@ -602,84 +615,91 @@ static uint8_t USBD_CDC_ECM_Setup(USBD_HandleTypeDef *pdev,
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *) pdev->pClassData;
   USBD_CDC_ECM_ItfTypeDef *EcmInterface = (USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData;
   USBD_StatusTypeDef ret = USBD_OK;
-  uint8_t ifalt = 0U;
+  uint16_t len;
   uint16_t status_info = 0U;
+  uint8_t ifalt = 0U;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   switch (req->bmRequest & USB_REQ_TYPE_MASK)
   {
-  case USB_REQ_TYPE_CLASS :
-    if (req->wLength != 0U)
-    {
-      if ((req->bmRequest & 0x80U) != 0U)
+    case USB_REQ_TYPE_CLASS :
+      if (req->wLength != 0U)
       {
-        EcmInterface->Control(req->bRequest,
-                              (uint8_t *)hcdc->data, req->wLength);
+        if ((req->bmRequest & 0x80U) != 0U)
+        {
+          EcmInterface->Control(req->bRequest,
+                                (uint8_t *)hcdc->data, req->wLength);
 
-        (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, req->wLength);
+          len = MIN(CDC_ECM_DATA_BUFFER_SIZE, req->wLength);
+          (void)USBD_CtlSendData(pdev, (uint8_t *)hcdc->data, len);
+        }
+        else
+        {
+          hcdc->CmdOpCode = req->bRequest;
+          hcdc->CmdLength = (uint8_t)MIN(req->wLength, USB_MAX_EP0_SIZE);
+
+          (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, hcdc->CmdLength);
+        }
       }
       else
       {
-        hcdc->CmdOpCode = req->bRequest;
-        hcdc->CmdLength = (uint8_t)req->wLength;
-
-        (void)USBD_CtlPrepareRx(pdev, (uint8_t *)hcdc->data, req->wLength);
-      }
-    }
-    else
-    {
-      EcmInterface->Control(req->bRequest, (uint8_t *)req, 0U);
-    }
-    break;
-
-  case USB_REQ_TYPE_STANDARD:
-    switch (req->bRequest)
-    {
-    case USB_REQ_GET_STATUS:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
-      {
-        (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
+        EcmInterface->Control(req->bRequest, (uint8_t *)req, 0U);
       }
       break;
 
-    case USB_REQ_GET_INTERFACE:
-      if (pdev->dev_state == USBD_STATE_CONFIGURED)
+    case USB_REQ_TYPE_STANDARD:
+      switch (req->bRequest)
       {
-        (void)USBD_CtlSendData(pdev, &ifalt, 1U);
-      }
-      else
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_STATUS:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, (uint8_t *)&status_info, 2U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_SET_INTERFACE:
-      if (pdev->dev_state != USBD_STATE_CONFIGURED)
-      {
-        USBD_CtlError(pdev, req);
-        ret = USBD_FAIL;
-      }
-      break;
+        case USB_REQ_GET_INTERFACE:
+          if (pdev->dev_state == USBD_STATE_CONFIGURED)
+          {
+            (void)USBD_CtlSendData(pdev, &ifalt, 1U);
+          }
+          else
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
 
-    case USB_REQ_CLEAR_FEATURE:
+        case USB_REQ_SET_INTERFACE:
+          if (pdev->dev_state != USBD_STATE_CONFIGURED)
+          {
+            USBD_CtlError(pdev, req);
+            ret = USBD_FAIL;
+          }
+          break;
+
+        case USB_REQ_CLEAR_FEATURE:
+          break;
+
+        default:
+          USBD_CtlError(pdev, req);
+          ret = USBD_FAIL;
+          break;
+      }
       break;
 
     default:
       USBD_CtlError(pdev, req);
       ret = USBD_FAIL;
       break;
-    }
-    break;
-
-  default:
-    USBD_CtlError(pdev, req);
-    ret = USBD_FAIL;
-    break;
   }
 
   return (uint8_t)ret;
@@ -716,7 +736,10 @@ static uint8_t USBD_CDC_ECM_DataIn(USBD_HandleTypeDef *pdev, uint8_t epnum)
     else
     {
       hcdc->TxState = 0U;
-      ((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+      if (((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt != NULL)
+      {
+        ((USBD_CDC_ECM_ItfTypeDef *)pdev->pUserData)->TransmitCplt(hcdc->TxBuffer, &hcdc->TxLength, epnum);
+      }
     }
   }
   else if (epnum == (CDC_ECM_CMD_EP & 0x7FU))
@@ -766,7 +789,7 @@ static uint8_t USBD_CDC_ECM_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
     if ((CurrPcktLen < hcdc->MaxPcktLen) || (hcdc->RxLength >= CDC_ECM_ETH_MAX_SEGSZE))
     {
       /* USB data will be immediately processed, this allow next USB traffic being
-      NACKed till the end of the application Xfer */
+      NAKed till the end of the application Xfer */
 
       /* Process data by application (ie. copy to app buffer or notify user)
       hcdc->RxLength must be reset to zero at the end of the call of this function */
@@ -797,6 +820,11 @@ static uint8_t USBD_CDC_ECM_DataOut(USBD_HandleTypeDef *pdev, uint8_t epnum)
 static uint8_t USBD_CDC_ECM_EP0_RxReady(USBD_HandleTypeDef *pdev)
 {
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *)pdev->pClassData;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   if ((pdev->pUserData != NULL) && (hcdc->CmdOpCode != 0xFFU))
   {
@@ -921,6 +949,11 @@ uint8_t USBD_CDC_ECM_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff, uint3
 {
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *)pdev->pClassData;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   hcdc->TxBuffer = pbuff;
   hcdc->TxLength = length;
 
@@ -937,6 +970,11 @@ uint8_t USBD_CDC_ECM_SetTxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff, uint3
 uint8_t USBD_CDC_ECM_SetRxBuffer(USBD_HandleTypeDef *pdev, uint8_t *pbuff)
 {
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *)pdev->pClassData;
+
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
 
   hcdc->RxBuffer = pbuff;
 
@@ -970,7 +1008,7 @@ uint8_t USBD_CDC_ECM_TransmitPacket(USBD_HandleTypeDef *pdev)
     /* Transmit next packet */
     (void)USBD_LL_Transmit(pdev, CDC_ECM_IN_EP, hcdc->TxBuffer, hcdc->TxLength);
 
-     ret = USBD_OK;
+    ret = USBD_OK;
   }
 
   return (uint8_t)ret;
@@ -993,7 +1031,7 @@ uint8_t USBD_CDC_ECM_ReceivePacket(USBD_HandleTypeDef *pdev)
   }
 
   /* Prepare Out endpoint to receive next packet */
-  (void)USBD_LL_PrepareReceive(pdev, CDC_ECM_OUT_EP,hcdc->RxBuffer, hcdc->MaxPcktLen);
+  (void)USBD_LL_PrepareReceive(pdev, CDC_ECM_OUT_EP, hcdc->RxBuffer, hcdc->MaxPcktLen);
 
   return (uint8_t)USBD_OK;
 }
@@ -1016,11 +1054,16 @@ uint8_t USBD_CDC_ECM_SendNotification(USBD_HandleTypeDef *pdev,
   USBD_CDC_ECM_HandleTypeDef *hcdc = (USBD_CDC_ECM_HandleTypeDef *)pdev->pClassData;
   USBD_StatusTypeDef ret = USBD_OK;
 
+  if (hcdc == NULL)
+  {
+    return (uint8_t)USBD_FAIL;
+  }
+
   /* Initialize the request fields */
   (hcdc->Req).bmRequest = CDC_ECM_BMREQUEST_TYPE_ECM;
   (hcdc->Req).bRequest = (uint8_t)Notif;
 
-  switch (Notif)
+  switch ((hcdc->Req).bRequest)
   {
     case NETWORK_CONNECTION:
       (hcdc->Req).wValue = bVal;
@@ -1069,7 +1112,7 @@ uint8_t USBD_CDC_ECM_SendNotification(USBD_HandleTypeDef *pdev,
   /* Transmit notification packet */
   if (ReqSize != 0U)
   {
-    (void)USBD_LL_Transmit(pdev, CDC_ECM_CMD_EP, (uint8_t *)&(hcdc->Req), ReqSize);
+    (void)USBD_LL_Transmit(pdev, CDC_ECM_CMD_EP, (uint8_t *) &(hcdc->Req), ReqSize);
   }
 
   return (uint8_t)ret;

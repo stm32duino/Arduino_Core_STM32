@@ -119,8 +119,8 @@ void analogWriteResolution(int res)
 {
   if ((res > 0) && (res <= 32)) {
     _writeResolution = res;
-    if (_writeResolution > MAX_ADC_RESOLUTION) {
-      _internalWriteResolution = MAX_ADC_RESOLUTION;
+    if (_writeResolution > MAX_PWM_RESOLUTION) {
+      _internalWriteResolution = MAX_PWM_RESOLUTION;
     } else {
       _internalWriteResolution = _writeResolution;
     }
@@ -197,7 +197,7 @@ void analogWrite(uint32_t ulPin, uint32_t ulValue)
     } else
 #endif //HAL_DAC_MODULE_ENABLED && !HAL_DAC_MODULE_ONLY
 #if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
-      if (pin_in_pinmap(p, PinMap_PWM)) {
+      if (pin_in_pinmap(p, PinMap_TIM)) {
         if (is_pin_configured(p, g_anOutputPinConfigured) == false) {
           set_pin_configured(p, g_anOutputPinConfigured);
         }

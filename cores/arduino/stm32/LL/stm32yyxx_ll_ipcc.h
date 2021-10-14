@@ -7,9 +7,10 @@
 
 #ifdef STM32MP1xx
   #include "stm32mp1xx_ll_ipcc.h"
-#endif
-#ifdef STM32WBxx
+#elif STM32WBxx
   #include "stm32wbxx_ll_ipcc.h"
+#elif STM32WLxx
+  #include "stm32wlxx_ll_ipcc.h"
 #endif
 #pragma GCC diagnostic pop
 #endif /* _STM32YYXX_LL_IPCC_H_ */

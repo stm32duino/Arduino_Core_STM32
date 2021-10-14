@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic F373R8Tx
+GenF3.menu.pnum.GENERIC_F373R8TX=Generic F373R8Tx
+GenF3.menu.pnum.GENERIC_F373R8TX.upload.maximum_size=65536
+GenF3.menu.pnum.GENERIC_F373R8TX.upload.maximum_data_size=16384
+GenF3.menu.pnum.GENERIC_F373R8TX.build.board=GENERIC_F373R8TX
+GenF3.menu.pnum.GENERIC_F373R8TX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373R8TX.build.variant=STM32F3xx/F373R(8-B-C)T
+
+# Generic F373RBTx
+GenF3.menu.pnum.GENERIC_F373RBTX=Generic F373RBTx
+GenF3.menu.pnum.GENERIC_F373RBTX.upload.maximum_size=131072
+GenF3.menu.pnum.GENERIC_F373RBTX.upload.maximum_data_size=24576
+GenF3.menu.pnum.GENERIC_F373RBTX.build.board=GENERIC_F373RBTX
+GenF3.menu.pnum.GENERIC_F373RBTX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373RBTX.build.variant=STM32F3xx/F373R(8-B-C)T
+
+# Generic F373RCTx
+GenF3.menu.pnum.GENERIC_F373RCTX=Generic F373RCTx
+GenF3.menu.pnum.GENERIC_F373RCTX.upload.maximum_size=262144
+GenF3.menu.pnum.GENERIC_F373RCTX.upload.maximum_data_size=32768
+GenF3.menu.pnum.GENERIC_F373RCTX.build.board=GENERIC_F373RCTX
+GenF3.menu.pnum.GENERIC_F373RCTX.build.product_line=STM32F373xC
+GenF3.menu.pnum.GENERIC_F373RCTX.build.variant=STM32F3xx/F373R(8-B-C)T
+

@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G491CCUx
+GenG4.menu.pnum.GENERIC_G491CCUX=Generic G491CCUx
+GenG4.menu.pnum.GENERIC_G491CCUX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491CCUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CCUX.build.board=GENERIC_G491CCUX
+GenG4.menu.pnum.GENERIC_G491CCUX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491CCUX.build.variant=STM32G4xx/G491C(C-E)U_G4A1CEU
+
+# Generic G491CEUx
+GenG4.menu.pnum.GENERIC_G491CEUX=Generic G491CEUx
+GenG4.menu.pnum.GENERIC_G491CEUX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491CEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CEUX.build.board=GENERIC_G491CEUX
+GenG4.menu.pnum.GENERIC_G491CEUX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491CEUX.build.variant=STM32G4xx/G491C(C-E)U_G4A1CEU
+
+# Generic G4A1CEUx
+GenG4.menu.pnum.GENERIC_G4A1CEUX=Generic G4A1CEUx
+GenG4.menu.pnum.GENERIC_G4A1CEUX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1CEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.board=GENERIC_G4A1CEUX
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1CEUX.build.variant=STM32G4xx/G491C(C-E)U_G4A1CEU
+

@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G471MEYx
+GenG4.menu.pnum.GENERIC_G471MEYX=Generic G471MEYx
+GenG4.menu.pnum.GENERIC_G471MEYX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471MEYX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471MEYX.build.board=GENERIC_G471MEYX
+GenG4.menu.pnum.GENERIC_G471MEYX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471MEYX.build.variant=STM32G4xx/G471MEY
+

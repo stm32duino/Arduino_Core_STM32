@@ -698,7 +698,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   if (pin != NC) {
     if ((int)get_pwm_channel(pin) == timChannel) {
       /* Configure PWM GPIO pins */
-      pinmap_pinout(pin, PinMap_PWM);
+      pinmap_pinout(pin, PinMap_TIM);
 #if defined(STM32F1xx)
       if ((mode == TIMER_INPUT_CAPTURE_RISING) || (mode == TIMER_INPUT_CAPTURE_FALLING) \
           || (mode == TIMER_INPUT_CAPTURE_BOTHEDGE) || (mode == TIMER_INPUT_FREQ_DUTY_MEASUREMENT)) {
@@ -712,7 +712,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
     }
 
 #if defined(TIM_CCER_CC1NE)
-    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_PWM));
+    isComplementaryChannel[channel - 1] = STM_PIN_INVERTED(pinmap_function(pin, PinMap_TIM));
 #endif
   }
 }
@@ -826,7 +826,7 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
   *           TICK_FORMAT:     return value is the number of tick for Capture/Compare value
   *           MICROSEC_FORMAT: return value is the number of microsecondes for Capture/Compare value
   *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
-  * @retval None
+  * @retval Capture/Compare value
   */
 uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_t format)
 {
@@ -880,10 +880,8 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   * @param  pin: Arduino pin number, ex D1, 1 or PA1
   * @param  frequency: PWM frequency expessed in hertz
   * @param  dutycycle: PWM dutycycle expressed in percentage
-  * @param  format of return value. If ommited default format is Tick
-  *           TICK_FORMAT:     return value is the number of tick for Capture/Compare value
-  *           MICROSEC_FORMAT: return value is the number of microsecondes for Capture/Compare value
-  *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
+  * @param  PeriodCallback: timer period callback (timer rollover upon udate event)
+  * @param  CompareCallback: timer compare callback
   * @retval None
   */
 void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
@@ -897,10 +895,8 @@ void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, u
   * @param  pin: pin name, ex PB_0
   * @param  frequency: PWM frequency expessed in hertz
   * @param  dutycycle: PWM dutycycle expressed in percentage
-  * @param  format of return value. If ommited default format is Tick
-  *           TICK_FORMAT:     return value is the number of tick for Capture/Compare value
-  *           MICROSEC_FORMAT: return value is the number of microsecondes for Capture/Compare value
-  *           HERTZ_FORMAT:    return value is the frequency in hertz for Capture/Compare value
+  * @param  PeriodCallback: timer period callback (timer rollover upon udate event)
+  * @param  CompareCallback: timer compare callback
   * @retval None
   */
 void HardwareTimer::setPWM(uint32_t channel, PinName pin, uint32_t frequency, uint32_t dutycycle, callback_function_t PeriodCallback, callback_function_t CompareCallback)
@@ -1142,7 +1138,7 @@ HardwareTimer::~HardwareTimer()
 /**
   * @brief  return timer index from timer handle
   * @param  htim : one of the defined timer
-  * @retval None
+  * @retval timer index
   */
 timer_index_t get_timer_index(TIM_TypeDef *instance)
 {
@@ -1263,7 +1259,7 @@ timer_index_t get_timer_index(TIM_TypeDef *instance)
 
 /**
   * @brief  This function return the timer clock frequency.
-  * @param  tim: timer instance
+  * @param  None
   * @retval frequency in Hz
   */
 uint32_t HardwareTimer::getTimerClkFreq()
@@ -1395,7 +1391,7 @@ uint32_t HardwareTimer::getTimerClkFreq()
 
 /**
   * @brief  This function will reset the timer
-  * @param  obj : Hardware timer instance ex: Timer6, ...
+  * @param  None
   * @retval None
   */
 void HardwareTimer::timerHandleDeinit()
@@ -1489,6 +1485,11 @@ extern "C" {
     if (HardwareTimer_Handle[TIMER3_INDEX]) {
       HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER3_INDEX]->handle);
     }
+#if defined(STM32G0xx) && defined(TIM4_BASE)
+    if (HardwareTimer_Handle[TIMER4_INDEX]) {
+      HAL_TIM_IRQHandler(&HardwareTimer_Handle[TIMER4_INDEX]->handle);
+    }
+#endif
   }
 #endif //TIM3_BASE
 

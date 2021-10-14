@@ -1,43 +1,21 @@
-/**
-  ******************************************************************************
-  * @file    clock.c
-  * @author  WI6LABS
-  * @version V1.0.0
-  * @date    01-August-2016
-  * @brief   provide clock services for time purpose
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2016 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+/*
+ *******************************************************************************
+ * Copyright (c) 2016-2021, STMicroelectronics
+ * All rights reserved.
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ *******************************************************************************
+ */
 #include "backup.h"
 #include "clock.h"
+#include "lock_resource.h"
+#include "otp.h"
 #include "stm32yyxx_ll_cortex.h"
+#include "stm32yyxx_ll_rcc.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -113,7 +91,7 @@ void enableClock(sourceClock_t source)
 
   switch (source) {
     case LSI_CLOCK:
-#ifdef STM32WBxx
+#ifdef RCC_FLAG_LSI1RDY
       if (__HAL_RCC_GET_FLAG(RCC_FLAG_LSI1RDY) == RESET) {
         RCC_OscInitStruct.OscillatorType =  RCC_OSCILLATORTYPE_LSI1;
 #else
@@ -154,10 +132,46 @@ void enableClock(sourceClock_t source)
       break;
   }
   if (RCC_OscInitStruct.OscillatorType != RCC_OSCILLATORTYPE_NONE) {
+    hsem_lock(CFG_HW_RCC_SEMID, HSEM_LOCK_DEFAULT_RETRY);
     if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
       Error_Handler();
     }
+    hsem_unlock(CFG_HW_RCC_SEMID);
   }
+}
+
+void configHSECapacitorTuning(void)
+{
+#if defined(OTP_AREA_BASE) && defined(STM32WBxx)
+  OTP_BT_t *p_otp;
+  /* Read HSE_Tuning from OTP with index 0 */
+  p_otp = (OTP_BT_t *) OTP_Read(0);
+  if ((p_otp) && (!LL_RCC_HSE_IsReady())) {
+    LL_RCC_HSE_SetCapacitorTuning(p_otp->hse_tuning);
+  }
+#endif
+}
+
+/**
+  * @brief  This function enables clocks for some system IP
+  * @param  None
+  * @retval None
+  */
+void configIPClock(void)
+{
+#ifdef HSEM_BASE
+  __HAL_RCC_HSEM_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_PWR_CLK_ENABLE)
+  /* Enable PWR clock, needed for example: voltage scaling, low power ... */
+  __HAL_RCC_PWR_CLK_ENABLE();
+#endif
+
+#if defined(__HAL_RCC_SYSCFG_CLK_ENABLE)
+  /* Enable SYSCFG clock, needed for example: Pin remap or Analog switch ... */
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+#endif
 }
 
 #ifdef __cplusplus

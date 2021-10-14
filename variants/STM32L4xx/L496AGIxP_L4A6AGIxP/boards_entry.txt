@@ -1,0 +1,21 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L496AGIxP
+GenL4.menu.pnum.GENERIC_L496AGIXP=Generic L496AGIxP
+GenL4.menu.pnum.GENERIC_L496AGIXP.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L496AGIXP.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L496AGIXP.build.board=GENERIC_L496AGIXP
+GenL4.menu.pnum.GENERIC_L496AGIXP.build.product_line=STM32L496xx
+GenL4.menu.pnum.GENERIC_L496AGIXP.build.variant=STM32L4xx/L496AGIxP_L4A6AGIxP
+
+# Generic L4A6AGIxP
+GenL4.menu.pnum.GENERIC_L4A6AGIXP=Generic L4A6AGIxP
+GenL4.menu.pnum.GENERIC_L4A6AGIXP.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4A6AGIXP.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4A6AGIXP.build.board=GENERIC_L4A6AGIXP
+GenL4.menu.pnum.GENERIC_L4A6AGIXP.build.product_line=STM32L4A6xx
+GenL4.menu.pnum.GENERIC_L4A6AGIXP.build.variant=STM32L4xx/L496AGIxP_L4A6AGIxP
+

@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4P5CGTx
+GenL4.menu.pnum.GENERIC_L4P5CGTX=Generic L4P5CGTx
+GenL4.menu.pnum.GENERIC_L4P5CGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4P5CGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5CGTX.build.board=GENERIC_L4P5CGTX
+GenL4.menu.pnum.GENERIC_L4P5CGTX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5CGTX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+
+# Generic L4P5CETx
+GenL4.menu.pnum.GENERIC_L4P5CETX=Generic L4P5CETx
+GenL4.menu.pnum.GENERIC_L4P5CETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L4P5CETX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5CETX.build.board=GENERIC_L4P5CETX
+GenL4.menu.pnum.GENERIC_L4P5CETX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5CETX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+
+# Generic L4P5CGUx
+GenL4.menu.pnum.GENERIC_L4P5CGUX=Generic L4P5CGUx
+GenL4.menu.pnum.GENERIC_L4P5CGUX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4P5CGUX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5CGUX.build.board=GENERIC_L4P5CGUX
+GenL4.menu.pnum.GENERIC_L4P5CGUX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5CGUX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+
+# Generic L4P5CEUx
+GenL4.menu.pnum.GENERIC_L4P5CEUX=Generic L4P5CEUx
+GenL4.menu.pnum.GENERIC_L4P5CEUX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L4P5CEUX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4P5CEUX.build.board=GENERIC_L4P5CEUX
+GenL4.menu.pnum.GENERIC_L4P5CEUX.build.product_line=STM32L4P5xx
+GenL4.menu.pnum.GENERIC_L4P5CEUX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+
+# Generic L4Q5CGTx
+GenL4.menu.pnum.GENERIC_L4Q5CGTX=Generic L4Q5CGTx
+GenL4.menu.pnum.GENERIC_L4Q5CGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4Q5CGTX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4Q5CGTX.build.board=GENERIC_L4Q5CGTX
+GenL4.menu.pnum.GENERIC_L4Q5CGTX.build.product_line=STM32L4Q5xx
+GenL4.menu.pnum.GENERIC_L4Q5CGTX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+
+# Generic L4Q5CGUx
+GenL4.menu.pnum.GENERIC_L4Q5CGUX=Generic L4Q5CGUx
+GenL4.menu.pnum.GENERIC_L4Q5CGUX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4Q5CGUX.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L4Q5CGUX.build.board=GENERIC_L4Q5CGUX
+GenL4.menu.pnum.GENERIC_L4Q5CGUX.build.product_line=STM32L4Q5xx
+GenL4.menu.pnum.GENERIC_L4Q5CGUX.build.variant=STM32L4xx/L4P5C(E-G)(T-U)_L4Q5CG(T-U)
+

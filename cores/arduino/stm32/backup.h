@@ -30,15 +30,7 @@ extern "C" {
 #endif
 
 /* Exported macro ------------------------------------------------------------*/
-#if (!defined(STM32F0xx) && !defined(STM32F3xx) && !defined(STM32L0xx) &&\
-  !defined(STM32L1xx) && !defined(STM32L4xx) && !defined(STM32MP1xx)) || \
-  defined(RTC_BACKUP_SUPPORT)
-#if !defined(STM32L412xx) && !defined(STM32L422xx)
-#define ENABLE_BACKUP_SUPPORT
-#endif
-#endif
-
-#if !defined(RTC_BKP_INDEX) && defined(ENABLE_BACKUP_SUPPORT)
+#if !defined(RTC_BKP_INDEX) && defined(LL_RTC_BKP_DR1)
 #define RTC_BKP_INDEX LL_RTC_BKP_DR1
 #else
 #define RTC_BKP_INDEX 0
@@ -77,12 +69,6 @@ static inline void resetBackupDomain(void)
 
 static inline void enableBackupDomain(void)
 {
-  /* Enable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_ENABLE();
-  }
-#endif
 #ifdef HAL_PWR_MODULE_ENABLED
   /* Allow access to Backup domain */
   HAL_PWR_EnableBkUpAccess();
@@ -111,47 +97,47 @@ static inline void disableBackupDomain(void)
   /* Disable BKP CLK for backup registers */
   __HAL_RCC_BKP_CLK_DISABLE();
 #endif
-  /* Disable Power Clock */
-#ifdef __HAL_RCC_PWR_IS_CLK_DISABLED
-  if (!__HAL_RCC_PWR_IS_CLK_DISABLED()) {
-    __HAL_RCC_PWR_CLK_DISABLE();
-  }
-#endif
 }
 
 static inline void setBackupRegister(uint32_t index, uint32_t value)
 {
-#if defined(STM32F1xx)
+#if defined(BKP_BASE)
   LL_RTC_BKP_SetRegister(BKP, index, value);
-#elif defined(STM32G0xx)
-  LL_RTC_BKP_SetRegister(TAMP, index, value);
-#elif defined(STM32G4xx)
+#elif defined(RTC_BKP0R)
+  LL_RTC_BAK_SetRegister(RTC, index, value);
+#elif defined(TAMP_BKP0R)
+#if defined(STM32G4xx) || defined(STM32L5xx) || defined(STM32U5xx) ||\
+    defined(STM32MP1xx) || defined(STM32WLxx)
+  /* For those series this API requires RTC even if it is not used
+     and TAMP is used instead */
   LL_RTC_BKP_SetRegister(RTC, index, value);
 #else
-#ifdef ENABLE_BACKUP_SUPPORT
-  LL_RTC_BAK_SetRegister(RTC, index, value);
+  LL_RTC_BKP_SetRegister(TAMP, index, value);
+#endif
 #else
   UNUSED(index);
   UNUSED(value);
-#endif
 #endif
 }
 
 static inline uint32_t getBackupRegister(uint32_t index)
 {
-#if defined(STM32F1xx)
+#if defined(BKP_BASE)
   return LL_RTC_BKP_GetRegister(BKP, index);
-#elif defined(STM32G0xx)
-  return LL_RTC_BKP_GetRegister(TAMP, index);
-#elif defined(STM32G4xx)
+#elif defined(RTC_BKP0R)
+  return LL_RTC_BAK_GetRegister(RTC, index);
+#elif defined(TAMP_BKP0R)
+#if defined(STM32G4xx) || defined(STM32L5xx) || defined(STM32U5xx) ||\
+    defined(STM32MP1xx) || defined(STM32WLxx)
+  /* For those series this API requires RTC even if it is not used
+     and TAMP is used instead */
   return LL_RTC_BKP_GetRegister(RTC, index);
 #else
-#ifdef ENABLE_BACKUP_SUPPORT
-  return LL_RTC_BAK_GetRegister(RTC, index);
+  return LL_RTC_BKP_GetRegister(TAMP, index);
+#endif
 #else
   UNUSED(index);
   return 0;
-#endif
 #endif
 }
 

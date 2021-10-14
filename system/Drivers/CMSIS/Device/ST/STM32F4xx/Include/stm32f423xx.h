@@ -1233,6 +1233,14 @@ typedef struct
   * @{
   */
 
+/** @addtogroup Hardware_Constant_Definition
+  * @{
+  */
+#define LSI_STARTUP_TIME                40U /*!< LSI Maximum startup time in us */
+/**
+  * @}
+  */
+
   /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
   */
@@ -6848,7 +6856,7 @@ typedef struct
 /******************************************************************************/
 /*******************  Bits definition for FLASH_ACR register  *****************/
 #define FLASH_ACR_LATENCY_Pos          (0U)
-#define FLASH_ACR_LATENCY_Msk          (0xFUL << FLASH_ACR_LATENCY_Pos)         /*!< 0x0000000F */
+#define FLASH_ACR_LATENCY_Msk          (0x7UL << FLASH_ACR_LATENCY_Pos)         /*!< 0x00000007 */
 #define FLASH_ACR_LATENCY              FLASH_ACR_LATENCY_Msk
 #define FLASH_ACR_LATENCY_0WS          0x00000000U
 #define FLASH_ACR_LATENCY_1WS          0x00000001U
@@ -6858,6 +6866,7 @@ typedef struct
 #define FLASH_ACR_LATENCY_5WS          0x00000005U
 #define FLASH_ACR_LATENCY_6WS          0x00000006U
 #define FLASH_ACR_LATENCY_7WS          0x00000007U
+
 
 #define FLASH_ACR_PRFTEN_Pos           (8U)
 #define FLASH_ACR_PRFTEN_Msk           (0x1UL << FLASH_ACR_PRFTEN_Pos)          /*!< 0x00000100 */
@@ -6935,6 +6944,9 @@ typedef struct
 #define FLASH_CR_EOPIE_Pos             (24U)
 #define FLASH_CR_EOPIE_Msk             (0x1UL << FLASH_CR_EOPIE_Pos)            /*!< 0x01000000 */
 #define FLASH_CR_EOPIE                 FLASH_CR_EOPIE_Msk
+#define FLASH_CR_ERRIE_Pos             (25U)
+#define FLASH_CR_ERRIE_Msk             (0x1UL << FLASH_CR_ERRIE_Pos)
+#define FLASH_CR_ERRIE                 FLASH_CR_ERRIE_Msk
 #define FLASH_CR_LOCK_Pos              (31U)
 #define FLASH_CR_LOCK_Msk              (0x1UL << FLASH_CR_LOCK_Pos)             /*!< 0x80000000 */
 #define FLASH_CR_LOCK                  FLASH_CR_LOCK_Msk

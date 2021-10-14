@@ -1,0 +1,29 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L4R9ZGTx
+GenL4.menu.pnum.GENERIC_L4R9ZGTX=Generic L4R9ZGTx
+GenL4.menu.pnum.GENERIC_L4R9ZGTX.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L4R9ZGTX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R9ZGTX.build.board=GENERIC_L4R9ZGTX
+GenL4.menu.pnum.GENERIC_L4R9ZGTX.build.product_line=STM32L4R9xx
+GenL4.menu.pnum.GENERIC_L4R9ZGTX.build.variant=STM32L4xx/L4R9Z(G-I)T_L4S9ZIT
+
+# Generic L4R9ZITx
+GenL4.menu.pnum.GENERIC_L4R9ZITX=Generic L4R9ZITx
+GenL4.menu.pnum.GENERIC_L4R9ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4R9ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4R9ZITX.build.board=GENERIC_L4R9ZITX
+GenL4.menu.pnum.GENERIC_L4R9ZITX.build.product_line=STM32L4R9xx
+GenL4.menu.pnum.GENERIC_L4R9ZITX.build.variant=STM32L4xx/L4R9Z(G-I)T_L4S9ZIT
+
+# Generic L4S9ZITx
+GenL4.menu.pnum.GENERIC_L4S9ZITX=Generic L4S9ZITx
+GenL4.menu.pnum.GENERIC_L4S9ZITX.upload.maximum_size=2097152
+GenL4.menu.pnum.GENERIC_L4S9ZITX.upload.maximum_data_size=655360
+GenL4.menu.pnum.GENERIC_L4S9ZITX.build.board=GENERIC_L4S9ZITX
+GenL4.menu.pnum.GENERIC_L4S9ZITX.build.product_line=STM32L4S9xx
+GenL4.menu.pnum.GENERIC_L4S9ZITX.build.variant=STM32L4xx/L4R9Z(G-I)T_L4S9ZIT
+

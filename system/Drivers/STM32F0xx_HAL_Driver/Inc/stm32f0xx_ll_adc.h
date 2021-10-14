@@ -1410,6 +1410,9 @@ typedef struct
   */
 __STATIC_INLINE uint32_t LL_ADC_DMA_GetRegAddr(ADC_TypeDef *ADCx, uint32_t Register)
 {
+  /* Prevent unused argument compilation warning */
+  (void)Register;
+
   /* Retrieve address of register DR */
   return (uint32_t)&(ADCx->DR);
 }
