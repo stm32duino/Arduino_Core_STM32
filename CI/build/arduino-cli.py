@@ -552,7 +552,8 @@ def check_status(status, build_conf, boardKo):
             nb_build_passed += 1
     else:
         result = "\033[31merror\033[0m"
-
+        boardKo.append(build_conf[0])
+        nb_build_failed += 1
     print(
         f"{build_format_result}".format(
             f"{build_conf[1]}/{build_conf[2]}",
