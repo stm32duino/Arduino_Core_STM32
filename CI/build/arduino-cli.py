@@ -458,10 +458,9 @@ def find_board():
     if args.board:
         arg_board_pattern = re.compile(args.board, re.IGNORECASE)
 
-    fqbn_list_tmp = []
     try:
         output = subprocess.check_output(
-            [arduino_cli, "board", "listall", "--format", "json"],
+            [arduino_cli, "board", "search", arduino_platform, "--format", "json"],
             stderr=subprocess.STDOUT,
         ).decode("utf-8")
     except subprocess.CalledProcessError as e:
@@ -469,11 +468,7 @@ def find_board():
         print(e.stdout.decode("utf-8"))
         quit(e.returncode)
     else:
-        boards_list = json.loads(output)
-        if boards_list is not None:
-            for board in boards_list["boards"]:
-                if arduino_platform in board["fqbn"]:
-                    fqbn_list_tmp.append(board["fqbn"])
+        fqbn_list_tmp = [board["fqbn"] for board in json.loads(output)]
         if not len(fqbn_list_tmp):
             print(f"No boards found for {arduino_platform}")
             quit(1)
@@ -490,6 +485,7 @@ def find_board():
                     stm32_url,
                     "--format",
                     "json",
+                    "-b",
                     fqbn,
                 ],
                 stderr=subprocess.STDOUT,
@@ -500,22 +496,18 @@ def find_board():
             quit(e.returncode)
         else:
             board_detail = json.loads(output)
-            if board_detail is not None:
-                if "config_options" not in board_detail:
-                    print("No config_options found for " + fqbn)
-                    quit(1)
-                for option in board_detail["config_options"]:
-                    if option["option"] == "pnum":
-                        for value in option["values"]:
-                            if args.board:
-                                if arg_board_pattern.search(value["value"]) is None:
-                                    continue
-                            board_found[
-                                value["value"]
-                            ] = f"{fqbn}:pnum={value['value']}"
-                    break
-            else:
-                print(f"No detail found for:'{fqbn}'!")
+            for val in next(
+                (
+                    item
+                    for item in board_detail.get("config_options", [])
+                    if item["option"] == "pnum"
+                ),
+                {},
+            ).get("values", []):
+                if args.board:
+                    if arg_board_pattern.search(val["value"]) is None:
+                        continue
+                board_found[val["value"]] = f"{fqbn}:pnum={val['value']}"
     if board_found:
         board_fqbn = collections.OrderedDict(sorted(board_found.items()))
     else:
