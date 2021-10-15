@@ -59,8 +59,8 @@ maintainer = maintainer_default
 arch = arch_default
 arduino_platform = arduino_platform_default
 arduino_cli = ""
-arduino_cli_default_version = "0.18.0"
-arduino_cli_version = arduino_cli_default_version
+arduino_cli_default_ver = "0.19.0"
+arduino_cli_ver = arduino_cli_default_ver
 
 # List
 sketch_list = []
@@ -152,7 +152,7 @@ def create_config():
 
 def check_config():
     global arduino_cli
-    global arduino_cli_version
+    global arduino_cli_ver
     global arduino_cli_path
     global sketches_path_list
     global search_path_list
@@ -205,13 +205,13 @@ def check_config():
     else:
         res = re.match(r".*Version:\s+(\d+\.\d+\.\d+).*", output.decode("utf-8"))
         if res:
-            arduino_cli_version = res.group(1)
-            print(f"Arduino CLI version used: {arduino_cli_version}")
-            if version.parse(arduino_cli_version) <= version.parse("0.10.0"):
-                print("Arduino CLI version <= 0.10.0 is no more supported")
+            arduino_cli_ver = res.group(1)
+            print(f"Arduino CLI version used: {arduino_cli_ver}")
+            if version.parse(arduino_cli_ver) < version.parse(arduino_cli_default_ver):
+                print(f"Arduino CLI version < {arduino_cli_default_ver} not supported")
         else:
             print("Unable to define Arduino CLI version.")
-            print(f"Use default: {arduino_cli_default_version}")
+            print(f"Use default: {arduino_cli_default_ver}")
 
     if args.url:
         stm32_url = args.url
@@ -458,10 +458,6 @@ def find_board():
     if args.board:
         arg_board_pattern = re.compile(args.board, re.IGNORECASE)
 
-    if version.parse(arduino_cli_version) >= version.parse("0.18.0"):
-        fqbn_key = "fqbn"
-    else:
-        fqbn_key = "FQBN"
     fqbn_list_tmp = []
     try:
         output = subprocess.check_output(
@@ -476,8 +472,8 @@ def find_board():
         boards_list = json.loads(output)
         if boards_list is not None:
             for board in boards_list["boards"]:
-                if arduino_platform in board[fqbn_key]:
-                    fqbn_list_tmp.append(board[fqbn_key])
+                if arduino_platform in board["fqbn"]:
+                    fqbn_list_tmp.append(board["fqbn"])
         if not len(fqbn_list_tmp):
             print(f"No boards found for {arduino_platform}")
             quit(1)
