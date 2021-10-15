@@ -32,6 +32,7 @@ arduino_cli_path = Path("")
 stm32_url_base = "https://github.com/stm32duino/BoardManagerFiles/raw/main/"
 stm32_url = f"{stm32_url_base}package_stmicroelectronics_index.json"
 sketches_path_list = []
+search_path_list = []
 default_build_output_dir = tempdir / "build_arduinoCliOutput"
 build_output_dir = tempdir / f"build_arduinoCliOutput{build_id}"
 build_output_cache_dir = build_output_dir / "cache"
@@ -154,6 +155,7 @@ def check_config():
     global arduino_cli_version
     global arduino_cli_path
     global sketches_path_list
+    global search_path_list
     global build_output_dir
     global root_output_dir
     global output_dir
@@ -257,6 +259,13 @@ def check_config():
                 else:
                     print("No user directory!")
                     quit(1)
+                # Fill search_path_list to avoid search on the same path
+                sorted_spl = sorted(set(sketches_path_list))
+                search_path_list = []
+                while sorted_spl:
+                    p = sorted_spl.pop(0)
+                    if not any(root in p.parents for root in search_path_list):
+                        search_path_list.append(Path(p))
             else:
                 print("No arduino-cli config!")
                 quit(1)
@@ -430,7 +439,7 @@ def find_inos():
     # key: path, value: name
     if args.sketches:
         arg_sketch_pattern = re.compile(args.sketches, re.IGNORECASE)
-    for spath in sketches_path_list:
+    for spath in search_path_list:
         for spath_object in spath.glob("**/*.[ip][nd][oe]"):
             if args.sketches:
                 if arg_sketch_pattern.search(str(spath_object)) is None:
