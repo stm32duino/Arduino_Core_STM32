@@ -2,6 +2,7 @@ import argparse
 import collections
 import concurrent.futures
 from datetime import timedelta
+from glob import glob
 import json
 import os
 from packaging import version
@@ -440,12 +441,22 @@ def find_inos():
     if args.sketches:
         arg_sketch_pattern = re.compile(args.sketches, re.IGNORECASE)
     for spath in search_path_list:
-        for spath_object in spath.glob("**/*.[ip][nd][oe]"):
+        # Due to issue with Path.glob() which does not follow symlink
+        # use glob.glob
+        # See: https://bugs.python.org/issue33428
+        # for spath_object in spath.glob("**/*.[ip][nd][oe]"):
+        #     if args.sketches:
+        #         if arg_sketch_pattern.search(str(spath_object)) is None:
+        #             continue
+        #     if spath_object.is_file():
+        #         sketch_list.append(spath_object.parent)
+        for sk_ino in glob(str(spath / "**" / "*.[ip][nd][oe]"), recursive=True):
             if args.sketches:
-                if arg_sketch_pattern.search(str(spath_object)) is None:
+                if arg_sketch_pattern.search(sk_ino) is None:
                     continue
-            if spath_object.is_file():
-                sketch_list.append(spath_object.parent)
+            p_ino = Path(sk_ino)
+            if p_ino.is_file():
+                sketch_list.append(p_ino.parent)
     sketch_list = sorted(set(sketch_list))
 
 
