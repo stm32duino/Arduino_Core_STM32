@@ -675,7 +675,7 @@ def log_final_result():
     print(output_dir)
 
 
-# Set up specific options to customise arduino builder command
+# Set up specific options to customise arduino-cli command
 def get_fqbn(b_name):
     if b_name in board_custom_fqbn and board_custom_fqbn[b_name]:
         return board_custom_fqbn[b_name]
@@ -686,7 +686,7 @@ def get_fqbn(b_name):
             return board_fqbn[b_name]
 
 
-# Generate arduino builder basic command
+# Generate arduino-cli basic command
 def genBasicCommand(b_name):
     cmd = []
     cmd.append(arduino_cli)
