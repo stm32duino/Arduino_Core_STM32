@@ -105,6 +105,12 @@ ffail = "\033[31mfailed\033[0m"
 fskip = "\033[33mskipped\033[0m"
 nl = "\n"
 
+# index build configuration
+idx_b_name = 0
+idx_build = 1
+idx_log = 2
+idx_cmd = 3
+
 
 def cat(file):
     with open(file, "r") as f:
@@ -557,17 +563,17 @@ def find_board():
 
 
 # Check the status
-def check_status(status, build_conf, boardKo):
+def check_status(status, build_conf, boardKo, nb_build_conf):
     global nb_build_passed
     global nb_build_failed
-    sketch_name = build_conf[4][-1].name
+    sketch_name = build_conf[idx_cmd][-1].name
 
     if status[1] == 0:
         result = fsucc
         nb_build_passed += 1
     elif status[1] == 1:
         # Check if failed due to a region overflowed
-        logFile = build_conf[3] / f"{sketch_name}.log"
+        logFile = build_conf[idx_log] / f"{sketch_name}.log"
         error_found = False
         for i, line in enumerate(open(logFile)):
             if error_pattern.search(line):
@@ -580,7 +586,7 @@ def check_status(status, build_conf, boardKo):
                     error_found = True
             if error_found:
                 result = ffail
-                boardKo.append(build_conf[0])
+                boardKo.append(build_conf[idx_b_name])
                 if args.ci:
                     cat(logFile)
                 nb_build_failed += 1
@@ -591,12 +597,12 @@ def check_status(status, build_conf, boardKo):
             nb_build_passed += 1
     else:
         result = "\033[31merror\033[0m"
-        boardKo.append(build_conf[0])
+        boardKo.append(build_conf[idx_b_name])
         nb_build_failed += 1
     print(
         f"{build_format_result}".format(
-            f"{build_conf[1]}/{build_conf[2]}",
-            build_conf[0],
+            f"{build_conf[idx_build]}/{nb_build_conf}",
+            build_conf[idx_b_name],
             result,
             status[0],
         )
@@ -702,47 +708,46 @@ def genBasicCommand(b_name):
 
 def create_build_conf_list():
     build_conf_list = []
-    idx = 1
-    for b_name in board_fqbn:
+    for idx, b_name in enumerate(board_fqbn, start=1):
         build_conf_list.append(
-            (
+            [
                 b_name,
                 idx,
-                len(board_fqbn),
                 output_dir / b_name,
                 genBasicCommand(b_name),
-            )
+            ]
         )
-        idx += 1
     return build_conf_list
 
 
 def build_config(sketch, boardSkipped):
     global nb_build_skipped
-    build_conf_list = create_build_conf_list()
+    build_conf_list = []
+    build_conf_list_tmp = create_build_conf_list()
 
-    for idx in reversed(range(len(build_conf_list))):
-        build_conf_list[idx][4][-1] = sketch
-        if na_sketch_pattern:
-            if build_conf_list[idx][0] in na_sketch_pattern:
-                for pattern in na_sketch_pattern[build_conf_list[idx][0]]:
-                    if re.search(pattern, str(sketch), re.IGNORECASE):
-                        boardSkipped.append(build_conf_list[idx][0])
-                        del build_conf_list[idx]
-                        nb_build_skipped += 1
-                        break
-                else:
-                    # get specific sketch options to append to the fqbn
-                    for pattern in sketch_options:
-                        if re.search(pattern, str(sketch), re.IGNORECASE):
-                            if build_conf_list[idx][4][-2].count(":") == 3:
-                                build_conf_list[idx][4][-2] += (
-                                    "," + sketch_options[pattern]
-                                )
-                            else:
-                                build_conf_list[idx][4][-2] += (
-                                    ":" + sketch_options[pattern]
-                                )
+    while len(build_conf_list_tmp):
+        build_conf = build_conf_list_tmp.pop(0)
+        build_conf[idx_cmd][-1] = sketch
+        b_name = build_conf[idx_b_name]
+        s_sketch = str(sketch)
+        build_conf[idx_build] = len(build_conf_list) + 1
+        if b_name in na_sketch_pattern:
+            for pattern in na_sketch_pattern[b_name]:
+                if re.search(pattern, s_sketch, re.IGNORECASE):
+                    boardSkipped.append(b_name)
+                    nb_build_skipped += 1
+                    break
+            else:
+                # Get specific sketch options to append to the fqbn
+                for pattern in sketch_options:
+                    if re.search(pattern, s_sketch, re.IGNORECASE):
+                        if build_conf[idx_cmd][-2].count(":") == 3:
+                            build_conf[idx_cmd][-2] += f",{sketch_options[pattern]}"
+                        else:
+                            build_conf[idx_cmd][-2] += f":{sketch_options[pattern]}"
+                build_conf_list.append(build_conf)
+        else:
+            build_conf_list.append(build_conf)
     return build_conf_list
 
 
@@ -773,11 +778,12 @@ def build_all():
         print(build_separator)
 
         build_conf_list = build_config(sketch, boardSkipped)
+        nb_build_conf = len(build_conf_list)
         with concurrent.futures.ProcessPoolExecutor(os.cpu_count() - 1) as executor:
             for build_conf, res in zip(
                 build_conf_list, executor.map(build, build_conf_list)
             ):
-                check_status(res, build_conf, boardKo)
+                check_status(res, build_conf, boardKo, nb_build_conf)
         log_sketch_build_result(sketch, boardKo, boardSkipped)
         # Ensure no cache issue
         deleteFolder(build_output_cache_dir)
@@ -786,9 +792,9 @@ def build_all():
 
 # Run arduino-cli command
 def real_build(build_conf):
-    cmd = build_conf[4]
+    cmd = build_conf[idx_cmd]
     status = [time.monotonic()]
-    with open(build_conf[3] / f"{cmd[-1].name}.log", "w") as stdout:
+    with open(build_conf[idx_log] / f"{cmd[-1].name}.log", "w") as stdout:
         res = subprocess.Popen(cmd, stdout=stdout, stderr=subprocess.STDOUT)
         res.wait()
         status[0] = time.monotonic() - status[0]
@@ -802,7 +808,7 @@ def dry_build(build_conf):
     status = [random.random() * 10, random.randint(0, 1)]
     if status[1] == 1:
         # Create dummy log file
-        logFile = build_conf[3] / f"{ build_conf[4][-1].name}.log"
+        logFile = build_conf[idx_log] / f"{ build_conf[idx_cmd][-1].name}.log"
         # random failed
         dummy = open(logFile, "w")
         if random.randint(0, 1) == 1:
