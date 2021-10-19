@@ -194,6 +194,7 @@ def check_config():
     else:
         arduino_cli = str(arduino_cli_path / "arduino-cli")
 
+    # Check arduino-cli version
     try:
         output = subprocess.check_output(
             [arduino_cli, "version"],
@@ -217,6 +218,39 @@ def check_config():
     if args.url:
         stm32_url = args.url
 
+    # Check if url is already part of the arduino-cli config
+    try:
+        output = subprocess.check_output(
+            [
+                arduino_cli,
+                "config",
+                "dump",
+            ],
+            stderr=subprocess.STDOUT,
+        )
+    except subprocess.CalledProcessError as e:
+        print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
+        print(e.stdout.decode("utf-8"))
+        quit(e.returncode)
+    else:
+        if stm32_url not in output.decode("utf-8"):
+            # Add it to the config
+            try:
+                output = subprocess.check_output(
+                    [
+                        arduino_cli,
+                        "config",
+                        "add",
+                        "board_manager.additional_urls",
+                        stm32_url,
+                    ],
+                    stderr=subprocess.STDOUT,
+                )
+            except subprocess.CalledProcessError as e:
+                print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
+                print(e.stdout.decode("utf-8"))
+                quit(e.returncode)
+    # Check if requested platform is installed
     try:
         output = subprocess.check_output(
             [
@@ -224,8 +258,6 @@ def check_config():
                 "core",
                 "search",
                 "stm32",
-                "--additional-urls",
-                stm32_url,
             ],
             stderr=subprocess.STDOUT,
         )
@@ -492,8 +524,6 @@ def find_board():
                     arduino_cli,
                     "board",
                     "details",
-                    "--additional-urls",
-                    stm32_url,
                     "--format",
                     "json",
                     "-b",
