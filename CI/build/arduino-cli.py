@@ -640,10 +640,9 @@ def log_sketch_build_result(sketch, boardKo, boardSkipped):
 # Log final result
 def log_final_result():
     # Also equal to len(board_fqbn) * len(sketch_list)
-    nb_build_total = nb_build_passed + nb_build_failed + nb_build_skipped
+    nb_build_total = nb_build_passed + nb_build_failed
     stat_passed = round(nb_build_passed * 100.0 / nb_build_total, 2)
     stat_failed = round(nb_build_failed * 100.0 / nb_build_total, 2)
-    stat_skipped = round(nb_build_skipped * 100.0 / nb_build_total, 2)
     duration = str(timedelta(seconds=time.time() - full_buildTime))
 
     # Log file
@@ -653,8 +652,8 @@ def log_final_result():
         f.write(build_separator + "\n")
         ssucc = f"{nb_build_passed} succeeded ({stat_passed}%)"
         sfail = f"{nb_build_failed} failed ({stat_failed}%)"
-        sskip = f"{nb_build_skipped} skipped ({stat_skipped}%)"
-        f.write(f"{ssucc}, {sfail}, {sskip} of {nb_build_total} builds\n")
+        sskip = f"{nb_build_skipped} skipped)"
+        f.write(f"{ssucc}, {sfail}  of {nb_build_total} builds ({sskip})\n")
         f.write(f"Ends {time.strftime('%A %d %B %Y %H:%M:%S')}\n")
         f.write(f"Duration: {duration}\n")
         f.write(f"Logs are available here:\n{output_dir}\n")
@@ -663,8 +662,8 @@ def log_final_result():
     # Standard output
     ssucc = f"{nb_build_passed} {fsucc} ({stat_passed}%)"
     sfail = f"{nb_build_failed} {ffail} ({stat_failed}%)"
-    sskip = f"{nb_build_skipped} {fskip} ({stat_skipped}%)"
-    print(f"Builds Summary: {ssucc}, {sfail}, {sskip} of {nb_build_total} builds")
+    sskip = f"{nb_build_skipped} {fskip}"
+    print(f"Builds Summary: {ssucc}, {sfail} of {nb_build_total} builds ({sskip})")
     print(f"Duration: {duration}")
     print("Logs are available here:")
     print(output_dir)
@@ -676,7 +675,7 @@ def get_fqbn(b_name):
         return board_custom_fqbn[b_name]
     else:
         if b_name in board_options and board_options[b_name]:
-            return board_fqbn[b_name] + "," + board_options[b_name]
+            return f"{board_fqbn[b_name]},{board_options[b_name]}"
         else:
             return board_fqbn[b_name]
 
@@ -728,17 +727,6 @@ def build_config(sketch, boardSkipped):
             if build_conf_list[idx][0] in na_sketch_pattern:
                 for pattern in na_sketch_pattern[build_conf_list[idx][0]]:
                     if re.search(pattern, str(sketch), re.IGNORECASE):
-                        print(
-                            (build_format_result).format(
-                                "{}/{}".format(
-                                    build_conf_list[idx][1], build_conf_list[idx][2]
-                                ),
-                                build_conf_list[idx][0],
-                                fskip,
-                                0.00,
-                            )
-                        )
-
                         boardSkipped.append(build_conf_list[idx][0])
                         del build_conf_list[idx]
                         nb_build_skipped += 1
@@ -771,8 +759,7 @@ def build_all():
     for sketch_nb, sketch in enumerate(sketch_list, start=1):
         boardKo = []
         boardSkipped = []
-        print("\n")
-        print(build_separator)
+        print(f"\n{build_separator}")
         print(
             "| {:^85} |".format(
                 f"Sketch \033[34m{sketch.name}\033[0m ({sketch_nb}/{len(sketch_list)})"
