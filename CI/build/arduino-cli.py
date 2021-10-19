@@ -746,17 +746,15 @@ def build_config(sketch, boardSkipped):
                 else:
                     # get specific sketch options to append to the fqbn
                     for pattern in sketch_options:
-                        print
-                        if pattern in sketch_options:
-                            if re.search(pattern, str(sketch), re.IGNORECASE):
-                                if build_conf_list[idx][4][-2].count(":") == 3:
-                                    build_conf_list[idx][4][-2] += (
-                                        "," + sketch_options[pattern]
-                                    )
-                                else:
-                                    build_conf_list[idx][4][-2] += (
-                                        ":" + sketch_options[pattern]
-                                    )
+                        if re.search(pattern, str(sketch), re.IGNORECASE):
+                            if build_conf_list[idx][4][-2].count(":") == 3:
+                                build_conf_list[idx][4][-2] += (
+                                    "," + sketch_options[pattern]
+                                )
+                            else:
+                                build_conf_list[idx][4][-2] += (
+                                    ":" + sketch_options[pattern]
+                                )
     return build_conf_list
 
 
