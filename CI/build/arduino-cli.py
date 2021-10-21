@@ -224,38 +224,47 @@ def check_config():
     if args.url:
         stm32_url = args.url
 
-    # Check if url is already part of the arduino-cli config
+    # Ensure a configuration exists
     try:
+        print("Check/update arduino-cli configuration")
+        # Try to create configuration file
         output = subprocess.check_output(
-            [
-                arduino_cli,
-                "config",
-                "dump",
-            ],
+            [arduino_cli, "config", "init", "--additional-urls", stm32_url],
             stderr=subprocess.STDOUT,
-        )
-    except subprocess.CalledProcessError as e:
-        print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
-        print(e.stdout.decode("utf-8"))
-        quit(e.returncode)
-    else:
-        if stm32_url not in output.decode("utf-8"):
-            # Add it to the config
-            try:
-                output = subprocess.check_output(
-                    [
-                        arduino_cli,
-                        "config",
-                        "add",
-                        "board_manager.additional_urls",
-                        stm32_url,
-                    ],
-                    stderr=subprocess.STDOUT,
-                )
-            except subprocess.CalledProcessError as e:
-                print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
-                print(e.stdout.decode("utf-8"))
-                quit(e.returncode)
+        ).decode("utf-8")
+    except subprocess.CalledProcessError:
+        try:
+            output = subprocess.check_output(
+                [
+                    arduino_cli,
+                    "config",
+                    "dump",
+                ],
+                stderr=subprocess.STDOUT,
+            )
+        except subprocess.CalledProcessError as e:
+            print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
+            print(e.stdout.decode("utf-8"))
+            quit(e.returncode)
+        else:
+            # Check if url is already part of the arduino-cli config
+            if stm32_url not in output.decode("utf-8"):
+                # Add it to the config
+                try:
+                    output = subprocess.check_output(
+                        [
+                            arduino_cli,
+                            "config",
+                            "add",
+                            "board_manager.additional_urls",
+                            stm32_url,
+                        ],
+                        stderr=subprocess.STDOUT,
+                    )
+                except subprocess.CalledProcessError as e:
+                    print(f"'{' '.join(e.cmd)}' failed with code: {e.returncode}!")
+                    print(e.stdout.decode("utf-8"))
+                    quit(e.returncode)
     # Check if requested platform is installed
     try:
         output = subprocess.check_output(
