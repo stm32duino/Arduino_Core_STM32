@@ -9,15 +9,17 @@ import sys
 from jinja2 import Environment, FileSystemLoader
 from packaging import version
 from pathlib import Path
-from stm32common import createFolder, deleteFolder, copyFolder, copyFile, genSTM32List
 from urllib.parse import urljoin
+
+script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils import copyFile, copyFolder, createFolder, deleteFolder, genSTM32List
 
 if sys.platform.startswith("win32"):
     from colorama import init
 
     init(autoreset=True)
 
-script_path = Path(__file__).parent.resolve()
 home = Path.home()
 path_config_filename = "update_config.json"
 
