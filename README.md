@@ -334,7 +334,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H750ZB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750IB<br>STM32H750II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750IB | [Daisy](https://www.electro-smith.com/daisy/daisy) | *1.9.0* |  |
-| :yellow_heart: | STM32H750IB | Daisy Patch SM | *2.2.0* |  |
+| :yellow_heart: | STM32H750IB | [Daisy Patch SM](https://www.electro-smith.com/daisy/patch-sm) | *2.2.0* |  |
 
 | :green_heart: | STM32H750VB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H753VI | Generic Board | *2.0.0* |  |
