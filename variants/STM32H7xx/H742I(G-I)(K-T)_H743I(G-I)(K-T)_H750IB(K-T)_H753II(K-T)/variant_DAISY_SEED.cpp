@@ -57,7 +57,8 @@ const PinName digitalPin[] = {
   // NC, 3v3D Out
   // NC, VIN
   // NC, DGND
-  PC_7   // LED_BUILTIN
+  PC_7,   // LED_BUILTIN
+  PD_3 // Version 1.1
 };
 
 const uint32_t analogInputPin[] = {
