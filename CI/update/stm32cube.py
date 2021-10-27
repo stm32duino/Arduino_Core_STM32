@@ -10,6 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 from packaging import version
 from pathlib import Path
 from urllib.parse import urljoin
+from xml.dom.minidom import parse
 
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
@@ -29,6 +30,7 @@ gh_core = "https://github.com/stm32duino/Arduino_Core_STM32.git"
 repo_generic_name = "STM32Cube"
 repo_core_name = "Arduino_Core_STM32"
 repo_local_path = home / "STM32Cube_repo"
+local_cube_path = Path("")
 
 # From
 # Relative to repo path
@@ -274,6 +276,45 @@ def updateCoreRepo():
         git_cmds = [["git", "-C", repo_local_path, "clone", gh_core]]
     for cmd in git_cmds:
         execute_cmd(cmd, None)
+
+
+def checkSTLocal():
+    global local_cube_path
+    global stm32_list
+    # Handle local STM32Cube
+    local_cube_path = Path(upargs.local)
+    if not local_cube_path.exists():
+        print(f"Could not find local copy: {local_cube_path}!")
+        exit(1)
+    cube_release = "Unknown"
+    # Define the serie based on package.xml
+    package_file = local_cube_path / "package.xml"
+    if package_file.is_file():
+        xml_file = parse(str(package_file))
+        PackDescription_item = xml_file.getElementsByTagName("PackDescription")
+        for item in PackDescription_item:
+            cube_release = item.attributes["Release"].value
+            if item.hasAttribute("Patch"):
+                cube_release = item.attributes["Patch"].value
+    else:
+        print(f"Could not find: {package_file}!")
+        exit(1)
+    # Process Cube release
+    release_regex = r"FW.(.+).(\d+.\d+.\d+)$"
+    release_match = re.match(release_regex, cube_release)
+    if release_match:
+        serie = release_match.group(1)
+        cube_release = release_match.group(2)
+        print(f"Local STM32Cube {serie} release {cube_release}\n")
+    else:
+        print(
+            f"Unable to define local STM32Cube serie and version of {local_cube_path}!"
+        )
+        exit(1)
+    cube_versions[serie] = cube_release
+    # Manage only one STM32Cube
+    stm32_list = [serie.upper()]
+    checkVersion(serie, local_cube_path)
 
 
 def updateSTRepo():
@@ -572,8 +613,11 @@ def updateMDFile(md_file, serie, version):
 
 def updateCore():
     for serie in stm32_list:
-        cube_name = f"{repo_generic_name}{serie}"
-        cube_path = repo_local_path / cube_name
+        if upargs.local:
+            cube_path = local_cube_path
+        else:
+            cube_name = f"{repo_generic_name}{serie}"
+            cube_path = repo_local_path / cube_name
         core_path = repo_local_path / repo_core_name
         core_HAL_ver = core_HAL_versions[serie]
         cube_HAL_ver = cube_HAL_versions[serie]
@@ -678,6 +722,12 @@ upparser = argparse.ArgumentParser(
 upparser.add_argument(
     "-c", "--check", help="Check versions. Default all.", action="store_true"
 )
+upparser.add_argument(
+    "-l",
+    "--local",
+    metavar="local",
+    help="Use local copy of one STM32cube instead of GitHub",
+)
 group = upparser.add_mutually_exclusive_group()
 group.add_argument(
     "-s", "--serie", metavar="pattern", help="Pattern of the STM32 serie(s) to update"
@@ -685,6 +735,7 @@ group.add_argument(
 group.add_argument(
     "-a", "--add", metavar="name", help="STM32 serie name to add. Ex: 'F1'"
 )
+
 
 upargs = upparser.parse_args()
 
@@ -701,7 +752,10 @@ def main():
         else:
             print(f"{upargs.add} can't be added as it already exists!")
             exit(1)
-    updateSTRepo()
+    if upargs.local:
+        checkSTLocal()
+    else:
+        updateSTRepo()
     if upargs.check:
         printVersion()
     else:
