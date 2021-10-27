@@ -56,6 +56,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
  - [Discovery boards](#discovery-boards)
  - [Eval boards](#eval-boards)
  - [STM32MP1 series coprocessor boards](#stm32mp1-series-coprocessor-boards)
+ - [Generic STM32C0 boards](#generic-stm32c0-boards)
  - [Generic STM32F0 boards](#generic-stm32f0-boards)
  - [Generic STM32F1 boards](#generic-stm32f1-boards)
  - [Generic STM32F2 boards](#generic-stm32f2-boards)
@@ -175,6 +176,12 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32MP157A | [STM32MP157A-DK1](https://www.st.com/en/evaluation-tools/stm32mp157a-dk1.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP157_DK/README.md) to use this board|
 | :green_heart:  | STM32MP157C | [STM32MP157C-DK2](https://www.st.com/en/evaluation-tools/stm32mp157c-dk2.html) | *1.8.0* | See [the documentation](https://github.com/stm32duino/Arduino_Core_STM32/tree/main/variants/STM32MP157_DK/README.md) to use this board|
+
+### Generic STM32C0 boards
+
+| Status | Device(s) | Name | Release | Notes |
+| :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32C031C4<br>STM32C031C6 | Generic Board | **2.5.0** |  |
 
 ### Generic STM32F0 boards
 
