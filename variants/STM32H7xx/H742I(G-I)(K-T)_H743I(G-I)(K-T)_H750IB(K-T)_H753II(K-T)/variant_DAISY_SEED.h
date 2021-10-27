@@ -47,6 +47,7 @@
 #define PB14                    29
 #define PB15                    30
 #define PC7                     31 // LED_BUILTIN
+#define PD3                     32
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -92,7 +93,7 @@
 #define PC10_ALT1               (PC10 | ALT1)
 #define PC11_ALT1               (PC11 | ALT1)
 
-#define NUM_DIGITAL_PINS        32
+#define NUM_DIGITAL_PINS        33
 #define NUM_ANALOG_INPUTS       12
 
 // On-board LED pin number
