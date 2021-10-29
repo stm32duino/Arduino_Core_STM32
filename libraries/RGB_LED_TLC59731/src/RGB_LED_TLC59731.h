@@ -15,6 +15,11 @@
 
 #include "Arduino.h"
 
+#ifndef LED_BUILTIN
+  #define LED_BUILTIN PNUM_NOT_DEFINED
+  #warning "LED_BUILTIN is not defined."
+#endif
+
 class RGB_LED_TLC59731 {
 
   public:
