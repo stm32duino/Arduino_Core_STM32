@@ -36,14 +36,49 @@
 timerObj_t *HardwareTimer_Handle[TIMER_NUM] = {NULL};
 
 /**
+  * @brief  HardwareTimer constructor: make uninitialized timer
+  *         Before calling any methods, call setup to select and setup
+  *         the timer to be used.
+  * @retval None
+  */
+HardwareTimer::HardwareTimer()
+{
+  _timerObj.handle.Instance = nullptr;
+}
+
+/**
   * @brief  HardwareTimer constructor: set default configuration values
+  *         The timer will be usable directly, there is no need to call
+  *         setup(). Using this constructor is not recommended for
+  *         global variables that are automatically initalized at
+  *         startup, since this will happen to early to report any
+  *         errors. Better use the argumentless constructor and call the
+  *         setup() method during initialization later.
   * @param  Timer instance ex: TIM1, ...
   * @retval None
   */
 HardwareTimer::HardwareTimer(TIM_TypeDef *instance)
 {
+  _timerObj.handle.Instance = nullptr;
+  setup(instance);
+}
+
+/**
+  * @brief  HardwareTimer setup: configuration values. Must be called
+  * exactly once before any other methods, except when an instance is
+  * passed to the constructor.
+  * @param  Timer instance ex: TIM1, ...
+  * @retval None
+  */
+void HardwareTimer::setup(TIM_TypeDef *instance)
+{
   uint32_t index = get_timer_index(instance);
   if (index == UNKNOWN_TIMER) {
+    Error_Handler();
+  }
+
+  // Already initialized?
+  if (_timerObj.handle.Instance) {
     Error_Handler();
   }
 

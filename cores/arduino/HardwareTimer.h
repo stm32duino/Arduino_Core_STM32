@@ -98,8 +98,11 @@ using callback_function_t = std::function<void(void)>;
 /* Class --------------------------------------------------------*/
 class HardwareTimer {
   public:
+    HardwareTimer();
     HardwareTimer(TIM_TypeDef *instance);
     ~HardwareTimer();  // destructor
+
+    void setup(TIM_TypeDef *instance); // Setup, only needed if no instance was passed to the constructor
 
     void pause(void);  // Pause counter and all output channels
     void pauseChannel(uint32_t channel); // Timer is still running but channel (output and interrupt) is disabled
