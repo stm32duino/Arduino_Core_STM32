@@ -31,21 +31,21 @@ static uint8_t* sequence[] = { RGB_LED_TLC59731::RED,
     and to have JP5 on and JP4 off
 */
 #if defined(RGB_LED) && defined(LED_SELECT)
-RGB_LED_TLC59731 LED(RGB_LED, LED_SELECT);
+RGB_LED_TLC59731 myLED(RGB_LED, LED_SELECT);
 #else
-RGB_LED_TLC59731 LED;
+RGB_LED_TLC59731 myLED;
 #endif
 
 void setup() {
   /* Change Brightness */
-  LED.setBrightness(0x10);
+  myLED.setBrightness(0x10);
 }
 
 void loop() {
   /* Blink */
-  LED.on(sequence[step]);
+  myLED.on(sequence[step]);
   delay(500);
-  LED.off();
+  myLED.off();
   delay(500);
   step = (step == 6) ? 0 : step + 1;
 }
