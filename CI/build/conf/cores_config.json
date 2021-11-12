@@ -309,6 +309,15 @@
             "NUCLEO_L031K6", "PRNTR_V2" ]
         },
         {
+          "comment": "CM33 not supported yet",
+          "pattern": "FreeRTOS",
+          "applicable": false,
+          "boards": [
+            "B_U585I_IOT02A", "GENERIC_L552ZETXQ", "GENERIC_U575ZITXQ", "GENERIC_U585AIIXQ",
+            "NUCLEO_L552ZE_Q", "NUCLEO_U575ZI_Q"
+          ]
+        },
+        {
           "pattern": "09.USB",
           "applicable": true,
           "boards": [
@@ -335,7 +344,6 @@
           "applicable": true,
           "boards": [
             "DISCO_F746NG",
-            "B_L072Z_LRWAN1",
             "B_L475E_IOT01A",
             "NUCLEO_F091RC",
             "NUCLEO_F103RB",
