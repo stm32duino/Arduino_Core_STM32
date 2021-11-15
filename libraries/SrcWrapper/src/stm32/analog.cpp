@@ -781,8 +781,12 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   uint32_t bank = 0;
 
   if ((pin & PADC_BASE) && (pin < ANA_START)) {
-#if defined(STM32H7xx)
+#if defined(STM32H7xx) || defined(STM32MP1xx)
+#ifdef ADC3
     AdcHandle.Instance = ADC3;
+#else
+    AdcHandle.Instance = ADC2;
+#endif
 #else
     AdcHandle.Instance = ADC1;
 #if defined(ADC5) && defined(ADC_CHANNEL_TEMPSENSOR_ADC5)
