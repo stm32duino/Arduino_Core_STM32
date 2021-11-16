@@ -3190,6 +3190,22 @@ GenG0.menu.pnum.AURORA_ONE.build.product_line=STM32G030xx
 GenG0.menu.pnum.AURORA_ONE.build.variant=STM32G0xx/G030K(6-8)T
 GenG0.menu.pnum.AURORA_ONE.build.variant_h=variant_{build.board}.h
 
+# Generic G030C6Tx
+GenG0.menu.pnum.GENERIC_G030C6TX=Generic G030C6Tx
+GenG0.menu.pnum.GENERIC_G030C6TX.upload.maximum_size=32768
+GenG0.menu.pnum.GENERIC_G030C6TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G030C6TX.build.board=GENERIC_G030C6TX
+GenG0.menu.pnum.GENERIC_G030C6TX.build.product_line=STM32G030xx
+GenG0.menu.pnum.GENERIC_G030C6TX.build.variant=STM32G0xx/G030C(6-8)T
+
+# Generic G030C8Tx
+GenG0.menu.pnum.GENERIC_G030C8TX=Generic G030C8Tx
+GenG0.menu.pnum.GENERIC_G030C8TX.upload.maximum_size=65536
+GenG0.menu.pnum.GENERIC_G030C8TX.upload.maximum_data_size=8192
+GenG0.menu.pnum.GENERIC_G030C8TX.build.board=GENERIC_G030C8TX
+GenG0.menu.pnum.GENERIC_G030C8TX.build.product_line=STM32G030xx
+GenG0.menu.pnum.GENERIC_G030C8TX.build.variant=STM32G0xx/G030C(6-8)T
+
 # Generic G030K6Tx
 GenG0.menu.pnum.GENERIC_G030K6TX=Generic G030K6Tx
 GenG0.menu.pnum.GENERIC_G030K6TX.upload.maximum_size=32768
