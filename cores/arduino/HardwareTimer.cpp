@@ -439,8 +439,13 @@ void HardwareTimer::resumeChannel(uint32_t channel)
         HAL_TIM_IC_Start(&(_timerObj.handle), timChannel);
       }
       break;
-    case TIMER_NOT_USED:
     case TIMER_OUTPUT_COMPARE:
+    case TIMER_DISABLED:
+      if (!LL_TIM_IsEnabledCounter(_timerObj.handle.Instance)) {
+        HAL_TIM_Base_Start(&(_timerObj.handle));
+      }
+      break;
+    case TIMER_NOT_USED:
     default :
       break;
   }
