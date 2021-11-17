@@ -652,7 +652,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   channelOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
 #endif
 #endif
-  channelIC.ICPolarity = TIMER_NOT_USED;
+  channelIC.ICPolarity = TIM_ICPOLARITY_RISING;
   channelIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
   channelIC.ICPrescaler = TIM_ICPSC_DIV1;
   channelIC.ICFilter = 0;
