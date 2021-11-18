@@ -148,8 +148,11 @@ class HardwareTimer {
 
     uint32_t getTimerClkFreq();  // return timer clock frequency in Hz.
 
-    static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Caputre and Compare callback which will call user callback
+    static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Capture and Compare callback which will call user callback
     static void updateCallback(TIM_HandleTypeDef *htim);  // Generic Update (rollover) callback which will call user callback
+
+    bool isRunning(); // return true if HardwareTimer is running
+    bool isRunningChannel(uint32_t channel); // return true if channel is running
 
     // The following function(s) are available for more advanced timer options
     TIM_HandleTypeDef *getHandle();  // return the handle address for HAL related configuration
