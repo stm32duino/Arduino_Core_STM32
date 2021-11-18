@@ -3748,6 +3748,17 @@ GenH7.menu.pnum.DAISY_PATCH_SM.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I
 GenH7.menu.pnum.DAISY_PATCH_SM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.DAISY_PATCH_SM.build.ldscript=DAISY_SEED.ld
 
+# Daisy Petal SM board
+GenH7.menu.pnum.DAISY_PETAL_SM=Daisy Petal SM
+GenH7.menu.pnum.DAISY_PETAL_SM.upload.maximum_size=131072
+GenH7.menu.pnum.DAISY_PETAL_SM.upload.maximum_data_size=524288
+GenH7.menu.pnum.DAISY_PETAL_SM.build.board=DAISY_PETAL_SM
+GenH7.menu.pnum.DAISY_PETAL_SM.build.product_line=STM32H750xx
+GenH7.menu.pnum.DAISY_PETAL_SM.build.variant_h=variant_{build.board}.h
+GenH7.menu.pnum.DAISY_PETAL_SM.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I)(K-T)_H750IB(K-T)_H753II(K-T)
+GenH7.menu.pnum.DAISY_PETAL_SM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+GenH7.menu.pnum.DAISY_PETAL_SM.build.ldscript=DAISY_SEED.ld
+
 # DevEBoxH743VITX
 GenH7.menu.pnum.DevEBoxH743VITX=DevEBox H743VITX
 GenH7.menu.pnum.DevEBoxH743VITX.upload.maximum_size=2097152
