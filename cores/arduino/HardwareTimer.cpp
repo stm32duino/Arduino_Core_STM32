@@ -1159,6 +1159,42 @@ void HardwareTimer::captureCompareCallback(TIM_HandleTypeDef *htim)
 }
 
 /**
+  * @brief  Check whether HardwareTimer is running (paused or resumed).
+  * @retval return true if the HardwareTimer is running
+  */
+bool HardwareTimer::isRunning()
+{
+  return LL_TIM_IsEnabledCounter(_timerObj.handle.Instance);
+}
+
+/**
+  * @brief  Check whether channel is running (paused or resumed).
+  * @param  channel: Arduino channel [1..4]
+  * @retval return true if HardwareTimer is running and the channel is enabled
+  */
+bool HardwareTimer::isRunningChannel(uint32_t channel)
+{
+  int timAssociatedInputChannel;
+  int LLChannel = getLLChannel(channel);
+  int interrupt = getIT(channel);
+  bool ret;
+
+  if (LLChannel == -1) {
+    Error_Handler();
+  }
+
+  if (interrupt == -1) {
+    Error_Handler();
+  }
+
+  // channel is runnning if: timer is running, and either output channel is
+  // enabled or interrupt is set
+  ret = LL_TIM_CC_IsEnabledChannel(_timerObj.handle.Instance, LLChannel)
+        || (__HAL_TIM_GET_IT_SOURCE(&(_timerObj.handle), interrupt) == SET);
+  return (isRunning() && ret);
+}
+
+/**
   * @brief  HardwareTimer destructor
   * @retval None
   */
