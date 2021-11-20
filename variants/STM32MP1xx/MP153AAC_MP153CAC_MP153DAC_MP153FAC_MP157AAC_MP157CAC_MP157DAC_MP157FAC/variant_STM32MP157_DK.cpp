@@ -116,7 +116,7 @@ void SystemClock_Config(void)
 {
   /**
    * NOTE: Because of the limitation of STM32MP1xx, unlike other MCUs this is
-   * NOT a WEAK function, preventing being overriden.
+   * NOT a WEAK function, preventing being overridden.
    * In STM32MP1 series, SystemClock_Config()) is "done" by running the FSBL
    * (First Stage Boot Loader) on Cortex-A. This function call shall NOT be
    * executed in production mode. SystemClock_Config() shall be under

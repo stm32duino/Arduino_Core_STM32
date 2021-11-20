@@ -46,7 +46,7 @@
 // Button
 #define PC9                     22
 
-// GPIO extention
+// GPIO extension
 #define PC15                    23
 #define PB9                     24
 #define PD2                     25
@@ -116,7 +116,7 @@
 #define PC10_ALT1               (PC10 | ALT1)
 #define PC11_ALT1               (PC11 | ALT1)
 
-// Alias GPIO1 extention
+// Alias GPIO1 extension
 #define EXT_GPIO1               PC15
 #define EXT_GPIO2               PB9
 #define EXT_GPIO3               PD2
