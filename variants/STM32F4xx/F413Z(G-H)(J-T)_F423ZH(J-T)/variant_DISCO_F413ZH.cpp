@@ -162,7 +162,7 @@ extern "C" {
 
 WEAK void initVariant(void)
 {
-  /* In DISCO_F413ZH board, Arduino connector and Wifi embeded module are sharing the same SPI pins */
+  /* In DISCO_F413ZH board, Arduino connector and Wifi embedded module are sharing the same SPI pins */
   /* We need to set the default SPI SS pin for the Wifi module to the inactive state i.e. 1 */
   /* See board User Manual: WIFI_SPI_CS = PG_11*/
   __HAL_RCC_GPIOG_CLK_ENABLE();

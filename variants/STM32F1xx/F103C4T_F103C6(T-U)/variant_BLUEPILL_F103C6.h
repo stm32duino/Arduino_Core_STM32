@@ -15,7 +15,7 @@
 /*----------------------------------------------------------------------------
  *        STM32 pins number
  *----------------------------------------------------------------------------*/
-// Bluepill USB connector on the top, MCU side (pins are reversed vertically for Arduino Ananlog pin correct sequence).
+// Bluepill USB connector on the top, MCU side (pins are reversed vertically for Arduino Analog pin correct sequence).
 // Left Side
 #define PB9                     0
 #define PB8                     1
