@@ -3892,6 +3892,15 @@ GenH7.menu.pnum.GENERIC_H743VITX.build.board=GENERIC_H743VITX
 GenH7.menu.pnum.GENERIC_H743VITX.build.product_line=STM32H743xx
 GenH7.menu.pnum.GENERIC_H743VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
 
+# WeAct MiniSTM32H7xx
+GenH7.menu.pnum.WeActMiniH743VITX=WeAct MiniSTM32H7xx
+GenH7.menu.pnum.WeActMiniH743VITX.upload.maximum_size=2097152
+GenH7.menu.pnum.WeActMiniH743VITX.upload.maximum_data_size=524288
+GenH7.menu.pnum.WeActMiniH743VITX.build.board=WeActMiniH743VITX
+GenH7.menu.pnum.WeActMiniH743VITX.build.product_line=STM32H743xx
+GenH7.menu.pnum.WeActMiniH743VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
+GenH7.menu.pnum.WeActMiniH743VITX.build.variant_h=variant_{build.board}.h
+
 # Generic H743ZGTx
 GenH7.menu.pnum.GENERIC_H743ZGTX=Generic H743ZGTx
 GenH7.menu.pnum.GENERIC_H743ZGTX.upload.maximum_size=1048576
