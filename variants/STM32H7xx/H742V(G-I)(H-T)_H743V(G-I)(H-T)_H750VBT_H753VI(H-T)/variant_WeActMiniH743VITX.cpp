@@ -11,6 +11,7 @@
  *******************************************************************************
  */
 
+#ifdef ARDUINO_WeActMiniH743VITX
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -319,3 +320,4 @@ void SysClkFullSpeed() {
 		SystemCoreClockUpdate();
 }
 
+#endif // ARDUINO_WeActMiniH743VITX
