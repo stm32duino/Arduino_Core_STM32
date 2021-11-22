@@ -161,7 +161,7 @@
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
-	#define LED_BUILTIN			PE3
+  #define LED_BUILTIN     PE3
 #endif
 
 // On-board user button

@@ -277,47 +277,51 @@ WEAK void SystemClock_Config(void)
  * power saving mode, mcu runs significantly cooler
  * Sysclock 240 Mhz, bus clocks 120 Mhz
  */
-void SysClkHalfSpeed() {
-	RCC_ClkInitTypeDef RCC_ClkInitStruct = { };
-	/** Initializes the CPU, AHB and APB buses clocks */
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1
-			| RCC_CLOCKTYPE_D1PCLK1;
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-	//RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV2;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
-	RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
-	RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
-		Error_Handler();
-	} else
-		SystemCoreClockUpdate();
+void SysClkHalfSpeed()
+{
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = { };
+  /** Initializes the CPU, AHB and APB buses clocks */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1
+                                | RCC_CLOCKTYPE_D1PCLK1;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  //RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV2;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
+    Error_Handler();
+  } else {
+    SystemCoreClockUpdate();
+  }
 }
 
 /*
  * full speed - sysclk from PLL1 P - 480 Mhz
  * Sysclock 480 Mhz, bus clocks 240 Mhz
  */
-void SysClkFullSpeed() {
-	RCC_ClkInitTypeDef RCC_ClkInitStruct = { };
-	/** Initializes the CPU, AHB and APB buses clocks */
-	RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
-			| RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1
-			| RCC_CLOCKTYPE_D1PCLK1;
-	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-	RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
-	RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
-	RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
-	RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
-	RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
-	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
-		Error_Handler();
-	} else
-		SystemCoreClockUpdate();
+void SysClkFullSpeed()
+{
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = { };
+  /** Initializes the CPU, AHB and APB buses clocks */
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+                                | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1
+                                | RCC_CLOCKTYPE_D1PCLK1;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
+  RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
+  RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_APB1_DIV2;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_APB2_DIV2;
+  RCC_ClkInitStruct.APB4CLKDivider = RCC_APB4_DIV2;
+  if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_4) != HAL_OK) {
+    Error_Handler();
+  } else {
+    SystemCoreClockUpdate();
+  }
 }
 
 #endif // ARDUINO_WeActMiniH743VITX
