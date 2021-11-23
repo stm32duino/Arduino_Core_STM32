@@ -44,7 +44,7 @@ extern "C" {
 #endif
 
 /* Private Defines */
-/// @brief I2C timout in tick unit
+/// @brief I2C timeout in tick unit
 #ifndef I2C_TIMEOUT_TICK
 #define I2C_TIMEOUT_TICK        100
 #endif

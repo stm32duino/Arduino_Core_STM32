@@ -315,7 +315,7 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   handle->Init.NSSPMode          = SPI_NSS_PULSE_DISABLE;
 #endif
 #ifdef SPI_MASTER_KEEP_IO_STATE_ENABLE
-  handle->Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_ENABLE;  /* Recommanded setting to avoid glitches */
+  handle->Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_ENABLE;  /* Recommended setting to avoid glitches */
 #endif
 
   /* Configure SPI GPIO pins */

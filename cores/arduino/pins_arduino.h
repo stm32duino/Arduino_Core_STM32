@@ -169,7 +169,7 @@ PinName analogInputToPinName(uint32_t pin);
 #define digitalPinIsValid(p)        (digitalPinToPinName(p) != NC)
 
 /* As some pin could be duplicated in digitalPin[] */
-/* return first occurence of linked PinName (PYx) */
+/* return first occurrence of linked PinName (PYx) */
 #define digitalPinFirstOccurence(p) (pinNametoDigitalPin(digitalPinToPinName(p)))
 
 /* Specific for Firmata */

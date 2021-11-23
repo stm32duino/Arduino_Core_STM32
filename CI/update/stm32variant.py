@@ -2012,7 +2012,7 @@ def aggregate_dir():
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
 
-        # Group mcu directories when only expressions and xml file name are differents
+        # Group mcu directories when only expressions and xml file name are different
         while mcu_dirs:
             # Pop first item
             group_mcu_dir = [mcu_dirs.pop(0)]

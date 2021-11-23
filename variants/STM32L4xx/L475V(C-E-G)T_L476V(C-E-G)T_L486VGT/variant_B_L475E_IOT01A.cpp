@@ -153,7 +153,7 @@ WEAK void SystemClock_Config(void)
   __HAL_RCC_LSEDRIVE_CONFIG(RCC_LSEDRIVE_LOW);
 
   /* MSI is enabled after System reset, activate PLL with MSI as source */
-  /* NOTE: A limitation is present on the MB1297C-01 board. The reset connexion
+  /* NOTE: A limitation is present on the MB1297C-01 board. The reset connection
   between STM32L4 and the ST-LINK MCU (STM32F103) is not present even if
   schematics are correct. The software reset is available so that the hardware
   missing reset may not be necessary. If the hardware reset is needed, a simple

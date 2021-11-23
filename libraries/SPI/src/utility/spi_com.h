@@ -78,7 +78,7 @@ typedef struct spi_s spi_t;
 #define SPI_SPEED_CLOCK_DIV128_MHZ  ((uint32_t)128)
 #define SPI_SPEED_CLOCK_DIV256_MHZ  ((uint32_t)256)
 
-///@brief speficies the SPI mode to use
+///@brief specifies the SPI mode to use
 //Mode          Clock Polarity (CPOL)       Clock Phase (CPHA)
 //SPI_MODE0             0                         0
 //SPI_MODE1             0                         1

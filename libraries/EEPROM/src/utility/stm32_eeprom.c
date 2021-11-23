@@ -75,7 +75,7 @@ extern "C" {
 #ifndef FLASH_BASE_ADDRESS
 /*
  * By default, Use the last page of the flash to store data
- * in order to prevent overwritting
+ * in order to prevent overwriting
  * program data
  */
 #if defined(EEPROM_RETRAM_MODE)

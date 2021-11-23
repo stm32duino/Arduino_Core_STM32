@@ -2,7 +2,7 @@
   ******************************************************************************
   * @file    rsc_table.c
   * @author  MCD Application Team
-  * @brief   Ressource table
+  * @brief   Resource table
   *
   *   This file provides a default resource table requested by remote proc to
   *  load the elf file. It also allows to add debug trace using a shared buffer.

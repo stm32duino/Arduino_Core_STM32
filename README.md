@@ -2,7 +2,7 @@
 [![forums](https://img.shields.io/badge/join-the%20forums-blue.svg)](https://www.stm32duino.com/)
 [![wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/stm32duino/wiki/wiki)
 [![STM32 Core Continuous Integration](https://github.com/stm32duino/Arduino_Core_STM32/workflows/STM32%20Core%20Continuous%20Integration/badge.svg?branch=main)](https://github.com/stm32duino/Arduino_Core_STM32/actions)
-
+[![codespell](https://github.com/stm32duino/Arduino_Core_STM32/workflows/codespell/badge.svg)](https://github.com/stm32duino/Arduino_Core_STM32/actions?workflow=codespell)
 
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
