@@ -1179,7 +1179,6 @@ bool HardwareTimer::isRunning()
   */
 bool HardwareTimer::isRunningChannel(uint32_t channel)
 {
-  int timAssociatedInputChannel;
   int LLChannel = getLLChannel(channel);
   int interrupt = getIT(channel);
   bool ret;
@@ -1195,7 +1194,7 @@ bool HardwareTimer::isRunningChannel(uint32_t channel)
   // channel is running if: timer is running, and either output channel is
   // enabled or interrupt is set
   ret = LL_TIM_CC_IsEnabledChannel(_timerObj.handle.Instance, LLChannel)
-        || (__HAL_TIM_GET_IT_SOURCE(&(_timerObj.handle), interrupt) == SET);
+        || (__HAL_TIM_GET_IT_SOURCE(&(_timerObj.handle), (uint32_t)interrupt) == SET);
   return (isRunning() && ret);
 }
 
