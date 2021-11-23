@@ -211,7 +211,7 @@ void HardwareTimer::pauseChannel(uint32_t channel)
   */
 void HardwareTimer::resume(void)
 {
-  // Clear flag and ennable IT
+  // Clear flag and enable IT
   if (callbacks[0]) {
     __HAL_TIM_CLEAR_FLAG(&(_timerObj.handle), TIM_FLAG_UPDATE);
     __HAL_TIM_ENABLE_IT(&(_timerObj.handle), TIM_IT_UPDATE);
@@ -920,7 +920,7 @@ uint32_t HardwareTimer::getCaptureCompare(uint32_t channel,  TimerCompareFormat_
   * @param  pin: Arduino pin number, ex D1, 1 or PA1
   * @param  frequency: PWM frequency expressed in hertz
   * @param  dutycycle: PWM dutycycle expressed in percentage
-  * @param  PeriodCallback: timer period callback (timer rollover upon udate event)
+  * @param  PeriodCallback: timer period callback (timer rollover upon update event)
   * @param  CompareCallback: timer compare callback
   * @retval None
   */
@@ -935,7 +935,7 @@ void HardwareTimer::setPWM(uint32_t channel, uint32_t pin, uint32_t frequency, u
   * @param  pin: pin name, ex PB_0
   * @param  frequency: PWM frequency expressed in hertz
   * @param  dutycycle: PWM dutycycle expressed in percentage
-  * @param  PeriodCallback: timer period callback (timer rollover upon udate event)
+  * @param  PeriodCallback: timer period callback (timer rollover upon update event)
   * @param  CompareCallback: timer compare callback
   * @retval None
   */
