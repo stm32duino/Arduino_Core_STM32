@@ -49,7 +49,7 @@ compiler.ldflags=
 compiler.size.cmd=arm-none-eabi-size
 compiler.define=-DARDUINO=
 
-# These can be overriden in boards.txt
+# These can be overridden in boards.txt
 build.extra_flags=
 build.bootloader_flags=
 build.ldscript=ldscript.ld

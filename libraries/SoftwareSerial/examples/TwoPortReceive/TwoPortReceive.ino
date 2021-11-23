@@ -1,5 +1,5 @@
 /*
-  Software serial multple serial test
+  Software serial multiple serial test
 
  Receives from the two software serial ports,
  sends to the hardware serial port.
@@ -48,7 +48,7 @@ void setup() {
 }
 
 void loop() {
-  // By default, the last intialized port is listening.
+  // By default, the last initialized port is listening.
   // when you want to listen on a port, explicitly select it:
   portOne.listen();
   Serial.println("Data from port one:");

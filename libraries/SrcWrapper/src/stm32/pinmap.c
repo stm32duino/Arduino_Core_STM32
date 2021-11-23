@@ -98,7 +98,7 @@ static void configure_dualpad_switch(PinName pin, int function, uint32_t LL_Anal
 
 /**
  * In case of dual pad, determine whether gpio needs to be configured
- * pLL_AnalogSwitch: pointer used to retrun LL define to be used to configure
+ * pLL_AnalogSwitch: pointer used to return LL define to be used to configure
  * Analog switch
  * return: true when gpio must be configured
  */
@@ -147,7 +147,7 @@ bool pin_in_pinmap(PinName pin, const PinMap *map)
  */
 void pin_function(PinName pin, int function)
 {
-  /* Get the pin informations */
+  /* Get the pin information */
   uint32_t mode  = STM_PIN_FUNCTION(function);
   uint32_t afnum = STM_PIN_AFNUM(function);
   uint32_t port = STM_PORT(pin);
@@ -376,6 +376,6 @@ void *pinmap_merge_peripheral(void *a, void *b)
     return a;
   }
 
-  // mis-match error case
+  // mismatch error case
   return NP;
 }

@@ -9,7 +9,7 @@ To report a bug/request please file an issue in the right repository
 (example for [Arduino_Core_STM32](https://github.com/stm32duino/Arduino_Core_STM32/issues/new/choose)).
 But check the following boxes before posting an issue:
 
-- [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [lastest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
+- [ ] `Make sure you are using the latest STM32 core and libraries versions.` See [latest core here](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest).
 - [ ] `Your issue is NOT a question/feedback/suggestions.` This should be discussed on the [stm32duino forum](http://stm32duino.com):
   * questions on the [STM32 Core](http://stm32duino.com/viewforum.php?f=35).
   * bugs/enhancements on the [STM core: Bugs and enhancements](http://stm32duino.com/viewforum.php?f=38).

@@ -581,7 +581,7 @@ static uint8_t USBD_HID_DeInit(USBD_HandleTypeDef *pdev,
 static uint8_t  USBD_COMPOSITE_HID_Setup(USBD_HandleTypeDef *pdev,
                                          USBD_SetupReqTypedef *req)
 {
-  /* Check which interface is targetted by this request */
+  /* Check which interface is targeted by this request */
   if ((req->wIndex & 0x00FF) == HID_KEYBOARD_INTERFACE) {
     return USBD_HID_KEYBOARD_Setup(pdev, req);
   } else {

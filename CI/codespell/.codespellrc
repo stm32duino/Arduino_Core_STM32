@@ -1,0 +1,5 @@
+[codespell]
+check-filenames =
+check-hidden =
+skip = ./.git,./CI,./system/Drivers,./system/Middlewares
+ignore-words = ./CI/codespell/.codespellignore

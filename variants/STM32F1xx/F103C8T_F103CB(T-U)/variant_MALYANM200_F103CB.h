@@ -169,7 +169,7 @@
   #define RCC_PRIORITY            STM32_INT_PRIORITY
 #endif
 #ifndef EXTI_PRIORITY             /*f1 6~10,23,40*/
-  #define EXTI_PRIORITY           MAX_PRIORITY+1  //f1 6~9 botton  use 0x0f
+  #define EXTI_PRIORITY           MAX_PRIORITY+1  //f1 6~9 button use 0x0f
 #endif
 #ifndef DMA1_PRIORITY             /*f1 11~17*/
   #define DMA1_PRIORITY           STM32_INT_PRIORITY

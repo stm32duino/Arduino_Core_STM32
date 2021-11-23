@@ -136,4 +136,4 @@ This is useful for STL objects, custom iteration and C++11 style ranged for loop
 This function returns an `EEPtr` pointing at the location after the last EEPROM cell.  
 Used with `begin()` to provide custom iteration.
 
-**Note:** The `EEPtr` returned is invalid as it is out of range. Infact the hardware causes wrapping of the address (overflow) and `EEPROM.end()` actually references the first EEPROM cell.
+**Note:** The `EEPtr` returned is invalid as it is out of range. In fact the hardware causes wrapping of the address (overflow) and `EEPROM.end()` actually references the first EEPROM cell.

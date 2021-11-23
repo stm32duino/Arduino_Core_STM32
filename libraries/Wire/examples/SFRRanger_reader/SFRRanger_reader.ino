@@ -25,7 +25,7 @@ void loop()
   // step 1: instruct sensor to read echoes
   Wire.beginTransmission(112); // transmit to device #112 (0x70)
                                // the address specified in the datasheet is 224 (0xE0)
-                               // but i2c adressing uses the high 7 bits so it's 112
+                               // but i2c addressing uses the high 7 bits so it's 112
   Wire.write(byte(0x00));      // sets register pointer to the command register (0x00)  
   Wire.write(byte(0x50));      // command sensor to measure in "inches" (0x50) 
                                // use 0x51 for centimeters

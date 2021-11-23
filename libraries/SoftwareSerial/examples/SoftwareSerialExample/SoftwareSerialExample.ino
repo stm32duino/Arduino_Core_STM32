@@ -1,5 +1,5 @@
 /*
-  Software serial multple serial test
+  Software serial multiple serial test
 
  Receives from the hardware serial, sends to software serial.
  Receives from software serial, sends to hardware serial.

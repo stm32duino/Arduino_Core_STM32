@@ -58,7 +58,7 @@ static uint16_t read(virtio_buffer_t *ring, uint8_t *dst, uint16_t size, bool pe
     // Manage ring buffer rollover
     // First, copy ring buffer from read index to end of buffer
     memcpy(dst, ring->buffer + read_index, VIRTIO_BUFFER_SIZE - read_index);
-    // then, copy ring buffer from begining of buffer to end of read
+    // then, copy ring buffer from beginning of buffer to end of read
     memcpy(dst + VIRTIO_BUFFER_SIZE - read_index, ring->buffer, size - (VIRTIO_BUFFER_SIZE - read_index));
   } else {
     memcpy(dst, ring->buffer + read_index, size);

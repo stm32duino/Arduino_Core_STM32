@@ -36,7 +36,7 @@ def copyFile(src, dest):
 
 
 def genSTM32List(path, pattern):
-    stm32_list = []  # Serie
+    stm32_list = []  # series
     dir_pattern = re.compile(r"^STM32(.*)xx_HAL_Driver$", re.IGNORECASE)
 
     if pattern is not None:
