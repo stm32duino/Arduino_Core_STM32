@@ -40,7 +40,7 @@ caddr_t _sbrk(int incr)
     errno = ENOMEM;
     return (caddr_t) -1;
   }
-  /* Ensure to keep minimun stack size defined in the linker script */
+  /* Ensure to keep minimum stack size defined in the linker script */
   if (heap_end + incr >= (char *)(&_estack - &_Min_Stack_Size)) {
     errno = ENOMEM;
     return (caddr_t) -1;

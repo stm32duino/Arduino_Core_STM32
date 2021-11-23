@@ -42,7 +42,7 @@ system_dest_path = Path(system_path)
 hal_dest_path = system_dest_path / hal_src_path
 cmsis_dest_path = system_dest_path / hal_src_path / "CMSIS" / "Device" / "ST"
 
-stm32_list = []  # Serie
+stm32_list = []  # series
 cube_versions = collections.OrderedDict()  # key: serie name, value: cube version
 cube_HAL_versions = collections.OrderedDict()  # key: serie name, value: HAL version
 cube_CMSIS_versions = collections.OrderedDict()  # key: serie name, value: CMSIS version

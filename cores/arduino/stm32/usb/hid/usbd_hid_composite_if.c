@@ -87,7 +87,7 @@ void HID_Composite_DeInit(HID_Interface device)
 /**
   * @brief  Send HID mouse Report
   * @param  report pointer to report
-  * @param  len report lenght
+  * @param  len report length
   * @retval none
   */
 void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len)
@@ -98,7 +98,7 @@ void HID_Composite_mouse_sendReport(uint8_t *report, uint16_t len)
 /**
   * @brief  Send HID keyboard Report
   * @param  report pointer to report
-  * @param  len report lenght
+  * @param  len report length
   * @retval none
   */
 void HID_Composite_keyboard_sendReport(uint8_t *report, uint16_t len)

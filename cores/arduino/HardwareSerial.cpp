@@ -265,7 +265,7 @@ HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
                             setTx(PIN_SERIALLP2_TX);
                           } else
 #endif
-                            // else get the pins of the first peripheral occurence in PinMap
+                            // else get the pins of the first peripheral occurrence in PinMap
                           {
                             _serial.pin_rx = pinmap_pin(peripheral, PinMap_UART_RX);
                             _serial.pin_tx = pinmap_pin(peripheral, PinMap_UART_TX);
@@ -485,7 +485,7 @@ void HardwareSerial::flush()
     // nop, the interrupt handler will free up space for us
   }
   // If we get here, nothing is queued anymore (DRIE is disabled) and
-  // the hardware finished tranmission (TXC is set).
+  // the hardware finished transmission (TXC is set).
 }
 
 size_t HardwareSerial::write(const uint8_t *buffer, size_t size)

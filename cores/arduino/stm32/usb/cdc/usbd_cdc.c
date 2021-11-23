@@ -347,7 +347,7 @@ __ALIGN_BEGIN static uint8_t USBD_CDC_CfgFSDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIGN
 };
 
 __ALIGN_BEGIN static uint8_t USBD_CDC_OtherSpeedCfgDesc[USB_CDC_CONFIG_DESC_SIZ] __ALIGN_END = {
-  0x09,                                       /* bLength: Configuation Descriptor size */
+  0x09,                                       /* bLength: Configuration Descriptor size */
   USB_DESC_TYPE_OTHER_SPEED_CONFIGURATION,
   USB_CDC_CONFIG_DESC_SIZ,
   0x00,

@@ -36,7 +36,7 @@
 //
 #include "SoftwareSerial.h"
 
-#define OVERSAMPLE 3 // in RX, Timer will generate interruption OVERSAMPLE time during a bit. Thus OVERSAMPLE ticks in a bit. (interrupt not synchonized with edge).
+#define OVERSAMPLE 3 // in RX, Timer will generate interruption OVERSAMPLE time during a bit. Thus OVERSAMPLE ticks in a bit. (interrupt not synchronized with edge).
 
 // defined in bit-periods
 #define HALFDUPLEX_SWITCH_DELAY 5
@@ -93,7 +93,7 @@
   #endif
 #endif
 //
-// Statics
+// Static
 //
 HardwareTimer SoftwareSerial::timer(TIMER_SERIAL);
 SoftwareSerial *SoftwareSerial::active_listener = nullptr;
@@ -272,7 +272,7 @@ inline void SoftwareSerial::recv()
           _buffer_overflow = true;
         }
       }
-      // Full trame received. Resart wainting for sart bit at next interrupt
+      // Full trame received. Restart waiting for start bit at next interrupt
       rx_tick_cnt = 1;
       rx_bit_cnt = -1;
     } else {

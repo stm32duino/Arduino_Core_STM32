@@ -9,7 +9,7 @@
   If left unattended the system would reset itself about every 10 seconds.
 
   You would have to keep pressing the button frequently (< 10 seconds apart)
-  to prevent the system from reseting itself.
+  to prevent the system from resetting itself.
 
   You would recognize the reset condition when the LED blinks few times quickly.
 

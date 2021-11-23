@@ -1,7 +1,7 @@
 /**
   ******************************************************************************
   * @file    stm32f0xx_hal_conf_default.h
-  * @brief   HAL defalt configuration file.
+  * @brief   HAL default configuration file.
   ******************************************************************************
   * @attention
   *
