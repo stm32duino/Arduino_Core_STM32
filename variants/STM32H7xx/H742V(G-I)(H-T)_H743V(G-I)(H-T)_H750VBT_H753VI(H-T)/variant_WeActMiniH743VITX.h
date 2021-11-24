@@ -270,13 +270,13 @@ extern "C" {
 #endif
 
 /*
- * power saving mode, mcu runs significantly cooler
+ * Power saving mode, mcu runs significantly cooler
  * Sysclock 240 Mhz, bus clocks 120 Mhz
  */
 void SysClkHalfSpeed();
 
 /*
- * full speed - sysclk from PLL1 P - 480 Mhz
+ * Full speed - sysclk from PLL1 P - 480 Mhz
  * Sysclock 480 Mhz, bus clocks 240 Mhz
  */
 void SysClkFullSpeed();

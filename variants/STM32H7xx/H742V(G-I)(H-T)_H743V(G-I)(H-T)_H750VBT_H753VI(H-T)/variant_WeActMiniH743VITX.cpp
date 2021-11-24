@@ -136,10 +136,10 @@ WEAK void SystemClock_Config(void)
   HAL_PWREx_ConfigSupply(PWR_LDO_SUPPLY);
   /** Configure the main internal regulator output voltage
    *  Run mode (VOS0 to VOS3)
-   * Scale 0: boosted performance (available only with LDO regulator)
-   * Scale 1: high performance
-   * Scale 2: medium performance and consumption
-   * Scale 3: optimized performance and low-power consumption
+   *  Scale 0: boosted performance (available only with LDO regulator)
+   *  Scale 1: high performance
+   *  Scale 2: medium performance and consumption
+   *  Scale 3: optimized performance and low-power consumption
    *
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
@@ -148,7 +148,6 @@ WEAK void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  //RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_HSI;
   /* PLL1 pclk is sysclk 480 Mhz */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
@@ -174,9 +173,9 @@ WEAK void SystemClock_Config(void)
    * RCC_PLL1VCIRANGE_1  Clock range frequency between 2 and 4 MHz
    * RCC_PLL1VCIRANGE_2  Clock range frequency between 4 and 8 MHz
    * RCC_PLL1VCIRANGE_3  Clock range frequency between 8 and 16 MHz */
-  /*PLLRGE: RCC_PLL1VCIRANGE_2 Clock range frequency between 4 and 8 MHz  */
+  /* PLLRGE: RCC_PLL1VCIRANGE_2 Clock range frequency between 4 and 8 MHz  */
   RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_2;
-  /* VCOSEL PLL1VCOWIDE 2-16 Mhz*/
+  /* VCOSEL PLL1VCOWIDE 2-16 Mhz */
   RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOWIDE;
   RCC_OscInitStruct.PLL.PLLFRACN = 0;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
@@ -207,24 +206,24 @@ WEAK void SystemClock_Config(void)
 
   /* PLL1 qclk used for USB 48 Mhz */
   /* PLL1 qclk also used for FMC, QUADSPI, SDMMC, RNG, SAI */
-  /* PLL2 pclk is needed for adc max 80 Mhz (p,q,r same)*/
+  /* PLL2 pclk is needed for adc max 80 Mhz (p,q,r same) */
   /* PLL2 pclk also used for LP timers 2,3,4,5, SPI 1,2,3 */
-  /* PLL2 qclk is needed for uart, can, spi4,5,6 80 Mhz*/
-  /* PLL3 r clk is needed for i2c 80 Mhz (p,q,r same)*/
+  /* PLL2 qclk is needed for uart, can, spi4,5,6 80 Mhz */
+  /* PLL3 r clk is needed for i2c 80 Mhz (p,q,r same) */
   PeriphClkInitStruct.PLL2.PLL2M = 15; // M DIV 15 vco 25 / 15 ~ 1.667 Mhz
   PeriphClkInitStruct.PLL2.PLL2N = 96; // N MUL 96
-  PeriphClkInitStruct.PLL2.PLL2P = 2; // P div 2
-  PeriphClkInitStruct.PLL2.PLL2Q = 2; // Q div 2
-  PeriphClkInitStruct.PLL2.PLL2R = 2; // R div 2
+  PeriphClkInitStruct.PLL2.PLL2P = 2;  // P div 2
+  PeriphClkInitStruct.PLL2.PLL2Q = 2;  // Q div 2
+  PeriphClkInitStruct.PLL2.PLL2R = 2;  // R div 2
   // RCC_PLL1VCIRANGE_0  Clock range frequency between 1 and 2 MHz
   PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_0;
   PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOMEDIUM;
   PeriphClkInitStruct.PLL2.PLL2FRACN = 0;
   PeriphClkInitStruct.PLL3.PLL3M = 15; // M DIV 15 vco 25 / 15 ~ 1.667 Mhz
   PeriphClkInitStruct.PLL3.PLL3N = 96; // N MUL 96
-  PeriphClkInitStruct.PLL3.PLL3P = 2; // P div 2
-  PeriphClkInitStruct.PLL3.PLL3Q = 2; // Q div 2
-  PeriphClkInitStruct.PLL3.PLL3R = 2; // R div 2
+  PeriphClkInitStruct.PLL3.PLL3P = 2;  // P div 2
+  PeriphClkInitStruct.PLL3.PLL3Q = 2;  // Q div 2
+  PeriphClkInitStruct.PLL3.PLL3R = 2;  // R div 2
   // RCC_PLL1VCIRANGE_0  Clock range frequency between 1 and 2 MHz
   PeriphClkInitStruct.PLL3.PLL3RGE = RCC_PLL3VCIRANGE_0;
   PeriphClkInitStruct.PLL3.PLL3VCOSEL = RCC_PLL3VCOMEDIUM;
@@ -264,17 +263,10 @@ WEAK void SystemClock_Config(void)
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
     Error_Handler();
   }
-
-
-
-  /** Enable USB Voltage detector
-  */
-  //HAL_PWREx_EnableUSBVoltageDetector();
-
 }
 
 /*
- * power saving mode, mcu runs significantly cooler
+ * Power saving mode, mcu runs significantly cooler
  * Sysclock 240 Mhz, bus clocks 120 Mhz
  */
 void SysClkHalfSpeed()
@@ -285,7 +277,6 @@ void SysClkHalfSpeed()
                                 | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2 | RCC_CLOCKTYPE_D3PCLK1
                                 | RCC_CLOCKTYPE_D1PCLK1;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
-  //RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV2;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV2;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV2;
@@ -300,7 +291,7 @@ void SysClkHalfSpeed()
 }
 
 /*
- * full speed - sysclk from PLL1 P - 480 Mhz
+ * Full speed - sysclk from PLL1 P - 480 Mhz
  * Sysclock 480 Mhz, bus clocks 240 Mhz
  */
 void SysClkFullSpeed()
@@ -324,4 +315,4 @@ void SysClkFullSpeed()
   }
 }
 
-#endif // ARDUINO_WeActMiniH743VITX
+#endif /* ARDUINO_WeActMiniH743VITX */
