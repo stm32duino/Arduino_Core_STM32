@@ -289,9 +289,10 @@ size_t TwoWire::write(uint8_t data)
   size_t ret = 1;
   if (transmitting) {
     // in master transmitter mode
-    allocateTxBuffer(txDataSize + 1);
-    // error if no memory block available to allocate the buffer
-    if (txBuffer == nullptr) {
+    if (allocateTxBuffer(txDataSize + 1) == 0) {
+      ret = 0;
+    } else if (txBuffer == nullptr) {
+      // error if no memory block available to allocate the buffer
       setWriteError();
       ret = 0;
     } else {
@@ -323,9 +324,10 @@ size_t TwoWire::write(const uint8_t *data, size_t quantity)
 
   if (transmitting) {
     // in master transmitter mode
-    allocateTxBuffer(txDataSize + quantity);
-    // error if no memory block available to allocate the buffer
-    if (txBuffer == nullptr) {
+    if (allocateTxBuffer(txDataSize + quantity) == 0) {
+      ret = 0;
+    } else if (txBuffer == nullptr) {
+      // error if no memory block available to allocate the buffer
       setWriteError();
       ret = 0;
     } else {
@@ -479,9 +481,12 @@ void TwoWire::allocateRxBuffer(size_t length)
   }
 }
 
-inline void TwoWire::allocateTxBuffer(size_t length)
+inline size_t TwoWire::allocateTxBuffer(size_t length)
 {
-  if (txBufferAllocated < length) {
+  size_t ret = length;
+  if (length > WIRE_MAX_TX_BUFF_LENGTH) {
+    ret = 0;
+  } else if (txBufferAllocated < length) {
     // By default we allocate BUFFER_LENGTH bytes. It is the min size of the buffer.
     if (length < BUFFER_LENGTH) {
       length = BUFFER_LENGTH;
@@ -494,6 +499,7 @@ inline void TwoWire::allocateTxBuffer(size_t length)
       _Error_Handler("No enough memory! (%i)\n", length);
     }
   }
+  return ret;
 }
 
 /**

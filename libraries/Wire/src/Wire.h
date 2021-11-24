@@ -28,7 +28,13 @@ extern "C" {
 #include "utility/twi.h"
 }
 
+// Minimal buffer length. Buffers length will be increased when needed,
+// but TX buffer is limited to a maximum to avoid too much stack consumption
+// Note: Buffer length and max buffer length are limited by uin16_t type
 #define BUFFER_LENGTH 32
+#if !defined(WIRE_MAX_TX_BUFF_LENGTH)
+  #define WIRE_MAX_TX_BUFF_LENGTH       1024U
+#endif
 
 // WIRE_HAS_END means Wire has end()
 #define WIRE_HAS_END 1
@@ -56,7 +62,7 @@ class TwoWire : public Stream {
     static void onReceiveService(i2c_t *);
 
     void allocateRxBuffer(size_t length);
-    void allocateTxBuffer(size_t length);
+    size_t allocateTxBuffer(size_t length);
 
     void resetRxBuffer(void);
     void resetTxBuffer(void);
