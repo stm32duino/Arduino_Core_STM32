@@ -67,8 +67,7 @@ void TwoWire::begin(uint8_t address, bool generalCall)
   rxBufferAllocated = 0;
   resetRxBuffer();
 
-  txBufferIndex = 0;
-  txBufferLength = 0;
+  txDataSize = 0;
   txAddress = 0;
   txBuffer = nullptr;
   txBufferAllocated = 0;
@@ -202,9 +201,8 @@ void TwoWire::beginTransmission(uint8_t address)
   transmitting = 1;
   // set address of targeted slave
   txAddress = address << 1;
-  // reset tx buffer iterator vars
-  txBufferIndex = 0;
-  txBufferLength = 0;
+  // reset tx data size
+  txDataSize = 0;
 }
 
 void TwoWire::beginTransmission(int address)
@@ -242,7 +240,7 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
 
   if (_i2c.isMaster == 1) {
     // transmit buffer (blocking)
-    switch (i2c_master_write(&_i2c, txAddress, txBuffer, txBufferLength)) {
+    switch (i2c_master_write(&_i2c, txAddress, txBuffer, txDataSize)) {
       case I2C_OK :
         ret = 0; // Success
         break;
@@ -266,9 +264,8 @@ uint8_t TwoWire::endTransmission(uint8_t sendStop)
     // reset Tx buffer
     resetTxBuffer();
 
-    // reset tx buffer iterator vars
-    txBufferIndex = 0;
-    txBufferLength = 0;
+    // reset tx buffer data size
+    txDataSize = 0;
 
     // indicate that we are done transmitting
     transmitting = 0;
@@ -292,17 +289,16 @@ size_t TwoWire::write(uint8_t data)
   size_t ret = 1;
   if (transmitting) {
     // in master transmitter mode
-    allocateTxBuffer(txBufferLength + 1);
+    allocateTxBuffer(txDataSize + 1);
     // error if no memory block available to allocate the buffer
     if (txBuffer == nullptr) {
       setWriteError();
       ret = 0;
     } else {
       // put byte in tx buffer
-      txBuffer[txBufferIndex] = data;
-      ++txBufferIndex;
+      txBuffer[txDataSize] = data;
       // update amount in buffer
-      txBufferLength = txBufferIndex;
+      txDataSize++;
     }
   } else {
     // in slave send mode
@@ -327,17 +323,17 @@ size_t TwoWire::write(const uint8_t *data, size_t quantity)
 
   if (transmitting) {
     // in master transmitter mode
-    allocateTxBuffer(txBufferLength + quantity);
+    allocateTxBuffer(txDataSize + quantity);
     // error if no memory block available to allocate the buffer
     if (txBuffer == nullptr) {
       setWriteError();
       ret = 0;
     } else {
       // put bytes in tx buffer
-      memcpy(&(txBuffer[txBufferIndex]), data, quantity);
-      txBufferIndex = txBufferIndex + quantity;
+      memcpy(&(txBuffer[txDataSize]), data, quantity);
+
       // update amount in buffer
-      txBufferLength = txBufferIndex;
+      txDataSize += quantity;
     }
   } else {
     // in slave send mode
@@ -397,8 +393,7 @@ void TwoWire::flush(void)
   rxBufferIndex = 0;
   rxBufferLength = 0;
   resetRxBuffer();
-  txBufferIndex = 0;
-  txBufferLength = 0;
+  txDataSize = 0;
   resetTxBuffer();
 }
 
@@ -442,10 +437,9 @@ void TwoWire::onRequestService(i2c_t *obj)
 
   // don't bother if user hasn't registered a callback
   if (TW->user_onRequest) {
-    // reset tx buffer iterator vars
+    // reset tx data size
     // !!! this will kill any pending pre-master sendTo() activity
-    TW->txBufferIndex = 0;
-    TW->txBufferLength = 0;
+    TW->txDataSize = 0;
     // alert user program
     TW->user_onRequest();
   }

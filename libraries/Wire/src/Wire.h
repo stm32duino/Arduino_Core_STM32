@@ -43,8 +43,7 @@ class TwoWire : public Stream {
     uint8_t txAddress;
     uint8_t *txBuffer;
     uint8_t txBufferAllocated;
-    uint8_t txBufferIndex;
-    uint8_t txBufferLength;
+    uint8_t txDataSize;
 
     uint8_t transmitting;
 
