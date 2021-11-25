@@ -163,13 +163,15 @@
 #define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
+#define LED_BLUE                PE3
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN     PE3
+  #define LED_BUILTIN           LED_BLUE
 #endif
 
 // On-board user button
+#define BTN_K1                  PC13
 #ifndef USER_BTN
-  #define USER_BTN              PC13
+  #define USER_BTN              BTN_K1
 #endif
 
 // SPI definitions
