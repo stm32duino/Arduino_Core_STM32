@@ -6465,6 +6465,8 @@ GenH7.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_G
 GenH7.menu.usb.HID=HID (keyboard and mouse)
 GenH7.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
 GenH7.menu.xusb.FS=Low/Full Speed
+GenH7.menu.xusb.HS=High Speed
+GenH7.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
 GenH7.menu.xusb.HSFS=High Speed in Full Speed mode
 GenH7.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
