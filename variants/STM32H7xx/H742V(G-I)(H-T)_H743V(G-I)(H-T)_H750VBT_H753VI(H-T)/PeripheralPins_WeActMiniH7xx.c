@@ -17,7 +17,7 @@
  * STM32H753VIHx.xml, STM32H753VITx.xml
  * CubeMX DB release 6.0.30
  */
-#if defined(ARDUINO_WeActMiniH743VITX)
+#if defined(ARDUINO_WeActMiniH743VITX) || defined(ARDUINO_WeActMiniH750VBTX)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
@@ -536,4 +536,4 @@ WEAK const PinMap PinMap_SD[] = {
 };
 #endif
 
-#endif /* ARDUINO_WeActMiniH743VITX */
+#endif /* ARDUINO_WeActMiniH743VITX || ARDUINO_WeActMiniH750VBTX */

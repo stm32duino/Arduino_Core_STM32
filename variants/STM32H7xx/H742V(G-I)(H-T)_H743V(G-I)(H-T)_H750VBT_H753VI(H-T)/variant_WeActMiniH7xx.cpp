@@ -11,7 +11,7 @@
  *******************************************************************************
  */
 
-#ifdef ARDUINO_WeActMiniH743VITX
+#if defined(ARDUINO_WeActMiniH743VITX) || defined(ARDUINO_WeActMiniH750VBTX)
 #include "pins_arduino.h"
 
 // Digital PinName array
@@ -315,4 +315,4 @@ void SysClkFullSpeed()
   }
 }
 
-#endif /* ARDUINO_WeActMiniH743VITX */
+#endif /* ARDUINO_WeActMiniH743VITX || ARDUINO_WeActMiniH750VBTX */
