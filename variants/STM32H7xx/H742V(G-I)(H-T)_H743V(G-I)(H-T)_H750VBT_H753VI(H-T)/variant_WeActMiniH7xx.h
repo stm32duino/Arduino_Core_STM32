@@ -15,88 +15,91 @@
 /*----------------------------------------------------------------------------
  *        STM32 pins number
  *----------------------------------------------------------------------------*/
-#define PA0                     PIN_A0
-#define PA1                     PIN_A1
-#define PA2                     PIN_A2
-#define PA3                     PIN_A3
-#define PA4                     PIN_A4
-#define PA5                     PIN_A5
-#define PA6                     PIN_A6
-#define PA7                     PIN_A7
-#define PA8                     8
-#define PA9                     9
-#define PA10                    10
-#define PA11                    11
-#define PA12                    12
-#define PA13                    13
-#define PA14                    14
-#define PA15                    15
-#define PB0                     PIN_A8
-#define PB1                     PIN_A9
-#define PB2                     18
-#define PB3                     19
-#define PB4                     20
-#define PB5                     21
-#define PB6                     22
-#define PB7                     23
-#define PB8                     24
-#define PB9                     25
-#define PB10                    26
-#define PB11                    27
-#define PB12                    28
-#define PB13                    29
-#define PB14                    30
-#define PB15                    31
-#define PC0                     PIN_A10
-#define PC1                     PIN_A11
+/* P1 connector - Left side */
+#define PE1                     0       // DVP D3
+#define PE0                     1       // DVP D2
+#define PB9                     2       // DVP I2C1 SDA
+#define PB8                     3       // DVP I2C1 SCL
+#define PB7                     4       // DVP VSYNC
+#define PB6                     5       // QSPI NCS
+#define PB5                     6
+#define PB4                     7       // SPI1 Flash MISO
+#define PB3                     8       // SPI1 Flash CLK
+#define PD7                     9       // SPI1 Flash MOSI
+#define PD6                     10      // SPI SW Flash CS if SB3
+#define PD5                     11
+#define PD4                     12      // µSD SW if SB2
+#define PD3                     13      // DVP D5
+#define PD2                     14      // µSD SDMMC1 CMD
+#define PD1                     15
+#define PD0                     16
+#define PC12                    17      // µSD SDMMC1 CK
+#define PC11                    18      // µSD SDMMC1 D3
+#define PC10                    19      // µSD SDMMC1 D2
+#define PA15                    20
+#define PA12                    21      // USB DP
+#define PA11                    22      // USB DM
+#define PA10                    23
+#define PA9                     24
+#define PA8                     25      // DVP XCLK RCC_MCO_1
+#define PC9                     26      // µSD SDMMC1 D1
+#define PC8                     27      // µSD SDMMC1 D0
+#define PC7                     28      // DVP D1
+#define PC6                     29      // DVP D0
+#define PD15                    30
+#define PD14                    31
+#define PD13                    32      // QSPI IO3
+#define PD12                    33      // QSPI IO1
+#define PD11                    34      // QSPI IO0
+#define PD10                    35
+#define PD9                     36
+#define PD8                     37
+#define PB15                    38      // SPI2 MOSI
+#define PB14                    39      // SPI2 MISO
+#define PB13                    40      // SPI2 CLM
+#define PB12                    41      // SPI2 SSEL
+/* P2 connector - Right side */
+#define PE2                     42      // QSPI IO2
+#define PE3                     43      // BLUE_LED
+#define PE4                     44      // DVP D4
+#define PE5                     45      // DVP D6
+#define PE6                     46      // DVP D7
+#define PC13                    47      // K1
+#define PC0                     PIN_A0
+#define PC1                     PIN_A1
+#define PC2_C                   PIN_A2
+#define PC3_C                   PIN_A3
+#define PA0                     PIN_A4
+#define PA1                     PIN_A5
+#define PA2                     PIN_A6
+#define PA3                     PIN_A7
+#define PA4                     PIN_A8  // DVP HSYNC
+#define PA5                     PIN_A9
+#define PA6                     PIN_A10 // DVP PCLK
+#define PA7                     PIN_A11 // DVP PWDN if SB1
 #define PC4                     PIN_A12
 #define PC5                     PIN_A13
-#define PC6                     36
-#define PC7                     37
-#define PC8                     38
-#define PC9                     39
-#define PC10                    40
-#define PC11                    41
-#define PC12                    42
-#define PC13                    43
-#define PC14                    44
-#define PC15                    45
-#define PD0                     46
-#define PD1                     47
-#define PD2                     48
-#define PD3                     49
-#define PD4                     50
-#define PD5                     51
-#define PD6                     52
-#define PD7                     53
-#define PD8                     54
-#define PD9                     55
-#define PD10                    56
-#define PD11                    57
-#define PD12                    58
-#define PD13                    59
-#define PD14                    60
-#define PD15                    61
-#define PE0                     62
-#define PE1                     63
-#define PE2                     64
-#define PE3                     65
-#define PE4                     66
-#define PE5                     67
-#define PE6                     68
-#define PE7                     69
-#define PE8                     70
-#define PE9                     71
-#define PE10                    72
-#define PE11                    73
-#define PE12                    74
-#define PE13                    75
-#define PE14                    76
-#define PE15                    77
-#define PH0                     78
-#define PH1                     79
-#define PC2_C                   PIN_A14
-#define PC3_C                   PIN_A15
+#define PB0                     PIN_A14
+#define PB1                     PIN_A15
+#define PB2                     64      // QSPI CLK
+#define PE7                     65
+#define PE8                     66
+#define PE9                     67
+#define PE10                    68      // TFT-LCD
+#define PE11                    69      // TFT-LCD
+#define PE12                    70      // TFT-LCD
+#define PE13                    71      // TFT-LCD
+#define PE14                    72      // TFT-LCD
+#define PE15                    73
+#define PB10                    74
+#define PB11                    75
+// Other
+#define PA13                    76      // SWDIO
+#define PA14                    77      // SWCLK
+#define PC14                    78      // OSC32_IN
+#define PC15                    79      // OSC32_OUT
+#define PH0                     80      // OSC_IN
+#define PH1                     81      // OSC_OUT
 
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
@@ -160,18 +163,20 @@
 #define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
+#define LED_BLUE                PE3
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN     PE3
+  #define LED_BUILTIN           LED_BLUE
 #endif
 
 // On-board user button
+#define BTN_K1                  PC13
 #ifndef USER_BTN
-  #define USER_BTN              PC13
+  #define USER_BTN              BTN_K1
 #endif
 
 // SPI definitions
 #ifndef PIN_SPI_SS
-  #define PIN_SPI_SS            PA4
+  #define PIN_SPI_SS            PB12
 #endif
 #ifndef PIN_SPI_SS1
   #define PIN_SPI_SS1           PA15
@@ -183,21 +188,21 @@
   #define PIN_SPI_SS3           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_MOSI
-  #define PIN_SPI_MOSI          PA7
+  #define PIN_SPI_MOSI          PB15
 #endif
 #ifndef PIN_SPI_MISO
-  #define PIN_SPI_MISO          PA6
+  #define PIN_SPI_MISO          PB14
 #endif
 #ifndef PIN_SPI_SCK
-  #define PIN_SPI_SCK           PA5
+  #define PIN_SPI_SCK           PB13
 #endif
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PB7
+  #define PIN_WIRE_SDA          PB11
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PB6
+  #define PIN_WIRE_SCL          PB10
 #endif
 
 // Timer Definitions
@@ -211,7 +216,7 @@
 
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
-  #define SERIAL_UART_INSTANCE  4
+  #define SERIAL_UART_INSTANCE  101
 #endif
 
 // Default pin used for generic 'Serial' instance
@@ -227,9 +232,9 @@
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED
 #endif
-#if !defined(HAL_ETH_MODULE_DISABLED)
-  #define HAL_ETH_MODULE_ENABLED
-#endif
+// #if !defined(HAL_ETH_MODULE_DISABLED)
+//   #define HAL_ETH_MODULE_ENABLED
+// #endif
 #if !defined(HAL_QSPI_MODULE_DISABLED)
   #define HAL_QSPI_MODULE_ENABLED
 #endif
@@ -270,13 +275,13 @@ extern "C" {
 #endif
 
 /*
- * power saving mode, mcu runs significantly cooler
+ * Power saving mode, mcu runs significantly cooler
  * Sysclock 240 Mhz, bus clocks 120 Mhz
  */
 void SysClkHalfSpeed();
 
 /*
- * full speed - sysclk from PLL1 P - 480 Mhz
+ * Full speed - sysclk from PLL1 P - 480 Mhz
  * Sysclock 480 Mhz, bus clocks 240 Mhz
  */
 void SysClkFullSpeed();
