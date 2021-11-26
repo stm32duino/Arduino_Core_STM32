@@ -25,7 +25,9 @@ https://github.com/stm32duino/Arduino_Core_STM32
 import json
 from os.path import isfile, isdir, join
 
-from SCons.Script import DefaultEnvironment
+from platformio.util import get_systype
+
+from SCons.Script import COMMAND_LINE_TARGETS, DefaultEnvironment
 
 env = DefaultEnvironment()
 platform = env.PioPlatform()
@@ -40,7 +42,8 @@ assert isdir(CMSIS_DIR)
 mcu = board_config.get("build.mcu", "")
 mcu_type = mcu[:-2]
 variant = board_config.get(
-    "build.variant", board_config.get("build.arduino.variant", "generic"))
+    "build.variant", board_config.get("build.arduino.variant", "generic")
+)
 series = mcu_type[:7].upper() + "xx"
 variants_dir = (
     join("$PROJECT_DIR", board_config.get("build.variants_dir"))
@@ -48,6 +51,12 @@ variants_dir = (
     else join(FRAMEWORK_DIR, "variants")
 )
 variant_dir = join(variants_dir, variant)
+inc_variant_dir = variant_dir
+if "windows" not in get_systype().lower() and not (
+    set(["_idedata", "idedata"]) & set(COMMAND_LINE_TARGETS) and " " not in variant_dir
+):
+    inc_variant_dir = variant_dir.replace("(", r"\(").replace(")", r"\)")
+
 upload_protocol = env.subst("$UPLOAD_PROTOCOL")
 
 
@@ -140,13 +149,18 @@ def configure_application_offset(mcu, upload_protocol):
             env.Append(CPPDEFINES=["BL_LEGACY_LEAF"])
 
     if offset != 0:
-        env.Append(CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],)
+        env.Append(
+            CPPDEFINES=[("VECT_TAB_OFFSET", "%s" % hex(offset))],
+        )
 
     # LD_FLASH_OFFSET is mandatory even if there is no offset
     env.Append(LINKFLAGS=["-Wl,--defsym=LD_FLASH_OFFSET=%s" % hex(offset)])
 
 
-if any(mcu in board_config.get("build.cpu") for mcu in ("cortex-m4", "cortex-m7")) and "stm32wl" not in mcu:
+if (
+    any(cpu in board_config.get("build.cpu") for cpu in ("cortex-m4", "cortex-m7"))
+    and "stm32wl" not in mcu
+):
     env.Append(
         CCFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
         LINKFLAGS=["-mfpu=fpv4-sp-d16", "-mfloat-abi=hard"],
@@ -235,11 +249,7 @@ env.Append(
             % board_config.get(
                 "build.arduino.variant_h",
                 "variant_%s.h"
-                % (
-                    "generic"
-                    if board_id.lower().startswith("generic")
-                    else board_id
-                ),
+                % ("generic" if board_id.lower().startswith("generic") else board_id),
             ),
         ),
     ],
@@ -272,12 +282,7 @@ env.Append(
             "Core",
             "Src",
         ),
-        join(
-            FRAMEWORK_DIR,
-            "system",
-            "Middlewares",
-            "OpenAMP"
-        ),
+        join(FRAMEWORK_DIR, "system", "Middlewares", "OpenAMP"),
         join(
             FRAMEWORK_DIR,
             "system",
@@ -296,13 +301,7 @@ env.Append(
             "lib",
             "include",
         ),
-        join(
-            FRAMEWORK_DIR,
-            "system",
-            "Middlewares",
-            "OpenAMP",
-            "virtual_driver"
-        ),
+        join(FRAMEWORK_DIR, "system", "Middlewares", "OpenAMP", "virtual_driver"),
         join(CMSIS_DIR, "Core", "Include"),
         join(
             FRAMEWORK_DIR,
@@ -341,7 +340,8 @@ env.Append(
         "-Wl,--unresolved-symbols=report-all",
         "-Wl,--warn-common",
         "-Wl,--defsym=LD_MAX_SIZE=%d" % board_config.get("upload.maximum_size"),
-        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d" % board_config.get("upload.maximum_ram_size"),
+        "-Wl,--defsym=LD_MAX_DATA_SIZE=%d"
+        % board_config.get("upload.maximum_ram_size"),
     ],
     LIBS=[
         get_arm_math_lib(board_config.get("build.cpu")),
@@ -369,8 +369,8 @@ if not board_config.get("build.ldscript", ""):
         LINKFLAGS=[
             (
                 "-Wl,--default-script",
-                '\"%s\"' % join(
-                    variant_dir,
+                join(
+                    inc_variant_dir,
                     board_config.get("build.arduino.ldscript", "ldscript.ld"),
                 ),
             )
@@ -405,15 +405,14 @@ env.Append(
 libs = []
 
 if "build.variant" in board_config:
-    env.Append(
-        CCFLAGS='"-I%s"' % variant_dir,
-        LINKFLAGS=['"-L%s"' % variant_dir]
-    )
+    env.Append(CPPPATH=[inc_variant_dir], LIBPATH=[inc_variant_dir])
     env.BuildSources(join("$BUILD_DIR", "FrameworkArduinoVariant"), variant_dir)
 
-libs.append(env.BuildLibrary(
-    join("$BUILD_DIR", "FrameworkArduino"), join(FRAMEWORK_DIR, "cores", "arduino")
-))
+libs.append(
+    env.BuildLibrary(
+        join("$BUILD_DIR", "FrameworkArduino"), join(FRAMEWORK_DIR, "cores", "arduino")
+    )
+)
 
 env.BuildSources(
     join("$BUILD_DIR", "SrcWrapper"), join(FRAMEWORK_DIR, "libraries", "SrcWrapper")
