@@ -36,14 +36,14 @@ extern "C" {
 class TwoWire : public Stream {
   private:
     uint8_t *rxBuffer;
-    uint8_t rxBufferAllocated;
-    uint8_t rxBufferIndex;
-    uint8_t rxBufferLength;
+    uint16_t rxBufferAllocated;
+    uint16_t rxBufferIndex;
+    uint16_t rxBufferLength;
 
     uint8_t txAddress;
     uint8_t *txBuffer;
-    uint8_t txBufferAllocated;
-    uint8_t txDataSize;
+    uint16_t txBufferAllocated;
+    uint16_t txDataSize;
 
     uint8_t transmitting;
 
