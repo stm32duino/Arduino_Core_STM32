@@ -124,48 +124,43 @@ uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddres
 
   if (_i2c.isMaster == 1) {
     allocateRxBuffer(quantity);
-    // error if no memory block available to allocate the buffer
-    if (rxBuffer == nullptr) {
-      setWriteError();
-    } else {
 
-      if (isize > 0) {
-        // send internal address; this mode allows sending a repeated start to access
-        // some devices' internal registers. This function is executed by the hardware
-        // TWI module on other processors (for example Due's TWI_IADR and TWI_MMR registers)
+    if (isize > 0) {
+      // send internal address; this mode allows sending a repeated start to access
+      // some devices' internal registers. This function is executed by the hardware
+      // TWI module on other processors (for example Due's TWI_IADR and TWI_MMR registers)
 
-        beginTransmission(address);
+      beginTransmission(address);
 
-        // the maximum size of internal address is 3 bytes
-        if (isize > 3) {
-          isize = 3;
-        }
-
-        // write internal register address - most significant byte first
-        while (isize-- > 0) {
-          write((uint8_t)(iaddress >> (isize * 8)));
-        }
-        endTransmission(false);
+      // the maximum size of internal address is 3 bytes
+      if (isize > 3) {
+        isize = 3;
       }
 
-      // perform blocking read into buffer
+      // write internal register address - most significant byte first
+      while (isize-- > 0) {
+        write((uint8_t)(iaddress >> (isize * 8)));
+      }
+      endTransmission(false);
+    }
+
+    // perform blocking read into buffer
 #if defined(I2C_OTHER_FRAME)
-      if (sendStop == 0) {
-        _i2c.handle.XferOptions = I2C_OTHER_FRAME ;
-      } else {
-        _i2c.handle.XferOptions = I2C_OTHER_AND_LAST_FRAME;
-      }
+    if (sendStop == 0) {
+      _i2c.handle.XferOptions = I2C_OTHER_FRAME ;
+    } else {
+      _i2c.handle.XferOptions = I2C_OTHER_AND_LAST_FRAME;
+    }
 #endif
 
-      if (I2C_OK == i2c_master_read(&_i2c, address << 1, rxBuffer, quantity)) {
-        read = quantity;
-      }
-
-      // set rx buffer iterator vars
-      rxBufferIndex = 0;
-      rxBufferLength = read;
-
+    if (I2C_OK == i2c_master_read(&_i2c, address << 1, rxBuffer, quantity)) {
+      read = quantity;
     }
+
+    // set rx buffer iterator vars
+    rxBufferIndex = 0;
+    rxBufferLength = read;
+
   }
   return read;
 }
@@ -291,10 +286,6 @@ size_t TwoWire::write(uint8_t data)
     // in master transmitter mode
     if (allocateTxBuffer(txDataSize + 1) == 0) {
       ret = 0;
-    } else if (txBuffer == nullptr) {
-      // error if no memory block available to allocate the buffer
-      setWriteError();
-      ret = 0;
     } else {
       // put byte in tx buffer
       txBuffer[txDataSize] = data;
@@ -325,10 +316,6 @@ size_t TwoWire::write(const uint8_t *data, size_t quantity)
   if (transmitting) {
     // in master transmitter mode
     if (allocateTxBuffer(txDataSize + quantity) == 0) {
-      ret = 0;
-    } else if (txBuffer == nullptr) {
-      // error if no memory block available to allocate the buffer
-      setWriteError();
       ret = 0;
     } else {
       // put bytes in tx buffer
@@ -413,12 +400,7 @@ void TwoWire::onReceiveService(i2c_t *obj)
     // i know this drops data, but it allows for slight stupidity
     // meaning, they may not have read all the master requestFrom() data yet
     if (TW->rxBufferIndex >= TW->rxBufferLength) {
-
       TW->allocateRxBuffer(numBytes);
-      // error if no memory block available to allocate the buffer
-      if (TW->rxBuffer == nullptr) {
-        Error_Handler();
-      }
 
       // copy twi rx buffer into local read buffer
       // this enables new reads to happen in parallel
