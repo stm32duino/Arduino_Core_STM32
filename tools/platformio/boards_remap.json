@@ -27,5 +27,9 @@
     "thunder_pack": "THUNDERPACK_L072",
     "thunder_pack_f411": "THUNDERPACK_F411",
     "vccgnd_f103zet6": "VCCGND_F103ZET6_MINI",
-    "waveshare_open103z": "GENERIC_F103ZEHX"
+    "waveshare_open103z": "GENERIC_F103ZEHX",
+    "bw_swan_r5": "SWAN_R5",
+    "disco_b_g431b_esc1": "B_G431B_ESC1",
+    "disco_b_u585i_iot02a": "B_U585I_IOT02A",
+    "nucleo_wl55jc": "NUCLEO_WL55JC1"
 }
