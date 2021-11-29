@@ -11,13 +11,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -603,6 +602,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 
   /* MPU STAY in STOP MODE */
   CLEAR_BIT(PWR->MPUCR, PWR_MPUCR_PDDS);
+
   /* MPU CSTANDBY mode disabled */
   SET_BIT(PWR->MPUCR, PWR_MPUCR_CSTBYDIS);
 
@@ -651,6 +651,7 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
 #endif
 }
 
+
 /**
   * @brief Enters MPU CStandby / MCU CSTOP allowing system Standby mode.
   * @note In Standby mode, all I/O pins are high impedance except for:
@@ -680,6 +681,7 @@ void HAL_PWR_EnterSTANDBYMode(void)
   /* system Power Down Deepsleep selection */
   /* MPU go in STANDBY MODE */
   SET_BIT(PWR->MPUCR, PWR_MPUCR_PDDS);
+
   /* MPU CSTANDBY mode enabled */
   CLEAR_BIT(PWR->MPUCR, PWR_MPUCR_CSTBYDIS);
 
@@ -792,8 +794,3 @@ __weak void HAL_PWR_PVDCallback(void)
 /**
   * @}
   */
-
-
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

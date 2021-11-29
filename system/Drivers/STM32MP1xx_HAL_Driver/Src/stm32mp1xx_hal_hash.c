@@ -12,6 +12,17 @@
   *           + Peripheral State methods
   *           + HASH or HMAC processing suspension/resumption
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                      ##### How to use this driver #####
@@ -149,17 +160,6 @@
           and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -1580,7 +1580,7 @@ static void HASH_DMAXferCplt(DMA_HandleTypeDef *hdma)
       hhash->hdmain->XferCpltCallback = HASH_DMAXferCplt;
      
       /* Enable the DMA In DMA Stream */
-    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((buffersize %4U)!=0U) ? ((buffersize+(4-(buffersize %4U)))/4U):(buffersize/4U)));
+    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((buffersize %4U)!=0U) ? ((buffersize+(4U-(buffersize %4U)))/4U):(buffersize/4U)));
 
     /* Enable DMA requests */
     SET_BIT(HASH->CR, HASH_CR_DMAE);
@@ -1658,13 +1658,14 @@ static HAL_StatusTypeDef HASH_WriteData(HASH_HandleTypeDef *hhash, uint8_t *pInB
     to end, suspend processing */
     if ((hhash->SuspendRequest == HAL_HASH_SUSPEND) && ((buffercounter+4U) < Size))
     {
-#if !defined(GENERATOR_V3_NOT_AVAILABLE)
       /* wait for flag BUSY not set before  Wait for DINIS = 1*/
-      if (buffercounter >=64)
+      if (buffercounter >=64U)
       {
-        HASH_WaitOnFlagUntilTimeout(hhash, HASH_FLAG_BUSY, RESET, HASH_TIMEOUTVALUE);
+        if (HASH_WaitOnFlagUntilTimeout(hhash, HASH_FLAG_BUSY, SET, HASH_TIMEOUTVALUE) != HAL_OK)
+        {
+          return HAL_TIMEOUT;
+        }
       }
-#endif
       /* Wait for DINIS = 1, which occurs when 16 32-bit locations are free
       in the input buffer */
       if (__HAL_HASH_GET_FLAG(HASH_FLAG_DINIS))
@@ -2630,7 +2631,7 @@ if((State_tmp == HAL_HASH_STATE_READY) || (State_tmp == HAL_HASH_STATE_SUSPENDED
     hhash->NbWordsAlreadyPushed = HASH_NBW_PUSHED();
 
     /* Enable the DMA In DMA Stream */
-    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((inputSize %4U)!=0U) ? ((inputSize+(4-(inputSize %4U)))/4U):(inputSize/4U)));
+    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((inputSize %4U)!=0U) ? ((inputSize+(4U-(inputSize %4U)))/4U):(inputSize/4U)));
     
     /* Enable DMA requests */
     SET_BIT(HASH->CR, HASH_CR_DMAE);
@@ -3021,7 +3022,7 @@ if((State_tmp == HAL_HASH_STATE_READY) || (State_tmp == HAL_HASH_STATE_SUSPENDED
     hhash->NbWordsAlreadyPushed = HASH_NBW_PUSHED();
 
     /* Enable the DMA In DMA Stream */
-    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((inputSize %4U)!=0U) ? ((inputSize+(4-(inputSize %4U)))/4U):(inputSize/4U)));
+    status = HAL_DMA_Start_IT(hhash->hdmain, inputaddr, (uint32_t)&HASH->DIN, (((inputSize %4U)!=0U) ? ((inputSize+(4U-(inputSize %4U)))/4U):(inputSize/4U)));
     /* Enable DMA requests */
     SET_BIT(HASH->CR, HASH_CR_DMAE);
 
@@ -3060,7 +3061,3 @@ if((State_tmp == HAL_HASH_STATE_READY) || (State_tmp == HAL_HASH_STATE_SUSPENDED
 /**
   * @}
   */
-
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

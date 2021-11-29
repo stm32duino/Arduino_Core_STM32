@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1921,7 +1920,7 @@ typedef struct
   *                                               to division by 1, 2 or 4, else it is equal to 4 x Fck_pclk1
   */
 #define __HAL_RCC_TIMG1PRES(__RCC_TIMG1PRES__) \
-                 do{  MODIFY_REG( RCC->TIMG1PRER, RCC_TIMG1PRER_TIMG1PRE , __RCC_TIMG1PRES__ );\
+                 do{  MODIFY_REG( RCC->TIMG1PRER, RCC_TIMG1PRER_TIMG1PRE , (__RCC_TIMG1PRES__));\
                  } while(0)
 
 /** @brief  Macro to get the APB1 timer clock prescaler.
@@ -1946,7 +1945,7 @@ typedef struct
   *                                               to division by 1, 2 or 4, else it is equal to 4 x Fck_pclk1
   */
 #define __HAL_RCC_TIMG2PRES(__RCC_TIMG2PRES__) \
-                 do{  MODIFY_REG( RCC->TIMG2PRER, RCC_TIMG2PRER_TIMG2PRE , __RCC_TIMG2PRES__ );\
+                 do{  MODIFY_REG( RCC->TIMG2PRER, RCC_TIMG2PRER_TIMG2PRE , (__RCC_TIMG2PRES__));\
                  } while(0)
 
 /** @brief  Macro to get the APB2 timer clock prescaler.
@@ -2024,5 +2023,3 @@ void HAL_RCCEx_BootMCU(void);
 #endif
 
 #endif /* __STM32MP1xx_HAL_RCC_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

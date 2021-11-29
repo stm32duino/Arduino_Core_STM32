@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -209,7 +208,7 @@ void LL_mDelay(uint32_t Delay)
          MPUSS core (CA7), MCU core (CM4), ACLK, HCLK and APB buses clocks
          configuration
 
-         (+) The maximum frequency of the SystemCoreClock MPUSS (CA7) is 650 MHz
+         (+) The maximum frequency of the SystemCoreClock MPUSS (CA7) is 800 MHz
          (+) The maximum frequency of the ACLK (plus HCLK5 and HCLK6) is 266 MHz.
          (+) The maximum frequency of the SystemCoreClock MCU (CM4) is 209 MHz
          (+) The maximum frequency of the PCLK1, PCLK2 and PCLK3 is 104.5 MHz.
@@ -247,7 +246,7 @@ void LL_SetSystemCoreClock(uint32_t CPU_Frequency)
   *           MHz for PLL_1600 type and between 400 and 800 MHz for PLL_800 type
   *           (PLLxVCO_output = PLLVCO_input * (PLLxN + (FRACV / 8192)))
   *         - PLLxP: ensure that max frequency is reached (PLLxVCO_output / PLLxP)
-  *             - PLL1P output max frequency is 650000000 Hz
+  *             - PLL1P output max frequency is 800000000 Hz
   *             - PLL2P output max frequency is 266000000 Hz
   *             - PLL2Q output max frequency is 533000000 Hz
   *             - PLL2R output max frequency is 533000000 Hz

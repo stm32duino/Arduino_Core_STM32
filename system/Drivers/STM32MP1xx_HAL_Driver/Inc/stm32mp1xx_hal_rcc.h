@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1099,7 +1098,7 @@ typedef struct
   * @retval The state of __FLAG__ (TRUE or FALSE).
   */
 #endif /* CORE_CA7 */
-#define __HAL_RCC_GET_FLAG(__FLAG__) ( __FLAG__ ? 1:0 )
+#define __HAL_RCC_GET_FLAG(__FLAG__) ((uint32_t)(__FLAG__ ? 1:0 ))
 /**
   * @}
   */
@@ -2890,7 +2889,7 @@ typedef struct
   *              @arg RCC_HSI_DIV8:  Division by 8, ck_hsi(_ker) =  8 MHz
   */
 #define __HAL_RCC_HSI_DIV(__RCC_HSIDIV__) \
-                 do{  MODIFY_REG( RCC->HSICFGR, RCC_HSICFGR_HSIDIV , __RCC_HSIDIV__ );\
+                 do{  MODIFY_REG( RCC->HSICFGR, RCC_HSICFGR_HSIDIV , (__RCC_HSIDIV__) );\
                  } while(0)
 
 /** @brief  Macro to get the HSI clock division factor.
@@ -3157,9 +3156,9 @@ typedef struct
   * @retval None
   */
 
-#define __HAL_RCC_PLL1CLKOUT_ENABLE(__RCC_PLL1ClockOut__)       SET_BIT(RCC->PLL1CR, __RCC_PLL1ClockOut__ )
+#define __HAL_RCC_PLL1CLKOUT_ENABLE(__RCC_PLL1ClockOut__)       SET_BIT(RCC->PLL1CR, (__RCC_PLL1ClockOut__))
 
-#define __HAL_RCC_PLL1CLKOUT_DISABLE(__RCC_PLL1ClockOut__)      CLEAR_BIT(RCC->PLL1CR, __RCC_PLL1ClockOut__ )
+#define __HAL_RCC_PLL1CLKOUT_DISABLE(__RCC_PLL1ClockOut__)      CLEAR_BIT(RCC->PLL1CR, (__RCC_PLL1ClockOut__))
 
 
 /**
@@ -3187,7 +3186,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_RCC_PLL12_SOURCE(__RCC_PLL12SOURCE__ ) \
-                  do{ MODIFY_REG( RCC->RCK12SELR, RCC_RCK12SELR_PLL12SRC, __RCC_PLL12SOURCE__ );  \
+                  do{ MODIFY_REG( RCC->RCK12SELR, RCC_RCK12SELR_PLL12SRC, (__RCC_PLL12SOURCE__));  \
                   } while(0)
 
 /** @brief  Macro to get the clock source used as PLL1 and PLL2 clocks.
@@ -3221,9 +3220,9 @@ typedef struct
   */
 #define __HAL_RCC_PLL1_CONFIG(__PLLM1__, __PLLN1__, __PLLP1__, __PLLQ1__,__PLLR1__ ) \
                   do{  MODIFY_REG( RCC->PLL1CFGR1, (RCC_PLL1CFGR1_DIVN | RCC_PLL1CFGR1_DIVM1) , \
-                                   ( (__PLLN1__ - 1U) | ( (__PLLM1__ - 1U) << 16U) ) );  \
+                                   ( ((__PLLN1__) - 1U) | ( ((__PLLM1__) - 1U) << 16U) ) );  \
                        MODIFY_REG( RCC->PLL1CFGR2, (RCC_PLL1CFGR2_DIVP | RCC_PLL1CFGR2_DIVQ | RCC_PLL1CFGR2_DIVR), \
-                                   ( (__PLLP1__ - 1U) | ( (__PLLQ1__ - 1U) <<8U ) | ( (__PLLR1__ - 1U) <<16U) )); \
+                                   ( ((__PLLP1__) - 1U) | ( ((__PLLQ1__) - 1U) <<8U ) | ( ((__PLLR1__) - 1U) <<16U) )); \
                     } while(0)
 
 
@@ -3280,8 +3279,8 @@ typedef struct
                                 __RCC_PLL1_SSCG_MODE__, __RCC_PLL1_INC_STEP__ ) \
                   do{  MODIFY_REG( RCC->PLL1CSGR, (RCC_PLL1CSGR_MOD_PER | RCC_PLL1CSGR_TPDFN_DIS | RCC_PLL1CSGR_RPDFN_DIS | \
                                                    RCC_PLL1CSGR_SSCG_MODE | RCC_PLL1CSGR_INC_STEP) , \
-                                   (__RCC_PLL1_MOD_PER__ | __RCC_PLL1_TPDFN_DIS__ | __RCC_PLL1_RPDFN_DIS__ | \
-                                    __RCC_PLL1_SSCG_MODE__ | (__RCC_PLL1_INC_STEP__ << RCC_PLL1CSGR_INC_STEP_Pos)) ) ;  \
+                                   ((__RCC_PLL1_MOD_PER__) | (__RCC_PLL1_TPDFN_DIS__) | (__RCC_PLL1_RPDFN_DIS__) | \
+                                    (__RCC_PLL1_SSCG_MODE__) | ((__RCC_PLL1_INC_STEP__) << RCC_PLL1CSGR_INC_STEP_Pos)) ) ;  \
                      } while(0)
 
 
@@ -3307,9 +3306,9 @@ typedef struct
   * @retval None
   */
 
-#define __HAL_RCC_PLL2CLKOUT_ENABLE(__RCC_PLL2ClockOut__)       SET_BIT(RCC->PLL2CR, __RCC_PLL2ClockOut__ )
+#define __HAL_RCC_PLL2CLKOUT_ENABLE(__RCC_PLL2ClockOut__)       SET_BIT(RCC->PLL2CR, (__RCC_PLL2ClockOut__))
 
-#define __HAL_RCC_PLL2CLKOUT_DISABLE(__RCC_PLL2ClockOut__)      CLEAR_BIT(RCC->PLL2CR, __RCC_PLL2ClockOut__ )
+#define __HAL_RCC_PLL2CLKOUT_DISABLE(__RCC_PLL2ClockOut__)      CLEAR_BIT(RCC->PLL2CR, (__RCC_PLL2ClockOut__))
 
 /**
   * @brief  Enables or disables Fractional Part Of The Multiplication Factor of PLL2 VCO
@@ -3343,9 +3342,9 @@ typedef struct
   */
 #define __HAL_RCC_PLL2_CONFIG(__PLLM2__, __PLLN2__, __PLLP2__, __PLLQ2__,__PLLR2__ ) \
                   do{  MODIFY_REG( RCC->PLL2CFGR1, (RCC_PLL2CFGR1_DIVN | RCC_PLL2CFGR1_DIVM2) , \
-                                   ( (__PLLN2__ - 1U) | ( (__PLLM2__ - 1U) << 16U) ) );  \
+                                   ( ((__PLLN2__) - 1U) | ( ((__PLLM2__) - 1U) << 16U) ) );  \
                        MODIFY_REG( RCC->PLL2CFGR2, (RCC_PLL2CFGR2_DIVP | RCC_PLL2CFGR2_DIVQ | RCC_PLL2CFGR2_DIVR), \
-                                   ( (__PLLP2__ - 1U) | ( (__PLLQ2__ - 1U) <<8U ) | ( (__PLLR2__ - 1U) <<16U) )); \
+                                   ( ((__PLLP2__) - 1U) | ( ((__PLLQ2__) - 1U) <<8U ) | ( ((__PLLR2__) - 1U) <<16U) )); \
                     } while(0)
 
 /**
@@ -3401,8 +3400,8 @@ typedef struct
                                 __RCC_PLL2_SSCG_MODE__, __RCC_PLL2_INC_STEP__ ) \
                   do{  MODIFY_REG( RCC->PLL2CSGR, (RCC_PLL2CSGR_MOD_PER | RCC_PLL2CSGR_TPDFN_DIS | RCC_PLL2CSGR_RPDFN_DIS | \
                                                    RCC_PLL2CSGR_SSCG_MODE | RCC_PLL2CSGR_INC_STEP) , \
-                                   (__RCC_PLL2_MOD_PER__ | __RCC_PLL2_TPDFN_DIS__ | __RCC_PLL2_RPDFN_DIS__ | \
-                                    __RCC_PLL2_SSCG_MODE__ | (__RCC_PLL2_INC_STEP__ << RCC_PLL2CSGR_INC_STEP_Pos)) ) ;  \
+                                   ((__RCC_PLL2_MOD_PER__) | (__RCC_PLL2_TPDFN_DIS__) | (__RCC_PLL2_RPDFN_DIS__) | \
+                                    (__RCC_PLL2_SSCG_MODE__) | ((__RCC_PLL2_INC_STEP__) << RCC_PLL2CSGR_INC_STEP_Pos)) ) ;  \
                      } while(0)
 
 /** @brief  Macros to enable or disable the PLL3.
@@ -3426,9 +3425,9 @@ typedef struct
   *            @arg RCC_PLL3_DIVR
   * @retval None
   */
-#define __HAL_RCC_PLL3CLKOUT_ENABLE(__RCC_PLL3ClockOut__)       SET_BIT(RCC->PLL3CR, __RCC_PLL3ClockOut__ )
+#define __HAL_RCC_PLL3CLKOUT_ENABLE(__RCC_PLL3ClockOut__)       SET_BIT(RCC->PLL3CR, (__RCC_PLL3ClockOut__))
 
-#define __HAL_RCC_PLL3CLKOUT_DISABLE(__RCC_PLL3ClockOut__)      CLEAR_BIT(RCC->PLL3CR, __RCC_PLL3ClockOut__ )
+#define __HAL_RCC_PLL3CLKOUT_DISABLE(__RCC_PLL3ClockOut__)      CLEAR_BIT(RCC->PLL3CR, (__RCC_PLL3ClockOut__))
 
 
 /**
@@ -3479,8 +3478,8 @@ typedef struct
                                 __RCC_PLL3_SSCG_MODE__, __RCC_PLL3_INC_STEP__ ) \
                   do{  MODIFY_REG( RCC->PLL3CSGR, (RCC_PLL3CSGR_MOD_PER | RCC_PLL3CSGR_TPDFN_DIS | RCC_PLL3CSGR_RPDFN_DIS | \
                                                    RCC_PLL3CSGR_SSCG_MODE | RCC_PLL3CSGR_INC_STEP) , \
-                                   (__RCC_PLL3_MOD_PER__ | __RCC_PLL3_TPDFN_DIS__ | __RCC_PLL3_RPDFN_DIS__ | \
-                                    __RCC_PLL3_SSCG_MODE__ | (__RCC_PLL3_INC_STEP__ << RCC_PLL3CSGR_INC_STEP_Pos)) ) ;  \
+                                   ((__RCC_PLL3_MOD_PER__) | (__RCC_PLL3_TPDFN_DIS__) | (__RCC_PLL3_RPDFN_DIS__) | \
+                                    (__RCC_PLL3_SSCG_MODE__) | ((__RCC_PLL3_INC_STEP__) << RCC_PLL3CSGR_INC_STEP_Pos)) ) ;  \
                      } while(0)
 
 
@@ -3497,7 +3496,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_RCC_PLL3_SOURCE(__RCC_PLL3SOURCE__ ) \
-                  do{ MODIFY_REG( RCC->RCK3SELR, RCC_RCK3SELR_PLL3SRC, __RCC_PLL3SOURCE__ );  \
+                  do{ MODIFY_REG( RCC->RCK3SELR, RCC_RCK3SELR_PLL3SRC, (__RCC_PLL3SOURCE__));  \
                   } while(0)
 
 /** @brief  Macro to get the clock source used as PLL3 clock.
@@ -3532,9 +3531,9 @@ typedef struct
   */
 #define __HAL_RCC_PLL3_CONFIG(__PLLM3__, __PLLN3__, __PLLP3__, __PLLQ3__,__PLLR3__ ) \
                   do{  MODIFY_REG( RCC->PLL3CFGR1, (RCC_PLL3CFGR1_DIVN | RCC_PLL3CFGR1_DIVM3) , \
-                                   ( (__PLLN3__ - 1U) | ( (__PLLM3__ - 1U) << 16U) ) );  \
+                                   ( ((__PLLN3__) - 1U) | ( ((__PLLM3__) - 1U) << 16U) ) );  \
                        MODIFY_REG( RCC->PLL3CFGR2, (RCC_PLL3CFGR2_DIVP | RCC_PLL3CFGR2_DIVQ | RCC_PLL3CFGR2_DIVR), \
-                                   ( (__PLLP3__ - 1U) | ( (__PLLQ3__ - 1U) <<8U ) | ( (__PLLR3__ - 1U) <<16U) )); \
+                                   ( ((__PLLP3__) - 1U) | ( ((__PLLQ3__) - 1U) <<8U ) | ( ((__PLLR3__) - 1U) <<16U) )); \
                     } while(0)
 
 /**
@@ -3585,9 +3584,9 @@ typedef struct
   *            @arg RCC_PLL4_DIVR
   * @retval None
   */
-#define __HAL_RCC_PLL4CLKOUT_ENABLE(__RCC_PLL4ClockOut__)       SET_BIT(RCC->PLL4CR, __RCC_PLL4ClockOut__ )
+#define __HAL_RCC_PLL4CLKOUT_ENABLE(__RCC_PLL4ClockOut__)       SET_BIT(RCC->PLL4CR, (__RCC_PLL4ClockOut__))
 
-#define __HAL_RCC_PLL4CLKOUT_DISABLE(__RCC_PLL4ClockOut__)      CLEAR_BIT(RCC->PLL4CR, __RCC_PLL4ClockOut__ )
+#define __HAL_RCC_PLL4CLKOUT_DISABLE(__RCC_PLL4ClockOut__)      CLEAR_BIT(RCC->PLL4CR, (__RCC_PLL4ClockOut__))
 
 
 /**
@@ -3638,8 +3637,8 @@ typedef struct
                                 __RCC_PLL4_SSCG_MODE__, __RCC_PLL4_INC_STEP__ ) \
                   do{  MODIFY_REG( RCC->PLL4CSGR, (RCC_PLL4CSGR_MOD_PER | RCC_PLL4CSGR_TPDFN_DIS | RCC_PLL4CSGR_RPDFN_DIS | \
                                                    RCC_PLL4CSGR_SSCG_MODE | RCC_PLL4CSGR_INC_STEP) , \
-                                   (__RCC_PLL4_MOD_PER__ | __RCC_PLL4_TPDFN_DIS__ | __RCC_PLL4_RPDFN_DIS__ | \
-                                    __RCC_PLL4_SSCG_MODE__ | (__RCC_PLL4_INC_STEP__ << RCC_PLL4CSGR_INC_STEP_Pos)) ) ;  \
+                                   ((__RCC_PLL4_MOD_PER__) | (__RCC_PLL4_TPDFN_DIS__) | (__RCC_PLL4_RPDFN_DIS__) | \
+                                    (__RCC_PLL4_SSCG_MODE__) | ((__RCC_PLL4_INC_STEP__) << RCC_PLL4CSGR_INC_STEP_Pos)) ) ;  \
                      } while(0)
 
 
@@ -3656,7 +3655,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_RCC_PLL4_SOURCE(__RCC_PLL4SOURCE__ ) \
-                  do{ MODIFY_REG( RCC->RCK4SELR, RCC_RCK4SELR_PLL4SRC, __RCC_PLL4SOURCE__ );  \
+                  do{ MODIFY_REG( RCC->RCK4SELR, RCC_RCK4SELR_PLL4SRC, (__RCC_PLL4SOURCE__));  \
                   } while(0)
 
 /** @brief  Macro to get the clock source used as PLL4 clock.
@@ -3692,9 +3691,9 @@ typedef struct
   */
 #define __HAL_RCC_PLL4_CONFIG(__PLLM4__, __PLLN4__, __PLLP4__, __PLLQ4__,__PLLR4__ ) \
                   do{  MODIFY_REG( RCC->PLL4CFGR1, (RCC_PLL4CFGR1_DIVN | RCC_PLL4CFGR1_DIVM4) , \
-                                   ( (__PLLN4__ - 1U) | ( (__PLLM4__ - 1U) << 16U) ) );  \
+                                   ( ((__PLLN4__) - 1U) | ( ((__PLLM4__) - 1U) << 16U) ) );  \
                        MODIFY_REG( RCC->PLL4CFGR2, (RCC_PLL4CFGR2_DIVP | RCC_PLL4CFGR2_DIVQ | RCC_PLL4CFGR2_DIVR), \
-                                   ( (__PLLP4__ - 1U) | ( (__PLLQ4__ - 1U) <<8U ) | ( (__PLLR4__ - 1U) <<16U) )); \
+                                   ( ((__PLLP4__) - 1U) | ( ((__PLLQ4__) - 1U) <<8U ) | ( ((__PLLR4__) - 1U) <<16U) )); \
                     } while(0)
 
 
@@ -3768,7 +3767,7 @@ typedef struct
   */
 #define __HAL_RCC_MCO1_CONFIGURE(__RCC_MCO1SOURCE__ , __RCC_MCO1PRESCALER__ ) \
                 do{  MODIFY_REG( RCC->MCO1CFGR, (RCC_MCO1CFGR_MCO1SEL | RCC_MCO1CFGR_MCO1DIV) , \
-                                 (__RCC_MCO1SOURCE__ | __RCC_MCO1PRESCALER__) );\
+                                 ((__RCC_MCO1SOURCE__) | (__RCC_MCO1PRESCALER__)) );\
                 } while(0)
 
 
@@ -3850,7 +3849,7 @@ typedef struct
   */
 #define __HAL_RCC_MCO2_CONFIGURE(__RCC_MCO2SOURCE__ , __RCC_MCO2PRESCALER__ ) \
                 do{  MODIFY_REG( RCC->MCO2CFGR, (RCC_MCO2CFGR_MCO2SEL | RCC_MCO2CFGR_MCO2DIV) , \
-                                 (__RCC_MCO2SOURCE__ | __RCC_MCO2PRESCALER__) );\
+                                 ((__RCC_MCO2SOURCE__) | (__RCC_MCO2PRESCALER__)));\
                 } while(0)
 
 
@@ -3903,7 +3902,7 @@ typedef struct
   *              @arg RCC_MPUSOURCE_MPUDIV: MPUDIV used as MPU clock.
   */
 #define __HAL_RCC_MPU_SOURCE(__RCC_MPUSOURCE__) \
-                do{  MODIFY_REG( RCC->MPCKSELR, RCC_MPCKSELR_MPUSRC , __RCC_MPUSOURCE__ );\
+                do{  MODIFY_REG( RCC->MPCKSELR, RCC_MPCKSELR_MPUSRC , (__RCC_MPUSOURCE__));\
                 } while(0)
 
 /** @brief  Macro to get the clock source used as MPU clock.
@@ -3931,7 +3930,7 @@ typedef struct
   *              @arg RCC_AXISSOURCE_OFF:   AXISS clock is gated.
   */
 #define __HAL_RCC_AXISS_SOURCE(__RCC_AXISSOURCE__) \
-                do{  MODIFY_REG( RCC->ASSCKSELR, RCC_ASSCKSELR_AXISSRC , __RCC_AXISSOURCE__ );\
+                do{  MODIFY_REG( RCC->ASSCKSELR, RCC_ASSCKSELR_AXISSRC , (__RCC_AXISSOURCE__));\
                 } while(0)
 
 /** @brief  Macro to get the clock source used as AXIS clock.
@@ -3958,7 +3957,7 @@ typedef struct
   *              @arg RCC_MCUSSOURCE_PLL3:  PLL3 used as MCU clock.
   */
 #define __HAL_RCC_MCU_SOURCE(__RCC_MCUSSOURCE__) \
-                 do{  MODIFY_REG( RCC->MSSCKSELR, RCC_MSSCKSELR_MCUSSRC , __RCC_MCUSSOURCE__ );\
+                 do{  MODIFY_REG( RCC->MSSCKSELR, RCC_MSSCKSELR_MCUSSRC , (__RCC_MCUSSOURCE__));\
                  } while(0)
 
 /** @brief  Macro to get the clock source used as MCU clock.
@@ -3988,7 +3987,7 @@ typedef struct
   * @retval None
   */
 #define __HAL_RCC_RTC_HSEDIV(__HSEDIV__) \
-                  do{  MODIFY_REG( RCC->RTCDIVR, RCC_RTCDIVR_RTCDIV ,  (__HSEDIV__ -1U ));  \
+                  do{  MODIFY_REG( RCC->RTCDIVR, RCC_RTCDIVR_RTCDIV ,  ((__HSEDIV__) -1U ));  \
                     } while(0)
 
 /** @brief  Macro to get the HSE division factor for RTC clock.
@@ -4019,7 +4018,7 @@ typedef struct
   *         otherwise the processor will no longer be clocked
   */
 #define __HAL_RCC_MPU_DIV(__RCC_MPUDIV__) \
-                 do{  MODIFY_REG( RCC->MPCKDIVR, RCC_MPCKDIVR_MPUDIV , __RCC_MPUDIV__ );\
+                 do{  MODIFY_REG( RCC->MPCKDIVR, RCC_MPCKDIVR_MPUDIV , (__RCC_MPUDIV__));\
                  } while(0)
 
 /** @brief  Macro to get the MPU clock division factor.
@@ -4051,7 +4050,7 @@ typedef struct
   *              @arg RCC_AXI_DIV4:  ck_axiss divided by 4
   */
 #define __HAL_RCC_AXI_DIV(__RCC_AXIDIV__) \
-                 do{  MODIFY_REG( RCC->AXIDIVR, RCC_AXIDIVR_AXIDIV , __RCC_AXIDIV__ );\
+                 do{  MODIFY_REG( RCC->AXIDIVR, RCC_AXIDIVR_AXIDIV , (__RCC_AXIDIV__));\
                  } while(0)
 
 /** @brief  Macro to get the AXI, AHB5 and AHB6 clock division factor.
@@ -4082,7 +4081,7 @@ typedef struct
   *              @arg RCC_APB4_DIV16: ck_aclk divided by 16
   */
 #define __HAL_RCC_APB4_DIV(__RCC_APB4DIV__) \
-                 do{  MODIFY_REG( RCC->APB4DIVR, RCC_APB4DIVR_APB4DIV , __RCC_APB4DIV__ );\
+                 do{  MODIFY_REG( RCC->APB4DIVR, RCC_APB4DIVR_APB4DIV , (__RCC_APB4DIV__));\
                  } while(0)
 
 /** @brief  Macro to get the APB4 clock division factor.
@@ -4114,7 +4113,7 @@ typedef struct
   *              @arg RCC_APB5_DIV16: ck_aclk divided by 16
   */
 #define __HAL_RCC_APB5_DIV(__RCC_APB5DIV__) \
-                 do{  MODIFY_REG( RCC->APB5DIVR, RCC_APB5DIVR_APB5DIV , __RCC_APB5DIV__ );\
+                 do{  MODIFY_REG( RCC->APB5DIVR, RCC_APB5DIVR_APB5DIV , (__RCC_APB5DIV__));\
                  } while(0)
 
 /** @brief  Macro to get the APB5 clock division factor.
@@ -4151,7 +4150,7 @@ typedef struct
   *              @arg RCC_MCU_DIV512: ck_mcuss divided by 512
   */
 #define __HAL_RCC_MCU_DIV(__RCC_MCUDIV__) \
-                 do{  MODIFY_REG( RCC->MCUDIVR, RCC_MCUDIVR_MCUDIV , __RCC_MCUDIV__ );\
+                 do{  MODIFY_REG( RCC->MCUDIVR, RCC_MCUDIVR_MCUDIV , (__RCC_MCUDIV__));\
                  } while(0)
 
 /** @brief  Macro to get the MCU clock division factor.
@@ -4186,7 +4185,7 @@ typedef struct
   *              @arg RCC_APB1_DIV16: ck_hclk divided by 16
   */
 #define __HAL_RCC_APB1_DIV(__RCC_APB1DIV__) \
-                 do{  MODIFY_REG( RCC->APB1DIVR, RCC_APB1DIVR_APB1DIV , __RCC_APB1DIV__ );\
+                 do{  MODIFY_REG( RCC->APB1DIVR, RCC_APB1DIVR_APB1DIV , (__RCC_APB1DIV__));\
                  } while(0)
 
 /** @brief  Macro to get the APB1 clock division factor.
@@ -4218,7 +4217,7 @@ typedef struct
   *              @arg RCC_APB2_DIV16: ck_hclk divided by 16
   */
 #define __HAL_RCC_APB2_DIV(__RCC_APB2DIV__) \
-                 do{  MODIFY_REG( RCC->APB2DIVR, RCC_APB2DIVR_APB2DIV , __RCC_APB2DIV__ );\
+                 do{  MODIFY_REG( RCC->APB2DIVR, RCC_APB2DIVR_APB2DIV , (__RCC_APB2DIV__));\
                  } while(0)
 
 /** @brief  Macro to get the APB2 clock division factor.
@@ -4250,7 +4249,7 @@ typedef struct
   *              @arg RCC_APB3_DIV16: ck_hclk divided by 16
   */
 #define __HAL_RCC_APB3_DIV(__RCC_APB3DIV__) \
-                 do{  MODIFY_REG( RCC->APB3DIVR, RCC_APB3DIVR_APB3DIV , __RCC_APB3DIV__ );\
+                 do{  MODIFY_REG( RCC->APB3DIVR, RCC_APB3DIVR_APB3DIV , (__RCC_APB3DIV__));\
                  } while(0)
 
 /** @brief  Macro to get the APB3 clock division factor.
@@ -4479,5 +4478,3 @@ uint32_t RCC_GetCKPERFreq(void);
 #endif
 
 #endif /* __STM32MP1xx_HAL_RCC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
