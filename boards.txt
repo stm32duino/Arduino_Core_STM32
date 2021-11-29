@@ -3748,6 +3748,26 @@ GenH7.menu.pnum.DAISY_PATCH_SM.build.variant=STM32H7xx/H742I(G-I)(K-T)_H743I(G-I
 GenH7.menu.pnum.DAISY_PATCH_SM.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenH7.menu.pnum.DAISY_PATCH_SM.build.ldscript=DAISY_SEED.ld
 
+# DevEBoxH743VITX
+GenH7.menu.pnum.DevEBoxH743VITX=DevEBox H743VITX
+GenH7.menu.pnum.DevEBoxH743VITX.upload.maximum_size=2097152
+GenH7.menu.pnum.DevEBoxH743VITX.upload.maximum_data_size=524288
+GenH7.menu.pnum.DevEBoxH743VITX.build.board=DevEBoxH743VITX
+GenH7.menu.pnum.DevEBoxH743VITX.build.product_line=STM32H743xx
+GenH7.menu.pnum.DevEBoxH743VITX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
+GenH7.menu.pnum.DevEBoxH743VITX.build.variant_h=variant_DevEBoxH7xx.h
+GenH7.menu.pnum.DevEBoxH743VITX.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# DevEBoxH750VBTX
+GenH7.menu.pnum.DevEBoxH750VBTX=DevEBox H750VBTX
+GenH7.menu.pnum.DevEBoxH750VBTX.upload.maximum_size=131072
+GenH7.menu.pnum.DevEBoxH750VBTX.upload.maximum_data_size=524288
+GenH7.menu.pnum.DevEBoxH750VBTX.build.board=DevEBoxH750VBTX
+GenH7.menu.pnum.DevEBoxH750VBTX.build.product_line=STM32H750xx
+GenH7.menu.pnum.DevEBoxH750VBTX.build.variant=STM32H7xx/H742V(G-I)(H-T)_H743V(G-I)(H-T)_H750VBT_H753VI(H-T)
+GenH7.menu.pnum.DevEBoxH750VBTX.build.variant_h=variant_DevEBoxH7xx.h
+GenH7.menu.pnum.DevEBoxH750VBTX.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # WeAct MiniSTM32H743VITX
 GenH7.menu.pnum.WeActMiniH743VITX=WeAct MiniSTM32H743VITX
 GenH7.menu.pnum.WeActMiniH743VITX.upload.maximum_size=2097152
