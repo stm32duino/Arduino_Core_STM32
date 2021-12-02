@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 /* This is a sample demonstration application that showcases usage of remoteproc
 and rpmsg APIs on the remote core. This application is meant to run on the remote CPU 
 running baremetal code. This applicationr receives two matrices from the master, 
@@ -14,7 +18,6 @@ multiplies them and returns the result to the master core. */
 
 #define	MAX_SIZE      6
 #define NUM_MATRIX    2
-#define APP_EPT_ADDR  0
 
 #define raw_printf(format, ...) printf(format, ##__VA_ARGS__)
 #define LPRINTF(format, ...) raw_printf("CLIENT> " format, ##__VA_ARGS__)
@@ -50,12 +53,12 @@ static void matrix_print(struct _matrix *m)
 	unsigned int i, j;
 
 	/* Generate two random matrices */
-	LPRINTF("Printing matrix... \n");
+	LPRINTF("Printing matrix... \r\n");
 
 	for (i = 0; i < m->size; ++i) {
 		for (j = 0; j < m->size; ++j)
 			raw_printf(" %u ", m->elements[i][j]);
-		raw_printf("\n");
+		raw_printf("\r\n");
 	}
 }
 
@@ -71,9 +74,9 @@ static void generate_matrices(int num_matrices,
 		/* Initialize workload */
 		p_matrix[i].size = matrix_size;
 
-		LPRINTF("Input matrix %d \n", i);
+		LPRINTF("Input matrix %d \r\n", i);
 		for (j = 0; j < matrix_size; j++) {
-			raw_printf("\n");
+			raw_printf("\r\n");
 			for (k = 0; k < matrix_size; k++) {
 
 				value = (rand() & 0x7F);
@@ -82,7 +85,7 @@ static void generate_matrices(int num_matrices,
 				raw_printf(" %u ", p_matrix[i].elements[j][k]);
 			}
 		}
-		raw_printf("\n");
+		raw_printf("\r\n");
 	}
 
 }
@@ -117,7 +120,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data,
 	(void)priv;
 	(void)src;
 	if (len != sizeof(struct _matrix)) {
-		LPERROR("Received matrix is of invalid len: %d:%lu\n",
+		LPERROR("Received matrix is of invalid len: %d:%lu\r\n",
 			(int)sizeof(struct _matrix), (unsigned long)len);
 		err_cnt++;
 		return RPMSG_SUCCESS;
@@ -132,10 +135,10 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data,
 		}
 	}
 	if (err_cnt) {
-		LPERROR("Result mismatched...\n");
-		LPERROR("Expected matrix:\n");
+		LPERROR("Result mismatched...\r\n");
+		LPERROR("Expected matrix:\r\n");
 		matrix_print(&e_matrix);
-		LPERROR("Actual matrix:\n");
+		LPERROR("Actual matrix:\r\n");
 		matrix_print(r_matrix);
 	} else {
 		result_returned = 1;
@@ -147,7 +150,7 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	rpmsg_destroy_ept(&lept);
-	LPRINTF("echo test: service is destroyed\n");
+	LPRINTF("echo test: service is destroyed\r\n");
 	ept_deleted = 1;
 }
 
@@ -155,10 +158,10 @@ static void rpmsg_name_service_bind_cb(struct rpmsg_device *rdev,
 				       const char *name, uint32_t dest)
 {
 	if (strcmp(name, RPMSG_SERVICE_NAME))
-		LPERROR("Unexpected name service %s.\n", name);
+		LPERROR("Unexpected name service %s.\r\n", name);
 	else
 		(void)rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
-				       APP_EPT_ADDR, dest,
+				       RPMSG_ADDR_ANY, dest,
 				       rpmsg_endpoint_cb,
 				       rpmsg_service_unbind);
 
@@ -172,24 +175,24 @@ int app (struct rpmsg_device *rdev, void *priv)
 	int c;
 	int ret;
 
-	LPRINTF("Compute thread unblocked ..\n");
-	LPRINTF("It will generate two random matrices.\n");
-	LPRINTF("Send to the remote and get the computation result back.\n");
-	LPRINTF("It will then check if the result is expected.\n");
+	LPRINTF("Compute thread unblocked ..\r\n");
+	LPRINTF("It will generate two random matrices.\r\n");
+	LPRINTF("Send to the remote and get the computation result back.\r\n");
+	LPRINTF("It will then check if the result is expected.\r\n");
 
 	/* Create RPMsg endpoint */
-	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME, APP_EPT_ADDR,
-			       RPMSG_ADDR_ANY,
+	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERVICE_NAME,
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
 			       rpmsg_endpoint_cb, rpmsg_service_unbind);
 	if (ret) {
-		LPERROR("Failed to create RPMsg endpoint.\n");
+		LPERROR("Failed to create RPMsg endpoint.\r\n");
 		return ret;
 	}
 
 	while (!is_rpmsg_ept_ready(&lept))
 		platform_poll(priv);
 
-	LPRINTF("RPMSG endpoint is binded with remote.\n");
+	LPRINTF("RPMSG endpoint is binded with remote.\r\n");
 	err_cnt = 0;
 	srand(time(NULL));
 	for (c = 0; c < 200; c++) {
@@ -200,10 +203,10 @@ int app (struct rpmsg_device *rdev, void *priv)
 		ret = rpmsg_send(&lept, i_matrix, sizeof(i_matrix));
 
 		if (ret < 0) {
-			LPRINTF("Error sending data...\n");
+			LPRINTF("Error sending data...\r\n");
 			break;
 		}
-		LPRINTF("Matrix multiply: sent : %lu\n",
+		LPRINTF("Matrix multiply: sent : %lu\r\n",
 			(unsigned long)sizeof(i_matrix));
 		do {
 			platform_poll(priv);
@@ -213,13 +216,13 @@ int app (struct rpmsg_device *rdev, void *priv)
 			break;
 	}
 
-	LPRINTF("**********************************\n");
-	LPRINTF(" Test Results: Error count = %d \n", err_cnt);
-	LPRINTF("**********************************\n");
+	LPRINTF("**********************************\r\n");
+	LPRINTF(" Test Results: Error count = %d \r\n", err_cnt);
+	LPRINTF("**********************************\r\n");
 
 	/* Detroy RPMsg endpoint */
 	rpmsg_destroy_ept(&lept);
-	LPRINTF("Quitting application .. Matrix multiplication end\n");
+	LPRINTF("Quitting application .. Matrix multiplication end\r\n");
 
 	return 0;
 }
@@ -233,7 +236,7 @@ int main(int argc, char *argv[])
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
 	if (ret) {
-		LPERROR("Failed to initialize platform.\n");
+		LPERROR("Failed to initialize platform.\r\n");
 		ret = -1;
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
@@ -241,16 +244,16 @@ int main(int argc, char *argv[])
 						  NULL,
 						  rpmsg_name_service_bind_cb);
 		if (!rpdev) {
-			LPERROR("Failed to create rpmsg virtio device.\n");
+			LPERROR("Failed to create rpmsg virtio device.\r\n");
 			ret = -1;
 		} else {
 			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev);
+			platform_release_rpmsg_vdev(rpdev, platform);
 			ret = 0;
 		}
 	}
 
-	LPRINTF("Stopping application...\n");
+	LPRINTF("Stopping application...\r\n");
 	platform_cleanup(platform);
 
 	return ret;

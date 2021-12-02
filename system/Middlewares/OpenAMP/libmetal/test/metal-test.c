@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <metal/errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "metal-test.h"
 #include <metal/compiler.h>
+#include <metal/errno.h>
 #include <metal/sys.h>
 #include <metal/utilities.h>
 

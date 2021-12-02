@@ -24,14 +24,12 @@
 #include <metal/irq.h>
 #include <metal/utilities.h>
 #include <openamp/rpmsg_virtio.h>
+#include <errno.h>
 #include "platform_info.h"
 #include "rsc_table.h"
 
-#define IPI_DEV_NAME         "ipi_dev"
-#define IPI_BUS_NAME         "generic"
-#define IPI_BASE_ADDR        XPAR_XIPIPSU_0_BASE_ADDRESS /* IPI base address*/
-#define IPI_CHN_BITMASK      0x01000000 /* IPI channel bit mask for IPI from/to
-					   APU */
+#define KICK_DEV_NAME         "poll_dev"
+#define KICK_BUS_NAME         "generic"
 
 /* Cortex R5 memory attributes */
 #define DEVICE_SHARED		0x00000001U /* device, shareable */
@@ -40,23 +38,29 @@
 #define NORM_SHARED_NCACHE	0x0000000CU /* Non cacheable shareable */
 #define	PRIV_RW_USER_RW		(0x00000003U<<8U) /* Full Access */
 
+#if XPAR_CPU_ID == 0
 #define SHARED_MEM_PA  0x3ED40000UL
+#else
+#define SHARED_MEM_PA  0x3EF40000UL
+#endif /* XPAR_CPU_ID */
 #define SHARED_MEM_SIZE 0x100000UL
 #define SHARED_BUF_OFFSET 0x8000UL
 
+#ifndef RPMSG_NO_IPI
 #define _rproc_wait() asm volatile("wfi")
+#endif /* !RPMSG_NO_IPI */
 
-/* IPI information used by remoteproc operations.
+/* Polling information used by remoteproc operations.
  */
-static metal_phys_addr_t ipi_phys_addr = IPI_BASE_ADDR;
-struct metal_device ipi_device = {
-	.name = "ipi_dev",
+static metal_phys_addr_t poll_phys_addr = POLL_BASE_ADDR;
+struct metal_device kick_device = {
+	.name = "poll_dev",
 	.bus = NULL,
 	.num_regions = 1,
 	.regions = {
 		{
-			.virt = (void*)IPI_BASE_ADDR,
-			.physmap = &ipi_phys_addr,
+			.virt = (void *)POLL_BASE_ADDR,
+			.physmap = &poll_phys_addr,
 			.size = 0x1000,
 			.page_shift = -1UL,
 			.page_mask = -1UL,
@@ -65,14 +69,18 @@ struct metal_device ipi_device = {
 		}
 	},
 	.node = {NULL},
+#ifndef RPMSG_NO_IPI
 	.irq_num = 1,
 	.irq_info = (void *)IPI_IRQ_VECT_ID,
+#endif /* !RPMSG_NO_IPI */
 };
 
 static struct remoteproc_priv rproc_priv = {
-	.ipi_name = IPI_DEV_NAME,
-	.ipi_bus_name = IPI_BUS_NAME,
+	.kick_dev_name = KICK_DEV_NAME,
+	.kick_dev_bus_name = KICK_BUS_NAME,
+#ifndef RPMSG_NO_IPI
 	.ipi_chn_mask = IPI_CHN_BITMASK,
+#endif /* !RPMSG_NO_IPI */
 };
 
 static struct remoteproc rproc_inst;
@@ -100,7 +108,9 @@ platform_create_proc(int proc_index, int rsc_index)
 	rsc_table = get_resource_table(rsc_index, &rsc_size);
 
 	/* Register IPI device */
-	(void)metal_register_generic_device(&ipi_device);
+	if (metal_register_generic_device(&kick_device))
+		return NULL;
+
 	/* Initialize remoteproc instance */
 	if (!remoteproc_init(&rproc_inst, &zynqmp_r5_a53_proc_ops, &rproc_priv))
 		return NULL;
@@ -143,7 +153,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	if (!platform) {
 		xil_printf("Failed to initialize platform,"
-			   "NULL pointer to store platform data.\n");
+			   "NULL pointer to store platform data.\r\n");
 		return -EINVAL;
 	}
 	/* Initialize HW system components */
@@ -159,7 +169,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	rproc = platform_create_proc(proc_id, rsc_id);
 	if (!rproc) {
-		xil_printf("Failed to create remoteproc device.\n");
+		xil_printf("Failed to create remoteproc device.\r\n");
 		return -EINVAL;
 	}
 	*platform = rproc;
@@ -184,7 +194,7 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
 		return NULL;
 	shbuf_io = remoteproc_get_io_with_pa(rproc, SHARED_MEM_PA);
 	if (!shbuf_io)
-		return NULL;
+		goto err1;
 	shbuf = metal_io_phys_to_virt(shbuf_io,
 				      SHARED_MEM_PA + SHARED_BUF_OFFSET);
 
@@ -224,24 +234,46 @@ int platform_poll(void *priv)
 	struct remoteproc *rproc = priv;
 	struct remoteproc_priv *prproc;
 	unsigned int flags;
+	int ret;
 
 	prproc = rproc->priv;
 	while(1) {
+#ifdef RPMSG_NO_IPI
+		if (metal_io_read32(prproc->kick_io, 0)) {
+			ret = remoteproc_get_notification(rproc,
+							  RSC_NOTIFY_ID_ANY);
+			if (ret)
+				return ret;
+			break;
+		}
+		(void)flags;
+#else /* !RPMSG_NO_IPI */
 		flags = metal_irq_save_disable();
 		if (!(atomic_flag_test_and_set(&prproc->ipi_nokick))) {
 			metal_irq_restore_enable(flags);
-			remoteproc_get_notification(rproc, RSC_NOTIFY_ID_ANY);
+			ret = remoteproc_get_notification(rproc,
+							  RSC_NOTIFY_ID_ANY);
+			if (ret)
+				return ret;
 			break;
 		}
 		_rproc_wait();
 		metal_irq_restore_enable(flags);
+#endif /* RPMSG_NO_IPI */
 	}
 	return 0;
 }
 
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev)
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform)
 {
-	(void)rpdev;
+	struct rpmsg_virtio_device *rpvdev;
+	struct remoteproc *rproc;
+
+	rpvdev = metal_container_of(rpdev, struct rpmsg_virtio_device, rdev);
+	rproc = platform;
+
+	rpmsg_deinit_vdev(rpvdev);
+	remoteproc_remove_virtio(rproc, rpvdev->vdev);
 }
 
 void platform_cleanup(void *platform)

@@ -23,17 +23,17 @@ extern "C" {
 #endif
 
 typedef struct {
-	union{
-		atomic_int v;
-		atomic_flag w;
-	};
+	atomic_int v;
 } metal_mutex_t;
 
+#define METAL_MUTEX_UNLOCKED 0
+#define METAL_MUTEX_LOCKED   1
+
 /*
- * METAL_MUTEX_INIT - used for initializing an mutex elmenet in a static struct
+ * METAL_MUTEX_INIT - used for initializing an mutex element in a static struct
  * or global
  */
-#define METAL_MUTEX_INIT(m) { ATOMIC_VAR_INIT(0) }
+#define METAL_MUTEX_INIT(m) { ATOMIC_VAR_INIT(METAL_MUTEX_UNLOCKED) }
 /*
  * METAL_MUTEX_DEFINE - used for defining and initializing a global or
  * static singleton mutex
@@ -42,7 +42,7 @@ typedef struct {
 
 static inline void __metal_mutex_init(metal_mutex_t *mutex)
 {
-	atomic_store(&mutex->v, 0);
+	atomic_store(&mutex->v, METAL_MUTEX_UNLOCKED);
 }
 
 static inline void __metal_mutex_deinit(metal_mutex_t *mutex)
@@ -52,19 +52,29 @@ static inline void __metal_mutex_deinit(metal_mutex_t *mutex)
 
 static inline int __metal_mutex_try_acquire(metal_mutex_t *mutex)
 {
-	return 1 - atomic_flag_test_and_set(&mutex->w);
+	int unlocked = METAL_MUTEX_UNLOCKED;
+
+	if (atomic_compare_exchange_strong(&mutex->v, &unlocked,
+					   METAL_MUTEX_LOCKED)) {
+		return 1; /* acquired */
+	} else {
+		return 0; /* not acquired */
+	}
 }
 
 static inline void __metal_mutex_acquire(metal_mutex_t *mutex)
 {
-	while (atomic_flag_test_and_set(&mutex->w)) {
+	int unlocked = METAL_MUTEX_UNLOCKED;
+
+	while (!atomic_compare_exchange_weak(&mutex->v, &unlocked,
+					     METAL_MUTEX_LOCKED)) {
 		;
 	}
 }
 
 static inline void __metal_mutex_release(metal_mutex_t *mutex)
 {
-	atomic_flag_clear(&mutex->w);
+	atomic_store(&mutex->v, METAL_MUTEX_UNLOCKED);
 }
 
 static inline int __metal_mutex_is_acquired(metal_mutex_t *mutex)

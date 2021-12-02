@@ -18,14 +18,17 @@
 static int sleep(void)
 {
 	int rc;
-	unsigned int usec = 3;
-	unsigned long long tstart, tend, tdelayed;
+	unsigned int usec = 150000;
+	unsigned long long tstart, tend, tdelayed, tolerance;
+
 
 	tstart = metal_get_timestamp();
-	metal_sleep_usec((usec/portTICK_PERIOD_MS));
+	metal_sleep_usec(usec);
 	tend = metal_get_timestamp();
 	tdelayed = tend - tstart;
-	if (tdelayed > (usec/portTICK_PERIOD_MS))
+	/* allow +/- 1 OS tick */
+	tolerance = portTICK_PERIOD_MS * 1000;
+	if (tdelayed > (usec + tolerance) || tdelayed < (usec - tolerance))
 		rc = -1;
 	else
 		rc = 0;

@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef RPMSG_RPC_DEMO_H
 #define RPMSG_RPC_DEMO_H
 

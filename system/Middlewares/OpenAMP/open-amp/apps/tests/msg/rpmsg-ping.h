@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef RPMSG_PING_H
 #define RPMSG_PING_H
 

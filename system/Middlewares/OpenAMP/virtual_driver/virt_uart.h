@@ -64,7 +64,7 @@ VIRT_UART_StatusTypeDef VIRT_UART_RegisterCallback(VIRT_UART_HandleTypeDef *huar
                                                    void (* pCallback)(VIRT_UART_HandleTypeDef *_huart));
 
 /* IO operation functions *****************************************************/
-VIRT_UART_StatusTypeDef VIRT_UART_Transmit(VIRT_UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+VIRT_UART_StatusTypeDef VIRT_UART_Transmit(VIRT_UART_HandleTypeDef *huart, const void *pData, uint16_t Size);
 
 
 #ifdef __cplusplus

@@ -7,22 +7,9 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <metal/io.h>
-#include <metal/sys.h>
-#include <openamp/remoteproc.h>
-#include <openamp/remoteproc_loader.h>
-#include <stdarg.h>
-#include <stdio.h>
-/* Xilinx headers */
-#include <pm_api_sys.h>
-#include <pm_defs.h>
-#include <xil_printf.h>
+#include <platform_info.h>
+#include <common.h>
 
-#define LPRINTF(format, ...) xil_printf(format, ##__VA_ARGS__)
-//#define LPRINTF(format, ...)
-#define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
-
-extern struct remoteproc_ops r5_rproc_ops;
 extern struct image_store_ops mem_image_store_ops;
 
 struct mem_file {
@@ -32,57 +19,6 @@ struct mem_file {
 static struct mem_file image = {
 	.base = (void *)0x3ED00000,
 };
-
-static XIpiPsu IpiInst;
-
-static XStatus IpiConfigure(XIpiPsu *const IpiInstPtr)
-{
-	XStatus Status;
-	XIpiPsu_Config *IpiCfgPtr;
-
-	/* Look Up the config data */
-	IpiCfgPtr = XIpiPsu_LookupConfig(XPAR_XIPIPSU_0_DEVICE_ID);
-	if (NULL == IpiCfgPtr) {
-		Status = XST_FAILURE;
-		LPERROR("%s ERROR in getting CfgPtr\n", __func__);
-		return Status;
-	}
-
-	/* Init with the Cfg Data */
-	Status = XIpiPsu_CfgInitialize(IpiInstPtr, IpiCfgPtr,
-				       IpiCfgPtr->BaseAddress);
-	if (XST_SUCCESS != Status) {
-		LPERROR("%s ERROR #%d in configuring IPI\n", __func__, Status);
-		return Status;
-	}
-	return Status;
-}
-
-static void app_log_handler(enum metal_log_level level,
-			       const char *format, ...)
-{
-	char msg[1024];
-	va_list args;
-	static const char *level_strs[] = {
-		"metal: emergency: ",
-		"metal: alert:     ",
-		"metal: critical:  ",
-		"metal: error:     ",
-		"metal: warning:   ",
-		"metal: notice:    ",
-		"metal: info:      ",
-		"metal: debug:     ",
-	};
-
-	va_start(args, format);
-	vsnprintf(msg, sizeof(msg), format, args);
-	va_end(args);
-
-	if (level <= METAL_LOG_EMERGENCY || level > METAL_LOG_DEBUG)
-		level = METAL_LOG_EMERGENCY;
-
-	xil_printf("%s%s", level_strs[level], msg);
-}
 
 int load_exectuable_block(struct remoteproc *rproc,
 			  struct image_store_ops *store_ops, void *store,
@@ -95,6 +31,7 @@ int load_exectuable_block(struct remoteproc *rproc,
 		return -EINVAL;
 	/* Configure remoteproc to get ready to load executable */
 	remoteproc_config(rproc, NULL);
+
 	/* Load remoteproc executable */
 	LPRINTF("Start to load executable with remoteproc_load() \r\n");
 	ret = remoteproc_load(rproc, NULL, store, store_ops, NULL);
@@ -109,6 +46,7 @@ int load_exectuable_block(struct remoteproc *rproc,
 		return ret;
 	}
 	LPRINTF("successfully started the processor\r\n");
+#ifndef RPU_BOOT_LINUX
 	/* ... */
 	asm volatile("wfi");
 	LPRINTF("going to stop the processor\r\n");
@@ -116,9 +54,11 @@ int load_exectuable_block(struct remoteproc *rproc,
 	/* application may want to do some cleanup before shutdown */
 	LPRINTF("going to shutdown the processor\r\n");
 	remoteproc_shutdown(rproc);
+#endif /* RPU_BOOT_LINUX */
 	return 0;
 }
 
+#ifndef RPU_BOOT_LINUX
 int load_exectuable_noblock(struct remoteproc *rproc,
 			     struct image_store_ops *store_ops, void *store,
 			     const char *img_path)
@@ -196,55 +136,38 @@ int load_exectuable_noblock(struct remoteproc *rproc,
 	remoteproc_shutdown(rproc);
 	return 0;
 }
-
+#endif /* RPU_BOOT_LINUX */
 
 int main(void)
 {
-	struct remoteproc rproc;
-	struct remoteproc *ret_rproc;
+	struct remoteproc *rproc = NULL;
 	void *store = &image;
-	unsigned int cpu_id = NODE_RPU_1;
+	unsigned int cpu_id = LOAD_FW_TARGET;
 	int ret;
-	struct metal_init_params metal_param = {
-		.log_handler = app_log_handler,
-		.log_level = METAL_LOG_DEBUG,
-	};
-
-	if (XST_SUCCESS != IpiConfigure(&IpiInst)) {
-		LPERROR("Failed to config IPI instance\r\n");
-		return -1;
-	}
-	if (XST_SUCCESS != XPm_InitXilpm(&IpiInst)) {
-		LPERROR("Failed to initialize PM\r\n");
-		return -1;
-	}
 
 	LPRINTF("Loading Exectuable Demo\n");
-	/* Initialize libmetal evironment */
-	metal_init(&metal_param);
-	/* Initialize remoteproc instance */
-	ret_rproc = remoteproc_init(&rproc, &r5_rproc_ops, &cpu_id);
-	if (!ret_rproc) {
-		LPRINTF("failed to initialize coprocessor\r\n");
+	rproc = app_init(cpu_id);
+	if (!rproc) {
+		LPERROR("app_init failed\r\n");
 		return -1;
 	}
-
-	ret = load_exectuable_block(&rproc, &mem_image_store_ops, store, NULL);
+	ret = load_exectuable_block(rproc, &mem_image_store_ops, store, NULL);
 	if (ret < 0) {
 		LPERROR("load_exectuable_block failed\r\n");
 		/* Make sure the remote is shut down */
-		remoteproc_shutdown(&rproc);
+		remoteproc_shutdown(rproc);
 		return -1;
 	}
-
-	ret = load_exectuable_noblock(&rproc, &mem_image_store_ops, store,
+#ifndef RPU_BOOT_LINUX
+	ret = load_exectuable_noblock(rproc, &mem_image_store_ops, store,
 				      NULL);
 	if (ret < 0) {
 		LPERROR("load_exectuable_noblock failed\r\n");
 		/* Make sure the remote is shut down */
-		remoteproc_shutdown(&rproc);
+		remoteproc_shutdown(rproc);
 		return -1;
 	}
-	remoteproc_remove(&rproc);
+#endif /* RPU_BOOT_LINUX */
+	remoteproc_remove(rproc);
 	return ret;
 }

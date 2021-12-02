@@ -6,7 +6,7 @@
 
 /*
  * @file	arm/atomic.h
- * @brief	ARM specific atomic primitives for libmetal.
+ * @brief	Arm specific atomic primitives for libmetal.
  */
 
 #ifndef __METAL_ARM_ATOMIC__H__

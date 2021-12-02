@@ -1,4 +1,8 @@
 /*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
+/*
  * This is a sample demonstration application that showcases usage of rpmsg
  * This application is meant to run on the remote CPU running baremetal code.
  * This application simulate linux sample rpmsg driver. For this it echo 100
@@ -20,7 +24,6 @@
 #define BYE_MSG		"goodbye!"
 #define MSG_LIMIT	100
 
-#define APP_EPT_ADDR    0
 #define LPRINTF(format, ...) printf(format, ##__VA_ARGS__)
 #define LPERROR(format, ...) LPRINTF("ERROR: " format, ##__VA_ARGS__)
 
@@ -59,7 +62,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	LPRINTF(" seed %s: \r\n", seed);
 
 	if (strncmp(payload, seed, len)) {
-		LPERROR(" Invalid message is received.\n");
+		LPERROR(" Invalid message is received.\r\n");
 		err_cnt++;
 		return RPMSG_SUCCESS;
 	}
@@ -73,19 +76,19 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	rpmsg_destroy_ept(&lept);
-	LPRINTF("echo test: service is destroyed\n");
+	LPRINTF("echo test: service is destroyed\r\n");
 	ept_deleted = 1;
 }
 
 static void rpmsg_name_service_bind_cb(struct rpmsg_device *rdev,
 				       const char *name, uint32_t dest)
 {
-	LPRINTF("new endpoint notification is received.\n");
+	LPRINTF("new endpoint notification is received.\r\n");
 	if (strcmp(name, RPMSG_SERV_NAME))
-		LPERROR("Unexpected name service %s.\n", name);
+		LPERROR("Unexpected name service %s.\r\n", name);
 	else
 		(void)rpmsg_create_ept(&lept, rdev, RPMSG_SERV_NAME,
-				       APP_EPT_ADDR, dest,
+				       RPMSG_ADDR_ANY, dest,
 				       rpmsg_endpoint_cb,
 				       rpmsg_service_unbind);
 
@@ -100,22 +103,22 @@ int app(struct rpmsg_device *rdev, void *priv)
 	int i;
 
 	LPRINTF(" 1 - Send data to remote core, retrieve the echo");
-	LPRINTF(" and validate its integrity ..\n");
+	LPRINTF(" and validate its integrity ..\r\n");
 
 	/* Create RPMsg endpoint */
-	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERV_NAME, APP_EPT_ADDR,
-			       RPMSG_ADDR_ANY,
+	ret = rpmsg_create_ept(&lept, rdev, RPMSG_SERV_NAME,
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
 			       rpmsg_endpoint_cb, rpmsg_service_unbind);
 
 	if (ret) {
-		LPERROR("Failed to create RPMsg endpoint.\n");
+		LPERROR("Failed to create RPMsg endpoint.\r\n");
 		return ret;
 	}
 
 	while (!is_rpmsg_ept_ready(&lept))
 		platform_poll(priv);
 
-	LPRINTF("RPMSG endpoint is binded with remote.\n");
+	LPRINTF("RPMSG endpoint is binded with remote.\r\n");
 	for (i = 1; i <= MSG_LIMIT; i++) {
 
 
@@ -125,10 +128,10 @@ int app(struct rpmsg_device *rdev, void *priv)
 			ret = rpmsg_send(&lept, BYE_MSG, strlen(BYE_MSG));
 
 		if (ret < 0) {
-			LPERROR("Failed to send data...\n");
+			LPERROR("Failed to send data...\r\n");
 			break;
 		}
-		LPRINTF("rpmsg sample test: message %d sent\n", i);
+		LPRINTF("rpmsg sample test: message %d sent\r\n", i);
 
 		do {
 			platform_poll(priv);
@@ -136,12 +139,12 @@ int app(struct rpmsg_device *rdev, void *priv)
 
 	}
 
-	LPRINTF("**********************************\n");
-	LPRINTF(" Test Results: Error count = %d\n", err_cnt);
-	LPRINTF("**********************************\n");
+	LPRINTF("**********************************\r\n");
+	LPRINTF(" Test Results: Error count = %d\r\n", err_cnt);
+	LPRINTF("**********************************\r\n");
 	while (!ept_deleted)
 		platform_poll(priv);
-	LPRINTF("Quitting application .. rpmsg sample test end\n");
+	LPRINTF("Quitting application .. rpmsg sample test end\r\n");
 
 	return 0;
 }
@@ -155,7 +158,7 @@ int main(int argc, char *argv[])
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
 	if (ret) {
-		LPERROR("Failed to initialize platform.\n");
+		LPERROR("Failed to initialize platform.\r\n");
 		ret = -1;
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
@@ -163,16 +166,16 @@ int main(int argc, char *argv[])
 						  NULL,
 						  rpmsg_name_service_bind_cb);
 		if (!rpdev) {
-			LPERROR("Failed to create rpmsg virtio device.\n");
+			LPERROR("Failed to create rpmsg virtio device.\r\n");
 			ret = -1;
 		} else {
 			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev);
+			platform_release_rpmsg_vdev(rpdev, platform);
 			ret = 0;
 		}
 	}
 
-	LPRINTF("Stopping application...\n");
+	LPRINTF("Stopping application...\r\n");
 	platform_cleanup(platform);
 
 	return ret;

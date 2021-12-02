@@ -4,13 +4,13 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <metal/errno.h>
 #include <string.h>
 #include "FreeRTOS.h"
 #include "task.h"
 
 #include "metal-test.h"
 #include <metal/alloc.h>
+#include <metal/errno.h>
 #include <metal/log.h>
 #include <metal/sys.h>
 

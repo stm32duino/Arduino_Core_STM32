@@ -1,7 +1,12 @@
+/*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 /* This is a sample demonstration application that showcases usage of proxy from the remote core. 
  This application is meant to run on the remote CPU running baremetal.
  This applicationr can print to to master console and perform file I/O using proxy mechanism. */
 
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -204,7 +209,7 @@ static int handle_rpc(struct rpmsg_rpc_syscall *syscall,
 		}
 	case TERM_SYSCALL_ID:
 		{
-			LPRINTF("Received termination request\n");
+			LPRINTF("Received termination request\r\n");
 			request_termination = 1;
 			retval = 0;
 			break;
@@ -212,7 +217,7 @@ static int handle_rpc(struct rpmsg_rpc_syscall *syscall,
 	default:
 		{
 			LPERROR
-			    ("Invalid RPC sys call ID: %d:%d!\n",
+			    ("Invalid RPC sys call ID: %d:%d!\r\n",
 			     (int)syscall->id, (int)WRITE_SYSCALL_ID);
 			retval = -1;
 			break;
@@ -225,7 +230,7 @@ static void rpmsg_service_unbind(struct rpmsg_endpoint *ept)
 {
 	(void)ept;
 	rpmsg_destroy_ept(&app_ept);
-	LPRINTF("Endpoint is destroyed\n");
+	LPRINTF("Endpoint is destroyed\r\n");
 	ept_deleted = 1;
 }
 
@@ -239,7 +244,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	(void)src;
 
 	if (len < (int)sizeof(*syscall)) {
-		LPERROR("Received data is less than the rpc structure: %d\n",
+		LPERROR("Received data is less than the rpc structure: %zd\r\n",
 			len);
 		err_cnt++;
 		return RPMSG_SUCCESS;
@@ -253,11 +258,11 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 	copy_from_shbuf(buf, data, len);
 	syscall = (struct rpmsg_rpc_syscall *)buf;
 	if (handle_rpc(syscall, ept)) {
-		LPRINTF("\nHandling remote procedure call errors:\n");
-		raw_printf("rpc id %d\n", syscall->id);
-		raw_printf("rpc int field1 %d\n",
+		LPRINTF("\nHandling remote procedure call errors:\r\n");
+		raw_printf("rpc id %d\r\n", syscall->id);
+		raw_printf("rpc int field1 %d\r\n",
 		       syscall->args.int_field1);
-		raw_printf("\nrpc int field2 %d\n",
+		raw_printf("\nrpc int field2 %d\r\n",
 		       syscall->args.int_field2);
 		err_cnt++;
 	}
@@ -267,7 +272,7 @@ static int rpmsg_endpoint_cb(struct rpmsg_endpoint *ept, void *data, size_t len,
 
 void terminate_rpc_app()
 {
-	LPRINTF("Destroying endpoint.\n");
+	LPRINTF("Destroying endpoint.\r\n");
 	if (!ept_deleted)
 		rpmsg_destroy_ept(&app_ept);
 }
@@ -281,12 +286,12 @@ void exit_action_handler(int signum)
 void kill_action_handler(int signum)
 {
 	(void)signum;
-	LPRINTF("RPC service killed !!\n");
+	LPRINTF("RPC service killed !!\r\n");
 
 	terminate_rpc_app();
 
 	if (rpdev)
-		platform_release_rpmsg_vdev(rpdev);
+		platform_release_rpmsg_vdev(rpdev, platform);
 	if (platform)
 		platform_cleanup(platform);
 }
@@ -309,21 +314,22 @@ int app(struct rpmsg_device *rdev, void *priv)
 	sigaction(SIGHUP, &kill_action, NULL);
 
 	/* Initialize RPMSG framework */
-	LPRINTF("Try to create rpmsg endpoint.\n");
+	LPRINTF("Try to create rpmsg endpoint.\r\n");
 
 	ret = rpmsg_create_ept(&app_ept, rdev, RPMSG_SERVICE_NAME,
-			       0, RPMSG_ADDR_ANY, rpmsg_endpoint_cb,
+			       RPMSG_ADDR_ANY, RPMSG_ADDR_ANY,
+			       rpmsg_endpoint_cb,
 			       rpmsg_service_unbind);
 	if (ret) {
-		LPERROR("Failed to create endpoint.\n");
+		LPERROR("Failed to create endpoint.\r\n");
 		return -EINVAL;
 	}
 
-	LPRINTF("Successfully created rpmsg endpoint.\n");
+	LPRINTF("Successfully created rpmsg endpoint.\r\n");
 	while(1) {
 		platform_poll(priv);
 		if (err_cnt) {
-			LPERROR("Got error!\n");
+			LPERROR("Got error!\r\n");
 			ret = -EINVAL;
 			break;
 		}
@@ -332,7 +338,7 @@ int app(struct rpmsg_device *rdev, void *priv)
 			break;
 		}
 	}
-	LPRINTF("\nRPC service exiting !!\n");
+	LPRINTF("\nRPC service exiting !!\r\n");
 
 	terminate_rpc_app();
 	return ret;
@@ -342,28 +348,28 @@ int main(int argc, char *argv[])
 {
 	int ret;
 
-	LPRINTF("Starting application...\n");
+	LPRINTF("Starting application...\r\n");
 
 	/* Initialize platform */
 	ret = platform_init(argc, argv, &platform);
 	if (ret) {
-		LPERROR("Failed to initialize platform.\n");
+		LPERROR("Failed to initialize platform.\r\n");
 		ret = -1;
 	} else {
 		rpdev = platform_create_rpmsg_vdev(platform, 0,
 						   VIRTIO_DEV_MASTER,
 						   NULL, NULL);
 		if (!rpdev) {
-			LPERROR("Failed to create rpmsg virtio device.\n");
+			LPERROR("Failed to create rpmsg virtio device.\r\n");
 			ret = -1;
 		} else {
 			app(rpdev, platform);
-			platform_release_rpmsg_vdev(rpdev);
+			platform_release_rpmsg_vdev(rpdev, platform);
 			ret = 0;
 		}
 	}
 
-	LPRINTF("Stopping application...\n");
+	LPRINTF("Stopping application...\r\n");
 	platform_cleanup(platform);
 
 	return ret;

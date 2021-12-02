@@ -70,7 +70,7 @@ zynq_a9_proc_init(struct remoteproc *rproc,
 
 	/* Register interrupt handler and enable interrupt */
 	irq_vect = prproc->irq_notification;
-	metal_irq_register(irq_vect, zynq_a9_proc_irq_handler, NULL, rproc);
+	metal_irq_register(irq_vect, zynq_a9_proc_irq_handler, rproc);
 	metal_irq_enable(irq_vect);
 	xil_printf("Successfully intialize remoteproc.\r\n");
 	return rproc;
@@ -88,7 +88,7 @@ static void zynq_a9_proc_remove(struct remoteproc *rproc)
 		return;
 	prproc = rproc->priv;
 	metal_irq_disable(prproc->irq_to_notify);
-	metal_irq_unregister(prproc->irq_to_notify, NULL, NULL, NULL);
+	metal_irq_unregister(prproc->irq_to_notify);
 	dev = prproc->gic_dev;
 	if (dev)
 		metal_device_close(dev);

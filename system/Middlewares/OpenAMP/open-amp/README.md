@@ -20,26 +20,22 @@ enable development of software applications for Asymmetric Multiprocessing
 ## OpenAMP Source Structure
 ```
 |- lib/
-|  |- common/     # common helper functions
 |  |- virtio/     # virtio implementation
 |  |- rpmsg/      # rpmsg implementation
 |  |- remoteproc/ # remoteproc implementation
-|  |  |- drivers  # remoteproc drivers
 |  |- proxy/      # implement one processor access device on the
 |  |              # other processor with file operations
 |- apps/        # demonstration/testing applications
+|  |- examples/ # Application samples using the OpenAMP framework.
 |  |- machine/  # common files for machine can be shared by applications
-|               # It is up to each app to decide whether to use these files.
+|  |            # It is up to each app to decide whether to use these files.
 |  |- system/   # common files for system can be shared by applications
 |               # It is up to each app to decide whether to use these files.
-|- obsolete     # It is used to build libs which may also required when
-|               # building the apps. It will be removed in future since
-|               # user can specify which libs to use when compiling the apps.
 |- cmake        # CMake files
+|- script       # helper scripts (such as checkpatch) for contributors.
 ```
 
 OpenAMP library libopen_amp is composed of the following directories in `lib/`:
-*   `common/`
 *   `virtio/`
 *   `rpmsg/`
 *   `remoteproc/`
@@ -81,8 +77,32 @@ compile libmetal library separately before you compiling OpenAMP library.
 In future, we will try to make libmetal as a submodule to OpenAMP to make this
 flow easier.
 
+Some Cmake options are available to allow user to customize to the OpenAMP
+library for it project:
+* **WITH_PROXY** (default OFF): Include proxy support in the library.
+* **WITH APPS** (default OFF): Build with sample applications.
+* **WITH_PROXY_APPS** (default OFF):Build with proxy sample applications.
+* **WITH_VIRTIO_MASTER** (default ON): Build with virtio master enabled.
+  This option can be set to OFF if the only the remote mode is implemented.
+* **WITH_VIRTIO_SLAVE** (default ON): Build with virtio slave enabled.
+  This option can be set to OFF if the only the master mode is implemented.
+* **WITH_STATIC_LIB** (default ON): Build with a static library.
+* **WITH_SHARED_LIB** (default ON): Build with a shared library.
+* **WITH_ZEPHYR** (default OFF): Build open-amp as a zephyr library. This option
+  is mandatory in a Zephyr environment.
+* **RPMSG_BUFFER_SIZE** (default 512): adjust the size of the RPMsg buffers.
+  The default value of the RPMsg size is compatible with the Linux Kernel hard
+  coded value. If you AMP configuration is Linux kernel master/ OpenAMP remote,
+  this option must not be used.
+
 ### Example to compile OpenAMP for Zephyr
-You can compile OpenAMP library for Zephyr.
+The [Zephyr open-amp repo](https://github.com/zephyrproject-rtos/open-amp)
+implements the open-amp library for the Zephyr project. It is mainly a fork of
+this repository, with some add-ons for integration in the Zephyr project.
+The standard way to compile OpenAMP for a Zephyr project is to use Zephyr build
+environment. Please refer to [Zephyr OpenAMP samples](https://github.com/zephyrproject-rtos/zephyr/tree/master/samples/subsys/ipc) for examples.
+
+Nevertheless you can compile the OpenAMP project for Zephyr.
 As OpenAMP uses libmetal, please refer to libmetal README to build libmetal
 for Zephyr before building OpenAMP library for Zephyr.
 As Zephyr uses CMake, we build OpenAMP library as a target of Zephyr CMake
@@ -127,6 +147,7 @@ directory.
 * If you have used `-DWITH_APPS=ON` to build the demos, you can try them on
   your Linux host as follows:
 
+  * rpmsg echo demo:
     ```
     # Start echo test server to wait for message to echo
     $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
@@ -134,6 +155,16 @@ directory.
     # Run echo test to send message to echo test server
     $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
        build/usr/local/bin/rpmsg-echo-ping-shared 1
+    ```
+
+  * rpmsg echo demo with the nocopy API:
+    ```
+    # Start echo test server to wait for message to echo
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-nocopy-echo-shared
+    # Run echo test to send message to echo test server
+    $ sudo LD_LIBRARY_PATH=<openamp_built>/usr/local/lib:<libmetal_built>/usr/local/lib \
+       build/usr/local/bin/rpmsg-nocopy-ping-shared 1
     ```
 
 ###  Example to compile Zynq UltraScale+ MPSoC R5 generic(baremetal) remote:
@@ -224,6 +255,9 @@ In order to user OpenAMP(RPMsg) in Linux userspace, you will need to have put th
   can be found here:
   https://github.com/OpenAMP/open-amp/blob/master/apps/machine/zynqmp/openamp-linux-userspace.dtsi
 
+## Version
+The OpenAMP version follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
+
 ## Supported System and Machines
 For now, it supports:
 * Zynq generic slave
@@ -231,6 +265,7 @@ For now, it supports:
 * Linux host OpenAMP between Linux userspace processes
 * Linux userspace OpenAMP RPMsg master
 * Linux userspace OpenAMP RPMsg slave
+* Linux userspace OpenAMP RPMsg and MicroBlaze bare metal remote
 
 ## Known Limitations:
 1. In case of OpenAMP on Linux userspace for inter processors communication,
@@ -238,5 +273,48 @@ For now, it supports:
 2. `sudo` is required to run the OpenAMP demos between Linux processes, as
    it doesn't work on some systems if you are normal users.
 
-For using the framework please refer to the wiki of the OpenAMP repo.
-Subscribe to the open-amp mailing list at https://groups.google.com/group/open-amp.
+## How to contribute:
+As an open-source project, we welcome and encourage the community to submit patches directly to the project. As a contributor you  should be familiar with common developer tools such as Git and CMake, and platforms such as GitHub.
+Then following points should be rescpected to facilitate the review process.
+
+### Licencing
+Code is contributed to the Linux kernel under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/open-amp/blob/master/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
+
+    ```
+    SPDX-License-Identifier:    BSD-3-Clause
+    SPDX-License-Identifier:    BSD-2-Clause
+    ```
+### Signed-off-by
+Commit message must contain Signed-off-by: line and your email must match the change authorship information. Make sure your .gitconfig is set up correctly:
+
+    ```
+    git config --global user.name "first-name Last-Namer"
+    git config --global user.email "yourmail@company.com"
+    ```
+### gitlint
+Before you submit a pull request to the project, verify your commit messages meet the requirements. The check can be  performed locally using the the gitlint command.
+
+Run gitlint locally in your tree and branch where your patches have been committed:
+
+      ```gitlint```
+Note, gitlint only checks HEAD (the most recent commit), so you should run it after each commit, or use the --commits option to specify a commit range covering all the development patches to be submitted.
+
+### Code style
+In general, follow the Linux kernel coding style, with the following exceptions:
+
+* Use /**  */ for doxygen comments that need to appear in the documentation.
+
+The Linux kernel GPL-licensed tool checkpatch is used to check coding style conformity.Checkpatch is available in the scripts directory.
+
+To check your \<n\> commits in your git branch:
+   ```
+   ./scripts/checkpatch.pl --strict  -g HEAD-<n>
+
+   ```
+### Send a pull request
+We use standard github mechanism for pull request. Please refer to github documentation for help.
+
+## Communication and Collaboration
+[Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
+
+For more details on the framework please refer to the the [OpenAMP wiki](https://github.com/OpenAMP/open-amp/wiki).

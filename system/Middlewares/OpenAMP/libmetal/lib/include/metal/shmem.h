@@ -19,7 +19,8 @@ extern "C" {
 #endif
 
 /** \defgroup shmem Shared Memory Interfaces
- *  @{ */
+ *  @{
+ */
 
 /** Generic shared memory data structure. */
 struct metal_generic_shmem {

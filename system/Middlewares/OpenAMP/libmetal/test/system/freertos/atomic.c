@@ -5,9 +5,9 @@
  */
 
 #include <stdlib.h>
-#include <metal/errno.h>
 #include "metal-test.h"
 #include <metal/atomic.h>
+#include <metal/errno.h>
 #include <metal/log.h>
 #include <metal/sys.h>
 

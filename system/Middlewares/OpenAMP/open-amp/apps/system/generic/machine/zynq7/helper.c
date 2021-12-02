@@ -9,6 +9,7 @@
 
 #include "xparameters.h"
 #include "xil_exception.h"
+#include "xil_printf.h"
 #include "xscugic.h"
 #include "xil_cache.h"
 #include <metal/sys.h>
@@ -50,11 +51,16 @@ static int app_gic_initialize(void)
 			(Xil_ExceptionHandler)XScuGic_InterruptHandler,
 			&xInterruptController);
 
+	/* Disable the interrupt before enabling exception to avoid interrupts
+	 * received before exception is enabled.
+	 */
+	XScuGic_Disable(&xInterruptController, SGI_NOTIFICATION);
+
 	Xil_ExceptionEnable();
 
 	/* Connect notificaiton interrupt ID with ISR */
 	XScuGic_Connect(&xInterruptController, SGI_NOTIFICATION,
-			(Xil_ExceptionHandler)metal_irq_isr,
+			(Xil_ExceptionHandler)metal_xlnx_irq_isr,
 			(void *)SGI_NOTIFICATION);
 
 	return 0;
@@ -64,6 +70,7 @@ static int app_gic_initialize(void)
 /* return 0 on success */
 int init_system(void)
 {
+	int ret;
 	struct metal_init_params metal_param = METAL_INIT_DEFAULTS;
 
 	/* Low level abstraction layer for openamp initialization */
@@ -72,7 +79,14 @@ int init_system(void)
 	/* configure the global interrupt controller */
 	app_gic_initialize();
 
-	return 0;
+	/* Initialize metal Xilinx IRQ controller */
+	ret = metal_xlnx_irq_init();
+	if (ret) {
+		xil_printf("%s: Xilinx metal IRQ controller init failed.\r\n",
+			__func__);
+	}
+
+	return ret;
 }
 
 void cleanup_system()

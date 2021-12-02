@@ -135,7 +135,7 @@ int shmem_throughput_demod();
 
 static inline void wait_for_interrupt()
 {
-	asm volatile("wfi");
+	metal_asm volatile("wfi");
 }
 
 /**

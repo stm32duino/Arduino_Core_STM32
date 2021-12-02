@@ -17,13 +17,11 @@
 extern "C" {
 #endif
 
-typedef uint8_t boolean;
-
 #include <openamp/virtio_ring.h>
 #include <metal/alloc.h>
 #include <metal/io.h>
 
-/*Error Codes*/
+/* Error Codes */
 #define VQ_ERROR_BASE                                 -3000
 #define ERROR_VRING_FULL                              (VQ_ERROR_BASE - 1)
 #define ERROR_INVLD_DESC_IDX                          (VQ_ERROR_BASE - 2)
@@ -42,9 +40,6 @@ typedef uint8_t boolean;
  * handling vq_free_cnt.
  */
 #define VQ_RING_DESC_CHAIN_END                         32768
-#define VIRTQUEUE_FLAG_INDIRECT                        0x0001
-#define VIRTQUEUE_FLAG_EVENT_IDX                       0x0002
-#define VIRTQUEUE_MAX_NAME_SZ                          32
 
 /* Support for indirect buffer descriptors. */
 #define VIRTIO_RING_F_INDIRECT_DESC    (1 << 28)
@@ -57,12 +52,16 @@ struct virtqueue_buf {
 	int len;
 };
 
+struct vq_desc_extra {
+	void *cookie;
+	uint16_t ndescs;
+};
+
 struct virtqueue {
 	struct virtio_device *vq_dev;
 	const char *vq_name;
 	uint16_t vq_queue_index;
 	uint16_t vq_nentries;
-	uint32_t vq_flags;
 	void (*callback)(struct virtqueue *vq);
 	void (*notify)(struct virtqueue *vq);
 	struct vring vq_ring;
@@ -90,7 +89,7 @@ struct virtqueue {
 	uint16_t vq_available_idx;
 
 #ifdef VQUEUE_DEBUG
-	boolean vq_inuse;
+	bool vq_inuse;
 #endif
 
 	/*
@@ -99,10 +98,7 @@ struct virtqueue {
 	 * Other fields in this structure are not used currently.
 	 */
 
-	struct vq_desc_extra {
-		void *cookie;
-		uint16_t ndescs;
-	} vq_descx[0];
+	struct vq_desc_extra vq_descx[0];
 };
 
 /* struct to hold vring specific information */
@@ -113,8 +109,8 @@ struct vring_alloc_info {
 	uint16_t pad;
 };
 
-typedef void vq_callback(struct virtqueue *);
-typedef void vq_notify(struct virtqueue *);
+typedef void (*vq_callback)(struct virtqueue *);
+typedef void (*vq_notify)(struct virtqueue *);
 
 #ifdef VQUEUE_DEBUG
 #include <metal/log.h>
@@ -124,7 +120,7 @@ typedef void vq_notify(struct virtqueue *);
 	do { \
 		if (!(_exp)) { \
 			metal_log(METAL_LOG_EMERGENCY, \
-				  "%s: %s - _msg", __func__, (_vq)->vq_name); \
+				  "%s: %s - "_msg, __func__, (_vq)->vq_name); \
 			metal_assert(_exp); \
 		} \
 	} while (0)
@@ -150,14 +146,13 @@ typedef void vq_notify(struct virtqueue *);
 			(vq)->vq_inuse = true;               \
 		else                                         \
 			VQASSERT(vq, !(vq)->vq_inuse,\
-				"VirtQueue already in use")  \
+				"VirtQueue already in use");  \
 	} while (0)
 
 #define VQUEUE_IDLE(vq)            ((vq)->vq_inuse = false)
 
 #else
 
-#define KASSERT(cond, str)
 #define VQASSERT(_vq, _exp, _msg)
 #define VQ_RING_ASSERT_VALID_IDX(_vq, _idx)
 #define VQ_RING_ASSERT_CHAIN_TERM(_vq)
@@ -171,7 +166,7 @@ int virtqueue_create(struct virtio_device *device, unsigned short id,
 		     const char *name, struct vring_alloc_info *ring,
 		     void (*callback)(struct virtqueue *vq),
 		     void (*notify)(struct virtqueue *vq),
-		     struct virtqueue *v_queue);
+		     struct virtqueue *vq);
 
 /*
  * virtqueue_set_shmem_io
@@ -211,7 +206,6 @@ static inline struct virtqueue *virtqueue_allocate(unsigned int num_desc_extra)
 		 num_desc_extra * sizeof(struct vq_desc_extra);
 
 	vqs = (struct virtqueue *)metal_allocate_memory(vq_size);
-
 	if (vqs) {
 		memset(vqs, 0x00, vq_size);
 	}

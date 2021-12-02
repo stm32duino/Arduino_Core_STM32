@@ -19,7 +19,8 @@ extern "C" {
 #endif
 
 /** \defgroup sleep Sleep Interfaces
- *  @{ */
+ *  @{
+ */
 
 /**
  * @brief      delay in microseconds

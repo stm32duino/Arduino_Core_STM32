@@ -9,6 +9,8 @@
 #ifndef VIRTIO_RING_H
 #define	VIRTIO_RING_H
 
+#include <metal/compiler.h>
+
 #if defined __cplusplus
 extern "C" {
 #endif
@@ -18,7 +20,7 @@ extern "C" {
 /* This marks a buffer as write-only (otherwise read-only). */
 #define VRING_DESC_F_WRITE      2
 /* This means the buffer contains a list of buffer descriptors. */
-#define VRING_DESC_F_INDIRECT	4
+#define VRING_DESC_F_INDIRECT   4
 
 /* The Host uses this in used->flags to advise the Guest: don't kick me
  * when you add a buffer.  It's unreliable, so it's simply an
@@ -34,6 +36,7 @@ extern "C" {
 /* VirtIO ring descriptors: 16 bytes.
  * These can chain together via "next".
  */
+METAL_PACKED_BEGIN
 struct vring_desc {
 	/* Address (guest-physical). */
 	uint64_t addr;
@@ -43,27 +46,33 @@ struct vring_desc {
 	uint16_t flags;
 	/* We chain unused descriptors via this, too. */
 	uint16_t next;
-};
+} METAL_PACKED_END;
 
+METAL_PACKED_BEGIN
 struct vring_avail {
 	uint16_t flags;
 	uint16_t idx;
 	uint16_t ring[0];
-};
+} METAL_PACKED_END;
 
 /* uint32_t is used here for ids for padding reasons. */
+METAL_PACKED_BEGIN
 struct vring_used_elem {
-	/* Index of start of used descriptor chain. */
-	uint32_t id;
+	union {
+		uint16_t event;
+		/* Index of start of used descriptor chain. */
+		uint32_t id;
+	};
 	/* Total length of the descriptor chain which was written to. */
 	uint32_t len;
-};
+} METAL_PACKED_END;
 
+METAL_PACKED_BEGIN
 struct vring_used {
 	uint16_t flags;
 	uint16_t idx;
 	struct vring_used_elem ring[0];
-};
+} METAL_PACKED_END;
 
 struct vring {
 	unsigned int num;
@@ -104,7 +113,7 @@ struct vring {
  * versa. They are at the end for backwards compatibility.
  */
 #define vring_used_event(vr)	((vr)->avail->ring[(vr)->num])
-#define vring_avail_event(vr)	((vr)->used->ring[(vr)->num].id & 0xFFFF)
+#define vring_avail_event(vr)	((vr)->used->ring[(vr)->num].event)
 
 static inline int vring_size(unsigned int num, unsigned long align)
 {

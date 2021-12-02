@@ -13,15 +13,15 @@ int metal_ver_major(void)
 
 int metal_ver_minor(void)
 {
-       return METAL_VER_MINOR;
+	return METAL_VER_MINOR;
 }
 
 int metal_ver_patch(void)
 {
-       return METAL_VER_PATCH;
+	return METAL_VER_PATCH;
 }
 
 const char *metal_ver(void)
 {
-       return METAL_VER;
+	return METAL_VER;
 }

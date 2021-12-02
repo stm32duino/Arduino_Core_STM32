@@ -26,11 +26,11 @@
 
 #define NUM_VRINGS                  0x02
 #define VRING_ALIGN                 0x1000
-#define RING_TX                     0x3ED40000
-#define RING_RX                     0x3ED44000
+#define RING_TX                     FW_RSC_U32_ADDR_ANY
+#define RING_RX                     FW_RSC_U32_ADDR_ANY
 #define VRING_SIZE                  256
 
-#define NUM_TABLE_ENTRIES           3
+#define NUM_TABLE_ENTRIES           1
 
 struct remote_resource_table __resource resources = {
 	/* Version */
@@ -43,15 +43,8 @@ struct remote_resource_table __resource resources = {
 
 	/* Offsets of rsc entries */
 	{
-	 offsetof(struct remote_resource_table, rproc_mem),
-	 offsetof(struct remote_resource_table, fw_chksum),
 	 offsetof(struct remote_resource_table, rpmsg_vdev),
 	 },
-
-	{RSC_RPROC_MEM, 0x3ed40000, 0x3ed40000, 0x100000, 0},
-
-	/* firmware checksum */
-	{RSC_FW_CHKSUM, "sha256", {0}},
 
 	/* Virtio device entry */
 	{

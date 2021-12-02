@@ -31,13 +31,13 @@ struct linux_driver {
 	void			(*dev_irq_ack)(struct linux_bus *lbus,
 					     struct linux_device *ldev,
 					     int irq);
-	int 			(*dev_dma_map)(struct linux_bus *lbus,
+	int			(*dev_dma_map)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg_in,
 						int nents_in,
 						struct metal_sg *sg_out);
-	void 			(*dev_dma_unmap)(struct linux_bus *lbus,
+	void			(*dev_dma_unmap)(struct linux_bus *lbus,
 						struct linux_device *ldev,
 						uint32_t dir,
 						struct metal_sg *sg,
@@ -73,8 +73,10 @@ static struct linux_device *to_linux_device(struct metal_device *device)
 	return metal_container_of(device, struct linux_device, device);
 }
 
-static int metal_uio_read_map_attr(struct linux_device *ldev, unsigned index,
-				   const char *name, unsigned long *value)
+static int metal_uio_read_map_attr(struct linux_device *ldev,
+				   unsigned int index,
+				   const char *name,
+				   unsigned long *value)
 {
 	const char *cls = ldev->cls_path;
 	struct sysfs_attribute *attr;
@@ -85,10 +87,14 @@ static int metal_uio_read_map_attr(struct linux_device *ldev, unsigned index,
 	if (result >= (int)sizeof(path))
 		return -EOVERFLOW;
 	attr = sysfs_open_attribute(path);
-	if (!attr || sysfs_read_attribute(attr) != 0)
+	if (!attr || sysfs_read_attribute(attr) != 0) {
+		sysfs_close_attribute(attr);
 		return -errno;
+	}
 
 	*value = strtoul(attr->value, NULL, 0);
+
+	sysfs_close_attribute(attr);
 	return 0;
 }
 
@@ -147,7 +153,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 {
 	char *instance, path[SYSFS_PATH_MAX];
 	struct linux_driver *ldrv = ldev->ldrv;
-	unsigned long *phys, offset=0, size=0;
+	unsigned long *phys, offset = 0, size = 0;
 	struct metal_io_region *io;
 	struct dlist *dlist;
 	int result, i;
@@ -156,6 +162,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 
 
 	ldev->fd = -1;
+	ldev->device.irq_info = (void *)-1;
 
 	ldev->sdev = sysfs_open_device(lbus->bus_name, ldev->dev_name);
 	if (!ldev->sdev) {
@@ -231,7 +238,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 		result = (result ? result :
 			 metal_uio_read_map_attr(ldev, i, "size", &size));
 		result = (result ? result :
-			 metal_map(ldev->fd, offset, size, 0, 0, &virt));
+			 metal_map(ldev->fd, i * getpagesize(), size, 0, 0, &virt));
 		if (!result) {
 			io = &ldev->device.regions[ldev->device.num_regions];
 			metal_io_init(io, virt, phys, size, -1, 0, NULL);
@@ -249,6 +256,7 @@ static int metal_uio_dev_open(struct linux_bus *lbus, struct linux_device *ldev)
 	} else {
 		ldev->device.irq_num =  1;
 		ldev->device.irq_info = (void *)(intptr_t)ldev->fd;
+		metal_linux_irq_register_dev(&ldev->device, ldev->fd);
 	}
 
 	return 0;
@@ -258,12 +266,6 @@ static void metal_uio_dev_close(struct linux_bus *lbus,
 				struct linux_device *ldev)
 {
 	(void)lbus;
-
-	if ((intptr_t)ldev->device.irq_info >= 0)
-		/* Normally this call would not be needed, and is added as precaution.
-		   Also for uio there is only 1 interrupt associated to the fd/device,
-		   we therefore do not need to specify a particular device */
-		metal_irq_unregister(ldev->fd, NULL, NULL, NULL);
 
 	if (ldev->override) {
 		sysfs_write_attribute(ldev->override, "", 1);
@@ -341,17 +343,16 @@ static int metal_uio_dev_dma_map(struct linux_bus *lbus,
 }
 
 static void metal_uio_dev_dma_unmap(struct linux_bus *lbus,
-				 struct linux_device *ldev,
-				 uint32_t dir,
-				 struct metal_sg *sg,
-				 int nents)
+				    struct linux_device *ldev,
+				    uint32_t dir,
+				    struct metal_sg *sg,
+				    int nents)
 {
 	(void) lbus;
 	(void) ldev;
 	(void) dir;
 	(void) sg;
 	(void) nents;
-	return;
 }
 
 static struct linux_bus linux_bus[] = {
@@ -516,10 +517,10 @@ static int metal_linux_dev_dma_map(struct metal_bus *bus,
 }
 
 static void metal_linux_dev_dma_unmap(struct metal_bus *bus,
-			        struct metal_device *device,
-			        uint32_t dir,
-			        struct metal_sg *sg,
-			        int nents)
+				      struct metal_device *device,
+				      uint32_t dir,
+				      struct metal_sg *sg,
+				      int nents)
 {
 	struct linux_device *ldev = to_linux_device(device);
 	struct linux_bus *lbus = to_linux_bus(bus);
@@ -586,34 +587,32 @@ static int metal_linux_probe_driver(struct linux_bus *lbus,
 	return ldrv->sdrv ? 0 : -ENODEV;
 }
 
+static void metal_linux_bus_close(struct metal_bus *bus);
+
 static int metal_linux_probe_bus(struct linux_bus *lbus)
 {
 	struct linux_driver *ldrv;
-	int error = -ENODEV;
+	int ret, error = -ENODEV;
 
 	lbus->sbus = sysfs_open_bus(lbus->bus_name);
 	if (!lbus->sbus)
 		return -ENODEV;
 
 	for_each_linux_driver(lbus, ldrv) {
-		error = metal_linux_probe_driver(lbus, ldrv);
-		if (!error)
-			break;
+		ret = metal_linux_probe_driver(lbus, ldrv);
+		/* Clear the error if any driver is available */
+		if (!ret)
+			error = ret;
 	}
 
 	if (error) {
-		sysfs_close_bus(lbus->sbus);
-		lbus->sbus = NULL;
+		metal_linux_bus_close(&lbus->bus);
 		return error;
 	}
 
 	error = metal_linux_register_bus(lbus);
-	if (error) {
-		sysfs_close_driver(ldrv->sdrv);
-		ldrv->sdrv = NULL;
-		sysfs_close_bus(lbus->sbus);
-		lbus->sbus = NULL;
-	}
+	if (error)
+		metal_linux_bus_close(&lbus->bus);
 
 	return error;
 }
@@ -662,8 +661,13 @@ int metal_linux_get_device_property(struct metal_device *device,
 	fd = open(path, flags, mode);
 	if (fd < 0)
 		return -errno;
-	status = read(fd, output, len);
+	if (read(fd, output, len) < 0) {
+		status = -errno;
+		close(fd);
+		return status;
+	}
 
+	status = close(fd);
 	return status < 0 ? -errno : 0;
 }
 

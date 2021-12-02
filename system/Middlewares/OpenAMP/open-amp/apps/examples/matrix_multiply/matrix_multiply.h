@@ -1,3 +1,7 @@
+/*
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef MATRIX_MULTIPLY_H
 #define MATRIX_MULTIPLY_H
 

@@ -13,6 +13,7 @@
 #error "Include metal/sys.h instead of metal/freertos/@PROJECT_MACHINE@/sys.h"
 #endif
 
+#include <metal/system/@PROJECT_SYSTEM@/xlnx_common/sys.h>
 #include "xscugic.h"
 
 #ifndef __METAL_FREERTOS_ZYNQMP_R5_SYS__H__
@@ -24,14 +25,16 @@ extern "C" {
 
 #ifdef METAL_INTERNAL
 
+#define XLNX_MAXIRQS XSCUGIC_MAX_NUM_INTR_INPUTS
+
 static inline void sys_irq_enable(unsigned int vector)
 {
-        XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+	XScuGic_EnableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
 static inline void sys_irq_disable(unsigned int vector)
 {
-        XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
+	XScuGic_DisableIntr(XPAR_SCUGIC_0_DIST_BASEADDR, vector);
 }
 
 #endif /* METAL_INTERNAL */

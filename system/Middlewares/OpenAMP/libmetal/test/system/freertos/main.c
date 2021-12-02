@@ -4,6 +4,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
+#include <metal/compiler.h>
 #include "metal-test.h"
 #include "FreeRTOS.h"
 #include "task.h"
@@ -33,7 +34,7 @@ int main(void)
 
 	/* Will not get here, unless a call is made to vTaskEndScheduler() */
 	while (1) {
-		__asm__("wfi\n\t");
+		metal_asm("wfi\n\t");
 	}
 
 	/* suppress compilation warnings*/

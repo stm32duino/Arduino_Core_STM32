@@ -12,17 +12,15 @@
 static int handle_dummy_rsc(struct remoteproc *rproc, void *rsc);
 
 /* Resources handler */
-rsc_handler rsc_handler_table[] = {
+static const rsc_handler rsc_handler_table[] = {
 	handle_carve_out_rsc, /**< carved out resource */
 	handle_dummy_rsc, /**< IOMMU dev mem resource */
 	handle_trace_rsc, /**< trace buffer resource */
 	handle_vdev_rsc, /**< virtio resource */
-	handle_dummy_rsc, /**< rproc shared memory resource */
-	handle_dummy_rsc, /**< firmware checksum resource */
 };
 
 int handle_rsc_table(struct remoteproc *rproc,
-		     struct resource_table *rsc_table, int size,
+		     struct resource_table *rsc_table, size_t size,
 		     struct metal_io_region *io)
 {
 	char *rsc_start;
@@ -33,7 +31,7 @@ int handle_rsc_table(struct remoteproc *rproc,
 	/* Validate rsc table header fields */
 
 	/* Minimum rsc table size */
-	if (sizeof(struct resource_table) > (unsigned int)size) {
+	if (sizeof(struct resource_table) > size) {
 		return -RPROC_ERR_RSC_TAB_TRUNC;
 	}
 
@@ -46,12 +44,12 @@ int handle_rsc_table(struct remoteproc *rproc,
 	offset = sizeof(struct resource_table)
 		 + rsc_table->num * sizeof(rsc_table->offset[0]);
 
-	if (offset > (unsigned int)size) {
+	if (offset > size) {
 		return -RPROC_ERR_RSC_TAB_TRUNC;
 	}
 
 	/* Reserved fields - must be zero */
-	if ((rsc_table->reserved[0] != 0 || rsc_table->reserved[1]) != 0) {
+	if (rsc_table->reserved[0] != 0 || rsc_table->reserved[1] != 0) {
 		return -RPROC_ERR_RSC_TAB_RSVD;
 	}
 
@@ -72,9 +70,9 @@ int handle_rsc_table(struct remoteproc *rproc,
 		if (status == -RPROC_ERR_RSC_TAB_NS) {
 			status = 0;
 			continue;
-		}
-		else if (status)
+		} else if (status) {
 			break;
+		}
 	}
 
 	return status;
@@ -93,7 +91,7 @@ int handle_rsc_table(struct remoteproc *rproc,
  */
 int handle_carve_out_rsc(struct remoteproc *rproc, void *rsc)
 {
-	struct fw_rsc_carveout *carve_rsc = (struct fw_rsc_carveout *)rsc;
+	struct fw_rsc_carveout *carve_rsc = rsc;
 	metal_phys_addr_t da;
 	metal_phys_addr_t pa;
 	size_t size;
@@ -130,16 +128,15 @@ int handle_vendor_rsc(struct remoteproc *rproc, void *rsc)
 
 int handle_vdev_rsc(struct remoteproc *rproc, void *rsc)
 {
-	struct fw_rsc_vdev *vdev_rsc = (struct fw_rsc_vdev *)rsc;
+	struct fw_rsc_vdev *vdev_rsc = rsc;
 	unsigned int notifyid, i, num_vrings;
 
 	/* only assign notification IDs but do not initialize vdev */
 	notifyid = vdev_rsc->notifyid;
-	if (notifyid == RSC_NOTIFY_ID_ANY) {
-		notifyid = remoteproc_allocate_id(rproc,
-						  notifyid, notifyid + 1);
+	notifyid = remoteproc_allocate_id(rproc,
+					  notifyid, notifyid + 1);
+	if (notifyid != RSC_NOTIFY_ID_ANY)
 		vdev_rsc->notifyid = notifyid;
-	}
 
 	num_vrings = vdev_rsc->num_of_vrings;
 	for (i = 0; i < num_vrings; i++) {
@@ -147,12 +144,11 @@ int handle_vdev_rsc(struct remoteproc *rproc, void *rsc)
 
 		vring_rsc = &vdev_rsc->vring[i];
 		notifyid = vring_rsc->notifyid;
-		if (notifyid == RSC_NOTIFY_ID_ANY) {
-			notifyid = remoteproc_allocate_id(rproc,
-							  notifyid,
-							  notifyid + 1);
+		notifyid = remoteproc_allocate_id(rproc,
+						  notifyid,
+						  notifyid + 1);
+		if (notifyid != RSC_NOTIFY_ID_ANY)
 			vdev_rsc->notifyid = notifyid;
-		}
 	}
 
 	return 0;
@@ -171,7 +167,7 @@ int handle_vdev_rsc(struct remoteproc *rproc, void *rsc)
  */
 int handle_trace_rsc(struct remoteproc *rproc, void *rsc)
 {
-	struct fw_rsc_trace *vdev_rsc = (struct fw_rsc_trace *)rsc;
+	struct fw_rsc_trace *vdev_rsc = rsc;
 	(void)rproc;
 
 	if (vdev_rsc->da != FW_RSC_U32_ADDR_ANY && vdev_rsc->len != 0)

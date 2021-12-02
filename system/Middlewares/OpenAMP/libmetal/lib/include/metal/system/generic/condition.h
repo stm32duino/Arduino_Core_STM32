@@ -16,36 +16,32 @@
 #ifndef __METAL_GENERIC_CONDITION__H__
 #define __METAL_GENERIC_CONDITION__H__
 
-#if defined (__CC_ARM)
-#include <stdio.h>
-#endif
 #include <metal/atomic.h>
 #include <stdint.h>
 #include <limits.h>
 #include <metal/errno.h>
-
-
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 struct metal_condition {
-	metal_mutex_t *m; /**< mutex.
-	                       The condition variable is attached to
-	                       this mutex when it is waiting.
-	                       It is also used to check correctness
-	                       in case there are multiple waiters. */
+	atomic_uintptr_t mptr; /**< mutex pointer.
+				 * The condition variable is attached to
+				 * this mutex when it is waiting.
+				 * It is also used to check correctness
+				 * in case there are multiple waiters.
+				 */
 
 	atomic_int v; /**< condition variable value. */
 };
 
 /** Static metal condition variable initialization. */
-#define METAL_CONDITION_INIT		{ NULL, ATOMIC_VAR_INIT(0) }
+#define METAL_CONDITION_INIT	{ ATOMIC_VAR_INIT(0), ATOMIC_VAR_INIT(0) }
 
 static inline void metal_condition_init(struct metal_condition *cv)
 {
-	cv->m = NULL;
+	atomic_init(&cv->mptr, 0);
 	atomic_init(&cv->v, 0);
 }
 

@@ -23,6 +23,7 @@ typedef short atomic_short;
 typedef unsigned short atomic_ushort;
 typedef int atomic_int;
 typedef unsigned int atomic_uint;
+typedef atomic_uint atomic_uintptr_t;
 typedef long atomic_long;
 typedef unsigned long atomic_ulong;
 typedef long long atomic_llong;
@@ -62,10 +63,10 @@ typedef enum {
 	atomic_load(OBJ)
 #define atomic_exchange(OBJ, DES)					\
 	({								\
-		typeof(OBJ) obj = (OBJ);				\
-		typeof(*obj) des = (DES);				\
-		typeof(*obj) expval;					\
-		typeof(*obj) oldval = atomic_load(obj);			\
+		__typeof__(OBJ) obj = (OBJ);				\
+		__typeof__(*obj) des = (DES);				\
+		__typeof__(*obj) expval;					\
+		__typeof__(*obj) oldval = atomic_load(obj);			\
 		do {							\
 			expval = oldval;				\
 			oldval = __sync_val_compare_and_swap(		\
@@ -77,10 +78,10 @@ typedef enum {
 	atomic_exchange((OBJ), (DES))
 #define atomic_compare_exchange_strong(OBJ, EXP, DES)			\
 	({								\
-		typeof(OBJ) obj = (OBJ);				\
-		typeof(EXP) exp = (EXP);				\
-		typeof(*obj) expval = *exp;				\
-		typeof(*obj) oldval = __sync_val_compare_and_swap(	\
+		__typeof__(OBJ) obj = (OBJ);				\
+		__typeof__(EXP) exp = (EXP);				\
+		__typeof__(*obj) expval = *exp;				\
+		__typeof__(*obj) oldval = __sync_val_compare_and_swap(	\
 			obj, expval, (DES));				\
 		*exp = oldval;						\
 		oldval == expval;					\

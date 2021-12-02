@@ -8,6 +8,26 @@ and request memory across the following operating environments:
   * RTOS (with and without virtual memory)
   * Bare-metal environments
 
+## Project configuration
+The configuration phase begins when the user invokes CMake. CMake begins by processing the CMakeLists.txt file and the cmake directory.
+Some cmake options are available to help user to customize the libmetal to their
+own project.
+
+* **WITH_DOC** (default ON): Build with documentation. Add -DWITH_DOC=OFF in
+cmake command line to disable.
+* **WITH_EXAMPLES** (default ON): Build with application exemples. Add
+-DWITH_DOC=OFF in cmake command line to disable the option.
+* **WITH_TESTS** (default ON): Build with application tests. Add -DWITH_DOC=OFF
+in cmake command line to disable the option.
+* **WITH_DEFAULT_LOGGER** (default ON): Build with default trace logger. Add
+-DWITH_DEFAULT_LOGGER=OFF in cmake command line to disable the option.
+* **WITH_SHARED_LIB** (default ON): Generate a shared library. Add
+-DWITH_SHARED_LIB=OFF in cmake command line to disable the option.
+* **WITH_STATIC_LIB** (default ON): Generate a static library. Add
+-DWITH_STATIC_LIB=OFF in cmake command line to disable the option.
+*  **WITH_ZEPHYR** (default OFF): Build for Zephyr environment. Add
+-DWITH_ZEPHYR=ON in cmake command line to enable the the option.
+
 ## Build Steps
 
 ### Building for Linux Host
@@ -51,8 +71,18 @@ example toolchain file:
     $ cmake <libmetal_source> -DCMAKE_TOOLCHAIN_FILE=<toolchain_file>
     $ make VERBOSE=1 DESTDIR=<libmetal_install> install
 ```
+* Note: When building baremetal for Xilinx 2018.3 or earlier environments,
+add -DXILINX_PRE_V2019 to your CMake invocation. This will include the
+xilmem and xilstandalone libraries in your build. These libraries were
+removed in 2019.1.
 
 ### Building for Zephyr
+The [zephyr-libmetal](https://github.com/zephyrproject-rtos/libmetal)
+implements the libmetal for the Zephyr project. It is mainly  a fork of this repository, with some add-ons for integration in the Zephyr project.
+
+Following instruction is only to be able to run test application on a QEMU running
+a Zephyr environment.
+
 As Zephyr uses CMake, we build libmetal library and test application as
 targets of Zephyr CMake project. Here is how to build libmetal for Zephyr:
 ```
@@ -105,7 +135,8 @@ The following utilities are provided in lib/utilities.h:
 
 #### Version
 
-The libmetal version interface allows user to get the version of the library.
+The libmetal version interface allows user to get the version of the library. The version increment
+follows the set of rule proposed in [Semantic Versioning specification](https://semver.org/).
 
 ### Top Level Interfaces
 
@@ -124,6 +155,11 @@ implementation for metal_sys_init and metal_sys_finish.
 For Linux userspace, metal_sys_init sets up a table for available shared pages,
 checks whether UIO/VFIO drivers are avail, and starts interrupt handling
 thread.
+Please note that on Linux, to access device's memory that is not page
+aligned, an offset has to be added to the pointer returned by
+mmap(). This `offset`, although it can be read from the device tree
+property exposed by the uio driver, is not handled yet by the
+library.
 
 For bare-metal, metal_sys_init and metal_sys_finish just returns.
 
@@ -218,3 +254,48 @@ libmetal sleep APIs provide getting delay execution implementation.
 This API is for compiler dependent functions.  For this release, there is only
 a GCC implementation, and compiler specific code is limited to atomic
 operations.
+
+## How to contribute:
+As an open-source project, we welcome and encourage the community to submit patches directly to the project. As a contributor you  should be familiar with common developer tools such as Git and CMake, and platforms such as GitHub.
+Then following points should be rescpected to facilitate the review process.
+
+### Licencing
+Code is contributed to OpenAMP under a number of licenses, but all code must be compatible with version the [BSD License](https://github.com/OpenAMP/libmetal/blob/master/LICENSE.md), which is the license covering the OpenAMP distribution as a whole. In practice, use the following tag instead of the full license text in the individual files:
+
+    ```
+    SPDX-License-Identifier:    BSD-3-Clause
+    ```
+### Signed-off-by
+Commit message must contain Signed-off-by: line and your email must match the change authorship information. Make sure your .gitconfig is set up correctly:
+
+    ```
+    git config --global user.name "first-name Last-Namer"
+    git config --global user.email "yourmail@company.com"
+    ```
+### gitlint
+Before you submit a pull request to the project, verify your commit messages meet the requirements. The check can be performed locally using the the gitlint command.
+
+Run gitlint locally in your tree and branch where your patches have been committed:
+
+      ```gitlint```
+Note, gitlint only checks HEAD (the most recent commit), so you should run it after each commit, or use the --commits option to specify a commit range covering all the development patches to be submitted.
+
+### Code style
+In general, follow the Linux kernel coding style, with the following exceptions:
+
+* Use /**  */ for doxygen comments that need to appear in the documentation.
+
+The Linux kernel GPL-licensed tool checkpatch is used to check coding style conformity.Checkpatch is available in the scripts directory.
+
+To check your \<n\> commits in your git branch:
+   ```
+   ./scripts/checkpatch.pl --strict  -g HEAD-<n>
+
+   ```
+### Send a pull request
+We use standard github mechanism for pull request. Please refer to github documentation for help.
+
+## Communication and Collaboration
+[Subscribe](https://lists.openampproject.org/mailman/listinfo/openamp-rp) to the OpenAMP mailing list(openamp-rp@lists.openampproject.org).
+
+For more details on the framework please refer to the the [OpenAMP wiki](https://github.com/OpenAMP/open-amp/wiki).

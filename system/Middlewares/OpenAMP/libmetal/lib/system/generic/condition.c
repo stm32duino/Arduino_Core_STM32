@@ -17,7 +17,7 @@ extern void metal_generic_default_poll(void);
 int metal_condition_wait(struct metal_condition *cv,
 			 metal_mutex_t *m)
 {
-	metal_mutex_t *tmpm = 0;
+	uintptr_t tmpmptr = 0, mptr = (uintptr_t)m;
 	int v;
 	unsigned int flags;
 
@@ -25,8 +25,8 @@ int metal_condition_wait(struct metal_condition *cv,
 	if (!cv || !m || !metal_mutex_is_acquired(m))
 		return -EINVAL;
 
-	if (!atomic_compare_exchange_strong(&cv->m->v, &tmpm->v, m->v)) {
-		if (m != tmpm)
+	if (!atomic_compare_exchange_strong(&cv->mptr, &tmpmptr, mptr)) {
+		if (tmpmptr != mptr)
 			return -EINVAL;
 	}
 
@@ -42,7 +42,7 @@ int metal_condition_wait(struct metal_condition *cv,
 		}
 		metal_generic_default_poll();
 		metal_irq_restore_enable(flags);
-	} while(1);
+	} while (1);
 	/* Acquire the mutex again. */
 	metal_mutex_acquire(m);
 	return 0;

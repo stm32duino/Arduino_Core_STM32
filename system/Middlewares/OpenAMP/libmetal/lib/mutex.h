@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup mutex Mutex Interfaces
- *  @{ */
+ *  @{
+ */
 
 #include <metal/system/@PROJECT_SYSTEM@/mutex.h>
 
@@ -40,7 +41,7 @@ static inline void metal_mutex_deinit(metal_mutex_t *mutex)
 }
 
 /**
- * @brief	Try to acquire a mutex 
+ * @brief	Try to acquire a mutex
  * @param[in]	mutex	Mutex to mutex.
  * @return	0 on failure to acquire, non-zero on success.
  */
@@ -50,7 +51,7 @@ static inline int metal_mutex_try_acquire(metal_mutex_t *mutex)
 }
 
 /**
- * @brief	Acquire a mutex 
+ * @brief	Acquire a mutex
  * @param[in]	mutex	Mutex to mutex.
  */
 static inline void metal_mutex_acquire(metal_mutex_t *mutex)

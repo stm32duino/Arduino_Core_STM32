@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup time TIME Interfaces
- *  @{ */
+ *  @{
+ */
 
 #include <stdint.h>
 #include <metal/sys.h>

@@ -18,5 +18,5 @@
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	__asm__ __volatile__("wfi");
+	metal_asm __volatile__("wfi");
 }

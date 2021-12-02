@@ -12,7 +12,11 @@
 #ifndef __METAL_ASSERT__H__
 #define __METAL_ASSERT__H__
 
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/assert.h>
+#else
 #include <metal/system/generic/assert.h>
+#endif
 
 /**
  * @brief Assertion macro.

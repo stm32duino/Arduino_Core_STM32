@@ -16,14 +16,14 @@
 #ifndef __METAL_GENERIC_SYS__H__
 #define __METAL_GENERIC_SYS__H__
 
-#include <metal/errno.h>
 #include <limits.h>
+#include <metal/errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
 
-#include "./cortexm/sys.h"
+#include "./template/sys.h"
 
 #ifdef __cplusplus
 extern "C" {

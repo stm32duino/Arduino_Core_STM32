@@ -16,10 +16,8 @@
 #ifndef __METAL_GENERIC_SYS__H__
 #define __METAL_GENERIC_SYS__H__
 
-#include <metal/errno.h>
-#include <fcntl.h>
-#include <libgen.h>
 #include <limits.h>
+#include <metal/errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdarg.h>

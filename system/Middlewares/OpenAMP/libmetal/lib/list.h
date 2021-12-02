@@ -19,7 +19,8 @@ extern "C" {
 #endif
 
 /** \defgroup list List Primitives
- *  @{ */
+ *  @{
+ */
 
 struct metal_list {
 	struct metal_list *next, *prev;
@@ -39,7 +40,8 @@ struct metal_list {
 
 static inline void metal_list_init(struct metal_list *list)
 {
-	list->next = list->prev = list;
+	list->prev = list;
+	list->next = list;
 }
 
 static inline void metal_list_add_before(struct metal_list *node,
@@ -81,7 +83,8 @@ static inline void metal_list_del(struct metal_list *node)
 {
 	node->next->prev = node->prev;
 	node->prev->next = node->next;
-	node->next = node->prev = node;
+	node->prev = node;
+	node->next = node;
 }
 
 static inline struct metal_list *metal_list_first(struct metal_list *list)

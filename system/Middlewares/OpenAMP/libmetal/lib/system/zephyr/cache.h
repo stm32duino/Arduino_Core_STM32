@@ -32,7 +32,6 @@ static inline void __metal_cache_invalidate(void *addr, unsigned int len)
 {
 	metal_unused(addr);
 	metal_unused(len);
-	return;
 }
 
 #ifdef __cplusplus

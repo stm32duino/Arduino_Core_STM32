@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014, Mentor Graphics Corporation
+ * All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef RPMSG_RETARGET_H
 #define RPMSG_RETARGET_H
 
@@ -52,7 +59,7 @@ struct rpmsg_rpc_data {
 /**
  * rpmsg_rpc_init - initialize RPMsg remote procedure call
  *
- * This function is to intialize the remote procedure call
+ * This function is to initialize the remote procedure call
  * global data. RPMsg RPC will send request to remote and
  * wait for callback.
  *

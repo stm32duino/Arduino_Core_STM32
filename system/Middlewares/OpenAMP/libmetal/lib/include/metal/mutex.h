@@ -17,9 +17,14 @@ extern "C" {
 #endif
 
 /** \defgroup mutex Mutex Interfaces
- *  @{ */
+ *  @{
+ */
 
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/mutex.h>
+#else
 #include <metal/system/generic/mutex.h>
+#endif
 
 /**
  * @brief	Initialize a libmetal mutex.

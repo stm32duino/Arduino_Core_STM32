@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2014, Mentor Graphics Corporation. All rights reserved.
+ * Copyright (c) 2017 - 2018 Xilinx, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+
 #ifndef PLATFORM_INFO_H_
 #define PLATFORM_INFO_H_
 
@@ -91,7 +98,7 @@ int platform_poll(void *platform);
  *
  * @rpdev: pointer to the rpmsg device
  */
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev);
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform);
 
 /**
  * platform_cleanup - clean up the platform resource

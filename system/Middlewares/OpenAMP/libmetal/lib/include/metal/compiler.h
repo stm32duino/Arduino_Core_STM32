@@ -16,7 +16,7 @@
 # include <metal/compiler/gcc/compiler.h>
 #elif defined(__ICCARM__)
 # include <metal/compiler/iar/compiler.h>
-#elif defined (__CC_ARM)
+#elif defined(__CC_ARM)
 # error "MDK-ARM ARMCC compiler requires the GNU extentions to work correctly"
 #else
 # error "Missing compiler support"

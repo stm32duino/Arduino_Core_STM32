@@ -20,13 +20,13 @@
 #include "xscugic.h"
 
 /* Translation table is 16K in size */
-#define     ARM_AR_MEM_TTB_SIZE                    16*1024
+#define     ARM_AR_MEM_TTB_SIZE		  (16*1024)
 
 /* Each TTB descriptor covers a 1MB region */
-#define     ARM_AR_MEM_TTB_SECT_SIZE               1024*1024
+#define     ARM_AR_MEM_TTB_SECT_SIZE	  (1024*1024)
 
 /* Mask off lower bits of addr */
-#define     ARM_AR_MEM_TTB_SECT_SIZE_MASK          (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
+#define     ARM_AR_MEM_TTB_SECT_SIZE_MASK (~(ARM_AR_MEM_TTB_SECT_SIZE-1UL))
 
 void sys_irq_restore_enable(unsigned int flags)
 {
@@ -37,7 +37,7 @@ unsigned int sys_irq_save_disable(void)
 {
 	unsigned int state = mfcpsr() & XIL_EXCEPTION_ALL;
 
-	if (XIL_EXCEPTION_ALL != state) {
+	if (state != XIL_EXCEPTION_ALL) {
 		Xil_ExceptionDisableMask(XIL_EXCEPTION_ALL);
 	}
 	return state;
@@ -64,7 +64,7 @@ void metal_machine_cache_invalidate(void *addr, unsigned int len)
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	asm volatile("wfi");
+	metal_asm volatile("wfi");
 }
 
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
@@ -75,12 +75,16 @@ void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,
 
 	if (!flags)
 		return va;
-	/* Ensure the virtual and physical addresses are aligned on a
-	   section boundary */
+	/*
+	 * Ensure the virtual and physical addresses are aligned on a
+	 * section boundary
+	 */
 	pa &= ARM_AR_MEM_TTB_SECT_SIZE_MASK;
 
-	/* Loop through entire region of memory (one MMU section at a time).
-	   Each section requires a TTB entry. */
+	/*
+	 * Loop through entire region of memory (one MMU section at a time).
+	 * Each section requires a TTB entry.
+	 */
 	for (section_offset = 0; section_offset < size;
 	     section_offset += ARM_AR_MEM_TTB_SECT_SIZE) {
 

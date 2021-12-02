@@ -20,7 +20,8 @@ extern "C" {
 #endif
 
 /** \defgroup condition Condition Variable Interfaces
- *  @{ */
+ *  @{
+ */
 
 /** Opaque libmetal condition variable data structure. */
 struct metal_condition;

@@ -8,7 +8,7 @@
   ********************************************************************************
   * @attention
   *
-  * Copyright (c) 2019 STMicroelectronics. All rights reserved.
+  * Copyright (c) 2021 STMicroelectronics. All rights reserved.
   *
   * This software component is licensed by ST under BSD 3-Clause license,
   * the "License"; You may not use this file except in compliance with the
@@ -18,6 +18,11 @@
   ******************************************************************************
   @endverbatim
 
+### V1.0.5/15-September-2021 ###
+================================
+   + openamp_template.c, openamp_template.h
+     - Suppress deprecated OPENAMP_init_ept
+
 ### V1.0.4/10-January-2020 ###
 ===============================
    + openamp_template.c, openamp_template.h, mbox_hsem_template.c, mbox_hsem_template.h, mbox_ipcc_template.c, mbox_ipcc_template.h, rsc_table_template.h:
@@ -26,7 +31,7 @@
    + openamp_template.c:
      - initialize local variables to '0'
 
-### V1.0.3/08-November-2019 ##
+### V1.0.3/08-November-2019 ###
 ===============================
    + openamp_conf_template.h:
      - replace the "STM32MP157Cxx" define macro with "LINUX_RPROC_MASTER" to support all STM32MP1 varieties

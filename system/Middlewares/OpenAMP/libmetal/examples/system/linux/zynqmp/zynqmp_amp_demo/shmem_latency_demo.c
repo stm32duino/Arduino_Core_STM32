@@ -328,7 +328,8 @@ int shmem_latency_demo()
 	atomic_init(&ch.remote_nkicked, 1);
 	ch.ipi_mask = IPI_MASK;
 	/* Register IPI irq handler */
-	metal_irq_register(ipi_irq, ipi_irq_handler, ch.ipi_dev, &ch);
+	metal_irq_register(ipi_irq, ipi_irq_handler, &ch);
+	metal_irq_enable(ipi_irq);
 	/* Enable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IER_OFFSET, IPI_MASK);
 
@@ -338,7 +339,8 @@ int shmem_latency_demo()
 	/* disable IPI interrupt */
 	metal_io_write32(ch.ipi_io, IPI_IDR_OFFSET, IPI_MASK);
 	/* unregister IPI irq handler by setting the handler to 0 */
-	metal_irq_unregister(ipi_irq, 0, ch.ipi_dev, &ch);
+	metal_irq_disable(ipi_irq);
+	metal_irq_unregister(ipi_irq);
 
 out:
 	if (ch.ttc_dev)

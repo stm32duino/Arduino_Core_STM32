@@ -19,6 +19,15 @@
 
   @endverbatim
 
+### V1.0.3/15-September-2021 ###
+================================
+   + Integrate official release v2021.04
+
+### V1.0.2/11-November-2020 ###
+===============================
+   + Integrate official release v2020.10
+
+
 ### V1.0.1/11-October-2019 ###
 ===============================
    + Change RPMSG_ADDR_BMP_SIZE to increase the number of Virtual UART instances

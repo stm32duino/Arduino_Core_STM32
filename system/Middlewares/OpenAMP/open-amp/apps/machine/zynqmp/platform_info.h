@@ -28,12 +28,24 @@ struct remoteproc_priv {
 	struct metal_device *ipi_dev; /**< pointer to IPI device */
 	struct metal_io_region *ipi_io; /**< pointer to IPI i/o region */
 	struct metal_device *shm_dev; /**< pointer to shared memory device */
-	struct metal_io_region *shm_io; /**< pointer to shared memory i/o
-						 region */
+	struct metal_io_region *shm_io; /**< pointer to sh mem i/o region */
+
 	struct remoteproc_mem shm_mem; /**< shared memory */
 	unsigned int ipi_chn_mask; /**< IPI channel mask */
 	atomic_int ipi_nokick;
+#ifdef RPMSG_NO_IPI
+	const char *shm_poll_name; /**< shared memory device name */
+	const char *shm_poll_bus_name; /**< shared memory bus name */
+	struct metal_device *shm_poll_dev; /**< pointer to poll mem device */
+	struct metal_io_region *shm_poll_io; /**< pointer to poll mem i/o */
+#endif /* RPMSG_NO_IPI */
+
 };
+
+#ifdef RPMSG_NO_IPI
+#define POLL_DEV_NAME        "3ee40000.poll" /* shared device name */
+#define POLL_STOP 0x1U
+#endif /* RPMSG_NO_IPI */
 
 
 /**
@@ -84,7 +96,7 @@ int platform_poll(void *platform);
  *
  * @rpdev: pointer to the rpmsg device
  */
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev);
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform);
 
 /**
  * platform_cleanup - clean up the platform resource

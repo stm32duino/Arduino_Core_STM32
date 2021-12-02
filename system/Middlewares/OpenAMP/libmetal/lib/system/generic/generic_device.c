@@ -17,7 +17,7 @@
 int metal_generic_dev_sys_open(struct metal_device *dev)
 {
 	struct metal_io_region *io;
-	unsigned i;
+	unsigned int i;
 
 	/* map I/O memory regions */
 	for (i = 0; i < dev->num_regions; i++) {

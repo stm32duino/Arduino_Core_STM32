@@ -9,7 +9,7 @@
 #include <metal/alloc.h>
 #include <metal/log.h>
 #include <metal/sys.h>
-#include <misc/printk.h>
+#include <sys/printk.h>
 #include "metal-test-internal.h"
 
 static int alloc(void)
