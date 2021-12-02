@@ -62,10 +62,10 @@ struct metal_device shm_device = {
 static int OPENAMP_shmem_init(int RPMsgRole)
 {
   int status = 0;
-  struct metal_device *device;
+  struct metal_device *device = NULL;
   struct metal_init_params metal_params = METAL_INIT_DEFAULTS;
-  void *rsc_tab_addr;
-  int rsc_size;
+  void *rsc_tab_addr = NULL;
+  int rsc_size = 0;
 
   metal_init(&metal_params);
 
@@ -81,7 +81,7 @@ static int OPENAMP_shmem_init(int RPMsgRole)
 
   shm_physmap = SHM_START_ADDRESS;
   metal_io_init(&device->regions[0], (void *)SHM_START_ADDRESS, &shm_physmap,
-                SHM_SIZE, -1, 0, NULL);
+                SHM_SIZE, (unsigned int) -1, 0, NULL);
 
   shm_io = metal_device_io_region(device, 0);
   if (shm_io == NULL) {
@@ -113,8 +113,8 @@ static int OPENAMP_shmem_init(int RPMsgRole)
  */
 int OPENAMP_Init()
 {
-  struct fw_rsc_vdev_vring *vring_rsc;
-  struct virtio_device *vdev;
+  struct fw_rsc_vdev_vring *vring_rsc = NULL;
+  struct virtio_device *vdev = NULL;
   int status = 0;
 
   MAILBOX_Init();
