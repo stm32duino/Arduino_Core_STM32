@@ -611,6 +611,24 @@ def updateMDFile(md_file, serie, version):
             print(regexmd_up.sub(rf"\g<1>{version}", line), end="")
 
 
+def updateOpenAmp():
+    print("Updating OpenAmp Middleware")
+    repo_path = repo_local_path / repo_core_name
+    if upargs.local:
+        cube_path = local_cube_path
+    else:
+        cube_name = f"{repo_generic_name}MP1"
+        cube_path = repo_local_path / cube_name
+    OpenAmp_cube_path = cube_path / "Middlewares" / "Third_Party" / "OpenAMP"
+    OpenAmp_core_path = repo_path / "system" / "Middlewares" / "OpenAMP"
+
+    # First delete old HAL version
+    deleteFolder(OpenAmp_core_path)
+
+    # Copy new one
+    copyFolder(OpenAmp_cube_path, OpenAmp_core_path)
+
+
 def updateCore():
     for serie in stm32_list:
         if upargs.local:
@@ -712,6 +730,28 @@ Included in STM32Cube{0} FW {2}""".format(
                 commitFiles(core_path, wrapper_commit_msg)
             # Apply all related patch if any
             applyPatch(serie, HAL_updated, CMSIS_updated, core_path)
+
+        if serie == "MP1":
+            print(f"Updating {serie} OpenAmp Middleware to Cube {cube_version} ...")
+            updateOpenAmp()
+            openAmp_commit_msg = (
+                f"Update OpenAmp Middleware to MP1 Cube version {cube_version}"
+            )
+            commitFiles(core_path, openAmp_commit_msg)
+            print(
+                "WARNING: OpenAmp MW has been updated, please check whether Arduino implementation:"
+            )
+            print("          * cores/arduino/stm32/OpenAMP/mbox_ipcc.h")
+            print("          * cores/arduino/stm32/OpenAMP/mbox_ipcc.c")
+            print("          * cores/arduino/stm32/OpenAMP/rsc_table.h")
+            print("          * cores/arduino/stm32/OpenAMP/rsc_table.c")
+            print("          * cores/arduino/stm32/OpenAMP/openamp.h")
+            print("          * cores/arduino/stm32/OpenAMP/openamp.c")
+            print("          * cores/arduino/stm32/OpenAMP/openamp_conf.h")
+            print("       should be updated from Cube project:")
+            print(
+                "          --> Projects/STM32MP157C-DK2/Applications/OpenAMP/OpenAMP_TTY_echo"
+            )
 
 
 # Parser
