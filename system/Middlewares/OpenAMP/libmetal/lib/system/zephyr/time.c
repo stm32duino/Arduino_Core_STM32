@@ -10,12 +10,10 @@
  */
 
 #include <metal/time.h>
-#include <sys_clock.h>
-
-extern volatile u64_t _sys_clock_tick_count;
+#include <kernel.h>
 
 unsigned long long metal_get_timestamp(void)
 {
-	return (unsigned long long)_sys_clock_tick_count;
+	return (unsigned long long)k_uptime_ticks();
 }
 

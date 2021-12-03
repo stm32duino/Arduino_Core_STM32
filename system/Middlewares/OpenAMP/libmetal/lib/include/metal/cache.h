@@ -12,15 +12,19 @@
 #ifndef __METAL_CACHE__H__
 #define __METAL_CACHE__H__
 
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/cache.h>
+#else
 #include <metal/system/generic/cache.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-
 /** \defgroup cache CACHE Interfaces
- *  @{ */
+ *  @{
+ */
 
 /**
  * @brief flush specified data cache

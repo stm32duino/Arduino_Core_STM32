@@ -16,7 +16,7 @@ void metal_default_log_handler(enum metal_log_level level,
 #ifdef DEFAULT_LOGGER_ON
 	char msg[1024];
 	va_list args;
-	static const char *level_strs[] = {
+	static const char * const level_strs[] = {
 		"metal: emergency: ",
 		"metal: alert:     ",
 		"metal: critical:  ",

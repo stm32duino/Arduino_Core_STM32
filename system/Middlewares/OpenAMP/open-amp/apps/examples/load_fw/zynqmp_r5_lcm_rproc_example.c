@@ -59,7 +59,7 @@ static uint32_t r5_rproc_boot_addr_config(struct r5_rproc_priv *priv,
 {
 	uint32_t rpu_resetaddr;
 
-	LPRINTF("%s: R5 ID: %d, boot_addr 0x%x\n",
+	LPRINTF("%s: R5 ID: %d, boot_addr 0x%x\r\n",
 		 __func__, priv->cpu_id, bootaddr);
 
 	if (bootaddr < 0x40000)
@@ -80,7 +80,7 @@ static void r5_rproc_mode_config(struct r5_rproc_priv *priv)
 {
 	uint32_t tmp;
 
-	LPRINTF("%s: mode: %d\n", __func__, priv->cpu_id);
+	LPRINTF("%s: mode: %d\r\n", __func__, priv->cpu_id);
 	tmp = metal_io_read32(&priv->rpu_io, RPU_GLBL_CNTL_OFFSET);
 	if (priv->cpu_id == NODE_RPU) {
 		/* RPU lock step mode */
@@ -103,11 +103,11 @@ struct remoteproc *r5_rproc_init(struct remoteproc *rproc,
 	unsigned int cpu_id = *((unsigned int *)arg);
 
 	if (cpu_id < NODE_RPU_0 || cpu_id > NODE_RPU_1) {
-		xil_printf("rproc init: invalide node id: %d\n\r", cpu_id);
+		xil_printf("rproc init: invalide node id: %d\r\n", cpu_id);
 		return NULL;
 	}
 
-	xil_printf("rproc init: node id: %d\n\r", cpu_id);
+	xil_printf("rproc init: node id: %d\r\n", cpu_id);
 	priv = metal_allocate_memory(sizeof(*priv));
 	if (!priv)
 		return NULL;
@@ -150,7 +150,7 @@ void *r5_rproc_mmap(struct remoteproc *rproc,
 
 	if (!da || !pa)
 		return NULL;
-	LPRINTF("%s: pa=0x%x, da=0x%x, size=0x%x, atrribute=0x%x\n\r",
+	LPRINTF("%s: pa=0x%x, da=0x%x, size=0x%x, atrribute=0x%x\r\n",
 		__func__, *pa, *da, size, attribute);
 	lda = *da;
 	lpa = *pa;
@@ -189,7 +189,7 @@ void *r5_rproc_mmap(struct remoteproc *rproc,
 						PM_CAP_ACCESS, 0,
 						REQUEST_ACK_BLOCKING);
 		} else {
-			LPERROR("mmap failed: invalid cpu node: %d\n",
+			LPERROR("mmap failed: invalid cpu node: %d\r\n",
 				priv->cpu_id);
 			return NULL;
 		}
@@ -230,7 +230,7 @@ int r5_rproc_start(struct remoteproc *rproc)
 	ret = XPm_RequestWakeUp(priv->cpu_id, true, resetaddr,
 			      REQUEST_ACK_BLOCKING);
 	if (ret != XST_SUCCESS) {
-		LPRINTF("%s: Failed to start RPU 0x%x, ret=0x%x\n\r",
+		LPRINTF("%s: Failed to start RPU 0x%x, ret=0x%x\r\n",
 			__func__, priv->cpu_id, ret);
 		return -1;
 	} else {

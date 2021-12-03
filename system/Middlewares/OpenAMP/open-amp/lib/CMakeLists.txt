@@ -4,6 +4,7 @@ set_property (GLOBAL PROPERTY "PROJECT_LIB_EXTRA_CFLAGS")
 collector_create (PROJECT_LIB_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}")
 collect (PROJECT_LIB_DIRS "${CMAKE_CURRENT_BINARY_DIR}")
 collect (PROJECT_INC_DIRS "${CMAKE_CURRENT_SOURCE_DIR}/include")
+collect (PROJECT_LIB_SOURCES version.c)
 
 
 add_subdirectory (virtio)
@@ -15,6 +16,9 @@ if (WITH_PROXY)
 endif (WITH_PROXY)
 
 set (OPENAMP_LIB open_amp)
+
+configure_file(version.h.in ${PROJECT_BINARY_DIR}/include/generated/openamp/version_def.h)
+collect (PROJECT_INC_DIRS " ${PROJECT_BINARY_DIR}/include/generated/openamp")
 
 if (NOT CMAKE_INSTALL_LIBDIR)
 	set (CMAKE_INSTALL_LIBDIR "lib")
@@ -34,8 +38,8 @@ set_property (SOURCE ${_sources}
 # Build a shared library if so configured.
 if (WITH_ZEPHYR)
   zephyr_library_named(${OPENAMP_LIB})
-  add_dependencies(${OPENAMP_LIB} offsets_h)
-  target_sources (${OPENAMP_LIB} PRIVATE ${_sources})
+  add_dependencies(${ZEPHYR_CURRENT_LIBRARY} ${OFFSETS_H_TARGET})
+  zephyr_library_sources(${_sources})
   zephyr_include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 else (WITH_ZEPHYR)
   if (WITH_SHARED_LIB)
@@ -45,8 +49,8 @@ else (WITH_ZEPHYR)
     install (TARGETS ${_lib} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
     set_target_properties (${_lib} PROPERTIES
       OUTPUT_NAME       "${OPENAMP_LIB}"
-      VERSION           "${PROJECT_VER}"
-      SOVERSION         "${PROJECT_VER_MAJOR}"
+      VERSION           "${PROJECT_VERSION}"
+      SOVERSION         "${PROJECT_VERSION_MAJOR}"
     )
   endif (WITH_SHARED_LIB)
 
@@ -61,5 +65,6 @@ else (WITH_ZEPHYR)
 endif (WITH_ZEPHYR)
 
 install (DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/openamp" DESTINATION include)
+install (DIRECTORY "${PROJECT_BINARY_DIR}/include/generated/openamp" DESTINATION include)
 
 # vim: expandtab:ts=2:sw=2:smartindent

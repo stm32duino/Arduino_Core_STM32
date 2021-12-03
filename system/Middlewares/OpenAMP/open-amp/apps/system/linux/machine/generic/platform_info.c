@@ -26,6 +26,7 @@
 #include <metal/utilities.h>
 #include <openamp/remoteproc.h>
 #include <openamp/rpmsg_virtio.h>
+#include <errno.h>
 #include <poll.h>
 #include <string.h>
 #include <stdio.h>
@@ -145,7 +146,7 @@ static int sk_unix_client(const char *descr)
 	strncpy(addr.sun_path, descr + strlen(UNIX_PREFIX),
 		sizeof addr.sun_path);
 	if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) >= 0) {
-		printf("connected to %s\n", descr + strlen(UNIX_PREFIX));
+		printf("connected to %s\r\n", descr + strlen(UNIX_PREFIX));
 		return fd;
 	}
 
@@ -169,7 +170,7 @@ static int sk_unix_server(const char *descr)
 	}
 
 	listen(fd, 5);
-	printf("Waiting for connection on %s\n", addr.sun_path);
+	printf("Waiting for connection on %s\r\n", addr.sun_path);
 	nfd = accept(fd, NULL, NULL);
 	close(fd);
 	return nfd;
@@ -207,7 +208,7 @@ static int event_open(const char *descr)
 		/* UNIX server. */
 		fd = sk_unix_server(descr);
 	}
-	printf("Open IPI: %s\n", descr);
+	printf("Open IPI: %s\r\n", descr);
 	return fd;
 }
 
@@ -237,7 +238,7 @@ linux_proc_init(struct remoteproc *rproc,
 	/* Create shared memory io */
 	ret = metal_shmem_open(prproc->shm_file, prproc->shm_size, &io);
 	if (ret) {
-		printf("Failed to init rproc, failed to open shm %s.\n",
+		printf("Failed to init rproc, failed to open shm %s.\r\n",
 		       prproc->shm_file);
 		return NULL;
 	}
@@ -254,17 +255,18 @@ linux_proc_init(struct remoteproc *rproc,
 	ipi = &prproc->ipi;
 	if (!ipi->path) {
 		fprintf(stderr,
-			"ERROR: No IPI sock path specified.\n");
+			"ERROR: No IPI sock path specified.\r\n");
 		goto err;
 	}
 	ipi->fd = event_open(ipi->path);
 	if (ipi->fd < 0) {
 		fprintf(stderr,
-			"ERROR: Failed to open sock %s for IPI.\n",
+			"ERROR: Failed to open sock %s for IPI.\r\n",
 			ipi->path);
 		goto err;
 	}
-	metal_irq_register(ipi->fd, linux_proc_irq_handler, NULL, ipi);
+	metal_irq_register(ipi->fd, linux_proc_irq_handler, ipi);
+	metal_irq_enable(ipi->fd);
 	rproc->ops = ops;
 	return rproc;
 
@@ -286,7 +288,8 @@ static void linux_proc_remove(struct remoteproc *rproc)
 	/* Close IPI */
 	ipi = &prproc->ipi;
 	if (ipi->fd >= 0) {
-		metal_irq_unregister(ipi->fd, 0, NULL, ipi);
+		metal_irq_disable(ipi->fd);
+		metal_irq_unregister(ipi->fd);
 		close(ipi->fd);
 	}
 
@@ -374,7 +377,7 @@ static int platform_slave_setup_resource_table(const char *shm_file,
 
 	ret = metal_shmem_open(shm_file, shm_size, &io);
 	if (ret) {
-		printf("Failed to init rproc, failed to open shm %s.\n",
+		printf("Failed to init rproc, failed to open shm %s.\r\n",
 		       shm_file);
 		return -1;
 	}
@@ -407,7 +410,7 @@ platform_create_proc(int proc_index, int rsc_index)
 							  rsc_table, rsc_size,
 							  RSC_MEM_PA);
 		if (ret) {
-			printf("Failed to initialize resource table\n");
+			printf("Failed to initialize resource table\r\n");
 			return NULL;
 		}
 	}
@@ -440,7 +443,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	if (!platform) {
 		fprintf(stderr, "Failed to initialize platform, NULL pointer"
-			"to store platform data.\n");
+			"to store platform data.\r\n");
 		return -EINVAL;
 	}
 	/* Initialize HW system components */
@@ -456,7 +459,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	rproc = platform_create_proc(proc_id, rsc_id);
 	if (!rproc) {
-		fprintf(stderr, "Failed to create remoteproc device.\n");
+		fprintf(stderr, "Failed to create remoteproc device.\r\n");
 		return -EINVAL;
 	}
 	*platform = rproc;
@@ -482,7 +485,7 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
 		return NULL;
 	shbuf_io = remoteproc_get_io_with_pa(rproc, SHARED_BUF_PA);
 	if (!shbuf_io)
-		return NULL;
+		goto err1;
 	shbuf = metal_io_phys_to_virt(shbuf_io, SHARED_BUF_PA);
 
 	printf("creating remoteproc virtio\r\n");
@@ -536,9 +539,16 @@ int platform_poll(void *priv)
 	return 0;
 }
 
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev)
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform)
 {
-	(void)rpdev;
+	struct rpmsg_virtio_device *rpvdev;
+	struct remoteproc *rproc;
+
+	rpvdev = metal_container_of(rpdev, struct rpmsg_virtio_device, rdev);
+	rproc = platform;
+
+	rpmsg_deinit_vdev(rpvdev);
+	remoteproc_remove_virtio(rproc, rpvdev->vdev);
 }
 
 void platform_cleanup(void *platform)

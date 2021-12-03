@@ -14,13 +14,15 @@
 
 #include <metal/io.h>
 #include <metal/mutex.h>
-#include <openamp/compiler.h>
+#include <metal/compiler.h>
 
 #if defined __cplusplus
 extern "C" {
 #endif
 
 #define RSC_NOTIFY_ID_ANY 0xFFFFFFFFUL
+
+#define RPROC_MAX_NAME_LEN 32
 
 /**
  * struct resource_table - firmware resource table header
@@ -30,8 +32,8 @@ extern "C" {
  * @offset: array of offsets pointing at the various resource entries
  *
  * A resource table is essentially a list of system resources required
- * by the remote remote_proc. It may also include configuration entries.
- * If needed, the remote remote_proc firmware should contain this table
+ * by the remote remoteproc. It may also include configuration entries.
+ * If needed, the remote remoteproc firmware should contain this table
  * as a dedicated ".resource_table" ELF section.
  *
  * Some resources entries are mere announcements, where the host is informed
@@ -49,13 +51,13 @@ extern "C" {
  * Immediately following this header are the resource entries themselves,
  * each of which begins with a resource entry header (as described below).
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct resource_table {
 	uint32_t ver;
 	uint32_t num;
 	uint32_t reserved[2];
 	uint32_t offset[0];
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_hdr - firmware resource entry header
@@ -66,11 +68,11 @@ struct resource_table {
  * its @type. The content of the entry itself will immediately follow
  * this header, and it should be parsed according to the resource type.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_hdr {
 	uint32_t type;
 	uint8_t data[0];
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 /**
  * enum fw_resource_type - types of resource entries
@@ -79,7 +81,7 @@ struct fw_rsc_hdr {
  *          memory region.
  * @RSC_DEVMEM:     request to iommu_map a memory-based peripheral.
  * @RSC_TRACE:      announces the availability of a trace buffer into which
- *          the remote remote_proc will be writing logs.
+ *          the remote remoteproc will be writing logs.
  * @RSC_VDEV:       declare support for a virtio device, and serve as its
  *          virtio header.
  * @RSC_VENDOR_START: start of the vendor specific resource types range
@@ -99,15 +101,13 @@ enum fw_resource_type {
 	RSC_DEVMEM = 1,
 	RSC_TRACE = 2,
 	RSC_VDEV = 3,
-	RSC_RPROC_MEM = 4,
-	RSC_FW_CHKSUM = 5,
-	RSC_LAST = 6,
+	RSC_LAST = 4,
 	RSC_VENDOR_START = 128,
 	RSC_VENDOR_END = 512,
 };
 
-#define FW_RSC_ADDR_ANY (0xFFFFFFFFFFFFFFFF)
-#define FW_RSC_U32_ADDR_ANY (0xFFFFFFFF)
+#define FW_RSC_U64_ADDR_ANY 0xFFFFFFFFFFFFFFFFUL
+#define FW_RSC_U32_ADDR_ANY 0xFFFFFFFFUL
 
 /**
  * struct fw_rsc_carveout - physically contiguous memory request
@@ -139,20 +139,20 @@ enum fw_resource_type {
  * isn't using an iommu. In that case, though, it will obviously contain
  * physical addresses.
  *
- * Some remote remote_procs needs to know the allocated physical address
+ * Some remote remoteprocs needs to know the allocated physical address
  * even if they do use an iommu. This is needed, e.g., if they control
  * hardware accelerators which access the physical memory directly (this
  * is the case with OMAP4 for instance). In that case, the host will
  * overwrite @pa with the dynamically allocated physical address.
  * Generally we don't want to expose physical addresses if we don't have to
- * (remote remote_procs are generally _not_ trusted), so we might want to
+ * (remote remoteprocs are generally _not_ trusted), so we might want to
  * change this to happen _only_ when explicitly required by the hardware.
  *
  * @flags is used to provide IOMMU protection flags, and @name should
  * (optionally) contain a human readable name of this carveout region
  * (mainly for debugging purposes).
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_carveout {
 	uint32_t type;
 	uint32_t da;
@@ -160,8 +160,8 @@ struct fw_rsc_carveout {
 	uint32_t len;
 	uint32_t flags;
 	uint32_t reserved;
-	uint8_t name[32];
-} OPENAMP_PACKED_END;
+	uint8_t name[RPROC_MAX_NAME_LEN];
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_devmem - iommu mapping request
@@ -173,11 +173,11 @@ struct fw_rsc_carveout {
  * @name: human-readable name of the requested region to be mapped
  *
  * This resource entry requests the host to iommu map a physically contiguous
- * memory region. This is needed in case the remote remote_proc requires
+ * memory region. This is needed in case the remote remoteproc requires
  * access to certain memory-based peripherals; _never_ use it to access
  * regular memory.
  *
- * This is obviously only needed if the remote remote_proc is accessing memory
+ * This is obviously only needed if the remote remoteproc is accessing memory
  * via an iommu.
  *
  * @da should specify the required device address, @pa should specify
@@ -192,7 +192,7 @@ struct fw_rsc_carveout {
  * the firmware is allowed to request, and not allow firmwares to request
  * access to physical addresses that are outside those ranges.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_devmem {
 	uint32_t type;
 	uint32_t da;
@@ -200,8 +200,8 @@ struct fw_rsc_devmem {
 	uint32_t len;
 	uint32_t flags;
 	uint32_t reserved;
-	uint8_t name[32];
-} OPENAMP_PACKED_END;
+	uint8_t name[RPROC_MAX_NAME_LEN];
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_trace - trace buffer declaration
@@ -211,22 +211,22 @@ struct fw_rsc_devmem {
  * @name: human-readable name of the trace buffer
  *
  * This resource entry provides the host information about a trace buffer
- * into which the remote remote_proc will write log messages.
+ * into which the remote remoteproc will write log messages.
  *
  * @da specifies the device address of the buffer, @len specifies
  * its size, and @name may contain a human readable name of the trace buffer.
  *
- * After booting the remote remote_proc, the trace buffers are exposed to the
+ * After booting the remote remoteproc, the trace buffers are exposed to the
  * user via debugfs entries (called trace0, trace1, etc..).
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_trace {
 	uint32_t type;
 	uint32_t da;
 	uint32_t len;
 	uint32_t reserved;
-	uint8_t name[32];
-} OPENAMP_PACKED_END;
+	uint8_t name[RPROC_MAX_NAME_LEN];
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_vdev_vring - vring descriptor entry
@@ -234,7 +234,7 @@ struct fw_rsc_trace {
  * @align: the alignment between the consumer and producer parts of the vring
  * @num: num of buffers supported by this vring (must be power of two)
  * @notifyid is a unique rproc-wide notify index for this vring. This notify
- * index is used when kicking a remote remote_proc, to let it know that this
+ * index is used when kicking a remote remoteproc, to let it know that this
  * vring is triggered.
  * @reserved: reserved (must be zero)
  *
@@ -242,23 +242,23 @@ struct fw_rsc_trace {
  * vdev resource type (see below).
  *
  * Note that @da should either contain the device address where
- * the remote remote_proc is expecting the vring, or indicate that
+ * the remote remoteproc is expecting the vring, or indicate that
  * dynamically allocation of the vring's device address is supported.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_vdev_vring {
 	uint32_t da;
 	uint32_t align;
 	uint32_t num;
 	uint32_t notifyid;
 	uint32_t reserved;
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_vdev - virtio device header
  * @id: virtio device id (as in virtio_ids.h)
  * @notifyid is a unique rproc-wide notify index for this vdev. This notify
- * index is used when kicking a remote remote_proc, to let it know that the
+ * index is used when kicking a remote remoteproc, to let it know that the
  * status/features of this vdev have changes.
  * @dfeatures specifies the virtio device features supported by the firmware
  * @gfeatures is a place holder used by the host to write back the
@@ -271,7 +271,7 @@ struct fw_rsc_vdev_vring {
  * @vring is an array of @num_of_vrings entries of 'struct fw_rsc_vdev_vring'.
  *
  * This resource is a virtio device header: it provides information about
- * the vdev, and is then used by the host and its peer remote remote_procs
+ * the vdev, and is then used by the host and its peer remote remoteprocs
  * to negotiate and share certain virtio properties.
  *
  * By providing this resource entry, the firmware essentially asks remoteproc
@@ -280,7 +280,7 @@ struct fw_rsc_vdev_vring {
  *
  * Note: unlike virtualization systems, the term 'host' here means
  * the Linux side which is running remoteproc to control the remote
- * remote_procs. We use the name 'gfeatures' to comply with virtio's terms,
+ * remoteprocs. We use the name 'gfeatures' to comply with virtio's terms,
  * though there isn't really any virtualized guest OS here: it's the host
  * which is responsible for negotiating the final features.
  * Yeah, it's a bit confusing.
@@ -289,7 +289,7 @@ struct fw_rsc_vdev_vring {
  * this vdev (which is specific to the vdev; for more info, read the virtio
  * spec). the size of the config space is specified by @config_len.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_vdev {
 	uint32_t type;
 	uint32_t id;
@@ -301,7 +301,7 @@ struct fw_rsc_vdev {
 	uint8_t num_of_vrings;
 	uint8_t reserved[2];
 	struct fw_rsc_vdev_vring vring[0];
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 /**
  * struct fw_rsc_vendor - remote processor vendor specific resource
@@ -313,49 +313,11 @@ struct fw_rsc_vdev {
  * These request entries should precede other shared resource entries
  * such as vdevs, vrings.
  */
-OPENAMP_PACKED_BEGIN
+METAL_PACKED_BEGIN
 struct fw_rsc_vendor {
 	uint32_t type;
 	uint32_t len;
-} OPENAMP_PACKED_END;
-
-/**
- * struct fw_rsc_rproc_mem - remote processor memory
- * @da: device address
- * @pa: physical address
- * @len: length (in bytes)
- * @reserved: reserved (must be zero)
- *
- * This resource entry tells the host to the remote processor
- * memory that the host can be used as shared memory.
- *
- * These request entries should precede other shared resource entries
- * such as vdevs, vrings.
- */
-OPENAMP_PACKED_BEGIN
-struct fw_rsc_rproc_mem {
-	uint32_t type;
-	uint32_t da;
-	uint32_t pa;
-	uint32_t len;
-	uint32_t reserved;
-} OPENAMP_PACKED_END;
-
-/*
- * struct fw_rsc_fw_chksum - firmware checksum
- * @algo: algorithm to generate the cheksum
- * @chksum: checksum of the firmware loadable sections.
- *
- * This resource entry provides checksum for the firmware loadable sections.
- * It is used to check if the remote already runs with the expected firmware to
- * decide if it needs to start the remote if the remote is already running.
- */
-OPENAMP_PACKED_BEGIN
-struct fw_rsc_fw_chksum {
-	uint32_t type;
-	uint8_t algo[16];
-	uint8_t chksum[64];
-} OPENAMP_PACKED_END;
+} METAL_PACKED_END;
 
 struct loader_ops;
 struct image_store_ops;
@@ -376,7 +338,7 @@ struct remoteproc_mem {
 	metal_phys_addr_t da;
 	metal_phys_addr_t pa;
 	size_t size;
-	char name[32];
+	char name[RPROC_MAX_NAME_LEN];
 	struct metal_io_region *io;
 	struct metal_list node;
 };
@@ -388,9 +350,9 @@ struct remoteproc_mem {
  * processor instance. This structure acts as a prime parameter to use
  * the remoteproc APIs.
  *
- * @bootadd: boot address
+ * @bootaddr: boot address
  * @loader: executable loader
- * @lock: mutext lock
+ * @lock: mutex lock
  * @ops: remoteproc operations
  * @rsc_table: pointer to resource table
  * @rsc_len: length of resource table
@@ -423,7 +385,7 @@ struct remoteproc {
  *
  * @init: initialize the remoteproc instance
  * @remove: remove the remoteproc instance
- * @mmap: memory mapped the mempory with physical address or destination
+ * @mmap: memory mapped the memory with physical address or destination
  *        address as input.
  * @handle_rsc: handle the vendor specific resource
  * @config: configure the remoteproc to make it ready to load and run
@@ -433,6 +395,7 @@ struct remoteproc {
  *        memory may not be off.
  * @shutdown: shutdown the remoteproc and release its resources.
  * @notify: notify the remote
+ * @get_mem: get remoteproc memory I/O region.
  */
 struct remoteproc_ops {
 	struct remoteproc *(*init)(struct remoteproc *rproc,
@@ -448,6 +411,27 @@ struct remoteproc_ops {
 	int (*stop)(struct remoteproc *rproc);
 	int (*shutdown)(struct remoteproc *rproc);
 	int (*notify)(struct remoteproc *rproc, uint32_t id);
+	/**
+	 * get_mem
+	 *
+	 * get remoteproc memory I/O region by either name, virtual
+	 * address, physical address or device address.
+	 *
+	 * @rproc - pointer to remoteproc instance
+	 * @name - memory name
+	 * @pa - physical address
+	 * @da - device address
+	 * @va - virtual address
+	 * @size - memory size
+	 *
+	 * @returns remoteproc memory pointed by buf if success, otherwise NULL
+	 */
+	struct remoteproc_mem *(*get_mem)(struct remoteproc *rproc,
+					  const char *name,
+					  metal_phys_addr_t pa,
+					  metal_phys_addr_t da,
+					  void *va, size_t size,
+					  struct remoteproc_mem *buf);
 };
 
 /* Remoteproc error codes */
@@ -488,6 +472,7 @@ static inline void *RPROC_ERR_PTR(long error)
 /**
  * enum rproc_state - remote processor states
  * @RPROC_OFFLINE:	remote is offline
+ * @RPROC_CONFIGURED:	remote is configured
  * @RPROC_READY:	remote is ready to start
  * @RPROC_RUNNING:	remote is up and running
  * @RPROC_SUSPENDED:	remote is suspended
@@ -537,8 +522,8 @@ int remoteproc_remove(struct remoteproc *rproc);
  * Initialize remoteproc memory
  *
  * @mem - pointer to remoteproc memory
- * @char - memory name
- * @pa - physcial address
+ * @name - memory name
+ * @pa - physical address
  * @da - device address
  * @size - memory size
  * @io - pointer to the I/O region
@@ -655,21 +640,6 @@ void *remoteproc_mmap(struct remoteproc *rproc,
 		      struct metal_io_region **io);
 
 /**
- * remoteproc_parse_rsc_table
- *
- * Parse resource table of remoteproc
- *
- * @rproc - pointer to remoteproc instance
- * @rsc_table - pointer to resource table
- * @rsc_size - resource table size
- *
- * returns 0 for success and negative value for errors
- */
-int remoteproc_parse_rsc_table(struct remoteproc *rproc,
-			       struct resource_table *rsc_table,
-			       size_t rsc_size);
-
-/**
  * remoteproc_set_rsc_table
  *
  * Parse and set resource table of remoteproc
@@ -767,9 +737,9 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
  * is ELF, it cannot get the resource table section before it loads
  * the full ELF file. Furthermore, application usually don't store
  * the data which is loaded to local memory in streaming mode, and
- * thus, in this mode, it will load the binrary to the target memory
- * before it gets the resource table. And thus, when calling this funciton
- * don't put the target exectuable memory in the resource table, as
+ * thus, in this mode, it will load the binary to the target memory
+ * before it gets the resource table. And thus, when calling this function
+ * don't put the target executable memory in the resource table, as
  * this function will parse the resource table after it loads the binary
  * to target memory.
  *
@@ -782,9 +752,9 @@ int remoteproc_load(struct remoteproc *rproc, const char *path,
  * @pa: pointer to the target memory physical address. If the next expected
  *      data doesn't need to load to the target memory, the function will
  *      set it to ANY.
- * @io: pointer to the target memory physical address. If the next expected
+ * @io: pointer to the io region. If the next expected
  *      data doesn't need to load to the target memory, the function will
- *      set it to ANY.
+ *      set it to NULL.
  * @noffset: pointer to the next image data offset to the beginning of
  *           the image file needs to load to local or to the target
  *           memory.
@@ -858,7 +828,7 @@ void remoteproc_remove_virtio(struct remoteproc *rproc,
  * for the notification
  *
  * @rproc -  pointer to the remoteproc instance
- * @notifyid - notificatin id
+ * @notifyid - notification id
  *
  * return 0 for succeed, negative value for failure
  */

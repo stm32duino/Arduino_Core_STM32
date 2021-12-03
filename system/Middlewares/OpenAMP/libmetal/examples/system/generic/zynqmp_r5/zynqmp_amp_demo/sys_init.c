@@ -211,7 +211,7 @@ int init_irq()
 	Xil_ExceptionEnable();
 	/* Connect IPI Interrupt ID with libmetal ISR */
 	XScuGic_Connect(&xInterruptController, IPI_IRQ_VECT_ID,
-			   (Xil_ExceptionHandler)metal_irq_isr,
+			   (Xil_ExceptionHandler)metal_xlnx_irq_isr,
 			   (void *)IPI_IRQ_VECT_ID);
 
 	XScuGic_Enable(&xInterruptController, IPI_IRQ_VECT_ID);
@@ -326,6 +326,13 @@ int sys_init()
 
 	/* Initialize libmetal environment */
 	metal_init(&metal_param);
+	/* Initialize metal Xilinx IRQ controller */
+	ret = metal_xlnx_irq_init();
+	if (ret) {
+		LPERROR("%s: Xilinx metal IRQ controller init failed.\n",
+			__func__);
+		return ret;
+	}
 	/* Register libmetal devices */
 	ret = platform_register_metal_device();
 	if (ret) {

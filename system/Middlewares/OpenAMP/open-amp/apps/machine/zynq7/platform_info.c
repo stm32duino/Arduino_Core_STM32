@@ -26,6 +26,7 @@
 #include <metal/sys.h>
 #include "platform_info.h"
 #include "rsc_table.h"
+#include <errno.h>
 #include <xparameters.h>
 
 /* Another APU core ID. In this demo, the other APU core is 0. */
@@ -139,7 +140,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	if (!platform) {
 		xil_printf("Failed to initialize platform,"
-			   "NULL pointer to store platform data.\n");
+			   "NULL pointer to store platform data.\r\n");
 		return -EINVAL;
 	}
 	/* Initialize HW system components */
@@ -155,7 +156,7 @@ int platform_init(int argc, char *argv[], void **platform)
 
 	rproc = platform_create_proc(proc_id, rsc_id);
 	if (!rproc) {
-		xil_printf("Failed to create remoteproc device.\n");
+		xil_printf("Failed to create remoteproc device.\r\n");
 		return -EINVAL;
 	}
 	*platform = rproc;
@@ -183,7 +184,7 @@ platform_create_rpmsg_vdev(void *platform, unsigned int vdev_index,
 		return NULL;
 	shbuf_io = remoteproc_get_io_with_pa(rproc, SHARED_MEM_PA);
 	if (!shbuf_io)
-		return NULL;
+		goto err1;
 	shbuf = metal_io_phys_to_virt(shbuf_io,
 				      SHARED_MEM_PA + SHARED_BUF_OFFSET);
 
@@ -246,9 +247,16 @@ int platform_poll(void *priv)
 	return 0;
 }
 
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev)
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform)
 {
-	(void)rpdev;
+	struct rpmsg_virtio_device *rpvdev;
+	struct remoteproc *rproc;
+
+	rpvdev = metal_container_of(rpdev, struct rpmsg_virtio_device, rdev);
+	rproc = platform;
+
+	rpmsg_deinit_vdev(rpvdev);
+	remoteproc_remove_virtio(rproc, rpvdev->vdev);
 }
 
 void platform_cleanup(void *platform)

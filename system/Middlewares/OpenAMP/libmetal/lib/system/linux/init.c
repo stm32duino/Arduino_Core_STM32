@@ -16,14 +16,15 @@
 
 struct metal_state _metal;
 
-extern int metal_linux_irq_init();
-extern void metal_linux_irq_shutdown();
+extern int metal_linux_irq_init(void);
+extern void metal_linux_irq_shutdown(void);
 
 /** Sort function for page size array. */
 static int metal_pagesize_compare(const void *_a, const void *_b)
 {
 	const struct metal_page_size *a = _a, *b = _b;
 	long diff = a->page_size - b->page_size;
+
 	return metal_sign(diff);
 }
 
@@ -48,7 +49,7 @@ static int metal_add_page_size(const char *path, int shift, int mmap_flags)
 	_metal.page_sizes[index].page_size = size;
 	_metal.page_sizes[index].mmap_flags = mmap_flags;
 	strncpy(_metal.page_sizes[index].path, path, PATH_MAX);
-	_metal.num_page_sizes ++;
+	_metal.num_page_sizes++;
 
 	metal_log(METAL_LOG_DEBUG, "added page size %ld @%s\n", size, path);
 
@@ -87,6 +88,7 @@ static int metal_init_page_sizes(void)
 		count = gethugepagesizes(sizes, max_sizes);
 		for (i = 0; i < count; i++) {
 			int shift = metal_log2(sizes[i]);
+
 			if ((shift & MAP_HUGE_MASK) != shift)
 				continue;
 			metal_add_page_size(
@@ -110,7 +112,7 @@ int metal_sys_init(const struct metal_init_params *params)
 	static char sysfs_path[SYSFS_PATH_MAX];
 	const char *tmp_path;
 	unsigned int seed;
-	FILE* urandom;
+	FILE *urandom;
 	int result;
 
 	/* Determine sysfs mount point. */

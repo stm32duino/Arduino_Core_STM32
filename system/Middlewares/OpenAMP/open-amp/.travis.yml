@@ -20,7 +20,9 @@ matrix:
   fast_finish: true
   include:
     - os: linux
-      env: TARGET="zephyr"
+      env: TARGET="linux"
+#    - os: linux
+#      env: TARGET="zephyr"
 
 cache:
   directories:
@@ -28,6 +30,11 @@ cache:
     - /usr/local/bin
 
 before_install:
+  - if [[ "$TARGET" == "linux" ]]; then
+      sudo apt-get update -qq &&
+      sudo apt-get install libsysfs-dev libhugetlbfs-dev make gcc &&
+      sudo pip install pytest pexpect;
+    fi
   - if [[ "$TARGET" == "zephyr" ]]; then
       sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test &&
       sudo apt-get update -qq &&
@@ -44,15 +51,30 @@ install: >
   fi
 
 before_script: >
+  if [[ "$TARGET" == "linux" ]]; then
+        cd $TRAVIS_BUILD_DIR/.. &&
+        git clone --depth=1 git://github.com/OpenAMP/openamp-test-scripts.git &&
+        git clone --depth=1 git://github.com/OpenAMP/libmetal.git;
+  fi;
   if [[ "$TARGET" == "zephyr" ]]; then
-    cd .. &&
-    git clone --depth=1 git://github.com/OpenAMP/libmetal.git &&
-    git clone --depth=1 git://github.com/zephyrproject-rtos/zephyr.git &&
-    cd zephyr &&
-    source zephyr-env.sh;
+      git clone --depth=1 git://github.com/zephyrproject-rtos/zephyr.git &&
+      cd zephyr &&
+      source zephyr-env.sh;
   fi
 
 script:
+  - if [[ "$TARGET" == "linux" ]]; then
+       cd $TRAVIS_BUILD_DIR &&
+       mkdir -p build-linux &&
+       mkdir -p ../libmetal/build-linux &&
+       cd ../libmetal/build-linux &&
+       cmake .. &&
+       make VERBOSE=1 DESTDIR=$(pwd) install &&
+       cd ../../open-amp/build-linux &&
+       cmake .. -DCMAKE_LIBRARY_PATH=${TRAVIS_BUILD_DIR}/../libmetal/build-linux/usr/local/lib -DCMAKE_INCLUDE_PATH=${TRAVIS_BUILD_DIR}/../libmetal/build-linux/usr/local/include -DWITH_APPS=on &&
+       make VERBOSE=1 DESTDIR=$(pwd) install &&
+       LD_LIBRARY_PATH=../../libmetal/build-linux/usr/local/lib:usr/local/lib PATH=usr/local/bin:${PATH} PROMPT="travis@.*:" python -m pytest -s ../../openamp-test-scripts/test-rpmsg.py;
+    fi
   - if [[ "$TARGET" == "zephyr" ]]; then
        mkdir -p ../open-amp/build-zephyr &&
        mkdir -p ../libmetal/build-zephyr &&

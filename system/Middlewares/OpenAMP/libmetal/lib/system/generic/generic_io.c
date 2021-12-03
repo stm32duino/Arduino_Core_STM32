@@ -17,8 +17,8 @@ void metal_sys_io_mem_map(struct metal_io_region *io)
 	size_t psize;
 	size_t *va;
 
-	va = (size_t *)io->virt;
-	psize = io->size;
+	va = io->virt;
+	psize = (size_t)io->size;
 	if (psize) {
 		if (psize >> io->page_shift)
 			psize = (size_t)1 << io->page_shift;

@@ -48,25 +48,25 @@ static inline void __metal_mutex_deinit(metal_mutex_t *m)
 
 static inline int __metal_mutex_try_acquire(metal_mutex_t *m)
 {
-        int key = irq_lock(), ret = 1;
+	int key = irq_lock(), ret = 1;
 
-        if (m->count) {
-                m->count = 0;
-                ret = 0;
-        }
+	if (m->count) {
+		m->count = 0;
+		ret = 0;
+	}
 
-        irq_unlock(key);
+	irq_unlock(key);
 
-        return ret;
+	return ret;
 }
 
 static inline int __metal_mutex_is_acquired(metal_mutex_t *m)
 {
-        int key = irq_lock(), ret;
+	int key = irq_lock(), ret;
 
 	ret = m->count;
 
-        irq_unlock(key);
+	irq_unlock(key);
 
 	return ret;
 }

@@ -9,8 +9,8 @@
  * @brief	Generic libmetal shared memory handling.
  */
 
-#include <metal/errno.h>
 #include <metal/assert.h>
+#include <metal/errno.h>
 #include <metal/shmem.h>
 #include <metal/sys.h>
 #include <metal/utilities.h>
@@ -38,10 +38,10 @@ int metal_shmem_open_generic(const char *name, size_t size,
 		shmem = metal_container_of(node, struct metal_generic_shmem, node);
 		if (strcmp(shmem->name, name) != 0)
 			continue;
-		if (size > metal_io_region_size(&shmem->io))
-			continue;
-		*result = &shmem->io;
-		return 0;
+		if (size <= metal_io_region_size(&shmem->io)) {
+			*result = &shmem->io;
+			return 0;
+		}
 	}
 
 	return -ENOENT;

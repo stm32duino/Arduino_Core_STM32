@@ -13,6 +13,7 @@
 #define __METAL_UTILITIES__H__
 
 #include <stdint.h>
+#include <limits.h>
 #include <metal/assert.h>
 
 #ifdef __cplusplus
@@ -20,7 +21,8 @@ extern "C" {
 #endif
 
 /** \defgroup utilities Simple Utilities
- *  @{ */
+ *  @{
+ */
 
 /** Marker for unused function arguments/variables. */
 #define metal_unused(x)	do { (x) = (x); } while (0)
@@ -63,13 +65,13 @@ extern "C" {
 
 /** Compute offset of a field within a structure. */
 #define metal_offset_of(structure, member)		\
-	((uintptr_t) &(((structure *) 0)->member))
+	((uintptr_t)&(((structure *)0)->member))
 
 /** Compute pointer to a structure given a pointer to one of its fields. */
 #define metal_container_of(ptr, structure, member)	\
 	(void *)((uintptr_t)(ptr) - metal_offset_of(structure, member))
 
-#define METAL_BITS_PER_ULONG	(8 * sizeof(unsigned long))
+#define METAL_BITS_PER_ULONG	(CHAR_BIT * sizeof(unsigned long))
 
 #define metal_bit(bit)		(1UL << (bit))
 
@@ -83,8 +85,8 @@ static inline void metal_bitmap_set_bit(unsigned long *bitmap, int bit)
 
 static inline int metal_bitmap_is_bit_set(unsigned long *bitmap, int bit)
 {
-	return bitmap[bit / METAL_BITS_PER_ULONG] &
-		metal_bit(bit & (METAL_BITS_PER_ULONG - 1));
+	return ((bitmap[bit / METAL_BITS_PER_ULONG] &
+		metal_bit(bit & (METAL_BITS_PER_ULONG - 1))) == 0) ? 0 : 1;
 }
 
 static inline void metal_bitmap_clear_bit(unsigned long *bitmap, int bit)
@@ -103,9 +105,10 @@ metal_bitmap_next_set_bit(unsigned long *bitmap, unsigned int start,
 			  unsigned int max)
 {
 	unsigned int bit;
+
 	for (bit = start;
 	     bit < max && !metal_bitmap_is_bit_set(bitmap, bit);
-	     bit ++)
+	     bit++)
 		;
 	return bit;
 }
@@ -113,16 +116,17 @@ metal_bitmap_next_set_bit(unsigned long *bitmap, unsigned int start,
 #define metal_bitmap_for_each_set_bit(bitmap, bit, max)			\
 	for ((bit) = metal_bitmap_next_set_bit((bitmap), 0, (max));	\
 	     (bit) < (max);						\
-	     (bit) = metal_bitmap_next_set_bit((bitmap), (bit), (max)))
+	     (bit) = metal_bitmap_next_set_bit((bitmap), (bit + 1), (max)))
 
 static inline unsigned int
 metal_bitmap_next_clear_bit(unsigned long *bitmap, unsigned int start,
 			    unsigned int max)
 {
 	unsigned int bit;
+
 	for (bit = start;
 	     bit < max && !metal_bitmap_is_bit_clear(bitmap, bit);
-	     bit ++)
+	     bit++)
 		;
 	return bit;
 }
@@ -130,7 +134,7 @@ metal_bitmap_next_clear_bit(unsigned long *bitmap, unsigned int start,
 #define metal_bitmap_for_each_clear_bit(bitmap, bit, max)		\
 	for ((bit) = metal_bitmap_next_clear_bit((bitmap), 0, (max));	\
 	     (bit) < (max);						\
-	     (bit) = metal_bitmap_next_clear_bit((bitmap), (bit), (max)))
+	     (bit) = metal_bitmap_next_clear_bit((bitmap), (bit + 1), (max)))
 
 static inline unsigned long metal_log2(unsigned long in)
 {
@@ -138,7 +142,7 @@ static inline unsigned long metal_log2(unsigned long in)
 
 	metal_assert((in & (in - 1)) == 0);
 
-	for (result = 0; (1UL << result) < in; result ++)
+	for (result = 0; (1UL << result) < in; result++)
 		;
 	return result;
 }

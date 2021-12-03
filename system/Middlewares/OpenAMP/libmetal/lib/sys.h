@@ -23,7 +23,8 @@ extern "C" {
 #endif
 
 /** \defgroup system Top Level Interfaces
- *  @{ */
+ *  @{
+ */
 
 /** Physical address type. */
 typedef unsigned long metal_phys_addr_t;

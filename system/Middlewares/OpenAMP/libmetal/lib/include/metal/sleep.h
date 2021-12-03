@@ -12,14 +12,19 @@
 #ifndef __METAL_SLEEP__H__
 #define __METAL_SLEEP__H__
 
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/sleep.h>
+#else
 #include <metal/system/generic/sleep.h>
+#endif
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /** \defgroup sleep Sleep Interfaces
- *  @{ */
+ *  @{
+ */
 
 /**
  * @brief      delay in microseconds

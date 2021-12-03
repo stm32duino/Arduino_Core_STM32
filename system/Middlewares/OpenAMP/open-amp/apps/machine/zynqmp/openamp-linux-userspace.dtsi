@@ -16,7 +16,7 @@
 		};
 		shm0: shm@0 {
 			compatible = "shm_uio";
-			reg = <0x0 0x3ed80000 0x0 0x80000>;
+			reg = <0x0 0x3ed20000 0x0 0x0100000>;
 		};
 		ipi0: ipi@0 {
 			compatible = "ipi_uio";

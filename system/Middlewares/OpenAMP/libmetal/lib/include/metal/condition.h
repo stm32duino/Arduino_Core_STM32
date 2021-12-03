@@ -20,7 +20,8 @@ extern "C" {
 #endif
 
 /** \defgroup condition Condition Variable Interfaces
- *  @{ */
+ *  @{
+ */
 
 /** Opaque libmetal condition variable data structure. */
 struct metal_condition;
@@ -62,7 +63,11 @@ static inline int metal_condition_broadcast(struct metal_condition *cv);
  */
 int metal_condition_wait(struct metal_condition *cv, metal_mutex_t *m);
 
+#ifdef METAL_FREERTOS
+#include <metal/system/freertos/condition.h>
+#else
 #include <metal/system/generic/condition.h>
+#endif
 
 /** @} */
 

@@ -13,7 +13,7 @@
 #include <metal/log.h>
 #include <zephyr.h>
 
-static const char *level_strs[] = {
+static const char * const level_strs[] = {
 	"metal: emergency: ",
 	"metal: alert:     ",
 	"metal: critical:  ",

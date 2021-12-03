@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup versions Library Version Interfaces
- *  @{ */
+ *  @{
+ */
 
 /**
  *  @brief	Library major version number.

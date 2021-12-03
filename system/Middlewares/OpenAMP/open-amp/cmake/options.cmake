@@ -1,11 +1,26 @@
-set (PROJECT_VER_MAJOR  0)
-set (PROJECT_VER_MINOR  1)
-set (PROJECT_VER_PATCH  0)
-set (PROJECT_VER        0.1.0)
+file(READ ${OPENAMP_ROOT_DIR}/VERSION ver)
 
-if (NOT CMAKE_BUILD_TYPE)
+string(REGEX MATCH "VERSION_MAJOR = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_MAJOR ${CMAKE_MATCH_1})
+
+string(REGEX MATCH "VERSION_MINOR = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_MINOR ${CMAKE_MATCH_1})
+
+string(REGEX MATCH "VERSION_PATCH = ([0-9]*)" _ ${ver})
+set(PROJECT_VERSION_PATCH ${CMAKE_MATCH_1})
+
+set(PROJECT_VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH})
+
+message(STATUS "open-amp version: ${PROJECT_VERSION} (${OPENAMP_ROOT_DIR})")
+
+add_definitions( -DOPENAMP_VERSION_MAJOR=${PROJECT_VERSION_MAJOR} )
+add_definitions( -DOPENAMP_VERSION_MINOR=${PROJECT_VERSION_MINOR} )
+add_definitions( -DOPENAMP_VERSION_PATCH=${PROJECT_VERSION_PATCH} )
+add_definitions( -DOPENAMP_VERSION="${PROJECT_VERSION}" )
+
+if (NOT DEFINED CMAKE_BUILD_TYPE)
   set (CMAKE_BUILD_TYPE Debug)
-endif (NOT CMAKE_BUILD_TYPE)
+endif (NOT DEFINED CMAKE_BUILD_TYPE)
 
 if (NOT CMAKE_INSTALL_LIBDIR)
   set (CMAKE_INSTALL_LIBDIR "lib")
@@ -43,6 +58,11 @@ if (WITH_APPS)
   endif (WITH_PROXY)
 endif (WITH_APPS)
 
+# LOAD_FW only allowed for R5, otherwise turn off
+if (NOT ${MACHINE} STREQUAL "zynqmp_r5")
+ set (WITH_LOAD_FW OFF)
+endif(NOT ${MACHINE} STREQUAL "zynqmp_r5")
+
 option (WITH_VIRTIO_MASTER "Build with virtio master enabled" ON)
 option (WITH_VIRTIO_SLAVE "Build with virtio slave enabled" ON)
 
@@ -68,6 +88,10 @@ if (WITH_ZEPHYR)
 endif (WITH_ZEPHYR)
 
 option (WITH_LIBMETAL_FIND "Check Libmetal library can be found" ON)
+
+if (DEFINED RPMSG_BUFFER_SIZE)
+  add_definitions( -DRPMSG_BUFFER_SIZE=${RPMSG_BUFFER_SIZE} )
+endif (DEFINED RPMSG_BUFFER_SIZE)
 
 message ("-- C_FLAGS : ${CMAKE_C_FLAGS}")
 # vim: expandtab:ts=2:sw=2:smartindent

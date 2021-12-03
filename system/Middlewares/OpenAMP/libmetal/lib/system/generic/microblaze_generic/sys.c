@@ -27,41 +27,54 @@ unsigned int sys_irq_save_disable(void)
 {
 	unsigned int state;
 
-	asm volatile("  mfs     %0, rmsr	\n"
-		     "  msrclr  r0, %1		\n"
+	metal_asm volatile("  mfs     %0, rmsr\n"
+		     "  msrclr  r0, %1\n"
 		     :  "=r"(state)
 		     :  "i"(MSR_IE)
 		     :  "memory");
 
 	return state &= MSR_IE;
 }
+
+void sys_irq_restore_enable(unsigned int flags)
+{
+	unsigned int tmp;
+
+	if (flags)
+		metal_asm volatile("  msrset %0, %1\n"
+			 : "=r"(tmp)
+			 : "i"(MSR_IE)
+			 :  "memory");
+}
+
 #else /* XPAR_MICROBLAZE_USE_MSR_INSTR == 0 */
 unsigned int sys_irq_save_disable(void)
 {
 	unsigned int tmp, state;
 
-	asm volatile ("  mfs   %0, rmsr		\n"
-		      "  andi  %1, %0, %2	\n"
-		      "  mts   rmsr, %1		\n"
+	metal_asm volatile ("  mfs   %0, rmsr\n"
+		      "  andi  %1, %0, %2\n"
+		      "  mts   rmsr, %1\n"
 		      :  "=r"(state), "=r"(tmp)
 		      :  "i"(~MSR_IE)
 		      :  "memory");
 
 	return state &= MSR_IE;
 }
-#endif /* XPAR_MICROBLAZE_USE_MSR_INSTR */
 
 void sys_irq_restore_enable(unsigned int flags)
 {
 	unsigned int tmp;
 
-	asm volatile("  mfs    %0, rmsr		\n"
-		     "  or      %0, %0, %1	\n"
-		     "  mts     rmsr, %0	\n"
-		     :  "=r"(tmp)
-		     :  "r"(~flags)
-		     :  "memory");
+	if (flags)
+		metal_asm volatile("  mfs    %0, rmsr\n"
+			 "  or      %0, %0, %1\n"
+			 "  mts     rmsr, %0\n"
+			 :  "=r"(tmp)
+			 :  "r"(flags)
+			 :  "memory");
 }
+#endif /* XPAR_MICROBLAZE_USE_MSR_INSTR */
 
 static void sys_irq_change(unsigned int vector, int is_enable)
 {
@@ -101,20 +114,18 @@ void metal_weak sys_irq_disable(unsigned int vector)
 
 void metal_machine_cache_flush(void *addr, unsigned int len)
 {
-	if (!addr && !len){
+	if (!addr && !len) {
 		Xil_DCacheFlush();
-	}
-	else{
+	} else{
 		Xil_DCacheFlushRange((intptr_t)addr, len);
 	}
 }
 
 void metal_machine_cache_invalidate(void *addr, unsigned int len)
 {
-	if (!addr && !len){
+	if (!addr && !len) {
 		Xil_DCacheInvalidate();
-	}
-	else {
+	} else {
 		Xil_DCacheInvalidateRange((intptr_t)addr, len);
 	}
 }
@@ -124,7 +135,7 @@ void metal_machine_cache_invalidate(void *addr, unsigned int len)
  */
 void metal_weak metal_generic_default_poll(void)
 {
-	asm volatile("nop");
+	metal_asm volatile("nop");
 }
 
 void *metal_machine_io_mem_map(void *va, metal_phys_addr_t pa,

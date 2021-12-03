@@ -66,7 +66,7 @@ int platform_poll(void *platform);
  *
  * @rpdev: pointer to the rpmsg device
  */
-void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev);
+void platform_release_rpmsg_vdev(struct rpmsg_device *rpdev, void *platform);
 
 /**
  * platform_cleanup - clean up the platform resource

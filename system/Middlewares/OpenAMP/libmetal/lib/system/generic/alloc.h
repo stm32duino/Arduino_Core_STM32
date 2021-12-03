@@ -24,7 +24,7 @@ extern "C" {
 
 static inline void *metal_allocate_memory(unsigned int size)
 {
-	return (malloc(size));
+	return malloc(size);
 }
 
 static inline void metal_free_memory(void *ptr)

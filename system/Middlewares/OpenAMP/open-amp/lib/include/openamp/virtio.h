@@ -14,11 +14,6 @@
 extern "C" {
 #endif
 
-/* TODO: define this as compiler flags */
-#ifndef VIRTIO_MAX_NUM_VRINGS
-#define VIRTIO_MAX_NUM_VRINGS 2
-#endif
-
 /* VirtIO device IDs. */
 #define VIRTIO_ID_NETWORK    0x01UL
 #define VIRTIO_ID_BLOCK      0x02UL
@@ -26,7 +21,7 @@ extern "C" {
 #define VIRTIO_ID_ENTROPY    0x04UL
 #define VIRTIO_ID_BALLOON    0x05UL
 #define VIRTIO_ID_IOMEMORY   0x06UL
-#define VIRTIO_ID_RPMSG	     0x07UL /* remote processor messaging */
+#define VIRTIO_ID_RPMSG      0x07UL /* remote processor messaging */
 #define VIRTIO_ID_SCSI       0x08UL
 #define VIRTIO_ID_9P         0x09UL
 #define VIRTIO_DEV_ANY_ID    (-1)UL
@@ -77,31 +72,10 @@ struct virtio_feature_desc {
 };
 
 /**
- * struct proc_shm
- *
- * This structure is maintained by hardware interface layer for
- * shared memory information. The shared memory provides buffers
- * for use by the vring to exchange messages between the cores.
- *
- */
-struct virtio_buffer_info {
-	/* Start address of shared memory used for buffers. */
-	void *vaddr;
-	/* Start physical address of shared memory used for buffers. */
-	metal_phys_addr_t paddr;
-	/* sharmed memory I/O region */
-	struct metal_io_region *io;
-	/* Size of shared memory. */
-	unsigned long size;
-};
-
-/**
- * struct remoteproc_vring - remoteproc vring structure
+ * struct virtio_vring_info
  * @vq virtio queue
- * @va logical address
+ * @info vring alloc info
  * @notifyid vring notify id
- * @num_descs number of descriptors
- * @align vring alignment
  * @io metal I/O region of the vring memory, can be NULL
  */
 struct virtio_vring_info {
@@ -117,7 +91,7 @@ struct virtio_vring_info {
  */
 
 struct virtio_device {
-	uint32_t index; /**< unique position on the virtio bus */
+	uint32_t notifyid; /**< unique position on the virtio bus */
 	struct virtio_device_id id; /**< the device type identification
 				      *  (used to match it with a driver
 				      */
@@ -167,7 +141,7 @@ struct virtio_dispatch {
 
 int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 			     unsigned int nvqs, const char *names[],
-			     vq_callback *callbacks[]);
+			     vq_callback callbacks[]);
 
 #if defined __cplusplus
 }

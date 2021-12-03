@@ -21,13 +21,12 @@
 #ifndef __VIRT_UART_H
 #define __VIRT_UART_H
 
+/* Includes ------------------------------------------------------------------*/
+#include "openamp.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
-
-/* Includes ------------------------------------------------------------------*/
-#include "openamp.h"
 
 /* Exported structures --------------------------------------------------------*/
 typedef struct __VIRT_UART_HandleTypeDef
@@ -64,7 +63,7 @@ VIRT_UART_StatusTypeDef VIRT_UART_RegisterCallback(VIRT_UART_HandleTypeDef *huar
                                                    void (* pCallback)(VIRT_UART_HandleTypeDef *_huart));
 
 /* IO operation functions *****************************************************/
-VIRT_UART_StatusTypeDef VIRT_UART_Transmit(VIRT_UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+VIRT_UART_StatusTypeDef VIRT_UART_Transmit(VIRT_UART_HandleTypeDef *huart, const void *pData, uint16_t Size);
 
 
 #ifdef __cplusplus

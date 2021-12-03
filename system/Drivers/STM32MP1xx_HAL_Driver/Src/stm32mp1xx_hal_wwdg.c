@@ -7,6 +7,17 @@
   *          functionalities of the Window Watchdog (WWDG) peripheral:
   *           + Initialization and Configuration functions
   *           + IO operation functions
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                       ##### WWDG Specific features #####
@@ -81,12 +92,12 @@
         (++) MspInitCallback : WWDG MspInit.
 
     When calling @ref HAL_WWDG_Init function, callbacks are reset to the
-    corresponding legacy weak (surcharged) functions: 
+    corresponding legacy weak (surcharged) functions:
     @ref HAL_WWDG_EarlyWakeupCallback() and HAL_WWDG_MspInit() only if they have
     not been registered before.
 
     When compilation define USE_HAL_WWDG_REGISTER_CALLBACKS is set to 0 or
-    not defined, the callback registering feature is not available 
+    not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
 
     *** WWDG HAL driver macros list ***
@@ -99,17 +110,6 @@
       (+) __HAL_WWDG_ENABLE_IT: Enable the WWDG early wakeup interrupt
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -138,8 +138,8 @@
   */
 
 /** @defgroup WWDG_Exported_Functions_Group1 Initialization and Configuration functions
- *  @brief    Initialization and Configuration functions.
- *
+  *  @brief    Initialization and Configuration functions.
+  *
 @verbatim
   ==============================================================================
           ##### Initialization and Configuration functions #####
@@ -178,12 +178,12 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 
 #if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
   /* Reset Callback pointers */
-  if(hwwdg->EwiCallback == NULL)
+  if (hwwdg->EwiCallback == NULL)
   {
     hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
   }
 
-  if(hwwdg->MspInitCallback == NULL)
+  if (hwwdg->MspInitCallback == NULL)
   {
     hwwdg->MspInitCallback = HAL_WWDG_MspInit;
   }
@@ -193,7 +193,7 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
 #else
   /* Init the low level hardware */
   HAL_WWDG_MspInit(hwwdg);
-#endif
+#endif /* USE_HAL_WWDG_REGISTER_CALLBACKS */
 
   /* Set WWDG Counter */
   WRITE_REG(hwwdg->Instance->CR, (WWDG_CR_WDGA | hwwdg->Init.Counter));
@@ -238,17 +238,18 @@ __weak void HAL_WWDG_MspInit(WWDG_HandleTypeDef *hwwdg)
   * @param  pCallback pointer to the Callback function
   * @retval status
   */
-HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_CallbackIDTypeDef CallbackID, pWWDG_CallbackTypeDef pCallback)
+HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_CallbackIDTypeDef CallbackID,
+                                            pWWDG_CallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  if(pCallback == NULL)
+  if (pCallback == NULL)
   {
     status = HAL_ERROR;
   }
   else
   {
-    switch(CallbackID)
+    switch (CallbackID)
     {
       case HAL_WWDG_EWI_CB_ID:
         hwwdg->EwiCallback = pCallback;
@@ -270,7 +271,7 @@ HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_
 
 /**
   * @brief  Unregister a WWDG Callback
-  *         WWDG Callback is redirected to the weak (surcharged) predefined callback 
+  *         WWDG Callback is redirected to the weak (surcharged) predefined callback
   * @param  hwwdg WWDG handle
   * @param  CallbackID ID of the callback to be registered
   *         This parameter can be one of the following values:
@@ -282,7 +283,7 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  switch(CallbackID)
+  switch (CallbackID)
   {
     case HAL_WWDG_EWI_CB_ID:
       hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
@@ -299,15 +300,15 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
 
   return status;
 }
-#endif
+#endif /* USE_HAL_WWDG_REGISTER_CALLBACKS */
 
 /**
   * @}
   */
 
 /** @defgroup WWDG_Exported_Functions_Group2 IO operation functions
- *  @brief    IO operation functions
- *
+  *  @brief    IO operation functions
+  *
 @verbatim
   ==============================================================================
                       ##### IO operation functions #####
@@ -367,7 +368,7 @@ void HAL_WWDG_IRQHandler(WWDG_HandleTypeDef *hwwdg)
 #else
       /* Early Wakeup callback */
       HAL_WWDG_EarlyWakeupCallback(hwwdg);
-#endif
+#endif /*USE_HAL_WWDG_REGISTER_CALLBACKS */
     }
   }
 }
@@ -405,5 +406,3 @@ __weak void HAL_WWDG_EarlyWakeupCallback(WWDG_HandleTypeDef *hwwdg)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

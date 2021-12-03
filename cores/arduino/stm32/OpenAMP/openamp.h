@@ -23,11 +23,12 @@
 
 #ifdef VIRTIOCON
 
+#include <openamp/rpmsg.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <openamp/rpmsg.h>
 #include "openamp_conf.h"
 
 #define OPENAMP_send  rpmsg_send
@@ -35,7 +36,6 @@ extern "C" {
 
 int OPENAMP_Init(void);
 void OPENAMP_DeInit(void);
-void OPENAMP_init_ept(struct rpmsg_endpoint *ept);
 
 int OPENAMP_create_endpoint(struct rpmsg_endpoint *ept, const char *name,
                             uint32_t dest, rpmsg_ept_cb cb,

@@ -10,13 +10,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -2781,7 +2780,7 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
           break;
 
         case RCC_USBPHYCLKSOURCE_HSE2:
-          frequency = (HSE_VALUE / 2);
+          frequency = (HSE_VALUE / 2UL);
           break;
 
         default:
@@ -3240,10 +3239,10 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
           case RCC_APB1_DIV4:
             break;
           case RCC_APB1_DIV8:
-            frequency /= 2;
+            frequency /= 2UL;
             break;
           case RCC_APB1_DIV16:
-            frequency /= 4;
+            frequency /= 4UL;
             break;
         }
       }
@@ -3255,13 +3254,13 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
           case RCC_APB1_DIV2:
             break;
           case RCC_APB1_DIV4:
-            frequency /= 2;
+            frequency /= 2UL;
             break;
           case RCC_APB1_DIV8:
-            frequency /= 4;
+            frequency /= 4UL;
             break;
           case RCC_APB1_DIV16:
-            frequency /= 8;
+            frequency /= 8UL;
             break;
         }
       }
@@ -3281,10 +3280,10 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
           case RCC_APB2_DIV4:
             break;
           case RCC_APB2_DIV8:
-            frequency /= 2;
+            frequency /= 2UL;
             break;
           case RCC_APB2_DIV16:
-            frequency /= 4;
+            frequency /= 4UL;
             break;
         }
       }
@@ -3296,13 +3295,13 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint64_t PeriphClk)
           case RCC_APB2_DIV2:
             break;
           case RCC_APB2_DIV4:
-            frequency /= 2;
+            frequency /= 2UL;
             break;
           case RCC_APB2_DIV8:
-            frequency /= 4;
+            frequency /= 4UL;
             break;
           case RCC_APB2_DIV16:
-            frequency /= 8;
+            frequency /= 8UL;
             break;
         }
       }
@@ -3403,6 +3402,3 @@ void HAL_RCCEx_BootMCU(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

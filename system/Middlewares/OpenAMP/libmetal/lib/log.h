@@ -17,7 +17,8 @@ extern "C" {
 #endif
 
 /** \defgroup logging Library Logging Interfaces
- *  @{ */
+ *  @{
+ */
 
 /** Log message priority levels for libmetal. */
 enum metal_log_level {
@@ -69,7 +70,6 @@ extern enum metal_log_level metal_get_log_level(void);
  */
 extern void metal_default_log_handler(enum metal_log_level level,
 				      const char *format, ...);
-
 
 /**
  * Emit a log message if the log level permits.

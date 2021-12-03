@@ -9,7 +9,10 @@
 static const char *virtio_feature_name(unsigned long feature,
 				       const struct virtio_feature_desc *);
 
-//TODO : This structure may change depending on the types of devices we support.
+/*
+ * TODO :
+ * This structure may change depending on the types of devices we support.
+ */
 static const struct virtio_ident {
 	unsigned short devid;
 	const char *name;
@@ -40,12 +43,12 @@ const char *virtio_dev_name(unsigned short devid)
 {
 	const struct virtio_ident *ident;
 
-	for (ident = virtio_ident_table; ident->name != NULL; ident++) {
+	for (ident = virtio_ident_table; ident->name; ident++) {
 		if (ident->devid == devid)
-			return (ident->name);
+			return ident->name;
 	}
 
-	return (NULL);
+	return NULL;
 }
 
 static const char *virtio_feature_name(unsigned long val,
@@ -62,11 +65,11 @@ static const char *virtio_feature_name(unsigned long val,
 
 		for (j = 0; descs[i][j].vfd_val != 0; j++) {
 			if (val == descs[i][j].vfd_val)
-				return (descs[i][j].vfd_str);
+				return descs[i][j].vfd_str;
 		}
 	}
 
-	return (NULL);
+	return NULL;
 }
 
 void virtio_describe(struct virtio_device *dev, const char *msg,
@@ -76,13 +79,13 @@ void virtio_describe(struct virtio_device *dev, const char *msg,
 	(void)msg;
 	(void)features;
 
-	// TODO: Not used currently - keeping it for future use
+	/* TODO: Not used currently - keeping it for future use*/
 	virtio_feature_name(0, desc);
 }
 
 int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 			     unsigned int nvqs, const char *names[],
-			     vq_callback *callbacks[])
+			     vq_callback callbacks[])
 {
 	struct virtio_vring_info *vring_info;
 	struct vring_alloc_info *vring_alloc;
@@ -92,7 +95,7 @@ int virtio_create_virtqueues(struct virtio_device *vdev, unsigned int flags,
 
 	num_vrings = vdev->vrings_num;
 	if (nvqs > num_vrings)
-		return -ERROR_VQUEUE_INVLD_PARAM;
+		return ERROR_VQUEUE_INVLD_PARAM;
 	/* Initialize virtqueue for each vring */
 	for (i = 0; i < nvqs; i++) {
 		vring_info = &vdev->vrings_info[i];

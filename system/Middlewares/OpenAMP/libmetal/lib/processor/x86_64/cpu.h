@@ -12,6 +12,11 @@
 #ifndef __METAL_X86_64_CPU__H__
 #define __METAL_X86_64_CPU__H__
 
-#define metal_cpu_yield() asm volatile("rep; nop")
+#include <metal/compiler.h>
+
+static inline void metal_cpu_yield(void)
+{
+	metal_asm volatile("rep; nop");
+}
 
 #endif /* __METAL_X86_64_CPU__H__ */

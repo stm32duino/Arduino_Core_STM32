@@ -17,16 +17,16 @@ extern "C" {
 #endif
 
 /** Library major version number. */
-#define METAL_VER_MAJOR		@PROJECT_VER_MAJOR@
+#define METAL_VER_MAJOR		@PROJECT_VERSION_MAJOR@
 
 /** Library minor version number. */
-#define METAL_VER_MINOR		@PROJECT_VER_MINOR@
+#define METAL_VER_MINOR		@PROJECT_VERSION_MINOR@
 
 /** Library patch level. */
-#define METAL_VER_PATCH		@PROJECT_VER_PATCH@
+#define METAL_VER_PATCH		@PROJECT_VERSION_PATCH@
 
 /** Library version string. */
-#define METAL_VER		"@PROJECT_VER@"
+#define METAL_VER		"@PROJECT_VERSION@"
 
 /** System type (linux, generic, ...). */
 #define METAL_SYSTEM		"@PROJECT_SYSTEM@"

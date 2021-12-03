@@ -10,15 +10,18 @@ Note: most license information is available on top of each source file
 [BSD 3-Clause License](#bsd-3-clause-license) is used for:
 
 * cores/arduino/stm32/ mainly contains source from STMicroelectronics.
-* system/Drivers/ subfolders include the STMicroelectronics HAL Drivers and CMSIS
-ST device.
+* system/Drivers/STM32*xx_HAL_Driver folders include the STMicroelectronics HAL Drivers.
 
 [Ultimate Liberty License](#Ultimate-Liberty-License) is used for:
 * system/Middlewares/STM32_USB_*_Library/ folders
 
 [Apache License](#apache-license) is used for:
+* system/Drivers/CMSIS folder includes the STMicroelectronics CMSIS device
 * cores/arduino/stm32/pinmap.*
 
+Note:
+* system/STM32*xx/system_stm32*xx.c uses same license than system/Drivers/ subfolders
+* system/STM32*xx/stm32*xx_hal_conf_default.h uses same license than system/Drivers/CMSIS
 -------------------------------------------------------------------------------
 ## LGPLv2.1
                   GNU LESSER GENERAL PUBLIC LICENSE

@@ -132,11 +132,12 @@ int metal_mktemp(char *template, int fifo)
 		if (fifo) {
 			result = mkfifo(template, mode);
 			if (result < 0) {
-			       if (errno == EEXIST)
-				       continue;
-			       metal_log(METAL_LOG_ERROR, "mkfifo(%s) failed (%s)\n",
-					 template, strerror(errno));
-			       return -errno;
+				if (errno == EEXIST)
+					continue;
+				metal_log(METAL_LOG_ERROR,
+				          "mkfifo(%s) failed (%s)\n",
+					  template, strerror(errno));
+				return -errno;
 			}
 		}
 

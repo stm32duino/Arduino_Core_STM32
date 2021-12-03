@@ -1,217 +1,397 @@
 <!DOCTYPE html>
-<html><head>
-<script><endnote><head>
-<script><endnote><head>
-<script><endnote><head>
-<script></script>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Release Notes for STM32MP1xx HAL and LL Drivers</title>
-
-<style>
-div.Section1 {
-page: Section1;
-font-family: Arial,Helvetica,sans-serif;
-}
-h1 {
-font-size: 24pt;
-font-weight: bold;
-font-family: Arial,Helvetica,sans-serif;
-text-align: center;
-color: #3366ff;
-}
-h2 {
-margin: 12pt 0in 3pt;
-page-break-after: avoid;
-font-weight: bold;
-font-family: Arial,Helvetica,sans-serif;
-background-color: #3366ff;
-color: white;
-padding-left: 5px;
-font-size: 16pt;
-}
-h3 {
-margin-left: 0in;
-font-weight: bold;
-font-family: Arial,Helvetica,sans-serif;
-background-color: #3366ff;
-width: 200px;
-margin-right: 500pt;
-color: white;
-padding-left: 5px;
-padding-top: 2px;
-padding-bottom: 2px;
-font-size: 12pt;
-}
-h4 {
-font-family: Arial,Helvetica,sans-serif;
-font-weight: bold;
-text-decoration: underline;
-font-size: 12pt;
-}
-p {
-margin: 0px 0px 0px 0in;
-font-family: Arial,Helvetica,sans-serif;
-padding-top: 3px;
-padding-bottom: 3px;
-font-size: 12pt;
-}
-ul {
-font-family: Arial,Helvetica,sans-serif;
-margin-top: 3px;
-margin-bottom: 3px;
-font-size: 10pt;
-}
-caption {
-margin-top: 10px;
-font-family: Arial,Helvetica,sans-serif;
-font-size: 11pt;
-}
-hr {
-width: 100%;
-}
-.guidance {
-background-color: #e5b8b7;
-font-style: italic;
-font-family: Arial,Helvetica,sans-serif;
-padding-top: 3px;
-padding-bottom: 3px;
-margin-top: 3px;
-margin-bottom: 3px;
-font-size: 10pt;
-}
-.guidance_title {
-font-style: normal;
-font-weight: bold;
-text-decoration: underline;
-font-family: Arial,Helvetica,sans-serif;
-font-size: 10pt;
-}
-.tickets {
-border: 1pt solid #9cc2e5;
-font-family: Arial,Helvetica,sans-serif;
-margin-bottom: 3px;
-margin-top: 3px;
-font-size: 10pt;
-}
-.tickets th {
-border: 1pt solid #9cc2e5;
-font-size: 12pt;
-background-color: #39a9dc;
-color: white;
-text-align: center;
-}
-.tickets td {
-border: 1pt solid #9cc2e5;
-min-height: 32px;
-}
-tr:nth-child(even) {background-color: #cee2f2;}
-tr:nth-child(even) {background-color: #e8f1f9;}
-.topic1 {
-margin-top: 3px;
-margin-bottom: 3px;
-margin-left: 40px;
-}
-.topic2 {
-margin-top: 3px;
-margin-bottom: 3px;
-}
-.topic3 {
-margin-top: 3px;
-margin-bottom: 3px;
-margin-left: 20px;
-}
-#purpose {
-margin-top: 3px;
-margin-bottom: 3px;
-}
-#identification {
-margin-top: 3px;
-margin-bottom: 3px;
-}
-</style></head>
-<body link="blue" vlink="blue">
-<script type="text/javascript">
-var toggle_hist_disp = true;
-function toggle_history()
-{
-if (toggle_hist_disp)
-{
-toggle_hist_disp = false;
-var filter_off_text = document.createTextNode("Hide History");
-document.getElementById('filter_hist').innerHTML = "";
-document.getElementById('filter_hist').appendChild(filter_off_text);
-document.getElementById("history").hidden = false;
-}
-else
-{
-toggle_hist_disp = true;
-var filter_on_text = document.createTextNode("Show History");
-document.getElementById('filter_hist').innerHTML = "";
-document.getElementById('filter_hist').appendChild(filter_on_text);
-document.getElementById("history").hidden = true;
-}
-}</script><a href="../../Release_Notes.html">Back to Release page</a>
-<div style="width: 1034px;" class="Section1">
-<div id="header">
-<h1 style="margin-bottom: 0.25in; text-align: center;" align="center"><span style="font-size: 20pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;; color: rgb(51, 102, 255);">Release
-Notes for STM32MP1xx HAL Drivers</span><span style="font-size: 20pt; font-family: &quot;Verdana&quot;,&quot;sans-serif&quot;;"><o:p></o:p></span></h1>
-<p style="text-align: center;">Copyright 2019
-STMicroelectronics</p>
-<p style="text-align: center;"><a href="../../st_logo.png"><img style="border: 0px solid ; width: 104px; height: 77px;" id="st_logo" alt="&lt;ST logo&gt; image" src="../../_htmresc/st_logo.png"></a></p>
-</div>
-<div id="license" class="topic1">
-<h2>License</h2>
-<p>This software component is licensed under by ST under BSD
-3-Clause
-license,&nbsp;the "License". You may not use this package except in
-compliance with
-the License. You may obtain a copy of the License at:</p>
-<p style="text-align: center; background-color: white;"><a href="https://opensource.org/licenses/BSD-3-Clause" target="_blank">https://opensource.org/licenses/BSD-3-Clause</a></p>
-</div>
-<div class="topic1" id="purpose">
-<h2>Purpose</h2>
-<p></p>
-<br>
-</div>
-<div id="release_container" class="topic1">
-<div class="topic2" id="identification">
-<h3 style="width: 220px;">V1.4.0 / 26-Feb-2021</h3>
-</div>
-<div class="topic3" id="changes">
-<h4>Main changes :</h4><ul style="font-weight: normal;"><li><span style="font-family: Verdana,sans-serif; font-size: 10pt;">General updates  to fix known defects and enhancements implementation</span><br></li></ul><ul style="font-weight: normal;"><li><span style="font-weight: bold;">Major update</span>&nbsp;of drivers for STM32MP15xx devices:</li></ul><ul style="margin-left: 40px;"><ul><li>DTS (TMPSENS)</li><ul><li>Add Register Callback feature</li></ul><li>EXTI:</li><ul><li>Remove management of C1EMRx registers which does not exist on the silicon</li><li>Fix typo issue with EXTI_LINE_20</li></ul><li>GENERIC:</li><ul><li>Fix issue on the HAL_SYSCFG_DisableIOCompensation function</li><li>Replace SET_BIT usage in some condition (set/clear register pairs)</li></ul><li>RCC:&nbsp;</li><ul><li>LL
-- Fix compilation issue ( Align CMSIS Device and LL definitions
-removing LL_APB3_GRP1_PERIPH_PMBCTRL and LL_AHB5_GRP1_PERIPH_AXIMC)</li></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>SMARTCARD:&nbsp;</li></ul></ul><ul><ul><ul><ul><li>Alignment with other&nbsp;STM32 families (<span style="font-weight: bold;">some</span> API Change)</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>USART:&nbsp;</li><ul><li>Alignment with other&nbsp;STM32 families (No API Change)</li></ul></ul></ul><span style="font-weight: bold;"><br><br></span></div><div class="topic3" id="boards"><h4>Supported Devices:</h4>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Release Notes for STM32CubeMP1xx HAL and LL drivers</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
+</head>
+<body>
+<div class="row">
+<div class="col-sm-12 col-lg-4">
+<center>
+<h1 id="release-notes-for-stm32cubemp1xx-hal-and-ll-drivers">Release Notes for <mark>STM32CubeMP1xx HAL and LL drivers</mark></h1>
+<p>Copyright ©  2021 STMicroelectronics<br />
+</p>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
+</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provides a basic set of optimized and one-shot services. The Low layer drivers, contrary to the HAL ones are not fully portable across the STM32 families; the availability of some functions depends on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
 <ul>
-<li><span style="color: rgb(88, 88, 90); font-family: Arial,Helvetica,sans-serif; font-size: 14px; font-style: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; background-color: rgb(255, 255, 255); display: inline ! important; float: none;">The drivers provided&nbsp;support the following devices&nbsp;:</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US"></span></li><ul><li><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</span></li><li><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</span></li><li><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</span></li></ul><span style="font-weight: bold;"><br></span>
-
+<li>New set of inline functions for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level</li>
+<li>Full independence from HAL and standalone usage (without HAL drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
+</div>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history">Update History</h1>
+<div class="collapse">
+<input type="checkbox" id="collapse-section0" checked aria-hidden="true"> <label for="collapse-section0" checked aria-hidden="true"><strong>V1.5.0 / 04-November-2021</strong></label>
+<div>
+<h2 id="main-changes">Main Changes</h2>
+<ul>
+<li><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</li>
+</ul>
+<h2 id="contents">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>All HAL and LL Drivers
+<ul>
+<li>Update the way to declare licenses in Cube</li>
+</ul></li>
+<li>ADC
+<ul>
+<li>fix TEMPSENSOR_CAL_VREFANALOG value ( 3000 =&gt; 3300)</li>
+<li>fix VREFINT_CAL_ADDR in stm32mp1xx_ll_adc.h</li>
+<li>fix ADC_CALIBRATION_TIMEOUT value for CPU Max at 800MHz</li>
+</ul></li>
+<li>I2C, LPTIM, RNG, SPI
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>fix MISRA warnings [MISRAC2012-Rule-20.7]</li>
+<li>fix some MISRA warnings</li>
+</ul></li>
+<li>RTC
+<ul>
+<li>fix MISRA warnings [MISRAC2012-Rule-20.7]</li>
+</ul></li>
+<li>QSPI:
+<ul>
+<li>Force the MDMA Source Increment to disable</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="supported-devices">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
 </ul>
 </div>
 </div>
-<div style="margin-left: 40px;"><button id="filter_hist" onclick="toggle_history()">Show
-History</button><br>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 26-February-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>DTS (TMPSENS)
+<ul>
+<li>Add Register Callback feature</li>
+</ul></li>
+<li>EXTI
+<ul>
+<li>Remove management of C1EMRx registers which does not exist on the silicon</li>
+<li>Fix typo issue with EXTI_LINE_20</li>
+</ul></li>
+<li>GENERIC
+<ul>
+<li>Fix issue on the HAL_SYSCFG_DisableIOCompensation function</li>
+<li>Replace SET_BIT usage in some condition (set/clear register pairs)</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>LL - Fix compilation issue ( Align CMSIS Device and LL definitions removing LL_APB3_GRP1_PERIPH_PMBCTRL and LL_AHB5_GRP1_PERIPH_AXIMC)</li>
+</ul></li>
+<li>SMARTCARD:
+<ul>
+<li>Alignment with other STM32 families (some API Change)</li>
+</ul></li>
+<li>USART
+<ul>
+<li>Alignment with other STM32 families (No API Change)</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-1">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
 </div>
-<div id="history" class="topic1" hidden="">
-<h2>Update History</h2>
-<div id="release_container" class="topic1"><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 180px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.3.0 / 20-Oct-2020</span></h3></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="changes"><small>
-</small><h4><small>Main changes</small></h4><ul style="font-weight: normal;"><li><span style="font-family: Verdana,sans-serif; font-size: 10pt;">General updates  to fix known defects and enhancements implementation</span><br></li></ul><ul style="font-weight: normal;"><li><span style="font-weight: bold;">Major update</span>&nbsp;of drivers for STM32MP15xx devices:</li></ul><ul style="margin-left: 40px;"><ul><li>ADC: No API change</li></ul></ul><ul><ul><ul><ul><li>Typo corrections in HAL &amp; LL drivers</li><li>LL - assert_param should check constraint between modes continuous and discontinuous</li><li>HAL - Fix IRQ handler in case of injected conversion + IT mode + trigger timer</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>DFSDM: No API change</li></ul></ul><ul><ul><ul><ul><li>MISRA update</li><li>rework "Callback registration" section</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>EXTI: No API change</li></ul></ul><ul><ul><ul><ul><li>Define missing EXTI_REG3</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>GENERIC: No API change</li><ul><li>HAL configuration file : add SMARTCARD and SRAM in template file</li></ul><li>RCC: No API change</li></ul></ul><ul><ul><ul><ul><li>Important define update to be compliant with Header file update ( CMSIS device)</li><li>LL - Fix compilation issue ( to be compliant with Header file update on CMSIS device)</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>SAI:&nbsp;</li></ul></ul><ul><ul><ul><ul><li>HAL:&nbsp;Alignment&nbsp;for inter STM32 families portability.</li><ul><li><span style="font-weight: bold;">some API's change </span>to take in consideration</li></ul></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>SDMMC:&nbsp;No API change</li><ul><li>HAL - Fix loop increment in SD_HighSpeed and SD_UltraHighSpeed function</li></ul><li>SMARTCARD:&nbsp;</li></ul></ul><ul><ul><ul><ul><li>HAL: Implement SMARTCARD Driver: <span style="font-weight: bold;">New API</span></li><li>HAL - rename UART_FIFOMODE_ENABLE into SMARTCARD_FIFOMODE_ENABLE</li></ul></ul></ul></ul><span style="font-weight: bold;"></span></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="boards"><h4><small>Supported Devices and boards</small></h4>
-<ul><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-EV1</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;" lang="EN-US">&nbsp;revC</span><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"> </span></b></small></li><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-DK2</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> &nbsp;revC</span></small><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span></b></li><span style="font-weight: bold;"><br></span></ul>
 </div>
-<br><div id="release_container" class="topic1"><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 180px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.2.0 / 03-Feb-2020</span></h3></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="changes"><small>
-</small><h4><small>Main changes</small></h4><ul style="font-weight: normal;"><li><span style="font-family: Verdana,sans-serif; font-size: 10pt;">General updates  to fix known defects and enhancements implementation</span></li><li><span style="font-weight: bold;">Major update</span> of drivers for STM32MP15xx devices:</li></ul><ul style="margin-left: 40px;"><ul><li>ADC:</li></ul></ul><ul><ul><ul><ul><li>Update HAL_ADC_Start_DMA() API to enable DMA mode</li><li>LL : new function to add or remove paths.</li><ul><li>LL_ADC_SetCommonPathInternalChAdd and LL_ADC_SetCommonPathInternalChAdd : <span style="font-weight: bold;">New API</span></li></ul></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>CORTEX:</li><ul><li>Implement LL Driver</li></ul><li>FMC:</li><ul><li>Implement PSRAM Driver: <span style="font-weight: bold;">New API</span></li></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>GENERIC:</li><ul><li>Add EXTERNAL_CLOCK_VALUE in conf_template file.</li></ul><li>RTC:</li><ul><li>HAL&amp;LL : Implement RTC Driver (including TAMP) : <span style="font-weight: bold;">New API</span></li></ul><li>TIM:</li></ul></ul><ul><ul><ul><ul><li>HAL&amp;LL: Remove reference to COMP1 and COMP2</li><li>LL:&nbsp;</li><ul><li>Fix TIM Break source definition</li><li>RepetitionCounter value depends on GP or Advanced tmers</li></ul></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>UART:</li><ul><li>HAL:&nbsp;Alignment with&nbsp;&nbsp;STM32F0/F3/H7 (for inter STM32 families portability)</li><ul><li><span style="font-weight: bold;">some API's change </span>to take in consideration</li></ul></ul><li>UTILS:</li><ul><li>LL: Add new Part Number defines&nbsp;related to LL_GetDevicePartNumber()</li></ul></ul></ul></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="boards"><h4><small>Supported Devices and boards</small></h4>
-<ul><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-EV1</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;" lang="EN-US">&nbsp;revC</span><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"> </span></b></small></li><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-DK2</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> &nbsp;revC</span></small><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span></b></li><span style="font-weight: bold;"><br></span></ul>
-</div><br><div id="release_container" class="topic1"><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 180px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.1.0 / 10-Sept-2019</span></h3></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="changes"><small>
-</small><h4><small>Main changes</small></h4><ul style="font-weight: normal;"><li><span style="font-family: Verdana,sans-serif; font-size: 10pt;">General updates  to fix known defects and enhancements implementation</span></li><li style="font-weight: bold;"><span style="font-family: Verdana,sans-serif; font-size: 10pt;"><span style="font-weight: bold;">Implementation</span> of LL APIs:</span></li><ul><li>DMA / EXTI / HSEM / LPTIM / PWR / SPI / TIM / WWDG / I2C</li></ul><li><span style="font-weight: bold;">Major update</span> of drivers for STM32MP15xx devices:</li></ul><ul style="margin-left: 40px;"><ul><li>Rename RCC_IPNAME_BCLK with <span style="font-weight: bold;">RCC_IPNAME_BUSNAME</span></li><ul><li>Impact HAL_RCC / HAL_LPTIM /&nbsp;HAL_UART / HAL_USART</li></ul><li>ADC:</li></ul></ul><ul><ul><ul><ul><li>HAL: Remove ADC_TWOSAMPLINGDELAY_9CYCLES definition</li></ul><ul><li>HAL: Remove ADC_OVERSAMPLING_RATIO_xxx &nbsp;defnitions</li></ul><ul><li>LL : Add ADC Internal Channel VDDCORE management ( LL_ADC_PATH_INTERNAL_VDDCORE)</li></ul><ul><li>HAL &amp; LL: Update for linear calibration and Use 'ADC_LINEAR_CALIB_REG_COUNT'</li></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>DMA:</li><ul><li>HAL: Use DMA_Stream_TypeDef structure for instance (<span style="font-weight: bold;">structure change</span>)</li></ul><li>Generic:</li><ul><li>HAL:&nbsp;Update the SystemCoreClock global variable ( needed&nbsp;in case of Coprocesseur use case)</li><li>HAL: Add enable/disable functions for IO Compensation mechanism&nbsp;(<span style="font-weight: bold;">new API</span>)</li><li>HAL: Align HAL_CONF template&nbsp;with HAL package</li></ul><li>GPIO:</li><ul><li>Improve HAL_GPIO_TogglePin reentrancy robustness</li><li>Improve robustness of HAL_GPIO_DeInit()&nbsp;on EXTI management</li><li>Update IS_GPIO_PIN assert macro</li></ul><li>IPCC:</li><ul><li>LL: Add service to get the number of supported channels (<span style="font-weight: bold;">new API</span>)</li></ul><li>LPTIM:</li></ul></ul><ul><ul><ul><ul><li>HAL:&nbsp;Alignment with&nbsp;STM32H7/WB (for inter STM32 families portability):</li><ul><li><span style="font-weight: bold;">some API's change </span>to take in consideration&nbsp;</li></ul></ul></ul></ul></ul><ul style="margin-left: 40px;"><ul><li>RCC:</li><ul><li>HAL: Rename __HAL_RCC_TMPSENS_CLK_xxx to&nbsp;&nbsp;__HAL_RCC_<span style="font-weight: bold;">DTS</span>_CLK_xxx</li><li>HAL: Update to not overwrite&nbsp;Tick priority</li></ul><li>SPI:</li><ul><li>HAL: Add new feature&nbsp;Reload Feature + Duplex Packet DXP (<span style="font-weight: bold;">new API)</span></li></ul><li>TIM:</li></ul></ul><ul><ul><ul><ul><li>HAL:&nbsp;Alignment with&nbsp;STM32F0/F3/H7/WB (for inter STM32 families portability):</li></ul></ul></ul></ul><ul><ul><ul><ul><ul><li>&nbsp;<span style="font-weight: bold;">some API's change </span>to take in consideration</li></ul></ul></ul></ul></ul></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="boards"><h4><small>Supported Devices and boards</small></h4>
-<ul><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-EV1</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;" lang="EN-US">&nbsp;revC</span><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"> </span></b></small></li><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-DK2</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> &nbsp;revC</span></small><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span></b></li><span style="font-weight: bold;"><br></span></ul>
-</div><br><div id="release_container" class="topic1"><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt; width: 180px;"><span style="font-size: 10pt; font-family: Arial; color: white;">V1.0.0 / 25-January-2019</span></h3></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="changes"><small>
-</small><h4><small>Main changes</small></h4><small>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; First
-official release of HAL and&nbsp; Low layers drivers to
-support&nbsp;STM32MP157xx / STM32MP153xx / STM32MP151xx<br></small></div><div style="margin-left: 60px; width: 934px;" class="topic3" id="boards"><h4><small>Supported Devices and boards</small></h4>
-<ul><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-EV1</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> </span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;" lang="EN-US">&nbsp;revC</span><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"> </span></b></small></li><li><small><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(31, 73, 125);" lang="EN-US">STM32MP157C-DK2</span><span style="font-size: 11pt; font-family: &quot;Calibri&quot;,sans-serif; color: rgb(0, 32, 82);" lang="EN-US"> &nbsp;revC</span></small><b><span style="background: white none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: rgb(51, 102, 255);" lang="EN-US"></span></b></li><span style="font-weight: bold;"><br></span></ul>
-</div><br>
+<div class="collapse">
+<input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 20-October-2020</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-2">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>ADC: No API change
+<ul>
+<li>Typo corrections in HAL &amp; LL drivers</li>
+<li>LL - assert_param should check constraint between modes continuous and discontinuous</li>
+<li>HAL - Fix IRQ handler in case of injected conversion + IT mode + trigger timer</li>
+</ul></li>
+<li>DFSDM: No API change
+<ul>
+<li>MISRA update</li>
+<li>rework “Callback registration” section</li>
+</ul></li>
+<li>EXTI: No API change
+<ul>
+<li>Define missing EXTI_REG3</li>
+</ul></li>
+<li>GENERIC: No API change
+<ul>
+<li>HAL configuration file : add SMARTCARD and SRAM in template file</li>
+</ul></li>
+<li>RCC: No API change
+<ul>
+<li>Important define update to be compliant with Header file update ( CMSIS device)</li>
+<li>Fix compilation issue ( to be compliant with Header file update on CMSIS device)</li>
+</ul></li>
+<li>SAI
+<ul>
+<li>HAL: Alignment for inter STM32 families portability:
+<ul>
+<li><strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+</ul></li>
+<li>SDMMC: No API change
+<ul>
+<li>HAL - Fix loop increment in SD_HighSpeed and SD_UltraHighSpeed function</li>
+</ul></li>
+<li>SMARTCARD
+<ul>
+<li>HAL: Implement SMARTCARD Driver: <strong>New API</strong></li>
+<li>HAL - rename UART_FIFOMODE_ENABLE into SMARTCARD_FIFOMODE_ENABLE</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-1">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-2">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
 </div>
-<div id="product_doc" class="topic1">
-<hr>
-<p style="text-align: center;">For complete
-documentation on STM32&nbsp;Microcontrollers, visit: <a href="http://www.st.com/STM32" target="_blank">www.st.com/STM32</a><span style="background-color: yellow;"></span></p>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 03-February-2020</strong></label>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
+<p><strong>Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-3">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>ADC
+<ul>
+<li>Update HAL_ADC_Start_DMA() API to enable DMA mode</li>
+<li>LL : new function to add or remove paths.
+<ul>
+<li>LL_ADC_SetCommonPathInternalChAdd and LL_ADC_SetCommonPathInternalChAdd : <strong>New API</strong></li>
+</ul></li>
+</ul></li>
+<li>CORTEX
+<ul>
+<li>Implement LL Driver</li>
+</ul></li>
+<li>FMC
+<ul>
+<li>Implement PSRAM Driver: <strong>New API</strong></li>
+</ul></li>
+<li>GENERIC
+<ul>
+<li>Add EXTERNAL_CLOCK_VALUE in conf_template file.</li>
+</ul></li>
+<li>RTC
+<ul>
+<li>HAL&amp;LL : Implement RTC Driver (including TAMP) : <strong>New API</strong></li>
+</ul></li>
+<li>TIM
+<ul>
+<li>HAL&amp;LL: Remove reference to COMP1 and COMP2</li>
+<li>LL:
+<ul>
+<li>Fix TIM Break source definition</li>
+<li>RepetitionCounter value depends on GP or Advanced tmers</li>
+</ul></li>
+</ul></li>
+<li>UART
+<ul>
+<li>HAL: Alignment with STM32F0/F3/H7 (for inter STM32 families portability)
+<ul>
+<li><strong>some API’s</strong> change to take in consideration</li>
+</ul></li>
+</ul></li>
+<li>UTILS
+<ul>
+<li>LL: Add new Part Number defines related to LL_GetDevicePartNumber()consideration</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-2">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="supported-devices-3">Supported Devices</h2>
+<ul>
+<li>The drivers provided support the following devices :
+<ul>
+<li>STM32MP157Cxx, STM32MP157Axx, STM32MP157Dxx, STM32MP157Fxx</li>
+<li>STM32MP153Cxx, STM32MP153Axx, STM32MP153Dxx, STM32MP153Fxx</li>
+<li>STM32MP151Cxx, STM32MP151Axx, STM32MP151Dxx, STM32MP151Fxx</li>
+</ul></li>
+</ul>
 </div>
 </div>
-</body></html>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 10-September-2019</strong></label>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
+<p><strong>First Maintenance release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="contents-4">Contents</h2>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+<li><strong>Implementation of LL APIs:</strong>
+<ul>
+<li>DMA / EXTI / HSEM / LPTIM / PWR / SPI / TIM / WWDG / I2C</li>
+</ul></li>
+<li><strong>Major update</strong> of drivers for STM32MP15xx devices:
+<ul>
+<li>Rename RCC_IPNAME_BCLK with <strong>RCC_IPNAME_BUSNAME</strong>
+<ul>
+<li>Impact HAL_RCC / HAL_LPTIM / HAL_UART / HAL_USART</li>
+</ul></li>
+<li>ADC
+<ul>
+<li>HAL: Remove ADC_TWOSAMPLINGDELAY_9CYCLES definition</li>
+<li>HAL: Remove ADC_OVERSAMPLING_RATIO_xxx defnitions</li>
+<li>LL : Add ADC Internal Channel VDDCORE management ( LL_ADC_PATH_INTERNAL_VDDCORE)</li>
+<li>HAL &amp; LL: Update for linear calibration and Use ‘ADC_LINEAR_CALIB_REG_COUNT’</li>
+</ul></li>
+<li>DMA
+<ul>
+<li>HAL: Use DMA_Stream_TypeDef structure for instance (<strong>structure change</strong>)</li>
+</ul></li>
+<li>Generic
+<ul>
+<li>HAL: Update the SystemCoreClock global variable ( needed in case of Coprocesseur use case)</li>
+<li>HAL: Add enable/disable functions for IO Compensation mechanism (<strong>new API</strong>)</li>
+<li>HAL: Align HAL_CONF template with HAL package</li>
+</ul></li>
+<li>GPIO
+<ul>
+<li>Improve HAL_GPIO_TogglePin reentrancy robustness</li>
+<li>Improve robustness of HAL_GPIO_DeInit() on EXTI management</li>
+<li>Update IS_GPIO_PIN assert macro</li>
+</ul></li>
+<li>IPCC
+<ul>
+<li>LL: Add service to get the number of supported channels (<strong>new API</strong>)</li>
+</ul></li>
+<li>LPTIM
+<ul>
+<li>HAL: Alignment with STM32H7/WB (for inter STM32 families portability): <strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+<li>RCC
+<ul>
+<li>HAL: Rename __HAL_RCC_TMPSENS_CLK_xxx to __HAL_RCC_DTS_CLK_xxx</li>
+<li>HAL: Update to not overwrite Tick priority</li>
+</ul></li>
+<li>SPI
+<ul>
+<li>HAL: Add new feature Reload Feature + Duplex Packet DXP (<strong>new API</strong>)</li>
+</ul></li>
+<li>TIM
+<ul>
+<li>HAL: Alignment with STM32F0/F3/H7/WB (for inter STM32 families portability): <strong>some API’s change</strong> to take in consideration</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-3">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 22-January-2019</strong></label>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
+<p><strong>First official release of HAL and LL drivers</strong> for <strong>STM32MP15xx</strong> devices</p>
+<h2 id="known-limitations-5">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="dependencies-4">Dependencies</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<footer class="sticky">
+<p>For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span></p>
+This release note uses up to date web standards and, for this reason, should not be opened with Internet Explorer but preferably with popular browsers such as Google Chrome, Mozilla Firefox, Opera or Microsoft Edge.
+</footer>
+</body>
+</html>

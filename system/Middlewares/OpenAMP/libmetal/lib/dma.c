@@ -29,8 +29,7 @@ int metal_dma_map(struct metal_device *dev,
 		/* If it is device read, apply memory write fence. */
 		atomic_thread_fence(memory_order_release);
 	else
-		/* If it is device write or device r/w,
-		   apply memory r/w fence. */
+		/* If it is device write or r/w, apply memory r/w fence. */
 		atomic_thread_fence(memory_order_acq_rel);
 	nents_out = dev->bus->ops.dev_dma_map(dev->bus,
 			dev, dir, sg_in, nents_in, sg_out);
@@ -47,8 +46,7 @@ void metal_dma_unmap(struct metal_device *dev,
 		/* If it is device read, apply memory write fence. */
 		atomic_thread_fence(memory_order_release);
 	else
-		/* If it is device write or device r/w,
-		   apply memory r/w fence. */
+		/*If it is device write or r/w, apply memory r/w fence */
 		atomic_thread_fence(memory_order_acq_rel);
 
 	if (!dev || !dev->bus->ops.dev_dma_unmap || !sg)

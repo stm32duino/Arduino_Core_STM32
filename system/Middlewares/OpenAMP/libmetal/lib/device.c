@@ -5,9 +5,9 @@
  */
 
 #include <string.h>
-#include <metal/errno.h>
 #include <metal/assert.h>
 #include <metal/device.h>
+#include <metal/errno.h>
 #include <metal/list.h>
 #include <metal/log.h>
 #include <metal/sys.h>
@@ -43,11 +43,10 @@ int metal_bus_find(const char *name, struct metal_bus **result)
 
 	metal_list_for_each(&_metal.common.bus_list, node) {
 		bus = metal_container_of(node, struct metal_bus, node);
-		if (strcmp(bus->name, name) != 0)
-			continue;
-		if (result)
+		if (strcmp(bus->name, name) == 0 && result) {
 			*result = bus;
-		return 0;
+			return 0;
+		}
 	}
 	return -ENOENT;
 }
@@ -106,10 +105,10 @@ int metal_generic_dev_open(struct metal_bus *bus, const char *dev_name,
 
 	metal_list_for_each(&_metal.common.generic_device_list, node) {
 		dev = metal_container_of(node, struct metal_device, node);
-		if (strcmp(dev->name, dev_name) != 0)
-			continue;
-		*device = dev;
-		return metal_generic_dev_sys_open(dev);
+		if (strcmp(dev->name, dev_name) == 0) {
+			*device = dev;
+			return metal_generic_dev_sys_open(dev);
+		}
 	}
 
 	return -ENODEV;
@@ -122,9 +121,9 @@ int metal_generic_dev_dma_map(struct metal_bus *bus,
 			     int nents_in,
 			     struct metal_sg *sg_out)
 {
+	int i;
 	(void)bus;
 	(void)device;
-	int i;
 
 	if (sg_out != sg_in)
 		memcpy(sg_out, sg_in, nents_in*(sizeof(struct metal_sg)));
@@ -144,10 +143,10 @@ void metal_generic_dev_dma_unmap(struct metal_bus *bus,
 				 struct metal_sg *sg,
 				 int nents)
 {
+	int i;
 	(void)bus;
 	(void)device;
 	(void)dir;
-	int i;
 
 	for (i = 0; i < nents; i++) {
 		metal_cache_invalidate(sg[i].virt, sg[i].len);

@@ -162,9 +162,9 @@ extern int __OPENAMP_region_end__[];    /* defined by linker script */
 #endif
 
 #if defined LINUX_RPROC_MASTER
-#define VRING_RX_ADDRESS        -1        /* allocated by Master processor: CA7 */
-#define VRING_TX_ADDRESS        -1        /* allocated by Master processor: CA7 */
-#define VRING_BUFF_ADDRESS      -1        /* allocated by Master processor: CA7 */
+#define VRING_RX_ADDRESS     ((unsigned int)-1)  /* allocated by Master processor: CA7 */
+#define VRING_TX_ADDRESS     ((unsigned int)-1)  /* allocated by Master processor: CA7 */
+#define VRING_BUFF_ADDRESS   ((unsigned int)-1)  /* allocated by Master processor: CA7 */
 #define VRING_ALIGNMENT         16        /* fixed to match with linux constraint */
 #define VRING_NUM_BUFFS         16		  /* number of rpmsg buffer */
 #else

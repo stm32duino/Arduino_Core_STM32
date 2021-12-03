@@ -19,6 +19,14 @@ extern "C" {
 #define restrict __restrict__
 #define metal_align(n) __attribute__((aligned(n)))
 #define metal_weak __attribute__((weak))
+#define metal_asm asm
+
+#define METAL_PACKED_BEGIN __packed
+#define METAL_PACKED_END
+
+#ifndef __deprecated
+#define __deprecated	__attribute__((deprecated))
+#endif
 
 #ifdef __cplusplus
 }

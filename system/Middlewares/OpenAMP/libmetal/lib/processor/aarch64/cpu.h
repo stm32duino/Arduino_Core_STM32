@@ -12,6 +12,11 @@
 #ifndef __METAL_AARCH64_CPU__H__
 #define __METAL_AARCH64_CPU__H__
 
-#define metal_cpu_yield() asm volatile("yield")
+#include <metal/compiler.h>
+
+static inline void metal_cpu_yield(void)
+{
+	metal_asm volatile("yield");
+}
 
 #endif /* __METAL_AARCH64_CPU__H__ */

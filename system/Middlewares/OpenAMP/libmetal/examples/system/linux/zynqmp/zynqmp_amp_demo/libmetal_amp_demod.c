@@ -340,10 +340,11 @@ int main(void)
 	ch0.ipi_mask = IPI_MASK;
 
 	LPRINTF("Try to register IPI interrupt.\n");
-	ret =  metal_irq_register(irq, ipi_irq_isr, ch0.ipi_dev, &ch0);
+	ret =  metal_irq_register(irq, ipi_irq_isr, &ch0);
 	LPRINTF("registered IPI interrupt.\n");
 	if (ret)
 		goto out;
+	metal_irq_enable(irq);
 
 	/* Enable interrupt */
 	metal_io_write32(ch0.ipi_io, IPI_IER_OFFSET, ch0.ipi_mask);

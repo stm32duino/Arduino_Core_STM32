@@ -27,12 +27,10 @@ extern "C" {
 #endif
 
 /* The feature bitmap for virtio rpmsg */
-#define VIRTIO_RPMSG_F_NS 0 /* RP supports name service notifications */
+#define VIRTIO_RPMSG_F_NS	0 /* RP supports name service notifications */
 
-struct rpmsg_virtio_shm_pool;
 /**
  * struct rpmsg_virtio_shm_pool - shared memory pool used for rpmsg buffers
- * @get_buffer: function to get buffer from the pool
  * @base: base address of the memory pool
  * @avail: available memory size
  * @size: total pool size
@@ -51,7 +49,6 @@ struct rpmsg_virtio_shm_pool {
  * @svq: pointer to send virtqueue
  * @shbuf_io: pointer to the shared buffer I/O region
  * @shpool: pointer to the shared buffers pool
- * @endpoints: list of endpoints.
  */
 struct rpmsg_virtio_device {
 	struct rpmsg_device rdev;
@@ -64,8 +61,9 @@ struct rpmsg_virtio_device {
 
 #define RPMSG_REMOTE	VIRTIO_DEV_SLAVE
 #define RPMSG_MASTER	VIRTIO_DEV_MASTER
+
 static inline unsigned int
-	rpmsg_virtio_get_role(struct rpmsg_virtio_device *rvdev)
+rpmsg_virtio_get_role(struct rpmsg_virtio_device *rvdev)
 {
 	return rvdev->vdev->role;
 }
@@ -82,16 +80,30 @@ static inline uint8_t rpmsg_virtio_get_status(struct rpmsg_virtio_device *rvdev)
 }
 
 static inline uint32_t
-	rpmsg_virtio_get_features(struct rpmsg_virtio_device *rvdev)
+rpmsg_virtio_get_features(struct rpmsg_virtio_device *rvdev)
 {
 	return rvdev->vdev->func->get_features(rvdev->vdev);
 }
 
+static inline void
+rpmsg_virtio_read_config(struct rpmsg_virtio_device *rvdev,
+			 uint32_t offset, void *dst, int length)
+{
+	rvdev->vdev->func->read_config(rvdev->vdev, offset, dst, length);
+}
+
+static inline void
+rpmsg_virtio_write_config(struct rpmsg_virtio_device *rvdev,
+			 uint32_t offset, void *dst, int length)
+{
+	rvdev->vdev->func->write_config(rvdev->vdev, offset, dst, length);
+}
+
 static inline int
-	rpmsg_virtio_create_virtqueues(struct rpmsg_virtio_device *rvdev,
-				       int flags, unsigned int nvqs,
-				       const char *names[],
-				       vq_callback * callbacks[])
+rpmsg_virtio_create_virtqueues(struct rpmsg_virtio_device *rvdev,
+			       int flags, unsigned int nvqs,
+			       const char *names[],
+			       vq_callback *callbacks)
 {
 	return virtio_create_virtqueues(rvdev->vdev, flags, nvqs, names,
 					callbacks);

@@ -1,6 +1,11 @@
 collect (PROJECT_LIB_TESTS helper.c)
 
 set (_test_lib_external "xil")
+if (XILINX_PRE_V2019)
+list (APPEND _test_lib_external "xilmem")
+list (APPEND _test_lib_external "xilstandalone")
+endif (XILINX_PRE_V2019)
+
 
 collect (PROJECT_LIB_DEPS ${_test_lib_external})
 collect (PROJECT_LIB_DEPS "c")

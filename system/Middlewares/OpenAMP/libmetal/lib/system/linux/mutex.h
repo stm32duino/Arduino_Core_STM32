@@ -61,6 +61,7 @@ static inline void __metal_mutex_deinit(metal_mutex_t *mutex)
 static inline int __metal_mutex_try_acquire(metal_mutex_t *mutex)
 {
 	int val = 0;
+
 	return atomic_compare_exchange_strong(&mutex->v, &val, 1);
 }
 

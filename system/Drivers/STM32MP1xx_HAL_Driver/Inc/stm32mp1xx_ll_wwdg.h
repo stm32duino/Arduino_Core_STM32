@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -58,9 +57,9 @@ extern "C" {
   */
 
 /** @defgroup WWDG_LL_EC_PRESCALER  PRESCALER
-* @{
-*/
-#define LL_WWDG_PRESCALER_1                 0x00000000u                                               /*!< WWDG counter clock = (PCLK1/4096)/1 */
+  * @{
+  */
+#define LL_WWDG_PRESCALER_1                 0x00000000U                                               /*!< WWDG counter clock = (PCLK1/4096)/1 */
 #define LL_WWDG_PRESCALER_2                 WWDG_CFR_WDGTB_0                                          /*!< WWDG counter clock = (PCLK1/4096)/2 */
 #define LL_WWDG_PRESCALER_4                 WWDG_CFR_WDGTB_1                                          /*!< WWDG counter clock = (PCLK1/4096)/4 */
 #define LL_WWDG_PRESCALER_8                 (WWDG_CFR_WDGTB_0 | WWDG_CFR_WDGTB_1)                     /*!< WWDG counter clock = (PCLK1/4096)/8 */
@@ -183,7 +182,7 @@ __STATIC_INLINE uint32_t LL_WWDG_GetCounter(WWDG_TypeDef *WWDGx)
   *         @arg @ref LL_WWDG_PRESCALER_32
   *         @arg @ref LL_WWDG_PRESCALER_64
   *         @arg @ref LL_WWDG_PRESCALER_128
-* @retval None
+  * @retval None
   */
 __STATIC_INLINE void LL_WWDG_SetPrescaler(WWDG_TypeDef *WWDGx, uint32_t Prescaler)
 {
@@ -327,5 +326,3 @@ __STATIC_INLINE uint32_t LL_WWDG_IsEnabledIT_EWKUP(WWDG_TypeDef *WWDGx)
 #endif
 
 #endif /* __STM32MP1xx_LL_WWDG_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

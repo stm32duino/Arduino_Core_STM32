@@ -98,7 +98,7 @@ static int OPENAMP_shmem_init(int RPMsgRole)
 
   shm_physmap = SHM_START_ADDRESS;
   metal_io_init(&device->regions[0], (void *)SHM_START_ADDRESS, &shm_physmap,
-                SHM_SIZE, -1, 0, NULL);
+                SHM_SIZE, (unsigned int)-1, 0, NULL);
 
   /* USER CODE BEGIN PRE_SHM_IO_INIT */
 
@@ -228,19 +228,6 @@ void OPENAMP_DeInit()
   /* USER CODE BEGIN POST_OPENAMP_DEINIT */
 
   /* USER CODE END POST_OPENAMP_DEINIT */
-}
-
-void OPENAMP_init_ept(struct rpmsg_endpoint *ept)
-{
-  /* USER CODE BEGIN PRE_EP_INIT */
-
-  /* USER CODE END PRE_EP_INIT */
-
-  rpmsg_init_ept(ept, "", RPMSG_ADDR_ANY, RPMSG_ADDR_ANY, NULL, NULL);
-
-  /* USER CODE BEGIN POST_EP_INIT */
-
-  /* USER CODE END POST_EP_INIT */
 }
 
 int OPENAMP_create_endpoint(struct rpmsg_endpoint *ept, const char *name,
