@@ -21,13 +21,12 @@
 #ifndef __VIRT_UART_H
 #define __VIRT_UART_H
 
+/* Includes ------------------------------------------------------------------*/
+#include "openamp.h"
 
 #ifdef __cplusplus
  extern "C" {
 #endif
-
-/* Includes ------------------------------------------------------------------*/
-#include "openamp.h"
 
 /* Exported structures --------------------------------------------------------*/
 typedef struct __VIRT_UART_HandleTypeDef

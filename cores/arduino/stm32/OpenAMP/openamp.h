@@ -23,11 +23,12 @@
 
 #ifdef VIRTIOCON
 
+#include <openamp/rpmsg.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include <openamp/rpmsg.h>
 #include "openamp_conf.h"
 
 #define OPENAMP_send  rpmsg_send
