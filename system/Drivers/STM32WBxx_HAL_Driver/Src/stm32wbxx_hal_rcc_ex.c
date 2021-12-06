@@ -8,17 +8,15 @@
   *           + Extended Peripheral Control functions
   *           + Extended Clock management functions
   *           + Extended Clock Recovery System Control functions
-  *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -696,6 +694,19 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
         /* Nothing to do as frequency already initialized to 0U */
       }
     }
+#if defined(SAI1)
+    else if (rngClockSource == RCC_RNGCLKSOURCE_PLLSAI1)    /* PLLSAI1 clock used as SAI1 clock source */
+    {
+      if (LL_RCC_PLLSAI1_IsReady() == 1U)
+      {
+        frequency = RCC_PLLSAI1_GetFreqDomain_Q();
+      }
+      else
+      {
+        /* Nothing to do as frequency already initialized to 0U */
+      }
+    }
+#endif /* SAI1 */
     else                                                    /* HSI48 clock divided by 3 used as RNG clock source */
     {
 #if defined(RCC_HSI48_SUPPORT)
@@ -1111,10 +1122,14 @@ uint32_t HAL_RCCEx_GetPeriphCLKFreq(uint32_t PeriphClk)
   * @brief  Return the RNG clock source
   * @retval The RNG clock source can be one of the following values:
   *            @arg @ref RCC_RNGCLKSOURCE_HSI48 HSI48 clock divided by 3 selected as RNG clock
-  *            @arg @ref RCC_RNGCLKSOURCE_PLL   PLL "Q" clock divided by 3  selected as RNG clock
-  *            @arg @ref RCC_RNGCLKSOURCE_MSI   MSI clock divided by 3 selected as RNG clock
-  *            @arg @ref RCC_RNGCLKSOURCE_LSI   LSI clock selected as RNG clock
-  *            @arg @ref RCC_RNGCLKSOURCE_LSE   LSE clock selected as RNG clock
+  *            @arg @ref RCC_RNGCLKSOURCE_PLL      PLL "Q" clock divided by 3  selected as RNG clock
+  *            @arg @ref RCC_RNGCLKSOURCE_MSI      MSI clock divided by 3 selected as RNG clock
+  *            @arg @ref RCC_RNGCLKSOURCE_PLLSAI1  PLLSAI1 "Q" clock selected as RNG clock (*)
+  *            @arg @ref RCC_RNGCLKSOURCE_LSI      LSI clock selected as RNG clock
+  *            @arg @ref RCC_RNGCLKSOURCE_LSE      LSE clock selected as RNG clock
+  *
+  *         (*) Value not defined in all devices.
+  *
   */
 uint32_t HAL_RCCEx_GetRngCLKSource(void)
 {
@@ -1370,7 +1385,7 @@ void HAL_RCCEx_LSCOConfig(uint32_t RCC_LSCOx, uint32_t RCC_LSCOSource)
   {
     /* LSCO1 Clock Enable */
     __LSCO1_CLK_ENABLE();
-    /* Configue the LSCO1 pin in alternate function mode */
+    /* Configure the LSCO1 pin in alternate function mode */
     GPIO_InitStruct.Pin       = LSCO1_PIN;
     GPIO_InitStruct.Alternate = GPIO_AF0_LSCO;
     HAL_GPIO_Init(LSCO1_GPIO_PORT, &GPIO_InitStruct);
@@ -1380,7 +1395,7 @@ void HAL_RCCEx_LSCOConfig(uint32_t RCC_LSCOx, uint32_t RCC_LSCOSource)
   {
     /* LSCO2 Clock Enable */
     __LSCO2_CLK_ENABLE();
-    /* Configue the LSCO2 pin in alternate function mode */
+    /* Configure the LSCO2 pin in alternate function mode */
     GPIO_InitStruct.Pin       = LSCO2_PIN;
     GPIO_InitStruct.Alternate = GPIO_AF0_LSCO;
     HAL_GPIO_Init(LSCO2_GPIO_PORT, &GPIO_InitStruct);
@@ -1391,7 +1406,7 @@ void HAL_RCCEx_LSCOConfig(uint32_t RCC_LSCOx, uint32_t RCC_LSCOSource)
   {
     /* LSCO3 Clock Enable */
     __LSCO3_CLK_ENABLE();
-    /* Configue the LSCO3 pin in alternate function mode */
+    /* Configure the LSCO3 pin in alternate function mode */
     GPIO_InitStruct.Pin       = LSCO3_PIN;
     GPIO_InitStruct.Alternate = GPIO_AF6_LSCO;
     HAL_GPIO_Init(LSCO3_GPIO_PORT, &GPIO_InitStruct);
@@ -1572,7 +1587,7 @@ HAL_StatusTypeDef HAL_RCCEx_TrimOsc(uint32_t OscillatorType)
                 ##### Extended Clock Recovery System Control functions  #####
  ===============================================================================
     [..]
-      For devices with Clock Recovery System feature (CRS), RCC Extention HAL driver can be used as follows:
+      For devices with Clock Recovery System feature (CRS), RCC Extended HAL driver can be used as follows:
 
       (#) In System clock config, HSI48 needs to be enabled
 
@@ -1583,7 +1598,7 @@ HAL_StatusTypeDef HAL_RCCEx_TrimOsc(uint32_t OscillatorType)
               (+++) Default values can be set for frequency Error Measurement (reload and error limit)
                         and also HSI48 oscillator smooth trimming.
               (+++) Macro __HAL_RCC_CRS_RELOADVALUE_CALCULATE can be also used to calculate
-                        directly reload value with target and sychronization frequencies values
+                        directly reload value with target and synchronization frequencies values
           (##) Call function HAL_RCCEx_CRSConfig which
               (+++) Resets CRS registers to their default values.
               (+++) Configures CRS registers with synchronization configuration
@@ -2357,6 +2372,3 @@ static uint32_t RCC_PLLSAI1_GetFreqDomain_Q(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

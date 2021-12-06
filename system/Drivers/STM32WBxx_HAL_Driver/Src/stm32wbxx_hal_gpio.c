@@ -7,7 +7,17 @@
   *          functionalities of the General Purpose Input/Output (GPIO) peripheral:
   *           + Initialization and de-initialization functions
   *           + IO operation functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                     ##### GPIO Peripheral features #####
@@ -88,17 +98,6 @@
         The HSE has priority over the GPIO function.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -236,23 +235,6 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
         temp |= (GPIO_GET_INDEX(GPIOx) << (4u * (position & 0x03u)));
         SYSCFG->EXTICR[position >> 2u] = temp;
 
-        /* Clear EXTI line configuration */
-        temp = EXTI->IMR1;
-        temp &= ~(iocurrent);
-        if ((GPIO_Init->Mode & EXTI_IT) != 0x00u)
-        {
-          temp |= iocurrent;
-        }
-        EXTI->IMR1 = temp;
-
-        temp = EXTI->EMR1;
-        temp &= ~(iocurrent);
-        if ((GPIO_Init->Mode & EXTI_EVT) != 0x00u)
-        {
-          temp |= iocurrent;
-        }
-        EXTI->EMR1 = temp;
-
         /* Clear Rising Falling edge configuration */
         temp = EXTI->RTSR1;
         temp &= ~(iocurrent);
@@ -269,6 +251,23 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, GPIO_InitTypeDef *GPIO_Init)
           temp |= iocurrent;
         }
         EXTI->FTSR1 = temp;
+
+        /* Clear EXTI line configuration */
+        temp = EXTI->IMR1;
+        temp &= ~(iocurrent);
+        if ((GPIO_Init->Mode & EXTI_IT) != 0x00u)
+        {
+          temp |= iocurrent;
+        }
+        EXTI->IMR1 = temp;
+
+        temp = EXTI->EMR1;
+        temp &= ~(iocurrent);
+        if ((GPIO_Init->Mode & EXTI_EVT) != 0x00u)
+        {
+          temp |= iocurrent;
+        }
+        EXTI->EMR1 = temp;
       }
     }
 
@@ -427,7 +426,7 @@ void HAL_GPIO_TogglePin(GPIO_TypeDef *GPIOx, uint16_t GPIO_Pin)
   /* Check the parameters */
   assert_param(IS_GPIO_PIN(GPIO_Pin));
 
-  /* get current Ouput Data Register value */
+  /* get current Output Data Register value */
   odr = GPIOx->ODR;
 
   /* Set selected pins that were at low level, and reset ones that were high */
@@ -522,5 +521,3 @@ __weak void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

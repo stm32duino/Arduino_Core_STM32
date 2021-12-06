@@ -9,6 +9,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -56,7 +67,7 @@
     [..]
     By default, after the HAL_RNG_Init() and when the state is HAL_RNG_STATE_RESET
     all callbacks are set to the corresponding weak (surcharged) functions:
-    exampleHAL_RNG_ErrorCallback().
+    example HAL_RNG_ErrorCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
     reset to the legacy weak (surcharged) functions in the HAL_RNG_Init()
     and HAL_RNG_DeInit() only when these callbacks are null (not registered beforehand).
@@ -78,17 +89,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -129,8 +129,8 @@
   */
 
 /** @addtogroup RNG_Exported_Functions_Group1
- *  @brief   Initialization and configuration functions
- *
+  * @brief   Initialization and configuration functions
+  *
 @verbatim
  ===============================================================================
           ##### Initialization and configuration functions #####
@@ -373,7 +373,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
 
 /**
   * @brief  Unregister an RNG Callback
-  *         RNG callabck is redirected to the weak predefined callback
+  *         RNG callback is redirected to the weak predefined callback
   * @param  hrng RNG handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -520,8 +520,8 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterReadyDataCallback(RNG_HandleTypeDef *hrng)
   */
 
 /** @addtogroup RNG_Exported_Functions_Group2
- *  @brief   Peripheral Control functions
- *
+  * @brief   Peripheral Control functions
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral Control functions #####
@@ -779,8 +779,8 @@ __weak void HAL_RNG_ErrorCallback(RNG_HandleTypeDef *hrng)
 
 
 /** @addtogroup RNG_Exported_Functions_Group3
- *  @brief   Peripheral State functions
- *
+  * @brief   Peripheral State functions
+  *
 @verbatim
  ===============================================================================
                       ##### Peripheral State functions #####
@@ -808,7 +808,7 @@ HAL_RNG_StateTypeDef HAL_RNG_GetState(RNG_HandleTypeDef *hrng)
   * @brief  Return the RNG handle error code.
   * @param  hrng: pointer to a RNG_HandleTypeDef structure.
   * @retval RNG Error Code
-*/
+  */
 uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
 {
   /* Return RNG Error Code */
@@ -833,5 +833,3 @@ uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

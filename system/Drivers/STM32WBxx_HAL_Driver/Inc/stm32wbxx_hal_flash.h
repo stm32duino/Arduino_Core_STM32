@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -100,7 +99,7 @@ typedef struct
                                         This parameter can be a value of @ref FLASH_SRAM2A_ADDRESS_RANGE */
   uint32_t SecureRAM2bStartAddr;   /*!< Secure non-Backup RAM2b start address (used for OPTIONBYTE_SECURE_MODE)
                                         This parameter can be a value of @ref FLASH_SRAM2B_ADDRESS_RANGE */
-  uint32_t SecureMode;             /*!< Secure mode activated or desactivated.
+  uint32_t SecureMode;             /*!< Secure mode activated or deactivated.
                                         This parameter can be a value of @ref FLASH_OB_SECURITY_MODE */
   uint32_t C2BootRegion;           /*!< CPU2 Secure Boot memory region(used for OPTIONBYTE_C2_BOOT_VECT).
                                         This parameter can be a value of @ref FLASH_C2_OB_BOOT_REGION */
@@ -986,5 +985,3 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #endif
 
 #endif /* STM32WBxx_HAL_FLASH_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

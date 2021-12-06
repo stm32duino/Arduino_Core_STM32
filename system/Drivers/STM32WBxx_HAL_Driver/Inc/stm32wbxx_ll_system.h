@@ -3,6 +3,17 @@
   * @file    stm32wbxx_ll_system.h
   * @author  MCD Application Team
   * @brief   Header file of SYSTEM LL module.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -16,17 +27,6 @@
       (+) Access to VREFBUF registers
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -1614,7 +1614,7 @@ __STATIC_INLINE uint32_t LL_DBGMCU_IsEnabledTraceClock(void)
 }
 
 /**
-  * @brief  Enable the external trigger ouput
+  * @brief  Enable the external trigger output
   * @note   When enable the external trigger is output (state of bit 1),
   *         TRGIO pin is connected to TRGOUT.
   * @rmtoll DBGMCU_CR TRGOEN         LL_DBGMCU_EnableTriggerOutput\n
@@ -1625,7 +1625,7 @@ __STATIC_INLINE void LL_DBGMCU_EnableTriggerOutput(void)
 }
 
 /**
-  * @brief  Disable the external trigger ouput
+  * @brief  Disable the external trigger output
   * @note   When disable external trigger is input (state of bit 0),
   *         TRGIO pin is connected to TRGIN.
   * @rmtoll DBGMCU_CR TRGOEN         LL_DBGMCU_DisableTriggerOutput\n
@@ -2228,7 +2228,7 @@ __STATIC_INLINE uint32_t LL_FLASH_GetUDN(void)
   * @note   The 64-bit UID64 may be used by Firmware to derive BLE 48-bit Device Address EUI-48 or
   *         802.15.4 64-bit Device Address EUI-64.
   *         For STM32WBxxxx devices, the device ID is 0x26
-  * @retval Values between Min_Data=0x00 and Max_Data=0xFF (ex: Device ID is 0x26 fo STM32WB55x)
+  * @retval Values between Min_Data=0x00 and Max_Data=0xFF (ex: Device ID is 0x26 for STM32WB55x)
   */
 __STATIC_INLINE uint32_t LL_FLASH_GetDeviceID(void)
 {
@@ -2239,8 +2239,8 @@ __STATIC_INLINE uint32_t LL_FLASH_GetDeviceID(void)
   * @brief  Return the ST Company ID
   * @note   The 64-bit UID64 may be used by Firmware to derive BLE 48-bit Device Address EUI-48 or
   *         802.15.4 64-bit Device Address EUI-64.
-  *         For STM32WBxxxx devices, the ST Compagny ID is 0x0080E1
-  * @retval Values between Min_Data=0x00 and Max_Data=0xFFFFFF (ex: ST Compagny ID is 0x0080E1)
+  *         For STM32WBxxxx devices, the ST Company ID is 0x0080E1
+  * @retval Values between Min_Data=0x00 and Max_Data=0xFFFFFF (ex: ST Company ID is 0x0080E1)
   */
 __STATIC_INLINE uint32_t LL_FLASH_GetSTCompanyID(void)
 {
@@ -2273,5 +2273,3 @@ __STATIC_INLINE uint32_t LL_FLASH_GetSTCompanyID(void)
 #endif
 
 #endif /* STM32WBxx_LL_SYSTEM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

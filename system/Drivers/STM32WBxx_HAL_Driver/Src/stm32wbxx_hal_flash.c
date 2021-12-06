@@ -8,7 +8,17 @@
   *           + Program operations functions
   *           + Memory Control functions
   *           + Peripheral Errors functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
  @verbatim
   ==============================================================================
                         ##### FLASH peripheral features #####
@@ -75,17 +85,6 @@
        (+) Monitor the Flash flags status
 
  @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -312,7 +311,7 @@ void HAL_FLASH_IRQHandler(void)
   /* check operation was a program or erase */
   if ((pFlash.ProcedureOnGoing & (FLASH_TYPEPROGRAM_DOUBLEWORD | FLASH_TYPEPROGRAM_FAST)) != 0U)
   {
-    /* return adress being programmed */
+    /* return address being programmed */
     param = pFlash.Address;
   }
   else if ((pFlash.ProcedureOnGoing & (FLASH_TYPEERASE_PAGES)) != 0U)
@@ -628,6 +627,19 @@ HAL_StatusTypeDef FLASH_WaitForLastOperation(uint32_t Timeout)
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_EOP);
   }
 
+  /* Workaround for BZ 70309 :
+     - OPTVERR is always set at power-up due to failure of engi bytes checking
+     - FLASH_WaitForLastOperation() is called at the beginning of erase or program
+       operations, so the bit will be clear when performing first operation */
+  if ((error & FLASH_FLAG_OPTVERR) != 0U)
+  {
+    /* Clear FLASH OPTVERR bit */
+    __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_OPTVERR);
+
+    /* Clear OPTVERR bit in "error" variable to not treat it as error */
+    error &= ~FLASH_FLAG_OPTVERR;
+  }
+
   /* Now update error variable to only error value */
   error &= FLASH_FLAG_SR_ERRORS;
 
@@ -730,5 +742,3 @@ static __RAM_FUNC void FLASH_Program_Fast(uint32_t Address, uint32_t DataAddress
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

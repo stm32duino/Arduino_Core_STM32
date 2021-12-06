@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -629,7 +628,10 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
     case LL_RCC_SAI1_CLKSOURCE_PLLSAI1:    /* PLLSAI1 clock used as SAI1 clock source */
       if (LL_RCC_PLLSAI1_IsReady() == 1U)
       {
-        sai_frequency = RCC_PLLSAI1_GetFreqDomain_SAI();
+        if (LL_RCC_PLLSAI1_IsEnabledDomain_SAI() == 1U)
+        {
+          sai_frequency = RCC_PLLSAI1_GetFreqDomain_SAI();
+        }
       }
       break;
 #endif
@@ -637,7 +639,10 @@ uint32_t LL_RCC_GetSAIClockFreq(uint32_t SAIxSource)
     case LL_RCC_SAI1_CLKSOURCE_PLL:        /* PLL clock used as SAI1 clock source */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        sai_frequency = RCC_PLL_GetFreqDomain_SAI();
+        if (LL_RCC_PLL_IsEnabledDomain_SAI() == 1U)
+        {
+          sai_frequency = RCC_PLL_GetFreqDomain_SAI();
+        }
       }
       break;
 
@@ -671,7 +676,10 @@ uint32_t LL_RCC_GetCLK48ClockFreq(uint32_t CLK48xSource)
     case LL_RCC_CLK48_CLKSOURCE_PLLSAI1:       /* PLLSAI1 clock used as CLK48 clock source */
       if (LL_RCC_PLLSAI1_IsReady() == 1U)
       {
-        clk48_frequency = RCC_PLLSAI1_GetFreqDomain_48M();
+        if (LL_RCC_PLLSAI1_IsEnabledDomain_48M() == 1U)
+        {
+          clk48_frequency = RCC_PLLSAI1_GetFreqDomain_48M();
+        }
       }
       break;
 #endif
@@ -679,7 +687,10 @@ uint32_t LL_RCC_GetCLK48ClockFreq(uint32_t CLK48xSource)
     case LL_RCC_CLK48_CLKSOURCE_PLL:           /* PLL clock used as CLK48 clock source */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        clk48_frequency = RCC_PLL_GetFreqDomain_48M();
+        if (LL_RCC_PLL_IsEnabledDomain_48M() == 1U)
+        {
+          clk48_frequency = RCC_PLL_GetFreqDomain_48M();
+        }
       }
       break;
 
@@ -784,7 +795,10 @@ uint32_t LL_RCC_GetADCClockFreq(uint32_t ADCxSource)
     case LL_RCC_ADC_CLKSOURCE_PLLSAI1:       /* PLLSAI1 clock used as ADC clock source */
       if (LL_RCC_PLLSAI1_IsReady() == 1U)
       {
-        adc_frequency = RCC_PLLSAI1_GetFreqDomain_ADC();
+        if (LL_RCC_PLLSAI1_IsEnabledDomain_ADC() == 1U)
+        {
+          adc_frequency = RCC_PLLSAI1_GetFreqDomain_ADC();
+        }
       }
       break;
 #endif
@@ -796,7 +810,10 @@ uint32_t LL_RCC_GetADCClockFreq(uint32_t ADCxSource)
     case LL_RCC_ADC_CLKSOURCE_PLL:           /* PLL clock used as ADC clock source */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        adc_frequency = RCC_PLL_GetFreqDomain_ADC();
+        if (LL_RCC_PLL_IsEnabledDomain_ADC() == 1U)
+        {
+          adc_frequency = RCC_PLL_GetFreqDomain_ADC();
+        }
       }
       break;
 
@@ -1338,5 +1355,3 @@ static uint32_t RCC_PLLSAI1_GetFreqDomain_ADC(void)
   */
 
 #endif /* USE_FULL_LL_DRIVER */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

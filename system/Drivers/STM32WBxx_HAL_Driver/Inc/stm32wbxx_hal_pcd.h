@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -193,16 +192,16 @@ typedef struct
   */
 
 
-#define __HAL_PCD_ENABLE(__HANDLE__)                                  (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_DISABLE(__HANDLE__)                                 (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
-#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__)                 ((USB_ReadInterrupts((__HANDLE__)->Instance)\
-                                                                        & (__INTERRUPT__)) == (__INTERRUPT__))
+#define __HAL_PCD_ENABLE(__HANDLE__)                              (void)USB_EnableGlobalInt ((__HANDLE__)->Instance)
+#define __HAL_PCD_DISABLE(__HANDLE__)                             (void)USB_DisableGlobalInt ((__HANDLE__)->Instance)
+#define __HAL_PCD_GET_FLAG(__HANDLE__, __INTERRUPT__)             ((USB_ReadInterrupts((__HANDLE__)->Instance)\
+                                                                    & (__INTERRUPT__)) == (__INTERRUPT__))
 
-#define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)               (((__HANDLE__)->Instance->ISTR)\
-                                                                       &= (uint16_t)(~(__INTERRUPT__)))
+#define __HAL_PCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)           (((__HANDLE__)->Instance->ISTR)\
+                                                                   &= (uint16_t)(~(__INTERRUPT__)))
 
-#define __HAL_USB_WAKEUP_EXTI_ENABLE_IT()                             EXTI->IMR1 |= USB_WAKEUP_EXTI_LINE
-#define __HAL_USB_WAKEUP_EXTI_DISABLE_IT()                            EXTI->IMR1 &= ~(USB_WAKEUP_EXTI_LINE)
+#define __HAL_USB_WAKEUP_EXTI_ENABLE_IT()                         EXTI->IMR1 |= USB_WAKEUP_EXTI_LINE
+#define __HAL_USB_WAKEUP_EXTI_DISABLE_IT()                        EXTI->IMR1 &= ~(USB_WAKEUP_EXTI_LINE)
 
 
 /**
@@ -346,13 +345,11 @@ HAL_StatusTypeDef HAL_PCD_EP_Receive(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
 HAL_StatusTypeDef HAL_PCD_EP_Transmit(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
                                       uint8_t *pBuf, uint32_t len);
 
-
 HAL_StatusTypeDef HAL_PCD_EP_SetStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_ClrStall(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_EP_Flush(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 HAL_StatusTypeDef HAL_PCD_ActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
 HAL_StatusTypeDef HAL_PCD_DeActivateRemoteWakeup(PCD_HandleTypeDef *hpcd);
-
 uint32_t          HAL_PCD_EP_GetRxCount(PCD_HandleTypeDef *hpcd, uint8_t ep_addr);
 /**
   * @}
@@ -471,7 +468,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   * @param   bEpNum, bDir
   * @retval None
   */
-#define PCD_FreeUserBuffer(USBx, bEpNum, bDir) \
+#define PCD_FREE_USER_BUFFER(USBx, bEpNum, bDir) \
   do { \
     if ((bDir) == 0U) \
     { \
@@ -639,8 +636,8 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   * @param  bEpNum Endpoint Number.
   * @retval None
   */
-#define PCD_SET_EP_DBUF(USBx, bEpNum)          PCD_SET_EP_KIND((USBx), (bEpNum))
-#define PCD_CLEAR_EP_DBUF(USBx, bEpNum)        PCD_CLEAR_EP_KIND((USBx), (bEpNum))
+#define PCD_SET_BULK_EP_DBUF(USBx, bEpNum)     PCD_SET_EP_KIND((USBx), (bEpNum))
+#define PCD_CLEAR_BULK_EP_DBUF(USBx, bEpNum)   PCD_CLEAR_EP_KIND((USBx), (bEpNum))
 
 /**
   * @brief  Clears bit CTR_RX / CTR_TX in the endpoint register.
@@ -816,18 +813,22 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 #define PCD_SET_EP_CNT_RX_REG(pdwReg, wCount) \
   do { \
     uint32_t wNBlocks; \
-    if ((wCount) == 0U) \
+    \
+    if ((wCount) > 62U) \
     { \
-      *(pdwReg) &= (uint16_t)~USB_CNTRX_NBLK_MSK; \
-      *(pdwReg) |= USB_CNTRX_BLSIZE; \
-    } \
-    else if((wCount) <= 62U) \
-    { \
-      PCD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
+      PCD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
     } \
     else \
     { \
-      PCD_CALC_BLK32((pdwReg), (wCount), wNBlocks); \
+      if ((wCount) == 0U) \
+      { \
+        *(pdwReg) &= (uint16_t)~USB_CNTRX_NBLK_MSK; \
+        *(pdwReg) |= USB_CNTRX_BLSIZE; \
+      } \
+      else \
+      { \
+        PCD_CALC_BLK2((pdwReg), (wCount), wNBlocks); \
+      } \
     } \
   } while(0) /* PCD_SET_EP_CNT_RX_REG */
 
@@ -1000,5 +1001,3 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
 #endif
 
 #endif /* STM32WBxx_HAL_PCD_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -138,6 +137,16 @@ extern "C" {
                 ((__SOURCE__) == RCC_LPTIM2CLKSOURCE_LSE))
 
 #if defined(RCC_HSI48_SUPPORT)
+#if defined(SAI1)
+#define IS_RCC_RNGCLKSOURCE(__SOURCE__)  \
+               (((__SOURCE__) == RCC_RNGCLKSOURCE_HSI48)   || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_PLL)     || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_MSI)     || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_PLLSAI1) || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_CLK48)   || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_LSI)     || \
+                ((__SOURCE__) == RCC_RNGCLKSOURCE_LSE))
+#else /* SAI1 */
 #define IS_RCC_RNGCLKSOURCE(__SOURCE__)  \
                (((__SOURCE__) == RCC_RNGCLKSOURCE_HSI48)   || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_PLL)     || \
@@ -145,14 +154,15 @@ extern "C" {
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_CLK48)   || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_LSI)     || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_LSE))
-#else
+#endif /* SAI1 */
+#else /* RCC_HSI48_SUPPORT */
 #define IS_RCC_RNGCLKSOURCE(__SOURCE__)  \
                (((__SOURCE__) == RCC_RNGCLKSOURCE_PLL)     || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_MSI)     || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_CLK48)   || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_LSI)     || \
                 ((__SOURCE__) == RCC_RNGCLKSOURCE_LSE))
-#endif
+#endif /* RCC_HSI48_SUPPORT */
 
 #if defined(USB)
 #if defined(SAI1)
@@ -544,6 +554,9 @@ typedef struct
 #define RCC_RNGCLKSOURCE_HSI48         (CLK48_MASK | LL_RCC_CLK48_CLKSOURCE_HSI48)  /*!< HSI48 clock divided by 3 selected as RNG clock    */
 #define RCC_RNGCLKSOURCE_PLL           (CLK48_MASK | LL_RCC_CLK48_CLKSOURCE_PLL)    /*!< PLL "Q" clock divided by 3  selected as RNG clock */
 #define RCC_RNGCLKSOURCE_MSI           (CLK48_MASK | LL_RCC_CLK48_CLKSOURCE_MSI)    /*!< MSI clock divided by 3 selected as RNG clock      */
+#if defined(SAI1)
+#define RCC_RNGCLKSOURCE_PLLSAI1       (CLK48_MASK | LL_RCC_CLK48_CLKSOURCE_PLLSAI1)    /*!< PLLSAI1 "Q" clock selected as RNG clock           */
+#endif /* SAI1 */
 #define RCC_RNGCLKSOURCE_CLK48         LL_RCC_RNG_CLKSOURCE_CLK48                   /*!< CLK48 divided by 3 selected as RNG Clock          */
 #define RCC_RNGCLKSOURCE_LSI           LL_RCC_RNG_CLKSOURCE_LSI                     /*!< LSI clock selected as RNG clock                   */
 #define RCC_RNGCLKSOURCE_LSE           LL_RCC_RNG_CLKSOURCE_LSE                     /*!< LSE clock selected as RNG clock                   */
@@ -1093,24 +1106,28 @@ typedef struct
   *            @arg @ref RCC_RNGCLKSOURCE_HSI48         HSI48 clock divided by 3  selected as RNG clock
   *            @arg @ref RCC_RNGCLKSOURCE_PLL           PLL "Q" clock divided by 3  selected as RNG clock
   *            @arg @ref RCC_RNGCLKSOURCE_MSI           MSI clock divided by 3 selected as RNG clock
+  *            @arg @ref RCC_RNGCLKSOURCE_PLLSAI1       PLLSAI1 "Q" clock selected as RNG (*)
   *            @arg @ref RCC_RNGCLKSOURCE_CLK48         CLK48 divided by 3 selected as RNG Clock  (default HSI48)
   *            @arg @ref RCC_RNGCLKSOURCE_LSI           LSI clock selected as RNG clock
   *            @arg @ref RCC_RNGCLKSOURCE_LSE           LSE clock selected as RNG clock
+  *
+  *         (*) Value not defined in all devices.
+  *
   * @retval None
   */
 #define __HAL_RCC_RNG_CONFIG(__RNG_CLKSOURCE__)          \
   do {                                                   \
     if (((__RNG_CLKSOURCE__) == RCC_RNGCLKSOURCE_LSI)    \
-     || ((__RNG_CLKSOURCE__) == RCC_RNGCLKSOURCE_LSE)       \
-     || ((__RNG_CLKSOURCE__) == RCC_RNGCLKSOURCE_CLK48))    \
+     || ((__RNG_CLKSOURCE__) == RCC_RNGCLKSOURCE_LSE)    \
+     || ((__RNG_CLKSOURCE__) == RCC_RNGCLKSOURCE_CLK48)) \
     {                                                    \
-     LL_RCC_SetRNGClockSource((__RNG_CLKSOURCE__));         \
+      LL_RCC_SetRNGClockSource((__RNG_CLKSOURCE__));     \
     }                                                    \
     else                                                 \
     {                                                    \
-      uint32_t tmp = (__RNG_CLKSOURCE__) &(~CLK48_MASK);   \
+      uint32_t tmp = (__RNG_CLKSOURCE__) &(~CLK48_MASK); \
       LL_RCC_SetRNGClockSource(RCC_RNGCLKSOURCE_CLK48);  \
-      LL_RCC_SetCLK48ClockSource(tmp);                      \
+      LL_RCC_SetCLK48ClockSource(tmp);                   \
     }                                                    \
   } while(0U)
 
@@ -1510,14 +1527,14 @@ typedef struct
 #define __HAL_RCC_CRS_FREQ_ERROR_COUNTER_DISABLE() LL_CRS_DisableFreqErrorCounter()
 
 /**
-  * @brief  Enable the automatic hardware adjustement of TRIM bits.
+  * @brief  Enable the automatic hardware adjustment of TRIM bits.
   * @note   When the AUTOTRIMEN bit is set the CRS_CFGR register becomes write-protected.
   * @retval None
   */
 #define __HAL_RCC_CRS_AUTOMATIC_CALIB_ENABLE()     LL_CRS_EnableAutoTrimming()
 
 /**
-  * @brief  Enable or disable the automatic hardware adjustement of TRIM bits.
+  * @brief  Enable or disable the automatic hardware adjustment of TRIM bits.
   * @retval None
   */
 #define __HAL_RCC_CRS_AUTOMATIC_CALIB_DISABLE()    LL_CRS_DisableAutoTrimming()
@@ -1630,5 +1647,3 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
 #endif
 
 #endif /* STM32WBxx_HAL_RCC_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

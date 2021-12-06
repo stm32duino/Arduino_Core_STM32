@@ -15,6 +15,17 @@
   *           + RTC Tamper and TimeStamp Pins Selection
   *           + Interrupts and flags management
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                           ##### RTC Operating Condition #####
@@ -147,19 +158,7 @@
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
 
-   @endverbatim
-
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  @endverbatim
   ******************************************************************************
   */
 
@@ -584,7 +583,7 @@ HAL_StatusTypeDef HAL_RTC_RegisterCallback(RTC_HandleTypeDef *hrtc, HAL_RTC_Call
 
 /**
   * @brief  Unregister an RTC Callback
-  *         RTC callabck is redirected to the weak predefined callback
+  *         RTC callback is redirected to the weak predefined callback
   * @param  hrtc RTC handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
@@ -1075,7 +1074,7 @@ void HAL_RTC_DST_Add1Hour(RTC_HandleTypeDef *hrtc)
 }
 
 /**
-  * @brief  Daylight Saving Time, Substract one hour from the calendar in one
+  * @brief  Daylight Saving Time, Subtract one hour from the calendar in one
   *         single operation without going through the initialization procedure.
   * @param  hrtc RTC handle
   * @retval None
@@ -1930,5 +1929,3 @@ uint8_t RTC_Bcd2ToByte(uint8_t Value)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
