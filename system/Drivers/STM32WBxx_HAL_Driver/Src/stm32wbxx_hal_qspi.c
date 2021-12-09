@@ -14,6 +14,17 @@
   *           + Errors management and abort functionality
   *
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                         ##### How to use this driver #####
@@ -193,17 +204,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -307,9 +307,6 @@ HAL_StatusTypeDef HAL_QSPI_Init(QSPI_HandleTypeDef *hqspi)
   assert_param(IS_QSPI_CS_HIGH_TIME(hqspi->Init.ChipSelectHighTime));
   assert_param(IS_QSPI_CLOCK_MODE(hqspi->Init.ClockMode));
 
-  /* Process locked */
-  __HAL_LOCK(hqspi);
-
   if(hqspi->State == HAL_QSPI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
@@ -392,9 +389,6 @@ HAL_StatusTypeDef HAL_QSPI_DeInit(QSPI_HandleTypeDef *hqspi)
   {
     return HAL_ERROR;
   }
-
-  /* Process locked */
-  __HAL_LOCK(hqspi);
 
   /* Disable the QSPI Peripheral Clock */
   __HAL_QSPI_DISABLE(hqspi);
@@ -721,7 +715,7 @@ void HAL_QSPI_IRQHandler(QSPI_HandleTypeDef *hqspi)
 
         /* Change state of QSPI */
         hqspi->State = HAL_QSPI_STATE_READY;
-        
+
         /* Error callback */
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
         hqspi->ErrorCallback(hqspi);
@@ -1350,10 +1344,10 @@ HAL_StatusTypeDef HAL_QSPI_Transmit_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pDat
         {
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-          
+
           /* Enable the QSPI transfer error Interrupt */
           __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-          
+
           /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
           SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
@@ -1498,10 +1492,10 @@ HAL_StatusTypeDef HAL_QSPI_Receive_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pData
 
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-          
+
           /* Enable the QSPI transfer error Interrupt */
           __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-          
+
           /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
           SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
@@ -2329,7 +2323,7 @@ HAL_StatusTypeDef HAL_QSPI_Abort_IT(QSPI_HandleTypeDef *hqspi)
       {
         /* Change state of QSPI */
         hqspi->State = HAL_QSPI_STATE_READY;
-        
+
         /* Abort Complete callback */
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
         hqspi->AbortCpltCallback(hqspi);
@@ -2734,6 +2728,4 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
   * @}
   */
 
-#endif /* defined(QUADSPI) || defined(QUADSPI1) || defined(QUADSPI2) */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* defined(QUADSPI) */

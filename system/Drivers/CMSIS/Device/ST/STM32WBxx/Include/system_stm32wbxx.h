@@ -63,7 +63,7 @@ extern const uint32_t AHBPrescTable[16];    /*!< AHB prescalers table values */
 extern const uint32_t APBPrescTable[8];     /*!< APB prescalers table values */
 extern const uint32_t MSIRangeTable[16];    /*!< MSI ranges table values     */
 
-#if defined(STM32WB55xx) || defined(STM32WB5Mxx) || defined(STM32WB35xx) || defined (STM32WB15xx) || defined (STM32WB10xx)
+#if defined(STM32WB55xx) || defined(STM32WB5Mxx) || defined(STM32WB35xx) || defined (STM32WB15xx)
 extern const uint32_t SmpsPrescalerTable[4][6];  /*!< SMPS factor ranges table values     */
 #endif
 /**
@@ -108,5 +108,4 @@ extern void SystemCoreClockUpdate(void);
   
 /**
   * @}
-  */  
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  */

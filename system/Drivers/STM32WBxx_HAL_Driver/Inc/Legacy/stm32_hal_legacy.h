@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2019-2021 STMicroelectronics.
+  * Copyright (c) 2021 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -213,6 +213,11 @@ extern "C" {
   * @{
   */
 #define __HAL_CORTEX_SYSTICKCLK_CONFIG HAL_SYSTICK_CLKSourceConfig
+#if defined(STM32U5)
+#define  MPU_DEVICE_nGnRnE          MPU_DEVICE_NGNRNE
+#define  MPU_DEVICE_nGnRE           MPU_DEVICE_NGNRE
+#define  MPU_DEVICE_nGRE            MPU_DEVICE_NGRE
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -220,11 +225,8 @@ extern "C" {
 /** @defgroup CRC_Aliases CRC API aliases
   * @{
   */
-#if defined(STM32WL) || defined(STM32WB) || defined(STM32L5) || defined(STM32L4)
-#else
 #define HAL_CRC_Input_Data_Reverse   HAL_CRCEx_Input_Data_Reverse    /*!< Aliased to HAL_CRCEx_Input_Data_Reverse for inter STM32 series compatibility  */
 #define HAL_CRC_Output_Data_Reverse  HAL_CRCEx_Output_Data_Reverse   /*!< Aliased to HAL_CRCEx_Output_Data_Reverse for inter STM32 series compatibility */
-#endif
 /**
   * @}
   */
@@ -257,6 +259,13 @@ extern "C" {
 #if defined(STM32G4) || defined(STM32H7) || defined (STM32U5)
 #define DAC_CHIPCONNECT_DISABLE       DAC_CHIPCONNECT_EXTERNAL
 #define DAC_CHIPCONNECT_ENABLE        DAC_CHIPCONNECT_INTERNAL
+#endif
+
+#if defined(STM32U5)
+#define DAC_TRIGGER_STOP_LPTIM1_OUT  DAC_TRIGGER_STOP_LPTIM1_CH1
+#define DAC_TRIGGER_STOP_LPTIM3_OUT  DAC_TRIGGER_STOP_LPTIM3_CH1
+#define DAC_TRIGGER_LPTIM1_OUT       DAC_TRIGGER_LPTIM1_CH1
+#define DAC_TRIGGER_LPTIM3_OUT       DAC_TRIGGER_LPTIM3_CH1
 #endif
 
 #if defined(STM32L1) || defined(STM32L4) || defined(STM32G0) || defined(STM32L5) || defined(STM32H7) || defined(STM32F4) || defined(STM32G4)
@@ -644,6 +653,20 @@ extern "C" {
 #endif /* STM32F0 || STM32F3 || STM32F1 */
 
 #define GPIO_AF6_DFSDM                            GPIO_AF6_DFSDM1
+
+#if defined(STM32U5)
+#define GPIO_AF0_RTC_50Hz                         GPIO_AF0_RTC_50HZ
+#endif /* STM32U5 */
+/**
+  * @}
+  */
+
+/** @defgroup HAL_GTZC_Aliased_Defines HAL GTZC Aliased Defines maintained for legacy purpose
+  * @{
+  */
+#if defined(STM32U5)
+#define GTZC_PERIPH_DCMI                      GTZC_PERIPH_DCMI_PSSI
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -884,6 +907,7 @@ extern "C" {
 #if defined(STM32U5)
 #define LPTIM_ISR_CC1        LPTIM_ISR_CC1IF
 #define LPTIM_ISR_CC2        LPTIM_ISR_CC2IF
+#define LPTIM_CHANNEL_ALL    0x00000000U
 #endif /* STM32U5 */
 /**
   * @}
@@ -1448,7 +1472,8 @@ extern "C" {
   */
 
 #if defined(STM32U5)
-#define HAL_DCACHE_CleanInvalidateByAddr_IT  HAL_DCACHE_AsyncCleanInvalidateByAddr
+#define HAL_DCACHE_CleanInvalidateByAddr     HAL_DCACHE_CleanInvalidByAddr
+#define HAL_DCACHE_CleanInvalidateByAddr_IT  HAL_DCACHE_CleanInvalidByAddr_IT
 #endif /* STM32U5 */
 
 /**
@@ -3410,7 +3435,19 @@ extern "C" {
 #define __HAL_RCC_APB2_CLK_Disable_Clear      __HAL_RCC_APB2_CLK_ENABLE
 #define __HAL_RCC_APB3_CLK_Disable_Clear      __HAL_RCC_APB3_CLK_ENABLE
 #define IS_RCC_MSIPLLModeSelection            IS_RCC_MSIPLLMODE_SELECT
+#define RCC_PERIPHCLK_CLK48                   RCC_PERIPHCLK_ICLK
+#define RCC_CLK48CLKSOURCE_HSI48              RCC_ICLK_CLKSOURCE_HSI48
+#define RCC_CLK48CLKSOURCE_PLL2               RCC_ICLK_CLKSOURCE_PLL2
+#define RCC_CLK48CLKSOURCE_PLL1               RCC_ICLK_CLKSOURCE_PLL1
+#define RCC_CLK48CLKSOURCE_MSIK               RCC_ICLK_CLKSOURCE_MSIK
+#define __HAL_RCC_ADC1_CLK_ENABLE            __HAL_RCC_ADC12_CLK_ENABLE
+#define __HAL_RCC_ADC1_CLK_DISABLE          __HAL_RCC_ADC12_CLK_DISABLE
+#define __HAL_RCC_ADC1_IS_CLK_ENABLED       __HAL_RCC_ADC12_IS_CLK_ENABLED
+#define __HAL_RCC_ADC1_IS_CLK_DISABLED      __HAL_RCC_ADC12_IS_CLK_DISABLED
+#define __HAL_RCC_ADC1_FORCE_RESET          __HAL_RCC_ADC12_FORCE_RESET
+#define __HAL_RCC_ADC1_RELEASE_RESET       __HAL_RCC_ADC12_RELEASE_RESET
 #endif
+
 /**
   * @}
   */
@@ -3491,12 +3528,14 @@ extern "C" {
 #define SD_OCR_CID_CSD_OVERWRIETE   SD_OCR_CID_CSD_OVERWRITE
 #define SD_CMD_SD_APP_STAUS         SD_CMD_SD_APP_STATUS
 
+#if !defined(STM32F1) && !defined(STM32F2) && !defined(STM32F4) && !defined(STM32F7) && !defined(STM32L1)
 #define eMMC_HIGH_VOLTAGE_RANGE     EMMC_HIGH_VOLTAGE_RANGE
 #define eMMC_DUAL_VOLTAGE_RANGE     EMMC_DUAL_VOLTAGE_RANGE
 #define eMMC_LOW_VOLTAGE_RANGE      EMMC_LOW_VOLTAGE_RANGE
 
 #define SDMMC_NSpeed_CLK_DIV        SDMMC_NSPEED_CLK_DIV
 #define SDMMC_HSpeed_CLK_DIV        SDMMC_HSPEED_CLK_DIV
+#endif
 
 #if defined(STM32F4) || defined(STM32F2)
 #define  SD_SDMMC_DISABLED          SD_SDIO_DISABLED
@@ -3822,6 +3861,16 @@ extern "C" {
 #if defined (STM32L4) || defined (STM32F4) || defined (STM32F7) || defined(STM32H7)
 #define HAL_QPSI_TIMEOUT_DEFAULT_VALUE HAL_QSPI_TIMEOUT_DEFAULT_VALUE
 #endif /* STM32L4 || STM32F4 || STM32F7 */
+/**
+  * @}
+  */
+
+/** @defgroup HAL_Generic_Aliased_Macros HAL Generic Aliased Macros maintained for legacy purpose
+  * @{
+  */
+#if defined (STM32F7)
+#define ART_ACCLERATOR_ENABLE ART_ACCELERATOR_ENABLE
+#endif /* STM32F7 */
 /**
   * @}
   */

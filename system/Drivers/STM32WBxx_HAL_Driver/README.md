@@ -21,12 +21,6 @@ Two models of publication are proposed for the STM32Cube embedded software:
 
 This **stm32wbxx_hal_driver** MCU component repo is one element of the STM32CubeWB MCU embedded software package, providing the **HAL-LL Drivers** part.
 
-## License
-
-Copyright (c) 2019 STMicroelectronics.
-
-This software component is licensed by STMicroelectronics under BSD-3-Clause license. You may not use this software except in compliance with the License.
-You may obtain a copy of the License [here](https://opensource.org/licenses/BSD-3-Clause).
 
 ## Release note
 
@@ -47,9 +41,10 @@ Tag v1.3.0    | Tag v1.3.0      | Tag v5.4.0_cm4 | Tag v1.3.0 (and following, if
 Tag v1.4.0    | Tag v1.3.0      | Tag v5.4.0_cm4 | Tag v1.4.0 (and following, if any, till next tag)
 Tag v1.5.0    | Tag v1.4.0      | Tag v5.4.0_cm4 | Tag v1.5.0 (and following, if any, till next tag)
 Tag v1.6.0    | Tag v1.5.0      | Tag v5.4.0_cm4 | Tag v1.8.0 (and following, if any, till next tag)
-Tag v1.7.0    | Tag v1.7.0      | Tag v5.4.0_cm4 | Tag v1.10.0 (and following, if any, till next tag)
-Tag v1.8.0    | Tag v1.8.0      | Tag v5.4.0_cm4 | Tag v1.11.0 (and following, if any, till next tag)
-Tag v1.9.0    | Tag v1.9.0      | Tag v5.4.0_cm4 | Tag v1.12.0 (and following, if any, till next tag)
+Tag v1.7.0    | Tag v1.7.0      | Tag v5.6.0_cm4 | Tag v1.10.0 (and following, if any, till next tag)
+Tag v1.8.0    | Tag v1.8.0      | Tag v5.6.0_cm4 | Tag v1.11.0 (and following, if any, till next tag)
+Tag v1.9.0    | Tag v1.9.0      | Tag v5.6.0_cm4 | Tag v1.12.0 (and following, if any, till next tag)
+Tag v1.10.0   | Tag v1.10.0     | Tag v5.6.0_cm4 | Tag v1.13.0 (and following, if any, till next tag)
 
 
 The full **STM32CubeWB** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeWB).
@@ -58,4 +53,4 @@ The full **STM32CubeWB** MCU package is available [here](https://github.com/STMi
 
 If you have any issue with the **software content** of this repository, you can file an issue [here](https://github.com/STMicroelectronics/stm32wbxx_hal_driver/issues/new/choose).
 
-For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/topic/0TO0X000000BSqSWAW/stm32-mcus).
+For any other question related to the product, the tools, the environment, you can submit a topic on the [ST Community/STM32 MCUs forum](https://community.st.com/s/group/0F90X000000AXsASAW/stm32-mcus).

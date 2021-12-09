@@ -10,6 +10,17 @@
   *           + Read acquisition result
   *           + Interrupts and flags management
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ================================================================================
                        ##### TSC specific features #####
@@ -176,18 +187,7 @@
     |   PD2  (AF)  |                 |
     +--------------------------------+
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
+
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -219,8 +219,8 @@ static uint32_t TSC_extract_groups(uint32_t iomask);
   */
 
 /** @defgroup TSC_Exported_Functions_Group1 Initialization and de-initialization functions
- *  @brief    Initialization and Configuration functions
- *
+  *  @brief    Initialization and Configuration functions
+  *
 @verbatim
  ===============================================================================
               ##### Initialization and de-initialization functions #####
@@ -599,8 +599,8 @@ HAL_StatusTypeDef HAL_TSC_UnRegisterCallback(TSC_HandleTypeDef *htsc, HAL_TSC_Ca
   */
 
 /** @defgroup TSC_Exported_Functions_Group2 Input and Output operation functions
- *  @brief    Input and Output operation functions
- *
+  *  @brief    Input and Output operation functions
+  *
 @verbatim
  ===============================================================================
              ##### IO Operation functions #####
@@ -850,8 +850,8 @@ uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index)
   */
 
 /** @defgroup TSC_Exported_Functions_Group3 Peripheral Control functions
- *  @brief    Peripheral Control functions
- *
+  *  @brief    Peripheral Control functions
+  *
 @verbatim
  ===============================================================================
              ##### Peripheral Control functions #####
@@ -939,8 +939,8 @@ HAL_StatusTypeDef HAL_TSC_IODischarge(TSC_HandleTypeDef *htsc, FunctionalState c
   */
 
 /** @defgroup TSC_Exported_Functions_Group4 Peripheral State and Errors functions
- *  @brief   Peripheral State and Errors functions
- *
+  *  @brief   Peripheral State and Errors functions
+  *
 @verbatim
  ===============================================================================
             ##### State and Errors functions #####
@@ -992,8 +992,8 @@ HAL_TSC_StateTypeDef HAL_TSC_GetState(TSC_HandleTypeDef *htsc)
   */
 
 /** @defgroup TSC_IRQ_Handler_and_Callbacks IRQ Handler and Callbacks
- * @{
- */
+  * @{
+  */
 
 /**
   * @brief  Handle TSC interrupt request.
@@ -1097,7 +1097,7 @@ static uint32_t TSC_extract_groups(uint32_t iomask)
 
   for (idx = 0UL; idx < (uint32_t)TSC_NB_OF_GROUPS; idx++)
   {
-    if ((iomask & (0x0FUL << (idx * 4UL))) != 0UL )
+    if ((iomask & (0x0FUL << (idx * 4UL))) != 0UL)
     {
       groups |= (1UL << idx);
     }
@@ -1121,4 +1121,3 @@ static uint32_t TSC_extract_groups(uint32_t iomask)
   */
 
 #endif /* TSC */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

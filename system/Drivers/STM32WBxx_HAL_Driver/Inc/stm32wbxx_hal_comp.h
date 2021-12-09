@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -102,7 +101,7 @@ typedef enum
 typedef struct __COMP_HandleTypeDef
 #else
 typedef struct
-#endif
+#endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
 {
   COMP_TypeDef       *Instance;       /*!< Register base address    */
   COMP_InitTypeDef   Init;            /*!< COMP required parameters */
@@ -163,7 +162,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /**
   * @}
   */
-#endif
+#endif /* COMP2 */
 
 /** @defgroup COMP_PowerMode COMP power mode
   * @{
@@ -204,7 +203,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /* COMP_INPUT_MINUS_IO2 not available on this device */
 #else
 #define COMP_INPUT_MINUS_IO2           (COMP_CSR_INMSEL_2 | COMP_CSR_INMSEL_1 | COMP_CSR_INMSEL_0)                                           /*!< Comparator input minus connected to IO2 (pin PC4 for COMP1 (except device STM32WB35xx), pin PB7 for COMP2). Note: On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx. */
-#endif
+#endif /* STM32WB51xx || STM32WB10xx */
 #define COMP_INPUT_MINUS_IO3           (                     COMP_CSR_INMESEL_0 | COMP_CSR_INMSEL_2 | COMP_CSR_INMSEL_1 | COMP_CSR_INMSEL_0) /*!< Comparator input minus connected to IO3 (pin PA0 for COMP1, pin PA2 for COMP2) */
 #define COMP_INPUT_MINUS_IO4           (COMP_CSR_INMESEL_1                      | COMP_CSR_INMSEL_2 | COMP_CSR_INMSEL_1 | COMP_CSR_INMSEL_0) /*!< Comparator input minus connected to IO4 (pin PA4 for COMP1, pin PA4 for COMP2) */
 #define COMP_INPUT_MINUS_IO5           (COMP_CSR_INMESEL_1 | COMP_CSR_INMESEL_0 | COMP_CSR_INMSEL_2 | COMP_CSR_INMSEL_1 | COMP_CSR_INMSEL_0) /*!< Comparator input minus connected to IO5 (pin PA5 for COMP1, pin PA5 for COMP2) */
@@ -299,7 +298,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
                                                     } while(0)
 #else
 #define __HAL_COMP_RESET_HANDLE_STATE(__HANDLE__) ((__HANDLE__)->State = HAL_COMP_STATE_RESET)
-#endif
+#endif /* USE_HAL_COMP_REGISTER_CALLBACKS */
 
 /**
   * @brief Clear COMP error code (set it to no error code "HAL_COMP_ERROR_NONE").
@@ -588,7 +587,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 #if defined(COMP2)
 #define IS_COMP_WINDOWMODE(__WINDOWMODE__)  (((__WINDOWMODE__) == COMP_WINDOWMODE_DISABLE)                || \
                                              ((__WINDOWMODE__) == COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON)  )
-#endif
+#endif /* COMP2 */
 
 #define IS_COMP_POWERMODE(__POWERMODE__)    (((__POWERMODE__) == COMP_POWERMODE_HIGHSPEED)    || \
                                              ((__POWERMODE__) == COMP_POWERMODE_MEDIUMSPEED)  || \
@@ -601,7 +600,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 #else
 #define IS_COMP_INPUT_PLUS(__COMP_INSTANCE__, __INPUT_PLUS__) (((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO2) || \
                                                                ((__INPUT_PLUS__) == COMP_INPUT_PLUS_IO3))
-#endif
+#endif /* COMP_INPUT_PLUS_IO1 */
 
 /* Note: On this STM32 series, comparator input minus parameters are          */
 /*       the same on all COMP instances.                                      */
@@ -743,5 +742,3 @@ uint32_t              HAL_COMP_GetError(COMP_HandleTypeDef *hcomp);
 #endif
 
 #endif /* STM32WBxx_HAL_COMP_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

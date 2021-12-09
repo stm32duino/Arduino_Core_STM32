@@ -17,24 +17,23 @@
   *             ++ ADC group injected contexts queue management (not available on devices: STM32WB10xx, STM32WB15xx)
   *          Other functions (generic functions) are available in file
   *          "stm32wbxx_hal_adc.c".
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   [..]
   (@) Sections "ADC peripheral features" and "How to use this driver" are
       available in file of generic functions "stm32wbxx_hal_adc.c".
   [..]
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -127,7 +126,10 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
 {
 #if defined (ADC_SUPPORT_2_5_MSPS)
   UNUSED(SingleDiff);
-#endif
+
+  uint32_t calibration_index;
+  uint32_t calibration_factor_accumulated = 0;
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
   HAL_StatusTypeDef tmp_hal_status;
   __IO uint32_t wait_loop_index = 0UL;
@@ -160,7 +162,13 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
 
     /* Start ADC calibration in mode single-ended or differential */
 #if defined (ADC_SUPPORT_2_5_MSPS)
-    LL_ADC_StartCalibration(hadc->Instance);
+    /* ADC calibration procedure */
+    /* Note: Perform an averaging of 8 calibrations for optimized accuracy */
+    for (calibration_index = 0UL; calibration_index < 8UL; calibration_index++)
+    {
+      /* Start ADC calibration */
+      LL_ADC_StartCalibration(hadc->Instance);
+
 #else
     LL_ADC_StartCalibration(hadc->Instance, SingleDiff);
 #endif /* ADC_SUPPORT_2_5_MSPS */
@@ -182,6 +190,16 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
         return HAL_ERROR;
       }
     }
+#if defined (ADC_SUPPORT_2_5_MSPS)
+      calibration_factor_accumulated += LL_ADC_GetCalibrationFactor(hadc->Instance);
+    }
+    /* Compute average */
+    calibration_factor_accumulated /= calibration_index;
+    /* Apply calibration factor */
+    LL_ADC_Enable(hadc->Instance);
+    LL_ADC_SetCalibrationFactor(hadc->Instance, calibration_factor_accumulated);
+    LL_ADC_Disable(hadc->Instance);
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
     /* Set ADC state */
     ADC_STATE_CLR_SET(hadc->State,
@@ -1744,5 +1762,3 @@ HAL_StatusTypeDef HAL_ADCEx_EnterADCDeepPowerDownMode(ADC_HandleTypeDef *hadc)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

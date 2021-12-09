@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -23,7 +22,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32wbxx_hal_def.h"
@@ -168,6 +167,10 @@ typedef struct
 #define PMA_ACCESS                             1U
 
 #define EP_ADDR_MSK                            0x7U
+
+#ifndef USE_USB_DOUBLE_BUFFER
+#define USE_USB_DOUBLE_BUFFER                  1U
+#endif /* USE_USB_DOUBLE_BUFFER */
 /**
   * @}
   */
@@ -195,7 +198,7 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPSetStall(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx, USB_EPTypeDef *ep);
-#endif
+#endif /* defined (HAL_PCD_MODULE_ENABLED) */
 
 HAL_StatusTypeDef USB_SetDevAddress(USB_TypeDef *USBx, uint8_t address);
 HAL_StatusTypeDef USB_DevConnect(USB_TypeDef *USBx);
@@ -230,9 +233,7 @@ void              USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf,
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 
 #endif /* STM32WBxx_LL_USB_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

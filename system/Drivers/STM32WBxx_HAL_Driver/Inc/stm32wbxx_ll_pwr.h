@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics. 
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the 
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -336,7 +335,7 @@ extern "C" {
   */
 /* Note: Literals values are defined from register SR2 bits SMPSF and SMPSBF  */
 /*       but they are also used as register CR5 bits SMPSEN and SMPSBEN,      */
-/*       as used by all SMPS operating mode functions targetting different    */
+/*       as used by all SMPS operating mode functions targeting different    */
 /*       registers:                                                           */
 /*       "LL_PWR_SMPS_SetMode()", "LL_PWR_SMPS_GetMode()"                     */
 /*       and "LL_PWR_SMPS_GetEffectiveMode()".                                */
@@ -1327,7 +1326,7 @@ __STATIC_INLINE uint32_t LL_PWR_GetBORConfig(void)
   *         switching on the fly is performed automaticcaly
   *         and interruption is generated.
   *         Refer to function @ref LL_PWR_SetBORConfig().
-  * @note   Occurence of SMPS step down converter forced in bypass mode
+  * @note   Occurrence of SMPS step down converter forced in bypass mode
   *         can be monitored by flag and interruption.
   *         Refer to functions
   *         @ref LL_PWR_IsActiveFlag_SMPSFB(), @ref LL_PWR_ClearFlag_SMPSFB(),
@@ -1504,7 +1503,7 @@ __STATIC_INLINE uint32_t LL_PWR_SMPS_GetStartupCurrent(void)
 __STATIC_INLINE void LL_PWR_SMPS_SetOutputVoltageLevel(uint32_t OutputVoltageLevel)
 {
   __IO const uint32_t OutputVoltageLevel_calibration = (((*SMPS_VOLTAGE_CAL_ADDR) & SMPS_VOLTAGE_CAL) >> SMPS_VOLTAGE_CAL_POS);  /* SMPS output voltage level calibrated in production */
-  int32_t TrimmingSteps;                               /* Trimming steps between theorical output voltage and calibrated output voltage */
+  int32_t TrimmingSteps;                               /* Trimming steps between theoretical output voltage and calibrated output voltage */
   int32_t OutputVoltageLevelTrimmed;                   /* SMPS output voltage level after calibration: trimming value added to required level */
 
   if(OutputVoltageLevel_calibration == 0UL)
@@ -1565,7 +1564,7 @@ __STATIC_INLINE void LL_PWR_SMPS_SetOutputVoltageLevel(uint32_t OutputVoltageLev
 __STATIC_INLINE uint32_t LL_PWR_SMPS_GetOutputVoltageLevel(void)
 {
   __IO const uint32_t OutputVoltageLevel_calibration = (((*SMPS_VOLTAGE_CAL_ADDR) & SMPS_VOLTAGE_CAL) >> SMPS_VOLTAGE_CAL_POS);  /* SMPS output voltage level calibrated in production */
-  int32_t TrimmingSteps;                               /* Trimming steps between theorical output voltage and calibrated output voltage */
+  int32_t TrimmingSteps;                               /* Trimming steps between theoretical output voltage and calibrated output voltage */
   int32_t OutputVoltageLevelTrimmed;                   /* SMPS output voltage level after calibration: trimming value added to required level */
 
   if(OutputVoltageLevel_calibration == 0UL)
@@ -1578,7 +1577,7 @@ __STATIC_INLINE uint32_t LL_PWR_SMPS_GetOutputVoltageLevel(void)
   {
     /* Device with SMPS output voltage calibrated in production: Return output voltage value after correction by calibration value */
 
-    TrimmingSteps = ((int32_t)OutputVoltageLevel_calibration - (int32_t)(LL_PWR_SMPS_OUTPUT_VOLTAGE_1V50 >> PWR_CR5_SMPSVOS_Pos)); /* Trimming steps between theorical output voltage and calibrated output voltage */
+    TrimmingSteps = ((int32_t)OutputVoltageLevel_calibration - (int32_t)(LL_PWR_SMPS_OUTPUT_VOLTAGE_1V50 >> PWR_CR5_SMPSVOS_Pos)); /* Trimming steps between theoretical output voltage and calibrated output voltage */
 
     OutputVoltageLevelTrimmed = ((int32_t)((uint32_t)READ_BIT(PWR->CR5, PWR_CR5_SMPSVOS)) - TrimmingSteps);
 
@@ -2724,4 +2723,3 @@ ErrorStatus LL_PWR_DeInit(void);
 
 #endif /* STM32WBxx_LL_PWR_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                         ##### How to use this driver #####
@@ -76,8 +87,8 @@
     allows the user to configure dynamically the driver callbacks.
 
     [..]
-    Use Function @ref HAL_UART_RegisterCallback() to register a user callback.
-    Function @ref HAL_UART_RegisterCallback() allows to register following callbacks:
+    Use Function HAL_UART_RegisterCallback() to register a user callback.
+    Function HAL_UART_RegisterCallback() allows to register following callbacks:
     (+) TxHalfCpltCallback        : Tx Half Complete Callback.
     (+) TxCpltCallback            : Tx Complete Callback.
     (+) RxHalfCpltCallback        : Rx Half Complete Callback.
@@ -95,9 +106,9 @@
     and a pointer to the user callback function.
 
     [..]
-    Use function @ref HAL_UART_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_UART_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function.
-    @ref HAL_UART_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+    HAL_UART_UnRegisterCallback() takes as parameters the HAL peripheral handle,
     and the Callback ID.
     This function allows to reset following callbacks:
     (+) TxHalfCpltCallback        : Tx Half Complete Callback.
@@ -116,16 +127,16 @@
 
     [..]
     For specific callback RxEventCallback, use dedicated registration/reset functions:
-    respectively @ref HAL_UART_RegisterRxEventCallback() , @ref HAL_UART_UnRegisterRxEventCallback().
+    respectively HAL_UART_RegisterRxEventCallback() , HAL_UART_UnRegisterRxEventCallback().
 
     [..]
-    By default, after the @ref HAL_UART_Init() and when the state is HAL_UART_STATE_RESET
+    By default, after the HAL_UART_Init() and when the state is HAL_UART_STATE_RESET
     all callbacks are set to the corresponding weak (surcharged) functions:
-    examples @ref HAL_UART_TxCpltCallback(), @ref HAL_UART_RxHalfCpltCallback().
+    examples HAL_UART_TxCpltCallback(), HAL_UART_RxHalfCpltCallback().
     Exception done for MspInit and MspDeInit functions that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_UART_Init()
-    and @ref HAL_UART_DeInit() only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_UART_Init() and @ref HAL_UART_DeInit()
+    reset to the legacy weak (surcharged) functions in the HAL_UART_Init()
+    and HAL_UART_DeInit() only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_UART_Init() and HAL_UART_DeInit()
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand).
 
     [..]
@@ -134,8 +145,8 @@
     in HAL_UART_STATE_READY or HAL_UART_STATE_RESET state, thus registered (user)
     MspInit/DeInit callbacks can be used during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_UART_RegisterCallback() before calling @ref HAL_UART_DeInit()
-    or @ref HAL_UART_Init() function.
+    using HAL_UART_RegisterCallback() before calling HAL_UART_DeInit()
+    or HAL_UART_Init() function.
 
     [..]
     When The compilation define USE_HAL_UART_REGISTER_CALLBACKS is set to 0 or
@@ -144,17 +155,6 @@
 
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -3427,10 +3427,11 @@ HAL_StatusTypeDef UART_CheckIdleState(UART_HandleTypeDef *huart)
 }
 
 /**
-  * @brief  Handle UART Communication Timeout.
+  * @brief  This function handles UART Communication Timeout. It waits
+  *                  until a flag is no longer in the specified status.
   * @param huart     UART handle.
   * @param Flag      Specifies the UART flag to check
-  * @param Status    Flag status (SET or RESET)
+  * @param Status    The actual Flag status (SET or RESET)
   * @param Tickstart Tick start value
   * @param Timeout   Timeout duration
   * @retval HAL status
@@ -4670,4 +4671,3 @@ static void UART_RxISR_16BIT_FIFOEN(UART_HandleTypeDef *huart)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

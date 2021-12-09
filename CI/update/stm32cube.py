@@ -27,8 +27,10 @@ path_config_filename = "update_config.json"
 # GitHub
 gh_st = "https://github.com/STMicroelectronics/"
 gh_core = "https://github.com/stm32duino/Arduino_Core_STM32.git"
+gh_ble = "https://github.com/stm32duino/STM32duinoBLE.git"
 repo_generic_name = "STM32Cube"
 repo_core_name = "Arduino_Core_STM32"
+repo_ble_name = "STM32duinoBLE"
 repo_local_path = home / "STM32Cube_repo"
 local_cube_path = Path("")
 
@@ -611,6 +613,158 @@ def updateMDFile(md_file, serie, version):
             print(regexmd_up.sub(rf"\g<1>{version}", line), end="")
 
 
+def updateBleRepo():
+    # Handle BLE library repo
+    repo_path = repo_local_path / repo_ble_name
+    print(f"Updating {repo_ble_name}...")
+    if repo_path.exists():
+        rname, bname = getRepoBranchName(repo_path)
+        # Get new tags from the remote
+        git_cmds = [
+            ["git", "-C", repo_path, "fetch"],
+            [
+                "git",
+                "-C",
+                repo_path,
+                "checkout",
+                "-B",
+                bname,
+                f"{rname}/{bname}",
+            ],
+        ]
+    else:
+        # Clone it as it does not exists yet
+        git_cmds = [["git", "-C", repo_local_path, "clone", gh_ble]]
+    for cmd in git_cmds:
+        execute_cmd(cmd, None)
+
+
+ble_file_list = [
+    "Middlewares/ST/STM32_WPAN/ble/core/ble_bufsize.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/hw.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.c",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/shci/shci.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/mbox_def.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.c",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/shci_tl.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl.h",
+    "Middlewares/ST/STM32_WPAN/interface/patterns/ble_thread/tl/tl_mbox.c",
+    "Middlewares/ST/STM32_WPAN/stm32_wpan_common.h",
+    "Middlewares/ST/STM32_WPAN/utilities/stm_list.c",
+    "Middlewares/ST/STM32_WPAN/utilities/stm_list.h",
+    "Middlewares/ST/STM32_WPAN/LICENSE.md",
+    "Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_TransparentMode/Core/Inc/app_conf.h",
+    "Projects/P-NUCLEO-WB55.Nucleo/Applications/BLE/BLE_TransparentMode/STM32_WPAN/Target/"
+    + "hw_ipcc.c",
+]
+
+
+def applyBlePatch():
+    print(" Applying patches to ble library")
+    BLE_patch_path = repo_local_path / repo_ble_name / "extras" / "STM32Cube_FW"
+    patch_list = []
+
+    if BLE_patch_path.is_dir():
+        for file in sorted(BLE_patch_path.iterdir()):
+            if file.name.endswith(".patch"):
+                patch_list.append(BLE_patch_path / file)
+
+    if len(patch_list):
+        patch_failed = []
+        print(
+            f" Apply {len(patch_list)} patch{'' if len(patch_list) == 1 else 'es'} for BLE library"
+        )
+        for patch in patch_list:
+            try:
+                # Test the patch before apply it
+                status = execute_cmd(
+                    [
+                        "git",
+                        "-C",
+                        repo_local_path / repo_ble_name,
+                        "apply",
+                        "--check",
+                        patch,
+                    ],
+                    subprocess.STDOUT,
+                )
+                if status:
+                    print(f"patch {patch} can't be applied")
+                    patch_failed.append([patch, status])
+                    continue
+
+                # Apply the patch
+                status = execute_cmd(
+                    [
+                        "git",
+                        "-C",
+                        repo_local_path / repo_ble_name,
+                        "am",
+                        "--keep-non-patch",
+                        "--quiet",
+                        "--signoff",
+                        patch,
+                    ],
+                    None,
+                )
+            except subprocess.CalledProcessError as e:
+                patch_failed.append([patch, e.cmd, e.output.decode("utf-8")])
+                # print(f"Failed command: {e.cmd}")
+        if len(patch_failed):
+            for fp in patch_failed:
+                e_out = "" if len(fp) == 2 else f"\n--> {fp[2]}"
+                print(f"Failed to apply {fp[0]}:\n{fp[1]}{e_out}")
+
+
+def updateBleReadme(filepath, version):
+    print(" Updating README.md in ble library")
+    for line in fileinput.input(filepath, inplace=True):
+        print(re.sub(r"v\d+.\d+.\d+", version, line), end="")
+
+
+def updateBleLibrary():
+    if upargs.local:
+        cube_path = local_cube_path
+    else:
+        cube_name = f"{repo_generic_name}WB"
+        cube_path = repo_local_path / cube_name
+    ble_path = repo_local_path / repo_ble_name / "src" / "utility" / "STM32Cube_FW"
+    cube_version = cube_versions["WB"]
+
+    ble_commit_msg = f"Update STM32Cube_FW from Cube version {cube_version}"
+
+    for file in ble_file_list:
+        file_path = Path(cube_path / file)
+        file_name = file_path.name
+        if file_path.exists:
+            # copy each file to destination
+            if not Path(ble_path / file_name).parent.exists():
+                Path(ble_path / file_name).parent.mkdir(parents=True)
+            if file_name == "app_conf.h":
+                # rename app_conf.h to app_conf_default.h
+                copyFile(file_path, ble_path / "app_conf_default.h")
+            else:
+                copyFile(file_path, ble_path / file_name)
+        else:
+            print(f"File : {file_path} not found")
+            print("Abort")
+            sys.exit()
+
+    updateBleReadme(ble_path / "README.md", cube_version)
+
+    # Commit all BLE files
+    commitFiles(ble_path, ble_commit_msg)
+
+    # Apply BLE Arduino specific patch
+    applyBlePatch()
+
+
+def updateBle():
+    print("Updating WB BLE library")
+    updateBleRepo()
+    updateBleLibrary()
+
+
 def updateOpenAmp():
     print("Updating OpenAmp Middleware")
     repo_path = repo_local_path / repo_core_name
@@ -752,6 +906,9 @@ Included in STM32Cube{0} FW {2}""".format(
             print(
                 "          --> Projects/STM32MP157C-DK2/Applications/OpenAMP/OpenAMP_TTY_echo"
             )
+
+        if serie == "WB":
+            updateBle()
 
 
 # Parser

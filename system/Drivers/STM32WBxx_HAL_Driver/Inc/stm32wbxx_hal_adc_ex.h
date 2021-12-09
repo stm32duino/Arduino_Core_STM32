@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -188,7 +187,7 @@ typedef struct
 #if defined (ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
-/** @defgroup ADC_injected_external_trigger_source ADC group injected trigger source
+/** @defgroup ADCEx_injected_external_trigger_source ADC group injected trigger source
   * @{
   */
 /* ADC group regular trigger sources for all ADC instances */
@@ -203,7 +202,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_injected_external_trigger_edge ADC group injected trigger edge (when external trigger is selected)
+/** @defgroup ADCEx_injected_external_trigger_edge ADC group injected trigger edge (when external trigger is selected)
   * @{
   */
 #define ADC_EXTERNALTRIGINJECCONV_EDGE_NONE           (0x00000000UL)        /*!< Injected conversions hardware trigger detection disabled                             */
@@ -215,7 +214,7 @@ typedef struct
   */
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-/** @defgroup ADC_HAL_EC_CHANNEL_SINGLE_DIFF_ENDING  Channel - Single or differential ending
+/** @defgroup ADCEx_HAL_EC_CHANNEL_SINGLE_DIFF_ENDING  Channel - Single or differential ending
   * @{
   */
 #define ADC_SINGLE_ENDED                (LL_ADC_SINGLE_ENDED)         /*!< ADC channel ending set to single ended (literal also used to set calibration mode) */
@@ -226,7 +225,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_HAL_EC_OFFSET_NB  ADC instance - Offset number
+/** @defgroup ADCEx_HAL_EC_OFFSET_NB  ADC instance - Offset number
   * @{
   */
 #define ADC_OFFSET_NONE              (ADC_OFFSET_4 + 1U) /*!< ADC offset disabled: no offset correction for the selected ADC channel */
@@ -241,7 +240,7 @@ typedef struct
 #if defined (ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC group injected" not available on ADC peripheral of this STM32WB device */
 #else
-/** @defgroup ADC_INJ_SEQ_RANKS  ADC group injected - Sequencer ranks
+/** @defgroup ADCEx_INJ_SEQ_RANKS  ADC group injected - Sequencer ranks
   * @{
   */
 #define ADC_INJECTED_RANK_1                (LL_ADC_INJ_RANK_1) /*!< ADC group injected sequencer rank 1 */
@@ -253,7 +252,7 @@ typedef struct
   */
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
-/** @defgroup ADC_HAL_EC_GROUPS  ADC instance - Groups
+/** @defgroup ADCEx_HAL_EC_GROUPS  ADC instance - Groups
   * @{
   */
 #define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)           /*!< ADC group regular (available on all STM32 devices) */
@@ -267,7 +266,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_CFGR_fields ADCx CFGR fields
+/** @defgroup ADCEx_CFGR_fields ADCx CFGR fields
   * @{
   */
 #define ADC_CFGR_FIELDS    (ADC_CFGR_AWD1CH  | ADC_CFGR_JAUTO   | ADC_CFGR_JAWD1EN |\
@@ -280,7 +279,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_SMPR1_fields ADCx SMPR1 fields
+/** @defgroup ADCEx_SMPR1_fields ADCx SMPR1 fields
   * @{
   */
 #define ADC_SMPR1_FIELDS    (ADC_SMPR1_SMP9 | ADC_SMPR1_SMP8 | ADC_SMPR1_SMP7 |\
@@ -291,7 +290,7 @@ typedef struct
   * @}
   */
 
-/** @defgroup ADC_CFGR_fields_2 ADCx CFGR sub fields
+/** @defgroup ADCEx_CFGR_fields_2 ADCx CFGR sub fields
   * @{
   */
 /* ADC_CFGR fields of parameters that can be updated when no conversion
@@ -391,7 +390,7 @@ typedef struct
 /**
   * @brief Enable ADC overrun mode.
   * @param _OVERRUN_MODE_ Overrun mode.
-  * @retval Overun bit setting to be programmed into CFGR register
+  * @retval Overrun bit setting to be programmed into CFGR register
   */
 /* Note: Bit ADC_CFGR1_OVRMOD not used directly in constant                   */
 /* "ADC_OVR_DATA_OVERWRITTEN" to have this case defined to 0x00, to set it    */
@@ -914,6 +913,3 @@ HAL_StatusTypeDef       HAL_ADCEx_EnterADCDeepPowerDownMode(ADC_HandleTypeDef *h
 #endif
 
 #endif /* STM32WBxx_HAL_ADC_EX_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

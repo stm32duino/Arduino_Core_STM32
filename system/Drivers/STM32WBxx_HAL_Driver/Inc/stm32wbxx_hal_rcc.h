@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -184,13 +183,13 @@ extern "C" {
                                          ((__SOURCE__) == RCC_RTCCLKSOURCE_HSE_DIV32))
 
 #if defined(RCC_MCO3_SUPPORT)
-#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1) || \
-                              ((__MCOX__) == RCC_MCO2) || \
-                              ((__MCOX__) == RCC_MCO3))
+#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1_PA8) || \
+                              ((__MCOX__) == RCC_MCO2_PB6) || \
+                              ((__MCOX__) == RCC_MCO3_PA15))
 #else
-#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1) || \
-                              ((__MCOX__) == RCC_MCO2))
-#endif
+#define IS_RCC_MCO(__MCOX__) (((__MCOX__) == RCC_MCO1_PA8) || \
+                              ((__MCOX__) == RCC_MCO2_PB6))
+#endif /* RCC_MCO3_SUPPORT */
 
 #if defined(RCC_HSI48_SUPPORT)
 #define IS_RCC_MCO1SOURCE(__SOURCE__) (((__SOURCE__) == RCC_MCO1SOURCE_NOCLOCK) || \
@@ -437,7 +436,7 @@ typedef struct
 /**
   * @}
   */
-#endif
+#endif /* RCC_HSI48_SUPPORT */
 
 /** @defgroup RCC_PLL_Config PLL Config
   * @{
@@ -668,13 +667,41 @@ typedef struct
 /** @defgroup RCC_MCO_Index MCO Index
   * @{
   */
-#define RCC_MCO1                       0x00000000U          /*!< MCO1 index */
-#define RCC_MCO2                       0x00000001U          /*!< MCO2 index */
-#if defined(RCC_MCO3_SUPPORT)
-#define RCC_MCO3                       0x00000002U          /*!< MCO3 index */
-#endif
 
-#define RCC_MCO                        RCC_MCO1             /*!< MCO1 to be compliant with other families with 1 MCO*/
+/* @cond */
+/* 32     28      20       16      0
+   --------------------------------
+   | MCO   | GPIO  | GPIO  | GPIO  |
+   | Index |  AF   | Port  |  Pin  |
+   -------------------------------*/
+
+#define RCC_MCO_GPIOPORT_POS   16U
+#define RCC_MCO_GPIOPORT_MASK  (0xFUL << RCC_MCO_GPIOPORT_POS)
+#define RCC_MCO_GPIOAF_POS     20U
+#define RCC_MCO_GPIOAF_MASK    (0xFFUL << RCC_MCO_GPIOAF_POS)
+#define RCC_MCO_INDEX_POS      28U
+#define RCC_MCO_INDEX_MASK     (0x1UL << RCC_MCO_INDEX_POS)
+
+#define RCC_MCO1_INDEX         (0x0UL << RCC_MCO_INDEX_POS)             /*!< MCO1 index */
+#define RCC_MCO2_INDEX         (0x1UL << RCC_MCO_INDEX_POS)             /*!< MCO2 index */
+/* @endcond */
+
+#define RCC_MCO1_PA8           (RCC_MCO1_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_8)
+#define RCC_MCO1               RCC_MCO1_PA8         /*!< Alias for compatibility */
+
+#define RCC_MCO2_PB6           (RCC_MCO2_INDEX | (GPIO_AF0_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOB) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_6)
+#define RCC_MCO2               RCC_MCO2_PB6         /*!< Alias for compatibility */
+
+#if defined(RCC_MCO3_SUPPORT)
+/* @cond */
+#define RCC_MCO3_INDEX         (0x2UL << RCC_MCO_INDEX_POS)             /*!< MCO3 index */
+/* @endcond */
+
+#define RCC_MCO3_PA15          (RCC_MCO3_INDEX | (GPIO_AF6_MCO << RCC_MCO_GPIOAF_POS) | (GPIO_GET_INDEX(GPIOA) << RCC_MCO_GPIOPORT_POS) | GPIO_PIN_15)
+#define RCC_MCO3               RCC_MCO3_PA15        /*!< Alias for compatibility */
+#endif /* RCC_MCO3_SUPPORT */
+
+#define RCC_MCO                RCC_MCO1             /*!< MCO1 to be compliant with other families with 1 MCO*/
 /**
   * @}
   */
@@ -3392,6 +3419,3 @@ uint32_t          HAL_RCC_GetResetSource(void);
 #endif
 
 #endif /* STM32WBxx_HAL_RCC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
