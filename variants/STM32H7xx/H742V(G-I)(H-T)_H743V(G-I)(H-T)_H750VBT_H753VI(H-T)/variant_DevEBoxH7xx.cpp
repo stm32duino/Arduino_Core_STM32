@@ -235,29 +235,23 @@ WEAK void SystemClock_Config(void)
   // QSPI from PLL1 qclk
   PeriphClkInitStruct.QspiClockSelection = RCC_QSPICLKSOURCE_PLL;
   // SDMMC from PLL1 qclk
-  PeriphClkInitStruct.SdmmcClockSelection = 0;
-  //PeriphClkInitStruct.SdmmcClockSelection = RCC_SDMMCCLKSOURCE_PLL;
+  PeriphClkInitStruct.SdmmcClockSelection = RCC_SDMMCCLKSOURCE_PLL;
   // LPUART from PLL2 qclk
-  PeriphClkInitStruct.Lpuart1ClockSelection = 0;
-  //PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PLL2;
+  PeriphClkInitStruct.Lpuart1ClockSelection = RCC_LPUART1CLKSOURCE_PLL2;
   // USART from PLL2 qclk
   PeriphClkInitStruct.Usart16ClockSelection = RCC_USART16CLKSOURCE_PLL2;
   // USART from PLL2 qclk
-  PeriphClkInitStruct.Usart234578ClockSelection = 0;
-  //PeriphClkInitStruct.Usart234578ClockSelection = RCC_USART234578CLKSOURCE_PLL2;
+  PeriphClkInitStruct.Usart234578ClockSelection = RCC_USART234578CLKSOURCE_PLL2;
   // I2C123 from PLL3 rclk
   PeriphClkInitStruct.I2c123ClockSelection = RCC_I2C123CLKSOURCE_PLL3;
   // I2C4 from PLL3 rclk
-  PeriphClkInitStruct.I2c4ClockSelection = 0;
-  //PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PLL3;
+  PeriphClkInitStruct.I2c4ClockSelection = RCC_I2C4CLKSOURCE_PLL3;
   // SPI123 from PLL2 pclk
   PeriphClkInitStruct.Spi123ClockSelection = RCC_SPI123CLKSOURCE_PLL2;
   // SPI45 from PLL2 qclk
-  PeriphClkInitStruct.Spi45ClockSelection = 0;
-  //PeriphClkInitStruct.Spi45ClockSelection = RCC_SPI45CLKSOURCE_PLL2;
+  PeriphClkInitStruct.Spi45ClockSelection = RCC_SPI45CLKSOURCE_PLL2;
   // SPI6 from PLL2 qclk
-  PeriphClkInitStruct.Spi6ClockSelection = 0;
-  //PeriphClkInitStruct.Spi6ClockSelection = RCC_SPI6CLKSOURCE_PLL2;
+  PeriphClkInitStruct.Spi6ClockSelection = RCC_SPI6CLKSOURCE_PLL2;
 
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInitStruct) != HAL_OK) {
