@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -32,7 +31,8 @@ extern "C" {
   * @{
   */
 
-/** @addtogroup IRDAEx
+/** @defgroup IRDAEx IRDAEx
+  * @brief IRDA Extended HAL module driver
   * @{
   */
 
@@ -400,6 +400,7 @@ extern "C" {
   } while(0)
 #endif /* STM32L471xx  ||  STM32L475xx  ||  STM32L476xx  ||  STM32L485xx  ||  STM32L486xx  ||
         * STM32L496xx  ||  STM32L4A6xx  ||
+        * STM32L4P5xx  ||  STM32L4Q5xx  ||
         * STM32L4R5xx  ||  STM32L4R7xx  ||  STM32L4R9xx  ||  STM32L4S5xx  ||  STM32L4S7xx  ||  STM32L4S9xx
         */
 
@@ -476,4 +477,3 @@ extern "C" {
 
 #endif /* STM32L4xx_HAL_IRDA_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

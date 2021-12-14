@@ -9,14 +9,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -344,7 +342,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AES_IT(CRYP_HandleTypeDef *hcryp,  uint8_t *pInputD
   * @note   No DMA channel is provided for key derivation only and therefore, access to AES_KEYRx
   *         registers must be done by software.
   * @note   This API is not applicable to key derivation only; for such a mode, access to AES_KEYRx
-  *         registers must be done by software thru HAL_CRYPEx_AES() or HAL_CRYPEx_AES_IT() APIs.
+  *         registers must be done by software through HAL_CRYPEx_AES() or HAL_CRYPEx_AES_IT() APIs.
   * @note   pInputData and pOutputData buffers must be 32-bit aligned to ensure a correct DMA transfer to and from the IP.
   * @retval HAL status
   */
@@ -2460,7 +2458,7 @@ HAL_StatusTypeDef CRYP_AES_Auth_IT(CRYP_HandleTypeDef *hcryp)
             intermediate_data[((difflength+3U)/4U)+index] = 0;
           }
 
-          /* Insert intermediate data to trigger an additional DOUTR reading round */
+          /* Insert intermediate data to trigger an additional Data Output register reading round */
           /* Clear Computation Complete Flag before entering new block */
           __HAL_CRYP_CLEAR_FLAG(hcryp, CRYP_CCF_CLEAR);
           for(index=0U ; index < 4U; index ++)
@@ -2515,7 +2513,7 @@ HAL_StatusTypeDef CRYP_AES_Auth_IT(CRYP_HandleTypeDef *hcryp)
 #if !defined(AES_CR_NPBLB)
         else
         {
-          /* Software work-around: additional DOUTR reading round to discard the data */
+          /* Software work-around: additional Data Output Register reading round to discard the data */
           for(index=0U ; index < 4U; index ++)
           {
             intermediate_data[index] = hcryp->Instance->DOUTR;
@@ -3208,7 +3206,7 @@ static void CRYP_Padding(CRYP_HandleTypeDef *hcryp, uint32_t difflength, uint32_
         hcryp->Instance->DINR = intermediate_data[index];
       }
 
-      /*  Wait for completion, and read data on DOUT. This data is to discard. */
+      /*  Wait for completion, and read data on Data Output Register. This data is to discard. */
       if(CRYP_WaitOnCCFlag(hcryp, CRYP_CCF_TIMEOUTVALUE) != HAL_OK)
       {
         hcryp->State = HAL_CRYP_STATE_READY;
@@ -3245,4 +3243,3 @@ static void CRYP_Padding(CRYP_HandleTypeDef *hcryp, uint32_t difflength, uint32_
 #endif /* AES */
 
 #endif /* HAL_CRYP_MODULE_ENABLED */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

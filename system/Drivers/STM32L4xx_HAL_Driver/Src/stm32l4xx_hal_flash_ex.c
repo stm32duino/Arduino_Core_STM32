@@ -48,14 +48,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -145,9 +143,6 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t
     /* Deactivate the cache if they are activated to avoid data misbehavior */
     if(READ_BIT(FLASH->ACR, FLASH_ACR_ICEN) != 0U)
     {
-      /* Disable instruction cache  */
-      __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
-
       if(READ_BIT(FLASH->ACR, FLASH_ACR_DCEN) != 0U)
       {
         /* Disable data cache  */
@@ -245,9 +240,6 @@ HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit)
   /* Deactivate the cache if they are activated to avoid data misbehavior */
   if(READ_BIT(FLASH->ACR, FLASH_ACR_ICEN) != 0U)
   {
-    /* Disable instruction cache  */
-    __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
-
     if(READ_BIT(FLASH->ACR, FLASH_ACR_DCEN) != 0U)
     {
       /* Disable data cache  */
@@ -607,6 +599,8 @@ void FLASH_FlushCaches(void)
   if((cache == FLASH_CACHE_ICACHE_ENABLED) ||
      (cache == FLASH_CACHE_ICACHE_DCACHE_ENABLED))
   {
+    /* Disable instruction cache */
+    __HAL_FLASH_INSTRUCTION_CACHE_DISABLE();
     /* Reset instruction cache */
     __HAL_FLASH_INSTRUCTION_CACHE_RESET();
     /* Enable instruction cache */
@@ -1320,4 +1314,3 @@ static void FLASH_OB_GetPCROP(uint32_t * PCROPConfig, uint32_t * PCROPStartAddr,
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

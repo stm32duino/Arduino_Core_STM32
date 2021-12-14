@@ -6,9 +6,20 @@
   *          functionalities of the Graphic MMU (GFXMMU) peripheral:
   *           + Initialization and De-initialization.
   *           + LUT configuration.
-  *           + Modify physical buffer adresses.
+  *           + Modify physical buffer addresses.
   *           + Error management.
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -32,7 +43,7 @@
       (#) Use HAL_GFXMMU_ConfigLut() to copy LUT from flash to look up RAM.
       (#) Use HAL_GFXMMU_ConfigLutLine() to configure one line of LUT.
 
-    *** Modify physical buffer adresses ***
+    *** Modify physical buffer addresses ***
     =======================================
     [..]
       (#) Use HAL_GFXMMU_ModifyBuffers() to modify physical buffer addresses.
@@ -105,17 +116,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -213,7 +213,7 @@ HAL_StatusTypeDef HAL_GFXMMU_Init(GFXMMU_HandleTypeDef *hgfxmmu)
     /* Configure default value on GFXMMU_DVR register */
     hgfxmmu->Instance->DVR = hgfxmmu->Init.DefaultValue;
 
-    /* Configure physical buffer adresses on GFXMMU_BxCR registers */
+    /* Configure physical buffer addresses on GFXMMU_BxCR registers */
     hgfxmmu->Instance->B0CR = hgfxmmu->Init.Buffers.Buf0Address;
     hgfxmmu->Instance->B1CR = hgfxmmu->Init.Buffers.Buf1Address;
     hgfxmmu->Instance->B2CR = hgfxmmu->Init.Buffers.Buf2Address;
@@ -457,7 +457,7 @@ HAL_StatusTypeDef HAL_GFXMMU_UnRegisterCallback(GFXMMU_HandleTypeDef        *hgf
   ==============================================================================
     [..]  This section provides functions allowing to:
       (+) Configure LUT.
-      (+) Modify physical buffer adresses.
+      (+) Modify physical buffer addresses.
       (+) Manage error.
 @endverbatim
   * @{
@@ -639,7 +639,7 @@ HAL_StatusTypeDef HAL_GFXMMU_ModifyBuffers(GFXMMU_HandleTypeDef *hgfxmmu, GFXMMU
   }
   else
   {
-    /* Modify physical buffer adresses on GFXMMU_BxCR registers */
+    /* Modify physical buffer addresses on GFXMMU_BxCR registers */
     hgfxmmu->Instance->B0CR = Buffers->Buf0Address;
     hgfxmmu->Instance->B1CR = Buffers->Buf1Address;
     hgfxmmu->Instance->B2CR = Buffers->Buf2Address;
@@ -767,4 +767,3 @@ uint32_t HAL_GFXMMU_GetError(GFXMMU_HandleTypeDef *hgfxmmu)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

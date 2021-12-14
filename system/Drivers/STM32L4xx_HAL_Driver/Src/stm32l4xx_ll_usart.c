@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -196,8 +195,9 @@ ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
 /**
   * @brief  Initialize USART registers according to the specified
   *         parameters in USART_InitStruct.
-  * @note   As some bits in USART configuration registers can only be written when the USART is disabled (USART_CR1_UE bit =0),
-  *         USART Peripheral should be in disabled state prior calling this function. Otherwise, ERROR result will be returned.
+  * @note   As some bits in USART configuration registers can only be written when
+  *         the USART is disabled (USART_CR1_UE bit =0), USART Peripheral should be in disabled state prior calling
+  *         this function. Otherwise, ERROR result will be returned.
   * @note   Baud rate value stored in USART_InitStruct BaudRate field, should be valid (different from 0).
   * @param  USARTx USART Instance
   * @param  USART_InitStruct pointer to a LL_USART_InitTypeDef structure
@@ -250,7 +250,8 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 
     /*---------------------------- USART CR3 Configuration ---------------------
      * Configure USARTx CR3 (Hardware Flow Control) with parameters:
-     * - HardwareFlowControl: USART_CR3_RTSE, USART_CR3_CTSE bits according to USART_InitStruct->HardwareFlowControl value.
+     * - HardwareFlowControl: USART_CR3_RTSE, USART_CR3_CTSE bits according to
+     *   USART_InitStruct->HardwareFlowControl value.
      */
     LL_USART_SetHWFlowCtrl(USARTx, USART_InitStruct->HardwareFlowControl);
 
@@ -289,9 +290,9 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
     }
 
     /* Configure the USART Baud Rate :
-    #if defined(USART_PRESC_PRESCALER)
+#if defined(USART_PRESC_PRESCALER)
        - prescaler value is required
-    #endif
+#endif
        - valid baud rate value (different from 0) is required
        - Peripheral clock as returned by RCC service, should be valid (different from 0).
     */
@@ -349,13 +350,15 @@ void LL_USART_StructInit(LL_USART_InitTypeDef *USART_InitStruct)
 /**
   * @brief  Initialize USART Clock related settings according to the
   *         specified parameters in the USART_ClockInitStruct.
-  * @note   As some bits in USART configuration registers can only be written when the USART is disabled (USART_CR1_UE bit =0),
-  *         USART Peripheral should be in disabled state prior calling this function. Otherwise, ERROR result will be returned.
+  * @note   As some bits in USART configuration registers can only be written when
+  *         the USART is disabled (USART_CR1_UE bit =0), USART Peripheral should be in disabled state prior calling
+  *         this function. Otherwise, ERROR result will be returned.
   * @param  USARTx USART Instance
   * @param  USART_ClockInitStruct pointer to a @ref LL_USART_ClockInitTypeDef structure
   *         that contains the Clock configuration information for the specified USART peripheral.
   * @retval An ErrorStatus enumeration value:
-  *          - SUCCESS: USART registers related to Clock settings are initialized according to USART_ClockInitStruct content
+  *          - SUCCESS: USART registers related to Clock settings are initialized according
+  *                     to USART_ClockInitStruct content
   *          - ERROR: Problem occurred during USART Registers initialization
   */
 ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
@@ -442,9 +445,12 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 {
   /* Set LL_USART_ClockInitStruct fields with default values */
   USART_ClockInitStruct->ClockOutput       = LL_USART_CLOCK_DISABLE;
-  USART_ClockInitStruct->ClockPolarity     = LL_USART_POLARITY_LOW;            /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
-  USART_ClockInitStruct->ClockPhase        = LL_USART_PHASE_1EDGE;             /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
-  USART_ClockInitStruct->LastBitClockPulse = LL_USART_LASTCLKPULSE_NO_OUTPUT;  /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->ClockPolarity     = LL_USART_POLARITY_LOW;            /* Not relevant when ClockOutput =
+                                                                                  LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->ClockPhase        = LL_USART_PHASE_1EDGE;             /* Not relevant when ClockOutput =
+                                                                                  LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->LastBitClockPulse = LL_USART_LASTCLKPULSE_NO_OUTPUT;  /* Not relevant when ClockOutput =
+                                                                                  LL_USART_CLOCK_DISABLE */
 }
 
 /**
@@ -467,5 +473,4 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

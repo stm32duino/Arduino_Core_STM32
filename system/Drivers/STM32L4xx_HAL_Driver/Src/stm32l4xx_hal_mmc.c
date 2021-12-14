@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + MMC card Control functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -193,7 +204,7 @@
     The compilation define USE_HAL_MMC_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
 
-    Use Functions @ref HAL_MMC_RegisterCallback() to register a user callback,
+    Use Functions HAL_MMC_RegisterCallback() to register a user callback,
     it allows to register following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -208,7 +219,7 @@
     This function takes as parameters the HAL peripheral handle, the Callback ID
     and a pointer to the user callback function.
 
-    Use function @ref HAL_MMC_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_MMC_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function. It allows to reset following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -222,12 +233,12 @@
       (+) MspDeInitCallback  : MMC MspDeInit.
     This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
-    By default, after the @ref HAL_MMC_Init and if the state is HAL_MMC_STATE_RESET
+    By default, after the HAL_MMC_Init and if the state is HAL_MMC_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions.
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_MMC_Init
-    and @ref  HAL_MMC_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_MMC_Init and @ref HAL_MMC_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_MMC_Init
+    and HAL_MMC_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_MMC_Init and HAL_MMC_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
     Callbacks can be registered/unregistered in READY state only.
@@ -235,25 +246,14 @@
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_MMC_RegisterCallback before calling @ref HAL_MMC_DeInit
-    or @ref HAL_MMC_Init function.
+    using HAL_MMC_RegisterCallback before calling HAL_MMC_DeInit
+    or HAL_MMC_Init function.
 
     When The compilation define USE_HAL_MMC_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -278,7 +278,7 @@
   * @{
   */
 #if defined (VDD_VALUE) && (VDD_VALUE <= 1950U)
-#define MMC_VOLTAGE_RANGE               MMC_LOW_VOLTAGE_RANGE
+#define MMC_VOLTAGE_RANGE               EMMC_LOW_VOLTAGE_RANGE
 
 #define MMC_EXT_CSD_PWR_CL_26_INDEX     201
 #define MMC_EXT_CSD_PWR_CL_52_INDEX     200
@@ -288,7 +288,7 @@
 #define MMC_EXT_CSD_PWR_CL_52_POS       0
 #define MMC_EXT_CSD_PWR_CL_DDR_52_POS   16
 #else
-#define MMC_VOLTAGE_RANGE               MMC_HIGH_VOLTAGE_RANGE
+#define MMC_VOLTAGE_RANGE               EMMC_HIGH_VOLTAGE_RANGE
 
 #define MMC_EXT_CSD_PWR_CL_26_INDEX     203
 #define MMC_EXT_CSD_PWR_CL_52_INDEX     202
@@ -298,6 +298,11 @@
 #define MMC_EXT_CSD_PWR_CL_52_POS       16
 #define MMC_EXT_CSD_PWR_CL_DDR_52_POS   24
 #endif
+
+#define MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_INDEX 216
+#define MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_POS   0
+#define MMC_EXT_CSD_S_A_TIMEOUT_INDEX             217
+#define MMC_EXT_CSD_S_A_TIMEOUT_POS               8
 
 /* Frequencies used in the driver for clock divider calculation */
 #define MMC_INIT_FREQ                   400000U   /* Initalization phase : 400 kHz max */
@@ -450,7 +455,6 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
 {
   uint32_t errorstate;
   MMC_InitTypeDef Init;
-  HAL_StatusTypeDef status;
   uint32_t sdmmc_clk;
 
   /* Default SDMMC peripheral configuration for MMC card initialization */
@@ -478,11 +482,7 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
 #endif
 
   /* Initialize SDMMC peripheral interface with default configuration */
-  status = SDMMC_Init(hmmc->Instance, Init);
-  if(status == HAL_ERROR)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_Init(hmmc->Instance, Init);
 
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
   /* Disable SDMMC Clock */
@@ -490,11 +490,7 @@ HAL_StatusTypeDef HAL_MMC_InitCard(MMC_HandleTypeDef *hmmc)
 #endif
 
   /* Set Power State to ON */
-  status = SDMMC_PowerState_ON(hmmc->Instance);
-  if(status == HAL_ERROR)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_PowerState_ON(hmmc->Instance);
 
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
   /* Enable MMC Clock */
@@ -3376,6 +3372,318 @@ HAL_StatusTypeDef HAL_MMC_GetSupportedSecRemovalType(MMC_HandleTypeDef *hmmc, ui
     return HAL_BUSY;
   }
 }
+
+/**
+  * @brief  Switch the device from Standby State to Sleep State.
+  * @param  hmmc pointer to MMC handle
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_MMC_SleepDevice(MMC_HandleTypeDef *hmmc)
+{
+  uint32_t errorstate, sleep_timeout, timeout, count, response = 0U;
+  uint32_t tickstart = HAL_GetTick();
+
+  /* Check the state of the driver */
+  if(hmmc->State == HAL_MMC_STATE_READY)
+  {
+    /* Change State */
+    hmmc->State = HAL_MMC_STATE_BUSY;
+
+    /* Set the power-off notification to powered-on : Ext_CSD[34] = 1 */
+    errorstate = SDMMC_CmdSwitch(hmmc->Instance, (0x03220100U));
+    if (errorstate == HAL_MMC_ERROR_NONE)
+    {
+      /* While card is not ready for data and trial number for sending CMD13 is not exceeded */
+      count = SDMMC_MAX_TRIAL;
+      do
+      {
+        errorstate = SDMMC_CmdSendStatus(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
+        if(errorstate != HAL_MMC_ERROR_NONE)
+        {
+          break;
+        }
+
+        /* Get command response */
+        response = SDMMC_GetResponse(hmmc->Instance, SDMMC_RESP1);
+        count--;
+      }while(((response & 0x100U) == 0U) && (count != 0U));
+
+      /* Check the status after the switch command execution */
+      if (count == 0U)
+      {
+        errorstate = SDMMC_ERROR_TIMEOUT;
+      }
+      else if (errorstate == HAL_MMC_ERROR_NONE)
+      {
+        /* Check the bit SWITCH_ERROR of the device status */
+        if ((response & 0x80U) != 0U)
+        {
+          errorstate = SDMMC_ERROR_UNSUPPORTED_FEATURE;
+        }
+        else
+        {
+          /* Set the power-off notification to sleep notification : Ext_CSD[34] = 4 */
+          errorstate = SDMMC_CmdSwitch(hmmc->Instance, (0x03220400U));
+          if (errorstate == HAL_MMC_ERROR_NONE)
+          {
+            /* Field SLEEP_NOTIFICATION_TIME [216] */
+            sleep_timeout = ((hmmc->Ext_CSD[(MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_INDEX/4)] >> MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_POS) & 0x000000FFU);
+
+            /* Sleep/Awake Timeout = 10µs * 2^SLEEP_NOTIFICATION_TIME, max value of SLEEP_NOTIFICATION_TIME is 0x17 */
+            /* In HAL, the tick interrupt occurs each ms */
+            timeout = (((1UL << (sleep_timeout & 0x1FU)) / 100U) + 1U);
+
+            /* Wait that the device is ready by checking the D0 line */
+            while((!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_BUSYD0END)) && (errorstate == HAL_MMC_ERROR_NONE))
+            {
+              if((HAL_GetTick() - tickstart) >= timeout)
+              {
+                errorstate = SDMMC_ERROR_TIMEOUT;
+              }
+            }
+
+            /* Clear the flag corresponding to end D0 bus line */
+            __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_FLAG_BUSYD0END);
+
+            if (errorstate == HAL_MMC_ERROR_NONE)
+            {
+              /* While card is not ready for data and trial number for sending CMD13 is not exceeded */
+              count = SDMMC_MAX_TRIAL;
+              do
+              {
+                errorstate = SDMMC_CmdSendStatus(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
+                if(errorstate != HAL_MMC_ERROR_NONE)
+                {
+                  break;
+                }
+
+                /* Get command response */
+                response = SDMMC_GetResponse(hmmc->Instance, SDMMC_RESP1);
+                count--;
+              }while(((response & 0x100U) == 0U) && (count != 0U));
+
+              /* Check the status after the switch command execution */
+              if (count == 0U)
+              {
+                errorstate = SDMMC_ERROR_TIMEOUT;
+              }
+              else if (errorstate == HAL_MMC_ERROR_NONE)
+              {
+                /* Check the bit SWITCH_ERROR of the device status */
+                if ((response & 0x80U) != 0U)
+                {
+                  errorstate = SDMMC_ERROR_UNSUPPORTED_FEATURE;
+                }
+                else
+                {
+                  /* Switch the device in stand-by mode */
+                  (void)SDMMC_CmdSelDesel(hmmc->Instance, 0U);
+
+                  /* Field S_A_TIEMOUT [217] */
+                  sleep_timeout = ((hmmc->Ext_CSD[(MMC_EXT_CSD_S_A_TIMEOUT_INDEX/4)] >> MMC_EXT_CSD_S_A_TIMEOUT_POS) & 0x000000FFU);
+
+                  /* Sleep/Awake Timeout = 100ns * 2^S_A_TIMEOUT, max value of S_A_TIMEOUT is 0x17 */
+                  /* In HAL, the tick interrupt occurs each ms */
+                  timeout = (((1UL << (sleep_timeout & 0x1FU)) / 10000U) + 1U);
+
+                  if (HAL_MMC_GetCardState(hmmc) == HAL_MMC_CARD_STANDBY)
+                  {
+                    /* Send CMD5 CMD_MMC_SLEEP_AWAKE with RCA and SLEEP as argument */
+                    errorstate = SDMMC_CmdSleepMmc(hmmc->Instance, ((hmmc->MmcCard.RelCardAdd << 16U) | (0x1U << 15U)));
+                    if (errorstate == HAL_MMC_ERROR_NONE)
+                    {
+                      /* Wait that the device is ready by checking the D0 line */
+                      while((!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_BUSYD0END)) && (errorstate == HAL_MMC_ERROR_NONE))
+                      {
+                        if((HAL_GetTick() - tickstart) >= timeout)
+                        {
+                          errorstate = SDMMC_ERROR_TIMEOUT;
+                        }
+                      }
+
+                      /* Clear the flag corresponding to end D0 bus line */
+                      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_FLAG_BUSYD0END);
+                    }
+                  }
+                  else
+                  {
+                    errorstate = SDMMC_ERROR_REQUEST_NOT_APPLICABLE;
+                  }
+                }
+              }
+              else
+              {
+                /* Nothing to do */
+              }
+            }
+          }
+        }
+      }
+      else
+      {
+        /* Nothing to do */
+      }
+    }
+
+    /* Change State */
+    hmmc->State = HAL_MMC_STATE_READY;
+
+    /* Manage errors */
+    if (errorstate != HAL_MMC_ERROR_NONE)
+    {
+      /* Clear all the static flags */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+      hmmc->ErrorCode |= errorstate;
+
+      if (errorstate != HAL_MMC_ERROR_TIMEOUT)
+      {
+        return HAL_ERROR;
+      }
+      else
+      {
+        return HAL_TIMEOUT;
+      }
+    }
+    else
+    {
+      return HAL_OK;
+    }
+  }
+  else
+  {
+    return HAL_BUSY;
+  }
+}
+
+/**
+  * @brief  Switch the device from Sleep State to Standby State.
+  * @param  hmmc pointer to MMC handle
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_MMC_AwakeDevice(MMC_HandleTypeDef *hmmc)
+{
+  uint32_t errorstate, sleep_timeout, timeout, count, response = 0U;
+  uint32_t tickstart = HAL_GetTick();
+
+  /* Check the state of the driver */
+  if (hmmc->State == HAL_MMC_STATE_READY)
+  {
+    /* Change State */
+    hmmc->State = HAL_MMC_STATE_BUSY;
+
+    /* Field S_A_TIEMOUT [217] */
+    sleep_timeout = ((hmmc->Ext_CSD[(MMC_EXT_CSD_S_A_TIMEOUT_INDEX/4)] >> MMC_EXT_CSD_S_A_TIMEOUT_POS) & 0x000000FFU);
+
+    /* Sleep/Awake Timeout = 100ns * 2^S_A_TIMEOUT, max value of S_A_TIMEOUT is 0x17 */
+    /* In HAL, the tick interrupt occurs each ms */
+    timeout = (((1UL << (sleep_timeout & 0x1FU)) / 10000U) + 1U);
+
+    /* Send CMD5 CMD_MMC_SLEEP_AWAKE with RCA and AWAKE as argument */
+    errorstate = SDMMC_CmdSleepMmc(hmmc->Instance, (hmmc->MmcCard.RelCardAdd << 16U));
+    if (errorstate == HAL_MMC_ERROR_NONE)
+    {
+      /* Wait that the device is ready by checking the D0 line */
+      while ((!__HAL_MMC_GET_FLAG(hmmc, SDMMC_FLAG_BUSYD0END)) && (errorstate == HAL_MMC_ERROR_NONE))
+      {
+        if((HAL_GetTick() - tickstart) >= timeout)
+        {
+          errorstate = SDMMC_ERROR_TIMEOUT;
+        }
+      }
+
+      /* Clear the flag corresponding to end D0 bus line */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_FLAG_BUSYD0END);
+
+      if (errorstate == HAL_MMC_ERROR_NONE)
+      {
+        if (HAL_MMC_GetCardState(hmmc) == HAL_MMC_CARD_STANDBY)
+        {
+          /* Switch the device in transfer mode */
+          errorstate = SDMMC_CmdSelDesel(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
+          if (errorstate == HAL_MMC_ERROR_NONE)
+          {
+            if (HAL_MMC_GetCardState(hmmc) == HAL_MMC_CARD_TRANSFER)
+            {
+              /* Set the power-off notification to powered-on : Ext_CSD[34] = 1 */
+              errorstate = SDMMC_CmdSwitch(hmmc->Instance, (0x03220100U));
+              if (errorstate == HAL_MMC_ERROR_NONE)
+              {
+                /* While card is not ready for data and trial number for sending CMD13 is not exceeded */
+                count = SDMMC_MAX_TRIAL;
+                do
+                {
+                  errorstate = SDMMC_CmdSendStatus(hmmc->Instance, (uint32_t)(((uint32_t)hmmc->MmcCard.RelCardAdd) << 16U));
+                  if(errorstate != HAL_MMC_ERROR_NONE)
+                  {
+                    break;
+                  }
+
+                  /* Get command response */
+                  response = SDMMC_GetResponse(hmmc->Instance, SDMMC_RESP1);
+                  count--;
+                }while(((response & 0x100U) == 0U) && (count != 0U));
+
+                /* Check the status after the switch command execution */
+                if (count == 0U)
+                {
+                  errorstate = SDMMC_ERROR_TIMEOUT;
+                }
+                else if (errorstate == HAL_MMC_ERROR_NONE)
+                {
+                  /* Check the bit SWITCH_ERROR of the device status */
+                  if ((response & 0x80U) != 0U)
+                  {
+                    errorstate = SDMMC_ERROR_UNSUPPORTED_FEATURE;
+                  }
+                }
+                else
+                {
+                  /* Nothing to do */
+                }
+              }
+            }
+            else
+            {
+              errorstate = SDMMC_ERROR_REQUEST_NOT_APPLICABLE;
+            }
+          }
+        }
+        else
+        {
+          errorstate = SDMMC_ERROR_REQUEST_NOT_APPLICABLE;
+        }
+      }
+    }
+
+    /* Change State */
+    hmmc->State = HAL_MMC_STATE_READY;
+
+    /* Manage errors */
+    if (errorstate != HAL_MMC_ERROR_NONE)
+    {
+      /* Clear all the static flags */
+      __HAL_MMC_CLEAR_FLAG(hmmc, SDMMC_STATIC_FLAGS);
+      hmmc->ErrorCode |= errorstate;
+
+      if (errorstate != HAL_MMC_ERROR_TIMEOUT)
+      {
+        return HAL_ERROR;
+      }
+      else
+      {
+        return HAL_TIMEOUT;
+      }
+    }
+    else
+    {
+      return HAL_OK;
+    }
+  }
+  else
+  {
+    return HAL_BUSY;
+  }
+}
 #endif /* defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx) */
 
 /**
@@ -4304,5 +4612,3 @@ static uint32_t MMC_PwrClassUpdate(MMC_HandleTypeDef *hmmc, uint32_t Wide, uint3
 #endif /* HAL_MMC_MODULE_ENABLED */
 
 #endif /* SDMMC1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

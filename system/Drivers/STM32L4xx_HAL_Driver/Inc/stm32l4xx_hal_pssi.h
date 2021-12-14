@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -236,7 +235,7 @@ typedef enum
 #define PSSI_CR_OUTEN_OUTPUT        PSSI_CR_OUTEN    /*!< Output Mode     */
 
 #define PSSI_CR_DMA_ENABLE          PSSI_CR_DMAEN    /*!< DMA Mode Enable */
-#define PSSI_CR_DMA_DISABLE         (~PSSI_CR_DMAEN) /*!< DMA Mode Disble */
+#define PSSI_CR_DMA_DISABLE         (~PSSI_CR_DMAEN) /*!< DMA Mode Disable */
 
 #define PSSI_CR_16BITS              PSSI_CR_EDM      /*!< 16 Lines Mode   */
 #define PSSI_CR_8BITS               (~PSSI_CR_EDM)   /*!< 8 Lines Mode    */
@@ -511,6 +510,3 @@ uint32_t               HAL_PSSI_GetError(PSSI_HandleTypeDef *hpssi);
 #endif
 
 #endif /* STM32L4xx_HAL_PSSI_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

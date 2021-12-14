@@ -7,13 +7,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2021 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -38,6 +37,14 @@ extern "C" {
 #define AES_CLEARFLAG_CCF               CRYP_CLEARFLAG_CCF
 #define AES_CLEARFLAG_RDERR             CRYP_CLEARFLAG_RDERR
 #define AES_CLEARFLAG_WRERR             CRYP_CLEARFLAG_WRERR
+#if defined(STM32U5)
+#define CRYP_DATATYPE_32B               CRYP_NO_SWAP
+#define CRYP_DATATYPE_16B               CRYP_HALFWORD_SWAP
+#define CRYP_DATATYPE_8B                CRYP_BYTE_SWAP
+#define CRYP_DATATYPE_1B                CRYP_BIT_SWAP
+#define CRYP_CCF_CLEAR                  CRYP_CLEAR_CCF
+#define CRYP_ERR_CLEAR                  CRYP_CLEAR_RWEIF
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -206,6 +213,20 @@ extern "C" {
   * @{
   */
 #define __HAL_CORTEX_SYSTICKCLK_CONFIG HAL_SYSTICK_CLKSourceConfig
+#if defined(STM32U5)
+#define  MPU_DEVICE_nGnRnE          MPU_DEVICE_NGNRNE
+#define  MPU_DEVICE_nGnRE           MPU_DEVICE_NGNRE
+#define  MPU_DEVICE_nGRE            MPU_DEVICE_NGRE
+#endif /* STM32U5 */
+/**
+  * @}
+  */
+
+/** @defgroup CRC_Aliases CRC API aliases
+  * @{
+  */
+#define HAL_CRC_Input_Data_Reverse   HAL_CRCEx_Input_Data_Reverse    /*!< Aliased to HAL_CRCEx_Input_Data_Reverse for inter STM32 series compatibility  */
+#define HAL_CRC_Output_Data_Reverse  HAL_CRCEx_Output_Data_Reverse   /*!< Aliased to HAL_CRCEx_Output_Data_Reverse for inter STM32 series compatibility */
 /**
   * @}
   */
@@ -235,9 +256,16 @@ extern "C" {
 #define DAC_WAVEGENERATION_NOISE                        DAC_WAVE_NOISE
 #define DAC_WAVEGENERATION_TRIANGLE                     DAC_WAVE_TRIANGLE
 
-#if defined(STM32G4) || defined(STM32H7)
+#if defined(STM32G4) || defined(STM32H7) || defined (STM32U5)
 #define DAC_CHIPCONNECT_DISABLE       DAC_CHIPCONNECT_EXTERNAL
 #define DAC_CHIPCONNECT_ENABLE        DAC_CHIPCONNECT_INTERNAL
+#endif
+
+#if defined(STM32U5)
+#define DAC_TRIGGER_STOP_LPTIM1_OUT  DAC_TRIGGER_STOP_LPTIM1_CH1
+#define DAC_TRIGGER_STOP_LPTIM3_OUT  DAC_TRIGGER_STOP_LPTIM3_CH1
+#define DAC_TRIGGER_LPTIM1_OUT       DAC_TRIGGER_LPTIM1_CH1
+#define DAC_TRIGGER_LPTIM3_OUT       DAC_TRIGGER_LPTIM3_CH1
 #endif
 
 #if defined(STM32L1) || defined(STM32L4) || defined(STM32G0) || defined(STM32L5) || defined(STM32H7) || defined(STM32F4) || defined(STM32G4)
@@ -469,15 +497,24 @@ extern "C" {
 #define OB_BOOT_ENTRY_FORCED_FLASH    OB_BOOT_LOCK_ENABLE
 #endif
 #if defined(STM32H7)
-#define FLASH_FLAG_SNECCE_BANK1RR FLASH_FLAG_SNECCERR_BANK1
-#define FLASH_FLAG_DBECCE_BANK1RR FLASH_FLAG_DBECCERR_BANK1
-#define FLASH_FLAG_STRBER_BANK1R  FLASH_FLAG_STRBERR_BANK1
-#define FLASH_FLAG_SNECCE_BANK2RR FLASH_FLAG_SNECCERR_BANK2
-#define FLASH_FLAG_DBECCE_BANK2RR FLASH_FLAG_DBECCERR_BANK2
-#define FLASH_FLAG_STRBER_BANK2R  FLASH_FLAG_STRBERR_BANK2
-#define FLASH_FLAG_WDW            FLASH_FLAG_WBNE
-#define OB_WRP_SECTOR_All         OB_WRP_SECTOR_ALL
+#define FLASH_FLAG_SNECCE_BANK1RR     FLASH_FLAG_SNECCERR_BANK1
+#define FLASH_FLAG_DBECCE_BANK1RR     FLASH_FLAG_DBECCERR_BANK1
+#define FLASH_FLAG_STRBER_BANK1R      FLASH_FLAG_STRBERR_BANK1
+#define FLASH_FLAG_SNECCE_BANK2RR     FLASH_FLAG_SNECCERR_BANK2
+#define FLASH_FLAG_DBECCE_BANK2RR     FLASH_FLAG_DBECCERR_BANK2
+#define FLASH_FLAG_STRBER_BANK2R      FLASH_FLAG_STRBERR_BANK2
+#define FLASH_FLAG_WDW                FLASH_FLAG_WBNE
+#define OB_WRP_SECTOR_All             OB_WRP_SECTOR_ALL
 #endif /* STM32H7 */
+#if defined(STM32U5)
+#define OB_USER_nRST_STOP             OB_USER_NRST_STOP
+#define OB_USER_nRST_STDBY            OB_USER_NRST_STDBY
+#define OB_USER_nRST_SHDW             OB_USER_NRST_SHDW
+#define OB_USER_nSWBOOT0              OB_USER_NSWBOOT0
+#define OB_USER_nBOOT0                OB_USER_NBOOT0
+#define OB_nBOOT0_RESET               OB_NBOOT0_RESET
+#define OB_nBOOT0_SET                 OB_NBOOT0_SET
+#endif /* STM32U5 */
 
 /**
   * @}
@@ -520,6 +557,7 @@ extern "C" {
 #define HAL_SYSCFG_EnableIOAnalogSwitchVDD        HAL_SYSCFG_EnableIOSwitchVDD
 #define HAL_SYSCFG_DisableIOAnalogSwitchVDD       HAL_SYSCFG_DisableIOSwitchVDD
 #endif /* STM32G4 */
+
 /**
   * @}
   */
@@ -594,12 +632,12 @@ extern "C" {
 #define GPIO_AF1_LPTIM                            GPIO_AF1_LPTIM1
 #define GPIO_AF2_LPTIM                            GPIO_AF2_LPTIM1
 
-#if defined(STM32L0) || defined(STM32L4) || defined(STM32F4) || defined(STM32F2) || defined(STM32F7) || defined(STM32G4) || defined(STM32H7) || defined(STM32WB)
+#if defined(STM32L0) || defined(STM32L4) || defined(STM32F4) || defined(STM32F2) || defined(STM32F7) || defined(STM32G4) || defined(STM32H7) || defined(STM32WB) || defined(STM32U5)
 #define  GPIO_SPEED_LOW                           GPIO_SPEED_FREQ_LOW
 #define  GPIO_SPEED_MEDIUM                        GPIO_SPEED_FREQ_MEDIUM
 #define  GPIO_SPEED_FAST                          GPIO_SPEED_FREQ_HIGH
 #define  GPIO_SPEED_HIGH                          GPIO_SPEED_FREQ_VERY_HIGH
-#endif /* STM32L0 || STM32L4 || STM32F4 || STM32F2 || STM32F7 || STM32G4 || STM32H7 || STM32WB*/
+#endif /* STM32L0 || STM32L4 || STM32F4 || STM32F2 || STM32F7 || STM32G4 || STM32H7 || STM32WB || STM32U5*/
 
 #if defined(STM32L1)
 #define  GPIO_SPEED_VERY_LOW    GPIO_SPEED_FREQ_LOW
@@ -615,6 +653,20 @@ extern "C" {
 #endif /* STM32F0 || STM32F3 || STM32F1 */
 
 #define GPIO_AF6_DFSDM                            GPIO_AF6_DFSDM1
+
+#if defined(STM32U5)
+#define GPIO_AF0_RTC_50Hz                         GPIO_AF0_RTC_50HZ
+#endif /* STM32U5 */
+/**
+  * @}
+  */
+
+/** @defgroup HAL_GTZC_Aliased_Defines HAL GTZC Aliased Defines maintained for legacy purpose
+  * @{
+  */
+#if defined(STM32U5)
+#define GTZC_PERIPH_DCMI                      GTZC_PERIPH_DCMI_PSSI
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -851,6 +903,21 @@ extern "C" {
 #define LPTIM_TRIGSAMPLETIME_2TRANSITION        LPTIM_TRIGSAMPLETIME_2TRANSITIONS
 #define LPTIM_TRIGSAMPLETIME_4TRANSITION        LPTIM_TRIGSAMPLETIME_4TRANSITIONS
 #define LPTIM_TRIGSAMPLETIME_8TRANSITION        LPTIM_TRIGSAMPLETIME_8TRANSITIONS
+
+
+/** @defgroup HAL_LPTIM_Aliased_Defines HAL LPTIM Aliased Defines maintained for legacy purpose
+  * @{
+  */
+#define HAL_LPTIM_ReadCompare      HAL_LPTIM_ReadCapturedValue
+/**
+  * @}
+  */
+
+#if defined(STM32U5)
+#define LPTIM_ISR_CC1        LPTIM_ISR_CC1IF
+#define LPTIM_ISR_CC2        LPTIM_ISR_CC2IF
+#define LPTIM_CHANNEL_ALL    0x00000000U
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -1189,6 +1256,10 @@ extern "C" {
 #define TIM_TIM3_TI1_COMP1COMP2_OUT   TIM_TIM3_TI1_COMP1_COMP2
 #endif
 
+#if defined(STM32U5) || defined(STM32MP2)
+#define OCREF_CLEAR_SELECT_Pos       OCREF_CLEAR_SELECT_POS
+#define OCREF_CLEAR_SELECT_Msk       OCREF_CLEAR_SELECT_MSK
+#endif
 /**
   * @}
   */
@@ -1377,6 +1448,20 @@ extern "C" {
   */
 #endif  /* STM32L4 ||  STM32F7 ||  STM32F4 ||  STM32H7 */
 
+#if defined(STM32L4) || defined(STM32F7) || defined(STM32F427xx) || defined(STM32F437xx) \
+  || defined(STM32F429xx) || defined(STM32F439xx) || defined(STM32F469xx) || defined(STM32F479xx) \
+  || defined(STM32H7) || defined(STM32U5)
+/** @defgroup DMA2D_Aliases DMA2D API Aliases
+  * @{
+  */
+#define HAL_DMA2D_DisableCLUT       HAL_DMA2D_CLUTLoading_Abort    /*!< Aliased to HAL_DMA2D_CLUTLoading_Abort
+                                                                        for compatibility with legacy code */
+/**
+  * @}
+  */
+
+#endif  /* STM32L4 ||  STM32F7 ||  STM32F4 ||  STM32H7 || STM32U5 */
+
 /** @defgroup HAL_PPP_Aliased_Defines HAL PPP Aliased Defines maintained for legacy purpose
   * @{
   */
@@ -1395,6 +1480,29 @@ extern "C" {
   * @}
   */
 
+/** @defgroup HAL_DCACHE_Aliased_Functions HAL DCACHE Aliased Functions maintained for legacy purpose
+  * @{
+  */
+
+#if defined(STM32U5)
+#define HAL_DCACHE_CleanInvalidateByAddr     HAL_DCACHE_CleanInvalidByAddr
+#define HAL_DCACHE_CleanInvalidateByAddr_IT  HAL_DCACHE_CleanInvalidByAddr_IT
+#endif /* STM32U5 */
+
+/**
+  * @}
+  */
+
+#if !defined(STM32F2)
+/** @defgroup HASH_alias HASH API alias
+  * @{
+  */
+#define HAL_HASHEx_IRQHandler   HAL_HASH_IRQHandler  /*!< Redirection for compatibility with legacy code */
+/**
+  *
+  * @}
+  */
+#endif /* STM32F2 */
 /** @defgroup HAL_HASH_Aliased_Functions HAL HASH Aliased Functions maintained for legacy purpose
   * @{
   */
@@ -3327,6 +3435,31 @@ extern "C" {
 #define RCC_DFSDM1CLKSOURCE_APB2            RCC_DFSDM1CLKSOURCE_PCLK2
 #define RCC_DFSDM2CLKSOURCE_APB2            RCC_DFSDM2CLKSOURCE_PCLK2
 #define RCC_FMPI2C1CLKSOURCE_APB            RCC_FMPI2C1CLKSOURCE_PCLK1
+#if defined(STM32U5)
+#define MSIKPLLModeSEL  RCC_MSIKPLL_MODE_SEL
+#define MSISPLLModeSEL  RCC_MSISPLL_MODE_SEL
+#define __HAL_RCC_AHB21_CLK_DISABLE           __HAL_RCC_AHB2_1_CLK_DISABLE
+#define __HAL_RCC_AHB22_CLK_DISABLE           __HAL_RCC_AHB2_2_CLK_DISABLE
+#define __HAL_RCC_AHB1_CLK_Disable_Clear      __HAL_RCC_AHB1_CLK_ENABLE
+#define __HAL_RCC_AHB21_CLK_Disable_Clear     __HAL_RCC_AHB2_1_CLK_ENABLE
+#define __HAL_RCC_AHB22_CLK_Disable_Clear     __HAL_RCC_AHB2_2_CLK_ENABLE
+#define __HAL_RCC_AHB3_CLK_Disable_Clear      __HAL_RCC_AHB3_CLK_ENABLE
+#define __HAL_RCC_APB1_CLK_Disable_Clear      __HAL_RCC_APB1_CLK_ENABLE
+#define __HAL_RCC_APB2_CLK_Disable_Clear      __HAL_RCC_APB2_CLK_ENABLE
+#define __HAL_RCC_APB3_CLK_Disable_Clear      __HAL_RCC_APB3_CLK_ENABLE
+#define IS_RCC_MSIPLLModeSelection            IS_RCC_MSIPLLMODE_SELECT
+#define RCC_PERIPHCLK_CLK48                   RCC_PERIPHCLK_ICLK
+#define RCC_CLK48CLKSOURCE_HSI48              RCC_ICLK_CLKSOURCE_HSI48
+#define RCC_CLK48CLKSOURCE_PLL2               RCC_ICLK_CLKSOURCE_PLL2
+#define RCC_CLK48CLKSOURCE_PLL1               RCC_ICLK_CLKSOURCE_PLL1
+#define RCC_CLK48CLKSOURCE_MSIK               RCC_ICLK_CLKSOURCE_MSIK
+#define __HAL_RCC_ADC1_CLK_ENABLE            __HAL_RCC_ADC12_CLK_ENABLE
+#define __HAL_RCC_ADC1_CLK_DISABLE          __HAL_RCC_ADC12_CLK_DISABLE
+#define __HAL_RCC_ADC1_IS_CLK_ENABLED       __HAL_RCC_ADC12_IS_CLK_ENABLED
+#define __HAL_RCC_ADC1_IS_CLK_DISABLED      __HAL_RCC_ADC12_IS_CLK_DISABLED
+#define __HAL_RCC_ADC1_FORCE_RESET          __HAL_RCC_ADC12_FORCE_RESET
+#define __HAL_RCC_ADC1_RELEASE_RESET       __HAL_RCC_ADC12_RELEASE_RESET
+#endif
 
 /**
   * @}
@@ -3344,7 +3477,7 @@ extern "C" {
 /** @defgroup HAL_RTC_Aliased_Macros HAL RTC Aliased Macros maintained for legacy purpose
   * @{
   */
-#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL)
+#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
@@ -3401,12 +3534,21 @@ extern "C" {
   * @}
   */
 
-/** @defgroup HAL_SD_Aliased_Macros HAL SD Aliased Macros maintained for legacy purpose
+/** @defgroup HAL_SD_Aliased_Macros HAL SD/MMC Aliased Macros maintained for legacy purpose
   * @{
   */
 
 #define SD_OCR_CID_CSD_OVERWRIETE   SD_OCR_CID_CSD_OVERWRITE
 #define SD_CMD_SD_APP_STAUS         SD_CMD_SD_APP_STATUS
+
+#if !defined(STM32F1) && !defined(STM32F2) && !defined(STM32F4) && !defined(STM32L1)
+#define eMMC_HIGH_VOLTAGE_RANGE     EMMC_HIGH_VOLTAGE_RANGE
+#define eMMC_DUAL_VOLTAGE_RANGE     EMMC_DUAL_VOLTAGE_RANGE
+#define eMMC_LOW_VOLTAGE_RANGE      EMMC_LOW_VOLTAGE_RANGE
+
+#define SDMMC_NSpeed_CLK_DIV        SDMMC_NSPEED_CLK_DIV
+#define SDMMC_HSpeed_CLK_DIV        SDMMC_HSPEED_CLK_DIV
+#endif
 
 #if defined(STM32F4) || defined(STM32F2)
 #define  SD_SDMMC_DISABLED          SD_SDIO_DISABLED
@@ -3750,5 +3892,4 @@ extern "C" {
 
 #endif /* STM32_HAL_LEGACY */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 

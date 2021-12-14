@@ -11,13 +11,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -188,7 +187,7 @@ void HAL_PWR_DisableBkUpAccess(void)
    =========================================
     [..]
       (+) Entry:
-          The Sleep mode / Low-power Sleep mode is entered thru HAL_PWR_EnterSLEEPMode() API
+          The Sleep mode / Low-power Sleep mode is entered through HAL_PWR_EnterSLEEPMode() API
           in specifying whether or not the regulator is forced to low-power mode and if exit is interrupt or event-triggered.
           (++) PWR_MAINREGULATOR_ON: Sleep mode (regulator in main mode).
           (++) PWR_LOWPOWERREGULATOR_ON: Low-power sleep (regulator in low power mode).
@@ -210,7 +209,7 @@ void HAL_PWR_DisableBkUpAccess(void)
    ===============================
     [..]
       (+) Entry:
-          The Stop 0, Stop 1 or Stop 2 modes are entered thru the following API's:
+          The Stop 0, Stop 1 or Stop 2 modes are entered through the following API's:
           (++) HAL_PWREx_EnterSTOP0Mode() for mode 0 or HAL_PWREx_EnterSTOP1Mode() for mode 1 or for porting reasons HAL_PWR_EnterSTOPMode().
           (++) HAL_PWREx_EnterSTOP2Mode() for mode 2.
       (+) Regulator setting (applicable to HAL_PWR_EnterSTOPMode() only):
@@ -244,7 +243,7 @@ void HAL_PWR_DisableBkUpAccess(void)
         and Standby circuitry.
 
       (++) Entry:
-          (+++) The Standby mode is entered thru HAL_PWR_EnterSTANDBYMode() API.
+          (+++) The Standby mode is entered through HAL_PWR_EnterSTANDBYMode() API.
                 SRAM1 and register contents are lost except for registers in the Backup domain and
                 Standby circuitry. SRAM2 content can be preserved if the bit RRS is set in PWR_CR3 register.
                 To enable this feature, the user can resort to HAL_PWREx_EnableSRAM2ContentRetention() API
@@ -265,7 +264,7 @@ void HAL_PWR_DisableBkUpAccess(void)
         SRAM and registers contents are lost except for backup domain registers.
 
       (+) Entry:
-          The Shutdown mode is entered thru HAL_PWREx_EnterSHUTDOWNMode() API.
+          The Shutdown mode is entered through HAL_PWREx_EnterSHUTDOWNMode() API.
 
       (+) Exit:
           (++) WKUP pin rising edge, RTC alarm or wakeup, tamper event, time-stamp event,
@@ -657,5 +656,3 @@ __weak void HAL_PWR_PVDCallback(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

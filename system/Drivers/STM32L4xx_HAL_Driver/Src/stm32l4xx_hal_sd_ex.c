@@ -7,6 +7,17 @@
   *          functionalities of the Secure Digital (SD) peripheral:
   *           + Extended features functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -18,17 +29,6 @@
    (+) Start Read and Write for multibuffer mode using HAL_SDEx_ReadBlocksDMAMultiBuffer() and HAL_SDEx_WriteBlocksDMAMultiBuffer() functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -124,8 +124,8 @@ __weak void HAL_SDEx_DriveTransceiver_1_8V_Callback(FlagStatus status)
 /**
   * @brief  Configure DMA Dual Buffer mode. The Data transfer is managed by an Internal DMA.
   * @param  hsd SD handle
-  * @param  pDataBuffer0 Pointer to the buffer0 that will contain/receive the transfered data
-  * @param  pDataBuffer1 Pointer to the buffer1 that will contain/receive the transfered data
+  * @param  pDataBuffer0 Pointer to the buffer0 that will contain/receive the transferred data
+  * @param  pDataBuffer1 Pointer to the buffer1 that will contain/receive the transferred data
   * @param  BufferSize Size of Buffer0 in Blocks. Buffer0 and Buffer1 must have the same size.
   * @retval HAL status
   */
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_SDEx_ReadBlocksDMAMultiBuffer(SD_HandleTypeDef *hsd, uint3
 }
 
 /**
-  * @brief  Write block(s) to a specified address in a card. The transfered Data are stored in Buffer0 and Buffer1.
+  * @brief  Write block(s) to a specified address in a card. The transferred Data are stored in Buffer0 and Buffer1.
   *         Buffer0, Buffer1 and BufferSize need to be configured by function HAL_SDEx_ConfigDMAMultiBuffer before call this function.
   * @param  hsd SD handle
   * @param  BlockAdd Block Address from where data is to be read
@@ -412,5 +412,3 @@ __weak void HAL_SDEx_Write_DMADoubleBuffer1CpltCallback(SD_HandleTypeDef *hsd)
   */
 
 #endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

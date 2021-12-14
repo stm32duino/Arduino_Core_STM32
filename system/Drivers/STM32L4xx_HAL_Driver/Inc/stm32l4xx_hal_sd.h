@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -25,9 +24,10 @@
  extern "C" {
 #endif
 
-#if defined(SDMMC1)
-
 /* Includes ------------------------------------------------------------------*/
+#include "stm32l4xx_hal_def.h"
+
+#if defined(SDMMC1)
 #include "stm32l4xx_ll_sdmmc.h"
 
 /** @addtogroup STM32L4xx_HAL_Driver
@@ -55,7 +55,7 @@ typedef enum
   HAL_SD_STATE_BUSY                   = ((uint32_t)0x00000003U),  /*!< SD process ongoing                  */
   HAL_SD_STATE_PROGRAMMING            = ((uint32_t)0x00000004U),  /*!< SD Programming State                */
   HAL_SD_STATE_RECEIVING              = ((uint32_t)0x00000005U),  /*!< SD Receiving State                  */
-  HAL_SD_STATE_TRANSFER               = ((uint32_t)0x00000006U),  /*!< SD Transfert State                  */
+  HAL_SD_STATE_TRANSFER               = ((uint32_t)0x00000006U),  /*!< SD Transfer State                   */
   HAL_SD_STATE_ERROR                  = ((uint32_t)0x0000000FU)   /*!< SD is in error state                */
 }HAL_SD_StateTypeDef;
 /**
@@ -860,5 +860,3 @@ HAL_StatusTypeDef HAL_SD_Abort_IT(SD_HandleTypeDef *hsd);
 
 
 #endif /* STM32L4xx_HAL_SD_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

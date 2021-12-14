@@ -38,14 +38,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -134,7 +132,7 @@ static uint32_t          RCC_GetSysClockFreqFromPLLSource(void);
          (+) HSI (high-speed internal): 16 MHz factory-trimmed RC used directly or through
              the PLL as System clock source.
 
-         (+) MSI (Mutiple Speed Internal): Its frequency is software trimmable from 100KHZ to 48MHZ.
+         (+) MSI (Multiple Speed Internal): Its frequency is software trimmable from 100KHZ to 48MHZ.
              It can be used to generate the clock for the USB OTG FS (48 MHz).
              The number of flash wait states is automatically adjusted when MSI range is updated with
              HAL_RCC_OscConfig() and the MSI is used as System clock source.
@@ -940,14 +938,20 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
             }
 
             /* Configure the main PLL clock source, multiplication and division factors. */
+#if defined(RCC_PLLP_SUPPORT)
             __HAL_RCC_PLL_CONFIG(RCC_OscInitStruct->PLL.PLLSource,
                                  RCC_OscInitStruct->PLL.PLLM,
                                  RCC_OscInitStruct->PLL.PLLN,
-#if defined(RCC_PLLP_SUPPORT)
                                  RCC_OscInitStruct->PLL.PLLP,
-#endif
                                  RCC_OscInitStruct->PLL.PLLQ,
                                  RCC_OscInitStruct->PLL.PLLR);
+#else
+            __HAL_RCC_PLL_CONFIG(RCC_OscInitStruct->PLL.PLLSource,
+                                 RCC_OscInitStruct->PLL.PLLM,
+                                 RCC_OscInitStruct->PLL.PLLN,
+                                 RCC_OscInitStruct->PLL.PLLQ,
+                                 RCC_OscInitStruct->PLL.PLLR);
+#endif
 
             /* Enable the main PLL. */
             __HAL_RCC_PLL_ENABLE();
@@ -1303,7 +1307,7 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
     [..]
     This subsection provides a set of functions allowing to:
 
-    (+) Ouput clock to MCO pin.
+    (+) Output clock to MCO pin.
     (+) Retrieve current clock frequencies.
     (+) Enable the Clock Security System.
 
@@ -1354,7 +1358,7 @@ void HAL_RCC_MCOConfig( uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_
   /* MCO Clock Enable */
   __MCO1_CLK_ENABLE();
 
-  /* Configue the MCO1 pin in alternate function mode */
+  /* Configure the MCO1 pin in alternate function mode */
   GPIO_InitStruct.Pin = MCO1_PIN;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
@@ -1751,7 +1755,26 @@ __weak void HAL_RCC_CSSCallback(void)
 }
 
 /**
-  * @}
+  * @brief  Get and clear reset flags
+  * @param  None
+  * @note   Once reset flags are retrieved, this API is clearing them in order
+  *         to isolate next reset reason.
+  * @retval can be a combination of @ref RCC_Reset_Flag
+  */
+uint32_t HAL_RCC_GetResetSource(void)
+{
+  uint32_t reset;
+
+  /* Get all reset flags */
+  reset = RCC->CSR & RCC_RESET_FLAG_ALL;
+
+  /* Clear Reset flags */
+  RCC->CSR |= RCC_CSR_RMVF;
+
+  return reset;
+}
+
+/**  * @}
   */
 
 /**
@@ -1923,4 +1946,3 @@ static uint32_t RCC_GetSysClockFreqFromPLLSource(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

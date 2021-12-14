@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -67,22 +66,26 @@ typedef struct
   uint32_t ClockSource;    /*!< Specifies the source of the clock used by the LPTIM instance.
                                 This parameter can be a value of @ref LPTIM_LL_EC_CLK_SOURCE.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_SetClockSource().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_SetClockSource().*/
 
   uint32_t Prescaler;      /*!< Specifies the prescaler division ratio.
                                 This parameter can be a value of @ref LPTIM_LL_EC_PRESCALER.
 
-                                This feature can be modified afterwards using using unitary function @ref LL_LPTIM_SetPrescaler().*/
+                                This feature can be modified afterwards using using unitary
+                                function @ref LL_LPTIM_SetPrescaler().*/
 
   uint32_t Waveform;       /*!< Specifies the waveform shape.
                                 This parameter can be a value of @ref LPTIM_LL_EC_OUTPUT_WAVEFORM.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_ConfigOutput().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_ConfigOutput().*/
 
   uint32_t Polarity;       /*!< Specifies waveform polarity.
                                 This parameter can be a value of @ref LPTIM_LL_EC_OUTPUT_POLARITY.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_ConfigOutput().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_ConfigOutput().*/
 } LL_LPTIM_InitTypeDef;
 
 /**
@@ -100,9 +103,9 @@ typedef struct
   * @{
   */
 #define LL_LPTIM_ISR_CMPM                     LPTIM_ISR_CMPM     /*!< Compare match */
+#define LL_LPTIM_ISR_CMPOK                    LPTIM_ISR_CMPOK    /*!< Compare register update OK */
 #define LL_LPTIM_ISR_ARRM                     LPTIM_ISR_ARRM     /*!< Autoreload match */
 #define LL_LPTIM_ISR_EXTTRIG                  LPTIM_ISR_EXTTRIG  /*!< External trigger edge event */
-#define LL_LPTIM_ISR_CMPOK                    LPTIM_ISR_CMPOK    /*!< Compare register update OK */
 #define LL_LPTIM_ISR_ARROK                    LPTIM_ISR_ARROK    /*!< Autoreload register update OK */
 #define LL_LPTIM_ISR_UP                       LPTIM_ISR_UP       /*!< Counter direction change down to up */
 #define LL_LPTIM_ISR_DOWN                     LPTIM_ISR_DOWN     /*!< Counter direction change up to down */
@@ -118,16 +121,16 @@ typedef struct
   * @brief    IT defines which can be used with LL_LPTIM_ReadReg and  LL_LPTIM_WriteReg functions
   * @{
   */
-#define LL_LPTIM_IER_CMPMIE                   LPTIM_IER_CMPMIE       /*!< Compare match Interrupt Enable */
-#define LL_LPTIM_IER_ARRMIE                   LPTIM_IER_ARRMIE       /*!< Autoreload match Interrupt Enable */
-#define LL_LPTIM_IER_EXTTRIGIE                LPTIM_IER_EXTTRIGIE    /*!< External trigger valid edge Interrupt Enable */
-#define LL_LPTIM_IER_CMPOKIE                  LPTIM_IER_CMPOKIE      /*!< Compare register update OK Interrupt Enable */
-#define LL_LPTIM_IER_ARROKIE                  LPTIM_IER_ARROKIE      /*!< Autoreload register update OK Interrupt Enable */
-#define LL_LPTIM_IER_UPIE                     LPTIM_IER_UPIE         /*!< Direction change to UP Interrupt Enable */
-#define LL_LPTIM_IER_DOWNIE                   LPTIM_IER_DOWNIE       /*!< Direction change to down Interrupt Enable */
+#define LL_LPTIM_IER_CMPMIE                   LPTIM_IER_CMPMIE     /*!< Compare match */
+#define LL_LPTIM_IER_CMPOKIE                  LPTIM_IER_CMPOKIE    /*!< Compare register update OK */
+#define LL_LPTIM_IER_ARRMIE                   LPTIM_IER_ARRMIE     /*!< Autoreload match */
+#define LL_LPTIM_IER_EXTTRIGIE                LPTIM_IER_EXTTRIGIE  /*!< External trigger edge event */
+#define LL_LPTIM_IER_ARROKIE                  LPTIM_IER_ARROKIE    /*!< Autoreload register update OK */
+#define LL_LPTIM_IER_UPIE                     LPTIM_IER_UPIE       /*!< Counter direction change down to up */
+#define LL_LPTIM_IER_DOWNIE                   LPTIM_IER_DOWNIE     /*!< Counter direction change up to down */
 #if defined(LPTIM_RCR_REP)
-#define LL_LPTIM_IER_UEIE                     LPTIM_IER_UEIE         /*!< Update event Interrupt Enable */
-#define LL_LPTIM_IER_REPOKIE                  LPTIM_IER_REPOKIE      /*!< Repetition register update OK Interrupt Enable */
+#define LL_LPTIM_IER_UEIE                     LPTIM_IER_UEIE       /*!< Update event */
+#define LL_LPTIM_IER_REPOKIE                  LPTIM_IER_REPOKIE    /*!< Repetition register update OK */
 #endif
 /**
   * @}
@@ -929,7 +932,8 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetClockSource(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Configure the active edge or edges used by the counter when the LPTIM is clocked by an external clock source.
+  * @brief  Configure the active edge or edges used by the counter when
+            the LPTIM is clocked by an external clock source.
   * @note This function must be called when the LPTIM instance is disabled.
   * @note When both external clock signal edges are considered active ones,
   *       the LPTIM must also be clocked by an internal clock source with a
@@ -1147,7 +1151,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_CMPOK(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs application whether the APB bus write operation to the LPTIMx_CMP register has been successfully completed. If so, a new one can be initiated.
+  * @brief  Informs application whether the APB bus write operation to the LPTIMx_CMP register has been successfully
+            completed. If so, a new one can be initiated.
   * @rmtoll ISR          CMPOK         LL_LPTIM_IsActiveFlag_CMPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1169,7 +1174,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_ARROK(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs application whether the APB bus write operation to the LPTIMx_ARR register has been successfully completed. If so, a new one can be initiated.
+  * @brief  Informs application whether the APB bus write operation to the LPTIMx_ARR register has been successfully
+            completed. If so, a new one can be initiated.
   * @rmtoll ISR          ARROK         LL_LPTIM_IsActiveFlag_ARROK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1191,7 +1197,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_UP(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs the application whether the counter direction has changed from down to up (when the LPTIM instance operates in encoder mode).
+  * @brief  Informs the application whether the counter direction has changed from down to up (when the LPTIM instance
+            operates in encoder mode).
   * @rmtoll ISR          UP            LL_LPTIM_IsActiveFlag_UP
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1213,7 +1220,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_DOWN(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs the application whether the counter direction has changed from up to down (when the LPTIM instance operates in encoder mode).
+  * @brief  Informs the application whether the counter direction has changed from up to down (when the LPTIM instance
+            operates in encoder mode).
   * @rmtoll ISR          DOWN          LL_LPTIM_IsActiveFlag_DOWN
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1236,7 +1244,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_REPOK(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs application whether the APB bus write operation to the LPTIMx_RCR register has been successfully completed; If so, a new one can be initiated.
+  * @brief  Informs application whether the APB bus write operation to the LPTIMx_RCR register has been successfully
+            completed; If so, a new one can be initiated.
   * @rmtoll ISR          REPOK         LL_LPTIM_IsActiveFlag_REPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1411,7 +1420,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_CMPOK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Enable autoreload register write completed interrupt (ARROKIE).
-  * @rmtoll IER          ARROKIE       LL_LPTIM_EnableIT_ARROK
+  * @rmtoll IER         ARROKIE       LL_LPTIM_EnableIT_ARROK
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1422,7 +1431,7 @@ __STATIC_INLINE void LL_LPTIM_EnableIT_ARROK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Disable autoreload register write completed interrupt (ARROKIE).
-  * @rmtoll IER          ARROKIE       LL_LPTIM_DisableIT_ARROK
+  * @rmtoll IER         ARROKIE       LL_LPTIM_DisableIT_ARROK
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1433,7 +1442,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_ARROK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Indicates whether the autoreload register write completed interrupt (ARROKIE) is enabled.
-  * @rmtoll IER          ARROKIE       LL_LPTIM_IsEnabledIT_ARROK
+  * @rmtoll IER         ARROKIE       LL_LPTIM_IsEnabledIT_ARROK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
@@ -1444,7 +1453,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_ARROK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Enable direction change to up interrupt (UPIE).
-  * @rmtoll IER          UPIE          LL_LPTIM_EnableIT_UP
+  * @rmtoll IER         UPIE          LL_LPTIM_EnableIT_UP
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1455,7 +1464,7 @@ __STATIC_INLINE void LL_LPTIM_EnableIT_UP(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Disable direction change to up interrupt (UPIE).
-  * @rmtoll IER          UPIE          LL_LPTIM_DisableIT_UP
+  * @rmtoll IER         UPIE          LL_LPTIM_DisableIT_UP
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1466,7 +1475,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_UP(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Indicates whether the direction change to up interrupt (UPIE) is enabled.
-  * @rmtoll IER          UPIE          LL_LPTIM_IsEnabledIT_UP
+  * @rmtoll IER         UPIE          LL_LPTIM_IsEnabledIT_UP
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
@@ -1477,7 +1486,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UP(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Enable direction change to down interrupt (DOWNIE).
-  * @rmtoll IER          DOWNIE        LL_LPTIM_EnableIT_DOWN
+  * @rmtoll IER         DOWNIE        LL_LPTIM_EnableIT_DOWN
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1488,7 +1497,7 @@ __STATIC_INLINE void LL_LPTIM_EnableIT_DOWN(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Disable direction change to down interrupt (DOWNIE).
-  * @rmtoll IER          DOWNIE        LL_LPTIM_DisableIT_DOWN
+  * @rmtoll IER         DOWNIE        LL_LPTIM_DisableIT_DOWN
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1499,7 +1508,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_DOWN(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Indicates whether the direction change to down interrupt (DOWNIE) is enabled.
-  * @rmtoll IER          DOWNIE        LL_LPTIM_IsEnabledIT_DOWN
+  * @rmtoll IER         DOWNIE        LL_LPTIM_IsEnabledIT_DOWN
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
@@ -1511,7 +1520,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_DOWN(LPTIM_TypeDef *LPTIMx)
 #if defined(LPTIM_RCR_REP)
 /**
   * @brief  Enable repetition register update successfully completed interrupt (REPOKIE).
-  * @rmtoll IER          REPOKIE       LL_LPTIM_EnableIT_REPOK
+  * @rmtoll IER         REPOKIE       LL_LPTIM_EnableIT_REPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1522,7 +1531,7 @@ __STATIC_INLINE void LL_LPTIM_EnableIT_REPOK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Disable repetition register update successfully completed interrupt (REPOKIE).
-  * @rmtoll IER          REPOKIE       LL_LPTIM_DisableIT_REPOK
+  * @rmtoll IER         REPOKIE       LL_LPTIM_DisableIT_REPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1533,7 +1542,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_REPOK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Indicates whether the repetition register update successfully completed interrupt (REPOKIE) is enabled.
-  * @rmtoll IER          REPOKIE       LL_LPTIM_IsEnabledIT_REPOK
+  * @rmtoll IER         REPOKIE       LL_LPTIM_IsEnabledIT_REPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit(1 or 0).
   */
@@ -1544,7 +1553,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_REPOK(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Enable update event interrupt (UEIE).
-  * @rmtoll IER          UEIE          LL_LPTIM_EnableIT_UE
+  * @rmtoll IER         UEIE          LL_LPTIM_EnableIT_UE
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1555,7 +1564,7 @@ __STATIC_INLINE void LL_LPTIM_EnableIT_UE(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Disable update event interrupt (UEIE).
-  * @rmtoll IER          UEIE          LL_LPTIM_DisableIT_UE
+  * @rmtoll IER          UEIE         LL_LPTIM_DisableIT_UE
   * @param  LPTIMx Low-Power Timer instance
   * @retval None
   */
@@ -1566,7 +1575,7 @@ __STATIC_INLINE void LL_LPTIM_DisableIT_UE(LPTIM_TypeDef *LPTIMx)
 
 /**
   * @brief  Indicates whether the update event interrupt (UEIE) is enabled.
-  * @rmtoll IER          UEIE          LL_LPTIM_IsEnabledIT_UE
+  * @rmtoll IER         UEIE          LL_LPTIM_IsEnabledIT_UE
   * @param  LPTIMx Low-Power Timer instance
   *@ retval State of bit(1 or 0).
   */
@@ -1598,5 +1607,3 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_UE(LPTIM_TypeDef *LPTIMx)
 #endif
 
 #endif /* STM32L4xx_LL_LPTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

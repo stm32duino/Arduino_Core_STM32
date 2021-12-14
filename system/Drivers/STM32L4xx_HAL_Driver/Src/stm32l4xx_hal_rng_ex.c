@@ -11,13 +11,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -46,9 +45,10 @@
 /** @addtogroup RNGEx_Private_Defines
   * @{
   */
-/*  Health test control register information to use in CCM algorithm */
-#define RNG_HTCFG     0x00005A4EU /*!< for best latency and To be compliant with NIST */
-#define RNG_HTCFG_1   0x17590ABCU /*!< magic number */
+/*  Health test control register information to use in CCM algorithm are defined in CMSIS Device file.
+    - RNG_HTCFG : Default HTCR register value for best latency and NIST Compliance
+    - RNG_HTCFG_1 : Magic number value that must be written to RNG_HTCR register
+      immediately before reading or writing RNG_HTCR register */
 /**
   * @}
   */
@@ -126,51 +126,51 @@ HAL_StatusTypeDef HAL_RNGEx_SetConfig(RNG_HandleTypeDef *hrng, RNG_ConfigTypeDef
     /* Disable RNG */
     __HAL_RNG_DISABLE(hrng);
 
-  /* RNG CR register configuration. Set value in CR register for :
+    /* RNG CR register configuration. Set value in CR register for :
       -	NIST Compliance setting
       -	Clock divider value
       -	CONFIG 1, CONFIG 2 and CONFIG 3 values */
 
-  cr_value = (uint32_t) ( pConf->ClockDivider | pConf->NistCompliance
-             | (pConf->Config1 << RNG_CR_RNG_CONFIG1_Pos)
-             | (pConf->Config2 << RNG_CR_RNG_CONFIG2_Pos)
-             | (pConf->Config3 << RNG_CR_RNG_CONFIG3_Pos));
+    cr_value = (uint32_t) ( pConf->ClockDivider | pConf->NistCompliance
+               | (pConf->Config1 << RNG_CR_RNG_CONFIG1_Pos)
+               | (pConf->Config2 << RNG_CR_RNG_CONFIG2_Pos)
+               | (pConf->Config3 << RNG_CR_RNG_CONFIG3_Pos));
 
-  MODIFY_REG(hrng->Instance->CR, RNG_CR_NISTC | RNG_CR_CLKDIV | RNG_CR_RNG_CONFIG1
-                                 | RNG_CR_RNG_CONFIG2 | RNG_CR_RNG_CONFIG3,
-                                 (uint32_t) (RNG_CR_CONDRST | cr_value));
+    MODIFY_REG(hrng->Instance->CR, RNG_CR_NISTC | RNG_CR_CLKDIV | RNG_CR_RNG_CONFIG1
+                                   | RNG_CR_RNG_CONFIG2 | RNG_CR_RNG_CONFIG3,
+                                   (uint32_t) (RNG_CR_CONDRST | cr_value));
 
 #if defined(RNG_VER_3_2) || defined(RNG_VER_3_1) || defined(RNG_VER_3_0)
-/*!< magic number must be written immediately before to RNG_HTCRG */
-WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG_1);
-/* for best latency and to be compliant with NIST */
-WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG);
+    /*!< magic number must be written immediately before to RNG_HTCRG */
+    WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG_1);
+    /* for best latency and to be compliant with NIST */
+    WRITE_REG(hrng->Instance->HTCR, RNG_HTCFG);
 #endif
 
-  /* Writing bits CONDRST=0*/
-  CLEAR_BIT(hrng->Instance->CR, RNG_CR_CONDRST);
-  /* Get tick */
-  tickstart = HAL_GetTick();
+    /* Writing bits CONDRST=0*/
+    CLEAR_BIT(hrng->Instance->CR, RNG_CR_CONDRST);
+    /* Get tick */
+    tickstart = HAL_GetTick();
 
-  /* Wait for conditioning reset process to be completed */
-  while(HAL_IS_BIT_SET(hrng->Instance->CR, RNG_CR_CONDRST))
-  {
-    if((HAL_GetTick() - tickstart ) > RNG_TIMEOUT_VALUE)
+    /* Wait for conditioning reset process to be completed */
+    while(HAL_IS_BIT_SET(hrng->Instance->CR, RNG_CR_CONDRST))
     {
-      hrng->State = HAL_RNG_STATE_READY;
-      hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;
-      return HAL_ERROR;
+      if((HAL_GetTick() - tickstart ) > RNG_TIMEOUT_VALUE)
+      {
+        hrng->State = HAL_RNG_STATE_READY;
+        hrng->ErrorCode = HAL_RNG_ERROR_TIMEOUT;
+        return HAL_ERROR;
+      }
     }
-  }
 
-  /* Enable RNG */
-  __HAL_RNG_ENABLE(hrng);
+    /* Enable RNG */
+    __HAL_RNG_ENABLE(hrng);
 
-  /* Initialize the RNG state */
-  hrng->State = HAL_RNG_STATE_READY;
+    /* Initialize the RNG state */
+    hrng->State = HAL_RNG_STATE_READY;
 
-  /* function status */
-  status = HAL_OK;
+    /* function status */
+    status = HAL_OK;
   }
   else
   {
@@ -235,7 +235,7 @@ HAL_StatusTypeDef HAL_RNGEx_GetConfig(RNG_HandleTypeDef *hrng, RNG_ConfigTypeDef
 /**
   * @brief  RNG current configuration lock.
   * @note   This function allows to lock RNG peripheral configuration.
-  *         Once locked, HW RNG reset has to be perfomed prior any further
+  *         Once locked, HW RNG reset has to be performed prior any further
   *         configuration update.
   * @param  hrng pointer to a RNG_HandleTypeDef structure that contains
   *                the configuration information for RNG.
@@ -296,5 +296,3 @@ HAL_StatusTypeDef HAL_RNGEx_LockConfig(RNG_HandleTypeDef *hrng)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

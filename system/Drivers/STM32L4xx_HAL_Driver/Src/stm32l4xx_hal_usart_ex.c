@@ -8,6 +8,17 @@
   *           + Peripheral Control functions
   *
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                ##### USART peripheral extended features  #####
@@ -25,17 +36,6 @@
             starting RX/TX transfers.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -58,10 +58,10 @@
 /** @defgroup USARTEx_Private_Constants USARTEx Private Constants
   * @{
   */
-/* UART RX FIFO depth */
+/* USART RX FIFO depth */
 #define RX_FIFO_DEPTH 8U
 
-/* UART TX FIFO depth */
+/* USART TX FIFO depth */
 #define TX_FIFO_DEPTH 8U
 /**
   * @}
@@ -485,8 +485,8 @@ HAL_StatusTypeDef HAL_USARTEx_SetRxFifoThreshold(USART_HandleTypeDef *husart, ui
 
   return HAL_OK;
 }
-#endif /* USART_CR1_FIFOEN */
 
+#endif /* USART_CR1_FIFOEN */
 /**
   * @}
   */
@@ -526,10 +526,14 @@ static void USARTEx_SetNbDataToProcess(USART_HandleTypeDef *husart)
   {
     rx_fifo_depth = RX_FIFO_DEPTH;
     tx_fifo_depth = TX_FIFO_DEPTH;
-    rx_fifo_threshold = (uint8_t)((READ_BIT(husart->Instance->CR3, USART_CR3_RXFTCFG) >> USART_CR3_RXFTCFG_Pos) & 0xFFU);
-    tx_fifo_threshold = (uint8_t)((READ_BIT(husart->Instance->CR3, USART_CR3_TXFTCFG) >> USART_CR3_TXFTCFG_Pos) & 0xFFU);
-    husart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) / (uint16_t)denominator[tx_fifo_threshold];
-    husart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) / (uint16_t)denominator[rx_fifo_threshold];
+    rx_fifo_threshold = (uint8_t)((READ_BIT(husart->Instance->CR3,
+                                            USART_CR3_RXFTCFG) >> USART_CR3_RXFTCFG_Pos) & 0xFFU);
+    tx_fifo_threshold = (uint8_t)((READ_BIT(husart->Instance->CR3,
+                                            USART_CR3_TXFTCFG) >> USART_CR3_TXFTCFG_Pos) & 0xFFU);
+    husart->NbTxDataToProcess = ((uint16_t)tx_fifo_depth * numerator[tx_fifo_threshold]) /
+                                (uint16_t)denominator[tx_fifo_threshold];
+    husart->NbRxDataToProcess = ((uint16_t)rx_fifo_depth * numerator[rx_fifo_threshold]) /
+                                (uint16_t)denominator[rx_fifo_threshold];
   }
 }
 #endif /* USART_CR1_FIFOEN */
@@ -547,4 +551,3 @@ static void USARTEx_SetNbDataToProcess(USART_HandleTypeDef *husart)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -200,7 +211,7 @@
     The compilation define USE_HAL_SD_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
 
-    Use Functions @ref HAL_SD_RegisterCallback() to register a user callback,
+    Use Functions HAL_SD_RegisterCallback() to register a user callback,
     it allows to register following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -215,9 +226,9 @@
     This function takes as parameters the HAL peripheral handle, the Callback ID
     and a pointer to the user callback function.
     For specific callbacks TransceiverCallback use dedicated register callbacks:
-    respectively @ref HAL_SD_RegisterTransceiverCallback().
+    respectively HAL_SD_RegisterTransceiverCallback().
 
-    Use function @ref HAL_SD_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_SD_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function. It allows to reset following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -231,14 +242,14 @@
       (+) MspDeInitCallback  : SD MspDeInit.
     This function) takes as parameters the HAL peripheral handle and the Callback ID.
     For specific callbacks TransceiverCallback use dedicated unregister callbacks:
-    respectively @ref HAL_SD_UnRegisterTransceiverCallback().
+    respectively HAL_SD_UnRegisterTransceiverCallback().
 
-    By default, after the @ref HAL_SD_Init and if the state is HAL_SD_STATE_RESET
+    By default, after the HAL_SD_Init and if the state is HAL_SD_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions.
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_SD_Init
-    and @ref  HAL_SD_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_SD_Init and @ref HAL_SD_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_SD_Init
+    and HAL_SD_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_SD_Init and HAL_SD_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
     Callbacks can be registered/unregistered in READY state only.
@@ -246,25 +257,14 @@
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_SD_RegisterCallback before calling @ref HAL_SD_DeInit
-    or @ref HAL_SD_Init function.
+    using HAL_SD_RegisterCallback before calling HAL_SD_DeInit
+    or HAL_SD_Init function.
 
     When The compilation define USE_HAL_SD_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -289,7 +289,7 @@
   * @{
   */
 /* Frequencies used in the driver for clock divider calculation */
-#define SD_INIT_FREQ                   400000U   /* Initalization phase : 400 kHz max */
+#define SD_INIT_FREQ                   400000U   /* Initialization phase : 400 kHz max */
 #define SD_NORMAL_SPEED_FREQ           25000000U /* Normal speed phase : 25 MHz max */
 #define SD_HIGH_SPEED_FREQ             50000000U /* High speed phase : 50 MHz max */
 /**
@@ -484,7 +484,6 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
 HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 {
   uint32_t errorstate;
-  HAL_StatusTypeDef status;
   SD_InitTypeDef Init;
   uint32_t sdmmc_clk;
 
@@ -521,11 +520,7 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 #endif /* STM32L4P5xx || STM32L4Q5xx || STM32L4R5xx || STM32L4R7xx || STM32L4R9xx || STM32L4S5xx || STM32L4S7xx || STM32L4S9xx */
 
   /* Initialize SDMMC peripheral interface with default configuration */
-  status = SDMMC_Init(hsd->Instance, Init);
-  if(status != HAL_OK)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_Init(hsd->Instance, Init);
 
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
   /* Disable SDMMC Clock */
@@ -533,11 +528,7 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 #endif /* !STM32L4P5xx && !STM32L4Q5xx && !STM32L4R5xx && !STM32L4R7xx && !STM32L4R9xx && !STM32L4S5xx && !STM32L4S7xx && !STM32L4S9xx */
 
   /* Set Power State to ON */
-  status = SDMMC_PowerState_ON(hsd->Instance);
-  if(status != HAL_OK)
-  {
-    return HAL_ERROR;
-  }
+  (void)SDMMC_PowerState_ON(hsd->Instance);
 
 #if !defined(STM32L4P5xx) && !defined(STM32L4Q5xx) && !defined(STM32L4R5xx) && !defined(STM32L4R7xx) && !defined(STM32L4R9xx) && !defined(STM32L4S5xx) && !defined(STM32L4S7xx) && !defined(STM32L4S9xx)
   /* Enable SDMMC Clock */
@@ -604,7 +595,7 @@ HAL_StatusTypeDef HAL_SD_DeInit(SD_HandleTypeDef *hsd)
   hsd->State = HAL_SD_STATE_BUSY;
 
 #if defined(STM32L4P5xx) || defined(STM32L4Q5xx) || defined(STM32L4R5xx) || defined(STM32L4R7xx) || defined(STM32L4R9xx) || defined(STM32L4S5xx) || defined(STM32L4S7xx) || defined(STM32L4S9xx)
-  /* Desactivate the 1.8V Mode */
+  /* Deactivate the 1.8V Mode */
   if(hsd->Init.Transceiver == SDMMC_TRANSCEIVER_ENABLE)
   {
 #if defined (USE_HAL_SD_REGISTER_CALLBACKS) && (USE_HAL_SD_REGISTER_CALLBACKS == 1U)
@@ -2757,7 +2748,7 @@ HAL_StatusTypeDef HAL_SD_ConfigWideBusOperation(SD_HandleTypeDef *hsd, uint32_t 
 
       Init.Transceiver = hsd->Init.Transceiver;
 #else
-      if ((sdmmc_clk / (Init.ClockDiv + 2U)) > SD_NORMAL_SPEED_FREQ)
+      if ((sdmmc_clk / (hsd->Init.ClockDiv + 2U)) > SD_NORMAL_SPEED_FREQ)
       {
         Init.ClockDiv = ((sdmmc_clk / SD_NORMAL_SPEED_FREQ) - 2U);
       }
@@ -4138,11 +4129,7 @@ uint32_t SD_HighSpeed(SD_HandleTypeDef *hsd)
     sdmmc_datainitstructure.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
     sdmmc_datainitstructure.DPSM          = SDMMC_DPSM_ENABLE;
 
-    if ( SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure) != HAL_OK)
-    {
-      return (HAL_SD_ERROR_GENERAL_UNKNOWN_ERR);
-    }
-
+    (void)SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure);
 
     errorstate = SDMMC_CmdSwitch(hsd->Instance,SDMMC_SDR25_SWITCH_PATTERN);
     if(errorstate != HAL_SD_ERROR_NONE)
@@ -4252,10 +4239,7 @@ static uint32_t SD_UltraHighSpeed(SD_HandleTypeDef *hsd)
     sdmmc_datainitstructure.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
     sdmmc_datainitstructure.DPSM          = SDMMC_DPSM_ENABLE;
 
-    if ( SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure) != HAL_OK)
-    {
-      return (HAL_SD_ERROR_GENERAL_UNKNOWN_ERR);
-    }
+    (void)SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure);
 
     errorstate = SDMMC_CmdSwitch(hsd->Instance, SDMMC_SDR104_SWITCH_PATTERN);
     if(errorstate != HAL_SD_ERROR_NONE)
@@ -4381,10 +4365,7 @@ static uint32_t SD_DDR_Mode(SD_HandleTypeDef *hsd)
     sdmmc_datainitstructure.TransferMode  = SDMMC_TRANSFER_MODE_BLOCK;
     sdmmc_datainitstructure.DPSM          = SDMMC_DPSM_ENABLE;
 
-    if ( SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure) != HAL_OK)
-    {
-      return (HAL_SD_ERROR_GENERAL_UNKNOWN_ERR);
-    }
+    (void)SDMMC_ConfigData(hsd->Instance, &sdmmc_datainitstructure);
 
     errorstate = SDMMC_CmdSwitch(hsd->Instance, SDMMC_DDR50_SWITCH_PATTERN);
     if(errorstate != HAL_SD_ERROR_NONE)
@@ -4484,5 +4465,3 @@ static uint32_t SD_DDR_Mode(SD_HandleTypeDef *hsd)
   */
 
 #endif /* SDMMC1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
