@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -570,10 +569,10 @@ static const uint32_t REG_MASK_TAB_CPT[] =
   * @{
   * @brief Constants defining the source and event to be sent on the synchronization output.
   */
-#define LL_HRTIM_SYNCOUT_SRC_MASTER_START  0x00000000U                        /*!< A pulse is sent on the SYNCOUT output upon master timer start event */
-#define LL_HRTIM_SYNCOUT_SRC_MASTER_CMP1   (HRTIM_MCR_SYNC_SRC_0)                         /*!< A pulse is sent on the SYNCOUT output upon master timer compare 1 event*/
-#define LL_HRTIM_SYNCOUT_SRC_TIMA_START    (HRTIM_MCR_SYNC_SRC_1)                         /*!< A pulse is sent on the SYNCOUT output upon timer A start or reset events */
-#define LL_HRTIM_SYNCOUT_SRC_TIMA_CMP1     (HRTIM_MCR_SYNC_SRC_1 | HRTIM_MCR_SYNC_SRC_0)  /*!< A pulse is sent on the SYNCOUT output upon timer A compare 1 event */
+#define LL_HRTIM_SYNCOUT_SRC_MASTER_START  0x00000000U                                    /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon master timer start event      */
+#define LL_HRTIM_SYNCOUT_SRC_MASTER_CMP1   (HRTIM_MCR_SYNC_SRC_0)                         /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon master timer compare 1 event  */
+#define LL_HRTIM_SYNCOUT_SRC_TIMA_START    (HRTIM_MCR_SYNC_SRC_1)                         /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon timer A start or reset events */
+#define LL_HRTIM_SYNCOUT_SRC_TIMA_CMP1     (HRTIM_MCR_SYNC_SRC_1 | HRTIM_MCR_SYNC_SRC_0)  /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon timer A compare 1 event       */
 /**
   * @}
   */
@@ -3910,6 +3909,8 @@ __STATIC_INLINE uint32_t LL_HRTIM_TIM_IsEnabledHalfMode(HRTIM_TypeDef *HRTIMx, u
   * @brief  Enable the Re-Syncronisation Update.
   * @note   The update coming from adjacent timers (when MSTU, TAU, TBU, TCU, TDU, TEU, TFU bit is set)
   *         or from a software update (TxSWU bit) is taken into account on the following reset/roll-over.
+  * @note   LL_HRTIM_ForceUpdate must be called prior programming the syncrhonization mode to force
+  *         immediate update of the slave timer registers.
   * @rmtoll TIMxCR     RSYNCU         LL_HRTIM_TIM_EnableResyncUpdate
   * @param  HRTIMx High Resolution Timer instance
   * @param  Timer This parameter can be one of the following values:
@@ -13891,7 +13892,5 @@ ErrorStatus LL_HRTIM_DeInit(HRTIM_TypeDef* HRTIMx);
 #endif
 
 #endif /* STM32G4xx_LL_HRTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
 
 

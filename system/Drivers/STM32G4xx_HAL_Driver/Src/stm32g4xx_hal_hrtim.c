@@ -50,6 +50,18 @@
   *           + Waveform Timer Burst Status Get
   *           + Waveform Timer Push-Pull Status Get
   *           + Peripheral State Get
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ==============================================================================
                       ##### Simple mode v.s. waveform mode #####
@@ -71,6 +83,8 @@
        operates in waveform mode, all the HRTIM features are accessible without
        any restriction. HRTIM waveform modes are managed through the set of
        functions named HAL_HRTIM_Waveform<Function>
+
+==============================================================================
                       ##### How to use this driver #####
 ==============================================================================
     [..]
@@ -357,18 +371,6 @@
      callbacks are set to the corresponding weak functions.
 
   @endverbatim
-
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -1814,11 +1816,11 @@ HAL_StatusTypeDef HAL_HRTIM_SimpleOCStart_DMA(HRTIM_HandleTypeDef * hhrtim,
   /* Check the parameters */
   assert_param(IS_HRTIM_TIMER_OUTPUT(TimerIdx, OCChannel));
 
-  if((hhrtim->State == HAL_HRTIM_STATE_BUSY))
+  if(hhrtim->State == HAL_HRTIM_STATE_BUSY)
   {
      return HAL_BUSY;
   }
-  if((hhrtim->State == HAL_HRTIM_STATE_READY))
+  if(hhrtim->State == HAL_HRTIM_STATE_READY)
   {
     if((SrcAddr == 0U ) || (DestAddr == 0U ) || (Length == 0U))
     {
@@ -2458,11 +2460,11 @@ HAL_StatusTypeDef HAL_HRTIM_SimplePWMStart_DMA(HRTIM_HandleTypeDef * hhrtim,
   /* Check the parameters */
   assert_param(IS_HRTIM_TIMER_OUTPUT(TimerIdx, PWMChannel));
 
-  if((hhrtim->State == HAL_HRTIM_STATE_BUSY))
+  if(hhrtim->State == HAL_HRTIM_STATE_BUSY)
   {
      return HAL_BUSY;
   }
-  if((hhrtim->State == HAL_HRTIM_STATE_READY))
+  if(hhrtim->State == HAL_HRTIM_STATE_READY)
   {
     if((SrcAddr == 0U ) || (DestAddr == 0U ) || (Length == 0U))
     {
@@ -5024,6 +5026,15 @@ HAL_StatusTypeDef HAL_HRTIM_WaveformTimerConfig(HRTIM_HandleTypeDef * hhrtim,
   /* Force a software update */
   HRTIM_ForceRegistersUpdate(hhrtim, TimerIdx);
 
+  /* Configure slave timer update re-synchronization */
+  if ((TimerIdx != HRTIM_TIMERINDEX_MASTER)
+   && (pTimerCfg->UpdateGating == HRTIM_UPDATEGATING_INDEPENDENT))
+  {
+    MODIFY_REG(hhrtim->Instance->sTimerxRegs[TimerIdx].TIMxCR,
+               HRTIM_TIMCR_RSYNCU_Msk,
+               pTimerCfg->ReSyncUpdate << HRTIM_TIMCR_RSYNCU_Pos);
+  }
+
   hhrtim->State = HAL_HRTIM_STATE_READY;
 
   /* Process Unlocked */
@@ -6597,7 +6608,7 @@ HAL_StatusTypeDef HAL_HRTIM_WaveformCountStart_DMA(HRTIM_HandleTypeDef * hhrtim,
   /* Check the parameters */
   assert_param(IS_HRTIM_TIMERID(Timers));
 
-  if((hhrtim->State == HAL_HRTIM_STATE_BUSY))
+  if(hhrtim->State == HAL_HRTIM_STATE_BUSY)
   {
      return HAL_BUSY;
   }
@@ -7159,11 +7170,11 @@ HAL_StatusTypeDef HAL_HRTIM_BurstDMATransfer(HRTIM_HandleTypeDef *hhrtim,
   /* Check the parameters */
   assert_param(IS_HRTIM_TIMERINDEX(TimerIdx));
 
-  if((hhrtim->State == HAL_HRTIM_STATE_BUSY))
+  if(hhrtim->State == HAL_HRTIM_STATE_BUSY)
   {
      return HAL_BUSY;
   }
-  if((hhrtim->State == HAL_HRTIM_STATE_READY))
+  if(hhrtim->State == HAL_HRTIM_STATE_READY)
   {
     if((BurstBufferAddress == 0U ) || (BurstBufferLength == 0U))
     {
@@ -7625,6 +7636,9 @@ uint32_t HAL_HRTIM_WaveformGetOutputState(HRTIM_HandleTypeDef * hhrtim,
 
   /* Check parameters */
   assert_param(IS_HRTIM_TIMER_OUTPUT(TimerIdx, Output));
+
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(TimerIdx);
 
   /* Set output state according to output control status and output disable status */
   switch (Output)
@@ -9291,14 +9305,6 @@ static void  HRTIM_TimingUnitWaveform_Config(HRTIM_HandleTypeDef * hhrtim,
   /* Timing unit registers update handling */
   hrtim_timcr &= ~(HRTIM_TIMCR_UPDGAT);
   hrtim_timcr |= pTimerCfg->UpdateGating;
-
-  if (pTimerCfg->UpdateGating == HRTIM_UPDATEGATING_INDEPENDENT)
-  {
-    /* Timing unit Re-Synchronized Update */
-    hrtim_timcr &= ~(HRTIM_TIMCR_RSYNCU);
-    hrtim_timcr |= (pTimerCfg->ReSyncUpdate) << HRTIM_TIMCR_RSYNCU_Pos;
-  }
-
 
   /* Enable/Disable registers update on repetition */
   hrtim_timcr &= ~(HRTIM_TIMCR_TREPU);
@@ -11093,5 +11099,3 @@ static void HRTIM_BurstDMACplt(DMA_HandleTypeDef *hdma)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

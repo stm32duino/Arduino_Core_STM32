@@ -6,12 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -552,7 +552,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_CLEAR_ALRAF              Clear Alarm A flag
   * @retval None
   */
-#define __HAL_RTC_CLEAR_FLAG(__HANDLE__, __FLAG__)   (RTC->SCR = (__FLAG__))
+#define __HAL_RTC_CLEAR_FLAG(__HANDLE__, __FLAG__)   ((__HANDLE__)->Instance->SCR = (__FLAG__))
 
 
 /** @brief  Check whether the specified RTC flag is set or not.
@@ -587,14 +587,14 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_ENABLE(__HANDLE__)                      (RTC->CR |= (RTC_CR_WUTE))
+#define __HAL_RTC_WAKEUPTIMER_ENABLE(__HANDLE__)                      ((__HANDLE__)->Instance->CR |= (RTC_CR_WUTE))
 
 /**
   * @brief  Disable the RTC WakeUp Timer peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_DISABLE(__HANDLE__)                     (RTC->CR &= ~(RTC_CR_WUTE))
+#define __HAL_RTC_WAKEUPTIMER_DISABLE(__HANDLE__)                     ((__HANDLE__)->Instance->CR &= ~(RTC_CR_WUTE))
 
 /**
   * @brief  Enable the RTC WakeUpTimer interrupt.
@@ -604,7 +604,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_WUT WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_ENABLE_IT(__HANDLE__, __INTERRUPT__)    (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_WAKEUPTIMER_ENABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR |= (__INTERRUPT__))
 
 /**
   * @brief  Disable the RTC WakeUpTimer interrupt.
@@ -614,7 +614,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_WUT WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_DISABLE_IT(__HANDLE__, __INTERRUPT__)   (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_WAKEUPTIMER_DISABLE_IT(__HANDLE__, __INTERRUPT__)   ((__HANDLE__)->Instance->CR &= ~(__INTERRUPT__))
 
 
 /**
@@ -625,7 +625,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_WUT  WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_GET_IT(__HANDLE__, __INTERRUPT__)       ((((RTC->MISR)\
+#define __HAL_RTC_WAKEUPTIMER_GET_IT(__HANDLE__, __INTERRUPT__)       (((((__HANDLE__)->Instance->MISR)\
                                                                          & ((__INTERRUPT__)>> 12U)) != 0UL) ? 1UL : 0UL)
 /**
   * @brief  Check whether the specified RTC Wake Up timer interrupt has been enabled or not.
@@ -635,7 +635,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_WUT  WakeUpTimer interrupt
   * @retval None
   */
-#define __HAL_RTC_WAKEUPTIMER_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   ((((RTC->CR)\
+#define __HAL_RTC_WAKEUPTIMER_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)   (((((__HANDLE__)->Instance->CR)\
                                                                             & (__INTERRUPT__)) != 0UL) ? 1UL : 0UL)
 
 /**
@@ -722,14 +722,14 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TSE))
+#define __HAL_RTC_TIMESTAMP_ENABLE(__HANDLE__)                       ((__HANDLE__)->Instance->CR |= (RTC_CR_TSE))
 
 /**
   * @brief  Disable the RTC TimeStamp peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TSE))
+#define __HAL_RTC_TIMESTAMP_DISABLE(__HANDLE__)                      ((__HANDLE__)->Instance->CR &= ~(RTC_CR_TSE))
 
 /**
   * @brief  Enable the RTC TimeStamp interrupt.
@@ -739,7 +739,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_ENABLE_IT(__HANDLE__, __INTERRUPT__)     (RTC->CR |= (__INTERRUPT__))
+#define __HAL_RTC_TIMESTAMP_ENABLE_IT(__HANDLE__, __INTERRUPT__)     ((__HANDLE__)->Instance->CR |= (__INTERRUPT__))
 
 /**
   * @brief  Disable the RTC TimeStamp interrupt.
@@ -749,7 +749,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_DISABLE_IT(__HANDLE__, __INTERRUPT__)    (RTC->CR &= ~(__INTERRUPT__))
+#define __HAL_RTC_TIMESTAMP_DISABLE_IT(__HANDLE__, __INTERRUPT__)    ((__HANDLE__)->Instance->CR &= ~(__INTERRUPT__))
 
 /**
   * @brief  Check whether the specified RTC TimeStamp interrupt has occurred or not.
@@ -759,7 +759,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_GET_IT(__HANDLE__, __INTERRUPT__)        ((((RTC->MISR)\
+#define __HAL_RTC_TIMESTAMP_GET_IT(__HANDLE__, __INTERRUPT__)        (((((__HANDLE__)->Instance->MISR)\
                                                                         & ((__INTERRUPT__)>> 12U)) != 0U) ? 1UL : 0UL)
 /**
   * @brief  Check whether the specified RTC Time Stamp interrupt has been enabled or not.
@@ -769,7 +769,7 @@ with a frequency =  RTCCLK / 256   */
   *            @arg @ref RTC_IT_TS TimeStamp interrupt
   * @retval None
   */
-#define __HAL_RTC_TIMESTAMP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     ((((RTC->CR)\
+#define __HAL_RTC_TIMESTAMP_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)     (((((__HANDLE__)->Instance->CR)\
                                                                             & (__INTERRUPT__)) != 0U) ? 1UL : 0UL)
 
 /**
@@ -850,14 +850,14 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_INTERNAL_TIMESTAMP_ENABLE(__HANDLE__)                (RTC->CR |= (RTC_CR_ITSE))
+#define __HAL_RTC_INTERNAL_TIMESTAMP_ENABLE(__HANDLE__)                ((__HANDLE__)->Instance->CR |= (RTC_CR_ITSE))
 
 /**
   * @brief  Disable the RTC internal TimeStamp peripheral.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_INTERNAL_TIMESTAMP_DISABLE(__HANDLE__)               (RTC->CR &= ~(RTC_CR_ITSE))
+#define __HAL_RTC_INTERNAL_TIMESTAMP_DISABLE(__HANDLE__)               ((__HANDLE__)->Instance->CR &= ~(RTC_CR_ITSE))
 
 /**
   * @brief  Get the selected RTC Internal Time Stamps flag status.
@@ -884,28 +884,28 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPTS_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TAMPTS))
+#define __HAL_RTC_TAMPTS_ENABLE(__HANDLE__)                       ((__HANDLE__)->Instance->CR |= (RTC_CR_TAMPTS))
 
 /**
   * @brief  Disable the RTC TimeStamp on Tamper detection.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPTS_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TAMPTS))
+#define __HAL_RTC_TAMPTS_DISABLE(__HANDLE__)                      ((__HANDLE__)->Instance->CR &= ~(RTC_CR_TAMPTS))
 
 /**
   * @brief  Enable the RTC Tamper detection output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPOE_ENABLE(__HANDLE__)                       (RTC->CR |= (RTC_CR_TAMPOE))
+#define __HAL_RTC_TAMPOE_ENABLE(__HANDLE__)                       ((__HANDLE__)->Instance->CR |= (RTC_CR_TAMPOE))
 
 /**
   * @brief  Disable the RTC Tamper detection output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_TAMPOE_DISABLE(__HANDLE__)                      (RTC->CR &= ~(RTC_CR_TAMPOE))
+#define __HAL_RTC_TAMPOE_DISABLE(__HANDLE__)                      ((__HANDLE__)->Instance->CR &= ~(RTC_CR_TAMPOE))
 
 
 /**
@@ -923,14 +923,14 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CALIBRATION_OUTPUT_ENABLE(__HANDLE__)               (RTC->CR |= (RTC_CR_COE))
+#define __HAL_RTC_CALIBRATION_OUTPUT_ENABLE(__HANDLE__)               ((__HANDLE__)->Instance->CR |= (RTC_CR_COE))
 
 /**
   * @brief  Disable the calibration output.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CALIBRATION_OUTPUT_DISABLE(__HANDLE__)              (RTC->CR &= ~(RTC_CR_COE))
+#define __HAL_RTC_CALIBRATION_OUTPUT_DISABLE(__HANDLE__)              ((__HANDLE__)->Instance->CR &= ~(RTC_CR_COE))
 
 
 /**
@@ -938,14 +938,14 @@ with a frequency =  RTCCLK / 256   */
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CLOCKREF_DETECTION_ENABLE(__HANDLE__)               (RTC->CR |= (RTC_CR_REFCKON))
+#define __HAL_RTC_CLOCKREF_DETECTION_ENABLE(__HANDLE__)               ((__HANDLE__)->Instance->CR |= (RTC_CR_REFCKON))
 
 /**
   * @brief  Disable the clock reference detection.
   * @param  __HANDLE__ specifies the RTC handle.
   * @retval None
   */
-#define __HAL_RTC_CLOCKREF_DETECTION_DISABLE(__HANDLE__)              (RTC->CR &= ~(RTC_CR_REFCKON))
+#define __HAL_RTC_CLOCKREF_DETECTION_DISABLE(__HANDLE__)              ((__HANDLE__)->Instance->CR &= ~(RTC_CR_REFCKON))
 
 
 /**
@@ -1381,5 +1381,3 @@ uint32_t          HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupReg
 #endif
 
 #endif /* STM32G4xx_HAL_RTC_EX_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

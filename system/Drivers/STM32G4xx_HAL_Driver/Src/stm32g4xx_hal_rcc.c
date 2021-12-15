@@ -39,14 +39,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -83,9 +81,13 @@
 /** @defgroup RCC_Private_Macros RCC Private Macros
   * @{
   */
-#define MCO1_CLK_ENABLE()   __HAL_RCC_GPIOA_CLK_ENABLE()
-#define MCO1_GPIO_PORT        GPIOA
-#define MCO1_PIN              GPIO_PIN_8
+#define RCC_GET_MCO_GPIO_PIN(__RCC_MCOx__)   ((__RCC_MCOx__) & GPIO_PIN_MASK)
+
+#define RCC_GET_MCO_GPIO_AF(__RCC_MCOx__)    (((__RCC_MCOx__) & RCC_MCO_GPIOAF_MASK) >> RCC_MCO_GPIOAF_POS)
+
+#define RCC_GET_MCO_GPIO_INDEX(__RCC_MCOx__) (((__RCC_MCOx__) & RCC_MCO_GPIOPORT_MASK) >> RCC_MCO_GPIOPORT_POS)
+
+#define RCC_GET_MCO_GPIO_PORT(__RCC_MCOx__)  (AHB2PERIPH_BASE + ((0x00000400UL) * RCC_GET_MCO_GPIO_INDEX(__RCC_MCOx__)))
 
 #define RCC_PLL_OSCSOURCE_CONFIG(__HAL_RCC_PLLSOURCE__) \
             (MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC, (__HAL_RCC_PLLSOURCE__)))
@@ -961,11 +963,16 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   */
 
 /**
-  * @brief  Select the clock source to output on MCO pin(PA8).
-  * @note   PA8 should be configured in alternate function mode.
+  * @brief  Select the clock source to output on MCO pin(PA8/PG10).
+  * @note   PA8/PG10 should be configured in alternate function mode.
+  * @note   The default configuration of the GPIOG pin 10 (PG10) is set to reset mode (NRST pin)
+  *         and user shall set the NRST_MODE Bit in the FLASH OPTR register to be able to use it
+  *         as an MCO pin.
+  *         The @ref HAL_FLASHEx_OBProgram() API can be used to configure the NRST_MODE Bit value.
   * @param  RCC_MCOx  specifies the output direction for the clock source.
   *          For STM32G4xx family this parameter can have only one value:
-  *            @arg @ref RCC_MCO1  Clock source to output on MCO1 pin(PA8).
+  *            @arg @ref RCC_MCO_PA8  Clock source to output on MCO1 pin(PA8).
+  *            @arg @ref RCC_MCO_PG10  Clock source to output on MCO1 pin(PG10).
   * @param  RCC_MCOSource  specifies the clock source to output.
   *          This parameter can be one of the following values:
   *            @arg @ref RCC_MCO1SOURCE_NOCLOCK  MCO output disabled, no clock on MCO
@@ -987,29 +994,41 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(RCC_ClkInitTypeDef  *RCC_ClkInitStruct, ui
   */
 void HAL_RCC_MCOConfig(uint32_t RCC_MCOx, uint32_t RCC_MCOSource, uint32_t RCC_MCODiv)
 {
-  GPIO_InitTypeDef GPIO_InitStruct;
+  GPIO_InitTypeDef gpio_initstruct;
+  uint32_t mcoindex;
+  uint32_t mco_gpio_index;
+  GPIO_TypeDef * mco_gpio_port;
 
   /* Check the parameters */
   assert_param(IS_RCC_MCO(RCC_MCOx));
-  assert_param(IS_RCC_MCODIV(RCC_MCODiv));
-  assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
 
-  /* Prevent unused argument(s) compilation warning if no assert_param check */
-  UNUSED(RCC_MCOx);
+  /* Common GPIO init parameters */
+  gpio_initstruct.Mode      = GPIO_MODE_AF_PP;
+  gpio_initstruct.Speed     = GPIO_SPEED_FREQ_VERY_HIGH;
+  gpio_initstruct.Pull      = GPIO_NOPULL;
 
-  /* MCO Clock Enable */
-  MCO1_CLK_ENABLE();
+  /* Get MCOx selection */
+  mcoindex = RCC_MCOx & RCC_MCO_INDEX_MASK;
 
-  /* Configure the MCO1 pin in alternate function mode */
-  GPIO_InitStruct.Pin = MCO1_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Alternate = GPIO_AF0_MCO;
-  HAL_GPIO_Init(MCO1_GPIO_PORT, &GPIO_InitStruct);
+  /* Get MCOx GPIO Port */
+  mco_gpio_port = (GPIO_TypeDef *) RCC_GET_MCO_GPIO_PORT(RCC_MCOx);
 
-  /* Mask MCOSEL[] and MCOPRE[] bits then set MCO1 clock source and prescaler */
-  MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv));
+  /* MCOx Clock Enable */
+  mco_gpio_index = RCC_GET_MCO_GPIO_INDEX(RCC_MCOx);
+  SET_BIT(RCC->AHB2ENR, (1UL << mco_gpio_index ));
+
+  /* Configure the MCOx pin in alternate function mode */
+  gpio_initstruct.Pin = RCC_GET_MCO_GPIO_PIN(RCC_MCOx);
+  gpio_initstruct.Alternate = RCC_GET_MCO_GPIO_AF(RCC_MCOx);
+  HAL_GPIO_Init(mco_gpio_port, &gpio_initstruct);
+
+   if (mcoindex == RCC_MCO1_INDEX)
+  {
+    assert_param(IS_RCC_MCODIV(RCC_MCODiv));
+    assert_param(IS_RCC_MCO1SOURCE(RCC_MCOSource));
+    /* Mask MCOSEL[] and MCOPRE[] bits then set MCO clock source and prescaler */
+    MODIFY_REG(RCC->CFGR, (RCC_CFGR_MCOSEL | RCC_CFGR_MCOPRE), (RCC_MCOSource | RCC_MCODiv));
+  }
 }
 
 /**
@@ -1380,4 +1399,3 @@ static uint32_t RCC_GetSysClockFreqFromPLLSource(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

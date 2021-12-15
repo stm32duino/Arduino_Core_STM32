@@ -29,9 +29,6 @@
 </center>
 </div>
 </div>
-<h1 id="license">License</h1>
-<p>This software component is licensed by ST under Apache 2.0 license, the “License”; You may not use this component except in compliance with the License. You may obtain a copy of the License at:</p>
-<p><a href="https://opensource.org/licenses/Apache-2.0">https://opensource.org/licenses/Apache-2.0</a></p>
 <h1 id="purpose">Purpose</h1>
 <p>This driver provides the CMSIS device for the stm32g4xx products. This covers following series :</p>
 <ul>
@@ -51,14 +48,75 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true">V1.2.1 / 11-January-2021</label>
+<input type="checkbox" id="collapse-section1_2_2" checked aria-hidden="true"> <label for="collapse-section1_2_2" aria-hidden="true">V1.2.2 / 10-November-2021</label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <ul>
-<li>General updates to fix known defects and enhancements implementation</li>
+<li>General updates to fix known defects and enhancements implementation.</li>
 </ul>
 <h2 id="contents">Contents</h2>
+<table>
+<caption>Additional features<br />
+</caption>
+<thead>
+<tr class="header">
+<th>Headline</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>- General updates to fix known defects and enhancements implementation.</td>
+</tr>
+<tr class="even">
+<td>- All source files: update disclaimer to add reference to the new license agreement.</td>
+</tr>
+<tr class="odd">
+<td>- Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</td>
+</tr>
+<tr class="even">
+<td>- Add reset enable bits definitions for slave timers other than timer A.</td>
+</tr>
+<tr class="odd">
+<td>- Fix Doxygen grouping issues.</td>
+</tr>
+<tr class="even">
+<td>- Add new atomic register access macros in stm32g4xx.h file.</td>
+</tr>
+<tr class="odd">
+<td>- Remove extra TIM5 references in the stm32g471xx.h CMSIS file and add support to the TIM20.</td>
+</tr>
+</tbody>
+</table>
+<p>: Fixed bugs list<br />
+</p>
+<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<ul>
+<li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.50.4 + ST-Link</li>
+<li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.31 + ST-Link</li>
+<li>CubeIDE toolchain V1.6.0</li>
+</ul>
+<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<ul>
+<li>STM32G431xx, STM32G441xx devices</li>
+<li>STM32G471xx devices</li>
+<li>STM32G473xx, STM32G483xx devices</li>
+<li>STM32G474xx, STM32G484xx devices</li>
+<li>STM32G491xx, STM32G4A1xx devices</li>
+</ul>
+<p>Note: in the section above, main changes are highlighted in <strong>bold</strong> since previous release.</p>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1_2_1" aria-hidden="true"> <label for="collapse-section1_2_1" aria-hidden="true">V1.2.1 / 11-January-2021</label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<h3 id="maintenance-release-1">Maintenance release</h3>
+<ul>
+<li>General updates to fix known defects and enhancements implementation</li>
+</ul>
+<h2 id="contents-1">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -78,14 +136,14 @@
 </table>
 <p>: Fixed bugs list<br />
 </p>
-<h2 id="known-limitations">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.50.4</strong> + ST-Link</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain <strong>V5.31</strong> + ST-Link</li>
 <li>CubeIDE toolchain <strong>V1.6.0</strong></li>
 </ul>
-<h2 id="supported-devices-and-boards">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -99,13 +157,13 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_2_0" aria-hidden="true"> <label for="collapse-section1_2_0" aria-hidden="true">V1.2.0 / 26-June-2020</label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
-<h3 id="maintenance-release-1">Maintenance release</h3>
+<h2 id="main-changes-2">Main Changes</h2>
+<h3 id="maintenance-release-2">Maintenance release</h3>
 <ul>
 <li>Add support for STM32G491xx and STM32G4A1 devices</li>
 <li>General updates to fix known defects and enhancements implementation</li>
 </ul>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -131,14 +189,14 @@
 </table>
 <p>: Fixed bugs list<br />
 </p>
-<h2 id="known-limitations-1">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-1">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain <strong>V8.40.1</strong></li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
 <li>STM32CubeIDE toolchain V1.3.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-1">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -152,10 +210,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_1" aria-hidden="true"> <label for="collapse-section1_1_1" aria-hidden="true">V1.1.1 / 14-February-2020</label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
-<h3 id="maintenance-release-2">Maintenance release</h3>
+<h2 id="main-changes-3">Main Changes</h2>
+<h3 id="maintenance-release-3">Maintenance release</h3>
 <p>General updates to fix known defects and enhancements implementation</p>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -187,14 +245,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-2">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-2">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.32.3</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.27.1</li>
 <li>STM32CubeIDE toolchain V1.3.0</li>
 </ul>
-<h2 id="supported-devices-and-boards-2">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -207,10 +265,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_1_0" aria-hidden="true"> <label for="collapse-section1_1_0" aria-hidden="true">V1.1.0 / 28-June-2019</label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
-<h3 id="maintenance-release-3">Maintenance release</h3>
+<h2 id="main-changes-4">Main Changes</h2>
+<h3 id="maintenance-release-4">Maintenance release</h3>
 <p>Maintenance release of CMSIS Devices drivers supporting STM32G431xx, STM32G441xx, STM32G471xx, STM32G473xx, <strong>STM32G483xx</strong>, STM32G474xx and STM32G484xx devices</p>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <table>
 <caption>Additional features<br />
 </caption>
@@ -251,14 +309,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="known-limitations-3">Known Limitations</h2>
-<h2 id="development-toolchains-and-compilers-3">Development Toolchains and Compilers</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-3">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>
@@ -271,12 +329,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section1_0_0" aria-hidden="true"> <label for="collapse-section1_0_0" aria-hidden="true">V1.0.0 / 12-April-2019</label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release for STM32G4xx devices</p>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <p>CMSIS devices files for STM32G431xx, STM32G441xx, STM32G471xx, STM32G473xx, STM32G474xx and STM32G484xx.</p>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <table>
 <thead>
 <tr class="header">
@@ -289,13 +347,13 @@
 </tr>
 </tbody>
 </table>
-<h2 id="development-toolchains-and-compilers-4">Development Toolchains and Compilers</h2>
+<h2 id="development-toolchains-and-compilers-5">Development Toolchains and Compilers</h2>
 <ul>
 <li>IAR Embedded Workbench for ARM (EWARM) toolchain V8.20.2</li>
 <li>RealView Microcontroller Development Kit (MDK-ARM) toolchain V5.25</li>
 <li>System Workbench STM32 (SW4STM32) toolchain V2.7.2</li>
 </ul>
-<h2 id="supported-devices-and-boards-4">Supported Devices and boards</h2>
+<h2 id="supported-devices-and-boards-5">Supported Devices and boards</h2>
 <ul>
 <li>STM32G431xx, STM32G441xx devices</li>
 <li>STM32G471xx devices</li>

@@ -7,18 +7,17 @@
   *          This file contains:
   *           - Data structures and the address mapping for all peripherals
   *           - Peripheral's registers declarations and bits definition
-  *           - Macros to access peripheral’s registers hardware
+  *           - Macros to access peripheral's registers hardware
   *
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -45,11 +44,11 @@
 /**
   * @brief Configuration of the Cortex-M4 Processor and Core Peripherals
    */
-#define __CM4_REV                 0x0001  /*!< Cortex-M4 revision r0p1                       */
-#define __MPU_PRESENT             1       /*!< STM32G4XX provides an MPU                     */
-#define __NVIC_PRIO_BITS          4       /*!< STM32G4XX uses 4 Bits for the Priority Levels */
-#define __Vendor_SysTickConfig    0       /*!< Set to 1 if different SysTick Config is used  */
-#define __FPU_PRESENT             1       /*!< FPU present                                   */
+#define __CM4_REV                 0x0001U  /*!< Cortex-M4 revision r0p1                       */
+#define __MPU_PRESENT             1U       /*!< STM32G4XX provides an MPU                     */
+#define __NVIC_PRIO_BITS          4U       /*!< STM32G4XX uses 4 Bits for the Priority Levels */
+#define __Vendor_SysTickConfig    0U       /*!< Set to 1 if different SysTick Config is used  */
+#define __FPU_PRESENT             1U       /*!< FPU present                                   */
 
 /**
   * @}
@@ -1525,6 +1524,15 @@ typedef struct {
 /** @addtogroup Exported_constants
   * @{
   */
+
+  /** @addtogroup Hardware_Constant_Definition
+    * @{
+    */
+#define LSI_STARTUP_TIME 130U /*!< LSI Maximum startup time in us */
+
+  /**
+    * @}
+    */
 
 /** @addtogroup Peripheral_Registers_Bits_Definition
   * @{
@@ -8268,6 +8276,8 @@ typedef struct {
 #define HRTIM_RSTR_EXTEVNT10_Pos      (18U)
 #define HRTIM_RSTR_EXTEVNT10_Msk      (0x1UL << HRTIM_RSTR_EXTEVNT10_Pos)      /*!< 0x00040000 */
 #define HRTIM_RSTR_EXTEVNT10          HRTIM_RSTR_EXTEVNT10_Msk                 /*!< External event 10 */
+
+/* Slave Timer A reset enable bits upon other slave timers events */
 #define HRTIM_RSTR_TIMBCMP1_Pos       (19U)
 #define HRTIM_RSTR_TIMBCMP1_Msk       (0x1UL << HRTIM_RSTR_TIMBCMP1_Pos)       /*!< 0x00080000 */
 #define HRTIM_RSTR_TIMBCMP1           HRTIM_RSTR_TIMBCMP1_Msk                  /*!< Timer B compare 1 */
@@ -8277,6 +8287,7 @@ typedef struct {
 #define HRTIM_RSTR_TIMBCMP4_Pos       (21U)
 #define HRTIM_RSTR_TIMBCMP4_Msk       (0x1UL << HRTIM_RSTR_TIMBCMP4_Pos)       /*!< 0x00200000 */
 #define HRTIM_RSTR_TIMBCMP4           HRTIM_RSTR_TIMBCMP4_Msk                  /*!< Timer B compare 4 */
+
 #define HRTIM_RSTR_TIMCCMP1_Pos       (22U)
 #define HRTIM_RSTR_TIMCCMP1_Msk       (0x1UL << HRTIM_RSTR_TIMCCMP1_Pos)       /*!< 0x00400000 */
 #define HRTIM_RSTR_TIMCCMP1           HRTIM_RSTR_TIMCCMP1_Msk                  /*!< Timer C compare 1 */
@@ -8286,6 +8297,7 @@ typedef struct {
 #define HRTIM_RSTR_TIMCCMP4_Pos       (24U)
 #define HRTIM_RSTR_TIMCCMP4_Msk       (0x1UL << HRTIM_RSTR_TIMCCMP4_Pos)       /*!< 0x01000000 */
 #define HRTIM_RSTR_TIMCCMP4           HRTIM_RSTR_TIMCCMP4_Msk                  /*!< Timer C compare 4 */
+
 #define HRTIM_RSTR_TIMDCMP1_Pos       (25U)
 #define HRTIM_RSTR_TIMDCMP1_Msk       (0x1UL << HRTIM_RSTR_TIMDCMP1_Pos)       /*!< 0x02000000 */
 #define HRTIM_RSTR_TIMDCMP1           HRTIM_RSTR_TIMDCMP1_Msk                  /*!< Timer D compare 1 */
@@ -8295,6 +8307,7 @@ typedef struct {
 #define HRTIM_RSTR_TIMDCMP4_Pos       (27U)
 #define HRTIM_RSTR_TIMDCMP4_Msk       (0x1UL << HRTIM_RSTR_TIMDCMP4_Pos)       /*!< 0x08000000 */
 #define HRTIM_RSTR_TIMDCMP4           HRTIM_RSTR_TIMDCMP4_Msk                  /*!< Timer D compare 4 */
+
 #define HRTIM_RSTR_TIMECMP1_Pos       (28U)
 #define HRTIM_RSTR_TIMECMP1_Msk       (0x1UL << HRTIM_RSTR_TIMECMP1_Pos)       /*!< 0x10000000 */
 #define HRTIM_RSTR_TIMECMP1           HRTIM_RSTR_TIMECMP1_Msk                  /*!< Timer E compare 1 */
@@ -8304,9 +8317,235 @@ typedef struct {
 #define HRTIM_RSTR_TIMECMP4_Pos       (30U)
 #define HRTIM_RSTR_TIMECMP4_Msk       (0x1UL << HRTIM_RSTR_TIMECMP4_Pos)       /*!< 0x40000000 */
 #define HRTIM_RSTR_TIMECMP4           HRTIM_RSTR_TIMECMP4_Msk                  /*!< Timer E compare 4 */
+
 #define HRTIM_RSTR_TIMFCMP2_Pos       (31U)
 #define HRTIM_RSTR_TIMFCMP2_Msk       (0x1UL << HRTIM_RSTR_TIMFCMP2_Pos)       /*!< 0x80000000 */
 #define HRTIM_RSTR_TIMFCMP2           HRTIM_RSTR_TIMFCMP2_Msk                  /*!< Timer F compare 2 */
+
+/* Slave Timer B reset enable bits upon other slave timers events */
+#define HRTIM_RSTBR_TIMACMP1_Pos       (19U)
+#define HRTIM_RSTBR_TIMACMP1_Msk       (0x1UL << HRTIM_RSTBR_TIMACMP1_Pos)        /*!< 0x00080000 */
+#define HRTIM_RSTBR_TIMACMP1           HRTIM_RSTBR_TIMACMP1_Msk                  /*!< Timer A compare 1 */
+#define HRTIM_RSTBR_TIMACMP2_Pos       (20U)
+#define HRTIM_RSTBR_TIMACMP2_Msk       (0x1UL << HRTIM_RSTBR_TIMACMP2_Pos)        /*!< 0x00100000 */
+#define HRTIM_RSTBR_TIMACMP2           HRTIM_RSTBR_TIMACMP2_Msk                  /*!< Timer A compare 2 */
+#define HRTIM_RSTBR_TIMACMP4_Pos       (21U)
+#define HRTIM_RSTBR_TIMACMP4_Msk       (0x1UL << HRTIM_RSTBR_TIMACMP4_Pos)        /*!< 0x00200000 */
+#define HRTIM_RSTBR_TIMACMP4           HRTIM_RSTBR_TIMACMP4_Msk                  /*!< Timer A compare 4 */
+
+#define HRTIM_RSTBR_TIMCCMP1_Pos       (22U)
+#define HRTIM_RSTBR_TIMCCMP1_Msk       (0x1UL << HRTIM_RSTBR_TIMCCMP1_Pos)        /*!< 0x00400000 */
+#define HRTIM_RSTBR_TIMCCMP1           HRTIM_RSTBR_TIMCCMP1_Msk                  /*!< Timer C compare 1 */
+#define HRTIM_RSTBR_TIMCCMP2_Pos       (23U)
+#define HRTIM_RSTBR_TIMCCMP2_Msk       (0x1UL << HRTIM_RSTBR_TIMCCMP2_Pos)        /*!< 0x00800000 */
+#define HRTIM_RSTBR_TIMCCMP2           HRTIM_RSTBR_TIMCCMP2_Msk                  /*!< Timer C compare 2 */
+#define HRTIM_RSTBR_TIMCCMP4_Pos       (24U)
+#define HRTIM_RSTBR_TIMCCMP4_Msk       (0x1UL << HRTIM_RSTBR_TIMCCMP4_Pos)        /*!< 0x01000000 */
+#define HRTIM_RSTBR_TIMCCMP4           HRTIM_RSTBR_TIMCCMP4_Msk                  /*!< Timer C compare 4 */
+
+#define HRTIM_RSTBR_TIMDCMP1_Pos       (25U)
+#define HRTIM_RSTBR_TIMDCMP1_Msk       (0x1UL << HRTIM_RSTBR_TIMDCMP1_Pos)        /*!< 0x02000000 */
+#define HRTIM_RSTBR_TIMDCMP1           HRTIM_RSTBR_TIMDCMP1_Msk                  /*!< Timer D compare 1 */
+#define HRTIM_RSTBR_TIMDCMP2_Pos       (26U)
+#define HRTIM_RSTBR_TIMDCMP2_Msk       (0x1UL << HRTIM_RSTBR_TIMDCMP2_Pos)        /*!< 0x04000000 */
+#define HRTIM_RSTBR_TIMDCMP2           HRTIM_RSTBR_TIMDCMP2_Msk                  /*!< Timer D compare 2 */
+#define HRTIM_RSTBR_TIMDCMP4_Pos       (27U)
+#define HRTIM_RSTBR_TIMDCMP4_Msk       (0x1UL << HRTIM_RSTBR_TIMDCMP4_Pos)        /*!< 0x08000000 */
+#define HRTIM_RSTBR_TIMDCMP4           HRTIM_RSTBR_TIMDCMP4_Msk                  /*!< Timer D compare 4 */
+
+#define HRTIM_RSTBR_TIMECMP1_Pos       (28U)
+#define HRTIM_RSTBR_TIMECMP1_Msk       (0x1UL << HRTIM_RSTBR_TIMECMP1_Pos)        /*!< 0x10000000 */
+#define HRTIM_RSTBR_TIMECMP1           HRTIM_RSTBR_TIMECMP1_Msk                  /*!< Timer E compare 1 */
+#define HRTIM_RSTBR_TIMECMP2_Pos       (29U)
+#define HRTIM_RSTBR_TIMECMP2_Msk       (0x1UL << HRTIM_RSTBR_TIMECMP2_Pos)        /*!< 0x20000000 */
+#define HRTIM_RSTBR_TIMECMP2           HRTIM_RSTBR_TIMECMP2_Msk                  /*!< Timer E compare 2 */
+#define HRTIM_RSTBR_TIMECMP4_Pos       (30U)
+#define HRTIM_RSTBR_TIMECMP4_Msk       (0x1UL << HRTIM_RSTBR_TIMECMP4_Pos)        /*!< 0x40000000 */
+#define HRTIM_RSTBR_TIMECMP4           HRTIM_RSTBR_TIMECMP4_Msk                  /*!< Timer E compare 4 */
+
+#define HRTIM_RSTBR_TIMFCMP2_Pos       (31U)
+#define HRTIM_RSTBR_TIMFCMP2_Msk       (0x1UL << HRTIM_RSTBR_TIMFCMP2_Pos)       /*!< 0x80000000 */
+#define HRTIM_RSTBR_TIMFCMP2           HRTIM_RSTBR_TIMFCMP2_Msk                  /*!< Timer F compare 2 */
+
+/* Slave Timer C reset enable bits upon other slave timers events */
+#define HRTIM_RSTCR_TIMACMP1_Pos       (19U)
+#define HRTIM_RSTCR_TIMACMP1_Msk       (0x1UL << HRTIM_RSTCR_TIMACMP1_Pos)        /*!< 0x00080000 */
+#define HRTIM_RSTCR_TIMACMP1           HRTIM_RSTCR_TIMACMP1_Msk                  /*!< Timer A compare 1 */
+#define HRTIM_RSTCR_TIMACMP2_Pos       (20U)
+#define HRTIM_RSTCR_TIMACMP2_Msk       (0x1UL << HRTIM_RSTCR_TIMACMP2_Pos)        /*!< 0x00100000 */
+#define HRTIM_RSTCR_TIMACMP2           HRTIM_RSTCR_TIMACMP2_Msk                  /*!< Timer A compare 2 */
+#define HRTIM_RSTCR_TIMACMP4_Pos       (21U)
+#define HRTIM_RSTCR_TIMACMP4_Msk       (0x1UL << HRTIM_RSTCR_TIMACMP4_Pos)        /*!< 0x00200000 */
+#define HRTIM_RSTCR_TIMACMP4           HRTIM_RSTCR_TIMACMP4_Msk                  /*!< Timer A compare 4 */
+
+#define HRTIM_RSTCR_TIMBCMP1_Pos       (22U)
+#define HRTIM_RSTCR_TIMBCMP1_Msk       (0x1UL << HRTIM_RSTCR_TIMBCMP1_Pos)        /*!< 0x00400000 */
+#define HRTIM_RSTCR_TIMBCMP1           HRTIM_RSTCR_TIMBCMP1_Msk                  /*!< Timer B compare 1 */
+#define HRTIM_RSTCR_TIMBCMP2_Pos       (23U)
+#define HRTIM_RSTCR_TIMBCMP2_Msk       (0x1UL << HRTIM_RSTCR_TIMBCMP2_Pos)        /*!< 0x00800000 */
+#define HRTIM_RSTCR_TIMBCMP2           HRTIM_RSTCR_TIMBCMP2_Msk                  /*!< Timer B compare 2 */
+#define HRTIM_RSTCR_TIMBCMP4_Pos       (24U)
+#define HRTIM_RSTCR_TIMBCMP4_Msk       (0x1UL << HRTIM_RSTCR_TIMBCMP4_Pos)        /*!< 0x01000000 */
+#define HRTIM_RSTCR_TIMBCMP4           HRTIM_RSTCR_TIMBCMP4_Msk                  /*!< Timer B compare 4 */
+
+#define HRTIM_RSTCR_TIMDCMP1_Pos       (25U)
+#define HRTIM_RSTCR_TIMDCMP1_Msk       (0x1UL << HRTIM_RSTCR_TIMDCMP1_Pos)        /*!< 0x02000000 */
+#define HRTIM_RSTCR_TIMDCMP1           HRTIM_RSTCR_TIMDCMP1_Msk                  /*!< Timer D compare 1 */
+#define HRTIM_RSTCR_TIMDCMP2_Pos       (26U)
+#define HRTIM_RSTCR_TIMDCMP2_Msk       (0x1UL << HRTIM_RSTCR_TIMDCMP2_Pos)        /*!< 0x04000000 */
+#define HRTIM_RSTCR_TIMDCMP2           HRTIM_RSTCR_TIMDCMP2_Msk                  /*!< Timer D compare 2 */
+#define HRTIM_RSTCR_TIMDCMP4_Pos       (27U)
+#define HRTIM_RSTCR_TIMDCMP4_Msk       (0x1UL << HRTIM_RSTCR_TIMDCMP4_Pos)        /*!< 0x08000000 */
+#define HRTIM_RSTCR_TIMDCMP4           HRTIM_RSTCR_TIMDCMP4_Msk                  /*!< Timer D compare 4 */
+
+#define HRTIM_RSTCR_TIMECMP1_Pos       (28U)
+#define HRTIM_RSTCR_TIMECMP1_Msk       (0x1UL << HRTIM_RSTCR_TIMECMP1_Pos)        /*!< 0x10000000 */
+#define HRTIM_RSTCR_TIMECMP1           HRTIM_RSTCR_TIMECMP1_Msk                  /*!< Timer E compare 1 */
+#define HRTIM_RSTCR_TIMECMP2_Pos       (29U)
+#define HRTIM_RSTCR_TIMECMP2_Msk       (0x1UL << HRTIM_RSTCR_TIMECMP2_Pos)        /*!< 0x20000000 */
+#define HRTIM_RSTCR_TIMECMP2           HRTIM_RSTCR_TIMECMP2_Msk                  /*!< Timer E compare 2 */
+#define HRTIM_RSTCR_TIMECMP4_Pos       (30U)
+#define HRTIM_RSTCR_TIMECMP4_Msk       (0x1UL << HRTIM_RSTCR_TIMECMP4_Pos)        /*!< 0x40000000 */
+#define HRTIM_RSTCR_TIMECMP4           HRTIM_RSTCR_TIMECMP4_Msk                  /*!< Timer E compare 4 */
+
+#define HRTIM_RSTCR_TIMFCMP2_Pos       (31U)
+#define HRTIM_RSTCR_TIMFCMP2_Msk       (0x1UL << HRTIM_RSTCR_TIMFCMP2_Pos)       /*!< 0x80000000 */
+#define HRTIM_RSTCR_TIMFCMP2           HRTIM_RSTCR_TIMFCMP2_Msk                  /*!< Timer F compare 2 */
+
+/* Slave Timer D reset enable bits upon other slave timers events */
+#define HRTIM_RSTDR_TIMACMP1_Pos       (19U)
+#define HRTIM_RSTDR_TIMACMP1_Msk       (0x1UL << HRTIM_RSTDR_TIMACMP1_Pos)        /*!< 0x00080000 */
+#define HRTIM_RSTDR_TIMACMP1           HRTIM_RSTDR_TIMACMP1_Msk                  /*!< Timer A compare 1 */
+#define HRTIM_RSTDR_TIMACMP2_Pos       (20U)
+#define HRTIM_RSTDR_TIMACMP2_Msk       (0x1UL << HRTIM_RSTDR_TIMACMP2_Pos)        /*!< 0x00100000 */
+#define HRTIM_RSTDR_TIMACMP2           HRTIM_RSTDR_TIMACMP2_Msk                  /*!< Timer A compare 2 */
+#define HRTIM_RSTDR_TIMACMP4_Pos       (21U)
+#define HRTIM_RSTDR_TIMACMP4_Msk       (0x1UL << HRTIM_RSTDR_TIMACMP4_Pos)        /*!< 0x00200000 */
+#define HRTIM_RSTDR_TIMACMP4           HRTIM_RSTDR_TIMACMP4_Msk                  /*!< Timer A compare 4 */
+
+#define HRTIM_RSTDR_TIMBCMP1_Pos       (22U)
+#define HRTIM_RSTDR_TIMBCMP1_Msk       (0x1UL << HRTIM_RSTDR_TIMBCMP1_Pos)        /*!< 0x00400000 */
+#define HRTIM_RSTDR_TIMBCMP1           HRTIM_RSTDR_TIMBCMP1_Msk                  /*!< Timer B compare 1 */
+#define HRTIM_RSTDR_TIMBCMP2_Pos       (23U)
+#define HRTIM_RSTDR_TIMBCMP2_Msk       (0x1UL << HRTIM_RSTDR_TIMBCMP2_Pos)        /*!< 0x00800000 */
+#define HRTIM_RSTDR_TIMBCMP2           HRTIM_RSTDR_TIMBCMP2_Msk                  /*!< Timer B compare 2 */
+#define HRTIM_RSTDR_TIMBCMP4_Pos       (24U)
+#define HRTIM_RSTDR_TIMBCMP4_Msk       (0x1UL << HRTIM_RSTDR_TIMBCMP4_Pos)        /*!< 0x01000000 */
+#define HRTIM_RSTDR_TIMBCMP4           HRTIM_RSTDR_TIMBCMP4_Msk                  /*!< Timer B compare 4 */
+
+#define HRTIM_RSTDR_TIMCCMP1_Pos       (25U)
+#define HRTIM_RSTDR_TIMCCMP1_Msk       (0x1UL << HRTIM_RSTDR_TIMCCMP1_Pos)        /*!< 0x02000000 */
+#define HRTIM_RSTDR_TIMCCMP1           HRTIM_RSTDR_TIMCCMP1_Msk                  /*!< Timer C compare 1 */
+#define HRTIM_RSTDR_TIMCCMP2_Pos       (26U)
+#define HRTIM_RSTDR_TIMCCMP2_Msk       (0x1UL << HRTIM_RSTDR_TIMCCMP2_Pos)        /*!< 0x04000000 */
+#define HRTIM_RSTDR_TIMCCMP2           HRTIM_RSTDR_TIMCCMP2_Msk                  /*!< Timer C compare 2 */
+#define HRTIM_RSTDR_TIMCCMP4_Pos       (27U)
+#define HRTIM_RSTDR_TIMCCMP4_Msk       (0x1UL << HRTIM_RSTDR_TIMCCMP4_Pos)        /*!< 0x08000000 */
+#define HRTIM_RSTDR_TIMCCMP4           HRTIM_RSTDR_TIMCCMP4_Msk                  /*!< Timer C compare 4 */
+
+#define HRTIM_RSTDR_TIMECMP1_Pos       (28U)
+#define HRTIM_RSTDR_TIMECMP1_Msk       (0x1UL << HRTIM_RSTDR_TIMECMP1_Pos)        /*!< 0x10000000 */
+#define HRTIM_RSTDR_TIMECMP1           HRTIM_RSTDR_TIMECMP1_Msk                  /*!< Timer E compare 1 */
+#define HRTIM_RSTDR_TIMECMP2_Pos       (29U)
+#define HRTIM_RSTDR_TIMECMP2_Msk       (0x1UL << HRTIM_RSTDR_TIMECMP2_Pos)        /*!< 0x20000000 */
+#define HRTIM_RSTDR_TIMECMP2           HRTIM_RSTDR_TIMECMP2_Msk                  /*!< Timer E compare 2 */
+#define HRTIM_RSTDR_TIMECMP4_Pos       (30U)
+#define HRTIM_RSTDR_TIMECMP4_Msk       (0x1UL << HRTIM_RSTDR_TIMECMP4_Pos)        /*!< 0x40000000 */
+#define HRTIM_RSTDR_TIMECMP4           HRTIM_RSTDR_TIMECMP4_Msk                  /*!< Timer E compare 4 */
+
+#define HRTIM_RSTDR_TIMFCMP2_Pos       (31U)
+#define HRTIM_RSTDR_TIMFCMP2_Msk       (0x1UL << HRTIM_RSTDR_TIMFCMP2_Pos)       /*!< 0x80000000 */
+#define HRTIM_RSTDR_TIMFCMP2           HRTIM_RSTDR_TIMFCMP2_Msk                  /*!< Timer F compare 2 */
+
+/* Slave Timer E reset enable bits upon other slave timers events */
+#define HRTIM_RSTER_TIMACMP1_Pos       (19U)
+#define HRTIM_RSTER_TIMACMP1_Msk       (0x1UL << HRTIM_RSTER_TIMACMP1_Pos)        /*!< 0x00080000 */
+#define HRTIM_RSTER_TIMACMP1           HRTIM_RSTER_TIMACMP1_Msk                  /*!< Timer A compare 1 */
+#define HRTIM_RSTER_TIMACMP2_Pos       (20U)
+#define HRTIM_RSTER_TIMACMP2_Msk       (0x1UL << HRTIM_RSTER_TIMACMP2_Pos)        /*!< 0x00100000 */
+#define HRTIM_RSTER_TIMACMP2           HRTIM_RSTER_TIMACMP2_Msk                  /*!< Timer A compare 2 */
+#define HRTIM_RSTER_TIMACMP4_Pos       (21U)
+#define HRTIM_RSTER_TIMACMP4_Msk       (0x1UL << HRTIM_RSTER_TIMACMP4_Pos)        /*!< 0x00200000 */
+#define HRTIM_RSTER_TIMACMP4           HRTIM_RSTER_TIMACMP4_Msk                  /*!< Timer A compare 4 */
+
+#define HRTIM_RSTER_TIMBCMP1_Pos       (22U)
+#define HRTIM_RSTER_TIMBCMP1_Msk       (0x1UL << HRTIM_RSTER_TIMBCMP1_Pos)        /*!< 0x00400000 */
+#define HRTIM_RSTER_TIMBCMP1           HRTIM_RSTER_TIMBCMP1_Msk                  /*!< Timer B compare 1 */
+#define HRTIM_RSTER_TIMBCMP2_Pos       (23U)
+#define HRTIM_RSTER_TIMBCMP2_Msk       (0x1UL << HRTIM_RSTER_TIMBCMP2_Pos)        /*!< 0x00800000 */
+#define HRTIM_RSTER_TIMBCMP2           HRTIM_RSTER_TIMBCMP2_Msk                  /*!< Timer B compare 2 */
+#define HRTIM_RSTER_TIMBCMP4_Pos       (24U)
+#define HRTIM_RSTER_TIMBCMP4_Msk       (0x1UL << HRTIM_RSTER_TIMBCMP4_Pos)        /*!< 0x01000000 */
+#define HRTIM_RSTER_TIMBCMP4           HRTIM_RSTER_TIMBCMP4_Msk                  /*!< Timer B compare 4 */
+
+#define HRTIM_RSTER_TIMCCMP1_Pos       (25U)
+#define HRTIM_RSTER_TIMCCMP1_Msk       (0x1UL << HRTIM_RSTER_TIMCCMP1_Pos)        /*!< 0x02000000 */
+#define HRTIM_RSTER_TIMCCMP1           HRTIM_RSTER_TIMCCMP1_Msk                  /*!< Timer C compare 1 */
+#define HRTIM_RSTER_TIMCCMP2_Pos       (26U)
+#define HRTIM_RSTER_TIMCCMP2_Msk       (0x1UL << HRTIM_RSTER_TIMCCMP2_Pos)        /*!< 0x04000000 */
+#define HRTIM_RSTER_TIMCCMP2           HRTIM_RSTER_TIMCCMP2_Msk                  /*!< Timer C compare 2 */
+#define HRTIM_RSTER_TIMCCMP4_Pos       (27U)
+#define HRTIM_RSTER_TIMCCMP4_Msk       (0x1UL << HRTIM_RSTER_TIMCCMP4_Pos)        /*!< 0x08000000 */
+#define HRTIM_RSTER_TIMCCMP4           HRTIM_RSTER_TIMCCMP4_Msk                  /*!< Timer C compare 4 */
+
+#define HRTIM_RSTER_TIMDCMP1_Pos       (28U)
+#define HRTIM_RSTER_TIMDCMP1_Msk       (0x1UL << HRTIM_RSTER_TIMDCMP1_Pos)        /*!< 0x10000000 */
+#define HRTIM_RSTER_TIMDCMP1           HRTIM_RSTER_TIMDCMP1_Msk                  /*!< Timer D compare 1 */
+#define HRTIM_RSTER_TIMDCMP2_Pos       (29U)
+#define HRTIM_RSTER_TIMDCMP2_Msk       (0x1UL << HRTIM_RSTER_TIMDCMP2_Pos)        /*!< 0x20000000 */
+#define HRTIM_RSTER_TIMDCMP2           HRTIM_RSTER_TIMDCMP2_Msk                  /*!< Timer D compare 2 */
+#define HRTIM_RSTER_TIMDCMP4_Pos       (30U)
+#define HRTIM_RSTER_TIMDCMP4_Msk       (0x1UL << HRTIM_RSTER_TIMDCMP4_Pos)        /*!< 0x40000000 */
+#define HRTIM_RSTER_TIMDCMP4           HRTIM_RSTER_TIMDCMP4_Msk                  /*!< Timer D compare 4 */
+
+#define HRTIM_RSTER_TIMFCMP2_Pos       (31U)
+#define HRTIM_RSTER_TIMFCMP2_Msk       (0x1UL << HRTIM_RSTER_TIMFCMP2_Pos)       /*!< 0x80000000 */
+#define HRTIM_RSTER_TIMFCMP2           HRTIM_RSTER_TIMFCMP2_Msk                  /*!< Timer F compare 2 */
+
+/* Slave Timer F reset enable bits upon other slave timers events */
+#define HRTIM_RSTFR_TIMACMP1_Pos       (19U)
+#define HRTIM_RSTFR_TIMACMP1_Msk       (0x1UL << HRTIM_RSTFR_TIMACMP1_Pos)        /*!< 0x00080000 */
+#define HRTIM_RSTFR_TIMACMP1           HRTIM_RSTFR_TIMACMP1_Msk                  /*!< Timer A compare 1 */
+#define HRTIM_RSTFR_TIMACMP2_Pos       (20U)
+#define HRTIM_RSTFR_TIMACMP2_Msk       (0x1UL << HRTIM_RSTFR_TIMACMP2_Pos)        /*!< 0x00100000 */
+#define HRTIM_RSTFR_TIMACMP2           HRTIM_RSTFR_TIMACMP2_Msk                  /*!< Timer A compare 2 */
+#define HRTIM_RSTFR_TIMACMP4_Pos       (21U)
+#define HRTIM_RSTFR_TIMACMP4_Msk       (0x1UL << HRTIM_RSTFR_TIMACMP4_Pos)        /*!< 0x00200000 */
+#define HRTIM_RSTFR_TIMACMP4           HRTIM_RSTFR_TIMACMP4_Msk                  /*!< Timer A compare 4 */
+
+#define HRTIM_RSTFR_TIMBCMP1_Pos       (22U)
+#define HRTIM_RSTFR_TIMBCMP1_Msk       (0x1UL << HRTIM_RSTFR_TIMBCMP1_Pos)        /*!< 0x00400000 */
+#define HRTIM_RSTFR_TIMBCMP1           HRTIM_RSTFR_TIMBCMP1_Msk                  /*!< Timer B compare 1 */
+#define HRTIM_RSTFR_TIMBCMP2_Pos       (23U)
+#define HRTIM_RSTFR_TIMBCMP2_Msk       (0x1UL << HRTIM_RSTFR_TIMBCMP2_Pos)        /*!< 0x00800000 */
+#define HRTIM_RSTFR_TIMBCMP2           HRTIM_RSTFR_TIMBCMP2_Msk                  /*!< Timer B compare 2 */
+#define HRTIM_RSTFR_TIMBCMP4_Pos       (24U)
+#define HRTIM_RSTFR_TIMBCMP4_Msk       (0x1UL << HRTIM_RSTFR_TIMBCMP4_Pos)        /*!< 0x01000000 */
+#define HRTIM_RSTFR_TIMBCMP4           HRTIM_RSTFR_TIMBCMP4_Msk                  /*!< Timer B compare 4 */
+
+#define HRTIM_RSTFR_TIMCCMP1_Pos       (25U)
+#define HRTIM_RSTFR_TIMCCMP1_Msk       (0x1UL << HRTIM_RSTFR_TIMCCMP1_Pos)        /*!< 0x02000000 */
+#define HRTIM_RSTFR_TIMCCMP1           HRTIM_RSTFR_TIMCCMP1_Msk                  /*!< Timer C compare 1 */
+#define HRTIM_RSTFR_TIMCCMP2_Pos       (26U)
+#define HRTIM_RSTFR_TIMCCMP2_Msk       (0x1UL << HRTIM_RSTFR_TIMCCMP2_Pos)        /*!< 0x04000000 */
+#define HRTIM_RSTFR_TIMCCMP2           HRTIM_RSTFR_TIMCCMP2_Msk                  /*!< Timer C compare 2 */
+#define HRTIM_RSTFR_TIMCCMP4_Pos       (27U)
+#define HRTIM_RSTFR_TIMCCMP4_Msk       (0x1UL << HRTIM_RSTFR_TIMCCMP4_Pos)        /*!< 0x08000000 */
+#define HRTIM_RSTFR_TIMCCMP4           HRTIM_RSTFR_TIMCCMP4_Msk                  /*!< Timer C compare 4 */
+
+#define HRTIM_RSTFR_TIMDCMP1_Pos       (28U)
+#define HRTIM_RSTFR_TIMDCMP1_Msk       (0x1UL << HRTIM_RSTFR_TIMDCMP1_Pos)        /*!< 0x10000000 */
+#define HRTIM_RSTFR_TIMDCMP1           HRTIM_RSTFR_TIMDCMP1_Msk                  /*!< Timer D compare 1 */
+#define HRTIM_RSTFR_TIMDCMP2_Pos       (29U)
+#define HRTIM_RSTFR_TIMDCMP2_Msk       (0x1UL << HRTIM_RSTFR_TIMDCMP2_Pos)        /*!< 0x20000000 */
+#define HRTIM_RSTFR_TIMDCMP2           HRTIM_RSTFR_TIMDCMP2_Msk                  /*!< Timer D compare 2 */
+#define HRTIM_RSTFR_TIMDCMP4_Pos       (30U)
+#define HRTIM_RSTFR_TIMDCMP4_Msk       (0x1UL << HRTIM_RSTFR_TIMDCMP4_Pos)        /*!< 0x40000000 */
+#define HRTIM_RSTFR_TIMDCMP4           HRTIM_RSTFR_TIMDCMP4_Msk                  /*!< Timer D compare 4 */
+
+#define HRTIM_RSTFR_TIMECMP2_Pos       (31U)
+#define HRTIM_RSTFR_TIMECMP2_Msk       (0x1UL << HRTIM_RSTFR_TIMECMP2_Pos)       /*!< 0x80000000 */
+#define HRTIM_RSTFR_TIMECMP2           HRTIM_RSTFR_TIMECMP2_Msk                  /*!< Timer E compare 2 */
 
 /**** Bit definition for Slave Timer Chopper register *************************/
 #define HRTIM_CHPR_CARFRQ_Pos         (0U)
@@ -18121,4 +18360,3 @@ typedef struct {
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

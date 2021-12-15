@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2019 STMicroelectronics</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -880,7 +879,8 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 #define FLASH_SIZE                      ((((*((uint16_t *)FLASH_SIZE_DATA_REGISTER)) == 0xFFFFU)) ? (0x80UL << 10U) : \
                                         (((*((uint32_t *)FLASH_SIZE_DATA_REGISTER)) & 0xFFFFUL) << 10U))
 #define FLASH_BANK_SIZE                 (FLASH_SIZE)
-#define FLASH_PAGE_NB                   ((FLASH_SIZE == 0x00080000U) ? 256U : 64U)
+#define FLASH_PAGE_NB                   ((FLASH_SIZE == 0x00080000U) ? 256U : \
+                                        ((FLASH_SIZE == 0x00040000U) ? 128U : 64U))
 #endif
 
 #define FLASH_PAGE_SIZE                 0x800U  /* 2 KB */
@@ -1015,4 +1015,3 @@ HAL_StatusTypeDef  FLASH_WaitForLastOperation(uint32_t Timeout);
 
 #endif /* STM32G4xx_HAL_FLASH_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

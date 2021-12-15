@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1268,14 +1267,6 @@ HAL_FDCAN_StateTypeDef HAL_FDCAN_GetState(FDCAN_HandleTypeDef *hfdcan);
   */
 
 /* Private types -------------------------------------------------------------*/
-/** @defgroup FDCAN_Private_Types FDCAN Private Types
-  * @{
-  */
-
-/**
-  * @}
-  */
-
 /* Private variables ---------------------------------------------------------*/
 /** @defgroup FDCAN_Private_Variables FDCAN Private Variables
   * @{
@@ -1330,8 +1321,8 @@ HAL_FDCAN_StateTypeDef HAL_FDCAN_GetState(FDCAN_HandleTypeDef *hfdcan);
 #define IS_FDCAN_DATA_SJW(SJW) (((SJW) >= 1U) && ((SJW) <= 16U))
 #define IS_FDCAN_DATA_TSEG1(TSEG1) (((TSEG1) >= 1U) && ((TSEG1) <= 32U))
 #define IS_FDCAN_DATA_TSEG2(TSEG2) (((TSEG2) >= 1U) && ((TSEG2) <= 16U))
-#define IS_FDCAN_MAX_VALUE(VALUE, MAX) ((VALUE) <= (MAX))
-#define IS_FDCAN_MIN_VALUE(VALUE, MIN) ((VALUE) >= (MIN))
+#define IS_FDCAN_MAX_VALUE(VALUE, _MAX_) ((VALUE) <= (_MAX_))
+#define IS_FDCAN_MIN_VALUE(VALUE, _MIN_) ((VALUE) >= (_MIN_))
 #define IS_FDCAN_TX_FIFO_QUEUE_MODE(MODE) (((MODE) == FDCAN_TX_FIFO_OPERATION ) || \
                                            ((MODE) == FDCAN_TX_QUEUE_OPERATION))
 #define IS_FDCAN_ID_TYPE(ID_TYPE) (((ID_TYPE) == FDCAN_STANDARD_ID) || \
@@ -1420,22 +1411,8 @@ HAL_FDCAN_StateTypeDef HAL_FDCAN_GetState(FDCAN_HandleTypeDef *hfdcan);
   */
 
 /* Private functions prototypes ----------------------------------------------*/
-/** @defgroup FDCAN_Private_Functions_Prototypes FDCAN Private Functions Prototypes
-  * @{
-  */
-
-/**
-  * @}
-  */
-
 /* Private functions ---------------------------------------------------------*/
-/** @defgroup FDCAN_Private_Functions FDCAN Private Functions
-  * @{
-  */
 
-/**
-  * @}
-  */
 /**
   * @}
   */
@@ -1450,6 +1427,3 @@ HAL_FDCAN_StateTypeDef HAL_FDCAN_GetState(FDCAN_HandleTypeDef *hfdcan);
 #endif
 
 #endif /* STM32G4xx_HAL_FDCAN_H */
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

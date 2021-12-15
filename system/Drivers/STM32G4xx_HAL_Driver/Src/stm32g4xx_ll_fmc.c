@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### FMC peripheral features #####
@@ -39,17 +50,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -64,7 +64,7 @@
   * @brief FMC driver modules
   * @{
   */
-#if defined (HAL_SRAM_MODULE_ENABLED) || defined(HAL_NOR_MODULE_ENABLED) || defined(HAL_NAND_MODULE_ENABLED)
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 
@@ -87,15 +87,9 @@
 
 /* --- BWTR Register ---*/
 /* BWTR register clear mask */
-#if defined(FMC_BWTRx_BUSTURN)
 #define BWTR_CLEAR_MASK   ((uint32_t)(FMC_BWTRx_ADDSET | FMC_BWTRx_ADDHLD  |\
                                       FMC_BWTRx_DATAST | FMC_BWTRx_BUSTURN |\
                                       FMC_BWTRx_ACCMOD | FMC_BWTRx_DATAHLD))
-#else
-#define BWTR_CLEAR_MASK   ((uint32_t)(FMC_BWTRx_ADDSET | FMC_BWTRx_ADDHLD  |\
-                                      FMC_BWTRx_DATAST | FMC_BWTRx_ACCMOD  |\
-                                      FMC_BWTRx_DATAHLD))
-#endif /* FMC_BWTRx_BUSTURN */
 #endif /* FMC_BANK1 */
 #if defined(FMC_BANK3)
 
@@ -434,9 +428,7 @@ HAL_StatusTypeDef FMC_NORSRAM_Extended_Timing_Init(FMC_NORSRAM_EXTENDED_TypeDef 
     assert_param(IS_FMC_ADDRESS_HOLD_TIME(Timing->AddressHoldTime));
     assert_param(IS_FMC_DATASETUP_TIME(Timing->DataSetupTime));
     assert_param(IS_FMC_DATAHOLD_DURATION(Timing->DataHoldTime));
-#if defined(FMC_BWTRx_BUSTURN)
     assert_param(IS_FMC_TURNAROUND_TIME(Timing->BusTurnAroundDuration));
-#endif /* FMC_BWTRx_BUSTURN */
     assert_param(IS_FMC_ACCESS_MODE(Timing->AccessMode));
     assert_param(IS_FMC_NORSRAM_BANK(Bank));
 
@@ -445,12 +437,8 @@ HAL_StatusTypeDef FMC_NORSRAM_Extended_Timing_Init(FMC_NORSRAM_EXTENDED_TypeDef 
                                                      ((Timing->AddressHoldTime)        << FMC_BWTRx_ADDHLD_Pos)  |
                                                      ((Timing->DataSetupTime)          << FMC_BWTRx_DATAST_Pos)  |
                                                      ((Timing->DataHoldTime)           << FMC_BWTRx_DATAHLD_Pos) |
-#if defined(FMC_BWTRx_BUSTURN)
                                                      Timing->AccessMode                                          |
                                                      ((Timing->BusTurnAroundDuration)  << FMC_BWTRx_BUSTURN_Pos)));
-#else
-                                                     Timing->AccessMode));
-#endif /* FMC_BWTRx_BUSTURN */
   }
   else
   {
@@ -803,7 +791,7 @@ HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, ui
 /**
   * @}
   */
-#endif /* HAL_SRAM_MODULE_ENABLED || HAL_NOR_MODULE_ENABLED || HAL_NAND_MODULE_ENABLED */
+
 /**
   * @}
   */
@@ -815,5 +803,3 @@ HAL_StatusTypeDef FMC_NAND_GetECC(FMC_NAND_TypeDef *Device, uint32_t *ECCval, ui
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
