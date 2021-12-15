@@ -580,10 +580,14 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
            (HCLK) and the supply voltage of the device */
         if (pRCC_OscInitStruct->MSIClockRange > __HAL_RCC_GET_MSI_RANGE())
         {
-          /* First increase number of wait states update if necessary */
-          if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
+          /* Decrease number of wait states update if necessary */
+          /* Only possible when MSI is the System clock source  */
+          if(sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
           {
-            return HAL_ERROR;
+            if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
+            {
+              return HAL_ERROR;
+            }
           }
 
           /* Selects the Multiple Speed oscillator (MSI) clock range */
@@ -601,10 +605,12 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
           __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST((pRCC_OscInitStruct->MSICalibrationValue), \
                                                 (pRCC_OscInitStruct->MSIClockRange));
 
-          /* Decrease number of wait states update if necessary */
-          if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
+          if(sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
           {
-            return HAL_ERROR;
+            if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
+            {
+              return HAL_ERROR;
+            }
           }
         }
 

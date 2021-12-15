@@ -3227,14 +3227,12 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonPathInternalCh(ADC_Common_TypeDef *ADCx
   *         ADC state:
   *         ADC must be enabled, without calibration on going, without conversion
   *         on going on group regular.
-  * @rmtoll CALFACT  CALFACT_S      LL_ADC_SetCalibrationOffsetFactor
-  *         CALFACT  CALFACT_D      LL_ADC_SetCalibrationOffsetFactor
   * @param  ADCx ADC instance
   * @param  SingleDiff This parameter can be one of the following values:
   *         @arg @ref LL_ADC_SINGLE_ENDED
   *         @arg @ref LL_ADC_DIFFERENTIAL_ENDED
   *         @arg @ref LL_ADC_BOTH_SINGLE_DIFF_ENDED
-  * @param  CalibrationFactor Value between Min_Data=0x00 and Max_Data=0x7F
+  * @param  CalibrationFactor Value between Min_Data=0x0000 and Max_Data=0xFFFF
   * @retval None
   */
 __STATIC_INLINE void LL_ADC_SetCalibrationOffsetFactor(ADC_TypeDef *ADCx, uint32_t SingleDiff,
@@ -3243,7 +3241,7 @@ __STATIC_INLINE void LL_ADC_SetCalibrationOffsetFactor(ADC_TypeDef *ADCx, uint32
   if (ADCx == ADC1)
   {
     CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF | ADC_CALFACT_CAPTURE_COEF);
-    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, 0UL);  /* CalibIndex == 0*/
+    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, (0UL << ADC_CR_CALINDEX0_Pos));  /* CalibIndex == 0*/
     MODIFY_REG(ADCx->CALFACT2,
                SingleDiff & ADC_SINGLEDIFF_CALIB_FACTOR_MASK,
                CalibrationFactor << (((SingleDiff & ADC_SINGLEDIFF_CALIB_F_BIT_D_MASK)    \
@@ -3268,13 +3266,11 @@ __STATIC_INLINE void LL_ADC_SetCalibrationOffsetFactor(ADC_TypeDef *ADCx, uint32
   *         single-ended and differential modes
   *         Calibration of linearity is common to both
   *         single-ended and differential modes
-  * @rmtoll CALFACT  CALFACT_S      LL_ADC_GetCalibrationOffsetFactor
-  *         CALFACT  CALFACT_D      LL_ADC_GetCalibrationOffsetFactor
   * @param  ADCx ADC instance
   * @param  SingleDiff This parameter can be one of the following values:
   *         @arg @ref LL_ADC_SINGLE_ENDED
   *         @arg @ref LL_ADC_DIFFERENTIAL_ENDED
-  * @retval Value between Min_Data=0x00 and Max_Data=0x7F
+  * @retval Value between Min_Data=0x0000 and Max_Data=0xFFFF
   */
 __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, uint32_t SingleDiff)
 {
@@ -3285,9 +3281,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetCalibrationOffsetFactor(ADC_TypeDef *ADCx, ui
   if (ADCx == ADC1)
   {
     uint32_t temp_CalibOffset;
-    SET_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
-    CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF);
-    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, 0UL);  /* CalibIndex == 0*/
+    MODIFY_REG(ADCx->CALFACT, ADC_CALFACT_LATCH_COEF, ADC_CALFACT_CAPTURE_COEF);
+    MODIFY_REG(ADCx->CR, ADC_CR_ADCALLIN, (0UL << ADC_CR_CALINDEX0_Pos));  /* CalibIndex == 0*/
     temp_CalibOffset = (READ_BIT(ADCx->CALFACT2, (SingleDiff & ADC_SINGLEDIFF_CALIB_FACTOR_MASK)) \
                         >> ((SingleDiff & ADC_SINGLEDIFF_CALIB_F_BIT_D_MASK) >> ADC_SINGLEDIFF_CALIB_F_BIT_D_SHIFT4));
     CLEAR_BIT(ADCx->CALFACT, ADC_CALFACT_CAPTURE_COEF);
@@ -4563,7 +4558,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(ADC_TypeDef *ADCx)
     /* Parse register for end of sequence identifier */
     /* Note: Value "0xF0UL" corresponds to bitfield of sequencer 2nd rank
              (ADC_CHSELR_SQ2), value "4" to length of end of sequence
-             indentifier (0xF)*/
+             identifier (0xF)*/
     for (rank_index = 0UL; rank_index <= (28U - 4U); rank_index += 4U)
     {
       rank_shifted = (uint32_t)(0xF0UL << rank_index);

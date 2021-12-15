@@ -759,7 +759,8 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
 #define DMA_CHANNEL_ATTR_SEC_MASK      (0x00000020U) /* DMA channel secure mask                  */
 #define DMA_CHANNEL_ATTR_SEC_SRC_MASK  (0x00000040U) /* DMA channel source secure mask           */
 #define DMA_CHANNEL_ATTR_SEC_DEST_MASK (0x00000080U) /* DMA channel destination secure mask      */
-#define DMA_CHANNEL_ATTR_MASK          (0xFFFFFFF0U) /* DMA channel attributes mask              */
+#define DMA_CHANNEL_ATTR_VALUE_MASK    (0x0000000FU) /* DMA channel attributes value mask        */
+#define DMA_CHANNEL_ATTR_ITEM_MASK     (0x000000F0U) /* DMA channel attributes item mask         */
 #define DMA_CHANNEL_BURST_MIN          (0x00000001U) /* DMA channel minimum burst size           */
 #define DMA_CHANNEL_BURST_MAX          (0x00000040U) /* DMA channel maximum burst size           */
 /**
@@ -839,9 +840,10 @@ HAL_StatusTypeDef HAL_DMA_GetLockChannelAttributes(DMA_HandleTypeDef const *cons
   (((SIZE) > 0U) && ((SIZE) <= DMA_CBR1_BNDT))
 
 #if defined (__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
-#define IS_DMA_ATTRIBUTES(ATTRIBUTE)                                                                     \
-  (((((~((ATTRIBUTE) & DMA_CHANNEL_ATTR_MASK)) >> 4U) & ((ATTRIBUTE) & DMA_CHANNEL_ATTR_MASK)) == 0U) && \
-   ((ATTRIBUTE) != 0U))
+#define IS_DMA_ATTRIBUTES(ATTRIBUTE)                                                                               \
+  (((ATTRIBUTE) != 0U) && (((ATTRIBUTE) & (~(DMA_CHANNEL_ATTR_VALUE_MASK | DMA_CHANNEL_ATTR_ITEM_MASK))) == 0U) && \
+   (((((ATTRIBUTE) & DMA_CHANNEL_ATTR_ITEM_MASK) >> 4U) | ((ATTRIBUTE) & DMA_CHANNEL_ATTR_VALUE_MASK)) ==          \
+    (((ATTRIBUTE) & DMA_CHANNEL_ATTR_ITEM_MASK) >> 4U)))
 #else
 #define IS_DMA_ATTRIBUTES(ATTRIBUTE)    \
   (((ATTRIBUTE) == DMA_CHANNEL_PRIV) || \

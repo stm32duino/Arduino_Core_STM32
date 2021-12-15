@@ -218,8 +218,8 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 #define DAC_TRIGGER_T7_TRGO             (                 DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1                  | DAC_CR_TEN1) /*!< TIM7 TRGO selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T8_TRGO             (                 DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0 | DAC_CR_TEN1) /*!< TIM8 TRGO selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_T15_TRGO            (DAC_CR_TSEL1_3                                                    | DAC_CR_TEN1) /*!< TIM15 TRGO selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_LPTIM1_OUT          (DAC_CR_TSEL1_3 |                  DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0 | DAC_CR_TEN1) /*!< LPTIM1 OUT TRGO selected as external conversion trigger for DAC channel */
-#define DAC_TRIGGER_LPTIM3_OUT          (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                                   | DAC_CR_TEN1) /*!< LPTIM3 OUT TRGO selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_LPTIM1_CH1          (DAC_CR_TSEL1_3 |                  DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0 | DAC_CR_TEN1) /*!< LPTIM1 CH1 selected as external conversion trigger for DAC channel */
+#define DAC_TRIGGER_LPTIM3_CH1          (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                                   | DAC_CR_TEN1) /*!< LPTIM3 CH1 selected as external conversion trigger for DAC channel */
 #define DAC_TRIGGER_EXT_IT9             (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                  | DAC_CR_TSEL1_0 | DAC_CR_TEN1) /*!< EXTI Line9 event selected as external conversion trigger for DAC channel */
 
 /**

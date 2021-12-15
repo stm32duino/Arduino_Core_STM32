@@ -2170,6 +2170,7 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, const uint32_t *pDa
 {
   HAL_StatusTypeDef tmp_hal_status;
   uint32_t LengthInBytes;
+  DMA_NodeConfTypeDef node_conf;
 
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
@@ -2244,14 +2245,35 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, const uint32_t *pDa
         hadc->Instance->CFGR1 |= ADC4_CFGR1_DMAEN;
       }
 
-      /* Length should be converted to number of bytes */
-      LengthInBytes = Length * 4U;
-
       /* Start the DMA channel */
+      /* Check linkedlist mode */
       if ((hadc->DMA_Handle->Mode & DMA_LINKEDLIST) == DMA_LINKEDLIST)
       {
         if ((hadc->DMA_Handle->LinkedListQueue != NULL) && (hadc->DMA_Handle->LinkedListQueue->Head != NULL))
         {
+          /* Length should be converted to number of bytes */
+          if (HAL_DMAEx_List_GetNodeConfig(&node_conf, hadc->DMA_Handle->LinkedListQueue->Head) != HAL_OK)
+          {
+            return HAL_ERROR;
+          }
+
+          /* Length should be converted to number of bytes */
+          if (node_conf.Init.SrcDataWidth == DMA_SRC_DATAWIDTH_WORD)
+          {
+            /* Word -> Bytes */
+            LengthInBytes = Length * 4U;
+          }
+          else if (node_conf.Init.SrcDataWidth == DMA_SRC_DATAWIDTH_HALFWORD)
+          {
+            /* Halfword -> Bytes */
+            LengthInBytes = Length * 2U;
+          }
+          else /* Bytes */
+          {
+            /* Same size already expressed in Bytes */
+            LengthInBytes = Length;
+          }
+
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CBR1_DEFAULT_OFFSET] = (uint32_t)LengthInBytes;
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CSAR_DEFAULT_OFFSET] =                  \
               (uint32_t)&hadc->Instance->DR;
@@ -2265,6 +2287,23 @@ HAL_StatusTypeDef HAL_ADC_Start_DMA(ADC_HandleTypeDef *hadc, const uint32_t *pDa
       }
       else
       {
+        /* Length should be converted to number of bytes */
+        if (hadc->DMA_Handle->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_WORD)
+        {
+          /* Word -> Bytes */
+          LengthInBytes = Length * 4U;
+        }
+        else if (hadc->DMA_Handle->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_HALFWORD)
+        {
+          /* Halfword -> Bytes */
+          LengthInBytes = Length * 2U;
+        }
+        else /* Bytes */
+        {
+          /* Same size already expressed in Bytes */
+          LengthInBytes = Length;
+        }
+
         tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&hadc->Instance->DR, (uint32_t)pData,        \
                                           LengthInBytes);
       }
@@ -3840,7 +3879,7 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef *hadc)
 
     /* If low power mode AutoPowerOff is enabled, power-on/off phases are     */
     /* performed automatically by hardware and flag ADC ready is not set.     */
-    if (hadc->Init.LowPowerAutoPowerOff == ADC_LOW_POWER_NONE)
+    if ((hadc->Init.LowPowerAutoPowerOff == ADC_LOW_POWER_NONE) || (hadc->Instance != ADC4))
     {
       /* Wait for ADC effectively enabled */
       tickstart = HAL_GetTick();

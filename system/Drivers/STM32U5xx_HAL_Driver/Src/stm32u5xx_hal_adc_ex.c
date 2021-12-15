@@ -200,12 +200,30 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
   */
 uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
 {
+  uint32_t Calib_Val = 0UL;
+  HAL_StatusTypeDef tmp_hal_status = HAL_OK;
+
   /* Check the parameters */
   assert_param(IS_ADC_ALL_INSTANCE(hadc->Instance));
   assert_param(IS_ADC_SINGLE_DIFFERENTIAL(SingleDiff));
 
-  /* Return the selected ADC calibration value */
-  return LL_ADC_GetCalibrationOffsetFactor(hadc->Instance, SingleDiff);
+  if (hadc->Instance != ADC4)
+  {
+    tmp_hal_status = ADC_Enable(hadc); /* ADC need to be enabled to performe calibration for ADC1/2 and not for ADC4 */
+  }
+
+  if (tmp_hal_status == HAL_OK)
+  {
+    /* Return the selected ADC calibration value */
+    Calib_Val = LL_ADC_GetCalibrationOffsetFactor(hadc->Instance, SingleDiff);
+  }
+
+  if (hadc->Instance != ADC4)
+  {
+    tmp_hal_status = ADC_Disable(hadc);
+    UNUSED(tmp_hal_status);
+  }
+  return Calib_Val;
 }
 
 /**
@@ -920,6 +938,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
   ADC_HandleTypeDef tmp_hadc_slave;
   ADC_Common_TypeDef *tmp_adc_common;
   uint32_t LengthInBytes;
+  DMA_NodeConfTypeDef node_conf;
 
   /* Check the parameters */
   assert_param(IS_ADC_MULTIMODE_MASTER_INSTANCE(hadc->Instance));
@@ -1002,6 +1021,29 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
       {
         if ((hadc->DMA_Handle->LinkedListQueue != NULL) && (hadc->DMA_Handle->LinkedListQueue->Head != NULL))
         {
+          /* Length should be converted to number of bytes */
+          if (HAL_DMAEx_List_GetNodeConfig(&node_conf, hadc->DMA_Handle->LinkedListQueue->Head) != HAL_OK)
+          {
+            return HAL_ERROR;
+          }
+
+          /* Length should be converted to number of bytes */
+          if (node_conf.Init.SrcDataWidth == DMA_SRC_DATAWIDTH_WORD)
+          {
+            /* Word -> Bytes */
+            LengthInBytes = Length * 4U;
+          }
+          else if (node_conf.Init.SrcDataWidth == DMA_SRC_DATAWIDTH_HALFWORD)
+          {
+            /* Halfword -> Bytes */
+            LengthInBytes = Length * 2U;
+          }
+          else /* Bytes */
+          {
+            /* Same size already expressed in Bytes */
+            LengthInBytes = Length;
+          }
+
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CBR1_DEFAULT_OFFSET] = (uint32_t)LengthInBytes;
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CSAR_DEFAULT_OFFSET] =                         \
               (uint32_t)&tmp_adc_common->CDR;
@@ -1016,6 +1058,23 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
       }
       else
       {
+        /* Length should be converted to number of bytes */
+        if (hadc->DMA_Handle->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_WORD)
+        {
+          /* Word -> Bytes */
+          LengthInBytes = Length * 4U;
+        }
+        else if (hadc->DMA_Handle->Init.SrcDataWidth == DMA_SRC_DATAWIDTH_HALFWORD)
+        {
+          /* Halfword -> Bytes */
+          LengthInBytes = Length * 2U;
+        }
+        else /* Bytes */
+        {
+          /* Same size already expressed in Bytes */
+          LengthInBytes = Length;
+        }
+
         tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmp_adc_common->CDR, (uint32_t)pData,      \
                                           LengthInBytes);
       }

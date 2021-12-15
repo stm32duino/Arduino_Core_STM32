@@ -802,7 +802,6 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
                                            MPCBB_ConfigTypeDef *pMPCBB_desc)
 {
   GTZC_MPCBB_TypeDef *mpcbb_ptr;
-  uint32_t reg_value;
   uint32_t mem_size;
   uint32_t size_in_superblocks;
   uint32_t i;
@@ -824,10 +823,6 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
     return HAL_ERROR;
   }
 
-  /* write InvertSecureState and SecureRWIllegalMode properties */
-  /* assume their Position/Mask is identical for all sub-blocks */
-  reg_value = pMPCBB_desc->InvertSecureState;
-  reg_value |= pMPCBB_desc->SecureRWIllegalMode;
   if (IS_GTZC_BASE_ADDRESS(SRAM1, MemBaseAddress))
   {
     mpcbb_ptr = GTZC_MPCBB1;
@@ -853,22 +848,16 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
   /* translate mem_size in number of super-blocks  */
   size_in_superblocks = (mem_size / GTZC_MPCBB_SUPERBLOCK_SIZE);
 
+  /* write PRIVCFGR register information */
+  for (i = 0U; i < size_in_superblocks; i++)
+  {
+    WRITE_REG(mpcbb_ptr->PRIVCFGR[i],
+              pMPCBB_desc->AttributeConfig.MPCBB_PrivConfig_array[i]);
+  }
+
 #if defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U)
   uint32_t size_mask;
-
-  /* write configuration and lock register information */
-  MODIFY_REG(mpcbb_ptr->CR,
-             GTZC_MPCBB_CR_INVSECSTATE_Msk | GTZC_MPCBB_CR_SRWILADIS_Msk, reg_value);
-  if (size_in_superblocks == 32U)
-  {
-    size_mask = 0xFFFFFFFFU;
-  }
-  else
-  {
-    size_mask = (1UL << size_in_superblocks) - 1U;
-  }
-  /* limitation: code not portable with memory > 512K */
-  MODIFY_REG(mpcbb_ptr->CFGLOCKR1, size_mask, pMPCBB_desc->AttributeConfig.MPCBB_LockConfig_array[0]);
+  uint32_t reg_value;
 
   /* write SECCFGR register information */
   for (i = 0U; i < size_in_superblocks; i++)
@@ -876,14 +865,29 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
     WRITE_REG(mpcbb_ptr->SECCFGR[i],
               pMPCBB_desc->AttributeConfig.MPCBB_SecConfig_array[i]);
   }
-#endif /* defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
-  /* write PRIVCFGR register information */
-  for (i = 0U; i < size_in_superblocks; i++)
+#if defined (GTZC_MPCBB_CFGLOCKR2_SPLCK32_Msk)
+  if (size_in_superblocks >= 32U)
   {
-    WRITE_REG(mpcbb_ptr->PRIVCFGR[i],
-              pMPCBB_desc->AttributeConfig.MPCBB_PrivConfig_array[i]);
+    size_mask = 0xFFFFFFFFU;
+    MODIFY_REG(mpcbb_ptr->CFGLOCKR2, 0x000FFFFFUL, pMPCBB_desc->AttributeConfig.MPCBB_LockConfig_array[1]);
   }
+  else
+#endif /* GTZC_MPCBB_CFGLOCKR2_SPLCK32_Msk */
+  {
+    size_mask = (1UL << size_in_superblocks) - 1U;
+  }
+  /* limitation: code not portable with memory > 512K */
+  MODIFY_REG(mpcbb_ptr->CFGLOCKR1, size_mask, pMPCBB_desc->AttributeConfig.MPCBB_LockConfig_array[0]);
+
+  /* write InvertSecureState and SecureRWIllegalMode properties */
+  reg_value = pMPCBB_desc->InvertSecureState;
+  reg_value |= pMPCBB_desc->SecureRWIllegalMode;
+
+  /* write configuration and lock register information */
+  MODIFY_REG(mpcbb_ptr->CR,
+             GTZC_MPCBB_CR_INVSECSTATE_Msk | GTZC_MPCBB_CR_SRWILADIS_Msk, reg_value);
+#endif /* defined(__ARM_FEATURE_CMSE) && (__ARM_FEATURE_CMSE == 3U) */
 
   return HAL_OK;
 }
