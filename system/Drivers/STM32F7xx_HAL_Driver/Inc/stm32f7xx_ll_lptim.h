@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -67,22 +66,26 @@ typedef struct
   uint32_t ClockSource;    /*!< Specifies the source of the clock used by the LPTIM instance.
                                 This parameter can be a value of @ref LPTIM_LL_EC_CLK_SOURCE.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_SetClockSource().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_SetClockSource().*/
 
   uint32_t Prescaler;      /*!< Specifies the prescaler division ratio.
                                 This parameter can be a value of @ref LPTIM_LL_EC_PRESCALER.
 
-                                This feature can be modified afterwards using using unitary function @ref LL_LPTIM_SetPrescaler().*/
+                                This feature can be modified afterwards using using unitary
+                                function @ref LL_LPTIM_SetPrescaler().*/
 
   uint32_t Waveform;       /*!< Specifies the waveform shape.
                                 This parameter can be a value of @ref LPTIM_LL_EC_OUTPUT_WAVEFORM.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_ConfigOutput().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_ConfigOutput().*/
 
   uint32_t Polarity;       /*!< Specifies waveform polarity.
                                 This parameter can be a value of @ref LPTIM_LL_EC_OUTPUT_POLARITY.
 
-                                This feature can be modified afterwards using unitary function @ref LL_LPTIM_ConfigOutput().*/
+                                This feature can be modified afterwards using unitary
+                                function @ref LL_LPTIM_ConfigOutput().*/
 } LL_LPTIM_InitTypeDef;
 
 /**
@@ -791,7 +794,8 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetClockSource(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Configure the active edge or edges used by the counter when the LPTIM is clocked by an external clock source.
+  * @brief  Configure the active edge or edges used by the counter when
+            the LPTIM is clocked by an external clock source.
   * @note This function must be called when the LPTIM instance is disabled.
   * @note When both external clock signal edges are considered active ones,
   *       the LPTIM must also be clocked by an internal clock source with a
@@ -1009,7 +1013,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_CMPOK(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs application whether the APB bus write operation to the LPTIMx_CMP register has been successfully completed. If so, a new one can be initiated.
+  * @brief  Informs application whether the APB bus write operation to the LPTIMx_CMP register has been successfully
+            completed. If so, a new one can be initiated.
   * @rmtoll ISR          CMPOK         LL_LPTIM_IsActiveFlag_CMPOK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1031,7 +1036,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_ARROK(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs application whether the APB bus write operation to the LPTIMx_ARR register has been successfully completed. If so, a new one can be initiated.
+  * @brief  Informs application whether the APB bus write operation to the LPTIMx_ARR register has been successfully
+            completed. If so, a new one can be initiated.
   * @rmtoll ISR          ARROK         LL_LPTIM_IsActiveFlag_ARROK
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1053,7 +1059,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_UP(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs the application whether the counter direction has changed from down to up (when the LPTIM instance operates in encoder mode).
+  * @brief  Informs the application whether the counter direction has changed from down to up (when the LPTIM instance
+            operates in encoder mode).
   * @rmtoll ISR          UP            LL_LPTIM_IsActiveFlag_UP
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1075,7 +1082,8 @@ __STATIC_INLINE void LL_LPTIM_ClearFlag_DOWN(LPTIM_TypeDef *LPTIMx)
 }
 
 /**
-  * @brief  Informs the application whether the counter direction has changed from up to down (when the LPTIM instance operates in encoder mode).
+  * @brief  Informs the application whether the counter direction has changed from up to down (when the LPTIM instance
+            operates in encoder mode).
   * @rmtoll ISR          DOWN          LL_LPTIM_IsActiveFlag_DOWN
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
@@ -1347,5 +1355,3 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_DOWN(LPTIM_TypeDef *LPTIMx)
 #endif
 
 #endif /* STM32F7xx_LL_LPTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
