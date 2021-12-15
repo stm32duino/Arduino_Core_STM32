@@ -59,8 +59,8 @@
       || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_TIM7_TRGO)                      \
       || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_TIM8_TRGO)                      \
       || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_TIM15_TRGO)                     \
-      || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_LPTIM1_OUT)                     \
-      || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_LPTIM3_OUT)                     \
+      || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_LPTIM1_CH1)                     \
+      || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_LPTIM3_CH1)                     \
       || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_EXT_EXTI_LINE9)                     \
       || ((__TRIGGER_SOURCE__) == LL_DAC_TRIG_SOFTWARE)                           \
   )

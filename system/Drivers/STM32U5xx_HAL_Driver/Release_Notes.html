@@ -40,13 +40,104 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section1" checked aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 28-June-2021</strong></label>
+<input type="checkbox" id="collapse-section3" checked aria-hidden="true"> <label for="collapse-section3" checked aria-hidden="true"><strong>V1.0.2 / 14-October-2021</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
-<li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
+<li>Patch release V1.0.2 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
+</ul>
+<h3 id="ll-drivers-updates"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL DAC</strong> driver
+<ul>
+<li>Rename of the LPTIM1/3 trigger of the LL DAC to be in line with Reference Manual:
+<ul>
+<li>Rename LL_DAC_TRIG_EXT_LPTIM1_OUT to LL_DAC_TRIG_EXT_LPTIM1_CH1</li>
+<li>Rename LL_DAC_TRIG_EXT_LPTIM3_OUT to LL_DAC_TRIG_EXT_LPTIM3_CH1</li>
+</ul></li>
+</ul></li>
+<li>Backward compatibility ensured by legacy defines</li>
 </ul>
 <h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" checked aria-hidden="true"><strong>V1.0.1 / 01-October-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>Patch release V1.0.1 of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
+</ul>
+<h3 id="hal-drivers-updates"><strong>HAL Drivers</strong> updates</h3>
+<ul>
+<li><strong>HAL ADC</strong> driver
+<ul>
+<li>Update the DMA data length management implementation according source/destination width</li>
+<li>Finetune HAL_ADCEx_Calibration_GetValue API to return correct calibration value for ADC4</li>
+</ul></li>
+<li><strong>HAL DAC</strong> driver
+<ul>
+<li>Rename of the LPTIM1/3 trigger of the DAC to be in line with Reference Manual:
+<ul>
+<li>Rename DAC_TRIGGER_STOP_LPTIM1_OUT to DAC_TRIGGER_STOP_LPTIM1_CH1</li>
+<li>Rename DAC_TRIGGER_STOP_LPTIM3_OUT to DAC_TRIGGER_STOP_LPTIM3_CH1</li>
+<li>Rename DAC_TRIGGER_LPTIM1_OUT to DAC_TRIGGER_LPTIM1_CH1</li>
+<li>Rename DAC_TRIGGER_LPTIM3_OUT to DAC_TRIGGER_LPTIM3_CH1</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL DMA</strong> driver
+<ul>
+<li>Fix DMA register callback error returning in case of invalid callback.</li>
+<li>Enhance HAL_DMA_GetLockChannelAttributes API implementation to detect wrong parameters values</li>
+<li>Enhance IS_DMA_ATTRIBUTES macro implementation to detect uncovered cases.</li>
+<li>Optimize DMA_List_CheckNodesBaseAddresses API implementation by reducing parameters number</li>
+<li>Optimize DMA_List_CheckNodesTypes API implementation by reducing parameters number</li>
+</ul></li>
+<li><strong>HAL GTZC</strong> driver
+<ul>
+<li>Fix issue with the APIs HAL_GTZC_MPCBB_ConfigMem : The CFGLOCK register should be updated after the update of SECCFGR and PRIVCFGR</li>
+</ul></li>
+<li><strong>HAL I2C </strong> driver
+<ul>
+<li>Add handle errors support in polling mode</li>
+</ul></li>
+<li><strong>HAL RCC </strong> driver
+<ul>
+<li>Fix setting Flash latency from MSIRange in Oscillator Configuration</li>
+</ul></li>
+</ul>
+<h3 id="ll-drivers-updates-1"><strong>LL Drivers</strong> updates</h3>
+<ul>
+<li><strong>LL I2C</strong> driver
+<ul>
+<li>Add LL_I2C_EnableFastModePlus, LL_I2C_DisableFastModePlus and LL_I2C_IsEnabledFastModePlus APIs</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>N/A</li>
+</ul>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<ul>
+<li>N/A</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" checked aria-hidden="true"><strong>V1.0.0 / 28-June-2021</strong></label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
+<ul>
+<li>First official release of <strong>HAL and LL drivers</strong> for <strong>STM32U575xx / STM32U585xx</strong> devices</li>
+</ul>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>N/A</li>
 </ul>

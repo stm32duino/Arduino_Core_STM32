@@ -295,9 +295,12 @@ typedef struct
 #define LL_DAC_TRIG_EXT_TIM7_TRGO          (                 DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1                 ) /*!< DAC channel conversion trigger from external peripheral: TIM7 TRGO. */
 #define LL_DAC_TRIG_EXT_TIM8_TRGO          (                 DAC_CR_TSEL1_2 | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0) /*!< DAC channel conversion trigger from external peripheral: TIM8 TRGO. */
 #define LL_DAC_TRIG_EXT_TIM15_TRGO         (DAC_CR_TSEL1_3                                                   ) /*!< DAC channel conversion trigger from external peripheral: TIM15 TRGO. */
-#define LL_DAC_TRIG_EXT_LPTIM1_OUT         (DAC_CR_TSEL1_3                  | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0) /*!< DAC channel conversion trigger from external peripheral: LPTIM1 TRGO. */
-#define LL_DAC_TRIG_EXT_LPTIM3_OUT         (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                                  ) /*!< DAC channel conversion trigger from external peripheral: LPTIM3 TRGO. */
+#define LL_DAC_TRIG_EXT_LPTIM1_CH1         (DAC_CR_TSEL1_3                  | DAC_CR_TSEL1_1 | DAC_CR_TSEL1_0) /*!< DAC channel conversion trigger from external peripheral: LPTIM1 CH1. */
+#define LL_DAC_TRIG_EXT_LPTIM3_CH1         (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                                  ) /*!< DAC channel conversion trigger from external peripheral: LPTIM3 CH1. */
 #define LL_DAC_TRIG_EXT_EXTI_LINE9         (DAC_CR_TSEL1_3 | DAC_CR_TSEL1_2                  | DAC_CR_TSEL1_0) /*!< DAC channel conversion trigger from external peripheral: external interrupt line 9. */
+
+#define LL_DAC_TRIG_EXT_LPTIM1_OUT         LL_DAC_TRIG_EXT_LPTIM1_CH1 /*!< Keep old definition for compatibility */
+#define LL_DAC_TRIG_EXT_LPTIM3_OUT         LL_DAC_TRIG_EXT_LPTIM3_CH1 /*!< Keep old definition for compatibility */
 /**
   * @}
   */
@@ -712,8 +715,8 @@ __STATIC_INLINE uint32_t LL_DAC_GetTrimmingValue(DAC_TypeDef *DACx, uint32_t DAC
   *         @arg @ref LL_DAC_TRIG_EXT_TIM7_TRGO
   *         @arg @ref LL_DAC_TRIG_EXT_TIM8_TRGO
   *         @arg @ref LL_DAC_TRIG_EXT_TIM15_TRGO
-  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM1_OUT
-  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM3_OUT
+  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM1_CH1
+  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM3_CH1
   *         @arg @ref LL_DAC_TRIG_EXT_EXTI_LINE9
   * @retval None
   */
@@ -746,8 +749,8 @@ __STATIC_INLINE void LL_DAC_SetTriggerSource(DAC_TypeDef *DACx, uint32_t DAC_Cha
   *         @arg @ref LL_DAC_TRIG_EXT_TIM7_TRGO
   *         @arg @ref LL_DAC_TRIG_EXT_TIM8_TRGO
   *         @arg @ref LL_DAC_TRIG_EXT_TIM15_TRGO
-  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM1_OUT
-  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM3_OUT
+  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM1_CH1
+  *         @arg @ref LL_DAC_TRIG_EXT_LPTIM3_CH1
   *         @arg @ref LL_DAC_TRIG_EXT_EXTI_LINE9
   */
 __STATIC_INLINE uint32_t LL_DAC_GetTriggerSource(DAC_TypeDef *DACx, uint32_t DAC_Channel)

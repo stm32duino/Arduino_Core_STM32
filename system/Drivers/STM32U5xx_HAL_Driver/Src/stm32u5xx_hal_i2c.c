@@ -438,7 +438,7 @@ static HAL_StatusTypeDef I2C_WaitOnFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uin
 static HAL_StatusTypeDef I2C_WaitOnTXISFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart);
 static HAL_StatusTypeDef I2C_WaitOnRXNEFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart);
 static HAL_StatusTypeDef I2C_WaitOnSTOPFlagUntilTimeout(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart);
-static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart);
+static HAL_StatusTypeDef I2C_IsErrorOccurred(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart);
 
 /* Private functions to centralize the enable/disable of Interrupts */
 static void I2C_Enable_IRQ(I2C_HandleTypeDef *hi2c, uint16_t InterruptRequest);
@@ -6740,8 +6740,8 @@ static HAL_StatusTypeDef I2C_WaitOnTXISFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
 {
   while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_TXIS) == RESET)
   {
-    /* Check if a NACK is detected */
-    if (I2C_IsAcknowledgeFailed(hi2c, Timeout, Tickstart) != HAL_OK)
+    /* Check if an error is detected */
+    if (I2C_IsErrorOccurred(hi2c, Timeout, Tickstart) != HAL_OK)
     {
       return HAL_ERROR;
     }
@@ -6777,8 +6777,8 @@ static HAL_StatusTypeDef I2C_WaitOnSTOPFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
 {
   while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == RESET)
   {
-    /* Check if a NACK is detected */
-    if (I2C_IsAcknowledgeFailed(hi2c, Timeout, Tickstart) != HAL_OK)
+    /* Check if an error is detected */
+    if (I2C_IsErrorOccurred(hi2c, Timeout, Tickstart) != HAL_OK)
     {
       return HAL_ERROR;
     }
@@ -6811,8 +6811,8 @@ static HAL_StatusTypeDef I2C_WaitOnRXNEFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
 {
   while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_RXNE) == RESET)
   {
-    /* Check if a NACK is detected */
-    if (I2C_IsAcknowledgeFailed(hi2c, Timeout, Tickstart) != HAL_OK)
+    /* Check if an error is detected */
+    if (I2C_IsErrorOccurred(hi2c, Timeout, Tickstart) != HAL_OK)
     {
       return HAL_ERROR;
     }
@@ -6863,16 +6863,20 @@ static HAL_StatusTypeDef I2C_WaitOnRXNEFlagUntilTimeout(I2C_HandleTypeDef *hi2c,
 }
 
 /**
-  * @brief  This function handles Acknowledge failed detection during an I2C Communication.
+  * @brief  This function handles errors detection during an I2C Communication.
   * @param  hi2c Pointer to a I2C_HandleTypeDef structure that contains
   *                the configuration information for the specified I2C.
   * @param  Timeout Timeout duration
   * @param  Tickstart Tick start value
   * @retval HAL status
   */
-static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart)
+static HAL_StatusTypeDef I2C_IsErrorOccurred(I2C_HandleTypeDef *hi2c, uint32_t Timeout, uint32_t Tickstart)
 {
-  if (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_AF) == SET)
+  HAL_StatusTypeDef status = HAL_OK;
+  uint32_t itflag   = hi2c->Instance->ISR;
+  uint32_t error_code = 0;
+
+  if (HAL_IS_BIT_SET(itflag, I2C_FLAG_AF))
   {
     /* In case of Soft End condition, generate the STOP condition */
     if (I2C_GET_STOP_MODE(hi2c) != I2C_AUTOEND_MODE)
@@ -6881,49 +6885,91 @@ static HAL_StatusTypeDef I2C_IsAcknowledgeFailed(I2C_HandleTypeDef *hi2c, uint32
       hi2c->Instance->CR2 |= I2C_CR2_STOP;
     }
 
-    /* Wait until STOP Flag is reset */
+    /* Wait until STOP Flag is set or timeout occurred */
     /* AutoEnd should be initiate after AF */
-    while (__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == RESET)
+    while ((__HAL_I2C_GET_FLAG(hi2c, I2C_FLAG_STOPF) == RESET) && (status == HAL_OK))
     {
       /* Check for the Timeout */
       if (Timeout != HAL_MAX_DELAY)
       {
         if (((HAL_GetTick() - Tickstart) > Timeout) || (Timeout == 0U))
         {
-          hi2c->ErrorCode |= HAL_I2C_ERROR_TIMEOUT;
-          hi2c->State = HAL_I2C_STATE_READY;
-          hi2c->Mode = HAL_I2C_MODE_NONE;
+          error_code |= HAL_I2C_ERROR_TIMEOUT;
 
-          /* Process Unlocked */
-          __HAL_UNLOCK(hi2c);
-
-          return HAL_ERROR;
+          status = HAL_ERROR;
         }
       }
+    }
+
+    /* In case STOP Flag is detected, clear it */
+    if (status == HAL_OK)
+    {
+      /* Clear STOP Flag */
+      __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
     }
 
     /* Clear NACKF Flag */
     __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_AF);
 
-    /* Clear STOP Flag */
-    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_STOPF);
+    error_code |= HAL_I2C_ERROR_AF;
 
+    status = HAL_ERROR;
+  }
+
+  /* Refresh Content of Status register */
+  itflag = hi2c->Instance->ISR;
+
+  /* Then verify if an additionnal errors occurs */
+  /* Check if a Bus error occurred */
+  if (HAL_IS_BIT_SET(itflag, I2C_FLAG_BERR))
+  {
+    error_code |= HAL_I2C_ERROR_BERR;
+
+    /* Clear BERR flag */
+    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_BERR);
+
+    status = HAL_ERROR;
+  }
+
+  /* Check if an Over-Run/Under-Run error occurred */
+  if (HAL_IS_BIT_SET(itflag, I2C_FLAG_OVR))
+  {
+    error_code |= HAL_I2C_ERROR_OVR;
+
+    /* Clear OVR flag */
+    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_OVR);
+
+    status = HAL_ERROR;
+  }
+
+  /* Check if an Arbitration Loss error occurred */
+  if (HAL_IS_BIT_SET(itflag, I2C_FLAG_ARLO))
+  {
+    error_code |= HAL_I2C_ERROR_ARLO;
+
+    /* Clear ARLO flag */
+    __HAL_I2C_CLEAR_FLAG(hi2c, I2C_FLAG_ARLO);
+
+    status = HAL_ERROR;
+  }
+
+  if (status != HAL_OK)
+  {
     /* Flush TX register */
     I2C_Flush_TXDR(hi2c);
 
     /* Clear Configuration Register 2 */
     I2C_RESET_CR2(hi2c);
 
-    hi2c->ErrorCode |= HAL_I2C_ERROR_AF;
+    hi2c->ErrorCode |= error_code;
     hi2c->State = HAL_I2C_STATE_READY;
     hi2c->Mode = HAL_I2C_MODE_NONE;
 
     /* Process Unlocked */
     __HAL_UNLOCK(hi2c);
-
-    return HAL_ERROR;
   }
-  return HAL_OK;
+
+  return status;
 }
 
 /**

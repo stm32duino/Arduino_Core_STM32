@@ -845,6 +845,41 @@ __STATIC_INLINE uint32_t LL_I2C_IsEnabledGeneralCall(I2C_TypeDef *I2Cx)
 }
 
 /**
+  * @brief  Enable I2C Fast Mode Plus (FMP = 1).
+  * @note   20mA I/O drive enable
+  * @rmtoll CR1          FMP           LL_I2C_EnableFastModePlus
+  * @param  I2Cx I2C Instance.
+  * @retval None
+  */
+__STATIC_INLINE void LL_I2C_EnableFastModePlus(I2C_TypeDef *I2Cx)
+{
+  SET_BIT(I2Cx->CR1, I2C_CR1_FMP);
+}
+
+/**
+  * @brief  Disable I2C Fast Mode Plus (FMP = 0).
+  * @note   20mA I/O drive disable
+  * @rmtoll CR1          FMP           LL_I2C_DisableFastModePlus
+  * @param  I2Cx I2C Instance.
+  * @retval None
+  */
+__STATIC_INLINE void LL_I2C_DisableFastModePlus(I2C_TypeDef *I2Cx)
+{
+  CLEAR_BIT(I2Cx->CR1, I2C_CR1_FMP);
+}
+
+/**
+  * @brief  Check if the I2C Fast Mode Plus is enabled or disabled.
+  * @rmtoll CR1          FMP           LL_I2C_IsEnabledFastModePlus
+  * @param  I2Cx I2C Instance.
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_I2C_IsEnabledFastModePlus(I2C_TypeDef *I2Cx)
+{
+  return ((READ_BIT(I2Cx->CR1, I2C_CR1_FMP) == (I2C_CR1_FMP)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Configure the Master to operate in 7-bit or 10-bit addressing mode.
   * @note   Changing this bit is not allowed, when the START bit is set.
   * @rmtoll CR2          ADD10         LL_I2C_SetMasterAddressingMode

@@ -105,8 +105,8 @@ typedef struct
   * @brief    DAC Trigger stop mode
   * @{
   */
-#define DAC_TRIGGER_STOP_LPTIM1_OUT DAC_TRIGGER_LPTIM1_OUT /*!< LPTIM1 output selected as DAC trigger in stop mode */
-#define DAC_TRIGGER_STOP_LPTIM3_OUT DAC_TRIGGER_LPTIM3_OUT /*!< LPTIM3 output selected as DAC trigger in stop mode */
+#define DAC_TRIGGER_STOP_LPTIM1_CH1 DAC_TRIGGER_LPTIM1_CH1 /*!< LPTIM1 output selected as DAC trigger in stop mode */
+#define DAC_TRIGGER_STOP_LPTIM3_CH1 DAC_TRIGGER_LPTIM3_CH1 /*!< LPTIM3 output selected as DAC trigger in stop mode */
 #define DAC_TRIGGER_STOP_EXT_IT9    DAC_TRIGGER_EXT_IT9    /*!< EXTI line 9 selected as DAC trigger in stop mode   */
 /**
   * @}
@@ -133,11 +133,11 @@ typedef struct
                                  ((TRIGGER) == DAC_TRIGGER_T7_TRGO)         || \
                                  ((TRIGGER) == DAC_TRIGGER_T8_TRGO)         || \
                                  ((TRIGGER) == DAC_TRIGGER_T15_TRGO)        || \
-                                 ((TRIGGER) == DAC_TRIGGER_LPTIM1_OUT)      || \
-                                 ((TRIGGER) == DAC_TRIGGER_LPTIM3_OUT)      || \
+                                 ((TRIGGER) == DAC_TRIGGER_LPTIM1_CH1)      || \
+                                 ((TRIGGER) == DAC_TRIGGER_LPTIM3_CH1)      || \
                                  ((TRIGGER) == DAC_TRIGGER_EXT_IT9)         || \
-                                 ((TRIGGER) == DAC_TRIGGER_STOP_LPTIM1_OUT) || \
-                                 ((TRIGGER) == DAC_TRIGGER_STOP_LPTIM3_OUT) || \
+                                 ((TRIGGER) == DAC_TRIGGER_STOP_LPTIM1_CH1) || \
+                                 ((TRIGGER) == DAC_TRIGGER_STOP_LPTIM3_CH1) || \
                                  ((TRIGGER) == DAC_TRIGGER_STOP_EXT_IT9)    || \
                                  ((TRIGGER) == DAC_TRIGGER_SOFTWARE))
 
