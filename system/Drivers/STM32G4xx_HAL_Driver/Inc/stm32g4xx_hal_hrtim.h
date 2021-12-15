@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1290,7 +1289,7 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
 /** @defgroup HRTIM_Output_Reset_Source HRTIM Output Reset Source
   * @{
   * @brief Constants defining the events that can be selected to configure the
-  *        set crossbar of a timer output
+  *        reset crossbar of a timer output
   */
 #define HRTIM_OUTPUTRESET_NONE       0x00000000U                      /*!< Reset the output reset crossbar */
 #define HRTIM_OUTPUTRESET_RESYNC     (HRTIM_RST1R_RESYNC)             /*!< Timer reset event coming solely from software or SYNC input forces the output to its inactive state */
@@ -1793,10 +1792,10 @@ typedef void (* pHRTIM_TIMxCallbackTypeDef)(HRTIM_HandleTypeDef *hhrtim,    /*!<
   * @brief Constants defining the source and event to be sent on the
   *        synchronization outputs
   */
-#define HRTIM_SYNCOUTPUTSOURCE_MASTER_START 0x00000000U                                    /*!< A pulse is sent on the SYNCOUT output upon master timer start event */
-#define HRTIM_SYNCOUTPUTSOURCE_MASTER_CMP1  (HRTIM_MCR_SYNC_SRC_0)                         /*!< A pulse is sent on the SYNCOUT output upon master timer compare 1 event*/
-#define HRTIM_SYNCOUTPUTSOURCE_TIMA_START   (HRTIM_MCR_SYNC_SRC_1)                         /*!< A pulse is sent on the SYNCOUT output upon timer A start or reset events */
-#define HRTIM_SYNCOUTPUTSOURCE_TIMA_CMP1    (HRTIM_MCR_SYNC_SRC_1 | HRTIM_MCR_SYNC_SRC_0)  /*!< A pulse is sent on the SYNCOUT output upon timer A compare 1 event */
+#define HRTIM_SYNCOUTPUTSOURCE_MASTER_START 0x00000000U                                    /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon master timer start event      */
+#define HRTIM_SYNCOUTPUTSOURCE_MASTER_CMP1  (HRTIM_MCR_SYNC_SRC_0)                         /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon master timer compare 1 event  */
+#define HRTIM_SYNCOUTPUTSOURCE_TIMA_START   (HRTIM_MCR_SYNC_SRC_1)                         /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon timer A start or reset events */
+#define HRTIM_SYNCOUTPUTSOURCE_TIMA_CMP1    (HRTIM_MCR_SYNC_SRC_1 | HRTIM_MCR_SYNC_SRC_0)  /*!< A pulse is sent on HRTIM_SCOUT output and hrtim_out_sync2 upon timer A compare 1 event       */
 /**
   * @}
   */
@@ -5140,5 +5139,3 @@ HAL_StatusTypeDef HAL_HRTIM_TIMxUnRegisterCallback(HRTIM_HandleTypeDef *       h
 #endif
 
 #endif /* STM32G4xx_HAL_HRTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

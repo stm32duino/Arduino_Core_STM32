@@ -4,16 +4,23 @@
   * @author  MCD Application Team
   * @brief   OPAMP HAL module driver.
   *          This file provides firmware functions to manage the following
-  *          functionalities of the operational amplifiers (OPAMP1,...OPAMP6)
-  *          peripheral:
-  *           + OPAMP Configuration
-  *           + OPAMP calibration
-  *          Thanks to
+  *          functionalities of the operational amplifiers peripheral:
   *           + Initialization/de-initialization functions
   *           + I/O operation functions
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ================================================================================
           ##### OPAMP Peripheral Features #####
@@ -90,7 +97,7 @@
 
       (#) Configure the OPAMP using HAL_OPAMP_Init() function:
       (++) Select OPAMP_POWERMODE_HIGHSPEED
-      (++) Otherwise select OPAMP_POWERMODE_NORMAL
+      (++) Otherwise select OPAMP_POWERMODE_NORMALSPEED
 
     *** Calibration ***
     ============================================
@@ -111,14 +118,14 @@
       (++) The compilation define  USE_HAL_OPAMP_REGISTER_CALLBACKS when set to 1
            allows the user to configure dynamically the driver callbacks.
 
-      (++) Use Functions @ref HAL_OPAMP_RegisterCallback() to register a user callback,
+      (++) Use Functions HAL_OPAMP_RegisterCallback() to register a user callback,
            it allows to register following callbacks:
       (+++) MspInitCallback         : OPAMP MspInit.
       (+++) MspDeInitCallback       : OPAMP MspDeInit.
            This function takes as parameters the HAL peripheral handle, the Callback ID
            and a pointer to the user callback function.
 
-      (++) Use function @ref HAL_OPAMP_UnRegisterCallback() to reset a callback to the default
+      (++) Use function HAL_OPAMP_UnRegisterCallback() to reset a callback to the default
            weak (surcharged) function. It allows to reset following callbacks:
       (+++) MspInitCallback         : OPAMP MspInit.
       (+++) MspDeInitCallback       : OPAMP MspDeInit.
@@ -167,17 +174,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /*
@@ -189,31 +185,43 @@
     selected among the list shown by table below.
 
     Table 1.  OPAMPs inverting/non-inverting inputs for the STM32G4 devices:
-    +--------------------------------------------------------------------------------------------+
-    |                 |        | OPAMP1   | OPAMP2   | OPAMP3   | OPAMP4   | OPAMP5   | OPAMP6   |
-    |-----------------|--------|----------|----------|----------|----------|----------|----------|
-    |                 | No conn|  X       |  X       |  X       |  X       |  X       |  X       |
-    | Inverting Input | VM0    | PA3      | PA5      | PB2      | PB10     | PB15     | PA1      |
-    | (1)             | VM1    | PC5      | PC5      | PB10     | PD8      | PA3      | PB1      |
-    |-----------------|--------|----------|----------|----------|----------|----------|----------|
-    |                 | VP0    | PA1      | PA7      | PB0      | PB13     | PB14     | PB12     |
-    |  Non Inverting  | VP1    | PA3      | PB14     | PB13     | PD11     | PD12     | PD9      |
-    |    Input        | VP2    | PA7      | PB0      | PA1      | PB11     | PC3      | PB13     |
-    |                 | VP3    | DAC3_CH1 | PD14     | DAC3_CH2 | DAC4_CH1 | DAC4_CH2 | DAC3_CH1 |
-    +--------------------------------------------------------------------------------------------+
+    +-----------------------------------------------------------------------------------------------+
+    |                 |        | OPAMP1   | OPAMP2   | OPAMP3      | OPAMP4   | OPAMP5   | OPAMP6   |
+    |-----------------|--------|----------|----------|-------------|----------|----------|----------|
+    |                 | No conn|  X       |  X       |  X          |  X       |  X       |  X       |
+    | Inverting Input | VM0    | PA3      | PA5      | PB2         | PB10     | PB15     | PA1      |
+    | (1)             | VM1    | PC5      | PC5      | PB10        | PD8      | PA3      | PB1      |
+    |-----------------|--------|----------|----------|-------------|----------|----------|----------|
+    |                 | VP0    | PA1      | PA7      | PB0         | PB13     | PB14     | PB12     |
+    |  Non Inverting  | VP1    | PA3      | PB14     | PB13        | PD11     | PD12     | PD9      |
+    |    Input        | VP2    | PA7      | PB0      | PA1         | PB11     | PC3      | PB13     |
+    |                 | VP3    | DAC3_CH1 | PD14     | DAC3_CH2(2) | DAC4_CH1 | DAC4_CH2 | DAC3_CH1 |
+    +-----------------------------------------------------------------------------------------------+
     (1): No connection in follower mode.
+    (2): Available for STM32G47x/ STM32G48x devices only
 
     Table 2.  OPAMPs outputs for the STM32G4 devices:
-    +--------------------------------------------------------------------------------+
-    |                 |        | OPAMP1 | OPAMP2 | OPAMP3 | OPAMP4 | OPAMP5 | OPAMP6 |
-    |-----------------|--------|--------|--------|--------|--------|--------|--------|
-    | Output          |        |  PA2   |  PA6   |  PB1   |  PB12  |  PA8   |  PB11  |
-    |-----------------|--------|--------|--------|--------|--------|--------|--------+
-    | Internal output |        |  ADC1  |  ADC2  |  ADC2  |  ADC5  |  ADC5  |  ADC4  |
-    | to ADCs         |        |  CH13  |  CH16  |  CH18  |  CH5   |  CH3   |  CH17  |
-    |                 |        |        |        |  ADC3  |        |        |        |
-    |                 |        |        |        |  CH13  |        |        |        |
-    |-----------------|--------|--------|--------|--------|--------|--------|--------+
+    +------------------------------------------------------------------------------------+
+    |                 |        | OPAMP1 | OPAMP2 | OPAMP3   | OPAMP4 | OPAMP5 | OPAMP6   |
+    |-----------------|--------|--------|--------|----------|--------|--------|----------|
+    | Output          |        |  PA2   |  PA6   |  PB1     |  PB12  |  PA8   |  PB11    |
+    |-----------------|--------|--------|--------|----------|--------|--------|----------+
+    | Internal output |        |  ADC1  |  ADC2  |  ADC2    |  ADC5  |  ADC5  |  ADC4    |
+    | to ADCs         |        |  CH13  |  CH16  |  CH18    |  CH5   |  CH3   |  CH17(2) |
+    | (1)             |        |        |        |  ADC3    |        |        |  ADC3    |
+    |                 |        |        |        |  CH13(2) |        |        |  CH17(3) |
+    |-----------------|--------|--------|--------|----------|------ -|--------|----------|
+    | Internal output |        |  ADC1  |  ADC2  |  ADC3    |  ADC4  |  ADC5  |  ADC1    |
+    | to ADCs input   |        |  CH3   |  CH3   |  CH1(2)  |  CH3   |  CH1   |  CH14    |
+    | on GPIO         |        |        |        |  ADC1    |  ADC1  |        |  ADC2    |
+    |                 |        |        |        |  CH12    |  CH11  |        |  CH14    |
+    +------------------------------------------------------------------------------------+
+    (1): This ADC channel is connected internally to the OPAMPx_VOUT when OPAINTOEN
+         bit is set.
+         In this case, the I/O on which the OPAMPx_VOUT is available, can be used for
+         another purpose.
+    (2): Available for STM32G47x/ STM32G48x devices only.
+    (3): Available for STM32G491/STM32G4A1 devices only.
 
 */
 
@@ -1192,4 +1200,3 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback(OPAMP_HandleTypeDef *hopamp, HAL_
 
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -14,6 +14,17 @@
   *           + Errors management and abort functionality
   *
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                         ##### How to use this driver #####
@@ -133,7 +144,7 @@
       The compilation define  USE_HAL_QSPI_REGISTER_CALLBACKS when set to 1
       allows the user to configure dynamically the driver callbacks.
 
-      Use Functions @ref HAL_QSPI_RegisterCallback() to register a user callback,
+      Use Functions HAL_QSPI_RegisterCallback() to register a user callback,
       it allows to register following callbacks:
         (+) ErrorCallback : callback when error occurs.
         (+) AbortCpltCallback : callback when abort is completed.
@@ -150,7 +161,7 @@
       This function takes as parameters the HAL peripheral handle, the Callback ID
       and a pointer to the user callback function.
 
-      Use function @ref HAL_QSPI_UnRegisterCallback() to reset a callback to the default
+      Use function HAL_QSPI_UnRegisterCallback() to reset a callback to the default
       weak (surcharged) function. It allows to reset following callbacks:
         (+) ErrorCallback : callback when error occurs.
         (+) AbortCpltCallback : callback when abort is completed.
@@ -166,12 +177,12 @@
         (+) MspDeInitCallback  : QSPI MspDeInit.
       This function) takes as parameters the HAL peripheral handle and the Callback ID.
 
-      By default, after the @ref HAL_QSPI_Init and if the state is HAL_QSPI_STATE_RESET
+      By default, after the HAL_QSPI_Init and if the state is HAL_QSPI_STATE_RESET
       all callbacks are reset to the corresponding legacy weak (surcharged) functions.
       Exception done for MspInit and MspDeInit callbacks that are respectively
-      reset to the legacy weak (surcharged) functions in the @ref HAL_QSPI_Init
-      and @ref  HAL_QSPI_DeInit only when these callbacks are null (not registered beforehand).
-      If not, MspInit or MspDeInit are not null, the @ref HAL_QSPI_Init and @ref HAL_QSPI_DeInit
+      reset to the legacy weak (surcharged) functions in the HAL_QSPI_Init
+      and  HAL_QSPI_DeInit only when these callbacks are null (not registered beforehand).
+      If not, MspInit or MspDeInit are not null, the HAL_QSPI_Init and HAL_QSPI_DeInit
       keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
       Callbacks can be registered/unregistered in READY state only.
@@ -179,8 +190,8 @@
       in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
       during the Init/DeInit.
       In that case first register the MspInit/MspDeInit user callbacks
-      using @ref HAL_QSPI_RegisterCallback before calling @ref HAL_QSPI_DeInit
-      or @ref HAL_QSPI_Init function.
+      using HAL_QSPI_RegisterCallback before calling HAL_QSPI_DeInit
+      or HAL_QSPI_Init function.
 
       When The compilation define USE_HAL_QSPI_REGISTER_CALLBACKS is set to 0 or
       not defined, the callback registering feature is not available
@@ -193,17 +204,6 @@
          (++) Extra data written in the FIFO at the end of a read transfer
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                       opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -314,9 +314,6 @@ HAL_StatusTypeDef HAL_QSPI_Init(QSPI_HandleTypeDef *hqspi)
     assert_param(IS_QSPI_FLASH_ID(hqspi->Init.FlashID));
   }
 
-  /* Process locked */
-  __HAL_LOCK(hqspi);
-
   if(hqspi->State == HAL_QSPI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
@@ -399,9 +396,6 @@ HAL_StatusTypeDef HAL_QSPI_DeInit(QSPI_HandleTypeDef *hqspi)
   {
     return HAL_ERROR;
   }
-
-  /* Process locked */
-  __HAL_LOCK(hqspi);
 
   /* Disable the QSPI Peripheral Clock */
   __HAL_QSPI_DISABLE(hqspi);
@@ -728,7 +722,7 @@ void HAL_QSPI_IRQHandler(QSPI_HandleTypeDef *hqspi)
 
         /* Change state of QSPI */
         hqspi->State = HAL_QSPI_STATE_READY;
-        
+
         /* Error callback */
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
         hqspi->ErrorCallback(hqspi);
@@ -1359,10 +1353,10 @@ HAL_StatusTypeDef HAL_QSPI_Transmit_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pDat
         {
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-          
+
           /* Enable the QSPI transfer error Interrupt */
           __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-          
+
           /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
           SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
@@ -1507,10 +1501,10 @@ HAL_StatusTypeDef HAL_QSPI_Receive_DMA(QSPI_HandleTypeDef *hqspi, uint8_t *pData
 
           /* Process unlocked */
           __HAL_UNLOCK(hqspi);
-          
+
           /* Enable the QSPI transfer error Interrupt */
           __HAL_QSPI_ENABLE_IT(hqspi, QSPI_IT_TE);
-          
+
           /* Enable the DMA transfer by setting the DMAEN bit in the QSPI CR register */
           SET_BIT(hqspi->Instance->CR, QUADSPI_CR_DMAEN);
         }
@@ -2341,7 +2335,7 @@ HAL_StatusTypeDef HAL_QSPI_Abort_IT(QSPI_HandleTypeDef *hqspi)
       {
         /* Change state of QSPI */
         hqspi->State = HAL_QSPI_STATE_READY;
-        
+
         /* Abort Complete callback */
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
         hqspi->AbortCpltCallback(hqspi);
@@ -2783,6 +2777,4 @@ static void QSPI_Config(QSPI_HandleTypeDef *hqspi, QSPI_CommandTypeDef *cmd, uin
   * @}
   */
 
-#endif /* defined(QUADSPI) || defined(QUADSPI1) || defined(QUADSPI2) */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+#endif /* defined(QUADSPI) */

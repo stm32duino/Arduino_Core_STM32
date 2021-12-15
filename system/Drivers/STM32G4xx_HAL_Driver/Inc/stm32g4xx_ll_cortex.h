@@ -3,6 +3,17 @@
   * @file    stm32g4xx_ll_cortex.h
   * @author  MCD Application Team
   * @brief   Header file of CORTEX LL module.
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -10,7 +21,7 @@
     [..]
     The LL CORTEX driver contains a set of generic APIs that can be
     used by user:
-      (+) SYSTICK configuration used by @ref LL_mDelay and @ref LL_Init1msTick
+      (+) SYSTICK configuration used by LL_mDelay and LL_Init1msTick
           functions
       (+) Low power mode configuration (SCB register of Cortex-MCU)
       (+) MPU API to configure and enable regions
@@ -18,18 +29,6 @@
       (+) API to enable fault handler (SHCSR accesses)
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -636,4 +635,3 @@ __STATIC_INLINE void LL_MPU_DisableRegion(uint32_t Region)
 
 #endif /* __STM32G4xx_LL_CORTEX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
