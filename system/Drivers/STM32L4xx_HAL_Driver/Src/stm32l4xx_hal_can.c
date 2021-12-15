@@ -12,6 +12,17 @@
   *           + Callbacks functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -120,7 +131,7 @@
           submitted (the sleep mode is not yet entered), and become
           HAL_CAN_STATE_SLEEP_ACTIVE when the sleep mode is effective.
 
-      (#) The wake-up from sleep mode can be trigged by two ways:
+      (#) The wake-up from sleep mode can be triggered by two ways:
             (++) Using HAL_CAN_WakeUp(). When returning from this function,
                  the sleep mode is exited (if return status is HAL_OK).
             (++) When a start of Rx CAN frame is detected by the CAN peripheral,
@@ -131,9 +142,9 @@
 
   The compilation define  USE_HAL_CAN_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
-  Use Function @ref HAL_CAN_RegisterCallback() to register an interrupt callback.
+  Use Function HAL_CAN_RegisterCallback() to register an interrupt callback.
 
-  Function @ref HAL_CAN_RegisterCallback() allows to register following callbacks:
+  Function HAL_CAN_RegisterCallback() allows to register following callbacks:
     (+) TxMailbox0CompleteCallback   : Tx Mailbox 0 Complete Callback.
     (+) TxMailbox1CompleteCallback   : Tx Mailbox 1 Complete Callback.
     (+) TxMailbox2CompleteCallback   : Tx Mailbox 2 Complete Callback.
@@ -152,9 +163,9 @@
   This function takes as parameters the HAL peripheral handle, the Callback ID
   and a pointer to the user callback function.
 
-  Use function @ref HAL_CAN_UnRegisterCallback() to reset a callback to the default
+  Use function HAL_CAN_UnRegisterCallback() to reset a callback to the default
   weak function.
-  @ref HAL_CAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
+  HAL_CAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
   and the Callback ID.
   This function allows to reset following callbacks:
     (+) TxMailbox0CompleteCallback   : Tx Mailbox 0 Complete Callback.
@@ -173,13 +184,13 @@
     (+) MspInitCallback              : CAN MspInit.
     (+) MspDeInitCallback            : CAN MspDeInit.
 
-  By default, after the @ref HAL_CAN_Init() and when the state is HAL_CAN_STATE_RESET,
+  By default, after the HAL_CAN_Init() and when the state is HAL_CAN_STATE_RESET,
   all callbacks are set to the corresponding weak functions:
-  example @ref HAL_CAN_ErrorCallback().
+  example HAL_CAN_ErrorCallback().
   Exception done for MspInit and MspDeInit functions that are
-  reset to the legacy weak function in the @ref HAL_CAN_Init()/ @ref HAL_CAN_DeInit() only when
+  reset to the legacy weak function in the HAL_CAN_Init()/ HAL_CAN_DeInit() only when
   these callbacks are null (not registered beforehand).
-  if not, MspInit or MspDeInit are not null, the @ref HAL_CAN_Init()/ @ref HAL_CAN_DeInit()
+  if not, MspInit or MspDeInit are not null, the HAL_CAN_Init()/ HAL_CAN_DeInit()
   keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
   Callbacks can be registered/unregistered in HAL_CAN_STATE_READY state only.
@@ -187,25 +198,14 @@
   in HAL_CAN_STATE_READY or HAL_CAN_STATE_RESET state,
   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
   In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_CAN_RegisterCallback() before calling @ref HAL_CAN_DeInit()
-  or @ref HAL_CAN_Init() function.
+  using HAL_CAN_RegisterCallback() before calling HAL_CAN_DeInit()
+  or HAL_CAN_Init() function.
 
   When The compilation define USE_HAL_CAN_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -330,14 +330,14 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
   }
 #endif /* (USE_HAL_CAN_REGISTER_CALLBACKS) */
 
-  /* Exit from sleep mode */
-  CLEAR_BIT(hcan->Instance->MCR, CAN_MCR_SLEEP);
+  /* Request initialisation */
+  SET_BIT(hcan->Instance->MCR, CAN_MCR_INRQ);
 
   /* Get tick */
   tickstart = HAL_GetTick();
 
-  /* Check Sleep mode leave acknowledge */
-  while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U)
+  /* Wait initialisation acknowledge */
+  while ((hcan->Instance->MSR & CAN_MSR_INAK) == 0U)
   {
     if ((HAL_GetTick() - tickstart) > CAN_TIMEOUT_VALUE)
     {
@@ -351,14 +351,14 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
     }
   }
 
-  /* Request initialisation */
-  SET_BIT(hcan->Instance->MCR, CAN_MCR_INRQ);
+  /* Exit from sleep mode */
+  CLEAR_BIT(hcan->Instance->MCR, CAN_MCR_SLEEP);
 
   /* Get tick */
   tickstart = HAL_GetTick();
 
-  /* Wait initialisation acknowledge */
-  while ((hcan->Instance->MSR & CAN_MSR_INAK) == 0U)
+  /* Check Sleep mode leave acknowledge */
+  while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U)
   {
     if ((HAL_GetTick() - tickstart) > CAN_TIMEOUT_VALUE)
     {
@@ -1873,7 +1873,7 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
     /* Check if message is still pending */
     if ((hcan->Instance->RF0R & CAN_RF0R_FMP0) != 0U)
     {
-      /* Receive FIFO 0 mesage pending Callback */
+      /* Receive FIFO 0 message pending Callback */
 #if USE_HAL_CAN_REGISTER_CALLBACKS == 1
       /* Call registered callback*/
       hcan->RxFifo0MsgPendingCallback(hcan);
@@ -1922,7 +1922,7 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
     /* Check if message is still pending */
     if ((hcan->Instance->RF1R & CAN_RF1R_FMP1) != 0U)
     {
-      /* Receive FIFO 1 mesage pending Callback */
+      /* Receive FIFO 1 message pending Callback */
 #if USE_HAL_CAN_REGISTER_CALLBACKS == 1
       /* Call registered callback*/
       hcan->RxFifo1MsgPendingCallback(hcan);
@@ -2432,5 +2432,3 @@ HAL_StatusTypeDef HAL_CAN_ResetError(CAN_HandleTypeDef *hcan)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

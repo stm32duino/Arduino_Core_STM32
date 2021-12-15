@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -137,16 +136,16 @@ enum
   TSC_GROUP4_IDX,
 #if defined(TSC_IOCCR_G5_IO1)
   TSC_GROUP5_IDX,
-#endif
+#endif /* TSC_IOCCR_G5_IO1 */
 #if defined(TSC_IOCCR_G6_IO1)
   TSC_GROUP6_IDX,
-#endif
+#endif /* TSC_IOCCR_G6_IO1 */
 #if defined(TSC_IOCCR_G7_IO1)
   TSC_GROUP7_IDX,
-#endif
+#endif /* TSC_IOCCR_G7_IO1 */
 #if defined(TSC_IOCCR_G8_IO1)
   TSC_GROUP8_IDX,
-#endif
+#endif /* TSC_IOCCR_G8_IO1 */
   TSC_NB_OF_GROUPS
 };
 
@@ -195,22 +194,38 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 /** @defgroup TSC_CTPulseHL_Config CTPulse High Length
   * @{
   */
-#define TSC_CTPH_1CYCLE         0x00000000UL                                                    /*!< Charge transfer pulse high during 1 cycle (PGCLK)   */
-#define TSC_CTPH_2CYCLES        TSC_CR_CTPH_0                                                   /*!< Charge transfer pulse high during 2 cycles (PGCLK)  */
-#define TSC_CTPH_3CYCLES        TSC_CR_CTPH_1                                                   /*!< Charge transfer pulse high during 3 cycles (PGCLK)  */
-#define TSC_CTPH_4CYCLES        (TSC_CR_CTPH_1 | TSC_CR_CTPH_0)                                 /*!< Charge transfer pulse high during 4 cycles (PGCLK)  */
-#define TSC_CTPH_5CYCLES        TSC_CR_CTPH_2                                                   /*!< Charge transfer pulse high during 5 cycles (PGCLK)  */
-#define TSC_CTPH_6CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_0)                                 /*!< Charge transfer pulse high during 6 cycles (PGCLK)  */
-#define TSC_CTPH_7CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_1)                                 /*!< Charge transfer pulse high during 7 cycles (PGCLK)  */
-#define TSC_CTPH_8CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0)                 /*!< Charge transfer pulse high during 8 cycles (PGCLK)  */
-#define TSC_CTPH_9CYCLES        TSC_CR_CTPH_3                                                   /*!< Charge transfer pulse high during 9 cycles (PGCLK)  */
-#define TSC_CTPH_10CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_0)                                 /*!< Charge transfer pulse high during 10 cycles (PGCLK) */
-#define TSC_CTPH_11CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_1)                                 /*!< Charge transfer pulse high during 11 cycles (PGCLK) */
-#define TSC_CTPH_12CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0)                 /*!< Charge transfer pulse high during 12 cycles (PGCLK) */
-#define TSC_CTPH_13CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2)                                 /*!< Charge transfer pulse high during 13 cycles (PGCLK) */
-#define TSC_CTPH_14CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_0)                 /*!< Charge transfer pulse high during 14 cycles (PGCLK) */
-#define TSC_CTPH_15CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_1)                 /*!< Charge transfer pulse high during 15 cycles (PGCLK) */
-#define TSC_CTPH_16CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0) /*!< Charge transfer pulse high during 16 cycles (PGCLK) */
+#define TSC_CTPH_1CYCLE         0x00000000UL
+/*!< Charge transfer pulse high during 1 cycle (PGCLK)   */
+#define TSC_CTPH_2CYCLES        TSC_CR_CTPH_0
+/*!< Charge transfer pulse high during 2 cycles (PGCLK)  */
+#define TSC_CTPH_3CYCLES        TSC_CR_CTPH_1
+/*!< Charge transfer pulse high during 3 cycles (PGCLK)  */
+#define TSC_CTPH_4CYCLES        (TSC_CR_CTPH_1 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 4 cycles (PGCLK)  */
+#define TSC_CTPH_5CYCLES        TSC_CR_CTPH_2
+/*!< Charge transfer pulse high during 5 cycles (PGCLK)  */
+#define TSC_CTPH_6CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 6 cycles (PGCLK)  */
+#define TSC_CTPH_7CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_1)
+/*!< Charge transfer pulse high during 7 cycles (PGCLK)  */
+#define TSC_CTPH_8CYCLES        (TSC_CR_CTPH_2 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 8 cycles (PGCLK)  */
+#define TSC_CTPH_9CYCLES        TSC_CR_CTPH_3
+/*!< Charge transfer pulse high during 9 cycles (PGCLK)  */
+#define TSC_CTPH_10CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 10 cycles (PGCLK) */
+#define TSC_CTPH_11CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_1)
+/*!< Charge transfer pulse high during 11 cycles (PGCLK) */
+#define TSC_CTPH_12CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 12 cycles (PGCLK) */
+#define TSC_CTPH_13CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2)
+/*!< Charge transfer pulse high during 13 cycles (PGCLK) */
+#define TSC_CTPH_14CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 14 cycles (PGCLK) */
+#define TSC_CTPH_15CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_1)
+/*!< Charge transfer pulse high during 15 cycles (PGCLK) */
+#define TSC_CTPH_16CYCLES       (TSC_CR_CTPH_3 | TSC_CR_CTPH_2 | TSC_CR_CTPH_1 | TSC_CR_CTPH_0)
+/*!< Charge transfer pulse high during 16 cycles (PGCLK) */
 /**
   * @}
   */
@@ -218,22 +233,38 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 /** @defgroup TSC_CTPulseLL_Config CTPulse Low Length
   * @{
   */
-#define TSC_CTPL_1CYCLE         0x00000000UL                                                     /*!< Charge transfer pulse low during 1 cycle (PGCLK)   */
-#define TSC_CTPL_2CYCLES        TSC_CR_CTPL_0                                                    /*!< Charge transfer pulse low during 2 cycles (PGCLK)  */
-#define TSC_CTPL_3CYCLES        TSC_CR_CTPL_1                                                    /*!< Charge transfer pulse low during 3 cycles (PGCLK)  */
-#define TSC_CTPL_4CYCLES        (TSC_CR_CTPL_1 | TSC_CR_CTPL_0)                                  /*!< Charge transfer pulse low during 4 cycles (PGCLK)  */
-#define TSC_CTPL_5CYCLES        TSC_CR_CTPL_2                                                    /*!< Charge transfer pulse low during 5 cycles (PGCLK)  */
-#define TSC_CTPL_6CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_0)                                  /*!< Charge transfer pulse low during 6 cycles (PGCLK)  */
-#define TSC_CTPL_7CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_1)                                  /*!< Charge transfer pulse low during 7 cycles (PGCLK)  */
-#define TSC_CTPL_8CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)                  /*!< Charge transfer pulse low during 8 cycles (PGCLK)  */
-#define TSC_CTPL_9CYCLES        TSC_CR_CTPL_3                                                    /*!< Charge transfer pulse low during 9 cycles (PGCLK)  */
-#define TSC_CTPL_10CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_0)                                  /*!< Charge transfer pulse low during 10 cycles (PGCLK) */
-#define TSC_CTPL_11CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_1)                                  /*!< Charge transfer pulse low during 11 cycles (PGCLK) */
-#define TSC_CTPL_12CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)                  /*!< Charge transfer pulse low during 12 cycles (PGCLK) */
-#define TSC_CTPL_13CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2)                                  /*!< Charge transfer pulse low during 13 cycles (PGCLK) */
-#define TSC_CTPL_14CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_0)                  /*!< Charge transfer pulse low during 14 cycles (PGCLK) */
-#define TSC_CTPL_15CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_1)                  /*!< Charge transfer pulse low during 15 cycles (PGCLK) */
-#define TSC_CTPL_16CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)  /*!< Charge transfer pulse low during 16 cycles (PGCLK) */
+#define TSC_CTPL_1CYCLE         0x00000000UL
+/*!< Charge transfer pulse low during 1 cycle (PGCLK)   */
+#define TSC_CTPL_2CYCLES        TSC_CR_CTPL_0
+/*!< Charge transfer pulse low during 2 cycles (PGCLK)  */
+#define TSC_CTPL_3CYCLES        TSC_CR_CTPL_1
+/*!< Charge transfer pulse low during 3 cycles (PGCLK)  */
+#define TSC_CTPL_4CYCLES        (TSC_CR_CTPL_1 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 4 cycles (PGCLK)  */
+#define TSC_CTPL_5CYCLES        TSC_CR_CTPL_2
+/*!< Charge transfer pulse low during 5 cycles (PGCLK)  */
+#define TSC_CTPL_6CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 6 cycles (PGCLK)  */
+#define TSC_CTPL_7CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_1)
+/*!< Charge transfer pulse low during 7 cycles (PGCLK)  */
+#define TSC_CTPL_8CYCLES        (TSC_CR_CTPL_2 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 8 cycles (PGCLK)  */
+#define TSC_CTPL_9CYCLES        TSC_CR_CTPL_3
+/*!< Charge transfer pulse low during 9 cycles (PGCLK)  */
+#define TSC_CTPL_10CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 10 cycles (PGCLK) */
+#define TSC_CTPL_11CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_1)
+/*!< Charge transfer pulse low during 11 cycles (PGCLK) */
+#define TSC_CTPL_12CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 12 cycles (PGCLK) */
+#define TSC_CTPL_13CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2)
+/*!< Charge transfer pulse low during 13 cycles (PGCLK) */
+#define TSC_CTPL_14CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 14 cycles (PGCLK) */
+#define TSC_CTPL_15CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_1)
+/*!< Charge transfer pulse low during 15 cycles (PGCLK) */
+#define TSC_CTPL_16CYCLES       (TSC_CR_CTPL_3 | TSC_CR_CTPL_2 | TSC_CR_CTPL_1 | TSC_CR_CTPL_0)
+/*!< Charge transfer pulse low during 16 cycles (PGCLK) */
 /**
   * @}
   */
@@ -297,8 +328,11 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 /** @defgroup TSC_Acquisition_Mode Acquisition Mode
   * @{
   */
-#define TSC_ACQ_MODE_NORMAL     0x00000000UL  /*!< Normal acquisition mode (acquisition starts as soon as START bit is set)                                                              */
-#define TSC_ACQ_MODE_SYNCHRO    TSC_CR_AM     /*!< Synchronized acquisition mode (acquisition starts if START bit is set and when the selected signal is detected on the SYNC input pin) */
+#define TSC_ACQ_MODE_NORMAL     0x00000000UL
+/*!< Normal acquisition mode (acquisition starts as soon as START bit is set) */
+#define TSC_ACQ_MODE_SYNCHRO    TSC_CR_AM
+/*!< Synchronized acquisition mode (acquisition starts if START bit is set and
+when the selected signal is detected on the SYNC input pin) */
 /**
   * @}
   */
@@ -330,16 +364,16 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 #define TSC_GROUP4              (0x1UL << TSC_GROUP4_IDX)
 #if defined(TSC_IOCCR_G5_IO1)
 #define TSC_GROUP5              (0x1UL << TSC_GROUP5_IDX)
-#endif
+#endif /* TSC_IOCCR_G5_IO1 */
 #if defined(TSC_IOCCR_G6_IO1)
 #define TSC_GROUP6              (0x1UL << TSC_GROUP6_IDX)
-#endif
+#endif /* TSC_IOCCR_G6_IO1 */
 #if defined(TSC_IOCCR_G7_IO1)
 #define TSC_GROUP7              (0x1UL << TSC_GROUP7_IDX)
-#endif
+#endif /* TSC_IOCCR_G7_IO1 */
 #if defined(TSC_IOCCR_G8_IO1)
 #define TSC_GROUP8              (0x1UL << TSC_GROUP8_IDX)
-#endif
+#endif /* TSC_IOCCR_G8_IO1 */
 
 #define TSC_GROUPX_NOT_SUPPORTED        0xFF000000UL    /*!< TSC GroupX not supported       */
 
@@ -374,7 +408,7 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 #define TSC_GROUP5_IO2          TSC_GROUP5_IO1                                          /*!< TSC Group5 IO2 not supported   */
 #define TSC_GROUP5_IO3          TSC_GROUP5_IO1                                          /*!< TSC Group5 IO3 not supported   */
 #define TSC_GROUP5_IO4          TSC_GROUP5_IO1                                          /*!< TSC Group5 IO4 not supported   */
-#endif
+#endif /* TSC_IOCCR_G5_IO1 */
 #if defined(TSC_IOCCR_G6_IO1)
 
 #define TSC_GROUP6_IO1          TSC_IOCCR_G6_IO1 /*!< TSC Group6 IO1 */
@@ -387,7 +421,7 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 #define TSC_GROUP6_IO2          TSC_GROUP6_IO1                                          /*!< TSC Group6 IO2 not supported   */
 #define TSC_GROUP6_IO3          TSC_GROUP6_IO1                                          /*!< TSC Group6 IO3 not supported   */
 #define TSC_GROUP6_IO4          TSC_GROUP6_IO1                                          /*!< TSC Group6 IO4 not supported   */
-#endif
+#endif /* TSC_IOCCR_G6_IO1 */
 #if defined(TSC_IOCCR_G7_IO1)
 
 #define TSC_GROUP7_IO1          TSC_IOCCR_G7_IO1 /*!< TSC Group7 IO1 */
@@ -400,7 +434,7 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 #define TSC_GROUP7_IO2          TSC_GROUP7_IO1                                          /*!< TSC Group7 IO2 not supported   */
 #define TSC_GROUP7_IO3          TSC_GROUP7_IO1                                          /*!< TSC Group7 IO3 not supported   */
 #define TSC_GROUP7_IO4          TSC_GROUP7_IO1                                          /*!< TSC Group7 IO4 not supported   */
-#endif
+#endif /* TSC_IOCCR_G7_IO1 */
 #if defined(TSC_IOCCR_G8_IO1)
 
 #define TSC_GROUP8_IO1          TSC_IOCCR_G8_IO1 /*!< TSC Group8 IO1 */
@@ -413,7 +447,7 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 #define TSC_GROUP8_IO2          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO2 not supported   */
 #define TSC_GROUP8_IO3          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO3 not supported   */
 #define TSC_GROUP8_IO4          TSC_GROUP8_IO1                                          /*!< TSC Group8 IO4 not supported   */
-#endif
+#endif /* TSC_IOCCR_G8_IO1 */
 /**
   * @}
   */
@@ -433,14 +467,14 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @retval None
   */
 #if (USE_HAL_TSC_REGISTER_CALLBACKS == 1)
-#define __HAL_TSC_RESET_HANDLE_STATE(__HANDLE__)                   do{                                                   \
-                                                                       (__HANDLE__)->State = HAL_TSC_STATE_RESET;       \
-                                                                       (__HANDLE__)->MspInitCallback = NULL;            \
-                                                                       (__HANDLE__)->MspDeInitCallback = NULL;          \
+#define __HAL_TSC_RESET_HANDLE_STATE(__HANDLE__)                   do{                                             \
+                                                                       (__HANDLE__)->State = HAL_TSC_STATE_RESET;  \
+                                                                       (__HANDLE__)->MspInitCallback = NULL;       \
+                                                                       (__HANDLE__)->MspDeInitCallback = NULL;     \
                                                                      } while(0)
 #else
 #define __HAL_TSC_RESET_HANDLE_STATE(__HANDLE__)                   ((__HANDLE__)->State = HAL_TSC_STATE_RESET)
-#endif
+#endif /* (USE_HAL_TSC_REGISTER_CALLBACKS == 1) */
 
 /**
   * @brief Enable the TSC peripheral.
@@ -519,7 +553,9 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @param  __INTERRUPT__ TSC interrupt
   * @retval SET or RESET
   */
-#define __HAL_TSC_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)         ((((__HANDLE__)->Instance->IER & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET : RESET)
+#define __HAL_TSC_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)         ((((__HANDLE__)->Instance->IER\
+                                                                      & (__INTERRUPT__)) == (__INTERRUPT__)) ? SET :\
+                                                                    RESET)
 
 /**
   * @brief Check whether the specified TSC flag is set or not.
@@ -527,7 +563,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @param  __FLAG__ TSC flag
   * @retval SET or RESET
   */
-#define __HAL_TSC_GET_FLAG(__HANDLE__, __FLAG__)                   ((((__HANDLE__)->Instance->ISR & (__FLAG__)) == (__FLAG__)) ? SET : RESET)
+#define __HAL_TSC_GET_FLAG(__HANDLE__, __FLAG__)                   ((((__HANDLE__)->Instance->ISR\
+                                                                      & (__FLAG__)) == (__FLAG__)) ? SET : RESET)
 
 /**
   * @brief Clear the TSC's pending flag.
@@ -551,7 +588,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @param  __GX_IOY_MASK__ IOs mask
   * @retval None
   */
-#define __HAL_TSC_DISABLE_HYSTERESIS(__HANDLE__, __GX_IOY_MASK__)  ((__HANDLE__)->Instance->IOHCR &= (~(__GX_IOY_MASK__)))
+#define __HAL_TSC_DISABLE_HYSTERESIS(__HANDLE__, __GX_IOY_MASK__)  ((__HANDLE__)->Instance->IOHCR\
+                                                                    &= (~(__GX_IOY_MASK__)))
 
 /**
   * @brief Open analog switch on a group of IOs.
@@ -559,7 +597,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @param  __GX_IOY_MASK__ IOs mask
   * @retval None
   */
-#define __HAL_TSC_OPEN_ANALOG_SWITCH(__HANDLE__, __GX_IOY_MASK__)  ((__HANDLE__)->Instance->IOASCR &= (~(__GX_IOY_MASK__)))
+#define __HAL_TSC_OPEN_ANALOG_SWITCH(__HANDLE__, __GX_IOY_MASK__)  ((__HANDLE__)->Instance->IOASCR\
+                                                                    &= (~(__GX_IOY_MASK__)))
 
 /**
   * @brief Close analog switch on a group of IOs.
@@ -583,7 +622,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @param  __GX_IOY_MASK__ IOs mask
   * @retval None
   */
-#define __HAL_TSC_DISABLE_CHANNEL(__HANDLE__, __GX_IOY_MASK__)     ((__HANDLE__)->Instance->IOCCR &= (~(__GX_IOY_MASK__)))
+#define __HAL_TSC_DISABLE_CHANNEL(__HANDLE__, __GX_IOY_MASK__)     ((__HANDLE__)->Instance->IOCCR\
+                                                                    &= (~(__GX_IOY_MASK__)))
 
 /**
   * @brief Enable a group of IOs in sampling mode.
@@ -623,7 +663,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
   * @retval SET or RESET
   */
 #define __HAL_TSC_GET_GROUP_STATUS(__HANDLE__, __GX_INDEX__) \
-((((__HANDLE__)->Instance->IOGCSR & (uint32_t)(1UL << (((__GX_INDEX__) & 0xFUL) + 16UL))) == (uint32_t)(1UL << (((__GX_INDEX__) & 0xFUL) + 16UL))) ? TSC_GROUP_COMPLETED : TSC_GROUP_ONGOING)
+  ((((__HANDLE__)->Instance->IOGCSR & (uint32_t)(1UL << (((__GX_INDEX__) & 0xFUL) + 16UL))) == \
+    (uint32_t)(1UL << (((__GX_INDEX__) & 0xFUL) + 16UL))) ? TSC_GROUP_COMPLETED : TSC_GROUP_ONGOING)
 
 /**
   * @}
@@ -669,7 +710,8 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
                                          ((__VALUE__) == TSC_CTPL_15CYCLES) || \
                                          ((__VALUE__) == TSC_CTPL_16CYCLES))
 
-#define IS_TSC_SS(__VALUE__)            (((FunctionalState)(__VALUE__) == DISABLE) || ((FunctionalState)(__VALUE__) == ENABLE))
+#define IS_TSC_SS(__VALUE__)            (((FunctionalState)(__VALUE__) == DISABLE)\
+                                         || ((FunctionalState)(__VALUE__) == ENABLE))
 
 #define IS_TSC_SSD(__VALUE__)           (((__VALUE__) == 0UL) || (((__VALUE__) > 0UL) && ((__VALUE__) < 128UL)))
 
@@ -684,9 +726,13 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
                                          ((__VALUE__) == TSC_PG_PRESC_DIV64) || \
                                          ((__VALUE__) == TSC_PG_PRESC_DIV128))
 
-#define IS_TSC_PG_PRESC_VS_CTPL(__PGPSC__, __CTPL__)    ((((__PGPSC__) == TSC_PG_PRESC_DIV1) && ((__CTPL__) > TSC_CTPL_2CYCLES)) || \
-                                                         (((__PGPSC__) == TSC_PG_PRESC_DIV2) && ((__CTPL__) > TSC_CTPL_1CYCLE))  || \
-                                                         (((__PGPSC__) > TSC_PG_PRESC_DIV2)  && (((__CTPL__) == TSC_CTPL_1CYCLE) || ((__CTPL__) > TSC_CTPL_1CYCLE))))
+#define IS_TSC_PG_PRESC_VS_CTPL(__PGPSC__, __CTPL__)    ((((__PGPSC__) == TSC_PG_PRESC_DIV1) && \
+                                                          ((__CTPL__) > TSC_CTPL_2CYCLES)) ||   \
+                                                         (((__PGPSC__) == TSC_PG_PRESC_DIV2) && \
+                                                          ((__CTPL__) > TSC_CTPL_1CYCLE))  ||   \
+                                                         (((__PGPSC__) > TSC_PG_PRESC_DIV2)  && \
+                                                          (((__CTPL__) == TSC_CTPL_1CYCLE) ||   \
+                                                           ((__CTPL__) > TSC_CTPL_1CYCLE))))
 
 #define IS_TSC_MCV(__VALUE__)           (((__VALUE__) == TSC_MCV_255)  || \
                                          ((__VALUE__) == TSC_MCV_511)  || \
@@ -698,13 +744,16 @@ typedef  void (*pTSC_CallbackTypeDef)(TSC_HandleTypeDef *htsc); /*!< pointer to 
 
 #define IS_TSC_IODEF(__VALUE__)         (((__VALUE__) == TSC_IODEF_OUT_PP_LOW) || ((__VALUE__) == TSC_IODEF_IN_FLOAT))
 
-#define IS_TSC_SYNC_POL(__VALUE__)      (((__VALUE__) == TSC_SYNC_POLARITY_FALLING) || ((__VALUE__) == TSC_SYNC_POLARITY_RISING))
+#define IS_TSC_SYNC_POL(__VALUE__)      (((__VALUE__) == TSC_SYNC_POLARITY_FALLING)\
+                                         || ((__VALUE__) == TSC_SYNC_POLARITY_RISING))
 
 #define IS_TSC_ACQ_MODE(__VALUE__)      (((__VALUE__) == TSC_ACQ_MODE_NORMAL) || ((__VALUE__) == TSC_ACQ_MODE_SYNCHRO))
 
-#define IS_TSC_MCE_IT(__VALUE__)        (((FunctionalState)(__VALUE__) == DISABLE) || ((FunctionalState)(__VALUE__) == ENABLE))
+#define IS_TSC_MCE_IT(__VALUE__)        (((FunctionalState)(__VALUE__) == DISABLE)\
+                                         || ((FunctionalState)(__VALUE__) == ENABLE))
 
-#define IS_TSC_GROUP_INDEX(__VALUE__)   (((__VALUE__) == 0UL) || (((__VALUE__) > 0UL) && ((__VALUE__) < (uint32_t)TSC_NB_OF_GROUPS)))
+#define IS_TSC_GROUP_INDEX(__VALUE__)   (((__VALUE__) == 0UL)\
+                                         || (((__VALUE__) > 0UL) && ((__VALUE__) < (uint32_t)TSC_NB_OF_GROUPS)))
 
 
 #define IS_TSC_GROUP(__VALUE__)        ((((__VALUE__) & TSC_GROUPX_NOT_SUPPORTED) != TSC_GROUPX_NOT_SUPPORTED) && \
@@ -762,7 +811,8 @@ void HAL_TSC_MspDeInit(TSC_HandleTypeDef *htsc);
 
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_TSC_REGISTER_CALLBACKS == 1)
-HAL_StatusTypeDef HAL_TSC_RegisterCallback(TSC_HandleTypeDef *htsc, HAL_TSC_CallbackIDTypeDef CallbackID, pTSC_CallbackTypeDef pCallback);
+HAL_StatusTypeDef HAL_TSC_RegisterCallback(TSC_HandleTypeDef *htsc, HAL_TSC_CallbackIDTypeDef CallbackID,
+                                           pTSC_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_TSC_UnRegisterCallback(TSC_HandleTypeDef *htsc, HAL_TSC_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_TSC_REGISTER_CALLBACKS */
 /**
@@ -831,5 +881,3 @@ void HAL_TSC_ErrorCallback(TSC_HandleTypeDef *htsc);
 #endif
 
 #endif /* STM32L4xx_HAL_TSC_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

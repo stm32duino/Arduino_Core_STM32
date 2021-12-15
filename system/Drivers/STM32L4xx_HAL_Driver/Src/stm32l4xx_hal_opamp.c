@@ -5,14 +5,22 @@
   * @brief   OPAMP HAL module driver.
   *          This file provides firmware functions to manage the following
   *          functionalities of the operational amplifier(s) peripheral:
-  *           + OPAMP configuration
-  *           + OPAMP calibration
-  *          Thanks to
   *           + Initialization and de-initialization functions
   *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ================================================================================
           ##### OPAMP Peripheral Features #####
@@ -91,7 +99,7 @@
 
       (#) Configure the OPAMP using HAL_OPAMP_Init() function:
       (++) Select OPAMP_POWERMODE_LOWPOWER
-      (++) Otherwise select OPAMP_POWERMODE_NORMAL
+      (++) Otherwise select OPAMP_POWERMODE_NORMALPOWER
 
     *** Calibration ***
     ============================================
@@ -114,14 +122,14 @@
       (++) The compilation define  USE_HAL_OPAMP_REGISTER_CALLBACKS when set to 1
            allows the user to configure dynamically the driver callbacks.
 
-      (++) Use Functions @ref HAL_OPAMP_RegisterCallback() to register a user callback,
+      (++) Use Functions HAL_OPAMP_RegisterCallback() to register a user callback,
            it allows to register following callbacks:
       (+++) MspInitCallback         : OPAMP MspInit.
       (+++) MspDeInitCallback       : OPAMP MspFeInit.
            This function takes as parameters the HAL peripheral handle, the Callback ID
            and a pointer to the user callback function.
 
-      (++) Use function @ref HAL_OPAMP_UnRegisterCallback() to reset a callback to the default
+      (++) Use function HAL_OPAMP_UnRegisterCallback() to reset a callback to the default
            weak (surcharged) function. It allows to reset following callbacks:
       (+++) MspInitCallback         : OPAMP MspInit.
       (+++) MspDeInitCallback       : OPAMP MspdeInit.
@@ -192,18 +200,6 @@
       |-----------------|--------|-----------------------|---------------------|
        (1): ADC1 or ADC2 shall select IN15.
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -335,7 +331,7 @@ HAL_StatusTypeDef HAL_OPAMP_Init(OPAMP_HandleTypeDef *hopamp)
     assert_param(IS_OPAMP_TRIMMING(hopamp->Init.UserTrimming));
     if ((hopamp->Init.UserTrimming) == OPAMP_TRIMMING_USER)
     {
-      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMAL)
+      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMALPOWER)
       {
         assert_param(IS_OPAMP_TRIMMINGVALUE(hopamp->Init.TrimmingValueP));
         assert_param(IS_OPAMP_TRIMMINGVALUE(hopamp->Init.TrimmingValueN));
@@ -399,7 +395,7 @@ HAL_StatusTypeDef HAL_OPAMP_Init(OPAMP_HandleTypeDef *hopamp)
       /* Set power mode and associated calibration parameters */
       if (hopamp->Init.PowerMode != OPAMP_POWERMODE_LOWPOWER)
       {
-        /* OPAMP_POWERMODE_NORMAL */
+        /* OPAMP_POWERMODE_NORMALPOWER */
         /* Set calibration mode (factory or user) and values for            */
         /* transistors differential pair high (PMOS) and low (NMOS) for     */
         /* normal mode.                                                     */
@@ -681,7 +677,7 @@ HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef *hopamp)
       SET_BIT(hopamp->Instance->CSR, OPAMP_CSR_USERTRIM);
 
       /* Select trimming settings depending on power mode */
-      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMAL)
+      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMALPOWER)
       {
         tmp_opamp_reg_trimming = &hopamp->Instance->OTR;
       }
@@ -707,7 +703,7 @@ HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef *hopamp)
       while (delta != 0U)
       {
         /* Set candidate trimming */
-        /* OPAMP_POWERMODE_NORMAL */
+        /* OPAMP_POWERMODE_NORMALPOWER */
         MODIFY_REG(*tmp_opamp_reg_trimming, OPAMP_OTR_TRIMOFFSETN, trimmingvaluen);
 
         /* OFFTRIMmax delay 1 ms as per datasheet (electrical characteristics */
@@ -758,7 +754,7 @@ HAL_StatusTypeDef HAL_OPAMP_SelfCalibrate(OPAMP_HandleTypeDef *hopamp)
       while (delta != 0U)
       {
         /* Set candidate trimming */
-        /* OPAMP_POWERMODE_NORMAL */
+        /* OPAMP_POWERMODE_NORMALPOWER */
         MODIFY_REG(*tmp_opamp_reg_trimming, OPAMP_OTR_TRIMOFFSETP, (trimmingvaluep<<OPAMP_INPUT_NONINVERTING));
 
         /* OFFTRIMmax delay 1 ms as per datasheet (electrical characteristics */
@@ -950,7 +946,7 @@ HAL_OPAMP_TrimmingValueTypeDef HAL_OPAMP_GetTrimOffset (OPAMP_HandleTypeDef *hop
     else
     {
       /* Select trimming settings depending on power mode */
-      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMAL)
+      if (hopamp->Init.PowerMode == OPAMP_POWERMODE_NORMALPOWER)
       {
         tmp_opamp_reg_trimming = &OPAMP->OTR;
       }
@@ -1174,5 +1170,3 @@ HAL_StatusTypeDef HAL_OPAMP_UnRegisterCallback (OPAMP_HandleTypeDef *hopamp, HAL
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

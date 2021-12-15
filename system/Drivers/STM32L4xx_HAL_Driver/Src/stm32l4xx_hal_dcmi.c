@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -54,7 +65,7 @@
         (++) during capture, the driver copies the image data samples from DCMI DR register
              at the end of the final destination buffer used as a work buffer,
         (++) at each DMA half (respectively complete) transfer interrupt, the first
-             (resp. second) half of the work buffer is copied to the final destination thru
+             (resp. second) half of the work buffer is copied to the final destination through
              a second DMA channel.
         (++) Parameters of this second DMA channel are contained in the memory to memory DMA
              handle "DMAM2M_Handle", itself field of the DCMI handle structure.
@@ -144,17 +155,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -453,10 +453,10 @@ __weak void HAL_DCMI_MspDeInit(DCMI_HandleTypeDef* hdcmi)
   *        the API uses the end of the destination buffer as a work area: HAL_DCMI_Start_DMA()
   *        initiates a circular DMA transfer from DCMI DR to the ad-hoc work buffer and each
   *        half and complete transfer interrupt triggers a copy from the work buffer to
-  *        the final destination pData thru a second DMA channel.
+  *        the final destination pData through a second DMA channel.
   * @note  Following HAL_DCMI_Init() call, all interruptions are enabled (line end,
   *        frame end, overrun, VSYNC and embedded synchronization error interrupts).
-  *        User can disable unwanted interrupts thru __HAL_DCMI_DISABLE_IT() macro
+  *        User can disable unwanted interrupts through __HAL_DCMI_DISABLE_IT() macro
   *        before invoking HAL_DCMI_Start_DMA().
   * @note  For length less than 0xFFFF (DMA maximum transfer length) and in snapshot mode,
   *        frame interrupt is disabled before DMA transfer. FRAME capture flag is checked
@@ -1449,7 +1449,7 @@ static void DCMI_DMAError(DMA_HandleTypeDef *hdma)
 /**
   * @brief Sub-buffers transfer size computation.
   * @note In the case of a frame size larger than the maximum DMA transfer length (0xFFFF),
-  *       the tranfer from DCMI DR register to the final output buffer is carried out by a sequence
+  *       the transfer from DCMI DR register to the final output buffer is carried out by a sequence
   *       of intermediate sub-copies to temporary buffers of size less than 0xFFFF.
   *       To optimize the number of DMA transfers, the API computes the temporary buffer
   *       size so that the latter is an even number less than 0xFFFF, that divides the final
@@ -1465,7 +1465,7 @@ static uint32_t DCMI_TransferSize(uint32_t InputSize)
   uint32_t temp = InputSize;
   uint32_t aPrime[NPRIME] = {0};
   uint32_t output = 2; /* Want a result which is an even number */
-  uint32_t PrimeArray[NPRIME] = { 1UL,  2UL,  3UL,  5UL,
+  static const uint32_t PrimeArray[NPRIME] = { 1UL,  2UL,  3UL,  5UL,
                                 7UL, 11UL, 13UL, 17UL,
                                19UL, 23UL, 29UL, 31UL,
                                37UL, 41UL, 43UL, 47UL};
@@ -1488,7 +1488,7 @@ static uint32_t DCMI_TransferSize(uint32_t InputSize)
   }
 
   /*  Search for the biggest even divisor less or equal to 0xFFFE = 65534 */
-  aPrime[1] -= 1U; /* output is initialized to 2, so don't count dividor 2 twice */
+  aPrime[1] -= 1U; /* output is initialized to 2, so don't count divider 2 twice */
 
    /*  The algorithm below yields a sub-optimal solution
        but in an acceptable time.  */
@@ -1530,5 +1530,3 @@ static uint32_t DCMI_TransferSize(uint32_t InputSize)
 
 #endif /* DCMI */
 #endif /* HAL_DCMI_MODULE_ENABLED */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

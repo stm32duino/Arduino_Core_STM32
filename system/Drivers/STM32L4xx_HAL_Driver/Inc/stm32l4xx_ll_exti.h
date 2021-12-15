@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1124,7 +1123,7 @@ __STATIC_INLINE void LL_EXTI_GenerateSWI_0_31(uint32_t ExtiLine)
 
 /**
   * @brief  Generate a software Interrupt Event for Lines in range 32 to 63
-  * @note If the interrupt is enabled on this line inthe EXTI_IMR2, writing a 1 to
+  * @note If the interrupt is enabled on this line in the EXTI_IMR2, writing a 1 to
   *       this bit when it is at '0' sets the corresponding pending bit in EXTI_PR2
   *       resulting in an interrupt request generation.
   *       This bit is cleared by clearing the corresponding bit in the EXTI_PR2
@@ -1358,4 +1357,3 @@ void LL_EXTI_StructInit(LL_EXTI_InitTypeDef *EXTI_InitStruct);
 
 #endif /* STM32L4xx_LL_EXTI_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

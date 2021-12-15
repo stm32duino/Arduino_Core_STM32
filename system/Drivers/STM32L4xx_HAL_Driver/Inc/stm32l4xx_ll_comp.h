@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -142,7 +141,7 @@ typedef struct
 #define LL_COMP_INPUT_PLUS_IO2          (COMP_CSR_INPSEL_0)                     /*!< Comparator input plus connected to IO2 (pin PB2 for COMP1, pin PB6 for COMP2) */
 #if defined(COMP_CSR_INPSEL_1)
 #define LL_COMP_INPUT_PLUS_IO3          (COMP_CSR_INPSEL_1)                     /*!< Comparator input plus connected to IO3 (pin PA1 for COMP1, pin PA3 for COMP2) */
-#endif
+#endif /* COMP_CSR_INPSEL_1 */
 /**
   * @}
   */
@@ -184,13 +183,13 @@ typedef struct
 #define LL_COMP_INVERTINGINPUT_IO3        LL_COMP_INPUT_MINUS_IO3
 #define LL_COMP_INVERTINGINPUT_IO4        LL_COMP_INPUT_MINUS_IO4
 #define LL_COMP_INVERTINGINPUT_IO5        LL_COMP_INPUT_MINUS_IO5
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 
 #define LL_COMP_NONINVERTINGINPUT_IO1     LL_COMP_INPUT_PLUS_IO1
 #define LL_COMP_NONINVERTINGINPUT_IO2     LL_COMP_INPUT_PLUS_IO2
 #if defined(COMP_CSR_INPSEL_1)
 #define LL_COMP_NONINVERTINGINPUT_IO3     LL_COMP_INPUT_PLUS_IO3
-#endif
+#endif /* COMP_CSR_INPSEL_1 */
 /**
   * @}
   */
@@ -563,7 +562,7 @@ __STATIC_INLINE void LL_COMP_SetInputMinus(COMP_TypeDef *COMPx, uint32_t InputMi
   MODIFY_REG(COMPx->CSR, COMP_CSR_INMESEL | COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN, InputMinus);
 #else
   MODIFY_REG(COMPx->CSR, COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN, InputMinus);
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 }
 
 /**
@@ -596,7 +595,7 @@ __STATIC_INLINE uint32_t LL_COMP_GetInputMinus(COMP_TypeDef *COMPx)
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INMESEL | COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN));
 #else
   return (uint32_t)(READ_BIT(COMPx->CSR, COMP_CSR_INMSEL | COMP_CSR_SCALEN | COMP_CSR_BRGEN));
-#endif
+#endif /* COMP_CSR_INMESEL_1 */
 }
 
 /**
@@ -886,5 +885,3 @@ void        LL_COMP_StructInit(LL_COMP_InitTypeDef *COMP_InitStruct);
 #endif
 
 #endif /* STM32L4xx_LL_COMP_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

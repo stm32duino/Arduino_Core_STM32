@@ -11,6 +11,17 @@
   *           + Extended Control functions
   *           + Extended RTC features functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                   ##### How to use this driver #####
@@ -93,18 +104,7 @@
      (+) STM32L412xx and STM32L422xx only : Before calling these functions you have to call HAL_RTC_Init() in order to
          perform TAMP base address offset calculation.
 
-   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  @endverbatim
   ******************************************************************************
   */
 
@@ -515,14 +515,14 @@ void HAL_RTCEx_TamperTimeStampIRQHandler(RTC_HandleTypeDef *hrtc)
 #else
     HAL_RTCEx_TimeStampEventCallback(hrtc);
 #endif
-    /* Not immediatly clear flags because the content of RTC_TSTR and RTC_TSDR arecleared when TSF bit is reset.*/
+    /* Not immediately clear flags because the content of RTC_TSTR and RTC_TSDR arecleared when TSF bit is reset.*/
     hrtc->Instance->SCR = RTC_SCR_CTSF;
   }
 
   /* Get interrupt status */
   uint32_t tmp = tamp->MISR;
 
-  /* Immediatly clear flags */
+  /* Immediately clear flags */
   tamp->SCR = tmp;
 
 #if defined(RTC_TAMPER1_SUPPORT)
@@ -1613,7 +1613,7 @@ void HAL_RTCEx_SSRUIRQHandler(RTC_HandleTypeDef *hrtc)
 {
   if ((RTC->MISR & RTC_MISR_SSRUMF) != 0u)
   {
-    /* Immediatly clear flags */
+    /* Immediately clear flags */
     RTC->SCR = RTC_SCR_CSSRUF;
 
     /* SSRU callback */
@@ -1847,7 +1847,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
                (RTC_TAMPCR_TAMP1E | RTC_TAMPCR_TAMP1TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP1IE | RTC_TAMPCR_TAMP1NOERASE | RTC_TAMPCR_TAMP1MF), \
                sTamper->Tamper | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP1TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP1NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP1NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP1MF : 0U) \
               );
   }
@@ -1860,7 +1860,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
                (RTC_TAMPCR_TAMP2E | RTC_TAMPCR_TAMP2TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP2IE | RTC_TAMPCR_TAMP2NOERASE | RTC_TAMPCR_TAMP2MF), \
                sTamper->Tamper | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP2TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP2NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP2NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP2MF : 0U) \
               );
   }
@@ -1873,7 +1873,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
                (RTC_TAMPCR_TAMP3E | RTC_TAMPCR_TAMP3TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP3IE | RTC_TAMPCR_TAMP3NOERASE | RTC_TAMPCR_TAMP3MF), \
                sTamper->Tamper | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP3TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP3NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP3NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP3MF : 0U) \
               );
   }
@@ -1884,10 +1884,10 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper(RTC_HandleTypeDef *hrtc, RTC_TamperTypeDef
              (RTC_TAMPCR_TAMPTS | RTC_TAMPCR_TAMPFREQ | RTC_TAMPCR_TAMPFLT | RTC_TAMPCR_TAMPPRCH | RTC_TAMPCR_TAMPPUDIS), \
              sTamper->Filter | sTamper->SamplingFrequency | sTamper->PrechargeDuration | sTamper->TamperPullUp | \
              sTamper->TimeStampOnTamperDetection \
-             );
+            );
 
   /* Set register */
-  WRITE_REG (hrtc->Instance->TAMPCR, tmpreg);
+  WRITE_REG(hrtc->Instance->TAMPCR, tmpreg);
 
   hrtc->State = HAL_RTC_STATE_READY;
 
@@ -2012,7 +2012,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
                (RTC_TAMPCR_TAMP1E | RTC_TAMPCR_TAMP1TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP1IE | RTC_TAMPCR_TAMP1NOERASE | RTC_TAMPCR_TAMP1MF), \
                sTamper->Tamper | sTamper->Interrupt | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP1TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP1NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP1NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP1MF : 0U) \
               );
   }
@@ -2025,7 +2025,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
                (RTC_TAMPCR_TAMP2E | RTC_TAMPCR_TAMP2TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP2IE | RTC_TAMPCR_TAMP2NOERASE | RTC_TAMPCR_TAMP2MF), \
                sTamper->Tamper | sTamper->Interrupt | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP2TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP2NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP2NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP2MF : 0U) \
               );
   }
@@ -2038,7 +2038,7 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
                (RTC_TAMPCR_TAMP3E | RTC_TAMPCR_TAMP3TRG | RTC_TAMPCR_TAMPIE | RTC_TAMPCR_TAMP3IE | RTC_TAMPCR_TAMP3NOERASE | RTC_TAMPCR_TAMP3MF), \
                sTamper->Tamper | sTamper->Interrupt | \
                (sTamper->Trigger == RTC_TAMPERTRIGGER_RISINGEDGE ?  0U : RTC_TAMPCR_TAMP3TRG) | \
-               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP3NOERASE ) | \
+               (sTamper->NoErase == RTC_TAMPER_ERASE_BACKUP_ENABLE ? 0U : RTC_TAMPCR_TAMP3NOERASE) | \
                (sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_ENABLE ? RTC_TAMPCR_TAMP3MF : 0U) \
               );
   }
@@ -2049,10 +2049,10 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
              (RTC_TAMPCR_TAMPTS | RTC_TAMPCR_TAMPFREQ | RTC_TAMPCR_TAMPFLT | RTC_TAMPCR_TAMPPRCH | RTC_TAMPCR_TAMPPUDIS), \
              sTamper->Filter | sTamper->SamplingFrequency | sTamper->PrechargeDuration | sTamper->TamperPullUp | \
              sTamper->TimeStampOnTamperDetection \
-             );
+            );
 
   /* Set register */
-  WRITE_REG (hrtc->Instance->TAMPCR, tmpreg);
+  WRITE_REG(hrtc->Instance->TAMPCR, tmpreg);
 
   /* RTC Tamper Interrupt Configuration: EXTI configuration */
   __HAL_RTC_TAMPER_TIMESTAMP_EXTI_ENABLE_IT();
@@ -2412,6 +2412,3 @@ uint32_t HAL_RTCEx_BKUPRead(RTC_HandleTypeDef *hrtc, uint32_t BackupRegister)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -245,7 +244,7 @@ typedef struct
   */
 
 /** @defgroup OPAMP_LL_EC_HW_DELAYS  Definitions of OPAMP hardware constraints delays
-  * @note   Only OPAMP IP HW delays are defined in OPAMP LL driver driver,
+  * @note   Only OPAMP peripheral HW delays are defined in OPAMP LL driver driver,
   *         not timeout values.
   *         For details on delays values, refer to descriptions in source code
   *         above each literal definition.
@@ -417,7 +416,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetCommonPowerRange(OPAMP_Common_TypeDef *OPAM
   * @rmtoll CSR      OPALPM         LL_OPAMP_SetPowerMode
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMAL
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER
   * @retval None
   */
@@ -431,7 +430,7 @@ __STATIC_INLINE void LL_OPAMP_SetPowerMode(OPAMP_TypeDef *OPAMPx, uint32_t Power
   * @rmtoll CSR      OPALPM         LL_OPAMP_GetPowerMode
   * @param  OPAMPx OPAMP instance
   * @retval Returned value can be one of the following values:
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMAL
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetPowerMode(OPAMP_TypeDef *OPAMPx)
@@ -740,7 +739,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(OPAMP_TypeDef *OPAMPx)
   *         LPOTR    TRIMLPOFFSETP  LL_OPAMP_SetTrimmingValue
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMAL
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER
   * @param  TransistorsDiffPair This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_TRIMMING_NMOS
@@ -750,7 +749,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(OPAMP_TypeDef *OPAMPx)
   */
 __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t PowerMode, uint32_t TransistorsDiffPair, uint32_t TrimmingValue)
 {
-  uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Set bits with position in register depending on parameter                */
   /* "TransistorsDiffPair".                                                   */
@@ -771,7 +770,7 @@ __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t P
   *         LPOTR    TRIMLPOFFSETP  LL_OPAMP_GetTrimmingValue
   * @param  OPAMPx OPAMP instance
   * @param  PowerMode This parameter can be one of the following values:
-  *         @arg @ref LL_OPAMP_POWERMODE_NORMAL
+  *         @arg @ref LL_OPAMP_POWERMODE_NORMALPOWER
   *         @arg @ref LL_OPAMP_POWERMODE_LOWPOWER
   * @param  TransistorsDiffPair This parameter can be one of the following values:
   *         @arg @ref LL_OPAMP_TRIMMING_NMOS
@@ -780,7 +779,7 @@ __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t P
   */
 __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32_t PowerMode, uint32_t TransistorsDiffPair)
 {
-  const uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  const __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Retrieve bits with position in register depending on parameter           */
   /* "TransistorsDiffPair".                                                   */
@@ -800,7 +799,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef* OPAMPx, uint32
 /**
   * @brief  Enable OPAMP instance.
   * @note   After enable from off state, OPAMP requires a delay
-  *         to fullfill wake up time specification.
+  *         to fulfill wake up time specification.
   *         Refer to device datasheet, parameter "tWAKEUP".
   * @rmtoll CSR      OPAMPXEN       LL_OPAMP_Enable
   * @param  OPAMPx OPAMP instance
@@ -871,5 +870,3 @@ void        LL_OPAMP_StructInit(LL_OPAMP_InitTypeDef *OPAMP_InitStruct);
 #endif
 
 #endif /* STM32L4xx_LL_OPAMP_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,7 +6,17 @@
   *          This file provides firmware functions to manage the Firewall
   *          Peripheral initialization and enabling.
   *
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                         ##### How to use this driver #####
@@ -29,17 +39,6 @@
 
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -79,7 +78,7 @@
     This subsection provides the functions allowing to initialize the Firewall.
     Initialization is done by HAL_FIREWALL_Config():
 
-      (+) Enable the Firewall clock thru __HAL_RCC_FIREWALL_CLK_ENABLE() macro.
+      (+) Enable the Firewall clock through __HAL_RCC_FIREWALL_CLK_ENABLE() macro.
 
       (+) Set the protected code segment address start and length.
 
@@ -291,5 +290,3 @@ void HAL_FIREWALL_DisablePreArmFlag(void)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

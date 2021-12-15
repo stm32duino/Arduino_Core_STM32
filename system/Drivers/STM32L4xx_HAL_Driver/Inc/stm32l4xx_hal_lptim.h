@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -98,38 +97,40 @@ typedef struct
   */
 typedef struct
 {
-  LPTIM_ClockConfigTypeDef     Clock;               /*!< Specifies the clock parameters */
+  LPTIM_ClockConfigTypeDef     Clock;             /*!< Specifies the clock parameters */
 
-  LPTIM_ULPClockConfigTypeDef  UltraLowPowerClock;  /*!< Specifies the Ultra Low Power clock parameters */
+  LPTIM_ULPClockConfigTypeDef  UltraLowPowerClock;/*!< Specifies the Ultra Low Power clock parameters */
 
-  LPTIM_TriggerConfigTypeDef   Trigger;             /*!< Specifies the Trigger parameters */
+  LPTIM_TriggerConfigTypeDef   Trigger;           /*!< Specifies the Trigger parameters */
 
-  uint32_t                     OutputPolarity;      /*!< Specifies the Output polarity.
-                                                    This parameter can be a value of @ref LPTIM_Output_Polarity */
+  uint32_t                     OutputPolarity;    /*!< Specifies the Output polarity.
+                                                  This parameter can be a value of @ref LPTIM_Output_Polarity */
 
-  uint32_t                     UpdateMode;          /*!< Specifies whether the update of the autoreload and the compare
-                                                    values is done immediately or after the end of current period.
-                                                    This parameter can be a value of @ref LPTIM_Updating_Mode */
+  uint32_t                     UpdateMode;        /*!< Specifies whether the update of the autoreload and the compare
+                                                  values is done immediately or after the end of current period.
+                                                  This parameter can be a value of @ref LPTIM_Updating_Mode */
 
-  uint32_t                     CounterSource;       /*!< Specifies whether the counter is incremented each internal event
-                                                    or each external event.
-                                                    This parameter can be a value of @ref LPTIM_Counter_Source */
+  uint32_t                     CounterSource;     /*!< Specifies whether the counter is incremented each internal event
+                                                  or each external event.
+                                                  This parameter can be a value of @ref LPTIM_Counter_Source */
 
-  uint32_t                     Input1Source;        /*!< Specifies source selected for input1 (GPIO or comparator output).
-                                                    This parameter can be a value of @ref LPTIM_Input1_Source */
+  uint32_t                     Input1Source;      /*!< Specifies source selected for input1 (GPIO or comparator output).
+                                                  This parameter can be a value of @ref LPTIM_Input1_Source */
 
-  uint32_t                     Input2Source;        /*!< Specifies source selected for input2 (GPIO or comparator output).
-                                                    Note: This parameter is used only for encoder feature so is used only
-                                                    for LPTIM1 instance.
-                                                    This parameter can be a value of @ref LPTIM_Input2_Source */
+  uint32_t                     Input2Source;      /*!< Specifies source selected for input2 (GPIO or comparator output).
+                                                  Note: This parameter is used only for encoder feature so is used only
+                                                  for LPTIM1 instance.
+                                                  This parameter can be a value of @ref LPTIM_Input2_Source */
 
 #if defined(LPTIM_RCR_REP)
-  uint32_t                     RepetitionCounter;  /*!< Specifies the repetition counter value. Each time the RCR downcounter
-                                                    reaches zero, an update event is generated and counting restarts
-                                                    from the RCR value (N).
-                                                    Note: When using repetition counter the UpdateMode field must be set to
-                                                          LPTIM_UPDATE_ENDOFPERIOD otherwise unpredictable behavior may occur.
-                                                    This parameter must be a number between Min_Data = 0x00 and Max_Data = 0xFF. */
+  uint32_t                     RepetitionCounter;/*!< Specifies the repetition counter value.
+                                                  Each time the RCR downcounter reaches zero, an update event is
+                                                  generated and counting restarts from the RCR value (N).
+                                                  Note: When using repetition counter the UpdateMode field must be
+                                                        set to LPTIM_UPDATE_ENDOFPERIOD otherwise unpredictable
+                                                        behavior may occur.
+                                                  This parameter must be a number between Min_Data = 0x00 and
+                                                  Max_Data = 0xFF. */
 #endif
 } LPTIM_InitTypeDef;
 
@@ -442,6 +443,24 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   * @retval None
   */
 #define __HAL_LPTIM_START_SINGLE(__HANDLE__)      ((__HANDLE__)->Instance->CR |=  LPTIM_CR_SNGSTRT)
+
+#if defined(LPTIM_CR_COUNTRST)
+/**
+  * @brief  Reset the LPTIM Counter register in synchronous mode.
+  * @param  __HANDLE__ LPTIM handle
+  * @retval None
+  */
+#define __HAL_LPTIM_RESET_COUNTER(__HANDLE__)      ((__HANDLE__)->Instance->CR |=  LPTIM_CR_COUNTRST)
+#endif /* LPTIM_CR_COUNTRST */
+
+#if defined(LPTIM_CR_RSTARE)
+/**
+  * @brief  Reset after read of the LPTIM Counter register in asynchronous mode.
+  * @param  __HANDLE__ LPTIM handle
+  * @retval None
+  */
+#define __HAL_LPTIM_RESET_COUNTER_AFTERREAD(__HANDLE__)      ((__HANDLE__)->Instance->CR |=  LPTIM_CR_RSTARE)
+#endif /* LPTIM_CR_RSTARE */
 
 /**
   * @brief  Write the passed parameter in the Autoreload register.
@@ -902,5 +921,3 @@ void LPTIM_Disable(LPTIM_HandleTypeDef *hlptim);
 #endif
 
 #endif /* STM32L4xx_HAL_LPTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
