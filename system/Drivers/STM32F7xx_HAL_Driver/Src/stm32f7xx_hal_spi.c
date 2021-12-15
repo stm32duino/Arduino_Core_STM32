@@ -9,7 +9,17 @@
   *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -184,18 +194,6 @@
             (#) RX processes are HAL_SPI_Receive(), HAL_SPI_Receive_IT() and HAL_SPI_Receive_DMA()
             (#) TX processes are HAL_SPI_Transmit(), HAL_SPI_Transmit_IT() and HAL_SPI_Transmit_DMA()
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -217,6 +215,7 @@
   * @{
   */
 #define SPI_DEFAULT_TIMEOUT 100U
+#define SPI_BSY_FLAG_WORKAROUND_TIMEOUT 1000U /*!< Timeout 1000 µs             */
 /**
   * @}
   */
@@ -1009,6 +1008,8 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
 {
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
   uint32_t tickstart;
   HAL_StatusTypeDef errorcode = HAL_OK;
@@ -1182,10 +1183,12 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
     }
     else
     {
+      /* Initialize the 8bit temporary pointer */
+      ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
       /* Read 8bit CRC */
-      tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+      tmpreg8 = *ptmpreg8;
       /* To avoid GCC warning */
-      UNUSED(tmpreg);
+      UNUSED(tmpreg8);
 
       if ((hspi->Init.DataSize == SPI_DATASIZE_8BIT) && (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT))
       {
@@ -1197,9 +1200,9 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
           goto error;
         }
         /* Read 8bit CRC again in case of 16bit CRC in 8bit Data mode */
-        tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+        tmpreg8 = *ptmpreg8;
         /* To avoid GCC warning */
-        UNUSED(tmpreg);
+        UNUSED(tmpreg8);
       }
     }
   }
@@ -1244,17 +1247,17 @@ error :
 HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size,
                                           uint32_t Timeout)
 {
-#if (USE_SPI_CRC != 0U)
-  __IO uint32_t tmpreg = 0U;
-#endif /* USE_SPI_CRC */
   uint16_t             initial_TxXferCount;
   uint16_t             initial_RxXferCount;
   uint32_t             tmp_mode;
   HAL_SPI_StateTypeDef tmp_state;
   uint32_t             tickstart;
 #if (USE_SPI_CRC != 0U)
+  __IO uint32_t tmpreg = 0U;
   uint32_t             spi_cr1;
   uint32_t             spi_cr2;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
   /* Variable used to alternate Rx and Tx during transfer */
@@ -1494,10 +1497,12 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
     }
     else
     {
+      /* Initialize the 8bit temporary pointer */
+      ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
       /* Read 8bit CRC */
-      tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+      tmpreg8 = *ptmpreg8;
       /* To avoid GCC warning */
-      UNUSED(tmpreg);
+      UNUSED(tmpreg8);
 
       if (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT)
       {
@@ -1509,9 +1514,9 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
           goto error;
         }
         /* Read 8bit CRC again in case of 16bit CRC in 8bit Data mode */
-        tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+        tmpreg8 = *ptmpreg8;
         /* To avoid GCC warning */
-        UNUSED(tmpreg);
+        UNUSED(tmpreg8);
       }
     }
   }
@@ -3068,6 +3073,8 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
   uint32_t tickstart;
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
   /* Init tickstart for timeout management*/
@@ -3099,10 +3106,12 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
       }
       else
       {
+        /* Initialize the 8bit temporary pointer */
+        ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
         /* Read 8bit CRC */
-        tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+        tmpreg8 = *ptmpreg8;
         /* To avoid GCC warning */
-        UNUSED(tmpreg);
+        UNUSED(tmpreg8);
 
         if (hspi->Init.CRCLength == SPI_CRC_LENGTH_16BIT)
         {
@@ -3112,9 +3121,9 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
             SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
           }
           /* Read 8bit CRC again in case of 16bit CRC in 8bit Data mode */
-          tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+          tmpreg8 = *ptmpreg8;
           /* To avoid GCC warning */
-          UNUSED(tmpreg);
+          UNUSED(tmpreg8);
         }
       }
     }
@@ -3181,6 +3190,8 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
   uint32_t tickstart;
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
   /* Init tickstart for timeout management*/
@@ -3204,10 +3215,12 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
           /* Error on the CRC reception */
           SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_CRC);
         }
-        /* Read CRC to Flush DR and RXNE flag */
-        tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+        /* Initialize the 8bit temporary pointer */
+        ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
+        /* Read 8bit CRC */
+        tmpreg8 = *ptmpreg8;
         /* To avoid GCC warning */
-        UNUSED(tmpreg);
+        UNUSED(tmpreg8);
       }
       else
       {
@@ -3554,12 +3567,15 @@ static void SPI_2linesRxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_2linesRxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
-  __IO uint32_t tmpreg = 0U;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 
+  /* Initialize the 8bit temporary pointer */
+  ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
   /* Read 8bit CRC to flush Data Register */
-  tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+  tmpreg8 = *ptmpreg8;
   /* To avoid GCC warning */
-  UNUSED(tmpreg);
+  UNUSED(tmpreg8);
 
   hspi->CRCSize--;
 
@@ -3726,12 +3742,15 @@ static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_RxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
-  __IO uint32_t tmpreg = 0U;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 
+  /* Initialize the 8bit temporary pointer */
+  ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
   /* Read 8bit CRC to flush Data Register */
-  tmpreg = READ_REG(*(__IO uint8_t *)&hspi->Instance->DR);
+  tmpreg8 = *ptmpreg8;
   /* To avoid GCC warning */
-  UNUSED(tmpreg);
+  UNUSED(tmpreg8);
 
   hspi->CRCSize--;
 
@@ -3940,7 +3959,7 @@ static HAL_StatusTypeDef SPI_WaitFlagStateUntilTimeout(SPI_HandleTypeDef *hspi, 
         return HAL_TIMEOUT;
       }
       /* If Systick is disabled or not incremented, deactivate timeout to go in disable loop procedure */
-      if(count == 0U)
+      if (count == 0U)
       {
         tmp_timeout = 0U;
       }
@@ -3964,14 +3983,18 @@ static HAL_StatusTypeDef SPI_WaitFlagStateUntilTimeout(SPI_HandleTypeDef *hspi, 
 static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, uint32_t Fifo, uint32_t State,
                                                        uint32_t Timeout, uint32_t Tickstart)
 {
-  __IO uint32_t tmpreg;
   __IO uint32_t count;
   uint32_t tmp_timeout;
   uint32_t tmp_tickstart;
+  __IO uint8_t  *ptmpreg8;
+  __IO uint8_t  tmpreg8 = 0;
 
   /* Adjust Timeout value  in case of end of transfer */
   tmp_timeout = Timeout - (HAL_GetTick() - Tickstart);
   tmp_tickstart = HAL_GetTick();
+
+  /* Initialize the 8bit temporary pointer */
+  ptmpreg8 = (__IO uint8_t *)&hspi->Instance->DR;
 
   /* Calculate Timeout based on a software loop to avoid blocking issue if Systick is disabled */
   count = tmp_timeout * ((SystemCoreClock * 35U) >> 20U);
@@ -3981,9 +4004,9 @@ static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, 
     if ((Fifo == SPI_SR_FRLVL) && (State == SPI_FRLVL_EMPTY))
     {
       /* Flush Data Register by a blank read */
-      tmpreg = READ_REG(*((__IO uint8_t *)&hspi->Instance->DR));
+      tmpreg8 = *ptmpreg8;
       /* To avoid GCC warning */
-      UNUSED(tmpreg);
+      UNUSED(tmpreg8);
     }
 
     if (Timeout != HAL_MAX_DELAY)
@@ -4018,7 +4041,7 @@ static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, 
         return HAL_TIMEOUT;
       }
       /* If Systick is disabled or not incremented, deactivate timeout to go in disable loop procedure */
-      if(count == 0U)
+      if (count == 0U)
       {
         tmp_timeout = 0U;
       }
@@ -4046,11 +4069,34 @@ static HAL_StatusTypeDef SPI_EndRxTransaction(SPI_HandleTypeDef *hspi,  uint32_t
     __HAL_SPI_DISABLE(hspi);
   }
 
-  /* Control the BSY flag */
-  if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+  /* Erratasheet: BSY bit may stay high at the end of a data transfer in Slave mode */
+  if (hspi->Init.Mode == SPI_MODE_MASTER)
   {
-    SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
-    return HAL_TIMEOUT;
+    /* Control the BSY flag */
+    if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+    {
+      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+      return HAL_TIMEOUT;
+    }
+  }
+  else /* SPI_MODE_SLAVE */
+  {
+    /* Timeout in µs */
+    __IO uint32_t count = SPI_BSY_FLAG_WORKAROUND_TIMEOUT * (SystemCoreClock / 24U / 1000000U);
+
+    /* Wait BSY flag during 1 Byte time transfer in case of Rx transfer
+    * If Timeout is reached, the transfer is considered as finish.
+    * User have to calculate the timeout value to fit with the time of 1 byte transfer.
+    * This time is directly link with the SPI clock from Master device.
+    */
+    do
+    {
+      if (count == 0U)
+      {
+        break;
+      }
+      count--;
+    } while (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_BSY) != RESET);
   }
 
   if ((hspi->Init.Mode == SPI_MODE_MASTER) && ((hspi->Init.Direction == SPI_DIRECTION_1LINE)
@@ -4082,12 +4128,35 @@ static HAL_StatusTypeDef SPI_EndRxTxTransaction(SPI_HandleTypeDef *hspi, uint32_
     return HAL_TIMEOUT;
   }
 
-  /* Control the BSY flag */
-  if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+  /* Timeout in µs */
+  __IO uint32_t count = SPI_BSY_FLAG_WORKAROUND_TIMEOUT * (SystemCoreClock / 24U / 1000000U);
+  /* Erratasheet: BSY bit may stay high at the end of a data transfer in Slave mode */
+  if (hspi->Init.Mode == SPI_MODE_MASTER)
   {
-    SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
-    return HAL_TIMEOUT;
+    /* Control the BSY flag */
+    if (SPI_WaitFlagStateUntilTimeout(hspi, SPI_FLAG_BSY, RESET, Timeout, Tickstart) != HAL_OK)
+    {
+      SET_BIT(hspi->ErrorCode, HAL_SPI_ERROR_FLAG);
+      return HAL_TIMEOUT;
+    }
   }
+  else
+  {
+    /* Wait BSY flag during 1 Byte time transfer in case of Full-Duplex and Tx transfer
+    * If Timeout is reached, the transfer is considered as finish.
+    * User have to calculate the timeout value to fit with the time of 1 byte transfer.
+    * This time is directly link with the SPI clock from Master device.
+    */
+    do
+    {
+      if (count == 0U)
+      {
+        break;
+      }
+      count--;
+    } while (__HAL_SPI_GET_FLAG(hspi, SPI_FLAG_BSY) != RESET);
+  }
+
 
   /* Control if the RX fifo is empty */
   if (SPI_WaitFifoStateUntilTimeout(hspi, SPI_FLAG_FRLVL, SPI_FRLVL_EMPTY, Timeout, Tickstart) != HAL_OK)
@@ -4412,4 +4481,3 @@ static void SPI_AbortTx_ISR(SPI_HandleTypeDef *hspi)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
