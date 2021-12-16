@@ -473,7 +473,18 @@
           "pattern": "IKS02A1_Audio_Button|Python_Wave_Serial_Encoder",
           "applicable": true,
           "boards": [ "NUCLEO_F401RE", "NUCLEO_L476RG" ]
+        },
+        {
+          "pattern": "RTC_Seconds",
+          "applicable": false,
+          "boards": [ "NUCLEO_F030R8", "NUCLEO_F031K6", "NUCLEO_F042K6"]
+        },
+        {
+          "pattern": "F1RTCDateRetention",
+          "applicable": true,
+          "boards": [ "NUCLEO_F103RB"]
         }
+
       ]
     }
   ]
