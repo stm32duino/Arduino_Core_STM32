@@ -37,6 +37,7 @@
   */
 #include "interrupt.h"
 #include "lock_resource.h"
+#include "stm32yyxx_ll_exti.h"
 #if !defined(HAL_EXTI_MODULE_DISABLED)
 
 /* Private Types */
@@ -106,6 +107,13 @@ static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
 #endif
 };
 
+
+static const uint32_t ll_exti_lines[NB_EXTI] = {
+  LL_EXTI_LINE_0,  LL_EXTI_LINE_1,  LL_EXTI_LINE_2,  LL_EXTI_LINE_3,
+  LL_EXTI_LINE_4,  LL_EXTI_LINE_5,  LL_EXTI_LINE_6,  LL_EXTI_LINE_7,
+  LL_EXTI_LINE_8,  LL_EXTI_LINE_9,  LL_EXTI_LINE_10, LL_EXTI_LINE_11,
+  LL_EXTI_LINE_12, LL_EXTI_LINE_13, LL_EXTI_LINE_14, LL_EXTI_LINE_15
+};
 /* Private Functions */
 /**
   * @brief  This function returns the pin ID function of the HAL PIN definition
@@ -223,6 +231,8 @@ void stm32_interrupt_disable(GPIO_TypeDef *port, uint16_t pin)
       return;
     }
   }
+
+  LL_EXTI_DisableIT_0_31(ll_exti_lines[id]);
   HAL_NVIC_DisableIRQ(gpio_irq_conf[id].irqnb);
 }
 
