@@ -9,6 +9,17 @@
   *           + Region setting/enable functions
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -58,11 +69,11 @@
 
      The compilation flag USE_HAL_OTFDEC_REGISTER_CALLBACKS, when set to 1,
      allows the user to configure dynamically the driver callbacks.
-     Use Functions @ref HAL_OTFDEC_RegisterCallback()
+     Use Functions HAL_OTFDEC_RegisterCallback()
      to register an interrupt callback.
     [..]
 
-     Function @ref HAL_OTFDEC_RegisterCallback() allows to register following callbacks:
+     Function HAL_OTFDEC_RegisterCallback() allows to register following callbacks:
        (+) ErrorCallback                  : OTFDEC error callback
        (+) MspInitCallback                : OTFDEC Msp Init callback
        (+) MspDeInitCallback              : OTFDEC Msp DeInit callback
@@ -70,11 +81,11 @@
      and a pointer to the user callback function.
     [..]
 
-     Use function @ref HAL_OTFDEC_UnRegisterCallback to reset a callback to the default
+     Use function HAL_OTFDEC_UnRegisterCallback to reset a callback to the default
      weak function.
     [..]
 
-     @ref HAL_OTFDEC_UnRegisterCallback takes as parameters the HAL peripheral handle,
+     HAL_OTFDEC_UnRegisterCallback takes as parameters the HAL peripheral handle,
      and the Callback ID.
      This function allows to reset following callbacks:
        (+) ErrorCallback                  : OTFDEC error callback
@@ -82,27 +93,27 @@
        (+) MspDeInitCallback              : OTFDEC Msp DeInit callback
      [..]
 
-     By default, after the @ref HAL_OTFDEC_Init() and when the state is @ref HAL_OTFDEC_STATE_RESET
+     By default, after the HAL_OTFDEC_Init() and when the state is HAL_OTFDEC_STATE_RESET
      all callbacks are set to the corresponding weak functions:
-     example @ref HAL_OTFDEC_ErrorCallback().
+     example HAL_OTFDEC_ErrorCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the @ref HAL_OTFDEC_Init()/ @ref HAL_OTFDEC_DeInit() only when
+     reset to the legacy weak functions in the HAL_OTFDEC_Init()/ HAL_OTFDEC_DeInit() only when
      these callbacks are null (not registered beforehand).
     [..]
 
-     If MspInit or MspDeInit are not null, the @ref HAL_OTFDEC_Init()/ @ref HAL_OTFDEC_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_OTFDEC_Init()/ HAL_OTFDEC_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
      [..]
 
-     Callbacks can be registered/unregistered in @ref HAL_OTFDEC_STATE_READY state only.
+     Callbacks can be registered/unregistered in HAL_OTFDEC_STATE_READY state only.
      Exception done MspInit/MspDeInit functions that can be registered/unregistered
-     in @ref HAL_OTFDEC_STATE_READY or @ref HAL_OTFDEC_STATE_RESET state,
+     in HAL_OTFDEC_STATE_READY or HAL_OTFDEC_STATE_RESET state,
      thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
     [..]
 
      Then, the user first registers the MspInit/MspDeInit user callbacks
-     using @ref HAL_OTFDEC_RegisterCallback() before calling @ref HAL_OTFDEC_DeInit()
-     or @ref HAL_OTFDEC_Init() function.
+     using HAL_OTFDEC_RegisterCallback() before calling HAL_OTFDEC_DeInit()
+     or HAL_OTFDEC_Init() function.
      [..]
 
      When the compilation flag USE_HAL_OTFDEC_REGISTER_CALLBACKS is set to 0 or
@@ -110,18 +121,6 @@
      are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -479,7 +478,7 @@ typedef struct
                                    This parameter can be a value of @ref FDCAN_TT_time_master               */
 
   uint32_t SyncDevLimit;      /*!< Specifies the Synchronization Deviation Limit SDL of the TUR
-                                   numerator : TUR = (Numerator ± SDL) / Denominator.
+                                   numerator : TUR = (Numerator +/- SDL) / Denominator.
                                    With : SDL = 2^(SyncDevLimit+5).
                                    This parameter must be a number between 0 and 7                          */
 
@@ -514,7 +513,7 @@ typedef struct
                                    This parameter is ignored if OperationMode is set to
                                    FDCAN_TT_COMMUNICATION_LEVEL0                                            */
 
-  uint32_t BasicCyclesNbr;    /*!< Specifies the nubmer of basic cycles in the system matrix.
+  uint32_t BasicCyclesNbr;    /*!< Specifies the number of basic cycles in the system matrix.
                                    This parameter can be a value of @ref FDCAN_TT_basic_cycle_number        */
 
   uint32_t CycleStartSync;    /*!< Enable or disable synchronization pulse output at pin fdcan1_soc.
@@ -529,7 +528,7 @@ typedef struct
                                    This parameter must be a number between 0 and 4095                       */
 
   uint32_t TURNumerator;      /*!< Specifies the TUR (Time Unit Ratio) numerator.
-                                   It is adviced to set this parameter to the largest applicable value.
+                                   It is advised to set this parameter to the largest applicable value.
                                    This parameter must be a number between 0x10000 and 0x1FFFF              */
 
   uint32_t TURDenominator;    /*!< Specifies the TUR (Time Unit Ratio) denominator.
@@ -641,7 +640,7 @@ typedef struct
                                    - 0 : No Gap in schedule
                                    - 1 : Gap time after Basic Cycle has started                                 */
 
-  uint32_t WaitForEvt;       /*!< Specifies whether a Gap is annouced.
+  uint32_t WaitForEvt;       /*!< Specifies whether a Gap is announced.
                                   This parameter can be:
                                    - 0 : No Gap announced, reset by a reference message with Next_is_Gap = 0
                                    - 1 : Reference message with Next_is_Gap = 1 received                        */
@@ -1259,21 +1258,21 @@ typedef  void (*pFDCAN_TT_GlobalTimeCallbackTypeDef)(FDCAN_HandleTypeDef *hfdcan
   * @{
   */
 #define FDCAN_TIMESTAMP_PRESC_1  ((uint32_t)0x00000000U) /*!< Timestamp counter time unit in equal to CAN bit time                 */
-#define FDCAN_TIMESTAMP_PRESC_2  ((uint32_t)0x00010000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 2  */
-#define FDCAN_TIMESTAMP_PRESC_3  ((uint32_t)0x00020000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 3  */
-#define FDCAN_TIMESTAMP_PRESC_4  ((uint32_t)0x00030000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 4  */
-#define FDCAN_TIMESTAMP_PRESC_5  ((uint32_t)0x00040000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 5  */
-#define FDCAN_TIMESTAMP_PRESC_6  ((uint32_t)0x00050000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 6  */
-#define FDCAN_TIMESTAMP_PRESC_7  ((uint32_t)0x00060000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 7  */
-#define FDCAN_TIMESTAMP_PRESC_8  ((uint32_t)0x00070000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 8  */
-#define FDCAN_TIMESTAMP_PRESC_9  ((uint32_t)0x00080000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 9  */
-#define FDCAN_TIMESTAMP_PRESC_10 ((uint32_t)0x00090000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 10 */
-#define FDCAN_TIMESTAMP_PRESC_11 ((uint32_t)0x000A0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 11 */
-#define FDCAN_TIMESTAMP_PRESC_12 ((uint32_t)0x000B0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 12 */
-#define FDCAN_TIMESTAMP_PRESC_13 ((uint32_t)0x000C0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 13 */
-#define FDCAN_TIMESTAMP_PRESC_14 ((uint32_t)0x000D0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 14 */
-#define FDCAN_TIMESTAMP_PRESC_15 ((uint32_t)0x000E0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 15 */
-#define FDCAN_TIMESTAMP_PRESC_16 ((uint32_t)0x000F0000U) /*!< Timestamp counter time unit in equal to CAN bit time multipled by 16 */
+#define FDCAN_TIMESTAMP_PRESC_2  ((uint32_t)0x00010000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 2  */
+#define FDCAN_TIMESTAMP_PRESC_3  ((uint32_t)0x00020000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 3  */
+#define FDCAN_TIMESTAMP_PRESC_4  ((uint32_t)0x00030000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 4  */
+#define FDCAN_TIMESTAMP_PRESC_5  ((uint32_t)0x00040000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 5  */
+#define FDCAN_TIMESTAMP_PRESC_6  ((uint32_t)0x00050000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 6  */
+#define FDCAN_TIMESTAMP_PRESC_7  ((uint32_t)0x00060000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 7  */
+#define FDCAN_TIMESTAMP_PRESC_8  ((uint32_t)0x00070000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 8  */
+#define FDCAN_TIMESTAMP_PRESC_9  ((uint32_t)0x00080000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 9  */
+#define FDCAN_TIMESTAMP_PRESC_10 ((uint32_t)0x00090000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 10 */
+#define FDCAN_TIMESTAMP_PRESC_11 ((uint32_t)0x000A0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 11 */
+#define FDCAN_TIMESTAMP_PRESC_12 ((uint32_t)0x000B0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 12 */
+#define FDCAN_TIMESTAMP_PRESC_13 ((uint32_t)0x000C0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 13 */
+#define FDCAN_TIMESTAMP_PRESC_14 ((uint32_t)0x000D0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 14 */
+#define FDCAN_TIMESTAMP_PRESC_15 ((uint32_t)0x000E0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 15 */
+#define FDCAN_TIMESTAMP_PRESC_16 ((uint32_t)0x000F0000U) /*!< Timestamp counter time unit in equal to CAN bit time multiplied by 16 */
 /**
   * @}
   */
@@ -2414,4 +2413,3 @@ HAL_FDCAN_StateTypeDef HAL_FDCAN_GetState(FDCAN_HandleTypeDef *hfdcan);
 #endif /* STM32H7xx_HAL_FDCAN_H */
 
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
