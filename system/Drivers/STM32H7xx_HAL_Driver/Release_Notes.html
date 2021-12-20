@@ -5,11 +5,14 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32H7xx HAL Drivers</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="_htmresc/mini-st.css" />
   <!--[if lt IE 9]>
@@ -29,22 +32,202 @@
 </center>
 </div>
 </div>
-<h1 id="license"><strong>License</strong></h1>
-This software component is licensed by ST under BSD 3-Clause license, the “License”; You may not use this component except in compliance with the License. You may obtain a copy of the License at:
-<center>
-<a href="https://opensource.org/licenses/BSD-3-Clause">https://opensource.org/licenses/BSD-3-Clause</a>
-</center>
+<h1 id="purpose">Purpose</h1>
+<p>The STM32Cube HAL and LL, an STM32 abstraction layer embedded software, ensure maximized portability across STM32 portfolio.</p>
+<p>The portable APIs layer provides a generic, multi instanced and simple set of APIs to interact with the upper layer (application, libraries and stacks). It is composed of native and extended APIs set. It is directly built around a generic architecture and allows the build-upon layers, like the middleware layer, to implement its functions without knowing in-depth the used STM32 device. This improves the library code reusability and guarantees an easy portability on other devices and STM32 families.</p>
+<p>The Low Layer (LL) drivers are part of the STM32Cube firmware HAL that provides a basic set of optimized and one shot services. The Low layer drivers, contrary to the HAL ones are not fully portable across the STM32 families; the availability of some functions depends on the physical availability of the relative features on the product. The Low Layer (LL) drivers are designed to offer the following features:</p>
+<ul>
+<li>New set of inline functions for direct and atomic register access</li>
+<li>One-shot operations that can be used by the HAL drivers or from application level</li>
+<li>Full independence from HAL and standalone usage (without HAL drivers)</li>
+<li>Full features coverage of all the supported peripherals</li>
+</ul>
 </div>
-<div class="col-sm-12 col-lg-8">
-<h1 id="update-history"><strong>Update History</strong></h1>
+<section id="update-history" class="col-sm-12 col-lg-8">
+<h1><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section13" checked aria-hidden="true"> <label for="collapse-section13" aria-hidden="true"><strong>V1.10.0 / 12-February-2021</strong></label>
+<input type="checkbox" id="collapse-section14" checked aria-hidden="true"> <label for="collapse-section14" aria-hidden="true"><strong>V1.10.1 / 06-December-2021</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+<li>All source files: update disclaimer to add reference to the new license agreement.</li>
+<li><strong>HAL RCC</strong>
+<ul>
+<li>Fix issue where HSI is not taken into account in HAL_RCC_OscConfig.</li>
+</ul></li>
+<li><strong>HAL FLASH</strong>
+<ul>
+<li>Update to fix error checking issue when optimization is set to high.</li>
+</ul></li>
+<li><strong>HAL GPIO</strong>
+<ul>
+<li>Reorder EXTI configuration sequence in order to avoid unexpected level detection.</li>
+</ul></li>
+<li><strong>HAL EXTI</strong>
+<ul>
+<li>Update HAL_EXTI_GetConfigLine() API to set default configuration value of Trigger and GPIOSel before checking each corresponding registers.</li>
+</ul></li>
+<li><strong>HAL/LL ADC</strong>
+<ul>
+<li>Fix issue where an error state is returned by the IRQ handler in case of injection conversion in IT mode with trigger timer.</li>
+<li>Add missing injected external trigger to IS_ADC_EXTTRIGINJEC() macro.</li>
+<li>Add two new APIs to simplify internal channel configuration (LL_ADC_SetCommonPathInternalChAdd and LL_ADC_SetCommonPathInternalChRem).</li>
+<li>assert_param() now checks for continuous and discontinuous mode exclusivity.</li>
+<li>Update LL ADC driver to correctly configure the ADC3 resolution on some devices.</li>
+</ul></li>
+<li><strong>HAL TIM</strong>
+<ul>
+<li>Manage the Bi-directional break input feature for the concerned part numbers.</li>
+<li>Update input capture measurement in DMA mode to avoid zero return values at high frequencies.</li>
+<li>Update HAL_TIMEx_ConfigBreakInput to use CMSIS TIM1_OR2_BKDF1BK0E_Pos definition instead of its hard coded value.</li>
+<li>Fix wrong compile switch used in TIM_LL_EC_DMABURST_BASEADDR constant definitions.</li>
+</ul></li>
+<li><strong>HAL UART</strong>
+<ul>
+<li>Fix erroneous UART’s handle state in case of error returned after DMA reception start within UART_Start_Receive_DMA().</li>
+<li>Correct UART ReceptionType management in case if ReceptionToIdle API being called from RxEvent callback.</li>
+<li>Handling of UART concurrent register access in case of race condition between TX and RX transfers (HAL UART and LL LPUART).</li>
+<li>Improve header description of UART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the UART parity before enabling the parity error interruption.</li>
+<li>Add const qualifier for read only pointers in API prototypes.</li>
+<li>Fix wrong cast when computing the USARTDIV value in UART_SetConfig().</li>
+</ul></li>
+<li><strong>HAL/LL USART</strong>
+<ul>
+<li>Improve header description of USART_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the USART parity before enabling the parity error interrupt.</li>
+<li>Add const qualifier for read only pointers for API prototypes.</li>
+<li>Handling of UART concurrent register access in case of race condition between TX and RX transfers (HAL UART and LL LPUART).</li>
+<li>Fix compilation warnings generated with ARMV6 compiler.</li>
+</ul></li>
+<li><strong>LL LPUART</strong>
+<ul>
+<li>Remove TXFECF reference from LL LPUART driver.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong>
+<ul>
+<li>Add Fm+ support to SMBus to be rev3 compliant.</li>
+<li>Add the support of wake up capability.</li>
+<li>Add new APIs:
+<ul>
+<li>HAL_SMBUSEx_EnableWakeUp()</li>
+<li>HAL_SMBUSEx_DisableWakeUp()</li>
+</ul></li>
+<li>Update to fix issue of mismatched data received by master in case of data size to be transmitted by the slave is greater than the data size to be received by the master.</li>
+<li>Add flush on TX register.</li>
+</ul></li>
+<li><strong>HAL I2C</strong>
+<ul>
+<li>Updated I2C_IsAcknowledgeFailed() API to avoid I2C in busy state if NACK received after transmitting register address.</li>
+<li>Fix written reserved bit 28 in I2C_CR2 register</li>
+<li>Update to handle errors in polling mode.</li>
+<li>Rename I2C_IsAcknowledgeFailed() to I2C_IsErrorOccurred() and correctly manage when error occurs.</li>
+<li>Update to fix issue detected due to low system frequency execution (HSI).</li>
+<li>Declare an internal macro link to DMA macro to check remaining data: I2C_GET_DMA_REMAIN_DATA.</li>
+</ul></li>
+<li><strong>HAL LPTIM</strong>
+<ul>
+<li>Add check on PRIMASK register to prevent from enabling unwanted global interrupts within LPTIM_Disable() and LL_LPTIM_Disable().</li>
+</ul></li>
+<li><strong>HAL Generic</strong>
+<ul>
+<li>Fix HAL_Init_Tick() priority handling for alternate (non SysTick) time bases.</li>
+</ul></li>
+<li><strong>HAL IRDA</strong>
+<ul>
+<li>Improve header description of IRDA_WaitOnFlagUntilTimeout() function.</li>
+<li>Add a check on the IRDA parity before enabling the parity error interrupt.</li>
+<li>Add const qualifier for read only pointers for API prototypes.</li>
+<li>Fix wrong cast when computing the USARTDIV value in IRDA_SetConfig().</li>
+</ul></li>
+<li><strong>HAL RTC_BKP</strong>
+<ul>
+<li>Add an exit condition to the RTC_EnterInitMode and HAL_RTC_DeInit functions to avoid the infinite loop when initializing and de-initializing the RTC.</li>
+<li>Add use of macros _\_RTC_&lt;&gt;_EXTI_ENABLE_IT() in case of DUAL_CORE configuration inside functions HAL_RTC_SetAlarm_IT(), HAL_RTCEx_SetWakeUpTimer_IT(),HAL_RTCEx_SetTimeStamp_IT(), and HAL_RTCEx_SetTamper_IT().</li>
+</ul></li>
+<li><strong>HAL DBGMCU</strong>
+<ul>
+<li>In Legacy/stm32_hal_legacy.h, exclude HAL_EnableDBG<em>Mode() HAL_DisableDBG</em>Mode() declarations as still defined in stm32h7xx_hal.c.</li>
+</ul></li>
+<li><strong>HAL NOR</strong>
+<ul>
+<li>Align HAL_NOR_Init() API with core of the function when write operation is disabled to avoid HardFault.</li>
+</ul></li>
+<li><strong>HAL SDMMC</strong>
+<ul>
+<li>Fix an issue with HAL_SD_GetCardState().</li>
+<li>Fix to take into consideration if the received RCA is 0x0 or not.</li>
+</ul></li>
+<li><strong>LL RTC_BKP</strong>
+<ul>
+<li>Fix IS_LL_RTC_MONTH assert check.</li>
+</ul></li>
+<li><strong>HAL DMA</strong>
+<ul>
+<li>Update HAL_DMA_IRQHandler() API to set the DMA state before unlocking access to the DMA handle.</li>
+<li>Manage the case of an invalid value of CallbackID passed to the HAL_DMA_RegisterCallback() API.</li>
+</ul></li>
+<li><strong>HAL SMARTCARD</strong>
+<ul>
+<li>Improve header description of SMARTCARD_WaitOnFlagUntilTimeout() function.</li>
+<li>Add const qualifier for read only pointers in API prototypes.</li>
+<li>Fix wrong cast when computing the USARTDIV value in SMARTCARD_SetConfig().</li>
+</ul></li>
+<li><strong>LL HSEM</strong>
+<ul>
+<li>Fix an issue where LL_HSEM_1StepLock uses HSEM_R_LOCK instead of HSEM_RLR_LOCK while checking the RLR register.</li>
+</ul></li>
+<li><strong>HAL RNG</strong>
+<ul>
+<li>Add check to avoid false timeout detection in case of preemption.</li>
+</ul></li>
+<li><strong>HAL ETH</strong>
+<ul>
+<li>Correct wrong call to DMAErrorCallback() instead of MACErrorCallback().</li>
+</ul></li>
+<li><strong>HAL/LL USB</strong>
+<ul>
+<li>hal_hcd: fix added to avoid compiler otmization on count variable used for USB HAL timeout loop check.</li>
+<li>hal_pcd: added missing registered callbacks check for HAL_HCD_HC_NotifyURBChange_Callback().</li>
+<li>hal_pcd: New API HAL_PCD_SetTestMode() added to handle USB device high speed Test modes.</li>
+<li>hal_pcd: setting SNAK for EPs not required during device reset.</li>
+<li>ll_USB: change added in USB_SetCurrentMode to improve required wait timing to change core mode.</li>
+<li>ll_USB: remove non required 200ms delay during host initialization.</li>
+<li>ll_USB: fix added to USB_FlushRxFifo() and USB_FlushTxFifo() APIs by adding check on AHB master IDLE state before flushing the USB FIFO.</li>
+<li>ll_USB: fix added to avoid resetting host channel direction during channel halt.</li>
+</ul></li>
+<li><strong>HAL USB_OTG</strong>
+<ul>
+<li>USB LL driver fix on USB_HC_Halt() function, should not clear channel direction during halt.</li>
+<li>USB HAL: fix unexpected HAL_TIMEOUT during USB core reset due to compiler optimization.</li>
+</ul></li>
+<li><strong>HAL IWDG</strong>
+<ul>
+<li>Add LSI startup time in default IWDG timeout calculation (HAL_IWDG_DEFAULT_TIMEOUT).</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li><strong>HAL/ETH</strong>
+<ul>
+<li>A full rework of the ETH HAL driver is planned in order to fix several issues including better synchronization with TCPIP stack for instance LwIP</li>
+</ul></li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true"><strong>V1.10.0 / 12-February-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
+<ul>
 <li><p>General updates to fix known defects and implementation enhancements</p></li>
 <li><p>Fix minor issues related to English typo in comments</p></li>
-<li>Update stm32h7xx_hal_def.h implementation to support MDK-ARM AC6 compiler
+<li><p>Update stm32h7xx_hal_def.h implementation to support MDK-ARM AC6 compiler</p>
 <ul>
 <li>Notes:
 <ul>
@@ -53,7 +236,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Template projects updated with “Use default compiler version 6” setting and “AC5-like warning” setting</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL</strong>:
+<li><p><strong>HAL</strong>:</p>
 <ul>
 <li>stm32h7xx_hal.h and stm32h7xx_hal.c:
 <ul>
@@ -69,7 +252,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update USE_SD_TRANSCEIVER define default value to zero Notes: This define shall be set in the target project according to the given board: set to 1 in case of an SD transceiver is present or zero if not</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL ADC</strong>:
+<li><p><strong>HAL/LL ADC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -80,14 +263,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL CEC</strong>:
+<li><p><strong>HAL CEC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_cec.c:
 <ul>
 <li>Update “HAL_CEC_IRQHandler” implementation to avoid extra byte sent with CEC command</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL CRYP</strong>:
+<li><p><strong>HAL CRYP</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_cryp.h:
 <ul>
@@ -102,14 +285,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update the implementation of the “HAL_CRYPEx_AESGCM_GenerateAuthTAG” function to support the header width unit setting</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL EXTI</strong>:
+<li><p><strong>HAL/LL EXTI</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_exti.h:
 <ul>
 <li>Update IS_EXTI_PROPERTY to IS_EXTI_CONFIG_LINE macros implementation using “<strong>EXTI_LINE</strong>” instead of “<strong>LINE</strong>” o avoid clash with compiler key word “<strong>LINE</strong>”</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL ETH</strong>:
+<li><p><strong>HAL/LL ETH</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_eth.h:
 <ul>
@@ -124,7 +307,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>This implementation allows to improve packet transmission performance using NetX Duo TCPIP stack, however a more elaborated implementation will be provided in next release</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL FLASH</strong>:
+<li><p><strong>HAL/LL FLASH</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_flash_ex.h:
 <ul>
@@ -137,7 +320,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_FLASH_Program” description with details for “FlashAddress” and “DataAddress” alignment requirements</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL GPIO</strong>:
+<li><p><strong>HAL/LL GPIO</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_gpio.c:
 <ul>
@@ -148,28 +331,28 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update and fix LL_GPIO_TogglePin implementation to allow toggle of multiple pin</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL HRTIM</strong>:
+<li><p><strong>HAL/LL HRTIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_hrtim.c:
 <ul>
 <li>Update HRTIM_HRTIM_ISR implementation to optimize the read flags</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL IWDG</strong>:
+<li><p><strong>HAL/LL IWDG</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_iwdg.c:
 <ul>
 <li>Update timeout mechanism to avoid false timeout detection in case of preemptio</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL LPTIM</strong>
+<li><p><strong>HAL/LL LPTIM</strong></p>
 <ul>
 <li>stm32h7xx_hal_lptim.c:
 <ul>
 <li>Update “HAL_LPTIM_Init” implementation to improve behavior for external clock configuration</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL NAND</strong>:
+<li><p><strong>HAL NAND</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_nand.c:
 <ul>
@@ -177,7 +360,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update implementation of “HAL_NAND_Write_Page_16b” and “HAL_NAND_Read_Page_16b” APIs implementation to fix an issue with the page calculation of 8 bits memories</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL NOR</strong>:
+<li><p><strong>HAL NOR</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_nor.c:
 <ul>
@@ -185,7 +368,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update NOR APIs implementation to support some specific memories</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL RCC</strong>:
+<li><p><strong>HAL RCC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_rcc.c:
 <ul>
@@ -202,7 +385,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update implementation of “HAL_RCCEx_GetPLL1ClockFreq” to use HSI in default case as per the specification</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL RNG</strong>:
+<li><p><strong>HAL RNG</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_rng.h:
 <ul>
@@ -223,7 +406,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add “HAL_RNGEx_RecoverSeedError” function</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL SDMMC</strong>:
+<li><p><strong>HAL/LL SDMMC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_mmc.c:
 <ul>
@@ -255,7 +438,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add “SDMMC_CmdSetRelAddMmc” function to set relative address</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL SPI</strong>
+<li><p><strong>HAL/LL SPI</strong></p>
 <ul>
 <li>Update “HAL_SPI_TransmitReceive_IT” implementation to disable RXP and TXP interrupt when DXP is enabled</li>
 <li>Update “HAL_SPI_Init” implementation with NSS Software Management</li>
@@ -264,14 +447,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “LL_SPI_Init” implementation to set the internal SS level</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL TIM</strong>:
+<li><p><strong>HAL/LL TIM</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_tim.h:
 <ul>
 <li>Fix “LL_TIM_GetCounterMode” implementation to handle all possible return combinations</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL UART</strong>:
+<li><p><strong>HAL/LL UART</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_uart.h:
 <ul>
@@ -302,14 +485,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “LL_LPUART_SetBaudRate” implementation to avoid potential division by zero</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL USART</strong>:
+<li><p><strong>HAL/LL USART</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_usart.h:
 <ul>
 <li>Update “LL_USART_SetBaudRate” implementation to avoid potential division by zero</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL USB</strong>:
+<li><p><strong>HAL/LL USB</strong>:</p>
 <ul>
 <li>Update to ensure to have coherency between USB APIs start and stop which should mainly control device connect and disconnect of the USB RPU</li>
 <li>Fix ping with DMA OFF, fix Data toggle issue with DMA multi max packet size transfers and clean up device and core speeds</li>
@@ -318,7 +501,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update to fix USB OTG read FIFO packet in stm32h7xx_ll_usb.c file</li>
 <li>Update to support USB OTG FIFO with scatter gather</li>
 </ul></li>
-<li><strong>LL SYSTEM</strong>:
+<li><p><strong>LL SYSTEM</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -326,14 +509,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li><strong>HAL/ETH</strong>
 <ul>
 <li>A full rework of the ETH HAL driver is planned in order to fix several issues including better synchronization with TCPIP stack for instance LwIP</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -342,7 +525,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true"><strong>V1.9.0 / 29-May-2020</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>First official release of the STM32CubeH7 Firmware Package supporting <strong>STM32H72x/3x</strong> new devices</li>
 <li>General updates to fix known defects and implementation enhancements</li>
@@ -414,7 +597,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>stm32h7xx_hal_eth.h:
 <ul>
 <li><p>Update ETH_DMADescTypeDef definition: remove useless volatile of the BackupAddr0 and BackupAddr1 fields since they are not used by ETH DMA.</p></li>
-<li>stm32h7xx_hal_eth.c:
+<li><p>stm32h7xx_hal_eth.c:</p>
 <ul>
 <li>HAL_ETH_Start_IT:
 <ul>
@@ -936,11 +1119,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>Extension RTC APIs HAL_RTCEx_MonotonicCounterIncrement and HAL_RTCEx_MonotonicCounterGet APIs prototypes updated with new parameters Instance (alignment with other STM32 families)</li>
 </ul>
@@ -949,7 +1132,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.8.0 / 14-February-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li><strong>HAL</strong>: generic
@@ -1183,7 +1366,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1193,7 +1376,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -1202,12 +1385,12 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.7.0 / 06-December-2019</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
-<li>Official release with support of STM32H7A3/B3xx/B0xx new devices<br />
-</li>
-<li>General updates to fix known defects and implementation enhancements</li>
-<li><strong>HAL</strong>: generic
+<li><p>Official release with support of STM32H7A3/B3xx/B0xx new devices<br />
+</p></li>
+<li><p>General updates to fix known defects and implementation enhancements</p></li>
+<li><p><strong>HAL</strong>: generic</p>
 <ul>
 <li>stm32h7xx_hal.h:
 <ul>
@@ -1229,7 +1412,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Fix HAL_EXTI_D1_ClearFlag and HAL_EXTI_D2_ClearFlag APIs implementation: using direct write operation (instead of read/modify/write)</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL ADC</strong>:
+<li><p><strong>HAL/LL ADC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -1266,7 +1449,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update HAL_ADCEx_LinearCalibration_FactorLoad API implementation to consider ADC2 and ADC3 in addition to ADC1</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL COMP</strong>:
+<li><p><strong>HAL/LL COMP</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_comp.h:
 <ul>
@@ -1292,7 +1475,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add LL_COMP_SetOutputAlternateFunction and LL_COMP_GetOutputAlternateFunction allowing to Set/Get the output alternate function in the Option register</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL CRYP</strong>:
+<li><p><strong>HAL CRYP</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_cryp.h:
 <ul>
@@ -1306,7 +1489,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update to support user input/output buffers size that is not multiple of 4 words (size of the CRYP peripheral FIFO)</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL DAC</strong>:
+<li><p><strong>HAL/LL DAC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_dac.h:
 <ul>
@@ -1346,7 +1529,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li>stm32h7xx_ll_dac.h: Update to support STM32H7A3/B3xx/B0xx devices New DAC triggers</li>
 </ul></li>
-<li><strong>HAL DCMI</strong>:
+<li><p><strong>HAL DCMI</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_dcmi.h:
 <ul>
@@ -1358,7 +1541,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add implementation HAL_DCMI_ConfigSyncUnmask API</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL DFSDM</strong>:
+<li><p><strong>HAL DFSDM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_dfsdm.h:
 <ul>
@@ -1377,7 +1560,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>New extension file with HAL_DFDSMEx_ChannelSetPulsesSkipping and HAL_DFDSMEx_ChannelGetPulsesSkipping APIs implementation</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL DMA</strong>:
+<li><p><strong>HAL/LL DMA</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_dma.h:
 <ul>
@@ -1403,7 +1586,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>HRTIM, SAI3, SAI4, ADC3 requests are available only when these peripherals are present on the given device (through CMSIS device mapping)</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL DMA2D</strong>:
+<li><p><strong>HAL/LL DMA2D</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_dma2d.h:
 <ul>
@@ -1434,28 +1617,28 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update LL_DMA2D_StructInit API implementation to support byte swap and line offset modes</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL DTS</strong>:
+<li><p><strong>HAL DTS</strong>:</p>
 <ul>
 <li>Add New HAL DTS driver stm32h7xx_hal_dts.h/stm32h7xx_hal_dts.c (Digital Temperature Sensor). This peripheral is available on STM32H7A3/B3xx/B0xx devices only</li>
 </ul></li>
-<li><strong>HAL/LL EXTI</strong>:
+<li><p><strong>HAL/LL EXTI</strong>:</p>
 <ul>
 <li>Update to consider STM32H7A3/B3xx/B0xx devices EXTI lines</li>
 <li>Update EXTI Pend Clear Sources considering STM32H7A3/B3xx/B0xx devices: LPTIM2 and LPTIM3 used as SRD domain wakeup pend clear source versus LPTIM4/LPTIM5 in the legacy devices</li>
 </ul></li>
-<li><strong>HAL FLASH</strong>:
+<li><p><strong>HAL FLASH</strong>:</p>
 <ul>
 <li>Update to consider Flash operations on STM32H7A3/B3xx/B0xx devices</li>
 </ul></li>
-<li><strong>HAL GFXMMU</strong>:
+<li><p><strong>HAL GFXMMU</strong>:</p>
 <ul>
 <li>Add GFXMMU HAL driver stm32h7xx_hal_gfxmmu.h/stm32h7xx_hal_gfxmmu.c. This peripheral is available on STM32H7A3/B3xx/B0xx devices only</li>
 </ul></li>
-<li><strong>HAL GPIO</strong>:
+<li><p><strong>HAL GPIO</strong>:</p>
 <ul>
 <li>Update GPIO Alternate functions definitions (in stm32h7xx_hal_gpio_ex.h file) for STM32H7A3/B3xx/B0xx devices</li>
 </ul></li>
-<li><strong>HAL HASH</strong>:
+<li><p><strong>HAL HASH</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_hash.h:
 <ul>
@@ -1477,7 +1660,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add implementation of HAL_HASHEx_SHA224_Accmlt_IT/HAL_HASHEx_SHA224_Accmlt_End_IT, HAL_HASHEx_SHA256_Accmlt_IT/HAL_HASHEx_SHA256_Accmlt_End_IT APIs</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL I2S</strong>:
+<li><p><strong>HAL I2S</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_i2s.h:
 <ul>
@@ -1493,7 +1676,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li>stm32h7xx_hal_i2s_ex.h/stm32h7xx_hal_i2s_ex.c : These files are empty as full duplex feature is not available in this release</li>
 </ul></li>
-<li><strong>HAL/LL LPTIM</strong>:
+<li><p><strong>HAL/LL LPTIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_lptim.h:
 <ul>
@@ -1504,7 +1687,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add definition of LL_LPTIM_TRIG_SOURCE_LPTIM2 to LL_LPTIM_TRIG_SOURCE_DFSDM2_BRK trigger sources</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL MDMA</strong>:
+<li><p><strong>HAL/LL MDMA</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_mdma.h:
 <ul>
@@ -1525,7 +1708,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Delimit definition of LTDC, QUADSPI and JPEG requests by the peripherals availability</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL MMC</strong>:
+<li><p><strong>HAL MMC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_mmc_ex.h:
 <ul>
@@ -1541,7 +1724,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Fix HAL_MMCEx_ConfigDMAMultiBuffer API implementation regarding DMA block size</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL OPAMP</strong>:
+<li><p><strong>HAL/LL OPAMP</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_opamp.h:
 <ul>
@@ -1563,14 +1746,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><p><strong>HAL OSPI</strong>: New HAL driver stm32h7xx_hal_ospi.h/stm32h7xx_hal_ospi.c to handle OctoSPI peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
 <li><p><strong>HAL OTFDEC</strong>: New HAL driver stm32h7xx_hal_otfdec.h/stm32h7xx_hal_otfdec.c to handle OTFDEC peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
 <li><p><strong>HAL PSSI</strong>: New HAL driver stm32h7xx_hal_pssi.h/stm32h7xx_hal_pssi.c to handle PSSI peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
-<li><strong>HAL/LL PWR</strong>: Update to handle STM32H7A3/B3xx/B0xx devices
+<li><p><strong>HAL/LL PWR</strong>: Update to handle STM32H7A3/B3xx/B0xx devices</p>
 <ul>
 <li>2 power domains only (versus 3 in legacy STM32H7 devices)</li>
 <li>VOS0 voltage scalling management</li>
 <li>Wake up flag management</li>
 <li>STOP2 Low Power mode management</li>
 </ul></li>
-<li><strong>HAL RAMECC</strong>:
+<li><p><strong>HAL RAMECC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_ramecc.h:
 <ul>
@@ -1584,7 +1767,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add HAL_RAMECC_IsECCSingleErrorDetected, HAL_RAMECC_IsECCDoubleErrorDetected APIs implementation</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL RCC</strong>:
+<li><p><strong>HAL/LL RCC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_rcc.h: Update to support STM32H7A3/B3xx/B0xx devices</li>
 <li>Add OCTOSPI1/2, OCTOSPIM, OTFDEC1/2, GFXMMU peripherals clock enabling/disabling, force reset/release reset macros</li>
@@ -1614,7 +1797,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 <li>Update other peripherals clock source definitions according to the number of instance on STM32H7A3/B3xx/B0xx devices and on the legacy STM32H7 devices</li>
 </ul></li>
-<li><strong>HAL/LL RNG</strong>:
+<li><p><strong>HAL/LL RNG</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_rng.h: Update to support STM32H7A3/B3xx/B0xx devices</li>
 <li>Add definition of HAL_RNG_ERROR_BUSY, HAL_RNG_ERROR_SEED and HAL_RNG_ERROR_CLOCK error codes</li>
@@ -1644,7 +1827,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 <li><p><strong>HAL/LL RTC</strong>: Update to support STM32H7A3/B3xx/B0xx devices new RTC features</p></li>
-<li><strong>HAL SAI</strong>:
+<li><p><strong>HAL SAI</strong>:</p>
 <ul>
 <li>Update to support STM32H7A3/B3xx/B0xx devices SAI instances:
 <ul>
@@ -1653,11 +1836,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Usage of a giving SAI instance is conditioned with its presence on the given device (according to the CMSIS device memory mapping)</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL SAI</strong>:
+<li><p><strong>HAL SAI</strong>:</p>
 <ul>
 <li>Update to support STM32H7A3/B3xx/B0xx devices SAI instances:</li>
 </ul></li>
-<li><strong>HAL SD</strong>:
+<li><p><strong>HAL SD</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_sd_ex.h:
 <ul>
@@ -1674,7 +1857,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Fix HAL_SDEx_ReadBlocksDMAMultiBuffer/HAL_SDEx_WriteBlocksDMAMultiBuffer APIs implementation to avoid losing data in read and dead lock in write</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL SPI</strong>:
+<li><p><strong>HAL/LL SPI</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_spi.c:
 <ul>
@@ -1686,14 +1869,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul></li>
-<li><strong>HAL SPI</strong>:
+<li><p><strong>HAL SPI</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_spi.c:
 <ul>
 <li>Fix GCC compilation war</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL TIM</strong>:
+<li><p><strong>HAL/LL TIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_tim.h:
 <ul>
@@ -1711,19 +1894,19 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update TIM_SlaveTimer_SetConfig API implementation to handle TIM_TS_ITR9 to TIM_TS_ITR13 input triggers</li>
 </ul></li>
 </ul></li>
-<li><strong>LL BUS</strong>:
+<li><p><strong>LL BUS</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_bus.h: Update to support STM32H7A3/B3xx/B0xx devices peripherals</li>
 </ul></li>
-<li><strong>LL CRS</strong>:
+<li><p><strong>LL CRS</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_crs.h/stm32h7xx_ll_crs.c: New LL driver allowing to handle CRS (Clock Recovery System) module</li>
 </ul></li>
-<li><strong>LL SDMMC</strong> (LL core driver for HAL SD/MMC):
+<li><p><strong>LL SDMMC</strong> (LL core driver for HAL SD/MMC):</p>
 <ul>
 <li>stm32h7xx_ll_sdmmc.c: Fix SDMMC_CmdStopTransfer implementation to ignore address Out Of Range error that is not relevant at end of memory</li>
 </ul></li>
-<li><strong>LL SYSTEM</strong>:
+<li><p><strong>LL SYSTEM</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -1735,7 +1918,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add LL_SYSCFG_VDMMCSetNMOSCompensationCode/LL_SYSCFG_VDMMCGetNMOSCompensationCode APIs</li>
 </ul></li>
 </ul></li>
-<li><strong>LL UTILS</strong>:
+<li><p><strong>LL UTILS</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_utils.h:
 <ul>
@@ -1743,7 +1926,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update LL_GetPackageType API to support STM32H7A3/B3xx/B0xx devices package types</li>
 </ul></li>
 </ul></li>
-<li><strong>LL DELAY BLOCK</strong> (LL core driver for HAL SD):
+<li><p><strong>LL DELAY BLOCK</strong> (LL core driver for HAL SD):</p>
 <ul>
 <li>stm32h7xx_ll_delayblock.h:
 <ul>
@@ -1757,7 +1940,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1771,7 +1954,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>New PSSI driver provided supporting both modes : DMA mode recommended/ polling mode has hardware limitation confirmed and mentioned in the STM32H7A3/B3xx/B0xx erratasheet.</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1795,10 +1978,10 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.6.0 / 28-June-2019</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
-<li>General updates to fix known defects and implementation enhancements</li>
-<li><strong>HAL</strong>: generic
+<li><p>General updates to fix known defects and implementation enhancements</p></li>
+<li><p><strong>HAL</strong>: generic</p>
 <ul>
 <li>stm32h7xx_hal.h:
 <ul>
@@ -1818,7 +2001,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add “USE_SPI_CRC” definition set to 1 by default and customizable by the HAL user</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL ADC</strong>:
+<li><p><strong>HAL/LL ADC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -1854,7 +2037,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_ADCEx_InjectedConfigChannel” implementation to set the ADC selected offset right shift</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL CRYP</strong>:
+<li><p><strong>HAL CRYP</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_cryp.c:
 <ul>
@@ -1862,14 +2045,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “CRYP_Workaround” to fix the implementation of the authentication tags computation phase during a GCM encryption when the size of the last payload block is inferior to 128 bits</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL GPIO</strong>:
+<li><p><strong>HAL GPIO</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_gpio.c:
 <ul>
 <li>Fix implementation of “HAL_GPIO_DeInit” API in order to clear the correct external interrupt/event in SYSCFG EXTICR register</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL HRTIM</strong>:
+<li><p><strong>HAL/LL HRTIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_hrtim.h:
 <ul>
@@ -1889,21 +2072,21 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Fix definitions of the output set sources (“LL_HRTIM_CROSSBAR_NONE” to “LL_HRTIM_CROSSBAR_UPDATE” replacing “LL_HRTIM_OUTPUTSET_NONE” to LL_HRTIM_OUTPUTSET_UPDATE) according to the reference manual (<strong>compatibility break</strong>)</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL HSEM</strong>:
+<li><p><strong>HAL/LL HSEM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_hsem.c:
 <ul>
 <li>Update “HAL_HSEM_Release” implementation to support dynamic CPU ID detection useful when code is intended to be shared between the Cortex-M4 and Cortex-M7 in a dual core device</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL IRDA</strong>:
+<li><p><strong>HAL IRDA</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_irda.c:
 <ul>
 <li>Update description of “HAL_IRDA_Transmit_XXX”, “HAL_IRDA_Receive_XXX” APIs with more details about the data size management</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL LPTIM</strong>:
+<li><p><strong>HAL LPTIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_lptim.c:
 <ul>
@@ -1921,7 +2104,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul></li>
-<li><strong>HAL MMC</strong>:
+<li><p><strong>HAL MMC</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_mmc.h:
 <ul>
@@ -1975,14 +2158,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_SD_ConfigSpeedBusOperation” implementation to handle “SDMMC_SPEED_MODE_AUTO” and “SDMMC_SPEED_MODE_HIGH” SD card speed modes in case of no transceiver present</li>
 </ul></li>
 </ul></li>
-<li><strong>LL SDMMC</strong>:
+<li><p><strong>LL SDMMC</strong>:</p>
 <ul>
 <li>Update “SDMMC_InitTypeDef” structure to add “TranceiverPresent” field in case of the define “USE_SD_TRANSCEIVER” is not zero:
 <ul>
 <li>This parameter allows to handle 2 SD instances with different settings regarding the transceiver presence as described above</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL RCC</strong>:
+<li><p><strong>HAL/LL RCC</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_rcc.h:
 <ul>
@@ -1997,7 +2180,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_RCCEx_GetPeriphCLKFreq” API implementation to add support of the SDMMC peripheral clock frequency calculation</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL TIM</strong>:
+<li><p><strong>HAL TIM</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_tim.h:
 <ul>
@@ -2018,7 +2201,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_TIMEx_ConfigBreakDeadTime” description to add details about interrupts enabling and generation</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL UART</strong>:
+<li><p><strong>HAL UART</strong>:</p>
 <ul>
 <li>Update to add UART Receiver timeout management (RTOF)</li>
 <li>stm32h7xx_hal_uart.h:
@@ -2036,7 +2219,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Add implementation of “HAL_UART_ReceiverTimeout_Config”, “HAL_UART_EnableReceiverTimeout” and “HAL_UART_DisableReceiverTimeout” APIs</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL USB</strong>:
+<li><p><strong>HAL USB</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_hcd.c
 <ul>
@@ -2051,7 +2234,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “HAL_PCD_IRQHandler” to remove useless initialization of epnum variable in HAL_PCD_IRQHandler() for OTG instance</li>
 </ul></li>
 </ul></li>
-<li><strong>HAL/LL USART</strong>:
+<li><p><strong>HAL/LL USART</strong>:</p>
 <ul>
 <li>stm32h7xx_hal_usart.c:
 <ul>
@@ -2062,7 +2245,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update “LL_USART_SetBaudRate” implementation to avoid overflow in “USART_PRESCALER_TAB” table</li>
 </ul></li>
 </ul></li>
-<li><strong>LL SYSTEM</strong>:
+<li><p><strong>LL SYSTEM</strong>:</p>
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -2070,11 +2253,11 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-4">Backward compatibility</h2>
+<h2 id="backward-compatibility-5">Backward compatibility</h2>
 <ul>
 <li><strong>HAL TIM</strong>:
 <ul>
@@ -2092,7 +2275,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>Add support for VOS0 power regulator voltage scaling with 480MHz over clock</li>
@@ -2562,7 +2745,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Update LL_Init1msTick and LL_SetSystemCoreClock description for <strong>DUAL CORE</strong> lines</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <ul>
 <li><strong>HAL SD</strong>:
 <ul>
@@ -2576,7 +2759,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Full duplex Transmit/receive feature not available</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-5">Backward compatibility</h2>
+<h2 id="backward-compatibility-6">Backward compatibility</h2>
 <ul>
 <li><strong>HAL ADC</strong>:
 <ul>
@@ -2628,7 +2811,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 30-November-2018</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>Add LL drivers : LL_ADC, LL_BDMA, LL_BUS, LL_COMP, LL_CORTEX, LL_CRC, LL_DAC, LL_DMA, LL_DMA2D, LL_DMAMUX, LL_EXTI, LL_GPIO, LL_HRTIM, LL_HSEM, LL_I2C, LL_IWDG, LL_LPTIM, LL_LPUART, LL_MDMA, LL_OPAMP,LL_PWR, LL_RCC, LL_RNG, LL_RTC, LL_SPI, LL_SWPMI, LL_SYSTEM, LL_TIM, LL_USART, LL_UTILS, LL_WWDG</li>
@@ -2897,7 +3080,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>Protect the hcd driver to be used only if the USB_OTG_FS, USB_OTG_HS are enabled</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -2905,7 +3088,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li>A new version of this driver will be available in next release with full features tested</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-6">Backward compatibility</h2>
+<h2 id="backward-compatibility-7">Backward compatibility</h2>
 <ul>
 <li><strong>HAL ADC</strong>:
 <ul>
@@ -2944,8 +3127,7 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 29-June-2018</strong></label>
-<div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>Updates to fix known defects on HAL Cortex, HAL RCC and HAL SDMMC drivers</li>
 <li><strong>HAL Cortex</strong>: Driver update to support 16 MPU regions instead of 8. User can now select an MPU regions from MPU_REGION_NUMBER0 to MPU_REGION_NUMBER15</li>
@@ -2953,22 +3135,18 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>HAL SDMMC</strong>: Fix and enhancements to support high speed mode</li>
 </ul>
 </div>
-</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 29-December-2017</strong></label>
-<div>
-<h2 id="main-changes-8">Main Changes</h2>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL SPI</strong>: Driver reworked to fix critical issues</li>
 <li>HAL: Update HAL Tick implementation</li>
 </ul>
 </div>
-</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 31-August-2017</strong></label>
-<div>
-<h2 id="main-changes-9">Main Changes</h2>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL FLASH</strong>: Add Mass Erase for both banks</li>
@@ -2979,17 +3157,14 @@ This software component is licensed by ST under BSD 3-Clause license, the “Lic
 <li><strong>HAL SPDIFRX</strong>: Add symbol clock generation</li>
 </ul>
 </div>
-</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 21-April-2017</strong></label>
-<div>
-<h2 id="main-changes-10">Main Changes</h2>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>First official release for STM32H743xx/753xx devices</li>
 </ul>
 </div>
-</div>
-</div>
+</section>
 </div>
 <footer class="sticky">
 For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span>

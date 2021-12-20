@@ -11,6 +11,17 @@
   *           + Peripheral Configuration and Control functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -96,10 +107,10 @@
 
   The compilation define USE_HAL_FDCAN_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
-  Use Function @ref HAL_FDCAN_RegisterCallback() or HAL_FDCAN_RegisterXXXCallback()
+  Use Function HAL_FDCAN_RegisterCallback() or HAL_FDCAN_RegisterXXXCallback()
   to register an interrupt callback.
 
-  Function @ref HAL_FDCAN_RegisterCallback() allows to register following callbacks:
+  Function HAL_FDCAN_RegisterCallback() allows to register following callbacks:
     (+) TxFifoEmptyCallback          : Tx Fifo Empty Callback.
     (+) RxBufferNewMessageCallback   : Rx Buffer New Message Callback.
     (+) HighPriorityMessageCallback  : High Priority Message Callback.
@@ -114,16 +125,16 @@
   For specific callbacks ClockCalibrationCallback, TxEventFifoCallback, RxFifo0Callback, RxFifo1Callback,
   TxBufferCompleteCallback, TxBufferAbortCallback, ErrorStatusCallback, TT_ScheduleSyncCallback, TT_TimeMarkCallback,
   TT_StopWatchCallback and TT_GlobalTimeCallback, use dedicated register callbacks :
-  respectively @ref HAL_FDCAN_RegisterClockCalibrationCallback(), @ref HAL_FDCAN_RegisterTxEventFifoCallback(),
-  @ref HAL_FDCAN_RegisterRxFifo0Callback(), @ref HAL_FDCAN_RegisterRxFifo1Callback(),
-  @ref HAL_FDCAN_RegisterTxBufferCompleCallback(), @ref HAL_FDCAN_RegisterTxBufferAbortCallback(),
-  @ref HAL_FDCAN_RegisterErrorStatusCallback(), @ref HAL_FDCAN_TT_RegisterScheduleSyncCallback(),
-  @ref HAL_FDCAN_TT_RegisterTimeMarkCallback(), @ref HAL_FDCAN_TT_RegisterStopWatchCallback() and
-  @ref HAL_FDCAN_TT_RegisterGlobalTimeCallback().
+  respectively HAL_FDCAN_RegisterClockCalibrationCallback(), HAL_FDCAN_RegisterTxEventFifoCallback(),
+  HAL_FDCAN_RegisterRxFifo0Callback(), HAL_FDCAN_RegisterRxFifo1Callback(),
+  HAL_FDCAN_RegisterTxBufferCompleCallback(), HAL_FDCAN_RegisterTxBufferAbortCallback(),
+  HAL_FDCAN_RegisterErrorStatusCallback(), HAL_FDCAN_TT_RegisterScheduleSyncCallback(),
+  HAL_FDCAN_TT_RegisterTimeMarkCallback(), HAL_FDCAN_TT_RegisterStopWatchCallback() and
+  HAL_FDCAN_TT_RegisterGlobalTimeCallback().
 
-  Use function @ref HAL_FDCAN_UnRegisterCallback() to reset a callback to the default
+  Use function HAL_FDCAN_UnRegisterCallback() to reset a callback to the default
   weak function.
-  @ref HAL_FDCAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
+  HAL_FDCAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
   and the Callback ID.
   This function allows to reset following callbacks:
     (+) TxFifoEmptyCallback          : Tx Fifo Empty Callback.
@@ -138,20 +149,20 @@
   For specific callbacks ClockCalibrationCallback, TxEventFifoCallback, RxFifo0Callback,
   RxFifo1Callback, TxBufferCompleteCallback, TxBufferAbortCallback, TT_ScheduleSyncCallback,
   TT_TimeMarkCallback, TT_StopWatchCallback and TT_GlobalTimeCallback, use dedicated
-  register callbacks : respectively @ref HAL_FDCAN_UnRegisterClockCalibrationCallback(),
-  @ref HAL_FDCAN_UnRegisterTxEventFifoCallback(), @ref HAL_FDCAN_UnRegisterRxFifo0Callback(),
-  @ref HAL_FDCAN_UnRegisterRxFifo1Callback(), @ref HAL_FDCAN_UnRegisterTxBufferCompleCallback(),
-  @ref HAL_FDCAN_UnRegisterTxBufferAbortCallback(), @ref HAL_FDCAN_UnRegisterErrorStatusCallback(),
-  @ref HAL_FDCAN_TT_UnRegisterScheduleSyncCallback(), @ref HAL_FDCAN_TT_UnRegisterTimeMarkCallback(),
-  @ref HAL_FDCAN_TT_UnRegisterStopWatchCallback() and @ref HAL_FDCAN_TT_UnRegisterGlobalTimeCallback().
+  register callbacks : respectively HAL_FDCAN_UnRegisterClockCalibrationCallback(),
+  HAL_FDCAN_UnRegisterTxEventFifoCallback(), HAL_FDCAN_UnRegisterRxFifo0Callback(),
+  HAL_FDCAN_UnRegisterRxFifo1Callback(), HAL_FDCAN_UnRegisterTxBufferCompleCallback(),
+  HAL_FDCAN_UnRegisterTxBufferAbortCallback(), HAL_FDCAN_UnRegisterErrorStatusCallback(),
+  HAL_FDCAN_TT_UnRegisterScheduleSyncCallback(), HAL_FDCAN_TT_UnRegisterTimeMarkCallback(),
+  HAL_FDCAN_TT_UnRegisterStopWatchCallback() and HAL_FDCAN_TT_UnRegisterGlobalTimeCallback().
 
-  By default, after the @ref HAL_FDCAN_Init() and when the state is HAL_FDCAN_STATE_RESET,
+  By default, after the HAL_FDCAN_Init() and when the state is HAL_FDCAN_STATE_RESET,
   all callbacks are set to the corresponding weak functions:
-  examples @ref HAL_FDCAN_ErrorCallback().
+  examples HAL_FDCAN_ErrorCallback().
   Exception done for MspInit and MspDeInit functions that are
-  reset to the legacy weak function in the @ref HAL_FDCAN_Init()/ @ref HAL_FDCAN_DeInit() only when
+  reset to the legacy weak function in the HAL_FDCAN_Init()/ HAL_FDCAN_DeInit() only when
   these callbacks are null (not registered beforehand).
-  if not, MspInit or MspDeInit are not null, the @ref HAL_FDCAN_Init()/ @ref HAL_FDCAN_DeInit()
+  if not, MspInit or MspDeInit are not null, the HAL_FDCAN_Init()/ HAL_FDCAN_DeInit()
   keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
   Callbacks can be registered/unregistered in HAL_FDCAN_STATE_READY state only.
@@ -159,26 +170,14 @@
   in HAL_FDCAN_STATE_READY or HAL_FDCAN_STATE_RESET state,
   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
   In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_FDCAN_RegisterCallback() before calling @ref HAL_FDCAN_DeInit()
-  or @ref HAL_FDCAN_Init() function.
+  using HAL_FDCAN_RegisterCallback() before calling HAL_FDCAN_DeInit()
+  or HAL_FDCAN_Init() function.
 
   When The compilation define USE_HAL_FDCAN_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
 
   @endverbatim
-
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -6195,4 +6194,3 @@ static void FDCAN_CopyMessageToRAM(FDCAN_HandleTypeDef *hfdcan, FDCAN_TxHeaderTy
 
 #endif /* FDCAN1 */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
