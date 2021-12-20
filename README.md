@@ -7,7 +7,7 @@
 
 [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 ![GitHub All Releases](https://img.shields.io/github/downloads/stm32duino/Arduino_Core_STM32/total.svg?label=downloads%20since%201.4.0)
-[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2.1.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.1.0...main)
+[![GitHub commits](https://img.shields.io/github/commits-since/stm32duino/Arduino_Core_STM32/2.2.0.svg)](https://github.com/stm32duino/Arduino_Core_STM32/compare/2.2.0...main)
 
 
 * [Introduction](https://github.com/stm32duino/Arduino_Core_STM32#Introduction)<br>
@@ -293,8 +293,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :yellow_heart: | STM32G030C6<br>STM32G030C8 | Generic Board | **2.2.0** |
-| :yellow_heart: | STM32G030F6<br>STM32G030F6 | Generic Board | **2.2.0** |
+| :green_heart: | STM32G030C6<br>STM32G030C8 | Generic Board | *2.2.0* |
+| :green_heart: | STM32G030F6<br>STM32G030F6 | Generic Board | *2.2.0* |
 | :green_heart: | STM32G030K8 | [Aurora One](https://www.bfy.kr/aurora-one/) | *2.0.0* |
 | :green_heart: | STM32G030K6<br>STM32G030K8 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G031J4<br>STM32G031J6 | Generic Board | *2.0.0* |  |
@@ -330,19 +330,19 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32H742ZG<br>STM32H742ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H743IG<br>STM32H743II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H743VG<br>STM32H743VI | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32H743VI | [DevEBox H743VIT6](https://github.com/mcauser/MCUDEV_DEVEBOX_H7XX_M) | **2.2.0** | |
-| :yellow_heart: | STM32H743VI | [WeAct MiniSTM32H743VIT6](https://github.com/WeActTC/MiniSTM32H7xx) | **2.2.0** | [More info](https://github.com/stm32duino/Arduino_Core_STM32/pull/1552) |
+| :green_heart: | STM32H743VI | [DevEBox H743VIT6](https://github.com/mcauser/MCUDEV_DEVEBOX_H7XX_M) | *2.2.0* | |
+| :green_heart: | STM32H743VI | [WeAct MiniSTM32H743VIT6](https://github.com/WeActTC/MiniSTM32H7xx) | *2.2.0* | [More info](https://github.com/stm32duino/Arduino_Core_STM32/pull/1552) |
 | :green_heart: | STM32H743ZG<br>STM32H743ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747AG<br>STM32H747AI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H747IG<br>STM32H747II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750ZB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750IB<br>STM32H750II | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H750IB | [Daisy](https://www.electro-smith.com/daisy/daisy) | *1.9.0* |  |
-| :yellow_heart: | STM32H750IB | [Daisy Patch SM](https://www.electro-smith.com/daisy/patch-sm) | *2.2.0* |  |
-| :yellow_heart: | STM32H750IB | [Daisy Petal SM](https://www.electro-smith.com/daisy/petal-125b-sm) | *2.2.0* |  |
+| :green_heart: | STM32H750IB | [Daisy Patch SM](https://www.electro-smith.com/daisy/patch-sm) | *2.2.0* |  |
+| :green_heart: | STM32H750IB | [Daisy Petal SM](https://www.electro-smith.com/daisy/petal-125b-sm) | *2.2.0* |  |
 | :green_heart: | STM32H750VB | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32H750VB | [DevEBox H750VBT6](https://github.com/mcauser/MCUDEV_DEVEBOX_H7XX_M) | **2.2.0** | |
-| :yellow_heart: | STM32H750VB | [WeAct MiniSTM32H750VBT6](https://github.com/WeActTC/MiniSTM32H7xx) | **2.2.0** | [More info](https://github.com/stm32duino/Arduino_Core_STM32/pull/1552) |
+| :green_heart: | STM32H750VB | [DevEBox H750VBT6](https://github.com/mcauser/MCUDEV_DEVEBOX_H7XX_M) | *2.2.0* | |
+| :green_heart: | STM32H750VB | [WeAct MiniSTM32H750VBT6](https://github.com/WeActTC/MiniSTM32H7xx) | *2.2.0* | [More info](https://github.com/stm32duino/Arduino_Core_STM32/pull/1552) |
 | :green_heart: | STM32H753VI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H753ZI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32H757AI | Generic Board | *2.0.0* |  |
