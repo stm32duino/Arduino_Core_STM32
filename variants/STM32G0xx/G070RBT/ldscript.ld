@@ -147,7 +147,7 @@ SECTIONS
   } >RAM AT> FLASH
 
   /* Uninitialized data section into "RAM" Ram type memory */
-  . = ALIGN(4);quest please fi
+  . = ALIGN(4);
   .bss :
   {
     /* This is used by the startup in order to initialize the .bss section */
