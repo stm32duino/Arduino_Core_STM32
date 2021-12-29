@@ -256,7 +256,11 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
 
   /* Fill default value */
   handle->Instance               = obj->spi;
-  handle->Init.Mode              = SPI_MODE_MASTER;
+  if (obj->mode == SPI_SLAVE) {
+    handle->Init.Mode              = SPI_MODE_SLAVE;
+  } else {
+    handle->Init.Mode              = SPI_MODE_MASTER;
+  }
 
   spi_freq = spi_getClkFreqInst(obj->spi);
   if (speed >= (spi_freq / SPI_SPEED_CLOCK_DIV2_MHZ)) {

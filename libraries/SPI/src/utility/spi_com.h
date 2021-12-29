@@ -49,6 +49,12 @@ extern "C" {
 
 /* Exported types ------------------------------------------------------------*/
 
+///@brief SPI device modes
+typedef enum {
+  SPI_SLAVE = 0,
+  SPI_MASTER = 1
+} spi_device_mode_e;
+
 struct spi_s {
   SPI_HandleTypeDef handle;
   SPI_TypeDef *spi;
@@ -56,6 +62,7 @@ struct spi_s {
   PinName pin_mosi;
   PinName pin_sclk;
   PinName pin_ssel;
+  spi_device_mode_e mode;
 #if defined(SPI_IFCR_EOTC)
   // Delay before disabling SPI.
   // See https://github.com/stm32duino/Arduino_Core_STM32/issues/1294
