@@ -301,7 +301,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32G031K4<br>STM32G031K6<br>STM32G031K8 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G041J6 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G041K6<br>STM32G041K8 | Generic Board | *2.0.0* |  |
-| :green_heart: | STM32G070RB | Generic Board | *0.1.0* |  |
+| :yellow_heart: | STM32G070RB | Generic Board | **2.3.0** |  |
 | :green_heart: | STM32G071R6<br>STM32G071R8<br>STM32G071RB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G081RB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G0B1RB<br>STM32G0B1RC<br>STM32G0B1RE | Generic Board | *2.1.0* |  |
