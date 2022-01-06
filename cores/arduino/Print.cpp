@@ -263,14 +263,18 @@ int Print::printf(const char *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-  return vdprintf((int)this, format, ap);
+  int retval = vdprintf((int)this, format, ap);
+  va_end(ap);
+  return retval;
 }
 
 int Print::printf(const __FlashStringHelper *format, ...)
 {
   va_list ap;
   va_start(ap, format);
-  return vdprintf((int)this, (const char *)format, ap);
+  int retval = vdprintf((int)this, (const char *)format, ap);
+  va_end(ap);
+  return retval;
 }
 
 // Private Methods /////////////////////////////////////////////////////////////
