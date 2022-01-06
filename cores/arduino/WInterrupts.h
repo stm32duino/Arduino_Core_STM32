@@ -20,17 +20,10 @@
 #define _WIRING_INTERRUPTS_
 
 #include <stdint.h>
+#include <functional>
 
-#ifdef __cplusplus
-  #include <functional>
-
-  typedef std::function<void(void)> callback_function_t;
-  void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode);
-
-#endif
-
-void attachInterrupt(uint32_t pin, void (*callback)(void), uint32_t mode);
-
+typedef std::function<void(void)> callback_function_t;
+void attachInterrupt(uint32_t pin, callback_function_t callback, uint32_t mode);
 void detachInterrupt(uint32_t pin);
 
 #endif /* _WIRING_INTERRUPTS_ */
