@@ -302,7 +302,7 @@ def checkSTLocal():
         print(f"Could not find: {package_file}!")
         exit(1)
     # Process Cube release
-    release_regex = r"FW.(.+).(\d+.\d+.\d+)$"
+    release_regex = r"FW.(.+).(\d+.\d+.\d+.*)$"
     release_match = re.match(release_regex, cube_release)
     if release_match:
         serie = release_match.group(1)
