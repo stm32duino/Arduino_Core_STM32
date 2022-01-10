@@ -119,6 +119,8 @@ static inline void setBackupRegister(uint32_t index, uint32_t value)
 #else
   LL_RTC_BKP_SetRegister(TAMP, index, value);
 #endif
+#elif defined(BKPREG1)
+  LL_PWR_BKP_SetRegister(index, value);
 #else
   UNUSED(index);
   UNUSED(value);
@@ -140,6 +142,8 @@ static inline uint32_t getBackupRegister(uint32_t index)
 #else
   return LL_RTC_BKP_GetRegister(TAMP, index);
 #endif
+#elif defined(BKPREG1)
+  return LL_PWR_BKP_GetRegister(index);
 #else
   UNUSED(index);
   return 0;
