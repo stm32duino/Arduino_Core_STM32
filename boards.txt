@@ -883,6 +883,19 @@ Disco.menu.pnum.B_U585I_IOT02A.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
 Disco.menu.pnum.B_U585I_IOT02A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_U585I_IOT02A.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
+# STM32C0316-DK board
+Disco.menu.pnum.STM32C0316_DK=STM32C0316-DK
+Disco.menu.pnum.STM32C0316_DK.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
+Disco.menu.pnum.STM32C0316_DK.upload.maximum_size=32768
+Disco.menu.pnum.STM32C0316_DK.upload.maximum_data_size=12288
+Disco.menu.pnum.STM32C0316_DK.build.mcu=cortex-m0plus
+Disco.menu.pnum.STM32C0316_DK.build.board=STM32C0316_DK
+Disco.menu.pnum.STM32C0316_DK.build.series=STM32C0xx
+Disco.menu.pnum.STM32C0316_DK.build.product_line=STM32C031xx
+Disco.menu.pnum.STM32C0316_DK.build.variant=STM32C0xx/C031C(4-6)(T-U)
+Disco.menu.pnum.STM32C0316_DK.build.cmsis_lib_gcc=arm_cortexM0l_math
+Disco.menu.pnum.STM32C0316_DK.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+
 # DISCO_F030R8 board
 Disco.menu.pnum.DISCO_F030R8=STM32F030R8-DISCVL
 Disco.menu.pnum.DISCO_F030R8.node="No_mass_storage_for_this_board_Use_STLink_upload_method"
