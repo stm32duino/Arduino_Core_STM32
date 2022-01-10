@@ -53,7 +53,7 @@ typedef struct {
 
 /* Private Variables */
 static gpio_irq_conf_str gpio_irq_conf[NB_EXTI] = {
-#if defined (STM32F0xx) || defined (STM32G0xx) || defined (STM32L0xx)
+#if defined (STM32C0xx) || defined (STM32F0xx) || defined (STM32G0xx) || defined (STM32L0xx)
   {.irqnb = EXTI0_1_IRQn,   .callback = NULL}, //GPIO_PIN_0
   {.irqnb = EXTI0_1_IRQn,   .callback = NULL}, //GPIO_PIN_1
   {.irqnb = EXTI2_3_IRQn,   .callback = NULL}, //GPIO_PIN_2
@@ -250,7 +250,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   }
 }
 
-#if defined(STM32G0xx) || defined(STM32MP1xx) || defined(STM32L5xx) || defined(STM32U5xx)
+#if defined(STM32C0xx) || defined(STM32G0xx) || defined(STM32MP1xx) || defined(STM32L5xx) || defined(STM32U5xx)
 /**
   * @brief  EXTI line detection callback.
   * @param  GPIO_Pin Specifies the port pin connected to corresponding EXTI line.
@@ -272,7 +272,7 @@ void HAL_GPIO_EXTI_Falling_Callback(uint16_t GPIO_Pin)
 }
 #endif
 
-#if defined (STM32F0xx) || defined (STM32G0xx) || defined (STM32L0xx)
+#if defined (STM32C0xx) || (STM32F0xx) || defined (STM32G0xx) || defined (STM32L0xx)
 #ifdef __cplusplus
 extern "C" {
 #endif
