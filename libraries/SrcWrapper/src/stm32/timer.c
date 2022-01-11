@@ -629,7 +629,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
   uint8_t clkSrc = 0;
 
   if (tim != (TIM_TypeDef *)NC)
-#if defined(STM32F0xx) || defined(STM32G0xx)
+#if defined(STM32C0xx) || defined(STM32F0xx) || defined(STM32G0xx)
     /* TIMx source CLK is PCKL1 */
     clkSrc = 1;
 #else
