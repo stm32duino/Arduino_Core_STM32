@@ -191,6 +191,7 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
     case 22:
       channel = ADC_CHANNEL_22;
       break;
+#ifdef ADC_CHANNEL_23
     case 23:
       channel = ADC_CHANNEL_23;
       break;
@@ -220,6 +221,7 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
     case 31:
       channel = ADC_CHANNEL_31;
       break;
+#endif
 #endif
 #endif
 #endif
@@ -873,8 +875,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcHandle.Init.NbrOfConversion       = 1;                             /* Specifies the number of ranks that will be converted within the regular group sequencer. */
 #endif
   AdcHandle.Init.DiscontinuousConvMode = DISABLE;                       /* Parameter discarded because sequencer is disabled */
-#if !defined(STM32F0xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
-    !defined(STM32WLxx) && !defined(ADC_SUPPORT_2_5_MSPS)
+#if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32G0xx) && \
+    !defined(STM32L0xx) && !defined(STM32WLxx) && !defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.NbrOfDiscConversion   = 0;                             /* Parameter discarded because sequencer is disabled */
 #endif
   AdcHandle.Init.ExternalTrigConv      = ADC_SOFTWARE_START;            /* Software start to trig the 1st conversion manually, without external event */
@@ -898,8 +900,8 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if defined(STM32F0xx)
   AdcHandle.Init.SamplingTimeCommon    = samplingTime;
 #endif
-#if defined(STM32G0xx) || defined(STM32U5xx) || defined(STM32WLxx) || \
-    defined(ADC_SUPPORT_2_5_MSPS)
+#if defined(STM32C0xx) || defined(STM32G0xx) || defined(STM32U5xx) || \
+    defined(STM32WLxx) || defined(ADC_SUPPORT_2_5_MSPS)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
 #endif
@@ -961,9 +963,9 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
   AdcChannelConf.SingleDiff   = ADC_SINGLE_ENDED;                 /* Single-ended input channel */
   AdcChannelConf.OffsetNumber = ADC_OFFSET_NONE;                  /* No offset subtraction */
 #endif
-#if !defined(STM32F0xx) && !defined(STM32F1xx) && !defined(STM32F2xx) && \
-    !defined(STM32G0xx) && !defined(STM32L0xx) && !defined(STM32L1xx) && \
-    !defined(STM32WBxx) && !defined(STM32WLxx) && \
+#if !defined(STM32C0xx) && !defined(STM32F0xx) && !defined(STM32F1xx) && \
+    !defined(STM32F2xx) && !defined(STM32G0xx) && !defined(STM32L0xx) && \
+    !defined(STM32L1xx) && !defined(STM32WBxx) && !defined(STM32WLxx) && \
     !defined(ADC1_V2_5)
   AdcChannelConf.Offset = 0;                                      /* Parameter discarded because offset correction is disabled */
 #endif
