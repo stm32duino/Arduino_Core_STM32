@@ -88,6 +88,15 @@ struct serial_s {
 /* Exported constants --------------------------------------------------------*/
 #define TX_TIMEOUT  1000
 
+#if !defined(RCC_USART1CLKSOURCE_HSI)
+/* Some series like C0 have 2 derivated clock from HSI: HSIKER (for peripherals)
+ * and HSISYS (for system clock). But each have a dedicated prescaler.
+ * To avoid changing Arduino implementation,
+ * remap RCC_USART1CLKSOURCE_HSI to RCC_USART1CLKSOURCE_HSIKER
+ */
+#define RCC_USART1CLKSOURCE_HSI RCC_USART1CLKSOURCE_HSIKER
+#endif
+
 #if defined(USART2_BASE) && !defined(USART2_IRQn)
 #if defined(STM32G0xx)
 #if defined(LPUART2_BASE)

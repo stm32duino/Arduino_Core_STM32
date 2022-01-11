@@ -210,6 +210,11 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
           clkSrcFreq = HSI_VALUE;
           break;
 #endif
+#ifdef RCC_I2C1CLKSOURCE_HSIKER
+        case RCC_I2C1CLKSOURCE_HSIKER:
+          clkSrcFreq = __LL_RCC_CALC_HSIKER_FREQ(LL_RCC_HSIKER_GetDivider());
+          break;
+#endif
 #ifdef RCC_I2C1CLKSOURCE_SYSCLK
         case RCC_I2C1CLKSOURCE_SYSCLK:
           clkSrcFreq = SystemCoreClock;
