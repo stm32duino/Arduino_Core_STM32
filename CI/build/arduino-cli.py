@@ -325,8 +325,8 @@ def load_core_config():
     global arch
     cores_config_filename = ""
     if args.config:
-        assert args.config.exists(), f"{args.config} not found"
-        cores_config_filename = args.config
+        cores_config_filename = Path(args.config)
+        assert cores_config_filename.exists(), f"{args.config} not found"
     else:
         if args.ci:
             cores_config_filename = cores_config_file_ci
