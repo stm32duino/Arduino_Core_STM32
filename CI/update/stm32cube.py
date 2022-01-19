@@ -370,10 +370,12 @@ def parseVersion(path):
     main_found = False
     sub1_found = False
     sub2_found = False
+    rc_found = False
     if "HAL" in str(path):
         main_pattern = re.compile(r"HAL_VERSION_MAIN.*0x([\dA-Fa-f]+)")
         sub1_pattern = re.compile(r"HAL_VERSION_SUB1.*0x([\dA-Fa-f]+)")
         sub2_pattern = re.compile(r"HAL_VERSION_SUB2.*0x([\dA-Fa-f]+)")
+        rc_pattern = re.compile(r"HAL_VERSION_RC.*0x([\dA-Fa-f]+)")
     else:
         main_pattern = re.compile(
             r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_MAIN.*0x([\dA-Fa-f]+)"
@@ -383,6 +385,9 @@ def parseVersion(path):
         )
         sub2_pattern = re.compile(
             r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_SUB2.*0x([\dA-Fa-f]+)"
+        )
+        rc_pattern = re.compile(
+            r"(?:CMSIS|DEVICE|CMSIS_DEVICE)_VERSION_RC.*0x([\dA-Fa-f]+)"
         )
 
     for i, line in enumerate(open(path, encoding="utf8", errors="ignore")):
@@ -395,7 +400,10 @@ def parseVersion(path):
         for match in re.finditer(sub2_pattern, line):
             VERSION_SUB2 = int(match.group(1), 16)
             sub2_found = True
-        if main_found and sub1_found and sub2_found:
+        for match in re.finditer(rc_pattern, line):
+            VERSION_RC = int(match.group(1), 16)
+            rc_found = True
+        if main_found and sub1_found and sub2_found and rc_found:
             break
     else:
         print(f"Could not find the full version in {path}")
@@ -408,7 +416,16 @@ def parseVersion(path):
         if sub2_found:
             print(f"sub2 version found: {VERSION_SUB2}")
         VERSION_SUB2 = "FF"
-    return f"{VERSION_MAIN}.{VERSION_SUB1}.{VERSION_SUB2}"
+        if rc_found:
+            print(f"rc version found: {VERSION_RC}")
+        VERSION_RC = "FF"
+
+    ret = f"{VERSION_MAIN}.{VERSION_SUB1}.{VERSION_SUB2}"
+
+    if VERSION_RC != 0:
+        ret = f"{ret}RC{VERSION_RC}"
+
+    return ret
 
 
 def checkVersion(serie, repo_path):
