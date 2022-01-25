@@ -155,6 +155,14 @@ class HardwareSerial : public Stream {
     void setRx(PinName _rx);
     void setTx(PinName _tx);
 
+    // Enable HW flow control on RTS, CTS or both
+    void setRts(uint32_t _rts);
+    void setCts(uint32_t _cts);
+    void setRtsCts(uint32_t _rts, uint32_t _cts);
+    void setRts(PinName _rts);
+    void setCts(PinName _cts);
+    void setRtsCts(PinName _rts, PinName _cts);
+
     // Enable half-duplex mode by setting the Rx pin to NC
     // This needs to be done before the call to begin()
     void setHalfDuplex(void);

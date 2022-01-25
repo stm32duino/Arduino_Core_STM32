@@ -294,6 +294,8 @@ void HardwareSerial::init(PinName _rx, PinName _tx)
     _serial.pin_rx = _rx;
   }
   _serial.pin_tx = _tx;
+  _serial.pin_rts = NC;
+  _serial.pin_cts = NC;
   _serial.rx_buff = _rx_buffer;
   _serial.rx_head = 0;
   _serial.rx_tail = 0;
@@ -573,6 +575,38 @@ void HardwareSerial::setRx(PinName _rx)
 void HardwareSerial::setTx(PinName _tx)
 {
   _serial.pin_tx = _tx;
+}
+
+void HardwareSerial::setRts(uint32_t _rts)
+{
+  _serial.pin_rts = digitalPinToPinName(_rts);
+}
+
+void HardwareSerial::setCts(uint32_t _cts)
+{
+  _serial.pin_cts = digitalPinToPinName(_cts);
+}
+
+void HardwareSerial::setRtsCts(uint32_t _rts, uint32_t _cts)
+{
+  _serial.pin_rts = digitalPinToPinName(_rts);
+  _serial.pin_cts = digitalPinToPinName(_cts);
+}
+
+void HardwareSerial::setRts(PinName _rts)
+{
+  _serial.pin_rts = _rts;
+}
+
+void HardwareSerial::setCts(PinName _cts)
+{
+  _serial.pin_cts = _cts;
+}
+
+void HardwareSerial::setRtsCts(PinName _rts, PinName _cts)
+{
+  _serial.pin_rts = _rts;
+  _serial.pin_cts = _cts;
 }
 
 void HardwareSerial::setHalfDuplex(void)
