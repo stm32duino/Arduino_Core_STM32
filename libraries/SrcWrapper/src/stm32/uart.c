@@ -123,6 +123,16 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
     return;
   }
+  /* Pin RTS must not be NP if flow control is enabled */
+  if ((obj->pin_rts != NC) && (uart_rts == NP)) {
+    core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    return;
+  }
+  /* Pin CTS must not be NP if flow control is enabled */
+  if ((obj->pin_cts != NC) && (uart_cts == NP)) {
+    core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    return;
+  }
 
   /*
    * Get the peripheral name (USART1, USART2, ...) from the pin
@@ -132,6 +142,12 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   if (obj->uart == NP) {
     core_debug("ERROR: [U(S)ART] Rx and Tx pins peripherals mismatch!\n");
+    return;
+  } else if (uart_rts != NP && obj->uart != uart_rts) {
+    core_debug("ERROR: [U(S)ART] Rx/Tx and RTS pins peripherals mismatch!\n");
+    return;
+  } else if (uart_cts != NP && obj->uart != uart_cts) {
+    core_debug("ERROR: [U(S)ART] Rx/Tx and CTS pins peripherals mismatch!\n");
     return;
   }
 
