@@ -3334,6 +3334,14 @@ GenG0.menu.pnum.GENERIC_G041K8UX.build.board=GENERIC_G041K8UX
 GenG0.menu.pnum.GENERIC_G041K8UX.build.product_line=STM32G041xx
 GenG0.menu.pnum.GENERIC_G041K8UX.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
 
+# Generic G070KBTx
+GenG0.menu.pnum.GENERIC_G070KBTX=Generic G070KBTx
+GenG0.menu.pnum.GENERIC_G070KBTX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G070KBTX.upload.maximum_data_size=36864
+GenG0.menu.pnum.GENERIC_G070KBTX.build.board=GENERIC_G070KBTX
+GenG0.menu.pnum.GENERIC_G070KBTX.build.product_line=STM32G070xx
+GenG0.menu.pnum.GENERIC_G070KBTX.build.variant=STM32G0xx/G070KBT
+
 # Generic G071R6Tx
 GenG0.menu.pnum.GENERIC_G071R6TX=Generic G071R6Tx
 GenG0.menu.pnum.GENERIC_G071R6TX.upload.maximum_size=32768
