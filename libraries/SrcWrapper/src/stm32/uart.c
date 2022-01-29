@@ -139,15 +139,12 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
    * and assign it to the object
    */
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
+  /* We also merge RTS/CTS and assert all pins belong to the same instance */
+  obj->uart = pinmap_merge_peripheral(obj->uart, uart_rts);
+  obj->uart = pinmap_merge_peripheral(obj->uart, uart_cts);
 
   if (obj->uart == NP) {
-    core_debug("ERROR: [U(S)ART] Rx and Tx pins peripherals mismatch!\n");
-    return;
-  } else if (uart_rts != NP && obj->uart != uart_rts) {
-    core_debug("ERROR: [U(S)ART] Rx/Tx and RTS pins peripherals mismatch!\n");
-    return;
-  } else if (uart_cts != NP && obj->uart != uart_cts) {
-    core_debug("ERROR: [U(S)ART] Rx/Tx and CTS pins peripherals mismatch!\n");
+    core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
     return;
   }
 
