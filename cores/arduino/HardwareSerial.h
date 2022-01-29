@@ -112,6 +112,8 @@ class HardwareSerial : public Stream {
   public:
     HardwareSerial(uint32_t _rx, uint32_t _tx);
     HardwareSerial(PinName _rx, PinName _tx);
+    HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts, uint32_t _cts);
+    HardwareSerial(PinName _rx, PinName _tx, PinName _rts, PinName _cts);
     HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex = HALF_DUPLEX_DISABLED);
     HardwareSerial(uint32_t _rxtx);
     HardwareSerial(PinName _rxtx);
@@ -178,7 +180,7 @@ class HardwareSerial : public Stream {
     bool _rx_enabled;
     uint8_t _config;
     unsigned long _baud;
-    void init(PinName _rx, PinName _tx);
+    void init(PinName _rx, PinName _tx, PinName _rts = NC, PinName _cts = NC);
     void configForLowPower(void);
 };
 
