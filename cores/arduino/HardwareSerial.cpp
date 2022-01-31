@@ -115,16 +115,6 @@
 #endif // HAVE_HWSERIALx
 
 // Constructors ////////////////////////////////////////////////////////////////
-HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx)
-{
-  init(digitalPinToPinName(_rx), digitalPinToPinName(_tx));
-}
-
-HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
-{
-  init(_rx, _tx);
-}
-
 HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts, uint32_t _cts)
 {
   init(digitalPinToPinName(_rx), digitalPinToPinName(_tx), digitalPinToPinName(_rts), digitalPinToPinName(_cts));
