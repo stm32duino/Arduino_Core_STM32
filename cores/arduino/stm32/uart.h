@@ -71,6 +71,8 @@ struct serial_s {
   int (*tx_callback)(serial_t *);
   PinName pin_tx;
   PinName pin_rx;
+  PinName pin_rts;
+  PinName pin_cts;
   IRQn_Type irq;
   uint8_t index;
   uint8_t recv;

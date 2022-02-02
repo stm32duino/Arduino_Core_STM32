@@ -110,6 +110,8 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   /* Determine the U(S)ART peripheral to use (USART1, USART2, ...) */
   USART_TypeDef *uart_tx = pinmap_peripheral(obj->pin_tx, PinMap_UART_TX);
   USART_TypeDef *uart_rx = pinmap_peripheral(obj->pin_rx, PinMap_UART_RX);
+  USART_TypeDef *uart_rts = pinmap_peripheral(obj->pin_rts, PinMap_UART_RTS);
+  USART_TypeDef *uart_cts = pinmap_peripheral(obj->pin_cts, PinMap_UART_CTS);
 
   /* Pin Tx must not be NP */
   if (uart_tx == NP) {
@@ -121,15 +123,28 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
     return;
   }
+  /* Pin RTS must not be NP if flow control is enabled */
+  if ((obj->pin_rts != NC) && (uart_rts == NP)) {
+    core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    return;
+  }
+  /* Pin CTS must not be NP if flow control is enabled */
+  if ((obj->pin_cts != NC) && (uart_cts == NP)) {
+    core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    return;
+  }
 
   /*
    * Get the peripheral name (USART1, USART2, ...) from the pin
    * and assign it to the object
    */
   obj->uart = pinmap_merge_peripheral(uart_tx, uart_rx);
+  /* We also merge RTS/CTS and assert all pins belong to the same instance */
+  obj->uart = pinmap_merge_peripheral(obj->uart, uart_rts);
+  obj->uart = pinmap_merge_peripheral(obj->uart, uart_cts);
 
   if (obj->uart == NP) {
-    core_debug("ERROR: [U(S)ART] Rx and Tx pins peripherals mismatch!\n");
+    core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
     return;
   }
 
@@ -290,6 +305,17 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
     pinmap_pinout(obj->pin_rx, PinMap_UART_RX);
   }
 
+  /* Configure flow control */
+  uint32_t flow_control = UART_HWCONTROL_NONE;
+  if (uart_rts != NP) {
+    flow_control |= UART_HWCONTROL_RTS;
+    pinmap_pinout(obj->pin_rts, PinMap_UART_RTS);
+  }
+  if (uart_cts != NP) {
+    flow_control |= UART_HWCONTROL_CTS;
+    pinmap_pinout(obj->pin_cts, PinMap_UART_CTS);
+  }
+
   /* Configure uart */
   uart_handlers[obj->index] = huart;
   huart->Instance          = (USART_TypeDef *)(obj->uart);
@@ -298,7 +324,7 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   huart->Init.StopBits     = stopbits;
   huart->Init.Parity       = parity;
   huart->Init.Mode         = UART_MODE_TX_RX;
-  huart->Init.HwFlowCtl    = UART_HWCONTROL_NONE;
+  huart->Init.HwFlowCtl    = flow_control;
   huart->Init.OverSampling = UART_OVERSAMPLING_16;
 #if !defined(STM32F1xx) && !defined(STM32F2xx) && !defined(STM32F4xx)\
  && !defined(STM32L1xx)
