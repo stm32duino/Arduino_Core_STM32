@@ -51,6 +51,13 @@ PCD_HandleTypeDef g_hpcd;
 void HAL_PCD_MspInit(PCD_HandleTypeDef *hpcd)
 {
   const PinMap *map = NULL;
+
+#if defined(PIN_UCPD_TCPP)
+  /* Set TCPP default state: Type-C legacy */
+  pinMode(PIN_UCPD_TCPP, OUTPUT_OPEN_DRAIN);
+  digitalWriteFast(digitalPinToPinName(PIN_UCPD_TCPP), LOW);
+#endif
+
 #if defined(PWR_CR2_USV) || defined(PWR_SVMCR_USV)
   /* Enable VDDUSB on Pwrctrl CR2 register*/
   HAL_PWREx_EnableVddUSB();
