@@ -301,6 +301,9 @@
   #define PIN_SERIAL_TX         PA9
 #endif
 
+// Pin UCPD to configure TCPP in default Type-C legacy state (UCPD_PWR for TCPP03)
+#define PIN_UCPD_TCPP           PB5
+
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)
   #define HAL_DAC_MODULE_ENABLED

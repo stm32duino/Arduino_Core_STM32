@@ -39,7 +39,7 @@
 #define PD12                    19
 #define PA4                     PIN_A9
 #define PB4                     21
-#define PB5                     22
+#define PB5                     22      // UCPD TCPP
 #define PB3                     23
 // 24 is PA4                   (20)
 // 25 is PB4                   (21)
@@ -232,6 +232,9 @@
 #ifndef PIN_SERIAL_TX
   #define PIN_SERIAL_TX         PG7
 #endif
+
+// Pin UCPD to configure TCPP in default Type-C legacy state (UCPD_DBn for TCPP01)
+#define PIN_UCPD_TCPP           PB5
 
 // Extra HAL modules
 #if !defined(HAL_DAC_MODULE_DISABLED)

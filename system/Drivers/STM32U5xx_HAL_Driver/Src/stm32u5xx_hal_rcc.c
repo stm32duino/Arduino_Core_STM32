@@ -1154,6 +1154,8 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
 
   if ((pRCC_OscInitStruct->PLL.PLLState) != RCC_PLL_NONE)
   {
+    FlagStatus  pwrclkchanged = RESET;
+
     /* Check if the PLL is used as system clock or not */
     if (__HAL_RCC_GET_SYSCLK_SOURCE() != RCC_SYSCLKSOURCE_STATUS_PLLCLK)
     {
@@ -1182,8 +1184,12 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
           }
         }
 
-        /* Enable PWR CLK */
-        __HAL_RCC_PWR_CLK_ENABLE();
+        /* Requires to enable write access to Backup Domain of necessary */
+        if (__HAL_RCC_PWR_IS_CLK_DISABLED())
+        {
+          __HAL_RCC_PWR_CLK_ENABLE();
+          pwrclkchanged = SET;
+        }
 
         /*Disable EPOD to configure PLL1MBOOST*/
         if (READ_BIT(PWR->VOSR, PWR_VOSR_BOOSTEN) == PWR_VOSR_BOOSTEN)
@@ -1223,8 +1229,11 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
           SET_BIT(PWR->VOSR, PWR_VOSR_BOOSTEN);
         }
 
-        /*Disable PWR clk */
-        __HAL_RCC_PWR_CLK_DISABLE();
+        /* Restore clock configuration if changed */
+        if (pwrclkchanged == SET)
+        {
+          __HAL_RCC_PWR_CLK_DISABLE();
+        }
 
         /* Enable PLL System Clock output */
         __HAL_RCC_PLLCLKOUT_ENABLE(RCC_PLL1_DIVR);
@@ -1343,11 +1352,16 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
   if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_SYSCLK) == RCC_CLOCKTYPE_SYSCLK)
   {
     assert_param(IS_RCC_SYSCLKSOURCE(pRCC_ClkInitStruct->SYSCLKSource));
+    FlagStatus  pwrclkchanged = RESET;
 
     /* PLL is selected as System Clock Source */
     if (pRCC_ClkInitStruct->SYSCLKSource == RCC_SYSCLKSOURCE_PLLCLK)
     {
-      __HAL_RCC_PWR_CLK_ENABLE();
+      if (__HAL_RCC_PWR_IS_CLK_DISABLED())
+      {
+        __HAL_RCC_PWR_CLK_ENABLE();
+        pwrclkchanged = SET;
+      }
       tickstart = HAL_GetTick();
       /* Check if EPOD is enabled */
       if (READ_BIT(PWR->VOSR, PWR_VOSR_BOOSTEN) != 0U)
@@ -1362,7 +1376,11 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
         }
       }
 
-      __HAL_RCC_PWR_CLK_DISABLE();
+      /* Restore clock configuration if changed */
+      if (pwrclkchanged == SET)
+      {
+        __HAL_RCC_PWR_CLK_DISABLE();
+      }
 
       /* Check the PLL ready flag */
       if (READ_BIT(RCC->CR, RCC_CR_PLL1RDY) == 0U)

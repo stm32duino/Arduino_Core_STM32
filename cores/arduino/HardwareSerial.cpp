@@ -115,14 +115,14 @@
 #endif // HAVE_HWSERIALx
 
 // Constructors ////////////////////////////////////////////////////////////////
-HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx)
+HardwareSerial::HardwareSerial(uint32_t _rx, uint32_t _tx, uint32_t _rts, uint32_t _cts)
 {
-  init(digitalPinToPinName(_rx), digitalPinToPinName(_tx));
+  init(digitalPinToPinName(_rx), digitalPinToPinName(_tx), digitalPinToPinName(_rts), digitalPinToPinName(_cts));
 }
 
-HardwareSerial::HardwareSerial(PinName _rx, PinName _tx)
+HardwareSerial::HardwareSerial(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
 {
-  init(_rx, _tx);
+  init(_rx, _tx, _rts, _cts);
 }
 
 HardwareSerial::HardwareSerial(void *peripheral, HalfDuplexMode_t halfDuplex)
@@ -286,7 +286,7 @@ HardwareSerial::HardwareSerial(PinName _rxtx)
   init(NC, _rxtx);
 }
 
-void HardwareSerial::init(PinName _rx, PinName _tx)
+void HardwareSerial::init(PinName _rx, PinName _tx, PinName _rts, PinName _cts)
 {
   if (_rx == _tx) {
     _serial.pin_rx = NC;
@@ -294,6 +294,8 @@ void HardwareSerial::init(PinName _rx, PinName _tx)
     _serial.pin_rx = _rx;
   }
   _serial.pin_tx = _tx;
+  _serial.pin_rts = _rts;
+  _serial.pin_cts = _cts;
   _serial.rx_buff = _rx_buffer;
   _serial.rx_head = 0;
   _serial.rx_tail = 0;
@@ -573,6 +575,38 @@ void HardwareSerial::setRx(PinName _rx)
 void HardwareSerial::setTx(PinName _tx)
 {
   _serial.pin_tx = _tx;
+}
+
+void HardwareSerial::setRts(uint32_t _rts)
+{
+  _serial.pin_rts = digitalPinToPinName(_rts);
+}
+
+void HardwareSerial::setCts(uint32_t _cts)
+{
+  _serial.pin_cts = digitalPinToPinName(_cts);
+}
+
+void HardwareSerial::setRtsCts(uint32_t _rts, uint32_t _cts)
+{
+  _serial.pin_rts = digitalPinToPinName(_rts);
+  _serial.pin_cts = digitalPinToPinName(_cts);
+}
+
+void HardwareSerial::setRts(PinName _rts)
+{
+  _serial.pin_rts = _rts;
+}
+
+void HardwareSerial::setCts(PinName _cts)
+{
+  _serial.pin_cts = _cts;
+}
+
+void HardwareSerial::setRtsCts(PinName _rts, PinName _cts)
+{
+  _serial.pin_rts = _rts;
+  _serial.pin_cts = _cts;
 }
 
 void HardwareSerial::setHalfDuplex(void)
