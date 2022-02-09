@@ -211,8 +211,19 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;
 
-  /* Disable all interrupts */
+  /* Disable all interrupts and clar flags */
   RCC->CIER = 0x00000000U;
+#if defined(RCC_CICR_PLLSAI2RDYC)
+#if defined(RCC_CICR_HSI48RDYC)
+  RCC->CICR = 0x000007FFU;
+#else
+  RCC->CICR = 0x000003FFU;
+#endif /* RCC_CICR_HSI48RDYC */
+#elif defined(RCC_CICR_PLLSAI1RDYC)
+  RCC->CICR = 0x0000077FU;
+#else
+  RCC->CICR = 0x0000073FU;
+#endif /* RCC_CICR_PLLSAI2RDYC */
 }
 
 /**

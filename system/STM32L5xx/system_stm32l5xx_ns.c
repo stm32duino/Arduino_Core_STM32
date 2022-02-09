@@ -157,6 +157,26 @@ void SystemInit(void)
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
 #endif
 
+  /* Reset the RCC clock configuration to the default reset state ------------*/
+  /* Set MSION bit */
+  RCC->CR |= 0x00000001U;
+
+  /* Reset CFGR register */
+  RCC->CFGR = 0x00000000;
+
+  /* Reset CR register */
+  RCC->CR = 0x00000061U;
+
+  /* Reset PLLCFGR register */
+  RCC->PLLCFGR = 0x00001000U;
+
+  /* Reset HSEBYP bit */
+  RCC->CR &= 0xFFFBFFFFU;
+
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+  RCC->CICR = 0x000005FFU;
+
   /* FPU settings ------------------------------------------------------------*/
 #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
   SCB->CPACR |= ((3UL << 20U)|(3UL << 22U));  /* set CP10 and CP11 Full Access */

@@ -152,19 +152,19 @@ void SystemInit(void)
   RCC->CR |= (uint32_t)0x00000001;
 
   /* Reset CFGR register */
-  RCC->CFGR = 0x00000000;
+  RCC->CFGR = (uint32_t)0x00000000;
 
   /* Reset HSEON, CSSON and PLLON bits */
   RCC->CR &= (uint32_t)0xFEF6FFFF;
 
   /* Reset PLLCFGR register */
-  RCC->PLLCFGR = 0x24003010;
+  RCC->PLLCFGR = (uint32_t)0x24003010;
 
   /* Reset HSEBYP bit */
   RCC->CR &= (uint32_t)0xFFFBFFFF;
 
-  /* Disable all interrupts */
-  RCC->CIR = 0x00000000;
+  /* Disable all interrupts and clear pending bits  */
+  RCC->CIR = (uint32_t)0x00FF0000;
 
 
   /* Configure the Vector Table location -------------------------------------*/

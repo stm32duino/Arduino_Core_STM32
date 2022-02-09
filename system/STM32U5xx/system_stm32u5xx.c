@@ -206,8 +206,9 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= ~(RCC_CR_HSEBYP);
 
-  /* Disable all interrupts */
-  RCC->CIER = 0U;
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+  RCC->CICR = 0x00001DFFU;
 
   /* Configure the Vector Table location add offset address ------------------*/
   #ifdef VECT_TAB_SRAM

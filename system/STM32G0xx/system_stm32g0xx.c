@@ -171,6 +171,31 @@
   */
 void SystemInit(void)
 {
+  /* Reset the RCC clock configuration to the default reset state ------------*/
+  /* Set HSION bit */
+  RCC->CR |= 0x00000500U;
+
+  /* Reset CFGR register */
+  RCC->CFGR = 0x00000000U;
+
+  /* Reset HSEON, CSSON and PLLON bits */
+  RCC->CR &= 0xFEF6FFFFU;
+
+  /* Reset PLLCFGR register */
+  RCC->PLLCFGR = 0x00001000U;
+
+  /* Reset HSEBYP bit */
+  RCC->CR &= 0xFFFBFFFFU;
+
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+
+#if defined(RCC_CICR_HSI48RDYC)
+  RCC->CICR = 0x0000033FU;
+#else
+  RCC->CICR = 0x0000033BU;
+#endif
+
   /* Configure the Vector Table location -------------------------------------*/
 #if defined(USER_VECT_TAB_ADDRESS)
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET; /* Vector Table Relocation */

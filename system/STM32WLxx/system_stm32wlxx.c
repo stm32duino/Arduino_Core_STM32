@@ -190,6 +190,24 @@
   */
 void SystemInit(void)
 {
+
+  /* Reset the RCC clock configuration to the default reset state ------------*/
+  /* Set MSION bit */
+  RCC->CR |= 0x00000061U;
+
+  /* Reset CFGR register */
+  RCC->CFGR = 0x00070000U;
+
+  /* Reset CR register */
+  RCC->CR = 0x00000061U;
+
+  /* Reset PLLCFGR register */
+  RCC->PLLCFGR = 0x22040100U;
+
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+  RCC->CICR = 0x0000033FU;
+
 #if defined(USER_VECT_TAB_ADDRESS)
   /* Configure the Vector Table location add offset address ------------------*/
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;

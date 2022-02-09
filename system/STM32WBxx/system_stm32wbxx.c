@@ -205,13 +205,13 @@ void SystemInit(void)
   RCC->CFGR = 0x00070000U;
 
   /* Reset PLLSAI1ON, PLLON, HSECSSON, HSEON, HSION, and MSIPLLON bits */
-  RCC->CR &= (uint32_t)0xFAF6FEFBU;
+  RCC->CR &= 0xFAF6FEFBU;
 
   /*!< Reset LSI1 and LSI2 bits */
-  RCC->CSR &= (uint32_t)0xFFFFFFFAU;
+  RCC->CSR &= 0xFFFFFFFAU;
   
   /*!< Reset HSI48ON  bit */
-  RCC->CRRCR &= (uint32_t)0xFFFFFFFEU;
+  RCC->CRRCR &= 0xFFFFFFFEU;
     
   /* Reset PLLCFGR register */
   RCC->PLLCFGR = 0x22041000U;
@@ -224,8 +224,17 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;
 
-  /* Disable all interrupts */
-  RCC->CIER = 0x00000000;
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+#if defined(RCC_CICR_HSI48RDYC)
+#if defined(RCC_CICR_PLLSAI1RDYC)
+  RCC->CICR = 0x00000F7FU;
+#else
+  RCC->CICR = 0x00000F3FU;
+#endif /* RCC_CICR_PLLSAI1RDYC */
+#else
+  RCC->CICR = 0x00000B3FU;
+#endif /* RCC_CICR_HSI48RDYC */
 }
 
 /**

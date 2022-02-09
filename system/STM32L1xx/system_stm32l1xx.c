@@ -169,8 +169,12 @@ void SystemInit (void)
   /*!< Reset PLLSRC, PLLMUL[3:0] and PLLDIV[1:0] bits */
   RCC->CFGR &= (uint32_t)0xFF02FFFF;
 
-  /*!< Disable all interrupts */
-  RCC->CIR = 0x00000000;
+  /* Disable all interrupts and clear pending bits  */
+#if defined(RCC_CIR_LSECSSF)
+  RCC->CIR = (uint32_t)0x00FF0000;
+#else
+  RCC->CIR = (uint32_t)0x00BF0000;
+#endif
 
 #ifdef DATA_IN_ExtSRAM
   SystemInit_ExtMemCtl();

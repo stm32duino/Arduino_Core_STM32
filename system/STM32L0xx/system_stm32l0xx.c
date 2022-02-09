@@ -144,25 +144,32 @@ define USER_VECT_TAB_ADDRESS
 void SystemInit (void)
 {    
 /*!< Set MSION bit */
-  RCC->CR |= (uint32_t)0x00000100U;
+  RCC->CR |= 0x00000100U;
 
   /*!< Reset SW[1:0], HPRE[3:0], PPRE1[2:0], PPRE2[2:0], MCOSEL[2:0] and MCOPRE[2:0] bits */
-  RCC->CFGR &= (uint32_t) 0x88FF400CU;
+  RCC->CFGR =  0x00000000U;
  
   /*!< Reset HSION, HSIDIVEN, HSEON, CSSON and PLLON bits */
-  RCC->CR &= (uint32_t)0xFEF6FFF6U;
+  RCC->CR = 0x00000100U;
   
   /*!< Reset HSI48ON  bit */
-  RCC->CRRCR &= (uint32_t)0xFFFFFFFEU;
+  RCC->CRRCR &= 0xFFFFFFFEU;
   
   /*!< Reset HSEBYP bit */
-  RCC->CR &= (uint32_t)0xFFFBFFFFU;
+  RCC->CR &= 0xFFFBFFFFU;
 
   /*!< Reset PLLSRC, PLLMUL[3:0] and PLLDIV[1:0] bits */
-  RCC->CFGR &= (uint32_t)0xFF02FFFFU;
+  RCC->CFGR &= 0xFF02FFFFU;
 
-  /*!< Disable all interrupts */
+  /* Disable all interrupts and clar flags */
   RCC->CIER = 0x00000000U;
+#if defined(RCC_CICR_HSI48RDYC)
+  RCC->CICR = 0x000001FF;
+#elif (RCC_CICR_CSSHSEC)
+  RCC->CICR = 0x000001BFU;
+#else
+  RCC->CICR = 0x000000BFU;
+#endif
   
   /* Configure the Vector Table location add offset address ------------------*/
 #if defined (USER_VECT_TAB_ADDRESS)

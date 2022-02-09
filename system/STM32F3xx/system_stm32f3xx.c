@@ -190,8 +190,8 @@ void SystemInit(void)
   /* Reset USARTSW[1:0], I2CSW and TIMs bits */
   RCC->CFGR3 &= 0xFF00FCCCU;
 
-  /* Disable all interrupts */
-  RCC->CIR = 0x00000000U;
+  /* Disable all interrupts and clear pending bits  */
+  RCC->CIR = 0x009F0000U;
 
   /* Configure the Vector Table location -------------------------------------*/
 #if defined(USER_VECT_TAB_ADDRESS)
