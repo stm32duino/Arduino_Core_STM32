@@ -101,29 +101,31 @@
   * @{
   */
 
+/* Note: Following vector table addresses must be defined in line with linker
+         configuration. */
+
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
+
+/*!< Uncomment the following line if you need to relocate your vector Table
+     in Sram else user remap will be done by default in Flash. */
+/* #define VECT_TAB_SRAM */
+
 #ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
                                                      This value must be a multiple of 0x200. */
-#else
-#define USER_VECT_TAB_ADDRESS
 #endif
 
-/* Note: Following vector table addresses must be defined in line with linker
-         configuration. */
-/*!< Define USER_VECT_TAB_ADDRESS if you need to relocate CPU1 CM4 and/or CPU2
-     CM0+ vector table anywhere in Sram or Flash. Else vector table will be kept
-     at address 0x00 which correspond to automatic remap of boot address selected */
-#if defined(USER_VECT_TAB_ADDRESS)
- /*!< Define VECT_TAB_SRAM for user vector table remap in Sram else user remap
-      will be done in Flash. */
+#ifndef VECT_TAB_BASE_ADDRESS
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM1_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x200. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x200. */
-#endif
-#endif
+#endif /* VECT_TAB_SRAM */
+#endif /* VECT_TAB_BASE_ADDRESS */
 
 /**
   * @}
@@ -187,10 +189,7 @@
   */
 void SystemInit(void)
 {
-#if defined(USER_VECT_TAB_ADDRESS)
-  /* Configure the Vector Table location add offset address ------------------*/
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
-#endif
 
   /* FPU settings ------------------------------------------------------------*/
   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
