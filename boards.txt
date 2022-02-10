@@ -20,6 +20,7 @@ Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.variant_h=variant_{build.board}.h
 Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_144.upload.tool.default=massStorageCopy
 
 # NUCLEO_F207ZG board
 Nucleo_144.menu.pnum.NUCLEO_F207ZG=Nucleo F207ZG
@@ -223,6 +224,7 @@ Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.variant_h=variant_{build.board}.h
 Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_64.upload.tool.default=massStorageCopy
 
 # NUCLEO_F030R8 board
 Nucleo_64.menu.pnum.NUCLEO_F030R8=Nucleo F030R8
@@ -559,6 +561,7 @@ Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.variant_h=variant_{build.board}.h
 Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_32.upload.tool.default=massStorageCopy
 
 # NUCLEO_F031K6 board
 Nucleo_32.menu.pnum.NUCLEO_F031K6=Nucleo F031K6
@@ -690,6 +693,7 @@ Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.variant_h=variant_{build.board}.h
 Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Disco.upload.tool.default=massStorageCopy
 
 # B_G431B_ESC1 board
 Disco.menu.pnum.B_G431B_ESC1=B-G431B-ESC1
@@ -907,6 +911,7 @@ Eval.build.core=arduino
 Eval.build.board=Eval
 Eval.build.variant_h=variant_{build.board}.h
 Eval.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Eval.upload.tool.default=stm32CubeProg
 
 # STEVAL_MKSBOX1V1 board
 Eval.menu.pnum.STEVAL_MKSBOX1V1=SensorTile.box
@@ -944,6 +949,7 @@ STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
 STM32MP1.build.extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
+STM32MP1.upload.tool.default=remoteproc_gen
 
 # STM32MP157A-DK1 board
 STM32MP1.menu.pnum.STM32MP157A_DK1=STM32MP157A-DK1
@@ -980,6 +986,7 @@ GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenF0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF0.upload.tool.default=stm32CubeProg
 
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board (HSE 8Mhz)
@@ -1250,6 +1257,7 @@ GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.upload.tool.default=stm32CubeProg
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
@@ -1858,6 +1866,7 @@ GenF2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenF2.build.mcu=cortex-m3
 GenF2.build.series=STM32F2xx
 GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenF2.upload.tool.default=stm32CubeProg
 
 # Generic F207ZCTx
 GenF2.menu.pnum.GENERIC_F207ZCTX=Generic F207ZCTx
@@ -1935,6 +1944,7 @@ GenF3.build.mcu=cortex-m4
 GenF3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF3.upload.tool.default=stm32CubeProg
 
 # BLACKPILL_F303CC
 GenF3.menu.pnum.BLACKPILL_F303CC=RobotDyn BlackPill F303CC
@@ -2106,6 +2116,7 @@ GenF4.build.mcu=cortex-m4
 GenF4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenF4.upload.tool.default=stm32CubeProg
 
 # Black F407VE
 # https://github.com/mcauser/BLACK_F407VEZ
@@ -2905,6 +2916,7 @@ GenF7.build.mcu=cortex-m7
 GenF7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+GenF7.upload.tool.default=stm32CubeProg
 
 # Generic F745ZETx
 GenF7.menu.pnum.GENERIC_F745ZETX=Generic F745ZETx
@@ -3180,6 +3192,7 @@ GenG0.build.mcu=cortex-m0plus
 GenG0.build.series=STM32G0xx
 GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
 GenG0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenG0.upload.tool.default=stm32CubeProg
 
 # Aurora One G030K8
 GenG0.menu.pnum.AURORA_ONE=Aurora One
@@ -3505,6 +3518,7 @@ GenG4.build.mcu=cortex-m4
 GenG4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenG4.build.series=STM32G4xx
 GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenG4.upload.tool.default=stm32CubeProg
 
 # Generic G431C6Ux
 GenG4.menu.pnum.GENERIC_G431C6UX=Generic G431C6Ux
@@ -3757,6 +3771,7 @@ GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 GenH7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenH7.build.series=STM32H7xx
 GenH7.build.mcu=cortex-m7
+GenH7.upload.tool.default=stm32CubeProg
 
 # Daisy Seed board
 GenH7.menu.pnum.DAISY_SEED=Daisy Seed
@@ -4137,6 +4152,7 @@ GenL0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
+GenL0.upload.tool.default=stm32CubeProg
 
 # ThunderPack
 GenL0.menu.pnum.THUNDERPACK_L072=ThunderPack v1.0
@@ -4412,6 +4428,7 @@ GenL1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial
 GenL1.build.mcu=cortex-m3
 GenL1.build.series=STM32L1xx
 GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
+GenL1.upload.tool.default=stm32CubeProg
 
 # Generic L100C6Ux
 GenL1.menu.pnum.GENERIC_L100C6UX=Generic L100C6Ux
@@ -4672,6 +4689,7 @@ GenL4.build.mcu=cortex-m4
 GenL4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenL4.upload.tool.default=stm32CubeProg
 
 # Generic L412K8Tx
 GenL4.menu.pnum.GENERIC_L412K8TX=Generic L412K8Tx
@@ -5220,6 +5238,7 @@ GenL5.build.mcu=cortex-m33
 GenL5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL5.build.series=STM32L5xx
 GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenL5.upload.tool.default=stm32CubeProg
 
 # Generic L552ZCTxQ
 GenL5.menu.pnum.GENERIC_L552ZCTXQ=Generic L552ZCTxQ
@@ -5272,6 +5291,7 @@ GenU5.build.mcu=cortex-m33
 GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenU5.build.series=STM32U5xx
 GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+GenU5.upload.tool.default=stm32CubeProg
 
 # Generic U575AGIxQ
 GenU5.menu.pnum.GENERIC_U575AGIXQ=Generic U575AGIxQ
@@ -5348,6 +5368,7 @@ GenWB.build.mcu=cortex-m4
 GenWB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenWB.build.series=STM32WBxx
 GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenWB.upload.tool.default=stm32CubeProg
 
 # Generic WB55CCUx
 GenWB.menu.pnum.GENERIC_WB55CCUX=Generic WB55CCUx
@@ -5432,6 +5453,7 @@ GenWL.build.mcu=cortex-m4
 #GenWL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenWL.build.series=STM32WLxx
 GenWL.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenWL.upload.tool.default=stm32CubeProg
 
 # Generic node SE by The Things Industries
 GenWL.menu.pnum.GENERIC_NODE_SE_TTI=Generic Node SE (TTI)
@@ -5595,6 +5617,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.board=3dprinter
 3dprinter.build.variant_h=variant_{build.board}.h
 3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+3dprinter.upload.tool.default=stm32CubeProg
 
 # ARMED_V1 board
 3dprinter.menu.pnum.ARMED_V1=Armed V1
@@ -5788,6 +5811,7 @@ BluesW.build.core=arduino
 BluesW.build.board=BluesWireless
 BluesW.build.variant_h=variant_{build.board}.h
 BluesW.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+BluesW.upload.tool.default=stm32CubeProg
 
 # Swan R5 board
 BluesW.menu.pnum.SWAN_R5=Swan R5
@@ -5827,6 +5851,7 @@ Elecgator.build.core=arduino
 Elecgator.build.board=elecgator
 Elecgator.build.variant_h=variant_{build.board}.h
 Elecgator.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Elecgator.upload.tool.default=stm32CubeProg
 
 # EtherCATduino board
 Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
@@ -5861,6 +5886,7 @@ ESC_board.build.core=arduino
 ESC_board.build.board=FCE_board
 ESC_board.build.variant_h=variant_{build.board}.h
 ESC_board.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+ESC_board.upload.tool.default=stm32CubeProg
 
 # WRAITH32_V1 board
 ESC_board.menu.pnum.WRAITH32_V1=Wraith V1 ESC
@@ -5911,6 +5937,7 @@ Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
 Garatronic.build.variant_h=variant_{build.board}.h
 Garatronic.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Garatronic.upload.tool.default=stm32CubeProg
 
 # PYBSTICK26(DUINO) board with F072RB
 Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
@@ -5978,6 +6005,7 @@ GenFlight.build.core=arduino
 GenFlight.build.board=Genericflight
 GenFlight.build.variant_h=variant_{build.board}.h
 GenFlight.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenFlight.upload.tool.default=stm32CubeProg
 
 # AfroFlight Rev5
 GenFlight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
@@ -6065,6 +6093,7 @@ LoRa.build.core=arduino
 LoRa.build.board=LoRa
 LoRa.build.variant_h=variant_{build.board}.h
 LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+LoRa.upload.tool.default=stm32CubeProg
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
@@ -6156,6 +6185,7 @@ Midatronics.build.core=arduino
 Midatronics.build.board=Midatronics
 Midatronics.build.variant_h=variant_{build.board}.h
 Midatronics.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Midatronics.upload.tool.default=massStorageCopy
 
 # MKR_SHARKY board
 Midatronics.menu.pnum.MKR_SHARKY=MKR Sharky
