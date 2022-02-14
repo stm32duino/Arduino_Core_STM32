@@ -90,7 +90,7 @@ skip_count = 0
 
 # error or fatal error
 fork_pattern = re.compile(r"^Error during build: fork/exec")
-error_pattern = re.compile(r":\d+:\d+:\s.*error:\s|^Error:")
+error_pattern = re.compile(r":\d+:\d*:?\s.*error:\s|^Error:")
 ld_pattern = re.compile("arm-none-eabi/bin/ld:")
 overflow_pattern = re.compile(
     r"(will not fit in |section .+ is not within )?region( .+ overflowed by [\d]+ bytes)?"

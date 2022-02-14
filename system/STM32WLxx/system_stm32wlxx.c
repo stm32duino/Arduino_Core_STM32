@@ -101,44 +101,40 @@
   * @{
   */
 
+/* Note: Following vector table addresses must be defined in line with linker
+         configuration. */
+
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
+
+/*!< Uncomment the following line if you need to relocate your vector Table
+     in Sram else user remap will be done by default in Flash. */
+/* #define VECT_TAB_SRAM */
+
 #ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET         0x00008000U     /*!< Vector Table base offset field.
                                                      This value must be a multiple of 0x100. */
-#else
-#define USER_VECT_TAB_ADDRESS
 #endif
 
-/* Note: Following vector table addresses must be defined in line with linker
-         configuration. */
-/*!< Uncomment the following line if you need to relocate CPU1 CM4 and/or CPU2
-     CM0+ vector table anywhere in Sram or Flash. Else vector table will be kept
-     at address 0x00 which correspond to automatic remap of boot address selected */
-/* #define USER_VECT_TAB_ADDRESS */
-#if defined(USER_VECT_TAB_ADDRESS)
-#ifdef CORE_CM0PLUS
- /*!< Uncomment this line for user vector table remap in Sram else user remap
-      will be done in Flash. */
-/* #define VECT_TAB_SRAM */
+#if defined(CORE_CM0PLUS)
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM2_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x100. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x100. */
-#endif
+#endif /* VECT_TAB_SRAM */
+
 #else /* CORE_CM4 */
- /*!< Uncomment this line for user vector table remap in Sram else user remap
-      will be done in Flash. */
-/* #define VECT_TAB_SRAM */
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM1_BASE      /*!< Vector Table base address field.
-                                                     This value must be a multiple of 0x200. */
+                                                     This value must be a multiple of 0x100. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
-                                                     This value must be a multiple of 0x200. */
-#endif
-#endif
-#endif
+                                                     This value must be a multiple of 0x100. */
+#endif /* VECT_TAB_SRAM */
+#endif /* CORE_CM0PLUS */
 
 /**
   * @}
@@ -190,10 +186,25 @@
   */
 void SystemInit(void)
 {
-#if defined(USER_VECT_TAB_ADDRESS)
-  /* Configure the Vector Table location add offset address ------------------*/
+
+  /* Reset the RCC clock configuration to the default reset state ------------*/
+  /* Set MSION bit */
+  RCC->CR |= 0x00000061U;
+
+  /* Reset CFGR register */
+  RCC->CFGR = 0x00070000U;
+
+  /* Reset CR register */
+  RCC->CR = 0x00000061U;
+
+  /* Reset PLLCFGR register */
+  RCC->PLLCFGR = 0x22040100U;
+
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+  RCC->CICR = 0x0000033FU;
+
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
-#endif
 
   /* FPU settings ------------------------------------------------------------*/
 #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)

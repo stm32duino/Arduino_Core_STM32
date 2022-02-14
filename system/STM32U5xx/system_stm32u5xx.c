@@ -121,13 +121,32 @@
 
 
 /************************* Miscellaneous Configuration ************************/
-/*!< Uncomment the following line if you need to relocate your vector Table in
-     Internal SRAM. */
+/* Note: Following vector table addresses must be defined in line with linker
+         configuration. */
+
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
+
+/*!< Uncomment the following line if you need to relocate your vector Table
+     in Sram else user remap will be done by default in Flash. */
 /* #define VECT_TAB_SRAM */
+
 #ifndef VECT_TAB_OFFSET
-#define VECT_TAB_OFFSET  0x00000000UL /*!< Vector Table base offset field.
-                                   This value must be a multiple of 0x200. */
+#define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
+                                                     This value must be a multiple of 0x200. */
 #endif
+
+#ifndef VECT_TAB_BASE_ADDRESS
+#if defined(VECT_TAB_SRAM)
+#define VECT_TAB_BASE_ADDRESS   SRAM1_BASE      /*!< Vector Table base address field.
+                                                     This value must be a multiple of 0x200. */
+#else
+#define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
+                                                     This value must be a multiple of 0x200. */
+#endif /* VECT_TAB_SRAM */
+#endif /* VECT_TAB_BASE_ADDRESS */
+
 /******************************************************************************/
 
 /**
@@ -206,15 +225,12 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= ~(RCC_CR_HSEBYP);
 
-  /* Disable all interrupts */
-  RCC->CIER = 0U;
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+  RCC->CICR = 0x00001DFFU;
 
   /* Configure the Vector Table location add offset address ------------------*/
-  #ifdef VECT_TAB_SRAM
-    SCB->VTOR = SRAM1_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal SRAM */
-  #else
-    SCB->VTOR = FLASH_BASE | VECT_TAB_OFFSET; /* Vector Table Relocation in Internal FLASH */
-  #endif
+  SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
 }
 
 /**
