@@ -101,29 +101,31 @@
   * @{
   */
 
+/* Note: Following vector table addresses must be defined in line with linker
+         configuration. */
+
+/*!< Uncomment the following line and change the address
+     if you need to relocate your vector Table at a custom base address (+ VECT_TAB_OFFSET) */
+/* #define VECT_TAB_BASE_ADDRESS 0x08000000 */
+
+/*!< Uncomment the following line if you need to relocate your vector Table
+     in Sram else user remap will be done by default in Flash. */
+/* #define VECT_TAB_SRAM */
+
 #ifndef VECT_TAB_OFFSET
 #define VECT_TAB_OFFSET         0x00000000U     /*!< Vector Table base offset field.
                                                      This value must be a multiple of 0x200. */
-#else
-#define USER_VECT_TAB_ADDRESS
 #endif
 
-/* Note: Following vector table addresses must be defined in line with linker
-         configuration. */
-/*!< Define USER_VECT_TAB_ADDRESS if you need to relocate CPU1 CM4 and/or CPU2
-     CM0+ vector table anywhere in Sram or Flash. Else vector table will be kept
-     at address 0x00 which correspond to automatic remap of boot address selected */
-#if defined(USER_VECT_TAB_ADDRESS)
- /*!< Define VECT_TAB_SRAM for user vector table remap in Sram else user remap
-      will be done in Flash. */
+#ifndef VECT_TAB_BASE_ADDRESS
 #if defined(VECT_TAB_SRAM)
 #define VECT_TAB_BASE_ADDRESS   SRAM1_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x200. */
 #else
 #define VECT_TAB_BASE_ADDRESS   FLASH_BASE      /*!< Vector Table base address field.
                                                      This value must be a multiple of 0x200. */
-#endif
-#endif
+#endif /* VECT_TAB_SRAM */
+#endif /* VECT_TAB_BASE_ADDRESS */
 
 /**
   * @}
@@ -187,10 +189,7 @@
   */
 void SystemInit(void)
 {
-#if defined(USER_VECT_TAB_ADDRESS)
-  /* Configure the Vector Table location add offset address ------------------*/
   SCB->VTOR = VECT_TAB_BASE_ADDRESS | VECT_TAB_OFFSET;
-#endif
 
   /* FPU settings ------------------------------------------------------------*/
   #if (__FPU_PRESENT == 1) && (__FPU_USED == 1)
@@ -205,13 +204,13 @@ void SystemInit(void)
   RCC->CFGR = 0x00070000U;
 
   /* Reset PLLSAI1ON, PLLON, HSECSSON, HSEON, HSION, and MSIPLLON bits */
-  RCC->CR &= (uint32_t)0xFAF6FEFBU;
+  RCC->CR &= 0xFAF6FEFBU;
 
   /*!< Reset LSI1 and LSI2 bits */
-  RCC->CSR &= (uint32_t)0xFFFFFFFAU;
+  RCC->CSR &= 0xFFFFFFFAU;
   
   /*!< Reset HSI48ON  bit */
-  RCC->CRRCR &= (uint32_t)0xFFFFFFFEU;
+  RCC->CRRCR &= 0xFFFFFFFEU;
     
   /* Reset PLLCFGR register */
   RCC->PLLCFGR = 0x22041000U;
@@ -224,8 +223,17 @@ void SystemInit(void)
   /* Reset HSEBYP bit */
   RCC->CR &= 0xFFFBFFFFU;
 
-  /* Disable all interrupts */
-  RCC->CIER = 0x00000000;
+  /* Disable all interrupts and clar flags */
+  RCC->CIER = 0x00000000U;
+#if defined(RCC_CICR_HSI48RDYC)
+#if defined(RCC_CICR_PLLSAI1RDYC)
+  RCC->CICR = 0x00000F7FU;
+#else
+  RCC->CICR = 0x00000F3FU;
+#endif /* RCC_CICR_PLLSAI1RDYC */
+#else
+  RCC->CICR = 0x00000B3FU;
+#endif /* RCC_CICR_HSI48RDYC */
 }
 
 /**
