@@ -83,6 +83,8 @@ void TwoWire::begin(uint8_t address, bool generalCall)
 
   _i2c.generalCall = (generalCall == true) ? 1 : 0;
 
+  recoverBus(); // in case I2C bus (device) is stuck after a reset for example
+
   i2c_custom_init(&_i2c, 100000, I2C_ADDRESSINGMODE_7BIT, ownAddress);
 
   if (_i2c.isMaster == 0) {
@@ -498,6 +500,28 @@ inline void TwoWire::resetTxBuffer(void)
 {
   if (txBuffer != nullptr) {
     memset(txBuffer, 0, txBufferAllocated);
+  }
+}
+
+// Send clear bus (clock pulse) sequence to recover bus.
+// Useful in case of bus stuck after a reset for example
+// a mix implementation of Clear Bus from
+// https://www.nxp.com/docs/en/user-guide/UM10204.pdf
+// https://bits4device.wordpress.com/2017/07/28/i2c-bus-recovery/
+void TwoWire::recoverBus(void)
+{
+  pinMode(pinNametoDigitalPin(_i2c.sda), INPUT);
+
+  if (digitalReadFast(_i2c.sda) == LOW) {
+    pinMode(pinNametoDigitalPin(_i2c.scl), OUTPUT);
+
+    for (int i = 0; i < 20; i++) {
+      digitalWriteFast(_i2c.scl, LOW);
+      delayMicroseconds(10);
+      digitalWriteFast(_i2c.scl, HIGH);
+      delayMicroseconds(10);
+    }
+    pinMode(pinNametoDigitalPin(_i2c.scl), INPUT);
   }
 }
 
