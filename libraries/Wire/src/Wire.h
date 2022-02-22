@@ -66,6 +66,7 @@ class TwoWire : public Stream {
 
     void resetRxBuffer(void);
     void resetTxBuffer(void);
+    void recoverBus(void);
 
   public:
     TwoWire();
