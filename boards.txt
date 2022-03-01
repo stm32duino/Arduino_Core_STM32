@@ -527,7 +527,7 @@ Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.board=NUCLEO_WL55JC1
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.series=STM32WLxx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.product_line=STM32WLE5xx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
-Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.cmsis_lib_gcc=arm_cortexM4lf_math
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.cmsis_lib_gcc=arm_cortexM4l_math
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 
 # Upload menu
@@ -5487,7 +5487,7 @@ GenWL.build.extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSe
 GenWL.build.mcu=cortex-m4
 #GenWL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenWL.build.series=STM32WLxx
-GenWL.build.cmsis_lib_gcc=arm_cortexM4lf_math
+GenWL.build.cmsis_lib_gcc=arm_cortexM4l_math
 
 # Generic node SE by The Things Industries
 GenWL.menu.pnum.GENERIC_NODE_SE_TTI=Generic Node SE (TTI)
