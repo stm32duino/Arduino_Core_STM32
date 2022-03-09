@@ -174,6 +174,13 @@ class HardwareSerial : public Stream {
     // Interrupt handlers
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
+
+    // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
+    UART_HandleTypeDef *getHandle(void)
+    {
+      return &(_serial.handle);
+    }
+
   private:
     bool _rx_enabled;
     uint8_t _config;

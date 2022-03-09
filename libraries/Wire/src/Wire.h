@@ -130,6 +130,12 @@ class TwoWire : public Stream {
       return write((uint8_t)n);
     }
     using Print::write;
+
+    // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
+    I2C_HandleTypeDef *getHandle(void)
+    {
+      return &(_i2c.handle);
+    }
 };
 
 
