@@ -227,6 +227,12 @@ class SPIClass {
     void attachInterrupt(void);
     void detachInterrupt(void);
 
+    // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
+    SPI_HandleTypeDef *getHandle(void)
+    {
+      return &(_spi.handle);
+    }
+
   private:
     /* Contains various spiSettings for the same spi instance. Each spi spiSettings
     is associated to a CS pin. */
