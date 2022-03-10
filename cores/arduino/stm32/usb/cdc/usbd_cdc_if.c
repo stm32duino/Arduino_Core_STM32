@@ -357,7 +357,6 @@ bool CDC_resume_receive(void)
 void CDC_enableDTR(bool enable)
 {
   CDC_DTR_enabled = enable;
-  dtrState = true;
 }
 
 #endif /* USBD_USE_CDC */
