@@ -12,9 +12,8 @@
  */
 /*
  * Automatically generated from STM32G0B1V(B-C-E)Ix.xml, STM32G0B1V(B-C-E)Tx.xml
- * STM32G0B1V(C-E)Ix.xml, STM32G0B1V(C-E)Tx.xml
  * STM32G0C1V(C-E)Ix.xml, STM32G0C1V(C-E)Tx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

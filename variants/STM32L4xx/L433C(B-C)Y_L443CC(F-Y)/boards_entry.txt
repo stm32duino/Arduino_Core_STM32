@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L433CBYx
+GenL4.menu.pnum.GENERIC_L433CBYX=Generic L433CBYx
+GenL4.menu.pnum.GENERIC_L433CBYX.upload.maximum_size=131072
+GenL4.menu.pnum.GENERIC_L433CBYX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CBYX.build.board=GENERIC_L433CBYX
+GenL4.menu.pnum.GENERIC_L433CBYX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CBYX.build.variant=STM32L4xx/L433C(B-C)Y_L443CC(F-Y)
+
+# Generic L433CCYx
+GenL4.menu.pnum.GENERIC_L433CCYX=Generic L433CCYx
+GenL4.menu.pnum.GENERIC_L433CCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L433CCYX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L433CCYX.build.board=GENERIC_L433CCYX
+GenL4.menu.pnum.GENERIC_L433CCYX.build.product_line=STM32L433xx
+GenL4.menu.pnum.GENERIC_L433CCYX.build.variant=STM32L4xx/L433C(B-C)Y_L443CC(F-Y)
+
+# Generic L443CCFx
+GenL4.menu.pnum.GENERIC_L443CCFX=Generic L443CCFx
+GenL4.menu.pnum.GENERIC_L443CCFX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443CCFX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443CCFX.build.board=GENERIC_L443CCFX
+GenL4.menu.pnum.GENERIC_L443CCFX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443CCFX.build.variant=STM32L4xx/L433C(B-C)Y_L443CC(F-Y)
+
+# Generic L443CCYx
+GenL4.menu.pnum.GENERIC_L443CCYX=Generic L443CCYx
+GenL4.menu.pnum.GENERIC_L443CCYX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L443CCYX.upload.maximum_data_size=65536
+GenL4.menu.pnum.GENERIC_L443CCYX.build.board=GENERIC_L443CCYX
+GenL4.menu.pnum.GENERIC_L443CCYX.build.product_line=STM32L443xx
+GenL4.menu.pnum.GENERIC_L443CCYX.build.variant=STM32L4xx/L433C(B-C)Y_L443CC(F-Y)
+

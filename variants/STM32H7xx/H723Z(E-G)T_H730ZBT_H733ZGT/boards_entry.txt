@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H723ZETx
+GenH7.menu.pnum.GENERIC_H723ZETX=Generic H723ZETx
+GenH7.menu.pnum.GENERIC_H723ZETX.upload.maximum_size=524288
+GenH7.menu.pnum.GENERIC_H723ZETX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H723ZETX.build.board=GENERIC_H723ZETX
+GenH7.menu.pnum.GENERIC_H723ZETX.build.product_line=STM32H723xx
+GenH7.menu.pnum.GENERIC_H723ZETX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+
+# Generic H723ZGTx
+GenH7.menu.pnum.GENERIC_H723ZGTX=Generic H723ZGTx
+GenH7.menu.pnum.GENERIC_H723ZGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H723ZGTX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H723ZGTX.build.board=GENERIC_H723ZGTX
+GenH7.menu.pnum.GENERIC_H723ZGTX.build.product_line=STM32H723xx
+GenH7.menu.pnum.GENERIC_H723ZGTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+
+# Generic H730ZBTx
+GenH7.menu.pnum.GENERIC_H730ZBTX=Generic H730ZBTx
+GenH7.menu.pnum.GENERIC_H730ZBTX.upload.maximum_size=131072
+GenH7.menu.pnum.GENERIC_H730ZBTX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H730ZBTX.build.board=GENERIC_H730ZBTX
+GenH7.menu.pnum.GENERIC_H730ZBTX.build.product_line=STM32H730xx
+GenH7.menu.pnum.GENERIC_H730ZBTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+
+# Generic H733ZGTx
+GenH7.menu.pnum.GENERIC_H733ZGTX=Generic H733ZGTx
+GenH7.menu.pnum.GENERIC_H733ZGTX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H733ZGTX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H733ZGTX.build.board=GENERIC_H733ZGTX
+GenH7.menu.pnum.GENERIC_H733ZGTX.build.product_line=STM32H733xx
+GenH7.menu.pnum.GENERIC_H733ZGTX.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+

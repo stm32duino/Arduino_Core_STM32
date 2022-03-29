@@ -1,0 +1,37 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic H725AEIx
+GenH7.menu.pnum.GENERIC_H725AEIX=Generic H725AEIx
+GenH7.menu.pnum.GENERIC_H725AEIX.upload.maximum_size=524288
+GenH7.menu.pnum.GENERIC_H725AEIX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H725AEIX.build.board=GENERIC_H725AEIX
+GenH7.menu.pnum.GENERIC_H725AEIX.build.product_line=STM32H725xx
+GenH7.menu.pnum.GENERIC_H725AEIX.build.variant=STM32H7xx/H725A(E-G)I_H730ABIxQ_H735AGI
+
+# Generic H725AGIx
+GenH7.menu.pnum.GENERIC_H725AGIX=Generic H725AGIx
+GenH7.menu.pnum.GENERIC_H725AGIX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H725AGIX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H725AGIX.build.board=GENERIC_H725AGIX
+GenH7.menu.pnum.GENERIC_H725AGIX.build.product_line=STM32H725xx
+GenH7.menu.pnum.GENERIC_H725AGIX.build.variant=STM32H7xx/H725A(E-G)I_H730ABIxQ_H735AGI
+
+# Generic H730ABIxQ
+GenH7.menu.pnum.GENERIC_H730ABIXQ=Generic H730ABIxQ
+GenH7.menu.pnum.GENERIC_H730ABIXQ.upload.maximum_size=131072
+GenH7.menu.pnum.GENERIC_H730ABIXQ.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H730ABIXQ.build.board=GENERIC_H730ABIXQ
+GenH7.menu.pnum.GENERIC_H730ABIXQ.build.product_line=STM32H730xx
+GenH7.menu.pnum.GENERIC_H730ABIXQ.build.variant=STM32H7xx/H725A(E-G)I_H730ABIxQ_H735AGI
+
+# Generic H735AGIx
+GenH7.menu.pnum.GENERIC_H735AGIX=Generic H735AGIx
+GenH7.menu.pnum.GENERIC_H735AGIX.upload.maximum_size=1048576
+GenH7.menu.pnum.GENERIC_H735AGIX.upload.maximum_data_size=1048576
+GenH7.menu.pnum.GENERIC_H735AGIX.build.board=GENERIC_H735AGIX
+GenH7.menu.pnum.GENERIC_H735AGIX.build.product_line=STM32H735xx
+GenH7.menu.pnum.GENERIC_H735AGIX.build.variant=STM32H7xx/H725A(E-G)I_H730ABIxQ_H735AGI
+
