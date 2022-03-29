@@ -1037,7 +1037,6 @@ def print_peripheral():
 
     periph_c_file.write(
         periph_c_template.render(
-            year=datetime.datetime.now().year,
             mcu_file=mcu_file.name,
             db_release=db_release,
             peripherals_list=(
@@ -1360,7 +1359,6 @@ def print_variant(generic_list, alt_syswkup_list):
 
     variant_h_file.write(
         variant_h_template.render(
-            year=datetime.datetime.now().year,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
             alt_syswkup_list=alt_syswkup_list,
@@ -1379,7 +1377,6 @@ def print_variant(generic_list, alt_syswkup_list):
 
     variant_cpp_file.write(
         variant_cpp_template.render(
-            year=datetime.datetime.now().year,
             generic_list=generic_list,
             pinnames_list=pinnames_list,
             analog_pins_list=analog_pins_list,
@@ -1515,7 +1512,6 @@ def print_general_clock(generic_list):
     generic_clock_template = j2_env.get_template(generic_clock_filename)
     generic_clock_file.write(
         generic_clock_template.render(
-            year=datetime.datetime.now().year,
             generic_list=generic_list,
         )
     )
