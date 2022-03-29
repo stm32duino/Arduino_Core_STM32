@@ -1845,7 +1845,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             # Assert
             if sub.group(2) != "x":
                 print(
-                    "Package of {base_name} info contains {sub.group(2)} instead of 'x'"
+                    f"Package of {base_name}, ppe {ppe} info contains {sub.group(2)} instead of 'x'"
                 )
                 exit(1)
             if sub.group(3):
@@ -2427,7 +2427,7 @@ variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
 board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
 #                              P     T      E
-mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQX])?$")
+mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSX])?$")
 aggregate_dir()
 
 # Clean temporary dir
