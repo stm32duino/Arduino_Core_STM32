@@ -8,7 +8,7 @@ GenH7.menu.pnum.GENERIC_H747BGTX=Generic H747BGTx
 GenH7.menu.pnum.GENERIC_H747BGTX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H747BGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H747BGTX.build.board=GENERIC_H747BGTX
-GenH7.menu.pnum.GENERIC_H747BGTX.build.product_line=STM32H747xx
+GenH7.menu.pnum.GENERIC_H747BGTX.build.product_line=STM32H747xG
 GenH7.menu.pnum.GENERIC_H747BGTX.build.variant=STM32H7xx/H747B(G-I)T_H757BIT
 
 # Generic H747BITx

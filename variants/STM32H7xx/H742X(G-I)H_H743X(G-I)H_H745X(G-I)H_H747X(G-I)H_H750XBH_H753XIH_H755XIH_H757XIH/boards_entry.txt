@@ -40,7 +40,7 @@ GenH7.menu.pnum.GENERIC_H745XGHX=Generic H745XGHx
 GenH7.menu.pnum.GENERIC_H745XGHX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H745XGHX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H745XGHX.build.board=GENERIC_H745XGHX
-GenH7.menu.pnum.GENERIC_H745XGHX.build.product_line=STM32H745xx
+GenH7.menu.pnum.GENERIC_H745XGHX.build.product_line=STM32H745xG
 GenH7.menu.pnum.GENERIC_H745XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Generic H745XIHx
@@ -56,7 +56,7 @@ GenH7.menu.pnum.GENERIC_H747XGHX=Generic H747XGHx
 GenH7.menu.pnum.GENERIC_H747XGHX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H747XGHX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H747XGHX.build.board=GENERIC_H747XGHX
-GenH7.menu.pnum.GENERIC_H747XGHX.build.product_line=STM32H747xx
+GenH7.menu.pnum.GENERIC_H747XGHX.build.product_line=STM32H747xG
 GenH7.menu.pnum.GENERIC_H747XGHX.build.variant=STM32H7xx/H742X(G-I)H_H743X(G-I)H_H745X(G-I)H_H747X(G-I)H_H750XBH_H753XIH_H755XIH_H757XIH
 
 # Generic H747XIHx

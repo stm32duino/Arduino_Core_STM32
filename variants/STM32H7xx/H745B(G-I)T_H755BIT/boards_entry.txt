@@ -8,7 +8,7 @@ GenH7.menu.pnum.GENERIC_H745BGTX=Generic H745BGTx
 GenH7.menu.pnum.GENERIC_H745BGTX.upload.maximum_size=1048576
 GenH7.menu.pnum.GENERIC_H745BGTX.upload.maximum_data_size=884736
 GenH7.menu.pnum.GENERIC_H745BGTX.build.board=GENERIC_H745BGTX
-GenH7.menu.pnum.GENERIC_H745BGTX.build.product_line=STM32H745xx
+GenH7.menu.pnum.GENERIC_H745BGTX.build.product_line=STM32H745xG
 GenH7.menu.pnum.GENERIC_H745BGTX.build.variant=STM32H7xx/H745B(G-I)T_H755BIT
 
 # Generic H745BITx
