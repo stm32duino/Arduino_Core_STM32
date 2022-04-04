@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -61,11 +61,8 @@
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
 #define PA1_ALT1                (PA1  | ALT1)
-#define PA1_ALT2                (PA1  | ALT2)
 #define PA2_ALT1                (PA2  | ALT1)
-#define PA2_ALT2                (PA2  | ALT2)
 #define PA3_ALT1                (PA3  | ALT1)
-#define PA3_ALT2                (PA3  | ALT2)
 #define PA4_ALT1                (PA4  | ALT1)
 #define PA6_ALT1                (PA6  | ALT1)
 #define PA7_ALT1                (PA7  | ALT1)

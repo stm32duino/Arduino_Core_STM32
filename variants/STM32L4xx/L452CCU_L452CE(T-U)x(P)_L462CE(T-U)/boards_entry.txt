@@ -1,0 +1,53 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic L452CCUx
+GenL4.menu.pnum.GENERIC_L452CCUX=Generic L452CCUx
+GenL4.menu.pnum.GENERIC_L452CCUX.upload.maximum_size=262144
+GenL4.menu.pnum.GENERIC_L452CCUX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452CCUX.build.board=GENERIC_L452CCUX
+GenL4.menu.pnum.GENERIC_L452CCUX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452CCUX.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+
+# Generic L452CEUx
+GenL4.menu.pnum.GENERIC_L452CEUX=Generic L452CEUx
+GenL4.menu.pnum.GENERIC_L452CEUX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452CEUX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452CEUX.build.board=GENERIC_L452CEUX
+GenL4.menu.pnum.GENERIC_L452CEUX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452CEUX.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+
+# Generic L452CETx
+GenL4.menu.pnum.GENERIC_L452CETX=Generic L452CETx
+GenL4.menu.pnum.GENERIC_L452CETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452CETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452CETX.build.board=GENERIC_L452CETX
+GenL4.menu.pnum.GENERIC_L452CETX.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452CETX.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+
+# Generic L452CETxP
+GenL4.menu.pnum.GENERIC_L452CETXP=Generic L452CETxP
+GenL4.menu.pnum.GENERIC_L452CETXP.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L452CETXP.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L452CETXP.build.board=GENERIC_L452CETXP
+GenL4.menu.pnum.GENERIC_L452CETXP.build.product_line=STM32L452xx
+GenL4.menu.pnum.GENERIC_L452CETXP.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+
+# Generic L462CETx
+GenL4.menu.pnum.GENERIC_L462CETX=Generic L462CETx
+GenL4.menu.pnum.GENERIC_L462CETX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462CETX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462CETX.build.board=GENERIC_L462CETX
+GenL4.menu.pnum.GENERIC_L462CETX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462CETX.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+
+# Generic L462CEUx
+GenL4.menu.pnum.GENERIC_L462CEUX=Generic L462CEUx
+GenL4.menu.pnum.GENERIC_L462CEUX.upload.maximum_size=524288
+GenL4.menu.pnum.GENERIC_L462CEUX.upload.maximum_data_size=163840
+GenL4.menu.pnum.GENERIC_L462CEUX.build.board=GENERIC_L462CEUX
+GenL4.menu.pnum.GENERIC_L462CEUX.build.product_line=STM32L462xx
+GenL4.menu.pnum.GENERIC_L462CEUX.build.variant=STM32L4xx/L452CCU_L452CE(T-U)x(P)_L462CE(T-U)
+

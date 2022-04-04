@@ -1,0 +1,45 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic G0B1RBTx
+GenG0.menu.pnum.GENERIC_G0B1RBTX=Generic G0B1RBTx
+GenG0.menu.pnum.GENERIC_G0B1RBTX.upload.maximum_size=131072
+GenG0.menu.pnum.GENERIC_G0B1RBTX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0B1RBTX.build.board=GENERIC_G0B1RBTX
+GenG0.menu.pnum.GENERIC_G0B1RBTX.build.product_line=STM32G0B1xx
+GenG0.menu.pnum.GENERIC_G0B1RBTX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+
+# Generic G0B1RCTx
+GenG0.menu.pnum.GENERIC_G0B1RCTX=Generic G0B1RCTx
+GenG0.menu.pnum.GENERIC_G0B1RCTX.upload.maximum_size=262144
+GenG0.menu.pnum.GENERIC_G0B1RCTX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0B1RCTX.build.board=GENERIC_G0B1RCTX
+GenG0.menu.pnum.GENERIC_G0B1RCTX.build.product_line=STM32G0B1xx
+GenG0.menu.pnum.GENERIC_G0B1RCTX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+
+# Generic G0B1RETx
+GenG0.menu.pnum.GENERIC_G0B1RETX=Generic G0B1RETx
+GenG0.menu.pnum.GENERIC_G0B1RETX.upload.maximum_size=524288
+GenG0.menu.pnum.GENERIC_G0B1RETX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0B1RETX.build.board=GENERIC_G0B1RETX
+GenG0.menu.pnum.GENERIC_G0B1RETX.build.product_line=STM32G0B1xx
+GenG0.menu.pnum.GENERIC_G0B1RETX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+
+# Generic G0C1RCTx
+GenG0.menu.pnum.GENERIC_G0C1RCTX=Generic G0C1RCTx
+GenG0.menu.pnum.GENERIC_G0C1RCTX.upload.maximum_size=262144
+GenG0.menu.pnum.GENERIC_G0C1RCTX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0C1RCTX.build.board=GENERIC_G0C1RCTX
+GenG0.menu.pnum.GENERIC_G0C1RCTX.build.product_line=STM32G0C1xx
+GenG0.menu.pnum.GENERIC_G0C1RCTX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+
+# Generic G0C1RETx
+GenG0.menu.pnum.GENERIC_G0C1RETX=Generic G0C1RETx
+GenG0.menu.pnum.GENERIC_G0C1RETX.upload.maximum_size=524288
+GenG0.menu.pnum.GENERIC_G0C1RETX.upload.maximum_data_size=147456
+GenG0.menu.pnum.GENERIC_G0C1RETX.build.board=GENERIC_G0C1RETX
+GenG0.menu.pnum.GENERIC_G0C1RETX.build.product_line=STM32G0C1xx
+GenG0.menu.pnum.GENERIC_G0C1RETX.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
+

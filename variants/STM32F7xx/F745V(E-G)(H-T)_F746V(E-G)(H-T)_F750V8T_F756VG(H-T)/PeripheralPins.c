@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -15,7 +15,7 @@
  * STM32F746V(E-G)Hx.xml, STM32F746VETx.xml
  * STM32F746VGTx.xml, STM32F750V8Tx.xml
  * STM32F756VGHx.xml, STM32F756VGTx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

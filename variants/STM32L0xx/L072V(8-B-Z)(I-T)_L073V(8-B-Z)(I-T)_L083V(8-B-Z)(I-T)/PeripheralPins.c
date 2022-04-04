@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -17,7 +17,7 @@
  * STM32L073V8Ix.xml, STM32L073V8Tx.xml
  * STM32L083V(B-Z)Ix.xml, STM32L083V(B-Z)Tx.xml
  * STM32L083V8Ix.xml, STM32L083V8Tx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

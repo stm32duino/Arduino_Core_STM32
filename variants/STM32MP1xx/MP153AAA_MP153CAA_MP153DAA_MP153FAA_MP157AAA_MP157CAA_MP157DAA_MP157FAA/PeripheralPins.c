@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -15,7 +15,7 @@
  * STM32MP153DAAx.xml, STM32MP153FAAx.xml
  * STM32MP157AAAx.xml, STM32MP157CAAx.xml
  * STM32MP157DAAx.xml, STM32MP157FAAx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

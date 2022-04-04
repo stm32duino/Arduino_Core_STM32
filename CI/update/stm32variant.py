@@ -1037,7 +1037,6 @@ def print_peripheral():
 
     periph_c_file.write(
         periph_c_template.render(
-            year=datetime.datetime.now().year,
             mcu_file=mcu_file.name,
             db_release=db_release,
             peripherals_list=(
@@ -1360,7 +1359,6 @@ def print_variant(generic_list, alt_syswkup_list):
 
     variant_h_file.write(
         variant_h_template.render(
-            year=datetime.datetime.now().year,
             pins_number_list=pins_number_list,
             alt_pins_list=alt_pins_list,
             alt_syswkup_list=alt_syswkup_list,
@@ -1379,7 +1377,6 @@ def print_variant(generic_list, alt_syswkup_list):
 
     variant_cpp_file.write(
         variant_cpp_template.render(
-            year=datetime.datetime.now().year,
             generic_list=generic_list,
             pinnames_list=pinnames_list,
             analog_pins_list=analog_pins_list,
@@ -1515,7 +1512,6 @@ def print_general_clock(generic_list):
     generic_clock_template = j2_env.get_template(generic_clock_filename)
     generic_clock_file.write(
         generic_clock_template.render(
-            year=datetime.datetime.now().year,
             generic_list=generic_list,
         )
     )
@@ -1845,7 +1841,7 @@ def group_by_flash(group_base_list, glist, index_mcu_base):
             # Assert
             if sub.group(2) != "x":
                 print(
-                    "Package of {base_name} info contains {sub.group(2)} instead of 'x'"
+                    f"Package of {base_name}, ppe {ppe} info contains {sub.group(2)} instead of 'x'"
                 )
                 exit(1)
             if sub.group(3):
@@ -2427,7 +2423,7 @@ variant_regex = re.compile(r"defined\(ARDUINO_GENERIC_[^\s&|]*\)")
 update_regex = re.compile(r"defined\(ARDUINO_GENERIC_.+\)")
 board_entry_regex = re.compile(r"(Gen.+\..+variant=STM32.+xx/)\S+")
 #                              P     T      E
-mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQX])?$")
+mcu_PE_regex = re.compile(r"([\w])([\w])([ANPQSX])?$")
 aggregate_dir()
 
 # Clean temporary dir

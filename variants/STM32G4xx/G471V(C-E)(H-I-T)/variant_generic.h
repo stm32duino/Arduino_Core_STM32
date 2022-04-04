@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -105,11 +105,8 @@
 // Alternate pins number
 #define PA0_ALT1                (PA0  | ALT1)
 #define PA1_ALT1                (PA1  | ALT1)
-#define PA1_ALT2                (PA1  | ALT2)
 #define PA2_ALT1                (PA2  | ALT1)
-#define PA2_ALT2                (PA2  | ALT2)
 #define PA3_ALT1                (PA3  | ALT1)
-#define PA3_ALT2                (PA3  | ALT2)
 #define PA4_ALT1                (PA4  | ALT1)
 #define PA6_ALT1                (PA6  | ALT1)
 #define PA7_ALT1                (PA7  | ALT1)
@@ -153,14 +150,17 @@
 #define PC6_ALT1                (PC6  | ALT1)
 #define PC7_ALT1                (PC7  | ALT1)
 #define PC8_ALT1                (PC8  | ALT1)
+#define PC8_ALT2                (PC8  | ALT2)
 #define PC9_ALT1                (PC9  | ALT1)
 #define PC10_ALT1               (PC10 | ALT1)
 #define PC11_ALT1               (PC11 | ALT1)
-#define PC12_ALT1               (PC12 | ALT1)
 #define PC13_ALT1               (PC13 | ALT1)
-#define PE8_ALT1                (PE8  | ALT1)
-#define PE9_ALT1                (PE9  | ALT1)
-#define PF9_ALT1                (PF9  | ALT1)
+#define PE0_ALT1                (PE0  | ALT1)
+#define PE1_ALT1                (PE1  | ALT1)
+#define PE2_ALT1                (PE2  | ALT1)
+#define PE3_ALT1                (PE3  | ALT1)
+#define PE4_ALT1                (PE4  | ALT1)
+#define PE5_ALT1                (PE5  | ALT1)
 
 #define NUM_DIGITAL_PINS        86
 #define NUM_ANALOG_INPUTS       36

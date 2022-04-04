@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -16,7 +16,7 @@
  * STM32H747IGTx.xml, STM32H747IITx.xml
  * STM32H750ZBTx.xml, STM32H753ZITx.xml
  * STM32H757AIIx.xml, STM32H757IITx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

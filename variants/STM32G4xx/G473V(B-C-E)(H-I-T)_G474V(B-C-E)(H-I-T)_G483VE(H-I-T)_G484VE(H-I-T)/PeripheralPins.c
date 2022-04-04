@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -17,7 +17,7 @@
  * STM32G483VEHx.xml, STM32G483VEIx.xml
  * STM32G483VETx.xml, STM32G484VEHx.xml
  * STM32G484VEIx.xml, STM32G484VETx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

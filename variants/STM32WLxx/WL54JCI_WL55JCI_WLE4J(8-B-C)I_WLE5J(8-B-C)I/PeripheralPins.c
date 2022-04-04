@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -15,7 +15,7 @@
  * STM32WLE4J8Ix.xml, STM32WLE4JBIx.xml
  * STM32WLE4JCIx.xml, STM32WLE5J8Ix.xml
  * STM32WLE5JBIx.xml, STM32WLE5JCIx.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

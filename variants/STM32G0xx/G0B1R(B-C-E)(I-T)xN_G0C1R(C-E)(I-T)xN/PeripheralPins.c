@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * Copyright (c) 2020-2021, STMicroelectronics
+ * Copyright (c) 2020, STMicroelectronics
  * All rights reserved.
  *
  * This software component is licensed by ST under BSD 3-Clause license,
@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32G0B1R(B-C-E)IxN.xml, STM32G0B1R(B-C-E)TxN.xml
  * STM32G0C1R(C-E)IxN.xml, STM32G0C1R(C-E)TxN.xml
- * CubeMX DB release 6.0.30
+ * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
