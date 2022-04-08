@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -277,7 +276,7 @@ typedef enum
 typedef  void (*pFMPI2C_CallbackTypeDef)(FMPI2C_HandleTypeDef *hfmpi2c);
 /*!< pointer to an FMPI2C callback function */
 typedef  void (*pFMPI2C_AddrCallbackTypeDef)(FMPI2C_HandleTypeDef *hfmpi2c, uint8_t TransferDirection,
-                                             uint16_t AddrMatchCode);
+                                          uint16_t AddrMatchCode);
 /*!< pointer to an FMPI2C Address Match callback function */
 
 #endif /* USE_HAL_FMPI2C_REGISTER_CALLBACKS */
@@ -621,13 +620,13 @@ HAL_StatusTypeDef HAL_FMPI2C_UnRegisterAddrCallback(FMPI2C_HandleTypeDef *hfmpi2
 /* IO operation functions  ****************************************************/
 /******* Blocking mode: Polling */
 HAL_StatusTypeDef HAL_FMPI2C_Master_Transmit(FMPI2C_HandleTypeDef *hfmpi2c, uint16_t DevAddress, uint8_t *pData,
-                                             uint16_t Size, uint32_t Timeout);
+                                          uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_FMPI2C_Master_Receive(FMPI2C_HandleTypeDef *hfmpi2c, uint16_t DevAddress, uint8_t *pData,
-                                            uint16_t Size, uint32_t Timeout);
+                                         uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_FMPI2C_Slave_Transmit(FMPI2C_HandleTypeDef *hfmpi2c, uint8_t *pData, uint16_t Size,
-                                            uint32_t Timeout);
+                                         uint32_t Timeout);
 HAL_StatusTypeDef HAL_FMPI2C_Slave_Receive(FMPI2C_HandleTypeDef *hfmpi2c, uint8_t *pData, uint16_t Size,
-                                           uint32_t Timeout);
+                                        uint32_t Timeout);
 HAL_StatusTypeDef HAL_FMPI2C_Mem_Write(FMPI2C_HandleTypeDef *hfmpi2c, uint16_t DevAddress, uint16_t MemAddress,
                                     uint16_t MemAddSize, uint8_t *pData, uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_FMPI2C_Mem_Read(FMPI2C_HandleTypeDef *hfmpi2c, uint16_t DevAddress, uint16_t MemAddress,
@@ -783,9 +782,9 @@ uint32_t             HAL_FMPI2C_GetError(FMPI2C_HandleTypeDef *hfmpi2c);
                                                                           FMPI2C_CR2_RD_WRN)))
 
 #define FMPI2C_GET_ADDR_MATCH(__HANDLE__)            ((uint16_t)(((__HANDLE__)->Instance->ISR & FMPI2C_ISR_ADDCODE) \
-                                                                  >> 16U))
+                                                              >> 16U))
 #define FMPI2C_GET_DIR(__HANDLE__)                   ((uint8_t)(((__HANDLE__)->Instance->ISR & FMPI2C_ISR_DIR) \
-                                                                  >> 16U))
+                                                             >> 16U))
 #define FMPI2C_GET_STOP_MODE(__HANDLE__)             ((__HANDLE__)->Instance->CR2 & FMPI2C_CR2_AUTOEND)
 #define FMPI2C_GET_OWN_ADDRESS1(__HANDLE__)          ((uint16_t)((__HANDLE__)->Instance->OAR1 & FMPI2C_OAR1_OA1))
 #define FMPI2C_GET_OWN_ADDRESS2(__HANDLE__)          ((uint16_t)((__HANDLE__)->Instance->OAR2 & FMPI2C_OAR2_OA2))
@@ -836,5 +835,3 @@ uint32_t             HAL_FMPI2C_GetError(FMPI2C_HandleTypeDef *hfmpi2c);
 
 
 #endif /* STM32F4xx_HAL_FMPI2C_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

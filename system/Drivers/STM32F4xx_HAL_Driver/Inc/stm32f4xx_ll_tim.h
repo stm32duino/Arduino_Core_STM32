@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1045,7 +1044,7 @@ typedef struct
   * @retval Prescaler value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_PSC(__TIMCLK__, __CNTCLK__)   \
-  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)(((__TIMCLK__)/(__CNTCLK__)) - 1U) : 0U)
+  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)((((__TIMCLK__) + (__CNTCLK__)/2U)/(__CNTCLK__)) - 1U) : 0U)
 
 /**
   * @brief  HELPER macro calculating the auto-reload value to achieve the required output signal frequency.
@@ -4092,4 +4091,3 @@ ErrorStatus LL_TIM_BDTR_Init(TIM_TypeDef *TIMx, LL_TIM_BDTR_InitTypeDef *TIM_BDT
 #endif
 
 #endif /* __STM32F4xx_LL_TIM_H */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

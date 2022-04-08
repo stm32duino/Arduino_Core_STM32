@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -373,9 +372,9 @@ typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus
 #define FMPSMBUS_IT_RXI                            FMPI2C_CR1_RXIE
 #define FMPSMBUS_IT_TXI                            FMPI2C_CR1_TXIE
 #define FMPSMBUS_IT_TX                             (FMPSMBUS_IT_ERRI | FMPSMBUS_IT_TCI | FMPSMBUS_IT_STOPI | \
-                                                   FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)
+                                                 FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)
 #define FMPSMBUS_IT_RX                             (FMPSMBUS_IT_ERRI | FMPSMBUS_IT_TCI | FMPSMBUS_IT_NACKI | \
-                                                   FMPSMBUS_IT_RXI)
+                                                 FMPSMBUS_IT_RXI)
 #define FMPSMBUS_IT_ALERT                          (FMPSMBUS_IT_ERRI)
 #define FMPSMBUS_IT_ADDR                           (FMPSMBUS_IT_ADDRI | FMPSMBUS_IT_STOPI | FMPSMBUS_IT_NACKI)
 /**
@@ -623,11 +622,11 @@ typedef  void (*pFMPSMBUS_AddrCallbackTypeDef)(FMPSMBUS_HandleTypeDef *hfmpsmbus
 
 #define FMPSMBUS_RESET_CR1(__HANDLE__)                    ((__HANDLE__)->Instance->CR1 &= \
                                                         (uint32_t)~((uint32_t)(FMPI2C_CR1_SMBHEN | FMPI2C_CR1_SMBDEN | \
-                                                                    FMPI2C_CR1_PECEN)))
+                                                                               FMPI2C_CR1_PECEN)))
 #define FMPSMBUS_RESET_CR2(__HANDLE__)                    ((__HANDLE__)->Instance->CR2 &= \
                                                         (uint32_t)~((uint32_t)(FMPI2C_CR2_SADD | FMPI2C_CR2_HEAD10R | \
-                                                                    FMPI2C_CR2_NBYTES | FMPI2C_CR2_RELOAD | \
-                                                                    FMPI2C_CR2_RD_WRN)))
+                                                                               FMPI2C_CR2_NBYTES | FMPI2C_CR2_RELOAD | \
+                                                                               FMPI2C_CR2_RD_WRN)))
 
 #define FMPSMBUS_GENERATE_START(__ADDMODE__,__ADDRESS__)     (((__ADDMODE__) == FMPSMBUS_ADDRESSINGMODE_7BIT) ? \
                                                            (uint32_t)((((uint32_t)(__ADDRESS__) & (FMPI2C_CR2_SADD)) | \
@@ -677,13 +676,13 @@ HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmps
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_FMPSMBUS_REGISTER_CALLBACKS == 1)
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
-                                                pFMPSMBUS_CallbackTypeDef pCallback);
+                                             HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
+                                             pFMPSMBUS_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                  HAL_FMPSMBUS_CallbackIDTypeDef CallbackID);
+                                               HAL_FMPSMBUS_CallbackIDTypeDef CallbackID);
 
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                    pFMPSMBUS_AddrCallbackTypeDef pCallback);
+                                                 pFMPSMBUS_AddrCallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 #endif /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 /**
@@ -710,9 +709,9 @@ HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
   */
 /******* Non-Blocking mode: Interrupt */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress,
-                                                  uint8_t *pData, uint16_t Size, uint32_t XferOptions);
+                                               uint8_t *pData, uint16_t Size, uint32_t XferOptions);
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress,
-                                                 uint8_t *pData, uint16_t Size, uint32_t XferOptions);
+                                              uint8_t *pData, uint16_t Size, uint32_t XferOptions);
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Abort_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress);
 HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size,
                                               uint32_t XferOptions);
@@ -789,5 +788,3 @@ uint32_t HAL_FMPSMBUS_GetError(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
 
 #endif /* STM32F4xx_HAL_FMPSMBUS_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

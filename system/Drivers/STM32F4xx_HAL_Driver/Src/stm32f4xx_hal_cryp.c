@@ -11,6 +11,17 @@
   *           + CRYP IRQ handler management
   *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -148,10 +159,10 @@
 
   The compilation define  USE_HAL_CRYP_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
-  Use Functions @ref HAL_CRYP_RegisterCallback() or HAL_CRYP_RegisterXXXCallback()
+  Use Functions HAL_CRYP_RegisterCallback() or HAL_CRYP_RegisterXXXCallback()
   to register an interrupt callback.
 
-  Function @ref HAL_CRYP_RegisterCallback() allows to register following callbacks:
+  Function HAL_CRYP_RegisterCallback() allows to register following callbacks:
     (+) InCpltCallback     :  Input FIFO transfer completed callback.
     (+) OutCpltCallback    : Output FIFO transfer completed callback.
     (+) ErrorCallback      : callback for error detection.
@@ -160,9 +171,9 @@
   This function takes as parameters the HAL peripheral handle, the Callback ID
   and a pointer to the user callback function.
 
-  Use function @ref HAL_CRYP_UnRegisterCallback() to reset a callback to the default
+  Use function HAL_CRYP_UnRegisterCallback() to reset a callback to the default
   weak function.
-  @ref HAL_CRYP_UnRegisterCallback() takes as parameters the HAL peripheral handle,
+  HAL_CRYP_UnRegisterCallback() takes as parameters the HAL peripheral handle,
   and the Callback ID.
   This function allows to reset following callbacks:
     (+) InCpltCallback     :  Input FIFO transfer completed callback.
@@ -171,13 +182,13 @@
     (+) MspInitCallback    : CRYP MspInit.
     (+) MspDeInitCallback  : CRYP MspDeInit.
 
-  By default, after the @ref HAL_CRYP_Init() and when the state is HAL_CRYP_STATE_RESET
+  By default, after the HAL_CRYP_Init() and when the state is HAL_CRYP_STATE_RESET
   all callbacks are set to the corresponding weak functions :
-  examples @ref HAL_CRYP_InCpltCallback() , @ref HAL_CRYP_OutCpltCallback().
+  examples HAL_CRYP_InCpltCallback() , HAL_CRYP_OutCpltCallback().
   Exception done for MspInit and MspDeInit functions that are
-  reset to the legacy weak function in the @ref HAL_CRYP_Init()/ @ref HAL_CRYP_DeInit() only when
+  reset to the legacy weak function in the HAL_CRYP_Init()/ HAL_CRYP_DeInit() only when
   these callbacks are null (not registered beforehand).
-  if not, MspInit or MspDeInit are not null, the @ref HAL_CRYP_Init() / @ref HAL_CRYP_DeInit()
+  if not, MspInit or MspDeInit are not null, the HAL_CRYP_Init() / HAL_CRYP_DeInit()
   keep and use the user MspInit/MspDeInit functions (registered beforehand)
 
   Callbacks can be registered/unregistered in HAL_CRYP_STATE_READY state only.
@@ -185,8 +196,8 @@
   in HAL_CRYP_STATE_READY or HAL_CRYP_STATE_RESET state,
   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
   In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_CRYP_RegisterCallback() before calling @ref HAL_CRYP_DeInit()
-  or @ref HAL_CRYP_Init() function.
+  using HAL_CRYP_RegisterCallback() before calling HAL_CRYP_DeInit()
+  or HAL_CRYP_Init() function.
 
   When The compilation define USE_HAL_CRYP_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
@@ -240,17 +251,6 @@
                 31 ... 0     CRYP_IV0L[31:0]     B0[31:0], where flag bits set to 0
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -470,7 +470,7 @@ HAL_StatusTypeDef HAL_CRYP_Init(CRYP_HandleTypeDef *hcryp)
   }
 #endif /* (USE_HAL_CRYP_REGISTER_CALLBACKS) */
 
-  /* Set the key size(This bit field is don’t care in the DES or TDES modes) data type and Algorithm */
+  /* Set the key size(This bit field is don't care in the DES or TDES modes) data type and Algorithm */
 #if defined (CRYP)
 
   MODIFY_REG(hcryp->Instance->CR, CRYP_CR_DATATYPE | CRYP_CR_KEYSIZE | CRYP_CR_ALGOMODE,
@@ -589,7 +589,7 @@ HAL_StatusTypeDef HAL_CRYP_SetConfig(CRYP_HandleTypeDef *hcryp, CRYP_ConfigTypeD
     hcryp->Init.KeyIVConfigSkip = pConf->KeyIVConfigSkip;
     hcryp->Init.HeaderWidthUnit = pConf->HeaderWidthUnit;
 
-    /* Set the key size(This bit field is don’t care in the DES or TDES modes) data type, AlgoMode and operating mode*/
+    /* Set the key size(This bit field is don't care in the DES or TDES modes) data type, AlgoMode and operating mode*/
 #if defined (CRYP)
 
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_DATATYPE | CRYP_CR_KEYSIZE | CRYP_CR_ALGOMODE,
@@ -7130,4 +7130,3 @@ static HAL_StatusTypeDef CRYP_WaitOnCCFlag(CRYP_HandleTypeDef *hcryp, uint32_t T
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -10,6 +10,17 @@
   *           + Peripheral Control functions
   *           + Peripheral State and Error functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -158,17 +169,6 @@
     and weak (surcharged) callbacks are used.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -756,9 +756,9 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsc,
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t *tmp = pData;
+  const uint8_t *tmp = pData;
   uint32_t tickstart = 0U;
 
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -876,7 +876,7 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsc, uint8_t *p
   * @param  Size   Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size)
 {
   /* Check that a Tx process is not already ongoing */
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -969,9 +969,9 @@ HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsc, uint8_t
   * @param  Size   Amount of data to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, const uint8_t *pData, uint16_t Size)
 {
-  uint32_t *tmp;
+  const uint32_t *tmp;
 
   /* Check that a Tx process is not already ongoing */
   if(hsc->gState == HAL_SMARTCARD_STATE_READY)
@@ -1001,8 +1001,8 @@ HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsc, uint8
     hsc->hdmatx->XferAbortCallback = NULL;
 
     /* Enable the SMARTCARD transmit DMA stream */
-    tmp = (uint32_t*)&pData;
-    HAL_DMA_Start_IT(hsc->hdmatx, *(uint32_t*)tmp, (uint32_t)&hsc->Instance->DR, Size);
+    tmp = (const uint32_t*)&pData;
+    HAL_DMA_Start_IT(hsc->hdmatx, *(const uint32_t*)tmp, (uint32_t)&hsc->Instance->DR, Size);
 
      /* Clear the TC flag in the SR register by writing 0 to it */
     __HAL_SMARTCARD_CLEAR_FLAG(hsc, SMARTCARD_FLAG_TC);
@@ -1921,11 +1921,12 @@ static void SMARTCARD_DMAError(DMA_HandleTypeDef *hdma)
 }
 
 /**
-  * @brief  This function handles SMARTCARD Communication Timeout.
+  * @brief  This function handles SMARTCARD Communication Timeout. It waits
+  *         until a flag is no longer in the specified status.
   * @param  hsc    Pointer to a SMARTCARD_HandleTypeDef structure that contains
   *                the configuration information for SMARTCARD module.
   * @param  Flag   Specifies the SMARTCARD flag to check.
-  * @param  Status The new Flag status (SET or RESET).
+  * @param  Status The actual Flag status (SET or RESET).
   * @param  Timeout Timeout duration
   * @param  Tickstart Tick start value
   * @retval HAL status
@@ -2360,4 +2361,3 @@ static void SMARTCARD_SetConfig(SMARTCARD_HandleTypeDef *hsc)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

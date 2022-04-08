@@ -10,6 +10,17 @@
   *           + IO operation functions
   *           + Peripheral State and Errors functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -44,35 +55,41 @@
     *** Interrupt mode IO operation ***
     ===================================
     [..]
-      (+) Transmit in master/host FMPSMBUS mode an amount of data in non-blocking mode using HAL_FMPSMBUS_Master_Transmit_IT()
-      (++) At transmission end of transfer HAL_FMPSMBUS_MasterTxCpltCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_MasterTxCpltCallback()
-      (+) Receive in master/host FMPSMBUS mode an amount of data in non-blocking mode using HAL_FMPSMBUS_Master_Receive_IT()
-      (++) At reception end of transfer HAL_FMPSMBUS_MasterRxCpltCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_MasterRxCpltCallback()
+      (+) Transmit in master/host FMPSMBUS mode an amount of data in non-blocking mode
+          using HAL_FMPSMBUS_Master_Transmit_IT()
+      (++) At transmission end of transfer HAL_FMPSMBUS_MasterTxCpltCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_MasterTxCpltCallback()
+      (+) Receive in master/host FMPSMBUS mode an amount of data in non-blocking mode
+          using HAL_FMPSMBUS_Master_Receive_IT()
+      (++) At reception end of transfer HAL_FMPSMBUS_MasterRxCpltCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_MasterRxCpltCallback()
       (+) Abort a master/host FMPSMBUS process communication with Interrupt using HAL_FMPSMBUS_Master_Abort_IT()
       (++) The associated previous transfer callback is called at the end of abort process
       (++) mean HAL_FMPSMBUS_MasterTxCpltCallback() in case of previous state was master transmit
       (++) mean HAL_FMPSMBUS_MasterRxCpltCallback() in case of previous state was master receive
       (+) Enable/disable the Address listen mode in slave/device or host/slave FMPSMBUS mode
            using HAL_FMPSMBUS_EnableListen_IT() HAL_FMPSMBUS_DisableListen_IT()
-      (++) When address slave/device FMPSMBUS match, HAL_FMPSMBUS_AddrCallback() is executed and user can
-           add his own code to check the Address Match Code and the transmission direction request by master/host (Write/Read).
-      (++) At Listen mode end HAL_FMPSMBUS_ListenCpltCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_ListenCpltCallback()
-      (+) Transmit in slave/device FMPSMBUS mode an amount of data in non-blocking mode using HAL_FMPSMBUS_Slave_Transmit_IT()
-      (++) At transmission end of transfer HAL_FMPSMBUS_SlaveTxCpltCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_SlaveTxCpltCallback()
-      (+) Receive in slave/device FMPSMBUS mode an amount of data in non-blocking mode using HAL_FMPSMBUS_Slave_Receive_IT()
-      (++) At reception end of transfer HAL_FMPSMBUS_SlaveRxCpltCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_SlaveRxCpltCallback()
-      (+) Enable/Disable the FMPSMBUS alert mode using HAL_FMPSMBUS_EnableAlert_IT() HAL_FMPSMBUS_DisableAlert_IT()
-      (++) When FMPSMBUS Alert is generated HAL_FMPSMBUS_ErrorCallback() is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_ErrorCallback()
+      (++) When address slave/device FMPSMBUS match, HAL_FMPSMBUS_AddrCallback() is executed and users can
+           add their own code to check the Address Match Code and the transmission direction
+           request by master/host (Write/Read).
+      (++) At Listen mode end HAL_FMPSMBUS_ListenCpltCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_ListenCpltCallback()
+      (+) Transmit in slave/device FMPSMBUS mode an amount of data in non-blocking mode
+          using HAL_FMPSMBUS_Slave_Transmit_IT()
+      (++) At transmission end of transfer HAL_FMPSMBUS_SlaveTxCpltCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_SlaveTxCpltCallback()
+      (+) Receive in slave/device FMPSMBUS mode an amount of data in non-blocking mode
+          using HAL_FMPSMBUS_Slave_Receive_IT()
+      (++) At reception end of transfer HAL_FMPSMBUS_SlaveRxCpltCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_SlaveRxCpltCallback()
+      (+) Enable/Disable the FMPSMBUS alert mode using
+          HAL_FMPSMBUS_EnableAlert_IT() or HAL_FMPSMBUS_DisableAlert_IT()
+      (++) When FMPSMBUS Alert is generated HAL_FMPSMBUS_ErrorCallback() is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_ErrorCallback()
            to check the Alert Error Code using function HAL_FMPSMBUS_GetError()
       (+) Get HAL state machine or error values using HAL_FMPSMBUS_GetState() or HAL_FMPSMBUS_GetError()
-      (+) In case of transfer Error, HAL_FMPSMBUS_ErrorCallback() function is executed and user can
-           add his own code by customization of function pointer HAL_FMPSMBUS_ErrorCallback()
+      (+) In case of transfer Error, HAL_FMPSMBUS_ErrorCallback() function is executed and users can
+           add their own code by customization of function pointer HAL_FMPSMBUS_ErrorCallback()
            to check the Error Code using function HAL_FMPSMBUS_GetError()
 
      *** FMPSMBUS HAL driver macros list ***
@@ -150,18 +167,6 @@
        (@) You can refer to the FMPSMBUS HAL driver header file for more useful macros
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -205,7 +210,7 @@
   * @{
   */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag,
-                                                         FlagStatus Status, uint32_t Timeout);
+                                                      FlagStatus Status, uint32_t Timeout);
 
 static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
 static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
@@ -217,7 +222,7 @@ static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
 static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size,
-                                    uint32_t Mode, uint32_t Request);
+                                 uint32_t Mode, uint32_t Request);
 /**
   * @}
   */
@@ -588,8 +593,8 @@ HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmps
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
-                                                pFMPSMBUS_CallbackTypeDef pCallback)
+                                             HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
+                                             pFMPSMBUS_CallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -703,7 +708,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                  HAL_FMPSMBUS_CallbackIDTypeDef CallbackID)
+                                               HAL_FMPSMBUS_CallbackIDTypeDef CallbackID)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -799,7 +804,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsm
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus,
-                                                    pFMPSMBUS_AddrCallbackTypeDef pCallback)
+                                                 pFMPSMBUS_AddrCallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -924,7 +929,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress,
-                                                  uint8_t *pData, uint16_t Size, uint32_t XferOptions)
+                                               uint8_t *pData, uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
 
@@ -979,7 +984,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
           (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(tmp) == 0))
       {
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                                FMPSMBUS_NO_STARTSTOP);
+                             FMPSMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
@@ -1086,7 +1091,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
           (IS_FMPSMBUS_TRANSFER_OTHER_OPTIONS_REQUEST(tmp) == 0))
       {
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                                FMPSMBUS_NO_STARTSTOP);
+                             FMPSMBUS_NO_STARTSTOP);
       }
       /* Else transfer direction change, so generate Restart with new transfer direction */
       else
@@ -1248,7 +1253,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
     {
       /* Set NBYTE to transmit */
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                              FMPSMBUS_NO_STARTSTOP);
+                           FMPSMBUS_NO_STARTSTOP);
 
       /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
       /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
@@ -1335,7 +1340,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbu
     if (((FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL) && (hfmpsmbus->XferSize == 2U)) || (hfmpsmbus->XferSize == 1U))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                              FMPSMBUS_NO_STARTSTOP);
+                           FMPSMBUS_NO_STARTSTOP);
     }
     else
     {
@@ -1599,7 +1604,7 @@ void HAL_FMPSMBUS_EV_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 
   /* FMPSMBUS in mode Transmitter ---------------------------------------------------*/
   if ((FMPSMBUS_CHECK_IT_SOURCE(tmpcr1value, (FMPSMBUS_IT_TCI | FMPSMBUS_IT_STOPI |
-                                            FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)) != RESET) &&
+                                           FMPSMBUS_IT_NACKI | FMPSMBUS_IT_TXI)) != RESET) &&
       ((FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TXIS) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TCR) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TC) != RESET) ||
@@ -1624,7 +1629,7 @@ void HAL_FMPSMBUS_EV_IRQHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 
   /* FMPSMBUS in mode Receiver ----------------------------------------------------*/
   if ((FMPSMBUS_CHECK_IT_SOURCE(tmpcr1value, (FMPSMBUS_IT_TCI | FMPSMBUS_IT_STOPI |
-                                            FMPSMBUS_IT_NACKI | FMPSMBUS_IT_RXI)) != RESET) &&
+                                           FMPSMBUS_IT_NACKI | FMPSMBUS_IT_RXI)) != RESET) &&
       ((FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_RXNE) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TCR) != RESET) ||
        (FMPSMBUS_CHECK_FLAG(tmpisrvalue, FMPSMBUS_FLAG_TC) != RESET) ||
@@ -1745,7 +1750,7 @@ __weak void HAL_FMPSMBUS_SlaveRxCpltCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @retval None
   */
 __weak void HAL_FMPSMBUS_AddrCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t TransferDirection,
-                                      uint16_t AddrMatchCode)
+                                   uint16_t AddrMatchCode)
 {
   /* Prevent unused argument(s) compilation warning */
   UNUSED(hfmpsmbus);
@@ -2000,7 +2005,7 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
       {
         hfmpsmbus->XferSize = hfmpsmbus->XferCount;
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                                FMPSMBUS_NO_STARTSTOP);
+                             FMPSMBUS_NO_STARTSTOP);
         /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
         /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
         if (FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL)
@@ -2275,7 +2280,7 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
         {
           hfmpsmbus->XferSize = hfmpsmbus->XferCount;
           FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize, hfmpsmbus->XferOptions,
-                                  FMPSMBUS_NO_STARTSTOP);
+                               FMPSMBUS_NO_STARTSTOP);
           /* If PEC mode is enable, size to transmit should be Size-1 byte, corresponding to PEC byte */
           /* PEC byte is automatically sent by HW block, no need to manage it in Transmit process */
           if (FMPSMBUS_GET_PEC_MODE(hfmpsmbus) != 0UL)
@@ -2620,7 +2625,7 @@ static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @retval HAL status
   */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag,
-                                                         FlagStatus Status, uint32_t Timeout)
+                                                      FlagStatus Status, uint32_t Timeout)
 {
   uint32_t tickstart = HAL_GetTick();
 
@@ -2670,7 +2675,7 @@ static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef 
   * @retval None
   */
 static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size,
-                                    uint32_t Mode, uint32_t Request)
+                                 uint32_t Mode, uint32_t Request)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_ALL_INSTANCE(hfmpsmbus->Instance));
@@ -2742,5 +2747,3 @@ static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

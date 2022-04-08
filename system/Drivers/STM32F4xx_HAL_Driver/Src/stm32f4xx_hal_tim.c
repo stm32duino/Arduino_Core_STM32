@@ -29,6 +29,17 @@
   *           + Commutation Event configuration with Interruption and DMA
   *           + TIM OCRef clear configuration
   *           + TIM External Clock configuration
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                       ##### TIMER Generic features #####
@@ -168,17 +179,6 @@ all interrupt callbacks are set to the corresponding weak functions:
       are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -4470,13 +4470,11 @@ HAL_StatusTypeDef HAL_TIM_OnePulse_ConfigChannel(TIM_HandleTypeDef *htim,  TIM_O
 HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
                                               uint32_t BurstRequestSrc, uint32_t *BurstBuffer, uint32_t  BurstLength)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
-  if (status == HAL_OK)
-  {
-    status = HAL_TIM_DMABurst_MultiWriteStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength,
-                                              ((BurstLength) >> 8U) + 1U);
-  }
+  status = HAL_TIM_DMABurst_MultiWriteStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength,
+                                            ((BurstLength) >> 8U) + 1U);
+
 
 
   return status;
@@ -4809,13 +4807,11 @@ HAL_StatusTypeDef HAL_TIM_DMABurst_WriteStop(TIM_HandleTypeDef *htim, uint32_t B
 HAL_StatusTypeDef HAL_TIM_DMABurst_ReadStart(TIM_HandleTypeDef *htim, uint32_t BurstBaseAddress,
                                              uint32_t BurstRequestSrc, uint32_t  *BurstBuffer, uint32_t  BurstLength)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
-  if (status == HAL_OK)
-  {
-    status = HAL_TIM_DMABurst_MultiReadStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength,
-                                             ((BurstLength) >> 8U) + 1U);
-  }
+  status = HAL_TIM_DMABurst_MultiReadStart(htim, BurstBaseAddress, BurstRequestSrc, BurstBuffer, BurstLength,
+                                           ((BurstLength) >> 8U) + 1U);
+
 
   return status;
 }
@@ -7623,4 +7619,3 @@ void TIM_ResetCallback(TIM_HandleTypeDef *htim)
 /**
   * @}
   */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
