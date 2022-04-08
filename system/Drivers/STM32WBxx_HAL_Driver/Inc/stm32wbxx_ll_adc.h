@@ -282,7 +282,7 @@ extern "C" {
 #define ADC_CHANNEL_16_BITFIELD            (ADC_AWD2CR_AWD2CH_16)
 #define ADC_CHANNEL_17_BITFIELD            (ADC_AWD2CR_AWD2CH_17)
 #define ADC_CHANNEL_18_BITFIELD            (ADC_AWD2CR_AWD2CH_18)
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /* Definition of channels sampling time information to be inserted into       */
 /* channels literals definition.                                              */
@@ -320,7 +320,8 @@ extern "C" {
 #define ADC_SAMPLING_TIME_SMP_MASK         (ADC_SMPR_SMP2 | ADC_SMPR_SMP1)
 #define ADC_SAMPLING_TIME_SMP_SHIFT_MASK   (ADC_SMPR_SMP2_BITOFFSET_POS | ADC_SMPR_SMP1_BITOFFSET_POS)
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
+
 /* Internal mask for ADC mode single or differential ended:                   */
 /* To select into literals LL_ADC_SINGLE_ENDED or LL_ADC_SINGLE_DIFFERENTIAL  */
 /* the relevant bits for:                                                     */
@@ -364,7 +365,7 @@ extern "C" {
 #define ADC_AWD_CR1_CHANNEL_MASK           (ADC_CFGR_AWD1CH | ADC_CFGR_JAWD1EN | ADC_CFGR_AWD1EN | ADC_CFGR_AWD1SGL)
 #define ADC_AWD_CR23_CHANNEL_MASK          (ADC_AWD2CR_AWD2CH)
 #define ADC_AWD_CR_ALL_CHANNEL_MASK        (ADC_AWD_CR1_CHANNEL_MASK | ADC_AWD_CR23_CHANNEL_MASK)
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 #define ADC_AWD_CRX_REGOFFSET_POS          (20UL) /* Position of bits ADC_AWD_CRx_REGOFFSET in ADC_AWD_CRX_REGOFFSET_MASK */
 
@@ -386,12 +387,11 @@ extern "C" {
 #define ADC_OFR4_REGOFFSET                 (0x00000003UL)
 #define ADC_OFRx_REGOFFSET_MASK            (ADC_OFR1_REGOFFSET | ADC_OFR2_REGOFFSET | ADC_OFR3_REGOFFSET | ADC_OFR4_REGOFFSET)
 
-
 /* ADC registers bits positions */
 #if defined (ADC_SUPPORT_2_5_MSPS)
 #define ADC_CFGR1_RES_BITOFFSET_POS        ( 3UL) /* Value equivalent to bitfield "ADC_CFGR1_RES" position in register */
 #define ADC_CFGR1_AWDSGL_BITOFFSET_POS     (22UL) /* Value equivalent to bitfield "ADC_CFGR1_AWDSGL" position in register */
-#define ADC_TR1_HT1_BITOFFSET_POS          (16UL) /* Value equivalent to bitfield "ADC_TR1_HT1" position in register */
+#define ADC_TR_HT_BITOFFSET_POS            (16UL) /* Value equivalent to bitfield "ADC_TR_HT" position in register */
 #define ADC_CHSELR_CHSEL0_BITOFFSET_POS    ( 0UL) /* Value equivalent to bitfield "ADC_CHSELR_CHSEL0" position in register */
 #define ADC_CHSELR_CHSEL1_BITOFFSET_POS    ( 1UL) /* Value equivalent to bitfield "ADC_CHSELR_CHSEL1" position in register */
 #define ADC_CHSELR_CHSEL2_BITOFFSET_POS    ( 2UL) /* Value equivalent to bitfield "ADC_CHSELR_CHSEL2" position in register */
@@ -422,7 +422,7 @@ extern "C" {
 #define ADC_CFGR_AWD1EN_BITOFFSET_POS      (23UL) /* Value equivalent to bitfield "ADC_CFGR_AWD1EN" position in register */
 #define ADC_CFGR_JAWD1EN_BITOFFSET_POS     (24UL) /* Value equivalent to bitfield "ADC_CFGR_JAWD1EN" position in register */
 #define ADC_TR1_HT1_BITOFFSET_POS          (16UL) /* Value equivalent to bitfield "ADC_TR1_HT1" position in register */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 
 /* ADC registers bits groups */
@@ -430,7 +430,7 @@ extern "C" {
 #define ADC_CR_BITS_PROPERTY_RS            (ADC_CR_ADCAL | ADC_CR_ADSTP | ADC_CR_ADSTART | ADC_CR_ADDIS | ADC_CR_ADEN) /* ADC register CR bits with HW property "rs": Software can read as well as set this bit. Writing '0' has no effect on the bit value. */
 #else
 #define ADC_CR_BITS_PROPERTY_RS            (ADC_CR_ADCAL | ADC_CR_JADSTP | ADC_CR_ADSTP | ADC_CR_JADSTART | ADC_CR_ADSTART | ADC_CR_ADDIS | ADC_CR_ADEN) /* ADC register CR bits with HW property "rs": Software can read as well as set this bit. Writing '0' has no effect on the bit value. */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 
 /* ADC internal channels related definitions */
@@ -531,7 +531,7 @@ typedef struct
                                              This feature can be modified afterwards using unitary function @ref LL_ADC_SetClock().
                                              For more details, refer to description of this function. */
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
   uint32_t Resolution;                  /*!< Set ADC resolution.
                                              This parameter can be a value of @ref ADC_LL_EC_RESOLUTION
 
@@ -680,7 +680,7 @@ typedef struct
 #if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_FLAG_CCRDY                  ADC_ISR_CCRDY      /*!< ADC flag ADC channel configuration ready */
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 #define LL_ADC_FLAG_EOC                    ADC_ISR_EOC        /*!< ADC flag ADC group regular end of unitary conversion */
 #define LL_ADC_FLAG_EOS                    ADC_ISR_EOS        /*!< ADC flag ADC group regular end of sequence conversions */
 #define LL_ADC_FLAG_OVR                    ADC_ISR_OVR        /*!< ADC flag ADC group regular overrun */
@@ -693,7 +693,7 @@ typedef struct
 #define LL_ADC_FLAG_AWD3                   ADC_ISR_AWD3       /*!< ADC flag ADC analog watchdog 3 */
 #if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_FLAG_EOCAL                  ADC_ISR_EOCAL      /*!< ADC flag end of calibration */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -706,7 +706,7 @@ typedef struct
 #if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_IT_CCRDY                    ADC_IER_CCRDYIE    /*!< ADC interruption channel configuration ready */
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 #define LL_ADC_IT_EOC                      ADC_IER_EOCIE      /*!< ADC interruption ADC group regular end of unitary conversion */
 #define LL_ADC_IT_EOS                      ADC_IER_EOSIE      /*!< ADC interruption ADC group regular end of sequence conversions */
 #define LL_ADC_IT_OVR                      ADC_IER_OVRIE      /*!< ADC interruption ADC group regular overrun */
@@ -719,7 +719,7 @@ typedef struct
 #define LL_ADC_IT_AWD3                     ADC_IER_AWD3IE     /*!< ADC interruption ADC analog watchdog 3 */
 #if defined(ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_IT_EOCAL                    ADC_IER_EOCALIE    /*!< ADC interruption ADC end of calibration */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -742,7 +742,7 @@ typedef struct
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV1        (ADC_CCR_CKMODE_0)                                    /*!< ADC synchronous clock derived from AHB clock without prescaler */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV2        (ADC_CCR_CKMODE_1                   )                 /*!< ADC synchronous clock derived from AHB clock with prescaler division by 2 */
 #define LL_ADC_CLOCK_SYNC_PCLK_DIV4        (ADC_CCR_CKMODE_1 | ADC_CCR_CKMODE_0)                 /*!< ADC synchronous clock derived from AHB clock with prescaler division by 4 */
-#endif
+#endif /* !ADC_SUPPORT_2_5_MSPS */
 #define LL_ADC_CLOCK_ASYNC_DIV1            (0x00000000UL)                                        /*!< ADC asynchronous clock without prescaler */
 #define LL_ADC_CLOCK_ASYNC_DIV2            (ADC_CCR_PRESC_0)                                     /*!< ADC asynchronous clock with prescaler division by 2   */
 #define LL_ADC_CLOCK_ASYNC_DIV4            (ADC_CCR_PRESC_1                  )                   /*!< ADC asynchronous clock with prescaler division by 4   */
@@ -786,7 +786,7 @@ typedef struct
 /**
   * @}
   */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /** @defgroup ADC_LL_EC_RESOLUTION  ADC instance - Resolution
   * @{
@@ -818,7 +818,7 @@ typedef struct
 #define LL_ADC_LP_AUTOWAIT_AUTOPOWEROFF    (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF) /*!< ADC low power modes auto wait and auto power-off combined. See description with function @ref LL_ADC_SetLowPowerMode(). */
 #else
 #define LL_ADC_LP_AUTOWAIT                 (ADC_CFGR_AUTDLY)                   /*!< ADC low power mode auto delay: Dynamic low power mode, ADC conversions are performed only when necessary (when previous ADC conversion data is read). See description with function @ref LL_ADC_SetLowPowerMode(). */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -842,7 +842,7 @@ typedef struct
   * @}
   */
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /** @defgroup ADC_LL_EC_OFFSET_NB  ADC instance - Offset number
   * @{
   */
@@ -870,7 +870,7 @@ typedef struct
 #if !defined (ADC_SUPPORT_2_5_MSPS)
 #define LL_ADC_GROUP_INJECTED              (0x00000002UL) /*!< ADC group injected (not available on all STM32 devices)*/
 #define LL_ADC_GROUP_REGULAR_INJECTED      (0x00000003UL) /*!< ADC both groups regular and injected */
-#endif
+#endif /* !ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -925,7 +925,7 @@ typedef struct
 #define LL_ADC_CHANNEL_TEMPSENSOR          (LL_ADC_CHANNEL_17 | ADC_CHANNEL_ID_INTERNAL_CH)  /*!< ADC internal channel connected to Temperature sensor. */
 #define LL_ADC_CHANNEL_VBAT                (LL_ADC_CHANNEL_18 | ADC_CHANNEL_ID_INTERNAL_CH)  /*!< ADC internal channel connected to Vbat/2: Vbat voltage through a divider ladder of factor 1/2 to have Vbat always below Vdda. */
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -951,7 +951,7 @@ typedef struct
 #define LL_ADC_REG_TRIG_EXT_TIM2_TRGO      (ADC_CFGR_EXTSEL_3 | ADC_CFGR_EXTSEL_1 | ADC_CFGR_EXTSEL_0 | ADC_REG_TRIG_EXT_EDGE_DEFAULT)                     /*!< ADC group regular conversion trigger from external peripheral: TIM2 TRGO. Trigger edge set to rising edge (default setting). */
 #define LL_ADC_REG_TRIG_EXT_TIM2_CH2       (ADC_CFGR_EXTSEL_1 | ADC_CFGR_EXTSEL_0 | ADC_REG_TRIG_EXT_EDGE_DEFAULT)                                         /*!< ADC group regular conversion trigger from external peripheral: TIM2 channel 2 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
 #define LL_ADC_REG_TRIG_EXT_EXTI_LINE11    (ADC_CFGR_EXTSEL_2 | ADC_CFGR_EXTSEL_1 | ADC_REG_TRIG_EXT_EDGE_DEFAULT)                                         /*!< ADC group regular conversion trigger from external peripheral: external interrupt line 11. Trigger edge set to rising edge (default setting). */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1006,7 +1006,7 @@ typedef struct
   * @}
   */
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /** @defgroup ADC_LL_EC_REG_SEQ_SCAN_LENGTH  ADC group regular - Sequencer scan length
   * @{
   */
@@ -1036,7 +1036,7 @@ typedef struct
 #define LL_ADC_REG_SEQ_SCAN_ENABLE_14RANKS (ADC_SQR1_L_3 | ADC_SQR1_L_2                | ADC_SQR1_L_0) /*!< ADC group regular sequencer enable with 14 ranks in the sequence */
 #define LL_ADC_REG_SEQ_SCAN_ENABLE_15RANKS (ADC_SQR1_L_3 | ADC_SQR1_L_2 | ADC_SQR1_L_1               ) /*!< ADC group regular sequencer enable with 15 ranks in the sequence */
 #define LL_ADC_REG_SEQ_SCAN_ENABLE_16RANKS (ADC_SQR1_L_3 | ADC_SQR1_L_2 | ADC_SQR1_L_1 | ADC_SQR1_L_0) /*!< ADC group regular sequencer enable with 16 ranks in the sequence */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1051,7 +1051,7 @@ typedef struct
   * @}
   */
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /** @defgroup ADC_LL_EC_REG_SEQ_DISCONT_MODE  ADC group regular - Sequencer discontinuous mode
   * @{
   */
@@ -1205,7 +1205,7 @@ typedef struct
 #define LL_ADC_SAMPLINGTIME_92CYCLES_5     (ADC_SMPR2_SMP10_2                     | ADC_SMPR2_SMP10_0) /*!< Sampling time 92.5 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_247CYCLES_5    (ADC_SMPR2_SMP10_2 | ADC_SMPR2_SMP10_1                    ) /*!< Sampling time 247.5 ADC clock cycles */
 #define LL_ADC_SAMPLINGTIME_640CYCLES_5    (ADC_SMPR2_SMP10_2 | ADC_SMPR2_SMP10_1 | ADC_SMPR2_SMP10_0) /*!< Sampling time 640.5 ADC clock cycles */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1219,7 +1219,7 @@ typedef struct
 #define LL_ADC_SINGLE_ENDED                (                  ADC_CALFACT_CALFACT_S)         /*!< ADC channel ending set to single ended (literal also used to set calibration mode) */
 #define LL_ADC_DIFFERENTIAL_ENDED          (ADC_CR_ADCALDIF | ADC_CALFACT_CALFACT_D)         /*!< ADC channel ending set to differential (literal also used to set calibration mode) */
 #define LL_ADC_BOTH_SINGLE_DIFF_ENDED      (LL_ADC_SINGLE_ENDED | LL_ADC_DIFFERENTIAL_ENDED) /*!< ADC channel ending set to both single ended and differential (literal used only to set calibration factors) */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1233,7 +1233,7 @@ typedef struct
 #else
 #define LL_ADC_AWD2                        (ADC_AWD_CR23_CHANNEL_MASK | ADC_AWD_CR2_REGOFFSET) /*!< ADC analog watchdog number 2 */
 #define LL_ADC_AWD3                        (ADC_AWD_CR23_CHANNEL_MASK | ADC_AWD_CR3_REGOFFSET) /*!< ADC analog watchdog number 3 */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1345,9 +1345,15 @@ typedef struct
 /** @defgroup ADC_LL_EC_AWD_THRESHOLDS  Analog watchdog - Thresholds
   * @{
   */
+#if defined (ADC_SUPPORT_2_5_MSPS)
+#define LL_ADC_AWD_THRESHOLD_HIGH          (ADC_TR_HT            )   /*!< ADC analog watchdog threshold high */
+#define LL_ADC_AWD_THRESHOLD_LOW           (            ADC_TR_LT)   /*!< ADC analog watchdog threshold low */
+#define LL_ADC_AWD_THRESHOLDS_HIGH_LOW     (ADC_TR_HT | ADC_TR_LT)   /*!< ADC analog watchdog both thresholds high and low concatenated into the same data */
+#else
 #define LL_ADC_AWD_THRESHOLD_HIGH          (ADC_TR1_HT1              ) /*!< ADC analog watchdog threshold high */
 #define LL_ADC_AWD_THRESHOLD_LOW           (              ADC_TR1_LT1) /*!< ADC analog watchdog threshold low */
 #define LL_ADC_AWD_THRESHOLDS_HIGH_LOW     (ADC_TR1_HT1 | ADC_TR1_LT1) /*!< ADC analog watchdog both thresholds high and low concatenated into the same data */
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1364,7 +1370,7 @@ typedef struct
 #define LL_ADC_OVS_GRP_REGULAR_RESUMED     (ADC_CFGR2_ROVSM |                   ADC_CFGR2_ROVSE) /*!< ADC oversampling on conversions of ADC group regular. If group injected interrupts group regular: when ADC group injected is triggered, the oversampling on ADC group regular is resumed from start (oversampler buffer reset). */
 #define LL_ADC_OVS_GRP_INJECTED            (                  ADC_CFGR2_JOVSE                  ) /*!< ADC oversampling on conversions of ADC group injected. */
 #define LL_ADC_OVS_GRP_INJ_REG_RESUMED     (                  ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSE) /*!< ADC oversampling on conversions of both ADC groups regular and injected. If group injected interrupting group regular: when ADC group injected is triggered, the oversampling on ADC group regular is resumed from start (oversampler buffer reset). */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1377,7 +1383,7 @@ typedef struct
 #define LL_ADC_OVS_REG_DISCONT             (ADC_CFGR2_TOVS)       /*!< ADC oversampling discontinuous mode: discontinuous mode (each conversion of oversampling ratio needs a trigger) */
 #else
 #define LL_ADC_OVS_REG_DISCONT             (ADC_CFGR2_TROVS)      /*!< ADC oversampling discontinuous mode: discontinuous mode (each conversion of oversampling ratio needs a trigger) */
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -1956,7 +1962,7 @@ typedef struct
    :                                                                                                      \
    (((__CHANNEL__) & ADC_CHANNEL_ID_MASK) | ADC_CFGR_JAWD1EN | ADC_CFGR_AWD1EN | ADC_CFGR_AWD1SGL)        \
   )
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @brief  Helper macro to set the value of ADC analog watchdog threshold high
@@ -2413,7 +2419,7 @@ __STATIC_INLINE void LL_ADC_SetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON, uin
   MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_PRESC, CommonClock);
 #else
   MODIFY_REG(ADCxy_COMMON->CCR, ADC_CCR_CKMODE | ADC_CCR_PRESC, CommonClock);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2447,7 +2453,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON)
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_PRESC));
 #else
   return (uint32_t)(READ_BIT(ADCxy_COMMON->CCR, ADC_CCR_CKMODE | ADC_CCR_PRESC));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2645,7 +2651,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetClock(ADC_TypeDef *ADCx)
 {
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_CKMODE));
 }
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 #if defined (ADC_SUPPORT_2_5_MSPS)
 /**
@@ -2790,7 +2796,7 @@ __STATIC_INLINE void LL_ADC_SetResolution(ADC_TypeDef *ADCx, uint32_t Resolution
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_RES, Resolution);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_RES, Resolution);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2811,7 +2817,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetResolution(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_RES));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_RES));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2835,7 +2841,7 @@ __STATIC_INLINE void LL_ADC_SetDataAlignment(ADC_TypeDef *ADCx, uint32_t DataAli
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_ALIGN, DataAlignment);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_ALIGN, DataAlignment);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2854,7 +2860,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetDataAlignment(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_ALIGN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_ALIGN));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2918,7 +2924,7 @@ __STATIC_INLINE void LL_ADC_SetLowPowerMode(ADC_TypeDef *ADCx, uint32_t LowPower
   MODIFY_REG(ADCx->CFGR1, (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF), LowPowerMode);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_AUTDLY, LowPowerMode);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -2977,7 +2983,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetLowPowerMode(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, (ADC_CFGR1_WAIT | ADC_CFGR1_AUTOFF)));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_AUTDLY));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
@@ -3023,7 +3029,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetTriggerFrequencyMode(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_LFTRIG));
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 #if defined(ADC_SUPPORT_2_5_MSPS)
 /**
   * @brief  Set sampling time common to a group of channels.
@@ -3112,7 +3118,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetSamplingTimeCommonChannels(ADC_TypeDef *ADCx,
                     >> (SamplingTimeY & ADC_SAMPLING_TIME_SMP_SHIFT_MASK));
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
 /* Feature "ADC offset" not available on ADC peripheral of this STM32WB device */
@@ -3344,7 +3350,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOffsetState(ADC_TypeDef *ADCx, uint32_t Offse
   return (uint32_t) READ_BIT(*preg, ADC_OFR1_OFFSET1_EN);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 
 /**
   * @}
@@ -3401,7 +3407,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerSource(ADC_TypeDef *ADCx, uint32_t Tri
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_EXTEN | ADC_CFGR1_EXTSEL, TriggerSource);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_EXTEN | ADC_CFGR_EXTSEL, TriggerSource);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3464,7 +3470,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerSource(ADC_TypeDef *ADCx)
            & (ADC_REG_TRIG_SOURCE_MASK >> ShiftExten) & ADC_CFGR_EXTSEL)
           | ((ADC_REG_TRIG_EDGE_MASK >> ShiftExten) & ADC_CFGR_EXTEN)
          );
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3484,7 +3490,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_IsTriggerSourceSWStart(ADC_TypeDef *ADCx)
   return ((READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN) == (LL_ADC_REG_TRIG_SOFTWARE & ADC_CFGR1_EXTEN)) ? 1UL : 0UL);
 #else
   return ((READ_BIT(ADCx->CFGR, ADC_CFGR_EXTEN) == (LL_ADC_REG_TRIG_SOFTWARE & ADC_CFGR_EXTEN)) ? 1UL : 0UL);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3508,7 +3514,7 @@ __STATIC_INLINE void LL_ADC_REG_SetTriggerEdge(ADC_TypeDef *ADCx, uint32_t Exter
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_EXTEN, ExternalTriggerEdge);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_EXTEN, ExternalTriggerEdge);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3527,7 +3533,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetTriggerEdge(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_EXTEN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_EXTEN));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
@@ -3588,7 +3594,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerConfigurable(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_CHSELRMOD));
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Set ADC group regular sequencer length and scan direction.
   * @note   Description of ADC group regular sequencer features:
@@ -3668,7 +3674,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerLength(ADC_TypeDef *ADCx, uint32_t S
   SET_BIT(ADCx->CHSELR, SequencerNbRanks);
 #else
   MODIFY_REG(ADCx->SQR1, ADC_SQR1_L, SequencerNbRanks);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3751,7 +3757,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerLength(ADC_TypeDef *ADCx)
   return SequencerLength;
 #else
   return (uint32_t)(READ_BIT(ADCx->SQR1, ADC_SQR1_L));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
@@ -3793,7 +3799,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerScanDirection(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_SCANDIR));
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Set ADC group regular sequencer discontinuous mode:
   *         sequence subdivided and scan conversions interrupted every selected
@@ -3829,7 +3835,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerDiscont(ADC_TypeDef *ADCx, uint32_t 
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_DISCEN, SeqDiscont);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_DISCEN | ADC_CFGR_DISCNUM, SeqDiscont);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3858,7 +3864,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerDiscont(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DISCEN));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_DISCEN | ADC_CFGR_DISCNUM));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -3973,7 +3979,7 @@ __STATIC_INLINE void LL_ADC_REG_SetSequencerRanks(ADC_TypeDef *ADCx, uint32_t Ra
   MODIFY_REG(*preg,
              ADC_CHANNEL_ID_NUMBER_MASK_POSBIT0 << (Rank & ADC_REG_RANK_ID_SQRX_MASK),
              ((Channel & ADC_CHANNEL_ID_NUMBER_MASK) >> ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS) << (Rank & ADC_REG_RANK_ID_SQRX_MASK));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -4077,7 +4083,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerRanks(ADC_TypeDef *ADCx, uint32_
                               ADC_CHANNEL_ID_NUMBER_MASK_POSBIT0 << (Rank & ADC_REG_RANK_ID_SQRX_MASK))
                      >> (Rank & ADC_REG_RANK_ID_SQRX_MASK)) << ADC_CHANNEL_ID_NUMBER_BITOFFSET_POS
                    );
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 #if defined(ADC_SUPPORT_2_5_MSPS)
@@ -4436,7 +4442,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetSequencerChannels(ADC_TypeDef *ADCx)
            | (((ChannelsBitfield & ADC_CHSELR_CHSEL18) >> ADC_CHSELR_CHSEL18_BITOFFSET_POS) * LL_ADC_CHANNEL_18)
          );
 }
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Set ADC continuous conversion mode on ADC group regular.
   * @note   Description of ADC continuous conversion mode:
@@ -4462,7 +4468,7 @@ __STATIC_INLINE void LL_ADC_REG_SetContinuousMode(ADC_TypeDef *ADCx, uint32_t Co
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_CONT, Continuous);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_CONT, Continuous);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -4483,7 +4489,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetContinuousMode(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_CONT));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_CONT));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -4525,7 +4531,7 @@ __STATIC_INLINE void LL_ADC_REG_SetDMATransfer(ADC_TypeDef *ADCx, uint32_t DMATr
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG, DMATransfer);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_DMAEN | ADC_CFGR_DMACFG, DMATransfer);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -4562,7 +4568,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetDMATransfer(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_DMAEN | ADC_CFGR1_DMACFG));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_DMAEN | ADC_CFGR_DMACFG));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 
@@ -4592,7 +4598,7 @@ __STATIC_INLINE void LL_ADC_REG_SetOverrun(ADC_TypeDef *ADCx, uint32_t Overrun)
   MODIFY_REG(ADCx->CFGR1, ADC_CFGR1_OVRMOD, Overrun);
 #else
   MODIFY_REG(ADCx->CFGR, ADC_CFGR_OVRMOD, Overrun);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -4610,7 +4616,7 @@ __STATIC_INLINE uint32_t LL_ADC_REG_GetOverrun(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR1, ADC_CFGR1_OVRMOD));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR, ADC_CFGR_OVRMOD));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -5461,7 +5467,7 @@ __STATIC_INLINE void LL_ADC_SetChannelSamplingTime(ADC_TypeDef *ADCx, uint32_t C
   MODIFY_REG(*preg,
              ADC_SMPR1_SMP0 << ((Channel & ADC_CHANNEL_SMPx_BITOFFSET_MASK) >> ADC_CHANNEL_SMPx_BITOFFSET_POS),
              SamplingTime   << ((Channel & ADC_CHANNEL_SMPx_BITOFFSET_MASK) >> ADC_CHANNEL_SMPx_BITOFFSET_POS));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
@@ -5628,7 +5634,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetChannelSamplingTime(ADC_TypeDef *ADCx, uint32
                              ADC_SMPR1_SMP0 << ((Channel & ADC_CHANNEL_SMPx_BITOFFSET_MASK) >> ADC_CHANNEL_SMPx_BITOFFSET_POS))
                     >> ((Channel & ADC_CHANNEL_SMPx_BITOFFSET_MASK) >> ADC_CHANNEL_SMPx_BITOFFSET_POS)
                    );
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 #endif /* ADC_SUPPORT_2_5_MSPS */
 
@@ -5888,7 +5894,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint32_t
   MODIFY_REG(*preg,
              (AWDy & ADC_AWD_CR_ALL_CHANNEL_MASK),
              AWDChannelGroup & AWDy);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6099,7 +6105,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint
   }
 
   return AnalogWDMonitChannels;
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6145,6 +6151,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDMonitChannels(ADC_TypeDef *ADCx, uint
   *         TR1      LT1            LL_ADC_ConfigAnalogWDThresholds\n
   *         TR2      LT2            LL_ADC_ConfigAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_ConfigAnalogWDThresholds
+  * @note For devices STM32WB15xx and STM32WB10xx, register ADC_TR is equivalent to ADC_TR1 (generic naming)
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -6168,16 +6175,16 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
-  MODIFY_REG(ADCx->TR1,
-             ADC_TR1_HT1 | ADC_TR1_LT1,
-             (AWDThresholdHighValue << ADC_TR1_HT1_BITOFFSET_POS) | AWDThresholdLowValue);
+  MODIFY_REG(ADCx->TR,
+             ADC_TR_HT | ADC_TR_LT,
+             (AWDThresholdHighValue << ADC_TR_HT_BITOFFSET_POS) | AWDThresholdLowValue);
 #else
   __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, ((AWDy & ADC_AWD_TRX_REGOFFSET_MASK) >> ADC_AWD_TRX_REGOFFSET_POS));
 
   MODIFY_REG(*preg,
              ADC_TR1_HT1 | ADC_TR1_LT1,
              (AWDThresholdHighValue << ADC_TR1_HT1_BITOFFSET_POS) | AWDThresholdLowValue);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6223,6 +6230,7 @@ __STATIC_INLINE void LL_ADC_ConfigAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t
   *         TR1      LT1            LL_ADC_SetAnalogWDThresholds\n
   *         TR2      LT2            LL_ADC_SetAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_SetAnalogWDThresholds
+  * @note For devices STM32WB15xx and STM32WB10xx, register ADC_TR is equivalent to ADC_TR1 (generic naming)
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -6248,7 +6256,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
-  MODIFY_REG(ADCx->TR1,
+  MODIFY_REG(ADCx->TR,
              AWDThresholdsHighLow,
              AWDThresholdValue << ((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4));
 #else
@@ -6257,7 +6265,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   MODIFY_REG(*preg,
              AWDThresholdsHighLow,
              AWDThresholdValue << ((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6277,6 +6285,7 @@ __STATIC_INLINE void LL_ADC_SetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_t AW
   *         TR1      LT1            LL_ADC_GetAnalogWDThresholds\n
   *         TR2      LT2            LL_ADC_GetAnalogWDThresholds\n
   *         TR3      LT3            LL_ADC_GetAnalogWDThresholds
+  * @note For devices STM32WB15xx and STM32WB10xx, register ADC_TR is equivalent to ADC_TR1 (generic naming)
   * @param  ADCx ADC instance
   * @param  AWDy This parameter can be one of the following values:
   *         @arg @ref LL_ADC_AWD1
@@ -6296,9 +6305,9 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
   /* Prevent unused argument(s) compilation warning */
   (void)(AWDy);
 
-  return (uint32_t)(READ_BIT(ADCx->TR1,
-                             (AWDThresholdsHighLow | ADC_TR1_LT1))
-                    >> (((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4) & ~(AWDThresholdsHighLow & ADC_TR1_LT1))
+  return (uint32_t)(READ_BIT(ADCx->TR,
+                             (AWDThresholdsHighLow | ADC_TR_LT))
+                    >> (((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4) & ~(AWDThresholdsHighLow & ADC_TR_LT))
                    );
 #else
   const __IO uint32_t *preg = __ADC_PTR_REG_OFFSET(ADCx->TR1, ((AWDy & ADC_AWD_TRX_REGOFFSET_MASK) >> ADC_AWD_TRX_REGOFFSET_POS));
@@ -6307,7 +6316,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetAnalogWDThresholds(ADC_TypeDef *ADCx, uint32_
                              (AWDThresholdsHighLow | ADC_TR1_LT1))
                     >> (((AWDThresholdsHighLow & ADC_AWD_TRX_BIT_HIGH_MASK) >> ADC_AWD_TRX_BIT_HIGH_SHIFT4) & ~(AWDThresholdsHighLow & ADC_TR1_LT1))
                    );
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6354,7 +6363,7 @@ __STATIC_INLINE void LL_ADC_SetOverSamplingScope(ADC_TypeDef *ADCx, uint32_t Ovs
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_OVSE, OvsScope);
 #else
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_ROVSE | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSM, OvsScope);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6385,7 +6394,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingScope(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_OVSE));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_ROVSE | ADC_CFGR2_JOVSE | ADC_CFGR2_ROVSM));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6416,7 +6425,7 @@ __STATIC_INLINE void LL_ADC_SetOverSamplingDiscont(ADC_TypeDef *ADCx, uint32_t O
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_TOVS, OverSamplingDiscont);
 #else
   MODIFY_REG(ADCx->CFGR2, ADC_CFGR2_TROVS, OverSamplingDiscont);
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -6439,7 +6448,7 @@ __STATIC_INLINE uint32_t LL_ADC_GetOverSamplingDiscont(ADC_TypeDef *ADCx)
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_TOVS));
 #else
   return (uint32_t)(READ_BIT(ADCx->CFGR2, ADC_CFGR2_TROVS));
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 }
 
 /**
@@ -7192,7 +7201,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Get flag ADC group regular end of unitary conversion.
   * @rmtoll ISR      EOC            LL_ADC_IsActiveFlag_EOC
@@ -7347,7 +7356,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Clear flag ADC group regular end of unitary conversion.
   * @rmtoll ISR      EOC            LL_ADC_ClearFlag_EOC
@@ -7474,7 +7483,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_EOCAL(ADC_TypeDef *ADCx)
   WRITE_REG(ADCx->ISR, LL_ADC_FLAG_EOCAL);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -7507,7 +7516,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Enable interruption ADC group regular end of unitary conversion.
   * @rmtoll IER      EOCIE          LL_ADC_EnableIT_EOC
@@ -7634,7 +7643,7 @@ __STATIC_INLINE void LL_ADC_EnableIT_EOCAL(ADC_TypeDef *ADCx)
   SET_BIT(ADCx->IER, LL_ADC_IT_EOCAL);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Disable interruption ADC ready.
   * @rmtoll IER      ADRDYIE        LL_ADC_DisableIT_ADRDY
@@ -7659,7 +7668,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Disable interruption ADC group regular end of unitary conversion.
   * @rmtoll IER      EOCIE          LL_ADC_DisableIT_EOC
@@ -7786,7 +7795,7 @@ __STATIC_INLINE void LL_ADC_DisableIT_EOCAL(ADC_TypeDef *ADCx)
   CLEAR_BIT(ADCx->IER, LL_ADC_IT_EOCAL);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Get state of interruption ADC ready
   *         (0: interrupt disabled, 1: interrupt enabled).
@@ -7812,7 +7821,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_CCRDY(ADC_TypeDef *ADCx)
 }
 
 #else
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @brief  Get state of interruption ADC group regular end of unitary conversion
   *         (0: interrupt disabled, 1: interrupt enabled).
@@ -7950,7 +7959,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsEnabledIT_EOCAL(ADC_TypeDef *ADCx)
   return ((READ_BIT(ADCx->IER, LL_ADC_IT_EOCAL) == (LL_ADC_IT_EOCAL)) ? 1UL : 0UL);
 }
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
@@ -7984,7 +7993,7 @@ void        LL_ADC_REG_StructInit(LL_ADC_REG_InitTypeDef *ADC_REG_InitStruct);
 ErrorStatus LL_ADC_INJ_Init(ADC_TypeDef *ADCx, LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 void        LL_ADC_INJ_StructInit(LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 
-#endif
+#endif /* ADC_SUPPORT_2_5_MSPS */
 /**
   * @}
   */
