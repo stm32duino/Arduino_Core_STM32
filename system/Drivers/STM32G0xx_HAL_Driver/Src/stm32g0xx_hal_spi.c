@@ -9,7 +9,17 @@
   *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -184,18 +194,6 @@
             (#) RX processes are HAL_SPI_Receive(), HAL_SPI_Receive_IT() and HAL_SPI_Receive_DMA()
             (#) TX processes are HAL_SPI_Transmit(), HAL_SPI_Transmit_IT() and HAL_SPI_Transmit_DMA()
 
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -989,7 +987,7 @@ HAL_StatusTypeDef HAL_SPI_Receive(SPI_HandleTypeDef *hspi, uint8_t *pData, uint1
 {
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
   uint32_t tickstart;
@@ -1236,7 +1234,7 @@ HAL_StatusTypeDef HAL_SPI_TransmitReceive(SPI_HandleTypeDef *hspi, uint8_t *pTxD
   __IO uint32_t tmpreg = 0U;
   uint32_t             spi_cr1;
   uint32_t             spi_cr2;
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
@@ -3020,7 +3018,7 @@ static void SPI_DMAReceiveCplt(DMA_HandleTypeDef *hdma)
   uint32_t tickstart;
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
@@ -3137,7 +3135,7 @@ static void SPI_DMATransmitReceiveCplt(DMA_HandleTypeDef *hdma)
   uint32_t tickstart;
 #if (USE_SPI_CRC != 0U)
   __IO uint32_t tmpreg = 0U;
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 #endif /* USE_SPI_CRC */
 
@@ -3514,7 +3512,7 @@ static void SPI_2linesRxISR_8BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_2linesRxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 
   /* Initialize the 8bit temporary pointer */
@@ -3689,7 +3687,7 @@ static void SPI_2linesTxISR_16BIT(struct __SPI_HandleTypeDef *hspi)
   */
 static void SPI_RxISR_8BITCRC(struct __SPI_HandleTypeDef *hspi)
 {
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 
   /* Initialize the 8bit temporary pointer */
@@ -3906,7 +3904,7 @@ static HAL_StatusTypeDef SPI_WaitFlagStateUntilTimeout(SPI_HandleTypeDef *hspi, 
         return HAL_TIMEOUT;
       }
       /* If Systick is disabled or not incremented, deactivate timeout to go in disable loop procedure */
-      if(count == 0U)
+      if (count == 0U)
       {
         tmp_timeout = 0U;
       }
@@ -3933,7 +3931,7 @@ static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, 
   __IO uint32_t count;
   uint32_t tmp_timeout;
   uint32_t tmp_tickstart;
-  __IO uint8_t  * ptmpreg8;
+  __IO uint8_t  *ptmpreg8;
   __IO uint8_t  tmpreg8 = 0;
 
   /* Adjust Timeout value  in case of end of transfer */
@@ -3988,7 +3986,7 @@ static HAL_StatusTypeDef SPI_WaitFifoStateUntilTimeout(SPI_HandleTypeDef *hspi, 
         return HAL_TIMEOUT;
       }
       /* If Systick is disabled or not incremented, deactivate timeout to go in disable loop procedure */
-      if(count == 0U)
+      if (count == 0U)
       {
         tmp_timeout = 0U;
       }
@@ -4382,4 +4380,3 @@ static void SPI_AbortTx_ISR(SPI_HandleTypeDef *hspi)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -38,14 +38,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -166,13 +164,13 @@
              on AHB bus (DMA, GPIO...).and APB (PCLK1) clock is derived
              from AHB clock through configurable prescalers and used to clock
              the peripherals mapped on these buses. You can use
-             "@ref HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
+             "HAL_RCC_GetSysClockFreq()" function to retrieve the frequencies of these clocks.
 
          -@- All the peripheral clocks are derived from the System clock (SYSCLK) except:
 
             (+@) RTC: the RTC clock can be derived either from the LSI, LSE or HSE clock
                 divided by 2 to 31.
-                You have to use @ref __HAL_RCC_RTC_ENABLE() and @ref HAL_RCCEx_PeriphCLKConfig() function
+                You have to use __HAL_RCC_RTC_ENABLE() and HAL_RCCEx_PeriphCLKConfig() function
                  to configure this clock.
 
             (+@) RNG(*) requires a frequency equal or lower than 48 MHz.
@@ -714,15 +712,6 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
         /* Disable the main PLL. */
         __HAL_RCC_PLL_DISABLE();
 
-        /* Disable all PLL outputs to save power */
-        MODIFY_REG(RCC->PLLCFGR, RCC_PLLCFGR_PLLSRC, PLLSOURCE_NONE);
-
-#if defined(RCC_PLLQ_SUPPORT)
-        __HAL_RCC_PLLCLKOUT_DISABLE(RCC_PLLCFGR_PLLPEN | RCC_PLLCFGR_PLLQEN | RCC_PLLCFGR_PLLREN);
-#else
-        __HAL_RCC_PLLCLKOUT_DISABLE(RCC_PLLCFGR_PLLPEN | RCC_PLLCFGR_PLLREN);
-#endif /* RCC_PLLQ_SUPPORT */
-
         /* Get Start Tick*/
         tickstart = HAL_GetTick();
 
@@ -734,6 +723,12 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *RCC_OscInitStruct)
             return HAL_TIMEOUT;
           }
         }
+        /* Unselect main PLL clock source and disable main PLL outputs to save power */
+#if defined(RCC_PLLQ_SUPPORT)
+        RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLSRC | RCC_PLLCFGR_PLLPEN | RCC_PLLCFGR_PLLQEN | RCC_PLLCFGR_PLLREN);
+#else
+        RCC->PLLCFGR &= ~(RCC_PLLCFGR_PLLSRC | RCC_PLLCFGR_PLLPEN | RCC_PLLCFGR_PLLREN);
+#endif /* RCC_PLLQ_SUPPORT */
       }
     }
     else
@@ -1454,4 +1449,3 @@ uint32_t HAL_RCC_GetResetSource(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

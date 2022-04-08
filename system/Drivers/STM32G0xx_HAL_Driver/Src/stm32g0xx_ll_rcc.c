@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 #if defined(USE_FULL_LL_DRIVER)
@@ -453,7 +451,10 @@ uint32_t LL_RCC_GetI2SClockFreq(uint32_t I2SxSource)
       case LL_RCC_I2S1_CLKSOURCE_PLL:    /* I2S1 Clock is PLL"P" */
         if (LL_RCC_PLL_IsReady() == 1U)
         {
-          i2s_frequency = RCC_PLL_GetFreqDomain_I2S1();
+         if (LL_RCC_PLL_IsEnabledDomain_I2S1() == 1U)
+         {
+           i2s_frequency = RCC_PLL_GetFreqDomain_I2S1();
+         }
         }
         break;
 
@@ -481,7 +482,10 @@ uint32_t LL_RCC_GetI2SClockFreq(uint32_t I2SxSource)
       case LL_RCC_I2S2_CLKSOURCE_PLL:    /* I2S2 Clock is PLL"P" */
         if (LL_RCC_PLL_IsReady() == 1U)
         {
-          i2s_frequency = RCC_PLL_GetFreqDomain_I2S2();
+         if (LL_RCC_PLL_IsEnabledDomain_I2S2() == 1U)
+         {
+           i2s_frequency = RCC_PLL_GetFreqDomain_I2S2();
+         }
         }
         break;
 
@@ -698,7 +702,10 @@ uint32_t LL_RCC_GetTIMClockFreq(uint32_t TIMxSource)
       case LL_RCC_TIM1_CLKSOURCE_PLL:    /* TIM1 Clock is PLLQ */
         if (LL_RCC_PLL_IsReady() == 1U)
         {
-          tim_frequency = RCC_PLL_GetFreqDomain_TIM1();
+         if (LL_RCC_PLL_IsEnabledDomain_TIM1() == 1U)
+         {
+           tim_frequency = RCC_PLL_GetFreqDomain_TIM1();
+         }
         }
         break;
 
@@ -719,7 +726,10 @@ uint32_t LL_RCC_GetTIMClockFreq(uint32_t TIMxSource)
         case LL_RCC_TIM15_CLKSOURCE_PLL:    /* TIM1 Clock is PLLQ */
           if (LL_RCC_PLL_IsReady() == 1U)
           {
-            tim_frequency = RCC_PLL_GetFreqDomain_TIM15();
+           if (LL_RCC_PLL_IsEnabledDomain_TIM15() == 1U)
+           {
+             tim_frequency = RCC_PLL_GetFreqDomain_TIM15();
+           }
           }
           break;
 
@@ -759,9 +769,12 @@ uint32_t LL_RCC_GetRNGClockFreq(uint32_t RNGxSource)
     case LL_RCC_RNG_CLKSOURCE_PLL:           /* PLL clock used as RNG clock source */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        rng_frequency = RCC_PLL_GetFreqDomain_RNG();
-        rngdiv = (1UL << ((READ_BIT(RCC->CCIPR, RCC_CCIPR_RNGDIV)) >> RCC_CCIPR_RNGDIV_Pos));
-        rng_frequency = (rng_frequency / rngdiv);
+        if (LL_RCC_PLL_IsEnabledDomain_RNG() == 1U)
+        {
+          rng_frequency = RCC_PLL_GetFreqDomain_RNG();
+          rngdiv = (1UL << ((READ_BIT(RCC->CCIPR, RCC_CCIPR_RNGDIV)) >> RCC_CCIPR_RNGDIV_Pos));
+          rng_frequency = (rng_frequency / rngdiv);
+        }
       }
       break;
 
@@ -846,7 +859,10 @@ uint32_t LL_RCC_GetFDCANClockFreq(uint32_t FDCANxSource)
     case LL_RCC_FDCAN_CLKSOURCE_PLL:    /* FDCAN Clock is PLL "Q"  Osc. */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        fdcan_frequency = RCC_PLL_GetFreqDomain_FDCAN();
+        if (LL_RCC_PLL_IsEnabledDomain_FDCAN() == 1U)
+        {
+          fdcan_frequency = RCC_PLL_GetFreqDomain_FDCAN();
+        }
       }
       break;
 
@@ -895,7 +911,10 @@ uint32_t LL_RCC_GetADCClockFreq(uint32_t ADCxSource)
     case LL_RCC_ADC_CLKSOURCE_PLL:         /* PLLP clock used as ADC clock source */
       if (LL_RCC_PLL_IsReady() == 1U)
       {
-        adc_frequency = RCC_PLL_GetFreqDomain_ADC();
+        if (LL_RCC_PLL_IsEnabledDomain_ADC() == 1U)
+        {
+          adc_frequency = RCC_PLL_GetFreqDomain_ADC();
+        }
       }
       break;
     default:
@@ -984,7 +1003,10 @@ uint32_t LL_RCC_GetUSBClockFreq(uint32_t USBxSource)
     case LL_RCC_USB_CLKSOURCE_PLL:           /* PLL clock used as USB clock source */
       if (LL_RCC_PLL_IsReady() != 0U)
       {
-        usb_frequency = RCC_PLL_GetFreqDomain_USB();
+        if (LL_RCC_PLL_IsEnabledDomain_USB() != 0U)
+        {
+          usb_frequency = RCC_PLL_GetFreqDomain_USB();
+        }
       }
       break;
 
@@ -1355,4 +1377,3 @@ static uint32_t RCC_PLL_GetFreqDomain_TIM15(void)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
