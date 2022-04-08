@@ -297,5 +297,3 @@ g_pfnVectors:
 
   .weak      AES_RNG_IRQHandler
   .thumb_set AES_RNG_IRQHandler,Default_Handler
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

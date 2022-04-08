@@ -283,5 +283,3 @@ g_pfnVectors:
 
   .weak      USART3_4_5_6_IRQHandler
   .thumb_set USART3_4_5_6_IRQHandler,Default_Handler
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
