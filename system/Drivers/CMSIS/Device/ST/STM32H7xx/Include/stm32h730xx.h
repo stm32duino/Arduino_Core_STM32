@@ -2892,6 +2892,9 @@ typedef struct
 #define ADC_ISR_JQOVF_Pos                 (10U)
 #define ADC_ISR_JQOVF_Msk                 (0x1UL << ADC_ISR_JQOVF_Pos)         /*!< 0x00000400 */
 #define ADC_ISR_JQOVF                     ADC_ISR_JQOVF_Msk                    /*!< ADC Injected Context Queue Overflow flag */
+#define ADC_ISR_LDORDY_Pos                (12U)
+#define ADC_ISR_LDORDY_Msk                (0x1UL << ADC_ISR_LDORDY_Pos)        /*!< 0x00001000 */
+#define ADC_ISR_LDORDY                    ADC_ISR_LDORDY_Msk                   /*!< ADC LDO output voltage ready bit */
 
 /********************  Bit definition for ADC_IER register  ********************/
 #define ADC_IER_ADRDYIE_Pos               (0U)
@@ -20835,9 +20838,6 @@ typedef struct
 #define OCTOSPI_DCR1_DLYBYP_Pos        (3U)
 #define OCTOSPI_DCR1_DLYBYP_Msk        (0x1UL << OCTOSPI_DCR1_DLYBYP_Pos)       /*!< 0x00000008 */
 #define OCTOSPI_DCR1_DLYBYP            OCTOSPI_DCR1_DLYBYP_Msk                 /*!< Delay Block */
-#define OCTOSPI_DCR1_CKCSHT_Pos        (4U)
-#define OCTOSPI_DCR1_CKCSHT_Msk        (0x7UL << OCTOSPI_DCR1_CKCSHT_Pos)       /*!< 0x00000070 */
-#define OCTOSPI_DCR1_CKCSHT            OCTOSPI_DCR1_CKCSHT_Msk                 /*!< Clocked Chip Select High Time */
 #define OCTOSPI_DCR1_CSHT_Pos          (8U)
 #define OCTOSPI_DCR1_CSHT_Msk          (0x7UL << OCTOSPI_DCR1_CSHT_Pos)         /*!< 0x00000700 */
 #define OCTOSPI_DCR1_CSHT              OCTOSPI_DCR1_CSHT_Msk                   /*!< Chip Select High Time */
@@ -20850,6 +20850,11 @@ typedef struct
 #define OCTOSPI_DCR1_MTYP_0            (0x1UL << OCTOSPI_DCR1_MTYP_Pos)         /*!< 0x01000000 */
 #define OCTOSPI_DCR1_MTYP_1            (0x2UL << OCTOSPI_DCR1_MTYP_Pos)         /*!< 0x02000000 */
 #define OCTOSPI_DCR1_MTYP_2            (0x4UL << OCTOSPI_DCR1_MTYP_Pos)         /*!< 0x04000000 */
+
+/* Legacy define */
+#define OCTOSPI_DCR1_CKCSHT_Pos        (4U)
+#define OCTOSPI_DCR1_CKCSHT_Msk        (0x7UL << OCTOSPI_DCR1_CKCSHT_Pos)       /*!< 0x00000070 */
+#define OCTOSPI_DCR1_CKCSHT            OCTOSPI_DCR1_CKCSHT_Msk                 /*!< Clocked Chip Select High Time */
 
 /****************  Bit definition for OCTOSPI_DCR2 register  ******************/
 #define OCTOSPI_DCR2_PRESCALER_Pos     (0U)

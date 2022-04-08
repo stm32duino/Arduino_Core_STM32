@@ -5,39 +5,49 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32H7xx CMSIS</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="_htmresc/mini-st.css" />
+  <link rel="stylesheet" href="_htmresc/mini-st_2020.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
+  <link rel="icon" type="image/x-icon" href="_htmresc/favicon.png" />
 </head>
 <body>
 <div class="row">
 <div class="col-sm-12 col-lg-4">
-<div class="card fluid">
-<div class="sectione dark">
 <center>
-<h1 id="release-notes-for-stm32h7xx-cmsis"><strong>Release Notes for STM32H7xx CMSIS</strong></h1>
+<h1 id="release-notes-for-stm32h7xx-cmsis">Release Notes for <mark> STM32H7xx CMSIS </mark></h1>
 <p>Copyright © 2017 STMicroelectronics<br />
 </p>
-<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo.png" alt="ST logo" /></a>
+<a href="https://www.st.com" class="logo"><img src="_htmresc/st_logo_2020.png" alt="ST logo" /></a>
 </center>
 </div>
-</div>
-</div>
-<section id="update-history" class="col-sm-12 col-lg-8">
-<h1><strong>Update History</strong></h1>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section13" checked aria-hidden="true"> <label for="collapse-section13" aria-hidden="true"><strong>V1.10.1 / 06-December-2021</strong></label>
+<input type="checkbox" id="collapse-section14" checked aria-hidden="true"> <label for="collapse-section14" aria-hidden="true"><strong>V1.10.2 / 12-February-2022</strong></label>
+<div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements</li>
+<li>Add support for ADC LDO output voltage ready bit.</li>
+<li>Remove useless OCTOSPI_DCR1_CKCSHT definition: alignment with the reference manual</li>
+<li>All system_stm32h7xx.c template files
+<ul>
+<li>Update VTOR configuration to be modified by user</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true"><strong>V1.10.1 / 06-December-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>All source files: update disclaimer to add reference to the new license agreement.</li>
@@ -59,9 +69,11 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true"><strong>V1.10.0 / 12-February-2021</strong></label>
-<h2 id="main-changes-1">Main Changes</h2>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li>Fix minor issues related to English typo in comments of registers and fields description</li>
 <li>Update STM32H7 devices header files to add GPV registers definition, base address and instance</li>
@@ -75,33 +87,35 @@
 <li>Update MDK-ARM template scatter files for dual core devices to fix a typo within the IRAM1 section</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section11" aria-hidden="true"> <label for="collapse-section11" aria-hidden="true"><strong>V1.9.0 / 29-May-2020</strong></label>
-<h2 id="main-changes-2">Main Changes</h2>
+<div>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
-<li><p>Add support of stm32h723xx, stm32h725xx, stm32h733xx, stm32h735xx, stm32h730xx and stm32h730xxQ devices:</p>
+<li>Add support of stm32h723xx, stm32h725xx, stm32h733xx, stm32h735xx, stm32h730xx and stm32h730xxQ devices:
 <ul>
 <li>Add “stm32h723xx.h” , “stm32h725xx.h”, “stm32h733xx.h”, “stm32h735xx.h”, “stm32h730xx.h” and “stm32h730xxq.h” files</li>
 <li>Add startup files “startup_stm32h723xx.s”, “startup_stm32h725xx.s”, “startup_stm32h733xx.s”, “startup_stm32h735xx.s”, “startup_stm32h730xx.s” and “startup_stm32h730xxq.s” for EWARM , MDK-ARM and GCC toolchains</li>
 <li>Add part numbers list to stm32h7xx.h header file:
 <ul>
-<li><p>STM32H723xx: STM32H723VGH6, STM32H723VGT6, STM32H723ZGI6, STM32H723ZGT6, STM32H723VET6, STM32H723VEH6, STM32H723ZET6, STM32H723ZEI6 Devices</p></li>
-<li><p>STM32H725xx: STM32H725AGI6, STM32H725IGK6, STM32H725IGT6, STM32H725RGV6, STM32H725VGT6, STM32H725VGY6, STM32H725ZGT6, STM32H725REV6, SM32H725VET6, STM32H725ZET6, STM32H725AEI6, STM32H725IET6, STM32H725IEK6 Devices</p></li>
-<li><p>STM32H733xx: STM32H733VGH6, STM32H733VGT6, STM32H733ZGI6, STM32H733ZGT6, Devices</p></li>
-<li><p>STM32H735xx: STM32H735AGI6, STM32H735IGK6, STM32H735RGV6, STM32H735VGT6, STM32H735VGY6, STM32H735ZGT6 Devices</p></li>
-<li><p>STM32H730xx: STM32H730VBH6, STM32H730VBT6, STM32H730ZBT6, STM32H730ZBI6 Devices</p></li>
+<li>STM32H723xx: STM32H723VGH6, STM32H723VGT6, STM32H723ZGI6, STM32H723ZGT6, STM32H723VET6, STM32H723VEH6, STM32H723ZET6, STM32H723ZEI6 Devices</li>
+<li>STM32H725xx: STM32H725AGI6, STM32H725IGK6, STM32H725IGT6, STM32H725RGV6, STM32H725VGT6, STM32H725VGY6, STM32H725ZGT6, STM32H725REV6, SM32H725VET6, STM32H725ZET6, STM32H725AEI6, STM32H725IET6, STM32H725IEK6 Devices</li>
+<li>STM32H733xx: STM32H733VGH6, STM32H733VGT6, STM32H733ZGI6, STM32H733ZGT6, Devices</li>
+<li>STM32H735xx: STM32H735AGI6, STM32H735IGK6, STM32H735RGV6, STM32H735VGT6, STM32H735VGY6, STM32H735ZGT6 Devices</li>
+<li>STM32H730xx: STM32H730VBH6, STM32H730VBT6, STM32H730ZBT6, STM32H730ZBI6 Devices</li>
 <li><p>STM32H730xxQ: STM32H730IBT6Q, STM32H730ABI6Q, STM32H730IBK6Q Devices</p></li>
-<li><p>Add EWARM STM32H723xx, STM32H725xx, STM32H733xx, STM32H735xx, STM32H730xx and STM32H730xxQ devices linker files (1MB flash) for EWARM toolchain</p></li>
+<li>Add EWARM STM32H723xx, STM32H725xx, STM32H733xx, STM32H735xx, STM32H730xx and STM32H730xxQ devices linker files (1MB flash) for EWARM toolchain</li>
 <li><p>Add EWARM STM32H723xE and STM32H725xE devices linker files (<strong>Subset 512KB flash</strong>) for EWARM toolchain</p></li>
 </ul></li>
 <li>Note : <strong>stm32h730xx</strong> and <strong>stm32h730xxQ</strong> are <strong>Value line</strong> devices with 128KB flash:</li>
 </ul></li>
-<li><p>Update STM32H7 devices header files:</p>
+<li>Update STM32H7 devices header files:
 <ul>
 <li>Fix FDCAN_ECR_TEC_Msk definition (8 bits bit field instead of 4)</li>
 <li>Fix IS_SMBUS_INSTANCE macro definition with the right instances list for each STM32H7 line</li>
 </ul></li>
-<li><p>Update system_stm32h7xx.c, system_stm32h7xx_dualcore_boot_cm4_cm7.c, system_stm32h7xx_dualcore_bootcm4_cm7gated.c, system_stm32h7xx_dualcore_bootcm7_cm4gated.c and system_stm32h7xx_singlecore.c files to:</p>
+<li>Update system_stm32h7xx.c, system_stm32h7xx_dualcore_boot_cm4_cm7.c, system_stm32h7xx_dualcore_bootcm4_cm7gated.c, system_stm32h7xx_dualcore_bootcm7_cm4gated.c and system_stm32h7xx_singlecore.c files to:
 <ul>
 <li>Add Flash latency settings depending of the previous CPU frequency (Increasing or decreasing the CPU frequency)<br />
 </li>
@@ -112,28 +126,30 @@
 </li>
 </ul></li>
 </ul></li>
-<li><p>Update system_stm32h7xx.c, system_stm32h7xx_dualcore_boot_cm4_cm7.c, system_stm32h7xx_dualcore_bootcm4_cm7gated.c and system_stm32h7xx_dualcore_bootcm7_cm4gated.c to:</p>
+<li>Update system_stm32h7xx.c, system_stm32h7xx_dualcore_boot_cm4_cm7.c, system_stm32h7xx_dualcore_bootcm4_cm7gated.c and system_stm32h7xx_dualcore_bootcm7_cm4gated.c to:
 <ul>
 <li>Use D2_AXISRAM_BASE for Coretx-M4 VTOR when executing from RAM instead of D2_AHBSRAM_BASE
 <ul>
 <li>Note: both addresses are aliases to the same D2 domain physical RAM. D2_AXISRAM_BASE (<span class="citation" data-cites="0x10000000">@0x10000000</span>) gives access to the RAM with access using Instruction bus (I), where D2_AHBSRAM_BASE(<span class="citation" data-cites="0x30000000">@0x30000000</span>) gives access to the RAM with access using Data bus. thus when executing from this D2 RAM it is recommended to use D2_AXISRAM_BASE alias so the execution scheme respects the Harvard architecture (One bus for data and one bus for instructions).</li>
 </ul></li>
 </ul></li>
-<li><p>Update system_stm32h7xx.c and system_stm32h7xx_dualcore_boot_cm4_cm7.c to:</p>
+<li>Update system_stm32h7xx.c and system_stm32h7xx_dualcore_boot_cm4_cm7.c to:
 <ul>
 <li>Fix usage of SCB-&gt;SCR register: SEVONPEND enabled so that an interrupt generated by the other CPU triggers an event and wakes up the current CPU after a WFI/WFE instruction even if the interrupt is disabled</li>
 </ul></li>
-<li><p>Add EWARM, linker files for STM32H742xG and STM32H743xG devices coming with 1MB flash: 512KB for each bank</p></li>
+<li>Add EWARM, linker files for STM32H742xG and STM32H743xG devices coming with 1MB flash: 512KB for each bank</li>
 <li><p>Add EWARM, MDK-ARM and GCC linker files for STM32H745xG and STM32H747xG devices coming with 1MB flash: 512KB for each bank</p></li>
-<li><p>Update GCC startup files for all devices to align sequence to EWARM/MDK-ARM by calling “SystemInit” prior to any memory access</p>
+<li>Update GCC startup files for all devices to align sequence to EWARM/MDK-ARM by calling “SystemInit” prior to any memory access
 <ul>
 <li>Allowing to avoid issues when using external memories</li>
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.8.0 / 14-February-2020</strong></label>
-<h2 id="main-changes-3">Main Changes</h2>
+<div>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to align Bits and registers definitions with the STM32H7 reference manual</li>
 <li>Update “ErrorStatus” enumeration definition in stm32h7xx.h file with SUCCESS set to numerical value zero</li>
@@ -150,12 +166,14 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.7.0 / 06-December-2019</strong></label>
-<h2 id="main-changes-4">Main Changes</h2>
+<div>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
 <li><p>General updates to align Bit and registers definition with the STM32H7 reference manual</p></li>
-<li><p>Add support of stm32h7A3xx, stm32h7A3xxQ, stm32h7B3xx, stm32h7B3xxQ, stm32h7B0xx and stm32h7B0xxQ devices:</p>
+<li>Add support of stm32h7A3xx, stm32h7A3xxQ, stm32h7B3xx, stm32h7B3xxQ, stm32h7B0xx and stm32h7B0xxQ devices:
 <ul>
 <li>Add “stm32h7a3xx.h”, “stm32h7a3xxq.h”, “stm32h7b3xx.h”, “stm32h7b3xxq.h”, “stm32h7b0xx.h” and “stm32h7b0xxq.h” files</li>
 <li>Add startup files “startup_stm32h7a3xx.s”, “startup_stm32h7a3xxq.s”, “startup_stm32h7b3xx.s”, “startup_stm32h7b3xxq.s”, “startup_stm32h7b0xx.s” and “startup_stm32h7b0xxq.s” for EWARM , MDK-ARM and STM32CubeIDE toolchains</li>
@@ -168,19 +186,21 @@
 <li>STM32H7B0xx : STM32H7B0ABIxQ, STM32H7B0IBTx, STM32H7B0RBTx, STM32H7B0VBTx, STM32H7B0ZBTx, STM32H7B0IBKxQ</li>
 </ul></li>
 </ul></li>
-<li><p>Update DMA2D bits definitions: Update to support Line offset mode and swap bytes features</p>
+<li>Update DMA2D bits definitions: Update to support Line offset mode and swap bytes features
 <ul>
 <li>Add CR_LOM (Line Ofset Mode) bit definition, Add OPFCCR_SB (Swap Bytes) bit definition</li>
 <li>Update CR_MODE, FGOR_LO, BGOR_LO and OOR_LO bit definition</li>
 </ul></li>
-<li><p>Update USB_OTG_GAHBCFG bit definition: to be aligned with LL_USB usage</p></li>
+<li>Update USB_OTG_GAHBCFG bit definition: to be aligned with LL_USB usage</li>
 <li><p>Add USB_OTG_DOEPMSK_AHBERRM, USB_OTG_DOEPMSK_BERRM, USB_OTG_DOEPMSK_NAKM, USB_OTG_DOEPMSK_NYETM, USB_OTG_DIEPINT_AHBERR, USB_OTG_DIEPINT_INEPNM, USB_OTG_DOEPINT_AHBERR, USB_OTG_DOEPINT_OUTPKTERR, USB_OTG_DOEPINT_BERR, USB_OTG_DOEPINT_NAK and USB_OTG_DOEPINT_STPKTRX bit definitions</p></li>
 <li><p>Update IS_TIM_REMAP_INSTANCE and IS_TIM_SYNCHRO_INSTANCE macro implementation</p></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section8" aria-hidden="true"> <label for="collapse-section8" aria-hidden="true"><strong>V1.6.0 / 28-June-2019</strong></label>
-<h2 id="main-changes-5">Main Changes</h2>
+<div>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
 <li>Add definition of “ART_TypeDef” structure: ART accelerator for Cortex-M4 available in Dual Core devices</li>
 <li>Add definition of “ART” instance: pointer to “ART_TypeDef” structure</li>
@@ -191,9 +211,11 @@
 <li>Remove useless definition of “SDMMC” instance (keep only definitions of “SDMMC1” and “SDMMC2”)</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
-<h2 id="main-changes-6">Main Changes</h2>
+<div>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>General updates to align Bit and registers definition with the STM32H7 reference manual</li>
 <li>Updates to aligned with STM32H7xx <strong>rev.V</strong> devices</li>
@@ -203,22 +225,22 @@
 <li>Add startup files “startup_stm32h745xx.s”, “startup_stm32h747xx.s”, “startup_stm32h755xx.s”, “startup_stm32h757xx.s” and “startup_stm32h742xx.s” for EWARM , MDK-ARM and SW4STM32 toolchains</li>
 <li>Add part numbers list to stm32h7xx.h header file:
 <ul>
-<li><p>STM32H742xx: STM32H742VI, STM32H742ZI, STM32H742AI, STM32H742II, STM32H742BI, STM32H742XI</p></li>
-<li><p>STM32H743xx: STM32H743VI, STM32H743ZI, STM32H743AI, STM32H743II, STM32H743BI, STM32H743XI</p></li>
-<li><p>STM32H753xx: STM32H753VI, STM32H753ZI, STM32H753AI, STM32H753II, STM32H753BI, STM32H753XI</p></li>
-<li><p>STM32H750xx: STM32H750V, STM32H750I, STM32H750X</p></li>
-<li><p>STM32H747xx: STM32H747ZI, STM32H747AI, STM32H747II, STM32H747BI, STM32H747XI</p></li>
-<li><p>STM32H757xx: STM32H757ZI, STM32H757AI, STM32H757II, STM32H757BI, STM32H757XI</p></li>
-<li><p>STM32H745xx: STM32H745ZI, STM32H745II, STM32H745BI, STM32H745XI</p></li>
+<li>STM32H742xx: STM32H742VI, STM32H742ZI, STM32H742AI, STM32H742II, STM32H742BI, STM32H742XI</li>
+<li>STM32H743xx: STM32H743VI, STM32H743ZI, STM32H743AI, STM32H743II, STM32H743BI, STM32H743XI</li>
+<li>STM32H753xx: STM32H753VI, STM32H753ZI, STM32H753AI, STM32H753II, STM32H753BI, STM32H753XI</li>
+<li>STM32H750xx: STM32H750V, STM32H750I, STM32H750X</li>
+<li>STM32H747xx: STM32H747ZI, STM32H747AI, STM32H747II, STM32H747BI, STM32H747XI</li>
+<li>STM32H757xx: STM32H757ZI, STM32H757AI, STM32H757II, STM32H757BI, STM32H757XI</li>
+<li>STM32H745xx: STM32H745ZI, STM32H745II, STM32H745BI, STM32H745XI</li>
 <li><p>STM32H755xx: STM32H755ZI, STM32H755II, STM32H755BI, STM32H755XI</p></li>
-<li><p>Add system_stm32h7xx_singlecore.c : system initialization template source file for single core lines (STM32H743xx, STM32H753xx, STM32H750xx and STM32H742xx)</p></li>
-<li><p>Add system initialization template source file for dual core lines:</p>
+<li>Add system_stm32h7xx_singlecore.c : system initialization template source file for single core lines (STM32H743xx, STM32H753xx, STM32H750xx and STM32H742xx)</li>
+<li>Add system initialization template source file for dual core lines:
 <ul>
 <li>system_stm32h7xx_dualcore_boot_cm4_cm7.c: template for the boot case where Cortex-M7 and Cortex-M4 are boot at once</li>
 <li>system_stm32h7xx_dualcore_bootcm7_cm4gated.c: template for the boot case where Cortex-M7 is booting and Cortex-M4 is gated using FLASH Option Bytes</li>
 <li>system_stm32h7xx_dualcore_bootcm4_cm7gated.c: template for the boot case where Cortex-M4 is booting and Cortex-M7 is gated using FLASH Option Bytes</li>
 </ul></li>
-<li><p>Add EWARM, MDK-ARM and SW4STM32 <strong>Dual Core</strong> devices linker files</p></li>
+<li>Add EWARM, MDK-ARM and SW4STM32 <strong>Dual Core</strong> devices linker files</li>
 <li><p>Add EWARM STM32H742xx devices linker files</p></li>
 </ul></li>
 </ul></li>
@@ -253,9 +275,11 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.3.1 / 31-January-2019</strong></label>
-<h2 id="main-changes-7">Main Changes</h2>
+<div>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li><strong>Patch Release on top of V1.3.0</strong></li>
 <li>Add Definition of UID_BASE ( Unique device ID register base address) to the STM32H7xx include files:
@@ -264,9 +288,11 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 30-November-2018</strong></label>
-<h2 id="main-changes-8">Main Changes</h2>
+<div>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>STM32H7xx include files:
 <ul>
@@ -307,9 +333,11 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 29-June-2018</strong></label>
-<h2 id="main-changes-9">Main Changes</h2>
+<div>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>Add support for stm32h750xx value line devices:
 <ul>
@@ -318,30 +346,37 @@
 </ul></li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section3"  aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 29-December-2017</strong></label>
-<h2 id="main-changes-10">Main Changes</h2>
+<div>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>Update FDCAN bit definition</li>
 <li>Update SystemCoreClockUpdate() function in system_stm32h7xx.c file to use direct register access</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 31-August-2017</strong></label>
-<h2 id="main-changes-11">Main Changes</h2>
+<div>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>Update USB OTG bit definition</li>
 <li>Adjust PLL fractional computation</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 21-April-2017</strong></label>
-<h2 id="main-changes-12">Main Changes</h2>
+<div>
+<h2 id="main-changes-13">Main Changes</h2>
 <ul>
 <li>First official release for <strong>STM32H743xx/753xx</strong> devices</li>
 </ul>
 </div>
-</section>
+</div>
+</div>
 </div>
 <footer class="sticky">
 For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span>
