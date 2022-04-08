@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32u575xx.s
+  * @file      startup_stm32u5a9xx.s
   * @author    MCD Application Team
-  * @brief     STM32U575xx devices vector table GCC toolchain.
+  * @brief     STM32U5A9xx devices vector table GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -15,7 +15,7 @@
   *******************************************************************************
   * @attention
   *
-  * Copyright (c) 2021 STMicroelectronics.
+  * Copyright (c) 2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -171,7 +171,7 @@ g_pfnVectors:
 	.word	EXTI14_IRQHandler
 	.word	EXTI15_IRQHandler
 	.word	IWDG_IRQHandler
-	.word	0
+	.word	SAES_IRQHandler
 	.word	GPDMA1_Channel0_IRQHandler
 	.word	GPDMA1_Channel1_IRQHandler
 	.word	GPDMA1_Channel2_IRQHandler
@@ -180,7 +180,7 @@ g_pfnVectors:
 	.word	GPDMA1_Channel5_IRQHandler
 	.word	GPDMA1_Channel6_IRQHandler
 	.word	GPDMA1_Channel7_IRQHandler
-	.word	ADC1_IRQHandler
+	.word	ADC1_2_IRQHandler
 	.word	DAC1_IRQHandler
 	.word	FDCAN1_IT0_IRQHandler
 	.word	FDCAN1_IT1_IRQHandler
@@ -216,7 +216,7 @@ g_pfnVectors:
 	.word	TIM16_IRQHandler
 	.word	TIM17_IRQHandler
 	.word	COMP_IRQHandler
-	.word	OTG_FS_IRQHandler
+	.word	OTG_HS_IRQHandler
 	.word	CRS_IRQHandler
 	.word	FMC_IRQHandler
 	.word	OCTOSPI1_IRQHandler
@@ -236,11 +236,11 @@ g_pfnVectors:
 	.word	SAI1_IRQHandler
 	.word	SAI2_IRQHandler
 	.word	TSC_IRQHandler
-	.word	0
+	.word	AES_IRQHandler
 	.word	RNG_IRQHandler
 	.word	FPU_IRQHandler
 	.word	HASH_IRQHandler
-	.word	0
+	.word	PKA_IRQHandler
 	.word	LPTIM3_IRQHandler
 	.word	SPI3_IRQHandler
 	.word	I2C4_ER_IRQHandler
@@ -251,8 +251,8 @@ g_pfnVectors:
 	.word	MDF1_FLT3_IRQHandler
 	.word	UCPD1_IRQHandler
 	.word	ICACHE_IRQHandler
-	.word	0
-	.word	0
+	.word	OTFDEC1_IRQHandler
+	.word	OTFDEC2_IRQHandler
 	.word	LPTIM4_IRQHandler
 	.word	DCACHE1_IRQHandler
 	.word	ADF1_IRQHandler
@@ -268,7 +268,20 @@ g_pfnVectors:
 	.word	MDF1_FLT5_IRQHandler
 	.word	CORDIC_IRQHandler
 	.word	FMAC_IRQHandler
-
+	.word	0
+	.word	USART6_IRQHandler
+	.word	I2C5_ER_IRQHandler
+	.word	I2C5_EV_IRQHandler
+	.word	I2C6_ER_IRQHandler
+	.word	I2C6_EV_IRQHandler
+	.word	HSPI1_IRQHandler
+	.word	GPU2D_IRQHandler
+	.word	GPU2D_ER_IRQHandler
+	.word	GFXMMU_IRQHandler
+	.word	LTDC_IRQHandler
+	.word	LTDC_ER_IRQHandler
+	.word	DSI_IRQHandler
+	.word	DCACHE2_IRQHandler
 
 /*******************************************************************************
 *
@@ -392,6 +405,9 @@ g_pfnVectors:
 	.weak	IWDG_IRQHandler
 	.thumb_set IWDG_IRQHandler,Default_Handler
 
+	.weak	SAES_IRQHandler
+	.thumb_set SAES_IRQHandler,Default_Handler
+
 	.weak	GPDMA1_Channel0_IRQHandler
 	.thumb_set GPDMA1_Channel0_IRQHandler,Default_Handler
 
@@ -416,8 +432,8 @@ g_pfnVectors:
 	.weak	GPDMA1_Channel7_IRQHandler
 	.thumb_set GPDMA1_Channel7_IRQHandler,Default_Handler
 
-	.weak	ADC1_IRQHandler
-	.thumb_set ADC1_IRQHandler,Default_Handler
+	.weak	ADC1_2_IRQHandler
+	.thumb_set ADC1_2_IRQHandler,Default_Handler
 
 	.weak	DAC1_IRQHandler
 	.thumb_set DAC1_IRQHandler,Default_Handler
@@ -524,8 +540,8 @@ g_pfnVectors:
 	.weak	COMP_IRQHandler
 	.thumb_set COMP_IRQHandler,Default_Handler
 
-	.weak	OTG_FS_IRQHandler
-	.thumb_set OTG_FS_IRQHandler,Default_Handler
+	.weak	OTG_HS_IRQHandler
+	.thumb_set OTG_HS_IRQHandler,Default_Handler
 
 	.weak	CRS_IRQHandler
 	.thumb_set CRS_IRQHandler,Default_Handler
@@ -584,6 +600,9 @@ g_pfnVectors:
 	.weak	TSC_IRQHandler
 	.thumb_set TSC_IRQHandler,Default_Handler
 
+	.weak	AES_IRQHandler
+	.thumb_set AES_IRQHandler,Default_Handler
+
 	.weak	RNG_IRQHandler
 	.thumb_set RNG_IRQHandler,Default_Handler
 
@@ -592,6 +611,9 @@ g_pfnVectors:
 
 	.weak	HASH_IRQHandler
 	.thumb_set HASH_IRQHandler,Default_Handler
+
+	.weak	PKA_IRQHandler
+	.thumb_set PKA_IRQHandler,Default_Handler
 
 	.weak	LPTIM3_IRQHandler
 	.thumb_set LPTIM3_IRQHandler,Default_Handler
@@ -622,6 +644,12 @@ g_pfnVectors:
 
 	.weak	ICACHE_IRQHandler
 	.thumb_set ICACHE_IRQHandler,Default_Handler
+
+	.weak	OTFDEC1_IRQHandler
+	.thumb_set OTFDEC1_IRQHandler,Default_Handler
+
+	.weak	OTFDEC2_IRQHandler
+	.thumb_set OTFDEC2_IRQHandler,Default_Handler
 
 	.weak	LPTIM4_IRQHandler
 	.thumb_set LPTIM4_IRQHandler,Default_Handler
@@ -668,3 +696,41 @@ g_pfnVectors:
 	.weak	FMAC_IRQHandler
 	.thumb_set FMAC_IRQHandler,Default_Handler
 
+	.weak	USART6_IRQHandler
+	.thumb_set USART6_IRQHandler,Default_Handler
+
+	.weak	I2C5_ER_IRQHandler
+	.thumb_set I2C5_ER_IRQHandler,Default_Handler
+
+	.weak	I2C5_EV_IRQHandler
+	.thumb_set I2C5_EV_IRQHandler,Default_Handler
+
+	.weak	I2C6_ER_IRQHandler
+	.thumb_set I2C6_ER_IRQHandler,Default_Handler
+
+	.weak	I2C6_EV_IRQHandler
+	.thumb_set I2C6_EV_IRQHandler,Default_Handler
+
+	.weak	HSPI1_IRQHandler
+	.thumb_set HSPI1_IRQHandler,Default_Handler
+
+	.weak	GPU2D_IRQHandler
+	.thumb_set GPU2D_IRQHandler,Default_Handler
+
+	.weak	GPU2D_ER_IRQHandler
+	.thumb_set GPU2D_ER_IRQHandler,Default_Handler
+
+	.weak	GFXMMU_IRQHandler
+	.thumb_set GFXMMU_IRQHandler,Default_Handler
+
+	.weak	LTDC_IRQHandler
+	.thumb_set LTDC_IRQHandler,Default_Handler
+
+	.weak	LTDC_ER_IRQHandler
+	.thumb_set LTDC_ER_IRQHandler,Default_Handler
+
+	.weak	DSI_IRQHandler
+	.thumb_set DSI_IRQHandler,Default_Handler
+
+	.weak	DCACHE2_IRQHandler
+	.thumb_set DCACHE2_IRQHandler,Default_Handler

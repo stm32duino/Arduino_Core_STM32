@@ -7,7 +7,7 @@
 **
 **  Abstract    : Linker script for STM32U585xx Device from STM32U5 series
 **                      2048Kbytes ROM
-**                      768Kbytes RAM
+**                      784Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -46,6 +46,7 @@ _Min_Stack_Size = 0x400;	/* required amount of stack */
 MEMORY
 {
   RAM	(xrw)	: ORIGIN = 0x20040000,	LENGTH = 512K     /* Memory is divided. Actual start is 0x20000000 and actual length is 768K */
+  SRAM4	(xrw)	: ORIGIN = 0x28000000,	LENGTH = 16K      /* Non-Secure SRAM4 */
   ROM	(rx)	: ORIGIN = 0x08100000,	LENGTH = 1024K    /* Memory is divided. Actual start is 0x08000000 and actual length is 2048K */
 }
 

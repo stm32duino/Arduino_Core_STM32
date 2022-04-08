@@ -46,10 +46,17 @@
   #include "partition_stm32u575xx.h"
 #elif defined(STM32U585xx)
   #include "partition_stm32u585xx.h"
+#elif defined(STM32U595xx)
+  #include "partition_stm32u595xx.h"
+#elif defined(STM32U5A5xx)
+  #include "partition_stm32u5a5xx.h"
+#elif defined(STM32U599xx)
+  #include "partition_stm32u599xx.h"
+#elif defined(STM32U5A9xx)
+  #include "partition_stm32u5a9xx.h"
 #else
   #error "Please select first the target STM32U5xx device used in your application (in stm32u5xx.h file)"
 #endif
-
 
 #ifdef __cplusplus
 }
