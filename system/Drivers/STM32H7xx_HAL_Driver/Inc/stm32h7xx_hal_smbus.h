@@ -655,6 +655,8 @@ typedef  void (*pSMBUS_AddrCallbackTypeDef)(SMBUS_HandleTypeDef *hsmbus, uint8_t
   * @}
   */
 
+/* Include SMBUS HAL Extended module */
+#include "stm32h7xx_hal_smbus_ex.h"
 
 /* Exported functions --------------------------------------------------------*/
 /** @addtogroup SMBUS_Exported_Functions SMBUS Exported Functions

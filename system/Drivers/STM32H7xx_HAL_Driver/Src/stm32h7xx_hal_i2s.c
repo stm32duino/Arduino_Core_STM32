@@ -1530,7 +1530,7 @@ HAL_StatusTypeDef HAL_I2S_Receive_DMA(I2S_HandleTypeDef *hi2s, uint16_t *pData, 
 
   /* Enable the Rx DMA Stream/Channel */
   if (HAL_OK != HAL_DMA_Start_IT(hi2s->hdmarx, (uint32_t)&hi2s->Instance->RXDR, (uint32_t)hi2s->pRxBuffPtr,
-                                                hi2s->RxXferCount))
+                                 hi2s->RxXferCount))
   {
     /* Update I2S error code */
     SET_BIT(hi2s->ErrorCode, HAL_I2S_ERROR_DMA);
@@ -1922,8 +1922,8 @@ void HAL_I2S_IRQHandler(I2S_HandleTypeDef *hi2s)
     /* I2S Underrun error interrupt occurred --------------------------------*/
     if (HAL_IS_BIT_SET(trigger, I2S_FLAG_UDR))
     {
-      /* Disable TXP and ERR interrupt */
-      __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXP | I2S_IT_ERR));
+      /* Disable TXP, RXP and ERR interrupt */
+      __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXP | I2S_IT_RXP | I2S_IT_ERR));
 
       /* Clear Underrun flag */
       __HAL_I2S_CLEAR_UDRFLAG(hi2s);
@@ -1944,8 +1944,8 @@ void HAL_I2S_IRQHandler(I2S_HandleTypeDef *hi2s)
     /* I2S Overrun error interrupt occurred -------------------------------------*/
     if (HAL_IS_BIT_SET(trigger, I2S_FLAG_OVR))
     {
-      /* Disable RXP and ERR interrupt */
-      __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_RXP | I2S_IT_ERR));
+      /* Disable TXP, RXP and ERR interrupt */
+      __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXP | I2S_IT_RXP | I2S_IT_ERR));
 
       /* Clear Overrun flag */
       __HAL_I2S_CLEAR_OVRFLAG(hi2s);

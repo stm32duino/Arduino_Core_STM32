@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32h7xx_ll_bus.h
   * @author  MCD Application Team
-  * @version $VERSION$
-  * @date    $DATE$
   * @brief   Header file of BUS LL module.
 
   @verbatim
@@ -846,6 +844,7 @@ __STATIC_INLINE void LL_AHB3_GRP1_DisableClockSleep(uint32_t Periphs)
   *         AHB1ENR      DMA2EN        LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR      ADC12EN       LL_AHB1_GRP1_EnableClock\n
   *         AHB1ENR      ARTEN         LL_AHB1_GRP1_EnableClock\n
+  *         AHB1ENR      CRCEN         LL_AHB1_GRP1_EnableClock\n (*)
   *         AHB1ENR      ETH1MACEN     LL_AHB1_GRP1_EnableClock\n (*)
   *         AHB1ENR      ETH1TXEN      LL_AHB1_GRP1_EnableClock\n (*)
   *         AHB1ENR      ETH1RXEN      LL_AHB1_GRP1_EnableClock\n (*)
@@ -858,6 +857,7 @@ __STATIC_INLINE void LL_AHB3_GRP1_DisableClockSleep(uint32_t Periphs)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_DMA2
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ADC12
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ART (*)
+  *         @arg @ref LL_AHB1_GRP1_PERIPH_CRC (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ETH1MAC (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ETH1TX (*)
   *         @arg @ref LL_AHB1_GRP1_PERIPH_ETH1RX (*)
@@ -920,6 +920,7 @@ __STATIC_INLINE uint32_t LL_AHB1_GRP1_IsEnabledClock(uint32_t Periphs)
   *         AHB1ENR      DMA2EN        LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR      ADC12EN       LL_AHB1_GRP1_DisableClock\n
   *         AHB1ENR      ARTEN         LL_AHB1_GRP1_DisableClock\n (*)
+  *         AHB1ENR      CRCEN         LL_AHB1_GRP1_DisableClock\n (*)
   *         AHB1ENR      ETH1MACEN     LL_AHB1_GRP1_DisableClock\n (*)
   *         AHB1ENR      ETH1TXEN      LL_AHB1_GRP1_DisableClock\n (*)
   *         AHB1ENR      ETH1RXEN      LL_AHB1_GRP1_DisableClock\n (*)

@@ -47,11 +47,11 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /**
- * @brief STM32H7xx HAL Driver version number V1.10.1
+ * @brief STM32H7xx HAL Driver version number V1.11.0
    */
 #define __STM32H7xx_HAL_VERSION_MAIN   (0x01UL) /*!< [31:24] main version */
-#define __STM32H7xx_HAL_VERSION_SUB1   (0x0AUL) /*!< [23:16] sub1 version */
-#define __STM32H7xx_HAL_VERSION_SUB2   (0x01UL) /*!< [15:8]  sub2 version */
+#define __STM32H7xx_HAL_VERSION_SUB1   (0x0BUL) /*!< [23:16] sub1 version */
+#define __STM32H7xx_HAL_VERSION_SUB2   (0x00UL) /*!< [15:8]  sub2 version */
 #define __STM32H7xx_HAL_VERSION_RC     (0x00UL) /*!< [7:0]  release candidate */
 #define __STM32H7xx_HAL_VERSION         ((__STM32H7xx_HAL_VERSION_MAIN << 24)\
                                         |(__STM32H7xx_HAL_VERSION_SUB1 << 16)\

@@ -2440,7 +2440,7 @@ __STATIC_INLINE uint8_t LL_SPI_ReceiveData8(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint16_t LL_SPI_ReceiveData16(SPI_TypeDef *SPIx)
 {
-  return (uint16_t)(READ_REG(SPIx->RXDR));
+  return (*((__IO uint16_t *)&SPIx->RXDR));
 }
 
 /**

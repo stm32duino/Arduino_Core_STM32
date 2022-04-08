@@ -21,7 +21,7 @@
 #define STM32H7xx_HAL_OTFDEC_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -60,7 +60,7 @@ typedef struct
 
   uint16_t          Version;         /*!< OTFDEC region firmware version */
 
-}OTFDEC_RegionConfigTypeDef;
+} OTFDEC_RegionConfigTypeDef;
 
 /**
   * @}
@@ -78,7 +78,7 @@ typedef enum
   HAL_OTFDEC_STATE_RESET             = 0x00U,  /*!< OTFDEC not yet initialized or disabled */
   HAL_OTFDEC_STATE_READY             = 0x01U,  /*!< OTFDEC initialized and ready for use   */
   HAL_OTFDEC_STATE_BUSY              = 0x02U,  /*!< OTFDEC internal processing is ongoing  */
-}HAL_OTFDEC_StateTypeDef;
+} HAL_OTFDEC_StateTypeDef;
 
 /**
   * @brief OTFDEC handle structure definition
@@ -105,7 +105,7 @@ typedef struct
   void (* MspDeInitCallback)(struct __OTFDEC_HandleTypeDef *hotfdec); /*!< OTFDEC Msp DeInit callback */
 #endif /* USE_HAL_OTFDEC_REGISTER_CALLBACKS */
 
-}OTFDEC_HandleTypeDef;
+} OTFDEC_HandleTypeDef;
 
 #if (USE_HAL_OTFDEC_REGISTER_CALLBACKS == 1)
 /**
@@ -266,7 +266,7 @@ typedef  void (*pOTFDEC_CallbackTypeDef)(OTFDEC_HandleTypeDef *hotfdec); /*!< po
   */
 #define __HAL_OTFDEC_DISABLE_IT(__HANDLE__, __INTERRUPT__)  CLEAR_BIT(((__HANDLE__)->Instance->IER), (__INTERRUPT__))
 
-  /** @brief  Check whether the specified combination of OTFDEC interrupt flags is set or not.
+/** @brief  Check whether the specified combination of OTFDEC interrupt flags is set or not.
   * @param  __HANDLE__ pointer to an OTFDEC_HandleTypeDef structure that contains
   *         the configuration information for OTFDEC module
   * @param  __FLAG__ mask on combination of interrupts flags
@@ -278,7 +278,7 @@ typedef  void (*pOTFDEC_CallbackTypeDef)(OTFDEC_HandleTypeDef *hotfdec); /*!< po
   *            @arg @ref OTFDEC_SEC_KEY_ERROR_INT    OTFDEC security and key errors interrupts flags
   *            @arg @ref OTFDEC_EXE_KEY_ERROR_INT    OTFDEC execution and key errors interrupts flag
   *            @arg @ref OTFDEC_ALL_INT              OTFDEC all interrupts flags
- * @retval The state of __FLAG__ (TRUE or FALSE).
+  * @retval The state of __FLAG__ (TRUE or FALSE).
   */
 #define __HAL_OTFDEC_GET_FLAG(__HANDLE__, __FLAG__) (((__HANDLE__)->Instance->ISR & (__FLAG__)) == (__FLAG__))
 
@@ -318,7 +318,7 @@ void HAL_OTFDEC_MspDeInit(OTFDEC_HandleTypeDef *hotfdec);
 #if (USE_HAL_OTFDEC_REGISTER_CALLBACKS == 1)
 /* Callbacks Register/UnRegister functions  ***********************************/
 HAL_StatusTypeDef HAL_OTFDEC_RegisterCallback(OTFDEC_HandleTypeDef *hotfdec, HAL_OTFDEC_CallbackIDTypeDef CallbackID,
-                                           pOTFDEC_CallbackTypeDef pCallback);
+                                              pOTFDEC_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_OTFDEC_UnRegisterCallback(OTFDEC_HandleTypeDef *hotfdec, HAL_OTFDEC_CallbackIDTypeDef CallbackID);
 #endif /* USE_HAL_OTFDEC_REGISTER_CALLBACKS */
 /**
@@ -422,10 +422,11 @@ HAL_StatusTypeDef HAL_OTFDEC_RegionGetConfig(OTFDEC_HandleTypeDef *hotfdec, uint
   * @param __MODE__ OTFDEC region operating mode parameter.
   * @retval SET (__MODE__ is valid) or RESET (__MODE__ is invalid)
   */
-#define IS_OTFDEC_REGION_OPERATING_MODE(__MODE__) (((__MODE__) == OTFDEC_REG_MODE_INSTRUCTION_ACCESSES_ONLY)    || \
-                                                  ((__MODE__) == OTFDEC_REG_MODE_DATA_ACCESSES_ONLY)           || \
-                                                  ((__MODE__) == OTFDEC_REG_MODE_INSTRUCTION_OR_DATA_ACCESSES) || \
-                                                  ((__MODE__) == OTFDEC_REG_MODE_INSTRUCTION_ACCESSES_ONLY_WITH_CIPHER))
+#define IS_OTFDEC_REGION_OPERATING_MODE(__MODE__) \
+  (((__MODE__)== OTFDEC_REG_MODE_INSTRUCTION_ACCESSES_ONLY)    || \
+   ((__MODE__) == OTFDEC_REG_MODE_DATA_ACCESSES_ONLY)           || \
+   ((__MODE__) == OTFDEC_REG_MODE_INSTRUCTION_OR_DATA_ACCESSES) || \
+   ((__MODE__) == OTFDEC_REG_MODE_INSTRUCTION_ACCESSES_ONLY_WITH_CIPHER))
 
 /**
   * @brief Verify the OTFDEC region index.
@@ -473,5 +474,3 @@ HAL_StatusTypeDef HAL_OTFDEC_RegionGetConfig(OTFDEC_HandleTypeDef *hotfdec, uint
 #endif
 
 #endif /* STM32H7xx_HAL_OTFDEC_H */
-
-

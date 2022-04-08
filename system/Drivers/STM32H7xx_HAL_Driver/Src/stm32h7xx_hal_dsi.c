@@ -173,7 +173,7 @@
 /** @addtogroup DSI_Private_Constants
   * @{
   */
-#define DSI_TIMEOUT_VALUE ((uint32_t)100U)  /* 100ms */
+#define DSI_TIMEOUT_VALUE ((uint32_t)1000U)  /* 1s */
 
 #define DSI_ERROR_ACK_MASK (DSI_ISR0_AE0 | DSI_ISR0_AE1 | DSI_ISR0_AE2 | DSI_ISR0_AE3 | \
                             DSI_ISR0_AE4 | DSI_ISR0_AE5 | DSI_ISR0_AE6 | DSI_ISR0_AE7 | \
@@ -378,7 +378,7 @@ HAL_StatusTypeDef HAL_DSI_Init(DSI_HandleTypeDef *hdsi, DSI_PLLInitTypeDef *PLLI
   /* Enable the DSI PLL */
   __HAL_DSI_PLL_ENABLE(hdsi);
 
-  /* Requires min of 400µs delay before reading the PLLLS flag */
+  /* Requires min of 400us delay before reading the PLLLS flag */
   /* 1ms delay is inserted that is the minimum HAL delay granularity */
   HAL_Delay(1);
 
@@ -710,7 +710,7 @@ HAL_StatusTypeDef HAL_DSI_RegisterCallback(DSI_HandleTypeDef *hdsi, HAL_DSI_Call
 
 /**
   * @brief  Unregister a DSI Callback
-  *         DSI callabck is redirected to the weak predefined callback
+  *         DSI callback is redirected to the weak predefined callback
   * @param hdsi dsi handle
   * @param CallbackID ID of the callback to be unregistered
   *        This parameter can be one of the following values:
