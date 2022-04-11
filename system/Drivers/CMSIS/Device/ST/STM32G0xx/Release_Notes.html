@@ -45,19 +45,19 @@
 <div class="col-sm-12 col-lg-8">
 <h1 id="update-history">Update History</h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section6" checked aria-hidden="true"> <label for="collapse-section6" area-hidden="true">V1.4.1 / 17-June-2021 </label>
+<input type="checkbox" id="collapse-section7" checked aria-hidden="true"> <label for="collapse-section7" area-hidden="true">V1.4.2 / 01-April-2022 </label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
 <ul>
-<li>Update to remove wrong bits defined for DMAMUX Req ID.</li>
-<li>Protect Vector table modification following SRAM or FLASH preprocessor directive by a generic preprocessor directive : USER_VECT_TAB_ADDRESS.</li>
-<li>Add new atomic register access macros in stm32g0xx.h file.</li>
-<li>Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</li>
-<li>Update Licensing information and format
+<li>Rename ADC TRx registers AWDxTR to be compliant with the reference manual.</li>
+<li>Fix Doxygen grouping issues.</li>
+<li>Update IRQ handler enumeration structure to be aligned with template CMSIS device.h file defined by ARM.
 <ul>
-<li>Add LICENSE.txt file</li>
-<li>Remove License message from Release_Notes.html</li>
-<li>Update header files with new license format</li>
+<li>Rename SVC_IRQn to SVCall_IRQn:</li>
+</ul></li>
+<li>Add the following aliases for IRQ number definition to ensure compatibility across STM32 Series;
+<ul>
+<li>#define SVC_IRQn SVCall_IRQn</li>
 </ul></li>
 </ul>
 <h2 id="contents">Contents</h2>
@@ -74,9 +74,38 @@
 </div>
 </div>
 <div class="collapse">
-<input type="checkbox" id="collapse-section5"  aria-hidden="true"> <label for="collapse-section5" area-hidden="true">V1.4.0 / 29-October-2020 </label>
+<input type="checkbox" id="collapse-section6"  aria-hidden="true"> <label for="collapse-section6" area-hidden="true">V1.4.1 / 17-June-2021 </label>
 <div>
 <h2 id="main-changes-1">Main Changes</h2>
+<ul>
+<li>Update to remove wrong bits defined for DMAMUX Req ID.</li>
+<li>Protect Vector table modification following SRAM or FLASH preprocessor directive by a generic preprocessor directive : USER_VECT_TAB_ADDRESS.</li>
+<li>Add new atomic register access macros in stm32g0xx.h file.</li>
+<li>Add LSI maximum startup time datasheet value: LSI_STARTUP_TIME.</li>
+<li>Update Licensing information and format
+<ul>
+<li>Add LICENSE.txt file</li>
+<li>Remove License message from Release_Notes.html</li>
+<li>Update header files with new license format</li>
+</ul></li>
+</ul>
+<h2 id="contents-1">Contents</h2>
+<ul>
+<li>CMSIS devices files for stm32g0B0xx, stm32g0B1xx, stm32g0C1xx devices.</li>
+<li>CMSIS devices files for stm32g050xx, stm32g051xx, stm32g061xx devices.</li>
+<li>CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</li>
+<li>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</li>
+</ul>
+<h2 id="known-limitations-1">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section5"  aria-hidden="true"> <label for="collapse-section5" area-hidden="true">V1.4.0 / 29-October-2020 </label>
+<div>
+<h2 id="main-changes-2">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update">Maintenance release and Product Update</h3>
 <p>Official release for STM32G0xx CMSIS introducing <strong>stm32g0b0xx, stm32g0b1xx, stm32g0c1xx devices</strong> and <strong>stm32g050xx, stm32g051xx, stm32g061xx devices.</strong></p>
 <p>Maintenance release for STM32G0xx CMSIS supporting stm32g030xx, stm32g031xx, stm32g041xx, stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
@@ -157,19 +186,19 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents-1">Contents</h2>
+<h2 id="contents-2">Contents</h2>
 <p>-<strong>CMSIS devices files for stm32g0B0xx, stm32g0B1xx, stm32g0C1xx devices.</strong></p>
 <p>-<strong>CMSIS devices files for stm32g050xx, stm32g051xx, stm32g061xx devices.</strong></p>
 <p>-CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</p>
 <p>-CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <p>None</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true">V1.3.0 / 25-June-2019 </label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <h3 id="maintenance-release">Maintenance release</h3>
 <p>Maintenance release for STM32G0xx CMSIS supporting stm32g030xx, stm32g031xx, stm32g041xx, stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
 <p><strong>Fixed bugs list</strong></p>
@@ -185,10 +214,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents-2">Contents</h2>
+<h2 id="contents-3">Contents</h2>
 <p>CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</p>
 <p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <p><strong>Requirements not met or planned in a forthcoming release</strong></p>
 <table>
 <thead>
@@ -218,7 +247,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true">V1.2.0 / 05-April-2019 </label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <h3 id="maintenance-release-and-product-update-1">Maintenance release and Product Update</h3>
 <p>First release for STM32G0xx CMSIS introducing <strong>stm32g030xx, stm32g031xx, stm32g041xx</strong> devices.</p>
 <p><strong>Additional features</strong></p>
@@ -250,10 +279,10 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents-3">Contents</h2>
+<h2 id="contents-4">Contents</h2>
 <p>CMSIS devices files for stm32g030xx, stm32g031xx, stm32g041xx devices.</p>
 <p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <p><strong>Requirements not met or planned in a forthcoming release</strong></p>
 <table>
 <thead>
@@ -286,7 +315,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true">V1.1.0 / 06-February-2019 </label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <h3 id="maintenance-release-1">Maintenance release</h3>
 <p>Maintenance release for <strong>STM32G0xx</strong> devices (stm32g070xx, stm32g071xx, stm32g081xx devices)</p>
 <p><strong>Fixed bugs list</strong></p>
@@ -311,17 +340,17 @@
 </tr>
 </tbody>
 </table>
-<h2 id="contents-4">Contents</h2>
+<h2 id="contents-5">Contents</h2>
 <p>CMSIS devices files for stm32g070xx, stm32g071xx, stm32g081xx devices.</p>
 </div>
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"> V1.0.0 / 26-October-2018 </label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <h3 id="first-release">First release</h3>
 <p>First official release for <strong>STM32G0xx</strong> devices</p>
-<h2 id="contents-5">Contents</h2>
+<h2 id="contents-6">Contents</h2>
 <ul>
 <li>CMSIS devices files for STM32G070xx, STM32G071xx and STM32G081xx</li>
 </ul>

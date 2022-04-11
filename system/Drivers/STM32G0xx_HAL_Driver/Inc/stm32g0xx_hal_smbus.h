@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -372,9 +371,9 @@ typedef  void (*pSMBUS_AddrCallbackTypeDef)(SMBUS_HandleTypeDef *hsmbus, uint8_t
 #define SMBUS_IT_RXI                            I2C_CR1_RXIE
 #define SMBUS_IT_TXI                            I2C_CR1_TXIE
 #define SMBUS_IT_TX                             (SMBUS_IT_ERRI | SMBUS_IT_TCI | SMBUS_IT_STOPI | \
-                                                   SMBUS_IT_NACKI | SMBUS_IT_TXI)
+                                                 SMBUS_IT_NACKI | SMBUS_IT_TXI)
 #define SMBUS_IT_RX                             (SMBUS_IT_ERRI | SMBUS_IT_TCI | SMBUS_IT_NACKI | \
-                                                   SMBUS_IT_RXI)
+                                                 SMBUS_IT_RXI)
 #define SMBUS_IT_ALERT                          (SMBUS_IT_ERRI)
 #define SMBUS_IT_ADDR                           (SMBUS_IT_ADDRI | SMBUS_IT_STOPI | SMBUS_IT_NACKI)
 /**
@@ -512,6 +511,7 @@ typedef  void (*pSMBUS_AddrCallbackTypeDef)(SMBUS_HandleTypeDef *hsmbus, uint8_t
   * @param  __HANDLE__ specifies the SMBUS Handle.
   * @param  __FLAG__ specifies the flag to clear.
   *          This parameter can be any combination of the following values:
+  *            @arg @ref SMBUS_FLAG_TXE     Transmit data register empty
   *            @arg @ref SMBUS_FLAG_ADDR    Address matched (slave mode)
   *            @arg @ref SMBUS_FLAG_AF      NACK received flag
   *            @arg @ref SMBUS_FLAG_STOPF   STOP detection flag
@@ -524,7 +524,9 @@ typedef  void (*pSMBUS_AddrCallbackTypeDef)(SMBUS_HandleTypeDef *hsmbus, uint8_t
   *
   * @retval None
   */
-#define __HAL_SMBUS_CLEAR_FLAG(__HANDLE__, __FLAG__) ((__HANDLE__)->Instance->ICR = (__FLAG__))
+#define __HAL_SMBUS_CLEAR_FLAG(__HANDLE__, __FLAG__)  (((__FLAG__) == SMBUS_FLAG_TXE) ? \
+                                                       ((__HANDLE__)->Instance->ISR |= (__FLAG__)) : \
+                                                       ((__HANDLE__)->Instance->ICR = (__FLAG__)))
 
 /** @brief  Enable the specified SMBUS peripheral.
   * @param  __HANDLE__ specifies the SMBUS Handle.
@@ -622,11 +624,11 @@ typedef  void (*pSMBUS_AddrCallbackTypeDef)(SMBUS_HandleTypeDef *hsmbus, uint8_t
 
 #define SMBUS_RESET_CR1(__HANDLE__)                    ((__HANDLE__)->Instance->CR1 &= \
                                                         (uint32_t)~((uint32_t)(I2C_CR1_SMBHEN | I2C_CR1_SMBDEN | \
-                                                                    I2C_CR1_PECEN)))
+                                                                               I2C_CR1_PECEN)))
 #define SMBUS_RESET_CR2(__HANDLE__)                    ((__HANDLE__)->Instance->CR2 &= \
                                                         (uint32_t)~((uint32_t)(I2C_CR2_SADD | I2C_CR2_HEAD10R | \
-                                                                    I2C_CR2_NBYTES | I2C_CR2_RELOAD | \
-                                                                    I2C_CR2_RD_WRN)))
+                                                                               I2C_CR2_NBYTES | I2C_CR2_RELOAD | \
+                                                                               I2C_CR2_RD_WRN)))
 
 #define SMBUS_GENERATE_START(__ADDMODE__,__ADDRESS__)     (((__ADDMODE__) == SMBUS_ADDRESSINGMODE_7BIT) ? \
                                                            (uint32_t)((((uint32_t)(__ADDRESS__) & (I2C_CR2_SADD)) | \
@@ -676,13 +678,13 @@ HAL_StatusTypeDef HAL_SMBUS_ConfigDigitalFilter(SMBUS_HandleTypeDef *hsmbus, uin
 /* Callbacks Register/UnRegister functions  ***********************************/
 #if (USE_HAL_SMBUS_REGISTER_CALLBACKS == 1)
 HAL_StatusTypeDef HAL_SMBUS_RegisterCallback(SMBUS_HandleTypeDef *hsmbus,
-                                                HAL_SMBUS_CallbackIDTypeDef CallbackID,
-                                                pSMBUS_CallbackTypeDef pCallback);
+                                             HAL_SMBUS_CallbackIDTypeDef CallbackID,
+                                             pSMBUS_CallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_SMBUS_UnRegisterCallback(SMBUS_HandleTypeDef *hsmbus,
-                                                  HAL_SMBUS_CallbackIDTypeDef CallbackID);
+                                               HAL_SMBUS_CallbackIDTypeDef CallbackID);
 
 HAL_StatusTypeDef HAL_SMBUS_RegisterAddrCallback(SMBUS_HandleTypeDef *hsmbus,
-                                                    pSMBUS_AddrCallbackTypeDef pCallback);
+                                                 pSMBUS_AddrCallbackTypeDef pCallback);
 HAL_StatusTypeDef HAL_SMBUS_UnRegisterAddrCallback(SMBUS_HandleTypeDef *hsmbus);
 #endif /* USE_HAL_SMBUS_REGISTER_CALLBACKS */
 /**
@@ -709,9 +711,9 @@ HAL_StatusTypeDef HAL_SMBUS_IsDeviceReady(SMBUS_HandleTypeDef *hsmbus, uint16_t 
   */
 /******* Non-Blocking mode: Interrupt */
 HAL_StatusTypeDef HAL_SMBUS_Master_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint16_t DevAddress,
-                                                  uint8_t *pData, uint16_t Size, uint32_t XferOptions);
+                                               uint8_t *pData, uint16_t Size, uint32_t XferOptions);
 HAL_StatusTypeDef HAL_SMBUS_Master_Receive_IT(SMBUS_HandleTypeDef *hsmbus, uint16_t DevAddress,
-                                                 uint8_t *pData, uint16_t Size, uint32_t XferOptions);
+                                              uint8_t *pData, uint16_t Size, uint32_t XferOptions);
 HAL_StatusTypeDef HAL_SMBUS_Master_Abort_IT(SMBUS_HandleTypeDef *hsmbus, uint16_t DevAddress);
 HAL_StatusTypeDef HAL_SMBUS_Slave_Transmit_IT(SMBUS_HandleTypeDef *hsmbus, uint8_t *pData, uint16_t Size,
                                               uint32_t XferOptions);
@@ -787,5 +789,3 @@ uint32_t HAL_SMBUS_GetError(SMBUS_HandleTypeDef *hsmbus);
 
 
 #endif /* STM32G0xx_HAL_SMBUS_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

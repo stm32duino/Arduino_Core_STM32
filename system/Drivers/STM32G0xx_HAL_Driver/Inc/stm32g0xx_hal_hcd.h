@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2018 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -90,6 +89,7 @@ typedef struct
   HCD_TypeDef               *Instance;  /*!< Register base address    */
   HCD_InitTypeDef           Init;       /*!< HCD required parameters  */
   HCD_HCTypeDef             hc[16];     /*!< Host channels parameters */
+  uint32_t                  ep0_PmaAllocState;  /*!< EP0 PMA allocation State (allocated, virtual Ch, EP0 direction) */
   uint16_t                  phy_chin_state[8];  /*!< Physical Channel in State (Used/Free) */
   uint16_t                  phy_chout_state[8]; /*!< Physical Channel out State (Used/Free)*/
   uint32_t                  PMALookupTable[PMA_BLOCKS]; /*PMA LookUp Table */
@@ -362,7 +362,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
   * @param   bChNum, bDir
   * @retval None
   */
-#define HCD_FreeUserBuffer                     USB_DRD_FreeUserBuffer
+#define HCD_FREE_USER_BUFFER                   USB_DRD_FREE_USER_BUFFER
 
 /**
   * @brief Set the Setup bit in the corresponding channel, when a Setup
@@ -400,12 +400,15 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 #define HCD_GET_CH_TX_STATUS                   USB_DRD_GET_CHEP_TX_STATUS
 #define HCD_GET_CH_RX_STATUS                   USB_DRD_GET_CHEP_RX_STATUS
 /**
-  * @brief  Sets/clears directly EP_KIND bit in the endpoint register.
+  * @brief  Sets/clears CH_KIND bit in the Channel register.
   * @param  USBx USB peripheral instance register address.
   * @param  bChNum Endpoint Number.
   * @retval None
   */
-#define HCD_SET_CH_DBUF                        USB_DRD_SET_CH_KIND
+#define HCD_SET_CH_KIND                        USB_DRD_SET_CH_KIND
+#define HCD_CLEAR_CH_KIND                      USB_DRD_CLEAR_CH_KIND
+#define HCD_SET_BULK_CH_DBUF                   HCD_SET_CH_KIND
+#define HCD_CLEAR_BULK_CH_DBUF                 HCD_CLEAR_CH_KIND
 
 /**
   * @brief  Clears bit ERR_RX in the Channel register
@@ -558,5 +561,3 @@ __STATIC_INLINE uint16_t HCD_GET_CH_DBUF1_CNT(HCD_TypeDef *Instance, uint16_t bC
 #endif
 
 #endif /* STM32G0xx_HAL_HCD_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
