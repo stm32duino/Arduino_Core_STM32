@@ -10,6 +10,17 @@
   *           + Time Complementary signal break and dead time configuration
   *           + Time Master and Slave synchronization configuration
   *           + Timer remapping capabilities configuration
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                       ##### TIMER Extended features #####
@@ -63,17 +74,6 @@
                 HAL_TIMEx_HallSensor_Start_IT().
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -2098,10 +2098,11 @@ HAL_StatusTypeDef HAL_TIMEx_ConfigBreakDeadTime(TIM_HandleTypeDef *htim,
   */
 HAL_StatusTypeDef HAL_TIMEx_RemapConfig(TIM_HandleTypeDef *htim, uint32_t Remap)
 {
-  __HAL_LOCK(htim);
 
   /* Check parameters */
   assert_param(IS_TIM_REMAP(htim->Instance, Remap));
+
+  __HAL_LOCK(htim);
 
 #if defined(LPTIM_OR_TIM1_ITR2_RMP) && defined(LPTIM_OR_TIM5_ITR1_RMP) && defined(LPTIM_OR_TIM9_ITR1_RMP)
   if ((Remap & LPTIM_REMAP_MASK) == LPTIM_REMAP_MASK)
@@ -2249,7 +2250,7 @@ HAL_TIM_ChannelStateTypeDef HAL_TIMEx_GetChannelNState(TIM_HandleTypeDef *htim, 
   */
 
 /* Private functions ---------------------------------------------------------*/
-/** @defgroup TIMEx_Private_Functions TIMEx Private Functions
+/** @defgroup TIMEx_Private_Functions TIM Extended Private Functions
   * @{
   */
 
@@ -2425,5 +2426,3 @@ static void TIM_CCxNChannelCmd(TIM_TypeDef *TIMx, uint32_t Channel, uint32_t Cha
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -23,7 +22,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal_def.h"
@@ -80,6 +79,7 @@ typedef enum
   HC_DATATGLERR
 } USB_OTG_HCStateTypeDef;
 
+
 /**
   * @brief  USB Instance Initialization Structure definition
   */
@@ -131,6 +131,9 @@ typedef struct
   uint8_t   is_stall;             /*!< Endpoint stall condition
                                        This parameter must be a number between Min_Data = 0 and Max_Data = 1    */
 
+  uint8_t   is_iso_incomplete;    /*!< Endpoint isoc condition
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 1    */
+
   uint8_t   type;                 /*!< Endpoint type
                                        This parameter can be any value of @ref USB_LL_EP_Type                   */
 
@@ -151,6 +154,8 @@ typedef struct
   uint32_t  dma_addr;             /*!< 32 bits aligned transfer buffer address                                  */
 
   uint32_t  xfer_len;             /*!< Current transfer length                                                  */
+
+  uint32_t  xfer_size;            /*!< requested transfer size                                                  */
 
   uint32_t  xfer_count;           /*!< Partial transfer length in case of multi packet transfer                 */
 } USB_OTG_EPTypeDef;
@@ -188,7 +193,7 @@ typedef struct
 
   uint8_t   *xfer_buff;         /*!< Pointer to transfer buffer.                                                */
 
-  uint32_t  XferSize;             /*!< OTG Channel transfer size.                                                   */
+  uint32_t  XferSize;             /*!< OTG Channel transfer size.                                               */
 
   uint32_t  xfer_len;           /*!< Current transfer length.                                                   */
 
@@ -318,10 +323,10 @@ typedef struct
 /** @defgroup USB_LL_EP0_MPS USB Low Layer EP0 MPS
   * @{
   */
-#define EP_MPS_64                        0U
-#define EP_MPS_32                        1U
-#define EP_MPS_16                        2U
-#define EP_MPS_8                         3U
+#define EP_MPS_64                              0U
+#define EP_MPS_32                              1U
+#define EP_MPS_16                              2U
+#define EP_MPS_8                               3U
 /**
   * @}
   */
@@ -395,6 +400,12 @@ typedef struct
 #define GRXSTS_PKTSTS_DATA_TOGGLE_ERR          5U
 #define GRXSTS_PKTSTS_CH_HALTED                7U
 
+#define TEST_J                                 1U
+#define TEST_K                                 2U
+#define TEST_SE0_NAK                           3U
+#define TEST_PACKET                            4U
+#define TEST_FORCE_EN                          5U
+
 #define USBx_PCGCCTL    *(__IO uint32_t *)((uint32_t)USBx_BASE + USB_OTG_PCGCCTL_BASE)
 #define USBx_HPRT0      *(__IO uint32_t *)((uint32_t)USBx_BASE + USB_OTG_HOST_PORT_BASE)
 
@@ -415,6 +426,10 @@ typedef struct
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
 #define EP_ADDR_MSK                            0xFU
+
+#ifndef USE_USB_DOUBLE_BUFFER
+#define USE_USB_DOUBLE_BUFFER                  1U
+#endif /* USE_USB_DOUBLE_BUFFER */
 /**
   * @}
   */
@@ -460,6 +475,7 @@ HAL_StatusTypeDef USB_WritePacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *src,
 void             *USB_ReadPacket(USB_OTG_GlobalTypeDef *USBx, uint8_t *dest, uint16_t len);
 HAL_StatusTypeDef USB_EPSetStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPClearStall(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
+HAL_StatusTypeDef USB_EPStopXfer(USB_OTG_GlobalTypeDef *USBx, USB_OTG_EPTypeDef *ep);
 HAL_StatusTypeDef USB_SetDevAddress(USB_OTG_GlobalTypeDef *USBx, uint8_t address);
 HAL_StatusTypeDef USB_DevConnect(USB_OTG_GlobalTypeDef *USBx);
 HAL_StatusTypeDef USB_DevDisconnect(USB_OTG_GlobalTypeDef *USBx);
@@ -514,9 +530,7 @@ HAL_StatusTypeDef USB_DeActivateRemoteWakeup(USB_OTG_GlobalTypeDef *USBx);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 
 #endif /* STM32F4xx_LL_USB_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -4395,7 +4394,7 @@ __STATIC_INLINE void LL_ADC_ClearFlag_AWD1(ADC_TypeDef *ADCx)
   */
 __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_MST_EOCS(ADC_Common_TypeDef *ADCxy_COMMON)
 {
-  return (READ_BIT(ADC1->SR, LL_ADC_FLAG_EOCS) == (LL_ADC_FLAG_EOCS));
+  return (READ_BIT(ADCxy_COMMON->CSR, LL_ADC_FLAG_EOCS_MST) == (LL_ADC_FLAG_EOCS_MST));
 }
 
 /**
@@ -4468,7 +4467,7 @@ __STATIC_INLINE uint32_t LL_ADC_IsActiveFlag_SLV2_OVR(ADC_Common_TypeDef *ADCxy_
 
 /**
   * @brief  Get flag multimode ADC group injected end of sequence conversions of the ADC master.
-  * @rmtoll CSR      JEOC           LL_ADC_IsActiveFlag_MST_EOCS
+  * @rmtoll CSR      JEOC           LL_ADC_IsActiveFlag_MST_JEOS
   * @param  ADCxy_COMMON ADC common instance
   *         (can be set directly from CMSIS definition or by using helper macro @ref __LL_ADC_COMMON_INSTANCE() )
   * @retval State of bit (1 or 0).
@@ -4778,4 +4777,3 @@ void        LL_ADC_INJ_StructInit(LL_ADC_INJ_InitTypeDef *ADC_INJ_InitStruct);
 
 #endif /* __STM32F4xx_LL_ADC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

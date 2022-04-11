@@ -9,6 +9,18 @@
   *           + IO operation functions
   *           + Peripheral Control functions
   *           + Peripheral State and Errors functions
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -239,17 +251,6 @@
     |---------|-----------|---------------------------------------|
     |    1    |    1      |    | SB | 8 bit data | PB | STB |     |
     +-------------------------------------------------------------+
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -1132,10 +1133,10 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart)
   * @param  Timeout Timeout duration
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t  *pdata8bits;
-  uint16_t *pdata16bits;
+  const uint8_t  *pdata8bits;
+  const uint16_t *pdata16bits;
   uint32_t tickstart = 0U;
 
   /* Check that a Tx process is not already ongoing */
@@ -1162,7 +1163,7 @@ HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, u
     if ((huart->Init.WordLength == UART_WORDLENGTH_9B) && (huart->Init.Parity == UART_PARITY_NONE))
     {
       pdata8bits  = NULL;
-      pdata16bits = (uint16_t *) pData;
+      pdata16bits = (const uint16_t *) pData;
     }
     else
     {
@@ -1311,7 +1312,7 @@ HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, ui
   * @param  Size  Amount of data elements (u8 or u16) to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size)
 {
   /* Check that a Tx process is not already ongoing */
   if (huart->gState == HAL_UART_STATE_READY)
@@ -1391,9 +1392,9 @@ HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData,
   * @param  Size  Amount of data elements (u8 or u16) to be sent
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
+HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size)
 {
-  uint32_t *tmp;
+  const uint32_t *tmp;
 
   /* Check that a Tx process is not already ongoing */
   if (huart->gState == HAL_UART_STATE_READY)
@@ -1426,8 +1427,8 @@ HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pDat
     huart->hdmatx->XferAbortCallback = NULL;
 
     /* Enable the UART transmit DMA stream */
-    tmp = (uint32_t *)&pData;
-    HAL_DMA_Start_IT(huart->hdmatx, *(uint32_t *)tmp, (uint32_t)&huart->Instance->DR, Size);
+    tmp = (const uint32_t *)&pData;
+    HAL_DMA_Start_IT(huart->hdmatx, *(const uint32_t *)tmp, (uint32_t)&huart->Instance->DR, Size);
 
     /* Clear the TC flag in the SR register by writing 0 to it */
     __HAL_UART_CLEAR_FLAG(huart, UART_FLAG_TC);
@@ -1543,7 +1544,10 @@ HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef *huart)
     __HAL_UART_CLEAR_OREFLAG(huart);
 
     /* Re-enable PE and ERR (Frame error, noise error, overrun error) interrupts */
-    ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_PEIE);
+    if (huart->Init.Parity != UART_PARITY_NONE)
+    {
+      ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_PEIE);
+    }
     ATOMIC_SET_BIT(huart->Instance->CR3, USART_CR3_EIE);
 
     /* Enable the UART DMA Rx request */
@@ -3157,11 +3161,12 @@ static void UART_DMAError(DMA_HandleTypeDef *hdma)
 }
 
 /**
-  * @brief  This function handles UART Communication Timeout.
+  * @brief  This function handles UART Communication Timeout. It waits
+  *         until a flag is no longer in the specified status.
   * @param  huart  Pointer to a UART_HandleTypeDef structure that contains
   *                the configuration information for the specified UART module.
   * @param  Flag specifies the UART flag to check.
-  * @param  Status The new Flag status (SET or RESET).
+  * @param  Status The actual Flag status (SET or RESET).
   * @param  Tickstart Tick start value
   * @param  Timeout Timeout duration
   * @retval HAL status
@@ -3217,8 +3222,11 @@ HAL_StatusTypeDef UART_Start_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pDat
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
 
-  /* Enable the UART Parity Error Interrupt */
-  __HAL_UART_ENABLE_IT(huart, UART_IT_PE);
+  if (huart->Init.Parity != UART_PARITY_NONE)
+  {
+    /* Enable the UART Parity Error Interrupt */
+    __HAL_UART_ENABLE_IT(huart, UART_IT_PE);
+  }
 
   /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
   __HAL_UART_ENABLE_IT(huart, UART_IT_ERR);
@@ -3272,8 +3280,11 @@ HAL_StatusTypeDef UART_Start_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pDa
   /* Process Unlocked */
   __HAL_UNLOCK(huart);
 
-  /* Enable the UART Parity Error Interrupt */
-  ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_PEIE);
+  if (huart->Init.Parity != UART_PARITY_NONE)
+  {
+    /* Enable the UART Parity Error Interrupt */
+    ATOMIC_SET_BIT(huart->Instance->CR1, USART_CR1_PEIE);
+  }
 
   /* Enable the UART Error Interrupt: (Frame error, noise error, overrun error) */
   ATOMIC_SET_BIT(huart->Instance->CR3, USART_CR3_EIE);
@@ -3500,14 +3511,14 @@ static void UART_DMARxOnlyAbortCallback(DMA_HandleTypeDef *hdma)
   */
 static HAL_StatusTypeDef UART_Transmit_IT(UART_HandleTypeDef *huart)
 {
-  uint16_t *tmp;
+  const uint16_t *tmp;
 
   /* Check that a Tx process is ongoing */
   if (huart->gState == HAL_UART_STATE_BUSY_TX)
   {
     if ((huart->Init.WordLength == UART_WORDLENGTH_9B) && (huart->Init.Parity == UART_PARITY_NONE))
     {
-      tmp = (uint16_t *) huart->pTxBuffPtr;
+      tmp = (const uint16_t *) huart->pTxBuffPtr;
       huart->Instance->DR = (uint16_t)(*tmp & (uint16_t)0x01FF);
       huart->pTxBuffPtr += 2U;
     }
@@ -3518,7 +3529,7 @@ static HAL_StatusTypeDef UART_Transmit_IT(UART_HandleTypeDef *huart)
 
     if (--huart->TxXferCount == 0U)
     {
-      /* Disable the UART Transmit Complete Interrupt */
+      /* Disable the UART Transmit Data Register Empty Interrupt */
       __HAL_UART_DISABLE_IT(huart, UART_IT_TXE);
 
       /* Enable the UART Transmit Complete Interrupt */
@@ -3738,4 +3749,3 @@ static void UART_SetConfig(UART_HandleTypeDef *huart)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

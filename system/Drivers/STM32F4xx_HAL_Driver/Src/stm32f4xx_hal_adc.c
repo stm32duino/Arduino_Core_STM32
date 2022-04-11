@@ -5,9 +5,20 @@
   * @brief   This file provides firmware functions to manage the following
   *          functionalities of the Analog to Digital Converter (ADC) peripheral:
   *           + Initialization and de-initialization functions
-  *           + IO operation functions
-  *           + State and errors functions
+  *           + Peripheral Control functions
+  *           + Peripheral State functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2017 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                     ##### ADC Peripheral features #####
@@ -231,18 +242,6 @@
      are set to the corresponding weak functions.
 
     @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -1201,13 +1200,16 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
 {
   uint32_t tmp1 = 0U, tmp2 = 0U;
 
+  uint32_t tmp_sr = hadc->Instance->SR;
+  uint32_t tmp_cr1 = hadc->Instance->CR1;
+
   /* Check the parameters */
   assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
   assert_param(IS_ADC_REGULAR_LENGTH(hadc->Init.NbrOfConversion));
   assert_param(IS_ADC_EOCSelection(hadc->Init.EOCSelection));
 
-  tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_EOC);
-  tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_EOC);
+  tmp1 = tmp_sr & ADC_FLAG_EOC;
+  tmp2 = tmp_cr1 & ADC_IT_EOC;
   /* Check End of conversion flag for regular channels */
   if(tmp1 && tmp2)
   {
@@ -1255,8 +1257,8 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     __HAL_ADC_CLEAR_FLAG(hadc, ADC_FLAG_STRT | ADC_FLAG_EOC);
   }
 
-  tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_JEOC);
-  tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_JEOC);
+  tmp1 = tmp_sr & ADC_FLAG_JEOC;
+  tmp2 = tmp_cr1 & ADC_IT_JEOC;
   /* Check End of conversion flag for injected channels */
   if(tmp1 && tmp2)
   {
@@ -1302,8 +1304,8 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     __HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_JSTRT | ADC_FLAG_JEOC));
   }
 
-  tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_AWD);
-  tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_AWD);
+  tmp1 = tmp_sr & ADC_FLAG_AWD;
+  tmp2 = tmp_cr1 & ADC_IT_AWD;
   /* Check Analog watchdog flag */
   if(tmp1 && tmp2)
   {
@@ -1324,8 +1326,8 @@ void HAL_ADC_IRQHandler(ADC_HandleTypeDef* hadc)
     }
   }
 
-  tmp1 = __HAL_ADC_GET_FLAG(hadc, ADC_FLAG_OVR);
-  tmp2 = __HAL_ADC_GET_IT_SOURCE(hadc, ADC_IT_OVR);
+  tmp1 = tmp_sr & ADC_FLAG_OVR;
+  tmp2 = tmp_cr1 & ADC_IT_OVR;
   /* Check Overrun flag */
   if(tmp1 && tmp2)
   {
@@ -1617,7 +1619,7 @@ __weak void HAL_ADC_LevelOutOfWindowCallback(ADC_HandleTypeDef* hadc)
 /**
   * @brief  Error ADC callback.
   * @note   In case of error due to overrun when using ADC with DMA transfer
-  *         (HAL ADC handle paramater "ErrorCode" to state "HAL_ADC_ERROR_OVR"):
+  *         (HAL ADC handle parameter "ErrorCode" to state "HAL_ADC_ERROR_OVR"):
   *         - Reinitialize the DMA using function "HAL_ADC_Stop_DMA()".
   *         - If needed, restart a new ADC conversion using function
   *           "HAL_ADC_Start_DMA()"
@@ -2106,4 +2108,3 @@ static void ADC_DMAError(DMA_HandleTypeDef *hdma)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

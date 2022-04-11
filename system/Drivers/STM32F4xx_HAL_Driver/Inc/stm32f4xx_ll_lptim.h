@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2016 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -353,7 +352,7 @@ __STATIC_INLINE void LL_LPTIM_Enable(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval State of bit (1 or 0).
   */
-__STATIC_INLINE uint32_t LL_LPTIM_IsEnabled(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_IsEnabled(LPTIM_TypeDef *const LPTIMx)
 {
   return (((READ_BIT(LPTIMx->CR, LPTIM_CR_ENABLE) == LPTIM_CR_ENABLE) ? 1UL : 0UL));
 }
@@ -399,7 +398,7 @@ __STATIC_INLINE void LL_LPTIM_SetUpdateMode(LPTIM_TypeDef *LPTIMx, uint32_t Upda
   *         @arg @ref LL_LPTIM_UPDATE_MODE_IMMEDIATE
   *         @arg @ref LL_LPTIM_UPDATE_MODE_ENDOFPERIOD
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(LPTIM_TypeDef *const LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_PRELOAD));
 }
@@ -414,7 +413,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetUpdateMode(LPTIM_TypeDef *LPTIMx)
   * @note autoreload value be strictly greater than the compare value.
   * @rmtoll ARR          ARR           LL_LPTIM_SetAutoReload
   * @param  LPTIMx Low-Power Timer instance
-  * @param  AutoReload Value between Min_Data=0x00 and Max_Data=0xFFFF
+  * @param  AutoReload Value between Min_Data=0x0001 and Max_Data=0xFFFF
   * @retval None
   */
 __STATIC_INLINE void LL_LPTIM_SetAutoReload(LPTIM_TypeDef *LPTIMx, uint32_t AutoReload)
@@ -426,9 +425,9 @@ __STATIC_INLINE void LL_LPTIM_SetAutoReload(LPTIM_TypeDef *LPTIMx, uint32_t Auto
   * @brief  Get actual auto reload value
   * @rmtoll ARR          ARR           LL_LPTIM_GetAutoReload
   * @param  LPTIMx Low-Power Timer instance
-  * @retval AutoReload Value between Min_Data=0x00 and Max_Data=0xFFFF
+  * @retval AutoReload Value between Min_Data=0x0001 and Max_Data=0xFFFF
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetAutoReload(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetAutoReload(LPTIM_TypeDef *const LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->ARR, LPTIM_ARR_ARR));
 }
@@ -470,7 +469,7 @@ __STATIC_INLINE uint32_t LL_LPTIM_GetCompare(LPTIM_TypeDef *LPTIMx)
   * @param  LPTIMx Low-Power Timer instance
   * @retval Counter value
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetCounter(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetCounter(LPTIM_TypeDef *const LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CNT, LPTIM_CNT_CNT));
 }
@@ -498,7 +497,7 @@ __STATIC_INLINE void LL_LPTIM_SetCounterMode(LPTIM_TypeDef *LPTIMx, uint32_t Cou
   *         @arg @ref LL_LPTIM_COUNTER_MODE_INTERNAL
   *         @arg @ref LL_LPTIM_COUNTER_MODE_EXTERNAL
   */
-__STATIC_INLINE uint32_t LL_LPTIM_GetCounterMode(LPTIM_TypeDef *LPTIMx)
+__STATIC_INLINE uint32_t LL_LPTIM_GetCounterMode(LPTIM_TypeDef *const LPTIMx)
 {
   return (uint32_t)(READ_BIT(LPTIMx->CFGR, LPTIM_CFGR_COUNTMODE));
 }
@@ -1377,5 +1376,3 @@ __STATIC_INLINE uint32_t LL_LPTIM_IsEnabledIT_DOWN(LPTIM_TypeDef *LPTIMx)
 #endif
 
 #endif /* STM32F4xx_LL_LPTIM_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
