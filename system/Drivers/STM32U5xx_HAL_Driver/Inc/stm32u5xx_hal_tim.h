@@ -770,6 +770,15 @@ typedef  void (*pTIM_CallbackTypeDef)(TIM_HandleTypeDef *htim);  /*!< pointer to
   * @}
   */
 
+/** @defgroup TIM_CC_DMA_Request CCx DMA request selection
+  * @{
+  */
+#define TIM_CCDMAREQUEST_CC                 0x00000000U                         /*!< CCx DMA request sent when capture or compare match event occurs */
+#define TIM_CCDMAREQUEST_UPDATE             TIM_CR2_CCDS                        /*!< CCx DMA requests sent when update event occurs */
+/**
+  * @}
+  */
+
 /** @defgroup TIM_Flag_definition TIM Flag Definition
   * @{
   */
@@ -1802,6 +1811,17 @@ mode.
     TIM_SET_CAPTUREPOLARITY((__HANDLE__), (__CHANNEL__), (__POLARITY__)); \
   }while(0)
 
+/** @brief  Select the Capture/compare DMA request source.
+  * @param  __HANDLE__ specifies the TIM Handle.
+  * @param  __CCDMA__ specifies Capture/compare DMA request source
+  *          This parameter can be one of the following values:
+  *            @arg TIM_CCDMAREQUEST_CC: CCx DMA request generated on Capture/Compare event
+  *            @arg TIM_CCDMAREQUEST_UPDATE: CCx DMA request generated on Update event
+  * @retval None
+  */
+#define __HAL_TIM_SELECT_CCDMAREQUEST(__HANDLE__, __CCDMA__)    \
+  MODIFY_REG((__HANDLE__)->Instance->CR2, TIM_CR2_CCDS, (__CCDMA__))
+
 /**
   * @}
   */
@@ -1931,6 +1951,10 @@ mode.
 
 #define IS_TIM_OPM_CHANNELS(__CHANNEL__)   (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                             ((__CHANNEL__) == TIM_CHANNEL_2))
+
+#define IS_TIM_PERIOD(__HANDLE__, __PERIOD__) \
+  ((IS_TIM_32B_COUNTER_INSTANCE(((__HANDLE__)->Instance)) == 0U) ? ((__PERIOD__) <= 0x0000FFFFU) : (1 == 1))
+
 
 #define IS_TIM_COMPLEMENTARY_CHANNELS(__CHANNEL__) (((__CHANNEL__) == TIM_CHANNEL_1) || \
                                                     ((__CHANNEL__) == TIM_CHANNEL_2) || \
@@ -2072,17 +2096,6 @@ mode.
                                    ((__MODE__) == TIM_OCMODE_DIRECTION_OUTPUT)   || \
                                    ((__MODE__) == TIM_OCMODE_PULSE_ON_COMPARE))
 
-#define IS_TIM_INTERNAL_TRIGGEREVENT_SELECTION(__SELECTION__) (((__SELECTION__) == TIM_TS_ITR0) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR1) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR2) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR3) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR4) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR5) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR6) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR7) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR8) || \
-                                                               ((__SELECTION__) == TIM_TS_ITR11)|| \
-                                                               ((__SELECTION__) == TIM_TS_NONE))
 
 #define IS_TIM_TRIGGERPOLARITY(__POLARITY__)   (((__POLARITY__) == TIM_TRIGGERPOLARITY_INVERTED   ) || \
                                                 ((__POLARITY__) == TIM_TRIGGERPOLARITY_NONINVERTED) || \

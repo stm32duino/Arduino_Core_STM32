@@ -193,7 +193,7 @@
     The compilation define USE_HAL_SD_REGISTER_CALLBACKS when set to 1
     allows the user to configure dynamically the driver callbacks.
 
-    Use Functions @ref HAL_SD_RegisterCallback() to register a user callback,
+    Use Functions HAL_SD_RegisterCallback() to register a user callback,
     it allows to register following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -208,9 +208,9 @@
     This function takes as parameters the HAL peripheral handle, the Callback ID
     and a pointer to the user callback function.
     For specific callbacks TransceiverCallback use dedicated register callbacks:
-    respectively @ref HAL_SD_RegisterTransceiverCallback().
+    respectively HAL_SD_RegisterTransceiverCallback().
 
-    Use function @ref HAL_SD_UnRegisterCallback() to reset a callback to the default
+    Use function HAL_SD_UnRegisterCallback() to reset a callback to the default
     weak (surcharged) function. It allows to reset following callbacks:
       (+) TxCpltCallback : callback when a transmission transfer is completed.
       (+) RxCpltCallback : callback when a reception transfer is completed.
@@ -222,14 +222,14 @@
       (+) MspDeInitCallback  : SD MspDeInit.
     This function) takes as parameters the HAL peripheral handle and the Callback ID.
     For specific callbacks TransceiverCallback use dedicated unregister callbacks:
-    respectively @ref HAL_SD_UnRegisterTransceiverCallback().
+    respectively HAL_SD_UnRegisterTransceiverCallback().
 
-    By default, after the @ref HAL_SD_Init and if the state is HAL_SD_STATE_RESET
+    By default, after the HAL_SD_Init and if the state is HAL_SD_STATE_RESET
     all callbacks are reset to the corresponding legacy weak (surcharged) functions.
     Exception done for MspInit and MspDeInit callbacks that are respectively
-    reset to the legacy weak (surcharged) functions in the @ref HAL_SD_Init
-    and @ref  HAL_SD_DeInit only when these callbacks are null (not registered beforehand).
-    If not, MspInit or MspDeInit are not null, the @ref HAL_SD_Init and @ref HAL_SD_DeInit
+    reset to the legacy weak (surcharged) functions in the HAL_SD_Init
+    and HAL_SD_DeInit only when these callbacks are null (not registered beforehand).
+    If not, MspInit or MspDeInit are not null, the HAL_SD_Init and HAL_SD_DeInit
     keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
     Callbacks can be registered/unregistered in READY state only.
@@ -237,14 +237,15 @@
     in READY or RESET state, thus registered (user) MspInit/DeInit callbacks can be used
     during the Init/DeInit.
     In that case first register the MspInit/MspDeInit user callbacks
-    using @ref HAL_SD_RegisterCallback before calling @ref HAL_SD_DeInit
-    or @ref HAL_SD_Init function.
+    using HAL_SD_RegisterCallback before calling HAL_SD_DeInit
+    or HAL_SD_Init function.
 
     When The compilation define USE_HAL_SD_REGISTER_CALLBACKS is set to 0 or
     not defined, the callback registering feature is not available
     and weak (surcharged) callbacks are used.
 
   @endverbatim
+  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -393,7 +394,7 @@ HAL_StatusTypeDef HAL_SD_Init(SD_HandleTypeDef *hsd)
 #endif /* USE_HAL_SD_REGISTER_CALLBACKS */
   }
 
-  hsd->State = HAL_SD_STATE_BUSY;
+  hsd->State = HAL_SD_STATE_PROGRAMMING;
 
   /* Initialize the Card parameters */
   if (HAL_SD_InitCard(hsd) != HAL_OK)
@@ -465,7 +466,7 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
 {
   uint32_t errorstate;
   SD_InitTypeDef Init;
-  uint32_t sdmmc_clk;
+  uint32_t sdmmc_clk = 0U;
 
   /* Default SDMMC peripheral configuration for SD card initialization */
   Init.ClockEdge           = SDMMC_CLOCK_EDGE_RISING;
@@ -474,7 +475,10 @@ HAL_StatusTypeDef HAL_SD_InitCard(SD_HandleTypeDef *hsd)
   Init.HardwareFlowControl = SDMMC_HARDWARE_FLOW_CONTROL_DISABLE;
 
   /* Init Clock should be less or equal to 400Khz*/
-  sdmmc_clk     = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC);
+  if ((hsd->Instance == SDMMC1) || (hsd->Instance == SDMMC2))
+  {
+    sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC);
+  }
   if (sdmmc_clk == 0U)
   {
     hsd->State = HAL_SD_STATE_READY;
@@ -2251,7 +2255,7 @@ HAL_StatusTypeDef HAL_SD_GetCardCSD(SD_HandleTypeDef *hsd, HAL_SD_CardCSDTypeDef
 }
 
 /**
-  * @brief  Gets the SD status info.
+  * @brief  Gets the SD status info.( shall be called if there is no SD transaction ongoing )
   * @param  hsd: Pointer to SD handle
   * @param  pStatus: Pointer to the HAL_SD_CardStatusTypeDef structure that
   *         will contain the SD card status information
@@ -2262,6 +2266,11 @@ HAL_StatusTypeDef HAL_SD_GetCardStatus(SD_HandleTypeDef *hsd, HAL_SD_CardStatusT
   uint32_t sd_status[16];
   uint32_t errorstate;
   HAL_StatusTypeDef status = HAL_OK;
+
+  if (hsd->State == HAL_SD_STATE_BUSY)
+  {
+    return HAL_ERROR;
+  }
 
   errorstate = SD_SendSDStatus(hsd, sd_status);
   if (errorstate != HAL_SD_ERROR_NONE)
@@ -2311,6 +2320,7 @@ HAL_StatusTypeDef HAL_SD_GetCardStatus(SD_HandleTypeDef *hsd, HAL_SD_CardStatusT
     status = HAL_ERROR;
   }
 
+
   return status;
 }
 
@@ -2350,7 +2360,7 @@ HAL_StatusTypeDef HAL_SD_ConfigWideBusOperation(SD_HandleTypeDef *hsd, uint32_t 
 {
   SDMMC_InitTypeDef Init;
   uint32_t errorstate;
-  uint32_t sdmmc_clk;
+  uint32_t sdmmc_clk = 0U;
   HAL_StatusTypeDef status = HAL_OK;
 
   /* Check the parameters */
@@ -2397,7 +2407,10 @@ HAL_StatusTypeDef HAL_SD_ConfigWideBusOperation(SD_HandleTypeDef *hsd, uint32_t 
   }
   else
   {
-    sdmmc_clk     = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC);
+    if ((hsd->Instance == SDMMC1) || (hsd->Instance == SDMMC2))
+    {
+      sdmmc_clk = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_SDMMC);
+    }
     if (sdmmc_clk != 0U)
     {
       /* Configure the SDMMC peripheral */
@@ -2882,7 +2895,8 @@ static uint32_t SD_InitCard(SD_HandleTypeDef *hsd)
 {
   HAL_SD_CardCSDTypeDef CSD;
   uint32_t errorstate;
-  uint16_t sd_rca = 1U;
+  uint16_t sd_rca = 0U;
+  uint32_t tickstart = HAL_GetTick();
 
   /* Check the power State */
   if (SDMMC_GetPowerState(hsd->Instance) == 0U)
@@ -2913,10 +2927,17 @@ static uint32_t SD_InitCard(SD_HandleTypeDef *hsd)
   {
     /* Send CMD3 SET_REL_ADDR with argument 0 */
     /* SD Card publishes its RCA. */
-    errorstate = SDMMC_CmdSetRelAdd(hsd->Instance, &sd_rca);
-    if (errorstate != HAL_SD_ERROR_NONE)
+    while (sd_rca == 0U)
     {
-      return errorstate;
+      errorstate = SDMMC_CmdSetRelAdd(hsd->Instance, &sd_rca);
+      if (errorstate != HAL_SD_ERROR_NONE)
+      {
+        return errorstate;
+      }
+      if ((HAL_GetTick() - tickstart) >=  SDMMC_CMDTIMEOUT)
+      {
+        return HAL_SD_ERROR_TIMEOUT;
+      }
     }
   }
   if (hsd->SdCard.CardType != CARD_SECURED)
@@ -2986,7 +3007,7 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
 
   /* CMD8: SEND_IF_COND: Command available only on V2.0 cards */
   errorstate = SDMMC_CmdOperCond(hsd->Instance);
-  if (errorstate != HAL_SD_ERROR_NONE)
+  if (errorstate == SDMMC_ERROR_TIMEOUT) /* No response to CMD8 */
   {
     hsd->SdCard.CardVersion = CARD_V1_X;
     /* CMD0: GO_IDLE_STATE */
@@ -3044,7 +3065,10 @@ static uint32_t SD_PowerON(SD_HandleTypeDef *hsd)
     return HAL_SD_ERROR_INVALID_VOLTRANGE;
   }
 
-  if ((response & SDMMC_HIGH_CAPACITY) == SDMMC_HIGH_CAPACITY) /* (response &= SD_HIGH_CAPACITY) */
+  /* Set default card type */
+  hsd->SdCard.CardType = CARD_SDSC;
+
+  if ((response & SDMMC_HIGH_CAPACITY) == SDMMC_HIGH_CAPACITY)
   {
     hsd->SdCard.CardType = CARD_SDHC_SDXC;
 #if (USE_SD_TRANSCEIVER != 0U)

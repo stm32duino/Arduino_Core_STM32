@@ -112,12 +112,19 @@ typedef struct
 #define TIM_TIM1_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM1_ETR is connected to MSIK         */
 #define TIM_TIM1_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM1_ETR is connected to HSI          */
 #define TIM_TIM1_ETR_MSIS           (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM1_ETR is connected to MSI          */
+#if defined(ADC2)
+#define TIM_TIM1_ETR_ADC2_AWD2      (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM1_ETR is connected to ADC2 AWD2    */
+#define TIM_TIM1_ETR_ADC2_AWD3      (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM1_ETR is connected to ADC2 AWD3    */
+#endif /* ADC2 */
 #define TIM_TIM1_ETR_ADC1_AWD1      (TIM1_AF1_ETRSEL_3)                                         /*!< TIM1_ETR is connected to ADC1 AWD1    */
 #define TIM_TIM1_ETR_ADC1_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM1_ETR is connected to ADC1 AWD2    */
 #define TIM_TIM1_ETR_ADC1_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM1_ETR is connected to ADC1 AWD3    */
 #define TIM_TIM1_ETR_ADC4_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM1_ETR is connected to ADC4 AWD1    */
 #define TIM_TIM1_ETR_ADC4_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< TIM1_ETR is connected to ADC4 AWD2    */
 #define TIM_TIM1_ETR_ADC4_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM1_ETR is connected to ADC4 AWD3    */
+#if defined(ADC2)
+#define TIM_TIM1_ETR_ADC2_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM1_ETR is connected to ADC2 AWD1    */
+#endif /* ADC2 */
 
 #define TIM_TIM2_ETR_GPIO           0x00000000UL                                                /*!< TIM2_ETR is not connected to I/O      */
 #define TIM_TIM2_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM2_ETR is connected to COMP1 output */
@@ -125,22 +132,44 @@ typedef struct
 #define TIM_TIM2_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to MSIK         */
 #define TIM_TIM2_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM2_ETR is connected to HSI          */
 #define TIM_TIM2_ETR_MSIS           (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to MSIS         */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM2_ETR_DCMI_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to DCMI VSYNC   */
+#define TIM_TIM2_ETR_LTDC_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM2_ETR is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define TIM_TIM2_ETR_TIM3_ETR       TIM1_AF1_ETRSEL_3                                           /*!< TIM2_ETR is connected to TIM3 ETR     */
 #define TIM_TIM2_ETR_TIM4_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM2_ETR is connected to TIM4 ETR     */
 #define TIM_TIM2_ETR_TIM5_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to TIM5 ETR     */
 #define TIM_TIM2_ETR_LSE            (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM2_ETR is connected to LSE          */
+#if defined(DSI)
+#define TIM_TIM2_ETR_DSI_TE         (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM2_ETR is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM2_ETR_DCMI_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM2_ETR is connected to DCMI HSYNC   */
+#define TIM_TIM2_ETR_LTDC_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM2_ETR is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 
 #define TIM_TIM3_ETR_GPIO           0x00000000UL                                                /*!< TIM3_ETR is not connected to I/O      */
 #define TIM_TIM3_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM3_ETR is connected to COMP1 output */
 #define TIM_TIM3_ETR_COMP2          TIM1_AF1_ETRSEL_1                                           /*!< TIM3_ETR is connected to COMP2 output */
 #define TIM_TIM3_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM3_ETR is connected to MSIK         */
 #define TIM_TIM3_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM3_ETR is connected to HSI          */
-#define TIM_TIM3_ETR_MSIS            (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                    /*!< TIM3_ETR is connected to MSIS          */
+#define TIM_TIM3_ETR_MSIS            (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                    /*!< TIM3_ETR is connected to MSIS         */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM3_ETR_DCMI_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM3_ETR is connected to DCMI VSYNC   */
+#define TIM_TIM3_ETR_LTDC_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM3_ETR is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define TIM_TIM3_ETR_TIM2_ETR       TIM1_AF1_ETRSEL_3                                           /*!< TIM3_ETR is connected to TIM2 ETR     */
 #define TIM_TIM3_ETR_TIM4_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM3_ETR is connected to TIM4 ETR     */
+#if defined(DSI)
+#define TIM_TIM3_ETR_DSI_TE         (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM3_ETR is connected to DSI_TE       */
+#endif /* DSI */
 #define TIM_TIM3_ETR_ADC1_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM3_ETR is connected to ADC1 AWD1    */
 #define TIM_TIM3_ETR_ADC1_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< TIM3_ETR is connected to ADC1 AWD2    */
 #define TIM_TIM3_ETR_ADC1_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM3_ETR is connected to ADC1 AWD3    */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM3_ETR_DCMI_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM3_ETR is connected to DCMI HSYNC   */
+#define TIM_TIM3_ETR_LTDC_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM3_ETR is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 
 #define TIM_TIM4_ETR_GPIO           0x00000000UL                                                /*!< TIM4_ETR is not connected to I/O      */
 #define TIM_TIM4_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM4_ETR is connected to COMP1 output */
@@ -148,8 +177,24 @@ typedef struct
 #define TIM_TIM4_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM4_ETR is connected to MSIK         */
 #define TIM_TIM4_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM4_ETR is connected to HSI          */
 #define TIM_TIM4_ETR_MSIS           (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM4_ETR is connected to MSIS         */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM4_ETR_DCMI_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM4_ETR is connected to DCMI VSYNC   */
+#define TIM_TIM4_ETR_LTDC_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM4_ETR is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define TIM_TIM4_ETR_TIM3_ETR       TIM1_AF1_ETRSEL_3                                           /*!< TIM4_ETR is connected to TIM3 ETR     */
 #define TIM_TIM4_ETR_TIM5_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM4_ETR is connected to TIM5 ETR     */
+#if defined(DSI)
+#define TIM_TIM4_ETR_DSI_TE         (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(ADC2)
+#define TIM_TIM4_ETR_ADC2_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM4_ETR is connected to ADC2 AWD1    */
+#define TIM_TIM4_ETR_ADC2_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< TIM4_ETR is connected to ADC2 AWD2    */
+#define TIM_TIM4_ETR_ADC2_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM4_ETR is connected to ADC2 AWD3    */
+#endif /* ADC2 */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM4_ETR_DCMI_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM4_ETR is connected to DCMI HSYNC   */
+#define TIM_TIM4_ETR_LTDC_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM4_ETR is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 
 #define TIM_TIM5_ETR_GPIO           0x00000000UL                                                /*!< TIM5_ETR is not connected to I/O      */
 #define TIM_TIM5_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM5_ETR is connected to COMP1 output */
@@ -157,8 +202,19 @@ typedef struct
 #define TIM_TIM5_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM5_ETR is connected to MSIK         */
 #define TIM_TIM5_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM5_ETR is connected to HSI          */
 #define TIM_TIM5_ETR_MSIS           (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM5_ETR is connected to MSIS         */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM5_ETR_DCMI_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM5_ETR is connected to DCMI VSYNC   */
+#define TIM_TIM5_ETR_LTDC_VSYNC     (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM5_ETR is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define TIM_TIM5_ETR_TIM2_ETR       TIM1_AF1_ETRSEL_3                                           /*!< TIM5_ETR is connected to TIM2 ETR     */
 #define TIM_TIM5_ETR_TIM3_ETR       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM5_ETR is connected to TIM3 ETR     */
+#if defined(DSI)
+#define TIM_TIM5_ETR_DSI_TE         (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM5_ETR is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(DCMI) && defined(LTDC)
+#define TIM_TIM5_ETR_DCMI_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM5_ETR is connected to DCMI HSYNC   */
+#define TIM_TIM5_ETR_LTDC_HSYNC     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM5_ETR is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 
 #define TIM_TIM8_ETR_GPIO           0x00000000UL                                                /*!< TIM8_ETR is not connected to I/O      */
 #define TIM_TIM8_ETR_COMP1          TIM1_AF1_ETRSEL_0                                           /*!< TIM8_ETR is connected to COMP1 output */
@@ -166,12 +222,19 @@ typedef struct
 #define TIM_TIM8_ETR_MSIK           (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< TIM8_ETR is connected to MSIK         */
 #define TIM_TIM8_ETR_HSI            TIM1_AF1_ETRSEL_2                                           /*!< TIM8_ETR is connected to HSI          */
 #define TIM_TIM8_ETR_MSIS           (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< TIM8_ETR is connected to MSIS         */
+#if defined(ADC2)
+#define TIM_TIM8_ETR_ADC2_AWD2      (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< TIM8_ETR is connected to ADC2 AWD2    */
+#define TIM_TIM8_ETR_ADC2_AWD3      (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< TIM8_ETR is connected to ADC2 AWD3    */
+#endif /* ADC2 */
 #define TIM_TIM8_ETR_ADC1_AWD1      TIM1_AF1_ETRSEL_3                                           /*!< TIM8_ETR is connected to ADC1 AWD1    */
 #define TIM_TIM8_ETR_ADC1_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< TIM8_ETR is connected to ADC1 AWD2    */
 #define TIM_TIM8_ETR_ADC1_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM8_ETR is connected to ADC1 AWD3    */
 #define TIM_TIM8_ETR_ADC4_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< TIM8_ETR is connected to ADC4 AWD1    */
 #define TIM_TIM8_ETR_ADC4_AWD2      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< TIM8_ETR is connected to ADC4 AWD2    */
 #define TIM_TIM8_ETR_ADC4_AWD3      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< TIM8_ETR is connected to ADC4 AWD3    */
+#if defined(ADC2)
+#define TIM_TIM8_ETR_ADC2_AWD1      (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< TIM8_ETR is connected to ADC2 AWD1    */
+#endif /* ADC2 */
 /**
   * @}
   */
@@ -986,7 +1049,7 @@ HAL_TIM_ChannelStateTypeDef HAL_TIMEx_GetChannelNState(TIM_HandleTypeDef *htim, 
 /* End of exported functions -------------------------------------------------*/
 
 /* Private functions----------------------------------------------------------*/
-/** @addtogroup TIMEx_Private_Functions TIMEx Private Functions
+/** @addtogroup TIMEx_Private_Functions TIM Extended Private Functions
   * @{
   */
 void TIMEx_DMACommutationCplt(DMA_HandleTypeDef *hdma);

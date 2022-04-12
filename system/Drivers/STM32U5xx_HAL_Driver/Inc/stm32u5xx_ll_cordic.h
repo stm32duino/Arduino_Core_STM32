@@ -241,13 +241,13 @@ extern "C" {
   *         - @ref LL_CORDIC_SetNbRead()
   *         - @ref LL_CORDIC_SetInSize()
   *         - @ref LL_CORDIC_SetOutSize()
-  * @rmtoll CSR          FUNC          LL_CORDIC_Configure\n
-  *         CSR          PRECISION     LL_CORDIC_Configure\n
-  *         CSR          SCALE         LL_CORDIC_Configure\n
-  *         CSR          NARGS         LL_CORDIC_Configure\n
-  *         CSR          NRES          LL_CORDIC_Configure\n
-  *         CSR          ARGSIZE       LL_CORDIC_Configure\n
-  *         CSR          RESIZE        LL_CORDIC_Configure
+  * @rmtoll CSR          FUNC          LL_CORDIC_Config\n
+  *         CSR          PRECISION     LL_CORDIC_Config\n
+  *         CSR          SCALE         LL_CORDIC_Config\n
+  *         CSR          NARGS         LL_CORDIC_Config\n
+  *         CSR          NRES          LL_CORDIC_Config\n
+  *         CSR          ARGSIZE       LL_CORDIC_Config\n
+  *         CSR          RESIZE        LL_CORDIC_Config
   * @param  CORDICx CORDIC instance
   * @param  Function parameter can be one of the following values:
   *         @arg @ref LL_CORDIC_FUNCTION_COSINE

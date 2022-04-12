@@ -448,7 +448,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
 
 /**
   * @brief  Unregister an RNG Callback
-  *         RNG callabck is redirected to the weak predefined callback
+  *         RNG callback is redirected to the weak predefined callback
   * @param  hrng RNG handle
   * @param  CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:

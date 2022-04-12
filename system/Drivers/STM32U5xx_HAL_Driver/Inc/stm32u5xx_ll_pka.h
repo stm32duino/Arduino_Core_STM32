@@ -97,7 +97,7 @@ typedef struct
   */
 
 /** @defgroup PKA_LL_EC_MODE Operation Mode
-  * @brief    List of opearation mode.
+  * @brief    List of operation mode.
   * @{
   */
 #define LL_PKA_MODE_MODULAR_EXP              ((uint32_t)0x00000000U)   /*!< modular exponentiation */

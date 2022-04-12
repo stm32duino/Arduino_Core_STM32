@@ -742,7 +742,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_DeInit(DMA_HandleTypeDef *const hdma)
   hdma->XferSuspendCallback  = NULL;
 
   /* Check the linked-list queue */
-  if(hdma->LinkedListQueue != NULL)
+  if (hdma->LinkedListQueue != NULL)
   {
     /* Update the queue state and error code */
     hdma->LinkedListQueue->State     = HAL_DMA_QUEUE_STATE_READY;
@@ -780,7 +780,7 @@ HAL_StatusTypeDef HAL_DMAEx_List_DeInit(DMA_HandleTypeDef *const hdma)
   *
 @verbatim
   ======================================================================================================================
-                         ############### Linked-List I/O Operation Functions ###############
+                         ############### Linked-List IO Operation Functions ###############
   ======================================================================================================================
     [..]
       This section provides functions allowing to :
@@ -3494,7 +3494,7 @@ HAL_StatusTypeDef HAL_DMAEx_Suspend(DMA_HandleTypeDef *const hdma)
     hdma->Instance->CCR |= DMA_CCR_SUSP;
 
     /* Check if the DMA channel is suspended */
-    while ((hdma->Instance->CSR & DMA_CSR_SUSPF) != 0U)
+    while ((hdma->Instance->CSR & DMA_CSR_SUSPF) == 0U)
     {
       /* Check for the timeout */
       if ((HAL_GetTick() - tickstart) > HAL_TIMEOUT_DMA_ABORT)
@@ -3510,10 +3510,10 @@ HAL_StatusTypeDef HAL_DMAEx_Suspend(DMA_HandleTypeDef *const hdma)
 
         return HAL_ERROR;
       }
-
-      /* Update the DMA channel state */
-      hdma->State = HAL_DMA_STATE_SUSPEND;
     }
+
+    /* Update the DMA channel state */
+    hdma->State = HAL_DMA_STATE_SUSPEND;
   }
 
   return HAL_OK;
@@ -3649,7 +3649,13 @@ static void DMA_List_Init(DMA_HandleTypeDef const *const hdma)
   uint32_t tmpreg;
 
   /* Prepare DMA Channel Control Register (CCR) value */
-  tmpreg = hdma->InitLinkedList.Priority | hdma->InitLinkedList.LinkStepMode | hdma->InitLinkedList.LinkAllocatedPort;
+  tmpreg = hdma->InitLinkedList.Priority | hdma->InitLinkedList.LinkStepMode;
+
+  /* Check DMA channel instance */
+  if (IS_GPDMA_INSTANCE(hdma->Instance) != 0U)
+  {
+    tmpreg |= hdma->InitLinkedList.LinkAllocatedPort;
+  }
 
   /* Write DMA Channel Control Register (CCR) */
   MODIFY_REG(hdma->Instance->CCR, DMA_CCR_PRIO | DMA_CCR_LAP | DMA_CCR_LSM, tmpreg);

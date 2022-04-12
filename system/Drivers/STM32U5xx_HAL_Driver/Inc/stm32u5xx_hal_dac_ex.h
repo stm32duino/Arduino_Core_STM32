@@ -45,7 +45,7 @@ extern "C" {
 typedef struct
 {
   uint32_t AutonomousModeState;    /*!< Specifies the autonomous mode state.
-                                        This parameter can be a value of @ref DACx_Autonomous_mode */
+                                        This parameter can be a value of @ref DAC_AutonomousMode */
 
 } DAC_AutonomousModeConfTypeDef;
 
@@ -87,27 +87,6 @@ typedef struct
 #define DAC_TRIANGLEAMPLITUDE_2047         (DAC_CR_MAMP1_3                  | DAC_CR_MAMP1_1                 ) /*!< Select max triangle amplitude of 2047 */
 #define DAC_TRIANGLEAMPLITUDE_4095         (DAC_CR_MAMP1_3                  | DAC_CR_MAMP1_1 | DAC_CR_MAMP1_0) /*!< Select max triangle amplitude of 4095 */
 
-/**
-  * @}
-  */
-
-/** @defgroup DACx_Autonomous_mode DACx Autonomous Mode
-  * @brief    DAC Autonomous mode
-  * @{
-  */
-#define DAC_AUTONOMOUS_MODE_DISABLE  0x00000000U          /*!< Autonomous mode disable */
-#define DAC_AUTONOMOUS_MODE_ENABLE   DAC_AUTOCR_AUTOMODE  /*!< Autonomous mode enable  */
-/**
-  * @}
-  */
-
-/** @defgroup DACx_Trigger_Stop_mode DACx Trigger Stop Mode
-  * @brief    DAC Trigger stop mode
-  * @{
-  */
-#define DAC_TRIGGER_STOP_LPTIM1_CH1 DAC_TRIGGER_LPTIM1_CH1 /*!< LPTIM1 output selected as DAC trigger in stop mode */
-#define DAC_TRIGGER_STOP_LPTIM3_CH1 DAC_TRIGGER_LPTIM3_CH1 /*!< LPTIM3 output selected as DAC trigger in stop mode */
-#define DAC_TRIGGER_STOP_EXT_IT9    DAC_TRIGGER_EXT_IT9    /*!< EXTI line 9 selected as DAC trigger in stop mode   */
 /**
   * @}
   */

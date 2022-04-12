@@ -126,6 +126,9 @@ typedef struct
 #define LL_EXTI_EXTI_PORTG               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_1) /*!< EXTI PORT G */
 #define LL_EXTI_EXTI_PORTH               (EXTI_EXTICR1_EXTI0_2|EXTI_EXTICR1_EXTI0_1|EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT H */
 #define LL_EXTI_EXTI_PORTI               EXTI_EXTICR1_EXTI0_3 /*!< EXTI PORT I */
+#if defined(GPIOJ)
+#define LL_EXTI_EXTI_PORTJ               (EXTI_EXTICR1_EXTI0_3 | EXTI_EXTICR1_EXTI0_0) /*!< EXTI PORT J */
+#endif /* GPIOJ */
 
 /**
   * @}
@@ -1032,6 +1035,7 @@ __STATIC_INLINE void LL_EXTI_ClearRisingFlag_0_31(uint32_t ExtiLine)
   *         @arg @ref LL_EXTI_EXTI_PORTG
   *         @arg @ref LL_EXTI_EXTI_PORTH
   *         @arg @ref LL_EXTI_EXTI_PORTI
+  *         @arg @ref LL_EXTI_EXTI_PORTJ
   *
   *         (*) value not defined in all devices
   * @param  Line This parameter can be one of the following values:
@@ -1104,6 +1108,7 @@ __STATIC_INLINE void LL_EXTI_SetEXTISource(uint32_t Port, uint32_t Line)
   *         @arg @ref LL_EXTI_EXTI_PORTG
   *         @arg @ref LL_EXTI_EXTI_PORTH
   *         @arg @ref LL_EXTI_EXTI_PORTI
+  *         @arg @ref LL_EXTI_EXTI_PORTJ
   */
 __STATIC_INLINE uint32_t LL_EXTI_GetEXTISource(uint32_t Line)
 {

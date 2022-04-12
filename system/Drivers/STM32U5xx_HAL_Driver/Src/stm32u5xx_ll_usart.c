@@ -172,6 +172,16 @@ ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
     /* Release reset of UART clock */
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_UART5);
   }
+#if defined(USART6)
+  else if (USARTx == USART6)
+  {
+    /* Force reset of USART clock */
+    LL_APB1_GRP1_ForceReset(LL_APB1_GRP1_PERIPH_USART6);
+
+    /* Release reset of USART clock */
+    LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_USART6);
+  }
+#endif /* USART6 */
   else
   {
     status = ERROR;
@@ -264,6 +274,12 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
     {
       periphclk = LL_RCC_GetUARTClockFreq(LL_RCC_UART5_CLKSOURCE);
     }
+#if defined(USART6)
+    else if (USARTx == USART6)
+    {
+      periphclk = LL_RCC_GetUSARTClockFreq(LL_RCC_USART6_CLKSOURCE);
+    }
+#endif /* USART6 */
     else
     {
       /* Nothing to do, as error code is already assigned to ERROR value */

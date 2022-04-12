@@ -123,6 +123,26 @@ ErrorStatus LL_I2C_DeInit(I2C_TypeDef *I2Cx)
     /* Release reset of I2C clock */
     LL_APB1_GRP2_ReleaseReset(LL_APB1_GRP2_PERIPH_I2C4);
   }
+#if defined(I2C5)
+  else if (I2Cx == I2C5)
+  {
+    /* Force reset of I2C clock */
+    LL_APB1_GRP2_ForceReset(LL_APB1_GRP2_PERIPH_I2C5);
+
+    /* Release reset of I2C clock */
+    LL_APB1_GRP2_ReleaseReset(LL_APB1_GRP2_PERIPH_I2C5);
+  }
+#endif /* I2C5 */
+#if defined(I2C6)
+  else if (I2Cx == I2C6)
+  {
+    /* Force reset of I2C clock */
+    LL_APB1_GRP2_ForceReset(LL_APB1_GRP2_PERIPH_I2C6);
+
+    /* Release reset of I2C clock */
+    LL_APB1_GRP2_ReleaseReset(LL_APB1_GRP2_PERIPH_I2C6);
+  }
+#endif /* I2C6 */
   else
   {
     status = ERROR;

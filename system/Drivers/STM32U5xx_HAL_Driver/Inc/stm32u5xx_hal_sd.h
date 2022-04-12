@@ -293,7 +293,7 @@ typedef void (*pSD_TransceiverCallbackTypeDef)(FlagStatus status);
   */
 
 /* Exported constants --------------------------------------------------------*/
-/** @defgroup SD_Exported_Constants Exported Constants
+/** @defgroup SD_Exported_Constants SD Exported Constants
   * @{
   */
 

@@ -398,8 +398,8 @@ ErrorStatus LL_RTC_DATE_Init(RTC_TypeDef *RTCx, uint32_t RTC_Format, LL_RTC_Date
     assert_param(IS_LL_RTC_DAY(__LL_RTC_CONVERT_BCD2BIN(RTC_DateStruct->Day)));
   }
 
-   assert_param(IS_LL_RTC_MONTH(RTC_DateStruct->Month));
-   assert_param(IS_LL_RTC_WEEKDAY(RTC_DateStruct->WeekDay));
+  assert_param(IS_LL_RTC_MONTH(RTC_DateStruct->Month));
+  assert_param(IS_LL_RTC_WEEKDAY(RTC_DateStruct->WeekDay));
 
   /* Disable the write protection for RTC registers */
   LL_RTC_DisableWriteProtection(RTCx);

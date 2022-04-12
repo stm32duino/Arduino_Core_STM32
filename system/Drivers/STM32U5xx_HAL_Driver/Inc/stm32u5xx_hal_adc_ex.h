@@ -58,13 +58,13 @@ typedef struct
   *          - Scope channel: InjectedChannel, InjectedRank, InjectedSamplingTime , InjectedSingleDiff,
   *                           InjectedOffsetNumber, InjectedOffset
   *          - Scope ADC group injected (affects all channels of injected group): InjectedNbrOfConversion,
-  *            InjectedDiscontinuousConvMode, AutoInjectedConv, QueueInjectedContext, ExternalTrigInjecConv,
+  *            InjectedDiscontinuousConvMode, AutoInjectedConv, ExternalTrigInjecConv,
   *            ExternalTrigInjecConvEdge, InjecOversamplingMode, InjecOversampling.
   * @note   The setting of these parameters by function HAL_ADCEx_InjectedConfigChannel() is conditioned to ADC state.
   *         ADC state can be either:
   *          - For all parameters: ADC disabled (this is the only possible ADC state to modify parameter
   *                               'InjectedSingleDiff')
-  *          - For parameters 'InjectedDiscontinuousConvMode', 'QueueInjectedContext', 'InjecOversampling':
+  *          - For parameters 'InjectedDiscontinuousConvMode', 'InjecOversampling':
   *                           ADC enabled without conversion on going on injected group.
   *          - For parameters 'InjectedSamplingTime', 'InjectedOffset', 'InjectedOffsetNumber', 'AutoInjectedConv':
   *                           ADC enabled without conversion on going on regular and injected groups.
@@ -398,15 +398,22 @@ typedef struct
 /** @defgroup ADC_HAL_EC_MULTI_TWOSMP_DELAY  Multimode - Delay between two sampling phases
   * @{
   */
-#define ADC_TWOSAMPLINGDELAY_1CYCLE        (LL_ADC_MULTI_TWOSMP_DELAY_1CYCLE_5)   /*!< ADC multimode delay between two sampling phases: 1 ADC clock cycle */
-#define ADC_TWOSAMPLINGDELAY_2CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_2CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 2 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_3CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_3CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 3 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_4CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_4CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 4 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_5CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_5CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 5 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_6CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_6CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 6 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_7CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_7CYCLES_5)  /*!< ADC multimode delay between two sampling phases: 7 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_8CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_8CYCLES)   /*!< ADC multimode delay between two sampling phases: 8 ADC clock cycles */
-#define ADC_TWOSAMPLINGDELAY_9CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_9CYCLES)   /*!< ADC multimode delay between two sampling phases: 9 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_1CYCLE        (LL_ADC_MULTI_TWOSMP_DELAY_1CYCLE)   /*!< ADC multimode delay between two sampling phases: 1 ADC clock cycle   */
+#define ADC_TWOSAMPLINGDELAY_2CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_2CYCLES)  /*!< ADC multimode delay between two sampling phases: 2 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_3CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_3CYCLES)  /*!< ADC multimode delay between two sampling phases: 3 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_4CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_4CYCLES)  /*!< ADC multimode delay between two sampling phases: 4 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_5CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_5CYCLES)  /*!< ADC multimode delay between two sampling phases: 5 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_6CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_6CYCLES)  /*!< ADC multimode delay between two sampling phases: 6 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_7CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_7CYCLES)  /*!< ADC multimode delay between two sampling phases: 7 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_8CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_8CYCLES)  /*!< ADC multimode delay between two sampling phases: 8 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_9CYCLES       (LL_ADC_MULTI_TWOSMP_DELAY_9CYCLES)  /*!< ADC multimode delay between two sampling phases: 9 ADC clock cycles  */
+#define ADC_TWOSAMPLINGDELAY_10CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_10CYCLES) /*!< ADC multimode delay between two sampling phases: 10 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_11CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_11CYCLES) /*!< ADC multimode delay between two sampling phases: 11 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_12CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_12CYCLES) /*!< ADC multimode delay between two sampling phases: 12 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_13CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_13CYCLES) /*!< ADC multimode delay between two sampling phases: 13 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_14CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_14CYCLES) /*!< ADC multimode delay between two sampling phases: 14 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_15CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_15CYCLES) /*!< ADC multimode delay between two sampling phases: 15 ADC clock cycles */
+#define ADC_TWOSAMPLINGDELAY_16CYCLES      (LL_ADC_MULTI_TWOSMP_DELAY_16CYCLES) /*!< ADC multimode delay between two sampling phases: 16 ADC clock cycles */
 
 /**
   * @}
@@ -544,7 +551,7 @@ typedef struct
   * @retval SET (ADC is independent) or RESET (ADC is not).
   */
 #define ADC_IS_INDEPENDENT(__HANDLE__)    \
-  ( ( ( ((__HANDLE__)->Instance) == ADC3) \
+  ( ( ( ((__HANDLE__)->Instance) == ADC4) \
     )?                                    \
     SET                                  \
     :                                    \
@@ -619,6 +626,15 @@ typedef struct
   * @param __DMACONTREQ_MODE__: DMA continuous request mode.
   * @retval None
   */
+#if defined (ADC2)
+#define ADC_CFGR_DMACONTREQ(__HANDLE__,__DMACONTREQ_MODE__)  \
+  ( (((__HANDLE__)->Instance == ADC1) || ((__HANDLE__)->Instance == ADC2) \
+    )?                                                     \
+    ((__DMACONTREQ_MODE__))                               \
+    :                                                     \
+    ((__DMACONTREQ_MODE__) << 1U)                           \
+  )
+#else
 #define ADC_CFGR_DMACONTREQ(__HANDLE__,__DMACONTREQ_MODE__)  \
   ( (((__HANDLE__)->Instance == ADC1)                      \
     )?                                                     \
@@ -626,7 +642,7 @@ typedef struct
     :                                                     \
     ((__DMACONTREQ_MODE__) << 1U)                           \
   )
-
+#endif /*ADC2 */
 
 /**
   * @brief Configure the channel number into offset OFRx register.
@@ -666,6 +682,24 @@ typedef struct
 #define ADC_TRX_HIGHTHRESHOLD(__THRESHOLD__) ((__THRESHOLD__) << 16UL)
 
 #if defined(ADC_MULTIMODE_SUPPORT)
+
+
+/**
+  * @brief Verification of condition for ADC start conversion: ADC must be in non-multimode or multimode with
+  *        handle of ADC master.
+  * @param __HANDLE__ ADC handle.
+  * @note Return SET if multimode feature is not available.
+  * @retval SET (non-multimode or Master handle) or RESET (handle of Slave ADC in multimode)
+  */
+#define ADC_NONMULTIMODE_OR_MULTIMODEMASTER(__HANDLE__)                                                            \
+  ( ( ((__HANDLE__)->Instance == ADC1) || ((__HANDLE__)->Instance == ADC4)                                         \
+    )?                                                                                                             \
+    SET                                                                                                           \
+    :                                                                                                             \
+    (((__LL_ADC_COMMON_INSTANCE(__HANDLE__))->CCR & ADC_CCR_DUAL) == RESET)                                       \
+  )
+
+
 /**
   * @brief Configure the ADC DMA continuous request for ADC multimode.
   * @param __DMACONTREQ_MODE__ DMA continuous request mode.
@@ -950,7 +984,30 @@ typedef struct
                                      ((__CHANNEL__) == ADC4_CHANNEL_VBAT)       || \
                                      ((__CHANNEL__) == ADC_CHANNEL_VCORE)       || \
                                      ((__CHANNEL__) == ADC_CHANNEL_VREFINT)       )
-
+#if defined (ADC2)
+/**
+  * @brief Verify the ADC channel setting in differential mode for ADC1 and ADC2.
+  * @param __CHANNEL__: programmed ADC channel.
+  * @retval SET (__CHANNEL__ is valid) or RESET (__CHANNEL__ is invalid)
+  */
+#define IS_ADC12_DIFF_CHANNEL(__CHANNEL__) (((__CHANNEL__) == ADC_CHANNEL_1)      || \
+                                            ((__CHANNEL__) == ADC_CHANNEL_2)      || \
+                                            ((__CHANNEL__) == ADC_CHANNEL_3)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_4)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_5)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_6)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_7)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_8)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_9)      ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_10)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_11)     ||\
+                                            ( (__CHANNEL__) == ADC_CHANNEL_12)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_13)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_14)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_15)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_16)     ||\
+                                            ((__CHANNEL__) == ADC_CHANNEL_17)      )
+#else
 /**
   * @brief Verify the ADC channel setting in differential mode for ADC1.
   * @param __CHANNEL__: programmed ADC channel.
@@ -973,6 +1030,7 @@ typedef struct
                                            ((__CHANNEL__) == ADC_CHANNEL_15)     ||\
                                            ((__CHANNEL__) == ADC_CHANNEL_16)     ||\
                                            ((__CHANNEL__) == ADC_CHANNEL_17)      )
+#endif /* ADC2 */
 
 
 /**
@@ -1084,7 +1142,16 @@ typedef struct
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_4CYCLES)  || \
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_5CYCLES)  || \
                                           ((__DELAY__) == ADC_TWOSAMPLINGDELAY_6CYCLES)  || \
-                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_7CYCLES)   )
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_7CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_8CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_9CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_10CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_11CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_12CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_13CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_14CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_15CYCLES)  || \
+                                          ((__DELAY__) == ADC_TWOSAMPLINGDELAY_16CYCLES)  )
 #endif /* ADC_MULTIMODE_SUPPORT */
 
 /**
@@ -1144,8 +1211,7 @@ typedef struct
                                       ((__EVENT__) == ADC_AWD_EVENT)    || \
                                       ((__EVENT__) == ADC_AWD2_EVENT)   || \
                                       ((__EVENT__) == ADC_AWD3_EVENT)   || \
-                                      ((__EVENT__) == ADC_OVR_EVENT)    || \
-                                      ((__EVENT__) == ADC_JQOVF_EVENT)  )
+                                      ((__EVENT__) == ADC_OVR_EVENT)     )
 
 /**
   * @brief Verify the ADC oversampling ratio.
@@ -1221,8 +1287,11 @@ HAL_StatusTypeDef       HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc);
 #if defined(ADC_MULTIMODE_SUPPORT)
 /* ADC multimode */
 HAL_StatusTypeDef       HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const uint32_t *pData, uint32_t Length);
+HAL_StatusTypeDef       HAL_ADCEx_MultiModeStart_DMA_Data32(ADC_HandleTypeDef *hadc, const uint32_t *pData,
+                                                            uint32_t Length);
 HAL_StatusTypeDef       HAL_ADCEx_MultiModeStop_DMA(ADC_HandleTypeDef *hadc);
 uint32_t                HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc);
+uint32_t                HAL_ADCEx_MultiModeGetValue_Data32(ADC_HandleTypeDef *hadc);
 #endif /* ADC_MULTIMODE_SUPPORT */
 
 /* ADC retrieve conversion value intended to be used with polling or interruption */

@@ -319,23 +319,6 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
         tmp |= (GPIO_GET_INDEX(GPIOx) << (8U * (position & 0x03U)));
         EXTI->EXTICR[position >> 2U] = tmp;
 
-        /* Clear EXTI line configuration */
-        tmp = EXTI->IMR1;
-        tmp &= ~((uint32_t)iocurrent);
-        if ((pGPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
-        {
-          tmp |= iocurrent;
-        }
-        EXTI->IMR1 = tmp;
-
-        tmp = EXTI->EMR1;
-        tmp &= ~((uint32_t)iocurrent);
-        if ((pGPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
-        {
-          tmp |= iocurrent;
-        }
-        EXTI->EMR1 = tmp;
-
         /* Clear Rising Falling edge configuration */
         tmp = EXTI->RTSR1;
         tmp &= ~((uint32_t)iocurrent);
@@ -352,6 +335,23 @@ void HAL_GPIO_Init(GPIO_TypeDef  *GPIOx, const GPIO_InitTypeDef *pGPIO_Init)
           tmp |= iocurrent;
         }
         EXTI->FTSR1 = tmp;
+
+        /* Clear EXTI line configuration */
+        tmp = EXTI->EMR1;
+        tmp &= ~((uint32_t)iocurrent);
+        if ((pGPIO_Init->Mode & GPIO_MODE_EVT) == GPIO_MODE_EVT)
+        {
+          tmp |= iocurrent;
+        }
+        EXTI->EMR1 = tmp;
+
+        tmp = EXTI->IMR1;
+        tmp &= ~((uint32_t)iocurrent);
+        if ((pGPIO_Init->Mode & GPIO_MODE_IT) == GPIO_MODE_IT)
+        {
+          tmp |= iocurrent;
+        }
+        EXTI->IMR1 = tmp;
       }
     }
     position++;

@@ -148,6 +148,10 @@ typedef struct
 #define EXTI_GPIOG                          0x00000006U
 #define EXTI_GPIOH                          0x00000007U
 #define EXTI_GPIOI                          0x00000008U
+#if defined(GPIOJ)
+#define EXTI_GPIOJ                          0x00000009U
+#endif /* GPIOJ */
+
 /**
   * @}
   */
@@ -246,6 +250,18 @@ typedef struct
 
 #define IS_EXTI_CONFIG_LINE(__EXTI_LINE__)   (((__EXTI_LINE__) & EXTI_CONFIG) != 0x00U)
 
+#if defined(GPIOJ)
+#define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
+                                         ((__PORT__) == EXTI_GPIOB) || \
+                                         ((__PORT__) == EXTI_GPIOC) || \
+                                         ((__PORT__) == EXTI_GPIOD) || \
+                                         ((__PORT__) == EXTI_GPIOE) || \
+                                         ((__PORT__) == EXTI_GPIOF) || \
+                                         ((__PORT__) == EXTI_GPIOG) || \
+                                         ((__PORT__) == EXTI_GPIOH) || \
+                                         ((__PORT__) == EXTI_GPIOI) || \
+                                         ((__PORT__) == EXTI_GPIOJ))
+#else
 #define IS_EXTI_GPIO_PORT(__PORT__)     (((__PORT__) == EXTI_GPIOA) || \
                                          ((__PORT__) == EXTI_GPIOB) || \
                                          ((__PORT__) == EXTI_GPIOC) || \
@@ -255,6 +271,7 @@ typedef struct
                                          ((__PORT__) == EXTI_GPIOG) || \
                                          ((__PORT__) == EXTI_GPIOH) || \
                                          ((__PORT__) == EXTI_GPIOI))
+#endif /* GPIOJ */
 
 #define IS_EXTI_GPIO_PIN(__PIN__)        ((__PIN__) < 16U)
 

@@ -27,6 +27,8 @@ extern "C" {
 /* Includes ------------------------------------------------------------------*/
 #include "stm32u5xx_hal_def.h"
 
+/* Include low level driver */
+#include "stm32u5xx_ll_lptim.h"
 /** @addtogroup STM32U5xx_HAL_Driver
   * @{
   */
@@ -464,9 +466,8 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
 /** @defgroup LPTIM_Channel LPTIM Channel
   * @{
   */
-#define LPTIM_CHANNEL_1                      0x00000000U                          /*!< Capture/compare channel 1 identifier      */
-#define LPTIM_CHANNEL_2                      0x00000004U                          /*!< Capture/compare channel 2 identifier      */
-#define LPTIM_CHANNEL_ALL                    0x00000013U                          /*!< Global Capture/compare channel identifier  */
+#define LPTIM_CHANNEL_1                      LL_LPTIM_CHANNEL_CH1                          /*!< Capture/compare channel 1 identifier      */
+#define LPTIM_CHANNEL_2                      LL_LPTIM_CHANNEL_CH2                          /*!< Capture/compare channel 2 identifier      */
 /**
   * @}
   */
@@ -703,10 +704,15 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   *            @arg LPTIM_FLAG_DOWN    : Counter direction change up Flag.
   *            @arg LPTIM_FLAG_UP      : Counter direction change down to up Flag.
   *            @arg LPTIM_FLAG_ARROK   : Autoreload register update OK Flag.
-  *            @arg LPTIM_FLAG_CMPOK   : Compare register update OK Flag.
+  *            @arg LPTIM_FLAG_CMP1OK  : Compare register 1 update OK Flag.
+  *            @arg LPTIM_FLAG_CMP2OK  : Compare register 2 update OK Flag.
   *            @arg LPTIM_FLAG_EXTTRIG : External trigger edge event Flag.
   *            @arg LPTIM_FLAG_ARRM    : Autoreload match Flag.
-  *            @arg LPTIM_FLAG_CMPM    : Compare match Flag.
+  *            @arg LPTIM_FLAG_CC1     : Capture/Compare 1 interrupt flag.
+  *            @arg LPTIM_FLAG_CC2     : Capture/Compare 2 interrupt flag.
+  *            @arg LPTIM_FLAG_CC1O    : Capture/Compare 1 over-capture flag.
+  *            @arg LPTIM_FLAG_CC2O    : Capture/Compare 2 over-capture flag.
+  *            @arg LPTIM_FLAG_DIEROK  : DMA & interrupt enable update OK flag.
   * @retval The state of the specified flag (SET or RESET).
   */
 #define __HAL_LPTIM_GET_FLAG(__HANDLE__, __FLAG__)          (((__HANDLE__)->Instance->ISR &(__FLAG__)) == (__FLAG__))
@@ -721,10 +727,15 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   *            @arg LPTIM_FLAG_DOWN    : Counter direction change up Flag.
   *            @arg LPTIM_FLAG_UP      : Counter direction change down to up Flag.
   *            @arg LPTIM_FLAG_ARROK   : Autoreload register update OK Flag.
-  *            @arg LPTIM_FLAG_CMPOK   : Compare register update OK Flag.
+  *            @arg LPTIM_FLAG_CMP1OK  : Compare register 1 update OK Flag.
+  *            @arg LPTIM_FLAG_CMP2OK  : Compare register 2 update OK Flag.
   *            @arg LPTIM_FLAG_EXTTRIG : External trigger edge event Flag.
   *            @arg LPTIM_FLAG_ARRM    : Autoreload match Flag.
-  *            @arg LPTIM_FLAG_CMPM    : Compare match Flag.
+  *            @arg LPTIM_FLAG_CC1     : Capture/Compare 1 interrupt flag.
+  *            @arg LPTIM_FLAG_CC2     : Capture/Compare 2 interrupt flag.
+  *            @arg LPTIM_FLAG_CC1O    : Capture/Compare 1 over-capture flag.
+  *            @arg LPTIM_FLAG_CC2O    : Capture/Compare 2 over-capture flag.
+  *            @arg LPTIM_FLAG_DIEROK  : DMA & interrupt enable update OK flag.
   * @retval None.
   */
 #define __HAL_LPTIM_CLEAR_FLAG(__HANDLE__, __FLAG__)        ((__HANDLE__)->Instance->ICR  = (__FLAG__))
@@ -739,10 +750,14 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   *            @arg LPTIM_IT_DOWN    : Counter direction change up Interrupt.
   *            @arg LPTIM_IT_UP      : Counter direction change down to up Interrupt.
   *            @arg LPTIM_IT_ARROK   : Autoreload register update OK Interrupt.
-  *            @arg LPTIM_IT_CMPOK   : Compare register update OK Interrupt.
+  *            @arg LPTIM_IT_CMP1OK  : Compare register 1 update OK Interrupt.
+  *            @arg LPTIM_IT_CMP2OK  : Compare register 2 update OK Interrupt.
   *            @arg LPTIM_IT_EXTTRIG : External trigger edge event Interrupt.
   *            @arg LPTIM_IT_ARRM    : Autoreload match Interrupt.
-  *            @arg LPTIM_IT_CMPM    : Compare match Interrupt.
+  *            @arg LPTIM_IT_CC1     : Capture/Compare 1 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC2     : Capture/Compare 2 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC1O    : Capture/Compare 1 over-capture Interrupt.
+  *            @arg LPTIM_IT_CC2O    : Capture/Compare 2 over-capture Interrupt.
   * @retval None.
   * @note   The LPTIM interrupts can only be enabled when the LPTIM instance is enabled.
   */
@@ -758,10 +773,14 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   *            @arg LPTIM_IT_DOWN    : Counter direction change up Interrupt.
   *            @arg LPTIM_IT_UP      : Counter direction change down to up Interrupt.
   *            @arg LPTIM_IT_ARROK   : Autoreload register update OK Interrupt.
-  *            @arg LPTIM_IT_CMPOK   : Compare register update OK Interrupt.
+  *            @arg LPTIM_IT_CMP1OK  : Compare register 1 update OK Interrupt.
+  *            @arg LPTIM_IT_CMP2OK  : Compare register 2 update OK Interrupt.
   *            @arg LPTIM_IT_EXTTRIG : External trigger edge event Interrupt.
   *            @arg LPTIM_IT_ARRM    : Autoreload match Interrupt.
-  *            @arg LPTIM_IT_CMPM    : Compare match Interrupt.
+  *            @arg LPTIM_IT_CC1     : Capture/Compare 1 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC2     : Capture/Compare 2 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC1O    : Capture/Compare 1 over-capture Interrupt.
+  *            @arg LPTIM_IT_CC2O    : Capture/Compare 2 over-capture Interrupt.
   * @retval None.
   * @note   The LPTIM interrupts can only be disabled when the LPTIM instance is enabled.
   */
@@ -799,10 +818,14 @@ typedef  void (*pLPTIM_CallbackTypeDef)(LPTIM_HandleTypeDef *hlptim);  /*!< poin
   *            @arg LPTIM_IT_DOWN    : Counter direction change up Interrupt.
   *            @arg LPTIM_IT_UP      : Counter direction change down to up Interrupt.
   *            @arg LPTIM_IT_ARROK   : Autoreload register update OK Interrupt.
-  *            @arg LPTIM_IT_CMPOK   : Compare register update OK Interrupt.
+  *            @arg LPTIM_IT_CMP1OK  : Compare register 1 update OK Interrupt.
+  *            @arg LPTIM_IT_CMP2OK  : Compare register 2 update OK Interrupt.
   *            @arg LPTIM_IT_EXTTRIG : External trigger edge event Interrupt.
   *            @arg LPTIM_IT_ARRM    : Autoreload match Interrupt.
-  *            @arg LPTIM_IT_CMPM    : Compare match Interrupt.
+  *            @arg LPTIM_IT_CC1     : Capture/Compare 1 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC2     : Capture/Compare 2 interrupt Interrupt.
+  *            @arg LPTIM_IT_CC1O    : Capture/Compare 1 over-capture Interrupt.
+  *            @arg LPTIM_IT_CC2O    : Capture/Compare 2 over-capture Interrupt.
   * @retval Interrupt status.
   */
 
@@ -916,7 +939,8 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Stop_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
 /* Reading operation functions ************************************************/
 uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim);
 uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim);
-uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim, uint32_t Channel);
+uint32_t HAL_LPTIM_ReadCapturedValue(LPTIM_HandleTypeDef *hlptim, uint32_t Channel);
+uint8_t HAL_LPTIM_IC_GetOffset(LPTIM_HandleTypeDef *hlptim, uint32_t Channel);
 /**
   * @}
   */
@@ -1056,9 +1080,6 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
 
 #define IS_LPTIM_PULSE(__PULSE__)               ((__PULSE__) <= 0x0000FFFFUL)
 
-#define IS_LPTIM_CHANNELS(__INSTANCE__, __CHANNEL__)          (((__CHANNEL__) == LPTIM_CHANNEL_1) || \
-                                                               ((__CHANNEL__) == LPTIM_CHANNEL_2))
-
 #define IS_LPTIM_OC_POLARITY(__OCPOLARITY__)    (((__OCPOLARITY__) == LPTIM_OCPOLARITY_LOW) || \
                                                  ((__OCPOLARITY__) == LPTIM_OCPOLARITY_HIGH))
 #define IS_LPTIM_IC_PRESCALER(__PRESCALER__)    (((__PRESCALER__) == LPTIM_ICPSC_DIV1) ||\
@@ -1132,18 +1153,15 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
 #define IS_LPTIM_CCX_INSTANCE(__INSTANCE__, __CHANNEL__) \
   (((((__INSTANCE__) == LPTIM1_NS)  || ((__INSTANCE__) == LPTIM1_S))  && \
     (((__CHANNEL__)  == LPTIM_CHANNEL_1) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_2) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_ALL))) \
+     ((__CHANNEL__)  == LPTIM_CHANNEL_2)))   \
    ||                                        \
    ((((__INSTANCE__) == LPTIM2_NS)  || ((__INSTANCE__) == LPTIM2_S))  && \
     (((__CHANNEL__)  == LPTIM_CHANNEL_1) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_2) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_ALL))) \
+     ((__CHANNEL__)  == LPTIM_CHANNEL_2)))   \
    ||                                        \
    ((((__INSTANCE__) == LPTIM3_NS)  || ((__INSTANCE__) == LPTIM3_S))  && \
     (((__CHANNEL__)  == LPTIM_CHANNEL_1) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_2) ||  \
-     ((__CHANNEL__)  == LPTIM_CHANNEL_ALL))) \
+     ((__CHANNEL__)  == LPTIM_CHANNEL_2)))   \
    ||                                        \
    ((((__INSTANCE__) == LPTIM4_NS)  || ((__INSTANCE__) == LPTIM4_S))  && \
     ((__CHANNEL__)  == LPTIM_CHANNEL_1)))

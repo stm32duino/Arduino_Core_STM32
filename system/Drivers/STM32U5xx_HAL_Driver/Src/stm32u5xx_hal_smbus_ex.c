@@ -27,7 +27,6 @@
        devices contains the following additional features
 
        (+) Disable or enable wakeup from Stop mode(s)
-       (+) Disable or enable Fast Mode Plus
 
                      ##### How to use this driver #####
   ==============================================================================
@@ -68,15 +67,15 @@
   * @{
   */
 
-/** @defgroup SMBUSEx_Exported_Functions_Group2 SMBUS Extended WakeUp Mode Functions
-  *  @brief    WakeUp configuration functions
+/** @defgroup SMBUSEx_Exported_Functions_Group2 WakeUp Mode Functions
+  * @brief    WakeUp Mode Functions
   *
 @verbatim
  ===============================================================================
-              ##### Extended WakeUp Mode Functions #####
+                      ##### WakeUp Mode Functions #####
  ===============================================================================
-    [..]  This subsection provides a set of functions allowing to enable and
-          disable WakeUp from Stop mode(s).
+    [..] This section provides functions allowing to:
+      (+) Configure Wake Up Feature
 
 @endverbatim
   * @{
@@ -159,20 +158,19 @@ HAL_StatusTypeDef HAL_SMBUSEx_DisableWakeUp(SMBUS_HandleTypeDef *hsmbus)
     return HAL_BUSY;
   }
 }
-
 /**
   * @}
   */
 
-/** @defgroup SMBUSEx_Exported_Functions_Group3 SMBUS Extended FastModePlus Functions
-  *  @brief    FastModePlus Configuration functions
+/** @defgroup SMBUSEx_Exported_Functions_Group3 Fast Mode Plus Functions
+  * @brief    Fast Mode Plus Functions
   *
 @verbatim
  ===============================================================================
-              ##### Extended FastModePlus Function #####
+                      ##### Fast Mode Plus Functions #####
  ===============================================================================
-    [..]  This subsection provides a set of functions allowing to configure
-          Fast Mode Plus.
+    [..] This section provides functions allowing to:
+      (+) Configure Fast Mode Plus
 
 @endverbatim
   * @{
@@ -231,15 +229,19 @@ HAL_StatusTypeDef HAL_SMBUSEx_ConfigFastModePlus(SMBUS_HandleTypeDef *hsmbus, ui
   * @}
   */
 
-/** @addtogroup SMBUSEx_Exported_Functions_Group4 SMBUS Extended Autonomous Mode Functions
-  * @brief    SMBUS Extended Autonomous Mode Functions
+/**
+  * @}
+  */
+
+/** @defgroup SMBUSEx_Exported_Functions_Group4 Autonomous Mode Functions
+  * @brief    Autonomous Mode Functions
   *
 @verbatim
  ===============================================================================
-                   ##### Extended Autonomous Mode functions #####
+                     ##### Autonomous Mode functions #####
  ===============================================================================
-    [..] This section provides functions allowing Set,Get and clear
-         Autonomous Mode configuration.
+    [..] This section provides functions allowing to:
+      (+) Configure Autonomous Mode
 
 @endverbatim
   * @{
@@ -272,8 +274,10 @@ HAL_StatusTypeDef HAL_SMBUSEx_SetConfigAutonomousMode(SMBUS_HandleTypeDef *hsmbu
     __HAL_SMBUS_DISABLE(hsmbus);
 
     /* SMBUSx AUTOCR Configuration */
-    WRITE_REG(hsmbus->Instance->AUTOCR, (sConfig->TriggerState | ((sConfig->TriggerSelection) &                        \
-                                                                  I2C_AUTOCR_TRIGSEL_Msk) | sConfig->TriggerPolarity));
+    WRITE_REG(hsmbus->Instance->AUTOCR,
+              (sConfig->TriggerState | \
+               ((sConfig->TriggerSelection) & I2C_AUTOCR_TRIGSEL_Msk) | \
+               sConfig->TriggerPolarity));
 
     /* Enable the selected SMBUS peripheral */
     __HAL_SMBUS_ENABLE(hsmbus);
@@ -355,7 +359,6 @@ HAL_StatusTypeDef HAL_SMBUSEx_ClearConfigAutonomousMode(SMBUS_HandleTypeDef *hsm
     return HAL_ERROR;
   }
 }
-
 /**
   * @}
   */

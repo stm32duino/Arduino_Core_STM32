@@ -122,9 +122,12 @@ typedef enum
 /** @defgroup DCACHE_Error_Code DCACHE Error Code
   * @{
   */
-#define HAL_DCACHE_ERROR_NONE             0x00000000U /*!< No error                */
-#define HAL_DCACHE_ERROR_TIMEOUT          0x00000010U /*!< Timeout error           */
-#define HAL_DCACHE_ERROR_INVALID_CALLBACK 0x00000020U /*!< Invalid callback error  */
+#define HAL_DCACHE_ERROR_NONE              0x00000000U /*!< No error                */
+#define HAL_DCACHE_ERROR_TIMEOUT           0x00000010U /*!< Timeout error           */
+#define HAL_DCACHE_ERROR_INVALID_CALLBACK  0x00000020U /*!< Invalid callback error  */
+#define HAL_DCACHE_ERROR_EVICTION_CLEAN    0x00000040U /*!< Eviction or clean operation write-back error */
+#define HAL_DCACHE_ERROR_INVALID_OPERATION 0x00000080U /*!< Invalid operation       */
+
 /**
   * @}
   */
@@ -257,7 +260,8 @@ void              HAL_DCACHE_MspDeInit(DCACHE_HandleTypeDef *hdcache);
 /* Peripheral Control functions ***/
 HAL_StatusTypeDef HAL_DCACHE_Enable(DCACHE_HandleTypeDef *hdcache);
 HAL_StatusTypeDef HAL_DCACHE_Disable(DCACHE_HandleTypeDef *hdcache);
-HAL_StatusTypeDef HAL_DCACHE_SetReadBurstType(DCACHE_HandleTypeDef *hdcache, uint32_t ReadBrustType);
+uint32_t          HAL_DCACHE_IsEnabled(DCACHE_HandleTypeDef *hdcache);
+HAL_StatusTypeDef HAL_DCACHE_SetReadBurstType(DCACHE_HandleTypeDef *hdcache, uint32_t ReadBurstType);
 
 /*** Cache maintenance in blocking mode (Polling) ***/
 HAL_StatusTypeDef HAL_DCACHE_Invalidate(DCACHE_HandleTypeDef *hdcache);

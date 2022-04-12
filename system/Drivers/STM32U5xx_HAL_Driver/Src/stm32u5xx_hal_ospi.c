@@ -410,7 +410,7 @@ HAL_StatusTypeDef HAL_OSPI_Init(OSPI_HandleTypeDef *hospi)
                    ((hospi->Init.ClockPrescaler - 1U) << OCTOSPI_DCR2_PRESCALER_Pos));
 
         /* Configure Dual Quad mode */
-        MODIFY_REG(hospi->Instance->CR, OCTOSPI_CR_DQM, hospi->Init.DualQuad);
+        MODIFY_REG(hospi->Instance->CR, OCTOSPI_CR_DMM, hospi->Init.DualQuad);
 
         /* Configure sample shifting and delay hold quarter cycle */
         MODIFY_REG(hospi->Instance->TCR, (OCTOSPI_TCR_SSHIFT | OCTOSPI_TCR_DHQC),
@@ -2622,7 +2622,7 @@ HAL_StatusTypeDef HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeDef *
   assert_param(IS_OSPIM_IO_PORT(cfg->IOLowPort));
   assert_param(IS_OSPIM_IO_PORT(cfg->IOHighPort));
 
-  if (hospi->Instance == OCTOSPI1)
+  if (hospi->Instance == (OCTOSPI_TypeDef *)OCTOSPI1)
   {
     instance = 0U;
     other_instance = 1U;
@@ -3045,7 +3045,7 @@ static HAL_StatusTypeDef OSPI_ConfigCmd(OSPI_HandleTypeDef *hospi, OSPI_RegularC
   /* Configure the flash ID */
   if (hospi->Init.DualQuad == HAL_OSPI_DUALQUAD_DISABLE)
   {
-    MODIFY_REG(hospi->Instance->CR, OCTOSPI_CR_FSEL, cmd->FlashId);
+    MODIFY_REG(hospi->Instance->CR, OCTOSPI_CR_MSEL, cmd->FlashId);
   }
 
   if (cmd->OperationType == HAL_OSPI_OPTYPE_WRITE_CFG)
@@ -3346,10 +3346,12 @@ static HAL_StatusTypeDef OSPIM_GetConfig(uint8_t instance_nb, OSPIM_CfgTypeDef *
 HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DLYB_CfgTypeDef  *pdlyb_cfg)
 {
   HAL_StatusTypeDef status = HAL_ERROR;
-  uint32_t tickstart;
 
   /* Enable OCTOSPI Free Running Clock (mandatory) */
   SET_BIT(hospi->Instance->DCR1, OCTOSPI_DCR1_FRCK);
+
+  /* Update OCTOSPI state */
+  hospi->State = HAL_OSPI_STATE_BUSY_CMD;
 
   if (hospi->Instance == OCTOSPI1)
   {
@@ -3376,26 +3378,11 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_SetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
     /* Nothing to do */
   }
 
-  /* Disable OCTOSPI */
-  __HAL_OSPI_DISABLE(hospi);
-
-  /* Wait till OSPI Disabled or if Time out is reached, exit */
-  tickstart = HAL_GetTick();
-  while (READ_BIT(hospi->Instance->CR, OCTOSPI_CR_EN) == (uint32_t)SET)
-  {
-    if ((HAL_GetTick() - tickstart) > hospi->Timeout)
-    {
-      hospi->State     = HAL_OSPI_STATE_ERROR;
-      hospi->ErrorCode |= HAL_OSPI_ERROR_TIMEOUT;
-      return HAL_TIMEOUT;
-    }
-  }
+  /* Abort the current OCTOSPI operation if exist */
+  (void)HAL_OSPI_Abort(hospi);
 
   /* Disable Free Running Clock */
   CLEAR_BIT(hospi->Instance->DCR1, OCTOSPI_DCR1_FRCK);
-
-  /* Re-Enable OCTOSPI */
-  __HAL_OSPI_ENABLE(hospi);
 
   /* Return function status */
   return status;
@@ -3439,10 +3426,12 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetConfig(OSPI_HandleTypeDef *hospi, HAL_OSPI_DL
 HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OSPI_DLYB_CfgTypeDef  *pdlyb_cfg)
 {
   HAL_StatusTypeDef status = HAL_ERROR;
-  uint32_t tickstart;
 
   /* Enable OCTOSPI Free Running Clock (mandatory) */
   SET_BIT(hospi->Instance->DCR1, OCTOSPI_DCR1_FRCK);
+
+  /* Update OCTOSPI state */
+  hospi->State = HAL_OSPI_STATE_BUSY_CMD;
 
   if (hospi->Instance == OCTOSPI1)
   {
@@ -3456,7 +3445,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     }
 
     /* Disable the DelayBlock */
-    LL_DLYB_Enable(DLYB_OCTOSPI1);
+    LL_DLYB_Disable(DLYB_OCTOSPI1);
   }
 
   else if (hospi->Instance == OCTOSPI2)
@@ -3471,7 +3460,7 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     }
 
     /* Disable the DelayBlock */
-    LL_DLYB_Enable(DLYB_OCTOSPI2);
+    LL_DLYB_Disable(DLYB_OCTOSPI2);
   }
 
   else
@@ -3479,26 +3468,11 @@ HAL_StatusTypeDef HAL_OSPI_DLYB_GetClockPeriod(OSPI_HandleTypeDef *hospi, HAL_OS
     /* Nothing to do */
   }
 
-  /* Disable OCTOSPI */
-  __HAL_OSPI_DISABLE(hospi);
-
-  /* Wait till OSPI Disabled or if Time out is reached, exit */
-  tickstart = HAL_GetTick();
-  while (READ_BIT(hospi->Instance->CR, OCTOSPI_CR_EN) == (uint32_t)SET)
-  {
-    if ((HAL_GetTick() - tickstart) > hospi->Timeout)
-    {
-      hospi->State     = HAL_OSPI_STATE_ERROR;
-      hospi->ErrorCode |= HAL_OSPI_ERROR_TIMEOUT;
-      return HAL_TIMEOUT;
-    }
-  }
+  /* Abort the current OctoSPI operation if exist */
+  (void)HAL_OSPI_Abort(hospi);
 
   /* Disable Free Running Clock */
   CLEAR_BIT(hospi->Instance->DCR1, OCTOSPI_DCR1_FRCK);
-
-  /* Re-Enable OCTOSPI */
-  __HAL_OSPI_ENABLE(hospi);
 
   /* Return function status */
   return status;
