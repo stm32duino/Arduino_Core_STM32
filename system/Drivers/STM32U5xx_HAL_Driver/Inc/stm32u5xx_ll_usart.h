@@ -2076,7 +2076,7 @@ __STATIC_INLINE uint32_t LL_USART_GetIrdaPowerMode(USART_TypeDef *USARTx)
   */
 __STATIC_INLINE void LL_USART_SetIrdaPrescaler(USART_TypeDef *USARTx, uint32_t PrescalerValue)
 {
-  MODIFY_REG(USARTx->GTPR, (uint16_t)USART_GTPR_PSC, (uint16_t)PrescalerValue);
+  MODIFY_REG(USARTx->GTPR, USART_GTPR_PSC, (uint16_t)PrescalerValue);
 }
 
 /**
@@ -2223,7 +2223,7 @@ __STATIC_INLINE uint32_t LL_USART_GetSmartcardAutoRetryCount(USART_TypeDef *USAR
   */
 __STATIC_INLINE void LL_USART_SetSmartcardPrescaler(USART_TypeDef *USARTx, uint32_t PrescalerValue)
 {
-  MODIFY_REG(USARTx->GTPR, (uint16_t)USART_GTPR_PSC, (uint16_t)PrescalerValue);
+  MODIFY_REG(USARTx->GTPR, USART_GTPR_PSC, (uint16_t)PrescalerValue);
 }
 
 /**
@@ -2252,7 +2252,7 @@ __STATIC_INLINE uint32_t LL_USART_GetSmartcardPrescaler(USART_TypeDef *USARTx)
   */
 __STATIC_INLINE void LL_USART_SetSmartcardGuardTime(USART_TypeDef *USARTx, uint32_t GuardTime)
 {
-  MODIFY_REG(USARTx->GTPR, (uint16_t)USART_GTPR_GT, (uint16_t)(GuardTime << USART_GTPR_GT_Pos));
+  MODIFY_REG(USARTx->GTPR, USART_GTPR_GT, (uint16_t)(GuardTime << USART_GTPR_GT_Pos));
 }
 
 /**

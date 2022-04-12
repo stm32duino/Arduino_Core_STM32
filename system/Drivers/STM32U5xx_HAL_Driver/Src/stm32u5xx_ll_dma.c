@@ -162,7 +162,11 @@
 
 #define IS_LL_DMA_TRIGGER_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_TRIGGER_TIM15_TRGO)
 
+#if defined (LL_GPDMA1_REQUEST_ADC2)
+#define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_ADC2)
+#else
 #define IS_LL_DMA_REQUEST_SELECTION(__VALUE__)             ((__VALUE__) <= LL_GPDMA1_REQUEST_LPTIM3_UE)
+#endif /* LL_GPDMA1_REQUEST_ADC2 */
 
 #define IS_LL_DMA_TRANSFER_EVENT_MODE(__VALUE__)          (((__VALUE__) == LL_DMA_TCEM_BLK_TRANSFER)         || \
                                                            ((__VALUE__) == LL_DMA_TCEM_RPT_BLK_TRANSFER)     || \

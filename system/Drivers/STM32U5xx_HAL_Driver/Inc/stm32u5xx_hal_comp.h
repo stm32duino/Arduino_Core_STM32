@@ -157,9 +157,20 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_WindowMode COMP Window Mode
   * @{
   */
-#define COMP_WINDOWMODE_DISABLE                 (0x00000000UL)         /*!< Window mode disable: Comparators instances pair COMP1 and COMP2 are independent */
-#define COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON (COMP_CSR_WINMODE)     /*!< Window mode enable: Comparators instances pair COMP1 and COMP2 have their input plus connected together. The common input is COMP1 input plus (COMP2 input plus is no more accessible). */
-#define COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON (COMP_CSR_WINMODE | COMP_WINDOWMODE_COMP2) /*!< Window mode enable: if used from COMP1 or COMP2 instance, comparators instances pair COMP1 and COMP2 have their input plus connected together, the common input is COMP2 input plus (COMP1 input plus is no more accessible) */
+#define COMP_WINDOWMODE_DISABLE                 (0x00000000UL)          /*!< Window mode disable: Comparators instances
+                                                                             pair COMP1 and COMP2 are independent     */
+#define COMP_WINDOWMODE_COMP1_INPUT_PLUS_COMMON (COMP_CSR_WINMODE)      /*!< Window mode enable: Comparators instances
+                                                                             pair COMP1 and COMP2 have their input plus
+                                                                             connected together.
+                                                                             The common input is COMP1 input plus
+                                                                             (COMP2 input plus is no more accessible) */
+#define COMP_WINDOWMODE_COMP2_INPUT_PLUS_COMMON (COMP_CSR_WINMODE |\
+                                                 COMP_WINDOWMODE_COMP2) /*!< Window mode enable: if used from COMP1 or
+                                                                             COMP2 instance, comparators instances pair
+                                                                             COMP1 and COMP2 have their input plus
+                                                                             connected together, the common input is
+                                                                             COMP2 input plus (COMP1 input plus is no
+                                                                             more accessible)                         */
 /**
   * @}
   */
@@ -167,10 +178,40 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 /** @defgroup COMP_WindowOutput COMP Window output
   * @{
   */
-#define COMP_WINDOWOUTPUT_EACH_COMP (0x00000000UL)                            /*!< Window output default mode: Comparators output are indicating each their own state. To know window mode state: each comparator output must be read, if "((COMPx exclusive or COMPy) == 1)" then monitored signal is within comparators window.  */
-#define COMP_WINDOWOUTPUT_COMP1     (COMP_CSR_WINOUT)                         /*!< Window output synthetized on COMP1 output: COMP1 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). */
-#define COMP_WINDOWOUTPUT_COMP2     (COMP_CSR_WINOUT | COMP_WINDOWMODE_COMP2) /*!< Window output synthetized on COMP2 output: COMP2 output is no more indicating its own state, but global window mode state (logical high means monitored signal is within comparators window). */
-#define COMP_WINDOWOUTPUT_BOTH      (0x00000001UL)                            /*!< Window output synthetized on both comparators output of pair of comparator selected (COMP1 and COMP2): both comparators outputs are no more indicating their own state, but global window mode state (logical high means monitored signal is within comparators window). This is a specific configuration (technically possible but not relevant from application point of view: 2 comparators output used for the same signal level), standard configuration for window mode is one of the settings above. */
+#define COMP_WINDOWOUTPUT_EACH_COMP (0x00000000UL)          /*!< Window output default mode: Comparators output are
+                                                                 indicating each their own state.
+                                                                 To know window mode state: each comparator output
+                                                                 must be read, if "((COMPx exclusive or COMPy) == 1)"
+                                                                 then monitored signal is within comparators window.  */
+#define COMP_WINDOWOUTPUT_COMP1     (COMP_CSR_WINOUT)       /*!< Window output synthetized on COMP1 output:
+                                                                 COMP1 output is no more indicating its own state,
+                                                                 but global window mode state (logical high means
+                                                                 monitored signal is within comparators window).
+                                                                 Note: impacts only comparator output signal level
+                                                                 (COMPx_OUT propagated to GPIO, EXTI lines,
+                                                                 timers, ...), does not impact output digital state
+                                                                 of comparator (COMPx_VALUE) always reflecting each
+                                                                 comparator output state.                             */
+#define COMP_WINDOWOUTPUT_COMP2     (COMP_CSR_WINOUT |\
+                                     COMP_WINDOWMODE_COMP2) /*!< Window output synthetized on COMP2 output:
+                                                                 COMP2 output is no more indicating its own state,
+                                                                 but global window mode state (logical high means
+                                                                 monitored signal is within comparators window).
+                                                                 Note: impacts only comparator output signal level
+                                                                 (COMPx_OUT propagated to GPIO, EXTI lines,
+                                                                 timers, ...), does not impact output digital state
+                                                                 of comparator (COMPx_VALUE) always reflecting each
+                                                                 comparator output state.                             */
+#define COMP_WINDOWOUTPUT_BOTH      (0x00000001UL)          /*!< Window output synthetized on both comparators output
+                                                                 of pair of comparator selected (COMP1 and COMP2):
+                                                                 both comparators outputs are no more indicating their
+                                                                 own state, but global window mode state(logical high
+                                                                 means monitored signal is within comparators window).
+                                                                 This is a specific configuration (technically
+                                                                 possible but not relevant from application point of
+                                                                 view: 2 comparators output used for the same
+                                                                 signal level), standard configuration for window mode
+                                                                 is one of the settings above.                        */
 /**
   * @}
   */
@@ -436,7 +477,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 #define __HAL_COMP_COMP1_EXTI_GET_FALLING_FLAG()         READ_BIT(EXTI->FPR1, COMP_EXTI_LINE_COMP1)
 
 /**
-  * @brief  Clear the COMP1 EXTI rasing flag.
+  * @brief  Clear the COMP1 EXTI raising flag.
   * @retval None
   */
 #define __HAL_COMP_COMP1_EXTI_CLEAR_RASING_FLAG()        WRITE_REG(EXTI->RPR1, COMP_EXTI_LINE_COMP1)
@@ -521,7 +562,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 #define __HAL_COMP_COMP2_EXTI_DISABLE_EVENT()            CLEAR_BIT(EXTI->EMR1, COMP_EXTI_LINE_COMP2)
 
 /**
-  * @brief  Check whether the COMP2 EXTI line rasing flag is set or not.
+  * @brief  Check whether the COMP2 EXTI line raising flag is set or not.
   * @retval RESET or SET
   */
 #define __HAL_COMP_COMP2_EXTI_GET_RISING_FLAG()          READ_BIT(EXTI->RPR1, COMP_EXTI_LINE_COMP2)
@@ -534,7 +575,7 @@ typedef  void (*pCOMP_CallbackTypeDef)(COMP_HandleTypeDef *hcomp); /*!< pointer 
 
 
 /**
-  * @brief  Clear the the COMP2 EXTI rasing flag.
+  * @brief  Clear the the COMP2 EXTI raising flag.
   * @retval None
   */
 #define __HAL_COMP_COMP2_EXTI_CLEAR_RISING_FLAG()        WRITE_REG(EXTI->RPR1, COMP_EXTI_LINE_COMP2)

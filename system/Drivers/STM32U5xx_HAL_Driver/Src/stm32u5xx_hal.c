@@ -52,11 +52,11 @@
   * @{
   */
 /**
-  * @brief STM32U5xx HAL Driver version number 1.0.2
+  * @brief STM32U5xx HAL Driver version number 1.1.0
    */
 #define __STM32U5xx_HAL_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32U5xx_HAL_VERSION_SUB1   (0x00U) /*!< [23:16] sub1 version */
-#define __STM32U5xx_HAL_VERSION_SUB2   (0x02U) /*!< [15:8]  sub2 version */
+#define __STM32U5xx_HAL_VERSION_SUB1   (0x01U) /*!< [23:16] sub1 version */
+#define __STM32U5xx_HAL_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32U5xx_HAL_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32U5xx_HAL_VERSION         ((__STM32U5xx_HAL_VERSION_MAIN << 24U)\
                                          |(__STM32U5xx_HAL_VERSION_SUB1 << 16U)\
@@ -621,6 +621,76 @@ void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void)
 }
 
 /**
+  * @brief  Enable the Compensation Cell of GPIO supplied by VDD
+  * @rmtoll CCCSR   EN1    HAL_SYSCFG_EnableVddCompensationCell
+  * @note   The vdd compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+void HAL_SYSCFG_EnableVddCompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
+}
+
+/**
+  * @brief  Enable the Compensation Cell of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   EN2    HAL_SYSCFG_EnableVddIO2CompensationCell
+  * @note   The Vdd I/O compensation cell can be used only when the device supply
+  *         voltage ranges from 1.08 to 3.6 V
+  * @retval None
+  */
+void HAL_SYSCFG_EnableVddIO2CompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+#if defined(SYSCFG_CCCSR_EN3)
+/**
+  * @brief  Enable the Compensation Cell of HSPI IO supplied by VDD
+  * @rmtoll CCCSR   EN3    HAL_SYSCFG_EnableVddHSPICompensationCell
+  * @retval None
+  */
+void HAL_SYSCFG_EnableVddHSPICompensationCell(void)
+{
+  SET_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
+}
+#endif /* SYSCFG_CCCSR_EN3 */
+/**
+  * @brief  Disable the Compensation Cell of GPIO supplied by VDD
+  * @rmtoll CCCSR   EN1    HAL_SYSCFG_DisableVddCompensationCell
+  * @note   The Vdd compensation cell can be used only when the device supply
+  *         voltage ranges from 1.71 to 3.6 V
+  * @retval None
+  */
+void HAL_SYSCFG_DisableVddCompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN1);
+}
+
+/**
+  * @brief  Disable the Compensation Cell of GPIO supplied by VDDIO2
+  * @rmtoll CCCSR   EN2    HAL_SYSCFG_DisableVddIO2CompensationCell
+  * @note   The Vdd I/O compensation cell can be used only when the device supply
+  *         voltage ranges from 1.08 to 3.6 V
+  * @retval None
+  */
+void HAL_SYSCFG_DisableVddIO2CompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN2);
+}
+
+#if defined(SYSCFG_CCCSR_EN3)
+/**
+  * @brief  Disable the Compensation Cell of HSPI IO supplied by VDD
+  * @rmtoll CCCSR   EN3    HAL_SYSCFG_DisableVddHSPICompensationCell
+  * @retval None
+  */
+void HAL_SYSCFG_DisableVddHSPICompensationCell(void)
+{
+  CLEAR_BIT(SYSCFG->CCCSR, SYSCFG_CCCSR_EN3);
+}
+#endif /* SYSCFG_CCCSR_EN3 */
+/**
   * @}
   */
 
@@ -778,6 +848,50 @@ HAL_StatusTypeDef HAL_SYSCFG_GetConfigAttributes(uint32_t Item, uint32_t *pAttri
   */
 
 #endif /* __ARM_FEATURE_CMSE */
+
+#ifdef SYSCFG_OTGHSPHYCR_EN
+/**
+  * @brief  Enable the OTG PHY .
+  * @param  OTGPHYConfig: Defines the OTG PHY configuration. This parameter can be
+            SYSCFG_OTG_HS_PHY_ENABLE, SYSCFG_OTG_HS_PHY_UNDERRESET
+  * @retval None
+  */
+
+void HAL_SYSCFG_EnableOTGPHY(uint32_t OTGPHYConfig)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_CONFIG(OTGPHYConfig));
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_EN, (uint32_t)(OTGPHYConfig) << SYSCFG_OTGHSPHYCR_EN_Pos);
+}
+
+/**
+  * @brief  Set the OTG PHY  Power Down config.
+  * @param  PowerDownConfig: Defines the OTG PHY Power down configuration. This parameter can be
+            SYSCFG_OTG_HS_PHY_POWER_ON, SYSCFG_OTG_HS_PHY_POWER_DOWN
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYPowerDownConfig(uint32_t PowerDownConfig)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_POWERDOWN_CONFIG(PowerDownConfig));
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_PDCTRL, (uint32_t)(PowerDownConfig) << SYSCFG_OTGHSPHYCR_PDCTRL_Pos);
+}
+
+/**
+  * @brief  Set the OTG PHY reference clock selection.
+  * @param  RefClockSelection: Defines the OTG PHY reference clock selection. This parameter can be
+  *         SYSCFG_OTG_HS_PHY_CLK_SELECT_1, SYSCFG_OTG_HS_PHY_CLK_SELECT_2, SYSCFG_OTG_HS_PHY_CLK_SELECT_3
+  *         SYSCFG_OTG_HS_PHY_CLK_SELECT_4, SYSCFG_OTG_HS_PHY_CLK_SELECT_5, SYSCFG_OTG_HS_PHY_CLK_SELECT_6
+  * @retval None
+  */
+void HAL_SYSCFG_SetOTGPHYReferenceClockSelection(uint32_t RefClockSelection)
+{
+  /* Check the parameter */
+  assert_param(IS_SYSCFG_OTGPHY_REFERENCE_CLOCK(RefClockSelection));
+  MODIFY_REG(SYSCFG->OTGHSPHYCR, SYSCFG_OTGHSPHYCR_CLKSEL, \
+             (uint32_t)(RefClockSelection) << SYSCFG_OTGHSPHYCR_CLKSEL_Pos);
+}
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 
 /**
   * @}

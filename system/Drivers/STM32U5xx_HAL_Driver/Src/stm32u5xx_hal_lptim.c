@@ -107,13 +107,13 @@
   The compilation define  USE_HAL_LPTIM_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
   [..]
-  Use Function @ref HAL_LPTIM_RegisterCallback() to register a callback.
-  @ref HAL_LPTIM_RegisterCallback() takes as parameters the HAL peripheral handle,
+  Use Function HAL_LPTIM_RegisterCallback() to register a callback.
+  HAL_LPTIM_RegisterCallback() takes as parameters the HAL peripheral handle,
   the Callback ID and a pointer to the user callback function.
   [..]
-  Use function @ref HAL_LPTIM_UnRegisterCallback() to reset a callback to the
+  Use function HAL_LPTIM_UnRegisterCallback() to reset a callback to the
   default weak function.
-  @ref HAL_LPTIM_UnRegisterCallback takes as parameters the HAL peripheral handle,
+  HAL_LPTIM_UnRegisterCallback takes as parameters the HAL peripheral handle,
   and the Callback ID.
   [..]
   These functions allow to register/unregister following callbacks:
@@ -133,7 +133,7 @@
   [..]
   By default, after the Init and when the state is HAL_LPTIM_STATE_RESET
   all interrupt callbacks are set to the corresponding weak functions:
-  examples @ref HAL_LPTIM_TriggerCallback(), @ref HAL_LPTIM_CompareMatchCallback().
+  examples HAL_LPTIM_TriggerCallback(), HAL_LPTIM_CompareMatchCallback().
 
   [..]
   Exception done for MspInit and MspDeInit functions that are reset to the legacy weak
@@ -147,7 +147,7 @@
   in HAL_LPTIM_STATE_READY or HAL_LPTIM_STATE_RESET state,
   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
   In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_LPTIM_RegisterCallback() before calling DeInit or Init function.
+  using HAL_LPTIM_RegisterCallback() before calling DeInit or Init function.
 
   [..]
   When The compilation define USE_HAL_LPTIM_REGISTER_CALLBACKS is set to 0 or
@@ -422,8 +422,7 @@ HAL_StatusTypeDef HAL_LPTIM_DeInit(LPTIM_HandleTypeDef *hlptim)
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   __HAL_LPTIM_ENABLE(hlptim);
-
-  if (hlptim->Instance != LPTIM4)
+  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
   {
     hlptim->Instance->CCMR1 = 0;
   }
@@ -438,7 +437,7 @@ HAL_StatusTypeDef HAL_LPTIM_DeInit(LPTIM_HandleTypeDef *hlptim)
     return HAL_TIMEOUT;
   }
 
-  if (hlptim->Instance != LPTIM4)
+  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
   {
     /* Clear flag */
     __HAL_LPTIM_CLEAR_FLAG(hlptim, LPTIM_FLAG_CMP2OK);
@@ -568,26 +567,17 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Chan
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Reset WAVE bit to set PWM mode */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_WAVE;
@@ -601,7 +591,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Chan
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -622,7 +612,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t Chann
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  /* Set the LPTIM state */
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable LPTIM signal from the corresponding output pin */
@@ -631,16 +621,11 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t Chann
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -660,26 +645,17 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t C
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Reset WAVE bit to set PWM mode */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_WAVE;
@@ -732,7 +708,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t C
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -753,7 +729,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  /* Set the LPTIM state */
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable LPTIM signal from the corresponding output pin */
@@ -809,16 +785,11 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -841,28 +812,23 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t 
   DMA_HandleTypeDef *hdma;
 
   /* Check the parameters */
+  assert_param(IS_LPTIM_DMA_INSTANCE(hlptim->Instance));
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
-
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  if ((pData == NULL) || (Length == 0U))
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
+    return HAL_ERROR;
   }
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Reset WAVE bit to set PWM mode */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_WAVE;
@@ -923,7 +889,7 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -942,9 +908,10 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t 
 HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
   /* Check the parameters */
+  assert_param(IS_LPTIM_DMA_INSTANCE(hlptim->Instance));
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  /* Set the LPTIM state */
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable update event DMA request */
@@ -970,16 +937,11 @@ HAL_StatusTypeDef HAL_LPTIM_PWM_Stop_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t C
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -999,26 +961,17 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start(LPTIM_HandleTypeDef *hlptim, uint32_t
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Reset WAVE bit to set one pulse mode */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_WAVE;
@@ -1032,7 +985,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start(LPTIM_HandleTypeDef *hlptim, uint32_t
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1062,16 +1015,11 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -1091,26 +1039,17 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start_IT(LPTIM_HandleTypeDef *hlptim, uint3
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Reset WAVE bit to set one pulse mode */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_WAVE;
@@ -1163,7 +1102,7 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Start_IT(LPTIM_HandleTypeDef *hlptim, uint3
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1239,16 +1178,11 @@ HAL_StatusTypeDef HAL_LPTIM_OnePulse_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -1268,26 +1202,17 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Set WAVE bit to enable the set once mode */
   hlptim->Instance->CFGR |= LPTIM_CFGR_WAVE;
@@ -1301,7 +1226,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1331,16 +1256,11 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t C
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -1360,26 +1280,17 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Check the parameters */
   assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Set WAVE bit to enable the set once mode */
   hlptim->Instance->CFGR |= LPTIM_CFGR_WAVE;
@@ -1430,7 +1341,7 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in single (one shot) mode */
   __HAL_LPTIM_START_SINGLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1504,16 +1415,11 @@ HAL_StatusTypeDef HAL_LPTIM_SetOnce_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32_
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
-  {
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
-  }
-  else
-  {
-    /* Set the LPTIM state */
-    hlptim->State = HAL_LPTIM_STATE_READY;
-  }
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -1558,7 +1464,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start(LPTIM_HandleTypeDef *hlptim)
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1584,7 +1490,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Reset ENC bit to disable the encoder interface */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_ENC;
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1644,7 +1550,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Start_IT(LPTIM_HandleTypeDef *hlptim)
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1687,7 +1593,7 @@ HAL_StatusTypeDef HAL_LPTIM_Encoder_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1733,7 +1639,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Start(LPTIM_HandleTypeDef *hlptim, uint32_t 
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1759,7 +1665,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Reset TIMOUT bit to enable the timeout function */
   hlptim->Instance->CFGR &= ~LPTIM_CFGR_TIMOUT;
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1817,7 +1723,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1861,7 +1767,7 @@ HAL_StatusTypeDef HAL_LPTIM_TimeOut_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1897,7 +1803,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start(LPTIM_HandleTypeDef *hlptim)
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1920,7 +1826,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop(LPTIM_HandleTypeDef *hlptim)
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -1968,7 +1874,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Start_IT(LPTIM_HandleTypeDef *hlptim)
   /* Start timer in continuous mode */
   __HAL_LPTIM_START_CONTINUOUS(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -2010,7 +1916,7 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   /* Disable the Peripheral */
   __HAL_LPTIM_DISABLE(hlptim);
 
-  /* Change the TIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -2028,29 +1934,21 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim)
   */
 HAL_StatusTypeDef HAL_LPTIM_IC_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
+  /* Check the parameters */
   assert_param(IS_LPTIM_INPUT_CAPTURE_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Enable the Peripheral */
   __HAL_LPTIM_ENABLE(hlptim);
@@ -2060,6 +1958,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Chann
 
   /* Enable capture */
   __HAL_LPTIM_CAPTURE_COMPARE_ENABLE(hlptim, Channel);
+
+  /* Change the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -2076,8 +1977,12 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start(LPTIM_HandleTypeDef *hlptim, uint32_t Chann
   */
 HAL_StatusTypeDef HAL_LPTIM_IC_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
+  /* Check the parameters */
   assert_param(IS_LPTIM_INPUT_CAPTURE_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   /* Disable capture */
   __HAL_LPTIM_CAPTURE_COMPARE_DISABLE(hlptim, Channel);
@@ -2087,6 +1992,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t Channe
 
   /* Set the LPTIM channel state */
   LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -2103,29 +2011,21 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Stop(LPTIM_HandleTypeDef *hlptim, uint32_t Channe
   */
 HAL_StatusTypeDef HAL_LPTIM_IC_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
+  /* Check the parameters */
   assert_param(IS_LPTIM_INPUT_CAPTURE_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
 
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
-  }
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Enable the Peripheral */
   __HAL_LPTIM_ENABLE(hlptim);
@@ -2156,6 +2056,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
   /* Enable capture */
   __HAL_LPTIM_CAPTURE_COMPARE_ENABLE(hlptim, Channel);
 
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
+
   /* Return function status */
   return HAL_OK;
 }
@@ -2171,8 +2074,12 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
   */
 HAL_StatusTypeDef HAL_LPTIM_IC_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
+  /* Check the parameters */
   assert_param(IS_LPTIM_INPUT_CAPTURE_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   switch (Channel)
   {
@@ -2197,6 +2104,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Stop_IT(LPTIM_HandleTypeDef *hlptim, uint32_t Cha
   /* Set the LPTIM channel state */
   LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
 
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
+
   /* Return function status */
   return HAL_OK;
 }
@@ -2217,29 +2127,25 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t C
 {
   DMA_HandleTypeDef *hdma;
 
+  /* Check the parameters */
   assert_param(IS_LPTIM_DMA_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
-
-  if (IS_LPTIM_CC2_INSTANCE(hlptim->Instance))
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
+  if ((pData == NULL) || (Length == 0U))
   {
-    if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
-    /* Set the LPTIM channel state */
-    LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
+    return HAL_ERROR;
   }
-  else
-  {
-    /* Check the LPTIM state */
-    if (hlptim->State != HAL_LPTIM_STATE_READY)
-    {
-      return HAL_ERROR;
-    }
 
-    /* Set the TIM state */
-    hlptim->State = HAL_LPTIM_STATE_BUSY;
+  /* Check LPTIM channel state */
+  if (LPTIM_CHANNEL_STATE_GET(hlptim, Channel) != HAL_LPTIM_CHANNEL_STATE_READY)
+  {
+    return HAL_ERROR;
   }
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
+
+  /* Set the LPTIM channel state */
+  LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_BUSY);
 
   /* Enable the Peripheral */
   __HAL_LPTIM_ENABLE(hlptim);
@@ -2302,6 +2208,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t C
   /* Enable capture */
   __HAL_LPTIM_CAPTURE_COMPARE_ENABLE(hlptim, Channel);
 
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
+
   /* Return function status */
   return HAL_OK;
 }
@@ -2317,8 +2226,12 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Start_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t C
   */
 HAL_StatusTypeDef HAL_LPTIM_IC_Stop_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
+  /* Check the parameters */
   assert_param(IS_LPTIM_DMA_INSTANCE(hlptim->Instance));
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_BUSY;
 
   switch (Channel)
   {
@@ -2346,6 +2259,9 @@ HAL_StatusTypeDef HAL_LPTIM_IC_Stop_DMA(LPTIM_HandleTypeDef *hlptim, uint32_t Ch
 
   /* Set the LPTIM channel state */
   LPTIM_CHANNEL_STATE_SET(hlptim, Channel, HAL_LPTIM_CHANNEL_STATE_READY);
+
+  /* Set the LPTIM state */
+  hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
   return HAL_OK;
@@ -2404,7 +2320,7 @@ uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim)
   *            @arg LPTIM_CHANNEL_2: LPTIM Channel 2 selected
   * @retval Compare value.
   */
-uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
+uint32_t HAL_LPTIM_ReadCapturedValue(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
 {
   uint32_t tmpccr;
 
@@ -2424,6 +2340,41 @@ uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
       break;
   }
   return tmpccr;
+}
+
+/**
+  * @brief  LPTimer Input Capture Get Offset(in counter step unit)
+  * @note   The real capture value corresponding to the input capture trigger can be calculated using
+  *         the formula hereafter : Real capture value = captured(LPTIM_CCRx) - offset
+  *         The Offset value is depending on the glitch filter value for the channel
+  *         and the value of the prescaler for the kernel clock.
+  *         Please check Errata Sheet V1_8 for more details under "variable latency
+  *         on input capture channel" section.
+  * @param  hlptim pointer to a LPTIM_HandleTypeDef structure that contains
+  *         the configuration information for LPTIM module.
+  * @param  Channel This parameter can be one of the following values:
+  *            @arg LPTIM_CHANNEL_1: LPTIM Channel 1 selected
+  *            @arg LPTIM_CHANNEL_2: LPTIM Channel 2 selected
+  * @retval The offset value
+  */
+uint8_t HAL_LPTIM_IC_GetOffset(LPTIM_HandleTypeDef *hlptim, uint32_t Channel)
+{
+
+  uint8_t offset ;
+  uint32_t prescaler;
+  uint32_t filter ;
+
+  /* Get prescaler value */
+  prescaler = LL_LPTIM_GetPrescaler(hlptim->Instance);
+
+  /* Get filter value */
+  filter = LL_LPTIM_IC_GetFilter(hlptim->Instance, Channel);
+
+  /* Get offset value */
+  offset = LL_LPTIM_IC_GET_OFFSET(prescaler, filter);
+
+  /* return offset value */
+  return offset;
 }
 
 /**
@@ -2457,7 +2408,7 @@ HAL_StatusTypeDef HAL_LPTIM_OC_ConfigChannel(LPTIM_HandleTypeDef *hlptim, LPTIM_
 {
   HAL_StatusTypeDef status;
   /* Check the parameters */
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
   assert_param(IS_LPTIM_OC_POLARITY(sConfig->OCPolarity));
   assert_param(IS_LPTIM_PULSE(sConfig->Pulse));
 
@@ -2495,7 +2446,7 @@ HAL_StatusTypeDef HAL_LPTIM_OC_ConfigChannel(LPTIM_HandleTypeDef *hlptim, LPTIM_
       break;
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
 
   /* Return function status */
@@ -2516,7 +2467,7 @@ HAL_StatusTypeDef HAL_LPTIM_IC_ConfigChannel(LPTIM_HandleTypeDef *hlptim, LPTIM_
                                              uint32_t Channel)
 {
   /* Check the parameters */
-  assert_param(IS_LPTIM_CHANNELS(hlptim->Instance, Channel));
+  assert_param(IS_LPTIM_CCX_INSTANCE(hlptim->Instance, Channel));
   assert_param(IS_LPTIM_IC_PRESCALER(sConfig->ICPrescaler));
   assert_param(IS_LPTIM_IC_POLARITY(sConfig->ICPolarity));
   assert_param(IS_LPTIM_IC_FILTER(sConfig->ICFilter));
@@ -2549,7 +2500,7 @@ HAL_StatusTypeDef HAL_LPTIM_IC_ConfigChannel(LPTIM_HandleTypeDef *hlptim, LPTIM_
       break;
   }
 
-  /* Change the LPTIM state*/
+  /* Change the LPTIM state */
   hlptim->State = HAL_LPTIM_STATE_READY;
   /* Return function status */
   return HAL_OK;

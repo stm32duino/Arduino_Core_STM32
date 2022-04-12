@@ -248,7 +248,7 @@ WEAK void SystemClock_Config(void)
   PeriphClkInit.Spi1ClockSelection = RCC_SPI1CLKSOURCE_SYSCLK;
   PeriphClkInit.Spi2ClockSelection = RCC_SPI2CLKSOURCE_SYSCLK;
   PeriphClkInit.Spi3ClockSelection = RCC_SPI3CLKSOURCE_SYSCLK;
-  PeriphClkInit.Clk48ClockSelection = RCC_CLK48CLKSOURCE_HSI48;
+  PeriphClkInit.IclkClockSelection = RCC_CLK48CLKSOURCE_HSI48;
 
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK) {
     Error_Handler();

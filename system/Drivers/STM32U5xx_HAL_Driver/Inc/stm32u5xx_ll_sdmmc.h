@@ -241,6 +241,11 @@ typedef struct
 #define SDMMC_CMD_SDMMC_RW_EXTENDED                   ((uint8_t)53U)  /*!< For SD I/O card only, reserved for security specification.                               */
 
 /**
+  * @brief Following commands are MMC Specific commands.
+  */
+#define SDMMC_CMD_MMC_SLEEP_AWAKE                     ((uint8_t)5U)   /*!< Toggle the device between Sleep state and Standby state.                                 */
+
+/**
   * @brief Following commands are SD Card Specific security commands.
   *        SDMMC_CMD_APP_CMD should be sent before sending these commands.
   */
@@ -307,8 +312,9 @@ typedef struct
 #define SDMMC_SINGLE_BUS_SUPPORT           ((uint32_t)0x00010000U)
 #define SDMMC_CARD_LOCKED                  ((uint32_t)0x02000000U)
 
+#ifndef SDMMC_DATATIMEOUT
 #define SDMMC_DATATIMEOUT                  ((uint32_t)0xFFFFFFFFU)
-
+#endif /* SDMMC_DATATIMEOUT */
 #define SDMMC_0TO7BITS                     ((uint32_t)0x000000FFU)
 #define SDMMC_8TO15BITS                    ((uint32_t)0x0000FF00U)
 #define SDMMC_16TO23BITS                   ((uint32_t)0x00FF0000U)
@@ -1078,6 +1084,7 @@ uint32_t SDMMC_CmdSendCID(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdSendCSD(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSetRelAdd(SDMMC_TypeDef *SDMMCx, uint16_t *pRCA);
 uint32_t SDMMC_CmdSetRelAddMmc(SDMMC_TypeDef *SDMMCx, uint16_t RCA);
+uint32_t SDMMC_CmdSleepMmc(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdSendStatus(SDMMC_TypeDef *SDMMCx, uint32_t Argument);
 uint32_t SDMMC_CmdStatusRegister(SDMMC_TypeDef *SDMMCx);
 uint32_t SDMMC_CmdVoltageSwitch(SDMMC_TypeDef *SDMMCx);

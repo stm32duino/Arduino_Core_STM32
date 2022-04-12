@@ -158,7 +158,6 @@ typedef struct
 #define LL_LPUART_ICR_NCF                  USART_ICR_NECF                /*!< Noise error detected clear flag */
 #define LL_LPUART_ICR_ORECF                USART_ICR_ORECF               /*!< Overrun error clear flag */
 #define LL_LPUART_ICR_IDLECF               USART_ICR_IDLECF              /*!< Idle line detected clear flag */
-#define LL_LPUART_ICR_TXFECF               USART_ICR_TXFECF              /*!< TX FIFO Empty clear flag */
 #define LL_LPUART_ICR_TCCF                 USART_ICR_TCCF                /*!< Transmission complete clear flag */
 #define LL_LPUART_ICR_CTSCF                USART_ICR_CTSCF               /*!< CTS clear flag */
 #define LL_LPUART_ICR_CMCF                 USART_ICR_CMCF                /*!< Character match clear flag */
@@ -1848,17 +1847,6 @@ __STATIC_INLINE void LL_LPUART_ClearFlag_ORE(USART_TypeDef *LPUARTx)
 __STATIC_INLINE void LL_LPUART_ClearFlag_IDLE(USART_TypeDef *LPUARTx)
 {
   WRITE_REG(LPUARTx->ICR, USART_ICR_IDLECF);
-}
-
-/**
-  * @brief  Clear TX FIFO Empty Flag
-  * @rmtoll ICR          TXFECF        LL_LPUART_ClearFlag_TXFE
-  * @param  LPUARTx LPUART Instance
-  * @retval None
-  */
-__STATIC_INLINE void LL_LPUART_ClearFlag_TXFE(USART_TypeDef *LPUARTx)
-{
-  WRITE_REG(LPUARTx->ICR, USART_ICR_TXFECF);
 }
 
 /**

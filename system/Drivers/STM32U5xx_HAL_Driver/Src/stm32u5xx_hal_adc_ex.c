@@ -209,7 +209,7 @@ uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t Single
 
   if (hadc->Instance != ADC4)
   {
-    tmp_hal_status = ADC_Enable(hadc); /* ADC need to be enabled to performe calibration for ADC1/2 and not for ADC4 */
+    tmp_hal_status = ADC_Enable(hadc); /* ADC need to be enabled to perform calibration for ADC1/2 and not for ADC4 */
   }
 
   if (tmp_hal_status == HAL_OK)
@@ -435,16 +435,8 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart(ADC_HandleTypeDef *hadc)
     /* Start conversion if ADC is effectively enabled */
     if (tmp_hal_status == HAL_OK)
     {
-      /* Check if a regular conversion is ongoing */
-      if ((hadc->State & HAL_ADC_STATE_REG_BUSY) != 0UL)
-      {
-        /* Reset ADC error code field related to injected conversions only */
-        CLEAR_BIT(hadc->ErrorCode, HAL_ADC_ERROR_JQOVF);
-      }
-      else
-      {
-        ADC_CLEAR_ERRORCODE(hadc);
-      }
+      /* Clear ADC error code */
+      ADC_CLEAR_ERRORCODE(hadc);
 
       /* Set ADC state                                                        */
       /* - Clear state bitfield related to injected group conversion results  */
@@ -752,16 +744,8 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStart_IT(ADC_HandleTypeDef *hadc)
     /* Start conversion if ADC is effectively enabled */
     if (tmp_hal_status == HAL_OK)
     {
-      /* Check if a regular conversion is ongoing */
-      if ((hadc->State & HAL_ADC_STATE_REG_BUSY) != 0UL)
-      {
-        /* Reset ADC error code field related to injected conversions only */
-        CLEAR_BIT(hadc->ErrorCode, HAL_ADC_ERROR_JQOVF);
-      }
-      else
-      {
-        ADC_CLEAR_ERRORCODE(hadc);
-      }
+      /* Clear ADC error code */
+      ADC_CLEAR_ERRORCODE(hadc);
 
       /* Set ADC state                                                        */
       /* - Clear state bitfield related to injected group conversion results  */
@@ -888,7 +872,7 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedStop_IT(ADC_HandleTypeDef *hadc)
   if (tmp_hal_status == HAL_OK)
   {
     /* Disable ADC end of conversion interrupt for injected channels */
-    __HAL_ADC_DISABLE_IT(hadc, (ADC_IT_JEOC | ADC_IT_JEOS | ADC_FLAG_JQOVF));
+    __HAL_ADC_DISABLE_IT(hadc, (ADC_IT_JEOC | ADC_IT_JEOS));
 
     if (LL_ADC_REG_IsConversionOngoing(hadc->Instance) == 0UL)
     {
@@ -973,6 +957,8 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
     tmp_hal_status = ADC_Enable(hadc);
     if (tmp_hal_status == HAL_OK)
     {
+      /* Reinitialize the LowPowerAutoPowerOff parameter from master to slave */
+      tmp_hadc_slave.Init.LowPowerAutoPowerOff = hadc->Init.LowPowerAutoPowerOff;
       tmp_hal_status = ADC_Enable(&tmp_hadc_slave);
     }
 
@@ -1013,10 +999,8 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
       /* Enable ADC overrun interrupt */
       __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
 
-      /* Length should be converted to number of bytes */
-      LengthInBytes = Length * 4U;
-
       /* Start the DMA channel */
+      /* Check linkedlist mode */
       if ((hadc->DMA_Handle->Mode & DMA_LINKEDLIST) == DMA_LINKEDLIST)
       {
         if ((hadc->DMA_Handle->LinkedListQueue != NULL) && (hadc->DMA_Handle->LinkedListQueue->Head != NULL))
@@ -1045,10 +1029,9 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
           }
 
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CBR1_DEFAULT_OFFSET] = (uint32_t)LengthInBytes;
-          hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CSAR_DEFAULT_OFFSET] =                         \
+          hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CSAR_DEFAULT_OFFSET] =                  \
               (uint32_t)&tmp_adc_common->CDR;
           hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)pData;
-
           tmp_hal_status = HAL_DMAEx_List_Start_IT(hadc->DMA_Handle);
         }
         else
@@ -1075,7 +1058,7 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA(ADC_HandleTypeDef *hadc, const ui
           LengthInBytes = Length;
         }
 
-        tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmp_adc_common->CDR, (uint32_t)pData,      \
+        tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmp_adc_common->CDR, (uint32_t)pData,        \
                                           LengthInBytes);
       }
 
@@ -1242,6 +1225,176 @@ uint32_t HAL_ADCEx_MultiModeGetValue(ADC_HandleTypeDef *hadc)
 
   /* Return the multi mode conversion value */
   return tmp_adc_common->CDR;
+}
+
+/**
+  * @brief  Enable ADC, start MultiMode conversion and transfer regular results through DMA.
+  * @note   Multimode must have been previously configured using
+  *         HAL_ADCEx_MultiModeConfigChannel() function.
+  *         Interruptions enabled in this function:
+  *          overrun, DMA half transfer, DMA transfer complete.
+  *         Each of these interruptions has its dedicated callback function.
+  * @note   State field of Slave ADC handle is not updated in this configuration:
+  *          user should not rely on it for information related to Slave regular
+  *         conversions.
+  * @param hadc ADC handle of ADC
+  * @note  - Only ADC master could start the conversion.
+  *        - Two ADC conversions (Master & Slave) per external trig and so two DMA requests.
+  * @param pData Destination Buffer address.
+  * @param Length Length of data to be transferred from ADC peripheral to memory (in bytes).
+  * @retval HAL status
+  */
+HAL_StatusTypeDef HAL_ADCEx_MultiModeStart_DMA_Data32(ADC_HandleTypeDef *hadc, const uint32_t *pData, uint32_t Length)
+{
+  HAL_StatusTypeDef tmp_hal_status;
+  ADC_HandleTypeDef tmp_hadc_slave;
+  ADC_Common_TypeDef *tmp_adc_common;
+  uint32_t LengthInBytes;
+
+  /* Check the parameters */
+  assert_param(IS_ADC_MULTIMODE_MASTER_INSTANCE(hadc->Instance));
+  assert_param(IS_FUNCTIONAL_STATE(hadc->Init.ContinuousConvMode));
+  assert_param(IS_ADC_EXTTRIG_EDGE(hadc->Init.ExternalTrigConvEdge));
+
+  if (LL_ADC_REG_IsConversionOngoing(hadc->Instance) != 0UL)
+  {
+    return HAL_BUSY;
+  }
+  else
+  {
+    __HAL_LOCK(hadc);
+
+    /* Temporary handle minimum initialization */
+    __HAL_ADC_RESET_HANDLE_STATE(&tmp_hadc_slave);
+    ADC_CLEAR_ERRORCODE(&tmp_hadc_slave);
+
+    /* Set a temporary handle of the ADC slave associated to the ADC master   */
+    ADC_MULTI_SLAVE(hadc, &tmp_hadc_slave);
+
+    if (tmp_hadc_slave.Instance == NULL)
+    {
+      /* Set ADC state */
+      SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_CONFIG);
+
+      /* Process unlocked */
+      __HAL_UNLOCK(hadc);
+
+      return HAL_ERROR;
+    }
+
+    /* Enable the ADC peripherals: master and slave (in case if not already   */
+    /* enabled previously)                                                    */
+    tmp_hal_status = ADC_Enable(hadc);
+    if (tmp_hal_status == HAL_OK)
+    {
+      /* Reinitialize the LowPowerAutoPowerOff parameter from master to slave */
+      tmp_hadc_slave.Init.LowPowerAutoPowerOff = hadc->Init.LowPowerAutoPowerOff;
+      tmp_hal_status = ADC_Enable(&tmp_hadc_slave);
+    }
+
+    /* Start multimode conversion of ADCs pair */
+    if (tmp_hal_status == HAL_OK)
+    {
+      /* Set ADC state */
+      ADC_STATE_CLR_SET(hadc->State,
+                        (HAL_ADC_STATE_READY | HAL_ADC_STATE_REG_EOC | HAL_ADC_STATE_REG_OVR                          \
+                         | HAL_ADC_STATE_REG_EOSMP),
+                        HAL_ADC_STATE_REG_BUSY);
+
+      /* Set ADC error code to none */
+      ADC_CLEAR_ERRORCODE(hadc);
+
+      /* Set the DMA transfer complete callback */
+      hadc->DMA_Handle->XferCpltCallback = ADC_DMAConvCplt;
+
+      /* Set the DMA half transfer complete callback */
+      hadc->DMA_Handle->XferHalfCpltCallback = ADC_DMAHalfConvCplt;
+
+      /* Set the DMA error callback */
+      hadc->DMA_Handle->XferErrorCallback = ADC_DMAError;
+
+      /* Pointer to the common control register  */
+      tmp_adc_common = __LL_ADC_COMMON_INSTANCE(hadc->Instance);
+
+      /* Manage ADC and DMA start: ADC overrun interruption, DMA start, ADC     */
+      /* start (in case of SW start):                                           */
+
+      /* Clear regular group conversion flag and overrun flag */
+      /* (To ensure of no unknown state from potential previous ADC operations) */
+      __HAL_ADC_CLEAR_FLAG(hadc, (ADC_FLAG_EOC | ADC_FLAG_EOS | ADC_FLAG_OVR));
+
+      /* Process unlocked */
+      /* Unlock before starting ADC conversions: in case of potential         */
+      /* interruption, to let the process to ADC IRQ Handler.                 */
+      __HAL_UNLOCK(hadc);
+
+      /* Enable ADC overrun interrupt */
+      __HAL_ADC_ENABLE_IT(hadc, ADC_IT_OVR);
+
+      /* Length should be converted to number of bytes */
+      LengthInBytes = (uint32_t)(Length * 4U);
+
+      /* Start the DMA channel */
+      if ((hadc->DMA_Handle->Mode & DMA_LINKEDLIST) == DMA_LINKEDLIST)
+      {
+        if ((hadc->DMA_Handle->LinkedListQueue != NULL) && (hadc->DMA_Handle->LinkedListQueue->Head != NULL))
+        {
+          hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CBR1_DEFAULT_OFFSET] = (LengthInBytes * 2U);
+          hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CSAR_DEFAULT_OFFSET] =                     \
+              (uint32_t)&tmp_adc_common->CDR2;
+          hadc->DMA_Handle->LinkedListQueue->Head->LinkRegisters[NODE_CDAR_DEFAULT_OFFSET] = (uint32_t)pData;
+          tmp_hal_status = HAL_DMAEx_List_Start_IT(hadc->DMA_Handle);
+        }
+        else
+        {
+          tmp_hal_status = HAL_ERROR;
+        };
+      }
+      else
+      {
+        tmp_hal_status = HAL_DMA_Start_IT(hadc->DMA_Handle, (uint32_t)&tmp_adc_common->CDR2, (uint32_t)pData,    \
+                                          (LengthInBytes * 2U));
+      }
+
+      /* Enable conversion of regular group.                                    */
+      /* If software start has been selected, conversion starts immediately.    */
+      /* If external trigger has been selected, conversion will start at next   */
+      /* trigger event.                                                         */
+      /* Start ADC group regular conversion */
+      LL_ADC_REG_StartConversion(hadc->Instance);
+    }
+    else
+    {
+      /* Process unlocked */
+      __HAL_UNLOCK(hadc);
+    }
+
+    /* Return function status */
+    return tmp_hal_status;
+  }
+}
+
+/**
+  * @brief  Return the last ADC Master and Slave regular conversions results when in multimode configuration.
+  * @param hadc ADC handle of ADC Master (handle of ADC Slave must not be used)
+  * @retval The converted data values.
+  */
+uint32_t HAL_ADCEx_MultiModeGetValue_Data32(ADC_HandleTypeDef *hadc)
+{
+  const ADC_Common_TypeDef *tmpADC_Common;
+
+  /* Check the parameters */
+  assert_param(IS_ADC_MULTIMODE_MASTER_INSTANCE(hadc->Instance));
+
+  /* Prevent unused argument(s) compilation warning if no assert_param check */
+  /* and possible no usage in __LL_ADC_COMMON_INSTANCE() below               */
+  UNUSED(hadc);
+
+  /* Pointer to the common control register  */
+  tmpADC_Common = __LL_ADC_COMMON_INSTANCE(hadc->Instance);
+
+  /* Return the multi mode conversion value */
+  return tmpADC_Common->CDR2;
 }
 #endif /* ADC_MULTIMODE_SUPPORT */
 
@@ -1807,7 +1960,11 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_I
   {
     if (hadc->Instance != ADC4)  /* ADC1 or ADC2 */
     {
+#if defined (ADC2)
+      assert_param(IS_ADC12_DIFF_CHANNEL(pConfigInjected->InjectedChannel));
+#else
       assert_param(IS_ADC1_DIFF_CHANNEL(pConfigInjected->InjectedChannel));
+#endif /* ADC2 */
     }
   }
 
@@ -2208,9 +2365,9 @@ HAL_StatusTypeDef HAL_ADCEx_InjectedConfigChannel(ADC_HandleTypeDef *hadc, ADC_I
 HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_MultiModeTypeDef *pMultimode)
 {
   HAL_StatusTypeDef tmp_hal_status = HAL_OK;
-  ADC_Common_TypeDef *tmpADC_Common;
-  ADC_HandleTypeDef  tmphadcSlave;
-  uint32_t tmphadcSlave_conversion_on_going;
+  ADC_Common_TypeDef *tmp_adc_common;
+  ADC_HandleTypeDef  tmp_hadc_slave;
+  uint32_t tmp_hadc_slave_conversion_on_going;
 
   /* Check the parameters */
   assert_param(IS_ADC_MULTIMODE_MASTER_INSTANCE(hadc->Instance));
@@ -2227,9 +2384,9 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
   __HAL_ADC_RESET_HANDLE_STATE(&tmp_hadc_slave);
   ADC_CLEAR_ERRORCODE(&tmp_hadc_slave);
 
-  ADC_MULTI_SLAVE(hadc, &tmphadcSlave);
+  ADC_MULTI_SLAVE(hadc, &tmp_hadc_slave);
 
-  if (tmphadcSlave.Instance == NULL)
+  if (tmp_hadc_slave.Instance == NULL)
   {
     /* Update ADC state machine to error */
     SET_BIT(hadc->State, HAL_ADC_STATE_ERROR_CONFIG);
@@ -2244,19 +2401,19 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
   /* conversion on going on regular group:                                    */
   /*  - Multimode DMA configuration                                           */
   /*  - Multimode DMA mode                                                    */
-  tmphadcSlave_conversion_on_going = LL_ADC_REG_IsConversionOngoing((&tmphadcSlave)->Instance);
+  tmp_hadc_slave_conversion_on_going = LL_ADC_REG_IsConversionOngoing((&tmp_hadc_slave)->Instance);
   if ((LL_ADC_REG_IsConversionOngoing(hadc->Instance) == 0UL)
-      && (tmphadcSlave_conversion_on_going == 0UL))
+      && (tmp_hadc_slave_conversion_on_going == 0UL))
   {
     /* Pointer to the common control register */
-    tmpADC_Common = __LL_ADC_COMMON_INSTANCE(hadc->Instance);
+    tmp_adc_common = __LL_ADC_COMMON_INSTANCE(hadc->Instance);
 
     /* If multimode is selected, configure all pMultimode parameters.          */
     /* Otherwise, reset pMultimode parameters (can be used in case of          */
     /* transition from multimode to independent mode).                         */
     if (pMultimode->Mode != ADC_MODE_INDEPENDENT)
     {
-      MODIFY_REG(tmpADC_Common->CCR, ADC_CCR_DAMDF, pMultimode->DualModeData);
+      MODIFY_REG(tmp_adc_common->CCR, ADC_CCR_DAMDF, pMultimode->DualModeData);
 
       /* Parameters that can be updated only when ADC is disabled:                */
       /*  - Multimode mode selection                                              */
@@ -2270,20 +2427,20 @@ HAL_StatusTypeDef HAL_ADCEx_MultiModeConfigChannel(ADC_HandleTypeDef *hadc, ADC_
       /*    range                                                                 */
       if (__LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE(__LL_ADC_COMMON_INSTANCE(hadc->Instance)) == 0UL)
       {
-        MODIFY_REG(tmpADC_Common->CCR, (ADC_CCR_DUAL | ADC_CCR_DELAY),                                          \
+        MODIFY_REG(tmp_adc_common->CCR, (ADC_CCR_DUAL | ADC_CCR_DELAY),                                          \
                    (pMultimode->Mode | pMultimode->TwoSamplingDelay));
       }
     }
     else /* ADC_MODE_INDEPENDENT */
     {
-      CLEAR_BIT(tmpADC_Common->CCR, ADC_CCR_DAMDF);
+      CLEAR_BIT(tmp_adc_common->CCR, ADC_CCR_DAMDF);
 
       /* Parameters that can be updated only when ADC is disabled:                */
       /*  - Multimode mode selection                                              */
       /*  - Multimode delay                                                       */
       if (__LL_ADC_IS_ENABLED_ALL_COMMON_INSTANCE(__LL_ADC_COMMON_INSTANCE(hadc->Instance)) == 0UL)
       {
-        CLEAR_BIT(tmpADC_Common->CCR, ADC_CCR_DUAL | ADC_CCR_DELAY);
+        CLEAR_BIT(tmp_adc_common->CCR, ADC_CCR_DUAL | ADC_CCR_DELAY);
       }
     }
   }

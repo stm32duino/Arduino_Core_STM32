@@ -3122,7 +3122,7 @@ HAL_StatusTypeDef HAL_RTCEx_SecureModeGet(RTC_HandleTypeDef *hrtc, RTC_SecureSta
   secureState->rtcSecureFull = READ_BIT(rtc_seccfgr, RTC_SECCFGR_SEC);
 
   /* Warning, rtcNonSecureFeatures is only relevant if secureState->rtcSecureFull == RTC_SECURE_FULL_NO */
-  secureState->rtcNonSecureFeatures = READ_BIT(rtc_seccfgr, RTC_NONSECURE_FEATURE_ALL);
+  secureState->rtcNonSecureFeatures = READ_BIT(rtc_seccfgr, RTC_NONSECURE_FEATURE_NONE);
 
   /* TAMP */
   secureState->tampSecureFull = READ_BIT(tamp_seccfgr, TAMP_SECCFGR_TAMPSEC);

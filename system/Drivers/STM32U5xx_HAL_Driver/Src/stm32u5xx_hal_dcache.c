@@ -147,8 +147,8 @@ static HAL_StatusTypeDef DCACHE_CommandByAddr(DCACHE_HandleTypeDef *hdcache, uin
   */
 
 /** @defgroup DCACHE_Exported_Functions_Group1 Initialization and de-initialization functions
- *  @brief    Initialization and Configuration functions
- *
+  *  @brief    Initialization and Configuration functions
+  *
 @verbatim
  ===============================================================================
               ##### Initialization and de-initialization functions #####
@@ -179,7 +179,7 @@ static HAL_StatusTypeDef DCACHE_CommandByAddr(DCACHE_HandleTypeDef *hdcache, uin
   */
 HAL_StatusTypeDef  HAL_DCACHE_Init(DCACHE_HandleTypeDef *hdcache)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
   /* Check the DCACHE handle allocation */
   if (hdcache == NULL)
@@ -209,27 +209,17 @@ HAL_StatusTypeDef  HAL_DCACHE_Init(DCACHE_HandleTypeDef *hdcache)
     hdcache->MspInitCallback(hdcache);
   }
 
-  hdcache->State = HAL_DCACHE_STATE_BUSY;
+  /* Init the error code */
+  hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
 
-  /* Disable the selected DCACHE peripheral */
-  if (HAL_DCACHE_Disable(hdcache) != HAL_OK)
-  {
-    /* Return timeout status */
-    status =  HAL_TIMEOUT;
-  }
-  else
-  {
-    /* Set requested read burst type */
-    MODIFY_REG(hdcache->Instance->CR, DCACHE_CR_HBURST, hdcache->Init.ReadBurstType);
-
-    /* Enable the selected DCACHE peripheral */
-    if (HAL_DCACHE_Enable(hdcache) != HAL_OK)
-    {
-      /* Return error status */
-      status =  HAL_ERROR;
-    }
-  }
+  /* Init the DCACHE handle state */
   hdcache->State = HAL_DCACHE_STATE_READY;
+
+  /* Set requested read burst type */
+  MODIFY_REG(hdcache->Instance->CR, DCACHE_CR_HBURST, hdcache->Init.ReadBurstType);
+
+  /* Enable the selected DCACHE peripheral */
+  status = HAL_DCACHE_Enable(hdcache);
 
   return status;
 }
@@ -242,7 +232,7 @@ HAL_StatusTypeDef  HAL_DCACHE_Init(DCACHE_HandleTypeDef *hdcache)
   */
 HAL_StatusTypeDef HAL_DCACHE_DeInit(DCACHE_HandleTypeDef *hdcache)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
 
   /* Check the dcache handle allocation */
   if (hdcache == NULL)
@@ -253,42 +243,31 @@ HAL_StatusTypeDef HAL_DCACHE_DeInit(DCACHE_HandleTypeDef *hdcache)
   /* Check the parameters */
   assert_param(IS_DCACHE_ALL_INSTANCE(hdcache->Instance));
 
-  /* Before the lunch of the disable operation check first whether or not DCACHE clock is enabled */
-  if (hdcache->State != HAL_DCACHE_STATE_RESET)
+  /* Update the error code */
+  hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+  /* Return to the reset state */
+  hdcache->State = HAL_DCACHE_STATE_RESET;
+
+  /* Disable cache */
+  status = HAL_DCACHE_Disable(hdcache);
+
+  /* reset monitor values */
+  (void)HAL_DCACHE_Monitor_Reset(hdcache, DCACHE_MONITOR_ALL);
+
+  /* Reset all remaining bit */
+  WRITE_REG(hdcache->Instance->CR, 0U);
+  WRITE_REG(hdcache->Instance->CMDRSADDRR, 0U);
+  WRITE_REG(hdcache->Instance->CMDREADDRR, 0U);
+  WRITE_REG(hdcache->Instance->FCR, DCACHE_FCR_CCMDENDF | DCACHE_FCR_CERRF | DCACHE_FCR_CBSYENDF);
+
+  if (hdcache->MspDeInitCallback == NULL)
   {
-    /* Disable cache with reset value */
-    if (HAL_DCACHE_Disable(hdcache) != HAL_OK)
-    {
-      /* Update error code */
-      hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
-
-      /* Change the DCACHE state */
-      hdcache->State = HAL_DCACHE_STATE_ERROR;
-
-      /* Return error status */
-      status =  HAL_ERROR;
-    }
-
-    /* reset monitor values */
-    (void)HAL_DCACHE_Monitor_Reset(hdcache, DCACHE_MONITOR_ALL);
-
-    /* Reset all remaining bit */
-    WRITE_REG(hdcache->Instance->CR, 0U);
-    WRITE_REG(hdcache->Instance->CMDRSADDRR, 0U);
-    WRITE_REG(hdcache->Instance->CMDREADDRR, 0U);
-    WRITE_REG(hdcache->Instance->FCR, DCACHE_FCR_CCMDENDF | DCACHE_FCR_CERRF | DCACHE_FCR_CBSYENDF);
-
-    if (hdcache->MspDeInitCallback == NULL)
-    {
-      hdcache->MspDeInitCallback = HAL_DCACHE_MspDeInit;
-    }
-
-    /* DeInit the low level hardware */
-    hdcache->MspDeInitCallback(hdcache);
-
-    /* Return to the reset state */
-    hdcache->State = HAL_DCACHE_STATE_RESET;
+    hdcache->MspDeInitCallback = HAL_DCACHE_MspDeInit;
   }
+
+  /* DeInit the low level hardware */
+  hdcache->MspDeInitCallback(hdcache);
 
   return status;
 }
@@ -370,15 +349,17 @@ HAL_StatusTypeDef HAL_DCACHE_Enable(DCACHE_HandleTypeDef *hdcache)
   /* Check no ongoing operation */
   if (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
   {
-    /* Return error status */
-    status =  HAL_ERROR;
+    /* Return busy status */
+    status =  HAL_BUSY;
   }
   else
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+    /* Enable the selected DCACHE peripheral */
     SET_BIT(hdcache->Instance->CR, DCACHE_CR_EN);
   }
-
-  hdcache->State = HAL_DCACHE_STATE_READY;
 
   return status;
 }
@@ -395,40 +376,62 @@ HAL_StatusTypeDef HAL_DCACHE_Disable(DCACHE_HandleTypeDef *hdcache)
 
   uint32_t tickstart;
 
+  /* Check the dcache handle allocation */
+  if (hdcache == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Check the parameters */
   assert_param(IS_DCACHE_ALL_INSTANCE(hdcache->Instance));
 
-  /* Change DCACHE state */
-  hdcache->State = HAL_DCACHE_STATE_BUSY;
-
-  /* Get timeout */
-  tickstart = HAL_GetTick();
-
-  /* Before disable check first whether or not DCACHE clock is enabled */
-  if (hdcache->State != HAL_DCACHE_STATE_RESET)
+  /* Check DCACHE handle status */
+  if (HAL_DCACHE_IsEnabled(hdcache) != 0U)
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+    /* Change DCACHE handle state */
+    hdcache->State = HAL_DCACHE_STATE_READY;
+
+    /* Disable the selected DCACHE peripheral */
     CLEAR_BIT(hdcache->Instance->CR, DCACHE_CR_EN);
+
+    /* Get timeout */
+    tickstart = HAL_GetTick();
 
     /* Wait for end of data cache disabling */
     while (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
     {
       if ((HAL_GetTick() - tickstart) > DCACHE_DISABLE_TIMEOUT_VALUE)
       {
-        /* Update error code */
-        hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
+        if (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
+        {
+          /* Update error code */
+          hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
 
-        /* Change the DCACHE state */
-        hdcache->State = HAL_DCACHE_STATE_ERROR;
+          /* Change the DCACHE handle state */
+          hdcache->State = HAL_DCACHE_STATE_ERROR;
 
-        /* Return error status */
-        status =  HAL_ERROR;
+          /* Return error status */
+          status =  HAL_ERROR;
+          break;
+        }
       }
     }
-
-    hdcache->State = HAL_DCACHE_STATE_RESET;
   }
 
   return status;
+}
+/**
+  * @brief  Check whether the Data Cache is enabled or not.
+  * @param  hdcache Pointer to a DCACHE_HandleTypeDef structure that contains
+  *                 the configuration information for the specified DCACHEx peripheral.
+  * @retval Status (0: disabled, 1: enabled)
+  */
+uint32_t HAL_DCACHE_IsEnabled(DCACHE_HandleTypeDef *hdcache)
+{
+  return ((READ_BIT(hdcache->Instance->CR, DCACHE_CR_EN) != 0U) ? 1UL : 0UL);
 }
 
 /**
@@ -453,21 +456,17 @@ HAL_StatusTypeDef HAL_DCACHE_SetReadBurstType(DCACHE_HandleTypeDef *hdcache, uin
   assert_param(IS_DCACHE_ALL_INSTANCE(hdcache->Instance));
   assert_param(IS_DCACHE_READ_BURST_TYPE(ReadBurstType));
 
-  /* check DCACHE state */
-  if (hdcache->State == HAL_DCACHE_STATE_RESET)
+  /* check DCACHE status */
+  if (HAL_DCACHE_IsEnabled(hdcache) == 0U)
   {
     /* Set requested read burst type */
-    if (ReadBurstType == DCACHE_READ_BURST_WRAP)
-    {
-      CLEAR_BIT(hdcache->Instance->CR, DCACHE_CR_HBURST);
-    }
-    else
-    {
-      SET_BIT(hdcache->Instance->CR, DCACHE_CR_HBURST);
-    }
+    MODIFY_REG(hdcache->Instance->CR, DCACHE_CR_HBURST, ReadBurstType);
   }
   else
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_INVALID_OPERATION;
+
     /* Return error status */
     status =  HAL_ERROR;
   }
@@ -499,29 +498,46 @@ HAL_StatusTypeDef HAL_DCACHE_Invalidate(DCACHE_HandleTypeDef *hdcache)
   /* Check no ongoing operation */
   if (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
   {
-    /* Return error status */
-    status =  HAL_ERROR;
+    /* Return busy status */
+    status =  HAL_BUSY;
   }
   else
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+    /* Change DCACHE Handle state */
+    hdcache->State = HAL_DCACHE_STATE_READY;
+
     /* Make sure flags are reset */
     WRITE_REG(hdcache->Instance->FCR, (DCACHE_FCR_CBSYENDF | DCACHE_FCR_CCMDENDF));
 
     /* Set no operation on address range */
     MODIFY_REG(hdcache->Instance->CR, DCACHE_CR_CACHECMD, 0U);
 
-    /* Get timeout */
-    tickstart = HAL_GetTick();
-
     /* Launch cache invalidation */
     SET_BIT(hdcache->Instance->CR, DCACHE_CR_CACHEINV);
 
+    /* Get timeout */
+    tickstart = HAL_GetTick();
+
     /* Wait for end of cache invalidation */
-    while (READ_BIT(hdcache->Instance->SR, DCACHE_FCR_CBSYENDF) != 0U)
+    while (READ_BIT(hdcache->Instance->SR, DCACHE_SR_BUSYF) != 0U)
     {
       if ((HAL_GetTick() - tickstart) > DCACHE_COMMAND_TIMEOUT_VALUE)
       {
-        return HAL_TIMEOUT;
+        if (READ_BIT(hdcache->Instance->SR, DCACHE_SR_BUSYF) != 0U)
+        {
+          /* Update error code */
+          hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
+
+          /* Change the DCACHE state */
+          hdcache->State = HAL_DCACHE_STATE_ERROR;
+
+          /* Return error status */
+          status =  HAL_ERROR;
+          break;
+        }
       }
     }
   }
@@ -640,12 +656,17 @@ HAL_StatusTypeDef HAL_DCACHE_Invalidate_IT(DCACHE_HandleTypeDef *hdcache)
   /* Check no ongoing operation */
   if (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
   {
-
-    /* Return error status */
-    status =  HAL_ERROR;
+    /* Return busy status */
+    status =  HAL_BUSY;
   }
   else
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+    /* Change DCACHE Handle state */
+    hdcache->State = HAL_DCACHE_STATE_READY;
+
     /* Make sure BSYENDF is reset */
     WRITE_REG(hdcache->Instance->FCR, (DCACHE_FCR_CBSYENDF | DCACHE_FCR_CCMDENDF));
 
@@ -777,6 +798,9 @@ void HAL_DCACHE_IRQHandler(DCACHE_HandleTypeDef *hdcache)
     /* Clear DCACHE error pending flag */
     __HAL_DCACHE_CLEAR_FLAG(hdcache, DCACHE_FLAG_ERROR);
 
+    /* Update data cache error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_EVICTION_CLEAN;
+
     /* Data cache error interrupt user callback */
     hdcache->ErrorCallback(hdcache);
   }
@@ -814,7 +838,6 @@ void HAL_DCACHE_IRQHandler(DCACHE_HandleTypeDef *hdcache)
     /* Data cache Invalidate range cmdend interrupt user callback */
     hdcache->InvalidateByAddrCallback(hdcache);
   }
-
 }
 
 /**
@@ -902,8 +925,8 @@ __weak void HAL_DCACHE_ErrorCallback(DCACHE_HandleTypeDef *hdcache)
   */
 
 /** @defgroup DCACHE_Exported_Functions_Group3 Peripheral State,
- *  @brief   Peripheral State,
- *
+  *  @brief   Peripheral State,
+  *
 @verbatim
  ===============================================================================
             #####          Peripheral State          #####
@@ -940,6 +963,7 @@ HAL_DCACHE_StateTypeDef HAL_DCACHE_GetState(DCACHE_HandleTypeDef *hdcache)
   */
 uint32_t HAL_DCACHE_GetError(DCACHE_HandleTypeDef *hdcache)
 {
+  /* Return DCACHE handle error code */
   return hdcache->ErrorCode;
 }
 
@@ -986,10 +1010,11 @@ HAL_StatusTypeDef HAL_DCACHE_RegisterCallback(DCACHE_HandleTypeDef *hdcache, HAL
     /* Update the error code */
     hdcache->ErrorCode |= HAL_DCACHE_ERROR_INVALID_CALLBACK;
 
+    /* Return error status */
     return HAL_ERROR;
   }
 
-  if (HAL_DCACHE_STATE_READY == hdcache->State)
+  if (hdcache->State == HAL_DCACHE_STATE_READY)
   {
     switch (CallbackID)
     {
@@ -1030,7 +1055,7 @@ HAL_StatusTypeDef HAL_DCACHE_RegisterCallback(DCACHE_HandleTypeDef *hdcache, HAL
         break;
     }
   }
-  else if (HAL_DCACHE_STATE_RESET == hdcache->State)
+  else if (hdcache->State == HAL_DCACHE_STATE_RESET)
   {
     switch (CallbackID)
     {
@@ -1083,7 +1108,7 @@ HAL_StatusTypeDef HAL_DCACHE_UnRegisterCallback(DCACHE_HandleTypeDef *hdcache, H
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  if (HAL_DCACHE_STATE_READY == hdcache->State)
+  if (hdcache->State == HAL_DCACHE_STATE_READY)
   {
     switch (CallbackID)
     {
@@ -1099,7 +1124,7 @@ HAL_StatusTypeDef HAL_DCACHE_UnRegisterCallback(DCACHE_HandleTypeDef *hdcache, H
 
       case HAL_DCACHE_CLEAN_AND_INVALIDATE_BY_ADDRESS_CB_ID :
         /* Legacy weak Clean and Invalidate By Addr Callback */
-        hdcache->InvalidateByAddrCallback = HAL_DCACHE_CleanAndInvalidateByAddrCallback;
+        hdcache->CleanAndInvalidateByAddrCallback = HAL_DCACHE_CleanAndInvalidateByAddrCallback;
         break;
 
       case HAL_DCACHE_INVALIDATE_COMPLETE_CB_ID :
@@ -1345,21 +1370,22 @@ static HAL_StatusTypeDef DCACHE_CommandByAddr(DCACHE_HandleTypeDef *hdcache, uin
   uint32_t op_addr = (uint32_t)pAddr;
   uint32_t tickstart;
 
-  /* Set HAL_DCACHE_STATE_BUSY */
-  hdcache->State = HAL_DCACHE_STATE_BUSY;
-
   /* Check no ongoing operation */
   if (READ_BIT(hdcache->Instance->SR, (DCACHE_SR_BUSYF | DCACHE_SR_BUSYCMDF)) != 0U)
   {
-    return HAL_ERROR;
+    /* Return busy status */
+    status =  HAL_BUSY;
   }
   else
   {
+    /* Update the error code */
+    hdcache->ErrorCode = HAL_DCACHE_ERROR_NONE;
+
+    /* Update the DCACHE handle State */
+    hdcache->State = HAL_DCACHE_STATE_READY;
+
     /* Make sure flags are reset */
     WRITE_REG(hdcache->Instance->FCR, (DCACHE_FCR_CBSYENDF | DCACHE_FCR_CCMDENDF));
-
-    /* Get timeout */
-    tickstart = HAL_GetTick();
 
     /* Fill area start address */
     WRITE_REG(hdcache->Instance->CMDRSADDRR, op_addr);
@@ -1381,33 +1407,36 @@ static HAL_StatusTypeDef DCACHE_CommandByAddr(DCACHE_HandleTypeDef *hdcache, uin
     }
     else
     {
-
       /* Make sure that end of cache command interrupt is disabled */
       CLEAR_BIT(hdcache->Instance->IER, DCACHE_IER_CMDENDIE);
 
       /* Launch cache command */
       SET_BIT(hdcache->Instance->CR, DCACHE_CR_STARTCMD);
 
+      /* Get timeout */
+      tickstart = HAL_GetTick();
+
       /* Wait for end of cache command */
       while (READ_BIT(hdcache->Instance->SR, DCACHE_SR_CMDENDF) == 0U)
       {
         if ((HAL_GetTick() - tickstart) > DCACHE_COMMAND_TIMEOUT_VALUE)
         {
-          /* Update error code */
-          hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
+          if (READ_BIT(hdcache->Instance->SR, DCACHE_SR_CMDENDF) == 0U)
+          {
+            /* Update error code */
+            hdcache->ErrorCode = HAL_DCACHE_ERROR_TIMEOUT;
 
-          /* Change the DCACHE state */
-          hdcache->State = HAL_DCACHE_STATE_ERROR;
+            /* Change the DCACHE state */
+            hdcache->State = HAL_DCACHE_STATE_ERROR;
 
-          /* Return error status */
-          status =  HAL_ERROR;
+            /* Return error status */
+            status =  HAL_ERROR;
+            break;
+          }
         }
       }
     }
   }
-
-  /* Set HAL_DCACHE_STATE_READY */
-  hdcache->State = HAL_DCACHE_STATE_READY;
 
   return status;
 }

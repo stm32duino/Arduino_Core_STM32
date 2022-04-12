@@ -1031,15 +1031,22 @@ typedef struct
 #define LL_TIM_TIM1_ETRSOURCE_GPIO        0x00000000U                                                  /*!< ETR input is connected to GPIO */
 #define LL_TIM_TIM1_ETRSOURCE_COMP1       TIM1_AF1_ETRSEL_0                                            /*!< ETR input is connected to COMP1_OUT */
 #define LL_TIM_TIM1_ETRSOURCE_COMP2       TIM1_AF1_ETRSEL_1                                            /*!< ETR input is connected to COMP2_OUT */
-#define LL_TIM_TIM1_ETRSOURCE_MSIK        (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                       /*!< ETR input is connected to MSIK */
+#define LL_TIM_TIM1_ETRSOURCE_MSIK        (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                      /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM1_ETRSOURCE_HSI         TIM1_AF1_ETRSEL_2                                            /*!< ETR input is connected to HSI */
-#define LL_TIM_TIM1_ETRSOURCE_MSIS        (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                                /*!< ETR input is connected to MSIS */
+#define LL_TIM_TIM1_ETRSOURCE_MSIS        (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                      /*!< ETR input is connected to MSIS */
+#if defined(ADC2)
+#define LL_TIM_TIM1_ETRSOURCE_ADC2_AWD2   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                      /*!< ADC2 analog watchdog 2 */
+#define LL_TIM_TIM1_ETRSOURCE_ADC2_AWD3   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)   /*!< ADC2 analog watchdog 3 */
+#endif /* ADC2*/
 #define LL_TIM_TIM1_ETRSOURCE_ADC1_AWD1   TIM1_AF1_ETRSEL_3                                            /*!< ADC1 analog watchdog 1 */
 #define LL_TIM_TIM1_ETRSOURCE_ADC1_AWD2   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                      /*!< ADC1 analog watchdog 2 */
 #define LL_TIM_TIM1_ETRSOURCE_ADC1_AWD3   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                      /*!< ADC1 analog watchdog 3 */
 #define LL_TIM_TIM1_ETRSOURCE_ADC4_AWD1   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)  /*!< ADC4 analog watchdog 1 */
 #define LL_TIM_TIM1_ETRSOURCE_ADC4_AWD2   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                      /*!< ADC4 analog watchdog 2 */
 #define LL_TIM_TIM1_ETRSOURCE_ADC4_AWD3   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)  /*!< ADC4 analog watchdog 3 */
+#if defined(ADC2)
+#define LL_TIM_TIM1_ETRSOURCE_ADC2_AWD1   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)  /*!< ADC2 analog watchdog 1 */
+#endif /* ADC2*/
 /**
   * @}
   */
@@ -1052,11 +1059,22 @@ typedef struct
 #define LL_TIM_TIM2_ETRSOURCE_COMP2        TIM1_AF1_ETRSEL_1                                           /*!< ETR input is connected to COMP2_OUT */
 #define LL_TIM_TIM2_ETRSOURCE_MSIK         (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM2_ETRSOURCE_HSI          TIM1_AF1_ETRSEL_2                                           /*!< ETR input is connected to HSI */
-#define LL_TIM_TIM2_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                               /*!< ETR input is connected to MSIS */
+#define LL_TIM_TIM2_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIS */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM2_ETRSOURCE_DCMI_VSYNC        (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                /*!< ETR input is connected to DCMI VSYNC   */
+#define LL_TIM_TIM2_ETRSOURCE_LTDC_VSYNC        (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< ETR input is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define LL_TIM_TIM2_ETRSOURCE_TIM3_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM3 ETR */
 #define LL_TIM_TIM2_ETRSOURCE_TIM4_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
 #define LL_TIM_TIM2_ETRSOURCE_TIM5_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to TIM5 ETR */
 #define LL_TIM_TIM2_ETRSOURCE_LSE          (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LSE */
+#if defined(DSI)
+#define LL_TIM_TIM2_ETRSOURCE_DSI_TE       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM2_ETRSOURCE_DCMI_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< ETR input is connected to DCMI HSYNC   */
+#define LL_TIM_TIM2_ETRSOURCE_LTDC_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 /**
   * @}
   */
@@ -1069,12 +1087,23 @@ typedef struct
 #define LL_TIM_TIM3_ETRSOURCE_COMP2        TIM1_AF1_ETRSEL_1                                           /*!< ETR input is connected to COMP2_OUT */
 #define LL_TIM_TIM3_ETRSOURCE_MSIK         (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM3_ETRSOURCE_HSI          TIM1_AF1_ETRSEL_2                                           /*!< ETR input is connected to HSI */
-#define LL_TIM_TIM3_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                               /*!< ETR input is connected to MSIS */
+#define LL_TIM_TIM3_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIS */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM3_ETRSOURCE_DCMI_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to DCMI VSYNC   */
+#define LL_TIM_TIM3_ETRSOURCE_LTDC_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< ETR input is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define LL_TIM_TIM3_ETRSOURCE_TIM2_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM2 ETR */
 #define LL_TIM_TIM3_ETRSOURCE_TIM4_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM4 ETR */
+#if defined(DSI)
+#define LL_TIM_TIM3_ETRSOURCE_DSI_TE       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to DSI_TE       */
+#endif /* DSI */
 #define LL_TIM_TIM3_ETRSOURCE_ADC1_AWD1    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ADC1 analog watchdog 1 */
 #define LL_TIM_TIM3_ETRSOURCE_ADC1_AWD2    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< ADC1 analog watchdog 2 */
 #define LL_TIM_TIM3_ETRSOURCE_ADC1_AWD3    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ADC1 analog watchdog 3 */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM3_ETRSOURCE_DCMI_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< ETR input is connected to DCMI HSYNC   */
+#define LL_TIM_TIM3_ETRSOURCE_LTDC_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 /**
   * @}
   */
@@ -1088,8 +1117,24 @@ typedef struct
 #define LL_TIM_TIM4_ETRSOURCE_MSIK         (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM4_ETRSOURCE_HSI          TIM1_AF1_ETRSEL_2                                           /*!< ETR input is connected to HSI */
 #define LL_TIM_TIM4_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIS */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM4_ETRSOURCE_DCMI_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to DCMI VSYNC   */
+#define LL_TIM_TIM4_ETRSOURCE_LTDC_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)  /*!< ETR input is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define LL_TIM_TIM4_ETRSOURCE_TIM3_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM3 ETR */
 #define LL_TIM_TIM4_ETRSOURCE_TIM5_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM5 ETR */
+#if defined(DSI)
+#define LL_TIM_TIM4_ETRSOURCE_DSI_TE       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< TIM2_ETR is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(ADC2)
+#define LL_TIM_TIM4_ETRSOURCE_ADC2_AWD1    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to ADC2 AWD1    */
+#define LL_TIM_TIM4_ETRSOURCE_ADC2_AWD2    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                     /*!< ETR input is connected to ADC2 AWD2    */
+#define LL_TIM_TIM4_ETRSOURCE_ADC2_AWD3    (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to ADC2 AWD3    */
+#endif /* ADC2 */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM4_ETRSOURCE_DCMI_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< ETR input is connected to DCMI HSYNC   */
+#define LL_TIM_TIM4_ETRSOURCE_LTDC_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 /**
   * @}
   */
@@ -1103,8 +1148,19 @@ typedef struct
 #define LL_TIM_TIM5_ETRSOURCE_MSIK         (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM5_ETRSOURCE_HSI          TIM1_AF1_ETRSEL_2                                           /*!< ETR input is connected to HSI */
 #define LL_TIM_TIM5_ETRSOURCE_MSIS         (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to MSIS */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM5_ETRSOURCE_DCMI_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to DCMI VSYNC   */
+#define LL_TIM_TIM5_ETRSOURCE_LTDC_VSYNC   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LTDC_VSYNC   */
+#endif /* DCMI && LTDC */
 #define LL_TIM_TIM5_ETRSOURCE_TIM2_ETR     TIM1_AF1_ETRSEL_3                                           /*!< ETR input is connected to TIM2 ETR */
 #define LL_TIM_TIM5_ETRSOURCE_TIM3_ETR     (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                     /*!< ETR input is connected to TIM3 ETR */
+#if defined(DSI)
+#define LL_TIM_TIM5_ETRSOURCE_DSI_TE       (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                     /*!< ETR input is connected to DSI_TE       */
+#endif /* DSI */
+#if defined(DCMI) && defined(LTDC)
+#define LL_TIM_TIM5_ETRSOURCE_DCMI_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1) /*!< ETR input is connected to DCMI HSYNC   */
+#define LL_TIM_TIM5_ETRSOURCE_LTDC_HSYNC   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0) /*!< ETR input is connected to LTDC HSYNC   */
+#endif /* DCMI && LTDC */
 /**
   * @}
   */
@@ -1117,13 +1173,20 @@ typedef struct
 #define LL_TIM_TIM8_ETRSOURCE_COMP2       TIM1_AF1_ETRSEL_1                                            /*!< ETR input is connected to COMP2_OUT */
 #define LL_TIM_TIM8_ETRSOURCE_MSIK        (TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)                      /*!< ETR input is connected to MSIK */
 #define LL_TIM_TIM8_ETRSOURCE_HSI         TIM1_AF1_ETRSEL_2                                            /*!< ETR input is connected to HSI */
-#define LL_TIM_TIM8_ETRSOURCE_MSIS       (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                                /*!< ETR input is connected to MSIS */
+#define LL_TIM_TIM8_ETRSOURCE_MSIS        (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)                      /*!< ETR input is connected to MSIS */
+#if defined (ADC2)
+#define LL_TIM_TIM8_ETRSOURCE_ADC2_AWD2   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)                      /*!< ETR input is connected to ADC2 AWD2    */
+#define LL_TIM_TIM8_ETRSOURCE_ADC2_AWD3   (TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1| TIM1_AF1_ETRSEL_0)   /*!< ETR input is connected to ADC2 AWD3    */
+#endif /* ADC2 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC1_AWD1   TIM1_AF1_ETRSEL_3                                            /*!< ADC1 analog watchdog 1 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC1_AWD2   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_0)                      /*!< ADC1 analog watchdog 2 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC1_AWD3   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1)                      /*!< ADC1 analog watchdog 3 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC4_AWD1   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_1 | TIM1_AF1_ETRSEL_0)  /*!< ADC4 analog watchdog 1 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC4_AWD2   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2)                      /*!< ADC4 analog watchdog 2 */
 #define LL_TIM_TIM8_ETRSOURCE_ADC4_AWD3   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_0)  /*!< ADC4 analog watchdog 3 */
+#if defined (ADC2)
+#define LL_TIM_TIM8_ETRSOURCE_ADC2_AWD1   (TIM1_AF1_ETRSEL_3 | TIM1_AF1_ETRSEL_2 | TIM1_AF1_ETRSEL_1)  /*!< ETR input is connected to ADC2 AWD1    */
+#endif /* ADC2 */
 /**
   * @}
   */
@@ -1327,13 +1390,13 @@ typedef struct
 /** @defgroup TIM_LL_EC_DMABURST_SOURCE DMA Burst Source
   * @{
   */
-#define LL_TIM_DMA_UPDATE                      0x00000000U                                                     /*!< Transfer source is update event */
-#define LL_TIM_DMA_CC1                         TIM_DCR_DBSS_0                                                  /*!< Transfer source is CC1 event */
-#define LL_TIM_DMA_CC2                         TIM_DCR_DBSS_1                                                  /*!< Transfer source is CC2 event */
-#define LL_TIM_DMA_CC3                         (TIM_DCR_DBSS_1 |  TIM_DCR_DBSS_0)                              /*!< Transfer source is CC3 event */
-#define LL_TIM_DMA_CC4                         TIM_DCR_DBSS_2                                                  /*!< Transfer source is CC4 event */
-#define LL_TIM_DMA_COM                         (TIM_DCR_DBSS_2 | TIM_DCR_DBSS_0)                               /*!< Transfer source is COM event */
-#define LL_TIM_DMA_TRIGGER                     (TIM_DCR_DBSS_2 | TIM_DCR_DBSS_1)                               /*!< Transfer source is trigger event */
+#define LL_TIM_DMA_UPDATE                      TIM_DCR_DBSS_0                                                  /*!< Transfer source is update event */
+#define LL_TIM_DMA_CC1                         TIM_DCR_DBSS_1                                                  /*!< Transfer source is CC1 event */
+#define LL_TIM_DMA_CC2                         (TIM_DCR_DBSS_1 |  TIM_DCR_DBSS_0)                              /*!< Transfer source is CC2 event */
+#define LL_TIM_DMA_CC3                         TIM_DCR_DBSS_2                                                  /*!< Transfer source is CC3 event */
+#define LL_TIM_DMA_CC4                         (TIM_DCR_DBSS_2 | TIM_DCR_DBSS_0)                               /*!< Transfer source is CC4 event */
+#define LL_TIM_DMA_COM                         (TIM_DCR_DBSS_2 | TIM_DCR_DBSS_1)                               /*!< Transfer source is COM event */
+#define LL_TIM_DMA_TRIGGER                     (TIM_DCR_DBSS_2 | TIM_DCR_DBSS_1 | TIM_DCR_DBSS_0)              /*!< Transfer source is trigger event */
 /**
   * @}
   */
@@ -1655,7 +1718,7 @@ typedef struct
   * @retval Prescaler value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_PSC(__TIMCLK__, __CNTCLK__)   \
-  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)(((__TIMCLK__)/(__CNTCLK__)) - 1U) : 0U)
+  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)((((__TIMCLK__) + (__CNTCLK__)/2U)/(__CNTCLK__)) - 1U) : 0U)
 
 /**
   * @brief  HELPER macro calculating the auto-reload value to achieve the required output signal frequency.
@@ -3924,12 +3987,15 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC2_AWD2   (*)
+  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC2_AWD3   (*)
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD1
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD2
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC1_AWD3
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC4_AWD1
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC4_AWD2
   *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC4_AWD3
+  *            @arg @ref LL_TIM_TIM1_ETRSOURCE_ADC2_AWD1   (*)
   *
   *         TIM2: any combination of ETR_RMP where
   *
@@ -3939,10 +4005,15 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_DCMI_VSYNC   (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_LTDC_VSYNC   (*)
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM3_ETR
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM4_ETR
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_TIM5_ETR
   *            @arg @ref LL_TIM_TIM2_ETRSOURCE_LSE
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_DSI_TE       (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_DCMI_HSYNC   (*)
+  *            @arg @ref LL_TIM_TIM2_ETRSOURCE_LTDC_HSYNC   (*)
   *
   *         TIM3: any combination of ETR_RMP where
   *
@@ -3952,11 +4023,16 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_DCMI_VSYNC   (*)
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_LTDC_VSYNC   (*)
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM2_ETR
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_TIM4_ETR
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_DSI_TE       (*)
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC1_AWD1
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC1_AWD2
   *            @arg @ref LL_TIM_TIM3_ETRSOURCE_ADC1_AWD3
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_DCMI_HSYNC   (*)
+  *            @arg @ref LL_TIM_TIM3_ETRSOURCE_LTDC_HSYNC   (*)
   *
   *         TIM4: any combination of ETR_RMP where
   *
@@ -3966,8 +4042,16 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_DCMI_VSYNC   (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_LTDC_VSYNC   (*)
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM3_ETR
   *            @arg @ref LL_TIM_TIM4_ETRSOURCE_TIM5_ETR
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_DSI_TE       (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_ADC2_AWD1    (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_ADC2_AWD2    (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_ADC2_AWD3    (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_DCMI_HSYNC   (*)
+  *            @arg @ref LL_TIM_TIM4_ETRSOURCE_LTDC_HSYNC   (*)
   *
   *         TIM5: any combination of ETR_RMP where
   *
@@ -3977,8 +4061,13 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_DCMI_VSYNC   (*)
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_LTDC_VSYNC   (*)
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_TIM2_ETR
   *            @arg @ref LL_TIM_TIM5_ETRSOURCE_TIM3_ETR
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_DSI_TE       (*)
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_DCMI_HSYNC   (*)
+  *            @arg @ref LL_TIM_TIM5_ETRSOURCE_LTDC_HSYNC   (*)
   *
   *         TIM8: any combination of ETR_RMP where
   *
@@ -3989,12 +4078,17 @@ __STATIC_INLINE void LL_TIM_ConfigETR(TIM_TypeDef *TIMx, uint32_t ETRPolarity, u
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_MSIK
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_HSI
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_MSIS
+  *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC2_AWD2   (*)
+  *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC2_AWD3   (*)
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC1_AWD1
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC1_AWD2
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC1_AWD3
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC4_AWD1
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC4_AWD2
   *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC4_AWD3
+  *            @arg @ref LL_TIM_TIM8_ETRSOURCE_ADC2_AWD1   (*)
+  *
+  *         (*)  Value not defined in all devices. \n
   * @retval None
   */
 __STATIC_INLINE void LL_TIM_SetETRSource(TIM_TypeDef *TIMx, uint32_t ETRSource)
@@ -4752,7 +4846,7 @@ __STATIC_INLINE uint32_t LL_TIM_GetIndexDirection(TIM_TypeDef *TIMx)
   * @brief  Set index blanking
   * @note Macro IS_TIM_INDEX_INSTANCE(TIMx) can be used to check whether or not
   *       a timer instance provides an index input.
-  * @rmtoll ECR          IBLK           LL_TIM_SetIndexBlanking
+  * @rmtoll ECR          IBLK           LL_TIM_SetIndexblanking
   * @param  TIMx Timer instance
   * @param  Indexblanking This parameter can be one of the following values:
   *         @arg @ref LL_TIM_INDEX_BLANK_ALWAYS

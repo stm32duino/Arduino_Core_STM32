@@ -31,7 +31,7 @@
   */
 
 #if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) || \
-    defined (GPIOG) || defined (GPIOH) || defined (GPIOI)
+    defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ)
 
 /** @addtogroup GPIO_LL
   * @{
@@ -166,6 +166,13 @@ ErrorStatus LL_GPIO_DeInit(GPIO_TypeDef *GPIOx)
     LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOI);
   }
 #endif /* GPIOI */
+#if defined(GPIOJ)
+  else if (GPIOx == GPIOJ)
+  {
+    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_GPIOJ);
+    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_GPIOJ);
+  }
+#endif /* GPIOJ */
   else
   {
     status = ERROR;
@@ -283,7 +290,7 @@ void LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct)
   */
 
 #endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || \
-          defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) */
+          defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ) */
 
 /**
   * @}

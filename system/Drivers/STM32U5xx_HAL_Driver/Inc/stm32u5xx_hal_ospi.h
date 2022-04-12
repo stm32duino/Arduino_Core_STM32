@@ -337,7 +337,7 @@ typedef void (*pOSPI_CallbackTypeDef)(OSPI_HandleTypeDef *hospi);
   * @{
   */
 #define HAL_OSPI_DUALQUAD_DISABLE            ((uint32_t)0x00000000U)                                         /*!< Dual-Quad mode disabled */
-#define HAL_OSPI_DUALQUAD_ENABLE             ((uint32_t)OCTOSPI_CR_DQM)                                      /*!< Dual-Quad mode enabled  */
+#define HAL_OSPI_DUALQUAD_ENABLE             ((uint32_t)OCTOSPI_CR_DMM)                                      /*!< Dual-Quad mode enabled  */
 /**
   * @}
   */
@@ -426,7 +426,7 @@ typedef void (*pOSPI_CallbackTypeDef)(OSPI_HandleTypeDef *hospi);
   * @{
   */
 #define HAL_OSPI_FLASH_ID_1                  ((uint32_t)0x00000000U)                                         /*!< FLASH 1 selected */
-#define HAL_OSPI_FLASH_ID_2                  ((uint32_t)OCTOSPI_CR_FSEL)                                     /*!< FLASH 2 selected */
+#define HAL_OSPI_FLASH_ID_2                  ((uint32_t)OCTOSPI_CR_MSEL)                                     /*!< FLASH 2 selected */
 /**
   * @}
   */

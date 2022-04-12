@@ -7,7 +7,7 @@
 **
 **  Abstract    : Linker script for STM32U575xx Device from STM32U5 series
 **                      2048Kbytes ROM
-**                      768Kbytes RAM
+**                      784Kbytes RAM
 **
 **                Set heap size, stack size and stack location according
 **                to application requirements.
@@ -48,6 +48,7 @@ MEMORY
   RAM	(xrw)	: ORIGIN = 0x30000000,	LENGTH = 256K     /* Memory is divided. Actual start is 0x30000000 and actual length is 768K */
   ROM	(rx)	: ORIGIN = 0x0C000000,	LENGTH = 1016K    /* Memory is divided. Actual start is 0x0C000000 and actual length is 2048K */
   ROM_NSC	(rx)	: ORIGIN = 0x0C0FE000,	LENGTH = 8K   /* Non-Secure Call-able region */
+  SRAM4	(xrw)	: ORIGIN = 0x38000000,	LENGTH = 16K      /* Secure SRAM4 */
 }
 
 /* Sections */

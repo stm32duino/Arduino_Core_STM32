@@ -90,7 +90,6 @@ extern "C" {
   * @}
   */
 
-
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup OPAMP_LL_ES_INIT OPAMP Exported Init structure
@@ -294,6 +293,44 @@ typedef struct
   * @retval Register value
   */
 #define LL_OPAMP_ReadReg(__INSTANCE__, __REG__) READ_REG((__INSTANCE__)->__REG__)
+/**
+  * @}
+  */
+
+/** @defgroup OPAMP_LL_EM_HELPER_MACRO OPAMP helper macro
+  * @{
+  */
+
+/**
+  * @brief  Helper macro to select the OPAMP common instance
+  *         to which is belonging the selected OPAMP instance.
+  * @note   OPAMP common register instance can be used to
+  *         set parameters common to several OPAMP instances.
+  *         Refer to functions having argument "OPAMPxy_COMMON" as parameter.
+  * @param  __OPAMPx__ OPAMP instance
+  * @retval OPAMP common instance
+  */
+#if defined(OPAMP1) && defined(OPAMP2)
+#define __LL_OPAMP_COMMON_INSTANCE(__OPAMPx__) (OPAMP12_COMMON)
+#endif /* defined(OPAMP1) && defined(OPAMP2) */
+
+/**
+  * @brief  Helper macro to check if all OPAMP instances sharing the same
+  *         OPAMP common instance are disabled.
+  * @note   This check is required by functions with setting conditioned to
+  *         OPAMP state:
+  *         All OPAMP instances of the OPAMP common group must be disabled.
+  *         Refer to functions having argument "OPAMPxy_COMMON" as parameter.
+  * @retval 0: All OPAMP instances sharing the same OPAMP common instance
+  *            are disabled.
+  *         1: At least one OPAMP instance sharing the same OPAMP common instance
+  *            is enabled
+  */
+#if defined(OPAMP1) && defined(OPAMP2)
+#define __LL_OPAMP_IS_ENABLED_ALL_COMMON_INSTANCE()                            \
+  (LL_OPAMP_IsEnabled(OPAMP1) |                                                \
+   LL_OPAMP_IsEnabled(OPAMP2)  )
+#endif /* defined(OPAMP1) && defined(OPAMP2) */
 /**
   * @}
   */
@@ -705,7 +742,7 @@ __STATIC_INLINE uint32_t LL_OPAMP_IsCalibrationOutputSet(OPAMP_TypeDef *OPAMPx)
 __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef *OPAMPx, uint32_t PowerMode, uint32_t TransistorsDiffPair,
                                                uint32_t TrimmingValue)
 {
-  uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Set bits with position in register depending on parameter                */
   /* "TransistorsDiffPair".                                                   */
@@ -740,7 +777,7 @@ __STATIC_INLINE void LL_OPAMP_SetTrimmingValue(OPAMP_TypeDef *OPAMPx, uint32_t P
 __STATIC_INLINE uint32_t LL_OPAMP_GetTrimmingValue(OPAMP_TypeDef *OPAMPx, uint32_t PowerMode,
                                                    uint32_t TransistorsDiffPair)
 {
-  const uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
+  const __IO uint32_t *preg = __OPAMP_PTR_REG_OFFSET(OPAMPx->OTR, (PowerMode & OPAMP_POWERMODE_OTR_REGOFFSET_MASK));
 
   /* Retrieve bits with position in register depending on parameter           */
   /* "TransistorsDiffPair".                                                   */

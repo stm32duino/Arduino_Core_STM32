@@ -890,6 +890,9 @@ HAL_StatusTypeDef HAL_OTFDEC_Cipher(OTFDEC_HandleTypeDef *hotfdec, uint32_t Regi
   assert_param(IS_OTFDEC_ALL_INSTANCE(hotfdec->Instance));
   assert_param(IS_OTFDEC_REGIONINDEX(RegionIndex));
 
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(RegionIndex);
+
   if ((input == NULL) || (output == NULL) || (size == 0U))
   {
     return HAL_ERROR;

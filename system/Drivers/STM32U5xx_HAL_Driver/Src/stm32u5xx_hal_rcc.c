@@ -83,6 +83,7 @@
                               ((__HSE__) == RCC_HSE_BYPASS) || ((__HSE__) == RCC_HSE_BYPASS_DIGITAL))
 
 #define IS_RCC_LSE(__LSE__)  (((__LSE__) == RCC_LSE_OFF) || ((__LSE__) == RCC_LSE_ON) || \
+                              ((__LSE__) == RCC_LSE_ON_RTC_ONLY) || ((__LSE__) == RCC_LSE_BYPASS_RTC_ONLY) || \
                               ((__LSE__) == RCC_LSE_BYPASS))
 
 #define IS_RCC_HSI(__HSI__)  (((__HSI__) == RCC_HSI_OFF) || ((__HSI__) == RCC_HSI_ON))
@@ -353,6 +354,7 @@ static HAL_StatusTypeDef RCC_SetFlashLatencyFromMSIRange(uint32_t msirange);
   *            - LSI, LSE and RTC clocks
   * @retval HAL status
   */
+
 HAL_StatusTypeDef HAL_RCC_DeInit(void)
 {
   uint32_t tickstart;
@@ -369,6 +371,7 @@ HAL_StatusTypeDef HAL_RCC_DeInit(void)
     {
       return HAL_ERROR;
     }
+
   }
 
   tickstart = HAL_GetTick();
@@ -541,6 +544,8 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
   uint32_t sysclk_source;
   uint32_t pll_config;
   FlagStatus pwrboosten = RESET;
+  uint32_t temp1_pllckcfg;
+  uint32_t temp2_pllckcfg;
 
   /* Check Null pointer */
   if (pRCC_OscInitStruct == NULL)
@@ -582,7 +587,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
         {
           /* Decrease number of wait states update if necessary */
           /* Only possible when MSI is the System clock source  */
-          if(sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
+          if (sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
           {
             if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
             {
@@ -605,7 +610,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
           __HAL_RCC_MSI_CALIBRATIONVALUE_ADJUST((pRCC_OscInitStruct->MSICalibrationValue), \
                                                 (pRCC_OscInitStruct->MSIClockRange));
 
-          if(sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
+          if (sysclk_source == RCC_SYSCLKSOURCE_STATUS_MSI)
           {
             if (RCC_SetFlashLatencyFromMSIRange(pRCC_OscInitStruct->MSIClockRange) != HAL_OK)
             {
@@ -1175,7 +1180,7 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
 
         tickstart = HAL_GetTick();
 
-        /* Wait till PLL is ready */
+        /* Wait till PLL is disabled */
         while (READ_BIT(RCC->CR, RCC_CR_PLL1RDY) != 0U)
         {
           if ((HAL_GetTick() - tickstart) > PLL_TIMEOUT_VALUE)
@@ -1257,9 +1262,6 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
         /* Disable the main PLL */
         __HAL_RCC_PLL_DISABLE();
 
-        /* Disable main PLL outputs to save power if no PLLs on */
-        __HAL_RCC_PLLCLKOUT_DISABLE(RCC_PLL1_DIVP | RCC_PLL1_DIVQ | RCC_PLL1_DIVR);
-
         tickstart = HAL_GetTick();
 
         /* Wait till PLL is disabled */
@@ -1270,11 +1272,33 @@ HAL_StatusTypeDef HAL_RCC_OscConfig(RCC_OscInitTypeDef  *pRCC_OscInitStruct)
             return HAL_TIMEOUT;
           }
         }
+
+        /* Unselect main PLL clock source and disable main PLL outputs to save power */
+        RCC->PLL1CFGR &= ~(RCC_PLL1CFGR_PLL1SRC | RCC_PLL1CFGR_PLL1PEN | RCC_PLL1CFGR_PLL1QEN | RCC_PLL1CFGR_PLL1REN);
+
       }
     }
     else
     {
-      return HAL_ERROR;
+      /* Do not return HAL_ERROR if request repeats the current configuration */
+      temp1_pllckcfg = RCC->PLL1CFGR;
+      temp2_pllckcfg = RCC->PLL1DIVR;
+      if (((pRCC_OscInitStruct->PLL.PLLState) == RCC_PLL_OFF) ||
+          (READ_BIT(temp1_pllckcfg, RCC_PLL1CFGR_PLL1SRC) != pRCC_OscInitStruct->PLL.PLLSource) ||
+          ((READ_BIT(temp1_pllckcfg, RCC_PLL1CFGR_PLL1M) >> \
+            RCC_PLL1CFGR_PLL1M_Pos) != (pRCC_OscInitStruct->PLL.PLLM - 1U)) ||
+          ((READ_BIT(temp1_pllckcfg, RCC_PLL1CFGR_PLL1MBOOST) >> \
+            RCC_PLL1CFGR_PLL1MBOOST_Pos) != pRCC_OscInitStruct->PLL.PLLMBOOST) ||
+          (READ_BIT(temp2_pllckcfg, RCC_PLL1DIVR_PLL1N) != (pRCC_OscInitStruct->PLL.PLLN - 1U)) ||
+          ((READ_BIT(temp2_pllckcfg, RCC_PLL1DIVR_PLL1P) >> \
+            RCC_PLL1DIVR_PLL1P_Pos) != (pRCC_OscInitStruct->PLL.PLLP - 1U)) ||
+          ((READ_BIT(temp2_pllckcfg, RCC_PLL1DIVR_PLL1Q) >> \
+            RCC_PLL1DIVR_PLL1Q_Pos) != (pRCC_OscInitStruct->PLL.PLLQ - 1U)) ||
+          ((READ_BIT(temp2_pllckcfg, RCC_PLL1DIVR_PLL1R) >> \
+            RCC_PLL1DIVR_PLL1R_Pos) != (pRCC_OscInitStruct->PLL.PLLR - 1U)))
+      {
+        return HAL_ERROR;
+      }
     }
   }
   return HAL_OK;
@@ -1345,6 +1369,46 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
     if (__HAL_FLASH_GET_LATENCY() != FLatency)
     {
       return HAL_ERROR;
+    }
+  }
+
+  /* Increasing the BUS frequency divider */
+  /*-------------------------- PCLK3 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK3) == RCC_CLOCKTYPE_PCLK3)
+  {
+    if ((pRCC_ClkInitStruct->APB3CLKDivider) > (RCC->CFGR3 & RCC_CFGR3_PPRE3))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB3CLKDivider));
+      MODIFY_REG(RCC->CFGR3, RCC_CFGR3_PPRE3, pRCC_ClkInitStruct->APB3CLKDivider);
+    }
+  }
+  /*-------------------------- PCLK2 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK2) == RCC_CLOCKTYPE_PCLK2)
+  {
+    if ((pRCC_ClkInitStruct->APB2CLKDivider) > ((RCC->CFGR2 & RCC_CFGR2_PPRE2) >> 4))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB2CLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE2, ((pRCC_ClkInitStruct->APB2CLKDivider) << 4));
+    }
+  }
+
+  /*-------------------------- PCLK1 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK1)
+  {
+    if ((pRCC_ClkInitStruct->APB1CLKDivider) > (RCC->CFGR2 & RCC_CFGR2_PPRE1))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB1CLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE1, pRCC_ClkInitStruct->APB1CLKDivider);
+    }
+  }
+
+  /*-------------------------- HCLK Configuration --------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_HCLK) == RCC_CLOCKTYPE_HCLK)
+  {
+    if ((pRCC_ClkInitStruct->AHBCLKDivider) > (RCC->CFGR2 & RCC_CFGR2_HPRE))
+    {
+      assert_param(IS_RCC_HCLK(pRCC_ClkInitStruct->AHBCLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_HPRE, pRCC_ClkInitStruct->AHBCLKDivider);
     }
   }
 
@@ -1468,32 +1532,15 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
     }
   }
 
+  /* Decreasing the BUS frequency divider */
   /*-------------------------- HCLK Configuration --------------------------*/
   if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_HCLK) == RCC_CLOCKTYPE_HCLK)
   {
-    assert_param(IS_RCC_HCLK(pRCC_ClkInitStruct->AHBCLKDivider));
-    MODIFY_REG(RCC->CFGR2, RCC_CFGR2_HPRE, pRCC_ClkInitStruct->AHBCLKDivider);
-  }
-
-  /*-------------------------- PCLK1 Configuration ---------------------------*/
-  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK1)
-  {
-    assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB1CLKDivider));
-    MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE1, pRCC_ClkInitStruct->APB1CLKDivider);
-  }
-
-  /*-------------------------- PCLK2 Configuration ---------------------------*/
-  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK2) == RCC_CLOCKTYPE_PCLK2)
-  {
-    assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB2CLKDivider));
-    MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE2, ((pRCC_ClkInitStruct->APB2CLKDivider) << 4));
-  }
-
-  /*-------------------------- PCLK3 Configuration ---------------------------*/
-  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK3) == RCC_CLOCKTYPE_PCLK3)
-  {
-    assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB3CLKDivider));
-    MODIFY_REG(RCC->CFGR3, RCC_CFGR3_PPRE3, pRCC_ClkInitStruct->APB3CLKDivider);
+    if ((pRCC_ClkInitStruct->AHBCLKDivider) < (RCC->CFGR2 & RCC_CFGR2_HPRE))
+    {
+      assert_param(IS_RCC_HCLK(pRCC_ClkInitStruct->AHBCLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_HPRE, pRCC_ClkInitStruct->AHBCLKDivider);
+    }
   }
 
   /* Decreasing the number of wait states because of lower CPU frequency */
@@ -1507,6 +1554,36 @@ HAL_StatusTypeDef HAL_RCC_ClockConfig(const RCC_ClkInitTypeDef   *const pRCC_Clk
     if (__HAL_FLASH_GET_LATENCY() != FLatency)
     {
       return HAL_ERROR;
+    }
+  }
+
+  /*-------------------------- PCLK1 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK1) == RCC_CLOCKTYPE_PCLK1)
+  {
+    if ((pRCC_ClkInitStruct->APB1CLKDivider) < (RCC->CFGR2 & RCC_CFGR2_PPRE1))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB1CLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE1, pRCC_ClkInitStruct->APB1CLKDivider);
+    }
+  }
+
+  /*-------------------------- PCLK2 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK2) == RCC_CLOCKTYPE_PCLK2)
+  {
+    if ((pRCC_ClkInitStruct->APB2CLKDivider) < ((RCC->CFGR2 & RCC_CFGR2_PPRE2) >> 4))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB2CLKDivider));
+      MODIFY_REG(RCC->CFGR2, RCC_CFGR2_PPRE2, ((pRCC_ClkInitStruct->APB2CLKDivider) << 4));
+    }
+  }
+
+  /*-------------------------- PCLK3 Configuration ---------------------------*/
+  if (((pRCC_ClkInitStruct->ClockType) & RCC_CLOCKTYPE_PCLK3) == RCC_CLOCKTYPE_PCLK3)
+  {
+    if ((pRCC_ClkInitStruct->APB3CLKDivider) < (RCC->CFGR3 & RCC_CFGR3_PPRE3))
+    {
+      assert_param(IS_RCC_PCLK(pRCC_ClkInitStruct->APB3CLKDivider));
+      MODIFY_REG(RCC->CFGR3, RCC_CFGR3_PPRE3, (pRCC_ClkInitStruct->APB3CLKDivider));
     }
   }
 
@@ -2176,7 +2253,6 @@ static HAL_StatusTypeDef RCC_SetFlashLatencyFromMSIRange(uint32_t msirange)
     else
     {
       if (msirange > RCC_MSIRANGE_2)
-
       {
         if (vos == PWR_REGULATOR_VOLTAGE_SCALE4)
         {
@@ -2197,7 +2273,6 @@ static HAL_StatusTypeDef RCC_SetFlashLatencyFromMSIRange(uint32_t msirange)
       else
       {
         if (msirange == RCC_MSIRANGE_1)
-
         {
           if (vos == PWR_REGULATOR_VOLTAGE_SCALE3)
           {

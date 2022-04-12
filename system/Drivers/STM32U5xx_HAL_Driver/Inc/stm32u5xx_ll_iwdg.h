@@ -320,11 +320,11 @@ __STATIC_INLINE void LL_IWDG_DisableIT_EWI(IWDG_TypeDef *IWDGx)
 
 /**
   * @brief  Indicates whether Early wakeup interrupt is enable
-  * @rmtoll EWCR         EWIE          LL_IWDG_IsEnableIT_EWI
+  * @rmtoll EWCR         EWIE          LL_IWDG_IsEnabledIT_EWI
   * @param  IWDGx IWDG Instance
   * @retval None
   */
-__STATIC_INLINE uint32_t LL_IWDG_IsEnableIT_EWI(IWDG_TypeDef *IWDGx)
+__STATIC_INLINE uint32_t LL_IWDG_IsEnabledIT_EWI(IWDG_TypeDef *IWDGx)
 {
   return ((READ_BIT(IWDGx->EWCR, IWDG_EWCR_EWIE) == (IWDG_EWCR_EWIE)) ? 1UL : 0UL);
 }

@@ -225,8 +225,8 @@ typedef struct
                                              disabled. */
 
   uint32_t backupRegisterStartZone2;    /*!< Specifies the backup register start zone 2.
-                                             Zone 1 : read secure write secure.
-                                             Zone 2 : read non-secure  write secure.
+                                             Zone 1 granted accesses : read secure, write secure.
+                                             Zone 2 granted accesses : read non-secure, write secure.
                                              This parameter can be RTC_BKP_DRx where x can be from 0 to 31 to specify
                                              the register .
                                              Warning : this parameter is writable in secure mode or if trustzone is
@@ -234,7 +234,7 @@ typedef struct
                                              Warning : this parameter is shared with RTC_SecureStateTypeDef */
 
   uint32_t backupRegisterStartZone3;    /*!< Specifies the backup register start zone 3.
-                                             Zone 3 : read non-secure  write non-secure.
+                                             Zone 3 granted accesses : read non-secure, write non-secure.
                                              This parameter can be RTC_BKP_DRx where x can be from 0 to 31 to specify
                                              the register.
                                              Warning : this parameter is writable in secure mode or if trustzone is

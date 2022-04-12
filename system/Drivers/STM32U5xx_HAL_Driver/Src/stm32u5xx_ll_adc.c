@@ -327,10 +327,10 @@ ErrorStatus LL_ADC_CommonDeInit(ADC_Common_TypeDef *pADCxyCOMMON)
   if (pADCxyCOMMON == ADC12_COMMON)
   {
     /* Force reset of ADC clock (core clock) */
-    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_ADC1);
+    LL_AHB2_GRP1_ForceReset(LL_AHB2_GRP1_PERIPH_ADC12);
 
     /* Release reset of ADC clock (core clock) */
-    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_ADC1);
+    LL_AHB2_GRP1_ReleaseReset(LL_AHB2_GRP1_PERIPH_ADC12);
   }
   else   /*if ( pADCxyCOMMON == ADC4_COMMON)*/
   {
@@ -490,7 +490,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *pADCx)
               (LL_ADC_IT_AWD3
                | LL_ADC_IT_AWD2
                | LL_ADC_IT_AWD1
-               | LL_ADC_IT_JQOVF
                | LL_ADC_IT_OVR
                | LL_ADC_IT_JEOS
                | LL_ADC_IT_JEOC
@@ -506,7 +505,6 @@ ErrorStatus LL_ADC_DeInit(ADC_TypeDef *pADCx)
             (LL_ADC_FLAG_AWD3
              | LL_ADC_FLAG_AWD2
              | LL_ADC_FLAG_AWD1
-             | LL_ADC_FLAG_JQOVF
              | LL_ADC_FLAG_OVR
              | LL_ADC_FLAG_JEOS
              | LL_ADC_FLAG_JEOC

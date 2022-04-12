@@ -417,14 +417,14 @@ HAL_StatusTypeDef HAL_CRYPEx_UnwrapKey(CRYP_HandleTypeDef *hcryp, uint32_t *pInp
   * @}
   */
 
-/** @defgroup CRYPEx_Exported_Functions_Group3 Encrypt/Decrypt Shared key functions
-  * @brief    Encrypt/Decrypt Shared key functions.
+/** @defgroup CRYPEx_Exported_Functions_Group3 Encrypt and Decrypt Shared key functions
+  * @brief    Encrypt and Decrypt Shared key functions.
   *
 @verbatim
   ==============================================================================
-                      ##### Encrypt/Decrypt Shared key functions #####
+                      ##### Encrypt and Decrypt Shared key functions #####
   ==============================================================================
-    [..]  This section provides API allowing to Encrypt/Decrypt Shared key
+    [..]  This section provides API allowing to Encrypt and Decrypt Shared key
 
 @endverbatim
   * @{

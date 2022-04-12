@@ -158,36 +158,16 @@ HAL_StatusTypeDef HAL_PCDEx_DeActivateLPM(PCD_HandleTypeDef *hpcd)
 void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
 {
   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
-#if defined (STM32U575xx) || defined (STM32U585xx)
   uint32_t tickstart = HAL_GetTick();
-#endif /* defined (STM32U575xx) || defined (STM32U585xx) */
 
   /* Enable DCD : Data Contact Detect */
   USBx->GCCFG |= USB_OTG_GCCFG_DCDEN;
 
-#if defined (STM32U575xx) || defined (STM32U585xx)
-  /* Wait Detect flag or a timeout is happen*/
-  while ((USBx->GCCFG & USB_OTG_GCCFG_DCDET) == 0U)
-  {
-    /* Check for the Timeout */
-    if ((HAL_GetTick() - tickstart) > 1000U)
-    {
-#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
-      hpcd->BCDCallback(hpcd, PCD_BCD_ERROR);
-#else
-      HAL_PCDEx_BCD_Callback(hpcd, PCD_BCD_ERROR);
-#endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
-
-      return;
-    }
-  }
-#endif /* defined (STM32U575xx) || defined (STM32U585xx) */
-
-  /* Right response got */
-  HAL_Delay(200U);
+  /* Wait for Min DCD Timeout */
+  HAL_Delay(300U);
 
 #if defined (STM32U575xx) || defined (STM32U585xx)
-  /* Check Detect flag*/
+  /* Check Detect flag */
   if ((USBx->GCCFG & USB_OTG_GCCFG_DCDET) == USB_OTG_GCCFG_DCDET)
   {
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
@@ -198,7 +178,7 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   }
 #endif /* defined (STM32U575xx) || defined (STM32U585xx) */
 
-  /*Primary detection: checks if connected to Standard Downstream Port
+  /* Primary detection: checks if connected to Standard Downstream Port
   (without charging capability) */
   USBx->GCCFG &= ~ USB_OTG_GCCFG_DCDEN;
   HAL_Delay(50U);
@@ -242,7 +222,7 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
     }
     else
     {
-      /* case Charging Downstream Port  */
+      /* case Charging Downstream Port */
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
       hpcd->BCDCallback(hpcd, PCD_BCD_CHARGING_DOWNSTREAM_PORT);
 #else
@@ -254,11 +234,23 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   /* Battery Charging capability discovery finished */
   (void)HAL_PCDEx_DeActivateBCD(hpcd);
 
+  /* Check for the Timeout, else start USB Device */
+  if ((HAL_GetTick() - tickstart) > 1000U)
+  {
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
-  hpcd->BCDCallback(hpcd, PCD_BCD_DISCOVERY_COMPLETED);
+    hpcd->BCDCallback(hpcd, PCD_BCD_ERROR);
 #else
-  HAL_PCDEx_BCD_Callback(hpcd, PCD_BCD_DISCOVERY_COMPLETED);
+    HAL_PCDEx_BCD_Callback(hpcd, PCD_BCD_ERROR);
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
+  }
+  else
+  {
+#if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+    hpcd->BCDCallback(hpcd, PCD_BCD_DISCOVERY_COMPLETED);
+#else
+    HAL_PCDEx_BCD_Callback(hpcd, PCD_BCD_DISCOVERY_COMPLETED);
+#endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
+  }
 }
 
 /**

@@ -122,7 +122,9 @@ typedef struct
                                               This parameter can be a value of @ref DAC_HighFrequency */
 
   uint32_t DAC_AutonomousMode;           /*!< Specifies whether the autonomous mode state
-                                              This parameter can be a value of @ref DACx_Autonomous_mode */
+                                              This parameter can be a value of @ref DAC_AutonomousMode
+                                              Note: HAL_DACEx_SetConfigAutonomousMode() API allows to select and update
+                                                    the autonomous mode state afterwards */
 
   FunctionalState DAC_DMADoubleDataMode; /*!< Specifies if DMA double data mode should be enabled or not for the selected channel.
                                               This parameter can be ENABLE or DISABLE */
@@ -139,7 +141,7 @@ typedef struct
   uint32_t DAC_OutputBuffer;             /*!< Specifies whether the DAC channel output buffer is enabled or disabled.
                                                This parameter can be a value of @ref DAC_output_buffer */
 
-  uint32_t DAC_ConnectOnChipPeripheral ; /*!< Specifies whether the DAC output is connected or not to on chip peripheral .
+  uint32_t DAC_ConnectOnChipPeripheral ; /*!< Specifies whether the DAC output is connected or not to on chip peripheral.
                                               This parameter can be a value of @ref DAC_ConnectOnChipPeripheral */
 
   uint32_t DAC_UserTrimming;             /*!< Specifies the trimming mode
@@ -323,6 +325,27 @@ typedef void (*pDAC_CallbackTypeDef)(DAC_HandleTypeDef *hdac);
 #define DAC_HIGH_FREQUENCY_INTERFACE_MODE_ABOVE_160MHZ   (DAC_MCR_HFSEL_1)  /*!< High frequency interface mode compatible to AHB>160MHz enabled */
 #define DAC_HIGH_FREQUENCY_INTERFACE_MODE_AUTOMATIC      0x00000002UL       /*!< High frequency interface mode automatic */
 
+/**
+  * @}
+  */
+
+/** @defgroup DAC_AutonomousMode DAC Autonomous Mode
+  * @brief    DAC Autonomous mode
+  * @{
+  */
+#define DAC_AUTONOMOUS_MODE_DISABLE  0x00000000U          /*!< Autonomous mode disable */
+#define DAC_AUTONOMOUS_MODE_ENABLE   DAC_AUTOCR_AUTOMODE  /*!< Autonomous mode enable  */
+/**
+  * @}
+  */
+
+/** @defgroup DAC_Trigger_Stop_mode DAC Trigger Stop Mode
+  * @brief    DAC Trigger stop mode
+  * @{
+  */
+#define DAC_TRIGGER_STOP_LPTIM1_CH1 DAC_TRIGGER_LPTIM1_CH1 /*!< LPTIM1 output selected as DAC trigger in stop mode */
+#define DAC_TRIGGER_STOP_LPTIM3_CH1 DAC_TRIGGER_LPTIM3_CH1 /*!< LPTIM3 output selected as DAC trigger in stop mode */
+#define DAC_TRIGGER_STOP_EXT_IT9    DAC_TRIGGER_EXT_IT9    /*!< EXTI line 9 selected as DAC trigger in stop mode   */
 /**
   * @}
   */

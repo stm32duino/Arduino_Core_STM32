@@ -550,7 +550,7 @@ typedef struct
 #define LL_RTC_TAMPER_ITAMP6                TAMP_CR1_ITAMP6E  /*!< Internal tamper 6: JTAG/SWD access when RDP > 0 */
 #define LL_RTC_TAMPER_ITAMP7                TAMP_CR1_ITAMP7E  /*!< Internal tamper 7: ADC4 analog watchdog monitoring 1 */
 #define LL_RTC_TAMPER_ITAMP8                TAMP_CR1_ITAMP8E  /*!< Internal tamper 8: Monotonic counter overflow */
-#define LL_RTC_TAMPER_ITAMP9                TAMP_CR1_ITAMP9E  /*!< Internal tamper 9: Cryptograpic IPs fault*/
+#define LL_RTC_TAMPER_ITAMP9                TAMP_CR1_ITAMP9E  /*!< Internal tamper 9: Cryptographic IPs fault*/
 #define LL_RTC_TAMPER_ITAMP11               TAMP_CR1_ITAMP11E /*!< Internal tamper 11: IWDG reset when tamper flag is set */
 #define LL_RTC_TAMPER_ITAMP12               TAMP_CR1_ITAMP12E /*!< Internal tamper 12: ADC4 analog watchdog monitoring 2*/
 #define LL_RTC_TAMPER_ITAMP13               TAMP_CR1_ITAMP13E /*!< Internal tamper 13: ADC4 analog watchdog monitoring 3 */
@@ -4354,6 +4354,18 @@ __STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_ITAMP6(RTC_TypeDef *RTCx)
 }
 
 /**
+  * @brief  Get internal tamper 7 detection flag.
+  * @rmtoll TAMP_SR          ITAMP7F        LL_RTC_IsActiveFlag_ITAMP7
+  * @param  RTCx RTC Instance
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RTC_IsActiveFlag_ITAMP7(RTC_TypeDef *RTCx)
+{
+  UNUSED(RTCx);
+  return ((READ_BIT(TAMP->SR, TAMP_SR_ITAMP7F) == (TAMP_SR_ITAMP7F)) ? 1U : 0U);
+}
+
+/**
   * @brief  Get internal tamper 8 detection flag.
   * @rmtoll TAMP_SR          ITAMP8F        LL_RTC_IsActiveFlag_ITAMP8
   * @param  RTCx RTC Instance
@@ -5587,7 +5599,7 @@ __STATIC_INLINE void LL_RTC_DisableIT_ITAMP11(RTC_TypeDef *RTCx)
 }
 /**
   * @brief  Enable internal tamper 12 interrupt.
-  * @rmtoll TAMP_IER           ITAMP12IE          LL_RTC_EnableIT_ITAM12
+  * @rmtoll TAMP_IER           ITAMP12IE          LL_RTC_EnableIT_ITAMP12
   * @param  RTCx RTC Instance
   * @retval None
   */

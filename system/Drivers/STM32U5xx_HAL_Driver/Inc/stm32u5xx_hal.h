@@ -80,6 +80,8 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
   * @}
   */
 
+
+
 /** @defgroup SYSCFG_Exported_Constants SYSCFG Exported Constants
   * @{
   */
@@ -191,6 +193,48 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 
 #endif /* __ARM_FEATURE_CMSE */
 
+#ifdef SYSCFG_OTGHSPHYCR_EN
+/** @defgroup SYSCFG_OTG_PHY_RefenceClockSelection  OTG PHY Reference Clock Selection
+  * @{
+  */
+
+/** @brief  OTG HS PHY reference clock frequency selection
+  */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_1        (0x00000003U)  /*!< OTG_HS PHY reference clock frequency 16Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_2        (0x00000008U)  /*!< OTG_HS PHY reference clock frequency 19.2Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_3        (0x00000009U)  /*!< OTG_HS PHY reference clock frequency 20Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_4        (0x0000000AU)  /*!< OTG_HS PHY reference clock frequency 24Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_5        (0x0000000EU)  /*!< OTG_HS PHY reference clock frequency 26Mhz */
+#define SYSCFG_OTG_HS_PHY_CLK_SELECT_6        (0x0000000BU)  /*!< OTG_HS PHY reference clock frequency 32Mhz */
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHY_PowerDown  OTG PHY Power Down
+  * @{
+  */
+
+/** @brief  OTG HS PHY Power Down config
+  */
+
+#define SYSCFG_OTG_HS_PHY_POWER_ON          (0x00000000U)  /*!< PHY state machine, bias and OTG PHY PLL remain powered */
+#define SYSCFG_OTG_HS_PHY_POWER_DOWN        (0x00000001U)  /*!< PHY state machine, bias and OTG PHY PLL are powered down */
+
+/**
+  * @}
+  */
+
+/** @defgroup SYSCFG_OTG_PHY_Enable  OTG PHY Enable
+  * @{
+  */
+
+#define SYSCFG_OTG_HS_PHY_UNDERRESET       (0x00000000U)  /*!< PHY under reset*/
+#define SYSCFG_OTG_HS_PHY_ENABLE           (0x00000001U)  /*!< PHY enabled */
+
+/**
+  * @}
+  */
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 /**
   * @}
   */
@@ -262,11 +306,6 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 #define __HAL_DBGMCU_FREEZE_LPTIM2()            SET_BIT(DBGMCU->APB1FZR2, DBGMCU_APB1FZR2_DBG_LPTIM2_STOP)
 #define __HAL_DBGMCU_UNFREEZE_LPTIM2()          CLEAR_BIT(DBGMCU->APB1FZR2, DBGMCU_APB1FZR2_DBG_LPTIM2_STOP)
 #endif /* DBGMCU_APB1FZR2_DBG_LPTIM2_STOP */
-
-#if defined(DBGMCU_APB1FZR2_DBG_FDCAN_STOP)
-#define __HAL_DBGMCU_FREEZE_FDCAN()             SET_BIT(DBGMCU->APB1FZR2, DBGMCU_APB1FZR2_DBG_FDCAN_STOP)
-#define __HAL_DBGMCU_UNFREEZE_FDCAN()           CLEAR_BIT(DBGMCU->APB1FZR2, DBGMCU_APB1FZR2_DBG_FDCAN_STOP)
-#endif /* DBGMCU_APB1FZR2_DBG_FDCAN_STOP */
 
 #if defined(DBGMCU_APB2FZR_DBG_TIM1_STOP)
 #define __HAL_DBGMCU_FREEZE_TIM1()              SET_BIT(DBGMCU->APB2FZR, DBGMCU_APB2FZR_DBG_TIM1_STOP)
@@ -555,6 +594,30 @@ extern HAL_TickFreqTypeDef      uwTickFreq;
 
 
 #endif /* __ARM_FEATURE_CMSE */
+
+#ifdef SYSCFG_OTGHSPHYCR_EN
+#define IS_SYSCFG_OTGPHY_REFERENCE_CLOCK(__VALUE__) ((((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_1) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_1) || \
+                                                     (((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_2) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_2) || \
+                                                     (((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_3) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_3) || \
+                                                     (((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_4) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_4) || \
+                                                     (((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_5) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_5) || \
+                                                     (((__VALUE__) & SYSCFG_OTG_HS_PHY_CLK_SELECT_6) == \
+                                                      SYSCFG_OTG_HS_PHY_CLK_SELECT_6))
+
+#define IS_SYSCFG_OTGPHY_POWERDOWN_CONFIG(__VALUE__) ((((__VALUE__) & SYSCFG_OTG_HS_PHY_POWER_DOWN) == \
+                                                       SYSCFG_OTG_HS_PHY_POWER_DOWN) || \
+                                                      (((__VALUE__) & SYSCFG_OTG_HS_PHY_POWER_ON) == \
+                                                       SYSCFG_OTG_HS_PHY_POWER_ON))
+
+#define IS_SYSCFG_OTGPHY_CONFIG(__VALUE__) ((((__VALUE__) & SYSCFG_OTG_HS_PHY_UNDERRESET) == \
+                                             SYSCFG_OTG_HS_PHY_UNDERRESET) || \
+                                            (((__VALUE__) & SYSCFG_OTG_HS_PHY_ENABLE) == SYSCFG_OTG_HS_PHY_ENABLE))
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 /**
   * @}
   */
@@ -636,10 +699,24 @@ void HAL_SYSCFG_VREFBUF_HighImpedanceConfig(uint32_t Mode);
 void HAL_SYSCFG_VREFBUF_TrimmingConfig(uint32_t TrimmingValue);
 HAL_StatusTypeDef HAL_SYSCFG_EnableVREFBUF(void);
 void HAL_SYSCFG_DisableVREFBUF(void);
-
+#ifdef SYSCFG_OTGHSPHYCR_EN
+void HAL_SYSCFG_SetOTGPHYReferenceClockSelection(uint32_t RefClockSelection);
+void HAL_SYSCFG_SetOTGPHYPowerDownConfig(uint32_t PowerDownConfig);
+void HAL_SYSCFG_EnableOTGPHY(uint32_t OTGPHYConfig);
+#endif /* SYSCFG_OTGHSPHYCR_EN */
 void HAL_SYSCFG_EnableIOAnalogSwitchBooster(void);
 void HAL_SYSCFG_DisableIOAnalogSwitchBooster(void);
 
+void HAL_SYSCFG_EnableVddCompensationCell(void);
+void HAL_SYSCFG_EnableVddIO2CompensationCell(void);
+#if defined(SYSCFG_CCCSR_EN3)
+void HAL_SYSCFG_EnableVddHSPICompensationCell(void);
+#endif /* SYSCFG_CCCSR_EN3 */
+void HAL_SYSCFG_DisableVddCompensationCell(void);
+void HAL_SYSCFG_DisableVddIO2CompensationCell(void);
+#if defined(SYSCFG_CCCSR_EN3)
+void HAL_SYSCFG_DisableVddHSPICompensationCell(void);
+#endif /* SYSCFG_CCCSR_EN3 */
 /**
   * @}
   */

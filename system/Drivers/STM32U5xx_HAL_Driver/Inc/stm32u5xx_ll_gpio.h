@@ -32,7 +32,7 @@ extern "C" {
   */
 
 #if defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || defined (GPIOF) || \
-    defined (GPIOG) || defined (GPIOH) || defined (GPIOI)
+    defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ)
 
 /** @defgroup GPIO_LL GPIO
   * @{
@@ -1166,7 +1166,7 @@ void        LL_GPIO_StructInit(LL_GPIO_InitTypeDef *GPIO_InitStruct);
   */
 
 #endif /* defined (GPIOA) || defined (GPIOB) || defined (GPIOC) || defined (GPIOD) || defined (GPIOE) || \
-          defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) */
+          defined (GPIOF) || defined (GPIOG) || defined (GPIOH) || defined (GPIOI) || defined (GPIOJ)*/
 /**
   * @}
   */

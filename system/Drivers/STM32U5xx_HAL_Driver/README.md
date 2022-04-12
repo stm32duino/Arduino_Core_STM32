@@ -8,8 +8,10 @@
    * The CMSIS modules (core and device) corresponding to the ARM(tm) core implemented in this STM32 product
    * The STM32 HAL-LL drivers : an abstraction drivers layer, the API ensuring maximized portability across the STM32 portfolio
    * The BSP Drivers of each evaluation or demonstration board provided by this STM32 series
-   * A consistent set of middlewares components such as RTOS, FatFS, TCP-IP, Graphic ...
-   * A full set of software projects (basic examples, applications or demonstrations) for each board provided by this STM32 series
+   * A consistent set of middlewares components such as ThreadX, FileX, USBX, NetDuoX, OpenBootloader, USBPD, trustedfirmware, mbed-crypto, Network Library...
+   * A full set of software projects (basic examples, applications, and demonstrations) for each board provided for this STM32 series.
+   * A new LPBAM utility which is a software helper that assists STM32U5 users in the elaboration of LPBAM scenarios.
+   * A development with three Toolchains and Compilers (IAR Embedded Workbench for ARM (EWARM), RealView Microcontroller Development Kit (MDK-ARM), and STM32CubeIDE).
 
 Two models of publication are proposed for the STM32Cube embedded software:
    * The monolithic **MCU Package** : all STM32Cube software modules of one STM32 series are present (Drivers, Middlewares, Projects, Utilities) in the repo (usual name **STM32Cubexx**, xx corresponding to the STM32 series)
@@ -18,13 +20,6 @@ Two models of publication are proposed for the STM32Cube embedded software:
 ## Description
 
 This **stm32u5xx_hal_driver** MCU component repo is one element of the STM32CubeU5 MCU embedded software package, providing the **HAL-LL Drivers** part.
-
-## License
-
-Copyright (c) 2021 STMicroelectronics.
-
-This software is licensed under terms that can be found in the LICENSE file in the root directory of this software component.
-If no LICENSE file comes with this software, it is provided AS-IS.
 
 ## Release note
 
@@ -41,7 +36,8 @@ HAL Driver | CMSIS Device | CMSIS Core | Was delivered in the full MCU package
 ------------- | --------------- | ---------- | -------------------------------------
 Tag v1.0.0 | Tag v1.0.0 | Tag v560_cm33 | Tag v1.0.0 (and following, if any, till next tag)
 Tag v1.0.1 | Tag v1.0.1 | Tag v560_cm33 | Tag v1.0.1 (and following, if any, till next tag)
-Tag v1.0.2 | Tag v1.0.2 | Tag v560_cm33 | Tag v1.0.2 (and following, if any, till next tag)
+Tag v1.0.2 | Tag v1.0.1 | Tag v560_cm33 | Tag v1.0.2 (and following, if any, till next tag)
+Tag v1.1.0 | Tag v1.1.0 | Tag v560_cm33 | Tag v1.1.0 (and following, if any, till next tag)
 
 
 The full **STM32CubeU5** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeU5).

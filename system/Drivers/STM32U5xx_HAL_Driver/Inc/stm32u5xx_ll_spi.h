@@ -40,6 +40,13 @@ extern "C" {
 /* Private variables ---------------------------------------------------------*/
 
 /* Private constants ---------------------------------------------------------*/
+/** Legacy definitions for compatibility purpose
+@cond 0
+  */
+#define LL_SPI_UNDERRUN_BEHAV_LAST_RECEIVED        LL_SPI_UDR_CONFIG_LAST_RECEIVED
+/**
+@endcond
+  */
 
 /* Private macros ------------------------------------------------------------*/
 /** @defgroup SPI_LL_Private_Macros SPI Private Macros
@@ -271,7 +278,7 @@ typedef struct
   * @{
   */
 #define LL_SPI_UDR_CONFIG_REGISTER_PATTERN         (0x00000000UL)
-#define LL_SPI_UNDERRUN_BEHAV_LAST_RECEIVED        (SPI_CFG1_UDRCFG)
+#define LL_SPI_UDR_CONFIG_LAST_RECEIVED            (SPI_CFG1_UDRCFG)
 /**
   * @}
   */
@@ -1088,7 +1095,7 @@ __STATIC_INLINE uint32_t LL_SPI_IsEnabledMasterRxAutoSuspend(SPI_TypeDef *SPIx)
   * @param  SPIx SPI Instance
   * @param  UDRConfig This parameter can be one of the following values:
   *         @arg @ref LL_SPI_UDR_CONFIG_REGISTER_PATTERN
-  *         @arg @ref LL_SPI_UNDERRUN_BEHAV_LAST_RECEIVED
+  *         @arg @ref LL_SPI_UDR_CONFIG_LAST_RECEIVED
   * @retval None
   */
 __STATIC_INLINE void LL_SPI_SetUDRConfiguration(SPI_TypeDef *SPIx, uint32_t UDRConfig)
@@ -1102,7 +1109,7 @@ __STATIC_INLINE void LL_SPI_SetUDRConfiguration(SPI_TypeDef *SPIx, uint32_t UDRC
   * @param  SPIx SPI Instance
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_SPI_UDR_CONFIG_REGISTER_PATTERN
-  *         @arg @ref LL_SPI_UNDERRUN_BEHAV_LAST_RECEIVED
+  *         @arg @ref LL_SPI_UDR_CONFIG_LAST_RECEIVED
   */
 __STATIC_INLINE uint32_t LL_SPI_GetUDRConfiguration(SPI_TypeDef *SPIx)
 {
@@ -2394,7 +2401,12 @@ __STATIC_INLINE uint8_t LL_SPI_ReceiveData8(SPI_TypeDef *SPIx)
   */
 __STATIC_INLINE uint16_t LL_SPI_ReceiveData16(SPI_TypeDef *SPIx)
 {
-  return (uint16_t)(READ_REG(SPIx->RXDR));
+#if defined (__GNUC__)
+  __IO uint16_t *spirxdr = (__IO uint16_t *)(&(SPIx->RXDR));
+  return (*spirxdr);
+#else
+  return (*((__IO uint16_t *)&SPIx->RXDR));
+#endif /* __GNUC__ */
 }
 
 /**
@@ -2433,7 +2445,7 @@ __STATIC_INLINE void LL_SPI_TransmitData16(SPI_TypeDef *SPIx, uint16_t TxData)
   __IO uint16_t *spitxdr = ((__IO uint16_t *)&SPIx->TXDR);
   *spitxdr = TxData;
 #else
-  SPIx->TXDR = TxData;
+  *((__IO uint16_t *)&SPIx->TXDR) = TxData;
 #endif /* __GNUC__ */
 }
 

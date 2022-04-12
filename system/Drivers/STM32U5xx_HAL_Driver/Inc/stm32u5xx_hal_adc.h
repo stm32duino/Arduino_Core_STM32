@@ -393,9 +393,11 @@ typedef struct
                                         Conversion time is the addition of sampling time and processing time
                                         (14.5 ADC clock cycles at ADC resolution 14 bits, 12.5 cycles at 12 bits,
                                         10.5 cycles at 10 bits, 8.5 cycles at 8 bits, 6.5 cycles at 6 bits).
-                                        This parameter can be a value of @ref ADC_HAL_EC_CHANNEL_SAMPLINGTIME
+                                        For ADC1 and 2 (if available): This parameter can be a value of
+                                        @ref ADC_HAL_EC_CHANNEL_SAMPLINGTIME.
                                         Caution: This parameter applies to a channel that can be used into regular
                                                  and/or injected group. It overwrites the last setting.
+                                        For ADC4: This parameter can be a value of @ref ADC_HAL_EC_SAMPLINGTIME_COMMON.
                                         Note: On this STM32 family, two different sampling time settings are available
                                               (refer to parameters "SamplingTimeCommon1" and "SamplingTimeCommon2"),
                                               each channel can use one of these two settings.
@@ -594,7 +596,6 @@ typedef struct
                                                               low power auto power-on (if feature available),
                                                               multimode ADC master control (if feature available)) */
 #define HAL_ADC_STATE_INJ_EOC           (0x00002000UL)   /*!< Conversion data available on group injected */
-#define HAL_ADC_STATE_INJ_JQOVF         (0x00004000UL)   /*!< Injected queue overflow occurrence */
 
 /* States of ADC analog watchdogs */
 #define HAL_ADC_STATE_AWD1              (0x00010000UL)   /*!< Out-of-window occurrence of ADC analog watchdog 1 */
@@ -688,7 +689,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
                                                        enable/disable, erroneous state, ...)       */
 #define HAL_ADC_ERROR_OVR               (0x02U)   /*!< Overrun error                               */
 #define HAL_ADC_ERROR_DMA               (0x04U)   /*!< DMA transfer error                          */
-#define HAL_ADC_ERROR_JQOVF             (0x08U)   /*!< Injected context queue overflow error       */
 #if (USE_HAL_ADC_REGISTER_CALLBACKS == 1)
 #define HAL_ADC_ERROR_INVALID_CALLBACK  (0x10U)   /*!< Invalid Callback error */
 #endif /* USE_HAL_ADC_REGISTER_CALLBACKS */
@@ -822,11 +822,11 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_EXTERNALTRIG_T6_TRGO      (LL_ADC_REG_TRIG_EXT_TIM6_TRGO)            /*!< ADC group regular conversion trigger from external peripheral: TIM6 TRGO event. Trigger edge set to rising edge (default setting). */
 #define ADC_EXTERNALTRIG_T15_TRGO     (LL_ADC_REG_TRIG_EXT_TIM15_TRGO)           /*!< ADC group regular conversion trigger from external peripheral: TIM15 TRGO event. Trigger edge set to rising edge (default setting). */
 #define ADC_EXTERNALTRIG_T3_CC4       (LL_ADC_REG_TRIG_EXT_TIM3_CH4)             /*!< ADC group regular conversion trigger from external peripheral: TIM3 channel 4 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
-#define ADC_EXTERNALTRIG_EXT_IT15     (LL_ADC_REG_TRIG_EXT_EXTI_LINE15)          /*!< ADC group regular conversion trigger from external peripheral: HRTIM TRG1 event. Trigger edge set to rising edge (default setting). */
-#define ADC_EXTERNALTRIG_LPTIM1_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM1_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM1 CH1 event. Trigger edge set to rising edge (default setting). */
-#define ADC_EXTERNALTRIG_LPTIM2_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM2_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM2 CH1 event. Trigger edge set to rising edge (default setting). */
-#define ADC_EXTERNALTRIG_LPTIM3_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM3_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM3 CH1 event. Trigger edge set to rising edge (default setting). */
-#define ADC_EXTERNALTRIG_LPTIM4_OUT   (LL_ADC_REG_TRIG_EXT_LPTIM4_OUT)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM3 event OUT. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIG_EXT_IT15     (LL_ADC_REG_TRIG_EXT_EXTI_LINE15)          /*!< ADC group regular conversion trigger from external peripheral: external interrupt line 15 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIG_LPTIM1_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM1_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM1 channel 1 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIG_LPTIM2_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM2_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM2 channel 1 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIG_LPTIM3_CH1   (LL_ADC_REG_TRIG_EXT_LPTIM3_CH1)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM3 channel 1 event. Trigger edge set to rising edge (default setting). */
+#define ADC_EXTERNALTRIG_LPTIM4_OUT   (LL_ADC_REG_TRIG_EXT_LPTIM4_OUT)           /*!< ADC group regular conversion trigger from external peripheral: LPTIM4 OUT event. Trigger edge set to rising edge (default setting). */
 
 #define ADC4_EXTERNALTRIG_T1_CC4      (LL_ADC_REG_TRIG_EXT_TIM1_CH4_ADC4)             /*!< ADC group regular conversion trigger from external peripheral: TIM1 channel 4 event (capture compare: input capture or output capture). Trigger edge set to rising edge (default setting). */
 #define ADC4_EXTERNALTRIG_T1_TRGO2    (LL_ADC_REG_TRIG_EXT_TIM1_TRGO2_ADC4)
@@ -935,13 +935,13 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_HAL_EC_CHANNEL_SAMPLINGTIME  Channel - Sampling time
   * @{
   */
-#define ADC_SAMPLETIME_5CYCLE          (LL_ADC_SAMPLINGTIME_5CYCLE)     /*!< Sampling time 5 ADC clock cycles */
+#define ADC_SAMPLETIME_5CYCLES         (LL_ADC_SAMPLINGTIME_5CYCLES)    /*!< Sampling time 5 ADC clock cycles */
 #define ADC_SAMPLETIME_6CYCLES         (LL_ADC_SAMPLINGTIME_6CYCLES)    /*!< Sampling time 6 ADC clock cycles */
 #define ADC_SAMPLETIME_12CYCLES        (LL_ADC_SAMPLINGTIME_12CYCLES)   /*!< Sampling time 12 ADC clock cycles */
 #define ADC_SAMPLETIME_20CYCLES        (LL_ADC_SAMPLINGTIME_20CYCLES)   /*!< Sampling time 20 ADC clock cycles */
 #define ADC_SAMPLETIME_36CYCLES        (LL_ADC_SAMPLINGTIME_36CYCLES)   /*!< Sampling time 36 ADC clock cycles */
 #define ADC_SAMPLETIME_68CYCLES        (LL_ADC_SAMPLINGTIME_68CYCLES)   /*!< Sampling time 68 ADC clock cycles */
-#define ADC_SAMPLETIME_391CYCLES_5     (LL_ADC_SAMPLINGTIME_391CYCLES_5)/*!< Sampling time 391.5 ADC clock cycles */
+#define ADC_SAMPLETIME_391CYCLES       (LL_ADC_SAMPLINGTIME_391CYCLES)  /*!< Sampling time 391 ADC clock cycles */
 #define ADC_SAMPLETIME_814CYCLES       (LL_ADC_SAMPLINGTIME_814CYCLES)  /*!< Sampling time 814 ADC clock cycles */
 /**
   * @}
@@ -957,7 +957,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC4_SAMPLETIME_19CYCLES_5          (LL_ADC4_SAMPLINGTIME_19CYCLES_5)   /*!< Sampling time 19.5 ADC clock cycles */
 #define ADC4_SAMPLETIME_39CYCLES_5          (LL_ADC4_SAMPLINGTIME_39CYCLES_5)   /*!< Sampling time 39.5 ADC clock cycles */
 #define ADC4_SAMPLETIME_79CYCLES_5          (LL_ADC4_SAMPLINGTIME_79CYCLES_5)   /*!< Sampling time 79.5 ADC clock cycles */
-#define ADC4_SAMPLETIME_160CYCLES_5         (LL_ADC4_SAMPLINGTIME_160CYCLES_5)  /*!< Sampling time 160.5 ADC clock cycles */
+#define ADC4_SAMPLETIME_814CYCLES_5         (LL_ADC4_SAMPLINGTIME_814CYCLES_5)  /*!< Sampling time 814.5 ADC clock cycles */
 /**
   * @}
   */
@@ -1055,14 +1055,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_analog_watchdog_filtering_config ADC Analog Watchdog filtering configuration
   * @{
   */
-#define ADC_AWD_FILTERING_NONE          (0x00000000UL)                                                /*!< ADC analog wathdog no filtering, one out-of-window sample is needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_2SAMPLES      ((ADC_HTR_AWDFILT_0))                                         /*!< ADC analog wathdog 2 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_3SAMPLES      ((ADC_HTR_AWDFILT_1))                                         /*!< ADC analog wathdog 3 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_4SAMPLES      ((ADC_HTR_AWDFILT_1 | ADC_HTR_AWDFILT_0))                     /*!< ADC analog wathdog 4 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_5SAMPLES      ((ADC_HTR_AWDFILT_2))                                         /*!< ADC analog wathdog 5 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_6SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_0))                     /*!< ADC analog wathdog 6 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_7SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_1))                     /*!< ADC analog wathdog 7 consecutives out-of-window samples are needed to raise flag or interrupt */
-#define ADC_AWD_FILTERING_8SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_1 | ADC_HTR_AWDFILT_0)) /*!< ADC analog wathdog 8 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_NONE          (0x00000000UL)                                                /*!< ADC analog watchdog no filtering, one out-of-window sample is needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_2SAMPLES      ((ADC_HTR_AWDFILT_0))                                         /*!< ADC analog watchdog 2 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_3SAMPLES      ((ADC_HTR_AWDFILT_1))                                         /*!< ADC analog watchdog 3 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_4SAMPLES      ((ADC_HTR_AWDFILT_1 | ADC_HTR_AWDFILT_0))                     /*!< ADC analog watchdog 4 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_5SAMPLES      ((ADC_HTR_AWDFILT_2))                                         /*!< ADC analog watchdog 5 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_6SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_0))                     /*!< ADC analog watchdog 6 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_7SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_1))                     /*!< ADC analog watchdog 7 consecutives out-of-window samples are needed to raise flag or interrupt */
+#define ADC_AWD_FILTERING_8SAMPLES      ((ADC_HTR_AWDFILT_2 | ADC_HTR_AWDFILT_1 | ADC_HTR_AWDFILT_0)) /*!< ADC analog watchdog 8 consecutives out-of-window samples are needed to raise flag or interrupt */
 /**
   * @}
   */
@@ -1174,7 +1174,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_AWD2_EVENT           (ADC_FLAG_AWD2)  /*!< ADC Analog watchdog 2 event (additional analog watchdog, not present on all STM32 series) */
 #define ADC_AWD3_EVENT           (ADC_FLAG_AWD3)  /*!< ADC Analog watchdog 3 event (additional analog watchdog, not present on all STM32 series) */
 #define ADC_OVR_EVENT            (ADC_FLAG_OVR)   /*!< ADC overrun event */
-#define ADC_JQOVF_EVENT          (ADC_FLAG_JQOVF) /*!< ADC Injected Context Queue Overflow event */
 /**
   * @}
   */
@@ -1193,7 +1192,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_IT_AWD1          ADC_IER_AWD1IE     /*!< ADC Analog watchdog 1 interrupt source (main analog watchdog) */
 #define ADC_IT_AWD2          ADC_IER_AWD2IE     /*!< ADC Analog watchdog 2 interrupt source (additional analog watchdog) */
 #define ADC_IT_AWD3          ADC_IER_AWD3IE     /*!< ADC Analog watchdog 3 interrupt source (additional analog watchdog) */
-#define ADC_IT_JQOVF         ADC_IER_JQOVFIE    /*!< ADC Injected Context Queue Overflow interrupt source */
 
 #define ADC_IT_AWD           ADC_IT_AWD1        /*!< ADC Analog watchdog 1 interrupt source: naming for compatibility with other STM32 devices having only one analog watchdog */
 
@@ -1214,7 +1212,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_FLAG_AWD1          ADC_ISR_AWD1     /*!< ADC Analog watchdog 1 flag (main analog watchdog) */
 #define ADC_FLAG_AWD2          ADC_ISR_AWD2     /*!< ADC Analog watchdog 2 flag (additional analog watchdog) */
 #define ADC_FLAG_AWD3          ADC_ISR_AWD3     /*!< ADC Analog watchdog 3 flag (additional analog watchdog) */
-#define ADC_FLAG_JQOVF         ADC_ISR_JQOVF    /*!< ADC Injected Context Queue Overflow flag */
 
 /**
   * @}
@@ -1485,13 +1482,13 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   * @param __TIME__ ADC conversions sampling time.
   * @retval SET (__TIME__ is a valid value) or RESET (__TIME__ is invalid)
   */
-#define IS_ADC_SAMPLE_TIME(__TIME__) (((__TIME__) == ADC_SAMPLETIME_5CYCLE)    || \
+#define IS_ADC_SAMPLE_TIME(__TIME__) (((__TIME__) == ADC_SAMPLETIME_5CYCLES)   || \
                                       ((__TIME__) == ADC_SAMPLETIME_6CYCLES)   || \
-                                      ((__TIME__) == ADC_SAMPLETIME_12CYCLES)   || \
+                                      ((__TIME__) == ADC_SAMPLETIME_12CYCLES)  || \
                                       ((__TIME__) == ADC_SAMPLETIME_20CYCLES)  || \
                                       ((__TIME__) == ADC_SAMPLETIME_36CYCLES)  || \
                                       ((__TIME__) == ADC_SAMPLETIME_68CYCLES)  || \
-                                      ((__TIME__) == ADC_SAMPLETIME_391CYCLES_5) || \
+                                      ((__TIME__) == ADC_SAMPLETIME_391CYCLES) || \
                                       ((__TIME__) == ADC_SAMPLETIME_814CYCLES)   )
 
 #define IS_ADC4_SAMPLE_TIME(TIME) (((TIME) == ADC4_SAMPLETIME_1CYCLE_5)    || \
@@ -1501,8 +1498,10 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
                                    ((TIME) == ADC4_SAMPLETIME_19CYCLES_5)  || \
                                    ((TIME) == ADC4_SAMPLETIME_39CYCLES_5)  || \
                                    ((TIME) == ADC4_SAMPLETIME_79CYCLES_5)  || \
-                                   ((TIME) == ADC4_SAMPLETIME_160CYCLES_5)   )
+                                   ((TIME) == ADC4_SAMPLETIME_814CYCLES_5)   )
 
+#define IS_ADC4_SAMPLE_TIME_COMMON(TIME) (((TIME) == ADC4_SAMPLINGTIME_COMMON_1)    || \
+                                          ((TIME) == ADC4_SAMPLINGTIME_COMMON_2)   )
 /**
   * @brief Verify the ADC regular channel setting.
   * @param  __CHANNEL__ programmed ADC regular channel.
@@ -1629,7 +1628,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
-  *            @arg @ref ADC_IT_JQOVF  ADC Injected Context Queue Overflow interrupt source.
   * @retval None
   */
 #define __HAL_ADC_ENABLE_IT(__HANDLE__, __INTERRUPT__)                         \
@@ -1650,7 +1648,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
-  *            @arg @ref ADC_IT_JQOVF  ADC Injected Context Queue Overflow interrupt source.
   * @retval None
   */
 #define __HAL_ADC_DISABLE_IT(__HANDLE__, __INTERRUPT__)                        \
@@ -1670,7 +1667,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_IT_AWD1   ADC Analog watchdog 1 interrupt source (main analog watchdog)
   *            @arg @ref ADC_IT_AWD2   ADC Analog watchdog 2 interrupt source (additional analog watchdog)
   *            @arg @ref ADC_IT_AWD3   ADC Analog watchdog 3 interrupt source (additional analog watchdog)
-  *            @arg @ref ADC_IT_JQOVF  ADC Injected Context Queue Overflow interrupt source.
   * @retval State of interruption (SET or RESET)
   */
 #define __HAL_ADC_GET_IT_SOURCE(__HANDLE__, __INTERRUPT__)                     \
@@ -1691,7 +1687,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_FLAG_AWD1    ADC Analog watchdog 1 flag (main analog watchdog)
   *            @arg @ref ADC_FLAG_AWD2    ADC Analog watchdog 2 flag (additional analog watchdog)
   *            @arg @ref ADC_FLAG_AWD3    ADC Analog watchdog 3 flag (additional analog watchdog)
-  *            @arg @ref ADC_FLAG_JQOVF   ADC Injected Context Queue Overflow flag.
   * @retval State of flag (TRUE or FALSE).
   */
 #define __HAL_ADC_GET_FLAG(__HANDLE__, __FLAG__)                               \
@@ -1712,7 +1707,6 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_FLAG_AWD1    ADC Analog watchdog 1 flag (main analog watchdog)
   *            @arg @ref ADC_FLAG_AWD2    ADC Analog watchdog 2 flag (additional analog watchdog)
   *            @arg @ref ADC_FLAG_AWD3    ADC Analog watchdog 3 flag (additional analog watchdog)
-  *            @arg @ref ADC_FLAG_JQOVF   ADC Injected Context Queue Overflow flag.
   * @retval None
   */
 /* Note: bit cleared bit by writing 1 (writing 0 has no effect on any bit of register ISR) */
