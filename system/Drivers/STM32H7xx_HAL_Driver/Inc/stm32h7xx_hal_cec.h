@@ -104,7 +104,7 @@ typedef struct
   uint16_t  OwnAddress;                 /*!< Own addresses configuration
                                              This parameter can be a value of @ref CEC_OWN_ADDRESS */
 
-  uint8_t  *RxBuffer;                    /*!< CEC Rx buffer pointeur */
+  uint8_t  *RxBuffer;                    /*!< CEC Rx buffer pointer */
 
 
 } CEC_InitTypeDef;

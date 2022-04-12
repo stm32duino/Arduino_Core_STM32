@@ -7772,10 +7772,6 @@ static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   *            @arg TIM_TS_ITR1: Internal Trigger 1
   *            @arg TIM_TS_ITR2: Internal Trigger 2
   *            @arg TIM_TS_ITR3: Internal Trigger 3
-  *            @arg TIM_TS_TI1F_ED: TI1 Edge Detector
-  *            @arg TIM_TS_TI1FP1: Filtered Timer Input 1
-  *            @arg TIM_TS_TI2FP2: Filtered Timer Input 2
-  *            @arg TIM_TS_ETRF: External Trigger input
   *            @arg TIM_TS_ITR4: Internal Trigger 4  (*)
   *            @arg TIM_TS_ITR5: Internal Trigger 5
   *            @arg TIM_TS_ITR6: Internal Trigger 6
@@ -7786,6 +7782,10 @@ static void TIM_TI4_SetConfig(TIM_TypeDef *TIMx, uint32_t TIM_ICPolarity, uint32
   *            @arg TIM_TS_ITR11: Internal Trigger 11 (*)
   *            @arg TIM_TS_ITR12: Internal Trigger 12 (*)
   *            @arg TIM_TS_ITR13: Internal Trigger 13 (*)
+  *            @arg TIM_TS_TI1F_ED: TI1 Edge Detector
+  *            @arg TIM_TS_TI1FP1: Filtered Timer Input 1
+  *            @arg TIM_TS_TI2FP2: Filtered Timer Input 2
+  *            @arg TIM_TS_ETRF: External Trigger input
   *
   *       (*)  Value not defined in all devices.
   *

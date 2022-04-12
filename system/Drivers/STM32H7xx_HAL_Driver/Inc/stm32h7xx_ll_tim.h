@@ -918,10 +918,6 @@ typedef struct
 #define LL_TIM_TS_ITR1                         TIM_SMCR_TS_0                                                   /*!< Internal Trigger 1 (ITR1) is used as trigger input */
 #define LL_TIM_TS_ITR2                         TIM_SMCR_TS_1                                                   /*!< Internal Trigger 2 (ITR2) is used as trigger input */
 #define LL_TIM_TS_ITR3                         (TIM_SMCR_TS_0 | TIM_SMCR_TS_1)                                 /*!< Internal Trigger 3 (ITR3) is used as trigger input */
-#define LL_TIM_TS_TI1F_ED                      TIM_SMCR_TS_2                                                   /*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
-#define LL_TIM_TS_TI1FP1                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)                                 /*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
-#define LL_TIM_TS_TI2FP2                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)                                 /*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
-#define LL_TIM_TS_ETRF                         (TIM_SMCR_TS_2 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0)                 /*!< Filtered external Trigger (ETRF) is used as trigger input */
 #define LL_TIM_TS_ITR4                         (TIM_SMCR_TS_3)                                                 /*!< Internal Trigger 4 (ITR4) is used as trigger input */
 #define LL_TIM_TS_ITR5                         (TIM_SMCR_TS_0 | TIM_SMCR_TS_3)                                 /*!< Internal Trigger 5 (ITR5) is used as trigger input */
 #define LL_TIM_TS_ITR6                         (TIM_SMCR_TS_1 | TIM_SMCR_TS_3)                                 /*!< Internal Trigger 6 (ITR6) is used as trigger input */
@@ -932,6 +928,10 @@ typedef struct
 #define LL_TIM_TS_ITR11                        (TIM_SMCR_TS_0 | TIM_SMCR_TS_1 | TIM_SMCR_TS_2 | TIM_SMCR_TS_3) /*!< Internal Trigger 11 (ITR11) is used as trigger input */
 #define LL_TIM_TS_ITR12                        (TIM_SMCR_TS_4)                                                 /*!< Internal Trigger 12 (ITR12) is used as trigger input */
 #define LL_TIM_TS_ITR13                        (TIM_SMCR_TS_0 | TIM_SMCR_TS_4)                                 /*!< Internal Trigger 13 (ITR13) is used as trigger input */
+#define LL_TIM_TS_TI1F_ED                      TIM_SMCR_TS_2                                                   /*!< TI1 Edge Detector (TI1F_ED) is used as trigger input */
+#define LL_TIM_TS_TI1FP1                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_0)                                 /*!< Filtered Timer Input 1 (TI1FP1) is used as trigger input */
+#define LL_TIM_TS_TI2FP2                       (TIM_SMCR_TS_2 | TIM_SMCR_TS_1)                                 /*!< Filtered Timer Input 2 (TI12P2) is used as trigger input */
+#define LL_TIM_TS_ETRF                         (TIM_SMCR_TS_2 | TIM_SMCR_TS_1 | TIM_SMCR_TS_0)                 /*!< Filtered external Trigger (ETRF) is used as trigger input */
 /**
   * @}
   */
@@ -1430,7 +1430,7 @@ typedef struct
   * @retval Prescaler value  (between Min_Data=0 and Max_Data=65535)
   */
 #define __LL_TIM_CALC_PSC(__TIMCLK__, __CNTCLK__)   \
-  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)(((__TIMCLK__)/(__CNTCLK__)) - 1U) : 0U)
+  (((__TIMCLK__) >= (__CNTCLK__)) ? (uint32_t)((((__TIMCLK__) + (__CNTCLK__)/2U)/(__CNTCLK__)) - 1U) : 0U)
 
 /**
   * @brief  HELPER macro calculating the auto-reload value to achieve the required output signal frequency.
@@ -3386,10 +3386,6 @@ __STATIC_INLINE void LL_TIM_SetSlaveMode(TIM_TypeDef *TIMx, uint32_t SlaveMode)
   *         @arg @ref LL_TIM_TS_ITR1
   *         @arg @ref LL_TIM_TS_ITR2
   *         @arg @ref LL_TIM_TS_ITR3
-  *         @arg @ref LL_TIM_TS_TI1F_ED
-  *         @arg @ref LL_TIM_TS_TI1FP1
-  *         @arg @ref LL_TIM_TS_TI2FP2
-  *         @arg @ref LL_TIM_TS_ETRF
   *         @arg @ref LL_TIM_TS_ITR4
   *         @arg @ref LL_TIM_TS_ITR5
   *         @arg @ref LL_TIM_TS_ITR6
@@ -3400,6 +3396,10 @@ __STATIC_INLINE void LL_TIM_SetSlaveMode(TIM_TypeDef *TIMx, uint32_t SlaveMode)
   *         @arg @ref LL_TIM_TS_ITR11 (*)
   *         @arg @ref LL_TIM_TS_ITR12 (*)
   *         @arg @ref LL_TIM_TS_ITR13 (*)
+  *         @arg @ref LL_TIM_TS_TI1F_ED
+  *         @arg @ref LL_TIM_TS_TI1FP1
+  *         @arg @ref LL_TIM_TS_TI2FP2
+  *         @arg @ref LL_TIM_TS_ETRF
   *
   *      (*)  Value not defined in all devices.
   * @retval None

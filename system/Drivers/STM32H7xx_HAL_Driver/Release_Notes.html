@@ -5,14 +5,11 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Release Notes for STM32H7xx HAL Drivers</title>
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
   <link rel="stylesheet" href="_htmresc/mini-st.css" />
   <!--[if lt IE 9]>
@@ -43,12 +40,108 @@
 <li>Full features coverage of all the supported peripherals</li>
 </ul>
 </div>
-<section id="update-history" class="col-sm-12 col-lg-8">
-<h1><strong>Update History</strong></h1>
+<div class="col-sm-12 col-lg-8">
+<h1 id="update-history"><strong>Update History</strong></h1>
 <div class="collapse">
-<input type="checkbox" id="collapse-section14" checked aria-hidden="true"> <label for="collapse-section14" aria-hidden="true"><strong>V1.10.1 / 06-December-2021</strong></label>
+<input type="checkbox" id="collapse-section15" checked aria-hidden="true"> <label for="collapse-section15" aria-hidden="true"><strong>V1.11.0 / 11-February-2022</strong></label>
 <div>
 <h2 id="main-changes">Main Changes</h2>
+<ul>
+<li>General updates to fix known defects and implementation enhancements.</li>
+<li><strong>The following changes done on the HAL drivers require an update of the application code based on older HAL versions</strong>
+<ul>
+<li>Rework of HAL Ethernet driver to resolve problems and improve performance.(compatibility break)</li>
+<li>A new HAL Ethernet driver has been redesigned with new APIs, to bypass limitations with previous HAL Ethernet driver version.</li>
+<li>The new HAL Ethernet driver is the recommended version. It is located as usual in Drivers/STM32H7xx_HAL_Driver/Src and Drivers/STM32H7xx_HAL_Driver/Inc folders.
+<ul>
+<li>It can be enabled through switch HAL_ETH_MODULE_ENABLED in stm32h7xx_hal_conf.h</li>
+</ul></li>
+<li>The legacy HAL Ethernet driver is also present in the release in Drivers/STM32H7xx_HAL_Driver/Src/Legacy and Drivers/STM32F4xx_HAL_Driver/Inc/Legacy folders for software compatibility reasons.
+<ul>
+<li>Its usage is not recommended as deprecated. It can however be enabled through switch HAL_ETH_LEGACY_MODULE_ENABLED in stm32h7xx_hal_conf.h</li>
+</ul></li>
+</ul></li>
+<li><strong>HAL LTDC</strong>
+<ul>
+<li>Update HAL_LTDC_DeInit() to fix MCU Hang up during LCD turn OFF.</li>
+</ul></li>
+<li><strong>HAL QSPI</strong>
+<ul>
+<li>Update HAL_QSPI_Abort() and HAL_QSPI_Abort_IT() APIs to check on QSPI BUSY flag status before executing the abort procedure.</li>
+</ul></li>
+<li><strong>LL TIM</strong>
+<ul>
+<li>__LL_TIM_CALC_PSC() macro update to round up the evaluate value when the fractional part of the division is greater than 0.5.</li>
+</ul></li>
+<li><strong>HAL NOR</strong>
+<ul>
+<li>FMC_WRITE_OPERATION_DISABLE for NOR cause Hardfault for Read operations</li>
+</ul></li>
+<li><strong>HAL OSPI</strong>
+<ul>
+<li>Remove unsupported Clocked Chip Select High Time feature:
+<ul>
+<li>ClkChipSelectHighTime parameter removed from the OSPI_InitTypeDef structure</li>
+<li>Update HAL_OSPI_Init() API to no longer configure the ClkChipSelectHighTime parameter in the OCTOSPI_DCR1 register</li>
+</ul></li>
+<li>Fix an MPU issue with OTFDEC examples and STM32H735G-DK BSP example.</li>
+<li>Update HAL_OSPI_Init() to fix DelayBlockBypass parameter configuration issue.</li>
+</ul></li>
+<li><strong>HAL SPI</strong>
+<ul>
+<li>Update SPI_IRQ_Handler() to overrun error occurrence in full duplex communication.
+<ul>
+<li>Add clear for transmission flag.</li>
+</ul></li>
+<li>Update HAL_SPI_Receive() API to avoid hardfault exception in Master RX, Polling mode 8 bits mode when 2 byte are available at the same time.</li>
+</ul></li>
+<li><strong>HAL SMBUS</strong>
+<ul>
+<li>stm32h7xx_hal_smbus_ex.c/.h file added to support new <strong>HAL SMBUS extended feature</strong>.
+<ul>
+<li>Add Support for Fast Mode Plus to be SMBUS rev 3 compliant.
+<ul>
+<li>Add HAL_SMBUSEx_EnableFastModePlus() and HAL_SMBUSEx_DisableFastModePlus() APIs to manage Fm+.</li>
+</ul></li>
+<li>Add Support of wake up capability.
+<ul>
+<li>Add HAL_SMBUSEx_EnableWakeUp() and HAL_SMBUSEx_DisableWakeUp() APIs.</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><strong>HAL ETH</strong>
+<ul>
+<li>Entire receive process reworked.</li>
+<li>Resolve the problem of received data corruption.</li>
+<li>Implement transmission in interrupt mode.</li>
+<li>Handle one interrupt for multiple transmitted packets.</li>
+<li>Implement APIs to handle PTP feature.</li>
+<li>Implement APIs to handle Timestamp feature.</li>
+<li>Add support of receive buffer unavailable.</li>
+<li>Update HAL_ETH_IRQHandler() to handle receive buffer unavailable.</li>
+</ul></li>
+<li><strong>HAL/LL USB</strong>
+<ul>
+<li>Update to report correct received amount of data with USB DMA enabled</li>
+<li>Update USB IRQ handler to enable EP OUT disable</li>
+<li>Add support of USB IN/OUT Iso incomplete</li>
+<li>Fix USB BCD data contact timeout</li>
+</ul></li>
+</ul>
+<h2 id="known-limitations">Known Limitations</h2>
+<ul>
+<li>None</li>
+</ul>
+<h2 id="backward-compatibility">Backward compatibility</h2>
+<ul>
+<li>Compatibility break with HAL ETH driver V1.10.0 available within STM32CubeFW_H7 V1.9.0</li>
+</ul>
+</div>
+</div>
+<div class="collapse">
+<input type="checkbox" id="collapse-section14" aria-hidden="true"> <label for="collapse-section14" aria-hidden="true"><strong>V1.10.1 / 06-December-2021</strong></label>
+<div>
+<h2 id="main-changes-1">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements.</li>
 <li>All source files: update disclaimer to add reference to the new license agreement.</li>
@@ -207,14 +300,14 @@
 <li>Add LSI startup time in default IWDG timeout calculation (HAL_IWDG_DEFAULT_TIMEOUT).</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations">Known Limitations</h2>
+<h2 id="known-limitations-1">Known Limitations</h2>
 <ul>
 <li><strong>HAL/ETH</strong>
 <ul>
 <li>A full rework of the ETH HAL driver is planned in order to fix several issues including better synchronization with TCPIP stack for instance LwIP</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility">Backward compatibility</h2>
+<h2 id="backward-compatibility-1">Backward compatibility</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -223,11 +316,11 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section13" aria-hidden="true"> <label for="collapse-section13" aria-hidden="true"><strong>V1.10.0 / 12-February-2021</strong></label>
 <div>
-<h2 id="main-changes-1">Main Changes</h2>
+<h2 id="main-changes-2">Main Changes</h2>
 <ul>
 <li><p>General updates to fix known defects and implementation enhancements</p></li>
 <li><p>Fix minor issues related to English typo in comments</p></li>
-<li><p>Update stm32h7xx_hal_def.h implementation to support MDK-ARM AC6 compiler</p>
+<li>Update stm32h7xx_hal_def.h implementation to support MDK-ARM AC6 compiler
 <ul>
 <li>Notes:
 <ul>
@@ -236,7 +329,7 @@
 <li>Template projects updated with “Use default compiler version 6” setting and “AC5-like warning” setting</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL</strong>:</p>
+<li><strong>HAL</strong>:
 <ul>
 <li>stm32h7xx_hal.h and stm32h7xx_hal.c:
 <ul>
@@ -252,7 +345,7 @@
 <li>Update USE_SD_TRANSCEIVER define default value to zero Notes: This define shall be set in the target project according to the given board: set to 1 in case of an SD transceiver is present or zero if not</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL ADC</strong>:</p>
+<li><strong>HAL/LL ADC</strong>:
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -263,14 +356,14 @@
 <li>Update timeout mechanism to avoid false timeout detection in case of preemption</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL CEC</strong>:</p>
+<li><strong>HAL CEC</strong>:
 <ul>
 <li>stm32h7xx_hal_cec.c:
 <ul>
 <li>Update “HAL_CEC_IRQHandler” implementation to avoid extra byte sent with CEC command</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL CRYP</strong>:</p>
+<li><strong>HAL CRYP</strong>:
 <ul>
 <li>stm32h7xx_hal_cryp.h:
 <ul>
@@ -285,14 +378,14 @@
 <li>Update the implementation of the “HAL_CRYPEx_AESGCM_GenerateAuthTAG” function to support the header width unit setting</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL EXTI</strong>:</p>
+<li><strong>HAL/LL EXTI</strong>:
 <ul>
 <li>stm32h7xx_hal_exti.h:
 <ul>
 <li>Update IS_EXTI_PROPERTY to IS_EXTI_CONFIG_LINE macros implementation using “<strong>EXTI_LINE</strong>” instead of “<strong>LINE</strong>” o avoid clash with compiler key word “<strong>LINE</strong>”</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL ETH</strong>:</p>
+<li><strong>HAL/LL ETH</strong>:
 <ul>
 <li>stm32h7xx_hal_eth.h:
 <ul>
@@ -307,7 +400,7 @@
 <li>This implementation allows to improve packet transmission performance using NetX Duo TCPIP stack, however a more elaborated implementation will be provided in next release</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL FLASH</strong>:</p>
+<li><strong>HAL/LL FLASH</strong>:
 <ul>
 <li>stm32h7xx_hal_flash_ex.h:
 <ul>
@@ -320,7 +413,7 @@
 <li>Update “HAL_FLASH_Program” description with details for “FlashAddress” and “DataAddress” alignment requirements</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL GPIO</strong>:</p>
+<li><strong>HAL/LL GPIO</strong>:
 <ul>
 <li>stm32h7xx_hal_gpio.c:
 <ul>
@@ -331,28 +424,28 @@
 <li>Update and fix LL_GPIO_TogglePin implementation to allow toggle of multiple pin</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL HRTIM</strong>:</p>
+<li><strong>HAL/LL HRTIM</strong>:
 <ul>
 <li>stm32h7xx_hal_hrtim.c:
 <ul>
 <li>Update HRTIM_HRTIM_ISR implementation to optimize the read flags</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL IWDG</strong>:</p>
+<li><strong>HAL/LL IWDG</strong>:
 <ul>
 <li>stm32h7xx_hal_iwdg.c:
 <ul>
 <li>Update timeout mechanism to avoid false timeout detection in case of preemptio</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL LPTIM</strong></p>
+<li><strong>HAL/LL LPTIM</strong>
 <ul>
 <li>stm32h7xx_hal_lptim.c:
 <ul>
 <li>Update “HAL_LPTIM_Init” implementation to improve behavior for external clock configuration</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL NAND</strong>:</p>
+<li><strong>HAL NAND</strong>:
 <ul>
 <li>stm32h7xx_hal_nand.c:
 <ul>
@@ -360,7 +453,7 @@
 <li>Update implementation of “HAL_NAND_Write_Page_16b” and “HAL_NAND_Read_Page_16b” APIs implementation to fix an issue with the page calculation of 8 bits memories</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL NOR</strong>:</p>
+<li><strong>HAL NOR</strong>:
 <ul>
 <li>stm32h7xx_hal_nor.c:
 <ul>
@@ -368,7 +461,7 @@
 <li>Update NOR APIs implementation to support some specific memories</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL RCC</strong>:</p>
+<li><strong>HAL RCC</strong>:
 <ul>
 <li>stm32h7xx_hal_rcc.c:
 <ul>
@@ -385,7 +478,7 @@
 <li>Update implementation of “HAL_RCCEx_GetPLL1ClockFreq” to use HSI in default case as per the specification</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL RNG</strong>:</p>
+<li><strong>HAL RNG</strong>:
 <ul>
 <li>stm32h7xx_hal_rng.h:
 <ul>
@@ -406,7 +499,7 @@
 <li>Add “HAL_RNGEx_RecoverSeedError” function</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL SDMMC</strong>:</p>
+<li><strong>HAL/LL SDMMC</strong>:
 <ul>
 <li>stm32h7xx_hal_mmc.c:
 <ul>
@@ -438,7 +531,7 @@
 <li>Add “SDMMC_CmdSetRelAddMmc” function to set relative address</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL SPI</strong></p>
+<li><strong>HAL/LL SPI</strong>
 <ul>
 <li>Update “HAL_SPI_TransmitReceive_IT” implementation to disable RXP and TXP interrupt when DXP is enabled</li>
 <li>Update “HAL_SPI_Init” implementation with NSS Software Management</li>
@@ -447,14 +540,14 @@
 <li>Update “LL_SPI_Init” implementation to set the internal SS level</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL TIM</strong>:</p>
+<li><strong>HAL/LL TIM</strong>:
 <ul>
 <li>stm32h7xx_ll_tim.h:
 <ul>
 <li>Fix “LL_TIM_GetCounterMode” implementation to handle all possible return combinations</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL UART</strong>:</p>
+<li><strong>HAL/LL UART</strong>:
 <ul>
 <li>stm32h7xx_hal_uart.h:
 <ul>
@@ -485,14 +578,14 @@
 <li>Update “LL_LPUART_SetBaudRate” implementation to avoid potential division by zero</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL USART</strong>:</p>
+<li><strong>HAL/LL USART</strong>:
 <ul>
 <li>stm32h7xx_ll_usart.h:
 <ul>
 <li>Update “LL_USART_SetBaudRate” implementation to avoid potential division by zero</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL USB</strong>:</p>
+<li><strong>HAL/LL USB</strong>:
 <ul>
 <li>Update to ensure to have coherency between USB APIs start and stop which should mainly control device connect and disconnect of the USB RPU</li>
 <li>Fix ping with DMA OFF, fix Data toggle issue with DMA multi max packet size transfers and clean up device and core speeds</li>
@@ -501,7 +594,7 @@
 <li>Update to fix USB OTG read FIFO packet in stm32h7xx_ll_usb.c file</li>
 <li>Update to support USB OTG FIFO with scatter gather</li>
 </ul></li>
-<li><p><strong>LL SYSTEM</strong>:</p>
+<li><strong>LL SYSTEM</strong>:
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -509,14 +602,14 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-1">Known Limitations</h2>
+<h2 id="known-limitations-2">Known Limitations</h2>
 <ul>
 <li><strong>HAL/ETH</strong>
 <ul>
 <li>A full rework of the ETH HAL driver is planned in order to fix several issues including better synchronization with TCPIP stack for instance LwIP</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-1">Backward compatibility</h2>
+<h2 id="backward-compatibility-2">Backward compatibility</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -525,7 +618,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section12" aria-hidden="true"> <label for="collapse-section12" aria-hidden="true"><strong>V1.9.0 / 29-May-2020</strong></label>
 <div>
-<h2 id="main-changes-2">Main Changes</h2>
+<h2 id="main-changes-3">Main Changes</h2>
 <ul>
 <li>First official release of the STM32CubeH7 Firmware Package supporting <strong>STM32H72x/3x</strong> new devices</li>
 <li>General updates to fix known defects and implementation enhancements</li>
@@ -597,7 +690,7 @@
 <li>stm32h7xx_hal_eth.h:
 <ul>
 <li><p>Update ETH_DMADescTypeDef definition: remove useless volatile of the BackupAddr0 and BackupAddr1 fields since they are not used by ETH DMA.</p></li>
-<li><p>stm32h7xx_hal_eth.c:</p>
+<li>stm32h7xx_hal_eth.c:
 <ul>
 <li>HAL_ETH_Start_IT:
 <ul>
@@ -1119,11 +1212,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-2">Known Limitations</h2>
+<h2 id="known-limitations-3">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-2">Backward compatibility</h2>
+<h2 id="backward-compatibility-3">Backward compatibility</h2>
 <ul>
 <li>Extension RTC APIs HAL_RTCEx_MonotonicCounterIncrement and HAL_RTCEx_MonotonicCounterGet APIs prototypes updated with new parameters Instance (alignment with other STM32 families)</li>
 </ul>
@@ -1132,7 +1225,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section10" aria-hidden="true"> <label for="collapse-section10" aria-hidden="true"><strong>V1.8.0 / 14-February-2020</strong></label>
 <div>
-<h2 id="main-changes-3">Main Changes</h2>
+<h2 id="main-changes-4">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li><strong>HAL</strong>: generic
@@ -1366,7 +1459,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-3">Known Limitations</h2>
+<h2 id="known-limitations-4">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1376,7 +1469,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-3">Backward compatibility</h2>
+<h2 id="backward-compatibility-4">Backward compatibility</h2>
 <ul>
 <li>None</li>
 </ul>
@@ -1385,12 +1478,12 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section9" aria-hidden="true"> <label for="collapse-section9" aria-hidden="true"><strong>V1.7.0 / 06-December-2019</strong></label>
 <div>
-<h2 id="main-changes-4">Main Changes</h2>
+<h2 id="main-changes-5">Main Changes</h2>
 <ul>
-<li><p>Official release with support of STM32H7A3/B3xx/B0xx new devices<br />
-</p></li>
-<li><p>General updates to fix known defects and implementation enhancements</p></li>
-<li><p><strong>HAL</strong>: generic</p>
+<li>Official release with support of STM32H7A3/B3xx/B0xx new devices<br />
+</li>
+<li>General updates to fix known defects and implementation enhancements</li>
+<li><strong>HAL</strong>: generic
 <ul>
 <li>stm32h7xx_hal.h:
 <ul>
@@ -1412,7 +1505,7 @@
 <li>Fix HAL_EXTI_D1_ClearFlag and HAL_EXTI_D2_ClearFlag APIs implementation: using direct write operation (instead of read/modify/write)</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL ADC</strong>:</p>
+<li><strong>HAL/LL ADC</strong>:
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -1449,7 +1542,7 @@
 <li>Update HAL_ADCEx_LinearCalibration_FactorLoad API implementation to consider ADC2 and ADC3 in addition to ADC1</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL COMP</strong>:</p>
+<li><strong>HAL/LL COMP</strong>:
 <ul>
 <li>stm32h7xx_hal_comp.h:
 <ul>
@@ -1475,7 +1568,7 @@
 <li>Add LL_COMP_SetOutputAlternateFunction and LL_COMP_GetOutputAlternateFunction allowing to Set/Get the output alternate function in the Option register</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL CRYP</strong>:</p>
+<li><strong>HAL CRYP</strong>:
 <ul>
 <li>stm32h7xx_hal_cryp.h:
 <ul>
@@ -1489,7 +1582,7 @@
 <li>Update to support user input/output buffers size that is not multiple of 4 words (size of the CRYP peripheral FIFO)</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL DAC</strong>:</p>
+<li><strong>HAL/LL DAC</strong>:
 <ul>
 <li>stm32h7xx_hal_dac.h:
 <ul>
@@ -1529,7 +1622,7 @@
 </ul></li>
 <li>stm32h7xx_ll_dac.h: Update to support STM32H7A3/B3xx/B0xx devices New DAC triggers</li>
 </ul></li>
-<li><p><strong>HAL DCMI</strong>:</p>
+<li><strong>HAL DCMI</strong>:
 <ul>
 <li>stm32h7xx_hal_dcmi.h:
 <ul>
@@ -1541,7 +1634,7 @@
 <li>Add implementation HAL_DCMI_ConfigSyncUnmask API</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL DFSDM</strong>:</p>
+<li><strong>HAL DFSDM</strong>:
 <ul>
 <li>stm32h7xx_hal_dfsdm.h:
 <ul>
@@ -1560,7 +1653,7 @@
 <li>New extension file with HAL_DFDSMEx_ChannelSetPulsesSkipping and HAL_DFDSMEx_ChannelGetPulsesSkipping APIs implementation</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL DMA</strong>:</p>
+<li><strong>HAL/LL DMA</strong>:
 <ul>
 <li>stm32h7xx_hal_dma.h:
 <ul>
@@ -1586,7 +1679,7 @@
 <li>HRTIM, SAI3, SAI4, ADC3 requests are available only when these peripherals are present on the given device (through CMSIS device mapping)</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL DMA2D</strong>:</p>
+<li><strong>HAL/LL DMA2D</strong>:
 <ul>
 <li>stm32h7xx_hal_dma2d.h:
 <ul>
@@ -1617,28 +1710,28 @@
 <li>Update LL_DMA2D_StructInit API implementation to support byte swap and line offset modes</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL DTS</strong>:</p>
+<li><strong>HAL DTS</strong>:
 <ul>
 <li>Add New HAL DTS driver stm32h7xx_hal_dts.h/stm32h7xx_hal_dts.c (Digital Temperature Sensor). This peripheral is available on STM32H7A3/B3xx/B0xx devices only</li>
 </ul></li>
-<li><p><strong>HAL/LL EXTI</strong>:</p>
+<li><strong>HAL/LL EXTI</strong>:
 <ul>
 <li>Update to consider STM32H7A3/B3xx/B0xx devices EXTI lines</li>
 <li>Update EXTI Pend Clear Sources considering STM32H7A3/B3xx/B0xx devices: LPTIM2 and LPTIM3 used as SRD domain wakeup pend clear source versus LPTIM4/LPTIM5 in the legacy devices</li>
 </ul></li>
-<li><p><strong>HAL FLASH</strong>:</p>
+<li><strong>HAL FLASH</strong>:
 <ul>
 <li>Update to consider Flash operations on STM32H7A3/B3xx/B0xx devices</li>
 </ul></li>
-<li><p><strong>HAL GFXMMU</strong>:</p>
+<li><strong>HAL GFXMMU</strong>:
 <ul>
 <li>Add GFXMMU HAL driver stm32h7xx_hal_gfxmmu.h/stm32h7xx_hal_gfxmmu.c. This peripheral is available on STM32H7A3/B3xx/B0xx devices only</li>
 </ul></li>
-<li><p><strong>HAL GPIO</strong>:</p>
+<li><strong>HAL GPIO</strong>:
 <ul>
 <li>Update GPIO Alternate functions definitions (in stm32h7xx_hal_gpio_ex.h file) for STM32H7A3/B3xx/B0xx devices</li>
 </ul></li>
-<li><p><strong>HAL HASH</strong>:</p>
+<li><strong>HAL HASH</strong>:
 <ul>
 <li>stm32h7xx_hal_hash.h:
 <ul>
@@ -1660,7 +1753,7 @@
 <li>Add implementation of HAL_HASHEx_SHA224_Accmlt_IT/HAL_HASHEx_SHA224_Accmlt_End_IT, HAL_HASHEx_SHA256_Accmlt_IT/HAL_HASHEx_SHA256_Accmlt_End_IT APIs</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL I2S</strong>:</p>
+<li><strong>HAL I2S</strong>:
 <ul>
 <li>stm32h7xx_hal_i2s.h:
 <ul>
@@ -1676,7 +1769,7 @@
 </ul></li>
 <li>stm32h7xx_hal_i2s_ex.h/stm32h7xx_hal_i2s_ex.c : These files are empty as full duplex feature is not available in this release</li>
 </ul></li>
-<li><p><strong>HAL/LL LPTIM</strong>:</p>
+<li><strong>HAL/LL LPTIM</strong>:
 <ul>
 <li>stm32h7xx_hal_lptim.h:
 <ul>
@@ -1687,7 +1780,7 @@
 <li>Add definition of LL_LPTIM_TRIG_SOURCE_LPTIM2 to LL_LPTIM_TRIG_SOURCE_DFSDM2_BRK trigger sources</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL MDMA</strong>:</p>
+<li><strong>HAL/LL MDMA</strong>:
 <ul>
 <li>stm32h7xx_hal_mdma.h:
 <ul>
@@ -1708,7 +1801,7 @@
 <li>Delimit definition of LTDC, QUADSPI and JPEG requests by the peripherals availability</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL MMC</strong>:</p>
+<li><strong>HAL MMC</strong>:
 <ul>
 <li>stm32h7xx_hal_mmc_ex.h:
 <ul>
@@ -1724,7 +1817,7 @@
 <li>Fix HAL_MMCEx_ConfigDMAMultiBuffer API implementation regarding DMA block size</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL OPAMP</strong>:</p>
+<li><strong>HAL/LL OPAMP</strong>:
 <ul>
 <li>stm32h7xx_hal_opamp.h:
 <ul>
@@ -1746,14 +1839,14 @@
 <li><p><strong>HAL OSPI</strong>: New HAL driver stm32h7xx_hal_ospi.h/stm32h7xx_hal_ospi.c to handle OctoSPI peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
 <li><p><strong>HAL OTFDEC</strong>: New HAL driver stm32h7xx_hal_otfdec.h/stm32h7xx_hal_otfdec.c to handle OTFDEC peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
 <li><p><strong>HAL PSSI</strong>: New HAL driver stm32h7xx_hal_pssi.h/stm32h7xx_hal_pssi.c to handle PSSI peripheral (available on STM32H7A3/B3xx/B0xx devices only)</p></li>
-<li><p><strong>HAL/LL PWR</strong>: Update to handle STM32H7A3/B3xx/B0xx devices</p>
+<li><strong>HAL/LL PWR</strong>: Update to handle STM32H7A3/B3xx/B0xx devices
 <ul>
 <li>2 power domains only (versus 3 in legacy STM32H7 devices)</li>
 <li>VOS0 voltage scalling management</li>
 <li>Wake up flag management</li>
 <li>STOP2 Low Power mode management</li>
 </ul></li>
-<li><p><strong>HAL RAMECC</strong>:</p>
+<li><strong>HAL RAMECC</strong>:
 <ul>
 <li>stm32h7xx_hal_ramecc.h:
 <ul>
@@ -1767,7 +1860,7 @@
 <li>Add HAL_RAMECC_IsECCSingleErrorDetected, HAL_RAMECC_IsECCDoubleErrorDetected APIs implementation</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL RCC</strong>:</p>
+<li><strong>HAL/LL RCC</strong>:
 <ul>
 <li>stm32h7xx_hal_rcc.h: Update to support STM32H7A3/B3xx/B0xx devices</li>
 <li>Add OCTOSPI1/2, OCTOSPIM, OTFDEC1/2, GFXMMU peripherals clock enabling/disabling, force reset/release reset macros</li>
@@ -1797,7 +1890,7 @@
 </ul></li>
 <li>Update other peripherals clock source definitions according to the number of instance on STM32H7A3/B3xx/B0xx devices and on the legacy STM32H7 devices</li>
 </ul></li>
-<li><p><strong>HAL/LL RNG</strong>:</p>
+<li><strong>HAL/LL RNG</strong>:
 <ul>
 <li>stm32h7xx_hal_rng.h: Update to support STM32H7A3/B3xx/B0xx devices</li>
 <li>Add definition of HAL_RNG_ERROR_BUSY, HAL_RNG_ERROR_SEED and HAL_RNG_ERROR_CLOCK error codes</li>
@@ -1827,7 +1920,7 @@
 </ul></li>
 </ul></li>
 <li><p><strong>HAL/LL RTC</strong>: Update to support STM32H7A3/B3xx/B0xx devices new RTC features</p></li>
-<li><p><strong>HAL SAI</strong>:</p>
+<li><strong>HAL SAI</strong>:
 <ul>
 <li>Update to support STM32H7A3/B3xx/B0xx devices SAI instances:
 <ul>
@@ -1836,11 +1929,11 @@
 <li>Usage of a giving SAI instance is conditioned with its presence on the given device (according to the CMSIS device memory mapping)</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL SAI</strong>:</p>
+<li><strong>HAL SAI</strong>:
 <ul>
 <li>Update to support STM32H7A3/B3xx/B0xx devices SAI instances:</li>
 </ul></li>
-<li><p><strong>HAL SD</strong>:</p>
+<li><strong>HAL SD</strong>:
 <ul>
 <li>stm32h7xx_hal_sd_ex.h:
 <ul>
@@ -1857,7 +1950,7 @@
 <li>Fix HAL_SDEx_ReadBlocksDMAMultiBuffer/HAL_SDEx_WriteBlocksDMAMultiBuffer APIs implementation to avoid losing data in read and dead lock in write</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL SPI</strong>:</p>
+<li><strong>HAL/LL SPI</strong>:
 <ul>
 <li>stm32h7xx_hal_spi.c:
 <ul>
@@ -1869,14 +1962,14 @@
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL SPI</strong>:</p>
+<li><strong>HAL SPI</strong>:
 <ul>
 <li>stm32h7xx_hal_spi.c:
 <ul>
 <li>Fix GCC compilation war</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL TIM</strong>:</p>
+<li><strong>HAL/LL TIM</strong>:
 <ul>
 <li>stm32h7xx_hal_tim.h:
 <ul>
@@ -1894,19 +1987,19 @@
 <li>Update TIM_SlaveTimer_SetConfig API implementation to handle TIM_TS_ITR9 to TIM_TS_ITR13 input triggers</li>
 </ul></li>
 </ul></li>
-<li><p><strong>LL BUS</strong>:</p>
+<li><strong>LL BUS</strong>:
 <ul>
 <li>stm32h7xx_ll_bus.h: Update to support STM32H7A3/B3xx/B0xx devices peripherals</li>
 </ul></li>
-<li><p><strong>LL CRS</strong>:</p>
+<li><strong>LL CRS</strong>:
 <ul>
 <li>stm32h7xx_ll_crs.h/stm32h7xx_ll_crs.c: New LL driver allowing to handle CRS (Clock Recovery System) module</li>
 </ul></li>
-<li><p><strong>LL SDMMC</strong> (LL core driver for HAL SD/MMC):</p>
+<li><strong>LL SDMMC</strong> (LL core driver for HAL SD/MMC):
 <ul>
 <li>stm32h7xx_ll_sdmmc.c: Fix SDMMC_CmdStopTransfer implementation to ignore address Out Of Range error that is not relevant at end of memory</li>
 </ul></li>
-<li><p><strong>LL SYSTEM</strong>:</p>
+<li><strong>LL SYSTEM</strong>:
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -1918,7 +2011,7 @@
 <li>Add LL_SYSCFG_VDMMCSetNMOSCompensationCode/LL_SYSCFG_VDMMCGetNMOSCompensationCode APIs</li>
 </ul></li>
 </ul></li>
-<li><p><strong>LL UTILS</strong>:</p>
+<li><strong>LL UTILS</strong>:
 <ul>
 <li>stm32h7xx_ll_utils.h:
 <ul>
@@ -1926,7 +2019,7 @@
 <li>Update LL_GetPackageType API to support STM32H7A3/B3xx/B0xx devices package types</li>
 </ul></li>
 </ul></li>
-<li><p><strong>LL DELAY BLOCK</strong> (LL core driver for HAL SD):</p>
+<li><strong>LL DELAY BLOCK</strong> (LL core driver for HAL SD):
 <ul>
 <li>stm32h7xx_ll_delayblock.h:
 <ul>
@@ -1940,7 +2033,7 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-4">Known Limitations</h2>
+<h2 id="known-limitations-5">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1954,7 +2047,7 @@
 <li>New PSSI driver provided supporting both modes : DMA mode recommended/ polling mode has hardware limitation confirmed and mentioned in the STM32H7A3/B3xx/B0xx erratasheet.</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-4">Backward compatibility</h2>
+<h2 id="backward-compatibility-5">Backward compatibility</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -1978,10 +2071,10 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section7" aria-hidden="true"> <label for="collapse-section7" aria-hidden="true"><strong>V1.6.0 / 28-June-2019</strong></label>
 <div>
-<h2 id="main-changes-5">Main Changes</h2>
+<h2 id="main-changes-6">Main Changes</h2>
 <ul>
-<li><p>General updates to fix known defects and implementation enhancements</p></li>
-<li><p><strong>HAL</strong>: generic</p>
+<li>General updates to fix known defects and implementation enhancements</li>
+<li><strong>HAL</strong>: generic
 <ul>
 <li>stm32h7xx_hal.h:
 <ul>
@@ -2001,7 +2094,7 @@
 <li>Add “USE_SPI_CRC” definition set to 1 by default and customizable by the HAL user</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL ADC</strong>:</p>
+<li><strong>HAL/LL ADC</strong>:
 <ul>
 <li>stm32h7xx_hal_adc.h:
 <ul>
@@ -2037,7 +2130,7 @@
 <li>Update “HAL_ADCEx_InjectedConfigChannel” implementation to set the ADC selected offset right shift</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL CRYP</strong>:</p>
+<li><strong>HAL CRYP</strong>:
 <ul>
 <li>stm32h7xx_hal_cryp.c:
 <ul>
@@ -2045,14 +2138,14 @@
 <li>Update “CRYP_Workaround” to fix the implementation of the authentication tags computation phase during a GCM encryption when the size of the last payload block is inferior to 128 bits</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL GPIO</strong>:</p>
+<li><strong>HAL GPIO</strong>:
 <ul>
 <li>stm32h7xx_hal_gpio.c:
 <ul>
 <li>Fix implementation of “HAL_GPIO_DeInit” API in order to clear the correct external interrupt/event in SYSCFG EXTICR register</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL HRTIM</strong>:</p>
+<li><strong>HAL/LL HRTIM</strong>:
 <ul>
 <li>stm32h7xx_hal_hrtim.h:
 <ul>
@@ -2072,21 +2165,21 @@
 <li>Fix definitions of the output set sources (“LL_HRTIM_CROSSBAR_NONE” to “LL_HRTIM_CROSSBAR_UPDATE” replacing “LL_HRTIM_OUTPUTSET_NONE” to LL_HRTIM_OUTPUTSET_UPDATE) according to the reference manual (<strong>compatibility break</strong>)</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL HSEM</strong>:</p>
+<li><strong>HAL/LL HSEM</strong>:
 <ul>
 <li>stm32h7xx_hal_hsem.c:
 <ul>
 <li>Update “HAL_HSEM_Release” implementation to support dynamic CPU ID detection useful when code is intended to be shared between the Cortex-M4 and Cortex-M7 in a dual core device</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL IRDA</strong>:</p>
+<li><strong>HAL IRDA</strong>:
 <ul>
 <li>stm32h7xx_hal_irda.c:
 <ul>
 <li>Update description of “HAL_IRDA_Transmit_XXX”, “HAL_IRDA_Receive_XXX” APIs with more details about the data size management</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL LPTIM</strong>:</p>
+<li><strong>HAL LPTIM</strong>:
 <ul>
 <li>stm32h7xx_hal_lptim.c:
 <ul>
@@ -2104,7 +2197,7 @@
 </ul></li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL MMC</strong>:</p>
+<li><strong>HAL MMC</strong>:
 <ul>
 <li>stm32h7xx_hal_mmc.h:
 <ul>
@@ -2158,14 +2251,14 @@
 <li>Update “HAL_SD_ConfigSpeedBusOperation” implementation to handle “SDMMC_SPEED_MODE_AUTO” and “SDMMC_SPEED_MODE_HIGH” SD card speed modes in case of no transceiver present</li>
 </ul></li>
 </ul></li>
-<li><p><strong>LL SDMMC</strong>:</p>
+<li><strong>LL SDMMC</strong>:
 <ul>
 <li>Update “SDMMC_InitTypeDef” structure to add “TranceiverPresent” field in case of the define “USE_SD_TRANSCEIVER” is not zero:
 <ul>
 <li>This parameter allows to handle 2 SD instances with different settings regarding the transceiver presence as described above</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL RCC</strong>:</p>
+<li><strong>HAL/LL RCC</strong>:
 <ul>
 <li>stm32h7xx_ll_rcc.h:
 <ul>
@@ -2180,7 +2273,7 @@
 <li>Update “HAL_RCCEx_GetPeriphCLKFreq” API implementation to add support of the SDMMC peripheral clock frequency calculation</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL TIM</strong>:</p>
+<li><strong>HAL TIM</strong>:
 <ul>
 <li>stm32h7xx_hal_tim.h:
 <ul>
@@ -2201,7 +2294,7 @@
 <li>Update “HAL_TIMEx_ConfigBreakDeadTime” description to add details about interrupts enabling and generation</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL UART</strong>:</p>
+<li><strong>HAL UART</strong>:
 <ul>
 <li>Update to add UART Receiver timeout management (RTOF)</li>
 <li>stm32h7xx_hal_uart.h:
@@ -2219,7 +2312,7 @@
 <li>Add implementation of “HAL_UART_ReceiverTimeout_Config”, “HAL_UART_EnableReceiverTimeout” and “HAL_UART_DisableReceiverTimeout” APIs</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL USB</strong>:</p>
+<li><strong>HAL USB</strong>:
 <ul>
 <li>stm32h7xx_hal_hcd.c
 <ul>
@@ -2234,7 +2327,7 @@
 <li>Update “HAL_PCD_IRQHandler” to remove useless initialization of epnum variable in HAL_PCD_IRQHandler() for OTG instance</li>
 </ul></li>
 </ul></li>
-<li><p><strong>HAL/LL USART</strong>:</p>
+<li><strong>HAL/LL USART</strong>:
 <ul>
 <li>stm32h7xx_hal_usart.c:
 <ul>
@@ -2245,7 +2338,7 @@
 <li>Update “LL_USART_SetBaudRate” implementation to avoid overflow in “USART_PRESCALER_TAB” table</li>
 </ul></li>
 </ul></li>
-<li><p><strong>LL SYSTEM</strong>:</p>
+<li><strong>LL SYSTEM</strong>:
 <ul>
 <li>stm32h7xx_ll_system.h:
 <ul>
@@ -2253,11 +2346,11 @@
 </ul></li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-5">Known Limitations</h2>
+<h2 id="known-limitations-6">Known Limitations</h2>
 <ul>
 <li>None</li>
 </ul>
-<h2 id="backward-compatibility-5">Backward compatibility</h2>
+<h2 id="backward-compatibility-6">Backward compatibility</h2>
 <ul>
 <li><strong>HAL TIM</strong>:
 <ul>
@@ -2275,7 +2368,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section6" aria-hidden="true"> <label for="collapse-section6" aria-hidden="true"><strong>V1.5.0 / 05-April-2019</strong></label>
 <div>
-<h2 id="main-changes-6">Main Changes</h2>
+<h2 id="main-changes-7">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>Add support for VOS0 power regulator voltage scaling with 480MHz over clock</li>
@@ -2745,7 +2838,7 @@
 <li>Update LL_Init1msTick and LL_SetSystemCoreClock description for <strong>DUAL CORE</strong> lines</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-6">Known Limitations</h2>
+<h2 id="known-limitations-7">Known Limitations</h2>
 <ul>
 <li><strong>HAL SD</strong>:
 <ul>
@@ -2759,7 +2852,7 @@
 <li>Full duplex Transmit/receive feature not available</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-6">Backward compatibility</h2>
+<h2 id="backward-compatibility-7">Backward compatibility</h2>
 <ul>
 <li><strong>HAL ADC</strong>:
 <ul>
@@ -2811,7 +2904,7 @@
 <div class="collapse">
 <input type="checkbox" id="collapse-section5" aria-hidden="true"> <label for="collapse-section5" aria-hidden="true"><strong>V1.4.0 / 30-November-2018</strong></label>
 <div>
-<h2 id="main-changes-7">Main Changes</h2>
+<h2 id="main-changes-8">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and implementation enhancements</li>
 <li>Add LL drivers : LL_ADC, LL_BDMA, LL_BUS, LL_COMP, LL_CORTEX, LL_CRC, LL_DAC, LL_DMA, LL_DMA2D, LL_DMAMUX, LL_EXTI, LL_GPIO, LL_HRTIM, LL_HSEM, LL_I2C, LL_IWDG, LL_LPTIM, LL_LPUART, LL_MDMA, LL_OPAMP,LL_PWR, LL_RCC, LL_RNG, LL_RTC, LL_SPI, LL_SWPMI, LL_SYSTEM, LL_TIM, LL_USART, LL_UTILS, LL_WWDG</li>
@@ -3080,7 +3173,7 @@
 <li>Protect the hcd driver to be used only if the USB_OTG_FS, USB_OTG_HS are enabled</li>
 </ul></li>
 </ul>
-<h2 id="known-limitations-7">Known Limitations</h2>
+<h2 id="known-limitations-8">Known Limitations</h2>
 <ul>
 <li><strong>HAL I2S</strong>:
 <ul>
@@ -3088,7 +3181,7 @@
 <li>A new version of this driver will be available in next release with full features tested</li>
 </ul></li>
 </ul>
-<h2 id="backward-compatibility-7">Backward compatibility</h2>
+<h2 id="backward-compatibility-8">Backward compatibility</h2>
 <ul>
 <li><strong>HAL ADC</strong>:
 <ul>
@@ -3127,7 +3220,8 @@
 </div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section4" aria-hidden="true"> <label for="collapse-section4" aria-hidden="true"><strong>V1.3.0 / 29-June-2018</strong></label>
-<h2 id="main-changes-8">Main Changes</h2>
+<div>
+<h2 id="main-changes-9">Main Changes</h2>
 <ul>
 <li>Updates to fix known defects on HAL Cortex, HAL RCC and HAL SDMMC drivers</li>
 <li><strong>HAL Cortex</strong>: Driver update to support 16 MPU regions instead of 8. User can now select an MPU regions from MPU_REGION_NUMBER0 to MPU_REGION_NUMBER15</li>
@@ -3135,18 +3229,22 @@
 <li><strong>HAL SDMMC</strong>: Fix and enhancements to support high speed mode</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section3" aria-hidden="true"> <label for="collapse-section3" aria-hidden="true"><strong>V1.2.0 / 29-December-2017</strong></label>
-<h2 id="main-changes-9">Main Changes</h2>
+<div>
+<h2 id="main-changes-10">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL SPI</strong>: Driver reworked to fix critical issues</li>
 <li>HAL: Update HAL Tick implementation</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section2" aria-hidden="true"> <label for="collapse-section2" aria-hidden="true"><strong>V1.1.0 / 31-August-2017</strong></label>
-<h2 id="main-changes-10">Main Changes</h2>
+<div>
+<h2 id="main-changes-11">Main Changes</h2>
 <ul>
 <li>General updates to fix known defects and enhancements implementation</li>
 <li><strong>HAL FLASH</strong>: Add Mass Erase for both banks</li>
@@ -3157,14 +3255,17 @@
 <li><strong>HAL SPDIFRX</strong>: Add symbol clock generation</li>
 </ul>
 </div>
+</div>
 <div class="collapse">
 <input type="checkbox" id="collapse-section1" aria-hidden="true"> <label for="collapse-section1" aria-hidden="true"><strong>V1.0.0 / 21-April-2017</strong></label>
-<h2 id="main-changes-11">Main Changes</h2>
+<div>
+<h2 id="main-changes-12">Main Changes</h2>
 <ul>
 <li>First official release for STM32H743xx/753xx devices</li>
 </ul>
 </div>
-</section>
+</div>
+</div>
 </div>
 <footer class="sticky">
 For complete documentation on STM32 Microcontrollers </mark> , visit: <span style="font-color: blue;"><a href="http://www.st.com/stm32">www.st.com/stm32</a></span>

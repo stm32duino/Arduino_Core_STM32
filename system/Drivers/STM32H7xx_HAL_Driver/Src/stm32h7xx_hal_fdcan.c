@@ -5264,6 +5264,10 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   uint32_t TTFatalErrors;
   uint32_t SWTime;
   uint32_t SWCycleCount;
+  uint32_t itsourceIE;
+  uint32_t itsourceTTIE;
+  uint32_t itflagIR;
+  uint32_t itflagTTIR;
 
   ClkCalibrationITs = (FDCAN_CCU->IR << 30);
   ClkCalibrationITs &= (FDCAN_CCU->IE << 30);
@@ -5277,11 +5281,13 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   Errors &= hfdcan->Instance->IE;
   ErrorStatusITs = hfdcan->Instance->IR & FDCAN_ERROR_STATUS_MASK;
   ErrorStatusITs &= hfdcan->Instance->IE;
+  itsourceIE = hfdcan->Instance->IE;
+  itflagIR = hfdcan->Instance->IR;
 
   /* High Priority Message interrupt management *******************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_RX_HIGH_PRIORITY_MSG) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_RX_HIGH_PRIORITY_MSG) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG) != RESET)
     {
       /* Clear the High Priority Message flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG);
@@ -5297,9 +5303,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Transmission Abort interrupt management **********************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_ABORT_COMPLETE) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_TX_ABORT_COMPLETE) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_ABORT_COMPLETE) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_TX_ABORT_COMPLETE) != RESET)
     {
       /* List of aborted monitored buffers */
       AbortedBuffers = hfdcan->Instance->TXBCF;
@@ -5379,9 +5385,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Tx FIFO empty interrupt management ***************************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_FIFO_EMPTY) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_TX_FIFO_EMPTY) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_FIFO_EMPTY) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_TX_FIFO_EMPTY) != RESET)
     {
       /* Clear the Tx FIFO empty flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TX_FIFO_EMPTY);
@@ -5397,9 +5403,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Transmission Complete interrupt management *******************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_COMPLETE) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_TX_COMPLETE) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_COMPLETE) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_TX_COMPLETE) != RESET)
     {
       /* List of transmitted monitored buffers */
       TransmittedBuffers = hfdcan->Instance->TXBTO;
@@ -5419,9 +5425,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Rx Buffer New Message interrupt management *******************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_RX_BUFFER_NEW_MESSAGE) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_RX_BUFFER_NEW_MESSAGE) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_RX_BUFFER_NEW_MESSAGE) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_RX_BUFFER_NEW_MESSAGE) != RESET)
     {
       /* Clear the Rx Buffer New Message flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_RX_BUFFER_NEW_MESSAGE);
@@ -5437,9 +5443,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Timestamp Wraparound interrupt management ********************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TIMESTAMP_WRAPAROUND) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_TIMESTAMP_WRAPAROUND) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TIMESTAMP_WRAPAROUND) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_TIMESTAMP_WRAPAROUND) != RESET)
     {
       /* Clear the Timestamp Wraparound flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TIMESTAMP_WRAPAROUND);
@@ -5455,9 +5461,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Timeout Occurred interrupt management ************************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TIMEOUT_OCCURRED) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_TIMEOUT_OCCURRED) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TIMEOUT_OCCURRED) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_TIMEOUT_OCCURRED) != RESET)
     {
       /* Clear the Timeout Occurred flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TIMEOUT_OCCURRED);
@@ -5473,9 +5479,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Message RAM access failure interrupt management **************************/
-  if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_RAM_ACCESS_FAILURE) != 0U)
+  if (FDCAN_CHECK_IT_SOURCE(itsourceIE, FDCAN_IT_RAM_ACCESS_FAILURE) != RESET)
   {
-    if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_RAM_ACCESS_FAILURE) != 0U)
+    if (FDCAN_CHECK_FLAG(itflagIR, FDCAN_FLAG_RAM_ACCESS_FAILURE) != RESET)
     {
       /* Clear the Message RAM access failure flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_RAM_ACCESS_FAILURE);
@@ -5524,6 +5530,8 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
       TTDistErrors &= hfdcan->ttcan->TTIE;
       TTFatalErrors = hfdcan->ttcan->TTIR & FDCAN_TT_FATAL_ERROR_MASK;
       TTFatalErrors &= hfdcan->ttcan->TTIE;
+      itsourceTTIE = hfdcan->ttcan->TTIE;
+      itflagTTIR = hfdcan->ttcan->TTIR;
 
       /* TT Schedule Synchronization interrupts management **********************/
       if (TTSchedSyncITs != 0U)
@@ -5556,9 +5564,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
       }
 
       /* TT Stop Watch interrupt management *************************************/
-      if (__HAL_FDCAN_TT_GET_IT_SOURCE(hfdcan, FDCAN_TT_IT_STOP_WATCH) != 0U)
+      if (FDCAN_CHECK_IT_SOURCE(itsourceTTIE, FDCAN_TT_IT_STOP_WATCH) != RESET)
       {
-        if (__HAL_FDCAN_TT_GET_FLAG(hfdcan, FDCAN_TT_FLAG_STOP_WATCH) != 0U)
+        if (FDCAN_CHECK_FLAG(itflagTTIR, FDCAN_TT_FLAG_STOP_WATCH) != RESET)
         {
           /* Retrieve Stop watch Time and Cycle count */
           SWTime = ((hfdcan->ttcan->TTCPT & FDCAN_TTCPT_SWV) >> FDCAN_TTCPT_SWV_Pos);

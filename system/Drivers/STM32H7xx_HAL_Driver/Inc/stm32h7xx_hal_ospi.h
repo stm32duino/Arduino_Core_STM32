@@ -80,9 +80,6 @@ typedef struct
   uint32_t ChipSelectBoundary;        /*!< It enables the transaction boundary feature and
                                            defines the boundary of bytes to release the chip select.
                                            This parameter can be a value between 0 and 31 */
-  uint32_t ClkChipSelectHighTime;     /*!< It defines the number of clocks provided on the CLK/nCLK pins when
-                                           the chip select is set to high at the end of a transaction.
-                                           This parameter can be a value between 0 and 7 */
   uint32_t DelayBlockBypass;          /*!< It enables the delay block bypass, so the sampling is not affected
                                            by the delay block.
                                            This parameter can be a value of @ref OSPI_DelayBlockBypass */
@@ -1027,7 +1024,8 @@ HAL_StatusTypeDef     HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeD
 
 #define IS_OSPI_CS_BOUNDARY(BOUNDARY)      ((BOUNDARY) <= 31U)
 
-#define IS_OSPI_CKCSHT(CLK_NB)             ((CLK_NB) <= 7U)
+#define IS_OSPI_DLYBYP(MODE)               (((MODE) == HAL_OSPI_DELAY_BLOCK_USED) || \
+                                            ((MODE) == HAL_OSPI_DELAY_BLOCK_BYPASSED))
 
 #define IS_OSPI_MAXTRAN(NB_BYTES)          ((NB_BYTES) <= 255U)
 

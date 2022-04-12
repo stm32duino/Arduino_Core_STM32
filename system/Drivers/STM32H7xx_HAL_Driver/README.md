@@ -39,6 +39,7 @@ Tag v1.8.0    | Tag v1.8.0      | Tag v5.4.0 | Tag v1.7.0 (and following, if any
 Tag v1.9.0    | Tag v1.9.0      | Tag v5.4.0 | Tag v1.8.0 (and following, if any, till next HAL tag)
 Tag v1.10.0   | Tag v1.10.0     | Tag v5.6.0 | Tag v1.9.0 (and following, if any, till next HAL tag)
 Tag v1.10.1   | Tag v1.10.1     | Tag v5.6.0 | Tag v1.9.1 (and following, if any, till next HAL tag)
+Tag v1.10.2   | Tag v1.10.2     | Tag v5.6.0 | Tag v1.10.0 (and following, if any, till next HAL tag)
 
 The full **STM32CubeH7** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeH7).
 

@@ -2,8 +2,6 @@
   ******************************************************************************
   * @file    stm32h7xx_ll_rcc.h
   * @author  MCD Application Team
-  * @version $VERSION$
-  * @date    $DATE$
   * @brief   Header file of RCC LL module.
   ******************************************************************************
   * @attention

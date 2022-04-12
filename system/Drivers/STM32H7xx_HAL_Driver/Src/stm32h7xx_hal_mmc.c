@@ -64,7 +64,7 @@
     SDMMC Peripheral (STM32 side) and the MMC Card, and put it into StandBy State (Ready for data transfer).
     This function provide the following operations:
 
-    (#) Initialize the SDMMC peripheral interface with defaullt configuration.
+    (#) Initialize the SDMMC peripheral interface with default configuration.
         The initialization process is done at 400KHz. You can change or adapt
         this frequency by adjusting the "ClockDiv" field.
         The MMC Card frequency (SDMMC_CK) is computed as follows:
@@ -3214,7 +3214,7 @@ HAL_StatusTypeDef HAL_MMC_SleepDevice(MMC_HandleTypeDef *hmmc)
             sleep_timeout = ((hmmc->Ext_CSD[(MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_INDEX / 4)] >>
                               MMC_EXT_CSD_SLEEP_NOTIFICATION_TIME_POS) & 0x000000FFU);
 
-            /* Sleep/Awake Timeout = 10µs * 2^SLEEP_NOTIFICATION_TIME */
+            /* Sleep/Awake Timeout = 10us * 2^SLEEP_NOTIFICATION_TIME */
             /* In HAL, the tick interrupt occurs each ms */
             if ((sleep_timeout == 0U) || (sleep_timeout > 0x17U))
             {

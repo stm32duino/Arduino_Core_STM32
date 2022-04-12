@@ -497,7 +497,7 @@ HAL_StatusTypeDef HAL_CEC_RegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Call
 
 /**
   * @brief  Unregister an CEC Callback
-  *         CEC callabck is redirected to the weak predefined callback
+  *         CEC callback is redirected to the weak predefined callback
   * @param hcec uart handle
   * @param CallbackID ID of the callback to be unregistered
   *         This parameter can be one of the following values:
