@@ -90,8 +90,8 @@ class TwoWire : public Stream {
     };
     void begin(bool generalCall = false);
     void begin(uint32_t, uint32_t);
-    void begin(uint8_t, bool generalCall = false);
-    void begin(int, bool generalCall = false);
+    void begin(uint8_t, bool generalCall = false, bool NoStretchMode = false);
+    void begin(int, bool generalCall = false, bool NoStretchMode = false);
     void end();
     void setClock(uint32_t);
     void beginTransmission(uint8_t);

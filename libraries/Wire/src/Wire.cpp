@@ -59,7 +59,7 @@ void TwoWire::begin(bool generalCall)
   begin(MASTER_ADDRESS, generalCall);
 }
 
-void TwoWire::begin(uint8_t address, bool generalCall)
+void TwoWire::begin(uint8_t address, bool generalCall, bool NoStretchMode)
 {
   rxBufferIndex = 0;
   rxBufferLength = 0;
@@ -83,6 +83,8 @@ void TwoWire::begin(uint8_t address, bool generalCall)
 
   _i2c.generalCall = (generalCall == true) ? 1 : 0;
 
+  _i2c.NoStretchMode = (NoStretchMode == true) ? 1 : 0;
+
   recoverBus(); // in case I2C bus (device) is stuck after a reset for example
 
   i2c_custom_init(&_i2c, 100000, I2C_ADDRESSINGMODE_7BIT, ownAddress);
@@ -96,9 +98,9 @@ void TwoWire::begin(uint8_t address, bool generalCall)
   }
 }
 
-void TwoWire::begin(int address, bool generalCall)
+void TwoWire::begin(int address, bool generalCall, bool NoStretchMode)
 {
-  begin((uint8_t)address, generalCall);
+  begin((uint8_t)address, generalCall, NoStretchMode);
 }
 
 void TwoWire::end(void)
