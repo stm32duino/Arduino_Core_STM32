@@ -3189,7 +3189,7 @@ GenG0.menu.pnum.AURORA_ONE.build.board=AURORA_ONE
 GenG0.menu.pnum.AURORA_ONE.build.product_line=STM32G030xx
 GenG0.menu.pnum.AURORA_ONE.build.variant=STM32G0xx/G030K(6-8)T
 GenG0.menu.pnum.AURORA_ONE.build.variant_h=variant_{build.board}.h
-
+  
 # Generic G030C6Tx
 GenG0.menu.pnum.GENERIC_G030C6TX=Generic G030C6Tx
 GenG0.menu.pnum.GENERIC_G030C6TX.upload.maximum_size=32768
@@ -3413,6 +3413,15 @@ GenG0.menu.pnum.GENERIC_G070RBTX.upload.maximum_data_size=36864
 GenG0.menu.pnum.GENERIC_G070RBTX.build.board=GENERIC_G070RBTX
 GenG0.menu.pnum.GENERIC_G070RBTX.build.product_line=STM32G070xx
 GenG0.menu.pnum.GENERIC_G070RBTX.build.variant=STM32G0xx/G070RBT
+
+# AGAFIA SG0
+GenG0.menu.pnum.AGAFIA_SG0=AGAFIA SG0
+GenG0.menu.pnum.AGAFIA_SG0.upload.maximum_size=131072
+GenG0.menu.pnum.AGAFIA_SG0.upload.maximum_data_size=36864
+GenG0.menu.pnum.AGAFIA_SG0.build.board=AGAFIA_SG0
+GenG0.menu.pnum.AGAFIA_SG0.build.product_line=STM32G071xx
+GenG0.menu.pnum.AGAFIA_SG0.build.variant=STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)
+GenG0.menu.pnum.AGAFIA_SG0.build.variant_h=variant_{build.board}.h
 
 # Generic G071R6Tx
 GenG0.menu.pnum.GENERIC_G071R6TX=Generic G071R6Tx
