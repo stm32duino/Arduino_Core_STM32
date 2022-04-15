@@ -766,7 +766,7 @@ void i2c_custom_init(i2c_t *obj, uint32_t timing, uint32_t addressingMode, uint3
         handle->Init.AddressingMode  = addressingMode;
         handle->Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
         handle->Init.GeneralCallMode = (obj->generalCall == 0) ? I2C_GENERALCALL_DISABLE : I2C_GENERALCALL_ENABLE;
-        handle->Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;
+        handle->Init.NoStretchMode   = (obj->NoStretchMode == 0) ? I2C_NOSTRETCH_DISABLE : I2C_NOSTRETCH_ENABLE;
 
         handle->State = HAL_I2C_STATE_RESET;
 
