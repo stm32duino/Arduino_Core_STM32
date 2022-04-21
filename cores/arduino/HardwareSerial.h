@@ -175,11 +175,13 @@ class HardwareSerial : public Stream {
     static void _rx_complete_irq(serial_t *obj);
     static int _tx_complete_irq(serial_t *obj);
 
+#if defined(HAL_UART_MODULE_ENABLED) && !defined(HAL_UART_MODULE_ONLY)
     // Could be used to mix Arduino API and STM32Cube HAL API (ex: DMA). Use at your own risk.
     UART_HandleTypeDef *getHandle(void)
     {
       return &(_serial.handle);
     }
+#endif // HAL_UART_MODULE_ENABLED && !HAL_UART_MODULE_ONLY
 
   private:
     bool _rx_enabled;
