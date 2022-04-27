@@ -404,7 +404,7 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
   * @param  _pin: CS pin to select a device (optional). If the previous transfer
   *         used another CS pin then the SPI instance will be reconfigured.
   * @param  data: byte to send.
-  * @param  count: number ot times to send byte.
+  * @param  count: number of times to send byte.
   * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
   *         send or SPI_LAST to indicate the end of send.
   *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
