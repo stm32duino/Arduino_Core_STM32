@@ -399,6 +399,97 @@ void SPIClass::transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, S
 }
 
 /**
+  * @brief  Transfer multiple copies of the same byte on the SPI bus.
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  data: byte to send.
+  * @param  count: number ot times to send byte.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  */
+void SPIClass::transfer(uint8_t _pin, uint8_t data, size_t count, SPITransferMode _mode)
+{
+  uint8_t rx_buffer = 0;
+
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
+
+  if (_pin != _CSPinConfig) {
+    spi_init(&_spi, spiSettings[idx].clk,
+             spiSettings[idx].dMode,
+             spiSettings[idx].bOrder);
+    _CSPinConfig = _pin;
+  }
+
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
+    digitalWrite(_pin, LOW);
+  }
+
+  for(size_t c = 0; c < count; c++) {
+    spi_transfer(&_spi, &data, &rx_buffer, sizeof(uint8_t), SPI_TRANSFER_TIMEOUT, true);
+  }
+
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
+    digitalWrite(_pin, HIGH);
+  }
+}
+
+/**
+  * @brief  Transfer two bytes on the SPI bus in 16 bits format multiple times
+  *         begin() or beginTransaction() must be called at least once before.
+  * @param  _pin: CS pin to select a device (optional). If the previous transfer
+  *         used another CS pin then the SPI instance will be reconfigured.
+  * @param  data: bytes to send.
+  * @param  count: number of times to send data.
+  * @param  _mode: (optional) can be SPI_CONTINUE in case of multiple successive
+  *         send or SPI_LAST to indicate the end of send.
+  *         If the _mode is set to SPI_CONTINUE, keep the SPI instance alive.
+  *         That means the CS pin is not reset. Be careful in case you use
+  *         several CS pin.
+  */
+void SPIClass::transfer16(uint8_t _pin, uint16_t data, size_t count, SPITransferMode _mode)
+{
+  uint16_t rx_buffer = 0;
+  uint16_t tmp;
+
+  uint8_t idx = pinIdx(_pin, GET_IDX);
+  if (idx >= NB_SPI_SETTINGS) {
+    return;
+  }
+
+  if (_pin != _CSPinConfig) {
+    spi_init(&_spi, spiSettings[idx].clk,
+             spiSettings[idx].dMode,
+             spiSettings[idx].bOrder);
+    _CSPinConfig = _pin;
+  }
+
+  if (spiSettings[idx].bOrder) {
+    tmp = ((data & 0xff00) >> 8) | ((data & 0xff) << 8);
+    data = tmp;
+  }
+
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_spi.pin_ssel == NC)) {
+    digitalWrite(_pin, LOW);
+  }
+
+  for(size_t c=0; c<count; c++) {
+    spi_transfer(&_spi, (uint8_t *)&data, (uint8_t *)&rx_buffer, sizeof(uint16_t),
+               SPI_TRANSFER_TIMEOUT, true);
+  }
+
+  if ((_pin != CS_PIN_CONTROLLED_BY_USER) && (_mode == SPI_LAST) && (_spi.pin_ssel == NC)) {
+    digitalWrite(_pin, HIGH);
+  }
+}
+
+/**
   * @brief  Not implemented.
   */
 void SPIClass::usingInterrupt(uint8_t interruptNumber)

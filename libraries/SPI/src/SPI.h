@@ -179,6 +179,8 @@ class SPIClass {
     uint16_t transfer16(uint8_t pin, uint16_t _data, SPITransferMode _mode = SPI_LAST);
     void transfer(uint8_t pin, void *_buf, size_t _count, SPITransferMode _mode = SPI_LAST);
     void transfer(byte _pin, void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST);
+    void transfer(uint8_t pin, uint8_t _data, size_t count, SPITransferMode _mode = SPI_LAST);
+    void transfer16(uint8_t pin, uint16_t _data, size_t count, SPITransferMode _mode = SPI_LAST);
 
     // Transfer functions when user controls himself the CS pin.
     byte transfer(uint8_t _data, SPITransferMode _mode = SPI_LAST)
@@ -199,6 +201,16 @@ class SPIClass {
     void transfer(void *_bufout, void *_bufin, size_t _count, SPITransferMode _mode = SPI_LAST)
     {
       transfer(CS_PIN_CONTROLLED_BY_USER, _bufout, _bufin, _count, _mode);
+    }
+
+    void transfer(uint8_t _data, size_t count, SPITransferMode _mode = SPI_LAST)
+    {
+      transfer(CS_PIN_CONTROLLED_BY_USER, _data, count, _mode);
+    }
+
+    void transfer16(uint16_t _data, size_t count, SPITransferMode _mode = SPI_LAST)
+    {
+      transfer16(CS_PIN_CONTROLLED_BY_USER, _data, count, _mode);
     }
 
     /* These methods are deprecated and kept for compatibility.
