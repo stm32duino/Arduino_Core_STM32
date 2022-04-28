@@ -272,7 +272,7 @@ HAL_StatusTypeDef HAL_PWREx_ControlVoltageScaling(uint32_t VoltageScaling)
 
 /**
   * @brief Enable battery charging.
-  *        When VDD is present, charge the external battery on VBAT through an internal resistor.
+  *        When VDD is present, charge the external battery on VBAT thru an internal resistor.
   * @param  ResistorSelection specifies the resistor impedance.
   *          This parameter can be one of the following values:
   *            @arg @ref PWR_BATTERY_CHARGING_RESISTOR_5     5 kOhms resistor
@@ -974,7 +974,7 @@ HAL_StatusTypeDef HAL_PWREx_ConfigPVM(PWR_PVMTypeDef *sConfigPVM)
 
 
   /* Configure EXTI 35 to 38 interrupts if so required:
-     scan through PVMType to detect which PVMx is set and
+     scan thru PVMType to detect which PVMx is set and
      configure the corresponding EXTI line accordingly. */
   switch (sConfigPVM->PVMType)
   {

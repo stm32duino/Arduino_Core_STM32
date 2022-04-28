@@ -627,7 +627,7 @@ typedef struct
 #define EXTI_GPIOD                          0x00000003u
 #define EXTI_GPIOE                          0x00000004u
 #define EXTI_GPIOF                          0x00000005u
-#define EXTI_GPIOG                          0x00000005u
+#define EXTI_GPIOG                          0x00000006u
 #define EXTI_GPIOH                          0x00000007u
 #define EXTI_GPIOI                          0x00000008u
 /**

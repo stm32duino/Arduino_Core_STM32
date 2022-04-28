@@ -63,7 +63,7 @@ typedef struct
 {
   FunctionalState Activation; /*!< Output clock enable/disable */
   uint32_t        Selection;  /*!< Output clock is system clock or audio clock.
-                                   This parameter can be a value of @ref DFSDM_Channel_OutputClock */
+                                   This parameter can be a value of @ref DFSDM_Channel_OuputClock */
   uint32_t        Divider;    /*!< Output clock divider.
                                    This parameter must be a number between Min_Data = 2 and Max_Data = 256 */
 } DFSDM_Channel_OutputClockTypeDef;
@@ -307,7 +307,7 @@ typedef void (*pDFSDM_Filter_AwdCallbackTypeDef)(DFSDM_Filter_HandleTypeDef *hdf
   * @{
   */
 
-/** @defgroup DFSDM_Channel_OutputClock DFSDM channel output clock selection
+/** @defgroup DFSDM_Channel_OuputClock DFSDM channel output clock selection
   * @{
   */
 #define DFSDM_CHANNEL_OUTPUT_CLOCK_SYSTEM    0x00000000U             /*!< Source for output clock is system clock */
@@ -634,11 +634,11 @@ HAL_StatusTypeDef HAL_DFSDM_ChannelScdStart_IT(DFSDM_Channel_HandleTypeDef *hdfs
 HAL_StatusTypeDef HAL_DFSDM_ChannelScdStop(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
 HAL_StatusTypeDef HAL_DFSDM_ChannelScdStop_IT(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
 
-int16_t           HAL_DFSDM_ChannelGetAwdValue(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
+int16_t           HAL_DFSDM_ChannelGetAwdValue(const DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
 HAL_StatusTypeDef HAL_DFSDM_ChannelModifyOffset(DFSDM_Channel_HandleTypeDef *hdfsdm_channel, int32_t Offset);
 
-HAL_StatusTypeDef HAL_DFSDM_ChannelPollForCkab(DFSDM_Channel_HandleTypeDef *hdfsdm_channel, uint32_t Timeout);
-HAL_StatusTypeDef HAL_DFSDM_ChannelPollForScd(DFSDM_Channel_HandleTypeDef *hdfsdm_channel, uint32_t Timeout);
+HAL_StatusTypeDef HAL_DFSDM_ChannelPollForCkab(const DFSDM_Channel_HandleTypeDef *hdfsdm_channel, uint32_t Timeout);
+HAL_StatusTypeDef HAL_DFSDM_ChannelPollForScd(const DFSDM_Channel_HandleTypeDef *hdfsdm_channel, uint32_t Timeout);
 
 void HAL_DFSDM_ChannelCkabCallback(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
 void HAL_DFSDM_ChannelScdCallback(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
@@ -650,7 +650,7 @@ void HAL_DFSDM_ChannelScdCallback(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
   * @{
   */
 /* Channel state function *****************************************************/
-HAL_DFSDM_Channel_StateTypeDef HAL_DFSDM_ChannelGetState(DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
+HAL_DFSDM_Channel_StateTypeDef HAL_DFSDM_ChannelGetState(const DFSDM_Channel_HandleTypeDef *hdfsdm_channel);
 /**
   * @}
   */
@@ -711,16 +711,16 @@ HAL_StatusTypeDef HAL_DFSDM_FilterInjectedStop(DFSDM_Filter_HandleTypeDef *hdfsd
 HAL_StatusTypeDef HAL_DFSDM_FilterInjectedStop_IT(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 HAL_StatusTypeDef HAL_DFSDM_FilterInjectedStop_DMA(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 HAL_StatusTypeDef HAL_DFSDM_FilterAwdStart_IT(DFSDM_Filter_HandleTypeDef *hdfsdm_filter,
-                                              DFSDM_Filter_AwdParamTypeDef *awdParam);
+                                              const DFSDM_Filter_AwdParamTypeDef *awdParam);
 HAL_StatusTypeDef HAL_DFSDM_FilterAwdStop_IT(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 HAL_StatusTypeDef HAL_DFSDM_FilterExdStart(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t Channel);
 HAL_StatusTypeDef HAL_DFSDM_FilterExdStop(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 
-int32_t  HAL_DFSDM_FilterGetRegularValue(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
-int32_t  HAL_DFSDM_FilterGetInjectedValue(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
-int32_t  HAL_DFSDM_FilterGetExdMaxValue(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
-int32_t  HAL_DFSDM_FilterGetExdMinValue(DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
-uint32_t HAL_DFSDM_FilterGetConvTimeValue(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
+int32_t  HAL_DFSDM_FilterGetRegularValue(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
+int32_t  HAL_DFSDM_FilterGetInjectedValue(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
+int32_t  HAL_DFSDM_FilterGetExdMaxValue(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
+int32_t  HAL_DFSDM_FilterGetExdMinValue(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter, uint32_t *Channel);
+uint32_t HAL_DFSDM_FilterGetConvTimeValue(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 
 void HAL_DFSDM_IRQHandler(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 
@@ -741,8 +741,8 @@ void HAL_DFSDM_FilterErrorCallback(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
   * @{
   */
 /* Filter state functions *****************************************************/
-HAL_DFSDM_Filter_StateTypeDef HAL_DFSDM_FilterGetState(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
-uint32_t                      HAL_DFSDM_FilterGetError(DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
+HAL_DFSDM_Filter_StateTypeDef HAL_DFSDM_FilterGetState(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
+uint32_t                      HAL_DFSDM_FilterGetError(const DFSDM_Filter_HandleTypeDef *hdfsdm_filter);
 /**
   * @}
   */

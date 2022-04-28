@@ -512,7 +512,7 @@ typedef struct
   */
 #define FMC_WRITE_FIFO_DISABLE                  FMC_BCR1_WFDIS
 #define FMC_WRITE_FIFO_ENABLE                   (0x00000000U)
- #endif /* FMC_BCR1_WFDIS */
+#endif /* FMC_BCR1_WFDIS */
 /**
   * @}
   */

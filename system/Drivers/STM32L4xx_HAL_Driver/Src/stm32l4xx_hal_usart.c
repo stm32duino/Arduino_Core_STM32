@@ -763,7 +763,8 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
   * @param  Timeout Timeout duration.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size, uint32_t Timeout)
+HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size,
+                                     uint32_t Timeout)
 {
   const uint8_t  *ptxdata8bits;
   const uint16_t *ptxdata16bits;
@@ -1261,7 +1262,7 @@ HAL_StatusTypeDef HAL_USART_Receive_IT(USART_HandleTypeDef *husart, uint8_t *pRx
       /* Enable the USART Parity Error interrupt and RX FIFO Threshold interrupt */
       if (husart->Init.Parity != USART_PARITY_NONE)
       {
-       SET_BIT(husart->Instance->CR1, USART_CR1_PEIE);
+        SET_BIT(husart->Instance->CR1, USART_CR1_PEIE);
       }
       SET_BIT(husart->Instance->CR3, USART_CR3_RXFTIE);
     }
@@ -2597,7 +2598,7 @@ __weak void HAL_USART_AbortCpltCallback(USART_HandleTypeDef *husart)
   *              the configuration information for the specified USART.
   * @retval USART handle state
   */
-HAL_USART_StateTypeDef HAL_USART_GetState(USART_HandleTypeDef *husart)
+HAL_USART_StateTypeDef HAL_USART_GetState(const USART_HandleTypeDef *husart)
 {
   return husart->State;
 }
@@ -2608,7 +2609,7 @@ HAL_USART_StateTypeDef HAL_USART_GetState(USART_HandleTypeDef *husart)
   *              the configuration information for the specified USART.
   * @retval USART handle Error Code
   */
-uint32_t HAL_USART_GetError(USART_HandleTypeDef *husart)
+uint32_t HAL_USART_GetError(const USART_HandleTypeDef *husart)
 {
   return husart->ErrorCode;
 }

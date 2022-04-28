@@ -1360,6 +1360,7 @@ typedef struct
 /* parameter "tSTART").                                                       */
 /* Unit: us                                                                   */
 #define LL_ADC_DELAY_TEMPSENSOR_STAB_US        (120UL)  /*!< Delay for temperature sensor stabilization time */
+#define LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US ( 15UL)  /*!< Delay for temperature sensor buffer stabilization time (starting from ADC enable, refer to @ref LL_ADC_Enable()) */
 
 /* Delay required between ADC end of calibration and ADC enable.              */
 /* Note: On this STM32 series, a minimum number of ADC clock cycles           */
@@ -2486,7 +2487,8 @@ __STATIC_INLINE uint32_t LL_ADC_GetCommonClock(ADC_Common_TypeDef *ADCxy_COMMON)
   *         temperature sensor stabilization time.
   *         Refer to device datasheet.
   *         Refer to literal @ref LL_ADC_DELAY_VREFINT_STAB_US.
-  *         Refer to literal @ref LL_ADC_DELAY_TEMPSENSOR_STAB_US.
+  *         Refer to literals @ref LL_ADC_DELAY_TEMPSENSOR_STAB_US,
+  *         @ref LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US.
   * @note   ADC internal channel sampling time constraint:
   *         For ADC conversion of internal channels,
   *         a sampling time minimum value is required.
@@ -2521,7 +2523,8 @@ __STATIC_INLINE void LL_ADC_SetCommonPathInternalCh(ADC_Common_TypeDef *ADCxy_CO
   *         temperature sensor stabilization time.
   *         Refer to device datasheet.
   *         Refer to literal @ref LL_ADC_DELAY_VREFINT_STAB_US.
-  *         Refer to literal @ref LL_ADC_DELAY_TEMPSENSOR_STAB_US.
+  *         Refer to literals @ref LL_ADC_DELAY_TEMPSENSOR_STAB_US,
+  *         @ref LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US.
   * @note   ADC internal channel sampling time constraint:
   *         For ADC conversion of internal channels,
   *         a sampling time minimum value is required.

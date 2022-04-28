@@ -131,7 +131,7 @@
   *          - SUCCESS: USART registers are de-initialized
   *          - ERROR: USART registers are not de-initialized
   */
-ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
+ErrorStatus LL_USART_DeInit(const USART_TypeDef *USARTx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -206,7 +206,7 @@ ErrorStatus LL_USART_DeInit(USART_TypeDef *USARTx)
   *          - SUCCESS: USART registers are initialized according to USART_InitStruct content
   *          - ERROR: Problem occurred during USART Registers initialization
   */
-ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_InitStruct)
+ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, const LL_USART_InitTypeDef *USART_InitStruct)
 {
   ErrorStatus status = ERROR;
   uint32_t periphclk = LL_RCC_PERIPH_FREQUENCY_NO;
@@ -361,7 +361,7 @@ void LL_USART_StructInit(LL_USART_InitTypeDef *USART_InitStruct)
   *                     to USART_ClockInitStruct content
   *          - ERROR: Problem occurred during USART Registers initialization
   */
-ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
+ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, const LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 {
   ErrorStatus status = SUCCESS;
 

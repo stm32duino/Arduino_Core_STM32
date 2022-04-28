@@ -38,9 +38,8 @@ Tag v1.11.0 | Tag v1.6.0 | Tag v5.4.0_cm4 | Tag v1.15.0 (and following, if any, 
 Tag v1.11.1 | Tag v1.6.1 | Tag v5.4.0_cm4 | Tag v1.15.1 (and following, if any, till next HAL tag)
 Tag v1.12.0 | Tag v1.7.0 | Tag v5.6.0_cm4 | Tag v1.16.0 (and following, if any, till next HAL tag)
 Tag v1.13.0 | Tag v1.7.1 | Tag v5.6.0_cm4 | Tag v1.17.0 (and following, if any, till next HAL tag)
-Tag v1.13.1 | Tag v1.7.2 | Tag v5.6.0_cm4 | Tag v1.17.1 (and following, if any, till next HAL tag)
-
-Details about the content of this release are available in the release note [here](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/stm32l4xx_hal_driver/blob/master/Release_Notes.html).
+Tag v1.13.2 | Tag v1.7.2 | Tag v5.6.0_cm4 | Tag v1.17.1 (and following, if any, till next HAL tag)
+Tag v1.13.3 | Tag v1.7.2 | Tag v5.6.0_cm4 | Tag v1.17.2 (and following, if any, till next HAL tag)
 
 The full **STM32CubeL4** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeL4).
 
