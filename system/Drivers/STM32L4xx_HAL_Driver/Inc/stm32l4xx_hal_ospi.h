@@ -1004,6 +1004,9 @@ HAL_StatusTypeDef     HAL_OSPIM_Config(OSPI_HandleTypeDef *hospi, OSPIM_CfgTypeD
 #define IS_OSPI_TIMEOUT_PERIOD(PERIOD)     ((PERIOD) <= 0xFFFFU)
 
 #define IS_OSPI_CS_BOUNDARY(BOUNDARY)      ((BOUNDARY) <= 31U)
+
+#define IS_OSPI_DLYBYP(MODE)               (((MODE) == HAL_OSPI_DELAY_BLOCK_USED) || \
+                                            ((MODE) == HAL_OSPI_DELAY_BLOCK_BYPASSED))
 #if   defined (OCTOSPI_DCR3_MAXTRAN)
 
 #define IS_OSPI_MAXTRAN(NB_BYTES)          ((NB_BYTES) <= 255U)

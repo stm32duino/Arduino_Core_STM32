@@ -1230,21 +1230,11 @@ static void HCD_HC_IN_IRQHandler(HCD_HandleTypeDef *hhcd, uint8_t chnum)
       (void)USB_HC_Halt(hhcd->Instance, (uint8_t)ch_num);
       __HAL_HCD_CLEAR_HC_INT(ch_num, USB_OTG_HCINT_NAK);
     }
-    else if (hhcd->hc[ch_num].ep_type == EP_TYPE_INTR)
+    else if ((hhcd->hc[ch_num].ep_type == EP_TYPE_INTR) ||
+             (hhcd->hc[ch_num].ep_type == EP_TYPE_ISOC))
     {
       USBx_HC(ch_num)->HCCHAR |= USB_OTG_HCCHAR_ODDFRM;
       hhcd->hc[ch_num].urb_state = URB_DONE;
-
-#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
-      hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num].urb_state);
-#else
-      HAL_HCD_HC_NotifyURBChange_Callback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num].urb_state);
-#endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
-    }
-    else if (hhcd->hc[ch_num].ep_type == EP_TYPE_ISOC)
-    {
-      hhcd->hc[ch_num].urb_state = URB_DONE;
-      hhcd->hc[ch_num].toggle_in ^= 1U;
 
 #if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
       hhcd->HC_NotifyURBChangeCallback(hhcd, (uint8_t)ch_num, hhcd->hc[ch_num].urb_state);

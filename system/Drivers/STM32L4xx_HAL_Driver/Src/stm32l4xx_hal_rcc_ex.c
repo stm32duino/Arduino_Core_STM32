@@ -3311,7 +3311,7 @@ static uint32_t RCCEx_GetSAIxPeriphCLKFreq(uint32_t PeriphClk, uint32_t InputFre
   uint32_t pllp = 0U;
 #endif /* RCC_PLLP_SUPPORT */
 
-  /* Handle SAIx */
+  /* Handle SAIs */
   if(PeriphClk == RCC_PERIPHCLK_SAI1)
   {
     srcclk = __HAL_RCC_GET_SAI1_SOURCE();

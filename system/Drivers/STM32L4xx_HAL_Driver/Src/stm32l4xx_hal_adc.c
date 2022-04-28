@@ -3386,6 +3386,7 @@ HAL_StatusTypeDef ADC_ConversionStop(ADC_HandleTypeDef *hadc, uint32_t Conversio
 HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef *hadc)
 {
   uint32_t tickstart;
+  __IO uint32_t wait_loop_index = 0UL;
 
   /* ADC enable and wait for ADC ready (in case of ADC is disabled or         */
   /* enabling phase not yet completed: flag ADC ready not yet set).           */
@@ -3408,6 +3409,25 @@ HAL_StatusTypeDef ADC_Enable(ADC_HandleTypeDef *hadc)
 
     /* Enable the ADC peripheral */
     LL_ADC_Enable(hadc->Instance);
+
+    if((LL_ADC_GetCommonPathInternalCh(__LL_ADC_COMMON_INSTANCE(hadc->Instance)) & LL_ADC_PATH_INTERNAL_TEMPSENSOR) != 0UL)
+    {
+      /* Delay for temperature sensor buffer stabilization time */
+      /* Note: Value LL_ADC_DELAY_TEMPSENSOR_STAB_US used instead of      */
+      /*       LL_ADC_DELAY_TEMPSENSOR_BUFFER_STAB_US because needed      */
+      /*       in case of ADC enable after a system wake up               */
+      /*       from low power mode.                                       */
+
+      /* Wait loop initialization and execution */
+      /* Note: Variable divided by 2 to compensate partially              */
+      /*       CPU processing cycles, scaling in us split to not          */
+      /*       exceed 32 bits register capacity and handle low frequency. */
+      wait_loop_index = ((LL_ADC_DELAY_TEMPSENSOR_STAB_US / 10UL) * ((SystemCoreClock / (100000UL * 2UL)) + 1UL));
+      while(wait_loop_index != 0UL)
+      {
+        wait_loop_index--;
+      }
+    }
 
     /* Wait for ADC effectively enabled */
     tickstart = HAL_GetTick();

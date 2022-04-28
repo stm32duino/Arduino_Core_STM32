@@ -300,20 +300,20 @@ HAL_StatusTypeDef HAL_NOR_Init(NOR_HandleTypeDef *hnor, FMC_NORSRAM_TimingTypeDe
     deviceaddress = NOR_MEMORY_ADRESS4;
   }
 
-  FMC_NORSRAM_WriteOperation_Enable(hnor->Instance,hnor->Init.NSBank);
-
-  /* Get the value of the command set */
-  NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
-  hnor->CommandSet = *(__IO uint16_t *) NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_ADDRESS_COMMAND_SET);
-
-  status = HAL_NOR_ReturnToReadMode(hnor);
-
   if (hnor->Init.WriteOperation == FMC_WRITE_OPERATION_DISABLE)
   {
-    FMC_NORSRAM_WriteOperation_Disable(hnor->Instance,hnor->Init.NSBank);
+    (void)FMC_NORSRAM_WriteOperation_Disable(hnor->Instance, hnor->Init.NSBank);
 
     /* Update the NOR controller state */
     hnor->State = HAL_NOR_STATE_PROTECTED;
+  }
+  else
+  {
+    /* Get the value of the command set */
+    NOR_WRITE(NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_CMD_ADDRESS_FIRST_CFI), NOR_CMD_DATA_CFI);
+    hnor->CommandSet = *(__IO uint16_t *) NOR_ADDR_SHIFT(deviceaddress, uwNORMemoryDataWidth, NOR_ADDRESS_COMMAND_SET);
+
+    status = HAL_NOR_ReturnToReadMode(hnor);
   }
 
   return status;
@@ -439,7 +439,11 @@ HAL_StatusTypeDef HAL_NOR_Read_ID(NOR_HandleTypeDef *hnor, NOR_IDTypeDef *pNOR_I
   {
     return HAL_BUSY;
   }
-  else if ((state == HAL_NOR_STATE_READY) || (state == HAL_NOR_STATE_PROTECTED))
+  else if (state == HAL_NOR_STATE_PROTECTED)
+  {
+    return HAL_ERROR;
+  }
+  else if (state == HAL_NOR_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hnor);
@@ -526,7 +530,11 @@ HAL_StatusTypeDef HAL_NOR_ReturnToReadMode(NOR_HandleTypeDef *hnor)
   {
     return HAL_BUSY;
   }
-  else if ((state == HAL_NOR_STATE_READY) || (state == HAL_NOR_STATE_PROTECTED))
+  else if (state == HAL_NOR_STATE_PROTECTED)
+  {
+    return HAL_ERROR;
+  }
+  else if (state == HAL_NOR_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hnor);
@@ -600,7 +608,11 @@ HAL_StatusTypeDef HAL_NOR_Read(NOR_HandleTypeDef *hnor, uint32_t *pAddress, uint
   {
     return HAL_BUSY;
   }
-  else if ((state == HAL_NOR_STATE_READY) || (state == HAL_NOR_STATE_PROTECTED))
+  else if (state == HAL_NOR_STATE_PROTECTED)
+  {
+    return HAL_ERROR;
+  }
+  else if (state == HAL_NOR_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hnor);
@@ -769,7 +781,11 @@ HAL_StatusTypeDef HAL_NOR_ReadBuffer(NOR_HandleTypeDef *hnor, uint32_t uwAddress
   {
     return HAL_BUSY;
   }
-  else if ((state == HAL_NOR_STATE_READY) || (state == HAL_NOR_STATE_PROTECTED))
+  else if (state == HAL_NOR_STATE_PROTECTED)
+  {
+    return HAL_ERROR;
+  }
+  else if (state == HAL_NOR_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hnor);
@@ -1129,7 +1145,11 @@ HAL_StatusTypeDef HAL_NOR_Read_CFI(NOR_HandleTypeDef *hnor, NOR_CFITypeDef *pNOR
   {
     return HAL_BUSY;
   }
-  else if ((state == HAL_NOR_STATE_READY) || (state == HAL_NOR_STATE_PROTECTED))
+  else if (state == HAL_NOR_STATE_PROTECTED)
+  {
+    return HAL_ERROR;
+  }
+  else if (state == HAL_NOR_STATE_READY)
   {
     /* Process Locked */
     __HAL_LOCK(hnor);

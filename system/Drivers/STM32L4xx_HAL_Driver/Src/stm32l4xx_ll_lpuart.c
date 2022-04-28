@@ -128,7 +128,7 @@
   *          - SUCCESS: LPUART registers are de-initialized
   *          - ERROR: not applicable
   */
-ErrorStatus LL_LPUART_DeInit(USART_TypeDef *LPUARTx)
+ErrorStatus LL_LPUART_DeInit(const USART_TypeDef *LPUARTx)
 {
   ErrorStatus status = SUCCESS;
 
@@ -166,7 +166,7 @@ ErrorStatus LL_LPUART_DeInit(USART_TypeDef *LPUARTx)
   *          - SUCCESS: LPUART registers are initialized according to LPUART_InitStruct content
   *          - ERROR: Problem occurred during LPUART Registers initialization
   */
-ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, LL_LPUART_InitTypeDef *LPUART_InitStruct)
+ErrorStatus LL_LPUART_Init(USART_TypeDef *LPUARTx, const LL_LPUART_InitTypeDef *LPUART_InitStruct)
 {
   ErrorStatus status = ERROR;
   uint32_t periphclk;

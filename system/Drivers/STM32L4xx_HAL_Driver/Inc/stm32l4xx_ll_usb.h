@@ -131,6 +131,9 @@ typedef struct
   uint8_t   is_stall;             /*!< Endpoint stall condition
                                        This parameter must be a number between Min_Data = 0 and Max_Data = 1    */
 
+  uint8_t   is_iso_incomplete;    /*!< Endpoint isoc condition
+                                       This parameter must be a number between Min_Data = 0 and Max_Data = 1    */
+
   uint8_t   type;                 /*!< Endpoint type
                                        This parameter can be any value of @ref USB_LL_EP_Type                   */
 
@@ -151,6 +154,8 @@ typedef struct
   uint32_t  dma_addr;             /*!< 32 bits aligned transfer buffer address                                  */
 
   uint32_t  xfer_len;             /*!< Current transfer length                                                  */
+
+  uint32_t  xfer_size;            /*!< requested transfer size                                                  */
 
   uint32_t  xfer_count;           /*!< Partial transfer length in case of multi packet transfer                 */
 } USB_OTG_EPTypeDef;
@@ -529,6 +534,10 @@ typedef struct
 #if defined (USB)
 #define EP_ADDR_MSK                            0x7U
 #endif /* defined (USB) */
+
+#ifndef USB_EP_RX_STRX
+#define USB_EP_RX_STRX                         (0x3U << 12)
+#endif /* USB_EP_RX_STRX */
 
 #ifndef USE_USB_DOUBLE_BUFFER
 #define USE_USB_DOUBLE_BUFFER                  1U

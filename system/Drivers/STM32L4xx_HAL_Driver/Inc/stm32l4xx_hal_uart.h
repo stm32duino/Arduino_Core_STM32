@@ -1729,8 +1729,8 @@ HAL_StatusTypeDef HAL_HalfDuplex_EnableReceiver(UART_HandleTypeDef *huart);
   */
 
 /* Peripheral State and Errors functions  **************************************************/
-HAL_UART_StateTypeDef HAL_UART_GetState(UART_HandleTypeDef *huart);
-uint32_t              HAL_UART_GetError(UART_HandleTypeDef *huart);
+HAL_UART_StateTypeDef HAL_UART_GetState(const UART_HandleTypeDef *huart);
+uint32_t              HAL_UART_GetError(const UART_HandleTypeDef *huart);
 
 /**
   * @}
