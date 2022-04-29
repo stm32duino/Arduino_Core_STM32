@@ -28,16 +28,17 @@ extern "C" {
   */
 uint32_t getCurrentMicros(void)
 {
-  /* Ensure COUNTFLAG is reset by reading SysTick control and status register */
-  LL_SYSTICK_IsActiveCounterFlag();
-  uint32_t m = HAL_GetTick();
+  uint32_t m0 = HAL_GetTick();
+  __IO uint32_t u0 = SysTick->VAL;
+  uint32_t m1 = HAL_GetTick();
+  __IO uint32_t u1 = SysTick->VAL;
   const uint32_t tms = SysTick->LOAD + 1;
-  __IO uint32_t u = tms - SysTick->VAL;
-  if (LL_SYSTICK_IsActiveCounterFlag()) {
-    m = HAL_GetTick();
-    u = tms - SysTick->VAL;
+
+  if (m1 != m0) {
+    return (m1 * 1000 + ((tms - u1) * 1000) / tms);
+  } else {
+    return (m0 * 1000 + ((tms - u0) * 1000) / tms);
   }
-  return (m * 1000 + (u * 1000) / tms);
 }
 
 /**
