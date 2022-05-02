@@ -184,8 +184,9 @@ def wrap(arg_core, arg_cmsis, log):
             lower = serie.lower()
 
             # Search stm32yyxx_[hal|ll]*.c file
-            filelist = src.glob(f"stm32{lower}xx_*.c")
+            filelist = src.glob(f"**/stm32{lower}xx_*.c")
             for fp in filelist:
+                legacy = True if fp.parent.name == "Legacy" else False
                 # File name
                 fn = fp.name
                 found = peripheral_c_regex.match(fn)
@@ -194,14 +195,30 @@ def wrap(arg_core, arg_cmsis, log):
                 peripheral = found.group(1) if found else "hal"
                 if "_ll_" in fn:
                     if peripheral in ll_c_dict:
-                        ll_c_dict[peripheral].append(lower)
+                        if legacy:
+                            # Change legacy value if exists
+                            current_list = ll_c_dict.pop(peripheral)
+                            if current_list[-1][0] == lower:
+                                current_list.pop()
+                            current_list.append((lower, legacy))
+                            ll_c_dict[peripheral] = current_list
+                        else:
+                            ll_c_dict[peripheral].append((lower, legacy))
                     else:
-                        ll_c_dict[peripheral] = [lower]
+                        ll_c_dict[peripheral] = [(lower, legacy)]
                 else:
                     if peripheral in hal_c_dict:
-                        hal_c_dict[peripheral].append(lower)
+                        if legacy:
+                            # Change legacy value if exists
+                            current_list = hal_c_dict.pop(peripheral)
+                            if current_list[-1][0] == lower:
+                                current_list.pop()
+                            current_list.append((lower, legacy))
+                            hal_c_dict[peripheral] = current_list
+                        else:
+                            hal_c_dict[peripheral].append((lower, legacy))
                     else:
-                        hal_c_dict[peripheral] = [lower]
+                        hal_c_dict[peripheral] = [(lower, legacy)]
 
             # Search stm32yyxx_ll_*.h file
             filelist = inc.glob(f"stm32{lower}xx_ll_*.h")
