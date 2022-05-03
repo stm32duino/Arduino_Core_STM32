@@ -158,7 +158,7 @@ def configure_application_offset(mcu, upload_protocol):
 
 
 if (
-    any(cpu in board_config.get("build.cpu") for cpu in ("cortex-m4", "cortex-m7"))
+    any(cpu in board_config.get("build.cpu") for cpu in ("cortex-m33", "cortex-m4", "cortex-m7"))
     and "stm32wl" not in mcu
 ):
     env.Append(
