@@ -12,6 +12,10 @@ from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 from xml.dom.minidom import parse, Node
 
+script_path = Path(__file__).parent.resolve()
+sys.path.append(str(script_path.parent))
+from utils import execute_cmd, getRepoBranchName
+
 mcu_list = []  # 'name'
 io_list = []  # 'PIN','name'
 alt_list = []  # 'PIN','name'
@@ -2146,11 +2150,20 @@ def manage_repo():
         if not args.skip:
             print(f"Updating {repo_name}...")
             if repo_path.is_dir():
+                rname, bname = getRepoBranchName(repo_path)
+
                 # Get new tags from the remote
                 git_cmds = [
                     ["git", "-C", repo_path, "clean", "-fdx"],
                     ["git", "-C", repo_path, "fetch"],
-                    ["git", "-C", repo_path, "reset", "--hard", "origin/main"],
+                    [
+                        "git",
+                        "-C",
+                        repo_path,
+                        "reset",
+                        "--hard",
+                        f"{rname}/{bname}",
+                    ],
                 ]
             else:
                 # Clone it as it does not exists yet
