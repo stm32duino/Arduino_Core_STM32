@@ -188,7 +188,7 @@ def parse_mcu_file():
                 else:
                     usb_inst["usb"] = inst.group(1)
             else:
-                if gpiofile == "" and "GPIO" in s.attributes["Name"].value:
+                if gpiofile == "" and s.attributes["Name"].value == "GPIO":
                     gpiofile = s.attributes["Version"].value
 
 
