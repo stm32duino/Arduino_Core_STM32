@@ -2146,55 +2146,44 @@ def manage_repo():
     global db_release
     repo_local_path.mkdir(parents=True, exist_ok=True)
 
-    try:
-        if not args.skip:
-            print(f"Updating {repo_name}...")
-            if repo_path.is_dir():
-                rname, bname = getRepoBranchName(repo_path)
-
-                # Get new tags from the remote
-                git_cmds = [
-                    ["git", "-C", repo_path, "clean", "-fdx"],
-                    ["git", "-C", repo_path, "fetch"],
-                    [
-                        "git",
-                        "-C",
-                        repo_path,
-                        "reset",
-                        "--hard",
-                        f"{rname}/{bname}",
-                    ],
-                ]
-            else:
-                # Clone it as it does not exists yet
-                git_cmds = [["git", "-C", repo_local_path, "clone", gh_url]]
-
-            for cmd in git_cmds:
-                subprocess.check_output(cmd).decode("utf-8")
+    if not args.skip:
+        print(f"Updating {repo_name}...")
         if repo_path.is_dir():
-            # Get tag
-            sha1_id = (
-                subprocess.check_output(
-                    ["git", "-C", repo_path, "rev-list", "--tags", "--max-count=1"]
-                )
-                .decode("utf-8")
-                .strip()
-            )
-            version_tag = (
-                subprocess.check_output(
-                    ["git", "-C", repo_path, "describe", "--tags", sha1_id]
-                )
-                .decode("utf-8")
-                .strip()
-            )
-            subprocess.check_output(
-                ["git", "-C", repo_path, "checkout", version_tag],
-                stderr=subprocess.DEVNULL,
-            )
-            db_release = version_tag
-            return True
-    except subprocess.CalledProcessError as e:
-        print(f"Command {e.cmd} failed with error code {e.returncode}")
+            rname, bname = getRepoBranchName(repo_path)
+
+            # Get new tags from the remote
+            git_cmds = [
+                ["git", "-C", repo_path, "clean", "-fdx"],
+                ["git", "-C", repo_path, "fetch"],
+                [
+                    "git",
+                    "-C",
+                    repo_path,
+                    "reset",
+                    "--hard",
+                    f"{rname}/{bname}",
+                ],
+            ]
+        else:
+            # Clone it as it does not exists yet
+            git_cmds = [["git", "-C", repo_local_path, "clone", gh_url]]
+
+        for cmd in git_cmds:
+            execute_cmd(cmd, None)
+    if repo_path.is_dir():
+        # Get tag
+        sha1_id = execute_cmd(
+            ["git", "-C", repo_path, "rev-list", "--tags", "--max-count=1"], None
+        )
+        version_tag = execute_cmd(
+            ["git", "-C", repo_path, "describe", "--tags", sha1_id], None
+        )
+        execute_cmd(
+            ["git", "-C", repo_path, "checkout", version_tag],
+            subprocess.DEVNULL,
+        )
+        db_release = version_tag
+        return True
     return False
 
 
