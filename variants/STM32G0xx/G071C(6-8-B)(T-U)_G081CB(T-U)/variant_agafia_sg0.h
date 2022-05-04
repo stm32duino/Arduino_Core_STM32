@@ -64,8 +64,8 @@
 #define PD1  23
 #define PD2  24
 #define PD3  25
-#define PD4  26 
-#define PB4	 27 	
+#define PD4  26
+#define PB4  27	
 #define PB5  28
 #define PB6  29 
 #define PB7  30
@@ -77,17 +77,17 @@
 #define PF1  34 //LED2
 #define PC13 35 //LED1
 
-#define PA4  36 // A0
-#define PB12 37 // A1
-#define PB11 38 // A2
-#define PB10 39 // A3
-#define PB2  40 // A4
-#define PB1  41 // A5
+#define PA4  PIN_A0 // A0
+#define PB12 PIN_A1 // A1
+#define PB11 PIN_A2 // A2
+#define PB10 PIN_A3 // A3
+#define PB2  PIN_A4 // A4
+#define PB1  PIN_A5 // A5
 
 // This must be a literal
 #define NUM_DIGITAL_PINS        42
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       10
+#define NUM_ANALOG_INPUTS       6
  
 
 // On-board LED pin number
@@ -162,6 +162,6 @@
 // SERIAL_PORT_HARDWARE_OPEN  Hardware serial ports which are open for use.  Their RX & TX
 //                            pins are NOT connected to anything by default.
 #define SERIAL_PORT_MONITOR   Serial
-#define SERIAL_PORT_HARDWARE  Serial2
+#define SERIAL_PORT_HARDWARE  SerialLP1
 #endif
  
