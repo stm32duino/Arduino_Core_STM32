@@ -2014,7 +2014,9 @@ def aggregate_dir():
         out_family_path = root_dir / "variants" / mcu_family.name
         # Get all mcu_dir
         mcu_dirs = sorted(mcu_family.glob("*/"))
-
+        # Get original directory list of current serie STM32YYxx
+        mcu_out_dirs_ori = sorted(out_family_path.glob("*/"))
+        mcu_out_dirs_up = []
         # Group mcu directories when only expressions and xml file name are different
         while mcu_dirs:
             # Pop first item
@@ -2076,8 +2078,38 @@ def aggregate_dir():
                     fname.unlink()
                 else:
                     fname.replace(out_path / fname.name)
+            # Append updated directory to the list of current serie STM32YYxx
+            mcu_out_dirs_up.append(out_path)
             del group_mcu_dir[:]
             del mcu_dir1_files_list[:]
+        mcu_out_dirs_up.sort()
+        new_dirs = set(mcu_out_dirs_up) - set(mcu_out_dirs_ori)
+        if new_dirs:
+            nb_new = len(new_dirs)
+            dir_str = "directories" if nb_new > 1 else "directory"
+            print(f"\nNew {dir_str} for {mcu_family.name}:\n")
+            for d in new_dirs:
+                print(f"  - {d.name}")
+            print("\n  --> Please, check if it is a new directory or a renamed one.")
+        old_dirs = set(mcu_out_dirs_ori) - set(mcu_out_dirs_up)
+        if old_dirs:
+            nb_old = len(old_dirs)
+            dir_str = "Directories" if nb_old > 1 else "Directory"
+            print(f"\n{dir_str} not updated for {mcu_family.name}:\n")
+            for d in old_dirs:
+                print(f"  - {d.name}")
+            print(
+                """
+  --> Please, check if it is due to directory name update (renamed), if true then:
+    - Move custom boards definition files, if any.
+    - Move linker script(s), if any.
+    - Copy 'SystemClock_Config(void)' function to the new generic clock config file.
+  --> Then remove it, update old path in boards.txt
+     (for custom board(s) as well as generic ones).
+"""
+            )
+        del mcu_out_dirs_ori[:]
+        del mcu_out_dirs_up[:]
 
 
 def default_cubemxdir():
