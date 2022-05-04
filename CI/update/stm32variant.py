@@ -61,7 +61,7 @@ mcu_family = ""
 mcu_refname = ""
 mcu_flash = []
 mcu_ram = []
-
+legacy_hal = {"CAN": ["F0", "F1", "F2", "F3", "F4", "F7", "L4"], "ETH": ["F4", "H7"]}
 # Cube information
 product_line_dict = {}
 
@@ -816,7 +816,9 @@ def can_pinmap(lst):
         )
     return dict(
         name=name,
-        hal=name,
+        hal=["CAN", "CAN_LEGACY"]
+        if name != "FDCAN" and any(mcu in mcu_family for mcu in legacy_hal["CAN"])
+        else name,
         aname=aname,
         data="",
         wpin=max(wpin) + 1,
@@ -845,7 +847,9 @@ def eth_pinmap():
         )
     return dict(
         name="ETHERNET",
-        hal="ETH",
+        hal=["ETH", "ETH_LEGACY"]
+        if any(mcu in mcu_family for mcu in legacy_hal["ETH"])
+        else "ETH",
         aname="Ethernet",
         data="",
         wpin=max(wpin) + 1,
