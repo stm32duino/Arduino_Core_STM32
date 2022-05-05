@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *******************************************************************************
  */
- 
+
 #if defined(ARDUINO_AGAFIA_SG0)
 #include "pins_arduino.h"
 
@@ -37,64 +37,63 @@ extern "C" {
 
 // Pin number
 const PinName digitalPin[] = {
-  PA_10, //D0
-  PA_9 , //D1
-  PA_12, //D2
-  PC_6,  //D3  //SPI_CLK
-  PB_15, //D4
-  PB_14, //D5
-  PA_8,  //D6
-  PB_13, //D7
-  PC_7,  //D8
-  PB_3,  //D9
-  PB_0,  //D10 //SPI_CS
-  PA_7,  //D11 //SPI_MOSI
-  PA_6,  //D12 //SPI_MISO
-  PA_5,  //D13 //SPI_CLK
-  PB_9,  //D14
-  PB_8,  //D15
-   
-   
-  PA_3,  //D16
-  PA_2,  //D17
-  PA_0,  //D18 
-  PA_1,  //D19
-  
-  PA_11, //D20		
-  PA_15, //D21 
-  PD_0,	 //D22
-  PD_1,  //D23
-  PD_2,  //D24
-  PD_3,  //D25
-  PD_4,  //D26
-  PB_4,  //D27		
-  PB_5,  //D28
-  PB_6,  //D29
-  PB_7,  //D30
-  
-  PA_14, //D31
-  PA_13, //D32 
-  
-  PF_0,  //D33
-  PF_1,  //D34
-  PC_13, //D35
-  
-  PA_4,  //D36 //A0 //DAC1
-  PB_12, //D37 //A1
-  PB_11, //D38 //A2
-  PB_10, //D39 //A3
-  PB_2,  //D40 //A4 
-  PB_1   //D41 //A5
+  PA_10, // D0
+  PA_9,  // D1
+  PA_12, // D2
+  PC_6,  // D3 - SPI_CLK
+  PB_15, // D4
+  PB_14, // D5
+  PA_8,  // D6
+  PB_13, // D7
+  PC_7,  // D8
+  PB_3,  // D9
+  PB_0,  // D10 - SPI_CS
+  PA_7,  // D11 - SPI_MOSI
+  PA_6,  // D12 - PI_MISO
+  PA_5,  // D13 - SPI_CLK
+  PB_9,  // D14
+  PB_8,  // D15
+
+  PA_3,  // D16
+  PA_2,  // D17
+  PA_0,  // D18
+  PA_1,  // D19
+
+  PA_11, // D20
+  PA_15, // D21
+  PD_0,  // D22
+  PD_1,  // D23
+  PD_2,  // D24
+  PD_3,  // D25
+  PD_4,  // D26
+  PB_4,  // D27
+  PB_5,  // D28
+  PB_6,  // D29
+  PB_7,  // D30
+
+  PA_14, // D31
+  PA_13, // D32
+
+  PF_0,  // D33
+  PF_1,  // D34
+  PC_13, // D35
+
+  PA_4,  // D36/A0 - DAC1
+  PB_12, // D37/A1
+  PB_11, // D38/A2
+  PB_10, // D39/A3
+  PB_2,  // D40/A4
+  PB_1   // D41/A5
 };
 
 // Analog (Ax) pin number array
 const uint32_t analogInputPin[] = {
-  36, //A0
-  37, //A1
-  38, //A2
-  39, //A3
-  40, //A4
-  41, //A5
+  36, // A0, PA4
+  37, // A1, PB12
+  38, // A2, PB11
+  39, // A3, PB10
+  40, // A4, PB2
+  41, // A5, PB1
 };
 
 
