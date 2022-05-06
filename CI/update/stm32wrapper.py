@@ -219,39 +219,29 @@ def wrap(arg_core, arg_cmsis, log):
                 else:
                     ll_h_dict[peripheral] = [lower]
 
-            # Generate stm32yyxx_hal_*.c file
-            for key, value in hal_c_dict.items():
-                if key == "hal":
-                    filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace(
-                        "_ppp", ""
-                    )
-                else:
-                    filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace(
-                        "ppp", key
-                    )
-                out_file = open(filepath, "w", newline="\n")
-                out_file.write(
-                    c_file_template.render(periph=key, type="hal", serieslist=value)
-                )
-                out_file.close()
-            # Generate stm32yyxx_ll_*.c file
-            for key, value in ll_c_dict.items():
-                filepath = LLoutSrc_path / c_file.replace("zz", "ll").replace(
-                    "ppp", key
-                )
-                out_file = open(filepath, "w", newline="\n")
-                out_file.write(
-                    c_file_template.render(periph=key, type="ll", serieslist=value)
-                )
-                out_file.close()
-            # Generate stm32yyxx_ll_*.h file
-            for key, value in ll_h_dict.items():
-                filepath = LLoutInc_path / ll_h_file.replace("ppp", key)
-                out_file = open(filepath, "w", newline="\n")
-                out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
-                out_file.close()
-            if log:
-                print("done")
+    # Generate stm32yyxx_hal_*.c file
+    for key, value in hal_c_dict.items():
+        if key == "hal":
+            filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("_ppp", "")
+        else:
+            filepath = HALoutSrc_path / c_file.replace("zz", "hal").replace("ppp", key)
+        out_file = open(filepath, "w", newline="\n")
+        out_file.write(c_file_template.render(periph=key, type="hal", serieslist=value))
+        out_file.close()
+    # Generate stm32yyxx_ll_*.c file
+    for key, value in ll_c_dict.items():
+        filepath = LLoutSrc_path / c_file.replace("zz", "ll").replace("ppp", key)
+        out_file = open(filepath, "w", newline="\n")
+        out_file.write(c_file_template.render(periph=key, type="ll", serieslist=value))
+        out_file.close()
+    # Generate stm32yyxx_ll_*.h file
+    for key, value in ll_h_dict.items():
+        filepath = LLoutInc_path / ll_h_file.replace("ppp", key)
+        out_file = open(filepath, "w", newline="\n")
+        out_file.write(ll_h_file_template.render(periph=key, serieslist=value))
+        out_file.close()
+    if log:
+        print("done")
 
     # Filter all LL header file
     all_ll_h_list = sorted(set(all_ll_h_list))
