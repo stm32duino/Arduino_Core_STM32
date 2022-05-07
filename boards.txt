@@ -5828,7 +5828,7 @@ BluesW.menu.pnum.SWAN_R5.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # Upload menu
 BluesW.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
-BluesW.menu.upload_method.swdMethod.upload.protocol=10
+BluesW.menu.upload_method.swdMethod.upload.protocol=0
 BluesW.menu.upload_method.swdMethod.upload.options=-g
 BluesW.menu.upload_method.swdMethod.upload.tool=stm32CubeProg
 
