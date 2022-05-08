@@ -2796,6 +2796,14 @@ GenF7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
+# Generic F722RETx
+GenF7.menu.pnum.GENERIC_F722RETX=Generic F722RETx
+GenF7.menu.pnum.GENERIC_F722RETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722RETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722RETX.build.board=GENERIC_F722RETX
+GenF7.menu.pnum.GENERIC_F722RETX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
+
 # Generic F745ZETx
 GenF7.menu.pnum.GENERIC_F745ZETX=Generic F745ZETx
 GenF7.menu.pnum.GENERIC_F745ZETX.upload.maximum_size=524288
