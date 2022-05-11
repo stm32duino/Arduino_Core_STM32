@@ -1,4 +1,5 @@
 import re
+import subprocess
 import shutil
 import sys
 
@@ -50,6 +51,31 @@ def genSTM32List(path, pattern):
             stm32_list.append(res.group(1))
     stm32_list.sort()
     return stm32_list
+
+
+def execute_cmd(cmd, stderror):
+    try:
+        output = subprocess.check_output(cmd, stderr=stderror).decode("utf-8").strip()
+    except subprocess.CalledProcessError as e:
+        print(f"Command {e.cmd} failed with error code {e.returncode}")
+        exit(e.returncode)
+    return output
+
+
+def getRepoBranchName(repo_path):
+    bname = ""
+    rname = ""
+    cmd = ["git", "-C", repo_path, "branch", "-r"]
+    bnames = execute_cmd(cmd, None).split("\n")
+    for b in bnames:
+        name_match = re.match(r"\S+/\S+ -> (\S+)/(\S+)", b.strip())
+        if name_match:
+            rname = name_match.group(1)
+            bname = name_match.group(2)
+    if not bname:
+        print(f"Could not find branch name for {repo_path}!")
+        exit(1)
+    return (rname, bname)
 
 
 if __name__ == "__main__":

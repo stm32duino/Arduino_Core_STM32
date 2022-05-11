@@ -15,6 +15,7 @@ from xml.dom.minidom import parse
 script_path = Path(__file__).parent.resolve()
 sys.path.append(str(script_path.parent))
 from utils import copyFile, copyFolder, createFolder, deleteFolder, genSTM32List
+from utils import execute_cmd, getRepoBranchName
 
 if sys.platform.startswith("win32"):
     from colorama import init
@@ -72,16 +73,6 @@ out_format_Header = "| {:^22} | {:^31} | {:^31} |"
 out_subheader = "| {:^4} | {:^7} | {:^8} | {:^8} | {:^1} | {:^8} | {:^8} | {:^1} |"
 out_format = "| {:^12} | {:^7} | {:^8} | {:^8} | {:^1} | {:^8} | {:^8} | {:^1} |"
 out_separator = "-" * 70
-
-
-def execute_cmd(cmd, stderror):
-    try:
-        output = subprocess.check_output(cmd, stderr=stderror).decode("utf-8").strip()
-    except subprocess.CalledProcessError as e:
-        print("Failed command: ")
-        print(e.cmd)
-        exit(e.returncode)
-    return output
 
 
 def create_config(config_file_path):
@@ -236,22 +227,6 @@ def createSystemFiles(serie):
     hal_conf_file = hal_serie_path / "Inc" / f"{hal_conf_base}_template.h"
     hal_conf_default = system_serie / f"{hal_conf_base}_default.h"
     copyFile(hal_conf_file, hal_conf_default)
-
-
-def getRepoBranchName(repo_path):
-    bname = ""
-    rname = ""
-    cmd = ["git", "-C", repo_path, "branch", "-r"]
-    bnames = execute_cmd(cmd, None).split("\n")
-    for b in bnames:
-        name_match = re.match(r"\S+/\S+ -> (\S+)/(\S+)", b.strip())
-        if name_match:
-            rname = name_match.group(1)
-            bname = name_match.group(2)
-    if not bname:
-        print(f"Could not find branch name for {repo_path}!")
-        exit(1)
-    return (rname, bname)
 
 
 def updateCoreRepo():

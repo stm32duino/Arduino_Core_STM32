@@ -11,12 +11,10 @@
  *******************************************************************************
  */
 /*
- * Automatically generated from STM32G473V(B-C-E)Hx.xml, STM32G473V(B-C-E)Ix.xml
- * STM32G473V(B-C-E)Tx.xml, STM32G474V(B-C-E)Hx.xml
- * STM32G474V(B-C-E)Ix.xml, STM32G474V(B-C-E)Tx.xml
- * STM32G483VEHx.xml, STM32G483VEIx.xml
- * STM32G483VETx.xml, STM32G484VEHx.xml
- * STM32G484VEIx.xml, STM32G484VETx.xml
+ * Automatically generated from STM32G473V(B-C-E)Hx.xml, STM32G473V(B-C-E)Tx.xml
+ * STM32G474V(B-C-E)Hx.xml, STM32G474V(B-C-E)Tx.xml
+ * STM32G483VEHx.xml, STM32G483VETx.xml
+ * STM32G484VEHx.xml, STM32G484VETx.xml
  * CubeMX DB release 6.0.50
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
