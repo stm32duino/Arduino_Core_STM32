@@ -32,9 +32,9 @@ compiler.extra_flags=-mcpu={build.mcu} {build.flags.fp} -DUSE_FULL_LL_DRIVER -mt
 
 compiler.S.flags={compiler.extra_flags} -c -x assembler-with-cpp {compiler.stm.extra_include}
 
-compiler.c.flags={compiler.extra_flags} -c {build.flags.optimize} {build.flags.debug} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections -nostdlib --param max-inline-insns-single=500 -MMD {compiler.stm.extra_include}
+compiler.c.flags={compiler.extra_flags} -c {build.flags.optimize} {build.flags.debug} {compiler.warning_flags} -std=gnu11 -ffunction-sections -fdata-sections --param max-inline-insns-single=500 -MMD {compiler.stm.extra_include}
 
-compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {build.flags.debug} {compiler.warning_flags} -std={compiler.cpp.std} -ffunction-sections -fdata-sections -nostdlib -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -fno-use-cxa-atexit -MMD {compiler.stm.extra_include}
+compiler.cpp.flags={compiler.extra_flags} -c {build.flags.optimize} {build.flags.debug} {compiler.warning_flags} -std={compiler.cpp.std} -ffunction-sections -fdata-sections -fno-threadsafe-statics --param max-inline-insns-single=500 -fno-rtti -fno-exceptions -fno-use-cxa-atexit -MMD {compiler.stm.extra_include}
 
 compiler.ar.flags=rcs
 
