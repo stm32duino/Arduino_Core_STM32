@@ -19,14 +19,17 @@
 extern "C" {
 #endif
 
-#ifdef CRC2_BASE
-#define CRC_INSTANCE CRC2
+#if defined(HAL_CRC_MODULE_ENABLED)
+CRC_HandleTypeDef hcrc = {.Instance =
+#if defined(CRC2_BASE)
+                            CRC2
 #elif defined(CRC_BASE)
-#define CRC_INSTANCE CRC
+                            CRC
 #else
-#error "No CRC instance available"
+#error "No CRC instance available!"
 #endif
-CRC_HandleTypeDef hcrc = {.Instance = CRC_INSTANCE};
+                         };
+#endif
 
 /**
   * @brief  This function performs the global init of the system (HAL, IOs...)
@@ -63,7 +66,7 @@ void hw_config_init(void)
   SystemClock_Config();
 
   /* Initialize the CRC */
-#if defined(CRC_INSTANCE)
+#if defined(HAL_CRC_MODULE_ENABLED)
   HAL_CRC_Init(&hcrc);
 #endif
 

@@ -28,6 +28,12 @@
   #undef HAL_ADC_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_CRC_MODULE_DISABLED)
+  #define HAL_CRC_MODULE_ENABLED
+#else
+  #undef HAL_CRC_MODULE_ENABLED
+#endif
+
 #if !defined(HAL_I2C_MODULE_DISABLED)
   #define HAL_I2C_MODULE_ENABLED
 #else
@@ -68,12 +74,6 @@
   #define HAL_ICACHE_MODULE_ENABLED
 #else
   #undef HAL_ICACHE_MODULE_ENABLED
-#endif
-
-#if !defined(HAL_CRC_MODULE_ENABLED)
-  #define HAL_CRC_MODULE_ENABLED
-#else
-  #undef HAL_CRC_MODULE_ENABLED
 #endif
 
 /*

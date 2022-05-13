@@ -174,11 +174,13 @@ void configIPClock(void)
   __HAL_RCC_SYSCFG_CLK_ENABLE();
 #endif
 
+#if defined(HAL_CRC_MODULE_ENABLED)
   /* Enable CRC clock, needed for example: MotionFX Library ... */
 #if defined(__HAL_RCC_CRC2_CLK_ENABLE)
   __HAL_RCC_CRC2_CLK_ENABLE();
 #elif defined(__HAL_RCC_CRC_CLK_ENABLE)
   __HAL_RCC_CRC_CLK_ENABLE();
+#endif
 #endif
 }
 
