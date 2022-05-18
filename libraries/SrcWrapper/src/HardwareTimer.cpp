@@ -471,6 +471,8 @@ void HardwareTimer::setPrescaleFactor(uint32_t prescaler)
 {
   // Hardware register correspond to prescaler-1. Example PSC register value 0 means divided by 1
   LL_TIM_SetPrescaler(_timerObj.handle.Instance, prescaler - 1);
+
+  updateRegistersIfNotRunning(_timerObj.handle.Instance);
 }
 
 /**
@@ -550,6 +552,8 @@ void HardwareTimer::setOverflow(uint32_t overflow, TimerFormat_t format)
     ARR_RegisterValue = 0;
   }
   __HAL_TIM_SET_AUTORELOAD(&_timerObj.handle, ARR_RegisterValue);
+
+  updateRegistersIfNotRunning(_timerObj.handle.Instance);
 }
 
 /**
@@ -640,7 +644,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
 
   /* Configure some default values. Maybe overwritten later */
   channelOC.OCMode = TIMER_NOT_USED;
-  channelOC.Pulse = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);  // keep same value already written in hardware <register
+  channelOC.Pulse = __HAL_TIM_GET_COMPARE(&(_timerObj.handle), timChannel);  // keep same value already written in hardware register
   channelOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   channelOC.OCFastMode = TIM_OCFAST_DISABLE;
 #if defined(TIM_CR2_OIS1)
@@ -857,6 +861,8 @@ void HardwareTimer::setCaptureCompare(uint32_t channel, uint32_t compare, TimerC
   }
 
   __HAL_TIM_SET_COMPARE(&(_timerObj.handle), timChannel, CCR_RegisterValue);
+
+  updateRegistersIfNotRunning(_timerObj.handle.Instance);
 }
 
 /**
@@ -1082,7 +1088,8 @@ bool HardwareTimer::hasInterrupt(uint32_t channel)
 
 /**
   * @brief  Generate an update event to force all registers (Autoreload, prescaler, compare) to be taken into account
-  * @note   Refresh() can only be called after a 1st call to resume() to be sure timer is initialised.
+  * @note   @note Refresh() can only be called after timer has been initialized,
+            either by calling setup() function or thanks to constructor with TIM instance parameter.
   *         It is useful while timer is running after some registers update
   * @retval None
   */
@@ -1196,6 +1203,27 @@ bool HardwareTimer::isRunningChannel(uint32_t channel)
   ret = LL_TIM_CC_IsEnabledChannel(_timerObj.handle.Instance, LLChannel)
         || (__HAL_TIM_GET_IT_SOURCE(&(_timerObj.handle), (uint32_t)interrupt) == SET);
   return (isRunning() && ret);
+}
+
+/**
+  * @brief  Take into account registers update immediately if timer is not running,
+  *         (independently from Preload setting)
+  * @param  TIMx Timer instance
+  * @retval None
+  */
+void HardwareTimer::updateRegistersIfNotRunning(TIM_TypeDef *TIMx)
+{
+  if (!isRunning()) {
+    if (LL_TIM_IsEnabledIT_UPDATE(TIMx)) {
+      // prevent Interrupt generation from refresh()
+      LL_TIM_DisableIT_UPDATE(TIMx);
+      refresh();
+      LL_TIM_ClearFlag_UPDATE(TIMx);
+      LL_TIM_EnableIT_UPDATE(TIMx);
+    } else {
+      refresh();
+    }
+  }
 }
 
 /**

@@ -151,6 +151,8 @@ class HardwareTimer {
     static void captureCompareCallback(TIM_HandleTypeDef *htim); // Generic Capture and Compare callback which will call user callback
     static void updateCallback(TIM_HandleTypeDef *htim);  // Generic Update (rollover) callback which will call user callback
 
+    void updateRegistersIfNotRunning(TIM_TypeDef *TIMx); // Take into account registers update immediately if timer is not running,
+
     bool isRunning(); // return true if HardwareTimer is running
     bool isRunningChannel(uint32_t channel); // return true if channel is running
 
