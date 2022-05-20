@@ -120,19 +120,25 @@ extern "C" {
 
 WEAK void initVariant(void)
 {
-  /* Initialize the 3V3 discharge to be OFF and the output power to be ON */
-  __HAL_RCC_GPIOE_CLK_ENABLE();
+
   GPIO_InitTypeDef  GPIO_InitStruct;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
+
+  /* Set the DISCHARGE pin and the USB_DETECT pin to FLOAT */
+  GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
   GPIO_InitStruct.Pin = GPIO_PIN_6;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
-  HAL_GPIO_WritePin(GPIOE, GPIO_PIN_6, GPIO_PIN_SET);
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct); /* PE6 DISCHRG */
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); /* PC6 is USB_DETECT */
+
+  /* Turn on the 3V3 regulator */
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
   GPIO_InitStruct.Pin = GPIO_PIN_4;
   HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);
   HAL_GPIO_WritePin(GPIOE, GPIO_PIN_4, GPIO_PIN_SET);
+
 }
 
 /**
