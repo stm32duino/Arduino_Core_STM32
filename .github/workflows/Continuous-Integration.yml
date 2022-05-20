@@ -37,7 +37,7 @@ jobs:
 
     - name: Astyle check
       id: Astyle
-      uses: stm32duino/actions/astyle-check@main
+      uses: fpistm/actions/astyle-check@dev
       with:
         astyle-definition: 'CI/astyle/.astylerc'
         ignore-path-list: 'CI/astyle/.astyleignore'
@@ -48,34 +48,34 @@ jobs:
       run: |
         cat ${{ steps.Astyle.outputs.astyle-result }}
         exit 1
-  core_build:
-    runs-on: ubuntu-latest
-    name: Core compilation
-    steps:
-    # First of all, clone the repo using the checkout action.
-    - name: Checkout
-      uses: actions/checkout@main
+  # core_build:
+  #   runs-on: ubuntu-latest
+  #   name: Core compilation
+  #   steps:
+  #   # First of all, clone the repo using the checkout action.
+  #   - name: Checkout
+  #     uses: actions/checkout@main
 
-    - name: Compilation
-      id: Compile
-      uses: stm32duino/actions/compile-examples@main
-      with:
-        additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/package_stmicroelectronics_index.json'
+  #   - name: Compilation
+  #     id: Compile
+  #     uses: stm32duino/actions/compile-examples@main
+  #     with:
+  #       additional-url: 'https://github.com/stm32duino/BoardManagerFiles/raw/dev/package_stmicroelectronics_index.json'
 
-    # Use the output from the `Compile` step
-    - name: Compilation Errors
-      if: failure()
-      run: |
-        cat ${{ steps.Compile.outputs.compile-result }}
-        exit 1
-  pio_build:
-    runs-on: ubuntu-latest
-    name: PlatformIO test
-    steps:
-      # First of all, clone the repo using the checkout action.
-    - name: Checkout
-      uses: actions/checkout@main
+  #   # Use the output from the `Compile` step
+  #   - name: Compilation Errors
+  #     if: failure()
+  #     run: |
+  #       cat ${{ steps.Compile.outputs.compile-result }}
+  #       exit 1
+  # pio_build:
+  #   runs-on: ubuntu-latest
+  #   name: PlatformIO test
+  #   steps:
+  #     # First of all, clone the repo using the checkout action.
+  #   - name: Checkout
+  #     uses: actions/checkout@main
 
-    - name: PlatformIO
-      id: Compile
-      uses: ./.github/actions/pio-build
+  #   - name: PlatformIO
+  #     id: Compile
+  #     uses: ./.github/actions/pio-build
