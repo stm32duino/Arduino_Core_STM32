@@ -129,8 +129,8 @@ WEAK void initVariant(void)
   GPIO_InitStruct.Mode = GPIO_MODE_ANALOG;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Pin = GPIO_PIN_6;
-  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct);	/* PE6 DISCHRG */
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);	/* PC6 is USB_DETECT */
+  HAL_GPIO_Init(GPIOE, &GPIO_InitStruct); /* PE6 DISCHRG */
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct); /* PC6 is USB_DETECT */
 
   /* Turn on the 3V3 regulator */
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
