@@ -19,7 +19,7 @@ Nucleo_144.name=Nucleo-144
 Nucleo_144.build.core=arduino
 Nucleo_144.build.board=Nucleo_144
 Nucleo_144.build.variant_h=variant_{build.board}.h
-Nucleo_144.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_144.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # NUCLEO_F207ZG board
 Nucleo_144.menu.pnum.NUCLEO_F207ZG=Nucleo F207ZG
@@ -222,7 +222,7 @@ Nucleo_64.name=Nucleo-64
 Nucleo_64.build.core=arduino
 Nucleo_64.build.board=Nucleo_64
 Nucleo_64.build.variant_h=variant_{build.board}.h
-Nucleo_64.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_64.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # NUCLEO_F030R8 board
 Nucleo_64.menu.pnum.NUCLEO_F030R8=Nucleo F030R8
@@ -360,7 +360,7 @@ Nucleo_64.menu.pnum.NUCLEO_G071RB.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.product_line=STM32G071xx
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.variant=STM32G0xx/G071R(6-8)T_G071RB(I-T)_G081RB(I-T)
 Nucleo_64.menu.pnum.NUCLEO_G071RB.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_G071RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_G071RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G0B1RE board
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE=Nucleo G0B1RE
@@ -373,7 +373,7 @@ Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.series=STM32G0xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.product_line=STM32G0B1xx
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.variant=STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T
 Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_G0B1RE.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G431RB board
 Nucleo_64.menu.pnum.NUCLEO_G431RB=Nucleo G431RB
@@ -412,7 +412,7 @@ Nucleo_64.menu.pnum.NUCLEO_L010RB.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.product_line=STM32L010xB
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.variant=STM32L0xx/L010RBT
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_L010RB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_L010RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L053R8 board
 Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
@@ -425,7 +425,7 @@ Nucleo_64.menu.pnum.NUCLEO_L053R8.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.product_line=STM32L053xx
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.variant=STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T
 Nucleo_64.menu.pnum.NUCLEO_L053R8.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_L053R8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_L053R8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L073RZ board
 Nucleo_64.menu.pnum.NUCLEO_L073RZ=Nucleo L073RZ
@@ -438,7 +438,7 @@ Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.series=STM32L0xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.product_line=STM32L073xx
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
 Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_64.menu.pnum.NUCLEO_L073RZ.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_L152RE board
 Nucleo_64.menu.pnum.NUCLEO_L152RE=Nucleo L152RE
@@ -528,7 +528,7 @@ Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.series=STM32WLxx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.product_line=STM32WLE5xx
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.variant=STM32WLxx/WL54JCI_WL55JCI_WLE4J(8-B-C)I_WLE5J(8-B-C)I
 Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.cmsis_lib_gcc=arm_cortexM4l_math
-Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+Nucleo_64.menu.pnum.NUCLEO_WL55JC1.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 
 # Upload menu
 Nucleo_64.menu.upload_method.MassStorage=Mass Storage
@@ -558,7 +558,7 @@ Nucleo_32.name=Nucleo-32
 Nucleo_32.build.core=arduino
 Nucleo_32.build.board=Nucleo_32
 Nucleo_32.build.variant_h=variant_{build.board}.h
-Nucleo_32.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Nucleo_32.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # NUCLEO_F031K6 board
 Nucleo_32.menu.pnum.NUCLEO_F031K6=Nucleo F031K6
@@ -608,7 +608,7 @@ Nucleo_32.menu.pnum.NUCLEO_G031K8.build.series=STM32G0xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.product_line=STM32G031xx
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.variant=STM32G0xx/G031K(4-6-8)(T-U)_G041K(6-8)(T-U)
 Nucleo_32.menu.pnum.NUCLEO_G031K8.build.cmsis_lib_gcc=arm_cortexM0l_math
-Nucleo_32.menu.pnum.NUCLEO_G031K8.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Nucleo_32.menu.pnum.NUCLEO_G031K8.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # NUCLEO_G431KB board
 Nucleo_32.menu.pnum.NUCLEO_G431KB=Nucleo G431KB
@@ -689,7 +689,7 @@ Disco.name=Discovery
 Disco.build.core=arduino
 Disco.build.board=Disco
 Disco.build.variant_h=variant_{build.board}.h
-Disco.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Disco.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # B_G431B_ESC1 board
 Disco.menu.pnum.B_G431B_ESC1=B-G431B-ESC1
@@ -717,7 +717,7 @@ Disco.menu.pnum.B_L072Z_LRWAN1.build.product_line=STM32L072xx
 Disco.menu.pnum.B_L072Z_LRWAN1.build.variant=STM32L0xx/L072CBY_L072CZ(E-Y)_L073CZY_L082CZY
 Disco.menu.pnum.B_L072Z_LRWAN1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L072Z_LRWAN1.build.cmsis_lib_gcc=arm_cortexM0l_math
-Disco.menu.pnum.B_L072Z_LRWAN1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+Disco.menu.pnum.B_L072Z_LRWAN1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # B-L475E-IOT01A board
 Disco.menu.pnum.B_L475E_IOT01A=B-L475E-IOT01A
@@ -862,7 +862,7 @@ Disco.menu.pnum.DISCO_G0316.build.series=STM32G0xx
 Disco.menu.pnum.DISCO_G0316.build.product_line=STM32G031xx
 Disco.menu.pnum.DISCO_G0316.build.variant=STM32G0xx/G031J(4-6)M_G041J6M
 Disco.menu.pnum.DISCO_G0316.build.cmsis_lib_gcc=arm_cortexM0l_math
-Disco.menu.pnum.DISCO_G0316.build.extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
+Disco.menu.pnum.DISCO_G0316.build.st_extra_flags=-D{build.product_line} {build.xSerial} -D__CORTEX_SC=0
 
 # STM32WB5MM-DK board
 Disco.menu.pnum.STM32WB5MM_DK=STM32WB5MM-DK
@@ -906,7 +906,7 @@ Eval.name=Eval
 Eval.build.core=arduino
 Eval.build.board=Eval
 Eval.build.variant_h=variant_{build.board}.h
-Eval.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Eval.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # STEVAL_MKSBOX1V1 board
 Eval.menu.pnum.STEVAL_MKSBOX1V1=SensorTile.box
@@ -943,7 +943,7 @@ STM32MP1.build.mcu=cortex-m4
 STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
-STM32MP1.build.extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
+STM32MP1.build.st_extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
 
 # STM32MP157A-DK1 board
 STM32MP1.menu.pnum.STM32MP157A_DK1=STM32MP157A-DK1
@@ -979,7 +979,7 @@ GenF0.build.board=GenF0
 GenF0.build.mcu=cortex-m0
 GenF0.build.series=STM32F0xx
 GenF0.build.cmsis_lib_gcc=arm_cortexM0l_math
-GenF0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # DEMO_F030F4 board
 GenF0.menu.pnum.DEMO_F030F4=STM32F030F4 Demo board (HSE 8Mhz)
@@ -1249,7 +1249,7 @@ GenF1.build.board=GenF1
 GenF1.build.mcu=cortex-m3
 GenF1.build.series=STM32F1xx
 GenF1.build.cmsis_lib_gcc=arm_cortexM3l_math
-GenF1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # BLUEPILL_F103C6 board
 GenF1.menu.pnum.BLUEPILL_F103C6=BluePill F103C6 (32K)
@@ -1854,7 +1854,7 @@ GenF2.name=Generic STM32F2 series
 
 GenF2.build.core=arduino
 GenF2.build.board=GenF2
-GenF2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenF2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenF2.build.mcu=cortex-m3
 GenF2.build.series=STM32F2xx
 GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
@@ -1930,7 +1930,7 @@ GenF3.name=Generic STM32F3 series
 
 GenF3.build.core=arduino
 GenF3.build.board=GenF3
-GenF3.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF3.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF3.build.mcu=cortex-m4
 GenF3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF3.build.series=STM32F3xx
@@ -2101,7 +2101,7 @@ GenF4.name=Generic STM32F4 series
 
 GenF4.build.core=arduino
 GenF4.build.board=GenF4
-GenF4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF4.build.mcu=cortex-m4
 GenF4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF4.build.series=STM32F4xx
@@ -2900,7 +2900,7 @@ GenF7.name=Generic STM32F7 series
 
 GenF7.build.core=arduino
 GenF7.build.board=GenF7
-GenF7.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenF7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF7.build.mcu=cortex-m7
 GenF7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenF7.build.series=STM32F7xx
@@ -3179,7 +3179,7 @@ GenG0.build.board=GenG0
 GenG0.build.mcu=cortex-m0plus
 GenG0.build.series=STM32G0xx
 GenG0.build.cmsis_lib_gcc=arm_cortexM0l_math
-GenG0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenG0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # AGAFIA SG0
 GenG0.menu.pnum.AGAFIA_SG0=AGAFIA SG0
@@ -3533,7 +3533,7 @@ GenG4.name=Generic STM32G4 series
 
 GenG4.build.core=arduino
 GenG4.build.board=GenG4
-GenG4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenG4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenG4.build.mcu=cortex-m4
 GenG4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenG4.build.series=STM32G4xx
@@ -3785,7 +3785,7 @@ GenH7.name=Generic STM32H7 Series
 
 GenH7.build.core=arduino
 GenH7.build.board=GenH7
-GenH7.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenH7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 GenH7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenH7.build.series=STM32H7xx
@@ -4166,7 +4166,7 @@ GenL0.name=Generic STM32L0 series
 
 GenL0.build.core=arduino
 GenL0.build.board=GenL0
-GenL0.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+GenL0.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 GenL0.build.mcu=cortex-m0plus
 GenL0.build.series=STM32L0xx
 GenL0.build.cmsis_lib_gcc=arm_cortexM0l_math
@@ -4441,7 +4441,7 @@ GenL1.name=Generic STM32L1 series
 
 GenL1.build.core=arduino
 GenL1.build.board=GenL1
-GenL1.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenL1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL1.build.mcu=cortex-m3
 GenL1.build.series=STM32L1xx
 GenL1.build.cmsis_lib_gcc=arm_cortexM3l_math
@@ -4700,7 +4700,7 @@ GenL4.name=Generic STM32L4 series
 
 GenL4.build.core=arduino
 GenL4.build.board=GenL4
-GenL4.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenL4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL4.build.mcu=cortex-m4
 GenL4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL4.build.series=STM32L4xx
@@ -5248,7 +5248,7 @@ GenL5.name=Generic STM32L5 series
 
 GenL5.build.core=arduino
 GenL5.build.board=GenL5
-GenL5.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenL5.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL5.build.mcu=cortex-m33
 GenL5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenL5.build.series=STM32L5xx
@@ -5300,7 +5300,7 @@ GenU5.name=Generic STM32U5 series
 
 GenU5.build.core=arduino
 GenU5.build.board=GenU5
-GenU5.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenU5.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenU5.build.mcu=cortex-m33
 GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenU5.build.series=STM32U5xx
@@ -5376,7 +5376,7 @@ GenWB.name=Generic STM32WB series
 
 GenWB.build.core=arduino
 GenWB.build.board=GenWB
-GenWB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenWB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenWB.build.mcu=cortex-m4
 GenWB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenWB.build.series=STM32WBxx
@@ -5460,7 +5460,7 @@ GenWL.name=Generic STM32WL series
 
 GenWL.build.core=arduino
 GenWL.build.board=GenWL
-GenWL.build.extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
+GenWL.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 GenWL.build.mcu=cortex-m4
 #GenWL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 GenWL.build.series=STM32WLxx
@@ -5627,7 +5627,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.build.core=arduino
 3dprinter.build.board=3dprinter
 3dprinter.build.variant_h=variant_{build.board}.h
-3dprinter.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+3dprinter.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # ARMED_V1 board
 3dprinter.menu.pnum.ARMED_V1=Armed V1
@@ -5707,7 +5707,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.PRNTR_V2.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.PRNTR_V2.build.flash_offset=0x8000
-3dprinter.menu.pnum.PRNTR_V2.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.PRNTR_V2.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # EEXTR_F030_V1 board
 3dprinter.menu.pnum.EEXTR_F030_V1=EExtruder F030 V1
@@ -5734,7 +5734,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F103CB.build.cmsis_lib_gcc=arm_cortexM3l_math
 3dprinter.menu.pnum.MALYANM200_F103CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F103CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F103CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F103CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # MALYANM200_F070CB board
 3dprinter.menu.pnum.MALYANM200_F070CB=Malyan M200 V2
@@ -5750,7 +5750,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM200_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM200_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM200_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM200_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # MALYANM300_F070CB board
 3dprinter.menu.pnum.MALYANM300_F070CB=Malyan M300
@@ -5766,7 +5766,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.MALYANM300_F070CB.build.startup_file=-DCUSTOM_STARTUP_FILE
 3dprinter.menu.pnum.MALYANM200_F070CB.build.ldscript=MALYANMx00_F070CB.ld
 3dprinter.menu.pnum.MALYANM300_F070CB.build.flash_offset=0x2000
-3dprinter.menu.pnum.MALYANM300_F070CB.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.MALYANM300_F070CB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # VAkE v1.0
 3dprinter.menu.pnum.VAKE_V1=VAkE v1.0
@@ -5794,7 +5794,7 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.FYSETC_S6.build.cmsis_lib_gcc=arm_cortexM4lf_math
 3dprinter.menu.pnum.FYSETC_S6.build.flash_offset=0x10000
-3dprinter.menu.pnum.FYSETC_S6.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
+3dprinter.menu.pnum.FYSETC_S6.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -DVECT_TAB_OFFSET={build.flash_offset}
 
 # Upload menu
 3dprinter.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -5820,7 +5820,7 @@ BluesW.name=Blues Wireless boards
 BluesW.build.core=arduino
 BluesW.build.board=BluesWireless
 BluesW.build.variant_h=variant_{build.board}.h
-BluesW.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+BluesW.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # Swan R5 board
 BluesW.menu.pnum.SWAN_R5=Swan R5
@@ -5859,7 +5859,7 @@ Elecgator.name=Elecgator boards
 Elecgator.build.core=arduino
 Elecgator.build.board=elecgator
 Elecgator.build.variant_h=variant_{build.board}.h
-Elecgator.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Elecgator.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # EtherCATduino board
 Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
@@ -5893,7 +5893,7 @@ ESC_board.name=Electronic speed controllers
 ESC_board.build.core=arduino
 ESC_board.build.board=FCE_board
 ESC_board.build.variant_h=variant_{build.board}.h
-ESC_board.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+ESC_board.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # WRAITH32_V1 board
 ESC_board.menu.pnum.WRAITH32_V1=Wraith V1 ESC
@@ -5943,7 +5943,7 @@ Garatronic.name=Garatronic-McHobby
 Garatronic.build.core=arduino
 Garatronic.build.board=Garatronic
 Garatronic.build.variant_h=variant_{build.board}.h
-Garatronic.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Garatronic.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # PYBSTICK26(DUINO) board with F072RB
 Garatronic.menu.pnum.PYBSTICK26_DUINO=PYBSTICK26 Duino
@@ -6010,7 +6010,7 @@ GenFlight.name=Generic Flight Controllers
 GenFlight.build.core=arduino
 GenFlight.build.board=Genericflight
 GenFlight.build.variant_h=variant_{build.board}.h
-GenFlight.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
+GenFlight.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 
 # AfroFlight Rev5
 GenFlight.menu.pnum.AFROFLIGHT_F103CB=Afro Flight Rev5 (8MHz)
@@ -6097,7 +6097,7 @@ LoRa.name=LoRa boards
 LoRa.build.core=arduino
 LoRa.build.board=LoRa
 LoRa.build.variant_h=variant_{build.board}.h
-LoRa.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
@@ -6134,7 +6134,7 @@ LoRa.menu.pnum.RHF76_052.build.product_line=STM32L051xx
 LoRa.menu.pnum.RHF76_052.build.variant=STM32L0xx/L051C(6-8)(T-U)
 LoRa.menu.pnum.RHF76_052.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.RHF76_052.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.RHF76_052.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+LoRa.menu.pnum.RHF76_052.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
 # ELEKTOR_F072C8
 LoRa.menu.pnum.ELEKTOR_F072C8=Elektor LoRa Node Core F072C8 (64kB)
@@ -6148,7 +6148,7 @@ LoRa.menu.pnum.ELEKTOR_F072C8.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072C8.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072C8.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ELEKTOR_F072C8.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.ELEKTOR_F072C8.build.extra_flags=-D{build.product_line} {build.xSerial}
+LoRa.menu.pnum.ELEKTOR_F072C8.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 
 # ELEKTOR_F072CB
 LoRa.menu.pnum.ELEKTOR_F072CB=Elektor LoRa Node Core F072CB (128kB)
@@ -6162,7 +6162,7 @@ LoRa.menu.pnum.ELEKTOR_F072CB.build.variant=STM32F0xx/F072C8(T-U)_F072CB(T-U-Y)
 LoRa.menu.pnum.ELEKTOR_F072CB.build.variant_h=variant_ELEKTOR_F072Cx.h
 LoRa.menu.pnum.ELEKTOR_F072CB.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 LoRa.menu.pnum.ELEKTOR_F072CB.build.cmsis_lib_gcc=arm_cortexM0l_math
-LoRa.menu.pnum.ELEKTOR_F072CB.build.extra_flags=-D{build.product_line} {build.xSerial}
+LoRa.menu.pnum.ELEKTOR_F072CB.build.st_extra_flags=-D{build.product_line} {build.xSerial}
 
 # Upload menu
 LoRa.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
@@ -6188,7 +6188,7 @@ Midatronics.name=Midatronics boards
 Midatronics.build.core=arduino
 Midatronics.build.board=Midatronics
 Midatronics.build.variant_h=variant_{build.board}.h
-Midatronics.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+Midatronics.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
 # MKR_SHARKY board
 Midatronics.menu.pnum.MKR_SHARKY=MKR Sharky
