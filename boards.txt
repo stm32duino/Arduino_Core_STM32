@@ -3034,6 +3034,14 @@ GenF7.menu.pnum.GENERIC_F756ZGYX.build.board=GENERIC_F756ZGYX
 GenF7.menu.pnum.GENERIC_F756ZGYX.build.product_line=STM32F756xx
 GenF7.menu.pnum.GENERIC_F756ZGYX.build.variant=STM32F7xx/F745Z(E-G)T_F746Z(E-G)(T-Y)_F750Z8T_F756ZG(T-Y)
 
+# Generic F765IIKx
+GenF7.menu.pnum.GENERIC_F765IIKX=Generic F765Kx
+GenF7.menu.pnum.GENERIC_F765IIKX.upload.maximum_size=2097152
+GenF7.menu.pnum.GENERIC_F765IIKX.upload.maximum_data_size=524288
+GenF7.menu.pnum.GENERIC_F765IIKX.build=GENERIC_F765IIKX
+GenF7.menu.pnum.GENERIC_F765IIKX.build.product_line=STM32F765xx
+GenF7.menu.pnum.GENERIC_F765IIKX.build.variant=F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)
+
 # Generic F765VGHx
 GenF7.menu.pnum.GENERIC_F765VGHX=Generic F765VGHx
 GenF7.menu.pnum.GENERIC_F765VGHX.upload.maximum_size=1048576
