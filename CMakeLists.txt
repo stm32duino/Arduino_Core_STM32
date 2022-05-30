@@ -1,11 +1,8 @@
 cmake_minimum_required(VERSION 3.13)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
-find_program(CMAKE_SIZE "arm-none-eabi-size")
-find_program(PYTHON3 "python3")
-find_program(SFDP "sfdp") # graphviz layout engine -- you may change the engine, use dot or whatever
+include(ensure_CMSIS)
 
 project("Arduino_Core_STM32" CXX C ASM)
 
@@ -41,9 +38,11 @@ set(BUILD_SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sketch" CACHE STRING "")
 set(BUILD_CORE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cores/arduino")
 set(BUILD_SYSTEM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/system")
 set(BUILD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
-set(BUILD_CMSIS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../CMSIS_5/CMSIS") # https://github.com/ARM-software/CMSIS_5.git
 set(BUILD_VARIANT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/variants/${BOARD_SERIE}/${BOARD_VARIANT}")
+set(CMSIS5_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMSIS_5" CACHE STRING "Path to CMSIS_5")
 
+option(AUTODL_CMSIS OFF)
+ensure_CMSIS(${CMSIS5_PATH} ${AUTODL_CMSIS})
 
 add_library(core_config INTERFACE)
 
@@ -223,7 +222,7 @@ target_link_options(core_config INTERFACE
 	LINKER:--script=${BUILD_SYSTEM_PATH}/ldscript.ld
 )
 target_link_directories(core_config INTERFACE
-	"${BUILD_CMSIS_PATH}/CMSIS/DSP/Lib/GCC"
+	"${CMSIS5_PATH}/CMSIS/DSP/Lib/GCC"
 )
 target_include_directories(core_config INTERFACE
 	"${BUILD_SOURCE_PATH}"
@@ -242,9 +241,10 @@ target_include_directories(core_config INTERFACE
 	"${BUILD_SYSTEM_PATH}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
 	"${BUILD_SYSTEM_PATH}/Drivers/CMSIS/Device/ST/${BOARD_SERIE}/Include/"
 	"${BUILD_SYSTEM_PATH}/Drivers/CMSIS/Device/ST/${BOARD_SERIE}/Source/Templates/gcc/"
-	"${BUILD_CMSIS_PATH}/DSP/Include"
-	"${BUILD_CMSIS_PATH}/DSP/PrivateInclude"
-	"${BUILD_CMSIS_PATH}/Core/Include/"
+	"${CMSIS5_PATH}/CMSIS/DSP/Include"
+	"${CMSIS5_PATH}/CMSIS/DSP/PrivateInclude"
+	"${CMSIS5_PATH}/CMSIS/Core/Include/"
+	"${CMSIS5_PATH}/CMSIS"
 	"${BUILD_VARIANT_PATH}"
 
   "${BUILD_LIB_PATH}/SrcWrapper/src"
@@ -276,6 +276,3 @@ target_link_libraries(stm32_runtime INTERFACE
   c
   gcc
 )
-
-
-include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/handle_sketch.cmake)
