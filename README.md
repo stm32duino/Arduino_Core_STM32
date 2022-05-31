@@ -519,6 +519,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart:  | STM32L073RZ | [AcSIP S76S](https://www.acsip.com.tw) | **2.3.0** |  |
 | :green_heart:  | STM32F072C8<br>STM32F072CB | [Elektor LoRa Node](https://github.com/ElektorLabs/180516-Elektor_LoRa_Node) | *1.8.0* | [More info](https://www.elektormagazine.com/labs/lorawan-node-experimental-platform) |
 | :green_heart:  | STM32L151CB | [RAK811 LoRa Tracker](https://www.rakwireless.com/en/) | *1.4.0* | [Wiki](https://github.com/stm32duino/wiki/wiki/Connectivities#lora) |
 | :green_heart:  | STM32L051C8 | [RHF76-052](https://www.ai-thinker.com/) | *1.7.0* | Basic support |

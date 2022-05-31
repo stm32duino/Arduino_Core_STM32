@@ -6131,6 +6131,19 @@ LoRa.build.board=LoRa
 LoRa.build.variant_h=variant_{build.board}.h
 LoRa.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 
+# ACSIP S76S board
+LoRa.menu.pnum.ACSIP_S76S=ACSIP S76S
+LoRa.menu.pnum.ACSIP_S76S.upload.maximum_size=196608
+LoRa.menu.pnum.ACSIP_S76S.upload.maximum_data_size=20480
+LoRa.menu.pnum.ACSIP_S76S.build.mcu=cortex-m0plus
+LoRa.menu.pnum.ACSIP_S76S.build.board=ACSIP_S76S
+LoRa.menu.pnum.ACSIP_S76S.build.series=STM32L0xx
+LoRa.menu.pnum.ACSIP_S76S.build.product_line=STM32L073xx
+LoRa.menu.pnum.ACSIP_S76S.build.variant=STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T
+LoRa.menu.pnum.ACSIP_S76S.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+LoRa.menu.pnum.ACSIP_S76S.build.cmsis_lib_gcc=arm_cortexM0l_math
+LoRa.menu.pnum.ACSIP_S76S.build.extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # RAK811_TRACKER board
 LoRa.menu.pnum.RAK811_TRACKER=RAK811 LoRa Tracker (16kb RAM)
 LoRa.menu.pnum.RAK811_TRACKER.upload.maximum_size=131072
