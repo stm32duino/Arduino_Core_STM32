@@ -366,6 +366,19 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.variant=STM32F4xx/F446R(C-E)T
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_G070RB board
+Nucleo_64.menu.pnum.NUCLEO_G070RB=Nucleo G070RB
+Nucleo_64.menu.pnum.NUCLEO_G070RB.node=NODE_G070RB
+Nucleo_64.menu.pnum.NUCLEO_G070RB.upload.maximum_size=131072
+Nucleo_64.menu.pnum.NUCLEO_G070RB.upload.maximum_data_size=36864
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.board=NUCLEO_G070RB
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.series=STM32G0xx
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.product_line=STM32G070xx
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.variant=STM32G0xx/G070RBT
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.pnum.NUCLEO_G070RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # NUCLEO_G071RB board
 Nucleo_64.menu.pnum.NUCLEO_G071RB=Nucleo G071RB
 Nucleo_64.menu.pnum.NUCLEO_G071RB.node=NODE_G071RB
