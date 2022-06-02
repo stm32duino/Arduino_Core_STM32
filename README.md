@@ -282,10 +282,13 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32F750Z8 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F756BG<br>STM32F756NG | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F756ZG | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F765IGK<br>STM32F765IIK<br>STM32F765IGT<br>STM32F765IIT | Generic Board | **2.3.0** |  |
 | :green_heart: | STM32F765VG<br>STM32F765VI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F765ZG<br>STM32F765ZI | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F767IGK<br>STM32F767IIK<br>STM32F767IGT<br>STM32F767IIT | Generic Board | **2.3.0** |  |
 | :green_heart: | STM32F767VG<br>STM32F767VI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F767ZG<br>STM32F767ZI | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F777IIK<br>STM32F777IIT | Generic Board | **2.3.0** |  |
 | :green_heart: | STM32F777VI | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F777ZI | Generic Board | *2.0.0* |  |
 
