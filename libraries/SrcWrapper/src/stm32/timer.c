@@ -720,7 +720,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
   * @param  pin: PinName
   * @retval HAL channel. return 0 if pin has no timer
   */
-uint32_t get_pwm_channel(PinName pin)
+uint32_t getTimerChannel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_TIM);
   uint32_t channel = 0;

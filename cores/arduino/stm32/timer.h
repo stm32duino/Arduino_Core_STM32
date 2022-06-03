@@ -284,7 +284,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim);
 IRQn_Type getTimerUpIrq(TIM_TypeDef *tim);
 IRQn_Type getTimerCCIrq(TIM_TypeDef *tim);
 
-uint32_t get_pwm_channel(PinName pin);
+uint32_t getTimerChannel(PinName pin);
 
 #endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 
