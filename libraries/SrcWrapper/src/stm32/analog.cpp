@@ -101,8 +101,14 @@ static PinName g_current_pin = NC;
 #define ADC_REGULAR_RANK_1  1
 #endif
 
-/* Private Functions */
-static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
+/* Exported Functions */
+/**
+  * @brief  Return ADC HAL channel linked to a PinName
+  * @param  pin: PinName
+  * @param  bank: pointer to get ADC channel bank if required
+  * @retval HAL channel. return 0 if pin has no ADC
+  */
+uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
@@ -233,7 +239,14 @@ static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
   return channel;
 }
 
-static uint32_t get_adc_internal_channel(PinName pin)
+/**
+  * @brief  Return ADC HAL internal channel linked to a PinName
+  * @param  pin: specific PinName's for ADC internal. Value can be:
+  *         PADC_TEMP, PADC_TEMP_ADC5, PADC_VREF, PADC_VBAT
+  *         Note that not all of these values ​​may be available for all series.
+  * @retval HAL internal channel. return 0 if pin has no ADC internal
+  */
+uint32_t get_adc_internal_channel(PinName pin)
 {
   uint32_t channel = 0;
   switch (pin) {
@@ -271,7 +284,12 @@ static uint32_t get_adc_internal_channel(PinName pin)
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY */
 
 #if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
-static uint32_t get_dac_channel(PinName pin)
+/**
+  * @brief  Return DAC HAL channel linked to a PinName
+  * @param  pin: specific PinName's for ADC internal.
+  * @retval HAL channel. return 0 if pin has no dac
+  */
+uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
   uint32_t channel = 0;
