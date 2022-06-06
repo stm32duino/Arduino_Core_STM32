@@ -715,6 +715,34 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
   return clkSrc;
 }
 
+/**
+  * @brief  Return HAL timer channel linked to a PinName
+  * @param  pin: PinName
+  * @retval HAL channel. return 0 if pin has no timer
+  */
+uint32_t get_pwm_channel(PinName pin)
+{
+  uint32_t function = pinmap_function(pin, PinMap_TIM);
+  uint32_t channel = 0;
+  switch (STM_PIN_CHANNEL(function)) {
+    case 1:
+      channel = TIM_CHANNEL_1;
+      break;
+    case 2:
+      channel = TIM_CHANNEL_2;
+      break;
+    case 3:
+      channel = TIM_CHANNEL_3;
+      break;
+    case 4:
+      channel = TIM_CHANNEL_4;
+      break;
+    default:
+      channel = 0;
+      break;
+  }
+  return channel;
+}
 
 #endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
 

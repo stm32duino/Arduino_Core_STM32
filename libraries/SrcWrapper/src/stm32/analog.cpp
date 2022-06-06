@@ -270,32 +270,6 @@ static uint32_t get_adc_internal_channel(PinName pin)
 }
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY */
 
-#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
-uint32_t get_pwm_channel(PinName pin)
-{
-  uint32_t function = pinmap_function(pin, PinMap_TIM);
-  uint32_t channel = 0;
-  switch (STM_PIN_CHANNEL(function)) {
-    case 1:
-      channel = TIM_CHANNEL_1;
-      break;
-    case 2:
-      channel = TIM_CHANNEL_2;
-      break;
-    case 3:
-      channel = TIM_CHANNEL_3;
-      break;
-    case 4:
-      channel = TIM_CHANNEL_4;
-      break;
-    default:
-      channel = 0;
-      break;
-  }
-  return channel;
-}
-#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
-
 #if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
 static uint32_t get_dac_channel(PinName pin)
 {
