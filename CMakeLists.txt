@@ -26,6 +26,7 @@ set(FEAT_TIMER ON CACHE BOOL "Timer support")
 set(BUILD_OPT "s" CACHE STRING "Optimization level")
 set(BUILD_DBG OFF CACHE BOOL "Enable debug symbols")
 set(BUILD_LTO OFF CACHE BOOL "Enable Link-Time-Optimisations")
+set(BUILD_RELPATH ON CACHE BOOL "make __FILE__ be relative instead of absolute")
 
 set(USB_PID 0 CACHE STRING "")
 set(USB_VID 0 CACHE STRING "")
@@ -45,6 +46,13 @@ option(AUTODL_CMSIS OFF)
 ensure_CMSIS(${CMSIS5_PATH} ${AUTODL_CMSIS})
 
 add_library(core_config INTERFACE)
+
+if(${BUILD_RELPATH})
+  # $<TARGET_PROPERTY:SOURCE_DIR> is evaluated by the final consumer, no core_config
+  target_compile_options(core_config INTERFACE
+    "-fmacro-prefix-map=$<TARGET_PROPERTY:SOURCE_DIR>=."
+  )
+endif()
 
 # configuration specifics
 if (${FEAT_XSERIAL} STREQUAL "GENERIC")
