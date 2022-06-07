@@ -718,7 +718,7 @@ uint8_t getTimerClkSrc(TIM_TypeDef *tim)
 /**
   * @brief  Return HAL timer channel linked to a PinName
   * @param  pin: PinName
-  * @retval HAL channel. return 0 if pin has no timer
+  * @retval Valid HAL channel
   */
 uint32_t getTimerChannel(PinName pin)
 {
@@ -738,7 +738,7 @@ uint32_t getTimerChannel(PinName pin)
       channel = TIM_CHANNEL_4;
       break;
     default:
-      channel = 0;
+      _Error_Handler("TIM: Unknown timer channel", (int)(STM_PIN_CHANNEL(function)));
       break;
   }
   return channel;

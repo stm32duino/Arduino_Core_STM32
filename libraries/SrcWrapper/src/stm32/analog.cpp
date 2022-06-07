@@ -106,7 +106,7 @@ static PinName g_current_pin = NC;
   * @brief  Return ADC HAL channel linked to a PinName
   * @param  pin: PinName
   * @param  bank: pointer to get ADC channel bank if required
-  * @retval HAL channel. return 0 if pin has no ADC
+  * @retval Valid HAL channel
   */
 uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 {
@@ -224,7 +224,7 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 #endif
 #endif
     default:
-      channel = 0;
+      _Error_Handler("ADC: Unknown adc channel", (int)(STM_PIN_CHANNEL(function)));
       break;
   }
 #ifdef ADC_CHANNELS_BANK_B
@@ -244,7 +244,7 @@ uint32_t get_adc_channel(PinName pin, uint32_t *bank)
   * @param  pin: specific PinName's for ADC internal. Value can be:
   *         PADC_TEMP, PADC_TEMP_ADC5, PADC_VREF, PADC_VBAT
   *         Note that not all of these values ​​may be available for all series.
-  * @retval HAL internal channel. return 0 if pin has no ADC internal
+  * @retval Valid HAL internal channel.
   */
 uint32_t get_adc_internal_channel(PinName pin)
 {
@@ -276,7 +276,7 @@ uint32_t get_adc_internal_channel(PinName pin)
       break;
 #endif
     default:
-      channel = 0;
+      _Error_Handler("ADC: Unknown adc internal PiName", (int)(pin));
       break;
   }
   return channel;
@@ -287,7 +287,7 @@ uint32_t get_adc_internal_channel(PinName pin)
 /**
   * @brief  Return DAC HAL channel linked to a PinName
   * @param  pin: specific PinName's for ADC internal.
-  * @retval HAL channel. return 0 if pin has no dac
+  * @retval Valid HAL channel
   */
 uint32_t get_dac_channel(PinName pin)
 {
@@ -308,7 +308,7 @@ uint32_t get_dac_channel(PinName pin)
       break;
 #endif
     default:
-      channel = 0;
+      _Error_Handler("DAC: Unknown dac channel", (int)(STM_PIN_CHANNEL(function)));
       break;
   }
   return channel;
