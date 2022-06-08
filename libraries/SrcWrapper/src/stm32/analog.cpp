@@ -101,8 +101,14 @@ static PinName g_current_pin = NC;
 #define ADC_REGULAR_RANK_1  1
 #endif
 
-/* Private Functions */
-static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
+/* Exported Functions */
+/**
+  * @brief  Return ADC HAL channel linked to a PinName
+  * @param  pin: PinName
+  * @param  bank: pointer to get ADC channel bank if required
+  * @retval Valid HAL channel
+  */
+uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 {
   uint32_t function = pinmap_function(pin, PinMap_ADC);
   uint32_t channel = 0;
@@ -218,7 +224,7 @@ static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
 #endif
 #endif
     default:
-      channel = 0;
+      _Error_Handler("ADC: Unknown adc channel", (int)(STM_PIN_CHANNEL(function)));
       break;
   }
 #ifdef ADC_CHANNELS_BANK_B
@@ -233,7 +239,14 @@ static uint32_t get_adc_channel(PinName pin, uint32_t *bank)
   return channel;
 }
 
-static uint32_t get_adc_internal_channel(PinName pin)
+/**
+  * @brief  Return ADC HAL internal channel linked to a PinName
+  * @param  pin: specific PinName's for ADC internal. Value can be:
+  *         PADC_TEMP, PADC_TEMP_ADC5, PADC_VREF, PADC_VBAT
+  *         Note that not all of these values ​​may be available for all series.
+  * @retval Valid HAL internal channel.
+  */
+uint32_t get_adc_internal_channel(PinName pin)
 {
   uint32_t channel = 0;
   switch (pin) {
@@ -263,41 +276,20 @@ static uint32_t get_adc_internal_channel(PinName pin)
       break;
 #endif
     default:
-      channel = 0;
+      _Error_Handler("ADC: Unknown adc internal PiName", (int)(pin));
       break;
   }
   return channel;
 }
 #endif /* HAL_ADC_MODULE_ENABLED && !HAL_ADC_MODULE_ONLY */
 
-#if defined(HAL_TIM_MODULE_ENABLED) && !defined(HAL_TIM_MODULE_ONLY)
-uint32_t get_pwm_channel(PinName pin)
-{
-  uint32_t function = pinmap_function(pin, PinMap_TIM);
-  uint32_t channel = 0;
-  switch (STM_PIN_CHANNEL(function)) {
-    case 1:
-      channel = TIM_CHANNEL_1;
-      break;
-    case 2:
-      channel = TIM_CHANNEL_2;
-      break;
-    case 3:
-      channel = TIM_CHANNEL_3;
-      break;
-    case 4:
-      channel = TIM_CHANNEL_4;
-      break;
-    default:
-      channel = 0;
-      break;
-  }
-  return channel;
-}
-#endif /* HAL_TIM_MODULE_ENABLED && !HAL_TIM_MODULE_ONLY */
-
 #if defined(HAL_DAC_MODULE_ENABLED) && !defined(HAL_DAC_MODULE_ONLY)
-static uint32_t get_dac_channel(PinName pin)
+/**
+  * @brief  Return DAC HAL channel linked to a PinName
+  * @param  pin: specific PinName's for ADC internal.
+  * @retval Valid HAL channel
+  */
+uint32_t get_dac_channel(PinName pin)
 {
   uint32_t function = pinmap_function(pin, PinMap_DAC);
   uint32_t channel = 0;
@@ -316,7 +308,7 @@ static uint32_t get_dac_channel(PinName pin)
       break;
 #endif
     default:
-      channel = 0;
+      _Error_Handler("DAC: Unknown dac channel", (int)(STM_PIN_CHANNEL(function)));
       break;
   }
   return channel;

@@ -740,7 +740,7 @@ void HardwareTimer::setMode(uint32_t channel, TimerModes_t mode, PinName pin)
   _ChannelMode[channel - 1] = mode;
 
   if (pin != NC) {
-    if ((int)get_pwm_channel(pin) == timChannel) {
+    if ((int)getTimerChannel(pin) == timChannel) {
       /* Configure PWM GPIO pins */
       pinmap_pinout(pin, PinMap_TIM);
 #if defined(STM32F1xx)
