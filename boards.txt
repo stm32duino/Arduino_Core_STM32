@@ -7346,8 +7346,8 @@ GenU5.menu.opt.o3std=Fastest (-O3)
 GenU5.menu.opt.o3std.build.flags.optimize=-O3
 GenU5.menu.opt.o3lto=Fastest (-O3) with LTO
 GenU5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenU5.menu.opt.ogstd=Debug (-g)
-GenU5.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenU5.menu.opt.ogstd=Debug (-Og)
+GenU5.menu.opt.ogstd.build.flags.optimize=-Og
 GenU5.menu.opt.o0std=No Optimization (-O0)
 GenU5.menu.opt.o0std.build.flags.optimize=-O0
 
