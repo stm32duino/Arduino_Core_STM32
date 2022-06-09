@@ -104,9 +104,22 @@ extern "C" {
 // weaked functions declaration
 void SystemClock_Config(void);
 
+#if defined(NDEBUG)
+#if !defined(_Error_Handler)
+#define _Error_Handler(str, value) \
+  while (1) {\
+  }
+#endif
+#if !defined(Error_Handler)
+#define Error_Handler() \
+  while (1) {\
+  }
+#endif
+#else
 void _Error_Handler(const char *, int);
 
 #define Error_Handler() _Error_Handler(__FILE__, __LINE__)
+#endif
 
 #ifdef __cplusplus
 } // extern "C"

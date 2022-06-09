@@ -110,7 +110,7 @@ build.peripheral_pins=
 build.startup_file=
 build.flags.fp=
 build.flags.optimize=-Os
-build.flags.debug=
+build.flags.debug=-DNDEBUG
 build.flags.ldspecs=--specs=nano.specs
 build.flash_offset=0
 
