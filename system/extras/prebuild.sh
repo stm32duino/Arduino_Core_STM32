@@ -2,6 +2,7 @@
 
 BUILD_PATH="$1"
 BUILD_SOURCE_PATH="$2"
+BOARD_PLATFORM_PATH="$3"
 
 # Create sketch dir if not exists
 if [ ! -f "$BUILD_PATH/sketch" ]; then
@@ -17,6 +18,11 @@ else
   # See https://github.com/arduino/arduino-cli/issues/1338
   cp "$BUILD_SOURCE_PATH/build_opt.h" "$BUILD_PATH/sketch/build.opt"
 fi
+
+# Append -fmacro-prefix-map option to change __FILE__ absolute path of the board
+# platform folder to a relative path by using '.'.
+# (i.e. the folder containing boards.txt)
+printf '\n-fmacro-prefix-map=%s=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" > "$BUILD_PATH/sketch/build.opt"
 
 # Force include of SrcWrapper library
 echo "#include <SrcWrapper.h>" > "$BUILD_PATH/sketch/SrcWrapper.cpp"
