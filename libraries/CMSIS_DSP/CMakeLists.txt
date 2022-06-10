@@ -18,3 +18,7 @@ add_library(CMSIS_DSP OBJECT EXCLUDE_FROM_ALL
 target_include_directories(CMSIS_DSP PUBLIC
   src
 )
+
+target_link_libraries(CMSIS_DSP PUBLIC
+  core_config
+)

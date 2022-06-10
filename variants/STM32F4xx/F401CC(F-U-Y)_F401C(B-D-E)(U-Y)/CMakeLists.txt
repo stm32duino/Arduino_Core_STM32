@@ -9,3 +9,7 @@ add_library(variant EXCLUDE_FROM_ALL
   variant_BLACKPILL_F401CC.cpp
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

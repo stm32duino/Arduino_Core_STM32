@@ -7,3 +7,7 @@ add_library(variant EXCLUDE_FROM_ALL
   PeripheralPins_STEVAL_MKSBOX1V1.c
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

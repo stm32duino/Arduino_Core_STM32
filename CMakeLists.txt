@@ -6,13 +6,6 @@ include(ensure_CMSIS)
 
 project("Arduino_Core_STM32" CXX C ASM)
 
-set(BOARD_SERIE "STM32L4xx" CACHE STRING "")
-set(BOARD_PRODUCTLINE "STM32L433xx" CACHE STRING "")
-set(BOARD_VARIANT "L433RCTxP" CACHE STRING "")
-set(BOARD_ID "NUCLEO_L433RC_P" CACHE STRING "")
-set(BOARD_MAXSIZE 262144 CACHE STRING "Program space size")
-set(BOARD_MAXDATASIZE 65536 CACHE STRING "Dynamic memory size")
-set(FLASH_OFFSET 0 CACHE STRING "ld flash offset")
 
 set(FEAT_XSERIAL "GENERIC" CACHE STRING "USART support")
 set(FEAT_USB "NONE" CACHE STRING "USB support")
@@ -28,18 +21,13 @@ set(BUILD_DBG OFF CACHE BOOL "Enable debug symbols")
 set(BUILD_LTO OFF CACHE BOOL "Enable Link-Time-Optimisations")
 set(BUILD_RELPATH ON CACHE BOOL "make __FILE__ be relative instead of absolute")
 
-set(USB_PID 0 CACHE STRING "")
-set(USB_VID 0 CACHE STRING "")
-
 set(USB_PID 0)
 set(USB_VID 0)
 
 
-set(BUILD_SOURCE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/sketch" CACHE STRING "")
 set(BUILD_CORE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cores/arduino")
 set(BUILD_SYSTEM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/system")
 set(BUILD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
-set(BUILD_VARIANT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/variants/${BOARD_SERIE}/${BOARD_VARIANT}")
 set(CMSIS5_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMSIS_5" CACHE STRING "Path to CMSIS_5")
 
 option(AUTODL_CMSIS OFF)
@@ -138,7 +126,7 @@ elseif (${FEAT_VIRTIO} STREQUAL "GENERIC")
 	target_compile_definitions(core_config INTERFACE
 		VIRTIOCON
 		NO_ATOMIC_64_SUPPORT
-		DMETAL_INTERNAL
+		METAL_INTERNAL
 		METAL_MAX_DEVICE_REGIONS=2
 		VIRTIO_SLAVE_ONLY
 		VIRTIO_LOG
@@ -153,7 +141,7 @@ elseif (${FEAT_VIRTIO} STREQUAL "ENABLED")
 	target_compile_definitions(core_config INTERFACE
 		VIRTIOCON
 		NO_ATOMIC_64_SUPPORT
-		DMETAL_INTERNAL
+		METAL_INTERNAL
 		METAL_MAX_DEVICE_REGIONS=2
 		VIRTIO_SLAVE_ONLY
 		VIRTIO_LOG
@@ -180,7 +168,7 @@ else ()
   )
 endif()
 
-if (${BUILD_OPT} MATCHES "[0-3gs]")
+if (${BUILD_OPT} MATCHES "^[0-3gs]$")
 	target_compile_options(core_config INTERFACE
 		-O${BUILD_OPT}
 	)
@@ -204,36 +192,14 @@ if (${BUILD_LTO})
 endif()
 
 # generic compilation options
-target_compile_definitions(core_config INTERFACE
-	"${BOARD_SERIE}"
-	"ARDUINO_${BOARD_ID}"
-	"BOARD_NAME=\"${BOARD_ID}\""
-	"BOARD_ID=${BOARD_ID}"
-	"VARIANT_H=\"variant_${BOARD_ID}.h\""
-	"${BOARD_PRODUCTLINE}"
-)
-target_compile_options(core_config INTERFACE
- -mcpu=cortex-m4
- -mfpu=fpv4-sp-d16
- -mfloat-abi=hard
-)
-
+target_link_libraries(core_config INTERFACE board)
 target_link_options(core_config INTERFACE
-  -mcpu=cortex-m4
-  -mfpu=fpv4-sp-d16
-  -mfloat-abi=hard
-
-  LINKER:--defsym=LD_FLASH_OFFSET=${FLASH_OFFSET}
-	LINKER:--defsym=LD_MAX_SIZE=${BOARD_MAXSIZE}
-	LINKER:--defsym=LD_MAX_DATA_SIZE=${BOARD_MAXDATASIZE}
-	LINKER:--default-script=${BUILD_VARIANT_PATH}/ldscript.ld
 	LINKER:--script=${BUILD_SYSTEM_PATH}/ldscript.ld
 )
 target_link_directories(core_config INTERFACE
 	"${CMSIS5_PATH}/CMSIS/DSP/Lib/GCC"
 )
 target_include_directories(core_config INTERFACE
-	"${BUILD_SOURCE_PATH}"
 	"${BUILD_CORE_PATH}"
 	"${BUILD_CORE_PATH}/avr"
 	"${BUILD_CORE_PATH}/stm32"
@@ -242,24 +208,15 @@ target_include_directories(core_config INTERFACE
 	"${BUILD_CORE_PATH}/stm32/OpenAMP"
 	"${BUILD_CORE_PATH}/stm32/usb/hid"
 	"${BUILD_CORE_PATH}/stm32/usb/cdc"
-	"${BUILD_SYSTEM_PATH}/${BOARD_SERIE}"
-	"${BUILD_SYSTEM_PATH}/Drivers/${BOARD_SERIE}_HAL_Driver/Inc"
-	"${BUILD_SYSTEM_PATH}/Drivers/${BOARD_SERIE}_HAL_Driver/Src"
 	"${BUILD_SYSTEM_PATH}/Middlewares/ST/STM32_USB_Device_Library/Core/Inc"
 	"${BUILD_SYSTEM_PATH}/Middlewares/ST/STM32_USB_Device_Library/Core/Src"
-	"${BUILD_SYSTEM_PATH}/Drivers/CMSIS/Device/ST/${BOARD_SERIE}/Include/"
-	"${BUILD_SYSTEM_PATH}/Drivers/CMSIS/Device/ST/${BOARD_SERIE}/Source/Templates/gcc/"
 	"${CMSIS5_PATH}/CMSIS/DSP/Include"
 	"${CMSIS5_PATH}/CMSIS/DSP/PrivateInclude"
 	"${CMSIS5_PATH}/CMSIS/Core/Include/"
 	"${CMSIS5_PATH}/CMSIS"
-	"${BUILD_VARIANT_PATH}"
 
   "${BUILD_LIB_PATH}/SrcWrapper/src"
 )
-
-# propagate config to all the parts of the core
-link_libraries(core_config)
 
 add_subdirectory(${BUILD_CORE_PATH})
 add_subdirectory(${BUILD_VARIANT_PATH})
@@ -273,12 +230,14 @@ target_link_libraries(stm32_runtime INTERFACE
   # but SrcWrapper is an object library, not an archive, so it isn't necessary
   # (this means the linker takes all the object unconditionally, as opposed to an archive where it picks what it needs)
   # note: SrcWrapper in particular MUST be an object library, due to possible weak+strong symbols (cf. library.properties)
+  core_config
+
   SrcWrapper
   $<TARGET_OBJECTS:SrcWrapper>
   core
   variant
 
-  arm_cortexM4lf_math
+  ${CMSIS_LIB}
   m
   stdc++
   c

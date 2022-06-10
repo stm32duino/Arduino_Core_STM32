@@ -64,3 +64,7 @@ add_library(core EXCLUDE_FROM_ALL
   stm32/OpenAMP/libmetal/generic/cortexm/sys.c
 )
 
+
+target_link_libraries(core PUBLIC
+  core_config
+)

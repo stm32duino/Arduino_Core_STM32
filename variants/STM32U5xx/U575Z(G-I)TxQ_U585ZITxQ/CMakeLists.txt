@@ -7,3 +7,7 @@ add_library(variant EXCLUDE_FROM_ALL
   variant_NUCLEO_U575ZI_Q.cpp
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

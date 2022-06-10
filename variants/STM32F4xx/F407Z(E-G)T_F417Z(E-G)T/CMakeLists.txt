@@ -9,3 +9,7 @@ add_library(variant EXCLUDE_FROM_ALL
   PeripheralPins_BLACK_F407ZX.c
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

@@ -8,3 +8,7 @@ add_library(variant EXCLUDE_FROM_ALL
   PeripheralPins_CoreBoard_F401RC.c
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

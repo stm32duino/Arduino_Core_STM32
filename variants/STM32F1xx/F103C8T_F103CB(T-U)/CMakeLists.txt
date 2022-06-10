@@ -11,3 +11,7 @@ add_library(variant EXCLUDE_FROM_ALL
   PeripheralPins_MALYANM200_F103CB.c
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)

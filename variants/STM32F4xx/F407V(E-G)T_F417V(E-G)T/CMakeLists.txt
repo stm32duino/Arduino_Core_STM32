@@ -18,3 +18,7 @@ add_library(variant EXCLUDE_FROM_ALL
   PeripheralPins_PRNTR_V1.c
 )
 
+
+target_link_libraries(variant PUBLIC
+  core_config
+)
