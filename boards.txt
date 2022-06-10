@@ -729,7 +729,7 @@ Disco.menu.pnum.B_L475E_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.B_L475E_IOT01A.build.board=B_L475E_IOT01A
 Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
-Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx//L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
+Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
 Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L475E_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
