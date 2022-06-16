@@ -1,9 +1,9 @@
 #ifndef _CORE_DEBUG_H
 #define _CORE_DEBUG_H
-#ifdef CORE_DEBUG
+#if !defined(NDEBUG)
   #include <stdio.h>
   #include <stdarg.h>
-#endif /* CORE_DEBUG */
+#endif /* NDEBUG */
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,14 +18,14 @@ extern "C" {
  */
 static inline void core_debug(const char *format, ...)
 {
-#ifdef CORE_DEBUG
+#if !defined(NDEBUG)
   va_list args;
   va_start(args, format);
   vfprintf(stderr, format, args);
   va_end(args);
 #else
   (void)(format);
-#endif /* CORE_DEBUG */
+#endif /* NDEBUG */
 }
 
 #ifdef __cplusplus

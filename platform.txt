@@ -110,7 +110,7 @@ build.peripheral_pins=
 build.startup_file=
 build.flags.fp=
 build.flags.optimize=-Os
-build.flags.debug=
+build.flags.debug=-DNDEBUG
 build.flags.ldspecs=--specs=nano.specs
 build.flash_offset=0
 
@@ -120,9 +120,9 @@ build.opt.path={build.path}/sketch/{build.opt.name}
 
 extras.path={build.system.path}/extras
 
-# Create empty {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
-recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
-recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}"
+# Create {build.opt} if not exists in the output sketch dir and force include of SrcWrapper library
+recipe.hooks.prebuild.1.pattern="{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
+recipe.hooks.prebuild.1.pattern.windows="{runtime.tools.STM32Tools.path}/win/busybox.exe" sh "{extras.path}/prebuild.sh" "{build.path}" "{build.source.path}" "{runtime.platform.path}"
 
 # compile patterns
 # ---------------------

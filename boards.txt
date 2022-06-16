@@ -8,7 +8,7 @@ menu.xusb=USB speed (if available)
 menu.virtio=Virtual serial support
 
 menu.opt=Optimize
-menu.dbg=Debug symbols
+menu.dbg=Debug symbols and core logs
 menu.rtlib=C Runtime Library
 menu.upload_method=Upload method
 
@@ -729,7 +729,7 @@ Disco.menu.pnum.B_L475E_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
 Disco.menu.pnum.B_L475E_IOT01A.build.board=B_L475E_IOT01A
 Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
-Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx//L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
+Disco.menu.pnum.B_L475E_IOT01A.build.variant=STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT
 Disco.menu.pnum.B_L475E_IOT01A.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Disco.menu.pnum.B_L475E_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -7346,8 +7346,8 @@ GenU5.menu.opt.o3std=Fastest (-O3)
 GenU5.menu.opt.o3std.build.flags.optimize=-O3
 GenU5.menu.opt.o3lto=Fastest (-O3) with LTO
 GenU5.menu.opt.o3lto.build.flags.optimize=-O3 -flto
-GenU5.menu.opt.ogstd=Debug (-g)
-GenU5.menu.opt.ogstd.build.flags.optimize=-g -Og
+GenU5.menu.opt.ogstd=Debug (-Og)
+GenU5.menu.opt.ogstd.build.flags.optimize=-Og
 GenU5.menu.opt.o0std=No Optimization (-O0)
 GenU5.menu.opt.o0std.build.flags.optimize=-O0
 
@@ -7553,120 +7553,236 @@ Midatronics.menu.opt.o0std.build.flags.optimize=-O0
 
 # Debug information
 Nucleo_144.menu.dbg.none=None
-Nucleo_144.menu.dbg.enable=Enabled (-g)
-Nucleo_144.menu.dbg.enable.build.flags.debug=-g
+Nucleo_144.menu.dbg.enable_sym=Symbols Enabled (-g)
+Nucleo_144.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Nucleo_144.menu.dbg.enable_log=Core logs Enabled
+Nucleo_144.menu.dbg.enable_log.build.flags.debug=
+Nucleo_144.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Nucleo_144.menu.dbg.enable_all.build.flags.debug=-g
 
 Nucleo_64.menu.dbg.none=None
-Nucleo_64.menu.dbg.enable=Enabled (-g)
-Nucleo_64.menu.dbg.enable.build.flags.debug=-g
+Nucleo_64.menu.dbg.enable_sym=Symbols Enabled (-g)
+Nucleo_64.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Nucleo_64.menu.dbg.enable_log=Core logs Enabled
+Nucleo_64.menu.dbg.enable_log.build.flags.debug=
+Nucleo_64.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Nucleo_64.menu.dbg.enable_all.build.flags.debug=-g
 
 Nucleo_32.menu.dbg.none=None
-Nucleo_32.menu.dbg.enable=Enabled (-g)
-Nucleo_32.menu.dbg.enable.build.flags.debug=-g
+Nucleo_32.menu.dbg.enable_sym=Symbols Enabled (-g)
+Nucleo_32.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Nucleo_32.menu.dbg.enable_log=Core logs Enabled
+Nucleo_32.menu.dbg.enable_log.build.flags.debug=
+Nucleo_32.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Nucleo_32.menu.dbg.enable_all.build.flags.debug=-g
 
 Disco.menu.dbg.none=None
-Disco.menu.dbg.enable=Enabled (-g)
-Disco.menu.dbg.enable.build.flags.debug=-g
+Disco.menu.dbg.enable_sym=Symbols Enabled (-g)
+Disco.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Disco.menu.dbg.enable_log=Core logs Enabled
+Disco.menu.dbg.enable_log.build.flags.debug=
+Disco.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Disco.menu.dbg.enable_all.build.flags.debug=-g
 
 Eval.menu.dbg.none=None
-Eval.menu.dbg.enable=Enabled (-g)
-Eval.menu.dbg.enable.build.flags.debug=-g
+Eval.menu.dbg.enable_sym=Symbols Enabled (-g)
+Eval.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Eval.menu.dbg.enable_log=Core logs Enabled
+Eval.menu.dbg.enable_log.build.flags.debug=
+Eval.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Eval.menu.dbg.enable_all.build.flags.debug=-g
 
 STM32MP1.menu.dbg.none=None
-STM32MP1.menu.dbg.enable=Enabled (-g)
-STM32MP1.menu.dbg.enable.build.flags.debug=-g
+STM32MP1.menu.dbg.enable_sym=Symbols Enabled (-g)
+STM32MP1.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+STM32MP1.menu.dbg.enable_log=Core logs Enabled
+STM32MP1.menu.dbg.enable_log.build.flags.debug=
+STM32MP1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+STM32MP1.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF0.menu.dbg.none=None
-GenF0.menu.dbg.enable=Enabled (-g)
-GenF0.menu.dbg.enable.build.flags.debug=-g
+GenF0.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF0.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF0.menu.dbg.enable_log=Core logs Enabled
+GenF0.menu.dbg.enable_log.build.flags.debug=
+GenF0.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF0.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF1.menu.dbg.none=None
-GenF1.menu.dbg.enable=Enabled (-g)
-GenF1.menu.dbg.enable.build.flags.debug=-g
+GenF1.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF1.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF1.menu.dbg.enable_log=Core logs Enabled
+GenF1.menu.dbg.enable_log.build.flags.debug=
+GenF1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF1.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF2.menu.dbg.none=None
-GenF2.menu.dbg.enable=Enabled (-g)
-GenF2.menu.dbg.enable.build.flags.debug=-g
+GenF2.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF2.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF2.menu.dbg.enable_log=Core logs Enabled
+GenF2.menu.dbg.enable_log.build.flags.debug=
+GenF2.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF2.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF3.menu.dbg.none=None
-GenF3.menu.dbg.enable=Enabled (-g)
-GenF3.menu.dbg.enable.build.flags.debug=-g
+GenF3.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF3.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF3.menu.dbg.enable_log=Core logs Enabled
+GenF3.menu.dbg.enable_log.build.flags.debug=
+GenF3.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF3.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF4.menu.dbg.none=None
-GenF4.menu.dbg.enable=Enabled (-g)
-GenF4.menu.dbg.enable.build.flags.debug=-g
+GenF4.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF4.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF4.menu.dbg.enable_log=Core logs Enabled
+GenF4.menu.dbg.enable_log.build.flags.debug=
+GenF4.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF4.menu.dbg.enable_all.build.flags.debug=-g
 
 GenF7.menu.dbg.none=None
-GenF7.menu.dbg.enable=Enabled (-g)
-GenF7.menu.dbg.enable.build.flags.debug=-g
+GenF7.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenF7.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenF7.menu.dbg.enable_log=Core logs Enabled
+GenF7.menu.dbg.enable_log.build.flags.debug=
+GenF7.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenF7.menu.dbg.enable_all.build.flags.debug=-g
 
 GenG0.menu.dbg.none=None
-GenG0.menu.dbg.enable=Enabled (-g)
-GenG0.menu.dbg.enable.build.flags.debug=-g
+GenG0.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenG0.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenG0.menu.dbg.enable_log=Core logs Enabled
+GenG0.menu.dbg.enable_log.build.flags.debug=
+GenG0.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenG0.menu.dbg.enable_all.build.flags.debug=-g
 
 GenG4.menu.dbg.none=None
-GenG4.menu.dbg.enable=Enabled (-g)
-GenG4.menu.dbg.enable.build.flags.debug=-g
+GenG4.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenG4.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenG4.menu.dbg.enable_log=Core logs Enabled
+GenG4.menu.dbg.enable_log.build.flags.debug=
+GenG4.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenG4.menu.dbg.enable_all.build.flags.debug=-g
 
 GenH7.menu.dbg.none=None
-GenH7.menu.dbg.enable=Enabled (-g)
-GenH7.menu.dbg.enable.build.flags.debug=-g
+GenH7.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenH7.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenH7.menu.dbg.enable_log=Core logs Enabled
+GenH7.menu.dbg.enable_log.build.flags.debug=
+GenH7.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenH7.menu.dbg.enable_all.build.flags.debug=-g
 
 GenL0.menu.dbg.none=None
-GenL0.menu.dbg.enable=Enabled (-g)
-GenL0.menu.dbg.enable.build.flags.debug=-g
+GenL0.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenL0.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenL0.menu.dbg.enable_log=Core logs Enabled
+GenL0.menu.dbg.enable_log.build.flags.debug=
+GenL0.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenL0.menu.dbg.enable_all.build.flags.debug=-g
 
 GenL1.menu.dbg.none=None
-GenL1.menu.dbg.enable=Enabled (-g)
-GenL1.menu.dbg.enable.build.flags.debug=-g
+GenL1.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenL1.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenL1.menu.dbg.enable_log=Core logs Enabled
+GenL1.menu.dbg.enable_log.build.flags.debug=
+GenL1.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenL1.menu.dbg.enable_all.build.flags.debug=-g
 
 GenL4.menu.dbg.none=None
-GenL4.menu.dbg.enable=Enabled (-g)
-GenL4.menu.dbg.enable.build.flags.debug=-g
+GenL4.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenL4.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenL4.menu.dbg.enable_log=Core logs Enabled
+GenL4.menu.dbg.enable_log.build.flags.debug=
+GenL4.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenL4.menu.dbg.enable_all.build.flags.debug=-g
 
 GenL5.menu.dbg.none=None
-GenL5.menu.dbg.enable=Enabled (-g)
-GenL5.menu.dbg.enable.build.flags.debug=-g
+GenL5.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenL5.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenL5.menu.dbg.enable_log=Core logs Enabled
+GenL5.menu.dbg.enable_log.build.flags.debug=
+GenL5.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenL5.menu.dbg.enable_all.build.flags.debug=-g
 
 GenWB.menu.dbg.none=None
-GenWB.menu.dbg.enable=Enabled (-g)
-GenWB.menu.dbg.enable.build.flags.debug=-g
+GenWB.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenWB.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenWB.menu.dbg.enable_log=Core logs Enabled
+GenWB.menu.dbg.enable_log.build.flags.debug=
+GenWB.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenWB.menu.dbg.enable_all.build.flags.debug=-g
 
 GenWL.menu.dbg.none=None
-GenWL.menu.dbg.enable=Enabled (-g)
-GenWL.menu.dbg.enable.build.flags.debug=-g
+GenWL.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenWL.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenWL.menu.dbg.enable_log=Core logs Enabled
+GenWL.menu.dbg.enable_log.build.flags.debug=
+GenWL.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenWL.menu.dbg.enable_all.build.flags.debug=-g
 
 3dprinter.menu.dbg.none=None
-3dprinter.menu.dbg.enable=Enabled (-g)
-3dprinter.menu.dbg.enable.build.flags.debug=-g
+3dprinter.menu.dbg.enable_sym=Symbols Enabled (-g)
+3dprinter.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+3dprinter.menu.dbg.enable_log=Core logs Enabled
+3dprinter.menu.dbg.enable_log.build.flags.debug=
+3dprinter.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+3dprinter.menu.dbg.enable_all.build.flags.debug=-g
 
 BluesW.menu.dbg.none=None
-BluesW.menu.dbg.enable=Enabled (-g)
-BluesW.menu.dbg.enable.build.flags.debug=-g
+BluesW.menu.dbg.enable_sym=Symbols Enabled (-g)
+BluesW.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+BluesW.menu.dbg.enable_log=Core logs Enabled
+BluesW.menu.dbg.enable_log.build.flags.debug=
+BluesW.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+BluesW.menu.dbg.enable_all.build.flags.debug=-g
 
 Elecgator.menu.dbg.none=None
-Elecgator.menu.dbg.enable=Enabled (-g)
-Elecgator.menu.dbg.enable.build.flags.debug=-g
+Elecgator.menu.dbg.enable_sym=Symbols Enabled (-g)
+Elecgator.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Elecgator.menu.dbg.enable_log=Core logs Enabled
+Elecgator.menu.dbg.enable_log.build.flags.debug=
+Elecgator.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Elecgator.menu.dbg.enable_all.build.flags.debug=-g
 
 ESC_board.menu.dbg.none=None
-ESC_board.menu.dbg.enable=Enabled (-g)
-ESC_board.menu.dbg.enable.build.flags.debug=-g
+ESC_board.menu.dbg.enable_sym=Symbols Enabled (-g)
+ESC_board.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+ESC_board.menu.dbg.enable_log=Core logs Enabled
+ESC_board.menu.dbg.enable_log.build.flags.debug=
+ESC_board.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+ESC_board.menu.dbg.enable_all.build.flags.debug=-g
 
 Garatronic.menu.dbg.none=None
-Garatronic.menu.dbg.enable=Enabled (-g)
-Garatronic.menu.dbg.enable.build.flags.debug=-g
+Garatronic.menu.dbg.enable_sym=Symbols Enabled (-g)
+Garatronic.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Garatronic.menu.dbg.enable_log=Core logs Enabled
+Garatronic.menu.dbg.enable_log.build.flags.debug=
+Garatronic.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Garatronic.menu.dbg.enable_all.build.flags.debug=-g
 
 GenFlight.menu.dbg.none=None
-GenFlight.menu.dbg.enable=Enabled (-g)
-GenFlight.menu.dbg.enable.build.flags.debug=-g
+GenFlight.menu.dbg.enable_sym=Symbols Enabled (-g)
+GenFlight.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+GenFlight.menu.dbg.enable_log=Core logs Enabled
+GenFlight.menu.dbg.enable_log.build.flags.debug=
+GenFlight.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+GenFlight.menu.dbg.enable_all.build.flags.debug=-g
 
 LoRa.menu.dbg.none=None
-LoRa.menu.dbg.enable=Enabled (-g)
-LoRa.menu.dbg.enable.build.flags.debug=-g
+LoRa.menu.dbg.enable_sym=Symbols Enabled (-g)
+LoRa.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+LoRa.menu.dbg.enable_log=Core logs Enabled
+LoRa.menu.dbg.enable_log.build.flags.debug=
+LoRa.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+LoRa.menu.dbg.enable_all.build.flags.debug=-g
 
 Midatronics.menu.dbg.none=None
-Midatronics.menu.dbg.enable=Enabled (-g)
-Midatronics.menu.dbg.enable.build.flags.debug=-g
+Midatronics.menu.dbg.enable_sym=Symbols Enabled (-g)
+Midatronics.menu.dbg.enable_sym.build.flags.debug=-g -DNDEBUG
+Midatronics.menu.dbg.enable_log=Core logs Enabled
+Midatronics.menu.dbg.enable_log.build.flags.debug=
+Midatronics.menu.dbg.enable_all=Core Logs and Symbols Enabled (-g)
+Midatronics.menu.dbg.enable_all.build.flags.debug=-g
 
 # C Runtime Library
 Nucleo_144.menu.rtlib.nano=Newlib Nano (default)
