@@ -339,7 +339,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32G474RB<br>STM32G474RC<br>STM32G474RE | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G483RE | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G484RE | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32G491RC | STM32G491RE | Generic Board | **2.3.0** |  |
+| :yellow_heart: | STM32G491RC<br>STM32G491RE | Generic Board | **2.3.0** |  |
 | :yellow_heart: | STM32G4A1RE | Generic Board | **2.3.0** |  |
 
 ### Generic STM32H7 boards

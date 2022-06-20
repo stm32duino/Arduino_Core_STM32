@@ -1,0 +1,51 @@
+From 43d68baed68625b2e99d15d841c31cb1bfb2475a Mon Sep 17 00:00:00 2001
+From: Alexandre Bourdiol <alexandre.bourdiol@st.com>
+Date: Mon, 20 Jun 2022 13:58:28 +0200
+Subject: [PATCH] Fix: CMSIS stm32g491 and stm32g4a1 add missing aliases for
+ TIM7 and COMP4/5/6
+
+Internal ticket 130525
+
+Signed-off-by: Alexandre Bourdiol <alexandre.bourdiol@st.com>
+---
+ .../Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g491xx.h   | 4 ++++
+ .../Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4a1xx.h   | 4 ++++
+ 2 files changed, 8 insertions(+)
+
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g491xx.h b/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g491xx.h
+index ca9874b3..84f12c6e 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g491xx.h
++++ b/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g491xx.h
+@@ -13694,8 +13694,12 @@ typedef struct
+ /******************************************************************************/
+ 
+ /* Aliases for __IRQn */
++#define TIM7_DAC_IRQn     TIM7_IRQn
++#define COMP4_5_6_IRQn    COMP4_IRQn
+ 
+ /* Aliases for __IRQHandler */
++#define TIM7_DAC_IRQHandler     TIM7_IRQHandler
++#define COMP4_5_6_IRQHandler    COMP4_IRQHandler
+ 
+ #ifdef __cplusplus
+ }
+diff --git a/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4a1xx.h b/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4a1xx.h
+index 2fb6e6f5..2431b284 100644
+--- a/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4a1xx.h
++++ b/system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/stm32g4a1xx.h
+@@ -13926,8 +13926,12 @@ typedef struct
+ /******************************************************************************/
+ 
+ /* Aliases for __IRQn */
++#define TIM7_DAC_IRQn     TIM7_IRQn
++#define COMP4_5_6_IRQn    COMP4_IRQn
+ 
+ /* Aliases for __IRQHandler */
++#define TIM7_DAC_IRQHandler     TIM7_IRQHandler
++#define COMP4_5_6_IRQHandler    COMP4_IRQHandler
+ 
+ #ifdef __cplusplus
+ }
+-- 
+2.31.1.windows.1
+
