@@ -41,7 +41,8 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.node=NODE_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.upload.maximum_data_size=196608
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.mcu=cortex-m4
-Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.board=NUCLEO_F429ZI
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.series=STM32F4xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
@@ -54,7 +55,8 @@ Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.board=NUCLEO_F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.build.product_line=STM32F746xx
@@ -68,7 +70,8 @@ Nucleo_144.menu.pnum.NUCLEO_F756ZG.node=NODE_F756ZG
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.board=NUCLEO_F756ZG
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F756ZG.build.product_line=STM32F756xx
@@ -82,7 +85,8 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.node=NODE_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.board=NUCLEO_F767ZI
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.series=STM32F7xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
@@ -95,7 +99,8 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI.node=NODE_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.board=NUCLEO_H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.build.product_line=STM32H743xx
@@ -107,7 +112,8 @@ Nucleo_144.menu.pnum.NUCLEO_H743ZI2.node="NODE_H743ZI,NOD_H743ZI2"
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.upload.maximum_data_size=524288
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.mcu=cortex-m7
-Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.board=NUCLEO_H743ZI2
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.series=STM32H7xx
 Nucleo_144.menu.pnum.NUCLEO_H743ZI2.build.product_line=STM32H743xx
@@ -121,7 +127,8 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG.node=NODE_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.mcu=cortex-m4
-Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.board=NUCLEO_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.product_line=STM32L496xx
@@ -134,7 +141,8 @@ Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.node=NODE_L496ZG
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_size=1048576
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.upload.maximum_data_size=327680
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.mcu=cortex-m4
-Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_L496ZG.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.board=NUCLEO_L496ZG_P
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L496ZG-P.build.product_line=STM32L496xx
@@ -147,7 +155,8 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.node=NODE_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.upload.maximum_data_size=655360
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.mcu=cortex-m4
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.board=NUCLEO_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI.build.product_line=STM32L4R5xx
@@ -160,7 +169,8 @@ Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.node=NODE_L4R5ZI
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.upload.maximum_data_size=655360
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.mcu=cortex-m4
-Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.board=NUCLEO_L4R5ZI_P
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.series=STM32L4xx
 Nucleo_144.menu.pnum.NUCLEO_L4R5ZI_P.build.product_line=STM32L4R5xx
@@ -173,7 +183,8 @@ Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.node=NODE_L552ZE
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_size=524288
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.upload.maximum_data_size=196608
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.mcu=cortex-m33
-Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.board=NUCLEO_L552ZE_Q
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.series=STM32L5xx
 Nucleo_144.menu.pnum.NUCLEO_L552ZE_Q.build.product_line=STM32L552xx
@@ -186,7 +197,8 @@ Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.node=NOD_U575ZI
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_size=2097152
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.upload.maximum_data_size=262144
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.mcu=cortex-m33
-Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.float-abi=-mfloat-abi=hard
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.board=NUCLEO_U575ZI_Q
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.series=STM32U5xx
 Nucleo_144.menu.pnum.NUCLEO_U575ZI_Q.build.product_line=STM32U575xx
@@ -290,7 +302,8 @@ Nucleo_64.menu.pnum.NUCLEO_F302R8.node=NODE_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.upload.maximum_size=65536
 Nucleo_64.menu.pnum.NUCLEO_F302R8.upload.maximum_data_size=16384
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_F302R8.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F302R8.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F302R8.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.board=NUCLEO_F302R8
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F302R8.build.product_line=STM32F302x8
@@ -303,7 +316,8 @@ Nucleo_64.menu.pnum.NUCLEO_F303RE.node=NODE_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F303RE.upload.maximum_data_size=65536
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_F303RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F303RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F303RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.board=NUCLEO_F303RE
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.series=STM32F3xx
 Nucleo_64.menu.pnum.NUCLEO_F303RE.build.product_line=STM32F303xE
@@ -316,7 +330,8 @@ Nucleo_64.menu.pnum.NUCLEO_F401RE.node=NODE_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F401RE.upload.maximum_data_size=98304
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_F401RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F401RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.board=NUCLEO_F401RE
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F401RE.build.product_line=STM32F401xE
@@ -329,7 +344,8 @@ Nucleo_64.menu.pnum.NUCLEO_F411RE.node="NODE_F411RE,NUCLEO"
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F411RE.upload.maximum_data_size=131072
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_F411RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F411RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.board=NUCLEO_F411RE
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F411RE.build.product_line=STM32F411xE
@@ -342,7 +358,8 @@ Nucleo_64.menu.pnum.NUCLEO_F446RE.node=NODE_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_F446RE.upload.maximum_data_size=131072
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_F446RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_F446RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_F446RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.board=NUCLEO_F446RE
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.series=STM32F4xx
 Nucleo_64.menu.pnum.NUCLEO_F446RE.build.product_line=STM32F446xx
@@ -381,7 +398,8 @@ Nucleo_64.menu.pnum.NUCLEO_G431RB.node="NODE_G431RB,NOD_G431RB"
 Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_size=131072
 Nucleo_64.menu.pnum.NUCLEO_G431RB.upload.maximum_data_size=32768
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_G431RB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_G431RB.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.board=NUCLEO_G431RB
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G431RB.build.product_line=STM32G431xx
@@ -394,7 +412,8 @@ Nucleo_64.menu.pnum.NUCLEO_G474RE.node=NODE_G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_G474RE.upload.maximum_data_size=131072
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_G474RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_G474RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_G474RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.board=NUCLEO_G474RE
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.series=STM32G4xx
 Nucleo_64.menu.pnum.NUCLEO_G474RE.build.product_line=STM32G474xx
@@ -458,7 +477,8 @@ Nucleo_64.menu.pnum.NUCLEO_L433RC_P.node=NODE_L433RC
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.upload.maximum_size=262144
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.upload.maximum_data_size=65536
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.board=NUCLEO_L433RC_P
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L433RC_P.build.product_line=STM32L433xx
@@ -471,7 +491,8 @@ Nucleo_64.menu.pnum.NUCLEO_L452RE.node=NODE_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_L452RE.upload.maximum_data_size=163840
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_L452RE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L452RE.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_L452RE.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.board=NUCLEO_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452RE.build.product_line=STM32L452xx
@@ -484,7 +505,8 @@ Nucleo_64.menu.pnum.NUCLEO_L452REP.node=NODE_L452RE
 Nucleo_64.menu.pnum.NUCLEO_L452REP.upload.maximum_size=524288
 Nucleo_64.menu.pnum.NUCLEO_L452REP.upload.maximum_data_size=163840
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_L452REP.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_L452REP.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.board=NUCLEO_L452RE_P
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L452REP.build.product_line=STM32L452xx
@@ -497,7 +519,8 @@ Nucleo_64.menu.pnum.NUCLEO_L476RG.node=NODE_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_size=1048576
 Nucleo_64.menu.pnum.NUCLEO_L476RG.upload.maximum_data_size=98304
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.NUCLEO_L476RG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.NUCLEO_L476RG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.NUCLEO_L476RG.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.board=NUCLEO_L476RG
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.series=STM32L4xx
 Nucleo_64.menu.pnum.NUCLEO_L476RG.build.product_line=STM32L476xx
@@ -510,7 +533,8 @@ Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.node="NODE_WB55RG,NOD_WB55RG"
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_size=524288
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.upload.maximum_data_size=196608
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.mcu=cortex-m4
-Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.float-abi=-mfloat-abi=hard
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.board=P_NUCLEO_WB55RG
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.series=STM32WBxx
 Nucleo_64.menu.pnum.P_NUCLEO_WB55RG.build.product_line=STM32WB55xx
@@ -590,7 +614,8 @@ Nucleo_32.menu.pnum.NUCLEO_F303K8.node=NODE_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_size=65536
 Nucleo_32.menu.pnum.NUCLEO_F303K8.upload.maximum_data_size=12288
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.mcu=cortex-m4
-Nucleo_32.menu.pnum.NUCLEO_F303K8.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_32.menu.pnum.NUCLEO_F303K8.build.float-abi=-mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.board=NUCLEO_F303K8
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.series=STM32F3xx
 Nucleo_32.menu.pnum.NUCLEO_F303K8.build.product_line=STM32F303x8
@@ -616,7 +641,8 @@ Nucleo_32.menu.pnum.NUCLEO_G431KB.node="NODE_G431KB,NOD_G431KB"
 Nucleo_32.menu.pnum.NUCLEO_G431KB.upload.maximum_size=131072
 Nucleo_32.menu.pnum.NUCLEO_G431KB.upload.maximum_data_size=32768
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.mcu=cortex-m4
-Nucleo_32.menu.pnum.NUCLEO_G431KB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_32.menu.pnum.NUCLEO_G431KB.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_32.menu.pnum.NUCLEO_G431KB.build.float-abi=-mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.board=NUCLEO_G431KB
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.series=STM32G4xx
 Nucleo_32.menu.pnum.NUCLEO_G431KB.build.product_line=STM32G431xx
@@ -641,7 +667,8 @@ Nucleo_32.menu.pnum.NUCLEO_L412KB.node=NODE_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.upload.maximum_size=131072
 Nucleo_32.menu.pnum.NUCLEO_L412KB.upload.maximum_data_size=40960
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.mcu=cortex-m4
-Nucleo_32.menu.pnum.NUCLEO_L412KB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_32.menu.pnum.NUCLEO_L412KB.build.float-abi=-mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.board=NUCLEO_L412KB
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L412KB.build.product_line=STM32L412xx
@@ -654,7 +681,8 @@ Nucleo_32.menu.pnum.NUCLEO_L432KC.node=NODE_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_size=262144
 Nucleo_32.menu.pnum.NUCLEO_L432KC.upload.maximum_data_size=65536
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.mcu=cortex-m4
-Nucleo_32.menu.pnum.NUCLEO_L432KC.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_32.menu.pnum.NUCLEO_L432KC.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_32.menu.pnum.NUCLEO_L432KC.build.float-abi=-mfloat-abi=hard
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.board=NUCLEO_L432KC
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.series=STM32L4xx
 Nucleo_32.menu.pnum.NUCLEO_L432KC.build.product_line=STM32L432xx
@@ -697,7 +725,8 @@ Disco.menu.pnum.B_G431B_ESC1.node="NODE_G431CB,NOD_G431CB,DIS_G431CB"
 Disco.menu.pnum.B_G431B_ESC1.upload.maximum_size=131072
 Disco.menu.pnum.B_G431B_ESC1.upload.maximum_data_size=32768
 Disco.menu.pnum.B_G431B_ESC1.build.mcu=cortex-m4
-Disco.menu.pnum.B_G431B_ESC1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_G431B_ESC1.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.B_G431B_ESC1.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.B_G431B_ESC1.build.board=B_G431B_ESC1
 Disco.menu.pnum.B_G431B_ESC1.build.series=STM32G4xx
 Disco.menu.pnum.B_G431B_ESC1.build.product_line=STM32G431xx
@@ -725,7 +754,8 @@ Disco.menu.pnum.B_L475E_IOT01A.node=DIS_L4IOT
 Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_size=1048576
 Disco.menu.pnum.B_L475E_IOT01A.upload.maximum_data_size=98304
 Disco.menu.pnum.B_L475E_IOT01A.build.mcu=cortex-m4
-Disco.menu.pnum.B_L475E_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_L475E_IOT01A.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.B_L475E_IOT01A.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.B_L475E_IOT01A.build.board=B_L475E_IOT01A
 Disco.menu.pnum.B_L475E_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L475E_IOT01A.build.product_line=STM32L475xx
@@ -739,7 +769,8 @@ Disco.menu.pnum.B_L4S5I_IOT01A.node="DIS_L4IOT,DIS_L4S5VI"
 Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_size=2097152
 Disco.menu.pnum.B_L4S5I_IOT01A.upload.maximum_data_size=655360
 Disco.menu.pnum.B_L4S5I_IOT01A.build.mcu=cortex-m4
-Disco.menu.pnum.B_L4S5I_IOT01A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_L4S5I_IOT01A.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.B_L4S5I_IOT01A.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.B_L4S5I_IOT01A.build.board=B_L4S5I_IOT01A
 Disco.menu.pnum.B_L4S5I_IOT01A.build.series=STM32L4xx
 Disco.menu.pnum.B_L4S5I_IOT01A.build.product_line=STM32L4S5xx
@@ -753,7 +784,8 @@ Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI"
 Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_size=2097152
 Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_data_size=262144
 Disco.menu.pnum.B_U585I_IOT02A.build.mcu=cortex-m33
-Disco.menu.pnum.B_U585I_IOT02A.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.B_U585I_IOT02A.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.B_U585I_IOT02A.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.B_U585I_IOT02A.build.board=B_U585I_IOT02A
 Disco.menu.pnum.B_U585I_IOT02A.build.series=STM32U5xx
 Disco.menu.pnum.B_U585I_IOT02A.build.product_line=STM32U585xx
@@ -803,7 +835,8 @@ Disco.menu.pnum.DISCO_F303VC.node=DIS_F303VC
 Disco.menu.pnum.DISCO_F303VC.upload.maximum_size=262144
 Disco.menu.pnum.DISCO_F303VC.upload.maximum_data_size=40960
 Disco.menu.pnum.DISCO_F303VC.build.mcu=cortex-m4
-Disco.menu.pnum.DISCO_F303VC.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F303VC.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F303VC.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.DISCO_F303VC.build.board=DISCO_F303VC
 Disco.menu.pnum.DISCO_F303VC.build.series=STM32F3xx
 Disco.menu.pnum.DISCO_F303VC.build.product_line=STM32F303xC
@@ -816,7 +849,8 @@ Disco.menu.pnum.DISCO_F407VG.node=DIS_F407VG
 Disco.menu.pnum.DISCO_F407VG.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_F407VG.upload.maximum_data_size=131072
 Disco.menu.pnum.DISCO_F407VG.build.mcu=cortex-m4
-Disco.menu.pnum.DISCO_F407VG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F407VG.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F407VG.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.DISCO_F407VG.build.board=DISCO_F407VG
 Disco.menu.pnum.DISCO_F407VG.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F407VG.build.product_line=STM32F407xx
@@ -829,7 +863,8 @@ Disco.menu.pnum.DISCO_F413ZH.node=DIS_F413ZH
 Disco.menu.pnum.DISCO_F413ZH.upload.maximum_size=1572864
 Disco.menu.pnum.DISCO_F413ZH.upload.maximum_data_size=327680
 Disco.menu.pnum.DISCO_F413ZH.build.mcu=cortex-m4
-Disco.menu.pnum.DISCO_F413ZH.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F413ZH.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F413ZH.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.DISCO_F413ZH.build.board=DISCO_F413ZH
 Disco.menu.pnum.DISCO_F413ZH.build.series=STM32F4xx
 Disco.menu.pnum.DISCO_F413ZH.build.product_line=STM32F413xx
@@ -843,7 +878,8 @@ Disco.menu.pnum.DISCO_F746NG.node=DIS_F746NG
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_size=1048576
 Disco.menu.pnum.DISCO_F746NG.upload.maximum_data_size=327680
 Disco.menu.pnum.DISCO_F746NG.build.mcu=cortex-m7
-Disco.menu.pnum.DISCO_F746NG.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.DISCO_F746NG.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.DISCO_F746NG.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.DISCO_F746NG.build.board=DISCO_F746NG
 Disco.menu.pnum.DISCO_F746NG.build.series=STM32F7xx
 Disco.menu.pnum.DISCO_F746NG.build.product_line=STM32F746xx
@@ -870,7 +906,8 @@ Disco.menu.pnum.STM32WB5MM_DK.node="DIS_WB5MMG"
 Disco.menu.pnum.STM32WB5MM_DK.upload.maximum_size=827392
 Disco.menu.pnum.STM32WB5MM_DK.upload.maximum_data_size=196608
 Disco.menu.pnum.STM32WB5MM_DK.build.mcu=cortex-m4
-Disco.menu.pnum.STM32WB5MM_DK.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Disco.menu.pnum.STM32WB5MM_DK.build.fpu=-mfpu=fpv4-sp-d16
+Disco.menu.pnum.STM32WB5MM_DK.build.float-abi=-mfloat-abi=hard
 Disco.menu.pnum.STM32WB5MM_DK.build.board=STM32WB5MM_DK
 Disco.menu.pnum.STM32WB5MM_DK.build.series=STM32WBxx
 Disco.menu.pnum.STM32WB5MM_DK.build.product_line=STM32WB5Mxx
@@ -913,7 +950,8 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1=SensorTile.box
 Eval.menu.pnum.STEVAL_MKSBOX1V1.upload.maximum_size=2097152
 Eval.menu.pnum.STEVAL_MKSBOX1V1.upload.maximum_data_size=655360
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.mcu=cortex-m4
-Eval.menu.pnum.STEVAL_MKSBOX1V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.fpu=-mfpu=fpv4-sp-d16
+Eval.menu.pnum.STEVAL_MKSBOX1V1.build.float-abi=-mfloat-abi=hard
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.board=STEVAL_MKSBOX1V1
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.series=STM32L4xx
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.product_line=STM32L4R9xx
@@ -940,7 +978,8 @@ STM32MP1.name=STM32MP1 series coprocessor
 STM32MP1.build.core=arduino
 STM32MP1.build.board=STM32MP1
 STM32MP1.build.mcu=cortex-m4
-STM32MP1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+STM32MP1.build.fpu=-mfpu=fpv4-sp-d16
+STM32MP1.build.float-abi=-mfloat-abi=hard
 STM32MP1.build.series=STM32MP1xx
 STM32MP1.build.cmsis_lib_gcc=arm_cortexM4l_math
 STM32MP1.build.st_extra_flags=-DCORE_CM4 -D{build.product_line} {build.enable_virtio} {build.xSerial}
@@ -1932,7 +1971,8 @@ GenF3.build.core=arduino
 GenF3.build.board=GenF3
 GenF3.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF3.build.mcu=cortex-m4
-GenF3.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF3.build.fpu=-mfpu=fpv4-sp-d16
+GenF3.build.float-abi=-mfloat-abi=hard
 GenF3.build.series=STM32F3xx
 GenF3.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -2103,7 +2143,8 @@ GenF4.build.core=arduino
 GenF4.build.board=GenF4
 GenF4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF4.build.mcu=cortex-m4
-GenF4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF4.build.fpu=-mfpu=fpv4-sp-d16
+GenF4.build.float-abi=-mfloat-abi=hard
 GenF4.build.series=STM32F4xx
 GenF4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -2902,7 +2943,8 @@ GenF7.build.core=arduino
 GenF7.build.board=GenF7
 GenF7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} {build.bootloader_flags}
 GenF7.build.mcu=cortex-m7
-GenF7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenF7.build.fpu=-mfpu=fpv4-sp-d16
+GenF7.build.float-abi=-mfloat-abi=hard
 GenF7.build.series=STM32F7xx
 GenF7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
@@ -3735,7 +3777,8 @@ GenG4.build.core=arduino
 GenG4.build.board=GenG4
 GenG4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenG4.build.mcu=cortex-m4
-GenG4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenG4.build.fpu=-mfpu=fpv4-sp-d16
+GenG4.build.float-abi=-mfloat-abi=hard
 GenG4.build.series=STM32G4xx
 GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -3987,7 +4030,8 @@ GenH7.build.core=arduino
 GenH7.build.board=GenH7
 GenH7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
-GenH7.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenH7.build.fpu=-mfpu=fpv4-sp-d16
+GenH7.build.float-abi=-mfloat-abi=hard
 GenH7.build.series=STM32H7xx
 GenH7.build.mcu=cortex-m7
 
@@ -4902,7 +4946,8 @@ GenL4.build.core=arduino
 GenL4.build.board=GenL4
 GenL4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL4.build.mcu=cortex-m4
-GenL4.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenL4.build.fpu=-mfpu=fpv4-sp-d16
+GenL4.build.float-abi=-mfloat-abi=hard
 GenL4.build.series=STM32L4xx
 GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -5450,7 +5495,8 @@ GenL5.build.core=arduino
 GenL5.build.board=GenL5
 GenL5.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenL5.build.mcu=cortex-m33
-GenL5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenL5.build.fpu=-mfpu=fpv4-sp-d16
+GenL5.build.float-abi=-mfloat-abi=hard
 GenL5.build.series=STM32L5xx
 GenL5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
@@ -5502,7 +5548,8 @@ GenU5.build.core=arduino
 GenU5.build.board=GenU5
 GenU5.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenU5.build.mcu=cortex-m33
-GenU5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenU5.build.fpu=-mfpu=fpv4-sp-d16
+GenU5.build.float-abi=-mfloat-abi=hard
 GenU5.build.series=STM32U5xx
 GenU5.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
 
@@ -5578,7 +5625,8 @@ GenWB.build.core=arduino
 GenWB.build.board=GenWB
 GenWB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
 GenWB.build.mcu=cortex-m4
-GenWB.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenWB.build.fpu=-mfpu=fpv4-sp-d16
+GenWB.build.float-abi=-mfloat-abi=hard
 GenWB.build.series=STM32WBxx
 GenWB.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
@@ -5662,7 +5710,8 @@ GenWL.build.core=arduino
 GenWL.build.board=GenWL
 GenWL.build.st_extra_flags=-D{build.product_line} -DUSE_CM4_STARTUP_FILE {build.xSerial}
 GenWL.build.mcu=cortex-m4
-#GenWL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+#GenWL.build.fpu=-mfpu=fpv4-sp-d16
+#GenWL.build.float-abi=-mfloat-abi=hard
 GenWL.build.series=STM32WLxx
 GenWL.build.cmsis_lib_gcc=arm_cortexM4l_math
 
@@ -5834,7 +5883,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.upload.maximum_size=524288
 3dprinter.menu.pnum.ARMED_V1.upload.maximum_data_size=131072
 3dprinter.menu.pnum.ARMED_V1.build.mcu=cortex-m4
-3dprinter.menu.pnum.ARMED_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.ARMED_V1.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.ARMED_V1.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.ARMED_V1.build.board=ARMED_V1
 3dprinter.menu.pnum.ARMED_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.ARMED_V1.build.product_line=STM32F407xx
@@ -5847,7 +5897,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_size=2097152
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_data_size=524288
 3dprinter.menu.pnum.REMRAM_V1.build.mcu=cortex-m7
-3dprinter.menu.pnum.REMRAM_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.REMRAM_V1.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.REMRAM_V1.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.REMRAM_V1.build.board=REMRAM_V1
 3dprinter.menu.pnum.REMRAM_V1.build.series=STM32F7xx
 3dprinter.menu.pnum.REMRAM_V1.build.product_line=STM32F765xx
@@ -5860,7 +5911,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.RUMBA32.upload.maximum_size=524288
 3dprinter.menu.pnum.RUMBA32.upload.maximum_data_size=131072
 3dprinter.menu.pnum.RUMBA32.build.mcu=cortex-m4
-3dprinter.menu.pnum.RUMBA32.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.RUMBA32.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.RUMBA32.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.RUMBA32.build.board=RUMBA32
 3dprinter.menu.pnum.RUMBA32.build.series=STM32F4xx
 3dprinter.menu.pnum.RUMBA32.build.product_line=STM32F446xx
@@ -5873,7 +5925,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ST3DP001_EVAL.upload.maximum_size=524288
 3dprinter.menu.pnum.ST3DP001_EVAL.upload.maximum_data_size=98304
 3dprinter.menu.pnum.ST3DP001_EVAL.build.mcu=cortex-m4
-3dprinter.menu.pnum.ST3DP001_EVAL.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.ST3DP001_EVAL.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.ST3DP001_EVAL.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.ST3DP001_EVAL.build.board=ST3DP001_EVAL
 3dprinter.menu.pnum.ST3DP001_EVAL.build.series=STM32F4xx
 3dprinter.menu.pnum.ST3DP001_EVAL.build.product_line=STM32F401xE
@@ -5886,7 +5939,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V1.upload.maximum_size=524288
 3dprinter.menu.pnum.PRNTR_V1.upload.maximum_data_size=131072
 3dprinter.menu.pnum.PRNTR_V1.build.mcu=cortex-m4
-3dprinter.menu.pnum.PRNTR_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.PRNTR_V1.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.PRNTR_V1.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.PRNTR_V1.build.board=PRNTR_V1
 3dprinter.menu.pnum.PRNTR_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.PRNTR_V1.build.product_line=STM32F407xx
@@ -5899,7 +5953,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.PRNTR_V2.upload.maximum_size=524288
 3dprinter.menu.pnum.PRNTR_V2.upload.maximum_data_size=131072
 3dprinter.menu.pnum.PRNTR_V2.build.mcu=cortex-m4
-3dprinter.menu.pnum.PRNTR_V2.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.PRNTR_V2.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.PRNTR_V2.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.PRNTR_V2.build.board=PRNTR_V2
 3dprinter.menu.pnum.PRNTR_V2.build.series=STM32F4xx
 3dprinter.menu.pnum.PRNTR_V2.build.product_line=STM32F407xx
@@ -5973,7 +6028,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.VAKE_V1.upload.maximum_size=524288
 3dprinter.menu.pnum.VAKE_V1.upload.maximum_data_size=131072
 3dprinter.menu.pnum.VAKE_V1.build.mcu=cortex-m4
-3dprinter.menu.pnum.VAKE_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.VAKE_V1.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.VAKE_V1.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.VAKE_V1.build.board=VAKE_V1
 3dprinter.menu.pnum.VAKE_V1.build.series=STM32F4xx
 3dprinter.menu.pnum.VAKE_V1.build.product_line=STM32F446xx
@@ -5986,7 +6042,8 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.FYSETC_S6.upload.maximum_size=458752
 3dprinter.menu.pnum.FYSETC_S6.upload.maximum_data_size=131072
 3dprinter.menu.pnum.FYSETC_S6.build.mcu=cortex-m4
-3dprinter.menu.pnum.FYSETC_S6.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+3dprinter.menu.pnum.FYSETC_S6.build.fpu=-mfpu=fpv4-sp-d16
+3dprinter.menu.pnum.FYSETC_S6.build.float-abi=-mfloat-abi=hard
 3dprinter.menu.pnum.FYSETC_S6.build.board=FYSETC_S6
 3dprinter.menu.pnum.FYSETC_S6.build.series=STM32F4xx
 3dprinter.menu.pnum.FYSETC_S6.build.product_line=STM32F446xx
@@ -6028,7 +6085,8 @@ BluesW.menu.pnum.SWAN_R5.upload.maximum_size=2097152
 BluesW.menu.pnum.SWAN_R5.upload.maximum_data_size=655360
 BluesW.menu.pnum.SWAN_R5.build.mcu=cortex-m4
 BluesW.menu.pnum.SWAN_R5.build.cmsis_lib_gcc=arm_cortexM4lf_math
-BluesW.menu.pnum.SWAN_R5.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+BluesW.menu.pnum.SWAN_R5.build.fpu=-mfpu=fpv4-sp-d16
+BluesW.menu.pnum.SWAN_R5.build.float-abi=-mfloat-abi=hard
 BluesW.menu.pnum.SWAN_R5.build.board=SWAN_R5
 BluesW.menu.pnum.SWAN_R5.build.series=STM32L4xx
 BluesW.menu.pnum.SWAN_R5.build.product_line=STM32L4R5xx
@@ -6066,7 +6124,8 @@ Elecgator.menu.pnum.ETHERCAT_DUINO=EtherCATduino
 Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_size=524288
 Elecgator.menu.pnum.ETHERCAT_DUINO.upload.maximum_data_size=327680
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.mcu=cortex-m7
-Elecgator.menu.pnum.ETHERCAT_DUINO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.fpu=-mfpu=fpv4-sp-d16
+Elecgator.menu.pnum.ETHERCAT_DUINO.build.float-abi=-mfloat-abi=hard
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.board=ETHERCAT_DUINO
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.series=STM32F7xx
 Elecgator.menu.pnum.ETHERCAT_DUINO.build.product_line=STM32F746xx
@@ -6168,7 +6227,8 @@ Garatronic.menu.pnum.PYBSTICK26_LITE.build.product_line=STM32F401xE
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_LITE.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_LITE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.fpu=-mfpu=fpv4-sp-d16
+Garatronic.menu.pnum.PYBSTICK26_LITE.build.float-abi=-mfloat-abi=hard
 
 # PYBSTICK26(STD/Programmez!) board with F411RE
 Garatronic.menu.pnum.PYBSTICK26_STD=PYBSTICK26 STD-Programmez
@@ -6181,7 +6241,8 @@ Garatronic.menu.pnum.PYBSTICK26_STD.build.product_line=STM32F411xE
 Garatronic.menu.pnum.PYBSTICK26_STD.build.variant=STM32F4xx/F411R(C-E)T
 Garatronic.menu.pnum.PYBSTICK26_STD.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_STD.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_STD.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Garatronic.menu.pnum.PYBSTICK26_STD.build.fpu=-mfpu=fpv4-sp-d16
+Garatronic.menu.pnum.PYBSTICK26_STD.build.float-abi=-mfloat-abi=hard
 
 # PYBSTICK26(PRO) board with F412RE
 Garatronic.menu.pnum.PYBSTICK26_PRO=PYBSTICK26 Pro
@@ -6194,7 +6255,8 @@ Garatronic.menu.pnum.PYBSTICK26_PRO.build.product_line=STM32F412Rx
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.variant=STM32F4xx/F412R(E-G)(T-Y)x(P)
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Garatronic.menu.pnum.PYBSTICK26_PRO.build.cmsis_lib_gcc=arm_cortexM4lf_math
-Garatronic.menu.pnum.PYBSTICK26_PRO.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.fpu=-mfpu=fpv4-sp-d16
+Garatronic.menu.pnum.PYBSTICK26_PRO.build.float-abi=-mfloat-abi=hard
 
 # PYBSTICK26 boards upload method
 Garatronic.menu.upload_method.dfuMethod=STM32CubeProgrammer (DFU)
@@ -6244,7 +6306,8 @@ GenFlight.menu.pnum.Sparky_V1.build.series=STM32F3xx
 GenFlight.menu.pnum.Sparky_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenFlight.menu.pnum.Sparky_V1.build.board=SPARKY_F303CC
 GenFlight.menu.pnum.Sparky_V1.build.product_line=STM32F303xC
-GenFlight.menu.pnum.Sparky_V1.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+GenFlight.menu.pnum.Sparky_V1.build.fpu=-mfpu=fpv4-sp-d16
+GenFlight.menu.pnum.Sparky_V1.build.float-abi=-mfloat-abi=hard
 GenFlight.menu.pnum.Sparky_V1.build.variant=STM32F3xx/F303C(B-C)T
 GenFlight.menu.pnum.Sparky_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
@@ -6409,7 +6472,8 @@ Midatronics.menu.pnum.MKR_SHARKY.node=NODE_WB55CE
 Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_size=262144
 Midatronics.menu.pnum.MKR_SHARKY.upload.maximum_data_size=196608
 Midatronics.menu.pnum.MKR_SHARKY.build.mcu=cortex-m4
-Midatronics.menu.pnum.MKR_SHARKY.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Midatronics.menu.pnum.MKR_SHARKY.build.fpu=-mfpu=fpv4-sp-d16
+Midatronics.menu.pnum.MKR_SHARKY.build.float-abi=-mfloat-abi=hard
 Midatronics.menu.pnum.MKR_SHARKY.build.board=MKR_SHARKY
 Midatronics.menu.pnum.MKR_SHARKY.build.series=STM32WBxx
 Midatronics.menu.pnum.MKR_SHARKY.build.product_line=STM32WB55xx
