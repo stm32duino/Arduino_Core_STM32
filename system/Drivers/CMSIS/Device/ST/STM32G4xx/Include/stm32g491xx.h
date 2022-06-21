@@ -13694,8 +13694,12 @@ typedef struct
 /******************************************************************************/
 
 /* Aliases for __IRQn */
+#define TIM7_DAC_IRQn     TIM7_IRQn
+#define COMP4_5_6_IRQn    COMP4_IRQn
 
 /* Aliases for __IRQHandler */
+#define TIM7_DAC_IRQHandler     TIM7_IRQHandler
+#define COMP4_5_6_IRQHandler    COMP4_IRQHandler
 
 #ifdef __cplusplus
 }
