@@ -20,6 +20,7 @@ set(BUILD_OPT "s" CACHE STRING "Optimization level")
 set(BUILD_DBG OFF CACHE BOOL "Enable debug symbols")
 set(BUILD_LTO OFF CACHE BOOL "Enable Link-Time-Optimisations")
 set(BUILD_RELPATH ON CACHE BOOL "make __FILE__ be relative instead of absolute")
+set(BUILD_NDEBUG ON CACHE BOOL "define the NDEBUG macro?")
 
 set(USB_PID 0)
 set(USB_VID 0)
@@ -40,6 +41,10 @@ if(${BUILD_RELPATH})
   target_compile_options(core_config INTERFACE
     "-fmacro-prefix-map=$<TARGET_PROPERTY:SOURCE_DIR>=."
   )
+endif()
+
+if(${BUILD_NDEBUG})
+  add_compile_definitions(core_config INTERFACE NDEBUG)
 endif()
 
 # configuration specifics

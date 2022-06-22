@@ -1,3 +1,46 @@
+# ACSIP_S76S
+# -----------------------------------------------------------------------------
+
+set(ACSIP_S76S_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L0xx/L072R(B-Z)T_L073R(B-Z)T_L083R(B-Z)T")
+set(ACSIP_S76S_MAXSIZE 196608)
+set(ACSIP_S76S_MAXDATASIZE 20480)
+set(ACSIP_S76S_MCU cortex-m0plus)
+add_library(ACSIP_S76S INTERFACE)
+target_compile_options(ACSIP_S76S INTERFACE
+  "SHELL:-DSTM32L073xx  "
+  "SHELL:-DCUSTOM_PERIPHERAL_PINS"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${ACSIP_S76S_MCU}
+)
+target_compile_definitions(ACSIP_S76S INTERFACE
+  "STM32L0xx"
+	"ARDUINO_ACSIP_S76S"
+	"BOARD_NAME=\"ACSIP_S76S\""
+	"BOARD_ID=ACSIP_S76S"
+	"VARIANT_H=\"variant_ACSIP_S76S.h\""
+)
+target_include_directories(ACSIP_S76S INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L0xx/Source/Templates/gcc/
+  ${ACSIP_S76S_VARIANT_PATH}
+)
+
+target_link_options(ACSIP_S76S INTERFACE
+  "LINKER:--default-script=${ACSIP_S76S_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=196608"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
+  "SHELL: "
+  -mcpu=${ACSIP_S76S_MCU}
+)
+target_link_libraries(ACSIP_S76S INTERFACE
+  arm_cortexM0l_math
+)
+
 # AFROFLIGHT_F103CB
 # -----------------------------------------------------------------------------
 
@@ -10,8 +53,7 @@ target_compile_options(AFROFLIGHT_F103CB INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_MCU}
 )
 target_compile_definitions(AFROFLIGHT_F103CB INTERFACE
@@ -35,7 +77,7 @@ target_link_options(AFROFLIGHT_F103CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_MCU}
 )
 target_link_libraries(AFROFLIGHT_F103CB INTERFACE
@@ -54,8 +96,7 @@ target_compile_options(AFROFLIGHT_F103CB_12M INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_MCU}
 )
 target_compile_definitions(AFROFLIGHT_F103CB_12M INTERFACE
@@ -79,11 +120,54 @@ target_link_options(AFROFLIGHT_F103CB_12M INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AFROFLIGHT_F103CB_12M_MCU}
 )
 target_link_libraries(AFROFLIGHT_F103CB_12M INTERFACE
   arm_cortexM3l_math
+)
+
+# AGAFIA_SG0
+# -----------------------------------------------------------------------------
+
+set(AGAFIA_SG0_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(AGAFIA_SG0_MAXSIZE 131072)
+set(AGAFIA_SG0_MAXDATASIZE 36864)
+set(AGAFIA_SG0_MCU cortex-m0plus)
+add_library(AGAFIA_SG0 INTERFACE)
+target_compile_options(AGAFIA_SG0 INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${AGAFIA_SG0_MCU}
+)
+target_compile_definitions(AGAFIA_SG0 INTERFACE
+  "STM32G0xx"
+	"ARDUINO_AGAFIA_SG0"
+	"BOARD_NAME=\"AGAFIA_SG0\""
+	"BOARD_ID=AGAFIA_SG0"
+	"VARIANT_H=\"variant_AGAFIA_SG0.h\""
+)
+target_include_directories(AGAFIA_SG0 INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${AGAFIA_SG0_VARIANT_PATH}
+)
+
+target_link_options(AGAFIA_SG0 INTERFACE
+  "LINKER:--default-script=${AGAFIA_SG0_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${AGAFIA_SG0_MCU}
+)
+target_link_libraries(AGAFIA_SG0 INTERFACE
+  arm_cortexM0l_math
 )
 
 # ARMED_V1
@@ -99,7 +183,6 @@ target_compile_options(ARMED_V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${ARMED_V1_MCU}
 )
 target_compile_definitions(ARMED_V1 INTERFACE
@@ -142,8 +225,7 @@ target_compile_options(AURORA_ONE INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AURORA_ONE_MCU}
 )
 target_compile_definitions(AURORA_ONE INTERFACE
@@ -167,7 +249,7 @@ target_link_options(AURORA_ONE INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${AURORA_ONE_MCU}
 )
 target_link_libraries(AURORA_ONE INTERFACE
@@ -187,7 +269,6 @@ target_compile_options(B_G431B_ESC1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${B_G431B_ESC1_MCU}
 )
 target_compile_definitions(B_G431B_ESC1 INTERFACE
@@ -230,8 +311,7 @@ target_compile_options(B_L072Z_LRWAN1 INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${B_L072Z_LRWAN1_MCU}
 )
 target_compile_definitions(B_L072Z_LRWAN1 INTERFACE
@@ -255,7 +335,7 @@ target_link_options(B_L072Z_LRWAN1 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${B_L072Z_LRWAN1_MCU}
 )
 target_link_libraries(B_L072Z_LRWAN1 INTERFACE
@@ -265,7 +345,7 @@ target_link_libraries(B_L072Z_LRWAN1 INTERFACE
 # B_L475E_IOT01A
 # -----------------------------------------------------------------------------
 
-set(B_L475E_IOT01A_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx//L475V(C-E-G)T_L476V(C-E-G)T_L486VGT")
+set(B_L475E_IOT01A_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L475V(C-E-G)T_L476V(C-E-G)T_L486VGT")
 set(B_L475E_IOT01A_MAXSIZE 1048576)
 set(B_L475E_IOT01A_MAXDATASIZE 98304)
 set(B_L475E_IOT01A_MCU cortex-m4)
@@ -275,7 +355,6 @@ target_compile_options(B_L475E_IOT01A INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${B_L475E_IOT01A_MCU}
 )
 target_compile_definitions(B_L475E_IOT01A INTERFACE
@@ -319,7 +398,6 @@ target_compile_options(B_L4S5I_IOT01A INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${B_L4S5I_IOT01A_MCU}
 )
 target_compile_definitions(B_L4S5I_IOT01A INTERFACE
@@ -363,7 +441,6 @@ target_compile_options(B_U585I_IOT02A INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${B_U585I_IOT02A_MCU}
 )
 target_compile_definitions(B_U585I_IOT02A INTERFACE
@@ -407,7 +484,6 @@ target_compile_options(BLACK_F407VE INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACK_F407VE_MCU}
 )
 target_compile_definitions(BLACK_F407VE INTERFACE
@@ -451,7 +527,6 @@ target_compile_options(BLACK_F407VG INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACK_F407VG_MCU}
 )
 target_compile_definitions(BLACK_F407VG INTERFACE
@@ -495,7 +570,6 @@ target_compile_options(BLACK_F407ZE INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACK_F407ZE_MCU}
 )
 target_compile_definitions(BLACK_F407ZE INTERFACE
@@ -539,7 +613,6 @@ target_compile_options(BLACK_F407ZG INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACK_F407ZG_MCU}
 )
 target_compile_definitions(BLACK_F407ZG INTERFACE
@@ -582,8 +655,7 @@ target_compile_options(BLACKPILL_F103C8 INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLACKPILL_F103C8_MCU}
 )
 target_compile_definitions(BLACKPILL_F103C8 INTERFACE
@@ -607,7 +679,7 @@ target_link_options(BLACKPILL_F103C8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLACKPILL_F103C8_MCU}
 )
 target_link_libraries(BLACKPILL_F103C8 INTERFACE
@@ -626,8 +698,7 @@ target_compile_options(BLACKPILL_F103CB INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLACKPILL_F103CB_MCU}
 )
 target_compile_definitions(BLACKPILL_F103CB INTERFACE
@@ -651,7 +722,7 @@ target_link_options(BLACKPILL_F103CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLACKPILL_F103CB_MCU}
 )
 target_link_libraries(BLACKPILL_F103CB INTERFACE
@@ -671,7 +742,6 @@ target_compile_options(BLACKPILL_F303CC INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACKPILL_F303CC_MCU}
 )
 target_compile_definitions(BLACKPILL_F303CC INTERFACE
@@ -715,7 +785,6 @@ target_compile_options(BLACKPILL_F401CC INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACKPILL_F401CC_MCU}
 )
 target_compile_definitions(BLACKPILL_F401CC INTERFACE
@@ -759,7 +828,6 @@ target_compile_options(BLACKPILL_F411CE INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLACKPILL_F411CE_MCU}
 )
 target_compile_definitions(BLACKPILL_F411CE INTERFACE
@@ -803,7 +871,6 @@ target_compile_options(BLUE_F407VE_MINI INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${BLUE_F407VE_MINI_MCU}
 )
 target_compile_definitions(BLUE_F407VE_MINI INTERFACE
@@ -846,8 +913,7 @@ target_compile_options(BLUEBUTTON_F103R8T INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_MCU}
 )
 target_compile_definitions(BLUEBUTTON_F103R8T INTERFACE
@@ -871,7 +937,7 @@ target_link_options(BLUEBUTTON_F103R8T INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103R8T_MCU}
 )
 target_link_libraries(BLUEBUTTON_F103R8T INTERFACE
@@ -890,8 +956,7 @@ target_compile_options(BLUEBUTTON_F103RBT INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_MCU}
 )
 target_compile_definitions(BLUEBUTTON_F103RBT INTERFACE
@@ -915,7 +980,7 @@ target_link_options(BLUEBUTTON_F103RBT INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RBT_MCU}
 )
 target_link_libraries(BLUEBUTTON_F103RBT INTERFACE
@@ -934,8 +999,7 @@ target_compile_options(BLUEBUTTON_F103RCT INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_MCU}
 )
 target_compile_definitions(BLUEBUTTON_F103RCT INTERFACE
@@ -959,7 +1023,7 @@ target_link_options(BLUEBUTTON_F103RCT INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RCT_MCU}
 )
 target_link_libraries(BLUEBUTTON_F103RCT INTERFACE
@@ -978,8 +1042,7 @@ target_compile_options(BLUEBUTTON_F103RET INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_MCU}
 )
 target_compile_definitions(BLUEBUTTON_F103RET INTERFACE
@@ -1003,7 +1066,7 @@ target_link_options(BLUEBUTTON_F103RET INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEBUTTON_F103RET_MCU}
 )
 target_link_libraries(BLUEBUTTON_F103RET INTERFACE
@@ -1022,8 +1085,7 @@ target_compile_options(BLUEPILL_F103C6 INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103C6_MCU}
 )
 target_compile_definitions(BLUEPILL_F103C6 INTERFACE
@@ -1047,7 +1109,7 @@ target_link_options(BLUEPILL_F103C6 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103C6_MCU}
 )
 target_link_libraries(BLUEPILL_F103C6 INTERFACE
@@ -1066,8 +1128,7 @@ target_compile_options(BLUEPILL_F103C8 INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103C8_MCU}
 )
 target_compile_definitions(BLUEPILL_F103C8 INTERFACE
@@ -1091,7 +1152,7 @@ target_link_options(BLUEPILL_F103C8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103C8_MCU}
 )
 target_link_libraries(BLUEPILL_F103C8 INTERFACE
@@ -1110,8 +1171,7 @@ target_compile_options(BLUEPILL_F103CB INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103CB_MCU}
 )
 target_compile_definitions(BLUEPILL_F103CB INTERFACE
@@ -1135,7 +1195,7 @@ target_link_options(BLUEPILL_F103CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${BLUEPILL_F103CB_MCU}
 )
 target_link_libraries(BLUEPILL_F103CB INTERFACE
@@ -1155,7 +1215,6 @@ target_compile_options(CoreBoard_F401RC INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${CoreBoard_F401RC_MCU}
 )
 target_compile_definitions(CoreBoard_F401RC INTERFACE
@@ -1199,7 +1258,6 @@ target_compile_options(DAISY_PATCH_SM INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DAISY_PATCH_SM_MCU}
 )
 target_compile_definitions(DAISY_PATCH_SM INTERFACE
@@ -1243,7 +1301,6 @@ target_compile_options(DAISY_PETAL_SM INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DAISY_PETAL_SM_MCU}
 )
 target_compile_definitions(DAISY_PETAL_SM INTERFACE
@@ -1287,7 +1344,6 @@ target_compile_options(DAISY_SEED INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DAISY_SEED_MCU}
 )
 target_compile_definitions(DAISY_SEED INTERFACE
@@ -1330,8 +1386,7 @@ target_compile_options(DEMO_F030F4 INTERFACE
   "SHELL:-DSTM32F030x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_MCU}
 )
 target_compile_definitions(DEMO_F030F4 INTERFACE
@@ -1355,7 +1410,7 @@ target_link_options(DEMO_F030F4 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_MCU}
 )
 target_link_libraries(DEMO_F030F4 INTERFACE
@@ -1374,8 +1429,7 @@ target_compile_options(DEMO_F030F4_16M INTERFACE
   "SHELL:-DSTM32F030x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_16M_MCU}
 )
 target_compile_definitions(DEMO_F030F4_16M INTERFACE
@@ -1399,7 +1453,7 @@ target_link_options(DEMO_F030F4_16M INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_16M_MCU}
 )
 target_link_libraries(DEMO_F030F4_16M INTERFACE
@@ -1418,8 +1472,7 @@ target_compile_options(DEMO_F030F4_HSI INTERFACE
   "SHELL:-DSTM32F030x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_HSI_MCU}
 )
 target_compile_definitions(DEMO_F030F4_HSI INTERFACE
@@ -1443,7 +1496,7 @@ target_link_options(DEMO_F030F4_HSI INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DEMO_F030F4_HSI_MCU}
 )
 target_link_libraries(DEMO_F030F4_HSI INTERFACE
@@ -1463,7 +1516,6 @@ target_compile_options(DevEBoxH743VITX INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DevEBoxH743VITX_MCU}
 )
 target_compile_definitions(DevEBoxH743VITX INTERFACE
@@ -1507,7 +1559,6 @@ target_compile_options(DevEBoxH750VBTX INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DevEBoxH750VBTX_MCU}
 )
 target_compile_definitions(DevEBoxH750VBTX INTERFACE
@@ -1550,8 +1601,7 @@ target_compile_options(DISCO_F030R8 INTERFACE
   "SHELL:-DSTM32F030x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F030R8_MCU}
 )
 target_compile_definitions(DISCO_F030R8 INTERFACE
@@ -1575,7 +1625,7 @@ target_link_options(DISCO_F030R8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F030R8_MCU}
 )
 target_link_libraries(DISCO_F030R8 INTERFACE
@@ -1594,8 +1644,7 @@ target_compile_options(DISCO_F072RB INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F072RB_MCU}
 )
 target_compile_definitions(DISCO_F072RB INTERFACE
@@ -1619,7 +1668,7 @@ target_link_options(DISCO_F072RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F072RB_MCU}
 )
 target_link_libraries(DISCO_F072RB INTERFACE
@@ -1638,8 +1687,7 @@ target_compile_options(DISCO_F100RB INTERFACE
   "SHELL:-DSTM32F100xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F100RB_MCU}
 )
 target_compile_definitions(DISCO_F100RB INTERFACE
@@ -1663,7 +1711,7 @@ target_link_options(DISCO_F100RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131071"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_F100RB_MCU}
 )
 target_link_libraries(DISCO_F100RB INTERFACE
@@ -1683,7 +1731,6 @@ target_compile_options(DISCO_F303VC INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DISCO_F303VC_MCU}
 )
 target_compile_definitions(DISCO_F303VC INTERFACE
@@ -1727,7 +1774,6 @@ target_compile_options(DISCO_F407VG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DISCO_F407VG_MCU}
 )
 target_compile_definitions(DISCO_F407VG INTERFACE
@@ -1771,7 +1817,6 @@ target_compile_options(DISCO_F413ZH INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DISCO_F413ZH_MCU}
 )
 target_compile_definitions(DISCO_F413ZH INTERFACE
@@ -1815,7 +1860,6 @@ target_compile_options(DISCO_F746NG INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DISCO_F746NG_MCU}
 )
 target_compile_definitions(DISCO_F746NG INTERFACE
@@ -1858,8 +1902,7 @@ target_compile_options(DISCO_G0316 INTERFACE
   "SHELL:-DSTM32G031xx  -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_G0316_MCU}
 )
 target_compile_definitions(DISCO_G0316 INTERFACE
@@ -1883,7 +1926,7 @@ target_link_options(DISCO_G0316 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${DISCO_G0316_MCU}
 )
 target_link_libraries(DISCO_G0316 INTERFACE
@@ -1903,7 +1946,6 @@ target_compile_options(DIYMORE_F407VGT INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${DIYMORE_F407VGT_MCU}
 )
 target_compile_definitions(DIYMORE_F407VGT INTERFACE
@@ -1946,8 +1988,7 @@ target_compile_options(EEXTR_F030_V1 INTERFACE
   "SHELL:-DSTM32F030x8  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${EEXTR_F030_V1_MCU}
 )
 target_compile_definitions(EEXTR_F030_V1 INTERFACE
@@ -1971,7 +2012,7 @@ target_link_options(EEXTR_F030_V1 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${EEXTR_F030_V1_MCU}
 )
 target_link_libraries(EEXTR_F030_V1 INTERFACE
@@ -1990,8 +2031,7 @@ target_compile_options(ELEKTOR_F072C8 INTERFACE
   "SHELL:-DSTM32F072xB "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${ELEKTOR_F072C8_MCU}
 )
 target_compile_definitions(ELEKTOR_F072C8 INTERFACE
@@ -2015,7 +2055,7 @@ target_link_options(ELEKTOR_F072C8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${ELEKTOR_F072C8_MCU}
 )
 target_link_libraries(ELEKTOR_F072C8 INTERFACE
@@ -2034,8 +2074,7 @@ target_compile_options(ELEKTOR_F072CB INTERFACE
   "SHELL:-DSTM32F072xB "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${ELEKTOR_F072CB_MCU}
 )
 target_compile_definitions(ELEKTOR_F072CB INTERFACE
@@ -2059,7 +2098,7 @@ target_link_options(ELEKTOR_F072CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${ELEKTOR_F072CB_MCU}
 )
 target_link_libraries(ELEKTOR_F072CB INTERFACE
@@ -2079,7 +2118,6 @@ target_compile_options(ETHERCAT_DUINO INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${ETHERCAT_DUINO_MCU}
 )
 target_compile_definitions(ETHERCAT_DUINO INTERFACE
@@ -2123,7 +2161,6 @@ target_compile_options(FEATHER_F405 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${FEATHER_F405_MCU}
 )
 target_compile_definitions(FEATHER_F405 INTERFACE
@@ -2167,7 +2204,6 @@ target_compile_options(FK407M1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${FK407M1_MCU}
 )
 target_compile_definitions(FK407M1 INTERFACE
@@ -2211,7 +2247,6 @@ target_compile_options(FYSETC_S6 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${FYSETC_S6_MCU}
 )
 target_compile_definitions(FYSETC_S6 INTERFACE
@@ -2254,8 +2289,7 @@ target_compile_options(GENERIC_F030C8TX INTERFACE
   "SHELL:-DSTM32F030x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030C8TX_MCU}
 )
 target_compile_definitions(GENERIC_F030C8TX INTERFACE
@@ -2279,7 +2313,7 @@ target_link_options(GENERIC_F030C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030C8TX_MCU}
 )
 target_link_libraries(GENERIC_F030C8TX INTERFACE
@@ -2298,8 +2332,7 @@ target_compile_options(GENERIC_F030F4PX INTERFACE
   "SHELL:-DSTM32F030x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030F4PX_MCU}
 )
 target_compile_definitions(GENERIC_F030F4PX INTERFACE
@@ -2323,7 +2356,7 @@ target_link_options(GENERIC_F030F4PX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030F4PX_MCU}
 )
 target_link_libraries(GENERIC_F030F4PX INTERFACE
@@ -2342,8 +2375,7 @@ target_compile_options(GENERIC_F030R8TX INTERFACE
   "SHELL:-DSTM32F030x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F030R8TX INTERFACE
@@ -2367,7 +2399,7 @@ target_link_options(GENERIC_F030R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F030R8TX_MCU}
 )
 target_link_libraries(GENERIC_F030R8TX INTERFACE
@@ -2386,8 +2418,7 @@ target_compile_options(GENERIC_F031K6TX INTERFACE
   "SHELL:-DSTM32F031x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F031K6TX_MCU}
 )
 target_compile_definitions(GENERIC_F031K6TX INTERFACE
@@ -2411,7 +2442,7 @@ target_link_options(GENERIC_F031K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F031K6TX_MCU}
 )
 target_link_libraries(GENERIC_F031K6TX INTERFACE
@@ -2430,8 +2461,7 @@ target_compile_options(GENERIC_F042C4TX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C4TX_MCU}
 )
 target_compile_definitions(GENERIC_F042C4TX INTERFACE
@@ -2455,7 +2485,7 @@ target_link_options(GENERIC_F042C4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C4TX_MCU}
 )
 target_link_libraries(GENERIC_F042C4TX INTERFACE
@@ -2474,8 +2504,7 @@ target_compile_options(GENERIC_F042C4UX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C4UX_MCU}
 )
 target_compile_definitions(GENERIC_F042C4UX INTERFACE
@@ -2499,7 +2528,7 @@ target_link_options(GENERIC_F042C4UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C4UX_MCU}
 )
 target_link_libraries(GENERIC_F042C4UX INTERFACE
@@ -2518,8 +2547,7 @@ target_compile_options(GENERIC_F042C6TX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C6TX_MCU}
 )
 target_compile_definitions(GENERIC_F042C6TX INTERFACE
@@ -2543,7 +2571,7 @@ target_link_options(GENERIC_F042C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C6TX_MCU}
 )
 target_link_libraries(GENERIC_F042C6TX INTERFACE
@@ -2562,8 +2590,7 @@ target_compile_options(GENERIC_F042C6UX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C6UX_MCU}
 )
 target_compile_definitions(GENERIC_F042C6UX INTERFACE
@@ -2587,7 +2614,7 @@ target_link_options(GENERIC_F042C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042C6UX_MCU}
 )
 target_link_libraries(GENERIC_F042C6UX INTERFACE
@@ -2606,8 +2633,7 @@ target_compile_options(GENERIC_F042K4TX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042K4TX_MCU}
 )
 target_compile_definitions(GENERIC_F042K4TX INTERFACE
@@ -2631,7 +2657,7 @@ target_link_options(GENERIC_F042K4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042K4TX_MCU}
 )
 target_link_libraries(GENERIC_F042K4TX INTERFACE
@@ -2650,8 +2676,7 @@ target_compile_options(GENERIC_F042K6TX INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042K6TX_MCU}
 )
 target_compile_definitions(GENERIC_F042K6TX INTERFACE
@@ -2675,7 +2700,7 @@ target_link_options(GENERIC_F042K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F042K6TX_MCU}
 )
 target_link_libraries(GENERIC_F042K6TX INTERFACE
@@ -2694,8 +2719,7 @@ target_compile_options(GENERIC_F051K6UX INTERFACE
   "SHELL:-DSTM32F051x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F051K6UX_MCU}
 )
 target_compile_definitions(GENERIC_F051K6UX INTERFACE
@@ -2719,7 +2743,7 @@ target_link_options(GENERIC_F051K6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F051K6UX_MCU}
 )
 target_link_libraries(GENERIC_F051K6UX INTERFACE
@@ -2738,8 +2762,7 @@ target_compile_options(GENERIC_F051K8UX INTERFACE
   "SHELL:-DSTM32F051x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F051K8UX_MCU}
 )
 target_compile_definitions(GENERIC_F051K8UX INTERFACE
@@ -2763,7 +2786,7 @@ target_link_options(GENERIC_F051K8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F051K8UX_MCU}
 )
 target_link_libraries(GENERIC_F051K8UX INTERFACE
@@ -2782,8 +2805,7 @@ target_compile_options(GENERIC_F070CBTX INTERFACE
   "SHELL:-DSTM32F070xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F070CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F070CBTX INTERFACE
@@ -2807,7 +2829,7 @@ target_link_options(GENERIC_F070CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F070CBTX_MCU}
 )
 target_link_libraries(GENERIC_F070CBTX INTERFACE
@@ -2826,8 +2848,7 @@ target_compile_options(GENERIC_F070RBTX INTERFACE
   "SHELL:-DSTM32F070xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F070RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F070RBTX INTERFACE
@@ -2851,7 +2872,7 @@ target_link_options(GENERIC_F070RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F070RBTX_MCU}
 )
 target_link_libraries(GENERIC_F070RBTX INTERFACE
@@ -2870,8 +2891,7 @@ target_compile_options(GENERIC_F072C8TX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072C8TX_MCU}
 )
 target_compile_definitions(GENERIC_F072C8TX INTERFACE
@@ -2895,7 +2915,7 @@ target_link_options(GENERIC_F072C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072C8TX_MCU}
 )
 target_link_libraries(GENERIC_F072C8TX INTERFACE
@@ -2914,8 +2934,7 @@ target_compile_options(GENERIC_F072C8UX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072C8UX_MCU}
 )
 target_compile_definitions(GENERIC_F072C8UX INTERFACE
@@ -2939,7 +2958,7 @@ target_link_options(GENERIC_F072C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072C8UX_MCU}
 )
 target_link_libraries(GENERIC_F072C8UX INTERFACE
@@ -2958,8 +2977,7 @@ target_compile_options(GENERIC_F072CBTX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F072CBTX INTERFACE
@@ -2983,7 +3001,7 @@ target_link_options(GENERIC_F072CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBTX_MCU}
 )
 target_link_libraries(GENERIC_F072CBTX INTERFACE
@@ -3002,8 +3020,7 @@ target_compile_options(GENERIC_F072CBUX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBUX_MCU}
 )
 target_compile_definitions(GENERIC_F072CBUX INTERFACE
@@ -3027,7 +3044,7 @@ target_link_options(GENERIC_F072CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBUX_MCU}
 )
 target_link_libraries(GENERIC_F072CBUX INTERFACE
@@ -3046,8 +3063,7 @@ target_compile_options(GENERIC_F072CBYX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBYX_MCU}
 )
 target_compile_definitions(GENERIC_F072CBYX INTERFACE
@@ -3071,7 +3087,7 @@ target_link_options(GENERIC_F072CBYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072CBYX_MCU}
 )
 target_link_libraries(GENERIC_F072CBYX INTERFACE
@@ -3090,8 +3106,7 @@ target_compile_options(GENERIC_F072R8TX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F072R8TX INTERFACE
@@ -3115,7 +3130,7 @@ target_link_options(GENERIC_F072R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072R8TX_MCU}
 )
 target_link_libraries(GENERIC_F072R8TX INTERFACE
@@ -3134,8 +3149,7 @@ target_compile_options(GENERIC_F072RBHX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBHX_MCU}
 )
 target_compile_definitions(GENERIC_F072RBHX INTERFACE
@@ -3159,7 +3173,7 @@ target_link_options(GENERIC_F072RBHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBHX_MCU}
 )
 target_link_libraries(GENERIC_F072RBHX INTERFACE
@@ -3178,8 +3192,7 @@ target_compile_options(GENERIC_F072RBIX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBIX_MCU}
 )
 target_compile_definitions(GENERIC_F072RBIX INTERFACE
@@ -3203,7 +3216,7 @@ target_link_options(GENERIC_F072RBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBIX_MCU}
 )
 target_link_libraries(GENERIC_F072RBIX INTERFACE
@@ -3222,8 +3235,7 @@ target_compile_options(GENERIC_F072RBTX INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F072RBTX INTERFACE
@@ -3247,7 +3259,7 @@ target_link_options(GENERIC_F072RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F072RBTX_MCU}
 )
 target_link_libraries(GENERIC_F072RBTX INTERFACE
@@ -3266,8 +3278,7 @@ target_compile_options(GENERIC_F091RBTX INTERFACE
   "SHELL:-DSTM32F091xC  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F091RBTX INTERFACE
@@ -3291,7 +3302,7 @@ target_link_options(GENERIC_F091RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RBTX_MCU}
 )
 target_link_libraries(GENERIC_F091RBTX INTERFACE
@@ -3310,8 +3321,7 @@ target_compile_options(GENERIC_F091RCHX INTERFACE
   "SHELL:-DSTM32F091xC  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCHX_MCU}
 )
 target_compile_definitions(GENERIC_F091RCHX INTERFACE
@@ -3335,7 +3345,7 @@ target_link_options(GENERIC_F091RCHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCHX_MCU}
 )
 target_link_libraries(GENERIC_F091RCHX INTERFACE
@@ -3354,8 +3364,7 @@ target_compile_options(GENERIC_F091RCTX INTERFACE
   "SHELL:-DSTM32F091xC  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F091RCTX INTERFACE
@@ -3379,7 +3388,7 @@ target_link_options(GENERIC_F091RCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCTX_MCU}
 )
 target_link_libraries(GENERIC_F091RCTX INTERFACE
@@ -3398,8 +3407,7 @@ target_compile_options(GENERIC_F091RCYX INTERFACE
   "SHELL:-DSTM32F091xC  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCYX_MCU}
 )
 target_compile_definitions(GENERIC_F091RCYX INTERFACE
@@ -3423,7 +3431,7 @@ target_link_options(GENERIC_F091RCYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F091RCYX_MCU}
 )
 target_link_libraries(GENERIC_F091RCYX INTERFACE
@@ -3442,8 +3450,7 @@ target_compile_options(GENERIC_F100C4TX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C4TX_MCU}
 )
 target_compile_definitions(GENERIC_F100C4TX INTERFACE
@@ -3467,7 +3474,7 @@ target_link_options(GENERIC_F100C4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C4TX_MCU}
 )
 target_link_libraries(GENERIC_F100C4TX INTERFACE
@@ -3486,8 +3493,7 @@ target_compile_options(GENERIC_F100C6TX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C6TX_MCU}
 )
 target_compile_definitions(GENERIC_F100C6TX INTERFACE
@@ -3511,7 +3517,7 @@ target_link_options(GENERIC_F100C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C6TX_MCU}
 )
 target_link_libraries(GENERIC_F100C6TX INTERFACE
@@ -3530,8 +3536,7 @@ target_compile_options(GENERIC_F100C8TX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C8TX_MCU}
 )
 target_compile_definitions(GENERIC_F100C8TX INTERFACE
@@ -3555,7 +3560,7 @@ target_link_options(GENERIC_F100C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100C8TX_MCU}
 )
 target_link_libraries(GENERIC_F100C8TX INTERFACE
@@ -3574,8 +3579,7 @@ target_compile_options(GENERIC_F100CBTX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F100CBTX INTERFACE
@@ -3599,7 +3603,7 @@ target_link_options(GENERIC_F100CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100CBTX_MCU}
 )
 target_link_libraries(GENERIC_F100CBTX INTERFACE
@@ -3618,8 +3622,7 @@ target_compile_options(GENERIC_F100R8TX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F100R8TX INTERFACE
@@ -3643,7 +3646,7 @@ target_link_options(GENERIC_F100R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100R8TX_MCU}
 )
 target_link_libraries(GENERIC_F100R8TX INTERFACE
@@ -3662,8 +3665,7 @@ target_compile_options(GENERIC_F100RBTX INTERFACE
   "SHELL:-DSTM32F100xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F100RBTX INTERFACE
@@ -3687,7 +3689,7 @@ target_link_options(GENERIC_F100RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F100RBTX_MCU}
 )
 target_link_libraries(GENERIC_F100RBTX INTERFACE
@@ -3706,8 +3708,7 @@ target_compile_options(GENERIC_F103C4TX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C4TX_MCU}
 )
 target_compile_definitions(GENERIC_F103C4TX INTERFACE
@@ -3731,7 +3732,7 @@ target_link_options(GENERIC_F103C4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C4TX_MCU}
 )
 target_link_libraries(GENERIC_F103C4TX INTERFACE
@@ -3750,8 +3751,7 @@ target_compile_options(GENERIC_F103C6TX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C6TX_MCU}
 )
 target_compile_definitions(GENERIC_F103C6TX INTERFACE
@@ -3775,7 +3775,7 @@ target_link_options(GENERIC_F103C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C6TX_MCU}
 )
 target_link_libraries(GENERIC_F103C6TX INTERFACE
@@ -3794,8 +3794,7 @@ target_compile_options(GENERIC_F103C6UX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C6UX_MCU}
 )
 target_compile_definitions(GENERIC_F103C6UX INTERFACE
@@ -3819,7 +3818,7 @@ target_link_options(GENERIC_F103C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C6UX_MCU}
 )
 target_link_libraries(GENERIC_F103C6UX INTERFACE
@@ -3838,8 +3837,7 @@ target_compile_options(GENERIC_F103C8TX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C8TX_MCU}
 )
 target_compile_definitions(GENERIC_F103C8TX INTERFACE
@@ -3863,7 +3861,7 @@ target_link_options(GENERIC_F103C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103C8TX_MCU}
 )
 target_link_libraries(GENERIC_F103C8TX INTERFACE
@@ -3882,8 +3880,7 @@ target_compile_options(GENERIC_F103CBTX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F103CBTX INTERFACE
@@ -3907,7 +3904,7 @@ target_link_options(GENERIC_F103CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103CBTX_MCU}
 )
 target_link_libraries(GENERIC_F103CBTX INTERFACE
@@ -3926,8 +3923,7 @@ target_compile_options(GENERIC_F103CBUX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103CBUX_MCU}
 )
 target_compile_definitions(GENERIC_F103CBUX INTERFACE
@@ -3951,7 +3947,7 @@ target_link_options(GENERIC_F103CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103CBUX_MCU}
 )
 target_link_libraries(GENERIC_F103CBUX INTERFACE
@@ -3970,8 +3966,7 @@ target_compile_options(GENERIC_F103R4HX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R4HX_MCU}
 )
 target_compile_definitions(GENERIC_F103R4HX INTERFACE
@@ -3995,7 +3990,7 @@ target_link_options(GENERIC_F103R4HX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R4HX_MCU}
 )
 target_link_libraries(GENERIC_F103R4HX INTERFACE
@@ -4014,8 +4009,7 @@ target_compile_options(GENERIC_F103R4TX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R4TX_MCU}
 )
 target_compile_definitions(GENERIC_F103R4TX INTERFACE
@@ -4039,7 +4033,7 @@ target_link_options(GENERIC_F103R4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R4TX_MCU}
 )
 target_link_libraries(GENERIC_F103R4TX INTERFACE
@@ -4058,8 +4052,7 @@ target_compile_options(GENERIC_F103R6HX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R6HX_MCU}
 )
 target_compile_definitions(GENERIC_F103R6HX INTERFACE
@@ -4083,7 +4076,7 @@ target_link_options(GENERIC_F103R6HX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R6HX_MCU}
 )
 target_link_libraries(GENERIC_F103R6HX INTERFACE
@@ -4102,8 +4095,7 @@ target_compile_options(GENERIC_F103R6TX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R6TX_MCU}
 )
 target_compile_definitions(GENERIC_F103R6TX INTERFACE
@@ -4127,7 +4119,7 @@ target_link_options(GENERIC_F103R6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R6TX_MCU}
 )
 target_link_libraries(GENERIC_F103R6TX INTERFACE
@@ -4146,8 +4138,7 @@ target_compile_options(GENERIC_F103R8HX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R8HX_MCU}
 )
 target_compile_definitions(GENERIC_F103R8HX INTERFACE
@@ -4171,7 +4162,7 @@ target_link_options(GENERIC_F103R8HX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R8HX_MCU}
 )
 target_link_libraries(GENERIC_F103R8HX INTERFACE
@@ -4190,8 +4181,7 @@ target_compile_options(GENERIC_F103R8TX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F103R8TX INTERFACE
@@ -4215,7 +4205,7 @@ target_link_options(GENERIC_F103R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103R8TX_MCU}
 )
 target_link_libraries(GENERIC_F103R8TX INTERFACE
@@ -4234,8 +4224,7 @@ target_compile_options(GENERIC_F103RBHX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RBHX_MCU}
 )
 target_compile_definitions(GENERIC_F103RBHX INTERFACE
@@ -4259,7 +4248,7 @@ target_link_options(GENERIC_F103RBHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RBHX_MCU}
 )
 target_link_libraries(GENERIC_F103RBHX INTERFACE
@@ -4278,8 +4267,7 @@ target_compile_options(GENERIC_F103RBTX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F103RBTX INTERFACE
@@ -4303,7 +4291,7 @@ target_link_options(GENERIC_F103RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RBTX_MCU}
 )
 target_link_libraries(GENERIC_F103RBTX INTERFACE
@@ -4322,8 +4310,7 @@ target_compile_options(GENERIC_F103RCTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F103RCTX INTERFACE
@@ -4347,7 +4334,7 @@ target_link_options(GENERIC_F103RCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RCTX_MCU}
 )
 target_link_libraries(GENERIC_F103RCTX INTERFACE
@@ -4366,8 +4353,7 @@ target_compile_options(GENERIC_F103RCYX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RCYX_MCU}
 )
 target_compile_definitions(GENERIC_F103RCYX INTERFACE
@@ -4391,7 +4377,7 @@ target_link_options(GENERIC_F103RCYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RCYX_MCU}
 )
 target_link_libraries(GENERIC_F103RCYX INTERFACE
@@ -4410,8 +4396,7 @@ target_compile_options(GENERIC_F103RDTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RDTX_MCU}
 )
 target_compile_definitions(GENERIC_F103RDTX INTERFACE
@@ -4435,7 +4420,7 @@ target_link_options(GENERIC_F103RDTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RDTX_MCU}
 )
 target_link_libraries(GENERIC_F103RDTX INTERFACE
@@ -4454,8 +4439,7 @@ target_compile_options(GENERIC_F103RDYX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RDYX_MCU}
 )
 target_compile_definitions(GENERIC_F103RDYX INTERFACE
@@ -4479,7 +4463,7 @@ target_link_options(GENERIC_F103RDYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RDYX_MCU}
 )
 target_link_libraries(GENERIC_F103RDYX INTERFACE
@@ -4498,8 +4482,7 @@ target_compile_options(GENERIC_F103RETX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RETX_MCU}
 )
 target_compile_definitions(GENERIC_F103RETX INTERFACE
@@ -4523,7 +4506,7 @@ target_link_options(GENERIC_F103RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RETX_MCU}
 )
 target_link_libraries(GENERIC_F103RETX INTERFACE
@@ -4542,8 +4525,7 @@ target_compile_options(GENERIC_F103REYX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103REYX_MCU}
 )
 target_compile_definitions(GENERIC_F103REYX INTERFACE
@@ -4567,7 +4549,7 @@ target_link_options(GENERIC_F103REYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103REYX_MCU}
 )
 target_link_libraries(GENERIC_F103REYX INTERFACE
@@ -4586,8 +4568,7 @@ target_compile_options(GENERIC_F103RFTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RFTX_MCU}
 )
 target_compile_definitions(GENERIC_F103RFTX INTERFACE
@@ -4611,7 +4592,7 @@ target_link_options(GENERIC_F103RFTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=786432"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RFTX_MCU}
 )
 target_link_libraries(GENERIC_F103RFTX INTERFACE
@@ -4630,8 +4611,7 @@ target_compile_options(GENERIC_F103RGTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RGTX_MCU}
 )
 target_compile_definitions(GENERIC_F103RGTX INTERFACE
@@ -4655,7 +4635,7 @@ target_link_options(GENERIC_F103RGTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103RGTX_MCU}
 )
 target_link_libraries(GENERIC_F103RGTX INTERFACE
@@ -4674,8 +4654,7 @@ target_compile_options(GENERIC_F103T4UX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T4UX_MCU}
 )
 target_compile_definitions(GENERIC_F103T4UX INTERFACE
@@ -4699,7 +4678,7 @@ target_link_options(GENERIC_F103T4UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T4UX_MCU}
 )
 target_link_libraries(GENERIC_F103T4UX INTERFACE
@@ -4718,8 +4697,7 @@ target_compile_options(GENERIC_F103T6UX INTERFACE
   "SHELL:-DSTM32F103x6   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T6UX_MCU}
 )
 target_compile_definitions(GENERIC_F103T6UX INTERFACE
@@ -4743,7 +4721,7 @@ target_link_options(GENERIC_F103T6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T6UX_MCU}
 )
 target_link_libraries(GENERIC_F103T6UX INTERFACE
@@ -4762,8 +4740,7 @@ target_compile_options(GENERIC_F103T8UX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T8UX_MCU}
 )
 target_compile_definitions(GENERIC_F103T8UX INTERFACE
@@ -4787,7 +4764,7 @@ target_link_options(GENERIC_F103T8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103T8UX_MCU}
 )
 target_link_libraries(GENERIC_F103T8UX INTERFACE
@@ -4806,8 +4783,7 @@ target_compile_options(GENERIC_F103TBUX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103TBUX_MCU}
 )
 target_compile_definitions(GENERIC_F103TBUX INTERFACE
@@ -4831,7 +4807,7 @@ target_link_options(GENERIC_F103TBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103TBUX_MCU}
 )
 target_link_libraries(GENERIC_F103TBUX INTERFACE
@@ -4850,8 +4826,7 @@ target_compile_options(GENERIC_F103V8HX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103V8HX_MCU}
 )
 target_compile_definitions(GENERIC_F103V8HX INTERFACE
@@ -4875,7 +4850,7 @@ target_link_options(GENERIC_F103V8HX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103V8HX_MCU}
 )
 target_link_libraries(GENERIC_F103V8HX INTERFACE
@@ -4894,8 +4869,7 @@ target_compile_options(GENERIC_F103V8TX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103V8TX_MCU}
 )
 target_compile_definitions(GENERIC_F103V8TX INTERFACE
@@ -4919,7 +4893,7 @@ target_link_options(GENERIC_F103V8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103V8TX_MCU}
 )
 target_link_libraries(GENERIC_F103V8TX INTERFACE
@@ -4938,8 +4912,7 @@ target_compile_options(GENERIC_F103VBHX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBHX_MCU}
 )
 target_compile_definitions(GENERIC_F103VBHX INTERFACE
@@ -4963,7 +4936,7 @@ target_link_options(GENERIC_F103VBHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBHX_MCU}
 )
 target_link_libraries(GENERIC_F103VBHX INTERFACE
@@ -4982,8 +4955,7 @@ target_compile_options(GENERIC_F103VBIX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBIX_MCU}
 )
 target_compile_definitions(GENERIC_F103VBIX INTERFACE
@@ -5007,7 +4979,7 @@ target_link_options(GENERIC_F103VBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBIX_MCU}
 )
 target_link_libraries(GENERIC_F103VBIX INTERFACE
@@ -5026,8 +4998,7 @@ target_compile_options(GENERIC_F103VBTX INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBTX_MCU}
 )
 target_compile_definitions(GENERIC_F103VBTX INTERFACE
@@ -5051,7 +5022,7 @@ target_link_options(GENERIC_F103VBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VBTX_MCU}
 )
 target_link_libraries(GENERIC_F103VBTX INTERFACE
@@ -5070,8 +5041,7 @@ target_compile_options(GENERIC_F103VCHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VCHX_MCU}
 )
 target_compile_definitions(GENERIC_F103VCHX INTERFACE
@@ -5095,7 +5065,7 @@ target_link_options(GENERIC_F103VCHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VCHX_MCU}
 )
 target_link_libraries(GENERIC_F103VCHX INTERFACE
@@ -5114,8 +5084,7 @@ target_compile_options(GENERIC_F103VCTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VCTX_MCU}
 )
 target_compile_definitions(GENERIC_F103VCTX INTERFACE
@@ -5139,7 +5108,7 @@ target_link_options(GENERIC_F103VCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VCTX_MCU}
 )
 target_link_libraries(GENERIC_F103VCTX INTERFACE
@@ -5158,8 +5127,7 @@ target_compile_options(GENERIC_F103VDHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VDHX_MCU}
 )
 target_compile_definitions(GENERIC_F103VDHX INTERFACE
@@ -5183,7 +5151,7 @@ target_link_options(GENERIC_F103VDHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VDHX_MCU}
 )
 target_link_libraries(GENERIC_F103VDHX INTERFACE
@@ -5202,8 +5170,7 @@ target_compile_options(GENERIC_F103VDTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VDTX_MCU}
 )
 target_compile_definitions(GENERIC_F103VDTX INTERFACE
@@ -5227,7 +5194,7 @@ target_link_options(GENERIC_F103VDTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VDTX_MCU}
 )
 target_link_libraries(GENERIC_F103VDTX INTERFACE
@@ -5246,8 +5213,7 @@ target_compile_options(GENERIC_F103VEHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VEHX_MCU}
 )
 target_compile_definitions(GENERIC_F103VEHX INTERFACE
@@ -5271,7 +5237,7 @@ target_link_options(GENERIC_F103VEHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VEHX_MCU}
 )
 target_link_libraries(GENERIC_F103VEHX INTERFACE
@@ -5290,8 +5256,7 @@ target_compile_options(GENERIC_F103VETX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VETX_MCU}
 )
 target_compile_definitions(GENERIC_F103VETX INTERFACE
@@ -5315,7 +5280,7 @@ target_link_options(GENERIC_F103VETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VETX_MCU}
 )
 target_link_libraries(GENERIC_F103VETX INTERFACE
@@ -5334,8 +5299,7 @@ target_compile_options(GENERIC_F103VFTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VFTX_MCU}
 )
 target_compile_definitions(GENERIC_F103VFTX INTERFACE
@@ -5359,7 +5323,7 @@ target_link_options(GENERIC_F103VFTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=786432"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VFTX_MCU}
 )
 target_link_libraries(GENERIC_F103VFTX INTERFACE
@@ -5378,8 +5342,7 @@ target_compile_options(GENERIC_F103VGTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VGTX_MCU}
 )
 target_compile_definitions(GENERIC_F103VGTX INTERFACE
@@ -5403,7 +5366,7 @@ target_link_options(GENERIC_F103VGTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103VGTX_MCU}
 )
 target_link_libraries(GENERIC_F103VGTX INTERFACE
@@ -5422,8 +5385,7 @@ target_compile_options(GENERIC_F103ZCHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZCHX INTERFACE
@@ -5447,7 +5409,7 @@ target_link_options(GENERIC_F103ZCHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZCHX_MCU}
 )
 target_link_libraries(GENERIC_F103ZCHX INTERFACE
@@ -5466,8 +5428,7 @@ target_compile_options(GENERIC_F103ZCTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZCTX INTERFACE
@@ -5491,7 +5452,7 @@ target_link_options(GENERIC_F103ZCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZCTX_MCU}
 )
 target_link_libraries(GENERIC_F103ZCTX INTERFACE
@@ -5510,8 +5471,7 @@ target_compile_options(GENERIC_F103ZDHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZDHX INTERFACE
@@ -5535,7 +5495,7 @@ target_link_options(GENERIC_F103ZDHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZDHX_MCU}
 )
 target_link_libraries(GENERIC_F103ZDHX INTERFACE
@@ -5554,8 +5514,7 @@ target_compile_options(GENERIC_F103ZDTX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZDTX INTERFACE
@@ -5579,7 +5538,7 @@ target_link_options(GENERIC_F103ZDTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=393216"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZDTX_MCU}
 )
 target_link_libraries(GENERIC_F103ZDTX INTERFACE
@@ -5598,8 +5557,7 @@ target_compile_options(GENERIC_F103ZEHX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZEHX INTERFACE
@@ -5623,7 +5581,7 @@ target_link_options(GENERIC_F103ZEHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZEHX_MCU}
 )
 target_link_libraries(GENERIC_F103ZEHX INTERFACE
@@ -5642,8 +5600,7 @@ target_compile_options(GENERIC_F103ZETX INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZETX INTERFACE
@@ -5667,7 +5624,7 @@ target_link_options(GENERIC_F103ZETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZETX_MCU}
 )
 target_link_libraries(GENERIC_F103ZETX INTERFACE
@@ -5686,8 +5643,7 @@ target_compile_options(GENERIC_F103ZFHX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZFHX INTERFACE
@@ -5711,7 +5667,7 @@ target_link_options(GENERIC_F103ZFHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=786432"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZFHX_MCU}
 )
 target_link_libraries(GENERIC_F103ZFHX INTERFACE
@@ -5730,8 +5686,7 @@ target_compile_options(GENERIC_F103ZFTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZFTX INTERFACE
@@ -5755,7 +5710,7 @@ target_link_options(GENERIC_F103ZFTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=786432"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZFTX_MCU}
 )
 target_link_libraries(GENERIC_F103ZFTX INTERFACE
@@ -5774,8 +5729,7 @@ target_compile_options(GENERIC_F103ZGHX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZGHX INTERFACE
@@ -5799,7 +5753,7 @@ target_link_options(GENERIC_F103ZGHX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZGHX_MCU}
 )
 target_link_libraries(GENERIC_F103ZGHX INTERFACE
@@ -5818,8 +5772,7 @@ target_compile_options(GENERIC_F103ZGTX INTERFACE
   "SHELL:-DSTM32F103xG   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F103ZGTX INTERFACE
@@ -5843,7 +5796,7 @@ target_link_options(GENERIC_F103ZGTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=98304"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F103ZGTX_MCU}
 )
 target_link_libraries(GENERIC_F103ZGTX INTERFACE
@@ -5862,8 +5815,7 @@ target_compile_options(GENERIC_F207ZCTX INTERFACE
   "SHELL:-DSTM32F207xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZCTX_MCU}
 )
 target_compile_definitions(GENERIC_F207ZCTX INTERFACE
@@ -5887,7 +5839,7 @@ target_link_options(GENERIC_F207ZCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZCTX_MCU}
 )
 target_link_libraries(GENERIC_F207ZCTX INTERFACE
@@ -5906,8 +5858,7 @@ target_compile_options(GENERIC_F207ZETX INTERFACE
   "SHELL:-DSTM32F207xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F207ZETX INTERFACE
@@ -5931,7 +5882,7 @@ target_link_options(GENERIC_F207ZETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZETX_MCU}
 )
 target_link_libraries(GENERIC_F207ZETX INTERFACE
@@ -5950,8 +5901,7 @@ target_compile_options(GENERIC_F207ZFTX INTERFACE
   "SHELL:-DSTM32F207xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZFTX_MCU}
 )
 target_compile_definitions(GENERIC_F207ZFTX INTERFACE
@@ -5975,7 +5925,7 @@ target_link_options(GENERIC_F207ZFTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=786432"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZFTX_MCU}
 )
 target_link_libraries(GENERIC_F207ZFTX INTERFACE
@@ -5994,8 +5944,7 @@ target_compile_options(GENERIC_F207ZGTX INTERFACE
   "SHELL:-DSTM32F207xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F207ZGTX INTERFACE
@@ -6019,7 +5968,7 @@ target_link_options(GENERIC_F207ZGTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F207ZGTX_MCU}
 )
 target_link_libraries(GENERIC_F207ZGTX INTERFACE
@@ -6038,8 +5987,7 @@ target_compile_options(GENERIC_F217ZETX INTERFACE
   "SHELL:-DSTM32F217xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F217ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F217ZETX INTERFACE
@@ -6063,7 +6011,7 @@ target_link_options(GENERIC_F217ZETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F217ZETX_MCU}
 )
 target_link_libraries(GENERIC_F217ZETX INTERFACE
@@ -6082,8 +6030,7 @@ target_compile_options(GENERIC_F217ZGTX INTERFACE
   "SHELL:-DSTM32F217xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F217ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F217ZGTX INTERFACE
@@ -6107,7 +6054,7 @@ target_link_options(GENERIC_F217ZGTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_F217ZGTX_MCU}
 )
 target_link_libraries(GENERIC_F217ZGTX INTERFACE
@@ -6127,7 +6074,6 @@ target_compile_options(GENERIC_F302R6TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F302R6TX_MCU}
 )
 target_compile_definitions(GENERIC_F302R6TX INTERFACE
@@ -6171,7 +6117,6 @@ target_compile_options(GENERIC_F302R8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F302R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F302R8TX INTERFACE
@@ -6215,7 +6160,6 @@ target_compile_options(GENERIC_F303CBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F303CBTX INTERFACE
@@ -6259,7 +6203,6 @@ target_compile_options(GENERIC_F303CCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303CCTX_MCU}
 )
 target_compile_definitions(GENERIC_F303CCTX INTERFACE
@@ -6303,7 +6246,6 @@ target_compile_options(GENERIC_F303K6TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303K6TX_MCU}
 )
 target_compile_definitions(GENERIC_F303K6TX INTERFACE
@@ -6347,7 +6289,6 @@ target_compile_options(GENERIC_F303K8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303K8TX_MCU}
 )
 target_compile_definitions(GENERIC_F303K8TX INTERFACE
@@ -6391,7 +6332,6 @@ target_compile_options(GENERIC_F303RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F303RBTX INTERFACE
@@ -6435,7 +6375,6 @@ target_compile_options(GENERIC_F303RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F303RCTX INTERFACE
@@ -6479,7 +6418,6 @@ target_compile_options(GENERIC_F303RDTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303RDTX_MCU}
 )
 target_compile_definitions(GENERIC_F303RDTX INTERFACE
@@ -6523,7 +6461,6 @@ target_compile_options(GENERIC_F303RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303RETX_MCU}
 )
 target_compile_definitions(GENERIC_F303RETX INTERFACE
@@ -6567,7 +6504,6 @@ target_compile_options(GENERIC_F303VBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303VBTX_MCU}
 )
 target_compile_definitions(GENERIC_F303VBTX INTERFACE
@@ -6611,7 +6547,6 @@ target_compile_options(GENERIC_F303VCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F303VCTX_MCU}
 )
 target_compile_definitions(GENERIC_F303VCTX INTERFACE
@@ -6655,7 +6590,6 @@ target_compile_options(GENERIC_F334K4TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F334K4TX_MCU}
 )
 target_compile_definitions(GENERIC_F334K4TX INTERFACE
@@ -6699,7 +6633,6 @@ target_compile_options(GENERIC_F334K6TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F334K6TX_MCU}
 )
 target_compile_definitions(GENERIC_F334K6TX INTERFACE
@@ -6743,7 +6676,6 @@ target_compile_options(GENERIC_F334K8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F334K8TX_MCU}
 )
 target_compile_definitions(GENERIC_F334K8TX INTERFACE
@@ -6787,7 +6719,6 @@ target_compile_options(GENERIC_F401CBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CBUX_MCU}
 )
 target_compile_definitions(GENERIC_F401CBUX INTERFACE
@@ -6831,7 +6762,6 @@ target_compile_options(GENERIC_F401CBYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CBYX_MCU}
 )
 target_compile_definitions(GENERIC_F401CBYX INTERFACE
@@ -6875,7 +6805,6 @@ target_compile_options(GENERIC_F401CCFX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CCFX_MCU}
 )
 target_compile_definitions(GENERIC_F401CCFX INTERFACE
@@ -6919,7 +6848,6 @@ target_compile_options(GENERIC_F401CCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CCUX_MCU}
 )
 target_compile_definitions(GENERIC_F401CCUX INTERFACE
@@ -6963,7 +6891,6 @@ target_compile_options(GENERIC_F401CCYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CCYX_MCU}
 )
 target_compile_definitions(GENERIC_F401CCYX INTERFACE
@@ -7007,7 +6934,6 @@ target_compile_options(GENERIC_F401CDUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CDUX_MCU}
 )
 target_compile_definitions(GENERIC_F401CDUX INTERFACE
@@ -7051,7 +6977,6 @@ target_compile_options(GENERIC_F401CDYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CDYX_MCU}
 )
 target_compile_definitions(GENERIC_F401CDYX INTERFACE
@@ -7095,7 +7020,6 @@ target_compile_options(GENERIC_F401CEUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CEUX_MCU}
 )
 target_compile_definitions(GENERIC_F401CEUX INTERFACE
@@ -7139,7 +7063,6 @@ target_compile_options(GENERIC_F401CEYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401CEYX_MCU}
 )
 target_compile_definitions(GENERIC_F401CEYX INTERFACE
@@ -7183,7 +7106,6 @@ target_compile_options(GENERIC_F401RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F401RBTX INTERFACE
@@ -7227,7 +7149,6 @@ target_compile_options(GENERIC_F401RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F401RCTX INTERFACE
@@ -7271,7 +7192,6 @@ target_compile_options(GENERIC_F401RDTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401RDTX_MCU}
 )
 target_compile_definitions(GENERIC_F401RDTX INTERFACE
@@ -7315,7 +7235,6 @@ target_compile_options(GENERIC_F401RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401RETX_MCU}
 )
 target_compile_definitions(GENERIC_F401RETX INTERFACE
@@ -7359,7 +7278,6 @@ target_compile_options(GENERIC_F401VBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401VBTX_MCU}
 )
 target_compile_definitions(GENERIC_F401VBTX INTERFACE
@@ -7403,7 +7321,6 @@ target_compile_options(GENERIC_F401VCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401VCTX_MCU}
 )
 target_compile_definitions(GENERIC_F401VCTX INTERFACE
@@ -7447,7 +7364,6 @@ target_compile_options(GENERIC_F401VDTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401VDTX_MCU}
 )
 target_compile_definitions(GENERIC_F401VDTX INTERFACE
@@ -7491,7 +7407,6 @@ target_compile_options(GENERIC_F401VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F401VETX_MCU}
 )
 target_compile_definitions(GENERIC_F401VETX INTERFACE
@@ -7535,7 +7450,6 @@ target_compile_options(GENERIC_F405RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F405RGTX_MCU}
 )
 target_compile_definitions(GENERIC_F405RGTX INTERFACE
@@ -7579,7 +7493,6 @@ target_compile_options(GENERIC_F407VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F407VETX_MCU}
 )
 target_compile_definitions(GENERIC_F407VETX INTERFACE
@@ -7623,7 +7536,6 @@ target_compile_options(GENERIC_F407VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F407VGTX_MCU}
 )
 target_compile_definitions(GENERIC_F407VGTX INTERFACE
@@ -7667,7 +7579,6 @@ target_compile_options(GENERIC_F407ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F407ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F407ZETX INTERFACE
@@ -7711,7 +7622,6 @@ target_compile_options(GENERIC_F407ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F407ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F407ZGTX INTERFACE
@@ -7755,7 +7665,6 @@ target_compile_options(GENERIC_F410C8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410C8TX_MCU}
 )
 target_compile_definitions(GENERIC_F410C8TX INTERFACE
@@ -7799,7 +7708,6 @@ target_compile_options(GENERIC_F410C8UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410C8UX_MCU}
 )
 target_compile_definitions(GENERIC_F410C8UX INTERFACE
@@ -7843,7 +7751,6 @@ target_compile_options(GENERIC_F410CBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410CBTX_MCU}
 )
 target_compile_definitions(GENERIC_F410CBTX INTERFACE
@@ -7887,7 +7794,6 @@ target_compile_options(GENERIC_F410CBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410CBUX_MCU}
 )
 target_compile_definitions(GENERIC_F410CBUX INTERFACE
@@ -7931,7 +7837,6 @@ target_compile_options(GENERIC_F410R8IX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410R8IX_MCU}
 )
 target_compile_definitions(GENERIC_F410R8IX INTERFACE
@@ -7975,7 +7880,6 @@ target_compile_options(GENERIC_F410R8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410R8TX_MCU}
 )
 target_compile_definitions(GENERIC_F410R8TX INTERFACE
@@ -8019,7 +7923,6 @@ target_compile_options(GENERIC_F410RBIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410RBIX_MCU}
 )
 target_compile_definitions(GENERIC_F410RBIX INTERFACE
@@ -8063,7 +7966,6 @@ target_compile_options(GENERIC_F410RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F410RBTX_MCU}
 )
 target_compile_definitions(GENERIC_F410RBTX INTERFACE
@@ -8107,7 +8009,6 @@ target_compile_options(GENERIC_F411CCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411CCUX_MCU}
 )
 target_compile_definitions(GENERIC_F411CCUX INTERFACE
@@ -8151,7 +8052,6 @@ target_compile_options(GENERIC_F411CCYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411CCYX_MCU}
 )
 target_compile_definitions(GENERIC_F411CCYX INTERFACE
@@ -8195,7 +8095,6 @@ target_compile_options(GENERIC_F411CEUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411CEUX_MCU}
 )
 target_compile_definitions(GENERIC_F411CEUX INTERFACE
@@ -8239,7 +8138,6 @@ target_compile_options(GENERIC_F411CEYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411CEYX_MCU}
 )
 target_compile_definitions(GENERIC_F411CEYX INTERFACE
@@ -8283,7 +8181,6 @@ target_compile_options(GENERIC_F411RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F411RCTX INTERFACE
@@ -8327,7 +8224,6 @@ target_compile_options(GENERIC_F411RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F411RETX_MCU}
 )
 target_compile_definitions(GENERIC_F411RETX INTERFACE
@@ -8371,7 +8267,6 @@ target_compile_options(GENERIC_F412CEUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412CEUX_MCU}
 )
 target_compile_definitions(GENERIC_F412CEUX INTERFACE
@@ -8415,7 +8310,6 @@ target_compile_options(GENERIC_F412CGUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412CGUX_MCU}
 )
 target_compile_definitions(GENERIC_F412CGUX INTERFACE
@@ -8459,7 +8353,6 @@ target_compile_options(GENERIC_F412RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412RETX_MCU}
 )
 target_compile_definitions(GENERIC_F412RETX INTERFACE
@@ -8503,7 +8396,6 @@ target_compile_options(GENERIC_F412REYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412REYX_MCU}
 )
 target_compile_definitions(GENERIC_F412REYX INTERFACE
@@ -8547,7 +8439,6 @@ target_compile_options(GENERIC_F412REYXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412REYXP_MCU}
 )
 target_compile_definitions(GENERIC_F412REYXP INTERFACE
@@ -8591,7 +8482,6 @@ target_compile_options(GENERIC_F412RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412RGTX_MCU}
 )
 target_compile_definitions(GENERIC_F412RGTX INTERFACE
@@ -8635,7 +8525,6 @@ target_compile_options(GENERIC_F412RGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412RGYX_MCU}
 )
 target_compile_definitions(GENERIC_F412RGYX INTERFACE
@@ -8679,7 +8568,6 @@ target_compile_options(GENERIC_F412RGYXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F412RGYXP_MCU}
 )
 target_compile_definitions(GENERIC_F412RGYXP INTERFACE
@@ -8723,7 +8611,6 @@ target_compile_options(GENERIC_F413CGUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413CGUX_MCU}
 )
 target_compile_definitions(GENERIC_F413CGUX INTERFACE
@@ -8767,7 +8654,6 @@ target_compile_options(GENERIC_F413CHUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413CHUX_MCU}
 )
 target_compile_definitions(GENERIC_F413CHUX INTERFACE
@@ -8811,7 +8697,6 @@ target_compile_options(GENERIC_F413RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413RGTX_MCU}
 )
 target_compile_definitions(GENERIC_F413RGTX INTERFACE
@@ -8855,7 +8740,6 @@ target_compile_options(GENERIC_F413RHTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413RHTX_MCU}
 )
 target_compile_definitions(GENERIC_F413RHTX INTERFACE
@@ -8899,7 +8783,6 @@ target_compile_options(GENERIC_F413ZGJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413ZGJX_MCU}
 )
 target_compile_definitions(GENERIC_F413ZGJX INTERFACE
@@ -8943,7 +8826,6 @@ target_compile_options(GENERIC_F413ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F413ZGTX INTERFACE
@@ -8987,7 +8869,6 @@ target_compile_options(GENERIC_F413ZHJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413ZHJX_MCU}
 )
 target_compile_definitions(GENERIC_F413ZHJX INTERFACE
@@ -9031,7 +8912,6 @@ target_compile_options(GENERIC_F413ZHTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F413ZHTX_MCU}
 )
 target_compile_definitions(GENERIC_F413ZHTX INTERFACE
@@ -9075,7 +8955,6 @@ target_compile_options(GENERIC_F415RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F415RGTX_MCU}
 )
 target_compile_definitions(GENERIC_F415RGTX INTERFACE
@@ -9119,7 +8998,6 @@ target_compile_options(GENERIC_F417VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F417VETX_MCU}
 )
 target_compile_definitions(GENERIC_F417VETX INTERFACE
@@ -9163,7 +9041,6 @@ target_compile_options(GENERIC_F417VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F417VGTX_MCU}
 )
 target_compile_definitions(GENERIC_F417VGTX INTERFACE
@@ -9207,7 +9084,6 @@ target_compile_options(GENERIC_F417ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F417ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F417ZETX INTERFACE
@@ -9251,7 +9127,6 @@ target_compile_options(GENERIC_F417ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F417ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F417ZGTX INTERFACE
@@ -9295,7 +9170,6 @@ target_compile_options(GENERIC_F423CHUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F423CHUX_MCU}
 )
 target_compile_definitions(GENERIC_F423CHUX INTERFACE
@@ -9339,7 +9213,6 @@ target_compile_options(GENERIC_F423RHTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F423RHTX_MCU}
 )
 target_compile_definitions(GENERIC_F423RHTX INTERFACE
@@ -9383,7 +9256,6 @@ target_compile_options(GENERIC_F423ZHJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F423ZHJX_MCU}
 )
 target_compile_definitions(GENERIC_F423ZHJX INTERFACE
@@ -9427,7 +9299,6 @@ target_compile_options(GENERIC_F423ZHTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F423ZHTX_MCU}
 )
 target_compile_definitions(GENERIC_F423ZHTX INTERFACE
@@ -9471,7 +9342,6 @@ target_compile_options(GENERIC_F427ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F427ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F427ZGTX INTERFACE
@@ -9515,7 +9385,6 @@ target_compile_options(GENERIC_F427ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F427ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F427ZITX INTERFACE
@@ -9559,7 +9428,6 @@ target_compile_options(GENERIC_F429ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F429ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F429ZETX INTERFACE
@@ -9603,7 +9471,6 @@ target_compile_options(GENERIC_F429ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F429ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F429ZGTX INTERFACE
@@ -9647,7 +9514,6 @@ target_compile_options(GENERIC_F429ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F429ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_F429ZGYX INTERFACE
@@ -9691,7 +9557,6 @@ target_compile_options(GENERIC_F429ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F429ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F429ZITX INTERFACE
@@ -9735,7 +9600,6 @@ target_compile_options(GENERIC_F429ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F429ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_F429ZIYX INTERFACE
@@ -9779,7 +9643,6 @@ target_compile_options(GENERIC_F437ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F437ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F437ZGTX INTERFACE
@@ -9823,7 +9686,6 @@ target_compile_options(GENERIC_F437ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F437ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F437ZITX INTERFACE
@@ -9867,7 +9729,6 @@ target_compile_options(GENERIC_F439ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F439ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F439ZGTX INTERFACE
@@ -9911,7 +9772,6 @@ target_compile_options(GENERIC_F439ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F439ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_F439ZGYX INTERFACE
@@ -9955,7 +9815,6 @@ target_compile_options(GENERIC_F439ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F439ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F439ZITX INTERFACE
@@ -9999,7 +9858,6 @@ target_compile_options(GENERIC_F439ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F439ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_F439ZIYX INTERFACE
@@ -10043,7 +9901,6 @@ target_compile_options(GENERIC_F446RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F446RCTX_MCU}
 )
 target_compile_definitions(GENERIC_F446RCTX INTERFACE
@@ -10087,7 +9944,6 @@ target_compile_options(GENERIC_F446RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F446RETX_MCU}
 )
 target_compile_definitions(GENERIC_F446RETX INTERFACE
@@ -10131,7 +9987,6 @@ target_compile_options(GENERIC_F446VCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F446VCTX_MCU}
 )
 target_compile_definitions(GENERIC_F446VCTX INTERFACE
@@ -10175,7 +10030,6 @@ target_compile_options(GENERIC_F446VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F446VETX_MCU}
 )
 target_compile_definitions(GENERIC_F446VETX INTERFACE
@@ -10206,6 +10060,178 @@ target_link_libraries(GENERIC_F446VETX INTERFACE
   arm_cortexM4lf_math
 )
 
+# GENERIC_F722RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F722RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
+set(GENERIC_F722RCTX_MAXSIZE 262144)
+set(GENERIC_F722RCTX_MAXDATASIZE 196608)
+set(GENERIC_F722RCTX_MCU cortex-m7)
+add_library(GENERIC_F722RCTX INTERFACE)
+target_compile_options(GENERIC_F722RCTX INTERFACE
+  "SHELL:-DSTM32F722xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722RCTX_MCU}
+)
+target_compile_definitions(GENERIC_F722RCTX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F722RCTX"
+	"BOARD_NAME=\"GENERIC_F722RCTX\""
+	"BOARD_ID=GENERIC_F722RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F722RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F722RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F722RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F722RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722RCTX_MCU}
+)
+target_link_libraries(GENERIC_F722RCTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F722RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F722RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
+set(GENERIC_F722RETX_MAXSIZE 524288)
+set(GENERIC_F722RETX_MAXDATASIZE 196608)
+set(GENERIC_F722RETX_MCU cortex-m7)
+add_library(GENERIC_F722RETX INTERFACE)
+target_compile_options(GENERIC_F722RETX INTERFACE
+  "SHELL:-DSTM32F722xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722RETX_MCU}
+)
+target_compile_definitions(GENERIC_F722RETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F722RETX"
+	"BOARD_NAME=\"GENERIC_F722RETX\""
+	"BOARD_ID=GENERIC_F722RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F722RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F722RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F722RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F722RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F722RETX_MCU}
+)
+target_link_libraries(GENERIC_F722RETX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F730R8TX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F730R8TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
+set(GENERIC_F730R8TX_MAXSIZE 65536)
+set(GENERIC_F730R8TX_MAXDATASIZE 196608)
+set(GENERIC_F730R8TX_MCU cortex-m7)
+add_library(GENERIC_F730R8TX INTERFACE)
+target_compile_options(GENERIC_F730R8TX INTERFACE
+  "SHELL:-DSTM32F730xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F730R8TX_MCU}
+)
+target_compile_definitions(GENERIC_F730R8TX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F730R8TX"
+	"BOARD_NAME=\"GENERIC_F730R8TX\""
+	"BOARD_ID=GENERIC_F730R8TX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F730R8TX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F730R8TX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F730R8TX INTERFACE
+  "LINKER:--default-script=${GENERIC_F730R8TX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F730R8TX_MCU}
+)
+target_link_libraries(GENERIC_F730R8TX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F732RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F732RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F722R(C-E)T_F730R8T_F732RET")
+set(GENERIC_F732RETX_MAXSIZE 524288)
+set(GENERIC_F732RETX_MAXDATASIZE 196608)
+set(GENERIC_F732RETX_MCU cortex-m7)
+add_library(GENERIC_F732RETX INTERFACE)
+target_compile_options(GENERIC_F732RETX INTERFACE
+  "SHELL:-DSTM32F732xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F732RETX_MCU}
+)
+target_compile_definitions(GENERIC_F732RETX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F732RETX"
+	"BOARD_NAME=\"GENERIC_F732RETX\""
+	"BOARD_ID=GENERIC_F732RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F732RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F732RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F732RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_F732RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=196608"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F732RETX_MCU}
+)
+target_link_libraries(GENERIC_F732RETX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
 # GENERIC_F745ZETX
 # -----------------------------------------------------------------------------
 
@@ -10219,7 +10245,6 @@ target_compile_options(GENERIC_F745ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F745ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F745ZETX INTERFACE
@@ -10263,7 +10288,6 @@ target_compile_options(GENERIC_F745ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F745ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F745ZGTX INTERFACE
@@ -10307,7 +10331,6 @@ target_compile_options(GENERIC_F746BETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746BETX_MCU}
 )
 target_compile_definitions(GENERIC_F746BETX INTERFACE
@@ -10351,7 +10374,6 @@ target_compile_options(GENERIC_F746BGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746BGTX_MCU}
 )
 target_compile_definitions(GENERIC_F746BGTX INTERFACE
@@ -10395,7 +10417,6 @@ target_compile_options(GENERIC_F746NEHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746NEHX_MCU}
 )
 target_compile_definitions(GENERIC_F746NEHX INTERFACE
@@ -10439,7 +10460,6 @@ target_compile_options(GENERIC_F746NGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746NGHX_MCU}
 )
 target_compile_definitions(GENERIC_F746NGHX INTERFACE
@@ -10483,7 +10503,6 @@ target_compile_options(GENERIC_F746ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746ZETX_MCU}
 )
 target_compile_definitions(GENERIC_F746ZETX INTERFACE
@@ -10527,7 +10546,6 @@ target_compile_options(GENERIC_F746ZEYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746ZEYX_MCU}
 )
 target_compile_definitions(GENERIC_F746ZEYX INTERFACE
@@ -10571,7 +10589,6 @@ target_compile_options(GENERIC_F746ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F746ZGTX INTERFACE
@@ -10615,7 +10632,6 @@ target_compile_options(GENERIC_F746ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F746ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_F746ZGYX INTERFACE
@@ -10659,7 +10675,6 @@ target_compile_options(GENERIC_F750N8HX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F750N8HX_MCU}
 )
 target_compile_definitions(GENERIC_F750N8HX INTERFACE
@@ -10703,7 +10718,6 @@ target_compile_options(GENERIC_F750Z8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F750Z8TX_MCU}
 )
 target_compile_definitions(GENERIC_F750Z8TX INTERFACE
@@ -10747,7 +10761,6 @@ target_compile_options(GENERIC_F756BGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F756BGTX_MCU}
 )
 target_compile_definitions(GENERIC_F756BGTX INTERFACE
@@ -10791,7 +10804,6 @@ target_compile_options(GENERIC_F756NGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F756NGHX_MCU}
 )
 target_compile_definitions(GENERIC_F756NGHX INTERFACE
@@ -10835,7 +10847,6 @@ target_compile_options(GENERIC_F756ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F756ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F756ZGTX INTERFACE
@@ -10879,7 +10890,6 @@ target_compile_options(GENERIC_F756ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F756ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_F756ZGYX INTERFACE
@@ -10910,6 +10920,178 @@ target_link_libraries(GENERIC_F756ZGYX INTERFACE
   arm_cortexM7lfsp_math
 )
 
+# GENERIC_F765IGKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F765IGKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F765IGKX_MAXSIZE 1048576)
+set(GENERIC_F765IGKX_MAXDATASIZE 393216)
+set(GENERIC_F765IGKX_MCU cortex-m7)
+add_library(GENERIC_F765IGKX INTERFACE)
+target_compile_options(GENERIC_F765IGKX INTERFACE
+  "SHELL:-DSTM32F765xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IGKX_MCU}
+)
+target_compile_definitions(GENERIC_F765IGKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F765IGKX"
+	"BOARD_NAME=\"GENERIC_F765IGKX\""
+	"BOARD_ID=GENERIC_F765IGKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F765IGKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F765IGKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F765IGKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F765IGKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IGKX_MCU}
+)
+target_link_libraries(GENERIC_F765IGKX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F765IGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F765IGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F765IGTX_MAXSIZE 1048576)
+set(GENERIC_F765IGTX_MAXDATASIZE 393216)
+set(GENERIC_F765IGTX_MCU cortex-m7)
+add_library(GENERIC_F765IGTX INTERFACE)
+target_compile_options(GENERIC_F765IGTX INTERFACE
+  "SHELL:-DSTM32F765xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IGTX_MCU}
+)
+target_compile_definitions(GENERIC_F765IGTX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F765IGTX"
+	"BOARD_NAME=\"GENERIC_F765IGTX\""
+	"BOARD_ID=GENERIC_F765IGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F765IGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F765IGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F765IGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F765IGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IGTX_MCU}
+)
+target_link_libraries(GENERIC_F765IGTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F765IIKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F765IIKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F765IIKX_MAXSIZE 2097152)
+set(GENERIC_F765IIKX_MAXDATASIZE 393216)
+set(GENERIC_F765IIKX_MCU cortex-m7)
+add_library(GENERIC_F765IIKX INTERFACE)
+target_compile_options(GENERIC_F765IIKX INTERFACE
+  "SHELL:-DSTM32F765xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IIKX_MCU}
+)
+target_compile_definitions(GENERIC_F765IIKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F765IIKX"
+	"BOARD_NAME=\"GENERIC_F765IIKX\""
+	"BOARD_ID=GENERIC_F765IIKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F765IIKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F765IIKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F765IIKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F765IIKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IIKX_MCU}
+)
+target_link_libraries(GENERIC_F765IIKX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F765IITX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F765IITX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F765IITX_MAXSIZE 2097152)
+set(GENERIC_F765IITX_MAXDATASIZE 393216)
+set(GENERIC_F765IITX_MCU cortex-m7)
+add_library(GENERIC_F765IITX INTERFACE)
+target_compile_options(GENERIC_F765IITX INTERFACE
+  "SHELL:-DSTM32F765xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IITX_MCU}
+)
+target_compile_definitions(GENERIC_F765IITX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F765IITX"
+	"BOARD_NAME=\"GENERIC_F765IITX\""
+	"BOARD_ID=GENERIC_F765IITX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F765IITX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F765IITX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F765IITX INTERFACE
+  "LINKER:--default-script=${GENERIC_F765IITX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F765IITX_MCU}
+)
+target_link_libraries(GENERIC_F765IITX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
 # GENERIC_F765VGHX
 # -----------------------------------------------------------------------------
 
@@ -10923,7 +11105,6 @@ target_compile_options(GENERIC_F765VGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765VGHX_MCU}
 )
 target_compile_definitions(GENERIC_F765VGHX INTERFACE
@@ -10967,7 +11148,6 @@ target_compile_options(GENERIC_F765VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765VGTX_MCU}
 )
 target_compile_definitions(GENERIC_F765VGTX INTERFACE
@@ -11011,7 +11191,6 @@ target_compile_options(GENERIC_F765VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765VIHX_MCU}
 )
 target_compile_definitions(GENERIC_F765VIHX INTERFACE
@@ -11055,7 +11234,6 @@ target_compile_options(GENERIC_F765VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765VITX_MCU}
 )
 target_compile_definitions(GENERIC_F765VITX INTERFACE
@@ -11099,7 +11277,6 @@ target_compile_options(GENERIC_F765ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F765ZGTX INTERFACE
@@ -11143,7 +11320,6 @@ target_compile_options(GENERIC_F765ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F765ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F765ZITX INTERFACE
@@ -11174,6 +11350,178 @@ target_link_libraries(GENERIC_F765ZITX INTERFACE
   arm_cortexM7lfsp_math
 )
 
+# GENERIC_F767IGKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F767IGKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F767IGKX_MAXSIZE 1048576)
+set(GENERIC_F767IGKX_MAXDATASIZE 393216)
+set(GENERIC_F767IGKX_MCU cortex-m7)
+add_library(GENERIC_F767IGKX INTERFACE)
+target_compile_options(GENERIC_F767IGKX INTERFACE
+  "SHELL:-DSTM32F767xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IGKX_MCU}
+)
+target_compile_definitions(GENERIC_F767IGKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F767IGKX"
+	"BOARD_NAME=\"GENERIC_F767IGKX\""
+	"BOARD_ID=GENERIC_F767IGKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F767IGKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F767IGKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F767IGKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F767IGKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IGKX_MCU}
+)
+target_link_libraries(GENERIC_F767IGKX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F767IGTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F767IGTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F767IGTX_MAXSIZE 1048576)
+set(GENERIC_F767IGTX_MAXDATASIZE 393216)
+set(GENERIC_F767IGTX_MCU cortex-m7)
+add_library(GENERIC_F767IGTX INTERFACE)
+target_compile_options(GENERIC_F767IGTX INTERFACE
+  "SHELL:-DSTM32F767xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IGTX_MCU}
+)
+target_compile_definitions(GENERIC_F767IGTX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F767IGTX"
+	"BOARD_NAME=\"GENERIC_F767IGTX\""
+	"BOARD_ID=GENERIC_F767IGTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F767IGTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F767IGTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F767IGTX INTERFACE
+  "LINKER:--default-script=${GENERIC_F767IGTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=1048576"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IGTX_MCU}
+)
+target_link_libraries(GENERIC_F767IGTX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F767IIKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F767IIKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F767IIKX_MAXSIZE 2097152)
+set(GENERIC_F767IIKX_MAXDATASIZE 393216)
+set(GENERIC_F767IIKX_MCU cortex-m7)
+add_library(GENERIC_F767IIKX INTERFACE)
+target_compile_options(GENERIC_F767IIKX INTERFACE
+  "SHELL:-DSTM32F767xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IIKX_MCU}
+)
+target_compile_definitions(GENERIC_F767IIKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F767IIKX"
+	"BOARD_NAME=\"GENERIC_F767IIKX\""
+	"BOARD_ID=GENERIC_F767IIKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F767IIKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F767IIKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F767IIKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F767IIKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IIKX_MCU}
+)
+target_link_libraries(GENERIC_F767IIKX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F767IITX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F767IITX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F767IITX_MAXSIZE 2097152)
+set(GENERIC_F767IITX_MAXDATASIZE 393216)
+set(GENERIC_F767IITX_MCU cortex-m7)
+add_library(GENERIC_F767IITX INTERFACE)
+target_compile_options(GENERIC_F767IITX INTERFACE
+  "SHELL:-DSTM32F767xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IITX_MCU}
+)
+target_compile_definitions(GENERIC_F767IITX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F767IITX"
+	"BOARD_NAME=\"GENERIC_F767IITX\""
+	"BOARD_ID=GENERIC_F767IITX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F767IITX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F767IITX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F767IITX INTERFACE
+  "LINKER:--default-script=${GENERIC_F767IITX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F767IITX_MCU}
+)
+target_link_libraries(GENERIC_F767IITX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
 # GENERIC_F767VGHX
 # -----------------------------------------------------------------------------
 
@@ -11187,7 +11535,6 @@ target_compile_options(GENERIC_F767VGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767VGHX_MCU}
 )
 target_compile_definitions(GENERIC_F767VGHX INTERFACE
@@ -11231,7 +11578,6 @@ target_compile_options(GENERIC_F767VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767VGTX_MCU}
 )
 target_compile_definitions(GENERIC_F767VGTX INTERFACE
@@ -11275,7 +11621,6 @@ target_compile_options(GENERIC_F767VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767VIHX_MCU}
 )
 target_compile_definitions(GENERIC_F767VIHX INTERFACE
@@ -11319,7 +11664,6 @@ target_compile_options(GENERIC_F767VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767VITX_MCU}
 )
 target_compile_definitions(GENERIC_F767VITX INTERFACE
@@ -11363,7 +11707,6 @@ target_compile_options(GENERIC_F767ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_F767ZGTX INTERFACE
@@ -11407,7 +11750,6 @@ target_compile_options(GENERIC_F767ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F767ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F767ZITX INTERFACE
@@ -11438,6 +11780,92 @@ target_link_libraries(GENERIC_F767ZITX INTERFACE
   arm_cortexM7lfsp_math
 )
 
+# GENERIC_F777IIKX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F777IIKX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F777IIKX_MAXSIZE 2097152)
+set(GENERIC_F777IIKX_MAXDATASIZE 393216)
+set(GENERIC_F777IIKX_MCU cortex-m7)
+add_library(GENERIC_F777IIKX INTERFACE)
+target_compile_options(GENERIC_F777IIKX INTERFACE
+  "SHELL:-DSTM32F777xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F777IIKX_MCU}
+)
+target_compile_definitions(GENERIC_F777IIKX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F777IIKX"
+	"BOARD_NAME=\"GENERIC_F777IIKX\""
+	"BOARD_ID=GENERIC_F777IIKX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F777IIKX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F777IIKX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F777IIKX INTERFACE
+  "LINKER:--default-script=${GENERIC_F777IIKX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F777IIKX_MCU}
+)
+target_link_libraries(GENERIC_F777IIKX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
+# GENERIC_F777IITX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_F777IITX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32F7xx/F765I(G-I)(K-T)_F767I(G-I)(K-T)_F777II(K-T)")
+set(GENERIC_F777IITX_MAXSIZE 2097152)
+set(GENERIC_F777IITX_MAXDATASIZE 393216)
+set(GENERIC_F777IITX_MCU cortex-m7)
+add_library(GENERIC_F777IITX INTERFACE)
+target_compile_options(GENERIC_F777IITX INTERFACE
+  "SHELL:-DSTM32F777xx   "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F777IITX_MCU}
+)
+target_compile_definitions(GENERIC_F777IITX INTERFACE
+  "STM32F7xx"
+	"ARDUINO_GENERIC_F777IITX"
+	"BOARD_NAME=\"GENERIC_F777IITX\""
+	"BOARD_ID=GENERIC_F777IITX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_F777IITX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32F7xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32F7xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32F7xx/Source/Templates/gcc/
+  ${GENERIC_F777IITX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_F777IITX INTERFACE
+  "LINKER:--default-script=${GENERIC_F777IITX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=393216"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_F777IITX_MCU}
+)
+target_link_libraries(GENERIC_F777IITX INTERFACE
+  arm_cortexM7lfsp_math
+)
+
 # GENERIC_F777VIHX
 # -----------------------------------------------------------------------------
 
@@ -11451,7 +11879,6 @@ target_compile_options(GENERIC_F777VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F777VIHX_MCU}
 )
 target_compile_definitions(GENERIC_F777VIHX INTERFACE
@@ -11495,7 +11922,6 @@ target_compile_options(GENERIC_F777VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F777VITX_MCU}
 )
 target_compile_definitions(GENERIC_F777VITX INTERFACE
@@ -11539,7 +11965,6 @@ target_compile_options(GENERIC_F777ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_F777ZITX_MCU}
 )
 target_compile_definitions(GENERIC_F777ZITX INTERFACE
@@ -11582,8 +12007,7 @@ target_compile_options(GENERIC_G030C6TX INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030C6TX_MCU}
 )
 target_compile_definitions(GENERIC_G030C6TX INTERFACE
@@ -11607,7 +12031,7 @@ target_link_options(GENERIC_G030C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030C6TX_MCU}
 )
 target_link_libraries(GENERIC_G030C6TX INTERFACE
@@ -11626,8 +12050,7 @@ target_compile_options(GENERIC_G030C8TX INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030C8TX_MCU}
 )
 target_compile_definitions(GENERIC_G030C8TX INTERFACE
@@ -11651,7 +12074,7 @@ target_link_options(GENERIC_G030C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030C8TX_MCU}
 )
 target_link_libraries(GENERIC_G030C8TX INTERFACE
@@ -11670,8 +12093,7 @@ target_compile_options(GENERIC_G030F6PX INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030F6PX_MCU}
 )
 target_compile_definitions(GENERIC_G030F6PX INTERFACE
@@ -11695,7 +12117,7 @@ target_link_options(GENERIC_G030F6PX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030F6PX_MCU}
 )
 target_link_libraries(GENERIC_G030F6PX INTERFACE
@@ -11714,8 +12136,7 @@ target_compile_options(GENERIC_G030K6TX INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030K6TX_MCU}
 )
 target_compile_definitions(GENERIC_G030K6TX INTERFACE
@@ -11739,7 +12160,7 @@ target_link_options(GENERIC_G030K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030K6TX_MCU}
 )
 target_link_libraries(GENERIC_G030K6TX INTERFACE
@@ -11758,8 +12179,7 @@ target_compile_options(GENERIC_G030K8TX INTERFACE
   "SHELL:-DSTM32G030xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030K8TX_MCU}
 )
 target_compile_definitions(GENERIC_G030K8TX INTERFACE
@@ -11783,10 +12203,139 @@ target_link_options(GENERIC_G030K8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G030K8TX_MCU}
 )
 target_link_libraries(GENERIC_G030K8TX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G031F4PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G031F4PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G031F4PX_MAXSIZE 16384)
+set(GENERIC_G031F4PX_MAXDATASIZE 8192)
+set(GENERIC_G031F4PX_MCU cortex-m0plus)
+add_library(GENERIC_G031F4PX INTERFACE)
+target_compile_options(GENERIC_G031F4PX INTERFACE
+  "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F4PX_MCU}
+)
+target_compile_definitions(GENERIC_G031F4PX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G031F4PX"
+	"BOARD_NAME=\"GENERIC_G031F4PX\""
+	"BOARD_ID=GENERIC_G031F4PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G031F4PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G031F4PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G031F4PX INTERFACE
+  "LINKER:--default-script=${GENERIC_G031F4PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=16384"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F4PX_MCU}
+)
+target_link_libraries(GENERIC_G031F4PX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G031F6PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G031F6PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G031F6PX_MAXSIZE 32768)
+set(GENERIC_G031F6PX_MAXDATASIZE 8192)
+set(GENERIC_G031F6PX_MCU cortex-m0plus)
+add_library(GENERIC_G031F6PX INTERFACE)
+target_compile_options(GENERIC_G031F6PX INTERFACE
+  "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F6PX_MCU}
+)
+target_compile_definitions(GENERIC_G031F6PX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G031F6PX"
+	"BOARD_NAME=\"GENERIC_G031F6PX\""
+	"BOARD_ID=GENERIC_G031F6PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G031F6PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G031F6PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G031F6PX INTERFACE
+  "LINKER:--default-script=${GENERIC_G031F6PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F6PX_MCU}
+)
+target_link_libraries(GENERIC_G031F6PX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G031F8PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G031F8PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G031F8PX_MAXSIZE 65536)
+set(GENERIC_G031F8PX_MAXDATASIZE 8192)
+set(GENERIC_G031F8PX_MCU cortex-m0plus)
+add_library(GENERIC_G031F8PX INTERFACE)
+target_compile_options(GENERIC_G031F8PX INTERFACE
+  "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F8PX_MCU}
+)
+target_compile_definitions(GENERIC_G031F8PX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G031F8PX"
+	"BOARD_NAME=\"GENERIC_G031F8PX\""
+	"BOARD_ID=GENERIC_G031F8PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G031F8PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G031F8PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G031F8PX INTERFACE
+  "LINKER:--default-script=${GENERIC_G031F8PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G031F8PX_MCU}
+)
+target_link_libraries(GENERIC_G031F8PX INTERFACE
   arm_cortexM0l_math
 )
 
@@ -11802,8 +12351,7 @@ target_compile_options(GENERIC_G031J4MX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031J4MX_MCU}
 )
 target_compile_definitions(GENERIC_G031J4MX INTERFACE
@@ -11827,7 +12375,7 @@ target_link_options(GENERIC_G031J4MX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031J4MX_MCU}
 )
 target_link_libraries(GENERIC_G031J4MX INTERFACE
@@ -11846,8 +12394,7 @@ target_compile_options(GENERIC_G031J6MX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031J6MX_MCU}
 )
 target_compile_definitions(GENERIC_G031J6MX INTERFACE
@@ -11871,7 +12418,7 @@ target_link_options(GENERIC_G031J6MX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031J6MX_MCU}
 )
 target_link_libraries(GENERIC_G031J6MX INTERFACE
@@ -11890,8 +12437,7 @@ target_compile_options(GENERIC_G031K4TX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K4TX_MCU}
 )
 target_compile_definitions(GENERIC_G031K4TX INTERFACE
@@ -11915,7 +12461,7 @@ target_link_options(GENERIC_G031K4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K4TX_MCU}
 )
 target_link_libraries(GENERIC_G031K4TX INTERFACE
@@ -11934,8 +12480,7 @@ target_compile_options(GENERIC_G031K4UX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K4UX_MCU}
 )
 target_compile_definitions(GENERIC_G031K4UX INTERFACE
@@ -11959,7 +12504,7 @@ target_link_options(GENERIC_G031K4UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K4UX_MCU}
 )
 target_link_libraries(GENERIC_G031K4UX INTERFACE
@@ -11978,8 +12523,7 @@ target_compile_options(GENERIC_G031K6TX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K6TX_MCU}
 )
 target_compile_definitions(GENERIC_G031K6TX INTERFACE
@@ -12003,7 +12547,7 @@ target_link_options(GENERIC_G031K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K6TX_MCU}
 )
 target_link_libraries(GENERIC_G031K6TX INTERFACE
@@ -12022,8 +12566,7 @@ target_compile_options(GENERIC_G031K6UX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K6UX_MCU}
 )
 target_compile_definitions(GENERIC_G031K6UX INTERFACE
@@ -12047,7 +12590,7 @@ target_link_options(GENERIC_G031K6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K6UX_MCU}
 )
 target_link_libraries(GENERIC_G031K6UX INTERFACE
@@ -12066,8 +12609,7 @@ target_compile_options(GENERIC_G031K8TX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K8TX_MCU}
 )
 target_compile_definitions(GENERIC_G031K8TX INTERFACE
@@ -12091,7 +12633,7 @@ target_link_options(GENERIC_G031K8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K8TX_MCU}
 )
 target_link_libraries(GENERIC_G031K8TX INTERFACE
@@ -12110,8 +12652,7 @@ target_compile_options(GENERIC_G031K8UX INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K8UX_MCU}
 )
 target_compile_definitions(GENERIC_G031K8UX INTERFACE
@@ -12135,10 +12676,139 @@ target_link_options(GENERIC_G031K8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G031K8UX_MCU}
 )
 target_link_libraries(GENERIC_G031K8UX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G031Y8YX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G031Y8YX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G031Y8YX_MAXSIZE 65536)
+set(GENERIC_G031Y8YX_MAXDATASIZE 8192)
+set(GENERIC_G031Y8YX_MCU cortex-m0plus)
+add_library(GENERIC_G031Y8YX INTERFACE)
+target_compile_options(GENERIC_G031Y8YX INTERFACE
+  "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G031Y8YX_MCU}
+)
+target_compile_definitions(GENERIC_G031Y8YX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G031Y8YX"
+	"BOARD_NAME=\"GENERIC_G031Y8YX\""
+	"BOARD_ID=GENERIC_G031Y8YX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G031Y8YX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G031Y8YX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G031Y8YX INTERFACE
+  "LINKER:--default-script=${GENERIC_G031Y8YX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G031Y8YX_MCU}
+)
+target_link_libraries(GENERIC_G031Y8YX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G041F6PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G041F6PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G041F6PX_MAXSIZE 32768)
+set(GENERIC_G041F6PX_MAXDATASIZE 8192)
+set(GENERIC_G041F6PX_MCU cortex-m0plus)
+add_library(GENERIC_G041F6PX INTERFACE)
+target_compile_options(GENERIC_G041F6PX INTERFACE
+  "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G041F6PX_MCU}
+)
+target_compile_definitions(GENERIC_G041F6PX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G041F6PX"
+	"BOARD_NAME=\"GENERIC_G041F6PX\""
+	"BOARD_ID=GENERIC_G041F6PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G041F6PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G041F6PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G041F6PX INTERFACE
+  "LINKER:--default-script=${GENERIC_G041F6PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G041F6PX_MCU}
+)
+target_link_libraries(GENERIC_G041F6PX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G041F8PX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G041F8PX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G041F8PX_MAXSIZE 65536)
+set(GENERIC_G041F8PX_MAXDATASIZE 8192)
+set(GENERIC_G041F8PX_MCU cortex-m0plus)
+add_library(GENERIC_G041F8PX INTERFACE)
+target_compile_options(GENERIC_G041F8PX INTERFACE
+  "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G041F8PX_MCU}
+)
+target_compile_definitions(GENERIC_G041F8PX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G041F8PX"
+	"BOARD_NAME=\"GENERIC_G041F8PX\""
+	"BOARD_ID=GENERIC_G041F8PX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G041F8PX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G041F8PX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G041F8PX INTERFACE
+  "LINKER:--default-script=${GENERIC_G041F8PX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G041F8PX_MCU}
+)
+target_link_libraries(GENERIC_G041F8PX INTERFACE
   arm_cortexM0l_math
 )
 
@@ -12154,8 +12824,7 @@ target_compile_options(GENERIC_G041J6MX INTERFACE
   "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041J6MX_MCU}
 )
 target_compile_definitions(GENERIC_G041J6MX INTERFACE
@@ -12179,7 +12848,7 @@ target_link_options(GENERIC_G041J6MX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041J6MX_MCU}
 )
 target_link_libraries(GENERIC_G041J6MX INTERFACE
@@ -12198,8 +12867,7 @@ target_compile_options(GENERIC_G041K6TX INTERFACE
   "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K6TX_MCU}
 )
 target_compile_definitions(GENERIC_G041K6TX INTERFACE
@@ -12223,7 +12891,7 @@ target_link_options(GENERIC_G041K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K6TX_MCU}
 )
 target_link_libraries(GENERIC_G041K6TX INTERFACE
@@ -12242,8 +12910,7 @@ target_compile_options(GENERIC_G041K6UX INTERFACE
   "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K6UX_MCU}
 )
 target_compile_definitions(GENERIC_G041K6UX INTERFACE
@@ -12267,7 +12934,7 @@ target_link_options(GENERIC_G041K6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K6UX_MCU}
 )
 target_link_libraries(GENERIC_G041K6UX INTERFACE
@@ -12286,8 +12953,7 @@ target_compile_options(GENERIC_G041K8TX INTERFACE
   "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K8TX_MCU}
 )
 target_compile_definitions(GENERIC_G041K8TX INTERFACE
@@ -12311,7 +12977,7 @@ target_link_options(GENERIC_G041K8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K8TX_MCU}
 )
 target_link_libraries(GENERIC_G041K8TX INTERFACE
@@ -12330,8 +12996,7 @@ target_compile_options(GENERIC_G041K8UX INTERFACE
   "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K8UX_MCU}
 )
 target_compile_definitions(GENERIC_G041K8UX INTERFACE
@@ -12355,10 +13020,526 @@ target_link_options(GENERIC_G041K8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G041K8UX_MCU}
 )
 target_link_libraries(GENERIC_G041K8UX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G041Y8YX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G041Y8YX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G031F(4-6-8)P_G031Y8Y_G041F(6-8)P_G041Y8Y")
+set(GENERIC_G041Y8YX_MAXSIZE 65536)
+set(GENERIC_G041Y8YX_MAXDATASIZE 8192)
+set(GENERIC_G041Y8YX_MCU cortex-m0plus)
+add_library(GENERIC_G041Y8YX INTERFACE)
+target_compile_options(GENERIC_G041Y8YX INTERFACE
+  "SHELL:-DSTM32G041xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G041Y8YX_MCU}
+)
+target_compile_definitions(GENERIC_G041Y8YX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G041Y8YX"
+	"BOARD_NAME=\"GENERIC_G041Y8YX\""
+	"BOARD_ID=GENERIC_G041Y8YX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G041Y8YX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G041Y8YX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G041Y8YX INTERFACE
+  "LINKER:--default-script=${GENERIC_G041Y8YX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
+  "SHELL: "
+  -mcpu=${GENERIC_G041Y8YX_MCU}
+)
+target_link_libraries(GENERIC_G041Y8YX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G070CBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G070CBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G070CBT")
+set(GENERIC_G070CBTX_MAXSIZE 131072)
+set(GENERIC_G070CBTX_MAXDATASIZE 36864)
+set(GENERIC_G070CBTX_MCU cortex-m0plus)
+add_library(GENERIC_G070CBTX INTERFACE)
+target_compile_options(GENERIC_G070CBTX INTERFACE
+  "SHELL:-DSTM32G070xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G070CBTX_MCU}
+)
+target_compile_definitions(GENERIC_G070CBTX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G070CBTX"
+	"BOARD_NAME=\"GENERIC_G070CBTX\""
+	"BOARD_ID=GENERIC_G070CBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G070CBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G070CBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G070CBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G070CBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G070CBTX_MCU}
+)
+target_link_libraries(GENERIC_G070CBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G070KBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G070KBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G070KBT")
+set(GENERIC_G070KBTX_MAXSIZE 131072)
+set(GENERIC_G070KBTX_MAXDATASIZE 36864)
+set(GENERIC_G070KBTX_MCU cortex-m0plus)
+add_library(GENERIC_G070KBTX INTERFACE)
+target_compile_options(GENERIC_G070KBTX INTERFACE
+  "SHELL:-DSTM32G070xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G070KBTX_MCU}
+)
+target_compile_definitions(GENERIC_G070KBTX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G070KBTX"
+	"BOARD_NAME=\"GENERIC_G070KBTX\""
+	"BOARD_ID=GENERIC_G070KBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G070KBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G070KBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G070KBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G070KBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G070KBTX_MCU}
+)
+target_link_libraries(GENERIC_G070KBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G070RBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G070RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G070RBT")
+set(GENERIC_G070RBTX_MAXSIZE 131072)
+set(GENERIC_G070RBTX_MAXDATASIZE 36864)
+set(GENERIC_G070RBTX_MCU cortex-m0plus)
+add_library(GENERIC_G070RBTX INTERFACE)
+target_compile_options(GENERIC_G070RBTX INTERFACE
+  "SHELL:-DSTM32G070xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G070RBTX_MCU}
+)
+target_compile_definitions(GENERIC_G070RBTX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G070RBTX"
+	"BOARD_NAME=\"GENERIC_G070RBTX\""
+	"BOARD_ID=GENERIC_G070RBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G070RBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G070RBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G070RBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G070RBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G070RBTX_MCU}
+)
+target_link_libraries(GENERIC_G070RBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071C6TX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071C6TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071C6TX_MAXSIZE 32768)
+set(GENERIC_G071C6TX_MAXDATASIZE 36864)
+set(GENERIC_G071C6TX_MCU cortex-m0plus)
+add_library(GENERIC_G071C6TX INTERFACE)
+target_compile_options(GENERIC_G071C6TX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C6TX_MCU}
+)
+target_compile_definitions(GENERIC_G071C6TX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071C6TX"
+	"BOARD_NAME=\"GENERIC_G071C6TX\""
+	"BOARD_ID=GENERIC_G071C6TX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071C6TX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071C6TX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071C6TX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071C6TX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C6TX_MCU}
+)
+target_link_libraries(GENERIC_G071C6TX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071C6UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071C6UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071C6UX_MAXSIZE 32768)
+set(GENERIC_G071C6UX_MAXDATASIZE 36864)
+set(GENERIC_G071C6UX_MCU cortex-m0plus)
+add_library(GENERIC_G071C6UX INTERFACE)
+target_compile_options(GENERIC_G071C6UX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C6UX_MCU}
+)
+target_compile_definitions(GENERIC_G071C6UX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071C6UX"
+	"BOARD_NAME=\"GENERIC_G071C6UX\""
+	"BOARD_ID=GENERIC_G071C6UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071C6UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071C6UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071C6UX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071C6UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=32768"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C6UX_MCU}
+)
+target_link_libraries(GENERIC_G071C6UX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071C8TX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071C8TX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071C8TX_MAXSIZE 65536)
+set(GENERIC_G071C8TX_MAXDATASIZE 36864)
+set(GENERIC_G071C8TX_MCU cortex-m0plus)
+add_library(GENERIC_G071C8TX INTERFACE)
+target_compile_options(GENERIC_G071C8TX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C8TX_MCU}
+)
+target_compile_definitions(GENERIC_G071C8TX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071C8TX"
+	"BOARD_NAME=\"GENERIC_G071C8TX\""
+	"BOARD_ID=GENERIC_G071C8TX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071C8TX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071C8TX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071C8TX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071C8TX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C8TX_MCU}
+)
+target_link_libraries(GENERIC_G071C8TX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071C8UX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071C8UX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071C8UX_MAXSIZE 65536)
+set(GENERIC_G071C8UX_MAXDATASIZE 36864)
+set(GENERIC_G071C8UX_MCU cortex-m0plus)
+add_library(GENERIC_G071C8UX INTERFACE)
+target_compile_options(GENERIC_G071C8UX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C8UX_MCU}
+)
+target_compile_definitions(GENERIC_G071C8UX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071C8UX"
+	"BOARD_NAME=\"GENERIC_G071C8UX\""
+	"BOARD_ID=GENERIC_G071C8UX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071C8UX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071C8UX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071C8UX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071C8UX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071C8UX_MCU}
+)
+target_link_libraries(GENERIC_G071C8UX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071CBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071CBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071CBTX_MAXSIZE 131072)
+set(GENERIC_G071CBTX_MAXDATASIZE 36864)
+set(GENERIC_G071CBTX_MCU cortex-m0plus)
+add_library(GENERIC_G071CBTX INTERFACE)
+target_compile_options(GENERIC_G071CBTX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071CBTX_MCU}
+)
+target_compile_definitions(GENERIC_G071CBTX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071CBTX"
+	"BOARD_NAME=\"GENERIC_G071CBTX\""
+	"BOARD_ID=GENERIC_G071CBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071CBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071CBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071CBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071CBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071CBTX_MCU}
+)
+target_link_libraries(GENERIC_G071CBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071CBUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071CBUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G071CBUX_MAXSIZE 131072)
+set(GENERIC_G071CBUX_MAXDATASIZE 36864)
+set(GENERIC_G071CBUX_MCU cortex-m0plus)
+add_library(GENERIC_G071CBUX INTERFACE)
+target_compile_options(GENERIC_G071CBUX INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071CBUX_MCU}
+)
+target_compile_definitions(GENERIC_G071CBUX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071CBUX"
+	"BOARD_NAME=\"GENERIC_G071CBUX\""
+	"BOARD_ID=GENERIC_G071CBUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071CBUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071CBUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071CBUX INTERFACE
+  "LINKER:--default-script=${GENERIC_G071CBUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071CBUX_MCU}
+)
+target_link_libraries(GENERIC_G071CBUX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071G8UXN
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071G8UXN_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071G(8-B)UxN_G081GBUxN")
+set(GENERIC_G071G8UXN_MAXSIZE 65536)
+set(GENERIC_G071G8UXN_MAXDATASIZE 36864)
+set(GENERIC_G071G8UXN_MCU cortex-m0plus)
+add_library(GENERIC_G071G8UXN INTERFACE)
+target_compile_options(GENERIC_G071G8UXN INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071G8UXN_MCU}
+)
+target_compile_definitions(GENERIC_G071G8UXN INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071G8UXN"
+	"BOARD_NAME=\"GENERIC_G071G8UXN\""
+	"BOARD_ID=GENERIC_G071G8UXN"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071G8UXN INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071G8UXN_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071G8UXN INTERFACE
+  "LINKER:--default-script=${GENERIC_G071G8UXN_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=65536"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071G8UXN_MCU}
+)
+target_link_libraries(GENERIC_G071G8UXN INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G071GBUXN
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G071GBUXN_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071G(8-B)UxN_G081GBUxN")
+set(GENERIC_G071GBUXN_MAXSIZE 131072)
+set(GENERIC_G071GBUXN_MAXDATASIZE 36864)
+set(GENERIC_G071GBUXN_MCU cortex-m0plus)
+add_library(GENERIC_G071GBUXN INTERFACE)
+target_compile_options(GENERIC_G071GBUXN INTERFACE
+  "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G071GBUXN_MCU}
+)
+target_compile_definitions(GENERIC_G071GBUXN INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G071GBUXN"
+	"BOARD_NAME=\"GENERIC_G071GBUXN\""
+	"BOARD_ID=GENERIC_G071GBUXN"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G071GBUXN INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G071GBUXN_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G071GBUXN INTERFACE
+  "LINKER:--default-script=${GENERIC_G071GBUXN_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G071GBUXN_MCU}
+)
+target_link_libraries(GENERIC_G071GBUXN INTERFACE
   arm_cortexM0l_math
 )
 
@@ -12374,8 +13555,7 @@ target_compile_options(GENERIC_G071R6TX INTERFACE
   "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071R6TX_MCU}
 )
 target_compile_definitions(GENERIC_G071R6TX INTERFACE
@@ -12399,7 +13579,7 @@ target_link_options(GENERIC_G071R6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071R6TX_MCU}
 )
 target_link_libraries(GENERIC_G071R6TX INTERFACE
@@ -12418,8 +13598,7 @@ target_compile_options(GENERIC_G071R8TX INTERFACE
   "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071R8TX_MCU}
 )
 target_compile_definitions(GENERIC_G071R8TX INTERFACE
@@ -12443,7 +13622,7 @@ target_link_options(GENERIC_G071R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071R8TX_MCU}
 )
 target_link_libraries(GENERIC_G071R8TX INTERFACE
@@ -12462,8 +13641,7 @@ target_compile_options(GENERIC_G071RBIX INTERFACE
   "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071RBIX_MCU}
 )
 target_compile_definitions(GENERIC_G071RBIX INTERFACE
@@ -12487,7 +13665,7 @@ target_link_options(GENERIC_G071RBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071RBIX_MCU}
 )
 target_link_libraries(GENERIC_G071RBIX INTERFACE
@@ -12506,8 +13684,7 @@ target_compile_options(GENERIC_G071RBTX INTERFACE
   "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G071RBTX INTERFACE
@@ -12531,10 +13708,139 @@ target_link_options(GENERIC_G071RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G071RBTX_MCU}
 )
 target_link_libraries(GENERIC_G071RBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G081CBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G081CBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G081CBTX_MAXSIZE 131072)
+set(GENERIC_G081CBTX_MAXDATASIZE 36864)
+set(GENERIC_G081CBTX_MCU cortex-m0plus)
+add_library(GENERIC_G081CBTX INTERFACE)
+target_compile_options(GENERIC_G081CBTX INTERFACE
+  "SHELL:-DSTM32G081xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G081CBTX_MCU}
+)
+target_compile_definitions(GENERIC_G081CBTX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G081CBTX"
+	"BOARD_NAME=\"GENERIC_G081CBTX\""
+	"BOARD_ID=GENERIC_G081CBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G081CBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G081CBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G081CBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G081CBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G081CBTX_MCU}
+)
+target_link_libraries(GENERIC_G081CBTX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G081CBUX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G081CBUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071C(6-8-B)(T-U)_G081CB(T-U)")
+set(GENERIC_G081CBUX_MAXSIZE 131072)
+set(GENERIC_G081CBUX_MAXDATASIZE 36864)
+set(GENERIC_G081CBUX_MCU cortex-m0plus)
+add_library(GENERIC_G081CBUX INTERFACE)
+target_compile_options(GENERIC_G081CBUX INTERFACE
+  "SHELL:-DSTM32G081xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G081CBUX_MCU}
+)
+target_compile_definitions(GENERIC_G081CBUX INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G081CBUX"
+	"BOARD_NAME=\"GENERIC_G081CBUX\""
+	"BOARD_ID=GENERIC_G081CBUX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G081CBUX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G081CBUX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G081CBUX INTERFACE
+  "LINKER:--default-script=${GENERIC_G081CBUX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G081CBUX_MCU}
+)
+target_link_libraries(GENERIC_G081CBUX INTERFACE
+  arm_cortexM0l_math
+)
+
+# GENERIC_G081GBUXN
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G081GBUXN_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G071G(8-B)UxN_G081GBUxN")
+set(GENERIC_G081GBUXN_MAXSIZE 131072)
+set(GENERIC_G081GBUXN_MAXDATASIZE 36864)
+set(GENERIC_G081GBUXN_MCU cortex-m0plus)
+add_library(GENERIC_G081GBUXN INTERFACE)
+target_compile_options(GENERIC_G081GBUXN INTERFACE
+  "SHELL:-DSTM32G081xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${GENERIC_G081GBUXN_MCU}
+)
+target_compile_definitions(GENERIC_G081GBUXN INTERFACE
+  "STM32G0xx"
+	"ARDUINO_GENERIC_G081GBUXN"
+	"BOARD_NAME=\"GENERIC_G081GBUXN\""
+	"BOARD_ID=GENERIC_G081GBUXN"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G081GBUXN INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${GENERIC_G081GBUXN_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G081GBUXN INTERFACE
+  "LINKER:--default-script=${GENERIC_G081GBUXN_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${GENERIC_G081GBUXN_MCU}
+)
+target_link_libraries(GENERIC_G081GBUXN INTERFACE
   arm_cortexM0l_math
 )
 
@@ -12550,8 +13856,7 @@ target_compile_options(GENERIC_G081RBIX INTERFACE
   "SHELL:-DSTM32G081xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G081RBIX_MCU}
 )
 target_compile_definitions(GENERIC_G081RBIX INTERFACE
@@ -12575,7 +13880,7 @@ target_link_options(GENERIC_G081RBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G081RBIX_MCU}
 )
 target_link_libraries(GENERIC_G081RBIX INTERFACE
@@ -12594,8 +13899,7 @@ target_compile_options(GENERIC_G081RBTX INTERFACE
   "SHELL:-DSTM32G081xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G081RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G081RBTX INTERFACE
@@ -12619,7 +13923,7 @@ target_link_options(GENERIC_G081RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G081RBTX_MCU}
 )
 target_link_libraries(GENERIC_G081RBTX INTERFACE
@@ -12629,7 +13933,7 @@ target_link_libraries(GENERIC_G081RBTX INTERFACE
 # GENERIC_G0B1RBTX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_G0B1RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(GENERIC_G0B1RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(GENERIC_G0B1RBTX_MAXSIZE 131072)
 set(GENERIC_G0B1RBTX_MAXDATASIZE 147456)
 set(GENERIC_G0B1RBTX_MCU cortex-m0plus)
@@ -12638,8 +13942,7 @@ target_compile_options(GENERIC_G0B1RBTX INTERFACE
   "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G0B1RBTX INTERFACE
@@ -12663,61 +13966,17 @@ target_link_options(GENERIC_G0B1RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RBTX_MCU}
 )
 target_link_libraries(GENERIC_G0B1RBTX INTERFACE
   arm_cortexM0l_math
 )
 
-# GENERIC_G0B1RCIX
-# -----------------------------------------------------------------------------
-
-set(GENERIC_G0B1RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
-set(GENERIC_G0B1RCIX_MAXSIZE 262144)
-set(GENERIC_G0B1RCIX_MAXDATASIZE 147456)
-set(GENERIC_G0B1RCIX_MCU cortex-m0plus)
-add_library(GENERIC_G0B1RCIX INTERFACE)
-target_compile_options(GENERIC_G0B1RCIX INTERFACE
-  "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  -mcpu=${GENERIC_G0B1RCIX_MCU}
-)
-target_compile_definitions(GENERIC_G0B1RCIX INTERFACE
-  "STM32G0xx"
-	"ARDUINO_GENERIC_G0B1RCIX"
-	"BOARD_NAME=\"GENERIC_G0B1RCIX\""
-	"BOARD_ID=GENERIC_G0B1RCIX"
-	"VARIANT_H=\"variant_generic.h\""
-)
-target_include_directories(GENERIC_G0B1RCIX INTERFACE
-  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
-  ${GENERIC_G0B1RCIX_VARIANT_PATH}
-)
-
-target_link_options(GENERIC_G0B1RCIX INTERFACE
-  "LINKER:--default-script=${GENERIC_G0B1RCIX_VARIANT_PATH}/ldscript.ld"
-  "LINKER:--defsym=LD_FLASH_OFFSET=0"
-	"LINKER:--defsym=LD_MAX_SIZE=262144"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
-  -mcpu=${GENERIC_G0B1RCIX_MCU}
-)
-target_link_libraries(GENERIC_G0B1RCIX INTERFACE
-  arm_cortexM0l_math
-)
-
 # GENERIC_G0B1RCTX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_G0B1RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(GENERIC_G0B1RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(GENERIC_G0B1RCTX_MAXSIZE 262144)
 set(GENERIC_G0B1RCTX_MAXDATASIZE 147456)
 set(GENERIC_G0B1RCTX_MCU cortex-m0plus)
@@ -12726,8 +13985,7 @@ target_compile_options(GENERIC_G0B1RCTX INTERFACE
   "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RCTX_MCU}
 )
 target_compile_definitions(GENERIC_G0B1RCTX INTERFACE
@@ -12751,61 +14009,17 @@ target_link_options(GENERIC_G0B1RCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RCTX_MCU}
 )
 target_link_libraries(GENERIC_G0B1RCTX INTERFACE
   arm_cortexM0l_math
 )
 
-# GENERIC_G0B1REIX
-# -----------------------------------------------------------------------------
-
-set(GENERIC_G0B1REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
-set(GENERIC_G0B1REIX_MAXSIZE 524288)
-set(GENERIC_G0B1REIX_MAXDATASIZE 147456)
-set(GENERIC_G0B1REIX_MCU cortex-m0plus)
-add_library(GENERIC_G0B1REIX INTERFACE)
-target_compile_options(GENERIC_G0B1REIX INTERFACE
-  "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  -mcpu=${GENERIC_G0B1REIX_MCU}
-)
-target_compile_definitions(GENERIC_G0B1REIX INTERFACE
-  "STM32G0xx"
-	"ARDUINO_GENERIC_G0B1REIX"
-	"BOARD_NAME=\"GENERIC_G0B1REIX\""
-	"BOARD_ID=GENERIC_G0B1REIX"
-	"VARIANT_H=\"variant_generic.h\""
-)
-target_include_directories(GENERIC_G0B1REIX INTERFACE
-  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
-  ${GENERIC_G0B1REIX_VARIANT_PATH}
-)
-
-target_link_options(GENERIC_G0B1REIX INTERFACE
-  "LINKER:--default-script=${GENERIC_G0B1REIX_VARIANT_PATH}/ldscript.ld"
-  "LINKER:--defsym=LD_FLASH_OFFSET=0"
-	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
-  -mcpu=${GENERIC_G0B1REIX_MCU}
-)
-target_link_libraries(GENERIC_G0B1REIX INTERFACE
-  arm_cortexM0l_math
-)
-
 # GENERIC_G0B1RETX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_G0B1RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(GENERIC_G0B1RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(GENERIC_G0B1RETX_MAXSIZE 524288)
 set(GENERIC_G0B1RETX_MAXDATASIZE 147456)
 set(GENERIC_G0B1RETX_MCU cortex-m0plus)
@@ -12814,8 +14028,7 @@ target_compile_options(GENERIC_G0B1RETX INTERFACE
   "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RETX_MCU}
 )
 target_compile_definitions(GENERIC_G0B1RETX INTERFACE
@@ -12839,61 +14052,17 @@ target_link_options(GENERIC_G0B1RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0B1RETX_MCU}
 )
 target_link_libraries(GENERIC_G0B1RETX INTERFACE
   arm_cortexM0l_math
 )
 
-# GENERIC_G0C1RCIX
-# -----------------------------------------------------------------------------
-
-set(GENERIC_G0C1RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
-set(GENERIC_G0C1RCIX_MAXSIZE 262144)
-set(GENERIC_G0C1RCIX_MAXDATASIZE 147456)
-set(GENERIC_G0C1RCIX_MCU cortex-m0plus)
-add_library(GENERIC_G0C1RCIX INTERFACE)
-target_compile_options(GENERIC_G0C1RCIX INTERFACE
-  "SHELL:-DSTM32G0C1xx   -D__CORTEX_SC=0"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  -mcpu=${GENERIC_G0C1RCIX_MCU}
-)
-target_compile_definitions(GENERIC_G0C1RCIX INTERFACE
-  "STM32G0xx"
-	"ARDUINO_GENERIC_G0C1RCIX"
-	"BOARD_NAME=\"GENERIC_G0C1RCIX\""
-	"BOARD_ID=GENERIC_G0C1RCIX"
-	"VARIANT_H=\"variant_generic.h\""
-)
-target_include_directories(GENERIC_G0C1RCIX INTERFACE
-  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
-  ${GENERIC_G0C1RCIX_VARIANT_PATH}
-)
-
-target_link_options(GENERIC_G0C1RCIX INTERFACE
-  "LINKER:--default-script=${GENERIC_G0C1RCIX_VARIANT_PATH}/ldscript.ld"
-  "LINKER:--defsym=LD_FLASH_OFFSET=0"
-	"LINKER:--defsym=LD_MAX_SIZE=262144"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
-  -mcpu=${GENERIC_G0C1RCIX_MCU}
-)
-target_link_libraries(GENERIC_G0C1RCIX INTERFACE
-  arm_cortexM0l_math
-)
-
 # GENERIC_G0C1RCTX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_G0C1RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(GENERIC_G0C1RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(GENERIC_G0C1RCTX_MAXSIZE 262144)
 set(GENERIC_G0C1RCTX_MAXDATASIZE 147456)
 set(GENERIC_G0C1RCTX_MCU cortex-m0plus)
@@ -12902,8 +14071,7 @@ target_compile_options(GENERIC_G0C1RCTX INTERFACE
   "SHELL:-DSTM32G0C1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0C1RCTX_MCU}
 )
 target_compile_definitions(GENERIC_G0C1RCTX INTERFACE
@@ -12927,61 +14095,17 @@ target_link_options(GENERIC_G0C1RCTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0C1RCTX_MCU}
 )
 target_link_libraries(GENERIC_G0C1RCTX INTERFACE
   arm_cortexM0l_math
 )
 
-# GENERIC_G0C1REIX
-# -----------------------------------------------------------------------------
-
-set(GENERIC_G0C1REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
-set(GENERIC_G0C1REIX_MAXSIZE 524288)
-set(GENERIC_G0C1REIX_MAXDATASIZE 147456)
-set(GENERIC_G0C1REIX_MCU cortex-m0plus)
-add_library(GENERIC_G0C1REIX INTERFACE)
-target_compile_options(GENERIC_G0C1REIX INTERFACE
-  "SHELL:-DSTM32G0C1xx   -D__CORTEX_SC=0"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  "SHELL:"
-  -mcpu=${GENERIC_G0C1REIX_MCU}
-)
-target_compile_definitions(GENERIC_G0C1REIX INTERFACE
-  "STM32G0xx"
-	"ARDUINO_GENERIC_G0C1REIX"
-	"BOARD_NAME=\"GENERIC_G0C1REIX\""
-	"BOARD_ID=GENERIC_G0C1REIX"
-	"VARIANT_H=\"variant_generic.h\""
-)
-target_include_directories(GENERIC_G0C1REIX INTERFACE
-  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
-  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
-  ${GENERIC_G0C1REIX_VARIANT_PATH}
-)
-
-target_link_options(GENERIC_G0C1REIX INTERFACE
-  "LINKER:--default-script=${GENERIC_G0C1REIX_VARIANT_PATH}/ldscript.ld"
-  "LINKER:--defsym=LD_FLASH_OFFSET=0"
-	"LINKER:--defsym=LD_MAX_SIZE=524288"
-	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
-  -mcpu=${GENERIC_G0C1REIX_MCU}
-)
-target_link_libraries(GENERIC_G0C1REIX INTERFACE
-  arm_cortexM0l_math
-)
-
 # GENERIC_G0C1RETX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_G0C1RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(GENERIC_G0C1RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(GENERIC_G0C1RETX_MAXSIZE 524288)
 set(GENERIC_G0C1RETX_MAXDATASIZE 147456)
 set(GENERIC_G0C1RETX_MCU cortex-m0plus)
@@ -12990,8 +14114,7 @@ target_compile_options(GENERIC_G0C1RETX INTERFACE
   "SHELL:-DSTM32G0C1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0C1RETX_MCU}
 )
 target_compile_definitions(GENERIC_G0C1RETX INTERFACE
@@ -13015,7 +14138,7 @@ target_link_options(GENERIC_G0C1RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_G0C1RETX_MCU}
 )
 target_link_libraries(GENERIC_G0C1RETX INTERFACE
@@ -13035,7 +14158,6 @@ target_compile_options(GENERIC_G431C6UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431C6UX_MCU}
 )
 target_compile_definitions(GENERIC_G431C6UX INTERFACE
@@ -13079,7 +14201,6 @@ target_compile_options(GENERIC_G431C8UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431C8UX_MCU}
 )
 target_compile_definitions(GENERIC_G431C8UX INTERFACE
@@ -13123,7 +14244,6 @@ target_compile_options(GENERIC_G431CBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431CBUX_MCU}
 )
 target_compile_definitions(GENERIC_G431CBUX INTERFACE
@@ -13167,7 +14287,6 @@ target_compile_options(GENERIC_G431K6TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431K6TX_MCU}
 )
 target_compile_definitions(GENERIC_G431K6TX INTERFACE
@@ -13211,7 +14330,6 @@ target_compile_options(GENERIC_G431K6UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431K6UX_MCU}
 )
 target_compile_definitions(GENERIC_G431K6UX INTERFACE
@@ -13255,7 +14373,6 @@ target_compile_options(GENERIC_G431K8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431K8TX_MCU}
 )
 target_compile_definitions(GENERIC_G431K8TX INTERFACE
@@ -13299,7 +14416,6 @@ target_compile_options(GENERIC_G431K8UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431K8UX_MCU}
 )
 target_compile_definitions(GENERIC_G431K8UX INTERFACE
@@ -13343,7 +14459,6 @@ target_compile_options(GENERIC_G431KBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431KBTX_MCU}
 )
 target_compile_definitions(GENERIC_G431KBTX INTERFACE
@@ -13387,7 +14502,6 @@ target_compile_options(GENERIC_G431KBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431KBUX_MCU}
 )
 target_compile_definitions(GENERIC_G431KBUX INTERFACE
@@ -13431,7 +14545,6 @@ target_compile_options(GENERIC_G431R6IX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431R6IX_MCU}
 )
 target_compile_definitions(GENERIC_G431R6IX INTERFACE
@@ -13475,7 +14588,6 @@ target_compile_options(GENERIC_G431R6TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431R6TX_MCU}
 )
 target_compile_definitions(GENERIC_G431R6TX INTERFACE
@@ -13519,7 +14631,6 @@ target_compile_options(GENERIC_G431R8IX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431R8IX_MCU}
 )
 target_compile_definitions(GENERIC_G431R8IX INTERFACE
@@ -13563,7 +14674,6 @@ target_compile_options(GENERIC_G431R8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431R8TX_MCU}
 )
 target_compile_definitions(GENERIC_G431R8TX INTERFACE
@@ -13607,7 +14717,6 @@ target_compile_options(GENERIC_G431RBIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431RBIX_MCU}
 )
 target_compile_definitions(GENERIC_G431RBIX INTERFACE
@@ -13651,7 +14760,6 @@ target_compile_options(GENERIC_G431RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G431RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G431RBTX INTERFACE
@@ -13695,7 +14803,6 @@ target_compile_options(GENERIC_G441CBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G441CBUX_MCU}
 )
 target_compile_definitions(GENERIC_G441CBUX INTERFACE
@@ -13739,7 +14846,6 @@ target_compile_options(GENERIC_G441KBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G441KBTX_MCU}
 )
 target_compile_definitions(GENERIC_G441KBTX INTERFACE
@@ -13783,7 +14889,6 @@ target_compile_options(GENERIC_G441KBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G441KBUX_MCU}
 )
 target_compile_definitions(GENERIC_G441KBUX INTERFACE
@@ -13827,7 +14932,6 @@ target_compile_options(GENERIC_G441RBIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G441RBIX_MCU}
 )
 target_compile_definitions(GENERIC_G441RBIX INTERFACE
@@ -13871,7 +14975,6 @@ target_compile_options(GENERIC_G441RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G441RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G441RBTX INTERFACE
@@ -13915,7 +15018,6 @@ target_compile_options(GENERIC_G473RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G473RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G473RBTX INTERFACE
@@ -13959,7 +15061,6 @@ target_compile_options(GENERIC_G473RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G473RCTX_MCU}
 )
 target_compile_definitions(GENERIC_G473RCTX INTERFACE
@@ -14003,7 +15104,6 @@ target_compile_options(GENERIC_G473RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G473RETX_MCU}
 )
 target_compile_definitions(GENERIC_G473RETX INTERFACE
@@ -14047,7 +15147,6 @@ target_compile_options(GENERIC_G474RBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G474RBTX_MCU}
 )
 target_compile_definitions(GENERIC_G474RBTX INTERFACE
@@ -14091,7 +15190,6 @@ target_compile_options(GENERIC_G474RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G474RCTX_MCU}
 )
 target_compile_definitions(GENERIC_G474RCTX INTERFACE
@@ -14135,7 +15233,6 @@ target_compile_options(GENERIC_G474RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G474RETX_MCU}
 )
 target_compile_definitions(GENERIC_G474RETX INTERFACE
@@ -14179,7 +15276,6 @@ target_compile_options(GENERIC_G483RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G483RETX_MCU}
 )
 target_compile_definitions(GENERIC_G483RETX INTERFACE
@@ -14223,7 +15319,6 @@ target_compile_options(GENERIC_G484RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_G484RETX_MCU}
 )
 target_compile_definitions(GENERIC_G484RETX INTERFACE
@@ -14254,6 +15349,350 @@ target_link_libraries(GENERIC_G484RETX INTERFACE
   arm_cortexM4lf_math
 )
 
+# GENERIC_G491RCIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G491RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G491RCIX_MAXSIZE 262144)
+set(GENERIC_G491RCIX_MAXDATASIZE 131072)
+set(GENERIC_G491RCIX_MCU cortex-m4)
+add_library(GENERIC_G491RCIX INTERFACE)
+target_compile_options(GENERIC_G491RCIX INTERFACE
+  "SHELL:-DSTM32G491xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RCIX_MCU}
+)
+target_compile_definitions(GENERIC_G491RCIX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G491RCIX"
+	"BOARD_NAME=\"GENERIC_G491RCIX\""
+	"BOARD_ID=GENERIC_G491RCIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G491RCIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G491RCIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G491RCIX INTERFACE
+  "LINKER:--default-script=${GENERIC_G491RCIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RCIX_MCU}
+)
+target_link_libraries(GENERIC_G491RCIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G491RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G491RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G491RCTX_MAXSIZE 262144)
+set(GENERIC_G491RCTX_MAXDATASIZE 131072)
+set(GENERIC_G491RCTX_MCU cortex-m4)
+add_library(GENERIC_G491RCTX INTERFACE)
+target_compile_options(GENERIC_G491RCTX INTERFACE
+  "SHELL:-DSTM32G491xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RCTX_MCU}
+)
+target_compile_definitions(GENERIC_G491RCTX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G491RCTX"
+	"BOARD_NAME=\"GENERIC_G491RCTX\""
+	"BOARD_ID=GENERIC_G491RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G491RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G491RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G491RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_G491RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RCTX_MCU}
+)
+target_link_libraries(GENERIC_G491RCTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G491REIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G491REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G491REIX_MAXSIZE 524288)
+set(GENERIC_G491REIX_MAXDATASIZE 131072)
+set(GENERIC_G491REIX_MCU cortex-m4)
+add_library(GENERIC_G491REIX INTERFACE)
+target_compile_options(GENERIC_G491REIX INTERFACE
+  "SHELL:-DSTM32G491xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491REIX_MCU}
+)
+target_compile_definitions(GENERIC_G491REIX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G491REIX"
+	"BOARD_NAME=\"GENERIC_G491REIX\""
+	"BOARD_ID=GENERIC_G491REIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G491REIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G491REIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G491REIX INTERFACE
+  "LINKER:--default-script=${GENERIC_G491REIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491REIX_MCU}
+)
+target_link_libraries(GENERIC_G491REIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G491RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G491RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G491RETX_MAXSIZE 524288)
+set(GENERIC_G491RETX_MAXDATASIZE 131072)
+set(GENERIC_G491RETX_MCU cortex-m4)
+add_library(GENERIC_G491RETX INTERFACE)
+target_compile_options(GENERIC_G491RETX INTERFACE
+  "SHELL:-DSTM32G491xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RETX_MCU}
+)
+target_compile_definitions(GENERIC_G491RETX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G491RETX"
+	"BOARD_NAME=\"GENERIC_G491RETX\""
+	"BOARD_ID=GENERIC_G491RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G491RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G491RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G491RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_G491RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491RETX_MCU}
+)
+target_link_libraries(GENERIC_G491RETX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G491REYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G491REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G491REYX_MAXSIZE 524288)
+set(GENERIC_G491REYX_MAXDATASIZE 131072)
+set(GENERIC_G491REYX_MCU cortex-m4)
+add_library(GENERIC_G491REYX INTERFACE)
+target_compile_options(GENERIC_G491REYX INTERFACE
+  "SHELL:-DSTM32G491xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491REYX_MCU}
+)
+target_compile_definitions(GENERIC_G491REYX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G491REYX"
+	"BOARD_NAME=\"GENERIC_G491REYX\""
+	"BOARD_ID=GENERIC_G491REYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G491REYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G491REYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G491REYX INTERFACE
+  "LINKER:--default-script=${GENERIC_G491REYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G491REYX_MCU}
+)
+target_link_libraries(GENERIC_G491REYX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G4A1REIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G4A1REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G4A1REIX_MAXSIZE 524288)
+set(GENERIC_G4A1REIX_MAXDATASIZE 131072)
+set(GENERIC_G4A1REIX_MCU cortex-m4)
+add_library(GENERIC_G4A1REIX INTERFACE)
+target_compile_options(GENERIC_G4A1REIX INTERFACE
+  "SHELL:-DSTM32G4A1xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1REIX_MCU}
+)
+target_compile_definitions(GENERIC_G4A1REIX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G4A1REIX"
+	"BOARD_NAME=\"GENERIC_G4A1REIX\""
+	"BOARD_ID=GENERIC_G4A1REIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G4A1REIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G4A1REIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G4A1REIX INTERFACE
+  "LINKER:--default-script=${GENERIC_G4A1REIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1REIX_MCU}
+)
+target_link_libraries(GENERIC_G4A1REIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G4A1RETX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G4A1RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G4A1RETX_MAXSIZE 524288)
+set(GENERIC_G4A1RETX_MAXDATASIZE 131072)
+set(GENERIC_G4A1RETX_MCU cortex-m4)
+add_library(GENERIC_G4A1RETX INTERFACE)
+target_compile_options(GENERIC_G4A1RETX INTERFACE
+  "SHELL:-DSTM32G4A1xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1RETX_MCU}
+)
+target_compile_definitions(GENERIC_G4A1RETX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G4A1RETX"
+	"BOARD_NAME=\"GENERIC_G4A1RETX\""
+	"BOARD_ID=GENERIC_G4A1RETX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G4A1RETX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G4A1RETX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G4A1RETX INTERFACE
+  "LINKER:--default-script=${GENERIC_G4A1RETX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1RETX_MCU}
+)
+target_link_libraries(GENERIC_G4A1RETX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_G4A1REYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_G4A1REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)")
+set(GENERIC_G4A1REYX_MAXSIZE 524288)
+set(GENERIC_G4A1REYX_MAXDATASIZE 131072)
+set(GENERIC_G4A1REYX_MCU cortex-m4)
+add_library(GENERIC_G4A1REYX INTERFACE)
+target_compile_options(GENERIC_G4A1REYX INTERFACE
+  "SHELL:-DSTM32G4A1xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1REYX_MCU}
+)
+target_compile_definitions(GENERIC_G4A1REYX INTERFACE
+  "STM32G4xx"
+	"ARDUINO_GENERIC_G4A1REYX"
+	"BOARD_NAME=\"GENERIC_G4A1REYX\""
+	"BOARD_ID=GENERIC_G4A1REYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_G4A1REYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G4xx/Source/Templates/gcc/
+  ${GENERIC_G4A1REYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_G4A1REYX INTERFACE
+  "LINKER:--default-script=${GENERIC_G4A1REYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_G4A1REYX_MCU}
+)
+target_link_libraries(GENERIC_G4A1REYX INTERFACE
+  arm_cortexM4lf_math
+)
+
 # GENERIC_H742IGKX
 # -----------------------------------------------------------------------------
 
@@ -14267,7 +15706,6 @@ target_compile_options(GENERIC_H742IGKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742IGKX_MCU}
 )
 target_compile_definitions(GENERIC_H742IGKX INTERFACE
@@ -14311,7 +15749,6 @@ target_compile_options(GENERIC_H742IGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742IGTX_MCU}
 )
 target_compile_definitions(GENERIC_H742IGTX INTERFACE
@@ -14355,7 +15792,6 @@ target_compile_options(GENERIC_H742IIKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742IIKX_MCU}
 )
 target_compile_definitions(GENERIC_H742IIKX INTERFACE
@@ -14399,7 +15835,6 @@ target_compile_options(GENERIC_H742IITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742IITX_MCU}
 )
 target_compile_definitions(GENERIC_H742IITX INTERFACE
@@ -14443,7 +15878,6 @@ target_compile_options(GENERIC_H742VGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742VGHX_MCU}
 )
 target_compile_definitions(GENERIC_H742VGHX INTERFACE
@@ -14487,7 +15921,6 @@ target_compile_options(GENERIC_H742VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742VGTX_MCU}
 )
 target_compile_definitions(GENERIC_H742VGTX INTERFACE
@@ -14531,7 +15964,6 @@ target_compile_options(GENERIC_H742VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742VIHX_MCU}
 )
 target_compile_definitions(GENERIC_H742VIHX INTERFACE
@@ -14575,7 +16007,6 @@ target_compile_options(GENERIC_H742VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742VITX_MCU}
 )
 target_compile_definitions(GENERIC_H742VITX INTERFACE
@@ -14619,7 +16050,6 @@ target_compile_options(GENERIC_H742ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_H742ZGTX INTERFACE
@@ -14663,7 +16093,6 @@ target_compile_options(GENERIC_H742ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H742ZITX_MCU}
 )
 target_compile_definitions(GENERIC_H742ZITX INTERFACE
@@ -14707,7 +16136,6 @@ target_compile_options(GENERIC_H743IGKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743IGKX_MCU}
 )
 target_compile_definitions(GENERIC_H743IGKX INTERFACE
@@ -14751,7 +16179,6 @@ target_compile_options(GENERIC_H743IGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743IGTX_MCU}
 )
 target_compile_definitions(GENERIC_H743IGTX INTERFACE
@@ -14795,7 +16222,6 @@ target_compile_options(GENERIC_H743IIKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743IIKX_MCU}
 )
 target_compile_definitions(GENERIC_H743IIKX INTERFACE
@@ -14839,7 +16265,6 @@ target_compile_options(GENERIC_H743IITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743IITX_MCU}
 )
 target_compile_definitions(GENERIC_H743IITX INTERFACE
@@ -14883,7 +16308,6 @@ target_compile_options(GENERIC_H743VGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743VGHX_MCU}
 )
 target_compile_definitions(GENERIC_H743VGHX INTERFACE
@@ -14927,7 +16351,6 @@ target_compile_options(GENERIC_H743VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743VGTX_MCU}
 )
 target_compile_definitions(GENERIC_H743VGTX INTERFACE
@@ -14971,7 +16394,6 @@ target_compile_options(GENERIC_H743VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743VIHX_MCU}
 )
 target_compile_definitions(GENERIC_H743VIHX INTERFACE
@@ -15015,7 +16437,6 @@ target_compile_options(GENERIC_H743VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743VITX_MCU}
 )
 target_compile_definitions(GENERIC_H743VITX INTERFACE
@@ -15059,7 +16480,6 @@ target_compile_options(GENERIC_H743ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_H743ZGTX INTERFACE
@@ -15103,7 +16523,6 @@ target_compile_options(GENERIC_H743ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H743ZITX_MCU}
 )
 target_compile_definitions(GENERIC_H743ZITX INTERFACE
@@ -15147,7 +16566,6 @@ target_compile_options(GENERIC_H747AGIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H747AGIX_MCU}
 )
 target_compile_definitions(GENERIC_H747AGIX INTERFACE
@@ -15191,7 +16609,6 @@ target_compile_options(GENERIC_H747AIIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H747AIIX_MCU}
 )
 target_compile_definitions(GENERIC_H747AIIX INTERFACE
@@ -15235,7 +16652,6 @@ target_compile_options(GENERIC_H747IGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H747IGTX_MCU}
 )
 target_compile_definitions(GENERIC_H747IGTX INTERFACE
@@ -15279,7 +16695,6 @@ target_compile_options(GENERIC_H747IITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H747IITX_MCU}
 )
 target_compile_definitions(GENERIC_H747IITX INTERFACE
@@ -15323,7 +16738,6 @@ target_compile_options(GENERIC_H750IBKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H750IBKX_MCU}
 )
 target_compile_definitions(GENERIC_H750IBKX INTERFACE
@@ -15367,7 +16781,6 @@ target_compile_options(GENERIC_H750IBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H750IBTX_MCU}
 )
 target_compile_definitions(GENERIC_H750IBTX INTERFACE
@@ -15411,7 +16824,6 @@ target_compile_options(GENERIC_H750VBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H750VBTX_MCU}
 )
 target_compile_definitions(GENERIC_H750VBTX INTERFACE
@@ -15455,7 +16867,6 @@ target_compile_options(GENERIC_H750ZBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H750ZBTX_MCU}
 )
 target_compile_definitions(GENERIC_H750ZBTX INTERFACE
@@ -15499,7 +16910,6 @@ target_compile_options(GENERIC_H753IIKX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H753IIKX_MCU}
 )
 target_compile_definitions(GENERIC_H753IIKX INTERFACE
@@ -15543,7 +16953,6 @@ target_compile_options(GENERIC_H753IITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H753IITX_MCU}
 )
 target_compile_definitions(GENERIC_H753IITX INTERFACE
@@ -15587,7 +16996,6 @@ target_compile_options(GENERIC_H753VIHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H753VIHX_MCU}
 )
 target_compile_definitions(GENERIC_H753VIHX INTERFACE
@@ -15631,7 +17039,6 @@ target_compile_options(GENERIC_H753VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H753VITX_MCU}
 )
 target_compile_definitions(GENERIC_H753VITX INTERFACE
@@ -15675,7 +17082,6 @@ target_compile_options(GENERIC_H753ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H753ZITX_MCU}
 )
 target_compile_definitions(GENERIC_H753ZITX INTERFACE
@@ -15719,7 +17125,6 @@ target_compile_options(GENERIC_H757AIIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H757AIIX_MCU}
 )
 target_compile_definitions(GENERIC_H757AIIX INTERFACE
@@ -15763,7 +17168,6 @@ target_compile_options(GENERIC_H757IITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_H757IITX_MCU}
 )
 target_compile_definitions(GENERIC_H757IITX INTERFACE
@@ -15806,8 +17210,7 @@ target_compile_options(GENERIC_L010RBTX INTERFACE
   "SHELL:-DSTM32L010xB   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L010RBTX_MCU}
 )
 target_compile_definitions(GENERIC_L010RBTX INTERFACE
@@ -15831,7 +17234,7 @@ target_link_options(GENERIC_L010RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L010RBTX_MCU}
 )
 target_link_libraries(GENERIC_L010RBTX INTERFACE
@@ -15850,8 +17253,7 @@ target_compile_options(GENERIC_L031K4TX INTERFACE
   "SHELL:-DSTM32L031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L031K4TX_MCU}
 )
 target_compile_definitions(GENERIC_L031K4TX INTERFACE
@@ -15875,7 +17277,7 @@ target_link_options(GENERIC_L031K4TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=16384"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L031K4TX_MCU}
 )
 target_link_libraries(GENERIC_L031K4TX INTERFACE
@@ -15894,8 +17296,7 @@ target_compile_options(GENERIC_L031K6TX INTERFACE
   "SHELL:-DSTM32L031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L031K6TX_MCU}
 )
 target_compile_definitions(GENERIC_L031K6TX INTERFACE
@@ -15919,7 +17320,7 @@ target_link_options(GENERIC_L031K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L031K6TX_MCU}
 )
 target_link_libraries(GENERIC_L031K6TX INTERFACE
@@ -15938,8 +17339,7 @@ target_compile_options(GENERIC_L041K6TX INTERFACE
   "SHELL:-DSTM32L041xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L041K6TX_MCU}
 )
 target_compile_definitions(GENERIC_L041K6TX INTERFACE
@@ -15963,7 +17363,7 @@ target_link_options(GENERIC_L041K6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L041K6TX_MCU}
 )
 target_link_libraries(GENERIC_L041K6TX INTERFACE
@@ -15982,8 +17382,7 @@ target_compile_options(GENERIC_L051C6TX INTERFACE
   "SHELL:-DSTM32L051xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C6TX_MCU}
 )
 target_compile_definitions(GENERIC_L051C6TX INTERFACE
@@ -16007,7 +17406,7 @@ target_link_options(GENERIC_L051C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C6TX_MCU}
 )
 target_link_libraries(GENERIC_L051C6TX INTERFACE
@@ -16026,8 +17425,7 @@ target_compile_options(GENERIC_L051C6UX INTERFACE
   "SHELL:-DSTM32L051xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C6UX_MCU}
 )
 target_compile_definitions(GENERIC_L051C6UX INTERFACE
@@ -16051,7 +17449,7 @@ target_link_options(GENERIC_L051C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C6UX_MCU}
 )
 target_link_libraries(GENERIC_L051C6UX INTERFACE
@@ -16070,8 +17468,7 @@ target_compile_options(GENERIC_L051C8TX INTERFACE
   "SHELL:-DSTM32L051xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C8TX_MCU}
 )
 target_compile_definitions(GENERIC_L051C8TX INTERFACE
@@ -16095,7 +17492,7 @@ target_link_options(GENERIC_L051C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C8TX_MCU}
 )
 target_link_libraries(GENERIC_L051C8TX INTERFACE
@@ -16114,8 +17511,7 @@ target_compile_options(GENERIC_L051C8UX INTERFACE
   "SHELL:-DSTM32L051xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C8UX_MCU}
 )
 target_compile_definitions(GENERIC_L051C8UX INTERFACE
@@ -16139,7 +17535,7 @@ target_link_options(GENERIC_L051C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L051C8UX_MCU}
 )
 target_link_libraries(GENERIC_L051C8UX INTERFACE
@@ -16158,8 +17554,7 @@ target_compile_options(GENERIC_L052R6TX INTERFACE
   "SHELL:-DSTM32L052xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L052R6TX_MCU}
 )
 target_compile_definitions(GENERIC_L052R6TX INTERFACE
@@ -16183,7 +17578,7 @@ target_link_options(GENERIC_L052R6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L052R6TX_MCU}
 )
 target_link_libraries(GENERIC_L052R6TX INTERFACE
@@ -16202,8 +17597,7 @@ target_compile_options(GENERIC_L052R8TX INTERFACE
   "SHELL:-DSTM32L052xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L052R8TX_MCU}
 )
 target_compile_definitions(GENERIC_L052R8TX INTERFACE
@@ -16227,7 +17621,7 @@ target_link_options(GENERIC_L052R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L052R8TX_MCU}
 )
 target_link_libraries(GENERIC_L052R8TX INTERFACE
@@ -16246,8 +17640,7 @@ target_compile_options(GENERIC_L053R6TX INTERFACE
   "SHELL:-DSTM32L053xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L053R6TX_MCU}
 )
 target_compile_definitions(GENERIC_L053R6TX INTERFACE
@@ -16271,7 +17664,7 @@ target_link_options(GENERIC_L053R6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L053R6TX_MCU}
 )
 target_link_libraries(GENERIC_L053R6TX INTERFACE
@@ -16290,8 +17683,7 @@ target_compile_options(GENERIC_L053R8TX INTERFACE
   "SHELL:-DSTM32L053xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L053R8TX_MCU}
 )
 target_compile_definitions(GENERIC_L053R8TX INTERFACE
@@ -16315,7 +17707,7 @@ target_link_options(GENERIC_L053R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L053R8TX_MCU}
 )
 target_link_libraries(GENERIC_L053R8TX INTERFACE
@@ -16334,8 +17726,7 @@ target_compile_options(GENERIC_L063R8TX INTERFACE
   "SHELL:-DSTM32L063xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L063R8TX_MCU}
 )
 target_compile_definitions(GENERIC_L063R8TX INTERFACE
@@ -16359,7 +17750,7 @@ target_link_options(GENERIC_L063R8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L063R8TX_MCU}
 )
 target_link_libraries(GENERIC_L063R8TX INTERFACE
@@ -16378,8 +17769,7 @@ target_compile_options(GENERIC_L072CBYX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CBYX_MCU}
 )
 target_compile_definitions(GENERIC_L072CBYX INTERFACE
@@ -16403,7 +17793,7 @@ target_link_options(GENERIC_L072CBYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CBYX_MCU}
 )
 target_link_libraries(GENERIC_L072CBYX INTERFACE
@@ -16422,8 +17812,7 @@ target_compile_options(GENERIC_L072CZEX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CZEX_MCU}
 )
 target_compile_definitions(GENERIC_L072CZEX INTERFACE
@@ -16447,7 +17836,7 @@ target_link_options(GENERIC_L072CZEX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CZEX_MCU}
 )
 target_link_libraries(GENERIC_L072CZEX INTERFACE
@@ -16466,8 +17855,7 @@ target_compile_options(GENERIC_L072CZYX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CZYX_MCU}
 )
 target_compile_definitions(GENERIC_L072CZYX INTERFACE
@@ -16491,7 +17879,7 @@ target_link_options(GENERIC_L072CZYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072CZYX_MCU}
 )
 target_link_libraries(GENERIC_L072CZYX INTERFACE
@@ -16510,8 +17898,7 @@ target_compile_options(GENERIC_L072KBTX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072KBTX_MCU}
 )
 target_compile_definitions(GENERIC_L072KBTX INTERFACE
@@ -16535,7 +17922,7 @@ target_link_options(GENERIC_L072KBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072KBTX_MCU}
 )
 target_link_libraries(GENERIC_L072KBTX INTERFACE
@@ -16554,8 +17941,7 @@ target_compile_options(GENERIC_L072KZTX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072KZTX_MCU}
 )
 target_compile_definitions(GENERIC_L072KZTX INTERFACE
@@ -16579,7 +17965,7 @@ target_link_options(GENERIC_L072KZTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072KZTX_MCU}
 )
 target_link_libraries(GENERIC_L072KZTX INTERFACE
@@ -16598,8 +17984,7 @@ target_compile_options(GENERIC_L072RBTX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072RBTX_MCU}
 )
 target_compile_definitions(GENERIC_L072RBTX INTERFACE
@@ -16623,7 +18008,7 @@ target_link_options(GENERIC_L072RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072RBTX_MCU}
 )
 target_link_libraries(GENERIC_L072RBTX INTERFACE
@@ -16642,8 +18027,7 @@ target_compile_options(GENERIC_L072RZTX INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072RZTX_MCU}
 )
 target_compile_definitions(GENERIC_L072RZTX INTERFACE
@@ -16667,7 +18051,7 @@ target_link_options(GENERIC_L072RZTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L072RZTX_MCU}
 )
 target_link_libraries(GENERIC_L072RZTX INTERFACE
@@ -16686,8 +18070,7 @@ target_compile_options(GENERIC_L073CZYX INTERFACE
   "SHELL:-DSTM32L073xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073CZYX_MCU}
 )
 target_compile_definitions(GENERIC_L073CZYX INTERFACE
@@ -16711,7 +18094,7 @@ target_link_options(GENERIC_L073CZYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073CZYX_MCU}
 )
 target_link_libraries(GENERIC_L073CZYX INTERFACE
@@ -16730,8 +18113,7 @@ target_compile_options(GENERIC_L073RBTX INTERFACE
   "SHELL:-DSTM32L073xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073RBTX_MCU}
 )
 target_compile_definitions(GENERIC_L073RBTX INTERFACE
@@ -16755,7 +18137,7 @@ target_link_options(GENERIC_L073RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073RBTX_MCU}
 )
 target_link_libraries(GENERIC_L073RBTX INTERFACE
@@ -16774,8 +18156,7 @@ target_compile_options(GENERIC_L073RZTX INTERFACE
   "SHELL:-DSTM32L073xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073RZTX_MCU}
 )
 target_compile_definitions(GENERIC_L073RZTX INTERFACE
@@ -16799,7 +18180,7 @@ target_link_options(GENERIC_L073RZTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L073RZTX_MCU}
 )
 target_link_libraries(GENERIC_L073RZTX INTERFACE
@@ -16818,8 +18199,7 @@ target_compile_options(GENERIC_L082CZYX INTERFACE
   "SHELL:-DSTM32L082xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082CZYX_MCU}
 )
 target_compile_definitions(GENERIC_L082CZYX INTERFACE
@@ -16843,7 +18223,7 @@ target_link_options(GENERIC_L082CZYX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082CZYX_MCU}
 )
 target_link_libraries(GENERIC_L082CZYX INTERFACE
@@ -16862,8 +18242,7 @@ target_compile_options(GENERIC_L082KBTX INTERFACE
   "SHELL:-DSTM32L082xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082KBTX_MCU}
 )
 target_compile_definitions(GENERIC_L082KBTX INTERFACE
@@ -16887,7 +18266,7 @@ target_link_options(GENERIC_L082KBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082KBTX_MCU}
 )
 target_link_libraries(GENERIC_L082KBTX INTERFACE
@@ -16906,8 +18285,7 @@ target_compile_options(GENERIC_L082KZTX INTERFACE
   "SHELL:-DSTM32L082xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082KZTX_MCU}
 )
 target_compile_definitions(GENERIC_L082KZTX INTERFACE
@@ -16931,7 +18309,7 @@ target_link_options(GENERIC_L082KZTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L082KZTX_MCU}
 )
 target_link_libraries(GENERIC_L082KZTX INTERFACE
@@ -16950,8 +18328,7 @@ target_compile_options(GENERIC_L083RBTX INTERFACE
   "SHELL:-DSTM32L083xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L083RBTX_MCU}
 )
 target_compile_definitions(GENERIC_L083RBTX INTERFACE
@@ -16975,7 +18352,7 @@ target_link_options(GENERIC_L083RBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L083RBTX_MCU}
 )
 target_link_libraries(GENERIC_L083RBTX INTERFACE
@@ -16994,8 +18371,7 @@ target_compile_options(GENERIC_L083RZTX INTERFACE
   "SHELL:-DSTM32L083xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L083RZTX_MCU}
 )
 target_compile_definitions(GENERIC_L083RZTX INTERFACE
@@ -17019,7 +18395,7 @@ target_link_options(GENERIC_L083RZTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L083RZTX_MCU}
 )
 target_link_libraries(GENERIC_L083RZTX INTERFACE
@@ -17038,8 +18414,7 @@ target_compile_options(GENERIC_L100C6UX INTERFACE
   "SHELL:-DSTM32L100xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L100C6UX_MCU}
 )
 target_compile_definitions(GENERIC_L100C6UX INTERFACE
@@ -17063,7 +18438,7 @@ target_link_options(GENERIC_L100C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L100C6UX_MCU}
 )
 target_link_libraries(GENERIC_L100C6UX INTERFACE
@@ -17082,8 +18457,7 @@ target_compile_options(GENERIC_L100C6UXA INTERFACE
   "SHELL:-DSTM32L100xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L100C6UXA_MCU}
 )
 target_compile_definitions(GENERIC_L100C6UXA INTERFACE
@@ -17107,7 +18481,7 @@ target_link_options(GENERIC_L100C6UXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L100C6UXA_MCU}
 )
 target_link_libraries(GENERIC_L100C6UXA INTERFACE
@@ -17126,8 +18500,7 @@ target_compile_options(GENERIC_L151C6TX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6TX_MCU}
 )
 target_compile_definitions(GENERIC_L151C6TX INTERFACE
@@ -17151,7 +18524,7 @@ target_link_options(GENERIC_L151C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6TX_MCU}
 )
 target_link_libraries(GENERIC_L151C6TX INTERFACE
@@ -17170,8 +18543,7 @@ target_compile_options(GENERIC_L151C6TXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6TXA_MCU}
 )
 target_compile_definitions(GENERIC_L151C6TXA INTERFACE
@@ -17195,7 +18567,7 @@ target_link_options(GENERIC_L151C6TXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6TXA_MCU}
 )
 target_link_libraries(GENERIC_L151C6TXA INTERFACE
@@ -17214,8 +18586,7 @@ target_compile_options(GENERIC_L151C6UX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6UX_MCU}
 )
 target_compile_definitions(GENERIC_L151C6UX INTERFACE
@@ -17239,7 +18610,7 @@ target_link_options(GENERIC_L151C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6UX_MCU}
 )
 target_link_libraries(GENERIC_L151C6UX INTERFACE
@@ -17258,8 +18629,7 @@ target_compile_options(GENERIC_L151C6UXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6UXA_MCU}
 )
 target_compile_definitions(GENERIC_L151C6UXA INTERFACE
@@ -17283,7 +18653,7 @@ target_link_options(GENERIC_L151C6UXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C6UXA_MCU}
 )
 target_link_libraries(GENERIC_L151C6UXA INTERFACE
@@ -17302,8 +18672,7 @@ target_compile_options(GENERIC_L151C8TX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8TX_MCU}
 )
 target_compile_definitions(GENERIC_L151C8TX INTERFACE
@@ -17327,7 +18696,7 @@ target_link_options(GENERIC_L151C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8TX_MCU}
 )
 target_link_libraries(GENERIC_L151C8TX INTERFACE
@@ -17346,8 +18715,7 @@ target_compile_options(GENERIC_L151C8TXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8TXA_MCU}
 )
 target_compile_definitions(GENERIC_L151C8TXA INTERFACE
@@ -17371,7 +18739,7 @@ target_link_options(GENERIC_L151C8TXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8TXA_MCU}
 )
 target_link_libraries(GENERIC_L151C8TXA INTERFACE
@@ -17390,8 +18758,7 @@ target_compile_options(GENERIC_L151C8UX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8UX_MCU}
 )
 target_compile_definitions(GENERIC_L151C8UX INTERFACE
@@ -17415,7 +18782,7 @@ target_link_options(GENERIC_L151C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8UX_MCU}
 )
 target_link_libraries(GENERIC_L151C8UX INTERFACE
@@ -17434,8 +18801,7 @@ target_compile_options(GENERIC_L151C8UXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8UXA_MCU}
 )
 target_compile_definitions(GENERIC_L151C8UXA INTERFACE
@@ -17459,7 +18825,7 @@ target_link_options(GENERIC_L151C8UXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151C8UXA_MCU}
 )
 target_link_libraries(GENERIC_L151C8UXA INTERFACE
@@ -17478,8 +18844,7 @@ target_compile_options(GENERIC_L151CBTX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBTX_MCU}
 )
 target_compile_definitions(GENERIC_L151CBTX INTERFACE
@@ -17503,7 +18868,7 @@ target_link_options(GENERIC_L151CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBTX_MCU}
 )
 target_link_libraries(GENERIC_L151CBTX INTERFACE
@@ -17522,8 +18887,7 @@ target_compile_options(GENERIC_L151CBTXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBTXA_MCU}
 )
 target_compile_definitions(GENERIC_L151CBTXA INTERFACE
@@ -17547,7 +18911,7 @@ target_link_options(GENERIC_L151CBTXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBTXA_MCU}
 )
 target_link_libraries(GENERIC_L151CBTXA INTERFACE
@@ -17566,8 +18930,7 @@ target_compile_options(GENERIC_L151CBUX INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBUX_MCU}
 )
 target_compile_definitions(GENERIC_L151CBUX INTERFACE
@@ -17591,7 +18954,7 @@ target_link_options(GENERIC_L151CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBUX_MCU}
 )
 target_link_libraries(GENERIC_L151CBUX INTERFACE
@@ -17610,8 +18973,7 @@ target_compile_options(GENERIC_L151CBUXA INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBUXA_MCU}
 )
 target_compile_definitions(GENERIC_L151CBUXA INTERFACE
@@ -17635,7 +18997,7 @@ target_link_options(GENERIC_L151CBUXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151CBUXA_MCU}
 )
 target_link_libraries(GENERIC_L151CBUXA INTERFACE
@@ -17654,8 +19016,7 @@ target_compile_options(GENERIC_L151RETX INTERFACE
   "SHELL:-DSTM32L151xE  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151RETX_MCU}
 )
 target_compile_definitions(GENERIC_L151RETX INTERFACE
@@ -17679,7 +19040,7 @@ target_link_options(GENERIC_L151RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=81920"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L151RETX_MCU}
 )
 target_link_libraries(GENERIC_L151RETX INTERFACE
@@ -17698,8 +19059,7 @@ target_compile_options(GENERIC_L152C6TX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6TX_MCU}
 )
 target_compile_definitions(GENERIC_L152C6TX INTERFACE
@@ -17723,7 +19083,7 @@ target_link_options(GENERIC_L152C6TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6TX_MCU}
 )
 target_link_libraries(GENERIC_L152C6TX INTERFACE
@@ -17742,8 +19102,7 @@ target_compile_options(GENERIC_L152C6TXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6TXA_MCU}
 )
 target_compile_definitions(GENERIC_L152C6TXA INTERFACE
@@ -17767,7 +19126,7 @@ target_link_options(GENERIC_L152C6TXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6TXA_MCU}
 )
 target_link_libraries(GENERIC_L152C6TXA INTERFACE
@@ -17786,8 +19145,7 @@ target_compile_options(GENERIC_L152C6UX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6UX_MCU}
 )
 target_compile_definitions(GENERIC_L152C6UX INTERFACE
@@ -17811,7 +19169,7 @@ target_link_options(GENERIC_L152C6UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6UX_MCU}
 )
 target_link_libraries(GENERIC_L152C6UX INTERFACE
@@ -17830,8 +19188,7 @@ target_compile_options(GENERIC_L152C6UXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6UXA_MCU}
 )
 target_compile_definitions(GENERIC_L152C6UXA INTERFACE
@@ -17855,7 +19212,7 @@ target_link_options(GENERIC_L152C6UXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C6UXA_MCU}
 )
 target_link_libraries(GENERIC_L152C6UXA INTERFACE
@@ -17874,8 +19231,7 @@ target_compile_options(GENERIC_L152C8TX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8TX_MCU}
 )
 target_compile_definitions(GENERIC_L152C8TX INTERFACE
@@ -17899,7 +19255,7 @@ target_link_options(GENERIC_L152C8TX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8TX_MCU}
 )
 target_link_libraries(GENERIC_L152C8TX INTERFACE
@@ -17918,8 +19274,7 @@ target_compile_options(GENERIC_L152C8TXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8TXA_MCU}
 )
 target_compile_definitions(GENERIC_L152C8TXA INTERFACE
@@ -17943,7 +19298,7 @@ target_link_options(GENERIC_L152C8TXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8TXA_MCU}
 )
 target_link_libraries(GENERIC_L152C8TXA INTERFACE
@@ -17962,8 +19317,7 @@ target_compile_options(GENERIC_L152C8UX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8UX_MCU}
 )
 target_compile_definitions(GENERIC_L152C8UX INTERFACE
@@ -17987,7 +19341,7 @@ target_link_options(GENERIC_L152C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=10240"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8UX_MCU}
 )
 target_link_libraries(GENERIC_L152C8UX INTERFACE
@@ -18006,8 +19360,7 @@ target_compile_options(GENERIC_L152C8UXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8UXA_MCU}
 )
 target_compile_definitions(GENERIC_L152C8UXA INTERFACE
@@ -18031,7 +19384,7 @@ target_link_options(GENERIC_L152C8UXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152C8UXA_MCU}
 )
 target_link_libraries(GENERIC_L152C8UXA INTERFACE
@@ -18050,8 +19403,7 @@ target_compile_options(GENERIC_L152CBTX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBTX_MCU}
 )
 target_compile_definitions(GENERIC_L152CBTX INTERFACE
@@ -18075,7 +19427,7 @@ target_link_options(GENERIC_L152CBTX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBTX_MCU}
 )
 target_link_libraries(GENERIC_L152CBTX INTERFACE
@@ -18094,8 +19446,7 @@ target_compile_options(GENERIC_L152CBTXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBTXA_MCU}
 )
 target_compile_definitions(GENERIC_L152CBTXA INTERFACE
@@ -18119,7 +19470,7 @@ target_link_options(GENERIC_L152CBTXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBTXA_MCU}
 )
 target_link_libraries(GENERIC_L152CBTXA INTERFACE
@@ -18138,8 +19489,7 @@ target_compile_options(GENERIC_L152CBUX INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBUX_MCU}
 )
 target_compile_definitions(GENERIC_L152CBUX INTERFACE
@@ -18163,7 +19513,7 @@ target_link_options(GENERIC_L152CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBUX_MCU}
 )
 target_link_libraries(GENERIC_L152CBUX INTERFACE
@@ -18182,8 +19532,7 @@ target_compile_options(GENERIC_L152CBUXA INTERFACE
   "SHELL:-DSTM32L152xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBUXA_MCU}
 )
 target_compile_definitions(GENERIC_L152CBUXA INTERFACE
@@ -18207,7 +19556,7 @@ target_link_options(GENERIC_L152CBUXA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152CBUXA_MCU}
 )
 target_link_libraries(GENERIC_L152CBUXA INTERFACE
@@ -18226,8 +19575,7 @@ target_compile_options(GENERIC_L152RETX INTERFACE
   "SHELL:-DSTM32L152xE  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152RETX_MCU}
 )
 target_compile_definitions(GENERIC_L152RETX INTERFACE
@@ -18251,7 +19599,7 @@ target_link_options(GENERIC_L152RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=81920"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L152RETX_MCU}
 )
 target_link_libraries(GENERIC_L152RETX INTERFACE
@@ -18270,8 +19618,7 @@ target_compile_options(GENERIC_L162RETX INTERFACE
   "SHELL:-DSTM32L162xE  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L162RETX_MCU}
 )
 target_compile_definitions(GENERIC_L162RETX INTERFACE
@@ -18295,7 +19642,7 @@ target_link_options(GENERIC_L162RETX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=81920"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_L162RETX_MCU}
 )
 target_link_libraries(GENERIC_L162RETX INTERFACE
@@ -18315,7 +19662,6 @@ target_compile_options(GENERIC_L412K8TX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L412K8TX_MCU}
 )
 target_compile_definitions(GENERIC_L412K8TX INTERFACE
@@ -18359,7 +19705,6 @@ target_compile_options(GENERIC_L412K8UX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L412K8UX_MCU}
 )
 target_compile_definitions(GENERIC_L412K8UX INTERFACE
@@ -18403,7 +19748,6 @@ target_compile_options(GENERIC_L412KBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L412KBTX_MCU}
 )
 target_compile_definitions(GENERIC_L412KBTX INTERFACE
@@ -18447,7 +19791,6 @@ target_compile_options(GENERIC_L412KBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L412KBUX_MCU}
 )
 target_compile_definitions(GENERIC_L412KBUX INTERFACE
@@ -18491,7 +19834,6 @@ target_compile_options(GENERIC_L422KBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L422KBTX_MCU}
 )
 target_compile_definitions(GENERIC_L422KBTX INTERFACE
@@ -18535,7 +19877,6 @@ target_compile_options(GENERIC_L422KBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L422KBUX_MCU}
 )
 target_compile_definitions(GENERIC_L422KBUX INTERFACE
@@ -18566,6 +19907,264 @@ target_link_libraries(GENERIC_L422KBUX INTERFACE
   arm_cortexM4lf_math
 )
 
+# GENERIC_L431RBIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RBIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RBIX_MAXSIZE 131072)
+set(GENERIC_L431RBIX_MAXDATASIZE 65536)
+set(GENERIC_L431RBIX_MCU cortex-m4)
+add_library(GENERIC_L431RBIX INTERFACE)
+target_compile_options(GENERIC_L431RBIX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBIX_MCU}
+)
+target_compile_definitions(GENERIC_L431RBIX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RBIX"
+	"BOARD_NAME=\"GENERIC_L431RBIX\""
+	"BOARD_ID=GENERIC_L431RBIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RBIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RBIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RBIX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RBIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBIX_MCU}
+)
+target_link_libraries(GENERIC_L431RBIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_L431RBTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RBTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RBTX_MAXSIZE 131072)
+set(GENERIC_L431RBTX_MAXDATASIZE 65536)
+set(GENERIC_L431RBTX_MCU cortex-m4)
+add_library(GENERIC_L431RBTX INTERFACE)
+target_compile_options(GENERIC_L431RBTX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBTX_MCU}
+)
+target_compile_definitions(GENERIC_L431RBTX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RBTX"
+	"BOARD_NAME=\"GENERIC_L431RBTX\""
+	"BOARD_ID=GENERIC_L431RBTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RBTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RBTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RBTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RBTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBTX_MCU}
+)
+target_link_libraries(GENERIC_L431RBTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_L431RBYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RBYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RBYX_MAXSIZE 131072)
+set(GENERIC_L431RBYX_MAXDATASIZE 65536)
+set(GENERIC_L431RBYX_MCU cortex-m4)
+add_library(GENERIC_L431RBYX INTERFACE)
+target_compile_options(GENERIC_L431RBYX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBYX_MCU}
+)
+target_compile_definitions(GENERIC_L431RBYX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RBYX"
+	"BOARD_NAME=\"GENERIC_L431RBYX\""
+	"BOARD_ID=GENERIC_L431RBYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RBYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RBYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RBYX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RBYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RBYX_MCU}
+)
+target_link_libraries(GENERIC_L431RBYX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_L431RCIX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RCIX_MAXSIZE 262144)
+set(GENERIC_L431RCIX_MAXDATASIZE 65536)
+set(GENERIC_L431RCIX_MCU cortex-m4)
+add_library(GENERIC_L431RCIX INTERFACE)
+target_compile_options(GENERIC_L431RCIX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCIX_MCU}
+)
+target_compile_definitions(GENERIC_L431RCIX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RCIX"
+	"BOARD_NAME=\"GENERIC_L431RCIX\""
+	"BOARD_ID=GENERIC_L431RCIX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RCIX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RCIX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RCIX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RCIX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCIX_MCU}
+)
+target_link_libraries(GENERIC_L431RCIX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_L431RCTX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RCTX_MAXSIZE 262144)
+set(GENERIC_L431RCTX_MAXDATASIZE 65536)
+set(GENERIC_L431RCTX_MCU cortex-m4)
+add_library(GENERIC_L431RCTX INTERFACE)
+target_compile_options(GENERIC_L431RCTX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCTX_MCU}
+)
+target_compile_definitions(GENERIC_L431RCTX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RCTX"
+	"BOARD_NAME=\"GENERIC_L431RCTX\""
+	"BOARD_ID=GENERIC_L431RCTX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RCTX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RCTX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RCTX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RCTX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCTX_MCU}
+)
+target_link_libraries(GENERIC_L431RCTX INTERFACE
+  arm_cortexM4lf_math
+)
+
+# GENERIC_L431RCYX
+# -----------------------------------------------------------------------------
+
+set(GENERIC_L431RCYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L431R(B-C)(I-T-Y)")
+set(GENERIC_L431RCYX_MAXSIZE 262144)
+set(GENERIC_L431RCYX_MAXDATASIZE 65536)
+set(GENERIC_L431RCYX_MCU cortex-m4)
+add_library(GENERIC_L431RCYX INTERFACE)
+target_compile_options(GENERIC_L431RCYX INTERFACE
+  "SHELL:-DSTM32L431xx  "
+  "SHELL:"
+  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCYX_MCU}
+)
+target_compile_definitions(GENERIC_L431RCYX INTERFACE
+  "STM32L4xx"
+	"ARDUINO_GENERIC_L431RCYX"
+	"BOARD_NAME=\"GENERIC_L431RCYX\""
+	"BOARD_ID=GENERIC_L431RCYX"
+	"VARIANT_H=\"variant_generic.h\""
+)
+target_include_directories(GENERIC_L431RCYX INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32L4xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32L4xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32L4xx/Source/Templates/gcc/
+  ${GENERIC_L431RCYX_VARIANT_PATH}
+)
+
+target_link_options(GENERIC_L431RCYX INTERFACE
+  "LINKER:--default-script=${GENERIC_L431RCYX_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=262144"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
+  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  -mcpu=${GENERIC_L431RCYX_MCU}
+)
+target_link_libraries(GENERIC_L431RCYX INTERFACE
+  arm_cortexM4lf_math
+)
+
 # GENERIC_L432KBUX
 # -----------------------------------------------------------------------------
 
@@ -18579,7 +20178,6 @@ target_compile_options(GENERIC_L432KBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L432KBUX_MCU}
 )
 target_compile_definitions(GENERIC_L432KBUX INTERFACE
@@ -18623,7 +20221,6 @@ target_compile_options(GENERIC_L432KCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L432KCUX_MCU}
 )
 target_compile_definitions(GENERIC_L432KCUX INTERFACE
@@ -18667,7 +20264,6 @@ target_compile_options(GENERIC_L433CBTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L433CBTX_MCU}
 )
 target_compile_definitions(GENERIC_L433CBTX INTERFACE
@@ -18711,7 +20307,6 @@ target_compile_options(GENERIC_L433CBUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L433CBUX_MCU}
 )
 target_compile_definitions(GENERIC_L433CBUX INTERFACE
@@ -18755,7 +20350,6 @@ target_compile_options(GENERIC_L433CCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L433CCTX_MCU}
 )
 target_compile_definitions(GENERIC_L433CCTX INTERFACE
@@ -18799,7 +20393,6 @@ target_compile_options(GENERIC_L433CCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L433CCUX_MCU}
 )
 target_compile_definitions(GENERIC_L433CCUX INTERFACE
@@ -18843,7 +20436,6 @@ target_compile_options(GENERIC_L433RCTXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L433RCTXP_MCU}
 )
 target_compile_definitions(GENERIC_L433RCTXP INTERFACE
@@ -18887,7 +20479,6 @@ target_compile_options(GENERIC_L442KCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L442KCUX_MCU}
 )
 target_compile_definitions(GENERIC_L442KCUX INTERFACE
@@ -18931,7 +20522,6 @@ target_compile_options(GENERIC_L443CCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L443CCTX_MCU}
 )
 target_compile_definitions(GENERIC_L443CCTX INTERFACE
@@ -18975,7 +20565,6 @@ target_compile_options(GENERIC_L443CCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L443CCUX_MCU}
 )
 target_compile_definitions(GENERIC_L443CCUX INTERFACE
@@ -19009,7 +20598,7 @@ target_link_libraries(GENERIC_L443CCUX INTERFACE
 # GENERIC_L452RCIX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452RCIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452RCIX_MAXSIZE 262144)
 set(GENERIC_L452RCIX_MAXDATASIZE 163840)
 set(GENERIC_L452RCIX_MCU cortex-m4)
@@ -19019,7 +20608,6 @@ target_compile_options(GENERIC_L452RCIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452RCIX_MCU}
 )
 target_compile_definitions(GENERIC_L452RCIX INTERFACE
@@ -19053,7 +20641,7 @@ target_link_libraries(GENERIC_L452RCIX INTERFACE
 # GENERIC_L452RCTX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452RCTX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452RCTX_MAXSIZE 262144)
 set(GENERIC_L452RCTX_MAXDATASIZE 163840)
 set(GENERIC_L452RCTX_MCU cortex-m4)
@@ -19063,7 +20651,6 @@ target_compile_options(GENERIC_L452RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452RCTX_MCU}
 )
 target_compile_definitions(GENERIC_L452RCTX INTERFACE
@@ -19097,7 +20684,7 @@ target_link_libraries(GENERIC_L452RCTX INTERFACE
 # GENERIC_L452RCYX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452RCYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452RCYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452RCYX_MAXSIZE 262144)
 set(GENERIC_L452RCYX_MAXDATASIZE 163840)
 set(GENERIC_L452RCYX_MCU cortex-m4)
@@ -19107,7 +20694,6 @@ target_compile_options(GENERIC_L452RCYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452RCYX_MCU}
 )
 target_compile_definitions(GENERIC_L452RCYX INTERFACE
@@ -19141,7 +20727,7 @@ target_link_libraries(GENERIC_L452RCYX INTERFACE
 # GENERIC_L452REIX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452REIX_MAXSIZE 524288)
 set(GENERIC_L452REIX_MAXDATASIZE 163840)
 set(GENERIC_L452REIX_MCU cortex-m4)
@@ -19151,7 +20737,6 @@ target_compile_options(GENERIC_L452REIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452REIX_MCU}
 )
 target_compile_definitions(GENERIC_L452REIX INTERFACE
@@ -19185,7 +20770,7 @@ target_link_libraries(GENERIC_L452REIX INTERFACE
 # GENERIC_L452RETX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452RETX_MAXSIZE 524288)
 set(GENERIC_L452RETX_MAXDATASIZE 163840)
 set(GENERIC_L452RETX_MCU cortex-m4)
@@ -19195,7 +20780,6 @@ target_compile_options(GENERIC_L452RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452RETX_MCU}
 )
 target_compile_definitions(GENERIC_L452RETX INTERFACE
@@ -19239,7 +20823,6 @@ target_compile_options(GENERIC_L452RETXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452RETXP_MCU}
 )
 target_compile_definitions(GENERIC_L452RETXP INTERFACE
@@ -19273,7 +20856,7 @@ target_link_libraries(GENERIC_L452RETXP INTERFACE
 # GENERIC_L452REYX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L452REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L452REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L452REYX_MAXSIZE 524288)
 set(GENERIC_L452REYX_MAXDATASIZE 163840)
 set(GENERIC_L452REYX_MCU cortex-m4)
@@ -19283,7 +20866,6 @@ target_compile_options(GENERIC_L452REYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L452REYX_MCU}
 )
 target_compile_definitions(GENERIC_L452REYX INTERFACE
@@ -19317,7 +20899,7 @@ target_link_libraries(GENERIC_L452REYX INTERFACE
 # GENERIC_L462REIX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L462REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L462REIX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L462REIX_MAXSIZE 524288)
 set(GENERIC_L462REIX_MAXDATASIZE 163840)
 set(GENERIC_L462REIX_MCU cortex-m4)
@@ -19327,7 +20909,6 @@ target_compile_options(GENERIC_L462REIX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L462REIX_MCU}
 )
 target_compile_definitions(GENERIC_L462REIX INTERFACE
@@ -19361,7 +20942,7 @@ target_link_libraries(GENERIC_L462REIX INTERFACE
 # GENERIC_L462RETX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L462RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L462RETX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L462RETX_MAXSIZE 524288)
 set(GENERIC_L462RETX_MAXDATASIZE 163840)
 set(GENERIC_L462RETX_MCU cortex-m4)
@@ -19371,7 +20952,6 @@ target_compile_options(GENERIC_L462RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L462RETX_MCU}
 )
 target_compile_definitions(GENERIC_L462RETX INTERFACE
@@ -19405,7 +20985,7 @@ target_link_libraries(GENERIC_L462RETX INTERFACE
 # GENERIC_L462REYX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_L462REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(GENERIC_L462REYX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(GENERIC_L462REYX_MAXSIZE 524288)
 set(GENERIC_L462REYX_MAXDATASIZE 163840)
 set(GENERIC_L462REYX_MCU cortex-m4)
@@ -19415,7 +20995,6 @@ target_compile_options(GENERIC_L462REYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L462REYX_MCU}
 )
 target_compile_definitions(GENERIC_L462REYX INTERFACE
@@ -19459,7 +21038,6 @@ target_compile_options(GENERIC_L475RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475RCTX_MCU}
 )
 target_compile_definitions(GENERIC_L475RCTX INTERFACE
@@ -19503,7 +21081,6 @@ target_compile_options(GENERIC_L475RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475RETX_MCU}
 )
 target_compile_definitions(GENERIC_L475RETX INTERFACE
@@ -19547,7 +21124,6 @@ target_compile_options(GENERIC_L475RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475RGTX_MCU}
 )
 target_compile_definitions(GENERIC_L475RGTX INTERFACE
@@ -19591,7 +21167,6 @@ target_compile_options(GENERIC_L475VCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475VCTX_MCU}
 )
 target_compile_definitions(GENERIC_L475VCTX INTERFACE
@@ -19635,7 +21210,6 @@ target_compile_options(GENERIC_L475VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475VETX_MCU}
 )
 target_compile_definitions(GENERIC_L475VETX INTERFACE
@@ -19679,7 +21253,6 @@ target_compile_options(GENERIC_L475VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L475VGTX_MCU}
 )
 target_compile_definitions(GENERIC_L475VGTX INTERFACE
@@ -19723,7 +21296,6 @@ target_compile_options(GENERIC_L476RCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476RCTX_MCU}
 )
 target_compile_definitions(GENERIC_L476RCTX INTERFACE
@@ -19767,7 +21339,6 @@ target_compile_options(GENERIC_L476RETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476RETX_MCU}
 )
 target_compile_definitions(GENERIC_L476RETX INTERFACE
@@ -19811,7 +21382,6 @@ target_compile_options(GENERIC_L476RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476RGTX_MCU}
 )
 target_compile_definitions(GENERIC_L476RGTX INTERFACE
@@ -19855,7 +21425,6 @@ target_compile_options(GENERIC_L476VCTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476VCTX_MCU}
 )
 target_compile_definitions(GENERIC_L476VCTX INTERFACE
@@ -19899,7 +21468,6 @@ target_compile_options(GENERIC_L476VETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476VETX_MCU}
 )
 target_compile_definitions(GENERIC_L476VETX INTERFACE
@@ -19943,7 +21511,6 @@ target_compile_options(GENERIC_L476VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L476VGTX_MCU}
 )
 target_compile_definitions(GENERIC_L476VGTX INTERFACE
@@ -19987,7 +21554,6 @@ target_compile_options(GENERIC_L486RGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L486RGTX_MCU}
 )
 target_compile_definitions(GENERIC_L486RGTX INTERFACE
@@ -20031,7 +21597,6 @@ target_compile_options(GENERIC_L486VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L486VGTX_MCU}
 )
 target_compile_definitions(GENERIC_L486VGTX INTERFACE
@@ -20075,7 +21640,6 @@ target_compile_options(GENERIC_L496ZETX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L496ZETX_MCU}
 )
 target_compile_definitions(GENERIC_L496ZETX INTERFACE
@@ -20119,7 +21683,6 @@ target_compile_options(GENERIC_L496ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L496ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_L496ZGTX INTERFACE
@@ -20163,7 +21726,6 @@ target_compile_options(GENERIC_L496ZGTXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L496ZGTXP_MCU}
 )
 target_compile_definitions(GENERIC_L496ZGTXP INTERFACE
@@ -20207,7 +21769,6 @@ target_compile_options(GENERIC_L4A6ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4A6ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_L4A6ZGTX INTERFACE
@@ -20251,7 +21812,6 @@ target_compile_options(GENERIC_L4A6ZGTXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4A6ZGTXP_MCU}
 )
 target_compile_definitions(GENERIC_L4A6ZGTXP INTERFACE
@@ -20295,7 +21855,6 @@ target_compile_options(GENERIC_L4R5VGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5VGTX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5VGTX INTERFACE
@@ -20339,7 +21898,6 @@ target_compile_options(GENERIC_L4R5VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5VITX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5VITX INTERFACE
@@ -20383,7 +21941,6 @@ target_compile_options(GENERIC_L4R5ZGTX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5ZGTX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5ZGTX INTERFACE
@@ -20427,7 +21984,6 @@ target_compile_options(GENERIC_L4R5ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5ZGYX INTERFACE
@@ -20471,7 +22027,6 @@ target_compile_options(GENERIC_L4R5ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5ZITX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5ZITX INTERFACE
@@ -20515,7 +22070,6 @@ target_compile_options(GENERIC_L4R5ZITXP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5ZITXP_MCU}
 )
 target_compile_definitions(GENERIC_L4R5ZITXP INTERFACE
@@ -20559,7 +22113,6 @@ target_compile_options(GENERIC_L4R5ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R5ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_L4R5ZIYX INTERFACE
@@ -20603,7 +22156,6 @@ target_compile_options(GENERIC_L4R7VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R7VITX_MCU}
 )
 target_compile_definitions(GENERIC_L4R7VITX INTERFACE
@@ -20647,7 +22199,6 @@ target_compile_options(GENERIC_L4R7ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R7ZITX_MCU}
 )
 target_compile_definitions(GENERIC_L4R7ZITX INTERFACE
@@ -20691,7 +22242,6 @@ target_compile_options(GENERIC_L4R9ZGJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R9ZGJX_MCU}
 )
 target_compile_definitions(GENERIC_L4R9ZGJX INTERFACE
@@ -20735,7 +22285,6 @@ target_compile_options(GENERIC_L4R9ZGYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R9ZGYX_MCU}
 )
 target_compile_definitions(GENERIC_L4R9ZGYX INTERFACE
@@ -20779,7 +22328,6 @@ target_compile_options(GENERIC_L4R9ZIJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R9ZIJX_MCU}
 )
 target_compile_definitions(GENERIC_L4R9ZIJX INTERFACE
@@ -20823,7 +22371,6 @@ target_compile_options(GENERIC_L4R9ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4R9ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_L4R9ZIYX INTERFACE
@@ -20867,7 +22414,6 @@ target_compile_options(GENERIC_L4S5VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S5VITX_MCU}
 )
 target_compile_definitions(GENERIC_L4S5VITX INTERFACE
@@ -20911,7 +22457,6 @@ target_compile_options(GENERIC_L4S5ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S5ZITX_MCU}
 )
 target_compile_definitions(GENERIC_L4S5ZITX INTERFACE
@@ -20955,7 +22500,6 @@ target_compile_options(GENERIC_L4S5ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S5ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_L4S5ZIYX INTERFACE
@@ -20999,7 +22543,6 @@ target_compile_options(GENERIC_L4S7VITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S7VITX_MCU}
 )
 target_compile_definitions(GENERIC_L4S7VITX INTERFACE
@@ -21043,7 +22586,6 @@ target_compile_options(GENERIC_L4S7ZITX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S7ZITX_MCU}
 )
 target_compile_definitions(GENERIC_L4S7ZITX INTERFACE
@@ -21087,7 +22629,6 @@ target_compile_options(GENERIC_L4S9ZIJX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S9ZIJX_MCU}
 )
 target_compile_definitions(GENERIC_L4S9ZIJX INTERFACE
@@ -21131,7 +22672,6 @@ target_compile_options(GENERIC_L4S9ZIYX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L4S9ZIYX_MCU}
 )
 target_compile_definitions(GENERIC_L4S9ZIYX INTERFACE
@@ -21175,7 +22715,6 @@ target_compile_options(GENERIC_L552ZCTXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L552ZCTXQ_MCU}
 )
 target_compile_definitions(GENERIC_L552ZCTXQ INTERFACE
@@ -21219,7 +22758,6 @@ target_compile_options(GENERIC_L552ZETXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L552ZETXQ_MCU}
 )
 target_compile_definitions(GENERIC_L552ZETXQ INTERFACE
@@ -21263,7 +22801,6 @@ target_compile_options(GENERIC_L562ZETXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_L562ZETXQ_MCU}
 )
 target_compile_definitions(GENERIC_L562ZETXQ INTERFACE
@@ -21306,8 +22843,7 @@ target_compile_options(GENERIC_NODE_SE_TTI INTERFACE
   "SHELL:-DSTM32WL55xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_NODE_SE_TTI_MCU}
 )
 target_compile_definitions(GENERIC_NODE_SE_TTI INTERFACE
@@ -21331,11 +22867,11 @@ target_link_options(GENERIC_NODE_SE_TTI INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_NODE_SE_TTI_MCU}
 )
 target_link_libraries(GENERIC_NODE_SE_TTI INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_U575AGIXQ
@@ -21351,7 +22887,6 @@ target_compile_options(GENERIC_U575AGIXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_U575AGIXQ_MCU}
 )
 target_compile_definitions(GENERIC_U575AGIXQ INTERFACE
@@ -21395,7 +22930,6 @@ target_compile_options(GENERIC_U575AIIXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_U575AIIXQ_MCU}
 )
 target_compile_definitions(GENERIC_U575AIIXQ INTERFACE
@@ -21429,7 +22963,7 @@ target_link_libraries(GENERIC_U575AIIXQ INTERFACE
 # GENERIC_U575ZGTXQ
 # -----------------------------------------------------------------------------
 
-set(GENERIC_U575ZGTXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ")
+set(GENERIC_U575ZGTXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(GENERIC_U575ZGTXQ_MAXSIZE 1048576)
 set(GENERIC_U575ZGTXQ_MAXDATASIZE 262144)
 set(GENERIC_U575ZGTXQ_MCU cortex-m33)
@@ -21439,7 +22973,6 @@ target_compile_options(GENERIC_U575ZGTXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_U575ZGTXQ_MCU}
 )
 target_compile_definitions(GENERIC_U575ZGTXQ INTERFACE
@@ -21473,7 +23006,7 @@ target_link_libraries(GENERIC_U575ZGTXQ INTERFACE
 # GENERIC_U575ZITXQ
 # -----------------------------------------------------------------------------
 
-set(GENERIC_U575ZITXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ")
+set(GENERIC_U575ZITXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(GENERIC_U575ZITXQ_MAXSIZE 2097152)
 set(GENERIC_U575ZITXQ_MAXDATASIZE 262144)
 set(GENERIC_U575ZITXQ_MCU cortex-m33)
@@ -21483,7 +23016,6 @@ target_compile_options(GENERIC_U575ZITXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_U575ZITXQ_MCU}
 )
 target_compile_definitions(GENERIC_U575ZITXQ INTERFACE
@@ -21527,7 +23059,6 @@ target_compile_options(GENERIC_U585AIIXQ INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_U585AIIXQ_MCU}
 )
 target_compile_definitions(GENERIC_U585AIIXQ INTERFACE
@@ -21558,54 +23089,53 @@ target_link_libraries(GENERIC_U585AIIXQ INTERFACE
   arm_ARMv8MMLlfsp_math
 )
 
-# GENERIC_U585ZETXQ
+# GENERIC_U585ZITXQ
 # -----------------------------------------------------------------------------
 
-set(GENERIC_U585ZETXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ")
-set(GENERIC_U585ZETXQ_MAXSIZE 524288)
-set(GENERIC_U585ZETXQ_MAXDATASIZE 262144)
-set(GENERIC_U585ZETXQ_MCU cortex-m33)
-add_library(GENERIC_U585ZETXQ INTERFACE)
-target_compile_options(GENERIC_U585ZETXQ INTERFACE
+set(GENERIC_U585ZITXQ_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
+set(GENERIC_U585ZITXQ_MAXSIZE 2097152)
+set(GENERIC_U585ZITXQ_MAXDATASIZE 262144)
+set(GENERIC_U585ZITXQ_MCU cortex-m33)
+add_library(GENERIC_U585ZITXQ INTERFACE)
+target_compile_options(GENERIC_U585ZITXQ INTERFACE
   "SHELL:-DSTM32U585xx  "
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
-  -mcpu=${GENERIC_U585ZETXQ_MCU}
+  -mcpu=${GENERIC_U585ZITXQ_MCU}
 )
-target_compile_definitions(GENERIC_U585ZETXQ INTERFACE
+target_compile_definitions(GENERIC_U585ZITXQ INTERFACE
   "STM32U5xx"
-	"ARDUINO_GENERIC_U585ZETXQ"
-	"BOARD_NAME=\"GENERIC_U585ZETXQ\""
-	"BOARD_ID=GENERIC_U585ZETXQ"
+	"ARDUINO_GENERIC_U585ZITXQ"
+	"BOARD_NAME=\"GENERIC_U585ZITXQ\""
+	"BOARD_ID=GENERIC_U585ZITXQ"
 	"VARIANT_H=\"variant_generic.h\""
 )
-target_include_directories(GENERIC_U585ZETXQ INTERFACE
+target_include_directories(GENERIC_U585ZITXQ INTERFACE
   ${CMAKE_CURRENT_LIST_DIR}/../system/STM32U5xx
   ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32U5xx_HAL_Driver/Inc
   ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32U5xx_HAL_Driver/Src
   ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32U5xx/Include/
   ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32U5xx/Source/Templates/gcc/
-  ${GENERIC_U585ZETXQ_VARIANT_PATH}
+  ${GENERIC_U585ZITXQ_VARIANT_PATH}
 )
 
-target_link_options(GENERIC_U585ZETXQ INTERFACE
-  "LINKER:--default-script=${GENERIC_U585ZETXQ_VARIANT_PATH}/ldscript.ld"
+target_link_options(GENERIC_U585ZITXQ INTERFACE
+  "LINKER:--default-script=${GENERIC_U585ZITXQ_VARIANT_PATH}/ldscript.ld"
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
-	"LINKER:--defsym=LD_MAX_SIZE=524288"
+	"LINKER:--defsym=LD_MAX_SIZE=2097152"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=262144"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  -mcpu=${GENERIC_U585ZETXQ_MCU}
+  -mcpu=${GENERIC_U585ZITXQ_MCU}
 )
-target_link_libraries(GENERIC_U585ZETXQ INTERFACE
+target_link_libraries(GENERIC_U585ZITXQ INTERFACE
   arm_ARMv8MMLlfsp_math
 )
 
 # GENERIC_WB55CCUX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_WB55CCUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB55C(C-E-G)U")
+set(GENERIC_WB55CCUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U")
 set(GENERIC_WB55CCUX_MAXSIZE 131072)
 set(GENERIC_WB55CCUX_MAXDATASIZE 65536)
 set(GENERIC_WB55CCUX_MCU cortex-m4)
@@ -21615,7 +23145,6 @@ target_compile_options(GENERIC_WB55CCUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55CCUX_MCU}
 )
 target_compile_definitions(GENERIC_WB55CCUX INTERFACE
@@ -21649,7 +23178,7 @@ target_link_libraries(GENERIC_WB55CCUX INTERFACE
 # GENERIC_WB55CEUX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_WB55CEUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB55C(C-E-G)U")
+set(GENERIC_WB55CEUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U")
 set(GENERIC_WB55CEUX_MAXSIZE 262144)
 set(GENERIC_WB55CEUX_MAXDATASIZE 196608)
 set(GENERIC_WB55CEUX_MCU cortex-m4)
@@ -21659,7 +23188,6 @@ target_compile_options(GENERIC_WB55CEUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55CEUX_MCU}
 )
 target_compile_definitions(GENERIC_WB55CEUX INTERFACE
@@ -21693,7 +23221,7 @@ target_link_libraries(GENERIC_WB55CEUX INTERFACE
 # GENERIC_WB55CGUX
 # -----------------------------------------------------------------------------
 
-set(GENERIC_WB55CGUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB55C(C-E-G)U")
+set(GENERIC_WB55CGUX_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U")
 set(GENERIC_WB55CGUX_MAXSIZE 524288)
 set(GENERIC_WB55CGUX_MAXDATASIZE 196608)
 set(GENERIC_WB55CGUX_MCU cortex-m4)
@@ -21703,7 +23231,6 @@ target_compile_options(GENERIC_WB55CGUX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55CGUX_MCU}
 )
 target_compile_definitions(GENERIC_WB55CGUX INTERFACE
@@ -21747,7 +23274,6 @@ target_compile_options(GENERIC_WB55RCVX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55RCVX_MCU}
 )
 target_compile_definitions(GENERIC_WB55RCVX INTERFACE
@@ -21791,7 +23317,6 @@ target_compile_options(GENERIC_WB55REVX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55REVX_MCU}
 )
 target_compile_definitions(GENERIC_WB55REVX INTERFACE
@@ -21835,7 +23360,6 @@ target_compile_options(GENERIC_WB55RGVX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB55RGVX_MCU}
 )
 target_compile_definitions(GENERIC_WB55RGVX INTERFACE
@@ -21879,7 +23403,6 @@ target_compile_options(GENERIC_WB5MMGHX INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${GENERIC_WB5MMGHX_MCU}
 )
 target_compile_definitions(GENERIC_WB5MMGHX INTERFACE
@@ -21922,8 +23445,7 @@ target_compile_options(GENERIC_WL54CCUX INTERFACE
   "SHELL:-DSTM32WL54xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL54CCUX_MCU}
 )
 target_compile_definitions(GENERIC_WL54CCUX INTERFACE
@@ -21947,11 +23469,11 @@ target_link_options(GENERIC_WL54CCUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL54CCUX_MCU}
 )
 target_link_libraries(GENERIC_WL54CCUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WL54JCIX
@@ -21966,8 +23488,7 @@ target_compile_options(GENERIC_WL54JCIX INTERFACE
   "SHELL:-DSTM32WL54xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL54JCIX_MCU}
 )
 target_compile_definitions(GENERIC_WL54JCIX INTERFACE
@@ -21991,11 +23512,11 @@ target_link_options(GENERIC_WL54JCIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL54JCIX_MCU}
 )
 target_link_libraries(GENERIC_WL54JCIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WL55CCUX
@@ -22010,8 +23531,7 @@ target_compile_options(GENERIC_WL55CCUX INTERFACE
   "SHELL:-DSTM32WL55xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL55CCUX_MCU}
 )
 target_compile_definitions(GENERIC_WL55CCUX INTERFACE
@@ -22035,11 +23555,11 @@ target_link_options(GENERIC_WL55CCUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL55CCUX_MCU}
 )
 target_link_libraries(GENERIC_WL55CCUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WL55JCIX
@@ -22054,8 +23574,7 @@ target_compile_options(GENERIC_WL55JCIX INTERFACE
   "SHELL:-DSTM32WL55xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL55JCIX_MCU}
 )
 target_compile_definitions(GENERIC_WL55JCIX INTERFACE
@@ -22079,11 +23598,11 @@ target_link_options(GENERIC_WL55JCIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WL55JCIX_MCU}
 )
 target_link_libraries(GENERIC_WL55JCIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4C8UX
@@ -22098,8 +23617,7 @@ target_compile_options(GENERIC_WLE4C8UX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4C8UX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4C8UX INTERFACE
@@ -22123,11 +23641,11 @@ target_link_options(GENERIC_WLE4C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4C8UX_MCU}
 )
 target_link_libraries(GENERIC_WLE4C8UX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4CBUX
@@ -22142,8 +23660,7 @@ target_compile_options(GENERIC_WLE4CBUX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4CBUX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4CBUX INTERFACE
@@ -22167,11 +23684,11 @@ target_link_options(GENERIC_WLE4CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4CBUX_MCU}
 )
 target_link_libraries(GENERIC_WLE4CBUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4CCUX
@@ -22186,8 +23703,7 @@ target_compile_options(GENERIC_WLE4CCUX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4CCUX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4CCUX INTERFACE
@@ -22211,11 +23727,11 @@ target_link_options(GENERIC_WLE4CCUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4CCUX_MCU}
 )
 target_link_libraries(GENERIC_WLE4CCUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4J8IX
@@ -22230,8 +23746,7 @@ target_compile_options(GENERIC_WLE4J8IX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4J8IX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4J8IX INTERFACE
@@ -22255,11 +23770,11 @@ target_link_options(GENERIC_WLE4J8IX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4J8IX_MCU}
 )
 target_link_libraries(GENERIC_WLE4J8IX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4JBIX
@@ -22274,8 +23789,7 @@ target_compile_options(GENERIC_WLE4JBIX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4JBIX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4JBIX INTERFACE
@@ -22299,11 +23813,11 @@ target_link_options(GENERIC_WLE4JBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4JBIX_MCU}
 )
 target_link_libraries(GENERIC_WLE4JBIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE4JCIX
@@ -22318,8 +23832,7 @@ target_compile_options(GENERIC_WLE4JCIX INTERFACE
   "SHELL:-DSTM32WLE4xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4JCIX_MCU}
 )
 target_compile_definitions(GENERIC_WLE4JCIX INTERFACE
@@ -22343,11 +23856,11 @@ target_link_options(GENERIC_WLE4JCIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE4JCIX_MCU}
 )
 target_link_libraries(GENERIC_WLE4JCIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5C8UX
@@ -22362,8 +23875,7 @@ target_compile_options(GENERIC_WLE5C8UX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5C8UX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5C8UX INTERFACE
@@ -22387,11 +23899,11 @@ target_link_options(GENERIC_WLE5C8UX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5C8UX_MCU}
 )
 target_link_libraries(GENERIC_WLE5C8UX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5CBUX
@@ -22406,8 +23918,7 @@ target_compile_options(GENERIC_WLE5CBUX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5CBUX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5CBUX INTERFACE
@@ -22431,11 +23942,11 @@ target_link_options(GENERIC_WLE5CBUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5CBUX_MCU}
 )
 target_link_libraries(GENERIC_WLE5CBUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5CCUX
@@ -22450,8 +23961,7 @@ target_compile_options(GENERIC_WLE5CCUX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5CCUX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5CCUX INTERFACE
@@ -22475,11 +23985,11 @@ target_link_options(GENERIC_WLE5CCUX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5CCUX_MCU}
 )
 target_link_libraries(GENERIC_WLE5CCUX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5J8IX
@@ -22494,8 +24004,7 @@ target_compile_options(GENERIC_WLE5J8IX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5J8IX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5J8IX INTERFACE
@@ -22519,11 +24028,11 @@ target_link_options(GENERIC_WLE5J8IX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5J8IX_MCU}
 )
 target_link_libraries(GENERIC_WLE5J8IX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5JBIX
@@ -22538,8 +24047,7 @@ target_compile_options(GENERIC_WLE5JBIX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5JBIX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5JBIX INTERFACE
@@ -22563,11 +24071,11 @@ target_link_options(GENERIC_WLE5JBIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5JBIX_MCU}
 )
 target_link_libraries(GENERIC_WLE5JBIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # GENERIC_WLE5JCIX
@@ -22582,8 +24090,7 @@ target_compile_options(GENERIC_WLE5JCIX INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5JCIX_MCU}
 )
 target_compile_definitions(GENERIC_WLE5JCIX INTERFACE
@@ -22607,11 +24114,11 @@ target_link_options(GENERIC_WLE5JCIX INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${GENERIC_WLE5JCIX_MCU}
 )
 target_link_libraries(GENERIC_WLE5JCIX INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # HY_TINYSTM103TB
@@ -22626,8 +24133,7 @@ target_compile_options(HY_TINYSTM103TB INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${HY_TINYSTM103TB_MCU}
 )
 target_compile_definitions(HY_TINYSTM103TB INTERFACE
@@ -22651,7 +24157,7 @@ target_link_options(HY_TINYSTM103TB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${HY_TINYSTM103TB_MCU}
 )
 target_link_libraries(HY_TINYSTM103TB INTERFACE
@@ -22670,8 +24176,7 @@ target_compile_options(MALYANM200_F070CB INTERFACE
   "SHELL:-DSTM32F070xB   -DVECT_TAB_OFFSET=0x2000"
   "SHELL:"
   "SHELL:-DCUSTOM_STARTUP_FILE"
-  "SHELL:"
-  "SHELL:-DCUSTOM_STARTUP_FILE"
+  "SHELL: "
   -mcpu=${MALYANM200_F070CB_MCU}
 )
 target_compile_definitions(MALYANM200_F070CB INTERFACE
@@ -22695,7 +24200,7 @@ target_link_options(MALYANM200_F070CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0x2000"
 	"LINKER:--defsym=LD_MAX_SIZE=122880"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=15168"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${MALYANM200_F070CB_MCU}
 )
 target_link_libraries(MALYANM200_F070CB INTERFACE
@@ -22714,8 +24219,7 @@ target_compile_options(MALYANM200_F103CB INTERFACE
   "SHELL:-DSTM32F103xB   -DVECT_TAB_OFFSET=0x2000"
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:-DCUSTOM_STARTUP_FILE"
-  "SHELL:"
-  "SHELL:-DCUSTOM_STARTUP_FILE"
+  "SHELL: "
   -mcpu=${MALYANM200_F103CB_MCU}
 )
 target_compile_definitions(MALYANM200_F103CB INTERFACE
@@ -22739,7 +24243,7 @@ target_link_options(MALYANM200_F103CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0x2000"
 	"LINKER:--defsym=LD_MAX_SIZE=122880"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${MALYANM200_F103CB_MCU}
 )
 target_link_libraries(MALYANM200_F103CB INTERFACE
@@ -22758,8 +24262,7 @@ target_compile_options(MALYANM300_F070CB INTERFACE
   "SHELL:-DSTM32F070xB   -DVECT_TAB_OFFSET=0x2000"
   "SHELL:"
   "SHELL:-DCUSTOM_STARTUP_FILE"
-  "SHELL:"
-  "SHELL:-DCUSTOM_STARTUP_FILE"
+  "SHELL: "
   -mcpu=${MALYANM300_F070CB_MCU}
 )
 target_compile_definitions(MALYANM300_F070CB INTERFACE
@@ -22783,7 +24286,7 @@ target_link_options(MALYANM300_F070CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0x2000"
 	"LINKER:--defsym=LD_MAX_SIZE=122880"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=15168"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${MALYANM300_F070CB_MCU}
 )
 target_link_libraries(MALYANM300_F070CB INTERFACE
@@ -22802,8 +24305,7 @@ target_compile_options(MAPLEMINI_F103CB INTERFACE
   "SHELL:-DSTM32F103xB   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_MCU}
 )
 target_compile_definitions(MAPLEMINI_F103CB INTERFACE
@@ -22827,7 +24329,7 @@ target_link_options(MAPLEMINI_F103CB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${MAPLEMINI_F103CB_MCU}
 )
 target_link_libraries(MAPLEMINI_F103CB INTERFACE
@@ -22837,7 +24339,7 @@ target_link_libraries(MAPLEMINI_F103CB INTERFACE
 # MKR_SHARKY
 # -----------------------------------------------------------------------------
 
-set(MKR_SHARKY_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB55C(C-E-G)U")
+set(MKR_SHARKY_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32WBxx/WB35C(C-E)UxA_WB55C(C-E-G)U")
 set(MKR_SHARKY_MAXSIZE 262144)
 set(MKR_SHARKY_MAXDATASIZE 196608)
 set(MKR_SHARKY_MCU cortex-m4)
@@ -22847,7 +24349,6 @@ target_compile_options(MKR_SHARKY INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${MKR_SHARKY_MCU}
 )
 target_compile_definitions(MKR_SHARKY INTERFACE
@@ -22890,8 +24391,7 @@ target_compile_options(NUCLEO_F030R8 INTERFACE
   "SHELL:-DSTM32F030x8  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F030R8_MCU}
 )
 target_compile_definitions(NUCLEO_F030R8 INTERFACE
@@ -22915,7 +24415,7 @@ target_link_options(NUCLEO_F030R8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F030R8_MCU}
 )
 target_link_libraries(NUCLEO_F030R8 INTERFACE
@@ -22934,8 +24434,7 @@ target_compile_options(NUCLEO_F031K6 INTERFACE
   "SHELL:-DSTM32F031x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F031K6_MCU}
 )
 target_compile_definitions(NUCLEO_F031K6 INTERFACE
@@ -22959,7 +24458,7 @@ target_link_options(NUCLEO_F031K6 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=4096"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F031K6_MCU}
 )
 target_link_libraries(NUCLEO_F031K6 INTERFACE
@@ -22978,8 +24477,7 @@ target_compile_options(NUCLEO_F042K6 INTERFACE
   "SHELL:-DSTM32F042x6  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F042K6_MCU}
 )
 target_compile_definitions(NUCLEO_F042K6 INTERFACE
@@ -23003,7 +24501,7 @@ target_link_options(NUCLEO_F042K6 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=6144"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F042K6_MCU}
 )
 target_link_libraries(NUCLEO_F042K6 INTERFACE
@@ -23022,8 +24520,7 @@ target_compile_options(NUCLEO_F070RB INTERFACE
   "SHELL:-DSTM32F070xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F070RB_MCU}
 )
 target_compile_definitions(NUCLEO_F070RB INTERFACE
@@ -23047,7 +24544,7 @@ target_link_options(NUCLEO_F070RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F070RB_MCU}
 )
 target_link_libraries(NUCLEO_F070RB INTERFACE
@@ -23066,8 +24563,7 @@ target_compile_options(NUCLEO_F072RB INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F072RB_MCU}
 )
 target_compile_definitions(NUCLEO_F072RB INTERFACE
@@ -23091,7 +24587,7 @@ target_link_options(NUCLEO_F072RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F072RB_MCU}
 )
 target_link_libraries(NUCLEO_F072RB INTERFACE
@@ -23110,8 +24606,7 @@ target_compile_options(NUCLEO_F091RC INTERFACE
   "SHELL:-DSTM32F091xC  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F091RC_MCU}
 )
 target_compile_definitions(NUCLEO_F091RC INTERFACE
@@ -23135,7 +24630,7 @@ target_link_options(NUCLEO_F091RC INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F091RC_MCU}
 )
 target_link_libraries(NUCLEO_F091RC INTERFACE
@@ -23154,8 +24649,7 @@ target_compile_options(NUCLEO_F103RB INTERFACE
   "SHELL:-DSTM32F103xB  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F103RB_MCU}
 )
 target_compile_definitions(NUCLEO_F103RB INTERFACE
@@ -23179,7 +24673,7 @@ target_link_options(NUCLEO_F103RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F103RB_MCU}
 )
 target_link_libraries(NUCLEO_F103RB INTERFACE
@@ -23198,8 +24692,7 @@ target_compile_options(NUCLEO_F207ZG INTERFACE
   "SHELL:-DSTM32F207xx  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F207ZG_MCU}
 )
 target_compile_definitions(NUCLEO_F207ZG INTERFACE
@@ -23223,7 +24716,7 @@ target_link_options(NUCLEO_F207ZG INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=131072"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_F207ZG_MCU}
 )
 target_link_libraries(NUCLEO_F207ZG INTERFACE
@@ -23243,7 +24736,6 @@ target_compile_options(NUCLEO_F302R8 INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F302R8_MCU}
 )
 target_compile_definitions(NUCLEO_F302R8 INTERFACE
@@ -23287,7 +24779,6 @@ target_compile_options(NUCLEO_F303K8 INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F303K8_MCU}
 )
 target_compile_definitions(NUCLEO_F303K8 INTERFACE
@@ -23331,7 +24822,6 @@ target_compile_options(NUCLEO_F303RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F303RE_MCU}
 )
 target_compile_definitions(NUCLEO_F303RE INTERFACE
@@ -23375,7 +24865,6 @@ target_compile_options(NUCLEO_F401RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F401RE_MCU}
 )
 target_compile_definitions(NUCLEO_F401RE INTERFACE
@@ -23419,7 +24908,6 @@ target_compile_options(NUCLEO_F411RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F411RE_MCU}
 )
 target_compile_definitions(NUCLEO_F411RE INTERFACE
@@ -23463,7 +24951,6 @@ target_compile_options(NUCLEO_F429ZI INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F429ZI_MCU}
 )
 target_compile_definitions(NUCLEO_F429ZI INTERFACE
@@ -23507,7 +24994,6 @@ target_compile_options(NUCLEO_F446RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F446RE_MCU}
 )
 target_compile_definitions(NUCLEO_F446RE INTERFACE
@@ -23551,7 +25037,6 @@ target_compile_options(NUCLEO_F746ZG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F746ZG_MCU}
 )
 target_compile_definitions(NUCLEO_F746ZG INTERFACE
@@ -23595,7 +25080,6 @@ target_compile_options(NUCLEO_F756ZG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F756ZG_MCU}
 )
 target_compile_definitions(NUCLEO_F756ZG INTERFACE
@@ -23639,7 +25123,6 @@ target_compile_options(NUCLEO_F767ZI INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_F767ZI_MCU}
 )
 target_compile_definitions(NUCLEO_F767ZI INTERFACE
@@ -23682,8 +25165,7 @@ target_compile_options(NUCLEO_G031K8 INTERFACE
   "SHELL:-DSTM32G031xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G031K8_MCU}
 )
 target_compile_definitions(NUCLEO_G031K8 INTERFACE
@@ -23707,10 +25189,53 @@ target_link_options(NUCLEO_G031K8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G031K8_MCU}
 )
 target_link_libraries(NUCLEO_G031K8 INTERFACE
+  arm_cortexM0l_math
+)
+
+# NUCLEO_G070RB
+# -----------------------------------------------------------------------------
+
+set(NUCLEO_G070RB_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G070RBT")
+set(NUCLEO_G070RB_MAXSIZE 131072)
+set(NUCLEO_G070RB_MAXDATASIZE 36864)
+set(NUCLEO_G070RB_MCU cortex-m0plus)
+add_library(NUCLEO_G070RB INTERFACE)
+target_compile_options(NUCLEO_G070RB INTERFACE
+  "SHELL:-DSTM32G070xx   -D__CORTEX_SC=0"
+  "SHELL:"
+  "SHELL:"
+  "SHELL: "
+  -mcpu=${NUCLEO_G070RB_MCU}
+)
+target_compile_definitions(NUCLEO_G070RB INTERFACE
+  "STM32G0xx"
+	"ARDUINO_NUCLEO_G070RB"
+	"BOARD_NAME=\"NUCLEO_G070RB\""
+	"BOARD_ID=NUCLEO_G070RB"
+	"VARIANT_H=\"variant_NUCLEO_G070RB.h\""
+)
+target_include_directories(NUCLEO_G070RB INTERFACE
+  ${CMAKE_CURRENT_LIST_DIR}/../system/STM32G0xx
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Inc
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/STM32G0xx_HAL_Driver/Src
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Include/
+  ${CMAKE_CURRENT_LIST_DIR}/../system/Drivers/CMSIS/Device/ST/STM32G0xx/Source/Templates/gcc/
+  ${NUCLEO_G070RB_VARIANT_PATH}
+)
+
+target_link_options(NUCLEO_G070RB INTERFACE
+  "LINKER:--default-script=${NUCLEO_G070RB_VARIANT_PATH}/ldscript.ld"
+  "LINKER:--defsym=LD_FLASH_OFFSET=0"
+	"LINKER:--defsym=LD_MAX_SIZE=131072"
+	"LINKER:--defsym=LD_MAX_DATA_SIZE=36864"
+  "SHELL: "
+  -mcpu=${NUCLEO_G070RB_MCU}
+)
+target_link_libraries(NUCLEO_G070RB INTERFACE
   arm_cortexM0l_math
 )
 
@@ -23726,8 +25251,7 @@ target_compile_options(NUCLEO_G071RB INTERFACE
   "SHELL:-DSTM32G071xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G071RB_MCU}
 )
 target_compile_definitions(NUCLEO_G071RB INTERFACE
@@ -23751,7 +25275,7 @@ target_link_options(NUCLEO_G071RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G071RB_MCU}
 )
 target_link_libraries(NUCLEO_G071RB INTERFACE
@@ -23761,7 +25285,7 @@ target_link_libraries(NUCLEO_G071RB INTERFACE
 # NUCLEO_G0B1RE
 # -----------------------------------------------------------------------------
 
-set(NUCLEO_G0B1RE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1RBT_G0B1R(C-E)(I-T)_G0C1R(C-E)(I-T)")
+set(NUCLEO_G0B1RE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32G0xx/G0B1R(B-C-E)T_G0C1R(C-E)T")
 set(NUCLEO_G0B1RE_MAXSIZE 262144)
 set(NUCLEO_G0B1RE_MAXDATASIZE 147456)
 set(NUCLEO_G0B1RE_MCU cortex-m0plus)
@@ -23770,8 +25294,7 @@ target_compile_options(NUCLEO_G0B1RE INTERFACE
   "SHELL:-DSTM32G0B1xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G0B1RE_MCU}
 )
 target_compile_definitions(NUCLEO_G0B1RE INTERFACE
@@ -23795,7 +25318,7 @@ target_link_options(NUCLEO_G0B1RE INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=147456"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_G0B1RE_MCU}
 )
 target_link_libraries(NUCLEO_G0B1RE INTERFACE
@@ -23815,7 +25338,6 @@ target_compile_options(NUCLEO_G431KB INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_G431KB_MCU}
 )
 target_compile_definitions(NUCLEO_G431KB INTERFACE
@@ -23859,7 +25381,6 @@ target_compile_options(NUCLEO_G431RB INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_G431RB_MCU}
 )
 target_compile_definitions(NUCLEO_G431RB INTERFACE
@@ -23903,7 +25424,6 @@ target_compile_options(NUCLEO_G474RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_G474RE_MCU}
 )
 target_compile_definitions(NUCLEO_G474RE INTERFACE
@@ -23947,7 +25467,6 @@ target_compile_options(NUCLEO_H743ZI INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_H743ZI_MCU}
 )
 target_compile_definitions(NUCLEO_H743ZI INTERFACE
@@ -23991,7 +25510,6 @@ target_compile_options(NUCLEO_H743ZI2 INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_H743ZI2_MCU}
 )
 target_compile_definitions(NUCLEO_H743ZI2 INTERFACE
@@ -24034,8 +25552,7 @@ target_compile_options(NUCLEO_L010RB INTERFACE
   "SHELL:-DSTM32L010xB   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L010RB_MCU}
 )
 target_compile_definitions(NUCLEO_L010RB INTERFACE
@@ -24059,7 +25576,7 @@ target_link_options(NUCLEO_L010RB INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L010RB_MCU}
 )
 target_link_libraries(NUCLEO_L010RB INTERFACE
@@ -24078,8 +25595,7 @@ target_compile_options(NUCLEO_L031K6 INTERFACE
   "SHELL:-DSTM32L031xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L031K6_MCU}
 )
 target_compile_definitions(NUCLEO_L031K6 INTERFACE
@@ -24103,7 +25619,7 @@ target_link_options(NUCLEO_L031K6 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L031K6_MCU}
 )
 target_link_libraries(NUCLEO_L031K6 INTERFACE
@@ -24122,8 +25638,7 @@ target_compile_options(NUCLEO_L053R8 INTERFACE
   "SHELL:-DSTM32L053xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L053R8_MCU}
 )
 target_compile_definitions(NUCLEO_L053R8 INTERFACE
@@ -24147,7 +25662,7 @@ target_link_options(NUCLEO_L053R8 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L053R8_MCU}
 )
 target_link_libraries(NUCLEO_L053R8 INTERFACE
@@ -24166,8 +25681,7 @@ target_compile_options(NUCLEO_L073RZ INTERFACE
   "SHELL:-DSTM32L073xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L073RZ_MCU}
 )
 target_compile_definitions(NUCLEO_L073RZ INTERFACE
@@ -24191,7 +25705,7 @@ target_link_options(NUCLEO_L073RZ INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L073RZ_MCU}
 )
 target_link_libraries(NUCLEO_L073RZ INTERFACE
@@ -24210,8 +25724,7 @@ target_compile_options(NUCLEO_L152RE INTERFACE
   "SHELL:-DSTM32L152xE  "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L152RE_MCU}
 )
 target_compile_definitions(NUCLEO_L152RE INTERFACE
@@ -24235,7 +25748,7 @@ target_link_options(NUCLEO_L152RE INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=81920"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_L152RE_MCU}
 )
 target_link_libraries(NUCLEO_L152RE INTERFACE
@@ -24255,7 +25768,6 @@ target_compile_options(NUCLEO_L412KB INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L412KB_MCU}
 )
 target_compile_definitions(NUCLEO_L412KB INTERFACE
@@ -24299,7 +25811,6 @@ target_compile_options(NUCLEO_L432KC INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L432KC_MCU}
 )
 target_compile_definitions(NUCLEO_L432KC INTERFACE
@@ -24343,7 +25854,6 @@ target_compile_options(NUCLEO_L433RC_P INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L433RC_P_MCU}
 )
 target_compile_definitions(NUCLEO_L433RC_P INTERFACE
@@ -24377,7 +25887,7 @@ target_link_libraries(NUCLEO_L433RC_P INTERFACE
 # NUCLEO_L452RE
 # -----------------------------------------------------------------------------
 
-set(NUCLEO_L452RE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452R(C-E)(I-T-Y)_L462RE(I-T-Y)")
+set(NUCLEO_L452RE_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)")
 set(NUCLEO_L452RE_MAXSIZE 524288)
 set(NUCLEO_L452RE_MAXDATASIZE 163840)
 set(NUCLEO_L452RE_MCU cortex-m4)
@@ -24387,7 +25897,6 @@ target_compile_options(NUCLEO_L452RE INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L452RE_MCU}
 )
 target_compile_definitions(NUCLEO_L452RE INTERFACE
@@ -24431,7 +25940,6 @@ target_compile_options(NUCLEO_L452REP INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L452REP_MCU}
 )
 target_compile_definitions(NUCLEO_L452REP INTERFACE
@@ -24475,7 +25983,6 @@ target_compile_options(NUCLEO_L476RG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L476RG_MCU}
 )
 target_compile_definitions(NUCLEO_L476RG INTERFACE
@@ -24519,7 +26026,6 @@ target_compile_options(NUCLEO_L496ZG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L496ZG_MCU}
 )
 target_compile_definitions(NUCLEO_L496ZG INTERFACE
@@ -24562,8 +26068,7 @@ target_compile_options(NUCLEO_L496ZG-P INTERFACE
   "SHELL:-DSTM32L496xx  "
   "SHELL:"
   "SHELL:"
-  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
+  "SHELL:-mfpu=fpv4-sp-d16 "
   -mcpu=${NUCLEO_L496ZG-P_MCU}
 )
 target_compile_definitions(NUCLEO_L496ZG-P INTERFACE
@@ -24587,7 +26092,7 @@ target_link_options(NUCLEO_L496ZG-P INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=1048576"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=327680"
-  "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
+  "SHELL:-mfpu=fpv4-sp-d16 "
   -mcpu=${NUCLEO_L496ZG-P_MCU}
 )
 target_link_libraries(NUCLEO_L496ZG-P INTERFACE
@@ -24607,7 +26112,6 @@ target_compile_options(NUCLEO_L4R5ZI INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L4R5ZI_MCU}
 )
 target_compile_definitions(NUCLEO_L4R5ZI INTERFACE
@@ -24651,7 +26155,6 @@ target_compile_options(NUCLEO_L4R5ZI_P INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L4R5ZI_P_MCU}
 )
 target_compile_definitions(NUCLEO_L4R5ZI_P INTERFACE
@@ -24695,7 +26198,6 @@ target_compile_options(NUCLEO_L552ZE_Q INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_L552ZE_Q_MCU}
 )
 target_compile_definitions(NUCLEO_L552ZE_Q INTERFACE
@@ -24729,7 +26231,7 @@ target_link_libraries(NUCLEO_L552ZE_Q INTERFACE
 # NUCLEO_U575ZI_Q
 # -----------------------------------------------------------------------------
 
-set(NUCLEO_U575ZI_Q_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZETxQ")
+set(NUCLEO_U575ZI_Q_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ")
 set(NUCLEO_U575ZI_Q_MAXSIZE 2097152)
 set(NUCLEO_U575ZI_Q_MAXDATASIZE 262144)
 set(NUCLEO_U575ZI_Q_MCU cortex-m33)
@@ -24739,7 +26241,6 @@ target_compile_options(NUCLEO_U575ZI_Q INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${NUCLEO_U575ZI_Q_MCU}
 )
 target_compile_definitions(NUCLEO_U575ZI_Q INTERFACE
@@ -24782,8 +26283,7 @@ target_compile_options(NUCLEO_WL55JC1 INTERFACE
   "SHELL:-DSTM32WLE5xx -DUSE_CM4_STARTUP_FILE "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_WL55JC1_MCU}
 )
 target_compile_definitions(NUCLEO_WL55JC1 INTERFACE
@@ -24807,11 +26307,11 @@ target_link_options(NUCLEO_WL55JC1 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${NUCLEO_WL55JC1_MCU}
 )
 target_link_libraries(NUCLEO_WL55JC1 INTERFACE
-  arm_cortexM4lf_math
+  arm_cortexM4l_math
 )
 
 # OLIMEXINO_STM32F3
@@ -24827,7 +26327,6 @@ target_compile_options(OLIMEXINO_STM32F3 INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${OLIMEXINO_STM32F3_MCU}
 )
 target_compile_definitions(OLIMEXINO_STM32F3 INTERFACE
@@ -24871,7 +26370,6 @@ target_compile_options(P_NUCLEO_WB55RG INTERFACE
   "SHELL:"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${P_NUCLEO_WB55RG_MCU}
 )
 target_compile_definitions(P_NUCLEO_WB55RG INTERFACE
@@ -24915,7 +26413,6 @@ target_compile_options(PRNTR_V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${PRNTR_V1_MCU}
 )
 target_compile_definitions(PRNTR_V1 INTERFACE
@@ -24959,7 +26456,6 @@ target_compile_options(PRNTR_V2 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${PRNTR_V2_MCU}
 )
 target_compile_definitions(PRNTR_V2 INTERFACE
@@ -25002,8 +26498,7 @@ target_compile_options(PX_HER0 INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${PX_HER0_MCU}
 )
 target_compile_definitions(PX_HER0 INTERFACE
@@ -25027,7 +26522,7 @@ target_link_options(PX_HER0 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${PX_HER0_MCU}
 )
 target_link_libraries(PX_HER0 INTERFACE
@@ -25046,8 +26541,7 @@ target_compile_options(PYBSTICK26_DUINO INTERFACE
   "SHELL:-DSTM32F072xB  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${PYBSTICK26_DUINO_MCU}
 )
 target_compile_definitions(PYBSTICK26_DUINO INTERFACE
@@ -25071,7 +26565,7 @@ target_link_options(PYBSTICK26_DUINO INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${PYBSTICK26_DUINO_MCU}
 )
 target_link_libraries(PYBSTICK26_DUINO INTERFACE
@@ -25091,7 +26585,6 @@ target_compile_options(PYBSTICK26_LITE INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${PYBSTICK26_LITE_MCU}
 )
 target_compile_definitions(PYBSTICK26_LITE INTERFACE
@@ -25135,7 +26628,6 @@ target_compile_options(PYBSTICK26_PRO INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${PYBSTICK26_PRO_MCU}
 )
 target_compile_definitions(PYBSTICK26_PRO INTERFACE
@@ -25179,7 +26671,6 @@ target_compile_options(PYBSTICK26_STD INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${PYBSTICK26_STD_MCU}
 )
 target_compile_definitions(PYBSTICK26_STD INTERFACE
@@ -25222,8 +26713,7 @@ target_compile_options(RAK811_TRACKER INTERFACE
   "SHELL:-DSTM32L151xB  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RAK811_TRACKER_MCU}
 )
 target_compile_definitions(RAK811_TRACKER INTERFACE
@@ -25247,7 +26737,7 @@ target_link_options(RAK811_TRACKER INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=16384"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RAK811_TRACKER_MCU}
 )
 target_link_libraries(RAK811_TRACKER INTERFACE
@@ -25266,8 +26756,7 @@ target_compile_options(RAK811_TRACKERA INTERFACE
   "SHELL:-DSTM32L151xBA  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RAK811_TRACKERA_MCU}
 )
 target_compile_definitions(RAK811_TRACKERA INTERFACE
@@ -25291,7 +26780,7 @@ target_link_options(RAK811_TRACKERA INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=131072"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=32768"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RAK811_TRACKERA_MCU}
 )
 target_link_libraries(RAK811_TRACKERA INTERFACE
@@ -25311,7 +26800,6 @@ target_compile_options(REMRAM_V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${REMRAM_V1_MCU}
 )
 target_compile_definitions(REMRAM_V1 INTERFACE
@@ -25354,8 +26842,7 @@ target_compile_options(RHF76_052 INTERFACE
   "SHELL:-DSTM32L051xx   -D__CORTEX_SC=0"
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RHF76_052_MCU}
 )
 target_compile_definitions(RHF76_052 INTERFACE
@@ -25379,7 +26866,7 @@ target_link_options(RHF76_052 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=65536"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=8192"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${RHF76_052_MCU}
 )
 target_link_libraries(RHF76_052 INTERFACE
@@ -25399,7 +26886,6 @@ target_compile_options(RUMBA32 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${RUMBA32_MCU}
 )
 target_compile_definitions(RUMBA32 INTERFACE
@@ -25443,7 +26929,6 @@ target_compile_options(Sparky_V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${Sparky_V1_MCU}
 )
 target_compile_definitions(Sparky_V1 INTERFACE
@@ -25487,7 +26972,6 @@ target_compile_options(ST3DP001_EVAL INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${ST3DP001_EVAL_MCU}
 )
 target_compile_definitions(ST3DP001_EVAL INTERFACE
@@ -25531,7 +27015,6 @@ target_compile_options(STEVAL_MKSBOX1V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${STEVAL_MKSBOX1V1_MCU}
 )
 target_compile_definitions(STEVAL_MKSBOX1V1 INTERFACE
@@ -25575,7 +27058,6 @@ target_compile_options(STM32MP157A_DK1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${STM32MP157A_DK1_MCU}
 )
 target_compile_definitions(STM32MP157A_DK1 INTERFACE
@@ -25619,7 +27101,6 @@ target_compile_options(STM32MP157C_DK2 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${STM32MP157C_DK2_MCU}
 )
 target_compile_definitions(STM32MP157C_DK2 INTERFACE
@@ -25663,7 +27144,6 @@ target_compile_options(STM32WB5MM_DK INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${STM32WB5MM_DK_MCU}
 )
 target_compile_definitions(STM32WB5MM_DK INTERFACE
@@ -25706,8 +27186,7 @@ target_compile_options(STORM32_V1_31_RC INTERFACE
   "SHELL:-DSTM32F103xE  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${STORM32_V1_31_RC_MCU}
 )
 target_compile_definitions(STORM32_V1_31_RC INTERFACE
@@ -25731,7 +27210,7 @@ target_link_options(STORM32_V1_31_RC INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=262144"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=49152"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${STORM32_V1_31_RC_MCU}
 )
 target_link_libraries(STORM32_V1_31_RC INTERFACE
@@ -25751,7 +27230,6 @@ target_compile_options(SWAN_R5 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${SWAN_R5_MCU}
 )
 target_compile_definitions(SWAN_R5 INTERFACE
@@ -25795,7 +27273,6 @@ target_compile_options(THUNDERPACK_F411 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${THUNDERPACK_F411_MCU}
 )
 target_compile_definitions(THUNDERPACK_F411 INTERFACE
@@ -25838,8 +27315,7 @@ target_compile_options(THUNDERPACK_L072 INTERFACE
   "SHELL:-DSTM32L072xx   -D__CORTEX_SC=0"
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${THUNDERPACK_L072_MCU}
 )
 target_compile_definitions(THUNDERPACK_L072 INTERFACE
@@ -25863,7 +27339,7 @@ target_link_options(THUNDERPACK_L072 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=196608"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=20480"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${THUNDERPACK_L072_MCU}
 )
 target_link_libraries(THUNDERPACK_L072 INTERFACE
@@ -25883,7 +27359,6 @@ target_compile_options(VAKE_V1 INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${VAKE_V1_MCU}
 )
 target_compile_definitions(VAKE_V1 INTERFACE
@@ -25926,8 +27401,7 @@ target_compile_options(VCCGND_F103ZET6 INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MCU}
 )
 target_compile_definitions(VCCGND_F103ZET6 INTERFACE
@@ -25951,7 +27425,7 @@ target_link_options(VCCGND_F103ZET6 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MCU}
 )
 target_link_libraries(VCCGND_F103ZET6 INTERFACE
@@ -25970,8 +27444,7 @@ target_compile_options(VCCGND_F103ZET6_MINI INTERFACE
   "SHELL:-DSTM32F103xE   "
   "SHELL:"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_MCU}
 )
 target_compile_definitions(VCCGND_F103ZET6_MINI INTERFACE
@@ -25995,7 +27468,7 @@ target_link_options(VCCGND_F103ZET6_MINI INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=524288"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=65536"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${VCCGND_F103ZET6_MINI_MCU}
 )
 target_link_libraries(VCCGND_F103ZET6_MINI INTERFACE
@@ -26015,7 +27488,6 @@ target_compile_options(VCCGND_F407ZG_MINI INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${VCCGND_F407ZG_MINI_MCU}
 )
 target_compile_definitions(VCCGND_F407ZG_MINI INTERFACE
@@ -26059,7 +27531,6 @@ target_compile_options(WeActMiniH743VITX INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${WeActMiniH743VITX_MCU}
 )
 target_compile_definitions(WeActMiniH743VITX INTERFACE
@@ -26103,7 +27574,6 @@ target_compile_options(WeActMiniH750VBTX INTERFACE
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL:-mfpu=fpv4-sp-d16 -mfloat-abi=hard"
-  "SHELL:"
   -mcpu=${WeActMiniH750VBTX_MCU}
 )
 target_compile_definitions(WeActMiniH750VBTX INTERFACE
@@ -26146,8 +27616,7 @@ target_compile_options(WRAITH32_V1 INTERFACE
   "SHELL:-DSTM32F051x8  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
-  "SHELL:"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${WRAITH32_V1_MCU}
 )
 target_compile_definitions(WRAITH32_V1 INTERFACE
@@ -26171,7 +27640,7 @@ target_link_options(WRAITH32_V1 INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET=0"
 	"LINKER:--defsym=LD_MAX_SIZE=32768"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE=7936"
-  "SHELL:"
+  "SHELL: "
   -mcpu=${WRAITH32_V1_MCU}
 )
 target_link_libraries(WRAITH32_V1 INTERFACE

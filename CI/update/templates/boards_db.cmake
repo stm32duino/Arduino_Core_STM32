@@ -8,11 +8,10 @@ set({{pnum}}_MAXDATASIZE {{config.upload.maximum_data_size}})
 set({{pnum}}_MCU {{config.build.mcu}})
 add_library({{pnum}} INTERFACE)
 target_compile_options({{pnum}} INTERFACE
-  "SHELL:{{config.build.extra_flags}}"
+  "SHELL:{{config.build.st_extra_flags}}"
   "SHELL:{{config.build.peripheral_pins}}"
   "SHELL:{{config.build.startup_file}}"
-  "SHELL:{{config.build.flags.fp}}"
-  "SHELL:{{config.build.startup_file}}"
+  "SHELL:{{config.build.fpu}} {{config.build["float-abi"]}}"
   -mcpu={{ "${" }}{{pnum}}_MCU{{ "}" }}
 )
 target_compile_definitions({{pnum}} INTERFACE
@@ -36,7 +35,7 @@ target_link_options({{pnum}} INTERFACE
   "LINKER:--defsym=LD_FLASH_OFFSET={{config.build.flash_offset or "0"}}"
 	"LINKER:--defsym=LD_MAX_SIZE={{config.upload.maximum_size}}"
 	"LINKER:--defsym=LD_MAX_DATA_SIZE={{config.upload.maximum_data_size}}"
-  "SHELL:{{config.build.flags.fp}}"
+  "SHELL:{{config.build.fpu}} {{config.build["float-abi"]}}"
   -mcpu={{ "${" }}{{pnum}}_MCU{{ "}" }}
 )
 target_link_libraries({{pnum}} INTERFACE
