@@ -1,6 +1,21 @@
 
+add_library(core INTERFACE)
+add_library(core_usage INTERFACE)
 
-add_library(core EXCLUDE_FROM_ALL
+target_include_directories(core_usage INTERFACE
+  .
+)
+
+
+target_link_libraries(core_usage INTERFACE
+  core_config
+)
+
+target_link_libraries(core INTERFACE core_usage)
+
+
+
+add_library(core_bin  EXCLUDE_FROM_ALL
   HardwareSerial.cpp
   HardwareTimer.cpp
   IPAddress.cpp
@@ -64,15 +79,9 @@ add_library(core EXCLUDE_FROM_ALL
   wiring_shift.c
   wiring_time.c
 )
+target_link_libraries(core_bin PUBLIC core_usage)
 
-target_include_directories(core PUBLIC
-  .
+target_link_libraries(core INTERFACE
+  core_bin
 )
 
-target_link_libraries(core PUBLIC
-  core_config
-)
-
-
-
- 

@@ -6,6 +6,9 @@ set({{pnum}}_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/{{config.build.
 set({{pnum}}_MAXSIZE {{config.upload.maximum_size}})
 set({{pnum}}_MAXDATASIZE {{config.upload.maximum_data_size}})
 set({{pnum}}_MCU {{config.build.mcu}})
+{% if config._fpconf != "-" %}
+set({{pnum}}_FPCONF {{config._fpconf}})
+{% endif %}
 add_library({{pnum}} INTERFACE)
 target_compile_options({{pnum}} INTERFACE
   "SHELL:{{config.build.st_extra_flags}}"

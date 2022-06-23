@@ -17,10 +17,8 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins.c
-  PeripheralPins_PYBSTICK26_STD.c
   generic_clock.c
-  variant_NUCLEO_F411RE.cpp
-  variant_PYBSTICK26_STD.cpp
+  variant_MKR_SHARKY.cpp
   variant_generic.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)

@@ -57,6 +57,10 @@ class Configuration(dict) :
 
 
 
+def get_fpconf(config) :
+    fpu = config.build.get("fpu", "-mfpu=").rsplit("=", 1)[1]
+    abi = config.build.get("float-abi", "-mfloat-abi=").rsplit("=", 1)[1]
+    return f"{fpu}-{abi}"
 
 def is_menulabel(key) :
     if key[0] == "menu" :
@@ -131,4 +135,6 @@ if __name__ == "__main__":
 
     rawcfg = flatten_config(parse_file(boardsfile))
     finalcfg = {board: cfg.evaluate_entries() for board, cfg in rawcfg.items()}
+    for board, cfg in finalcfg.items() :
+        cfg["_fpconf"] = get_fpconf(cfg)
     regenerate_template(finalcfg, templatefile, outfile)

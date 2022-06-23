@@ -1,19 +1,16 @@
+add_library(variant INTERFACE)
+add_library(variant_usage INTERFACE)
 
-
-add_library(variant EXCLUDE_FROM_ALL
-  PeripheralPins.c
-  generic_clock.c
-  variant_generic.cpp
-)
-
-target_include_directories(variant PUBLIC
+target_include_directories(variant_usage INTERFACE
   .
 )
 
-target_link_libraries(variant PUBLIC
+
+target_link_libraries(variant_usage INTERFACE
   core_config
 )
 
+target_link_libraries(variant INTERFACE variant_usage)
 
 
- 
+

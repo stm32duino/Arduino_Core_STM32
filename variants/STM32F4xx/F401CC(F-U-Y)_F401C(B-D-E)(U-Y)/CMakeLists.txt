@@ -1,6 +1,21 @@
 
+add_library(variant INTERFACE)
+add_library(variant_usage INTERFACE)
 
-add_library(variant EXCLUDE_FROM_ALL
+target_include_directories(variant_usage INTERFACE
+  .
+)
+
+
+target_link_libraries(variant_usage INTERFACE
+  core_config
+)
+
+target_link_libraries(variant INTERFACE variant_usage)
+
+
+
+add_library(variant_bin STATIC EXCLUDE_FROM_ALL
   PeripheralPins.c
   PeripheralPins_BLACKPILL_F401CC.c
   PeripheralPins_PYBSTICK26_LITE.c
@@ -9,15 +24,9 @@ add_library(variant EXCLUDE_FROM_ALL
   variant_PYBSTICK26_LITE.cpp
   variant_generic.cpp
 )
+target_link_libraries(variant_bin PUBLIC variant_usage)
 
-target_include_directories(variant PUBLIC
-  .
+target_link_libraries(variant INTERFACE
+  variant_bin
 )
 
-target_link_libraries(variant PUBLIC
-  core_config
-)
-
-
-
- 

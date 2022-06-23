@@ -1,6 +1,25 @@
+# v3.21 implemented semantic changes regarding $<TARGET_OBJECTS:...>
+# See https://cmake.org/cmake/help/v3.21/command/target_link_libraries.html#linking-object-libraries-via-target-objects
+cmake_minimum_required(VERSION 3.21)
+
+add_library(SrcWrapper INTERFACE)
+add_library(SrcWrapper_usage INTERFACE)
+
+target_include_directories(SrcWrapper_usage INTERFACE
+  src
+)
 
 
-add_library(SrcWrapper OBJECT EXCLUDE_FROM_ALL
+target_link_libraries(SrcWrapper_usage INTERFACE
+  core_config
+  core
+)
+
+target_link_libraries(SrcWrapper INTERFACE SrcWrapper_usage)
+
+
+
+add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal.c
   src/HAL/stm32yyxx_hal_adc.c
   src/HAL/stm32yyxx_hal_adc_ex.c
@@ -166,15 +185,10 @@ add_library(SrcWrapper OBJECT EXCLUDE_FROM_ALL
   src/stm32/uart.c
   src/syscalls.c
 )
+target_link_libraries(SrcWrapper_bin PUBLIC SrcWrapper_usage)
 
-target_include_directories(SrcWrapper PUBLIC
-  src
+target_link_libraries(SrcWrapper INTERFACE
+  SrcWrapper_bin
+  $<TARGET_OBJECTS:SrcWrapper_bin>
 )
 
-target_link_libraries(SrcWrapper PUBLIC
-  core_config
-)
-
-
-
- 

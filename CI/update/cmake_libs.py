@@ -34,7 +34,9 @@ if rootdir.name == "libraries" :
             continue
 
         config = autoconfig(lib)
+        config["extra_libs"].add("core")
         render(lib, cmake_template, config)
 else :
     config = autoconfig(rootdir)
+    config["extra_libs"].add("core")
     render(rootdir, cmake_template, config)

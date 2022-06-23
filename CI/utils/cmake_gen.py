@@ -11,6 +11,7 @@ def get_default_config() :
         objlib = True,
         ldflags = "",
         precompiled = "false",
+        binaries = dict(),
     )
 
 def parse_configfile(file) :
@@ -52,6 +53,22 @@ def render(dir, template, config) :
     with open(dir / "CMakeLists.txt", "w") as outfile :
         outfile.write(template.render(**config))
 
+def get_static_libs(dir) :
+    result = dict()
+    cpu = ""
+    fpconf = "-" # format: f"{fpu}-{float_abi}"; this makes "-" by default
+    for file in dir.glob("src/*/lib*.a") :
+        if not file.is_file() :
+            continue
+        cpu = file.parent.name
+        result.setdefault(cpu+fpconf, list()).append(file.relative_to(dir))
+    for file in dir.glob("src/*/*/lib*.a") :
+        if not file.is_file() :
+            continue
+        fpconf = file.parent.name
+        cpu = file.parent.parent.name
+        result.setdefault(cpu+fpconf, list()).append(file.relative_to(dir))
+    return result
 
 def config_for_bareflat(dir, force_recurse=False) :
     # no library.properties
@@ -76,6 +93,7 @@ def config_for_modern(dir) :
     config["target"] = dir.name
     config["sources"].update(get_sources(dir/"src", recursive=True, relative_to=dir))
     config["includedirs"].add((dir/"src").relative_to(dir))
+    config["binaries"].update(get_static_libs(dir))
 
     return config
 

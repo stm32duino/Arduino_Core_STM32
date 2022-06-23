@@ -238,7 +238,6 @@ target_link_libraries(stm32_runtime INTERFACE
   core_config
 
   SrcWrapper
-  $<TARGET_OBJECTS:SrcWrapper>
   core
   variant
 
