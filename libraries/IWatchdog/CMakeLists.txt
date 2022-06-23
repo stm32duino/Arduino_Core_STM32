@@ -11,7 +11,7 @@ target_include_directories(IWatchdog_usage INTERFACE
 
 
 target_link_libraries(IWatchdog_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

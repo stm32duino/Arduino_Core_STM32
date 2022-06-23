@@ -22,7 +22,7 @@ target_link_options({{target}}_usage INTERFACE
 {% endif %}
 
 target_link_libraries({{target}}_usage INTERFACE
-  core_config
+  base_config
   {% for lib in extra_libs | sort %}
   {{lib}}
   {% endfor %}

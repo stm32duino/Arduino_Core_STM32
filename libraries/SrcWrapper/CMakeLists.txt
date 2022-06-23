@@ -11,7 +11,7 @@ target_include_directories(SrcWrapper_usage INTERFACE
 
 
 target_link_libraries(SrcWrapper_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

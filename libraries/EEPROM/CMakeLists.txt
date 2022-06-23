@@ -11,7 +11,7 @@ target_include_directories(EEPROM_usage INTERFACE
 
 
 target_link_libraries(EEPROM_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

@@ -34,26 +34,26 @@ set(CMSIS5_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMSIS_5" CACHE STRING "Path to CMSI
 option(AUTODL_CMSIS OFF)
 ensure_CMSIS(${CMSIS5_PATH} ${AUTODL_CMSIS})
 
-add_library(core_config INTERFACE)
+add_library(base_config INTERFACE)
 
 if(${BUILD_RELPATH})
-  # $<TARGET_PROPERTY:SOURCE_DIR> is evaluated by the final consumer, no core_config
-  target_compile_options(core_config INTERFACE
+  # $<TARGET_PROPERTY:SOURCE_DIR> is evaluated by the final consumer, no base_config
+  target_compile_options(base_config INTERFACE
     "-fmacro-prefix-map=$<TARGET_PROPERTY:SOURCE_DIR>=."
   )
 endif()
 
 if(${BUILD_NDEBUG})
-  add_compile_definitions(core_config INTERFACE NDEBUG)
+  add_compile_definitions(base_config INTERFACE NDEBUG)
 endif()
 
 # configuration specifics
 if (${FEAT_XSERIAL} STREQUAL "GENERIC")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		HAL_UART_MODULE_ENABLED
 	)
 elseif (${FEAT_XSERIAL} STREQUAL "NONE")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		HAL_UART_MODULE_ENABLED
 		HWSERIAL_NONE
 	)
@@ -78,7 +78,7 @@ endif()
 if (${FEAT_USB} STREQUAL "NONE")
 	#nothing
 elseif (${FEAT_USB} STREQUAL "CDCGEN")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		USBCON
 		${USB_SPEED}
 		USBD_VID=${USB_VID}
@@ -87,7 +87,7 @@ elseif (${FEAT_USB} STREQUAL "CDCGEN")
 		USBD_USE_CDC
 	)
 elseif (${FEAT_USB} STREQUAL "CDC")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		USBCON
 		${USB_SPEED}
 		USBD_VID=${USB_VID}
@@ -97,7 +97,7 @@ elseif (${FEAT_USB} STREQUAL "CDC")
 		DISABLE_GENERIC_SERIALUSB
 	)
 elseif (${FEAT_USB} STREQUAL "HID")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		USBCON
 		${USB_SPEED}
 		USBD_VID=${USB_VID}
@@ -110,16 +110,16 @@ else()
 endif()
 
 if (${FEAT_NANOC})
-	target_link_options(core_config INTERFACE
+	target_link_options(base_config INTERFACE
 		"--specs=nano.specs"
 	)
 	if (${FEAT_FPF})
-		target_link_options(core_config INTERFACE
+		target_link_options(base_config INTERFACE
 			"SHELL:-u _printf_float"
 		)
 	endif()
 	if(${FEAT_FSF})
-		target_link_options(core_config INTERFACE
+		target_link_options(base_config INTERFACE
 			"SHELL:-u _scanf_float"
 		)
 	endif()
@@ -128,7 +128,7 @@ endif()
 if (${FEAT_VIRTIO} STREQUAL "DISABLED")
 	# nothing
 elseif (${FEAT_VIRTIO} STREQUAL "GENERIC")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		VIRTIOCON
 		NO_ATOMIC_64_SUPPORT
 		METAL_INTERNAL
@@ -136,14 +136,14 @@ elseif (${FEAT_VIRTIO} STREQUAL "GENERIC")
 		VIRTIO_SLAVE_ONLY
 		VIRTIO_LOG
 	)
-	target_include_directories(core_config INTERFACE
+	target_include_directories(base_config INTERFACE
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/open-amp/lib/include
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/libmetal/lib/include
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/virtual_driver
 	)
 elseif (${FEAT_VIRTIO} STREQUAL "ENABLED")
-	target_compile_definitions(core_config INTERFACE
+	target_compile_definitions(base_config INTERFACE
 		VIRTIOCON
 		NO_ATOMIC_64_SUPPORT
 		METAL_INTERNAL
@@ -152,7 +152,7 @@ elseif (${FEAT_VIRTIO} STREQUAL "ENABLED")
 		VIRTIO_LOG
 		DISABLE_GENERIC_SERIALVIRTIO
 	)
-	target_include_directories(core_config INTERFACE
+	target_include_directories(base_config INTERFACE
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/open-amp/lib/include
 		${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/libmetal/lib/include
@@ -163,18 +163,18 @@ else()
 endif()
 
 if (${FEAT_TIMER})
-  target_compile_definitions(core_config INTERFACE
+  target_compile_definitions(base_config INTERFACE
     HAL_TIM_MODULE_ENABLE
   )
 else ()
   # triggers a user-directed warning
-  target_compile_definitions(core_config INTERFACE
+  target_compile_definitions(base_config INTERFACE
     HAL_TIM_MODULE_DISABLED
   )
 endif()
 
 if (${BUILD_OPT} MATCHES "^[0-3gs]$")
-	target_compile_options(core_config INTERFACE
+	target_compile_options(base_config INTERFACE
 		-O${BUILD_OPT}
 	)
 else()
@@ -182,29 +182,51 @@ else()
 endif()
 
 if (${BUILD_DBG})
-	target_compile_options(core_config INTERFACE
+	target_compile_options(base_config INTERFACE
 		-g
 	)
 endif()
 
 if (${BUILD_LTO})
-	target_compile_options(core_config INTERFACE
+	target_compile_options(base_config INTERFACE
     -flto
   )
-	target_link_options(core_config INTERFACE
+	target_link_options(base_config INTERFACE
     -flto
   )
 endif()
 
 # generic compilation options
-target_link_libraries(core_config INTERFACE board)
-target_link_options(core_config INTERFACE
+target_link_libraries(base_config INTERFACE board)
+target_compile_definitions(base_config INTERFACE
+	USE_FULL_LL_DRIVER
+	ARDUINO_ARCH_STM32
+)
+target_compile_options(base_config INTERFACE
+  -mthumb
+	--param max-inline-insns-single=500
+	$<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
+	$<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
+	$<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>
+	$<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>
+	-ffunction-sections
+	-fdata-sections
+)
+
+target_link_options(base_config INTERFACE
+  -mthumb
+  LINKER:--cref
+  LINKER:--check-sections
+  LINKER:--gc-sections
+  LINKER:--entry=Reset_Handler
+  LINKER:--unresolved-symbols=report-all
+  LINKER:--warn-common
 	LINKER:--script=${BUILD_SYSTEM_PATH}/ldscript.ld
 )
-target_link_directories(core_config INTERFACE
+target_link_directories(base_config INTERFACE
 	"${CMSIS5_PATH}/CMSIS/DSP/Lib/GCC"
 )
-target_include_directories(core_config INTERFACE
+target_include_directories(base_config INTERFACE
 	"${BUILD_CORE_PATH}"
 	"${BUILD_CORE_PATH}/avr"
 	"${BUILD_CORE_PATH}/stm32"
@@ -235,7 +257,7 @@ target_link_libraries(stm32_runtime INTERFACE
   # but SrcWrapper is an object library, not an archive, so it isn't necessary
   # (this means the linker takes all the object unconditionally, as opposed to an archive where it picks what it needs)
   # note: SrcWrapper in particular MUST be an object library, due to possible weak+strong symbols (cf. library.properties)
-  core_config
+  base_config
 
   SrcWrapper
   core

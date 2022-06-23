@@ -11,7 +11,7 @@ target_include_directories(Servo_usage INTERFACE
 
 
 target_link_libraries(Servo_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

@@ -19,31 +19,3 @@ set(BUILD_SHARED_LIBS false CACHE STRING "")
 
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_STANDARD 11)
-
-# global compilation options
-add_compile_definitions(
-	USE_FULL_LL_DRIVER
-	ARDUINO=10607
-	ARDUINO_ARCH_STM32
-)
-
-add_compile_options(
-  -mthumb
-	--param max-inline-insns-single=500
-	$<$<COMPILE_LANGUAGE:CXX>:-fno-rtti>
-	$<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions>
-	$<$<COMPILE_LANGUAGE:CXX>:-fno-use-cxa-atexit>
-	$<$<COMPILE_LANGUAGE:CXX>:-fno-threadsafe-statics>
-	-ffunction-sections
-	-fdata-sections
-)
-
-add_link_options(
-  -mthumb
-	LINKER:--cref
-	LINKER:--check-sections
-	LINKER:--gc-sections
-	LINKER:--entry=Reset_Handler
-	LINKER:--unresolved-symbols=report-all
-	LINKER:--warn-common
-)

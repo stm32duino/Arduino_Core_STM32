@@ -11,7 +11,7 @@ target_include_directories(CMSIS_DSP_usage INTERFACE
 
 
 target_link_libraries(CMSIS_DSP_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

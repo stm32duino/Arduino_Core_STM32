@@ -8,14 +8,14 @@ target_include_directories(core_usage INTERFACE
 
 
 target_link_libraries(core_usage INTERFACE
-  core_config
+  base_config
 )
 
 target_link_libraries(core INTERFACE core_usage)
 
 
 
-add_library(core_bin  EXCLUDE_FROM_ALL
+add_library(core_bin STATIC EXCLUDE_FROM_ALL
   HardwareSerial.cpp
   HardwareTimer.cpp
   IPAddress.cpp

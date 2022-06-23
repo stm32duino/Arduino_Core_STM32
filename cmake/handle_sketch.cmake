@@ -5,7 +5,7 @@ set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
 # MAPFILE should be absolute!!
 # only a rule is generated for the mapfile, not a target
 function(handle_sketch TGTNAME MAPFILE SRCLIST)
-  # TODO: have the sketch folder in the include path of core_config
+  # TODO: have the sketch folder in the include path of base_config
 
   set(CURATED_SRC "")
   foreach(SRCFILE IN LISTS SRCLIST)

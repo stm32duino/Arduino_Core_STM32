@@ -8,7 +8,7 @@ target_include_directories(variant_usage INTERFACE
 
 
 target_link_libraries(variant_usage INTERFACE
-  core_config
+  base_config
 )
 
 target_link_libraries(variant INTERFACE variant_usage)

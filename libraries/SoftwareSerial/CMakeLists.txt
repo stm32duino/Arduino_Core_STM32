@@ -11,7 +11,7 @@ target_include_directories(SoftwareSerial_usage INTERFACE
 
 
 target_link_libraries(SoftwareSerial_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

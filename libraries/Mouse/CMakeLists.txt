@@ -11,7 +11,7 @@ target_include_directories(Mouse_usage INTERFACE
 
 
 target_link_libraries(Mouse_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

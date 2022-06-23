@@ -11,7 +11,7 @@ target_include_directories(RGB_LED_TLC59731_usage INTERFACE
 
 
 target_link_libraries(RGB_LED_TLC59731_usage INTERFACE
-  core_config
+  base_config
   core
 )
 

@@ -11,7 +11,7 @@ target_include_directories(Wire_usage INTERFACE
 
 
 target_link_libraries(Wire_usage INTERFACE
-  core_config
+  base_config
   core
 )
 
