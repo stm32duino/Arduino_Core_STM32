@@ -76,6 +76,12 @@
   #undef HAL_ICACHE_MODULE_ENABLED
 #endif
 
+#if !defined(HAL_SUBGHZ_MODULE_DISABLED)
+  #define HAL_SUBGHZ_MODULE_ENABLED
+#else
+  #undef HAL_SUBGHZ_MODULE_ENABLED
+#endif
+
 /*
  * Not defined by default
  */
