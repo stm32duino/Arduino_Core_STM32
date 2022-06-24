@@ -38,7 +38,7 @@ function(handle_sketch TGTNAME MAPFILE SRCLIST)
 
   if(EXISTS ${PYTHON3})
     add_custom_command(TARGET ${TGTNAME} POST_BUILD
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/sizereport.py ${CMAKE_SIZE} ${TGTNAME} ${BOARD_MAXSIZE} ${BOARD_MAXDATASIZE}
+      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/sizereport.py -x ${CMAKE_SIZE} -f ${TGTNAME} --progmem ${BOARD_MAXSIZE} --datamem ${BOARD_MAXDATASIZE}
     )
   else() #  STREQUAL "PYTHON3-NOTFOUND"
     message(WARNING "python3 not found; the final size report will not be displayed")
@@ -105,14 +105,14 @@ function(incgv NONTRGV TRGV ELFTGT)
         -H # display #include'd paths on stderr
       )
       set_target_properties(${TGT} PROPERTIES
-        RULE_LAUNCH_COMPILE "${PYTHON3} ${SCRIPTS_FOLDER}/ccwrapper.py ${LOGDIR} <SOURCE> --"
+        RULE_LAUNCH_COMPILE "${PYTHON3} ${SCRIPTS_FOLDER}/ccwrapper.py -d ${LOGDIR} -i <SOURCE> --"
         ADDITIONAL_CLEAN_FILES "${TGT_LOGS}"
       )
     endforeach()
   endforeach()
 
   add_custom_command(OUTPUT ${NONTRGV} ${TRGV}
-    COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/includes.py ${NONTRGV} ${TRGV} ${ALL_LOGS}
+    COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/includes.py -o ${NONTRGV} -t ${TRGV} ${ALL_LOGS}
     DEPENDS ${ALL_LOGS}
   )
 endfunction()
@@ -121,7 +121,7 @@ endfunction()
 # you should wrap it too, though
 function(symgv FULLGV SUMMARYGV MAPFILE)
   add_custom_command(OUTPUT ${FULLGV} ${SUMMARYGV}
-    COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/syms.py ${MAPFILE} ${FULLGV} ${SUMMARYGV}
+    COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -f ${FULLGV} -s ${SUMMARYGV}
     DEPENDS ${MAPFILE}
   )
 endfunction()

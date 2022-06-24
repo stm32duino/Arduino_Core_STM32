@@ -32,6 +32,7 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   abi.cpp
   avr/dtostrf.c
   board.c
+  core_debug.c
   hooks.c
   itoa.c
   main.cpp

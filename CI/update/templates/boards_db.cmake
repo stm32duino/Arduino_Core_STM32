@@ -6,9 +6,7 @@ set({{pnum}}_VARIANT_PATH "${CMAKE_CURRENT_LIST_DIR}/../variants/{{config.build.
 set({{pnum}}_MAXSIZE {{config.upload.maximum_size}})
 set({{pnum}}_MAXDATASIZE {{config.upload.maximum_data_size}})
 set({{pnum}}_MCU {{config.build.mcu}})
-{% if config._fpconf != "-" %}
-set({{pnum}}_FPCONF {{config._fpconf}})
-{% endif %}
+set({{pnum}}_FPCONF "{{config._fpconf}}")
 add_library({{pnum}} INTERFACE)
 target_compile_options({{pnum}} INTERFACE
   "SHELL:{{config.build.st_extra_flags}}"
@@ -44,5 +42,30 @@ target_link_options({{pnum}} INTERFACE
 target_link_libraries({{pnum}} INTERFACE
   {{config.build.cmsis_lib_gcc}}
 )
+
+{% for label,subconfig in config.menu.xserial | dictsort %}
+add_library({{pnum}}_serial_{{label}} INTERFACE)
+target_compile_options({{pnum}}_serial_{{label}} INTERFACE
+  "SHELL:{{subconfig.build.xSerial}}"
+)
+{% endfor %}
+{% for label,subconfig in config.menu.usb | dictsort %}
+add_library({{pnum}}_usb_{{label}} INTERFACE)
+target_compile_options({{pnum}}_usb_{{label}} INTERFACE
+  "SHELL:{{subconfig.build.enable_usb}}"
+)
+{% endfor %}
+{% for label,subconfig in config.menu.xusb | dictsort %}
+add_library({{pnum}}_xusb_{{label}} INTERFACE)
+target_compile_options({{pnum}}_xusb_{{label}} INTERFACE
+  "SHELL:{{subconfig.build.usb_speed}}"
+)
+{% endfor %}
+{% for label,subconfig in config.menu.virtio | dictsort %}
+add_library({{pnum}}_virtio_{{label}} INTERFACE)
+target_compile_options({{pnum}}_virtio_{{label}} INTERFACE
+  "SHELL:{{subconfig.build.enable_virtio}}"
+)
+{% endfor %}
 
 {% endfor %}

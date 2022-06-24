@@ -1,26 +1,16 @@
 #!/usr/bin/env python3
 
 import pathlib
-import sys
-try :
-    import graphviz
-except :
-    print("This script requires the graphviz module to run.")
-    print("Please install it with:")
-    print("`pip install graphviz`")
-    exit(1)
+import argparse
 
-if len(sys.argv) != 4 :
-    print("Usage: ./syms.py <mapfile> <output_fullgraph> <output_summary>")
-    exit(1)
+import graphviz
 
-mapfile = pathlib.Path(sys.argv[1])
-fullgraphfile = pathlib.Path(sys.argv[2])
-summaryfile = pathlib.Path(sys.argv[3])
+parser = argparse.ArgumentParser()
+parser.add_argument("-m", "--mapfile", type=pathlib.Path, required=True, help="path to ld's map file")
+parser.add_argument("-f", "--fullgv", type=pathlib.Path, help="file to write the full graph to")
+parser.add_argument("-s", "--summarygv", type=pathlib.Path, help="file to write the summarized graph to")
 
-if not (mapfile.exists() and mapfile.is_file()) :
-    print("Can't find file", mapfile)
-    exit(1)
+shargs = parser.parse_args()
 
 
 def parse_file(mapf) :
@@ -68,11 +58,12 @@ def parse_file(mapf) :
     return (fullgraph, summary)
 
 
-with open(mapfile, "rt") as file :
+with open(shargs.mapfile, "rt") as file :
     fullgraph, summary = parse_file(file)
 
-
-with open(fullgraphfile, "w") as file :
-    print(fullgraph.source, file=file)
-with open(summaryfile, "w") as file :
-    print(summary.source, file=file)
+if shargs.fullgv :
+    with open(shargs.fullgv, "w") as file :
+        print(fullgraph.source, file=file)
+if shargs.summarygv :
+    with open(shargs.summarygv, "w") as file :
+        print(summary.source, file=file)

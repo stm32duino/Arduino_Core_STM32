@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 
-import sys
 import pathlib
-try :
-    import graphviz
-except :
-    print("This script requires the graphviz module to run.")
-    print("Please install it with:")
-    print("`pip install graphviz`")
-    exit(1)
+import argparse
+
+import graphviz
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-o", type=pathlib.Path, help="file to write the full graph to")
+parser.add_argument("-t", type=pathlib.Path, help="file to write the transitive graph to")
+parser.add_argument("logs", type=pathlib.Path, nargs="*", action="extend", help="list of log files to parse")
+
+shargs = parser.parse_args()
 
 
 def catfiles(files) :
@@ -46,15 +48,12 @@ def parse_output(log) :
 
     return (graph, rootgraph)
 
-if len(sys.argv) < 4 :
-    print("Usage: ./includes.py <outfile> <outfile_transitive> <logfiles...>")
-    exit(1)
 
-outfiles = (pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2]))
-infiles = sys.argv[3:]
-graph, rootgraph = parse_output(catfiles(infiles))
+graph, rootgraph = parse_output(catfiles(shargs.logs))
 
-with open(outfiles[0], "w") as file :
-    print(graph.source, file=file)
-with open(outfiles[1], "w") as file :
-    print(rootgraph.source, file=file)
+if shargs.o :
+    with open(shargs.o, "w") as file :
+        print(graph.source, file=file)
+if shargs.t :
+    with open(shargs.t, "w") as file :
+        print(rootgraph.source, file=file)
