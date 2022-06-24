@@ -16,7 +16,7 @@ extern "C" {
  * the code, use a lot of stack. An alternative, will be to implement a tiny
  * and limited functionality implementation of printf.
  */
-static inline void core_debug(const char *format, ...)
+inline void core_debug(const char *format, ...)
 {
 #if !defined(NDEBUG)
   va_list args;
