@@ -22,7 +22,7 @@ fi
 # Append -fmacro-prefix-map option to change __FILE__ absolute path of the board
 # platform folder to a relative path by using '.'.
 # (i.e. the folder containing boards.txt)
-printf '\n-fmacro-prefix-map=%s=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" > "$BUILD_PATH/sketch/build.opt"
+printf '\n-fmacro-prefix-map=%s=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" >> "$BUILD_PATH/sketch/build.opt"
 
 # Force include of SrcWrapper library
 echo "#include <SrcWrapper.h>" > "$BUILD_PATH/sketch/SrcWrapper.cpp"
