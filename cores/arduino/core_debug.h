@@ -1,8 +1,9 @@
 #ifndef _CORE_DEBUG_H
 #define _CORE_DEBUG_H
+
+#include <stdarg.h>
 #if !defined(NDEBUG)
   #include <stdio.h>
-  #include <stdarg.h>
 #endif /* NDEBUG */
 
 #ifdef __cplusplus
@@ -25,6 +26,16 @@ inline void core_debug(const char *format, ...)
   va_end(args);
 #else
   (void)(format);
+#endif /* NDEBUG */
+}
+
+inline void vcore_debug(const char *format, va_list args)
+{
+#if !defined(NDEBUG)
+  vfprintf(stderr, format, args);
+#else
+  (void)(format);
+  (void)(args);
 #endif /* NDEBUG */
 }
 
