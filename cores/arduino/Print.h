@@ -106,6 +106,8 @@ class Print {
 
     int printf(const char *format, ...);
     int printf(const __FlashStringHelper *format, ...);
+    int vprintf(const __FlashStringHelper *format, va_list ap);
+    int vprintf(const char *format, va_list ap);
 
     virtual void flush() { /* Empty implementation for backward compatibility */ }
 };

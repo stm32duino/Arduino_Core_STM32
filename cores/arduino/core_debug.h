@@ -1,8 +1,9 @@
 #ifndef _CORE_DEBUG_H
 #define _CORE_DEBUG_H
+
+#include <stdarg.h>
 #if !defined(NDEBUG)
   #include <stdio.h>
-  #include <stdarg.h>
 #endif /* NDEBUG */
 
 #ifdef __cplusplus
@@ -16,7 +17,7 @@ extern "C" {
  * the code, use a lot of stack. An alternative, will be to implement a tiny
  * and limited functionality implementation of printf.
  */
-static inline void core_debug(const char *format, ...)
+inline void core_debug(const char *format, ...)
 {
 #if !defined(NDEBUG)
   va_list args;
@@ -25,6 +26,16 @@ static inline void core_debug(const char *format, ...)
   va_end(args);
 #else
   (void)(format);
+#endif /* NDEBUG */
+}
+
+inline void vcore_debug(const char *format, va_list args)
+{
+#if !defined(NDEBUG)
+  vfprintf(stderr, format, args);
+#else
+  (void)(format);
+  (void)(args);
 #endif /* NDEBUG */
 }
 

@@ -277,6 +277,17 @@ int Print::printf(const __FlashStringHelper *format, ...)
   return retval;
 }
 
+int Print::vprintf(const char *format, va_list ap)
+{
+  return vdprintf((int)this, format, ap);
+}
+
+int Print::vprintf(const __FlashStringHelper *format, va_list ap)
+{
+  return vdprintf((int)this, (const char *)format, ap);
+}
+
+
 // Private Methods /////////////////////////////////////////////////////////////
 
 size_t Print::printNumber(unsigned long n, uint8_t base)
