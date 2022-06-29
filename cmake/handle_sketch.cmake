@@ -7,25 +7,7 @@ set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
 function(handle_sketch TGTNAME MAPFILE SRCLIST)
   # TODO: have the sketch folder in the include path of base_config
 
-  set(CURATED_SRC "")
-  foreach(SRCFILE IN LISTS SRCLIST)
-    if (${SRCFILE} MATCHES "\.ino$")
-      configure_file(
-        ${SRCFILE}
-        ${SRCFILE}.cpp
-        COPYONLY
-      )
-      set_source_files_properties(${SRCFILE}.cpp
-        PROPERTIES
-        COMPILE_OPTIONS "-include;Arduino.h"
-      )
-      list(APPEND CURATED_SRC ${SRCFILE}.cpp)
-    else()
-      list(APPEND CURATED_SRC ${SRCFILE})
-    endif()
-  endforeach()
-
-  add_executable(${TGTNAME} EXCLUDE_FROM_ALL ${CURATED_SRC})
+  add_executable(${TGTNAME} EXCLUDE_FROM_ALL ${SRCLIST})
   target_link_libraries(${TGTNAME} stm32_runtime)
   target_link_options(${TGTNAME} PRIVATE
     LINKER:-Map,${MAPFILE}

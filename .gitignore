@@ -36,3 +36,4 @@ __pycache__/
 # CMake-related
 /CMSIS_5/
 /xpack-arm-none-eabi-gcc/
+/ctags
