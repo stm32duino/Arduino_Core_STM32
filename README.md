@@ -176,6 +176,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart:  | STM32L4R9ZI | [STEVAL-MKSBOX1V1 (SensorTile.box)](https://www.st.com/en/evaluation-tools/steval-mksbox1v1.html) | *1.7.0* |  |
+| :yellow_heart:  | STM32U585AIIxQ | [STEVAL-MKBOXPRO (SensorTile.box Pro)](https://www.st.com/en/evaluation-tools/steval-mkboxpro.html) | **2.6.0** |  |
 
 ### [STM32MP1 series coprocessor](https://www.st.com/content/st_com/en/products/microcontrollers-microprocessors/stm32-arm-cortex-mpus/stm32mp1-series.html) boards
 

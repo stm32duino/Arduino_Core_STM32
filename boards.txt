@@ -1126,6 +1126,20 @@ Eval.menu.pnum.STEVAL_MKSBOX1V1.build.variant=STM32L4xx/L4R9Z(G-I)J_L4S9ZIJ
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Eval.menu.pnum.STEVAL_MKSBOX1V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# STEVAL_MKBOXPRO board
+Eval.menu.pnum.STEVAL_MKBOXPRO=SensorTile.box Pro
+Eval.menu.pnum.STEVAL_MKBOXPRO.upload.maximum_size=2097152
+Eval.menu.pnum.STEVAL_MKBOXPRO.upload.maximum_data_size=262144
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.mcu=cortex-m33
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.fpu=-mfpu=fpv4-sp-d16
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.float-abi=-mfloat-abi=hard
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.board=STEVAL_MKBOXPRO
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.series=STM32U5xx
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.product_line=STM32U585xx
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.variant=STM32U5xx/U575A(G-I)IxQ_U585AIIxQ
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+Eval.menu.pnum.STEVAL_MKBOXPRO.build.cmsis_lib_gcc=arm_ARMv8MMLlfsp_math
+
 # Upload menu
 Eval.menu.upload_method.swdMethod=STM32CubeProgrammer (SWD)
 Eval.menu.upload_method.swdMethod.upload.protocol=0
