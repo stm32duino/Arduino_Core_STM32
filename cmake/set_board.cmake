@@ -2,6 +2,8 @@
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
 
 function(set_board BOARD_ID)
+  include(updatedb)
+  updatedb() # updates board_db if needed
   include(boards_db)
 
   if (NOT TARGET ${BOARD_ID})

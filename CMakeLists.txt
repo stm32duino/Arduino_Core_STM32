@@ -8,18 +8,6 @@ include(ensure_ctags)
 project("Arduino_Core_STM32" CXX C ASM)
 
 
-set(FEAT_NANOC ON CACHE BOOL "Use nano libc?")
-set(FEAT_FPF OFF CACHE BOOL "nanolibc: enable %f in printf?")
-set(FEAT_FSF OFF CACHE BOOL "nanolibc: enable %f in scanf?")
-set(FEAT_TIMER ON CACHE BOOL "Timer support")
-
-set(BUILD_OPT "s" CACHE STRING "Optimization level")
-set(BUILD_DBG OFF CACHE BOOL "Enable debug symbols")
-set(BUILD_LTO OFF CACHE BOOL "Enable Link-Time-Optimisations")
-set(BUILD_RELPATH ON CACHE BOOL "make __FILE__ be relative instead of absolute")
-set(BUILD_NDEBUG ON CACHE BOOL "define the NDEBUG macro?")
-
-
 set(BUILD_CORE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cores/arduino")
 set(BUILD_SYSTEM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/system")
 set(BUILD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
@@ -34,67 +22,11 @@ ensure_ctags(${CTAGS_PATH} ${AUTODL_CTAGS})
 
 add_library(base_config INTERFACE)
 
-if(${BUILD_RELPATH})
-  # $<TARGET_PROPERTY:SOURCE_DIR> is evaluated by the final consumer, no base_config
-  target_compile_options(base_config INTERFACE
-    "-fmacro-prefix-map=$<TARGET_PROPERTY:SOURCE_DIR>=."
-  )
-endif()
-
-if(${BUILD_NDEBUG})
-  add_compile_definitions(base_config INTERFACE NDEBUG)
-endif()
-
-
-if (${FEAT_NANOC})
-	target_link_options(base_config INTERFACE
-		"--specs=nano.specs"
-	)
-	if (${FEAT_FPF})
-		target_link_options(base_config INTERFACE
-			"SHELL:-u _printf_float"
-		)
-	endif()
-	if(${FEAT_FSF})
-		target_link_options(base_config INTERFACE
-			"SHELL:-u _scanf_float"
-		)
-	endif()
-endif()
-
-if (${FEAT_TIMER})
-  target_compile_definitions(base_config INTERFACE
-    HAL_TIM_MODULE_ENABLE
-  )
-else ()
-  # triggers a user-directed warning
-  target_compile_definitions(base_config INTERFACE
-    HAL_TIM_MODULE_DISABLED
-  )
-endif()
-
-if (${BUILD_OPT} MATCHES "^[0-3gs]$")
-	target_compile_options(base_config INTERFACE
-		-O${BUILD_OPT}
-	)
-else()
-	message(SEND_ERROR "Bad value for BUILD_OPT: got `${BUILD_OPT}`, expected one of 0123gs.")
-endif()
-
-if (${BUILD_DBG})
-	target_compile_options(base_config INTERFACE
-		-g
-	)
-endif()
-
-if (${BUILD_LTO})
-	target_compile_options(base_config INTERFACE
-    -flto
-  )
-	target_link_options(base_config INTERFACE
-    -flto
-  )
-endif()
+# better than an if/else because these may be defined later
+target_link_libraries(base_config INTERFACE
+  $<TARGET_NAME_IF_EXISTS:user_settings>
+  $<TARGET_NAME_IF_EXISTS:board>
+)
 
 # generic compilation options
 target_link_libraries(base_config INTERFACE board)
@@ -145,8 +77,6 @@ target_include_directories(base_config INTERFACE
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/open-amp/lib/include"
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/libmetal/lib/include"
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/virtual_driver"
-
-  "${BUILD_LIB_PATH}/SrcWrapper/src"
 )
 
 add_subdirectory(${BUILD_CORE_PATH})
@@ -156,11 +86,6 @@ add_subdirectory(${BUILD_LIB_PATH})
 
 add_library(stm32_runtime INTERFACE)
 target_link_libraries(stm32_runtime INTERFACE
-  # note: there may be recursive dependencies between core and SrcWrapper (v. <= 2.2.0)
-  # this would require some --Wl,--start-group / -Wl,--end-group
-  # but SrcWrapper is an object library, not an archive, so it isn't necessary
-  # (this means the linker takes all the object unconditionally, as opposed to an archive where it picks what it needs)
-  # note: SrcWrapper in particular MUST be an object library, due to possible weak+strong symbols (cf. library.properties)
   base_config
 
   SrcWrapper
