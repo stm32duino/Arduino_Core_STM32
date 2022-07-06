@@ -2033,13 +2033,16 @@ def aggregate_dir():
             variant_exp = []
             # Compare the first directory to all other directories
             while mcu_dirs and index < len(mcu_dirs):
-                # Compare all the variant file except the generic_boards.txt
+                # Compare all the variant files except the generic_boards.txt
                 mcu_dir2_files_list = [
                     mcu_dirs[index] / periph_c_filename,
                     mcu_dirs[index] / pinvar_h_filename,
                     mcu_dirs[index] / variant_cpp_filename,
                     mcu_dirs[index] / variant_h_filename,
                 ]
+                # Iterate over each variant files
+                periph_xml_tmp = []
+                variant_exp_tmp = []
                 for index2, fname in enumerate(mcu_dir1_files_list):
                     with open(fname, "r") as f1:
                         with open(mcu_dir2_files_list[index2], "r") as f2:
@@ -2048,10 +2051,12 @@ def aggregate_dir():
                             if not diff or len(diff) == 2:
                                 if index2 == 0:
                                     for line in diff:
-                                        periph_xml += periperalpins_regex.findall(line)
+                                        periph_xml_tmp += periperalpins_regex.findall(
+                                            line
+                                        )
                                 elif index2 == 2:
                                     for line in diff:
-                                        variant_exp += variant_regex.findall(line)
+                                        variant_exp_tmp += variant_regex.findall(line)
                                 continue
                             else:
                                 # Not the same directory compare with the next one
@@ -2059,9 +2064,17 @@ def aggregate_dir():
                                 break
                 # All files compared and matched
                 else:
+                    # Concatenate lists without duplicate
+                    uniq_periph_xml = set(periph_xml_tmp) - set(periph_xml)
+                    periph_xml = periph_xml + list(uniq_periph_xml)
+                    uniq_variant_exp = set(variant_exp_tmp) - set(variant_exp)
+                    variant_exp = variant_exp + list(uniq_variant_exp)
                     # Matched files append to the group list
                     group_mcu_dir.append(mcu_dirs.pop(index))
+                    del periph_xml_tmp[:]
+                    del variant_exp_tmp[:]
                 del mcu_dir2_files_list[:]
+
             # Merge directories name and contents if needed
             mcu_dir = merge_dir(
                 out_temp_path, group_mcu_dir, mcu_family, periph_xml, variant_exp

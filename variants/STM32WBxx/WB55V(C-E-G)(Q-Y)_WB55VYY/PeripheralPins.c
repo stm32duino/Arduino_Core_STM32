@@ -15,7 +15,7 @@
  * STM32WB55VEQx.xml, STM32WB55VEYx.xml
  * STM32WB55VGQx.xml, STM32WB55VGYx.xml
  * STM32WB55VYYx.xml
- * CubeMX DB release 6.0.50
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

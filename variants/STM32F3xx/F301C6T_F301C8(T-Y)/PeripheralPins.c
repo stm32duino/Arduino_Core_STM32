@@ -12,8 +12,7 @@
  */
 /*
  * Automatically generated from STM32F301C(6-8)Tx.xml, STM32F301C8Yx.xml
- * STM32F318C8Tx.xml, STM32F318C8Yx.xml
- * CubeMX DB release 6.0.50
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

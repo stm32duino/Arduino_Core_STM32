@@ -5,7 +5,7 @@
 
 # Generic U599BJYxQ
 GenU5.menu.pnum.GENERIC_U599BJYXQ=Generic U599BJYxQ
-GenU5.menu.pnum.GENERIC_U599BJYXQ.upload.maximum_size=73728
+GenU5.menu.pnum.GENERIC_U599BJYXQ.upload.maximum_size=4194304
 GenU5.menu.pnum.GENERIC_U599BJYXQ.upload.maximum_data_size=262144
 GenU5.menu.pnum.GENERIC_U599BJYXQ.build.board=GENERIC_U599BJYXQ
 GenU5.menu.pnum.GENERIC_U599BJYXQ.build.product_line=STM32U599xx
@@ -13,7 +13,7 @@ GenU5.menu.pnum.GENERIC_U599BJYXQ.build.variant=STM32U5xx/U599BJYxQ_U5A9BJYxQ
 
 # Generic U5A9BJYxQ
 GenU5.menu.pnum.GENERIC_U5A9BJYXQ=Generic U5A9BJYxQ
-GenU5.menu.pnum.GENERIC_U5A9BJYXQ.upload.maximum_size=73728
+GenU5.menu.pnum.GENERIC_U5A9BJYXQ.upload.maximum_size=4194304
 GenU5.menu.pnum.GENERIC_U5A9BJYXQ.upload.maximum_data_size=262144
 GenU5.menu.pnum.GENERIC_U5A9BJYXQ.build.board=GENERIC_U5A9BJYXQ
 GenU5.menu.pnum.GENERIC_U5A9BJYXQ.build.product_line=STM32U5A9xx

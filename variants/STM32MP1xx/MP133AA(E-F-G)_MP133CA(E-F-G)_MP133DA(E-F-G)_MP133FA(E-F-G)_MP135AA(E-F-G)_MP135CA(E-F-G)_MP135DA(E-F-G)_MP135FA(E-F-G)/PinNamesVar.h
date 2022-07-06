@@ -1,0 +1,117 @@
+/* Alternate pin name */
+PA_0_ALT1  = PA_0  | ALT1,
+PA_1_ALT1  = PA_1  | ALT1,
+PA_1_ALT2  = PA_1  | ALT2,
+PA_2_ALT1  = PA_2  | ALT1,
+PA_2_ALT2  = PA_2  | ALT2,
+PA_3_ALT1  = PA_3  | ALT1,
+PA_3_ALT2  = PA_3  | ALT2,
+PA_4_ALT1  = PA_4  | ALT1,
+PA_5_ALT1  = PA_5  | ALT1,
+PA_6_ALT1  = PA_6  | ALT1,
+PA_7_ALT1  = PA_7  | ALT1,
+PA_7_ALT2  = PA_7  | ALT2,
+PA_7_ALT3  = PA_7  | ALT3,
+PA_9_ALT1  = PA_9  | ALT1,
+PA_11_ALT1 = PA_11 | ALT1,
+PA_11_ALT2 = PA_11 | ALT2,
+PA_12_ALT1 = PA_12 | ALT1,
+PA_12_ALT2 = PA_12 | ALT2,
+PB_0_ALT1  = PB_0  | ALT1,
+PB_0_ALT2  = PB_0  | ALT2,
+PB_1_ALT1  = PB_1  | ALT1,
+PB_1_ALT2  = PB_1  | ALT2,
+PB_3_ALT1  = PB_3  | ALT1,
+PB_6_ALT1  = PB_6  | ALT1,
+PB_6_ALT2  = PB_6  | ALT2,
+PB_7_ALT1  = PB_7  | ALT1,
+PB_8_ALT1  = PB_8  | ALT1,
+PB_9_ALT1  = PB_9  | ALT1,
+PB_11_ALT1 = PB_11 | ALT1,
+PB_14_ALT1 = PB_14 | ALT1,
+PB_14_ALT2 = PB_14 | ALT2,
+PB_15_ALT1 = PB_15 | ALT1,
+PB_15_ALT2 = PB_15 | ALT2,
+PC_0_ALT1  = PC_0  | ALT1,
+PC_1_ALT1  = PC_1  | ALT1,
+PC_1_ALT2  = PC_1  | ALT2,
+PC_2_ALT1  = PC_2  | ALT1,
+PC_3_ALT1  = PC_3  | ALT1,
+PC_4_ALT1  = PC_4  | ALT1,
+PC_5_ALT1  = PC_5  | ALT1,
+PC_6_ALT1  = PC_6  | ALT1,
+PC_6_ALT2  = PC_6  | ALT2,
+PC_7_ALT1  = PC_7  | ALT1,
+PC_7_ALT2  = PC_7  | ALT2,
+PC_8_ALT1  = PC_8  | ALT1,
+PC_9_ALT1  = PC_9  | ALT1,
+PD_7_ALT1  = PD_7  | ALT1,
+PD_8_ALT1  = PD_8  | ALT1,
+PD_13_ALT1 = PD_13 | ALT1,
+PE_5_ALT1  = PE_5  | ALT1,
+PE_11_ALT1 = PE_11 | ALT1,
+PF_2_ALT1  = PF_2  | ALT1,
+PF_6_ALT1  = PF_6  | ALT1,
+PF_7_ALT1  = PF_7  | ALT1,
+PF_8_ALT1  = PF_8  | ALT1,
+PF_8_ALT2  = PF_8  | ALT2,
+PF_8_ALT3  = PF_8  | ALT3,
+PF_9_ALT1  = PF_9  | ALT1,
+PF_9_ALT2  = PF_9  | ALT2,
+PF_10_ALT1 = PF_10 | ALT1,
+PF_11_ALT1 = PF_11 | ALT1,
+PF_12_ALT1 = PF_12 | ALT1,
+PF_13_ALT1 = PF_13 | ALT1,
+PG_3_ALT1  = PG_3  | ALT1,
+PG_11_ALT1 = PG_11 | ALT1,
+PG_12_ALT1 = PG_12 | ALT1,
+PG_12_ALT2 = PG_12 | ALT2,
+PG_12_ALT3 = PG_12 | ALT3,
+PG_12_ALT4 = PG_12 | ALT4,
+PG_15_ALT1 = PG_15 | ALT1,
+PH_2_ALT1  = PH_2  | ALT1,
+PH_2_ALT2  = PH_2  | ALT2,
+PH_3_ALT1  = PH_3  | ALT1,
+PH_6_ALT1  = PH_6  | ALT1,
+PH_6_ALT2  = PH_6  | ALT2,
+PH_7_ALT1  = PH_7  | ALT1,
+PH_9_ALT1  = PH_9  | ALT1,
+PH_11_ALT1 = PH_11 | ALT1,
+
+/* SYS_WKUP */
+#ifdef PWR_WAKEUP_PIN1
+  SYS_WKUP1 = PF_8,
+#endif
+#ifdef PWR_WAKEUP_PIN2
+  SYS_WKUP2 = PI_3,
+#endif
+#ifdef PWR_WAKEUP_PIN3
+  SYS_WKUP3 = PC_13,
+#endif
+#ifdef PWR_WAKEUP_PIN4
+  SYS_WKUP4 = PI_1,
+#endif
+#ifdef PWR_WAKEUP_PIN5
+  SYS_WKUP5 = PI_2,
+#endif
+#ifdef PWR_WAKEUP_PIN6
+  SYS_WKUP6 = PA_3,
+#endif
+#ifdef PWR_WAKEUP_PIN7
+  SYS_WKUP7 = NC,
+#endif
+#ifdef PWR_WAKEUP_PIN8
+  SYS_WKUP8 = NC,
+#endif
+
+/* USB */
+#ifdef USBCON
+  USB_OTG_HS_ID   = PA_10,
+  #ifdef USB_OTG_HS_SOF_PA_8
+    USB_OTG_HS_SOF  = PA_8,
+  #endif
+  #ifdef USB_OTG_HS_SOF_PA_14
+    USB_OTG_HS_SOF  = PA_14,
+  #endif
+  USB_OTG_HS_VBUS = PI_7,
+#endif

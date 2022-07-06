@@ -12,13 +12,11 @@
  */
 /*
  * Automatically generated from STM32F427I(G-I)Hx.xml, STM32F427I(G-I)Tx.xml
- * STM32F429B(E-G-I)Tx.xml, STM32F429I(E-G)Tx.xml
- * STM32F429I(E-G-I)Hx.xml, STM32F429IITx.xml
- * STM32F429N(E-G)Hx.xml, STM32F429NIHx.xml
- * STM32F437I(G-I)Hx.xml, STM32F437I(G-I)Tx.xml
- * STM32F439B(G-I)Tx.xml, STM32F439I(G-I)Hx.xml
- * STM32F439I(G-I)Tx.xml, STM32F439N(G-I)Hx.xml
- * CubeMX DB release 6.0.50
+ * STM32F429I(E-G)Tx.xml, STM32F429I(E-G-I)Hx.xml
+ * STM32F429IITx.xml, STM32F437I(G-I)Hx.xml
+ * STM32F437I(G-I)Tx.xml, STM32F439I(G-I)Hx.xml
+ * STM32F439I(G-I)Tx.xml
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

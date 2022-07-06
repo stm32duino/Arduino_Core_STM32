@@ -26,24 +26,24 @@
 #define PA8                     8
 #define PA9                     9
 #define PA10                    10
-#define PA11                    PIN_A8
-#define PA12                    PIN_A9
-#define PA13                    PIN_A10
-#define PA14                    PIN_A11
+#define PA11                    11
+#define PA12                    12
+#define PA13                    PIN_A8
+#define PA14                    PIN_A9
 #define PA15                    15
-#define PB0                     PIN_A12
-#define PB1                     PIN_A13
-#define PB2                     PIN_A14
+#define PB0                     PIN_A10
+#define PB1                     PIN_A11
+#define PB2                     PIN_A12
 #define PB3                     19
 #define PB4                     20
 #define PB5                     21
 #define PB6                     22
-#define PB7                     PIN_A15
+#define PB7                     23
 #define PB8                     24
 #define PB9                     25
-#define PB10                    PIN_A16
-#define PB11                    PIN_A17
-#define PB12                    PIN_A18
+#define PB10                    PIN_A13
+#define PB11                    PIN_A14
+#define PB12                    PIN_A15
 #define PB13                    29
 #define PB14                    30
 #define PB15                    31
@@ -84,7 +84,7 @@
 
 #define NUM_DIGITAL_PINS        46
 #define NUM_REMAP_PINS          2
-#define NUM_ANALOG_INPUTS       19
+#define NUM_ANALOG_INPUTS       16
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
