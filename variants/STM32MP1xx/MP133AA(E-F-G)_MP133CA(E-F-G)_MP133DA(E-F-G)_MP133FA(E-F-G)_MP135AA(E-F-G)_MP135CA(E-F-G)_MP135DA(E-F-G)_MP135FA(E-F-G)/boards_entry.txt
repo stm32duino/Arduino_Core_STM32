@@ -1,0 +1,197 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic MP133AAEx
+GenMP1.menu.pnum.GENERIC_MP133AAEX=Generic MP133AAEx
+GenMP1.menu.pnum.GENERIC_MP133AAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133AAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133AAEX.build.board=GENERIC_MP133AAEX
+GenMP1.menu.pnum.GENERIC_MP133AAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133AAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133AAFx
+GenMP1.menu.pnum.GENERIC_MP133AAFX=Generic MP133AAFx
+GenMP1.menu.pnum.GENERIC_MP133AAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133AAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133AAFX.build.board=GENERIC_MP133AAFX
+GenMP1.menu.pnum.GENERIC_MP133AAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133AAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133AAGx
+GenMP1.menu.pnum.GENERIC_MP133AAGX=Generic MP133AAGx
+GenMP1.menu.pnum.GENERIC_MP133AAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133AAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133AAGX.build.board=GENERIC_MP133AAGX
+GenMP1.menu.pnum.GENERIC_MP133AAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133AAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133CAEx
+GenMP1.menu.pnum.GENERIC_MP133CAEX=Generic MP133CAEx
+GenMP1.menu.pnum.GENERIC_MP133CAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133CAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133CAEX.build.board=GENERIC_MP133CAEX
+GenMP1.menu.pnum.GENERIC_MP133CAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133CAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133CAFx
+GenMP1.menu.pnum.GENERIC_MP133CAFX=Generic MP133CAFx
+GenMP1.menu.pnum.GENERIC_MP133CAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133CAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133CAFX.build.board=GENERIC_MP133CAFX
+GenMP1.menu.pnum.GENERIC_MP133CAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133CAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133CAGx
+GenMP1.menu.pnum.GENERIC_MP133CAGX=Generic MP133CAGx
+GenMP1.menu.pnum.GENERIC_MP133CAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133CAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133CAGX.build.board=GENERIC_MP133CAGX
+GenMP1.menu.pnum.GENERIC_MP133CAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133CAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133DAEx
+GenMP1.menu.pnum.GENERIC_MP133DAEX=Generic MP133DAEx
+GenMP1.menu.pnum.GENERIC_MP133DAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133DAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133DAEX.build.board=GENERIC_MP133DAEX
+GenMP1.menu.pnum.GENERIC_MP133DAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133DAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133DAFx
+GenMP1.menu.pnum.GENERIC_MP133DAFX=Generic MP133DAFx
+GenMP1.menu.pnum.GENERIC_MP133DAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133DAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133DAFX.build.board=GENERIC_MP133DAFX
+GenMP1.menu.pnum.GENERIC_MP133DAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133DAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133DAGx
+GenMP1.menu.pnum.GENERIC_MP133DAGX=Generic MP133DAGx
+GenMP1.menu.pnum.GENERIC_MP133DAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133DAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133DAGX.build.board=GENERIC_MP133DAGX
+GenMP1.menu.pnum.GENERIC_MP133DAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133DAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133FAEx
+GenMP1.menu.pnum.GENERIC_MP133FAEX=Generic MP133FAEx
+GenMP1.menu.pnum.GENERIC_MP133FAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133FAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133FAEX.build.board=GENERIC_MP133FAEX
+GenMP1.menu.pnum.GENERIC_MP133FAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133FAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133FAFx
+GenMP1.menu.pnum.GENERIC_MP133FAFX=Generic MP133FAFx
+GenMP1.menu.pnum.GENERIC_MP133FAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133FAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133FAFX.build.board=GENERIC_MP133FAFX
+GenMP1.menu.pnum.GENERIC_MP133FAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133FAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP133FAGx
+GenMP1.menu.pnum.GENERIC_MP133FAGX=Generic MP133FAGx
+GenMP1.menu.pnum.GENERIC_MP133FAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP133FAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP133FAGX.build.board=GENERIC_MP133FAGX
+GenMP1.menu.pnum.GENERIC_MP133FAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP133FAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135AAEx
+GenMP1.menu.pnum.GENERIC_MP135AAEX=Generic MP135AAEx
+GenMP1.menu.pnum.GENERIC_MP135AAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135AAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135AAEX.build.board=GENERIC_MP135AAEX
+GenMP1.menu.pnum.GENERIC_MP135AAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135AAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135AAFx
+GenMP1.menu.pnum.GENERIC_MP135AAFX=Generic MP135AAFx
+GenMP1.menu.pnum.GENERIC_MP135AAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135AAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135AAFX.build.board=GENERIC_MP135AAFX
+GenMP1.menu.pnum.GENERIC_MP135AAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135AAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135AAGx
+GenMP1.menu.pnum.GENERIC_MP135AAGX=Generic MP135AAGx
+GenMP1.menu.pnum.GENERIC_MP135AAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135AAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135AAGX.build.board=GENERIC_MP135AAGX
+GenMP1.menu.pnum.GENERIC_MP135AAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135AAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135CAEx
+GenMP1.menu.pnum.GENERIC_MP135CAEX=Generic MP135CAEx
+GenMP1.menu.pnum.GENERIC_MP135CAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135CAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135CAEX.build.board=GENERIC_MP135CAEX
+GenMP1.menu.pnum.GENERIC_MP135CAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135CAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135CAFx
+GenMP1.menu.pnum.GENERIC_MP135CAFX=Generic MP135CAFx
+GenMP1.menu.pnum.GENERIC_MP135CAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135CAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135CAFX.build.board=GENERIC_MP135CAFX
+GenMP1.menu.pnum.GENERIC_MP135CAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135CAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135CAGx
+GenMP1.menu.pnum.GENERIC_MP135CAGX=Generic MP135CAGx
+GenMP1.menu.pnum.GENERIC_MP135CAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135CAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135CAGX.build.board=GENERIC_MP135CAGX
+GenMP1.menu.pnum.GENERIC_MP135CAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135CAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135DAEx
+GenMP1.menu.pnum.GENERIC_MP135DAEX=Generic MP135DAEx
+GenMP1.menu.pnum.GENERIC_MP135DAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135DAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135DAEX.build.board=GENERIC_MP135DAEX
+GenMP1.menu.pnum.GENERIC_MP135DAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135DAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135DAFx
+GenMP1.menu.pnum.GENERIC_MP135DAFX=Generic MP135DAFx
+GenMP1.menu.pnum.GENERIC_MP135DAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135DAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135DAFX.build.board=GENERIC_MP135DAFX
+GenMP1.menu.pnum.GENERIC_MP135DAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135DAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135DAGx
+GenMP1.menu.pnum.GENERIC_MP135DAGX=Generic MP135DAGx
+GenMP1.menu.pnum.GENERIC_MP135DAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135DAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135DAGX.build.board=GENERIC_MP135DAGX
+GenMP1.menu.pnum.GENERIC_MP135DAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135DAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135FAEx
+GenMP1.menu.pnum.GENERIC_MP135FAEX=Generic MP135FAEx
+GenMP1.menu.pnum.GENERIC_MP135FAEX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135FAEX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135FAEX.build.board=GENERIC_MP135FAEX
+GenMP1.menu.pnum.GENERIC_MP135FAEX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135FAEX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135FAFx
+GenMP1.menu.pnum.GENERIC_MP135FAFX=Generic MP135FAFx
+GenMP1.menu.pnum.GENERIC_MP135FAFX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135FAFX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135FAFX.build.board=GENERIC_MP135FAFX
+GenMP1.menu.pnum.GENERIC_MP135FAFX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135FAFX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+
+# Generic MP135FAGx
+GenMP1.menu.pnum.GENERIC_MP135FAGX=Generic MP135FAGx
+GenMP1.menu.pnum.GENERIC_MP135FAGX.upload.maximum_size=0
+GenMP1.menu.pnum.GENERIC_MP135FAGX.upload.maximum_data_size=172032
+GenMP1.menu.pnum.GENERIC_MP135FAGX.build.board=GENERIC_MP135FAGX
+GenMP1.menu.pnum.GENERIC_MP135FAGX.build.product_line=STM32MP15xx
+GenMP1.menu.pnum.GENERIC_MP135FAGX.build.variant=STM32MP1xx/MP133AA(E-F-G)_MP133CA(E-F-G)_MP133DA(E-F-G)_MP133FA(E-F-G)_MP135AA(E-F-G)_MP135CA(E-F-G)_MP135DA(E-F-G)_MP135FA(E-F-G)
+

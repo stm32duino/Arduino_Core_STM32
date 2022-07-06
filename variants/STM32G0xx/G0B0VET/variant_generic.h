@@ -97,20 +97,19 @@
 #define PE15                    79
 #define PF0                     80
 #define PF1                     81
-#define PF2                     82
-#define PF3                     83
-#define PF4                     84
-#define PF5                     85
-#define PF6                     86
-#define PF7                     87
-#define PF8                     88
-#define PF9                     89
-#define PF10                    90
-#define PF11                    91
-#define PF12                    92
-#define PF13                    93
-#define PA9_R                   94
-#define PA10_R                  95
+#define PF3                     82
+#define PF4                     83
+#define PF5                     84
+#define PF6                     85
+#define PF7                     86
+#define PF8                     87
+#define PF9                     88
+#define PF10                    89
+#define PF11                    90
+#define PF12                    91
+#define PF13                    92
+#define PA9_R                   93
+#define PA10_R                  94
 
 // Alternate pins number
 #define PA4_ALT1                (PA4    | ALT1)
@@ -146,7 +145,7 @@
 #define PC11_ALT1               (PC11   | ALT1)
 #define PD4_ALT1                (PD4    | ALT1)
 
-#define NUM_DIGITAL_PINS        96
+#define NUM_DIGITAL_PINS        95
 #define NUM_REMAP_PINS          2
 #define NUM_ANALOG_INPUTS       16
 

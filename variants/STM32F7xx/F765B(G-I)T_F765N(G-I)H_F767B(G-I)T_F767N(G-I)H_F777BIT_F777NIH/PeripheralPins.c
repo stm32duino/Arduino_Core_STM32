@@ -11,16 +11,10 @@
  *******************************************************************************
  */
 /*
- * Automatically generated from STM32F765B(G-I)Tx.xml, STM32F765I(G-I)Kx.xml
- * STM32F765I(G-I)Tx.xml, STM32F765N(G-I)Hx.xml
- * STM32F767B(G-I)Tx.xml, STM32F767I(G-I)Kx.xml
- * STM32F767I(G-I)Tx.xml, STM32F767N(G-I)Hx.xml
- * STM32F769B(G-I)Tx.xml, STM32F769NGHx.xml
- * STM32F769NIHx.xml, STM32F777BITx.xml
- * STM32F777IIKx.xml, STM32F777IITx.xml
- * STM32F777NIHx.xml, STM32F779BITx.xml
- * STM32F779NIHx.xml
- * CubeMX DB release 6.0.50
+ * Automatically generated from STM32F765B(G-I)Tx.xml, STM32F765N(G-I)Hx.xml
+ * STM32F767B(G-I)Tx.xml, STM32F767N(G-I)Hx.xml
+ * STM32F777BITx.xml, STM32F777NIHx.xml
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

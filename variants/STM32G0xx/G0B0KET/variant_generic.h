@@ -44,9 +44,8 @@
 #define PC6                     26
 #define PC14                    27
 #define PC15                    28
-#define PF2                     29
-#define PA9_R                   30
-#define PA10_R                  31
+#define PA9_R                   29
+#define PA10_R                  30
 
 // Alternate pins number
 #define PA4_ALT1                (PA4    | ALT1)
@@ -71,7 +70,7 @@
 #define PB8_ALT1                (PB8    | ALT1)
 #define PB9_ALT1                (PB9    | ALT1)
 
-#define NUM_DIGITAL_PINS        32
+#define NUM_DIGITAL_PINS        31
 #define NUM_REMAP_PINS          2
 #define NUM_ANALOG_INPUTS       11
 

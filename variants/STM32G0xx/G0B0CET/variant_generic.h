@@ -58,9 +58,8 @@
 #define PD3                     40
 #define PF0                     41
 #define PF1                     42
-#define PF2                     43
-#define PA9_R                   44
-#define PA10_R                  45
+#define PA9_R                   43
+#define PA10_R                  44
 
 // Alternate pins number
 #define PA4_ALT1                (PA4    | ALT1)
@@ -89,7 +88,7 @@
 #define PB15_ALT1               (PB15   | ALT1)
 #define PB15_ALT2               (PB15   | ALT2)
 
-#define NUM_DIGITAL_PINS        46
+#define NUM_DIGITAL_PINS        45
 #define NUM_REMAP_PINS          2
 #define NUM_ANALOG_INPUTS       14
 

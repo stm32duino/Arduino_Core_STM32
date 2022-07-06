@@ -12,13 +12,10 @@
  */
 /*
  * Automatically generated from STM32F745I(E-G)Kx.xml, STM32F745I(E-G)Tx.xml
- * STM32F746B(E-G)Tx.xml, STM32F746I(E-G)Kx.xml
- * STM32F746IETx.xml, STM32F746IGTx.xml
- * STM32F746NEHx.xml, STM32F746NGHx.xml
- * STM32F750N8Hx.xml, STM32F756BGTx.xml
- * STM32F756IGKx.xml, STM32F756IGTx.xml
- * STM32F756NGHx.xml
- * CubeMX DB release 6.0.50
+ * STM32F746I(E-G)Kx.xml, STM32F746IETx.xml
+ * STM32F746IGTx.xml, STM32F756IGKx.xml
+ * STM32F756IGTx.xml
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

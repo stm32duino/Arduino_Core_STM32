@@ -12,7 +12,7 @@
  */
 /*
  * Automatically generated from STM32WB5MMGHx.xml
- * CubeMX DB release 6.0.50
+ * CubeMX DB release 6.0.60
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
@@ -149,6 +149,7 @@ WEAK const PinMap PinMap_UART_RX[] = {
 #ifdef HAL_UART_MODULE_ENABLED
 WEAK const PinMap PinMap_UART_RTS[] = {
   {PA_12, USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART1)},
+  {PB_1,  LPUART1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_LPUART1)},
   {PB_3,  USART1,  STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF7_USART1)},
   {PB_12, LPUART1, STM_PIN_DATA(STM_MODE_AF_PP, GPIO_PULLUP, GPIO_AF8_LPUART1)},
   {NC,    NP,      0}

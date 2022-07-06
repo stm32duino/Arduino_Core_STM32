@@ -1,0 +1,13 @@
+# This file help to add generic board entry.
+# upload.maximum_size and product_line have to be verified
+# and changed if needed.
+# See: https://github.com/stm32duino/wiki/wiki/Add-a-new-variant-%28board%29
+
+# Generic WB1MMCHx
+GenWB.menu.pnum.GENERIC_WB1MMCHX=Generic WB1MMCHx
+GenWB.menu.pnum.GENERIC_WB1MMCHX.upload.maximum_size=327680
+GenWB.menu.pnum.GENERIC_WB1MMCHX.upload.maximum_data_size=49152
+GenWB.menu.pnum.GENERIC_WB1MMCHX.build.board=GENERIC_WB1MMCHX
+GenWB.menu.pnum.GENERIC_WB1MMCHX.build.product_line=STM32WB30xx
+GenWB.menu.pnum.GENERIC_WB1MMCHX.build.variant=STM32WBxx/WB1MMCH
+
