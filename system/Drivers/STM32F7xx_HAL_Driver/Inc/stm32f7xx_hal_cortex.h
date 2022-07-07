@@ -401,4 +401,3 @@ void HAL_SYSTICK_Callback(void);
 
 #endif /* __STM32F7xx_HAL_CORTEX_H */
 
-

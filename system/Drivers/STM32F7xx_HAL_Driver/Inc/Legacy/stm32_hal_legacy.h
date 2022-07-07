@@ -37,14 +37,16 @@ extern "C" {
 #define AES_CLEARFLAG_CCF               CRYP_CLEARFLAG_CCF
 #define AES_CLEARFLAG_RDERR             CRYP_CLEARFLAG_RDERR
 #define AES_CLEARFLAG_WRERR             CRYP_CLEARFLAG_WRERR
-#if defined(STM32U5)
+#if defined(STM32U5) || defined(STM32H7) || defined(STM32MP1)
 #define CRYP_DATATYPE_32B               CRYP_NO_SWAP
 #define CRYP_DATATYPE_16B               CRYP_HALFWORD_SWAP
 #define CRYP_DATATYPE_8B                CRYP_BYTE_SWAP
 #define CRYP_DATATYPE_1B                CRYP_BIT_SWAP
+#if defined(STM32U5)
 #define CRYP_CCF_CLEAR                  CRYP_CLEAR_CCF
 #define CRYP_ERR_CLEAR                  CRYP_CLEAR_RWEIF
 #endif /* STM32U5 */
+#endif /* STM32U5 || STM32H7 || STM32MP1 */
 /**
   * @}
   */
@@ -104,6 +106,13 @@ extern "C" {
 #if defined(STM32H7)
 #define ADC_CHANNEL_VBAT_DIV4           ADC_CHANNEL_VBAT
 #endif /* STM32H7 */
+
+#if defined(STM32U5)
+#define ADC_SAMPLETIME_5CYCLE           ADC_SAMPLETIME_5CYCLES
+#define ADC_SAMPLETIME_391CYCLES_5      ADC_SAMPLETIME_391CYCLES
+#define ADC4_SAMPLETIME_160CYCLES_5     ADC4_SAMPLETIME_814CYCLES_5
+#endif /* STM32U5 */
+
 /**
   * @}
   */
@@ -225,8 +234,11 @@ extern "C" {
 /** @defgroup CRC_Aliases CRC API aliases
   * @{
   */
+#if defined(STM32C0)
+#else
 #define HAL_CRC_Input_Data_Reverse   HAL_CRCEx_Input_Data_Reverse    /*!< Aliased to HAL_CRCEx_Input_Data_Reverse for inter STM32 series compatibility  */
 #define HAL_CRC_Output_Data_Reverse  HAL_CRCEx_Output_Data_Reverse   /*!< Aliased to HAL_CRCEx_Output_Data_Reverse for inter STM32 series compatibility */
+#endif
 /**
   * @}
   */
@@ -410,6 +422,10 @@ extern "C" {
 #define DAC_TRIGGER_LP2_OUT                        DAC_TRIGGER_LPTIM2_OUT
 
 #endif /* STM32H7 */
+
+#if defined(STM32U5)
+#define GPDMA1_REQUEST_DCMI                        GPDMA1_REQUEST_DCMI_PSSI
+#endif /* STM32U5 */
 /**
   * @}
   */
@@ -489,7 +505,7 @@ extern "C" {
 #define OB_RDP_LEVEL0                 OB_RDP_LEVEL_0
 #define OB_RDP_LEVEL1                 OB_RDP_LEVEL_1
 #define OB_RDP_LEVEL2                 OB_RDP_LEVEL_2
-#if defined(STM32G0)
+#if defined(STM32G0) || defined(STM32C0)
 #define OB_BOOT_LOCK_DISABLE          OB_BOOT_ENTRY_FORCED_NONE
 #define OB_BOOT_LOCK_ENABLE           OB_BOOT_ENTRY_FORCED_FLASH
 #else
@@ -656,6 +672,10 @@ extern "C" {
 
 #if defined(STM32U5)
 #define GPIO_AF0_RTC_50Hz                         GPIO_AF0_RTC_50HZ
+#endif /* STM32U5 */
+#if defined(STM32U5)
+#define GPIO_AF0_S2DSTOP                          GPIO_AF0_SRDSTOP
+#define GPIO_AF11_LPGPIO                          GPIO_AF11_LPGPIO1
 #endif /* STM32U5 */
 /**
   * @}
@@ -1069,8 +1089,8 @@ extern "C" {
 #define RTC_TAMPER1_2_3_INTERRUPT       RTC_ALL_TAMPER_INTERRUPT
 
 #define RTC_TIMESTAMPPIN_PC13  RTC_TIMESTAMPPIN_DEFAULT
-#define RTC_TIMESTAMPPIN_PA0 RTC_TIMESTAMPPIN_POS1
-#define RTC_TIMESTAMPPIN_PI8 RTC_TIMESTAMPPIN_POS1
+#define RTC_TIMESTAMPPIN_PA0   RTC_TIMESTAMPPIN_POS1
+#define RTC_TIMESTAMPPIN_PI8   RTC_TIMESTAMPPIN_POS1
 #define RTC_TIMESTAMPPIN_PC1   RTC_TIMESTAMPPIN_POS2
 
 #define RTC_OUTPUT_REMAP_PC13  RTC_OUTPUT_REMAP_NONE
@@ -1081,15 +1101,22 @@ extern "C" {
 #define RTC_TAMPERPIN_PA0  RTC_TAMPERPIN_POS1
 #define RTC_TAMPERPIN_PI8  RTC_TAMPERPIN_POS1
 
+#if defined(STM32F7)
+#define RTC_TAMPCR_TAMPXE          RTC_TAMPER_ENABLE_BITS_MASK
+#define RTC_TAMPCR_TAMPXIE         RTC_TAMPER_IT_ENABLE_BITS_MASK
+#endif /* STM32F7 */
+
 #if defined(STM32H7)
 #define RTC_TAMPCR_TAMPXE          RTC_TAMPER_X
 #define RTC_TAMPCR_TAMPXIE         RTC_TAMPER_X_INTERRUPT
+#endif /* STM32H7 */
 
+#if defined(STM32F7) || defined(STM32H7)
 #define RTC_TAMPER1_INTERRUPT      RTC_IT_TAMP1
 #define RTC_TAMPER2_INTERRUPT      RTC_IT_TAMP2
 #define RTC_TAMPER3_INTERRUPT      RTC_IT_TAMP3
-#define RTC_ALL_TAMPER_INTERRUPT   RTC_IT_TAMPALL
-#endif /* STM32H7 */
+#define RTC_ALL_TAMPER_INTERRUPT   RTC_IT_TAMP
+#endif /* STM32F7 || STM32H7 */
 
 /**
   * @}
@@ -1689,6 +1716,79 @@ extern "C" {
 #define BRE_BitNumber                                 BRE_BIT_NUMBER
 
 #define PWR_MODE_EVT                                  PWR_PVD_MODE_NORMAL
+
+#if defined (STM32U5)
+#define PWR_SRAM1_PAGE1_STOP_RETENTION                PWR_SRAM1_PAGE1_STOP
+#define PWR_SRAM1_PAGE2_STOP_RETENTION                PWR_SRAM1_PAGE2_STOP
+#define PWR_SRAM1_PAGE3_STOP_RETENTION                PWR_SRAM1_PAGE3_STOP
+#define PWR_SRAM1_PAGE4_STOP_RETENTION                PWR_SRAM1_PAGE4_STOP
+#define PWR_SRAM1_PAGE5_STOP_RETENTION                PWR_SRAM1_PAGE5_STOP
+#define PWR_SRAM1_PAGE6_STOP_RETENTION                PWR_SRAM1_PAGE6_STOP
+#define PWR_SRAM1_PAGE7_STOP_RETENTION                PWR_SRAM1_PAGE7_STOP
+#define PWR_SRAM1_PAGE8_STOP_RETENTION                PWR_SRAM1_PAGE8_STOP
+#define PWR_SRAM1_PAGE9_STOP_RETENTION                PWR_SRAM1_PAGE9_STOP
+#define PWR_SRAM1_PAGE10_STOP_RETENTION               PWR_SRAM1_PAGE10_STOP
+#define PWR_SRAM1_PAGE11_STOP_RETENTION               PWR_SRAM1_PAGE11_STOP
+#define PWR_SRAM1_PAGE12_STOP_RETENTION               PWR_SRAM1_PAGE12_STOP
+#define PWR_SRAM1_FULL_STOP_RETENTION                 PWR_SRAM1_FULL_STOP
+
+#define PWR_SRAM2_PAGE1_STOP_RETENTION                PWR_SRAM2_PAGE1_STOP
+#define PWR_SRAM2_PAGE2_STOP_RETENTION                PWR_SRAM2_PAGE2_STOP
+#define PWR_SRAM2_FULL_STOP_RETENTION                 PWR_SRAM2_FULL_STOP
+
+#define PWR_SRAM3_PAGE1_STOP_RETENTION                PWR_SRAM3_PAGE1_STOP
+#define PWR_SRAM3_PAGE2_STOP_RETENTION                PWR_SRAM3_PAGE2_STOP
+#define PWR_SRAM3_PAGE3_STOP_RETENTION                PWR_SRAM3_PAGE3_STOP
+#define PWR_SRAM3_PAGE4_STOP_RETENTION                PWR_SRAM3_PAGE4_STOP
+#define PWR_SRAM3_PAGE5_STOP_RETENTION                PWR_SRAM3_PAGE5_STOP
+#define PWR_SRAM3_PAGE6_STOP_RETENTION                PWR_SRAM3_PAGE6_STOP
+#define PWR_SRAM3_PAGE7_STOP_RETENTION                PWR_SRAM3_PAGE7_STOP
+#define PWR_SRAM3_PAGE8_STOP_RETENTION                PWR_SRAM3_PAGE8_STOP
+#define PWR_SRAM3_PAGE9_STOP_RETENTION                PWR_SRAM3_PAGE9_STOP
+#define PWR_SRAM3_PAGE10_STOP_RETENTION               PWR_SRAM3_PAGE10_STOP
+#define PWR_SRAM3_PAGE11_STOP_RETENTION               PWR_SRAM3_PAGE11_STOP
+#define PWR_SRAM3_PAGE12_STOP_RETENTION               PWR_SRAM3_PAGE12_STOP
+#define PWR_SRAM3_PAGE13_STOP_RETENTION               PWR_SRAM3_PAGE13_STOP
+#define PWR_SRAM3_FULL_STOP_RETENTION                 PWR_SRAM3_FULL_STOP
+
+#define PWR_SRAM4_FULL_STOP_RETENTION                 PWR_SRAM4_FULL_STOP
+
+#define PWR_SRAM5_PAGE1_STOP_RETENTION                PWR_SRAM5_PAGE1_STOP
+#define PWR_SRAM5_PAGE2_STOP_RETENTION                PWR_SRAM5_PAGE2_STOP
+#define PWR_SRAM5_PAGE3_STOP_RETENTION                PWR_SRAM5_PAGE3_STOP
+#define PWR_SRAM5_PAGE4_STOP_RETENTION                PWR_SRAM5_PAGE4_STOP
+#define PWR_SRAM5_PAGE5_STOP_RETENTION                PWR_SRAM5_PAGE5_STOP
+#define PWR_SRAM5_PAGE6_STOP_RETENTION                PWR_SRAM5_PAGE6_STOP
+#define PWR_SRAM5_PAGE7_STOP_RETENTION                PWR_SRAM5_PAGE7_STOP
+#define PWR_SRAM5_PAGE8_STOP_RETENTION                PWR_SRAM5_PAGE8_STOP
+#define PWR_SRAM5_PAGE9_STOP_RETENTION                PWR_SRAM5_PAGE9_STOP
+#define PWR_SRAM5_PAGE10_STOP_RETENTION               PWR_SRAM5_PAGE10_STOP
+#define PWR_SRAM5_PAGE11_STOP_RETENTION               PWR_SRAM5_PAGE11_STOP
+#define PWR_SRAM5_PAGE12_STOP_RETENTION               PWR_SRAM5_PAGE12_STOP
+#define PWR_SRAM5_PAGE13_STOP_RETENTION               PWR_SRAM5_PAGE13_STOP
+#define PWR_SRAM5_FULL_STOP_RETENTION                 PWR_SRAM5_FULL_STOP
+
+#define PWR_ICACHE_FULL_STOP_RETENTION                PWR_ICACHE_FULL_STOP
+#define PWR_DCACHE1_FULL_STOP_RETENTION               PWR_DCACHE1_FULL_STOP
+#define PWR_DCACHE2_FULL_STOP_RETENTION               PWR_DCACHE2_FULL_STOP
+#define PWR_DMA2DRAM_FULL_STOP_RETENTION              PWR_DMA2DRAM_FULL_STOP
+#define PWR_PERIPHRAM_FULL_STOP_RETENTION             PWR_PERIPHRAM_FULL_STOP
+#define PWR_PKA32RAM_FULL_STOP_RETENTION              PWR_PKA32RAM_FULL_STOP
+#define PWR_GRAPHICPRAM_FULL_STOP_RETENTION           PWR_GRAPHICPRAM_FULL_STOP
+#define PWR_DSIRAM_FULL_STOP_RETENTION                PWR_DSIRAM_FULL_STOP
+
+#define PWR_SRAM2_PAGE1_STANDBY_RETENTION             PWR_SRAM2_PAGE1_STANDBY
+#define PWR_SRAM2_PAGE2_STANDBY_RETENTION             PWR_SRAM2_PAGE2_STANDBY
+#define PWR_SRAM2_FULL_STANDBY_RETENTION              PWR_SRAM2_FULL_STANDBY
+
+#define PWR_SRAM1_FULL_RUN_RETENTION                  PWR_SRAM1_FULL_RUN
+#define PWR_SRAM2_FULL_RUN_RETENTION                  PWR_SRAM2_FULL_RUN
+#define PWR_SRAM3_FULL_RUN_RETENTION                  PWR_SRAM3_FULL_RUN
+#define PWR_SRAM4_FULL_RUN_RETENTION                  PWR_SRAM4_FULL_RUN
+#define PWR_SRAM5_FULL_RUN_RETENTION                  PWR_SRAM5_FULL_RUN
+
+#define PWR_ALL_RAM_RUN_RETENTION_MASK                PWR_ALL_RAM_RUN_MASK
+#endif
 
 /**
   * @}
@@ -3323,7 +3423,7 @@ extern "C" {
 #define RCC_MCOSOURCE_PLLCLK_NODIV  RCC_MCO1SOURCE_PLLCLK
 #define RCC_MCOSOURCE_PLLCLK_DIV2   RCC_MCO1SOURCE_PLLCLK_DIV2
 
-#if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || defined(STM32WL)
+#if defined(STM32L4) || defined(STM32WB) || defined(STM32G0) || defined(STM32G4) || defined(STM32L5) || defined(STM32WL) || defined(STM32C0)
 #define RCC_RTCCLKSOURCE_NO_CLK     RCC_RTCCLKSOURCE_NONE
 #else
 #define RCC_RTCCLKSOURCE_NONE       RCC_RTCCLKSOURCE_NO_CLK
@@ -3436,8 +3536,8 @@ extern "C" {
 #define RCC_DFSDM2CLKSOURCE_APB2            RCC_DFSDM2CLKSOURCE_PCLK2
 #define RCC_FMPI2C1CLKSOURCE_APB            RCC_FMPI2C1CLKSOURCE_PCLK1
 #if defined(STM32U5)
-#define MSIKPLLModeSEL  RCC_MSIKPLL_MODE_SEL
-#define MSISPLLModeSEL  RCC_MSISPLL_MODE_SEL
+#define MSIKPLLModeSEL                        RCC_MSIKPLL_MODE_SEL
+#define MSISPLLModeSEL                        RCC_MSISPLL_MODE_SEL
 #define __HAL_RCC_AHB21_CLK_DISABLE           __HAL_RCC_AHB2_1_CLK_DISABLE
 #define __HAL_RCC_AHB22_CLK_DISABLE           __HAL_RCC_AHB2_2_CLK_DISABLE
 #define __HAL_RCC_AHB1_CLK_Disable_Clear      __HAL_RCC_AHB1_CLK_ENABLE
@@ -3453,13 +3553,20 @@ extern "C" {
 #define RCC_CLK48CLKSOURCE_PLL2               RCC_ICLK_CLKSOURCE_PLL2
 #define RCC_CLK48CLKSOURCE_PLL1               RCC_ICLK_CLKSOURCE_PLL1
 #define RCC_CLK48CLKSOURCE_MSIK               RCC_ICLK_CLKSOURCE_MSIK
-#define __HAL_RCC_ADC1_CLK_ENABLE            __HAL_RCC_ADC12_CLK_ENABLE
-#define __HAL_RCC_ADC1_CLK_DISABLE          __HAL_RCC_ADC12_CLK_DISABLE
-#define __HAL_RCC_ADC1_IS_CLK_ENABLED       __HAL_RCC_ADC12_IS_CLK_ENABLED
-#define __HAL_RCC_ADC1_IS_CLK_DISABLED      __HAL_RCC_ADC12_IS_CLK_DISABLED
-#define __HAL_RCC_ADC1_FORCE_RESET          __HAL_RCC_ADC12_FORCE_RESET
-#define __HAL_RCC_ADC1_RELEASE_RESET       __HAL_RCC_ADC12_RELEASE_RESET
-#endif
+#define __HAL_RCC_ADC1_CLK_ENABLE             __HAL_RCC_ADC12_CLK_ENABLE
+#define __HAL_RCC_ADC1_CLK_DISABLE            __HAL_RCC_ADC12_CLK_DISABLE
+#define __HAL_RCC_ADC1_IS_CLK_ENABLED         __HAL_RCC_ADC12_IS_CLK_ENABLED
+#define __HAL_RCC_ADC1_IS_CLK_DISABLED        __HAL_RCC_ADC12_IS_CLK_DISABLED
+#define __HAL_RCC_ADC1_FORCE_RESET            __HAL_RCC_ADC12_FORCE_RESET
+#define __HAL_RCC_ADC1_RELEASE_RESET          __HAL_RCC_ADC12_RELEASE_RESET
+#define __HAL_RCC_ADC1_CLK_SLEEP_ENABLE       __HAL_RCC_ADC12_CLK_SLEEP_ENABLE
+#define __HAL_RCC_ADC1_CLK_SLEEP_DISABLE      __HAL_RCC_ADC12_CLK_SLEEP_DISABLE
+#define __HAL_RCC_GET_CLK48_SOURCE            __HAL_RCC_GET_ICLK_SOURCE
+#define __HAL_RCC_PLLFRACN_ENABLE             __HAL_RCC_PLL_FRACN_ENABLE
+#define __HAL_RCC_PLLFRACN_DISABLE            __HAL_RCC_PLL_FRACN_DISABLE
+#define __HAL_RCC_PLLFRACN_CONFIG             __HAL_RCC_PLL_FRACN_CONFIG
+#define IS_RCC_PLLFRACN_VALUE                 IS_RCC_PLL_FRACN_VALUE
+#endif /* STM32U5 */
 
 /**
   * @}
@@ -3477,7 +3584,9 @@ extern "C" {
 /** @defgroup HAL_RTC_Aliased_Macros HAL RTC Aliased Macros maintained for legacy purpose
   * @{
   */
-#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx) || defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5)
+#if defined (STM32G0) || defined (STM32L5) || defined (STM32L412xx) || defined (STM32L422xx) || defined (STM32L4P5xx)|| \
+    defined (STM32L4Q5xx) || defined (STM32G4) || defined (STM32WL) || defined (STM32U5) || \
+    defined (STM32C0)
 #else
 #define __HAL_RTC_CLEAR_FLAG                      __HAL_RTC_EXTI_CLEAR_FLAG
 #endif
@@ -3874,6 +3983,16 @@ extern "C" {
 #if defined (STM32L4) || defined (STM32F4) || defined (STM32F7) || defined(STM32H7)
 #define HAL_QPSI_TIMEOUT_DEFAULT_VALUE HAL_QSPI_TIMEOUT_DEFAULT_VALUE
 #endif /* STM32L4 || STM32F4 || STM32F7 */
+/**
+  * @}
+  */
+
+/** @defgroup HAL_Generic_Aliased_Macros HAL Generic Aliased Macros maintained for legacy purpose
+  * @{
+  */
+#if defined (STM32F7)
+#define ART_ACCLERATOR_ENABLE ART_ACCELERATOR_ENABLE
+#endif /* STM32F7 */
 /**
   * @}
   */

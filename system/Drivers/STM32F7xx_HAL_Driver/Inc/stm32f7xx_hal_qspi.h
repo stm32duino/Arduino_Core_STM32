@@ -456,7 +456,7 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
   * @{
   */
 /** @brief Reset QSPI handle state.
-  * @param  __HANDLE__ : QSPI handle.
+  * @param  __HANDLE__ QSPI handle.
   * @retval None
   */
 #if (USE_HAL_QSPI_REGISTER_CALLBACKS == 1)
@@ -470,20 +470,20 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 #endif
 
 /** @brief  Enable the QSPI peripheral.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
+  * @param  __HANDLE__ specifies the QSPI Handle.
   * @retval None
   */
 #define __HAL_QSPI_ENABLE(__HANDLE__)                       SET_BIT((__HANDLE__)->Instance->CR, QUADSPI_CR_EN)
 
 /** @brief  Disable the QSPI peripheral.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
+  * @param  __HANDLE__ specifies the QSPI Handle.
   * @retval None
   */
 #define __HAL_QSPI_DISABLE(__HANDLE__)                      CLEAR_BIT((__HANDLE__)->Instance->CR, QUADSPI_CR_EN)
 
 /** @brief  Enable the specified QSPI interrupt.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
-  * @param  __INTERRUPT__ : specifies the QSPI interrupt source to enable.
+  * @param  __HANDLE__ specifies the QSPI Handle.
+  * @param  __INTERRUPT__ specifies the QSPI interrupt source to enable.
   *          This parameter can be one of the following values:
   *            @arg QSPI_IT_TO: QSPI Timeout interrupt
   *            @arg QSPI_IT_SM: QSPI Status match interrupt
@@ -496,8 +496,8 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 
 
 /** @brief  Disable the specified QSPI interrupt.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
-  * @param  __INTERRUPT__ : specifies the QSPI interrupt source to disable.
+  * @param  __HANDLE__ specifies the QSPI Handle.
+  * @param  __INTERRUPT__ specifies the QSPI interrupt source to disable.
   *          This parameter can be one of the following values:
   *            @arg QSPI_IT_TO: QSPI Timeout interrupt
   *            @arg QSPI_IT_SM: QSPI Status match interrupt
@@ -509,8 +509,8 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 #define __HAL_QSPI_DISABLE_IT(__HANDLE__, __INTERRUPT__)    CLEAR_BIT((__HANDLE__)->Instance->CR, (__INTERRUPT__))
 
 /** @brief  Check whether the specified QSPI interrupt source is enabled or not.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
-  * @param  __INTERRUPT__ : specifies the QSPI interrupt source to check.
+  * @param  __HANDLE__ specifies the QSPI Handle.
+  * @param  __INTERRUPT__ specifies the QSPI interrupt source to check.
   *          This parameter can be one of the following values:
   *            @arg QSPI_IT_TO: QSPI Timeout interrupt
   *            @arg QSPI_IT_SM: QSPI Status match interrupt
@@ -523,8 +523,8 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 
 /**
   * @brief  Check whether the selected QSPI flag is set or not.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
-  * @param  __FLAG__ : specifies the QSPI flag to check.
+  * @param  __HANDLE__ specifies the QSPI Handle.
+  * @param  __FLAG__ specifies the QSPI flag to check.
   *          This parameter can be one of the following values:
   *            @arg QSPI_FLAG_BUSY: QSPI Busy flag
   *            @arg QSPI_FLAG_TO:   QSPI Timeout flag
@@ -537,8 +537,8 @@ typedef void (*pQSPI_CallbackTypeDef)(QSPI_HandleTypeDef *hqspi);
 #define __HAL_QSPI_GET_FLAG(__HANDLE__, __FLAG__)           ((READ_BIT((__HANDLE__)->Instance->SR, (__FLAG__)) != 0U) ? SET : RESET)
 
 /** @brief  Clears the specified QSPI's flag status.
-  * @param  __HANDLE__ : specifies the QSPI Handle.
-  * @param  __FLAG__ : specifies the QSPI clear register flag that needs to be set
+  * @param  __HANDLE__ specifies the QSPI Handle.
+  * @param  __FLAG__ specifies the QSPI clear register flag that needs to be set
   *          This parameter can be one of the following values:
   *            @arg QSPI_FLAG_TO: QSPI Timeout flag
   *            @arg QSPI_FLAG_SM: QSPI Status match flag

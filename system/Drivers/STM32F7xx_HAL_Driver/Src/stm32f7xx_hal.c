@@ -50,11 +50,11 @@
   * @{
   */
 /**
- * @brief STM32F7xx HAL Driver version number V1.2.10
+ * @brief STM32F7xx HAL Driver version number V1.3.0
    */
 #define __STM32F7xx_HAL_VERSION_MAIN   (0x01) /*!< [31:24] main version */
-#define __STM32F7xx_HAL_VERSION_SUB1   (0x02) /*!< [23:16] sub1 version */
-#define __STM32F7xx_HAL_VERSION_SUB2   (0x0A) /*!< [15:8]  sub2 version */
+#define __STM32F7xx_HAL_VERSION_SUB1   (0x03) /*!< [23:16] sub1 version */
+#define __STM32F7xx_HAL_VERSION_SUB2   (0x00) /*!< [15:8]  sub2 version */
 #define __STM32F7xx_HAL_VERSION_RC     (0x00) /*!< [7:0]  release candidate */
 #define __STM32F7xx_HAL_VERSION         ((__STM32F7xx_HAL_VERSION_MAIN << 24)\
                                         |(__STM32F7xx_HAL_VERSION_SUB1 << 16)\
@@ -138,9 +138,9 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 HAL_StatusTypeDef HAL_Init(void)
 {
   /* Configure Instruction cache through ART accelerator */
-#if (ART_ACCLERATOR_ENABLE != 0)
+#if (ART_ACCELERATOR_ENABLE != 0)
   __HAL_FLASH_ART_ENABLE();
-#endif /* ART_ACCLERATOR_ENABLE */
+#endif /* ART_ACCELERATOR_ENABLE */
 
   /* Configure Flash prefetch */
 #if (PREFETCH_ENABLE != 0U)

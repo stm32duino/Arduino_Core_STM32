@@ -361,6 +361,9 @@ typedef  void (*pIRDA_CallbackTypeDef)(IRDA_HandleTypeDef *hirda);  /*!< pointer
   *           - 0xXXXX  : Flag mask in the ISR register
   * @{
   */
+#if defined(USART_ISR_REACK)
+#define IRDA_FLAG_REACK                     USART_ISR_REACK         /*!< IRDA receive enable acknowledge flag      */
+#endif /* USART_ISR_REACK */
 #define IRDA_FLAG_TEACK                     USART_ISR_TEACK         /*!< IRDA transmit enable acknowledge flag     */
 #define IRDA_FLAG_BUSY                      USART_ISR_BUSY          /*!< IRDA busy flag                            */
 #define IRDA_FLAG_ABRF                      USART_ISR_ABRF          /*!< IRDA auto Baud rate flag                  */
@@ -520,6 +523,9 @@ typedef  void (*pIRDA_CallbackTypeDef)(IRDA_HandleTypeDef *hirda);  /*!< pointer
   * @param  __HANDLE__ specifies the IRDA Handle.
   * @param  __FLAG__ specifies the flag to check.
   *        This parameter can be one of the following values:
+#if defined(USART_ISR_REACK)
+  *            @arg @ref IRDA_FLAG_REACK Receive enable acknowledge flag
+#endif
   *            @arg @ref IRDA_FLAG_TEACK Transmit enable acknowledge flag
   *            @arg @ref IRDA_FLAG_BUSY  Busy flag
   *            @arg @ref IRDA_FLAG_ABRF  Auto Baud rate detection flag
@@ -824,8 +830,8 @@ void HAL_IRDA_AbortReceiveCpltCallback(IRDA_HandleTypeDef *hirda);
   */
 
 /* Peripheral State and Error functions ***************************************/
-HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda);
-uint32_t              HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda);
+HAL_IRDA_StateTypeDef HAL_IRDA_GetState(const IRDA_HandleTypeDef *hirda);
+uint32_t              HAL_IRDA_GetError(const IRDA_HandleTypeDef *hirda);
 
 /**
   * @}

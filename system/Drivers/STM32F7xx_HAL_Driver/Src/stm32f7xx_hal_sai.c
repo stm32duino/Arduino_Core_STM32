@@ -249,7 +249,7 @@ typedef enum
   * @{
   */
 static void SAI_FillFifo(SAI_HandleTypeDef *hsai);
-static uint32_t SAI_InterruptFlag(SAI_HandleTypeDef *hsai, uint32_t mode);
+static uint32_t SAI_InterruptFlag(const SAI_HandleTypeDef *hsai, uint32_t mode);
 static HAL_StatusTypeDef SAI_InitI2S(SAI_HandleTypeDef *hsai, uint32_t protocol, uint32_t datasize, uint32_t nbslot);
 static HAL_StatusTypeDef SAI_InitPCM(SAI_HandleTypeDef *hsai, uint32_t protocol, uint32_t datasize, uint32_t nbslot);
 
@@ -1913,7 +1913,7 @@ __weak void HAL_SAI_ErrorCallback(SAI_HandleTypeDef *hsai)
   *                the configuration information for SAI module.
   * @retval HAL state
   */
-HAL_SAI_StateTypeDef HAL_SAI_GetState(SAI_HandleTypeDef *hsai)
+HAL_SAI_StateTypeDef HAL_SAI_GetState(const SAI_HandleTypeDef *hsai)
 {
   return hsai->State;
 }
@@ -1924,7 +1924,7 @@ HAL_SAI_StateTypeDef HAL_SAI_GetState(SAI_HandleTypeDef *hsai)
   *              the configuration information for the specified SAI Block.
 * @retval SAI Error Code
 */
-uint32_t HAL_SAI_GetError(SAI_HandleTypeDef *hsai)
+uint32_t HAL_SAI_GetError(const SAI_HandleTypeDef *hsai)
 {
   return hsai->ErrorCode;
 }
@@ -2143,7 +2143,7 @@ static void SAI_FillFifo(SAI_HandleTypeDef *hsai)
   * @param  mode SAI_MODE_DMA or SAI_MODE_IT
   * @retval the list of the IT flag to enable
  */
-static uint32_t SAI_InterruptFlag(SAI_HandleTypeDef *hsai, uint32_t mode)
+static uint32_t SAI_InterruptFlag(const SAI_HandleTypeDef *hsai, uint32_t mode)
 {
   uint32_t tmpIT = SAI_IT_OVRUDR;
 
