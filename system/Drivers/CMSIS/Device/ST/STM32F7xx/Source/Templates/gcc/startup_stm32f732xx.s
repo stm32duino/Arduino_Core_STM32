@@ -465,9 +465,6 @@ g_pfnVectors:
             
    .weak      DMA2_Stream4_IRQHandler               
    .thumb_set DMA2_Stream4_IRQHandler,Default_Handler
-   
-   .weak      DMA2_Stream4_IRQHandler               
-   .thumb_set DMA2_Stream4_IRQHandler,Default_Handler   
                            
    .weak      OTG_FS_IRQHandler      
    .thumb_set OTG_FS_IRQHandler,Default_Handler
@@ -537,4 +534,3 @@ g_pfnVectors:
 
    .weak      SDMMC2_IRQHandler            
    .thumb_set SDMMC2_IRQHandler,Default_Handler  
-

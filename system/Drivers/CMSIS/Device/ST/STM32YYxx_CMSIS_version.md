@@ -5,8 +5,13 @@
   * STM32F2: 2.2.5
   * STM32F3: 2.3.6
   * STM32F4: 2.6.8
+<<<<<<< HEAD
   * STM32F7: 1.2.7
   * STM32G0: 1.4.3
+=======
+  * STM32F7: 1.2.8
+  * STM32G0: 1.4.2
+>>>>>>> system(F7): update STM32F7xx CMSIS Drivers to v1.2.8
   * STM32G4: 1.2.2
   * STM32H7: 1.10.2
   * STM32L0: 1.9.2
