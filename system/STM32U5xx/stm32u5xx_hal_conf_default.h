@@ -252,12 +252,14 @@ vary depending on the variations in voltage and temperature.*/
  * Activated: CRC code is present inside driver
  * Deactivated: CRC code cleaned from driver
  */
+#if !defined (USE_SPI_CRC)
 #define USE_SPI_CRC                   1U
+#endif
 
 /* ################## SDMMC peripheral configuration ######################### */
-
+#if !defined (USE_SD_TRANSCEIVER)
 #define USE_SD_TRANSCEIVER            0U
-
+#endif
 
 /* Includes ------------------------------------------------------------------*/
 /**
