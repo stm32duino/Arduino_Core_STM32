@@ -39,16 +39,16 @@ spisclk_list = []  # ['PIN','name','SPISCLK', 'sort name', ['af']]
 cantd_list = []  # ['PIN','name','CANTD', ['af']]
 canrd_list = []  # ['PIN','name','CANRD', ['af']]
 eth_list = []  # ['PIN','name','ETH', ['af']]
-quadspidata0_list = []  # ['PIN','name','QUADSPIDATA0', ['af']]
-quadspidata1_list = []  # ['PIN','name','QUADSPIDATA1', ['af']]
-quadspidata2_list = []  # ['PIN','name','QUADSPIDATA2', ['af']]
-quadspidata3_list = []  # ['PIN','name','QUADSPIDATA3', ['af']]
-quadspidata4_list = []  # ['PIN','name','QUADSPIDATA4', ['af']]
-quadspidata5_list = []  # ['PIN','name','QUADSPIDATA5', ['af']]
-quadspidata6_list = []  # ['PIN','name','QUADSPIDATA6', ['af']]
-quadspidata7_list = []  # ['PIN','name','QUADSPIDATA7', ['af']]
-quadspisclk_list = []  # ['PIN','name','QUADSPISCLK', ['af']]
-quadspissel_list = []  # ['PIN','name','QUADSPISSEL', ['af']]
+xspidata0_list = []  # ['PIN','name','XSPIDATA0', ['af']]
+xspidata1_list = []  # ['PIN','name','XSPIDATA1', ['af']]
+xspidata2_list = []  # ['PIN','name','XSPIDATA2', ['af']]
+xspidata3_list = []  # ['PIN','name','XSPIDATA3', ['af']]
+ospidata4_list = []  # ['PIN','name','OSPIDATA4', ['af']]
+ospidata5_list = []  # ['PIN','name','OSPIDATA5', ['af']]
+ospidata6_list = []  # ['PIN','name','OSPIDATA6', ['af']]
+ospidata7_list = []  # ['PIN','name','OSPIDATA7', ['af']]
+xspisclk_list = []  # ['PIN','name','XSPISCLK', ['af']]
+xspissel_list = []  # ['PIN','name','XSPISSEL', ['af']]
 syswkup_list = []  # ['PIN','name','SYSWKUP']
 usb_list = []  # ['PIN','name','USB', ['af']]
 usb_otgfs_list = []  # ['PIN','name','USB', ['af']]
@@ -502,27 +502,27 @@ def store_eth(pin, name, signal):
 
 
 # Store O/QSPI pins
-def store_qspi(pin, name, signal):
+def store_xspi(pin, name, signal):
     if "_IO0" in signal:
-        quadspidata0_list.append([pin, name, signal])
-    if "_IO1" in signal:
-        quadspidata1_list.append([pin, name, signal])
-    if "_IO2" in signal:
-        quadspidata2_list.append([pin, name, signal])
-    if "_IO3" in signal:
-        quadspidata3_list.append([pin, name, signal])
-    if "_IO4" in signal:
-        quadspidata4_list.append([pin, name, signal])
-    if "_IO5" in signal:
-        quadspidata5_list.append([pin, name, signal])
-    if "_IO6" in signal:
-        quadspidata6_list.append([pin, name, signal])
-    if "_IO7" in signal:
-        quadspidata7_list.append([pin, name, signal])
-    if "_CLK" in signal:
-        quadspisclk_list.append([pin, name, signal])
-    if "_NCS" in signal:
-        quadspissel_list.append([pin, name, signal])
+        xspidata0_list.append([pin, name, signal])
+    elif "_IO1" in signal:
+        xspidata1_list.append([pin, name, signal])
+    elif "_IO2" in signal:
+        xspidata2_list.append([pin, name, signal])
+    elif "_IO3" in signal:
+        xspidata3_list.append([pin, name, signal])
+    elif "_IO4" in signal:
+        ospidata4_list.append([pin, name, signal])
+    elif "_IO5" in signal:
+        ospidata5_list.append([pin, name, signal])
+    elif "_IO6" in signal:
+        ospidata6_list.append([pin, name, signal])
+    elif "_IO7" in signal:
+        ospidata7_list.append([pin, name, signal])
+    elif "_CLK" in signal:
+        xspisclk_list.append([pin, name, signal])
+    elif "_NCS" in signal:
+        xspissel_list.append([pin, name, signal])
 
 
 # Store SYS pins
@@ -910,34 +910,34 @@ def eth_pinmap():
     )
 
 
-def qspi_pinmap(lst):
-    qspi_pins_list = []
+def xspi_pinmap(lst):
+    xspi_pins_list = []
     winst = [0]
     wpin = [0]
     name = "QUADSPI"
     hal = "QSPI"
     ospi_regex = r"OCTOSPI(?:M_P)?(\d).*"
 
-    if quadspidata0_list and "OCTOSPI" in quadspidata0_list[0][2]:
+    if xspidata0_list and "OCTOSPI" in xspidata0_list[0][2]:
         name = "OCTOSPI"
         hal = "OSPI"
-    if lst == quadspidata0_list:
+    if lst == xspidata0_list:
         aname = f"{name}_DATA0"
-    elif lst == quadspidata1_list:
+    elif lst == xspidata1_list:
         aname = f"{name}_DATA1"
-    elif lst == quadspidata2_list:
+    elif lst == xspidata2_list:
         aname = f"{name}_DATA2"
-    elif lst == quadspidata3_list:
+    elif lst == xspidata3_list:
         aname = f"{name}_DATA3"
-    elif lst == quadspidata4_list:
+    elif lst == ospidata4_list:
         aname = f"{name}_DATA4"
-    elif lst == quadspidata5_list:
+    elif lst == ospidata5_list:
         aname = f"{name}_DATA5"
-    elif lst == quadspidata6_list:
+    elif lst == ospidata6_list:
         aname = f"{name}_DATA6"
-    elif lst == quadspidata7_list:
+    elif lst == ospidata7_list:
         aname = f"{name}_DATA7"
-    elif lst == quadspisclk_list:
+    elif lst == xspisclk_list:
         aname = f"{name}_SCLK"
     else:
         aname = f"{name}_SSEL"
@@ -953,7 +953,7 @@ def qspi_pinmap(lst):
             inst = "QUADSPI"
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        qspi_pins_list.append(
+        xspi_pins_list.append(
             {
                 "pin": p[0],
                 "inst": inst,
@@ -970,7 +970,7 @@ def qspi_pinmap(lst):
         data="",
         wpin=max(wpin) + 1,
         winst=max(winst) + 1,
-        list=qspi_pins_list,
+        list=xspi_pins_list,
     )
 
 
@@ -1119,16 +1119,16 @@ def print_peripheral():
                 (can_pinmap(canrd_list), can_pinmap(cantd_list)),
                 [eth_pinmap()],
                 (
-                    qspi_pinmap(quadspidata0_list),
-                    qspi_pinmap(quadspidata1_list),
-                    qspi_pinmap(quadspidata2_list),
-                    qspi_pinmap(quadspidata3_list),
-                    qspi_pinmap(quadspidata4_list),
-                    qspi_pinmap(quadspidata5_list),
-                    qspi_pinmap(quadspidata6_list),
-                    qspi_pinmap(quadspidata7_list),
-                    qspi_pinmap(quadspisclk_list),
-                    qspi_pinmap(quadspissel_list),
+                    xspi_pinmap(xspidata0_list),
+                    xspi_pinmap(xspidata1_list),
+                    xspi_pinmap(xspidata2_list),
+                    xspi_pinmap(xspidata3_list),
+                    xspi_pinmap(ospidata4_list),
+                    xspi_pinmap(ospidata5_list),
+                    xspi_pinmap(ospidata6_list),
+                    xspi_pinmap(ospidata7_list),
+                    xspi_pinmap(xspisclk_list),
+                    xspi_pinmap(xspissel_list),
                 ),
                 usb_pinmmap,
                 [sd_pinmap()],
@@ -1442,8 +1442,8 @@ def print_variant(generic_list, alt_syswkup_list):
         hal_modules_list.append("DAC")
     if eth_list:
         hal_modules_list.append("ETH")
-    if quadspidata0_list:
-        if "OCTOSPI" in quadspidata0_list[0][2]:
+    if xspidata0_list:
+        if "OCTOSPI" in xspidata0_list[0][2]:
             hal_modules_list.append("OSPI")
         else:
             hal_modules_list.append("QSPI")
@@ -1654,16 +1654,16 @@ def sort_my_lists():
     cantd_list.sort(key=natural_sortkey)
     canrd_list.sort(key=natural_sortkey)
     eth_list.sort(key=natural_sortkey)
-    quadspidata0_list.sort(key=natural_sortkey)
-    quadspidata1_list.sort(key=natural_sortkey)
-    quadspidata2_list.sort(key=natural_sortkey)
-    quadspidata3_list.sort(key=natural_sortkey)
-    quadspidata4_list.sort(key=natural_sortkey)
-    quadspidata5_list.sort(key=natural_sortkey)
-    quadspidata6_list.sort(key=natural_sortkey)
-    quadspidata7_list.sort(key=natural_sortkey)
-    quadspisclk_list.sort(key=natural_sortkey)
-    quadspissel_list.sort(key=natural_sortkey)
+    xspidata0_list.sort(key=natural_sortkey)
+    xspidata1_list.sort(key=natural_sortkey)
+    xspidata2_list.sort(key=natural_sortkey)
+    xspidata3_list.sort(key=natural_sortkey)
+    ospidata4_list.sort(key=natural_sortkey)
+    ospidata5_list.sort(key=natural_sortkey)
+    ospidata6_list.sort(key=natural_sortkey)
+    ospidata7_list.sort(key=natural_sortkey)
+    xspisclk_list.sort(key=natural_sortkey)
+    xspissel_list.sort(key=natural_sortkey)
     syswkup_list.sort(key=natural_sortkey2)
     usb_list.sort(key=natural_sortkey)
     usb_otgfs_list.sort(key=natural_sortkey)
@@ -1694,16 +1694,16 @@ def clean_all_lists():
     del cantd_list[:]
     del canrd_list[:]
     del eth_list[:]
-    del quadspidata0_list[:]
-    del quadspidata1_list[:]
-    del quadspidata2_list[:]
-    del quadspidata3_list[:]
-    del quadspidata4_list[:]
-    del quadspidata5_list[:]
-    del quadspidata6_list[:]
-    del quadspidata7_list[:]
-    del quadspisclk_list[:]
-    del quadspissel_list[:]
+    del xspidata0_list[:]
+    del xspidata1_list[:]
+    del xspidata2_list[:]
+    del xspidata3_list[:]
+    del ospidata4_list[:]
+    del ospidata5_list[:]
+    del ospidata6_list[:]
+    del ospidata7_list[:]
+    del xspisclk_list[:]
+    del xspissel_list[:]
     del syswkup_list[:]
     del usb_list[:]
     del usb_otgfs_list[:]
@@ -1729,16 +1729,16 @@ def manage_af_and_alternate():
     add_af(cantd_list)
     add_af(canrd_list)
     add_af(eth_list)
-    add_af(quadspidata0_list)
-    add_af(quadspidata1_list)
-    add_af(quadspidata2_list)
-    add_af(quadspidata3_list)
-    add_af(quadspidata4_list)
-    add_af(quadspidata5_list)
-    add_af(quadspidata6_list)
-    add_af(quadspidata7_list)
-    add_af(quadspisclk_list)
-    add_af(quadspissel_list)
+    add_af(xspidata0_list)
+    add_af(xspidata1_list)
+    add_af(xspidata2_list)
+    add_af(xspidata3_list)
+    add_af(ospidata4_list)
+    add_af(ospidata5_list)
+    add_af(ospidata6_list)
+    add_af(ospidata7_list)
+    add_af(xspisclk_list)
+    add_af(xspissel_list)
     add_af(usb_list)
     add_af(usb_otgfs_list)
     add_af(usb_otghs_list)
@@ -1764,16 +1764,16 @@ def manage_af_and_alternate():
     update_alternate(cantd_list)
     update_alternate(canrd_list)
     update_alternate(eth_list)
-    update_alternate(quadspidata0_list)
-    update_alternate(quadspidata1_list)
-    update_alternate(quadspidata2_list)
-    update_alternate(quadspidata3_list)
-    update_alternate(quadspidata4_list)
-    update_alternate(quadspidata5_list)
-    update_alternate(quadspidata6_list)
-    update_alternate(quadspidata7_list)
-    update_alternate(quadspisclk_list)
-    update_alternate(quadspissel_list)
+    update_alternate(xspidata0_list)
+    update_alternate(xspidata1_list)
+    update_alternate(xspidata2_list)
+    update_alternate(xspidata3_list)
+    update_alternate(ospidata4_list)
+    update_alternate(ospidata5_list)
+    update_alternate(ospidata6_list)
+    update_alternate(ospidata7_list)
+    update_alternate(xspisclk_list)
+    update_alternate(xspissel_list)
     update_alternate(syswkup_list)
     update_alternate(usb_list)
     update_alternate(usb_otgfs_list)
@@ -1877,7 +1877,7 @@ def parse_pins():
                     store_uart(pin, name, sig)
                 elif "SPI" in sig:
                     if "QUADSPI" in sig or "OCTOSPI" in sig:
-                        store_qspi(pin, name, sig)
+                        store_xspi(pin, name, sig)
                     else:
                         store_spi(pin, name, sig)
                 elif "CAN" in sig:
