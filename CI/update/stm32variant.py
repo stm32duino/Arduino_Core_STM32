@@ -53,7 +53,20 @@ syswkup_list = []  # ['PIN','name','SYSWKUP']
 usb_list = []  # ['PIN','name','USB', ['af']]
 usb_otgfs_list = []  # ['PIN','name','USB', ['af']]
 usb_otghs_list = []  # ['PIN','name','USB', ['af']]
-sd_list = []  # ['PIN','name','SD', ['af']]
+sdxcmd_list = []  # ['PIN','name','SDX_CMD', ['af']]
+sdxck_list = []  # ['PIN','name','SDX_CK', ['af']]
+sdxd0_list = []  # ['PIN','name','SDX_D0', ['af']]
+sdxd1_list = []  # ['PIN','name','SDX_D1', ['af']]
+sdxd2_list = []  # ['PIN','name','SDX_D2', ['af']]
+sdxd3_list = []  # ['PIN','name','SDX_D3', ['af']]
+sdxd4_list = []  # ['PIN','name','SDX_D4', ['af']]
+sdxd5_list = []  # ['PIN','name','SDX_D5', ['af']]
+sdxd6_list = []  # ['PIN','name','SDX_D6', ['af']]
+sdxd7_list = []  # ['PIN','name','SDX_D7', ['af']]
+sdmmcckin_list = []  # ['PIN','name','SDMMC_CKIN', ['af']]
+sdmmccdir_list = []  # ['PIN','name','SDMMC_CDIR', ['af']]
+sdmmcd0dir_list = []  # ['PIN','name','SDMMC_D0DIR', ['af']]
+sdmmcd123dir_list = []  # ['PIN','name','SDMMC_D123DIR', ['af']]
 
 # IP information
 gpiofile = ""
@@ -543,9 +556,36 @@ def store_usb(pin, name, signal):
         usb_otghs_list.append([pin, name, signal])
 
 
-# Store SD pins
-def store_sd(pin, name, signal):
-    sd_list.append([pin, name, signal])
+# Store SD(IO/MMC) pins
+def store_sdx(pin, name, signal):
+    if signal.endswith("_D0"):
+        sdxd0_list.append([pin, name, signal])
+    elif signal.endswith("_D1"):
+        sdxd1_list.append([pin, name, signal])
+    elif signal.endswith("_D2"):
+        sdxd2_list.append([pin, name, signal])
+    elif signal.endswith("_D3"):
+        sdxd3_list.append([pin, name, signal])
+    elif signal.endswith("_D4"):
+        sdxd4_list.append([pin, name, signal])
+    elif signal.endswith("_D5"):
+        sdxd5_list.append([pin, name, signal])
+    elif signal.endswith("_D6"):
+        sdxd6_list.append([pin, name, signal])
+    elif signal.endswith("_D7"):
+        sdxd7_list.append([pin, name, signal])
+    elif signal.endswith("_CMD"):
+        sdxcmd_list.append([pin, name, signal])
+    elif signal.endswith("_CK"):
+        sdxck_list.append([pin, name, signal])
+    elif signal.endswith("_CKIN"):
+        sdmmcckin_list.append([pin, name, signal])
+    elif signal.endswith("_CDIR"):
+        sdmmccdir_list.append([pin, name, signal])
+    elif signal.endswith("_D0DIR"):
+        sdmmcd0dir_list.append([pin, name, signal])
+    elif signal.endswith("_D123DIR"):
+        sdmmcd123dir_list.append([pin, name, signal])
 
 
 # PeripheralPins.cpp generation
@@ -1044,13 +1084,40 @@ def usb_pinmap(lst):
     )
 
 
-def sd_pinmap():
-    sd_pins_list = []
+def sdx_pinmap(lst):
+    sdx_pins_list = []
     winst = [0]
     wpin = [0]
     mode = "STM_MODE_AF_PP"
-
-    for p in sd_list:
+    if lst == sdxd0_list:
+        aname = "SD_DATA0"
+    elif lst == sdxd1_list:
+        aname = "SD_DATA1"
+    elif lst == sdxd2_list:
+        aname = "SD_DATA2"
+    elif lst == sdxd3_list:
+        aname = "SD_DATA3"
+    elif lst == sdxd4_list:
+        aname = "SD_DATA4"
+    elif lst == sdxd5_list:
+        aname = "SD_DATA5"
+    elif lst == sdxd6_list:
+        aname = "SD_DATA6"
+    elif lst == sdxd7_list:
+        aname = "SD_DATA7"
+    elif lst == sdxcmd_list:
+        aname = "SD_CMD"
+    elif lst == sdxck_list:
+        aname = "SD_CK"
+    elif lst == sdmmcckin_list:
+        aname = "SD_CKIN"
+    elif lst == sdmmccdir_list:
+        aname = "SD_CDIR"
+    elif lst == sdmmcd0dir_list:
+        aname = "SD_D0DIR"
+    elif lst == sdmmcd123dir_list:
+        aname = "SD_D123DIR"
+    for p in lst:
         # 2nd element is the SD signal
         a = p[2].split("_")
         inst = a[0]
@@ -1060,7 +1127,7 @@ def sd_pinmap():
             pull = "GPIO_PULLUP"
         winst.append(len(inst))
         wpin.append(len(p[0]))
-        sd_pins_list.append(
+        sdx_pins_list.append(
             {
                 "pin": p[0],
                 "inst": inst,
@@ -1073,11 +1140,11 @@ def sd_pinmap():
     return dict(
         name="SD",
         hal="SD",
-        aname="SD",
+        aname=aname,
         data="",
         wpin=max(wpin) + 1,
         winst=max(winst) + 1,
-        list=sd_pins_list,
+        list=sdx_pins_list,
     )
 
 
@@ -1131,7 +1198,22 @@ def print_peripheral():
                     xspi_pinmap(xspissel_list),
                 ),
                 usb_pinmmap,
-                [sd_pinmap()],
+                (
+                    sdx_pinmap(sdxcmd_list),
+                    sdx_pinmap(sdxck_list),
+                    sdx_pinmap(sdxd0_list),
+                    sdx_pinmap(sdxd1_list),
+                    sdx_pinmap(sdxd2_list),
+                    sdx_pinmap(sdxd3_list),
+                    sdx_pinmap(sdxd4_list),
+                    sdx_pinmap(sdxd5_list),
+                    sdx_pinmap(sdxd6_list),
+                    sdx_pinmap(sdxd7_list),
+                    sdx_pinmap(sdmmcckin_list),
+                    sdx_pinmap(sdmmccdir_list),
+                    sdx_pinmap(sdmmcd0dir_list),
+                    sdx_pinmap(sdmmcd123dir_list),
+                ),
             ),
         )
     )
@@ -1447,7 +1529,7 @@ def print_variant(generic_list, alt_syswkup_list):
             hal_modules_list.append("OSPI")
         else:
             hal_modules_list.append("QSPI")
-    if sd_list:
+    if sdxcmd_list:
         hal_modules_list.append("SD")
 
     variant_h_file.write(
@@ -1668,7 +1750,20 @@ def sort_my_lists():
     usb_list.sort(key=natural_sortkey)
     usb_otgfs_list.sort(key=natural_sortkey)
     usb_otghs_list.sort(key=natural_sortkey)
-    sd_list.sort(key=natural_sortkey)
+    sdxcmd_list.sort(key=natural_sortkey)
+    sdxck_list.sort(key=natural_sortkey)
+    sdxd0_list.sort(key=natural_sortkey)
+    sdxd1_list.sort(key=natural_sortkey)
+    sdxd2_list.sort(key=natural_sortkey)
+    sdxd3_list.sort(key=natural_sortkey)
+    sdxd4_list.sort(key=natural_sortkey)
+    sdxd5_list.sort(key=natural_sortkey)
+    sdxd6_list.sort(key=natural_sortkey)
+    sdxd7_list.sort(key=natural_sortkey)
+    sdmmcckin_list.sort(key=natural_sortkey)
+    sdmmccdir_list.sort(key=natural_sortkey)
+    sdmmcd0dir_list.sort(key=natural_sortkey)
+    sdmmcd123dir_list.sort(key=natural_sortkey)
 
 
 def clean_all_lists():
@@ -1708,7 +1803,20 @@ def clean_all_lists():
     del usb_list[:]
     del usb_otgfs_list[:]
     del usb_otghs_list[:]
-    del sd_list[:]
+    del sdxcmd_list[:]
+    del sdxck_list[:]
+    del sdxd0_list[:]
+    del sdxd1_list[:]
+    del sdxd2_list[:]
+    del sdxd3_list[:]
+    del sdxd4_list[:]
+    del sdxd5_list[:]
+    del sdxd6_list[:]
+    del sdxd7_list[:]
+    del sdmmcckin_list[:]
+    del sdmmccdir_list[:]
+    del sdmmcd0dir_list[:]
+    del sdmmcd123dir_list[:]
 
 
 def manage_af_and_alternate():
@@ -1742,7 +1850,20 @@ def manage_af_and_alternate():
     add_af(usb_list)
     add_af(usb_otgfs_list)
     add_af(usb_otghs_list)
-    add_af(sd_list)
+    add_af(sdxcmd_list)
+    add_af(sdxck_list)
+    add_af(sdxd0_list)
+    add_af(sdxd1_list)
+    add_af(sdxd2_list)
+    add_af(sdxd3_list)
+    add_af(sdxd4_list)
+    add_af(sdxd5_list)
+    add_af(sdxd6_list)
+    add_af(sdxd7_list)
+    add_af(sdmmcckin_list)
+    add_af(sdmmccdir_list)
+    add_af(sdmmcd0dir_list)
+    add_af(sdmmcd123dir_list)
 
     sort_my_lists()
 
@@ -1778,7 +1899,20 @@ def manage_af_and_alternate():
     update_alternate(usb_list)
     update_alternate(usb_otgfs_list)
     update_alternate_usb_otg_hs()
-    update_alternate(sd_list)
+    update_alternate(sdxcmd_list)
+    update_alternate(sdxck_list)
+    update_alternate(sdxd0_list)
+    update_alternate(sdxd1_list)
+    update_alternate(sdxd2_list)
+    update_alternate(sdxd3_list)
+    update_alternate(sdxd4_list)
+    update_alternate(sdxd5_list)
+    update_alternate(sdxd6_list)
+    update_alternate(sdxd7_list)
+    update_alternate(sdmmcckin_list)
+    update_alternate(sdmmccdir_list)
+    update_alternate(sdmmcd0dir_list)
+    update_alternate(sdmmcd123dir_list)
 
     alt_list.sort(key=natural_sortkey)
 
@@ -1889,7 +2023,7 @@ def parse_pins():
                 elif "USB" in sig:
                     store_usb(pin, name, sig)
                 elif re.match("^SD(IO|MMC)", sig) is not None:
-                    store_sd(pin, name, sig)
+                    store_sdx(pin, name, sig)
     del itemlist[:]
 
 
