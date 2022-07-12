@@ -10,19 +10,19 @@ if [ ! -f "$BUILD_PATH/sketch" ]; then
 fi
 
 # Create empty build.opt if build_opt.h does not exists in the original sketch dir
+# Then add or append -fmacro-prefix-map option to change __FILE__ absolute path of
+# the board platform folder to a relative path by using '.'.
+# (i.e. the folder containing boards.txt)
 if [ ! -f "$BUILD_SOURCE_PATH/build_opt.h" ]; then
-  touch "$BUILD_PATH/sketch/build.opt"
+  printf '-fmacro-prefix-map="%s"=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" > "$BUILD_PATH/sketch/build.opt"
 else
   # Else copy the build_opt.h as build.opt
   # Workaround to the header file preprocessing done by arduino-cli
   # See https://github.com/arduino/arduino-cli/issues/1338
   cp "$BUILD_SOURCE_PATH/build_opt.h" "$BUILD_PATH/sketch/build.opt"
+  printf '\n-fmacro-prefix-map="%s"=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" >> "$BUILD_PATH/sketch/build.opt"
 fi
 
-# Append -fmacro-prefix-map option to change __FILE__ absolute path of the board
-# platform folder to a relative path by using '.'.
-# (i.e. the folder containing boards.txt)
-printf '\n-fmacro-prefix-map=%s=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" >> "$BUILD_PATH/sketch/build.opt"
 
 # Force include of SrcWrapper library
 echo "#include <SrcWrapper.h>" > "$BUILD_PATH/sketch/SrcWrapper.cpp"
