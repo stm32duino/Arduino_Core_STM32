@@ -6,7 +6,8 @@
 
 
     <meta http-equiv="content-type" content="text/html;
-      charset=windows-1252"><title>Release Notes for STM32F4xx HAL Drivers</title></head><body lang="EN-US" link="blue" vlink="blue">
+      charset=windows-1252"><title>Release Notes for STM32F4xx HAL Drivers</title></head>
+<body lang="EN-US" link="blue" vlink="blue">
     <div class="WordSection1">
       <div>
         <p class="MsoNormal" style=""><span style="font-family: &quot;Arial&quot;,sans-serif;"><o:p>&nbsp;</o:p></span></p>
@@ -46,11 +47,30 @@
                             <tbody>
                               <tr style="">
                                 <td style="padding: 0in; width: 843.25pt;" valign="top" width="1124">
-                                  <h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><font color="#ffffff"><a name="History"></a><span style="font-size: 12pt;">Update
+                                  <h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><font color="#ffffff"><a name="History"></a><span style="font-size: 12pt;">Update
 
 
 
-                                        History</span><span style=""><o:p></o:p></span></font></h2><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.8.0
+                                        History</span><span style=""><o:p></o:p></span></font></h2><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.8.1
+                                        / 24-June-2022</span></font></h3>
+                                  <blockquote>
+                                    <p><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main
+
+
+
+
+                                            Changes<br>
+                                          </span></u></b></p>
+                                  </blockquote>
+                                  <ul style="orphans: 2; text-align: start; widows: 2; word-spacing: 0px;" type="disc"><li><font face="Verdana" size="-1">General updates to fix HAL ETH defects and implementation enhancements.</font></li><li><p><font face="Verdana" size="-1"><strong>HAL</strong>
+                                          updates</font></p>
+                                      <font face="Verdana" size="-1"> </font>
+
+                      <ul><font face="Verdana" size="-1">
+                                        </font><li><font face="Verdana" size="-1"><strong>HAL ETH </strong>update</font></li><ul><li style="font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Ubuntu,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 1.4;">Remove useless assert_param(IS_ETH_MAC_ADDRESS0123(MacAddr)) from static function ETH_MACAddressConfig().</li><li style="font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Ubuntu,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 1.4;">Replace hard coded Rx buffer size (1000U) by macro ETH_RX_BUF_SIZE.</li><li style="font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Ubuntu,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 1.4;">Correct
+bit positions when getting MAC and DMA configurations and replace
+‘UnicastSlowProtocolPacketDetect’ by ‘UnicastPausePacketDetect’ in the
+MAC default configuration structure.</li><li style="font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Ubuntu,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 1.4;">Ensure a delay of 4 TX_CLK/RX_CLK cycles between two successive write operations to the same register.</li><li style="font-family: -apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,Roboto,Ubuntu,&quot;Helvetica Neue&quot;,Helvetica,sans-serif; line-height: 1.4;">Disable DMA transmission in both HAL_ETH_Stop_IT() and HAL_ETH_Stop() APIs.<br><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;"></span></font></li></ul></ul></li></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.8.0
                                         / 11-February-2022</span></font></h3>
                                   <blockquote>
                                     <p><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main
@@ -260,7 +280,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                       </ul>
                     </li>
 </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.13
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.13
                                         / 16-July-2021</span></font></h3>
                                   <blockquote>
                                     <p><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main
@@ -467,7 +487,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                                 in USB PCD control
                                                 endpoint receive ISR.</font><br><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;"></span></font></li></ul>
                                         </li></ul>
-                                    </li></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.12
+                                    </li></ul><h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.12
                                         / 26-March-2021</span><span style=""><o:p></o:p></span></font></h3>
                                   <p class="MsoNormal" style="margin: 4.5pt 0in 4.5pt 118.5pt; text-indent: -97.5pt;"><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main
 
@@ -491,7 +511,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.11
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.11
                                         / 12-February-2021</span><span style=""><o:p></o:p></span></font></h3>
                                   <p class="MsoNormal" style="margin: 4.5pt 0in 4.5pt 118.5pt; text-indent: -97.5pt;"><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main
 
@@ -1016,7 +1036,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif;">V1.7.10
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif;">V1.7.10
 
 
 
@@ -1050,7 +1070,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.9
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.9
 
 
 
@@ -1172,7 +1192,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                           mode.<o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.8
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.8
 
 
 
@@ -1280,7 +1300,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.7
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.7
 
 
 
@@ -2435,7 +2455,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                           with reference manual</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.6
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.6
 
 
 
@@ -2563,7 +2583,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                           interrupt handlers<o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.5
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.5
 
 
 
@@ -3277,7 +3297,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                           instance defined in CMSIS <span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">device</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.4
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.4
 
 
 
@@ -3339,7 +3359,7 @@ all part-numbers (e.g., #if defined(RTC_TAFCR_TAMPPRCH)).</font></li>
                                           audio issue</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.3
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.3
 
 
 
@@ -3610,7 +3630,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           / <span class="spelle"><span style="font-family: &quot;Verdana&quot;,sans-serif;">FSMC_PCCARD_Init</span></span>()</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.2
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.2
 
 
 
@@ -3995,7 +4015,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           <span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">used</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.1
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.1
 
 
 
@@ -4079,7 +4099,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.7.0
 
 
 
@@ -4578,7 +4598,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           functions</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.6.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.6.0
 
 
 
@@ -4814,7 +4834,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                             <span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">callbacks</span></span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.2
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.2
 
 
 
@@ -4913,7 +4933,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                               optimization &nbsp;</span><o:p></o:p></span></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.1
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.1
 
 
 
@@ -5005,7 +5025,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                               concurrent <span class="grame">way</span></span></span><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.5.0
 
 
 
@@ -6211,7 +6231,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           the changes: <span class="spelle"><span style="font-family: &quot;Verdana&quot;,sans-serif;">WWDG_</span></span><span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">Example</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.4
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.4
 
 
 
@@ -6957,7 +6977,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                   <p class="MsoNormal" style=""><span style="font-size: 10pt;"><br style="">
                                       <!--[if !supportLineBreakNewLine]--><br style="">
                                       <!--[endif]--><o:p></o:p></span></p>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.4
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.4
                                         / 11-December-2015</span><span style=""><o:p></o:p></span></font></h3>
                                   <p class="MsoNormal" style=""><b><u><span style="font-size: 10pt; font-family: &quot;Verdana&quot;,sans-serif; color: black;">Main Changes</span></u></b><span style="font-size: 10pt;"><o:p></o:p></span></p>
                                   <ul style="margin-top: 0in;" type="square">
@@ -6995,7 +7015,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           Software reset management</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.2
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.2
 
 
 
@@ -7227,7 +7247,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           parameters</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.1
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.1
 
 
 
@@ -7317,7 +7337,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           calculated <span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">correctly”</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.4.0
 
 
 
@@ -7547,7 +7567,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           devices</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.2
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.2
 
 
 
@@ -7875,7 +7895,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           Host channel re-<span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">activation</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.1
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.1
 
 
 
@@ -7945,7 +7965,7 @@ and&nbsp;HAL_CAN_TxMailbox2CompleteCallback().</span><span style=""><o:p></o:p><
                                           software trigger <span class="grame"><span style="font-family: &quot;Verdana&quot;,sans-serif;">configuration</span></span></span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.3.0
 
 
 
@@ -8846,7 +8866,7 @@ HAL_I2S_DMAPause(),&nbsp;HAL_I2S_DMAStop(),&nbsp;HAL_I2S_DMAResume(),&nbsp;HAL_I
                                           Sensing B activation</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.2.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.2.0
 
 
 
@@ -10476,7 +10496,7 @@ UART_WAKEUPMETHOD_ADDRESSMARK</span><span style=""><o:p></o:p></span></li>
                                       </ul>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.1.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.1.0
 
 
 
@@ -11393,7 +11413,7 @@ __USB_OTG_FS_CLK_SLEEP_ENABLE()<o:p></o:p></span></i></li>
                                           Wake</span><span style=""><o:p></o:p></span></li>
                                     </ul>
                                   </ul>
-                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.0.0
+                                  <h3 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial; margin-right: 500pt;"><font color="#ffffff"><span style="font-size: 10pt; font-family: &quot;Arial&quot;,sans-serif;">V1.0.0
 
 
 
@@ -11418,7 +11438,7 @@ __USB_OTG_FS_CLK_SLEEP_ENABLE()<o:p></o:p></span></i></li>
                               </tr>
                               <tr style="">
                                 <td style="padding: 0in; width: 843.25pt;" valign="top" width="1124">
-                                  <h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: -moz-initial; -moz-background-origin: -moz-initial; -moz-background-inline-policy: -moz-initial;"><span style="font-size: 12pt;"><o:p>&nbsp;</o:p></span></h2>
+                                  <h2 style="background: rgb(51, 102, 255) none repeat scroll 0% 50%; -moz-background-clip: initial; -moz-background-origin: initial; -moz-background-inline-policy: initial;"><span style="font-size: 12pt;"><o:p>&nbsp;</o:p></span></h2>
                                 </td>
                               </tr>
                             </tbody>
