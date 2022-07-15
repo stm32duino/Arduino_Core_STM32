@@ -527,7 +527,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd);
   * @param  bEpNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t PCD_GET_EP_RX_CNT(PCD_TypeDef *Instance, uint16_t bEpNum)
+__STATIC_INLINE uint16_t PCD_GET_EP_RX_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;
@@ -570,7 +570,7 @@ __STATIC_INLINE uint16_t PCD_GET_EP_RX_CNT(PCD_TypeDef *Instance, uint16_t bEpNu
   * @param  bEpNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t PCD_GET_EP_DBUF0_CNT(PCD_TypeDef *Instance, uint16_t bEpNum)
+__STATIC_INLINE uint16_t PCD_GET_EP_DBUF0_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;
@@ -590,7 +590,7 @@ __STATIC_INLINE uint16_t PCD_GET_EP_DBUF0_CNT(PCD_TypeDef *Instance, uint16_t bE
   * @param  bEpNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t PCD_GET_EP_DBUF1_CNT(PCD_TypeDef *Instance, uint16_t bEpNum)
+__STATIC_INLINE uint16_t PCD_GET_EP_DBUF1_CNT(const PCD_TypeDef *Instance, uint16_t bEpNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;

@@ -53,7 +53,8 @@ extern "C" {
 /** @defgroup ADC_HAL_EC_GROUPS  ADC instance - Groups
   * @{
   */
-#define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)           /*!< ADC group regular (available on all STM32 devices) */
+#define ADC_REGULAR_GROUP                  (LL_ADC_GROUP_REGULAR)          /*!< ADC group regular (available on
+                                                                                all STM32 devices) */
 /**
   * @}
   */

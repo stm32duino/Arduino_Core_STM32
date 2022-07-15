@@ -1398,7 +1398,8 @@ __STATIC_INLINE void LL_LPUART_SetBaudRate(USART_TypeDef *LPUARTx, uint32_t Peri
   *         @arg @ref LL_LPUART_PRESCALER_DIV256
   * @retval Baud Rate
   */
-__STATIC_INLINE uint32_t LL_LPUART_GetBaudRate(const USART_TypeDef *LPUARTx, uint32_t PeriphClk, uint32_t PrescalerValue)
+__STATIC_INLINE uint32_t LL_LPUART_GetBaudRate(const USART_TypeDef *LPUARTx, uint32_t PeriphClk,
+                                               uint32_t PrescalerValue)
 {
   uint32_t lpuartdiv;
   uint32_t brrresult;

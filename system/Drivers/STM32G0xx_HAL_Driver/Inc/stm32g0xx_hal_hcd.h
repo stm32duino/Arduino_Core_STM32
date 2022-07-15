@@ -309,10 +309,10 @@ uint32_t                HAL_HCD_GetCurrentSpeed(HCD_HandleTypeDef *hhcd);
 /** @addtogroup PMA Allocation
   * @{
   */
-HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t  pipe,
-                                   uint16_t pipe_kind,  uint16_t mps);
+HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
+                                   uint16_t ch_kind, uint16_t mps);
 
-HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t  pipe);
+HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num);
 HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
 
 /**
@@ -475,7 +475,7 @@ HAL_StatusTypeDef  HAL_HCD_PMAReset(HCD_HandleTypeDef *hhcd);
   * @param  bChNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t HCD_GET_CH_RX_CNT(HCD_TypeDef *Instance, uint16_t bChNum)
+__STATIC_INLINE uint16_t HCD_GET_CH_RX_CNT(const HCD_TypeDef *Instance, uint16_t bChNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;
@@ -509,7 +509,7 @@ __STATIC_INLINE uint16_t HCD_GET_CH_RX_CNT(HCD_TypeDef *Instance, uint16_t bChNu
   * @param  bChNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t HCD_GET_CH_DBUF0_CNT(HCD_TypeDef *Instance, uint16_t bChNum)
+__STATIC_INLINE uint16_t HCD_GET_CH_DBUF0_CNT(const HCD_TypeDef *Instance, uint16_t bChNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;
@@ -529,7 +529,7 @@ __STATIC_INLINE uint16_t HCD_GET_CH_DBUF0_CNT(HCD_TypeDef *Instance, uint16_t bC
   * @param  bChNum channel Number.
   * @retval Counter value
   */
-__STATIC_INLINE uint16_t HCD_GET_CH_DBUF1_CNT(HCD_TypeDef *Instance, uint16_t bChNum)
+__STATIC_INLINE uint16_t HCD_GET_CH_DBUF1_CNT(const HCD_TypeDef *Instance, uint16_t bChNum)
 {
   UNUSED(Instance);
   __IO uint32_t count = 10U;

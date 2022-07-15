@@ -585,6 +585,7 @@ uint32_t LL_RCC_GetLPUARTClockFreq(uint32_t LPUARTxSource)
 #endif /* LPUART2 */
   else
   {
+    /*nothing to do*/
   }
 
   return lpuart_frequency;

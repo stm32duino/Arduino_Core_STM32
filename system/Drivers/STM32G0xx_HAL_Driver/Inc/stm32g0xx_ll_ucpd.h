@@ -1790,7 +1790,7 @@ __STATIC_INLINE uint32_t LL_UCPD_ReadRxPaySize(UCPD_TypeDef const *const UCPDx)
 
 /**
   * @brief  Read data
-  * @rmtoll TXDR           RXDATA            LL_UCPD_ReadData
+  * @rmtoll RXDR           RXDATA            LL_UCPD_ReadData
   * @param  UCPDx UCPD Instance
   * @retval RxData Value between Min_Data=0x00 and Max_Data=0xFF
   */

@@ -619,7 +619,6 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         APBRSTR1     TIM6RST       LL_APB1_GRP1_ForceReset\n
   *         APBRSTR1     TIM7RST       LL_APB1_GRP1_ForceReset\n
   *         APBRSTR1     RTCRST        LL_APB1_GRP1_ForceReset\n
-  *         APBRSTR1     WWDGRST       LL_APB1_GRP1_ForceReset\n
   *         APBRSTR1     SPI2RST       LL_APB1_GRP1_ForceReset\n
   *         APBRSTR1     SPI3RST       LL_APB1_GRP1_ForceReset\n
   *         APBRSTR1     USART2RST     LL_APB1_GRP1_ForceReset\n
@@ -649,7 +648,6 @@ __STATIC_INLINE void LL_APB1_GRP1_DisableClock(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
-  *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
@@ -687,7 +685,6 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         APBRSTR1     TIM6RST       LL_APB1_GRP1_ReleaseReset\n
   *         APBRSTR1     TIM7RST       LL_APB1_GRP1_ReleaseReset\n
   *         APBRSTR1     RTCRST        LL_APB1_GRP1_ReleaseReset\n
-  *         APBRSTR1     WWDGRST       LL_APB1_GRP1_ReleaseReset\n
   *         APBRSTR1     SPI2RST       LL_APB1_GRP1_ReleaseReset\n
   *         APBRSTR1     SPI3RST       LL_APB1_GRP1_ReleaseReset\n
   *         APBRSTR1     USART2RST     LL_APB1_GRP1_ReleaseReset\n
@@ -717,7 +714,6 @@ __STATIC_INLINE void LL_APB1_GRP1_ForceReset(uint32_t Periphs)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM6    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_TIM7    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_RTC
-  *         @arg @ref LL_APB1_GRP1_PERIPH_WWDG
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI2
   *         @arg @ref LL_APB1_GRP1_PERIPH_SPI3    (1)
   *         @arg @ref LL_APB1_GRP1_PERIPH_USART2
