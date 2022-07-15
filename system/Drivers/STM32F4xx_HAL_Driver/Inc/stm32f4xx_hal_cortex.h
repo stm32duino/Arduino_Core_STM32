@@ -404,4 +404,3 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 
 #endif /* __STM32F4xx_HAL_CORTEX_H */
 
-
