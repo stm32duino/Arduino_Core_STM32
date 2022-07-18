@@ -38,7 +38,7 @@
 #define __STM32WBxx_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif /* __cplusplus */
 
 /** @addtogroup Library_configuration_section
@@ -57,19 +57,19 @@
   */
 #if !defined  (USE_HAL_DRIVER)
 /**
- * @brief Comment the line below if you will not use the peripherals drivers.
+  * @brief Comment the line below if you will not use the peripherals drivers.
    In this case, these drivers will not be included and the application code will
    be based on direct access to peripherals registers
    */
-  /*#define USE_HAL_DRIVER */
+/*#define USE_HAL_DRIVER */
 #endif /* USE_HAL_DRIVER */
 
 /**
   * @brief CMSIS Device version number
   */
 #define __STM32WBxx_CMSIS_VERSION_MAIN   (0x01U) /*!< [31:24] main version */
-#define __STM32WBxx_CMSIS_VERSION_SUB1   (0x0AU) /*!< [23:16] sub1 version */
-#define __STM32WBxx_CMSIS_VERSION_SUB2   (0x01U) /*!< [15:8]  sub2 version */
+#define __STM32WBxx_CMSIS_VERSION_SUB1   (0x0BU) /*!< [23:16] sub1 version */
+#define __STM32WBxx_CMSIS_VERSION_SUB2   (0x00U) /*!< [15:8]  sub2 version */
 #define __STM32WBxx_CMSIS_VERSION_RC     (0x00U) /*!< [7:0]  release candidate */
 #define __STM32WBxx_CMSIS_DEVICE_VERSION        ((__STM32WBxx_CMSIS_VERSION_MAIN << 24)\
                                                 |(__STM32WBxx_CMSIS_VERSION_SUB1 << 16)\
@@ -85,21 +85,23 @@
   */
 
 #if defined(STM32WB55xx)
-  #include "stm32wb55xx.h"
+#include "stm32wb55xx.h"
 #elif defined(STM32WB5Mxx)
-  #include "stm32wb5mxx.h"
+#include "stm32wb5mxx.h"
 #elif defined(STM32WB50xx)
-  #include "stm32wb50xx.h"
+#include "stm32wb50xx.h"
 #elif defined(STM32WB35xx)
-  #include "stm32wb35xx.h"
+#include "stm32wb35xx.h"
 #elif defined(STM32WB30xx)
-  #include "stm32wb30xx.h"
+#include "stm32wb30xx.h"
 #elif defined(STM32WB15xx)
-  #include "stm32wb15xx.h"
+#include "stm32wb15xx.h"
 #elif defined(STM32WB10xx)
-  #include "stm32wb10xx.h"
+#include "stm32wb10xx.h"
+#elif defined(STM32WB1Mxx)
+#include "stm32wb1mxx.h"
 #else
- #error "Please select first the target STM32WBxx device used in your application, for instance xxx (in stm32wbxx.h file)"
+#error "Please select first the target STM32WBxx device used in your application, for instance xxx (in stm32wbxx.h file)"
 #endif
 /**
   * @}
@@ -211,7 +213,7 @@ typedef enum
   */
 
 #if defined (USE_HAL_DRIVER)
- #include "stm32wbxx_hal.h"
+#include "stm32wbxx_hal.h"
 #endif /* USE_HAL_DRIVER */
 
 #ifdef __cplusplus
