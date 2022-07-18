@@ -701,43 +701,20 @@ HAL_StatusTypeDef HAL_ADC_Init(ADC_HandleTypeDef *hadc)
     }
     else if(hadc->Init.ScanConvMode == ADC_SCAN_ENABLE)
     {
-      /* Count number of ranks available in HAL ADC handle variable */
-      uint32_t ADCGroupRegularSequencerRanksCount;
-
-      /* Parse all ranks from 1 to 8 */
-      for(ADCGroupRegularSequencerRanksCount = 0UL; ADCGroupRegularSequencerRanksCount < (8UL); ADCGroupRegularSequencerRanksCount++)
-      {
-        /* Check each sequencer rank until value of end of sequence */
-        if(((hadc->ADCGroupRegularSequencerRanks >> (ADCGroupRegularSequencerRanksCount * 4UL)) & ADC_CHSELR_SQ1) == ADC_CHSELR_SQ1)
-        {
-          break;
-        }
-      }
-
-      if(ADCGroupRegularSequencerRanksCount == 1UL)
-      {
-        /* Set ADC group regular sequencer:                                   */
-        /* Set sequencer scan length by clearing ranks above rank 1           */
-        /* and do not modify rank 1 value.                                    */
-        SET_BIT(hadc->Instance->CHSELR,
-                ADC_CHSELR_SQ2_TO_SQ8);
-      }
-      else
-      {
-        /* Set ADC group regular sequencer:                                   */
-        /*  - Set ADC group regular sequencer to value memorized              */
-        /*    in HAL ADC handle                                               */
-        /*    Note: This value maybe be initialized at a unknown value,       */
-        /*          therefore after the first call of "HAL_ADC_Init()",        */
-        /*          each rank corresponding to parameter "NbrOfConversion"    */
-        /*          must be set using "HAL_ADC_ConfigChannel()".              */
-        /*  - Set sequencer scan length by clearing ranks above maximum rank  */
-        /*    and do not modify other ranks value.                            */
-        MODIFY_REG(hadc->Instance->CHSELR,
-                   ADC_CHSELR_SQ_ALL,
-                   (ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC_REGULAR_RANK_2) & 0x1FUL)) | (hadc->ADCGroupRegularSequencerRanks)
-                  );
-      }
+      /* Set ADC group regular sequencer:                                   */
+      /*  - Set ADC group regular sequencer to value memorized              */
+      /*    in HAL ADC handle                                               */
+      /*    Note: This value maybe be initialized at a unknown value,       */
+      /*          therefore after the first call of "HAL_ADC_Init()",       */
+      /*          each rank corresponding to parameter "NbrOfConversion"    */
+      /*          must be set using "HAL_ADC_ConfigChannel()".              */
+      /*  - Set sequencer scan length by clearing ranks above maximum rank  */
+      /*    and do not modify other ranks value.                            */
+      MODIFY_REG(hadc->Instance->CHSELR,
+                  ADC_CHSELR_SQ_ALL,
+                  ((ADC_CHSELR_SQ2_TO_SQ8 << (((hadc->Init.NbrOfConversion - 1UL) * ADC_REGULAR_RANK_2) & 0x1FUL)) |
+                   (hadc->ADCGroupRegularSequencerRanks))
+                );
     }
 
     /* Check back that ADC registers have effectively been configured to      */
@@ -1785,7 +1762,7 @@ HAL_StatusTypeDef HAL_ADC_PollForConversion(ADC_HandleTypeDef *hadc, uint32_t Ti
   *            @arg @ref ADC_OVR_EVENT    ADC Overrun event
   *            @arg @ref ADC_JQOVF_EVENT  ADC Injected context queue overflow event (1)
   *
-  *         (1) On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx.
+  *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   * @param Timeout Timeout value in millisecond.
   * @note   The relevant flag is cleared if found to be set, except for ADC_FLAG_OVR.
   *         Indeed, the latter is reset only if hadc->Init.Overrun field is set
@@ -3155,7 +3132,7 @@ HAL_StatusTypeDef HAL_ADC_ConfigChannel(ADC_HandleTypeDef *hadc, ADC_ChannelConf
   *         The setting of these parameters is conditioned to ADC state.
   *         For parameters constraints, see comments of structure
   *         "ADC_AnalogWDGConfTypeDef".
-  * @note   On this STM32 serie, analog watchdog thresholds cannot be modified
+  * @note   On this STM32 series, analog watchdog thresholds cannot be modified
   *         while ADC conversion is on going.
   * @param hadc ADC handle
   * @param AnalogWDGConfig Structure of ADC analog watchdog configuration
@@ -3492,7 +3469,7 @@ uint32_t HAL_ADC_GetError(ADC_HandleTypeDef *hadc)
   *            @arg @ref ADC_INJECTED_GROUP         (1)  ADC injected conversion type.
   *            @arg @ref ADC_REGULAR_INJECTED_GROUP (1)  ADC regular and injected conversion type.
   *
-  *         (1) On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx.
+  *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   * @retval HAL status.
   */
 HAL_StatusTypeDef ADC_ConversionStop(ADC_HandleTypeDef *hadc, uint32_t ConversionGroup)

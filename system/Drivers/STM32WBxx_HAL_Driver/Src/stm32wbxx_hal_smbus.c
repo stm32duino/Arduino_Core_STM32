@@ -208,20 +208,28 @@
 /** @addtogroup SMBUS_Private_Functions SMBUS Private Functions
   * @{
   */
+/* Private functions to handle flags during polling transfer */
 static HAL_StatusTypeDef SMBUS_WaitOnFlagUntilTimeout(SMBUS_HandleTypeDef *hsmbus, uint32_t Flag,
                                                       FlagStatus Status, uint32_t Timeout);
 
-static void SMBUS_Enable_IRQ(SMBUS_HandleTypeDef *hsmbus, uint32_t InterruptRequest);
-static void SMBUS_Disable_IRQ(SMBUS_HandleTypeDef *hsmbus, uint32_t InterruptRequest);
+/* Private functions for SMBUS transfer IRQ handler */
 static HAL_StatusTypeDef SMBUS_Master_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t StatusFlags);
 static HAL_StatusTypeDef SMBUS_Slave_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t StatusFlags);
-
-static void SMBUS_ConvertOtherXferOptions(SMBUS_HandleTypeDef *hsmbus);
-
 static void SMBUS_ITErrorHandler(SMBUS_HandleTypeDef *hsmbus);
 
+/* Private functions to centralize the enable/disable of Interrupts */
+static void SMBUS_Enable_IRQ(SMBUS_HandleTypeDef *hsmbus, uint32_t InterruptRequest);
+static void SMBUS_Disable_IRQ(SMBUS_HandleTypeDef *hsmbus, uint32_t InterruptRequest);
+
+/* Private function to flush TXDR register */
+static void SMBUS_Flush_TXDR(SMBUS_HandleTypeDef *hsmbus);
+
+/* Private function to handle start, restart or stop a transfer */
 static void SMBUS_TransferConfig(SMBUS_HandleTypeDef *hsmbus,  uint16_t DevAddress, uint8_t Size,
                                  uint32_t Mode, uint32_t Request);
+
+/* Private function to Convert Specific options */
+static void SMBUS_ConvertOtherXferOptions(SMBUS_HandleTypeDef *hsmbus);
 /**
   * @}
   */
@@ -1871,6 +1879,9 @@ static HAL_StatusTypeDef SMBUS_Master_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t 
     /* No need to generate STOP, it is automatically done */
     hsmbus->ErrorCode |= HAL_SMBUS_ERROR_ACKF;
 
+    /* Flush TX register */
+    SMBUS_Flush_TXDR(hsmbus);
+
     /* Process Unlocked */
     __HAL_UNLOCK(hsmbus);
 
@@ -2161,6 +2172,9 @@ static HAL_StatusTypeDef SMBUS_Slave_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t S
       /* Clear NACK Flag */
       __HAL_SMBUS_CLEAR_FLAG(hsmbus, SMBUS_FLAG_AF);
 
+      /* Flush TX register */
+      SMBUS_Flush_TXDR(hsmbus);
+
       /* Process Unlocked */
       __HAL_UNLOCK(hsmbus);
     }
@@ -2181,6 +2195,9 @@ static HAL_StatusTypeDef SMBUS_Slave_ISR(SMBUS_HandleTypeDef *hsmbus, uint32_t S
 
       /* Set ErrorCode corresponding to a Non-Acknowledge */
       hsmbus->ErrorCode |= HAL_SMBUS_ERROR_ACKF;
+
+      /* Flush TX register */
+      SMBUS_Flush_TXDR(hsmbus);
 
       /* Process Unlocked */
       __HAL_UNLOCK(hsmbus);
@@ -2583,7 +2600,10 @@ static void SMBUS_ITErrorHandler(SMBUS_HandleTypeDef *hsmbus)
     __HAL_SMBUS_CLEAR_FLAG(hsmbus, SMBUS_FLAG_PECERR);
   }
 
-  /* Store current volatile hsmbus->State, misra rule */
+  /* Flush TX register */
+  SMBUS_Flush_TXDR(hsmbus);
+
+  /* Store current volatile hsmbus->ErrorCode, misra rule */
   tmperror = hsmbus->ErrorCode;
 
   /* Call the Error Callback in case of Error detected */
@@ -2651,6 +2671,27 @@ static HAL_StatusTypeDef SMBUS_WaitOnFlagUntilTimeout(SMBUS_HandleTypeDef *hsmbu
   }
 
   return HAL_OK;
+}
+
+/**
+  * @brief  SMBUS Tx data register flush process.
+  * @param  hsmbus SMBUS handle.
+  * @retval None
+  */
+static void SMBUS_Flush_TXDR(SMBUS_HandleTypeDef *hsmbus)
+{
+  /* If a pending TXIS flag is set */
+  /* Write a dummy data in TXDR to clear it */
+  if (__HAL_SMBUS_GET_FLAG(hsmbus, SMBUS_FLAG_TXIS) != RESET)
+  {
+    hsmbus->Instance->TXDR = 0x00U;
+  }
+
+  /* Flush TX register if not empty */
+  if (__HAL_SMBUS_GET_FLAG(hsmbus, SMBUS_FLAG_TXE) == RESET)
+  {
+    __HAL_SMBUS_CLEAR_FLAG(hsmbus, SMBUS_FLAG_TXE);
+  }
 }
 
 /**

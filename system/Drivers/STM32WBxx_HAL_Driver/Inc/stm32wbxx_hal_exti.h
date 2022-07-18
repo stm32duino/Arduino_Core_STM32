@@ -104,7 +104,7 @@ typedef struct
 #define EXTI_LINE_17                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x11u)
 #define EXTI_LINE_18                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x12u)
 #define EXTI_LINE_19                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x13u)
-#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_20                        (EXTI_CONFIG   | EXTI_EVENT | EXTI_REG1 | 0x14u)
 #else
 #define EXTI_LINE_20                        (EXTI_RESERVED |              EXTI_REG1 | 0x14u)
@@ -121,7 +121,7 @@ typedef struct
 #define EXTI_LINE_23                        (EXTI_RESERVED |              EXTI_REG1 | 0x17u)
 #endif
 #define EXTI_LINE_24                        (EXTI_DIRECT   |              EXTI_REG1 | 0x18u)
-#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_25                        (EXTI_DIRECT   |              EXTI_REG1 | 0x19u)
 #else
 #define EXTI_LINE_25                        (EXTI_RESERVED |              EXTI_REG1 | 0x19u)
@@ -135,7 +135,7 @@ typedef struct
 #endif
 #define EXTI_LINE_29                        (EXTI_DIRECT   |              EXTI_REG1 | 0x1Du)
 #define EXTI_LINE_30                        (EXTI_DIRECT   |              EXTI_REG1 | 0x1Eu)
-#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx)
+#if defined (STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx) || defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define EXTI_LINE_31                        (EXTI_CONFIG   |              EXTI_REG1 | 0x1Fu)
 #else
 #define EXTI_LINE_31                        (EXTI_RESERVED |              EXTI_REG1 | 0x1Fu)

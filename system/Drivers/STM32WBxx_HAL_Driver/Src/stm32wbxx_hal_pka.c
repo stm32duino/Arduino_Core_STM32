@@ -2035,15 +2035,15 @@ void PKA_ModExp_Set(PKA_HandleTypeDef *hpka, PKA_ModExpInTypeDef *in)
 
   /* Move the input parameters pOp1 to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_MODULAR_EXP_IN_EXPONENT_BASE], in->pOp1, in->OpSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_EXPONENT_BASE + (in->OpSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_EXPONENT_BASE + ((in->OpSize + 3UL) / 4UL));
 
   /* Move the exponent to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_MODULAR_EXP_IN_EXPONENT], in->pExp, in->expSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_EXPONENT + (in->expSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_EXPONENT + ((in->expSize + 3UL) / 4UL));
 
   /* Move the modulus to PKA RAM */
   PKA_Memcpy_u8_to_u32(&hpka->Instance->RAM[PKA_MODULAR_EXP_IN_MODULUS], in->pMod, in->OpSize);
-  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_MODULUS + (in->OpSize / 4UL));
+  __PKA_RAM_PARAM_END(hpka->Instance->RAM, PKA_MODULAR_EXP_IN_MODULUS + ((in->OpSize + 3UL) / 4UL));
 }
 
 /**

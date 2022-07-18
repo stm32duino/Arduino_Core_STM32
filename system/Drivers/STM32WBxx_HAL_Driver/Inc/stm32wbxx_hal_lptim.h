@@ -632,9 +632,9 @@ HAL_StatusTypeDef HAL_LPTIM_Counter_Stop_IT(LPTIM_HandleTypeDef *hlptim);
   * @{
   */
 /* Reading operation functions ************************************************/
-uint32_t HAL_LPTIM_ReadCounter(LPTIM_HandleTypeDef *hlptim);
-uint32_t HAL_LPTIM_ReadAutoReload(LPTIM_HandleTypeDef *hlptim);
-uint32_t HAL_LPTIM_ReadCompare(LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadCounter(const LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadAutoReload(const LPTIM_HandleTypeDef *hlptim);
+uint32_t HAL_LPTIM_ReadCompare(const LPTIM_HandleTypeDef *hlptim);
 /**
   * @}
   */
@@ -765,11 +765,13 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
 #define IS_LPTIM_COUNTER_SOURCE(__SOURCE__)     (((__SOURCE__) == LPTIM_COUNTERSOURCE_INTERNAL) || \
                                                  ((__SOURCE__) == LPTIM_COUNTERSOURCE_EXTERNAL))
 
-#define IS_LPTIM_AUTORELOAD(__AUTORELOAD__)     ((__AUTORELOAD__) <= 0x0000FFFFUL)
+#define IS_LPTIM_AUTORELOAD(__AUTORELOAD__)     ((0x00000001UL <= (__AUTORELOAD__)) &&\
+                                                 ((__AUTORELOAD__) <= 0x0000FFFFUL))
 
 #define IS_LPTIM_COMPARE(__COMPARE__)           ((__COMPARE__) <= 0x0000FFFFUL)
 
-#define IS_LPTIM_PERIOD(__PERIOD__)             ((__PERIOD__) <= 0x0000FFFFUL)
+#define IS_LPTIM_PERIOD(__PERIOD__)             ((0x00000001UL <= (__PERIOD__)) &&\
+                                                 ((__PERIOD__) <= 0x0000FFFFUL))
 
 #define IS_LPTIM_PULSE(__PULSE__)               ((__PULSE__) <= 0x0000FFFFUL)
 
@@ -794,7 +796,7 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
    (((__INSTANCE__) == LPTIM2) &&                       \
     (((__SOURCE__) == LPTIM_INPUT1SOURCE_GPIO) ||        \
      ((__SOURCE__) == LPTIM_INPUT1SOURCE_COMP1))))
-#endif
+#endif /* COMP2 */
 #else
 #define IS_LPTIM_INPUT1_SOURCE(__INSTANCE__, __SOURCE__)  \
   ((((__INSTANCE__) == LPTIM1) &&                       \
@@ -802,7 +804,7 @@ HAL_LPTIM_StateTypeDef HAL_LPTIM_GetState(LPTIM_HandleTypeDef *hlptim);
    ||                                                   \
    (((__INSTANCE__) == LPTIM2) &&                       \
     ((__SOURCE__) == LPTIM_INPUT1SOURCE_GPIO)))
-#endif
+#endif /* COMP1*/
 
 #if defined(COMP2)
 #define IS_LPTIM_INPUT2_SOURCE(__INSTANCE__, __SOURCE__)  \
