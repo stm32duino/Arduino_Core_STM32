@@ -898,7 +898,7 @@ uint16_t adc_read_value(PinName pin, uint32_t resolution)
 #if defined(STM32F0xx)
   AdcHandle.Init.SamplingTimeCommon    = samplingTime;
 #endif
-#if defined(STM32G0xx)
+#if defined(STM32G0xx) || defined(STM32WLxx)
   AdcHandle.Init.SamplingTimeCommon1   = samplingTime;              /* Set sampling time common to a group of channels. */
   AdcHandle.Init.SamplingTimeCommon2   = samplingTime;              /* Set sampling time common to a group of channels, second common setting possible.*/
 #endif
