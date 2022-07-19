@@ -257,76 +257,88 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
     assert_param(IS_RTC_OUTPUT_TYPE(hrtc->Init.OutPutType));
     assert_param(IS_RTC_OUTPUT_PULLUP(hrtc->Init.OutPutPullUp));
 
-  if(hrtc->State == HAL_RTC_STATE_RESET)
-  {
-    /* Allocate lock resource and initialize it */
-    hrtc->Lock = HAL_UNLOCKED;
+    if(hrtc->State == HAL_RTC_STATE_RESET)
+    {
+      /* Allocate lock resource and initialize it */
+      hrtc->Lock = HAL_UNLOCKED;
 
-    /* Process TAMP peripheral offset from RTC one */
-    hrtc->TampOffset = (TAMP_BASE - RTC_BASE);
+      /* Process TAMP peripheral offset from RTC one */
+      hrtc->TampOffset = (TAMP_BASE - RTC_BASE);
 
 #if (USE_HAL_RTC_REGISTER_CALLBACKS == 1)
-    hrtc->AlarmAEventCallback          =  HAL_RTC_AlarmAEventCallback;        /* Legacy weak AlarmAEventCallback      */
-    hrtc->AlarmBEventCallback          =  HAL_RTCEx_AlarmBEventCallback;      /* Legacy weak AlarmBEventCallback      */
-    hrtc->TimeStampEventCallback       =  HAL_RTCEx_TimeStampEventCallback;   /* Legacy weak TimeStampEventCallback   */
-    hrtc->WakeUpTimerEventCallback     =  HAL_RTCEx_WakeUpTimerEventCallback; /* Legacy weak WakeUpTimerEventCallback */
-    hrtc->Tamper1EventCallback         =  HAL_RTCEx_Tamper1EventCallback;     /* Legacy weak Tamper1EventCallback     */
-    hrtc->Tamper2EventCallback         =  HAL_RTCEx_Tamper2EventCallback;     /* Legacy weak Tamper2EventCallback     */
+      hrtc->AlarmAEventCallback          =  HAL_RTC_AlarmAEventCallback;        /* Legacy weak AlarmAEventCallback      */
+      hrtc->AlarmBEventCallback          =  HAL_RTCEx_AlarmBEventCallback;      /* Legacy weak AlarmBEventCallback      */
+      hrtc->TimeStampEventCallback       =  HAL_RTCEx_TimeStampEventCallback;   /* Legacy weak TimeStampEventCallback   */
+      hrtc->WakeUpTimerEventCallback     =  HAL_RTCEx_WakeUpTimerEventCallback; /* Legacy weak WakeUpTimerEventCallback */
+      hrtc->Tamper1EventCallback         =  HAL_RTCEx_Tamper1EventCallback;     /* Legacy weak Tamper1EventCallback     */
+      hrtc->Tamper2EventCallback         =  HAL_RTCEx_Tamper2EventCallback;     /* Legacy weak Tamper2EventCallback     */
 #if defined(TAMP_CR1_TAMP3E)
-    hrtc->Tamper3EventCallback         =  HAL_RTCEx_Tamper3EventCallback;     /* Legacy weak Tamper3EventCallback     */
+      hrtc->Tamper3EventCallback         =  HAL_RTCEx_Tamper3EventCallback;     /* Legacy weak Tamper3EventCallback     */
 #endif /* TAMP_CR1_TAMP3E */
-    hrtc->InternalTamper3EventCallback =  HAL_RTCEx_InternalTamper3EventCallback;   /*!< Legacy weak InternalTamper3EventCallback */
-    hrtc->InternalTamper4EventCallback =  HAL_RTCEx_InternalTamper4EventCallback;   /*!< Legacy weak InternalTamper4EventCallback */
-    hrtc->InternalTamper5EventCallback =  HAL_RTCEx_InternalTamper5EventCallback;   /*!< Legacy weak InternalTamper5EventCallback */
-    hrtc->InternalTamper6EventCallback =  HAL_RTCEx_InternalTamper6EventCallback;   /*!< Legacy weak InternalTamper6EventCallback */
+      hrtc->InternalTamper3EventCallback =  HAL_RTCEx_InternalTamper3EventCallback;   /*!< Legacy weak InternalTamper3EventCallback */
+      hrtc->InternalTamper4EventCallback =  HAL_RTCEx_InternalTamper4EventCallback;   /*!< Legacy weak InternalTamper4EventCallback */
+      hrtc->InternalTamper5EventCallback =  HAL_RTCEx_InternalTamper5EventCallback;   /*!< Legacy weak InternalTamper5EventCallback */
+      hrtc->InternalTamper6EventCallback =  HAL_RTCEx_InternalTamper6EventCallback;   /*!< Legacy weak InternalTamper6EventCallback */
 
-    if(hrtc->MspInitCallback == NULL)
-    {
-      hrtc->MspInitCallback = HAL_RTC_MspInit;
-    }
-    /* Init the low level hardware */
-    hrtc->MspInitCallback(hrtc);
+      if(hrtc->MspInitCallback == NULL)
+      {
+        hrtc->MspInitCallback = HAL_RTC_MspInit;
+      }
 
-    if(hrtc->MspDeInitCallback == NULL)
-    {
-      hrtc->MspDeInitCallback = HAL_RTC_MspDeInit;
-    }
+      /* Init the low level hardware */
+      hrtc->MspInitCallback(hrtc);
+
+      if(hrtc->MspDeInitCallback == NULL)
+      {
+        hrtc->MspDeInitCallback = HAL_RTC_MspDeInit;
+      }
 #else
-    /* Initialize RTC MSP */
-    HAL_RTC_MspInit(hrtc);
+      /* Initialize RTC MSP */
+      HAL_RTC_MspInit(hrtc);
 #endif /* (USE_HAL_RTC_REGISTER_CALLBACKS) */
-  }
+    }
 
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_BUSY;
 
-    /* Disable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
-    /* Enter Initialization mode */
-    status = RTC_EnterInitMode(hrtc);
-    if(status == HAL_OK)
+    /* Check whether the calendar needs to be initialized */
+    if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
     {
-      /* Clear RTC_CR FMT, OSEL and POL Bits */
-      hrtc->Instance->CR &= ~(RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE);
-      /* Set RTC_CR register */
-      hrtc->Instance->CR |= (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity);
+      /* Disable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-      /* Configure the RTC PRER */
-      hrtc->Instance->PRER = (hrtc->Init.SynchPrediv);
-      hrtc->Instance->PRER |= (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos);
+      /* Enter Initialization mode */
+      status = RTC_EnterInitMode(hrtc);
 
-      /* Exit Initialization mode */
-      status = RTC_ExitInitMode(hrtc);
+      if(status == HAL_OK)
+      {
+        /* Clear RTC_CR FMT, OSEL and POL Bits */
+        hrtc->Instance->CR &= ~(RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE);
+        /* Set RTC_CR register */
+        hrtc->Instance->CR |= (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity);
+
+        /* Configure the RTC PRER */
+        hrtc->Instance->PRER = (hrtc->Init.SynchPrediv);
+        hrtc->Instance->PRER |= (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos);
+
+        /* Exit Initialization mode */
+        status = RTC_ExitInitMode(hrtc);
+      }
+
       if (status == HAL_OK)
       {
         hrtc->Instance->CR &= ~(RTC_CR_TAMPALRM_PU |RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN);
         hrtc->Instance->CR |= (hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
       }
-    }
 
-    /* Enable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+      /* Enable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+    }
+    else
+    {
+      /* The calendar is already initialized */
+      status = HAL_OK;
+    }
 
     if (status == HAL_OK)
     {

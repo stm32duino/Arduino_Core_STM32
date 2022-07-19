@@ -70,13 +70,13 @@ typedef enum
   HC_IDLE = 0,
   HC_XFRC,
   HC_HALTED,
+  HC_ACK,
   HC_NAK,
   HC_NYET,
   HC_STALL,
   HC_XACTERR,
   HC_BBLERR,
-  HC_DATATGLERR,
-  HC_ACK
+  HC_DATATGLERR
 } USB_DRD_HCStateTypeDef;
 
 

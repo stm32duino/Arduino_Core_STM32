@@ -776,13 +776,13 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 {
 
   /* save interrupts register for further error or interrupts handling purposes */
-  uint32_t reg;
-  reg = hcec->Instance->ISR;
+  uint32_t itflag;
+  itflag = hcec->Instance->ISR;
 
 
   /* ----------------------------Arbitration Lost Management----------------------------------*/
   /* CEC TX arbitration error interrupt occurred --------------------------------------*/
-  if ((reg & CEC_FLAG_ARBLST) != 0U)
+  if (HAL_IS_BIT_SET(itflag, CEC_FLAG_ARBLST))
   {
     hcec->ErrorCode = HAL_CEC_ERROR_ARBLST;
     __HAL_CEC_CLEAR_FLAG(hcec, CEC_FLAG_ARBLST);
@@ -790,7 +790,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 
   /* ----------------------------Rx Management----------------------------------*/
   /* CEC RX byte received interrupt  ---------------------------------------------------*/
-  if ((reg & CEC_FLAG_RXBR) != 0U)
+  if (HAL_IS_BIT_SET(itflag, CEC_FLAG_RXBR))
   {
     /* reception is starting */
     hcec->RxState = HAL_CEC_STATE_BUSY_RX;
@@ -802,7 +802,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
   }
 
   /* CEC RX end received interrupt  ---------------------------------------------------*/
-  if ((reg & CEC_FLAG_RXEND) != 0U)
+  if (HAL_IS_BIT_SET(itflag, CEC_FLAG_RXEND))
   {
     /* clear IT */
     __HAL_CEC_CLEAR_FLAG(hcec, CEC_FLAG_RXEND);
@@ -821,7 +821,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
 
   /* ----------------------------Tx Management----------------------------------*/
   /* CEC TX byte request interrupt ------------------------------------------------*/
-  if ((reg & CEC_FLAG_TXBR) != 0U)
+  if (HAL_IS_BIT_SET(itflag, CEC_FLAG_TXBR))
   {
     --hcec->TxXferCount;
     if (hcec->TxXferCount == 0U)
@@ -837,7 +837,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
   }
 
   /* CEC TX end interrupt ------------------------------------------------*/
-  if ((reg & CEC_FLAG_TXEND) != 0U)
+  if (HAL_IS_BIT_SET(itflag, CEC_FLAG_TXEND))
   {
     __HAL_CEC_CLEAR_FLAG(hcec, CEC_FLAG_TXEND);
 
@@ -855,21 +855,21 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
   }
 
   /* ----------------------------Rx/Tx Error Management----------------------------------*/
-  if ((reg & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE | CEC_ISR_TXUDR |
+  if ((itflag & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE | CEC_ISR_TXUDR |
               CEC_ISR_TXERR | CEC_ISR_TXACKE)) != 0U)
   {
-    hcec->ErrorCode = reg;
+    hcec->ErrorCode = itflag;
     __HAL_CEC_CLEAR_FLAG(hcec, HAL_CEC_ERROR_RXOVR | HAL_CEC_ERROR_BRE | CEC_FLAG_LBPE | CEC_FLAG_SBPE |
                          HAL_CEC_ERROR_RXACKE | HAL_CEC_ERROR_TXUDR | HAL_CEC_ERROR_TXERR | HAL_CEC_ERROR_TXACKE);
 
 
-    if ((reg & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE)) != 0U)
+    if ((itflag & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE)) != 0U)
     {
       hcec->Init.RxBuffer -= hcec->RxXferSize;
       hcec->RxXferSize = 0U;
       hcec->RxState = HAL_CEC_STATE_READY;
     }
-    else if (((reg & CEC_ISR_ARBLST) == 0U) && ((reg & (CEC_ISR_TXUDR | CEC_ISR_TXERR | CEC_ISR_TXACKE)) != 0U))
+    else if (((itflag & CEC_ISR_ARBLST) == 0U) && ((itflag & (CEC_ISR_TXUDR | CEC_ISR_TXERR | CEC_ISR_TXACKE)) != 0U))
     {
       /* Set the CEC state ready to be able to start again the process */
       hcec->gState = HAL_CEC_STATE_READY;

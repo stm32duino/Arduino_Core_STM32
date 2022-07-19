@@ -217,6 +217,10 @@ typedef struct __I2C_HandleTypeDef
 
   __IO uint32_t              AddrEventCount; /*!< I2C Address Event counter                 */
 
+  __IO uint32_t              Devaddress;     /*!< I2C Target device address                 */
+
+  __IO uint32_t              Memaddress;     /*!< I2C Target memory address                 */
+
 #if (USE_HAL_I2C_REGISTER_CALLBACKS == 1)
   void (* MasterTxCpltCallback)(struct __I2C_HandleTypeDef *hi2c);
   /*!< I2C Master Tx Transfer completed callback */

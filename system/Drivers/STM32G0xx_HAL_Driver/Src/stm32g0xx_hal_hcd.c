@@ -473,6 +473,12 @@ HAL_StatusTypeDef HAL_HCD_DeInit(HCD_HandleTypeDef *hhcd)
 {
   uint8_t idx;
 
+  /* Check the HCD handle allocation */
+  if (hhcd == NULL)
+  {
+    return HAL_ERROR;
+  }
+
   /* Host Port State */
   hhcd->HostState = HCD_HCD_STATE_DISCONNECTED;
 
@@ -487,6 +493,23 @@ HAL_StatusTypeDef HAL_HCD_DeInit(HCD_HandleTypeDef *hhcd)
 
   /* reset Ep0 Pma allocation state */
   hhcd->ep0_PmaAllocState = 0U;
+
+  hhcd->State = HAL_HCD_STATE_BUSY;
+
+#if (USE_HAL_HCD_REGISTER_CALLBACKS == 1U)
+  if (hhcd->MspDeInitCallback == NULL)
+  {
+    hhcd->MspDeInitCallback = HAL_HCD_MspDeInit; /* Legacy weak MspDeInit */
+  }
+
+  /* DeInit the low level hardware */
+  hhcd->MspDeInitCallback(hhcd);
+#else
+  /* DeInit the low level hardware: CLOCK, NVIC. */
+  HAL_HCD_MspDeInit(hhcd);
+#endif /* USE_HAL_HCD_REGISTER_CALLBACKS */
+
+  hhcd->State = HAL_HCD_STATE_RESET;
 
   return HAL_OK;
 }
@@ -2555,7 +2578,7 @@ static uint16_t HAL_HCD_GetFreePMA(HCD_HandleTypeDef *hhcd, uint16_t mps)
   * @param  mps Channel Max Packet Size
   * @retval HAL status
   */
-HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t  ch_num,
+HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num,
                                    uint16_t ch_kind, uint16_t mps)
 {
   uint16_t pma_addr0;
@@ -2658,9 +2681,10 @@ HAL_StatusTypeDef  HAL_HCD_PMAlloc(HCD_HandleTypeDef *hhcd, uint8_t  ch_num,
   * @param  ch_num Channel number
   * @retval HAL status
   */
-HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t  ch_num)
+HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t ch_num)
 {
-  HAL_StatusTypeDef status = HAL_OK;
+  HAL_StatusTypeDef status;
+
 #if (USE_USB_DOUBLE_BUFFER == 1U)
   uint8_t Err = 0U;
 #endif /* (USE_USB_DOUBLE_BUFFER == 1U) */
@@ -2673,9 +2697,9 @@ HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t  ch_num)
   {
     status = HAL_HCD_PMAFree(hhcd, hc->pmaadress, hc->max_packet);
   }
-#if (USE_USB_DOUBLE_BUFFER == 1U)
   else   /* Double buffer */
   {
+#if (USE_USB_DOUBLE_BUFFER == 1U)
     status = HAL_HCD_PMAFree(hhcd, hc->pmaaddr0, hc->max_packet);
     if (status != HAL_OK)
     {
@@ -2692,8 +2716,10 @@ HAL_StatusTypeDef  HAL_HCD_PMADeAlloc(HCD_HandleTypeDef *hhcd, uint8_t  ch_num)
     {
       return HAL_ERROR;
     }
-  }
+#else
+    status = HAL_ERROR;
 #endif /* (USE_USB_DOUBLE_BUFFER == 1U) */
+  }
 
   return status;
 }
