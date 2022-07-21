@@ -108,9 +108,6 @@ build.flags.optimize=-Os
 build.flags.debug=-DNDEBUG
 build.flags.ldspecs=--specs=nano.specs
 build.flash_offset=0
-# Default upload config for stm32CubeProg (SWD)
-upload.protocol=0
-upload.options=-g
 
 # Pre and post build hooks
 build.opt.name=build.opt
