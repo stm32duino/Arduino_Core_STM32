@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20) # cmake_path
+cmake_minimum_required(VERSION 3.21)
 
 set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
 
@@ -16,8 +16,8 @@ function(sketch_preprocess_sources)
       )
 
       add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.h
-        COMMAND ${CTAGS} -u --language-force=c++ -f ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags --c++-kinds=svpf --fields=KSTtzns --line-directives ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
-        COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/generate_header.py -i ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags -o ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.h
+        COMMAND ${ARDUINOCTAGS_EXECUTABLE} -u --language-force=c++ -f ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags --c++-kinds=svpf --fields=KSTtzns --line-directives ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
+        COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/generate_header.py -i ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags -o ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.h
 
         DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.cpp
         BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/${SRC_BASE_NAME}.ctags

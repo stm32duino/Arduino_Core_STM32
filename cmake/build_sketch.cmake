@@ -1,4 +1,4 @@
-## core feature
+cmake_minimum_required(VERSION 3.21)
 
 set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
 include(sketch_preprocess_sources)
@@ -46,9 +46,9 @@ function(build_sketch)
     BYPRODUCTS ${MAPFILE}
   )
 
-  if(EXISTS ${PYTHON3})
+  if(EXISTS ${Python3_EXECUTABLE})
     add_custom_command(TARGET ${SKBD_TARGET} POST_BUILD
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/sizereport.py -x ${CMAKE_SIZE} -f $<TARGET_FILE:${SKBD_TARGET}> --progmem ${BOARD_MAXSIZE} --datamem ${BOARD_MAXDATASIZE}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/sizereport.py -x ${CMAKE_SIZE} -f $<TARGET_FILE:${SKBD_TARGET}> --progmem ${BOARD_MAXSIZE} --datamem ${BOARD_MAXDATASIZE}
     )
   else() #  STREQUAL "PYTHON3-NOTFOUND"
     message(WARNING "python3 not found; the final size report will not be displayed")

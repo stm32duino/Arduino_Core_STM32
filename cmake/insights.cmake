@@ -1,4 +1,4 @@
-
+cmake_minimum_required(VERSION 3.21)
 include(convert_file)
 
 # internal
@@ -65,7 +65,7 @@ function(insights)
           -H # display #include'd paths on stderr
         )
         set_target_properties(${TGT} PROPERTIES
-          RULE_LAUNCH_COMPILE "${PYTHON3} ${SCRIPTS_FOLDER}/ccwrapper.py -d ${LOGDIR} -i <SOURCE> --"
+          RULE_LAUNCH_COMPILE "${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/ccwrapper.py -d ${LOGDIR} -i <SOURCE> --"
         )
         set_property(TARGET ${TGT} APPEND PROPERTY
           ADDITIONAL_CLEAN_FILES "${TGT_LOGS}"
@@ -81,7 +81,7 @@ function(insights)
   if (${INSIGHTS_DIRECT_INCLUDES})
     set(INSIGHTS_DIRECT_INCLUDES_GVFNAME ${OUTDIR}/direct_includes.gv)
     add_custom_command(OUTPUT ${INSIGHTS_DIRECT_INCLUDES_GVFNAME}
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/includes.py -o ${INSIGHTS_DIRECT_INCLUDES_GVFNAME} ${ALL_LOGS}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/includes.py -o ${INSIGHTS_DIRECT_INCLUDES_GVFNAME} ${ALL_LOGS}
       DEPENDS ${ALL_LOGS}
     )
     gv2svg(${INSIGHTS_DIRECT_INCLUDES_GVFNAME})
@@ -90,7 +90,7 @@ function(insights)
   if (${INSIGHTS_TRANSITIVE_INCLUDES})
     set(INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME ${OUTDIR}/transitive_includes.gv)
     add_custom_command(OUTPUT ${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME}
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/includes.py -t ${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME} ${ALL_LOGS}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/includes.py -t ${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME} ${ALL_LOGS}
       DEPENDS ${ALL_LOGS}
     )
     gv2svg(${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME})
@@ -99,7 +99,7 @@ function(insights)
   if (${INSIGHTS_SYMBOLS})
     set(INSIGHTS_SYMBOLS_GVFNAME ${OUTDIR}/symbols.gv)
     add_custom_command(OUTPUT ${INSIGHTS_SYMBOLS_GVFNAME}
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -f ${INSIGHTS_SYMBOLS_GVFNAME}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -f ${INSIGHTS_SYMBOLS_GVFNAME}
       DEPENDS ${MAPFILE}
     )
     gv2svg(${INSIGHTS_SYMBOLS_GVFNAME})
@@ -108,7 +108,7 @@ function(insights)
   if (${INSIGHTS_ARCHIVES})
     set(INSIGHTS_ARCHIVES_GVFNAME ${OUTDIR}/archives.gv)
     add_custom_command(OUTPUT ${INSIGHTS_ARCHIVES_GVFNAME}
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -s ${INSIGHTS_ARCHIVES_GVFNAME}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -s ${INSIGHTS_ARCHIVES_GVFNAME}
       DEPENDS ${MAPFILE}
     )
     gv2svg(${INSIGHTS_ARCHIVES_GVFNAME})

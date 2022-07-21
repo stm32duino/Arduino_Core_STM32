@@ -1,4 +1,4 @@
-
+cmake_minimum_required(VERSION 3.21)
 set(CORE_PATH ${CMAKE_CURRENT_LIST_DIR}/..)
 set(SCRIPTS_FOLDER ${CORE_PATH}/scripts)
 
@@ -14,7 +14,7 @@ function(updatedb)
 
   if(${BOARDS_TXT} IS_NEWER_THAN ${DB} OR ${TEMPLATE} IS_NEWER_THAN ${DB})
     execute_process(
-      COMMAND ${PYTHON3} ${SCRIPTS_FOLDER}/parse_boards.py
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/parse_boards.py
       -b ${BOARDS_TXT} -p ${PLATFORM_TXT} -t ${TEMPLATE} -o ${DB}
       # COMMAND_ERROR_IS_FATAL ANY # requires VERSION 3.19
     )

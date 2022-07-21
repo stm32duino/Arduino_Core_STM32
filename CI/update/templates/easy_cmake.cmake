@@ -2,7 +2,7 @@
 # Use it in your CMake configuration by `include()`'ing it.
 # You can also copy it in your sketch's folder and edit it to fit your project.
 
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.21)
 
 # STEP 1: set up bases of environment
 # -----------------------------------------------------------------------------

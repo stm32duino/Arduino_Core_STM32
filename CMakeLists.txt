@@ -1,9 +1,8 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.21)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
+find_package(ArduinoCtags REQUIRED)
 
-include(ensure_CMSIS)
-include(ensure_ctags)
 
 project("Arduino_Core_STM32" CXX C ASM)
 
@@ -11,14 +10,6 @@ project("Arduino_Core_STM32" CXX C ASM)
 set(BUILD_CORE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cores/arduino")
 set(BUILD_SYSTEM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/system")
 set(BUILD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
-set(CMSIS5_PATH "${CMAKE_CURRENT_SOURCE_DIR}/CMSIS_5" CACHE STRING "Path to CMSIS_5")
-set(CTAGS_PATH "${CMAKE_CURRENT_SOURCE_DIR}/ctags" CACHE STRING "Folder to find/put ctags in")
-
-option(AUTODL_CMSIS OFF)
-option(AUTODL_CTAGS OFF)
-
-ensure_CMSIS(${CMSIS5_PATH} ${AUTODL_CMSIS})
-ensure_ctags(${CTAGS_PATH} ${AUTODL_CTAGS})
 
 add_library(base_config INTERFACE)
 
@@ -58,6 +49,7 @@ target_link_options(base_config INTERFACE
 target_link_directories(base_config INTERFACE
 	"${CMSIS5_PATH}/CMSIS/DSP/Lib/GCC"
 )
+
 target_include_directories(base_config INTERFACE
 	"${BUILD_CORE_PATH}"
 	"${BUILD_CORE_PATH}/avr"

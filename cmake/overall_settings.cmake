@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 3.21)
 add_library(user_settings INTERFACE)
 
 function(overall_settings)

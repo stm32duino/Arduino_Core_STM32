@@ -1,4 +1,4 @@
-
+cmake_minimum_required(VERSION 3.21)
 function(elf2bin ELFTGT)
   add_custom_command(TARGET ${ELFTGT} POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary $<TARGET_FILE:${ELFTGT}> $<TARGET_FILE:${ELFTGT}>.bin
