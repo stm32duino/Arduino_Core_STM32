@@ -471,9 +471,6 @@ g_pfnVectors:
             
    .weak      DMA2_Stream4_IRQHandler               
    .thumb_set DMA2_Stream4_IRQHandler,Default_Handler
-   
-   .weak      DMA2_Stream4_IRQHandler               
-   .thumb_set DMA2_Stream4_IRQHandler,Default_Handler   
 
    .weak      ETH_IRQHandler   
    .thumb_set ETH_IRQHandler,Default_Handler

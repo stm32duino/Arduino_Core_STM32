@@ -1057,8 +1057,8 @@ HAL_StatusTypeDef HAL_IRDA_Receive_IT(IRDA_HandleTypeDef *hirda, uint8_t *pData,
     }
     else
     {
-     /* Enable the IRDA Data Register not empty Interrupts */
-     SET_BIT(hirda->Instance->CR1, USART_CR1_RXNEIE);
+      /* Enable the IRDA Data Register not empty Interrupts */
+      SET_BIT(hirda->Instance->CR1, USART_CR1_RXNEIE);
     }
 
     /* Enable the IRDA Error Interrupt: (Frame error, noise error, overrun error) */
@@ -2188,7 +2188,7 @@ __weak void HAL_IRDA_AbortReceiveCpltCallback(IRDA_HandleTypeDef *hirda)
   *                the configuration information for the specified IRDA module.
   * @retval HAL state
   */
-HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
+HAL_IRDA_StateTypeDef HAL_IRDA_GetState(const IRDA_HandleTypeDef *hirda)
 {
   /* Return IRDA handle state */
   uint32_t temp1;
@@ -2205,7 +2205,7 @@ HAL_IRDA_StateTypeDef HAL_IRDA_GetState(IRDA_HandleTypeDef *hirda)
   *               the configuration information for the specified IRDA module.
   * @retval IRDA Error Code
   */
-uint32_t HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda)
+uint32_t HAL_IRDA_GetError(const IRDA_HandleTypeDef *hirda)
 {
   return hirda->ErrorCode;
 }
@@ -2347,6 +2347,18 @@ static HAL_StatusTypeDef IRDA_CheckIdleState(IRDA_HandleTypeDef *hirda)
       return HAL_TIMEOUT;
     }
   }
+#if defined(USART_ISR_REACK)
+  /* Check if the Receiver is enabled */
+  if ((hirda->Instance->CR1 & USART_CR1_RE) == USART_CR1_RE)
+  {
+    /* Wait until REACK flag is set */
+    if (IRDA_WaitOnFlagUntilTimeout(hirda, USART_ISR_REACK, RESET, tickstart, IRDA_TEACK_REACK_TIMEOUT) != HAL_OK)
+    {
+      /* Timeout occurred */
+      return HAL_TIMEOUT;
+    }
+  }
+#endif /* USART_ISR_REACK */
 
   /* Initialize the IRDA state*/
   hirda->gState  = HAL_IRDA_STATE_READY;

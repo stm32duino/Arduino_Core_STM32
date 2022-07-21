@@ -159,6 +159,10 @@ typedef struct
 
 #define __HAL_HCD_GET_FLAG(__HANDLE__, __INTERRUPT__)      ((USB_ReadInterrupts((__HANDLE__)->Instance)\
                                                              & (__INTERRUPT__)) == (__INTERRUPT__))
+
+#define __HAL_HCD_GET_CH_FLAG(__HANDLE__, __chnum__, __INTERRUPT__) \
+  ((USB_ReadChInterrupts((__HANDLE__)->Instance, (__chnum__)) & (__INTERRUPT__)) == (__INTERRUPT__))
+
 #define __HAL_HCD_CLEAR_FLAG(__HANDLE__, __INTERRUPT__)    (((__HANDLE__)->Instance->GINTSTS) = (__INTERRUPT__))
 #define __HAL_HCD_IS_INVALID_INTERRUPT(__HANDLE__)         (USB_ReadInterrupts((__HANDLE__)->Instance) == 0U)
 

@@ -277,7 +277,9 @@
   #define HAL_DAC_MODULE_ENABLED
 #endif
 #if !defined(HAL_ETH_MODULE_DISABLED)
-  #define HAL_ETH_MODULE_ENABLED
+  /* for compatibility until STMEthernet library is updated */
+  /* #define HAL_ETH_MODULE_ENABLED */
+  #define HAL_ETH_LEGACY_MODULE_ENABLED
 #endif
 #if !defined(HAL_QSPI_MODULE_DISABLED)
   #define HAL_QSPI_MODULE_ENABLED
