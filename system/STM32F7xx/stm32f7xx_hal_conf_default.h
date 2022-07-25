@@ -157,8 +157,8 @@ in voltage and temperature.  */
 #if !defined (PREFETCH_ENABLE)
 #define  PREFETCH_ENABLE              1U /* To enable prefetch */
 #endif
-#if !defined (ART_ACCLERATOR_ENABLE)
-#define  ART_ACCLERATOR_ENABLE        1U /* To enable ART Accelerator */
+#if !defined (ART_ACCELERATOR_ENABLE)
+#define  ART_ACCELERATOR_ENABLE        1U /* To enable ART Accelerator */
 #endif
 
 #define  USE_HAL_ADC_REGISTER_CALLBACKS         0U /* ADC register callback disabled       */
