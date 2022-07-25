@@ -12,7 +12,6 @@ target_include_directories(Wire_usage INTERFACE
 
 target_link_libraries(Wire_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(Wire INTERFACE Wire_usage)
@@ -20,8 +19,8 @@ target_link_libraries(Wire INTERFACE Wire_usage)
 
 
 add_library(Wire_bin OBJECT EXCLUDE_FROM_ALL
-  src/Wire.cpp
   src/utility/twi.c
+  src/Wire.cpp
 )
 target_link_libraries(Wire_bin PUBLIC Wire_usage)
 

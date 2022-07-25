@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 3.21)
-set(CI_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../CI)
 
 function(external_library)
   cmake_parse_arguments(PARSE_ARGV 0 XLIB "FORCE" "PATH" "DEPENDS")
@@ -15,7 +14,7 @@ function(external_library)
 
   if(NOT EXISTS ${XLIB_PATH}/CMakeLists.txt OR ${XLIB_FORCE})
     execute_process(
-      COMMAND ${Python3_EXECUTABLE} ${CI_FOLDER}/update/cmake_libs.py -l ${XLIB_PATH} -d ${XLIB_DEPENDS}
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/cmake_libs.py -l ${XLIB_PATH} -d ${XLIB_DEPENDS}
       WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     )
   endif()

@@ -62,10 +62,10 @@ for line in get_log(logf) :
 # platform lib path is already known, obviously, since that's where this script resides
 userlibs = pathlib.Path(libpaths["user"]).resolve()
 libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
-corepath = pathlib.Path(__file__).parent.parent.resolve()
+corepath = pathlib.Path(__file__).parent.parent.parent.resolve()
 
 j2_env = Environment(
-    loader=FileSystemLoader(str(corepath/"CI"/"update"/"templates")), trim_blocks=True, lstrip_blocks=True
+    loader=FileSystemLoader(str(corepath/"cmake"/"templates")), trim_blocks=True, lstrip_blocks=True
 )
 cmake_template = j2_env.get_template("easy_cmake.cmake")
 

@@ -12,7 +12,6 @@ target_include_directories(SPI_usage INTERFACE
 
 target_link_libraries(SPI_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(SPI INTERFACE SPI_usage)

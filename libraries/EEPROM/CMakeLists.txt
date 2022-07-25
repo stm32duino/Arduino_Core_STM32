@@ -12,7 +12,6 @@ target_include_directories(EEPROM_usage INTERFACE
 
 target_link_libraries(EEPROM_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(EEPROM INTERFACE EEPROM_usage)

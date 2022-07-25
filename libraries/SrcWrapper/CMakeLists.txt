@@ -12,7 +12,6 @@ target_include_directories(SrcWrapper_usage INTERFACE
 
 target_link_libraries(SrcWrapper_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(SrcWrapper INTERFACE SrcWrapper_usage)
@@ -169,7 +168,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/LL/stm32yyxx_ll_usart.c
   src/LL/stm32yyxx_ll_usb.c
   src/LL/stm32yyxx_ll_utils.c
-  src/stm32/PortNames.c
+  src/new.cpp
   src/stm32/analog.cpp
   src/stm32/bootloader.c
   src/stm32/clock.c
@@ -179,6 +178,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/stm32/interrupt.cpp
   src/stm32/otp.c
   src/stm32/pinmap.c
+  src/stm32/PortNames.c
   src/stm32/stm32_def.c
   src/stm32/system_stm32yyxx.c
   src/stm32/timer.c
@@ -191,4 +191,3 @@ target_link_libraries(SrcWrapper INTERFACE
   SrcWrapper_bin
   $<TARGET_OBJECTS:SrcWrapper_bin>
 )
-

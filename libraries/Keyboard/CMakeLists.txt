@@ -12,7 +12,6 @@ target_include_directories(Keyboard_usage INTERFACE
 
 target_link_libraries(Keyboard_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(Keyboard INTERFACE Keyboard_usage)

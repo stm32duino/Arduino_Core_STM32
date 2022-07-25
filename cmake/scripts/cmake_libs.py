@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import sys
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
+from cmake_gen import *
 
 script_path = Path(__file__).parent.resolve()
-sys.path.append(str(script_path.parent))
-from utils.cmake_gen import *
 
 parser = argparse.ArgumentParser()
 input_dirs = parser.add_mutually_exclusive_group(required=True)
@@ -17,7 +15,7 @@ parser.add_argument("--depends", "-d", action="extend", nargs="*", default=list(
 
 shargs = parser.parse_args()
 
-templates_dir = script_path / "templates"
+templates_dir = script_path / ".." / "templates"
 j2_env = Environment(
     loader=FileSystemLoader(str(templates_dir)), trim_blocks=True, lstrip_blocks=True
 )
@@ -29,11 +27,9 @@ if shargs.libraries is not None :
             continue
 
         config = autoconfig(lib)
-        config["extra_libs"].add("core")
         config["extra_libs"].update(shargs.depends)
         render(lib, cmake_template, config)
 else :
     config = autoconfig(shargs.library)
-    config["extra_libs"].add("core")
     config["extra_libs"].update(shargs.depends)
     render(shargs.library, cmake_template, config)

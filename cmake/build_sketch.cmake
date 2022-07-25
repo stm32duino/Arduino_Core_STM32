@@ -1,10 +1,16 @@
 cmake_minimum_required(VERSION 3.21)
 
-set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
 include(sketch_preprocess_sources)
 include(convert_file)
 
+include(set_base_arduino_config)
+
 function(build_sketch)
+  add_subdirectory(${BUILD_VARIANT_PATH} ./variant)
+  add_subdirectory(${BUILD_CORE_PATH} ./cores/arduino)
+  add_subdirectory(${BUILD_LIB_PATH} ./libraries)
+
+
   cmake_parse_arguments(PARSE_ARGV 0 SKBD "" "TARGET" "SOURCES;DEPENDS")
 
   if(DEFINED SKBD_UNPARSED_ARGUMENTS OR DEFINED SKBD_KEYWORDS_MISSING_VALUES)
@@ -20,7 +26,7 @@ function(build_sketch)
   endif()
 
   add_executable(${SKBD_TARGET})
-  target_include_directories(base_config INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+  target_include_directories(base_config BEFORE INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
 
   foreach(SRCS IN LISTS SKBD_SOURCES)
     sketch_preprocess_sources(OUTPUT_VARIABLE SRCS SOURCES ${SRCS})

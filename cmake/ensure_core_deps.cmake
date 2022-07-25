@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
 include(FetchContent)
 
-file(REAL_PATH "${CMAKE_CURRENT_LIST_DIR}/../platform.txt" PLATFORMTXT_PATH)
-file(REAL_PATH "${CMAKE_CURRENT_LIST_DIR}/../../.Arduino_Core_STM32_downloads" DL_DIR)
-set(JSONCONFIG_URL "https://raw.githubusercontent.com/stm32duino/BoardManagerFiles/dev/package_stmicroelectronics_index.json")
-
 function(get_core_version OUTVAR)
   file(READ ${PLATFORMTXT_PATH} PLATFORMTXT)
   string(REGEX MATCH "version=.+\n" LINE "${PLATFORMTXT}")
@@ -147,8 +143,12 @@ function(ensure_core_deps)
   if(NOT EXISTS ${DL_DIR}/dist/CMSIS5 OR NOT EXISTS ${DL_DIR}/dist/xpack)
     get_core_version(COREVER)
     declare_deps(${COREVER})
+    message(STATUS "Downloading the CMSIS...")
     FetchContent_MakeAvailable(CMSIS5)
+    message(STATUS "Downloading the CMSIS... Done.")
+    message(STATUS "Downloading the compiler toolchain...")
     FetchContent_MakeAvailable(xpack)
+    message(STATUS "Downloading the compiler toolchain... Done.")
   endif()
 
   set(CMSIS5_PATH ${DL_DIR}/dist/CMSIS5 PARENT_SCOPE)

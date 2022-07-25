@@ -1,7 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
 
-set(SCRIPTS_FOLDER ${CMAKE_CURRENT_LIST_DIR}/../scripts)
-
 function(sketch_preprocess_sources)
   cmake_parse_arguments(PARSE_ARGV 0 SPC "" "OUTPUT_VARIABLE" "SOURCES")
   set(SRCLIST "")

@@ -26,7 +26,7 @@ if (NOT ${CMAKE_PARENT_LIST_FILE} STREQUAL ${CMAKE_CURRENT_LIST_FILE})
     return()
 endif()
 
-
+project("{{tgtname+"_project" if tgtname else "@project_name_here@"}}")
 
 # STEP 2: configure the build
 # -----------------------------------------------------------------------------
@@ -56,8 +56,6 @@ overall_settings(
 
 # STEP 3: configure your sketch
 # -----------------------------------------------------------------------------
-project("{{tgtname+"_project" if tgtname else "@project_name_here@"}}")
-
 include(external_library)
 # I cannot tell the dependencies of the library ahead-of-time
 # Please write them in using the DEPENDS ... clause

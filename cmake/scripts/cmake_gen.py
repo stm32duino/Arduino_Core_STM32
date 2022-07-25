@@ -44,7 +44,7 @@ def get_sources(dir, recursive=False, relative_to=None) :
         walker = type(dir).glob
 
     return {
-        file.relative_to(relative_to)
+        str(file.relative_to(relative_to)).replace("\\", "/")
         for file in walker(dir, "*")
         if file.is_file() and file.suffix in SOURCEFILE_EXTS
     }

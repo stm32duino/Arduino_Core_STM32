@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 
+include("${CMAKE_CURRENT_LIST_DIR}/environment.cmake")
+
+find_package(ArduinoCtags REQUIRED)
+
 find_package(
         Python3 3.9 REQUIRED
         COMPONENTS Interpreter

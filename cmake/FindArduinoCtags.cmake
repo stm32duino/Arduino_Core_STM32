@@ -2,8 +2,6 @@ cmake_minimum_required(VERSION 3.21)
 include(FetchContent)
 include(FindPackageHandleStandardArgs)
 
-file(REAL_PATH "${CMAKE_CURRENT_LIST_DIR}/../../.Arduino_Core_STM32_downloads" DL_DIR)
-
 function(get_ctags)
   cmake_host_system_information(
     RESULT HOSTINFO
@@ -65,7 +63,9 @@ function(get_ctags)
     URL_HASH SHA512=${CHECKSUM}
     UPDATE_DISCONNECTED
   )
+  message(STATUS "Downloading Arduino's ctags...")
   FetchContent_MakeAvailable(ctags)
+  message(STATUS "Downloading Arduino's ctags... Done.")
 endfunction()
 
 # -------------------------------------------------------------------------------

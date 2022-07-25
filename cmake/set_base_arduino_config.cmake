@@ -1,15 +1,9 @@
 cmake_minimum_required(VERSION 3.21)
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake)
-find_package(ArduinoCtags REQUIRED)
-
-
-project("Arduino_Core_STM32" CXX C ASM)
-
-
-set(BUILD_CORE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cores/arduino")
-set(BUILD_SYSTEM_PATH "${CMAKE_CURRENT_SOURCE_DIR}/system")
-set(BUILD_LIB_PATH "${CMAKE_CURRENT_SOURCE_DIR}/libraries")
+# note: the doc say these must be called _at file scope_, not in a function
+enable_language(C)
+enable_language(CXX)
+enable_language(ASM)
 
 add_library(base_config INTERFACE)
 
@@ -20,7 +14,13 @@ target_link_libraries(base_config INTERFACE
 )
 
 # generic compilation options
-target_link_libraries(base_config INTERFACE board)
+target_link_libraries(base_config INTERFACE
+	board
+	m
+	stdc++
+	c
+	gcc
+)
 target_compile_definitions(base_config INTERFACE
 	USE_FULL_LL_DRIVER
 	ARDUINO_ARCH_STM32
@@ -71,22 +71,11 @@ target_include_directories(base_config INTERFACE
   "${BUILD_SYSTEM_PATH}/Middlewares/OpenAMP/virtual_driver"
 )
 
-add_subdirectory(${BUILD_CORE_PATH})
-add_subdirectory(${BUILD_VARIANT_PATH})
-add_subdirectory(${BUILD_LIB_PATH})
-
-
 add_library(stm32_runtime INTERFACE)
 target_link_libraries(stm32_runtime INTERFACE
   base_config
 
   SrcWrapper
   core
-  variant
-
-  ${CMSIS_LIB}
-  m
-  stdc++
-  c
-  gcc
+  $<TARGET_NAME_IF_EXISTS:variant>
 )

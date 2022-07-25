@@ -12,7 +12,6 @@ target_include_directories(CMSIS_DSP_usage INTERFACE
 
 target_link_libraries(CMSIS_DSP_usage INTERFACE
   base_config
-  core
 )
 
 target_link_libraries(CMSIS_DSP INTERFACE CMSIS_DSP_usage)
@@ -29,9 +28,9 @@ add_library(CMSIS_DSP_bin OBJECT EXCLUDE_FROM_ALL
   src/FastMathFunctions/FastMathFunctions.c
   src/FilteringFunctions/FilteringFunctions.c
   src/MatrixFunctions/MatrixFunctions.c
-  src/SVMFunctions/SVMFunctions.c
   src/StatisticsFunctions/StatisticsFunctions.c
   src/SupportFunctions/SupportFunctions.c
+  src/SVMFunctions/SVMFunctions.c
   src/TransformFunctions/TransformFunctions.c
 )
 target_link_libraries(CMSIS_DSP_bin PUBLIC CMSIS_DSP_usage)
