@@ -22,7 +22,7 @@ macro(find_dependencies TGT DEPTGTS)
 endmacro()
 
 function(insights)
-  set(KEYWORDS "DIRECT_INCLUDES" "TRANSITIVE_INCLUDES" "SYMBOLS" "ARCHIVES")
+  set(KEYWORDS "DIRECT_INCLUDES" "TRANSITIVE_INCLUDES" "SYMBOLS" "ARCHIVES" "LOGIC_STRUCTURE")
   cmake_parse_arguments(PARSE_ARGV 0 INSIGHTS "${KEYWORDS}" "TARGET" "")
 
   if(DEFINED INSIGHTS_UNPARSED_ARGUMENTS OR DEFINED INSIGHTS_KEYWORDS_MISSING_VALUES)
@@ -84,7 +84,7 @@ function(insights)
       COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/includes.py -o ${INSIGHTS_DIRECT_INCLUDES_GVFNAME} ${ALL_LOGS}
       DEPENDS ${ALL_LOGS}
     )
-    gv2svg(${INSIGHTS_DIRECT_INCLUDES_GVFNAME})
+    gv2svg(${INSIGHTS_DIRECT_INCLUDES_GVFNAME} ${SFDP})
   endif()
 
   if (${INSIGHTS_TRANSITIVE_INCLUDES})
@@ -93,7 +93,7 @@ function(insights)
       COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/includes.py -t ${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME} ${ALL_LOGS}
       DEPENDS ${ALL_LOGS}
     )
-    gv2svg(${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME})
+    gv2svg(${INSIGHTS_TRANSITIVE_INCLUDES_GVFNAME} ${SFDP})
   endif()
 
   if (${INSIGHTS_SYMBOLS})
@@ -102,7 +102,7 @@ function(insights)
       COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -f ${INSIGHTS_SYMBOLS_GVFNAME}
       DEPENDS ${MAPFILE}
     )
-    gv2svg(${INSIGHTS_SYMBOLS_GVFNAME})
+    gv2svg(${INSIGHTS_SYMBOLS_GVFNAME} ${SFDP})
   endif()
 
   if (${INSIGHTS_ARCHIVES})
@@ -111,6 +111,16 @@ function(insights)
       COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/syms.py -m ${MAPFILE} -s ${INSIGHTS_ARCHIVES_GVFNAME}
       DEPENDS ${MAPFILE}
     )
-    gv2svg(${INSIGHTS_ARCHIVES_GVFNAME})
+    gv2svg(${INSIGHTS_ARCHIVES_GVFNAME} ${SFDP})
+  endif()
+
+  if(${INSIGHTS_LOGIC_STRUCTURE})
+    file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/gv)
+    add_custom_command(OUTPUT ${OUTDIR}/logicstructure.gv
+      COMMAND ${CMAKE_COMMAND} --graphviz=${CMAKE_CURRENT_BINARY_DIR}/gv/project.gv ${CMAKE_BINARY_DIR}
+      COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/gv/project.gv.${INSIGHTS_TARGET} ${OUTDIR}/logicstructure.gv
+      BYPRODUCTS ${CMAKE_CURRENT_BINARY_DIR}/gv/project.gv.${INSIGHTS_TARGET}
+    )
+    gv2svg(${OUTDIR}/logicstructure.gv ${DOT})
   endif()
 endfunction()

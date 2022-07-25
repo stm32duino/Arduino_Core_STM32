@@ -29,9 +29,9 @@ else()
   set(PYTHON_HAS_JINJA ON)
 endif()
 
-
-
-find_program(SFDP "sfdp") # graphviz layout engine -- you may change the engine, use dot or whatever
+# graphviz layout engines
+find_program(SFDP "sfdp")
+find_program(DOT "dot")
 
 include("${CMAKE_CURRENT_LIST_DIR}/ensure_core_deps.cmake")
 ensure_core_deps()

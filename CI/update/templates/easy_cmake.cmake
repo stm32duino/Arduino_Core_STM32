@@ -51,6 +51,7 @@ overall_settings(
   # OPTIMIZATION "s"
   # BUILD_OPT ./build.opt
   # DISABLE_HAL_MODULES ADC I2C RTC SPI TIM DAC EXTI ETH SD QSPI
+  # CORE_CALLBACK
 )
 
 # STEP 3: configure your sketch

@@ -2,13 +2,26 @@ cmake_minimum_required(VERSION 3.21)
 add_library(user_settings INTERFACE)
 
 function(overall_settings)
-  set(KEYWORDS0 STANDARD_LIBC PRINTF_FLOAT SCANF_FLOAT DEBUG_SYMBOLS LTO NO_RELATIVE_MACRO UNDEF_NDEBUG)
+  if(TARGET user_settings)
+    message(SEND_ERROR "overall_settings() was called twice. This is not allowed as it could result in conflicting settings.")
+    return()
+  endif()
+
+  add_library(user_settings INTERFACE)
+
+  set(KEYWORDS0 STANDARD_LIBC PRINTF_FLOAT SCANF_FLOAT DEBUG_SYMBOLS LTO NO_RELATIVE_MACRO UNDEF_NDEBUG CORE_CALLBACK)
   set(KEYWORDS1 OPTIMIZATION BUILD_OPT)
   set(KEYWORDSN DISABLE_HAL_MODULES)
   cmake_parse_arguments(PARSE_ARGV 0 WANT "${KEYWORDS0}" "${KEYWORDS1}" "${KEYWORDSN}")
 
   if(DEFINED WANT_UNPARSED_ARGUMENTS OR DEFINED WANT_KEYWORDS_MISSING_VALUES)
     message(SEND_ERROR "Invalid call to overall_settings(); some arguments went unparsed")
+  endif()
+
+  if(${WANT_CORE_CALLBACK})
+    target_compile_options(user_settings INTERFACE
+      CORE_CALLBACK
+    )
   endif()
 
   if(NOT ${WANT_NO_RELATIVE_MACRO})

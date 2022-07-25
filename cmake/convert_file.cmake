@@ -13,14 +13,14 @@ function(elf2hex ELFTGT)
   set_property(TARGET ${ELFTGT} APPEND PROPERTY ADDITIONAL_CLEAN_FILES "$<TARGET_FILE:${ELFTGT}>.hex")
 endfunction()
 
-function(gv2svg GVFILE)
+function(gv2svg GVFILE ENGINE)
   get_filename_component(ABSGV ${GVFILE} ABSOLUTE BASE_DIR ${CMAKE_CURRENT_BINARY_DIR})
   get_filename_component(GVNAME ${GVFILE} NAME)
 
   # HACK: all this to get the final SVG file as a visible target with the same name as the file
   add_custom_target(${GVNAME}.svg DEPENDS ${ABSGV})
   add_custom_command(TARGET ${GVNAME}.svg POST_BUILD
-    COMMAND ${SFDP} -Tsvg -o ${ABSGV}.svg ${ABSGV}
+    COMMAND ${ENGINE} -Tsvg -o ${ABSGV}.svg ${ABSGV}
   )
   set_property(TARGET ${GVNAME}.svg APPEND PROPERTY ADDITIONAL_CLEAN_FILES ${ABSGV}.svg)
 
