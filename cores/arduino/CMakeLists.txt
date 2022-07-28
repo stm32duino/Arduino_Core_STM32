@@ -20,7 +20,6 @@ target_link_libraries(core INTERFACE core_usage)
 
 add_library(core_bin STATIC EXCLUDE_FROM_ALL
   HardwareSerial.cpp
-  HardwareTimer.cpp
   IPAddress.cpp
   Print.cpp
   RingBuffer.cpp
@@ -35,11 +34,9 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   abi.cpp
   avr/dtostrf.c
   board.c
-  core_debug.c
   hooks.c
   itoa.c
   main.cpp
-  new.cpp
   pins_arduino.c
   stm32/OpenAMP/libmetal/device.c
   stm32/OpenAMP/libmetal/generic/condition.c

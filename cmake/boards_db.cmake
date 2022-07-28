@@ -8,7 +8,7 @@ set(ACSIP_S76S_MCU cortex-m0plus)
 set(ACSIP_S76S_FPCONF "-")
 add_library(ACSIP_S76S INTERFACE)
 target_compile_options(ACSIP_S76S INTERFACE
-  "SHELL:-DSTM32L073xx   -D__CORTEX_SC=0"
+  "SHELL:-DSTM32L073xx  "
   "SHELL:-DCUSTOM_PERIPHERAL_PINS"
   "SHELL:"
   "SHELL: "

@@ -60,6 +60,7 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_gfxmmu.c
   src/HAL/stm32yyxx_hal_gpio.c
   src/HAL/stm32yyxx_hal_gpio_ex.c
+  src/HAL/stm32yyxx_hal_gpu2d.c
   src/HAL/stm32yyxx_hal_gtzc.c
   src/HAL/stm32yyxx_hal_hash.c
   src/HAL/stm32yyxx_hal_hash_ex.c
@@ -130,6 +131,8 @@ add_library(SrcWrapper_bin OBJECT EXCLUDE_FROM_ALL
   src/HAL/stm32yyxx_hal_usart.c
   src/HAL/stm32yyxx_hal_usart_ex.c
   src/HAL/stm32yyxx_hal_wwdg.c
+  src/HAL/stm32yyxx_hal_xspi.c
+  src/HardwareTimer.cpp
   src/LL/stm32yyxx_ll_adc.c
   src/LL/stm32yyxx_ll_bdma.c
   src/LL/stm32yyxx_ll_comp.c
