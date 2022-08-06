@@ -8313,6 +8313,18 @@ GenWL.menu.upload_method.dfuMethod.upload.tool=stm32CubeProg
 3dprinter.menu.pnum.ARMED_V1.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 3dprinter.menu.pnum.ARMED_V1.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# Big Tree Tech EBB42_V1_1 board
+3dprinter.menu.pnum.EBB42_V1_1=Big Tree Tech EBB42 V1.1
+3dprinter.menu.pnum.EBB42_V1_1.upload.maximum_size=131072
+3dprinter.menu.pnum.EBB42_V1_1.upload.maximum_data_size=147456
+3dprinter.menu.pnum.EBB42_V1_1.build.mcu=cortex-m0plus
+3dprinter.menu.pnum.EBB42_V1_1.build.board=EBB42_V1_1
+3dprinter.menu.pnum.EBB42_V1_1.build.series=STM32G0xx
+3dprinter.menu.pnum.EBB42_V1_1.build.product_line=STM32G0B1xx
+3dprinter.menu.pnum.EBB42_V1_1.build.variant=STM32G0xx/G0B1C(B-C-E)(T-U)_G0C1C(C-E)(T-U)
+3dprinter.menu.pnum.EBB42_V1_1.build.cmsis_lib_gcc=arm_cortexM0l_math
+3dprinter.menu.pnum.EBB42_V1_1.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # REMRAM_V1 board
 3dprinter.menu.pnum.REMRAM_V1=RemRam v1
 3dprinter.menu.pnum.REMRAM_V1.upload.maximum_size=2097152
