@@ -326,28 +326,6 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32G081RB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G0B1RB<br>STM32G0B1RC<br>STM32G0B1RE | Generic Board | *2.1.0* |  |
 | :green_heart: | STM32G0C1RB<br>STM32G0C1RE | Generic Board | *2.1.0* |  |
-| :yellow_heart: | STM32G0B1CB<br>STM32G0B1CC<br>STM32G0B1CE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0B1KB<br>STM32G0B1KC<br>STM32G0B1KE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0B1MB<br>STM32G0B1MC<br>STM32G0B1ME | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0C1MC<br>STM32G0C1ME | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0B1NE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0C1NE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0B1VB<br>STM32G0B1VC<br>STM32G0B1VE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G0C1VB<br>STM32G0C1VC<br>STM32G0C1VE | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G030JM | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G031C4<br>STM32G031C6<br>STM32G031C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G031G4<br>STM32G031G6<br>STM32G031G8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G041C4<br>STM32G041C6<br>STM32G041C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G041G4<br>STM32G041G6<br>STM32G041C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G050C6<br>STM32G050C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G050F6 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G050K6<br>STM32G050K8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G051C6<br>STM32G051C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G061C6<br>STM32G061C8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G051F6<br>STM32G051F8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G061F6<br>STM32G061F8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G051G6<br>STM32G051G8 | Generic Board | **2.3.0** |  |
-| :yellow_heart: | STM32G061G6<br>STM32G061G8 | Generic Board | **2.3.0** |  |
 
 ### Generic STM32G4 boards
 
