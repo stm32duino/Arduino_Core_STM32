@@ -5351,6 +5351,30 @@ GenG4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenG4.upload.maximum_size=0
 GenG4.upload.maximum_data_size=0
 
+# Generic G431C6Tx
+GenG4.menu.pnum.GENERIC_G431C6TX=Generic G431C6Tx
+GenG4.menu.pnum.GENERIC_G431C6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431C6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431C6TX.build.board=GENERIC_G431C6TX
+GenG4.menu.pnum.GENERIC_G431C6TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431C6TX.build.variant=STM32G4xx/G431C(6-8-B)T_G441CBT
+
+# Generic G431C8Tx
+GenG4.menu.pnum.GENERIC_G431C8TX=Generic G431C8Tx
+GenG4.menu.pnum.GENERIC_G431C8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431C8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431C8TX.build.board=GENERIC_G431C8TX
+GenG4.menu.pnum.GENERIC_G431C8TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431C8TX.build.variant=STM32G4xx/G431C(6-8-B)T_G441CBT
+
+# Generic G431CBTx
+GenG4.menu.pnum.GENERIC_G431CBTX=Generic G431CBTx
+GenG4.menu.pnum.GENERIC_G431CBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431CBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431CBTX.build.board=GENERIC_G431CBTX
+GenG4.menu.pnum.GENERIC_G431CBTX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431CBTX.build.variant=STM32G4xx/G431C(6-8-B)T_G441CBT
+
 # Generic G431C6Ux
 GenG4.menu.pnum.GENERIC_G431C6UX=Generic G431C6Ux
 GenG4.menu.pnum.GENERIC_G431C6UX.upload.maximum_size=32768
@@ -5423,29 +5447,29 @@ GenG4.menu.pnum.GENERIC_G431KBUX.build.board=GENERIC_G431KBUX
 GenG4.menu.pnum.GENERIC_G431KBUX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
 
-# Generic G441CBUx
-GenG4.menu.pnum.GENERIC_G441CBUX=Generic G441CBUx
-GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_size=131072
-GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_data_size=32768
-GenG4.menu.pnum.GENERIC_G441CBUX.build.board=GENERIC_G441CBUX
-GenG4.menu.pnum.GENERIC_G441CBUX.build.product_line=STM32G441xx
-GenG4.menu.pnum.GENERIC_G441CBUX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+# Generic G431M6Tx
+GenG4.menu.pnum.GENERIC_G431M6TX=Generic G431M6Tx
+GenG4.menu.pnum.GENERIC_G431M6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431M6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431M6TX.build.board=GENERIC_G431M6TX
+GenG4.menu.pnum.GENERIC_G431M6TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431M6TX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
 
-# Generic G441KBTx
-GenG4.menu.pnum.GENERIC_G441KBTX=Generic G441KBTx
-GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_size=131072
-GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_data_size=32768
-GenG4.menu.pnum.GENERIC_G441KBTX.build.board=GENERIC_G441KBTX
-GenG4.menu.pnum.GENERIC_G441KBTX.build.product_line=STM32G441xx
-GenG4.menu.pnum.GENERIC_G441KBTX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+# Generic G431M8Tx
+GenG4.menu.pnum.GENERIC_G431M8TX=Generic G431M8Tx
+GenG4.menu.pnum.GENERIC_G431M8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431M8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431M8TX.build.board=GENERIC_G431M8TX
+GenG4.menu.pnum.GENERIC_G431M8TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431M8TX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
 
-# Generic G441KBUx
-GenG4.menu.pnum.GENERIC_G441KBUX=Generic G441KBUx
-GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_size=131072
-GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_data_size=32768
-GenG4.menu.pnum.GENERIC_G441KBUX.build.board=GENERIC_G441KBUX
-GenG4.menu.pnum.GENERIC_G441KBUX.build.product_line=STM32G441xx
-GenG4.menu.pnum.GENERIC_G441KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+# Generic G431MBTx
+GenG4.menu.pnum.GENERIC_G431MBTX=Generic G431MBTx
+GenG4.menu.pnum.GENERIC_G431MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431MBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431MBTX.build.board=GENERIC_G431MBTX
+GenG4.menu.pnum.GENERIC_G431MBTX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431MBTX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
 
 # Generic G431R6Ix
 GenG4.menu.pnum.GENERIC_G431R6IX=Generic G431R6Ix
@@ -5495,6 +5519,70 @@ GenG4.menu.pnum.GENERIC_G431RBTX.build.board=GENERIC_G431RBTX
 GenG4.menu.pnum.GENERIC_G431RBTX.build.product_line=STM32G431xx
 GenG4.menu.pnum.GENERIC_G431RBTX.build.variant=STM32G4xx/G431R(6-8-B)(I-T)_G441RB(I-T)
 
+# Generic G431V6Tx
+GenG4.menu.pnum.GENERIC_G431V6TX=Generic G431V6Tx
+GenG4.menu.pnum.GENERIC_G431V6TX.upload.maximum_size=32768
+GenG4.menu.pnum.GENERIC_G431V6TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431V6TX.build.board=GENERIC_G431V6TX
+GenG4.menu.pnum.GENERIC_G431V6TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431V6TX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+
+# Generic G431V8Tx
+GenG4.menu.pnum.GENERIC_G431V8TX=Generic G431V8Tx
+GenG4.menu.pnum.GENERIC_G431V8TX.upload.maximum_size=65536
+GenG4.menu.pnum.GENERIC_G431V8TX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431V8TX.build.board=GENERIC_G431V8TX
+GenG4.menu.pnum.GENERIC_G431V8TX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431V8TX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+
+# Generic G431VBTx
+GenG4.menu.pnum.GENERIC_G431VBTX=Generic G431VBTx
+GenG4.menu.pnum.GENERIC_G431VBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G431VBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G431VBTX.build.board=GENERIC_G431VBTX
+GenG4.menu.pnum.GENERIC_G431VBTX.build.product_line=STM32G431xx
+GenG4.menu.pnum.GENERIC_G431VBTX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+
+# Generic G441CBTx
+GenG4.menu.pnum.GENERIC_G441CBTX=Generic G441CBTx
+GenG4.menu.pnum.GENERIC_G441CBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441CBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441CBTX.build.board=GENERIC_G441CBTX
+GenG4.menu.pnum.GENERIC_G441CBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441CBTX.build.variant=STM32G4xx/G431C(6-8-B)T_G441CBT
+
+# Generic G441CBUx
+GenG4.menu.pnum.GENERIC_G441CBUX=Generic G441CBUx
+GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441CBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441CBUX.build.board=GENERIC_G441CBUX
+GenG4.menu.pnum.GENERIC_G441CBUX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441CBUX.build.variant=STM32G4xx/G431C(6-8-B)U_G441CBU
+
+# Generic G441MBTx
+GenG4.menu.pnum.GENERIC_G441MBTX=Generic G441MBTx
+GenG4.menu.pnum.GENERIC_G441MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441MBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441MBTX.build.board=GENERIC_G441MBTX
+GenG4.menu.pnum.GENERIC_G441MBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441MBTX.build.variant=STM32G4xx/G431M(6-8-B)T_G441MBT
+
+# Generic G441KBTx
+GenG4.menu.pnum.GENERIC_G441KBTX=Generic G441KBTx
+GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441KBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441KBTX.build.board=GENERIC_G441KBTX
+GenG4.menu.pnum.GENERIC_G441KBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441KBTX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
+# Generic G441KBUx
+GenG4.menu.pnum.GENERIC_G441KBUX=Generic G441KBUx
+GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441KBUX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441KBUX.build.board=GENERIC_G441KBUX
+GenG4.menu.pnum.GENERIC_G441KBUX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441KBUX.build.variant=STM32G4xx/G431K(6-8-B)(T-U)_G441KB(T-U)
+
 # Generic G441RBIx
 GenG4.menu.pnum.GENERIC_G441RBIX=Generic G441RBIx
 GenG4.menu.pnum.GENERIC_G441RBIX.upload.maximum_size=131072
@@ -5510,6 +5598,198 @@ GenG4.menu.pnum.GENERIC_G441RBTX.upload.maximum_data_size=32768
 GenG4.menu.pnum.GENERIC_G441RBTX.build.board=GENERIC_G441RBTX
 GenG4.menu.pnum.GENERIC_G441RBTX.build.product_line=STM32G441xx
 GenG4.menu.pnum.GENERIC_G441RBTX.build.variant=STM32G4xx/G431R(6-8-B)(I-T)_G441RB(I-T)
+
+# Generic G441VBTx
+GenG4.menu.pnum.GENERIC_G441VBTX=Generic G441VBTx
+GenG4.menu.pnum.GENERIC_G441VBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G441VBTX.upload.maximum_data_size=32768
+GenG4.menu.pnum.GENERIC_G441VBTX.build.board=GENERIC_G441VBTX
+GenG4.menu.pnum.GENERIC_G441VBTX.build.product_line=STM32G441xx
+GenG4.menu.pnum.GENERIC_G441VBTX.build.variant=STM32G4xx/G431V(6-8-B)T_G441VBT
+
+# Generic G471CCTx
+GenG4.menu.pnum.GENERIC_G471CCTX=Generic G471CCTx
+GenG4.menu.pnum.GENERIC_G471CCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471CCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471CCTX.build.board=GENERIC_G471CCTX
+GenG4.menu.pnum.GENERIC_G471CCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471CCTX.build.variant=STM32G4xx/G471C(C-E)T
+
+# Generic G471CETx
+GenG4.menu.pnum.GENERIC_G471CETX=Generic G471CETx
+GenG4.menu.pnum.GENERIC_G471CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471CETX.build.board=GENERIC_G471CETX
+GenG4.menu.pnum.GENERIC_G471CETX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471CETX.build.variant=STM32G4xx/G471C(C-E)T
+
+# Generic G471MCTx
+GenG4.menu.pnum.GENERIC_G471MCTX=Generic G471MCTx
+GenG4.menu.pnum.GENERIC_G471MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471MCTX.build.board=GENERIC_G471MCTX
+GenG4.menu.pnum.GENERIC_G471MCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471MCTX.build.variant=STM32G4xx/G471M(C-E)T
+
+# Generic G471METx
+GenG4.menu.pnum.GENERIC_G471METX=Generic G471METx
+GenG4.menu.pnum.GENERIC_G471METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471METX.build.board=GENERIC_G471METX
+GenG4.menu.pnum.GENERIC_G471METX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471METX.build.variant=STM32G4xx/G471M(C-E)T
+
+# Generic G471QCTx
+GenG4.menu.pnum.GENERIC_G471QCTX=Generic G471QCTx
+GenG4.menu.pnum.GENERIC_G471QCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471QCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471QCTX.build.board=GENERIC_G471QCTX
+GenG4.menu.pnum.GENERIC_G471QCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471QCTX.build.variant=STM32G4xx/G471Q(C-E)T
+
+# Generic G471QETx
+GenG4.menu.pnum.GENERIC_G471QETX=Generic G471QETx
+GenG4.menu.pnum.GENERIC_G471QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471QETX.build.board=GENERIC_G471QETX
+GenG4.menu.pnum.GENERIC_G471QETX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471QETX.build.variant=STM32G4xx/G471Q(C-E)T
+
+# Generic G471RCTx
+GenG4.menu.pnum.GENERIC_G471RCTX=Generic G471RCTx
+GenG4.menu.pnum.GENERIC_G471RCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471RCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471RCTX.build.board=GENERIC_G471RCTX
+GenG4.menu.pnum.GENERIC_G471RCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471RCTX.build.variant=STM32G4xx/G471R(C-E)T
+
+# Generic G471RETx
+GenG4.menu.pnum.GENERIC_G471RETX=Generic G471RETx
+GenG4.menu.pnum.GENERIC_G471RETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471RETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471RETX.build.board=GENERIC_G471RETX
+GenG4.menu.pnum.GENERIC_G471RETX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471RETX.build.variant=STM32G4xx/G471R(C-E)T
+
+# Generic G471VCHx
+GenG4.menu.pnum.GENERIC_G471VCHX=Generic G471VCHx
+GenG4.menu.pnum.GENERIC_G471VCHX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCHX.build.board=GENERIC_G471VCHX
+GenG4.menu.pnum.GENERIC_G471VCHX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCHX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VEHx
+GenG4.menu.pnum.GENERIC_G471VEHX=Generic G471VEHx
+GenG4.menu.pnum.GENERIC_G471VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VEHX.build.board=GENERIC_G471VEHX
+GenG4.menu.pnum.GENERIC_G471VEHX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VEHX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VCIx
+GenG4.menu.pnum.GENERIC_G471VCIX=Generic G471VCIx
+GenG4.menu.pnum.GENERIC_G471VCIX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCIX.build.board=GENERIC_G471VCIX
+GenG4.menu.pnum.GENERIC_G471VCIX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCIX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VEIx
+GenG4.menu.pnum.GENERIC_G471VEIX=Generic G471VEIx
+GenG4.menu.pnum.GENERIC_G471VEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VEIX.build.board=GENERIC_G471VEIX
+GenG4.menu.pnum.GENERIC_G471VEIX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VEIX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VCTx
+GenG4.menu.pnum.GENERIC_G471VCTX=Generic G471VCTx
+GenG4.menu.pnum.GENERIC_G471VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G471VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VCTX.build.board=GENERIC_G471VCTX
+GenG4.menu.pnum.GENERIC_G471VCTX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VCTX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G471VETx
+GenG4.menu.pnum.GENERIC_G471VETX=Generic G471VETx
+GenG4.menu.pnum.GENERIC_G471VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G471VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G471VETX.build.board=GENERIC_G471VETX
+GenG4.menu.pnum.GENERIC_G471VETX.build.product_line=STM32G471xx
+GenG4.menu.pnum.GENERIC_G471VETX.build.variant=STM32G4xx/G471V(C-E)(H-I-T)
+
+# Generic G473CBTx
+GenG4.menu.pnum.GENERIC_G473CBTX=Generic G473CBTx
+GenG4.menu.pnum.GENERIC_G473CBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473CBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473CBTX.build.board=GENERIC_G473CBTX
+GenG4.menu.pnum.GENERIC_G473CBTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473CBTX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G473CCTx
+GenG4.menu.pnum.GENERIC_G473CCTX=Generic G473CCTx
+GenG4.menu.pnum.GENERIC_G473CCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473CCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473CCTX.build.board=GENERIC_G473CCTX
+GenG4.menu.pnum.GENERIC_G473CCTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473CCTX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G473CETx
+GenG4.menu.pnum.GENERIC_G473CETX=Generic G473CETx
+GenG4.menu.pnum.GENERIC_G473CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473CETX.build.board=GENERIC_G473CETX
+GenG4.menu.pnum.GENERIC_G473CETX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473CETX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G473MBTx
+GenG4.menu.pnum.GENERIC_G473MBTX=Generic G473MBTx
+GenG4.menu.pnum.GENERIC_G473MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473MBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473MBTX.build.board=GENERIC_G473MBTX
+GenG4.menu.pnum.GENERIC_G473MBTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473MBTX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G473MCTx
+GenG4.menu.pnum.GENERIC_G473MCTX=Generic G473MCTx
+GenG4.menu.pnum.GENERIC_G473MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473MCTX.build.board=GENERIC_G473MCTX
+GenG4.menu.pnum.GENERIC_G473MCTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473MCTX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G473METx
+GenG4.menu.pnum.GENERIC_G473METX=Generic G473METx
+GenG4.menu.pnum.GENERIC_G473METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473METX.build.board=GENERIC_G473METX
+GenG4.menu.pnum.GENERIC_G473METX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473METX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G473PBIx
+GenG4.menu.pnum.GENERIC_G473PBIX=Generic G473PBIx
+GenG4.menu.pnum.GENERIC_G473PBIX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473PBIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473PBIX.build.board=GENERIC_G473PBIX
+GenG4.menu.pnum.GENERIC_G473PBIX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473PBIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
+# Generic G473PCIx
+GenG4.menu.pnum.GENERIC_G473PCIX=Generic G473PCIx
+GenG4.menu.pnum.GENERIC_G473PCIX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473PCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473PCIX.build.board=GENERIC_G473PCIX
+GenG4.menu.pnum.GENERIC_G473PCIX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473PCIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
+# Generic G473PEIx
+GenG4.menu.pnum.GENERIC_G473PEIX=Generic G473PEIx
+GenG4.menu.pnum.GENERIC_G473PEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473PEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473PEIX.build.board=GENERIC_G473PEIX
+GenG4.menu.pnum.GENERIC_G473PEIX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
 
 # Generic G473RBTx
 GenG4.menu.pnum.GENERIC_G473RBTX=Generic G473RBTx
@@ -5535,6 +5815,150 @@ GenG4.menu.pnum.GENERIC_G473RETX.build.board=GENERIC_G473RETX
 GenG4.menu.pnum.GENERIC_G473RETX.build.product_line=STM32G473xx
 GenG4.menu.pnum.GENERIC_G473RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
 
+# Generic G473QBTx
+GenG4.menu.pnum.GENERIC_G473QBTX=Generic G473QBTx
+GenG4.menu.pnum.GENERIC_G473QBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473QBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473QBTX.build.board=GENERIC_G473QBTX
+GenG4.menu.pnum.GENERIC_G473QBTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473QBTX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G473QCTx
+GenG4.menu.pnum.GENERIC_G473QCTX=Generic G473QCTx
+GenG4.menu.pnum.GENERIC_G473QCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473QCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473QCTX.build.board=GENERIC_G473QCTX
+GenG4.menu.pnum.GENERIC_G473QCTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473QCTX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G473QETx
+GenG4.menu.pnum.GENERIC_G473QETX=Generic G473QETx
+GenG4.menu.pnum.GENERIC_G473QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473QETX.build.board=GENERIC_G473QETX
+GenG4.menu.pnum.GENERIC_G473QETX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473QETX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G473VBHx
+GenG4.menu.pnum.GENERIC_G473VBHX=Generic G473VBHx
+GenG4.menu.pnum.GENERIC_G473VBHX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473VBHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VBHX.build.board=GENERIC_G473VBHX
+GenG4.menu.pnum.GENERIC_G473VBHX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VBHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G473VCHx
+GenG4.menu.pnum.GENERIC_G473VCHX=Generic G473VCHx
+GenG4.menu.pnum.GENERIC_G473VCHX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473VCHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VCHX.build.board=GENERIC_G473VCHX
+GenG4.menu.pnum.GENERIC_G473VCHX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VCHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G473VEHx
+GenG4.menu.pnum.GENERIC_G473VEHX=Generic G473VEHx
+GenG4.menu.pnum.GENERIC_G473VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VEHX.build.board=GENERIC_G473VEHX
+GenG4.menu.pnum.GENERIC_G473VEHX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VEHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G473VBTx
+GenG4.menu.pnum.GENERIC_G473VBTX=Generic G473VBTx
+GenG4.menu.pnum.GENERIC_G473VBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G473VBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VBTX.build.board=GENERIC_G473VBTX
+GenG4.menu.pnum.GENERIC_G473VBTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VBTX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G473VCTx
+GenG4.menu.pnum.GENERIC_G473VCTX=Generic G473VCTx
+GenG4.menu.pnum.GENERIC_G473VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G473VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VCTX.build.board=GENERIC_G473VCTX
+GenG4.menu.pnum.GENERIC_G473VCTX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VCTX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G473VETx
+GenG4.menu.pnum.GENERIC_G473VETX=Generic G473VETx
+GenG4.menu.pnum.GENERIC_G473VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G473VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G473VETX.build.board=GENERIC_G473VETX
+GenG4.menu.pnum.GENERIC_G473VETX.build.product_line=STM32G473xx
+GenG4.menu.pnum.GENERIC_G473VETX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474CBTx
+GenG4.menu.pnum.GENERIC_G474CBTX=Generic G474CBTx
+GenG4.menu.pnum.GENERIC_G474CBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474CBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474CBTX.build.board=GENERIC_G474CBTX
+GenG4.menu.pnum.GENERIC_G474CBTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474CBTX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G474CCTx
+GenG4.menu.pnum.GENERIC_G474CCTX=Generic G474CCTx
+GenG4.menu.pnum.GENERIC_G474CCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474CCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474CCTX.build.board=GENERIC_G474CCTX
+GenG4.menu.pnum.GENERIC_G474CCTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474CCTX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G474CETx
+GenG4.menu.pnum.GENERIC_G474CETX=Generic G474CETx
+GenG4.menu.pnum.GENERIC_G474CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474CETX.build.board=GENERIC_G474CETX
+GenG4.menu.pnum.GENERIC_G474CETX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474CETX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G474MBTx
+GenG4.menu.pnum.GENERIC_G474MBTX=Generic G474MBTx
+GenG4.menu.pnum.GENERIC_G474MBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474MBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474MBTX.build.board=GENERIC_G474MBTX
+GenG4.menu.pnum.GENERIC_G474MBTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474MBTX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G474MCTx
+GenG4.menu.pnum.GENERIC_G474MCTX=Generic G474MCTx
+GenG4.menu.pnum.GENERIC_G474MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474MCTX.build.board=GENERIC_G474MCTX
+GenG4.menu.pnum.GENERIC_G474MCTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474MCTX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G474METx
+GenG4.menu.pnum.GENERIC_G474METX=Generic G474METx
+GenG4.menu.pnum.GENERIC_G474METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474METX.build.board=GENERIC_G474METX
+GenG4.menu.pnum.GENERIC_G474METX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474METX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G474PBIx
+GenG4.menu.pnum.GENERIC_G474PBIX=Generic G474PBIx
+GenG4.menu.pnum.GENERIC_G474PBIX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474PBIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474PBIX.build.board=GENERIC_G474PBIX
+GenG4.menu.pnum.GENERIC_G474PBIX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474PBIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
+# Generic G474PCIx
+GenG4.menu.pnum.GENERIC_G474PCIX=Generic G474PCIx
+GenG4.menu.pnum.GENERIC_G474PCIX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474PCIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474PCIX.build.board=GENERIC_G474PCIX
+GenG4.menu.pnum.GENERIC_G474PCIX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474PCIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
+# Generic G474PEIx
+GenG4.menu.pnum.GENERIC_G474PEIX=Generic G474PEIx
+GenG4.menu.pnum.GENERIC_G474PEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474PEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474PEIX.build.board=GENERIC_G474PEIX
+GenG4.menu.pnum.GENERIC_G474PEIX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
 # Generic G474RBTx
 GenG4.menu.pnum.GENERIC_G474RBTX=Generic G474RBTx
 GenG4.menu.pnum.GENERIC_G474RBTX.upload.maximum_size=131072
@@ -5559,6 +5983,102 @@ GenG4.menu.pnum.GENERIC_G474RETX.build.board=GENERIC_G474RETX
 GenG4.menu.pnum.GENERIC_G474RETX.build.product_line=STM32G474xx
 GenG4.menu.pnum.GENERIC_G474RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
 
+# Generic G474QBTx
+GenG4.menu.pnum.GENERIC_G474QBTX=Generic G474QBTx
+GenG4.menu.pnum.GENERIC_G474QBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474QBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474QBTX.build.board=GENERIC_G474QBTX
+GenG4.menu.pnum.GENERIC_G474QBTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474QBTX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G474QCTx
+GenG4.menu.pnum.GENERIC_G474QCTX=Generic G474QCTx
+GenG4.menu.pnum.GENERIC_G474QCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474QCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474QCTX.build.board=GENERIC_G474QCTX
+GenG4.menu.pnum.GENERIC_G474QCTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474QCTX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G474QETx
+GenG4.menu.pnum.GENERIC_G474QETX=Generic G474QETx
+GenG4.menu.pnum.GENERIC_G474QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474QETX.build.board=GENERIC_G474QETX
+GenG4.menu.pnum.GENERIC_G474QETX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474QETX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G474VBHx
+GenG4.menu.pnum.GENERIC_G474VBHX=Generic G474VBHx
+GenG4.menu.pnum.GENERIC_G474VBHX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474VBHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VBHX.build.board=GENERIC_G474VBHX
+GenG4.menu.pnum.GENERIC_G474VBHX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VBHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474VCHx
+GenG4.menu.pnum.GENERIC_G474VCHX=Generic G474VCHx
+GenG4.menu.pnum.GENERIC_G474VCHX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474VCHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VCHX.build.board=GENERIC_G474VCHX
+GenG4.menu.pnum.GENERIC_G474VCHX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VCHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474VEHx
+GenG4.menu.pnum.GENERIC_G474VEHX=Generic G474VEHx
+GenG4.menu.pnum.GENERIC_G474VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VEHX.build.board=GENERIC_G474VEHX
+GenG4.menu.pnum.GENERIC_G474VEHX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VEHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474VBTx
+GenG4.menu.pnum.GENERIC_G474VBTX=Generic G474VBTx
+GenG4.menu.pnum.GENERIC_G474VBTX.upload.maximum_size=131072
+GenG4.menu.pnum.GENERIC_G474VBTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VBTX.build.board=GENERIC_G474VBTX
+GenG4.menu.pnum.GENERIC_G474VBTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VBTX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474VCTx
+GenG4.menu.pnum.GENERIC_G474VCTX=Generic G474VCTx
+GenG4.menu.pnum.GENERIC_G474VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G474VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VCTX.build.board=GENERIC_G474VCTX
+GenG4.menu.pnum.GENERIC_G474VCTX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VCTX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G474VETx
+GenG4.menu.pnum.GENERIC_G474VETX=Generic G474VETx
+GenG4.menu.pnum.GENERIC_G474VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G474VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G474VETX.build.board=GENERIC_G474VETX
+GenG4.menu.pnum.GENERIC_G474VETX.build.product_line=STM32G474xx
+GenG4.menu.pnum.GENERIC_G474VETX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G483CETx
+GenG4.menu.pnum.GENERIC_G483CETX=Generic G483CETx
+GenG4.menu.pnum.GENERIC_G483CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483CETX.build.board=GENERIC_G483CETX
+GenG4.menu.pnum.GENERIC_G483CETX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483CETX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G483METx
+GenG4.menu.pnum.GENERIC_G483METX=Generic G483METx
+GenG4.menu.pnum.GENERIC_G483METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483METX.build.board=GENERIC_G483METX
+GenG4.menu.pnum.GENERIC_G483METX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483METX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G483PEIx
+GenG4.menu.pnum.GENERIC_G483PEIX=Generic G483PEIx
+GenG4.menu.pnum.GENERIC_G483PEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483PEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483PEIX.build.board=GENERIC_G483PEIX
+GenG4.menu.pnum.GENERIC_G483PEIX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
 # Generic G483RETx
 GenG4.menu.pnum.GENERIC_G483RETX=Generic G483RETx
 GenG4.menu.pnum.GENERIC_G483RETX.upload.maximum_size=524288
@@ -5566,6 +6086,62 @@ GenG4.menu.pnum.GENERIC_G483RETX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G483RETX.build.board=GENERIC_G483RETX
 GenG4.menu.pnum.GENERIC_G483RETX.build.product_line=STM32G483xx
 GenG4.menu.pnum.GENERIC_G483RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
+
+# Generic G483QETx
+GenG4.menu.pnum.GENERIC_G483QETX=Generic G483QETx
+GenG4.menu.pnum.GENERIC_G483QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483QETX.build.board=GENERIC_G483QETX
+GenG4.menu.pnum.GENERIC_G483QETX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483QETX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G483VEHx
+GenG4.menu.pnum.GENERIC_G483VEHX=Generic G483VEHx
+GenG4.menu.pnum.GENERIC_G483VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483VEHX.build.board=GENERIC_G483VEHX
+GenG4.menu.pnum.GENERIC_G483VEHX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483VEHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G483VETx
+GenG4.menu.pnum.GENERIC_G483VETX=Generic G483VETx
+GenG4.menu.pnum.GENERIC_G483VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G483VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G483VETX.build.board=GENERIC_G483VETX
+GenG4.menu.pnum.GENERIC_G483VETX.build.product_line=STM32G483xx
+GenG4.menu.pnum.GENERIC_G483VETX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G484CETx
+GenG4.menu.pnum.GENERIC_G484CETX=Generic G484CETx
+GenG4.menu.pnum.GENERIC_G484CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484CETX.build.board=GENERIC_G484CETX
+GenG4.menu.pnum.GENERIC_G484CETX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484CETX.build.variant=STM32G4xx/G473C(B-C-E)T_G474C(B-C-E)T_G483CET_G484CET
+
+# Generic G484METx
+GenG4.menu.pnum.GENERIC_G484METX=Generic G484METx
+GenG4.menu.pnum.GENERIC_G484METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484METX.build.board=GENERIC_G484METX
+GenG4.menu.pnum.GENERIC_G484METX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484METX.build.variant=STM32G4xx/G473M(B-C-E)T_G474M(B-C-E)T_G483MET_G484MET
+
+# Generic G484PEIx
+GenG4.menu.pnum.GENERIC_G484PEIX=Generic G484PEIx
+GenG4.menu.pnum.GENERIC_G484PEIX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484PEIX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484PEIX.build.board=GENERIC_G484PEIX
+GenG4.menu.pnum.GENERIC_G484PEIX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484PEIX.build.variant=STM32G4xx/G473P(B-C-E)I_G474P(B-C-E)I_G483PEI_G484PEI
+
+# Generic G484QETx
+GenG4.menu.pnum.GENERIC_G484QETX=Generic G484QETx
+GenG4.menu.pnum.GENERIC_G484QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484QETX.build.board=GENERIC_G484QETX
+GenG4.menu.pnum.GENERIC_G484QETX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484QETX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
 
 # Generic G484RETx
 GenG4.menu.pnum.GENERIC_G484RETX=Generic G484RETx
@@ -5575,6 +6151,93 @@ GenG4.menu.pnum.GENERIC_G484RETX.build.board=GENERIC_G484RETX
 GenG4.menu.pnum.GENERIC_G484RETX.build.product_line=STM32G484xx
 GenG4.menu.pnum.GENERIC_G484RETX.build.variant=STM32G4xx/G473R(B-C-E)T_G474R(B-C-E)T_G483RET_G484RET
 
+# Generic G484VEHx
+GenG4.menu.pnum.GENERIC_G484VEHX=Generic G484VEHx
+GenG4.menu.pnum.GENERIC_G484VEHX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484VEHX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484VEHX.build.board=GENERIC_G484VEHX
+GenG4.menu.pnum.GENERIC_G484VEHX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484VEHX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G484VETx
+GenG4.menu.pnum.GENERIC_G484VETX=Generic G484VETx
+GenG4.menu.pnum.GENERIC_G484VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484VETX.build.board=GENERIC_G484VETX
+GenG4.menu.pnum.GENERIC_G484VETX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484VETX.build.variant=STM32G4xx/G473V(B-C-E)(H-T)_G474V(B-C-E)(H-T)_G483VE(H-T)_G484VE(H-T)
+
+# Generic G484QETx
+GenG4.menu.pnum.GENERIC_G484QETX=Generic G484QETx
+GenG4.menu.pnum.GENERIC_G484QETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G484QETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G484QETX.build.board=GENERIC_G484QETX
+GenG4.menu.pnum.GENERIC_G484QETX.build.product_line=STM32G484xx
+GenG4.menu.pnum.GENERIC_G484QETX.build.variant=STM32G4xx/G473Q(B-C-E)T_G474Q(B-C-E)T_G483QET_G484QET
+
+# Generic G491CCTx
+GenG4.menu.pnum.GENERIC_G491CCTX=Generic G491CCTx
+GenG4.menu.pnum.GENERIC_G491CCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491CCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CCTX.build.board=GENERIC_G491CCTX
+GenG4.menu.pnum.GENERIC_G491CCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491CCTX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
+
+# Generic G491CETx
+GenG4.menu.pnum.GENERIC_G491CETX=Generic G491CETx
+GenG4.menu.pnum.GENERIC_G491CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491CETX.build.board=GENERIC_G491CETX
+GenG4.menu.pnum.GENERIC_G491CETX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491CETX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
+
+# Generic G491KCUx
+GenG4.menu.pnum.GENERIC_G491KCUX=Generic G491KCUx
+GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491KCUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491KCUX.build.board=GENERIC_G491KCUX
+GenG4.menu.pnum.GENERIC_G491KCUX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491KCUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+
+# Generic G491KEUx
+GenG4.menu.pnum.GENERIC_G491KEUX=Generic G491KEUx
+GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491KEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491KEUX.build.board=GENERIC_G491KEUX
+GenG4.menu.pnum.GENERIC_G491KEUX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+
+# Generic G491MCSx
+GenG4.menu.pnum.GENERIC_G491MCSX=Generic G491MCSx
+GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491MCSX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCSX.build.board=GENERIC_G491MCSX
+GenG4.menu.pnum.GENERIC_G491MCSX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MCSX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491MESx
+GenG4.menu.pnum.GENERIC_G491MESX=Generic G491MESx
+GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MESX.build.board=GENERIC_G491MESX
+GenG4.menu.pnum.GENERIC_G491MESX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491MCTx
+GenG4.menu.pnum.GENERIC_G491MCTX=Generic G491MCTx
+GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491MCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491MCTX.build.board=GENERIC_G491MCTX
+GenG4.menu.pnum.GENERIC_G491MCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491MCTX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G491METx
+GenG4.menu.pnum.GENERIC_G491METX=Generic G491METx
+GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491METX.build.board=GENERIC_G491METX
+GenG4.menu.pnum.GENERIC_G491METX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
 
 # Generic G491RCIx
 GenG4.menu.pnum.GENERIC_G491RCIX=Generic G491RCIx
@@ -5616,6 +6279,22 @@ GenG4.menu.pnum.GENERIC_G491REYX.build.board=GENERIC_G491REYX
 GenG4.menu.pnum.GENERIC_G491REYX.build.product_line=STM32G491xx
 GenG4.menu.pnum.GENERIC_G491REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
 
+# Generic G491VCTx
+GenG4.menu.pnum.GENERIC_G491VCTX=Generic G491VCTx
+GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_size=262144
+GenG4.menu.pnum.GENERIC_G491VCTX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VCTX.build.board=GENERIC_G491VCTX
+GenG4.menu.pnum.GENERIC_G491VCTX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491VCTX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
+
+# Generic G491VETx
+GenG4.menu.pnum.GENERIC_G491VETX=Generic G491VETx
+GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G491VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G491VETX.build.board=GENERIC_G491VETX
+GenG4.menu.pnum.GENERIC_G491VETX.build.product_line=STM32G491xx
+GenG4.menu.pnum.GENERIC_G491VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
+
 # Generic G4A1REIx
 GenG4.menu.pnum.GENERIC_G4A1REIX=Generic G4A1REIx
 GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_size=524288
@@ -5623,6 +6302,38 @@ GenG4.menu.pnum.GENERIC_G4A1REIX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.board=GENERIC_G4A1REIX
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1REIX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G4A1CETx
+GenG4.menu.pnum.GENERIC_G4A1CETX=Generic G4A1CETx
+GenG4.menu.pnum.GENERIC_G4A1CETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1CETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1CETX.build.board=GENERIC_G4A1CETX
+GenG4.menu.pnum.GENERIC_G4A1CETX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1CETX.build.variant=STM32G4xx/G491C(C-E)T_G4A1CET
+
+# Generic G4A1KEUx
+GenG4.menu.pnum.GENERIC_G4A1KEUX=Generic G4A1KEUx
+GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1KEUX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1KEUX.build.board=GENERIC_G4A1KEUX
+GenG4.menu.pnum.GENERIC_G4A1KEUX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1KEUX.build.variant=STM32G4xx/G491K(C-E)U_G4A1KEU
+
+# Generic G4A1MESx
+GenG4.menu.pnum.GENERIC_G4A1MESX=Generic G4A1MESx
+GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1MESX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.board=GENERIC_G4A1MESX
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1MESX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
+
+# Generic G4A1METx
+GenG4.menu.pnum.GENERIC_G4A1METX=Generic G4A1METx
+GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1METX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1METX.build.board=GENERIC_G4A1METX
+GenG4.menu.pnum.GENERIC_G4A1METX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1METX.build.variant=STM32G4xx/G491M(C-E)(S-T)_G4A1ME(S-T)
 
 # Generic G4A1RETx
 GenG4.menu.pnum.GENERIC_G4A1RETX=Generic G4A1RETx
@@ -5639,6 +6350,14 @@ GenG4.menu.pnum.GENERIC_G4A1REYX.upload.maximum_data_size=131072
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.board=GENERIC_G4A1REYX
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.product_line=STM32G4A1xx
 GenG4.menu.pnum.GENERIC_G4A1REYX.build.variant=STM32G4xx/G491RC(I-T)_G491RE(I-T-Y)_G4A1RE(I-T-Y)
+
+# Generic G4A1VETx
+GenG4.menu.pnum.GENERIC_G4A1VETX=Generic G4A1VETx
+GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_size=524288
+GenG4.menu.pnum.GENERIC_G4A1VETX.upload.maximum_data_size=131072
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.board=GENERIC_G4A1VETX
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.product_line=STM32G4A1xx
+GenG4.menu.pnum.GENERIC_G4A1VETX.build.variant=STM32G4xx/G491V(C-E)T_G4A1VET
 
 
 

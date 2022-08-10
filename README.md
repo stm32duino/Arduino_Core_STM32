@@ -401,18 +401,57 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32G431C6<br>STM32G431C8<br>STM32G431CB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G431C6U<br>STM32G431C8U<br>STM32G431CBU | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G431M6<br>STM32G431M8<br>STM32G431MB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G431V6<br>STM32G431V8<br>STM32G431VB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G441CB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G441CBU | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G441MB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G441VB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G431K6<br>STM32G431K8<br>STM32G431KB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G441KB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G431R6<br>STM32G431R8<br>STM32G431RB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G441RB  | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G471CC<br>STM32G471CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G471MC<br>STM32G471ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G471QC<br>STM32G471QE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G471RC<br>STM32G471RE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G471VC<br>STM32G471VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G473CB<br>STM32G473CC<br>STM32G473CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G473MB<br>STM32G473MC<br>STM32G473ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G473PB<br>STM32G473PC<br>STM32G473PE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G473QB<br>STM32G473QC<br>STM32G473QE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G473RB<br>STM32G473RC<br>STM32G473RE | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G473VB<br>STM32G473VC<br>STM32G473VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G474CB<br>STM32G474CC<br>STM32G474CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G474MB<br>STM32G474MC<br>STM32G474ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G474PB<br>STM32G474PC<br>STM32G474PE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G474QB<br>STM32G474QC<br>STM32G474QE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G474RB<br>STM32G474RC<br>STM32G474RE | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G474VB<br>STM32G474VC<br>STM32G474VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G483CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G483ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G483PE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G483QE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G483RE | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G483VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G484CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G484ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G484PE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G484QE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G484RE | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G484VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G491CC<br>STM32G491CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G491KC<br>STM32G491KE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G491MC<br>STM32G491ME | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G491RC<br>STM32G491RE | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G491VC<br>STM32G491VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G4A1CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G4A1KE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G4A1ME | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G4A1RE | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G4A1VE | Generic Board | **2.4.0** |  |
 
 ### Generic STM32H7 boards
 
