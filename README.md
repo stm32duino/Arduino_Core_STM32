@@ -213,8 +213,8 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
-| :green_heart:  | STM32F207ZC<br>STM32F207ZE<br>STM32F207ZF<br>STM32F207G | Generic Board | *2.0.0* |  |
-| :green_heart:  | STM32F217ZE<br>STM32F217G | Generic Board | *2.0.0* |  |
+| :green_heart:  | STM32F207ZC<br>STM32F207ZE<br>STM32F207ZF<br>STM32F207ZG | Generic Board | *2.0.0* |  |
+| :green_heart:  | STM32F217ZE<br>STM32F217ZG | Generic Board | *2.0.0* |  |
 
 ### Generic STM32F3 boards
 
