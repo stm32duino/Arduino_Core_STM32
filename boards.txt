@@ -1929,6 +1929,238 @@ GenF2.build.cmsis_lib_gcc=arm_cortexM3l_math
 GenF2.upload.maximum_size=0
 GenF2.upload.maximum_data_size=0
 
+# Generic F205RBTx
+GenF2.menu.pnum.GENERIC_F205RBTX=Generic F205RBTx
+GenF2.menu.pnum.GENERIC_F205RBTX.upload.maximum_size=131072
+GenF2.menu.pnum.GENERIC_F205RBTX.upload.maximum_data_size=65536
+GenF2.menu.pnum.GENERIC_F205RBTX.build.board=GENERIC_F205RBTX
+GenF2.menu.pnum.GENERIC_F205RBTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RBTX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RCTx
+GenF2.menu.pnum.GENERIC_F205RCTX=Generic F205RCTx
+GenF2.menu.pnum.GENERIC_F205RCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F205RCTX.upload.maximum_data_size=98304
+GenF2.menu.pnum.GENERIC_F205RCTX.build.board=GENERIC_F205RCTX
+GenF2.menu.pnum.GENERIC_F205RCTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RCTX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RETx
+GenF2.menu.pnum.GENERIC_F205RETX=Generic F205RETx
+GenF2.menu.pnum.GENERIC_F205RETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F205RETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205RETX.build.board=GENERIC_F205RETX
+GenF2.menu.pnum.GENERIC_F205RETX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RETX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RFTx
+GenF2.menu.pnum.GENERIC_F205RFTX=Generic F205RFTx
+GenF2.menu.pnum.GENERIC_F205RFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F205RFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205RFTX.build.board=GENERIC_F205RFTX
+GenF2.menu.pnum.GENERIC_F205RFTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RFTX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RGTx
+GenF2.menu.pnum.GENERIC_F205RGTX=Generic F205RGTx
+GenF2.menu.pnum.GENERIC_F205RGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205RGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205RGTX.build.board=GENERIC_F205RGTX
+GenF2.menu.pnum.GENERIC_F205RGTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RGTX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205REYx
+GenF2.menu.pnum.GENERIC_F205REYX=Generic F205REYx
+GenF2.menu.pnum.GENERIC_F205REYX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F205REYX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205REYX.build.board=GENERIC_F205REYX
+GenF2.menu.pnum.GENERIC_F205REYX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205REYX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RGYx
+GenF2.menu.pnum.GENERIC_F205RGYX=Generic F205RGYx
+GenF2.menu.pnum.GENERIC_F205RGYX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205RGYX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205RGYX.build.board=GENERIC_F205RGYX
+GenF2.menu.pnum.GENERIC_F205RGYX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RGYX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205RGEx
+GenF2.menu.pnum.GENERIC_F205RGEX=Generic F205RGEx
+GenF2.menu.pnum.GENERIC_F205RGEX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205RGEX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205RGEX.build.board=GENERIC_F205RGEX
+GenF2.menu.pnum.GENERIC_F205RGEX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205RGEX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F205VBTx
+GenF2.menu.pnum.GENERIC_F205VBTX=Generic F205VBTx
+GenF2.menu.pnum.GENERIC_F205VBTX.upload.maximum_size=131072
+GenF2.menu.pnum.GENERIC_F205VBTX.upload.maximum_data_size=65536
+GenF2.menu.pnum.GENERIC_F205VBTX.build.board=GENERIC_F205VBTX
+GenF2.menu.pnum.GENERIC_F205VBTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205VBTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F205VCTx
+GenF2.menu.pnum.GENERIC_F205VCTX=Generic F205VCTx
+GenF2.menu.pnum.GENERIC_F205VCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F205VCTX.upload.maximum_data_size=98304
+GenF2.menu.pnum.GENERIC_F205VCTX.build.board=GENERIC_F205VCTX
+GenF2.menu.pnum.GENERIC_F205VCTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205VCTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F205VETx
+GenF2.menu.pnum.GENERIC_F205VETX=Generic F205VETx
+GenF2.menu.pnum.GENERIC_F205VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F205VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205VETX.build.board=GENERIC_F205VETX
+GenF2.menu.pnum.GENERIC_F205VETX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205VETX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F205VFTx
+GenF2.menu.pnum.GENERIC_F205VFTX=Generic F205VFTx
+GenF2.menu.pnum.GENERIC_F205VFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F205VFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205VFTX.build.board=GENERIC_F205VFTX
+GenF2.menu.pnum.GENERIC_F205VFTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205VFTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F205VGTx
+GenF2.menu.pnum.GENERIC_F205VGTX=Generic F205VGTx
+GenF2.menu.pnum.GENERIC_F205VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205VGTX.build.board=GENERIC_F205VGTX
+GenF2.menu.pnum.GENERIC_F205VGTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205VGTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F205ZCTx
+GenF2.menu.pnum.GENERIC_F205ZCTX=Generic F205ZCTx
+GenF2.menu.pnum.GENERIC_F205ZCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F205ZCTX.upload.maximum_data_size=98304
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.board=GENERIC_F205ZCTX
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZCTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZETx
+GenF2.menu.pnum.GENERIC_F205ZETX=Generic F205ZETx
+GenF2.menu.pnum.GENERIC_F205ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F205ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZETX.build.board=GENERIC_F205ZETX
+GenF2.menu.pnum.GENERIC_F205ZETX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZETX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZFTx
+GenF2.menu.pnum.GENERIC_F205ZFTX=Generic F205ZFTx
+GenF2.menu.pnum.GENERIC_F205ZFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F205ZFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.board=GENERIC_F205ZFTX
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZFTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F205ZGTx
+GenF2.menu.pnum.GENERIC_F205ZGTX=Generic F205ZGTx
+GenF2.menu.pnum.GENERIC_F205ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F205ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.board=GENERIC_F205ZGTX
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.product_line=STM32F205xx
+GenF2.menu.pnum.GENERIC_F205ZGTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F207ICHx
+GenF2.menu.pnum.GENERIC_F207ICHX=Generic F207ICHx
+GenF2.menu.pnum.GENERIC_F207ICHX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F207ICHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ICHX.build.board=GENERIC_F207ICHX
+GenF2.menu.pnum.GENERIC_F207ICHX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ICHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IEHx
+GenF2.menu.pnum.GENERIC_F207IEHX=Generic F207IEHx
+GenF2.menu.pnum.GENERIC_F207IEHX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F207IEHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IEHX.build.board=GENERIC_F207IEHX
+GenF2.menu.pnum.GENERIC_F207IEHX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IEHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IFHx
+GenF2.menu.pnum.GENERIC_F207IFHX=Generic F207IFHx
+GenF2.menu.pnum.GENERIC_F207IFHX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F207IFHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IFHX.build.board=GENERIC_F207IFHX
+GenF2.menu.pnum.GENERIC_F207IFHX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IFHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IGHx
+GenF2.menu.pnum.GENERIC_F207IGHX=Generic F207IGHx
+GenF2.menu.pnum.GENERIC_F207IGHX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F207IGHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IGHX.build.board=GENERIC_F207IGHX
+GenF2.menu.pnum.GENERIC_F207IGHX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IGHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207ICTx
+GenF2.menu.pnum.GENERIC_F207ICTX=Generic F207ICTx
+GenF2.menu.pnum.GENERIC_F207ICTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F207ICTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207ICTX.build.board=GENERIC_F207ICTX
+GenF2.menu.pnum.GENERIC_F207ICTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207ICTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IETx
+GenF2.menu.pnum.GENERIC_F207IETX=Generic F207IETx
+GenF2.menu.pnum.GENERIC_F207IETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F207IETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IETX.build.board=GENERIC_F207IETX
+GenF2.menu.pnum.GENERIC_F207IETX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IETX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IFTx
+GenF2.menu.pnum.GENERIC_F207IFTX=Generic F207IFTx
+GenF2.menu.pnum.GENERIC_F207IFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F207IFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IFTX.build.board=GENERIC_F207IFTX
+GenF2.menu.pnum.GENERIC_F207IFTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IFTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207IGTx
+GenF2.menu.pnum.GENERIC_F207IGTX=Generic F207IGTx
+GenF2.menu.pnum.GENERIC_F207IGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F207IGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207IGTX.build.board=GENERIC_F207IGTX
+GenF2.menu.pnum.GENERIC_F207IGTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207IGTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F207VCTx
+GenF2.menu.pnum.GENERIC_F207VCTX=Generic F207VCTx
+GenF2.menu.pnum.GENERIC_F207VCTX.upload.maximum_size=262144
+GenF2.menu.pnum.GENERIC_F207VCTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VCTX.build.board=GENERIC_F207VCTX
+GenF2.menu.pnum.GENERIC_F207VCTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VCTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VETx
+GenF2.menu.pnum.GENERIC_F207VETX=Generic F207VETx
+GenF2.menu.pnum.GENERIC_F207VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F207VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VETX.build.board=GENERIC_F207VETX
+GenF2.menu.pnum.GENERIC_F207VETX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VETX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VFTx
+GenF2.menu.pnum.GENERIC_F207VFTX=Generic F207VFTx
+GenF2.menu.pnum.GENERIC_F207VFTX.upload.maximum_size=786432
+GenF2.menu.pnum.GENERIC_F207VFTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VFTX.build.board=GENERIC_F207VFTX
+GenF2.menu.pnum.GENERIC_F207VFTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VFTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F207VGTx
+GenF2.menu.pnum.GENERIC_F207VGTX=Generic F207VGTx
+GenF2.menu.pnum.GENERIC_F207VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F207VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F207VGTX.build.board=GENERIC_F207VGTX
+GenF2.menu.pnum.GENERIC_F207VGTX.build.product_line=STM32F207xx
+GenF2.menu.pnum.GENERIC_F207VGTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
 # Generic F207ZCTx
 GenF2.menu.pnum.GENERIC_F207ZCTX=Generic F207ZCTx
 GenF2.menu.pnum.GENERIC_F207ZCTX.upload.maximum_size=262144
@@ -1960,6 +2192,102 @@ GenF2.menu.pnum.GENERIC_F207ZGTX.upload.maximum_data_size=131072
 GenF2.menu.pnum.GENERIC_F207ZGTX.build.board=GENERIC_F207ZGTX
 GenF2.menu.pnum.GENERIC_F207ZGTX.build.product_line=STM32F207xx
 GenF2.menu.pnum.GENERIC_F207ZGTX.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z(E-G)T
+
+# Generic F215RETx
+GenF2.menu.pnum.GENERIC_F215RETX=Generic F215RETx
+GenF2.menu.pnum.GENERIC_F215RETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F215RETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215RETX.build.board=GENERIC_F215RETX
+GenF2.menu.pnum.GENERIC_F215RETX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215RETX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F215RGTx
+GenF2.menu.pnum.GENERIC_F215RGTX=Generic F215RGTx
+GenF2.menu.pnum.GENERIC_F215RGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F215RGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215RGTX.build.board=GENERIC_F215RGTX
+GenF2.menu.pnum.GENERIC_F215RGTX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215RGTX.build.variant=STM32F2xx/F205RE(T-Y)_F205R(B-C-F)T_F205RG(E-T-Y)_F215R(E-G)T
+
+# Generic F215VETx
+GenF2.menu.pnum.GENERIC_F215VETX=Generic F215VETx
+GenF2.menu.pnum.GENERIC_F215VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F215VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215VETX.build.board=GENERIC_F215VETX
+GenF2.menu.pnum.GENERIC_F215VETX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215VETX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F215VGTx
+GenF2.menu.pnum.GENERIC_F215VGTX=Generic F215VGTx
+GenF2.menu.pnum.GENERIC_F215VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F215VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215VGTX.build.board=GENERIC_F215VGTX
+GenF2.menu.pnum.GENERIC_F215VGTX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215VGTX.build.variant=STM32F2xx/F205V(B-C-E-F-G)T_F215V(E-G)T
+
+# Generic F215ZETx
+GenF2.menu.pnum.GENERIC_F215ZETX=Generic F215ZETx
+GenF2.menu.pnum.GENERIC_F215ZETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F215ZETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215ZETX.build.board=GENERIC_F215ZETX
+GenF2.menu.pnum.GENERIC_F215ZETX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215ZETX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F215ZGTx
+GenF2.menu.pnum.GENERIC_F215ZGTX=Generic F215ZGTx
+GenF2.menu.pnum.GENERIC_F215ZGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F215ZGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.board=GENERIC_F215ZGTX
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.product_line=STM32F215xx
+GenF2.menu.pnum.GENERIC_F215ZGTX.build.variant=STM32F2xx/F205Z(C-E-F-G)T_F215Z(E-G)T
+
+# Generic F217IEHx
+GenF2.menu.pnum.GENERIC_F217IEHX=Generic F217IEHx
+GenF2.menu.pnum.GENERIC_F217IEHX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F217IEHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217IEHX.build.board=GENERIC_F217IEHX
+GenF2.menu.pnum.GENERIC_F217IEHX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217IEHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F217IGHx
+GenF2.menu.pnum.GENERIC_F217IGHX=Generic F217IGHx
+GenF2.menu.pnum.GENERIC_F217IGHX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F217IGHX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217IGHX.build.board=GENERIC_F217IGHX
+GenF2.menu.pnum.GENERIC_F217IGHX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217IGHX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F217IETx
+GenF2.menu.pnum.GENERIC_F217IETX=Generic F217IETx
+GenF2.menu.pnum.GENERIC_F217IETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F217IETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217IETX.build.board=GENERIC_F217IETX
+GenF2.menu.pnum.GENERIC_F217IETX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217IETX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F217IGTx
+GenF2.menu.pnum.GENERIC_F217IGTX=Generic F217IGTx
+GenF2.menu.pnum.GENERIC_F217IGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F217IGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217IGTX.build.board=GENERIC_F217IGTX
+GenF2.menu.pnum.GENERIC_F217IGTX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217IGTX.build.variant=STM32F2xx/F207I(C-E-F-G)(H-T)_F217I(E-G)(H-T)
+
+# Generic F217VETx
+GenF2.menu.pnum.GENERIC_F217VETX=Generic F217VETx
+GenF2.menu.pnum.GENERIC_F217VETX.upload.maximum_size=524288
+GenF2.menu.pnum.GENERIC_F217VETX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217VETX.build.board=GENERIC_F217VETX
+GenF2.menu.pnum.GENERIC_F217VETX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217VETX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
+
+# Generic F217VGTx
+GenF2.menu.pnum.GENERIC_F217VGTX=Generic F217VGTx
+GenF2.menu.pnum.GENERIC_F217VGTX.upload.maximum_size=1048576
+GenF2.menu.pnum.GENERIC_F217VGTX.upload.maximum_data_size=131072
+GenF2.menu.pnum.GENERIC_F217VGTX.build.board=GENERIC_F217VGTX
+GenF2.menu.pnum.GENERIC_F217VGTX.build.product_line=STM32F217xx
+GenF2.menu.pnum.GENERIC_F217VGTX.build.variant=STM32F2xx/F207V(C-E-F-G)T_F217V(E-G)T
 
 # Generic F217ZETx
 GenF2.menu.pnum.GENERIC_F217ZETX=Generic F217ZETx
