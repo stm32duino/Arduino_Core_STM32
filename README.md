@@ -485,23 +485,67 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32L010C6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L010F4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L010R8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L010RB | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L011D3<br>STM32L011D4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L011E3<br>STM32L011E4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L011F3<br>STM32L011F4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L011G3<br>STM32L011G4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L011K3<br>STM32L011K4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L021F4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L021D4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L021F4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L021G4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L021K4 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L031C4<br>STM32L031C6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L031E4<br>STM32L031E6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L031F4<br>STM32L031F6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L031G4<br>STM32L031G6 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L031K4T<br>STM32L031K6T | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L041C4<br>STM32L041C6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L041E6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L041F6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L041G6 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L041K6T | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32L051C6<br>STM32L051C8 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L052C6<br>STM32L052C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L052K6<br>STM32L052K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L052R6<br>STM32L052R8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L052R6T<br>STM32L052R8T | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L052T6<br>STM32L052T8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L053C6<br>STM32L053C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L053R6<br>STM32L053R8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L053R6T<br>STM32L053R8T | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L062C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L062K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L063C8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L063R8T | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L072CB<br>STM32L072CZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L072CBY<br>STM32L072CZE<br>STM32L072CZY | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L072KB<br>STM32L072KZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L072KBT<br>STM32L072KZT | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32L072KZT | [ThunderPack v1.0](https://github.com/jgillick/ThunderPack) | *1.8.0* |  |
 | :green_heart: | STM32L072RBT | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
+| :yellow_heart: | STM32L072RB<br>STM32L072RZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L072RBT<br>STM32L072RZT | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L072V8<br>STM32L072VB<br>STM32L072VZ | Generic Board | **2.4.0** | 
+| :yellow_heart: | STM32L073CB<br>STM32L073CZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L073CZY | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L073RB<br>STM32L073RZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L073RBT<br>STM32L073RZT | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L073V8<br>STM32L073VB<br>STM32L073VZ | Generic Board | **2.4.0** |
+| :yellow_heart: | STM32L082CZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L082CZY | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L082KB<br>STM32L082KZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L082KBT<br>STM32L082KZT | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L083CB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L083CZ | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L083RB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L083RBT<br>STM32L083RZT | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L083RZ | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32L083V8<br>STM32L083VB<br>STM32L083VZ | Generic Board | **2.4.0** | 
 
 ### Generic STM32L1 boards
 
