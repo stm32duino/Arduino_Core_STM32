@@ -252,6 +252,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32F407ZE<br>STM32F407ZG | Generic Board | **2.0.0** |  |
 | :green_heart:  | STM32F410C8<br>STM32F410CB | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F410R8<br>STM32F410RB | Generic Board | *1.9.0* |  |
+| :yellow_heart: | STM32F410T8<br>STM32F410TB | Generic Board | **2.3.0** |  |
 | :green_heart:  | STM32F411CC<br>STM32F411CE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F411RC<br>STM32F411RE | Generic Board | *1.9.0* |  |
 | :green_heart:  | STM32F412CE<br>STM32F412CG | Generic Board | *1.9.0* |  |
