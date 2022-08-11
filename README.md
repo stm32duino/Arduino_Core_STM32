@@ -220,15 +220,32 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 
 | Status | Device(s) | Name | Release | Notes |
 | :----: | :-------: | ---- | :-----: | :---- |
+| :yellow_heart: | STM32F301C6<br>STM32F301C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F301K6<br>STM32F301K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F301R6<br>STM32F301R8 | Generic Board | **2.4.0** |  |
 | :green_heart:  | STM32F302R6<br>STM32F302R8 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F303C6<br>STM32F303C8 | Generic Board | **2.4.0** |  |
 | :green_heart:  | STM32F303CB<br>STM32F303CC | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303CC | [RobotDyn Black Pill](https://stm32-base.org/boards/STM32F303CCT6-RobotDyn-Black-Pill) | *1.6.1* | [More info](https://robotdyn.com/catalog/development-boards/stm-boards-and-shields.html) |
 | :green_heart:  | STM32F303K6<br>STM32F303K8 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F303R6<br>STM32F303R8 | Generic Board | **2.4.0** |  |
 | :green_heart:  | STM32F303RD<br>STM32F303RE | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303RB<br>STM32F303RC | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32F303RC | [OLIMEXINO-STM32F3](https://www.olimex.com/Products/Duino/STM32/OLIMEXINO-STM32F3/) | *2.0.0* | |
 | :green_heart:  | STM32F303VBT<br>STM32F303VCT | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F318C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F318K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F328C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F334C4<br>STM32F334C6<br>STM32F334C8 | Generic Board | **2.4.0** |  |
 | :green_heart:  | STM32F334K4<br>STM32F334K6<br>STM32F334K8 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F334R6<br>STM32F334R8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F358CC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F358RC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F358VC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F378CC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F378RC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F378VC | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F398VE | Generic Board | **2.4.0** |  |
 
 ### Generic STM32F4 boards
 
