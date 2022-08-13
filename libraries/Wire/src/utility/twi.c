@@ -1074,7 +1074,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
     obj->slaveRxNbData = 0;
   }
 
-  if (AddrMatchCode == hi2c->Init.OwnAddress1) {
+  if (AddrMatchCode) {
     if (TransferDirection == I2C_DIRECTION_RECEIVE) {
       obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
