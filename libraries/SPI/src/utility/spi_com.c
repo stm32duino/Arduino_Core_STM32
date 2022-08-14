@@ -379,6 +379,14 @@ void spi_init(spi_t *obj, uint32_t speed, spi_mode_e mode, uint8_t msb)
   }
 #endif
 
+#if defined SUBGHZSPI_BASE
+  if (handle->Instance == SUBGHZSPI) {
+    __HAL_RCC_SUBGHZSPI_CLK_ENABLE();
+    __HAL_RCC_SUBGHZSPI_FORCE_RESET();
+    __HAL_RCC_SUBGHZSPI_RELEASE_RESET();
+  }
+#endif
+
   HAL_SPI_Init(handle);
 
   /* In order to set correctly the SPI polarity we need to enable the peripheral */
@@ -446,6 +454,14 @@ void spi_deinit(spi_t *obj)
     __HAL_RCC_SPI6_FORCE_RESET();
     __HAL_RCC_SPI6_RELEASE_RESET();
     __HAL_RCC_SPI6_CLK_DISABLE();
+  }
+#endif
+
+#if defined SUBGHZSPI_BASE
+  if (handle->Instance == SUBGHZSPI) {
+    __HAL_RCC_SUBGHZSPI_FORCE_RESET();
+    __HAL_RCC_SUBGHZSPI_RELEASE_RESET();
+    __HAL_RCC_SUBGHZSPI_CLK_DISABLE();
   }
 #endif
 }

@@ -250,6 +250,11 @@ typedef enum {
   PZ_14 = (PortZ << 4) + 0x0E,
   PZ_15 = (PortZ << 4) + 0x0F,
 #endif
+#if defined SUBGHZSPI_BASE
+  SUBGHZSPI_MOSI = (PortSUBGHZSPI << 4) + 0x00,
+  SUBGHZSPI_MISO = (PortSUBGHZSPI << 4) + 0x01,
+  SUBGHZSPI_SCLK = (PortSUBGHZSPI << 4) + 0x02,
+#endif
   // Specific pin name
   PADC_BASE = PNAME_ANALOG_INTERNAL_BASE,
 #if defined(ADC_CHANNEL_TEMPSENSOR) || defined(ADC_CHANNEL_TEMPSENSOR_ADC1)

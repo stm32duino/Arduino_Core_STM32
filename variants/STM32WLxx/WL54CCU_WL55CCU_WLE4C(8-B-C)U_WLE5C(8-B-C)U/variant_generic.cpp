@@ -46,7 +46,10 @@ const PinName digitalPin[] = {
   PC_13,  // D25
   PC_14,  // D26
   PC_15,  // D27
-  PH_3    // D28
+  PH_3,   // D28
+  SUBGHZSPI_MOSI,
+  SUBGHZSPI_MISO,
+  SUBGHZSPI_SCLK
 };
 
 // Analog (Ax) pin number array

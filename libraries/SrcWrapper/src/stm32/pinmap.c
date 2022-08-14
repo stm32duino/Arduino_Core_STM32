@@ -154,6 +154,9 @@ void pin_function(PinName pin, int function)
   uint32_t ll_pin  = STM_LL_GPIO_PIN(pin);
   uint32_t ll_mode = 0;
 
+  /* if pin doesn't need configuring, skip it */
+  if (function < 0) return;
+
   if (pin == (PinName)NC) {
     Error_Handler();
   }

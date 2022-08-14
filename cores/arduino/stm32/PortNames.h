@@ -72,6 +72,9 @@ typedef enum {
 #if defined GPIOZ_BASE
   PortZ,
 #endif
+#if defined SUBGHZSPI_BASE
+  PortSUBGHZSPI,
+#endif
   PortEND,
   LastPort = PortEND - 1
 } PortName;

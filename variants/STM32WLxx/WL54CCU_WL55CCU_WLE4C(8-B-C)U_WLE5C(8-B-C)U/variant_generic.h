@@ -44,6 +44,9 @@
 #define PC14                    26
 #define PC15                    27
 #define PH3                     28
+#define PINSUBGHZSPIMOSI        29
+#define PINSUBGHZSPIMISO        30
+#define PINSUBGHZSPISCK         31
 
 // Alternate pins number
 #define PA1_ALT1                (PA1 | ALT1)
@@ -52,7 +55,7 @@
 #define PA7_ALT1                (PA7 | ALT1)
 #define PB8_ALT1                (PB8 | ALT1)
 
-#define NUM_DIGITAL_PINS        29
+#define NUM_DIGITAL_PINS        32
 #define NUM_ANALOG_INPUTS       9
 
 // On-board LED pin number
