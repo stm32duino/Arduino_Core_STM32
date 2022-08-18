@@ -1,5 +1,8 @@
 CMake can now be used to build Arduino sketches with this core.
-Examples of use can be found on [this repo](https://github.com/massonal/STM32CMake_workspace).
+Examples of use can be found on this repo: [stm32duino/CMake_workspace](https://github.com/stm32duino/CMake_workspace).
+
+This README only provides a quick walk-through.
+For all the glorious details, please head over to [the wiki](https://github.com/massonal/Arduino_Core_STM32/wiki).
 
 # Prerequisites
 
@@ -17,7 +20,7 @@ If your system does not provide a recent enough version of CMake, a suitable ver
 
 This section will describe the process of building a sketch "by hand", with a system shell. Other methods, such as with an IDE plug-in, may require adaptations.
 
-Please see [STM32CMake_workspace](https://github.com/massonal/STM32CMake_workspace) for some quick examples; more may be added over time.
+Please see [stm32duino/CMake_workspace](https://github.com/stm32duino/CMake_workspace) for some quick examples; more may be added over time.
 
 First of all, there has to be a CMakeLists.txt in the sketch folder.
 

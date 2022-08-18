@@ -12,7 +12,7 @@ function(updatedb)
     OR ${CMAKE_BOARDS_DB_TEMPLATE_PATH} IS_NEWER_THAN ${CMAKE_BOARDS_DB_PATH}
   )
     execute_process(
-      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/parse_boards.py
+      COMMAND ${Python3_EXECUTABLE} ${SCRIPTS_FOLDER}/update_boarddb.py
       -b ${BOARDSTXT_PATH}
       -p ${PLATFORMTXT_PATH}
       -t ${CMAKE_BOARDS_DB_TEMPLATE_PATH}

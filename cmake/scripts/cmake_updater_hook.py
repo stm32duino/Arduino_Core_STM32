@@ -31,7 +31,7 @@ subprocess.run(
 )
 print("Updating board database...")
 subprocess.run(
-    ("python3", script_dir/"parse_boards.py",
+    ("python3", script_dir/"update_boarddb.py",
     "-b", base_dir/"boards.txt",
     "-p", base_dir/"platform.txt",
     "-t", templates_dir/"boards_db.cmake",

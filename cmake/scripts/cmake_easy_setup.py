@@ -8,6 +8,9 @@ import os
 import pathlib
 import json
 from jinja2 import Environment, FileSystemLoader
+import difflib
+
+from parse_boards import parse_file
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--cli", "-x", type=pathlib.Path, required=False, default=shutil.which("arduino-cli"), help="path to arduino-cli")
@@ -18,6 +21,7 @@ output_args.add_argument("--output", "-o", type=pathlib.Path, help="output file 
 output_args.add_argument("--sketch", "-s", type=pathlib.Path, help="output file (CMake) filled given a sketch folder")
 
 shargs = parser.parse_args()
+shargs.board = shargs.board.upper()
 
 if shargs.sketch and not shargs.board :
     print("""
@@ -51,8 +55,38 @@ def get_log(fname) :
         for line in file :
             yield json.loads(line)
 
+def get_boards(boardstxt) :
+
+    # we "reject" everything because we don't care about the values, only the keys
+    families = parse_file(boardstxt, lambda x:True)
+    del families["menu"]
+
+    boards = set()
+    for fam, famcfg in families.items() :
+        boards.update(famcfg.menu.pnum.keys())
+
+    return boards
 
 _, logf = arduino("lib", "list")
+
+allboards = get_boards(pathlib.Path(__file__).parent.parent.parent/"boards.txt")
+
+
+if shargs.board and shargs.board not in allboards :
+    print(f"Unrecognized board name: '{shargs.board}'")
+    print("Possible matches:")
+    options = difflib.get_close_matches(shargs.board, allboards, n=9, cutoff=0.0)
+    print("0. (keep as-is)")
+    for i, x in enumerate(options, start=1) :
+        print(f"{i}. {x}")
+    choice = input("Choice number: ")
+    while not choice.isdecimal() :
+        choice = input("Invalid choice *number*. Select a board: ")
+    choice = int(choice)
+    if choice != 0 :
+        choice -= 1
+        shargs.board = options[choice]
+
 
 libpaths = dict()
 for line in get_log(logf) :
@@ -108,6 +142,14 @@ with open(shargs.output or shargs.sketch/"CMakeLists.txt", "w") as out :
         boardname=shargs.board,
     ))
 
+
+print("Generated", shargs.output or shargs.sketch/"CMakeLists.txt")
+print("""
+Unless you are building a very simple sketch with no library (e.g., Blink),
+you are advised to edit this file to fill in any missing dependency relationship.
+For details, please refer to
+https://github.com/massonal/Arduino_Core_STM32/wiki/Arduino-(in)compatibility#library-management
+""")
 
 if shargs.fire :
     if not (shargs.sketch and shargs.board) :

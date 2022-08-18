@@ -31,12 +31,15 @@ project("{{tgtname+"_project" if tgtname else "@project_name_here@"}}")
 # STEP 2: configure the build
 # -----------------------------------------------------------------------------
 
+# Uncomment and pick the relevant value for each keyword!
+# The first value listed is the default (when the feature is supported by the board)
+# This means that leaving everything commented out yields the default config
 include(set_board)
 set_board("{{"${BOARDNAME}"}}"
-  # SERIAL generic
-  # USB none
-  # XUSB FS
-  # VIRTIO disabled
+  # SERIAL generic / disabled / none
+  # USB none / CDCgen / CDC / HID
+  # XUSB FS / HS / HSFS
+  # VIRTIO disable / generic / enabled
 )
 
 include(overall_settings)
@@ -59,6 +62,7 @@ overall_settings(
 include(external_library)
 # I cannot tell the dependencies of the library ahead-of-time
 # Please write them in using the DEPENDS ... clause
+# The same directives apply as for `build_sketch()` just below.
 {% for libdir in libs | sort %}
 external_library(PATH "{{"${USER_LIBS}"}}/{{libdir}}")
 {% endfor %}
@@ -76,9 +80,15 @@ build_sketch(TARGET "{{tgtname or "@binary_name_here@"}}"
   ./file5.S
   {% endfor %}
 
+  # Uncomment the lines below to bind libraries to your sketch
+  # Legitimate names after the DEPENDS keywords are:
+  # - libraries declared with external_library
+  # - libraries from the libraries/ folder of Arduino_Core_STM32
+
   # DEPENDS
   # SD
   # Wire
+  # SPI
 )
 
 # STEP 4: optional features
