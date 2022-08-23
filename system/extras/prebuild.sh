@@ -14,7 +14,7 @@ fi
 # the board platform folder to a relative path by using '.'.
 # (i.e. the folder containing boards.txt)
 if [ ! -f "$BUILD_SOURCE_PATH/build_opt.h" ]; then
-  printf '-fmacro-prefix-map="%s"=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" > "$BUILD_PATH/sketch/build.opt"
+  printf '\n-fmacro-prefix-map="%s"=.' "${BOARD_PLATFORM_PATH//\\/\\\\}" > "$BUILD_PATH/sketch/build.opt"
 else
   # Else copy the build_opt.h as build.opt
   # Workaround to the header file preprocessing done by arduino-cli
