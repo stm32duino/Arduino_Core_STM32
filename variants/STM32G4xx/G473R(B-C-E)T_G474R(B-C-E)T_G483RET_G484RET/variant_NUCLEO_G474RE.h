@@ -138,10 +138,10 @@
 #define NUM_ANALOG_INPUTS       13
 
 // On-board LED pin number
+#define LED_GREEN               PA5
 #ifndef LED_BUILTIN
-  #define LED_BUILTIN           PA5
+  #define LED_BUILTIN           LED_GREEN
 #endif
-#define LED_GREEN               LED_BUILTIN
 
 // On-board user button
 #ifndef USER_BTN
