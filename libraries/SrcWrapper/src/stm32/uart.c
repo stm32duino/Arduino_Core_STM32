@@ -1024,7 +1024,7 @@ void USART3_IRQHandler(void)
   if (uart_handlers[UART4_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART4_INDEX]);
   }
-#if defined(STM32F030xC) || defined(STM32G0xx) && defined(LPUART2_BASE)
+#if defined(STM32F030xC) || defined(STM32G0xx) && (defined(LPUART2_BASE) || defined(USART5_BASE))
   if (uart_handlers[UART5_INDEX] != NULL) {
     HAL_UART_IRQHandler(uart_handlers[UART5_INDEX]);
   }
@@ -1093,7 +1093,7 @@ void UART5_IRQHandler(void)
   * @param  None
   * @retval None
   */
-#if defined(USART6_BASE) && !defined(STM32F0xx)
+#if defined(USART6_BASE) && !defined(STM32F0xx) && !defined(STM32G0xx)
 void USART6_IRQHandler(void)
 {
   HAL_NVIC_ClearPendingIRQ(USART6_IRQn);
