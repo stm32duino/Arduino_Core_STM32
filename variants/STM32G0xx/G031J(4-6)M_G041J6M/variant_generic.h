@@ -71,7 +71,7 @@
   #define PIN_SPI_SS3           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_MOSI
-  #define PIN_SPI_MOSI          PA2
+  #define PIN_SPI_MOSI          PA12
 #endif
 #ifndef PIN_SPI_MISO
   #define PIN_SPI_MISO          PA11
