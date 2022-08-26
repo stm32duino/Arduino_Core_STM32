@@ -117,6 +117,10 @@ void TwoWire::end(void)
 void TwoWire::setClock(uint32_t frequency)
 {
   i2c_setTiming(&_i2c, frequency);
+  if (_i2c.isMaster == 0) {
+    i2c_attachSlaveTxEvent(&_i2c, onRequestService);
+    i2c_attachSlaveRxEvent(&_i2c, onReceiveService);
+  }
 }
 
 uint8_t TwoWire::requestFrom(uint8_t address, uint8_t quantity, uint32_t iaddress, uint8_t isize, uint8_t sendStop)
