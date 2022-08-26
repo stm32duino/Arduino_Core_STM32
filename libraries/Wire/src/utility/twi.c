@@ -1082,7 +1082,7 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
       obj->i2c_onSlaveTransmit(obj);
     }
     HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
-                                obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
+                                  obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
   } else {
     obj->slaveRxNbData = 0;
     obj->slaveMode = SLAVE_MODE_RECEIVE;
