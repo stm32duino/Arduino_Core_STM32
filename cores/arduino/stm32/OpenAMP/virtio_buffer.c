@@ -43,7 +43,7 @@ uint16_t virtio_buffer_read_available(virtio_buffer_t *ring)
   return delta;
 }
 
-/* WARNING no protection against race codition (on ring->read_index) when used in interruption */
+/* WARNING no protection against race condition (on ring->read_index) when used in interruption */
 static uint16_t read(virtio_buffer_t *ring, uint8_t *dst, uint16_t size, bool peek)
 {
   uint16_t read_index = ring->read_index;
@@ -99,7 +99,7 @@ uint16_t virtio_buffer_write_available(virtio_buffer_t *ring)
   return delta;
 }
 
-/* WARNING no protection against race codition (on ring->write_index) when used in interruption */
+/* WARNING no protection against race condition (on ring->write_index) when used in interruption */
 uint16_t virtio_buffer_write(virtio_buffer_t *ring, uint8_t *src, uint16_t size)
 {
   uint16_t write_index = ring->write_index;
