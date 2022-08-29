@@ -7458,13 +7458,13 @@ GenWB.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 3dprinter.menu.xusb.HSFS=High Speed in Full Speed mode
 3dprinter.menu.xusb.HSFS.build.usb_speed=-DUSE_USB_HS -DUSE_USB_HS_IN_FS
 
-BluesW.menu.usb.none=None
 BluesW.menu.usb.CDCgen=CDC (generic 'Serial' supersede U(S)ART)
 BluesW.menu.usb.CDCgen.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC
 BluesW.menu.usb.CDC=CDC (no generic 'Serial')
 BluesW.menu.usb.CDC.build.enable_usb={build.usb_flags} -DUSBD_USE_CDC -DDISABLE_GENERIC_SERIALUSB
 BluesW.menu.usb.HID=HID (keyboard and mouse)
 BluesW.menu.usb.HID.build.enable_usb={build.usb_flags} -DUSBD_USE_HID_COMPOSITE
+BluesW.menu.usb.none=None
 BluesW.menu.xusb.FS=Low/Full Speed
 BluesW.menu.xusb.HS=High Speed
 BluesW.menu.xusb.HS.build.usb_speed=-DUSE_USB_HS
