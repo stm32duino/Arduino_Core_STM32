@@ -7,14 +7,14 @@
   *          peripheral:
   *           + Operation functions
   *             ++ Start, stop, get result of conversions of ADC group injected,
-  *                using 2 possible modes: polling, interruption (not available on devices: STM32WB10xx, STM32WB15xx).
+  *                using 2 possible modes: polling, interruption (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
   *             ++ Calibration
   *               +++ ADC automatic self-calibration
   *               +++ Calibration factors get or set
   *           + Control functions
-  *             ++ Channels configuration on ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx)
+  *             ++ Channels configuration on ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx )
   *           + State functions
-  *             ++ ADC group injected contexts queue management (not available on devices: STM32WB10xx, STM32WB15xx)
+  *             ++ ADC group injected contexts queue management (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx )
   *          Other functions (generic functions) are available in file
   *          "stm32wbxx_hal_adc.c".
   ******************************************************************************
@@ -98,12 +98,12 @@
       (+) Get calibration factors for single or differential ending.
       (+) Set calibration factors for single or differential ending.
 
-      (+) Start conversion of ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx).
-      (+) Stop conversion of ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx).
-      (+) Poll for conversion complete on ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx).
-      (+) Get result of ADC group injected channel conversion (not available on devices: STM32WB10xx, STM32WB15xx).
-      (+) Start conversion of ADC group injected and enable interruptions (not available on devices: STM32WB10xx, STM32WB15xx).
-      (+) Stop conversion of ADC group injected and disable interruptions (not available on devices: STM32WB10xx, STM32WB15xx).
+      (+) Start conversion of ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
+      (+) Stop conversion of ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
+      (+) Poll for conversion complete on ADC group injected (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
+      (+) Get result of ADC group injected channel conversion (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
+      (+) Start conversion of ADC group injected and enable interruptions (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
+      (+) Stop conversion of ADC group injected and disable interruptions (not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx ).
 
 @endverbatim
   * @{
@@ -119,7 +119,7 @@
   *           @arg @ref ADC_SINGLE_ENDED       Channel in mode input single ended
   *           @arg @ref ADC_DIFFERENTIAL_ENDED Channel in mode input differential ended (1)
   *
-  *         (1) On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx.
+  *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
@@ -228,7 +228,7 @@ HAL_StatusTypeDef HAL_ADCEx_Calibration_Start(ADC_HandleTypeDef *hadc, uint32_t 
   *           @arg @ref ADC_SINGLE_ENDED       Channel in mode input single ended
   *           @arg @ref ADC_DIFFERENTIAL_ENDED Channel in mode input differential ended (1)
   *
-  *         (1) On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx.
+  *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   * @retval Calibration value.
   */
 uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t SingleDiff)
@@ -257,7 +257,7 @@ uint32_t HAL_ADCEx_Calibration_GetValue(ADC_HandleTypeDef *hadc, uint32_t Single
   *           @arg @ref ADC_SINGLE_ENDED       Channel in mode input single ended
   *           @arg @ref ADC_DIFFERENTIAL_ENDED Channel in mode input differential ended (1)
   *
-  *         (1) On STM32WB serie, parameter not available on devices: STM32WB10xx, STM32WB15xx.
+  *         (1) On STM32WB series, parameter not available on devices: STM32WB10xx, STM32WB15xx, STM32WB1Mxx.
   * @param CalibrationFactor Calibration factor (coded on 7 bits maximum)
   * @retval HAL state
   */

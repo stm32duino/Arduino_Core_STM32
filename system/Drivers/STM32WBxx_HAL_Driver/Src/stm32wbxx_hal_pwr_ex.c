@@ -643,7 +643,7 @@ void HAL_PWREx_ReleaseCore(uint32_t CPU)
   * @brief Enable SRAM2a content retention in Standby mode.
   * @note  When RRS bit is set, SRAM2a is powered by the low-power regulator in
   *         Standby mode and its content is kept.
-  * @note   On devices STM32WB15xx, STM32WB10xx, retention is extended
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx retention is extended
   *         to SRAM1, SRAM2a and SRAM2b.
   * @retval None
   */
@@ -656,7 +656,7 @@ void HAL_PWREx_EnableSRAMRetention(void)
   * @brief Disable SRAM2a content retention in Standby mode.
   * @note  When RRS bit is reset, SRAM2a is powered off in Standby mode
   *        and its content is lost.
-  * @note   On devices STM32WB15xx, STM32WB10xx, retention is extended
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx retention is extended
   *         to SRAM1, SRAM2a and SRAM2b.
   * @retval None
   */

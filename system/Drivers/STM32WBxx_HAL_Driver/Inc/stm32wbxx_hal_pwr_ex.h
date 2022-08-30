@@ -426,7 +426,7 @@ typedef struct
 /** @defgroup PWR_PVM_Mode_Mask PWR PVM Mode Mask
   * @{
   */
-/* Note: On STM32WB serie, power PVD event is not available on AIEC lines     */
+/* Note: On STM32WB series, power PVD event is not available on AIEC lines     */
 /*       (only interruption is available through AIEC line 16).               */
 #define PVM_MODE_IT               (0x00010000U)  /*!< Mask for interruption yielded by PVM threshold crossing */
 #define PVM_MODE_EVT              (0x00020000U)  /*!< Mask for event yielded by PVM threshold crossing */

@@ -531,7 +531,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBkUpAccess(void)
   *         @arg @ref LL_PWR_MODE_STANDBY
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
   *
-  *         (*) Not available on devices STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetPowerMode(uint32_t LowPowerMode)
@@ -549,7 +549,7 @@ __STATIC_INLINE void LL_PWR_SetPowerMode(uint32_t LowPowerMode)
   *         @arg @ref LL_PWR_MODE_STANDBY
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
   *
-  *         (*) Not available on devices STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   */
 __STATIC_INLINE uint32_t LL_PWR_GetPowerMode(void)
 {
@@ -650,7 +650,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledVddUSB(void)
   *         @arg @ref LL_PWR_PVM_VDDUSB_1_2V (*)
   *         @arg @ref LL_PWR_PVM_VDDA_1_62V
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnablePVM(uint32_t PeriphVoltage)
@@ -666,7 +666,7 @@ __STATIC_INLINE void LL_PWR_EnablePVM(uint32_t PeriphVoltage)
   *         @arg @ref LL_PWR_PVM_VDDUSB_1_2V (*)
   *         @arg @ref LL_PWR_PVM_VDDA_1_62V
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_DisablePVM(uint32_t PeriphVoltage)
@@ -682,7 +682,7 @@ __STATIC_INLINE void LL_PWR_DisablePVM(uint32_t PeriphVoltage)
   *         @arg @ref LL_PWR_PVM_VDDUSB_1_2V (*)
   *         @arg @ref LL_PWR_PVM_VDDA_1_62V
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledPVM(uint32_t PeriphVoltage)
@@ -819,7 +819,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledPUPDCfg(void)
 
 /**
   * @brief  Enable SRAM2a content retention in Standby mode
-  * @note   On devices STM32WB15xx, STM32WB10xx, retention is extended
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx, retention is extended
   *         to SRAM1, SRAM2a and SRAM2b.
   * @rmtoll CR3          RRS           LL_PWR_EnableSRAM2Retention
   * @retval None
@@ -831,7 +831,7 @@ __STATIC_INLINE void LL_PWR_EnableSRAM2Retention(void)
 
 /**
   * @brief  Disable SRAM2a content retention in Standby mode
-  * @note   On devices STM32WB15xx, STM32WB10xx, retention is extended
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx, retention is extended
   *         to SRAM1, SRAM2a and SRAM2b.
   * @rmtoll CR3          RRS           LL_PWR_DisableSRAM2Retention
   * @retval None
@@ -843,7 +843,7 @@ __STATIC_INLINE void LL_PWR_DisableSRAM2Retention(void)
 
 /**
   * @brief  Check if SRAM2 content retention in Standby mode  is enabled
-  * @note   On devices STM32WB15xx, STM32WB10xx, retention is extended
+  * @note   On devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx, retention is extended
   *         to SRAM1, SRAM2a and SRAM2b.
   * @rmtoll CR3          RRS           LL_PWR_IsEnabledSRAM2Retention
   * @retval State of bit (1 or 0).
@@ -867,7 +867,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledSRAM2Retention(void)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
@@ -889,7 +889,7 @@ __STATIC_INLINE void LL_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
@@ -911,7 +911,7 @@ __STATIC_INLINE void LL_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsEnabledWakeUpPin(uint32_t WakeUpPin)
@@ -988,7 +988,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBatteryCharging(void)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityLow(uint32_t WakeUpPin)
@@ -1010,7 +1010,7 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityLow(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityHigh(uint32_t WakeUpPin)
@@ -1032,7 +1032,7 @@ __STATIC_INLINE void LL_PWR_SetWakeUpPinPolarityHigh(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_PWR_IsWakeUpPinPolarityLow(uint32_t WakeUpPin)
@@ -1657,7 +1657,7 @@ __STATIC_INLINE uint32_t LL_PWR_IsEnabledBootC2(void)
   *         @arg @ref LL_PWR_MODE_STANDBY
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
   *
-  *         (*) Not available on devices STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_C2_PWR_SetPowerMode(uint32_t LowPowerMode)
@@ -1675,7 +1675,7 @@ __STATIC_INLINE void LL_C2_PWR_SetPowerMode(uint32_t LowPowerMode)
   *         @arg @ref LL_PWR_MODE_STANDBY
   *         @arg @ref LL_PWR_MODE_SHUTDOWN
   *
-  *         (*) Not available on devices STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   */
 __STATIC_INLINE uint32_t LL_C2_PWR_GetPowerMode(void)
 {
@@ -1781,7 +1781,7 @@ __STATIC_INLINE uint32_t LL_C2_PWR_IsEnabledInternWU(void)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_C2_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
@@ -1803,7 +1803,7 @@ __STATIC_INLINE void LL_C2_PWR_EnableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE void LL_C2_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
@@ -1825,7 +1825,7 @@ __STATIC_INLINE void LL_C2_PWR_DisableWakeUpPin(uint32_t WakeUpPin)
   *         @arg @ref LL_PWR_WAKEUP_PIN4
   *         @arg @ref LL_PWR_WAKEUP_PIN5 (*)
   *
-  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx
+  *         (*) Not available on devices STM32WB50xx, STM32WB35xx, STM32WB30xx, STM32WB15xx, STM32WB10xx, STM32WB1Mxx
   * @retval None
   */
 __STATIC_INLINE uint32_t LL_C2_PWR_IsEnabledWakeUpPin(uint32_t WakeUpPin)

@@ -522,7 +522,7 @@ extern "C" {
 
 #endif
 
-#if defined (STM32WB15xx) || defined (STM32WB10xx)
+#if defined (STM32WB15xx) || defined (STM32WB10xx) || defined (STM32WB1Mxx)
 /**
   * @brief   AF 0 selection
   */
