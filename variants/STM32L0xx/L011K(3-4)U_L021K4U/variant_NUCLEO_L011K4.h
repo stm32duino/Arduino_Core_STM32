@@ -65,10 +65,10 @@
   #define PIN_SPI_SS            PA4
 #endif
 #ifndef PIN_SPI_SS1
-  #define PIN_SPI_SS1           PA15
+  #define PIN_SPI_SS1           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_SS2
-  #define PIN_SPI_SS2           PB8
+  #define PIN_SPI_SS2           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_SS3
   #define PIN_SPI_SS3           PNUM_NOT_DEFINED
