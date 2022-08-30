@@ -80,7 +80,7 @@
   #define PIN_SPI_SS            PA4
 #endif
 #ifndef PIN_SPI_SS1
-  #define PIN_SPI_SS1           PA15
+  #define PIN_SPI_SS1           PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_SPI_SS2
   #define PIN_SPI_SS2           PNUM_NOT_DEFINED
@@ -100,10 +100,10 @@
 
 // I2C definitions
 #ifndef PIN_WIRE_SDA
-  #define PIN_WIRE_SDA          PA14
+  #define PIN_WIRE_SDA          PNUM_NOT_DEFINED
 #endif
 #ifndef PIN_WIRE_SCL
-  #define PIN_WIRE_SCL          PA15
+  #define PIN_WIRE_SCL          PNUM_NOT_DEFINED
 #endif
 
 // Timer Definitions
