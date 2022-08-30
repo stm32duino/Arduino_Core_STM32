@@ -196,6 +196,14 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :----: | :-------: | ---- | :-----: | :---- |
 | :green_heart: | STM32F100C4<br>STM32F100C6 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32F100C8<br>STM32F100CB | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32F100R4<br>STM32F100R6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F100V8<br>STM32F100VB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F100ZC<br>STM32F100ZD<br>STM32F100ZT | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F101C4<br>STM32F101C6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F101R4<br>STM32F101R6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F101T4<br>STM32F101T6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F101V8<br>STM32F101VB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32F101ZC<br>STM32F101ZD<br>STM32F101ZE | Generic Board | **2.4.0** |  |
 | :green_heart:  | STM32F103C6<br>STM32F103C8<br>STM32F103CB | [Blue Pill](https://stm32-base.org/boards/STM32F103C8T6-Blue-Pill) | *1.2.0* | USB CDC support since *1.5.0*<br> Maple bootloaders support since *1.6.0* |
 | :green_heart:  | STM32F103C8<br>STM32F103CB | [Black Pill](https://stm32-base.org/boards/STM32F103C8T6-Black-Pill) | *1.5.0* |  |
 | :green_heart:  | STM32F103C4<br>STM32F103C6<br>STM32F103C8<br>STM32F103CB | Generic Board | *1.9.0* |  |
