@@ -2791,6 +2791,22 @@ GenF4.menu.pnum.GENERIC_F410RBTX.build.board=GENERIC_F410RBTX
 GenF4.menu.pnum.GENERIC_F410RBTX.build.product_line=STM32F410Rx
 GenF4.menu.pnum.GENERIC_F410RBTX.build.variant=STM32F4xx/F410R(8-B)(I-T)
 
+# Generic F410T8Yx
+GenF4.menu.pnum.GENERIC_F410T8YX=Generic F410T8Yx
+GenF4.menu.pnum.GENERIC_F410T8YX.upload.maximum_size=65536
+GenF4.menu.pnum.GENERIC_F410T8YX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410T8YX.build.board=GENERIC_F410T8YX
+GenF4.menu.pnum.GENERIC_F410T8YX.build.product_line=STM32F410Tx
+GenF4.menu.pnum.GENERIC_F410T8YX.build.variant=STM32F4xx/F410T(8-B)Y
+
+# Generic F410TBYx
+GenF4.menu.pnum.GENERIC_F410TBYX=Generic F410TBYx
+GenF4.menu.pnum.GENERIC_F410TBYX.upload.maximum_size=131072
+GenF4.menu.pnum.GENERIC_F410TBYX.upload.maximum_data_size=32768
+GenF4.menu.pnum.GENERIC_F410TBYX.build.board=GENERIC_F410TBYX
+GenF4.menu.pnum.GENERIC_F410TBYX.build.product_line=STM32F410Tx
+GenF4.menu.pnum.GENERIC_F410TBYX.build.variant=STM32F4xx/F410T(8-B)Y
+
 # Generic F411CCUx
 GenF4.menu.pnum.GENERIC_F411CCUX=Generic F411CCUx
 GenF4.menu.pnum.GENERIC_F411CCUX.upload.maximum_size=262144
