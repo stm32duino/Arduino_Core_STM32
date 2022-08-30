@@ -1074,24 +1074,22 @@ void HAL_I2C_AddrCallback(I2C_HandleTypeDef *hi2c, uint8_t TransferDirection, ui
     obj->slaveRxNbData = 0;
   }
 
-  if (AddrMatchCode == hi2c->Init.OwnAddress1) {
-    if (TransferDirection == I2C_DIRECTION_RECEIVE) {
-      obj->slaveMode = SLAVE_MODE_TRANSMIT;
+  if (TransferDirection == I2C_DIRECTION_RECEIVE) {
+    obj->slaveMode = SLAVE_MODE_TRANSMIT;
 
-      if (obj->i2c_onSlaveTransmit != NULL) {
-        obj->i2cTxRxBufferSize = 0;
-        obj->i2c_onSlaveTransmit(obj);
-      }
-      HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
-                                    obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
-    } else {
-      obj->slaveRxNbData = 0;
-      obj->slaveMode = SLAVE_MODE_RECEIVE;
-      /*  We don't know in advance how many bytes will be sent by master so
-       *  we'll fetch one by one until master ends the sequence */
-      HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
-                                   1, I2C_NEXT_FRAME);
+    if (obj->i2c_onSlaveTransmit != NULL) {
+      obj->i2cTxRxBufferSize = 0;
+      obj->i2c_onSlaveTransmit(obj);
     }
+    HAL_I2C_Slave_Seq_Transmit_IT(hi2c, (uint8_t *) obj->i2cTxRxBuffer,
+                                  obj->i2cTxRxBufferSize, I2C_LAST_FRAME);
+  } else {
+    obj->slaveRxNbData = 0;
+    obj->slaveMode = SLAVE_MODE_RECEIVE;
+    /*  We don't know in advance how many bytes will be sent by master so
+     *  we'll fetch one by one until master ends the sequence */
+    HAL_I2C_Slave_Seq_Receive_IT(hi2c, (uint8_t *) & (obj->i2cTxRxBuffer[obj->slaveRxNbData]),
+                                 1, I2C_NEXT_FRAME);
   }
 }
 
