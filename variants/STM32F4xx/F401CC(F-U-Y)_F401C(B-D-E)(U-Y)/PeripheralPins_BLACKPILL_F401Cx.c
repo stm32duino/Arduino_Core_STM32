@@ -16,7 +16,7 @@
  * STM32F401CCFx.xml
  * CubeMX DB release 6.0.20
  */
-#if defined(ARDUINO_BLACKPILL_F401CC)
+#if defined(ARDUINO_BLACKPILL_F401CC) || defined(ARDUINO_BLACKPILL_F401CE)
 #include "Arduino.h"
 #include "PeripheralPins.h"
 
@@ -221,4 +221,4 @@ WEAK const PinMap PinMap_USB_OTG_FS[] = {
 
 //*** No SD ***
 
-#endif /* ARDUINO_BLACKPILL_F401CC */
+#endif /* (ARDUINO_BLACKPILL_F401CC) || (ARDUINO_BLACKPILL_F401CE) */
