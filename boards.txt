@@ -2967,8 +2967,18 @@ GenF4.menu.pnum.BLACKPILL_F401CC.upload.maximum_data_size=65536
 GenF4.menu.pnum.BLACKPILL_F401CC.build.board=BLACKPILL_F401CC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.product_line=STM32F401xC
 GenF4.menu.pnum.BLACKPILL_F401CC.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
-GenF4.menu.pnum.BLACKPILL_F401CC.build.variant_h=variant_{build.board}.h
+GenF4.menu.pnum.BLACKPILL_F401CC.build.variant_h=variant_BLACKPILL_F401Cx.h
 GenF4.menu.pnum.BLACKPILL_F401CC.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
+# BlackPill F401CE
+GenF4.menu.pnum.BLACKPILL_F401CE=BlackPill F401CE
+GenF4.menu.pnum.BLACKPILL_F401CE.upload.maximum_size=524288
+GenF4.menu.pnum.BLACKPILL_F401CE.upload.maximum_data_size=98304
+GenF4.menu.pnum.BLACKPILL_F401CE.build.board=BLACKPILL_F401CE
+GenF4.menu.pnum.BLACKPILL_F401CE.build.product_line=STM32F401xE
+GenF4.menu.pnum.BLACKPILL_F401CE.build.variant=STM32F4xx/F401CC(F-U-Y)_F401C(B-D-E)(U-Y)
+GenF4.menu.pnum.BLACKPILL_F401CE.build.variant_h=variant_BLACKPILL_F401Cx.h
+GenF4.menu.pnum.BLACKPILL_F401CE.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 
 # BlackPill F411CE
 # https://github.com/mcauser/WEACT_F411CEU6
