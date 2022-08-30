@@ -10,8 +10,7 @@
  *
  *******************************************************************************
  */
-#if defined(ARDUINO_GENERIC_F303R6TX) || defined(ARDUINO_GENERIC_F303R8TX) ||\
-    defined(ARDUINO_GENERIC_F334R6TX) || defined(ARDUINO_GENERIC_F334R8TX)
+#if defined(NUCLEO_F334R8)
 #include "pins_arduino.h"
 
 // Digital PinName array
