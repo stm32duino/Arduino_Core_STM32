@@ -450,6 +450,19 @@ Nucleo_64.menu.pnum.NUCLEO_L010RB.build.variant=STM32L0xx/L010RBT
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.cmsis_lib_gcc=arm_cortexM0l_math
 Nucleo_64.menu.pnum.NUCLEO_L010RB.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
 
+# NUCLEO_L011K4 board
+Nucleo_64.menu.pnum.NUCLEO_L011K4=Nucleo L011K4
+Nucleo_64.menu.pnum.NUCLEO_L011K4.node=NODE_L011K4
+Nucleo_64.menu.pnum.NUCLEO_L011K4.upload.maximum_size=16384
+Nucleo_64.menu.pnum.NUCLEO_L011K4.upload.maximum_data_size=2048
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.mcu=cortex-m0plus
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.board=NUCLEO_L011K4
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.series=STM32L0xx
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.product_line=STM32L011xx
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.cmsis_lib_gcc=arm_cortexM0l_math
+Nucleo_64.menu.pnum.NUCLEO_L011K4.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial} -D__CORTEX_SC=0
+
 # NUCLEO_L053R8 board
 Nucleo_64.menu.pnum.NUCLEO_L053R8=Nucleo L053R8
 Nucleo_64.menu.pnum.NUCLEO_L053R8.node=NODE_L053R8
@@ -4946,6 +4959,30 @@ GenL0.menu.pnum.GENERIC_L010RBTX.upload.maximum_data_size=20480
 GenL0.menu.pnum.GENERIC_L010RBTX.build.board=GENERIC_L010RBTX
 GenL0.menu.pnum.GENERIC_L010RBTX.build.product_line=STM32L010xB
 GenL0.menu.pnum.GENERIC_L010RBTX.build.variant=STM32L0xx/L010RBT
+
+# Generic L011K3Ux
+GenL0.menu.pnum.GENERIC_L011K3UX=Generic L011K3Ux
+GenL0.menu.pnum.GENERIC_L011K3UX.upload.maximum_size=8192
+GenL0.menu.pnum.GENERIC_L011K3UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011K3UX.build.board=GENERIC_L011K3UX
+GenL0.menu.pnum.GENERIC_L011K3UX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011K3UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+
+# Generic L011K4Ux
+GenL0.menu.pnum.GENERIC_L011K4UX=Generic L011K4Ux
+GenL0.menu.pnum.GENERIC_L011K4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L011K4UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L011K4UX.build.board=GENERIC_L011K4UX
+GenL0.menu.pnum.GENERIC_L011K4UX.build.product_line=STM32L011xx
+GenL0.menu.pnum.GENERIC_L011K4UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
+
+# Generic L021K4Ux
+GenL0.menu.pnum.GENERIC_L021K4UX=Generic L021K4Ux
+GenL0.menu.pnum.GENERIC_L021K4UX.upload.maximum_size=16384
+GenL0.menu.pnum.GENERIC_L021K4UX.upload.maximum_data_size=2048
+GenL0.menu.pnum.GENERIC_L021K4UX.build.board=GENERIC_L021K4UX
+GenL0.menu.pnum.GENERIC_L021K4UX.build.product_line=STM32L021xx
+GenL0.menu.pnum.GENERIC_L021K4UX.build.variant=STM32L0xx/L011K(3-4)U_L021K4U
 
 # Generic L031K4Tx
 GenL0.menu.pnum.GENERIC_L031K4TX=Generic L031K4Tx
