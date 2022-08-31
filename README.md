@@ -340,27 +340,61 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32G030F6<br>STM32G030F6 | Generic Board | *2.2.0* |
 | :green_heart: | STM32G030K8 | [Aurora One](https://www.bfy.kr/aurora-one/) | *2.0.0* |
 | :green_heart: | STM32G071CB | [AGAFIA SG0](https://www.sigmaic.com/store/p7/agafia-sgo.html) | *2.3.0* |
+| :yellow_heart: | STM32G030J6 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G030K6<br>STM32G030K8 | Generic Board | *2.0.0* |  |
-| :green_heart: | STM32G031J4<br>STM32G031J6 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G031C4<br>STM32G031C6<br>STM32G031C8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G031F4<br>STM32G031F6<br>STM32G031F8 | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G031G4<br>STM32G031G6<br>STM32G031G8 | Generic Board | **2.4.0** |  |
+| :green_heart: | STM32G031J4<br>STM32G031J6 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G031K4<br>STM32G031K6<br>STM32G031K8 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G031Y8 | Generic Board | *2.3.0* |  |
-| :green_heart: | STM32G041J6 | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G041C6<br>STM32G041C8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G041F6<br>STM32G041F8 | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G041G6<br>STM32G041G8 | Generic Board | **2.4.0** |  |
+| :green_heart: | STM32G041J6 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G041K6<br>STM32G041K8 | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G041Y8 | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G050C6<br>STM32G050C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G050F6 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G050K6<br>STM32G050K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G051C6<br>STM32G051C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G051F6<br>STM32G051F8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G051G6<br>STM32G051G8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G051K6<br>STM32G051K8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G061C6<br>STM32G061C8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G061F6<br>STM32G061F8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G061G6<br>STM32G061G8 | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G061K6<br>STM32G061K8 | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G070CB | Generic Board | *2.3.0* |  |
 | :green_heart: | STM32G070KB | Generic Board | *2.3.0* |  |
 | :green_heart: | STM32G070RB | Generic Board | *2.3.0* |  |
-| :green_heart: | STM32G071C6T<br>STM32G071C8T<br>STM32G071CBT | Generic Board | *2.3.0* |  |
-| :green_heart: | STM32G071C6U<br>STM32G071C8U<br>STM32G071CBU | Generic Board | *2.3.0* |  |
+| :green_heart: | STM32G071C6<br>STM32G071C8<br>STM32G071CB | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G071EB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G071G6<br>STM32G071G8<br>STM32G071GB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G071G8UxN | Generic Board | *2.3.0* |  |
 | :green_heart: | STM32G071GBUxN | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G071K6<br>STM32G071K8<br>STM32G071KB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G071R6<br>STM32G071R8<br>STM32G071RB | Generic Board | *2.0.0* |  |
 | :green_heart: | STM32G081CBT<br>STM32G081CBU | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G081EB | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G081GB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G081GBUxN | Generic Board | *2.3.0* |  |
+| :yellow_heart: | STM32G081KB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G081RB | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32G0B0CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B0RE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B0VE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B1CB<br>STM32G0B1CC<br>STM32G0B1CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B1KB<br>STM32G0B1KC<br>STM32G0B1KE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B1MB<br>STM32G0B1MC<br>STM32G0B1ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B1NE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0B1VB<br>STM32G0B1VC<br>STM32G0B1VE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G0B1RB<br>STM32G0B1RC<br>STM32G0B1RE | Generic Board | *2.1.0* |  |
+| :yellow_heart: | STM32G0C1CC<br>STM32G0C1CE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0C1KB<br>STM32G0C1KC<br>STM32G0C1KE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0C1MC<br>STM32G0C1ME | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0C1NE | Generic Board | **2.4.0** |  |
+| :yellow_heart: | STM32G0C1VC<br>STM32G0C1VE | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32G0C1RB<br>STM32G0C1RE | Generic Board | *2.1.0* |  |
 
 ### Generic STM32G4 boards
