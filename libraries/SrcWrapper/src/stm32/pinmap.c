@@ -242,7 +242,9 @@ void pin_function(PinName pin, int function)
     case STM_PIN_ALTERNATE:
       ll_mode = LL_GPIO_MODE_ALTERNATE;
       /* In case of ALT function, also set the afnum */
-      pin_SetAFPin(gpio, pin, afnum);
+      if (afnum != STM_PIN_AFNUM_MASK) {
+        pin_SetAFPin(gpio, pin, afnum);
+      }
       break;
     case STM_PIN_ANALOG:
       ll_mode = LL_GPIO_MODE_ANALOG;
