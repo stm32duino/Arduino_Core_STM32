@@ -91,6 +91,20 @@
 #endif
 
 /**
+ * Some mcu have single AF and thus only AF mode should be configured.
+ * No AFRL/AFRG registers exists so they should not be configured.
+ * In that case the AF does not exists so defining the linked AF
+ * to 0x7F (max value of the AFNUM i.e. STM_PIN_AFNUM_MASK)
+ * See GitHub issue #1798.
+ */
+#if defined(STM32F0xx) && !defined(GPIO_AF0_TIM3)
+  #define GPIO_AF0_TIM3 STM_PIN_AFNUM_MASK
+#endif
+#if defined(STM32L0xx) && !defined(GPIO_AF1_SPI1)
+  #define GPIO_AF1_SPI1 STM_PIN_AFNUM_MASK
+#endif
+
+/**
  * Libc porting layers
  */
 #if defined (  __GNUC__  ) /* GCC CS3 */
