@@ -6393,7 +6393,7 @@ GenH7.name=Generic STM32H7 Series
 
 GenH7.build.core=arduino
 GenH7.build.board=GenH7
-GenH7.build.st_extra_flags=-D{build.product_line} {build.enable_usb} {build.xSerial}
+GenH7.build.st_extra_flags=-DCORE_CM7 -D{build.product_line} {build.enable_usb} {build.xSerial}
 GenH7.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 GenH7.build.fpu=-mfpu=fpv4-sp-d16
 GenH7.build.float-abi=-mfloat-abi=hard
