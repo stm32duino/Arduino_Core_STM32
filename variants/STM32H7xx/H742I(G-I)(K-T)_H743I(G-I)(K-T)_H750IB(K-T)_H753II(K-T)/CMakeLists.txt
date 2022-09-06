@@ -19,11 +19,11 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
+  generic_clock.c
   PeripheralPins.c
   PeripheralPins_DAISY_PATCH_SM.c
   PeripheralPins_DAISY_PETAL_SM.c
   PeripheralPins_DAISY_SEED.c
-  generic_clock.c
   variant_DAISY_PATCH_SM.cpp
   variant_DAISY_PETAL_SM.cpp
   variant_DAISY_SEED.cpp

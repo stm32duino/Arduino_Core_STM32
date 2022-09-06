@@ -40,6 +40,7 @@ set_board("{{"${BOARDNAME}"}}"
   # USB none / CDCgen / CDC / HID
   # XUSB FS / HS / HSFS
   # VIRTIO disable / generic / enabled
+  # BOOTLOADER dfuo / dfu2 / hid
 )
 
 include(overall_settings)

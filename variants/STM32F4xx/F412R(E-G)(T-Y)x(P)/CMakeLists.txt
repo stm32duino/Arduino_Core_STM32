@@ -19,11 +19,11 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
+  generic_clock.c
   PeripheralPins.c
   PeripheralPins_PYBSTICK26_PRO.c
-  generic_clock.c
-  variant_PYBSTICK26_PRO.cpp
   variant_generic.cpp
+  variant_PYBSTICK26_PRO.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

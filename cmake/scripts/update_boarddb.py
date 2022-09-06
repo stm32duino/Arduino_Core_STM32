@@ -28,8 +28,12 @@ def boardstxt_filter(key) :
         # Midatronics.menu.upload_method.MassStorage=Mass Storage
         return True
 
-    # Remove upload_method also, that's out of our scope and requires more logic
-    if len(key) >= 3 and key[2] == "upload_method" :
+    # keep bootloader flags that impact the build
+    if len(key) >= 6 \
+    and key[1] == "menu" \
+    and key[2] == "upload_method" :
+        if key[3] != "build" :
+            return False
         return True
 
     return False
@@ -96,8 +100,12 @@ if __name__ == "__main__":
         inherit_fam["menu"] = inherit_fam["menu"].copy()
         # del what you iterate over (otherwise you get infinite nesting)
         del inherit_fam["menu"]["pnum"]
+        for u_meth, u_meth_cfg in inherit_fam.menu.upload_method.copy().items() :
+            if "build" not in u_meth_cfg.keys() :
+                del inherit_fam.menu.upload_method[u_meth]
 
         for board, boardcfg in famcfg.menu.pnum.items() :
+            boardcfg["_fpconf"] = get_fpconf(boardcfg)
             boardcfg.set_default_entries(inherit_fam)
 
             inherit_board = boardcfg.copy()
@@ -116,7 +124,10 @@ if __name__ == "__main__":
 
             boardcfg.evaluate_entries()
 
-            boardcfg["_fpconf"] = get_fpconf(boardcfg)
             allboards[board] = boardcfg
+            for mth, mthcfg in boardcfg.menu.upload_method.items() :
+                if mth.startswith(("hid", "dfuo", "dfu2")) :
+                    mth = mth.removesuffix("Method")
+                    allboards[f"{board}_{mth}"] = mthcfg
 
     regenerate_template(allboards, shargs.template, shargs.outfile)

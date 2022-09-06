@@ -19,8 +19,8 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
-  PeripheralPins.c
   generic_clock.c
+  PeripheralPins.c
   variant_BLUEPILL_F103C6.cpp
   variant_generic.cpp
 )

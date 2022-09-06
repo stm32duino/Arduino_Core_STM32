@@ -19,11 +19,11 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
-  PeripheralPins.c
   generic_clock.c
+  PeripheralPins.c
   startup_Mx00_f070xb.S
-  variant_MALYANMx00_F070CB.cpp
   variant_generic.cpp
+  variant_MALYANMx00_F070CB.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

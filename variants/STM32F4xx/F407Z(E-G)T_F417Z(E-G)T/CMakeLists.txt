@@ -19,13 +19,13 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
+  generic_clock.c
   PeripheralPins.c
   PeripheralPins_BLACK_F407ZX.c
   PeripheralPins_VCCGND_F407ZG_MINI.c
-  generic_clock.c
   variant_BLACK_F407ZX.cpp
-  variant_VCCGND_F407ZG_MINI.cpp
   variant_generic.cpp
+  variant_VCCGND_F407ZG_MINI.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

@@ -19,13 +19,13 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
-  PeripheralPins.c
-  PeripheralPins_BLACKPILL_F401CC.c
-  PeripheralPins_PYBSTICK26_LITE.c
   generic_clock.c
-  variant_BLACKPILL_F401CC.cpp
-  variant_PYBSTICK26_LITE.cpp
+  PeripheralPins.c
+  PeripheralPins_BLACKPILL_F401Cx.c
+  PeripheralPins_PYBSTICK26_LITE.c
+  variant_BLACKPILL_F401Cx.cpp
   variant_generic.cpp
+  variant_PYBSTICK26_LITE.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

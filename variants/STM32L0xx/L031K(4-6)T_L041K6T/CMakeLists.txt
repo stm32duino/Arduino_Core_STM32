@@ -19,10 +19,10 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
-  PeripheralPins.c
   generic_clock.c
-  variant_NUCLEO_L031K6.cpp
+  PeripheralPins.c
   variant_generic.cpp
+  variant_NUCLEO_L031K6.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

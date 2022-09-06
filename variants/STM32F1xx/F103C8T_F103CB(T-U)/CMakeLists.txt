@@ -19,15 +19,15 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
+  generic_clock.c
   PeripheralPins.c
   PeripheralPins_MALYANM200_F103CB.c
-  generic_clock.c
   startup_M200_f103xb.S
   variant_AFROFLIGHT_F103CB.cpp
+  variant_generic.cpp
   variant_MALYANM200_F103CB.cpp
   variant_MAPLEMINI_F103CB.cpp
   variant_PILL_F103Cx.cpp
-  variant_generic.cpp
 )
 target_link_libraries(variant_bin PUBLIC variant_usage)
 

@@ -19,25 +19,18 @@ target_link_libraries(core INTERFACE core_usage)
 
 
 add_library(core_bin STATIC EXCLUDE_FROM_ALL
-  HardwareSerial.cpp
-  IPAddress.cpp
-  Print.cpp
-  RingBuffer.cpp
-  Stream.cpp
-  Tone.cpp
-  USBSerial.cpp
-  VirtIOSerial.cpp
-  WInterrupts.cpp
-  WMath.cpp
-  WSerial.cpp
-  WString.cpp
   abi.cpp
   avr/dtostrf.c
   board.c
+  core_debug.c
+  HardwareSerial.cpp
   hooks.c
+  IPAddress.cpp
   itoa.c
   main.cpp
   pins_arduino.c
+  Print.cpp
+  RingBuffer.cpp
   stm32/OpenAMP/libmetal/device.c
   stm32/OpenAMP/libmetal/generic/condition.c
   stm32/OpenAMP/libmetal/generic/cortexm/sys.c
@@ -74,11 +67,19 @@ add_library(core_bin STATIC EXCLUDE_FROM_ALL
   stm32/usb/usbd_desc.c
   stm32/usb/usbd_ep_conf.c
   stm32/usb/usbd_if.c
+  Stream.cpp
+  Tone.cpp
+  USBSerial.cpp
+  VirtIOSerial.cpp
+  WInterrupts.cpp
   wiring_analog.c
   wiring_digital.c
   wiring_pulse.cpp
   wiring_shift.c
   wiring_time.c
+  WMath.cpp
+  WSerial.cpp
+  WString.cpp
 )
 target_link_libraries(core_bin PUBLIC core_usage)
 

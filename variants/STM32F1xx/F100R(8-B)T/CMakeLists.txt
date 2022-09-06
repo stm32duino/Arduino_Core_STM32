@@ -19,8 +19,8 @@ target_link_libraries(variant INTERFACE variant_usage)
 
 
 add_library(variant_bin STATIC EXCLUDE_FROM_ALL
-  PeripheralPins.c
   generic_clock.c
+  PeripheralPins.c
   variant_DISCO_F100RB.cpp
   variant_generic.cpp
 )

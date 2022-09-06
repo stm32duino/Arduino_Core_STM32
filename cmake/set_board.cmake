@@ -5,6 +5,17 @@ function(set_board BOARD_ID)
   updatedb() # updates board_db if needed
   include(boards_db)
 
+  set(KEYWORDS SERIAL USB XUSB VIRTIO BOOTLOADER)
+  cmake_parse_arguments(PARSE_ARGV 1 BOARD "" "${KEYWORDS}" "")
+
+  if(DEFINED BOARD_UNPARSED_ARGUMENTS OR DEFINED BOARD_KEYWORDS_MISSING_VALUES)
+    message(SEND_ERROR "Invalid call to set_board(); some arguments went unparsed")
+  endif()
+
+  if(DEFINED BOARD_BOOTLOADER)
+    set(BOARD_ID "${BOARD_ID}_${BOARD_BOOTLOADER}")
+  endif()
+
   if (NOT TARGET ${BOARD_ID})
     message(SEND_ERROR "Board ${BOARD_ID} not found. Maybe the board database is not up-to-date?")
     return()
@@ -15,13 +26,6 @@ function(set_board BOARD_ID)
   set(BOARD_MAXDATASIZE ${${BOARD_ID}_MAXDATASIZE} PARENT_SCOPE)
   set(MCU ${${BOARD_ID}_MCU} PARENT_SCOPE)
   set(FPCONF ${${BOARD_ID}_FPCONF} PARENT_SCOPE)
-
-  set(KEYWORDS SERIAL USB XUSB VIRTIO)
-  cmake_parse_arguments(PARSE_ARGV 1 BOARD "" "${KEYWORDS}" "")
-
-  if(DEFINED BOARD_UNPARSED_ARGUMENTS OR DEFINED BOARD_KEYWORDS_MISSING_VALUES)
-    message(SEND_ERROR "Invalid call to set_board(); some arguments went unparsed")
-  endif()
 
   # if the user passed in an invalid value, then the target won't be found
   # and cmake will output an error message
