@@ -661,22 +661,6 @@ void uart_config_lowpower(serial_t *obj)
 #endif
 
 /**
-  * @brief  write the data on the uart
-  * @param  obj : pointer to serial_t structure
-  * @param  data : byte to write
-  * @param  size : number of data to write
-  * @retval The number of bytes written
-  */
-size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
-{
-  if (HAL_UART_Transmit(uart_handlers[obj->index], &data, size, TX_TIMEOUT) == HAL_OK) {
-    return size;
-  } else {
-    return 0;
-  }
-}
-
-/**
   * @brief  Function called to initialize the debug uart interface
   * @note   Call only if debug U(S)ART peripheral is not already initialized
   *         by a Serial instance
