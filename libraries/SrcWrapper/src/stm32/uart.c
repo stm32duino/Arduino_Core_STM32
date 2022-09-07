@@ -714,6 +714,8 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
       serial_t *obj = get_serial_obj(uart_handlers[serial_debug.index]);
       if (obj) {
         serial_debug.irq = obj->irq;
+      } else {
+        return 0;
       }
     }
   }
