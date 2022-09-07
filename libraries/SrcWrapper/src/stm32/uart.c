@@ -705,6 +705,7 @@ void uart_debug_init(void)
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint32_t tickstart = HAL_GetTick();
+  serial_t *obj = NULL;
 
   if (serial_debug.index >= UART_NUM) {
     if (DEBUG_UART == NP) {
@@ -726,26 +727,22 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
       if (serial_debug.index >= UART_NUM) {
         return 0;
       }
-    } else {
-      serial_t *obj = get_serial_obj(uart_handlers[serial_debug.index]);
-      if (obj) {
-        serial_debug.irq = obj->irq;
-      } else {
-        return 0;
-      }
+    }
+  }
+  obj = get_serial_obj(uart_handlers[serial_debug.index]);
+  if (!obj) {
+    return 0;
+  }
+
+  while (serial_tx_active(obj)) {
+    if ((HAL_GetTick() - tickstart) >= TX_TIMEOUT) {
+      return 0;
     }
   }
 
-  HAL_NVIC_DisableIRQ(serial_debug.irq);
-
-  while (HAL_UART_Transmit(uart_handlers[serial_debug.index], data, size, TX_TIMEOUT) != HAL_OK) {
-    if ((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
-      size = 0;
-      break;
-    }
+  if (HAL_UART_Transmit(&(obj->handle), data, size, TX_TIMEOUT) != HAL_OK) {
+    size = 0;
   }
-
-  HAL_NVIC_EnableIRQ(serial_debug.irq);
 
   return size;
 }
