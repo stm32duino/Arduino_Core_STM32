@@ -691,10 +691,11 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint32_t tickstart = HAL_GetTick();
 
-  if (DEBUG_UART == NP) {
-    return 0;
-  }
   if (serial_debug.index >= UART_NUM) {
+    if (DEBUG_UART == NP) {
+      return 0;
+    }
+
     /* Search if DEBUG_UART already initialized */
     for (serial_debug.index = 0; serial_debug.index < UART_NUM; serial_debug.index++) {
       if (uart_handlers[serial_debug.index] != NULL) {
