@@ -13,8 +13,6 @@
 #undef errno
 extern int errno;
 
-extern size_t uart_debug_write(uint8_t *data, uint32_t size);
-
 // Helper macro to mark unused parameters and prevent compiler warnings.
 // Appends _UNUSED to the variable name to prevent accidentally using them.
 #ifdef UNUSED
