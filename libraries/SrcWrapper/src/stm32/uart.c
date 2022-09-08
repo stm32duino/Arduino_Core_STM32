@@ -78,8 +78,14 @@ typedef enum {
 } uart_index_t;
 
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
-
-static serial_t serial_debug = { .uart = NP, .index = UART_NUM };
+static serial_t serial_debug = {
+  .uart = NP,
+  .pin_tx = NC,
+  .pin_rx = NC,
+  .pin_rts = NC,
+  .pin_cts = NC,
+  .index = UART_NUM
+};
 
 /* Aim of the function is to get serial_s pointer using huart pointer */
 /* Highly inspired from magical linux kernel's "container_of" */
@@ -115,22 +121,30 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   /* Pin Tx must not be NP */
   if (uart_tx == NP) {
-    core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin Rx must not be NP if not half-duplex */
   if ((obj->pin_rx != NC) && (uart_rx == NP)) {
-    core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin RTS must not be NP if flow control is enabled */
   if ((obj->pin_rts != NC) && (uart_rts == NP)) {
-    core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin CTS must not be NP if flow control is enabled */
   if ((obj->pin_cts != NC) && (uart_cts == NP)) {
-    core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    }
     return;
   }
 
@@ -144,7 +158,9 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   obj->uart = pinmap_merge_peripheral(obj->uart, uart_cts);
 
   if (obj->uart == NP) {
-    core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
+    }
     return;
   }
 
