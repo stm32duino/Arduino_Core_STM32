@@ -7327,7 +7327,7 @@ GenL0.menu.pnum.THUNDERPACK_L072.upload.maximum_data_size=20480
 GenL0.menu.pnum.THUNDERPACK_L072.build.board=THUNDERPACK_L072
 GenL0.menu.pnum.THUNDERPACK_L072.build.product_line=STM32L072xx
 GenL0.menu.pnum.THUNDERPACK_L072.build.variant_h=variant_{build.board}.h
-GenL0.menu.pnum.THUNDERPACK_L072..build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+GenL0.menu.pnum.THUNDERPACK_L072.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 GenL0.menu.pnum.THUNDERPACK_L072.build.variant=STM32L0xx/L072K(B-Z)T_L082K(B-Z)T
 
 # Piconomix PX-HER0 board
