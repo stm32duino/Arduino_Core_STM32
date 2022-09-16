@@ -51,6 +51,20 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_F722ZE board
+Nucleo_144.menu.pnum.NUCLEO_F722ZE=Nucleo F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.node=NODE_F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_size=524288
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.board=NUCLEO_F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant_h=variant_NUCLEO_F722ZE.h
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+
 # NUCLEO_F746ZG board
 Nucleo_144.menu.pnum.NUCLEO_F746ZG=Nucleo F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
