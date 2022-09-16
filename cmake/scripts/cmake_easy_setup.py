@@ -46,7 +46,8 @@ if shargs.sketch and not shargs.board:
     print(
         """
     Warning: you did not specify which board you were targeting;
-    please review the generated CMakeLists.txt to remove the placeholder value before calling `cmake`.
+    please review the generated CMakeLists.txt to remove the placeholder
+    value before calling `cmake`.
     """
     )
 
@@ -121,8 +122,20 @@ for line in get_log(logf):
         libpaths[line["location"]] = pathlib.Path(line["dir"])
 
 # platform lib path is already known, obviously, since that's where this script resides
-userlibs = pathlib.Path(libpaths["user"]).resolve()
-libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
+userlibs = pathlib.Path(libpaths["user"])
+if userlibs.exists():
+    userlibs = userlibs.resolve()
+    libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
+else:
+    print(
+        f"""Warning: Cannot find {userlibs}.
+    This has likely to do with your arduino-cli configuration.
+    Please refer to the following link for setup details:
+    https://arduino.github.io/arduino-cli/0.26/getting-started/#create-a-configuration-file
+    """
+    )
+    libs = list()
+
 corepath = pathlib.Path(__file__).parent.parent.parent.resolve()
 
 j2_env = Environment(

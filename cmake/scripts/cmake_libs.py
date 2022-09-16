@@ -3,7 +3,7 @@
 import argparse
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader
-from cmake_gen import *
+from cmake_gen import autoconfig, render
 
 script_path = Path(__file__).parent.resolve()
 

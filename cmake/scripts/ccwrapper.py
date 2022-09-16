@@ -22,7 +22,7 @@ parser.add_argument(
 
 shargs = parser.parse_args()
 
-logline = re.compile("^\.* .+$")  # a series of dots, a space, a filename
+logline = re.compile(r"^\.* .+$")  # a series of dots, a space, a filename
 
 
 proc = subprocess.run(shargs.cmd, capture_output=True, encoding="ascii")

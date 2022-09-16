@@ -49,7 +49,10 @@ datasz = sum(int(u) for u in regex_data.findall(proc.stdout))
 
 print(
     f"""
-Sketch uses {allsz} bytes ({allsz/shargs.progmem:.0%}) of program storage space. Maximum is {shargs.progmem} bytes.
-Global variables use {datasz} bytes ({datasz/shargs.datamem:.0%}) of dynamic memory, leaving {shargs.datamem-datasz} bytes for local variables. Maximum is {shargs.datamem} bytes.
+Sketch uses {allsz} bytes ({allsz/shargs.progmem:.0%}) of program storage space. \
+Maximum is {shargs.progmem} bytes.
+Global variables use {datasz} bytes ({datasz/shargs.datamem:.0%}) of dynamic memory, \
+leaving {shargs.datamem-datasz} bytes for local variables. \
+Maximum is {shargs.datamem} bytes.
 """
 )

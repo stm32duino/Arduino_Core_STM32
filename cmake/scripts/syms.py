@@ -43,15 +43,14 @@ def parse_file(mapf):
                 demander, sym = line.strip().rsplit(") (", 1)
                 demander = demander + ")"
                 sym = "(" + sym
-            except:
+            except Exception:
                 continue
         else:
             provider = line.strip()
 
         if provider and demander and sym:
-            objdemander = demander.rsplit("/", 1)[
-                1
-            ]  # .split("(")[0] gets the lib ; without this you get the obj
+            # .split("(")[0] gets the lib ; without this you get the obj
+            objdemander = demander.rsplit("/", 1)[1]
             objprovider = provider.rsplit("/", 1)[1]
             libdemander = objdemander.split("(")[0]
             libprovider = objprovider.split("(")[0]

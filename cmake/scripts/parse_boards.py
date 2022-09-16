@@ -25,7 +25,7 @@ class Configuration(dict):
         return self.__getitem__(attr)
 
     def __setattr__(self, attr, val):
-        return self.__setitem__(item, attr)
+        return self.__setitem__(val, attr)
 
     def set_default_entries(self, mothercfg):
         for k, v in mothercfg.items():
@@ -51,9 +51,13 @@ class Configuration(dict):
                 self[k].evaluate_entries(wrt)
 
 
+def default_reject(x):
+    return False
+
+
 def parse_file(infile, reject=None):
     if reject is None:
-        reject = lambda x: False
+        reject = default_reject
 
     config = Configuration()
 

@@ -16,8 +16,10 @@ def get_fpconf(config):
 
 def boardstxt_filter(key):
     # Remove menu entry labels
-    # In our data model, they conflict with the actual configuration they are associated to
-    # i.e. Nucleo_144.menu.pnum.NUCLEO_F207ZG would be both a string ("Nucleo F207ZG")
+    # In our data model, they conflict with the actual configuration
+    # they are associated to
+    # i.e. Nucleo_144.menu.pnum.NUCLEO_F207ZG would be both
+    # a string ("Nucleo F207ZG")
     # and a dict (.build.variant_h=..., .upload.maximum_size=...)
 
     if key[0] == "menu":
@@ -120,7 +122,8 @@ if __name__ == "__main__":
         famcfg.set_default_entries(platformtxt_cfg)
 
         inherit_fam = famcfg.copy()
-        # shallow copy; we don't want to impact famcfg so we have to copy before edit/del
+        # shallow copy;
+        # we don't want to impact famcfg so we have to copy before edit/del
         inherit_fam["menu"] = inherit_fam["menu"].copy()
         # del what you iterate over (otherwise you get infinite nesting)
         del inherit_fam["menu"]["pnum"]
@@ -142,7 +145,8 @@ if __name__ == "__main__":
                     labelcfg.set_default_entries(inherit_board)
                     labelcfg.evaluate_entries()
 
-            # base config won't manage all the board features, we thus have to mask them out
+            # base config won't manage all the board features,
+            # we thus have to mask them out
             for feat in BOARD_FEATURES:
                 boardcfg.build[feat] = ""
 

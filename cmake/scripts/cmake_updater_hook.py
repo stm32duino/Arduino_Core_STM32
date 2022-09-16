@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
 """
-This file centralizes all the operations needed to regenerate the CMakeLists.txt scattered along this repo.
+This file centralizes all the operations needed to regenerate the CMakeLists.txt
+scattered along this repo.
 Hint: it would be a good practice to run it before committing...
 """
 

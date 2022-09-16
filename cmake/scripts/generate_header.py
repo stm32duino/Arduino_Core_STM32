@@ -2,7 +2,6 @@
 
 import argparse
 import pathlib
-import subprocess
 
 parser = argparse.ArgumentParser()
 parser.add_argument(
