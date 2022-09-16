@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.21)
 
+# note: the doc say these must be called _at file scope_, not in a function
+enable_language(C)
+enable_language(CXX)
+enable_language(ASM)
+
 function(external_library)
   cmake_parse_arguments(PARSE_ARGV 0 XLIB "FORCE" "PATH" "DEPENDS")
 
