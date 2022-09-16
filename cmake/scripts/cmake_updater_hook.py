@@ -6,8 +6,15 @@ scattered along this repo.
 Hint: it would be a good practice to run it before committing...
 """
 
+import argparse
 import subprocess
 import pathlib
+import sys
+
+parser = argparse.ArgumentParser(
+    usage="updater hook for CMake files. Fully automatic, takes no argument."
+)
+shargs = parser.parse_args()
 
 script_dir = pathlib.Path(__file__).parent  # Arduino_Core_STM32/cmake/scripts
 base_dir = script_dir.parent.parent  # Arduino_Core_STM32
@@ -15,25 +22,25 @@ templates_dir = base_dir / "cmake" / "templates"
 
 print("Updating core/arduino...")
 subprocess.run(
-    ("python3", script_dir / "cmake_core.py", base_dir / "cores" / "arduino"),
+    (sys.executable, script_dir / "cmake_core.py", base_dir / "cores" / "arduino"),
     check=True,
 )
 
 print("Updating libraries/...")
 subprocess.run(
-    ("python3", script_dir / "cmake_libs.py", "-L", base_dir / "libraries"),
+    (sys.executable, script_dir / "cmake_libs.py", "-L", base_dir / "libraries"),
     check=True,
 )
 
 print("Updating variants/...")
 subprocess.run(
-    ("python3", script_dir / "cmake_variant.py", base_dir / "variants"),
+    (sys.executable, script_dir / "cmake_variant.py", base_dir / "variants"),
     check=True,
 )
 print("Updating board database...")
 subprocess.run(
     (
-        "python3",
+        sys.executable,
         script_dir / "update_boarddb.py",
         "-b",
         base_dir / "boards.txt",
