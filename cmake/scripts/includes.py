@@ -7,37 +7,50 @@ import graphviz
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-o", type=pathlib.Path, help="file to write the full graph to")
-parser.add_argument("-t", type=pathlib.Path, help="file to write the transitive graph to")
-parser.add_argument("logs", type=pathlib.Path, nargs="*", action="extend", help="list of log files to parse")
+parser.add_argument(
+    "-t", type=pathlib.Path, help="file to write the transitive graph to"
+)
+parser.add_argument(
+    "logs",
+    type=pathlib.Path,
+    nargs="*",
+    action="extend",
+    help="list of log files to parse",
+)
 
 shargs = parser.parse_args()
 
 
-def catfiles(files) :
-    for fn in files :
-        with open(fn, "r") as file :
+def catfiles(files):
+    for fn in files:
+        with open(fn, "r") as file:
             yield from file
 
-def parse_output(log) :
-    graph = graphviz.Digraph(strict=True, graph_attr=dict(overlap="False")) # not transitive
-    rootgraph = graphviz.Digraph(strict=True, graph_attr=dict(overlap="False")) # transitive includes
+
+def parse_output(log):
+    graph = graphviz.Digraph(
+        strict=True, graph_attr=dict(overlap="False")
+    )  # not transitive
+    rootgraph = graphviz.Digraph(
+        strict=True, graph_attr=dict(overlap="False")
+    )  # transitive includes
     rootcause = None
-    files = list() # [(depth, header)...]
-    for line in log :
+    files = list()  # [(depth, header)...]
+    for line in log:
         d, h = line.rstrip().split(" ", 1)
         d = d.count(".")
         h = pathlib.Path(h)
 
-        if d == 0 :
+        if d == 0:
             rootcause = h
-        else :
-            """"
+        else:
+            """ "
             # A includes B.h, C.h
             .  A.h
             .. B.h
             .. C.h
             """
-            while files[-1][0] >= d :
+            while files[-1][0] >= d:
                 del files[-1]
 
             # if str(h).startswith("..") :
@@ -51,9 +64,9 @@ def parse_output(log) :
 
 graph, rootgraph = parse_output(catfiles(shargs.logs))
 
-if shargs.o :
-    with open(shargs.o, "w") as file :
+if shargs.o:
+    with open(shargs.o, "w") as file:
         print(graph.source, file=file)
-if shargs.t :
-    with open(shargs.t, "w") as file :
+if shargs.t:
+    with open(shargs.t, "w") as file:
         print(rootgraph.source, file=file)

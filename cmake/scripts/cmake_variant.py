@@ -19,12 +19,12 @@ j2_env = Environment(
 cmake_template = j2_env.get_template("CMakeLists.txt")
 
 
-for family in shargs.variantspath.iterdir() :
-    if not family.is_dir() :
+for family in shargs.variantspath.iterdir():
+    if not family.is_dir():
         continue
-    for variant in family.iterdir() :
+    for variant in family.iterdir():
         # technically several variants may be gathered in the same folder
-        if not variant.is_dir() :
+        if not variant.is_dir():
             continue
 
         config = config_for_bareflat(variant, force_recurse=True)

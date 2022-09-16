@@ -15,7 +15,7 @@ shargs = parser.parse_args()
 
 templates_dir = script_path / ".." / "templates"
 j2_env = Environment(
-loader=FileSystemLoader(str(templates_dir)), trim_blocks=True, lstrip_blocks=True
+    loader=FileSystemLoader(str(templates_dir)), trim_blocks=True, lstrip_blocks=True
 )
 cmake_template = j2_env.get_template("CMakeLists.txt")
 

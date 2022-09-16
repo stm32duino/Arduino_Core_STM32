@@ -6,44 +6,52 @@ import argparse
 import graphviz
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-m", "--mapfile", type=pathlib.Path, required=True, help="path to ld's map file")
-parser.add_argument("-f", "--fullgv", type=pathlib.Path, help="file to write the full graph to")
-parser.add_argument("-s", "--summarygv", type=pathlib.Path, help="file to write the summarized graph to")
+parser.add_argument(
+    "-m", "--mapfile", type=pathlib.Path, required=True, help="path to ld's map file"
+)
+parser.add_argument(
+    "-f", "--fullgv", type=pathlib.Path, help="file to write the full graph to"
+)
+parser.add_argument(
+    "-s", "--summarygv", type=pathlib.Path, help="file to write the summarized graph to"
+)
 
 shargs = parser.parse_args()
 
 
-def parse_file(mapf) :
+def parse_file(mapf):
     fullgraph = graphviz.Digraph(graph_attr=dict(overlap="False"))
     summary = graphviz.Digraph(strict=True, graph_attr=dict(overlap="False"))
 
     start = "Archive member included to satisfy reference by file (symbol)"
     stop = "Discarded input sections"
-    for line in mapf :
-        if line.startswith(start) :
+    for line in mapf:
+        if line.startswith(start):
             break
 
     provider = None
     demander = None
     sym = None
-    for line in mapf :
-        if line.isspace() :
+    for line in mapf:
+        if line.isspace():
             continue
-        if line.startswith(stop) :
+        if line.startswith(stop):
             break
 
-        if line.startswith((" ", "\t")) :
-            try :
+        if line.startswith((" ", "\t")):
+            try:
                 demander, sym = line.strip().rsplit(") (", 1)
                 demander = demander + ")"
-                sym = "("+sym
-            except :
+                sym = "(" + sym
+            except:
                 continue
-        else :
+        else:
             provider = line.strip()
 
-        if provider and demander and sym :
-            objdemander = demander.rsplit("/", 1)[1] # .split("(")[0] gets the lib ; without this you get the obj
+        if provider and demander and sym:
+            objdemander = demander.rsplit("/", 1)[
+                1
+            ]  # .split("(")[0] gets the lib ; without this you get the obj
             objprovider = provider.rsplit("/", 1)[1]
             libdemander = objdemander.split("(")[0]
             libprovider = objprovider.split("(")[0]
@@ -58,12 +66,12 @@ def parse_file(mapf) :
     return (fullgraph, summary)
 
 
-with open(shargs.mapfile, "rt") as file :
+with open(shargs.mapfile, "rt") as file:
     fullgraph, summary = parse_file(file)
 
-if shargs.fullgv :
-    with open(shargs.fullgv, "w") as file :
+if shargs.fullgv:
+    with open(shargs.fullgv, "w") as file:
         print(fullgraph.source, file=file)
-if shargs.summarygv :
-    with open(shargs.summarygv, "w") as file :
+if shargs.summarygv:
+    with open(shargs.summarygv, "w") as file:
         print(summary.source, file=file)

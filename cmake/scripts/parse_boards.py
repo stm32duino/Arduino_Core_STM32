@@ -5,60 +5,61 @@ Utility module to parse Arduino config files
 such as boards.txt/platform.txt.
 """
 
-class Configuration(dict) :
 
-    def __str__(self) :
-        if len(self) :
+class Configuration(dict):
+    def __str__(self):
+        if len(self):
             return super().__str__()
-        else :
+        else:
             return ""
 
-    def __getitem__(self, key) :
+    def __getitem__(self, key):
         return self.setdefault(key, Configuration())
 
-    def copy(self) :
+    def copy(self):
         # Wrap dict's implementation (returning a dict)
         # Because copying a Configuration should return a Configuration
         return __class__(super().copy())
 
-    def __getattr__(self, attr) :
+    def __getattr__(self, attr):
         return self.__getitem__(attr)
-    def __setattr__(self, attr, val) :
+
+    def __setattr__(self, attr, val):
         return self.__setitem__(item, attr)
 
-    def set_default_entries(self, mothercfg) :
-        for k,v in mothercfg.items() :
-            if isinstance(v, dict) :
+    def set_default_entries(self, mothercfg):
+        for k, v in mothercfg.items():
+            if isinstance(v, dict):
                 self[k].set_default_entries(v)
-            else :
+            else:
                 self.setdefault(k, v)
 
-    def evaluate_entries(self, wrt=None) :
-        if wrt is None :
+    def evaluate_entries(self, wrt=None):
+        if wrt is None:
             wrt = self
 
-        for k in tuple(self.keys()) :
-            if isinstance(self[k], str) :
-                try :
+        for k in tuple(self.keys()):
+            if isinstance(self[k], str):
+                try:
                     newv = self[k].format(**wrt)
-                except KeyError :
+                except KeyError:
                     raise
                     newv = ""
 
                 self[k] = newv
-            else :
+            else:
                 self[k].evaluate_entries(wrt)
 
 
-def parse_file(infile, reject=None) :
-    if reject is None :
-        reject = lambda x:False
+def parse_file(infile, reject=None):
+    if reject is None:
+        reject = lambda x: False
 
     config = Configuration()
 
     for line in open(infile):
         line = line.strip()
-        if not line or line.startswith("#") :
+        if not line or line.startswith("#"):
             continue
         key, value = line.split("=", 1)
         key = key.strip()
@@ -66,11 +67,11 @@ def parse_file(infile, reject=None) :
 
         key = key.split(".")
         ptr = config
-        for sub in key[:-1] :
+        for sub in key[:-1]:
             ptr = ptr[sub]
 
-        if reject(key) :
+        if reject(key):
             ptr.setdefault(key[-1], Configuration())
-        else :
+        else:
             ptr[key[-1]] = value
     return config
