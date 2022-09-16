@@ -131,7 +131,7 @@ else:
         f"""Warning: Cannot find {userlibs}.
     This has likely to do with your arduino-cli configuration.
     Please refer to the following link for setup details:
-    https://arduino.github.io/arduino-cli/0.26/getting-started/#create-a-configuration-file
+    https://arduino.github.io/arduino-cli/latest/getting-started/#create-a-configuration-file
     """
     )
     libs = list()
@@ -195,9 +195,9 @@ print(
 Unless you are building a very simple sketch with no library (e.g., Blink),
 you are advised to edit this file to fill in any missing dependency relationship.
 For details, please refer to
-https://github.com/massonal/Arduino_Core_STM32/wiki/Arduino-(in)compatibility#library-management
-"""
-)
+https://github.com/stm32duino/wiki/wiki/Arduino-%28in%29compatibility#library-management
+    """
+    )
 
 if shargs.fire:
     if not (shargs.sketch and shargs.board):
