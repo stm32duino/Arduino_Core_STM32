@@ -51,6 +51,20 @@ Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.product_line=STM32F429xx
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.variant=STM32F4xx/F427Z(G-I)T_F429ZET_F429Z(G-I)(T-Y)_F437Z(G-I)T_F439Z(G-I)(T-Y)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
+# NUCLEO_F722ZE board
+Nucleo_144.menu.pnum.NUCLEO_F722ZE=Nucleo F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.node=NODE_F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_size=524288
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.upload.maximum_data_size=196608
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.flags.fp=-mfpu=fpv4-sp-d16 -mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.board=NUCLEO_F722ZE
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.series=STM32F7xx
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.product_line=STM32F722xx
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.variant_h=variant_NUCLEO_F722ZE.h
+Nucleo_144.menu.pnum.NUCLEO_F722ZE.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+
 # NUCLEO_F746ZG board
 Nucleo_144.menu.pnum.NUCLEO_F746ZG=Nucleo F746ZG
 Nucleo_144.menu.pnum.NUCLEO_F746ZG.node=NODE_F746ZG
@@ -4267,6 +4281,22 @@ GenF7.menu.pnum.GENERIC_F722RETX.build.board=GENERIC_F722RETX
 GenF7.menu.pnum.GENERIC_F722RETX.build.product_line=STM32F722xx
 GenF7.menu.pnum.GENERIC_F722RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
 
+# Generic F722ZCTx
+GenF7.menu.pnum.GENERIC_F722ZCTX=Generic F722ZCTx
+GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_size=262144
+GenF7.menu.pnum.GENERIC_F722ZCTX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.board=GENERIC_F722ZCTX
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ZCTX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+
+# Generic F722ZETx
+GenF7.menu.pnum.GENERIC_F722ZETX=Generic F722ZETx
+GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F722ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F722ZETX.build.board=GENERIC_F722ZETX
+GenF7.menu.pnum.GENERIC_F722ZETX.build.product_line=STM32F722xx
+GenF7.menu.pnum.GENERIC_F722ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
+
 # Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX=Generic F730R8Tx
 GenF7.menu.pnum.GENERIC_F730R8TX.upload.maximum_size=65536
@@ -4282,6 +4312,14 @@ GenF7.menu.pnum.GENERIC_F732RETX.upload.maximum_data_size=196608
 GenF7.menu.pnum.GENERIC_F732RETX.build.board=GENERIC_F732RETX
 GenF7.menu.pnum.GENERIC_F732RETX.build.product_line=STM32F732xx
 GenF7.menu.pnum.GENERIC_F732RETX.build.variant=STM32F7xx/F722R(C-E)T_F730R8T_F732RET
+
+# Generic F732ZETx
+GenF7.menu.pnum.GENERIC_F732ZETX=Generic F732ZETx
+GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_size=524288
+GenF7.menu.pnum.GENERIC_F732ZETX.upload.maximum_data_size=196608
+GenF7.menu.pnum.GENERIC_F732ZETX.build.board=GENERIC_F732ZETX
+GenF7.menu.pnum.GENERIC_F732ZETX.build.product_line=STM32F732xx
+GenF7.menu.pnum.GENERIC_F732ZETX.build.variant=STM32F7xx/F722Z(C-E)T_F732ZET
 
 # Generic F745ZETx
 GenF7.menu.pnum.GENERIC_F745ZETX=Generic F745ZETx
