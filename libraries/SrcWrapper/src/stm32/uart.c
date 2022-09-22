@@ -686,13 +686,12 @@ void uart_config_lowpower(serial_t *obj)
 void uart_debug_init(void)
 {
   if (DEBUG_UART != NP) {
-    serial_debug.pin_rx = pinmap_pin(DEBUG_UART, PinMap_UART_RX);
 #if defined(DEBUG_PINNAME_TX)
     serial_debug.pin_tx = DEBUG_PINNAME_TX;
 #else
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
-
+    /* serial_debug.pin_rx set by default to NC to configure in half duplex mode */
     uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1);
   }
 }
