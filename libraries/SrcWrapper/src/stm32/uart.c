@@ -78,8 +78,14 @@ typedef enum {
 } uart_index_t;
 
 static UART_HandleTypeDef *uart_handlers[UART_NUM] = {NULL};
-
-static serial_t serial_debug = { .uart = NP, .index = UART_NUM };
+static serial_t serial_debug = {
+  .uart = NP,
+  .pin_tx = NC,
+  .pin_rx = NC,
+  .pin_rts = NC,
+  .pin_cts = NC,
+  .index = UART_NUM
+};
 
 /* Aim of the function is to get serial_s pointer using huart pointer */
 /* Highly inspired from magical linux kernel's "container_of" */
@@ -115,22 +121,30 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
 
   /* Pin Tx must not be NP */
   if (uart_tx == NP) {
-    core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Tx pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin Rx must not be NP if not half-duplex */
   if ((obj->pin_rx != NC) && (uart_rx == NP)) {
-    core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Rx pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin RTS must not be NP if flow control is enabled */
   if ((obj->pin_rts != NC) && (uart_rts == NP)) {
-    core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] RTS pin has no peripheral!\n");
+    }
     return;
   }
   /* Pin CTS must not be NP if flow control is enabled */
   if ((obj->pin_cts != NC) && (uart_cts == NP)) {
-    core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] CTS pin has no peripheral!\n");
+    }
     return;
   }
 
@@ -144,7 +158,9 @@ void uart_init(serial_t *obj, uint32_t baudrate, uint32_t databits, uint32_t par
   obj->uart = pinmap_merge_peripheral(obj->uart, uart_cts);
 
   if (obj->uart == NP) {
-    core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
+    if (obj != &serial_debug) {
+      core_debug("ERROR: [U(S)ART] Rx/Tx/RTS/CTS pins peripherals mismatch!\n");
+    }
     return;
   }
 
@@ -661,22 +677,6 @@ void uart_config_lowpower(serial_t *obj)
 #endif
 
 /**
-  * @brief  write the data on the uart
-  * @param  obj : pointer to serial_t structure
-  * @param  data : byte to write
-  * @param  size : number of data to write
-  * @retval The number of bytes written
-  */
-size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
-{
-  if (HAL_UART_Transmit(uart_handlers[obj->index], &data, size, TX_TIMEOUT) == HAL_OK) {
-    return size;
-  } else {
-    return 0;
-  }
-}
-
-/**
   * @brief  Function called to initialize the debug uart interface
   * @note   Call only if debug U(S)ART peripheral is not already initialized
   *         by a Serial instance
@@ -686,13 +686,12 @@ size_t uart_write(serial_t *obj, uint8_t data, uint16_t size)
 void uart_debug_init(void)
 {
   if (DEBUG_UART != NP) {
-    serial_debug.pin_rx = pinmap_pin(DEBUG_UART, PinMap_UART_RX);
 #if defined(DEBUG_PINNAME_TX)
     serial_debug.pin_tx = DEBUG_PINNAME_TX;
 #else
     serial_debug.pin_tx = pinmap_pin(DEBUG_UART, PinMap_UART_TX);
 #endif
-
+    /* serial_debug.pin_rx set by default to NC to configure in half duplex mode */
     uart_init(&serial_debug, DEBUG_UART_BAUDRATE, UART_WORDLENGTH_8B, UART_PARITY_NONE, UART_STOPBITS_1);
   }
 }
@@ -706,11 +705,13 @@ void uart_debug_init(void)
 size_t uart_debug_write(uint8_t *data, uint32_t size)
 {
   uint32_t tickstart = HAL_GetTick();
+  serial_t *obj = NULL;
 
-  if (DEBUG_UART == NP) {
-    return 0;
-  }
   if (serial_debug.index >= UART_NUM) {
+    if (DEBUG_UART == NP) {
+      return 0;
+    }
+
     /* Search if DEBUG_UART already initialized */
     for (serial_debug.index = 0; serial_debug.index < UART_NUM; serial_debug.index++) {
       if (uart_handlers[serial_debug.index] != NULL) {
@@ -726,24 +727,22 @@ size_t uart_debug_write(uint8_t *data, uint32_t size)
       if (serial_debug.index >= UART_NUM) {
         return 0;
       }
-    } else {
-      serial_t *obj = get_serial_obj(uart_handlers[serial_debug.index]);
-      if (obj) {
-        serial_debug.irq = obj->irq;
-      }
+    }
+  }
+  obj = get_serial_obj(uart_handlers[serial_debug.index]);
+  if (!obj) {
+    return 0;
+  }
+
+  while (serial_tx_active(obj)) {
+    if ((HAL_GetTick() - tickstart) >= TX_TIMEOUT) {
+      return 0;
     }
   }
 
-  HAL_NVIC_DisableIRQ(serial_debug.irq);
-
-  while (HAL_UART_Transmit(uart_handlers[serial_debug.index], data, size, TX_TIMEOUT) != HAL_OK) {
-    if ((HAL_GetTick() - tickstart) >=  TX_TIMEOUT) {
-      size = 0;
-      break;
-    }
+  if (HAL_UART_Transmit(&(obj->handle), data, size, TX_TIMEOUT) != HAL_OK) {
+    size = 0;
   }
-
-  HAL_NVIC_EnableIRQ(serial_debug.irq);
 
   return size;
 }
