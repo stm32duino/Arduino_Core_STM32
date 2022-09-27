@@ -22,6 +22,8 @@
 #ifndef TwoWire_h
 #define TwoWire_h
 
+#include <functional>
+
 #include "Stream.h"
 #include "Arduino.h"
 extern "C" {
@@ -40,6 +42,10 @@ extern "C" {
 #define WIRE_HAS_END 1
 
 class TwoWire : public Stream {
+  public:
+    typedef std::function<void(int)> cb_function_receive_t;
+    typedef std::function<void(void)> cb_function_request_t;
+
   private:
     uint8_t *rxBuffer;
     uint16_t rxBufferAllocated;
@@ -56,8 +62,9 @@ class TwoWire : public Stream {
     uint8_t ownAddress;
     i2c_t _i2c;
 
-    void (*user_onRequest)(void);
-    void (*user_onReceive)(int);
+    std::function<void(int)> user_onReceive;
+    std::function<void(void)> user_onRequest;
+
     static void onRequestService(i2c_t *);
     static void onReceiveService(i2c_t *);
 
@@ -110,8 +117,9 @@ class TwoWire : public Stream {
     virtual int read(void);
     virtual int peek(void);
     virtual void flush(void);
-    void onReceive(void (*)(int));
-    void onRequest(void (*)(void));
+
+    void onReceive(cb_function_receive_t callback);
+    void onRequest(cb_function_request_t callback);
 
     inline size_t write(unsigned long n)
     {
