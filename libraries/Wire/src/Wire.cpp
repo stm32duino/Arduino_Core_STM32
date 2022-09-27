@@ -438,13 +438,13 @@ void TwoWire::onRequestService(i2c_t *obj)
 }
 
 // sets function called on slave write
-void TwoWire::onReceive(void (*function)(int))
+void TwoWire::onReceive(cb_function_receive_t function)
 {
   user_onReceive = function;
 }
 
 // sets function called on slave read
-void TwoWire::onRequest(void (*function)(void))
+void TwoWire::onRequest(cb_function_request_t function)
 {
   user_onRequest = function;
 }
