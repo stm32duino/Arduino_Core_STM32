@@ -6,7 +6,7 @@
 # Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ=Generic U575ZGTxQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_size=1048576
-GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZGTXQ.upload.maximum_data_size=786432
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.board=GENERIC_U575ZGTXQ
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
@@ -14,7 +14,7 @@ GenU5.menu.pnum.GENERIC_U575ZGTXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITx
 # Generic U575ZITxQ
 GenU5.menu.pnum.GENERIC_U575ZITXQ=Generic U575ZITxQ
 GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_size=2097152
-GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575ZITXQ.upload.maximum_data_size=786432
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.board=GENERIC_U575ZITXQ
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
@@ -22,7 +22,7 @@ GenU5.menu.pnum.GENERIC_U575ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITx
 # Generic U585ZITxQ
 GenU5.menu.pnum.GENERIC_U585ZITXQ=Generic U585ZITxQ
 GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_size=2097152
-GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585ZITXQ.upload.maximum_data_size=786432
 GenU5.menu.pnum.GENERIC_U585ZITXQ.build.board=GENERIC_U585ZITXQ
 GenU5.menu.pnum.GENERIC_U585ZITXQ.build.product_line=STM32U585xx
 GenU5.menu.pnum.GENERIC_U585ZITXQ.build.variant=STM32U5xx/U575Z(G-I)TxQ_U585ZITxQ
