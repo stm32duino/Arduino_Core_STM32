@@ -30,10 +30,10 @@ uarttx_list = []  # ['PIN','name','UARTtx', ['af']]
 uartrx_list = []  # ['PIN','name','UARTrx', ['af']]
 uartcts_list = []  # ['PIN','name','UARTcts', ['af']]
 uartrts_list = []  # ['PIN','name','UARTrts', ['af']]
-spimosi_list = []  # ['PIN','name','SPIMOSI', ['af']]
-spimiso_list = []  # ['PIN','name','SPIMISO', ['af']]
-spissel_list = []  # ['PIN','name','SPISSEL', ['af']]
-spisclk_list = []  # ['PIN','name','SPISCLK', ['af']]
+spimosi_list = []  # ['PIN','name','SPIMOSI', 'sort name', ['af']]
+spimiso_list = []  # ['PIN','name','SPIMISO', 'sort name', ['af']]
+spissel_list = []  # ['PIN','name','SPISSEL', 'sort name', ['af']]
+spisclk_list = []  # ['PIN','name','SPISCLK', 'sort name', ['af']]
 cantd_list = []  # ['PIN','name','CANTD', ['af']]
 canrd_list = []  # ['PIN','name','CANRD', ['af']]
 eth_list = []  # ['PIN','name','ETH', ['af']]
@@ -464,14 +464,14 @@ def store_uart(pin, name, signal):
 
 # Store SPI pins
 def store_spi(pin, name, signal):
-    if "_MISO" in signal:
-        spimiso_list.append([pin, name, signal])
-    if "_MOSI" in signal:
-        spimosi_list.append([pin, name, signal])
-    if "_SCK" in signal:
-        spisclk_list.append([pin, name, signal])
-    if "_NSS" in signal:
-        spissel_list.append([pin, name, signal])
+    if re.search("[-_]MISO", signal):
+        spimiso_list.append([pin, name, signal, signal.removeprefix("DEBUG_")])
+    if re.search("[-_]MOSI", signal):
+        spimosi_list.append([pin, name, signal, signal.removeprefix("DEBUG_")])
+    if re.search("[-_]SCK", signal):
+        spisclk_list.append([pin, name, signal, signal.removeprefix("DEBUG_")])
+    if re.search("[-_]NSS", signal):
+        spissel_list.append([pin, name, signal, signal.removeprefix("DEBUG_")])
 
 
 # Store CAN pins
@@ -749,6 +749,7 @@ def spi_pinmap(lst):
     spi_pins_list = []
     winst = []
     wpin = []
+    sp = re.compile(r"-|_")
     if lst == spimosi_list:
         aname = "SPI_MOSI"
     elif lst == spimiso_list:
@@ -759,7 +760,9 @@ def spi_pinmap(lst):
         aname = "SPI_SSEL"
     for p in lst:
         # 2nd element is the SPI_XXXX signal
-        inst = p[2].split("_")[0]
+        # but using 3rd which contains the stripped one
+        # used to properly sort them
+        inst = sp.split(p[3])[0]
         winst.append(len(inst))
         wpin.append(len(p[0]))
         spi_pins_list.append(
@@ -767,8 +770,8 @@ def spi_pinmap(lst):
                 "pin": p[0],
                 "inst": inst,
                 "mode": "STM_MODE_AF_PP",
-                "pull": "GPIO_PULLUP",
-                "af": p[3],
+                "pull": "GPIO_PULLUP" if inst != "SUBGHZSPI" else "GPIO_NOPULL",
+                "af": p[4],
             }
         )
     return dict(
@@ -1278,6 +1281,36 @@ def timer_variant():
     return dict(tone=tone, servo=servo)
 
 
+def alias_definition():
+    # alias for STM32WL
+    alias_list = []
+    if mcu_family == "STM32WL":
+        mosi = [
+            mosi[0].replace("_", "", 1)
+            for mosi in spimosi_list
+            if "SUBGHZSPI" in mosi[2]
+        ]
+        miso = [
+            miso[0].replace("_", "", 1)
+            for miso in spimiso_list
+            if "SUBGHZSPI" in miso[2]
+        ]
+        sck = [
+            sck[0].replace("_", "", 1) for sck in spisclk_list if "SUBGHZSPI" in sck[2]
+        ]
+        ssel = [
+            ssel[0].replace("_", "", 1)
+            for ssel in spissel_list
+            if "SUBGHZSPI" in ssel[2]
+        ]
+        if mosi and miso and sck and ssel:
+            alias_list.append(("DEBUG_SUBGHZSPI_MOSI", mosi[0]))
+            alias_list.append(("DEBUG_SUBGHZSPI_MISO", miso[0]))
+            alias_list.append(("DEBUG_SUBGHZSPI_SCLK", sck[0]))
+            alias_list.append(("DEBUG_SUBGHZSPI_SS", ssel[0]))
+    return alias_list
+
+
 def print_variant(generic_list, alt_syswkup_list):
     variant_h_template = j2_env.get_template(variant_h_filename)
     variant_cpp_template = j2_env.get_template(variant_cpp_filename)
@@ -1298,6 +1331,9 @@ def print_variant(generic_list, alt_syswkup_list):
 
     # Timers definition
     timer = timer_variant()
+
+    # Alias to ease some usage
+    alias_list = alias_definition()
 
     # Manage all pins number, PinName and analog pins
     analog_index = 0
@@ -1379,6 +1415,7 @@ def print_variant(generic_list, alt_syswkup_list):
             timer=timer,
             serial=serial,
             hal_modules_list=hal_modules_list,
+            alias_list=alias_list,
         )
     )
 
@@ -1536,6 +1573,10 @@ def natural_sortkey2(list_2_elem):
     return tuple(int(num) if num else alpha for num, alpha in tokenize(list_2_elem[2]))
 
 
+def natural_sortkey3(list_2_elem):
+    return tuple(int(num) if num else alpha for num, alpha in tokenize(list_2_elem[3]))
+
+
 def sort_my_lists():
     io_list.sort(key=natural_sortkey)
     dualpad_list.sort(key=natural_sortkey)
@@ -1550,9 +1591,13 @@ def sort_my_lists():
     uartrx_list.sort(key=natural_sortkey)
     uartcts_list.sort(key=natural_sortkey)
     uartrts_list.sort(key=natural_sortkey)
+    spimosi_list.sort(key=natural_sortkey3)
     spimosi_list.sort(key=natural_sortkey)
+    spimiso_list.sort(key=natural_sortkey3)
     spimiso_list.sort(key=natural_sortkey)
+    spissel_list.sort(key=natural_sortkey3)
     spissel_list.sort(key=natural_sortkey)
+    spisclk_list.sort(key=natural_sortkey3)
     spisclk_list.sort(key=natural_sortkey)
     cantd_list.sort(key=natural_sortkey)
     canrd_list.sort(key=natural_sortkey)
