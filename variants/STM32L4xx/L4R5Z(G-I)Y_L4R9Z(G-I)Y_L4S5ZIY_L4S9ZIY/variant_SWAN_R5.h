@@ -222,6 +222,16 @@
   #define TIMER_SERVO           TIM7
 #endif
 
+// Pin used for Virtual COM Port
+// Note that a developer would add this to their Arduino project:
+//     HardwareSerial SerialVCP(PIN_SERIAL_VCP_RX, PIN_SERIAL_VCP_TX);
+#ifndef PIN_SERIAL_VCP_RX
+  #define PIN_SERIAL_VCP_RX     PG8
+#endif
+#ifndef PIN_SERIAL_VCP_TX
+  #define PIN_SERIAL_VCP_TX     PG7
+#endif
+
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
   #define SERIAL_UART_INSTANCE  1
