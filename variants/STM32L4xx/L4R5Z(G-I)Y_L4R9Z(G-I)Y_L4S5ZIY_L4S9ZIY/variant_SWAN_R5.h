@@ -222,16 +222,6 @@
   #define TIMER_SERVO           TIM7
 #endif
 
-// Pin used for Virtual COM Port
-// Note that a developer would add this to their Arduino project:
-//     HardwareSerial SerialVCP(PIN_SERIAL_VCP_RX, PIN_SERIAL_VCP_TX);
-#ifndef PIN_SERIAL_VCP_RX
-  #define PIN_SERIAL_VCP_RX     PG8
-#endif
-#ifndef PIN_SERIAL_VCP_TX
-  #define PIN_SERIAL_VCP_TX     PG7
-#endif
-
 // UART Definitions
 #ifndef SERIAL_UART_INSTANCE
   #define SERIAL_UART_INSTANCE  1
@@ -244,6 +234,24 @@
 #endif
 #ifndef PIN_SERIAL_TX
   #define PIN_SERIAL_TX         PA9
+#endif
+
+// LPUART1
+#ifndef PIN_SERIAL_LP1_RX
+  #define PIN_SERIAL_LP1_RX     PG8
+#endif
+#ifndef PIN_SERIAL_LP1_TX
+  #define PIN_SERIAL_LP1_TX     PG7
+#endif
+
+// Virtual COM Port for Swans with a 14-pin STLink Connector mounted.
+// To use the STLINK's Virtual COM port, this would be added to an Arduino project:
+//     HardwareSerial SerialVCP(PIN_VCP_RX, PIN_VCP_TX);
+#ifndef PIN_VCP_RX
+  #define PIN_VCP_RX     PIN_SERIAL_LP1_RX
+#endif
+#ifndef PIN_VCP_TX
+  #define PIN_VCP_TX     PIN_SERIAL_LP1_TX
 #endif
 
 // Extra HAL modules
