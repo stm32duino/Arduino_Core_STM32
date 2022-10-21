@@ -288,7 +288,7 @@ HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit)
   /* Option register */
   if ((pOBInit->OptionType & (OPTIONBYTE_RDP | OPTIONBYTE_USER)) == (OPTIONBYTE_RDP | OPTIONBYTE_USER))
   {
-    /* Fully modify OPTR register with RDP & user datas */
+    /* Fully modify OPTR register with RDP & user data */
     FLASH_OB_OptrConfig(pOBInit->UserType, pOBInit->UserConfig, pOBInit->RDPLevel);
   }
   else if ((pOBInit->OptionType & OPTIONBYTE_RDP) != 0U)

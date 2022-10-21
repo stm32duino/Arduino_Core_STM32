@@ -534,7 +534,7 @@ typedef struct
 #define LL_RCC_ADC_CLKSOURCE_NONE             0x00000000U        /*!< no Clock used as ADC clock*/
 #if defined(STM32WB55xx) || defined (STM32WB5Mxx) || defined (STM32WB35xx)
 #define LL_RCC_ADC_CLKSOURCE_PLLSAI1          RCC_CCIPR_ADCSEL_0 /*!< PLLSAI1 selected as ADC clock*/
-#elif defined (STM32WB15xx)
+#elif defined (STM32WB15xx) || defined(STM32WB1Mxx)
 #define LL_RCC_ADC_CLKSOURCE_HSI              RCC_CCIPR_ADCSEL_0 /*!< HSI selected as ADC clock     */
 #endif
 #define LL_RCC_ADC_CLKSOURCE_PLL              RCC_CCIPR_ADCSEL_1 /*!< PLL selected as ADC clock     */
@@ -650,6 +650,9 @@ typedef struct
   */
 #define LL_RCC_RFWKP_CLKSOURCE_NONE          0x00000000U                 /*!< No clock used as RF Wakeup clock                             */
 #define LL_RCC_RFWKP_CLKSOURCE_LSE           RCC_CSR_RFWKPSEL_0          /*!< LSE oscillator clock used as RF Wakeup clock                 */
+#if defined(STM32WB15xx) || defined(STM32WB10xx)
+#define LL_RCC_RFWKP_CLKSOURCE_LSI           RCC_CSR_RFWKPSEL_1          /*!< LSI oscillator clock used as RF Wakeup clock                 */
+#endif /* STM32WB15xx || STM32WB10xx */
 #define LL_RCC_RFWKP_CLKSOURCE_HSE_DIV1024   RCC_CSR_RFWKPSEL            /*!< HSE oscillator clock divided by 1024 used as RF Wakeup clock */
 
 /**
@@ -879,7 +882,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLR__) ((__INPUTFREQ__) * (__PLLN__)  / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                   (((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos) + 1U))
+                                                                                (((__PLLR__) >> RCC_PLLCFGR_PLLR_Pos) + 1U))
 
 #if defined(SAI1)
 /**
@@ -931,7 +934,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLP__) ((__INPUTFREQ__) * (__PLLN__)  / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U))/ \
-                   (((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos) + 1U))
+    (((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos) + 1U))
 #endif
 
 /**
@@ -984,7 +987,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_ADC_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLP__) ((__INPUTFREQ__) * (__PLLN__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                   (((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos) + 1U))
+    (((__PLLP__) >> RCC_PLLCFGR_PLLP_Pos) + 1U))
 
 
 /**
@@ -1013,7 +1016,7 @@ typedef struct
   * @retval PLL clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLCLK_48M_FREQ(__INPUTFREQ__, __PLLM__, __PLLN__, __PLLQ__) ((__INPUTFREQ__) * (__PLLN__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                   (((__PLLQ__) >> RCC_PLLCFGR_PLLQ_Pos) + 1U))
+    (((__PLLQ__) >> RCC_PLLCFGR_PLLQ_Pos) + 1U))
 
 #if defined(SAI1)
 /**
@@ -1066,8 +1069,8 @@ typedef struct
   * @retval PLLSAI1 clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI1_SAI_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAI1N__, __PLLSAI1P__) \
-                   ((__INPUTFREQ__) * (__PLLSAI1N__)  / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                    (((__PLLSAI1P__) >> RCC_PLLSAI1CFGR_PLLP_Pos) + 1U))
+  ((__INPUTFREQ__) * (__PLLSAI1N__)  / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
+   (((__PLLSAI1P__) >> RCC_PLLSAI1CFGR_PLLP_Pos) + 1U))
 
 /**
   * @brief  Helper macro to calculate the PLLSAI1QCLK frequency used on 48M domain
@@ -1095,8 +1098,8 @@ typedef struct
   * @retval PLLSAI1 clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI1_48M_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAI1N__, __PLLSAI1Q__) \
-                   ((__INPUTFREQ__) * (__PLLSAI1N__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                    (((__PLLSAI1Q__) >> RCC_PLLSAI1CFGR_PLLQ_Pos) + 1U))
+  ((__INPUTFREQ__) * (__PLLSAI1N__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
+   (((__PLLSAI1Q__) >> RCC_PLLSAI1CFGR_PLLQ_Pos) + 1U))
 
 /**
   * @brief  Helper macro to calculate the PLLSAI1RCLK frequency used on ADC domain
@@ -1124,8 +1127,8 @@ typedef struct
   * @retval PLLSAI1 clock frequency (in Hz)
   */
 #define __LL_RCC_CALC_PLLSAI1_ADC_FREQ(__INPUTFREQ__, __PLLM__, __PLLSAI1N__, __PLLSAI1R__) \
-                   ((__INPUTFREQ__) * (__PLLSAI1N__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
-                    (((__PLLSAI1R__) >> RCC_PLLSAI1CFGR_PLLR_Pos) + 1U))
+  ((__INPUTFREQ__) * (__PLLSAI1N__) / ((((__PLLM__)>> RCC_PLLCFGR_PLLM_Pos) + 1U)) / \
+   (((__PLLSAI1R__) >> RCC_PLLSAI1CFGR_PLLR_Pos) + 1U))
 #endif
 
 /**
@@ -1148,7 +1151,8 @@ typedef struct
   *         @arg @ref LL_RCC_SYSCLK_DIV_512
   * @retval HCLK1 clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_HCLK1_FREQ(__SYSCLKFREQ__,__CPU1PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[((__CPU1PRESCALER__) & RCC_CFGR_HPRE) >>  RCC_CFGR_HPRE_Pos])
+#define __LL_RCC_CALC_HCLK1_FREQ(__SYSCLKFREQ__,__CPU1PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[((__CPU1PRESCALER__)\
+                                                                    & RCC_CFGR_HPRE) >>  RCC_CFGR_HPRE_Pos])
 
 /**
   * @brief  Helper macro to calculate the HCLK2 frequency
@@ -1170,7 +1174,8 @@ typedef struct
   *         @arg @ref LL_RCC_SYSCLK_DIV_512
   * @retval HCLK2 clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_HCLK2_FREQ(__SYSCLKFREQ__, __CPU2PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[((__CPU2PRESCALER__) & RCC_EXTCFGR_C2HPRE) >>  RCC_EXTCFGR_C2HPRE_Pos])
+#define __LL_RCC_CALC_HCLK2_FREQ(__SYSCLKFREQ__, __CPU2PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[((__CPU2PRESCALER__)\
+                                                                     & RCC_EXTCFGR_C2HPRE) >>  RCC_EXTCFGR_C2HPRE_Pos])
 
 /**
   * @brief  Helper macro to calculate the HCLK4 frequency
@@ -1192,7 +1197,8 @@ typedef struct
   *         @arg @ref LL_RCC_SYSCLK_DIV_512
   * @retval HCLK4 clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_HCLK4_FREQ(__SYSCLKFREQ__, __AHB4PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[(((__AHB4PRESCALER__) >> 4U) & RCC_EXTCFGR_SHDHPRE) >>  RCC_EXTCFGR_SHDHPRE_Pos])
+#define __LL_RCC_CALC_HCLK4_FREQ(__SYSCLKFREQ__, __AHB4PRESCALER__) ((__SYSCLKFREQ__) / AHBPrescTable[(((__AHB4PRESCALER__) >> 4U)\
+                                                                     & RCC_EXTCFGR_SHDHPRE) >>  RCC_EXTCFGR_SHDHPRE_Pos])
 
 
 /**
@@ -1206,7 +1212,8 @@ typedef struct
   *         @arg @ref LL_RCC_APB1_DIV_16
   * @retval PCLK1 clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_PCLK1_FREQ(__HCLKFREQ__, __APB1PRESCALER__) ((__HCLKFREQ__) >> (APBPrescTable[(((__APB1PRESCALER__) & RCC_CFGR_PPRE1_Msk) >>  RCC_CFGR_PPRE1_Pos)] & 31U))
+#define __LL_RCC_CALC_PCLK1_FREQ(__HCLKFREQ__, __APB1PRESCALER__) ((__HCLKFREQ__) >> (APBPrescTable[(((__APB1PRESCALER__)\
+                                                                   & RCC_CFGR_PPRE1_Msk) >>  RCC_CFGR_PPRE1_Pos)] & 31U))
 
 /**
   * @brief  Helper macro to calculate the PCLK2 frequency (ABP2)
@@ -1219,7 +1226,8 @@ typedef struct
   *         @arg @ref LL_RCC_APB2_DIV_16
   * @retval PCLK2 clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_PCLK2_FREQ(__HCLKFREQ__, __APB2PRESCALER__) ((__HCLKFREQ__) >> (APBPrescTable[(((__APB2PRESCALER__) & RCC_CFGR_PPRE2_Msk) >>  RCC_CFGR_PPRE2_Pos)] & 31U))
+#define __LL_RCC_CALC_PCLK2_FREQ(__HCLKFREQ__, __APB2PRESCALER__) ((__HCLKFREQ__) >> (APBPrescTable[(((__APB2PRESCALER__)\
+                                                                   & RCC_CFGR_PPRE2_Msk) >>  RCC_CFGR_PPRE2_Pos)] & 31U))
 
 /**
   * @brief  Helper macro to calculate the MSI frequency (in Hz)
@@ -1239,7 +1247,8 @@ typedef struct
   *         @arg @ref LL_RCC_MSIRANGE_11
   * @retval MSI clock frequency (in Hz)
   */
-#define __LL_RCC_CALC_MSI_FREQ(__MSIRANGE__) MSIRangeTable[((__MSIRANGE__) & RCC_CR_MSIRANGE_Msk) >> RCC_CR_MSIRANGE_Pos]
+#define __LL_RCC_CALC_MSI_FREQ(__MSIRANGE__) MSIRangeTable[((__MSIRANGE__)\
+                                                            & RCC_CR_MSIRANGE_Msk) >> RCC_CR_MSIRANGE_Pos]
 /**
   * @}
   */
@@ -2079,7 +2088,10 @@ __STATIC_INLINE uint32_t LL_RCC_GetRFClockSource(void)
   * @param  Source This parameter can be one of the following values:
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_NONE
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_LSE
+  *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_LSI (*)
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_HSE_DIV1024
+  * @note   (*) Value not defined for all devices
+  *
   * @retval None
   */
 __STATIC_INLINE void LL_RCC_SetRFWKPClockSource(uint32_t Source)
@@ -2093,7 +2105,10 @@ __STATIC_INLINE void LL_RCC_SetRFWKPClockSource(uint32_t Source)
   * @retval Returned value can be one of the following values:
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_NONE
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_LSE
+  *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_LSI (*)
   *         @arg @ref LL_RCC_RFWKP_CLKSOURCE_HSE_DIV1024
+  * @note   (*) Value not defined for all devices
+  *
   */
 __STATIC_INLINE uint32_t LL_RCC_GetRFWKPClockSource(void)
 {

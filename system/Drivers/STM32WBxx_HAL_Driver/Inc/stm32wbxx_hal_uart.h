@@ -215,7 +215,7 @@ typedef struct __UART_HandleTypeDef
 
   UART_AdvFeatureInitTypeDef AdvancedInit;           /*!< UART Advanced Features initialization parameters */
 
-  uint8_t                  *pTxBuffPtr;              /*!< Pointer to UART Tx transfer Buffer */
+  const uint8_t            *pTxBuffPtr;              /*!< Pointer to UART Tx transfer Buffer */
 
   uint16_t                 TxXferSize;               /*!< UART Tx Transfer size              */
 
@@ -1621,11 +1621,11 @@ HAL_StatusTypeDef HAL_UART_UnRegisterRxEventCallback(UART_HandleTypeDef *huart);
   */
 
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_UART_Transmit(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size, uint32_t Timeout);
 HAL_StatusTypeDef HAL_UART_Receive(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Transmit_IT(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_Receive_IT(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_UART_Transmit_DMA(UART_HandleTypeDef *huart, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_Receive_DMA(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_UART_DMAPause(UART_HandleTypeDef *huart);
 HAL_StatusTypeDef HAL_UART_DMAResume(UART_HandleTypeDef *huart);
@@ -1679,8 +1679,8 @@ HAL_StatusTypeDef HAL_HalfDuplex_EnableReceiver(UART_HandleTypeDef *huart);
   */
 
 /* Peripheral State and Errors functions  **************************************************/
-HAL_UART_StateTypeDef HAL_UART_GetState(UART_HandleTypeDef *huart);
-uint32_t              HAL_UART_GetError(UART_HandleTypeDef *huart);
+HAL_UART_StateTypeDef HAL_UART_GetState(const UART_HandleTypeDef *huart);
+uint32_t              HAL_UART_GetError(const UART_HandleTypeDef *huart);
 
 /**
   * @}

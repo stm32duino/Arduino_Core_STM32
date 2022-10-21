@@ -242,8 +242,16 @@ HAL_StatusTypeDef USB_ActivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep)
       PCD_SET_EP_RX_CNT(USBx, ep->num, ep->maxpacket);
       PCD_CLEAR_RX_DTOG(USBx, ep->num);
 
-      /* Configure VALID status for the Endpoint */
-      PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      if (ep->num == 0U)
+      {
+        /* Configure VALID status for EP0 */
+        PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_VALID);
+      }
+      else
+      {
+        /* Configure NAK status for OUT Endpoint */
+        PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_NAK);
+      }
     }
   }
 #if (USE_USB_DOUBLE_BUFFER == 1U)
@@ -628,6 +636,51 @@ HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx, USB_EPTypeDef *ep)
 
   return HAL_OK;
 }
+
+/**
+   * @brief  USB_EPStoptXfer  Stop transfer on an EP
+   * @param  USBx  usb device instance
+   * @param  ep pointer to endpoint structure
+   * @retval HAL status
+   */
+HAL_StatusTypeDef USB_EPStopXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep)
+{
+  /* IN endpoint */
+  if (ep->is_in == 1U)
+  {
+    if (ep->doublebuffer == 0U)
+    {
+      if (ep->type != EP_TYPE_ISOC)
+      {
+        /* Configure NAK status for the Endpoint */
+        PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_NAK);
+      }
+      else
+      {
+        /* Configure TX Endpoint to disabled state */
+        PCD_SET_EP_TX_STATUS(USBx, ep->num, USB_EP_TX_DIS);
+      }
+    }
+  }
+  else /* OUT endpoint */
+  {
+    if (ep->doublebuffer == 0U)
+    {
+      if (ep->type != EP_TYPE_ISOC)
+      {
+        /* Configure NAK status for the Endpoint */
+        PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_NAK);
+      }
+      else
+      {
+        /* Configure RX Endpoint to disabled state */
+        PCD_SET_EP_RX_STATUS(USBx, ep->num, USB_EP_RX_DIS);
+      }
+    }
+  }
+
+  return HAL_OK;
+}
 #endif /* defined (HAL_PCD_MODULE_ENABLED) */
 
 /**
@@ -742,26 +795,25 @@ void USB_WritePMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, ui
 {
   uint32_t n = ((uint32_t)wNBytes + 1U) >> 1;
   uint32_t BaseAddr = (uint32_t)USBx;
-  uint32_t i;
-  uint32_t temp1;
-  uint32_t temp2;
+  uint32_t count;
+  uint16_t WrVal;
   __IO uint16_t *pdwVal;
   uint8_t *pBuf = pbUsrBuf;
 
   pdwVal = (__IO uint16_t *)(BaseAddr + 0x400U + ((uint32_t)wPMABufAddr * PMA_ACCESS));
 
-  for (i = n; i != 0U; i--)
+  for (count = n; count != 0U; count--)
   {
-    temp1 = *pBuf;
-    pBuf++;
-    temp2 = temp1 | ((uint16_t)((uint16_t) *pBuf << 8));
-    *pdwVal = (uint16_t)temp2;
+    WrVal = pBuf[0];
+    WrVal |= (uint16_t)pBuf[1] << 8;
+    *pdwVal = (WrVal & 0xFFFFU);
     pdwVal++;
 
 #if PMA_ACCESS > 1U
     pdwVal++;
 #endif /* PMA_ACCESS */
 
+    pBuf++;
     pBuf++;
   }
 }
@@ -778,20 +830,20 @@ void USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uin
 {
   uint32_t n = (uint32_t)wNBytes >> 1;
   uint32_t BaseAddr = (uint32_t)USBx;
-  uint32_t i;
-  uint32_t temp;
+  uint32_t count;
+  uint32_t RdVal;
   __IO uint16_t *pdwVal;
   uint8_t *pBuf = pbUsrBuf;
 
   pdwVal = (__IO uint16_t *)(BaseAddr + 0x400U + ((uint32_t)wPMABufAddr * PMA_ACCESS));
 
-  for (i = n; i != 0U; i--)
+  for (count = n; count != 0U; count--)
   {
-    temp = *(__IO uint16_t *)pdwVal;
+    RdVal = *(__IO uint16_t *)pdwVal;
     pdwVal++;
-    *pBuf = (uint8_t)((temp >> 0) & 0xFFU);
+    *pBuf = (uint8_t)((RdVal >> 0) & 0xFFU);
     pBuf++;
-    *pBuf = (uint8_t)((temp >> 8) & 0xFFU);
+    *pBuf = (uint8_t)((RdVal >> 8) & 0xFFU);
     pBuf++;
 
 #if PMA_ACCESS > 1U
@@ -801,8 +853,8 @@ void USB_ReadPMA(USB_TypeDef *USBx, uint8_t *pbUsrBuf, uint16_t wPMABufAddr, uin
 
   if ((wNBytes % 2U) != 0U)
   {
-    temp = *pdwVal;
-    *pBuf = (uint8_t)((temp >> 0) & 0xFFU);
+    RdVal = *pdwVal;
+    *pBuf = (uint8_t)((RdVal >> 0) & 0xFFU);
   }
 }
 

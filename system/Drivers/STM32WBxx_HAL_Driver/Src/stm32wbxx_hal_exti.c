@@ -530,6 +530,9 @@ void HAL_EXTI_IRQHandler(EXTI_HandleTypeDef *hexti)
   */
 uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Edge);
+
   __IO uint32_t *regaddr;
   uint32_t regval;
   uint32_t linepos;
@@ -539,7 +542,6 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
   assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
-  assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
   /* compute line register offset and line mask */
   offset = ((hexti->Line & EXTI_REG_MASK) >> EXTI_REG_SHIFT);
@@ -566,6 +568,9 @@ uint32_t HAL_EXTI_GetPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   */
 void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
 {
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(Edge);
+
   __IO uint32_t *regaddr;
   uint32_t maskline;
   uint32_t offset;
@@ -573,7 +578,6 @@ void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   /* Check parameters */
   assert_param(IS_EXTI_LINE(hexti->Line));
   assert_param(IS_EXTI_CONFIG_LINE(hexti->Line));
-  assert_param(IS_EXTI_PENDING_EDGE(Edge));
 
   /* compute line register offset and line mask */
   offset = ((hexti->Line & EXTI_REG_MASK) >> EXTI_REG_SHIFT);

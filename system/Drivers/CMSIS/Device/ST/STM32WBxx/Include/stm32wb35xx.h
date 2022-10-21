@@ -14,7 +14,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2019-2021 STMicroelectronics.
+  * Copyright (c) 2019-2022 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -36,7 +36,7 @@
 #define __STM32WB35xx_H
 
 #ifdef __cplusplus
- extern "C" {
+extern "C" {
 #endif /* __cplusplus */
 
 /** @addtogroup Configuration_section_for_CMSIS
@@ -60,13 +60,13 @@
   */
 
 /**
- * @brief stm32wb35xx Interrupt Number Definition, according to the selected device
- *        in @ref Library_configuration_section
- */
+  * @brief stm32wb35xx Interrupt Number Definition, according to the selected device
+  *        in @ref Library_configuration_section
+  */
 /*!< Interrupt Number Definition for M4 */
 typedef enum
 {
-/******  Cortex-M4 Processor Exceptions Numbers ****************************************************************/
+  /******  Cortex-M4 Processor Exceptions Numbers ****************************************************************/
   NonMaskableInt_IRQn                 = -14,    /*!< Non Maskable Interrupt                                            */
   HardFault_IRQn                      = -13,    /*!< Cortex-M4 Hard Fault Interrupt                                    */
   MemoryManagement_IRQn               = -12,    /*!< Cortex-M4 Memory Management Interrupt                             */
@@ -77,7 +77,7 @@ typedef enum
   PendSV_IRQn                         = -2,     /*!< Cortex-M4 Pend SV Interrupt                                       */
   SysTick_IRQn                        = -1,     /*!< Cortex-M4 System Tick Interrupt                                   */
 
-/*************  STM32WBxx specific Interrupt Numbers on M4 core ************************************************/
+  /*************  STM32WBxx specific Interrupt Numbers on M4 core ************************************************/
   WWDG_IRQn                           = 0,      /*!< Window WatchDog Interrupt                                         */
   PVD_PVM_IRQn                        = 1,      /*!< PVD and PVM detector                                              */
   TAMP_STAMP_LSECSS_IRQn              = 2,      /*!< RTC Tamper and TimeStamp Interrupts and LSECSS Interrupts         */
@@ -273,24 +273,24 @@ typedef struct
 typedef struct
 {
   __IO uint32_t   CCR;       /*!< DMA Multiplexer Channel x Control Register    Address offset: 0x0004 * (channel x) */
-}DMAMUX_Channel_TypeDef;
+} DMAMUX_Channel_TypeDef;
 
 typedef struct
 {
   __IO uint32_t   CSR;       /*!< DMA Channel Status Register                    Address offset: 0x0080   */
   __IO uint32_t   CFR;       /*!< DMA Channel Clear Flag Register                Address offset: 0x0084   */
-}DMAMUX_ChannelStatus_TypeDef;
+} DMAMUX_ChannelStatus_TypeDef;
 
 typedef struct
 {
   __IO uint32_t   RGCR;        /*!< DMA Request Generator x Control Register     Address offset: 0x0100 + 0x0004 * (Req Gen x) */
-}DMAMUX_RequestGen_TypeDef;
+} DMAMUX_RequestGen_TypeDef;
 
 typedef struct
 {
   __IO uint32_t   RGSR;        /*!< DMA Request Generator Status Register        Address offset: 0x0140   */
   __IO uint32_t   RGCFR;       /*!< DMA Request Generator Clear Flag Register    Address offset: 0x0144   */
-}DMAMUX_RequestGenStatus_TypeDef;
+} DMAMUX_RequestGenStatus_TypeDef;
 
 /**
   * @brief FLASH Registers
@@ -446,7 +446,7 @@ typedef struct
   __IO uint32_t CFGR;          /*!< RCC Clocks Configuration Register,                                              Address offset: 0x08 */
   __IO uint32_t PLLCFGR;       /*!< RCC System PLL configuration Register,                                          Address offset: 0x0C */
   __IO uint32_t PLLSAI1CFGR;   /*!< RCC  PLL SAI1 configuration Register,                                           Address offset: 0x10 */
-uint32_t RESERVED0;            /*!< Reserved,                                                                       Address offset: 0x14 */
+       uint32_t RESERVED0;     /*!< Reserved,                                                                       Address offset: 0x14 */
   __IO uint32_t CIER;          /*!< RCC Clock Interrupt Enable Register,                                            Address offset: 0x18 */
   __IO uint32_t CIFR;          /*!< RCC Clock Interrupt Flag Register,                                              Address offset: 0x1C */
   __IO uint32_t CICR;          /*!< RCC Clock Interrupt Clear Register,                                             Address offset: 0x20 */
@@ -454,7 +454,7 @@ uint32_t RESERVED0;            /*!< Reserved,                                   
   __IO uint32_t AHB1RSTR;      /*!< RCC AHB1 peripheral reset register,                                             Address offset: 0x28 */
   __IO uint32_t AHB2RSTR;      /*!< RCC AHB2 peripheral reset register,                                             Address offset: 0x2C */
   __IO uint32_t AHB3RSTR;      /*!< RCC AHB3 & AHB4 peripheral reset register,                                      Address offset: 0x30 */
-uint32_t RESERVED1;            /*!< Reserved,                                                                       Address offset: 0x34 */
+       uint32_t RESERVED1;     /*!< Reserved,                                                                       Address offset: 0x34 */
   __IO uint32_t APB1RSTR1;     /*!< RCC APB1 peripheral reset register 1,                                           Address offset: 0x38 */
   __IO uint32_t APB1RSTR2;     /*!< RCC APB1 peripheral reset register 2,                                           Address offset: 0x3C */
   __IO uint32_t APB2RSTR;      /*!< RCC APB2 peripheral reset register,                                             Address offset: 0x40 */
@@ -462,32 +462,32 @@ uint32_t RESERVED1;            /*!< Reserved,                                   
   __IO uint32_t AHB1ENR;       /*!< RCC AHB1 peripheral clocks enable register,                                     Address offset: 0x48 */
   __IO uint32_t AHB2ENR;       /*!< RCC AHB2 peripheral clocks enable register,                                     Address offset: 0x4C */
   __IO uint32_t AHB3ENR;       /*!< RCC AHB3 & AHB4 peripheral clocks enable register,                              Address offset: 0x50 */
-uint32_t RESERVED2;            /*!< Reserved,                                                                       Address offset: 0x54 */
+       uint32_t RESERVED2;     /*!< Reserved,                                                                       Address offset: 0x54 */
   __IO uint32_t APB1ENR1;      /*!< RCC APB1 peripheral clocks enable register 1,                                   Address offset: 0x58 */
   __IO uint32_t APB1ENR2;      /*!< RCC APB1 peripheral clocks enable register 2,                                   Address offset: 0x5C */
   __IO uint32_t APB2ENR;       /*!< RCC APB2 peripheral clocks enable register,                                     Address offset: 0x60 */
-uint32_t RESERVED3;            /*!< Reserved,                                                                       Address offset: 0x64 */
+       uint32_t RESERVED3;     /*!< Reserved,                                                                       Address offset: 0x64 */
   __IO uint32_t AHB1SMENR;     /*!< RCC AHB1 peripheral clocks enable in sleep and stop modes register,             Address offset: 0x68 */
   __IO uint32_t AHB2SMENR;     /*!< RCC AHB2 peripheral clocks enable in sleep and stop modes register,             Address offset: 0x6C */
   __IO uint32_t AHB3SMENR;     /*!< RCC AHB3 & AHB4 peripheral clocks enable in sleep and stop modes register,      Address offset: 0x70 */
-uint32_t RESERVED4;            /*!< Reserved,                                                                       Address offset: 0x74 */
+       uint32_t RESERVED4;     /*!< Reserved,                                                                       Address offset: 0x74 */
   __IO uint32_t APB1SMENR1;    /*!< RCC APB1 peripheral clocks enable in sleep mode and stop modes register 1,      Address offset: 0x78 */
   __IO uint32_t APB1SMENR2;    /*!< RCC APB1 peripheral clocks enable in sleep mode and stop modes register 2,      Address offset: 0x7C */
   __IO uint32_t APB2SMENR;     /*!< RCC APB2 peripheral clocks enable in sleep mode and stop modes register,        Address offset: 0x80 */
-uint32_t RESERVED5;            /*!< Reserved,                                                                       Address offset: 0x84 */
+       uint32_t RESERVED5;     /*!< Reserved,                                                                       Address offset: 0x84 */
   __IO uint32_t CCIPR;         /*!< RCC Peripherals Clock Configuration Independent Register,                       Address offset: 0x88 */
-uint32_t RESERVED6;            /*!< Reserved,                                                                       Address offset: 0x8C */
+       uint32_t RESERVED6;     /*!< Reserved,                                                                       Address offset: 0x8C */
   __IO uint32_t BDCR;          /*!< RCC Backup Domain Control Register,                                             Address offset: 0x90 */
   __IO uint32_t CSR;           /*!< RCC Control and Status Register,                                                Address offset: 0x94 */
   __IO uint32_t CRRCR;         /*!< RCC Clock Recovery RC Register,                                                 Address offset: 0x98 */
   __IO uint32_t HSECR;         /*!< RCC HSE Clock Register,                                                         Address offset: 0x9C */
-uint32_t RESERVED7[26];        /*!< Reserved,                                                                       Address offset: 0xA0-0x104 */
+       uint32_t RESERVED7[26]; /*!< Reserved,                                                                       Address offset: 0xA0-0x104 */
   __IO uint32_t EXTCFGR;       /*!< RCC Extended Clock Recovery Register,                                           Address offset: 0x108 */
-uint32_t RESERVED8[15];        /*!< Reserved,                                                                       Address offset: 0x10C-0x144 */
+       uint32_t RESERVED8[15]; /*!< Reserved,                                                                       Address offset: 0x10C-0x144 */
   __IO uint32_t C2AHB1ENR;     /*!< RRCC AHB1 peripheral CPU2 clocks enable register,                               Address offset: 0x148 */
   __IO uint32_t C2AHB2ENR;     /*!< RCC AHB2 peripheral CPU2 clocks enable register,                                Address offset: 0x14C */
   __IO uint32_t C2AHB3ENR;     /*!< RCC AHB3 & AHB4 peripheral CPU2 clocks enable register,,                        Address offset: 0x150 */
-uint32_t RESERVED9;            /*!< Reserved,                                                                       Address offset: 0x154 */
+       uint32_t RESERVED9;     /*!< Reserved,                                                                       Address offset: 0x154 */
   __IO uint32_t C2APB1ENR1;    /*!< RCC APB1 peripheral CPU2 clocks enable register 1,                              Address offset: 0x158 */
   __IO uint32_t C2APB1ENR2;    /*!< RCC APB1 peripheral CPU2 clocks enable register 2,                              Address offset: 0x15C */
   __IO uint32_t C2APB2ENR;     /*!< RCC APB2 peripheral CPU2 clocks enable register 1,                              Address offset: 0x160 */
@@ -495,7 +495,7 @@ uint32_t RESERVED9;            /*!< Reserved,                                   
   __IO uint32_t C2AHB1SMENR;   /*!< RCC AHB1 peripheral CPU2 clocks enable in sleep and stop modes register,        Address offset: 0x168 */
   __IO uint32_t C2AHB2SMENR;   /*!< RCC AHB2 peripheral CPU2 clocks enable in sleep and stop modes register,        Address offset: 0x16C */
   __IO uint32_t C2AHB3SMENR;   /*!< RCC AHB3 & AHB4 peripheral CPU2 clocks enable in sleep and stop modes register, Address offset: 0x170 */
-uint32_t RESERVED10;           /*!< Reserved,                                                                                             */
+       uint32_t RESERVED10;    /*!< Reserved,                                                                                             */
   __IO uint32_t C2APB1SMENR1;  /*!< RCC APB1 peripheral CPU2 clocks enable in sleep mode and stop modes register 1, Address offset: 0x178 */
   __IO uint32_t C2APB1SMENR2;  /*!< RCC APB1 peripheral CPU2 clocks enable in sleep mode and stop modes register 2, Address offset: 0x17C */
   __IO uint32_t C2APB2SMENR;   /*!< RCC APB2 peripheral CPU2 clocks enable in sleep mode and stop modes register,   Address offset: 0x180 */
@@ -803,7 +803,7 @@ typedef struct
   __IO uint32_t RESERVED9[2];   /*!< Reserved,                                                 Address offset: 0xC8 - 0xCC */
   __IO uint32_t C2IMR2;         /*!< EXTI wakeup with interrupt mask register for cpu2 [31:0], Address offset: 0xD0 */
   __IO uint32_t C2EMR2;         /*!< EXTI wakeup with event mask register for cpu2 [31:0],     Address offset: 0xD4 */
-}EXTI_TypeDef;
+} EXTI_TypeDef;
 
 /**
   * @brief Serial Audio Interface
@@ -845,19 +845,19 @@ typedef struct
   */
 typedef struct
 {
-  __IO uint32_t R[32];      /*!< HSEM 2-step write lock and read back registers, Address offset: 00h-7Ch  */
-  __IO uint32_t RLR[32];    /*!< HSEM 1-step read lock registers,                Address offset: 80h-FCh  */
-  __IO uint32_t C1IER;      /*!< HSEM CPU1 interrupt enable register ,           Address offset: 100h     */
-  __IO uint32_t C1ICR;      /*!< HSEM CPU1 interrupt clear register ,            Address offset: 104h     */
-  __IO uint32_t C1ISR;      /*!< HSEM CPU1 interrupt status register ,           Address offset: 108h     */
-  __IO uint32_t C1MISR;     /*!< HSEM CPU1 masked interrupt status register ,    Address offset: 10Ch     */
-  __IO uint32_t C2IER;      /*!< HSEM CPU2 interrupt enable register ,           Address offset: 110h     */
-  __IO uint32_t C2ICR;      /*!< HSEM CPU2 interrupt clear register ,            Address offset: 114h     */
-  __IO uint32_t C2ISR;      /*!< HSEM CPU2 interrupt status register ,           Address offset: 118h     */
-  __IO uint32_t C2MISR;     /*!< HSEM CPU2 masked interrupt status register ,    Address offset: 11Ch     */
-   uint32_t  Reserved[8];   /*!< Reserved                                        Address offset: 120h-13Ch*/
-  __IO uint32_t CR;         /*!< HSEM Semaphore clear register ,                 Address offset: 140h     */
-  __IO uint32_t KEYR;       /*!< HSEM Semaphore clear key register ,             Address offset: 144h     */
+  __IO uint32_t R[32];        /*!< HSEM 2-step write lock and read back registers, Address offset: 00h-7Ch  */
+  __IO uint32_t RLR[32];      /*!< HSEM 1-step read lock registers,                Address offset: 80h-FCh  */
+  __IO uint32_t C1IER;        /*!< HSEM CPU1 interrupt enable register ,           Address offset: 100h     */
+  __IO uint32_t C1ICR;        /*!< HSEM CPU1 interrupt clear register ,            Address offset: 104h     */
+  __IO uint32_t C1ISR;        /*!< HSEM CPU1 interrupt status register ,           Address offset: 108h     */
+  __IO uint32_t C1MISR;       /*!< HSEM CPU1 masked interrupt status register ,    Address offset: 10Ch     */
+  __IO uint32_t C2IER;        /*!< HSEM CPU2 interrupt enable register ,           Address offset: 110h     */
+  __IO uint32_t C2ICR;        /*!< HSEM CPU2 interrupt clear register ,            Address offset: 114h     */
+  __IO uint32_t C2ISR;        /*!< HSEM CPU2 interrupt status register ,           Address offset: 118h     */
+  __IO uint32_t C2MISR;       /*!< HSEM CPU2 masked interrupt status register ,    Address offset: 11Ch     */
+       uint32_t  Reserved[8]; /*!< Reserved                                        Address offset: 120h-13Ch*/
+  __IO uint32_t CR;           /*!< HSEM Semaphore clear register ,                 Address offset: 140h     */
+  __IO uint32_t KEYR;         /*!< HSEM Semaphore clear key register ,             Address offset: 144h     */
 } HSEM_TypeDef;
 
 typedef struct
@@ -4001,10 +4001,10 @@ typedef struct
 #define FLASH_ACR_EMPTY_Msk                 (0x1UL << FLASH_ACR_EMPTY_Pos)     /*!< 0x00010000 */
 #define FLASH_ACR_EMPTY                     FLASH_ACR_EMPTY_Msk                /*!< Flash use area empty                                */
 
-#define FLASH_ACR_LATENCY_0WS               (0x0UL << FLASH_ACR_LATENCY_Pos)                                       /*!< FLASH Zero wait state   */
-#define FLASH_ACR_LATENCY_1WS               (FLASH_ACR_LATENCY_0 << FLASH_ACR_LATENCY_Pos)                         /*!< FLASH One wait state    */
-#define FLASH_ACR_LATENCY_2WS               (FLASH_ACR_LATENCY_1 << FLASH_ACR_LATENCY_Pos)                         /*!< FLASH Two wait states   */
-#define FLASH_ACR_LATENCY_3WS               ((FLASH_ACR_LATENCY_1 | FLASH_ACR_LATENCY_0) << FLASH_ACR_LATENCY_Pos) /*!< FLASH Three wait states */
+#define FLASH_ACR_LATENCY_0WS               (0x0UL << FLASH_ACR_LATENCY_Pos)            /*!< FLASH Zero wait state   */
+#define FLASH_ACR_LATENCY_1WS               FLASH_ACR_LATENCY_0                         /*!< FLASH One wait state    */
+#define FLASH_ACR_LATENCY_2WS               FLASH_ACR_LATENCY_1                         /*!< FLASH Two wait states   */
+#define FLASH_ACR_LATENCY_3WS               (FLASH_ACR_LATENCY_1 | FLASH_ACR_LATENCY_0) /*!< FLASH Three wait states */
 
 /*******************  Bits definition for FLASH_SR register  ******************/
 #define FLASH_SR_EOP_Pos                    (0U)
@@ -7088,8 +7088,8 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions
-*/
+  * @brief Specific device feature definitions
+  */
 #define RCC_SMPS_SUPPORT
 #define RCC_MCO3_SUPPORT
 #define RCC_LSCO3_SUPPORT
@@ -8384,8 +8384,8 @@ typedef struct
 /*                                                                            */
 /******************************************************************************/
 /*
-* @brief Specific device feature definitions
-*/
+  * @brief Specific device feature definitions
+  */
 #define RTC_TAMPER1_SUPPORT
 #define RTC_TAMPER2_SUPPORT
 #define RTC_TAMPER3_SUPPORT
@@ -12260,7 +12260,7 @@ typedef struct
 
 /* EndPoint REGister MASK (no toggle fields) */
 #define USB_EPREG_MASK     (USB_EP_CTR_RX|USB_EP_SETUP|USB_EP_T_FIELD|USB_EP_KIND|USB_EP_CTR_TX|USB_EPADDR_FIELD)
-                                                                         /*!< EP_TYPE[1:0] EndPoint TYPE */
+/*!< EP_TYPE[1:0] EndPoint TYPE */
 #define USB_EP_TYPE_MASK                      ((uint16_t)0x0600U)              /*!< EndPoint TYPE Mask */
 #define USB_EP_BULK                           ((uint16_t)0x0000U)              /*!< EndPoint BULK */
 #define USB_EP_CONTROL                        ((uint16_t)0x0200U)              /*!< EndPoint CONTROL */
@@ -12269,7 +12269,7 @@ typedef struct
 #define USB_EP_T_MASK                        ((uint16_t) ~USB_EP_T_FIELD & USB_EPREG_MASK)
 
 #define USB_EPKIND_MASK                      ((uint16_t)~USB_EP_KIND & USB_EPREG_MASK) /*!< EP_KIND EndPoint KIND */
-                                                                         /*!< STAT_TX[1:0] STATus for TX transfer */
+/*!< STAT_TX[1:0] STATus for TX transfer */
 #define USB_EP_TX_DIS                         ((uint16_t)0x0000U)              /*!< EndPoint TX DISabled */
 #define USB_EP_TX_STALL                       ((uint16_t)0x0010U)              /*!< EndPoint TX STALLed */
 #define USB_EP_TX_NAK                         ((uint16_t)0x0020U)              /*!< EndPoint TX NAKed */
@@ -12277,7 +12277,7 @@ typedef struct
 #define USB_EPTX_DTOG1                        ((uint16_t)0x0010U)              /*!< EndPoint TX Data TOGgle bit1 */
 #define USB_EPTX_DTOG2                        ((uint16_t)0x0020U)              /*!< EndPoint TX Data TOGgle bit2 */
 #define USB_EPTX_DTOGMASK  (USB_EPTX_STAT|USB_EPREG_MASK)
-                                                                         /*!< STAT_RX[1:0] STATus for RX transfer */
+/*!< STAT_RX[1:0] STATus for RX transfer */
 #define USB_EP_RX_DIS                         ((uint16_t)0x0000U)              /*!< EndPoint RX DISabled */
 #define USB_EP_RX_STALL                       ((uint16_t)0x1000U)              /*!< EndPoint RX STALLed */
 #define USB_EP_RX_NAK                         ((uint16_t)0x2000U)              /*!< EndPoint RX NAKed */
@@ -12636,38 +12636,38 @@ typedef struct
 
 /******************* TIM Instances : output(s) available **********************/
 #define IS_TIM_CCX_INSTANCE(INSTANCE, CHANNEL) \
-        ((((INSTANCE) == TIM1) &&                  \
-           (((CHANNEL) == TIM_CHANNEL_1) ||          \
-            ((CHANNEL) == TIM_CHANNEL_2) ||          \
-            ((CHANNEL) == TIM_CHANNEL_3) ||          \
-            ((CHANNEL) == TIM_CHANNEL_4) ||          \
-            ((CHANNEL) == TIM_CHANNEL_5) ||          \
-            ((CHANNEL) == TIM_CHANNEL_6)))           \
-           ||                                        \
-           (((INSTANCE) == TIM2) &&                  \
-           (((CHANNEL) == TIM_CHANNEL_1) ||          \
-            ((CHANNEL) == TIM_CHANNEL_2) ||          \
-            ((CHANNEL) == TIM_CHANNEL_3) ||          \
-            ((CHANNEL) == TIM_CHANNEL_4)))           \
-           ||                                        \
-           (((INSTANCE) == TIM16) &&                 \
-           (((CHANNEL) == TIM_CHANNEL_1)))           \
-           ||                                        \
-           (((INSTANCE) == TIM17) &&                 \
-            (((CHANNEL) == TIM_CHANNEL_1))))
+  ((((INSTANCE) == TIM1) &&                  \
+    (((CHANNEL) == TIM_CHANNEL_1) ||          \
+     ((CHANNEL) == TIM_CHANNEL_2) ||          \
+     ((CHANNEL) == TIM_CHANNEL_3) ||          \
+     ((CHANNEL) == TIM_CHANNEL_4) ||          \
+     ((CHANNEL) == TIM_CHANNEL_5) ||          \
+     ((CHANNEL) == TIM_CHANNEL_6)))           \
+   ||                                        \
+   (((INSTANCE) == TIM2) &&                  \
+    (((CHANNEL) == TIM_CHANNEL_1) ||          \
+     ((CHANNEL) == TIM_CHANNEL_2) ||          \
+     ((CHANNEL) == TIM_CHANNEL_3) ||          \
+     ((CHANNEL) == TIM_CHANNEL_4)))           \
+   ||                                        \
+   (((INSTANCE) == TIM16) &&                 \
+    (((CHANNEL) == TIM_CHANNEL_1)))           \
+   ||                                        \
+   (((INSTANCE) == TIM17) &&                 \
+    (((CHANNEL) == TIM_CHANNEL_1))))
 
 /****************** TIM Instances : supporting complementary output(s) ********/
 #define IS_TIM_CCXN_INSTANCE(INSTANCE, CHANNEL) \
-   ((((INSTANCE) == TIM1) &&                    \
-     (((CHANNEL) == TIM_CHANNEL_1) ||           \
-      ((CHANNEL) == TIM_CHANNEL_2) ||           \
-      ((CHANNEL) == TIM_CHANNEL_3)))            \
-    ||                                          \
-    (((INSTANCE) == TIM17) &&                   \
-     ((CHANNEL) == TIM_CHANNEL_1))              \
-    ||                                          \
-    (((INSTANCE) == TIM16) &&                   \
-     ((CHANNEL) == TIM_CHANNEL_1)))
+  ((((INSTANCE) == TIM1) &&                    \
+    (((CHANNEL) == TIM_CHANNEL_1) ||           \
+     ((CHANNEL) == TIM_CHANNEL_2) ||           \
+     ((CHANNEL) == TIM_CHANNEL_3)))            \
+   ||                                          \
+   (((INSTANCE) == TIM17) &&                   \
+    ((CHANNEL) == TIM_CHANNEL_1))              \
+   ||                                          \
+   (((INSTANCE) == TIM16) &&                   \
+    ((CHANNEL) == TIM_CHANNEL_1)))
 
 /****************** TIM Instances : supporting clock division *****************/
 #define IS_TIM_CLOCK_DIVISION_INSTANCE(INSTANCE)   (((INSTANCE) == TIM1)    || \
@@ -12756,9 +12756,9 @@ typedef struct
   * @}
   */
 
- /**
+/**
   * @}
-  */
+ */
 
 /**
   * @}
@@ -12774,6 +12774,6 @@ typedef struct
   * @}
   */
 
-  /**
+/**
   * @}
-  */
+*/

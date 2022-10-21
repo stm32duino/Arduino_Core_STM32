@@ -74,6 +74,8 @@ typedef struct
   uint32_t lpm_enable;              /*!< Enable or disable Battery charging.                                    */
 
   uint32_t battery_charging_enable; /*!< Enable or disable Battery charging.                                    */
+
+  uint32_t dma_enable;              /*!< dma_enable state unused, DMA not supported by FS instance              */
 } USB_CfgTypeDef;
 
 typedef struct
@@ -168,6 +170,10 @@ typedef struct
 
 #define EP_ADDR_MSK                            0x7U
 
+#ifndef USB_EP_RX_STRX
+#define USB_EP_RX_STRX                         (0x3U << 12)
+#endif /* USB_EP_RX_STRX */
+
 #ifndef USE_USB_DOUBLE_BUFFER
 #define USE_USB_DOUBLE_BUFFER                  1U
 #endif /* USE_USB_DOUBLE_BUFFER */
@@ -198,6 +204,7 @@ HAL_StatusTypeDef USB_DeactivateEndpoint(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPStartXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPSetStall(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 HAL_StatusTypeDef USB_EPClearStall(USB_TypeDef *USBx, USB_EPTypeDef *ep);
+HAL_StatusTypeDef USB_EPStopXfer(USB_TypeDef *USBx, USB_EPTypeDef *ep);
 #endif /* defined (HAL_PCD_MODULE_ENABLED) */
 
 HAL_StatusTypeDef USB_SetDevAddress(USB_TypeDef *USBx, uint8_t address);
