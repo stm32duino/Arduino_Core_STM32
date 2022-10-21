@@ -815,7 +815,7 @@ Disco.menu.pnum.B_L4S5I_IOT01A.build.cmsis_lib_gcc=arm_cortexM4lf_math
 
 # B_U585I_IOT02A board
 Disco.menu.pnum.B_U585I_IOT02A=B-U585I-IOT02A
-Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI"
+Disco.menu.pnum.B_U585I_IOT02A.node="NOD_U585AI,DIS_U585AI"
 Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_size=2097152
 Disco.menu.pnum.B_U585I_IOT02A.upload.maximum_data_size=262144
 Disco.menu.pnum.B_U585I_IOT02A.build.mcu=cortex-m33
