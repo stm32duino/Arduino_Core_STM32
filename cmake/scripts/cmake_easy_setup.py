@@ -122,13 +122,24 @@ for line in get_log(logf):
         libpaths[line["location"]] = pathlib.Path(line["dir"])
 
 # platform lib path is already known, obviously, since that's where this script resides
-userlibs = pathlib.Path(libpaths["user"])
-if userlibs.exists():
-    userlibs = userlibs.resolve()
-    libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
+if "user" in libpaths.keys():
+    userlibs = pathlib.Path(libpaths["user"])
+    if userlibs.exists():
+        userlibs = userlibs.resolve()
+        libs = [u.name for u in userlibs.iterdir() if u.is_dir()]
+    else:
+        print(
+            f"""Warning: Cannot find {userlibs}.
+        This has likely to do with your arduino-cli configuration.
+        Please refer to the following link for setup details:
+        https://arduino.github.io/arduino-cli/latest/getting-started/#create-a-configuration-file
+        """
+        )
+        libs = list()
 else:
+    userlibs = pathlib.Path.home() / "Arduino/libraries"
     print(
-        f"""Warning: Cannot find {userlibs}.
+        f"""No user library path found through arduino-cli (falling back to {userlibs}).
     This has likely to do with your arduino-cli configuration.
     Please refer to the following link for setup details:
     https://arduino.github.io/arduino-cli/latest/getting-started/#create-a-configuration-file
@@ -197,7 +208,7 @@ you are advised to edit this file to fill in any missing dependency relationship
 For details, please refer to
 https://github.com/stm32duino/wiki/wiki/Arduino-%28in%29compatibility#library-management
     """
-    )
+)
 
 if shargs.fire:
     if not (shargs.sketch and shargs.board):
