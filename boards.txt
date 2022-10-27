@@ -36,6 +36,20 @@ Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.variant=STM32F2xx/F207Z(C-E-F-G)T_F217Z
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
 Nucleo_144.menu.pnum.NUCLEO_F207ZG.build.cmsis_lib_gcc=arm_cortexM3l_math
 
+# NUCLEO_F413ZH board
+Nucleo_144.menu.pnum.NUCLEO_F413ZH=Nucleo F413ZH
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.node=NODE_F413ZH
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.upload.maximum_size=1572864
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.upload.maximum_data_size=327680
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.mcu=cortex-m4
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.board=NUCLEO_F413ZH
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.series=STM32F4xx
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.product_line=STM32F413xx
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.variant=STM32F4xx/F413Z(G-H)(J-T)_F423ZH(J-T)
+Nucleo_144.menu.pnum.NUCLEO_F413ZH.build.cmsis_lib_gcc=arm_cortexM4lf_math
+
 # NUCLEO_F429ZI board
 # Support: USB HID, Serial1 (USART1 on PG9, PG14) and Serial2 (USART2 on PD6, PD5)
 Nucleo_144.menu.pnum.NUCLEO_F429ZI=Nucleo F429ZI
