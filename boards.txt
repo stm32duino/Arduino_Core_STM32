@@ -123,6 +123,20 @@ Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.product_line=STM32F767xx
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.variant=STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT
 Nucleo_144.menu.pnum.NUCLEO_F767ZI.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
 
+# NUCLEO H723ZG board
+Nucleo_144.menu.pnum.NUCLEO_H723ZG=Nucleo H723ZG
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.node=NODE_H723ZG
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.upload.maximum_size=1048576
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.upload.maximum_data_size=327680
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.mcu=cortex-m7
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.fpu=-mfpu=fpv4-sp-d16
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.float-abi=-mfloat-abi=hard
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.board=NUCLEO_H723ZG
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.series=STM32H7xx
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.product_line=STM32H723xx
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.variant=STM32H7xx/H723Z(E-G)T_H730ZBT_H733ZGT
+Nucleo_144.menu.pnum.NUCLEO_H723ZG.build.cmsis_lib_gcc=arm_cortexM7lfsp_math
+
 # NUCLEO_H743ZI board
 Nucleo_144.menu.pnum.NUCLEO_H743ZI=Nucleo H743ZI
 Nucleo_144.menu.pnum.NUCLEO_H743ZI.node=NODE_H743ZI
