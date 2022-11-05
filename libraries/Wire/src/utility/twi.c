@@ -410,11 +410,7 @@ static uint32_t i2c_getClkFreq(I2C_TypeDef *i2c)
 #else
     clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
 #endif
-    if (clkSrcFreq == 0)
 #endif
-    {
-      clkSrcFreq = HAL_RCCEx_GetPeriphCLKFreq(RCC_PERIPHCLK_I2C35);
-    }
   }
 #endif // I2C5_BASE
 #if defined(I2C6_BASE)
