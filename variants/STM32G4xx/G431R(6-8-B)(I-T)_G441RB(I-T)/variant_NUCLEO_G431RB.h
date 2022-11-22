@@ -16,8 +16,8 @@
  *        Pins
  *----------------------------------------------------------------------------*/
 // CN9
-#define PC5                     0
-#define PC4                     1
+#define PC5                     PIN_A12
+#define PC4                     PIN_A13
 #define PA10                    2
 #define PB3                     3
 #define PB5                     4
@@ -28,9 +28,9 @@
 #define PA9                     8
 #define PC7                     9
 #define PB6                     10
-#define PA7                     11
-#define PA6                     12
-#define PA5                     13 // LED
+#define PA7                     PIN_A18
+#define PA6                     PIN_A19
+#define PA5                     PIN_A20 // LED
 #define PB9                     14
 #define PB8                     15
 // CN7 Left Side
@@ -43,10 +43,10 @@
 #define PC13                    22
 #define PC14                    23
 #define PC15                    24
-#define PF0                     25
-#define PF1                     26
-#define PC2                     27
-#define PC3                     28
+#define PF0                     PIN_A14
+#define PF1                     PIN_A15
+#define PC2                     PIN_A16
+#define PC3                     PIN_A17
 // CN7 Right Side
 #define PD2                     29
 #define PC11                    30
@@ -71,8 +71,8 @@
 #define PA12                    46
 #define PC6                     47
 #define PC8                     48
-#define PA2                     49
-#define PA3                     50
+#define PA2                     PIN_A21 // VCP_TX
+#define PA3                     PIN_A22 // VCP_RX
 //PG10
 
 // Alternate pins number
@@ -131,7 +131,7 @@
 // This must be a literal
 #define NUM_DIGITAL_PINS        51
 // This must be a literal with a value less than or equal to to MAX_ANALOG_INPUTS
-#define NUM_ANALOG_INPUTS       12
+#define NUM_ANALOG_INPUTS       23
 
 // On-board LED pin number
 #ifndef LED_BUILTIN
