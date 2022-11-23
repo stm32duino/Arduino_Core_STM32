@@ -27,27 +27,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 jobs:
-  astyle_check:
-    runs-on: ubuntu-latest
-    name: AStyle check
-    steps:
-    # First of all, clone the repo using the checkout action.
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Astyle check
-      id: Astyle
-      uses: stm32duino/actions/astyle-check@main
-      with:
-        astyle-definition: 'CI/astyle/.astylerc'
-        ignore-path-list: 'CI/astyle/.astyleignore'
-
-    # Use the output from the `Astyle` step
-    - name: Astyle Errors
-      if: failure()
-      run: |
-        cat ${{ steps.Astyle.outputs.astyle-result }}
-        exit 1
   core_build:
     runs-on: ubuntu-latest
     name: Core compilation
