@@ -165,7 +165,7 @@ g0 = parser.add_mutually_exclusive_group()
 g0.add_argument(
     "-g",
     "--gitdiff",
-    help="Use changes files from git default branch. Default: {git_branch}",
+    help=f"Use changes files from git default branch. Default: {git_branch}",
     action="store_true",
 )
 g0.add_argument(
@@ -178,7 +178,7 @@ parser.add_argument(
     "-i",
     "--ignore",
     metavar="<ignore file>",
-    help="File containing path to ignore. Default: {ignore_path}",
+    help=f"File containing path to ignore. Default: {ignore_path}",
 )
 parser.add_argument(
     "-p", "--path", metavar="<astyle install path>", help="Astyle installation path"
@@ -187,7 +187,7 @@ parser.add_argument(
     "-r",
     "--root",
     metavar="<source root path>",
-    help="Source root path to use. Default: {src_path}",
+    help=f"Source root path to use. Default: {src_path}",
 )
 args = parser.parse_args()
 
