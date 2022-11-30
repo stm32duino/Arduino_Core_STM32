@@ -8,6 +8,6 @@ GenWB.menu.pnum.GENERIC_WB15CCUXE=Generic WB15CCUxE
 GenWB.menu.pnum.GENERIC_WB15CCUXE.upload.maximum_size=327680
 GenWB.menu.pnum.GENERIC_WB15CCUXE.upload.maximum_data_size=49152
 GenWB.menu.pnum.GENERIC_WB15CCUXE.build.board=GENERIC_WB15CCUXE
-GenWB.menu.pnum.GENERIC_WB15CCUXE.build.product_line=STM32WB30xx
+GenWB.menu.pnum.GENERIC_WB15CCUXE.build.product_line=STM32WB1Mxx
 GenWB.menu.pnum.GENERIC_WB15CCUXE.build.variant=STM32WBxx/WB15CCUxE
 

@@ -14,7 +14,7 @@
  * Automatically generated from STM32F723I(C-E)Kx.xml, STM32F723I(C-E)Tx.xml
  * STM32F730I8Kx.xml, STM32F733IEKx.xml
  * STM32F733IETx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

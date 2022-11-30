@@ -6,7 +6,7 @@
 # Generic U575RGTx
 GenU5.menu.pnum.GENERIC_U575RGTX=Generic U575RGTx
 GenU5.menu.pnum.GENERIC_U575RGTX.upload.maximum_size=1048576
-GenU5.menu.pnum.GENERIC_U575RGTX.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575RGTX.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U575RGTX.build.board=GENERIC_U575RGTX
 GenU5.menu.pnum.GENERIC_U575RGTX.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575RGTX.build.variant=STM32U5xx/U575R(G-I)T_U585RIT
@@ -14,7 +14,7 @@ GenU5.menu.pnum.GENERIC_U575RGTX.build.variant=STM32U5xx/U575R(G-I)T_U585RIT
 # Generic U575RITx
 GenU5.menu.pnum.GENERIC_U575RITX=Generic U575RITx
 GenU5.menu.pnum.GENERIC_U575RITX.upload.maximum_size=2097152
-GenU5.menu.pnum.GENERIC_U575RITX.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U575RITX.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U575RITX.build.board=GENERIC_U575RITX
 GenU5.menu.pnum.GENERIC_U575RITX.build.product_line=STM32U575xx
 GenU5.menu.pnum.GENERIC_U575RITX.build.variant=STM32U5xx/U575R(G-I)T_U585RIT
@@ -22,7 +22,7 @@ GenU5.menu.pnum.GENERIC_U575RITX.build.variant=STM32U5xx/U575R(G-I)T_U585RIT
 # Generic U585RITx
 GenU5.menu.pnum.GENERIC_U585RITX=Generic U585RITx
 GenU5.menu.pnum.GENERIC_U585RITX.upload.maximum_size=2097152
-GenU5.menu.pnum.GENERIC_U585RITX.upload.maximum_data_size=262144
+GenU5.menu.pnum.GENERIC_U585RITX.upload.maximum_data_size=804864
 GenU5.menu.pnum.GENERIC_U585RITX.build.board=GENERIC_U585RITX
 GenU5.menu.pnum.GENERIC_U585RITX.build.product_line=STM32U585xx
 GenU5.menu.pnum.GENERIC_U585RITX.build.variant=STM32U5xx/U575R(G-I)T_U585RIT

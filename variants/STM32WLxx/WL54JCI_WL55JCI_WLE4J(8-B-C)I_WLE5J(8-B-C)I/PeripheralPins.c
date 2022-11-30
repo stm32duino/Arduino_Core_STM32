@@ -15,7 +15,7 @@
  * STM32WLE4J8Ix.xml, STM32WLE4JBIx.xml
  * STM32WLE4JCIx.xml, STM32WLE5J8Ix.xml
  * STM32WLE5JBIx.xml, STM32WLE5JCIx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
