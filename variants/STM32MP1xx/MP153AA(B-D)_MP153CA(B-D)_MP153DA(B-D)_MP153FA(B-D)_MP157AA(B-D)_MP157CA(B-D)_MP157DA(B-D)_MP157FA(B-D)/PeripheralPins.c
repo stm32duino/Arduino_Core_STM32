@@ -19,7 +19,7 @@
  * STM32MP157CABx.xml, STM32MP157CADx.xml
  * STM32MP157DABx.xml, STM32MP157DADx.xml
  * STM32MP157FABx.xml, STM32MP157FADx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

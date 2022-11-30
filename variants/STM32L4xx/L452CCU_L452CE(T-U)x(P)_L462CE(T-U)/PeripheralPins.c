@@ -14,7 +14,7 @@
  * Automatically generated from STM32L452C(C-E)Ux.xml, STM32L452CETx.xml
  * STM32L452CETxP.xml, STM32L462CETx.xml
  * STM32L462CEUx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

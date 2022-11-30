@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32MP151AACx.xml, STM32MP151CACx.xml
  * STM32MP151DACx.xml, STM32MP151FACx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

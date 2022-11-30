@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32H745ZGTx.xml, STM32H745ZITx.xml
  * STM32H755ZITx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

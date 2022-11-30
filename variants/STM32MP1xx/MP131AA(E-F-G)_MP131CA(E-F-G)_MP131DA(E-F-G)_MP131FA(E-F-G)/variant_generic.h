@@ -176,6 +176,7 @@
 #define PB8_ALT1                (PB8  | ALT1)
 #define PB9_ALT1                (PB9  | ALT1)
 #define PB11_ALT1               (PB11 | ALT1)
+#define PB12_ALT1               (PB12 | ALT1)
 #define PB14_ALT1               (PB14 | ALT1)
 #define PB14_ALT2               (PB14 | ALT2)
 #define PB15_ALT1               (PB15 | ALT1)

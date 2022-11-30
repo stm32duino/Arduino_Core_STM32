@@ -11,7 +11,7 @@
  *******************************************************************************
  */
 #if defined(ARDUINO_GENERIC_L496QEIX) || defined(ARDUINO_GENERIC_L496QGIX) ||\
-    defined(ARDUINO_GENERIC_L4A6QGIX)
+    defined(ARDUINO_GENERIC_L496QGIXS) || defined(ARDUINO_GENERIC_L4A6QGIX)
 #include "pins_arduino.h"
 
 // Digital PinName array

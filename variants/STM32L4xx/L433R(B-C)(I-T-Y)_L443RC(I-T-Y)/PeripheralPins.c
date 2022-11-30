@@ -14,7 +14,7 @@
  * Automatically generated from STM32L433R(B-C)Ix.xml, STM32L433R(B-C)Tx.xml
  * STM32L433R(B-C)Yx.xml, STM32L443RCIx.xml
  * STM32L443RCTx.xml, STM32L443RCYx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

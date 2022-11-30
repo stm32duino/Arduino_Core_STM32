@@ -13,7 +13,7 @@
 /*
  * Automatically generated from STM32L451R(C-E)Ix.xml, STM32L451R(C-E)Tx.xml
  * STM32L451R(C-E)Yx.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"

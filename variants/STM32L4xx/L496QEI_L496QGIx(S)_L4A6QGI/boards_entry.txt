@@ -9,7 +9,7 @@ GenL4.menu.pnum.GENERIC_L496QEIX.upload.maximum_size=524288
 GenL4.menu.pnum.GENERIC_L496QEIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496QEIX.build.board=GENERIC_L496QEIX
 GenL4.menu.pnum.GENERIC_L496QEIX.build.product_line=STM32L496xx
-GenL4.menu.pnum.GENERIC_L496QEIX.build.variant=STM32L4xx/L496Q(E-G)I_L4A6QGI
+GenL4.menu.pnum.GENERIC_L496QEIX.build.variant=STM32L4xx/L496QEI_L496QGIx(S)_L4A6QGI
 
 # Generic L496QGIx
 GenL4.menu.pnum.GENERIC_L496QGIX=Generic L496QGIx
@@ -17,7 +17,15 @@ GenL4.menu.pnum.GENERIC_L496QGIX.upload.maximum_size=1048576
 GenL4.menu.pnum.GENERIC_L496QGIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L496QGIX.build.board=GENERIC_L496QGIX
 GenL4.menu.pnum.GENERIC_L496QGIX.build.product_line=STM32L496xx
-GenL4.menu.pnum.GENERIC_L496QGIX.build.variant=STM32L4xx/L496Q(E-G)I_L4A6QGI
+GenL4.menu.pnum.GENERIC_L496QGIX.build.variant=STM32L4xx/L496QEI_L496QGIx(S)_L4A6QGI
+
+# Generic L496QGIxS
+GenL4.menu.pnum.GENERIC_L496QGIXS=Generic L496QGIxS
+GenL4.menu.pnum.GENERIC_L496QGIXS.upload.maximum_size=1048576
+GenL4.menu.pnum.GENERIC_L496QGIXS.upload.maximum_data_size=327680
+GenL4.menu.pnum.GENERIC_L496QGIXS.build.board=GENERIC_L496QGIXS
+GenL4.menu.pnum.GENERIC_L496QGIXS.build.product_line=STM32L4A6xx
+GenL4.menu.pnum.GENERIC_L496QGIXS.build.variant=STM32L4xx/L496QEI_L496QGIx(S)_L4A6QGI
 
 # Generic L4A6QGIx
 GenL4.menu.pnum.GENERIC_L4A6QGIX=Generic L4A6QGIx
@@ -25,5 +33,5 @@ GenL4.menu.pnum.GENERIC_L4A6QGIX.upload.maximum_size=1048576
 GenL4.menu.pnum.GENERIC_L4A6QGIX.upload.maximum_data_size=327680
 GenL4.menu.pnum.GENERIC_L4A6QGIX.build.board=GENERIC_L4A6QGIX
 GenL4.menu.pnum.GENERIC_L4A6QGIX.build.product_line=STM32L4A6xx
-GenL4.menu.pnum.GENERIC_L4A6QGIX.build.variant=STM32L4xx/L496Q(E-G)I_L4A6QGI
+GenL4.menu.pnum.GENERIC_L4A6QGIX.build.variant=STM32L4xx/L496QEI_L496QGIx(S)_L4A6QGI
 

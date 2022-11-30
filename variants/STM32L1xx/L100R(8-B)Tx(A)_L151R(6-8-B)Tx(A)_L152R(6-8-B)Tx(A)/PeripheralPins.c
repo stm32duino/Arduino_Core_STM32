@@ -14,7 +14,7 @@
  * Automatically generated from STM32L100R(8-B)Tx.xml, STM32L100R(8-B)TxA.xml
  * STM32L151R(6-8-B)Tx.xml, STM32L151R(6-8-B)TxA.xml
  * STM32L152R(6-8-B)Tx.xml, STM32L152R(6-8-B)TxA.xml
- * CubeMX DB release 6.0.60
+ * CubeMX DB release 6.0.70
  */
 #if !defined(CUSTOM_PERIPHERAL_PINS)
 #include "Arduino.h"
