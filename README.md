@@ -574,7 +574,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart: | STM32L072RBT | [PX-HER0](https://piconomix.com/fwlib/_p_i_c_o_n_o_m_i_x__s_t_m32__h_e_r_o__b_o_a_r_d.html) | *1.8.0* |  |
 | :yellow_heart: | STM32L072RB<br>STM32L072RZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L072RBT<br>STM32L072RZT | Generic Board | *2.0.0* |  |
-| :yellow_heart: | STM32L072V8<br>STM32L072VB<br>STM32L072VZ | Generic Board | **2.4.0** | 
+| :yellow_heart: | STM32L072V8<br>STM32L072VB<br>STM32L072VZ | Generic Board | **2.4.0** |
 | :yellow_heart: | STM32L073CB<br>STM32L073CZ | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L073CZY | Generic Board | *2.0.0* |  |
 | :yellow_heart: | STM32L073RB<br>STM32L073RZ | Generic Board | **2.4.0** |  |
@@ -589,7 +589,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :yellow_heart: | STM32L083RB | Generic Board | **2.4.0** |  |
 | :green_heart: | STM32L083RBT<br>STM32L083RZT | Generic Board | *2.0.0* |  |
 | :yellow_heart: | STM32L083RZ | Generic Board | **2.4.0** |  |
-| :yellow_heart: | STM32L083V8<br>STM32L083VB<br>STM32L083VZ | Generic Board | **2.4.0** | 
+| :yellow_heart: | STM32L083V8<br>STM32L083VB<br>STM32L083VZ | Generic Board | **2.4.0** |
 
 ### Generic STM32L1 boards
 
@@ -616,6 +616,7 @@ User can add a STM32 based board following this [wiki](https://github.com/stm32d
 | :green_heart:  | STM32L443CC<br>STM32L443CC | Generic Board | *2.1.0* |  |
 | :green_heart:  | STM32L433RC-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L452RC<br>STM32L452RE<br>STM32L462RE | Generic Board | *2.0.0* |  |
+| :yellow_heart: | STM32L452RE | [Leafony AP03](https://docs.leafony.com/en/docs/leaf/processor/ap03) | **2.4.0** |
 | :green_heart:  | STM32L452RE-P | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L475VC<br>STM32L475VE<br>STM32L475VG | Generic Board | *2.0.0* |  |
 | :green_heart:  | STM32L476VC<br>STM32L476VE<br>STM32L476VG | Generic Board | *2.0.0* |  |

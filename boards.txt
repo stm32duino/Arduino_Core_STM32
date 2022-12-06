@@ -8790,6 +8790,15 @@ GenL4.build.cmsis_lib_gcc=arm_cortexM4lf_math
 GenL4.upload.maximum_size=0
 GenL4.upload.maximum_data_size=0
 
+# Leafony AP03
+GenL4.menu.pnum.LEAFONY_AP03=Leafony AP03
+GenL4.menu.pnum.LEAFONY_AP03.upload.maximum_size=524288
+GenL4.menu.pnum.LEAFONY_AP03.upload.maximum_data_size=163840
+GenL4.menu.pnum.LEAFONY_AP03.build.board=LEAFONY_AP03
+GenL4.menu.pnum.LEAFONY_AP03.build.product_line=STM32L452xx
+GenL4.menu.pnum.LEAFONY_AP03.build.variant=STM32L4xx/L452RC(I-T-Y)_L452RE(I-T-Y)x(P)_L462RE(I-T-Y)
+GenL4.menu.pnum.LEAFONY_AP03.build.peripheral_pins=-DCUSTOM_PERIPHERAL_PINS
+
 # Generic L412K8Tx
 GenL4.menu.pnum.GENERIC_L412K8TX=Generic L412K8Tx
 GenL4.menu.pnum.GENERIC_L412K8TX.upload.maximum_size=65536
