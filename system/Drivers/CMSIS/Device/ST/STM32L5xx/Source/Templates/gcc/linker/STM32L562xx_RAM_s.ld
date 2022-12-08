@@ -44,8 +44,9 @@ _Min_Stack_Size = 0x400;	/* required amount of stack */
 /* Memories definition */
 MEMORY
 {
-  RAM	(xrw)	: ORIGIN = 0x30000000,	LENGTH = 96K - 256    /* Memory is divided. Actual start is 0x30000000 and actual length is 256K */
+  RAM	(xrw)	: ORIGIN = 0x30000000,	LENGTH = 96K - 256    /* Memory is divided. Actual start is 0x30000000 and actual length is 192K */
   RAM_NSC	(xrw)	: ORIGIN = 0x30017F00,	LENGTH = 256    /* Non-Secure Call-able region */
+  RAM2	(xrw)	: ORIGIN = 0x30030000,	LENGTH = 64K        /* SRAM2 region */
 }
 
 /* Sections */
