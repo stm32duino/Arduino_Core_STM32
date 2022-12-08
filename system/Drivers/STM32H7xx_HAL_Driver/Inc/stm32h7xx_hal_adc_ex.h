@@ -112,8 +112,8 @@ typedef struct
 
   uint32_t InjectedOffset;                /*!< Defines the offset to be subtracted from the raw converted data.
                                                Offset value must be a positive number.
-                                               Depending of ADC resolution selected (12, 10, 8 or 6 bits), this parameter must be a number
-                                               between Min_Data = 0x000 and Max_Data = 0xFFF,  0x3FF, 0xFF or 0x3F respectively.
+                                               Maximum value depends on ADC resolution and oversampling ratio (in case of oversampling used).
+                                               This parameter must be a number between Min_Data = 0x0000 and Max_Data = 0x3FFFC00 (corresponding to resolution 16 bit and oversampling ratio 1024).
                                                Note: This parameter must be modified when no conversion is on going on both regular and injected groups (ADC disabled, or ADC enabled
                                                without continuous mode or external trigger that could launch a conversion). */
 

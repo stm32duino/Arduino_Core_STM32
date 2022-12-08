@@ -132,9 +132,15 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+/** @addtogroup SRAM_Private_Functions SRAM Private Functions
+  * @{
+  */
 static void SRAM_DMACplt(MDMA_HandleTypeDef *hmdma);
 static void SRAM_DMACpltProt(MDMA_HandleTypeDef *hmdma);
 static void SRAM_DMAError(MDMA_HandleTypeDef *hmdma);
+/**
+  * @}
+  */
 
 /* Exported functions --------------------------------------------------------*/
 
@@ -1033,6 +1039,10 @@ HAL_SRAM_StateTypeDef HAL_SRAM_GetState(SRAM_HandleTypeDef *hsram)
   * @}
   */
 
+/** @addtogroup SRAM_Private_Functions SRAM Private Functions
+  * @{
+  */
+
 /**
   * @brief  MDMA SRAM process complete callback.
   * @param  hmdma : MDMA handle
@@ -1098,6 +1108,10 @@ static void SRAM_DMAError(MDMA_HandleTypeDef *hmdma)
   HAL_SRAM_DMA_XferErrorCallback(hmdma);
 #endif /* USE_HAL_SRAM_REGISTER_CALLBACKS */
 }
+
+/**
+  * @}
+  */
 
 /**
   * @}

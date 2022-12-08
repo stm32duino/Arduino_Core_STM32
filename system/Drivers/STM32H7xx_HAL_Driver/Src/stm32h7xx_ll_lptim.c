@@ -163,7 +163,7 @@ void LL_LPTIM_StructInit(LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
   *          - SUCCESS: LPTIMx instance has been initialized
   *          - ERROR: LPTIMx instance hasn't been initialized
   */
-ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
+ErrorStatus LL_LPTIM_Init(LPTIM_TypeDef *LPTIMx, const LL_LPTIM_InitTypeDef *LPTIM_InitStruct)
 {
   ErrorStatus result = SUCCESS;
   /* Check the parameters */
@@ -313,8 +313,7 @@ void LL_LPTIM_Disable(LPTIM_TypeDef *LPTIMx)
       do
       {
         rcc_clock.SYSCLK_Frequency--; /* Used for timeout */
-      }
-      while (((LL_LPTIM_IsActiveFlag_ARROK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
+      } while (((LL_LPTIM_IsActiveFlag_ARROK(LPTIMx) != 1UL)) && ((rcc_clock.SYSCLK_Frequency) > 0UL));
 
       LL_LPTIM_ClearFlag_ARROK(LPTIMx);
     }

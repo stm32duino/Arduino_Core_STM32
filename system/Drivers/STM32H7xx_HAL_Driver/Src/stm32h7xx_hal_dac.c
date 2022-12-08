@@ -1049,13 +1049,17 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConf
         /* Check for the Timeout */
         if ((HAL_GetTick() - tickstart) > TIMEOUT_DAC_CALIBCONFIG)
         {
-          /* Update error code */
-          SET_BIT(hdac->ErrorCode, HAL_DAC_ERROR_TIMEOUT);
+          /* New check to avoid false timeout detection in case of preemption */
+          if(((hdac->Instance->SR) & DAC_SR_BWST1) != 0UL)
+          {
+            /* Update error code */
+            SET_BIT(hdac->ErrorCode, HAL_DAC_ERROR_TIMEOUT);
 
-          /* Change the DMA state */
-          hdac->State = HAL_DAC_STATE_TIMEOUT;
+            /* Change the DMA state */
+            hdac->State = HAL_DAC_STATE_TIMEOUT;
 
-          return HAL_TIMEOUT;
+            return HAL_TIMEOUT;
+          }
         }
       }
       HAL_Delay(1);
@@ -1070,13 +1074,17 @@ HAL_StatusTypeDef HAL_DAC_ConfigChannel(DAC_HandleTypeDef *hdac, DAC_ChannelConf
         /* Check for the Timeout */
         if ((HAL_GetTick() - tickstart) > TIMEOUT_DAC_CALIBCONFIG)
         {
-          /* Update error code */
-          SET_BIT(hdac->ErrorCode, HAL_DAC_ERROR_TIMEOUT);
+          /* New check to avoid false timeout detection in case of preemption */
+          if(((hdac->Instance->SR) & DAC_SR_BWST2) != 0UL)
+          {
+            /* Update error code */
+            SET_BIT(hdac->ErrorCode, HAL_DAC_ERROR_TIMEOUT);
 
-          /* Change the DMA state */
-          hdac->State = HAL_DAC_STATE_TIMEOUT;
+            /* Change the DMA state */
+            hdac->State = HAL_DAC_STATE_TIMEOUT;
 
-          return HAL_TIMEOUT;
+            return HAL_TIMEOUT;
+          }
         }
       }
       HAL_Delay(1U);

@@ -58,8 +58,12 @@
   * @}
   */
 
+/** @addtogroup DelayBlock_LL_Exported_Functions
+  * @{
+  */
+
 /* Peripheral Control functions  ************************************************/
-/** @addtogroup HAL_DELAYBLOCK_LL_Group3 Delay Block functions
+/** @addtogroup HAL_DELAY_LL_Group1
   * @{
   */
 HAL_StatusTypeDef DelayBlock_Enable(DLYB_TypeDef *DLYBx);
@@ -70,6 +74,9 @@ HAL_StatusTypeDef DelayBlock_Configure(DLYB_TypeDef *DLYBx, uint32_t PhaseSel, u
   * @}
   */
 
+/**
+  * @}
+  */
 
 /**
   * @}

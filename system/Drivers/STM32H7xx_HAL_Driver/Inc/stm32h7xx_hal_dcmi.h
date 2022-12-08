@@ -580,6 +580,13 @@ uint32_t              HAL_DCMI_GetError(DCMI_HandleTypeDef *hdcmi);
   */
 
 /* Private types -------------------------------------------------------------*/
+/* Private defines -----------------------------------------------------------*/
+/** @defgroup DCMI_Private_Defines DCMI Private Defines
+  * @{
+  */
+/**
+  * @}
+  */
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /** @defgroup DCMI_Private_Constants DCMI Private Constants

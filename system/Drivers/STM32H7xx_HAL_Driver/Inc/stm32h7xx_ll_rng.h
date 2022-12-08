@@ -38,6 +38,15 @@ extern "C" {
   */
 
 /* Private types -------------------------------------------------------------*/
+/* Private defines -----------------------------------------------------------*/
+/** @defgroup RNG_LL_Private_Defines RNG Private Defines
+  * @{
+  */
+/*  Health test control register information to use in CCM algorithm */
+#define LL_RNG_HTCFG   0x17590ABCU /*!< Magic number */
+/**
+  * @}
+  */
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
@@ -627,6 +636,9 @@ __STATIC_INLINE uint32_t LL_RNG_ReadRandData32(RNG_TypeDef *RNGx)
   */
 __STATIC_INLINE void LL_RNG_SetHealthConfig(RNG_TypeDef *RNGx, uint32_t HTCFG)
 {
+  /*!< magic number must be written immediately before to RNG_HTCRG */
+  WRITE_REG(RNGx->HTCR, LL_RNG_HTCFG);
+
   WRITE_REG(RNGx->HTCR, HTCFG);
 }
 
@@ -638,6 +650,9 @@ __STATIC_INLINE void LL_RNG_SetHealthConfig(RNG_TypeDef *RNGx, uint32_t HTCFG)
   */
 __STATIC_INLINE uint32_t LL_RNG_GetHealthConfig(RNG_TypeDef *RNGx)
 {
+  /*!< magic number must be written immediately before reading RNG_HTCRG */
+  WRITE_REG(RNGx->HTCR, LL_RNG_HTCFG);
+
   return (uint32_t)READ_REG(RNGx->HTCR);
 }
 

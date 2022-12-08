@@ -256,8 +256,8 @@ typedef struct
 
   uint32_t Offset;                 /*!< Define the offset to be subtracted from the raw converted data.
                                         Offset value must be a positive number.
-                                        Depending of ADC resolution selected (16, 14, 12, 10, 8 bits), this parameter must be a number between Min_Data = 0x0000 and Max_Data = 0xFFFF,
-                                        0x3FFF, 0xFFF, 0x3FF or 0xFF respectively.
+                                        Maximum value depends on ADC resolution and oversampling ratio (in case of oversampling used).
+                                        This parameter must be a number between Min_Data = 0x0000 and Max_Data = 0x3FFFC00 (corresponding to resolution 16 bit and oversampling ratio 1024).
                                         Note: This parameter must be modified when no conversion is on going on both regular and injected groups (ADC disabled, or ADC enabled
                                               without continuous mode or external trigger that could launch a conversion). */
 
@@ -755,14 +755,14 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 /** @defgroup ADC_analog_watchdog_filtering_config ADC Analog Watchdog filtering configuration
   * @{
   */
-#define ADC3_AWD_FILTERING_NONE          (0x00000000UL)                                                   /*!< ADC analog wathdog no filtering, one out-of-window sample is needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_2SAMPLES      ((ADC3_TR1_AWDFILT_0))                                           /*!< ADC analog wathdog 2 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_3SAMPLES      ((ADC3_TR1_AWDFILT_1))                                           /*!< ADC analog wathdog 3 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_4SAMPLES      ((ADC3_TR1_AWDFILT_1 | ADC3_TR1_AWDFILT_0))                      /*!< ADC analog wathdog 4 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_5SAMPLES      ((ADC3_TR1_AWDFILT_2))                                           /*!< ADC analog wathdog 5 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_6SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_0))                      /*!< ADC analog wathdog 6 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_7SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_1))                      /*!< ADC analog wathdog 7 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
-#define ADC3_AWD_FILTERING_8SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_1 | ADC3_TR1_AWDFILT_0)) /*!< ADC analog wathdog 8 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_NONE          (0x00000000UL)                                                   /*!< ADC analog watchdog no filtering, one out-of-window sample is needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_2SAMPLES      ((ADC3_TR1_AWDFILT_0))                                           /*!< ADC analog watchdog 2 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_3SAMPLES      ((ADC3_TR1_AWDFILT_1))                                           /*!< ADC analog watchdog 3 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_4SAMPLES      ((ADC3_TR1_AWDFILT_1 | ADC3_TR1_AWDFILT_0))                      /*!< ADC analog watchdog 4 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_5SAMPLES      ((ADC3_TR1_AWDFILT_2))                                           /*!< ADC analog watchdog 5 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_6SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_0))                      /*!< ADC analog watchdog 6 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_7SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_1))                      /*!< ADC analog watchdog 7 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
+#define ADC3_AWD_FILTERING_8SAMPLES      ((ADC3_TR1_AWDFILT_2 | ADC3_TR1_AWDFILT_1 | ADC3_TR1_AWDFILT_0)) /*!< ADC analog watchdog 8 consecutives out-of-window samples are needed to raise flag or interrupt. Applicable for ADC3 on devices STM32H72xx and STM32H73xx */
 /**
   * @}
   */
@@ -910,7 +910,7 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
 #define ADC_FLAG_AWD2          ADC_ISR_AWD2     /*!< ADC Analog watchdog 2 flag (additional analog watchdog) */
 #define ADC_FLAG_AWD3          ADC_ISR_AWD3     /*!< ADC Analog watchdog 3 flag (additional analog watchdog) */
 #define ADC_FLAG_JQOVF         ADC_ISR_JQOVF    /*!< ADC Injected Context Queue Overflow flag */
-
+#define ADC_FLAG_LDORDY        ADC_ISR_LDORDY   /*!< ADC LDO output voltage ready bit */
 /**
   * @}
   */
@@ -1372,7 +1372,8 @@ typedef  void (*pADC_CallbackTypeDef)(ADC_HandleTypeDef *hadc); /*!< pointer to 
   *            @arg @ref ADC_FLAG_AWD1    ADC Analog watchdog 1 flag (main analog watchdog)
   *            @arg @ref ADC_FLAG_AWD2    ADC Analog watchdog 2 flag (additional analog watchdog)
   *            @arg @ref ADC_FLAG_AWD3    ADC Analog watchdog 3 flag (additional analog watchdog)
-  *            @arg @ref ADC_FLAG_JQOVF   ADC Injected Context Queue Overflow flag.
+  *            @arg @ref ADC_FLAG_JQOVF   ADC Injected Context Queue Overflow flag
+  *            @arg @ref ADC_FLAG_LDORDY  ADC LDO output voltage ready bit.
   * @retval State of flag (TRUE or FALSE).
   */
 #define __HAL_ADC_GET_FLAG(__HANDLE__, __FLAG__)                               \

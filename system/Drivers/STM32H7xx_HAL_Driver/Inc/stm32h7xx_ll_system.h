@@ -542,8 +542,8 @@ __STATIC_INLINE void LL_SYSCFG_DisableAnalogBooster(void)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C1
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C2 (*)
   *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C3
-  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C4(*)
-  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C5(*)
+  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C4 (*)
+  *         @arg @ref LL_SYSCFG_I2C_FASTMODEPLUS_I2C5 (*)
   *
   *         (*) value not defined in all devices
   * @retval None

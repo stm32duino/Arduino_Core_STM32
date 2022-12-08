@@ -21,9 +21,6 @@
 #include "stm32h7xx_ll_spi.h"
 #include "stm32h7xx_ll_bus.h"
 #include "stm32h7xx_ll_rcc.h"
-#ifdef GENERATOR_I2S_PRESENT
-#include "stm32h7xx_ll_rcc.h"
-#endif /* GENERATOR_I2S_PRESENT*/
 #ifdef  USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
@@ -575,7 +572,7 @@ ErrorStatus LL_I2S_Init(SPI_TypeDef *SPIx, LL_I2S_InitTypeDef *I2S_InitStruct)
   uint32_t packetlength = 1UL;
   uint32_t ispcm = 0UL;
   uint32_t tmp;
-  uint32_t sourceclock = 0UL;
+  uint32_t sourceclock;
 
   ErrorStatus status = ERROR;
 

@@ -163,24 +163,19 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
     LL_RTC_WriteReg(RTCx, ALRMASSR, 0x00000000U);
     LL_RTC_WriteReg(RTCx, ALRMBSSR, 0x00000000U);
 
-#if defined(RTC_ICSR_ALRAWF)
+#if defined(TAMP)
     /* Reset ICSR register and exit initialization mode */
-    LL_RTC_WriteReg(RTCx, ICSR,      0x00000000U);
-#endif /* RTC_ICSR_ALRAWF */
-#if defined(RTC_ISR_ALRAWF)
+    LL_RTC_WriteReg(RTCx, ICSR,   0x00000000U);
+#else
     /* Reset ISR register and exit initialization mode */
-    LL_RTC_WriteReg(RTCx, ISR,      0x00000000U);
-#endif /* RTC_ISR_ALRAWF */
+    LL_RTC_WriteReg(RTCx, ISR,    0x00000000U);
 
-#if defined(RTC_TAMPCR_TAMP1E)
     /* Reset Tamper and alternate functions configuration register */
     LL_RTC_WriteReg(RTCx, TAMPCR, 0x00000000U);
-#endif /* RTC_TAMPCR_TAMP1E */
 
-#if defined(RTC_OR_ALARMOUTTYPE)
     /* Reset Option register */
-    LL_RTC_WriteReg(RTCx, OR, 0x00000000U);
-#endif /* RTC_OR_ALARMOUTTYPE */
+    LL_RTC_WriteReg(RTCx, OR,     0x00000000U);
+#endif /* TAMP */
 
     /* Wait till the RTC RSF flag is set */
     status = LL_RTC_WaitForSynchro(RTCx);
@@ -189,14 +184,14 @@ ErrorStatus LL_RTC_DeInit(RTC_TypeDef *RTCx)
   /* Enable the write protection for RTC registers */
   LL_RTC_EnableWriteProtection(RTCx);
 
-#if defined (TAMP_CR1_TAMP1E)
+#if defined(TAMP)
   /* DeInitialization of the TAMP */
   LL_RTC_WriteReg(TAMP, CR1,      0xFFFF0000U);
   LL_RTC_WriteReg(TAMP, FLTCR,    0x00000000U);
   LL_RTC_WriteReg(TAMP, ATCR1,    0x00000000U);
   LL_RTC_WriteReg(TAMP, IER,      0x00000000U);
   LL_RTC_WriteReg(TAMP, SCR,      0xFFFFFFFFU);
-#endif /* TAMP_CR1_TAMP1E */
+#endif /* TAMP */
 
   return status;
 }

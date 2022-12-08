@@ -25,16 +25,7 @@ Details about the content of this release are available in the release note [her
 
 ## Compatibility information
 
-In this table, you can find the successive versions of this CMSIS Device component, in-line with the corresponding versions of the full MCU package:
-
-CMSIS Device H7 | CMSIS Core | Was delivered in the full MCU package
---------------- | ---------- | -------------------------------------
-Tag v1.6.0      | Tag v5.4.0 | Tag v1.5.0
-Tag v1.7.0      | Tag v5.4.0 | Tag v1.6.0
-Tag v1.8.0      | Tag v5.4.0 | Tag v1.7.0
-Tag v1.9.0      | Tag v5.4.0 | Tag v1.8.0
-Tag v1.10.0     | Tag v5.6.0 | Tag v1.9.0
-Tag v1.10.1     | Tag v5.6.0 | Tag v1.9.1 (and following, if any, till next HAL tag)
+It is **crucial** that you use a consistent set of versions for the CMSIS Core - CMSIS Device, as mentioned in [this](https://htmlpreview.github.io/?https://github.com/STMicroelectronics/STM32CubeH7/blob/master/Release_Notes.html) release note.
 
 The full **STM32CubeH7** MCU package is available [here](https://github.com/STMicroelectronics/STM32CubeH7).
 

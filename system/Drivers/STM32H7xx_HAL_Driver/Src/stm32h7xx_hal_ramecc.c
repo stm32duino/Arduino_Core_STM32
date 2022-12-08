@@ -219,10 +219,6 @@ HAL_StatusTypeDef HAL_RAMECC_DeInit (RAMECC_HandleTypeDef *hramecc)
   * @}
   */
 
-/**
-  * @}
-  */
-
 /** @addtogroup RAMECC_Exported_Functions_Group2
   *
 @verbatim
@@ -501,7 +497,9 @@ void HAL_RAMECC_IRQHandler (RAMECC_HandleTypeDef *hramecc)
     hramecc->DetectErrorCallback(hramecc);
   }
 }
-
+/**
+  * @}
+  */
 
 /** @addtogroup RAMECC_Exported_Functions_Group3
   *
@@ -671,16 +669,11 @@ uint32_t HAL_RAMECC_GetError (RAMECC_HandleTypeDef *hramecc)
 /**
   * @}
   */
+
+/**
+  * @}
+  */
 #endif /* HAL_RAMECC_MODULE_ENABLED */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
 /**
   * @}
   */

@@ -169,8 +169,8 @@ typedef struct
 /** @defgroup ETHEx_L3_Filter ETHEx L3 Filter
   * @{
   */
-#define ETH_L3_FILTER_0                 ((uint32_t)0x00000000)
-#define ETH_L3_FILTER_1                 ((uint32_t)0x0000000C)
+#define ETH_L3_FILTER_0                 0x00000000U
+#define ETH_L3_FILTER_1                 0x0000000CU
 /**
   * @}
   */
@@ -178,8 +178,8 @@ typedef struct
 /** @defgroup ETHEx_L4_Filter ETHEx L4 Filter
   * @{
   */
-#define ETH_L4_FILTER_0                 ((uint32_t)0x00000000)
-#define ETH_L4_FILTER_1                 ((uint32_t)0x0000000C)
+#define ETH_L4_FILTER_0                 0x00000000U
+#define ETH_L4_FILTER_1                 0x0000000CU
 /**
   * @}
   */
@@ -188,7 +188,7 @@ typedef struct
   * @{
   */
 #define ETH_L3_IPV6_MATCH                       ETH_MACL3L4CR_L3PEN
-#define ETH_L3_IPV4_MATCH                       ((uint32_t)0x00000000)
+#define ETH_L3_IPV4_MATCH                       0x00000000U
 /**
   * @}
   */
@@ -198,7 +198,7 @@ typedef struct
   */
 #define ETH_L3_SRC_ADDR_PERFECT_MATCH_ENABLE    ETH_MACL3L4CR_L3SAM
 #define ETH_L3_SRC_ADDR_INVERSE_MATCH_ENABLE    (ETH_MACL3L4CR_L3SAM | ETH_MACL3L4CR_L3SAIM)
-#define ETH_L3_SRC_ADDR_MATCH_DISABLE           ((uint32_t)0x00000000)
+#define ETH_L3_SRC_ADDR_MATCH_DISABLE           0x00000000U
 /**
   * @}
   */
@@ -208,7 +208,7 @@ typedef struct
   */
 #define ETH_L3_DEST_ADDR_PERFECT_MATCH_ENABLE   ETH_MACL3L4CR_L3DAM
 #define ETH_L3_DEST_ADDR_INVERSE_MATCH_ENABLE   (ETH_MACL3L4CR_L3DAM | ETH_MACL3L4CR_L3DAIM)
-#define ETH_L3_DEST_ADDR_MATCH_DISABLE          ((uint32_t)0x00000000)
+#define ETH_L3_DEST_ADDR_MATCH_DISABLE          0x00000000U
 /**
   * @}
   */
@@ -217,7 +217,7 @@ typedef struct
   * @{
   */
 #define ETH_L4_UDP_MATCH                        ETH_MACL3L4CR_L4PEN
-#define ETH_L4_TCP_MATCH                        ((uint32_t)0x00000000)
+#define ETH_L4_TCP_MATCH                        0x00000000U
 /**
   * @}
   */
@@ -227,7 +227,7 @@ typedef struct
   */
 #define ETH_L4_SRC_PORT_PERFECT_MATCH_ENABLE    ETH_MACL3L4CR_L4SPM
 #define ETH_L4_SRC_PORT_INVERSE_MATCH_ENABLE    (ETH_MACL3L4CR_L4SPM |ETH_MACL3L4CR_L4SPIM)
-#define ETH_L4_SRC_PORT_MATCH_DISABLE           ((uint32_t)0x00000000)
+#define ETH_L4_SRC_PORT_MATCH_DISABLE           0x00000000U
 /**
   * @}
   */
@@ -237,7 +237,7 @@ typedef struct
   */
 #define ETH_L4_DEST_PORT_PERFECT_MATCH_ENABLE   ETH_MACL3L4CR_L4DPM
 #define ETH_L4_DEST_PORT_INVERSE_MATCH_ENABLE   (ETH_MACL3L4CR_L4DPM | ETH_MACL3L4CR_L4DPIM)
-#define ETH_L4_DEST_PORT_MATCH_DISABLE          ((uint32_t)0x00000000)
+#define ETH_L4_DEST_PORT_MATCH_DISABLE          0x00000000U
 /**
   * @}
   */
@@ -269,7 +269,7 @@ typedef struct
   */
 #define ETH_VLANTYPECHECK_DISABLE    ETH_MACVTR_DOVLTC
 #define ETH_VLANTYPECHECK_SVLAN      (ETH_MACVTR_ERSVLM | ETH_MACVTR_ESVL)
-#define ETH_VLANTYPECHECK_CVLAN      ((uint32_t)0x00000000)
+#define ETH_VLANTYPECHECK_CVLAN      0x00000000U
 /**
   * @}
   */
@@ -288,8 +288,8 @@ typedef struct
 /** @defgroup ETHEx_Tx_VLAN_Tag ETHEx Tx VLAN Tag
   * @{
   */
-#define ETH_INNER_TX_VLANTAG    ((uint32_t)0x00000001U)
-#define ETH_OUTER_TX_VLANTAG    ((uint32_t)0x00000000U)
+#define ETH_INNER_TX_VLANTAG    0x00000001U
+#define ETH_OUTER_TX_VLANTAG    0x00000000U
 /**
   * @}
   */

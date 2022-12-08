@@ -61,10 +61,15 @@ static const uint8_t LL_BDMA_CH_OFFSET_TAB[] =
 
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
+/** @defgroup BDMA_LL_Private_Macros BDMA Private Macros
+  * @{
+  */
 #if !defined(UNUSED)
 #define UNUSED(x) ((void)(x))
 #endif
-
+/**
+  * @}
+  */
 /* Exported types ------------------------------------------------------------*/
 #if defined(USE_FULL_LL_DRIVER)
 /** @defgroup BDMA_LL_ES_INIT BDMA Exported Init structure
@@ -337,6 +342,9 @@ typedef struct
   * @}
   */
 
+/**
+  * @}
+  */
 /* Exported macro ------------------------------------------------------------*/
 /** @defgroup BDMA_LL_Exported_Macros BDMA Exported Macros
   * @{
@@ -2430,14 +2438,6 @@ void LL_BDMA_StructInit(LL_BDMA_InitTypeDef *BDMA_InitStruct);
   */
 
 #endif /* BDMA || BDMA1 || BDMA2 */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
 /**
   * @}
   */

@@ -417,8 +417,6 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     return HAL_ERROR;
   }
-  /* Process locked */
-  __HAL_LOCK(hrng);
 
   if (HAL_RNG_STATE_READY == hrng->State)
   {
@@ -472,8 +470,6 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hrng);
   return status;
 }
 
@@ -492,8 +488,6 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
 {
   HAL_StatusTypeDef status = HAL_OK;
 
-  /* Process locked */
-  __HAL_LOCK(hrng);
 
   if (HAL_RNG_STATE_READY == hrng->State)
   {
@@ -547,8 +541,6 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
     status =  HAL_ERROR;
   }
 
-  /* Release Lock */
-  __HAL_UNLOCK(hrng);
   return status;
 }
 
@@ -714,8 +706,9 @@ HAL_StatusTypeDef HAL_RNG_GenerateRandomNumber(RNG_HandleTypeDef *hrng, uint32_t
        be used as it may not have enough entropy */
     if (__HAL_RNG_GET_IT(hrng, RNG_IT_SEI) != RESET)
     {
-      /* Update the error code */
+      /* Update the error code and status */
       hrng->ErrorCode = HAL_RNG_ERROR_SEED;
+      status = HAL_ERROR;
       /* Clear bit DRDY */
       CLEAR_BIT(hrng->Instance->SR, RNG_FLAG_DRDY);
     }

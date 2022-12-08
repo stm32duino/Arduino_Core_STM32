@@ -72,7 +72,9 @@ typedef struct __RAMECC_HandleTypeDef
 
 
 /* Exported constants --------------------------------------------------------*/
-
+/** @defgroup RAMECC_Exported_Constants RAMECC Exported Constants
+  * @{
+  */
 /** @defgroup RAMECC_Error_Codes RAMECC Error Codes
   * @{
   */
@@ -113,6 +115,9 @@ typedef struct __RAMECC_HandleTypeDef
 #define RAMECC_FLAG_DOUBLEERR_W            RAMECC_SR_DEBWDF
 #define RAMECC_FLAGS_ALL                   (RAMECC_SR_SEDCF | RAMECC_SR_DEDF | RAMECC_SR_DEBWDF)
 
+/**
+  * @}
+  */
 /**
   * @}
   */
@@ -277,8 +282,8 @@ uint32_t HAL_RAMECC_IsECCDoubleErrorDetected (RAMECC_HandleTypeDef *hramecc);
   * @}
   */
 
-/** @defgroup RAMECC_Exported_Functions_Group3 Error information functions
-  * @brief    Error information functions
+/** @defgroup RAMECC_Exported_Functions_Group4 State and Error Functions
+  * @brief    State and Error Functions
   * @{
   */
 HAL_RAMECC_StateTypeDef HAL_RAMECC_GetState (RAMECC_HandleTypeDef *hramecc);
@@ -324,19 +329,11 @@ uint32_t                HAL_RAMECC_GetError (RAMECC_HandleTypeDef *hramecc);
   * @}
   */
 
-/** @defgroup RAMECC_FLAG RAMECC Monitor flags
-  * @{
-  */
-
 /* Private functions ---------------------------------------------------------*/
 /** @defgroup RAMECC_Private_Functions RAMECC Private Functions
   * @brief    RAMECC private  functions
   * @{
   */
-/**
-  * @}
-  */
-
 /**
   * @}
   */
