@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32wl54xx_cm4.s
+  * @file      startup_stm32wl5mxx_cm4.s
   * @author    MCD Application Team
-  * @brief     STM32WL54xx devices Cortex-M4 vector table for GCC toolchain.
+  * @brief     STM32WL55xx devices Cortex-M4 vector table for GCC toolchain.
   *            This module performs:
   *                - Set the initial SP
   *                - Set the initial PC == Reset_Handler,
@@ -120,7 +120,7 @@ Infinite_Loop:
 
 /******************************************************************************
 *
-* The STM32WL54xx Cortex-M4 vector table.  Note that the proper constructs
+* The STM32WL55xx Cortex-M4 vector table.  Note that the proper constructs
 * must be placed on this to ensure that it ends up at physical address
 * 0x0000.0000.
 *

@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file      startup_stm32wl55xx_cm0plus.s
+  * @file      startup_stm32wl5mxx_cm0plus.s
   * @author    MCD Application Team
   * @brief     STM32WL55xx devices Cortex-M0+ vector table for GCC toolchain.
   *            This module performs:
