@@ -3,6 +3,18 @@
   * @file    stm32l5xx_ll_cortex.h
   * @author  MCD Application Team
   * @brief   Header file of CORTEX LL module.
+  *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                      ##### How to use this driver #####
@@ -15,19 +27,11 @@
       (+) Low power mode configuration (SCB register of Cortex-MCU)
       (+) API to access to MCU info (CPUID register)
       (+) API to enable fault handler (SHCSR accesses)
+      (+) API to enable and disable the MPU secure and non-secure
+      (+) API to configure the region of MPU secure and non-secure
+      (+) API to configure the attributes region of MPU secure and non-secure
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -54,6 +58,14 @@ extern "C" {
 /* Private variables ---------------------------------------------------------*/
 
 /* Private constants ---------------------------------------------------------*/
+/** @defgroup CORTEX_LL_EC_REGION_ACCESS CORTEX LL MPU Region Access Attributes
+  * @{
+  */
+/* Register MPU_RBAR (Cortex-M33) : bits [4:0] */
+#define MPU_ACCESS_MSK                     (MPU_RBAR_SH_Msk|MPU_RBAR_AP_Msk|MPU_RBAR_XN_Msk)
+/**
+  * @}
+  */
 
 /* Private macros ------------------------------------------------------------*/
 
@@ -66,8 +78,10 @@ extern "C" {
 /** @defgroup CORTEX_LL_EC_CLKSOURCE_HCLK SYSTICK Clock Source
   * @{
   */
-#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8     0x00000000U                 /*!< AHB clock divided by 8 selected as SysTick clock source.*/
-#define LL_SYSTICK_CLKSOURCE_HCLK          SysTick_CTRL_CLKSOURCE_Msk  /*!< AHB clock selected as SysTick clock source. */
+#define LL_SYSTICK_CLKSOURCE_HCLK_DIV8     0x00000000U                 /*!< AHB clock divided by 8 selected as SysTick
+                                                                            clock source */
+#define LL_SYSTICK_CLKSOURCE_HCLK          SysTick_CTRL_CLKSOURCE_Msk  /*!< AHB clock selected as SysTick
+                                                                            clock source */
 /**
   * @}
   */
@@ -201,6 +215,7 @@ extern "C" {
   */
 
 /** @defgroup CORTEX_LL_EF_SYSTICK SYSTICK
+  * @brief CORTEX SYSTICK LL module driver
   * @{
   */
 
@@ -507,7 +522,7 @@ __STATIC_INLINE void LL_MPU_Disable(void)
 {
   /* Make sure outstanding transfers are done */
   __DMB();
-  /* Disable MPU*/
+  /* Disable MPU */
   WRITE_REG(MPU->CTRL, 0U);
 }
 
@@ -534,7 +549,7 @@ __STATIC_INLINE uint32_t LL_MPU_IsEnabled(void)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_EnableRegion(uint32_t Region)
@@ -559,7 +574,7 @@ __STATIC_INLINE void LL_MPU_EnableRegion(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_MPU_IsEnabledRegion(uint32_t Region)
@@ -580,7 +595,7 @@ __STATIC_INLINE uint32_t LL_MPU_IsEnabledRegion(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_DisableRegion(uint32_t Region)
@@ -611,6 +626,12 @@ __STATIC_INLINE void LL_MPU_DisableRegion(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
+  * @param  Attributes This parameter can be a combination of the following values:
+  *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
+  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE
+  *              or @ref LL_MPU_ACCESS_INNER_SHAREABLE
+  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO
+  *              or @ref LL_MPU_REGION_ALL_RO
   * @param  AttrIndx This parameter can be one of the following values:
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER0
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER1
@@ -622,27 +643,20 @@ __STATIC_INLINE void LL_MPU_DisableRegion(uint32_t Region)
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER7
   * @param  BaseAddress Value of region base address
   * @param  LimitAddress Value of region limit address
-  * @param  Attributes This parameter can be a combination of the following values:
-  *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
-  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE or @ref LL_MPU_ACCESS_INNER_SHAREABLE
-  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_ALL_RO
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
-__STATIC_INLINE void LL_MPU_ConfigRegion(uint32_t Region, uint32_t Attributes, uint32_t AttrIndx, uint32_t BaseAddress, uint32_t LimitAddress)
+__STATIC_INLINE void LL_MPU_ConfigRegion(uint32_t Region, uint32_t Attributes, uint32_t AttrIndx, uint32_t BaseAddress,
+                                         uint32_t LimitAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
 
-  /* Set base address */
-  MPU->RBAR |=  Attributes;
-  /* Set base address */
-  MPU->RBAR |= (BaseAddress & 0xFFFFFFE0U);
+  /* Set region base address and region access attributes */
+  WRITE_REG(MPU->RBAR, ((BaseAddress & MPU_RBAR_BASE_Msk) | Attributes));
 
-  /* Set limit address */
-  MPU->RLAR |= (LimitAddress & 0xFFFFFFE0U);
-  /* Configure MPU */
-  MPU->RLAR |= (MPU_RLAR_EN_Msk | AttrIndx);
+  /* Set region limit address, memory attributes index and enable region */
+  WRITE_REG(MPU->RLAR, ((LimitAddress & MPU_RLAR_LIMIT_Msk) | AttrIndx | MPU_RLAR_EN_Msk));
 }
 
 /**
@@ -661,7 +675,7 @@ __STATIC_INLINE void LL_MPU_ConfigRegion(uint32_t Region, uint32_t Attributes, u
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  BaseAddress Value of region base address
   * @param  LimitAddress Value of region limit address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_ConfigRegionAddress(uint32_t Region, uint32_t BaseAddress, uint32_t LimitAddress)
@@ -669,11 +683,11 @@ __STATIC_INLINE void LL_MPU_ConfigRegionAddress(uint32_t Region, uint32_t BaseAd
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
 
-  /* Set base address */
-  MPU->RBAR |= (BaseAddress & 0xFFFFFFE0U) ;
+  /* Modify region base address */
+  MODIFY_REG(MPU->RBAR, MPU_RBAR_BASE_Msk, (BaseAddress & MPU_RBAR_BASE_Msk));
 
-  /* Set limit address */
-  MPU->RLAR |= (LimitAddress & 0xFFFFFFE0U);
+  /* Modify region limit address */
+  MODIFY_REG(MPU->RLAR, MPU_RLAR_LIMIT_Msk, (LimitAddress & MPU_RLAR_LIMIT_Msk));
 }
 
 /**
@@ -700,15 +714,17 @@ __STATIC_INLINE void LL_MPU_ConfigRegionAddress(uint32_t Region, uint32_t BaseAd
   */
 __STATIC_INLINE void LL_MPU_ConfigAttributes(uint32_t AttIndex, uint32_t  Attributes)
 {
+  /* When selected index is in range [0;3] */
   if (AttIndex < LL_MPU_ATTRIBUTES_NUMBER4)
   {
-    /* Program MPU_MAIR0 */
-    WRITE_REG(MPU->MAIR0, (Attributes << (AttIndex * 8U)));
+    /* Modify Attr<i> field of MPU_MAIR0 accordingly */
+    MODIFY_REG(MPU->MAIR0, (0xFFUL << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
   }
+  /* When selected index is in range [4;7] */
   else
   {
-    /* Program MPU_MAIR1 */
-    WRITE_REG(MPU->MAIR1, (Attributes << ((AttIndex - 4U) * 8U)));
+    /* Modify Attr<i> field of MPU_MAIR1 accordingly */
+    MODIFY_REG(MPU->MAIR1, (0xFFUL << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
   }
 }
 
@@ -726,15 +742,16 @@ __STATIC_INLINE void LL_MPU_ConfigAttributes(uint32_t AttIndex, uint32_t  Attrib
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  BaseAddress Value of region base address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionBaseAddress(uint32_t Region, uint32_t BaseAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   /* Set base address */
-  MPU->RBAR |= (BaseAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU->RBAR, MPU_RBAR_BASE_Msk, (BaseAddress & MPU_RBAR_BASE_Msk));
 }
 
 /**
@@ -756,6 +773,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionBaseAddress(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   return (READ_REG(MPU->RBAR & MPU_RBAR_BASE_Msk));
 }
 
@@ -773,15 +791,16 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionBaseAddress(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  LimitAddress Value of region limit address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionLimitAddress(uint32_t Region, uint32_t LimitAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   /* Set limit address */
-  MPU->RLAR |= (LimitAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU->RLAR, MPU_RLAR_LIMIT_Msk, (LimitAddress & MPU_RLAR_LIMIT_Msk));
 }
 
 /**
@@ -803,6 +822,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionLimitAddress(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   return (READ_REG(MPU->RLAR & MPU_RLAR_LIMIT_Msk));
 }
 
@@ -823,17 +843,20 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionLimitAddress(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  Attributes This parameter can be a combination of the following values:
   *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
-  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE or @ref LL_MPU_ACCESS_INNER_SHAREABLE
-  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_ALL_RO
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE
+                 or @ref LL_MPU_ACCESS_INNER_SHAREABLE
+  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO
+                 or @ref LL_MPU_REGION_ALL_RO
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionAccess(uint32_t Region, uint32_t Attributes)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   /* Set base address */
-  MPU->RBAR |=  Attributes;
+  MODIFY_REG(MPU->RBAR, MPU_ACCESS_MSK, (Attributes & MPU_ACCESS_MSK));
 }
 
 /**
@@ -857,6 +880,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionAccess(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU->RNR, Region);
+
   return (READ_REG(MPU->RBAR & (MPU_RBAR_XN_Msk | MPU_RBAR_AP_Msk | MPU_RBAR_SH_Msk)));
 }
 
@@ -923,7 +947,7 @@ __STATIC_INLINE uint32_t LL_MPU_IsEnabled_NS(void)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_EnableRegion_NS(uint32_t Region)
@@ -948,7 +972,7 @@ __STATIC_INLINE void LL_MPU_EnableRegion_NS(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_DisableRegion_NS(uint32_t Region)
@@ -973,7 +997,7 @@ __STATIC_INLINE void LL_MPU_DisableRegion_NS(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval State of bit (1 or 0).
   */
 __STATIC_INLINE uint32_t LL_MPU_IsEnabledRegion_NS(uint32_t Region)
@@ -1000,6 +1024,12 @@ __STATIC_INLINE uint32_t LL_MPU_IsEnabledRegion_NS(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER5
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
+  * @param  Attributes This parameter can be a combination of the following values:
+  *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
+  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE
+  *              or @ref LL_MPU_ACCESS_INNER_SHAREABLE
+  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO
+  *              or @ref LL_MPU_REGION_ALL_RO
   * @param  AttrIndx This parameter can be one of the following values:
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER0
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER1
@@ -1011,28 +1041,20 @@ __STATIC_INLINE uint32_t LL_MPU_IsEnabledRegion_NS(uint32_t Region)
   *         @arg @ref LL_MPU_ATTRIBUTES_NUMBER7
   * @param  BaseAddress Value of region base address
   * @param  LimitAddress Value of region limit address
-  * @param  Attributes This parameter can be a combination of the following values:
-  *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
-  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE or @ref LL_MPU_ACCESS_INNER_SHAREABLE
-  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_ALL_RO
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
-__STATIC_INLINE void LL_MPU_ConfigRegion_NS(uint32_t Region, uint32_t Attributes, uint32_t AttrIndx, uint32_t BaseAddress, uint32_t LimitAddress)
+__STATIC_INLINE void LL_MPU_ConfigRegion_NS(uint32_t Region, uint32_t Attributes, uint32_t AttrIndx,
+                                            uint32_t BaseAddress, uint32_t LimitAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
 
-  /* Set base address */
-  MPU_NS->RBAR |=  Attributes;
+  /* Set region base address and region access attributes */
+  WRITE_REG(MPU_NS->RBAR, ((BaseAddress & MPU_RBAR_BASE_Msk) | Attributes));
 
-  /* Set base address */
-  MPU_NS->RBAR |= (BaseAddress & 0xFFFFFFE0U);
-
-  /* Set limit address */
-  MPU_NS->RLAR |= (LimitAddress & 0xFFFFFFE0U);
-  /* Configure MPU */
-  MPU_NS->RLAR |= (MPU_RLAR_EN_Msk | AttrIndx);
+  /* Set region limit address, memory attributes index and enable region */
+  WRITE_REG(MPU_NS->RLAR, ((LimitAddress & MPU_RLAR_LIMIT_Msk) | AttrIndx | MPU_RLAR_EN_Msk));
 }
 
 /**
@@ -1051,7 +1073,7 @@ __STATIC_INLINE void LL_MPU_ConfigRegion_NS(uint32_t Region, uint32_t Attributes
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  BaseAddress Value of region base address
   * @param  LimitAddress Value of region limit address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_ConfigRegionAddress_NS(uint32_t Region, uint32_t BaseAddress, uint32_t LimitAddress)
@@ -1060,10 +1082,10 @@ __STATIC_INLINE void LL_MPU_ConfigRegionAddress_NS(uint32_t Region, uint32_t Bas
   WRITE_REG(MPU_NS->RNR, Region);
 
   /* Set base address */
-  MPU_NS->RBAR |= (BaseAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU_NS->RBAR, MPU_RBAR_BASE_Msk, (BaseAddress & MPU_RBAR_BASE_Msk));
 
   /* Set limit address */
-  MPU_NS->RLAR |= (LimitAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU_NS->RLAR, MPU_RLAR_LIMIT_Msk, (LimitAddress & MPU_RLAR_LIMIT_Msk));
 }
 
 /**
@@ -1090,15 +1112,17 @@ __STATIC_INLINE void LL_MPU_ConfigRegionAddress_NS(uint32_t Region, uint32_t Bas
   */
 __STATIC_INLINE void LL_MPU_ConfigAttributes_NS(uint32_t AttIndex, uint32_t  Attributes)
 {
+  /* When selected index is in range [0;3] */
   if (AttIndex < LL_MPU_ATTRIBUTES_NUMBER4)
   {
-    /* Program MPU_MAIR0 */
-    WRITE_REG(MPU_NS->MAIR0, (Attributes << (AttIndex * 8U)));
+    /* Modify Attr<i> field of MPU_MAIR0_NS accordingly */
+    MODIFY_REG(MPU_NS->MAIR0, (0xFFUL << (AttIndex * 8U)), (Attributes << (AttIndex * 8U)));
   }
+  /* When selected index is in range [4;7] */
   else
   {
-    /* Program MPU_MAIR1 */
-    WRITE_REG(MPU_NS->MAIR1, (Attributes << ((AttIndex - 4U) * 8U)));
+    /* Modify Attr<i> field of MPU_MAIR1_NS accordingly */
+    MODIFY_REG(MPU_NS->MAIR1, (0xFFUL << ((AttIndex - 4U) * 8U)), (Attributes << ((AttIndex - 4U) * 8U)));
   }
 }
 
@@ -1116,15 +1140,16 @@ __STATIC_INLINE void LL_MPU_ConfigAttributes_NS(uint32_t AttIndex, uint32_t  Att
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  BaseAddress Value of region base address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionBaseAddress_NS(uint32_t Region, uint32_t BaseAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   /* Set base address */
-  MPU_NS->RBAR |= (BaseAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU_NS->RBAR, MPU_RBAR_BASE_Msk, (BaseAddress & MPU_RBAR_BASE_Msk));
 }
 
 /**
@@ -1146,6 +1171,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionBaseAddress_NS(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   return (READ_REG(MPU_NS->RBAR & MPU_RBAR_BASE_Msk));
 }
 
@@ -1163,15 +1189,16 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionBaseAddress_NS(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER6
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  LimitAddress Value of region limit address
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionLimitAddress_NS(uint32_t Region, uint32_t LimitAddress)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   /* Set limit address */
-  MPU_NS->RLAR |= (LimitAddress & 0xFFFFFFE0U);
+  MODIFY_REG(MPU_NS->RLAR, MPU_RLAR_LIMIT_Msk, (LimitAddress & MPU_RLAR_LIMIT_Msk));
 }
 
 /**
@@ -1193,6 +1220,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionLimitAddress_NS(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   return (READ_REG(MPU_NS->RLAR & MPU_RLAR_LIMIT_Msk));
 }
 
@@ -1213,17 +1241,20 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionLimitAddress_NS(uint32_t Region)
   *         @arg @ref LL_MPU_REGION_NUMBER7
   * @param  Attributes This parameter can be a combination of the following values:
   *         @arg @ref LL_MPU_INSTRUCTION_ACCESS_ENABLE or @ref LL_MPU_INSTRUCTION_ACCESS_DISABLE
-  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE or @ref LL_MPU_ACCESS_INNER_SHAREABLE
-  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO or @ref LL_MPU_REGION_ALL_RO
-  * @note   cortex-M33 support 8 secure and 8 non secure regions.
+  *         @arg @ref LL_MPU_ACCESS_NOT_SHAREABLE or @ref LL_MPU_ACCESS_OUTER_SHAREABLE
+  *              or @ref LL_MPU_ACCESS_INNER_SHAREABLE
+  *         @arg @ref LL_MPU_REGION_PRIV_RW or @ref LL_MPU_REGION_ALL_RW or @ref LL_MPU_REGION_PRIV_RO
+  *              or @ref LL_MPU_REGION_ALL_RO
+  * @note   cortex-M33 supports 8 secure and 8 non secure regions.
   * @retval None
   */
 __STATIC_INLINE void LL_MPU_SetRegionAccess_NS(uint32_t Region, uint32_t Attributes)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   /* Set base address Attributes */
-  MPU_NS->RBAR |=  Attributes;
+  MODIFY_REG(MPU_NS->RBAR, MPU_ACCESS_MSK, (Attributes & MPU_ACCESS_MSK));
 }
 
 /**
@@ -1247,6 +1278,7 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionAccess_NS(uint32_t Region)
 {
   /* Set Region number */
   WRITE_REG(MPU_NS->RNR, Region);
+
   return (READ_REG(MPU_NS->RBAR & (MPU_RBAR_XN_Msk | MPU_RBAR_AP_Msk | MPU_RBAR_SH_Msk)));
 }
 #endif /* __ARM_FEATURE_CMSE */
@@ -1274,4 +1306,3 @@ __STATIC_INLINE uint32_t LL_MPU_GetRegionAccess_NS(uint32_t Region)
 
 #endif /* STM32L5xx_LL_CORTEX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

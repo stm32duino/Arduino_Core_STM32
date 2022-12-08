@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -288,7 +287,7 @@ __STATIC_INLINE void LL_ICACHE_Invalidate(void)
 
 /**
   * @brief  Enable the hit/miss monitor(s).
-  * @rmtoll CR           HITMEN        LL_ICACHE_EnableMonitors\n
+  * @rmtoll CR           HITMEN        LL_ICACHE_EnableMonitors
   * @rmtoll CR           MISSMEN       LL_ICACHE_EnableMonitors
   * @param  Monitors This parameter can be one or a combination of the following values:
   *         @arg @ref LL_ICACHE_MONITOR_HIT
@@ -303,7 +302,7 @@ __STATIC_INLINE void LL_ICACHE_EnableMonitors(uint32_t Monitors)
 
 /**
   * @brief  Disable the hit/miss monitor(s).
-  * @rmtoll CR           HITMEN        LL_ICACHE_DisableMonitors\n
+  * @rmtoll CR           HITMEN        LL_ICACHE_DisableMonitors
   * @rmtoll CR           MISSMEN       LL_ICACHE_DisableMonitors
   * @param  Monitors This parameter can be one or a combination of the following values:
   *         @arg @ref LL_ICACHE_MONITOR_HIT
@@ -318,14 +317,13 @@ __STATIC_INLINE void LL_ICACHE_DisableMonitors(uint32_t Monitors)
 
 /**
   * @brief  Check if the monitor(s) is(are) enabled or disabled.
-  * @rmtoll CR           HITMEN        LL_ICACHE_IsEnabledMonitors\n
+  * @rmtoll CR           HITMEN        LL_ICACHE_IsEnabledMonitors
   * @rmtoll CR           MISSMEN       LL_ICACHE_IsEnabledMonitors
   * @param  Monitors This parameter can be one or a combination of the following values:
   *         @arg @ref LL_ICACHE_MONITOR_HIT
   *         @arg @ref LL_ICACHE_MONITOR_MISS
   *         @arg @ref LL_ICACHE_MONITOR_ALL
   * @retval State of parameter value (1 or 0).
-  * @retval None
   */
 __STATIC_INLINE uint32_t LL_ICACHE_IsEnabledMonitors(uint32_t Monitors)
 {
@@ -334,7 +332,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_IsEnabledMonitors(uint32_t Monitors)
 
 /**
   * @brief  Reset the hit/miss monitor(s).
-  * @rmtoll CR           HITMRST       LL_ICACHE_ResetMonitors\n
+  * @rmtoll CR           HITMRST       LL_ICACHE_ResetMonitors
   * @rmtoll CR           MISSMRST      LL_ICACHE_ResetMonitors
   * @param  Monitors This parameter can be one or a combination of the following values:
   *         @arg @ref LL_ICACHE_MONITOR_HIT
@@ -519,7 +517,7 @@ __STATIC_INLINE void LL_ICACHE_ClearFlag_ERR(void)
   */
 __STATIC_INLINE void LL_ICACHE_EnableRegion(uint32_t Region)
 {
-  SET_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  SET_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
           ICACHE_CRRx_REN);
 }
 
@@ -535,7 +533,7 @@ __STATIC_INLINE void LL_ICACHE_EnableRegion(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_DisableRegion(uint32_t Region)
 {
-  CLEAR_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  CLEAR_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
             ICACHE_CRRx_REN);
 }
 
@@ -551,7 +549,7 @@ __STATIC_INLINE void LL_ICACHE_DisableRegion(uint32_t Region)
   */
 __STATIC_INLINE uint32_t LL_ICACHE_IsEnabledRegion(uint32_t Region)
 {
-  return ((READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return ((READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                     ICACHE_CRRx_REN) == (ICACHE_CRRx_REN)) ? 1UL : 0UL);
 }
 
@@ -568,7 +566,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_IsEnabledRegion(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_SetRegionBaseAddress(uint32_t Region, uint32_t Address)
 {
-  MODIFY_REG(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  MODIFY_REG(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
              ICACHE_CRRx_BASEADDR, (((Address & 0x1FFFFFFFU) >> 21U) & ICACHE_CRRx_BASEADDR));
 }
 
@@ -585,7 +583,7 @@ __STATIC_INLINE void LL_ICACHE_SetRegionBaseAddress(uint32_t Region, uint32_t Ad
   */
 __STATIC_INLINE uint32_t LL_ICACHE_GetRegionBaseAddress(uint32_t Region)
 {
-  return (READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return (READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                    ICACHE_CRRx_BASEADDR));
 }
 
@@ -602,7 +600,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_GetRegionBaseAddress(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_SetRegionRemapAddress(uint32_t Region, uint32_t Address)
 {
-  MODIFY_REG(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  MODIFY_REG(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
              ICACHE_CRRx_REMAPADDR, ((Address >> 21U) << ICACHE_CRRx_REMAPADDR_Pos));
 }
 
@@ -618,7 +616,7 @@ __STATIC_INLINE void LL_ICACHE_SetRegionRemapAddress(uint32_t Region, uint32_t A
   */
 __STATIC_INLINE uint32_t LL_ICACHE_GetRegionRemapAddress(uint32_t Region)
 {
-  return ((READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return ((READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                     ICACHE_CRRx_REMAPADDR) >> ICACHE_CRRx_REMAPADDR_Pos) << 21U);
 }
 
@@ -642,7 +640,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_GetRegionRemapAddress(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_SetRegionSize(uint32_t Region, uint32_t Size)
 {
-  MODIFY_REG(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  MODIFY_REG(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
              ICACHE_CRRx_RSIZE, (Size << ICACHE_CRRx_RSIZE_Pos));
 }
 
@@ -665,7 +663,7 @@ __STATIC_INLINE void LL_ICACHE_SetRegionSize(uint32_t Region, uint32_t Size)
   */
 __STATIC_INLINE uint32_t LL_ICACHE_GetRegionSize(uint32_t Region)
 {
-  return (READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return (READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                    ICACHE_CRRx_RSIZE) >> ICACHE_CRRx_RSIZE_Pos);
 }
 
@@ -684,7 +682,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_GetRegionSize(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_SetRegionOutputBurstType(uint32_t Region, uint32_t Type)
 {
-  MODIFY_REG(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  MODIFY_REG(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
              ICACHE_CRRx_HBURST, Type);
 }
 
@@ -702,7 +700,7 @@ __STATIC_INLINE void LL_ICACHE_SetRegionOutputBurstType(uint32_t Region, uint32_
   */
 __STATIC_INLINE uint32_t LL_ICACHE_GetRegionOutputBurstType(uint32_t Region)
 {
-  return (READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return (READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                    ICACHE_CRRx_HBURST));
 }
 
@@ -721,7 +719,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_GetRegionOutputBurstType(uint32_t Region)
   */
 __STATIC_INLINE void LL_ICACHE_SetRegionMasterPort(uint32_t Region, uint32_t Port)
 {
-  MODIFY_REG(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  MODIFY_REG(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
              ICACHE_CRRx_MSTSEL, Port);
 }
 
@@ -739,7 +737,7 @@ __STATIC_INLINE void LL_ICACHE_SetRegionMasterPort(uint32_t Region, uint32_t Por
   */
 __STATIC_INLINE uint32_t LL_ICACHE_GetRegionMasterPort(uint32_t Region)
 {
-  return (READ_BIT(*((volatile uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
+  return (READ_BIT(*((__IO uint32_t *)(&(ICACHE->CRR0) + (1U * Region))), \
                    ICACHE_CRRx_MSTSEL));
 }
 
@@ -752,7 +750,7 @@ __STATIC_INLINE uint32_t LL_ICACHE_GetRegionMasterPort(uint32_t Region)
   * @{
   */
 
-void LL_ICACHE_ConfigRegion(uint32_t Region, LL_ICACHE_RegionTypeDef *ICACHE_RegionStruct);
+void LL_ICACHE_ConfigRegion(uint32_t Region, const LL_ICACHE_RegionTypeDef *const pICACHE_RegionStruct);
 
 /**
   * @}
@@ -778,5 +776,3 @@ void LL_ICACHE_ConfigRegion(uint32_t Region, LL_ICACHE_RegionTypeDef *ICACHE_Reg
 #endif
 
 #endif /* STM32L5xx_LL_ICACHE_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

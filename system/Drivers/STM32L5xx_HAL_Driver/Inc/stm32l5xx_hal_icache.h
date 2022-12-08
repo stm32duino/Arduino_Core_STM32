@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -227,6 +226,7 @@ typedef struct
 /* Peripheral Control functions **********************************************/
 HAL_StatusTypeDef HAL_ICACHE_Enable(void);
 HAL_StatusTypeDef HAL_ICACHE_Disable(void);
+uint32_t HAL_ICACHE_IsEnabled(void);
 HAL_StatusTypeDef HAL_ICACHE_ConfigAssociativityMode(uint32_t AssociativityMode);
 HAL_StatusTypeDef HAL_ICACHE_DeInit(void);
 
@@ -266,47 +266,12 @@ void HAL_ICACHE_ErrorCallback(void);
   * @{
   */
 /******* Memory remapped regions functions */
-HAL_StatusTypeDef HAL_ICACHE_EnableRemapRegion(uint32_t Region, ICACHE_RegionConfigTypeDef *sRegionConfig);
+HAL_StatusTypeDef HAL_ICACHE_EnableRemapRegion(uint32_t Region, const ICACHE_RegionConfigTypeDef *const pRegionConfig);
 HAL_StatusTypeDef HAL_ICACHE_DisableRemapRegion(uint32_t Region);
 
 /**
   * @}
   */
-
-/**
-  * @}
-  */
-
-/* Private types -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
-/* Private constants ---------------------------------------------------------*/
-/* Private macros ------------------------------------------------------------*/
-/** @defgroup ICACHE_Private_Macros ICACHE Private Macros
-  * @{
-  */
-
-#define IS_ICACHE_ASSOCIATIVITY_MODE(__MODE__) (((__MODE__) == ICACHE_1WAY) || \
-                                                ((__MODE__) == ICACHE_2WAYS))
-
-#define IS_ICACHE_MONITOR_TYPE(__TYPE__)    (((__TYPE__) == ICACHE_MONITOR_HIT_MISS) || \
-                                             ((__TYPE__) == ICACHE_MONITOR_HIT)      || \
-                                             ((__TYPE__) == ICACHE_MONITOR_MISS))
-
-#define IS_ICACHE_REGION_NUMBER(__NUMBER__) ((__NUMBER__) < 4U)
-
-#define IS_ICACHE_REGION_SIZE(__SIZE__)     (((__SIZE__) == ICACHE_REGIONSIZE_2MB)   || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_4MB)   || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_8MB)   || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_16MB)  || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_32MB)  || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_64MB)  || \
-                                             ((__SIZE__) == ICACHE_REGIONSIZE_128MB))
-
-#define IS_ICACHE_REGION_TRAFFIC_ROUTE(__TRAFFICROUTE__)  (((__TRAFFICROUTE__) == ICACHE_MASTER1_PORT) || \
-                                                           ((__TRAFFICROUTE__) == ICACHE_MASTER2_PORT))
-
-#define IS_ICACHE_REGION_OUTPUT_BURST_TYPE(__OUTPUTBURSTTYPE_) (((__OUTPUTBURSTTYPE_) == ICACHE_OUTPUT_BURST_WRAP) || \
-                                                                ((__OUTPUTBURSTTYPE_) == ICACHE_OUTPUT_BURST_INCR))
 
 /**
   * @}
@@ -325,5 +290,3 @@ HAL_StatusTypeDef HAL_ICACHE_DisableRemapRegion(uint32_t Region);
 #endif
 
 #endif /* STM32L5xx_HAL_ICACHE_H */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

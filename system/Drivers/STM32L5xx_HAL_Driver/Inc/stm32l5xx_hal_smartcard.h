@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -202,7 +201,7 @@ typedef struct __SMARTCARD_HandleTypeDef
 
   SMARTCARD_AdvFeatureInitTypeDef   AdvancedInit;          /*!< SmartCard advanced features initialization parameters */
 
-  uint8_t                           *pTxBuffPtr;           /*!< Pointer to SmartCard Tx transfer Buffer               */
+  const uint8_t                     *pTxBuffPtr;           /*!< Pointer to SmartCard Tx transfer Buffer               */
 
   uint16_t                          TxXferSize;            /*!< SmartCard Tx Transfer size                            */
 
@@ -346,15 +345,15 @@ typedef enum
 /** @defgroup SMARTCARD_Error_Definition SMARTCARD Error Code Definition
   * @{
   */
-#define HAL_SMARTCARD_ERROR_NONE             ((uint32_t)0x00000000U)         /*!< No error                */
-#define HAL_SMARTCARD_ERROR_PE               ((uint32_t)0x00000001U)         /*!< Parity error            */
-#define HAL_SMARTCARD_ERROR_NE               ((uint32_t)0x00000002U)         /*!< Noise error             */
-#define HAL_SMARTCARD_ERROR_FE               ((uint32_t)0x00000004U)         /*!< frame error             */
-#define HAL_SMARTCARD_ERROR_ORE              ((uint32_t)0x00000008U)         /*!< Overrun error           */
-#define HAL_SMARTCARD_ERROR_DMA              ((uint32_t)0x00000010U)         /*!< DMA transfer error      */
-#define HAL_SMARTCARD_ERROR_RTO              ((uint32_t)0x00000020U)         /*!< Receiver TimeOut error  */
+#define HAL_SMARTCARD_ERROR_NONE             (0x00000000U)         /*!< No error                */
+#define HAL_SMARTCARD_ERROR_PE               (0x00000001U)         /*!< Parity error            */
+#define HAL_SMARTCARD_ERROR_NE               (0x00000002U)         /*!< Noise error             */
+#define HAL_SMARTCARD_ERROR_FE               (0x00000004U)         /*!< frame error             */
+#define HAL_SMARTCARD_ERROR_ORE              (0x00000008U)         /*!< Overrun error           */
+#define HAL_SMARTCARD_ERROR_DMA              (0x00000010U)         /*!< DMA transfer error      */
+#define HAL_SMARTCARD_ERROR_RTO              (0x00000020U)         /*!< Receiver TimeOut error  */
 #if (USE_HAL_SMARTCARD_REGISTER_CALLBACKS == 1)
-#define HAL_SMARTCARD_ERROR_INVALID_CALLBACK ((uint32_t)0x00000040U)         /*!< Invalid Callback error  */
+#define HAL_SMARTCARD_ERROR_INVALID_CALLBACK (0x00000040U)         /*!< Invalid Callback error  */
 #endif /* USE_HAL_SMARTCARD_REGISTER_CALLBACKS */
 /**
   * @}
@@ -690,13 +689,13 @@ typedef enum
   */
 #define __HAL_SMARTCARD_ENABLE_IT(__HANDLE__, __INTERRUPT__)   (((((__INTERRUPT__) & SMARTCARD_CR_MASK) >>\
                                                                   SMARTCARD_CR_POS) == 1U)?\
-                                                                ((__HANDLE__)->Instance->CR1 |= ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR1 |= (1UL <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))):\
                                                                 ((((__INTERRUPT__) & SMARTCARD_CR_MASK) >>\
                                                                   SMARTCARD_CR_POS) == 2U)?\
-                                                                ((__HANDLE__)->Instance->CR2 |= ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR2 |= (1UL <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
-                                                                ((__HANDLE__)->Instance->CR3 |= ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR3 |= (1UL <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))))
 
 /** @brief  Disable the specified SmartCard interrupt.
@@ -723,13 +722,13 @@ typedef enum
   */
 #define __HAL_SMARTCARD_DISABLE_IT(__HANDLE__, __INTERRUPT__)  (((((__INTERRUPT__) & SMARTCARD_CR_MASK) >>\
                                                                   SMARTCARD_CR_POS) == 1U)?\
-                                                                ((__HANDLE__)->Instance->CR1 &= ~ ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR1 &= ~ (1U <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
                                                                 ((((__INTERRUPT__) & SMARTCARD_CR_MASK) >>\
                                                                   SMARTCARD_CR_POS) == 2U)?\
-                                                                ((__HANDLE__)->Instance->CR2 &= ~ ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR2 &= ~ (1U <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))): \
-                                                                ((__HANDLE__)->Instance->CR3 &= ~ ((uint32_t)1U <<\
+                                                                ((__HANDLE__)->Instance->CR3 &= ~ (1U <<\
                                                                     ((__INTERRUPT__) & SMARTCARD_IT_MASK))))
 
 /** @brief  Check whether the specified SmartCard interrupt has occurred or not.
@@ -754,9 +753,9 @@ typedef enum
   *            @arg @ref SMARTCARD_IT_TXFT   TXFIFO threshold reached interruption
   * @retval The new state of __INTERRUPT__ (SET or RESET).
   */
-#define __HAL_SMARTCARD_GET_IT(__HANDLE__, __INTERRUPT__) ((((__HANDLE__)->Instance->ISR\
-                                                             & ((uint32_t)0x01U << (((__INTERRUPT__)\
-                                                                 & SMARTCARD_ISR_MASK)>> SMARTCARD_ISR_POS))) != 0U)\
+#define __HAL_SMARTCARD_GET_IT(__HANDLE__, __INTERRUPT__) (\
+                                                           (((__HANDLE__)->Instance->ISR & (0x01UL << (((__INTERRUPT__)\
+                                                               & SMARTCARD_ISR_MASK)>> SMARTCARD_ISR_POS)))!= 0U)\
                                                            ? SET : RESET)
 
 /** @brief  Check whether the specified SmartCard interrupt source is enabled or not.
@@ -788,8 +787,9 @@ typedef enum
                                                                         SMARTCARD_CR_POS) == 0x02U)?\
                                                                       (__HANDLE__)->Instance->CR2 : \
                                                                       (__HANDLE__)->Instance->CR3)) &\
-                                                                    ((uint32_t)0x01U << (((uint16_t)(__INTERRUPT__))\
-                                                                        & SMARTCARD_IT_MASK)))  != 0U) ? SET : RESET)
+                                                                    (0x01UL << (((uint16_t)(__INTERRUPT__))\
+                                                                                & SMARTCARD_IT_MASK)))  != 0U)\
+                                                                  ? SET : RESET)
 
 /** @brief  Clear the specified SMARTCARD ISR flag, in setting the proper ICR register flag.
   * @param  __HANDLE__ specifies the SMARTCARD Handle.
@@ -1152,13 +1152,13 @@ HAL_StatusTypeDef HAL_SMARTCARD_UnRegisterCallback(SMARTCARD_HandleTypeDef *hsma
   * @{
   */
 
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size,
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit(SMARTCARD_HandleTypeDef *hsmartcard, const uint8_t *pData, uint16_t Size,
                                          uint32_t Timeout);
 HAL_StatusTypeDef HAL_SMARTCARD_Receive(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size,
                                         uint32_t Timeout);
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_IT(SMARTCARD_HandleTypeDef *hsmartcard, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SMARTCARD_Receive_IT(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
-HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
+HAL_StatusTypeDef HAL_SMARTCARD_Transmit_DMA(SMARTCARD_HandleTypeDef *hsmartcard, const uint8_t *pData, uint16_t Size);
 HAL_StatusTypeDef HAL_SMARTCARD_Receive_DMA(SMARTCARD_HandleTypeDef *hsmartcard, uint8_t *pData, uint16_t Size);
 /* Transfer Abort functions */
 HAL_StatusTypeDef HAL_SMARTCARD_Abort(SMARTCARD_HandleTypeDef *hsmartcard);
@@ -1185,8 +1185,8 @@ void HAL_SMARTCARD_AbortReceiveCpltCallback(SMARTCARD_HandleTypeDef *hsmartcard)
   * @{
   */
 
-HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(SMARTCARD_HandleTypeDef *hsmartcard);
-uint32_t                   HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsmartcard);
+HAL_SMARTCARD_StateTypeDef HAL_SMARTCARD_GetState(const SMARTCARD_HandleTypeDef *hsmartcard);
+uint32_t                   HAL_SMARTCARD_GetError(const SMARTCARD_HandleTypeDef *hsmartcard);
 
 /**
   * @}
@@ -1210,4 +1210,3 @@ uint32_t                   HAL_SMARTCARD_GetError(SMARTCARD_HandleTypeDef *hsmar
 
 #endif /* STM32L5xx_HAL_SMARTCARD_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

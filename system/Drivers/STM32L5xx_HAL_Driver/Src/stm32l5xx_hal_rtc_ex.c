@@ -11,6 +11,17 @@
   *           + Extended Control functions
   *           + Extended RTC features functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                   ##### How to use this driver #####
@@ -94,17 +105,6 @@
          perform TAMP base address offset calculation.
 
    @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -1524,10 +1524,9 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
   assert_param(IS_RTC_TAMPER(sTamper->Tamper));
   assert_param(IS_RTC_TAMPER_TRIGGER(sTamper->Trigger));
   assert_param(IS_RTC_TAMPER_ERASE_MODE(sTamper->NoErase));
-  assert_param(IS_RTC_TAMPER_MASKFLAG_STATE(sTamper->MaskFlag));
   assert_param(IS_RTC_TAMPER_TIMESTAMPONTAMPER_DETECTION(sTamper->TimeStampOnTamperDetection));
-  /* Mask flag only supported by TAMPER 1, 2 and 3 */
-  assert_param(!((sTamper->MaskFlag != RTC_TAMPERMASK_FLAG_DISABLE) && (sTamper->Tamper > RTC_TAMPER_3)));
+  /* The interrupt must not be enabled when TAMPxMSK is set. */
+  assert_param(sTamper->MaskFlag == RTC_TAMPERMASK_FLAG_DISABLE);
   assert_param(IS_RTC_TAMPER_FILTER(sTamper->Filter));
   assert_param(IS_RTC_TAMPER_SAMPLING_FREQ(sTamper->SamplingFrequency));
   assert_param(IS_RTC_TAMPER_PRECHARGE_DURATION(sTamper->PrechargeDuration));
@@ -1543,11 +1542,6 @@ HAL_StatusTypeDef HAL_RTCEx_SetTamper_IT(RTC_HandleTypeDef *hrtc, RTC_TamperType
   if ((sTamper->Trigger == RTC_TAMPERTRIGGER_HIGHLEVEL) || (sTamper->Trigger == RTC_TAMPERTRIGGER_FALLINGEDGE))
   {
     tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1TRG_Pos);
-  }
-
-  if (sTamper->MaskFlag != RTC_TAMPERMASK_FLAG_DISABLE)
-  {
-    tmpreg |= (sTamper->Tamper << TAMP_CR2_TAMP1MSK_Pos);
   }
 
   if (sTamper->NoErase != RTC_TAMPER_ERASE_BACKUP_ENABLE)
@@ -2852,4 +2846,3 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef *hrtc, RTC_Privil
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

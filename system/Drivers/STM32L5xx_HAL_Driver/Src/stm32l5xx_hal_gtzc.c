@@ -11,6 +11,17 @@
   *           + TZSC, TZSC-MPCWM and MPCBB Lock functions
   *           + TZIC Initialization and Configuration functions
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                 ##### GTZC main features #####
@@ -78,17 +89,6 @@
         and user can add his own code using HAL_GTZC_TZIC_Callback()
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -454,7 +454,7 @@ HAL_StatusTypeDef HAL_GTZC_TZSC_GetConfigPeriphAttributes(uint32_t PeriphId,
   * @retval HAL status.
   */
 HAL_StatusTypeDef HAL_GTZC_TZSC_MPCWM_ConfigMemAttributes(uint32_t MemBaseAddress,
-                                                          MPCWM_ConfigTypeDef *pMPCWM_Desc)
+                                                          const MPCWM_ConfigTypeDef *pMPCWM_Desc)
 {
   uint32_t register_address;
   uint32_t reg_value;
@@ -675,7 +675,7 @@ void HAL_GTZC_TZSC_Lock(GTZC_TZSC_TypeDef *TZSC_Instance)
   * @param  TZSC_Instance TZSC sub-block instance.
   * @retval Lock State (GTZC_TZSC_LOCK_OFF or GTZC_TZSC_LOCK_ON)
   */
-uint32_t HAL_GTZC_TZSC_GetLock(GTZC_TZSC_TypeDef *TZSC_Instance)
+uint32_t HAL_GTZC_TZSC_GetLock(const GTZC_TZSC_TypeDef *TZSC_Instance)
 {
   return READ_BIT(TZSC_Instance->CR, GTZC_TZSC_CR_LCK_Msk);
 }
@@ -708,7 +708,7 @@ uint32_t HAL_GTZC_TZSC_GetLock(GTZC_TZSC_TypeDef *TZSC_Instance)
   * @retval HAL status.
   */
 HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
-                                           MPCBB_ConfigTypeDef *pMPCBB_desc)
+                                           const MPCBB_ConfigTypeDef *pMPCBB_desc)
 {
   GTZC_MPCBB_TypeDef *mpcbb_ptr;
   uint32_t reg_value;
@@ -744,13 +744,6 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
     mem_size = GTZC_MEM_SIZE(SRAM2);
   }
 
-  /* write configuration and lock register information */
-  MODIFY_REG(mpcbb_ptr->CR,
-             GTZC_MPCBB_CR_INVSECSTATE_Msk | GTZC_MPCBB_CR_SRWILADIS_Msk, reg_value);
-  size_mask = (1UL << (mem_size / GTZC_MPCBB_SUPERBLOCK_SIZE)) - 1U;
-  /* limitation: code not portable with memory > 256K */
-  MODIFY_REG(mpcbb_ptr->LCKVTR1, size_mask, pMPCBB_desc->AttributeConfig.MPCBB_LockConfig_array[0]);
-
   /* write vector register information */
   size_in_superblocks = (mem_size / GTZC_MPCBB_SUPERBLOCK_SIZE);
   for (i = 0U; i < size_in_superblocks; i++)
@@ -758,6 +751,14 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMem(uint32_t MemBaseAddress,
     WRITE_REG(mpcbb_ptr->VCTR[i],
               pMPCBB_desc->AttributeConfig.MPCBB_SecConfig_array[i]);
   }
+
+  /* write configuration and lock register information */
+  MODIFY_REG(mpcbb_ptr->CR,
+             GTZC_MPCBB_CR_INVSECSTATE_Msk | GTZC_MPCBB_CR_SRWILADIS_Msk, reg_value);
+
+  size_mask = (1UL << (mem_size / GTZC_MPCBB_SUPERBLOCK_SIZE)) - 1U;
+  /* limitation: code not portable with memory > 256K */
+  MODIFY_REG(mpcbb_ptr->LCKVTR1, size_mask, pMPCBB_desc->AttributeConfig.MPCBB_LockConfig_array[0]);
 
   return HAL_OK;
 }
@@ -829,7 +830,7 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_GetConfigMem(uint32_t MemBaseAddress,
   */
 HAL_StatusTypeDef HAL_GTZC_MPCBB_ConfigMemAttributes(uint32_t MemAddress,
                                                      uint32_t NbBlocks,
-                                                     uint32_t *pMemAttributes)
+                                                     const uint32_t *pMemAttributes)
 {
   GTZC_MPCBB_TypeDef *mpcbb_ptr;
   uint32_t base_address, end_address;
@@ -1004,7 +1005,7 @@ HAL_StatusTypeDef HAL_GTZC_MPCBB_GetConfigMemAttributes(uint32_t MemAddress,
   */
 HAL_StatusTypeDef HAL_GTZC_MPCBB_LockConfig(uint32_t MemAddress,
                                             uint32_t NbSuperBlocks,
-                                            uint32_t *pLockAttributes)
+                                            const uint32_t *pLockAttributes)
 {
   __IO uint32_t *reg_mpcbb;
   uint32_t base_address;
@@ -1504,5 +1505,3 @@ __weak void HAL_GTZC_TZIC_Callback(uint32_t PeriphId)
 /**
   * @}
   */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

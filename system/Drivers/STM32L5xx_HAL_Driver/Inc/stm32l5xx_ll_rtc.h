@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -3470,7 +3469,33 @@ __STATIC_INLINE uint32_t LL_RTC_WAKEUP_GetAutoReload(RTC_TypeDef *RTCx)
   *         @arg @ref LL_RTC_BKP_DR2
   *         @arg @ref LL_RTC_BKP_DR3
   *         @arg @ref LL_RTC_BKP_DR4
-  *         @arg @ref LL_RTC_BKP_DR...
+  *         @arg @ref LL_RTC_BKP_DR5
+  *         @arg @ref LL_RTC_BKP_DR6
+  *         @arg @ref LL_RTC_BKP_DR7
+  *         @arg @ref LL_RTC_BKP_DR8
+  *         @arg @ref LL_RTC_BKP_DR9
+  *         @arg @ref LL_RTC_BKP_DR10
+  *         @arg @ref LL_RTC_BKP_DR11
+  *         @arg @ref LL_RTC_BKP_DR12
+  *         @arg @ref LL_RTC_BKP_DR13
+  *         @arg @ref LL_RTC_BKP_DR14
+  *         @arg @ref LL_RTC_BKP_DR15
+  *         @arg @ref LL_RTC_BKP_DR16
+  *         @arg @ref LL_RTC_BKP_DR17
+  *         @arg @ref LL_RTC_BKP_DR18
+  *         @arg @ref LL_RTC_BKP_DR19
+  *         @arg @ref LL_RTC_BKP_DR20
+  *         @arg @ref LL_RTC_BKP_DR21
+  *         @arg @ref LL_RTC_BKP_DR22
+  *         @arg @ref LL_RTC_BKP_DR23
+  *         @arg @ref LL_RTC_BKP_DR24
+  *         @arg @ref LL_RTC_BKP_DR25
+  *         @arg @ref LL_RTC_BKP_DR26
+  *         @arg @ref LL_RTC_BKP_DR27
+  *         @arg @ref LL_RTC_BKP_DR28
+  *         @arg @ref LL_RTC_BKP_DR29
+  *         @arg @ref LL_RTC_BKP_DR30
+  *         @arg @ref LL_RTC_BKP_DR31
   * @param  Data Value between Min_Data=0x00 and Max_Data=0xFFFFFFFF
   * @retval None
   */
@@ -3497,7 +3522,33 @@ __STATIC_INLINE void LL_RTC_BKP_SetRegister(RTC_TypeDef *RTCx, uint32_t BackupRe
   *         @arg @ref LL_RTC_BKP_DR2
   *         @arg @ref LL_RTC_BKP_DR3
   *         @arg @ref LL_RTC_BKP_DR4
-  *         @arg @ref LL_RTC_BKP_DR...
+  *         @arg @ref LL_RTC_BKP_DR5
+  *         @arg @ref LL_RTC_BKP_DR6
+  *         @arg @ref LL_RTC_BKP_DR7
+  *         @arg @ref LL_RTC_BKP_DR8
+  *         @arg @ref LL_RTC_BKP_DR9
+  *         @arg @ref LL_RTC_BKP_DR10
+  *         @arg @ref LL_RTC_BKP_DR11
+  *         @arg @ref LL_RTC_BKP_DR12
+  *         @arg @ref LL_RTC_BKP_DR13
+  *         @arg @ref LL_RTC_BKP_DR14
+  *         @arg @ref LL_RTC_BKP_DR15
+  *         @arg @ref LL_RTC_BKP_DR16
+  *         @arg @ref LL_RTC_BKP_DR17
+  *         @arg @ref LL_RTC_BKP_DR18
+  *         @arg @ref LL_RTC_BKP_DR19
+  *         @arg @ref LL_RTC_BKP_DR20
+  *         @arg @ref LL_RTC_BKP_DR21
+  *         @arg @ref LL_RTC_BKP_DR22
+  *         @arg @ref LL_RTC_BKP_DR23
+  *         @arg @ref LL_RTC_BKP_DR24
+  *         @arg @ref LL_RTC_BKP_DR25
+  *         @arg @ref LL_RTC_BKP_DR26
+  *         @arg @ref LL_RTC_BKP_DR27
+  *         @arg @ref LL_RTC_BKP_DR28
+  *         @arg @ref LL_RTC_BKP_DR29
+  *         @arg @ref LL_RTC_BKP_DR30
+  *         @arg @ref LL_RTC_BKP_DR31
   * @retval Value between Min_Data=0x00 and Max_Data=0xFFFFFFFF
   */
 __STATIC_INLINE uint32_t LL_RTC_BKP_GetRegister(RTC_TypeDef *RTCx, uint32_t BackupRegister)
@@ -4656,14 +4707,66 @@ __STATIC_INLINE uint32_t LL_RTC_GetBackupRegisterPrivilege(RTC_TypeDef *RTCx)
   *         @arg @ref LL_RTC_BKP_DR2
   *         @arg @ref LL_RTC_BKP_DR3
   *         @arg @ref LL_RTC_BKP_DR4
-  *         @arg @ref LL_RTC_BKP_DR...
+  *         @arg @ref LL_RTC_BKP_DR5
+  *         @arg @ref LL_RTC_BKP_DR6
+  *         @arg @ref LL_RTC_BKP_DR7
+  *         @arg @ref LL_RTC_BKP_DR8
+  *         @arg @ref LL_RTC_BKP_DR9
+  *         @arg @ref LL_RTC_BKP_DR10
+  *         @arg @ref LL_RTC_BKP_DR11
+  *         @arg @ref LL_RTC_BKP_DR12
+  *         @arg @ref LL_RTC_BKP_DR13
+  *         @arg @ref LL_RTC_BKP_DR14
+  *         @arg @ref LL_RTC_BKP_DR15
+  *         @arg @ref LL_RTC_BKP_DR16
+  *         @arg @ref LL_RTC_BKP_DR17
+  *         @arg @ref LL_RTC_BKP_DR18
+  *         @arg @ref LL_RTC_BKP_DR19
+  *         @arg @ref LL_RTC_BKP_DR20
+  *         @arg @ref LL_RTC_BKP_DR21
+  *         @arg @ref LL_RTC_BKP_DR22
+  *         @arg @ref LL_RTC_BKP_DR23
+  *         @arg @ref LL_RTC_BKP_DR24
+  *         @arg @ref LL_RTC_BKP_DR25
+  *         @arg @ref LL_RTC_BKP_DR26
+  *         @arg @ref LL_RTC_BKP_DR27
+  *         @arg @ref LL_RTC_BKP_DR28
+  *         @arg @ref LL_RTC_BKP_DR29
+  *         @arg @ref LL_RTC_BKP_DR30
+  *         @arg @ref LL_RTC_BKP_DR31
   * @param  startZone3 This parameter can be one of the following values:
   *         @arg @ref LL_RTC_BKP_DR0
   *         @arg @ref LL_RTC_BKP_DR1
   *         @arg @ref LL_RTC_BKP_DR2
   *         @arg @ref LL_RTC_BKP_DR3
   *         @arg @ref LL_RTC_BKP_DR4
-  *         @arg @ref LL_RTC_BKP_DR...
+  *         @arg @ref LL_RTC_BKP_DR5
+  *         @arg @ref LL_RTC_BKP_DR6
+  *         @arg @ref LL_RTC_BKP_DR7
+  *         @arg @ref LL_RTC_BKP_DR8
+  *         @arg @ref LL_RTC_BKP_DR9
+  *         @arg @ref LL_RTC_BKP_DR10
+  *         @arg @ref LL_RTC_BKP_DR11
+  *         @arg @ref LL_RTC_BKP_DR12
+  *         @arg @ref LL_RTC_BKP_DR13
+  *         @arg @ref LL_RTC_BKP_DR14
+  *         @arg @ref LL_RTC_BKP_DR15
+  *         @arg @ref LL_RTC_BKP_DR16
+  *         @arg @ref LL_RTC_BKP_DR17
+  *         @arg @ref LL_RTC_BKP_DR18
+  *         @arg @ref LL_RTC_BKP_DR19
+  *         @arg @ref LL_RTC_BKP_DR20
+  *         @arg @ref LL_RTC_BKP_DR21
+  *         @arg @ref LL_RTC_BKP_DR22
+  *         @arg @ref LL_RTC_BKP_DR23
+  *         @arg @ref LL_RTC_BKP_DR24
+  *         @arg @ref LL_RTC_BKP_DR25
+  *         @arg @ref LL_RTC_BKP_DR26
+  *         @arg @ref LL_RTC_BKP_DR27
+  *         @arg @ref LL_RTC_BKP_DR28
+  *         @arg @ref LL_RTC_BKP_DR29
+  *         @arg @ref LL_RTC_BKP_DR30
+  *         @arg @ref LL_RTC_BKP_DR31
   * @retval None
   */
 __STATIC_INLINE void LL_RTC_SetBackupRegProtection(RTC_TypeDef *RTCx, uint32_t startZone2, uint32_t startZone3)
@@ -5449,4 +5552,3 @@ ErrorStatus LL_RTC_WaitForSynchro(RTC_TypeDef *RTCx);
 
 #endif /* STM32L5xx_LL_RTC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

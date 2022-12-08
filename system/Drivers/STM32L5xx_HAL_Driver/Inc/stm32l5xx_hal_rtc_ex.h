@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1116,6 +1115,12 @@ typedef struct
   *            @arg  RTC_TAMPER_6: Tamper6
   *            @arg  RTC_TAMPER_7: Tamper7
   *            @arg  RTC_TAMPER_8: Tamper8
+  *            @arg  RTC_IT_INT_TAMP_ALL: All internal tampers interrupts
+  *            @arg  RTC_IT_INT_TAMP_1: Internal Tamper1 interrupt
+  *            @arg  RTC_IT_INT_TAMP_2: Internal Tamper2 interrupt
+  *            @arg  RTC_IT_INT_TAMP_3: Internal Tamper3 interrupt
+  *            @arg  RTC_IT_INT_TAMP_5: Internal Tamper5 interrupt
+  *            @arg  RTC_IT_INT_TAMP_8: Internal Tamper8 interrupt
   * @retval None
   */
 #define __HAL_RTC_TAMPER_ENABLE(__HANDLE__, __TAMPER__)           (TAMP->CR1 |= (__TAMPER__))
@@ -1134,6 +1139,12 @@ typedef struct
   *            @arg  RTC_TAMPER_6: Tamper6
   *            @arg  RTC_TAMPER_7: Tamper7
   *            @arg  RTC_TAMPER_8: Tamper8
+  *            @arg  RTC_IT_INT_TAMP_ALL: All internal tampers interrupts
+  *            @arg  RTC_IT_INT_TAMP_1: Internal Tamper1 interrupt
+  *            @arg  RTC_IT_INT_TAMP_2: Internal Tamper2 interrupt
+  *            @arg  RTC_IT_INT_TAMP_3: Internal Tamper3 interrupt
+  *            @arg  RTC_IT_INT_TAMP_5: Internal Tamper5 interrupt
+  *            @arg  RTC_IT_INT_TAMP_8: Internal Tamper8 interrupt
   */
 #define __HAL_RTC_TAMPER_DISABLE(__HANDLE__, __TAMPER__)           (TAMP->CR1 &= ~(__TAMPER__))
 
@@ -1153,6 +1164,12 @@ typedef struct
   *            @arg  RTC_IT_TAMP_6: Tamper6 interrupt
   *            @arg  RTC_IT_TAMP_7: Tamper7 interrupt
   *            @arg  RTC_IT_TAMP_8: Tamper8 interrupt
+  *            @arg  RTC_IT_INT_TAMP_ALL: All internal tampers interrupts
+  *            @arg  RTC_IT_INT_TAMP_1: Internal Tamper1 interrupt
+  *            @arg  RTC_IT_INT_TAMP_2: Internal Tamper2 interrupt
+  *            @arg  RTC_IT_INT_TAMP_3: Internal Tamper3 interrupt
+  *            @arg  RTC_IT_INT_TAMP_5: Internal Tamper5 interrupt
+  *            @arg  RTC_IT_INT_TAMP_8: Internal Tamper8 interrupt
   * @retval None
   */
 #define __HAL_RTC_TAMPER_ENABLE_IT(__HANDLE__, __INTERRUPT__)        (TAMP->IER |= (__INTERRUPT__))
@@ -1171,6 +1188,12 @@ typedef struct
   *            @arg  RTC_IT_TAMP_6: Tamper6 interrupt
   *            @arg  RTC_IT_TAMP_7: Tamper7 interrupt
   *            @arg  RTC_IT_TAMP_8: Tamper8 interrupt
+  *            @arg  RTC_IT_INT_TAMP_ALL: All internal tampers interrupts
+  *            @arg  RTC_IT_INT_TAMP_1: Internal Tamper1 interrupt
+  *            @arg  RTC_IT_INT_TAMP_2: Internal Tamper2 interrupt
+  *            @arg  RTC_IT_INT_TAMP_3: Internal Tamper3 interrupt
+  *            @arg  RTC_IT_INT_TAMP_5: Internal Tamper5 interrupt
+  *            @arg  RTC_IT_INT_TAMP_8: Internal Tamper8 interrupt
   * @retval None
   */
 #define __HAL_RTC_TAMPER_DISABLE_IT(__HANDLE__, __INTERRUPT__)       (TAMP->IER &= ~(__INTERRUPT__))
@@ -1605,4 +1628,3 @@ HAL_StatusTypeDef HAL_RTCEx_PrivilegeModeGet(RTC_HandleTypeDef *hrtc, RTC_Privil
 
 #endif /* STM32L5xx_HAL_RTC_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

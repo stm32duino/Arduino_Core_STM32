@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -50,7 +49,7 @@
 /* OPAMP instance.                                                            */
 
 #define IS_LL_OPAMP_POWER_MODE(__POWER_MODE__)                                 \
-  (   ((__POWER_MODE__) == LL_OPAMP_POWERMODE_NORMAL)                          \
+  (   ((__POWER_MODE__) == LL_OPAMP_POWERMODE_NORMALPOWER)                          \
    || ((__POWER_MODE__) == LL_OPAMP_POWERMODE_LOWPOWER))
 
 #define IS_LL_OPAMP_FUNCTIONAL_MODE(__FUNCTIONAL_MODE__)                       \
@@ -196,7 +195,7 @@ ErrorStatus LL_OPAMP_Init(OPAMP_TypeDef *OPAMPx, LL_OPAMP_InitTypeDef *OPAMP_Ini
 void LL_OPAMP_StructInit(LL_OPAMP_InitTypeDef *OPAMP_InitStruct)
 {
   /* Set OPAMP_InitStruct fields to default values */
-  OPAMP_InitStruct->PowerMode         = LL_OPAMP_POWERMODE_NORMAL;
+  OPAMP_InitStruct->PowerMode         = LL_OPAMP_POWERMODE_NORMALPOWER;
   OPAMP_InitStruct->FunctionalMode    = LL_OPAMP_MODE_FOLLOWER;
   OPAMP_InitStruct->InputNonInverting = LL_OPAMP_INPUT_NONINVERT_IO0;
   /* Note: Parameter discarded if OPAMP in functional mode follower,          */
@@ -224,4 +223,3 @@ void LL_OPAMP_StructInit(LL_OPAMP_InitTypeDef *OPAMP_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
