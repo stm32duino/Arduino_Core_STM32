@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -1897,6 +1896,49 @@ __STATIC_INLINE uint32_t LL_DMA_GetPeriphRequest(DMA_TypeDef *DMAx, uint32_t Cha
 }
 
 /**
+  * @brief Set Memory 1 address (used in case of Double buffer mode).
+  * @rmtoll CM1AR        M1A         LL_DMA_SetMemory1Address
+  * @param  DMAx DMAx Instance
+  * @param  Channel This parameter can be one of the following values:
+  *         @arg @ref LL_DMA_CHANNEL_1
+  *         @arg @ref LL_DMA_CHANNEL_2
+  *         @arg @ref LL_DMA_CHANNEL_3
+  *         @arg @ref LL_DMA_CHANNEL_4
+  *         @arg @ref LL_DMA_CHANNEL_5
+  *         @arg @ref LL_DMA_CHANNEL_6
+  *         @arg @ref LL_DMA_CHANNEL_7
+  *         @arg @ref LL_DMA_CHANNEL_8
+  * @param  MemoryAddress Between 0 to 0xFFFFFFFF
+  * @retval None
+  */
+__STATIC_INLINE void LL_DMA_SetMemory1Address(DMA_TypeDef *DMAx, uint32_t Channel, uint32_t MemoryAddress)
+{
+  uint32_t dma_base_addr = (uint32_t)DMAx;
+  WRITE_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel]))->CM1AR, MemoryAddress);
+}
+
+/**
+  * @brief  Get Memory 1 address (used in case of Double buffer mode).
+  * @rmtoll CM1AR         MA            LL_DMA_GetMemory1Address
+  * @param  DMAx DMAx Instance
+  * @param  Channel This parameter can be one of the following values:
+  *         @arg @ref LL_DMA_CHANNEL_1
+  *         @arg @ref LL_DMA_CHANNEL_2
+  *         @arg @ref LL_DMA_CHANNEL_3
+  *         @arg @ref LL_DMA_CHANNEL_4
+  *         @arg @ref LL_DMA_CHANNEL_5
+  *         @arg @ref LL_DMA_CHANNEL_6
+  *         @arg @ref LL_DMA_CHANNEL_7
+  *         @arg @ref LL_DMA_CHANNEL_8
+  * @retval Between Min_Data = 0 and Max_Data = 0xFFFFFFFF
+  */
+__STATIC_INLINE uint32_t LL_DMA_GetMemory1Address(DMA_TypeDef *DMAx, uint32_t Channel)
+{
+  uint32_t dma_base_addr = (uint32_t)DMAx;
+  return (READ_REG(((DMA_Channel_TypeDef *)(dma_base_addr + CHANNEL_OFFSET_TAB[Channel]))->CM1AR));
+}
+
+/**
   * @}
   */
 
@@ -2844,4 +2886,3 @@ void LL_DMA_StructInit(LL_DMA_InitTypeDef *DMA_InitStruct);
 
 #endif /* STM32L5xx_LL_DMA_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

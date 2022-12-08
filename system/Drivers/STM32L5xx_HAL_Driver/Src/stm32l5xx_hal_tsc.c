@@ -10,6 +10,17 @@
   *           + Read acquisition result
   *           + Interrupts and flags management
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
 ================================================================================
                        ##### TSC specific features #####
@@ -82,10 +93,10 @@
   [..]
      The compilation flag USE_HAL_TSC_REGISTER_CALLBACKS when set to 1
      allows the user to configure dynamically the driver callbacks.
-     Use Functions @ref HAL_TSC_RegisterCallback() to register an interrupt callback.
+     Use Functions HAL_TSC_RegisterCallback() to register an interrupt callback.
 
   [..]
-     Function @ref HAL_TSC_RegisterCallback() allows to register following callbacks:
+     Function HAL_TSC_RegisterCallback() allows to register following callbacks:
        (+) ConvCpltCallback   : callback for conversion complete process.
        (+) ErrorCallback      : callback for error detection.
        (+) MspInitCallback    : callback for Msp Init.
@@ -95,9 +106,9 @@
      and a pointer to the user callback function.
 
   [..]
-     Use function @ref HAL_TSC_UnRegisterCallback to reset a callback to the default
+     Use function HAL_TSC_UnRegisterCallback to reset a callback to the default
      weak function.
-     @ref HAL_TSC_UnRegisterCallback takes as parameters the HAL peripheral handle,
+     HAL_TSC_UnRegisterCallback takes as parameters the HAL peripheral handle,
      and the Callback ID.
   [..]
      This function allows to reset following callbacks:
@@ -107,23 +118,23 @@
        (+) MspDeInitCallback  : callback for Msp DeInit.
 
   [..]
-     By default, after the @ref HAL_TSC_Init() and when the state is @ref HAL_TSC_STATE_RESET
+     By default, after the HAL_TSC_Init() and when the state is HAL_TSC_STATE_RESET
      all callbacks are set to the corresponding weak functions:
-     examples @ref HAL_TSC_ConvCpltCallback(), @ref HAL_TSC_ErrorCallback().
+     examples HAL_TSC_ConvCpltCallback(), HAL_TSC_ErrorCallback().
      Exception done for MspInit and MspDeInit functions that are
-     reset to the legacy weak functions in the @ref HAL_TSC_Init()/ @ref HAL_TSC_DeInit() only when
+     reset to the legacy weak functions in the HAL_TSC_Init()/ HAL_TSC_DeInit() only when
      these callbacks are null (not registered beforehand).
-     If MspInit or MspDeInit are not null, the @ref HAL_TSC_Init()/ @ref HAL_TSC_DeInit()
+     If MspInit or MspDeInit are not null, the HAL_TSC_Init()/ HAL_TSC_DeInit()
      keep and use the user MspInit/MspDeInit callbacks (registered beforehand) whatever the state.
 
   [..]
-     Callbacks can be registered/unregistered in @ref HAL_TSC_STATE_READY state only.
+     Callbacks can be registered/unregistered in HAL_TSC_STATE_READY state only.
      Exception done MspInit/MspDeInit functions that can be registered/unregistered
-     in @ref HAL_TSC_STATE_READY or @ref HAL_TSC_STATE_RESET state,
+     in HAL_TSC_STATE_READY or HAL_TSC_STATE_RESET state,
      thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
      Then, the user first registers the MspInit/MspDeInit user callbacks
-     using @ref HAL_TSC_RegisterCallback() before calling @ref HAL_TSC_DeInit()
-     or @ref HAL_TSC_Init() function.
+     using HAL_TSC_RegisterCallback() before calling HAL_TSC_DeInit()
+     or HAL_TSC_Init() function.
 
   [..]
      When the compilation flag USE_HAL_TSC_REGISTER_CALLBACKS is set to 0 or
@@ -180,18 +191,7 @@
     |   PB10 (AF9) |   TSC_SYNC      |
     |   PD2 (AF9)  |                 |
     +--------------------------------+
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
+
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -222,8 +222,8 @@ static uint32_t TSC_extract_groups(uint32_t iomask);
   */
 
 /** @defgroup TSC_Exported_Functions_Group1 Initialization and de-initialization functions
- *  @brief    Initialization and Configuration functions
- *
+  *  @brief    Initialization and Configuration functions
+  *
 @verbatim
  ===============================================================================
               ##### Initialization and de-initialization functions #####
@@ -602,8 +602,8 @@ HAL_StatusTypeDef HAL_TSC_UnRegisterCallback(TSC_HandleTypeDef *htsc, HAL_TSC_Ca
   */
 
 /** @defgroup TSC_Exported_Functions_Group2 Input and Output operation functions
- *  @brief    Input and Output operation functions
- *
+  *  @brief    Input and Output operation functions
+  *
 @verbatim
  ===============================================================================
              ##### IO Operation functions #####
@@ -821,7 +821,7 @@ HAL_StatusTypeDef HAL_TSC_PollForAcquisition(TSC_HandleTypeDef *htsc)
   * @param  gx_index Index of the group
   * @retval Group status
   */
-TSC_GroupStatusTypeDef HAL_TSC_GroupGetStatus(TSC_HandleTypeDef *htsc, uint32_t gx_index)
+TSC_GroupStatusTypeDef HAL_TSC_GroupGetStatus(const TSC_HandleTypeDef *htsc, uint32_t gx_index)
 {
   /* Check the parameters */
   assert_param(IS_TSC_ALL_INSTANCE(htsc->Instance));
@@ -838,7 +838,7 @@ TSC_GroupStatusTypeDef HAL_TSC_GroupGetStatus(TSC_HandleTypeDef *htsc, uint32_t 
   * @param  gx_index Index of the group
   * @retval Acquisition measure
   */
-uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index)
+uint32_t HAL_TSC_GroupGetValue(const TSC_HandleTypeDef *htsc, uint32_t gx_index)
 {
   /* Check the parameters */
   assert_param(IS_TSC_ALL_INSTANCE(htsc->Instance));
@@ -853,8 +853,8 @@ uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index)
   */
 
 /** @defgroup TSC_Exported_Functions_Group3 Peripheral Control functions
- *  @brief    Peripheral Control functions
- *
+  *  @brief    Peripheral Control functions
+  *
 @verbatim
  ===============================================================================
              ##### Peripheral Control functions #####
@@ -873,7 +873,7 @@ uint32_t HAL_TSC_GroupGetValue(TSC_HandleTypeDef *htsc, uint32_t gx_index)
   * @param  config Pointer to the configuration structure.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_TSC_IOConfig(TSC_HandleTypeDef *htsc, TSC_IOConfigTypeDef *config)
+HAL_StatusTypeDef HAL_TSC_IOConfig(TSC_HandleTypeDef *htsc, const TSC_IOConfigTypeDef *config)
 {
   /* Check the parameters */
   assert_param(IS_TSC_ALL_INSTANCE(htsc->Instance));
@@ -942,8 +942,8 @@ HAL_StatusTypeDef HAL_TSC_IODischarge(TSC_HandleTypeDef *htsc, FunctionalState c
   */
 
 /** @defgroup TSC_Exported_Functions_Group4 Peripheral State and Errors functions
- *  @brief   Peripheral State and Errors functions
- *
+  *  @brief   Peripheral State and Errors functions
+  *
 @verbatim
  ===============================================================================
             ##### State and Errors functions #####
@@ -995,8 +995,8 @@ HAL_TSC_StateTypeDef HAL_TSC_GetState(TSC_HandleTypeDef *htsc)
   */
 
 /** @defgroup TSC_IRQ_Handler_and_Callbacks IRQ Handler and Callbacks
- * @{
- */
+  * @{
+  */
 
 /**
   * @brief  Handle TSC interrupt request.
@@ -1100,7 +1100,7 @@ static uint32_t TSC_extract_groups(uint32_t iomask)
 
   for (idx = 0UL; idx < (uint32_t)TSC_NB_OF_GROUPS; idx++)
   {
-    if ((iomask & (0x0FUL << (idx * 4UL))) != 0UL )
+    if ((iomask & (0x0FUL << (idx * 4UL))) != 0UL)
     {
       groups |= (1UL << idx);
     }
@@ -1123,4 +1123,3 @@ static uint32_t TSC_extract_groups(uint32_t iomask)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

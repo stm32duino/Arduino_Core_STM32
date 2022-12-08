@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -3342,9 +3340,32 @@ typedef struct
 
 #define RCC_FLAG_MASK             0x0000001FU
 
+/* Defines Oscillator Masks */
+#define RCC_OSCILLATORTYPE_ALL          (RCC_OSCILLATORTYPE_HSE | RCC_OSCILLATORTYPE_HSI | RCC_OSCILLATORTYPE_HSI48 | RCC_OSCILLATORTYPE_MSI | RCC_OSCILLATORTYPE_LSI | RCC_OSCILLATORTYPE_LSE)  /*!< All Oscillator to configure */
+
+
+
 /* Defines for attributes */
 #define RCC_ATTR_SEC_MASK         0x100U
 #define RCC_ATTR_PRIV_MASK        0x200U
+
+/** @defgroup RCC_Reset_Flag Reset Flag
+  * @{
+  */
+#define RCC_RESET_FLAG_OBL             RCC_CSR_OBLRSTF    /*!< Option Byte Loader reset flag */
+#define RCC_RESET_FLAG_PIN             RCC_CSR_PINRSTF    /*!< PIN reset flag */
+#define RCC_RESET_FLAG_PWR             RCC_CSR_BORRSTF    /*!< BOR or POR/PDR reset flag */
+#define RCC_RESET_FLAG_SW              RCC_CSR_SFTRSTF    /*!< Software Reset flag */
+#define RCC_RESET_FLAG_IWDG            RCC_CSR_IWDGRSTF   /*!< Independent Watchdog reset flag */
+#define RCC_RESET_FLAG_WWDG            RCC_CSR_WWDGRSTF   /*!< Window watchdog reset flag */
+#define RCC_RESET_FLAG_LPWR            RCC_CSR_LPWRRSTF   /*!< Low power reset flag */
+#define RCC_RESET_FLAG_ALL             (RCC_RESET_FLAG_OBL | RCC_RESET_FLAG_PIN | RCC_RESET_FLAG_PWR | \
+                                        RCC_RESET_FLAG_SW | RCC_RESET_FLAG_IWDG | RCC_RESET_FLAG_WWDG | \
+                                        RCC_RESET_FLAG_LPWR)
+/**
+  * @}
+  */
+
 /**
   * @}
   */
@@ -3354,13 +3375,9 @@ typedef struct
   * @{
   */
 
-#define IS_RCC_OSCILLATORTYPE(__OSCILLATOR__) (((__OSCILLATOR__) == RCC_OSCILLATORTYPE_NONE)                               || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_HSE)   == RCC_OSCILLATORTYPE_HSE)   || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_HSI)   == RCC_OSCILLATORTYPE_HSI)   || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_HSI48) == RCC_OSCILLATORTYPE_HSI48) || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_MSI)   == RCC_OSCILLATORTYPE_MSI)   || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_LSI)   == RCC_OSCILLATORTYPE_LSI)   || \
-                                               (((__OSCILLATOR__) & RCC_OSCILLATORTYPE_LSE)   == RCC_OSCILLATORTYPE_LSE))
+#define IS_RCC_OSCILLATORTYPE(__OSCILLATOR__)  (((__OSCILLATOR__) == RCC_OSCILLATORTYPE_NONE) || \
+                                                (((__OSCILLATOR__) & ~RCC_OSCILLATORTYPE_ALL) == 0x00U))
+
 
 #define IS_RCC_HSE(__HSE__)  (((__HSE__) == RCC_HSE_OFF) || ((__HSE__) == RCC_HSE_ON) || \
                               ((__HSE__) == RCC_HSE_BYPASS))
@@ -3551,6 +3568,8 @@ void              HAL_RCC_NMI_IRQHandler(void);
 /* User Callbacks in non blocking mode (IT mode) */
 void              HAL_RCC_CSSCallback(void);
 
+uint32_t          HAL_RCC_GetResetSource(void);
+
 /**
   * @}
   */
@@ -3585,4 +3604,3 @@ HAL_StatusTypeDef HAL_RCC_GetConfigAttributes(uint32_t Item, uint32_t *pAttribut
 
 #endif /* STM32L5xx_HAL_RCC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -1945,6 +1943,24 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
   * @}
   */
 
+/* Private constants ---------------------------------------------------------*/
+/** @addtogroup RCCEx_Private_Constants
+  * @{
+  */
+/* Define used for IS_RCC_* macros below */
+#define RCC_PERIPHCLOCK_ALL             (RCC_PERIPHCLK_USART1 | RCC_PERIPHCLK_USART2 | RCC_PERIPHCLK_USART3 | \
+                                         RCC_PERIPHCLK_UART4 | RCC_PERIPHCLK_UART5 | RCC_PERIPHCLK_LPUART1 | \
+                                         RCC_PERIPHCLK_I2C1 | RCC_PERIPHCLK_I2C2 | RCC_PERIPHCLK_I2C3 | \
+                                         RCC_PERIPHCLK_I2C4 | RCC_PERIPHCLK_LPTIM1 | RCC_PERIPHCLK_LPTIM2 | \
+                                         RCC_PERIPHCLK_LPTIM3 | RCC_PERIPHCLK_SAI1 | RCC_PERIPHCLK_SAI2 | \
+                                         RCC_PERIPHCLK_USB | RCC_PERIPHCLK_ADC | RCC_PERIPHCLK_DFSDM1 | \
+                                         RCC_PERIPHCLK_DFSDM1AUDIO | RCC_PERIPHCLK_RTC | RCC_PERIPHCLK_RNG | \
+                                         RCC_PERIPHCLK_SDMMC1 | RCC_PERIPHCLK_OSPI | RCC_PERIPHCLK_FDCAN)
+
+/**
+  * @}
+  */
+
 /* Private macros ------------------------------------------------------------*/
 /** @addtogroup RCCEx_Private_Macros
   * @{
@@ -1953,31 +1969,8 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
 #define IS_RCC_LSCOSOURCE(__SOURCE__) (((__SOURCE__) == RCC_LSCOSOURCE_LSI) || \
                                        ((__SOURCE__) == RCC_LSCOSOURCE_LSE))
 
-#define IS_RCC_PERIPHCLOCK(__SELECTION__)  \
-  ((((__SELECTION__) & RCC_PERIPHCLK_USART1)      == RCC_PERIPHCLK_USART1)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_USART2)      == RCC_PERIPHCLK_USART2)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_USART3)      == RCC_PERIPHCLK_USART3)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_UART4)       == RCC_PERIPHCLK_UART4)   || \
-   (((__SELECTION__) & RCC_PERIPHCLK_UART5)       == RCC_PERIPHCLK_UART5)   || \
-   (((__SELECTION__) & RCC_PERIPHCLK_LPUART1)     == RCC_PERIPHCLK_LPUART1) || \
-   (((__SELECTION__) & RCC_PERIPHCLK_I2C1)        == RCC_PERIPHCLK_I2C1)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_I2C2)        == RCC_PERIPHCLK_I2C2)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_I2C3)        == RCC_PERIPHCLK_I2C3)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_I2C4)        == RCC_PERIPHCLK_I2C4)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_LPTIM1)      == RCC_PERIPHCLK_LPTIM1)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_LPTIM2)      == RCC_PERIPHCLK_LPTIM2)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_LPTIM3)      == RCC_PERIPHCLK_LPTIM3)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_SAI1)        == RCC_PERIPHCLK_SAI1)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_SAI2)        == RCC_PERIPHCLK_SAI2)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_USB)         == RCC_PERIPHCLK_USB)     || \
-   (((__SELECTION__) & RCC_PERIPHCLK_ADC)         == RCC_PERIPHCLK_ADC)     || \
-   (((__SELECTION__) & RCC_PERIPHCLK_DFSDM1)      == RCC_PERIPHCLK_DFSDM1)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_DFSDM1AUDIO) == RCC_PERIPHCLK_DFSDM1AUDIO) || \
-   (((__SELECTION__) & RCC_PERIPHCLK_RTC)         == RCC_PERIPHCLK_RTC)     || \
-   (((__SELECTION__) & RCC_PERIPHCLK_RNG)         == RCC_PERIPHCLK_RNG)     || \
-   (((__SELECTION__) & RCC_PERIPHCLK_SDMMC1)      == RCC_PERIPHCLK_SDMMC1)  || \
-   (((__SELECTION__) & RCC_PERIPHCLK_OSPI)        == RCC_PERIPHCLK_OSPI)    || \
-   (((__SELECTION__) & RCC_PERIPHCLK_FDCAN)       == RCC_PERIPHCLK_FDCAN))
+#define IS_RCC_PERIPHCLOCK(__SELECTION__)   ((((__SELECTION__) & RCC_PERIPHCLOCK_ALL) != 0x00u) && \
+                                             (((__SELECTION__) & ~RCC_PERIPHCLOCK_ALL) == 0x00u))
 
 #define IS_RCC_USART1CLKSOURCE(__SOURCE__)  \
   (((__SOURCE__) == RCC_USART1CLKSOURCE_PCLK2)  || \
@@ -2183,4 +2176,3 @@ void              HAL_RCCEx_CRS_ErrorCallback(uint32_t Error);
 
 #endif /* STM32L5xx_HAL_RCC_EX_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

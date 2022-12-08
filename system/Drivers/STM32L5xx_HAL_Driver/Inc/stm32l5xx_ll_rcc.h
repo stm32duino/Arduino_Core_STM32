@@ -6,14 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
+  * This software is licensed under terms that can be found in the LICENSE file in
+  * the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   ******************************************************************************
   */
 
@@ -3329,6 +3327,16 @@ __STATIC_INLINE void LL_RCC_PLL_DisableDomain_SAI(void)
 }
 
 /**
+  * @brief  Check if PLL output mapped on SAI domain clock is enabled
+  * @rmtoll PLLCFGR      PLLPEN        LL_RCC_PLL_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLPEN) == (RCC_PLLCFGR_PLLPEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLL output mapped on 48MHz domain clock
   * @rmtoll PLLCFGR      PLLQEN        LL_RCC_PLL_EnableDomain_48M
   * @retval None
@@ -3353,6 +3361,16 @@ __STATIC_INLINE void LL_RCC_PLL_DisableDomain_48M(void)
 }
 
 /**
+  * @brief  Check if PLL output mapped on 48MHz domain clock is enabled
+  * @rmtoll PLLCFGR      PLLQEN        LL_RCC_PLL_IsEnabledDomain_48M
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_48M(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLQEN) == (RCC_PLLCFGR_PLLQEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLL output mapped on SYSCLK domain
   * @rmtoll PLLCFGR      PLLREN        LL_RCC_PLL_EnableDomain_SYS
   * @retval None
@@ -3374,6 +3392,16 @@ __STATIC_INLINE void LL_RCC_PLL_EnableDomain_SYS(void)
 __STATIC_INLINE void LL_RCC_PLL_DisableDomain_SYS(void)
 {
   CLEAR_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN);
+}
+
+/**
+  * @brief  Check if PLL output mapped on SYSCLK domain clock is enabled
+  * @rmtoll PLLCFGR      PLLREN        LL_RCC_PLL_IsEnabledDomain_SYS
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLL_IsEnabledDomain_SYS(void)
+{
+  return ((READ_BIT(RCC->PLLCFGR, RCC_PLLCFGR_PLLREN) == (RCC_PLLCFGR_PLLREN)) ? 1UL : 0UL);
 }
 
 /**
@@ -3734,6 +3762,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_SAI(void)
 }
 
 /**
+  * @brief  Check if PLLSAI1 output mapped on SAI domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1PEN        LL_RCC_PLLSAI1_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1PEN) == (RCC_PLLSAI1CFGR_PLLSAI1PEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLLSAI1 output mapped on 48MHz domain clock
   * @rmtoll PLLSAI1CFGR  PLLSAI1QEN    LL_RCC_PLLSAI1_EnableDomain_48M
   * @retval None
@@ -3756,6 +3794,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_48M(void)
 }
 
 /**
+  * @brief  Check if PLLSAI1 output mapped on 48MHz domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1QEN        LL_RCC_PLLSAI1_IsEnabledDomain_48M
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_48M(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1QEN) == (RCC_PLLSAI1CFGR_PLLSAI1QEN)) ? 1UL : 0UL);
+}
+
+/**
   * @brief  Enable PLLSAI1 output mapped on ADC domain clock
   * @rmtoll PLLSAI1CFGR  PLLSAI1REN    LL_RCC_PLLSAI1_EnableDomain_ADC
   * @retval None
@@ -3775,6 +3823,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI1_EnableDomain_ADC(void)
 __STATIC_INLINE void LL_RCC_PLLSAI1_DisableDomain_ADC(void)
 {
   CLEAR_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1REN);
+}
+
+/**
+  * @brief  Check if PLLSAI1 output mapped on ADC domain clock is enabled
+  * @rmtoll PLLSAI1CFGR      PLLSAI1REN        LL_RCC_PLLSAI1_IsEnabledDomain_ADC
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI1_IsEnabledDomain_ADC(void)
+{
+  return ((READ_BIT(RCC->PLLSAI1CFGR, RCC_PLLSAI1CFGR_PLLSAI1REN) == (RCC_PLLSAI1CFGR_PLLSAI1REN)) ? 1UL : 0UL);
 }
 
 /**
@@ -4012,6 +4070,16 @@ __STATIC_INLINE void LL_RCC_PLLSAI2_EnableDomain_SAI(void)
 __STATIC_INLINE void LL_RCC_PLLSAI2_DisableDomain_SAI(void)
 {
   CLEAR_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2PEN);
+}
+
+/**
+  * @brief  Check if PLLSAI2 output mapped on SAI domain clock is enabled
+  * @rmtoll PLLSAI2CFGR      PLLSAI2PEN        LL_RCC_PLLSAI2_IsEnabledDomain_SAI
+  * @retval State of bit (1 or 0).
+  */
+__STATIC_INLINE uint32_t LL_RCC_PLLSAI2_IsEnabledDomain_SAI(void)
+{
+  return ((READ_BIT(RCC->PLLSAI2CFGR, RCC_PLLSAI2CFGR_PLLSAI2PEN) == (RCC_PLLSAI2CFGR_PLLSAI2PEN)) ? 1UL : 0UL);
 }
 
 /**
@@ -4763,4 +4831,3 @@ uint32_t    LL_RCC_GetOCTOSPIClockFreq(uint32_t OCTOSPIxSource);
 
 #endif /* STM32L5xx_LL_RCC_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

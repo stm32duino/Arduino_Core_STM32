@@ -10,7 +10,17 @@
   *           + IO operation functions
   *           + Peripheral Configuration and Control functions
   *           + Peripheral State and Error functions
+  ******************************************************************************
+  * @attention
   *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
   ==============================================================================
                         ##### How to use this driver #####
@@ -88,10 +98,10 @@
 
   The compilation define  USE_HAL_FDCAN_REGISTER_CALLBACKS when set to 1
   allows the user to configure dynamically the driver callbacks.
-  Use Function @ref HAL_FDCAN_RegisterCallback() or HAL_FDCAN_RegisterXXXCallback()
+  Use Function HAL_FDCAN_RegisterCallback() or HAL_FDCAN_RegisterXXXCallback()
   to register an interrupt callback.
 
-  Function @ref HAL_FDCAN_RegisterCallback() allows to register following callbacks:
+  Function HAL_FDCAN_RegisterCallback() allows to register following callbacks:
     (+) TxFifoEmptyCallback          : Tx Fifo Empty Callback.
     (+) HighPriorityMessageCallback  : High Priority Message Callback.
     (+) TimestampWraparoundCallback  : Timestamp Wraparound Callback.
@@ -104,14 +114,14 @@
 
   For specific callbacks TxEventFifoCallback, RxFifo0Callback, RxFifo1Callback,
   TxBufferCompleteCallback, TxBufferAbortCallback and ErrorStatusCallback use dedicated
-  register callbacks : respectively @ref HAL_FDCAN_RegisterTxEventFifoCallback(),
-  @ref HAL_FDCAN_RegisterRxFifo0Callback(), @ref HAL_FDCAN_RegisterRxFifo1Callback(),
-  @ref HAL_FDCAN_RegisterTxBufferCompleteCallback(), @ref HAL_FDCAN_RegisterTxBufferAbortCallback()
-  and @ref HAL_FDCAN_RegisterErrorStatusCallback().
+  register callbacks : respectively HAL_FDCAN_RegisterTxEventFifoCallback(),
+  HAL_FDCAN_RegisterRxFifo0Callback(), HAL_FDCAN_RegisterRxFifo1Callback(),
+  HAL_FDCAN_RegisterTxBufferCompleteCallback(), HAL_FDCAN_RegisterTxBufferAbortCallback()
+  and HAL_FDCAN_RegisterErrorStatusCallback().
 
-  Use function @ref HAL_FDCAN_UnRegisterCallback() to reset a callback to the default
+  Use function HAL_FDCAN_UnRegisterCallback() to reset a callback to the default
   weak function.
-  @ref HAL_FDCAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
+  HAL_FDCAN_UnRegisterCallback takes as parameters the HAL peripheral handle,
   and the Callback ID.
   This function allows to reset following callbacks:
     (+) TxFifoEmptyCallback          : Tx Fifo Empty Callback.
@@ -124,18 +134,18 @@
 
   For specific callbacks TxEventFifoCallback, RxFifo0Callback, RxFifo1Callback,
   TxBufferCompleteCallback and TxBufferAbortCallback, use dedicated
-  unregister callbacks : respectively @ref HAL_FDCAN_UnRegisterTxEventFifoCallback(),
-  @ref HAL_FDCAN_UnRegisterRxFifo0Callback(), @ref HAL_FDCAN_UnRegisterRxFifo1Callback(),
-  @ref HAL_FDCAN_UnRegisterTxBufferCompleteCallback(), @ref HAL_FDCAN_UnRegisterTxBufferAbortCallback()
-  and @ref HAL_FDCAN_UnRegisterErrorStatusCallback().
+  unregister callbacks : respectively HAL_FDCAN_UnRegisterTxEventFifoCallback(),
+  HAL_FDCAN_UnRegisterRxFifo0Callback(), HAL_FDCAN_UnRegisterRxFifo1Callback(),
+  HAL_FDCAN_UnRegisterTxBufferCompleteCallback(), HAL_FDCAN_UnRegisterTxBufferAbortCallback()
+  and HAL_FDCAN_UnRegisterErrorStatusCallback().
 
-  By default, after the @ref HAL_FDCAN_Init() and when the state is HAL_FDCAN_STATE_RESET,
+  By default, after the HAL_FDCAN_Init() and when the state is HAL_FDCAN_STATE_RESET,
   all callbacks are set to the corresponding weak functions:
-  examples @ref HAL_FDCAN_ErrorCallback().
+  examples HAL_FDCAN_ErrorCallback().
   Exception done for MspInit and MspDeInit functions that are
-  reset to the legacy weak function in the @ref HAL_FDCAN_Init()/ @ref HAL_FDCAN_DeInit() only when
+  reset to the legacy weak function in the HAL_FDCAN_Init()/ HAL_FDCAN_DeInit() only when
   these callbacks are null (not registered beforehand).
-  if not, MspInit or MspDeInit are not null, the @ref HAL_FDCAN_Init()/ @ref HAL_FDCAN_DeInit()
+  if not, MspInit or MspDeInit are not null, the HAL_FDCAN_Init()/ HAL_FDCAN_DeInit()
   keep and use the user MspInit/MspDeInit callbacks (registered beforehand)
 
   Callbacks can be registered/unregistered in HAL_FDCAN_STATE_READY state only.
@@ -143,25 +153,14 @@
   in HAL_FDCAN_STATE_READY or HAL_FDCAN_STATE_RESET state,
   thus registered (user) MspInit/DeInit callbacks can be used during the Init/DeInit.
   In that case first register the MspInit/MspDeInit user callbacks
-  using @ref HAL_FDCAN_RegisterCallback() before calling @ref HAL_FDCAN_DeInit()
-  or @ref HAL_FDCAN_Init() function.
+  using HAL_FDCAN_RegisterCallback() before calling HAL_FDCAN_DeInit()
+  or HAL_FDCAN_Init() function.
 
   When The compilation define USE_HAL_FDCAN_REGISTER_CALLBACKS is set to 0 or
   not defined, the callback registration feature is not available and all callbacks
   are set to the corresponding weak functions.
 
   @endverbatim
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
   ******************************************************************************
   */
 
@@ -241,18 +240,18 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-static const uint8_t DLCtoBytes[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
-
-/* Private function prototypes -----------------------------------------------*/
-/** @addtogroup FDCAN_Private_Functions_Prototypes
+/** @addtogroup FDCAN_Private_Variables
   * @{
   */
-static void FDCAN_CalcultateRamBlockAddresses(FDCAN_HandleTypeDef *hfdcan);
-static void FDCAN_CopyMessageToRAM(FDCAN_HandleTypeDef *hfdcan, FDCAN_TxHeaderTypeDef *pTxHeader, uint8_t *pTxData,
-                                   uint32_t BufferIndex);
+static const uint8_t DLCtoBytes[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 12, 16, 20, 24, 32, 48, 64};
 /**
   * @}
   */
+
+/* Private function prototypes -----------------------------------------------*/
+static void FDCAN_CalcultateRamBlockAddresses(FDCAN_HandleTypeDef *hfdcan);
+static void FDCAN_CopyMessageToRAM(FDCAN_HandleTypeDef *hfdcan, FDCAN_TxHeaderTypeDef *pTxHeader, uint8_t *pTxData,
+                                   uint32_t BufferIndex);
 
 /* Exported functions --------------------------------------------------------*/
 /** @defgroup FDCAN_Exported_Functions FDCAN Exported Functions
@@ -2879,6 +2878,8 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   uint32_t ErrorStatusITs;
   uint32_t TransmittedBuffers;
   uint32_t AbortedBuffers;
+  uint32_t itsource;
+  uint32_t itflag;
 
   TxEventFifoITs = hfdcan->Instance->IR & FDCAN_TX_EVENT_FIFO_MASK;
   TxEventFifoITs &= hfdcan->Instance->IE;
@@ -2890,11 +2891,13 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   Errors &= hfdcan->Instance->IE;
   ErrorStatusITs = hfdcan->Instance->IR & FDCAN_ERROR_STATUS_MASK;
   ErrorStatusITs &= hfdcan->Instance->IE;
+  itsource = hfdcan->Instance->IE;
+  itflag = hfdcan->Instance->IR;
 
   /* High Priority Message interrupt management *******************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_RX_HIGH_PRIORITY_MSG) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_RX_HIGH_PRIORITY_MSG) != RESET)
     {
       /* Clear the High Priority Message flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_RX_HIGH_PRIORITY_MSG);
@@ -2910,9 +2913,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Transmission Abort interrupt management **********************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_ABORT_COMPLETE) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_TX_ABORT_COMPLETE) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_ABORT_COMPLETE) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_TX_ABORT_COMPLETE) != RESET)
     {
       /* List of aborted monitored buffers */
       AbortedBuffers = hfdcan->Instance->TXBCF;
@@ -2977,9 +2980,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Tx FIFO empty interrupt management ***************************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_FIFO_EMPTY) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_TX_FIFO_EMPTY) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_FIFO_EMPTY) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_TX_FIFO_EMPTY) != RESET)
     {
       /* Clear the Tx FIFO empty flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TX_FIFO_EMPTY);
@@ -2995,9 +2998,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Transmission Complete interrupt management *******************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TX_COMPLETE) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_TX_COMPLETE) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TX_COMPLETE) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_TX_COMPLETE) != RESET)
     {
       /* List of transmitted monitored buffers */
       TransmittedBuffers = hfdcan->Instance->TXBTO;
@@ -3017,9 +3020,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Timestamp Wraparound interrupt management ********************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TIMESTAMP_WRAPAROUND) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_TIMESTAMP_WRAPAROUND) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TIMESTAMP_WRAPAROUND) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_TIMESTAMP_WRAPAROUND) != RESET)
     {
       /* Clear the Timestamp Wraparound flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TIMESTAMP_WRAPAROUND);
@@ -3035,9 +3038,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Timeout Occurred interrupt management ************************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_TIMEOUT_OCCURRED) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_TIMEOUT_OCCURRED) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_TIMEOUT_OCCURRED) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_TIMEOUT_OCCURRED) != RESET)
     {
       /* Clear the Timeout Occurred flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_TIMEOUT_OCCURRED);
@@ -3053,9 +3056,9 @@ void HAL_FDCAN_IRQHandler(FDCAN_HandleTypeDef *hfdcan)
   }
 
   /* Message RAM access failure interrupt management **************************/
-  if (__HAL_FDCAN_GET_FLAG(hfdcan, FDCAN_FLAG_RAM_ACCESS_FAILURE) != 0U)
+  if (FDCAN_CHECK_FLAG(itflag, FDCAN_FLAG_RAM_ACCESS_FAILURE) != RESET)
   {
-    if (__HAL_FDCAN_GET_IT_SOURCE(hfdcan, FDCAN_IT_RAM_ACCESS_FAILURE) != 0U)
+    if (FDCAN_CHECK_IT_SOURCE(itsource, FDCAN_IT_RAM_ACCESS_FAILURE) != RESET)
     {
       /* Clear the Message RAM access failure flag */
       __HAL_FDCAN_CLEAR_FLAG(hfdcan, FDCAN_FLAG_RAM_ACCESS_FAILURE);
@@ -3376,7 +3379,7 @@ uint32_t HAL_FDCAN_GetError(FDCAN_HandleTypeDef *hfdcan)
   * @}
   */
 
-/** @addtogroup FDCAN_Private_Functions
+/** @defgroup FDCAN_Private_Functions FDCAN Private Functions
   * @{
   */
 
@@ -3495,5 +3498,3 @@ static void FDCAN_CopyMessageToRAM(FDCAN_HandleTypeDef *hfdcan, FDCAN_TxHeaderTy
   */
 
 #endif /* FDCAN1 */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

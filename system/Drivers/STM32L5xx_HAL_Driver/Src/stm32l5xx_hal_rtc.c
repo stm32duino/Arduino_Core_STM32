@@ -15,6 +15,17 @@
   *           + RTC Tamper and TimeStamp Pins Selection
   *           + Interrupts and flags management
   *
+  ******************************************************************************
+  * @attention
+  *
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
+  *
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
+  *
+  ******************************************************************************
   @verbatim
  ===============================================================================
                           ##### RTC Operating Condition #####
@@ -173,17 +184,6 @@
 
   @endverbatim
   ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
   */
 
 /* Includes ------------------------------------------------------------------*/
@@ -318,33 +318,45 @@ HAL_StatusTypeDef HAL_RTC_Init(RTC_HandleTypeDef *hrtc)
     /* Set RTC state */
     hrtc->State = HAL_RTC_STATE_BUSY;
 
-    /* Disable the write protection for RTC registers */
-    __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
-
-    /* Enter Initialization mode */
-    status = RTC_EnterInitMode(hrtc);
-    if (status == HAL_OK)
+    /* Check whether the calendar needs to be initialized */
+    if (__HAL_RTC_IS_CALENDAR_INITIALIZED(hrtc) == 0U)
     {
-      /* Clear RTC_CR FMT, OSEL and POL Bits */
-      CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
-      /* Set RTC_CR register */
-      SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
+      /* Disable the write protection for RTC registers */
+      __HAL_RTC_WRITEPROTECTION_DISABLE(hrtc);
 
-      /* Configure the RTC PRER */
-      WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
+      /* Enter Initialization mode */
+      status = RTC_EnterInitMode(hrtc);
 
-      /* Exit Initialization mode */
-      status = RTC_ExitInitMode(hrtc);
+      if (status == HAL_OK)
+      {
+        /* Clear RTC_CR FMT, OSEL and POL Bits */
+        CLEAR_BIT(RTC->CR, (RTC_CR_FMT | RTC_CR_POL | RTC_CR_OSEL | RTC_CR_TAMPOE));
+        /* Set RTC_CR register */
+        SET_BIT(RTC->CR, (hrtc->Init.HourFormat | hrtc->Init.OutPut | hrtc->Init.OutPutPolarity));
+
+        /* Configure the RTC PRER */
+        WRITE_REG(RTC->PRER, ((hrtc->Init.SynchPrediv) | (hrtc->Init.AsynchPrediv << RTC_PRER_PREDIV_A_Pos)));
+
+        /* Exit Initialization mode */
+        status = RTC_ExitInitMode(hrtc);
+      }
+
       if (status == HAL_OK)
       {
         MODIFY_REG(RTC->CR, \
                    RTC_CR_TAMPALRM_PU | RTC_CR_TAMPALRM_TYPE | RTC_CR_OUT2EN, \
                    hrtc->Init.OutPutPullUp | hrtc->Init.OutPutType | hrtc->Init.OutPutRemap);
       }
-    }
+
 
     /* Enable the write protection for RTC registers */
     __HAL_RTC_WRITEPROTECTION_ENABLE(hrtc);
+    }
+    else
+    {
+      /* The calendar is already initialized */
+      status = HAL_OK;
+    }
 
     if (status == HAL_OK)
     {
@@ -1089,7 +1101,7 @@ void HAL_RTC_DST_Add1Hour(RTC_HandleTypeDef *hrtc)
 }
 
 /**
-  * @brief  Daylight Saving Time, Substract one hour from the calendar in one
+  * @brief  Daylight Saving Time, Subtract one hour from the calendar in one
   *         single operation without going through the initialization procedure.
   * @param  hrtc RTC handle
   * @retval None
@@ -1723,8 +1735,8 @@ HAL_StatusTypeDef HAL_RTC_WaitForSynchro(RTC_HandleTypeDef *hrtc)
   uint32_t tickstart;
 
   UNUSED(hrtc);
-  /* Clear RSF flag */
-  CLEAR_BIT(RTC->ICSR, RTC_ICSR_RSF);
+  /* Clear RSF flag, keep reserved bits at reset values (setting other flags has no effect) */
+  WRITE_REG(RTC->ICSR, ((uint32_t)(RTC_RSF_MASK & RTC_ICSR_RESERVED_MASK)));
 
   tickstart = HAL_GetTick();
 
@@ -1895,4 +1907,3 @@ uint8_t RTC_Bcd2ToByte(uint8_t Value)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

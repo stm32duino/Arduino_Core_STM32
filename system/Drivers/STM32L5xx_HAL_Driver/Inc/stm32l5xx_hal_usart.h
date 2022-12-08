@@ -6,13 +6,12 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2019 STMicroelectronics.
-  * All rights reserved.</center></h2>
+  * Copyright (c) 2019 STMicroelectronics.
+  * All rights reserved.
   *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
+  * This software is licensed under terms that can be found in the LICENSE file
+  * in the root directory of this software component.
+  * If no LICENSE file comes with this software, it is provided AS-IS.
   *
   ******************************************************************************
   */
@@ -125,7 +124,7 @@ typedef struct __USART_HandleTypeDef
 
   USART_InitTypeDef             Init;                    /*!< USART communication parameters      */
 
-  uint8_t                       *pTxBuffPtr;             /*!< Pointer to USART Tx transfer Buffer */
+  const uint8_t                 *pTxBuffPtr;             /*!< Pointer to USART Tx transfer Buffer */
 
   uint16_t                      TxXferSize;              /*!< USART Tx Transfer size              */
 
@@ -220,17 +219,17 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
 /** @defgroup USART_Error_Definition   USART Error Definition
   * @{
   */
-#define HAL_USART_ERROR_NONE             ((uint32_t)0x00000000U)    /*!< No error                  */
-#define HAL_USART_ERROR_PE               ((uint32_t)0x00000001U)    /*!< Parity error              */
-#define HAL_USART_ERROR_NE               ((uint32_t)0x00000002U)    /*!< Noise error               */
-#define HAL_USART_ERROR_FE               ((uint32_t)0x00000004U)    /*!< Frame error               */
-#define HAL_USART_ERROR_ORE              ((uint32_t)0x00000008U)    /*!< Overrun error             */
-#define HAL_USART_ERROR_DMA              ((uint32_t)0x00000010U)    /*!< DMA transfer error        */
-#define HAL_USART_ERROR_UDR              ((uint32_t)0x00000020U)    /*!< SPI slave underrun error  */
+#define HAL_USART_ERROR_NONE             (0x00000000U)    /*!< No error                  */
+#define HAL_USART_ERROR_PE               (0x00000001U)    /*!< Parity error              */
+#define HAL_USART_ERROR_NE               (0x00000002U)    /*!< Noise error               */
+#define HAL_USART_ERROR_FE               (0x00000004U)    /*!< Frame error               */
+#define HAL_USART_ERROR_ORE              (0x00000008U)    /*!< Overrun error             */
+#define HAL_USART_ERROR_DMA              (0x00000010U)    /*!< DMA transfer error        */
+#define HAL_USART_ERROR_UDR              (0x00000020U)    /*!< SPI slave underrun error  */
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
-#define HAL_USART_ERROR_INVALID_CALLBACK ((uint32_t)0x00000040U)    /*!< Invalid Callback error    */
+#define HAL_USART_ERROR_INVALID_CALLBACK (0x00000040U)    /*!< Invalid Callback error    */
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
-#define  HAL_USART_ERROR_RTO              ((uint32_t)0x00000080U)    /*!< Receiver Timeout error  */
+#define  HAL_USART_ERROR_RTO              (0x00000080U)    /*!< Receiver Timeout error  */
 /**
   * @}
   */
@@ -262,15 +261,6 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
 #define USART_MODE_RX                       USART_CR1_RE                    /*!< RX mode        */
 #define USART_MODE_TX                       USART_CR1_TE                    /*!< TX mode        */
 #define USART_MODE_TX_RX                    (USART_CR1_TE |USART_CR1_RE)    /*!< RX and TX mode */
-/**
-  * @}
-  */
-
-/** @defgroup USART_Over_Sampling USART Over Sampling
-  * @{
-  */
-#define USART_OVERSAMPLING_16               0x00000000U         /*!< Oversampling by 16 */
-#define USART_OVERSAMPLING_8                USART_CR1_OVER8     /*!< Oversampling by 8  */
 /**
   * @}
   */
@@ -556,10 +546,10 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
   */
 #define __HAL_USART_ENABLE_IT(__HANDLE__, __INTERRUPT__)\
   (((((__INTERRUPT__) & USART_CR_MASK) >> USART_CR_POS) == 1U)?\
-   ((__HANDLE__)->Instance->CR1 |= ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))): \
+   ((__HANDLE__)->Instance->CR1 |= (1U << ((__INTERRUPT__) & USART_IT_MASK))): \
    ((((__INTERRUPT__) & USART_CR_MASK) >> USART_CR_POS) == 2U)?\
-   ((__HANDLE__)->Instance->CR2 |= ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))): \
-   ((__HANDLE__)->Instance->CR3 |= ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))))
+   ((__HANDLE__)->Instance->CR2 |= (1U << ((__INTERRUPT__) & USART_IT_MASK))): \
+   ((__HANDLE__)->Instance->CR3 |= (1U << ((__INTERRUPT__) & USART_IT_MASK))))
 
 /** @brief  Disable the specified USART interrupt.
   * @param  __HANDLE__ specifies the USART Handle.
@@ -581,10 +571,10 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
   */
 #define __HAL_USART_DISABLE_IT(__HANDLE__, __INTERRUPT__)\
   (((((__INTERRUPT__) & USART_CR_MASK) >> USART_CR_POS) == 1U)?\
-   ((__HANDLE__)->Instance->CR1 &= ~ ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))): \
+   ((__HANDLE__)->Instance->CR1 &= ~ (1U << ((__INTERRUPT__) & USART_IT_MASK))): \
    ((((__INTERRUPT__) & USART_CR_MASK) >> USART_CR_POS) == 2U)?\
-   ((__HANDLE__)->Instance->CR2 &= ~ ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))): \
-   ((__HANDLE__)->Instance->CR3 &= ~ ((uint32_t)1U << ((__INTERRUPT__) & USART_IT_MASK))))
+   ((__HANDLE__)->Instance->CR2 &= ~ (1U << ((__INTERRUPT__) & USART_IT_MASK))): \
+   ((__HANDLE__)->Instance->CR3 &= ~ (1U << ((__INTERRUPT__) & USART_IT_MASK))))
 
 /** @brief  Check whether the specified USART interrupt has occurred or not.
   * @param  __HANDLE__ specifies the USART Handle.
@@ -607,8 +597,8 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
   * @retval The new state of __INTERRUPT__ (SET or RESET).
   */
 #define __HAL_USART_GET_IT(__HANDLE__, __INTERRUPT__) ((((__HANDLE__)->Instance->ISR\
-                                                         & ((uint32_t)0x01U << (((__INTERRUPT__) & USART_ISR_MASK)>>\
-                                                                                USART_ISR_POS))) != 0U) ? SET : RESET)
+                                                         & (0x01U << (((__INTERRUPT__) & USART_ISR_MASK)>>\
+                                                                      USART_ISR_POS))) != 0U) ? SET : RESET)
 
 /** @brief  Check whether the specified USART interrupt source is enabled or not.
   * @param  __HANDLE__ specifies the USART Handle.
@@ -837,14 +827,6 @@ typedef  void (*pUSART_CallbackTypeDef)(USART_HandleTypeDef *husart);  /*!< poin
 #define IS_USART_MODE(__MODE__) ((((__MODE__) & 0xFFFFFFF3U) == 0x00U) && ((__MODE__) != 0x00U))
 
 /**
-  * @brief Ensure that USART oversampling is valid.
-  * @param __SAMPLING__ USART oversampling.
-  * @retval SET (__SAMPLING__ is valid) or RESET (__SAMPLING__ is invalid)
-  */
-#define IS_USART_OVERSAMPLING(__SAMPLING__) (((__SAMPLING__) == USART_OVERSAMPLING_16) || \
-                                             ((__SAMPLING__) == USART_OVERSAMPLING_8))
-
-/**
   * @brief Ensure that USART clock state is valid.
   * @param __CLOCK__ USART clock state.
   * @retval SET (__CLOCK__ is valid) or RESET (__CLOCK__ is invalid)
@@ -938,17 +920,18 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
   */
 
 /* IO operation functions *****************************************************/
-HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxData, uint16_t Size, uint32_t Timeout);
+HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size,
+                                     uint32_t Timeout);
 HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxData, uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint8_t *pRxData,
                                             uint16_t Size, uint32_t Timeout);
-HAL_StatusTypeDef HAL_USART_Transmit_IT(USART_HandleTypeDef *husart, uint8_t *pTxData, uint16_t Size);
+HAL_StatusTypeDef HAL_USART_Transmit_IT(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size);
 HAL_StatusTypeDef HAL_USART_Receive_IT(USART_HandleTypeDef *husart, uint8_t *pRxData, uint16_t Size);
-HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint8_t *pRxData,
                                                uint16_t Size);
-HAL_StatusTypeDef HAL_USART_Transmit_DMA(USART_HandleTypeDef *husart, uint8_t *pTxData, uint16_t Size);
+HAL_StatusTypeDef HAL_USART_Transmit_DMA(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint16_t Size);
 HAL_StatusTypeDef HAL_USART_Receive_DMA(USART_HandleTypeDef *husart, uint8_t *pRxData, uint16_t Size);
-HAL_StatusTypeDef HAL_USART_TransmitReceive_DMA(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData,
+HAL_StatusTypeDef HAL_USART_TransmitReceive_DMA(USART_HandleTypeDef *husart, const uint8_t *pTxData, uint8_t *pRxData,
                                                 uint16_t Size);
 HAL_StatusTypeDef HAL_USART_DMAPause(USART_HandleTypeDef *husart);
 HAL_StatusTypeDef HAL_USART_DMAResume(USART_HandleTypeDef *husart);
@@ -975,8 +958,8 @@ void HAL_USART_AbortCpltCallback(USART_HandleTypeDef *husart);
   */
 
 /* Peripheral State and Error functions ***************************************/
-HAL_USART_StateTypeDef HAL_USART_GetState(USART_HandleTypeDef *husart);
-uint32_t               HAL_USART_GetError(USART_HandleTypeDef *husart);
+HAL_USART_StateTypeDef HAL_USART_GetState(const USART_HandleTypeDef *husart);
+uint32_t               HAL_USART_GetError(const USART_HandleTypeDef *husart);
 
 /**
   * @}
@@ -1000,4 +983,3 @@ uint32_t               HAL_USART_GetError(USART_HandleTypeDef *husart);
 
 #endif /* STM32L5xx_HAL_USART_H */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
